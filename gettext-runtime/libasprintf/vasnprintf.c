@@ -1,5 +1,5 @@
 /* vsprintf with automatic memory allocation.
-   Copyright (C) 1999, 2002-2004 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -51,6 +51,11 @@
 
 /* Checked size_t computations.  */
 #include "xsize.h"
+
+/* Some systems, like Woe32, don't have EOVERFLOW.  */
+#ifndef EOVERFLOW
+# define EOVERFLOW E2BIG
+#endif
 
 #ifdef HAVE_WCHAR_T
 # ifdef HAVE_WCSLEN

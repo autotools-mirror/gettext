@@ -1,3 +1,7 @@
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (EOVERFLOW): Define to a fallback if needed.
+
 2005-02-11  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 7:1:4.

@@ -1,3 +1,7 @@
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (EOVERFLOW): Define to a fallback if needed.
+
 2004-12-19  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* alloca_.h: Conditionalize on _GNULIB_ALLOCA_H, not _ALLOCA_H.
