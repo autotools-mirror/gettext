@@ -203,7 +203,8 @@ more than programming skill, here.
 Languages are not equally supported in all packages.  The following
 matrix shows the current state of internationalization, as of
 @value{STATUS}.  The matrix shows, in regard of each package, for which
-languages PO files have been submitted to translation coordination.
+languages PO files have been submitted to translation coordination,
+with a translation percentage of at least 50%.
 
 @include matrix.texi
 
@@ -217,7 +218,9 @@ such by its maintainer.  There might be an observable lag between the
 mere existence a PO file and its wide availability in a distribution.
 
 If @value{STATUS} seems to be old, you may fetch a more recent copy
-of this @file{ABOUT-NLS} file on most GNU archive sites.
+of this @file{ABOUT-NLS} file on most GNU archive sites.  The most
+up-to-date matrix with full percentage details can be found at
+@file{http://www.iro.umontreal.ca/contrib/po/HTML/matrix.html}.
 
 
 @node Using gettext in own code

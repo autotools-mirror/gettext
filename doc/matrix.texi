@@ -1,75 +1,93 @@
 @example
 @group
-Ready PO files    cs da de el en es fi fr it
-                .----------------------------.
-bash            |       []             []    |
-bison           |       []             []    |
-clisp           |       []    [] []    []    |
-cpio            |       []       []    []    |
-diffutils       |       []       []    []    |
-enscript        |       []       [] [] []    |
-fileutils       | []    []       []    []    |
-findutils       |       []       []    [] [] |
-flex            |                []    []    |
-gcal            |       []             []    |
-gettext         |    [] [] []    []    []    |
-grep            |       [] []    []    []    |
-hello           |    [] []       []    [] [] |
-id-utils        |       []             []    |
-indent          |    [] []                   |
-libc            |       []       []    []    |
-m4              |       []             []    |
-make            |       []       []    []    |
-music           |                      []    |
-ptx             |       []       []    []    |
-recode          |    [] []       []    []    |
-sed             |                            |
-sh-utils        |       []       []    []    |
-sharutils       | []    [] []    []    []    |
-tar             | []    []             [] [] |
-texinfo         | []    []             []    |
-textutils       | []    []       []    []    |
-wdiff           | []    []       []    []    |
-wget            | []    [] []             [] |
-                `----------------------------'
-                  cs da de el en es fi fr it
-                   7  4 26  4  1 18  1 26  4
+Ready PO files    bg cs da de el en eo es et fi fr gl hr id it
+                .----------------------------------------------.
+a2ps            |          []             []                   |
+bash            |          []       []          []             |
+bison           |          []          [] []    []             |
+clisp           |          []    []    []       []             |
+cpio            |          []          []       []             |
+diffutils       |       [] []          []       [] []          |
+enscript        |          []                   []             |
+error           |                               []             |
+fileutils       |    [] [] [] []       []       [] []       [] |
+findutils       |          []          [] []    [] []       [] |
+flex            |                      []       []             |
+gcal            |                                              |
+gcc             |                                              |
+gettext         |    [] [] [] []       []       [] []    [] [] |
+gnupg           |          []       []          []          [] |
+grep            | [] [] [] [] []    [] [] []    []          [] |
+hello           |          []          [] [] [] []       [] [] |
+id-utils        |                               []             |
+indent          |       [] []             []    [] []          |
+libc            |    [] [] [] []       []       [] []       [] |
+lilypond        |                                              |
+lynx            |    [] [] []                                  |
+m4              |    [] [] [] []                [] []          |
+make            |          []          []       [] []          |
+music           |                               []             |
+parted          |          []                      []          |
+ptx             |       [] []          [] []    [] []    []    |
+python          |                                              |
+recode          |       [] [] []       []       [] []       [] |
+sed             |    []    [] []          []    [] []       [] |
+sh-utils        |    [] [] [] []       [] []    [] []       [] |
+sharutils       |    []    [] []       []       [] []          |
+tar             |    [] [] []          [] []    []          [] |
+texinfo         |    []    []       []          []             |
+textutils       |    [] [] [] []       []       [] []          |
+util-linux      |                                              |
+wdiff           |    [] []             [] []    []             |
+wget            |    [] [] [] []          []    [] []       [] |
+                `----------------------------------------------'
+                  bg cs da de el en eo es et fi fr gl hr id it
+                   1 14 15 28 11  1  4 19 12  1 30 16  0  3 12
 @end group
 
 @group
-                  ja ko nl no pl pt ru sl sv
-                .----------------------------.
-bash            |       []                   |  3
-bison           |       []                   |  3
-clisp           |                            |  4
-cpio            |    [] []    []             |  6
-diffutils       |             []          [] |  5
-enscript        |       []             []    |  6
-fileutils       |    [] []    [] [] [] [] [] | 11
-findutils       |    [] []    []    []    [] |  9
-flex            |    []                   [] |  4
-gcal            |       []    []          [] |  5
-gettext         |    [] [] [] [] []    [] [] | 13
-grep            |    [] [] [] []    [] [] [] | 11
-hello           |    [] [] [] [] []    [] [] | 12
-id-utils        |             []             |  3
-indent          |    []       []    []       |  5
-libc            |    [] [] [] []          [] |  8
-m4              | []    []          []    [] |  6
-make            |    [] []    []             |  6
-music           |             []             |  2
-ptx             |       [] [] [] []       [] |  8
-recode          |       []    [] []    [] [] |  9
-sed             |                            |  0
-sh-utils        |       [] [] [] []       [] |  8
-sharutils       |       []                [] |  7
-tar             |    [] [] [] [] []    [] [] | 11
-texinfo         |       []                   |  4
-textutils       |    [] [] [] []          [] |  9
-wdiff           |       [] [] []          [] |  8
-wget            |          []                |  5
-                `----------------------------'
-  18 teams        ja ko nl no pl pt ru sl sv
-  29 domains       1 12 21 11 19  7  5  7 17  191
+                  ja ko lv nl no pl pt pt_BR ru sk sl sv zh
+                .-------------------------------------------.
+a2ps            |          []                []    []       |  5
+bash            |                                           |  3
+bison           | []       []                []             |  7
+clisp           |          []                               |  5
+cpio            |    []    []    []     []   []             |  8
+diffutils       |                []          []       []    |  8
+enscript        |          []                []             |  4
+error           |                                           |  1
+fileutils       | [] []    []    []     []   [] [] [] []    | 17
+findutils       |    []    []    []     []   []       []    | 12
+flex            |    []                      []       []    |  5
+gcal            |                                           |  0
+gcc             | []                                        |  1
+gettext         | [] []    []    []     []   []    [] [] [] | 18
+gnupg           | []             []                   []    |  7
+grep            | []       []    []     []   []    [] []    | 17
+hello           | [] []    []    []     []   [] []    []    | 15
+id-utils        |          []                []       []    |  4
+indent          |    []          []          [] []    []    | 10
+libc            | [] []    [] [] []     []      []    []    | 16
+lilypond        | []       []                               |  2
+lynx            | []       []           []   []             |  7
+m4              | []       []    []          []       []    | 11
+make            | []       []    []     []   []             |  9
+music           |                []                         |  2
+parted          | []       []           []   []             |  6
+ptx             |          [] [] [] []       []       []    | 13
+python          |                                           |  0
+recode          |                            []    [] []    | 10
+sed             | []       []           []   [] [] [] []    | 14
+sh-utils        | []       [] [] []     []   [] [] [] [] [] | 19
+sharutils       | []       []                []       []    | 10
+tar             | []       [] [] []     []   []    [] []    | 15
+texinfo         | []                         []             |  6
+textutils       | []       [] [] []     []   [] [] []       | 15
+util-linux      |                       []                  |  1
+wdiff           |          []    []          [] []    []    | 10
+wget            | []       [] []        []   [] [] [] [] [] | 17
+                `-------------------------------------------'
+  28 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv zh
+  38 domains      20  8  0 25  6 18  1  16   27  9 10 20  3  330
 @end group
 @end example

@@ -1,3 +1,8 @@
+2000-11-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* matrix.texi: Update.
+	* nls.texi: Refer to the Free Translation Project's matrix page.
+
 2000-11-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* nls.texi: In section "Translating Teams", refer to the Free
