@@ -71,6 +71,9 @@
 /* Force output of PO file even if empty.  */
 static int force_po;
 
+/* Keep the header entry unmodified.  */
+static int keep_header;
+
 /* Name of the subprogram.  */
 static const char *sub_name;
 
@@ -91,6 +94,7 @@ static const struct option long_options[] =
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, CHAR_MAX + 1 },
   { "input", required_argument, NULL, 'i' },
+  { "keep-header", no_argument, &keep_header, 1 },
   { "no-escape", no_argument, NULL, CHAR_MAX + 2 },
   { "no-location", no_argument, &line_comment, 0 },
   { "output-file", required_argument, NULL, 'o' },
@@ -392,6 +396,7 @@ Output details:\n\
   -E, --escape                use C escapes in output, no extended chars\n\
       --force-po              write PO file even if empty\n\
       --indent                indented output style\n\
+      --keep-header           keep header entry unmodified, don't filter it\n\
       --no-location           suppress '#: filename:line' lines\n\
       --add-location          preserve '#: filename:line' lines (default)\n\
       --strict                strict Uniforum output style\n\
@@ -678,6 +683,10 @@ process_message (mp)
   const char *p;
   char *q;
   size_t k;
+
+  /* Keep the header entry unmodified, if --keep-header was given.  */
+  if (mp->msgid[0] == '\0' && keep_header)
+    return;
 
   /* Count NUL delimited substrings.  */
   for (p = msgstr, nsubstrings = 0;

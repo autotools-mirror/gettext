@@ -1,3 +1,10 @@
+2001-12-07  Bruno Haible  <bruno@clisp.org>
+
+	* msgexec.c (keep_header): New variable.
+	(long_options): New option --keep-header.
+	(usage): Document option --keep-header.
+	(process_message): Implement --keep-header.
+
 2001-12-06  Bruno Haible  <bruno@clisp.org>
 
 	* format.h (struct formatstring_parser): Add 'noisy' argument to

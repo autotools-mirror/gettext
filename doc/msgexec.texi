@@ -69,6 +69,11 @@ Always write an output file even if it contains no message.
 @item --indent
 Write the .po file using indented style.
 
+@item --keep-header
+Keep the header entry, i.e. the message with @samp{msgid ""}, unmodified,
+instead of filtering it.  By default, the header entry is subject to
+filtering like any other message.
+
 @item --no-location
 Do not write @samp{#: @var{filename}:@var{line}} lines.
 
