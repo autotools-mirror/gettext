@@ -1,5 +1,5 @@
 /* Convenience header for conditional use of GNU <libintl.h>.
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002, 2004 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -35,6 +35,16 @@
    is OK.  */
 #if defined(__sun)
 # include <locale.h>
+#endif
+
+/* Many header files from the libstdc++ coming with g++ 3.4 or newer include
+   <libintl.h>, which chokes if dcgettext is defined as a macro.  So include
+   it now, to make later inclusions of <libintl.h> a NOP.  */
+#if defined(__cplusplus) && defined(__GNUG__) && (__GNUC__ >= 3)
+# include <cstdlib>
+# if _GLIBCXX_HAVE_LIBINTL_H
+#  include <libintl.h>
+# endif
 #endif
 
 /* Disabled NLS.
