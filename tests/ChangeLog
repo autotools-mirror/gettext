@@ -1,3 +1,7 @@
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* lang-librep: Skip the test if the 'rep' program is too old.
+
 2002-01-09  Bruno Haible  <bruno@clisp.org>
 
 	* lang-c: Use xsetenv before setlocale.
