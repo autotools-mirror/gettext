@@ -1,5 +1,9 @@
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (gettextize Invocation): Document option --dry-run.
+
+2002-04-28  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (mkinstalldirs, config.h.in): New subsections.
 	(src/Makefile): Mention the call to textdomain().
 

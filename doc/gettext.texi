@@ -5701,6 +5701,14 @@ Don't update or create ChangeLog files.  By default, @code{gettextize}
 logs all changes (file additions, modifications ans removals) in a
 file called @samp{ChangeLog} in each affected directory.
 
+@item -n
+@itemx --dry-run
+@opindex -d@r{, @code{gettextize} option}
+@opindex --dry-run@r{, @code{gettextize} option}
+Print modifications but don't perform them.  All actions that
+@code{gettextize} would normally execute are inhibited and instead only
+listed on standard output.
+
 @item --help
 @opindex --help@r{, @code{gettextize} option}
 Display this help and exit.

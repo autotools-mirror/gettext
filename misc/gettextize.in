@@ -37,6 +37,7 @@ Usage: gettextize [OPTION]... [package-dir]
   -f, --force          force writing of new files even if old exist
       --intl           install libintl in a subdirectory
       --no-changelog   don't update or create ChangeLog files
+  -n, --dry-run        print modifications but don't perform them
 Report bugs to <bug-gnu-gettext@gnu.org>."
 }
 
@@ -66,17 +67,22 @@ func_fatal_error ()
 # - intldir         yes if --intl was given, empty otherwise
 # - try_ln_s        false if --copy was given, : otherwise
 # - do_changelog    false if --no-changelog was given, : otherwise
+# - doit            false if --dry-run was given, : otherwise
 {
   force=0
   intldir=
   try_ln_s=:
   do_changelog=:
+  doit=:
 
   while test $# -gt 0; do
     case "$1" in
       -c | --copy | --cop | --co | --c )
         shift
         try_ln_s=false ;;
+      -n | --dry-run | --dry-ru | --dry-r | --dry- | --dry | --dr | --d )
+        shift
+        doit=false ;;
       -f | --force | --forc | --for | --fo | --f )
         shift
         force=1 ;;
@@ -184,9 +190,13 @@ date=`date +%Y-%m-%d`
 # 'to' is a relative pathname, relative to $srcdir.
 func_copy ()
 {
-  rm -f "$srcdir/$2"
-  echo "Copying file $2"
-  cp "$1" "$srcdir/$2"
+  if $doit; then
+    rm -f "$srcdir/$2"
+    echo "Copying file $2"
+    cp "$1" "$srcdir/$2"
+  else
+    echo "Copy file $2"
+  fi
 }
 
 # func_linkorcopy from absfrom to
@@ -196,9 +206,17 @@ func_copy ()
 # 'to' is a relative pathname, relative to $srcdir.
 func_linkorcopy ()
 {
-  rm -f "$srcdir/$3"
-  ($try_ln_s && ln -s "$2" "$srcdir/$3" && echo "Symlinking file $3") 2>/dev/null ||
-  { echo "Copying file $3"; cp "$1" "$srcdir/$3"; }
+  if $doit; then
+    rm -f "$srcdir/$3"
+    ($try_ln_s && ln -s "$2" "$srcdir/$3" && echo "Symlinking file $3") 2>/dev/null ||
+    { echo "Copying file $3"; cp "$1" "$srcdir/$3"; }
+  else
+    if $try_ln_s; then
+      echo "Symlink file $3"
+    else
+      echo "Copy file $3"
+    fi
+  fi
 }
 
 # func_backup to
@@ -206,9 +224,24 @@ func_linkorcopy ()
 # 'to' is a relative pathname, relative to $srcdir.
 func_backup ()
 {
-  if test -f "$srcdir/$1"; then
-    rm -f "$srcdir/$1~"
-    cp -p "$srcdir/$1" "$srcdir/$1~"
+  if $doit; then
+    if test -f "$srcdir/$1"; then
+      rm -f "$srcdir/$1~"
+      cp -p "$srcdir/$1" "$srcdir/$1~"
+    fi
+  fi
+}
+
+# func_remove to
+# removes a file.
+# 'to' is a relative pathname, relative to $srcdir.
+func_remove ()
+{
+  if $doit; then
+    echo "Removing $1"
+    rm -f "$srcdir/$1"
+  else
+    echo "Remove $1"
   fi
 }
 
@@ -222,27 +255,39 @@ func_ChangeLog_init ()
 }
 func_ChangeLog_add_entry ()
 {
-  if test -z "$modified_ChangeLog"; then
-    echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/ChangeLog.tmp"
-    echo >> "$srcdir/ChangeLog.tmp"
+  if $doit; then
+    if test -z "$modified_ChangeLog"; then
+      echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/ChangeLog.tmp"
+      echo >> "$srcdir/ChangeLog.tmp"
+      modified_ChangeLog=yes
+    fi
+    echo "$1" >> "$srcdir/ChangeLog.tmp"
+  else
     modified_ChangeLog=yes
   fi
-  echo "$1" >> "$srcdir/ChangeLog.tmp"
 }
 func_ChangeLog_finish ()
 {
   if test -n "$modified_ChangeLog"; then
-    echo >> "$srcdir/ChangeLog.tmp"
-    if test -f "$srcdir/ChangeLog"; then
-      echo "Adding an entry to ChangeLog (backup is in ChangeLog~)"
-      cat "$srcdir/ChangeLog" >> "$srcdir/ChangeLog.tmp"
-      rm -f "$srcdir/ChangeLog~"
-      cp -p "$srcdir/ChangeLog" "$srcdir/ChangeLog~"
+    if $doit; then
+      echo >> "$srcdir/ChangeLog.tmp"
+      if test -f "$srcdir/ChangeLog"; then
+        echo "Adding an entry to ChangeLog (backup is in ChangeLog~)"
+        cat "$srcdir/ChangeLog" >> "$srcdir/ChangeLog.tmp"
+        rm -f "$srcdir/ChangeLog~"
+        cp -p "$srcdir/ChangeLog" "$srcdir/ChangeLog~"
+      else
+        echo "Creating ChangeLog"
+      fi
+      cp "$srcdir/ChangeLog.tmp" "$srcdir/ChangeLog"
+      rm -f "$srcdir/ChangeLog.tmp"
     else
-      echo "Creating ChangeLog"
+      if test -f "$srcdir/ChangeLog"; then
+        echo "Add an entry to ChangeLog"
+      else
+        echo "Create ChangeLog"
+      fi
     fi
-    cp "$srcdir/ChangeLog.tmp" "$srcdir/ChangeLog"
-    rm -f "$srcdir/ChangeLog.tmp"
   fi
 }
 
@@ -256,27 +301,39 @@ func_poChangeLog_init ()
 }
 func_poChangeLog_add_entry ()
 {
-  if test -z "$modified_poChangeLog"; then
-    echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/po/ChangeLog.tmp"
-    echo >> "$srcdir/po/ChangeLog.tmp"
+  if $doit; then
+    if test -z "$modified_poChangeLog"; then
+      echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/po/ChangeLog.tmp"
+      echo >> "$srcdir/po/ChangeLog.tmp"
+      modified_poChangeLog=yes
+    fi
+    echo "$1" >> "$srcdir/po/ChangeLog.tmp"
+  else
     modified_poChangeLog=yes
   fi
-  echo "$1" >> "$srcdir/po/ChangeLog.tmp"
 }
 func_poChangeLog_finish ()
 {
   if test -n "$modified_poChangeLog"; then
-    echo >> "$srcdir/po/ChangeLog.tmp"
-    if test -f "$srcdir/po/ChangeLog"; then
-      echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)"
-      cat "$srcdir/po/ChangeLog" >> "$srcdir/po/ChangeLog.tmp"
-      rm -f "$srcdir/po/ChangeLog~"
-      cp -p "$srcdir/po/ChangeLog" "$srcdir/po/ChangeLog~"
+    if $doit; then
+      echo >> "$srcdir/po/ChangeLog.tmp"
+      if test -f "$srcdir/po/ChangeLog"; then
+        echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)"
+        cat "$srcdir/po/ChangeLog" >> "$srcdir/po/ChangeLog.tmp"
+        rm -f "$srcdir/po/ChangeLog~"
+        cp -p "$srcdir/po/ChangeLog" "$srcdir/po/ChangeLog~"
+      else
+        echo "Creating po/ChangeLog"
+      fi
+      cp "$srcdir/po/ChangeLog.tmp" "$srcdir/po/ChangeLog"
+      rm -f "$srcdir/po/ChangeLog.tmp"
     else
-      echo "Creating po/ChangeLog"
+      if test -f "$srcdir/po/ChangeLog"; then
+        echo "Add an entry to po/ChangeLog"
+      else
+        echo "Create po/ChangeLog"
+      fi
     fi
-    cp "$srcdir/po/ChangeLog.tmp" "$srcdir/po/ChangeLog"
-    rm -f "$srcdir/po/ChangeLog.tmp"
   fi
 }
 
@@ -290,27 +347,39 @@ func_m4ChangeLog_init ()
 }
 func_m4ChangeLog_add_entry ()
 {
-  if test -z "$modified_m4ChangeLog"; then
-    echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/$m4dir/ChangeLog.tmp"
-    echo >> "$srcdir/$m4dir/ChangeLog.tmp"
+  if $doit; then
+    if test -z "$modified_m4ChangeLog"; then
+      echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/$m4dir/ChangeLog.tmp"
+      echo >> "$srcdir/$m4dir/ChangeLog.tmp"
+      modified_m4ChangeLog=yes
+    fi
+    echo "$1" >> "$srcdir/$m4dir/ChangeLog.tmp"
+  else
     modified_m4ChangeLog=yes
   fi
-  echo "$1" >> "$srcdir/$m4dir/ChangeLog.tmp"
 }
 func_m4ChangeLog_finish ()
 {
   if test -n "$modified_m4ChangeLog"; then
-    echo >> "$srcdir/$m4dir/ChangeLog.tmp"
-    if test -f "$srcdir/$m4dir/ChangeLog"; then
-      echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
-      cat "$srcdir/$m4dir/ChangeLog" >> "$srcdir/$m4dir/ChangeLog.tmp"
-      rm -f "$srcdir/$m4dir/ChangeLog~"
-      cp -p "$srcdir/$m4dir/ChangeLog" "$srcdir/$m4dir/ChangeLog~"
+    if $doit; then
+      echo >> "$srcdir/$m4dir/ChangeLog.tmp"
+      if test -f "$srcdir/$m4dir/ChangeLog"; then
+        echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
+        cat "$srcdir/$m4dir/ChangeLog" >> "$srcdir/$m4dir/ChangeLog.tmp"
+        rm -f "$srcdir/$m4dir/ChangeLog~"
+        cp -p "$srcdir/$m4dir/ChangeLog" "$srcdir/$m4dir/ChangeLog~"
+      else
+        echo "Creating $m4dir/ChangeLog"
+      fi
+      cp "$srcdir/$m4dir/ChangeLog.tmp" "$srcdir/$m4dir/ChangeLog"
+      rm -f "$srcdir/$m4dir/ChangeLog.tmp"
     else
-      echo "Creating $m4dir/ChangeLog"
+      if test -f "$srcdir/$m4dir/ChangeLog"; then
+        echo "Add an entry to $m4dir/ChangeLog"
+      else
+        echo "Create $m4dir/ChangeLog"
+      fi
     fi
-    cp "$srcdir/$m4dir/ChangeLog.tmp" "$srcdir/$m4dir/ChangeLog"
-    rm -f "$srcdir/$m4dir/ChangeLog.tmp"
   fi
 }
 
@@ -323,20 +392,28 @@ fi
 if test -d "$srcdir/intl"; then
   # Remove everything inside intl except for RCS and CVS subdirs and invisible
   # files.
-  echo "Wiping out intl/ subdirectory"
-  (cd "$srcdir/intl" &&
-   for f in *; do
-     if test CVS != "$f" && test RCS != "$f"; then
-       rm -rf "$f"
-     fi
-   done)
+  if $doit; then
+    echo "Wiping out intl/ subdirectory"
+    (cd "$srcdir/intl" &&
+     for f in *; do
+       if test CVS != "$f" && test RCS != "$f"; then
+         rm -rf "$f"
+       fi
+     done)
+  else
+    echo "Wipe out intl/ subdirectory"
+  fi
   if test -z "$intldir"; then
     removed_directory=intl
   fi
 else
   if test -n "$intldir"; then
-    echo "Creating intl/ subdirectory"
-    mkdir "$srcdir/intl" || func_fatal_error "failed to create intl/ subdirectory"
+    if $doit; then
+      echo "Creating intl/ subdirectory"
+      mkdir "$srcdir/intl" || func_fatal_error "failed to create intl/ subdirectory"
+    else
+      echo "Create intl/ subdirectory"
+    fi
     added_directories="$added_directories intl"
   fi
 fi
@@ -344,8 +421,12 @@ fi
 $do_changelog && func_ChangeLog_init
 
 test -d "$srcdir/po" || {
-  echo "Creating po/ subdirectory"
-  mkdir "$srcdir/po" || func_fatal_error "failed to create po/ subdirectory"
+  if $doit; then
+    echo "Creating po/ subdirectory"
+    mkdir "$srcdir/po" || func_fatal_error "failed to create po/ subdirectory"
+  else
+    echo "Create po/ subdirectory"
+  fi
 }
 
 # Now copy all files.  Take care for the destination directories.
@@ -379,8 +460,10 @@ if test -n "$intldir"; then
       else
         # plural.c is a generated file; it must be copied and touched.
         func_copy $file intl/$file
-        (sleep 2; touch "$srcdir/intl/$file") &
-       fi
+        if $doit; then
+          (sleep 2; touch "$srcdir/intl/$file") &
+        fi
+      fi
     fi
   done
   cd ..
@@ -454,13 +537,11 @@ You can then remove po/$file.template.
   esac
 done
 if test -f "$srcdir/po/cat-id-tbl.c"; then
-  echo "Removing po/cat-id-tbl.c"
-  rm -f "$srcdir/po/cat-id-tbl.c"
+  func_remove po/cat-id-tbl.c
   $do_changelog && func_poChangeLog_add_entry "	* cat-id-tbl.c: Remove file."
 fi
 if test -f "$srcdir/po/stamp-cat-id"; then
-  echo "Removing po/stamp-cat-id"
-  rm -f "$srcdir/po/stamp-cat-id"
+  func_remove po/stamp-cat-id
   $do_changelog && func_poChangeLog_add_entry "	* stamp-cat-id: Remove file."
 fi
 $do_changelog && func_poChangeLog_finish
@@ -502,8 +583,12 @@ if test -f "$srcdir/Makefile.am"; then
   if test -d "$srcdir/$m4dir"; then
     :
   else
-    echo "Creating directory $m4dir"
-    mkdir "$srcdir/$m4dir"
+    if $doit; then
+      echo "Creating directory $m4dir"
+      mkdir "$srcdir/$m4dir"
+    else
+      echo "Create directory $m4dir"
+    fi
     added_directories="$added_directories $m4dir"
   fi
   for file in $m4filelist; do
@@ -527,19 +612,28 @@ if test -f "$srcdir/Makefile.am"; then
   done
   if test -n "$added_m4files"; then
     if test -f "$srcdir/$m4dir/Makefile.am"; then
-      echo "Updating EXTRA_DIST in $m4dir/Makefile.am (backup is in $m4dir/Makefile.am~)"
-      func_backup "$m4dir/Makefile.am"
-      rm -f "$srcdir/$m4dir/Makefile.am"
-      if grep '^EXTRA_DIST[ 	]*=' "$srcdir/$m4dir/Makefile.am~" > /dev/null; then
-        sed -e "s%^\(EXTRA_DIST[ 	]*=\)%\\1$added_m4files %" < "$srcdir/$m4dir/Makefile.am~" > "$srcdir/$m4dir/Makefile.am"
-        $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am (EXTRA_DIST): Add the new files."
+      if $doit; then
+        echo "Updating EXTRA_DIST in $m4dir/Makefile.am (backup is in $m4dir/Makefile.am~)"
+        func_backup "$m4dir/Makefile.am"
+        rm -f "$srcdir/$m4dir/Makefile.am"
+        if grep '^EXTRA_DIST[ 	]*=' "$srcdir/$m4dir/Makefile.am~" > /dev/null; then
+          sed -e "s%^\(EXTRA_DIST[ 	]*=\)%\\1$added_m4files %" < "$srcdir/$m4dir/Makefile.am~" > "$srcdir/$m4dir/Makefile.am"
+          $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am (EXTRA_DIST): Add the new files."
+        else
+          (cat "$srcdir/$m4dir/Makefile.am~"; echo; echo "EXTRA_DIST =$added_m4files") > "$srcdir/$m4dir/Makefile.am"
+          $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am (EXTRA_DIST): New variable."
+        fi
       else
-        (cat "$srcdir/$m4dir/Makefile.am~"; echo; echo "EXTRA_DIST =$added_m4files") > "$srcdir/$m4dir/Makefile.am"
-        $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am (EXTRA_DIST): New variable."
+        echo "Update EXTRA_DIST in $m4dir/Makefile.am"
+        $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am (EXTRA_DIST)."
       fi
     else
-      echo "Creating $m4dir/Makefile.am"
-      echo "EXTRA_DIST =$added_m4files" > "$srcdir/$m4dir/Makefile.am"
+      if $doit; then
+        echo "Creating $m4dir/Makefile.am"
+        echo "EXTRA_DIST =$added_m4files" > "$srcdir/$m4dir/Makefile.am"
+      else
+        echo "Create $m4dir/Makefile.am"
+      fi
       $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am: New file."
       added_acoutput="$added_acoutput $m4dir/Makefile"
     fi
@@ -547,14 +641,16 @@ if test -f "$srcdir/Makefile.am"; then
   $do_changelog && func_m4ChangeLog_finish
   # Also create $m4dir/Makefile.in from $m4dir/Makefile.am, because automake
   # doesn't do it by itself.
-  case "$added_acoutput" in
-    *" $m4dir/Makefile")
-      (cd "$srcdir" && automake "$m4dir/Makefile") 2>/dev/null ||
-      please="$please
+  if $doit; then
+    case "$added_acoutput" in
+      *" $m4dir/Makefile")
+        (cd "$srcdir" && automake "$m4dir/Makefile") 2>/dev/null ||
+        please="$please
 Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
 "
-      ;;
-  esac
+        ;;
+    esac
+  fi
 
   # Update the top-level Makefile.am.
   modified_Makefile_am=
@@ -568,11 +664,17 @@ Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
       :
     else
       if test -z "$modified_Makefile_am"; then
-        echo "Updating Makefile.am (backup is in Makefile.am~)"
-        func_backup Makefile.am
+        if $doit; then
+          echo "Updating Makefile.am (backup is in Makefile.am~)"
+          func_backup Makefile.am
+        else
+          echo "Update Makefile.am"
+        fi
       fi
-      rm -f "$srcdir/Makefile.am"
-      cp "$srcdir/Makefile.am.tmp" "$srcdir/Makefile.am"
+      if $doit; then
+        rm -f "$srcdir/Makefile.am"
+        cp "$srcdir/Makefile.am.tmp" "$srcdir/Makefile.am"
+      fi
       if $do_changelog; then
         if test -z "$modified_Makefile_am"; then
           func_ChangeLog_add_entry "	* Makefile.am $1"
@@ -622,13 +724,15 @@ Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
     # Also update Makefile.in and, if existent, Makefile. Otherwise they
     # would take into account the new flags only after a few rounds of
     # "./configure", "make", "touch configure.in", "make distclean".
-    for file in Makefile.in Makefile; do
-      if test -f "$srcdir/$file"; then
-        func_backup $file
-        rm -f "$srcdir/$file"
-        sed -e "s%(ACLOCAL)%(ACLOCAL) -I $m4dir%" < "$srcdir/$file~" > "$srcdir/$file"
-      fi
-    done
+    if $doit; then
+      for file in Makefile.in Makefile; do
+        if test -f "$srcdir/$file"; then
+          func_backup $file
+          rm -f "$srcdir/$file"
+          sed -e "s%(ACLOCAL)%(ACLOCAL) -I $m4dir%" < "$srcdir/$file~" > "$srcdir/$file"
+        fi
+      done
+    fi
   fi
   if test -n "$added_extradist"; then
     if grep '^EXTRA_DIST[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
@@ -663,11 +767,17 @@ func_modify_configure_in ()
     :
   else
     if test -z "$modified_configure_in"; then
-      echo "Updating $configure_in (backup is in $configure_in~)"
-      func_backup $configure_in
+      if $doit; then
+        echo "Updating $configure_in (backup is in $configure_in~)"
+        func_backup $configure_in
+      else
+        echo "Update $configure_in"
+      fi
     fi
-    rm -f "$srcdir/$configure_in"
-    cp "$srcdir/$configure_in.tmp" "$srcdir/$configure_in"
+    if $doit; then
+      rm -f "$srcdir/$configure_in"
+      cp "$srcdir/$configure_in.tmp" "$srcdir/$configure_in"
+    fi
     if $do_changelog; then
       if test -z "$modified_configure_in"; then
         func_ChangeLog_add_entry "	* $configure_in $1"
@@ -811,14 +921,16 @@ $configure_in file. Both will go away. Use <libintl.h> or \"gettext.h\" instead.
 "
 fi
 
-echo "$please"
-echo "You will also need config.guess and config.sub, which you can get from"
-echo "ftp://ftp.gnu.org/pub/gnu/config/."
-echo
-echo "You might also want to copy the convenience header file gettext.h"
-echo "from the $gettext_dir directory into your package."
-echo "It is a wrapper around <libintl.h> that implements the configure --disable-nls"
-echo "option."
-echo
+if $doit; then
+  echo "$please"
+  echo "You will also need config.guess and config.sub, which you can get from"
+  echo "ftp://ftp.gnu.org/pub/gnu/config/."
+  echo
+  echo "You might also want to copy the convenience header file gettext.h"
+  echo "from the $gettext_dir directory into your package."
+  echo "It is a wrapper around <libintl.h> that implements the configure --disable-nls"
+  echo "option."
+  echo
+fi
 
 exit 0

@@ -1,5 +1,7 @@
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: New option -n/--dry-run.
+
 	* gettextize.in: Use functions for maintainability.
 	Remove undocumented option --run.
 
