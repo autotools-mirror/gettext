@@ -230,9 +230,11 @@ start_element_handler (void *userData, const char *name,
   stack[stack_depth - 1].extract_string = false;
 
   p = &stack[stack_depth];
+  p->extract_string = extract_all;
   /* In Glade 1, a few specific elements are translatable.  */
-  p->extract_string =
-    (find_entry (&keywords, name, strlen (name), &hash_result) == 0);
+  if (!p->extract_string)
+    p->extract_string =
+      (find_entry (&keywords, name, strlen (name), &hash_result) == 0);
   /* In Glade 2, all <property> and <atkproperty> elements are translatable
      that have the attribute translatable="yes".  */
   if (!p->extract_string

@@ -1,3 +1,7 @@
+2003-09-22  Bruno Haible  <bruno@clisp.org>
+
+	* x-glade.c (start_element_handler): Implement extract_all behaviour.
+
 2003-10-04  Bruno Haible  <bruno@clisp.org>
 
 	* x-glade.c (do_extract_glade): Initialize stack_depth.
