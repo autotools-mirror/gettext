@@ -132,7 +132,9 @@ static void merge_destructor PARAMS ((po_ty *__that));
 static void merge_directive_domain PARAMS ((po_ty *__that, char *__name));
 static void merge_directive_message PARAMS ((po_ty *__that, char *__msgid,
 					     lex_pos_ty *__msgid_pos,
+					     char *__msgid_plural,
 					     char *__msgstr,
+					     size_t __msgstr_len,
 					     lex_pos_ty *__msgstr_pos));
 static void merge_parse_brief PARAMS ((po_ty *__that));
 static void merge_parse_debrief PARAMS ((po_ty *__that));
@@ -449,11 +451,14 @@ merge_directive_domain (that, name)
 
 
 static void
-merge_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
+merge_directive_message (that, msgid, msgid_pos, msgid_plural,
+			 msgstr, msgstr_len, msgstr_pos)
      po_ty *that;
      char *msgid;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   merge_class_ty *this = (merge_class_ty *) that;
@@ -470,7 +475,7 @@ merge_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
     free (msgid);
   else
     {
-      mp = message_alloc (msgid);
+      mp = message_alloc (msgid, msgid_plural);
       message_list_append (this->mlp, mp);
     }
 
@@ -520,7 +525,7 @@ merge_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
       free (msgstr);
     }
   else
-    message_variant_append (mp, this->domain, msgstr, msgstr_pos);
+    message_variant_append (mp, this->domain, msgstr, msgstr_len, msgstr_pos);
 }
 
 

@@ -118,7 +118,9 @@ static void extract_constructor PARAMS ((po_ty *__that));
 static void extract_directive_domain PARAMS ((po_ty *__that, char *__name));
 static void extract_directive_message PARAMS ((po_ty *__that, char *__msgid,
 					       lex_pos_ty *__msgid_pos,
+					       char *__msgid_plural,
 					       char *__msgstr,
+					       size_t __msgstr_len,
 					       lex_pos_ty *__msgstr_pos));
 static void extract_parse_brief PARAMS ((po_ty *__that));
 static void extract_comment PARAMS ((po_ty *__that, const char *__s));
@@ -559,11 +561,14 @@ extract_directive_domain (that, name)
 
 
 static void
-extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
+extract_directive_message (that, msgid, msgid_pos, msgid_plural,
+			   msgstr, msgstr_len, msgstr_pos)
      po_ty *that;
      char *msgid;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   extract_class_ty *this = (extract_class_ty *)that;
@@ -599,7 +604,7 @@ extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
     free (msgid);
   else
     {
-      mp = message_alloc (msgid);
+      mp = message_alloc (msgid, msgid_plural);
       message_list_append (this->mlp, mp);
     }
 
@@ -656,7 +661,8 @@ extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
   if (mvp != NULL)
     free (msgstr);
   else
-    message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_pos);
+    message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_len,
+			    msgstr_pos);
 }
 
 

@@ -1,3 +1,30 @@
+2001-01-01  Bruno Haible  <haible@clisp.cons.org>
+
+	Finish implementation of plural form handling.
+	* dcigettext.c (known_translation_t): Rename 'domain' field to
+	'domainname'. Remove 'plindex' field. Add 'domain' and
+	'translation_length' fields.
+	(transcmp): Don't compare 'plindex' fields.
+	(plural_lookup): New function.
+	(DCIGETTEXT): Change cache handing in the plural case. Don't call
+	plural_eval before the translation and its catalog file have been
+	found. Remove plindex from cache key. Add 'translation_length' and
+	'domain' to cache result. 
+	(_nl_find_msg): Remove index argument, return length of translation
+	to the caller instead. Weaken comparison of string lengths, to account
+	for plural entries. Call iconv() on the entire result string, not
+	only on the portion needed so far.
+	* loadinfo.h (_nl_find_msg): Remove index argument, add lengthp
+	argument.
+	* loadmsgcat.c (_nl_load_domain): Adapt to _nl_find_msg change.
+
+	* intl-compat.c (dcngettext, dngettext, ngettext): New functions.
+	* libgettext.h (ngettext__, dngettext__, dcngettext__): New
+	declarations.
+	(ngettext, dngettext): Add missing macro argument.
+
+	* intlh.inst.in (ngettext, dngettext): Add missing macro argument.
+
 2000-12-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextP.h (ZERO): New macro.

@@ -20,7 +20,7 @@
 This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
-Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -54,7 +54,7 @@ by the Foundation.
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+Copyright @copyright{} 1995, 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -132,6 +132,7 @@ Updating Existing PO Files
 * Obsolete Entries::            Obsolete Entries
 * Modifying Translations::      Modifying Translations
 * Modifying Comments::          Modifying Comments
+* Subedit::                     Mode for Editing Translations
 * Auxiliary::                   Consulting Auxiliary PO Files
 
 Producing Binary MO Files
@@ -164,6 +165,9 @@ About @code{gettext}
 * Interface to gettext::        The interface
 * Ambiguities::                 Solving ambiguities
 * Locating Catalogs::           Locating message catalog files
+* Charset conversion::          How to request conversion to Unicode
+* Plural forms::                Additional functions for handling plurals
+* GUI program problems::        Another technique for solving ambiguities
 * Optimized gettext::           Optimization of the *gettext functions
 
 Temporary Notes for the Programmers Chapter
@@ -898,6 +902,22 @@ does some more tests to check to validity of the translation.
 @xref{msgfmt Invocation}.
 
 @end table
+
+A different kind of entries is used for translations which involve
+plural forms.
+
+@example
+@var{white-space}
+#  @var{translator-comments}
+#. @var{automatic-comments}
+#: @var{reference}@dots{}
+#, @var{flag}@dots{}
+msgid @var{untranslated-string-singular}
+msgid_plural @var{untranslated-string-plural}
+msgstr[0] @var{translated-string-case-0}
+...
+msgstr[N] @var{translated-string-case-n}
+@end example
 
 It happens that some lines, usually whitespace or comments, follow the
 very last entry of a PO file.  Such lines are not part of any entry,
@@ -1867,11 +1887,16 @@ If @var{keywordspec} is a C identifer @var{id}, @code{xgettext} looks
 for strings in the first argument of each call to the function or macro
 @var{id}.  If @var{keywordspec} is of the form
 @samp{@var{id}:@var{argnum}}, @code{xgettext} looks for strings in the
-@var{argnum}th argument of the call.
+@var{argnum}th argument of the call.  If @var{keywordspec} is of the form
+@samp{@var{id}:@var{argnum1},@var{argnum2}}, @code{xgettext} looks for
+strings in the @var{argnum1}st argument and in the @var{argnum2}nd argument
+of the call, and treats them as singular/plural variants for a message
+with plural handling.
 
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are @code{gettext}, @code{dgettext:2},
-@code{dcgettext:2} and @code{gettext_noop}.
+@code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
+@code{dcngettext:2,3}, and @code{gettext_noop}.
 
 @item -m [@var{string}]
 @itemx --msgstr-prefix[=@var{string}]
@@ -2826,13 +2851,25 @@ With this option, each string is separately aligned so it starts at
 an offset which is a multiple of the alignment value.  On some RISC
 machines, a correct alignment will speed things up.
 
+Plural forms are stored by letting the plural of the original string
+follow the singular of the original string, separated through a
+@key{NUL} byte.  The length which appears in the string descriptor
+includes both.  However, only the singular of the original string
+takes part in the hash table lookup.  The plural variants of the
+translation are all stored consecutively, separated through a
+@key{NUL} byte.  Here also, the length in the string descriptor
+includes all of them.
+
 Nothing prevents a MO file from having embedded @key{NUL}s in strings.
 However, the program interface currently used already presumes
 that strings are @key{NUL} terminated, so embedded @key{NUL}s are
 somewhat useless.  But MO file format is general enough so other
 interfaces would be later possible, if for example, we ever want to
 implement wide characters right in MO files, where @key{NUL} bytes may
-accidently appear.
+accidently appear.  (No, we don't want to have wide characters in MO
+files.  They would make the file unnecessarily large, and the
+@samp{wchar_t} type being platform dependent, MO files would be
+platform dependent as well.)
 
 This particular issue has been strongly debated in the GNU
 @code{gettext} development forum, and it is expectable that MO file
@@ -3133,6 +3170,9 @@ in using this library will be interested in this description.
 * Interface to gettext::        The interface
 * Ambiguities::                 Solving ambiguities
 * Locating Catalogs::           Locating message catalog files
+* Charset conversion::          How to request conversion to Unicode
+* Plural forms::                Additional functions for handling plurals
+* GUI program problems::        Another technique for solving ambiguities
 * Optimized gettext::           Optimization of the *gettext functions
 @end menu
 
@@ -3244,7 +3284,7 @@ achieved when the program executes a @code{chdir} command.  Relative
 paths should always be avoided to avoid dependencies and
 unreliabilities.
 
-@node Locating Catalogs, Optimized gettext, Ambiguities, gettext
+@node Locating Catalogs, Charset conversion, Ambiguities, gettext
 @subsection Locating Message Catalog Files
 
 Because many different languages for many different packages have to be
@@ -3275,7 +3315,471 @@ less arbitrary value for it.} @footnote{When the system does not support
 @code{setlocale} its behavior in setting the locale values is simulated
 by looking at the environment variables.}
 
-@node Optimized gettext,  , Locating Catalogs, gettext
+@node Charset conversion, Plural forms, Locating Catalogs, gettext
+@subsection How to specify the output character set @code{gettext} uses
+
+@code{gettext} not only looks up a translation in a message catalog.  It
+also converts the translation on the fly to the desired output character
+set.  This is useful if the user is working in a different character set
+than the translator who created the message catalog, because it avoids
+distributing variants of message catalogs which differ only in the
+character set.
+
+The output character set is, by default, the value of @code{nl_langinfo
+(CODESET)}, which depends on the @code{LC_CTYPE} part of the current
+locale.  But programs which store strings in a locale independent way
+(e.g. UTF-8) can request that @code{gettext} and related functions
+return the translations in that encoding, by use of the
+@code{bind_textdomain_codeset} function.
+
+Note that the @var{msgid} argument to @code{gettext} is not subject to
+character set conversion.  Also, when @code{gettext} does not find a
+translation for @var{msgid}, it returns @var{msgid} unchanged --
+independently of the current output character set.  It is therefore
+recommended that all @var{msgid}s be US-ASCII strings.
+
+@deftypefun {char *} bind_textdomain_codeset (const char *@var{domainname}, const char *@var{codeset})
+The @code{bind_textdomain_codeset} function can be used to specify the
+output character set for message catalogs for domain @var{domainname}.
+The @var{codeset} argument must be a valid codeset name which can be used
+for the @code{iconv_open} function, or a null pointer.
+
+If the @var{codeset} parameter is the null pointer,
+@code{bind_textdomain_codeset} returns the currently selected codeset
+for the domain with the name @var{domainname}. It returns @code{NULL} if
+no codeset has yet been selected.
+
+The @code{bind_textdomain_codeset} function can be used several times. 
+If used multiple times with the same @var{domainname} argument, the
+later call overrides the settings made by the earlier one.
+
+The @code{bind_textdomain_codeset} function returns a pointer to a
+string containing the name of the selected codeset.  The string is
+allocated internally in the function and must not be changed by the
+user.  If the system went out of core during the execution of
+@code{bind_textdomain_codeset}, the return value is @code{NULL} and the
+global variable @var{errno} is set accordingly.
+@end deftypefun
+
+@node Plural forms, GUI program problems, Charset conversion, gettext
+@subsection Additional functions for plural forms
+
+The functions of the @code{gettext} family described so far (and all the
+@code{catgets} functions as well) have one problem in the real world
+which have been neglected completely in all existing approaches.  What
+is meant here is the handling of plural forms.
+
+Looking through Unix source code before the time anybody thought about
+internationalization (and, sadly, even afterwards) one can often find
+code similar to the following:
+
+@smallexample
+   printf ("%d file%s deleted", n, n == 1 ? "" : "s");
+@end smallexample
+
+@noindent
+After the first complaints from people internationalizing the code people
+either completely avoided formulations like this or used strings like
+@code{"file(s)"}.  Both look unnatural and should be avoided.  First
+tries to solve the problem correctly looked like this:
+
+@smallexample
+   if (n == 1)
+     printf ("%d file deleted", n);
+   else
+     printf ("%d files deleted", n);
+@end smallexample
+
+But this does not solve the problem.  It helps languages where the
+plural form of a noun is not simply constructed by adding an `s' but
+that is all.  Once again people fell into the trap of believing the
+rules their language is using are universal.  But the handling of plural
+forms differs widely between the language families.  For example,
+Rafal Maszkowski @code{<rzm@@mat.uni.torun.pl>} reports:
+
+@quotation
+In Polish we use e.g. plik (file) this way:
+@example
+1 plik
+2,3,4 pliki
+5-21 pliko'w
+22-24 pliki
+25-31 pliko'w
+@end example
+and so on (o' means 8859-2 oacute which should be rather okreska,
+similar to aogonek).
+@end quotation
+
+There are two things which can differ between languages (and even inside
+language families);
+
+@itemize @bullet
+@item
+The form how plural forms are build differs.  This is a problem with
+language which have many irregularities.  German, for instance, is a
+drastic case.  Though English and German are part of the same language
+family (Germanic), the almost regular forming of plural noun forms
+(appending an `s') is hardly found in German.
+
+@item
+The number of plural forms differ.  This is somewhat surprising for
+those who only have experiences with Romanic and Germanic languages
+since here the number is the same (there are two).
+
+But other language families have only one form or many forms.  More
+information on this in an extra section.
+@end itemize
+
+The consequence of this is that application writers should not try to
+solve the problem in their code.  This would be localization since it is
+only usable for certain, hardcoded language environments.  Instead the
+extended @code{gettext} interface should be used.
+
+These extra functions are taking instead of the one key string two
+strings and an numerical argument.  The idea behind this is that using
+the numerical argument and the first string as a key, the implementation
+can select using rules specified by the translator the right plural
+form.  The two string arguments then will be used to provide a return
+value in case no message catalog is found (similar to the normal
+@code{gettext} behavior).  In this case the rules for Germanic language
+is used and it is assumed that the first string argument is the singular
+form, the second the plural form.
+
+This has the consequence that programs without language catalogs can
+display the correct strings only if the program itself is written using
+a Germanic language.  This is a limitation but since the GNU C library
+(as well as the GNU @code{gettext} package) are written as part of the
+GNU package and the coding standards for the GNU project require program
+being written in English, this solution nevertheless fulfills its
+purpose.
+
+@deftypefun {char *} ngettext (const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n})
+The @code{ngettext} function is similar to the @code{gettext} function
+as it finds the message catalogs in the same way.  But it takes two
+extra arguments.  The @var{msgid1} parameter must contain the singular
+form of the string to be converted.  It is also used as the key for the
+search in the catalog.  The @var{msgid2} parameter is the plural form.
+The parameter @var{n} is used to determine the plural form.  If no
+message catalog is found @var{msgid1} is returned if @code{n == 1},
+otherwise @code{msgid2}.
+
+An example for the us of this function is:
+
+@smallexample
+  printf (ngettext ("%d file removed", "%d files removed", n), n);
+@end smallexample
+
+Please note that the numeric value @var{n} has to be passed to the
+@code{printf} function as well.  It is not sufficient to pass it only to
+@code{ngettext}.
+@end deftypefun
+
+@deftypefun {char *} dngettext (const char *@var{domain}, const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n})
+The @code{dngettext} is similar to the @code{dgettext} function in the
+way the message catalog is selected.  The difference is that it takes
+two extra parameter to provide the correct plural form.  These two
+parameters are handled in the same way @code{ngettext} handles them.
+@end deftypefun
+
+@deftypefun {char *} dcngettext (const char *@var{domain}, const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n}, int @var{category})
+The @code{dcngettext} is similar to the @code{dcgettext} function in the
+way the message catalog is selected.  The difference is that it takes
+two extra parameter to provide the correct plural form.  These two
+parameters are handled in the same way @code{ngettext} handles them.
+@end deftypefun
+
+Now, how do these functions solve the problem of the plural forms?
+Without the input of linguists (which was not available) it was not
+possible to determine whether there are only a few different forms in
+which plural forms are formed or whether the number can increase with
+every new supported language.
+
+Therefore the solution implemented is to allow the translator to specify
+the rules of how to select the plural form.  Since the formula varies
+with every language this is the only viable solution except for
+hardcoding the information in the code (which still would require the
+possibility of extensions to not prevent the use of new languages).  The
+details are explained in the GNU @code{gettext} manual.  Here only a a
+bit of information is provided.
+
+The information about the plural form selection has to be stored in the
+header entry (the one with the empty (@code{msgid} string).  There should
+be something like:
+
+@smallexample
+  nplurals=2; plural=n == 1 ? 0 : 1
+@end smallexample
+
+The @code{nplurals} value must be a decimal number which specifies how
+many different plural forms exist for this language.  The string
+following @code{plural} is an expression which is using the C language
+syntax.  Exceptions are that no negative number are allowed, numbers
+must be decimal, and the only variable allowed is @code{n}.  This
+expression will be evaluated whenever one of the functions
+@code{ngettext}, @code{dngettext}, or @code{dcngettext} is called.  The
+numeric value passed to these functions is then substituted for all uses
+of the variable @code{n} in the expression.  The resulting value then
+must be greater or equal to zero and smaller than the value given as the
+value of @code{nplurals}.
+
+@noindent
+The following rules are known at this point.  The language with families
+are listed.  But this does not necessarily mean the information can be
+generalized for the whole family (as can be easily seen in the table
+below).@footnote{Additions are welcome.  Send appropriate information to
+@email{bug-glibc-manual@@gnu.org}.}
+
+@table @asis
+@item Only one form:
+Some languages only require one single form.  There is no distinction
+between the singular and plural form.  And appropriate header entry
+would look like this:
+
+@smallexample
+nplurals=1; plural=0
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Finno-Ugric family
+Hungarian
+@item Asian family
+Japanese
+@item Turkic/Altaic family
+Turkish
+@end table
+
+@item Two forms, singular used for one only
+This is the form used in most existing programs since it is what English
+is using.  A header entry would look like this:
+
+@smallexample
+nplurals=2; plural=n != 1
+@end smallexample
+
+(Note: this uses the feature of C expressions that boolean expressions
+have to value zero or one.)
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Germanic family
+Danish, Dutch, English, German, Norwegian, Swedish
+@item Finno-Ugric family
+Finnish
+@item Latin/Greek family
+Greek
+@item Semitic family
+Hebrew
+@item Romanic family
+Italian, Spanish
+@item Artificial
+Esperanto
+@end table
+
+@item Two forms, singular used for zero and one
+Exceptional case in the language family.  The header entry would be:
+
+@smallexample
+nplurals=2; plural=n>1
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Romanic family
+French
+@end table
+
+@item Three forms, special cases for one and two
+The header entry would be:
+
+@smallexample
+nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Celtic
+Gaeilge
+@end table
+
+@item Three forms, special case for one and all numbers ending in 2, 3, or 4
+The header entry would look like this:
+
+@smallexample
+nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 ? 1 : 2
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Slavic family
+Russian
+@end table
+
+@item Three forms, special case for one and some numbers ending in 2, 3, or 4
+The header entry would look like this:
+
+@smallexample
+nplurals=3; plural=n==1 ? 0 : \
+  n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2
+@end smallexample
+
+(Continuation in the next line is possible.)
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Slavic family
+Polish
+@end table
+
+@item Four forms, special case for one and all numbers ending in 2, 3, or 4
+The header entry would look like this:
+
+@smallexample
+nplurals=4; plural=n==1 ? 0 : n%10==2 ? 1 : n%10==3 || n%10==4 ? 2 : 3
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Slavic family
+Slovenian
+@end table
+@end table
+
+@node GUI program problems, Optimized gettext, Plural forms, gettext
+@subsection How to use @code{gettext} in GUI programs
+
+One place where the @code{gettext} functions, if used normally, have big
+problems is within programs with graphical user interfaces (GUIs).  The
+problem is that many of the strings which have to be translated are very
+short.  They have to appear in pull-down menus which restricts the
+length.  But strings which are not containing entire sentences or at
+least large fragments of a sentence may appear in more than one
+situation in the program but might have different translations.  This is
+especially true for the one-word strings which are frequently used in
+GUI programs.
+
+As a consequence many people say that the @code{gettext} approach is
+wrong and instead @code{catgets} should be used which indeed does not
+have this problem.  But there is a very simple and powerful method to
+handle these kind of problems with the @code{gettext} functions.
+
+@noindent
+As as example consider the following fictional situation.  A GUI program
+has a menu bar with the following entries:
+
+@smallexample
++------------+------------+--------------------------------------+
+| File       | Printer    |                                      |
++------------+------------+--------------------------------------+
+| Open     | | Select   |
+| New      | | Open     |
++----------+ | Connect  |
+             +----------+
+@end smallexample
+
+To have the strings @code{File}, @code{Printer}, @code{Open},
+@code{New}, @code{Select}, and @code{Connect} translated there has to be
+at some point in the code a call to a function of the @code{gettext}
+family.  But in two places the string passed into the function would be
+@code{Open}.  The translations might not be the same and therefore we
+are in the dilemma described above.
+
+One solution to this problem is to artificially enlengthen the strings
+to make them unambiguous.  But what would the program do if no
+translation is available?  The enlengthened string is not what should be
+printed.  So we should use a little bit modified version of the functions.
+
+To enlengthen the strings a uniform method should be used.  E.g., in the
+example above the strings could be chosen as
+
+@smallexample
+Menu|File
+Menu|Printer
+Menu|File|Open
+Menu|File|New
+Menu|Printer|Select
+Menu|Printer|Open
+Menu|Printer|Connect
+@end smallexample
+
+Now all the strings are different and if now instead of @code{gettext}
+the following little wrapper function is used, everything works just
+fine:
+
+@cindex sgettext
+@smallexample
+  char *
+  sgettext (const char *msgid)
+  @{
+    char *msgval = gettext (msgid);
+    if (msgval == msgid)
+      msgval = strrchr (msgid, '|') + 1;
+    return msgval;
+  @}
+@end smallexample
+
+What this little function does is to recognize the case when no
+translation is available.  This can be done very efficiently by a
+pointer comparison since the return value is the input value.  If there
+is no translation we know that the input string is in the format we used
+for the Menu entries and therefore contains a @code{|} character.  We
+simply search for the last occurrence of this character and return a
+pointer to the character following it.  That's it!
+
+If one now consistently uses the enlengthened string form and replaces
+the @code{gettext} calls with calls to @code{sgettext} (this is normally
+limited to very few places in the GUI implementation) then it is
+possible to produce a program which can be internationalized.
+
+The other @code{gettext} functions (@code{dgettext}, @code{dcgettext}
+and the @code{ngettext} equivalents) can and should have corresponding
+functions as well which look almost identical, except for the parameters
+and the call to the underlying function.
+
+Now there is of course the question why such functions do not exist in
+the GNU gettext package?  There are two parts of the answer to this question.
+
+@itemize @bullet
+@item
+They are easy to write and therefore can be provided by the project they
+are used in.  This is not an answer by itself and must be seen together
+with the second part which is:
+
+@item
+There is no way the gettext package can contain a version which can work
+everywhere.  The problem is the selection of the character to separate
+the prefix from the actual string in the enlenghtened string.  The
+examples above used @code{|} which is a quite good choice because it
+resembles a notation frequently used in this context and it also is a
+character not often used in message strings.
+
+But what if the character is used in message strings.  Or if the chose
+character is not available in the character set on the machine one
+compiles (e.g., @code{|} is not required to exist for @w{ISO C}; this is
+why the @file{iso646.h} file exists in @w{ISO C} programming environments).
+@end itemize
+
+There is only one more comment to be said.  The wrapper function above
+require that the translations strings are not enlengthened themselves.
+This is only logical.  There is no need to disambiguate the strings
+(since they are never used as keys for a search) and one also saves
+quite some memory and disk space by doing this.
+
+@node Optimized gettext,  , GUI program problems, gettext
 @subsection Optimization of the *gettext functions
 
 At this point of the discussion we should talk about an advantage of the
@@ -3315,55 +3819,12 @@ string is always the same.  One way to use this is:
 
 @noindent
 But this solution is not usable in all situation (e.g. when the locale
-selection changes) nor is it good readable.
+selection changes) nor does it lead to legible code.
 
-The GNU C compiler, version 2.7 and above, provide another solution for
-this.  To describe this we show here some lines of the
-@file{intl/libgettext.h} file.  For an explanation of the expression
-command block see @ref{Statement Exprs, , Statements and Declarations in
-Expressions, gcc, The GNU CC Manual}.
-
-@example
-@group
-#  if defined __GNUC__ && __GNUC__ == 2 && __GNUC_MINOR__ >= 7
-extern int _nl_msg_cat_cntr;
-#   define	dcgettext(domainname, msgid, category)           \
-  (__extension__                                                 \
-   (@{                                                            \
-     char *result;                                               \
-     if (__builtin_constant_p (msgid))                           \
-       @{                                                         \
-         static char *__translation__;                           \
-         static int __catalog_counter__;                         \
-         if (! __translation__                                   \
-             || __catalog_counter__ != _nl_msg_cat_cntr)         \
-           @{                                                     \
-             __translation__ =                                   \
-               dcgettext__ ((domainname), (msgid), (category));  \
-             __catalog_counter__ = _nl_msg_cat_cntr;             \
-           @}                                                     \
-         result = __translation__;                               \
-       @}                                                         \
-     else                                                        \
-       result = dcgettext__ ((domainname), (msgid), (category)); \
-     result;                                                     \
-    @}))
-#  endif
-@end group
-@end example
-
-The interesting thing here is the @code{__builtin_constant_p} predicate.
-This is evaluated at compile time and so optimization can take place
-immediately.  Here two cases are distinguished: the argument to
-@code{gettext} is not a constant value in which case simply the function
-@code{dcgettext__} is called, the real implementation of the
-@code{dcgettext} function.
-
-If the string argument @emph{is} constant we can reuse the once gained
-translation when the locale selection has not changed.  This is exactly
-what is done here.  The @code{_nl_msg_cat_cntr} variable is defined in
-the @file{loadmsgcat.c} which is available in @file{libintl.a} and is
-changed whenever a new message catalog is loaded.
+For this reason, GNU @code{gettext} caches previous translation results.
+When the same translation is requested twice, with no new message
+catalogs being loaded in between, @code{gettext} will, the second time,
+find the result through a single cache lookup.
 
 @node Comparison, Using libintl.a, gettext, Programmers
 @section Comparing the Two Interfaces
@@ -3480,53 +3941,9 @@ We believe that we can solve all conflicts with this method.  If it is
 difficult one can also consider changing one of the conflicting string a
 little bit.  But it is not impossible to overcome.
 
-@c Should this be here?
-Translator note: It is perhaps appropriate here to tell those English
-speaking programmers that the plural form of a noun cannot be formed by
-appending a single `s'.  Most other languages use different methods.
-Even the above form is not general enough to cope with all languages.
-Rafal Maszkowski <rzm@@mat.uni.torun.pl> reports:
-
-@quotation
-In Polish we use e.g. plik (file) this way:
-@example
-1 plik
-2,3,4 pliki
-5-21 pliko'w
-22-24 pliki
-25-31 pliko'w
-@end example
-and so on (o' means 8859-2 oacute which should be rather okreska,
-similar to aogonek).
-@end quotation
-
-A workable approach might be to consider methods like the one used for
-@code{LC_TIME} in the POSIX.2 standard.  The value of the
-@code{alt_digits} field can be up to 100 strings which represent the
-numbers 1 to 100.  Using this in a situation of an internationalized
-program means that an array of translatable strings should be indexed by
-the number which should represent.  A small example:
-
-@example
-@group
-void
-print_month_info (int month)
-@{
-  const char *month_pos[12] =
-  @{ N_("first"), N_("second"), N_("third"),    N_("fourth"),
-    N_("fifth"), N_("sixth"),  N_("seventh"),  N_("eighth"),
-    N_("ninth"), N_("tenth"),  N_("eleventh"), N_("twelfth") @};
-  printf (_("%s is the %s month\n"), nl_langinfo (MON_1 + month),
-          _(month_pos[month]));
-@}
-@end group
-@end example
-
-@noindent
-It should be obvious that this method is only reasonable for small
-ranges of numbers.
-
-@c catgets allows same original entry to have different translations
+@code{catgets} allows same original entry to have different translations,
+but @code{gettext} has another, scalable approach for solving ambiguities
+of this kind: @xref{Ambiguities}.
 
 @node Using libintl.a, gettext grok, Comparison, Programmers
 @section Using libintl.a in own programs

@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995, 1996, 1997, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -95,11 +95,11 @@ extern char *bind_textdomain_codeset PARAMS ((const char *__domainname,
 # define dgettext(domainname, msgid)					      \
   dcgettext (domainname, msgid, LC_MESSAGES)
 
-# define ngettext(msgid, N)						      \
-    dngettext (NULL, msgid, N)
+# define ngettext(msgid1, Msgid2, N)					      \
+    dngettext (NULL, msgid1, Msgid2, N)
 
-# define dngettext(domainname, msgid, n)				      \
-    dcngettext (domainname, msgid, n, LC_MESSAGES)
+# define dngettext(domainname, msgid1, Msgid2, n)			      \
+    dcngettext (domainname, msgid1, Msgid2, n, LC_MESSAGES)
 
 #endif /* Optimizing. */
 

@@ -1,3 +1,19 @@
+2001-01-01  Bruno Haible  <haible@clisp.cons.org>
+
+	Implement plural form handling.
+	* gettext.texi: Fix menus.
+	(PO Files): Document entries for plural forms.
+	(xgettext Invocation): Extended --keyword argument syntax. More
+	default keywords.
+	(MO Files): Document format of entries for plural forms.
+	(Charset conversion): New node, mostly from glibc-2.2 manual.
+	(Plural forms): Likewise.
+	(GUI program problems): Likewise, without the GCC function macro.
+	(Optimized gettext): Remove section about dcgettext macro. All
+	caching is now done inside the *gettext functions.
+	(Comparison): Move the example about Polish to node "Plural forms".
+	Remove the print_month_info example.
+
 2000-11-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* matrix.texi: Update.

@@ -55,18 +55,26 @@
 extern int errno;
 #endif
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 /* Define the data structure which we need to represent the data to
    be written out.  */
 struct id_str_pair
 {
   char *id;
+  size_t id_len;
+  char *id_plural;
+  size_t id_plural_len;
   char *str;
+  size_t str_len;
 };
 
 /* Contains information about the definition of one translation.  */
-struct msgstr_def
+struct hashtable_entry
 {
+  char *msgid_plural;
   char *msgstr;
+  size_t msgstr_len;
   lex_pos_ty pos;
 };
 
@@ -172,7 +180,9 @@ static void format_constructor PARAMS ((po_ty *__that));
 static void format_directive_domain PARAMS ((po_ty *__pop, char *__name));
 static void format_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					      lex_pos_ty *__msgid_pos,
+					      char *__msgid_plural,
 					      char *__msgstr,
+					      size_t __msgstr_len,
 					      lex_pos_ty *__msgstr_pos));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
 static void format_debrief PARAMS((po_ty *));
@@ -180,7 +190,8 @@ static struct msg_domain *new_domain PARAMS ((const char *name));
 static int compare_id PARAMS ((const void *pval1, const void *pval2));
 static void write_table PARAMS ((FILE *output_file, hash_table *tab));
 static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
-				const char *msgstr,
+				const char *msgid_plural,
+				const char *msgstr, size_t msgstr_len,
 				const lex_pos_ty *msgstr_pos, int is_format));
 static const char *add_mo_suffix PARAMS ((const char *));
 
@@ -454,10 +465,13 @@ format_debrief (that)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
 
-  /* If in verbose mode, test whether header entry was found.  */
+  /* Test whether header entry was found.
+     FIXME: Should do this even if not in verbose mode, because the
+     consequences are not harmless.  But it breaks the test suite.  */
   if (verbose_level > 0 && this->has_header_entry == 0)
-    error (0, 0, _("%s: warning: PO file header missing, fuzzy, or invalid"),
-	   gram_pos.file_name);
+    error (0, 0, _("%s: warning: PO file header missing, fuzzy, or invalid\n\
+%*s  warning: charset conversion will not work"),
+	   gram_pos.file_name, strlen (gram_pos.file_name), "");
 }
 
 
@@ -507,16 +521,18 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 
 /* Process `msgid'/`msgstr' pair from .po file.  */
 static void
-format_directive_message (that, msgid_string, msgid_pos, msgstr_string,
-			  msgstr_pos)
+format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
+			  msgstr_string, msgstr_len, msgstr_pos)
      po_ty *that;
      char *msgid_string;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr_string;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
-  struct msgstr_def *entry;
+  struct hashtable_entry *entry;
 
   if (msgstr_string[0] == '\0' || (!include_all && this->is_fuzzy))
     {
@@ -559,8 +575,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgstr_string,
 	    "PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE",
 	    NULL, "text/plain; charset=CHARSET", "ENCODING"
 	  };
-	  const size_t nfields = (sizeof (required_fields)
-				  / sizeof (required_fields[0]));
+	  const size_t nfields = SIZEOF (required_fields);
 	  int initial = -1;
 	  int cnt;
 
@@ -596,6 +611,87 @@ some header fields still have the initial default value"));
 	    error (0, 0, _("field `%s' still has initial default value"),
 		   required_fields[initial]);
 	}
+
+      /* Verify the validity of CHARSET.  Even if not in verbose mode,
+	 because the consequences are not harmless.  */
+      {
+	const char *charsetstr = strstr (msgstr_string, "charset=");
+
+	if (charsetstr != NULL)
+	  {
+	    /* The list of charsets supported by glibc's iconv() and by
+	       the portable iconv() across platforms.  Taken from
+	       intl/config.charset.  */
+	    static const char *standard_charsets[] =
+	    {
+	      "ASCII", "ANSI_X3.4-1968", "US-ASCII",
+	      "ISO-8859-1", "ISO_8859-1",
+	      "ISO-8859-2", "ISO_8859-2",
+	      "ISO-8859-3", "ISO_8859-3",
+	      "ISO-8859-4", "ISO_8859-4",
+	      "ISO-8859-5", "ISO_8859-5",
+	      "ISO-8859-6", "ISO_8859-6",
+	      "ISO-8859-7", "ISO_8859-7",
+	      "ISO-8859-8", "ISO_8859-8",
+	      "ISO-8859-9", "ISO_8859-9",
+	      "ISO-8859-13", "ISO_8859-13",
+	      "ISO-8859-15", "ISO_8859-15",
+	      "KOI8-R",
+	      "KOI8-U",
+	      "CP850",
+	      "CP866",
+	      "CP874",
+	      "CP932",
+	      "CP949",
+	      "CP950",
+	      "CP1250",
+	      "CP1251",
+	      "CP1252",
+	      "CP1253",
+	      "CP1254",
+	      "CP1255",
+	      "CP1256",
+	      "CP1257",
+	      "GB2312",
+	      "EUC-JP",
+	      "EUC-KR",
+	      "EUC-TW",
+	      "BIG5",
+	      "BIG5HKSCS",
+	      "GBK",
+	      "GB18030",
+	      "SJIS",
+	      "JOHAB",
+	      "TIS-620",
+	      "VISCII",
+	      "UTF-8"
+	    };
+	    size_t len;
+	    char *charset;
+	    size_t i;
+
+	    charsetstr += strlen ("charset=");
+	    len = strcspn (charsetstr, " \t\n");
+	    charset = (char *) alloca (len + 1);
+	    memcpy (charset, charsetstr, len);
+	    charset[len] = '\0';
+
+	    for (i = 0; i < SIZEOF (standard_charsets); i++)
+	      if (strcasecmp (charset, standard_charsets[i]) == 0)
+		break;
+	    if (i == SIZEOF (standard_charsets))
+	      error (0, 0, _("\
+%s: warning: charset \"%s\" is not a portable encoding name\n\
+%*s  warning: charset conversion might not work"),
+		     gram_pos.file_name, charset,
+		     strlen (gram_pos.file_name), "");
+	  }
+	else
+	  error (0, 0, _("\
+%s: warning: charset missing in header\n\
+%*s  warning: charset conversion will not work"),
+		 gram_pos.file_name, strlen (gram_pos.file_name), "");
+      }
     }
   else
     /* We don't count the header entry in the statistic so place the
@@ -607,13 +703,16 @@ some header fields still have the initial default value"));
 
   /* We found a valid pair of msgid/msgstr.
      Construct struct to describe msgstr definition.  */
-  entry = (struct msgstr_def *) xmalloc (sizeof (*entry));
+  entry = (struct hashtable_entry *) xmalloc (sizeof (*entry));
 
+  entry->msgid_plural = msgid_plural;
   entry->msgstr = msgstr_string;
+  entry->msgstr_len = msgstr_len;
   entry->pos = *msgstr_pos;
 
   /* Do some more checks on both strings.  */
-  check_pair (msgid_string, msgid_pos, msgstr_string, msgstr_pos,
+  check_pair (msgid_string, msgid_pos, msgid_plural,
+	      msgstr_string, msgstr_len, msgstr_pos,
 	      do_check && possible_c_format_p (this->is_c_format));
 
   /* Check whether already a domain is specified.  If not use default
@@ -636,7 +735,8 @@ some header fields still have the initial default value"));
 	     definition for reference.  */
 	  find_entry (&current_domain->symbol_tab, msgid_string,
 		      strlen (msgid_string) + 1, (void **) &entry);
-	  if (0 != strcmp(msgstr_string, entry->msgstr))
+	  if (msgstr_len != entry->msgstr_len
+	      || memcmp (msgstr_string, entry->msgstr, msgstr_len) != 0)
 	    {
 	      po_gram_error_at_line (msgid_pos, _("\
 duplicate message definition"));
@@ -739,7 +839,7 @@ write_table (output_file, tab)
   size_t cnt;
   const void *id;
   size_t id_len;
-  struct msgstr_def *entry;
+  struct hashtable_entry *entry;
   struct string_desc sd;
 
   /* Fill the structure describing the header.  */
@@ -769,7 +869,12 @@ write_table (output_file, tab)
        ++cnt)
     {
       msg_arr[cnt].id = (char *) id;
+      msg_arr[cnt].id_len = id_len;
+      msg_arr[cnt].id_plural = entry->msgid_plural;
+      msg_arr[cnt].id_plural_len =
+	(entry->msgid_plural != NULL ? strlen (entry->msgid_plural) + 1 : 0);
       msg_arr[cnt].str = entry->msgstr;
+      msg_arr[cnt].str_len = entry->msgstr_len;
     }
 
   /* Sort the table according to original string.  */
@@ -785,7 +890,8 @@ write_table (output_file, tab)
   /* Write out length and starting offset for all original strings.  */
   for (cnt = 0; cnt < tab->filled; ++cnt)
     {
-      sd.length = strlen (msg_arr[cnt].id);
+      /* Subtract 1 because of the terminating NUL.  */
+      sd.length = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len - 1;
       fwrite (&sd, sizeof (sd), 1, output_file);
       sd.offset += roundup (sd.length + 1, alignment);
     }
@@ -793,7 +899,8 @@ write_table (output_file, tab)
   /* Write out length and starting offset for all translation strings.  */
   for (cnt = 0; cnt < tab->filled; ++cnt)
     {
-      sd.length = strlen (msg_arr[cnt].str);
+      /* Subtract 1 because of the terminating NUL.  */
+      sd.length = msg_arr[cnt].str_len - 1;
       fwrite (&sd, sizeof (sd), 1, output_file);
       sd.offset += roundup (sd.length + 1, alignment);
     }
@@ -840,19 +947,22 @@ write_table (output_file, tab)
   /* Now write the original strings.  */
   for (cnt = 0; cnt < tab->filled; ++cnt)
     {
-      size_t len = strlen (msg_arr[cnt].id);
+      size_t len = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len;
 
-      fwrite (msg_arr[cnt].id, len + 1, 1, output_file);
-      fwrite (&null, 1, roundup (len + 1, alignment) - (len + 1), output_file);
+      fwrite (msg_arr[cnt].id, msg_arr[cnt].id_len, 1, output_file);
+      if (msg_arr[cnt].id_plural_len > 0)
+	fwrite (msg_arr[cnt].id_plural, msg_arr[cnt].id_plural_len, 1,
+		output_file);
+      fwrite (&null, 1, roundup (len, alignment) - len, output_file);
     }
 
   /* Now write the translation strings.  */
   for (cnt = 0; cnt < tab->filled; ++cnt)
     {
-      size_t len = strlen (msg_arr[cnt].str);
+      size_t len = msg_arr[cnt].str_len;
 
-      fwrite (msg_arr[cnt].str, len + 1, 1, output_file);
-      fwrite (&null, 1, roundup (len + 1, alignment) - (len + 1), output_file);
+      fwrite (msg_arr[cnt].str, len, 1, output_file);
+      fwrite (&null, 1, roundup (len, alignment) - len, output_file);
 
       free (msg_arr[cnt].str);
     }
@@ -863,39 +973,93 @@ write_table (output_file, tab)
 
 
 static void
-check_pair (msgid, msgid_pos, msgstr, msgstr_pos, is_format)
+check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
+	    is_format)
      const char *msgid;
      const lex_pos_ty *msgid_pos;
+     const char *msgid_plural;
      const char *msgstr;
+     size_t msgstr_len;
      const lex_pos_ty *msgstr_pos;
      int is_format;
 {
-  size_t msgid_len = strlen (msgid);
-  size_t msgstr_len = strlen (msgstr);
+  int has_newline;
+  unsigned int i;
+  const char *p;
   size_t nidfmts, nstrfmts;
 
   /* If the msgid string is empty we have the special entry reserved for
      information about the translation.  */
-  if (msgid_len == 0)
+  if (msgid[0] == '\0')
     return;
 
-  /* Test 1: check whether both or none of the strings begin with a '\n'.  */
-  if (((msgid[0] == '\n') ^ (msgstr[0] == '\n')) != 0)
+  /* Test 1: check whether all or none of the strings begin with a '\n'.  */
+  has_newline = (msgid[0] == '\n');
+#define TEST_NEWLINE(p) (p[0] == '\n')
+  if (msgid_plural != NULL)
     {
-      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number, _("\
+      if (TEST_NEWLINE(msgid_plural) != has_newline)
+	{
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgid_plural' entries do not both begin with '\\n'"));
+	  exit_status = EXIT_FAILURE;
+	}
+      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
+	if (TEST_NEWLINE(p) != has_newline)
+	  {
+	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			   _("\
+`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), i);
+	    exit_status = EXIT_FAILURE;
+	  }
+    }
+  else
+    {
+      if (TEST_NEWLINE(msgstr) != has_newline)
+	{
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
 `msgid' and `msgstr' entries do not both begin with '\\n'"));
-      exit_status = EXIT_FAILURE;
+	  exit_status = EXIT_FAILURE;
+	}
     }
+#undef TEST_NEWLINE
 
-  /* Test 2: check whether both or none of the strings end with a '\n'.  */
-  if (((msgid[msgid_len - 1] == '\n') ^ (msgstr[msgstr_len - 1] == '\n')) != 0)
+  /* Test 2: check whether all or none of the strings end with a '\n'.  */
+  has_newline = (msgid[strlen (msgid) - 1] == '\n');
+#define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
+  if (msgid_plural != NULL)
     {
-      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number, _("\
-`msgid' and `msgstr' entries do not both end with '\\n'"));
-      exit_status = EXIT_FAILURE;
+      if (TEST_NEWLINE(msgid_plural) != has_newline)
+	{
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgid_plural' entries do not both end with '\\n'"));
+	  exit_status = EXIT_FAILURE;
+	}
+      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
+	if (TEST_NEWLINE(p) != has_newline)
+	  {
+	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			   _("\
+`msgid' and `msgstr[%u]' entries do not both end with '\\n'"), i);
+	    exit_status = EXIT_FAILURE;
+	  }
     }
+  else
+    {
+      if (TEST_NEWLINE(msgstr) != has_newline)
+	{
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgstr' entries do not both end with '\\n'"));
+	  exit_status = EXIT_FAILURE;
+	}
+    }
+#undef TEST_NEWLINE
 
-  if (is_format != 0)
+  if (is_format != 0 && msgid_plural == NULL)
     {
       /* Test 3: check whether both formats strings contain the same
 	 number of format specifications.  */

@@ -66,7 +66,7 @@ static int pass_obsolete_entries = 0;
 /* Prototypes for local functions.  */
 static int lex_getc PARAMS ((void));
 static void lex_ungetc PARAMS ((int __ch));
-static int keyword_p PARAMS ((char *__s));
+static int keyword_p PARAMS ((const char *__s));
 static int control_sequence PARAMS ((void));
 
 
@@ -239,12 +239,14 @@ lex_ungetc (c)
 
 static int
 keyword_p (s)
-     char *s;
+     const char *s;
 {
   if (!strcmp (s, "domain"))
     return DOMAIN;
   if (!strcmp (s, "msgid"))
     return MSGID;
+  if (!strcmp (s, "msgid_plural"))
+    return MSGID_PLURAL;
   if (!strcmp (s, "msgstr"))
     return MSGSTR;
   po_gram_error (_("keyword \"%s\" unknown"), s);
@@ -545,6 +547,12 @@ po_gram_lex ()
 
 	  po_gram_lval.number = atol (buf);
 	  return NUMBER;
+
+	case '[':
+	  return '[';
+
+	case ']':
+	  return ']';
 
 	default:
 	  /* This will cause a syntax error.  */

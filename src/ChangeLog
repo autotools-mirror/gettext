@@ -1,3 +1,73 @@
+2001-01-01  Bruno Haible  <haible@clisp.cons.org>
+
+	Implement plural form handling.
+	* message.h (struct message_variant_ty): Add msgstr_len field.
+	(struct message_ty): Add msgid_plural field.
+	(message_alloc): Take additional msgid_plural argument.
+	(message_variant_append): Take additional msgstr_len argument.
+	* message.c (message_alloc): Take additional msgid_plural argument.
+	(message_free): Free msgid_plural field.
+	(message_variant_append): Take additional msgstr_len argument.
+	(message_copy): Copy msgid_plural as well. Pass msgstr_len.
+	(message_merge): Likewise.
+	(message_print): Print plural entries using a different format.
+	(message_print_obsolete): Likewise.
+	* msgunfmt.c (string32): Return the string's size as well. Verify
+	the string is NUL terminated.
+	(read_mo_file): Split the original string into msgid and msgid_plural.
+	Pass msgstr_len.
+	* po-lex.h (msgstr_def): New definition, taken from msgfmt.c.
+	* po-lex.c (keyword_p): Recognize the msgid_plural keyword.
+	(po_gram_lex): Accept brackets as single-character tokens.
+	* po.h (struct po_method_ty): Method 'directive_message' takes
+	additional arguments 'msgid_plural', 'msgstr_len'.
+	(po_callback_message): Additional arguments 'msgid_plural',
+	'msgstr_len'.
+	* po-hash-gen.y (yyerror): Effectively rename to po_hash_error.
+	* po-gram-gen.y (yyerror): Effectively rename to po_gram_error,
+	thus enabling reporting of syntax errors.
+	(plural_counter): New variable.
+	(%token): Add MSGID_PLURAL, '[', ']' as new tokens.
+	(%union): Add new alternative of type 'struct msgstr_def'.
+	(msgid_pluralform, pluralform, pluralform_list): New productions.
+	(message): Add plural rules.
+	* po.c (po_directive_message): Additional arguments 'msgid_plural',
+	'msgstr_len'.
+	(po_callback_message): Likewise.
+	* msgfmt.c (SIZEOF): New macro.
+	(struct id_str_pair): Add id_len, id_plural, id_plural_len, str_len
+	fields.
+	(struct hashtable_entry): Renamed from struct msgstr_def. Add
+	'msgid_plural', 'msgstr_len' fields.
+	(format_directive_message): Additional arguments 'msgid_plural',
+	'msgstr_len'. Verify the validity of the charset field in the header.
+	Compare msgstr using memcmp, not strcmp.
+	(check_pair): Additional arguments 'msgid_plural', 'msgstr_len'.
+	Apply the tests to msgid_plural and each msgstr[i] string.
+	(format_debrief): Change error message.
+	(write_table): Store msgid_plural and msgstr_len in msg_arr[], then
+	output the strings including embedded NULs.
+	* msgcmp.c (compare_directive_message): Additional arguments
+	'msgid_plural', 'msgstr_len'.
+	* msgcomm.c (extract_directive_message): Additional arguments
+	'msgid_plural', 'msgstr_len'.
+	* msgmerge.c (merge_directive_message): Additional arguments
+	'msgid_plural', 'msgstr_len'.
+	* xget-lex.h (struct xgettext_token_ty): Replace argnum field with
+	argnum1, argnum2.
+	* xget-lex.c (xgettext_lex): Add to default keywords: "ngettext:1,2",
+	"dngettext:2,3", "dcngettext:2,3".
+	(xgettext_lex_keyword): Accept new syntax "id:argnum1,argnum2".
+	* xgettext.c (exclude_directive_message): Additional arguments
+	'msgid_plural', 'msgstr_len'.
+	(remember_a_message): Return the new message.
+	(remember_a_message_plural): New function.
+	(scan_c_file): Extend state machine to allow remembering msgid1 and
+	msgid2 later.
+	(extract_directive_message): Additional arguments 'msgid_plural',
+	'msgstr_len'. Compare msgstr using memcmp, not strcmp.
+	(construct_header): Update.
+
 2000-12-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt.c (format_directive_message): Pass to insert_entry and

@@ -1,5 +1,5 @@
 /* msgunfmt - converts binary .mo files to Uniforum style .po files
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -86,7 +86,8 @@ static void usage PARAMS ((int __status));
 static void error_print PARAMS ((void));
 static nls_uint32 read32 PARAMS ((FILE *__fp, const char *__fn));
 static void seek32 PARAMS ((FILE *__fp, const char *__fn, long __offset));
-static char *string32 PARAMS ((FILE *__fp, const char *__fn, long __offset));
+static char *string32 PARAMS ((FILE *__fp, const char *__fn, long __offset,
+			       size_t *lengthp));
 static message_list_ty *read_mo_file PARAMS ((message_list_ty *__mlp,
 					      const char *__fn));
 
@@ -300,10 +301,11 @@ seek32 (fp, fn, offset)
 
 
 static char *
-string32 (fp, fn, offset)
+string32 (fp, fn, offset, lengthp)
      FILE *fp;
      const char *fn;
      long offset;
+     size_t *lengthp;
 {
   long length;
   char *buffer;
@@ -322,16 +324,21 @@ string32 (fp, fn, offset)
   /* Read in the string.  Complain if there is an error or it comes up
      short.  Add the NUL ourselves.  */
   seek32 (fp, fn, offset);
-  n = fread (buffer, 1, length, fp);
-  if (n != length)
+  n = fread (buffer, 1, length + 1, fp);
+  if (n != length + 1)
     {
       if (ferror (fp))
 	error (EXIT_FAILURE, errno, _("error while reading \"%s\""), fn);
       error (EXIT_FAILURE, 0, _("file \"%s\" truncated"), fn);
     }
-  buffer[length] = '\0';
+  if (buffer[length] != '\0')
+    {
+      error (EXIT_FAILURE, 0,
+	     _("file \"%s\" contains a not NUL terminated string"), fn);
+    }
 
   /* Return the string to the caller.  */
+  *lengthp = length + 1;
   return buffer;
 }
 
@@ -391,16 +398,22 @@ read_mo_file (mlp, fn)
       static lex_pos_ty pos = { __FILE__, __LINE__ };
       message_ty *mp;
       char *msgid;
+      size_t msgid_len;
       char *msgstr;
+      size_t msgstr_len;
 
       /* Read the msgid.  */
-      msgid = string32 (fp, fn, header.orig_tab_offset + j * 8);
+      msgid = string32 (fp, fn, header.orig_tab_offset + j * 8, &msgid_len);
 
       /* Read the msgstr.  */
-      msgstr = string32 (fp, fn, header.trans_tab_offset + j * 8);
+      msgstr = string32 (fp, fn, header.trans_tab_offset + j * 8, &msgstr_len);
 
-      mp = message_alloc (msgid);
-      message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, &pos);
+      mp = message_alloc (msgid,
+			  (strlen (msgid) + 1 < msgid_len
+			   ? msgid + strlen (msgid) + 1
+			   : NULL));
+      message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_len,
+			      &pos);
       message_list_append (mlp, mp);
     }
 

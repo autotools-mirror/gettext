@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -40,6 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define yymaxdepth po_hash_maxdepth
 #define yyparse po_hash_parse
 #define yylex   po_hash_lex
+#define yyerror po_hash_error
 #define yylval  po_hash_lval
 #define yychar  po_hash_char
 #define yydebug po_hash_debug

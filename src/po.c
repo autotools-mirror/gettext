@@ -41,7 +41,8 @@ static void po_parse_debrief PARAMS ((po_ty *__pop));
 static void po_directive_domain PARAMS ((po_ty *__pop, char *__name));
 static void po_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					  lex_pos_ty *__msgid_pos,
-					  char *__msgstr,
+					  char *__msgid_plural,
+					  char *__msgstr, size_t __msgstr_len,
 					  lex_pos_ty *__msgstr_pos));
 static void po_comment PARAMS ((po_ty *__pop, const char *__s));
 static void po_comment_dot PARAMS ((po_ty *__pop, const char *__s));
@@ -138,27 +139,35 @@ po_callback_domain (name)
 
 
 static void
-po_directive_message (pop, msgid, msgid_pos, msgstr, msgstr_pos)
+po_directive_message (pop, msgid, msgid_pos, msgid_plural,
+		      msgstr, msgstr_len, msgstr_pos)
      po_ty *pop;
      char *msgid;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   if (pop->method->directive_message)
-    pop->method->directive_message (pop, msgid, msgid_pos, msgstr, msgstr_pos);
+    pop->method->directive_message (pop, msgid, msgid_pos, msgid_plural,
+				    msgstr, msgstr_len, msgstr_pos);
 }
 
 
 void
-po_callback_message (msgid, msgid_pos, msgstr, msgstr_pos)
+po_callback_message (msgid, msgid_pos, msgid_plural,
+		     msgstr, msgstr_len, msgstr_pos)
      char *msgid;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   /* assert(callback_arg); */
-  po_directive_message (callback_arg, msgid, msgid_pos, msgstr, msgstr_pos);
+  po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
+			msgstr, msgstr_len, msgstr_pos);
 }
 
 

@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -112,17 +112,25 @@ extern char *dcgettext__ PARAMS ((const char *__domainname,
    number N.  */
 extern char *ngettext PARAMS ((const char *__msgid1, const char *__msgid2,
 			       unsigned long int __n));
+extern char *ngettext__ PARAMS ((const char *__msgid1, const char *__msgid2,
+				 unsigned long int __n));
 
 /* Similar to `dgettext' but select the plural form corresponding to the
    number N.  */
 extern char *dngettext PARAMS ((const char *__domainname, const char *__msgid1,
 				const char *__msgid2, unsigned long int __n));
+extern char *dngettext__ PARAMS ((const char *__domainname,
+				  const char *__msgid1, const char *__msgid2,
+				  unsigned long int __n));
 
 /* Similar to `dcgettext' but select the plural form corresponding to the
    number N.  */
 extern char *dcngettext PARAMS ((const char *__domainname, const char *__msgid1,
 				 const char *__msgid2, unsigned long int __n,
 				 int __category));
+extern char *dcngettext__ PARAMS ((const char *__domainname,
+				   const char *__msgid1, const char *__msgid2,
+				   unsigned long int __n, int __category));
 
 
 /* Set the current default message catalog to DOMAINNAME.
@@ -158,11 +166,11 @@ extern char *bind_textdomain_codeset__ PARAMS ((const char *__domainname,
 #  define dgettext(Domainname, Msgid)					      \
      dcgettext (Domainname, Msgid, LC_MESSAGES)
 
-#  define ngettext(Msgid, N)						      \
-     dngettext (NULL, Msgid, N)
+#  define ngettext(Msgid1, Msgid2, N)					      \
+     dngettext (NULL, Msgid1, Msgid2, N)
 
-#  define dngettext(Domainname, Msgid, N)				      \
-     dcngettext (Domainname, Msgid, N, LC_MESSAGES)
+#  define dngettext(Domainname, Msgid1, Msgid2, N)			      \
+     dcngettext (Domainname, Msgid1, Msgid2, N, LC_MESSAGES)
 
 # endif
 

@@ -163,6 +163,7 @@ _nl_load_domain (domain_file)
   int use_mmap = 0;
   struct loaded_domain *domain;
   char *nullentry;
+  size_t nullentrylen;
 
   domain_file->decided = 1;
   domain_file->data = NULL;
@@ -306,7 +307,7 @@ _nl_load_domain (domain_file)
 # endif
 #endif
   domain->conv_tab = NULL;
-  nullentry = _nl_find_msg (domain_file, "", 0);
+  nullentry = _nl_find_msg (domain_file, "", &nullentrylen);
   if (nullentry != NULL)
     {
 #if defined _LIBC || HAVE_ICONV

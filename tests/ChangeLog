@@ -1,3 +1,14 @@
+2001-01-01  Bruno Haible  <haible@clisp.cons.org>
+
+	Implement plural form handling.
+	* plural-1: New file.
+	* plural-1-prg.c: New file.
+	* Makefile.am (TESTS): Add plural-1.
+	(INCLUDES, EXTRA_PROGRAMS, cake_SOURCES, cake_LDADD, CLEANFILES): New
+	macros.
+	(all-local): New target.
+	* xg-test1.ok.po: Regenerated.
+
 1997-08-01 15:46  Ulrich Drepper  <drepper@cygnus.com>
 
 	* Makefile.am (AUTOMAKE_OPTIONS): Require version 1.2.

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -44,6 +44,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define yymaxdepth po_gram_maxdepth
 #define yyparse po_gram_parse
 #define yylex   po_gram_lex
+#define yyerror po_gram_error
 #define yylval  po_gram_lval
 #define yychar  po_gram_char
 #define yydebug po_gram_debug
@@ -78,14 +79,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define yygindex po_gram_yygindex
 #define yytable  po_gram_yytable
 #define yycheck  po_gram_yycheck
+
+static long plural_counter;
 %}
 
 %token	COMMENT
 %token	DOMAIN
 %token	JUNK
 %token	MSGID
+%token	MSGID_PLURAL
 %token	MSGSTR
 %token	NAME
+%token	'[' ']'
 %token	NUMBER
 %token	STRING
 
@@ -94,11 +99,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
   char *string;
   long number;
   lex_pos_ty pos;
+  struct msgstr_def rhs;
 }
 
-%type <string> STRING COMMENT string_list
+%type <string> STRING COMMENT string_list msgid_pluralform
 %type <number> NUMBER
 %type <pos> msgid msgstr
+%type <rhs> pluralform pluralform_list
 
 %right MSGSTR
 
@@ -122,12 +129,72 @@ domain
 message
 	: msgid string_list msgstr string_list
 		{
-		  po_callback_message ($2, &$1, $4, &$3);
+		  po_callback_message ($2, &$1, NULL,
+				       $4, strlen ($4) + 1, &$3);
+		}
+	| msgid string_list msgid_pluralform pluralform_list
+		{
+		  po_callback_message ($2, &$1, $3,
+				       $4.msgstr, $4.msgstr_len, &$4.pos);
+		}
+	| msgid string_list msgid_pluralform
+		{
+		  po_gram_error_at_line (&$1, _("missing `msgstr[]' section"));
+		  free ($2);
+		  free ($3);
+		}
+	| msgid string_list pluralform_list
+		{
+		  po_gram_error_at_line (&$1, _("missing `msgid_plural' section"));
+		  free ($2);
+		  free ($3.msgstr);
 		}
 	| msgid string_list
 		{
 		  po_gram_error_at_line (&$1, _("missing `msgstr' section"));
 		  free ($2);
+		}
+	;
+
+msgid_pluralform
+	: MSGID_PLURAL string_list
+		{
+		  plural_counter = 0;
+		  $$ = $2;
+		}
+	;
+
+pluralform_list
+	: pluralform
+		{
+		  $$ = $1;
+		}
+	| pluralform_list pluralform
+		{
+		  $$.msgstr = (char *) xmalloc ($1.msgstr_len + $2.msgstr_len);
+		  memcpy ($$.msgstr, $1.msgstr, $1.msgstr_len);
+		  memcpy ($$.msgstr + $1.msgstr_len, $2.msgstr, $2.msgstr_len);
+		  $$.msgstr_len = $1.msgstr_len + $2.msgstr_len;
+		  $$.pos = $1.pos;
+		  free ($1.msgstr);
+		  free ($2.msgstr);
+		}
+	;
+
+pluralform
+	: msgstr '[' NUMBER ']' string_list
+		{
+		  if ($3 != plural_counter)
+		    {
+		      if (plural_counter == 0)
+			po_gram_error_at_line (&$1, _("first plural form has nonzero index"));
+		      else
+			po_gram_error_at_line (&$1, _("plural form has wrong index"));
+		    }
+		  plural_counter++;
+		  $$.msgstr = $5;
+		  $$.msgstr_len = strlen ($5) + 1;
+		  $$.pos = $1;
 		}
 	;
 

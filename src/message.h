@@ -63,8 +63,11 @@ typedef struct message_variant_ty message_variant_ty;
 struct message_variant_ty
 {
   const char *domain;
+
   lex_pos_ty pos;
+
   const char *msgstr;
+  size_t msgstr_len;
 };
 
 typedef struct message_ty message_ty;
@@ -92,6 +95,9 @@ struct message_ty
   /* The msgid string.  */
   const char *msgid;
 
+  /* The msgid's plural, if present.  */
+  const char *msgid_plural;
+
   /* The msgstr strings, one for each observed domain in the file.  */
   size_t variant_count;
   message_variant_ty *variant;
@@ -105,13 +111,13 @@ struct message_ty
   int obsolete;
 };
 
-message_ty *message_alloc PARAMS ((char *msgid));
+message_ty *message_alloc PARAMS ((char *msgid, const char *msgid_plural));
 void message_free PARAMS ((message_ty *));
 
 message_variant_ty *message_variant_search PARAMS ((message_ty *mp,
 						    const char *domain));
 void message_variant_append PARAMS ((message_ty *mp, const char *domain,
-				     const char *msgstr,
+				     const char *msgstr, size_t msgstr_len,
 				     const lex_pos_ty *pp));
 void message_comment_append PARAMS ((message_ty *, const char *));
 void message_comment_dot_append PARAMS ((message_ty *, const char *));

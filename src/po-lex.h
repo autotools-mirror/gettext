@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -121,5 +121,13 @@ extern void po_gram_error_at_line PARAMS ((const lex_pos_ty *__pos,
 					   const char *__fmt, ...));
 #endif
 
+
+/* Contains information about the definition of one translation.  */
+struct msgstr_def
+{
+  char *msgstr;
+  size_t msgstr_len;
+  lex_pos_ty pos;
+};
 
 #endif

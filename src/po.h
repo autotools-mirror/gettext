@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -55,8 +55,10 @@ struct po_method_ty
   void (*directive_domain) PARAMS ((struct po_ty *__pop, char *__name));
 
   /* what to do with a message directive */
-  void (*directive_message) PARAMS ((struct po_ty *__pop, char *__msgid,
-				     lex_pos_ty *__msgid_pos, char *__msgstr,
+  void (*directive_message) PARAMS ((struct po_ty *__pop,
+				     char *__msgid, lex_pos_ty *__msgid_pos,
+				     char *__msgid_plural,
+				     char *__msgstr, size_t __msgstr_len,
 				     lex_pos_ty *__msgstr_pos));
 
   /* This method is invoked before the parse, but after the file is
@@ -130,7 +132,8 @@ extern void po_free PARAMS ((po_ty *__pop));
 extern void po_callback_domain PARAMS ((char *__name));
 extern void po_callback_message PARAMS ((char *__msgid,
 					 lex_pos_ty *__msgid_pos,
-					 char *__msgstr,
+					 char *__msgid_plural,
+					 char *__msgstr, size_t __msgstr_len,
 					 lex_pos_ty *__msgstr_pos));
 extern void po_callback_comment PARAMS ((const char *__s));
 extern void po_callback_comment_dot PARAMS ((const char *__s));

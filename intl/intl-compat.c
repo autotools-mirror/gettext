@@ -1,6 +1,6 @@
 /* intl-compat.c - Stub functions to call gettext functions from GNU gettext
    Library.
-   Copyright (C) 1995, 2000 Software Foundation, Inc.
+   Copyright (C) 1995, 2000, 2001 Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,6 +28,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #undef gettext
 #undef dgettext
 #undef dcgettext
+#undef ngettext
+#undef dngettext
+#undef dcngettext
 #undef textdomain
 #undef bindtextdomain
 #undef bind_textdomain_codeset
@@ -75,6 +78,39 @@ gettext (msgid)
      const char *msgid;
 {
   return gettext__ (msgid);
+}
+
+
+char *
+dcngettext (domainname, msgid1, msgid2, n, category)
+     const char *domainname;
+     const char *msgid1;
+     const char *msgid2;
+     unsigned long int n;
+     int category;
+{
+  return dcngettext__ (domainname, msgid1, msgid2, n, category);
+}
+
+
+char *
+dngettext (domainname, msgid1, msgid2, n)
+     const char *domainname;
+     const char *msgid1;
+     const char *msgid2;
+     unsigned long int n;
+{
+  return dngettext__ (domainname, msgid1, msgid2, n);
+}
+
+
+char *
+ngettext (msgid1, msgid2, n)
+     const char *msgid1;
+     const char *msgid2;
+     unsigned long int n;
+{
+  return ngettext__ (msgid1, msgid2, n);
 }
 
 

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -37,8 +37,9 @@ struct xgettext_token_ty
 {
   xgettext_token_type_ty type;
 
-  /* This field is used only for xgettext_token_type_keyword.  */
-  int argnum;
+  /* These fields are used only for xgettext_token_type_keyword.  */
+  int argnum1;
+  int argnum2;
 
   /* This field is used only for xgettext_token_type_string_literal.  */
   char *string;

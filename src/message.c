@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -186,13 +186,15 @@ make_c_width_description_string (do_wrap)
 
 
 message_ty *
-message_alloc (msgid)
+message_alloc (msgid, msgid_plural)
      char *msgid;
+     const char *msgid_plural;
 {
   message_ty *mp;
 
   mp = xmalloc (sizeof (message_ty));
   mp->msgid = msgid;
+  mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
   mp->comment = NULL;
   mp->comment_dot = NULL;
   mp->filepos_count = 0;
@@ -219,6 +221,8 @@ message_free (mp)
   if (mp->comment_dot != NULL)
     string_list_free (mp->comment_dot);
   free ((char *) mp->msgid);
+  if (mp->msgid_plural != NULL)
+    free ((char *) mp->msgid_plural);
   for (j = 0; j < mp->variant_count; ++j)
     free ((char *) mp->variant[j].msgstr);
   if (mp->variant != NULL)
@@ -250,10 +254,11 @@ message_variant_search (mp, domain)
 
 
 void
-message_variant_append (mp, domain, msgstr, pp)
+message_variant_append (mp, domain, msgstr, msgstr_len, pp)
      message_ty *mp;
      const char *domain;
      const char *msgstr;
+     size_t msgstr_len;
      const lex_pos_ty *pp;
 {
   size_t nbytes;
@@ -264,6 +269,7 @@ message_variant_append (mp, domain, msgstr, pp)
   mvp = &mp->variant[mp->variant_count++];
   mvp->domain = domain;
   mvp->msgstr = msgstr;
+  mvp->msgstr_len = msgstr_len;
   mvp->pos = *pp;
 }
 
@@ -297,12 +303,13 @@ message_copy (mp)
   message_ty *result;
   size_t j;
 
-  result = message_alloc (xstrdup (mp->msgid));
+  result = message_alloc (xstrdup (mp->msgid), mp->msgid_plural);
 
   for (j = 0; j < mp->variant_count; ++j)
     {
       message_variant_ty *mvp = &mp->variant[j];
-      message_variant_append (result, mvp->domain, mvp->msgstr, &mvp->pos);
+      message_variant_append (result, mvp->domain, mvp->msgstr, mvp->msgstr_len,
+			      &mvp->pos);
     }
   if (mp->comment)
     {
@@ -339,7 +346,7 @@ message_merge (def, ref)
   /* Take the msgid from the reference.  When fuzzy matches are made,
      the definition will not be unique, but the reference will be -
      usually because it has a typo.  */
-  result = message_alloc (xstrdup (ref->msgid));
+  result = message_alloc (xstrdup (ref->msgid), ref->msgid_plural);
 
   /* If msgid is the header entry (i.e., "") we find the
      POT-Creation-Date line in the reference.  */
@@ -503,10 +510,12 @@ message_merge (def, ref)
 	  if (header_fields[UNKNOWN].string != NULL)
 	    stpcpy (newp, header_fields[UNKNOWN].string);
 
-	  message_variant_append (result, mvp->domain, cp, &mvp->pos);
+	  message_variant_append (result, mvp->domain, cp, strlen (cp) + 1,
+				  &mvp->pos);
 	}
       else
-	message_variant_append (result, mvp->domain, mvp->msgstr, &mvp->pos);
+	message_variant_append (result, mvp->domain, mvp->msgstr,
+				mvp->msgstr_len, &mvp->pos);
     }
 
   /* Take the comments from the definition file.  There will be none at
@@ -1203,7 +1212,37 @@ message_print (mp, fp, domain, blank_line, debug)
      are as readable as possible.  If there is no recorded msgstr for
      this domain, emit an empty string.  */
   wrap (fp, NULL, "msgid", mp->msgid, mp->do_wrap);
-  wrap (fp, NULL, "msgstr", mvp ? mvp->msgstr : "", mp->do_wrap);
+  if (mp->msgid_plural != NULL)
+    wrap (fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap);
+
+  if (mp->msgid_plural == NULL)
+    wrap (fp, NULL, "msgstr", mvp ? mvp->msgstr : "", mp->do_wrap);
+  else
+    {
+      char prefix_buf[20];
+      unsigned int i;
+
+      if (mvp)
+	{
+	  const char *p;
+
+	  for (p = mvp->msgstr, i = 0;
+	       p < mvp->msgstr + mvp->msgstr_len;
+	       p += strlen (p) + 1, i++)
+	    {
+	      sprintf (prefix_buf, "msgstr[%u]", i);
+	      wrap (fp, NULL, prefix_buf, p, mp->do_wrap);
+	    }
+	}
+      else
+	{
+	  for (i = 0; i < 2; i++)
+	    {
+	      sprintf (prefix_buf, "msgstr[%u]", i);
+	      wrap (fp, NULL, prefix_buf, "", mp->do_wrap);
+	    }
+	}
+    }
 }
 
 
@@ -1289,7 +1328,25 @@ message_print_obsolete (mp, fp, domain, blank_line)
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
   wrap (fp, "#~ ", "msgid", mp->msgid, mp->do_wrap);
-  wrap (fp, "#~ ", "msgstr", mvp->msgstr, mp->do_wrap);
+  if (mp->msgid_plural != NULL)
+    wrap (fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap);
+
+  if (mp->msgid_plural == NULL)
+    wrap (fp, "#~ ", "msgstr", mvp->msgstr, mp->do_wrap);
+  else
+    {
+      char prefix_buf[20];
+      unsigned int i;
+      const char *p;
+
+      for (p = mvp->msgstr, i = 0;
+	   p < mvp->msgstr + mvp->msgstr_len;
+	   p += strlen (p) + 1, i++)
+	{
+	  sprintf (prefix_buf, "msgstr[%u]", i);
+	  wrap (fp, "#~ ", prefix_buf, p, mp->do_wrap);
+	}
+    }
 }
 
 

@@ -1204,6 +1204,9 @@ xgettext_lex (tp)
 	      xgettext_lex_keyword ("gettext");
 	      xgettext_lex_keyword ("dgettext:2");
 	      xgettext_lex_keyword ("dcgettext:2");
+	      xgettext_lex_keyword ("ngettext:1,2");
+	      xgettext_lex_keyword ("dngettext:2,3");
+	      xgettext_lex_keyword ("dcngettext:2,3");
 	      xgettext_lex_keyword ("gettext_noop");
 	      default_keywords = 0;
 	    }
@@ -1213,7 +1216,8 @@ xgettext_lex (tp)
 	      == 0)
 	    {
 	      tp->type = xgettext_token_type_keyword;
-	      tp->argnum = (int) (long) keyword_value;
+	      tp->argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
+	      tp->argnum2 = (int) (long) keyword_value >> 10;
 	      tp->line_number = token.line_number;
 	      tp->file_name = logical_file_name;
 	    }
@@ -1267,9 +1271,10 @@ xgettext_lex_keyword (name)
     default_keywords = 0;
   else
     {
-      int argnum;
+      int argnum1;
+      int argnum2;
       size_t len;
-      const char *sp;
+      char *sp;
 
       if (keywords.table == NULL)
 	init_hash (&keywords, 100);
@@ -1287,16 +1292,26 @@ xgettext_lex_keyword (name)
 	  name_copy[len] = '\0';
 	  name = name_copy;
 
-	  argnum = atoi (sp + 1);
+	  sp++;
+	  argnum1 = strtol (sp, &sp, 10);
+	  if (*sp == ',')
+	    {
+	      sp++;
+	      argnum2 = strtol (sp, &sp, 10);
+	    }
+	  else
+	    argnum2 = 0;
 	}
       else
 	{
 	  len = strlen (name);
 
-	  argnum = 1;
+	  argnum1 = 1;
+	  argnum2 = 0;
 	}
 
-      insert_entry (&keywords, name, len + 1, (void *) (long) argnum);
+      insert_entry (&keywords, name, len + 1,
+		    (void *) (long) (argnum1 + (argnum2 << 10)));
     }
 }
 

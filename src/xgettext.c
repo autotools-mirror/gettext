@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -164,18 +164,24 @@ static string_list_ty *read_name_from_file PARAMS ((const char *__file_name));
 static void exclude_directive_domain PARAMS ((po_ty *__pop, char *__name));
 static void exclude_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					       lex_pos_ty *__msgid_pos,
+					       char *__msgid_plural,
 					       char *__msgstr,
+					       size_t __msgstr_len,
 					       lex_pos_ty *__msgstr_pos));
 static void read_exclusion_file PARAMS ((char *__file_name));
-static void remember_a_message PARAMS ((message_list_ty *__mlp,
-					xgettext_token_ty *__tp));
+static message_ty *remember_a_message PARAMS ((message_list_ty *__mlp,
+					       xgettext_token_ty *__tp));
+static void remember_a_message_plural PARAMS ((message_ty *__mp,
+					       xgettext_token_ty *__tp));
 static void scan_c_file PARAMS ((const char *__file_name,
 				 message_list_ty *__mlp));
 static void extract_constructor PARAMS ((po_ty *__that));
 static void extract_directive_domain PARAMS ((po_ty *__that, char *__name));
 static void extract_directive_message PARAMS ((po_ty *__that, char *__msgid,
 					       lex_pos_ty *__msgid_pos,
+					       char *__msgid_plural,
 					       char *__msgstr,
+					       size_t __msgstr_len,
 					       lex_pos_ty *__msgstr_pos));
 static void extract_parse_brief PARAMS ((po_ty *__that));
 static void extract_comment PARAMS ((po_ty *__that, const char *__s));
@@ -666,11 +672,14 @@ exclude_directive_domain (pop, name)
 
 
 static void
-exclude_directive_message (pop, msgid, msgid_pos, msgstr, msgstr_pos)
+exclude_directive_message (pop, msgid, msgid_pos, msgid_plural,
+			   msgstr, msgstr_len, msgstr_pos)
      po_ty *pop;
      char *msgid;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   message_ty *mp;
@@ -683,7 +692,7 @@ exclude_directive_message (pop, msgid, msgid_pos, msgstr, msgstr_pos)
     free (msgid);
   else
     {
-      mp = message_alloc (msgid);
+      mp = message_alloc (msgid, msgid_plural);
       /* Do not free msgid.  */
       message_list_append (exclude, mp);
     }
@@ -728,7 +737,7 @@ read_exclusion_file (file_name)
 }
 
 
-static void
+static message_ty *
 remember_a_message (mlp, tp)
      message_list_ty *mlp;
      xgettext_token_ty *tp;
@@ -748,7 +757,7 @@ remember_a_message (mlp, tp)
 	 message gets the correct comments.  */
       xgettext_lex_comment_reset ();
 
-      return;
+      return NULL;
     }
 
   /* See if we have seen this message before.  */
@@ -764,7 +773,7 @@ remember_a_message (mlp, tp)
       static lex_pos_ty pos = { __FILE__, __LINE__ };
 
       /* Allocate a new message and append the message to the list.  */
-      mp = message_alloc (msgid);
+      mp = message_alloc (msgid, NULL);
       /* Do not free msgid.  */
       message_list_append (mlp, mp);
 
@@ -774,13 +783,14 @@ remember_a_message (mlp, tp)
 	{
 	  msgstr = (char *) xmalloc (strlen (msgstr_prefix)
 				     + strlen (msgid)
-				     + strlen(msgstr_suffix) + 1);
+				     + strlen (msgstr_suffix) + 1);
 	  stpcpy (stpcpy (stpcpy (msgstr, msgstr_prefix), msgid),
 		  msgstr_suffix);
 	}
       else
 	msgstr = "";
-      message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, &pos);
+      message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr,
+			      strlen (msgstr) + 1, &pos);
     }
 
   /* Ask the lexer for the comments it has seen.  Only do this for the
@@ -829,6 +839,55 @@ remember_a_message (mlp, tp)
   /* Tell the lexer to reset its comment buffer, so that the next
      message gets the correct comments.  */
   xgettext_lex_comment_reset ();
+
+  return mp;
+}
+
+
+static void
+remember_a_message_plural (mp, tp)
+     message_ty *mp;
+     xgettext_token_ty *tp;
+{
+  char *msgid_plural;
+  message_variant_ty *mvp;
+  char *msgstr1;
+  size_t msgstr1_len;
+  char *msgstr;
+
+  msgid_plural = tp->string;
+
+  /* See if the message is already a plural message.  */
+  if (mp->msgid_plural == NULL)
+    {
+      mp->msgid_plural = msgid_plural;
+
+      /* Construct the first plural form from the prefix and suffix,
+	 otherwise use the empty string.  The translator will have to
+	 provide additional plural forms.  */
+      mvp = message_variant_search (mp, MESSAGE_DOMAIN_DEFAULT);
+      if (mvp != NULL)
+	{
+	  if (msgstr_prefix)
+	    {
+	      msgstr1 = (char *) xmalloc (strlen (msgstr_prefix)
+					  + strlen (msgid_plural)
+					  + strlen (msgstr_suffix) + 1);
+	      stpcpy (stpcpy (stpcpy (msgstr1, msgstr_prefix), msgid_plural),
+		      msgstr_suffix);
+	    }
+	  else
+	    msgstr1 = "";
+	  msgstr1_len = strlen (msgstr1) + 1;
+	  msgstr = (char *) xmalloc (mvp->msgstr_len + msgstr1_len);
+	  memcpy (msgstr, mvp->msgstr, mvp->msgstr_len);
+	  memcpy (msgstr + mvp->msgstr_len, msgstr1, msgstr1_len);
+	  mvp->msgstr = msgstr;
+	  mvp->msgstr_len = mvp->msgstr_len + msgstr1_len;
+	}
+    }
+  else
+    free (msgid_plural);
 }
 
 
@@ -839,13 +898,26 @@ scan_c_file(filename, mlp)
 {
   int state;
   int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
+  int plural_commas = 0;	/* defined only when in states 1 and 2 */
+  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
   int paren_nesting = 0;	/* defined only when in state 2 */
 
   /* The file is broken into tokens.  Scan the token stream, looking for
      a keyword, followed by a left paren, followed by a string.  When we
      see this sequence, we have something to remember.  We assume we are
      looking at a valid C or C++ program, and leave the complaints about
-     the grammar to the compiler.  */
+     the grammar to the compiler.
+
+     Normal handling: Look for
+       [A] keyword [B] ( ... [C] ... msgid ... ) [E]
+     Plural handling: Look for
+       [A] keyword [B] ( ... [C] ... msgid ... [D] ... msgid_plural ... ) [E]
+     At point [A]: state == 0.
+     At point [B]: state == 1, commas_to_skip set, plural_mp == NULL.
+     At point [C]: state == 2, commas_to_skip set, plural_mp == NULL.
+     At point [D]: state == 2, commas_to_skip set again, plural_mp != NULL.
+     At point [E]: state == 0.  */
+
   xgettext_lex_open (filename);
 
   /* Start state is 0.  */
@@ -881,7 +953,10 @@ scan_c_file(filename, mlp)
 		    _("%s:%d: warning: keyword between outer keyword and its arg"),
 		    token.file_name, token.line_number);
 	   }
-	 commas_to_skip = token.argnum - 1;
+	 commas_to_skip = token.argnum1 - 1;
+	 plural_commas = (token.argnum2 > token.argnum1
+			  ? token.argnum2 - token.argnum1 : 0);
+	 plural_mp = NULL;
 	 state = 1;
 	 continue;
 
@@ -916,8 +991,29 @@ scan_c_file(filename, mlp)
 	 continue;
 
        case xgettext_token_type_string_literal:
-	 if (extract_all || (state == 2 && commas_to_skip == 0))
+	 if (extract_all)
 	   remember_a_message (mlp, &token);
+	 else if (state == 2 && commas_to_skip == 0)
+	   {
+	     if (plural_mp == NULL)
+	       {
+		 /* Seen an msgid.  */
+		 if (plural_commas == 0)
+		   remember_a_message (mlp, &token);
+		 else
+		   {
+		     plural_mp = remember_a_message (mlp, &token);
+		     commas_to_skip = plural_commas;
+		     plural_commas = 0;
+		   }
+	       }
+	     else
+	       {
+		 /* Seen an msgid_plural.  */
+		 remember_a_message_plural (plural_mp, &token);
+		 plural_mp = NULL;
+	       }
+	   }
 	 else
 	   {
 	     free (token.string);
@@ -994,11 +1090,14 @@ extract_directive_domain (that, name)
 
 
 static void
-extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
+extract_directive_message (that, msgid, msgid_pos, msgid_plural,
+			   msgstr, msgstr_len, msgstr_pos)
      po_ty *that;
      char *msgid;
      lex_pos_ty *msgid_pos;
+     char *msgid_plural;
      char *msgstr;
+     size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
 {
   extract_class_ty *this = (extract_class_ty *)that;
@@ -1039,7 +1138,7 @@ extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
     free (msgid);
   else
     {
-      mp = message_alloc (msgid);
+      mp = message_alloc (msgid, msgid_plural);
       message_list_append (this->mlp, mp);
     }
 
@@ -1080,7 +1179,9 @@ extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
 
   /* See if this domain has been seen for this message ID.  */
   mvp = message_variant_search (mp, MESSAGE_DOMAIN_DEFAULT);
-  if (mvp != NULL && strcmp (msgstr, mvp->msgstr) != 0)
+  if (mvp != NULL
+      && (msgstr_len != mvp->msgstr_len
+	  || memcmp (msgstr, mvp->msgstr, msgstr_len) != 0))
     {
       po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
       po_gram_error_at_line (&mvp->pos, _("\
@@ -1088,7 +1189,8 @@ extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
       free (msgstr);
     }
   else
-    message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_pos);
+    message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_len,
+			    msgstr_pos);
 }
 
 
@@ -1236,7 +1338,7 @@ construct_header ()
   char tz_sign;
   long tz_min;
 
-  mp = message_alloc ("");
+  mp = message_alloc ("", NULL);
 
   if (foreign_user)
     message_comment_append (mp, "\
@@ -1279,7 +1381,8 @@ Content-Transfer-Encoding: ENCODING\n",
   if (msgstr == NULL)
     error (EXIT_FAILURE, errno, _("while preparing output"));
 
-  message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, &pos);
+  message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr,
+			  strlen (msgstr) + 1, &pos);
 
   return mp;
 }

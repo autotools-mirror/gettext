@@ -1,5 +1,5 @@
 ## Makefile for the check subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 TESTS = gettext-1 gettext-2 msgcmp-1 msgcmp-2 msgfmt-1 msgfmt-2 msgfmt-3 \
 	msgfmt-4 msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 \
 	msgunfmt-1 xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 \
-	xgettext-6 xgettext-7 xgettext-8 xgettext-9
+	xgettext-6 xgettext-7 xgettext-8 xgettext-9 plural-1
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 
@@ -34,10 +34,19 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=../src:$$PATH \
 		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
 		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` \
-		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` $(SHELL)
+		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
+		    $(SHELL)
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 		$(top_srcdir)/src/gettextp.c
 	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) -k_ --omit-header \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/gettextp.c
+
+# An auxiliary program used by the plural-1 test.
+INCLUDES = -I${top_srcdir}/intl
+EXTRA_PROGRAMS = cake
+cake_SOURCES = plural-1-prg.c
+cake_LDADD = ../intl/libintl.a
+all-local: cake
+CLEANFILES = cake
