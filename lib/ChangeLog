@@ -1,3 +1,13 @@
+2002-03-09  Bruno Haible  <bruno@clisp.org>
+
+	Portability to AIX 4.3.3.
+	* stpncpy.h (gnu_stpncpy): Renamed from stpncpy.
+	(stpncpy): Define as an alias.
+	* stpncpy.c: Compile nothing on glibc systems is set. Otherwise name
+	the function gnu_stpncpy.
+	* Makefile.am (LIBADD_SOURCE): Remove stpncpy.h, stpncpy.c.
+	(libgettextlib_la_SOURCES): Add stpncpy.h, stpncpy.c.
+
 2002-03-04  Bruno Haible  <bruno@clisp.org>
 
 	Portability to AIX 4.3.3.

@@ -1,5 +1,5 @@
 /* String copying.
-   Copyright (C) 1995, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,16 +26,14 @@
 # endif
 #endif
 
-#if HAVE_STPNCPY
-
-/* Get stpncpy() declaration.  */
 #include <string.h>
 
-#else
+#ifndef __GNU_LIBRARY__
 
-#include <stddef.h>
-
-extern char *stpncpy PARAMS ((char *__dst, const char *__src, size_t __n));
+/* When not using the GNU libc we use the stpncpy implementation we
+   provide here.  */
+extern char *gnu_stpncpy PARAMS ((char *__dst, const char *__src, size_t __n));
+#define stpncpy(Dst, Src, N) gnu_stpncpy (Dst, Src, N)
 
 #endif
 

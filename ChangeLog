@@ -1,3 +1,9 @@
+2002-03-09  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Don't check for stpncpy; AIX 4.3.3 has an incompatible
+	implementation of it.
+	* acconfig.h (HAVE_STPNCPY): Define on glibc systems only.
+
 2002-03-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MAKEINFO): New variable.

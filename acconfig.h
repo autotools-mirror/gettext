@@ -1,5 +1,5 @@
 /* Special definitions, processed by autoheader.
-   Copyright (C) 1995-1998, 2001 Free Software Foundation.
+   Copyright (C) 1995-1998, 2001-2002 Free Software Foundation.
    Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.  */
 
 /* Default value for alignment of strings in .mo file.  */
@@ -24,9 +24,11 @@
 @BOTTOM@
 
 /* We don't test for the basename function but still want to use the
-   version in the libc when compiling for a system using glibc.  */
+   version in the libc when compiling for a system using glibc.  Likewise
+   for stpncpy.  */
 #ifdef __GNU_LIBRARY__
 # define HAVE_BASENAME	1
+# define HAVE_STPNCPY	1
 #endif
 
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 1993, 1995, 1996, 1997 Free Software Foundation, Inc.
+/* Copyright (C) 1993, 1995-1997, 2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -24,10 +24,19 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "stpncpy.h"
+
+#ifndef __GNU_LIBRARY__
+
 #ifdef _LIBC
 # include <string.h>
 #else
 # include <sys/types.h>
+/* We cannot generally use the name 'stpncpy' since AIX 4 defines an unusable
+   variant of the function but we cannot use it.  */
+# undef stpncpy
+# define stpncpy gnu_stpncpy
 #endif
 
 #ifndef weak_alias
@@ -98,4 +107,6 @@ __stpncpy (dest, src, n)
 }
 #ifdef weak_alias
 weak_alias (__stpncpy, stpncpy)
+#endif
+
 #endif
