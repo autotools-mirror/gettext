@@ -1,3 +1,10 @@
+2001-03-09  Bruno Haible  <haible@clisp.cons.org>
+
+	Fix output of strings in CJK encodings.
+	* write-po.c: Include iconv.h.
+	(wrap): While preparing a line, use iconv to avoid treating the second
+	byte of a multi-byte character as an ASCII character.
+
 2001-03-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcomm.c (main): Use IS_ABSOLUTE_PATH and concatenated_pathname.

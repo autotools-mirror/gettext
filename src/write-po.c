@@ -30,6 +30,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include <limits.h>
 #endif
 
+#if HAVE_ICONV
+#include <iconv.h>
+#endif
+
 #include "write-po.h"
 #include "c-ctype.h"
 #include "linebreak.h"
@@ -190,6 +194,9 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 {
   const char *s;
   int first_line;
+#if HAVE_ICONV
+  iconv_t conv = iconv_open ("UTF-8", charset);
+#endif
 
   /* Loop over the '\n' delimited portions of value.  */
   s = value;
@@ -225,8 +232,51 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 	    portion_len += 2;
 	  else if (escape && !c_isprint ((unsigned char) c))
 	    portion_len += 4;
+	  else if (c == '\\' || c == '"')
+	    portion_len += 2;
 	  else
-	    portion_len += 1 + (c == '\\' || c == '"');
+	    {
+#if HAVE_ICONV
+	      if (conv != (iconv_t)(-1))
+		{
+		  /* Skip over a complete multi-byte character.  Don't
+		     interpret the second byte of a multi-byte character as
+		     ASCII.  This is needed for the BIG5, BIG5HKSCS, GBK,
+		     GB18030, SJIS, JOHAB encodings.  */
+		  char scratchbuf[64];
+		  const char *inptr = ep;
+		  size_t insize;
+		  char *outptr = &scratchbuf[0];
+		  size_t outsize = sizeof (scratchbuf);
+		  size_t res;
+
+		  res = (size_t)(-1);
+		  for (insize = 1; inptr + insize <= es; insize++)
+		    {
+		      res = iconv (conv,
+				   (ICONV_CONST char **) &inptr, &insize,
+				   &outptr, &outsize);
+		      if (!(res == (size_t)(-1) && errno == EINVAL))
+			break;
+		    }
+		  if (res == (size_t)(-1))
+		    {
+		      if (errno == EILSEQ)
+			{
+			  error (0, 0, _("invalid multibyte sequence"));
+			  continue;
+			}
+		      else
+			abort ();
+		    }
+		  insize = inptr - ep;
+		  portion_len += insize;
+		  ep += insize - 1;
+		}
+	      else
+#endif
+		portion_len += 1;
+	    }
 	}
       portion = (char *) xmalloc (portion_len);
       for (ep = s, pp = portion; ep < es; ep++)
@@ -251,11 +301,54 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      *pp++ = '0' + (((unsigned char) c >> 3) & 7);
 	      *pp++ = '0' + ((unsigned char) c & 7);
 	    }
+	  else if (c == '\\' || c == '"')
+	    {
+	      *pp++ = '\\';
+	      *pp++ = c;
+	    }
 	  else
 	    {
-	      if (c == '\\' || c == '"')
-		*pp++ = '\\';
-	      *pp++ = c;
+#if HAVE_ICONV
+	      if (conv != (iconv_t)(-1))
+		{
+		  /* Copy a complete multi-byte character.  Don't
+		     interpret the second byte of a multi-byte character as
+		     ASCII.  This is needed for the BIG5, BIG5HKSCS, GBK,
+		     GB18030, SJIS, JOHAB encodings.  */
+		  char scratchbuf[64];
+		  const char *inptr = ep;
+		  size_t insize;
+		  char *outptr = &scratchbuf[0];
+		  size_t outsize = sizeof (scratchbuf);
+		  size_t res;
+
+		  res = (size_t)(-1);
+		  for (insize = 1; inptr + insize <= es; insize++)
+		    {
+		      res = iconv (conv,
+				   (ICONV_CONST char **) &inptr, &insize,
+				   &outptr, &outsize);
+		      if (!(res == (size_t)(-1) && errno == EINVAL))
+			break;
+		    }
+		  if (res == (size_t)(-1))
+		    {
+		      if (errno == EILSEQ)
+			{
+			  error (0, 0, _("invalid multibyte sequence"));
+			  continue;
+			}
+		      else
+			abort ();
+		    }
+		  insize = inptr - ep;
+		  memcpy (pp, ep, insize);
+		  pp += insize;
+		  ep += insize - 1;
+		}
+	      else
+#endif
+		*pp++ = c;
 	    }
 	}
 
@@ -367,6 +460,11 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       s = es;
     }
   while (*s);
+
+#if HAVE_ICONV
+  if (conv != (iconv_t)(-1))
+    iconv_close (conv);
+#endif
 }
 
 
