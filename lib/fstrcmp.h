@@ -1,5 +1,5 @@
-/* GNU gettext - internationalization aids
-   Copyright (C) 1995, 2000, 2002 Free Software Foundation, Inc.
+/* Fuzzy string comparison.
+   Copyright (C) 1995, 2000, 2002-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifndef _FSTRCMP_H
 #define _FSTRCMP_H
 
-extern double fstrcmp (const char *__s1, const char *__s2);
+/* Fuzzy compare of S1 and S2.  Return a measure for the similarity of S1
+   and S1.  The higher the result, the more similar the strings are.  */
+extern double fstrcmp (const char *s1, const char *s2);
 
 #endif

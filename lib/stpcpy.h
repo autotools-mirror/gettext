@@ -1,5 +1,5 @@
 /* String copying.
-   Copyright (C) 1995, 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2001, 2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,7 +25,8 @@
 
 #else
 
-extern char *stpcpy (char *__dst, const char *__src);
+/* Copy SRC to DST, returning the address of the terminating '\0' in DST.  */
+extern char *stpcpy (char *dst, const char *src);
 
 #endif
 

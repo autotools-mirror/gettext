@@ -1,5 +1,5 @@
 /* MIN, MAX macros.
-   Copyright (C) 1995, 1998, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2001, 2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
    since otherwise we get redefinitions on some systems.  */
 #include <limits.h>
 
+/* MAX(a,b) returns the maximum of A and B.  */
 #ifndef MAX
 # if __STDC__ && defined __GNUC__ && __GNUC__ >= 2
 #  define MAX(a,b) (__extension__					    \
@@ -34,6 +35,7 @@
 # endif
 #endif
 
+/* MIN(a,b) returns the minimum of A and B.  */
 #ifndef MIN
 # if __STDC__ && defined __GNUC__ && __GNUC__ >= 2
 #  define MIN(a,b) (__extension__					    \
