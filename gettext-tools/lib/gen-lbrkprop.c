@@ -1,6 +1,6 @@
 /* Generate a Unicode conforming Line Break Properties tables from a
    UnicodeData file.
-   Written by Bruno Haible <bruno@clisp.org>, 2000-2002.
+   Written by Bruno Haible <bruno@clisp.org>, 2000-2004.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -1350,6 +1350,26 @@ output_tables (const char *filename, const char *version)
   fprintf (stream, "/* Line breaking properties of Unicode characters.  */\n");
   fprintf (stream, "/* Generated automatically by gen-lbrkprop for Unicode %s.  */\n",
 	   version);
+  fprintf (stream, "\n");
+
+  /* Put a GPL header on it.  The gnulib module is under LGPL (although it
+     still carries the GPL header), and it's gnulib-tool which replaces the
+     GPL header with an LGPL header.  */
+  fprintf (stream, "/* Copyright (C) 2000-2004 Free Software Foundation, Inc.\n");
+  fprintf (stream, "\n");
+  fprintf (stream, "This program is free software; you can redistribute it and/or modify\n");
+  fprintf (stream, "it under the terms of the GNU General Public License as published by\n");
+  fprintf (stream, "the Free Software Foundation; either version 2, or (at your option)\n");
+  fprintf (stream, "any later version.\n");
+  fprintf (stream, "\n");
+  fprintf (stream, "This program is distributed in the hope that it will be useful,\n");
+  fprintf (stream, "but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+  fprintf (stream, "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
+  fprintf (stream, "GNU General Public License for more details.\n");
+  fprintf (stream, "\n");
+  fprintf (stream, "You should have received a copy of the GNU General Public License\n");
+  fprintf (stream, "along with this program; if not, write to the Free Software\n");
+  fprintf (stream, "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */\n");
   fprintf (stream, "\n");
 
   output_lbp (stream);

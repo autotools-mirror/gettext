@@ -1,3 +1,8 @@
+2004-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* gen-lbrkprop.c (output_tables): Emit a GPL copyright notice.
+	* lbrkprop.h: Update.
+
 2004-09-11  Bruno Haible  <bruno@clisp.org>
 
 	* allocsa.valgrind: New file.
