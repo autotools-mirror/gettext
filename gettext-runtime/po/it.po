@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.14.2-pre4\n"
+"Project-Id-Version: gettext-runtime 0.14.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2005-02-20 13:53+0000\n"
+"PO-Revision-Date: 2005-03-05 10:52+0000\n"
 "Last-Translator: Marco Colombo <m.colombo@ed.ac.uk>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -32,12 +32,12 @@ msgstr "%s: l'opzione '%s' è ambigua\n"
 #: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: l'opzione '--%s' non accetta un argomento\n"
+msgstr "%s: l'opzione '--%s' non accetta argomenti\n"
 
 #: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: l'opzione '%c%s' non accetta un argomento\n"
+msgstr "%s: l'opzione '%c%s' non accetta argomenti\n"
 
 #: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
 #: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
@@ -79,7 +79,7 @@ msgstr "%s: l'opzione '-W %s' è ambigua\n"
 #: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: l'opzione '-W %s' non accetta un argomento\n"
+msgstr "%s: l'opzione '-W %s' non accetta argomenti\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
 #, c-format
@@ -94,8 +94,8 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"Questo software è libero; si vedano i sorgenti per le condizioni di copia.\n"
-"NON c'è nessuna garanzia; neppure di COMMERCIABILITÀ o di IDONEITÀ AD UNO\n"
+"Questo è software libero; si vedano i sorgenti per le condizioni di copia.\n"
+"NON c'è alcuna garanzia; neppure di COMMERCIABILITÀ o di IDONEITÀ AD UNO\n"
 "SCOPO PARTICOLARE.\n"
 
 #: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
@@ -116,7 +116,7 @@ msgstr "argomenti mancanti"
 #: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Usare '%s --help' per ulteriori informazioni.\n"
+msgstr "Usare '%s --help' per maggiori informazioni.\n"
 
 #: src/envsubst.c:176
 #, c-format, no-wrap

@@ -1,3 +1,8 @@
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (dist2): Fail if some of the files to be distributed
