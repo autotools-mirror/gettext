@@ -19,7 +19,7 @@ msgstr "xyz[x1]"
 # Invalid: missing argument
 msgid  "abc[x1]def[x2]"
 msgstr "xyz[x2]"
-# Invalid: added argument
+# Valid: added argument (valid since "[zoo]" expands to itself)
 msgid  "abc[foo]def"
 msgstr "xyz[foo]uvw[zoo]"
 # Valid: multiple reuse of same argument
