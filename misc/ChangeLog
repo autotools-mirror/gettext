@@ -1,5 +1,13 @@
 2002-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* add-to-archive: New file.
+	* add-to-autopoint-files: Remove file.
+	* cvsuser.c: New file.
+	* Makefile.am (EXTRA_DIST): Remove add-to-autopoint-files. Add
+	add-to-archive, cvsuser.c.
+
+2002-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* autopoint.in: Unset also CVS_IGNORE_REMOTE_ROOT and CVSIGNORE.
 
 2002-07-23  Bruno Haible  <bruno@clisp.org>

@@ -17,12 +17,12 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-# Usage: add-to-autopoint-files /somewhere/gettext-0.xx.yy.tar.gz
-# Adds the infrastructure files for gettext version 0.xx.yy to the
-# CVS repository in the archive directory.
+# Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
+# Adds the infrastructure files for gettext version 0.xx.yy to the compressed
+# CVS repository in the archive.tar.gz file.
 
 if test $# != 1; then
-  echo "Usage: add-to-autopoint-files /somewhere/gettext-0.xx.yy.tar.gz"
+  echo "Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz"
   exit 1
 fi
 
@@ -38,6 +38,11 @@ if test -d "$pack_ver"; then
 fi
 pack=`echo "$pack_ver" | sed -e 's/^\([^-]*\)-.*/\1/'`
 ver=`echo "$pack_ver" | sed -e 's/^[^-]*-\(.*\)/\1/'`
+
+# Set a nonstandard variable, for a good-looking cvs history.
+cvsuser=bruno
+gcc -shared -O cvsuser.c -o cvsuser.so
+cvsuser_hack=`pwd`/cvsuser.so
 
 # Unpack, build and install the source distribution.
 myprefix=`pwd`/${pack_ver}-inst
@@ -87,14 +92,20 @@ work_archive=`pwd`/"$work_dir/archive"
 )
 
 # Add the contents of this directory to the repository.
-CVSROOT=`pwd`/autopoint-files
-export CVSROOT
+cvsroot=`pwd`/autopoint-files
+mkdir "$cvsroot"
+cvs -d "$cvsroot" init
+(cd autopoint-files && tar xvfz ../archive.tar.gz)
 cvsver=$pack-`echo "$ver" | sed -e 's/\./_/g'`
 (cd "$work_archive"
- cvs import -m "Import $pack_ver" archive release "$cvsver"
+ CVSUSER=$cvsuser LD_PRELOAD=$cvsuser_hack \
+ cvs -d "$cvsroot" import -m "Import $pack_ver" archive release "$cvsver"
 )
+(cd autopoint-files && tar cvfz ../archive.tar.gz --owner=root --group=root archive)
+(cd autopoint-files && du archive)
 
 # Clean up.
+rm -rf "$cvsroot"
 rm -rf "$work_dir"
 rm -rf "$myprefix"
 
