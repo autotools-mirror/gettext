@@ -1,3 +1,7 @@
+2002-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 3:0:1.
+
 2002-07-13  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (freea): New macro.
