@@ -124,21 +124,21 @@ diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/dcigettext.c gettext-2001-
     /* If no real MSGID is given return NULL.  */
     if (msgid1 == NULL)
 ***************
-*** 450,455 ****
---- 456,468 ----
+*** 471,476 ****
+--- 477,489 ----
+  
     if (binding == NULL)
       dirname = (char *) _nl_default_dirname;
-    else if (binding->dirname[0] == '/')
 + #ifdef __EMX__
++   else if (binding->dirname[0] == '/')
 +     {
 +       UnixRoot(binding->dirname, LOCALEDIR, EMX_LOCALEDIR);
 +       dirname = binding->dirname;
 +     }
-+   else if (_fnisabs(binding->dirname))
 + #endif /* __EMX__ */
+    else if (IS_ABSOLUTE_PATH (binding->dirname))
       dirname = binding->dirname;
     else
-      {
 diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/libgnuintl.h gettext-2001-02-05-os2/intl/libgnuintl.h
 *** gettext-2001-02-05/intl/libgnuintl.h	Tue Feb  6 21:58:40 2001
 --- gettext-2001-02-05-os2/intl/libgnuintl.h	Thu Mar  1 02:40:40 2001
