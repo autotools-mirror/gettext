@@ -1,3 +1,7 @@
+2003-11-19  Bruno Haible  <bruno@clisp.org>
+
+	* size_max.m4 (gl_SIZE_MAX): Don't use the _ONCE macros here.
+
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
 	* size_max.m4: New file, moved here from ../../gettext-tools/m4/.
