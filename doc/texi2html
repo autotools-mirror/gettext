@@ -9,7 +9,9 @@
 #                                                                              #
 #-##############################################################################
 
-# @(#)texi2html	1.52 01/05/98	Written (mainly) by Lionel Cons, Lionel.Cons@cern.ch
+# @(#)texi2html	1.52a 01/05/98	Written (mainly) by Lionel Cons, Lionel.Cons@cern.ch
+# 1.52a: Use acute accent instead of apostrophe. Add support for ISO-8859-1
+#        characters with cedilla, circumflex etc.
 
 # The man page for this program is included at the end of this file and can be
 # viewed using the command 'nroff -man texi2html'.
@@ -37,7 +39,7 @@ $NODESRE = '[^@{}:\'`"]+';		# RE for a list of node names
 $XREFRE = '[^@{}]+';			# RE for a xref (should use NODERE)
 
 $ERROR = "***";			        # prefix for errors and warnings
-$THISPROG = "texi2html 1.52";			# program name and version
+$THISPROG = "texi2html 1.52a";			# program name and version
 $HOMEPAGE = "http://wwwinfo.cern.ch/dis/texi2html/"; # program home page
 $TODAY = &pretty_date;			# like "20 September 1993"
 $SPLITTAG = "<!-- SPLIT HERE -->\n";	# tag to know where to split
@@ -149,6 +151,16 @@ $html2_doctype = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0 Strict Level 2//E
 	       'print', '-|',
 	       'result', '=>',
 	       'today', $TODAY,
+	       'aa', '&aring;',
+	       'AA', '&Aring;',
+	       'ae', '&aelig;',
+	       'AE', '&AElig;',
+	       'o',  '&oslash;',
+	       'O',  '&Oslash;',
+	       'ss', '&szlig;',
+	       'exclamdown', '&iexcl;',
+	       'questiondown', '&iquest;',
+	       'pounds', '&pound;'
 	       );
 
 #
@@ -179,6 +191,12 @@ $html2_doctype = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0 Strict Level 2//E
 	      'url', '&do_url',         # insert a clickable URL
 	      'var', 'VAR',
 	      'w', '',			# unsupported
+	      '"', '&do_diaeresis',
+	      '\'', '&do_acuteaccent',	# doesn't work??
+	      '\`', '&do_graveaccent',	# doesn't work??
+	      '~', '&do_tildeaccent',
+	      ',', '&do_cedilla',
+	      '^', '&do_circumflex',
 	      );
 
 #
@@ -394,7 +412,7 @@ if ($monolithic) {
 # variables
 #
 $value{'html'} = 1;			# predefine html (the output format)
-$value{'texi2html'} = '1.52';		# predefine texi2html (the translator)
+$value{'texi2html'} = '1.52a';		# predefine texi2html (the translator)
 # _foo: internal to track @foo
 foreach ('_author', '_title', '_subtitle',
 	 '_settitle', '_setfilename') {
@@ -1110,7 +1128,7 @@ while (@lines) {
 	@keys = keys(%ary);
 	foreach $key (@keys) {
 	    $_ = $key;
-	    1 while s/<(\w+)>\`(.*)\'<\/\1>/$2/; # remove HTML tags with quotes
+	    1 while s/<(\w+)>\`(.*)\&acute;<\/\1>/$2/; # remove HTML tags with quotes
 	    1 while s/<(\w+)>(.*)<\/\1>/$2/;     # remove HTML tags
 	    $_ = &unprotect_html($_);
 	    &unprotect_texi;
@@ -1277,7 +1295,7 @@ while (@lines2) {
     $old = '';
     while ($old ne $_) {
         $old = $_;
-	if (/\@(\w+)\{/) {
+	if (/\@(\w+|"|\~|,|\^)\{/) {
 	    ($before, $style, $after) = ($`, $1, $');
 	    if (defined($style_map{$style})) {
 		$_ = $after;
@@ -1718,6 +1736,13 @@ sub do_uref {
 
 sub do_url { &anchor('', $_[0], $_[0]) }
 
+sub do_diaeresis { return "&$_[0]uml;"; }
+sub do_acuteaccent { return "&$_[0]acute;"; }
+sub do_graveaccent { return "&$_[0]grave;"; }
+sub do_tildeaccent { return "&$_[0]tilde;"; }
+sub do_cedilla { return "&$_[0]cedil;"; }
+sub do_circumflex { return "&$_[0]circ;"; }
+
 sub apply_style {
     local($texi_style, $text) = @_;
     local($style);
@@ -1726,7 +1751,7 @@ sub apply_style {
     if (defined($style)) { # known style
 	if ($style =~ /^\"/) { # add quotes
 	    $style = $';
-	    $text = "\`$text\'";
+	    $text = "\`$text\&acute;";
 	}
 	if ($style =~ /^\&/) { # custom
 	    $style = $';
@@ -1756,7 +1781,7 @@ sub substitute_style {
     while ($changed) {
 	$changed = 0;
 	$done = '';
-	while (/\@(\w+){([^\{\}]+)}/) {
+	while (/\@(\w+|"|\~|,|\^){([^\{\}]+)}/) {
 	    $text = &apply_style($1, $2);
 	    if ($text) {
 		$_ = "$`$text$'";
@@ -1881,7 +1906,7 @@ sub print_toplevel_footer {
     print FILE <<EOT;
 This document was generated on $TODAY using the
 <A HREF=\"$HOMEPAGE\">texi2html</A>
-translator version 1.52.</P>
+translator version 1.52a.</P>
 EOT
     &print_footer;
 }
@@ -2054,7 +2079,7 @@ without any modification.
 .B @end ifhtml
 This indicates the end of an HTML section.
 .SH VERSION
-This is \fItexi2html\fP version 1.52, 01/05/98.
+This is \fItexi2html\fP version 1.52a, 01/05/98.
 .PP
 The latest version of \fItexi2html\fP can be found in WWW, cf. URL
 http://wwwinfo.cern.ch/dis/texi2html/
