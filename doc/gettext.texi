@@ -5397,9 +5397,6 @@ Note that you must arrange for @samp{make} to descend into the
 code which make use of the @code{libintl.h} header file.  For this
 reason, here we mention @code{intl} before @code{lib} and @code{src}.
 
-@noindent
-that you will have to adapt to your own package.
-
 @item
 A delicate point is the @samp{dist:} goal, as both
 @file{intl/Makefile} and @file{po/Makefile} will later assume that the
