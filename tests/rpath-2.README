@@ -21,3 +21,9 @@ The rpath-2* tests are sensitive to
   - bugs in libtool that creates the shared libraries,
   - bugs in lib-link.m4.
 
+Known failures:
+
+* OSF/1 4.0: rpath-2bbd fails, because -rpath options are not cumulative:
+  The last -rpath option overrides all previous ones. One would need to
+  pass all directories, separated by colons, in a single -rpath option.
+
