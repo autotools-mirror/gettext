@@ -1,4 +1,4 @@
-Version 0.11.6 - October 2002
+Version 0.12-pre1 - February 2003
 
 * The gettext package is now separated into two subpackages:
   - gettext-runtime: Runtime libraries and programs.

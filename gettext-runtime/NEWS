@@ -1,4 +1,4 @@
-Version 0.11.6 - October 2002
+Version 0.12-pre1 - February 2003
 
 * A new C++ class, called gnu::autosprintf, makes it possible to use C format
   strings in C++. This is needed for proper internationalization of C++
