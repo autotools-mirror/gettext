@@ -127,9 +127,11 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   if (exclude != NULL && message_list_search (exclude, msgid) != NULL)
     goto discard;
 
-  /* If the msgid is the empty string, it is the old header.
-     Throw it away, we have constructed a new one.  */
-  if (*msgid == '\0')
+  /* If the msgid is the empty string, it is the old header.  Throw it
+     away, we have constructed a new one.
+     But if no new one was constructed, keep the old header.  This is useful
+     because the old header may contain a charset= directive.  */
+  if (*msgid == '\0' && !omit_header)
     {
       discard:
       free (msgid);

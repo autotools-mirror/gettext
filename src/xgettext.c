@@ -109,7 +109,7 @@ static const char *msgstr_suffix;
 static char *output_dir;
 
 /* If nonzero omit header with information about this run.  */
-static int omit_header;
+int omit_header;
 
 /* Long options.  */
 static const struct option long_options[] =

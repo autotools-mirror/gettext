@@ -26,6 +26,8 @@
 
 extern int line_comment;
 
+extern int omit_header;
+
 extern bool substring_match;
 
 /* List of messages whose msgids must not be extracted, or NULL.
