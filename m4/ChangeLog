@@ -1,3 +1,7 @@
+2001-06-14  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Add support for autoconf-2.50.
+
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* ssize_t.m4: New file.
