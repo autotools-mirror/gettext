@@ -918,7 +918,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
     }
 
   /* Make sure nothing went wrong.  */
-  if (fflush (fp))
+  if (fflush (fp) || ferror (fp))
     error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	   filename);
   fclose (fp);
