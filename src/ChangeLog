@@ -1,3 +1,7 @@
+2001-09-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (noinst_HEADERS): Add x-java.h.
+
 2001-09-14  Tommy Johansson  <tommy.johansson@kanalen.org>
 
 	* x-java.h (x_java_extract_all): New declaration.

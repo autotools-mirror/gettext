@@ -26,7 +26,7 @@ msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h msgl-ascii.h \
-msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h
+msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h x-java.h
 
 EXTRA_DIST = FILES
 
