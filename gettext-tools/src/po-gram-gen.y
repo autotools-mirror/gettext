@@ -25,12 +25,14 @@
 /* Specification.  */
 #include "po-gram.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "str-list.h"
 #include "po-lex.h"
+#include "po-charset.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "gettext.h"
@@ -91,6 +93,20 @@ static long plural_counter;
   if ((value1).obsolete != (value2).obsolete) \
     po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
 
+static inline void
+do_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		     bool obsolete)
+{
+  /* Test for header entry.  Ignore fuzziness of the header entry.  */
+  if (msgid[0] == '\0' && !obsolete)
+    po_lex_charset_set (msgstr, gram_pos.file_name);
+
+  po_callback_message (msgid, msgid_pos, msgid_plural,
+		       msgstr, msgstr_len, msgstr_pos,
+		       false, obsolete);
+}
+
 %}
 
 %token	COMMENT
@@ -148,7 +164,7 @@ message
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    po_callback_message (string2, &$1.pos, NULL,
+		    do_callback_message (string2, &$1.pos, NULL,
 					 string4, strlen (string4) + 1, &$3.pos,
 					 $1.obsolete);
 		  else
@@ -165,7 +181,7 @@ message
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    po_callback_message (string2, &$1.pos, $3.string,
+		    do_callback_message (string2, &$1.pos, $3.string,
 					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
 					 $1.obsolete);
 		  else

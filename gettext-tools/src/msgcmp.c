@@ -52,6 +52,7 @@ static const struct option long_options[] =
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "multi-domain", no_argument, NULL, 'm' },
+  { "properties-input", no_argument, NULL, 'P' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
@@ -89,7 +90,7 @@ main (int argc, char *argv[])
 
   do_help = false;
   do_version = false;
-  while ((optchar = getopt_long (argc, argv, "D:hmV", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "D:hmPV", long_options, NULL))
 	 != EOF)
     switch (optchar)
       {
@@ -106,6 +107,10 @@ main (int argc, char *argv[])
 
       case 'm':
 	multi_domain_mode = true;
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 'V':
@@ -192,6 +197,11 @@ Input file location:\n"));
 Operation modifiers:\n"));
       printf (_("\
   -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"));
+      printf ("\n");
+      printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input files are in Java .properties syntax\n"));
       printf ("\n");
       printf (_("\
 Informative output:\n"));

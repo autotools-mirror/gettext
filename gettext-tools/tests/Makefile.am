@@ -23,32 +23,33 @@ EXTRA_DIST =
 TESTS = gettext-1 gettext-2 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
-	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
+	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 msgattrib-15 \
 	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
-	msgcat-8 msgcat-9 msgcat-10 \
-	msgcmp-1 msgcmp-2 \
+	msgcat-8 msgcat-9 msgcat-10 msgcat-11 msgcat-12 \
+	msgcmp-1 msgcmp-2 msgcmp-3 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 \
-	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 \
-	msgconv-1 msgconv-2 msgconv-3 \
-	msgen-1 \
-	msgexec-1 msgexec-2 \
-	msgfilter-1 msgfilter-2 \
+	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 msgcomm-24 \
+	msgconv-1 msgconv-2 msgconv-3 msgconv-4 \
+	msgen-1 msgen-2 \
+	msgexec-1 msgexec-2 msgexec-3 \
+	msgfilter-1 msgfilter-2 msgfilter-3 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
-	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 \
-	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 \
+	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 \
+	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
 	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
 	msgmerge-18 msgmerge-19 msgmerge-20 msgmerge-21 msgmerge-22 \
-	msgunfmt-1 msgunfmt-2 msgunfmt-3 \
-	msguniq-1 msguniq-2 msguniq-3 \
+	msgmerge-23 msgmerge-24 \
+	msgunfmt-1 msgunfmt-2 msgunfmt-3 msgunfmt-4 \
+	msguniq-1 msguniq-2 msguniq-3 msguniq-4 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	xgettext-18 xgettext-19 xgettext-20 xgettext-21 xgettext-22 \
-	xgettext-23 \
+	xgettext-23 xgettext-24 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \
@@ -67,8 +68,8 @@ TESTS = gettext-1 gettext-2 \
 	lang-rst
 
 EXTRA_DIST += $(TESTS) \
-	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out \
-	ChangeLog.0
+	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \
+	msguniq-a.out ChangeLog.0
 
 XGETTEXT = ../src/xgettext
 

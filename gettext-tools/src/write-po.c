@@ -39,9 +39,11 @@
 #include "po-charset.h"
 #include "linebreak.h"
 #include "msgl-ascii.h"
+#include "write-properties.h"
 #include "xmalloc.h"
 #include "strstr.h"
 #include "exit.h"
+#include "progname.h"
 #include "error.h"
 #include "xerror.h"
 #include "gettext.h"
@@ -370,6 +372,16 @@ void
 message_print_style_escape (bool flag)
 {
   escape = flag;
+}
+
+
+/* Whether to output a file in Java .properties syntax.  */
+static bool use_syntax_properties = false;
+
+void
+message_print_syntax_properties ()
+{
+  use_syntax_properties = true;
 }
 
 
@@ -917,51 +929,11 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 }
 
 
-void
-msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
-		      bool force, bool debug)
+static void
+msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
 {
-  FILE *fp;
   size_t j, k;
   bool blank_line;
-
-  /* We will not write anything if, for every domain, we have no message
-     or only the header entry.  */
-  if (!force)
-    {
-      bool found_nonempty = false;
-
-      for (k = 0; k < mdlp->nitems; k++)
-	{
-	  message_list_ty *mlp = mdlp->item[k]->messages;
-
-	  if (!(mlp->nitems == 0
-		|| (mlp->nitems == 1 && mlp->item[0]->msgid[0] == '\0')))
-	    {
-	      found_nonempty = true;
-	      break;
-	    }
-	}
-
-      if (!found_nonempty)
-	return;
-    }
-
-  /* Open the output file.  */
-  if (filename != NULL && strcmp (filename, "-") != 0
-      && strcmp (filename, "/dev/stdout") != 0)
-    {
-      fp = fopen (filename, "w");
-      if (fp == NULL)
-	error (EXIT_FAILURE, errno, _("cannot create output file \"%s\""),
-	       filename);
-    }
-  else
-    {
-      fp = stdout;
-      /* xgettext:no-c-format */
-      filename = _("standard output");
-    }
 
   /* Write out the messages for each domain.  */
   blank_line = false;
@@ -1031,6 +1003,92 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 	    blank_line = true;
 	  }
     }
+}
+
+
+void
+msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
+		      bool force, bool debug)
+{
+  FILE *fp;
+
+  /* We will not write anything if, for every domain, we have no message
+     or only the header entry.  */
+  if (!force)
+    {
+      bool found_nonempty = false;
+      size_t k;
+
+      for (k = 0; k < mdlp->nitems; k++)
+	{
+	  message_list_ty *mlp = mdlp->item[k]->messages;
+
+	  if (!(mlp->nitems == 0
+		|| (mlp->nitems == 1 && mlp->item[0]->msgid[0] == '\0')))
+	    {
+	      found_nonempty = true;
+	      break;
+	    }
+	}
+
+      if (!found_nonempty)
+	return;
+    }
+
+  /* Check whether the output format can accomodate all messages.  */
+  if (use_syntax_properties)
+    {
+      if (mdlp->nitems > 1)
+	error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
+      if (mdlp->nitems == 1)
+	{
+	  message_list_ty *mlp = mdlp->item[0]->messages;
+	  const lex_pos_ty *has_plural;
+	  size_t j;
+
+	  has_plural = NULL;
+	  for (j = 0; j < mlp->nitems; j++)
+	    {
+	      message_ty *mp = mlp->item[j];
+
+	      if (mp->msgid_plural != NULL)
+		{
+		  has_plural = &mp->pos;
+		  break;
+		}
+	    }
+
+	  if (has_plural != NULL)
+	    {
+	      error_with_progname = false;
+	      error_at_line (EXIT_FAILURE, 0,
+			     has_plural->file_name, has_plural->line_number,
+			     _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+	      error_with_progname = true;
+	    }
+	}	    
+    }
+
+  /* Open the output file.  */
+  if (filename != NULL && strcmp (filename, "-") != 0
+      && strcmp (filename, "/dev/stdout") != 0)
+    {
+      fp = fopen (filename, "w");
+      if (fp == NULL)
+	error (EXIT_FAILURE, errno, _("cannot create output file \"%s\""),
+	       filename);
+    }
+  else
+    {
+      fp = stdout;
+      /* xgettext:no-c-format */
+      filename = _("standard output");
+    }
+
+  if (use_syntax_properties)
+    msgdomain_list_print_properties (mdlp, fp, page_width, debug);
+  else
+    msgdomain_list_print_po (mdlp, fp, debug);
 
   /* Make sure nothing went wrong.  */
   if (fflush (fp) || ferror (fp))

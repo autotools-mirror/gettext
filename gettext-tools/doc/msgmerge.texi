@@ -128,6 +128,18 @@ Do not use fuzzy matching when an exact match is not found.  This may speed
 up the operation considerably.
 @end table
 
+@subsection Input file syntax
+
+@table @samp
+@item -P
+@itemx --properties-input
+@opindex -P@r{, @code{msgmerge} option}
+@opindex --properties-input@r{, @code{msgmerge} option}
+Assume the input files are Java ResourceBundles in Java @code{.properties}
+syntax, not in PO file syntax.
+
+@end table
+
 @subsection Output details
 
 @c --no-escape and --escape omitted on purpose.  They are not useful.
@@ -156,6 +168,14 @@ Generate @samp{#: @var{filename}:@var{line}} lines (default).
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
+
+@item -p
+@itemx --properties-output
+@opindex -p@r{, @code{msgmerge} option}
+@opindex --properties-output@r{, @code{msgmerge} option}
+Write out a Java ResourceBundle in Java @code{.properties} syntax.  Note
+that this file format doesn't support plural forms and silently drops
+obsolete messages.
 
 @item -w @var{number}
 @itemx --width=@var{number}

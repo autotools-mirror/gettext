@@ -94,6 +94,8 @@ static const struct option long_options[] =
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "quiet", no_argument, NULL, 'q' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
@@ -161,8 +163,8 @@ main (int argc, char **argv)
   do_version = false;
   output_file = NULL;
 
-  while ((opt
-	  = getopt_long (argc, argv, "C:D:eEFhimo:qsUvVw:", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "C:D:eEFhimo:pPqsUvVw:", long_options,
+			     NULL))
 	 != EOF)
     switch (opt)
       {
@@ -207,6 +209,14 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 'q':
@@ -322,6 +332,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
+
+  /* In update mode, --properties-input implies --properties-output.  */
+  if (update_mode && input_syntax == syntax_properties)
+    message_print_syntax_properties ();
 
   /* Merge the two files.  */
   result = merge (argv[optind], argv[optind + 1], &def);
@@ -460,6 +474,11 @@ Operation modifiers:\n"));
   -N, --no-fuzzy-matching     do not use fuzzy matching\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input files are in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
@@ -475,6 +494,8 @@ Output details:\n"));
       --add-location          preserve '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                strict Uniforum output style\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\
@@ -1162,6 +1183,10 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
 	    }
 	}
     }
+
+  /* Determine the known a-priori encoding, if any.  */
+  if (def->encoding == ref->encoding)
+    result->encoding = def->encoding;
 
   /* Report some statistics.  */
   if (verbosity_level > 0)

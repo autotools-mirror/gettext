@@ -1,5 +1,25 @@
 2003-04-22  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Java): Document how to use .properties files.
+	* msgattrib.texi: Document options -P and -p.
+	* msgcat.texi: Likewise.
+	* msgcomm.texi: Likewise.
+	* msgconv.texi: Likewise.
+	* msgen.texi: Likewise.
+	* msgfilter.texi: Likewise.
+	* msggrep.texi: Likewise.
+	* msginit.texi: Likewise.
+	* msgmerge.texi: Likewise.
+	* msguniq.texi: Likewise.
+	* msgcmp.texI: Document option -P.
+	* msgexec.texi: Likewise.
+	* msgfmt.texi: Likewise.
+	* msgunfmt.texi: Document option -p.
+	* xgettext.texi: Document options -L JavaProperties and
+	--properties-output.
+
+2003-04-22  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Plural forms): Add info about Faroese.
 	Reported by Jacob Sparre Andersen <sparre@crs4.it>.
 

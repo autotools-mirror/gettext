@@ -191,6 +191,8 @@ two different charsets \"%s\" and \"%s\" in input file"),
 		{
 		  if (is_ascii_message_list (mlp))
 		    canon_from_code = po_charset_ascii;
+		  else if (mdlp->encoding != NULL)
+		    canon_from_code = mdlp->encoding;
 		  else
 		    {
 		      if (k == 0)
@@ -352,6 +354,22 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
       message_list_remove_if_not (mlp, is_message_selected);
     }
 
+  /* Determine the common known a-priori encoding, if any.  */
+  if (nfiles > 0)
+    {
+      bool all_same_encoding = true;
+
+      for (n = 1; n < nfiles; n++)
+	if (mdlps[n]->encoding != mdlps[0]->encoding)
+	  {
+	    all_same_encoding = false;
+	    break;
+	  }
+
+      if (all_same_encoding)
+	total_mdlp->encoding = mdlps[0]->encoding;
+    }
+
   /* Determine the target encoding for the remaining messages.  */
   if (to_code != NULL)
     {
@@ -421,7 +439,7 @@ Input files contain messages in different encodings, %s and %s among others.\n\
 Converting the output to UTF-8.\n\
 To select a different output encoding, use the --to-code option.\n\
 "), first, second));
-	  canon_to_code = po_charset_canonicalize ("UTF-8");
+	  canon_to_code = po_charset_utf8;
 	}
       else if (first != NULL && with_ASCII && all_ASCII_compatible)
 	{

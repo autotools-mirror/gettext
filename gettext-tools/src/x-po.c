@@ -1,4 +1,4 @@
-/* xgettext PO backend.
+/* xgettext PO and JavaProperties backends.
    Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -47,7 +47,7 @@ extract_add_message (default_po_reader_ty *this,
 		     char *msgid_plural,
 		     char *msgstr, size_t msgstr_len,
 		     lex_pos_ty *msgstr_pos,
-		     bool obsolete)
+		     bool force_fuzzy, bool obsolete)
 {
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgid) != NULL)
@@ -67,7 +67,7 @@ extract_add_message (default_po_reader_ty *this,
 
   /* Invoke superclass method.  */
   default_add_message (this, msgid, msgid_pos, msgid_plural,
-		       msgstr, msgstr_len, msgstr_pos, obsolete);
+		       msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
 }
 
 
@@ -98,10 +98,11 @@ static default_po_reader_class_ty extract_methods =
 };
 
 
-void
-extract_po (FILE *fp,
-	    const char *real_filename, const char *logical_filename,
-	    msgdomain_list_ty *mdlp)
+static void
+extract (FILE *fp,
+	 const char *real_filename, const char *logical_filename,
+	 input_syntax_ty syntax,
+	 msgdomain_list_ty *mdlp)
 {
   default_po_reader_ty *pop;
 
@@ -113,6 +114,25 @@ extract_po (FILE *fp,
   pop->allow_duplicates_if_same_msgstr = true;
   pop->mdlp = NULL;
   pop->mlp = mdlp->item[0]->messages;
-  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename);
+  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename,
+	   syntax);
   po_reader_free ((abstract_po_reader_ty *) pop);
+}
+
+
+void
+extract_po (FILE *fp,
+	    const char *real_filename, const char *logical_filename,
+	    msgdomain_list_ty *mdlp)
+{
+  extract (fp, real_filename,  logical_filename, syntax_po, mdlp);
+}
+
+
+void
+extract_properties (FILE *fp,
+		    const char *real_filename, const char *logical_filename,
+		    msgdomain_list_ty *mdlp)
+{
+  extract (fp, real_filename,  logical_filename, syntax_properties, mdlp);
 }

@@ -56,6 +56,18 @@ file will be written relative to the current directory, though.
 
 If no @var{inputfile} is given or if it is @samp{-}, standard input is read.
 
+@subsection Input file syntax
+
+@table @samp
+@item -P
+@itemx --properties-input
+@opindex -P@r{, @code{msgexec} option}
+@opindex --properties-input@r{, @code{msgexec} option}
+Assume the input file is a Java ResourceBundle in Java @code{.properties}
+syntax, not in PO file syntax.
+
+@end table
+
 @subsection Informative output
 
 @table @samp

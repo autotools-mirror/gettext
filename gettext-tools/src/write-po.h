@@ -48,6 +48,8 @@ extern void
        message_print_style_uniforum (void);
 extern void
        message_print_style_escape (bool flag);
+extern void
+       message_print_syntax_properties (void);
 
 /* Output MDLP into a PO file with the given FILENAME, according to the
    parameters set by the functions above.  */

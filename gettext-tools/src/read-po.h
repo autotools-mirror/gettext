@@ -47,7 +47,7 @@ struct default_po_reader_class_ty
   void (*add_message) (struct default_po_reader_ty *pop,
 		       char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		       char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
-		       bool obsolete);
+		       bool force_fuzzy, bool obsolete);
 
   /* How to modify a new message before adding it to the list.  */
   void (*frob_new_message) (struct default_po_reader_ty *pop, message_ty *mp,
@@ -116,7 +116,7 @@ extern void default_directive_message (abstract_po_reader_ty *that,
 				       char *msgid_plural,
 				       char *msgstr, size_t msgstr_len,
 				       lex_pos_ty *msgstr_pos,
-				       bool obsolete);
+				       bool force_fuzzy, bool obsolete);
 extern void default_comment (abstract_po_reader_ty *that, const char *s);
 extern void default_comment_dot (abstract_po_reader_ty *that, const char *s);
 extern void default_comment_filepos (abstract_po_reader_ty *that,
@@ -130,7 +130,7 @@ extern void default_add_message (default_po_reader_ty *this,
 				 char *msgid_plural,
 				 char *msgstr, size_t msgstr_len,
 				 lex_pos_ty *msgstr_pos,
-				 bool obsolete);
+				 bool force_fuzzy, bool obsolete);
 
 /* Allocate a fresh default_po_reader_ty (or derived class) instance and
    call its constructor.  */
@@ -146,6 +146,9 @@ extern int line_comment;
    If true, such msgids are allowed; the caller should treat them
    appropriately.  Defaults to false.  */
 extern bool allow_duplicates;
+
+/* Expected syntax of the input files.  */
+extern input_syntax_ty input_syntax;
 
 /* Read the input file from a stream.  Returns a list of messages.  */
 extern msgdomain_list_ty *read_po (FILE *fp, const char *real_filename,

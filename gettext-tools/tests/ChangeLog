@@ -1,3 +1,25 @@
+2003-04-26  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib-15: New file.
+	* msgcat-11: New file.
+	* msgcat-12: New file.
+	* msgcmp-3: New file.
+	* msgcomm-24: New file.
+	* msgconv-4: New file.
+	* msgen-2: New file.
+	* msgexec-3: New file.
+	* msgfilter-3: New file.
+	* msgfmt-13: New file.
+	* msggrep-6: New file.
+	* msgmerge-23: New file.
+	* msgmerge-24: New file.
+	* msgunfmt-4: New file.
+	* msguniq-4: New file.
+	* xgettext-24: New file.
+	* msguniq-a.inp: New file.
+	* Makefile.am (TESTS): Add the new tests.
+	(EXTRA_DIST): Add msguniq-a.inp.
+
 2003-04-14  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (CHECKER): New variable.

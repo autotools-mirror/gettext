@@ -89,6 +89,8 @@ static const struct option long_options[] =
   { "only-fuzzy", no_argument, NULL, CHAR_MAX + 4 },
   { "only-obsolete", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "set-fuzzy", no_argument, NULL, CHAR_MAX + 7 },
   { "set-obsolete", no_argument, NULL, CHAR_MAX + 9 },
   { "sort-by-file", no_argument, NULL, 'F' },
@@ -150,7 +152,7 @@ main (int argc, char **argv)
   only_file = NULL;
   ignore_file = NULL;
 
-  while ((optchar = getopt_long (argc, argv, "D:eEFhino:sVw:", long_options,
+  while ((optchar = getopt_long (argc, argv, "D:eEFhino:pPsVw:", long_options,
 				 NULL)) != EOF)
     switch (optchar)
       {
@@ -187,6 +189,14 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 's':
@@ -412,6 +422,11 @@ Attribute manipulation:\n"));
       --obsolete              synonym for --only-obsolete --clear-obsolete\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
@@ -427,6 +442,8 @@ Output details:\n"));
   -n, --add-location          generate '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                write out strict Uniforum conforming .po file\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

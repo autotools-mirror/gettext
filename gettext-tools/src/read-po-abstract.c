@@ -28,10 +28,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "po-charset.h"
 #include "po-gram.h"
 #include "po-hash.h"
+#include "read-properties.h"
 #include "xmalloc.h"
+#include "gettext.h"
 
 /* Local variables.  */
 static abstract_po_reader_ty *callback_arg;
@@ -95,11 +96,12 @@ call_directive_message (abstract_po_reader_ty *pop,
 			char *msgid_plural,
 			char *msgstr, size_t msgstr_len,
 			lex_pos_ty *msgstr_pos,
-			bool obsolete)
+			bool force_fuzzy, bool obsolete)
 {
   if (pop->methods->directive_message)
     pop->methods->directive_message (pop, msgid, msgid_pos, msgid_plural,
-				     msgstr, msgstr_len, msgstr_pos, obsolete);
+				     msgstr, msgstr_len, msgstr_pos,
+				     force_fuzzy, obsolete);
 }
 
 static inline void
@@ -135,7 +137,7 @@ call_comment_special (abstract_po_reader_ty *pop, const char *s)
 /* Exported functions.  */
 
 
-void
+static inline void
 po_scan_start (abstract_po_reader_ty *pop)
 {
   /* The parse will call the po_callback_... functions (see below)
@@ -147,7 +149,7 @@ po_scan_start (abstract_po_reader_ty *pop)
   call_parse_brief (pop);
 }
 
-void
+static inline void
 po_scan_end (abstract_po_reader_ty *pop)
 {
   call_parse_debrief (pop);
@@ -157,14 +159,34 @@ po_scan_end (abstract_po_reader_ty *pop)
 
 void
 po_scan (abstract_po_reader_ty *pop, FILE *fp,
-	 const char *real_filename, const char *logical_filename)
+	 const char *real_filename, const char *logical_filename,
+	 input_syntax_ty syntax)
 {
   /* Parse the stream's content.  */
-  lex_start (fp, real_filename, logical_filename);
-  po_scan_start (pop);
-  po_gram_parse ();
-  po_scan_end (pop);
-  lex_end ();
+  switch (syntax)
+    {
+    case syntax_po:
+      lex_start (fp, real_filename, logical_filename);
+      po_scan_start (pop);
+      po_gram_parse ();
+      po_scan_end (pop);
+      lex_end ();
+      break;
+    case syntax_properties:
+      po_scan_start (pop);
+      properties_parse (pop, fp, real_filename, logical_filename);
+      po_scan_end (pop);
+      break;
+    default:
+      abort ();
+    }
+
+  if (error_message_count > 0)
+    error (EXIT_FAILURE, 0,
+	   ngettext ("found %d fatal error", "found %d fatal errors",
+		     error_message_count),
+	   error_message_count);
+  error_message_count = 0;
 }
 
 
@@ -188,16 +210,12 @@ po_callback_domain (char *name)
 void
 po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
-		     bool obsolete)
+		     bool force_fuzzy, bool obsolete)
 {
   /* assert(callback_arg); */
-
-  /* Test for header entry.  Ignore fuzziness of the header entry.  */
-  if (msgid[0] == '\0' && !obsolete)
-    po_lex_charset_set (msgstr, gram_pos.file_name);
-
   call_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
-			  msgstr, msgstr_len, msgstr_pos, obsolete);
+			  msgstr, msgstr_len, msgstr_pos,
+			  force_fuzzy, obsolete);
 }
 
 

@@ -71,6 +71,7 @@ static const struct option long_options[] =
   { "no-escape", no_argument, NULL, 'e' },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "resource", required_argument, NULL, 'r' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -113,7 +114,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
-  while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:r:svVw:",
+  while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:pr:svVw:",
 				 long_options, NULL))
 	 != EOF)
     switch (optchar)
@@ -153,6 +154,10 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
 	break;
 
       case 'r':
@@ -382,6 +387,8 @@ Output details:\n"));
   -i, --indent                write indented output style\n"));
       printf (_("\
       --strict                write strict uniforum style\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

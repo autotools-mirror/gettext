@@ -107,6 +107,8 @@ static const struct option long_options[] =
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 3 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -159,7 +161,8 @@ main (int argc, char **argv)
 
   /* The '+' in the options string causes option parsing to terminate when
      the first non-option, i.e. the subprogram name, is encountered.  */
-  while ((opt = getopt_long (argc, argv, "+D:EFhi:o:sVw:", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "+D:EFhi:o:pPsVw:", long_options,
+			     NULL))
 	 != EOF)
     switch (opt)
       {
@@ -193,6 +196,14 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 's':
@@ -384,6 +395,11 @@ Useful FILTER-OPTIONs when the FILTER is 'sed':\n"));
   -n, --quiet, --silent       suppress automatic printing of pattern space\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
       --no-escape             do not use C escapes in output (default)\n"));
@@ -401,6 +417,8 @@ Output details:\n"));
       --add-location          preserve '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                strict Uniforum output style\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

@@ -116,6 +116,18 @@ Specify the base directory of @file{.msg} message catalogs.
 The @samp{-l} and @samp{-d} options are mandatory.  The @file{.msg} file is
 written in the specified directory.
 
+@subsection Input file syntax
+
+@table @samp
+@item -P
+@itemx --properties-input
+@opindex -P@r{, @code{msgfmt} option}
+@opindex --properties-input@r{, @code{msgfmt} option}
+Assume the input files are Java ResourceBundles in Java @code{.properties}
+syntax, not in PO file syntax.
+
+@end table
+
 @subsection Input file interpretation
 
 @table @samp

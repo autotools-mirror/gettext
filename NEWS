@@ -20,6 +20,13 @@ Version 0.12-pre1 - February 2003
     C format strings in C++. This is needed for proper internationalization
     of C++ programs.
 
+  - Java
+
+    All the tools that manipulate PO files can work with .properties files
+    as well, if given the --properties-input and/or --properties-output
+    option. To create a .properties file from a PO or POT file, use
+    "msgcat --properties-output".
+
   - Smalltalk
 
     xgettext now also supports Smalltalk.

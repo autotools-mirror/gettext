@@ -62,6 +62,8 @@ static const struct option long_options[] =
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "repeated", no_argument, NULL, 'd' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
@@ -118,7 +120,7 @@ main (int argc, char **argv)
   less_than = INT_MAX;
   use_first = false;
 
-  while ((optchar = getopt_long (argc, argv, "dD:eEFhino:st:uVw:",
+  while ((optchar = getopt_long (argc, argv, "dD:eEFhino:pPst:uVw:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -160,6 +162,14 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 's':
@@ -320,6 +330,11 @@ Message selection:\n"));
   -u, --unique                print only unique messages, discard duplicates\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
   -t, --to-code=NAME          encoding for output\n"));
@@ -340,6 +355,8 @@ Output details:\n"));
   -n, --add-location          generate '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                write out strict Uniforum conforming .po file\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

@@ -70,6 +70,7 @@
 #include "x-librep.h"
 #include "x-smalltalk.h"
 #include "x-java.h"
+#include "x-properties.h"
 #include "x-awk.h"
 #include "x-ycp.h"
 #include "x-tcl.h"
@@ -169,6 +170,7 @@ static const struct option long_options[] =
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
+  { "properties-output", no_argument, NULL, CHAR_MAX + 6 },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -392,6 +394,9 @@ main (int argc, char *argv[])
 	break;
       case CHAR_MAX + 5:	/* --msgid-bugs-address */
 	msgid_bugs_address = optarg;
+	break;
+      case CHAR_MAX + 6:	/* --properties-output */
+	message_print_syntax_properties ();
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -644,8 +649,8 @@ Choice of input file language:\n"));
       printf (_("\
   -L, --language=NAME         recognise the specified language\n\
                                 (C, C++, ObjectiveC, PO, Python, Lisp,\n\
-                                EmacsLisp, librep, Smalltalk, Java, awk, YCP,\n\
-                                Tcl, PHP, RST, Glade)\n"));
+                                EmacsLisp, librep, Smalltalk, Java,\n\
+                                JavaProperties, awk, YCP, Tcl, PHP, RST, Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -698,6 +703,8 @@ Output details:\n"));
       printf (_("\
       --strict                write out strict Uniforum conforming .po file\n"));
       printf (_("\
+      --properties-output     write out a Java .properties file\n"));
+      printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\
       --no-wrap               do not break long message lines, longer than\n\
@@ -749,7 +756,7 @@ exclude_directive_message (abstract_po_reader_ty *pop,
 			   char *msgid_plural,
 			   char *msgstr, size_t msgstr_len,
 			   lex_pos_ty *msgstr_pos,
-			   bool obsolete)
+			   bool force_fuzzy, bool obsolete)
 {
   message_ty *mp;
 
@@ -802,7 +809,7 @@ read_exclusion_file (char *filename)
   abstract_po_reader_ty *pop;
 
   pop = po_reader_alloc (&exclude_methods);
-  po_scan (pop, fp, real_filename, filename);
+  po_scan (pop, fp, real_filename, filename, input_syntax);
   po_reader_free (pop);
 
   if (fp != stdin)
@@ -1442,6 +1449,7 @@ language_to_extractor (const char *name)
     SCANNERS_LIBREP
     SCANNERS_SMALLTALK
     SCANNERS_JAVA
+    SCANNERS_PROPERTIES
     SCANNERS_AWK
     SCANNERS_YCP
     SCANNERS_TCL
@@ -1489,6 +1497,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_LIBREP
     EXTENSIONS_SMALLTALK
     EXTENSIONS_JAVA
+    EXTENSIONS_PROPERTIES
     EXTENSIONS_AWK
     EXTENSIONS_YCP
     EXTENSIONS_TCL

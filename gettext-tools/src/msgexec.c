@@ -76,6 +76,7 @@ static const struct option long_options[] =
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "input", required_argument, NULL, 'i' },
+  { "properties-input", no_argument, NULL, 'P' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
@@ -120,7 +121,8 @@ main (int argc, char **argv)
 
   /* The '+' in the options string causes option parsing to terminate when
      the first non-option, i.e. the subprogram name, is encountered.  */
-  while ((opt = getopt_long (argc, argv, "+D:hi:V", long_options, NULL)) != EOF)
+  while ((opt = getopt_long (argc, argv, "+D:hi:PV", long_options, NULL))
+	 != EOF)
     switch (opt)
       {
       case '\0':		/* Long option.  */
@@ -141,6 +143,10 @@ main (int argc, char **argv)
 	    usage (EXIT_FAILURE);
 	  }
 	input_file = optarg;
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 'V':
@@ -248,6 +254,11 @@ Input file location:\n"));
   -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
       printf (_("\
 If no input file is given or if it is -, standard input is read.\n"));
+      printf ("\n");
+      printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input file is in Java .properties syntax\n"));
       printf ("\n");
       printf (_("\
 Informative output:\n"));

@@ -62,6 +62,8 @@ static const struct option long_options[] =
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 1 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -89,6 +91,7 @@ main (int argc, char **argv)
   char *output_file;
   const char *input_file;
   msgdomain_list_ty *result;
+  input_syntax_ty output_syntax = syntax_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
 
@@ -111,7 +114,8 @@ main (int argc, char **argv)
   output_file = NULL;
   input_file = NULL;
 
-  while ((opt = getopt_long (argc, argv, "D:eEFhio:st:Vw:", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "D:eEFhio:pPst:Vw:", long_options,
+			     NULL))
 	 != EOF)
     switch (opt)
       {
@@ -144,6 +148,15 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	output_syntax = syntax_properties;
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 's':
@@ -223,9 +236,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (to_code == NULL)
     to_code = locale_charset ();
 
-  /* Read input file and convert.  */
-  result = iconv_msgdomain_list (read_po_file (input_file), to_code,
-				 input_file);
+  /* Read input file.  */
+  result = read_po_file (input_file);
+
+  /* Convert if and only if the output syntax supports different encodings.  */
+  if (output_syntax != syntax_properties)
+    result = iconv_msgdomain_list (result, to_code, input_file);
 
   /* Sort the results.  */
   if (sort_by_filepos)
@@ -285,6 +301,11 @@ Conversion target:\n"));
 The default encoding is the current locale's encoding.\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
@@ -300,6 +321,8 @@ Output details:\n"));
       --add-location          preserve '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                strict Uniforum output style\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

@@ -1,0 +1,40 @@
+#! /bin/sh
+
+# Test --update: location changed, and xgettext comment added. Both changes
+# must be reflected in the resulting PO file. With Java .properties syntax.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles mm-test24.po"
+cat <<\EOF > mm-test24.po
+#: cogarithmetic.cc:12
+white=wei\u00df
+EOF
+
+tmpfiles="$tmpfiles mm-test24.pot"
+cat <<EOF > mm-test24.pot
+#. location changed
+#: cogarithmetic.cc:33
+!white=
+EOF
+
+tmpfiles="$tmpfiles mm-test24.po~"
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} -q --properties-input --update mm-test24.po mm-test24.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+tmpfiles="$tmpfiles mm-test24.ok"
+cat <<\EOF > mm-test24.ok
+#. location changed
+#: cogarithmetic.cc:33
+white=wei\u00df
+EOF
+
+: ${DIFF=diff}
+${DIFF} mm-test24.ok mm-test24.po
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

@@ -391,8 +391,9 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
 	   to_code);
 
   for (k = 0; k < mdlp->nitems; k++)
-    iconv_message_list (mdlp->item[k]->messages, NULL, canon_to_code,
+    iconv_message_list (mdlp->item[k]->messages, mdlp->encoding, canon_to_code,
 			from_filename);
 
+  mdlp->encoding = canon_to_code;
   return mdlp;
 }

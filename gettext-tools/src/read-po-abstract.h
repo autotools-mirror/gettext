@@ -73,7 +73,7 @@ struct abstract_po_reader_class_ty
 			     char *msgid_plural,
 			     char *msgstr, size_t msgstr_len,
 			     lex_pos_ty *msgstr_pos,
-			     bool obsolete);
+			     bool force_fuzzy, bool obsolete);
 
   /* What to do with a plain-vanilla comment - the expectation is that
      they will be accumulated, and added to the next message
@@ -123,19 +123,20 @@ struct abstract_po_reader_ty
 extern abstract_po_reader_ty *
        po_reader_alloc (abstract_po_reader_class_ty *method_table);
 
-/* Prepare for use of abstract_po_reader_class_ty methods.  */
-extern void
-       po_scan_start (abstract_po_reader_ty *pop);
-
-/* Terminate the use of abstract_po_reader_class_ty methods.  */
-extern void
-       po_scan_end (abstract_po_reader_ty *pop);
+/* Kinds of PO file input syntaxes.  */
+enum input_syntax_ty
+{
+  syntax_po,
+  syntax_properties
+};
+typedef enum input_syntax_ty input_syntax_ty;
 
 /* Read a PO file from a stream, and dispatch to the various
    abstract_po_reader_class_ty methods.  */
 extern void
        po_scan (abstract_po_reader_ty *pop, FILE *fp,
-		const char *real_filename, const char *logical_filename);
+		const char *real_filename, const char *logical_filename,
+		input_syntax_ty syntax);
 
 /* Call the destructor and deallocate a abstract_po_reader_ty (or derived
    class) instance.  */
@@ -150,7 +151,7 @@ extern void po_callback_message (char *msgid, lex_pos_ty *msgid_pos,
 				 char *msgid_plural,
 				 char *msgstr, size_t msgstr_len,
 				 lex_pos_ty *msgstr_pos,
-				 bool obsolete);
+				 bool force_fuzzy, bool obsolete);
 extern void po_callback_comment (const char *s);
 extern void po_callback_comment_dot (const char *s);
 extern void po_callback_comment_filepos (const char *s, size_t line);

@@ -133,7 +133,7 @@ write_msg (FILE *output_file, message_list_ty *mlp, const char *locale_name)
 }
 
 int
-msgdomain_write_tcl (message_list_ty *mlp,
+msgdomain_write_tcl (message_list_ty *mlp, const char *canon_encoding,
 		     const char *locale_name,
 		     const char *directory)
 {
@@ -161,7 +161,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
   }
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, NULL, po_charset_canonicalize ("UTF-8"), NULL);
+  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
 
   /* Now create the file.  */
   {

@@ -52,6 +52,7 @@
 #include "message.h"
 #include "open-po.h"
 #include "read-po.h"
+#include "po-charset.h"
 
 #define _(str) gettext (str)
 
@@ -160,6 +161,7 @@ static const struct option long_options[] =
   { "locale", required_argument, NULL, 'l' },
   { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
   { "resource", required_argument, NULL, 'r' },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
@@ -191,6 +193,7 @@ main (int argc, char *argv[])
   bool do_help = false;
   bool do_version = false;
   bool strict_uniforum = false;
+  const char *canon_encoding;
   struct msg_domain *domain;
 
   /* Set default value for global variables.  */
@@ -211,7 +214,7 @@ main (int argc, char *argv[])
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
-  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:o:r:vV", long_options,
+  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:o:Pr:vV", long_options,
 			     NULL))
 	 != EOF)
     switch (opt)
@@ -257,6 +260,9 @@ main (int argc, char *argv[])
 	break;
       case 'o':
 	output_file_name = optarg;
+	break;
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
       case 'r':
 	java_resource_name = optarg;
@@ -417,6 +423,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       ++optind;
     }
 
+  /* We know a priori that properties_parse() converts strings to UTF-8.  */
+  canon_encoding = (input_syntax == syntax_properties ? po_charset_utf8 : NULL);
+
   /* Remove obsolete messages.  They were only needed for duplicate
      checking.  */
   for (domain = domain_list; domain != NULL; domain = domain->next)
@@ -432,14 +441,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     {
       if (java_mode)
 	{
-	  if (msgdomain_write_java (domain->mlp, java_resource_name,
-				    java_locale_name, java_class_directory,
-				    assume_java2))
+	  if (msgdomain_write_java (domain->mlp, canon_encoding,
+				    java_resource_name, java_locale_name,
+				    java_class_directory, assume_java2))
 	    exit_status = EXIT_FAILURE;
 	}
       else if (tcl_mode)
 	{
-	  if (msgdomain_write_tcl (domain->mlp,
+	  if (msgdomain_write_tcl (domain->mlp, canon_encoding,
 				   tcl_locale_name, tcl_base_directory))
 	    exit_status = EXIT_FAILURE;
 	}
@@ -552,6 +561,11 @@ Output file location in Tcl mode:\n"));
       printf (_("\
 The -l and -d options are mandatory.  The .msg file is written in the\n\
 specified directory.\n"));
+      printf ("\n");
+      printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input files are in Java .properties syntax\n"));
       printf ("\n");
       printf (_("\
 Input file interpretation:\n"));
@@ -1402,7 +1416,7 @@ msgfmt_add_message (default_po_reader_ty *this,
 		    char *msgid_plural,
 		    char *msgstr, size_t msgstr_len,
 		    lex_pos_ty *msgstr_pos,
-		    bool obsolete)
+		    bool force_fuzzy, bool obsolete)
 {
   /* Check whether already a domain is specified.  If not, use default
      domain.  */
@@ -1417,7 +1431,7 @@ msgfmt_add_message (default_po_reader_ty *this,
 
   /* Invoke superclass method.  */
   default_add_message (this, msgid, msgid_pos, msgid_plural,
-		       msgstr, msgstr_len, msgstr_pos, obsolete);
+		       msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
 }
 
 
@@ -1558,7 +1572,8 @@ read_po_file_msgfmt (char *filename)
       pop->mlp = current_domain->mlp;
     }
   po_lex_pass_obsolete_entries (true);
-  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, filename);
+  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, filename,
+	   input_syntax);
   po_reader_free ((abstract_po_reader_ty *) pop);
 
   if (fp != stdin)

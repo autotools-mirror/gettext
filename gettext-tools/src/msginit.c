@@ -124,6 +124,8 @@ static const struct option long_options[] =
   { "no-translator", no_argument, NULL, CHAR_MAX + 1 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
@@ -172,7 +174,7 @@ main (int argc, char **argv)
   input_file = NULL;
   locale = NULL;
 
-  while ((opt = getopt_long (argc, argv, "hi:l:o:Vw:", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "hi:l:o:pPVw:", long_options, NULL))
 	 != EOF)
     switch (opt)
       {
@@ -198,6 +200,14 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 'V':
@@ -356,11 +366,18 @@ If no output file is given, it depends on the --locale option or the user's\n\
 locale setting.  If it is -, the results are written to standard output.\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
   -l, --locale=LL_CC          set target locale\n"));
       printf (_("\
       --no-translator         assume the PO file is automatically generated\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

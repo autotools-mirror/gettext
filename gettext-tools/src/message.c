@@ -524,6 +524,7 @@ msgdomain_list_alloc (bool use_hashtable)
     (msgdomain_ty **) xmalloc (mdlp->nitems_max * sizeof (msgdomain_ty *));
   mdlp->item[0] = msgdomain_alloc (MESSAGE_DOMAIN_DEFAULT, use_hashtable);
   mdlp->use_hashtable = use_hashtable;
+  mdlp->encoding = NULL;
   return mdlp;
 }
 

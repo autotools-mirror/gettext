@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -30,6 +30,7 @@
    Return 0 if ok, nonzero on error.  */
 extern int
        msgdomain_write_java (message_list_ty *mlp,
+			     const char *canon_encoding,
 			     const char *resource_name,
 			     const char *locale_name,
 			     const char *directory,

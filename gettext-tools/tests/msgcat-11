@@ -1,0 +1,42 @@
+#! /bin/sh
+
+# Test --use-first option with Java .properties syntax.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles mcat-test11.in1 mcat-test11.in2"
+cat <<\EOF > mcat-test11.in1
+#. Help text (HTML-like) START
+#: clients/inst_ask_config.ycp:119
+Congratulations\!=Gl\u00fcckwunsch\!
+EOF
+
+cat <<\EOF > mcat-test11.in2
+#. Help text (HTML-like) START
+#: clients/inst_ask_config.ycp:119
+Congratulations\!=Herzlichen Gl\u00fcckwunsch\!
+EOF
+
+tmpfiles="$tmpfiles mcat-test11.out"
+rm -f mcat-test11.out
+
+: ${MSGCAT=msgcat}
+${MSGCAT} --use-first --more-than=0 --properties-input --properties-output \
+    mcat-test11.in1 mcat-test11.in2 -o mcat-test11.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+tmpfiles="$tmpfiles mcat-test11.ok"
+cat << \EOF > mcat-test11.ok
+#. Help text (HTML-like) START
+#: clients/inst_ask_config.ycp:119
+Congratulations\!=Gl\u00fcckwunsch\!
+EOF
+
+: ${DIFF=diff}
+${DIFF} mcat-test11.ok mcat-test11.out
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

@@ -110,6 +110,14 @@ Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
 
+@item -p
+@itemx --properties-output
+@opindex -p@r{, @code{msgunfmt} option}
+@opindex --properties-output@r{, @code{msgunfmt} option}
+Write out a Java ResourceBundle in Java @code{.properties} syntax.  Note
+that this file format doesn't support plural forms and silently drops
+obsolete messages.
+
 @item -w @var{number}
 @itemx --width=@var{number}
 @opindex -w@r{, @code{msgunfmt} option}

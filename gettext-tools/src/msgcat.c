@@ -64,6 +64,8 @@ static const struct option long_options[] =
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
+  { "properties-input", no_argument, NULL, 'P' },
+  { "properties-output", no_argument, NULL, 'p' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -97,6 +99,7 @@ main (int argc, char **argv)
   const char *files_from;
   string_list_ty *file_list;
   msgdomain_list_ty *result;
+  input_syntax_ty output_syntax = syntax_po;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
 
@@ -122,7 +125,7 @@ main (int argc, char **argv)
   less_than = INT_MAX;
   use_first = false;
 
-  while ((optchar = getopt_long (argc, argv, "<:>:D:eEf:Fhino:st:uVw:",
+  while ((optchar = getopt_long (argc, argv, "<:>:D:eEf:Fhino:pPst:uVw:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -183,6 +186,15 @@ main (int argc, char **argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'p':
+	message_print_syntax_properties ();
+	output_syntax = syntax_properties;
+	break;
+
+      case 'P':
+	input_syntax = syntax_properties;
 	break;
 
       case 's':
@@ -271,7 +283,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     string_list_append_unique (file_list, argv[cnt]);
 
   /* Read input files, then filter, convert and merge messages.  */
-  result = catenate_msgdomain_list (file_list, to_code);
+  result = catenate_msgdomain_list (file_list,
+				    output_syntax != syntax_properties
+				    ? to_code
+				    : "UTF-8");
 
   string_list_free (file_list);
 
@@ -349,6 +364,11 @@ Message selection:\n"));
                               that only unique messages be printed\n"));
       printf ("\n");
       printf (_("\
+Input file syntax:\n"));
+      printf (_("\
+  -P, --properties-input      input files are in Java .properties syntax\n"));
+      printf ("\n");
+      printf (_("\
 Output details:\n"));
       printf (_("\
   -t, --to-code=NAME          encoding for output\n"));
@@ -369,6 +389,8 @@ Output details:\n"));
   -n, --add-location          generate '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                write out strict Uniforum conforming .po file\n"));
+      printf (_("\
+  -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

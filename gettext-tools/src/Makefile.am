@@ -35,13 +35,14 @@ lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
 include_HEADERS = gettext-po.h
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
-open-po.h read-po-abstract.h read-po.h str-list.h write-po.h dir-list.h \
-file-list.h po-gram-gen.h po-gram-gen2.h po-hash-gen.h msgl-charset.h \
-msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h \
-msgunfmt.h read-mo.h write-mo.h read-java.h write-java.h read-tcl.h \
-write-tcl.h po-time.h plural-table.h format.h xgettext.h x-c.h x-po.h \
-x-python.h x-lisp.h x-elisp.h x-librep.h x-smalltalk.h x-java.h x-awk.h \
-x-ycp.h x-tcl.h x-php.h x-rst.h x-glade.h
+open-po.h read-po-abstract.h read-po.h read-properties.h str-list.h \
+write-po.h write-properties.h dir-list.h file-list.h po-gram-gen.h \
+po-gram-gen2.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
+msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
+write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
+plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h x-elisp.h \
+x-librep.h x-smalltalk.h x-java.h x-properties.h x-awk.h x-ycp.h x-tcl.h \
+x-php.h x-rst.h x-glade.h
 
 EXTRA_DIST += FILES project-id ChangeLog.0
 
@@ -86,7 +87,7 @@ JAVACOMP = $(SHELL) ../lib/javacomp.sh
 # (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
 COMMON_SOURCE = message.c \
 read-po-abstract.c po-lex.c po-gram-gen.y po-hash-gen.y po-charset.c \
-open-po.c dir-list.c str-list.c
+read-properties.c open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c format-invalid.h \
@@ -96,9 +97,9 @@ format-php.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
-$(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
-msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
-plural-table.c $(FORMAT_SOURCE)
+$(COMMON_SOURCE) read-po.c write-properties.c write-po.c msgl-ascii.c \
+msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c file-list.c \
+msgl-charset.c po-time.c plural.c plural-table.c $(FORMAT_SOURCE)
 
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = gettext-po.c

@@ -618,18 +618,11 @@ lex_start (FILE *fp, const char *real_filename, const char *logical_filename)
 void
 lex_end ()
 {
-  if (error_message_count > 0)
-    error (EXIT_FAILURE, 0,
-	   ngettext ("found %d fatal error", "found %d fatal errors",
-		     error_message_count),
-	   error_message_count);
-
   mbf->fp = NULL;
   gram_pos.file_name = NULL;
   gram_pos.line_number = 0;
   gram_pos_column = 0;
   signal_eilseq = false;
-  error_message_count = 0;
   po_lex_obsolete = false;
   po_lex_charset_close ();
 }

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -235,6 +235,7 @@ struct msgdomain_list_ty
   size_t nitems;
   size_t nitems_max;
   bool use_hashtable;
+  const char *encoding;		/* canonicalized encoding or NULL if unknown */
 };
 
 extern msgdomain_list_ty *

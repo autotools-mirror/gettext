@@ -42,6 +42,18 @@ Apply @var{ref}.pot to each of the domains in @var{def}.po.
 
 @end table
 
+@subsection Input file syntax
+
+@table @samp
+@item -P
+@itemx --properties-input
+@opindex -P@r{, @code{msgcmp} option}
+@opindex --properties-input@r{, @code{msgcmp} option}
+Assume the input files are Java ResourceBundles in Java @code{.properties}
+syntax, not in PO file syntax.
+
+@end table
+
 @subsection Informative output
 
 @table @samp

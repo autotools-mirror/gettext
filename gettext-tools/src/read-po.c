@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include "open-po.h"
+#include "po-charset.h"
 #include "xmalloc.h"
 #include "gettext.h"
 
@@ -51,14 +52,15 @@ static inline void
 call_add_message (struct default_po_reader_ty *this,
 		  char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		  char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
-		  bool obsolete)
+		  bool force_fuzzy, bool obsolete)
 {
   default_po_reader_class_ty *methods =
     (default_po_reader_class_ty *) this->methods;
 
   if (methods->add_message)
     methods->add_message (this, msgid, msgid_pos, msgid_plural,
-			  msgstr, msgstr_len, msgstr_pos, obsolete);
+			  msgstr, msgstr_len, msgstr_pos,
+			  force_fuzzy, obsolete);
 }
 
 static inline void
@@ -230,12 +232,12 @@ default_directive_message (abstract_po_reader_ty *that,
 			   char *msgid_plural,
 			   char *msgstr, size_t msgstr_len,
 			   lex_pos_ty *msgstr_pos,
-			   bool obsolete)
+			   bool force_fuzzy, bool obsolete)
 {
   default_po_reader_ty *this = (default_po_reader_ty *) that;
 
   call_add_message (this, msgid, msgid_pos, msgid_plural,
-		    msgstr, msgstr_len, msgstr_pos, obsolete);
+		    msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
 
   /* Prepare for next message.  */
   default_reset_comment_state (this);
@@ -327,7 +329,7 @@ default_add_message (default_po_reader_ty *this,
 		     char *msgid_plural,
 		     char *msgstr, size_t msgstr_len,
 		     lex_pos_ty *msgstr_pos,
-		     bool obsolete)
+		     bool force_fuzzy, bool obsolete)
 {
   message_ty *mp;
 
@@ -373,6 +375,8 @@ default_add_message (default_po_reader_ty *this,
       mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
       mp->obsolete = obsolete;
       default_copy_comment_state (this, mp);
+      if (force_fuzzy)
+	mp->is_fuzzy = true;
 
       call_frob_new_message (this, mp, msgid_pos, msgstr_pos);
 
@@ -428,6 +432,9 @@ int line_comment = 1;
    appropriately.  Defaults to false.  */
 bool allow_duplicates = false;
 
+/* Expected syntax of the input files.  */
+input_syntax_ty input_syntax = syntax_po;
+
 
 msgdomain_list_ty *
 read_po (FILE *fp, const char *real_filename, const char *logical_filename)
@@ -443,8 +450,12 @@ read_po (FILE *fp, const char *real_filename, const char *logical_filename)
   pop->allow_duplicates_if_same_msgstr = false;
   pop->mdlp = msgdomain_list_alloc (!pop->allow_duplicates);
   pop->mlp = msgdomain_list_sublist (pop->mdlp, pop->domain, true);
+  if (input_syntax == syntax_properties)
+    /* We know a priori that properties_parse() converts strings to UTF-8.  */
+    pop->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
-  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename);
+  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename,
+	   input_syntax);
   mdlp = pop->mdlp;
   po_reader_free ((abstract_po_reader_ty *) pop);
   return mdlp;

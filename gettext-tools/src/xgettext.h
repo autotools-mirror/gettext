@@ -29,8 +29,8 @@
 #include "message.h"
 #include "pos.h"
 
-/* Borrowed from read-po.h.  */
-extern int line_comment;
+/* Declare 'line_comment' and 'input_syntax'.  */
+#include "read-po.h"
 
 /* If true, omit the header entry.
    If false, keep the header entry present in the input.  */
