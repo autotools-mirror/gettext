@@ -193,16 +193,6 @@ static void *mempcpy PARAMS ((void *dest, const void *src, size_t n));
 # define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
 #endif
 
-/* XPG3 defines the result of `setlocale (category, NULL)' as:
-   ``Directs `setlocale()' to query `category' and return the current
-     setting of `local'.''
-   However it does not specify the exact format.  Neither do SUSV2 and
-   ISO C 99.  So we can use this feature only on selected systems (e.g.
-   those using GNU C Library).  */
-#if defined _LIBC || (defined __GNU_LIBRARY__ && __GNU_LIBRARY__ >= 2)
-# define HAVE_LOCALE_NULL
-#endif
-
 /* This is the type used for the search tree where known translations
    are stored.  */
 struct known_translation_t
@@ -1074,30 +1064,19 @@ guess_category_value (category, categoryname)
   if (language != NULL && language[0] == '\0')
     language = NULL;
 
-  /* We have to proceed with the POSIX methods of looking to `LC_ALL',
-     `LC_xxx', and `LANG'.  On some systems this can be done by the
-     `setlocale' function itself.  */
-#if defined _LIBC || (defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL)
-  retval = setlocale (category, NULL);
-#else
-  /* Setting of LC_ALL overwrites all other.  */
-  retval = getenv ("LC_ALL");
-  if (retval == NULL || retval[0] == '\0')
-    {
-      /* Next comes the name of the desired category.  */
-      retval = getenv (categoryname);
-      if (retval == NULL || retval[0] == '\0')
-	{
-	  /* Last possibility is the LANG environment variable.  */
-	  retval = getenv ("LANG");
-	  if (retval == NULL || retval[0] == '\0')
-	    /* We use C as the default domain.  POSIX says this is
-	       implementation defined.  */
-	    return "C";
-	}
-    }
-#endif
+  /* Proceed with the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and
+    'LANG'.  */
+  retval = _nl_locale_name (category, categoryname);
 
+  /* Ignore LANGUAGE if the locale is set to "C" because
+     1. "C" locale usually uses the ASCII encoding, and most international
+	messages use non-ASCII characters. These characters get displayed
+	as question marks (if using glibc's iconv()) or as invalid 8-bit
+	characters (because other iconv()s refuse to convert most non-ASCII
+	characters to ASCII). In any case, the output is ugly.
+     2. The precise output of some programs in the "C" locale is specified
+	by POSIX and should not depend on environment variables like
+	"LANGUAGE".  We allow such programs to use gettext().  */
   return language != NULL && strcmp (retval, "C") != 0 ? language : retval;
 }
 

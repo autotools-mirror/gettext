@@ -122,6 +122,7 @@ struct binding
    This variable is part of the external ABI of the GNU libintl.  */
 extern int _nl_msg_cat_cntr;
 
+const char *_nl_locale_name PARAMS ((int category, const char *categoryname));
 struct loaded_l10nfile *_nl_find_domain PARAMS ((const char *__dirname,
 						 char *__locale,
 						 const char *__domainname,
