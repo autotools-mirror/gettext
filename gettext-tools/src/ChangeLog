@@ -1,3 +1,8 @@
+2005-02-04  Bruno Haible  <bruno@clisp.org>
+
+	* plural-table.c (plural_table): Add an entry about Vietnamese.
+	Explanations by Clytie Siddall <clytie@riverland.net.au>.
+
 2005-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msgcmp_LDADD, msgfmt_LDADD, msgmerge_LDADD,

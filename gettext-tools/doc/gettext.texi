@@ -5032,7 +5032,7 @@ Languages with this property include:
 @item Finno-Ugric family
 Hungarian
 @item Asian family
-Japanese, Korean
+Japanese, Korean, Vietnamese
 @item Turkic/Altaic family
 Turkish
 @end table

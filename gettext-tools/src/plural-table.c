@@ -1,5 +1,5 @@
 /* Table of known plural form expressions.
-   Copyright (C) 2001-2004 Free Software Foundation, Inc.
+   Copyright (C) 2001-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@ struct plural_table_entry plural_table[] =
     { "hu", "Hungarian",         "nplurals=1; plural=0;" },
     { "ja", "Japanese",          "nplurals=1; plural=0;" },
     { "ko", "Korean",            "nplurals=1; plural=0;" },
+    { "vi", "Vietnamese",        "nplurals=1; plural=0;" },
     { "tr", "Turkish",           "nplurals=1; plural=0;" },
     { "da", "Danish",            "nplurals=2; plural=(n != 1);" },
     { "nl", "Dutch",             "nplurals=2; plural=(n != 1);" },
