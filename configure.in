@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.31 $)
+AC_REVISION($Revision: 1.32 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.11)
 RELEASE_DATE=2001-05-23      dnl in "date +%Y-%m-%d" format
@@ -98,6 +98,11 @@ ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG(DVIPS, dvips, $ac_aux_dir_abs/missing dvips)
 AC_PATH_PROG(TEXI2PDF, texi2pdf, $ac_aux_dir_abs/missing texi2pdf)
 AC_PATH_PROG(TEXI2HTML, texi2html, $ac_aux_dir_abs/missing texi2html)
+
+dnl Check for tools needed for formatting man pages.
+CROSS_COMPILING=$cross_compiling
+AC_SUBST(CROSS_COMPILING)
+AC_PATH_PROG(PERL, perl, $ac_aux_dir_abs/missing perl)
 
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl

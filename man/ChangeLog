@@ -1,3 +1,33 @@
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* help2man: New file, from help2man-1.24.
+	* gettext.x: New file.
+	* msgcat.x: New file.
+	* msgcmp.x: New file.
+	* msgcomm.x: New file.
+	* msgconv.x: New file.
+	* msgen.x: New file.
+	* msgfmt.x: New file.
+	* msggrep.x: New file.
+	* msgmerge.x: New file.
+	* msgsed.x: New file.
+	* msgunfmt.x: New file.
+	* ngettext.x: New file.
+	* xgettext.x: New file.
+	* Makefile.am (man_aux, man_MAN1): New variables.
+	(man_MANS): Add $(man_MAN1).
+	(man_HTML): Add *.1.html for all programs.
+	(EXTRA_DIST): Add help2man, $(man_aux).
+	(SUFFIXES): Recognize .1 and .x.
+	(PERL): New variable.
+	(HELP2MAN): New variable.
+	(.x.1): New rule.
+	($(man_MAN1)): Depend on help2man and configure.in.
+	(gettext.1.html, ngettext.1.html, msgcmp.1.html, msgfmt.1.html,
+	msgmerge.1.html, msgunfmt.1.html, xgettext.1.html, msgcat.1.html,
+	msgcomm.1.html, msgconv.1.html, msgen.1.html, msggrep.1.html,
+	msgsed.1.html): New rules.
+
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.38 released.
