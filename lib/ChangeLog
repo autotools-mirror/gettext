@@ -1,5 +1,10 @@
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* mkdtemp.c: Include <inttypes.h> if it exists. Needed on platforms
+	which have <inttypes.h> but not <stdint.h>, like BeOS.
+
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* stdbool.h.in: Avoid syntax error on BeOS if <sys/socket.h> has
 	already been included.
 

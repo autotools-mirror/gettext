@@ -43,6 +43,10 @@
 # include <stdint.h>
 #endif
 
+#if HAVE_INTTYPES_H || _LIBC
+# include <inttypes.h>
+#endif
+
 #if HAVE_UNISTD_H || _LIBC
 # include <unistd.h>
 #endif
