@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10\n"
+"Project-Id-Version: GNU gettext 0.10.12\n"
 "POT-Creation-Date: 2001-04-18 22:38+0200\n"
 "PO-Revision-Date: 1996-03-21 08:46 EST\n"
 "Last-Translator: Karl Anders Øygard <karlo@ifi.uio.no>\n"
@@ -127,7 +127,7 @@ msgid ""
 msgstr ""
 "Bruk: %s [FLAGG] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
 "  -d, --domain=TEXTDOMAIN   hent oversette meldingar frå TEXTDOMAIN\n"
-"  -e                        slå på ekspansjon av nokre escape-sekvensar\n"
+"  -e                        slå på ekspandering av nokre escape-sekvensar\n"
 "  -E                        (tillete av kompatibilitetsomsyn)\n"
 "  -h, --help                vis denne hjelpeteksta og avslutt\n"
 "  -n                        undertrykk etterfølgjande linjeskift\n"
@@ -150,9 +150,9 @@ msgid ""
 msgstr ""
 "\n"
 "Dersom TEXTDOMAIN-parameteren ikkje er gjeven, vert domenet valgt frå\n"
-"miljø-variabelen TEXTDOMAIN.  Dersom meldingskatalogen ikkje finst i den\n"
+"miljøvariabelen TEXTDOMAIN.  Dersom meldingskatalogen ikkje finst i den\n"
 "vanlege filkatalogen, kan ein annan filkatalog spesifiserast ved hjelp av\n"
-"miljø-variabelen TEXTDOMAIN.\n"
+"miljøvariabelen TEXTDOMAIN.\n"
 "Når flagget -s vert brukt, oppfører programmet seg som kommandoen «echo»,\n"
 "men gjer ikkje ein enkel kopiering av argumenta sine til standard ut.  I\n"
 "staden vert meldingar som er funne i den valgte katalogen oversatt.\n"
@@ -221,7 +221,7 @@ msgstr "advarsel: denne meldinga er ikkje brukt"
 #, fuzzy, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
-msgstr[0] "%s: fann %d fatale feil"
+msgstr[0] "fann %d fatale feil"
 
 #: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
 msgid "duplicate message definition"
@@ -249,9 +249,8 @@ msgid "%s and %s are mutually exclusive"
 msgstr "%s og %s utelukker kvarandre"
 
 #: src/msgcomm.c:323
-#, fuzzy
 msgid "at least two files must be specified"
-msgstr "nøyaktig to filer må spesifiserast"
+msgstr ""
 
 #: src/msgcomm.c:334
 #, c-format
@@ -286,9 +285,6 @@ msgstr ""
 "  -E, --escape                  bruk C-escapekoder i utdata, ingen utvida teikn\n"
 "  -f, --files-from=FIL          hent liste av innfiler frå FIL\n"
 "  -F, --sort-by-file            sorter utdata etter fil-lokasjon\n"
-"  -h, --help                    vis denne hjelpeteksta og avslutt\n"
-"  -i, --indent                  lag indentert utdata\n"
-"  -j, --join-existing           flett saman meldingar med eksisterande fil\n"
 
 #: src/msgcomm.c:394
 #, fuzzy
@@ -309,12 +305,13 @@ msgid ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 msgstr ""
+"  -n, --add-location            lag «#: filenavn:linje»-linjer (forvalgt)\n"
+"      --omit-header             ikkje lag startseksjon med «msgid \"\"»\n"
 "  -p, --output-dir=KAT          plassér utfiler i filkatalogen KAT\n"
 "  -s, --sort-output             sortér utdata og ta bort duplikat\n"
 "      --strict                  lag strengt Uniforum-konform .po-fil\n"
 "  -T, --trigraphs               forstå ANSI C trigraphs i inndata\n"
-"  -v, --verbose                 gje fyldige advarslar\n"
-"  -v, --version                 vis programversjon og avslutt\n"
+"  -V, --version                 vis programversjon og avslutt\n"
 "  -x, --exclude-file=FIL        innslag frå FIL vert ikkje ekstrahert\n"
 "\n"
 "Dersom INNFIL er -, vil det verte lese frå standard inn.\n"
@@ -347,7 +344,7 @@ msgstr "feil under skriving av fila \"%s\""
 
 #: src/msgcomm.c:539 src/xgettext.c:641 src/xgettext.c:1059
 msgid "this file may not contain domain directives"
-msgstr "denne fila kan innehalde domene-nøkkelord"
+msgstr "denne fila kan ikkje innehalde domene-nøkkelord"
 
 #: src/msgfmt.c:286 src/xgettext.c:404
 msgid "no input file given"
@@ -421,16 +418,16 @@ msgid "while creating hash table"
 msgstr "mens hash-tabellen vart laga"
 
 #: src/msgfmt.c:479
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
-msgstr "advarsel: denne meldinga er ikkje brukt"
+msgstr ""
 
 #: src/msgfmt.c:503
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
-msgstr "domenenamn \"%s\" passar ikkje som filnavn"
+msgstr "domenenamnet \"%s\" passar ikkje som filnavn"
 
 #: src/msgfmt.c:508
 #, c-format
@@ -455,26 +452,26 @@ msgstr ""
 #: src/msgfmt.c:594
 #, c-format
 msgid "headerfield `%s' missing in header"
-msgstr ""
+msgstr "filhovud-feltet «%s» manglar i filhovud"
 
 #: src/msgfmt.c:597
 #, c-format
 msgid "header field `%s' should start at beginning of line"
-msgstr ""
+msgstr "filhovud-feltet «%s» skulle ha starta på byrjinga av linja"
 
 #: src/msgfmt.c:607
 msgid "some header fields still have the initial default value"
-msgstr ""
+msgstr "nokre filhovud-felt har framleis sin initielle verdi"
 
 #: src/msgfmt.c:618
 #, c-format
 msgid "field `%s' still has initial default value"
-msgstr ""
+msgstr "feltet «%s» har framleis sin forvalgte verdi"
 
 #: src/msgfmt.c:708
-#, c-format
+#, fuzzy, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr ""
+msgstr "ADVARSEL: kildefila har «fuzzy» oversetjingar"
 
 #: src/msgfmt.c:930
 #, fuzzy
@@ -544,7 +541,7 @@ msgstr ""
 "  -h, --help               vis denne hjelpeteksta og avslutt\n"
 "  -i, --indent             indentert utdata\n"
 "  -o, --output-file=FIL    resultat vert skrive til FIL\n"
-"  -S, --strict             lag strengt Uniforum-konformt utdata\n"
+"      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
 #: src/msgmerge.c:340
@@ -574,11 +571,13 @@ msgstr ""
 "spesifisert.\n"
 
 #: src/msgmerge.c:799
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
+"%sLeste %d gamle + %d referansar, fletta inn %d, «fuzzya» %d, manglar %d,\n"
+"utdaterte %d.\n"
 
 #: src/msgmerge.c:806
 msgid " done.\n"
@@ -599,15 +598,15 @@ msgid ""
 "  -V, --version            output version information and exit\n"
 "  -w, --width=NUMBER       set output page width\n"
 msgstr ""
-"Bruk: %s [FLAGG] INNFIL ...\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -e, --no-escape          ikkje bruk C-escapekoder i utdata (forvalgt)\n"
-"  -E, --escape             bruk C-escapekoder i utdata, ingen utvida teikn\n"
-"  -h, --help               vis denne hjelpeteksta og avslutt\n"
-"  -i, --indent             indentert utdata\n"
-"  -o, --output-file=FIL    resultat vert skrive til FIL\n"
-"  -S, --strict             lag strengt Uniforum-konformt utdata\n"
-"  -V, --version            vis programversjon og avslutt\n"
+"Usage: %s [OPTION] [FILE]...\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -e, --no-escape          do not use C escapes in output (default)\n"
+"  -E, --escape             use C escapes in output, no extended chars\n"
+"  -h, --help               display this help and exit\n"
+"  -i, --indent             write indented output style\n"
+"  -o, --output-file=FILE   write output into FILE instead of standard output\n"
+"      --strict             write strict uniforum style\n"
+"  -V, --version            output version information and exit\n"
 
 #: src/msgunfmt.c:224
 #, fuzzy, no-wrap
@@ -663,7 +662,7 @@ msgid ""
 msgstr ""
 "Bruk: %s [FLAGG] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
 "  -d, --domain=TEXTDOMAIN   hent oversette meldingar frå TEXTDOMAIN\n"
-"  -e                        slå på ekspansjon av nokre escape-sekvensar\n"
+"  -e                        slå på ekspandering av nokre escape-sekvensar\n"
 "  -E                        (tillete av kompatibilitetsomsyn)\n"
 "  -h, --help                vis denne hjelpeteksta og avslutt\n"
 "  -n                        undertrykk etterfølgjande linjeskift\n"
@@ -683,9 +682,9 @@ msgid ""
 msgstr ""
 "\n"
 "Dersom TEXTDOMAIN-parameteren ikkje er gjeven, vert domenet valgt frå\n"
-"miljø-variabelen TEXTDOMAIN.  Dersom meldingskatalogen ikkje finst i den\n"
+"miljøvariabelen TEXTDOMAIN.  Dersom meldingskatalogen ikkje finst i den\n"
 "vanlege filkatalogen, kan ein annan filkatalog spesifiserast ved hjelp av\n"
-"miljø-variabelen TEXTDOMAIN.\n"
+"miljøvariabelen TEXTDOMAIN.\n"
 "Når flagget -s vert brukt, oppfører programmet seg som kommandoen «echo»,\n"
 "men gjer ikkje ein enkel kopiering av argumenta sine til standard ut.  I\n"
 "staden vert meldingar som er funne i den valgte katalogen oversatt.\n"
@@ -727,7 +726,7 @@ msgstr ""
 #: src/po-lex.h:115 src/po-lex.h:129
 #, fuzzy
 msgid "too many errors, aborting"
-msgstr "%s: for mange feil, avsluttar"
+msgstr "for mange feil, avsluttar"
 
 #: src/po-lex.c:274
 #, c-format
@@ -756,11 +755,11 @@ msgid "%s: warning: "
 msgstr ""
 
 #: src/po.c:303
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
-msgstr "advarsel: denne meldinga er ikkje brukt"
+msgstr ""
 
 #: src/po.c:370 src/po.c:405
 msgid "Continuing anyway, expect parse errors."
@@ -796,11 +795,10 @@ msgid ""
 msgstr ""
 
 #: src/po.c:440
-#, fuzzy
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
-msgstr "advarsel: denne meldinga er ikkje brukt"
+msgstr ""
 
 #: src/write-po.c:316
 #, c-format
@@ -812,7 +810,7 @@ msgstr ""
 #: src/write-po.c:857
 #, c-format
 msgid "cannot create output file \"%s\""
-msgstr "kan ikkje skape utfila \"%s\""
+msgstr "kan ikkje opprette utfila \"%s\""
 
 #: src/write-po.c:864
 #, no-c-format
@@ -841,6 +839,7 @@ msgstr ""
 #: src/xgettext.c:373
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
+"--join-existing kan ikkje brukast når utdata vert skrive til standard ut"
 
 #: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
@@ -886,9 +885,6 @@ msgstr ""
 "  -E, --escape                  bruk C-escapekoder i utdata, ingen utvida teikn\n"
 "  -f, --files-from=FIL          hent liste av innfiler frå FIL\n"
 "  -F, --sort-by-file            sorter utdata etter fil-lokasjon\n"
-"  -h, --help                    vis denne hjelpeteksta og avslutt\n"
-"  -i, --indent                  lag indentert utdata\n"
-"  -j, --join-existing           flett saman meldingar med eksisterande fil\n"
 
 #: src/xgettext.c:540
 #, fuzzy, no-wrap
@@ -904,6 +900,9 @@ msgid ""
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 "      --no-location              do not write '#: filename:line' lines\n"
 msgstr ""
+"  -h, --help                    vis denne hjelpeteksta og avslutt\n"
+"  -i, --indent                  lag indentert utdata\n"
+"  -j, --join-existing           flett saman meldingar med eksisterande fil\n"
 "  -k, --keyword[=ORD]           sjå også etter nøkkelordet ORD (manglar ORD,\n"
 "                                skal ikkje dei vanlege nøkkelorda nyttast)\n"
 "  -l, --string-limit=NUMMER     sett største streng-lengde til NUMMER\n"
@@ -913,8 +912,6 @@ msgstr ""
 "  -M, --msgstr-suffix[=STRENG]  bruk STRENG eller \"\" som suffiks for\n"
 "                                msgstr-verdiar\n"
 "      --no-location             ikkje lag «#: filnavn:linje»-linjer\n"
-"  -n, --add-location            lag «#: filenavn:linje»-linjer (forvalgt)\n"
-"      --omit-header             ikkje lag startseksjon med «msgid \"\"»\n"
 
 #: src/xgettext.c:552
 #, fuzzy, no-wrap
@@ -932,12 +929,13 @@ msgid ""
 "\n"
 "If INPUTFILE is -, standard input is read.\n"
 msgstr ""
+"  -n, --add-location            lag «#: filenavn:linje»-linjer (forvalgt)\n"
+"      --omit-header             ikkje lag startseksjon med «msgid \"\"»\n"
 "  -p, --output-dir=KAT          plassér utfiler i filkatalogen KAT\n"
 "  -s, --sort-output             sortér utdata og ta bort duplikat\n"
 "      --strict                  lag strengt Uniforum-konform .po-fil\n"
 "  -T, --trigraphs               forstå ANSI C trigraphs i inndata\n"
-"  -v, --verbose                 gje fyldige advarslar\n"
-"  -v, --version                 vis programversjon og avslutt\n"
+"  -V, --version                 vis programversjon og avslutt\n"
 "  -x, --exclude-file=FIL        innslag frå FIL vert ikkje ekstrahert\n"
 "\n"
 "Dersom INNFIL er -, vil det verte lese frå standard inn.\n"
@@ -971,6 +969,7 @@ msgstr ""
 #~ "%*s           reinstalling GNU gettext"
 #~ msgstr "advarsel: denne meldinga er ikkje brukt"
 
+#, fuzzy
 #~ msgid "this is the location of the first definition"
 #~ msgstr "den første definisjonen finst her"
 
@@ -980,9 +979,11 @@ msgstr ""
 #~ msgid "cannot change back to directory \"%s\""
 #~ msgstr "kan ikkje skifte tilbake til filkatalog \"%s\""
 
+#, fuzzy
 #~ msgid "found %d errors"
-#~ msgstr "fann %d feil"
+#~ msgstr "fann %d fatale feil"
 
+#, fuzzy
 #~ msgid ""
 #~ "Usage: %s [OPTION] filename.mo filename.po\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -993,13 +994,17 @@ msgstr ""
 #~ "  -S, --strict\t           write strict uniforum style\n"
 #~ "  -V, --version            output version information and exit\n"
 #~ msgstr ""
-#~ "Bruk: %s [FLAGG] INNFIL ...\n"
-#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte "
-#~ "flagg.\n"
-#~ "  -e, --no-escape          ikkje bruk C-escapekoder i utdata (forvalgt)\n"
-#~ "  -E, --escape             bruk C-escapekoder i utdata, ingen utvideda "
-#~ "teikn\n"
-#~ "  -h, --help               vis denne hjelpeteksta og avslutt\n"
-#~ "  -i, --indent             lag indentert utdata\n"
-#~ "  -S, --strict\t           lag utdata som er strengt Uniforum-konformt\n"
-#~ "  -V, --version            vis programversjon og avslutt\n"
+#~ "Usage: %s [OPTION] [FILE]...\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
+#~ "  -E, --escape             use C escapes in output, no extended chars\n"
+#~ "  -h, --help               display this help and exit\n"
+#~ "  -i, --indent             write indented output style\n"
+#~ "  -o, --output-file=FILE   write output into FILE instead of standard "
+#~ "output\n"
+#~ "      --strict             write strict uniforum style\n"
+#~ "  -V, --version            output version information and exit\n"
+
+#, fuzzy
+#~ msgid "%s: warning: no header entry found"
+#~ msgstr "advarsel: denne meldinga er ikkje brukt"

@@ -1,0 +1,1163 @@
+# Локализация для gettext
+# Copyright (C) 1998 Free Software Foundation, Inc.
+# Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>, 1998.
+#
+# Чтобы пользоваться локализованной версией утилиты gettextize, ее или (до
+# установки пакета gettext) файл misc/gettextize.in в корневом каталоге пакета
+# необходимо изменить следующим образом:
+#
+# $diff gettextize.in gettextize.in-new
+# 24c24
+# < echo=echo
+# ---
+# > echo="gettext -d gettext -s"
+# 64c64
+# <       $echo "gettextize: unknown option $1"
+# ---
+# >       $echo "gettextize: unknown option" "$1"
+# 82c82
+# <     $echo "Cannot change directory to \`$srcdir'"
+# ---
+# >     $echo "Cannot change directory to" "\`$srcdir'"
+# 232c232
+# <   $echo "the directory \`$aclocal_dir'"
+# ---
+# >   $echo "the directory" "\`$aclocal_dir'"
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU gettext 0.10.35\n"
+"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"PO-Revision-Date: 1998-12-02 22:58+03:00\n"
+"Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/error.c:115
+msgid "Unknown system error"
+msgstr "Неизвестная системная ошибка"
+
+#: lib/getopt.c:691
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: неоднозначный ключ `%s'\n"
+
+#: lib/getopt.c:716
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: ключ `--%s' должен использоваться без аргумента\n"
+
+#: lib/getopt.c:721
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: ключ `%c%s' должен использоваться без аргумента\n"
+
+#: lib/getopt.c:739 lib/getopt.c:912
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: ключ `%s' должен использоваться c аргументом\n"
+
+#. --option
+#: lib/getopt.c:768
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: неизвестный ключ `--%s'\n"
+
+#. +option or -option
+#: lib/getopt.c:772
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: неизвестный ключ `%c%s'\n"
+
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:798
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: недопустимый ключ -- %c\n"
+
+#: lib/getopt.c:801
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: неверный ключ -- %c\n"
+
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:831 lib/getopt.c:961
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: ключ %c должен бы использоваться c аргументом\n"
+
+#: lib/getopt.c:878
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: неоднозначный ключ `-W %s'\n"
+
+#: lib/getopt.c:896
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: ключ `-W %s' должен использоваться без аргумента\n"
+
+#: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
+#: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
+#, fuzzy
+msgid "memory exhausted"
+msgstr "оперативная память исчерпана\n"
+
+#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:279 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:388
+#, c-format, no-wrap
+msgid ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"Это свободная программа; подробности об условиях распространения смотрите\n"
+"в исходном тексте.  Мы НЕ предоставляем гарантий; даже гарантий\n"
+"КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ.\n"
+
+#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:284 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:393
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Автор программы -- %s.\n"
+
+#: src/gettext.c:163 src/ngettext.c:137
+msgid "too many arguments"
+msgstr "слишком много аргументов"
+
+#: src/gettext.c:173 src/ngettext.c:149
+msgid "missing arguments"
+msgstr "необходимо задать аргументы"
+
+#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:377 src/msgfmt.c:387
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:515
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Попробуйте `%s --help' для получения более подробного описания.\n"
+
+#: src/gettext.c:250
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -n                        suppress trailing newline\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+"                            to MSGID from TEXTDOMAIN\n"
+msgstr ""
+"Использование: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   использовать переведенные сообщения из\n"
+"                            домена TEXTDOMAIN\n"
+"  -e                        разрешить использование некоторых escape-\n"
+"                            -последовательностей\n"
+"  -E                        (игнорируется, введено для совместимости)\n"
+"  -h, --help                показать эту справку и выйти\n"
+"  -n                        не выводить завершающий символ перевода строки \n"
+"  -V, --version             показать информацию о версии и выйти\n"
+"  [TEXTDOMAIN] MSGID        найти перевод сообщения MSGID в TEXTDOMAIN\n"
+
+#: src/gettext.c:262
+#, c-format, no-wrap
+msgid ""
+"\n"
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
+"But it does not simply copy its arguments to stdout.  Instead those messages\n"
+"found in the selected catalog are translated.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"\n"
+"Если не задан параметр TEXTDOMAIN, используется домен, установленный в\n"
+"переменной среды TEXTDOMAIN.  Если файл с переведенными сообщениями не найден в\n"
+"стандартном каталоге, можно указать другой каталог с помощью переменной среды\n"
+"TEXTDOMAINDIR.\n"
+"При использовании с ключом -s, поведение программы похоже на поведение команды\n"
+"`echo'.  Но вместо простого копирования аргументов в стандартный вывод,\n"
+"выводятся их переводы из указанного домена.\n"
+"Стандартный каталог поиска: %s\n"
+
+#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:424 src/msgfmt.c:414
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:565
+msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
+msgstr "Об ошибках сообщайте <bug-gnu-utils@gnu.org>.\n"
+
+#: src/msgcmp.c:156 src/msgmerge.c:271
+msgid "no input files given"
+msgstr "не заданы входные файлы"
+
+#: src/msgcmp.c:161 src/msgmerge.c:276
+msgid "exactly 2 input files required"
+msgstr "необходимо задать два входных файла"
+
+#: src/msgcmp.c:182
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] def.po ref.po\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"\n"
+"Compare two Uniforum style .po files to check that both contain the same\n"
+"set of msgid strings.  The def.po file is an existing PO file with the\n"
+"old translations.  The ref.po file is the last created PO file\n"
+"(generally by xgettext).  This is useful for checking that you have\n"
+"translated each and every message in your program.  Where an exact match\n"
+"cannot be found, fuzzy matching is used to produce better diagnostics.\n"
+msgstr ""
+"Использование: %s [OPTION] def.po ref.po\n"
+"Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"   -D, --directory=КАТАЛОГ   добавить КАТАЛОГ в список каталогов для поиска\n"
+"                             входных файлов\n"
+"   -h, --help                показать эту справку и выйти\n"
+"   -V, --version             показать информацию о версии и выйти\n"
+"\n"
+"Сравнивает два .po файла, чтобы узнать, содержат ли они одинаковый набор строк,\n"
+"подлежащих переводу.  Файл def.po -- это файл со старыми переводами, ref.po --\n"
+"это новый файл (обычно произведенный программой xgettext).  Это полезно, если вы\n"
+"хотите убедиться, что перевели каждое сообщение в программе.  Для улучшения\n"
+"диагностики используется приблизительное сравнение, если нельзя найти точное\n"
+"совпадение.\n"
+
+#: src/msgcmp.c:255 src/msgmerge.c:741
+msgid "this message is used but not defined..."
+msgstr "это сообщение используется программой, но не было определено..."
+
+#: src/msgcmp.c:257 src/msgmerge.c:743
+msgid "...but this definition is similar"
+msgstr "...однако здесь определено похожее сообщение"
+
+#: src/msgcmp.c:263 src/msgmerge.c:770
+#, c-format
+msgid "this message is used but not defined in %s"
+msgstr "это сообщение не было определено в %s"
+
+#: src/msgcmp.c:277
+msgid "warning: this message is not used"
+msgstr "предупреждение: это сообщение не используется"
+
+#: src/msgcmp.c:283 src/po-lex.c:103
+#, fuzzy, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "найдено критических ошибок: %d"
+
+#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
+msgid "duplicate message definition"
+msgstr "повторное определение сообщения"
+
+#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1158
+msgid "...this is the location of the first definition"
+msgstr "...место появления первого определения"
+
+#: src/msgcmp.c:397 src/msgmerge.c:561
+#, c-format
+msgid "this message has no definition in the \"%s\" domain"
+msgstr "это сообщение не определено в домене \"%s\""
+
+#. We are about to construct the absolute path to the
+#. directory for the output files but asprintf failed.
+#: src/msgcomm.c:235 src/xgettext.c:327 src/xgettext.c:1353
+msgid "while preparing output"
+msgstr "при подготовке вывода"
+
+#: src/msgcomm.c:267 src/msgcomm.c:271 src/xgettext.c:365 src/xgettext.c:369
+#, c-format
+msgid "%s and %s are mutually exclusive"
+msgstr "%s и %s взаимно исключают друг друга"
+
+#: src/msgcomm.c:323
+msgid "at least two files must be specified"
+msgstr "необходимо задать не менее двух файлов"
+
+#: src/msgcomm.c:334
+#, c-format
+msgid "impossible selection criteria specified (%d < n < %d)"
+msgstr "задан недопустимый критерий выбора (%d < n < %d)"
+
+#: src/msgcomm.c:382
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] INPUTFILE ...\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"      --force-po                 write PO file even if empty\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"  -h, --help                     display this help and exit\n"
+msgstr ""
+"Использование: %s [OPTION] INPUTFILE ...\n"
+"Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"  -d, --default-domain=ИМЯ       использовать выходной файл ИМЯ.po (вместо\n"
+"                                 messages.po)\n"
+"  -D, --directory=КАТАЛОГ        добавить КАТАЛОГ в список каталогов для поиска\n"
+"  -e, --no-escape                не использовать при выводе escape-\n"
+"                                 последовательности языка C (установлено по \n"
+"                                 умолчанию)\n"
+"  -E, --escape                   использовать escape-последовательности, а не\n"
+"                                 расширенные символы\n"
+"  -f, --files-from=ФАЙЛ          прочитать список входных файлов из ФАЙЛА\n"
+"      --force-po                 записать PO-файл даже если он пуст\n"
+"  -F, --sort-by-file             сортировать вывод по порядку файлов\n"
+"  -h, --help                     показать эту справку и выйти\n"
+
+#: src/msgcomm.c:394
+msgid ""
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines "
+"(default)\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory "
+"DIR\n"
+"  -s, --sort-output              generate sorted output and remove "
+"duplicates\n"
+"      --strict                   write out strict Uniforum conforming .po "
+"file\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+"  -i, --indent                   форматировать PO-файл используя отступы\n"
+"      --no-location              не выводить строки '#: filename:line' \n"
+"  -n, --add-location             выводить строки '#: filename:line' (по\n"
+"                                 умолчанию)\n"
+"      --omit-header              не выводить заголовок с полем `msgid \"\"'\n"
+"  -o, --output=ФАЙЛ              записать вывод в указанный файл\n"
+"  -p, --output-dir=КАТАЛОГ       записать выходные файлы в указанный "
+"каталог\n"
+"  -s, --sort-output              сортировать вывод и удалить повторения\n"
+"      --strict                   записать PO-файл строго удовлетворяющий\n"
+"                                 стандарту Uniforum\n"
+"  -T, --trigraphs                принимать для ввода триграфы ANSI C\n"
+"  -u, --unique                   сокращение для --less-than=2, только\n"
+"                                 уникальные сообщения будут напечатаны\n"
+
+#: src/msgcomm.c:407
+msgid ""
+"  -V, --version                  output version information and exit\n"
+"  -w, --width=NUMBER             set output page width\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 1 if not set\n"
+"\n"
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be preserved, but only from the first\n"
+"PO file to define them.  File positions from all PO files will be\n"
+"preserved.\n"
+msgstr ""
+"  -V, --version                  показать информацию о версии и выйти\n"
+"  -w, --width=ЧИСЛО              установить ширину страницы вывода равной "
+"ЧИСЛУ\n"
+"  -<, --less-than=ЧИСЛО          вывести те сообщения, для которых число\n"
+"                                 определений меньше заданого ЧИСЛА (по "
+"умолчанию\n"
+"                                 не ограничено)\n"
+"  ->, --more-than=ЧИСЛО          вывести те сообщения, для которых число\n"
+"                                 определений больше заданого ЧИСЛА (по "
+"умолчанию\n"
+"                                 больше одного)\n"
+"\n"
+"Находит одинаковые сообщения в двух или более указанных PO-файлах.\n"
+"С помощью ключа --more-than можно затребовать вывод сообщений, "
+"встречающихся\n"
+"чаще других.  И обратно, --less-than может быть использован для получения "
+"менее\n"
+"часто встречающихся сообщений (т.е. --less-than=2 выведет только уникальные\n"
+"сообщения).  Переводы, комментарии и извлеченные комментарии сохраняются, "
+"но\n"
+"только из первого PO-файла, в котором они были определены.  Комментарии,\n"
+"содержащие имя файла и номер строки сохраняются для всех PO-файлов.\n"
+
+#: src/msgcomm.c:458 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
+#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:599
+#, c-format
+msgid "error while opening \"%s\" for reading"
+msgstr "ошибка открытия файла \"%s\" для чтения"
+
+# это сообщение пока не используется
+#: src/msgcomm.c:539 src/xgettext.c:641 src/xgettext.c:1059
+msgid "this file may not contain domain directives"
+msgstr ""
+
+#: src/msgfmt.c:286 src/xgettext.c:404
+msgid "no input file given"
+msgstr "не задан входной файл"
+
+#: src/msgfmt.c:337
+#, c-format
+msgid "error while opening \"%s\" for writing"
+msgstr "ошибка открытия файла \"%s\" для записи"
+
+#: src/msgfmt.c:360
+#, fuzzy, c-format
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] "переведенных сообщений: %d"
+
+#: src/msgfmt.c:365
+#, fuzzy, c-format
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ", неточных переводов: %d"
+
+#: src/msgfmt.c:370
+#, fuzzy, c-format
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ", непереведенных сообщений: %d"
+
+#: src/msgfmt.c:392
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] filename.po ...\n"
+"Generate binary message catalog from textual translation description.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+"  -c, --check                 perform language dependent checks on strings\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -f, --use-fuzzy             use fuzzy entries in output\n"
+"  -h, --help                  display this help and exit\n"
+"      --no-hash               binary file will not include the hash table\n"
+"  -o, --output-file=FILE      specify output file name as FILE\n"
+"      --statistics            print statistics about translations\n"
+"      --strict                enable strict Uniforum mode\n"
+"  -v, --verbose               list input file anomalies\n"
+"  -V, --version               output version information and exit\n"
+"\n"
+"Giving the -v option more than once increases the verbosity level.\n"
+"\n"
+"If input file is -, standard input is read.  If output file is -,\n"
+"output is written to standard output.\n"
+msgstr ""
+"Использование: %s [OPTION] filename.po ...\n"
+"Создает двоичный файл сообщений из текстового описания переводов.\n"
+"\n"
+"Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"  -a, --alignment=ЧИСЛО       выравнивать строки по ЧИСЛУ байт (по умолчанию: %d)\n"
+"  -c, --check                 производить зависящую от языка проверку строк\n"
+"  -D, --directory=КАТАЛОГ     добавить КАТАЛОГ в список каталогов для\n"
+"                              поиска входных файлов\n"
+"  -f, --use-fuzzy             использовать неточные переводы\n"
+"  -h, --help                  показать эту справку и выйти\n"
+"      --no-hash               не включать в двоичный файл хэш-таблицу\n"
+"  -o, --output-file=ФАЙЛ      записать вывод в указанный файл\n"
+"      --statistics            показать статистические сведения о переводах\n"
+"      --strict                включить режим строгого соответствия стандарту\n"
+"                              Uniforum\n"
+"  -v, --verbose               перечислить вызывающие недоверие свойства входного\n"
+"                              файла\n"
+"  -V, --version               показать информацию о версии и выйти\n"
+"\n"
+"Многократное задание ключа -v увеличивает степень подробности отчета.\n"
+"\n"
+"Если вместо входного файла задано '-', читается стандартный ввод.  Если '-'\n"
+"задано вместо выходного файла, запись производится на стандартный вывод.\n"
+
+#: src/msgfmt.c:435
+msgid "while creating hash table"
+msgstr "при создании хеш-таблицы"
+
+#: src/msgfmt.c:479
+#, c-format
+msgid ""
+"%s: warning: PO file header missing, fuzzy, or invalid\n"
+"%*s  warning: charset conversion will not work"
+msgstr ""
+
+#: src/msgfmt.c:503
+#, c-format
+msgid "domain name \"%s\" not suitable as file name"
+msgstr "имя домена \"%s\" не может быть использовано в качестве имени файла"
+
+#: src/msgfmt.c:508
+#, c-format
+msgid "domain name \"%s\" not suitable as file name: will use prefix"
+msgstr ""
+"имя домена \"%s\" недопустимо в качестве имени файла, будет использовано\n"
+"частично усеченное имя домена"
+
+#. We don't change the exit status here because this is really
+#. only an information.
+#: src/msgfmt.c:521
+#, c-format
+msgid "`domain %s' directive ignored"
+msgstr "директива `domain %s' игнорирована"
+
+#: src/msgfmt.c:551
+msgid "empty `msgstr' entry ignored"
+msgstr "пустое вхождение `msgstr' игнорировано"
+
+#: src/msgfmt.c:552
+msgid "fuzzy `msgstr' entry ignored"
+msgstr "неточное вхождение `msgstr' игнорировано"
+
+#: src/msgfmt.c:594
+#, c-format
+msgid "headerfield `%s' missing in header"
+msgstr "пропущено поле `%s' в заголовке"
+
+#: src/msgfmt.c:597
+#, c-format
+msgid "header field `%s' should start at beginning of line"
+msgstr "поле заголовка `%s' должно начинаться с новой строки"
+
+#: src/msgfmt.c:607
+msgid "some header fields still have the initial default value"
+msgstr ""
+"некоторые поля заголовка все еще имеют первоначальное шаблонное значение"
+
+#: src/msgfmt.c:618
+#, c-format
+msgid "field `%s' still has initial default value"
+msgstr "поле `%s' все еще имеет первоначальное шаблонное значение"
+
+#: src/msgfmt.c:708
+#, c-format
+msgid "%s: warning: source file contains fuzzy translation"
+msgstr "%s: предупреждение: исходный файл содержит неточные переводы"
+
+#: src/msgfmt.c:930
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr ""
+"одно из полей `msgid' или `msgstr' начинается с '\\n', тогда как другое -- "
+"нет"
+
+#: src/msgfmt.c:938
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr ""
+"одно из полей `msgid' или `msgstr' начинается с '\\n', тогда как другое -- "
+"нет"
+
+#: src/msgfmt.c:948
+msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+msgstr ""
+"одно из полей `msgid' или `msgstr' начинается с '\\n', тогда как другое -- "
+"нет"
+
+#: src/msgfmt.c:963
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr ""
+"одно из полей `msgid' или `msgstr' завершается '\\n', тогда как другое -- нет"
+
+#: src/msgfmt.c:971
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr ""
+"одно из полей `msgid' или `msgstr' завершается '\\n', тогда как другое -- нет"
+
+#: src/msgfmt.c:981
+msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
+msgstr ""
+"одно из полей `msgid' или `msgstr' завершается '\\n', тогда как другое -- нет"
+
+#: src/msgfmt.c:997
+msgid "number of format specifications in `msgid' and `msgstr' does not match"
+msgstr "не совпадает число спецификаций формата печати в `msgid' и `msgstr'"
+
+#: src/msgfmt.c:1014
+#, fuzzy, c-format
+msgid "format specifications for argument %lu are not the same"
+msgstr "не совпадают спецификации формата для аргумента %u"
+
+#: src/msgmerge.c:320
+#, fuzzy, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] def.po ref.po\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -C, --compendium=FILE       additional library of message translations,\n"
+"                              may be specified more than once\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -h, --help                  display this help and exit\n"
+"  -i, --indent                indented output style\n"
+"  -o, --output-file=FILE      result will be written to FILE\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -v, --verbose               increase verbosity level\n"
+"  -V, --version               output version information and exit\n"
+"  -w, --width=NUMBER          set output page width\n"
+msgstr ""
+"Использование: %s [OPTION] def.po ref.po\n"
+"\n"
+"Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"  -D, --directory=КАТАЛОГ     добавить КАТАЛОГ в список каталогов для поиска\n"
+"                              входных файлов\n"
+"  -e, --no-escape             не использовать при выводе escape-\n"
+"                              последовательности языка C (установлено по\n"
+"                              умолчанию)\n"
+"  -E, --escape                использовать escape-последовательности, а не\n"
+"                              расширенные символы\n"
+"      --force-po              записать PO-файл даже если он пуст\n"
+"  -h, --help                  показать эту справку и выйти\n"
+"  -i, --indent                indented output style\n"
+"  -o, --output-file=ФАЙЛ      записать вывод в указанный файл\n"
+"      --no-location           не выводить строки '#: filename:line'\n"
+"      --add-location          выводить строки '#: filename:line' (по умолчанию)\n"
+"      --strict                вывод в режиме строгого соответствия стандарту\n"
+"                              Uniforum\n"
+"  -v, --verbose               увеличить степень подробности описания\n"
+"                              предпринимаемых действий\n"
+"  -V, --version               показать информацию о версии и выйти\n"
+"  -w, --width=ЧИСЛО           установить ширину страницы вывода равной ЧИСЛУ\n"
+
+#: src/msgmerge.c:340
+#, no-wrap
+msgid ""
+"\n"
+"Merges two Uniforum style .po files together.  The def.po file is an\n"
+"existing PO file with the old translations which will be taken over to\n"
+"the newly created file as long as they still match; comments will be\n"
+"preserved, but extract comments and file positions will be discarded.\n"
+"The ref.po file is the last created PO file (generally by xgettext), any\n"
+"translations or comments in the file will be discarded, however dot\n"
+"comments and file positions will be preserved.  Where an exact match\n"
+"cannot be found, fuzzy matching is used to produce better results.  The\n"
+"results are written to stdout unless an output file is specified.\n"
+msgstr ""
+"\n"
+"Объединяет два PO-файла в один.  Файл def.po -- это существующий РО-файл со\n"
+"старыми переводами.  Старые переводы и комментарии сохраняются, кроме\n"
+"комментариев, извлеченных из исходного текста программы или содержащих имя файла\n"
+"и номер строки.  Файл ref.po -- новый файл (обычно произведенный программой\n"
+"xgettext), в этом файле игнорируются все комментарии, кроме начинающихся с точки\n"
+"или содержащих имя файла и номер строки.  Для улучшения результата используется\n"
+"приблизительное сравнение, если нельзя найти точное совпадение.  Если не указан\n"
+"выходной файл, запись производится в стандартный вывод.\n"
+
+#: src/msgmerge.c:799
+#, fuzzy, c-format
+msgid ""
+"%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
+msgstr ""
+"%sПрочитано сообщений: старых %d + новых %d; объединено %d, помечено "
+"неточными %d, недостающих %d, недействительных %d.\n"
+
+#: src/msgmerge.c:806
+msgid " done.\n"
+msgstr " завершено.\n"
+
+#: src/msgunfmt.c:210
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [FILE]...\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -e, --no-escape          do not use C escapes in output (default)\n"
+"  -E, --escape             use C escapes in output, no extended chars\n"
+"      --force-po           write PO file even if empty\n"
+"  -h, --help               display this help and exit\n"
+"  -i, --indent             write indented output style\n"
+"  -o, --output-file=FILE   write output into FILE instead of standard output\n"
+"      --strict             write strict uniforum style\n"
+"  -V, --version            output version information and exit\n"
+"  -w, --width=NUMBER       set output page width\n"
+msgstr ""
+"Использование: %s [OPTION] [FILE]...\n"
+"Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"  -e, --no-escape          не использовать при выводе escape-последовательности\n"
+"                           языка C (установлено по умолчанию)\n"
+"  -E, --escape             использовать escape-последовательности, а не\n"
+"                           расширенные символы\n"
+"      --force-po           записать PO-файл даже если он пуст\n"
+"  -h, --help               показать эту справку и выйти\n"
+"  -i, --indent             форматировать PO-файл используя отступы\n"
+"  -o, --output-file=ФАЙЛ   записать вывод в указанный файл\n"
+"      --strict             вывод в режиме строгого соответствия стандарту\n"
+"                           Uniforum\n"
+"  -V, --version            показать информацию о версии и выйти\n"
+"  -w, --width=ЧИСЛО        установить ширину страницы вывода равной ЧИСЛУ\n"
+
+#: src/msgunfmt.c:224
+#, no-wrap
+msgid ""
+"\n"
+"Convert binary .mo files to Uniforum style .po files.\n"
+"Both little-endian and big-endian .mo files are handled.\n"
+"If no input file is given or it is -, standard input is read.\n"
+"By default the output is written to standard output.\n"
+msgstr ""
+"\n"
+"Преобразовывает двоичные MO-файлы в PO-файлы в стиле Uniforum.\n"
+"Воспринимаются MO-файлы как c прямым, так и с обратным порядком байт в\n"
+"слове.  Если не задан входной файл, или задан как '-', читается стандартный\n"
+"ввод.  По умолчанию запись производится в стандартный вывод.\n"
+
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:216 src/xget-lex.c:243
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "ошибка чтения \"%s\""
+
+#: src/msgunfmt.c:262 src/msgunfmt.c:327
+#, c-format
+msgid "file \"%s\" truncated"
+msgstr "файл \"%s\" усечен"
+
+#: src/msgunfmt.c:293
+#, c-format
+msgid "seek \"%s\" offset %ld failed"
+msgstr "ошибка обращения к файлу \"%s\" по смещению %ld"
+
+#: src/msgunfmt.c:332
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated string"
+msgstr "файл \"%s\" не в соответствует формату GNU .mo"
+
+#: src/msgunfmt.c:377
+#, c-format
+msgid "file \"%s\" is not in GNU .mo format"
+msgstr "файл \"%s\" не в соответствует формату GNU .mo"
+
+#: src/ngettext.c:209
+#, fuzzy, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+"Использование: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   использовать переведенные сообщения из\n"
+"                            домена TEXTDOMAIN\n"
+"  -e                        разрешить использование некоторых escape-\n"
+"                            -последовательностей\n"
+"  -E                        (игнорируется, введено для совместимости)\n"
+"  -h, --help                показать эту справку и выйти\n"
+"  -n                        не выводить завершающий символ перевода строки \n"
+"  -V, --version             показать информацию о версии и выйти\n"
+"  [TEXTDOMAIN] MSGID        найти перевод сообщения MSGID в TEXTDOMAIN\n"
+
+#: src/ngettext.c:221
+#, fuzzy, c-format, no-wrap
+msgid ""
+"\n"
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"\n"
+"Если не задан параметр TEXTDOMAIN, используется домен, установленный в\n"
+"переменной среды TEXTDOMAIN.  Если файл с переведенными сообщениями не найден в\n"
+"стандартном каталоге, можно указать другой каталог с помощью переменной среды\n"
+"TEXTDOMAINDIR.\n"
+"При использовании с ключом -s, поведение программы похоже на поведение команды\n"
+"`echo'.  Но вместо простого копирования аргументов в стандартный вывод,\n"
+"выводятся их переводы из указанного домена.\n"
+"Стандартный каталог поиска: %s\n"
+
+#: src/open-po.c:64
+msgid "<stdin>"
+msgstr "<стандартный ввод>"
+
+#: po-gram-gen.y:87
+msgid "inconsistent use of #~"
+msgstr ""
+
+#: po-gram-gen.y:168
+#, fuzzy
+msgid "missing `msgstr[]' section"
+msgstr "пропущена секция `msgstr'"
+
+#: po-gram-gen.y:176
+#, fuzzy
+msgid "missing `msgid_plural' section"
+msgstr "пропущена секция `msgstr'"
+
+#: po-gram-gen.y:183
+msgid "missing `msgstr' section"
+msgstr "пропущена секция `msgstr'"
+
+#: po-gram-gen.y:228
+msgid "first plural form has nonzero index"
+msgstr ""
+
+#: po-gram-gen.y:230
+msgid "plural form has wrong index"
+msgstr ""
+
+#. CAUTION: If you change this macro, you must also make identical
+#. changes to the function of the same name in src/po-lex.c
+#: src/po-lex.c:159 src/po-lex.c:198 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.h:115 src/po-lex.h:129
+msgid "too many errors, aborting"
+msgstr "слишком много ошибок, завершение"
+
+#: src/po-lex.c:274
+#, c-format
+msgid "keyword \"%s\" unknown"
+msgstr "неизвестное ключевое слово \"%s\""
+
+#: src/po-lex.c:377
+#, fuzzy
+msgid "invalid control sequence"
+msgstr "недопустимая управляющая последовательность"
+
+#: src/po-lex.c:480
+msgid "end-of-file within string"
+msgstr "символ конца файла встречен внутри строки"
+
+#: src/po-lex.c:485
+msgid "end-of-line within string"
+msgstr "символ конца строки встречен внутри строки"
+
+#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+msgid "invalid multibyte sequence"
+msgstr ""
+
+#: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
+#, c-format
+msgid "%s: warning: "
+msgstr ""
+
+#: src/po.c:303
+#, c-format
+msgid ""
+"Charset \"%s\" is not a portable encoding name.\n"
+"Message conversion to user's charset might not work.\n"
+msgstr ""
+
+#: src/po.c:370 src/po.c:405
+msgid "Continuing anyway, expect parse errors."
+msgstr ""
+
+#: src/po.c:372
+msgid "Continuing anyway."
+msgstr ""
+
+#: src/po.c:375
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv(),\n"
+"and iconv() does not support \"%s\".\n"
+msgstr ""
+
+#: src/po.c:385 src/po.c:418
+msgid ""
+"Installing GNU libiconv and then reinstalling GNU gettext\n"
+"would fix this problem.\n"
+msgstr ""
+
+#: src/po.c:393 src/po.c:425
+#, c-format
+msgid "%s\n"
+msgstr ""
+
+#: src/po.c:410
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv().\n"
+"This version was built without iconv().\n"
+msgstr ""
+
+#: src/po.c:440
+msgid ""
+"Charset missing in header.\n"
+"Message conversion to user's charset will not work.\n"
+msgstr ""
+
+#: src/write-po.c:316
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"Переводимые сообщения не должны содержать escape-последовательность `\\%c'"
+
+#: src/write-po.c:857
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "невозможно создать файл вывода \"%s\""
+
+#: src/write-po.c:864
+#, no-c-format
+msgid "standard output"
+msgstr "стандартный вывод"
+
+#: src/write-po.c:939
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "ошибка записи файла \"%s\""
+
+#: src/xget-lex.c:148
+msgid "standard input"
+msgstr "стандартный ввод"
+
+#: src/xget-lex.c:876
+#, c-format
+msgid "%s:%d: warning: unterminated character constant"
+msgstr "%s:%d: предупреждение: незавершенная символьная константа"
+
+#: src/xget-lex.c:898
+#, c-format
+msgid "%s:%d: warning: unterminated string literal"
+msgstr "%s:%d: предупреждение: незавершенная строка"
+
+#: src/xgettext.c:373
+msgid "--join-existing cannot be used when output is written to stdout"
+msgstr ""
+"ключ --join-existing не может быть использован при записи в стандартный вывод"
+
+#: src/xgettext.c:378
+msgid "xgettext cannot work without keywords to look for"
+msgstr ""
+
+#: src/xgettext.c:484
+#, c-format
+msgid "warning: file `%s' extension `%s' is unknown; will try C"
+msgstr ""
+"предупреждение: файл `%s' имеет неизвестное расширение `%s'; трактуется как C"
+
+#: src/xgettext.c:520
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] INPUTFILE ...\n"
+"Extract translatable string from given input files.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -a, --extract-all              extract all strings\n"
+"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
+"                                 preceding keyword lines) in output file\n"
+"  -C, --c++                      shorthand for --language=C++\n"
+"      --debug                    more detailed formatstring recognision result\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"      --force-po                 write PO file even if empty\n"
+"      --foreign-user             omit FSF copyright in output for foreign user\n"
+"  -F, --sort-by-file             sort output by file location\n"
+msgstr ""
+"Использование: %s [OPTION] INPUTFILE ...\n"
+"Извлекает из заданных входных файлов подлежащие переводу строки.\n"
+"\n"
+"Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"  -a, --extract-all              извлечь все строки\n"
+"  -c, --add-comments[=СЛОВО]     поместить в выходной файл блоки комментариев,\n"
+"                                 содержащих СЛОВО (или блоки предшествующие\n"
+"                                 ключевым строкам)\n"
+"  -C, --c++                      сокращение для --language=C++\n"
+"      --debug                    более детальный разбор строк формата\n"
+"  -d, --default-domain=ИМЯ       использовать выходной файл ИМЯ.po (вместо\n"
+"                                 messages.po)\n"
+"  -D, --directory=КАТАЛОГ        добавить КАТАЛОГ в список каталогов для поиска\n"
+"                                 входных файлов\n"
+"  -e, --no-escape                не использовать при выводе escape-\n"
+"                                 последовательности языка C (установлено по\n"
+"                                 умолчанию)\n"
+"  -E, --escape                   использовать escape-последовательности, а не\n"
+"                                 расширенные символы\n"
+"  -f, --files-from=ФАЙЛ          прочитать список входных файлов из ФАЙЛА\n"
+"      --force-po                 записать PO-файл даже если он пуст\n"
+"      --foreign-user             не выводить FSF copyright для постороннего\n"
+"                                 пользователя\n"
+"  -F, --sort-by-file             сортировать вывод по порядку файлов\n"
+
+#: src/xgettext.c:540
+#, fuzzy, no-wrap
+msgid ""
+"  -h, --help                     display this help and exit\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"  -j, --join-existing            join messages with existing file\n"
+"  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
+"                                 WORD means not to use default keywords)\n"
+"  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
+"                                 otherwise is guessed from file extension\n"
+"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
+"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+msgstr ""
+"  -h, --help                     показать эту справку и выйти\n"
+"  -i, --indent                   форматировать PO-файл используя отступы\n"
+"  -j, --join-existing            дописать сообщения в существующий файл\n"
+"  -k, --keyword[=СЛОВО]          дополнительное ключевое слово для поиска \n"
+"                                 (если СЛОВО пусто, то не использовать\n"
+"                                 стандартные ключевые слова)\n"
+"  -l, --string-limit=ЧИСЛО       установить предельный размер строки равным\n"
+"                                 ЧИСЛУ, вместо %u по умолчанию\n"
+"  -L, --language=ЯЗЫК            установить заданный ЯЗЫК (C, C++, PO); по\n"
+"                                 умолчанию язык определяется по расширению\n"
+"  -m, --msgstr-prefix[=СТРОКА]   использовать СТРОКУ как префикс к вхождениям\n"
+"                                 msgstr\n"
+"  -M, --msgstr-suffix[=СТРОКА]   использовать СТРОКУ как суффикс к вхождениям\n"
+"                                 msgstr\n"
+"      --no-location              не выводить строки '#: filename:line'\n"
+
+#: src/xgettext.c:552
+#, no-wrap
+msgid ""
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
+"  -s, --sort-output              generate sorted output and remove duplicates\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"  -V, --version                  output version information and exit\n"
+"  -w, --width=NUMBER             set output page width\n"
+"  -x, --exclude-file=FILE        entries from FILE are not extracted\n"
+"\n"
+"If INPUTFILE is -, standard input is read.\n"
+msgstr ""
+"  -n, --add-location             выводить строки '#: filename:line' (по\n"
+"                                 умолчанию)\n"
+"      --omit-header              не выводить заголовок с полем `msgid \"\"'\n"
+"  -o, --output=ФАЙЛ              записать вывод в указанный файл\n"
+"  -p, --output-dir=КАТАЛОГ       поместить выходные файлы в указанный каталог\n"
+"  -s, --sort-output              сортировать вывод и удалить повторения\n"
+"      --strict                   записать po-файл строго удовлетворяющий\n"
+"                                 стандарту Uniforum\n"
+"  -T, --trigraphs                принимать для ввода триграфы ANSI C\n"
+"  -V, --version                  показать информацию о версии и выйти\n"
+"  -w, --width=ЧИСЛО              установить ширину страницы вывода равной ЧИСЛУ\n"
+"  -x, --exclude-file=ФАЙЛ        не обрабатывать заданный файл\n"
+"\n"
+"Если INPUTFILE задан равным '-', то читается стандартный ввод.\n"
+
+#: src/xgettext.c:914
+#, fuzzy, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr "%s:%d: предупреждение: незавершенная строка"
+
+#: src/xgettext.c:924
+#, c-format
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
+msgstr ""
+
+#: src/xgettext.c:1420
+#, c-format
+msgid "language `%s' unknown"
+msgstr "язык `%s' неизвестен"
+
+#~ msgid "Memory exhausted"
+#~ msgstr "Оперативная память исчерпана"
+
+#~ msgid "illegal third argument"
+#~ msgstr "недопустимый третий аргумент"
+
+#~ msgid "wrong number of arguments"
+#~ msgstr "неправильное число аргументов"
+
+#~ msgid "%s: warning: no header entry found"
+#~ msgstr "%s: предупреждение: отсутствует заголовок"
+
+#~ msgid ""
+#~ "Usage: gettextize [OPTION]... [package-dir]\n"
+#~ "      --help           print this help and exit\n"
+#~ "      --version        print version information and exit\n"
+#~ "  -c, --copy           copy files instead of making symlinks\n"
+#~ "  -f, --force          force writing of new files even if old exist\n"
+#~ "Report bugs to <bug-gnu-utils@prep.ai.mit.edu>."
+#~ msgstr ""
+#~ "Использование: gettextize [OPTION]... [package-dir]\n"
+#~ "      --help           показать эту справку и выйти\n"
+#~ "      --version        показать информацию о версии и выйти\n"
+#~ "  -c, --copy           делать копии файлов, а не символьные ссылки\n"
+#~ "  -f, --force          принудительно перезаписывать новые файлы, даже "
+#~ "если\n"
+#~ "                       существуют старые\n"
+#~ "Об ошибках сообщайте <bug-gnu-utils@prep.ai.mit.edu>."
+
+#~ msgid ""
+#~ "Copyright (C) 1996, 1997, 1998 Free Software Foundation, Inc.\n"
+#~ "This is free software; see the source for copying conditions.  There is "
+#~ "NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
+#~ "PURPOSE."
+#~ msgstr ""
+#~ "Copyright (C) 1996, 1997, 1998 Free Software Foundation, Inc.\n"
+#~ "Это свободная программа; подробности об условиях распространения "
+#~ "смотрите\n"
+#~ "в исходном тексте.  Мы НЕ предоставляем гарантий; даже гарантий\n"
+#~ "КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ."
+
+#~ msgid "Written by"
+#~ msgstr "Автор программы --"
+
+#~ msgid "gettextize: unknown option"
+#~ msgstr "gettextize: неизвестный  ключ"
+
+#~ msgid "Try `gettextize --help' for more information."
+#~ msgstr ""
+#~ "Попробуйте `gettextize --help' для получения более подробного описания."
+
+#~ msgid "Cannot change directory to"
+#~ msgstr "Невозможно перейти в каталог"
+
+#~ msgid "Missing configure.in, please cd to your package first."
+#~ msgstr ""
+#~ "Отсутствует файл configure.in, перейдите в корневой каталог своего пакета."
+
+#~ msgid ""
+#~ "intl/ subdirectory exists: use option -f if you really want to delete it."
+#~ msgstr ""
+#~ "Каталог intl/ уже существует: используйте ключ -f, если вы действительно "
+#~ "хотите\n"
+#~ "его удалить."
+
+#~ msgid ""
+#~ "po/Makefile.in.in exists: use option -f if you really want to delete it."
+#~ msgstr ""
+#~ "Файл po/Makefile.in уже существует: используйте ключ -f, если вы "
+#~ "действительно\n"
+#~ "хотите его удалить."
+
+#~ msgid "NLS exists: use option -f if you really want to delete it."
+#~ msgstr ""
+#~ "Файл NLS уже существует: используйте ключ -f, если вы действительно "
+#~ "хотите его\n"
+#~ "удалить."
+
+#~ msgid "failed to create intl/ subdirectory"
+#~ msgstr "невозможно создать каталог intl/"
+
+#~ msgid "failed to create po/ subdirectory"
+#~ msgstr "невозможно создать каталог po/"
+
+#~ msgid "You should update your own `aclocal.m4' by adding the necessary"
+#~ msgstr "Вы должны обновить ваш установленный файл `aclocal.m4', добавив"
+
+#~ msgid "macro packages gettext.m4, lcmessage.m4 and progtest.m4 from"
+#~ msgstr "необходимые пакеты gettext.m4, lcmessage.m4 и progtest.m4 из"
+
+#~ msgid "the directory"
+#~ msgstr "каталога"
+
+#~ msgid "Your `aclocal.m4' file is newer than the installed gettext"
+#~ msgstr ""
+#~ "У вас установлен файл `aclocal.m4', более новый, чем программа gettext."
+
+#~ msgid "program.  Consider upgrading to a recent GNU gettext version."
+#~ msgstr "Рекомендуется установить новую версию GNU gettext."

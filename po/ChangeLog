@@ -1,3 +1,14 @@
+2001-05-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* cs.po: New file, from Vladimir Michl <Vladimir.Michl@seznam.cz>.
+	* da.po: Update from Keld Simonsen <keld@dkuug.dk>.
+	* gl.po: New file, from Jesús Bravo Álvarez <jba@pobox.com>.
+	* id.po: New file, from Tedi Heriyanto <tedi-h@usa.net>.
+	* it.po: New file, from Giovanni Bortolozzo <borto@pluto.linux.it>.
+	* nn.po: Update from Karl Anders Øygard <karlo@ifi.uio.no>.
+	* ru.po: New file, from Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>.
+	* zh.po: New file, from Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>.
+
 2001-05-14  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (dist): Make it work independently of the subdir
