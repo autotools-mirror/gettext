@@ -3,6 +3,8 @@
 top_srcdir = ..
 srcdir = .
 
+SHELL = /bin/sh
+
 all: README fnchange.lst config.sed
 
 config.sed: config.in fnchange.in
