@@ -39,6 +39,10 @@ public class Matrix {
     List /* of PoFile */ po_files = new Vector();
   }
 
+  public static final int FALSE = 0;
+  public static final int TRUE = 1;
+  public static final int EXTERNAL = 2;
+
   public static void spaces (PrintWriter stream, int n) {
     for (int i = n; i > 0; i--)
       stream.print(' ');
@@ -78,11 +82,12 @@ public class Matrix {
       Iterator i = po_files.getChildren("po").iterator();
       while (i.hasNext()) {
         Element po = (Element)i.next();
+        String value = po.getText();
         data.po_files.add(
             new PoFile(
                 po.getAttribute("domain").getValue(),
                 po.getAttribute("team").getValue(),
-                Integer.parseInt(po.getText())));
+                value.equals("") ? -1 : Integer.parseInt(value)));
       }
     }
 
@@ -108,9 +113,9 @@ public class Matrix {
       int ndomains = domains.length;
       int nteams = teams.length;
 
-      boolean[][] matrix = new boolean[ndomains][];
+      int[][] matrix = new int[ndomains][];
       for (int d = 0; d < ndomains; d++)
-        matrix[d] = new boolean[nteams];
+        matrix[d] = new int[nteams];
       int[] total_per_domain = new int[ndomains];
       int[] total_per_team = new int[nteams];
       int total = 0;
@@ -125,10 +130,18 @@ public class Matrix {
             int t = Arrays.binarySearch(teams,po.team);
             if (t < 0)
               throw new Error("didn't find team \""+po.team+"\"");
-            matrix[d][t] = true;
+            matrix[d][t] = TRUE;
             total_per_domain[d]++;
             total_per_team[t]++;
             total++;
+          } else if (po.percentage < 0) {
+            int d = Arrays.binarySearch(domains,po.domain);
+            if (d < 0)
+              throw new Error("didn't find domain \""+po.domain+"\"");
+            int t = Arrays.binarySearch(teams,po.team);
+            if (t < 0)
+              throw new Error("didn't find team \""+po.team+"\"");
+            matrix[d][t] = EXTERNAL;
           }
         }
       }
@@ -174,10 +187,15 @@ public class Matrix {
           stream.print('|');
           for (int t = groups[group][0]; t < groups[group][1]; t++) {
             stream.print(' ');
-            if (matrix[d][t]) {
+            if (matrix[d][t] == TRUE) {
               int i = teams[t].length()-2;
               spaces(stream,i/2);
               stream.print("[]");
+              spaces(stream,(i+1)/2);
+            } else if (matrix[d][t] == EXTERNAL) {
+              int i = teams[t].length()-2;
+              spaces(stream,i/2);
+              stream.print("()");
               spaces(stream,(i+1)/2);
             } else {
               spaces(stream,teams[t].length());
