@@ -178,7 +178,7 @@ load_libexpat ()
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
 
 /* Accumulator for the extracted messages.  */
-static message_list_ty *mlp; 
+static message_list_ty *mlp;
 
 /* Logical filename, used to label the extracted messages.  */
 static char *logical_file_name;
