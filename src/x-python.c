@@ -667,7 +667,7 @@ phase7_getuc (quote_char, triple, interpret_ansic, interpret_unicode, backslash_
 /* Number of pending open parentheses/braces/brackets.  */
 static int open_pbb;
 
-/* Maximum used guaranteed to be < .  */
+/* Maximum used guaranteed to be < 2.  */
 static token_ty phase5_pushback[2];
 static int phase5_pushback_length;
 
