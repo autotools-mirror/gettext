@@ -1,3 +1,9 @@
+2003-11-22  Bruno Haible  <bruno@clisp.org>
+
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+
 2003-11-19  Bruno Haible  <bruno@clisp.org>
 
 	* de.po: Update from Karl Eichwalder <ke@suse.de>.
