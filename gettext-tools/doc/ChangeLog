@@ -1,5 +1,10 @@
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (po/Makevars): Change subsection title.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (src/Makefile): Adjust example 'dist' target.
 	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
 

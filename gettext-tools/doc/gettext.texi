@@ -300,7 +300,7 @@ Files You Must Create or Alter
 
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
-* po/Makevars::                 @file{Makefile} pieces in @file{po/}
+* po/Makevars::                 @file{Makevars} in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
@@ -6397,7 +6397,7 @@ gettext functionality.
 @menu
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
-* po/Makevars::                 @file{Makefile} pieces in @file{po/}
+* po/Makevars::                 @file{Makevars} in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
@@ -6489,7 +6489,7 @@ in the @file{po/} directory.  You can copy them from GNU gettext's @file{po/}
 directory; they are also installed by running @code{gettextize}.
 
 @node po/Makevars, configure.in, po/LINGUAS, Adjusting Files
-@subsection @file{Makefile} pieces in @file{po/}
+@subsection @file{Makevars} in @file{po/}
 @cindex @file{Makevars} file
 
 The @file{po/} directory also has a file named @file{Makevars}.
