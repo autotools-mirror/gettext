@@ -51,7 +51,8 @@ all : intl.olb,libintl.h
 	write sys$output "Nothing else to be done for 'all'."
 
 libgnuintl.h :
-	$(LN) $(srcdir)libgnuintl.h_in libgnuintl.h
+	if f$search("$(srcdir)libgnuintl.h_in") .nes. "" then $(LN) $(srcdir)libgnuintl.h_in libgnuintl.h
+	if f$search("$(srcdir)libgnuintl.h_in") .eqs. "" then $(LN) $(srcdir)libgnuintl.h.in libgnuintl.h
 
 bindtextdom.obj : $(srcdir)bindtextdom.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)bindtextdom.c

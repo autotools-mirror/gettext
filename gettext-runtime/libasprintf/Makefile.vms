@@ -50,7 +50,8 @@ all : autosprintf.h,asprintf.olb
 	write sys$output "Nothing else to be done for 'all'."
 
 autosprintf.h :
-	$(LN) autosprintf.h_in autosprintf.h
+	if f$search("autosprintf.h_in") .nes. "" then $(LN) autosprintf.h_in autosprintf.h
+	if f$search("autosprintf.h_in") .eqs. "" then $(LN) autosprintf.h.in autosprintf.h
 
 config.h : config.h_vms
 	$(LN) config.h_vms config.h
