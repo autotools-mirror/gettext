@@ -26,7 +26,7 @@ Tasks not to forget before release:
 - Update NEWS.
 
 - "make"; "make dist"; "make distcheck"
-- cd misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
+- cd gettext-tools/misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
   Then update the table in autopoint.in.
 - again: "make dist"
 
