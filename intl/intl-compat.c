@@ -21,6 +21,7 @@
 # include <config.h>
 #endif
 
+#define _INTL_REDIRECT_MACROS
 #include "libgnuintl.h"
 #include "gettextP.h"
 
