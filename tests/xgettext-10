@@ -34,6 +34,7 @@ EOF
 tmpfiles="$tmpfiles xg-test10.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location -c -d xg-test10 xg-test10.java
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test10.ok"
 cat <<EOF > xg-test10.ok

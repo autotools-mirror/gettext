@@ -30,6 +30,7 @@ EOF
 tmpfiles="$tmpfiles men-test1.out"
 : ${MSGEN=msgen}
 ${MSGEN} men-test1.po -o men-test1.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles men-test1.ok"
 cat <<EOF > men-test1.ok

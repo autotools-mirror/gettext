@@ -22,6 +22,7 @@ tmpfiles="$tmpfiles xg-test7.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=XXX xg-test7.in.C \
   -d xg-test7
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test7.ok"
 cat <<EOF > xg-test7.ok

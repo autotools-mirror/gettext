@@ -161,13 +161,13 @@ echo 'invalid' > mg-test4.in1
 tmpfiles="$tmpfiles mg-test4.in2"
 echo 'illegal' > mg-test4.in2
 
-tmpfiles="$tmpfiles mg-test4.out"
-
-tmpfiles="$tmpfiles mg-test4.out"
+tmpfiles="$tmpfiles mg-test4.out mg-test4.err"
 : ${MSGGREP=msggrep}
 LC_MESSAGES=C LC_ALL= \
-${MSGGREP} -K -e error -f mg-test4.in1 -f mg-test4.in2 -e cannot mg-test4.po -o mg-test4.out 2>&1 \
-  | grep -v 'warning: Locale charset' | grep -v '^ '
+${MSGGREP} -K -e error -f mg-test4.in1 -f mg-test4.in2 -e cannot mg-test4.po -o mg-test4.out > mg-test4.err 2>&1
+result=$?
+cat mg-test4.err | grep -v 'warning: Locale charset' | grep -v '^ '
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test4.ok"
 cat <<\EOF > mg-test4.ok

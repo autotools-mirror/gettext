@@ -14,6 +14,7 @@ EOF
 tmpfiles="$tmpfiles xg-test17.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location -k:1,2 -d xg-test17 xg-test17.ycp
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test17.ok"
 cat <<EOF > xg-test17.ok

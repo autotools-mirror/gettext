@@ -69,6 +69,7 @@ rm -f mcomm-test22.out
 
 ${MSGCOMM} --less-than=2 -o mcomm-test22.out \
     mcomm-test22.in1 mcomm-test22.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test22.ok"
 cat << EOF > mcomm-test22.ok

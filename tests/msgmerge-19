@@ -57,6 +57,7 @@ EOF
 tmpfiles="$tmpfiles mm-test19.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q mm-test19.po mm-test19.pot -o mm-test19.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test19.ok"
 cat <<EOF > mm-test19.ok

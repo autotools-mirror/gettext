@@ -54,14 +54,16 @@ msgid "You can log in as \"%1\"."
 msgstr "Sie können sich als \"%1\" einloggen."
 EOF
 
-tmpfiles="$tmpfiles mcat-test3.out"
+tmpfiles="$tmpfiles mcat-test3.out mcat-test3.err"
 rm -f mcat-test3.out
 
 : ${MSGCAT=msgcat}
 LC_MESSAGES=C LC_ALL= \
 ${MSGCAT} --use-first --more-than=0 -o mcat-test3.out \
-    mcat-test3.in1 mcat-test3.in2 2>&1 \
-  | grep -v 'warning: .* encodings' | grep -v '^ '
+    mcat-test3.in1 mcat-test3.in2 >mcat-test3.err 2>&1
+result=$?
+cat mcat-test3.err | grep -v 'warning: .* encodings' | grep -v '^ '
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test3.ok"
 cat << \EOF > mcat-test3.ok

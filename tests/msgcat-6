@@ -61,6 +61,7 @@ rm -f mcat-test6.out
 : ${MSGCAT=msgcat}
 ${MSGCAT} --more-than=0 -o mcat-test6.out \
     mcat-test6.in1 mcat-test6.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test6.ok"
 cat << EOF > mcat-test6.ok

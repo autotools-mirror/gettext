@@ -65,6 +65,7 @@ cp mm-test14.po mm-test14.bak
 tmpfiles="$tmpfiles mm-test14.po~"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q --update mm-test14.po mm-test14.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
 ${DIFF} mm-test14.bak mm-test14.po

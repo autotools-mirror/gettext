@@ -71,6 +71,7 @@ rm -f mcomm-test15.out
 # switches?  Are 'for' loops allowed? -ke-
 ${MSGCOMM} --less-than=2 --no-location -o mcomm-test15.out \
     mcomm-test15.in1 mcomm-test15.in2 mcomm-test15.in3
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 # we've no unique msg; thus no PO should be created.
 if test -f mcomm-test15.out; then

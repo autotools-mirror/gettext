@@ -48,6 +48,7 @@ tmpfiles="$tmpfiles mcomm-test11.out"
 : ${MSGCOMM=msgcomm}
 ${MSGCOMM} --more-than=1 --no-location --omit-header -o mcomm-test11.out \
     mcomm-test11.in1 mcomm-test11.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test11.ok"
 cat << EOF > mcomm-test11.ok

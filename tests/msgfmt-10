@@ -38,8 +38,8 @@ msgstr[1] "%d yararsýz kurals"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check mf-test10.po1 -o /dev/null || \
-  { rm -fr $tmpfiles; exit 1; }
+${MSGFMT} --check mf-test10.po1 -o /dev/null
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-test10.po2"
 cat <<EOF > mf-test10.po2

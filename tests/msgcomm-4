@@ -33,6 +33,7 @@ tmpfiles="$tmpfiles mcomm-test4.out"
 : ${MSGCOMM=msgcomm}
 ${MSGCOMM} --more-than=0 -o mcomm-test4.out \
     mcomm-test4.in1 mcomm-test4.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test4.ok"
 cat << EOF > mcomm-test4.ok

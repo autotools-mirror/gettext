@@ -31,6 +31,7 @@ EOF
 tmpfiles="$tmpfiles mm-test6.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -C mm-test6.com mm-test6.in1 mm-test6.pot -o mm-test6.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test6.ok"
 cat << EOF > mm-test6.ok

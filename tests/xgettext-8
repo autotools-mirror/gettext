@@ -47,6 +47,7 @@ tmpfiles="$tmpfiles xg-test8.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header -n xg-test8.in.po \
   xg-test8.c xg-test8.cc -d xg-test8
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test8.ok"
 cat <<EOF > xg-test8.ok

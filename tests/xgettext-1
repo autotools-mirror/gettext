@@ -12,6 +12,7 @@ tmpfiles="$tmpfiles xg-test1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -d xg-test1 -k_ --omit-header --no-location \
  $top_srcdir/src/xgettext.c $top_srcdir/src/msgfmt.c $top_srcdir/src/gettext.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
 ${DIFF} $top_srcdir/tests/xg-test1.ok.po xg-test1.po

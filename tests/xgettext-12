@@ -27,6 +27,7 @@ EOF
 tmpfiles="$tmpfiles xg-test12.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -d xg-test12 -k_ --omit-header --no-location xg-test12.in.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test12.ok"
 cat <<EOF > xg-test12.ok

@@ -53,7 +53,9 @@ fi
 tmpfiles="$tmpfiles modules.po"
 : ${MSGCAT=msgcat} ${MSGFMT=msgfmt}
 ${MSGCAT} --use-first module1.po module2.po -o modules.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 ${MSGFMT} modules.po -o LC_MESSAGES/gen.mo
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-test1.out"
 : ${GETTEXT=gettext}

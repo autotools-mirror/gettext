@@ -1,5 +1,22 @@
 2002-01-08  Bruno Haible  <bruno@clisp.org>
 
+	* msgattrib-*: Terminate the test immediately if the msg* program
+	fails.
+	* msgcat-*: Likewise.
+	* msgcomm-*: Likewise.
+	* msgconv-*: Likewise.
+	* msgen-*: Likewise.
+	* msgexec-*: Likewise.
+	* msgfilter-*: Likewise.
+	* msgfmt-*: Likewise.
+	* msggrep-*: Likewise.
+	* msgmerge-*: Likewise.
+	* msgunfmt-*: Likewise.
+	* msguniq-*: Likewise.
+	* xgettext-*: Likewise.
+
+2002-01-08  Bruno Haible  <bruno@clisp.org>
+
 	* format-elisp-1: New file.
 	* format-elisp-2: New file.
 	* lang-elisp: New file.

@@ -59,6 +59,7 @@ EOF
 tmpfiles="$tmpfiles ma-test1.out"
 : ${MSGATTRIB=msgattrib}
 ${MSGATTRIB} --translated ma-test1.po -o ma-test1.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test1.ok"
 cat <<EOF > ma-test1.ok

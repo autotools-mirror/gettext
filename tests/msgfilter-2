@@ -79,7 +79,7 @@ msgstr ""
 #~ msgstr "das einen verheirateten Mann liebt"
 EOF
 
-tmpfiles="$tmpfiles mfi-test2.out"
+tmpfiles="$tmpfiles mfi-test2.out mfi-test2.err"
 : ${MSGFILTER=msgfilter}
 sedexpr1='1{
 s/^/\[\[/
@@ -88,8 +88,10 @@ sedexpr2='${
 s/$/\]\]/
 }'
 LC_ALL=C \
-${MSGFILTER} -i mfi-test2.po -o mfi-test2.out sed -e "$sedexpr1" -e "$sedexpr2" 2>&1 \
-  | grep -v 'warning: Locale charset' | grep -v '^ '
+${MSGFILTER} -i mfi-test2.po -o mfi-test2.out sed -e "$sedexpr1" -e "$sedexpr2" >mfi-test2.err 2>&1
+result=$?
+cat mfi-test2.err | grep -v 'warning: Locale charset' | grep -v '^ '
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mfi-test2.ok"
 cat <<EOF > mfi-test2.ok

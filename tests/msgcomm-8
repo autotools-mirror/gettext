@@ -44,6 +44,7 @@ tmpfiles="$tmpfiles mcomm-test8.out"
 : ${MSGCOMM=msgcomm}
 ${MSGCOMM} --more-than=1 -o mcomm-test8.out \
     mcomm-test8.in1 mcomm-test8.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test8.ok"
 cat << EOF > mcomm-test8.ok

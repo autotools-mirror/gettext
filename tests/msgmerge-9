@@ -60,6 +60,7 @@ tmpfiles="$tmpfiles mm-test9.out"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
 ${MSGMERGE} -q mm-test9.in1.po mm-test9.in2.po -o mm-test9.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test9.ok"
 cat <<EOF > mm-test9.ok

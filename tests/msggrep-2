@@ -155,6 +155,7 @@ EOF
 tmpfiles="$tmpfiles mg-test2.out"
 : ${MSGGREP=msggrep}
 ${MSGGREP} -M fr mg-test2.po -o mg-test2.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test2.ok"
 cat <<\EOF > mg-test2.ok

@@ -68,6 +68,7 @@ tmpfiles="$tmpfiles mcomm-test14.out"
 # switches?  Are 'for' loops allowed? -ke-
 ${MSGCOMM} --less-than=2 --no-location --force-po -o mcomm-test14.out \
     mcomm-test14.in1 mcomm-test14.in2 mcomm-test14.in3
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test14.ok"
 cat << EOF > mcomm-test14.ok

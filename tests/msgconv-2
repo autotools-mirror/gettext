@@ -24,6 +24,7 @@ EOF
 tmpfiles="$tmpfiles mco-test2.out"
 : ${MSGCONV=msgconv}
 ${MSGCONV} -t Big5 mco-test2.po -o mco-test2.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mco-test2.ok"
 cat <<EOF > mco-test2.ok

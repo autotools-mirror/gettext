@@ -159,11 +159,13 @@ msgid "GSG-9"
 msgstr "Antiterror-Einheit"
 EOF
 
-tmpfiles="$tmpfiles mg-test3.out"
+tmpfiles="$tmpfiles mg-test3.out mg-test3.err"
 : ${MSGGREP=msggrep}
 LC_MESSAGES=C LC_ALL= \
-${MSGGREP} -K -e error -T -e Speicher mg-test3.po -o mg-test3.out 2>&1 \
-  | grep -v 'warning: Locale charset' | grep -v '^ '
+${MSGGREP} -K -e error -T -e Speicher mg-test3.po -o mg-test3.out >mg-test3.err 2>&1
+result=$?
+cat mg-test3.err | grep -v 'warning: Locale charset' | grep -v '^ '
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test3.ok"
 cat <<\EOF > mg-test3.ok

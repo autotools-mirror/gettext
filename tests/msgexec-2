@@ -60,6 +60,7 @@ EOF
 tmpfiles="$tmpfiles mex-test2.out"
 : ${MSGEXEC=msgexec}
 ${MSGEXEC} -i mex-test2.po 0 > mex-test2.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${CMP=cmp}
 ${CMP} mex-test2.ok mex-test2.out >/dev/null 2>/dev/null

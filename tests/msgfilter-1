@@ -77,11 +77,13 @@ msgstr ""
 #~ msgstr "das einen verheirateten Mann liebt"
 EOF
 
-tmpfiles="$tmpfiles mfi-test1.out"
+tmpfiles="$tmpfiles mfi-test1.out mfi-test1.err"
 : ${MSGFILTER=msgfilter}
 LC_ALL=C \
-${MSGFILTER} -i mfi-test1.po -o mfi-test1.out fold -b -s -w 20 2>&1 \
-  | grep -v 'warning: Locale charset' | grep -v '^ '
+${MSGFILTER} -i mfi-test1.po -o mfi-test1.out fold -b -s -w 20 >mfi-test1.err 2>&1
+result=$?
+cat mfi-test1.err | grep -v 'warning: Locale charset' | grep -v '^ '
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mfi-test1.ok"
 cat <<EOF > mfi-test1.ok

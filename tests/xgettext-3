@@ -8,13 +8,15 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles zero-domain.po"
+tmpfiles="$tmpfiles zero-domain.po xg-test3.err"
 rm -f zero-domain.po
 : ${XGETTEXT=xgettext}
 LC_MESSAGES=C LC_ALL= \
 ${XGETTEXT} -k_ -d zero-domain -x $top_srcdir/po/gettext.pot \
-  $top_srcdir/src/xgettext.c 2>&1 \
-  | grep -v 'warning: Charset' | grep -v '^ '
+  $top_srcdir/src/xgettext.c >xg-test3.err 2>&1
+result=$?
+cat xg-test3.err | grep -v 'warning: Charset' | grep -v '^ '
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 test ! -f zero-domain.po
 result=$?
