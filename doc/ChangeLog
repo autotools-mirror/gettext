@@ -1,3 +1,8 @@
+2001-11-07  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Smalltalk): Update from
+	Paolo Bonzini <bonzini@gnu.org>.
+
 2001-11-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Aspects): Write "German" instead of "French", since

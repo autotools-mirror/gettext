@@ -6029,19 +6029,24 @@ smalltalk
 @*@code{self? ''abc''}
 
 @item gettext/ngettext functions
-?
+@code{LcMessagesDomain>>#at:}, @code{LcMessagesDomain>>#at:plural:with:}
 
 @item textdomain
-?
+@code{LcMessages>>#?} (returns a @code{LcMessagesDomain} object).@*
+Example: @code{Locale default messages ? 'gettext'}
 
 @item bindtextdomain
-?
+@code{LcMessages>>#domain:directory:} (returns a @code{LcMessagesDomain}
+object)
 
 @item setlocale
-?
+You can obtain any @code{Locale} object from @code{Locale} class methods
+such as @code{#fromString:} or @code{#default}.@*
+Example: @code{Locale default messages} gives the @code{LcMessages}
+object for the default locale.
 
 @item Prerequisite
-?
+The gettext code is contained in the @file{I18N} package.
 
 @item Use or emulate GNU gettext
 emulate
@@ -6050,10 +6055,10 @@ emulate
 ---
 
 @item Formatting with positions
-?
+@code{'%1 %2' bindWith: 'Hello' with: 'world'}
 
 @item Portability
-fully portable, but locale handling relies on glibc-2.1 locale format
+fully portable
 
 @item po-mode marking
 ---
