@@ -1,5 +1,9 @@
 2000-12-30  Bruno Haible  <haible@clisp.cons.org>
 
+	* xgettext.c (scanner_c, scanner_cxx): Remove declarations.
+
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgfmt.c (write_table): Pass additional argument &id_len to
 	iterate_table.
 

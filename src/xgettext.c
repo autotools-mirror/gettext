@@ -195,8 +195,6 @@ static enum is_c_format test_whether_c_format PARAMS ((const char *__s));
    string argument and a message list argument.  */
 typedef void (*scanner_fp) PARAMS ((const char *, message_list_ty *));
 
-static void scanner_c PARAMS ((const char *, message_list_ty *));
-static void scanner_cxx PARAMS ((const char *, message_list_ty *));
 static const char *extension_to_language PARAMS ((const char *));
 static scanner_fp language_to_scanner PARAMS ((const char *));
 
