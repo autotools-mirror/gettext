@@ -603,7 +603,7 @@ Sat Nov 25 16:13:50 1995  Ulrich Drepper  <drepper@myware>
 
 	* whoami.c: Don't use #ifdef, prefer #if.
 
-	* error.c: Capitalize arguments of macros.  Patch by Franc,ois Pinard.
+	* error.c: Capitalize arguments of macros.  Patch by François Pinard.
 
 Thu Nov 16 22:41:32 1995  Ulrich Drepper  <drepper@myware>
 
@@ -626,7 +626,7 @@ Sun Nov 12 12:34:12 1995  Ulrich Drepper  <drepper@myware>
 Sat Nov 11 00:26:31 1995  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in (HEADERS):
-	Add missing pathmax.h file.  Reported by Franc,ois Pinard.
+	Add missing pathmax.h file.  Reported by François Pinard.
 
 Fri Nov 10 09:59:06 1995  Ulrich Drepper  <drepper@myware>
 

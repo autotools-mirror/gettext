@@ -885,7 +885,7 @@
 	* po-mode.el: Add support for XEmacs' font-lock.el.
 
 	* po-mode.el:
-	Patches by Franc,ois: enable hilit, handle multi-line #: lines, and
+	Patches by François: enable hilit, handle multi-line #: lines, and
 	don't pass -v argument to msgfmt.
 
 1995-11-06 15:52  Ulrich Drepper  <drepper@myware>
@@ -923,13 +923,13 @@
 
 	* po-mode.el (po-validate):
 	Protect the previous value of compile-command.
-	Change by Franc,ois Pinard.
+	Change by François Pinard.
 
 1995-10-29 12:11  Ulrich Drepper  <drepper@myware>
 
 	* gettextize.in:
 	Change text of trailing message about aclocal.m4 changing.  Suggested
-	by Franc,ois Pinard.
+	by François Pinard.
 
 	* Makefile.in (INSTALL_PROGRAM): Not used anymore.
 	(INSTALL_SCRIPT): New variable,
@@ -948,7 +948,7 @@
 
 1995-10-28 18:08  Ulrich Drepper  <drepper@myware>
 
-	* po-mode.el: Apply latest patch by Franc,ois.
+	* po-mode.el: Apply latest patch by François.
 
 1995-09-23 14:34  Ulrich Drepper  <drepper@myware>
 
@@ -970,7 +970,7 @@
 
 	* gettextize.in (usage):
 	Rearrange help message.  Now describe -f option.
-	Reported by Franc,ois Pinard.
+	Reported by François Pinard.
 
 1995-08-19 23:32  Ulrich Drepper  <drepper@myware>
 
@@ -986,14 +986,14 @@
 1995-08-19 15:08  Ulrich Drepper  <drepper@myware>
 
 	* gettextize.in:
-	Some nicety changes of shell programming by Franc,ois Pinard.
+	Some nicety changes of shell programming by François Pinard.
 
 	* po-mode.el (po-search-path): Extend by "../".
 
 	* gettextize.in: Protect against relative source paths.
 	Avoid exit an second level shell.
 
-	* gettext-sh: Better comments:  By Franc,ois Pinard.
+	* gettext-sh: Better comments:  By François Pinard.
 
 	* Makefile.in (INSTALL_PRG): Don't define mode ourself.
 	(uninstall) Remove gettextize.
@@ -1034,7 +1034,7 @@
 
 1995-08-10 22:18  Ulrich Drepper  <drepper@myware>
 
-	* gettext-sh: Fix typos.  Reported by Franc,ois Pinard.
+	* gettext-sh: Fix typos.  Reported by François Pinard.
 	(TEXTDOMAIN): Set value from ${PACKAGE-NAME} variable and document it.
 
 1995-08-08 21:45  Ulrich Drepper  <drepper@myware>
@@ -1056,7 +1056,7 @@
 1995-08-04 22:38  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in (.el.elc):
-	Include Franc,ois' wonderful pun to highlight warning text.
+	Include François' wonderful pun to highlight warning text.
 
 	* Makefile.in (distclean): Remove makelinks.
 
@@ -1073,7 +1073,7 @@
 1995-08-01 15:54  Ulrich Drepper  <drepper@myware>
 
 	* po-mode.el: Fixes to run on DEMACS.
-	Provided by Franc,ois Pinard.
+	Provided by François Pinard.
 
 	* Makefile.in (check): Make same as all.
 
@@ -1089,7 +1089,7 @@
 	* makelinks-sh: Update for correct intl_files list.
 	Handle existing directories.
 	Handle non-existing ln and/or ln -s.
-	Mostly by Franc,ois Pinard.
+	Mostly by François Pinard.
 
 1995-07-22 01:14  Ulrich Drepper  <drepper@myware>
 
@@ -1104,7 +1104,7 @@
 
 1995-07-18 23:53  Ulrich Drepper  <drepper@myware>
 
-	* po-mode.el: Latest version by Franc,ois.  This version allows
+	* po-mode.el: Latest version by François.  This version allows
 	scanning C source code for translatable strings and interactive
 	construction of the .po file.  The string matching heuristic is
 	due to Richard Stallman.

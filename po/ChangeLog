@@ -389,7 +389,7 @@ Tue Aug 27 02:04:45 1996  Ulrich Drepper  <drepper@myware.rz.uni-karlsruhe.de>
 
 Tue Aug 20 01:40:28 1996  Ulrich Drepper  <drepper@myware.rz.uni-karlsruhe.de>
 
-	* fr.po: Update from Franc,ois of 960819.
+	* fr.po: Update from François of 960819.
 
 Sun Aug 18 20:47:47 1996  Ulrich Drepper  <drepper@myware.rz.uni-karlsruhe.de>
 
@@ -522,7 +522,7 @@ Tue Dec  5 11:57:35 1995  Ulrich Drepper  <drepper@myware>
 
 Sun Dec  3 01:21:55 1995  Ulrich Drepper  <drepper@myware>
 
-	* fr.po: Version for 0.10 by Franc,ois Pinard.
+	* fr.po: Version for 0.10 by François Pinard.
 
 Sun Nov 26 02:26:56 1995  Ulrich Drepper  <drepper@myware>
 
@@ -576,11 +576,11 @@ Wed Nov  8 23:46:41 1995  Ulrich Drepper  <drepper@myware>
 Mon Nov  6 21:32:22 1995  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in.in (.po.gmo): Finally make ultimate rule which
-	places .gmo always on $(srcdir).  Patch by Franc,ois Pinard.
+	places .gmo always on $(srcdir).  Patch by François Pinard.
 
 Mon Nov  6 17:08:05 1995  Ulrich Drepper  <drepper@myware>
 
-	* Makefile.in.in: Some more cleanups by Franc,ois Pinard.
+	* Makefile.in.in: Some more cleanups by François Pinard.
 
 Mon Nov  6 16:46:24 1995  Ulrich Drepper  <drepper@myware>
 
@@ -590,7 +590,7 @@ Mon Nov  6 16:46:24 1995  Ulrich Drepper  <drepper@myware>
 	($(PACKAGE).pot): Address $(PACKAGE).pot file in $(srcdir).
 	`rm -f' old file instead of using `mv -f'.
 
-	* fr.po: Translations for version 0.9.8 by Franc,ois Pinard.
+	* fr.po: Translations for version 0.9.8 by François Pinard.
 
 Mon Nov  6 00:46:30 1995  Ulrich Drepper  <drepper@myware>
 
@@ -637,11 +637,11 @@ Fri Nov  3 00:37:26 1995  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in.in:
 	($(PACKAGE).pot): Keyword for marking string constants is now _C
-	instrad of _GTM.  Suggested by Franc,ois Pinard.
+	instrad of _GTM.  Suggested by François Pinard.
 
 Thu Nov  2 01:36:20 1995  Ulrich Drepper  <drepper@myware>
 
-	* fr.po: Version for 0.9.5 by Franc,ois.
+	* fr.po: Version for 0.9.5 by François.
 
 Wed Nov  1 10:58:59 1995  Ulrich Drepper  <drepper@myware>
 
@@ -719,7 +719,7 @@ Fri Aug 18 23:43:39 1995  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in.in (install-data):
 	Added missing ';' and fix wrong variable reference.
-	Reported by Franc,ois Pinard.
+	Reported by François Pinard.
 
 Tue Aug 15 12:54:09 1995  Ulrich Drepper  <drepper@myware>
 
@@ -785,7 +785,7 @@ Tue Jul 25 23:45:00 1995  Ulrich Drepper  <drepper@myware>
 Wed Jul 19 23:56:03 1995  Ulrich Drepper  <drepper@myware>
 
 	* POTFILES.in: Don't mention libiberty.
-  	Reported by Franc,ois Pinard.
+  	Reported by François Pinard.
 
 	* de.po:
 	Revert to 1.22, because messages are gone.  Some scripts still
@@ -797,7 +797,7 @@ Tue Jul 18 16:20:35 1995  Ulrich Drepper  <drepper@myware>
 
 Sun Jul 16 00:58:09 1995  Ulrich Drepper  <drepper@myware>
 
-	* fr.po: Latest version (for 0.7.3) by Franc,ois.
+	* fr.po: Latest version (for 0.7.3) by François.
 
 Thu Jul 13 22:26:18 1995  Ulrich Drepper  <drepper@myware>
 

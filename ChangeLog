@@ -890,7 +890,7 @@ Mon Nov  6 17:27:52 1995  Ulrich Drepper  <drepper@myware>
 	* Makefile.in:
 	Renamed README.NLS to ABOUT-NLS.  Never again MS-DOG names!
 
-	* Makefile.in: Some more cleanups by Franc,ois Pinard.
+	* Makefile.in: Some more cleanups by François Pinard.
 
 	* configure.in (VERSION): Bump to 0.9.11.
 
@@ -905,7 +905,7 @@ Mon Nov  6 17:27:52 1995  Ulrich Drepper  <drepper@myware>
 	(all-local): Depend on README.NLS.
 
 	* Makefile.in (install-src-local):
-	Add README.NLS as dependency.  Patch by Franc,ois Pinard.
+	Add README.NLS as dependency.  Patch by François Pinard.
 
 Mon Nov  6 00:46:48 1995  Ulrich Drepper  <drepper@myware>
 
@@ -922,9 +922,9 @@ Sun Nov  5 21:52:22 1995  Ulrich Drepper  <drepper@myware>
 	* README: Move advise for using GNU getetxt to intl/nls.texi.
 
 	* aclocal.m4:
-	Franc,ois reported that po2tbl.sed is not always generated.
+	François reported that po2tbl.sed is not always generated.
 
-	* README: Some typos fixed by Franc,ois Pinard.
+	* README: Some typos fixed by François Pinard.
 
 Sun Nov  5 19:39:05 1995  Ulrich Drepper  <drepper@myware>
 
@@ -967,7 +967,7 @@ Sun Oct 29 12:02:01 1995  Ulrich Drepper  <drepper@myware>
 	find the AC_PROG_INSTALL word in the comment and report a missing
 	definition.
 
-	* aclocal.m4: Use Franc,ois' fp_PROG_INSTALL macro.
+	* aclocal.m4: Use François' fp_PROG_INSTALL macro.
 
 Sat Oct 28 23:28:11 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1048,7 +1048,7 @@ Thu Sep  7 00:19:11 1995  Ulrich Drepper  <drepper@myware>
 Tue Aug 29 23:37:44 1995  Ulrich Drepper  <drepper@myware>
 
 	* acconfig.h: Remove comment followinf #endif.  We now use
- 	indentation.  Reported by Franc,ois Pinard.
+ 	indentation.  Reported by François Pinard.
 
 Sat Aug 19 23:21:19 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1070,7 +1070,7 @@ Sat Aug 19 23:21:19 1995  Ulrich Drepper  <drepper@myware>
 	gettextize will always be installed.
 
 	* Makefile.in: Make goal more appropriate for parallel build.
-	Inspired by Franc,ois Pinard.
+	Inspired by François Pinard.
 
 Fri Aug 18 23:44:56 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1133,7 +1133,7 @@ Tue Aug  8 21:34:12 1995  Ulrich Drepper  <drepper@myware>
 	* aclocal.m4 (AC_REPLACE_FUNCS): New, to test for strcasecmp.
 
 	* aclocal.m4: Fix typo: ditribution -> distribution.
-	Report by Franc,ois Pinard.
+	Report by François Pinard.
 
 Mon Aug  7 22:52:43 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1143,12 +1143,12 @@ Mon Aug  7 22:52:43 1995  Ulrich Drepper  <drepper@myware>
 	(AC_CHECK_HEADERS): Add limits.h, malloc.h, string.h, unistd.h,
  	and values.h.
 	(AC_CHECK_FUNCS): Add getcwd, putenv, setenv, strchr.
-	Reported by Franc,ois Pinard.
+	Reported by François Pinard.
 
 	* configure.in (AC_REPLACE_FUNCS):
 	strcspn is now placed here instead of in AC_CHECK_FUNCS.
 	(AC_HAVE_HEADERS): Don't test for stdlib.h.
-  	Reported by Franc,ois Pinard.
+  	Reported by François Pinard.
 
 Fri Aug  4 22:16:58 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1216,7 +1216,7 @@ Tue Jul 18 01:32:09 1995  Ulrich Drepper  <drepper@myware>
 	* Makefile.in (DISTFILES): Remove magic.add.  Now in misc/.
 	(SUBDIRS): Add misc.
 
-	* README: Fix typo: one -> once.  Reported by Franc,ois Pinard.
+	* README: Fix typo: one -> once.  Reported by François Pinard.
 	Mention that magic.add is now found in misc/.
 
 	* configure.in (VERSION): Bump to 0.7.5.
@@ -1279,7 +1279,7 @@ Thu Jul 13 01:40:17 1995  Ulrich Drepper  <drepper@myware>
 
 Wed Jul 12 00:26:12 1995  Ulrich Drepper  <drepper@myware>
 
-	* NLS: New version by Franc,ois Pinard.
+	* NLS: New version by François Pinard.
 
 Tue Jul 11 21:43:49 1995  Ulrich Drepper  <drepper@myware>
 

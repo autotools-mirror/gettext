@@ -2250,7 +2250,7 @@ Mon Mar 25 03:34:44 1996  Ulrich Drepper  <drepper@myware>
 
 	* msgunfmt.c (main): Make program by default read from stdin and
 	by default write to stdout in the appropriate argument is not
-	given.  Suggested by Franc,ois Pinard.
+	given.  Suggested by François Pinard.
 
 	* msgfmt.c (format_directive_domain): Only check for correct
 	format string elements is special comment contains c-format.
@@ -2346,7 +2346,7 @@ Sat Mar 23 01:50:00 1996  Ulrich Drepper  <drepper@myware>
 	* msgfmt.c (verbose): Rename to verbose_level.
 	(main): Increment verbose_level each time -v option is given.
 	(format_directive_domain): Print some of the diagnostic messages only
-	if verbosity level is > 1.  Suggested by Franc,ois Pinard for a
+	if verbosity level is > 1.  Suggested by François Pinard for a
 	better interface to PO mode.
 
 	* xgettext.c (scan_c_file): Extract all string if `extract-all'
@@ -2369,7 +2369,7 @@ Thu Mar 14 11:50:48 1996  Marcus Daniels  <marcus@sysc.pdx.edu>
 Fri Mar  1 13:35:01 1996  Ulrich Drepper  <drepper@myware>
 
 	* msgfmt.c (main): Set error_one_per_line to 1 to prevent more
-	than one error message per line.  Suggested by Franc,ois Pinard.
+	than one error message per line.  Suggested by François Pinard.
 
 	* po-lex.h (po_gram_error): Don't write source file name in fatal
         message.
@@ -2491,10 +2491,10 @@ Sun Dec  3 02:51:31 1995  Ulrich Drepper  <drepper@myware>
 	* xget-lex.c (xgettext_lex): `gettext_noop' is an default keyword.
 
 	* msgunfmt.c (usage):
-	Message should not contain TABs.  Reported by Franc,ois Pinard.
+	Message should not contain TABs.  Reported by François Pinard.
 
 	* msgunfmt.c (usage):
-	Correct typo: Uniforun -> Uniforum.  Reported by Franc,ois Pinard.
+	Correct typo: Uniforun -> Uniforum.  Reported by François Pinard.
 
 Mon Nov 20 21:12:52 1995  Ulrich Drepper  <drepper@myware>
 
@@ -2621,7 +2621,7 @@ Tue Nov  7 13:44:44 1995  Ulrich Drepper  <drepper@myware>
 	(po-gram.gen.c): Don't use $< in non-implicit rule.
 
 	* Makefile.in (install-exec): Use `test -n' instead of
-	`test XXX != ""'.  Proposed by Franc,ois Pinard.
+	`test XXX != ""'.  Proposed by François Pinard.
 
 Sun Nov  5 23:59:03 1995  Ulrich Drepper  <drepper@myware>
 
@@ -2882,7 +2882,7 @@ Wed Aug 23 21:13:11 1995  Ulrich Drepper  <drepper@myware>
 Tue Aug 22 22:16:31 1995  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in (AR, RANLIB): Remove definition.  Not needed here.
-	Reported by Franc,ois Pinard.
+	Reported by François Pinard.
 
 Sat Aug 19 17:38:22 1995  Ulrich Drepper  <drepper@myware>
 
@@ -2904,7 +2904,7 @@ Fri Aug 18 13:02:04 1995  Ulrich Drepper  <drepper@myware>
  	../config.status changed.
 
 	* tupdate.in: Correct case where message is new: no really print msgid.
-	Better help message by Franc,ois Pinard.
+	Better help message by François Pinard.
 	Recognize #\t as comment.
 	Print comment for now obsolete entries.
 	Handle real comments (translator comments and tupdate generate obsolete
@@ -3120,7 +3120,7 @@ Mon Jul  3 23:02:04 1995  Ulrich Drepper  <drepper@myware>
 
 	* xgettext.c, msgfmt.c: Better comment.
 
-	* Makefile.in: Pretty print with Franc,ois.
+	* Makefile.in: Pretty print with François.
 	Fix typo in dependencies.
 	Even more dependency corrections.
 	Correct dependencies of open-po.c.
@@ -3149,7 +3149,7 @@ Mon Jul  3 23:02:04 1995  Ulrich Drepper  <drepper@myware>
 Sun Jul  2 21:31:00 1995  Ulrich Drepper  <drepper@myware>
 
 	* gettextp.c: gettextp.c (usage): Fix typo in help message.
-	Reported by Franc,ois Pinard.
+	Reported by François Pinard.
 
 Sun Jul  2 02:12:41 1995  Ulrich Drepper  <drepper@myware>
 

@@ -509,14 +509,14 @@ Tue Mar 26 00:00:34 1996  Ulrich Drepper  <drepper@myware>
 	Test 3 for msgmerge.  Tests handling of obsolete entries.
 
 	* Makefile.in: Use reasonable names for msgfmt tests.  Suggested
-	by Franc,ois Pinard.
+	by François Pinard.
 
 	* Makefile.in (msgunfmt-1): New msgunfmt program interface
 	requires -o option.
 
 Mon Mar 25 03:27:12 1996  Ulrich Drepper  <drepper@myware>
 
-	* Makefile.in (check): Rewritten by Franc,ois Pinard.
+	* Makefile.in (check): Rewritten by François Pinard.
 
 	* xg-test8.ok, xg-test8.in.po: Adopt for new implementation of
 	special comments.
@@ -595,7 +595,7 @@ Sun Oct 29 12:22:48 1995  Ulrich Drepper  <drepper@myware>
 	In msgcmp test2 pipe result through sed to remove $(prefix).
 
 	* Makefile.in (check):
-	Add some missing $(srcdir)/.  Reported by Franc,ois Pinard.
+	Add some missing $(srcdir)/.  Reported by François Pinard.
 
 Sat Oct 28 15:35:36 1995  Ulrich Drepper  <drepper@myware>
 

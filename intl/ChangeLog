@@ -841,7 +841,7 @@
 	glibc, as in dcgettext.c.
 	Patch by Bruno Haible <haible@ilog.fr>.
 
-	* Makefile.in (CPPFLAGS): New variable.  Reported by Franc,ois
+	* Makefile.in (CPPFLAGS): New variable.  Reported by François
 	Pinard.
 
 Mon Mar 10 06:51:17 1997  Ulrich Drepper  <drepper@cygnus.com>
@@ -1137,7 +1137,7 @@ Sun Nov 26 18:21:41 1995  Ulrich Drepper  <drepper@myware>
 	* Makefile.in:
 	Add dummy `all' and `dvi' goals.  Reported by Tom Tromey.
 
-Sat Nov 25 16:12:01 1995  Franc,ois Pinard  <pinard@iro.umontreal.ca>
+Sat Nov 25 16:12:01 1995  François Pinard  <pinard@iro.umontreal.ca>
 
 	* hash-string.h: Capitalize arguments of macros.
 
@@ -1221,7 +1221,7 @@ Tue Nov  7 14:21:08 1995  Ulrich Drepper  <drepper@myware>
 	* cat-compat.c: (stpcpy) [!_LIBC && !HAVE_STPCPY]: Define replacement.
 	Generally cleanup using #if instead of #ifndef.
 
-	* Makefile.in: Correct typos in comment.  By Franc,ois Pinard.
+	* Makefile.in: Correct typos in comment.  By François Pinard.
 
 Mon Nov  6 00:27:02 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1231,7 +1231,7 @@ Mon Nov  6 00:27:02 1995  Ulrich Drepper  <drepper@myware>
 Sun Nov  5 22:02:08 1995  Ulrich Drepper  <drepper@myware>
 
 	* libgettext.h: Fix typo: HAVE_CATGETTS -> HAVE_CATGETS.  Reported
-	by Franc,ois Pinard.
+	by François Pinard.
 
 	* libgettext.h: Use #if instead of #ifdef/#ifndef.
 
@@ -1277,7 +1277,7 @@ Thu Nov  2 23:15:51 1995  Ulrich Drepper  <drepper@myware>
 	Reported by Tom Tromey.
 
 	* gettext.c (NULL):
-	Define as (void*)0 instad of 0.  Reported by Franc,ois Pinard.
+	Define as (void*)0 instad of 0.  Reported by François Pinard.
 
 Mon Oct 30 21:28:52 1995  Ulrich Drepper  <drepper@myware>
 
@@ -1676,7 +1676,7 @@ Sun Jul 16 22:33:02 1995  Ulrich Drepper  <drepper@myware>
 
 Sun Jul 16 13:23:27 1995  Ulrich Drepper  <drepper@myware>
 
-	* elisp-comp: Complete new version by Franc,ois: This does not
+	* elisp-comp: Complete new version by François: This does not
  	fail when not compiling in the source directory.
 
 Sun Jul 16 00:12:17 1995  Ulrich Drepper  <drepper@myware>
