@@ -8069,7 +8069,7 @@ not used by the gettext emulation
 @code{import gettext}
 
 @item Use or emulate GNU gettext
-emulate.  Bug: uses only the first found .mo file, not all of them
+emulate
 
 @item Extractor
 @code{xgettext}
