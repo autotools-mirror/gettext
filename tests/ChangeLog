@@ -1,5 +1,9 @@
 2001-10-31  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.am (EXTRA_DIST): Add msguniq-1.in, msguniq-1.out.
+
+2001-10-31  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.am (TESTS): Add msgcat-2, msgcat-3, msgcat-4, msgcat-5,
 	msgcat-6.
 

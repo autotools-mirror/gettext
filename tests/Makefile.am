@@ -42,7 +42,7 @@ TESTS = gettext-1 gettext-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2
 
-EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
+EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-1.in msguniq-1.out
 
 XGETTEXT = ../src/xgettext
 
