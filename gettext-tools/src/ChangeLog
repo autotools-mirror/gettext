@@ -1,3 +1,11 @@
+2003-02-19  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (xgettext_LDADD): Mention $(LIBUNINAME) before
+	libgettextsrc.la, not after it. Needed avoid link error on OSF/1 4.0:
+	libtool produces a link command line that contains "-lc" where a
+	shared library was used, and on OSF/1 4.0 "-lc" must not be used
+	before objects that use integer division.
+
 2003-02-18  Bruno Haible  <bruno@clisp.org>
 
 	* message.c (msgdomain_list_free): Uncomment this function.
