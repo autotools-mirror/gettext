@@ -1,3 +1,14 @@
+2003-12-06  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/INSTALL: Update the installation instructions.
+	* hello-c++-qt/BUGS: New file.
+	* hello-c++-kde/BUGS: New file.
+	* hello-objc-gnustep/BUGS: New file.
+	* hello-smalltalk/BUGS: New file.
+	* hello-java-awt/BUGS: New file.
+	* hello-java-swing/BUGS: New file.
+	* Makefile.am (EXAMPLESFILES): Add them.
+
 2003-12-02  Bruno Haible  <bruno@clisp.org>
 
 	* examples/Makefile.am (EXTRA_DIST): Don't add the EXAMPLESFILES.

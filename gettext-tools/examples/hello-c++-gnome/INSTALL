@@ -8,3 +8,12 @@ This example relies on:
   - the GTK / C++ bindings (libgtkmm, libgdkmm)
   - the C++ signal/slot library (libsigc++)
   - the C++ runtime libraries (libstdc++)
+
+Installation:
+  ./autogen.sh
+  ./configure --prefix=/some/prefix
+  make
+  make install
+Cleanup:
+  make distclean
+  ./autoclean.sh

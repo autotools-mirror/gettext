@@ -92,6 +92,7 @@ EXAMPLESFILES = \
   hello-c++/po/zh_CN.po \
   \
   hello-c++-qt/INSTALL \
+  hello-c++-qt/BUGS \
   hello-c++-qt/autogen.sh \
   hello-c++-qt/autoclean.sh \
   hello-c++-qt/hello.cc \
@@ -112,6 +113,7 @@ EXAMPLESFILES = \
   hello-c++-qt/po/zh_CN.po \
   \
   hello-c++-kde/INSTALL \
+  hello-c++-kde/BUGS \
   hello-c++-kde/autogen.sh \
   hello-c++-kde/autoclean.sh \
   hello-c++-kde/hello.cc \
@@ -179,6 +181,7 @@ EXAMPLESFILES = \
   hello-objc/po/zh_CN.po \
   \
   hello-objc-gnustep/INSTALL \
+  hello-objc-gnustep/BUGS \
   hello-objc-gnustep/autogen.sh \
   hello-objc-gnustep/autoclean.sh \
   hello-objc-gnustep/main.m \
@@ -300,6 +303,7 @@ EXAMPLESFILES = \
   hello-librep/po/zh_CN.po \
   \
   hello-smalltalk/INSTALL \
+  hello-smalltalk/BUGS \
   hello-smalltalk/autogen.sh \
   hello-smalltalk/autoclean.sh \
   hello-smalltalk/hello.st.in \
@@ -338,6 +342,7 @@ EXAMPLESFILES = \
   hello-java/po/zh_CN.po \
   \
   hello-java-awt/INSTALL \
+  hello-java-awt/BUGS \
   hello-java-awt/autogen.sh \
   hello-java-awt/autoclean.sh \
   hello-java-awt/Hello.java \
@@ -359,6 +364,7 @@ EXAMPLESFILES = \
   hello-java-awt/po/zh_CN.po \
   \
   hello-java-swing/INSTALL \
+  hello-java-swing/BUGS \
   hello-java-swing/autogen.sh \
   hello-java-swing/autoclean.sh \
   hello-java-swing/Hello.java \

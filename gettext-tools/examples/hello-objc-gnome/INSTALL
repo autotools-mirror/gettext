@@ -8,3 +8,12 @@ This example relies on:
   - the GNOME / Objective C bindings (libobgnome)
   - the GTK / Objective C bindings (libobgtk)
   - the Objective C runtime libraries (libobjc)
+
+Installation:
+  ./autogen.sh
+  ./configure --prefix=/some/prefix
+  make
+  make install
+Cleanup:
+  make distclean
+  ./autoclean.sh
