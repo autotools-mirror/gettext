@@ -45,13 +45,14 @@
 # include "xmalloc.h"
 #endif
 
-#ifndef NO_LIBRARIES
-# if !defined IN_LIBICONV && HAVE_ICONV
-#  include <iconv.h>
-# endif
-# if !defined IN_LIBINTL && !defined IN_LIBICONV && ENABLE_NLS
-#  include <libintl.h>
-# endif
+#if DEPENDS_ON_LIBCHARSET
+# include <libcharset.h>
+#endif
+#if DEPENDS_ON_LIBICONV && HAVE_ICONV
+# include <iconv.h>
+#endif
+#if DEPENDS_ON_LIBINTL && ENABLE_NLS
+# include <libintl.h>
 #endif
 
 /* Faked cheap 'bool'.  */
@@ -139,14 +140,15 @@ set_relocation_prefix (const char *orig_prefix_arg, const char *curr_prefix_arg)
 {
   set_this_relocation_prefix (orig_prefix_arg, curr_prefix_arg);
 
-#ifndef NO_LIBRARIES
   /* Now notify all dependent libraries.  */
-# if !defined IN_LIBICONV && HAVE_ICONV && _LIBICONV_VERSION >= 0x0109
+#if DEPENDS_ON_LIBCHARSET
+  libcharset_set_relocation_prefix (orig_prefix_arg, curr_prefix_arg);
+#endif
+#if DEPENDS_ON_LIBICONV && HAVE_ICONV && _LIBICONV_VERSION >= 0x0109
   libiconv_set_relocation_prefix (orig_prefix_arg, curr_prefix_arg);
-# endif
-# if !defined IN_LIBINTL && !defined IN_LIBICONV && ENABLE_NLS && defined libintl_set_relocation_prefix
+#endif
+#if DEPENDS_ON_LIBINTL && ENABLE_NLS && defined libintl_set_relocation_prefix
   libintl_set_relocation_prefix (orig_prefix_arg, curr_prefix_arg);
-# endif
 #endif
 }
 

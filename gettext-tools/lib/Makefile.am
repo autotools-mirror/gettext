@@ -125,8 +125,9 @@ EXTRA_DIST += \
   gen-lbrkprop.c 3level.h Combining.txt \
   ChangeLog.0
 
-DEFS = -DEXEEXT=\"$(EXEEXT)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
+
+DEFS = -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBCONV=1 @DEFS@
 
 
 DISTCLEANFILES += fnmatch.h

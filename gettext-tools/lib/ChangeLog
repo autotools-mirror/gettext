@@ -1,5 +1,14 @@
 2003-04-05  Bruno Haible  <bruno@clisp.org>
 
+	* relocatable.c: Rely on DEPENDS_ON_LIBCHARSET, DEPENDS_ON_LIBICONV,
+	DEPENDS_ON_LIBINTL, not on NO_LIBRARIES.
+	* Makefile.am (DEFS): Define DEPENDS_ON_LIBINTL and DEPENDS_ON_LIBCONV,
+	for relocatable.c.
+	* Makefile.msvc (CFLAGS): Also define DEPENDS_ON_LIBINTL and
+	DEPENDS_ON_LIBCONV.
+
+2003-04-05  Bruno Haible  <bruno@clisp.org>
+
 	* relocatable.c (_GNU_SOURCE): Define, to ensure getline() gets
 	declared by <stdio.h>.
 

@@ -38,7 +38,7 @@ OPTIMFLAGS = -Od -Z7
 OPTIMFLAGS = -D_NDEBUG -O1
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DDEPENDS_ON_LIBINTL=1
 
 INCLUDES = -I. -I.. -I..\intl -I..\..\gettext-tools\lib -I..\..\gettext-tools\windows -I$(includedir)
 
