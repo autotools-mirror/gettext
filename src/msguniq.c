@@ -31,6 +31,7 @@
 #include "str-list.h"
 #include "error.h"
 #include "progname.h"
+#include "basename.h"
 #include "message.h"
 #include "read-po.h"
 #include "write-po.h"

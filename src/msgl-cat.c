@@ -36,6 +36,7 @@
 #include "msgl-iconv.h"
 #include "xmalloc.h"
 #include "strstr.h"
+#include "basename.h"
 #include "system.h"
 #include "libgettext.h"
 

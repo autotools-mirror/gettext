@@ -26,6 +26,7 @@
 #include <errno.h>
 
 #include "error.h"
+#include "basename.h"
 #include "system.h"
 
 #define HAVE_SETLOCALE 1

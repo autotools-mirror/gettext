@@ -1,3 +1,11 @@
+2001-09-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* basename.h: New file.
+	* basename.c: Include it. Don't compile the function if already
+	present in the GNU C library.
+	* Makefile.am (libnlsut_a_HEADER): Add basename.h.
+	* system.h (gnu_basename, basename): Remove.
+
 2001-09-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* xmalloc.h: New file.

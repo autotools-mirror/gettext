@@ -23,6 +23,11 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "basename.h"
+
+#ifndef __GNU_LIBRARY__
+
 #include <stdio.h>
 #include <assert.h>
 
@@ -70,3 +75,5 @@ basename (name)
 
   return (char *) base;
 }
+
+#endif

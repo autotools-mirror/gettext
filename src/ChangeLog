@@ -1,3 +1,25 @@
+2001-09-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.c: Include basename.h.
+	* ngettext.c: Likewise.
+	* msgattrib.c: Likewise.
+	* msgcat.c: Likewise.
+	* msgcmp.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgconv.c: Likewise.
+	* msgen.c: Likewise.
+	* msgexec.c: Likewise.
+	* msgfmt.c: Likewise.
+	* msggrep.c: Likewise.
+	* msgl-cat.c: Likewise.
+	* msgl-charset.c: Likewise.
+	* msgl-iconv.c: Likewise.
+	* msgmerge.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* msguniq.c: Likewise.
+	* xgettext.c: Likewise.
+	* po-charset.c: Include <stdlib.h> and basename.h.
+
 2001-09-16  Bruno Haible  <haible@clisp.cons.org>
 
 	* x-c.c (phase4_getc): Rename local variable 'state' to

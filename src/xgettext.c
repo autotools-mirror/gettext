@@ -41,6 +41,7 @@
 #include "file-list.h"
 #include "error.h"
 #include "progname.h"
+#include "basename.h"
 #include "xerror.h"
 #include "getline.h"
 #include "xmalloc.h"

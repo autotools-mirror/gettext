@@ -27,6 +27,7 @@
 #include <errno.h>
 
 #include "error.h"
+#include "basename.h"
 #include "xmalloc.h"
 #include "system.h"
 

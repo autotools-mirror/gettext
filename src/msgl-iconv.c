@@ -34,6 +34,7 @@
 
 #include "error.h"
 #include "progname.h"
+#include "basename.h"
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"

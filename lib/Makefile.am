@@ -29,10 +29,10 @@ linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c \
 pipe-out.c progname.c sh-quote.c tmpdir.c wait-process.c xerror.c xgetcwd.c \
 xmalloc.c xstrdup.c
 
-libnlsut_a_HEADER = c-ctype.h execute.h findprog.h fstrcmp.h full-write.h \
-gcd.h getopt.h hash.h javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h \
-obstack.h pathmax.h pipe.h progname.h sh-quote.h system.h tmpdir.h \
-utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h xmalloc.h
+libnlsut_a_HEADER = basename.h c-ctype.h execute.h findprog.h fstrcmp.h \
+full-write.h gcd.h getopt.h hash.h javacomp.h javaexec.h lbrkprop.h \
+linebreak.h mbswidth.h obstack.h pathmax.h pipe.h progname.h sh-quote.h \
+system.h tmpdir.h utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h xmalloc.h
 
 # Sources that are compiled only on platforms that lack the functions.
 

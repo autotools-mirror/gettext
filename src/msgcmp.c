@@ -29,6 +29,7 @@
 #include "dir-list.h"
 #include "error.h"
 #include "progname.h"
+#include "basename.h"
 #include "message.h"
 #include "system.h"
 #include "libgettext.h"

@@ -154,13 +154,6 @@ extern char *concatenated_pathname PARAMS ((const char *directory,
 					    const char *filename,
 					    const char *suffix));
 
-/* When not using the GNU libc we use the basename implementation we
-   provide here.  */
-#ifndef __GNU_LIBRARY__
-extern char *gnu_basename PARAMS ((const char *));
-# define basename(Arg) gnu_basename (Arg)
-#endif
-
 
 #include <fcntl.h>
 /* For systems that distinguish between text and binary I/O.

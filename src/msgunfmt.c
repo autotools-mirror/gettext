@@ -28,6 +28,7 @@
 
 #include "error.h"
 #include "progname.h"
+#include "basename.h"
 #include "system.h"
 #include "message.h"
 #include "msgunfmt.h"

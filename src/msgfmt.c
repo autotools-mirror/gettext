@@ -31,6 +31,7 @@
 #include "error.h"
 #include "hash.h"
 #include "progname.h"
+#include "basename.h"
 #include "xerror.h"
 #include "getline.h"
 #include "format.h"

@@ -24,8 +24,11 @@
 /* Specification.  */
 #include "po-charset.h"
 
+#include <stdlib.h>
+
 #include "error.h"
 #include "xerror.h"
+#include "basename.h"
 #include "strstr.h"
 #include "system.h"
 #include "libgettext.h"
