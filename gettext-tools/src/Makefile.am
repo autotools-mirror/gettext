@@ -182,22 +182,25 @@ libgettextpo_la_LDFLAGS = \
 libgettextpo_la_DEPENDENCIES = libgettextsrc.la
 
 # Link dependencies.
-msgcmp_LDADD = libgettextsrc.la
-msgfmt_LDADD = libgettextsrc.la
-msgmerge_LDADD = libgettextsrc.la
-msgunfmt_LDADD = libgettextsrc.la
-xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @LTLIBEXPAT@
-msgattrib_LDADD = libgettextsrc.la
-msgcat_LDADD = libgettextsrc.la
-msgcomm_LDADD = libgettextsrc.la
-msgconv_LDADD = libgettextsrc.la
-msgen_LDADD = libgettextsrc.la
-msgexec_LDADD = libgettextsrc.la
-msgfilter_LDADD = libgettextsrc.la
-msggrep_LDADD = $(LIBGREP) libgettextsrc.la
+# INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
+# but libtool doesn't put -Wl,-framework options into .la files.
+# For msginit, it is also needed because of localename.c.
+msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@
+msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgconv_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgen_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgexec_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgfilter_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@
 msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
-                @INTL_MACOSX_LDFLAGS@ libgettextsrc.la
-msguniq_LDADD = libgettextsrc.la
+                libgettextsrc.la @INTL_MACOSX_LIBS@
+msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
 
 # Specify installation directory, for --enable-relocatable.
 msgcmp_CFLAGS = -DINSTALLDIR=\"$(bindir)\"

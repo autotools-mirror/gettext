@@ -1,5 +1,5 @@
 ## Makefile for libuniname directory in GNU gettext package.
-## Copyright (C) 2002-2003 Free Software Foundation, Inc.
+## Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -34,7 +34,9 @@ TESTS = test-names.sh
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) $(SHELL)
 
 noinst_PROGRAMS = test-names
-test_names_LDADD = libuniname.a ../lib/libgettextlib.la
+# INTL_MACOSX_LIBS is needed because libgettextlib.la depends on libintl.la
+# but libtool doesn't put -Wl,-framework options into .la files.
+test_names_LDADD = libuniname.a ../lib/libgettextlib.la @INTL_MACOSX_LIBS@
 
 EXTRA_DIST += $(TESTS) UnicodeDataNames.txt
 

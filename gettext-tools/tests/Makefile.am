@@ -165,8 +165,10 @@ AM_CPPFLAGS = \
   -I../lib -I$(top_srcdir)/lib \
   -I../intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+# INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
+# but libtool doesn't put -Wl,-framework options into .la files.
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
-LDADD_yes = ../intl/libintl.la
+LDADD_yes = ../intl/libintl.la @INTL_MACOSX_LIBS@
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
 noinst_PROGRAMS = tstgettext tstngettext testlocale cake fc3 fc4 fc5
 tstgettext_SOURCES = tstgettext.c setlocale.c

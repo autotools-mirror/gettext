@@ -1,3 +1,7 @@
+2005-01-29  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (LDADD_yes): Add INTL_MACOSX_LIBS.
+
 2005-01-20  Bruno Haible  <bruno@clisp.org>
 
 	* lang-guile: Make it work.
