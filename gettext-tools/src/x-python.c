@@ -253,6 +253,7 @@ phase2_getc ()
       else if (c == '#')
 	{
 	  /* Eat a comment.  */
+	  last_comment_line = line_number;
 	  comment_start ();
 	  for (;;)
 	    {
@@ -680,7 +681,12 @@ phase5_get (token_ty *tp)
 	    continue;
 	  tp->type = token_type_other;
 	  return;
+	}
 
+      last_non_comment_line = tp->line_number;
+
+      switch (c)
+	{
 	case '.':
 	  {
 	    int c1 = phase2_getc ();

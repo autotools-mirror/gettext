@@ -1,5 +1,13 @@
 2003-10-04  Bruno Haible  <bruno@clisp.org>
 
+	* x-glade.c (do_extract_glade): Initialize stack_depth.
+	* x-perl.c (extract_perl): Initialize linesize and linepos.
+
+	* x-python.c (phase2_getc): Set last_comment_line.
+	(phase5_get): Set last_non_comment_line.
+
+2003-10-04  Bruno Haible  <bruno@clisp.org>
+
 	* x-glade.c: Don't include msgl-ascii.h and msgl-iconv.h.
 	* x-python.c: Likewise.
 	* x-tcl.c: Likewise.

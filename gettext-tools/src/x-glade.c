@@ -390,6 +390,8 @@ do_extract_glade (FILE *fp,
   XML_SetCharacterDataHandler (parser, character_data_handler);
   XML_SetCommentHandler (parser, comment_handler);
 
+  stack_depth = 0;
+
   while (!feof (fp))
     {
       char buf[4096];

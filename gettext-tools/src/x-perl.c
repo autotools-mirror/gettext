@@ -3022,6 +3022,8 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   token_stack.items = NULL;
   token_stack.nitems = 0;
   token_stack.nitems_max = 0;
+  linesize = 0;
+  linepos = 0;
   here_eaten = 0;
   end_of_file = false;
 
