@@ -93,7 +93,7 @@ extern "C" {
    If he doesn't, we choose the method.  A third possible method is
    _INTL_REDIRECT_ASM, supported only by GCC.  */
 #if !(defined _INTL_REDIRECT_INLINE || defined _INTL_REDIRECT_MACROS)
-# if __GNUC__ >= 2 && (defined __STDC__ || defined __cplusplus)
+# if __GNUC__ >= 2 && !defined __APPLE_CC__ && (defined __STDC__ || defined __cplusplus)
 #  define _INTL_REDIRECT_ASM
 # else
 #  ifdef __cplusplus

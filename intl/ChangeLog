@@ -1,3 +1,12 @@
+2002-09-18  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h (_INTL_REDIRECT_ASM): Don't define when using Apple cc.
+	Reported by Julien Chiron <julien.chiron@univ.u-3mrs.fr>.
+
+2002-08-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.5 released.
+
 2002-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.4 released.
