@@ -8,15 +8,19 @@
 #     MFLAGS=-MT                Multi-threaded, statically linked  - libcmt.lib
 #     MFLAGS=-MD                Multi-threaded, dynamically linked - msvcrt.lib
 #   DEBUG=1   for compiling with debugging information
+#   PREFIX=Some\Directory   Base directory for installation
 !if !defined(DEBUG)
 DEBUG=0
 !endif
 !if !defined(MFLAGS)
 MFLAGS=
 !endif
+!if !defined(PREFIX)
+PREFIX = c:\usr
+!endif
 
 # Directories used by "make install":
-prefix = c:\usr
+prefix = $(PREFIX)
 includedir = $(prefix)\include
 
 # Programs used by "make":

@@ -8,11 +8,17 @@ cat <<\EOF
 
 #### Start of system configuration section. ####
 
+# Flags that can be set on the nmake command line:
+#   PREFIX=Some\Directory   Base directory for installation
+!if !defined(PREFIX)
+PREFIX = c:\usr
+!endif
+
 # Directories used by "make":
 srcdir = .
 
 # Directories used by "make install":
-prefix = c:\usr
+prefix = $(PREFIX)
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
 

@@ -10,6 +10,8 @@
 #     MFLAGS=-MT                Multi-threaded, statically linked  - libcmt.lib
 #     MFLAGS=-MD                Multi-threaded, dynamically linked - msvcrt.lib
 #   DEBUG=1   for compiling with debugging information
+#   PREFIX=Some\Directory       Base directory for installation
+#   IIPREFIX=Some\\Directory    Same thing with doubled backslashes
 !if !defined(DLL)
 DLL=0
 !endif
@@ -23,12 +25,18 @@ MFLAGS=
 MFLAGS=-MD
 !endif
 !endif
+!if !defined(PREFIX)
+PREFIX = c:\usr
+!endif
+!if !defined(IIPREFIX)
+IIPREFIX = c:\\usr
+!endif
 
 # Directories used by "make":
 srcdir = .
 
 # Directories used by "make install":
-prefix = c:\usr
+prefix = $(PREFIX)
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)\bin
 libdir = $(exec_prefix)\lib
@@ -36,7 +44,7 @@ includedir = $(prefix)\include
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
 aliaspath =
-IIprefix = c:\\usr
+IIprefix = $(IIPREFIX)
 IIexec_prefix = $(IIprefix)
 IIbindir = $(IIexec_prefix)\\bin
 IIlibdir = $(IIexec_prefix)\\lib

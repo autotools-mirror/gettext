@@ -10,6 +10,7 @@
 #     MFLAGS=-MT                Multi-threaded, statically linked  - libcmt.lib
 #     MFLAGS=-MD                Multi-threaded, dynamically linked - msvcrt.lib
 #   DEBUG=1   for compiling with debugging information
+#   PREFIX=Some\Directory   Base directory for installation
 # Note that nmake command line flags are automatically passed to subdirectory
 # Makefiles. Therefore we don't need to pass them explicitly to subdirectory
 # Makefiles, but the subdirectory Makefiles need to have the same defaults.
@@ -26,9 +27,12 @@ MFLAGS=
 MFLAGS=-MD
 !endif
 !endif
+!if !defined(PREFIX)
+PREFIX = c:\usr
+!endif
 
 # Directories used by "make install":
-prefix = c:\usr
+prefix = $(PREFIX)
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)\bin
 libdir = $(exec_prefix)\lib
