@@ -1,1 +1,0 @@
-xgetcwd.o: xgetcwd.c pathmax.h

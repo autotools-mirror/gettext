@@ -1,1 +1,0 @@
-xmalloc.o: xmalloc.c error.h

@@ -1,1 +1,0 @@
-printf-prs.o: ../lib/printf-prs.c ../lib/printf-parse.h
