@@ -32,15 +32,28 @@ if test $# = 0; then
   exit 1
 fi
 
+# The command line is of the form
+#   /somepath/aclocal ...
+# or
+#   /somepath/missing aclocal ...
+# Extract the first part.
 ACLOCAL="$1"
 shift
+ACLOCAL2=
+case "$ACLOCAL" in
+  *missing)
+    ACLOCAL2="$1"
+    shift
+    esac
+    ;;
+esac
 
 # Prepare temporary directory.
 mkdir aclocal.tmp
 trap "rm -rf aclocal.tmp; exit 1" 1 2 15
 
 # First, copy the standard m4 files.
-for f in `"$ACLOCAL" --print-ac-dir`/*.m4; do
+for f in `"$ACLOCAL" $ACLOCAL2 --print-ac-dir`/*.m4; do
   cp $f aclocal.tmp
 done
 
@@ -64,7 +77,7 @@ do
 done
 
 # Now call `aclocal' for real.
-"$ACLOCAL" --acdir=aclocal.tmp $options
+"$ACLOCAL" $ACLOCAL2 --acdir=aclocal.tmp $options
 
 # Clean up temporary directory.
 rm -rf aclocal.tmp
