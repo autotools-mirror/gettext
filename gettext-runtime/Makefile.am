@@ -34,12 +34,6 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
 
-# Documentation tag not known to automake.
-
-html:
-	cd doc && $(MAKE) html
-
-
 all-local: ABOUT-NLS
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi

@@ -74,13 +74,8 @@ config/config.rpath: $(srcdir)/config.rpath config-dir
 
 DISTCLEANFILES += config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath
 
-distclean-am:
+distclean-local:
 	rm -rf config config-dir
-
-
-# Documentation tag not known to automake.
-
-html:
 
 
 # Subdirectories with separate autoconfiguration.

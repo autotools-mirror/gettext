@@ -1,3 +1,8 @@
+2003-12-12  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake-1.8.
+	* Makefile.am (html): Remove rule.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gl_ALLOCSA instead of gl_FUNC_ALLOCA.

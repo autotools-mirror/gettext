@@ -146,7 +146,7 @@ libgettextsrc_la_LDFLAGS = \
   ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 # No need to install libgettextsrc.a.
-install-exec-am: install-exec-clean
+install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:
 	$(RM) $(DESTDIR)$(libdir)/libgettextsrc.a
 

@@ -1,3 +1,11 @@
+2003-12-12  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake-1.8.
+	* Makefile.am (clean-local): Renamed from clean-am.
+	(html-local): Renamed from html.
+	(ps, pdf, .texi.pdf): Remove rules.
+	(TEXI2PDF): Remove variable.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

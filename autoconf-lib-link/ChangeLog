@@ -1,3 +1,10 @@
+2003-12-12  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake-1.8.
+	* Makefile.am (html): Remove rule.
+	(distclean-local): Renamed from distclean-am.
+	* tests/Makefile.am (distclean-local): Renamed from distclean-am.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

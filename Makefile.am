@@ -57,9 +57,3 @@ EXTRA_DIST += README.vms Makefile.vms \
 
 EXTRA_DIST += README.woe32 Makefile.msvc
 EXTRA_DIST += README.mingw
-
-
-# Documentation tag not known to automake.
-
-html:
-	cd gettext-tools && $(MAKE) html

@@ -68,7 +68,7 @@ MAN2HTML = groff -mandoc -Thtml
 #   make man
 #   make html
 
-all-local: html
+all-local: html-local
 install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
@@ -130,7 +130,7 @@ update-man1:
 
 # Man pages in HTML format.
 
-html: $(man_HTML)
+html-local: $(man_HTML)
 
 msgcmp.1.html: msgcmp.1
 	$(MAN2HTML) `if test -f msgcmp.1; then echo .; else echo $(srcdir); fi`/msgcmp.1 | sed -e '/CreationDate:/d' > t-$@

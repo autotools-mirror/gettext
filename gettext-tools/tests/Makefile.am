@@ -171,7 +171,7 @@ fc4_SOURCES = format-c-4-prg.c setlocale.c
 fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
 
 # Clean up after Solaris cc.
-clean-am:
+clean-local:
 	rm -rf SunWS_cache
 
 

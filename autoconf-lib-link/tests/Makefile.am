@@ -75,5 +75,5 @@ rpathcfg: rpathcfg.sh
 MOSTLYCLEANFILES += rpathcfg rpathcfg.log
 
 # Clean up the intermediate directory created by running the tests.
-distclean-am:
+distclean-local:
 	rm -rf tstdir

@@ -25,11 +25,6 @@ EXTRA_DIST += nls.texi matrix.texi
 EXTRA_DIST += rt-gettext.texi rt-ngettext.texi rt-envsubst.texi
 
 
-# Documentation tag not known to automake.
-
-html:
-
-
 # VMS support.
 
 EXTRA_DIST += Makefile.vms

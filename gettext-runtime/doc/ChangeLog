@@ -1,3 +1,8 @@
+2003-12-12  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake-1.8.
+	* Makefile.am (html): Remove rule.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

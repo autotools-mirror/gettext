@@ -117,7 +117,7 @@ libgettextlib_la_LDFLAGS = \
   @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 # No need to install libgettextlib.a.
-install-exec-am: install-exec-clean
+install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:
 	$(RM) $(DESTDIR)$(libdir)/libgettextlib.a
 

@@ -71,7 +71,7 @@ MAN2HTML = groff -mandoc -Thtml
 #   make man
 #   make html
 
-all-local: html
+all-local: html-local
 install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
@@ -128,7 +128,7 @@ bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/../version
 
 # Man pages in HTML format.
 
-html: $(man_HTML)
+html-local: $(man_HTML)
 
 gettext.1.html: gettext.1.html.in Makefile
 	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f gettext.1.html.in; then echo .; else echo $(srcdir); fi`/gettext.1.html.in > t-$@

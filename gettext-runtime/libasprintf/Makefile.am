@@ -70,7 +70,7 @@ MOSTLYCLEANFILES += alloca.h
 
 
 # Clean up after Solaris cc.
-clean-am:
+clean-local:
 	rm -rf SunWS_cache
 
 
@@ -92,7 +92,7 @@ info_TEXINFOS = autosprintf.texi
 #   make autosprintf.ps
 #   make autosprintf.pdf
 
-all-local: html
+all-local: html-local
 install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
@@ -123,8 +123,6 @@ MOSTLYCLEANFILES +=
 #DVIPS = @DVIPS@
 DVIPS = @DVIPS@ -D600
 
-ps: autosprintf.ps
-
 autosprintf.ps: autosprintf.dvi
 	$(DVIPS) -o $@ `if test -f autosprintf.dvi; then echo autosprintf.dvi; else echo $(srcdir)/autosprintf.dvi; fi`
 
@@ -141,14 +139,7 @@ uninstall-ps:
 
 # Documentation in Portable Document Format.
 
-TEXI2PDF = @TEXI2PDF@
 SUFFIXES = .pdf
-
-pdf: autosprintf.pdf
-
-.texi.pdf:
-	TEXINPUTS=.:$$TEXINPUTS \
-	  MAKEINFO='$(MAKEINFO) -I $(srcdir)' $(TEXI2PDF) $<
 
 install-pdf: autosprintf.pdf
 	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
@@ -165,7 +156,7 @@ uninstall-pdf:
 
 TEXI2HTML = @PERL@ $(srcdir)/texi2html
 
-html: autosprintf.html
+html-local: autosprintf.html
 
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.

@@ -38,12 +38,6 @@ $(srcdir)/ABOUT-NLS: $(srcdir)/../gettext-runtime/ABOUT-NLS
 	cp $(srcdir)/../gettext-runtime/ABOUT-NLS $(srcdir)/ABOUT-NLS
 
 
-# Documentation tag not known to automake.
-
-html:
-	cd doc && $(MAKE) html
-
-
 # VMS support.
 
 config.h_vms: config.h.in ../version.sh

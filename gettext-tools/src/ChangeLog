@@ -1,3 +1,8 @@
+2003-12-12  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake-1.8.
+	* Makefile.am (install-exec-local): Renamed from install-exec-am.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* format-java.c: Include xallocsa.h.
