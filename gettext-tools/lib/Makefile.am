@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -64,6 +64,7 @@ libgettextlib_la_SOURCES = \
   pathname.h concatpath.c \
   pipe.h pipe.c w32spawn.h \
   progname.h progname.c progreloc.c \
+  quotearg.h quotearg.c \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \

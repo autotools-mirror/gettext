@@ -1,5 +1,5 @@
 /* Shell quoting.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,99 +25,48 @@
 
 #include <string.h>
 
-#include "strpbrk.h"
+#include "quotearg.h"
 #include "xalloc.h"
 
+/* Describes quoting for sh compatible shells.  */
+static struct quoting_options *sh_quoting_options;
 
-/* Must quote the program name and arguments since Unix shells interpret
-   characters like " ", "'", "<", ">", "$" etc. in a special way.  This
-   kind of quoting should work unless the string contains "\n" and we call
-   csh.  But we are lucky: only /bin/sh will be used.  */
-
-#define SHELL_SPECIAL_CHARS "\t\n !\"#$&'()*;<=>?[\\]`{|}~"
+/* Initializes the sh_quoting_options variable.  */
+static void
+init_sh_quoting_options ()
+{
+  sh_quoting_options = clone_quoting_options (NULL);
+  set_quoting_style (sh_quoting_options, shell_quoting_style);
+}
 
 /* Returns the number of bytes needed for the quoted string.  */
 size_t
 shell_quote_length (const char *string)
 {
-  if (string[0] == '\0')
-    return 2;
-  else if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
-    return strlen (string);
-  else
-    {
-      char qchar = '\0';	/* last quote character: none or ' or " */
-      size_t length = 0;
-
-      for (; *string != '\0'; string++)
-	{
-	  char c = *string;
-	  char q = (c == '\'' ? '"' : '\'');
-
-	  if (qchar != q)
-	    {
-	      if (qchar)
-		length++;
-	      qchar = q;
-	      length++;
-	    }
-	  length++;
-	}
-      if (qchar)
-	length++;
-
-      return length;
-    }
+  if (sh_quoting_options == NULL)
+    init_sh_quoting_options ();
+  return quotearg_buffer (NULL, 0, string, strlen (string),
+			   sh_quoting_options);
 }
 
-/* Copies the quoted string to p and returns the incremented p.  */
+/* Copies the quoted string to p and returns the incremented p.
+   There must be room for shell_quote_length (string) + 1 bytes at p.  */
 char *
 shell_quote_copy (char *p, const char *string)
 {
-  if (string[0] == '\0')
-    {
-      memcpy (p, "''", 2);
-      return p + 2;
-    }
-  else if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
-    {
-      memcpy (p, string, strlen (string));
-      return p + strlen (string);
-    }
-  else
-    {
-      char qchar = '\0';	/* last quote character: none or ' or " */
-
-      for (; *string != '\0'; string++)
-	{
-	  char c = *string;
-	  char q = (c == '\'' ? '"' : '\'');
-
-	  if (qchar != q)
-	    {
-	      if (qchar)
-		*p++ = qchar;
-	      qchar = q;
-	      *p++ = qchar;
-	    }
-	  *p++ = c;
-	}
-      if (qchar)
-	*p++ = qchar;
-
-      return p;
-    }
+  if (sh_quoting_options == NULL)
+    init_sh_quoting_options ();
+  return p + quotearg_buffer (p, (size_t)(-1), string, strlen (string),
+			      sh_quoting_options);
 }
 
 /* Returns the freshly allocated quoted string.  */
 char *
 shell_quote (const char *string)
 {
-  size_t length = shell_quote_length (string);
-  char *quoted = (char *) xmalloc (length + 1);
-  char *p = shell_quote_copy (quoted, string);
-  *p = '\0';
-  return quoted;
+  if (sh_quoting_options == NULL)
+    init_sh_quoting_options ();
+  return quotearg_alloc (string, strlen (string), sh_quoting_options);
 }
 
 /* Returns a freshly allocated string containing all argument strings, quoted,

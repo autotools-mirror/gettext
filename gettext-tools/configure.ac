@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -141,6 +141,7 @@ gt_FUNC_SETENV
 gl_FUNC_STRERROR
 jm_FUNC_GLIBC_UNLOCKED_IO
 gt_FUNC_ERROR_AT_LINE
+gl_QUOTEARG
 gl_PATHMAX
 gl_FUNC_READLINK
 gl_XREADLINK

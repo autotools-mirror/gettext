@@ -1,5 +1,5 @@
 /* malloc with out of memory checking.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -54,6 +54,22 @@ extern void xalloc_die (void)
 
 /* Return a newly allocated copy of STRING.  */
 extern char *xstrdup (const char *string);
+
+
+/* Return 1 if an array of N objects, each of size S, cannot exist due
+   to size arithmetic overflow.  S must be positive and N must be
+   nonnegative.  This is a macro, not an inline function, so that it
+   works correctly even when SIZE_MAX < N.
+
+   By gnulib convention, SIZE_MAX represents overflow in size
+   calculations, so the conservative dividend to use here is
+   SIZE_MAX - 1, since SIZE_MAX might represent an overflowed value.
+   However, malloc (SIZE_MAX) fails on all known hosts where
+   sizeof (ptrdiff_t) <= sizeof (size_t), so do not bother to test for
+   exactly-SIZE_MAX allocations on such hosts; this avoids a test and
+   branch when S is known to be 1.  */
+# define xalloc_oversized(n, s) \
+    ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
 
 
 #ifdef __cplusplus
