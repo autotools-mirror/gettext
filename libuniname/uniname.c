@@ -35,16 +35,16 @@
 #define uint32_t unsigned int
 #include "uninames.h"
 /* It contains:
-  static const char unicode_name_words[25138] = ...;
-  #define UNICODE_CHARNAME_NUM_WORDS 4547
+  static const char unicode_name_words[26496] = ...;
+  #define UNICODE_CHARNAME_NUM_WORDS 4725
   static const struct { uint16_t extra_offset; uint16_t ind_offset; } unicode_name_by_length[26] = ...;
-  #define UNICODE_CHARNAME_WORD_HANGUL 2976
-  #define UNICODE_CHARNAME_WORD_SYLLABLE 3780
-  #define UNICODE_CHARNAME_WORD_CJK 364
-  #define UNICODE_CHARNAME_WORD_COMPATIBILITY 4413
-  static const uint16_t unicode_names[48991] = ...;
-  static const struct { uint16_t code; uint16_t name; } unicode_name_to_code[11929] = ...;
-  static const struct { uint16_t code; uint16_t name; } unicode_code_to_name[11929] = ...;
+  #define UNICODE_CHARNAME_WORD_HANGUL 3030
+  #define UNICODE_CHARNAME_WORD_SYLLABLE 3891
+  #define UNICODE_CHARNAME_WORD_CJK 367
+  #define UNICODE_CHARNAME_WORD_COMPATIBILITY 4585
+  static const uint16_t unicode_names[53315] = ...;
+  static const struct { uint16_t code; uint16_t name; } unicode_name_to_code[12886] = ...;
+  static const struct { uint16_t code; uint16_t name; } unicode_code_to_name[12886] = ...;
   #define UNICODE_CHARNAME_MAX_LENGTH 83
   #define UNICODE_CHARNAME_MAX_WORDS 13
 */
@@ -179,7 +179,8 @@ unicode_character_name (unsigned int c, char *buf)
       *ptr = '\0';
       return buf;
     }
-  else if ((c >= 0xF900 && c <= 0xFA2D) || (c >= 0x2F800 && c <= 0x2FA1D))
+  else if ((c >= 0xF900 && c <= 0xFA2D) || (c >= 0xFA30 && c <= 0xFA6A)
+	   || (c >= 0x2F800 && c <= 0x2FA1D))
     {
       /* Special case for CJK compatibility ideographs. Keeps the tables
 	 small.  */
@@ -430,6 +431,7 @@ unicode_name_character (const char *name)
 			    if (p2 == ptr)
 			      {
 				if ((c >= 0xF900 && c <= 0xFA2D)
+				    || (c >= 0xFA30 && c <= 0xFA6A)
 				    || (c >= 0x2F800 && c <= 0x2FA1D))
 				  return c;
 				else

@@ -1,3 +1,11 @@
+2002-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* gen-uninames: Update for Unicode 3.2.0.
+	* uninames.h: Regenerated for Unicode 3.2.0 by gen-uninames.
+	* uniname.c: (unicode_character_name, unicode_name_character): Update
+	for Unicode 3.2.0.
+	* UnicodeDataNames.txt: Update for Unicode 3.2.0.
+
 2002-11-13  Bruno Haible  <bruno@clisp.org>
 
 	Assume ANSI C.

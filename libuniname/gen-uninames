@@ -39,7 +39,8 @@
               (unless (<= #xAC00 code #xD7A3)
                 ; Also ignore CJK compatibility ideographs; they are treated
                 ; specially as well.
-                (unless (or (<= #xF900 code #xFA2D) (<= #x2F800 code #x2FA1D))
+                (unless (or (<= #xF900 code #xFA2D) (<= #xFA30 code #xFA6A)
+                            (<= #x2F800 code #x2FA1D))
                   ; Transform the code so that it fits in 16 bits. In
                   ; Unicode 3.1 the following ranges are used.
                   ;   0x00000..0x033FF  >>12=  0x00..0x03  -> 0x0..0x3
