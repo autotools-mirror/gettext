@@ -1,5 +1,10 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt-5: New file.
+	* Makefile.am (TESTS): Add it.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgcmp-2: Add program name prefix to expected output.
 	* msgmerge-2: Likewise.
 

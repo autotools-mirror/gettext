@@ -112,10 +112,12 @@ struct msg_domain
   hash_table symbol_tab;
   /* Name of domain these ID/String pairs are part of.  */
   const char *domain_name;
+  /* Output file name.  */
+  const char *file_name;
   /* Link to the next domain.  */
   struct msg_domain *next;
 };
-static struct msg_domain *domain;
+static struct msg_domain *domain_list;
 static struct msg_domain *current_domain;
 
 /* If not zero list duplicate message identifiers.  */
@@ -178,7 +180,8 @@ static void format_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					      int __obsolete));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
 static void format_debrief PARAMS ((po_ty *));
-static struct msg_domain *new_domain PARAMS ((const char *name));
+static struct msg_domain *new_domain PARAMS ((const char *name,
+					      const char *file_name));
 static int compare_id PARAMS ((const void *pval1, const void *pval2));
 static void write_table PARAMS ((FILE *output_file, hash_table *tab));
 static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
@@ -197,6 +200,7 @@ main (argc, argv)
   int do_help = 0;
   int do_version = 0;
   int strict_uniforum = 0;
+  struct msg_domain *domain;
 
   /* Set default value for global variables.  */
   alignment = DEFAULT_OUTPUT_ALIGNMENT;
@@ -288,7 +292,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* The -o option determines the name of the domain and therefore
      the output file.  */
   if (output_file_name != NULL)
-    current_domain = new_domain (output_file_name);
+    current_domain =
+      new_domain (output_file_name,
+		  strict_uniforum ? add_mo_suffix (output_file_name)
+				  : output_file_name);
 
   /* Prepare PO file reader.  We need to see the comments because inexact
      translations must be reported.  */
@@ -309,7 +316,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       ++optind;
     }
 
-  while (domain != NULL)
+  for (domain = domain_list; domain != NULL; domain = domain->next)
     {
       FILE *output_file;
 
@@ -323,10 +330,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	    }
 	  else
 	    {
-	      const char *fname;
-
-	      fname = strict_uniforum ? add_mo_suffix (domain->domain_name)
-				      : domain->domain_name;
+	      const char *fname = domain->file_name;
 
 	      output_file = fopen (fname, "wb");
 	      if (output_file == NULL)
@@ -335,9 +339,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 			 _("error while opening \"%s\" for writing"), fname);
 		  exit_status = EXIT_FAILURE;
 		}
-
-	      if (strict_uniforum)
-		free ((void *) fname);
 	    }
 
 	  if (output_file != NULL)
@@ -347,8 +348,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 		fclose (output_file);
 	    }
 	}
-
-      domain = domain->next;
     }
 
   /* Print statistics if requested.  */
@@ -449,22 +448,26 @@ Giving the -v option more than once increases the verbosity level.\n\
 
 
 static struct msg_domain *
-new_domain (name)
+new_domain (name, file_name)
      const char *name;
+     const char *file_name;
 {
-  struct msg_domain **p_dom = &domain;
+  struct msg_domain **p_dom = &domain_list;
 
   while (*p_dom != NULL && strcmp (name, (*p_dom)->domain_name) != 0)
     p_dom = &(*p_dom)->next;
 
   if (*p_dom == NULL)
     {
-      *p_dom = (struct msg_domain *) xmalloc (sizeof (**p_dom));
+      struct msg_domain *domain;
 
-      if (init_hash (&(*p_dom)->symbol_tab, 100) != 0)
+      domain = (struct msg_domain *) xmalloc (sizeof (struct msg_domain));
+      if (init_hash (&domain->symbol_tab, 100) != 0)
 	error (EXIT_FAILURE, errno, _("while creating hash table"));
-      (*p_dom)->domain_name = name;
-      (*p_dom)->next = NULL;
+      domain->domain_name = name;
+      domain->file_name = file_name;
+      domain->next = NULL;
+      *p_dom = domain;
     }
 
   return *p_dom;
@@ -536,7 +539,7 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 	}
 
       /* Set new domain.  */
-      current_domain = new_domain (name);
+      current_domain = new_domain (name, add_mo_suffix (name));
     }
   else
     {
@@ -676,7 +679,8 @@ some header fields still have the initial default value"));
       /* Check whether already a domain is specified.  If not use default
 	 domain.  */
       if (current_domain == NULL)
-	current_domain = new_domain ("messages");
+	current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
+				     add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
 
       /* We insert the ID/string pair into the hashing table.  But we have
 	 to take care for duplicates.  */
@@ -1114,9 +1118,9 @@ add_mo_suffix (fname)
 
   len = strlen (fname);
   if (len > 3 && memcmp (fname + len - 3, ".mo", 3) == 0)
-    return xstrdup (fname);
+    return fname;
   if (len > 4 && memcmp (fname + len - 4, ".gmo", 4) == 0)
-    return xstrdup (fname);
+    return fname;
   result = (char *) xmalloc (len + 4);
   stpcpy (stpcpy (result, fname), ".mo");
   return result;

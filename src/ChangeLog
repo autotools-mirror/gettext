@@ -1,3 +1,18 @@
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgfmt.c: Change the --strict option to not apply to domain
+	directives, only to the output filename argument.
+	(struct msg_domain): Add file_name field.
+	(domain_list): Renamed from domain.
+	(new_domain): Add file_name argument.
+	(main): Pass file name to new_domain(). Use file_name passed to
+	new_domain() in fopen call; don't free it.
+	(new_domain): New argument 'file_name'.
+	(format_directive_domain): Always ensure ".mo" suffix, independently
+	of --strict.
+	(format_directive_message): Likewise.
+	(add_mo_suffix): Don't call xstrdup.
+
 2001-06-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (datadir): Remove definition.
