@@ -1579,7 +1579,7 @@ fill_header (mdlp)
 	{
 	  message_ty *header_mp = NULL;
 	  char *header;
-	  const char *subst[3][2];
+	  const char *subst[4][2];
 	  const char *id;
 	  time_t now;
 
@@ -1624,12 +1624,15 @@ fill_header (mdlp)
 	  header_mp->msgstr_len = strlen (header) + 1;
 
 	  /* Update the comments in the header entry.  */
+	  id = project_id ();
 	  subst[0][0] = "SOME DESCRIPTIVE TITLE";
-	  subst[0][1] = (id = project_id (), xasprintf (get_title (), id, id));
-	  subst[1][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
-	  subst[1][1] = field_value[FIELD_LAST_TRANSLATOR];
-	  subst[2][0] = "YEAR";
-	  subst[2][1] =
+	  subst[0][1] = xasprintf (get_title (), id, id);
+	  subst[1][0] = "PACKAGE";
+	  subst[1][1] = id;
+	  subst[2][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
+	  subst[2][1] = field_value[FIELD_LAST_TRANSLATOR];
+	  subst[3][0] = "YEAR";
+	  subst[3][1] =
 	    xasprintf ("%d", (time (&now), (localtime (&now))->tm_year + 1900));
 	  subst_string_list (header_mp->comment, SIZEOF (subst), subst);
 

@@ -1,3 +1,7 @@
+2002-02-03  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (fill_header): Also replace "PACKAGE" in the comment.
+
 2002-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (INCLUDES): Add -I../lib. Needed for builds with
