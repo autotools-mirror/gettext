@@ -1,3 +1,16 @@
+2001-06-04  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-edit-string): Set 'buffer-file-coding-system'
+	(for hints thanks to Eli Zaretskii).
+
+2001-06-04  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-msgfmt-version-check): New. Check for GNU gettext
+	0.10.36 or newer. Re-written by Stefan Monnier.
+	(po-validate): Use 'po-msgfmt-version-check'.
+	(po-validate): Use 'null-device' instead of literal "/dev/null".
+	Reported by Eli Zaretskii.
+
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.38 released.

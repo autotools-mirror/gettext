@@ -1860,6 +1860,7 @@ Run functions on po-subedit-mode-hook."
     (if (po-check-for-pending-edit marker)
 	(let ((edit-buffer (generate-new-buffer
 			    (concat "*" (buffer-name) "*")))
+	      (edit-coding buffer-file-coding-system)
 	      (buffer (current-buffer))
 	      overlay slot)
 	  (if (and (eq type 'msgstr) po-highlighting)
@@ -1879,6 +1880,7 @@ Run functions on po-subedit-mode-hook."
 	  (pop-to-buffer edit-buffer)
 	  (make-local-variable 'po-subedit-back-pointer)
 	  (setq po-subedit-back-pointer slot)
+	  (setq buffer-file-coding-system edit-coding)
 	  (erase-buffer)
 	  (insert string "<")
 	  (goto-char (point-min))
@@ -2522,16 +2524,49 @@ keyword for subsequent commands, also added to possible completions."
 (defun po-validate ()
   "Use `msgfmt' for validating the current PO file contents."
   (interactive)
+  (let ((command (concat po-msgfmt-program
+                         " --statistics -c -v -o " null-device " "
+                         buffer-file-name)))
 
-  ;; If modifications were done already, change the last revision date.
-  (if (buffer-modified-p)
-      (po-replace-revision-date))
+    (po-msgfmt-version-check)
 
-  ;; This `let' is for protecting the previous value of compile-command.
-  (let ((compile-command (concat po-msgfmt-program
-				 " --statistics -c -v -o /dev/null "
-				 buffer-file-name)))
-    (compile compile-command)))
+    ;; If modifications were done already, change the last revision date.
+    (if (buffer-modified-p)
+        (po-replace-revision-date))
+
+    (compile command)))
+
+(defvar po-msgfmt-version-checked nil)
+(defun po-msgfmt-version-check ()
+  "`msgfmt' from GNU gettext 0.10.36 or greater is required."
+  (with-temp-buffer
+    (or
+     ;; Don't bother checking again.
+     po-msgfmt-version-checked
+
+     (and
+      ;; Make sure `msgfmt' is available.
+      (condition-case nil
+          (call-process po-msgfmt-program
+			nil t nil "--verbose" "--version")
+	(file-error nil))
+
+      ;; Make sure there's a version number in the output.
+      (progn (goto-char (point-min))
+	     (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$"))
+
+      ;; Make sure the version is recent enough.
+      (>= (string-to-int
+	   (format "%d%03d%03d"
+		   (string-to-int (match-string 1))
+		   (string-to-int (match-string 2))
+		   (string-to-int (match-string 3))))
+	  010036)
+
+      ;; Remember the outcome.
+      (setq po-msgfmt-version-checked t))
+
+     (error (_"`msgfmt' from GNU gettext 0.10.36 or greater is required")))))
 
 (defun po-guess-archive-name ()
   "Return the ideal file name for this PO file in the central archives."
