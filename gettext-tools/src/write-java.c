@@ -74,6 +74,7 @@
 #include "po-charset.h"
 #include "xmalloc.h"
 #include "pathname.h"
+#include "fwriteerror.h"
 #include "tmpdir.h"
 #include "utf8-ucs4.h"
 #include "gettext.h"
@@ -1151,7 +1152,7 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
 
   write_java_code (java_file, class_name, mlp, assume_java2);
 
-  if (fflush (java_file) || ferror (java_file))
+  if (fwriteerror (java_file))
     {
       error (0, errno, _("error while writing \"%s\" file"), java_file_name);
       fclose (java_file);

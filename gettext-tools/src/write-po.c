@@ -42,6 +42,7 @@
 #include "write-properties.h"
 #include "xmalloc.h"
 #include "strstr.h"
+#include "fwriteerror.h"
 #include "exit.h"
 #include "error-progname.h"
 #include "error.h"
@@ -1091,7 +1092,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
     msgdomain_list_print_po (mdlp, fp, debug);
 
   /* Make sure nothing went wrong.  */
-  if (fflush (fp) || ferror (fp))
+  if (fwriteerror (fp))
     error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	   filename);
 

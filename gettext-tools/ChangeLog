@@ -1,3 +1,7 @@
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.def: Export fwriteerror.
+
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextlib.def: Export close_stdout.

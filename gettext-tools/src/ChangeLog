@@ -1,3 +1,18 @@
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* write-mo.c: Include fwriterror.h.
+	(msgdomain_write_mo): Use fwriteerror, to get right errno value in
+	error message about write error.
+	* write-po.c: Include fwriterror.h.
+	(msgdomain_list_print): Use fwriteerror, to get right errno value in
+	error message about write error.
+	* write-java.c: Include fwriterror.h.
+	(msgdomain_write_java): Use fwriteerror, to get right errno value in
+	error message about write error.
+	* write-tcl.c: Include fwriterror.h.
+	(msgdomain_write_tcl): Use fwriteerror, to get right errno value in
+	error message about write error.
+
 2003-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.c (from_current_source_encoding): Use multiline_error,

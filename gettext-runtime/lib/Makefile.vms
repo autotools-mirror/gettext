@@ -27,7 +27,7 @@ RM = delete
 
 #### End of system configuration section. ####
 
-OBJECTS = basename.obj,closeout.obj,error.obj,getopt.obj,getopt1.obj,progname.obj,progreloc.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
+OBJECTS = basename.obj,closeout.obj,error.obj,fwriteerror.obj,getopt.obj,getopt1.obj,progname.obj,progreloc.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
 
 all : grt.olb
 	write sys$output "Nothing else to be done for 'all'."
@@ -40,6 +40,9 @@ closeout.obj : [-.-.gettext-tools.lib]closeout.c
 
 error.obj : [-.-.gettext-tools.lib]error.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]error.c
+
+fwriteerror.obj : [-.-.gettext-tools.lib]fwriteerror.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]fwriteerror.c
 
 getopt.obj : [-.-.gettext-tools.lib]getopt.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]getopt.c

@@ -45,6 +45,7 @@ find_entry
 find_in_path
 fstrcmp
 full_write
+fwriteerror
 gcd
 getopt_long
 get_version

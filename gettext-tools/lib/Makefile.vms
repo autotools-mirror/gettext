@@ -51,6 +51,7 @@ OBJECTS = \
   findprog.obj, \
   fstrcmp.obj, \
   full-write.obj, \
+  fwriteerror.obj, \
   gcd.obj, \
   getopt.obj, getopt1.obj, \
   hash.obj, \
@@ -131,6 +132,9 @@ fstrcmp.obj : fstrcmp.c
 
 full-write.obj : full-write.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) full-write.c
+
+fwriteerror.obj : fwriteerror.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) fwriteerror.c
 
 gcd.obj : gcd.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) gcd.c

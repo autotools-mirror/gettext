@@ -44,6 +44,7 @@
 #include "format.h"
 #include "xmalloc.h"
 #include "binary-io.h"
+#include "fwriteerror.h"
 #include "exit.h"
 #include "gettext.h"
 
@@ -701,7 +702,7 @@ msgdomain_write_mo (message_list_ty *mlp,
 	  write_table (output_file, mlp);
 
 	  /* Make sure nothing went wrong.  */
-	  if (fflush (output_file) || ferror (output_file))
+	  if (fwriteerror (output_file))
 	    error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 		   file_name);
 

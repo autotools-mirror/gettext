@@ -46,6 +46,7 @@ libgettextlib_la_SOURCES = \
   findprog.h findprog.c \
   fstrcmp.h fstrcmp.c \
   full-write.h full-write.c \
+  fwriteerror.h fwriteerror.c \
   gcd.h gcd.c \
   getopt.h getopt.c getopt1.c \
   hash.h hash.c \

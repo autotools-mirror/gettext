@@ -30,6 +30,7 @@ libgrt_a_SOURCES = \
   ../../gettext-tools/lib/closeout.h ../../gettext-tools/lib/closeout.c \
   ../../gettext-tools/lib/error.h ../../gettext-tools/lib/error.c \
   ../../gettext-tools/lib/exit.h \
+  ../../gettext-tools/lib/fwriteerror.h ../../gettext-tools/lib/fwriteerror.c \
   ../../gettext-tools/lib/getopt.h ../../gettext-tools/lib/getopt.c ../../gettext-tools/lib/getopt1.c \
   ../../gettext-tools/lib/pathmax.h \
   ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c ../../gettext-tools/lib/progreloc.c \

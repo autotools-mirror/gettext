@@ -36,6 +36,7 @@
 #include "po-charset.h"
 #include "xmalloc.h"
 #include "pathname.h"
+#include "fwriteerror.h"
 #include "exit.h"
 #include "utf8-ucs4.h"
 #include "gettext.h"
@@ -197,7 +198,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
     write_msg (output_file, mlp, frobbed_locale_name);
 
     /* Make sure nothing went wrong.  */
-    if (fflush (output_file) || ferror (output_file))
+    if (fwriteerror (output_file))
       error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	     file_name);
 
