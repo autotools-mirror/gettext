@@ -108,6 +108,23 @@ extern char *dcgettext__ PARAMS ((const char *__domainname,
 				  const char *__msgid, int __category));
 
 
+/* Similar to `gettext' but select the plural form corresponding to the
+   number N.  */
+extern char *ngettext PARAMS ((const char *__msgid1, const char *__msgid2,
+			       unsigned long int __n));
+
+/* Similar to `dgettext' but select the plural form corresponding to the
+   number N.  */
+extern char *dngettext PARAMS ((const char *__domainname, const char *__msgid1,
+				const char *__msgid2, unsigned long int __n));
+
+/* Similar to `dcgettext' but select the plural form corresponding to the
+   number N.  */
+extern char *dcngettext PARAMS ((const char *__domainname, const char *__msgid1,
+				 const char *__msgid2, unsigned long int __n,
+				 int __category));
+
+
 /* Set the current default message catalog to DOMAINNAME.
    If DOMAINNAME is null, return the current default.
    If DOMAINNAME is "", reset to the default of "messages".  */
@@ -134,33 +151,12 @@ extern char *bindtextdomain__ PARAMS ((const char *__domainname,
 #  define dgettext(Domainname, Msgid)					      \
      dcgettext (Domainname, Msgid, LC_MESSAGES)
 
-#  if defined __GNUC__ && __GNUC__ == 2 && __GNUC_MINOR__ >= 7
-/* This global variable is defined in loadmsgcat.c.  We need a sign,
-   whether a new catalog was loaded, which can be associated with all
-   translations.  */
-extern int _nl_msg_cat_cntr;
+#  define ngettext(Msgid, N)						      \
+     dngettext (NULL, Msgid, N)
 
-#   define dcgettext(Domainname, Msgid, Category)			      \
-  (__extension__							      \
-   ({									      \
-     char *__result;							      \
-     if (__builtin_constant_p (Msgid))					      \
-       {								      \
-	 static char *__translation__;					      \
-	 static int __catalog_counter__;				      \
-	 if (! __translation__ || __catalog_counter__ != _nl_msg_cat_cntr)    \
-	   {								      \
-	     __translation__ =						      \
-	       dcgettext__ (Domainname, Msgid, Category);		      \
-	     __catalog_counter__ = _nl_msg_cat_cntr;			      \
-	   }								      \
-	 __result = __translation__;					      \
-       }								      \
-     else								      \
-       __result = dcgettext__ (Domainname, Msgid, Category);		      \
-     __result;								      \
-    }))
-#  endif
+#  define dngettext(Domainname, Msgid, N)				      \
+     dcngettext (Domainname, Msgid, N, LC_MESSAGES)
+
 # endif
 
 #else
@@ -168,8 +164,14 @@ extern int _nl_msg_cat_cntr;
 # define gettext(Msgid) (Msgid)
 # define dgettext(Domainname, Msgid) (Msgid)
 # define dcgettext(Domainname, Msgid, Category) (Msgid)
-# define textdomain(Domainname) ((char *) Domainname)
-# define bindtextdomain(Domainname, Dirname) ((char *) Dirname)
+# define ngettext(Msgid1, Msgid2, N) \
+    ((N) == 1 ? (char *) (Msgid1) : (char *) (Msgid2))
+# define dngettext(Domainname, Msgid1, Msgid2, N) \
+    ((N) == 1 ? (char *) (Msgid1) : (char *) (Msgid2))
+# define dcngettext(Domainname, Msgid1, Msgid2, N, Category) \
+    ((N) == 1 ? (char *) (Msgid1) : (char *) (Msgid2))
+# define textdomain(Domainname) ((char *) (Domainname))
+# define bindtextdomain(Domainname, Dirname) ((char *) (Dirname))
 
 #endif
 
