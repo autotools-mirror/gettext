@@ -1019,7 +1019,7 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 		       (time (current-time))
 		       (seconds (or (car (current-time-zone time)) 0))
 		       (minutes (/ (abs seconds) 60))
-		       (zone (format "%c%02d:%02d"
+		       (zone (format "%c%02d%02d"
 				     (if (< seconds 0) ?- ?+)
 				     (/ minutes 60)
 				     (% minutes 60))))
