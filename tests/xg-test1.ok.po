@@ -38,16 +38,13 @@ msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr ""
 
 #, no-wrap
-msgid ""
-"Extract translatable string from given input files.\n"
-"\n"
+msgid "Extract translatable strings from given input files.\n"
 msgstr ""
 
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -57,7 +54,6 @@ msgid ""
 "  -f, --files-from=FILE          get list of input files from FILE\n"
 "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -67,7 +63,6 @@ msgid ""
 "  -o, --output=FILE              write output to specified file\n"
 "  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
 "If output file is -, output is written to standard output.\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -76,7 +71,6 @@ msgid ""
 "  -L, --language=NAME            recognise the specified language (C, C++, PO)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -86,7 +80,6 @@ msgid ""
 "  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n"
 "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
 "                                 preceding keyword lines) in output file\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -97,7 +90,6 @@ msgid ""
 "                                 WORD means not to use default keywords)\n"
 "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
 "      --debug                    more detailed formatstring recognition result\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -117,7 +109,6 @@ msgid ""
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -125,7 +116,6 @@ msgid ""
 "Informative output:\n"
 "  -h, --help                     display this help and exit\n"
 "  -V, --version                  output version information and exit\n"
-"\n"
 msgstr ""
 
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
@@ -183,15 +173,11 @@ msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr ""
 
 #, no-wrap
-msgid ""
-"Generate binary message catalog from textual translation description.\n"
-"\n"
+msgid "Generate binary message catalog from textual translation description.\n"
 msgstr ""
 
 #, no-wrap
-msgid ""
-"Mandatory arguments to long options are mandatory for short options too.\n"
-"\n"
+msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 
 #, no-wrap
@@ -200,7 +186,6 @@ msgid ""
 "  filename.po ...             input files\n"
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -209,7 +194,6 @@ msgid ""
 "  -o, --output-file=FILE      write output to specified file\n"
 "      --strict                enable strict Uniforum mode\n"
 "If output file is -, output is written to standard output.\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -217,7 +201,6 @@ msgid ""
 "Input file interpretation:\n"
 "  -c, --check                 perform language dependent checks on strings\n"
 "  -f, --use-fuzzy             use fuzzy entries in output\n"
-"\n"
 msgstr ""
 
 #, c-format, no-wrap
@@ -225,7 +208,6 @@ msgid ""
 "Output details:\n"
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 "      --no-hash               binary file will not include the hash table\n"
-"\n"
 msgstr ""
 
 #, no-wrap
@@ -236,16 +218,15 @@ msgid ""
 "      --statistics            print statistics about translations\n"
 "  -v, --verbose               list input file anomalies\n"
 "Giving the -v option more than once increases the verbosity level.\n"
-"\n"
 msgstr ""
 
 msgid "while creating hash table"
 msgstr ""
 
-#, c-format
-msgid ""
-"%s: warning: PO file header missing, fuzzy, or invalid\n"
-"%*s  warning: charset conversion will not work"
+msgid "warning: PO file header missing, fuzzy, or invalid\n"
+msgstr ""
+
+msgid "warning: charset conversion will not work\n"
 msgstr ""
 
 #, c-format
@@ -320,7 +301,16 @@ msgstr ""
 
 #, c-format, no-wrap
 msgid ""
-"Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+"or:    %s [OPTION] -s [MSGID]...\n"
+msgstr ""
+
+#, no-wrap
+msgid "Display native language translation of a textual message.\n"
+msgstr ""
+
+#, no-wrap
+msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
 "  -E                        (ignored for compatibility)\n"
@@ -333,7 +323,6 @@ msgstr ""
 
 #, c-format, no-wrap
 msgid ""
-"\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
