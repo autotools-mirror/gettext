@@ -75,7 +75,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11-pre5\n"
 "POT-Creation-Date: 2002-01-11 15:48+0100\n"
-"PO-Revision-Date: 2002-01-11 19:47+0100\n"
+"PO-Revision-Date: 2002-01-14 21:20+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -531,7 +531,7 @@ msgstr ""
 "Angaben zu Ausgabedateien:\n"
 "  -o, --output-file=DATEI      Ausgabe in die angegebene DATEI schreiben\n"
 "Ergebnisse werden nach der Standardausgabe geschrieben, wenn keine Datei oder\n"
-"»-« angegeben ist.\n"
+"wenn »-« angegeben ist.\n"
 
 #: src/msgattrib.c:359
 #, no-wrap
@@ -758,10 +758,10 @@ msgstr ""
 "beide die gleichen »msgid«-Einträge enthalten.\n"
 "Die Datei Def.po ist eine bereits vorhandene Po-Dateien mit den Übersetzungen.\n"
 "Die Datei Ref.po ist die zuletzt erzeugte PO- oder POT-Datei (Vorlage, i. A.\n"
-"von xgettext erzeugt).  Mit Hilfe diese Programms lässt sich also überprüfen,\n"
-"ob jede Meldung im Programm übersetzt wurde.  Wenn keine exakte Übereinstimmung\n"
-"gefunden wurde, wird mittels inexakter Suche versucht, eine bessere\n"
-"Hilfestellung zu geben.\n"
+"von xgettext erzeugt).  Hiermit lässt sich also überprüfen, ob für das Programm\n"
+"notwendige Meldung übersetzt wurde.  Wenn keine exakte Übereinstimmung gefunden\n"
+"wurde, wird mittels inexakter Suche versucht, eine bessere Hilfestellung zu\n"
+"geben.\n"
 "\n"
 
 #: src/msgcmp.c:195
@@ -793,7 +793,7 @@ msgstr "diese Meldung kommt vor, ist aber nicht definiert..."
 
 #: src/msgcmp.c:254 src/msgmerge.c:850
 msgid "...but this definition is similar"
-msgstr "...aber diese Definition ist ähnlich"
+msgstr "...diese Definition ist ähnlich"
 
 #: src/msgcmp.c:259 src/msgmerge.c:877
 #, c-format
