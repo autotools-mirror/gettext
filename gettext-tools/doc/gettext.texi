@@ -9282,7 +9282,7 @@ get executed.  Most of the time you will happily get along with
 
 @table @asis
 @item RPMs
-mod_php4, mod_php4-core, phplib, phpdoc
+mod_php4, mod_php4-core, phpdoc
 
 @item File extension
 @code{php}, @code{php3}, @code{php4}
