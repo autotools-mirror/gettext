@@ -830,7 +830,7 @@ remember_a_message (mlp, string, pos)
 	    break;
 
 	  /* To reduce the possibility of unwanted matches be do a two
-	     step match: the line must contains `xgettext:' and one of
+	     step match: the line must contain `xgettext:' and one of
 	     the possible format description strings.  */
 	  if (strstr (s, "xgettext:") != NULL)
 	    {
@@ -1069,7 +1069,7 @@ test_whether_c_format (s)
 
 static scanner_fp
 language_to_scanner (name)
-  const char *name;
+     const char *name;
 {
   typedef struct table_ty table_ty;
   struct table_ty
@@ -1099,7 +1099,7 @@ language_to_scanner (name)
 
 static const char *
 extension_to_language (extension)
-  const char *extension;
+     const char *extension;
 {
   typedef struct table_ty table_ty;
   struct table_ty

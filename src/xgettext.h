@@ -26,14 +26,21 @@
 
 extern int line_comment;
 
+/* List of messages whose msgids must not be extracted, or NULL.
+   Used by remember_a_message().  */
 extern message_list_ty *exclude;
 
+/* Comment handling: There is a list of automatic comments that may be appended
+   to the next message.  Used by remember_a_message().  */
 extern void xgettext_comment_add PARAMS ((const char *str));
 extern const char *xgettext_comment PARAMS ((size_t n));
 extern void xgettext_comment_reset PARAMS ((void));
 
+/* Add a message to the list of extracted messages.  */
 extern message_ty *remember_a_message PARAMS ((message_list_ty *mlp,
 					       char *string, lex_pos_ty *pos));
+/* Add an msgid_plural to a message previously returned by
+   remember_a_message.  */
 extern void remember_a_message_plural PARAMS ((message_ty *mp,
 					       char *string, lex_pos_ty *pos));
 
