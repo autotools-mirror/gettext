@@ -38,7 +38,14 @@ extern "C" {
    If it didn't terminate correctly, exit if exit_on_error is true, otherwise
    return 127.  */
 extern int wait_subprocess (pid_t child, const char *progname,
-			    bool null_stderr, bool exit_on_error);
+			    bool null_stderr,
+			    bool slave_process, bool exit_on_error);
+
+/* Register a subprocess as being a slave process.  This means that the
+   subprocess will be terminated when its creator receives a catchable fatal
+   signal or exits normally.  Registration ends when wait_subprocess()
+   notices that the subprocess has exited.  */
+extern void register_slave_subprocess (pid_t child);
 
 
 #ifdef __cplusplus

@@ -27,6 +27,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <signal.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
@@ -34,6 +35,8 @@
 
 #include "error.h"
 #include "exit.h"
+#include "fatal-signal.h"
+#include "wait-process.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -115,7 +118,7 @@ pid_t
 create_pipe_out (const char *progname,
 		 const char *prog_path, char **prog_argv,
 		 const char *prog_stdout, bool null_stderr,
-		 bool exit_on_error,
+		 bool slave_process, bool exit_on_error,
 		 int fd[1])
 {
 #if defined _MSC_VER || defined __MINGW32__
@@ -201,8 +204,11 @@ create_pipe_out (const char *progname,
   /* Unix API.  */
   int ofd[2];
 #if HAVE_POSIX_SPAWN
+  sigset_t blocked_signals;
   posix_spawn_file_actions_t actions;
   bool actions_allocated;
+  posix_spawnattr_t attrs;
+  bool attrs_allocated;
   int err;
   pid_t child;
 #else
@@ -218,7 +224,13 @@ create_pipe_out (const char *progname,
  */
 
 #if HAVE_POSIX_SPAWN
+  if (slave_process)
+    {
+      sigprocmask (SIG_SETMASK, NULL, &blocked_signals);
+      block_fatal_signals ();
+    }
   actions_allocated = false;
+  attrs_allocated = false;
   if ((err = posix_spawn_file_actions_init (&actions)) != 0
       || (actions_allocated = true,
 	  (err = posix_spawn_file_actions_adddup2 (&actions,
@@ -237,11 +249,26 @@ create_pipe_out (const char *progname,
 							  prog_stdout, O_WRONLY,
 							  0))
 		 != 0)
-	  || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
-				  environ)) != 0))
+	  || (slave_process
+	      && ((err = posix_spawnattr_init (&attrs)) != 0
+		  || (attrs_allocated = true,
+		      (err = posix_spawnattr_setsigmask (&attrs,
+							 &blocked_signals))
+		      != 0
+		      || (err = posix_spawnattr_setflags (&attrs,
+							POSIX_SPAWN_SETSIGMASK))
+			 != 0)))
+	  || (err = posix_spawnp (&child, prog_path, &actions,
+				  attrs_allocated ? &attrs : NULL, prog_argv,
+				  environ))
+	     != 0))
     {
       if (actions_allocated)
 	posix_spawn_file_actions_destroy (&actions);
+      if (attrs_allocated)
+	posix_spawnattr_destroy (&attrs);
+      if (slave_process)
+	unblock_fatal_signals ();
       if (exit_on_error || !null_stderr)
 	error (exit_on_error ? EXIT_FAILURE : 0, err,
 	       _("%s subprocess failed"), progname);
@@ -250,7 +277,11 @@ create_pipe_out (const char *progname,
       return -1;
     }
   posix_spawn_file_actions_destroy (&actions);
+  if (attrs_allocated)
+    posix_spawnattr_destroy (&attrs);
 #else
+  if (slave_process)
+    block_fatal_signals ();
   /* Use vfork() instead of fork() for efficiency.  */
   if ((child = vfork ()) == 0)
     {
@@ -270,12 +301,15 @@ create_pipe_out (const char *progname,
 	      || ((stdoutfd = open (prog_stdout, O_WRONLY, 0)) >= 0
 		  && (stdoutfd == STDOUT_FILENO
 		      || (dup2 (stdoutfd, STDOUT_FILENO) >= 0
-			  && close (stdoutfd) >= 0)))))
+			  && close (stdoutfd) >= 0))))
+	  && (!slave_process || (unblock_fatal_signals (), true)))
 	execvp (prog_path, prog_argv);
       _exit (127);
     }
   if (child == -1)
     {
+      if (slave_process)
+	unblock_fatal_signals ();
       if (exit_on_error || !null_stderr)
 	error (exit_on_error ? EXIT_FAILURE : 0, errno,
 	       _("%s subprocess failed"), progname);
@@ -284,6 +318,11 @@ create_pipe_out (const char *progname,
       return -1;
     }
 #endif
+  if (slave_process)
+    {
+      register_slave_subprocess (child);
+      unblock_fatal_signals ();
+    }
   close (ofd[0]);
 
   fd[0] = ofd[1];

@@ -1,3 +1,19 @@
+2003-10-07  Bruno Haible  <bruno@clisp.org>
+
+	More reliable subprocess cleanup.
+	* msgexec.c (process_string): Pass slave_process = true to
+	create_pipe_out() and wait_subprocess().
+	* msgfilter.c (process_string): Pass slave_process = true to
+	create_pipe_bidi() and wait_subprocess().
+	* msggrep.c (is_string_selected): Pass slave_process = true to
+	create_pipe_out() and wait_subprocess().
+	* msginit.c (project_id, project_id_version, get_user_email,
+	language_team_address): Pass slave_process = true to create_pipe_in()
+	and wait_subprocess().
+	* read-java.c (execute_and_read_po_output): Likewise.
+	* read-tcl.c (msgdomain_read_tcl): Likewise.
+	* urlget.c (execute_it, fetch): Pass slave_process = true to execute().
+
 2003-10-05  Bruno Haible  <bruno@clisp.org>
 
 	* write-java.c: Include fatal-signal.h, not signal.h.

@@ -28,6 +28,7 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <signal.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
@@ -35,6 +36,7 @@
 
 #include "error.h"
 #include "exit.h"
+#include "fatal-signal.h"
 #include "wait-process.h"
 #include "gettext.h"
 
@@ -109,12 +111,14 @@ nonintr_open (const char *pathname, int oflag, mode_t mode)
 /* Execute a command, optionally redirecting any of the three standard file
    descriptors to /dev/null.  Return its exit code.
    If it didn't terminate correctly, exit if exit_on_error is true, otherwise
-   return 127.  */
+   return 127.
+   If slave_process is true, the child process will be terminated when its
+   creator receives a catchable fatal signal.  */
 int
 execute (const char *progname,
 	 const char *prog_path, char **prog_argv,
 	 bool null_stdin, bool null_stdout, bool null_stderr,
-	 bool exit_on_error)
+	 bool slave_process, bool exit_on_error)
 {
 #if defined _MSC_VER || defined __MINGW32__
 
@@ -189,8 +193,11 @@ execute (const char *progname,
      dependent which error is reported which way.  We treat both cases as
      equivalent.  */
 #if HAVE_POSIX_SPAWN
+  sigset_t blocked_signals;
   posix_spawn_file_actions_t actions;
   bool actions_allocated;
+  posix_spawnattr_t attrs;
+  bool attrs_allocated;
   int err;
   pid_t child;
 #else
@@ -198,7 +205,13 @@ execute (const char *progname,
 #endif
 
 #if HAVE_POSIX_SPAWN
+  if (slave_process)
+    {
+      sigprocmask (SIG_SETMASK, NULL, &blocked_signals);
+      block_fatal_signals ();
+    }
   actions_allocated = false;
+  attrs_allocated = false;
   if ((err = posix_spawn_file_actions_init (&actions)) != 0
       || (actions_allocated = true,
 	  (null_stdin
@@ -219,19 +232,37 @@ execute (const char *progname,
 							  "/dev/null", O_RDWR,
 							  0))
 		 != 0)
-	  || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
+	  || (slave_process
+	      && ((err = posix_spawnattr_init (&attrs)) != 0
+		  || (attrs_allocated = true,
+		      (err = posix_spawnattr_setsigmask (&attrs,
+							 &blocked_signals))
+		      != 0
+		      || (err = posix_spawnattr_setflags (&attrs,
+							POSIX_SPAWN_SETSIGMASK))
+			 != 0)))
+	  || (err = posix_spawnp (&child, prog_path, &actions,
+				  attrs_allocated ? &attrs : NULL, prog_argv,
 				  environ))
 	     != 0))
     {
       if (actions_allocated)
 	posix_spawn_file_actions_destroy (&actions);
+      if (attrs_allocated)
+	posix_spawnattr_destroy (&attrs);
+      if (slave_process)
+	unblock_fatal_signals ();
       if (exit_on_error || !null_stderr)
 	error (exit_on_error ? EXIT_FAILURE : 0, err,
 	       _("%s subprocess failed"), progname);
       return 127;
     }
   posix_spawn_file_actions_destroy (&actions);
+  if (attrs_allocated)
+    posix_spawnattr_destroy (&attrs);
 #else
+  if (slave_process)
+    block_fatal_signals ();
   /* Use vfork() instead of fork() for efficiency.  */
   if ((child = vfork ()) == 0)
     {
@@ -254,20 +285,29 @@ execute (const char *progname,
 		      || dup2 (nulloutfd, STDERR_FILENO) >= 0)
 		  && ((null_stdout && nulloutfd == STDOUT_FILENO)
 		      || (null_stderr && nulloutfd == STDERR_FILENO)
-		      || close (nulloutfd) >= 0))))
+		      || close (nulloutfd) >= 0)))
+	  && (!slave_process || (unblock_fatal_signals (), true)))
 	execvp (prog_path, prog_argv);
       _exit (127);
     }
   if (child == -1)
     {
+      if (slave_process)
+	unblock_fatal_signals ();
       if (exit_on_error || !null_stderr)
 	error (exit_on_error ? EXIT_FAILURE : 0, errno,
 	       _("%s subprocess failed"), progname);
       return 127;
     }
 #endif
+  if (slave_process)
+    {
+      register_slave_subprocess (child);
+      unblock_fatal_signals ();
+    }
 
-  return wait_subprocess (child, progname, null_stderr, exit_on_error);
+  return wait_subprocess (child, progname, null_stderr,
+			  slave_process, exit_on_error);
 
 #endif
 }

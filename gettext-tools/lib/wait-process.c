@@ -26,6 +26,8 @@
 
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
+#include <signal.h>
 
 #include <sys/types.h>
 
@@ -90,14 +92,156 @@
 
 #include "error.h"
 #include "exit.h"
+#include "fatal-signal.h"
+#include "xmalloc.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
+
+/* Type of an entry in the slaves array.
+   The 'used' bit determines whether this entry is currently in use.
+   (If pid_t was an atomic type like sig_atomic_t, we could just set the
+   'child' field to 0 when unregistering a slave process, and wouldn't need
+   the 'used' field.)
+   The 'used' and 'child' fields are accessed from within the cleanup_slaves()
+   action, therefore we mark them as 'volatile'.  */
+typedef struct
+{
+  volatile sig_atomic_t used;
+  volatile pid_t child;
+}
+slaves_entry_t;
+
+/* The registered slave subprocesses.  */
+static slaves_entry_t static_slaves[32];
+static slaves_entry_t * volatile slaves = static_slaves;
+static sig_atomic_t volatile slaves_count = 0;
+static size_t slaves_allocated = SIZEOF (static_slaves);
+
+/* The termination signal for slave subprocesses.
+   2003-10-07:  Terminator becomes Governator.  */
+#ifdef SIGHUP
+# define TERMINATOR SIGHUP
+#else
+# define TERMINATOR SIGTERM
+#endif
+
+/* The cleanup action.  It gets called asynchronously.  */
+static void
+cleanup_slaves ()
+{
+  for (;;)
+    {
+      /* Get the last registered slave.  */
+      size_t n = slaves_count;
+      if (n == 0)
+	break;
+      n--;
+      slaves_count = n;
+      /* Skip unused entries in the slaves array.  */
+      if (slaves[n].used)
+	{
+	  pid_t slave = slaves[n].child;
+
+	  /* Kill the slave.  */
+	  kill (slave, TERMINATOR);
+	}
+    }
+}
+
+/* Register a subprocess as being a slave process.  This means that the
+   subprocess will be terminated when its creator receives a catchable fatal
+   signal or exits normally.  Registration ends when wait_subprocess()
+   notices that the subprocess has exited.  */
+void
+register_slave_subprocess (pid_t child)
+{
+  static bool cleanup_slaves_registered = false;
+  if (!cleanup_slaves_registered)
+    {
+      atexit (cleanup_slaves);
+      at_fatal_signal (cleanup_slaves);
+      cleanup_slaves_registered = true;
+    }
+
+  /* Try to store the new slave in an unused entry of the slaves array.  */
+  {
+    slaves_entry_t *s = slaves;
+    slaves_entry_t *s_end = s + slaves_count;
+
+    for (; s < s_end; s++)
+      if (!s->used)
+	{
+	  /* The two uses of 'volatile' in the slaves_entry_t type above
+	     (and ISO C 99 section 5.1.2.3.(5)) ensure that we mark the
+	     entry as used only after the child pid has been written to the
+	     memory location s->child.  */
+	  s->child = child;
+	  s->used = 1;
+	  return;
+	}
+  }
+
+  if (slaves_count == slaves_allocated)
+    {
+      /* Extend the slaves array.  Note that we cannot use xrealloc(),
+	 because then the cleanup_slaves() function could access an already
+	 deallocated array.  */
+      slaves_entry_t *old_slaves = slaves;
+      size_t new_slaves_allocated = 2 * slaves_allocated;
+      slaves_entry_t *new_slaves =
+	malloc (new_slaves_allocated * sizeof (slaves_entry_t));
+      if (new_slaves == NULL)
+	{
+	  /* xalloc_die() will call exit() which will invoke cleanup_slaves().
+	     Additionally we need to kill child, because it's not yet among
+	     the slaves list.  */
+	  kill (child, TERMINATOR);
+	  xalloc_die ();
+	}
+      memcpy (new_slaves, old_slaves,
+	      slaves_allocated * sizeof (slaves_entry_t));
+      slaves = new_slaves;
+      slaves_allocated = new_slaves_allocated;
+      /* Now we can free the old slaves array.  */
+      if (old_slaves != static_slaves)
+	free (old_slaves);
+    }
+  /* The three uses of 'volatile' in the types above (and ISO C 99 section
+     5.1.2.3.(5)) ensure that we increment the slaves_count only after the
+     new slave and its 'used' bit have been written to the memory locations
+     that make up slaves[slaves_count].  */
+  slaves[slaves_count].child = child;
+  slaves[slaves_count].used = 1;
+  slaves_count++;
+}
+
+/* Unregister a child from the list of slave subprocesses.  */
+static inline void
+unregister_slave_subprocess (pid_t child)
+{
+  /* The easiest way to remove an entry from a list that can be used by
+     an asynchronous signal handler is just to mark it as unused.  For this,
+     we rely on sig_atomic_t.  */
+  slaves_entry_t *s = slaves;
+  slaves_entry_t *s_end = s + slaves_count;
+
+  for (; s < s_end; s++)
+    if (s->used && s->child == child)
+      s->used = 0;
+}
+
+
+/* Wait for a subprocess to finish.  Return its exit code.
+   If it didn't terminate correctly, exit if exit_on_error is true, otherwise
+   return 127.  */
 int
 wait_subprocess (pid_t child, const char *progname,
-		 bool null_stderr, bool exit_on_error)
+		 bool null_stderr,
+		 bool slave_process, bool exit_on_error)
 {
   /* waitpid() is just as portable as wait() nowadays.  */
   WAIT_T status;
@@ -133,6 +277,14 @@ wait_subprocess (pid_t child, const char *progname,
       if (!WIFSTOPPED (status))
 	break;
     }
+
+  /* The child process has exited or was signalled.  */
+
+  if (slave_process)
+    /* Unregister the child from the list of slave subprocesses, so that
+       later, when we exit, we don't kill a totally unrelated process which
+       may have acquired the same pid.  */
+    unregister_slave_subprocess (child);
 
   if (WIFSIGNALED (status))
     {

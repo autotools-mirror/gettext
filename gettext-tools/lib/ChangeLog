@@ -1,3 +1,33 @@
+2003-10-07  Bruno Haible  <bruno@clisp.org>
+
+	More reliable subprocess cleanup.
+	* javacomp.c (compile_java_class): Pass slave_process = true to
+	execute(). create_pipe_in(), wait_subprocess().
+	* javaexec.c (execute_java_class): Pass slave_process = true to
+	execute().
+
+	* wait-process.h (wait_subprocess): Add slave_process argument.
+	(register_slave_subprocess): New declaration.
+	* wait-process.c: Include string.h, signal.h, fatal-signal.h,
+	xmalloc.h.
+	(slaves_entry_t): New type.
+	(static_slaves, slaves, slaves_count, slaves_allocated): New variables.
+	(TERMINATOR): New macro.
+	(cleanup_slaves, register_slave_subprocess,
+	unregister_slave_subprocess): New functions.
+	(wait_subprocess): Add slave_process argument.
+	* execute.h (execute): Add slave_process argument.
+	* execute.c: Include signal.h, fatal-signal.h.
+	(execute): Add slave_process argument.
+	* pipe.h (create_pipe_in, create_pipe_out, create_pipe_bidi): Add
+	slave_process argument.
+	* pipe-in.c: Include signal.h, fatal-signal.h, wait-process.h.
+	(create_pipe_in): Add slave_process argument.
+	* pipe-out.c: Include signal.h, fatal-signal.h, wait-process.h.
+	(create_pipe_out): Add slave_process argument.
+	* pipe-bidi.c: Include signal.h, fatal-signal.h, wait-process.h.
+	(create_pipe_bidi): Add slave_process argument.
+
 2003-10-08  Bruno Haible  <bruno@clisp.org>
 
 	* fatal-signal.h: New file.

@@ -100,7 +100,8 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
     }
 
   /* Open a pipe to the Tcl interpreter.  */
-  child = create_pipe_in ("tclsh", "tclsh", argv, DEV_NULL, false, true, fd);
+  child = create_pipe_in ("tclsh", "tclsh", argv, DEV_NULL, false, true, true,
+			  fd);
 
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
@@ -112,7 +113,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, "tclsh", false, true);
+  exitstatus = wait_subprocess (child, "tclsh", false, true, true);
   if (exitstatus != 0)
     {
       if (exitstatus == 2)

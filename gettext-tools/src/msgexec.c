@@ -330,7 +330,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
 
       /* Open a pipe to a subprocess.  */
       child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, false, true,
-			       fd);
+			       true, fd);
 
       if (full_write (fd[0], str, len) < len)
 	error (EXIT_FAILURE, errno,
@@ -339,7 +339,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
       close (fd[0]);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, sub_name, false, true);
+      exitstatus = wait_subprocess (child, sub_name, false, true, true);
       if (exitcode < exitstatus)
 	exitcode = exitstatus;
     }

@@ -206,7 +206,8 @@ execute_java_class (const char *class_name,
 	argv[0] = "gij";
 	argv[1] = "--version";
 	argv[2] = NULL;
-	exitstatus = execute ("gij", "gij", argv, false, true, true, false);
+	exitstatus = execute ("gij", "gij", argv, false, true, true, true,
+			      false);
 	gij_present = (exitstatus == 0);
 	gij_tested = true;
       }
@@ -256,7 +257,8 @@ execute_java_class (const char *class_name,
 	argv[0] = "java";
 	argv[1] = "-version";
 	argv[2] = NULL;
-	exitstatus = execute ("java", "java", argv, false, true, true, false);
+	exitstatus = execute ("java", "java", argv, false, true, true, true,
+			      false);
 	java_present = (exitstatus == 0);
 	java_tested = true;
       }
@@ -307,7 +309,8 @@ execute_java_class (const char *class_name,
 
 	argv[0] = "jre";
 	argv[1] = NULL;
-	exitstatus = execute ("jre", "jre", argv, false, true, true, false);
+	exitstatus = execute ("jre", "jre", argv, false, true, true, true,
+			      false);
 	jre_present = (exitstatus == 0 || exitstatus == 1);
 	jre_tested = true;
       }
@@ -361,7 +364,7 @@ execute_java_class (const char *class_name,
 	argv[0] = "jview";
 	argv[1] = "-?";
 	argv[2] = NULL;
-	exitstatus = execute ("jview", "jview", argv, false, true, true,
+	exitstatus = execute ("jview", "jview", argv, false, true, true, true,
 			      false);
 	jview_present = (exitstatus == 0 || exitstatus == 1);
 	jview_tested = true;

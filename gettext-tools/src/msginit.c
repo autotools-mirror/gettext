@@ -910,7 +910,8 @@ project_id ()
   argv[0] = "/bin/sh";
   argv[1] = prog;
   argv[2] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
+			  fd);
   if (child == -1)
     goto failed;
 
@@ -935,7 +936,7 @@ project_id ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false);
+  exitstatus = wait_subprocess (child, prog, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -976,7 +977,8 @@ project_id_version ()
   argv[1] = prog;
   argv[2] = "yes";
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
+			  fd);
   if (child == -1)
     goto failed;
 
@@ -1001,7 +1003,7 @@ project_id_version ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false);
+  exitstatus = wait_subprocess (child, prog, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1133,7 +1135,8 @@ The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
+			  fd);
   if (child == -1)
     goto failed;
 
@@ -1158,7 +1161,7 @@ you in case of unexpected technical problems.\n");
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false);
+  exitstatus = wait_subprocess (child, prog, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1214,7 +1217,8 @@ language_team_address ()
   argv[4] = (char *) catalogname;
   argv[5] = (char *) language;
   argv[6] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
+			  fd);
   if (child == -1)
     goto failed;
 
@@ -1236,7 +1240,7 @@ language_team_address ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false);
+  exitstatus = wait_subprocess (child, prog, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),

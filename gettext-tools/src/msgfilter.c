@@ -553,7 +553,8 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
   int exitstatus;
 
   /* Open a bidirectional pipe to a subprocess.  */
-  child = create_pipe_bidi (sub_name, sub_path, sub_argv, false, true, fd);
+  child = create_pipe_bidi (sub_name, sub_path, sub_argv, false, true, true,
+			    fd);
 
   /* Enable non-blocking I/O.  This permits the read() and write() calls
      to return -1/EAGAIN without blocking; this is important for polling
@@ -664,7 +665,7 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
   close (fd[0]);
 
   /* Remove zombie process from process list.  */
-  exitstatus = wait_subprocess (child, sub_name, false, true);
+  exitstatus = wait_subprocess (child, sub_name, false, true, true);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess terminated with exit code %d"),
 	   sub_name, exitstatus);
