@@ -1,3 +1,8 @@
+2002-08-06  Bruno Haible  <bruno@clisp.org>
+
+	* format-c-3-prg.c: Make it work when builddir != srcdir.
+	* format-c-4-prg.c: Likewise.
+
 2002-08-02  Bruno Haible  <bruno@clisp.org>
 
 	* format-c-3-prg.c (PRId8): Redefine if PRI_MACROS_BROKEN is set.

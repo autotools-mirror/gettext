@@ -7,7 +7,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles fc4.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o fc4.pot --omit-header --no-location format-c-4-prg.c
+${XGETTEXT} -o fc4.pot --omit-header --no-location ${top_srcdir}/tests/format-c-4-prg.c
 
 tmpfiles="$tmpfiles fc4.ok"
 cat <<EOF > fc4.ok
