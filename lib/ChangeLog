@@ -1,3 +1,11 @@
+2002-11-04  Bruno Haible  <bruno@clisp.org>
+
+	* getopt.c: Don't test HAVE_LIBINTL_H.
+
+	* getopt.h: Update from current gnulib version.
+	* getopt.c: Likewise.
+	* getopt1.c: Likewise.
+
 2002-10-29  Bruno Haible  <bruno@clisp.org>
 
 	* libstdarg.h: Treat SunPro C like ANSI C; it defines __STDC__ to 0.
