@@ -65,7 +65,7 @@ OBJECTS = \
   mbswidth.obj, \
   obstack.obj, \
   concatpath.obj, \
-  pipe-bidi.obj, pipe-in.obj, pipe-out.obj, \
+  pipe.obj, \
   progname.obj, progreloc.obj, \
   safe-read.obj, \
   safe-write.obj, \
@@ -183,14 +183,8 @@ obstack.obj : obstack.c
 concatpath.obj : concatpath.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) concatpath.c
 
-pipe-bidi.obj : pipe-bidi.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) pipe-bidi.c
-
-pipe-in.obj : pipe-in.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) pipe-in.c
-
-pipe-out.obj : pipe-out.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) pipe-out.c
+pipe.obj : pipe.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) pipe.c
 
 progname.obj : progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) progname.c

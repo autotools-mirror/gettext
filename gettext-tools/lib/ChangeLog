@@ -1,3 +1,20 @@
+2004-02-03  Bruno Haible  <bruno@clisp.org>
+
+	* pipe.c: New file, synthesis of pipe-in.c, pipe-out.c, pipe-bidi.c.
+	* pipe-in.c: Remove file.
+	* pipe-out.c: Remove file.
+	* pipe-bidi.c: Remove file.
+	* Makefile.am (libgettextlib_la_SOURCES): Add pipe.c, Remove pipe-in.c,
+	pipe-out.c, pipe-bidi.c.
+	* Makefile.msvc (OBJECTS): Add pipe.obj. Remove pipe-in.obj,
+	pipe-out.obj, pipe-bidi.obj.
+	(pipe.obj): New rule.
+	(pipe-in.obj, pipe-out.obj, pipe-bidi.obj): Remove rules.
+	* Makefile.vms (OBJECTS): Add pipe.obj. Remove pipe-in.obj,
+	pipe-out.obj, pipe-bidi.obj.
+	(pipe.obj): New rule.
+	(pipe-in.obj, pipe-out.obj, pipe-bidi.obj): Remove rules.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.
