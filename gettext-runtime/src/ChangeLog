@@ -1,3 +1,9 @@
+2005-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.c (main): Update year in --version output.
+	* ngettext.c (main): Likewise.
+	* envsubst.c (main): Likewise.
+
 2004-07-10  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.c (expand_escape): Don't go into an endless loop when the

@@ -25,7 +25,7 @@ BEGIN
             VALUE "FileDescription", "GPLed libgettextlib for Windows NT/2000/XP and Windows 95/98/ME\0"
             VALUE "FileVersion", "0.14\0"
             VALUE "InternalName", "gettextlib.dll\0"
-            VALUE "LegalCopyright", "Copyright (C) 1995-2004\0"
+            VALUE "LegalCopyright", "Copyright (C) 1995-2005\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "gettextlib.dll\0"
             VALUE "ProductName", "libgettextlib: subroutines for gettext-tools\0"

@@ -1,3 +1,9 @@
+2005-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.rc: Update copyright year.
+	* windows/gettextsrc.rc: Likewise.
+	* windows/gettextpo.rc: Likewise.
+
 2004-12-10  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextlib.def: Export obstack_free, not _obstack_free.
