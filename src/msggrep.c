@@ -134,7 +134,6 @@ main (argc, argv)
   msgdomain_list_ty *result;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
-  size_t i;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -328,14 +327,28 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     if (grep_args[grep_pass]->nitems > 0)
       {
 	string_list_ty *args = grep_args[grep_pass];
+	size_t option_q;
+	size_t i, j;
+
+	/* We use "grep -q" because it is slightly more efficient than
+	   "grep".  We pipe grep's output to /dev/null anyway.  But
+	   SunOS4's grep program doesn't understand the -q option.  */
+#if (defined (sun) || defined (__sun)) && !defined (__SVR4)
+	option_q = 0;
+#else
+	option_q = 1;
+#endif
 
 	grep_argv[grep_pass] =
-	  (char **) xmalloc ((2 + args->nitems + 1) * sizeof (char *));
+	  (char **) xmalloc ((1 + option_q + args->nitems + 1)
+			     * sizeof (char *));
 	grep_argv[grep_pass][0] = (char *) grep_path;
-	grep_argv[grep_pass][1] = "-q";
-	for (i = 2; i <= args->nitems + 1; i++)
-	  grep_argv[grep_pass][i] = (char *) args->item[i - 2];
-	grep_argv[grep_pass][i] = NULL;
+	j = 1;
+	if (option_q)
+	  grep_argv[grep_pass][j++] = "-q";
+	for (i = 0; i < args->nitems; i++)
+	  grep_argv[grep_pass][j++] = (char *) args->item[i];
+	grep_argv[grep_pass][j] = NULL;
       }
 
   /* Select the messages.  */
