@@ -1,3 +1,8 @@
+2001-03-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* loadmsgcat.c (_nl_load_domain): locale_charset() doesn't return NULL
+	any more.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* config.charset: Update from libiconv-1.6.
