@@ -1,3 +1,8 @@
+2003-07-01  Paul Eggert  <eggert@twinsun.com>
+
+	* xreadlink.c: Include <sys/types.h> unconditionally, instead of
+	having it depend on HAVE_SYS_TYPES_H.
+
 2003-06-27  Bruno Haible  <bruno@clisp.org>
 
 	Avoid use of *_unlocked functions on Solaris 2.5.1.
