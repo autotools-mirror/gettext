@@ -1,3 +1,9 @@
+2004-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (fill_header): Avoid a NULL pointer access when the header
+	has no comment attached to it.
+	Reported by Josep Puigdemont <baldrick@terra.es>.
+
 2004-01-09  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.c (main): Update year in --version output.

@@ -1655,9 +1655,6 @@ fill_header (msgdomain_list_ty *mdlp)
 	{
 	  message_ty *header_mp = NULL;
 	  char *header;
-	  const char *subst[4][2];
-	  const char *id;
-	  time_t now;
 
 	  /* Search the header entry.  */
 	  for (j = 0; j < mlp->nitems; j++)
@@ -1700,17 +1697,25 @@ fill_header (msgdomain_list_ty *mdlp)
 	  header_mp->msgstr_len = strlen (header) + 1;
 
 	  /* Update the comments in the header entry.  */
-	  id = project_id ();
-	  subst[0][0] = "SOME DESCRIPTIVE TITLE";
-	  subst[0][1] = xasprintf (get_title (), id, id);
-	  subst[1][0] = "PACKAGE";
-	  subst[1][1] = id;
-	  subst[2][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
-	  subst[2][1] = field_value[FIELD_LAST_TRANSLATOR];
-	  subst[3][0] = "YEAR";
-	  subst[3][1] =
-	    xasprintf ("%d", (time (&now), (localtime (&now))->tm_year + 1900));
-	  subst_string_list (header_mp->comment, SIZEOF (subst), subst);
+	  if (header_mp->comment != NULL)
+	    {
+	      const char *subst[4][2];
+	      const char *id;
+	      time_t now;
+
+	      id = project_id ();
+	      subst[0][0] = "SOME DESCRIPTIVE TITLE";
+	      subst[0][1] = xasprintf (get_title (), id, id);
+	      subst[1][0] = "PACKAGE";
+	      subst[1][1] = id;
+	      subst[2][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
+	      subst[2][1] = field_value[FIELD_LAST_TRANSLATOR];
+	      subst[3][0] = "YEAR";
+	      subst[3][1] =
+		xasprintf ("%d",
+			   (time (&now), (localtime (&now))->tm_year + 1900));
+	      subst_string_list (header_mp->comment, SIZEOF (subst), subst);
+	    }
 
 	  /* Finally remove the fuzzy attribute.  */
 	  header_mp->is_fuzzy = false;
