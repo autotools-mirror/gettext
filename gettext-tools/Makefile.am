@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -130,6 +130,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_WORKING_VFORK$$/#define HAVE_WORKING_VFORK 1/' \
 	     -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
+	     -e 's/#undef MALLOC_0_IS_NONNULL$$/#define MALLOC_0_IS_NONNULL 0/' \
 	     -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	     -e 's/#undef eaccess$$/#define eaccess access/' \
@@ -197,6 +198,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
+	    -e 's/#undef MALLOC_0_IS_NONNULL$$/#define MALLOC_0_IS_NONNULL 1/' \
 	    -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 2147483647U/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \

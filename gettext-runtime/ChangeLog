@@ -1,3 +1,8 @@
+2004-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config.h_vms): Set MALLOC_0_IS_NONNULL to 0.
+	(config.h.msvc): Set MALLOC_0_IS_NONNULL to 1.
+
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
 	* windows/intl.rc: Bump version number to 0.14.
