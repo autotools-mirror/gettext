@@ -2,18 +2,18 @@
 # Copyright © 1996, 1997, 1998 Free Software Foundation, Inc.
 # François Pinard <pinard@iro.umontreal.ca>, 1996.
 # Il a été le traducteur jusqu'en 2001.
-# Michel Robitaille <robitail@iro.umontreal.ca>, depuis/since 1996.
+# Michel Robitaille <robitail@iro.umontreal.ca>, traducteur depuis/since 1996.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.2\n"
+"Project-Id-Version: GNU gettext 0.11.4\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-07-22 20:00-0500\n"
+"PO-Revision-Date: 2002-07-29 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: lib/argmatch.c:134
@@ -2282,24 +2282,25 @@ msgid "end-of-line within string"
 msgstr "fin de ligne intempestive"
 
 #: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
-msgstr "le fichier « %s » est tronqué"
+msgstr "fichier \"%s\" est tronqué"
 
 #: src/read-mo.c:143
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "le fichier « %s » contient une chaîne qui se termine par un non NUL"
+msgstr "fichier \"%s\" contient une chaîne qui se termine par un non NUL"
 
 #: src/read-mo.c:181 src/read-mo.c:285
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
-msgstr "le fichier « %s » n'est pas en format .mo pour GNU"
+msgstr "le fichier \"%s\" n'est pas en format .mo pour GNU"
 
 #: src/read-mo.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "le fichier « %s » contient une chaîne qui se termine par un non NUL"
+msgstr ""
+"fichier \"%s\" contient un segement sysdep qui n'est pas terminé par un NUL"
 
 #: src/urlget.c:150
 msgid "expected two arguments"

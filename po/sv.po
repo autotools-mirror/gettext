@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002.
-# Revision: 1.48
+# Revision: 1.52
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.2\n"
+"Project-Id-Version: gettext 0.11.4\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-06-04 22:20+0200\n"
+"PO-Revision-Date: 2002-07-31 20:12+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1134,7 +1134,7 @@ msgid ""
 msgstr ""
 "Plats för infil:\n"
 "  filenamn.po ...             infiler\n"
-"  -D, --directory=KATALOG     säk infiler även i KATALOG\n"
+"  -D, --directory=KATALOG     sök infiler även i KATALOG\n"
 "Om infil är - läses standard in.\n"
 
 #: src/msgfmt.c:556
@@ -2270,9 +2270,9 @@ msgid "end-of-line within string"
 msgstr "radslut inne i en sträng"
 
 #: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
-msgstr "filen \"%s\" avkortad"
+msgstr "filen \"%s\" är avkortad"
 
 #: src/read-mo.c:143
 #, c-format
@@ -2285,9 +2285,11 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "filen \"%s\" är inte på GNUs .mo-format"
 
 #: src/read-mo.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "filen \"%s\" innehåller en sträng som inte avslutas med nolltecknet"
+msgstr ""
+"filen \"%s\" innehåller ett \"sysdep_segment\" som inte avslutas med "
+"nolltecknet"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2559,6 +2561,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "sökning \"%s\" position %ld misslyckades"

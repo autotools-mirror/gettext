@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.2\n"
+"Project-Id-Version: gettext 0.11.4\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-04-29 21:17+0200\n"
+"PO-Revision-Date: 2002-07-27 21:24+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -2406,7 +2406,7 @@ msgid "end-of-line within string"
 msgstr "s'ha trobat un final de línia emmig d'una cadena"
 
 #: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
 msgstr "el fitxer «%s» és truncat"
 
@@ -2421,9 +2421,10 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "el fitxer «%s» no és en el format MO de GNU"
 
 #: src/read-mo.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "el fitxer «%s» conté una cadena no terminada en nul"
+msgstr ""
+"el fitxer «%s» conté un segment dependent del sistema no terminat en nul"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2715,6 +2716,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "el llenguatge «%s» no és conegut"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "no s'ha pogut desplaçar «%s» %ld octets"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.2\n"
+"Project-Id-Version: GNU gettext 0.11.4\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-04-25 13:56+0900\n"
+"PO-Revision-Date: 2002-07-27 21:36+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -69,7 +69,7 @@ msgstr "%s 서브프로세스가 실패했습니다"
 #: lib/getopt.c:691
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: `%s'는 모호한 옵션입니다\n"
+msgstr "%s: `%s'은(는) 모호한 옵션입니다\n"
 
 #: lib/getopt.c:716
 #, c-format
@@ -114,7 +114,7 @@ msgstr "%s: 이 옵션은 인수가 필요합니다 -- %c\n"
 #: lib/getopt.c:878
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: `-W %s'는 모호한 옵션입니다\n"
+msgstr "%s: `-W %s'은(는) 모호한 옵션입니다\n"
 
 #: lib/getopt.c:896
 #, c-format
@@ -1357,7 +1357,7 @@ msgstr "헤더에 헤더 필드 `%s'이(가) 빠졌음\n"
 #: src/msgfmt.c:1289
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "헤더 필드 `%s'는 행의 처음부터 시작해야 합니다\n"
+msgstr "헤더 필드 `%s'은(는) 행의 처음부터 시작해야 합니다\n"
 
 #: src/msgfmt.c:1300
 msgid "some header fields still have the initial default value\n"
@@ -1387,13 +1387,13 @@ msgstr "경고: 과거 버전의 msgfmt은 여기에 오류를 낼 것입니다\n"
 #: src/msgfmt.c:1394
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
-msgstr "도메인이름 \"%s\"는 파일 이름으로 알맞지 않습니다"
+msgstr "도메인이름 \"%s\"은(는) 파일 이름으로 알맞지 않습니다"
 
 #: src/msgfmt.c:1399
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
-"도메인이름 \"%s\"는 파일 이름으로 알맞지 않습니다. 그러므로 접두사를\n"
+"도메인이름 \"%s\"은(는) 파일 이름으로 알맞지 않습니다. 그러므로 접두사를\n"
 "사용할 것입니다"
 
 #: src/msgfmt.c:1410
@@ -2246,9 +2246,9 @@ msgid "end-of-line within string"
 msgstr "문자열 내부에서 행이 끝남"
 
 #: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
-msgstr "\"%s\" 파일이 잘렸음"
+msgstr "\"%s\" 파일이 잘렸습니다"
 
 #: src/read-mo.c:143
 #, c-format
@@ -2261,9 +2261,9 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "\"%s\" 파일은 GNU .mo 형식이 아닙니다"
 
 #: src/read-mo.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "\"%s\" 파일에 NUL로 끝나지 않는 문자열이 있습니다"
+msgstr "\"%s\" 파일에 NUL로 끝나지 않는 sysdep 세그먼트가 있습니다"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2391,7 +2391,7 @@ msgstr "xgettext는 검색할 키워드 없이는 동작하지 않습니다"
 #: src/xgettext.c:502
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
-msgstr "경고: `%s' 파일의 확장자 `%s'를 알 수 없습니다; C 형식으로 간주함"
+msgstr "경고: `%s' 파일의 확장자 `%s'을(를) 알 수 없습니다; C 형식으로 간주함"
 
 #: src/xgettext.c:547
 #, no-wrap
@@ -2533,6 +2533,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "`%s' 언어를 알 수 없음"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "\"%s\" 옵셋 %ld 탐색 실패"

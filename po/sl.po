@@ -2,13 +2,13 @@
 # Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002 Free Software Foundation, Inc.
 # Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2002.
 #
-# $Id: gettext-0.11.3.sl.po,v 1.2 2002/07/18 11:09:04 peterlin Exp $
+# $Id: gettext-0.11.4.sl.po,v 1.2 2002/07/29 08:09:14 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.3\n"
+"Project-Id-Version: GNU gettext 0.11.4\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-07-18 13:08+0200\n"
+"PO-Revision-Date: 2002-07-29 10:09+0200\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2273,9 +2273,9 @@ msgid "end-of-line within string"
 msgstr "znak za konec vrstice sredi niza"
 
 #: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
-msgstr "datoteka \"%s\" okrnjena"
+msgstr "datoteka \"%s\" je okrnjena"
 
 #: src/read-mo.c:143
 #, c-format
@@ -2288,9 +2288,9 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "datoteka \"%s\" ni v obliki GNU .mo"
 
 #: src/read-mo.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "datoteka \"%s\" vsebuje niz, ki ni zakljuèen z NUL"
+msgstr "datoteka \"%s\" vsebuje sistemski segment, ki ni zakljuèen z NUL"
 
 #: src/urlget.c:150
 msgid "expected two arguments"

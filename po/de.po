@@ -74,9 +74,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.3\n"
+"Project-Id-Version: GNU gettext 0.11.4\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-07-26 00:08+0200\n"
+"PO-Revision-Date: 2002-07-27 13:13+0200\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2431,7 +2431,7 @@ msgid "end-of-line within string"
 msgstr "Zeilenende innerhalb einer Zeichenkette"
 
 #: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
 msgstr "Datei »%s« ist verstümmelt"
 
@@ -2450,9 +2450,9 @@ msgstr "Datei »%s« ist nicht im GNU .mo-Format"
 # cf. "terminated" below!
 # 2001-03-10 17:44:55 CET -ke-
 #: src/read-mo.c:191
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "Datei »%s« beinhaltet eine nicht mit NUL beendete Zeichenkette"
+msgstr "Datei »%s« beinhaltet ein nicht mit NUL beendetes sysdep-Segment"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2742,6 +2742,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "Programmiersprache »%s« unbekannt"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "Positionieren in Datei »%s« auf Position %ld fehlgeschlagen"
