@@ -1,5 +1,5 @@
-# lib-link.m4 serial 4 (gettext-0.12)
-dnl Copyright (C) 2001-2003 Free Software Foundation, Inc.
+# lib-link.m4 serial 5 (gettext-0.15)
+dnl Copyright (C) 2001-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -350,7 +350,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                 if test "X$additional_includedir" = "X/usr/local/include"; then
                   if test -n "$GCC"; then
                     case $host_os in
-                      linux*) haveit=yes;;
+                      linux* | gnu* | k*bsd*-gnu) haveit=yes;;
                     esac
                   fi
                 fi
@@ -399,7 +399,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                       if test "X$additional_libdir" = "X/usr/local/lib"; then
                         if test -n "$GCC"; then
                           case $host_os in
-                            linux*) haveit=yes;;
+                            linux* | gnu* | k*bsd*-gnu) haveit=yes;;
                           esac
                         fi
                       fi
