@@ -1,0 +1,44 @@
+#! /bin/sh
+
+# Test of Perl support with --extract-all and printf format strings.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles xg-test29.pl"
+cat <<\EOF > xg-test29.pl
+my $n = 2;
+print "'Your $command, please?', asked the waiter.";
+print "\n";
+printf ("$$$$$$$$$$$$$var pieces of cake", $n);
+print "\n";
+printf "@s is replaced by $s->[-1].";
+print "\n";
+EOF
+
+tmpfiles="$tmpfiles xg-test29.pot"
+: ${XGETTEXT=xgettext}
+LC_MESSAGES=C LC_ALL= \
+${XGETTEXT} -a -k_ --omit-header --no-location -o xg-test29.pot xg-test29.pl \
+    2>&1 | grep -v "invalid variable interpolation"
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+tmpfiles="$tmpfiles xg-test29.ok"
+cat <<\EOF > xg-test29.ok
+msgid "'Your $command, please?', asked the waiter."
+msgstr ""
+
+msgid "$$$$$$$$$$$$$var pieces of cake"
+msgstr ""
+
+msgid "@s is replaced by $s->[-1]."
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-test29.ok xg-test29.pot
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

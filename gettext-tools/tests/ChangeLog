@@ -1,3 +1,8 @@
+2003-09-01  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-29: New test, from Guido Flohr.
+	* Makefile.am (TESTS): Add it.
+
 2003-08-08  Bruno Haible  <bruno@clisp.org>
 
 	* format-gcc-internal-1: New file.

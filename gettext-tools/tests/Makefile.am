@@ -50,7 +50,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	xgettext-18 xgettext-19 xgettext-20 xgettext-21 xgettext-22 \
 	xgettext-23 xgettext-24 xgettext-25 xgettext-26 xgettext-27 \
-	xgettext-28 \
+	xgettext-28 xgettext-29 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \
