@@ -132,14 +132,15 @@ static struct expression germanic_plural =
   .operation = not_equal,
   .val =
   {
-    .args2 = {
+    .args2 =
+    {
       .left = (struct expression *) &plvar,
       .right = (struct expression *) &plone
     }
   }
 };
 
-#define INIT_GERMANIC_PLURAL()
+# define INIT_GERMANIC_PLURAL()
 
 #else
 
@@ -166,7 +167,7 @@ init_germanic_plural ()
     }
 }
 
-#define INIT_GERMANIC_PLURAL() init_germanic_plural ()
+# define INIT_GERMANIC_PLURAL() init_germanic_plural ()
 
 #endif
 
@@ -283,12 +284,11 @@ _nl_load_domain (domain_file)
       return;
     }
 
-  domain_file->data
-    = (struct loaded_domain *) malloc (sizeof (struct loaded_domain));
-  if (domain_file->data == NULL)
+  domain = (struct loaded_domain *) malloc (sizeof (struct loaded_domain));
+  if (domain == NULL)
     return;
+  domain_file->data = domain;
 
-  domain = (struct loaded_domain *) domain_file->data;
   domain->data = (char *) data;
   domain->use_mmap = use_mmap;
   domain->mmap_size = size;

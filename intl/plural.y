@@ -273,7 +273,7 @@ yylex (lval, pexp)
     case '0': case '1': case '2': case '3': case '4':
     case '5': case '6': case '7': case '8': case '9':
       {
-	unsigned long int n = exp[-1] - '0';
+	unsigned long int n = result - '0';
 	while (exp[0] >= '0' && exp[0] <= '9')
 	  {
 	    n *= 10;
