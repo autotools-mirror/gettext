@@ -1,3 +1,9 @@
+2003-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.msvc (PICFLAGS, CFLAGS): Move BUILDING_* macros from
+	CFLAGS to PICFLAGS.
+	Reported by Perry Rapp.
+
 2003-05-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms (install): Fix mistake.
