@@ -1,3 +1,23 @@
+1999-12-10  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-send-mail): Clarify some prompts.
+	Reported by Laurent Bourbeau.
+
+1999-07-25  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-team-name-to-code): New variable.
+	(po-guess-archive-name): Use it.
+
+1999-06-01  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-guess-archive-name, po-guess-team-address): Accept
+	more addresses, do not restrict to necessarily @li.org.
+
+1998-12-06  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-guess-archive-name): Allow Free as well as GNU
+	for domain name prefix.
+
 1998-05-15  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-any-msgid-regexp, po-any-msgstr-regexp,

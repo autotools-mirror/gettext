@@ -137,6 +137,50 @@ slightly different."
   :type 'face
   :group 'po)
 
+(defcustom po-team-name-to-code
+  ;; FIXME: Add all possible languages, complete ISO 639 list.
+  '(("LANGUAGE" . "LL")
+    ("Brazilian Portuguese" . "pt_BR")
+    ("Catalan" . "ca")
+    ("Chinese" . "zh")
+    ("Croatian" . "hr")
+    ("Czech" . "cs")
+    ("Danish" . "da")
+    ("Dutch" . "nl")
+    ("Esperanto" . "eo")
+    ("Estonian" . "et")
+    ("Finnish" . "fi")
+    ("French" . "fr")
+    ("Galician" . "gl")
+    ("German" . "de")
+    ("Greek" . "el")
+    ("Hebrew" . "he")
+    ("Hungarian" . "hu")
+    ("Icelandic" . "is")
+    ("Indonesian" . "id")
+    ("Italian" . "it")
+    ("Japanese" . "ja")
+    ("Korean" . "ko")
+    ("Norwegian nynorsk" . "nn")
+    ("Norwegian" . "no")
+    ("Persian" . "fa")
+    ("Polish" . "pl")
+    ("Portuguese" . "pt")
+    ("Romanian" . "ro")
+    ("Russian" . "ru")
+    ("Serbian" . "sr")
+    ("Slovak" . "sk")
+    ("Slovenian" . "sl")
+    ("Spanish" . "es")
+    ("Swedish" . "sv")
+    ("Turkish" . "tr")
+    ("Ukrainian" . "uk"))
+  "*Association list giving team codes from team names.
+This is used for generating a submission file name for the `M' command.
+If a string instead of an alist, it is a team code to use unconditionnally."
+  :type 'sexp
+  :group 'po)
+
 (defcustom po-gzip-uuencode-command "gzip -9 | uuencode -m"
   "*The filter to use for preparing a mail invoice of the PO file.
 Normally \"gzip -9 | uuencode -m\", remove the -9 for lesser compression,
@@ -2715,8 +2759,8 @@ Leave point after marked string."
 	    end-of-header (match-end 0))
       ;; Get the package and version.
       (goto-char start-of-header)
-      (if (re-search-forward
-	   "\n\"Project-Id-Version:\\( GNU\\)? \\([^\n ]+\\) \\([^\n ]+\\)\\\\n\"$"
+      (if (re-search-forward "\n\
+\"Project-Id-Version: \\(GNU \\|Free \\)?\\([^\n ]+\\) \\([^\n ]+\\)\\\\n\"$"
 	   end-of-header t)
 	  (setq package (po-match-string 2)
 		version (po-match-string 3)))
@@ -2724,10 +2768,20 @@ Leave point after marked string."
 	      (not version) (string-equal version "VERSION"))
 	  (error (_"Project-Id-Version field does not have a proper value")))
       ;; Get the team.
-      (goto-char start-of-header)
-      (if (re-search-forward "\n\"Language-Team:.*<\\(.*\\)@li.org>\\\\n\"$"
-			     end-of-header t)
-	  (setq team (po-match-string 1)))
+      (if (stringp po-team-name-to-code)
+	  (setq team po-team-name-to-code)
+	(goto-char start-of-header)
+	(if (re-search-forward "\n\
+\"Language-Team: \\([^ ].*[^ ]\\) <.+@.+>\\\\n\"$"
+			       end-of-header t)
+	    (let ((name (po-match-string 1)))
+	      (if name
+		  (let ((pair (assoc name po-team-name-to-code)))
+		    (if pair
+			(setq team (cdr pair))
+		      (setq team (read-string (format "\
+Team name `%s' unknown.  What is the team code? "
+						      name)))))))))
       (if (or (not team) (string-equal team "LL"))
 	  (error (_"Language-Team field does not have a proper value")))
       ;; Compose the name.
@@ -2741,7 +2795,7 @@ Leave point after marked string."
       (re-search-forward po-any-msgstr-regexp)
       (goto-char (match-beginning 0))
       (if (re-search-forward
-	   "\n\"Language-Team: +\\(.*<\\(.*\\)@li.org>\\)\\\\n\"$"
+	   "\n\"Language-Team: +\\(.*<\\(.*\\)@.*>\\)\\\\n\"$"
 	   (match-end 0) t)
 	  (setq team (po-match-string 2)))
       (if (or (not team) (string-equal team "LL"))
@@ -2753,11 +2807,11 @@ Leave point after marked string."
   (interactive)
   (let* ((team-flag (y-or-n-p
 		     (_"\
-Write to your team? (`n' means writing to translation project) ")))
+Write to your team?  (`n' if writing to the Translation Project robot) ")))
 	 (address (if team-flag
 		      (po-guess-team-address)
 		    po-translation-project-address)))
-    (if (not (y-or-n-p (_"Include current PO file? ")))
+    (if (not (y-or-n-p (_"Include current PO file in mail? ")))
 	(apply po-compose-mail-function address
 	       (read-string (_"Subject? ")) nil)
       (if (buffer-modified-p)
