@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -206,8 +206,8 @@ po_callback_comment (s)
     {
       /* Parse the file location string.  If the parse succeeds, the
 	 appropriate callback will be invoked.  If the parse fails,
-	 the po_hash_parse function will return non-zero - so pretend
-	 it was a normal comment.  */
+	 the po_hash function will return non-zero - so pretend it was
+	 a normal comment.  */
       if (po_hash (s + 1) == 0)
 	/* Do nothing, it is a GNU-style file pos line.  */ ;
       else
