@@ -1,5 +1,32 @@
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (current_formatstring_parser1,
+	current_formatstring_parser2): New variables, replacing
+	current_formatstring_parser.
+	(remember_a_message, remember_a_message_plural): Try both
+	formatstring parsers.
+	(language_to_extractor): Allow two formatstring parsers per language,
+	not just one.
+	* x-perl.h (SCANNERS_PERL): Add formatstring_c as secondary format
+	string parser.
+	* x-awk.h (SCANNERS_AWK): Update.
+	* x-c.h (SCANNERS_C): Update.
+	* x-elisp.h (SCANNERS_ELISP): Update.
+	* x-glade.h (SCANNERS_GLADE): Update.
+	* x-java.h (SCANNERS_JAVA): Update.
+	* x-librep.h (SCANNERS_LIBREP): Update.
+	* x-lisp.h (SCANNERS_LISP): Update.
+	* x-php.h (SCANNERS_PHP): Update.
+	* x-po.h (SCANNERS_PO): Update.
+	* x-properties.h (SCANNERS_PROPERTIES): Update.
+	* x-python.h (SCANNERS_PYTHON): Update.
+	* x-rst.h (SCANNERS_RST): Update.
+	* x-smalltalk.h (SCANNERS_SMALLTALK): Update.
+	* x-tcl.h (SCANNERS_TCL): Update.
+	* x-ycp.h (SCANNERS_YCP): Update.
+
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
 	* x-perl.c (case_whitespace): New macro.
 	(is_whitespace): New function.
 	(interpolate_keywords): Add lineno argument. Track newlines to update

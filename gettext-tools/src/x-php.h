@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
   { "php4",   "PHP"   },						\
 
 #define SCANNERS_PHP \
-  { "PHP",        extract_php, &formatstring_php },			\
+  { "PHP",        extract_php, &formatstring_php, NULL },		\
 
 /* Scan a PHP file and add its translatable strings to mdlp.  */
 extern void extract_php (FILE *fp, const char *real_filename,

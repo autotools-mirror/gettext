@@ -1,5 +1,5 @@
 /* xgettext Smalltalk backend.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
   { "st",     "Smalltalk"   },						\
 
 #define SCANNERS_SMALLTALK \
-  { "Smalltalk",  extract_smalltalk, &formatstring_smalltalk },		\
+  { "Smalltalk",  extract_smalltalk, &formatstring_smalltalk, NULL },	\
 
 /* Scan a Smalltalk file and add its translatable strings to mdlp.  */
 extern void extract_smalltalk (FILE *fp, const char *real_filename,

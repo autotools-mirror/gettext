@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -31,9 +31,9 @@
   { "m",      "ObjectiveC" },						\
 
 #define SCANNERS_C \
-  { "C",          extract_c, &formatstring_c },				\
-  { "C++",        extract_c, &formatstring_c },				\
-  { "ObjectiveC", extract_c, &formatstring_c },				\
+  { "C",          extract_c, &formatstring_c, NULL },			\
+  { "C++",        extract_c, &formatstring_c, NULL },			\
+  { "ObjectiveC", extract_c, &formatstring_c, NULL },			\
 
 /* Scan a C/C++/ObjectiveC file and add its translatable strings to mdlp.  */
 extern void extract_c (FILE *fp, const char *real_filename,

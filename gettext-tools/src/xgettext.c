@@ -1005,7 +1005,8 @@ extract_from_file (const char *file_name, extractor_func extractor,
 
 /* Language dependent format string parser.
    NULL if the language has no notion of format strings.  */
-static struct formatstring_parser *current_formatstring_parser;
+static struct formatstring_parser *current_formatstring_parser1;
+static struct formatstring_parser *current_formatstring_parser2;
 
 
 /* Convert the given string from xgettext_current_source_encoding to
@@ -1182,7 +1183,8 @@ meta information, not the empty string.\n")));
   for (i = 0; i < NFORMATS; i++)
     {
       if (is_format[i] == undecided
-	  && formatstring_parsers[i] == current_formatstring_parser)
+	  && (formatstring_parsers[i] == current_formatstring_parser1
+	      || formatstring_parsers[i] == current_formatstring_parser2))
 	{
 	  struct formatstring_parser *parser = formatstring_parsers[i];
 	  char *invalid_reason = NULL;
@@ -1269,7 +1271,8 @@ remember_a_message_plural (message_ty *mp, char *string, lex_pos_ty *pos)
 	 the msgid, whether the msgid is a format string, examine the
 	 msgid_plural.  This is a heuristic.  */
       for (i = 0; i < NFORMATS; i++)
-	if (formatstring_parsers[i] == current_formatstring_parser
+	if ((formatstring_parsers[i] == current_formatstring_parser1
+	     || formatstring_parsers[i] == current_formatstring_parser2)
 	    && (mp->is_format[i] == undecided || mp->is_format[i] == possible))
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
@@ -1445,7 +1448,8 @@ language_to_extractor (const char *name)
   {
     const char *name;
     extractor_func func;
-    struct formatstring_parser *formatstring_parser;
+    struct formatstring_parser *formatstring_parser1;
+    struct formatstring_parser *formatstring_parser2;
   };
 
   static table_ty table[] =
@@ -1476,7 +1480,8 @@ language_to_extractor (const char *name)
     if (strcasecmp (name, tp->name) == 0)
       {
 	/* XXX Ugly side effect.  */
-	current_formatstring_parser = tp->formatstring_parser;
+	current_formatstring_parser1 = tp->formatstring_parser1;
+	current_formatstring_parser2 = tp->formatstring_parser2;
 
 	return tp->func;
       }

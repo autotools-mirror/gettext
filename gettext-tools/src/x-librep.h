@@ -1,5 +1,5 @@
 /* xgettext librep backend.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
   { "jl",        "librep"     },					\
 
 #define SCANNERS_LIBREP \
-  { "librep",     extract_librep, &formatstring_librep },		\
+  { "librep",     extract_librep, &formatstring_librep, NULL },		\
 
 /* Scan a librep file and add its translatable strings to mdlp.  */
 extern void extract_librep (FILE *fp, const char *real_filename,

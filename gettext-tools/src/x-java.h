@@ -1,5 +1,5 @@
 /* xgettext Java backend.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Tommy Johansson <tommy.johansson@kanalen.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
   { "java",    "Java"  },						\
 
 #define SCANNERS_JAVA \
-  { "Java",        extract_java, &formatstring_java },			\
+  { "Java",        extract_java, &formatstring_java, NULL },		\
 
 extern void extract_java (FILE *fp, const char *real_filename,
 			  const char *logical_filename,

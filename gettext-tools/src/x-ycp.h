@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
   { "ycp",    "YCP"   },						\
 
 #define SCANNERS_YCP \
-  { "YCP",        extract_ycp, &formatstring_ycp },			\
+  { "YCP",        extract_ycp, &formatstring_ycp, NULL },		\
 
 /* Scan an YCP file and add its translatable strings to mdlp.  */
 extern void extract_ycp (FILE *fp, const char *real_filename,
