@@ -1,3 +1,7 @@
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextize.in: Don't copy installed jar files.
+
 2001-08-23  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-compute-counters): First save `current'

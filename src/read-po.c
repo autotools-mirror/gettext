@@ -337,6 +337,24 @@ static po_method_ty readall_methods =
 
 
 msgdomain_list_ty *
+read_po (fp, real_filename, logical_filename)
+     FILE *fp;
+     const char *real_filename;
+     const char *logical_filename;
+{
+  po_ty *pop;
+  msgdomain_list_ty *mdlp;
+
+  pop = po_alloc (&readall_methods);
+  po_lex_pass_obsolete_entries (true);
+  po_scan (pop, fp, real_filename, logical_filename);
+  mdlp = ((readall_class_ty *) pop)->mdlp;
+  po_free (pop);
+  return mdlp;
+}
+
+
+msgdomain_list_ty *
 read_po_file (filename)
      const char *filename;
 {

@@ -146,7 +146,7 @@ cd $gettext_dir || {
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
   case $file in
-    intl | po)
+    intl | po | *.jar)
       ;;
     *)
       rm -f $srcdir/$file

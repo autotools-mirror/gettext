@@ -1,5 +1,31 @@
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgunfmt.h: New file.
+	* msgunfmt.c (verbose): New variable.
+	(java_mode, java_resource_name, java_locale_name): New variables.
+	(long_options): Add --java, --locale, --resource, --verbose.
+	(main): Recognize new options -j, -l, -r, -v. Handle java mode
+	differently.
+	(usage): Document --java, --resource, --locale, --verbose.
+	* read-java.h: New file.
+	* read-java.c: New file.
+	* read-po.h (read_po): New declaration.
+	* read-po.c (read_po): New function.
+	* gnu/gettext/DumpResource.java: New file.
+	* Makefile.am (jardir): New variable.
+	(DEFS): Define GETTEXTJAR, for read-java.c.
+	(JAR): New variable.
+	(JAVACOMP): New variable.
+	(msgunfmt_SOURCES): Add open-po.c, po-gram-gen.y, po-hash-gen.y,
+	po-charset.c, po-lex.c, po.c, read-po.c, dir-list.c, read-java.c.
+	(all-local, all-java-no, all-java-yes, gnu/gettext/DumpResource.class,
+	gettext.jar, install-data-local, install-java-no, install-java-yes,
+	installdirs-local, installdirs-java-no, installdirs-java-yes,
+	uninstall-local, uninstall-java-no, uninstall-java-yes): New rules.
+	(CLEANFILES): New variable.
+
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgexec.c (nonintr_select): Add function prototype.
 
 	* xgettext.c (scan_java_file): Add function prototype.

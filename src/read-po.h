@@ -22,6 +22,7 @@
 #include "message.h"
 
 #include <stdbool.h>
+#include <stdio.h>
 
 /* If nonzero, remember comments for file name and line number for each
    msgid, if present in the reference input.  Defaults to true.  */
@@ -31,6 +32,10 @@ extern int line_comment;
    If true, such msgids are allowed; the caller should treat them
    appropriately.  Defaults to false.  */
 extern bool allow_duplicates;
+
+/* Read the input file from a stream.  Returns a list of messages.  */
+extern msgdomain_list_ty *read_po PARAMS ((FILE *fp, const char *real_filename,
+					   const char *logical_filename));
 
 /* Read the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is

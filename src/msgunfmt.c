@@ -21,6 +21,7 @@
 #endif
 
 #include <getopt.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -29,12 +30,22 @@
 #include "progname.h"
 #include "system.h"
 #include "message.h"
+#include "msgunfmt.h"
 #include "read-mo.h"
+#include "read-java.h"
 #include "write-po.h"
 #include "libgettext.h"
 
 #define _(str) gettext (str)
 
+
+/* Be more verbose.  */
+bool verbose;
+
+/* Java mode input file specification.  */
+static bool java_mode;
+static const char *java_resource_name;
+static const char *java_locale_name;
 
 /* Force output of PO file even if empty.  */
 static int force_po;
@@ -46,10 +57,14 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "java", no_argument, NULL, 'j' },
+  { "locale", required_argument, NULL, 'l' },
   { "no-escape", no_argument, NULL, 'e' },
   { "output-file", required_argument, NULL, 'o' },
+  { "resource", required_argument, NULL, 'r' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
   { NULL, 0, NULL, 0 }
@@ -70,7 +85,6 @@ main (argc, argv)
   bool do_help = false;
   bool do_version = false;
   const char *output_file = "-";
-  message_list_ty *mlp;
   msgdomain_list_ty *result;
   bool sort_by_msgid = false;
 
@@ -87,7 +101,8 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((optchar = getopt_long (argc, argv, "eEhio:sVw:", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "eEhijl:o:r:svVw:", long_options,
+				 NULL))
 	 != EOF)
     switch (optchar)
       {
@@ -111,8 +126,20 @@ main (argc, argv)
 	message_print_style_indent ();
 	break;
 
+      case 'j':
+	java_mode = true;
+	break;
+
+      case 'l':
+	java_locale_name = optarg;
+	break;
+
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 'r':
+	java_resource_name = optarg;
 	break;
 
       case 's':
@@ -121,6 +148,10 @@ main (argc, argv)
 
       case 'S':
 	message_print_style_uniforum ();
+	break;
+
+      case 'v':
+	verbose = true;
 	break;
 
       case 'V':
@@ -160,19 +191,54 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
-  /* Read the given .mo file. */
-  mlp = message_list_alloc ();
-  if (optind < argc)
+  /* Check for contradicting options.  */
+  if (java_mode)
     {
-      do
-	read_mo_file (mlp, argv[optind]);
-      while (++optind < argc);
+      if (optind < argc)
+	{
+	  error (EXIT_FAILURE, 0,
+		 _("%s and explicit file names are mutually exclusive"),
+		 "--java-mode");
+	}
     }
   else
-    read_mo_file (mlp, "-");
+    {
+      if (java_resource_name != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "--resource", "--java-mode");
+	  usage (EXIT_FAILURE);
+	}
+      if (java_locale_name != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "--locale", "--java-mode");
+	  usage (EXIT_FAILURE);
+	}
+    }
 
-  result = msgdomain_list_alloc ();
-  result->item[0]->messages = mlp;
+  /* Read the given .mo file. */
+  if (java_mode)
+    {
+      result = msgdomain_read_java (java_resource_name, java_locale_name);
+    }
+  else
+    {
+      message_list_ty *mlp;
+
+      mlp = message_list_alloc ();
+      if (optind < argc)
+	{
+	  do
+	    read_mo_file (mlp, argv[optind]);
+	  while (++optind < argc);
+	}
+      else
+	read_mo_file (mlp, "-");
+
+      result = msgdomain_list_alloc ();
+      result->item[0]->messages = mlp;
+    }
 
   /* Sorting the list of messages.  */
   if (sort_by_msgid)
@@ -213,9 +279,24 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
+Operation mode:\n\
+  -j, --java               Java mode: generate a Java ResourceBundle class\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
 Input file location:\n\
   FILE ...                 input .mo files\n\
 If no input file is given or if it is -, standard input is read.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location in Java mode:
+  -r, --resource=RESOURCE  resource name
+  -l, --locale=LOCALE      locale name, either language or language_COUNTRY
+The class name is determined by appending the locale name to the resource name,
+separated with an underscore.  The class is located using the CLASSPATH.
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -243,6 +324,7 @@ Output details:\n\
 Informative output:\n\
   -h, --help               display this help and exit\n\
   -V, --version            output version information and exit\n\
+  -v, --verbose            increase verbosity level
 "));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),

@@ -31,14 +31,19 @@ msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h x-java.h
 EXTRA_DIST = FILES
 
 localedir = $(datadir)/locale
+jardir = $(datadir)/gettext
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
+@DEFS@
 LDADD = ../lib/libnlsut.a @INTLLIBS@
 
 SED = sed
 YACC = @YACC@ -d
+JAR = @JAR@
+JAVACOMP = $(SHELL) ../lib/javacomp.sh
+
 
 # Source dependencies.
 gettext_SOURCES = gettext.c
@@ -52,8 +57,9 @@ format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
 msgl-ascii.c
-msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c \
-read-mo.c
+msgunfmt_SOURCES = message.c msgunfmt.c open-po.c po-gram-gen.y po-hash-gen.y \
+po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
+msgl-ascii.c read-mo.c read-java.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xgettext.c dir-list.c write-po.c \
 msgl-ascii.c file-list.c x-c.c x-po.c x-java.l \
@@ -100,6 +106,9 @@ msgexec_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msggrep_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msguniq_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
+
+# Special rules for bison and flex generated files.
+
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
 po-lex.o: po-gram-gen2.h
@@ -112,3 +121,37 @@ x-java.c: x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
 
 DISTCLEANFILES = po-gram-gen2.h
+
+
+# Special rules for Java compilation.
+
+all-local: all-java-@BUILDJAVA@
+all-java-no:
+all-java-yes: gettext.jar
+
+gnu/gettext/DumpResource.class: $(srcdir)/gnu/gettext/DumpResource.java
+	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/DumpResource.java
+
+gettext.jar: gnu/gettext/DumpResource.class
+	$(JAR) cf $@ gnu/gettext/DumpResource*.class
+
+CLEANFILES = gettext.jar gnu/gettext/*.class
+
+install-data-local: install-java-@BUILDJAVA@
+install-java-no:
+install-java-yes: all-java-yes
+	$(INSTALL_DATA) gettext.jar $(DESTDIR)$(jardir)/gettext.jar
+
+installdirs-local: installdirs-java-@BUILDJAVA@
+installdirs-java-no:
+installdirs-java-yes:
+	$(mkinstalldirs) $(DESTDIR)$(jardir)
+
+uninstall-local: uninstall-java-@BUILDJAVA@
+uninstall-java-no:
+uninstall-java-yes:
+	$(RM) $(DESTDIR)$(jardir)/gettext.jar
+
+
+# One more automake bug.
+installdirs: installdirs-local
