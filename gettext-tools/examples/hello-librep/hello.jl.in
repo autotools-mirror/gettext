@@ -11,7 +11,7 @@
 (bindtextdomain "hello-librep" "@localedir@")
 
 (write standard-output (_ "Hello, world!"))
-(write standard-output "\n");
+(write standard-output "\n")
 (format standard-output (_ "This program is running as process number %d.")
                         (process-id))
-(write standard-output "\n");
+(write standard-output "\n")

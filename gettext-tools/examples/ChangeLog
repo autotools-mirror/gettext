@@ -14,6 +14,10 @@
 	* hello-objc-gnome/configure.ac: Likewise.
 	Needed to avoid error with automake-1.9.
 
+2004-08-19  Bruno Haible  <bruno@clisp.org>
+
+	* hello-librep/hello.jl.in: Remove no-op comments.
+
 2004-03-21  Bruno Haible  <bruno@clisp.org>
 
 	* po/es.po: Update from Max de Mendizábal <max@upn.mx>.
