@@ -459,7 +459,7 @@ grammar (filename)
   msgdomain_list_ty *mdlp;
 
   pop = po_alloc (&compare_methods);
-  po_scan (pop, filename);
+  po_scan_file (pop, filename);
   mdlp = ((compare_class_ty *)pop)->mdlp;
   po_free (pop);
   return mdlp;

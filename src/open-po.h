@@ -21,7 +21,9 @@
 /* Open the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  The
-   file's pathname is returned in *FILE_NAME, for error message purposes.  */
-extern FILE *open_po_file PARAMS ((const char *input_name, char **file_name));
+   file's pathname is returned in *REAL_FILE_NAME_P, for error message
+   purposes.  */
+extern FILE *open_po_file PARAMS ((const char *input_name,
+				   char **real_file_name_p));
 
 #endif /* _OPEN_PO_H */

@@ -1,7 +1,6 @@
-/* xgettext common functions.
+/* xgettext PO backend.
    Copyright (C) 2001 Free Software Foundation, Inc.
-   Written by Peter Miller <millerp@canb.auug.org.au>
-   and Bruno Haible <haible@clisp.cons.org>, 2001.
+   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,25 +16,15 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef _XGETTEXT_H
-#define _XGETTEXT_H
 
-#include <stdlib.h>
-#include "message.h"
-#include "pos.h"
+#define EXTENSIONS_PO \
+  { "po",     "PO",   },						\
+  { "pot",    "PO",   },						\
 
-extern int line_comment;
+#define SCANNERS_PO \
+  { "PO", scan_po_file, },						\
 
-extern message_list_ty *exclude;
-
-extern void xgettext_comment_add PARAMS ((const char *str));
-extern const char *xgettext_comment PARAMS ((size_t n));
-extern void xgettext_comment_reset PARAMS ((void));
-
-extern message_ty *remember_a_message PARAMS ((message_list_ty *mlp,
-					       char *string, lex_pos_ty *pos));
-extern void remember_a_message_plural PARAMS ((message_ty *mp,
-					       char *string, lex_pos_ty *pos));
-
-
-#endif /* _XGETTEXT_H */
+/* Scan a PO file and add its translatable strings to mdlp.  */
+extern void extract_po PARAMS ((FILE *fp, const char *real_filename,
+				const char *logical_filename,
+				msgdomain_list_ty *mdlp));

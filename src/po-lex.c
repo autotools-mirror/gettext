@@ -661,15 +661,17 @@ static int keyword_p PARAMS ((const char *s));
 static int control_sequence PARAMS ((void));
 
 
-/* Open the PO file FNAME and prepare its lexical analysis.  */
+/* Prepare lexical analysis.  */
 void
-lex_open (fname)
-     const char *fname;
+lex_start (fp, real_filename, logical_filename)
+     FILE *fp;
+     const char *real_filename;
+     const char *logical_filename;
 {
-  FILE *fp = open_po_file (fname, &gram_pos.file_name);
-  if (!fp)
-    error (EXIT_FAILURE, errno,
-	   _("error while opening \"%s\" for reading"), fname);
+  /* Ignore the logical_filename, because PO file entries already have
+     their file names attached.  But use real_filename for error messages.  */
+  gram_pos.file_name = xstrdup (real_filename);
+
   mbfile_init (mbf, fp);
 
   gram_pos.line_number = 1;
@@ -679,19 +681,19 @@ lex_open (fname)
   po_lex_charset_init ();
 }
 
-
-/* Terminate lexical analysis and close the current PO file.  */
-void
-lex_close ()
+/* Terminate lexical analysis.  */
+FILE *
+lex_end ()
 {
+  FILE *fp;
+
   if (error_message_count > 0)
     error (EXIT_FAILURE, 0,
 	   ngettext ("found %d fatal error", "found %d fatal errors",
 		     error_message_count),
 	   error_message_count);
 
-  if (mbf->fp != stdin)
-    fclose (mbf->fp);
+  fp = mbf->fp;
   mbf->fp = NULL;
   gram_pos.file_name = NULL;
   gram_pos.line_number = 0;
@@ -700,6 +702,35 @@ lex_close ()
   error_message_count = 0;
   po_lex_obsolete = false;
   po_lex_charset_close ();
+
+  return fp;
+}
+
+
+/* Open the PO file FNAME and prepare its lexical analysis.  */
+void
+lex_open (fname)
+     const char *fname;
+{
+  char *real_filename;
+  FILE *fp = open_po_file (fname, &real_filename);
+  if (!fp)
+    error (EXIT_FAILURE, errno,
+	   _("error while opening \"%s\" for reading"), fname);
+
+  lex_start (fp, real_filename, fname);
+}
+
+/* Terminate lexical analysis and close the current PO file.  */
+void
+lex_close ()
+{
+  FILE *fp;
+
+  fp = lex_end ();
+
+  if (fp != stdin)
+    fclose (fp);
 }
 
 

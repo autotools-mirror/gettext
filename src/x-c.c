@@ -1,4 +1,4 @@
-/* GNU gettext - internationalization aids
+/* xgettext C/C++/ObjectiveC backend.
    Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>

@@ -122,8 +122,14 @@ struct po_ty
    constructor.  */
 extern po_ty *po_alloc PARAMS ((po_method_ty *jtable));
 
-/* Read a PO file, and dispatch to the various po_method_ty methods.  */
-extern void po_scan PARAMS ((po_ty *pop, const char *filename));
+/* Read a PO file from a stream, and dispatch to the various po_method_ty
+   methods.  */
+extern void po_scan PARAMS ((po_ty *pop, FILE *fp, const char *real_filename,
+			     const char *logical_filename));
+
+/* Locate a PO file, open it, read it, dispatching to the various po_method_ty
+   methods, and close it.  */
+extern void po_scan_file PARAMS ((po_ty *pop, const char *filename));
 
 /* Call the destructor and deallocate a po_ty (or derived class)
    instance.  */

@@ -1,3 +1,43 @@
+2001-07-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-lex.h (lex_start, lex_end): New declarations.
+	* po-lex.c (lex_start): New function.
+	(lex_end): New function.
+	(lex_open): Call lex_start.
+	(lex_close): Call lex_end.
+	* open-po.h (open_po_file): Nop.
+	* open-po.c (open_po_file): Small optimization.
+	* po.h (po_scan): New declaration.
+	(po_scan_file): Renamed from po_scan.
+	* po.c (po_scan): New function.
+	(po_scan_file): Renamed from po_scan.
+	* msgcmp.c (grammar): Update po_scan_file call.
+	* msgfmt.c (grammar): Likewise.
+	* read-po.c (read_po_file): Likewise.
+	* x-po.h: New file.
+	* x-po.c: New file.
+	(extract_class_ty, extract_constructor, extract_directive_domain,
+	extract_directive_message, extract_parse_brief, extract_comment,
+	extract_comment_dot, extract_comment_filepos, extract_comment_special,
+	extract_methods): Moved here from xgettext.c.
+	(extract_po): New function, extracted from read_po_file.
+	* xgettext.h (line_comment, exclude): New declarations.
+	* xgettext.c: Include x-po.h.
+	(line_comment): Make non-static.
+	(exclude): Likewise.
+	(main): Update scan_po_file call.
+	(read_exclusion_file): Update po_scan_file call.
+	(extract_class_ty, extract_constructor, extract_directive_domain,
+	extract_directive_message, extract_parse_brief, extract_comment,
+	extract_comment_dot, extract_comment_filepos, extract_comment_special,
+	extract_methods): Move to x-po.c.
+	(scan_po_file): Renamed from read_po_file. Call xgettext_open and
+	extract_po.
+	(language_to_scanner): Use SCANNERS_PO.
+	(extension_to_language): Use EXTENSIONS_PO.
+	* Makefile.am (noinst_HEADERS): Add x-po.h.
+	(xgettext_SOURCES): Add x-po.c.
+
 2001-07-27  Bruno Haible  <haible@clisp.cons.org>
 
 	* x-c.h: New file.

@@ -342,7 +342,7 @@ read_po_file (filename)
 
   pop = po_alloc (&readall_methods);
   po_lex_pass_obsolete_entries (true);
-  po_scan (pop, filename);
+  po_scan_file (pop, filename);
   mdlp = ((readall_class_ty *) pop)->mdlp;
   po_free (pop);
   return mdlp;

@@ -1104,7 +1104,7 @@ grammar (filename)
   po_ty *pop;
 
   pop = po_alloc (&format_methods);
-  po_scan (pop, filename);
+  po_scan_file (pop, filename);
   po_free (pop);
 }
 

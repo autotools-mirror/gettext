@@ -77,7 +77,32 @@ po_free (pop)
 
 
 void
-po_scan (pop, filename)
+po_scan (pop, fp, real_filename, logical_filename)
+     po_ty *pop;
+     FILE *fp;
+     const char *real_filename;
+     const char *logical_filename;
+{
+  extern int po_gram_parse PARAMS ((void));
+
+  /* The parse will call the po_callback_... functions (see below)
+     when the various directive are recognised.  The callback_arg
+     variable is used to tell these functions which instance is to
+     have the relevant method invoked.  */
+  callback_arg = pop;
+
+  /* Parse the stream's content.  */
+  lex_start (fp, real_filename, logical_filename);
+  po_parse_brief (pop);
+  po_gram_parse ();
+  po_parse_debrief (pop);
+  lex_end ();
+  callback_arg = NULL;
+}
+
+
+void
+po_scan_file (pop, filename)
      po_ty *pop;
      const char *filename;
 {

@@ -21,6 +21,7 @@
 #define _PO_LEX_H
 
 #include <sys/types.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "error.h"
 #include "progname.h"
@@ -43,6 +44,13 @@ extern unsigned int gram_max_allowed_errors;
 /* True if obsolete entries shall be considered as valid.  */
 extern bool pass_obsolete_entries;
 
+
+/* Prepare lexical analysis.  */
+extern void lex_start PARAMS ((FILE *fp, const char *real_filename,
+			       const char *logical_filename));
+
+/* Terminate lexical analysis.  */
+extern FILE *lex_end PARAMS ((void));
 
 /* Open the PO file FNAME and prepare its lexical analysis.  */
 extern void lex_open PARAMS ((const char *fname));
