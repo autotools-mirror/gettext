@@ -1,3 +1,10 @@
+2004-02-07  Bruno Haible  <bruno@clisp.org>
+
+	* mbstate_t.m4: Update from gnulib.
+	* mbswidth.m4: Invoke AC_TYPE_MBSTATE_T instead of AC_MBSTATE_T.
+	* quotearg.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add quotearg.m4.
+
 2004-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Add glibc2.m4.
