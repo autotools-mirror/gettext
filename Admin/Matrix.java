@@ -139,8 +139,10 @@ public class Matrix {
             if (d < 0)
               throw new Error("didn't find domain \""+po.domain+"\"");
             int t = Arrays.binarySearch(teams,po.team);
-            if (t < 0)
-              throw new Error("didn't find team \""+po.team+"\"");
+            if (t < 0) {
+              System.err.println(po.domain+": didn't find team \""+po.team+"\"");
+              continue;
+            }
             matrix[d][t] = EXTERNAL;
           }
         }
