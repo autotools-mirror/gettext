@@ -5,24 +5,31 @@
 /ac_given_INSTALL=/,/^CEOF/ {
   /^CEOF$/ i\
 # DJGPP specific Makefile changes.\
-  /^aliaspath *	*=/s,:,";",g\
-  /^lispdir *	*=/ c\\\\\
+  /^aliaspath[ 	]*=/s,:,";",g\
+  /^lispdir[ 	]*=/ c\\\\\
 lispdir = \\$(prefix)/gnu/emacs/site-lisp\
-  /TEXINPUTS=/s,:,";",g\
-  /PATH=/s,:,";",g\
+  /TEXINPUTS[ 	]*=/s,:,";",g\
+  /PATH[ 	]*=/s,:,";",g\
   s,\\.new\\.,_new.,g\
   s,\\.old\\.,_old.,g\
   s,\\.tab\\.c,_tab.c,g\
   s,\\.tab\\.h,_tab.h,g\
+  s,\\([1-9]\\)\\.html,\\1-html,g\
+  s,\\([1-9]\\)\\.in,\\1-in,g\
+  s,gettext_\\*\\.,gettext.*-,g\
   @append_list_of_renamed_files@
   /^TESTS[ 	]*=/ s,plural-\\([1-9]\\+\\),plural.\\1,g\
   /^install-info-am:/,/^$/ {\
     /@list=/ s,\\\$(INFO_DEPS),& gettext.i,\
     s,file-\\[0-9\\]\\[0-9\\],& \\$\\$file[0-9] \\$\\$file[0-9][0-9],\
   }\
-  /^iso-apdx\\.texi *	*:.*$/ {\
-    s,iso-apdx,\\$(srcdir)/&,g\
+  /^iso-639\\.texi[ 	]*:.*$/ {\
+    s,iso-639,\\$(srcdir)/&,g\
     s,ISO_639,\\$(srcdir)/&,\
+  }\
+  /^iso-3166\\.texi[ 	]*:.*$/ {\
+    s,iso-3166,\\$(srcdir)/&,g\
+    s,ISO_3166,\\$(srcdir)/&,\
   }\
   /^# Some rules for yacc handling\\./,$ {\
     /\\\$(YACC)/ a\\\\\
@@ -34,7 +41,9 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s,po-gram-gen2\\.h,po-gram_gen2.h,g\
   /^Makefile[ 	]*:/,/^$/ {\
     /CONFIG_FILES=/ s,\\\$(subdir)/\\\$@\\.in,&:\\$(subdir)/\\$@.in-in,\
-  }
+  }\
+  /html:/ s,split$,monolithic,g\
+  /^TEXI2HTML[ 	]*=/ s,=[ 	]*,&-,
 }
 
 # Makefile.in.in is renamed to Makefile.in-in...
@@ -60,13 +69,14 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s|config\.h|&:config.h-in|2
 }
 
-# Replace (command) > /dev/null with `command > /dev/null`, since
+# Replace `(command) > /dev/null` with `command > /dev/null`, since
 # parenthesized commands always return zero status in the ported Bash,
 # even if the named command doesn't exist
-/if ([^|;]*null/{
-  s,(,`,
-  s,),,
-  s,;  *then,`; then,
+/if [^{].*null/,/ then/ {
+  /test .*null/ {
+    s,(,,
+    s,),,
+  }
 }
 
 # DOS-style absolute file names should be supported as well
@@ -105,3 +115,6 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
 /# Make a symlink if possible; otherwise try a hard link./,/EOF/ {
   s,;.*then, 2>/dev/null || cp -pf \$srcdir/\$ac_source \$ac_dest&,
 }
+
+# Let libtool use _libs all the time.
+/objdir=/s,\.libs,_libs,

@@ -3,43 +3,69 @@ echo Configuring GNU Gettext for DJGPP v2.x...
 Rem The SmallEnv tests protect against fixed and too small size
 Rem of the environment in stock DOS shell.
 
-Rem Find out if NLS is wanted or not
+Rem Find out if NLS is wanted or not,
+Rem if static or shared libraries are wanted
 Rem and where the sources are.
-Rem We always default to NLS support
-Rem and to in place configuration.
+Rem We always default to NLS support,
+Rem static libraries, and to in place configuration.
+set ARGS=
 set NLS=enabled
 if not "%NLS%" == "enabled" goto SmallEnv
+set STATIC_LIBS=enabled
+if not "%STATIC_LIBS%" == "enabled" goto SmallEnv
 set XSRC=.
 if not "%XSRC%" == "." goto SmallEnv
 
-Rem This checks the case:
-Rem   %1 contains the NLS option.
-Rem   %2 contains the src path option.
-if "%1" == "" goto InPlace
-if "%1" == "NLS" goto SrcDir2
-if not "%1" == "no-NLS" goto SrcDir1
-set NLS=disabled
+Rem Loop over all arguments.
+Rem Special arguments are: NLS, XSRC and STATIC_LIBS.
+Rem All other arguments are stored unchanged into ARGS.
+:ArgLoop
+set ARGSFLAG=1
+if not "%ARGSFLAG%" == "1" goto SmallEnv
+if not "%1" == "NLS" if not "%1" == "nls" if not "%1" == "NO-NLS" if not "%1" == "no-NLS" if not "%1" == "no-nls" goto StaticLibsOpt
+if "%1" == "no-nls" set NLS=disabled
+if "%1" == "no-NLS" set NLS=disabled
+if "%1" == "NO-NLS" set NLS=disabled
 if not "%NLS%" == "disabled" goto SmallEnv
-:SrcDir2
-Rem Find out where the sources are
-if "%2" == "" goto InPlace
-set XSRC=%2
-if not "%XSRC%" == "%2" goto SmallEnv
-goto NotInPlace
-
-Rem This checks the case:
-Rem   %1 contains the src path option.
-Rem   %2 contains the NLS option.
-:SrcDir1
-Rem Find out where the sources are
-if "%1" == "" goto InPlace
+set ARGSFLAG=0
+if not "%ARGSFLAG%" == "0" goto SmallEnv
+shift
+:StaticLibsOpt
+set ARGSFLAG=1
+if not "%ARGSFLAG%" == "1" goto SmallEnv
+if not "%1" == "static" if not "%1" == "STATIC" if not "%1" == "shared" if not "%1" == "SHARED" goto SrcDirOpt
+if "%1" == "shared" set STATIC_LIBS=disabled
+if "%1" == "SHARED" set STATIC_LIBS=disabled
+if not "%STATIC_LIBS%" == "disabled" goto SmallEnv
+set ARGSFLAG=0
+if not "%ARGSFLAG%" == "0" goto SmallEnv
+shift
+:SrcDirOpt
+set ARGSFLAG=1
+if not "%ARGSFLAG%" == "1" goto SmallEnv
+echo %1 | grep -q "/"
+if errorlevel 1 goto NextArg
 set XSRC=%1
 if not "%XSRC%" == "%1" goto SmallEnv
-if "%2" == "" goto NotInPlace
-if "%2" == "NLS" goto NotInPlace
-if not "%2" == "no-NLS" goto NotInPlace
-set NLS=disabled
-if not "%NLS%" == "disabled" goto SmallEnv
+set ARGSFLAG=0
+if not "%ARGSFLAG%" == "0" goto SmallEnv
+:NextArg
+if "%ARGSFLAG%" == "1" set _ARGS=%ARGS% %1
+if "%ARGSFLAG%" == "1" if not "%_ARGS%" == "%ARGS% %1" goto SmallEnv
+set ARGS=%_ARGS%
+set _ARGS=
+shift
+if not "%1" == "" goto ArgLoop
+set ARGSFLAG=
+
+if "%STATIC_LIBS%" == "enabled" set _ARGS=--enable-static --disable-shared %ARGS%
+if not "%_ARGS%" == "--enable-static --disable-shared %ARGS%" goto SmallEnv
+if "%STATIC_LIBS%" == "disabled" set _ARGS=--disable-static --enable-shared %ARGS%
+if "%STATIC_LIBS%" == "disabled" if not "%_ARGS%" == "--disable-static --enable-shared %ARGS%" goto SmallEnv
+set ARGS=%_ARGS%
+set _ARGS=
+
+if "%XSRC%" == "." goto InPlace
 
 :NotInPlace
 redir -e /dev/null update %XSRC%/configure.orig ./configure
@@ -71,10 +97,9 @@ Rem be renamed to po-gram_gen2.h and src/po-lex.c must be fixed
 Rem accordingly.
 test -f %XSRC%/src/po-lex.orig
 if errorlevel 1 update %XSRC%/src/po-lex.c %XSRC%/src/po-lex.orig
-sed "s/po-gram-gen2.h/po-gram_gen2.h/g" %XSRC%/src/po-lex.c > po-lex.tmp
+sed "s/po-gram-gen2.h/po-gram_gen2.h/g" %XSRC%/src/po-lex.orig > po-lex.tmp
 if errorlevel 1 goto SedError
-update ./po-lex.tmp %XSRC%/src/po-lex.c
-rm ./po-lex.tmp
+mv ./po-lex.tmp %XSRC%/src/po-lex.c
 
 Rem This is required because DOS/Windows are case-insensitive
 Rem to file names, and "make install" will do nothing if Make
@@ -123,14 +148,14 @@ set OS=
 
 if "%NLS%" == "disabled" goto WithoutNLS
 echo Running the ./configure script...
-sh ./configure --srcdir=%XSRC% --enable-nls --with-included-gettext
+sh ./configure --srcdir=%XSRC% --enable-nls --with-included-gettext %ARGS%
 if errorlevel 1 goto CfgError
 echo Done.
 goto ScriptEditing
 
 :WithoutNLS
 echo Running the ./configure script...
-sh ./configure --srcdir=%XSRC% --disable-nls
+sh ./configure --srcdir=%XSRC% --disable-nls %ARGS%
 if errorlevel 1 goto CfgError
 echo Done.
 
@@ -171,6 +196,7 @@ if not errorlevel 1 goto NoRen1
 test -f %XSRC%/install-sh
 if not errorlevel 1 mv -f %XSRC%/install-sh %XSRC%/install-sh.sh
 :NoRen1
+set ARGS=
 set CONFIG_SITE=
 set HOSTNAME=
 set NLS=
