@@ -331,6 +331,10 @@ Normally \"gzip -9 | uuencode -m\", remove the -9 for lesser compression,
 or remove the -m if you are not using the GNU version of 'uuencode'."
   :type 'string
   :group 'po)
+
+(defvar po-subedit-mode-syntax-table
+  (copy-syntax-table text-mode-syntax-table)
+  "Syntax table used while in PO mode.")
 
 ;;; Emacs portability matters - part II.
 
@@ -951,10 +955,6 @@ Called through file-coding-system-alist, before the file is visited for real."
   "Abbrev table used while in PO mode.")
 (define-abbrev-table 'po-mode-abbrev-table ())
 
-(defvar po-subedit-mode-syntax-table
-  "Syntax table used while in PO mode."
-  (copy-syntax-table text-mode-syntax-table))
-
 (defvar po-mode-map
   ;; Use (make-keymap) because (make-sparse-keymap) does not work on Demacs.
   (let ((po-mode-map (make-keymap)))
@@ -1077,6 +1077,15 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
 
   (run-hooks 'po-mode-hook)
   (message (_"You may type 'h' or '?' for a short PO mode reminder.")))
+
+(defvar po-subedit-mode-map
+  ;; Use (make-keymap) because (make-sparse-keymap) does not work on Demacs.
+  (let ((po-subedit-mode-map (make-keymap)))
+    (define-key po-subedit-mode-map "\C-c\C-a" 'po-subedit-cycle-auxiliary)
+    (define-key po-subedit-mode-map "\C-c\C-c" 'po-subedit-exit)
+    (define-key po-subedit-mode-map "\C-c\C-k" 'po-subedit-abort)
+    po-subedit-mode-map)
+  "Keymap while editing a PO mode entry (or the full PO file).")
 
 ;;; Window management.
 
@@ -2007,15 +2016,6 @@ The string is properly recommented before the replacement occurs."
 	(setq buffer-read-only po-read-only)
 	(fundamental-mode)
 	(message (_"Type 'M-x po-mode RET' once done")))))
-
-(defvar po-subedit-mode-map nil
-  "Keymap while editing a PO mode entry (or the full PO file).")
-(if po-subedit-mode-map
-    ()
-  (setq po-subedit-mode-map (make-sparse-keymap))
-  (define-key po-subedit-mode-map "\C-c\C-a" 'po-subedit-cycle-auxiliary)
-  (define-key po-subedit-mode-map "\C-c\C-c" 'po-subedit-exit)
-  (define-key po-subedit-mode-map "\C-c\C-k" 'po-subedit-abort))
 
 (defun po-subedit-abort ()
   "Exit the subedit buffer, merely discarding its contents."

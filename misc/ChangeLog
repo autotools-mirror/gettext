@@ -1,6 +1,8 @@
-2001-11-10  Karl Eichwalder  <ke@suse.de>
+2001-11-12  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-subedit-mode-syntax-table): New variable.
+	(po-subedit-mode-map): Re-write according to po-mode-map and move
+	it to a better location.
 
 2001-11-10  Karl Eichwalder  <ke@suse.de>
 
