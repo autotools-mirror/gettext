@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -804,6 +804,29 @@ if test -f "$srcdir/Makefile.am"; then
       :d
     }' < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
     func_modify_Makefile_am "(SUBDIRS): Remove $removed_directory."
+  fi
+  if test -n "$added_directories"; then
+    if grep '^DIST_SUBDIRS[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
+      sed -e "s%^\(DIST_SUBDIRS[ 	]*=\)%\\1$added_directories %" < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
+      func_modify_Makefile_am "(DIST_SUBDIRS): Add "`echo $added_directories | sed -e 's/ /, /g'`'.'
+    fi
+  fi
+  if test -n "$removed_directory"; then
+    sed -e '/^DIST_SUBDIRS[ 	]*=/ {
+        :a
+        s%\([ 	]\)'"$removed_directory"'[ 	]%\1%
+        s%[ 	]'"$removed_directory"'$%%
+        tb
+        :b
+        s%\\$%\\%
+        tc
+        bd
+        :c
+        n
+        ba
+      :d
+    }' < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
+    func_modify_Makefile_am "(DIST_SUBDIRS): Remove $removed_directory."
   fi
   if test -z "$m4dir_is_next"; then
     if grep '^ACLOCAL_AMFLAGS[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
