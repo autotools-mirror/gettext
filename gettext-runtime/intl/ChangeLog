@@ -1,3 +1,8 @@
+2003-08-01  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.c (find_shared_library_fullname): Disable the code on
+	Linux/libc5. Reported by Alain Guibert <derogaton+bgli@oreka.com>.
+
 2003-06-27  Bruno Haible  <bruno@clisp.org>
 
 	Avoid use of *_unlocked functions on Solaris 2.5.1.
