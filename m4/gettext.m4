@@ -129,6 +129,12 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
+      dnl If iconv() is in a separate libiconv library, then anyone linking
+      dnl with libintl{.a,.so} also needs to link with libiconv.
+      if test -n "$LIBICONV" && test -n "$INTLLIBS"; then
+        INTLLIBS="$INTLLIBS $LIBICONV"
+      fi
+
       dnl Test whether we really found GNU xgettext.
       if test "$XGETTEXT" != ":"; then
 	dnl If it is no GNU xgettext we define it as : so that the

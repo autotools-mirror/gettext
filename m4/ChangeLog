@@ -1,3 +1,7 @@
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Add $LIBICONV to $INTLLIBS.
+
 2001-02-07  Pavel Roskin  <proski@gnu.org>
 
 	* c-bs-a.m4: Quote first argument of AC_DEFUN.
