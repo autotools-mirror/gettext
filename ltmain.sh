@@ -1865,7 +1865,11 @@ compiler."
 	      add="-l$name"
 	    else
 	      # We cannot seem to hardcode it, guess we'll fake it.
-	      add_dir="-L$libdir"
+	      if test "X$installed" = Xyes; then
+	        add_dir="-L$libdir"
+	      else
+	        add_dir="-L$DESTDIR$libdir"
+	      fi
 	      add="-l$name"
 	    fi
 
@@ -4110,12 +4114,21 @@ relink_command=\"$relink_command\""
 	esac
 
 	# Add the libdir to current_libdirs if it is the destination.
+	DESTDIR=
 	if test "X$destdir" = "X$libdir"; then
 	  case "$current_libdirs " in
 	  *" $libdir "*) ;;
 	  *) current_libdirs="$current_libdirs $libdir" ;;
 	  esac
 	else
+	  case "$destdir" in
+	    *"$libdir")
+	      DESTDIR=`$echo "$destdir" | sed -e 's!'"$libdir"'$!!'`
+	      if test "X$destdir" != "X$DESTDIR$libdir"; then
+		DESTDIR=
+	      fi
+	      ;;
+	  esac
 	  # Note the libdir as a future libdir.
 	  case "$future_libdirs " in
 	  *" $libdir "*) ;;
@@ -4129,6 +4142,7 @@ relink_command=\"$relink_command\""
 
 	if test -n "$relink_command"; then
 	  $echo "$modename: warning: relinking \`$file'" 1>&2
+	  export DESTDIR
 	  $show "$relink_command"
 	  if $run eval "$relink_command"; then :
 	  else
@@ -4136,6 +4150,7 @@ relink_command=\"$relink_command\""
 	    continue
 	  fi
 	fi
+	unset DESTDIR
 
 	# See the names of the shared library.
 	set dummy $library_names
