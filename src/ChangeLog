@@ -1,3 +1,13 @@
+2001-04-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* po.h (PO_BASE_TY): Remove next_is_fuzzy field.
+	* po.c (po_alloc): Don't reset next_is_fuzzy.
+	(po_callback_message): Ignore fuzziness of the header entry. Don't
+	reset next_is_fuzzy.
+	(po_callback_comment): Don't set next_is_fuzzy.
+	* msgfmt.c (format_directive_message): Ignore fuzziness of the header
+	entry. Count fuzzy untranslated entries as untranslated.
+
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.37 released.

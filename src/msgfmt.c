@@ -541,7 +541,10 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   struct hashtable_entry *entry;
 
-  if (msgstr_string[0] == '\0' || (!include_all && this->is_fuzzy))
+  /* Don't emit untranslated entries.  Also don't emit fuzzy entries, unless
+     --use-fuzzy was specified.  But ignore fuzziness of the header entry.  */
+  if (msgstr_string[0] == '\0'
+      || (!include_all && this->is_fuzzy && msgid_string[0] != '\0'))
     {
       if (verbose_level > 1)
 	/* We don't change the exit status here because this is really
@@ -551,135 +554,135 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 			? _("empty `msgstr' entry ignored")
 			: _("fuzzy `msgstr' entry ignored")));
 
+      /* Increment counter for fuzzy/untranslated messages.  */
+      if (msgstr_string[0] == '\0')
+	++msgs_untranslated;
+      else
+	++msgs_fuzzy;
+
       /* Free strings allocated in po-gram.y.  */
       free (msgstr_string);
-
-      /* Increment counter for fuzzy/untranslated messages.  */
-      if (this->is_fuzzy)
-	++msgs_fuzzy;
-      else
-	++msgs_untranslated;
-
-      goto prepare_next;
     }
-
-  /* Test for header entry.  */
-  if (msgid_string[0] == '\0')
+  else
     {
-      this->has_header_entry = 1;
-
-      /* Do some more tests on test contents of the header entry.  */
-      if (verbose_level > 0)
+      /* Test for header entry.  */
+      if (msgid_string[0] == '\0')
 	{
-	  static const char *required_fields[] =
-	  {
-	    "Project-Id-Version", "PO-Revision-Date",
-	    "Last-Translator", "Language-Team", "MIME-Version",
-	    "Content-Type", "Content-Transfer-Encoding"
-	  };
-	  static const char *default_values[] =
-	  {
-	    "PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE",
-	    NULL, "text/plain; charset=CHARSET", "ENCODING"
-	  };
-	  const size_t nfields = SIZEOF (required_fields);
-	  int initial = -1;
-	  int cnt;
+	  this->has_header_entry = 1;
 
-	  for (cnt = 0; cnt < nfields; ++cnt)
+	  /* Do some more tests on test contents of the header entry.  */
+	  if (verbose_level > 0)
 	    {
-	      char *endp = strstr (msgstr_string, required_fields[cnt]);
+	      static const char *required_fields[] =
+	      {
+		"Project-Id-Version", "PO-Revision-Date",
+		"Last-Translator", "Language-Team", "MIME-Version",
+		"Content-Type", "Content-Transfer-Encoding"
+	      };
+	      static const char *default_values[] =
+	      {
+		"PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE",
+		NULL, "text/plain; charset=CHARSET", "ENCODING"
+	      };
+	      const size_t nfields = SIZEOF (required_fields);
+	      int initial = -1;
+	      int cnt;
 
-	      if (endp == NULL)
-		error (0, 0, _("headerfield `%s' missing in header"),
-		       required_fields[cnt]);
-	      else if (endp != msgstr_string && endp[-1] != '\n')
-		error (0, 0, _("\
-header field `%s' should start at beginning of line"),
-		       required_fields[cnt]);
-	      else if (default_values[cnt] != NULL
-		       && strncmp (default_values[cnt],
-				   endp + strlen (required_fields[cnt]) + 2,
-				   strlen (default_values[cnt])) == 0)
+	      for (cnt = 0; cnt < nfields; ++cnt)
 		{
-		  if (initial != -1)
+		  char *endp = strstr (msgstr_string, required_fields[cnt]);
+
+		  if (endp == NULL)
+		    error (0, 0, _("headerfield `%s' missing in header"),
+			   required_fields[cnt]);
+		  else if (endp != msgstr_string && endp[-1] != '\n')
+		    error (0, 0, _("\
+header field `%s' should start at beginning of line"),
+			   required_fields[cnt]);
+		  else if (default_values[cnt] != NULL
+			   && strncmp (default_values[cnt],
+				       endp + strlen (required_fields[cnt]) + 2,
+				       strlen (default_values[cnt])) == 0)
 		    {
-		      error (0, 0, _("\
+		      if (initial != -1)
+			{
+			  error (0, 0, _("\
 some header fields still have the initial default value"));
-		      initial = -1;
-		      break;
+			  initial = -1;
+			  break;
+			}
+		      else
+			initial = cnt;
 		    }
-		  else
-		    initial = cnt;
+		}
+
+	      if (initial != -1)
+		error (0, 0, _("field `%s' still has initial default value"),
+		       required_fields[initial]);
+	    }
+	}
+      else
+	/* We don't count the header entry in the statistic so place the
+	   counter incrementation here.  */
+	if (this->is_fuzzy)
+	  ++msgs_fuzzy;
+	else
+	  ++msgs_translated;
+
+      /* We found a valid pair of msgid/msgstr.
+	 Construct struct to describe msgstr definition.  */
+      entry = (struct hashtable_entry *) xmalloc (sizeof (*entry));
+
+      entry->msgid_plural = msgid_plural;
+      entry->msgstr = msgstr_string;
+      entry->msgstr_len = msgstr_len;
+      entry->pos = *msgstr_pos;
+
+      /* Do some more checks on both strings.  */
+      check_pair (msgid_string, msgid_pos, msgid_plural,
+		  msgstr_string, msgstr_len, msgstr_pos,
+		  do_check && possible_c_format_p (this->is_c_format));
+
+      /* Check whether already a domain is specified.  If not use default
+	 domain.  */
+      if (current_domain == NULL)
+	current_domain = new_domain ("messages");
+
+      /* We insert the ID/string pair into the hashing table.  But we have
+	 to take care for duplicates.  */
+      if (insert_entry (&current_domain->symbol_tab, msgid_string,
+			strlen (msgid_string) + 1, entry))
+	{
+	  /* We don't need the just constructed entry.  */
+	  free (entry);
+
+	  if (verbose_level > 0)
+	    {
+	      /* We give a fatal error about this, but only if the
+		 translations are different.  Tell the user the old
+		 definition for reference.  */
+	      find_entry (&current_domain->symbol_tab, msgid_string,
+			  strlen (msgid_string) + 1, (void **) &entry);
+	      if (msgstr_len != entry->msgstr_len
+		  || memcmp (msgstr_string, entry->msgstr, msgstr_len) != 0)
+		{
+		  po_gram_error_at_line (msgid_pos, _("\
+duplicate message definition"));
+		  po_gram_error_at_line (&entry->pos, _("\
+...this is the location of the first definition"));
+
+		  /* FIXME Should this be always a reason for an
+		     exit status != 0?  */
+		  exit_status = EXIT_FAILURE;
 		}
 	    }
 
-	  if (initial != -1)
-	    error (0, 0, _("field `%s' still has initial default value"),
-		   required_fields[initial]);
+	  /* We don't need the just constructed entries'
+	     parameter string (allocated in po-gram.y).  */
+	  free (msgstr_string);
 	}
-    }
-  else
-    /* We don't count the header entry in the statistic so place the
-       counter incrementation here.  */
-    if (this->is_fuzzy)
-      ++msgs_fuzzy;
-    else
-      ++msgs_translated;
+  }
 
-  /* We found a valid pair of msgid/msgstr.
-     Construct struct to describe msgstr definition.  */
-  entry = (struct hashtable_entry *) xmalloc (sizeof (*entry));
-
-  entry->msgid_plural = msgid_plural;
-  entry->msgstr = msgstr_string;
-  entry->msgstr_len = msgstr_len;
-  entry->pos = *msgstr_pos;
-
-  /* Do some more checks on both strings.  */
-  check_pair (msgid_string, msgid_pos, msgid_plural,
-	      msgstr_string, msgstr_len, msgstr_pos,
-	      do_check && possible_c_format_p (this->is_c_format));
-
-  /* Check whether already a domain is specified.  If not use default
-     domain.  */
-  if (current_domain == NULL)
-    current_domain = new_domain ("messages");
-
-  /* We insert the ID/string pair into the hashing table.  But we have
-     to take care for dublicates.  */
-  if (insert_entry (&current_domain->symbol_tab, msgid_string,
-		    strlen (msgid_string) + 1, entry))
-    {
-      /* We don't need the just constructed entry.  */
-      free (entry);
-
-      if (verbose_level > 0)
-	{
-	  /* We give a fatal error about this, but only if the
-	     translations are different.  Tell the user the old
-	     definition for reference.  */
-	  find_entry (&current_domain->symbol_tab, msgid_string,
-		      strlen (msgid_string) + 1, (void **) &entry);
-	  if (msgstr_len != entry->msgstr_len
-	      || memcmp (msgstr_string, entry->msgstr, msgstr_len) != 0)
-	    {
-	      po_gram_error_at_line (msgid_pos, _("\
-duplicate message definition"));
-	      po_gram_error_at_line (&entry->pos, _("\
-...this is the location of the first definition"));
-
-	      /* FIXME Should this be always a reason for an exit status != 0?  */
-	      exit_status = EXIT_FAILURE;
-	    }
-	}
-
-      /* We don't need the just constructed entries'
-         parameter string (allocated in po-gram.y).  */
-      free (msgstr_string);
-    }
-
-prepare_next:
   /* We do not need the msgid string in any case.  */
   free (msgid_string);
 

@@ -67,7 +67,6 @@ po_alloc (pomp)
 
   pop = xmalloc (pomp->size);
   pop->method = pomp;
-  pop->next_is_fuzzy = 0;
   if (pomp->constructor)
     pomp->constructor (pop);
   return pop;
@@ -222,8 +221,8 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 {
   /* assert(callback_arg); */
 
-  /* Test for header entry.  */
-  if (msgid[0] == '\0' && !callback_arg->next_is_fuzzy)
+  /* Test for header entry.  Ignore fuzziness of the header entry.  */
+  if (msgid[0] == '\0')
     {
       /* Verify the validity of CHARSET.  It is necessary
 	 1. for the correct treatment of multibyte characters containing
@@ -448,9 +447,6 @@ Message conversion to user's charset will not work.\n"));
 
   po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
 			msgstr, msgstr_len, msgstr_pos);
-
-  /* Prepare for next message.  */
-  callback_arg->next_is_fuzzy = 0;
 }
 
 
@@ -508,8 +504,6 @@ po_callback_comment (s)
   else if (*s == ',' || *s == '!')
     {
       /* Get all entries in the special comment line.  */
-      if (strstr (s + 1, "fuzzy") != NULL)
-	callback_arg->next_is_fuzzy = 1;
       po_comment_special (callback_arg, s + 1);
     }
   else
