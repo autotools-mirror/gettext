@@ -19,7 +19,9 @@ EOF
 
 tmpfiles="$tmpfiles mftest3.mo"
 : ${MSGFMT=msgfmt}
-${MSGFMT} mf-test3.po -o mftest3.mo 2>&1 | grep -v 'warning: charset'
+LC_MESSAGES=C LC_ALL= \
+${MSGFMT} mf-test3.po -o mftest3.mo 2>&1 \
+  | grep -v 'warning: charset'
 
 test ! -f mftest3.mo
 result=$?

@@ -38,6 +38,7 @@ EOF
 
 tmpfiles="$tmpfiles mm-test5.out"
 : ${MSGMERGE=msgmerge}
+LC_MESSAGES=C LC_ALL= \
 ${MSGMERGE} -q mm-test5.in1.po mm-test5.in2.po -o mm-test5.out 2>&1 \
   | grep -v 'warning: charset'
 

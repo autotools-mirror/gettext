@@ -7,6 +7,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 tmpfiles="zero-domain.po"
 rm -f zero-domain.po
 : ${XGETTEXT=xgettext}
+LC_MESSAGES=C LC_ALL= \
 ${XGETTEXT} -k_ -d zero-domain -x $top_srcdir/po/gettext.pot \
   $top_srcdir/src/xgettext.c 2>&1 \
   | grep -v 'warning: charset'
