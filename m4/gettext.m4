@@ -13,7 +13,7 @@
 
 # serial 12
 
-dnl Usage: AM_GNU_GETTEXT([INTLSYMBOL], [NEEDSYMBOL], [LIBDIR]).
+dnl Usage: AM_GNU_GETTEXT([INTLSYMBOL], [NEEDSYMBOL], [INTLDIR]).
 dnl INTLSYMBOL can be one of 'external', 'no-libtool', 'use-libtool'. The
 dnl    default (if it is not specified or empty) is 'no-libtool'.
 dnl    INTLSYMBOL should be 'external' for packages with no intl directory,
@@ -26,7 +26,7 @@ dnl    $(top_builddir)/intl/libintl.a will be created.
 dnl If NEEDSYMBOL is specified and is 'need-ngettext', then GNU gettext
 dnl    implementations (in libc or libintl) without the ngettext() function
 dnl    will be ignored.
-dnl LIBDIR is used to find the intl libraries.  If empty,
+dnl INTLDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl
 dnl The result of the configuration is one of three cases:
