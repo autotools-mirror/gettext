@@ -1,0 +1,2221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Ales Nyakhaychyk <nyakhaychyk@i18n.linux.by>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gettext 0.11.2\n"
+"POT-Creation-Date: 2002-04-24 19:27+0200\n"
+"PO-Revision-Date: 2002-04-27 14:00+0200\n"
+"Last-Translator: Ales Nyakhaychyk <nyakhaychyk@i18n.linux.by>\n"
+"Language-Team: Belarusian <i18n@tut.by>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/argmatch.c:134
+#, c-format
+msgid "invalid argument `%s' for `%s'"
+msgstr "нерэчаісны аргумент `%s' для `%s'"
+
+#: lib/argmatch.c:135
+#, c-format
+msgid "ambiguous argument `%s' for `%s'"
+msgstr "неадназначны аргумент \"%s\" для \"%s\""
+
+#: lib/argmatch.c:155
+msgid "Valid arguments are:"
+msgstr "Рэчаісныя аргументы:"
+
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:726 src/read-mo.c:171
+#: src/urlget.c:204 src/xgettext.c:829 src/xgettext.c:842 src/xgettext.c:852
+#, c-format
+msgid "error while opening \"%s\" for reading"
+msgstr "памылка ў час чытаньня файла \"%s\""
+
+#: lib/copy-file.c:68
+#, c-format
+msgid "cannot open backup file \"%s\" for writing"
+msgstr "немагчыма адчыніць дубліруючы файл \"%s\" для запісу"
+
+#: lib/copy-file.c:81 src/urlget.c:216
+#, c-format
+msgid "error reading \"%s\""
+msgstr "памылка чытаньня \"%s\""
+
+#: lib/copy-file.c:87 lib/copy-file.c:91
+#, c-format
+msgid "error writing \"%s\""
+msgstr "памылка запісу файла \"%s\""
+
+#: lib/copy-file.c:93 src/urlget.c:226
+#, c-format
+msgid "error after reading \"%s\""
+msgstr "памылка пасля чытаньня \"%s\""
+
+#: lib/error.c:116
+msgid "Unknown system error"
+msgstr "Невядомая сістэмная памылка"
+
+#: lib/execute.c:169 lib/execute.c:204 lib/pipe-bidi.c:153 lib/pipe-bidi.c:188
+#: lib/pipe-in.c:168 lib/pipe-in.c:204 lib/pipe-out.c:168 lib/pipe-out.c:204
+#: lib/wait-process.c:132
+#, c-format
+msgid "%s subprocess failed"
+msgstr "%s падпрацэс спынены з-за памылкі"
+
+#: lib/getopt.c:691
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: выбар `%s' неадназначны\n"
+
+#: lib/getopt.c:716
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: выбар `--%s' не патрабуе аргументаў\n"
+
+#: lib/getopt.c:721
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: выбар `%c%s' не патрабуе аргументаў\n"
+
+#: lib/getopt.c:739 lib/getopt.c:912
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: выбар `%s' патрабуе аргумент\n"
+
+#: lib/getopt.c:768
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: нераспазнаны выбар `--%s'\n"
+
+#: lib/getopt.c:772
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: нераспазнаны выбар `%c%s'\n"
+
+#: lib/getopt.c:798
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: несапраўдны выбар -- %c\n"
+
+#: lib/getopt.c:801
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: нерэчаісны выбар -- %c\n"
+
+#: lib/getopt.c:831 lib/getopt.c:961
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: выбар патрабуе аргумент -- %c\n"
+
+#: lib/getopt.c:878
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: выбар `-W %s' неадназначны\n"
+
+#: lib/getopt.c:896
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: выбар `-W %s' не патрабуе аргументаў\n"
+
+#: lib/javacomp.c:440
+msgid "Java compiler not found, try installing gcj or set $JAVAC"
+msgstr "Java кампілятар ня знойдзен, паспрабуйце ўсталяваць gcj ці $JAVAC"
+
+#: lib/javaexec.c:379
+msgid "Java virtual machine not found, try installing gij or set $JAVA"
+msgstr ""
+"Віртуальная Java-машына ня знойдзена, паспрабуйце ўсталяваць gij ці $JAVA"
+
+#: lib/obstack.c:474 lib/xerror.c:53 lib/xmalloc.c:53 src/po-lex.c:97
+#: src/po-lex.c:130
+msgid "memory exhausted"
+msgstr "памяць вычарпана"
+
+#: lib/pipe-bidi.c:116 lib/pipe-bidi.c:118 lib/pipe-in.c:135
+#: lib/pipe-out.c:135
+msgid "cannot create pipe"
+msgstr "не магчыма стварыць канвеэр"
+
+#: lib/wait-process.c:110
+#, c-format
+msgid "%s subprocess"
+msgstr "%s падпрацэс"
+
+#: lib/wait-process.c:124
+#, c-format
+msgid "%s subprocess got fatal signal %d"
+msgstr "%s падрацэс атрымаў фатальны сігнал %d"
+
+#: src/format-c.c:589 src/format-python.c:506
+#, c-format
+msgid "number of format specifications in 'msgid' and '%s' does not match"
+msgstr "колькасьць сьпецыфікацый фармату ў 'msgid' і '%s' не супадае"
+
+#: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-pascal.c:443 src/format-python.c:520
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument %u are not the same"
+msgstr "сьпецыфікатары фармату ў 'msgid' і '%s' для аргумента %u неаднолькавыя"
+
+#: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
+#: src/format-ycp.c:145
+#, c-format
+msgid ""
+"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
+msgstr "сьпецыфікацыя фармата для аргумента %u, як у '%s', ня йснуе ў 'msgid'"
+
+#: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
+#: src/format-ycp.c:144
+#, c-format
+msgid "a format specification for argument %u doesn't exist in '%s'"
+msgstr "спецыфікацыя фармата для аргумента %u ня йснуе ў '%s'"
+
+#: src/format-java.c:660
+#, c-format
+msgid ""
+"a format specification for argument {%u}, as in '%s', doesn't exist in "
+"'msgid'"
+msgstr ""
+"сьпецыфікацыя фармата для аргумента {%u}, як у '%s', не йснуе ў 'msgid'"
+
+#: src/format-java.c:675
+#, c-format
+msgid "a format specification for argument {%u} doesn't exist in '%s'"
+msgstr "сьпецыфікацыя фармата для аргумента {%u} не йснуе ў '%s'"
+
+#: src/format-java.c:700
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument {%u} are not the same"
+msgstr ""
+"сьпецыфікацыі фармата ў 'msgid' і '%s' для аргумента {%u} не аднолькавыя"
+
+#: src/format-lisp.c:3381
+#, c-format
+msgid "format specifications in 'msgid' and '%s' are not equivalent"
+msgstr "сьпецыфікацыі фармата ў 'msgid' і '%s' нераўназначныя"
+
+#: src/format-lisp.c:3402
+#, c-format
+msgid "format specifications in '%s' are not a subset of those in 'msgid'"
+msgstr ""
+"сьпецыфікацыі фармата ў '%s' не з'яўляюцца падмноствам сьпецыфікацый у "
+"'msgid'"
+
+#: src/format-python.c:397
+#, c-format
+msgid ""
+"format specifications in 'msgid' expect a mapping, those in '%s' expect a "
+"tuple"
+msgstr ""
+
+#: src/format-python.c:409
+#, c-format
+msgid ""
+"format specifications in 'msgid' expect a tuple, those in '%s' expect a "
+"mapping"
+msgstr ""
+
+#: src/format-python.c:437
+#, c-format
+msgid ""
+"a format specification for argument '%s', as in '%s', doesn't exist in "
+"'msgid'"
+msgstr ""
+
+#: src/format-python.c:452
+#, c-format
+msgid "a format specification for argument '%s' doesn't exist in '%s'"
+msgstr "фармат спецыфікацый для аргумента \"%s\" не існуе ў \"%s\""
+
+#: src/format-python.c:478
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument '%s' are not the same"
+msgstr ""
+
+#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:269 src/msgcat.c:234
+#: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
+#: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
+#: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:378
+#, c-format, no-wrap
+msgid ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"Гэта свабоднае праграмнае забесьпячэньне; глядзіце зыходны тэкст для\n"
+"пагадненьня аб распаўсюджваньні. Не йснуе НІЯКАЙ гарантыі; нават аб\n"
+"магчымасьці выкарыстньня зь якой небудзь мэтай.\n"
+
+#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:274 src/msgcat.c:239
+#: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
+#: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
+#: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:383
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Аўтар %s.\n"
+
+#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:271 src/ngettext.c:143
+msgid "too many arguments"
+msgstr "вельмі шмат аргументаў"
+
+#: src/gettext.c:168 src/ngettext.c:155
+msgid "missing arguments"
+msgstr "прапушчаны аргументы"
+
+#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:327 src/msgcat.c:295
+#: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:247 src/msgen.c:232
+#: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
+#: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:529
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Паспрабуйце \"%s --help\" для больш падрабязных зьвестак.\n"
+
+#: src/gettext.c:245
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+"or:    %s [OPTION] -s [MSGID]...\n"
+msgstr ""
+"Выкарыстаньне: %s [ВЫБАР] [[TEXTDOMAIN] MSGID]\n"
+"        ці:    %s [ВЫБАР] -s [MSGID]...\n"
+
+#: src/gettext.c:251
+#, no-wrap
+msgid "Display native language translation of a textual message.\n"
+msgstr "Адлюстроўвае пераклады на родную мову тэкставых паведамленьняў.\n"
+
+#: src/gettext.c:255
+#, no-wrap
+msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -n                        suppress trailing newline\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+"                            to MSGID from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/gettext.c:266
+#, c-format, no-wrap
+msgid ""
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
+"But it does not simply copy its arguments to stdout.  Instead those messages\n"
+"found in the selected catalog are translated.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"Калі параметар TEXTDOMAIN не зададзен, маёнтак вызначаецца з пераменнай\n"
+"асяроддзя TEXTDOMAIN.  Калі каталёг з паведамленьнямі ня знойдзен у звычайнай\n"
+"дырэкторыі, іншае месцазнаходжаньне можа быць зададзена ў пераменнай\n"
+"асяроддзя TEXTDOMAINDIR.\n"
+"Калі выкарыстоўвываецца разам з выбарам -s, праграма паводзіць сабе як\n"
+"каманда `echo'.\n"
+"Але яна ня проста капіруе свае аргументы ў stdout.  Замест існуючых\n"
+"паведамленьняў знаходзіць у азначаным каталёгу перакладзеныя.\n"
+"Стандартная дырэкторыя для пошуку: %s\n"
+
+#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:409 src/msgcat.c:378
+#: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:313 src/msgen.c:294
+#: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
+#: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:626
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Паведамляйце аб памылках на адрас <bug-gnu-gettext@gnu.org>.\n"
+
+#: src/hostname.c:206 src/msginit.c:352
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION]\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР]\n"
+
+#: src/hostname.c:211
+#, no-wrap
+msgid "Print the machine's hostname.\n"
+msgstr "Друкуе назву вузла.\n"
+
+#: src/hostname.c:216
+#, no-wrap
+msgid ""
+"Output format:\n"
+"  -s, --short           short host name\n"
+"  -f, --fqdn, --long    long host name, includes fully qualified domain name,\n"
+"                          and aliases\n"
+"  -i, --ip-address      addresses for the hostname\n"
+msgstr ""
+
+#: src/hostname.c:225 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
+#: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
+#: src/msginit.c:394 src/urlget.c:180
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+msgstr ""
+"Інфармацыйны вывад:\n"
+"  -h, --help                  адлюстроўвае дапамогу й выходзіць\n"
+"  -V, --version               выводзіць зьвесткі аб версіі й выходзіць\n"
+
+#: src/hostname.c:246 src/hostname.c:253
+msgid "could not get host name"
+msgstr "немагчыма атрымаць назву вузла"
+
+#: src/msgattrib.c:289 src/msgconv.c:208 src/msgexec.c:145 src/msgfilter.c:199
+#: src/msggrep.c:311 src/msginit.c:210 src/msguniq.c:232
+msgid "at most one input file allowed"
+msgstr "па большай частцы адзін уваходзячы файл зацьверджан"
+
+#: src/msgattrib.c:295 src/msgattrib.c:299 src/msgcat.c:249 src/msgcat.c:253
+#: src/msgcomm.c:252 src/msgcomm.c:256 src/msgconv.c:214 src/msgconv.c:218
+#: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
+#: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
+#: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
+#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:393
+#: src/xgettext.c:397
+#, c-format
+msgid "%s and %s are mutually exclusive"
+msgstr "%s і %s узаема выключны"
+
+#: src/msgattrib.c:332 src/msgconv.c:252 src/msggrep.c:407 src/msguniq.c:279
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [INPUTFILE]\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] [УВАХОДЗЯЧЫ_ФАЙЛ]\n"
+
+#: src/msgattrib.c:337
+#, no-wrap
+msgid ""
+"Filters the messages of a translation catalog according to their attributes,\n"
+"and manipulates the attributes.\n"
+msgstr ""
+
+#: src/msgattrib.c:343 src/msgcat.c:318 src/msgcmp.c:190 src/msgcomm.c:333
+#: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:248 src/msgfilter.c:366
+#: src/msgfmt.c:543 src/msggrep.c:418 src/msginit.c:363 src/msgmerge.c:408
+#: src/msgunfmt.c:329 src/msguniq.c:296
+#, no-wrap
+msgid "Mandatory arguments to long options are mandatory for short options too.\n"
+msgstr "Аргументы, абавязковыя для доўгіх выбараў, абавязковы й для кароткіх.\n"
+
+#: src/msgattrib.c:348 src/msgconv.c:267 src/msggrep.c:423 src/msguniq.c:301
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE                   input PO file\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+"Месцазнаходжаньне ўваходзячага файла:\n"
+"  INPUTFILE                   уваходзячы PO файл\n"
+"  -D, --directory=ДЫРЭКТОРЫЯ  дадаць ДЫРЭКТОРЫЮ ў сьпіс пошуку ўваходзячых\n"
+"                              файлаў\n"
+"Калі ўваходзячы файл не зададзен, ці замест яго -, чытае стандартны ўвод.\n"
+
+#: src/msgattrib.c:356 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:379
+#: src/msggrep.c:431 src/msgmerge.c:430
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+"Месцазнаходжаньне выходзячага файла:\n"
+"  -o, --output-file=ФАЙЛ      запісваць вывад у зададзены файл\n"
+"Вынікі запісваюцца ў стандартны вывад, калі ймя файла для вываду не\n"
+"зададзена, ці замест яго -.\n"
+
+#: src/msgattrib.c:364
+#, fuzzy, no-wrap
+msgid ""
+"Message selection:\n"
+"      --translated            keep translated, remove untranslated messages\n"
+"      --untranslated          keep untranslated, remove translated messages\n"
+"      --no-fuzzy              remove 'fuzzy' marked messages\n"
+"      --only-fuzzy            keep 'fuzzy' marked messages\n"
+"      --no-obsolete           remove obsolete #~ messages\n"
+"      --only-obsolete         keep obsolete #~ messages\n"
+msgstr ""
+"Выбар паведамлення:\n"
+"      --translated            пакідаць перакладзеныя, прымаць неперакладзеныя\n"
+"                              паведамленьні\n"
+"      --untranslated          пакінаць неперакладзеныя, прымаць перакладзеныя\n"
+"                              паведамленьні\n"
+"      --no-fuzzy              прымаць паведамленьні, азначаныя як 'fuzzy'\n"
+"      --only-fuzzy            пакідаць паведамленьні, азначаныя як 'fuzzy'\n"
+"      --no-obsolete           прымаць састарэлыя #~ паведамленьні\n"
+"      --only-obsolete         пакідаць састарэлыя #~ паведамленьні\n"
+
+#: src/msgattrib.c:375
+#, no-wrap
+msgid ""
+"Attribute manipulation:\n"
+"      --set-fuzzy             set all messages 'fuzzy'\n"
+"      --clear-fuzzy           set all messages non-'fuzzy'\n"
+"      --set-obsolete          set all messages obsolete\n"
+"      --clear-obsolete        set all messages non-obsolete\n"
+"      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
+"      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
+msgstr ""
+"Кіраваньне атрыбутамі:\n"
+"      --set-fuzzy             усталёўваць усе паведамленьні як 'fuzzy'\n"
+"      --clear-fuzzy           усталёўваць усе паведамленьні як не 'fuzzy'\n"
+"      --set-obsolete          усталёўваць усе паведамленьні як састарэлыя\n"
+"      --clear-obsolete        усталёўваць усе паведамленьні як несастарэлыя\n"
+"      --fuzzy                 тое, што й --only-fuzzy --clear-fuzzy\n"
+"      --obsolete              тое, што й --only-obsolete --clear-obsolete\n"
+
+#: src/msgattrib.c:386
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -i, --indent                write the .po file using indented style\n"
+"      --no-location           do not write '#: filename:line' lines\n"
+"  -n, --add-location          generate '#: filename:line' lines (default)\n"
+"      --strict                write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"  -s, --sort-output           generate sorted output\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msgcat.c:259 src/msgcomm.c:282
+#, c-format
+msgid "impossible selection criteria specified (%d < n < %d)"
+msgstr "зададзен немагчымы крытэрый выбару (%d < n < %d)"
+
+#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:534
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] [УВАХОДЗЯЧЫ_ФАЙЛ]...\n"
+
+#: src/msgcat.c:305
+#, no-wrap
+msgid ""
+"Concatenates and merges the specified PO files.\n"
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be cumulated, except that if --use-first\n"
+"is specified, they will be taken from the first PO file to define them.\n"
+"File positions from all PO files will be cumulated.\n"
+msgstr ""
+
+#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:550
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE ...                  input files\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+"Месцазнаходжаньне ўваходзячых файлаў:\n"
+"  УВАХОДЗЯЧЫ_ФАЙЛ ...            уваходзячыя файлы\n"
+"  -f, --files-from=ФАЙЛ          атрымліваць сьпіс уваходзячый файлаў з ФАЙЛА\n"
+"  -D, --directory=ДЫРЭКТОРЫЯ     дадаць ДЫРЭКТОРЫЮ ў сьпіс пошуку ўваходзячых\n"
+"                                 файлаў\n"
+"Калі ўваходзячы файл гэта -, чытаецца стандартны ўвод.\n"
+
+#: src/msgcat.c:332 src/msgcomm.c:347 src/msguniq.c:309
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE         write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+
+#: src/msgcat.c:340
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 0 if not set\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+
+#: src/msgcat.c:352 src/msguniq.c:324
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -t, --to-code=NAME             encoding for output\n"
+"      --use-first                use first available translation for each\n"
+"                                 message, don't merge several translations\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
+"  -s, --sort-output              generate sorted output\n"
+"  -F, --sort-by-file             sort output by file location\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:620
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                     display this help and exit\n"
+"  -V, --version                  output version information and exit\n"
+msgstr ""
+"Інфармацыйны вывад:\n"
+"  -h, --help                     адлюстроўвае гэту дапамогу і выходзіць\n"
+"  -V, --version                  выводзіць зьвесткі аб версіі і выходзіць\n"
+
+#: src/msgcmp.c:149 src/msgmerge.c:286
+msgid "no input files given"
+msgstr "не зададзены ўводзячыя файлы"
+
+#: src/msgcmp.c:154 src/msgmerge.c:291
+msgid "exactly 2 input files required"
+msgstr "патрабуецца менавіта 2 уводзячых файла"
+
+#: src/msgcmp.c:175 src/msgmerge.c:390
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] def.po ref.pot\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] def.po ref.pot\n"
+
+#: src/msgcmp.c:180
+#, no-wrap
+msgid ""
+"Compare two Uniforum style .po files to check that both contain the same\n"
+"set of msgid strings.  The def.po file is an existing PO file with the\n"
+"translations.  The ref.pot file is the last created PO file, or a PO Template\n"
+"file (generally created by xgettext).  This is useful for checking that\n"
+"you have translated each and every message in your program.  Where an exact\n"
+"match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
+msgstr ""
+
+#: src/msgcmp.c:195
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  def.po                      translations\n"
+"  ref.pot                     references to the sources\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+msgstr ""
+
+#: src/msgcmp.c:203 src/msgmerge.c:454
+#, no-wrap
+msgid ""
+"Operation modifiers:\n"
+"  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
+msgstr ""
+
+#: src/msgcmp.c:252 src/msgmerge.c:855
+msgid "this message is used but not defined..."
+msgstr "гэта паведамленьне выкарыстоўваецца, але не вызначана..."
+
+#: src/msgcmp.c:254 src/msgmerge.c:857
+msgid "...but this definition is similar"
+msgstr "...але гэта вызначэньне падобна"
+
+#: src/msgcmp.c:259 src/msgmerge.c:884
+#, c-format
+msgid "this message is used but not defined in %s"
+msgstr "гэта паведамленьне выкарыстоўваецца, але не вызначана ў %s"
+
+#: src/msgcmp.c:331
+msgid "warning: this message is not used"
+msgstr "увага: гэта паведамленьне не выкарыстоўваецца"
+
+#: src/msgcmp.c:338 src/po-lex.c:699
+#, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/msgcmp.c:419 src/msgfmt.c:1457 src/read-po.c:202 src/x-po.c:163
+msgid "duplicate message definition"
+msgstr "двайное вызначэньне паведамленьня"
+
+#: src/msgcmp.c:420 src/msgfmt.c:1458 src/read-po.c:203 src/x-po.c:164
+msgid "...this is the location of the first definition"
+msgstr "...гэта месцазнаходжаньне першага вызначэньня"
+
+#: src/msgcomm.c:271
+msgid "at least two files must be specified"
+msgstr "неабходна задаць не менш двух файлаў"
+
+#: src/msgcomm.c:321
+#, fuzzy, no-wrap
+msgid ""
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be preserved, but only from the first\n"
+"PO file to define them.  File positions from all PO files will be\n"
+"cumulated.\n"
+msgstr ""
+"Шукае паведамленьні, якія агульныя для двух ці больш зададзеных PO файлаў.\n"
+"Выкарыстоўвываючы выбар --more-than, можа быць запатрабавана больш вялікая\n"
+"агульнасьць перад тым, як паведамленьне будзе надрукавана.\n"
+
+#: src/msgcomm.c:355
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 1 if not set\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+
+#: src/msgcomm.c:367
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
+"  -s, --sort-output              generate sorted output\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msgconv.c:257
+#, no-wrap
+msgid "Converts a translation catalog to a different character encoding.\n"
+msgstr "Пераўтварае каталёг з перакладамі ў розныя сімвальныя кадзіроўкі.\n"
+
+#: src/msgconv.c:283
+#, no-wrap
+msgid ""
+"Conversion target:\n"
+"  -t, --to-code=NAME          encoding for output\n"
+"The default encoding is the current locale's encoding.\n"
+msgstr ""
+
+#: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -i, --indent                indented output style\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"  -s, --sort-output           generate sorted output\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:414
+msgid "no input file given"
+msgstr "невызначан уваходзячы файл"
+
+#: src/msgen.c:197
+msgid "exactly one input file required"
+msgstr "патрабуецца менавіта адзін уваходзячы файл"
+
+#: src/msgen.c:237
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] INPUTFILE\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] УВАХОДЗЯЧЫ_ФАЙЛ\n"
+
+#: src/msgen.c:242
+#, no-wrap
+msgid ""
+"Creates an English translation catalog.  The input file is the last\n"
+"created English PO file, or a PO Template file (generally created by\n"
+"xgettext).  Untranslated entries are assigned a translation that is\n"
+"identical to the msgid, and are marked fuzzy.\n"
+msgstr ""
+
+#: src/msgen.c:255
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE                   input PO or POT file\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgexec.c:180
+msgid "missing command name"
+msgstr "прапушчана назва каманды"
+
+#: src/msgexec.c:228
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] КАМАНДА [ВЫБАРЫ_КАМАНДЫ]\n"
+
+#: src/msgexec.c:233
+#, no-wrap
+msgid ""
+"Applies a command to all translations of a translation catalog.\n"
+"The COMMAND can be any program that reads a translation from standard\n"
+"input.  It is invoked once for each translation.  Its output becomes\n"
+"msgexec's output.  msgexec's return code is the maximum return code\n"
+"across all invocations.\n"
+msgstr ""
+
+#: src/msgexec.c:242
+#, no-wrap
+msgid ""
+"A special builtin command called '0' outputs the translation, followed by a\n"
+"null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
+msgstr ""
+
+#: src/msgexec.c:253 src/msgfilter.c:371
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  -i, --input=INPUTFILE       input PO file\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgexec.c:313
+msgid "write to stdout failed"
+msgstr "памылка запісу ў stdout"
+
+#: src/msgexec.c:337 src/msgfilter.c:610
+#, c-format
+msgid "write to %s subprocess failed"
+msgstr "памылка запісу ў падпрацэс %s"
+
+#: src/msgfilter.c:268
+msgid "missing filter name"
+msgstr "прапушчана назва фільтра"
+
+#: src/msgfilter.c:292
+msgid "at least one sed script must be specified"
+msgstr "па меншай меры адзін sed-скрыпт павінен быць зададзены"
+
+#: src/msgfilter.c:356
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] ФІЛЬТР [ВЫБАРЫ_ФІЛЬТРА]\n"
+
+#: src/msgfilter.c:361
+#, no-wrap
+msgid "Applies a filter to all translations of a translation catalog.\n"
+msgstr ""
+
+#: src/msgfilter.c:387
+#, no-wrap
+msgid ""
+"The FILTER can be any program that reads a translation from standard input\n"
+"and writes a modified translation to standard output.\n"
+msgstr ""
+"ФІЛЬТРАМ можа быць любая праграма, якая чытае пераклады са стандартнага ўводу\n"
+"й запісвае зьмененыя пераклады ў стандартны вывад.\n"
+
+#: src/msgfilter.c:393
+#, no-wrap
+msgid ""
+"Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
+"  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"
+"  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the commands\n"
+"                                to be executed\n"
+"  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
+msgstr ""
+
+#: src/msgfilter.c:402
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"      --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"      --indent                indented output style\n"
+"      --keep-header           keep header entry unmodified, don't filter it\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"  -s, --sort-output           generate sorted output\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msgfilter.c:562
+#, c-format
+msgid "cannot set up nonblocking I/O to %s subprocess"
+msgstr "немагчыма ўсталяваць неблакіруючы ўвод-вывад у падпрацэс %s"
+
+#: src/msgfilter.c:590
+#, c-format
+msgid "communication with %s subprocess failed"
+msgstr "памылка ўзаемадзеяньня з падпрацэсам %s"
+
+#: src/msgfilter.c:641
+#, c-format
+msgid "read from %s subprocess failed"
+msgstr "памылка чытаньня з падпрацэса %s"
+
+#: src/msgfilter.c:657
+#, c-format
+msgid "%s subprocess terminated with exit code %d"
+msgstr "падпрацэс %s завершыўся з кодам выхаду %d"
+
+#: src/msgfmt.c:318
+#, c-format
+msgid "the argument to %s should be a single punctuation character"
+msgstr ""
+
+#: src/msgfmt.c:385 src/msgfmt.c:407 src/msgunfmt.c:248
+#, c-format
+msgid "%s requires a \"-d directory\" specification"
+msgstr "%s патрабуе \\\"-d дырэкторыя\\\" сьпецыфікацыі"
+
+#: src/msgfmt.c:400 src/msgunfmt.c:241
+#, c-format
+msgid "%s requires a \"-l locale\" specification"
+msgstr ""
+
+#: src/msgfmt.c:416 src/msgmerge.c:308 src/msgmerge.c:314 src/msgunfmt.c:257
+#: src/msgunfmt.c:263
+#, c-format
+msgid "%s is only valid with %s"
+msgstr "%s рэчаісны толькі з %s"
+
+#: src/msgfmt.c:422 src/msgfmt.c:428
+#, c-format
+msgid "%s is only valid with %s or %s"
+msgstr "%s рэчаісны толькі з %s ці %s"
+
+#: src/msgfmt.c:501
+#, c-format
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/msgfmt.c:506
+#, c-format
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/msgfmt.c:511
+#, c-format
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/msgfmt.c:533
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] filename.po ...\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] назва_файла.po ...\n"
+
+#: src/msgfmt.c:538
+#, no-wrap
+msgid "Generate binary message catalog from textual translation description.\n"
+msgstr "Стварае дваічны каталёг паведамленьняў з іх тэкставага апісаньня.\n"
+
+#: src/msgfmt.c:548
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  filename.po ...             input files\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgfmt.c:556
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
+"      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
+"      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
+msgstr ""
+
+#: src/msgfmt.c:564
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified file\n"
+"      --strict                enable strict Uniforum mode\n"
+"If output file is -, output is written to standard output.\n"
+msgstr ""
+
+#: src/msgfmt.c:572
+#, no-wrap
+msgid ""
+"Output file location in Java mode:\n"
+"  -r, --resource=RESOURCE     resource name\n"
+"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY                base directory of classes directory hierarchy\n"
+"The class name is determined by appending the locale name to the resource name,\n"
+"separated with an underscore.  The -d option is mandatory.  The class is\n"
+"written under the specified directory.\n"
+msgstr ""
+
+#: src/msgfmt.c:583
+#, no-wrap
+msgid ""
+"Output file location in Tcl mode:\n"
+"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY                base directory of .msg message catalogs\n"
+"The -l and -d options are mandatory.  The .msg file is written in the\n"
+"specified directory.\n"
+msgstr ""
+
+#: src/msgfmt.c:592
+#, no-wrap
+msgid ""
+"Input file interpretation:\n"
+"  -c, --check                 perform all the checks implied by\n"
+"                                --check-format, --check-header, --check-domain\n"
+"      --check-format          check language dependent format strings\n"
+"      --check-header          verify presence and contents of the header entry\n"
+"      --check-domain          check for conflicts between domain directives\n"
+"                                and the --output-file option\n"
+"  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"
+"      --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n"
+"                                menu items\n"
+"  -f, --use-fuzzy             use fuzzy entries in output\n"
+msgstr ""
+
+#: src/msgfmt.c:607
+#, c-format, no-wrap
+msgid ""
+"Output details:\n"
+"  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+"      --no-hash               binary file will not include the hash table\n"
+msgstr ""
+
+#: src/msgfmt.c:614
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"      --statistics            print statistics about translations\n"
+"  -v, --verbose               increase verbosity level\n"
+msgstr ""
+
+#: src/msgfmt.c:774
+msgid "plural expression can produce negative values"
+msgstr ""
+
+#: src/msgfmt.c:787
+#, c-format
+msgid "nplurals = %lu but plural expression can produce values as large as %lu"
+msgstr ""
+
+#: src/msgfmt.c:813
+msgid "plural expression can produce division by zero"
+msgstr ""
+
+#: src/msgfmt.c:818
+msgid "plural expression can produce integer overflow"
+msgstr ""
+
+#: src/msgfmt.c:823
+msgid ""
+"plural expression can produce arithmetic exceptions, possibly division by "
+"zero"
+msgstr ""
+
+#: src/msgfmt.c:902 src/msgfmt.c:914
+msgid "message catalog has plural form translations..."
+msgstr ""
+
+#: src/msgfmt.c:905
+msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
+msgstr ""
+
+#: src/msgfmt.c:917
+msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
+msgstr ""
+
+#: src/msgfmt.c:942
+msgid "invalid nplurals value"
+msgstr "нерэчаіснае значэньне nplurals"
+
+#: src/msgfmt.c:956
+msgid "invalid plural expression"
+msgstr ""
+
+#: src/msgfmt.c:975 src/msgfmt.c:990
+#, c-format
+msgid "nplurals = %lu..."
+msgstr "nplurals = %lu..."
+
+#: src/msgfmt.c:978
+#, c-format
+msgid "...but some messages have only one plural form"
+msgid_plural "...but some messages have only %lu plural forms"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/msgfmt.c:993
+#, c-format
+msgid "...but some messages have one plural form"
+msgid_plural "...but some messages have %lu plural forms"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/msgfmt.c:1023
+#, c-format
+msgid "Try using the following, valid for %s:\n"
+msgstr ""
+
+#: src/msgfmt.c:1036
+msgid ""
+"message catalog has plural form translations, but lacks a header entry with "
+"\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
+msgstr ""
+
+#: src/msgfmt.c:1074
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr "\"msgid\" і \"msgid_plural\" не пачынаюцца разам з '\\n'"
+
+#: src/msgfmt.c:1084
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr "\"msgid\" і \"msgstr[%u]\" не пачынаюцца разам з \"\\n\""
+
+#: src/msgfmt.c:1096
+msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+msgstr "\"msgid\" і \"msgstr\" не пачынаюцца разам з \"\\n\""
+
+#: src/msgfmt.c:1113
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr "\"msgid\" і \"msgid_plural\" не заканчваюцца разам на \"\\n\""
+
+#: src/msgfmt.c:1123
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr "\"msgid\" і \"msgstr[%u]\" не заканчваюцца разам на \"\\n\""
+
+#: src/msgfmt.c:1135
+msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
+msgstr "\"msgid\" і \"msgstr\" не заканчваюцца разам на \"\\n\""
+
+#: src/msgfmt.c:1147
+msgid "plural handling is a GNU gettext extension"
+msgstr ""
+
+#: src/msgfmt.c:1212
+#, c-format
+msgid "'%s' is not a valid %s format string, unlike 'msgid'"
+msgstr ""
+
+#: src/msgfmt.c:1250
+#, c-format
+msgid "msgstr lacks the keyboard accelerator mark '%c'"
+msgstr ""
+
+#: src/msgfmt.c:1258
+#, c-format
+msgid "msgstr has too many keyboard accelerator marks '%c'"
+msgstr ""
+
+#: src/msgfmt.c:1293
+#, c-format
+msgid "headerfield `%s' missing in header\n"
+msgstr ""
+
+#: src/msgfmt.c:1297
+#, c-format
+msgid "header field `%s' should start at beginning of line\n"
+msgstr ""
+
+#: src/msgfmt.c:1308
+msgid "some header fields still have the initial default value\n"
+msgstr ""
+
+#: src/msgfmt.c:1320
+#, c-format
+msgid "field `%s' still has initial default value\n"
+msgstr ""
+
+#: src/msgfmt.c:1362
+msgid "warning: PO file header missing or invalid\n"
+msgstr "увага: загаловак PO-файла прапушчан ці нерэчаісны\n"
+
+#: src/msgfmt.c:1365
+msgid "warning: charset conversion will not work\n"
+msgstr ""
+
+#: src/msgfmt.c:1375
+msgid "warning: PO file header fuzzy\n"
+msgstr "увага: загаловак PO-файла мае недакладны пераклад\n"
+
+#: src/msgfmt.c:1377
+msgid "warning: older versions of msgfmt will give an error on this\n"
+msgstr ""
+
+#: src/msgfmt.c:1402
+#, c-format
+msgid "domain name \"%s\" not suitable as file name"
+msgstr "даменная назва \"%s\" не падыходзіць у якасці назвы файла"
+
+#: src/msgfmt.c:1407
+#, c-format
+msgid "domain name \"%s\" not suitable as file name: will use prefix"
+msgstr ""
+"даменная назва \"%s\" не падыходзіць у якасці назвы файла;\n"
+"будзе выкарыстаны прэфікс"
+
+#: src/msgfmt.c:1418
+#, c-format
+msgid "`domain %s' directive ignored"
+msgstr "дырэктыва \"domain %s\" ігнаруецца"
+
+#: src/msgfmt.c:1490
+msgid "empty `msgstr' entry ignored"
+msgstr "парожняе уваходжаньне \"msgstr\" прапушчана"
+
+#: src/msgfmt.c:1491
+msgid "fuzzy `msgstr' entry ignored"
+msgstr "недакладнае уваходжаньне \"msgstr\" прапушчана"
+
+#: src/msgfmt.c:1560
+#, c-format
+msgid "%s: warning: source file contains fuzzy translation"
+msgstr "%s: увага: ізыходны файл змяшчае недакладны пераклад"
+
+#: src/msggrep.c:390
+#, c-format
+msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
+msgstr ""
+
+#: src/msggrep.c:412
+#, no-wrap
+msgid ""
+"Extracts all messages of a translation catalog that match a given pattern\n"
+"or belong to some given source files.\n"
+msgstr ""
+
+#: src/msggrep.c:439
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
+"  [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]\n"
+"A message is selected if it comes from one of the specified source files,\n"
+"or if it comes from one of the specified domains,\n"
+"or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n"
+"or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN,\n"
+"or if -C is given and the translator's comment matches COMMENT-PATTERN.\n"
+"\n"
+"When more than one selection criterion is specified, the set of selected\n"
+"messages is the union of the selected messages of each criterion.\n"
+"\n"
+"MSGID-PATTERN or MSGSTR-PATTERN syntax:\n"
+"  [-E | -F] [-e PATTERN | -f FILE]...\n"
+"PATTERNs are basic regular expressions by default, or extended regular\n"
+"expressions if -E is given, or fixed strings if -F is given.\n"
+"\n"
+"  -N, --location=SOURCEFILE   select messages extracted from SOURCEFILE\n"
+"  -M, --domain=DOMAINNAME     select messages belonging to domain DOMAINNAME\n"
+"  -K, --msgid                 start of patterns for the msgid\n"
+"  -T, --msgstr                start of patterns for the msgstr\n"
+"  -E, --extended-regexp       PATTERN is an extended regular expression\n"
+"  -F, --fixed-strings         PATTERN is a set of newline-separated strings\n"
+"  -e, --regexp=PATTERN        use PATTERN as a regular expression\n"
+"  -f, --file=FILE             obtain PATTERN from FILE\n"
+"  -i, --ignore-case           ignore case distinctions\n"
+msgstr ""
+
+#: src/msggrep.c:469
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"      --no-escape             do not use C escapes in output (default)\n"
+"      --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"      --indent                indented output style\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"      --sort-output           generate sorted output\n"
+"      --sort-by-file          sort output by file location\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msggrep.c:561
+msgid "write to grep subprocess failed"
+msgstr ""
+
+#: src/msginit.c:284
+msgid ""
+"You are in a language indifferent environment.  Please set\n"
+"your LANG environment variable, as described in the ABOUT-NLS\n"
+"file.  This is necessary so you can test your translations.\n"
+msgstr ""
+
+#: src/msginit.c:312
+#, c-format
+msgid ""
+"Output file %s already exists.\n"
+"Please specify the locale through the --locale option or\n"
+"the output .po file through the --output-file option.\n"
+msgstr ""
+
+#: src/msginit.c:335
+#, c-format
+msgid "Created %s.\n"
+msgstr "Створан %s.\n"
+
+#: src/msginit.c:357
+#, no-wrap
+msgid ""
+"Creates a new PO file, initializing the meta information with values from the\n"
+"user's environment.\n"
+msgstr ""
+
+#: src/msginit.c:368
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  -i, --input=INPUTFILE       input POT file\n"
+"If no input file is given, the current directory is searched for the POT file.\n"
+"If it is -, standard input is read.\n"
+msgstr ""
+
+#: src/msginit.c:376
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified PO file\n"
+"If no output file is given, it depends on the --locale option or the user's\n"
+"locale setting.  If it is -, the results are written to standard output.\n"
+msgstr ""
+
+#: src/msginit.c:384
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -l, --locale=LL_CC          set target locale\n"
+"      --no-translator         assume the PO file is automatically generated\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+msgstr ""
+
+#: src/msginit.c:437
+msgid ""
+"Found more than one .pot file.\n"
+"Please specify the input .pot file through the --input option.\n"
+msgstr ""
+
+#: src/msginit.c:445 src/msginit.c:450
+msgid "error reading current directory"
+msgstr "памылка чытаньня бягучай дырэкторыі"
+
+#: src/msginit.c:458
+msgid ""
+"Found no .pot file in the current directory.\n"
+"Please specify the input .pot file through the --input option.\n"
+msgstr ""
+
+#: src/msginit.c:908 src/msginit.c:960 src/msginit.c:1098 src/msginit.c:1165
+#: src/read-java.c:80
+msgid "fdopen() failed"
+msgstr ""
+
+#: src/msginit.c:913 src/msginit.c:965 src/msginit.c:1103
+#, c-format
+msgid "%s subprocess I/O error"
+msgstr "падпрацэс %s, памылка ўводу-вываду"
+
+#: src/msginit.c:922 src/msginit.c:974 src/msginit.c:1112 src/msginit.c:1179
+#: src/read-java.c:90
+#, c-format
+msgid "%s subprocess failed with exit code %d"
+msgstr ""
+
+#: src/msginit.c:1088
+msgid ""
+"The new message catalog should contain your email address, so that users "
+"can\n"
+"give you feedback about the translations, and so that maintainers can "
+"contact\n"
+"you in case of unexpected technical problems.\n"
+msgstr ""
+
+#. TRANSLATORS: "English" needs to be replaced by your language.
+#. For example in it.po write "Traduzioni italiani ...",
+#. *not* "Traduzioni inglesi ...".
+#: src/msginit.c:1432
+#, c-format
+msgid "English translations for %s package"
+msgstr "Беларускі пераклад для %s"
+
+#: src/msgl-cat.c:174 src/msgl-charset.c:87 src/msgl-iconv.c:304
+#, c-format
+msgid "present charset \"%s\" is not a portable encoding name"
+msgstr ""
+
+#: src/msgl-cat.c:182 src/msgl-iconv.c:314
+#, c-format
+msgid "two different charsets \"%s\" and \"%s\" in input file"
+msgstr ""
+
+#: src/msgl-cat.c:195
+#, c-format
+msgid ""
+"input file `%s' doesn't contain a header entry with a charset specification"
+msgstr ""
+
+#: src/msgl-cat.c:199
+#, c-format
+msgid ""
+"domain \"%s\" in input file `%s' doesn't contain a header entry with a "
+"charset specification"
+msgstr ""
+
+#: src/msgl-cat.c:360 src/msgl-iconv.c:390
+#, c-format
+msgid "target charset \"%s\" is not a portable encoding name."
+msgstr ""
+
+#: src/msgl-cat.c:410 src/msgl-cat.c:416 src/msgl-charset.c:92
+#: src/msgl-charset.c:127 src/write-po.c:769 src/write-po.c:863
+msgid "warning: "
+msgstr "увага: "
+
+#: src/msgl-cat.c:411
+msgid ""
+"Input files contain messages in different encodings, UTF-8 among others.\n"
+"Converting the output to UTF-8.\n"
+msgstr ""
+
+#: src/msgl-cat.c:417
+#, c-format
+msgid ""
+"Input files contain messages in different encodings, %s and %s among "
+"others.\n"
+"Converting the output to UTF-8.\n"
+"To select a different output encoding, use the --to-code option.\n"
+msgstr ""
+
+#: src/msgl-charset.c:93
+#, c-format
+msgid ""
+"Locale charset \"%s\" is different from\n"
+"input file charset \"%s\".\n"
+"Output of '%s' might be incorrect.\n"
+"Possible workarounds are:\n"
+msgstr ""
+
+#: src/msgl-charset.c:100
+#, c-format
+msgid "- Set LC_ALL to a locale with encoding %s.\n"
+msgstr ""
+
+#: src/msgl-charset.c:105
+#, c-format
+msgid ""
+"- Convert the translation catalog to %s using 'msgconv',\n"
+"  then apply '%s',\n"
+"  then convert back to %s using 'msgconv'.\n"
+msgstr ""
+
+#: src/msgl-charset.c:114
+#, c-format
+msgid ""
+"- Set LC_ALL to a locale with encoding %s,\n"
+"  convert the translation catalog to %s using 'msgconv',\n"
+"  then apply '%s',\n"
+"  then convert back to %s using 'msgconv'.\n"
+msgstr ""
+
+#: src/msgl-charset.c:128
+#, c-format
+msgid ""
+"Locale charset \"%s\" is not a portable encoding name.\n"
+"Output of '%s' might be incorrect.\n"
+"A possible workaround is to set LC_ALL=C.\n"
+msgstr ""
+
+#: src/msgl-iconv.c:202 src/msgl-iconv.c:256
+msgid "conversion failure"
+msgstr "памылка пераўтварэньня"
+
+#: src/msgl-iconv.c:336
+msgid "input file doesn't contain a header entry with a charset specification"
+msgstr "уваходзячы файл не змяшчае загаловачнага запісу аб наборы сімвалаў"
+
+#: src/msgl-iconv.c:354
+#, c-format
+msgid ""
+"Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
+"not support this conversion."
+msgstr ""
+
+#: src/msgl-iconv.c:370
+#, c-format
+msgid ""
+"Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
+"built without iconv()."
+msgstr ""
+
+#: src/msgmerge.c:358
+msgid "backup type"
+msgstr ""
+
+#: src/msgmerge.c:395
+#, no-wrap
+msgid ""
+"Merges two Uniforum style .po files together.  The def.po file is an\n"
+"existing PO file with translations which will be taken over to the newly\n"
+"created file as long as they still match; comments will be preserved,\n"
+"but extracted comments and file positions will be discarded.  The ref.pot\n"
+"file is the last created PO file with up-to-date source references but\n"
+"old translations, or a PO Template file (generally created by xgettext);\n"
+"any translations or comments in the file will be discarded, however dot\n"
+"comments and file positions will be preserved.  Where an exact match\n"
+"cannot be found, fuzzy matching is used to produce better results.\n"
+msgstr ""
+
+#: src/msgmerge.c:413
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  def.po                      translations referring to old sources\n"
+"  ref.pot                     references to new sources\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -C, --compendium=FILE       additional library of message translations,\n"
+"                              may be specified more than once\n"
+msgstr ""
+
+#: src/msgmerge.c:423
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -U, --update                update def.po,\n"
+"                              do nothing if def.po already up to date\n"
+msgstr ""
+
+#: src/msgmerge.c:438
+#, no-wrap
+msgid ""
+"Output file location in update mode:\n"
+"The result is written back to def.po.\n"
+"      --backup=CONTROL        make a backup of def.po\n"
+"      --suffix=SUFFIX         override the usual backup suffix\n"
+"The version control method may be selected via the --backup option or through\n"
+"the VERSION_CONTROL environment variable.  Here are the values:\n"
+"  none, off       never make backups (even if --backup is given)\n"
+"  numbered, t     make numbered backups\n"
+"  existing, nil   numbered if numbered backups exist, simple otherwise\n"
+"  simple, never   always make simple backups\n"
+"The backup suffix is `~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n"
+"environment variable.\n"
+msgstr ""
+
+#: src/msgmerge.c:477
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"  -v, --verbose               increase verbosity level\n"
+"  -q, --quiet, --silent       suppress progress indicators\n"
+msgstr ""
+
+#: src/msgmerge.c:937
+msgid "this message should define plural forms"
+msgstr ""
+
+#: src/msgmerge.c:960
+msgid "this message should not define plural forms"
+msgstr ""
+
+#: src/msgmerge.c:1091
+#, c-format
+msgid ""
+"%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
+msgstr ""
+"%sПрачытана %ld старых + %ld новых, аб'яднаных %ld, недакладных %ld;\n"
+"прапушчана %ld, састарэлых %ld.\n"
+
+#: src/msgmerge.c:1099
+msgid " done.\n"
+msgstr " зроблена.\n"
+
+#: src/msgunfmt.c:226 src/msgunfmt.c:235
+#, c-format
+msgid "%s and explicit file names are mutually exclusive"
+msgstr ""
+
+#: src/msgunfmt.c:319
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [FILE]...\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] [ФАЙЛ]...\n"
+
+#: src/msgunfmt.c:324
+#, no-wrap
+msgid "Convert binary message catalog to Uniforum style .po file.\n"
+msgstr ""
+
+#: src/msgunfmt.c:334
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --java               Java mode: input is a Java ResourceBundle class\n"
+"      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
+msgstr ""
+
+#: src/msgunfmt.c:341
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  FILE ...                 input .mo files\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgunfmt.c:348
+#, no-wrap
+msgid ""
+"Input file location in Java mode:\n"
+"  -r, --resource=RESOURCE  resource name\n"
+"  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
+"The class name is determined by appending the locale name to the resource name,\n"
+"separated with an underscore.  The class is located using the CLASSPATH.\n"
+msgstr ""
+
+#: src/msgunfmt.c:357
+#, no-wrap
+msgid ""
+"Input file location in Tcl mode:\n"
+"  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY             base directory of .msg message catalogs\n"
+"The -l and -d options are mandatory.  The .msg file is located in the\n"
+"specified directory.\n"
+msgstr ""
+
+#: src/msgunfmt.c:366
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE   write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+
+#: src/msgunfmt.c:374
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape          do not use C escapes in output (default)\n"
+"  -E, --escape             use C escapes in output, no extended chars\n"
+"      --force-po           write PO file even if empty\n"
+"  -i, --indent             write indented output style\n"
+"      --strict             write strict uniforum style\n"
+"  -w, --width=NUMBER       set output page width\n"
+"      --no-wrap            do not break long message lines, longer than\n"
+"                           the output page width, into several lines\n"
+"  -s, --sort-output        generate sorted output\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/msgunfmt.c:388
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help               display this help and exit\n"
+"  -V, --version            output version information and exit\n"
+"  -v, --verbose            increase verbosity level\n"
+msgstr ""
+
+#: src/msguniq.c:284
+#, no-wrap
+msgid ""
+"Unifies duplicate translations in a translation catalog.\n"
+"Finds duplicate translations of the same message ID.  Such duplicates are\n"
+"invalid input for other programs like msgfmt, msgmerge or msgcat.  By\n"
+"default, duplicates are merged together.  When using the --repeated option,\n"
+"only duplicates are output, and all other messages are discarded.  Comments\n"
+"and extracted comments will be cumulated, except that if --use-first is\n"
+"specified, they will be taken from the first translation.  File positions\n"
+"will be cumulated.  When using the --unique option, duplicates are discarded.\n"
+msgstr ""
+
+#: src/msguniq.c:317
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  -d, --repeated                 print only duplicates\n"
+"  -u, --unique                   print only unique messages, discard duplicates\n"
+msgstr ""
+
+#: src/ngettext.c:215
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+msgstr ""
+
+#: src/ngettext.c:220
+#, no-wrap
+msgid ""
+"Display native language translation of a textual message whose grammatical\n"
+"form depends on a number.\n"
+msgstr ""
+
+#: src/ngettext.c:225
+#, no-wrap
+msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+
+#: src/ngettext.c:236
+#, c-format, no-wrap
+msgid ""
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"Standard search directory: %s\n"
+msgstr ""
+
+#: src/open-po.c:60
+msgid "<stdin>"
+msgstr "<stdin>"
+
+#: src/po-charset.c:222 src/po-charset.c:280 src/po-charset.c:308
+#: src/po-charset.c:334
+#, c-format
+msgid "%s: warning: "
+msgstr "%s: увага: "
+
+#: src/po-charset.c:223
+#, c-format
+msgid ""
+"Charset \"%s\" is not a portable encoding name.\n"
+"Message conversion to user's charset might not work.\n"
+msgstr ""
+"Кадзіроўка \"%s\" не з'яўляецца перанасімай назвай кадзіроўкі.\n"
+"Пераўтварэньне паведамленьняў у кадзіроўку карыстальніка можа не працаваць\n"
+
+#: src/po-charset.c:276 src/po-charset.c:306
+msgid "Continuing anyway, expect parse errors."
+msgstr "Працяг выкананьня... чакаюцца памылкі разбору."
+
+#: src/po-charset.c:278
+msgid "Continuing anyway."
+msgstr "Працяг выкананьня..."
+
+#: src/po-charset.c:281
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv(),\n"
+"and iconv() does not support \"%s\".\n"
+msgstr ""
+"Кадзіроўка \"%s\" не падтрымліваецца. %s спадзяецца на iconv(),\n"
+"але iconv() не падтрымлівае \"%s\".\n"
+
+#: src/po-charset.c:290 src/po-charset.c:316
+msgid ""
+"Installing GNU libiconv and then reinstalling GNU gettext\n"
+"would fix this problem.\n"
+msgstr ""
+"Усталяваньне GNU libiconv і пераўсталяваньне GNU gettext\n"
+"павінна выправіць гэту праблему.\n"
+
+#: src/po-charset.c:295 src/po-charset.c:320
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+#: src/po-charset.c:309
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv().\n"
+"This version was built without iconv().\n"
+msgstr ""
+"Кадзіроўка \"%s\" не падтрымліваецца. %s спадзяецца на iconv().\n"
+"Гэта версія пабудавана без iconv().\n"
+
+#: src/po-charset.c:335
+msgid ""
+"Charset missing in header.\n"
+"Message conversion to user's charset will not work.\n"
+msgstr ""
+"Прапушчан набор сімвалаў ў загалоўке.\n"
+"Пераўтварэньне паведамленьняў у набор сімвалаў карыстальніка працаваць не "
+"будзе.\n"
+
+#: po-gram-gen.y:92
+msgid "inconsistent use of #~"
+msgstr "несумяшчальнае ўжываньне #~"
+
+#: po-gram-gen.y:182
+msgid "missing `msgstr[]' section"
+msgstr "прапушчана секцыя \"msgstr[]\""
+
+#: po-gram-gen.y:190
+msgid "missing `msgid_plural' section"
+msgstr "прапушчана секцыя \"msgid_plural\""
+
+#: po-gram-gen.y:197
+msgid "missing `msgstr' section"
+msgstr "прапушчана секцыя \"msgstr\""
+
+#: po-gram-gen.y:242
+msgid "first plural form has nonzero index"
+msgstr "першая форма ліку мае ненулявы індэкс"
+
+#: po-gram-gen.y:244
+msgid "plural form has wrong index"
+msgstr "формы множнага ліку маюць дрэнныі індэкс"
+
+#: src/po-lex.h:91 src/po-lex.h:106 src/po-lex.h:126 src/po-lex.h:141
+#: src/po-lex.c:111 src/po-lex.c:144
+msgid "too many errors, aborting"
+msgstr "вельмі шмат памылак..."
+
+#: src/po-lex.c:515 src/write-po.c:351 src/write-po.c:453
+msgid "invalid multibyte sequence"
+msgstr "нерэчаісная шматсімвальная паслядоўнасць"
+
+#: src/po-lex.c:541
+msgid "incomplete multibyte sequence at end of file"
+msgstr ""
+
+#: src/po-lex.c:551
+msgid "incomplete multibyte sequence at end of line"
+msgstr ""
+
+#: src/po-lex.c:559
+msgid "iconv failure"
+msgstr "памылка iconv"
+
+#: src/po-lex.c:757 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
+#: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
+#: src/x-ycp.c:104
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "памылка ў час чытаньня \"%s\""
+
+#: src/po-lex.c:823
+#, c-format
+msgid "keyword \"%s\" unknown"
+msgstr "невядомае ключавое слова \"%s\""
+
+#: src/po-lex.c:933
+msgid "invalid control sequence"
+msgstr "нерэчаісная кантралюючая паслядоўнасць"
+
+#: src/po-lex.c:1041
+msgid "end-of-file within string"
+msgstr "сімвал канца файла знаходзіцца ўнутры радка"
+
+#: src/po-lex.c:1047
+msgid "end-of-line within string"
+msgstr "сімвал канца радка знаходзіцца ўнутры радка"
+
+#: src/read-mo.c:72 src/read-mo.c:137
+#, c-format
+msgid "file \"%s\" truncated"
+msgstr "файл \"%s\" абрэзан"
+
+#: src/read-mo.c:103
+#, c-format
+msgid "seek \"%s\" offset %ld failed"
+msgstr "пераход у \"%s\" да змяшчэньня %ld не атрымаўся"
+
+#: src/read-mo.c:142
+#, c-format
+msgid "file \"%s\" contains a not NUL terminated string"
+msgstr "файл \"%s\" змяшчае радок не завершаны нулём"
+
+#: src/read-mo.c:187
+#, c-format
+msgid "file \"%s\" is not in GNU .mo format"
+msgstr "фармат файла \"%s\" не GNU .mo"
+
+#: src/urlget.c:150
+msgid "expected two arguments"
+msgstr ""
+
+#: src/urlget.c:169
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] URL FILE\n"
+msgstr "Выкарыстаньне: %s [ВЫБАР] URL ФАЙЛ\n"
+
+#: src/urlget.c:174
+#, no-wrap
+msgid ""
+"Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
+"the locally accessible FILE is used instead.\n"
+msgstr ""
+
+#: src/urlget.c:222
+msgid "error writing stdout"
+msgstr "памылка запісу ў stdout"
+
+#: src/write-java.c:1109
+msgid "cannot find a temporary directory, try setting $TMPDIR"
+msgstr "немагчыма знайсці часовую дырэкторыю, паспрабуйце ўсталяваць $TMPDIR"
+
+#: src/write-java.c:1119
+#, c-format
+msgid "cannot create a temporary directory using template \"%s\""
+msgstr ""
+
+#: src/write-java.c:1132
+#, c-format
+msgid "not a valid Java class name: %s"
+msgstr "нерэчаісная назва Java-класа: %s"
+
+#: src/write-java.c:1189 src/write-java.c:1202
+#, c-format
+msgid "failed to create \"%s\""
+msgstr "немагчыма стварыць \"%s\""
+
+#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1012
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "памылка ў час запісу файла \"%s\""
+
+#: src/write-java.c:1224
+msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
+msgstr ""
+
+#: src/write-mo.c:277
+#, c-format
+msgid "error while opening \"%s\" for writing"
+msgstr "памылка ў час адкрыцця \"%s\" для запісу"
+
+#: src/write-po.c:402
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"перакладзеныя паведамленні не павінны змяшчаць \"\\%c\" ESC-паслядоўнасці"
+
+#: src/write-po.c:770 src/write-po.c:864
+#, c-format
+msgid ""
+"The following msgid contains non-ASCII characters.\n"
+"This will cause problems to translators who use a character encoding\n"
+"different from yours. Consider using a pure ASCII msgid instead.\n"
+"%s\n"
+msgstr ""
+
+#: src/write-po.c:931
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "немагчыма стварыць файл вываду \"%s\""
+
+#: src/write-po.c:938
+#, no-c-format
+msgid "standard output"
+msgstr "стандартны вывад"
+
+#: src/x-c.c:951
+#, c-format
+msgid "%s:%d: warning: unterminated character constant"
+msgstr "%s:%d: увага: незавершаная сімвальная канстанта"
+
+#: src/x-c.c:975
+#, c-format
+msgid "%s:%d: warning: unterminated string literal"
+msgstr "%s:%d: увага: незавершаны радок"
+
+#: src/x-po.c:106 src/xgettext.c:640
+msgid "this file may not contain domain directives"
+msgstr "гэты файл можа не змяшчаць дырэктыў дамену"
+
+#: src/x-rst.c:108
+#, c-format
+msgid "%s:%d: invalid string definition"
+msgstr "%s:%d: нерэчаіснае вызначэньне радка"
+
+#: src/x-rst.c:168
+#, c-format
+msgid "%s:%d: missing number after #"
+msgstr "%s:%d: прапушчан нумар пасля #"
+
+#: src/x-rst.c:203
+#, c-format
+msgid "%s:%d: invalid string expression"
+msgstr ""
+
+#: src/xgettext.c:401
+msgid "--join-existing cannot be used when output is written to stdout"
+msgstr "--joun-existing не можа быць выкарастаны пры запісы ў stdout"
+
+#: src/xgettext.c:406
+msgid "xgettext cannot work without keywords to look for"
+msgstr "xgettext не можа працаваць без ключавых слоў для пошуку"
+
+#: src/xgettext.c:494
+#, c-format
+msgid "warning: file `%s' extension `%s' is unknown; will try C"
+msgstr "увага: файл \"%s\" суфікс \"%s\" невядомы; паспрабуйце C"
+
+#: src/xgettext.c:539
+#, no-wrap
+msgid "Extract translatable strings from given input files.\n"
+msgstr "Атрымлівае перакладаемыя радкі з дадзеных уваходзячых файлаў.\n"
+
+#: src/xgettext.c:544
+#, no-wrap
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"Similarly for optional arguments.\n"
+msgstr ""
+"Аргументы, абавязковыя для доўгх выбараў, абавязковы так сама\n"
+"і для кароткі.  Тое саме-ж і для выбарачных аргументаў.\n"
+
+#: src/xgettext.c:559
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
+"If output file is -, output is written to standard output.\n"
+msgstr ""
+
+#: src/xgettext.c:568
+#, no-wrap
+msgid ""
+"Choice of input file language:\n"
+"  -L, --language=NAME            recognise the specified language\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                   RST, Glade)\n"
+"  -C, --c++                      shorthand for --language=C++\n"
+"By default the language is guessed depending on the input file name extension.\n"
+msgstr ""
+
+#: src/xgettext.c:579
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --join-existing            join messages with existing file\n"
+"  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n"
+"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
+"                                 preceding keyword lines) in output file\n"
+msgstr ""
+
+#: src/xgettext.c:588
+#, no-wrap
+msgid ""
+"Language=C/C++ specific options:\n"
+"  -a, --extract-all              extract all strings\n"
+"  -k, --keyword[=WORD]           additional keyword to be looked for (without\n"
+"                                 WORD means not to use default keywords)\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"      --debug                    more detailed formatstring recognition result\n"
+msgstr ""
+
+#: src/xgettext.c:598
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
+"  -s, --sort-output              generate sorted output\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"      --copyright-holder=STRING  set copyright holder in output\n"
+"      --foreign-user             omit FSF copyright in output for foreign user\n"
+"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
+"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+msgstr ""
+"Дэталі вываду:\n"
+"  -e, --no-escape             не выкарыстоўваць Сі ESC-паслядоўнасьці ў\n"
+"                              вывадзе (звычайна)\n"
+"  -E, --escape                выкарыстоўваць Сі ESC пасьлядоўнасьці ў вывадзе,\n"
+"                              без дадатковых сімвалаў\n"
+"      --force-po              запісваць PO-файл, нават калі ён пусты\n"
+"  -i, --indent                запісваць .po файл, выкарыстоўвываючы водступы\n"
+"      --no-location           не запісваць радкі '#: імя_файла:радок'\n"
+"  -n, --add-location          ствараць радкі '#: імя_файла:радок' радкі (гэты\n"
+"                              выбар выкарыстоўваецца паўмаўчаньню)\n"
+"      --strict                запісваць .po файл, жорстка адпавядаючы\n"
+"                              пагадненьню Uniforum\n"
+"  -w, --width=ШЫРЫНЯ          усталёўваць шырыню вывадзімай старонкі\n"
+"  -s, --sort-output           ствараць упарадкаваны вывад\n"
+"  -F, --sort-by-file          упарадкоўваць вывад па месцазнаходжаньню файла\n"
+
+#: src/xgettext.c:820
+msgid "standard input"
+msgstr "стандартны ўвод"
+
+#: src/xgettext.c:935
+msgid ""
+"Empty msgid.  It is reserved by GNU gettext:\n"
+"gettext(\"\") returns the header entry with\n"
+"meta information, not the empty string.\n"
+msgstr ""
+"Пусты msgid.  Зарэзэрваваны GNU gettext:\n"
+"gettext(\"\") вяртае загаловак зь\n"
+"метададзенымі, а ня пусты радок.\n"
+
+#: src/xgettext.c:1291
+#, c-format
+msgid "language `%s' unknown"
+msgstr "невядомая мова \"%s\""
