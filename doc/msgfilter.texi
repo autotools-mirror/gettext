@@ -1,7 +1,10 @@
+@pindex msgfilter
+@cindex @code{msgfilter} program, usage
 @example
 msgfilter [@var{option}] @var{filter} [@var{filter-option}]
 @end example
 
+@cindex apply a filter to translations
 The @code{msgfilter} program applies a filter to all translations of a
 translation catalog.
 
@@ -10,10 +13,14 @@ translation catalog.
 @table @samp
 @item -i @var{inputfile}
 @itemx --input=@var{inputfile}
+@opindex -i@r{, @code{msgfilter} option}
+@opindex --input@r{, @code{msgfilter} option}
 Input PO file.
 
 @item -D @var{directory}
 @itemx --directory=@var{directory}
+@opindex -D@r{, @code{msgfilter} option}
+@opindex --directory@r{, @code{msgfilter} option}
 Add @var{directory} to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting @file{.po}
 file will be written relative to the current directory, though.
@@ -27,6 +34,8 @@ If no @var{inputfile} is given or if it is @samp{-}, standard input is read.
 @table @samp
 @item -o @var{file}
 @itemx --output-file=@var{file}
+@opindex -o@r{, @code{msgfilter} option}
+@opindex --output-file@r{, @code{msgfilter} option}
 Write output to specified file.
 
 @end table
@@ -40,6 +49,7 @@ The @var{filter} can be any program that reads a translation from standard
 input and writes a modified translation to standard output.  A frequently
 used filter is @samp{sed}.
 
+@cindex @code{msgfilter} filter and catalog encoding
 Note: It is your responsibility to ensure that the @var{filter} can cope
 with input encoded in the translation catalog's encoding.  If the
 @var{filter} wants input in a particular encoding, you can in a first step
@@ -50,6 +60,7 @@ you can first convert the translation catalog to UTF-8 using the
 @samp{msgconv} program and then make @samp{msgfilter} work in an UTF-8
 locale, by using the @code{LC_ALL} environment variable.
 
+@cindex portability problems with @code{sed}
 Note: Most translations in a translation catalog don't end with a newline
 character. For this reason, it is important that the @var{filter}
 recognizes its last input line even if it ends without a newline, and that
@@ -63,15 +74,22 @@ does not have this limitation.
 @table @samp
 @item -e @var{script}
 @itemx --expression=@var{script}
+@opindex -e@r{, @code{msgfilter} option}
+@opindex --expression@r{, @code{msgfilter} option}
 Add @var{script} to the commands to be executed.
 
 @item -f @var{scriptfile}
 @itemx --file=@var{scriptfile}
+@opindex -f@r{, @code{msgfilter} option}
+@opindex --file@r{, @code{msgfilter} option}
 Add the contents of @var{scriptfile} to the commands to be executed.
 
 @item -n
 @itemx --quiet
 @itemx --silent
+@opindex -n@r{, @code{msgfilter} option}
+@opindex --quiet@r{, @code{msgfilter} option}
+@opindex --silent@r{, @code{msgfilter} option}
 Suppress automatic printing of pattern space.
 
 @end table
@@ -82,40 +100,52 @@ Suppress automatic printing of pattern space.
 
 @table @samp
 @item --force-po
+@opindex --force-po@r{, @code{msgfilter} option}
 Always write an output file even if it contains no message.
 
 @item --indent
+@opindex --indent@r{, @code{msgfilter} option}
 Write the .po file using indented style.
 
 @item --keep-header
+@opindex --keep-header@r{, @code{msgfilter} option}
 Keep the header entry, i.e. the message with @samp{msgid ""}, unmodified,
 instead of filtering it.  By default, the header entry is subject to
 filtering like any other message.
 
 @item --no-location
+@opindex --no-location@r{, @code{msgfilter} option}
 Do not write @samp{#: @var{filename}:@var{line}} lines.
 
 @item --add-location
+@opindex --add-location@r{, @code{msgfilter} option}
 Generate @samp{#: @var{filename}:@var{line}} lines (default).
 
 @item --strict
+@opindex --strict@r{, @code{msgfilter} option}
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
 
 @item -w @var{number}
 @itemx --width=@var{number}
+@opindex -w@r{, @code{msgfilter} option}
+@opindex --width@r{, @code{msgfilter} option}
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given @var{number}.
 
 @item -s
 @itemx --sort-output
+@opindex -s@r{, @code{msgfilter} option}
+@opindex --sort-output@r{, @code{msgfilter} option}
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
 @item -F
 @itemx --sort-by-file
+@opindex -F@r{, @code{msgfilter} option}
+@opindex --sort-by-file@r{, @code{msgfilter} option}
 Sort output by file location.
 
 @end table
@@ -125,10 +155,14 @@ Sort output by file location.
 @table @samp
 @item -h
 @itemx --help
+@opindex -h@r{, @code{msgfilter} option}
+@opindex --help@r{, @code{msgfilter} option}
 Display this help and exit.
 
 @item -V
 @itemx --version
+@opindex -V@r{, @code{msgfilter} option}
+@opindex --version@r{, @code{msgfilter} option}
 Output version information and exit.
 
 @end table

@@ -1,7 +1,10 @@
+@pindex msgunfmt
+@cindex @code{msgunfmt} program, usage
 @example
 msgunfmt [@var{option}] [@var{file}]...
 @end example
 
+@cindex convert binary message catalog into PO file
 The @code{msgunfmt} program converts a binary message catalog to a
 Uniforum style .po file.
 
@@ -10,6 +13,9 @@ Uniforum style .po file.
 @table @samp
 @item -j
 @itemx --java
+@opindex -j@r{, @code{msgunfmt} option}
+@opindex --java@r{, @code{msgunfmt} option}
+@cindex Java mode, and @code{msgunfmt} program
 Java mode: generate a Java @code{ResourceBundle} class.
 
 @end table
@@ -29,10 +35,14 @@ If no input @var{file} is given or if it is @samp{-}, standard input is read.
 @table @samp
 @item -r @var{resource}
 @itemx --resource=@var{resource}
+@opindex -r@r{, @code{msgunfmt} option}
+@opindex --resource@r{, @code{msgunfmt} option}
 Specify the resource name.
 
 @item -l @var{locale}
 @itemx --locale=@var{locale}
+@opindex -l@r{, @code{msgunfmt} option}
+@opindex --locale@r{, @code{msgunfmt} option}
 Specify the locale name, either a language specification of the form @var{ll}
 or a combined language and country specification of the form @var{ll_CC}.
 
@@ -46,6 +56,8 @@ separated with an underscore.  The class is located using the @code{CLASSPATH}.
 @table @samp
 @item -o @var{file}
 @itemx --output-file=@var{file}
+@opindex -o@r{, @code{msgunfmt} option}
+@opindex --output-file@r{, @code{msgunfmt} option}
 Write output to specified file.
 
 @end table
@@ -59,25 +71,34 @@ or if it is @samp{-}.
 
 @table @samp
 @item --force-po
+@opindex --force-po@r{, @code{msgunfmt} option}
 Always write an output file even if it contains no message.
 
 @item -i
 @itemx --indent
+@opindex -i@r{, @code{msgunfmt} option}
+@opindex --indent@r{, @code{msgunfmt} option}
 Write the .po file using indented style.
 
 @item --strict
+@opindex --strict@r{, @code{msgunfmt} option}
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
 
 @item -w @var{number}
 @itemx --width=@var{number}
+@opindex -w@r{, @code{msgunfmt} option}
+@opindex --width@r{, @code{msgunfmt} option}
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given @var{number}.
 
 @item -s
 @itemx --sort-output
+@opindex -s@r{, @code{msgunfmt} option}
+@opindex --sort-output@r{, @code{msgunfmt} option}
+@cindex sorting @code{msgunfmt} output
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -88,14 +109,20 @@ for the translator to understand each message's context.
 @table @samp
 @item -h
 @itemx --help
+@opindex -h@r{, @code{msgunfmt} option}
+@opindex --help@r{, @code{msgunfmt} option}
 Display this help and exit.
 
 @item -V
 @itemx --version
+@opindex -V@r{, @code{msgunfmt} option}
+@opindex --version@r{, @code{msgunfmt} option}
 Output version information and exit.
 
 @item -v
 @itemx --verbose
+@opindex -v@r{, @code{msgunfmt} option}
+@opindex --verbose@r{, @code{msgunfmt} option}
 Increase verbosity level.
 
 @end table

@@ -1,7 +1,10 @@
+@pindex msgcmp
+@cindex @code{msgcmp} program, usage
 @example
 msgcmp [@var{option}] @var{def}.po @var{ref}.pot
 @end example
 
+@cindex compare PO files
 The @code{msgcmp} program compares two Uniforum style .po files to check that
 both contain the same set of msgid strings.  The @var{def}.po file is an
 existing PO file with the translations.  The @var{ref}.pot file is the last
@@ -21,6 +24,8 @@ References to the sources.
 
 @item -D @var{directory}
 @itemx --directory=@var{directory}
+@opindex -D@r{, @code{msgcmp} option}
+@opindex --directory@r{, @code{msgcmp} option}
 Add @var{directory} to the list of directories.  Source files are
 searched relative to this list of directories.
 
@@ -31,6 +36,8 @@ searched relative to this list of directories.
 @table @samp
 @item -m
 @itemx --multi-domain
+@opindex -m@r{, @code{msgcmp} option}
+@opindex --multi-domain@r{, @code{msgcmp} option}
 Apply @var{ref}.pot to each of the domains in @var{def}.po.
 
 @end table
@@ -40,10 +47,14 @@ Apply @var{ref}.pot to each of the domains in @var{def}.po.
 @table @samp
 @item -h
 @itemx --help
+@opindex -h@r{, @code{msgcmp} option}
+@opindex --help@r{, @code{msgcmp} option}
 Display this help and exit.
 
 @item -V
 @itemx --version
+@opindex -V@r{, @code{msgcmp} option}
+@opindex --version@r{, @code{msgcmp} option}
 Output version information and exit.
 
 @end table

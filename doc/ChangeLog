@@ -1,3 +1,10 @@
+2002-02-03  Eli Zaretskii  <eliz@is.elta.co.il>
+            Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi: Add indices and many index entries.
+	* msg*.texi, xgettext.texi: Add many index entries.
+	* Makefile.am (MOSTLYCLEANFILES): New variable.
+
 2002-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Creating Compendia): Use @samp instead of @command or
