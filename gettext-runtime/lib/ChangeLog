@@ -1,3 +1,8 @@
+2003-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES):
+	Add ../../gettext-tools/lib/unlocked-io.h.
+
 2003-05-10  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgrt_a_SOURCES): Add
