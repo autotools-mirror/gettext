@@ -1,16 +1,16 @@
 # -*- mode:po; coding:iso-latin-2; -*- Slovenian messages for GNU gettext package
-# Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001 Free Software Foundation, Inc.
-# Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999, 2000, 2001.
+# Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002 Free Software Foundation, Inc.
+# Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2002.
 #
-# $Id: gettext-0.11-pre5.sl.po,v 1.2 2002/01/14 09:29:21 peterlin Exp $
+# $Id: gettext-0.11.1.sl.po,v 1.3 2002/03/13 18:21:16 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11-pre5\n"
+"Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-01-14 10:29+0100\n"
+"PO-Revision-Date: 2002-03-13 19:21+0100\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
-"Language-Team: Slovenian <sl@li.org>\n"
+"Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1043,9 +1043,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s zahteva doloèitev \"-d directory\""
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s zahteva doloèitev \"-d directory\""
+msgstr "%s zahteva doloèitev \"-l locale\""
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1054,9 +1054,9 @@ msgid "%s is only valid with %s"
 msgstr "%s je veljavno edino z %s"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s je veljavno edino z %s"
+msgstr "%s je veljavno edino z %s ali %s"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1109,7 +1109,7 @@ msgstr ""
 "Èe je vhodna datoteka enaka -, se bere standardni vhod.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1120,6 +1120,7 @@ msgstr ""
 "  -j, --java                  javanski naèin: ustvarimo javanski razred\n"
 "                                ResourceBundle\n"
 "      --java2                 kot --java, privzeta je java2 (JDK 1.2 ali veè)\n"
+"      --tcl                   naèin tcl: ustvarimo datoteko tcl/msgcat .msg\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1154,7 +1155,7 @@ msgstr ""
 "imenik.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1162,13 +1163,10 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Izbira izhodne datoteke v javanskem naèinu:\n"
-"  -r, --resource=SREDSTVO     ime sredstva\n"
-"  -l, --locale=JJ_DD          jezikovno okolje (jezik ali jezik_dr¾ava)\n"
+"Izbira izhodne datoteke v naèinu tcl:\n"
+"  -l, --locale=LOCALE         jezikovno okolje (jezik ali jezik_dr¾ava)\n"
 "  -d IMENIK                   korenski imenik hierarhije razredov\n"
-"Ime razreda je sestavljeno iz imena sredstva, ki se mu, loèeno s podèrtajem,\n"
-"pridá ime jezikovnega okolja. Izbira -d je obvezna. Razred se zapi¹e v podani\n"
-"imenik.\n"
+"Izbiri -l in  -d sta obvezni. Datoteka .msg se zapi¹e v podani imenik.\n"
 
 #: src/msgfmt.c:592
 #, no-wrap
@@ -1305,7 +1303,7 @@ msgstr[3] "...nekatera sporoèila pa imajo %lu mno¾inske oblike"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Poskusite uporabiti naslednje, veljavno za %s:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1361,24 +1359,23 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "v msgstr je preveè oznak bli¾njic ,%c`"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "v glavi manjka polje ,%s`"
+msgstr "v glavi manjka polje ,%s`\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "polje ,%s` v glavi se mora zaèeti na zaèetku vrstice"
+msgstr "polje ,%s` v glavi se mora zaèeti na zaèetku vrstice\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "nekatera polja v glavi imajo ¹e vedno zaèetne privzete vrednosti"
+msgstr "nekatera polja v glavi imajo ¹e vedno zaèetne privzete vrednosti\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "polje ,%s' ima ¹e vedno zaèetno privzeto vrednost"
+msgstr "polje ,%s' ima ¹e vedno zaèetno privzeto vrednost\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1439,7 +1436,7 @@ msgstr ""
 "pripadajo dani izvorni datoteki.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1469,12 +1466,16 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Izbira sporoèil:\n"
-"  [-N IZVORNA_DATOTEKA]... [-M DOMENA]... [-K VZOREC-MSGID] [-T VZOREC-MSGSTR]\n"
+"  [-N IZVORNA_DATOTEKA]... [-M DOMENA]... \n"
+"  [-K VZOREC-MSGID] [-T VZOREC-MSGSTR] [-C VZOREC_KOMENTARJA]\n"
 "Sporoèilo izberemo, èe izvira iz ene od navedenih izvornih datotek,\n"
 "ali èe izvira iz ene od navedenih domen,\n"
 "ali èe je podana izbira -K in izvorna sporoèila (msgid ali msgid_plural)\n"
 "ustrezajo podanemu vzorcu,\n"
-"ali èe je podana izbira -T in prevodi sporoèil (msgstr)ustrezajo podanemu vzorcu.\n"
+"ali èe je podana izbira -T in prevodi sporoèil (msgstr) ustrezajo podanemu\n"
+"vzorcu,\n"
+"ali èe je podana izbira -C in in prevajaèevi komentarji ustrezajo podanemu\n"
+"vzorcu.\n"
 "\n"
 "Èe je podan veè kot en pogoj, je mno¾ica izbranih sporoèil unija izbranih\n"
 "sporoèil za posamezni pogoj.\n"
@@ -1932,7 +1933,7 @@ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Pretvorba kataloga sporoèil iz binarne oblike .mo v obliko Uniforum .po.\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
@@ -1941,7 +1942,7 @@ msgstr ""
 "Naèin delovanja:\n"
 "  -j, --java                  javanski naèin: ustvarimo javanski razred\n"
 "                                ResourceBundle\n"
-"      --java2                 kot --java, privzeta je java2 (JDK 1.2 ali veè)\n"
+"      --tcl                   naèin tcl: vhod je datoteka tcl/msgcat .msg\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1970,7 +1971,7 @@ msgstr ""
 "pridá ime jezikovnega okolja. Razred je doloèen s spremenljivko CLASSPATH.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -1978,13 +1979,10 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Izbira izhodne datoteke v javanskem naèinu:\n"
-"  -r, --resource=SREDSTVO     ime sredstva\n"
+"Izbira izhodne datoteke v naèinu tcl:\n"
 "  -l, --locale=JJ_DD          jezikovno okolje (jezik ali jezik_dr¾ava)\n"
 "  -d IMENIK                   korenski imenik hierarhije razredov\n"
-"Ime razreda je sestavljeno iz imena sredstva, ki se mu, loèeno s podèrtajem,\n"
-"pridá ime jezikovnega okolja. Izbira -d je obvezna. Razred se zapi¹e v podani\n"
-"imenik.\n"
+"Izbiri -l in -d sta obvezni. Datoteka .msg se zapi¹e v podani imenik.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -2434,7 +2432,7 @@ msgstr ""
 "izhod.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2447,7 +2445,7 @@ msgstr ""
 "Izbira vhodnega jezika:\n"
 "  -L, --language=JEZIK           obravnavaj vhodno datoteko v danem JEZIKU\n"
 "                                   (C, C++, objektni C, PO, lisp, emacs lisp,\n"
-"                                    librep, java, YCP)\n"
+"                                    librep, java, awk, YCP, TCL, RST, glade)\n"
 "  -C, --c++                      okraj¹ava za --language=C++\n"
 "Privzeto se jezik poskusi uganiti iz pripone vhodne datoteke.\n"
 

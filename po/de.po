@@ -74,9 +74,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11\n"
+"Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-02-12 23:32+0100\n"
+"PO-Revision-Date: 2002-03-13 20:39+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -362,7 +362,7 @@ msgid ""
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 "Aufruf: %s [OPTION] [[TEXTBEREICH] SCHLÜSSEL]\n"
-"oder:   %s [OPTION] -s [SCHLÜSSEL]...\n"
+"oder:   %s {OPTION] -s [SCHLÜSSEL]...\n"
 
 # CHECKIT
 #: src/gettext.c:251
@@ -1151,9 +1151,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s erfordert eine Angabe in der Art »-d Verzeichnis«"
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s erfordert eine Angabe in der Art »-d Verzeichnis«"
+msgstr "%s erfordert eine Angabe in der Art »-l Lokale«"
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1162,9 +1162,9 @@ msgid "%s is only valid with %s"
 msgstr "%s ist nur mit %s gültig"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s ist nur mit %s gültig"
+msgstr "%s ist nur mit %s oder %s gültig"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1211,7 +1211,7 @@ msgstr ""
 "Wenn die Eingabedatei »-« ist, wird die Standardeingabe gelesen.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1222,6 +1222,7 @@ msgstr ""
 "  -j, --java               Java-Modus: eine ResourceBundle-Klasse für Java\n"
 "                             erzeugen\n"
 "      --java2              wie --java, aber Java2 (JDK 1.2 oder höher) annehmen\n"
+"      --tcl                Tcl-Modus: eine tcl/msgcat .msg-Datei erzeugen\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1260,7 +1261,7 @@ msgstr ""
 "geschrieben.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1268,16 +1269,13 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Angaben zu Ausgabedateien im Java-Modus:\n"
-"  -r, --resource=RESSOURCE    Name der Ressource\n"
+"Angaben zu Ausgabedateien im Tcl-Modus:\n"
 "  -l, --locale=LOKALE         Name der Lokale, entweder »sprache« (z. B. »de«)\n"
 "                                oder »sprache_LAND\" (z. B. »de_DE«)\n"
 "  -d VERZEICHNIS              Basis-Verzeichnis der Verzeichnis-Hierarchie mit\n"
 "                                den Klassen\n"
-"Der Name der Klasse wird durch das Anhängen des Namens der Lokale an den Namen\n"
-"der Ressource festgelegt, abgetrennt durch einen Unterstrich (»_«).  Die Option\n"
-"»-d« ist notwendig.  Die Klasse wird unter dem angegebenen Verzeichnis\n"
-"geschrieben.\n"
+"Die Optionen »-l« und »-d« sind notwendig.  Die .msg-Datei wird in das\n"
+"angegebene Verzeichnis geschrieben.\n"
 
 #: src/msgfmt.c:592
 #, no-wrap
@@ -1402,7 +1400,7 @@ msgstr[1] "... aber einige Meldungen haben %lu Pluralformen"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Bitte das Folgende versuchen; gültig für %s:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1460,25 +1458,24 @@ msgstr ""
 "»msgstr« weist mehr als eine Markierung »%c« für den Tastatur-Accelerator auf"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "Im Kopfeintrag fehlt das Feld »%s«"
+msgstr "Im Kopfeintrag fehlt das Feld »%s«\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "Feld »%s« im Kopfeintrag sollte in der ersten Spalte anfangen"
+msgstr "Feld »%s« im Kopfeintrag sollte am Beginn der Zeile anfangen\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
 msgstr ""
-"Einige Felder im Kopfeintrag haben immer noch den anfänglichen Vorgabewert"
+"Einige Felder im Kopfeintrag haben immer noch den anfänglichen Vorgabewert\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "Feld »%s« hat immer noch den anfänglichen Vorgabewert"
+msgstr "Feld »%s« hat immer noch den anfänglichen Vorgabewert\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1546,7 +1543,7 @@ msgstr ""
 # To avoid confusion, let msgid and msgstr untranslated here!
 # 2001-11-04 11:16:55 CET -ke-
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1576,13 +1573,16 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Auswahl der Meldungen:\n"
-"  [-N QUELLDATEI]... [-M BEREICHSNAME]... [-K MSGID-MUSTER] [-T MSGSTR-MUSTER]\n"
+"  [-N QUELLDATEI]... [-M BEREICHSNAME]...\n"
+"  [-K MSGID-MUSTER] [-T MSGSTR-MUSTER] [-C KOMMENTAR-MUSTER]\n"
 "Eine Meldung wird gewählt, wenn sie von einer der genannten Quelldateien kommt,\n"
 "oder wenn sie von einem genannten Bereich kommt,\n"
 "oder wenn -K angegeben ist und der Schlüssel (msgid oder msgid_plural) mit\n"
 "     MSGID-MUSTER übereinstimmt,\n"
 "oder wenn -T angegeben ist und die Übersetzung (msgstr) mit MSGSTR-MUSTER\n"
-"     übereinstimmt.\n"
+"     übereinstimmt,\n"
+"oder wenn -C angegeben ist und der Kommentar des Übersetzers mit\n"
+"     KOMMENTAR-MUSTER übereinstimmt.\n"
 "\n"
 "Wenn mehr als ein Auswahlkriterium genannt ist, dann ist der Satz der gewählten\n"
 "Meldungen die Vereinigung der gewählten Meldungen für jedes Kriterium.\n"
@@ -2058,16 +2058,16 @@ msgstr ""
 "umwandeln.\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "Art der Verarbeitung:\n"
-"  -j, --java               Java-Modus: eine ResourceBundle-Klasse für Java\n"
-"                             erzeugen\n"
-"      --java2              wie --java, aber Java2 (JDK 1.2 oder höher) annehmen\n"
+"  -j, --java               Java-Modus: Eingabe ist eine ResourceBundle-Klasse\n"
+"                             für Java erzeugen\n"
+"      --tcl                Tcl-Modus: Eingabe ist eine tcl/msgcat .msg-Datei\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -2100,7 +2100,7 @@ msgstr ""
 "»-d« ist notwendig.  Die Klasse mittels CLASSPATH gesucht.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -2108,16 +2108,13 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Angaben zu Ausgabedateien im Java-Modus:\n"
-"  -r, --resource=RESSOURCE    Name der Ressource\n"
+"Angaben zu Eingabedateien im Tcl-Modus:\n"
 "  -l, --locale=LOKALE         Name der Lokale, entweder »sprache« (z. B. »de«)\n"
 "                                oder »sprache_LAND\" (z. B. »de_DE«)\n"
-"  -d VERZEICHNIS              Basis-Verzeichnis der Verzeichnis-Hierarchie mit\n"
-"                                den Klassen\n"
-"Der Name der Klasse wird durch das Anhängen des Namens der Lokale an den Namen\n"
-"der Ressource festgelegt, abgetrennt durch einen Unterstrich (»_«).  Die Option\n"
-"»-d« ist notwendig.  Die Klasse wird unter dem angegebenen Verzeichnis\n"
-"geschrieben.\n"
+"  -d VERZEICHNIS              Basis-Verzeichnis für die Kataloge mit den\n"
+"                                .msg-Meldungen\n"
+"Die Optionen »-l« und »-d« sind notwendig.  Die .msg-Datei ist im angegebenen\n"
+"Verzeichnis zu finden.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -2586,7 +2583,7 @@ msgstr ""
 "»-« angegeben ist.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2598,8 +2595,9 @@ msgid ""
 msgstr ""
 "Wahl der Sprache für die Eingabedatei:\n"
 "  -L, --language=NAME            angegebene Programmiersprache erkennen\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                   librep, Java, YCP)\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl, RST,\n"
+"                                   Glade)\n"
 "  -C, --c++                      Abkürzung für --language=C++\n"
 "Gemäß Vorgabe wird die Sprache anhand des Suffixes des Namens der Eingabedatei\n"
 "geraten.\n"

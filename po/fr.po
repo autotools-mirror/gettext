@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11-pre5\n"
+"Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-03-10 08:00-0500\n"
+"PO-Revision-Date: 2002-03-13 12:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -1056,9 +1056,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s requiert une spécification de type \"-d directory\""
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s requiert une spécification de type \"-d directory\""
+msgstr "%s requiert une spécification de type \"-l locale\""
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1067,9 +1067,9 @@ msgid "%s is only valid with %s"
 msgstr "%s est valable seulement avec %s"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s est valable seulement avec %s"
+msgstr "%s est valable seulement avec %s ou %s"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1116,7 +1116,7 @@ msgstr ""
 "Si aucun fichier d'entrée n'est fourni ou si -, lire de l'entrée standard.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1126,6 +1126,7 @@ msgstr ""
 "Mode d'exécution:\n"
 "  -j, --java                  mode Java: générer une classe ResourceBundle en Java\n"
 "      --java2                 identique à --java et assume Java2 (i.e. JDK 1.2 ou plus)\n"
+"      --tcl                   mode Tcl: générer un fichier .msg  tcl/msgcat\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1159,7 +1160,7 @@ msgstr ""
 "dans le répertoire spécifié.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1167,12 +1168,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Localisation du fichier de sortie en mode Java:\n"
-"  -r, --resource=RESSOURCE  nom de la ressource\n"
+"Localisation du fichier de sortie en mode Tcl:\n"
 "  -l, --locale=LOCALE       nom de la locale, soit langage ou language_COUNTRY\n"
-"Le nom de la classe est déterminé en ajoutant le nom de la locale au nom de la ressource,\n"
-"séparé par un souligné. L'option -d est obligatoire. La classe est produite\n"
-"dans le répertoire spécifié.\n"
+"  -d RÉPERTOIRE             répertoire de base des catalogues de messages .msg\n"
+"Les options -l et -d sont obligatoires. Le fichier .msg est écrit dans\n"
+"le répertoire spécifié.\n"
 
 #: src/msgfmt.c:592
 #, no-wrap
@@ -1295,7 +1295,7 @@ msgstr[1] "...mais quelques messages ont %lu formes au pluriel"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Essayer d'utiliser ce qui suit, valide pour %s:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1354,24 +1354,23 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "« msgstr » a trop de raccourcis clavier pour la marque «%c»"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "Le champ « %s » est absent de l'en-tête"
+msgstr "Le champ en-tête « %s » est absent de l'en-tête\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "Le champ « %s » devrait s'appuyer au début de la ligne"
+msgstr "Le champ en-tête « %s » devrait s'appuyer au début de la ligne\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "Quelques champs de l'en-tête ont toujours leur valeur initiale"
+msgstr "Quelques champs en-tête ont toujours leur valeur initiale par défaut\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "Le champ « %s » a toujours sa valeur initiale"
+msgstr "le champ « %s » a toujours sa valeur initiale par défaut\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1435,7 +1434,7 @@ msgstr ""
 "un patron particulier ou qui appartiennent à un fichier source donné.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1465,11 +1464,13 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Sélection de messages:\n"
-"  [-N FICHIER-SOURCE]... [-M DOMAINE]... [-K PATRON-MSGID] [-T PATRON-MSGSTR]\n"
+"  [-N FICHIER-SOURCE]... [-M DOMAINE]...\n"
+"  [-K PATRON-MSGID] [-T PATRON-MSGSTR] [-C PATRON-COMMENTAIRE]\n"
 "Un message est sélectionné s'il provient d'un des fichiers sources spécifiés,\n"
 "ou s'il provient d'un des domaines spécifiés,\n"
 "ou si -K est fourni et ses clés (msgid ou msgid_plural) concordent avec le PATRON-MSGID,\n"
 "ou si -T est fourni et ses traductions (msgstr) concordent avec le PATRON-MSGSTR.\n"
+"ou si -C est fourni et les commentaires du traducteurs concordent avec le PATRON-COMMENTAIRE.\n"
 "\n"
 "Lorsque plus d'un critère de sélection est spécifié, l'ensemble des messages\n"
 "sélectionnés est l'union des messages sélectionnés de chaque critère.\n"
@@ -1933,15 +1934,15 @@ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Convertir le catalogue binaire de messages au style Uniforum de fichiers .po\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "Mode d'exécution:\n"
-"  -j, --java                  mode Java: générer une classe ResourceBundle en Java\n"
-"      --java2                 identique à --java et assume Java2 (i.e. JDK 1.2 ou plus)\n"
+"  -j, --java               mode Java: l'entrée est une classe Java ResourceBundle\n"
+"      --tcl                mode Tcl:  l'entrée est un fichier .msg tcl/msgcat\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1971,7 +1972,7 @@ msgstr ""
 "séparé par un souligné. La classe est localisée en utilisant CLASSPATH.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -1979,12 +1980,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Localisation du fichier de sortie en mode Java:\n"
-"  -r, --resource=RESSOURCE  nom de la ressource\n"
+"Localisation du fichier d'entrée en mode Tcl:\n"
 "  -l, --locale=LOCALE       nom de la locale, soit langage ou language_COUNTRY\n"
-"Le nom de la classe est déterminé en ajoutant le nom de la locale au nom de la ressource,\n"
-"séparé par un souligné. L'option -d est obligatoire. La classe est produite\n"
-"dans le répertoire spécifié.\n"
+"  -d RÉPERTOIRE             répertoire de base des catalogues de messages .msg\n"
+"Les options -l et -d sont obligatoires. Le fichier .msg est localisé dans\n"
+"le répertoire spécifié.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -2434,7 +2434,7 @@ msgstr ""
 "Si la sortie est -, la sortie est écrite sur la sortie standard.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2446,8 +2446,9 @@ msgid ""
 msgstr ""
 "Choix du langage du fichier d'entrée:\n"
 "  -L, --language=NOM             reconnaître le langage spécifié\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                    librep, Java, YCP),\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                   RST, Glade)\n"
 "  -C, --c++                      identique à --language=C++\n"
 "Par défaut, le langage est deviné selon l'extension du nom du fichier.\n"
 

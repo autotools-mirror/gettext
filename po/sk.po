@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11\n"
+"Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-01-31 20:44+0100\n"
+"PO-Revision-Date: 2002-03-13 20:02+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -837,7 +837,7 @@ msgid ""
 msgstr ""
 "Cieµ konverzie:\n"
 "  -t, --to-code=NÁZOV         kódovanie výstupu\n"
-"Predvolené kódovanie je kódovanie aktuálneho locale.\n"
+"Predvolené kódovanie je kódovanie aktuálneho národného prostreda.\n"
 
 #: src/msgconv.c:284 src/msgen.c:265 src/msgmerge.c:455
 #, no-wrap
@@ -1071,9 +1071,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s vy¾aduje ¹pecifikáciu \"-d adresár\""
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s vy¾aduje ¹pecifikáciu \"-d adresár\""
+msgstr "%s vy¾aduje ¹pecifikáciu \"-l národné prostredie\""
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1082,9 +1082,9 @@ msgid "%s is only valid with %s"
 msgstr "%s je platné len s %s"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s je platné len s %s"
+msgstr "%s je platné len s %s alebo %s"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1135,7 +1135,7 @@ msgstr ""
 "Ak je vstupný súbor -, je naèítaný ¹tandardný vstup.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1146,6 +1146,7 @@ msgstr ""
 "  -j, --java                  mód Java: generova» triedu Java ResourceBundle\n"
 "      --java2                 ako --java ale predpoklada» Java2 (JDK 1.2 alebo\n"
 "                              vy¹¹ie)\n"
+"      --tcl                   mód Tcl: generova» súbor .msg tcl/msgcat\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1173,13 +1174,15 @@ msgid ""
 msgstr ""
 "Umiestnenie výstupného súboru v móde Java:\n"
 "  -r, --resource=ZDROJ        názov zdroja\n"
-"  -l, --locale=LOCALE         názov locale, buï jazyk alebo jazyk_KRAJINA\n"
+"  -l, --locale=N_PROSTREDIE   názov národného prostredia, buï jazyk alebo\n"
+"                              jazyk_KRAJINA\n"
 "  -d ADRESÁR                  základný adresár adresárov hierarchie tried\n"
-"Názov triedy je získaný pridaním názvu locale k názvu zdroja, oddelené\n"
-"znakom \"_\". Voµba -d je povinná. Trieda je zapísaná do zadaného adresára.\n"
+"Názov triedy je získaný pridaním názvu národného pristredia k názvu zdroja,\n"
+"oddelené znakom \"_\". Voµba -d je povinná. Trieda je zapísaná do zadaného\n"
+"adresára.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1187,12 +1190,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Umiestnenie výstupného súboru v móde Java:\n"
-"  -r, --resource=ZDROJ        názov zdroja\n"
-"  -l, --locale=LOCALE         názov locale, buï jazyk alebo jazyk_KRAJINA\n"
-"  -d ADRESÁR                  základný adresár adresárov hierarchie tried\n"
-"Názov triedy je získaný pridaním názvu locale k názvu zdroja, oddelené\n"
-"znakom \"_\". Voµba -d je povinná. Trieda je zapísaná do zadaného adresára.\n"
+"Umiestnenie výstupného súboru v móde Tcl:\n"
+"  -l, --locale=N_PROSTREDIE   názov národného prostredia, buï jazyk alebo\n"
+"                              jazyk_KRAJINA\n"
+"  -d ADRESÁR                  základný adresár katalógov správ .msg\n"
+"Voµby -l a -d sú povinné. Súbor .msg je zapísaný do zadaného adresára.\n"
 
 #: src/msgfmt.c:592
 #, no-wrap
@@ -1319,7 +1321,7 @@ msgstr[2] "...ale niektoré správy majú %lu tvary mno¾ných èísel"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Skúste pou¾i» nasledujúce, platné pre %s:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1375,24 +1377,24 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr obsahuje príli¹ veµa znaèiek klávesových skratiek '%c'"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "hlavièková polo¾ka `%s' chýba v hlavièke"
+msgstr "hlavièková polo¾ka `%s' chýba v hlavièke\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "hlavièková polo¾ka `%s' má zaèína» na zaèiatku riadku"
+msgstr "hlavièková polo¾ka `%s' má zaèína» na zaèiatku riadku\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "niektoré polo¾ky hlavièky e¹te obsahujú poèiatoèné ¹tandardné hodnoty"
+msgstr ""
+"niektoré polo¾ky hlavièky e¹te obsahujú poèiatoèné ¹tandardné hodnoty\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "polo¾ka `%s' e¹te obsahuje poèiatoènú ¹tandardnú hodnotu"
+msgstr "polo¾ka `%s' e¹te obsahuje poèiatoènú ¹tandardnú hodnotu\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1454,7 +1456,7 @@ msgstr ""
 "vzoru alebo sú v zadaných zdrojových súboroch.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1484,29 +1486,33 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Výber správy:\n"
-"  [-N ZDROJOVÝSÚBOR]... [-M DOMÉNA]... [-K MSGID-VZOR] [-T MSGSTR-VZOR]\n"
+"  [-N ZDROJOVÝSÚBOR]... [-M NÁZOVDOMÉNY]...\n"
+"  [-K MSGID-VZOR] [-T MSGSTR-VZOR] [-C KOMENTÁR-VZOR]\n"
 "Správa je vybratá ak je z jedného zo zadaných zdrojových súborov,\n"
 "alebo ak je z jednej zo zadaných domén,\n"
-"alebo ak je zadané -K a jej kµúè (msgid alebo msg_plural) vyhovuje vzoru MSGID-VZOR,\n"
-"alebo ak je zadané -T a jej preklad (msgstr) vyhovuje vzoru MSGSTR-VZOR.\n"
+"alebo ak je zadané -K a jej kµúè (msgid alebo msgid_plural) vyhovuje vzoru\n"
+"MSGID-VZOR,\n"
+"alebo ak je zadané -T a jej preklad (msgstr) vyhovuje vzoru MSGSTR-VZOR,\n"
+"alebo ak je zadané -C a komentár prekladateµa vyhovuje vzoru KOMENTÁR-VZOR.\n"
 "\n"
 "Ak je zadaných viac ako jedno výberové kritérium, mno¾ina vybratých správ\n"
 "bude zjednotením vybratých správ jednotlivých kritérií.\n"
 "\n"
 "Syntax pre MSGID-VZOR a MSGSTR-VZOR:\n"
 "  [-E | -F] [-e VZOR | -f SÚBOR]...\n"
-"VZOR je ¹tandardne základný regulárny výraz alebo, ak je zadané -E, roz¹írený\n"
-"regulárny výraz alebo, ak je zadané -F, obyèajný re»azec.\n"
+"VZORy sú ¹tandardne základné regulárne výrazy alebo, ak je zadané -E, roz¹írené\n"
+"regulárne výrazy alebo, ak je zadané -F, obyèajné re»azce.\n"
 "\n"
-"  -N, --location=ZDROJOVÝSÚBOR  vybra» správy extrahované zo súboru ZDROJOVÝSÚBOR\n"
-"  -M, --domain=DOMÉNA           vybra» správy patriacich do DOMÉNY\n"
-"  -K, --msgid                   zaèiatok vzoru pre msgid\n"
-"  -T, --msgstr                  zaèiatok vzoru pre msgstr\n"
-"  -E, --extended-regexp         VZOR je roz¹írený regulárny výraz\n"
-"  -F, --fixed-strings           VZOR je mno¾ina re»azcov oddelených znakom nový riadok\n"
-"  -e, --regexp=VZOR             pou¾i» VZOR ako regulárny výraz\n"
-"  -f, --file=SÚBOR              získa» VZOR zo SÚBORu\n"
-"  -i, --ignore-case             ignorova» rozlí¹enie veµkých a malých písmen\n"
+"  -N, --location=ZDROJOVÝSÚBOR vybra» správy extrahované zo súboru ZDROJOVÝSÚBOR\n"
+"  -M, --domain=NÁZOVDOMÉNY     vybra» správy patriacich do domény NÁZOVDOMÉNY\n"
+"  -K, --msgid                  zaèiatok vzoru pre msgid\n"
+"  -T, --msgstr                 zaèiatok vzoru pre msgstr\n"
+"  -E, --extended-regexp        VZOR je roz¹írený regulárny výraz\n"
+"  -F, --fixed-strings          VZOR je mno¾ina re»azcov oddelených znakom nový\n"
+"                               riadok\n"
+"  -e, --regexp=VZOR            pou¾i» VZOR ako regulárny výraz\n"
+"  -f, --file=SÚBOR             získa» VZOR zo SÚBORu\n"
+"  -i, --ignore-case            ignorova» rozlí¹enie veµkých a malých písmen\n"
 
 #: src/msggrep.c:464
 #, no-wrap
@@ -1561,7 +1567,7 @@ msgid ""
 "the output .po file through the --output-file option.\n"
 msgstr ""
 "Výstupný súbor %s u¾ existuje.\n"
-"Zadajte, prosím, locale pomocou voµby --locale alebo\n"
+"Zadajte, prosím, národné prostredie pomocou voµby --locale alebo\n"
 "výstupný .po súbor pomocou voµby --output-file.\n"
 
 #: src/msginit.c:330
@@ -1602,7 +1608,8 @@ msgstr ""
 "Umiestnenie výstupného súboru:\n"
 "  -o, --output-file=SÚBOR     zapísa» výstup do zadaného PO súboru\n"
 "Ak nie je zadaný výstupný súbor, tak je závislý od voµby --locale alebo od\n"
-"nastavenia locale pou¾ívateµa. Ak je -, výstup je zapísaný na ¹tandardný výstup.\n"
+"nastavenia národného prostredia pou¾ívateµa. Ak je -, výstup je zapísaný na\n"
+"¹tandardný výstup.\n"
 
 #: src/msginit.c:379
 #, no-wrap
@@ -1613,7 +1620,7 @@ msgid ""
 "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
 "Podrobnosti výstupu:\n"
-"  -l, --locale=LL_CC          nastavi» cieµové locale\n"
+"  -l, --locale=LL_CC          nastavi» cieµové národné prostredie\n"
 "      --no-translator         oznaèi», ¾e PO súbor je generovaný automaticky\n"
 "  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej strany\n"
 
@@ -1739,7 +1746,7 @@ msgid ""
 "Output of '%s' might be incorrect.\n"
 "Possible workarounds are:\n"
 msgstr ""
-"Znaková sada \"%s\" pre locale je iná\n"
+"Znaková sada \"%s\" pre národné prostredie je iná\n"
 "ako znaková sada vstupného súboru \"%s\".\n"
 "Výstup z '%s' mô¾e by» nesprávny.\n"
 "Mo¾né rie¹enia sú:\n"
@@ -1747,7 +1754,7 @@ msgstr ""
 #: src/msgl-charset.c:100
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
-msgstr "- Nastavi» LC_ALL na locale s kódovaním %s.\n"
+msgstr "- Nastavi» LC_ALL na národné prostredie s kódovaním %s.\n"
 
 #: src/msgl-charset.c:105
 #, c-format
@@ -1768,7 +1775,7 @@ msgid ""
 "  then apply '%s',\n"
 "  then convert back to %s using 'msgconv'.\n"
 msgstr ""
-"- Nastavi» LC_ALL na locale s kódovaním %s,\n"
+"- Nastavi» LC_ALL na národné prostreedie s kódovaním %s,\n"
 "  konvertova» prekladový katalóg na %s pomocou 'msgconv',\n"
 "  potom pou¾i» '%s',\n"
 "  potom konvertova» spä» na %s pomocou 'msgconv'.\n"
@@ -1780,7 +1787,8 @@ msgid ""
 "Output of '%s' might be incorrect.\n"
 "A possible workaround is to set LC_ALL=C.\n"
 msgstr ""
-"Znaková sada \"%s\" pre locale nie je prenositeµný názov kódovania.\n"
+"Znaková sada \"%s\" pre národné prostredie nie je prenositeµný názov\n"
+"kódovania.\n"
 "Výstup z '%s' mô¾e by» nesprávny.\n"
 "Mo¾nou obchádzkou je nastavenie LC_ALL=C.\n"
 
@@ -1948,16 +1956,15 @@ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Konvertova» binárny katalóg správ na .po súbor v Uniforum ¹týle.\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "Mód èinnosti:\n"
-"  -j, --java                  mód Java: generova» triedu Java ResourceBundle\n"
-"      --java2                 ako --java ale predpoklada» Java2 (JDK 1.2 alebo\n"
-"                              vy¹¹ie)\n"
+"  -j, --java               mód Java: vstup je trieda Java ResourceBundle\n"
+"      --tcl                mód Tcl: vstup je súbor .msg tcl/msgcat\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1981,12 +1988,14 @@ msgid ""
 msgstr ""
 "Umiestnenie vstupného súbore v móde Java:\n"
 "  -r, --rsource=ZDROJ      názov zdroja\n"
-"  -l, --locale=LOCALE      názov locale, buï jazyk alebo jazyk_KRAJINA\n"
-"Názov triedy je získaný pridaním názvu locale k názvu zdroja, oddelených\n"
-"znakom \"_\". Trieda je umiestnená pomocou CLASSPATH.\n"
+"  -l, --locale=PROSTREDIE  názov národného prostredia, buï jazyk alebo\n"
+"                           jazyk_KRAJINA\n"
+"Názov triedy je získaný pridaním názvu národného prostredia k názvu zdroja,\n"
+"oddelených\n"
+" znakom \"_\". Trieda je umiestnená pomocou CLASSPATH.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -1994,12 +2003,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Umiestnenie výstupného súboru v móde Java:\n"
-"  -r, --resource=ZDROJ        názov zdroja\n"
-"  -l, --locale=LOCALE         názov locale, buï jazyk alebo jazyk_KRAJINA\n"
-"  -d ADRESÁR                  základný adresár adresárov hierarchie tried\n"
-"Názov triedy je získaný pridaním názvu locale k názvu zdroja, oddelené\n"
-"znakom \"_\". Voµba -d je povinná. Trieda je zapísaná do zadaného adresára.\n"
+"Umiestnenie vstupného súboru v móde Tcl:\n"
+"  -l, --locale=PROSTREDIE  názov národného prostredia, buï jazyk alebo\n"
+"                           jazyk_KRAJINA\n"
+"  -d ADRESÁR               základný adresár katalógov správ .msg\n"
+"Voµby -l a -d sú povinné. Súbor .msg je umiestnený v zadaného adresára.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -2447,7 +2455,7 @@ msgstr ""
 "Ak je výstupný súbor -, výstup je zapísaný na ¹tandardný výstup.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2459,8 +2467,9 @@ msgid ""
 msgstr ""
 "Výber vstupného jazyka súboru:\n"
 "  -L, --language=NÁZOV           pou¾i» zadaný jazyk\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                   librep, Java, YCP)\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                   RST, Glade)\n"
 "  -C, --c++                      skratka pre --language=C++\n"
 "©tandardne je jazyk odhadnutý podµa prípony vstupného súboru.\n"
 
@@ -2561,12 +2570,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "jazyk `%s' je neznámy"
-
-#~ msgid ""
-#~ "Operation mode:\n"
-#~ "  -j, --java               Java mode: generate a Java ResourceBundle "
-#~ "class\n"
-#~ msgstr ""
-#~ "Mód èinnosti:\n"
-#~ "  -j, --java               mód Java: generova» triedu Java "
-#~ "ResourceBundle\n"
