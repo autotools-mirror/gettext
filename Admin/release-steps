@@ -23,6 +23,8 @@ Tasks not to forget before release:
 
 - Update djgpp/*.
 
+- Update NEWS.
+
 - "make"; "make dist"; "make distcheck"
 - cd misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
 - again: "make dist"
