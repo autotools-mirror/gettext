@@ -83,7 +83,7 @@ DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c
 # Maintainers of other packages that include the intl directory must *not*
 # change these values.
 LTV_CURRENT=1
-LTV_REVISION=0
+LTV_REVISION=1
 LTV_AGE=0
 
 .SUFFIXES:

@@ -4,6 +4,10 @@
 
 2001-04-19  Bruno Haible <haible@clisp.cons.org>
 
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 1:1:0.
+
+2001-04-19  Bruno Haible <haible@clisp.cons.org>
+
 	* loadmsgcat.c (_nl_init_domain_conv): Don't append //TRANSLIT when
 	the libiconv version is smaller than 1.5.
 
