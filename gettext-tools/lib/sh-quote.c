@@ -1,5 +1,5 @@
 /* Shell quoting.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,13 +29,20 @@
 #include "xmalloc.h"
 
 
+/* Must quote the program name and arguments since Unix shells interpret
+   characters like " ", "'", "<", ">", "$" etc. in a special way.  This
+   kind of quoting should work unless the string contains "\n" and we call
+   csh.  But we are lucky: only /bin/sh will be used.  */
+
 #define SHELL_SPECIAL_CHARS "\t\n !\"#$&'()*;<=>?[\\]`{|}~"
 
 /* Returns the number of bytes needed for the quoted string.  */
 size_t
 shell_quote_length (const char *string)
 {
-  if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
+  if (string[0] == '\0')
+    return 2;
+  else if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
     return strlen (string);
   else
     {
@@ -67,7 +74,12 @@ shell_quote_length (const char *string)
 char *
 shell_quote_copy (char *p, const char *string)
 {
-  if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
+  if (string[0] == '\0')
+    {
+      memcpy (p, "''", 2);
+      return p + 2;
+    }
+  else if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
     {
       memcpy (p, string, strlen (string));
       return p + strlen (string);

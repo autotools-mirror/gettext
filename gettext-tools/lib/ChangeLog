@@ -1,3 +1,8 @@
+2003-03-31  Bruno Haible  <bruno@clisp.org>
+
+	* sh-quote.c (shell_quote_length, shell_quote_copy): Handle empty
+	argument string correctly.
+
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* progname.c (ISSLASH, HAS_DEVICE, IS_PATH_WITH_DIR,
