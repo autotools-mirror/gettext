@@ -226,6 +226,14 @@ doing this, try to turn the strings into good English, one entire
 sentence per string, not more than one paragraph per string, and use
 format strings instead of string concatenation. This is needed so that
 the translators can provide accurate translations.</li>
+  <li>In every source file containing translatable strings, add these lines
+to the header:<br>
+    <div style="margin-left: 40px;"><code><span
+ style="font-family: monospace;">#include "gettext.h"</span><br
+ style="font-family: monospace;">
+    <span style="font-family: monospace;">#define _(string) gettext (string)</span></code><br>
+    </div>
+  </li>
   <li>In the freshly created <span style="font-family: monospace;">po/</span>
 directory, set up the <span style="font-family: monospace;">POTFILES.in</span>
 file, and do a “<span style="font-family: monospace;">make update-po</span>”.
