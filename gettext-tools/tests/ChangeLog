@@ -1,3 +1,7 @@
+2004-03-14  Bruno Haible  <bruno@clisp.org>
+
+	* format-lisp-2: Add one more test for ~[...~].
+
 2004-01-30  Bruno Haible  <bruno@clisp.org>
 
 	* format-c-5-prg.c (main): Return with exit code 77 when the requested

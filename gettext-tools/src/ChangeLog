@@ -1,3 +1,8 @@
+2004-03-14  Bruno Haible  <bruno@clisp.org>
+
+	* format-lisp.c (parse_upto): Add integer restriction for the dispatch
+	argument in ~[...~].
+
 2004-03-02  Bruno Haible  <bruno@clisp.org>
 
 	* read-csharp.c (msgdomain_read_csharp): Extend the lang -> frobbedlang

@@ -2944,6 +2944,7 @@ parse_upto (const char **formatp,
 	      }
 	    else
 	      {
+		int arg_position;
 		int union_position;
 		struct format_arg_list *union_list;
 		bool last_alternative;
@@ -2953,9 +2954,13 @@ parse_upto (const char **formatp,
 		  return false;
 
 		/* If there was no first parameter, an argument is consumed.  */
+		arg_position = -1;
 		if (!(paramcount >= 1 && params[0].type != PT_NIL))
 		  if (position >= 0)
-		    add_req_type_constraint (&list, position++, FAT_OBJECT);
+		    {
+		      arg_position = position;
+		      add_req_type_constraint (&list, position++, FAT_OBJECT);
+		    }
 
 		*formatp = format;
 		*escapep = escape;
@@ -2974,6 +2979,11 @@ parse_upto (const char **formatp,
 				     &sub_separator, spec, ']', !last_alternative,
 				     invalid_reason))
 		      return false;
+		    /* If this alternative is chosen, the argument arg_position
+		       is an integer, namely the index of this alternative.  */
+		    if (!last_alternative && arg_position >= 0)
+		      add_req_type_constraint (&sub_list, arg_position,
+					       FAT_INTEGER);
 		    if (sub_list != NULL)
 		      {
 			if (union_position == -2)

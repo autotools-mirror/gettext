@@ -106,9 +106,12 @@ msgstr "xyz~(~D ~D~)"
 # Valid: case conversion is optional, and it doesn't catch ~^
 msgid  "abc~(~D~^ ~D~)def~C"
 msgstr "xyz~D~^ ~Duvw~C"
-# Valid: synoymous conditionals
+# Valid: synonymous conditionals
 msgid  "abc~@[~D~]def~C"
 msgstr "xyz~:[~;~:*~D~]~C"
+# Valid: synonymous conditionals
+msgid  "abc~Ddef"
+msgstr "abc~[null~;eins~:;~:*~D~]def"
 # Valid: conditionals are optional and don't catch ~^
 msgid  "abc~:[~;~]~^~D~C"
 msgstr "xyz~:[uvw~^~R~;~:*~S~^~D~]~C"
