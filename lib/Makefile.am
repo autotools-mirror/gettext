@@ -38,11 +38,12 @@ utf16-ucs4.h wait-process.h xerror.h xmalloc.h
 
 # Sources that are compiled only on platforms that lack the functions.
 
-LIBADD_SOURCE = alloca.c error.c getline.c memset.c mkdtemp.c setenv.c \
-stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strpbrk.c strstr.c \
-strtol.c strtoul.c vasprintf.c
+LIBADD_SOURCE = alloca.c error.c getline.c memset.c mkdtemp.c pfnmatch.c \
+setenv.c stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strpbrk.c \
+strstr.c strtol.c strtoul.c vasprintf.c
 
-LIBADD_HEADER = error.h getline.h mkdtemp.h setenv.h strpbrk.h strstr.h
+LIBADD_HEADER = error.h getline.h mkdtemp.h pfnmatch.h setenv.h strpbrk.h \
+strstr.h
 
 # Unused sources.
 
@@ -71,6 +72,9 @@ gen-lbrkprop.c 3level.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
+
+
+DISTCLEANFILES = fnmatch.h
 
 
 all-local execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo wait-process.lo xerror.lo: @STDBOOL_H@

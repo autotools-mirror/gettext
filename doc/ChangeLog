@@ -1,3 +1,7 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep.texi: Document that --location arguments may be wildcards.
+
 2001-12-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (librep): Update.

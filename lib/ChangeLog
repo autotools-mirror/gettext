@@ -1,3 +1,13 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* pfnmatch.h: New file, from fileutils-4.1/lib/fnmatch.h with
+	modifications.
+	* pfnmatch.c: New file, from fileutils-4.1/lib/fnmatch.c with
+	modifications.
+	* Makefile.am (LIBADD_SOURCE): Add pfnmatch.c.
+	(LIBADD_HEADER): Add pfnmatch.h.
+	(DISTCLEANFILES): New variable.
+
 2001-12-18  Bruno Haible  <bruno@clisp.org>
 
 	* getline.h: Include <stddef.h>, for size_t.

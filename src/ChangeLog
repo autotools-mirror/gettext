@@ -1,3 +1,9 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep.c: Include <fnmatch.h>.
+	(filename_list_match): New function.
+	(is_message_selected): Use it instead of string_list_member.
+
 2001-12-16  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_librep'.

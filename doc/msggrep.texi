@@ -62,7 +62,8 @@ expressions if -E is given, or fixed strings if -F is given.
 @table @samp
 @item -N @var{sourcefile}
 @itemx --location=@var{sourcefile}
-Select messages extracted from @var{sourcefile}.
+Select messages extracted from @var{sourcefile}.  @var{sourcefile} can be
+either a literal file name or a wildcard pattern.
 
 @item -M @var{domainname}
 @itemx --domain=@var{domainname}

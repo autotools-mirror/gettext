@@ -1,5 +1,10 @@
 2001-12-17  Bruno Haible  <bruno@clisp.org>
 
+	* fnmatch.m4: New file, inspired by autoconf-2.13 and autoconf-2.52.
+	* Makefile.am (EXTRA_DIST): Add it.
+
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
 	* getline.m4 (AM_FUNC_GETLINE): Include <stdlib.h>, not <sys/types.h>,
 	for declaring size_t and exit().  #define getline to a different
 	symbol at linkage level.

@@ -34,6 +34,8 @@
 # include <unistd.h>
 #endif
 
+#include <fnmatch.h>
+
 #include "dir-list.h"
 #include "error.h"
 #include "progname.h"
@@ -105,6 +107,8 @@ static const struct option long_options[] =
    function argument counts despite of K&R C function definition syntax.  */
 static void no_pass PARAMS ((int opt));
 static void usage PARAMS ((int status));
+static bool filename_list_match PARAMS ((const string_list_ty *slp,
+					 const char *filename));
 #ifdef EINTR
 static inline int nonintr_close PARAMS ((int fd));
 #endif
@@ -462,6 +466,22 @@ Informative output:\n\
 }
 
 
+/* Return 1 if FILENAME is contained in a list of filename patterns,
+   0 otherwise.  */
+static bool
+filename_list_match (slp, filename)
+     const string_list_ty *slp;
+     const char *filename;
+{
+  size_t j;
+
+  for (j = 0; j < slp->nitems; ++j)
+    if (fnmatch (slp->item[j], filename, FNM_PATHNAME) == 0)
+      return true;
+  return false;
+}
+
+
 #ifdef EINTR
 
 /* EINTR handling for close().
@@ -536,7 +556,7 @@ is_message_selected (mp)
 
   /* Test whether one of mp->filepos[] is selected.  */
   for (i = 0; i < mp->filepos_count; i++)
-    if (string_list_member (location_files, mp->filepos[i].file_name))
+    if (filename_list_match (location_files, mp->filepos[i].file_name))
       return true;
 
   /* Test msgid and msgid_plural using the --msgid arguments.  */

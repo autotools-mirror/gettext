@@ -1,0 +1,43 @@
+#serial 1
+
+dnl Determine whether the system has a working fnmatch() function.
+AC_DEFUN([gt_FUNC_FNMATCH],
+[
+  dnl Don't use AC_FUNC_FNMATCH. In autoconf-2.52 the test is buggy and
+  dnl excludes all non-GNU implementations.
+  dnl Some versions of Solaris or SCO have a broken fnmatch function.
+  dnl So we run a test program.  If we are cross-compiling, take no chance.
+  dnl Thanks to John Oleynick and Franc,ois Pinard for this test.
+  AC_CACHE_CHECK([for working fnmatch function], gt_cv_func_fnmatch_works, [
+    AC_TRY_RUN([
+#     include <stdlib.h>
+#     include <fnmatch.h>
+      int main ()
+      {
+        exit (fnmatch ("a*", "abc", 0) != 0
+              || fnmatch ("d*/*1", "d/s/1", FNM_PATHNAME) != FNM_NOMATCH);
+      }
+      ],
+      gt_cv_func_fnmatch_works=yes, gt_cv_func_fnmatch_works=no,
+      gt_cv_func_fnmatch_works=no  dnl cross-compiling
+    )
+  ])
+  if test $gt_cv_func_fnmatch_works = yes; then
+    AC_DEFINE([HAVE_FNMATCH], 1,
+      [Define if you have <fnmatch.h> and a working fnmatch() function.])
+  fi
+
+  dnl Now some other actions, not part of AC_FUNC_FNMATCH.
+  if test $gt_cv_func_fnmatch_works = yes; then
+    rm -f lib/fnmatch.h
+  else
+    echo '#include "pfnmatch.h"' > lib/fnmatch.h
+    dnl We must choose a different name for our function, since on ELF systems
+    dnl a broken fnmatch() in libc.so would override our fnmatch() in
+    dnl libgettextlib.so.
+    AC_DEFINE([fnmatch], [posix_fnmatch],
+      [Define to a replacement function name for fnmatch().])
+    LIBOBJS="$LIBOBJS pfnmatch.${ac_objext}"
+    AC_SUBST(LIBOBJS)
+  fi
+])
