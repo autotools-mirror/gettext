@@ -1,3 +1,8 @@
+2003-01-29  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset: Add an alias for CP1251 on Solaris.
+	Reported by Hidetoshi Tajima <hidetoshi.tajima@sun.com>.
+
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
 	* log.c: New file.
