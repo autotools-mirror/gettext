@@ -1,5 +1,9 @@
 2001-11-01  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt.c (check_plural_eval): Fix #if mistake.
+
+2001-11-01  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgl-iconv.h (iconv_message_list): Add argument 'canon_from_code'.
 	* msgl-iconv.c (iconv_message_list): Add argument 'canon_from_code'.
 	(iconv_msgdomain_list): Update.

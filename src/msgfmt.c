@@ -720,8 +720,8 @@ check_plural_eval (plural_expr, nplurals_value, header_pos)
 	  break;
 # endif
 	default:
-	  msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
 #endif
+	  msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
 	}
 
       error_with_progname = false;
