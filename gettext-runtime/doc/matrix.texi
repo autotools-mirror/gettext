@@ -1,241 +1,271 @@
 @example
 @group
-Ready PO files    be bg ca cs da de el en eo es et fi fr gl
+Ready PO files    az be bg ca cs da de el en en_GB eo es et fa fi
+                +-------------------------------------------------+
+a2ps            |                [] [] []                []    [] |
+aegis           |                   ()                            |
+anubis          |                                                 |
+ap-utils        |                                                 |
+bash            |                   []             [] []          |
+batchelor       |                                                 |
+bfd             |                []                   []          |
+binutils        |                []                   []          |
+bison           |                [] []                [] []       |
+clisp           |                   []    []          []          |
+clisp           |                                                 |
+coreutils       |                [] []                [] []       |
+cpio            |                [] []                []          |
+darkstat        |                ()                   []          |
+diffutils       |          [] [] [] []             [] []       [] |
+enscript        |          []    [] []                            |
+error           |                   []        []      []       [] |
+fetchmail       |          [] () [] []                []          |
+fileutils       |                [] []                [] []       |
+findutils       |          []    [] []             [] [] []    [] |
+flex            |          []    [] []                []          |
+gas             |                                     []          |
+gawk            |                [] []                []          |
+gcal            |          []                                     |
+gcc             |                []                   []          |
+gettext         |    []    []    [] []                []          |
+gimp-print      |                                                 |
+gliv            |                                                 |
+gnucash         |                [] ()                            |
+gnucash-glossary|                [] ()                []          |
+gnupg           |          []       [] []          [] [] []    [] |
+gpe-todo        |                                                 |
+gphoto2         |                   []                []          |
+gprof           |                []                   []          |
+gpsdrive        |                () ()    ()          ()          |
+grep            |       [] []       [] []             [] []    [] |
+gretl           |                                     []          |
+hello           |          []    [] [] []          [] [] [] [] [] |
+id-utils        |                [] []                            |
+indent          |          []       []             [] [] []    [] |
+jpilot          |             () [] []                []          |
+jwhois          |                                     []          |
+kbd             |                [] []                []          |
+ld              |                []                   []          |
+libc            |          [] [] [] [] []             []       [] |
+libgpewidget    |                                                 |
+libiconv        |          []    [] []             [] []       [] |
+lifelines       |                [] ()                            |
+lilypond        |                []                               |
+lingoteach      |                []                               |
+lingoteach_lessons|                   ()                ()          |
+lynx            |          [] [] [] []                   []       |
+m4              |             [] [] [] []                         |
+mailutils       |          []                         []          |
+make            |                [] []                []          |
+man-db          |          [] ()    []                ()          |
+mysecretdiary   |                [] []                []          |
+nano            |          [] () [] []                []          |
+nano_1_0        |          [] () [] []                []          |
+opcodes         |                []                   []          |
+parted          |          []    [] []                []          |
+ptx             |          []    [] []             [] [] []    [] |
+python          |                                                 |
+radius          |                                                 |
+recode          |                [] [] []          [] []          |
+sed             |          []    [] []             [] [] []       |
+sh-utils        |                   []                [] []    [] |
+sharutils       |          [] [] [] [] []             [] []       |
+sketch          |                [] ()                []          |
+soundtracker    |                [] []                []          |
+sp              |                   []                            |
+tar             |             [] [] []                [] []    [] |
+texinfo         |             [] [] []             []             |
+textutils       |          []    [] []                []          |
+tin             |                   ()        ()         []       |
+util-linux      |          [] [] [] []                [] []    [] |
+vorbis-tools    |                []                   []          |
+wastesedge      |                   ()                            |
+wdiff           |          []    [] []                [] []       |
+wget            |       [] [] [] [] [] []             [] []    [] |
+xchat           |                                                 |
+xpad            |                                                 |
+                +-------------------------------------------------+
+                  az be bg ca cs da de el en en_GB eo es et fa fi
+                   0  1  2 26  9 49 46  9  1   1   11 52 19  1 15
+@end group
+
+@group
+                  fr gl he hr hu id it ja ko lg lv ms nb nl
                 +-------------------------------------------+
-a2ps            |             [] []             [] [] []    |
-aegis           |                ()                         |
-anubis          |                                     []    |
-ap-utils        |                                     []    |
-bash            |                []       [] []       []    |
-bfd             |             []             []       []    |
-binutils        |                            []       []    |
-bison           |                []          [] []    []    |
-clisp           |                []    []    []       []    |
+a2ps            | []                ()    ()       []    [] |
+aegis           |                                        () |
+anubis          | []                               []       |
+ap-utils        | []                                        |
+bash            | []          []                            |
+batchelor       |                                           |
+bfd             | []                   []                   |
+binutils        | []                   []                   |
+bison           | []             [] []                   [] |
+clisp           | []                                     [] |
 clisp           |                                           |
-coreutils       |             [] []          [] []    []    |
-cpio            |             [] []          []       [] [] |
-darkstat        |             ()             []       ()    |
-diffutils       |          [] [] []       [] []       [] [] |
-enscript        |       []       []                   []    |
-error           |                []          []    [] []    |
-fetchmail       |       [] () [] []          []             |
-fileutils       |             [] []          [] []    []    |
-findutils       |       []    [] []       [] [] [] [] [] [] |
-flex            |       []    [] []          []       []    |
-gas             |                            []       []    |
-gawk            |                []          []       []    |
-gcal            |       []                            []    |
-gcc             |             []             []       []    |
-gettext         | []    []    [] []          []       []    |
-gliv            |                                     ()    |
-gnupg           |       []       [] []    [] [] []    [] [] |
-gprof           |                            []       []    |
-gpsdrive        |             () ()    ()    ()       ()    |
-grep            |    [] []       [] []       [] [] [] [] [] |
-gretl           |                            []       []    |
-gthumb          |                ()          ()       ()    |
-hello           |       []    [] [] []    [] [] [] [] [] [] |
-id-utils        |             [] []                   []    |
-indent          |       []       []       [] [] [] [] [] [] |
-jpilot          |          () [] []                   []    |
-jwhois          |                            []       []    |
-kbd             |                []          []       []    |
-ld              |                            []       []    |
-libc            |       [] [] [] [] []       []    [] [] [] |
-libiconv        |       []       []       [] []    [] [] [] |
-lifelines       |                ()                   ()    |
-lilypond        |             []                      []    |
-lingoteach      |                                           |
-lingoteach_lessons|                ()          ()             |
-lynx            |       [] [] [] []             []          |
-m4              |          [] [] [] []                [] [] |
-make            |             [] []          []       [] [] |
-man-db          |       [] () () []          ()       []    |
-mysecretdiary   |                []          []       []    |
-nano            |       [] () [] []          []       [] [] |
-nano_1_0        |       [] () [] []          []       [] [] |
-opcodes         |             []             []       []    |
-parted          |       []    [] []          []       [] [] |
-ptx             |       []    [] []       [] [] [] [] [] [] |
+coreutils       | []                [] []                   |
+cpio            | [] []       []          []             [] |
+darkstat        | ()          []                   []    [] |
+diffutils       | [] [] []    [] []    []                   |
+enscript        | []       []                            [] |
+error           | []          []                         [] |
+fetchmail       |                      []                   |
+fileutils       | []          []    [] []                   |
+findutils       | [] []    [] [] [] [] [] []             [] |
+flex            | []                      []                |
+gas             | []                                        |
+gawk            | []    []                                  |
+gcal            | []                                        |
+gcc             | []                                        |
+gettext         | []                   [] []                |
+gimp-print      |                                           |
+gliv            | ()                                        |
+gnucash         | []          []    []                      |
+gnucash-glossary|                   []                   [] |
+gnupg           | [] []          [] [] []                   |
+gpe-todo        |                                           |
+gphoto2         | []          []       []                   |
+gprof           | []             []                         |
+gpsdrive        | ()          []    ()                   () |
+grep            | [] [] [] [] [] [] [] []                   |
+gretl           | []                                        |
+hello           | [] [] [] [] [] [] [] [] []    [] [] [] [] |
+id-utils        | []          []                         [] |
+indent          | [] []       []    [] []                [] |
+jpilot          | []                   ()                () |
+jwhois          | []          [] []                      [] |
+kbd             | []                                        |
+ld              | []                                        |
+libc            | [] []       []       [] []          []    |
+libgpewidget    |                                           |
+libiconv        | [] []    [] [] [] []                      |
+lifelines       | ()                                        |
+lilypond        | []                                     [] |
+lingoteach      |                []                         |
+lingoteach_lessons|                                           |
+lynx            |             []    [] []                [] |
+m4              | [] []          []    []                [] |
+mailutils       |                                           |
+make            | [] [] [] []          [] []             [] |
+man-db          | []                () ()                   |
+mysecretdiary   | []             []                         |
+nano            | [] []          [] []             []    [] |
+nano_1_0        | [] []          [] []             [] []    |
+opcodes         | []             []                      [] |
+parted          | [] []                []                   |
+ptx             | [] []       [] []                   [] [] |
 python          |                                           |
-recode          |             [] [] []    [] []       [] [] |
-sed             |       []    []          []    []       [] |
-sh-utils        |                []          [] []    []    |
-sharutils       |       [] [] [] [] []       [] []    [] [] |
-sketch          |                ()          []       []    |
-soundtracker    |                []          []       [] [] |
-sp              |                []                   []    |
-tar             |          [] [] []          [] []    [] [] |
-texinfo         |          [] [] []       []          []    |
-textutils       |       []    [] []          []       [] [] |
-tin             |                ()             []          |
-util-linux      |       [] [] [] []          [] [] [] []    |
-vorbis-tools    |                                     []    |
-wastesedge      |                ()                   ()    |
-wdiff           |       []    [] []          [] []    [] [] |
-wget            |    [] [] [] [] [] []       [] [] [] [] [] |
+radius          |                                           |
+recode          | [] [] []       [] []                      |
+sed             | [] []          [] [] []                   |
+sh-utils        | []          []    [] []             []    |
+sharutils       | [] []       []       []                [] |
+sketch          | []                                        |
+soundtracker    | [] []    []                               |
+sp              | []                   ()                   |
+tar             | [] []    [] [] [] [] []          [] []    |
+texinfo         | []    [] []          []                   |
+textutils       | [] []       []       [] []          []    |
+tin             |                                           |
+util-linux      | []          []    () []                [] |
+vorbis-tools    |                                        [] |
+wastesedge      | ()                                        |
+wdiff           | [] []       [] []                []       |
+wget            | [] [] [] [] []       []                [] |
+xchat           |                                           |
+xpad            |                                           |
                 +-------------------------------------------+
-                  be bg ca cs da de el en eo es et fi fr gl
-                   1  2 24  9 33 44  8  1 11 46 19 11 57 23
+                  fr gl he hr hu id it ja ko lg lv ms nb nl
+                  59 23  8 10 26 20 18 26  8  0  1  8  7 24
 @end group
 
 @group
-                  he hr hu id it ja ko lg lv ms nb nl nn
-                +----------------------------------------+
-a2ps            |             ()    ()       []    []    |
-aegis           |                                  ()    |
-anubis          |                                        |
-ap-utils        |                                        |
-bash            |       []                               |
-bfd             |                []                      |
-binutils        |                []                      |
-bison           |          [] []                   []    |
-clisp           |                                  []    |
-clisp           |                                        |
-coreutils       |             [] []                      |
-cpio            |       []          []             []    |
-darkstat        |       []                               |
-diffutils       | []    [] []    []                      |
-enscript        |    []                            []    |
-error           |       []                               |
-fetchmail       |                []                      |
-fileutils       |       []    [] []                      |
-findutils       |    [] [] [] [] [] []             []    |
-flex            |                   []                   |
-gas             |                                        |
-gawk            | []                                     |
-gcal            |                                        |
-gcc             |                []                      |
-gettext         |                [] []                   |
-gliv            |                                        |
-gnupg           |          [] [] []                      |
-gprof           |          []                            |
-gpsdrive        |       []    ()                   ()    |
-grep            | [] [] [] [] [] []                      |
-gretl           |                                        |
-gthumb          |             () ()                      |
-hello           | [] [] [] [] [] [] []    []    [] [] [] |
-id-utils        |       []                         []    |
-indent          |       []       []                []    |
-jpilot          |                ()                ()    |
-jwhois          |       [] []                            |
-kbd             |                                        |
-ld              |                                        |
-libc            |       []       [] []          []       |
-libiconv        |    [] []                               |
-lifelines       |                                        |
-lilypond        |                                  []    |
-lingoteach      |          []                            |
-lingoteach_lessons|                                        |
-lynx            |       []    [] []                []    |
-m4              |          []    []                []    |
-make            | [] []          [] []             []    |
-man-db          |             () ()                      |
-mysecretdiary   |          []                            |
-nano            |          [] []             []    []    |
-nano_1_0        |          [] []             [] []    [] |
-opcodes         |          []                      []    |
-parted          |                []                   [] |
-ptx             |       [] []                   [] []    |
-python          |                                        |
-recode          | []       [] []                         |
-sed             |                []                      |
-sh-utils        |       []    [] []             []       |
-sharutils       |       []       []                []    |
-sketch          |                                        |
-soundtracker    |    []                                  |
-sp              |                                        |
-tar             |    [] [] [] [] []             []       |
-texinfo         | [] []          []                      |
-textutils       |       []       [] []          []       |
-tin             |                                        |
-util-linux      |       []    () []                      |
-vorbis-tools    |       []                         []    |
-wastesedge      |                                        |
-wdiff           |       [] []                            |
-wget            | [] [] []       []                []    |
-                +----------------------------------------+
-                  he hr hu id it ja ko lg lv ms nb nl nn
-                   8 10 25 18 13 26  8  0  1  3  7 19  3
-@end group
-
-@group
-                  no pl pt pt_BR ru sk sl sv tr uk zh_CN zh_TW
-                +----------------------------------------------+
-a2ps            | () () ()  []   []    [] [] []                | 12
-aegis           |                ()                            |  0
-anubis          |                                              |  1
-ap-utils        |                               ()             |  1
-bash            |           []                                 |  6
-bfd             |                         [] []                |  6
-binutils        |                         [] []                |  5
-bison           |           []            [] []                | 10
-clisp           |                                              |  5
-clisp           |                                              |  0
-coreutils       |                []    [] [] []           []   | 12
-cpio            |    []     []   []       []        []         | 13
-darkstat        |           []            []        ()    ()   |  4
-diffutils       |    []     []   []       [] []           []   | 17
-enscript        |           []   []       [] []                |  9
-error           |                   []       []           []   |  8
-fetchmail       |    ()     ()               []                |  6
-fileutils       |                []    [] [] []     []    []   | 14
-findutils       |    []     []   [] [] [] [] []     []         | 24
-flex            |                []       [] []                |  9
-gas             |                            []                |  3
-gawk            |                         [] []                |  6
-gcal            |                         [] []                |  4
-gcc             |                            []                |  5
-gettext         |                [] [] [] [] []           []   | 14
-gliv            |                                              |  0
-gnupg           |    []                   [] []                | 14
-gprof           |                         [] []                |  5
-gpsdrive        |                   []    []                   |  3
-grep            |    []     []   []    []    []                | 20
-gretl           |                                              |  2
-gthumb          |           ()   ()       []                   |  1
-hello           | [] []          [] []    [] [] []             | 28
-id-utils        |           []   []       [] []                |  9
-indent          |           []   [] []    [] []                | 16
-jpilot          | ()                      [] []     []    []   |  7
-jwhois          |           []   ()       () []           []   |  7
-kbd             |                         [] []                |  5
-ld              |                         [] []                |  4
-libc            | [] []     []      []    [] []     []         | 20
-libiconv        |           []   [] [] [] [] []                | 15
-lifelines       |                         []                   |  1
-lilypond        |                         []                   |  4
-lingoteach      |           []            []                   |  3
-lingoteach_lessons|                                   ()         |  0
-lynx            |           []   []       [] []                | 13
-m4              |    []     []   []       []                   | 13
-make            |           []   []       [] []     []         | 15
-man-db          |                         []                   |  4
-mysecretdiary   |           []            [] []                |  7
-nano            |    []          []       []    []             | 14
-nano_1_0        |    []          []       []    []             | 15
-opcodes         |           []            [] []                |  8
-parted          |       []  []            [] []                | 12
-ptx             | [] [] []  []   []       [] []                | 20
-python          |                                              |  0
-recode          |    []     []   []    [] [] []                | 16
-sed             |                   [] [] []                   |  9
-sh-utils        |                []    []    []                | 11
-sharutils       |                []       [] []           []   | 16
-sketch          |           []            []                   |  4
-soundtracker    |                         []                   |  6
-sp              |                                              |  2
-tar             | [] []     []      [] [] [] []     []         | 21
-texinfo         |                []       []        []         | 11
-textutils       |                []    [] [] []           []   | 15
-tin             |                                              |  1
-util-linux      |           []            [] []                | 13
-vorbis-tools    |                         []                   |  4
-wastesedge      |                                              |  0
-wdiff           |           []   [] []    [] []                | 14
-wget            |    []          [] [] [] [] [] []        []   | 24
-                +----------------------------------------------+
-  39 teams        no pl pt pt_BR ru sk sl sv tr uk zh_CN zh_TW
-  72 domains       4 14  2  27   27 12 13 52 43  4   8    10    646
+                  nn no pl pt pt_BR ro ru sk sl sv tr uk zh_CN zh_TW
+                +----------------------------------------------------+
+a2ps            |    () () ()  []      []    [] [] [] []             | 14
+aegis           |                      ()                            |  0
+anubis          |                                  [] []             |  4
+ap-utils        |       ()                            ()             |  1
+bash            |              []      []                            |  7
+batchelor       |                                                    |  0
+bfd             |                               [] []                |  6
+binutils        |                               [] []                |  6
+bison           |              []      []       []                   | 11
+clisp           |                                                    |  5
+clisp           |                                                    |  0
+coreutils       |                      []    [] [] []           []   | 12
+cpio            |       []     []      []       []        []         | 13
+darkstat        |              []               []        ()    ()   |  6
+diffutils       |       []     []      []       [] []           []   | 19
+enscript        |              []      []       [] []                | 10
+error           |              []         []       []           []   | 11
+fetchmail       |       ()     ()                  []                |  6
+fileutils       |                      []    [] [] []     []    []   | 14
+findutils       |       []     []      [] [] [] [] []     []         | 24
+flex            |              []      []       [] []                | 10
+gas             |                                  []                |  3
+gawk            |                               [] []                |  7
+gcal            |                               [] []                |  4
+gcc             |                                  []                |  4
+gettext         |                      [] [] [] [] []           []   | 14
+gimp-print      |                                                    |  0
+gliv            |              []                                    |  1
+gnucash         |          []  []         []    []              []   |  9
+gnucash-glossary|          []             []    []              []   |  8
+gnupg           |       []                      [] []           []   | 16
+gpe-todo        |                                                    |  0
+gphoto2         |                               []        []         |  7
+gprof           |              []               [] []                |  7
+gpsdrive        |                         []    []                   |  3
+grep            |       []     []      []    []    []                | 20
+gretl           |                                                    |  2
+hello           | [] [] []     []      [] []    [] [] []             | 31
+id-utils        |              []      []       [] []                |  9
+indent          |              []      [] []    [] []                | 17
+jpilot          |    ()                         [] []     []    []   |  8
+jwhois          |              []      ()       () []           []   |  8
+kbd             |                               [] []                |  6
+ld              |                               [] []                |  5
+libc            |    [] []     []         []    [] []     []         | 20
+libgpewidget    |                                                    |  0
+libiconv        |              []      [] [] [] [] []                | 18
+lifelines       |                               []                   |  2
+lilypond        |                               []                   |  4
+lingoteach      |              []               []                   |  4
+lingoteach_lessons|                                         ()         |  0
+lynx            |              []      []       [] []                | 13
+m4              |       []     []      []       []                   | 13
+mailutils       |                                                    |  2
+make            |              []      []       [] []     []         | 15
+man-db          |                               []                   |  4
+mysecretdiary   |              []               [] []                |  8
+nano            |       []                      []    []             | 13
+nano_1_0        | []    []             []       []    []             | 15
+opcodes         |              []               [] []                |  8
+parted          | []       []  []               [] []                | 12
+ptx             |    [] [] []  []      []       [] []                | 20
+python          |                                                    |  0
+radius          |                                                    |  0
+recode          |       []     []      []    [] [] []                | 16
+sed             |              []         [] [] [] []                | 16
+sh-utils        |                      []    []    []                | 12
+sharutils       |                      []       [] []           []   | 16
+sketch          |              []               []                   |  5
+soundtracker    |                               []                   |  7
+sp              |                                  []                |  3
+tar             |    [] []     []   []    [] [] [] []     []         | 24
+texinfo         |                      []       [] []     []         | 12
+textutils       |                      []    [] [] []           []   | 15
+tin             |                                                    |  1
+util-linux      |              []               [] []                | 14
+vorbis-tools    |                      []                            |  4
+wastesedge      |                                                    |  0
+wdiff           |              []      [] []    [] []                | 15
+wget            |       []             [] [] [] [] [] []        []   | 24
+xchat           |                                                    |  0
+xpad            |                                                    |  0
+                +----------------------------------------------------+
+  43 teams        nn no pl pt pt_BR ro ru sk sl sv tr uk zh_CN zh_TW
+  82 domains       3  4 14  4  34    1 29 14 13 53 46  6   9    13    723
 @end group
 @end example
