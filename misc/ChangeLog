@@ -1,3 +1,8 @@
+2001-10-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el (po-team-name-to-code): Extend the list using items from
+	src/msginit.c.
+
 2001-10-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextize.in: Use a different wording about aclocal.m4 if the
