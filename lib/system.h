@@ -94,11 +94,9 @@ char *alloca ();
 # endif
 #endif
 
-/* Before we define the following symbols we get the <limits.h> file if
-   available since otherwise we get redefinitions on some systems.  */
-#if HAVE_LIMITS_H
-# include <limits.h>
-#endif
+/* Before we define the following symbols we get the <limits.h> file
+   since otherwise we get redefinitions on some systems.  */
+#include <limits.h>
 
 #ifndef MAX
 # if __STDC__ && defined __GNUC__ && __GNUC__ >= 2

@@ -36,12 +36,7 @@
 
 #include <string.h>
 #include <stdio.h>
-
-#ifdef HAVE_LIMITS_H
-# include <limits.h>
-#else
-# define INT_MAX ((int)(~(unsigned)0 >> 1))
-#endif
+#include <limits.h>
 
 #include "system.h"
 #include "fstrcmp.h"

@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <getopt.h>
+#include <limits.h>
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,10 +32,6 @@
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
-#endif
-
-#ifdef HAVE_LIMITS_H
-# include <limits.h>
 #endif
 
 #include "dir-list.h"

@@ -1,3 +1,8 @@
+2001-07-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* system.h: Assume <limits.h> exists.
+	* fstrcmp.c: Likewise.
+
 2001-07-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* utf8-ucs4.h: New file, extracted from linebreak.c.

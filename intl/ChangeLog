@@ -1,3 +1,7 @@
+2001-07-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.h: Assume <limits.h> exists.
+
 2001-07-24  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.39 released.

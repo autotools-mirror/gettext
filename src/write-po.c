@@ -22,13 +22,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #endif
 
 #include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#ifdef HAVE_LIMITS_H
-# include <limits.h>
-#endif
 
 #if HAVE_ICONV
 # include <iconv.h>
