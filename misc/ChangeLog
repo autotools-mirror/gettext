@@ -1,3 +1,8 @@
+2002-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* po-compat.el: Add ISO-8859-14, KOI8-T, GEORGIAN-PS to the list of
+	allowed encodings.
+
 2002-05-11  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in: Recognize AM_GNU_GETTEXT_VERSION(..) syntax.

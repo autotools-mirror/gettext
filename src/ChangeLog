@@ -1,3 +1,8 @@
+2002-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* po-charset.c (po_charset_canonicalize): Add ISO-8859-14, KOI8-T,
+	GEORGIAN-PS to the list of allowed encodings.
+
 2002-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (ipv6_ntop): Provide a fallback definition for systems

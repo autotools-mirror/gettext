@@ -2434,13 +2434,15 @@ are limited to those supported by both GNU @code{libc} and GNU
 @code{libiconv}. These are:
 @code{ASCII}, @code{ISO-8859-1}, @code{ISO-8859-2}, @code{ISO-8859-3},
 @code{ISO-8859-4}, @code{ISO-8859-5}, @code{ISO-8859-6}, @code{ISO-8859-7},
-@code{ISO-8859-8}, @code{ISO-8859-9}, @code{ISO-8859-13}, @code{ISO-8859-15},
-@code{KOI8-R}, @code{KOI8-U}, @code{CP850}, @code{CP866}, @code{CP874},
+@code{ISO-8859-8}, @code{ISO-8859-9}, @code{ISO-8859-13}, @code{ISO-8859-14},
+@code{ISO-8859-15},
+@code{KOI8-R}, @code{KOI8-U}, @code{KOI8-T},
+@code{CP850}, @code{CP866}, @code{CP874},
 @code{CP932}, @code{CP949}, @code{CP950}, @code{CP1250}, @code{CP1251},
 @code{CP1252}, @code{CP1253}, @code{CP1254}, @code{CP1255}, @code{CP1256},
 @code{CP1257}, @code{GB2312}, @code{EUC-JP}, @code{EUC-KR}, @code{EUC-TW},
 @code{BIG5}, @code{BIG5-HKSCS}, @code{GBK}, @code{GB18030}, @code{SHIFT_JIS},
-@code{JOHAB}, @code{TIS-620}, @code{VISCII}, @code{UTF-8}.
+@code{JOHAB}, @code{TIS-620}, @code{VISCII}, @code{GEORGIAN-PS}, @code{UTF-8}.
 
 @c This data is taken from glibc/localedata/SUPPORTED.
 @cindex Linux
@@ -2450,23 +2452,28 @@ corresponding languages.
 @cindex encoding for your language
 @itemize
 @item @code{ISO-8859-1} for
- Afrikaans, Albanian, Basque, Catalan, Dutch, English, Estonian, Faroese,
- Finnish, French, Galician, German, Greenlandic, Icelandic, Indonesian,
- Irish, Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
+ Afrikaans, Albanian, Basque, Breton, Catalan, Cornish, Danish, Dutch,
+ English, Estonian, Faroese, Finnish, French, Galician, German,
+ Greenlandic, Icelandic, Indonesian, Irish, Italian, Malay, Manx,
+ Norwegian, Occitan, Portuguese, Spanish, Swedish, Tagalog, Uzbek,
+ Walloon,
 @item @code{ISO-8859-2} for
- Croatian, Czech, Hungarian, Polish, Romanian, Serbian, Slovak, Slovenian,
+ Bosnian, Croatian, Czech, Hungarian, Polish, Romanian, Serbian, Slovak,
+ Slovenian,
 @item @code{ISO-8859-3} for Maltese,
 @item @code{ISO-8859-5} for Macedonian, Serbian,
 @item @code{ISO-8859-6} for Arabic,
 @item @code{ISO-8859-7} for Greek,
 @item @code{ISO-8859-8} for Hebrew,
 @item @code{ISO-8859-9} for Turkish,
-@item @code{ISO-8859-13} for Latvian, Lithuanian,
+@item @code{ISO-8859-13} for Latvian, Lithuanian, Maori,
+@item @code{ISO-8859-14} for Welsh,
 @item @code{ISO-8859-15} for
  Basque, Catalan, Dutch, English, Finnish, French, Galician, German, Irish,
- Italian, Portuguese, Spanish, Swedish,
+ Italian, Portuguese, Spanish, Swedish, Walloon,
 @item @code{KOI8-R} for Russian,
 @item @code{KOI8-U} for Ukrainian,
+@item @code{KOI8-T} for Tajik,
 @item @code{CP1251} for Bulgarian, Byelorussian,
 @item @code{GB2312}, @code{GBK}, @code{GB18030}
  for simplified writing of Chinese,
@@ -2475,6 +2482,7 @@ corresponding languages.
 @item @code{EUC-JP} for Japanese,
 @item @code{EUC-KR} for Korean,
 @item @code{TIS-620} for Thai,
+@item @code{GEORGIAN-PS} for Georgian,
 @item @code{UTF-8} for any language, including those listed above.
 @end itemize
 

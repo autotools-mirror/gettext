@@ -64,9 +64,11 @@ po_charset_canonicalize (charset)
     "ISO-8859-8", "ISO_8859-8",
     "ISO-8859-9", "ISO_8859-9",
     "ISO-8859-13", "ISO_8859-13",
-    "ISO-8859-15", "ISO_8859-15",		/* i = 23, 24 */
+    "ISO-8859-14", "ISO_8859-14",
+    "ISO-8859-15", "ISO_8859-15",		/* i = 25, 26 */
     "KOI8-R",
     "KOI8-U",
+    "KOI8-T",
     "CP850",
     "CP866",
     "CP874",
@@ -93,13 +95,14 @@ po_charset_canonicalize (charset)
     "JOHAB",
     "TIS-620",
     "VISCII",
+    "GEORGIAN-PS",
     "UTF-8"
   };
   size_t i;
 
   for (i = 0; i < SIZEOF (standard_charsets); i++)
     if (strcasecmp (charset, standard_charsets[i]) == 0)
-      return standard_charsets[i < 3 ? 0 : i < 25 ? ((i - 3) & ~1) + 3 : i];
+      return standard_charsets[i < 3 ? 0 : i < 27 ? ((i - 3) & ~1) + 3 : i];
   return NULL;
 }
 
