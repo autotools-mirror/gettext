@@ -1,3 +1,7 @@
+2003-07-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PHP): Mention plural form functions.
+
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Preparing Strings): More explanations.

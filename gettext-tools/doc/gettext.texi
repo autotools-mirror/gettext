@@ -9085,7 +9085,8 @@ mod_php4, mod_php4-core, phplib, phpdoc
 @code{_("abc")}
 
 @item gettext/ngettext functions
-@code{gettext}, @code{dgettext}, @code{dcgettext}
+@code{gettext}, @code{dgettext}, @code{dcgettext}; starting with PHP 4.2.0
+also @code{ngettext}, @code{dngettext}, @code{dcngettext}
 
 @item textdomain
 @code{textdomain} function
