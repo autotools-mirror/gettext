@@ -1,8 +1,8 @@
-2002-01-03  Bruno Haible  <bruno@clisp.org>
+2002-01-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): If no intl directory exists and GNU
 	gettext was not found in libc or preinstalled libintl, don't define
-	ENABLE_NLS.
+	ENABLE_NLS, and set USE_NLS to 'no'.
 
 2001-12-12  Bruno Haible  <bruno@clisp.org>
 

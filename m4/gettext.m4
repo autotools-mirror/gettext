@@ -177,7 +177,12 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
       AC_DEFINE(ENABLE_NLS, 1,
         [Define to 1 if translation of program messages to the user's native language
    is requested.])
+    else
+      USE_NLS=no
     fi
+  fi
+
+  if test "$USE_NLS" = "yes"; then
 
     if test "$gt_use_preinstalled_gnugettext" = "yes"; then
       if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
@@ -238,9 +243,8 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
 ])
 
 
-dnl Checks for all prerequisites of the intl subdirectory,
-dnl except for INTL_LIBTOOL_SUFFIX_PREFIX (and possibly LIBTOOL), INTLOBJS,
-dnl            USE_INCLUDED_LIBINTL, BUILD_INCLUDED_LIBINTL.
+dnl Checks for all prerequisites of the po subdirectory,
+dnl except for USE_NLS.
 AC_DEFUN([AM_PO_SUBDIRS],
 [
   AC_REQUIRE([AC_PROG_MAKE_SET])dnl
@@ -397,8 +401,9 @@ AC_DEFUN([AM_PO_SUBDIRS],
 ])
 
 
-dnl Checks for all prerequisites of the po subdirectory,
-dnl except for USE_NLS.
+dnl Checks for all prerequisites of the intl subdirectory,
+dnl except for INTL_LIBTOOL_SUFFIX_PREFIX (and possibly LIBTOOL), INTLOBJS,
+dnl            USE_INCLUDED_LIBINTL, BUILD_INCLUDED_LIBINTL.
 AC_DEFUN([AM_INTL_SUBDIR],
 [
   AC_REQUIRE([AC_PROG_INSTALL])dnl
