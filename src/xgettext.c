@@ -1353,7 +1353,7 @@ Last-Translator: FULL NAME <EMAIL@ADDRESS>\n\
 Language-Team: LANGUAGE <LL@li.org>\n\
 MIME-Version: 1.0\n\
 Content-Type: text/plain; charset=CHARSET\n\
-Content-Transfer-Encoding: ENCODING\n",
+Content-Transfer-Encoding: 8-bit\n",
 	    local_time.tm_year + TM_YEAR_ORIGIN,
 	    local_time.tm_mon + 1,
 	    local_time.tm_mday,
