@@ -42,6 +42,7 @@
 #include "getline.h"
 #include "libgettext.h"
 #include "message.h"
+#include "write-po.h"
 #include "po.h"
 #include "system.h"
 

@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 bin_PROGRAMS = gettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h \
-str-list.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
+str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
 
 EXTRA_DIST = FILES
 
@@ -44,12 +44,18 @@ po-lex.c po.c str-list.c dir-list.c
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c \
 str-list.c message.c dir-list.c
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-lex.c po.c str-list.c dir-list.c
-msgunfmt_SOURCES = message.c msgunfmt.c str-list.c
+po-lex.c po.c str-list.c dir-list.c write-po.c
+msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c \
-po.c str-list.c xget-lex.c xgettext.c dir-list.c
+po.c str-list.c xget-lex.c xgettext.c dir-list.c write-po.c
 msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-lex.c \
-open-po.c po.c str-list.c dir-list.c
+open-po.c po.c str-list.c dir-list.c write-po.c
+
+# Link dependencies. write-po.c pulls in linebreak.c which may need -liconv.
+msgmerge_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgunfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+xgettext_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgcomm_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 

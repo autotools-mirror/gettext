@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -56,7 +56,6 @@ enum is_wrap
 #endif
 
 extern enum is_wrap parse_c_width_description_string PARAMS ((const char *s));
-extern void message_page_width_set PARAMS ((size_t width));
 
 
 typedef struct message_variant_ty message_variant_ty;
@@ -124,9 +123,6 @@ void message_comment_dot_append PARAMS ((message_ty *, const char *));
 message_ty *message_copy PARAMS ((message_ty *));
 message_ty *message_merge PARAMS ((message_ty *def, message_ty *ref));
 void message_comment_filepos PARAMS ((message_ty *, const char *, size_t));
-void message_print_style_indent PARAMS ((void));
-void message_print_style_uniforum PARAMS ((void));
-void message_print_style_escape PARAMS ((int));
 
 
 typedef struct message_list_ty message_list_ty;
@@ -144,9 +140,6 @@ void message_list_delete_nth PARAMS ((message_list_ty *, size_t));
 message_ty *message_list_search PARAMS ((message_list_ty *, const char *));
 message_ty *message_list_search_fuzzy PARAMS ((message_list_ty *,
 					       const char *));
-void message_list_print PARAMS ((message_list_ty *, const char *, int, int));
-void message_list_sort_by_msgid PARAMS ((message_list_ty *));
-void message_list_sort_by_filepos PARAMS ((message_list_ty *));
 
 
 typedef struct message_list_list_ty message_list_list_ty;

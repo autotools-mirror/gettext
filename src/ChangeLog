@@ -1,3 +1,45 @@
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* write-po.h: New file, pieces of message.h.
+	* message.h (message_page_width_set, message_print_style_indent,
+	message_print_style_uniforum, message_print_style_escape,
+	message_list_print, message_list_sort_by_msgid,
+	message_list_sort_by_filepos): Move to write-po.h.
+	* write-po.c: New file, pieces of message.c.
+	(wrap): Add charset argument. Rewritten to use mbs_width_linebreaks().
+	Use c_isprint() instead of isprint().
+	(message_print): Add charset argument. Insert a space after '#' even
+	if the comment line's first character is a tab.
+	(message_print_obsolete): Likewise.
+	(message_list_print): Don't change locales. Extract the charset name
+	from the header entry.
+	(msgid_cmp, filepos_cmp): Always use strcmp, never use strcoll.
+	(message_list_sort_by_msgid, message_list_sort_by_filepos): Don't
+	change locales.
+	* message.c (indent, uniforum, escape, page_width,
+	make_c_format_description_string, significant_c_format_p,
+	make_c_width_description_string, message_print_style_indent,
+	message_print_style_uniforum, message_print_style_escape, wrap,
+	print_blank_line, message_print, message_print_obsolete,
+	message_list_print, msgid_cmp, message_list_sort_by_msgid,
+	filepos_cmp, message_list_sort_by_filepos, message_page_width_set):
+	Move to write-po.c.
+	* msgmerge.c: Include write-po.h.
+	* msgunfmt.c: Likewise.
+	* xgettext.c: Likewise.
+	* msgcomm.c: Likewise.
+	* Makefile.am (noinst_HEADERS): Add write-po.h.
+	(msgmerge_SOURCES): Add write-po.c.
+	(msgunfmt_SOURCES): Likewise.
+	(xgettext_SOURCES): Likewise.
+	(msgcomm_SOURCES): Likewise.
+	(msgmerge_LDADD, msgunfmt_LDADD, xgettext_LDADD, msgcomm_LDADD): New
+	variables.
+
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcmp.c (compare): Internationalize error message.
+
 2001-02-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgunfmt.c (main): Accept -e and -E options.

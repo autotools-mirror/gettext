@@ -30,6 +30,7 @@
 #include "dir-list.h"
 #include "error.h"
 #include "message.h"
+#include "write-po.h"
 #include <system.h>
 #include "libgettext.h"
 #include "po.h"

@@ -26,6 +26,10 @@ message.c
                 A list-of-messages type.
                 A list-of-lists-of-messages type.
 
+write-po.h
+write-po.c
+                Output of a list-of-messages to a PO file.
+
 msgunfmt.c      Main source for the 'msgunfmt' program.
 
 open-po.h

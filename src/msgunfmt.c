@@ -40,6 +40,7 @@
 #include "hash-string.h"
 #include "libgettext.h"
 #include "message.h"
+#include "write-po.h"
 
 #define _(str) gettext (str)
 

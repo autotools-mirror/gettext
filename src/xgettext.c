@@ -46,6 +46,7 @@ extern int errno;
 #include "system.h"
 #include "po.h"
 #include "message.h"
+#include "write-po.h"
 #include "xget-lex.h"
 #include "printf-parse.h"
 
