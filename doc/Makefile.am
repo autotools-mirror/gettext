@@ -1,5 +1,5 @@
 ## Makefile for the doc subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1997, 2001 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ gettext_TEXINFOS = \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
   iso-639.texi iso-3166.texi
 
-EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi $(EXTRA_DIST_html) texi2html
+EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi texi2html
 
 iso-639.texi: ISO_639 iso-639.sed
 	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
@@ -61,14 +61,14 @@ all-local: html
 install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: dist-html
 
 html: html-split
 install-html: install-html-split
 uninstall-html: uninstall-html-split
+dist-html: dist-html-split
 
-# This strange way of taking wildcards is a workaround to an automake-1.5 bug
-# which would occur if we wrote $(wildcard $(srcdir)/gettext_*.html).
-EXTRA_DIST_html = $(notdir $(wildcard gettext_*.html) $(wildcard $(addprefix $(srcdir), $(addprefix /, gettext_*.html))))
 CLEANFILES = gettext.pdf gettext.html
 # gettext.dvi and gettext.ps are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html
@@ -165,6 +165,21 @@ uninstall-html-monolithic:
 
 uninstall-html-split:
 	$(RM) $(DESTDIR)$(htmldir)/gettext_*.html
+
+dist-html-monolithic:
+	$(mkinstalldirs) $(distdir)/
+	file=gettext.html; \
+	if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	cp -p $$d/$$file $(distdir)/$$file || exit 1
+
+# We would like to put gettext_*.html into EXTRA_DIST, but it doesn't work.
+dist-html-split:
+	$(mkinstalldirs) $(distdir)/
+	file=gettext_toc.html; \
+	if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	for file in `cd $$d && echo gettext_*.html`; do \
+	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
+	done
 
 
 # One more automake bug.

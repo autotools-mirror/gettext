@@ -1,3 +1,10 @@
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST_html): Remove variable.
+	(EXTRA_DIST): Remove $(EXTRA_DIST_html).
+	(dist-html, dist-html-monolithic, dist-html-split): New rules.
+	(distdir): Depend on dist-html.
+
 2002-01-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Comparison): Remove paragraph about alloca. libintl
