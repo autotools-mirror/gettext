@@ -1,5 +1,5 @@
 /* Converts Uniforum style .po files to binary .mo files
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -52,6 +52,12 @@
 #define _(str) gettext (str)
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
+/* We use siginfo to get precise information about the signal.
+   But siginfo doesn't work on Irix 6.5.  */
+#if HAVE_SIGINFO && !defined (__sgi)
+# define USE_SIGINFO 1
+#endif
 
 /* This structure defines a derived class of the po_ty class.  (See
    po.h for an explanation.)  */
@@ -174,7 +180,7 @@ static const char *add_mo_suffix PARAMS ((const char *));
 static struct msg_domain *new_domain PARAMS ((const char *name,
 					      const char *file_name));
 static bool is_nonobsolete PARAMS ((const message_ty *mp));
-#if HAVE_SIGINFO
+#if USE_SIGINFO
 static void sigfpe_handler PARAMS ((int sig, siginfo_t *sip, void *scp));
 #else
 static void sigfpe_handler PARAMS ((int sig));
@@ -620,7 +626,7 @@ is_nonobsolete (mp)
 
 static sigjmp_buf sigfpe_exit;
 
-#if HAVE_SIGINFO
+#if USE_SIGINFO
 
 static int sigfpe_code;
 
@@ -652,7 +658,7 @@ sigfpe_handler (sig)
 static void
 install_sigfpe_handler ()
 {
-#if HAVE_SIGINFO
+#if USE_SIGINFO
   struct sigaction action;
   action.sa_sigaction = sigfpe_handler;
   action.sa_flags = SA_SIGINFO;
@@ -660,13 +666,16 @@ install_sigfpe_handler ()
   sigaction (SIGFPE, &action, (struct sigaction *) NULL);
 #else
   signal (SIGFPE, sigfpe_handler);
+# if defined (__sgi) && defined (SIGTRAP) /* Irix sends SIGTRAP, not SIGFPE.  */
+  signal (SIGTRAP, sigfpe_handler);
+# endif
 #endif
 }
 
 static void
 uninstall_sigfpe_handler ()
 {
-#if HAVE_SIGINFO
+#if USE_SIGINFO
   struct sigaction action;
   action.sa_handler = SIG_DFL;
   action.sa_flags = 0;
@@ -674,6 +683,9 @@ uninstall_sigfpe_handler ()
   sigaction (SIGFPE, &action, (struct sigaction *) NULL);
 #else
   signal (SIGFPE, SIG_DFL);
+# if defined (__sgi) && defined (SIGTRAP) /* Irix sends SIGTRAP, not SIGFPE.  */
+  signal (SIGTRAP, SIG_DFL);
+# endif
 #endif
 }
 
@@ -735,11 +747,11 @@ check_plural_eval (plural_expr, nplurals_value, header_pos)
       /* End of protection against arithmetic exceptions.  */
       uninstall_sigfpe_handler ();
 
-#if HAVE_SIGINFO
+#if USE_SIGINFO
       switch (sigfpe_code)
 #endif
 	{
-#if HAVE_SIGINFO
+#if USE_SIGINFO
 # ifdef FPE_INTDIV
 	case FPE_INTDIV:
 	  msg = _("plural expression can produce division by zero");

@@ -1,5 +1,14 @@
 2002-01-09  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c (USE_SIGINFO): New macro.
+	(sigfpe_code, sigfpe_handler, install_sigfpe_handler,
+	uninstall_sigfpe_handler, check_plural_eval): Use USE_SIGINFO instead
+	of HAVE_SIGINFO.
+	(install_sigfpe_handler, uninstall_sigfpe_handler): On Irix, treat
+	SIGTRAP like SIGFPE.
+
+2002-01-09  Bruno Haible  <bruno@clisp.org>
+
 	* x-java.l (strip_ending_spaces): Fix logic.
 
 2002-01-09  Tommy Johansson  <tommy.johansson@kanalen.org>
