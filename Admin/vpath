@@ -1,0 +1,18 @@
+Q: gettext's Makefiles don't support VPATH.
+
+A: It's some vendors' "make" which doesn't support VPATH.
+
+   1) GNU make supports VPATH with both .c.o and %.o:%.c rules.
+
+   2) Solaris make should not be used with VPATH at all, as it randomly
+      changes Makefile variables.
+
+   3) FreeBSD make does not support %.o:%.c rules at all. For the
+      remaining .c.o rules VPATH is taken into account. For
+      additional dependencies like "foo.o : bar.c" it is not.
+
+   Since %.o:%.c rules are not portable, GNU package Makefiles
+   shouldn't use them. Only .c.o rules. And then gettext's Makefiles
+   should work with GNU make and with FreeBSD make. But Solaris make
+   is not supportable with VPATH.
+
