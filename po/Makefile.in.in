@@ -58,7 +58,8 @@ CATALOGS = @CATALOGS@
 .SUFFIXES: .po .gmo .mo .sed .sin .nop .po-update
 
 .po.mo:
-	$(MSGFMT) -c -o $@ $<
+	@echo "$(MSGFMT) -c -o $@ $<"; \
+	$(MSGFMT) -c -o t-$@ $< && mv t-$@ $@
 
 .po.gmo:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
