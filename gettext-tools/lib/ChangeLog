@@ -1,3 +1,13 @@
+2003-10-08  Bruno Haible  <bruno@clisp.org>
+
+	* fatal-signal.h: New file.
+	* fatal-signal.c: New file.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+	* Makefile.msvc (OBJECTS): Add fatal-signal.obj.
+	(fatal-signal.obj): New rule.
+	* Makefile.vms (OBJECTS): Add fatal-signal.obj.
+	(fatal-signal.obj): New rule.
+
 2003-09-21  Bruno Haible  <bruno@clisp.org>
 
 	* vasprintf.c (int_vasprintf): Assume ANSI C when copying a structure.

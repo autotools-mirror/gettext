@@ -90,6 +90,7 @@ OBJECTS = \
   error.obj \
   error-progname.obj \
   execute.obj \
+  fatal-signal.obj \
   findprog.obj \
   fstrcmp.obj \
   full-write.obj \
@@ -162,6 +163,9 @@ error-progname.obj : error-progname.c
 
 execute.obj : execute.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c execute.c
+
+fatal-signal.obj : fatal-signal.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c fatal-signal.c
 
 findprog.obj : findprog.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c findprog.c
