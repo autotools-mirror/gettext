@@ -102,12 +102,16 @@ static const char *catalogname;
 /* Language (ISO-639 code).  */
 static const char *language;
 
+/* If true, the user is not considered to be the translator.  */
+static bool no_translator;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
   { "help", no_argument, NULL, 'h' },
   { "input", required_argument, NULL, 'i' },
   { "locale", required_argument, NULL, 'l' },
+  { "no-translator", no_argument, NULL, CHAR_MAX + 1 },
   { "output-file", required_argument, NULL, 'o' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
@@ -128,7 +132,7 @@ static const char *canonical_locale_charset PARAMS ((void));
 static const char *englishname_of_language PARAMS ((void));
 static const char *project_id PARAMS ((void));
 static const char *project_id_version PARAMS ((void));
-static const char *po_revision_date PARAMS ((void));
+static const char *po_revision_date PARAMS ((const char *header));
 static struct passwd *get_user_pwd PARAMS ((void));
 static const char *get_user_fullname PARAMS ((void));
 static const char *get_user_email PARAMS ((void));
@@ -139,9 +143,7 @@ static const char *mime_version PARAMS ((void));
 static const char *content_type PARAMS ((void));
 static const char *content_transfer_encoding PARAMS ((void));
 static const char *plural_forms PARAMS ((void));
-#ifdef unused
 static char *get_field PARAMS ((const char *header, const char *field));
-#endif
 static char *put_field PARAMS ((const char *old_header, const char *field,
 				const char *value));
 static const char *get_title PARAMS ((void));
@@ -226,6 +228,10 @@ main (argc, argv)
 	  if (endp != optarg)
 	    message_page_width_set (value);
 	}
+	break;
+
+      case CHAR_MAX + 1:
+	no_translator = true;
 	break;
 
       default:
@@ -369,6 +375,7 @@ locale setting.  If it is -, the results are written to standard output.\n\
       printf (_("\
 Output details:\n\
   -l, --locale=LL_CC          set target locale\n\
+      --no-translator         assume the PO file is automatically generated\n\
   -w, --width=NUMBER          set output page width\n\
 "));
       printf ("\n");
@@ -945,12 +952,21 @@ project_id_version ()
 
 /* Construct the value for the PO-Revision-Date field.  */
 static const char *
-po_revision_date ()
+po_revision_date (header)
+     const char *header;
 {
-  time_t now;
+  if (no_translator)
+    /* Because the PO file is automatically generated, we use the
+       POT-Creation-Date, not the current time.  */
+    return get_field (header, "POT-Creation-Date");
+  else
+    {
+      /* Assume the translator will modify the PO file now.  */
+      time_t now;
 
-  time (&now);
-  return po_strftime (&now);
+      time (&now);
+      return po_strftime (&now);
+    }
 }
 
 
@@ -1076,13 +1092,18 @@ you in case of unexpected technical problems.\n");
 static const char *
 last_translator ()
 {
-  const char *fullname = get_user_fullname ();
-  const char *email = get_user_email ();
-
-  if (fullname != NULL)
-    return xasprintf ("%s <%s>", fullname, email);
+  if (no_translator)
+    return "Automatically generated";
   else
-    return xasprintf ("<%s>", email);
+    {
+      const char *fullname = get_user_fullname ();
+      const char *email = get_user_email ();
+
+      if (fullname != NULL)
+	return xasprintf ("%s <%s>", fullname, email);
+      else
+	return xasprintf ("<%s>", email);
+    }
 }
 
 
@@ -1138,13 +1159,18 @@ language_team_address ()
 static const char *
 language_team ()
 {
-  const char *englishname = englishname_of_language ();
-  const char *address = language_team_address ();
-
-  if (address != NULL && address[0] != '\0')
-    return xasprintf ("%s %s", englishname, address);
+  if (no_translator)
+    return "none";
   else
-    return englishname;
+    {
+      const char *englishname = englishname_of_language ();
+      const char *address = language_team_address ();
+
+      if (address != NULL && address[0] != '\0')
+	return xasprintf ("%s %s", englishname, address);
+      else
+	return englishname;
+    }
 }
 
 
@@ -1228,24 +1254,28 @@ plural_forms ()
 }
 
 
-static struct { const char *name; const char * (*getter) PARAMS ((void)); }
+static struct
+{
+  const char *name;
+  const char * (*getter0) PARAMS ((void));
+  const char * (*getter1) PARAMS ((const char *header));
+}
 fields[] =
   {
-    { "Project-Id-Version", project_id_version },
-    { "PO-Revision-Date", po_revision_date },
-    { "Last-Translator", last_translator },
-    { "Language-Team", language_team },
-    { "MIME-Version", mime_version },
-    { "Content-Type", content_type },
-    { "Content-Transfer-Encoding", content_transfer_encoding },
-    { "Plural-Forms", plural_forms }
+    { "Project-Id-Version", project_id_version, NULL },
+    { "PO-Revision-Date", NULL, po_revision_date },
+    { "Last-Translator", last_translator, NULL },
+    { "Language-Team", language_team, NULL },
+    { "MIME-Version", mime_version, NULL },
+    { "Content-Type", content_type, NULL },
+    { "Content-Transfer-Encoding", content_transfer_encoding, NULL },
+    { "Plural-Forms", plural_forms, NULL }
   };
 
 #define NFIELDS SIZEOF (fields)
 #define FIELD_LAST_TRANSLATOR 2
 
 
-#ifdef unused
 /* Retrieve a freshly allocated copy of a field's value.  */
 static char *
 get_field (header, field)
@@ -1285,7 +1315,6 @@ get_field (header, field)
 
   return NULL;
 }
-#endif
 
 /* Add a field with value to a header, and return the new header.  */
 static char *
@@ -1560,7 +1589,10 @@ fill_header (mdlp)
 	  for (i = 0; i < NFIELDS; i++)
 	    {
 	      if (field_value[i] == NULL)
-		field_value[i] = fields[i].getter ();
+		field_value[i] =
+		  (fields[i].getter1 != NULL
+		   ? fields[i].getter1 (header)
+		   : fields[i].getter0 ());
 
 	      if (field_value[i] != NULL)
 		{

@@ -1,5 +1,19 @@
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
+	* msginit.c (no_translator): New variable.
+	(long_options): Add option --no-translator.
+	(main): Handle option --no-translator.
+	(usage): Document option --no-translator.
+	(po_revision_date): Add header argument. Return POT's creation date
+	if no_translator.
+	(last_translator): Return a dummy string if no_translator.
+	(language_team): Likewise.
+	(fields): Allow getter with 0 or 1 argument.
+	(get_field): New function.
+	(fill_header): Call getter with 0 or 1 argument.
+
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
 	* msginit.c (canonical_locale_charset): Return the charset of 'locale'
 	if available.
 	(get_title): Return a correct value even if 'locale' is a nonexistent
