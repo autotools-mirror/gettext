@@ -32,7 +32,7 @@ dnl    Catalog extension: .mo
 dnl 4) A catgets has been found in the system's C library.
 dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
 dnl    Catalog extension: .cat
-dbl 5) No internationalization, always use English msgid.
+dnl 5) No internationalization, always use English msgid.
 dnl    Catalog format: none
 dnl    Catalog extension: none
 dnl
