@@ -20,14 +20,22 @@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 TESTS = gettext-1 gettext-2 \
+	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
+	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
+	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
 	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
 	msgcmp-1 msgcmp-2 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 \
 	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 \
+	msgconv-1 msgconv-2 \
+	msgen-1 \
+	msgexec-1 msgexec-2 \
+	msgfilter-1 msgfilter-2 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 \
+	msggrep-1 msggrep-2 msggrep-3 msggrep-4 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
 	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
@@ -54,12 +62,18 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    GETTEXT=tstgettext \
 		    NGETTEXT=tstngettext \
 		    XGETTEXT=`echo xgettext|sed '$(transform)'` \
+		    MSGATTRIB=`echo msgattrib|sed '$(transform)'` \
 		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
+		    MSGCOMM=`echo msgcomm|sed '$(transform)'` \
+		    MSGCONV=`echo msgconv|sed '$(transform)'` \
+		    MSGEN=`echo msgen|sed '$(transform)'` \
+		    MSGEXEC=`echo msgexec|sed '$(transform)'` \
+		    MSGFILTER=`echo msgfilter|sed '$(transform)'` \
 		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
+		    MSGGREP=`echo msggrep|sed '$(transform)'` \
 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` \
 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
-		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    MSGUNIQ=`echo msguniq|sed '$(transform)'` \
 		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
 		    LIBTOOL='@LIBTOOL@' \

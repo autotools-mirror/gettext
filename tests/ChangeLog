@@ -1,3 +1,34 @@
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib-1: New file.
+	* msgattrib-2: New file.
+	* msgattrib-3: New file.
+	* msgattrib-4: New file.
+	* msgattrib-5: New file.
+	* msgattrib-6: New file.
+	* msgattrib-7: New file.
+	* msgattrib-8: New file.
+	* msgattrib-9: New file.
+	* msgattrib-10: New file.
+	* msgattrib-11: New file.
+	* msgattrib-12: New file.
+	* msgattrib-13: New file.
+	* msgattrib-14: New file.
+	* msgconv-1: New file.
+	* msgconv-2: New file.
+	* msgen-1: New file.
+	* msgexec-1: New file.
+	* msgexec-2: New file.
+	* msgfilter-1: New file.
+	* msgfilter-2: New file.
+	* msggrep-1: New file.
+	* msggrep-2: New file.
+	* msggrep-3: New file.
+	* msggrep-4: New file.
+	* Makefile.am (TESTS): Add them.
+	(TESTS_ENVIRONMENT): Pass MSGATTRIB, MSGCOMM, MSGCONV, MSGEN, MSGEXEC,
+	MSGFILTER, MSGGREP variables to the tests.
+
 2001-12-06  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge-20: New file.
