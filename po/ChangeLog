@@ -1,3 +1,7 @@
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* et.po: New file, from Ivar Smolin <okul@trenet.ee>.
+
 2001-04-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* POTFILES.in: Add src/read-po.c.
