@@ -1353,14 +1353,10 @@ some header fields still have the initial default value"));
 	     msguniq program to get rid of duplicates.  */
 	  find_entry (&current_domain->symbol_tab, msgid_string,
 		      strlen (msgid_string) + 1, (void **) &entry);
-	  if (msgstr_len != entry->msgstr_len
-	      || memcmp (msgstr_string, entry->msgstr, msgstr_len) != 0)
-	    {
-	      po_gram_error_at_line (msgid_pos, _("\
+	  po_gram_error_at_line (msgid_pos, _("\
 duplicate message definition"));
-	      po_gram_error_at_line (&entry->pos, _("\
+	  po_gram_error_at_line (&entry->pos, _("\
 ...this is the location of the first definition"));
-	    }
 
 	  /* We don't need the just constructed entries'
 	     parameter string (allocated in po-gram.y).  */
