@@ -1,5 +1,5 @@
 /* Compile a C# program.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,11 +24,15 @@
 /* Specification.  */
 #include "csharpcomp.h"
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "execute.h"
+#include "pipe.h"
+#include "wait-process.h"
+#include "getline.h"
 #include "sh-quote.h"
 #include "xallocsa.h"
 #include "error.h"
@@ -47,8 +51,10 @@
 
    We try the CIL interpreters in the following order:
      1. "cscc", because it is a completely free system.
-     2. "mcs", because it is a partially free system but doesn't integrate
-        well with Unix.
+     2. "mcs", because it is a free system but doesn't integrate so well
+        with Unix. (Command line options start with / instead of -. Errors go
+        to stdout instead of stderr. Source references are printed as
+        "file(lineno)" instead of "file:lineno:".)
      3. "csc", although it is not free, because it is a kind of "reference
         implementation" of C#.
  */
@@ -188,6 +194,13 @@ compile_csharp_class (const char * const *sources,
 	unsigned int argc;
 	char **argv;
 	char **argp;
+	pid_t child;
+	int fd[1];
+	FILE *fp;
+	char *line[2];
+	size_t linesize[2];
+	size_t linelen[2];
+	unsigned int l;
 	int exitstatus;
 	unsigned int i;
 
@@ -243,8 +256,40 @@ compile_csharp_class (const char * const *sources,
 	    free (command);
 	  }
 
-	exitstatus = execute ("mcs", "mcs", argv, false, false, false, false,
-			      true, true);
+	child = create_pipe_in ("mcs", "mcs", argv, NULL, false, true, true,
+				fd);
+
+	/* Read the subprocess output, copying it to stderr.  Drop the last
+	   line if it starts with "Compilation succeeded".  */
+	fp = fdopen (fd[0], "r");
+	if (fp == NULL)
+	  error (EXIT_FAILURE, errno, _("fdopen() failed"));
+	line[0] = NULL; linesize[0] = 0;
+	line[1] = NULL; linesize[1] = 0;
+	l = 0;
+	for (;;)
+	  {
+	    linelen[l] = getline (&line[l], &linesize[l], fp);
+	    if (linelen[l] == (size_t)(-1))
+	      break;
+	    l = (l + 1) % 2;
+	    if (line[l] != NULL)
+	      fwrite (line[l], 1, linelen[l], stderr);
+	  }
+	l = (l + 1) % 2;
+	if (line[l] != NULL
+	    && !(linelen[l] >= 21
+		 && memcmp (line[l], "Compilation succeeded", 21) == 0))
+	  fwrite (line[l], 1, linelen[l], stderr);
+	if (line[0] != NULL)
+	  free (line[0]);
+	if (line[1] != NULL)
+	  free (line[1]);
+	fclose (fp);
+
+	/* Remove zombie process from process list, and retrieve exit
+	   status.  */
+	exitstatus = wait_subprocess (child, "mcs", false, false, true, true);
 
 	for (i = 0; i < sources_count; i++)
 	  if (argv[argc - sources_count + i] != sources[i])
