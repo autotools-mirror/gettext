@@ -40,7 +40,6 @@
    precedence over _conio_gettext.  */
 #ifdef __DJGPP__
 # undef gettext
-# define gettext gettext
 #endif
 
 /* Use _INTL_PARAMS, not PARAMS, in order to avoid clashes with identifiers
@@ -57,18 +56,45 @@
 extern "C" {
 #endif
 
+
+/* We redirect the functions to those prefixed with "libintl_".  This is
+   necessary, because some systems define gettext/textdomain/... in the C
+   library (namely, Solaris 2.4 and newer, and GNU libc 2.0 and newer).
+   If we used the unprefixed names, there would be cases where the
+   definition in the C library would override the one in the libintl.so
+   shared library.  Recall that on ELF systems, the symbols are looked
+   up in the following order:
+     1. in the executable,
+     2. in the shared libraries specified on the link command line, in order,
+     3. in the dependencies of the shared libraries specified on the link
+        command line,
+     4. in the dlopen()ed shared libraries, in the order in which they were
+        dlopen()ed.
+   The definition in the C library would override the one in libintl.so if
+   either
+     * -lc is given on the link command line and -lintl isn't, or
+     * -lc is given on the link command line before -lintl, or
+     * libintl.so is a dependency of a dlopen()ed shared library but not
+       linked to the executable at link time.
+   Since Solaris gettext() behaves differently than GNU gettext(), this
+   would be unacceptable.  */
+
+
 /* Look up MSGID in the current default message catalog for the current
    LC_MESSAGES locale.  If not found, returns MSGID itself (the default
    text).  */
+#define gettext libintl_gettext
 extern char *gettext _INTL_PARAMS ((const char *__msgid));
 
 /* Look up MSGID in the DOMAINNAME message catalog for the current
    LC_MESSAGES locale.  */
+#define dgettext libintl_dgettext
 extern char *dgettext _INTL_PARAMS ((const char *__domainname,
 				     const char *__msgid));
 
 /* Look up MSGID in the DOMAINNAME message catalog for the current CATEGORY
    locale.  */
+#define dcgettext libintl_dcgettext
 extern char *dcgettext _INTL_PARAMS ((const char *__domainname,
 				      const char *__msgid,
 				      int __category));
@@ -76,12 +102,14 @@ extern char *dcgettext _INTL_PARAMS ((const char *__domainname,
 
 /* Similar to `gettext' but select the plural form corresponding to the
    number N.  */
+#define ngettext libintl_ngettext
 extern char *ngettext _INTL_PARAMS ((const char *__msgid1,
 				     const char *__msgid2,
 				     unsigned long int __n));
 
 /* Similar to `dgettext' but select the plural form corresponding to the
    number N.  */
+#define dngettext libintl_dngettext
 extern char *dngettext _INTL_PARAMS ((const char *__domainname,
 				      const char *__msgid1,
 				      const char *__msgid2,
@@ -89,6 +117,7 @@ extern char *dngettext _INTL_PARAMS ((const char *__domainname,
 
 /* Similar to `dcgettext' but select the plural form corresponding to the
    number N.  */
+#define dcngettext libintl_dcngettext
 extern char *dcngettext _INTL_PARAMS ((const char *__domainname,
 				       const char *__msgid1,
 				       const char *__msgid2,
@@ -99,36 +128,20 @@ extern char *dcngettext _INTL_PARAMS ((const char *__domainname,
 /* Set the current default message catalog to DOMAINNAME.
    If DOMAINNAME is null, return the current default.
    If DOMAINNAME is "", reset to the default of "messages".  */
+#define textdomain libintl_textdomain
 extern char *textdomain _INTL_PARAMS ((const char *__domainname));
 
 /* Specify that the DOMAINNAME message catalog will be found
    in DIRNAME rather than in the system locale data base.  */
+#define bindtextdomain libintl_bindtextdomain
 extern char *bindtextdomain _INTL_PARAMS ((const char *__domainname,
 					   const char *__dirname));
 
 /* Specify the character encoding in which the messages from the
    DOMAINNAME message catalog will be returned.  */
+#define bind_textdomain_codeset libintl_bind_textdomain_codeset
 extern char *bind_textdomain_codeset _INTL_PARAMS ((const char *__domainname,
 						    const char *__codeset));
-
-
-/* Optimized version of the functions above.  */
-#if defined __OPTIMIZED
-/* These are macros, but could also be inline functions.  */
-
-# define gettext(msgid)							      \
-  dgettext (NULL, msgid)
-
-# define dgettext(domainname, msgid)					      \
-  dcgettext (domainname, msgid, LC_MESSAGES)
-
-# define ngettext(msgid1, msgid2, n)					      \
-  dngettext (NULL, msgid1, msgid2, n)
-
-# define dngettext(domainname, msgid1, msgid2, n)			      \
-  dcngettext (domainname, msgid1, msgid2, n, LC_MESSAGES)
-
-#endif /* Optimizing. */
 
 
 #ifdef __cplusplus

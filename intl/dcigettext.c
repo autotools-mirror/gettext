@@ -102,10 +102,10 @@ extern int errno;
    names than the internal variables in GNU libc, otherwise programs
    using libintl.a cannot be linked statically.  */
 #if !defined _LIBC
-# define _nl_default_default_domain _nl_default_default_domain__
-# define _nl_current_default_domain _nl_current_default_domain__
-# define _nl_default_dirname _nl_default_dirname__
-# define _nl_domain_bindings _nl_domain_bindings__
+# define _nl_default_default_domain libintl_nl_default_default_domain
+# define _nl_current_default_domain libintl_nl_current_default_domain
+# define _nl_default_dirname libintl_nl_default_dirname
+# define _nl_domain_bindings libintl_nl_domain_bindings
 #endif
 
 /* Some compilers, like SunOS4 cc, don't have offsetof in <stddef.h>.  */
@@ -344,7 +344,7 @@ typedef unsigned char transmem_block_t;
 #ifdef _LIBC
 # define DCIGETTEXT __dcigettext
 #else
-# define DCIGETTEXT dcigettext__
+# define DCIGETTEXT libintl_dcigettext
 #endif
 
 /* Lock variable to protect the global data in the gettext implementation.  */

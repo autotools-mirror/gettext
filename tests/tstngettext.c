@@ -33,10 +33,6 @@
 
 #define HAVE_SETLOCALE 1
 /* Make sure we use the included libintl, not the system's one. */
-#define textdomain textdomain__
-#define bindtextdomain bindtextdomain__
-#define gettext gettext__
-#define dngettext dngettext__
 #undef _LIBINTL_H
 #include "libgnuintl.h"
 

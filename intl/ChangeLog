@@ -1,3 +1,21 @@
+2002-04-27  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h: Redirect every function to the one prefixed with
+	"libintl_". Remove __OPTIMIZED variants.
+	* gettextP.h: Use prefix "libintl_" instead of suffix "__".
+	* dcigettext.c: Likewise.
+	* dcgettext.c: Likewise.
+	* dgettext.c: Likewise.
+	* gettext.c: Likewise.
+	* dcngettext.c: Likewise.
+	* dngettext.c: Likewise.
+	* ngettext.c: Likewise.
+	* textdomain.c: Likewise.
+	* bindtextdom.c: Likewise.
+	* plural-exp.h: Likewise.
+	* os2compat.c: Likewise.
+	* intl-compat.c: Likewise.
+
 2002-04-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.2 released.
