@@ -1,5 +1,5 @@
 /* Message list test for ASCII character set.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -67,6 +67,13 @@ is_ascii_message (mp)
   if (!is_ascii_string_list (mp->comment))
     return false;
   if (!is_ascii_string_list (mp->comment_dot))
+    return false;
+
+  /* msgid and msgid_plural are normally ASCII, so why checking?
+     Because in complete UTF-8 environments they can be UTF-8, not ASCII.  */
+  if (!is_ascii_string (mp->msgid))
+    return false;
+  if (mp->msgid_plural != NULL && !is_ascii_string (mp->msgid_plural))
     return false;
 
   return true;

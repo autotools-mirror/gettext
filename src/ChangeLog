@@ -1,3 +1,8 @@
+2002-01-13  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-ascii.c (is_ascii_message): Don't consider a message as being
+	ASCII if its msgid or msgid_plural is not ASCII.
+
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.c (main): Update year in --version output.
