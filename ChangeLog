@@ -1,3 +1,7 @@
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (ALL_LINGUAS): Add et.
+
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.37 released.
