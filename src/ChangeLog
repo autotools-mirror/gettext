@@ -1,3 +1,14 @@
+2001-09-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgattrib.c (main): Call set_program_name instead of assigning
+        program_name directly.
+	* msgcat.c (main): Likewise.
+	* msgconv.c (main): Likewise.
+	* msgen.c (main): Likewise.
+	* msgexec.c (main): Likewise.
+	* msggrep.c (main): Likewise.
+	* msguniq.c (main): Likewise.
+
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgattrib.c: New file.
