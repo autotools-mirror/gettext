@@ -1,10 +1,26 @@
-2001-05-21  Bruno Haible  <haible@clisp.cons.org>
-
-	* tr.po: Update from Nilgün Belma Bugüner <nilgun@technologist.com>.
-
 2001-05-18  Bruno Haible  <haible@clisp.cons.org>
 
 	* de.po: Update from Karl Eichwalder.
+
+2001-05-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add lib/xerror.c.
+
+2001-04-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add src/read-po.c.
+
+2001-04-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add src/po-charset.c.
+
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.38 released.
+
+2001-05-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@technologist.com>.
 
 2001-05-18  Bruno Haible  <haible@clisp.cons.org>
 
@@ -35,21 +51,9 @@
 	* sl.po: Update from
 	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
 
-2001-05-02  Bruno Haible  <haible@clisp.cons.org>
-
-	* POTFILES.in: Add lib/xerror.c.
-
 2001-04-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* et.po: New file, from Ivar Smolin <okul@trenet.ee>.
-
-2001-04-29  Bruno Haible  <haible@clisp.cons.org>
-
-	* POTFILES.in: Add src/read-po.c.
-
-2001-04-28  Bruno Haible  <haible@clisp.cons.org>
-
-	* POTFILES.in: Add src/po-charset.c.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 

@@ -1,9 +1,3 @@
-2001-05-23  Bruno Haible  <haible@clisp.cons.org>
-
-	* linebreak.c (mbs_possible_linebreaks): Avoid broken EUC-KR
-	conversion in glibc-2.1.
-	(mbs_width_linebreaks): Likewise.
-
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* progname.h (set_program_name): New declaration.
@@ -31,16 +25,26 @@
 	* vasprintf.c (int_vasprintf): Upon allocation failure, return -1,
 	not 0, to be consistent with glibc documentation.
 
-2001-05-02  Bruno Haible  <haible@clisp.cons.org>
-
-	* linebreak.c (iconv_string_keeping_offsets): Work around a glibc-2.1
-	bug.
-
 2001-04-30  Bruno Haible  <haible@clisp.cons.org>
 
 	Silence "gcc -Wall -Wwrite-strings" warnings.
 	* localcharset.c (charset_aliases): Change type to 'const char *'.
 	(get_charset_aliases): Change type of 'cp' to 'const char *'.
+
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.38 released.
+
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* linebreak.c (mbs_possible_linebreaks): Avoid broken EUC-KR
+	conversion in glibc-2.1.
+	(mbs_width_linebreaks): Likewise.
+
+2001-05-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* linebreak.c (iconv_string_keeping_offsets): Work around a glibc-2.1
+	bug.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 

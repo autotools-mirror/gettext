@@ -1,3 +1,13 @@
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
+	Silence "gcc -Wall -Wwrite-strings" warnings.
+	* localcharset.c (charset_aliases): Change type to 'const char *'.
+	(get_charset_aliases): Change type of 'cp' to 'const char *'.
+
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.38 released.
+
 2001-05-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (install-data): Install plural.c as well.
@@ -17,12 +27,6 @@
 
 	* dcigettext.c (getuid, getgid, geteuid, getegid): Provide default
 	definitions. Needed for mingw32.
-
-2001-04-30  Bruno Haible  <haible@clisp.cons.org>
-
-	Silence "gcc -Wall -Wwrite-strings" warnings.
-	* localcharset.c (charset_aliases): Change type to 'const char *'.
-	(get_charset_aliases): Change type of 'cp' to 'const char *'.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 

@@ -34,6 +34,10 @@
 
 	* xg-test1.ok.po: Regenerated.
 
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.38 released.
+
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.37 released.
