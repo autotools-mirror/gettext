@@ -188,6 +188,18 @@ extern void po_message_set_extracted_comments (po_message_t message, const char 
    range.  */
 extern po_filepos_t po_message_filepos (po_message_t message, int i);
 
+/* Remove the i-th file position from a message.
+   The indices of all following file positions for the message are decremented
+   by one.  */
+extern void po_message_remove_filepos (po_message_t message, int i);
+
+/* Add a file position to a message, if it is not already present for the
+   message.
+   file is the file name.
+   start_line is the line number where the string starts, or (size_t)(-1) if no
+   line number is available.  */
+extern void po_message_add_filepos (po_message_t message, const char *file, size_t start_line);
+
 /* Return true if the message is marked obsolete.  */
 extern int po_message_is_obsolete (po_message_t message);
 

@@ -10,6 +10,7 @@ po_file_write
 po_filepos_file
 po_filepos_start_line
 po_header_field
+po_message_add_filepos
 po_message_check_format
 po_message_comments
 po_message_create
@@ -25,6 +26,7 @@ po_message_msgid
 po_message_msgid_plural
 po_message_msgstr
 po_message_msgstr_plural
+po_message_remove_filepos
 po_message_set_comments
 po_message_set_extracted_comments
 po_message_set_format

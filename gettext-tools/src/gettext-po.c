@@ -686,6 +686,46 @@ po_message_filepos (po_message_t message, int i)
 }
 
 
+/* Remove the i-th file position from a message.
+   The indices of all following file positions for the message are decremented
+   by one.  */
+
+void
+po_message_remove_filepos (po_message_t message, int i)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (i >= 0)
+    {
+      size_t j = (size_t)i;
+      size_t n = mp->filepos_count;
+
+      if (j < n)
+	{
+	  mp->filepos_count = n = n - 1;
+	  free ((char *) mp->filepos[j].file_name);
+	  for (; j < n; j++)
+	    mp->filepos[j] = mp->filepos[j + 1];
+	}
+    }
+}
+
+
+/* Add a file position to a message, if it is not already present for the
+   message.
+   file is the file name.
+   start_line is the line number where the string starts, or (size_t)(-1) if no
+   line number is available.  */
+
+void
+po_message_add_filepos (po_message_t message, const char *file, size_t start_line)
+{
+  message_ty *mp = (message_ty *) message;
+
+  message_comment_filepos (mp, file, start_line);
+}
+
+
 /* Return true if the message is marked obsolete.  */
 
 int
