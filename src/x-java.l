@@ -353,7 +353,6 @@ x_java_extract_all ()
 }
 
 
-
 static java_keyword *
 alloc_keyword (keyword, arg1, arg2)
      const char *keyword;
@@ -368,67 +367,6 @@ alloc_keyword (keyword, arg1, arg2)
 }
 
 static object_list *java_keywords = NULL;
-
-
-/**
- * Extract the keyword from a keyword indata string.
- */
-static char *
-extract_keyword (key)
-     const char *key;
-{
-  char *s = strchr (key, ':');
-  char *new_string;
-
-  new_string = xstrdup (key);
-  if (s != NULL)
-    new_string[s - key] = '\0';
-  return new_string;
-}
-
-/**
- * Extract the msgid arg number from a keyword indata string.
- */
-static int
-extract_msgid_arg (key)
-     const char *key;
-{
-  char *s = strchr (key, ':');
-  int arg;
-
-  if (s != NULL)
-    {
-      s ++;
-      arg = strtol (s, &s, 10);
-    }
-  else
-    {
-      arg = 1;
-    }
-  return arg;
-}
-
-/**
- * Extract the msgid plural arg number from a keyword indata string,
- * if any.
- */
-static int
-extract_msgid_plural_arg (key)
-     const char *key;
-{
-  char *s = strchr (key, ',');
-  int arg;
-  if (s != NULL)
-    {
-      s ++;
-      arg = strtol (s, &s, 10);
-    }
-  else
-    {
-      arg = 0;
-    }
-  return arg;
-}
 
 
 /**
@@ -490,8 +428,10 @@ void
 x_java_keyword (keyword)
      const char *keyword;
 {
+  const char *keyword_end;
   int arg1;
   int arg2;
+  size_t len;
   char *kw;
 
   if (keyword == NULL)
@@ -505,14 +445,22 @@ x_java_keyword (keyword)
     }
 
   if (java_keywords == NULL)
-    {
-      java_keywords = object_list_alloc ();
-    }
+    java_keywords = object_list_alloc ();
 
-  kw = extract_keyword (keyword);
-  arg1 = extract_msgid_arg (keyword);
-  arg2 = extract_msgid_plural_arg (keyword);
-  add_object (java_keywords, alloc_keyword (kw, arg1, arg2));
+  split_keywordspec (keyword, &keyword_end, &arg1, &arg2);
+  len = keyword_end - keyword;
+  kw = (char *) xmalloc (len + 1);
+  memcpy (kw, keyword, len);
+  kw[len] = '\0';
+
+  /* kw should be a valid Java identifier sequence with dots.
+     A colon means an invalid parse in split_keywordspec().  */
+  if (strchr (kw, ':') == NULL)
+    {
+      if (arg1 == 0)
+	arg1 = 1;
+      add_object (java_keywords, alloc_keyword (kw, arg1, arg2));
+    }
 }
 
 

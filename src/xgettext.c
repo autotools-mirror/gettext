@@ -673,6 +673,71 @@ read_exclusion_file (file_name)
 }
 
 
+void
+split_keywordspec (spec, endp, argnum1p, argnum2p)
+     const char *spec;
+     const char **endp;
+     int *argnum1p;
+     int *argnum2p;
+{
+  const char *p;
+
+  /* Start parsing from the end.  */
+  p = spec + strlen (spec);
+  if (p > spec && isdigit ((unsigned char) p[-1]))
+    {
+      const char *last_arg;
+
+      do
+	p--;
+      while (p > spec && isdigit ((unsigned char) p[-1]));
+
+      last_arg = p;
+
+      if (p > spec && p[-1] == ',')
+	{
+	  p--;
+
+	  if (p > spec && isdigit ((unsigned char) p[-1]))
+	    {
+	      const char *first_arg;
+
+	      do
+		p--;
+	      while (p > spec && isdigit ((unsigned char) p[-1]));
+
+	      first_arg = p;
+
+	      if (p > spec && p[-1] == ':')
+		{
+		  /* Parsed "KEYWORD:ARGNUM1,ARGNUM2".  */
+		  char *dummy;
+
+		  *endp = p - 1;
+		  *argnum1p = strtol (first_arg, &dummy, 10);
+		  *argnum2p = strtol (last_arg, &dummy, 10);
+		  return;
+		}
+	    }
+	}
+      else if (p > spec && p[-1] == ':')
+	{
+	  /* Parsed "KEYWORD:ARGNUM1.  */
+	  char *dummy;
+
+	  *endp = p - 1;
+	  *argnum1p = strtol (last_arg, &dummy, 10);
+	  *argnum2p = 0;
+	  return;
+	}
+    }
+  /* Parsed "KEYWORD".  */
+  *endp = p + strlen (p);
+  *argnum1p = 0;
+  *argnum2p = 0;
+}
+
+
 static string_list_ty *comment;
 
 void

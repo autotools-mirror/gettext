@@ -1,5 +1,14 @@
 2001-12-09  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.h (split_keywordspec): New declaration.
+	* xgettext.c (split_keywordspec): New function.
+	* x-c.c (x_c_keyword): Use split_keywordspec.
+	* x-java.l (extract_keyword, extract_msgid_arg,
+	extract_msgid_plural_arg): Remove functions.
+	(x_java_keyword): Use split_keywordspec.
+
+2001-12-09  Bruno Haible  <bruno@clisp.org>
+
 	* x-c.c: Reorder.
 
 2001-12-08  Bruno Haible  <bruno@clisp.org>

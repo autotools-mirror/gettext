@@ -192,38 +192,26 @@ x_c_keyword (name)
     default_keywords = false;
   else
     {
+      const char *end;
       int argnum1;
       int argnum2;
-      size_t len;
-      char *sp;
+      const char *colon;
 
       if (keywords.table == NULL)
 	init_hash (&keywords, 100);
 
-      sp = strchr (name, ':');
-      if (sp)
-	{
-	  len = sp - name;
-	  sp++;
-	  argnum1 = strtol (sp, &sp, 10);
-	  if (*sp == ',')
-	    {
-	      sp++;
-	      argnum2 = strtol (sp, &sp, 10);
-	    }
-	  else
-	    argnum2 = 0;
-	}
-      else
-	{
-	  len = strlen (name);
+      split_keywordspec (name, &end, &argnum1, &argnum2);
 
-	  argnum1 = 1;
-	  argnum2 = 0;
+      /* The characters between name and end should form a valid C identifier.
+	 A colon means an invalid parse in split_keywordspec().  */
+      colon = strchr (name, ':');
+      if (colon == NULL || colon >= end)
+	{
+	  if (argnum1 == 0)
+	    argnum1 = 1;
+	  insert_entry (&keywords, name, end - name,
+			(void *) (long) (argnum1 + (argnum2 << 10)));
 	}
-
-      insert_entry (&keywords, name, len,
-		    (void *) (long) (argnum1 + (argnum2 << 10)));
     }
 }
 

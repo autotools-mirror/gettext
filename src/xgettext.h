@@ -31,6 +31,10 @@ extern int omit_header;
 
 extern bool substring_match;
 
+/* Split keyword spec into keyword, argnum1, argnum2.  */
+extern void split_keywordspec PARAMS ((const char *spec, const char **endp,
+				       int *argnum1p, int *argnum2p));
+
 /* List of messages whose msgids must not be extracted, or NULL.
    Used by remember_a_message().  */
 extern message_list_ty *exclude;
