@@ -1,13 +1,13 @@
 # Japanese translations for GNU gettext package.
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# Jun Sawataishi <jsawa@ibm.net>, 2001.
+# Jun Sawataishi <jsawa@attglobal.net>, 2001.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
 "POT-Creation-Date: 2001-03-11 17:25+0100\n"
 "PO-Revision-Date: 1999-09-24 23:45+09:00\n"
-"Last-Translator: JUN SAWATAISHI <jsawa@ibm.net>\n"
+"Last-Translator: JUN SAWATAISHI <jsawa@attglobal.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=sjis\n"
