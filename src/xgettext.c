@@ -50,6 +50,7 @@
 #include "system.h"
 #include "po.h"
 #include "message.h"
+#include "po-time.h"
 #include "write-po.h"
 #include "format.h"
 #include "libgettext.h"
@@ -178,7 +179,6 @@ static FILE *xgettext_open PARAMS ((const char *fn, char **logical_file_name_p,
 static void extract_from_file PARAMS ((const char *file_name,
 				       extractor_func extractor,
 				       msgdomain_list_ty *mdlp));
-static long difftm PARAMS ((const struct tm *a, const struct tm *b));
 static message_ty *construct_header PARAMS ((void));
 static extractor_func language_to_extractor PARAMS ((const char *name));
 static const char *extension_to_language PARAMS ((const char *extension));
@@ -1022,69 +1022,29 @@ remember_a_message_plural (mp, string, pos)
 }
 
 
-#define TM_YEAR_ORIGIN 1900
-
-/* Yield A - B, measured in seconds.  */
-static long
-difftm (a, b)
-     const struct tm *a;
-     const struct tm *b;
-{
-  int ay = a->tm_year + (TM_YEAR_ORIGIN - 1);
-  int by = b->tm_year + (TM_YEAR_ORIGIN - 1);
-  /* Some compilers cannot handle this as a single return statement.  */
-  long days = (
-               /* difference in day of year  */
-               a->tm_yday - b->tm_yday
-               /* + intervening leap days  */
-               + ((ay >> 2) - (by >> 2))
-               - (ay / 100 - by / 100)
-               + ((ay / 100 >> 2) - (by / 100 >> 2))
-               /* + difference in years * 365  */
-               + (long) (ay - by) * 365l);
-
-  return 60l * (60l * (24l * days + (a->tm_hour - b->tm_hour))
-                + (a->tm_min - b->tm_min))
-         + (a->tm_sec - b->tm_sec);
-}
-
-
 static message_ty *
 construct_header ()
 {
   time_t now;
-  struct tm local_time;
+  char *timestring;
   message_ty *mp;
   char *msgstr;
   static lex_pos_ty pos = { __FILE__, __LINE__, };
-  char tz_sign;
-  long tz_min;
 
   time (&now);
-  local_time = *localtime (&now);
-  tz_sign = '+';
-  tz_min = difftm (&local_time, gmtime (&now)) / 60;
-  if (tz_min < 0)
-    {
-      tz_min = -tz_min;
-      tz_sign = '-';
-    }
+  timestring = po_strftime (&now);
 
   msgstr = xasprintf ("\
 Project-Id-Version: PACKAGE VERSION\n\
-POT-Creation-Date: %d-%02d-%02d %02d:%02d%c%02ld%02ld\n\
+POT-Creation-Date: %s\n\
 PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n\
 Last-Translator: FULL NAME <EMAIL@ADDRESS>\n\
 Language-Team: LANGUAGE <LL@li.org>\n\
 MIME-Version: 1.0\n\
 Content-Type: text/plain; charset=CHARSET\n\
 Content-Transfer-Encoding: 8bit\n",
-	    local_time.tm_year + TM_YEAR_ORIGIN,
-	    local_time.tm_mon + 1,
-	    local_time.tm_mday,
-	    local_time.tm_hour,
-	    local_time.tm_min,
-	    tz_sign, tz_min / 60, tz_min % 60);
+		      timestring);
+  free (timestring);
 
   mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);
 

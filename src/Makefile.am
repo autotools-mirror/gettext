@@ -28,8 +28,8 @@ noinst_PROGRAMS = hostname
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
-msgl-ascii.h msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h \
-x-java.h x-ycp.h x-rst.h
+msgl-ascii.h msgl-cat.h msgfmt.h read-mo.h write-mo.h po-time.h xgettext.h \
+x-c.h x-po.h x-java.h x-ycp.h x-rst.h
 
 EXTRA_DIST = FILES
 
@@ -71,7 +71,7 @@ msgcmp_SOURCES    = msgcmp.c    $(COMMON_SOURCE)
 msgfmt_SOURCES    = msgfmt.c    $(COMMON_SOURCE) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c plural-eval.c $(FORMAT_SOURCE)
 msgmerge_SOURCES  = msgmerge.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-equal.c
 msgunfmt_SOURCES  = msgunfmt.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c read-mo.c read-java.c
-xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c file-list.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCE)
+xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c file-list.c po-time.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCE)
 msgattrib_SOURCES = msgattrib.c $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c
 msgcat_SOURCES    = msgcat.c    $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
 msgcomm_SOURCES   = msgcomm.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
