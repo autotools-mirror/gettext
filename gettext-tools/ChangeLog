@@ -1,0 +1,6 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Big restructuring.
+	* configure.ac: New file.
+	* Makefile.am: New file.
+

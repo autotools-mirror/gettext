@@ -1,9 +1,28 @@
+dnl Configuration for the gettext-tools directory of GNU gettext
+dnl Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
+dnl
+dnl This program is free software; you can redistribute it and/or modify
+dnl it under the terms of the GNU General Public License as published by
+dnl the Free Software Foundation; either version 2, or (at your option)
+dnl any later version.
+dnl
+dnl This program is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl GNU General Public License for more details.
+dnl
+dnl You should have received a copy of the GNU General Public License
+dnl along with this program; if not, write to the Free Software
+dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
 dnl Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.52)
+
+AC_PREREQ(2.57)
 AC_INIT
 AC_CONFIG_SRCDIR(src/msgfmt.c)
-AM_INIT_AUTOMAKE(gettext, 0.11.6-pre2)
-RELEASE_DATE=2002-08-06      dnl in "date +%Y-%m-%d" format
+AC_CONFIG_AUX_DIR(../config)
+. $srcdir/../version.sh
+AM_INIT_AUTOMAKE(gettext-tools, $VERSION_NUMBER)
 AM_CONFIG_HEADER(config.h)
 
 dnl Checks for programs.
@@ -61,11 +80,9 @@ AC_CHECK_HEADERS(limits.h malloc.h string.h unistd.h utime.h values.h)
 gt_STDBOOL_H
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
 AC_C_INLINE
 bh_C_SIGNED
 jm_AC_TYPE_UNSIGNED_LONG_LONG
-AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
 AC_CHECK_TYPES(ptrdiff_t)
 jm_AC_TYPE_UINTMAX_T
@@ -75,8 +92,8 @@ AC_TYPE_PID_T
 dnl Checks for library functions.
 gl_FUNC_ALLOCA
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([getcwd mblen memcpy posix_spawn putc_unlocked raise select \
-strerror strtoul uname utime utimes])
+AC_CHECK_FUNCS([getcwd posix_spawn putc_unlocked raise select strerror \
+strtoul uname utime utimes])
 AC_REPLACE_FUNCS([memset stpcpy strcspn \
 strcasecmp strncasecmp strpbrk strstr vasprintf])
 AM_FUNC_GETLINE
@@ -99,7 +116,7 @@ gt_SETLOCALE
 gt_PREREQ_HOSTNAME
 
 dnl These are the only lines required to internationalize the package.
-dnl (OK, not quite, the AC_OUTPUT has also some parts.)
+dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
 dnl Put some default definitions into config.h.
@@ -116,14 +133,6 @@ AH_TOP([
 #endif
 ])
 AH_BOTTOM([
-/* We don't test for the basename function but still want to use the
-   version in the libc when compiling for a system using glibc.  Likewise
-   for stpncpy.  */
-#ifdef __GNU_LIBRARY__
-# define HAVE_BASENAME	1
-# define HAVE_STPNCPY	1
-#endif
-
 /* A file name cannot consist of any character possible.  INVALID_PATH_CHAR
    contains the characters not allowed.  */
 #ifndef MSDOS
@@ -181,71 +190,11 @@ CROSS_COMPILING=$cross_compiling
 AC_SUBST(CROSS_COMPILING)
 
 dnl Checks for optional programs for the tests/lang-* tests.
-AC_CHECK_PROGS(CXX, $CCC g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC, :)
-if test "$CXX" != ":"; then
-  dnl Use a modified version of AC_PROG_CXX_WORKS that does not exit
-  dnl upon failure.
-  AC_MSG_CHECKING([whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works])
-  AC_LANG_PUSH(C++)
-  AC_ARG_VAR([CXX], [C++ compiler command])
-  AC_ARG_VAR([CXXFLAGS], [C++ compiler flags])
-  echo 'int main () { return 0; }' > conftest.$ac_ext
-  if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
-    ac_cv_prog_cxx_works=yes
-    if (./conftest; exit) 2>/dev/null; then
-      ac_cv_prog_cxx_cross=no
-    else
-      ac_cv_prog_cxx_cross=yes
-    fi
-  else
-    ac_cv_prog_cxx_works=no
-  fi
-  rm -fr conftest*
-  AC_LANG_POP(C++)
-  AC_MSG_RESULT($ac_cv_prog_cxx_works)
-  if test $ac_cv_prog_cxx_works = no; then
-    CXX=:
-  else
-    dnl Test for namespaces. Both libasprintf and tests/lang-c++ need it.
-    dnl We don't bother supporting pre-ANSI-C++ compilers.
-    AC_MSG_CHECKING([whether the C++ compiler supports namespaces])
-    AC_LANG_PUSH(C++)
-    cat <<EOF > conftest.$ac_ext
-#include <iostream>
-namespace test { using namespace std; }
-std::ostream* ptr;
-int main () { return 0; }
-EOF
-    if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
-      gt_cv_prog_cxx_namespaces=yes
-    else
-      gt_cv_prog_cxx_namespaces=no
-    fi
-    rm -fr conftest*
-    AC_LANG_POP(C++)
-    AC_MSG_RESULT($gt_cv_prog_cxx_namespaces)
-    if test $gt_cv_prog_cxx_namespaces = no; then
-      CXX=:
-    fi
-  fi
-fi
-
-dnl Determine whether to build libasprintf.
-if test "$CXX" != ":"; then
-  SUBDIR_libasprintf=libasprintf
-else
-  SUBDIR_libasprintf=
-fi
-AC_SUBST(SUBDIR_libasprintf)
-
-dnl Checks for tests/rpathcfg.
-AC_SUBST(GCC)
-AC_SUBST(LD)
-AC_SUBST(with_gnu_ld)
+gt_PROG_ANSI_CXX
 
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl
-echo "GNU gettext library from $PACKAGE-$VERSION" > intl/VERSION
+echo "GNU gettext library from gettext-$VERSION" > intl/VERSION
 cat > intl/ChangeLog.inst <<EOF
 $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
@@ -259,14 +208,19 @@ LTALLOCA=`echo "$ALLOCA" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
 changequote([, ])dnl
 AC_SUBST(LTALLOCA)
 
-AC_CONFIG_SUBDIRS(libasprintf)
+AC_CONFIG_FILES([Makefile])
 
-AC_CONFIG_FILES([Makefile],
-                [FIX_MAKEFILE_DISTRIB([Makefile])])
+AC_CONFIG_FILES([doc/Makefile],
+                [FIX_MAKEFILE_COMPILE([doc/Makefile])
+                 FIX_MAKEFILE_DISTRIB([doc/Makefile])
+                 FIX_MAKEFILE_INFO([doc/Makefile])])
 
-AC_CONFIG_FILES([intl/Makefile])
-
-AC_CONFIG_FILES([intl-java/Makefile])
+AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
+  # Change srcdir variable so that it points to ../gettext-runtime/intl.
+  sed -e 's|^srcdir =.*$|srcdir = $(top_srcdir)/../gettext-runtime/intl|' \
+    < intl/Makefile > intl/Makefile.tmp
+  mv intl/Makefile.tmp intl/Makefile
+  ])
 
 AC_CONFIG_FILES([lib/Makefile],
                 [FIX_MAKEFILE_COMPILE([lib/Makefile])])
@@ -281,23 +235,18 @@ AC_CONFIG_FILES([src/user-email])
 
 AC_CONFIG_FILES([po/Makefile.in])
 
-AC_CONFIG_FILES([doc/Makefile],
-                [FIX_MAKEFILE_COMPILE([doc/Makefile])
-                 FIX_MAKEFILE_DISTRIB([doc/Makefile])
-                 FIX_MAKEFILE_INFO([doc/Makefile])])
-
-AC_CONFIG_FILES([man/Makefile])
-AC_CONFIG_FILES([man/x-to-1])
-
-AC_CONFIG_FILES([tests/Makefile],
-                [FIX_MAKEFILE_COMPILE([tests/Makefile])])
-
-AC_CONFIG_FILES([m4/Makefile])
-
 AC_CONFIG_FILES([projects/Makefile])
 
 AC_CONFIG_FILES([misc/Makefile])
 AC_CONFIG_FILES([misc/gettextize], [chmod a+x misc/gettextize])
 AC_CONFIG_FILES([misc/autopoint], [chmod a+x misc/autopoint])
+
+AC_CONFIG_FILES([man/Makefile])
+AC_CONFIG_FILES([man/x-to-1])
+
+AC_CONFIG_FILES([m4/Makefile])
+
+AC_CONFIG_FILES([tests/Makefile],
+                [FIX_MAKEFILE_COMPILE([tests/Makefile])])
 
 AC_OUTPUT
