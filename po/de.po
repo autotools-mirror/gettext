@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 1999-10-11 23:03-0700\n"
+"POT-Creation-Date: 2000-07-28 22:51+0200\n"
 "PO-Revision-Date: 1998-04-30 23:23-0700\n"
 "Last-Translator: Ulrich Drepper <drepper@gnu.ai.mit.edu>\n"
 "Language-Team: German <de@li.org>\n"
@@ -245,11 +245,11 @@ msgstr "diese Meldung wird benutzt, wird aber nicht in %s definiert"
 msgid "warning: this message is not used"
 msgstr "Warnung: diese Meldung wird nicht benutzt"
 
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1070
+#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1093
 msgid "duplicate message definition"
 msgstr "Mehrfachdefinition der Meldung"
 
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1071
+#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1094
 msgid "...this is the location of the first definition"
 msgstr "...dies ist die Stelle der ersten Definition"
 
@@ -260,7 +260,7 @@ msgstr "diese Meldung hat im Bereich »%s« keine Definition"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1265
+#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1288
 msgid "while preparing output"
 msgstr "beim Vorbereiten der Ausgabe"
 
@@ -379,13 +379,13 @@ msgstr ""
 "die sie definiert.  Positionen der Meldungen in den Quellen werden für alle\n"
 "PO Dateien festgehalten.\n"
 
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159
-#: src/xget-lex.c:174 src/xget-lex.c:191 src/xgettext.c:625
+#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:161
+#: src/xget-lex.c:176 src/xget-lex.c:193 src/xgettext.c:625
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "Öffnen der Datei »%s« zum Lesen fehlgeschlagen"
 
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:977
+#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:1000
 msgid "this file may not contain domain directives"
 msgstr "diese Datei darf keine `domain' Anweisung enthalten"
 
@@ -658,7 +658,7 @@ msgstr ""
 "Eingabedatei - ist, wird von Standard Eingabe gelesen.  Standardmäßig\n"
 "wird die Ausgabe nach Standard Ausgabe geschrieben.\n"
 
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
+#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:256
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "Fehler beim Lesen von »%s«"
@@ -678,7 +678,7 @@ msgstr "Positionieren in Datei »%s« auf Position %ld fehlgeschlagen"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "Datei »%s« ist keine Datei im GNU .mo Format"
 
-#: ../../src/po-gram.y:83
+#: /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y:129
 msgid "missing `msgstr' section"
 msgstr "»msgstr« Abschnitt fehlt"
 
@@ -709,16 +709,16 @@ msgstr "Zeilenende innerhalb einer Zeichenkette"
 msgid "end-of-file within string"
 msgstr "Dateiende innerhalb einer Zeichenkette"
 
-#: src/xget-lex.c:150
+#: src/xget-lex.c:152
 msgid "standard input"
 msgstr "Standard Eingabe"
 
-#: src/xget-lex.c:892
+#: src/xget-lex.c:894
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: Warnung: Zeichenkonstante ohne korrektes Ende"
 
-#: src/xget-lex.c:914
+#: src/xget-lex.c:916
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: Warnung: Zeichenkette nicht korrekt beendet"
@@ -839,7 +839,17 @@ msgstr ""
 "\n"
 "Wenn EINGABEDATEI - ist, wird von Standard Eingabe gelesen.\n"
 
-#: src/xgettext.c:1351
+#: src/xgettext.c:879
+#, fuzzy, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr "%s:%d: Warnung: Zeichenkette nicht korrekt beendet"
+
+#: src/xgettext.c:889
+#, c-format
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
+msgstr ""
+
+#: src/xgettext.c:1374
 #, c-format
 msgid "language `%s' unknown"
 msgstr "Programmiersprache `%s' unbekannt"

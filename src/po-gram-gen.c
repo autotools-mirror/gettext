@@ -1,5 +1,5 @@
 
-/*  A Bison parser, made from /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y
+/*  A Bison parser, made from po-gram-gen.y
     by GNU Bison version 1.28  */
 
 #define YYBISON 1  /* Identify Bison output.  */
@@ -8,12 +8,13 @@
 #define	DOMAIN	258
 #define	JUNK	259
 #define	MSGID	260
-#define	MSGSTR	261
-#define	NAME	262
-#define	NUMBER	263
-#define	STRING	264
+#define	MSGID_PLURAL	261
+#define	MSGSTR	262
+#define	NAME	263
+#define	NUMBER	264
+#define	STRING	265
 
-#line 20 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 20 "po-gram-gen.y"
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -25,7 +26,7 @@
 #include "po-gram.h"
 #include "error.h"
 #include "system.h"
-#include <libintl.h>
+#include "libgettext.h"
 #include "po.h"
 
 #define _(str) gettext (str)
@@ -41,6 +42,7 @@
 #define yymaxdepth po_gram_maxdepth
 #define yyparse po_gram_parse
 #define yylex   po_gram_lex
+#define yyerror po_gram_error
 #define yylval  po_gram_lval
 #define yychar  po_gram_char
 #define yydebug po_gram_debug
@@ -76,12 +78,15 @@
 #define yytable  po_gram_yytable
 #define yycheck  po_gram_yycheck
 
-#line 92 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+static long plural_counter;
+
+#line 97 "po-gram-gen.y"
 typedef union
 {
   char *string;
   long number;
   lex_pos_ty pos;
+  struct msgstr_def rhs;
 } YYSTYPE;
 #include <stdio.h>
 
@@ -93,11 +98,11 @@ typedef union
 
 
 
-#define	YYFINAL		18
+#define	YYFINAL		30
 #define	YYFLAG		-32768
-#define	YYNTBASE	11
+#define	YYNTBASE	14
 
-#define YYTRANSLATE(x) ((unsigned)(x) <= 264 ? yytranslate[x] : 18)
+#define YYTRANSLATE(x) ((unsigned)(x) <= 265 ? yytranslate[x] : 24)
 
 static const char yytranslate[] = {     0,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -109,7 +114,7 @@ static const char yytranslate[] = {     0,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+    10,     2,    11,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -126,28 +131,31 @@ static const char yytranslate[] = {     0,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
      2,     2,     2,     2,     2,     1,     3,     4,     5,     6,
-     7,     8,     9,    10
+     7,     8,     9,    12,    13
 };
 
 #if YYDEBUG != 0
 static const short yyprhs[] = {     0,
-     0,     1,     4,     7,    10,    13,    16,    21,    24,    26,
-    28,    30,    33
+     0,     1,     4,     7,    10,    13,    16,    21,    26,    30,
+    34,    37,    40,    42,    45,    51,    53,    55,    57,    60
 };
 
 static const short yyrhs[] = {    -1,
-    11,    17,     0,    11,    12,     0,    11,    13,     0,    11,
-     1,     0,     4,    10,     0,    14,    16,    15,    16,     0,
-    14,    16,     0,     6,     0,     7,     0,    10,     0,    16,
-    10,     0,     3,     0
+    14,    23,     0,    14,    15,     0,    14,    16,     0,    14,
+     1,     0,     4,    13,     0,    20,    22,    21,    22,     0,
+    20,    22,    17,    18,     0,    20,    22,    17,     0,    20,
+    22,    18,     0,    20,    22,     0,     7,    22,     0,    19,
+     0,    18,    19,     0,    21,    10,    12,    11,    22,     0,
+     6,     0,     8,     0,    13,     0,    22,    13,     0,     3,
+     0
 };
 
 #endif
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   108,   109,   110,   111,   112,   116,   123,   127,   135,   142,
-   149,   153,   168
+   115,   116,   117,   118,   119,   123,   130,   135,   140,   146,
+   152,   160,   168,   172,   185,   202,   209,   216,   220,   235
 };
 #endif
 
@@ -155,54 +163,59 @@ static const short yyrline[] = { 0,
 #if YYDEBUG != 0 || defined (YYERROR_VERBOSE)
 
 static const char * const yytname[] = {   "$","error","$undefined.","COMMENT",
-"DOMAIN","JUNK","MSGID","MSGSTR","NAME","NUMBER","STRING","msgfmt","domain",
-"message","msgid","msgstr","string_list","comment", NULL
+"DOMAIN","JUNK","MSGID","MSGID_PLURAL","MSGSTR","NAME","'['","']'","NUMBER",
+"STRING","msgfmt","domain","message","msgid_pluralform","pluralform_list","pluralform",
+"msgid","msgstr","string_list","comment", NULL
 };
 #endif
 
 static const short yyr1[] = {     0,
-    11,    11,    11,    11,    11,    12,    13,    13,    14,    15,
-    16,    16,    17
+    14,    14,    14,    14,    14,    15,    16,    16,    16,    16,
+    16,    17,    18,    18,    19,    20,    21,    22,    22,    23
 };
 
 static const short yyr2[] = {     0,
-     0,     2,     2,     2,     2,     2,     4,     2,     1,     1,
-     1,     2,     1
+     0,     2,     2,     2,     2,     2,     4,     4,     3,     3,
+     2,     2,     1,     2,     5,     1,     1,     1,     2,     1
 };
 
 static const short yydefact[] = {     1,
-     0,     5,    13,     0,     9,     3,     4,     0,     2,     6,
-    11,     8,    10,    12,     0,     7,     0,     0
+     0,     5,    20,     0,    16,     3,     4,     0,     2,     6,
+    18,    11,     0,    17,    19,     9,    10,    13,     0,    12,
+     8,     0,    14,     0,     7,     0,     0,    15,     0,     0
 };
 
 static const short yydefgoto[] = {     1,
-     6,     7,     8,    15,    12,     9
+     6,     7,    16,    17,    18,     8,    22,    12,     9
 };
 
 static const short yypact[] = {-32768,
-     0,-32768,-32768,    -3,-32768,-32768,-32768,    -2,-32768,-32768,
--32768,    -5,-32768,-32768,    -2,    -1,    10,-32768
+     1,-32768,-32768,   -10,-32768,-32768,-32768,    -2,-32768,-32768,
+-32768,     2,    -2,-32768,-32768,     9,     9,-32768,     3,     5,
+     9,    10,-32768,     7,     5,    11,    -2,     5,    21,-32768
 };
 
 static const short yypgoto[] = {-32768,
--32768,-32768,-32768,-32768,    -4,-32768
+-32768,-32768,-32768,     8,    -9,-32768,    13,   -13,-32768
 };
 
 
-#define	YYLAST		11
+#define	YYLAST		25
 
 
-static const short yytable[] = {    17,
-     2,    13,     3,     4,    14,     5,    10,    11,    14,    18,
-    16
+static const short yytable[] = {    20,
+    29,     2,    10,     3,     4,    25,     5,    23,    13,    14,
+    11,    23,    24,    28,    15,    11,    14,    15,    26,    24,
+    30,    27,     0,    21,    19
 };
 
-static const short yycheck[] = {     0,
-     1,     7,     3,     4,    10,     6,    10,    10,    10,     0,
-    15
+static const short yycheck[] = {    13,
+     0,     1,    13,     3,     4,    19,     6,    17,     7,     8,
+    13,    21,    10,    27,    13,    13,     8,    13,    12,    10,
+     0,    11,    -1,    16,    12
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/usr/share/bison.simple"
+#line 3 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
 /* This file comes from bison-1.28.  */
 
 /* Skeleton output parser for bison,
@@ -416,7 +429,7 @@ __yy_memcpy (char *to, char *from, unsigned int count)
 #endif
 #endif
 
-#line 217 "/usr/share/bison.simple"
+#line 217 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
    into yyparse.  The argument should have type void *.
@@ -745,44 +758,109 @@ yyreduce:
   switch (yyn) {
 
 case 6:
-#line 117 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 124 "po-gram-gen.y"
 {
 		   po_callback_domain (yyvsp[0].string);
 		;
     break;}
 case 7:
-#line 124 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 131 "po-gram-gen.y"
 {
-		  po_callback_message (yyvsp[-2].string, &yyvsp[-3].pos, yyvsp[0].string, &yyvsp[-1].pos);
+		  po_callback_message (yyvsp[-2].string, &yyvsp[-3].pos, NULL,
+				       yyvsp[0].string, strlen (yyvsp[0].string) + 1, &yyvsp[-1].pos);
 		;
     break;}
 case 8:
-#line 128 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 136 "po-gram-gen.y"
 {
-		  gram_error_at_line (&yyvsp[-1].pos, _("missing `msgstr' section"));
-		  free (yyvsp[0].string);
+		  po_callback_message (yyvsp[-2].string, &yyvsp[-3].pos, yyvsp[-1].string,
+				       yyvsp[0].rhs.msgstr, yyvsp[0].rhs.msgstr_len, &yyvsp[0].rhs.pos);
 		;
     break;}
 case 9:
-#line 136 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 141 "po-gram-gen.y"
 {
-		  yyval.pos = gram_pos;
+		  po_gram_error_at_line (&yyvsp[-2].pos, _("missing `msgstr[]' section"));
+		  free (yyvsp[-1].string);
+		  free (yyvsp[0].string);
 		;
     break;}
 case 10:
-#line 143 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 147 "po-gram-gen.y"
+{
+		  po_gram_error_at_line (&yyvsp[-2].pos, _("missing `msgid_plural' section"));
+		  free (yyvsp[-1].string);
+		  free (yyvsp[0].rhs.msgstr);
+		;
+    break;}
+case 11:
+#line 153 "po-gram-gen.y"
+{
+		  po_gram_error_at_line (&yyvsp[-1].pos, _("missing `msgstr' section"));
+		  free (yyvsp[0].string);
+		;
+    break;}
+case 12:
+#line 161 "po-gram-gen.y"
+{
+		  plural_counter = 0;
+		  yyval.string = yyvsp[0].string;
+		;
+    break;}
+case 13:
+#line 169 "po-gram-gen.y"
+{
+		  yyval.rhs = yyvsp[0].rhs;
+		;
+    break;}
+case 14:
+#line 173 "po-gram-gen.y"
+{
+		  yyval.rhs.msgstr = (char *) xmalloc (yyvsp[-1].rhs.msgstr_len + yyvsp[0].rhs.msgstr_len);
+		  memcpy (yyval.rhs.msgstr, yyvsp[-1].rhs.msgstr, yyvsp[-1].rhs.msgstr_len);
+		  memcpy (yyval.rhs.msgstr + yyvsp[-1].rhs.msgstr_len, yyvsp[0].rhs.msgstr, yyvsp[0].rhs.msgstr_len);
+		  yyval.rhs.msgstr_len = yyvsp[-1].rhs.msgstr_len + yyvsp[0].rhs.msgstr_len;
+		  yyval.rhs.pos = yyvsp[-1].rhs.pos;
+		  free (yyvsp[-1].rhs.msgstr);
+		  free (yyvsp[0].rhs.msgstr);
+		;
+    break;}
+case 15:
+#line 186 "po-gram-gen.y"
+{
+		  if (yyvsp[-2].number != plural_counter)
+		    {
+		      if (plural_counter == 0)
+			po_gram_error_at_line (&yyvsp[-4].pos, _("first plural form has nonzero index"));
+		      else
+			po_gram_error_at_line (&yyvsp[-4].pos, _("plural form has wrong index"));
+		    }
+		  plural_counter++;
+		  yyval.rhs.msgstr = yyvsp[0].string;
+		  yyval.rhs.msgstr_len = strlen (yyvsp[0].string) + 1;
+		  yyval.rhs.pos = yyvsp[-4].pos;
+		;
+    break;}
+case 16:
+#line 203 "po-gram-gen.y"
 {
 		  yyval.pos = gram_pos;
 		;
     break;}
-case 11:
-#line 150 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+case 17:
+#line 210 "po-gram-gen.y"
+{
+		  yyval.pos = gram_pos;
+		;
+    break;}
+case 18:
+#line 217 "po-gram-gen.y"
 {
 		  yyval.string = yyvsp[0].string;
 		;
     break;}
-case 12:
-#line 154 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+case 19:
+#line 221 "po-gram-gen.y"
 {
 		  size_t len1;
 		  size_t len2;
@@ -795,15 +873,15 @@ case 12:
 		  free (yyvsp[0].string);
 		;
     break;}
-case 13:
-#line 169 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+case 20:
+#line 236 "po-gram-gen.y"
 {
 		  po_callback_comment (yyvsp[0].string);
 		;
     break;}
 }
    /* the action file gets copied in in place of this dollarsign */
-#line 543 "/usr/share/bison.simple"
+#line 543 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -1023,4 +1101,4 @@ yyerrhandle:
     }
   return 1;
 }
-#line 173 "/home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y"
+#line 240 "po-gram-gen.y"

@@ -34,11 +34,12 @@ to force usage of internationalizing routines provided within this
 package, despite the existence of internationalizing capabilities in the
 operating system where this package is being installed.  So far, only
 the `gettext' implementation in the GNU C library version 2 provides as
-many features (such as locale alias or message inheritance) as the
-implementation here.  It is also not possible to offer this additional
-functionality on top of a `catgets' implementation.  Future versions of
-GNU `gettext' will very likely convey even more functionality.  So it
-might be a good idea to change to GNU `gettext' as soon as possible.
+many features (such as locale alias, message inheritance, automatic
+charset conversion or plural form handling) as the implementation here.
+It is also not possible to offer this additional functionality on top
+of a `catgets' implementation.  Future versions of GNU `gettext' will
+very likely convey even more functionality.  So it might be a good idea
+to change to GNU `gettext' as soon as possible.
 
    So you need _not_ provide this option if you are using GNU libc 2 or
 you have installed a recent copy of the GNU gettext package with the
@@ -53,9 +54,8 @@ Most such packages use GNU `gettext'.  Other packages have their own
 ways to internationalization, predating GNU `gettext'.
 
    By default, this package will be installed to allow translation of
-messages.  It will automatically detect whether the system provides
-usable `catgets' (if using this is selected by the installer) or
-`gettext' functions.  If neither is available, the GNU `gettext' own
+messages.  It will automatically detect whether the system already
+provides the GNU `gettext' functions.  If not, the GNU `gettext' own
 library will be used.  This library is wholly contained within this
 package, usually in the `intl/' subdirectory, so prior installation of
 the GNU `gettext' package is _not_ required.  Installers may use
@@ -63,13 +63,11 @@ special options at configuration time for changing the default
 behaviour.  The commands:
 
      ./configure --with-included-gettext
-     ./configure --with-catgets
      ./configure --disable-nls
 
-will respectively bypass any pre-existing `catgets' or `gettext' to use
-the internationalizing routines provided within this package, enable
-the use of the `catgets' functions (if found on the locale system), or
-else, _totally_ disable translation of messages.
+will respectively bypass any pre-existing `gettext' to use the
+internationalizing routines provided within this package, or else,
+_totally_ disable translation of messages.
 
    When you already have GNU `gettext' installed on your system and run
 configure without an option for your new package, `configure' will
@@ -83,18 +81,10 @@ package is more recent, you should use
 
 to prevent auto-detection.
 
-   By default the configuration process will not test for the `catgets'
-function and therefore they will not be used.  The reasons are already
-given above: the emulation on top of `catgets' cannot provide all the
-extensions provided by the GNU `gettext' library.  If you nevertheless
-want to use the `catgets' functions use
-
-     ./configure --with-catgets
-
-to enable the test for `catgets' (this causes no harm if `catgets' is
-not available on your system).  If you really select this option we
-would like to hear about the reasons because we cannot think of any
-good one ourself.
+   The configuration process will not test for the `catgets' function
+and therefore it will not be used.  The reason is that even an
+emulation of `gettext' on top of `catgets' could not provide all the
+extensions of the GNU `gettext' library.
 
    Internationalized packages have usually many `po/LL.po' files, where
 LL gives an ISO 639 two-letter code identifying the language.  Unless

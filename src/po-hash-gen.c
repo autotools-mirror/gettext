@@ -1,5 +1,5 @@
 
-/*  A Bison parser, made from /home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y
+/*  A Bison parser, made from po-hash-gen.y
     by GNU Bison version 1.28  */
 
 #define YYBISON 1  /* Identify Bison output.  */
@@ -12,7 +12,7 @@
 #define	LINE_KEYWORD	262
 #define	NUMBER_KEYWORD	263
 
-#line 20 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 20 "po-hash-gen.y"
 
 
 #ifdef HAVE_CONFIG_H
@@ -36,6 +36,7 @@
 #define yymaxdepth po_hash_maxdepth
 #define yyparse po_hash_parse
 #define yylex   po_hash_lex
+#define yyerror po_hash_error
 #define yylval  po_hash_lval
 #define yychar  po_hash_char
 #define yydebug po_hash_debug
@@ -72,13 +73,13 @@
 #define yycheck  po_hash_yycheck
 
 
-#line 88 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 89 "po-hash-gen.y"
 typedef union
 {
   char *string;
   int number;
 } YYSTYPE;
-#line 97 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 98 "po-hash-gen.y"
 
 
 static const char *cur;
@@ -166,7 +167,7 @@ static const short yyrhs[] = {    -1,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   128,   129,   133,   139,   145,   151
+   129,   130,   134,   140,   146,   152
 };
 #endif
 
@@ -762,7 +763,7 @@ yyreduce:
   switch (yyn) {
 
 case 3:
-#line 134 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 135 "po-hash-gen.y"
 {
 		  /* GNU style */
 		  po_callback_comment_filepos (yyvsp[-2].string, yyvsp[0].number);
@@ -770,7 +771,7 @@ case 3:
 		;
     break;}
 case 4:
-#line 140 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 141 "po-hash-gen.y"
 {
 		  /* SunOS style */
 		  po_callback_comment_filepos (yyvsp[-4].string, yyvsp[0].number);
@@ -778,7 +779,7 @@ case 4:
 		;
     break;}
 case 5:
-#line 146 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 147 "po-hash-gen.y"
 {
 		  /* Solaris style */
 		  po_callback_comment_filepos (yyvsp[-5].string, yyvsp[0].number);
@@ -786,7 +787,7 @@ case 5:
 		;
     break;}
 case 6:
-#line 152 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 153 "po-hash-gen.y"
 {
 		  /* GNU style, but STRING is `file'.  Esoteric, but it
 		     happened.  */
@@ -1015,7 +1016,7 @@ yyerrhandle:
     }
   return 1;
 }
-#line 159 "/home/haible/gettext-cvs/gettext/build/src/../../src/po-hash-gen.y"
+#line 160 "po-hash-gen.y"
 
 
 

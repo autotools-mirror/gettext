@@ -1,5 +1,5 @@
-This is Info file gettext.info, produced by Makeinfo version 1.68 from
-the input file gettext.texi.
+This is gettext.info, produced by makeinfo version 4.0 from
+gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
@@ -13,7 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
+Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -78,7 +79,7 @@ select the current entry in PO mode, including commands which move by
 characters, lines, paragraphs, screens or pages, and search commands.
 However, there is a kind of standard way to display the current entry
 in PO mode, which usual Emacs commands moving the cursor do not
-especially try to enforce.  The command `.'  (`po-current-entry') has
+especially try to enforce.  The command `.' (`po-current-entry') has
 the sole purpose of redisplaying the current entry properly, after the
 current entry has been changed by means external to PO mode, or the
 Emacs screen otherwise altered.
@@ -94,7 +95,7 @@ If nobody feels a real need for using it, or a compulsion for writing
 it, we should drop this whole idea.  The incentive for doing it should
 come from translators rather than programmers, as opinions from an
 experienced translator are surely more worth to me than opinions from
-programmers *thinking* about how *others* should do translation.
+programmers _thinking_ about how _others_ should do translation.
 
    The commands `n' (`po-next-entry') and `p' (`po-previous-entry')
 move the cursor the entry following, or preceding, the current one.  If
@@ -206,7 +207,7 @@ Emacs handy, and who would nevertheless want to handcraft their PO
 files in nice ways.
 
    Right now, in PO mode, strings are single line or multi-line.  A
-string goes multi-line if and only if it has *embedded* newlines, that
+string goes multi-line if and only if it has _embedded_ newlines, that
 is, if it matches `[^\n]\n+[^\n]'.  So, we would have:
 
      msgstr "\n\nHello, world!\n\n\n"
@@ -254,7 +255,7 @@ needing translation.
 
    Presuming that your set of programs, or package, has been adjusted
 so all needed GNU `gettext' files are available, and your `Makefile'
-files are adjusted (*note Maintainers::.), each C module having
+files are adjusted (*note Maintainers::), each C module having
 translated C strings should contain the line:
 
      #include <libintl.h>
@@ -365,7 +366,7 @@ program sources and produces PO file templates.
    The canonical keyword for marking translatable strings is `gettext',
 it gave its name to the whole GNU `gettext' package.  For packages
 making only light use of the `gettext' keyword, macro or function, it
-is easily used *as is*.  However, for packages using the `gettext'
+is easily used _as is_.  However, for packages using the `gettext'
 interface more heavily, it is usually more convenient to give the main
 keyword a shorter, less obtrusive name.  Indeed, the keyword might
 appear on a lot of strings all over the package, and programmers
@@ -395,7 +396,7 @@ instead of merely using `#include <libintl.h>'.
 you add or modify a string, you will have to ask yourself if the new or
 altered string requires translation, and include it within `_()' if you
 think it should be translated.  `"%s: %d"' is an example of string
-*not* requiring translation!
+_not_ requiring translation!
 
 
 File: gettext.info,  Node: Marking,  Next: c-format,  Prev: Mark Keywords,  Up: Sources
@@ -490,7 +491,7 @@ translatable will be automatically skipped.
 tags commands.  For example, regular `tags-search' or
 `tags-query-replace' commands may be used without disrupting the
 independent `,' search sequence.  However, as implemented, the
-*initial* `,' command (or the `,' command is used with a prefix) might
+_initial_ `,' command (or the `,' command is used with a prefix) might
 also reinitialize the regular Emacs tags searching to the first tags
 file, this reinitialization might be considered spurious.
 
@@ -512,11 +513,11 @@ PO file window, if you want command `,' for the next string, say.
 
    The `M-.' command has a few built-in speedups, so you do not have to
 explicitly type all keywords all the time.  The first such speedup is
-that you are presented with a *preferred* keyword, which you may accept
+that you are presented with a _preferred_ keyword, which you may accept
 by merely typing `<RET>' at the prompt.  The second speedup is that you
 may type any non-ambiguous prefix of the keyword you really mean, and
 the command will complete it automatically for you.  This also means
-that PO mode has to *know* all your possible keywords, and that it will
+that PO mode has to _know_ all your possible keywords, and that it will
 not accept mistyped keywords.
 
    If you reply `?' to the keyword request, the command gives a list of
@@ -525,9 +526,9 @@ prefixed by an argument (`C-u M-.'), it inhibits updating any program
 source or PO file buffer, and does some simple keyword management
 instead.  In this case, the command asks for a keyword, written in
 full, which becomes a new allowed keyword for later `M-.' commands.
-Moreover, this new keyword automatically becomes the *preferred*
+Moreover, this new keyword automatically becomes the _preferred_
 keyword for later commands.  By typing an already known keyword in
-response to `C-u M-.', one merely changes the *preferred* keyword and
+response to `C-u M-.', one merely changes the _preferred_ keyword and
 does nothing more.
 
    All keywords known for `M-.' are recognized by the `,' command when
@@ -584,7 +585,7 @@ format specifier, but the string is not used in `printf'.
    Therefore the `xgettext' adds a special tag to those messages it
 thinks might be a format string.  There is no absolute rule for this,
 only a heuristic.  In the `.po' file the entry is marked using the
-`c-format' flag in the `#,' comment line (*note PO Files::.).
+`c-format' flag in the `#,' comment line (*note PO Files::).
 
    The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
@@ -645,7 +646,7 @@ this.  Consider the following case:
    While it is no problem to mark the string `"a default message"' it
 is not possible to mark the string initializers for `messages'.  What
 is to be done?  We have to fulfill two tasks.  First we have to mark the
-strings so that the `xgettext' program (*note xgettext Invocation::.)
+strings so that the `xgettext' program (*note xgettext Invocation::)
 can find them, and second we have to translate the string at runtime
 before printing them.
 
@@ -779,13 +780,23 @@ Invoking the `xgettext' Program
      Join messages with existing file.
 
 `-k WORD'
-`--keyword[=WORD]'
-     Additonal keyword to be looked for (without WORD means not to use
-     default keywords).
+`--keyword[=KEYWORDSPEC]'
+     Additional keyword to be looked for (without KEYWORDSPEC means not
+     to use default keywords).
 
-     The default keywords, which are always looked for if not explicitly
-     disabled, are `gettext', `dgettext', `dcgettext' and
-     `gettext_noop'.
+     If KEYWORDSPEC is a C identifer ID, `xgettext' looks for strings
+     in the first argument of each call to the function or macro ID.
+     If KEYWORDSPEC is of the form `ID:ARGNUM', `xgettext' looks for
+     strings in the ARGNUMth argument of the call.  If KEYWORDSPEC is
+     of the form `ID:ARGNUM1,ARGNUM2', `xgettext' looks for strings in
+     the ARGNUM1st argument and in the ARGNUM2nd argument of the call,
+     and treats them as singular/plural variants for a message with
+     plural handling.
+
+     The default keyword specifications, which are always looked for if
+     not explicitly disabled, are `gettext', `dgettext:2',
+     `dcgettext:2', `ngettext:1,2', `dngettext:2,3', `dcngettext:2,3',
+     and `gettext_noop'.
 
 `-m [STRING]'
 `--msgstr-prefix[=STRING]'
@@ -858,7 +869,7 @@ better what the string really means and how tight the translation has
 to be.  Most of times, when problems arise, the only way left to make
 her judgment is looking at the true program sources from where this
 string originated, searching for surrounding comments the programmer
-might have put in there, and looking around for helping clues of *any*
+might have put in there, and looking around for helping clues of _any_
 kind.
 
    Surely, when looking at program sources, the translator will receive
@@ -985,11 +996,10 @@ Translated Entries
 ==================
 
    Each PO file entry for which the `msgstr' field has been filled with
-a translation, and which is not marked as fuzzy (*note Fuzzy
-Entries::.), is a said to be a "translated" entry.  Only translated
-entries will later be compiled by GNU `msgfmt' and become usable in
-programs.  Other entry types will be excluded; translation will not
-occur for them.
+a translation, and which is not marked as fuzzy (*note Fuzzy Entries::),
+is a said to be a "translated" entry.  Only translated entries will
+later be compiled by GNU `msgfmt' and become usable in programs.  Other
+entry types will be excluded; translation will not occur for them.
 
    Some commands are more specifically related to translated entry
 processing.

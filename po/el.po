@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
-"POT-Creation-Date: 1999-10-11 23:03-0700\n"
+"POT-Creation-Date: 2000-07-28 22:51+0200\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -344,7 +344,7 @@ msgstr "προειδοποίηση: αυτό το μήνυμα δεν χρησιμοποείται"
 # File: src/msgfmt.c, line: 632
 # File: src/msgmerge.c, line: 493
 # File: src/xgettext.c, line: 1063
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1070
+#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1093
 msgid "duplicate message definition"
 msgstr "επαναλαμβανόμενος ορισμός μηνύματος"
 
@@ -353,7 +353,7 @@ msgstr "επαναλαμβανόμενος ορισμός μηνύματος"
 # File: src/msgfmt.c, line: 633
 # File: src/msgmerge.c, line: 494
 # File: src/xgettext.c, line: 1064
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1071
+#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1094
 msgid "...this is the location of the first definition"
 msgstr "...αυτή είναι η θέση του πρώτου ορισμού"
 
@@ -371,7 +371,7 @@ msgstr "αυτό το μήνυμα δεν έχει ορισμό στη περιοχή \"%s\""
 # File: src/xgettext.c, line: 1258
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1265
+#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1288
 msgid "while preparing output"
 msgstr "καθώς προετοιμαζόταν η έξοδος"
 
@@ -517,8 +517,8 @@ msgstr ""
 # File: src/xget-lex.c, line: 174
 # File: src/xget-lex.c, line: 191
 # File: src/xgettext.c, line: 618
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159
-#: src/xget-lex.c:174 src/xget-lex.c:191 src/xgettext.c:625
+#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:161
+#: src/xget-lex.c:176 src/xget-lex.c:193 src/xgettext.c:625
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "σφάλμα στο άνοιγμα του \"%s\" για ανάγνωση"
@@ -527,7 +527,7 @@ msgstr "σφάλμα στο άνοιγμα του \"%s\" για ανάγνωση"
 # File: src/msgcomm.c, line: 557
 # File: src/xgettext.c, line: 660
 # File: src/xgettext.c, line: 970
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:977
+#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:1000
 msgid "this file may not contain domain directives"
 msgstr "αυτό το αρχείο δεν μπορεί να περιέχει οδηγίες για τη περιοχή"
 
@@ -875,7 +875,7 @@ msgstr ""
 # File: src/msgunfmt.c, line: 330
 # File: src/po-lex.c, line: 185
 # File: src/xget-lex.c, line: 254
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
+#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:256
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "σφάλμα στην ανάγνωση του \"%s\""
@@ -904,7 +904,7 @@ msgstr "το αρχείο \"%s\" δεν είναι στη μορφή GNU .mo"
 
 #
 # File: ../../src/po-gram.y, line: 83
-#: ../../src/po-gram.y:83
+#: /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y:129
 msgid "missing `msgstr' section"
 msgstr "λείπει ενότητα `msgstr'"
 
@@ -950,20 +950,20 @@ msgstr "τέλος αρχείου (EOF) στο αλφαριθμητικό"
 
 #
 # File: src/xget-lex.c, line: 150
-#: src/xget-lex.c:150
+#: src/xget-lex.c:152
 msgid "standard input"
 msgstr "κανονική είσοδος"
 
 #
 # File: src/xget-lex.c, line: 892
-#: src/xget-lex.c:892
+#: src/xget-lex.c:894
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: προειδοποίηση: μη τερματισμένη σταθερά χαρακτήρων"
 
 #
 # File: src/xget-lex.c, line: 914
-#: src/xget-lex.c:914
+#: src/xget-lex.c:916
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: προειδοποίηση: μη τερματισμένο αλφαριθμητικό"
@@ -1096,8 +1096,20 @@ msgstr ""
 "Αν το ΑΡΧΕΙΟΕΙΣΟΔΟΥ είναι -, γίνεται ανάγνωση της κανονικής εισόδου.\n"
 
 #
+# File: src/xget-lex.c, line: 914
+#: src/xgettext.c:879
+#, fuzzy, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr "%s:%d: προειδοποίηση: μη τερματισμένο αλφαριθμητικό"
+
+#: src/xgettext.c:889
+#, c-format
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
+msgstr ""
+
+#
 # File: src/xgettext.c, line: 1344
-#: src/xgettext.c:1351
+#: src/xgettext.c:1374
 #, c-format
 msgid "language `%s' unknown"
 msgstr "η γλώσσα `%s' είναι άγνωστη"

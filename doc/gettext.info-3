@@ -1,5 +1,5 @@
-This is Info file gettext.info, produced by Makeinfo version 1.68 from
-the input file gettext.texi.
+This is gettext.info, produced by makeinfo version 4.0 from
+gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
@@ -13,7 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
+Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -171,7 +172,7 @@ string, so turning the entry into an untranslated one.  But while doing
 so, its previous contents is put apart in a special place, known as the
 kill ring.  The command `w' (`po-kill-ring-save-msgstr') has also the
 effect of taking a copy of the translation onto the kill ring, but it
-otherwise leaves the entry alone, and does *not* remove the translation
+otherwise leaves the entry alone, and does _not_ remove the translation
 from the entry.  Both commands use exactly the Emacs kill ring, which
 is shared between buffers, and which is well known already to Emacs
 lovers.
@@ -232,9 +233,9 @@ slight variant of the translation exists, she immediately uses `m' to
 mark the current entry location, then starts chasing obsolete entries
 with `o', hoping to find some translation corresponding to the
 unmodified string.  Once found, she uses the `<DEL>' command for
-deleting the obsolete entry, knowing that `<DEL>' also *kills* the
+deleting the obsolete entry, knowing that `<DEL>' also _kills_ the
 translation, that is, pushes the translation on the kill ring.  Then,
-`r' returns to the initial untranslated entry, `y' then *yanks* the
+`r' returns to the initial untranslated entry, `y' then _yanks_ the
 saved translation right into the `msgstr' field.  The translator is
 then free to use `<RET>' for fine tuning the translation contents, and
 maybe to later use `u', then `m' again, for going on with the next
@@ -259,7 +260,7 @@ delete, or modify at will.  These comments may be useful to herself
 when she returns to this PO file after a while.
 
    Comments not having whitespace after the initial `#', for example,
-those beginning with `#.' or `#:', are *not* translator comments, they
+those beginning with `#.' or `#:', are _not_ translator comments, they
 are exclusively created by other `gettext' tools.  So, the commands
 below will never alter such system added comments, they are not meant
 for the translator to modify.  *Note PO Files::.
@@ -311,7 +312,7 @@ When this command is immediately repeated, the comments just inserted
 are withdrawn, and replaced by other strings taken along the kill ring.
 
    On the kill ring, all strings have the same nature.  There is no
-distinction between *translation* strings and *translator comments*
+distinction between _translation_ strings and _translator comments_
 strings.  So, for example, let's presume the translator has just
 finished editing a translation, and wants to create a new translator
 comment to document why the previous translation was not good, just to
@@ -369,7 +370,7 @@ effect of last edition.
 already achieved in other languages, directly while editing the current
 translation.  This may be quite convenient when the translator is fluent
 at many languages, but of course, only makes sense when such completed
-auxiliary PO files are already available to her (*note Auxiliary::.).
+auxiliary PO files are already available to her (*note Auxiliary::).
 
    Functions found on `po-subedit-mode-hook', if any, are executed after
 the string has been inserted in the edit buffer.
@@ -386,7 +387,7 @@ not really part of the string.  On exiting the editing window with
 added after it.  If the translator adds characters after the
 terminating `<', it looses its delimiting property and integrally
 becomes part of the string.  If she removes the delimiting `<', then
-the edited string is taken *as is*, with all trailing newlines, even if
+the edited string is taken _as is_, with all trailing newlines, even if
 invisible.  Also, if the translated string ought to end itself with a
 genuine `<', then the delimiting `<' may not be removed; so the string
 should appear, in the editing window, as ending with two `<' in a row.
@@ -396,7 +397,7 @@ may move the cursor back into the PO file buffer and freely move to
 other entries, browsing at will.  If, with an edition pending, the
 translator wanders in the PO file buffer, she may decide to start
 modifying another entry.  Each entry being edited has its own subedit
-buffer.  It is possible to simultaneously edit the translation *and*
+buffer.  It is possible to simultaneously edit the translation _and_
 the comment of a single entry, or to edit entries in different PO
 files, all at once.  Typing `<RET>' on a field already being edited
 merely resume that particular edit.  Yet, the translator should better
@@ -461,7 +462,7 @@ entry, and if yes, this entry becomes current.  Otherwise, the cursor
 of the selected file is left undisturbed.
 
    For all this to work fully, auxiliary PO files will have to be
-normalized, in that way that `msgid' fields should be written *exactly*
+normalized, in that way that `msgid' fields should be written _exactly_
 the same way.  It is possible to write `msgid' fields in various ways
 for representing the same string, different writing would break the
 proper behaviour of the auxiliary file commands of PO mode.  This is not
@@ -517,7 +518,7 @@ Invoking the `msgfmt' Program
      already present.
 
      We find this behaviour of Sun's implementation rather silly and so
-     by default this mode is *not* selected.
+     by default this mode is _not_ selected.
 
 `-v'
 `--verbose'
@@ -543,7 +544,7 @@ Invoking the `msgfmt' Program
      function.
 
      So solve this problem the programmer can dictate the decision to
-     the `xgettext' program (*note c-format::.).  The translator should
+     the `xgettext' program (*note c-format::).  The translator should
      not consider removing the flag from the <#,> line.  This "fix"
      would be reversed again as soon as `msgmerge' is called the next
      time.
@@ -597,7 +598,7 @@ the same index.
 search, for when the MO file does not contain an hashing table, or for
 when it is not practical to use the hashing table provided in the MO
 file.  This also has another advantage, as the empty string in a PO
-file GNU `gettext' is usually *translated* into some system information
+file GNU `gettext' is usually _translated_ into some system information
 attached to that particular MO file, and the empty string necessarily
 becomes the first in both the original and translated tables, making
 the system information very easy to find.
@@ -605,7 +606,7 @@ the system information very easy to find.
    The size S of the hash table can be zero.  In this case, the hash
 table itself is not contained in the MO file.  Some people might prefer
 this because a precomputed hashing table takes disk space, and does not
-win *that* much speed.  The hash table contains indices to the sorted
+win _that_ much speed.  The hash table contains indices to the sorted
 array of strings in the MO file.  Conflict resolution is done by double
 hashing.  The precise hashing algorithm used is fairly dependent of GNU
 `gettext' code, and is not documented here.
@@ -618,12 +619,23 @@ each string is separately aligned so it starts at an offset which is a
 multiple of the alignment value.  On some RISC machines, a correct
 alignment will speed things up.
 
+   Plural forms are stored by letting the plural of the original string
+follow the singular of the original string, separated through a <NUL>
+byte.  The length which appears in the string descriptor includes both.
+However, only the singular of the original string takes part in the
+hash table lookup.  The plural variants of the translation are all
+stored consecutively, separated through a <NUL> byte.  Here also, the
+length in the string descriptor includes all of them.
+
    Nothing prevents a MO file from having embedded <NUL>s in strings.
 However, the program interface currently used already presumes that
 strings are <NUL> terminated, so embedded <NUL>s are somewhat useless.
 But MO file format is general enough so other interfaces would be later
 possible, if for example, we ever want to implement wide characters
-right in MO files, where <NUL> bytes may accidently appear.
+right in MO files, where <NUL> bytes may accidently appear.  (No, we
+don't want to have wide characters in MO files.  They would make the
+file unnecessarily large, and the `wchar_t' type being platform
+dependent, MO files would be platform dependent as well.)
 
    This particular issue has been strongly debated in the GNU `gettext'
 development forum, and it is expectable that MO file format will evolve
@@ -692,7 +704,7 @@ should feel some kind of astonished pleasure, seeing the effect of that
 strange kind of magic that just makes their own native language appear
 everywhere on their screens.  As for naive users, they would ideally
 have no special pleasure about it, merely taking their own language for
-*granted*, and becoming rather unhappy otherwise.
+_granted_, and becoming rather unhappy otherwise.
 
    So, let's try to describe here how we would like the magic to
 operate, as we want the users' view to be the simplest, among all ways
@@ -747,14 +759,14 @@ Magic for Installers
 
    By default, packages fully using GNU `gettext', internally, are
 installed in such a way that they to allow translation of messages.  At
-*configuration* time, those packages should automatically detect
-whether the underlying host system provides usable `catgets' or
-`gettext' functions.  If neither is present, the GNU `gettext' library
-should be automatically prepared and used.  Installers may use special
-options at configuration time for changing this behavior.  The command
-`./configure --with-included-gettext' bypasses system `catgets' or
-`gettext' to use GNU `gettext' instead, while `./configure
---disable-nls' produces program totally unable to translate messages.
+_configuration_ time, those packages should automatically detect
+whether the underlying host system already provides the GNU `gettext'
+functions.  If not, the GNU `gettext' library should be automatically
+prepared and used.  Installers may use special options at configuration
+time for changing this behavior.  The command `./configure
+--with-included-gettext' bypasses system `gettext' to use the included
+GNU `gettext' instead, while `./configure --disable-nls' produces
+programs totally unable to translate messages.
 
    Internationalized packages have usually many `LL.po' files.  Unless
 translations are disabled, all those available are installed together
@@ -770,7 +782,7 @@ Magic for End Users
 ===================
 
    We consider here those packages using GNU `gettext' internally, and
-for which the installers did not disable translation at *configure*
+for which the installers did not disable translation at _configure_
 time.  Then, users only have to set the `LANG' environment variable to
 the appropriate `LL' prior to using the programs in the package.  *Note
 Matrix::.  For example, let's presume a German site.  At the shell
@@ -829,7 +841,7 @@ transfering the rights on Unix(tm) they at last came to X/Open, the
 very same who published this specifications.  This leads me to making
 the prediction that this interface will be in future Unix standards
 (e.g. Spec1170) and therefore part of all Unix implementation
-(implementations, which are *allowed* to wear this name).
+(implementations, which are _allowed_ to wear this name).
 
 * Menu:
 
@@ -876,7 +888,7 @@ three-stage addressing:
    The fourth argument is not used to address the translation.  It is
 given as a default value in case when one of the addressing stages
 fail.  One important thing to remember is that although the return type
-of catgets is `char *' the resulting string *must not* be changed.  It
+of catgets is `char *' the resulting string _must not_ be changed.  It
 should better `const char *', but the standard is published in 1988,
 one year before ANSI C.
 
@@ -932,6 +944,9 @@ this library will be interested in this description.
 * Interface to gettext::        The interface
 * Ambiguities::                 Solving ambiguities
 * Locating Catalogs::           Locating message catalog files
+* Charset conversion::          How to request conversion to Unicode
+* Plural forms::                Additional functions for handling plurals
+* GUI program problems::        Another technique for solving ambiguities
 * Optimized gettext::           Optimization of the *gettext functions
 
 
@@ -956,7 +971,7 @@ of the current global domain of the `LC_MESSAGE' category.  The
 argument is a null-terminated string, whose characters must be legal in
 the use in filenames.  If the DOMAIN_NAME argument is `NULL', the
 function return the current value.  If no value has been set before,
-the name of the default domain is returned: *messages*.  Please note
+the name of the default domain is returned: _messages_.  Please note
 that although the return value of `textdomain' is of type `char *' no
 changing is allowed.  It is also important to know that no checks of
 the availability are made.  If the name is not available you will see
@@ -1036,37 +1051,4 @@ DIR_NAME parameter can be trouble.  Since the path is always computed
 relative to the current directory different results will be achieved
 when the program executes a `chdir' command.  Relative paths should
 always be avoided to avoid dependencies and unreliabilities.
-
-
-File: gettext.info,  Node: Locating Catalogs,  Next: Optimized gettext,  Prev: Ambiguities,  Up: gettext
-
-Locating Message Catalog Files
-------------------------------
-
-   Because many different languages for many different packages have to
-be stored we need some way to add these information to file message
-catalog files.  The way usually used in Unix environments is have this
-encoding in the file name.  This is also done here.  The directory name
-given in `bindtextdomain's second argument (or the default directory),
-followed by the value and name of the locale and the domain name are
-concatenated:
-
-     DIR_NAME/LOCALE/LC_CATEGORY/DOMAIN_NAME.mo
-
-   The default value for DIR_NAME is system specific.  For the GNU
-library, and for packages adhering to its conventions, it's:
-     /usr/local/share/locale
-
-LOCALE is the value of the locale whose name is this `LC_CATEGORY'.
-For `gettext' and `dgettext' this locale is always `LC_MESSAGES'.
-`dcgettext' specifies the locale by the third argument.(1) (2)
-
-   ---------- Footnotes ----------
-
-   (1) Some system, eg Ultrix, don't have `LC_MESSAGES'.  Here we use a
-more or less arbitrary value for it.
-
-   (2) When the system does not support `setlocale' its behavior in
-setting the locale values is simulated by looking at the environment
-variables.
 

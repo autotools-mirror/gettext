@@ -1,5 +1,5 @@
-This is Info file gettext.info, produced by Makeinfo version 1.68 from
-the input file gettext.texi.
+This is gettext.info, produced by makeinfo version 4.0 from
+gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
@@ -13,7 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
+Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -28,6 +29,317 @@ permission notice identical to this one.
 manual into another language, under the above conditions for modified
 versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
+
+
+File: gettext.info,  Node: Mailing Lists,  Prev: National Teams,  Up: Organization
+
+Mailing Lists
+-------------
+
+   If we get any inquiries about GNU `gettext', send them on to:
+
+     `translation@iro.umontreal.ca'
+
+   The `*-pretest' lists are quite useful to me, maybe the idea could
+be generalized to many GNU, and non-GNU packages.  But each maintainer
+his/her way!
+
+   Franc,ois, we have a mechanism in place here at `gnu.ai.mit.edu' to
+track teams, support mailing lists for them and log members.  We have a
+slight preference that you use it.  If this is OK with you, I can get
+you clued in.
+
+   Things are changing!  A few years ago, when Daniel Fekete and I
+asked for a mailing list for GNU localization, nested at the FSF, we
+were politely invited to organize it anywhere else, and so did we.  For
+communicating with my pretesters, I later made a handful of mailing
+lists located at iro.umontreal.ca and administrated by `majordomo'.
+These lists have been _very_ dependable so far...
+
+   I suspect that the German team will organize itself a mailing list
+located in Germany, and so forth for other countries.  But before they
+organize for true, it could surely be useful to offer mailing lists
+located at the FSF to each national team.  So yes, please explain me
+how I should proceed to create and handle them.
+
+   We should create temporary mailing lists, one per country, to help
+people organize.  Temporary, because once regrouped and structured, it
+would be fair the volunteers from country bring back _their_ list in
+there and manage it as they want.  My feeling is that, in the long run,
+each team should run its own list, from within their country.  There
+also should be some central list to which all teams could subscribe as
+they see fit, as long as each team is represented in it.
+
+
+File: gettext.info,  Node: Information Flow,  Prev: Organization,  Up: Translators
+
+Information Flow
+================
+
+   There will surely be some discussion about this messages after the
+packages are finally released.  If people now send you some proposals
+for better messages, how do you proceed?  Jim, please note that right
+now, as I put forward nearly a dozen of localizable programs, I receive
+both the translations and the coordination concerns about them.
+
+   If I put one of my things to pretest, Ulrich receives the
+announcement and passes it on to the German team, who make last minute
+revisions.  Then he submits the translation files to me _as the
+maintainer_.  For free packages I do not maintain, I would not even
+hear about it.  This scheme could be made to work for the whole
+Translation Project, I think.  For security reasons, maybe Ulrich
+(national coordinators, in fact) should update central registry kept at
+the Translation Project (Jim, me, or Len's recruits) once in a while.
+
+   In December/January, I was aggressively ready to internationalize
+all of GNU, giving myself the duty of one small GNU package per week or
+so, taking many weeks or months for bigger packages.  But it does not
+work this way.  I first did all the things I'm responsible for.  I've
+nothing against some missionary work on other maintainers, but I'm also
+loosing a lot of energy over it--same debates over again.
+
+   And when the first localized packages are released we'll get a lot of
+responses about ugly translations :-).  Surely, and we need to have
+beforehand a fairly good idea about how to handle the information flow
+between the national teams and the package maintainers.
+
+   Please start saving somewhere a quick history of each PO file.  I
+know for sure that the file format will change, allowing for comments.
+It would be nice that each file has a kind of log, and references for
+those who want to submit comments or gripes, or otherwise contribute.
+I sent a proposal for a fast and flexible format, but it is not
+receiving acceptance yet by the GNU deciders.  I'll tell you when I
+have more information about this.
+
+
+File: gettext.info,  Node: Maintainers,  Next: Conclusion,  Prev: Translators,  Up: Top
+
+The Maintainer's View
+*********************
+
+   The maintainer of a package has many responsibilities.  One of them
+is ensuring that the package will install easily on many platforms, and
+that the magic we described earlier (*note Users::) will work for
+installers and end users.
+
+   Of course, there are many possible ways by which GNU `gettext' might
+be integrated in a distribution, and this chapter does not cover them
+in all generality.  Instead, it details one possible approach which is
+especially adequate for many free software distributions following GNU
+standards, or even better, Gnits standards, because GNU `gettext' is
+purposely for helping the internationalization of the whole GNU
+project, and as many other good free packages as possible.  So, the
+maintainer's view presented here presumes that the package already has
+a `configure.in' file and uses GNU Autoconf.
+
+   Nevertheless, GNU `gettext' may surely be useful for free packages
+not following GNU standards and conventions, but the maintainers of such
+packages might have to show imagination and initiative in organizing
+their distributions so `gettext' work for them in all situations.
+There are surely many, out there.
+
+   Even if `gettext' methods are now stabilizing, slight adjustments
+might be needed between successive `gettext' versions, so you should
+ideally revise this chapter in subsequent releases, looking for changes.
+
+* Menu:
+
+* Flat and Non-Flat::           Flat or Non-Flat Directory Structures
+* Prerequisites::               Prerequisite Works
+* gettextize Invocation::       Invoking the `gettextize' Program
+* Adjusting Files::             Files You Must Create or Alter
+
+
+File: gettext.info,  Node: Flat and Non-Flat,  Next: Prerequisites,  Prev: Maintainers,  Up: Maintainers
+
+Flat or Non-Flat Directory Structures
+=====================================
+
+   Some free software packages are distributed as `tar' files which
+unpack in a single directory, these are said to be "flat" distributions.
+Other free software packages have a one level hierarchy of
+subdirectories, using for example a subdirectory named `doc/' for the
+Texinfo manual and man pages, another called `lib/' for holding
+functions meant to replace or complement C libraries, and a
+subdirectory `src/' for holding the proper sources for the package.
+These other distributions are said to be "non-flat".
+
+   For now, we cannot say much about flat distributions.  A flat
+directory structure has the disadvantage of increasing the difficulty
+of updating to a new version of GNU `gettext'.  Also, if you have many
+PO files, this could somewhat pollute your single directory.  In the
+GNU `gettext' distribution, the `misc/' directory contains a shell
+script named `combine-sh'.  That script may be used for combining all
+the C files of the `intl/' directory into a pair of C files (one `.c'
+and one `.h').  Those two generated files would fit more easily in a
+flat directory structure, and you will then have to add these two files
+to your project.
+
+   Maybe because GNU `gettext' itself has a non-flat structure, we have
+more experience with this approach, and this is what will be described
+in the remaining of this chapter.  Some maintainers might use this as
+an opportunity to unflatten their package structure.  Only later, once
+gained more experience adapting GNU `gettext' to flat distributions, we
+might add some notes about how to proceed in flat situations.
+
+
+File: gettext.info,  Node: Prerequisites,  Next: gettextize Invocation,  Prev: Flat and Non-Flat,  Up: Maintainers
+
+Prerequisite Works
+==================
+
+   There are some works which are required for using GNU `gettext' in
+one of your package.  These works have some kind of generality that
+escape the point by point descriptions used in the remainder of this
+chapter.  So, we describe them here.
+
+   * Before attempting to use you should install some other packages
+     first.  Ensure that recent versions of GNU `m4', GNU Autoconf and
+     GNU `gettext' are already installed at your site, and if not,
+     proceed to do this first.  If you got to install these things,
+     beware that GNU `m4' must be fully installed before GNU Autoconf
+     is even _configured_.
+
+     To further ease the task of a package maintainer the `automake'
+     package was designed and implemented.  GNU `gettext' now uses this
+     tool and the `Makefile's in the `intl/' and `po/' therefore know
+     about all the goals necessary for using `automake' and `libintl'
+     in one project.
+
+     Those four packages are only needed to you, as a maintainer; the
+     installers of your own package and end users do not really need
+     any of GNU `m4', GNU Autoconf, GNU `gettext', or GNU `automake'
+     for successfully installing and running your package, with messages
+     properly translated.  But this is not completely true if you
+     provide internationalized shell scripts within your own package:
+     GNU `gettext' shall then be installed at the user site if the end
+     users want to see the translation of shell script messages.
+
+   * Your package should use Autoconf and have a `configure.in' file.
+     If it does not, you have to learn how.  The Autoconf documentation
+     is quite well written, it is a good idea that you print it and get
+     familiar with it.
+
+   * Your C sources should have already been modified according to
+     instructions given earlier in this manual.  *Note Sources::.
+
+   * Your `po/' directory should receive all PO files submitted to you
+     by the translator teams, each having `LL.po' as a name.  This is
+     not usually easy to get translation work done before your package
+     gets internationalized and available!  Since the cycle has to
+     start somewhere, the easiest for the maintainer is to start with
+     absolutely no PO files, and wait until various translator teams
+     get interested in your package, and submit PO files.
+
+
+   It is worth adding here a few words about how the maintainer should
+ideally behave with PO files submissions.  As a maintainer, your role is
+to authentify the origin of the submission as being the representative
+of the appropriate translating teams of the Translation Project (forward
+the submission to `translation@iro.umontreal.ca' in case of doubt), to
+ensure that the PO file format is not severely broken and does not
+prevent successful installation, and for the rest, to merely to put
+these PO files in `po/' for distribution.
+
+   As a maintainer, you do not have to take on your shoulders the
+responsibility of checking if the translations are adequate or
+complete, and should avoid diving into linguistic matters.  Translation
+teams drive themselves and are fully responsible of their linguistic
+choices for the Translation Project.  Keep in mind that translator
+teams are _not_ driven by maintainers.  You can help by carefully
+redirecting all communications and reports from users about linguistic
+matters to the appropriate translation team, or explain users how to
+reach or join their team.  The simplest might be to send them the
+`ABOUT-NLS' file.
+
+   Maintainers should _never ever_ apply PO file bug reports
+themselves, short-cutting translation teams.  If some translator has
+difficulty to get some of her points through her team, it should not be
+an issue for her to directly negotiate translations with maintainers.
+Teams ought to settle their problems themselves, if any.  If you, as a
+maintainer, ever think there is a real problem with a team, please
+never try to _solve_ a team's problem on your own.
+
+
+File: gettext.info,  Node: gettextize Invocation,  Next: Adjusting Files,  Prev: Prerequisites,  Up: Maintainers
+
+Invoking the `gettextize' Program
+=================================
+
+   Some files are consistently and identically needed in every package
+internationalized through GNU `gettext'.  As a matter of convenience,
+the `gettextize' program puts all these files right in your package.
+This program has the following synopsis:
+
+     gettextize [ OPTION... ] [ DIRECTORY ]
+
+and accepts the following options:
+
+`-c'
+`--copy'
+     Copy the needed files instead of making symbolic links.  Using
+     links would allow the package to always use the latest `gettext'
+     code available on the system, but it might disturb some mechanism
+     the maintainer is used to apply to the sources.  Because running
+     `gettextize' is easy there shouldn't be problems with using copies.
+
+`-f'
+`--force'
+     Force replacement of files which already exist.
+
+`-h'
+`--help'
+     Display this help and exit.
+
+`--version'
+     Output version information and exit.
+
+   If DIRECTORY is given, this is the top level directory of a package
+to prepare for using GNU `gettext'.  If not given, it is assumed that
+the current directory is the top level directory of such a package.
+
+   The program `gettextize' provides the following files.  However, no
+existing file will be replaced unless the option `--force' (`-f') is
+specified.
+
+  1. The `ABOUT-NLS' file is copied in the main directory of your
+     package, the one being at the top level.  This file gives the main
+     indications about how to install and use the Native Language
+     Support features of your program.  You might elect to use a more
+     recent copy of this `ABOUT-NLS' file than the one provided through
+     `gettextize', if you have one handy.  You may also fetch a more
+     recent copy of file `ABOUT-NLS' from Translation Project sites,
+     and from most GNU archive sites.
+
+  2. A `po/' directory is created for eventually holding all
+     translation files, but initially only containing the file
+     `po/Makefile.in.in' from the GNU `gettext' distribution.  (beware
+     the double `.in' in the file name). If the `po/' directory already
+     exists, it will be preserved along with the files it contains, and
+     only `Makefile.in.in' will be overwritten.
+
+  3. A `intl/' directory is created and filled with most of the files
+     originally in the `intl/' directory of the GNU `gettext'
+     distribution.  Also, if option `--force' (`-f') is given, the
+     `intl/' directory is emptied first.
+
+
+   If your site support symbolic links, `gettextize' will not actually
+copy the files into your package, but establish symbolic links instead.
+This avoids duplicating the disk space needed in all packages.  Merely
+using the `-h' option while creating the `tar' archive of your
+distribution will resolve each link by an actual copy in the
+distribution archive.  So, to insist, you really should use `-h' option
+with `tar' within your `dist' goal of your main `Makefile.in'.
+
+   It is interesting to understand that most new files for supporting
+GNU `gettext' facilities in one package go in `intl/' and `po/'
+subdirectories.  One distinction between these two directories is that
+`intl/' is meant to be completely identical in all packages using GNU
+`gettext', while all newly created files, which have to be different,
+go into `po/'.  There is a common `Makefile.in.in' in `po/', because
+the `po/' directory needs its own `Makefile', and it has been designed
+so it can be identical in all packages.
 
 
 File: gettext.info,  Node: Adjusting Files,  Prev: gettextize Invocation,  Up: Maintainers
@@ -76,15 +388,14 @@ needing translation.  Here is an example of such a file:
      lib/xmalloc.c
      
      # Package source files
-     src/gettextp.c
+     src/gettext.c
      src/msgfmt.c
      src/xgettext.c
 
 Dashed comments and white lines are ignored.  All other lines list
 those source files containing strings marked for translation (*note
-Mark Keywords::.), in a notation relative to the top level of your
-whole distribution, rather than the location of the `POTFILES.in' file
-itself.
+Mark Keywords::), in a notation relative to the top level of your whole
+distribution, rather than the location of the `POTFILES.in' file itself.
 
 
 File: gettext.info,  Node: configure.in,  Next: aclocal,  Prev: po/POTFILES.in,  Up: Adjusting Files
@@ -120,7 +431,7 @@ File: gettext.info,  Node: configure.in,  Next: aclocal,  Prev: po/POTFILES.in, 
      If you want to further restrict, at installation time, the set of
      installed languages, this should not be done by modifying
      `ALL_LINGUAS' in `configure.in', but rather by using the `LINGUAS'
-     environment variable (*note Installers::.).
+     environment variable (*note Installers::).
 
   3. Check for internationalization support.
 
@@ -162,7 +473,7 @@ need.
    If you already have an `aclocal.m4' file, then you will have to
 merge the said macros into your `aclocal.m4'.  Note that if you are
 upgrading from a previous release of GNU `gettext', you should most
-probably *replace* the said macros, as they usually change a little
+probably _replace_ the said macros, as they usually change a little
 from one release of GNU `gettext' to the next.  Their contents may vary
 as we get more experience with strange systems out there.
 
@@ -180,10 +491,10 @@ File: gettext.info,  Node: acconfig,  Next: Makefile,  Prev: aclocal,  Up: Adjus
    If you do not have an `acconfig.h' file in your distribution, the
 simplest is use take a copy of `acconfig.h' from GNU `gettext'.  But to
 be precise, you only need the lines and comments for `ENABLE_NLS',
-`HAVE_CATGETS', `HAVE_GETTEXT' and `HAVE_LC_MESSAGES', `HAVE_STPCPY',
-`PACKAGE' and `VERSION', so you may use an editor and remove everything
-else.  If you already have an `acconfig.h' file, then you should merge
-the said definitions into your `acconfig.h'.
+`HAVE_GETTEXT' and `HAVE_LC_MESSAGES', `HAVE_STPCPY', `PACKAGE' and
+`VERSION', so you may use an editor and remove everything else.  If you
+already have an `acconfig.h' file, then you should merge the said
+definitions into your `acconfig.h'.
 
 
 File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: Adjusting Files

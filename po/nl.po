@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.31\n"
-"POT-Creation-Date: 1999-10-11 23:03-0700\n"
+"POT-Creation-Date: 2000-07-28 22:51+0200\n"
 "PO-Revision-Date: 1997-03-11 22:38 \n"
 "Last-Translator: Erick Branderhorst <Erick.Branderhorst@asml.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -243,11 +243,11 @@ msgstr "deze melding is gebruikt maar niet gedefinieerd in %s"
 msgid "warning: this message is not used"
 msgstr "waarschuwing: deze melding is niet gebruikt"
 
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1070
+#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1093
 msgid "duplicate message definition"
 msgstr "dubbele melding definitie"
 
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1071
+#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1094
 msgid "...this is the location of the first definition"
 msgstr "...dit is de lokatie van de eerste definitie"
 
@@ -258,7 +258,7 @@ msgstr "deze melding heeft geen definitie in het \"%s\" domein"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1265
+#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1288
 msgid "while preparing output"
 msgstr "bij voorbereiden uitvoer"
 
@@ -363,13 +363,13 @@ msgid ""
 "preserved.\n"
 msgstr ""
 
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159
-#: src/xget-lex.c:174 src/xget-lex.c:191 src/xgettext.c:625
+#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:161
+#: src/xget-lex.c:176 src/xget-lex.c:193 src/xgettext.c:625
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "fout tijdens openen om te lezen van \"%s\""
 
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:977
+#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:1000
 msgid "this file may not contain domain directives"
 msgstr "dit bestand mag geen domein directives bevatten"
 
@@ -639,7 +639,7 @@ msgstr ""
 "Als invoerbestand - is of leeg, lees standaardinvoer.\n"
 "Standaard wordt de uitvoer gescreven naar standaarduitvoer.\n"
 
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
+#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:256
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "fout tijdens lezen \"%s\""
@@ -659,7 +659,7 @@ msgstr "zoek \"%s\" offset %ld gefaald"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "bestand \"%s\" is geen GNU .mo bestand"
 
-#: ../../src/po-gram.y:83
+#: /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y:129
 msgid "missing `msgstr' section"
 msgstr "ontbrekend `msgstr' gedeelte"
 
@@ -690,16 +690,16 @@ msgstr "einde-regel-teken in string"
 msgid "end-of-file within string"
 msgstr "einde-bestand-teken in string"
 
-#: src/xget-lex.c:150
+#: src/xget-lex.c:152
 msgid "standard input"
 msgstr "standaard invoer"
 
-#: src/xget-lex.c:892
+#: src/xget-lex.c:894
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: let op: niet getermineerde karakter konstante"
 
-#: src/xget-lex.c:914
+#: src/xget-lex.c:916
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: let op: niet getermineerde string literal"
@@ -816,7 +816,17 @@ msgstr ""
 "\n"
 "Als INVOERBESTAND - is, lees standaardinvoer.\n"
 
-#: src/xgettext.c:1351
+#: src/xgettext.c:879
+#, fuzzy, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr "%s:%d: let op: niet getermineerde string literal"
+
+#: src/xgettext.c:889
+#, c-format
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
+msgstr ""
+
+#: src/xgettext.c:1374
 #, c-format
 msgid "language `%s' unknown"
 msgstr "taal `%s' onbekend"

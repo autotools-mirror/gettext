@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 1999-10-11 23:03-0700\n"
+"POT-Creation-Date: 2000-07-28 22:51+0200\n"
 "PO-Revision-Date: 1998-08-05 15:00+0200\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@pdi.net>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -240,11 +240,11 @@ msgstr "ten komunikat jest u¿yty, ale nie zdefiniowany w %s"
 msgid "warning: this message is not used"
 msgstr "uwaga: ten komunikat nie jest u¿yty"
 
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1070
+#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1093
 msgid "duplicate message definition"
 msgstr "podwójna definicja komunikatu"
 
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1071
+#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1094
 msgid "...this is the location of the first definition"
 msgstr "...to jest po³o¿enie pierwszej definicji"
 
@@ -255,7 +255,7 @@ msgstr "ten komunikat nie ma definicji w domenie \"%s\""
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1265
+#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1288
 msgid "while preparing output"
 msgstr "podczas przygotowywania wyniku"
 
@@ -367,13 +367,13 @@ msgstr ""
 "ale tylko w pierwszym definiuj±cym je pliku PO.  Pozycje w plikach dla\n"
 "wszystkich plików PO te¿ zostan± zachowane.\n"
 
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159
-#: src/xget-lex.c:174 src/xget-lex.c:191 src/xgettext.c:625
+#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:161
+#: src/xget-lex.c:176 src/xget-lex.c:193 src/xgettext.c:625
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "b³±d w czasie otwierania \"%s\" do czytania"
 
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:977
+#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:1000
 msgid "this file may not contain domain directives"
 msgstr "ten plik nie mo¿e zawieraæ dyrektyw domen"
 
@@ -638,7 +638,7 @@ msgstr ""
 "Je¿eli plik wej¶ciowy to -, czytane jest wej¶cie standardowe. Jezeli plik\n"
 "wyj¶ciowy to -, wyniki s± wysy³ane do standardowego wyj¶cia.\n"
 
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
+#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:256
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "b³±d w czasie czytania \"%s\""
@@ -658,7 +658,7 @@ msgstr "nieudane przej¶cie do pozycji w \"%s\", ofset %ld"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "plik \"%s\" nie jest w formacie .mo GNU"
 
-#: ../../src/po-gram.y:83
+#: /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y:129
 msgid "missing `msgstr' section"
 msgstr "brak czêsci `msgstr'"
 
@@ -689,16 +689,16 @@ msgstr "znak koñca wiersza wewn±trz ³añcucha"
 msgid "end-of-file within string"
 msgstr "znak koñca pliku wewn±trz ³añcucha"
 
-#: src/xget-lex.c:150
+#: src/xget-lex.c:152
 msgid "standard input"
 msgstr "wej¶cie standardowe"
 
-#: src/xget-lex.c:892
+#: src/xget-lex.c:894
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: uwaga: niezakoñczona sta³a znakowa"
 
-#: src/xget-lex.c:914
+#: src/xget-lex.c:916
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: uwaga: niezakoñczona sta³a ³añcuchowa"
@@ -810,7 +810,17 @@ msgstr ""
 "  -w, --width=LICZBA             ustal szeroko¶æ strony\n"
 "  -x, --exclude-file=PLIK        nie wydobywaj rekordów zapisanych w PLIKu\n"
 
-#: src/xgettext.c:1351
+#: src/xgettext.c:879
+#, fuzzy, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr "%s:%d: uwaga: niezakoñczona sta³a ³añcuchowa"
+
+#: src/xgettext.c:889
+#, c-format
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
+msgstr ""
+
+#: src/xgettext.c:1374
 #, c-format
 msgid "language `%s' unknown"
 msgstr "nieznany jêzyk `%s'"

@@ -16,7 +16,7 @@
 #line 1 "plural.y"
 
 /* Expression parsing for plural form selection.
-   Copyright (C) 2000 Free Software Foundation, Inc.
+   Copyright (C) 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software; you can redistribute it and/or modify
@@ -37,25 +37,41 @@
 # include <config.h>
 #endif
 
-#include <stdarg.h>
 #include <stdlib.h>
-#include "gettext.h"
 #include "gettextP.h"
+
+/* Names for the libintl functions are a problem.  They must not clash
+   with existing names and they should follow ANSI C.  But this source
+   code is also used in GNU C Library where the names have a __
+   prefix.  So we have to make a difference here.  */
+#ifdef _LIBC
+# define FREE_EXPRESSION __gettext_free_exp
+#else
+# define FREE_EXPRESSION gettext_free_exp__
+# define __gettextparse gettextparse__
+#endif
 
 #define YYLEX_PARAM	&((struct parse_args *) arg)->cp
 #define YYPARSE_PARAM	arg
 
-#line 35 "plural.y"
+#line 44 "plural.y"
 typedef union {
   unsigned long int num;
   struct expression *exp;
 } YYSTYPE;
-#line 40 "plural.y"
+#line 49 "plural.y"
 
 /* Prototypes for local functions.  */
-static struct expression *new_exp (enum operator op, int n, ...);
-static int yylex (YYSTYPE *lval, const char **pexp);
-static void yyerror (const char *str);
+static struct expression *new_exp_0 PARAMS ((enum operator op));
+static struct expression *new_exp_2 PARAMS ((enum operator op,
+					     struct expression *left,
+					     struct expression *right));
+static struct expression *new_exp_3 PARAMS ((enum operator op,
+					     struct expression *bexp,
+					     struct expression *tbranch,
+					     struct expression *fbranch));
+static int yylex PARAMS ((YYSTYPE *lval, const char **pexp));
+static void yyerror PARAMS ((const char *str));
 #include <stdio.h>
 
 #ifndef __cplusplus
@@ -120,8 +136,8 @@ static const short yyrhs[] = {    19,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    58,    64,    69,    74,    79,    84,    89,    94,    99,   104,
-   109,   114,   119,   125
+    74,    80,    85,    90,    95,   100,   105,   110,   115,   120,
+   125,   130,   135,   141
 };
 #endif
 
@@ -737,98 +753,98 @@ yyreduce:
   switch (yyn) {
 
 case 1:
-#line 59 "plural.y"
+#line 75 "plural.y"
 {
 	    ((struct parse_args *) arg)->res = yyvsp[0].exp;
 	  ;
     break;}
 case 2:
-#line 65 "plural.y"
+#line 81 "plural.y"
 {
-	    if ((yyval.exp = new_exp (qmop, 3, yyvsp[-4].exp, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_3 (qmop, yyvsp[-4].exp, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 3:
-#line 70 "plural.y"
+#line 86 "plural.y"
 {
-	    if ((yyval.exp = new_exp (lor, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (lor, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 4:
-#line 75 "plural.y"
+#line 91 "plural.y"
 {
-	    if ((yyval.exp = new_exp (land, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (land, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 5:
-#line 80 "plural.y"
+#line 96 "plural.y"
 {
-	    if ((yyval.exp = new_exp (equal, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (equal, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 6:
-#line 85 "plural.y"
+#line 101 "plural.y"
 {
-	    if ((yyval.exp = new_exp (not_equal, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (not_equal, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 7:
-#line 90 "plural.y"
+#line 106 "plural.y"
 {
-	    if ((yyval.exp = new_exp (plus, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (plus, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 8:
-#line 95 "plural.y"
+#line 111 "plural.y"
 {
-	    if ((yyval.exp = new_exp (minus, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (minus, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 9:
-#line 100 "plural.y"
+#line 116 "plural.y"
 {
-	    if ((yyval.exp = new_exp (mult, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (mult, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 10:
-#line 105 "plural.y"
+#line 121 "plural.y"
 {
-	    if ((yyval.exp = new_exp (divide, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (divide, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 11:
-#line 110 "plural.y"
+#line 126 "plural.y"
 {
-	    if ((yyval.exp = new_exp (module, 2, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
+	    if ((yyval.exp = new_exp_2 (module, yyvsp[-2].exp, yyvsp[0].exp)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 12:
-#line 115 "plural.y"
+#line 131 "plural.y"
 {
-	    if ((yyval.exp = new_exp (var, 0)) == NULL)
+	    if ((yyval.exp = new_exp_0 (var)) == NULL)
 	      YYABORT
 	  ;
     break;}
 case 13:
-#line 120 "plural.y"
+#line 136 "plural.y"
 {
-	    if ((yyval.exp = new_exp (num, 0)) == NULL)
+	    if ((yyval.exp = new_exp_0 (num)) == NULL)
 	      YYABORT;
 	    yyval.exp->val.num = yyvsp[0].num
 	  ;
     break;}
 case 14:
-#line 126 "plural.y"
+#line 142 "plural.y"
 {
 	    yyval.exp = yyvsp[-1].exp
 	  ;
@@ -1055,49 +1071,80 @@ yyerrhandle:
     }
   return 1;
 }
-#line 131 "plural.y"
+#line 147 "plural.y"
 
 
 static struct expression *
-new_exp (enum operator op, int n, ...)
+new_exp_0 (op)
+     enum operator op;
 {
-  struct expression *newp = (struct expression *) calloc (1, sizeof (*newp));
-  va_list va;
+  struct expression *newp = (struct expression *) malloc (sizeof (*newp));
 
-  va_start (va, n);
+  if (newp != NULL)
+    newp->operation = op;
 
-  if (newp == NULL)
-    while (n-- > 0)
-      __gettext_free_exp (va_arg (va, struct expression *));
-  else
+  return newp;
+}
+
+static struct expression *
+new_exp_2 (op, left, right)
+     enum operator op;
+     struct expression *left;
+     struct expression *right;
+{
+  struct expression *newp = NULL;
+
+  if (left != NULL && right != NULL)
+    newp = (struct expression *) malloc (sizeof (*newp));
+
+  if (newp != NULL)
     {
       newp->operation = op;
-      if (n > 0)
-	{
-	  newp->val.args3.bexp = va_arg (va, struct expression *);
-	  newp->val.args3.tbranch = va_arg (va, struct expression *);
-
-	  if (n > 2)
-	    newp->val.args3.fbranch = va_arg (va, struct expression *);
-
-	  if (newp->val.args3.bexp == NULL
-	      || newp->val.args3.tbranch == NULL
-	      || (n > 2 && newp->val.args3.fbranch == NULL))
-	    {
-	      __gettext_free_exp (newp);
-	      newp = NULL;
-	    }
-	}
+      newp->val.args2.left = left;
+      newp->val.args2.right = right;
+    }
+  else
+    {
+      FREE_EXPRESSION (left);
+      FREE_EXPRESSION (right);
     }
 
-  va_end (va);
+  return newp;
+}
+
+static struct expression *
+new_exp_3 (op, bexp, tbranch, fbranch)
+     enum operator op;
+     struct expression *bexp;
+     struct expression *tbranch;
+     struct expression *fbranch;
+{
+  struct expression *newp = NULL;
+
+  if (bexp != NULL && tbranch != NULL && fbranch != NULL)
+    newp = (struct expression *) malloc (sizeof (*newp));
+
+  if (newp != NULL)
+    {
+      newp->operation = op;
+      newp->val.args3.bexp = bexp;
+      newp->val.args3.tbranch = tbranch;
+      newp->val.args3.fbranch = fbranch;
+    }
+  else
+    {
+      FREE_EXPRESSION (bexp);
+      FREE_EXPRESSION (tbranch);
+      FREE_EXPRESSION (fbranch);
+    }
 
   return newp;
 }
 
 void
 internal_function
-__gettext_free_exp (struct expression *exp)
+FREE_EXPRESSION (exp)
+     struct expression *exp;
 {
   if (exp == NULL)
     return;
@@ -1106,7 +1153,7 @@ __gettext_free_exp (struct expression *exp)
   switch (exp->operation)
     {
     case qmop:
-      __gettext_free_exp (exp->val.args3.fbranch);
+      FREE_EXPRESSION (exp->val.args3.fbranch);
       /* FALLTHROUGH */
 
     case mult:
@@ -1118,8 +1165,8 @@ __gettext_free_exp (struct expression *exp)
     case not_equal:
     case land:
     case lor:
-      __gettext_free_exp (exp->val.args2.right);
-      __gettext_free_exp (exp->val.args2.left);
+      FREE_EXPRESSION (exp->val.args2.right);
+      FREE_EXPRESSION (exp->val.args2.left);
       break;
 
     default:
@@ -1131,7 +1178,9 @@ __gettext_free_exp (struct expression *exp)
 
 
 static int
-yylex (YYSTYPE *lval, const char **pexp)
+yylex (lval, pexp)
+     YYSTYPE *lval;
+     const char **pexp;
 {
   const char *exp = *pexp;
   int result;
@@ -1162,7 +1211,7 @@ yylex (YYSTYPE *lval, const char **pexp)
     case '0': case '1': case '2': case '3': case '4':
     case '5': case '6': case '7': case '8': case '9':
       {
-	unsigned long int n = exp[-1] - '0';
+	unsigned long int n = result - '0';
 	while (exp[0] >= '0' && exp[0] <= '9')
 	  {
 	    n *= 10;
@@ -1226,7 +1275,8 @@ yylex (YYSTYPE *lval, const char **pexp)
 
 
 static void
-yyerror (const char *str)
+yyerror (str)
+     const char *str;
 {
   /* Do nothing.  We don't print error messages here.  */
 }

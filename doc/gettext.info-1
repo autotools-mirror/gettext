@@ -1,5 +1,5 @@
-This is Info file gettext.info, produced by Makeinfo version 1.68 from
-the input file gettext.texi.
+This is gettext.info, produced by makeinfo version 4.0 from
+gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
@@ -13,7 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
+Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -51,7 +52,7 @@ GNU `gettext' utilities
 
 * Country Codes::               ISO 639 country codes
 
- -- The Detailed Node Listing --
+ --- The Detailed Node Listing ---
 
 Introduction
 
@@ -92,6 +93,7 @@ Updating Existing PO Files
 * Obsolete Entries::            Obsolete Entries
 * Modifying Translations::      Modifying Translations
 * Modifying Comments::          Modifying Comments
+* Subedit::                     Mode for Editing Translations
 * Auxiliary::                   Consulting Auxiliary PO Files
 
 Producing Binary MO Files
@@ -124,6 +126,9 @@ About `gettext'
 * Interface to gettext::        The interface
 * Ambiguities::                 Solving ambiguities
 * Locating Catalogs::           Locating message catalog files
+* Charset conversion::          How to request conversion to Unicode
+* Plural forms::                Additional functions for handling plurals
+* GUI program problems::        Another technique for solving ambiguities
 * Optimized gettext::           Optimization of the *gettext functions
 
 Temporary Notes for the Programmers Chapter
@@ -179,16 +184,16 @@ File: gettext.info,  Node: Introduction,  Next: Basics,  Prev: Top,  Up: Top
 Introduction
 ************
 
-     This manual is still in *DRAFT* state.  Some sections are still
+     This manual is still in _DRAFT_ state.  Some sections are still
      empty, or almost.  We keep merging material from other sources
      (essentially e-mail folders) while the proper integration of this
      material is delayed.
 
-   In this manual, we use *he* when speaking of the programmer or
-maintainer, *she* when speaking of the translator, and *they* when
+   In this manual, we use _he_ when speaking of the programmer or
+maintainer, _she_ when speaking of the translator, and _they_ when
 speaking of the installers or end users of the translated program.
 This is only a convenience for clarifying the documentation.  It is
-*absolutely* not meant to imply that some roles are more appropriate to
+_absolutely_ not meant to imply that some roles are more appropriate to
 males or females.  Besides, as you might guess, GNU `gettext' is meant
 to be useful for people using computers, whatever their sex, race,
 religion or nationality!
@@ -231,7 +236,7 @@ software.  Using a common language is quite handy for communication
 between developers, maintainers and users from all countries.  On the
 other hand, most people are less comfortable with English than with
 their own native language, and would prefer to use their mother tongue
-for day to day's work, as far as possible.  Many would simply *love* to
+for day to day's work, as far as possible.  Many would simply _love_ to
 see their computer screen showing a lot less of English, and far more
 of their own language.
 
@@ -272,7 +277,7 @@ all they need to know for properly doing their translating work.  Also,
 this supplemental documentation might also help programmers, and even
 curious users, in understanding how GNU `gettext' is related to the
 remainder of the Translation Project, and consequently, have a glimpse
-at the *big picture*.
+at the _big picture_.
 
    ---------- Footnotes ----------
 
@@ -289,7 +294,7 @@ I18n, L10n, and Such
    Two long words appear all the time when we discuss support of native
 language in programs, and these words have a precise meaning, worth
 being explained here, once and for all in this document.  The words are
-*internationalization* and *localization*.  Many people, tired of
+_internationalization_ and _localization_.  Many people, tired of
 writing these long words over and over again, took the habit of writing
 "i18n" and "l10n" instead, quoting the first and last letter of each
 word, and replacing the run of intermediate letters by a number merely
@@ -393,6 +398,7 @@ translate beyond output messages.
      Translating a manual, with the intent of later keeping up with
      updates, is a major undertaking in itself, generally.
 
+
    As we already stressed, translation is only one aspect of locales.
 Other internationalization aspects are not currently handled by GNU
 `gettext', but perhaps may be handled in future versions.  There are
@@ -409,7 +415,7 @@ putting multi-lingual messages into the proper context of other tasks
 related to locales, and also presents some other areas which GNU
 `gettext' might eventually tackle, maybe, one of these days.
 
-*Characters and Codesets*
+_Characters and Codesets_
      The codeset most commonly used through out the USA and most English
      speaking parts of the world is the ASCII codeset.  However, there
      are many characters needed by various locales that are not found
@@ -420,12 +426,12 @@ related to locales, and also presents some other areas which GNU
      they need to use and will need to have the appropriate character
      handling routines to cope with the codeset.
 
-*Currency*
+_Currency_
      The symbols used vary from country to country as does the position
      used by the symbol.  Software needs to be able to transparently
      display currency figures in the native mode for each locale.
 
-*Dates*
+_Dates_
      The format of date varies between locales.  For example, Christmas
      day in 1994 is written as 12/25/94 in the USA and as 25/12/94 in
      Australia.  Other countries might use ISO 8061 dates, etc.
@@ -435,7 +441,7 @@ related to locales, and also presents some other areas which GNU
      as AM or PM.  Further, the nature and yearly extent of the
      Daylight Saving correction vary widely between countries.
 
-*Numbers*
+_Numbers_
      Numbers can be represented differently in different locales.  For
      example, the following numbers are all written correctly for their
      respective locales:
@@ -448,7 +454,7 @@ related to locales, and also presents some other areas which GNU
      English units or Metric units, or even take into account variants
      about how numbers are spelled in full.
 
-*Messages*
+_Messages_
      The most obvious area is the language support within a locale.
      This is where GNU `gettext' provides the means for developers and
      users to easily change the language that the software uses to
@@ -582,11 +588,10 @@ C sources each string is used.  All translations are set to empty.  The
 letter `t' in `.pot' marks this as a Template PO file, not yet oriented
 towards any particular language.  *Note xgettext Invocation::, for more
 details about how one calls the `xgettext' program.  If you are
-*really* lazy, you might be interested at working a lot more right
-away, and preparing the whole distribution setup (*note
-Maintainers::.).  By doing so, you spare yourself typing the `xgettext'
-command, as `make' should now generate the proper things automatically
-for you!
+_really_ lazy, you might be interested at working a lot more right
+away, and preparing the whole distribution setup (*note Maintainers::).
+By doing so, you spare yourself typing the `xgettext' command, as
+`make' should now generate the proper things automatically for you!
 
    The first time through, there is no `LANG.po' yet, so the `msgmerge'
 step may be skipped and replaced by a mere copy of `PACKAGE.pot' to
@@ -596,27 +601,27 @@ step may be skipped and replaced by a mere copy of `PACKAGE.pot' to
 itself is a whole matter, still exclusively meant for humans, and whose
 complexity far overwhelms the level of this manual.  Nevertheless, a
 few hints are given in some other chapter of this manual (*note
-Translators::.).  You will also find there indications about how to
+Translators::).  You will also find there indications about how to
 contact translating teams, or becoming part of them, for sharing your
 translating concerns with others who target the same native language.
 
    While adding the translated messages into the `LANG.pox' PO file, if
 you do not have Emacs handy, you are on your own for ensuring that your
 efforts fully respect the PO file format, and quoting conventions
-(*note PO Files::.).  This is surely not an impossible task, as this is
+(*note PO Files::).  This is surely not an impossible task, as this is
 the way many people have handled PO files already for Uniforum or
 Solaris.  On the other hand, by using PO mode in Emacs, most details of
 PO file format are taken care of for you, but you have to acquire some
 familiarity with PO mode itself.  Besides main PO mode commands (*note
-Main PO Commands::.), you should know how to move between entries
-(*note Entry Positioning::.), and how to handle untranslated entries
-(*note Untranslated Entries::.).
+Main PO Commands::), you should know how to move between entries (*note
+Entry Positioning::), and how to handle untranslated entries (*note
+Untranslated Entries::).
 
    If some common translations have already been saved into a compendium
 PO file, translators may use PO mode for initializing untranslated
 entries from the compendium, and also save selected translations into
-the compendium, updating it (*note Compendium::.).  Compendium files
-are meant to be exchanged between members of a given translation team.
+the compendium, updating it (*note Compendium::).  Compendium files are
+meant to be exchanged between members of a given translation team.
 
    Programs, or packages of programs, are dynamic in nature: users write
 bug reports and suggestion for improvements, maintainers react by
@@ -652,9 +657,9 @@ refreshing operation adjusts all references to C source locations for
 strings, since these strings move as programs are modified.  Also,
 `msgmerge' comments out as obsolete, in `LANG.pox', those already
 translated entries which are no longer used in the program sources
-(*note Obsolete Entries::.).  It finally discovers new strings and
+(*note Obsolete Entries::).  It finally discovers new strings and
 inserts them in the resulting PO file as untranslated entries (*note
-Untranslated Entries::.).  *Note msgmerge Invocation::, for more
+Untranslated Entries::).  *Note msgmerge Invocation::, for more
 information about what `msgmerge' really does.
 
    Whatever route or means taken, the goal is to obtain an updated
@@ -680,7 +685,7 @@ distribution.
    Once the PO file is complete and dependable, the `msgfmt' program is
 used for turning the PO file into a machine-oriented format, which may
 yield efficient retrieval of translations by the programs of the
-package, whenever needed at runtime (*note MO Files::.).  *Note msgfmt
+package, whenever needed at runtime (*note MO Files::).  *Note msgfmt
 Invocation::, for more information about all modalities of execution
 for the `msgfmt' program.
 
@@ -689,7 +694,7 @@ with the GNU `gettext' library, usually through the operation of
 `make', given a suitable `Makefile' exists for the project, and the
 resulting executable is installed somewhere users will find it.  The MO
 files themselves should also be properly installed.  Given the
-appropriate environment variables are set (*note End Users::.), the
+appropriate environment variables are set (*note End Users::), the
 program should localize itself automatically, whenever it executes.
 
    The remainder of this manual has the purpose of explaining in depth
@@ -735,26 +740,29 @@ like:
 
      (setq auto-mode-alist
            (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode) auto-mode-alist))
-     (autoload 'po-mode "po-mode")
+     (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 
    Later, whenever you edit some `.po', `.pot' or `.pox' file, or any
 file having the string `.po.' within its name, Emacs loads
 `po-mode.elc' (or `po-mode.el') as needed, and automatically activates
-PO mode commands for the associated buffer.  The string *PO* appears in
+PO mode commands for the associated buffer.  The string _PO_ appears in
 the mode line for any buffer for which PO mode is active.  Many PO
 files may be active at once in a single Emacs session.
 
-   If you are using Emacs version 20 or better, and have already
+   If you are using Emacs version 20 or newer, and have already
 installed the appropriate international fonts on your system, you may
-also manage for the these fonts to be automatically loaded and used for
-displaying the translations on your Emacs screen, whenever necessary.
-For this to happen, you might want to add the lines:
+also tell Emacs how to determine automatically the coding system of
+every PO file.  This will often (but not always) cause the necessary
+fonts to be loaded and used for displaying the translations on your
+Emacs screen.  For this to happen, add the lines:
 
-     (autoload 'po-find-file-coding-system "po-mode")
      (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
                                  'po-find-file-coding-system)
+     (autoload 'po-find-file-coding-system "po-mode")
 
-to your `.emacs' file.
+to your `.emacs' file.  If, with this, you still see boxes instead of
+international characters, try a different font set (via Shift Mouse
+button 1).
 
 
 File: gettext.info,  Node: PO Files,  Next: Main PO Commands,  Prev: Installation,  Up: Basics
@@ -835,6 +843,20 @@ forms of flags defined:
      does some more tests to check to validity of the translation.
      *Note msgfmt Invocation::.
 
+   A different kind of entries is used for translations which involve
+plural forms.
+
+     WHITE-SPACE
+     #  TRANSLATOR-COMMENTS
+     #. AUTOMATIC-COMMENTS
+     #: REFERENCE...
+     #, FLAG...
+     msgid UNTRANSLATED-STRING-SINGULAR
+     msgid_plural UNTRANSLATED-STRING-PLURAL
+     msgstr[0] TRANSLATED-STRING-CASE-0
+     ...
+     msgstr[N] TRANSLATED-STRING-CASE-N
+
    It happens that some lines, usually whitespace or comments, follow
 the very last entry of a PO file.  Such lines are not part of any entry,
 and PO mode is unable to take action on those lines.  By using the PO
@@ -870,11 +892,11 @@ string could have been omitted, but only if the string starting with
 `Here' was promoted on the first line, right after `msgid'.(1) It was
 not really necessary either to switch between the two last quoted
 strings immediately after the newline `\n', the switch could have
-occurred after *any* other character, we just did it this way because
+occurred after _any_ other character, we just did it this way because
 it is neater.
 
    One should carefully distinguish between end of lines marked as `\n'
-*inside* quotes, which are part of the represented string, and end of
+_inside_ quotes, which are part of the represented string, and end of
 lines in the PO file itself, outside string quotes, which have no
 incidence on the represented string.
 
@@ -908,9 +930,9 @@ will be executed.
 mode line for that window.  The mode line also displays how many
 entries of each kind are held in the PO file.  For example, the string
 `132t+3f+10u+2o' would tell the translator that the PO mode contains
-132 translated entries (*note Translated Entries::., 3 fuzzy entries
-(*note Fuzzy Entries::.), 10 untranslated entries (*note Untranslated
-Entries::.) and 2 obsolete entries (*note Obsolete Entries::.).
+132 translated entries (*note Translated Entries::, 3 fuzzy entries
+(*note Fuzzy Entries::), 10 untranslated entries (*note Untranslated
+Entries::) and 2 obsolete entries (*note Obsolete Entries::).
 Zero-coefficients items are not shown.  So, in this example, if the
 fuzzy entries were unfuzzied, the untranslated entries were translated
 and the obsolete entries were deleted, the mode line would merely
@@ -942,7 +964,7 @@ for managing windows in special ways.
 `V'
      Batch validate the format of the whole PO file.
 
-   The command `U' (`po-undo') interfaces to the Emacs *undo* facility.
+   The command `U' (`po-undo') interfaces to the Emacs _undo_ facility.
 *Note Undoing Changes: (emacs)Undo.  Each time `U' is typed,
 modifications which the translator did to the PO file are undone a
 little more.  For the purpose of undoing, each PO mode command is
@@ -968,7 +990,7 @@ got PO mode to show some source context in some other, she might
 discover some apparent bug in the program source that needs correction.
 This command allows the translator to change sex, become a programmer,
 and have the cursor right into the window containing the program she
-(or rather *he*) wants to modify.  By later getting the cursor back in
+(or rather _he_) wants to modify.  By later getting the cursor back in
 the PO file window, or by asking Emacs to edit this file once again, PO
 mode is then recovered.
 
