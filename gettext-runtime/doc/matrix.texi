@@ -7,14 +7,14 @@ aegis              |                      ()                   |
 ant-phone          |                      ()                   |
 anubis             |                                           |
 ap-utils           |                                           |
-bash               |                      []             [] [] |
+bash               |             []       []             [] [] |
 batchelor          |                                           |
 bfd                |                   []                   [] |
 binutils           |                   []                   [] |
 bison              |                   [] []                [] |
 bluez-pin          |                []                   []    |
-clisp              |                                           |
 clisp              |                      []    []          [] |
+clisp              |                                           |
 coreutils          |             []    [] []                [] |
 cpio               |                   [] []                [] |
 darkstat           |          []       ()                   [] |
@@ -24,7 +24,7 @@ enscript           |             []    [] []        []         |
 error              |             []    [] []        []      [] |
 fetchmail          |             [] () [] [] []             [] |
 fileutils          |                   [] []                [] |
-findutils          |             []    [] [] []          [] [] |
+findutils          |       []    []    [] [] []          [] [] |
 flex               |             []    [] []                [] |
 fslint             |                                           |
 gas                |                                        [] |
@@ -38,22 +38,30 @@ gettext-tools      |             []       []                [] |
 gimp-print         |                [] [] []        []      [] |
 gliv               |                                           |
 glunarclock        |    []             [] []                   |
+gnubiff            |                      []                   |
 gnucash            |                []    ()        []      [] |
 gnucash-glossary   |                   [] ()                [] |
 gnupg              |             [] ()    [] []          [] [] |
-gpe-calendar       |                      []                   |
-gpe-conf           |                      []                   |
-gpe-contacts       |                      []                   |
-gpe-edit           |                                           |
-gpe-login          |                      []                   |
-gpe-ownerinfo      |                      []                   |
-gpe-sketchbook     |                      []                   |
-gpe-timesheet      |                                           |
-gpe-today          |                      []                   |
-gpe-todo           |                      []                   |
+gpe-aerial         |                []                         |
+gpe-beam           |                []    []                   |
+gpe-calendar       |                []    []                   |
+gpe-clock          |                []    []                   |
+gpe-conf           |                []    []                   |
+gpe-contacts       |                []    []                   |
+gpe-edit           |                []                         |
+gpe-go             |                []                         |
+gpe-login          |                []    []                   |
+gpe-ownerinfo      |                []    []                   |
+gpe-sketchbook     |                []    []                   |
+gpe-su             |                []    []                   |
+gpe-taskmanager    |                []    []                   |
+gpe-timesheet      |                []                         |
+gpe-today          |                []    []                   |
+gpe-todo           |                []    []                   |
 gphoto2            |                [] [] []                [] |
 gprof              |                   [] []                [] |
 gpsdrive           |                      ()    ()          () |
+gramadoir          |                      []                   |
 grep               |       [] [] []       [] []             [] |
 gretl              |                                        [] |
 gtick              |                      ()                   |
@@ -61,11 +69,13 @@ hello              |             []    [] [] []          [] [] |
 id-utils           |                   [] []                   |
 indent             |             []       []             [] [] |
 jpilot             |                [] []                   [] |
+jtag               |                                           |
 jwhois             |                                        [] |
 kbd                |                [] [] [] []             [] |
+latrine            |                      ()                   |
 ld                 |                   []                   [] |
 libc               |             [] [] [] [] []             [] |
-libgpewidget       |                      []                   |
+libgpewidget       |                []    []                   |
 libiconv           |             []    [] []             [] [] |
 lifelines          |                   [] ()                   |
 lilypond           |                      []                   |
@@ -76,6 +86,7 @@ m4                 |                [] [] [] []                |
 mailutils          |             []                         [] |
 make               |                   [] []                [] |
 man-db             |             [] () [] []                () |
+minicom            |                []    []                [] |
 mysecretdiary      |                   [] []                [] |
 nano               |             [] () [] []                [] |
 nano_1_0           |             [] () [] []                [] |
@@ -84,11 +95,12 @@ parted             |             [] [] [] []                [] |
 ptx                |             []    [] []             [] [] |
 python             |                                           |
 radius             |                                           |
-recode             |       []          [] [] []          [] [] |
+recode             |       []    []    [] [] []          [] [] |
 screem             |                                           |
 scrollkeeper       |       []    [] [] [] []                [] |
 sed                |             []    [] []             [] [] |
 sh-utils           |                   [] []                [] |
+shared-mime-info   |                                           |
 sharutils          |             [] [] [] [] []             [] |
 sketch             |                   [] ()                [] |
 soundtracker       |                   [] []                [] |
@@ -99,15 +111,15 @@ textutils          |             []    [] []                [] |
 tin                |                      ()        ()         |
 tuxpaint           |             [] [] [] [] []     []      [] |
 util-linux         |             [] [] [] []                [] |
-vorbis-tools       |                [] []                   [] |
+vorbis-tools       |       []       [] []                   [] |
 wastesedge         |                      ()                   |
 wdiff              |             []    [] []                [] |
-wget               |          [] [] [] [] [] []             [] |
-xchat              |             []          []             [] |
-xpad               |                                           |
+wget               |          [] []    [] [] []             [] |
+xchat              |             []       [] []             [] |
+xpad               |                                        [] |
                    +-------------------------------------------+
                      am az be bg ca cs da de el en en_GB eo es
-                      0  1  6  3 34 19 54 64 15  1   5   12 59
+                      0  1  8  3 36 36 54 72 15  1   5   12 61
 @end group
 
 @group
@@ -124,9 +136,9 @@ bfd                |          []                            |
 binutils           |          []                         [] |
 bison              | []       []                []    []    |
 bluez-pin          |       [] [] []          [] []          |
-clisp              |                                        |
 clisp              |          []                            |
-coreutils          | []       [] []                   [] [] |
+clisp              |                                        |
+coreutils          | []    [] [] []                   [] [] |
 cpio               |          []    []       []             |
 darkstat           |          () []          [] []          |
 diffutils          |       [] []    [] []    [] []       [] |
@@ -136,10 +148,10 @@ error              |       [] [] []          []             |
 fetchmail          |                                     [] |
 fileutils          | []       [] []          []       [] [] |
 findutils          | []    [] [] [] []    [] [] []    [] [] |
-flex               |          []                            |
+flex               |          [] []                         |
 fslint             |                                        |
 gas                |          []                            |
-gawk               |          []       []                   |
+gawk               |          []       []                [] |
 gbiff              |                                        |
 gcal               |          []                            |
 gcc                |          []                            |
@@ -148,32 +160,42 @@ gettext-runtime    |       [] []                []       [] |
 gettext-tools      |          []                         [] |
 gimp-print         |          []                         [] |
 gliv               |          ()                            |
-glunarclock        |             [] []       []          [] |
-gnucash            |                                  []    |
+glunarclock        |       []    [] []       []          [] |
+gnubiff            |                                        |
+gnucash            |          ()                      []    |
 gnucash-glossary   |                                  []    |
 gnupg              | []    [] []    []          []    [] [] |
+gpe-aerial         |                                        |
+gpe-beam           |                                        |
 gpe-calendar       |          []                []          |
+gpe-clock          |          []                            |
 gpe-conf           |          []                            |
 gpe-contacts       |          []                            |
 gpe-edit           |          []                []          |
+gpe-go             |                                        |
 gpe-login          |          []                            |
 gpe-ownerinfo      |          []             [] []          |
 gpe-sketchbook     |          []                            |
+gpe-su             |          []                            |
+gpe-taskmanager    |          []                            |
 gpe-timesheet      |          [] []             []          |
 gpe-today          |          [] []                         |
 gpe-todo           |          []                []          |
 gphoto2            |          []             []          [] |
 gprof              |          []                []          |
 gpsdrive           |          ()             []       () () |
+gramadoir          |             []                         |
 grep               | []    [] [] [] [] [] [] [] []    [] [] |
 gretl              |          []                            |
-gtick              |                                        |
+gtick              |       []    []                         |
 hello              | [] [] [] [] [] [] [] [] [] []    [] [] |
-id-utils           |          []             [] []          |
+id-utils           |          []             [] []    []    |
 indent             | []    [] [] [] []       [] []    [] [] |
 jpilot             |          []                         () |
+jtag               |                                        |
 jwhois             |          []             [] []    []    |
 kbd                |          []                            |
+latrine            |                                        |
 ld                 |          []                            |
 libc               |       [] []    []       []          [] |
 libgpewidget       |          [] []             []          |
@@ -186,7 +208,8 @@ lynx               | []                      []       [] [] |
 m4                 |          []    []          []       [] |
 mailutils          |                                        |
 make               |          []    [] [] []             [] |
-man-db             |          []                      () () |
+man-db             |                                  () () |
+minicom            |       [] []             []          [] |
 mysecretdiary      |          []                []          |
 nano               |          []    []          []    []    |
 nano_1_0           |          []    []          []    []    |
@@ -200,6 +223,7 @@ screem             |                                        |
 scrollkeeper       |                         []             |
 sed                | []    [] [] [] []       [] []    [] [] |
 sh-utils           | []    [] [] []          []       [] [] |
+shared-mime-info   |                         []             |
 sharutils          | []       []    []       []          [] |
 sketch             |          []                            |
 soundtracker       |          []    []    []          []    |
@@ -212,43 +236,43 @@ tuxpaint           |       [] []       []    [] [] [] [] [] |
 util-linux         | []    [] []             []       () [] |
 vorbis-tools       |          []                            |
 wastesedge         |          ()                            |
-wdiff              | []       []    []       [] []          |
-wget               | []    [] []    [] [] [] []          [] |
-xchat              | []    [] []                         [] |
+wdiff              | []       [] [] []       [] []          |
+wget               | []    [] []    []    [] []          [] |
+xchat              | []    [] []                            |
 xpad               |             []                         |
                    +----------------------------------------+
                      et fa fi fr ga gl he hr hu id is it ja
-                     21  1 20 77 20 24  9 10 32 31  1 21 31
+                     21  1 24 80 24 24  8 10 34 31  1 22 32
 @end group
 
 @group
                      ko lg lt lv ms nb nl nn no pl pt pt_BR ro
                    +-------------------------------------------+
 a2ps               | ()          []    []    () ()     []   [] |
-aegis              |                   ()                      |
-ant-phone          |                                           |
-anubis             |             [] []          []          [] |
+aegis              |                   ()                   () |
+ant-phone          |                   []                   [] |
+anubis             |             [] [] []       []          [] |
 ap-utils           |                   []       ()          [] |
 bash               |                                   []   [] |
-batchelor          |                                           |
+batchelor          |                                        [] |
 bfd                |                                           |
 binutils           |                                           |
 bison              |             []    []              []   [] |
-bluez-pin          |                   []                   [] |
-clisp              |                                           |
+bluez-pin          |                   []       []          [] |
 clisp              |                   []                      |
+clisp              |                                           |
 coreutils          |                            []             |
-cpio               | []                []       []     []      |
+cpio               | []                []       []     []   [] |
 darkstat           |             []    []              []   [] |
-diffutils          |             []             []     []      |
-e2fsprogs          |                                           |
+diffutils          |             []             []     []   [] |
+e2fsprogs          |                            []             |
 enscript           |                   []              []      |
-error              |                   []              []      |
-fetchmail          |                            ()     ()      |
+error              |                   []              []   [] |
+fetchmail          |                            []     ()      |
 fileutils          |                            []             |
 findutils          | []                []       []     []   [] |
-flex               | []                                []      |
-fslint             |                   []                      |
+flex               | []                         []     []   [] |
+fslint             |                   []                   [] |
 gas                |                                           |
 gawk               |                            []     []      |
 gbiff              |                   []                      |
@@ -258,24 +282,32 @@ gettext            | []                         []             |
 gettext-runtime    | []                         []             |
 gettext-tools      | []                                        |
 gimp-print         |                   []                      |
-gliv               |                   []              []      |
-glunarclock        |             []    []                      |
-gnucash            |                   []          []          |
+gliv               |                   []              []   [] |
+glunarclock        |             []    []                   [] |
+gnubiff            |                                           |
+gnucash            |                   []          []  ()      |
 gnucash-glossary   |                   []          []          |
 gnupg              |                                        [] |
+gpe-aerial         |                   []          []       [] |
+gpe-beam           |                   []          []       [] |
 gpe-calendar       |                   []          []       [] |
+gpe-clock          |                   []          []       [] |
 gpe-conf           |                   []          []       [] |
-gpe-contacts       |                   []          []          |
+gpe-contacts       |                   []          []       [] |
 gpe-edit           |                   []          []       [] |
+gpe-go             |                   []                      |
 gpe-login          |                   []          []       [] |
 gpe-ownerinfo      |                   []          []       [] |
 gpe-sketchbook     |                   []          []       [] |
+gpe-su             |                   []          []       [] |
+gpe-taskmanager    |                   []          []       [] |
 gpe-timesheet      |                   []          []       [] |
 gpe-today          |                   []          []       [] |
 gpe-todo           |                   []          []       [] |
-gphoto2            |                                           |
-gprof              |                                   []      |
+gphoto2            |                                        [] |
+gprof              |                                   []   [] |
 gpsdrive           |                   ()    ()        ()      |
+gramadoir          |                                           |
 grep               |                            [] []  []   [] |
 gretl              |                                           |
 gtick              |                   []                   [] |
@@ -283,12 +315,14 @@ hello              | []       [] [] [] [] [] [] []     []   [] |
 id-utils           |                   []              []   [] |
 indent             |                   []              []   [] |
 jpilot             |                   ()    ()                |
+jtag               |                                           |
 jwhois             |                   []       []     []   [] |
-kbd                |                                           |
+kbd                |                   []       []             |
+latrine            |                                        [] |
 ld                 |                                           |
 libc               | []             []       [] []     []      |
 libgpewidget       |                   []          []       [] |
-libiconv           |                   []              []   [] |
+libiconv           |                   []       []     []   [] |
 lifelines          |                                           |
 lilypond           |                                           |
 lingoteach         |                                           |
@@ -296,9 +330,10 @@ lingoteach_lessons |                                           |
 lynx               |                   []              []      |
 m4                 |                   []       []     []   [] |
 mailutils          |                            []             |
-make               | []                []              []      |
-man-db             |                                   []      |
-mysecretdiary      |                   []              []      |
+make               | []                []       []     []      |
+man-db             |                                           |
+minicom            |                            []     []      |
+mysecretdiary      |                   []              []   [] |
 nano               |             []    []       []          [] |
 nano_1_0           |             [] []    []    []             |
 opcodes            |                   []                   [] |
@@ -311,12 +346,13 @@ screem             |                                           |
 scrollkeeper       |                [] []       []          [] |
 sed                |                            []     []   [] |
 sh-utils           |                []                         |
+shared-mime-info   |                   []                      |
 sharutils          |                   []                      |
-sketch             |                                   []      |
+sketch             |                               []  []      |
 soundtracker       |                                           |
 sp                 |                                           |
 tar                |             [] []       [] []     []   [] |
-texinfo            |                []                      [] |
+texinfo            |                []          []          [] |
 textutils          | []             []                         |
 tin                |                                           |
 tuxpaint           | []    []    []    [] []    [] []  []   [] |
@@ -324,12 +360,12 @@ util-linux         |                   []              []      |
 vorbis-tools       |                   []                   [] |
 wastesedge         |                                           |
 wdiff              |             []             []     []   [] |
-wget               |                   []       []          [] |
+wget               |                            []          [] |
 xchat              |          []       []                      |
 xpad               |                   []                   [] |
                    +-------------------------------------------+
                      ko lg lt lv ms nb nl nn no pl pt pt_BR ro
-                     11  0  1  2 12 10 49  4  4 27 17  34   40
+                     11  0  1  2 12 10 58  4  4 36 23  34   59
 @end group
 
 @group
@@ -337,109 +373,121 @@ xpad               |                   []                   [] |
                    +-------------------------------------------+
 a2ps               | []    []    []    [] []                   | 16
 aegis              | ()                                        |  0
-ant-phone          |                                           |  0
-anubis             | []                [] []                   |  8
+ant-phone          |                                           |  2
+anubis             | []                [] []                   |  9
 ap-utils           |                      ()                   |  3
-bash               | []                                        |  8
-batchelor          |                                           |  1
+bash               | []                                        |  9
+batchelor          |                                           |  2
 bfd                |             []    []                      |  5
 binutils           |             []    []           []         |  7
-bison              | []          []                            | 13
-bluez-pin          |             []             []             | 11
-clisp              |                                           |  0
+bison              | []          []    []                      | 14
+bluez-pin          |    []       []             []             | 13
 clisp              |                                           |  5
-coreutils          | []    []    []    []                 []   | 15
-cpio               | []          []                 []         | 13
-darkstat           |             []                 ()    ()   | 10
-diffutils          | []          []    []                 []   | 21
-e2fsprogs          |             []    []                      |  4
+clisp              |                                           |  0
+coreutils          | []    []    []    []                 []   | 16
+cpio               | []          []                 []         | 14
+darkstat           |    []    [] []                 ()    ()   | 12
+diffutils          | []          []    []                 []   | 22
+e2fsprogs          |             []    []                      |  5
 enscript           | []          []    []                      | 11
-error              |    []             []                 []   | 14
-fetchmail          |    []             []                      |  8
+error              |    []             []                 []   | 15
+fetchmail          | [] []             []                      | 10
 fileutils          | []    []    []    []           []    []   | 16
-findutils          | [] [] []    []    []           []         | 27
-flex               | []          []    []                      | 10
-fslint             |                                           |  1
+findutils          | [] [] []    []    []           []         | 28
+flex               | []          []    []                      | 13
+fslint             |                                           |  2
 gas                |                   []                      |  3
-gawk               |             []    []                      | 10
+gawk               |             []    []                      | 11
 gbiff              |                                           |  2
 gcal               |             []    []                      |  4
 gcc                |                   []                      |  4
 gettext            | [] [] []    []    []                 []   | 15
-gettext-runtime    | [] [] []    []    [] []              []   | 18
+gettext-runtime    | [] [] [] [] []    [] []        []    []   | 20
 gettext-tools      |    [] []    []    []           []         | 11
 gimp-print         |    []       []                            | 10
-gliv               |                                           |  2
-glunarclock        | []          []             []             | 12
-gnucash            |    []                                []   |  8
+gliv               |                                           |  3
+glunarclock        | []          []             []             | 14
+gnubiff            |                                           |  1
+gnucash            | [] []                                []   |  9
 gnucash-glossary   |    []       []                       []   |  8
 gnupg              |    []       []    []                 []   | 17
-gpe-calendar       |             []             []        []   |  9
-gpe-conf           |             []                            |  6
-gpe-contacts       |             []                       []   |  6
-gpe-edit           |             []             []        []   |  8
-gpe-login          |             []             []        []   |  8
-gpe-ownerinfo      |             []                       []   |  9
-gpe-sketchbook     |             []                       []   |  7
-gpe-timesheet      |             []                       []   |  8
-gpe-today          |             []             []        []   |  9
-gpe-todo           |             []             []        []   |  9
-gphoto2            |             []                 []         |  9
-gprof              |             []    []                      |  8
+gpe-aerial         | []          []                            |  6
+gpe-beam           | []          []                            |  7
+gpe-calendar       | [] []       []             []        []   | 12
+gpe-clock          | [] []       []                            |  9
+gpe-conf           | [] []       []                            |  9
+gpe-contacts       | [] []       []                       []   | 10
+gpe-edit           | [] []       []             []        []   | 11
+gpe-go             |                                           |  2
+gpe-login          | [] []       []             []        []   | 11
+gpe-ownerinfo      | [] []       []                       []   | 12
+gpe-sketchbook     | [] []       []                            |  9
+gpe-su             | [] []       []                            |  9
+gpe-taskmanager    | [] []       []                            |  9
+gpe-timesheet      | [] []       []                       []   | 11
+gpe-today          | [] []       []             []        []   | 12
+gpe-todo           | [] []       []             []        []   | 12
+gphoto2            |    []       []                 []         | 11
+gprof              |             []    []                      |  9
 gpsdrive           |    []       []                            |  3
+gramadoir          |                                           |  2
 grep               | []    []          [] []                   | 25
 gretl              |                                           |  2
-gtick              |                                           |  2
+gtick              | []                                        |  5
 hello              | [] []       []    [] []                   | 33
-id-utils           | []          []    []                      | 11
-indent             | [] []       []    []                      | 20
+id-utils           | []          []    []                      | 12
+indent             | [] []    [] []    []                      | 21
 jpilot             |             []    []    []     []    []   |  9
+jtag               |    []                                     |  1
 jwhois             | ()          ()    []                 []   | 11
-kbd                |             []    []                      |  8
+kbd                |             []    []                      | 10
+latrine            |                                           |  1
 ld                 |             []    []                      |  5
 libc               |    []       []    []           []         | 20
-libgpewidget       |             []             []             |  9
-libiconv           | [] [] []    []    [] []    []  []         | 25
+libgpewidget       |    []       []             []             | 11
+libiconv           | [] [] [] [] []    [] []    []  []         | 27
 lifelines          |             []                            |  2
-lilypond           |                                           |  2
+lilypond           |             []                            |  3
 lingoteach         |                                           |  2
 lingoteach_lessons |                                ()         |  0
 lynx               | []          []    [] []                   | 14
 m4                 | []          []                 []         | 15
 mailutils          | []                                        |  4
-make               | []          []    []           []         | 15
-man-db             |             []                            |  6
-mysecretdiary      |             []    []                      |  9
-nano               | []          []    [] []                   | 16
+make               | []          []    []           []         | 16
+man-db             |             []                            |  4
+minicom            | []                                        | 10
+mysecretdiary      |             []    []                      | 10
+nano               | []       [] []    [] []                   | 17
 nano_1_0           | []          []    [] []                   | 16
 opcodes            |             []    []                      |  6
 parted             |             []    []           []         | 15
 ptx                | []          []    []                      | 22
 python             |                                           |  0
 radius             | []                                        |  2
-recode             | []    []    []    []                      | 19
-screem             |             []                            |  1
-scrollkeeper       | [] []       []                            | 14
-sed                |    [] []    []    [] []                   | 22
+recode             | []    []    []    []                      | 20
+screem             |             []                 []         |  2
+scrollkeeper       | [] []    [] []                            | 15
+sed                |    [] [] [] []    [] []                   | 23
 sh-utils           | []    []          []                      | 14
+shared-mime-info   |          []                               |  3
 sharutils          | []          []    []                 []   | 16
-sketch             |             []                            |  5
-soundtracker       |             []                            |  8
+sketch             |             []                            |  6
+soundtracker       |    []       []                            |  9
 sp                 |                   []                      |  3
 tar                |    [] []    []    []           []         | 24
-texinfo            | []          []    []           []         | 13
+texinfo            | []          []    []           []         | 14
 textutils          | []    []    []    []                 []   | 16
 tin                |                                           |  1
 tuxpaint           |    []       []    []       []  []         | 29
-util-linux         |             []    []                      | 14
-vorbis-tools       | []                                        |  7
+util-linux         | []          []    []                      | 15
+vorbis-tools       | []                                        |  8
 wastesedge         |                                           |  0
-wdiff              | [] []       []    []                      | 17
-wget               | [] [] []    []    [] []              []   | 25
+wdiff              | [] []       []    []                      | 18
+wget               | [] [] []    []    [] []        []    []   | 23
 xchat              |    [] []    []                 []         | 13
-xpad               |                                           |  3
+xpad               |                                           |  4
                    +-------------------------------------------+
   51 teams           ru sk sl sr sv ta tr uk vi wa zh_CN zh_TW
- 103 domains         36 22 16  0 71  0 52 11  1 10  16    23    1040
+ 115 domains         56 41 16  8 77  0 53 11  1 10  19    22    1184
 @end group
 @end example
