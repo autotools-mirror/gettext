@@ -1,17 +1,3 @@
-2005-01-06  Bruno Haible  <bruno@clisp.org>
-
-	* stdbool.m4: Upgrade to gnulib version.
-
-2004-11-02  Bruno Haible  <bruno@clisp.org>
-
-	* setenv.m4 (gt_FUNC_SETENV): Define VOID_UNSETENV if unsetenv()
-	returns void.
-
-2004-10-04  Paul Eggert  <eggert@cs.ucla.edu>
-
-	* unlocked-io.m4: Add copyright notice.
-	(gl_FUNC_GLIBC_UNLOCKED_IO): Define USE_UNLOCKED_IO.
-
 2004-06-01  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* quotearg.m4: Fix copyright date and/or serial number.
@@ -31,15 +17,6 @@
 
 	* extensions.m4 (gl_USE_SYSTEM_EXTENSIONS): Require AC_AIX
 	and AC_MINIX, too, so that their extensions are available.
-
-2003-09-10  Bruno Haible  <bruno@clisp.org>
-
-	* xreadlink.m4 (gl_XREADLINK): Remove <stdlib.h> check.
-
-2003-09-10  Bruno Haible  <bruno@clisp.org>
-
-	* setenv.m4 (gl_PREREQ_SETENV, gl_PREREQ_UNSETENV): Remove
-	<stdlib.h> and <string.h> checks.
 
 2004-04-26  Bruno Haible  <bruno@clisp.org>
 

@@ -1,5 +1,5 @@
-# allocsa.m4 serial 1
-dnl Copyright (C) 2003 Free Software Foundation, Inc.
+# allocsa.m4 serial 3
+dnl Copyright (C) 2003-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -12,4 +12,6 @@ AC_DEFUN([gl_ALLOCSA],
   dnl @ALLOCA@ and @LTALLOCA@.
   AC_REQUIRE([gl_FUNC_ALLOCA])
   AC_REQUIRE([gl_EEMALLOC])
+  AC_REQUIRE([gl_AC_TYPE_LONG_LONG])
+  AC_REQUIRE([gt_TYPE_LONGDOUBLE])
 ])

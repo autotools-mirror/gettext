@@ -1,5 +1,5 @@
-# setenv.m4 serial 4
-dnl Copyright (C) 2001-2003 Free Software Foundation, Inc.
+# setenv.m4 serial 5
+dnl Copyright (C) 2001-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -14,6 +14,22 @@ AC_DEFUN([gt_FUNC_SETENV],
   fi
   if test $ac_cv_func_unsetenv = no; then
     gl_PREREQ_UNSETENV
+  else
+    AC_CACHE_CHECK([for unsetenv() return type], gt_cv_func_unsetenv_ret,
+      [AC_TRY_COMPILE([#include <stdlib.h>
+extern
+#ifdef __cplusplus
+"C"
+#endif
+#if defined(__STDC__) || defined(__cplusplus)
+int unsetenv (const char *name);
+#else
+int unsetenv();
+#endif
+], , gt_cv_func_unsetenv_ret='int', gt_cv_func_unsetenv_ret='void')])
+    if test $gt_cv_func_unsetenv_ret = 'void'; then
+      AC_DEFINE(VOID_UNSETENV, 1, [Define if unsetenv() returns void, not int.])
+    fi
   fi
 ])
 
@@ -39,8 +55,8 @@ AC_DEFUN([gt_CHECK_VAR_DECL],
 # Prerequisites of lib/setenv.c.
 AC_DEFUN([gl_PREREQ_SETENV],
 [
-  AC_REQUIRE([gl_ALLOCSA])
-  AC_CHECK_HEADERS_ONCE(stdlib.h string.h unistd.h)
+  AC_REQUIRE([AC_FUNC_ALLOCA])
+  AC_CHECK_HEADERS_ONCE(unistd.h)
   AC_CHECK_HEADERS(search.h)
   AC_CHECK_FUNCS(tsearch)
   gt_CHECK_VAR_DECL([#include <errno.h>], errno)
@@ -50,7 +66,7 @@ AC_DEFUN([gl_PREREQ_SETENV],
 # Prerequisites of lib/unsetenv.c.
 AC_DEFUN([gl_PREREQ_UNSETENV],
 [
-  AC_CHECK_HEADERS_ONCE(stdlib.h string.h unistd.h)
+  AC_CHECK_HEADERS_ONCE(unistd.h)
   gt_CHECK_VAR_DECL([#include <errno.h>], errno)
   gt_CHECK_VAR_DECL([#include <unistd.h>], environ)
 ])
