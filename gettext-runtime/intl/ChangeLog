@@ -1,3 +1,9 @@
+2003-05-20  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (VPATH): Add back this variable, needed outside gettext
+	when $builddir != $srcdir.
+	Reported by Pavel Roskin <proski@gnu.org>.
+
 2003-05-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc (DEBUGFLAGS): New variable.
