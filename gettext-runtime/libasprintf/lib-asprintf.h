@@ -1,5 +1,5 @@
 /* Library functions for class autosprintf.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify it
@@ -21,7 +21,7 @@
 # include <config.h>
 #endif
 
-#if HAVE_VASPRINTF
+#if HAVE_VASPRINTF && HAVE_POSIX_PRINTF
 
 /* Get asprintf(), vasprintf() declarations.  */
 #include <stdio.h>

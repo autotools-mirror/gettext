@@ -69,6 +69,7 @@ AC_EGREP_CPP([Need own alloca], [
 AC_SUBST([ALLOCA_H])
 
 AC_CHECK_FUNCS([snprintf vasprintf])
+gt_PRINTF_POSIX
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`

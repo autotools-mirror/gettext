@@ -189,6 +189,7 @@ config.h_vms: config.h.in
 	     -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
 	     -e 's/#undef HAVE_LONG_LONG$$/#define HAVE_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
+	     -e 's/#undef HAVE_POSIX_PRINTF$$/#define HAVE_POSIX_PRINTF 1/' \
 	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
 	     -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
 	     -e 's/#undef HAVE_STRINGS_H$$/#define HAVE_STRINGS_H 1/' \

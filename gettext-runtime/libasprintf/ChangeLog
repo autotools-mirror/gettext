@@ -1,3 +1,11 @@
+2003-06-20  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gt_PRINTF_POSIX.
+	* lib-asprintf.h: Ignore an existing vasprintf() if it doesn't support
+	POSIX/XSI format strings.
+	* lib-asprintf.c: Likewise.
+	* Makefile.am (config.h_vms): Define HAVE_POSIX_PRINTF.
+
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (jm_AC_TYPE_LONG_LONG): Replaces gt_TYPE_LONGLONG.
