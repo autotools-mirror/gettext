@@ -1495,6 +1495,8 @@ void
 mbs_possible_linebreaks (const char *s, size_t n, const char *encoding,
                          char *p)
 {
+  if (n == 0)
+    return;
   if (is_utf8_encoding (encoding))
     u8_possible_linebreaks ((const unsigned char *) s, n, encoding, p);
   else
@@ -1588,6 +1590,8 @@ mbs_width_linebreaks (const char *s, size_t n,
                       const char *o, const char *encoding,
                       char *p)
 {
+  if (n == 0)
+    return start_column;
   if (is_utf8_encoding (encoding))
     return u8_width_linebreaks ((const unsigned char *) s, n, width, start_column, at_end_columns, o, encoding, p);
   else
