@@ -35,9 +35,8 @@ NM=${NM='nm'}
 LD=${LD='ld'}
 
 # We always use our own binaries.
-GMSGFMT=${GMSGFMT='/dev/env/DJDIR/bin/msgfmt'}
-MSGFMT=${MSGFMT='/dev/env/DJDIR/bin/msgfmt'}
-XGETTEXT=${XGETTEXT='/dev/env/DJDIR/bin/xgettext'}
+GMSGFMT=${GMSGFMT='msgfmt'}
+MSGFMT=${MSGFMT='msgfmt'}
 
 # Force the test for 'ln -s' to report 'cp -p'.
 ac_cv_prog_LN_S='cp -p'
