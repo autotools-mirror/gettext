@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.2\n"
+"Project-Id-Version: gettext-runtime 0.12-pre4\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-05-12 19:47+0200\n"
-"PO-Revision-Date: 2002-06-05 18:06+0200\n"
+"PO-Revision-Date: 2003-05-19 11:38+0200\n"
 "Last-Translator: Sami J. Laine <sami.laine@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -117,8 +117,8 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Käyttö: %s [VALITSIN] [[TEXTDOMAIN] MSGID]\n"
-"tai:    %s [VALITSIN] -s [MSGID]...\n"
+"Käyttö: %s [VALITSIN] [[TEKSTIALA] VIESTI-ID]\n"
+"tai:    %s [VALITSIN] -s [VIESTI-ID]...\n"
 
 #: src/gettext.c:244
 #, no-wrap
@@ -137,15 +137,15 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=TEXTDOMAIN   etsi käännetyt viestit TEXTDOMAIN:sta\n"
+"  -d, --domain=TEKSTIALA    etsi käännetyt viestit TEKSTIALA:sta\n"
 "  -e                        salli joidenkin lainauskoodien laajentaminen\n"
 "  -E                        (jätetään huomiotta yhteensopivuuden vuoksi)\n"
 "  -h, --help                näyttää tämän ohjeen ja lopettaa suorituksen\n"
 "  -n                        jättää pois rivinvaihdon rivin lopusta\n"
 "  -V, --version             näyttää ohjelmiston versiotiedot ja lopettaa\n"
 "                            suorituksen\n"
-"  [TEXTDOMAIN] MSGID        etsii käännetyn viestin, joka vastaa MSGID:tä\n"
-"                            TEXTDOMAIN:ssa\n"
+"  [TEKSTIALA] VIESTI-ID     etsii käännetyn viestin, joka vastaa VIESTI-ID:tä\n"
+"                            TEKSTIALA:ssa\n"
 
 #: src/gettext.c:259
 #, c-format, no-wrap
@@ -159,6 +159,15 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
+"Jos parametria TEKSTIALA ei anneta, ala päätellään muuttujan TEXTDOMAIN\n"
+"sisällön perusteella. Jos viestilistaa (engl. message catalog) ei löydetä\n"
+"vakinaisesta hakemistosta, muu sijainti voidaan määritellä ympäristömuuttu-\n"
+"jalla TEXTDOMAINDIR.\n"
+"Käytettynä yhdessä valitsimen -s kanssa, ohjelma toimii kuten `echo'.\n"
+"Tällöin se ei kuitenkaan vain yksikertaisesti kopioi argumenttejaan\n"
+"vakiotulosteeseen, vaan valitusta viestilistasta löydetyt sanomat tulevat\n"
+"käännetyiksi.\n"
+"Vakinainen hakemisto, josta haku suoritetaan: %s\n"
 
 #: src/gettext.c:270 src/ngettext.c:237
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
@@ -167,14 +176,14 @@ msgstr "Ilmoita ohjelmiston vioista osoitteeseen <bug-gnu-gettext@gnu.org>.\n"
 #: src/ngettext.c:208
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr ""
+msgstr "Käyttö: %s [VALITSIN] [TEKSTIALA] VIESTI-ID VIESTI-ID-MONIKKO MÄÄRÄ\n"
 
 #: src/ngettext.c:213
 #, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
-msgstr ""
+msgstr "Sanoman kansallisen käännöksen esitystapa, jonka muoto riippuu numerosta.\n"
 
 #: src/ngettext.c:218
 #, no-wrap
@@ -188,6 +197,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"  -d, --domain=TEKSTIALA    etsi käännetyt viestit TEKSTIALA:sta\n"
+"  -e                        salli joidenkin lainauskoodien laajentaminen\n"
+"  -h, --help                näytä tämä ohje ja lopeta suoritus\n"
+"  -V, --version             näytä versiotiedot ja lopeta suoritus\n"
+"  [TEKSTIALA]               hae käännetty sanoma TEKSTIALA:sta\n"
+"  VIESTI-ID                 käännä VIESTI-ID (yksikkö)\n"
+"  VIESTI-ID-MONIKKO         käännä VIESTI-ID-MONIKKO (monikko)\n"
+"  COUNT                     valitse yksikkö/monikkomuoto tämän arvon\n"
+"                            perusteella\n"
 
 #: src/ngettext.c:229
 #, c-format, no-wrap
@@ -198,6 +216,11 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
+"Jos parametria TEKSTIALA ei anneta, ala päätellään muuttujan TEXTDOMAIN\n"
+"sisällön perusteella. Jos viestilistaa (engl. message catalog) ei löydetä\n"
+"vakinaisesta hakemistosta, muu sijainti voidaan määritellä ympäristömuuttu-\n"
+"jalla TEXTDOMAINDIR.\n"
+"Vakinainen hakemisto, josta haku suoritetaan: %s\n"
 
 #~ msgid "invalid argument `%s' for `%s'"
 #~ msgstr "virheellinen argumentti `%s' `%s':lle"
