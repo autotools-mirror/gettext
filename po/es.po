@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.2\n"
-"POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-06-11 18:08-0500\n"
+"Project-Id-Version: GNU gettext 0.11.5\n"
+"POT-Creation-Date: 2002-08-20 15:24+0200\n"
+"PO-Revision-Date: 2002-08-09 13:34-0500\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,8 +28,8 @@ msgstr "el argumento `%s' es ambiguo para `%s'"
 msgid "Valid arguments are:"
 msgstr "Los argumentos válidos son:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
-#: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:267
+#: src/urlget.c:204 src/xgettext.c:840 src/xgettext.c:853 src/xgettext.c:863
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "error al abrir el fichero \"%s\" para lectura"
@@ -262,7 +262,7 @@ msgstr ""
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
-#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:378
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:381
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -278,7 +278,7 @@ msgstr ""
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
-#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:383
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:386
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrito por %s.\n"
@@ -295,7 +295,7 @@ msgstr "faltan argumentos"
 #: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:248 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:537
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:540
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Pruebe `%s --help' para más información.\n"
@@ -377,7 +377,7 @@ msgstr ""
 #: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:314 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:634
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:637
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Comunicar los `bugs' a <bug-gnu-gettext@gnu.org>.\n"
 
@@ -433,8 +433,8 @@ msgstr "sólo se permite un fichero de entrada máximo"
 #: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
 #: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
 #: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
-#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:393
-#: src/xgettext.c:397
+#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:396
+#: src/xgettext.c:400
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s y %s son mutuamente excluyentes"
@@ -565,7 +565,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "se especificó un criterio de selección imposible (%d < n < %d)"
 
-#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:542
+#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:545
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Modo de empleo: %s [OPCIÓN] [FICHEROENTRADA]...\n"
@@ -596,7 +596,7 @@ msgstr ""
 "fichero PO para definirlos. Las posiciones dentro del fichero de todos\n"
 "los ficheros PO se conservarán.  \n"
 
-#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:558
+#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:561
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -690,7 +690,7 @@ msgstr ""
 "  -s, --sort-output        escribe la salida ordenada\n"
 "  -F, --sort-by-file       escribe la salida ordenada por fichero\n"
 
-#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:628
+#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:631
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1007,7 +1007,7 @@ msgstr ""
 "  -F, --sort-by-file       escribe la salida ordenada por fichero\n"
 
 # acepto sugerencia de em pero agrego un "el". mm
-#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:414
+#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:417
 msgid "no input file given"
 msgstr "no se especificó el fichero de entrada"
 
@@ -2570,8 +2570,8 @@ msgstr "fin de fichero dentro de una cadena"
 msgid "end-of-line within string"
 msgstr "fin de línea dentro de una cadena"
 
-#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
-#, fuzzy, c-format
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:214
+#, c-format
 msgid "file \"%s\" is truncated"
 msgstr "el fichero \"%s\" está truncado"
 
@@ -2580,15 +2580,15 @@ msgstr "el fichero \"%s\" está truncado"
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "el fichero \"%s\" contiene una cadena no terminada en NUL"
 
-#: src/read-mo.c:181 src/read-mo.c:285
+#: src/read-mo.c:181 src/read-mo.c:289
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "el fichero \"%s\" no está en el formato .mo de GNU"
 
-#: src/read-mo.c:191
-#, fuzzy, c-format
-msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr "el fichero \"%s\" contiene una cadena no terminada en NUL"
+#: src/read-mo.c:194
+#, c-format
+msgid "file \"%s\" contains a not NUL terminated string, at %s"
+msgstr "el fichero \"%s\" contiene una cadena no terminada en NUL en %s"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2718,7 +2718,7 @@ msgstr "%s:%d: atención: literal de cadena no finalizada"
 # mente el verbo poder en Castellano es mucho más flexible que en otros
 # idiomas. De todas maneras siempre se puede mirar otras traducciones.  em
 # ok. Acepto en 'no puede' a reserva de encontrar nuevos argumentos. mm
-#: src/x-po.c:106 src/xgettext.c:648
+#: src/x-po.c:106 src/xgettext.c:651
 msgid "this file may not contain domain directives"
 msgstr "este fichero no puede contener instrucciones de dominio"
 
@@ -2737,29 +2737,29 @@ msgstr "%s:%d: falta un número después del símbolo #"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: expresión de cadena inválida"
 
-#: src/xgettext.c:401
+#: src/xgettext.c:404
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "no se puede utilizar --join-existing cuando el resultado se escribe en la\n"
 "salida estándar (stdout)"
 
-#: src/xgettext.c:406
+#: src/xgettext.c:409
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext no puede funcionar sin palabras claves que buscar"
 
-#: src/xgettext.c:502
+#: src/xgettext.c:505
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 "atención: el fichero `%s' con extensión `%s'\n"
 "es desconocido; se intentará tipo C"
 
-#: src/xgettext.c:547
+#: src/xgettext.c:550
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extrae las cadenas traducibles a partir de un grupo de ficheros dados.\n"
 
-#: src/xgettext.c:552
+#: src/xgettext.c:555
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2768,7 +2768,7 @@ msgstr ""
 "Los argumentos obligatorios en las opciones largas también lo son para las \n"
 "opciones cortas. De forma similar se comportan los argumentos opcionales.\n"
 
-#: src/xgettext.c:567
+#: src/xgettext.c:570
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2785,14 +2785,14 @@ msgstr ""
 "                                  directorio DIR\n"
 "Si el fichero de salida es -, la salida será escrita a la salida estándar.\n"
 
-#: src/xgettext.c:576
-#, no-wrap
+#: src/xgettext.c:579
+#, fuzzy, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
 "                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
 "                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
-"                                   RST, Glade)\n"
+"                                   PHP, RST, Glade)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
@@ -2805,7 +2805,7 @@ msgstr ""
 "Por defecto, el lenguaje se adivina dependiendo de la extensión del fichero\n"
 "de entrada.\n"
 
-#: src/xgettext.c:587
+#: src/xgettext.c:590
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2821,7 +2821,7 @@ msgstr ""
 "                                  aquellas líneas que preceden a la palabra\n"
 "                                  clave) en el fichero de salida\n"
 
-#: src/xgettext.c:596
+#: src/xgettext.c:599
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2842,7 +2842,7 @@ msgstr ""
 "       --debug                    muestra con más detalle el reconocimiento\n"
 "                                  de las cadenas de formato\n"
 
-#: src/xgettext.c:606
+#: src/xgettext.c:609
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -2892,11 +2892,11 @@ msgstr ""
 "   -M, --msgstr-suffix[=CADENA]   utiliza la CADENA o \"\" como sufijo para las\n"
 "                                  líneas del msgstr\n"
 
-#: src/xgettext.c:828
+#: src/xgettext.c:831
 msgid "standard input"
 msgstr "entrada estándar"
 
-#: src/xgettext.c:943
+#: src/xgettext.c:946
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2906,10 +2906,7 @@ msgstr ""
 "gettext(\"\") regresa la línea de encabezado con la\n"
 "metainformación, no una cadena vacía.\n"
 
-#: src/xgettext.c:1299
+#: src/xgettext.c:1303
 #, c-format
 msgid "language `%s' unknown"
-msgstr "lenguaje `%s' desconocido"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "fallo en la lectura \"%s\" en la posición (offset) %ld"
+msgstr "idioma `%s' desconocido"
