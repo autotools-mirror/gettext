@@ -57,9 +57,10 @@ tmpfiles="$tmpfiles mcomm-test16.out"
 rm -f mcomm-test16.out
 
 : ${MSGCOMM=msgcomm}
-
+LC_MESSAGES=C LC_ALL= \
 ${MSGCOMM} --more-than=0 -o mcomm-test16.out \
-    mcomm-test16.in1 mcomm-test16.in2
+    mcomm-test16.in1 mcomm-test16.in2 2>&1 \
+  | grep -v 'warning: .* encodings' | grep -v '^ '
 
 tmpfiles="$tmpfiles mcomm-test16.ok"
 cat << EOF > mcomm-test16.ok
