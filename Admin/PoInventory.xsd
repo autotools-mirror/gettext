@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2000/10/XMLSchema">
+
+  <xsd:element name="PoInventory">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="domains" maxOccurs="1"/>
+        <xsd:element ref="teams" maxOccurs="1"/>
+        <xsd:element ref="PoFiles" maxOccurs="1"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="domains">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="domain" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="domain">
+    <xsd:complexType>
+      <xsd:attribute name="name" use="required" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="teams">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="team" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="team">
+    <xsd:complexType>
+      <xsd:attribute name="name" use="required" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="PoFiles">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="po" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="po">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="domain" use="required" type="xsd:string"/>
+          <xsd:attribute name="team" use="required" type="xsd:string"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
