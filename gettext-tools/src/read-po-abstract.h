@@ -137,11 +137,6 @@ extern void
        po_scan (abstract_po_reader_ty *pop, FILE *fp,
 		const char *real_filename, const char *logical_filename);
 
-/* Locate a PO file, open it, read it, dispatching to the various
-   abstract_po_reader_class_ty methods, and close it.  */
-extern void
-       po_scan_file (abstract_po_reader_ty *pop, const char *filename);
-
 /* Call the destructor and deallocate a abstract_po_reader_ty (or derived
    class) instance.  */
 extern void

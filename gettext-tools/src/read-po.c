@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "open-po.h"
 #include "xmalloc.h"
 #include "gettext.h"
 
@@ -453,20 +454,14 @@ read_po (FILE *fp, const char *real_filename, const char *logical_filename)
 msgdomain_list_ty *
 read_po_file (const char *filename)
 {
-  default_po_reader_ty *pop;
-  msgdomain_list_ty *mdlp;
+  char *real_filename;
+  FILE *fp = open_po_file (filename, &real_filename, true);
+  msgdomain_list_ty *result;
 
-  pop = default_po_reader_alloc (&default_methods);
-  pop->handle_comments = true;
-  pop->handle_filepos_comments = (line_comment != 0);
-  pop->allow_domain_directives = true;
-  pop->allow_duplicates = allow_duplicates;
-  pop->allow_duplicates_if_same_msgstr = false;
-  pop->mdlp = msgdomain_list_alloc (!pop->allow_duplicates);
-  pop->mlp = msgdomain_list_sublist (pop->mdlp, pop->domain, true);
-  po_lex_pass_obsolete_entries (true);
-  po_scan_file ((abstract_po_reader_ty *) pop, filename);
-  mdlp = pop->mdlp;
-  po_reader_free ((abstract_po_reader_ty *) pop);
-  return mdlp;
+  result = read_po (fp, real_filename, filename);
+
+  if (fp != stdin)
+    fclose (fp);
+
+  return result;
 }

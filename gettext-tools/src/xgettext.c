@@ -47,6 +47,7 @@
 #include "pathname.h"
 #include "strcase.h"
 #include "stpcpy.h"
+#include "open-po.h"
 #include "read-po-abstract.h"
 #include "message.h"
 #include "po-charset.h"
@@ -794,13 +795,18 @@ static abstract_po_reader_class_ty exclude_methods =
 
 
 static void
-read_exclusion_file (char *file_name)
+read_exclusion_file (char *filename)
 {
+  char *real_filename;
+  FILE *fp = open_po_file (filename, &real_filename, true);
   abstract_po_reader_ty *pop;
 
   pop = po_reader_alloc (&exclude_methods);
-  po_scan_file (pop, file_name);
+  po_scan (pop, fp, real_filename, filename);
   po_reader_free (pop);
+
+  if (fp != stdin)
+    fclose (fp);
 }
 
 

@@ -1,3 +1,13 @@
+2003-04-21  Bruno Haible  <bruno@clisp.org>
+
+	* read-po-abstract.h (po_scan_file): Remove declaration.
+	* read-po-abstract.c (po_scan_file): Remove function.
+	* read-po.c (read_po_file): Call read_po.
+	* msgfmt.c (read_po_file_msgfmt): Call open_po_file. Invoke po_scan
+	instead of po_scan_file.
+	* xgettext.c (read_exclusion_file): Call open_po_file. Invoke po_scan
+	instead of po_scan_file.
+
 2003-04-20  Bruno Haible  <bruno@clisp.org>
 
 	* open-po.h (open_po_file): Add argument 'exit_on_error'.

@@ -50,6 +50,7 @@
 
 #include "gettext.h"
 #include "message.h"
+#include "open-po.h"
 #include "read-po.h"
 
 #define _(str) gettext (str)
@@ -1538,6 +1539,8 @@ static default_po_reader_class_ty msgfmt_methods =
 static void
 read_po_file_msgfmt (char *filename)
 {
+  char *real_filename;
+  FILE *fp = open_po_file (filename, &real_filename, true);
   default_po_reader_ty *pop;
 
   pop = default_po_reader_alloc (&msgfmt_methods);
@@ -1555,6 +1558,9 @@ read_po_file_msgfmt (char *filename)
       pop->mlp = current_domain->mlp;
     }
   po_lex_pass_obsolete_entries (true);
-  po_scan_file ((abstract_po_reader_ty *) pop, filename);
+  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, filename);
   po_reader_free ((abstract_po_reader_ty *) pop);
+
+  if (fp != stdin)
+    fclose (fp);
 }
