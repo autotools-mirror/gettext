@@ -1,3 +1,10 @@
+2003-01-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (AM_GNU_GETTEXT): Don't document use-libtool, as it's
+	useless.
+	Reported by Simon Josefsson <jas@extundo.com> and
+	Alexandre Duret-Lutz <duret_g@lrde.epita.fr>.
+
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Make use of += for variables.

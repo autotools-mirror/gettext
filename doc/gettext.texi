@@ -59,7 +59,7 @@
 This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
-Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2003 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -94,7 +94,7 @@ by the Foundation.
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 1995, 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
+Copyright @copyright{} 1995-1998, 2001-2003 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -6328,17 +6328,16 @@ syntax is
 AM_GNU_GETTEXT([@var{intlsymbol}], [@var{needsymbol}], [@var{intldir}])
 @end example
 
-@var{intlsymbol} can be one of @samp{external}, @samp{no-libtool},
-@samp{use-libtool}. The default (if it is not specified or empty) is
-@samp{no-libtool}. @var{intlsymbol} should be @samp{external} for packages
-with no @file{intl/} directory, and @samp{no-libtool} or @samp{use-libtool}
-for packages with an @file{intl/} directory. If @var{intlsymbol} is
-@samp{use-libtool}, then a libtool library
-@code{$(top_builddir)/intl/libintl.la} will be created (shared and/or static,
-depending on @code{--@{enable,disable@}-@{shared,static@}} and on the
-presence of @code{AM_DISABLE_SHARED}). If @var{intlsymbol} is
-@samp{no-libtool}, a static library
-@code{$(top_builddir)/intl/libintl.a} will be created.
+@c We don't document @var{intlsymbol} = @samp{use-libtool} here, because
+@c it is of no use for packages other than GNU gettext itself. (Such packages
+@c are not allowed to install the shared libintl. But if they use libtool,
+@c then it is in order to install shared libraries that depend on libintl.)
+@var{intlsymbol} can be @samp{external} or @samp{no-libtool}.  The default
+(if it is not specified or empty) is @samp{no-libtool}.  @var{intlsymbol}
+should be @samp{external} for packages with no @file{intl/} directory,
+and @samp{no-libtool} for packages with an @file{intl/} directory.  In
+the latter case, a static library @code{$(top_builddir)/intl/libintl.a}
+will be created.
 
 If @var{needsymbol} is specified and is @samp{need-ngettext}, then GNU
 gettext implementations (in libc or libintl) without the @code{ngettext()}
