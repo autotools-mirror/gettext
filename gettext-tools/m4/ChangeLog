@@ -1,3 +1,8 @@
+2003-04-05  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.m4 (AC_RELOCATABLE_LIBRARY): Use the final value of
+	${prefix}, not the current value.
+
 2003-03-18  Bruno Haible  <bruno@clisp.org>
 
 	* onceonly.m4: Update from gnulib.

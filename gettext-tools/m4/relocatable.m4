@@ -64,7 +64,12 @@ AC_DEFUN([AC_RELOCATABLE_LIBRARY],
     ], RELOCATABLE=no)
   AC_SUBST(RELOCATABLE)
   dnl Easier to put this here once, instead of into the DEFS of each Makefile.
-  AC_DEFINE_UNQUOTED([INSTALLPREFIX], ["${prefix}"],
+  if test "X$prefix" = "XNONE"; then
+    reloc_final_prefix="$ac_default_prefix"
+  else
+    reloc_final_prefix="$prefix"
+  fi
+  AC_DEFINE_UNQUOTED([INSTALLPREFIX], ["${reloc_final_prefix}"],
     [Define to the value of ${prefix}, as a string.])
 ])
 
