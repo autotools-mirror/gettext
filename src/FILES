@@ -126,6 +126,10 @@ po-time.h
 po-time.c
                 Create time stamps for use in PO/POT files.
 
+plural-table.h
+plural-table.c
+                Table of plural form formulas.
+
 +-------------- The 'msginit' program
 | hostname.c
 |               The 'hostname' program.
@@ -164,6 +168,7 @@ format-lisp.c   Format string handling for Common Lisp.
 format-elisp.c  Format string handling for Emacs Lisp.
 format-librep.c Format string handling for librep.
 format-java.c   Format string handling for Java.
+format-awk.c    Format string handling for awk.
 format-pascal.c Format string handling for Object Pascal.
 format-ycp.c    Format string handling for YCP.
 format-tcl.c    Format string handling for Tcl.
@@ -199,6 +204,9 @@ format.c        Table of the language dependent format string handlers.
 | x-po.h
 | x-po.c
 |               String extractor from PO files.
+| x-python.h
+| x-python.c
+|               String extractor for Python.
 | x-lisp.h
 | x-lisp.c
 |               String extractor for Common Lisp.
@@ -211,6 +219,9 @@ format.c        Table of the language dependent format string handlers.
 | x-java.h
 | x-java.l
 |               String extractor for Java.
+| x-awk.h
+| x-awk.c
+|               String extractor for awk.
 | x-ycp.h
 | x-ycp.c
 |               String extractor for YCP.
@@ -220,6 +231,9 @@ format.c        Table of the language dependent format string handlers.
 | x-rst.h
 | x-rst.c
 |               String extractor from .rst files, for Object Pascal.
+| x-glade.h
+| x-glade.c
+|               String extractor from .glade files, GNOME GUI descriptions.
 | xgettext.c
 |               Main source for the 'xgettext' program.
 |

@@ -4,4 +4,4 @@ should have/provide.  If you have further suggestions please tell me.
 * documentation, documentation, documentation ...
 
 * make xgettext understand other languages beside C/C++: Shell scripts,
-  Perl, Tcl?, Scheme
+  Perl, Scheme

@@ -55,8 +55,8 @@ following file list.
       $prefix/doc/gettext/javadoc2/*
       $prefix/doc/gettext/gettext_*.html
       $prefix/info/gettext.info*
-      $prefix/lib/libgettextlib.*
-      $prefix/lib/libgettextsrc.*
+      $prefix/lib/libgettextlib*
+      $prefix/lib/libgettextsrc*
       $prefix/lib/gettext/*
       $prefix/share/locale/*/LC_MESSAGES/gettext.mo
       $prefix/share/gettext/config.rpath
@@ -65,6 +65,7 @@ following file list.
       $prefix/share/gettext/projects/*
       $prefix/share/gettext/gettext.h
       $prefix/share/gettext/gettext.jar
+      $prefix/share/gettext/msgunfmt.tcl
       $prefix/share/aclocal/codeset.m4
       $prefix/share/aclocal/gettext.m4
       $prefix/share/aclocal/glibc21.m4
