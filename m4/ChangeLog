@@ -1,3 +1,9 @@
+2002-06-14  Bruno Haible  <bruno@clisp.org>
+
+	* lib-link.m4 (AC_LIB_RPATH): New option --disable-rpath.
+	(AC_LIB_LINKFLAGS_BODY): Don't hardcode library paths if
+	--disable-rpath was given.
+
 2002-06-12  Bruno Haible  <bruno@clisp.org>
 
 	* lcmessage.m4 (AM_LC_MESSAGES): Don't test ac_cv_header_locale_h here.
