@@ -28,7 +28,7 @@
 #endif
 
 /* Get va_list.  */
-#if __STDC__ || defined __cplusplus
+#if __STDC__ || defined __SUNPRO_C || defined __cplusplus
 # include <stdarg.h>
 #else
 # include <varargs.h>
