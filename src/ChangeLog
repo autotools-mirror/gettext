@@ -1,3 +1,12 @@
+2001-03-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.c [TESTS]: When testing, set HAVE_SETLOCALE.
+	(main): Expand escape sequences also if no domain is given. Don't need
+	to call bindtextdomain if there are no string arguments.
+	* ngettext.c: New file.
+	* Makefile.am (bin_PROGRAMS): Add ngettext.
+	(ngettext_SOURCES): New variable.
+
 2001-03-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (extension_to_language): Recognize "*.cpp" and "*.hpp" as

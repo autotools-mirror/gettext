@@ -18,6 +18,7 @@ src/msgcomm.c
 src/msgfmt.c
 src/msgmerge.c
 src/msgunfmt.c
+src/ngettext.c
 src/open-po.c
 src/po-gram-gen.c
 src/po-lex.h

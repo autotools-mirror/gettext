@@ -19,7 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-bin_PROGRAMS = gettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
+bin_PROGRAMS = gettext ngettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h \
 str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
@@ -39,6 +39,7 @@ YACC = @YACC@ -d
 
 # Source dependencies.
 gettext_SOURCES = gettext.c
+ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-lex.c po.c str-list.c dir-list.c
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c \

@@ -232,10 +232,10 @@ msgstr ""
 msgid "format specifications for argument %lu are not the same"
 msgstr ""
 
-msgid "missing arguments"
+msgid "too many arguments"
 msgstr ""
 
-msgid "too many arguments"
+msgid "missing arguments"
 msgstr ""
 
 #, c-format, no-wrap
