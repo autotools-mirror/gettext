@@ -1,3 +1,7 @@
+2003-01-23  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge.texi: Document option -N/--no-fuzzy-matching.
+
 2003-01-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (AM_GNU_GETTEXT): Don't document use-libtool, as it's

@@ -10,6 +10,9 @@ Version 0.11.6 - October 2002
   xgettext has a new option --from-code that specifies the encoding of the
   source files. The resulting POT files are UTF-8 encoded.
 
+* msgmerge has a new option -N/--no-fuzzy-matching that inhibits the fuzzy
+  search for untranslated messages.
+
 * Compatibility with automake-1.7.
 
 Version 0.11.5 - August 2002

@@ -120,6 +120,12 @@ The backup suffix is @samp{~}, unless set with @code{--suffix} or the
 @opindex --multi-domain@r{, @code{msgmerge} option}
 Apply @var{ref}.pot to each of the domains in @var{def}.po.
 
+@item -N
+@itemx --no-fuzzy-matching
+@opindex -N@r{, @code{msgmerge} option}
+@opindex --no-fuzzy-matching@r{, @code{msgmerge} option}
+Do not use fuzzy matching when an exact match is not found.  This may speed
+up the operation considerably.
 @end table
 
 @subsection Output details

@@ -66,6 +66,9 @@ static int force_po;
 /* Apply the .pot file to each of the domains in the PO file.  */
 static bool multi_domain_mode = false;
 
+/* Determines whether to use fuzzy matching.  */
+static bool use_fuzzy_matching = true;
+
 /* List of user-specified compendiums.  */
 static message_list_list_ty *compendiums;
 
@@ -87,6 +90,7 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "multi-domain", no_argument, NULL, 'm' },
   { "no-escape", no_argument, NULL, 'e' },
+  { "no-fuzzy-matching", no_argument, NULL, 'N' },
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "output-file", required_argument, NULL, 'o' },
@@ -195,6 +199,10 @@ main (int argc, char **argv)
 
       case 'm':
 	multi_domain_mode = true;
+	break;
+
+      case 'N':
+	use_fuzzy_matching = false;
 	break;
 
       case 'o':
@@ -446,6 +454,7 @@ environment variable.\n\
       printf (_("\
 Operation modifiers:\n\
   -m, --multi-domain          apply ref.pot to each of the domains in def.po\n\
+  -N, --no-fuzzy-matching     do not use fuzzy matching\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -827,8 +836,10 @@ match_domain (const char *fn1, const char *fn2,
 	  /* If the message was not defined at all, try to find a very
 	     similar message, it could be a typo, or the suggestion may
 	     help.  */
-	  defmsg = message_list_list_search_fuzzy (definitions, refmsg->msgid);
-	  if (defmsg)
+	  if (use_fuzzy_matching
+	      && ((defmsg =
+		     message_list_list_search_fuzzy (definitions,
+						     refmsg->msgid)) != NULL))
 	    {
 	      message_ty *mp;
 
