@@ -82,6 +82,7 @@ msgstr ""
 
 #. Remind user of the login name he chose
 #: clients/inst_ask_config.ycp:72
+#, ycp-format
 msgid "You can log in as \"%1\"."
 msgstr "Sie können sich als \"%1\" einloggen."
 
