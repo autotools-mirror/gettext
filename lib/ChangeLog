@@ -1,3 +1,13 @@
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* hash.c (lookup_2): Remove function, identical to 'lookup'.
+	(init_hash): Remove test for NULL that can never succeed.
+	(insert_entry_2): Resize at 75%, not 90%. Call 'lookup' instead of
+	'lookup_2'.
+	(compute_hashval): Shift by 9 bits, not by 4 bits. This drastically
+	improves the quality of the hash function, especially for short
+	strings.
+
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* javaexec.sh.in: Use HAVE_JAVA instead of HAVE_JAVA_JVM.

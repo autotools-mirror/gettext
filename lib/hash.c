@@ -85,9 +85,6 @@ static void insert_entry_2 PARAMS ((hash_table *htab,
 static size_t lookup PARAMS ((hash_table *htab,
 			      const void *key, size_t keylen,
 			      unsigned long int hval));
-static size_t lookup_2 PARAMS ((hash_table *htab,
-				const void *key, size_t keylen,
-				unsigned long int hval));
 static unsigned long compute_hashval PARAMS ((const void *key, size_t keylen));
 static int is_prime PARAMS ((unsigned long int candidate));
 
@@ -105,8 +102,6 @@ init_hash (htab, init_size)
   htab->filled = 0;
   htab->first = NULL;
   htab->table = (void *) xcalloc (init_size + 1, sizeof (hash_entry));
-  if (htab->table == NULL)
-    return -1;
 
   obstack_init (&htab->mem_pool);
 
@@ -177,9 +172,9 @@ insert_entry_2 (htab, key, keylen, hval, idx, data)
     }
 
   ++htab->filled;
-  if (100 * htab->filled > 90 * htab->size)
+  if (100 * htab->filled > 75 * htab->size)
     {
-      /* Table is filled more than 90%.  Resize the table.  */
+      /* Table is filled more than 75%.  Resize the table.  */
       unsigned long int old_size = htab->size;
 
       htab->size = next_prime (htab->size * 2);
@@ -191,8 +186,8 @@ insert_entry_2 (htab, key, keylen, hval, idx, data)
 	if (table[idx].used)
 	  insert_entry_2 (htab, table[idx].key, table[idx].keylen,
 			  table[idx].used,
-			  lookup_2 (htab, table[idx].key, table[idx].keylen,
-				    table[idx].used),
+			  lookup (htab, table[idx].key, table[idx].keylen,
+				  table[idx].used),
 			  table[idx].data);
 
       free (table);
@@ -246,55 +241,12 @@ iterate_table (htab, ptr, key, keylen, data)
 }
 
 
-static size_t
-lookup (htab, key, keylen, hval)
-     hash_table *htab;
-     const void *key;
-     size_t keylen;
-     unsigned long hval;
-{
-  unsigned long hash;
-  size_t idx;
-  hash_entry *table = (hash_entry *) htab->table;
-
-  /* First hash function: simply take the modul but prevent zero.  */
-  hash = 1 + hval % htab->size;
-
-  idx = hash;
-
-  if (table[idx].used)
-    {
-      if (table[idx].used == hval && table[idx].keylen == keylen
-	  && memcmp (key, table[idx].key, keylen) == 0)
-	return idx;
-
-      /* Second hash function as suggested in [Knuth].  */
-      hash = 1 + hval % (htab->size - 2);
-
-      do
-	{
-	  if (idx <= hash)
-	    idx = htab->size + idx - hash;
-	  else
-	    idx -= hash;
-
-	  /* If entry is found use it.  */
-	  if (table[idx].used == hval && table[idx].keylen == keylen
-	      && memcmp (key, table[idx].key, keylen) == 0)
-	    return idx;
-	}
-      while (table[idx].used);
-    }
-  return idx;
-}
-
-
 /* References:
    [Aho,Sethi,Ullman] Compilers: Principles, Techniques and Tools, 1986
    [Knuth]	      The Art of Computer Programming, part3 (6.4) */
 
 static size_t
-lookup_2 (htab, key, keylen, hval)
+lookup (htab, key, keylen, hval)
      hash_table *htab;
      const void *key;
      size_t keylen;
@@ -342,7 +294,7 @@ compute_hashval (key, keylen)
      size_t keylen;
 {
   size_t cnt;
-  unsigned long int hval, g;
+  unsigned long int hval;
 
   /* Compute the hash value for the given string.  The algorithm
      is taken from [Aho,Sethi,Ullman].  */
@@ -350,14 +302,8 @@ compute_hashval (key, keylen)
   hval = keylen;
   while (cnt < keylen)
     {
-      hval <<= 4;
-      hval += ((char *) key)[cnt++];
-      g = hval & ((unsigned long) 0xf << (LONGBITS - 4));
-      if (g != 0)
-	{
-	  hval ^= g >> (LONGBITS - 8);
-	  hval ^= g;
-	}
+      hval = (hval << 9) | (hval >> (LONGBITS - 9));
+      hval += (unsigned long int) *(((const char *) key) + cnt++);
     }
   return hval != 0 ? hval : ~((unsigned long) 0);
 }
