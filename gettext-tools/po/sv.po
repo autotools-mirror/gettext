@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.4
+# Revision: 1.5
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.12\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-05-22 16:06+0200\n"
-"PO-Revision-Date: 2003-05-22 18:27+0200\n"
+"PO-Revision-Date: 2003-05-25 12:24+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -200,7 +200,7 @@ msgstr "I direktiv nummer %u följs symbolen efter \"<\" inte av \">\"."
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
-"Strängen refererar till argument nummer %u men ugnorerar argument nummer %u."
+"Strängen refererar till argument nummer %u men ignorerar argument nummer %u."
 
 #: src/format-c.c:811 src/format-python.c:516
 #, c-format
@@ -728,7 +728,7 @@ msgstr ""
 #: src/msgattrib.c:413
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
 msgstr ""
-"      --clear-obsolete        ta bort föråldrad-markering från alla "
+"      --clear-obsolete        ta bort föråldradmarkering från alla "
 "meddelanden\n"
 
 #: src/msgattrib.c:415
@@ -771,7 +771,7 @@ msgstr "  -P, --properties-input      infil har \"Java .properties\"-syntax\n"
 #: src/msginit.c:378 src/msgmerge.c:481 src/msgunfmt.c:378 src/msguniq.c:337
 #: src/xgettext.c:693
 msgid "Output details:\n"
-msgstr "Reultatdetaljer:\n"
+msgstr "Resultatdetaljer:\n"
 
 #: src/msgattrib.c:431 src/msgcat.c:378 src/msgcomm.c:379 src/msgconv.c:310
 #: src/msgen.c:286 src/msgmerge.c:483 src/msgunfmt.c:380 src/msguniq.c:344
@@ -780,6 +780,7 @@ msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
 "  -e, --no-escape             använd inte C-kontrollsekvenser i resultatet\n"
+"                                (normalläge)\n"
 
 #: src/msgattrib.c:433 src/msgcat.c:380 src/msgcomm.c:381 src/msgconv.c:312
 #: src/msgen.c:288 src/msgfilter.c:406 src/msgmerge.c:485 src/msgunfmt.c:382
@@ -1216,7 +1217,8 @@ msgstr ""
 msgid ""
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
-"  -n, --quiet, --silent       undertryck automatisk utskrift av resultat\n"
+"  -n, --quiet, --silent       undertryck automatisk utskrift av "
+"mönsterutrymmet\n"
 
 #: src/msgfilter.c:404 src/msggrep.c:487
 msgid ""
@@ -2132,7 +2134,7 @@ msgstr "  -N, --no-fuzzy-matching     använd inte luddig jämförelse\n"
 
 #: src/msgmerge.c:517
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
-msgstr "  -q, --quiet, --silent       visa inte framstegsindikatorer\n"
+msgstr "  -q, --quiet, --silent       visa inte förloppsindikatorer\n"
 
 #: src/msgmerge.c:1004
 msgid "this message should define plural forms"
