@@ -35,6 +35,9 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
+
 /* The relevant parts of the Smalltalk syntax are:
 
      stringliteral ::= string | stringconst | symconst
@@ -439,7 +442,11 @@ static void
 phase2_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
-    phase2_pushback[phase2_pushback_length++] = *tp;
+    {
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
+      phase2_pushback[phase2_pushback_length++] = *tp;
+    }
 }
 
 

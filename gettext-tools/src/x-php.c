@@ -36,6 +36,8 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The PHP syntax is defined in phpdoc/manual/langref.html.
    See also php-4.1.0/Zend/zend_language_scanner.l.  */
@@ -178,6 +180,8 @@ phase1_ungetc (int c)
       if (c == '\n')
 	--line_number;
 
+      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+	abort ();
       phase1_pushback[phase1_pushback_length++] = c;
     }
 }
@@ -515,7 +519,11 @@ static void
 phase2_ungetc (int c)
 {
   if (c != EOF)
-    phase2_pushback[phase2_pushback_length++] = c;
+    {
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
+      phase2_pushback[phase2_pushback_length++] = c;
+    }
 }
 
 #endif
@@ -711,7 +719,11 @@ static void
 phase3_ungetc (int c)
 {
   if (c != EOF)
-    phase3_pushback[phase3_pushback_length++] = c;
+    {
+      if (phase3_pushback_length == SIZEOF (phase3_pushback))
+	abort ();
+      phase3_pushback[phase3_pushback_length++] = c;
+    }
 }
 #endif
 

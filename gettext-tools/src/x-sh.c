@@ -38,6 +38,9 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
+
 /* The sh syntax is defined in POSIX:2001, see
      http://www.opengroup.org/onlinepubs/007904975/utilities/xcu_chap02.html
    Summary of sh syntax:
@@ -218,6 +221,8 @@ phase1_ungetc (int c)
       /* FALLTHROUGH */
 
     default:
+      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+	abort ();
       phase1_pushback[phase1_pushback_length++] = c;
       break;
     }
@@ -672,6 +677,8 @@ phase2_ungetc (int c)
       /* FALLTHROUGH */
 
     default:
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
       phase2_pushback[phase2_pushback_length++] = c;
       break;
     }

@@ -38,6 +38,8 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The YCP syntax is defined in libycp/doc/syntax.html.
    See also libycp/src/scanner.ll.  */
@@ -296,7 +298,11 @@ static void
 phase2_ungetc (int c)
 {
   if (c != EOF)
-    phase2_pushback[phase2_pushback_length++] = c;
+    {
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
+      phase2_pushback[phase2_pushback_length++] = c;
+    }
 }
 
 

@@ -43,6 +43,8 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The Tcl syntax is defined in the Tcl.n manual page.
    Summary of Tcl syntax:
@@ -223,6 +225,8 @@ phase1_ungetc (int c)
       /* FALLTHROUGH */
 
     default:
+      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+	abort ();
       phase1_pushback[phase1_pushback_length++] = c;
       break;
     }
@@ -307,6 +311,8 @@ phase2_ungetc (int c)
 	  ++brace_depth;
 	  break;
 	}
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
       phase2_pushback[phase2_pushback_length++] = c;
     }
 }

@@ -42,7 +42,10 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
+
 #define max(a,b) ((a) > (b) ? (a) : (b))
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The Python syntax is defined in the Python Reference Manual
@@ -185,6 +188,8 @@ phase1_ungetc (int c)
       if (c == '\n')
 	--line_number;
 
+      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+	abort ();
       phase1_pushback[phase1_pushback_length++] = c;
     }
 }
@@ -951,7 +956,11 @@ static void
 phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
-    phase5_pushback[phase5_pushback_length++] = *tp;
+    {
+      if (phase5_pushback_length == SIZEOF (phase5_pushback))
+	abort ();
+      phase5_pushback[phase5_pushback_length++] = *tp;
+    }
 }
 
 

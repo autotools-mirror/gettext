@@ -40,6 +40,8 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The Java syntax is defined in the
      Java Language Specification, Second Edition,
@@ -190,10 +192,18 @@ phase1_ungetc (int c)
 	      && phase1_pushback[phase1_pushback_length - 1] >= MULTIPLE_U (0))
 	    phase1_pushback[phase1_pushback_length - 1]++;
 	  else
-	    phase1_pushback[phase1_pushback_length++] = MULTIPLE_U (1);
+	    {
+	      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+		abort ();
+	      phase1_pushback[phase1_pushback_length++] = MULTIPLE_U (1);
+	    }
 	}
       else
-	phase1_pushback[phase1_pushback_length++] = c;
+	{
+	  if (phase1_pushback_length == SIZEOF (phase1_pushback))
+	    abort ();
+	  phase1_pushback[phase1_pushback_length++] = c;
+	}
     }
 }
 
@@ -290,7 +300,11 @@ static void
 phase2_ungetc (int c)
 {
   if (c != P2_EOF)
-    phase2_pushback[phase2_pushback_length++] = c;
+    {
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
+      phase2_pushback[phase2_pushback_length++] = c;
+    }
 }
 
 
@@ -356,6 +370,8 @@ phase3_ungetc (int c)
     {
       if (c == '\n')
 	--line_number;
+      if (phase3_pushback_length == SIZEOF (phase3_pushback))
+	abort ();
       phase3_pushback[phase3_pushback_length++] = c;
     }
 }
@@ -1126,7 +1142,11 @@ static void
 phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
-    phase5_pushback[phase5_pushback_length++] = *tp;
+    {
+      if (phase5_pushback_length == SIZEOF (phase5_pushback))
+	abort ();
+      phase5_pushback[phase5_pushback_length++] = *tp;
+    }
 }
 
 
@@ -1203,7 +1223,11 @@ static void
 phase6_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
-    phase6_pushback[phase6_pushback_length++] = *tp;
+    {
+      if (phase6_pushback_length == SIZEOF (phase6_pushback))
+	abort ();
+      phase6_pushback[phase6_pushback_length++] = *tp;
+    }
 }
 
 

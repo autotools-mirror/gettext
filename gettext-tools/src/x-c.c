@@ -39,6 +39,8 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The ANSI C standard defines several phases of translation:
 
@@ -436,6 +438,8 @@ phase1_ungetc (int c)
       /* FALLTHROUGH */
 
     default:
+      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+	abort ();
       phase1_pushback[phase1_pushback_length++] = c;
       break;
     }
@@ -502,7 +506,11 @@ static void
 phase2_ungetc (int c)
 {
   if (c != EOF)
-    phase2_pushback[phase2_pushback_length++] = c;
+    {
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
+      phase2_pushback[phase2_pushback_length++] = c;
+    }
 }
 
 
@@ -539,7 +547,11 @@ static void
 phase3_ungetc (int c)
 {
   if (c != EOF)
-    phase3_pushback[phase3_pushback_length++] = c;
+    {
+      if (phase3_pushback_length == SIZEOF (phase3_pushback))
+	abort ();
+      phase3_pushback[phase3_pushback_length++] = c;
+    }
 }
 
 
@@ -1167,7 +1179,11 @@ static void
 phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
-    phase5_pushback[phase5_pushback_length++] = *tp;
+    {
+      if (phase5_pushback_length == SIZEOF (phase5_pushback))
+	abort ();
+      phase5_pushback[phase5_pushback_length++] = *tp;
+    }
 }
 
 
@@ -1306,7 +1322,11 @@ static void
 phase6_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
-    phase6_pushback[phase6_pushback_length++] = *tp;
+    {
+      if (phase6_pushback_length == SIZEOF (phase6_pushback))
+	abort ();
+      phase6_pushback[phase6_pushback_length++] = *tp;
+    }
 }
 
 

@@ -1,5 +1,37 @@
 2003-12-14  Bruno Haible  <bruno@clisp.org>
 
+	* x-c.c (SIZEOF): New macro.
+	(phase1_ungetc): Verify that the pushback buffer's size is sufficient.
+	(phase2_ungetc): Likewise.
+	(phase3_ungetc): Likewise.
+	(phase5_unget): Likewise.
+	(phase6_unget): Likewise.
+	* x-java.c (SIZEOF): New macro.
+	(phase1_ungetc): Verify that the pushback buffer's size is sufficient.
+	(phase2_ungetc): Likewise.
+	(phase3_ungetc): Likewise.
+	(phase5_unget): Likewise.
+	(phase6_unget): Likewise.
+	* x-php.c (SIZEOF): New macro.
+	(phase1_ungetc): Verify that the pushback buffer's size is sufficient.
+	(phase2_ungetc): Likewise.
+	(phase3_ungetc): Likewise.
+	* x-python.c (SIZEOF): New macro.
+	(phase1_ungetc): Verify that the pushback buffer's size is sufficient.
+	(phase5_unget): Likewise.
+	* x-sh.c (SIZEOF): New macro.
+	(phase1_ungetc): Verify that the pushback buffer's size is sufficient.
+	(phase2_ungetc): Likewise.
+	* x-smalltalk.c (SIZEOF): New macro.
+	(phase2_unget): Verify that the pushback buffer's size is sufficient.
+	* x-tcl.c (SIZEOF): New macro.
+	(phase1_ungetc): Verify that the pushback buffer's size is sufficient.
+	(phase2_ungetc): Likewise.
+	* x-ycp.c (SIZEOF): New macro.
+	(phase2_unget): Verify that the pushback buffer's size is sufficient.
+
+2003-12-14  Bruno Haible  <bruno@clisp.org>
+
 	* x-c.c (phase1_pushback): Reduce size to 2.
 	(phase2_pushback): Reduce size to 1.
 	(phase3_pushback): Reduce size to 2.
