@@ -1,5 +1,9 @@
 2001-11-18  Karl Eichwalder  <ke@suse.de>
 
+	* po-mode.el (po-help-display-string): Adjust it.
+
+2001-11-18  Karl Eichwalder  <ke@suse.de>
+
 	* po-mode.el (po-team-name-to-code): Fix syntax for the last entry
 	(Zulu).
 

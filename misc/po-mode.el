@@ -621,7 +621,7 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
   (_"\
 PO Mode Summary           Next Previous            Miscellaneous
 *: Later, /: Docum        n    p    Any type       .     Redisplay
-                          /t   /T Translated       /v    Version info
+                          t    T    Translated     /v    Version info
 Moving around             f    F    Fuzzy          ?, h  This help
 <    First if any         o    O    Obsolete       =     Current index
 >    Last if any          u    U    Untranslated   0     Other window
@@ -629,7 +629,7 @@ Moving around             f    F    Fuzzy          ?, h  This help
                         Msgstr Comments            M     Mail officially
 Modifying entries         RET  #    Call editor    _     Undo
 TAB   Remove fuzzy mark   k    K    Kill to        E     Edit out full
-/DEL  Fuzzy or fade out   w    W    Copy to        Q     Forceful quit
+DEL   Fuzzy or fade out   w    W    Copy to        Q     Forceful quit
 LFD   Init with msgid     y    Y    Yank from      q     Confirm and quit
 
 gettext Keyword Marking                            Position Stack
@@ -639,7 +639,7 @@ M-.  Change mark, mark    *M-C  Select, save       x  Exchange current/top
 
 Program Sources           Auxiliary Files          Lexicography
 s    Cycle reference      a    Cycle file          *l    Lookup translation
-M-s  Select reference     C-cC-a  Select file      *M-l  Add/edit translation
+M-s  Select reference     C-c C-a  Select file     *M-l  Add/edit translation
 S    Consider path        A    Consider PO file    *L    Consider lexicon
 M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
 ")
