@@ -1,3 +1,16 @@
+2004-04-28  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (ISSLASH, IS_ABSOLUTE_PATH, IS_PATH_WITH_DIR): Treat
+	Cygwin like Windows, since it now accepts Windows pathnames.
+	* l10nflist.c (ISSLASH, IS_ABSOLUTE_PATH): Treat Cygwin like Windows,
+	since it now accepts Windows pathnames.
+	* localcharset.c (ISSLASH): Treat Cygwin like Windows, since it now
+	accepts Windows pathnames.
+	* relocatable.c (ISSLASH, IS_PATH_WITH_DIR, FILESYSTEM_PREFIX_LEN):
+	Treat Cygwin like Windows, since it now accepts Windows pathnames.
+	(compute_curr_prefix): Likewise.
+	Reported by Derek Robert Price <derek@ximbiot.com>.
+
 2004-04-23  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.c (get_charset_aliases): Allow the CHARSETALIASDIR
