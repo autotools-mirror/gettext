@@ -2,7 +2,7 @@
 # Output a system dependent set of variables, describing how to set the
 # run time search path of shared libraries in an executable.
 #
-#   Copyright 1996-2002 Free Software Foundation, Inc.
+#   Copyright 1996-2003 Free Software Foundation, Inc.
 #   Taken from GNU libtool, 2001
 #   Originally by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 #
@@ -358,8 +358,6 @@ fi
 
 # Check dynamic linker characteristics
 libname_spec='lib$name'
-sys_lib_dlsearch_path_spec="/lib /usr/lib"
-sys_lib_search_path_spec="/lib /usr/lib /usr/local/lib"
 case "$host_os" in
   aix3*)
     shlibext=so
@@ -375,8 +373,6 @@ case "$host_os" in
     ;;
   bsdi4*)
     shlibext=so
-    sys_lib_search_path_spec="/shlib /usr/lib /usr/X11/lib /usr/contrib/lib /lib /usr/local/lib"
-    sys_lib_dlsearch_path_spec="/shlib /usr/lib /usr/local/lib"
     ;;
   cygwin* | mingw* | pw32*)
     case $GCC,$host_os in
@@ -385,7 +381,6 @@ case "$host_os" in
         ;;
       yes,mingw*)
         shlibext=dll
-        sys_lib_search_path_spec=`$CC -print-search-dirs | grep "^libraries:" | sed -e "s/^libraries://" -e "s/;/ /g" -e "s,=/,/,g"`
         ;;
       yes,pw32*)
         shlibext=dll
@@ -424,8 +419,6 @@ case "$host_os" in
         esac
         ;;
     esac
-    sys_lib_search_path_spec="/usr/lib${libsuff} /lib${libsuff} /usr/local/lib${libsuff}"
-    sys_lib_dlsearch_path_spec="/usr/lib${libsuff} /lib${libsuff}"
     ;;
   linux-gnuoldld* | linux-gnuaout* | linux-gnucoff*)
     ;;
@@ -447,8 +440,6 @@ case "$host_os" in
     ;;
   osf3* | osf4* | osf5*)
     shlibext=so
-    sys_lib_search_path_spec="/usr/shlib /usr/ccs/lib /usr/lib/cmplrs/cc /usr/lib /usr/local/lib /var/shlib"
-    sys_lib_dlsearch_path_spec="$sys_lib_search_path_spec"
     ;;
   sco3.2v5*)
     shlibext=so
@@ -461,11 +452,6 @@ case "$host_os" in
     ;;
   sysv4 | sysv4.2uw2* | sysv4.3* | sysv5*)
     shlibext=so
-    case "$host_vendor" in
-      motorola)
-        sys_lib_search_path_spec='/lib /usr/lib /usr/ccs/lib'
-        ;;
-    esac
     ;;
   uts4*)
     shlibext=so
@@ -483,8 +469,6 @@ esac
 sed_quote_subst='s/\(["`$\\]\)/\\\1/g'
 escaped_wl=`echo "X$wl" | sed -e 's/^X//' -e "$sed_quote_subst"`
 escaped_hardcode_libdir_flag_spec=`echo "X$hardcode_libdir_flag_spec" | sed -e 's/^X//' -e "$sed_quote_subst"`
-escaped_sys_lib_search_path_spec=`echo "X$sys_lib_search_path_spec" | sed -e 's/^X//' -e "$sed_quote_subst"`
-escaped_sys_lib_dlsearch_path_spec=`echo "X$sys_lib_dlsearch_path_spec" | sed -e 's/^X//' -e "$sed_quote_subst"`
 
 sed -e 's/^\([a-zA-Z0-9_]*\)=/acl_cv_\1=/' <<EOF
 
@@ -511,11 +495,5 @@ hardcode_direct="$hardcode_direct"
 # Set to yes if using the -LDIR flag during linking hardcodes DIR into the
 # resulting binary.
 hardcode_minus_L="$hardcode_minus_L"
-
-# Compile-time system search path for libraries
-sys_lib_search_path_spec="$escaped_sys_lib_search_path_spec"
-
-# Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="$escaped_sys_lib_dlsearch_path_spec"
 
 EOF
