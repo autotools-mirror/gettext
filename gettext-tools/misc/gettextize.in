@@ -894,7 +894,8 @@ if test -f "$srcdir/Makefile.am"; then
   if test -n "$added_directories"; then
     if grep '^SUBDIRS[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
       sed -e "s%^\(SUBDIRS[ 	]*=\) \\?%\\1$added_directories %" < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
-      func_modify_Makefile_am "(SUBDIRS): Add "`echo $added_directories | sed -e 's/ /, /g'`'.'
+      added_directories_pretty=`echo $added_directories | sed -e 's/ /, /g'`
+      func_modify_Makefile_am "(SUBDIRS): Add $added_directories_pretty."
     else
       (cat "$srcdir/Makefile.am"; echo; echo "SUBDIRS =$added_directories") > "$srcdir/Makefile.am.tmp"
       func_modify_Makefile_am "(SUBDIRS): New variable."
@@ -920,7 +921,8 @@ if test -f "$srcdir/Makefile.am"; then
   if test -n "$added_directories"; then
     if grep '^DIST_SUBDIRS[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
       sed -e "s%^\(DIST_SUBDIRS[ 	]*=\) \\?%\\1$added_directories %" < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
-      func_modify_Makefile_am "(DIST_SUBDIRS): Add "`echo $added_directories | sed -e 's/ /, /g'`'.'
+      added_directories_pretty=`echo $added_directories | sed -e 's/ /, /g'`
+      func_modify_Makefile_am "(DIST_SUBDIRS): Add $added_directories_pretty."
     fi
   fi
   if test -n "$removed_directory"; then
@@ -964,7 +966,8 @@ if test -f "$srcdir/Makefile.am"; then
   if test -n "$added_extradist"; then
     if grep '^EXTRA_DIST[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
       sed -e "s%^\(EXTRA_DIST[ 	]*=\)%\\1$added_extradist %" < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
-      func_modify_Makefile_am "(EXTRA_DIST): Add$added_extradist."
+      added_extradist_pretty=`echo $added_extradist | sed -e 's/ /, /g'`
+      func_modify_Makefile_am "(EXTRA_DIST): Add $added_extradist_pretty."
     else
       (cat "$srcdir/Makefile.am"; echo; echo "EXTRA_DIST =$added_extradist") > "$srcdir/Makefile.am.tmp"
       func_modify_Makefile_am "(EXTRA_DIST): New variable."
@@ -1039,11 +1042,13 @@ b
 n
 ba'
     sed -e "s%^\\(AC_CONFIG_FILES([^])\\,]*\\)%\\1$added_acoutput%$sedprog" < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
-    func_modify_configure_in "(AC_CONFIG_FILES): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.'
+    added_acoutput_pretty=`echo $added_acoutput | sed -e 's/ /, /g'`
+    func_modify_configure_in "(AC_CONFIG_FILES): Add $added_acoutput_pretty."
   else
     if grep '^AC_OUTPUT(' "$srcdir/$configure_in" > /dev/null; then
       sed -e "s%^\\(AC_OUTPUT([^])\\,]*\\)%\\1$added_acoutput%" < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
-      func_modify_configure_in "(AC_OUTPUT): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.'
+      added_acoutput_pretty=`echo $added_acoutput | sed -e 's/ /, /g'`
+      func_modify_configure_in "(AC_OUTPUT): Add $added_acoutput_pretty."
     else
       please="$please
 Please add$added_acoutput to the AC_OUTPUT or AC_CONFIG_FILES invocation in the $configure_in file.

@@ -1,3 +1,8 @@
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Compute comma separated lists for ChangeLog entries
+	correctly. Also comma-separate the EXTRA_DIST ChangeLog entry.
+
 2005-03-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Create the auxdir if it doesn't exist.
