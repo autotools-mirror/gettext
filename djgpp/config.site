@@ -24,6 +24,13 @@ test "x$prefix" = xNONE && prefix='/dev/env/DJDIR'
 # will try to prepend ./ and ../ to it when it goes into subdirs.
 INSTALL=${INSTALL='/dev/env/DJDIR/bin/ginstall -c'}
 RANLIB=${RANLIB='ranlib'}
+DVIPS=${DVIPS='/dev/env/DJDIR/bin/dvips'}
+TEXI2PDF=${TEXI2PDF='/dev/env/DJDIR/bin/texi2pdf'}
+
+# The texi2html perl script is usualy not available on stock
+# DJGPP installations, so one will be distributed with the
+# official DJGPP source zip file.
+TEXI2HTML=${TEXI2HTML='/dev/env/DJDIR/bin/perl $(top_srcdir)/djgpp/texi2html'}
 
 # A sane defualt for emacs.
 ac_cv_path_EMACS=${EMACS='/dev/env/DJDIR/gnu/emacs/bin/emacs'}
@@ -33,10 +40,6 @@ ac_cv_path_EMACS=${EMACS='/dev/env/DJDIR/gnu/emacs/bin/emacs'}
 # package was configured.
 NM=${NM='nm'}
 LD=${LD='ld'}
-
-# We always use our own binaries.
-GMSGFMT=${GMSGFMT='msgfmt'}
-MSGFMT=${MSGFMT='msgfmt'}
 
 # Force the test for 'ln -s' to report 'cp -p'.
 ac_cv_prog_LN_S='cp -p'
