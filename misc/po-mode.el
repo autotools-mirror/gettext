@@ -769,7 +769,7 @@ Called through file-coding-system-alist, before the file is visited for real."
 	     (with-temp-buffer
 	       (let ((coding-system-for-read 'no-conversion))
                  (let* ((charset (or (po-find-charset filename)
-				     "none"))
+				     "ascii"))
                         (charset-upper (intern (upcase charset)))
                         (charset-lower (intern (downcase charset))))
                    (list (or (cdr (assq charset-upper
@@ -982,31 +982,33 @@ Then, update the mode line counters."
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
       (if (string-equal (po-get-msgid nil) "")
-        (po-next-entry))
-      ;; Start counting
-      (while (re-search-forward po-any-msgstr-regexp nil t)
-	(and (= (% total 20) 0)
-	     (if flag
-		 (message (_"Position %d/%d") position total)
-	       (message (_"Position %d") total)))
-	(setq here (point))
-	(goto-char (match-beginning 0))
-	(setq total (1+ total))
-	(and flag (eq (point) po-start-of-msgstr) (setq position total))
-	(cond ((eq (following-char) ?#)
-	       (setq po-obsolete-counter (1+ po-obsolete-counter)))
-	      ((looking-at po-untranslated-regexp)
-	       (setq po-untranslated-counter (1+ po-untranslated-counter)))
-	      (t (setq po-translated-counter (1+ po-translated-counter))))
-	(goto-char here))
+	  (if (po-next-entry)
+	      (progn
+		;; Start counting
+		(while (re-search-forward po-any-msgstr-regexp nil t)
+		  (and (= (% total 20) 0)
+		       (if flag
+			   (message (_"Position %d/%d") position total)
+			 (message (_"Position %d") total)))
+		  (setq here (point))
+		  (goto-char (match-beginning 0))
+		  (setq total (1+ total))
+		  (and flag (eq (point) po-start-of-msgstr) (setq position total))
+		  (cond ((eq (following-char) ?#)
+			 (setq po-obsolete-counter (1+ po-obsolete-counter)))
+			((looking-at po-untranslated-regexp)
+			 (setq po-untranslated-counter (1+ po-untranslated-counter)))
+			(t (setq po-translated-counter (1+ po-translated-counter))))
+		  (goto-char here))
 
-      ;; Make another pass just for the fuzzy entries, kind of kludgey.
-      ;; FIXME: Counts will be wrong if untranslated entries are fuzzy, yet
-      ;; this should not normally happen.
-      (goto-char (point-min))
-      (while (re-search-forward po-fuzzy-regexp nil t)
-	(setq po-fuzzy-counter (1+ po-fuzzy-counter)))
-      (setq po-translated-counter (- po-translated-counter po-fuzzy-counter)))
+		;; Make another pass just for the fuzzy entries, kind of kludgey.
+		;; FIXME: Counts will be wrong if untranslated entries are fuzzy, yet
+		;; this should not normally happen.
+		(goto-char (point-min))
+		(while (re-search-forward po-fuzzy-regexp nil t)
+		  (setq po-fuzzy-counter (1+ po-fuzzy-counter)))
+		(setq po-translated-counter (- po-translated-counter po-fuzzy-counter)))
+	    '())))
 
     ;; Push the results out.
     (if flag
