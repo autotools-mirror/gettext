@@ -1,3 +1,7 @@
+2002-07-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Copy also intdiv0.m4.
+
 2002-07-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.3 released.
