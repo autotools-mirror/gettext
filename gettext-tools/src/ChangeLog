@@ -1,5 +1,9 @@
 2003-10-20  Bruno Haible  <bruno@clisp.org>
 
+	* x-java.c (phase3_getc): Fix typo: Use phase2_ungetc, not phase2_getc.
+
+2003-10-20  Bruno Haible  <bruno@clisp.org>
+
 	Portability to AIX with cc.
 	* xgettext.h (struct flag_context_ty): Define the bitfields of type
 	'unsigned int'.

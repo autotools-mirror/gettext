@@ -286,14 +286,12 @@ phase2_getc ()
   return c;
 }
 
-#ifdef unused
 static void
 phase2_ungetc (int c)
 {
   if (c != P2_EOF)
     phase2_pushback[phase2_pushback_length++] = c;
 }
-#endif
 
 
 /* Fetch the next single-byte character or Unicode character from the file.
@@ -326,7 +324,7 @@ phase3_getc ()
       int c1 = phase2_getc ();
 
       if (RED (c1) != '\n')
-	phase2_getc (c1);
+	phase2_ungetc (c1);
 
       /* Seen line terminator CR or CR/LF.  */
       if (c == '\r' || c1 == '\n')
@@ -495,9 +493,11 @@ string_buffer_append (struct string_buffer *bp, int c)
       if (bp->utf16_surr != 0
 	  && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
 	{
-	  unsigned short utf16buf[2] = { bp->utf16_surr, UTF16_VALUE (c) };
+	  unsigned short utf16buf[2];
 	  unsigned int uc;
 
+	  utf16buf[0] = bp->utf16_surr;
+	  utf16buf[1] = UTF16_VALUE (c);
 	  if (u16_mbtouc_aux (&uc, utf16buf, 2) != 2)
 	    abort ();
 
