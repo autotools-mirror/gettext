@@ -1,5 +1,13 @@
 2002-01-27  Bruno Haible  <bruno@clisp.org>
 
+	* x-lisp.c (extract_lisp): Free memory allocated in toplevel_object.
+	* x-elisp.c (string_of_object): Use memcpy.
+	(extract_elisp): Free memory allocated in toplevel_object.
+	* x-librep.c (string_of_object): Use memcpy.
+	(extract_librep): Free memory allocated in toplevel_object.
+
+2002-01-27  Bruno Haible  <bruno@clisp.org>
+
 	* x-c.c (ALERT_CHAR): New macro.
 	(phase7_getc): Accept \a and \v as well.
 

@@ -524,24 +524,20 @@ free_object (op)
     }
 }
 
-/* Convert a t_string token to a char*.  */
+/* Convert a t_symbol/t_string token to a char*.  */
 static char *
 string_of_object (op)
      const struct object *op;
 {
   char *str;
-  const char *p;
-  char *q;
   int n;
 
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
   n = op->token->charcount;
   str = (char *) xmalloc (n + 1);
-  q = str;
-  for (p = op->token->chars; n > 0; n--)
-    *q++ = *p++;
-  *q = '\0';
+  memcpy (str, op->token->chars, n);
+  str[n] = '\0';
   return str;
 }
 
@@ -1154,6 +1150,8 @@ extract_librep (f, real_filename, logical_filename, mdlp)
 
       if (toplevel_object.type == t_eof)
 	break;
+
+      free_object (&toplevel_object);
     }
   while (!feof (fp));
 

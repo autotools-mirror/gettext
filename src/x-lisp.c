@@ -970,7 +970,7 @@ free_object (op)
     }
 }
 
-/* Convert a t_string token to a char*.  */
+/* Convert a t_symbol/t_string token to a char*.  */
 static char *
 string_of_object (op)
      const struct object *op;
@@ -1471,6 +1471,8 @@ extract_lisp (f, real_filename, logical_filename, mdlp)
 
       if (toplevel_object.type == t_eof)
 	break;
+
+      free_object (&toplevel_object);
     }
   while (!feof (fp));
 
