@@ -1,5 +1,11 @@
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* msginit.c (main): Print a blank line.
+	(get_title): Always use the English title first.
+	(fill_header): Update accordingly.
+
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.h (NFORMATS): Fix misapplied patch.
 
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>

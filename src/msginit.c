@@ -316,7 +316,8 @@ the output .po file through the --output-file option.\n"),
   /* Write the modified message list out.  */
   msgdomain_list_print (result, output_file, true, false);
 
-  fprintf (stderr, "Created %s.\n", output_file);
+  fprintf (stderr, "\n");
+  fprintf (stderr, _("Created %s.\n"), output_file);
 
   exit (EXIT_SUCCESS);
 }
@@ -1344,6 +1345,7 @@ get_title ()
   char *old_LANGUAGE;
   char *old_OUTPUT_CHARSET;
   const char *msgid;
+  const char *english;
   const char *result;
 
   encoding = canonical_locale_charset ();
@@ -1367,16 +1369,22 @@ get_title ()
   setlocale (LC_ALL, "");
 #endif
 
+  /* First, the English title.  */
+  english = xasprintf ("%s translations for %%s package",
+		       englishname_of_language ());
+
   /* Fetch the translation.  */
   /* TRANSLATORS: "English" needs to be replaced by your language.
      For example in it.po write "Traduzioni italiani ...",
      *not* "Traduzioni inglesi ...".  */
   msgid = N_("English translations for %s package");
   result = gettext (msgid);
-  if (result == msgid)
-    /* No translation found.  */
-    result = xasprintf ("%s translations for %%s package",
-			englishname_of_language ());
+  if (result != msgid && strcmp (result, msgid) != 0)
+    /* Use the English and the foreign title.  */
+    result = xasprintf ("%s\n%s", english, result);
+  else
+    /* No translation found.  Use the English title.  */
+    result = english;
 
   /* Restore LC_ALL, LANGUAGE, OUTPUT_CHARSET environment variables.  */
 
@@ -1494,6 +1502,7 @@ fill_header (mdlp)
 	  message_ty *header_mp = NULL;
 	  char *header;
 	  const char *subst[3][2];
+	  const char *id;
 	  time_t now;
 
 	  /* Search the header entry.  */
@@ -1535,7 +1544,7 @@ fill_header (mdlp)
 
 	  /* Update the comments in the header entry.  */
 	  subst[0][0] = "SOME DESCRIPTIVE TITLE";
-	  subst[0][1] = xasprintf (get_title (), project_id ());
+	  subst[0][1] = (id = project_id (), xasprintf (get_title (), id, id));
 	  subst[1][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
 	  subst[1][1] = field_value[FIELD_LAST_TRANSLATOR];
 	  subst[2][0] = "YEAR";
