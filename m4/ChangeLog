@@ -1,3 +1,8 @@
+2002-05-04  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.m4 (gt_JAVACOMP): Ignore non-digits in the first line of
+	the output of "gcj --version". Needed for gcj 3.1.
+
 2002-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* stdbool.m4 (gt_STDBOOL_H): If <stdbool.h> does not exist, check for

@@ -1,5 +1,5 @@
 /* Compile a Java program.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -55,7 +55,7 @@
    Program  from        A  C               O  g  T
 
    $JAVAC   unknown     N  n/a            -O -g  true
-   gcj -C   GCC 3.0     Y  --classpath=P  -O -g  gcj --version | grep '^[3-9]' >/dev/null
+   gcj -C   GCC 3.0     Y  --classpath=P  -O -g  gcj --version | sed -e 's,^[^0-9]*,,' -e 1q | grep '^[3-9]' >/dev/null
    javac    JDK 1.1.8   Y  -classpath P   -O -g  javac 2>/dev/null; test $? = 1
    javac    JDK 1.3.0   Y  -classpath P   -O -g  javac 2>/dev/null; test $? -le 2
    jikes    Jikes 1.14  N  -classpath P   -O -g  jikes 2>/dev/null; test $? = 1
@@ -193,7 +193,8 @@ compile_java_class (java_sources, java_sources_count,
     if (!gcj_tested)
       {
 	/* Test for presence of gcj:
-	   "gcj --version 2> /dev/null | grep '^[3-9]' > /dev/null"  */
+	   "gcj --version 2> /dev/null | \
+	    sed -e 's,^[^0-9]*,,' -e 1q | grep '^[3-9]' > /dev/null"  */
 	char *argv[3];
 	pid_t child;
 	int fd[1];
@@ -207,12 +208,21 @@ compile_java_class (java_sources, java_sources_count,
 	gcj_present = false;
 	if (child != -1)
 	  {
-	    /* Read the subprocess output, a single line, and test whether
-	       it starts with a digit >= 3.  */
+	    /* Read the subprocess output, drop all lines except the first,
+	       and test whether the first digit found in the first line is
+	       >= 3.  */
 	    char c;
 
-	    if (safe_read (fd[0], &c, 1) > 0)
-	      gcj_present = (c >= '3' && c <= '9');
+	    while (safe_read (fd[0], &c, 1) > 0)
+	      {
+		if (c >= '0' && c <= '9')
+		  {
+		    gcj_present = (c >= '3' && c <= '9');
+		    break;
+		  }
+		if (c == '\n')
+		  break;
+	      }
 	    while (safe_read (fd[0], &c, 1) > 0)
 	      ;
 

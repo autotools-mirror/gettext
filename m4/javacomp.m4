@@ -1,4 +1,4 @@
-# javacomp.m4 serial 3 (gettext-0.11.2)
+# javacomp.m4 serial 4 (gettext-0.11.3)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -32,7 +32,7 @@ AC_DEFUN([gt_JAVACOMP],
     popdef([AC_MSG_CHECKING])dnl
 changequote(,)dnl
     if test -n "$HAVE_GCJ_IN_PATH" \
-       && gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null \
+       && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | grep '^[3-9]' >/dev/null \
        && (
         # See if libgcj.jar is well installed.
         cat > conftest.java <<EOF
