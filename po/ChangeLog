@@ -1,3 +1,17 @@
+2002-02-19  Bruno Haible  <bruno@clisp.org>
+
+	* remove-potcdate.sin: New file.
+	* Makefile.in.in (DISTFILES.common): Add remove-potcdate.sin.
+	(.SUFFIXES): Add .sed and .sin.
+	(.sin.sed): New rule.
+	($(DOMAIN).pot-update): Depend on remove-potcdate.sed. If the old
+	POT file exists and the new POT file differs from it only in the
+	first POT-Creation-Date line, keep the old POT file. So the PO files
+	don't need to be remade, and automake's "distcheck" target succeeds.
+	(mostlyclean): Remove remove-potcdate.sed and additional temporary
+	files.
+	Reported by Jim Meyering.
+
 2002-02-13  Bruno Haible  <bruno@clisp.org>
 
 	* de.po: Update from Karl Eichwalder <ke@suse.de>.
