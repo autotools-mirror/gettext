@@ -183,7 +183,7 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
                 && test "$PACKAGE" != gettext; }; then
           gt_use_preinstalled_gnugettext=yes
         else
-          dnl Reset the values set by searching libintl.
+          dnl Reset the values set by searching for libintl.
           LIBINTL=
           LTLIBINTL=
           INCINTL=
