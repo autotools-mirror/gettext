@@ -1,3 +1,8 @@
+2001-04-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Plural forms): Add Estonian. Fix the formula for
+	Russian and add Czech and Slovak to this case.
+
 2001-03-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.36 released.
