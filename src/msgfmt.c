@@ -179,7 +179,7 @@ static void format_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					      size_t __msgstr_len,
 					      lex_pos_ty *__msgstr_pos));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
-static void format_debrief PARAMS((po_ty *));
+static void format_debrief PARAMS ((po_ty *));
 static struct msg_domain *new_domain PARAMS ((const char *name));
 static int compare_id PARAMS ((const void *pval1, const void *pval2));
 static void write_table PARAMS ((FILE *output_file, hash_table *tab));
@@ -191,7 +191,7 @@ static const char *add_mo_suffix PARAMS ((const char *));
 
 
 int
-main(argc, argv)
+main (argc, argv)
      int argc;
      char *argv[];
 {
@@ -321,7 +321,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	  if (strcmp (domain->domain_name, "-") == 0)
 	    {
 	      output_file = stdout;
-	      setmode (fileno (output_file), O_BINARY);
+	      SET_BINARY (fileno (output_file));
 	    }
 	  else
 	    {

@@ -425,31 +425,20 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (output_dir == NULL)
     output_dir = ".";
 
-  /* Construct the name of the ouput file.  If the default domain has
+  /* Construct the name of the output file.  If the default domain has
      the special name "-" we write to stdout.  */
   if (output_file)
     {
-      if (output_file[0] == '/' ||
-	  strcmp(output_dir, ".") == 0 || strcmp(output_file, "-") == 0)
+      if (IS_ABSOLUTE_PATH (output_file) || strcmp (output_file, "-") == 0)
 	file_name = xstrdup (output_file);
       else
-	{
-	  /* Please do NOT add a .po suffix! */
-	  file_name = xmalloc (strlen (output_dir)
-			       + strlen (default_domain) + 2);
-	  stpcpy (stpcpy (stpcpy (file_name, output_dir), "/"), output_file);
-	}
+	/* Please do NOT add a .po suffix! */
+	file_name = concatenated_pathname (output_dir, output_file, NULL);
     }
   else if (strcmp (default_domain, "-") == 0)
     file_name = "-";
   else
-    {
-      file_name = (char *) xmalloc (strlen (output_dir)
-				    + strlen (default_domain)
-				    + sizeof (".po") + 2);
-      stpcpy (stpcpy (stpcpy (stpcpy (file_name, output_dir), "/"),
-		      default_domain), ".po");
-    }
+    file_name = concatenated_pathname (output_dir, default_domain, ".po");
 
   /* Determine list of files we have to process.  */
   if (files_from != NULL)
@@ -886,7 +875,7 @@ remember_a_message_plural (mp, tp)
 
 
 static void
-scan_c_file(filename, mlp)
+scan_c_file (filename, mlp)
      const char *filename;
      message_list_ty *mlp;
 {
@@ -1438,10 +1427,8 @@ language_to_scanner (name)
   table_ty *tp;
 
   for (tp = table; tp < ENDOF(table); ++tp)
-  {
-    if (strcasecmp(name, tp->name) == 0)
+    if (strcasecmp (name, tp->name) == 0)
       return tp->func;
-  }
   error (EXIT_FAILURE, 0, _("language `%s' unknown"), name);
   /* NOTREACHED */
   return NULL;
@@ -1476,9 +1463,7 @@ extension_to_language (extension)
   table_ty *tp;
 
   for (tp = table; tp < ENDOF(table); ++tp)
-  {
-    if (strcmp(extension, tp->extension) == 0)
-    return tp->language;
-  }
+    if (strcmp (extension, tp->extension) == 0)
+      return tp->language;
   return NULL;
 }

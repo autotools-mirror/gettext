@@ -222,7 +222,7 @@ _nl_make_l10nflist (l10nfile_list, dirlist, dirlist_len, mask, language,
 
   /* Construct file name.  */
   memcpy (abs_filename, dirlist, dirlist_len);
-  __argz_stringify (abs_filename, dirlist_len, ':');
+  __argz_stringify (abs_filename, dirlist_len, PATH_SEPARATOR);
   cp = abs_filename + (dirlist_len - 1);
   *cp++ = '/';
   cp = stpcpy (cp, language);

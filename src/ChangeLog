@@ -1,5 +1,16 @@
 2001-03-04  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgcomm.c (main): Use IS_ABSOLUTE_PATH and concatenated_pathname.
+	Fixes an incorrectly computed memory allocation.
+	* xgettext.c (main): Likewise.
+	* open-po.c (open_po_file): Use IS_ABSOLUTE_PATH and
+	concatenated_pathname.
+	* xget-lex.c (xgettext_lex_open): Likewise.
+	* msgfmt.c (main): Use SET_BINARY instead of setmode.
+	* msgunfmt.c (read_mo_file): Likewise.
+
+2001-03-04  Bruno Haible  <haible@clisp.cons.org>
+
 	Check syntax of obsolete entries of PO files, not only in msgmerge.
 	* po-lex.h (pass_obsolete_entries): New declaration.
 	(msgstr_def): Remove pos field.

@@ -1,3 +1,14 @@
+2001-03-04  Bruno Haible  <haible@clisp.cons.org>
+ 
+	* dcigettext.c (ISSLASH, HAS_DEVICE, IS_ABSOLUTE_PATH,
+	IS_PATH_WITH_DIR): New macros.
+	(DCIGETTEXT): Use IS_ABSOLUTE_PATH and IS_PATH_WITH_DIR. Increment
+	path_max proportionally.
+	* loadinfo.h (PATH_SEPARATOR): New macro.
+	* l10nflist.c (_nl_make_l10nflist): Use PATH_SEPARATOR instead of ':'.
+	* localealias.c (_nl_expand_alias): Likewise.
+	* libgnuintl.h (gettext) [DJGPP]: Define as a macro as well.
+
 2001-03-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* libgnuintl.h (LC_MESSAGES): Don't define on Solaris.

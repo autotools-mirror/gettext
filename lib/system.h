@@ -121,6 +121,36 @@ char *alloca ();
 #endif
 
 
+/* Pathname support.
+   ISSLASH(C)           tests whether C is a directory separator character.
+   IS_ABSOLUTE_PATH(P)  tests whether P is an absolute path.  If it is not,
+                        it may be concatenated to a directory pathname.
+   IS_PATH_WITH_DIR(P)  tests whether P contains a directory specification.
+ */
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, OS/2, DOS */
+# define ISSLASH(C) ((C) == '/' || (C) == '\\')
+# define HAS_DEVICE(P) \
+    ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
+     && (P)[1] == ':')
+# define IS_ABSOLUTE_PATH(P) (ISSLASH ((P)[0]) || HAS_DEVICE (P))
+# define IS_PATH_WITH_DIR(P) \
+    (strchr (P, '/') != NULL || strchr (P, '\\') != NULL || HAS_DEVICE (P))
+# define FILESYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
+#else
+  /* Unix */
+# define ISSLASH(C) ((C) == '/')
+# define IS_ABSOLUTE_PATH(P) ISSLASH ((P)[0])
+# define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
+# define FILESYSTEM_PREFIX_LEN(P) 0
+#endif
+
+/* Concatenate a directory pathname, a relative pathname and an optional
+   suffix.  Return a freshly allocated pathname.  */
+extern char *concatenated_pathname PARAMS ((const char *directory,
+					    const char *filename,
+					    const char *suffix));
+
 /* When not using the GNU libc we use the basename implementation we
    provide here.  */
 #ifndef __GNU_LIBRARY__
@@ -147,8 +177,18 @@ extern char *gnu_basename PARAMS ((const char *));
 #  define setmode _setmode
 #  define fileno _fileno
 # endif
+# ifdef __DJGPP__
+#  include <io.h> /* declares setmode() */
+#  include <unistd.h> /* declares isatty() */
+#  /* Avoid putting stdin/stdout in binary mode if it is connected to the
+#     console, because that would make it impossible for the user to
+#     interrupt the program through Ctrl-C or Ctrl-Break.  */
+#  define SET_BINARY(fd) (!isatty(fd) ? (setmode(fd,O_BINARY), 0) : 0)
+# else
+#  define SET_BINARY(fd) setmode(fd,O_BINARY)
+# endif
 #else
-# define setmode(fd, mode) /* nothing */
+# define SET_BINARY(fd) /* nothing */
 #endif
 
 #endif

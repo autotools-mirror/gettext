@@ -26,8 +26,9 @@ printf-prs.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c \
 strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c \
 gen-lbrkprop.c 3level.h
 
-libnlsut_a_SOURCES = basename.c c-ctype.c fstrcmp.c getopt.c getopt1.c \
-hash.c linebreak.c localcharset.c obstack.c xgetcwd.c xmalloc.c xstrdup.c
+libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c \
+getopt.c getopt1.c hash.c linebreak.c localcharset.c obstack.c xgetcwd.c \
+xmalloc.c xstrdup.c
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 

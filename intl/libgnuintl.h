@@ -34,6 +34,13 @@
    implementation of gettext.  */
 #define __USE_GNU_GETTEXT 1
 
+/* Resolve a platform specific conflict on DJGPP.  GNU gettext takes
+   precedence over _conio_gettext.  */
+#ifdef __DJGPP__
+# undef gettext
+# define gettext gettext
+#endif
+
 #ifndef PARAMS
 # if __STDC__ || defined __cplusplus
 #  define PARAMS(args) args

@@ -1,4 +1,4 @@
-/* Copyright (C) 1996, 1997, 1998, 1999, 2000 Free Software Foundation, Inc.
+/* Copyright (C) 1996-1999, 2000, 2001 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
    Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
 
@@ -35,6 +35,15 @@
    almost always true or almost always false.  */
 #ifndef HAVE_BUILTIN_EXPECT
 # define __builtin_expect(expr, val) (expr)
+#endif
+
+/* Separator in PATH like lists of pathnames.  */
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, OS/2, DOS */
+# define PATH_SEPARATOR ';'
+#else
+  /* Unix */
+# define PATH_SEPARATOR ':'
 #endif
 
 /* Encoding of locale name parts.  */

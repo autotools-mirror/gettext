@@ -149,7 +149,7 @@ xgettext_lex_open (fn)
       logical_file_name = xstrdup (new_name);
       fp = stdin;
     }
-  else if (*fn == '/')
+  else if (IS_ABSOLUTE_PATH (fn))
     {
       new_name = xstrdup (fn);
       fp = fopen (fn, "r");
@@ -160,26 +160,17 @@ error while opening \"%s\" for reading"), fn);
     }
   else
     {
-      size_t len1, len2;
       int j;
-      const char *dir;
 
-      len2 = strlen (fn);
       for (j = 0; ; ++j)
 	{
-	  dir = dir_list_nth (j);
+	  const char *dir = dir_list_nth (j);
+
 	  if (dir == NULL)
 	    error (EXIT_FAILURE, ENOENT, _("\
 error while opening \"%s\" for reading"), fn);
 
-	  if (dir[0] =='.' && dir[1] == '\0')
-	    new_name = xstrdup (fn);
-	  else
-	    {
-	      len1 = strlen (dir);
-	      new_name = xmalloc (len1 + len2 + 2);
-	      stpcpy (stpcpy (stpcpy (new_name, dir), "/"), fn);
-	    }
+	  new_name = concatenated_pathname (dir, fn, NULL);
 
 	  fp = fopen (new_name, "r");
 	  if (fp != NULL)
