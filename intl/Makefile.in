@@ -153,7 +153,7 @@ install-exec: all
 	  : ; \
 	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
-	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
+	  test @GLIBC21@ != no || $(mkinstalldirs) $(DESTDIR)$(libdir); \
 	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
 	  dest=$(DESTDIR)$(libdir)/charset.alias; \
 	  if test -f $(DESTDIR)$(libdir)/charset.alias; then \
@@ -216,7 +216,8 @@ installdirs:
 	  : ; \
 	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
-	  $(mkinstalldirs) $(DESTDIR)$(libdir); $(DESTDIR)$(localedir); \
+	  test @GLIBC21@ != no || $(mkinstalldirs) $(DESTDIR)$(libdir); \
+	  $(mkinstalldirs) $(DESTDIR)$(localedir); \
 	else \
 	  : ; \
 	fi
