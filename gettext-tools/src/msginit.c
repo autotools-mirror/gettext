@@ -897,29 +897,43 @@ project_id ()
   argv[0] = "/bin/sh";
   argv[1] = prog;
   argv[2] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  if (child == -1)
+    goto failed;
 
   /* Retrieve its result.  */
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
-    error (EXIT_FAILURE, errno, _("fdopen() failed"));
+    {
+      error (0, errno, _("fdopen() failed"));
+      goto failed;
+    }
 
   line = NULL; linesize = 0;
   linelen = getline (&line, &linesize, fp);
   if (linelen == (size_t)(-1))
-    error (EXIT_FAILURE, 0, _("%s subprocess I/O error"), prog);
+    {
+      error (0, 0, _("%s subprocess I/O error"), prog);
+      goto failed;
+    }
   if (linelen > 0 && line[linelen - 1] == '\n')
     line[linelen - 1] = '\0';
 
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, true);
+  exitstatus = wait_subprocess (child, prog, false, false);
   if (exitstatus != 0)
-    error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	   prog, exitstatus);
+    {
+      error (0, 0, _("%s subprocess failed with exit code %d"),
+	     prog, exitstatus);
+      goto failed;
+    }
 
   return line;
+
+failed:
+  return "PACKAGE";
 }
 
 
@@ -949,29 +963,43 @@ project_id_version ()
   argv[1] = prog;
   argv[2] = "yes";
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  if (child == -1)
+    goto failed;
 
   /* Retrieve its result.  */
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
-    error (EXIT_FAILURE, errno, _("fdopen() failed"));
+    {
+      error (0, errno, _("fdopen() failed"));
+      goto failed;
+    }
 
   line = NULL; linesize = 0;
   linelen = getline (&line, &linesize, fp);
   if (linelen == (size_t)(-1))
-    error (EXIT_FAILURE, 0, _("%s subprocess I/O error"), prog);
+    {
+      error (0, 0, _("%s subprocess I/O error"), prog);
+      goto failed;
+    }
   if (linelen > 0 && line[linelen - 1] == '\n')
     line[linelen - 1] = '\0';
 
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, true);
+  exitstatus = wait_subprocess (child, prog, false, false);
   if (exitstatus != 0)
-    error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	   prog, exitstatus);
+    {
+      error (0, 0, _("%s subprocess failed with exit code %d"),
+	     prog, exitstatus);
+      goto failed;
+    }
 
   return line;
+
+failed:
+  return "PACKAGE VERSION";
 }
 
 
@@ -1092,29 +1120,43 @@ The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  if (child == -1)
+    goto failed;
 
   /* Retrieve his answer.  */
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
-    error (EXIT_FAILURE, errno, _("fdopen() failed"));
+    {
+      error (0, errno, _("fdopen() failed"));
+      goto failed;
+    }
 
   line = NULL; linesize = 0;
   linelen = getline (&line, &linesize, fp);
   if (linelen == (size_t)(-1))
-    error (EXIT_FAILURE, 0, _("%s subprocess I/O error"), prog);
+    {
+      error (0, 0, _("%s subprocess I/O error"), prog);
+      goto failed;
+    }
   if (linelen > 0 && line[linelen - 1] == '\n')
     line[linelen - 1] = '\0';
 
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, true);
+  exitstatus = wait_subprocess (child, prog, false, false);
   if (exitstatus != 0)
-    error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	   prog, exitstatus);
+    {
+      error (0, 0, _("%s subprocess failed with exit code %d"),
+	     prog, exitstatus);
+      goto failed;
+    }
 
   return line;
+
+failed:
+  return "EMAIL@ADDRESS";
 }
 
 
@@ -1159,12 +1201,17 @@ language_team_address ()
   argv[4] = (char *) catalogname;
   argv[5] = (char *) language;
   argv[6] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, false, fd);
+  if (child == -1)
+    goto failed;
 
   /* Retrieve its result.  */
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
-    error (EXIT_FAILURE, errno, _("fdopen() failed"));
+    {
+      error (0, errno, _("fdopen() failed"));
+      goto failed;
+    }
 
   line = NULL; linesize = 0;
   linelen = getline (&line, &linesize, fp);
@@ -1176,12 +1223,18 @@ language_team_address ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, true);
+  exitstatus = wait_subprocess (child, prog, false, false);
   if (exitstatus != 0)
-    error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	   prog, exitstatus);
+    {
+      error (0, 0, _("%s subprocess failed with exit code %d"),
+	     prog, exitstatus);
+      goto failed;
+    }
 
   return line;
+
+failed:
+  return "";
 }
 
 

@@ -583,7 +583,7 @@ is_string_selected (int grep_pass, const char *str, size_t len)
       close (fd[0]);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, "grep", true);
+      exitstatus = wait_subprocess (child, "grep", false, true);
       return (exitstatus == 0);
     }
   else

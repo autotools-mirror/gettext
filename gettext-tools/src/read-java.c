@@ -76,7 +76,7 @@ execute_and_read_po_output (const char *progname,
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, progname, true);
+  exitstatus = wait_subprocess (child, progname, false, true);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
 	   progname, exitstatus);

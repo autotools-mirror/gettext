@@ -112,7 +112,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, "tclsh", true);
+  exitstatus = wait_subprocess (child, "tclsh", false, true);
   if (exitstatus != 0)
     {
       if (exitstatus == 2)

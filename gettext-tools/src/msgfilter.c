@@ -657,7 +657,7 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
   close (fd[0]);
 
   /* Remove zombie process from process list.  */
-  exitstatus = wait_subprocess (child, sub_name, true);
+  exitstatus = wait_subprocess (child, sub_name, false, true);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess terminated with exit code %d"),
 	   sub_name, exitstatus);

@@ -1,3 +1,14 @@
+2003-06-13  Bruno Haible  <bruno@clisp.org>
+
+	* msgexec.c (process_string): Pass null_stderr=false.
+	* msgfilter.c (process_string): Likewise.
+	* msggrep.c (is_string_selected): Likewise.
+	* read-java.c (execute_and_read_po_output): Likewise.
+	* read-tcl.c (msgdomain_read_tcl): Likewise.
+	* msginit.c (project_id, project_id_version, get_user_email,
+	language_team_address): Return a default value if the subprocess
+	fails, instead of exiting.
+
 2003-06-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (noinst_HEADERS): Add x-perl.h.

@@ -334,7 +334,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
       close (fd[0]);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, sub_name, true);
+      exitstatus = wait_subprocess (child, sub_name, false, true);
       if (exitcode < exitstatus)
 	exitcode = exitstatus;
     }
