@@ -1,5 +1,17 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (gettext-po.obj, gettextpo.lib, gettextpo.res): New
+	rules.
+	(all): Depend on gettextpo.lib.
+	(install, installdirs, uninstall): Install/uninstall gettext-po.h,
+	gettextpo.dll and gettextpo.lib.
+	* Makefile.vms (gettext-po.obj, gettextpo.olb): New rules.
+	(all): Depend on gettextpo.olb.
+	(install, installdirs, uninstall): Install/uninstall gettext-po.h,
+	gettextpo.olb.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* dir-list.h: Make this file includable in C++ mode: add extern "C".
 	* file-list.h: Likewise.
 	* format.h: Likewise.
