@@ -113,9 +113,6 @@ AC_DEFUN([AM_GNU_GETTEXT],
         define([gt_cv_func_gnugettext_libc], [gt_cv_func_gnugettext]gt_api_version[_libc])
         define([gt_cv_func_gnugettext_libintl], [gt_cv_func_gnugettext]gt_api_version[_libintl])
 
-        dnl Search for libintl and define LIBINTL and INCINTL accordingly.
-        AC_LIB_LINKFLAGS_BODY([intl], [iconv])
-
         AC_CACHE_CHECK([for GNU gettext in libc], gt_cv_func_gnugettext_libc,
          [AC_TRY_LINK([#include <libintl.h>
 extern int _nl_msg_cat_cntr;],
@@ -125,21 +122,38 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
             gt_cv_func_gnugettext_libc=no)])
 
         if test "$gt_cv_func_gnugettext_libc" != "yes"; then
+          dnl Sometimes libintl requires libiconv, so first search for libiconv.
           ifelse(gt_included_intl, yes, , [
             AM_ICONV
           ])
+          dnl Search for libintl and define LIBINTL and INCINTL accordingly.
+          dnl Don't use AC_LIB_LINKFLAGS_BODY([intl],[iconv]) because that would
+          dnl add "-liconv" to LIBINTL even if libiconv doesn't exist.
+          AC_LIB_LINKFLAGS_BODY([intl])
           AC_CACHE_CHECK([for GNU gettext in libintl],
             gt_cv_func_gnugettext_libintl,
            [gt_save_CPPFLAGS="$CPPFLAGS"
             CPPFLAGS="$CPPFLAGS $INCINTL"
             gt_save_LIBS="$LIBS"
             LIBS="$LIBS $LIBINTL"
+            dnl Now see whether libintl exists and does not depend on libiconv.
             AC_TRY_LINK([#include <libintl.h>
 extern int _nl_msg_cat_cntr;],
               [bindtextdomain ("", "");
 return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
               gt_cv_func_gnugettext_libintl=yes,
               gt_cv_func_gnugettext_libintl=no)
+            dnl Now see whether libintl exists and depends on libiconv.
+            if test "$gt_cv_func_gnugettext_libintl" != yes && test -n "$LIBICONV"; then
+              LIBS="$LIBS $LIBICONV"
+              AC_TRY_LINK([#include <libintl.h>
+extern int _nl_msg_cat_cntr;],
+                [bindtextdomain ("", "");
+return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
+               [LIBINTL="$LIBINTL $LIBICONV"
+                gt_cv_func_gnugettext_libintl=yes
+               ])
+            fi
             CPPFLAGS="$gt_save_CPPFLAGS"
             LIBS="$gt_save_LIBS"])
         fi
