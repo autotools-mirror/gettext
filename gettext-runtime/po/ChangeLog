@@ -1,3 +1,7 @@
+2003-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* es.po: Update from Max de Mendizábal <max@upn.mx>.
+
 2003-04-29  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (stamp-po, update-po): Avoid infinite recursion if
