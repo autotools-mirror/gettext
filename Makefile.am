@@ -65,7 +65,7 @@ html:
 CONFIGURES_RPATHX = $(srcdir)/tests/rpathx/Makefile.in $(srcdir)/tests/rpathx/aclocal.m4 $(srcdir)/tests/rpathx/configure
 $(srcdir)/tests/rpathx/Makefile.in: $(srcdir)/tests/rpathx/Makefile.am $(srcdir)/tests/rpathx/configure.in
 	cd $(srcdir)/tests/rpathx && automake Makefile
-$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.in
+$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.in $(srcdir)/m4/libtool.m4
 	cd $(srcdir)/tests/rpathx && aclocal -I ../../m4
 $(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.in $(srcdir)/tests/rpathx/aclocal.m4
 	cd $(srcdir)/tests/rpathx && autoconf
@@ -73,7 +73,7 @@ $(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.in $(srcdir)/
 CONFIGURES_RPATHY = $(srcdir)/tests/rpathy/Makefile.in $(srcdir)/tests/rpathy/aclocal.m4 $(srcdir)/tests/rpathy/configure
 $(srcdir)/tests/rpathy/Makefile.in: $(srcdir)/tests/rpathy/Makefile.am $(srcdir)/tests/rpathy/configure.in
 	cd $(srcdir)/tests/rpathy && automake Makefile
-$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in $(srcdir)/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
 	cd $(srcdir)/tests/rpathy && aclocal -I ../../m4
 $(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && autoconf
@@ -81,7 +81,7 @@ $(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/
 CONFIGURES_RPATHZ = $(srcdir)/tests/rpathz/Makefile.in $(srcdir)/tests/rpathz/aclocal.m4 $(srcdir)/tests/rpathz/configure
 $(srcdir)/tests/rpathz/Makefile.in: $(srcdir)/tests/rpathz/Makefile.am $(srcdir)/tests/rpathz/configure.in
 	cd $(srcdir)/tests/rpathz && automake Makefile
-$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.in $(srcdir)/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
 	cd $(srcdir)/tests/rpathz && aclocal -I ../../m4
 $(srcdir)/tests/rpathz/configure: $(srcdir)/tests/rpathz/configure.in $(srcdir)/tests/rpathz/aclocal.m4
 	cd $(srcdir)/tests/rpathz && autoconf
