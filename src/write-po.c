@@ -195,7 +195,24 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
   const char *s;
   int first_line;
 #if HAVE_ICONV
-  iconv_t conv = iconv_open ("UTF-8", charset);
+  const char *envval;
+  iconv_t conv;
+#endif
+
+#if HAVE_ICONV
+  /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35 don't know
+     about multibyte encodings, and require a spurious backslash after
+     every multibyte character whose last byte is 0x5C.  Some programs,
+     like vim, distribute PO files in this broken format.  It is important
+     for such programs that GNU msgmerge continues to support this old
+     PO file format when the Makefile requests it.  */
+  envval = getenv ("OLD_PO_FILE_OUTPUT");
+  if (envval != NULL && *envval != '\0')
+    /* Write a PO file in old format, with extraneous backslashes.  */
+    conv = (iconv_t)(-1);
+  else
+    /* Use iconv() to parse multibyte characters.  */
+    conv = iconv_open ("UTF-8", charset);
 #endif
 
   /* Loop over the '\n' delimited portions of value.  */

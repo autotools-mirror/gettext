@@ -323,89 +323,112 @@ Message conversion to user's charset might not work.\n"),
 		"SJIS",
 		"JOHAB"
 	      };
+	      const char *envval;
 
 	      po_lex_charset = standard_charsets[i];
 #if HAVE_ICONV
 	      if (po_lex_iconv != (iconv_t)(-1))
 		iconv_close (po_lex_iconv);
-	      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
-	      if (strcmp (po_lex_charset, "EUC-KR") == 0)
-		po_lex_iconv = (iconv_t)(-1);
-	      else
 #endif
-	      po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
-	      if (po_lex_iconv == (iconv_t)(-1))
-		{
-		  const char *note;
-		  char *prefix;
-		  char *msg;
 
+	      /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35
+		 don't know about multibyte encodings, and require a spurious
+		 backslash after every multibyte character whose last byte is
+		 0x5C.  Some programs, like vim, distribute PO files in this
+		 broken format.  GNU msgfmt must continue to support this old
+		 PO file format when the Makefile requests it.  */
+	      envval = getenv ("OLD_PO_FILE_INPUT");
+	      if (envval != NULL && *envval != '\0')
+		{
+		  /* Assume the PO file is in old format, with extraneous
+		     backslashes.  */
+#if HAVE_ICONV
+		  po_lex_iconv = (iconv_t)(-1);
+#endif
+		}
+	      else
+		{
+		  /* Use iconv() to parse multibyte characters.  */
+#if HAVE_ICONV
+		  /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+		  if (strcmp (po_lex_charset, "EUC-KR") == 0)
+		    po_lex_iconv = (iconv_t)(-1);
+		  else
+# endif
+		  po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
+		  if (po_lex_iconv == (iconv_t)(-1))
+		    {
+		      const char *note;
+		      char *prefix;
+		      char *msg;
+
+		      for (i = 0; i < SIZEOF (weird_charsets); i++)
+			if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
+			  break;
+		      if (i < SIZEOF (weird_charsets))
+			note = _("Continuing anyway, expect parse errors.");
+		      else
+			note = _("Continuing anyway.");
+
+		      asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
+		      asprintf (&msg, _("\
+Charset \"%s\" is not supported. %s relies on iconv(),\n\
+and iconv() does not support \"%s\".\n"),
+				po_lex_charset, basename (program_name),
+				po_lex_charset);
+		      if (prefix == NULL || msg == NULL)
+			error (EXIT_FAILURE, 0, _("memory exhausted"));
+		      multiline_warning (prefix, msg);
+
+# if !defined _LIBICONV_VERSION
+		      asprintf (&msg, _("\
+Installing GNU libiconv and then reinstalling GNU gettext\n\
+would fix this problem.\n"));
+		      if (msg == NULL)
+			error (EXIT_FAILURE, 0, _("memory exhausted"));
+		      multiline_warning (NULL, msg);
+# endif
+
+		      asprintf (&msg, _("%s\n"), note);
+		      if (msg == NULL)
+			error (EXIT_FAILURE, 0, _("memory exhausted"));
+		      multiline_warning (NULL, msg);
+		    }
+#else
 		  for (i = 0; i < SIZEOF (weird_charsets); i++)
 		    if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
 		      break;
 		  if (i < SIZEOF (weird_charsets))
-		    note = _("Continuing anyway, expect parse errors.");
-		  else
-		    note = _("Continuing anyway.");
+		    {
+		      const char *note =
+			_("Continuing anyway, expect parse errors.");
+		      char *prefix;
+		      char *msg;
 
-		  asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
-		  asprintf (&msg, _("\
-Charset \"%s\" is not supported. %s relies on iconv(),\n\
-and iconv() does not support \"%s\".\n"),
-			    po_lex_charset, basename (program_name),
-			    po_lex_charset);
-		  if (prefix == NULL || msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (prefix, msg);
-
-# if !defined _LIBICONV_VERSION
-		  asprintf (&msg, _("\
-Installing GNU libiconv and then reinstalling GNU gettext\n\
-would fix this problem.\n"));
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
-# endif
-
-		  asprintf (&msg, _("%s\n"), note);
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
-		}
-#else
-	      for (i = 0; i < SIZEOF (weird_charsets); i++)
-		if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
-		  break;
-	      if (i < SIZEOF (weird_charsets))
-		{
-		  const char *note =
-		    _("Continuing anyway, expect parse errors.");
-		  char *prefix;
-		  char *msg;
-
-		  asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
-		  asprintf (&msg, _("\
+		      asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
+		      asprintf (&msg, _("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
-			    po_lex_charset, basename (program_name));
-		  if (prefix == NULL || msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (prefix, msg);
+				po_lex_charset, basename (program_name));
+		      if (prefix == NULL || msg == NULL)
+			error (EXIT_FAILURE, 0, _("memory exhausted"));
+		      multiline_warning (prefix, msg);
 
-		  asprintf (&msg, _("\
+		      asprintf (&msg, _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
 would fix this problem.\n"));
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
+		      if (msg == NULL)
+			error (EXIT_FAILURE, 0, _("memory exhausted"));
+		      multiline_warning (NULL, msg);
 
-		  asprintf (&msg, _("%s\n"), note);
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
-		}
+		      asprintf (&msg, _("%s\n"), note);
+		      if (msg == NULL)
+			error (EXIT_FAILURE, 0, _("memory exhausted"));
+		      multiline_warning (NULL, msg);
+		    }
 #endif
+		}
 	    }
 	}
       else
