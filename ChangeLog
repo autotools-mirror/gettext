@@ -1,3 +1,7 @@
+2001-10-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Also check for putc_unlocked.
+
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (SUBDIRS): Add projects.

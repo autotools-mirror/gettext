@@ -1,5 +1,9 @@
 2001-10-09  Bruno Haible  <haible@clisp.cons.org>
 
+	* write-po.c (putc): Define as putc_unlocked if available.
+
+2001-10-09  Bruno Haible  <haible@clisp.cons.org>
+
 	* po-lex.c (getc): Define as getc_unlocked if available.
 
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>

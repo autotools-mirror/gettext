@@ -44,9 +44,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "xerror.h"
 #include "libgettext.h"
 
-
 /* Our regular abbreviation.  */
 #define _(str) gettext (str)
+
+#ifdef HAVE_PUTC_UNLOCKED
+# undef putc
+# define putc putc_unlocked
+#endif
 
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
