@@ -9,13 +9,17 @@ AC_CACHE_VAL(gt_cv_proto_setlocale, [
 AC_TRY_COMPILE([
 #include <stdlib.h>
 #include <locale.h>
+extern
+#ifdef __cplusplus
+"C"
+#endif
 #if defined(__STDC__) || defined(__cplusplus)
-char* setlocale (int category, char* locale);
+char *setlocale (int category, char *locale);
 #else
-char* setlocale();
+char *setlocale();
 #endif
 ], [], gt_cv_proto_setlocale_arg1="", gt_cv_proto_setlocale_arg1="const")
-gt_cv_proto_setlocale="extern char* setlocale (int, $gt_cv_proto_setlocale_arg1 char*);"])
+gt_cv_proto_setlocale="extern char *setlocale (int category, $gt_cv_proto_setlocale_arg1 char *locale);"])
 gt_cv_proto_setlocale=`echo "[$]gt_cv_proto_setlocale" | tr -s ' ' | sed -e 's/( /(/'`
 AC_MSG_RESULT([$]{ac_t:-
          }[$]gt_cv_proto_setlocale)
