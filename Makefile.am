@@ -17,8 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.4 gnu
-ACLOCAL = ./aclocal.sh @ACLOCAL@
+AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4
 
 gettextsrcdir = $(datadir)/gettext
@@ -26,7 +25,7 @@ gettextsrc_DATA = ABOUT-NLS
 
 SUBDIRS = doc intl intl-java lib src po man m4 misc tests
 
-EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh \
+EXTRA_DIST = BUGS DISCLAIM README.gemtext \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
              djgpp/config.bat djgpp/config.in djgpp/config.sed \
              djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in \

@@ -1,3 +1,14 @@
+2001-09-25  Bruno Haible  <haible@clisp.cons.org>
+
+	Upgrade to automake-1.5.
+	* aclocal.sh: Remove file.
+	* Makefile.am (AUTOMAKE_OPTIONS): Add 'no-dependencies'.
+	(EXTRA_DIST): Remove aclocal.sh.
+	* configure.in: Add some postprocessing to lib/Makefile, src/Makefile,
+	tests/Makefile.
+	* missing: Upgrade to automake-1.5.
+	* ylwrap: New file, from automake-1.5.
+
 2001-09-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Call gt_SIGINFO.

@@ -1,3 +1,8 @@
+2001-09-25  Bruno Haible  <haible@clisp.cons.org>
+
+	Upgrade to automake-1.5.
+	* Makefile.am (AUTOMAKE_OPTIONS): Add 'no-dependencies'.
+
 2001-09-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt-6: New file.

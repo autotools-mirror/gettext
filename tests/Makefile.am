@@ -17,7 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.2 gnits
+AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 TESTS = gettext-1 gettext-2 \
 	msgcat-1 \

@@ -1,3 +1,9 @@
+2001-09-25  Bruno Haible  <haible@clisp.cons.org>
+
+	Upgrade to automake-1.5.
+	* Makefile.am (AUTOMAKE_OPTIONS): Add 'no-dependencies'.
+	* ylwrap: Remove file.
+
 2001-09-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (extractor_func): New typedef.

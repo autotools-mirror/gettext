@@ -1,3 +1,8 @@
+2001-09-25  Bruno Haible  <haible@clisp.cons.org>
+
+	Upgrade to automake-1.5.
+	* automake.diff: Remove file.
+
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextize.in: Don't copy installed jar files.
