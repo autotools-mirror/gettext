@@ -1,3 +1,9 @@
+2003-11-11  Bruno Haible  <bruno@clisp.org>
+
+	* size_max.m4: New file, from gnulib.
+	* xsize,m4 (gl_XSIZE): Require gl_SIZE_MAX.
+	* Makefile.am (EXTRA_DIST): Add size_max.m4.
+
 2003-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* xsize.m4: New file.

@@ -61,6 +61,7 @@ setlocale.m4 \
 sig_atomic_t.m4 \
 siginfo.m4 \
 signalblocking.m4 \
+size_max.m4 \
 ssize_t.m4 \
 stdbool.m4 \
 strerror.m4 \
