@@ -458,7 +458,8 @@ parse_bracket_exp_mb ()
 
   work_mbc->nchars = work_mbc->nranges = work_mbc->nch_classes = 0;
   work_mbc->nequivs = work_mbc->ncoll_elems = 0;
-  work_mbc->chars = work_mbc->ch_classes = NULL;
+  work_mbc->chars = NULL;
+  work_mbc->ch_classes = NULL;
   work_mbc->range_sts = work_mbc->range_ends = NULL;
   work_mbc->equivs = work_mbc->coll_elems = NULL;
 
@@ -527,7 +528,7 @@ parse_bracket_exp_mb ()
 		  wt = wctype (str);
 
 		  if (ch_classes_al == 0)
-		    MALLOC(work_mbc->ch_classes, wchar_t, ++ch_classes_al);
+		    MALLOC(work_mbc->ch_classes, wctype_t, ++ch_classes_al);
 		  REALLOC_IF_NECESSARY(work_mbc->ch_classes, wctype_t,
 				       ch_classes_al,
 				       work_mbc->nch_classes + 1);

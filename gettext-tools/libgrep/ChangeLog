@@ -1,5 +1,9 @@
 2005-01-27  Bruno Haible  <bruno@clisp.org>
 
+	* dfa.c (parse_bracket_exp_mb): Don't confuse wctype_t with wchar_t.
+
+2005-01-27  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (libgrep_a_DEPENDENCIES): New variable.
 	(AM_CPPFLAGS): Add -I../intl, so that libintl.h is found before gettext
 	is installed.
