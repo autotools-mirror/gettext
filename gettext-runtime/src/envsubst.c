@@ -158,11 +158,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       subst_from_stdin ();
     }
 
-  /* Make sure nothing went wrong.  */
-  if (fflush (stdout) || ferror (stdout))
-    error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-           _("standard output"));
-
   exit (EXIT_SUCCESS);
 }
 

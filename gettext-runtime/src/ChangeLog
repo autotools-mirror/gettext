@@ -1,3 +1,8 @@
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* envsubst.c (main): Remove stdout write error check, now done in
+	close_stdout.
+
 2003-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add gettext.sh.
