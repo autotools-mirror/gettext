@@ -44,7 +44,6 @@ case "$ACLOCAL" in
   *missing)
     ACLOCAL2="$1"
     shift
-    esac
     ;;
 esac
 
