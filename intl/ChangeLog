@@ -1,3 +1,9 @@
+2001-04-09  Bruno Haible <haible@clisp.cons.org>
+
+	* loadmsgcat.c: Don't use GNU C extensions if __APPLE_CC__ is defined.
+	Apple's MacOS X compiler has not all the features that the regular
+	GCC with the same version number has.
+
 2001-04-07  Bruno Haible <haible@clisp.cons.org>
 
 	* gettextP.h (struct loaded_domain): Add codeset_cntr field.

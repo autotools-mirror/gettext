@@ -131,7 +131,7 @@ char *alloca ();
    cached by one of GCC's features.  */
 int _nl_msg_cat_cntr;
 
-#if defined __GNUC__ \
+#if (defined __GNUC__ && !defined __APPLE_CC__) \
     || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
 
 /* These structs are the constant expression for the germanic plural
