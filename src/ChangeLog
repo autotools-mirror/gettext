@@ -1,3 +1,7 @@
+2001-12-09  Bruno Haible  <bruno@clisp.org>
+
+	* x-c.c: Reorder.
+
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.c (process_message_list): Never make the header entry

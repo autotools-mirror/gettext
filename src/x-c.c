@@ -132,33 +132,9 @@ struct token_ty
 };
 
 
-/* If true extract all strings.  */
-static bool extract_all = false;
-
-static hash_table keywords;
-static bool default_keywords = true;
-
-static bool trigraphs = false;
-
-/* Real filename, used in error messages about the input file.  */
-static const char *real_file_name;
-
-/* Logical filename and line number, used to label the extracted messages.  */
-static char *logical_file_name;
-static int line_number;
-
-/* The input file stream.  */
-static FILE *fp;
-
-/* These are for tracking whether comments count as immediately before
-   keyword.  */
-static int last_comment_line;
-static int last_non_comment_line;
-static int newline_count;
-
-
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
+static void init_keywords PARAMS ((void));
 static int phase1_getc PARAMS ((void));
 static void phase1_ungetc PARAMS ((int c));
 static int phase2_getc PARAMS ((void));
@@ -179,7 +155,114 @@ static void phase6_get PARAMS ((token_ty *tp));
 static void phase6_unget PARAMS ((token_ty *tp));
 static void phase8_get PARAMS ((token_ty *tp));
 static void x_c_lex PARAMS ((xgettext_token_ty *tp));
-static void init_keywords PARAMS ((void));
+
+
+/* ========================= Lexer customization.  ========================= */
+
+static bool trigraphs = false;
+
+void
+x_c_trigraphs ()
+{
+  trigraphs = true;
+}
+
+
+/* ====================== Keyword set customization.  ====================== */
+
+/* If true extract all strings.  */
+static bool extract_all = false;
+
+static hash_table keywords;
+static bool default_keywords = true;
+
+
+void
+x_c_extract_all ()
+{
+  extract_all = true;
+}
+
+
+void
+x_c_keyword (name)
+     const char *name;
+{
+  if (name == NULL)
+    default_keywords = false;
+  else
+    {
+      int argnum1;
+      int argnum2;
+      size_t len;
+      char *sp;
+
+      if (keywords.table == NULL)
+	init_hash (&keywords, 100);
+
+      sp = strchr (name, ':');
+      if (sp)
+	{
+	  len = sp - name;
+	  sp++;
+	  argnum1 = strtol (sp, &sp, 10);
+	  if (*sp == ',')
+	    {
+	      sp++;
+	      argnum2 = strtol (sp, &sp, 10);
+	    }
+	  else
+	    argnum2 = 0;
+	}
+      else
+	{
+	  len = strlen (name);
+
+	  argnum1 = 1;
+	  argnum2 = 0;
+	}
+
+      insert_entry (&keywords, name, len,
+		    (void *) (long) (argnum1 + (argnum2 << 10)));
+    }
+}
+
+bool
+x_c_any_keywords ()
+{
+  return (keywords.filled > 0) || default_keywords;
+}
+
+/* Finish initializing the keywords hash table.
+   Called after argument processing, before each file is processed.  */
+static void
+init_keywords ()
+{
+  if (default_keywords)
+    {
+      x_c_keyword ("gettext");
+      x_c_keyword ("dgettext:2");
+      x_c_keyword ("dcgettext:2");
+      x_c_keyword ("ngettext:1,2");
+      x_c_keyword ("dngettext:2,3");
+      x_c_keyword ("dcngettext:2,3");
+      x_c_keyword ("gettext_noop");
+      default_keywords = false;
+    }
+}
+
+
+/* ================== Reading of characters and tokens.  =================== */
+
+/* Real filename, used in error messages about the input file.  */
+static const char *real_file_name;
+
+/* Logical filename and line number, used to label the extracted messages.  */
+static char *logical_file_name;
+static int line_number;
+
+/* The input file stream.  */
+static FILE *fp;
 
 
 /* 1. Terminate line by \n, regardless of the external representation of
@@ -408,6 +491,13 @@ comment_line_end (chars_to_remove)
   buffer[buflen] = '\0';
   xgettext_comment_add (buffer);
 }
+
+
+/* These are for tracking whether comments count as immediately before
+   keyword.  */
+static int last_comment_line;
+static int last_non_comment_line;
+static int newline_count;
 
 
 /* 4. Replace each comment that is not inside a character constant or
@@ -1219,6 +1309,8 @@ x_c_lex (tp)
 }
 
 
+/* ========================= Extracting strings.  ========================== */
+
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
@@ -1387,86 +1479,4 @@ extract_c (f, real_filename, logical_filename, mdlp)
   real_file_name = NULL;
   logical_file_name = NULL;
   line_number = 0;
-}
-
-
-void
-x_c_extract_all ()
-{
-  extract_all = true;
-}
-
-
-void
-x_c_keyword (name)
-     const char *name;
-{
-  if (name == NULL)
-    default_keywords = false;
-  else
-    {
-      int argnum1;
-      int argnum2;
-      size_t len;
-      char *sp;
-
-      if (keywords.table == NULL)
-	init_hash (&keywords, 100);
-
-      sp = strchr (name, ':');
-      if (sp)
-	{
-	  len = sp - name;
-	  sp++;
-	  argnum1 = strtol (sp, &sp, 10);
-	  if (*sp == ',')
-	    {
-	      sp++;
-	      argnum2 = strtol (sp, &sp, 10);
-	    }
-	  else
-	    argnum2 = 0;
-	}
-      else
-	{
-	  len = strlen (name);
-
-	  argnum1 = 1;
-	  argnum2 = 0;
-	}
-
-      insert_entry (&keywords, name, len,
-		    (void *) (long) (argnum1 + (argnum2 << 10)));
-    }
-}
-
-bool
-x_c_any_keywords ()
-{
-  return (keywords.filled > 0) || default_keywords;
-}
-
-/* Finish initializing the keywords hash table.
-   Called after argument processing, before each file is processed.  */
-static void
-init_keywords ()
-{
-  if (default_keywords)
-    {
-      x_c_keyword ("gettext");
-      x_c_keyword ("dgettext:2");
-      x_c_keyword ("dcgettext:2");
-      x_c_keyword ("ngettext:1,2");
-      x_c_keyword ("dngettext:2,3");
-      x_c_keyword ("dcngettext:2,3");
-      x_c_keyword ("gettext_noop");
-      default_keywords = false;
-    }
-}
-
-
-void
-x_c_trigraphs ()
-{
-  trigraphs = true;
 }
