@@ -1,3 +1,8 @@
+2003-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextsrc.def: Update.
+	Based on a patch by Perry Rapp.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h_vms): Renamed from config.h.vms.
