@@ -714,6 +714,92 @@ AC_DEFUN([AM_FUNC_GETLINE],
   fi
 ])
 
+#serial 4
+
+dnl autoconf tests required for use of mbswidth.c
+dnl From Bruno Haible.
+
+AC_DEFUN(jm_PREREQ_MBSWIDTH,
+[
+  AC_REQUIRE([AC_HEADER_STDC])
+  AC_CHECK_HEADERS(limits.h stdlib.h string.h wchar.h wctype.h)
+  AC_CHECK_FUNCS(isascii iswcntrl iswprint wcwidth)
+  jm_FUNC_MBRTOWC
+
+  AC_CACHE_CHECK([whether wcwidth is declared], ac_cv_have_decl_wcwidth,
+    [AC_TRY_COMPILE([
+/* AIX 3.2.5 declares wcwidth in <string.h>. */
+#if HAVE_STRING_H
+# include <string.h>
+#endif
+#if HAVE_WCHAR_H
+# include <wchar.h>
+#endif
+], [
+#ifndef wcwidth
+  char *p = (char *) wcwidth;
+#endif
+], ac_cv_have_decl_wcwidth=yes, ac_cv_have_decl_wcwidth=no)])
+  if test $ac_cv_have_decl_wcwidth = yes; then
+    ac_val=1
+  else
+    ac_val=0
+  fi
+  AC_DEFINE_UNQUOTED(HAVE_DECL_WCWIDTH, $ac_val,
+    [Define to 1 if you have the declaration of wcwidth(), and to 0 otherwise.])
+
+  AC_MBSTATE_T
+])
+
+#serial 2
+
+dnl From Paul Eggert
+
+AC_DEFUN(jm_FUNC_MBRTOWC,
+[
+  AC_CACHE_CHECK([whether mbrtowc and mbstate_t are properly declared],
+    jm_cv_func_mbrtowc,
+    [AC_TRY_LINK(
+       [#include <wchar.h>],
+       [mbstate_t state; return ! (sizeof state && mbrtowc);],
+       jm_cv_func_mbrtowc=yes,
+       jm_cv_func_mbrtowc=no)])
+  if test $jm_cv_func_mbrtowc = yes; then
+    AC_DEFINE(HAVE_MBRTOWC, 1,
+      [Define to 1 if mbrtowc and mbstate_t are properly declared.])
+  fi
+])
+
+# serial 8
+
+# From Paul Eggert.
+
+# BeOS 5 has <wchar.h> but does not define mbstate_t,
+# so you can't declare an object of that type.
+# Check for this incompatibility with Standard C.
+
+# Include stdlib.h first, because otherwise this test would fail on Linux
+# (at least glibc-2.1.3) because the "_XOPEN_SOURCE 500" definition elicits
+# a syntax error in wchar.h due to the use of undefined __int32_t.
+
+AC_DEFUN(AC_MBSTATE_T,
+  [
+   AC_CHECK_HEADERS(stdlib.h)
+
+   AC_CACHE_CHECK([for mbstate_t], ac_cv_type_mbstate_t,
+    [AC_TRY_COMPILE([
+#if HAVE_STDLIB_H
+# include <stdlib.h>
+#endif
+#include <wchar.h>],
+      [mbstate_t x; return sizeof x;],
+      ac_cv_type_mbstate_t=yes,
+      ac_cv_type_mbstate_t=no)])
+   if test $ac_cv_type_mbstate_t = no; then
+     AC_DEFINE(mbstate_t, int,
+	       [Define to a type if <wchar.h> does not define.])
+   fi])
+
 dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
 dnl FIXME: Migrate into libit
 
@@ -765,13 +851,13 @@ AC_DEFINE_UNQUOTED(SETLOCALE_CONST,$gt_cv_proto_setlocale_arg1,
 # but which still want to provide support for the GNU gettext functionality.
 # Please note that the actual code is *not* freely available.
 
-# serial 8
+# serial 9
 
 dnl Usage: AM_WITH_NLS([TOOLSYMBOL], [NEEDSYMBOL], [LIBDIR]).
 dnl If TOOLSYMBOL is specified and is 'use-libtool', then a libtool library
 dnl    $(top_builddir)/intl/libintl.la will be created (shared and/or static,
 dnl    depending on --{enable,disable}-{shared,static} and on the presence of
-dnl    AM_DISABLE_SHARED). Otherwise, a static library
+dnl    AM-DISABLE-SHARED). Otherwise, a static library
 dnl    $(top_builddir)/intl/libintl.a will be created.
 dnl If NEEDSYMBOL is specified and is 'need-ngettext', then GNU gettext
 dnl    implementations (in libc or libintl) without the ngettext() function
@@ -855,21 +941,21 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 
 	   if test "$gt_cv_func_gnugettext_libc" = "yes" \
 	      || test "$gt_cv_func_gnugettext_libintl" = "yes"; then
-	      AC_DEFINE(HAVE_GETTEXT, 1,
-                [Define if the GNU gettext() function is already present or preinstalled.])
-	      AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-		[test -z "`$ac_dir/$ac_word -h 2>&1 | grep 'dv '`"], no)dnl
-	      if test "$MSGFMT" != "no"; then
-		AC_CHECK_FUNCS(dcgettext)
-		AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
-		AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-		  [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
-		CATOBJEXT=.gmo
-	      fi
-	      if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
-		INTLLIBS="-lintl"
-	      fi
-	    fi
+	     AC_DEFINE(HAVE_GETTEXT, 1,
+               [Define if the GNU gettext() function is already present or preinstalled.])
+	     AC_CHECK_FUNCS(dcgettext)
+	     AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
+	       [test -z "`$ac_dir/$ac_word -h 2>&1 | grep 'dv '`"], no)dnl
+	     if test "$MSGFMT" != "no"; then
+	       AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
+	     fi
+	     AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
+	       [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
+	     CATOBJEXT=.gmo
+	     if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
+	       INTLLIBS="-lintl"
+	     fi
+	   fi
 	])
 
         if test "$CATOBJEXT" = "NONE"; then
@@ -918,8 +1004,9 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       POSUB=po
     fi
     AC_OUTPUT_COMMANDS(
-     [case " $CONFIG_FILES " in *" po/Makefile.in "* | *" po/Makefile.in:"*)
+     [case " "$CONFIG_FILES" " in *" po/Makefile.in "* | *" po/Makefile.in:"*)
         sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
+        ;;
       esac])
 
 

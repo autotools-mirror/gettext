@@ -65,6 +65,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
+DVIPS = @DVIPS@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
@@ -86,6 +87,8 @@ PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+TEXI2HTML = @TEXI2HTML@
+TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
@@ -133,6 +136,7 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 $(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/getline.m4 \
 		m4/gettext.m4 m4/iconv.m4 m4/inttypes_h.m4 \
 		m4/isc-posix.m4 m4/lcmessage.m4 m4/libtool.m4 \
+		m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 \
 		m4/progtest.m4 m4/setlocale.m4 m4/signed.m4 \
 		m4/uintmax_t.m4 m4/ulonglong.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
@@ -422,6 +426,17 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \
 	  && $(MAKEINFO) --output=$(srcdir)/ABOUT-NLS --no-header \
 	    -I $(srcdir)/doc --no-validate nls.texi
+
+# Documentation tags not known to automake.
+
+ps:
+	cd doc && $(MAKE) ps
+
+pdf:
+	cd doc && $(MAKE) pdf
+
+html:
+	cd doc && $(MAKE) html
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -71,6 +71,7 @@ EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
@@ -93,19 +94,49 @@ YACC = @YACC@
 aclocaldir = @aclocaldir@
 lispdir = @lispdir@
 
+docdir = $(prefix)/doc/@PACKAGE@
+dvidir = $(docdir)
+psdir = $(docdir)
+pdfdir = $(docdir)
+htmldir = $(docdir)
+
 AUTOMAKE_OPTIONS = 1.2 gnits
 
 SED = sed
+RM = rm -f
 
 MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
 info_TEXINFOS = gettext.texi
-gettext_TEXINFOS = iso-apdx.texi
+gettext_TEXINFOS = iso-639.texi iso-3166.texi
 
-EXTRA_DIST = iso-apdx.sed ISO_639 nls.texi matrix.texi
+EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi $(EXTRA_DIST_html)
+
+EXTRA_DIST_html = $(wildcard gettext_*.html)
+CLEANFILES = gettext.pdf gettext.html
+# gettext.dvi and gettext.ps are already known to automake.
+MAINTAINERCLEANFILES = gettext_*.html
+
+# Documentation in Postscript format.
+
+DVIPS = @DVIPS@ -D600
+
+# Documentation in Portable Document Format.
+
+TEXI2PDF = @TEXI2PDF@
+SUFFIXES = .pdf
+
+# Documentation in HTML format.
+
+TEXI2HTML = @TEXI2HTML@
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 TEXI2DVI = texi2dvi
 INFO_DEPS = gettext.info
 DVIS = gettext.dvi
@@ -120,7 +151,7 @@ TAR = tar
 GZIP_ENV = --best
 all: all-redirect
 .SUFFIXES:
-.SUFFIXES: .dvi .info .ps .texi .texinfo .txi
+.SUFFIXES: .dvi .info .pdf .ps .texi .texinfo .txi
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnits --include-deps doc/Makefile
 
@@ -155,8 +186,6 @@ maintainer-clean-vti:
 gettext.info: gettext.texi version.texi $(gettext_TEXINFOS)
 gettext.dvi: gettext.texi version.texi $(gettext_TEXINFOS)
 
-
-DVIPS = dvips
 
 .texi.info:
 	@cd $(srcdir) && rm -f $@ $@-[0-9] $@-[0-9][0-9]
@@ -299,15 +328,15 @@ installcheck: installcheck-am
 install-exec-am:
 install-exec: install-exec-am
 
-install-data-am: install-info-am
+install-data-am: install-info-am install-data-local
 install-data: install-data-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 install: install-am
-uninstall-am: uninstall-info
+uninstall-am: uninstall-info uninstall-local
 uninstall: uninstall-am
-all-am: Makefile $(INFO_DEPS)
+all-am: Makefile $(INFO_DEPS) all-local
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
@@ -318,12 +347,14 @@ installdirs:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES)
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 mostlyclean-am:  mostlyclean-vti mostlyclean-aminfo mostlyclean-generic
 
 mostlyclean: mostlyclean-am
@@ -348,16 +379,113 @@ maintainer-clean: maintainer-clean-am
 install-info-am uninstall-info mostlyclean-aminfo distclean-aminfo \
 clean-aminfo maintainer-clean-aminfo tags distdir info-am info dvi-am \
 dvi check check-am installcheck-am installcheck install-exec-am \
-install-exec install-data-am install-data install-am install \
-uninstall-am uninstall all-redirect all-am all installdirs \
-mostlyclean-generic distclean-generic clean-generic \
-maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+install-exec install-data-local install-data-am install-data install-am \
+install uninstall-local uninstall-am uninstall all-local all-redirect \
+all-am all installdirs mostlyclean-generic distclean-generic \
+clean-generic maintainer-clean-generic clean mostlyclean distclean \
+maintainer-clean
 
 
-iso-apdx.texi: ISO_639 iso-apdx.sed
-	$(SED) -f $(srcdir)/iso-apdx.sed $(srcdir)/ISO_639 > iso-apdx.tmp
-	rm -f $(srcdir)/iso-apdx.texi
-	mv iso-apdx.tmp $(srcdir)/iso-apdx.texi
+iso-639.texi: ISO_639 iso-639.sed
+	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
+	rm -f $(srcdir)/iso-639.texi
+	mv iso-639.tmp $(srcdir)/iso-639.texi
+
+iso-3166.texi: ISO_3166 iso-3166.sed
+	$(SED) -f $(srcdir)/iso-3166.sed $(srcdir)/ISO_3166 > iso-3166.tmp
+	rm -f $(srcdir)/iso-3166.texi
+	mv iso-3166.tmp $(srcdir)/iso-3166.texi
+
+# We distribute only the split HTML documentation.
+# The user can generate the others, via
+#   make gettext.ps
+#   make gettext.pdf
+#   make gettext.html
+
+all-local: html
+install-data-local: install-html
+installdirs-local: installdirs-html
+uninstall-local: uninstall-html
+
+html: html-split
+install-html: install-html-split
+uninstall-html: uninstall-html-split
+
+# Documentation in DVI format.
+
+install-dvi: gettext.dvi
+	$(mkinstalldirs) $(DESTDIR)$(dvidir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(dvidir)/gettext.dvi
+
+installdirs-dvi:
+	$(mkinstalldirs) $(DESTDIR)$(dvidir)
+
+uninstall-dvi:
+	$(RM) $(DESTDIR)$(dvidir)/gettext.dvi
+
+ps: gettext.ps
+
+gettext.ps: gettext.dvi
+	$(DVIPS) -o $@ $<
+
+install-ps: gettext.ps
+	$(mkinstalldirs) $(DESTDIR)$(psdir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(psdir)/gettext.ps
+
+installdirs-ps:
+	$(mkinstalldirs) $(DESTDIR)$(psdir)
+
+uninstall-ps:
+	$(RM) $(DESTDIR)$(psdir)/gettext.ps
+
+pdf: gettext.pdf
+
+.texi.pdf:
+	TEXINPUTS=.:$$TEXINPUTS \
+	  MAKEINFO='$(MAKEINFO) -I $(srcdir)' $(TEXI2PDF) $<
+
+install-pdf: gettext.pdf
+	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(pdfdir)/gettext.pdf
+
+installdirs-pdf:
+	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+
+uninstall-pdf:
+	$(RM) $(DESTDIR)$(pdfdir)/gettext.pdf
+
+html-monolithic: gettext.html
+html-split: gettext_toc.html
+
+gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
+	$(TEXI2HTML) -expandinfo -number -monolithic $<
+
+gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
+	case "$(TEXI2HTML)" in \
+	  *"/missing texi2html") \
+	     $(TEXI2HTML) -expandinfo -number -split_chapter $< || exit 0 ;; \
+	  *) $(RM) gettext_*.html ; \
+	     $(TEXI2HTML) -expandinfo -number -split_chapter $< ;; \
+	esac
+
+install-html-monolithic: gettext.html
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(htmldir)/gettext.html
+
+install-html-split: gettext_toc.html
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+	for file in `if test -f gettext_toc.html; then echo .; else echo $(srcdir); fi`/gettext_*.html; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(htmldir)/`basename $$file`; \
+	done
+
+installdirs-html:
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+
+uninstall-html-monolithic:
+	$(RM) $(DESTDIR)$(htmldir)/gettext.html
+
+uninstall-html-split:
+	$(RM) $(DESTDIR)$(htmldir)/gettext_*.html
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

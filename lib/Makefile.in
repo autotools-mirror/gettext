@@ -67,10 +67,12 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
+DVIPS = @DVIPS@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
@@ -87,6 +89,8 @@ PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+TEXI2HTML = @TEXI2HTML@
+TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
@@ -101,12 +105,12 @@ noinst_LIBRARIES = libnlsut.a
 EXTRA_DIST = alloca.c config.charset error.c getline.c memset.c memmove.c printf-prs.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c gen-lbrkprop.c 3level.h
 
 
-libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c getopt.c getopt1.c hash.c linebreak.c localcharset.c obstack.c xgetcwd.c xmalloc.c xstrdup.c
+libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c obstack.c xgetcwd.c xmalloc.c xstrdup.c
 
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
-noinst_HEADERS = c-ctype.h error.h fstrcmp.h getline.h getopt.h hash.h lbrkprop.h linebreak.h obstack.h printf-parse.h printf.h system.h pathmax.h
+noinst_HEADERS = c-ctype.h error.h fstrcmp.h getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h obstack.h printf-parse.h printf.h system.h pathmax.h
 
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
@@ -130,8 +134,8 @@ libnlsut_a_DEPENDENCIES =  @ALLOCA@ @LIBOBJS@
 libnlsut_a_OBJECTS =  basename.$(OBJEXT) c-ctype.$(OBJEXT) \
 concatpath.$(OBJEXT) fstrcmp.$(OBJEXT) getopt.$(OBJEXT) \
 getopt1.$(OBJEXT) hash.$(OBJEXT) linebreak.$(OBJEXT) \
-localcharset.$(OBJEXT) obstack.$(OBJEXT) xgetcwd.$(OBJEXT) \
-xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
+localcharset.$(OBJEXT) mbswidth.$(OBJEXT) obstack.$(OBJEXT) \
+xgetcwd.$(OBJEXT) xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
 AR = ar
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)

@@ -88,6 +88,15 @@
 /* Define if you have the getpagesize function.  */
 #undef HAVE_GETPAGESIZE
 
+/* Define if you have the isascii function.  */
+#undef HAVE_ISASCII
+
+/* Define if you have the iswcntrl function.  */
+#undef HAVE_ISWCNTRL
+
+/* Define if you have the iswprint function.  */
+#undef HAVE_ISWPRINT
+
 /* Define if you have the mblen function.  */
 #undef HAVE_MBLEN
 
@@ -154,6 +163,9 @@
 /* Define if you have the vasprintf function.  */
 #undef HAVE_VASPRINTF
 
+/* Define if you have the wcwidth function.  */
+#undef HAVE_WCWIDTH
+
 /* Define if you have the <argz.h> header file.  */
 #undef HAVE_ARGZ_H
 
@@ -187,6 +199,12 @@
 /* Define if you have the <values.h> header file.  */
 #undef HAVE_VALUES_H
 
+/* Define if you have the <wchar.h> header file.  */
+#undef HAVE_WCHAR_H
+
+/* Define if you have the <wctype.h> header file.  */
+#undef HAVE_WCTYPE_H
+
 /* Name of package */
 #undef PACKAGE
 
@@ -215,6 +233,15 @@
 /* Define to unsigned long or unsigned long long
    if <inttypes.h> doesn't define. */
 #undef uintmax_t
+
+/* Define to 1 if mbrtowc and mbstate_t are properly declared. */
+#undef HAVE_MBRTOWC
+
+/* Define to 1 if you have the declaration of wcwidth(), and to 0 otherwise. */
+#undef HAVE_DECL_WCWIDTH
+
+/* Define to a type if <wchar.h> does not define. */
+#undef mbstate_t
 
 /* Define if you have the parse_printf_format() function. */
 #undef HAVE_PARSE_PRINTF_FORMAT
