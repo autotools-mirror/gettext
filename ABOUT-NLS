@@ -100,16 +100,18 @@ Using This Package
 
    As a user, if your language has been installed for this package, you
 only have to set the `LANG' environment variable to the appropriate
-ISO 639 `LL' two-letter code prior to using the programs in the
-package.  For example, let's suppose that you speak German.  At the
-shell prompt, merely execute `setenv LANG de' (in `csh'),
-`export LANG; LANG=de' (in `sh') or `export LANG=de' (in `bash').  This
-can be done from your `.login' or `.profile' file, once and for all.
+`LL_CC' combination.  Here `LL' is an ISO 639 two-letter language code,
+and `CC' is an ISO 3166 two-letter country code.  For example, let's
+suppose that you speak German and live in Germany.  At the shell
+prompt, merely execute `setenv LANG de_DE' (in `csh'),
+`export LANG; LANG=de_DE' (in `sh') or `export LANG=de_DE' (in `bash').
+This can be done from your `.login' or `.profile' file, once and for
+all.
 
-   Some languages have dialects in different countries.  To specify
-such a dialect, the notation `LL_CC' can be used, which combines an
-ISO 639 language code `LL' and an ISO 3166 two-letter country code
-`CC'.  For example, `de_AT' is used for Austria, and `pt_BR' for Brazil.
+   You might think that the country code specification is redundant.
+But in fact, some languages have dialects in different countries.  For
+example, `de_AT' is used for Austria, and `pt_BR' for Brazil.  The
+country code serves to distinguish the dialects.
 
    Not all programs have translations for all languages.  By default, an
 English message is shown in place of a nonexistent translation.  If you
@@ -120,7 +122,13 @@ for the purpose of message handling, but you still need to have `LANG'
 set to the primary language; this is required by other parts of the
 system libraries.  For example, some Swedish users who would rather
 read translations in German than English for when Swedish is not
-available, set `LANGUAGE' to `sv:de' while leaving `LANG' to `sv'.
+available, set `LANGUAGE' to `sv:de' while leaving `LANG' to `sv_SE'.
+
+   In the `LANGUAGE' environment variable, but not in the `LANG'
+environment variable, `LL_CC' combinations can be abbreviated as `LL'
+to denote the language's main dialect.  For example, `de' is equivalent
+to `de_DE' (German as spoken in Germany), and `pt' to `pt_PT'
+(Portuguese as spoken in Portugal) in this context.
 
 Translating Teams
 =================
