@@ -1,6 +1,7 @@
 2001-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* lang-objc: If the locale couldn't be set, skip the test.
+	* lang-pascal: Fix typo.
 
 2001-12-16  Bruno Haible  <bruno@clisp.org>
 
