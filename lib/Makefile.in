@@ -133,6 +133,7 @@ POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+SUBDIR_libasprintf = @SUBDIR_libasprintf@
 TESTJAVA = @TESTJAVA@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -249,7 +250,7 @@ DEFS = -DLIBDIR=\"$(libdir)\" -DEXEEXT=\"$(EXEEXT)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
 DISTCLEANFILES = fnmatch.h
-MOSTLYCLEANFILES = @STDBOOL_H@
+MOSTLYCLEANFILES = stdbool.h
 
 charset_alias = $(DESTDIR)$(libdir)/charset.alias
 charset_tmp = $(DESTDIR)$(libdir)/charset.tmp
