@@ -16,6 +16,7 @@ fetchmail       |                                                 |
 fileutils       |    [] [] [] []       []       [] []             |
 findutils       |       [] []          [] []    [] []       [] [] |
 flex            |       []             []       []                |
+freetype        |                                                 |
 gas             |                                                 |
 gawk            |                                     []          |
 gcal            |                                                 |
@@ -74,6 +75,7 @@ fetchmail       |                                                 |  0
 fileutils       | [] []    []    []     []   [] [] [] [] []       | 17
 findutils       |    []    []    []     []   []    [] [] []       | 16
 flex            |    []                      []       []          |  6
+freetype        |                                                 |  0
 gas             |                                                 |  0
 gawk            |                                        []       |  2
 gcal            |                                                 |  0
@@ -109,9 +111,9 @@ texinfo         | []                         []                   |  7
 textutils       | []       [] [] []     []   [] [] []             | 15
 util-linux      |                       []               []       |  4
 wdiff           |                            [] []       []       |  5
-wget            |          []                [] [] [] [] []       | 15
+wget            |          []                [] [] [] [] [] []    | 16
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  9 11 20 19  1  2  368
+  51 domains      17  9  1 23  6 17  1  13   26  9 11 20 19  2  2  369
 @end group
 @end example
