@@ -1,0 +1,1 @@
+xstrdup.o: xstrdup.c

@@ -1,0 +1,39 @@
+'.\" Copyright (C) 1995 Free Software Foundation
+'.\" This file is part of GNU C Library.
+'.\"
+'.\" Author: Ulrich Drepper
+'.\"
+.TH MSGFMT 5 "GNU C Library" "FSF"
+.SH NAME
+msgfmt \- format of protable object files and message object files
+.SH DESCRIPTION
+The
+.IR msgfmt
+program from a set of portable object files another set of files, which are
+machine dependend coded.  The special version for GNU msgfmt is
+carefully designed to be readable in whatever byte order.
+.SH Input file format
+(Description of input file format.)
+.SH Output file format
+The message object files consist of three parts:
+.nf
+      1.  Header with magic number etc.
+      2.  Table with offsets to data part.
+      3.  Data part with all the strings.
+.fi
+.PP
+.BR Header.
+The header consists of two 32-bit integer.  The first is a magic number whose
+value is
+.B 0x950412DE.
+When the object file is used and the magic number has the reverse byte order
+one can still use it.  Only all following multi-byte integers must be
+changed in byte order.
+.PP
+The second integer gives the number entries with
+.B unique
+hash values.  The hash value has to be computed by the same function as in
+.I msgfmt
+itself.  
+.BR Offsettable.
+

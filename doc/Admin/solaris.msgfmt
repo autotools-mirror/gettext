@@ -1,0 +1,21 @@
+talisker% /usr/bin/msgfmt -h
+usage: msgfmt [-v] [-o filename] [files ... ]
+
+
+talisker% /usr/bin/xgettext -h
+Usage:  xgettext [-a [-x exclude-file]] [-jns][-c comment-tag]
+        [-d default-domain] [-m prefix] [-M suffix] [-p pathname] files ...
+        xgettext -h
+
+-a                      find ALL strings
+-c <comment-tag>        get comments containing <flag>
+-d <default-domain>     use <default-domain> for default domain
+-h                      Help
+-j                      update existing file with the current result
+-M <suffix>             fill in msgstr with msgid<suffix>
+-m <prefix>             fill in msgstr with <prefix>msgid
+-n                      line# file name and line number info in output
+-p <pathname>           use <pathname> for output file directory
+-s                      generate sorted output files
+-x <exclude-file>       exclude strings in file <exclude-file> from output
+-                       read stdin, use as a filter (input only)

@@ -1,0 +1,1692 @@
+BABYL OPTIONS: -*- rmail -*-
+Version: 5
+Labels:
+Note:   This is the header of an rmail file.
+Note:   If you are seeing it in rmail,
+Note:    it means the file has no messages in it.
+
+1, edited,,
+From: terrell@druhi.ATT.COM (TerrellE)
+Newsgroups: comp.sys.ibm.pc,sci.astro
+Subject: Internationalization of Software?
+Date: 30 Jun 89 19:05:23 GMT
+Reply-To: terrell@druhi.ATT.COM (TerrellE)
+Organization: AT&T, Denver, CO
+
+*** EOOH ***
+From: terrell@druhi.ATT.COM (TerrellE)
+Newsgroups: comp.sys.ibm.pc,sci.astro
+Subject: Internationalization of Software?
+Date: 30 Jun 89 19:05:23 GMT
+Reply-To: terrell@druhi.ATT.COM (TerrellE)
+
+I know that there are some modifications that I will have to perform to 
+"internationalize" software products developed for use in the USA.  
+These changes include the obvious (translate the program
+and documentation into the right language).  However, some of the
+other changes are more subtle.  I'm sure that I've overlooked some, but
+here's what I have so far:
+
+Necessary changes to "internationalize" a software product:
+
+1.	Flexible date format:
+
+	dd/mm/yy
+	yy/dd/mm
+	yy/mm/dd
+	mm/dd/yy
+
+2.	Handle foreign daylight savings time.
+
+3.	Flexible radix (decimal) point (i.e. '.' or ','):
+
+	3.14159
+	3,14159
+
+4.	Allow English or Metric units.
+
+5.	Use "one thousand million" rather than "one billion".
+
+6.	Flexible time format:
+
+	hh:mm
+	hh.mm
+	hh'mm
+
+7.	Allow either ' ' or ',' for thousands delimiters:
+
+	1,000,000
+	1 000 000
+	
+
+What else is necessary?  Overseas users:  what changes would you make
+to your "US Version" software to make it approprate for use in other
+countries?
+
+I'll post a summary of the results.  Thanks in advance,
+
+
+
+Eric Terrell	(att!druhi!terrell)
+
+1,,
+Xref: IRO.UMontreal.CA comp.std.c:13991 comp.software.international:607
+Path: IRO.UMontreal.CA!CC.UMontreal.CA!newsflash.concordia.ca!utcsri!utnut!cs.utexas.edu!howland.reston.ans.net!nctuccca.edu.tw!news.cc.nctu.edu.tw!mall!ywliu
+From: ywliu@beta.wsl.sinica.edu.tw ()
+Newsgroups: comp.std.c,comp.software.international
+Subject: Re: ANSI C Locale Character Sets
+Followup-To: comp.std.c,comp.software.international
+Date: 3 Oct 1994 06:39:25 GMT
+Organization: Computing Center, Academia Sinica
+Lines: 26
+Message-ID: <36o8ut$afu@mall.sinica.edu.tw>
+References: <Cx0Mpy.7Lo@actrix.gen.nz>
+NNTP-Posting-Host: ywliu%@beta.wsl.sinica.edu.tw
+X-Newsreader: TIN [version 1.2 PL0]
+
+*** EOOH ***
+From: ywliu@beta.wsl.sinica.edu.tw ()
+Newsgroups: comp.std.c,comp.software.international
+Subject: Re: ANSI C Locale Character Sets
+Followup-To: comp.std.c,comp.software.international
+Date: 3 Oct 1994 06:39:25 GMT
+Organization: Computing Center, Academia Sinica
+References: <Cx0Mpy.7Lo@actrix.gen.nz>
+NNTP-Posting-Host: ywliu%@beta.wsl.sinica.edu.tw
+X-Newsreader: TIN [version 1.2 PL0]
+
+Gary Houston (ghouston@actrix.gen.nz) wrote:
+: It seems to me there are a couple of details missing from the ANSI C
+: locale stuff:
+
+: 1/ How can a program find out which character set is being used?
+
+
+  You may use setlocale(LC_ALL,NULL) to get the language info.
+
+: 2/ How can a program determine whether text files use multibyte or
+:    wide characters, or is it to be assumed that multibyte will
+:    always be used?
+
+  As far as I am concerned, the wide character is used as the representation
+inside your program. That is, wide character is your internal data 
+representatin form, as I/O operates on multi-byte characters. So, I always
+read/write mutl-bytes and convert to wide character , and vice versa.
+
+: Does anyone know of other standards/conventions/plans which fill
+: in this missing information?
+
+  You may check out P.J. Plauger's "Standard C" column on CUJ May 1993 - July
+1993. There is another one "Internationlization and Localization" in CUJ July
+ 1993 too. I am looking for more material.
+
+Yen-Wei Liu
+
+1, edited, answered,,
+Mail-from: From orac.iinet.com.au!pdcruze Thu Nov 24 17:38:19 1994
+Return-Path: <orac.iinet.com.au!pdcruze>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rAmnw-00009aC; Thu, 24 Nov 94 17:38 EST
+Received: from lagrande.iro.umontreal.ca by iros1.IRO.UMontreal.CA (8.6.9) with ESMTP
+	id LAA06293; Thu, 24 Nov 1994 11:57:58 -0500
+Received: from saguenay.IRO.UMontreal.CA (root@saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id LAA23939 for <pinard@lagrande.IRO.UMontreal.CA>; Thu, 24 Nov 1994 11:57:50 -0500
+Received: from uniwa.uwa.edu.au (root@uniwa.uwa.edu.au [130.95.128.1]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id LAA20957 for <pinard@IRO.UMontreal.CA>; Thu, 24 Nov 1994 11:57:46 -0500
+Received: from orac.iinet.com.au (orac.iinet.com.au [203.0.178.134]) by uniwa.uwa.edu.au (8.6.9/8.6.9) with ESMTP id AAA09394; Fri, 25 Nov 1994 00:57:29 +0800
+Received: from orac.iinet.com.au (pdcruze@localhost [127.0.0.1]) by orac.iinet.com.au (8.6.9/8.6.9) with ESMTP id AAA08605; Fri, 25 Nov 1994 00:57:11 +0800
+Message-Id: <199411241657.AAA08605@orac.iinet.com.au>
+To: pinard@IRO.UMontreal.CA
+cc: meyering@comco.com
+Subject: Re: Starting localization of GNU recode 
+In-reply-to: Your message of "Thu, 24 Nov 1994 01:11:00 EST."
+             <m0rAXP2-00008sC@icule> 
+Date: Fri, 25 Nov 1994 00:57:10 +0800
+From: "Patrick D'Cruze" <pdcruze@li.org>
+
+*** EOOH ***
+To: pinard@IRO.UMontreal.CA
+cc: meyering@comco.com
+Subject: Re: Starting localization of GNU recode 
+In-reply-to: Your message of "Thu, 24 Nov 1994 01:11:00 EST."
+             <m0rAXP2-00008sC@icule> 
+Date: Fri, 25 Nov 1994 00:57:10 +0800
+From: "Patrick D'Cruze" <pdcruze@li.org>
+
+> I met a few points of discussion while doing so:
+> 
+> * I got to decide that, even if the program will eventually make
+> most of its output in the foreign languages, the input syntax,
+> option values, etc., are not to be localized.
+
+Yes.  The purpose of message catalogs was to provide an easy to use method
+for displaying language independent messages.  Hence little modifications
+need to be made to support this.  However, no easy method exists for
+supporting language-independent inputs.  So this will have to be left up to
+the developer to decide how they are going to implement this.
+
+> * it is not useful that I modify the lib/ routines if not done in the
+> true sources.  How do you/I/they proceed for getting this job done?
+> I presume that lib/ routines will all use gettext for the time being.
+
+Probably Roland (or another volunteer) will internationalize glibc.  Linux's
+libc has already been internationalised and a few message catalogs
+already exist - French, German, Polish.  It probably would be useful
+modifying the routines in lib/ for those platforms that will be using
+the routines located in libc/.
+
+> I was expecting a problem which I did not met.  All localizable
+> strings were luckily into executable positions, that is, affected
+> to variables or given as parameter to functions.  But I will not
+> escape this problem in all my things, and will surely hit some
+> localizable strings in structured initializations.  I'll see once
+> there, unless you thought out an all ready solution for this (?).
+
+I've come across this a few times within diffutils.  Particularly struct
+definitions and the like.  I'll send you a list of guidelines when looking
+for output messages.  Will send this to you and Jim tommorrow.
+
+Regards,
+Patrick
+
+
+
+1, edited,,
+Mail-from: From pinard Mon Nov 28 12:15:47 1994
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rC9fz-00008uC; Mon, 28 Nov 94 12:15 EST
+Message-Id: <m0rC9fz-00008uC@icule>
+Date: Mon, 28 Nov 94 12:15 EST
+From: pinard (Francois Pinard)
+To: Richard M. Stallman <rms@prep.ai.mit.edu>
+CC: Jim Meyering <meyering@comco.com>
+Subject: GNU standards and localized message catalogs
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+
+*** EOOH ***
+Date: Mon, 28 Nov 94 12:15 EST
+From: pinard (Francois Pinard)
+To: Richard M. Stallman <rms@prep.ai.mit.edu>
+CC: Jim Meyering <meyering@comco.com>
+Subject: GNU standards and localized message catalogs
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+
+* We also need a uniform convention about where, in the installed
+hierarchy, to put translations of manuals in long term.  The need is
+not immediate.  One friend volunteered to translate the GNU recode
+manual in French.  If this happens, I would like to know first *if*
+the distribution should install it by default, and where it should
+install it then.  If not installed by default, what would be the
+uniform naming scheme for Makefile goals installing documents?
+
+1, edited,,
+Mail-from: From pinard Sat Dec 24 23:51:00 1994
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rLkv4-00009AC; Sat, 24 Dec 94 23:50 EST
+Message-Id: <m0rLkv4-00009AC@icule>
+Date: Sat, 24 Dec 94 23:50 EST
+From: pinard (Francois Pinard)
+To: rms@gnu.ai.mit.edu
+In-reply-to: <199412250445.XAA25324@mole.gnu.ai.mit.edu> (message from Richard Stallman on Sat, 24 Dec 1994 23:45:19 -0500)
+Subject: Re: GNU standards and localized message catalogs
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Sat, 24 Dec 94 23:50 EST
+From: pinard (Francois Pinard)
+To: rms@gnu.ai.mit.edu
+In-reply-to: <199412250445.XAA25324@mole.gnu.ai.mit.edu> (message from Richard Stallman on Sat, 24 Dec 1994 23:45:19 -0500)
+Subject: Re: GNU standards and localized message catalogs
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+       * We also need a uniform convention about where, in the installed
+       hierarchy, to put translations of manuals in long term.
+
+   I think they should go in the Info tree just like English manuals.
+
+Yes, of course.  Suppose I have a French recode.info, and an
+English one.  This kind of thing will not be immediate, but they
+will come.  We need some convention to install both.  We are not
+to give them different names, presumably.  People will like to
+say, on an individual basis: ``if a French version of something is
+available, I'll prefer it over the standard English one''.  So we
+need a convention to stock these, and a convention to select them.
+
+1,,
+Mail-from: From gnu.ai.mit.edu!rms Sun Dec 25 05:16:06 1994
+Return-Path: <gnu.ai.mit.edu!rms>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rLpze-00009IC; Sun, 25 Dec 94 05:16 EST
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id AAA12366 for <icule!pinard>; Sun, 25 Dec 1994 00:01:47 -0500
+Received: from saguenay.IRO.UMontreal.CA (root@saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id AAA10584 for <pinard@lagrande.IRO.UMontreal.CA>; Sun, 25 Dec 1994 00:01:46 -0500
+Received: from mole.gnu.ai.mit.edu (rms@mole.gnu.ai.mit.edu [128.52.46.33]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id AAA14869 for <pinard@iro.umontreal.ca>; Sun, 25 Dec 1994 00:01:37 -0500
+Received: by mole.gnu.ai.mit.edu (8.6.9/4.0)
+	id <AAA25411@mole.gnu.ai.mit.edu>; Sun, 25 Dec 1994 00:01:33 -0500
+Date: Sun, 25 Dec 1994 00:01:33 -0500
+Message-Id: <199412250501.AAA25411@mole.gnu.ai.mit.edu>
+From: Richard Stallman <rms@gnu.ai.mit.edu>
+To: pinard@iro.umontreal.ca
+In-reply-to: <m0rLkv4-00009AC@icule> (pinard@iro.umontreal.ca)
+Subject: Re: GNU standards and localized message catalogs
+
+*** EOOH ***
+Date: Sun, 25 Dec 1994 00:01:33 -0500
+From: Richard Stallman <rms@gnu.ai.mit.edu>
+To: pinard@iro.umontreal.ca
+In-reply-to: <m0rLkv4-00009AC@icule> (pinard@iro.umontreal.ca)
+Subject: Re: GNU standards and localized message catalogs
+
+      We need some convention to install both.  We are not
+    to give them different names, presumably.
+
+I would give them different names.  They would have
+separate menu items in the Info directory.  That is the
+easiest way and it seems good enough, so I don't see a reason
+to spend time looking for any other way.
+
+
+1, edited,,
+Mail-from: From pinard Tue Jan  3 16:17:29 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rPGbe-00008xC; Tue, 3 Jan 95 16:17 EST
+Message-Id: <m0rPGbe-00008xC@icule>
+Date: Tue, 3 Jan 95 16:17 EST
+From: pinard (Francois Pinard)
+To: vern@ee.lbl.gov
+In-reply-to: <199501031914.LAA00333@daffy.ee.lbl.gov> (message from Vern Paxson on Tue, 03 Jan 95 11:14:17 PST)
+Subject: Re: Internationalization of Flex
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Tue, 3 Jan 95 16:17 EST
+From: pinard (Francois Pinard)
+To: vern@ee.lbl.gov
+In-reply-to: <199501031914.LAA00333@daffy.ee.lbl.gov> (message from Vern Paxson on Tue, 03 Jan 95 11:14:17 PST)
+Subject: Re: Internationalization of Flex
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+There are two categories of patches: a grouped set at initialization
+time, and all-over-the-place one which marks localizable strings.
+We can consider them separately (but I will most probably end up
+suggesting we give them the same treatment...).
+
+What would be easier would be that the original Flex sources already
+marks all strings which require localization.  The way I do it in my
+things is merely replacing each "STRING" by _("STRING") *if* STRING
+should be translated.  Flex could then be distributed with:
+
+	#define _(String) (String)
+
+effectively ignoring the marks.  I may provide an initial patch
+to you for this.  Later on, the maintenance would be relatively
+easy for you: if you add or modify a string, you will have to
+ask yourself if the new or altered string requires translation,
+and include it within _() if you think it should be translated.
+"%s: %d" is an example of string not requiring translation...
+
+The remaining work will be handled by group of volunteers from
+different countries.  I took the responsibility of organizing how
+these things will be done.  Once in a while, volunteers will provide
+you some COUNTRY.tt files which you might accept to distribute
+with Flex.  (COUNTRY is a two letter code, like `de' for German.)
+If the COUNTRY.tt files ever lag with regard to Flex modifications,
+this would not break nationalized Flex: the current mechanics will
+merely return the original English string if a proper translation
+cannot be found.  So you do not even have to feel tied to the
+translators for releasing new distributions for Flex.  And nothing
+is subject to the GPL so far :-).
+
+The initialization is not very complex, and can be done within
+less than a dozen easy lines of code, hardly GPL'able.  I think
+they could be included in standard Flex distribution, while being
+conditionalized out.  The only harder modifications come from me,
+and touch Makefile.in, for including all the machinery to prepare
+and install locale message catalogs provided the underlying system
+has what is needed.  In the way I am now distributing my things, this
+machinery automatically cut itself out when GNU locale is not usable.
+
+Remain only two modules, currently named libintl.h and libintl.c
+(this might change), which are covered by the GPL, which you
+do not want to distribute with Flex.  The Flex README could
+suggest installers to grab them from any other GNU distribution.
+The configuration machinery might automatically check if they have
+been copied by the installer and, if not, forget about localization.
+
+This way, Flex will be easily and widely nationalized, the GPL
+principle will be safe, Flex will stay free of the GPL, and the
+burden on the installers, as well as both you and me, will be
+minimal in the long run.
+
+There is a difficulty I have not studied yet, and which comes from
+the fact that Flex generates C code (Bison has the same problem).
+Flex itself could be nationalized, and this is orthogonal to the fact
+Flex could generate nationalizable scanners.  Both are desirable.
+
+
+1, edited,,
+Mail-from: From pinard Thu Jan 12 07:41:07 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rSOpt-00007LC; Thu, 12 Jan 95 07:41 EST
+Message-Id: <m0rSOpt-00007LC@icule>
+Date: Thu, 12 Jan 95 07:41 EST
+From: pinard (Francois Pinard)
+To: vern@ee.lbl.gov
+In-reply-to: <199501051930.LAA04658@daffy.ee.lbl.gov> (message from Vern Paxson on Thu, 05 Jan 95 11:30:54 PST)
+Subject: Re: Internationalization of Flex
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Thu, 12 Jan 95 07:41 EST
+From: pinard (Francois Pinard)
+To: vern@ee.lbl.gov
+In-reply-to: <199501051930.LAA04658@daffy.ee.lbl.gov> (message from Vern Paxson on Thu, 05 Jan 95 11:30:54 PST)
+Subject: Re: Internationalization of Flex
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+Besides, not long after having started this i18n effort for my
+own things, I realized that the i18n attribute should really be
+attached to strings themselves, and not to what we do with them.
+A blatant example is an error message produced by formatting.
+The format string needs i18n, while the result from sprintf may
+have so many different instances that it is unpractical to list
+them all in some error_string_out() routine.  I also got other
+cases forcing me to concentrate on strings for i18n.
+
+There is a stylistic issue here.  I use _("hello"), adding three
+characters to each localizable string, while you will most probably
+use _( "hello" ), adding five characters per localizable string.
+Yet, it has the advantage of being shorter than error_string_out,
+and be done at the right level.
+
+By merely defining _(String) to be (String), you just turn off
+localization in standard flex, with not a single nanosecond spoiled
+on it.  But this will then allow me to produce a quite smaller and
+maintainable patch for i18n of flex.
+
+   This [error_string_out()] routine could then look up every string
+   passed it in a translation table that's compiled into flex
+   like the skel[] array.  All that's needed is a public-domain
+   description of the format of the COUNTRY.tt translation files
+   and the rest should be easy.
+
+If I clearly understand your idea, you will compile in flex
+a French table, and obtain a French speaking binary.  You will
+produce different binaries for Catalan, Dutch, etc.  That is not
+practical on big sites having multinational users.
+
+Right now in my things, the setting of LANG in the environment
+decides the language to use, and there is a single binary to handle
+all things.  Further, the evolving GNU locale will soon change its
+*.tt file format, and will try to use the current system underlying
+localization mechanics, if any good one is found at configure time.
+
+There is no need that you redo all this and throw new solutions to
+this whole set of problems.  The most workable solution to me looks
+like standard flex distribution already have all _() included -- and
+that you accept routinely adding _() to new localizable strings when
+you are doing flex maintenance, and that a separately distributed
+patch attaches flex to GNU locale complexities, without having you
+discovering and solving them anew.
+
+   Let me know if this is workable (I'm willing to do the work).
+
+Let me take one hour this morning to offer you a patch for _() for
+2.5.0.6, hoping that you will accept it.  That would be a start.  Let
+me take care of the remaining organizational problems, synchronizing
+with other teams, etc.  I already do this for other GNU packages
+and will eventually help with most of them (I've accepted that role).
+
+Once we will have had success with i18ned flex for some time, it
+would then become easier to convince you to go further for other
+aspects (like *producing* i18nable scanners :-).
+
+Let me hope that my pleading for the cause will touch your heart,
+somewhere :-).  Keep happy!
+
+-- 
+François Pinard        ``Happy GNU Year!''       pinard@iro.umontreal.ca
+A New Year's gift?  Give us Programming Freedom!  Write lpf@uunet.uu.net
+
+
+1, edited,,
+Mail-from: From pinard Thu Jan 12 16:44:56 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rSXKA-00007VC; Thu, 12 Jan 95 16:44 EST
+Message-Id: <m0rSXKA-00007VC@icule>
+Date: Thu, 12 Jan 95 16:44 EST
+From: pinard (Francois Pinard)
+To: vern@ee.lbl.gov
+In-reply-to: <199501121822.KAA21713@daffy.ee.lbl.gov> (message from Vern Paxson on Thu, 12 Jan 95 10:22:40 PST)
+Subject: Re: Internationalization of Flex
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Thu, 12 Jan 95 16:44 EST
+From: pinard (Francois Pinard)
+To: vern@ee.lbl.gov
+In-reply-to: <199501121822.KAA21713@daffy.ee.lbl.gov> (message from Vern Paxson on Thu, 12 Jan 95 10:22:40 PST)
+Subject: Re: Internationalization of Flex
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+   I'm not sure having to remember to use error_string_out() instead
+   of fprintf( stderr ... ) is any easier, though.
+
+Not only error strings are being made localizable by the patch I
+shipped this morning, but also statistics, version and help, and
+some debug output.  These are not always error messages, and not
+always sent to stderr.
+
+Sometimes in flex, messages are constructed in pieces using %s to
+insert parts.  Translating at the string level is the right approach
+in these situations.  I'm not sure error_string_out() would have been
+satisfying (but I'm not going to argue, since I have your favor! :-)
+
+1, edited, answered,,
+Mail-from: From twinsun.com!eggert Tue Feb 14 05:16:50 1995
+Path: bloom-beacon.mit.edu!senator-bedfellow.mit.edu!faqserv
+From: mike@vlsivie.tuwien.ac.at
+Newsgroups: comp.unix.questions,comp.std.internat,comp.software.international,comp.lang.c,comp.windows.x,comp.std.c,comp.answers,news.answers
+Subject: Programming for Internationalization FAQ
+Supersedes: <internationalization/programming-faq_787570857@rtfm.mit.edu>
+Followup-To: comp.unix.questions,comp.std.internat,comp.software.international,comp.lang.c,comp.windows.x,comp.std.c
+Date: 15 Jan 1995 10:26:57 GMT
+Organization: TU Wien
+Lines: 564
+Approved: news-answers-request@MIT.EDU
+Expires: 28 Feb 1995 10:26:07 GMT
+Message-ID: <internationalization/programming-faq_790165567@rtfm.mit.edu>
+NNTP-Posting-Host: bloom-picayune.mit.edu
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Summary: This FAQ discusses writing programs which can handle
+         different language conventions/character sets/etc.
+         Applicable to all character set encodings; with particular 
+	 emphasis on ISO-8859-1.
+X-Last-Updated: 1994/11/15
+Originator: faqserv@bloom-picayune.MIT.EDU
+Xref: bloom-beacon.mit.edu comp.unix.questions:38263 comp.std.internat:2069 comp.software.international:1289 comp.lang.c:65751 comp.windows.x:34580 comp.std.c:7917 comp.answers:9514 news.answers:33146
+
+*** EOOH ***
+From: mike@vlsivie.tuwien.ac.at
+Newsgroups: comp.unix.questions,comp.std.internat,comp.software.international,comp.lang.c,comp.windows.x,comp.std.c,comp.answers,news.answers
+Subject: Programming for Internationalization FAQ
+Supersedes: <internationalization/programming-faq_787570857@rtfm.mit.edu>
+Followup-To: comp.unix.questions,comp.std.internat,comp.software.international,comp.lang.c,comp.windows.x,comp.std.c
+Date: 15 Jan 1995 10:26:57 GMT
+Organization: TU Wien
+Approved: news-answers-request@MIT.EDU
+Expires: 28 Feb 1995 10:26:07 GMT
+NNTP-Posting-Host: bloom-picayune.mit.edu
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+Summary: This FAQ discusses writing programs which can handle
+         different language conventions/character sets/etc.
+         Applicable to all character set encodings; with particular 
+	 emphasis on ISO-8859-1.
+X-Last-Updated: 1994/11/15
+Originator: faqserv@bloom-picayune.MIT.EDU
+
+
+Archive-name: internationalization/programming-faq
+Posting-Frequency: monthly
+
+
+
+		  Programming for Internationalization
+
+
+
+DISCLAIMER: THE AUTHOR MAKES NO WARRANTY OF ANY KIND WITH REGARD TO
+THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+Note: Most of this was tested on a Sun 10, running SunOS 4.1.* - other
+systems might differ slightly
+
+This FAQ discusses topics related to the use of ISO 8859-1 based 8 bit
+character sets. It discusses how to program applications which support
+the use European (Latin American) national character sets on
+UNIX-based systems and standard C environments.
+
+
+
+1. Which coding should I use for accented characters?
+Use the internationally standardized ISO-8859-1 character set to type
+accented characters. This character set contains all characters
+necessary to type (West) European languages. This encoding is also the
+preferred encoding on the Internet (where accepted - see below).
+
+This character set is also used by AmigaDOS, MS-Windows (Code Page
+1252 in Microsoft Speak.  This is for Windows versions delivered in
+the US, Europe (except Eastern Europe) and Latin America.  In Windows
+3.1 Microsoft added additional characters in the 0x80-9F range),
+VMS (DEC MCS is a draft version of the current ISO 8859-1 character
+set standard and differs in only two characters) and (most) UNIX
+implementations. MS-DOS uses a different character set and is not
+compatible with this character set.
+
+ISO 8859-X actually is a family of character set standards.  Basically
+all of the information given here is also valid for these standards.
+These standards comprise 8859-X:
+8859-1	Europe, Latin America
+8859-2  Eastern Europe
+8859-3  SE Europe/miscellaneous (Esperanto, Maltese, etc.) 
+8859-4  Scandinavia/Baltic (mostly covered by 8859-1 also)
+8859-5  Cyrillic
+8859-6  Arabic
+8859-7  Greek 
+8859-8  Hebrew
+8859-9  Latin5, same as 8859-1 except for Turkish instead of Icelandic
+8859-10 Latin6, for Eskimo/Scandinavian languages
+
+Another nascent standard is UNICODE (ISO 10646).  UNICODE is an
+extension of ISO 8859-1 (which itself is an extension of US-ASCII) to
+16 bit characters.  Thus most of the world's languages (including
+Japanese, Korean, Chinese...) can be covered.
+
+Most of the information given here is independent of the character
+encoding used (e.g. DEC MCS, etc.), but can be applied to any
+character set, providing the programming environment has provisions
+for this standard.
+
+
+
+2. Getting your environment right
+To configure your environment such that you can enter, process and
+display 8 bit ISO characters, check out the ISO-8859-1 FAQ available
+via anonymous ftp from ftp.vlsivie.tuwien.ac.at in
+/pub/8bit/FAQ-ISO-8859-1.
+
+
+
+3. Setting your environment for ISO-C (ANSI-C) programs
+The ISO C Standard (ANSI C Standard 4.4) defines several functions for
+supporting localization. To set your international environment on
+program startup, you should make one or several calls to the setlocale
+functions.  Calls to this function will predetermine the reaction of
+other localization functions according to your language/country
+environment.
+
+To configure a particular aspect of you environment, say the number
+representation, you would call
+--
+setlocale (LC_NUMERIC, "Germany");
+--
+
+This call would set all number representation functions defined in the
+localization set to return numbers in the format used in Germany.  If
+the call was successful, setlocale will return the name of your
+locale.  A NULL return value indicates failure.  Note that the
+environments are predetermined outside your C program by the system
+you run on. (So the example given here is likely to fail on all but a
+few systems.) Check the setlocale manual page or your system
+documentation to find out about the environments available.
+
+There are several LOCALE types available for different localization
+aspects (currency sign, number representation, characters sets). The
+value they can take is highly system dependent. Also, it should be up
+to the use to define the local environment he needs. 
+ 
+A C program inherits its locale environment variables when it starts up.
+This happens automatically.  However, these variables do not
+automatically control the locale used by the library functions, because
+ISO/ANSI C says that all programs start by default in the standard C
+locale.  To use the locales specified by the environment, The POSIX
+standard defines the following call:
+-----
+setlocale (LC_ALL, "");
+-----
+
+Of course, you can only set part of your environment, by calling, say:
+----
+setlocale (LC_CTYPE, "");
+----
+This only defines the character classification macros (defined in
+ctype.h).
+
+This is a list of local categories:
+
+                   Effect of Specifying   Environment Variable
+     category      the Value              Affected
+     __________________________________________________________
+
+     LC_ALL        Sets or queries        LANG
+                   entire environment
+     LC_COLLATE    Changes or queries     LC_COLLATE
+                   collation sequences
+     LC_CTYPE      Changes or queries     LC_CTYPE
+                   character classifi-
+                   cation
+     LC_NUMERIC    Changes or queries     LC_NUMERIC
+                   number format infor-
+                   mation
+     LC_TIME       Changes or queries     LC_TIME
+                   time conversion
+                   parameters
+     LC_MONETARY   Changes or queries     LC_MONETARY
+                   monetary information
+
+
+
+
+4. Using the locale information for character classification
+If you write a program which supports international use, you should
+use the available standardized functions, as only these will be
+influenced by the setlocale call. Thus, if you want to convert a
+capital letter in c to a lower case letter in l, _don't_ write:
+
+l = c - 'A' + 'a';
+
+While this will work for characters in the US-ASCII character set, it
+will not work with many other character sets. The following,
+standard-conformant code will:
+
+#include <ctype.h>
+
+....
+
+l = tolower(c);
+
+Also note that the second code may actually be faster than even the
+full "C" locale functionality (for most implementations), as it
+replaces a complex expression ( (c<='Z' && c>='A')? c-'A'+a:c; )by a simple
+table lookup!
+
+Note that this ISO standard is independent of the character set
+encoding used!
+
+
+
+5. Language independent messages
+There are two competing standards for language independent messages:
+one by X/Open, and another one by POSIX.  The X/Open standard seems to
+have found a larger following as it has been around for a longer time.
+
+5.1 X/Open language independent messages
+X/Open defines a method for providing language-independent messages.
+Error messages are kept in a catalog which is opened upon program
+start with a locale specification.  Then the message number and a set
+specification are used to index the message catalog.  A default fourth
+argument is specified which will be printed if a particular message
+cannot be found in the catalog. 
+
+Here is the world-famous C program using the language-independent
+X/Open message standard:
+--------------------------------------------------------------------------
+#include <stdio.h>
+#include <nl_types.h>
+ 
+#define SET 1
+#define MSG_HELLO 1
+ 
+nl_catd catfd;
+ 
+int main (int argc, char **argv) {
+        /* Open the message catalog. We use the basename of the program
+         * as the catalog name. Of course, several programs can also
+         * share a  common catalog.
+         */
+        catfd = catopen (basename (argv [0]), NL_CAT_LOCALE);
+        /* catgets returns message MSG_HELLO from set SET from the 
+         * message catalog catfd. If catfd does not refer to a message
+         * catalog, or the requested message cannot be found, the
+         * catalog, or the requested message cannot be found, the
+         * fourth argument is returned.
+         */
+        printf (catgets (catfd, SET, MSG_HELLO, "hello, world\n"));
+        catclose (catfd);
+        return 0;
+}
+-------------------------------------------------------------------------
+
+For catopen, specify the constant NL_CAT_LOCALE to open the message
+catalog for the locale set for the LC_MESSAGES variable; using
+NL_CAT_LOCALE conforms to the XPG4 standard.  You can specify 0 (zero)
+for compatibility with XPG3; when oflag is set to zero, the locale set
+for the LANG variable determines the message catalog locale.
+
+Several utilities exist for generating message catalogs and for
+upgrading programs which contain hard-wired strings:
+* gencat is used to generate message catalogs
+[All other programs are OS-specific:]
+* Ultrix and OSF support the extract program which will extract string
+  constants from the C source code, and has an option to replace these
+  strings with calls to catgets.
+* HP/UX has a similar utility called findmsg.
+* Under OSF, message catalogs may be listed with the dspcat utility.
+* HP/UX calls a similar utility dumpmsg.
+
+
+5.2 Sun/XView
+Sun implements a different set of functions functions to support i18n
+of messages (the source is available with the XView code): 
+
+You can either use:
+-----------------------------------------------
+
+main()
+{
+	// get the message catalog named "helloprogram" 
+	// for the hello world program
+	textdomain("helloprogram");	
+
+	// get the translation for the "Hello, world\n" string
+	printf(gettext("Hello, world\n"));
+}
+-----------------------------------------------
+
+or you can roll all in one and write
+
+-----------------------------------------------
+main()
+{
+	// get the translation for the "Hello, world\n" string 
+	// from the message catalog "helloprogram"
+	printf(dgettext("helloprogram","Hello, world\n"));
+}
+-----------------------------------------------
+
+The LC_MESSAGES locale category setting determines the locale of
+strings that gettext() returns.  The message catalogs are generated
+with either the installtxt or gencat commands.
+
+No opening of files as in the old SYS V and X/Open routines, and no
+handling of message numbers that you must have in a database to
+administer.
+
+
+5.3 POSIX language independent messages
+Neither of the previous two mechanisms is in the POSIX standard.
+There was much disagreement in the POSIX.1 committee about using the
+gettext routines vs. catgets (XPG).  In the end the committee couldn't
+agree on anything, so no messaging system was included as part of the
+standard. I believe the informative annex of the standard includes the
+XPG3 messaging interfaces, "...as an example of a messaging system
+that has been implemented..."
+
+They were very careful not to say anywhere that you should use one set
+of interfaces over the other.
+
+
+
+6. Other localization aspects in ISO/ANSI C (and POSIX environments)
+For a more thorough discussion of localization and
+internationalization (aka. i18n), check your system vendors
+documentation, and the C library manual which comes with the FSF's
+glibc library (Chapter 19, 'Locales and Internationalization').
+
+
+
+7. Internationalization under X11
+7.1 Output
+To output text encoded with ISO 8859-1 under X11, simply invoke the X
+display routines with 8 bit characters as you would use them with
+7-bit ASCII.  You should however choose a font which contains bitmaps
+for these characters.  You can use the xfd utility to display a font
+to verify that it contains a full set of characters.
+
+
+7.2 Input
+If you use a national keyboard (that is a keyboard, which has distinct
+keys for your countries special characters), inputting accents is
+straight forward and you'll get the corresponding characters by using
+the X11 input functions.
+
+Sometimes it may be necessary to input characters for which there are
+no keys on your keyboard (e.g. if you want to enter the German 'ß'
+from a French keyboard).  
+
+X11R5 and X11R6 both have extensive support for i18n, but due to a
+variety of factors the R5 i18n was not well understood or widely
+used.  Many people resorted to a work-around and might have been
+disappointed when R6 did not include this misfeature.  It is important
+to recognize that the correct use of R5 and R6 i18n features will
+ensure maximum portability of your program.
+
+Footnote: Amongst other reasons, the X Consortium decision not to add
+support for input methods to the Xaw Athena widget contributes to this
+situation.  Many users (and much of the PD software) live in an
+Xaw-only world, so they will not be able to benefit from this i18n
+effort.
+
+X11 R5 and R6 support input methods for entering non-ASCII, and
+displaying and configuring text, menus etc. for a wide variety of
+languages.  This input method has to be installed by the application
+by calls to the Xlib library (or an Xt toolkit call).
+
+[Under X11R5, some X servers (notably the Xsun server) will let you
+enter ISO characters by supplying a built-in escape mechanism, if no
+keys for these characters are on your keyboard, and will pass along
+and display ISO 8859-1.  This hack obviated the need to install an
+input method, but was less flexible.]  
+
+
+If you are using a toolkit, it is quite simple to support localization
+of you X11 code: 
+If you're using a toolkit -- Xt and a widget set like Motif or R6 Xaw --
+you need only add a single line of code to your source. Before any other 
+calls to Xt, add a call to XtSetLanguageProc, e.g.:
+ 
+    int main (int argc, char** argv)
+    {
+        ...
+        XtSetLanguageProc (NULL, NULL, NULL);
+        top = XtAppInitialize ( ... );
+        ...
+    }
+
+The LANG and LC_xxx environment variables (see section 3) will then be
+used to determine the 'input method' for this X application.  This
+input method is responsible for managing COMPOSE character sequences
+or any other input mechanism for this particular implementation.  Also
+see section 9 of ftp://ftp.vlsivie.tuwien.ac.at/pub/8bit/FAQ-ISO-8859-1,
+the FAQ on ISO 8859-1 usage.
+
+
+7.3 Toolkits, Widgets, and I18N
+The preferred way of inputing national characters when a national
+keyboard is not available is one/several input methods.  These input
+methods will then support various kinds of compose sequences to enter
+national characters.
+
+The environment variables LANG and/or LC_xxx select the language for
+the Input Method (IM), but if several input methods exist, the
+environment variable XMODIFIERS can be used to select a specific input
+method.
+
+Xlib supports IMs
+Xt supports IMs
+Xaw does not support IMs
+
+Thus, applications written with Xlib or Xt can support IMs (see
+section 7.2 on how to install input methods under Xt), but Xaw based
+applications will not.
+
+Motif 1.2  or greater automatically uses the R5/R6 input method APIs.
+Thus applications using Motif 1.2+ can be made to support IMs.
+Several Motif 1.[01] versions also had similar functionality added to
+them by the respective vendors, but these extensions are
+vendor-specific and not portable.
+
+FOOTNOTE: If you can have comments/corrections for this section and on
+          OpenLook, please let me know.
+
+
+7.4 I18N under X11R6, General Information
+Background information from the X11R6 announcement:
+Internationalization (also known as I18N, there being 18 letters between the
+i and n) of the X Window System, which was originally introduced in Release
+5, has been significantly improved in R6.  The R6 I18N architecture follows
+that in R5, being based on the locale model used in ANSI C and POSIX, with
+most of the I18N capability provided by Xlib.  R5 introduced a fundamental
+framework for internationalized input and output.  It could enable basic
+localization for left-to-right, non-context sensitive, 8-bit or multi-byte
+codeset languages and cultural conventions.  However, it did not deal with
+all possible languages and cultural conventions.  R6 also does not cover all
+possible languages and cultural conventions, but R6 contains substantial new
+Xlib interfaces to support I18N enhancements, in order to enable additional
+language support and more practical localization.
+
+The additional support is mainly in the area of text display.  In order to
+support multi-byte encodings, the concept of a FontSet was introduced in R5.
+In R6, Xlib enhances this concept to a more generalized notion of output
+methods and output contexts.  Just as input methods and input contexts sup-
+port complex text input, output methods and output contexts support complex
+and more intelligent text display, dealing not only with multiple fonts but
+also with context dependencies.  The result is a general framework to enable
+bi-directional text and context sensitive text display.
+
+The description of the X11R6 internationalization framework is
+available via anonymous ftp from ftp.x.org in
+/pub/R6untarred/xc/doc/specs/i18n.
+
+
+
+8. Supporting I18N Network Protocols
+8.1 MIME
+MIME is specified in RFC 1521 and RFC 1522 which are available from
+ftp.uu.net.  There is also a MIME FAQ which is available via anonymous
+ftp from ftp.ics.uci.edu in /mh/contrib/multimedia/mime-faq.txt.gz.
+(This file is in compressed format. You will need the GNU gunzip
+program to decompress this file.)
+
+If you want to write applications which support the MIME protocol,
+there are several libraries/tools which can ease your task:
+
+
+8.1.1 metamail
+Source for supporting MIME (the `metamail' package) in various mail
+readers is available via anonymous ftp from thumper.bellcore.com in
+/pub/nsb.  This distribution consists of several utilities, which can
+be called by MIME applications to handle MIME types.
+
+
+8.1.2 MIMElt
+A "lightweight" MIME library available via anon ftp from
+oslonett.no:Software/MsDos/Comm/Offline/mimeltXX.zip 
+
+It is source code (ANSI C) packaged as a library to facilitate
+construction of a limited MIME facility (limited == handling only
+character-set aspects of MIME, not the multimedia-aspects).  It
+includes hooks to recode character sets into whatever system you are
+running off (e.g.  if you read mail on a MsDos platform using CP-850,
+MIMElite may be set up so that QUOTED-PRINTABLE ISO Latin 1 is recoded
+into CP-850 for reading and saving to file).
+ 
+It's main use is to provide programmers of so-called "off-line 
+readers" (used by user's who access Internet mail through dial-up 
+service providers) with the tools needed to include proper support for 
+QUOTED-PRINTABLE encoding in their product.
+ 
+The archive also contain a couple of sample applications that 
+demonstrates how the library may be used.  UNMIME is a stand-alone 
+utility to decode MIME-encoded messages (e.g. it works like UUDECODE
+for binary files with BASE64 encoding), SENDMIME is a simple utility
+to send MIME-encoded messages if your service provider doesn't have
+PINE or similar tools.
+
+The current version (2.1) is limited to character set issues.  I am
+about to release version 2.2, which will support additional 
+Content-Types (e.g. "application/octet-stream").
+
+
+
+9. Programming in Prolog 
+SICStus Prolog accepts ISO characters as part of atoms, so you can
+even define goal names containing accented characters.  I/O of 8 bit
+characters is (obviously) also supported.
+
+
+
+10. ISO 8859-1 on non-UNIX systems
+10.1 MS-DOS
+MS-DOS generally uses its own characters set. There are several code
+pages (one with the same symbols as ISO 8859-1, albeit at different
+character code positions, which can lead to problems with the transfer
+of data).
+
+If interoperability without data conversion is your goal, you can
+reconfigure your MS-DOS PC to use an ISO-8859-1 code page. Check out
+the anonymous ftp archive ftp.uni-erlangen.de, which contains data on
+how to do this (and other ISO-related stuff) in /pub/doc/ISO/charsets.
+The README file contains an index of the files you need.
+
+Most (all?) C compilers/libraries for MS-DOS have only minimal support
+for the ANSI/POSIX locale mechanism.  The setlocale() and localeconv()
+calls (and stuff like strxfrm()) are generally hardwired.
+
+
+10.2 MS Windows
+MS-Windows (using code page 1252) normally uses the first 256
+characters of Unicode, which is (for all practical purposes)
+equivalent to ISO 8859-1.  Thus, data representation and conversion
+for interoperability with other ISO 8859-1 compliant systems is not an
+issue.  
+
+It seems that C libraries for MS Windows do not support the ANSI/POSIX
+locale mechanism. (If you have any experiences with that, please let
+me know.)  There is a POSIX-like mechanism in some Microsoft platform
+services, but none in the compilers from any vendor.
+
+
+10.3 OS/2
+Text mode OS/2 programs generally suffer the same limitations as do
+MS-DOS programs, because the display hardware is the same.
+
+Presentation Manager OS/2 programs using code page 1004 will order
+the font glyphs in the same sequence as ISO 8859-1 (although of
+course whether the glyphs will actually look anything like those
+from ISO 8859-1 depends entirely from the font).
+
+The IBM CSet++ compiler supports full internationalization, with
+several predefined locales.
+
+The Borland C++ compiler supports only the "C" locale.
+
+The Watcom C++ compiler supports only the "C" locale.
+
+The Metaware High C++ compiler supports only the "C" locale.  It
+does, however, also support UNICODE, providing UNICODE character
+types and UNICODE versions of the appropriate parts of the standard
+library (including I/O).
+
+
+
+10.4 Apple Macintosh
+MacIntoshes have their own non-standard character encodings;
+the first 128 characters are US-ASCII but the remaining characters are
+non-standard.
+
+I do not know whether C libraries (for which compilers?) for the
+MacIntosh support the ANSI/POSIX locale mechanism. If you have any
+experiences with that, please let me know.
+
+
+10.5 Amiga
+The AmigaOS uses ISO-8859-1. As of OS version 2.1, Amiga-specific
+means of localization are available.
+
+
+
+11. Home location of this document
+The most recent version of this document is available via anonymous
+ftp from ftp.vlsivie.tuwien.ac.at under the file name
+/pub/8bit/ISO-programming.
+
+-----------------
+
+Copyright © 1994 Michael Gschwind (mike@vlsivie.tuwien.ac.at)
+
+This document may be copied for non-commercial purposes, provided this
+copyright notice appears.  Publication in any other form requires the
+author's consent. 
+
+Dieses Dokument darf unter Angabe dieser urheberrechtlichen
+Bestimmungen zum Zwecke der nicht-kommerziellen Nutzung beliebig
+vervielfältigt werden.  Die Publikation in jeglicher anderer Form
+erfordert die Zustimmung des Autors.
+
+Michael Gschwind, Institut f. Technische Informatik, TU Wien
+snail: Treitlstrasse 3-182-2 || A-1040 Wien || Austria
+email: mike@vlsivie.tuwien.ac.at  note: real time != real fast
+phone: +(43)(1)58801 8156	   fax: +(43)(1)586 9697
+
+
+1, edited, resent,,
+Mail-from: From li.org!owner-li-international Fri Jan 20 08:56:04 1995
+Return-Path: <li.org!owner-li-international>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rVJon-00009Da; Fri, 20 Jan 95 08:56 EST
+Sender: li.org!owner-li-international
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id RAA25970 for <icule!pinard>; Mon, 16 Jan 1995 17:34:02 -0500
+Received: from saguenay.IRO.UMontreal.CA (root@saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id RAA14270 for <pinard@lagrande.IRO.UMontreal.CA>; Mon, 16 Jan 1995 17:33:53 -0500
+Received: from uniwa.uwa.edu.au (root@uniwa.uwa.edu.au [130.95.128.1]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id RAA07348 for <pinard@iro.umontreal.ca>; Mon, 16 Jan 1995 17:33:41 -0500
+Received: from orac.aust.li.org (orac.iinet.com.au [203.0.178.134]) by uniwa.uwa.edu.au (8.6.9/8.6.9) with ESMTP id GAA22040; Tue, 17 Jan 1995 06:29:21 +0800
+Received: (from majordom@localhost) by orac.aust.li.org (8.6.9/8.6.9) id FAA01118 for li-international-list; Tue, 17 Jan 1995 05:34:39 +0800
+Received: from alcor (alcor.twinsun.com [198.147.65.1]) by orac.aust.li.org (8.6.9/8.6.9) with ESMTP id FAA01112 for <li-international@li.org>; Tue, 17 Jan 1995 05:34:28 +0800
+Received: from twinsun.com (twinsun.twinsun.com [192.54.239.2]) by alcor (8.6.5/8.6.5) with SMTP id NAA04793 for <li-international@li.org>; Mon, 16 Jan 1995 13:06:52 -0800
+Received: from spot.twinsun.com by twinsun.com (4.1/SMI-4.1)
+	id AA06664; Mon, 16 Jan 95 13:33:30 PST
+Received: by spot.twinsun.com (4.1/SMI-4.1)
+	id AA04256; Mon, 16 Jan 95 13:33:30 PST
+Old-From: eggert@twinsun.com (Paul Eggert)
+Message-Id: <9501162133.AA04256@spot.twinsun.com>
+Date: 16 Jan 1995 13:33:28 -0800
+To: li-international@li.org
+Subject: ISO Normative Addendum 1 and its effect on the C library
+From: International List <li-international@li.org>
+Sender: owner-li-international@li.org
+Precedence: bulk
+Reply-To: LI-international@li.org
+
+*** EOOH ***
+From: eggert@twinsun.com (Paul Eggert)
+Date: 16 Jan 1995 13:33:28 -0800
+To: li-international@li.org
+Subject: ISO Normative Addendum 1 and its effect on the C library
+Reply-To: LI-international@li.org
+
+Normative Addendum 1 (NA1) to the ISO C standard was approved last year,
+and I recently ran across a nice summary written by Clive Feather.
+Please see <http://sf.www.lysator.liu.se/c/nal.html> for this;
+
+Most of the changes required by NA1 are to the C library's wide
+character and multibyte string support.  I don't see these changes
+mentioned in the latest glibc snapshot.  I asked Roland McGrath,
+glibc's developer, about this, and he replied:
+
+   Date: Mon, 16 Jan 95 15:53:26 -0500
+   From: Roland McGrath <roland@gnu.ai.mit.edu>
+
+   I think if you make the specifications available to the Linux community,
+   the new library functions will get written and contributed to glibc.
+   Try the mailing list li-international@li.org.
+
+So I'm sending this message to li-international.  I can forward a copy
+of the NA1 summary to whoever needs it; just ask.
+
+Two of the NA1 changes (__STDC_VERSION__ and digraphs) require changes
+to GCC itself; I've volunteered to do this.  One change (namely
+<iso646.h>) can be done either in GCC or in libc, though if GCC does
+digraphs it may make more sense for it to do <iso646.h> as well.
+But the other changes belong to the C library proper.
+
+
+
+1,,
+Mail-from: From twinsun.com!eggert Tue Feb 14 05:16:49 1995
+Return-Path: <twinsun.com!eggert>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0reKJK-00009mC; Tue, 14 Feb 95 05:16 EST
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id CAA00816 for <icule!pinard>; Tue, 14 Feb 1995 02:16:27 -0500
+Received: from saguenay.IRO.UMontreal.CA (root@saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id CAA02807 for <pinard@lagrande.IRO.UMontreal.CA>; Tue, 14 Feb 1995 02:16:20 -0500
+Received: from alcor.twinsun.com (alcor.twinsun.com [198.147.65.1]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id CAA29451 for <pinard@iro.umontreal.ca>; Tue, 14 Feb 1995 02:16:16 -0500
+Received: from twinsun.com (twinsun.twinsun.com [192.54.239.2]) by alcor.twinsun.com (8.6.5/8.6.5) with SMTP id WAA03362 for <pinard@iro.umontreal.ca>; Mon, 13 Feb 1995 22:44:50 -0800
+Received: from spot.twinsun.com by twinsun.com (4.1/SMI-4.1)
+	id AA08130; Mon, 13 Feb 95 23:15:06 PST
+Received: by spot.twinsun.com (4.1/SMI-4.1)
+	id AA05763; Mon, 13 Feb 95 23:15:05 PST
+From: eggert@twinsun.com (Paul Eggert)
+Message-Id: <9502140715.AA05763@spot.twinsun.com>
+Date: 13 Feb 1995 23:15:04 -0800
+To: pinard@iro.umontreal.ca
+In-Reply-To: <m0rdrDE-00009QC@icule> (pinard@iro.umontreal.ca)
+Subject: Re: glocale and Uniforum gettext simplicity
+
+*** EOOH ***
+From: eggert@twinsun.com (Paul Eggert)
+Date: 13 Feb 1995 23:15:04 -0800
+To: pinard@iro.umontreal.ca
+In-Reply-To: <m0rdrDE-00009QC@icule> (pinard@iro.umontreal.ca)
+Subject: Re: glocale and Uniforum gettext simplicity
+
+
+   Date: Sun, 12 Feb 95 22:12 EST
+   From: pinard@iro.umontreal.ca (Francois Pinard)
+
+   Hello, Paul.
+
+      For more on this topic please see the Programming
+      for Internationalization FAQ (Message-ID:
+      <internationalization/programming-faq_784901999@rtfm.mit.edu>)
+      which I can forward to you if you like.
+
+   Would you do this, please?
+
+Sure, the latest revision be in my next message.  For future
+reference, the coordinates are
+<ftp://rtfm.mit.edu/pub/usenet-by-group/comp.answers/internationalization/programming-faq>.
+
+Alas, I haven't had time to work on this much lately -- beset with hardware
+problems at home and no time to fix them....
+
+
+1, edited,,
+Mail-from: From pinard Tue Mar 21 12:53:53 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0rr87q-00009TC; Tue, 21 Mar 95 12:53 EST
+Message-Id: <m0rr87q-00009TC@icule>
+Date: Tue, 21 Mar 95 12:53 EST
+From: pinard (François Pinard)
+To: meyering@comco.com
+CC: drepper@ipd.info.uni-karlsruhe.de
+In-reply-to: <199503211712.LAA25472@idefix.comco.com> (message from Jim Meyering on Tue, 21 Mar 1995 11:12:49 -0600)
+Subject: Re: international fileutils
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Tue, 21 Mar 95 12:53 EST
+From: pinard (François Pinard)
+To: meyering@comco.com
+CC: drepper@ipd.info.uni-karlsruhe.de
+In-reply-to: <199503211712.LAA25472@idefix.comco.com> (message from Jim Meyering on Tue, 21 Mar 1995 11:12:49 -0600)
+Subject: Re: international fileutils
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+There are three things to do for each package:
+
+* Adjust Autoconf and Makefiles
+* Mark all localizable strings in sources and doing other adjustments
+* Translating messages for French (and maybe, let's be fair, German :-).
+
+1, edited,,
+Mail-from: From pinard Sun Apr 23 13:26:30 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s35QR-00008FC; Sun, 23 Apr 95 13:26 EDT
+Message-Id: <m0s35QR-00008FC@icule>
+Date: Sun, 23 Apr 95 13:26 EDT
+From: pinard (François Pinard)
+To: Jim Meyering <meyering@comco.com>,
+    Ulrich Drepper <drepper@gnu.ai.mit.edu>,
+    Roland McGrath <roland@gnu.ai.mit.edu>,
+    Paul Eggert <eggert@twinsun.com>
+Subject: GNU locale and Ulrich's effort
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Sun, 23 Apr 95 13:26 EDT
+From: pinard (François Pinard)
+To: Jim Meyering <meyering@comco.com>,
+    Ulrich Drepper <drepper@gnu.ai.mit.edu>,
+    Roland McGrath <roland@gnu.ai.mit.edu>,
+    Paul Eggert <eggert@twinsun.com>
+Subject: GNU locale and Ulrich's effort
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+I'm trying to get started the overall effort for GNU localization,
+by offering translators GNU packages to translate, and the means
+to do so.  I also do not want to spoil the energies being offered.
+Many pieces of the puzzle are in place already and, as usual, I
+contemplate them all trying to see what is missing, and working
+towards the complete picture.
+
+Surely to me, GNU locale (glocale, as a package) has to provide a
+fairly complete set of self-contained tools for helping package
+maintainers to internationalize their product, and also for
+localizers to translate message catalogs.  Further, being itself
+internationalized, it should be a very carefully crafted example
+for maintainers, about how one might set his/her own package to be
+easily installed while localization is effective, and portably!
+
+
+
+1,,
+Mail-from: From pinard Mon May  1 22:16:31 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s67Vl-00008NC; Mon, 1 May 95 22:16 EDT
+Message-Id: <m0s67Vl-00008NC@icule>
+Date: Mon, 1 May 95 22:16 EDT
+From: pinard (=?ISO-8859-1?Q?Fran=E7ois_Pinard?=)
+To: gnu@prep.ai.mit.edu
+CC: rms@gnu.ai.mit.edu
+In-reply-to: <9505020044.AA12891@pizza> (gnu@ai.mit.edu)
+Subject: Re: [pinard@iro.umontreal.ca: Internationalizing GNU: the maintainer side]
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Mon, 1 May 95 22:16 EDT
+From: pinard (François Pinard)
+To: gnu@prep.ai.mit.edu
+CC: rms@gnu.ai.mit.edu
+In-reply-to: <9505020044.AA12891@pizza> (gnu@ai.mit.edu)
+Subject: Re: [pinard@iro.umontreal.ca: Internationalizing GNU: the maintainer side]
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+      It contains some statements that are harsh and, I believe,
+      not true.  The practice of using gettext to mark strings is
+      *not* just "for the time being."
+
+   Fran\cois: Could you work with rms to update the GNU coding
+   standards to describe what GNUers needs to be do to make their
+   GNU programs use GNU Locale.
+
+I may try, but do not know exactly how to proceed.  I also confess
+I've rewritten this paragraph twenty times, to merely censor myself.
+
+   We can then post that section of the GNU coding standards, so
+   all the GNUers know what to do.
+
+If GNU ever publishes utilities for Native Language Support, their
+own documentation should explain how to proceed, and maintainers
+should find in there the information they need about what to do.
+GNU standards might state the general principle, something like:
+``GNU programs and packages should be opened to Native Language
+Support (NLS) and, in particular, be able to write their messages
+translated into native languages, as selected at run time by
+environment variables''.
+
+-- 
+François Pinard         ``Vivement GNU!''       <pinard@iro.umontreal.ca>
+Email lpf@uunet.uu.net for info about the League for Programming Freedom.
+
+
+1,,
+Mail-from: From IRO.UMontreal.CA!pinard Tue May  2 05:16:32 1995
+Return-Path: <IRO.UMontreal.CA!pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s6E4E-0000CaC; Tue, 2 May 95 05:16 EDT
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id AAA19507 for <icule!pinard>; Tue, 2 May 1995 00:02:38 -0400
+Received: (from pinard@localhost) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) id AAA00659 for icule!pinard; Tue, 2 May 1995 00:02:37 -0400
+Received: from saguenay.IRO.UMontreal.CA (saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id AAA00657 for <pinard@lagrande.IRO.UMontreal.CA>; Tue, 2 May 1995 00:02:34 -0400
+Received: from mole.gnu.ai.mit.edu (mole.gnu.ai.mit.edu [128.52.46.33]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id AAA08792 for <pinard@iro.umontreal.ca>; Tue, 2 May 1995 00:02:33 -0400
+Received: by mole.gnu.ai.mit.edu (8.6.12/8.6.12GNU) id AAA07143; Tue, 2 May 1995 00:02:31 -0400
+Date: Tue, 2 May 1995 00:02:31 -0400
+Message-Id: <199505020402.AAA07143@mole.gnu.ai.mit.edu>
+From: Richard Stallman <rms@gnu.ai.mit.edu>
+To: pinard@IRO.UMontreal.CA
+In-reply-to: <m0s67Vl-00008NC@icule> (pinard@iro.umontreal.ca)
+Subject: Re: [pinard@iro.umontreal.ca: Internationalizing GNU: the maintainer side]
+
+*** EOOH ***
+Date: Tue, 2 May 1995 00:02:31 -0400
+From: Richard Stallman <rms@gnu.ai.mit.edu>
+To: pinard@IRO.UMontreal.CA
+In-reply-to: <m0s67Vl-00008NC@icule> (pinard@iro.umontreal.ca)
+Subject: Re: [pinard@iro.umontreal.ca: Internationalizing GNU: the maintainer side]
+
+    ``GNU programs and packages should be opened to Native Language
+    Support (NLS) and, in particular, be able to write their messages
+    translated into native languages, as selected at run time by
+    environment variables''.
+
+I think that is too vague to be useful.  I'd rather put in some
+variant of what you sent before.  But I don't have time right now
+to fix it.
+
+
+1, answered, edited,,
+Mail-from: From IRO.UMontreal.CA!pinard Wed May  3 00:19:10 1995
+Return-Path: <IRO.UMontreal.CA!pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s6Vty-0000CSC; Wed, 3 May 95 00:19 EDT
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id XAA19717 for <icule!pinard>; Tue, 2 May 1995 23:51:54 -0400
+Received: (from pinard@localhost) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) id XAA20985 for icule!pinard; Tue, 2 May 1995 23:51:52 -0400
+Received: from saguenay.IRO.UMontreal.CA (saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id XAA20983 for <pinard@lagrande.IRO.UMontreal.CA>; Tue, 2 May 1995 23:51:49 -0400
+Received: from nz11.rz.uni-karlsruhe.de (nz11.rz.uni-karlsruhe.de [129.13.64.7]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id XAA12985 for <pinard@iro.umontreal.ca>; Tue, 2 May 1995 23:51:15 -0400
+Received: from ipd.info.uni-karlsruhe.de (actually i44ms.info.uni-karlsruhe.de) 
+          by nz11.rz.uni-karlsruhe.de with SMTP (PP);
+          Wed, 3 May 1995 03:54:26 +0200
+Received: from i44pc2.info.uni-karlsruhe.de (i44pc2.info.uni-karlsruhe.de [129.13.171.31]) 
+          by ipd.info.uni-karlsruhe.de (8.6.4/8.6.4) with SMTP id DAA00768;
+          Wed, 3 May 1995 03:57:08 +0200
+Message-Id: <199505030157.DAA00768@ipd.info.uni-karlsruhe.de>
+To: "ois \"Pinard)\""@rz.uni-karlsruhe.de, meyering@comco.com (Jim Meyering),
+        eggert@twinsun.com (Paul Eggert),
+        roland@gnu.ai.mit.edu (Roland McGrath)
+Original-To: pinard@iro.umontreal.ca (François Pinard),
+             meyering@comco.com (Jim Meyering),
+             eggert@twinsun.com (Paul Eggert),
+             roland@gnu.ai.mit.edu (Roland McGrath)
+PP-Warning: Parse error in original version of preceding To line
+Subject: nlsutils-0.4.2
+Date: Wed, 03 May 1995 03:56:24 +0200
+From: Ulrich Drepper <drepper@ipd.info.uni-karlsruhe.de>
+
+*** EOOH ***
+To: "ois \"Pinard)\""@rz.uni-karlsruhe.de, meyering@comco.com (Jim Meyering),
+        eggert@twinsun.com (Paul Eggert),
+        roland@gnu.ai.mit.edu (Roland McGrath)
+Original-To: pinard@iro.umontreal.ca (François Pinard),
+             meyering@comco.com (Jim Meyering),
+             eggert@twinsun.com (Paul Eggert),
+             roland@gnu.ai.mit.edu (Roland McGrath)
+PP-Warning: Parse error in original version of preceding To line
+Subject: nlsutils-0.4.2
+Date: Wed, 03 May 1995 03:56:24 +0200
+From: Ulrich Drepper <drepper@ipd.info.uni-karlsruhe.de>
+
+I tried hard to limit all external things in the libgintl directory.
+You have to copy this, some variation of my code in aclocal.m4
+and acconfig.h.  This should be all.
+
+1, answered,,
+Mail-from: From IRO.UMontreal.CA!pinard Thu May  4 08:22:15 1995
+Return-Path: <IRO.UMontreal.CA!pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s6zv4-0000CSC; Thu, 4 May 95 08:22 EDT
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id HAA19349 for <icule!pinard>; Thu, 4 May 1995 07:48:32 -0400
+Received: (from pinard@localhost) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) id HAA24822 for icule!pinard; Thu, 4 May 1995 07:47:28 -0400
+Received: from saguenay.IRO.UMontreal.CA (saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id HAA24816 for <pinard@lagrande.IRO.UMontreal.CA>; Thu, 4 May 1995 07:47:25 -0400
+Received: from nz11.rz.uni-karlsruhe.de (nz11.rz.uni-karlsruhe.de [129.13.64.7]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id HAA17159 for <pinard@iro.umontreal.ca>; Thu, 4 May 1995 07:48:25 -0400
+Received: from ipd.info.uni-karlsruhe.de (actually i44ms.info.uni-karlsruhe.de) 
+          by nz11.rz.uni-karlsruhe.de with SMTP (PP);
+          Thu, 4 May 1995 13:45:17 +0200
+Received: from i44pc2.info.uni-karlsruhe.de (i44pc2.info.uni-karlsruhe.de [129.13.171.31]) 
+          by ipd.info.uni-karlsruhe.de (8.6.4/8.6.4) with SMTP id NAA06097 
+          for <pinard@iro.umontreal.ca>; Thu, 4 May 1995 13:48:06 +0200
+Message-Id: <199505041148.NAA06097@ipd.info.uni-karlsruhe.de>
+To: pinard@IRO.UMontreal.CA
+Subject: Re: Path to message?
+In-Reply-To: Your message of "Thu, 4 May 95 00:45 EDT"
+References: <m0s6snG-00008NC@icule>
+X-Mailer: Mew beta version 0.89 on Emacs 19.28.1
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=iso-8859-1
+Date: Thu, 04 May 1995 13:47:46 +0200
+From: Ulrich Drepper <drepper@ipd.info.uni-karlsruhe.de>
+Content-Transfer-Encoding: 8bit
+X-Original-Encoding: quoted-printable
+
+*** EOOH ***
+To: pinard@IRO.UMontreal.CA
+Subject: Re: Path to message?
+In-Reply-To: Your message of "Thu, 4 May 95 00:45 EDT"
+References: <m0s6snG-00008NC@icule>
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=iso-8859-1
+Date: Thu, 04 May 1995 13:47:46 +0200
+From: Ulrich Drepper <drepper@ipd.info.uni-karlsruhe.de>
+Content-Transfer-Encoding: 8bit
+X-Original-Encoding: quoted-printable
+
+From: pinard@iro.umontreal.ca (François Pinard)
+Subject: Path to message?
+Date: Thu, 4 May 95 00:45 EDT
+
+> Ulrich, always me.  I do not understand that xgettext --help writes:
+> 
+> 	Suchpfad ist: /usr/local/share/nls/src
+> 
+> while /usr/local/share/locale/de/LC_MESSAGES is indeed searched.
+> Could we solve this inconsistency?
+> 
+
+Not quite.  /usr/local/share/locale/de/LC_MESSAGES is the path where
+the .mo/.cat files will go.  The search path (Suchpfad :) represents
+the path to additional directories where other .po files can be found.
+
+I thought to use this feature for standard .po files for, say, libiberty
+etc.  Each package would have to translate it again and again but if
+we could install this somewhere and use the -x option to exclude this
+strings from the generation.
+
+Perhaps I should use a different description?
+
+-- Uli
+________---------------------------------------------------------------
+\      / Ulrich Drepper / Univ. at Karlsruhe, Germany / CS Dept. / IPD
+L\inux/  email: drepper@gnu.ai.mit.edu          smail: Rubensstr. 5
+  \  /          drepper@ipd.info.uni-karlsruhe.de      76149 Karlsruhe
+   \/1.2.7 ------------------------------------------- Germany --------
+
+
+1, forwarded, edited,,
+Mail-from: From pinard Thu May  4 15:27:13 1995
+Return-Path: <pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s76YH-00008NC; Thu, 4 May 95 15:27 EDT
+Message-Id: <m0s76YH-00008NC@icule>
+Date: Thu, 4 May 95 15:27 EDT
+From: pinard (=?ISO-8859-1?Q?Fran=E7ois_Pinard?=)
+To: ajc@di.uminho.pt
+In-reply-to: <9505041601.AA20254@shiva.di.uminho.pt> (ajc@di.uminho.pt)
+Subject: Re: tar is ready for pt
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+*** EOOH ***
+Date: Thu, 4 May 95 15:27 EDT
+From: pinard (François Pinard)
+To: ajc@di.uminho.pt
+In-reply-to: <9505041601.AA20254@shiva.di.uminho.pt> (ajc@di.uminho.pt)
+Subject: Re: tar is ready for pt
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+Even if it is not completely official yet in GNU, the format of
+translation file is being revised, and the extension is being
+changed from `.tt' to `.po'.  This should bring the format closer
+to one of the few standards in existence for translation files.
+Hopefully, we think that translation files will be more easily
+manageable afterwards.  We do not want to make a religious issue of
+this format selection, as each standard has proponents and opponents.
+Please help us by being receptive to the format GNU uses.
+
+Existing `.tt' translation files are being converted to `.po' files
+by maintainers.  Translators should switch to using the `.po' format,
+as soon as possible.  This is an easy job.  The `.po' translation
+file format is quite affordable.  Schematically, it looks like:
+
+	msgid STRING-TO-TRANSLATE
+	msgstr TRANSLATED-STRING
+
+	msgid STRING-TO-TRANSLATE
+	msgstr TRANSLATED-STRING
+
+	msgid STRING-TO-TRANSLATE
+	msgstr TRANSLATED-STRING
+	[...]
+
+`msgid' and `msgstr' are kind of keywords, written at the beginning
+of a line.  Each STRING-TO-TRANSLATE or TRANSLATED-STRING respects
+the C syntax for a character string, including the surrounding
+quotes, escape sequences, and usual techniques for writing multi-line
+C strings.
+
+Outside strings, white lines and comments may be used freely.
+In the schema, white lines preceding the msgid lines are optional.
+Comments start at the beginning of a line with `#' and extend until
+the end of line.  Comments written by translators should have the
+initial `#' immediately followed by some white space.  If the `#'
+is not immediately followed by white space, this comment is most
+likely generated and managed by specialized GNU tools.
+
+There is a conventional, uniform way of presenting a `.po' file, but
+a description of this format is not yet available.  It will be all
+easy to make suggested adjustements at a later time, so do not worry
+right now about precise conventions.  Further, there are normalizing
+tools automating conformance to a great extent, to be published soon.
+
+   And another question: what happens when new versions of the
+   program are released, with new messages?
+
+Usually, most GNU packages are pretested before being released.
+All teams of translators are made aware of localizable prereleases.
+A special tool regenerates a `.po' file with obsolescent strings
+commented out, and new strings put in evidence.
+
+Further, for those of us using GNU Emacs, a special editing mode is
+being written for `.po' files, in which mode translators is able
+to navigate easily in the `.po' file, find untranslated entries,
+examine at will the context of these strings in the program sources,
+and also observe other translations already made in other languages,
+for the string being translated.
+
+Teams members should share their translations and resolve linguistic
+or terminological issues.  When they reach something satisfying,
+the team should formally submit the translation to the package
+maintainer for the final release.  The precise formalities are not
+organized yet, and there are many details to clear up.  Some legal
+aspects also have to be addressed, this is under study right now.
+
+Special means should be used for transiting translation files
+over email.  The simplest way is using GNU shar in default mode,
+or else, uuencoding the `.po' file prior to mailing.
+
+-- 
+François Pinard         ``Vivement GNU!''       <pinard@iro.umontreal.ca>
+Email lpf@uunet.uu.net for info about the League for Programming Freedom.
+
+
+1, edited,,
+Mail-from: From IRO.UMontreal.CA!pinard Thu Apr 20 16:54:03 1995
+Return-Path: <IRO.UMontreal.CA!pinard>
+Received: by icule (Smail3.1.28.1 #1)
+	id m0s23Ea-0000CxC; Thu, 20 Apr 95 16:53 EDT
+Received: from lagrande.iro.umontreal.ca (lagrande.IRO.UMontreal.CA [132.204.32.32]) by iros1.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id KAA12085 for <icule!pinard>; Thu, 20 Apr 1995 10:13:02 -0400
+Received: (from pinard@localhost) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) id KAA08298 for icule!pinard; Thu, 20 Apr 1995 10:12:34 -0400
+Received: from saguenay.IRO.UMontreal.CA (saguenay32.IRO.UMontreal.CA [132.204.32.54]) by lagrande.iro.umontreal.ca (8.6.9/8.6.9) with ESMTP id KAA08254 for <pinard@lagrande.IRO.UMontreal.CA>; Thu, 20 Apr 1995 10:10:49 -0400
+Received: from nz11.rz.uni-karlsruhe.de (nz11.rz.uni-karlsruhe.de [129.13.64.7]) by saguenay.IRO.UMontreal.CA (8.6.9/8.6.9) with ESMTP id KAA20778 for <pinard@iro.umontreal.ca>; Thu, 20 Apr 1995 10:10:25 -0400
+Received: from ipd.info.uni-karlsruhe.de (actually i44ms.info.uni-karlsruhe.de) 
+          by nz11.rz.uni-karlsruhe.de with SMTP (PP);
+          Thu, 20 Apr 1995 16:05:34 +0200
+Received: from i44pc2.info.uni-karlsruhe.de (i44pc2.info.uni-karlsruhe.de [129.13.171.31]) 
+          by ipd.info.uni-karlsruhe.de (8.6.4/8.6.4) with SMTP id QAA28513;
+          Thu, 20 Apr 1995 16:08:10 +0200
+Message-Id: <199504201408.QAA28513@ipd.info.uni-karlsruhe.de>
+To: pinard@IRO.UMontreal.CA (Francois Pinard),
+        meyering@comco.com (Jim Meyering),
+        roland@gnu.ai.mit.edu (Roland McGrath)
+Subject: more points to discuss
+X-Mailer: Mew beta version 0.89 on Emacs 19.28.1
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=iso-8859-1
+Date: Thu, 20 Apr 1995 16:08:55 +0200
+From: Ulrich Drepper <drepper@ipd.info.uni-karlsruhe.de>
+Content-Transfer-Encoding: 8bit
+X-Original-Encoding: quoted-printable
+
+*** EOOH ***
+To: pinard@IRO.UMontreal.CA (Francois Pinard),
+        meyering@comco.com (Jim Meyering),
+        roland@gnu.ai.mit.edu (Roland McGrath)
+Subject: more points to discuss
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=iso-8859-1
+Date: Thu, 20 Apr 1995 16:08:55 +0200
+From: Ulrich Drepper <drepper@ipd.info.uni-karlsruhe.de>
+Content-Transfer-Encoding: 8bit
+X-Original-Encoding: quoted-printable
+
+BTW my implementation will be able to process a lot of strange situation:
+-  strings in preprocessor macros
+-  something like gettext ("jkh" "jkhlk")
+or even
+-  gettext ("jkkjh\
+sdfsdf")
+
+1, edited,,
+Received: from titan.comco.com (root@titan.comco.com [198.214.63.11]) by idefix.comco.com (8.6.9/8.6.9) with ESMTP id QAA16073 for <meyering@idefix.comco.com>; Sat, 19 Nov 1994 16:03:48 -0600
+Received: from alcor.twinsun.com (alcor.twinsun.com [198.147.65.1]) by titan.comco.com (8.6.9/8.6.9) with ESMTP id QAA03006 for <meyering@comco.com>; Sat, 19 Nov 1994 16:04:38 -0600
+Received: from twinsun.com (twinsun.twinsun.com [192.54.239.2]) by alcor.twinsun.com (8.6.5/8.6.5) with SMTP id NAA19013; Sat, 19 Nov 1994 13:55:18 -0800
+Received: from spot.twinsun.com by twinsun.com (4.1/SMI-4.1)
+	id AA29144; Sat, 19 Nov 94 14:01:01 PST
+Received: by spot.twinsun.com (4.1/SMI-4.1)
+	id AA02990; Sat, 19 Nov 94 14:01:00 PST
+From: eggert@twinsun.com (Paul Eggert)
+Message-Id: <9411192201.AA02990@spot.twinsun.com>
+Date: 19 Nov 1994 14:00:59 -0800
+To: rms@gnu.ai.mit.edu (Richard Stallman)
+Cc: meyering@comco.com, pdcruze@orac.iinet.com.au
+Subject: Re: glocale and diffutils
+Status: RO
+
+*** EOOH ***
+From: eggert@twinsun.com (Paul Eggert)
+Date: 19 Nov 1994 14:00:59 -0800
+To: rms@gnu.ai.mit.edu (Richard Stallman)
+Cc: meyering@comco.com, pdcruze@orac.iinet.com.au
+Subject: Re: glocale and diffutils
+
+The Uniforum proposal addresses this problem by partitioning message
+catalogs into ``textdomains''.  Each textdomain can be maintained
+separately.  Programs can share textdomains.  Messages in different
+textdomains cannot clash.  With diffutils, for example, I would expect
+one textdomain for diffutils programs and another for libc.  The main
+module would use the default textdomain and invoke `gettext ("No
+newline at end of file")' just as diffutils-2.7.1 does; libc modules
+would use a system textdomain and would invoke something like
+`dgettext ("SYS_libc", "No such file or directory")'.
+
+
+

@@ -1,0 +1,1151 @@
+# Greek messages for GNU gettext.
+# Copyright © 1998 Free Software Foundation, Inc.
+# Simos KSenitellis <simos@teiath.gr>, 1998.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU gettext 0.10.34\n"
+"POT-Creation-Date: 1999-10-11 23:03-0700\n"
+"PO-Revision-Date: 1998-05-17 13:12+0200\n"
+"Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
+"Language-Team: Greek <simos@teiath.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-7\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#
+# File: lib/error.c, line: 103
+#: lib/error.c:103
+msgid "Unknown system error"
+msgstr "Άγνωστο σφάλμα συστήματος"
+
+#
+# File: lib/getopt.c, line: 680
+#: lib/getopt.c:680
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: η επιλογή `%s' είναι διφορούμενη\n"
+
+#
+# File: lib/getopt.c, line: 704
+#: lib/getopt.c:704
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: η επιλογή `--%s' δεν επιτρέπει παράμετρο\n"
+
+#
+# File: lib/getopt.c, line: 709
+#: lib/getopt.c:709
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: η επιλογή `%c%s' δεν επιτρέπει παράμετρο\n"
+
+#
+# File: lib/getopt.c, line: 726
+# File: lib/getopt.c, line: 899
+#: lib/getopt.c:726 lib/getopt.c:899
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: η επιλογή `%s' απαιτεί παράμετρο\n"
+
+#
+# File: lib/getopt.c, line: 755
+#. --option
+#: lib/getopt.c:755
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: μη αναγνωρίσιμη επιλογή `--%s'\n"
+
+#
+# File: lib/getopt.c, line: 759
+#. +option or -option
+#: lib/getopt.c:759
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: μη αναγνωρίσιμη επιλογή `%c%s'\n"
+
+#
+# File: lib/getopt.c, line: 785
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:785
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: μη αποδεκτή επιλογή -- %c\n"
+
+#
+# File: lib/getopt.c, line: 788
+#: lib/getopt.c:788
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: μη έγκυρη επιλογή -- %c\n"
+
+#
+# File: lib/getopt.c, line: 818
+# File: lib/getopt.c, line: 948
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:818 lib/getopt.c:948
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: η επιλογή απαιτεί παράμετρο -- %c\n"
+
+#
+# File: lib/getopt.c, line: 865
+#: lib/getopt.c:865
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: η επιλογή `-W %s' είναι διφορούμενη\n"
+
+#
+# File: lib/getopt.c, line: 883
+#: lib/getopt.c:883
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: η επιλογή `-W %s' δεν επιτρέπει παράμετρο\n"
+
+#
+# File: lib/xmalloc.c, line: 82
+#: lib/xmalloc.c:82
+msgid "Memory exhausted"
+msgstr "H μνήμη εξαντλήθηκε"
+
+#
+# File: src/gettextp.c, line: 134
+# File: src/msgcmp.c, line: 144
+# File: src/msgcomm.c, line: 285
+# File: src/msgfmt.c, line: 257
+# File: src/msgmerge.c, line: 254
+# File: src/msgunfmt.c, line: 175
+# File: src/xgettext.c, line: 394
+#: src/gettextp.c:134 src/msgcmp.c:144 src/msgcomm.c:285 src/msgfmt.c:257
+#: src/msgmerge.c:263 src/msgunfmt.c:175 src/xgettext.c:401
+#, c-format, no-wrap
+msgid ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Πνευματικά Δικαιώματα (C) %s Free Software Foundation, Inc.\n"
+"Αυτό το πρόγραμμα είναι ελεύθερο λογισμικό· δείτε το πηγαίο κώδικα για τους\n"
+"κανονισμούς αντιγραφής. Δεν υπάρχει ΚΑΜΙΑ ΕΓΓΥΗΣΗ· ούτε ακόμα για\n"
+"ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑ ΓΙΑ ΕΝΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ.\n"
+
+#
+# File: src/gettextp.c, line: 139
+# File: src/msgcmp.c, line: 149
+# File: src/msgcomm.c, line: 290
+# File: src/msgfmt.c, line: 262
+# File: src/msgmerge.c, line: 259
+# File: src/msgunfmt.c, line: 180
+# File: src/xgettext.c, line: 399
+#: src/gettextp.c:139 src/msgcmp.c:149 src/msgcomm.c:290 src/msgfmt.c:262
+#: src/msgmerge.c:268 src/msgunfmt.c:180 src/xgettext.c:406
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Γραμμένο από τον/την %s.\n"
+
+#
+# File: src/gettextp.c, line: 154
+#: src/gettextp.c:154
+msgid "missing arguments"
+msgstr "υπολείπονται ορίσματα"
+
+#
+# File: src/gettextp.c, line: 164
+#: src/gettextp.c:164
+msgid "too many arguments"
+msgstr "πάρα πολλά ορίσματα"
+
+#
+# File: src/gettextp.c, line: 228
+# File: src/msgcmp.c, line: 181
+# File: src/msgcomm.c, line: 395
+# File: src/msgfmt.c, line: 361
+# File: src/msgmerge.c, line: 301
+# File: src/msgunfmt.c, line: 210
+# File: src/xgettext.c, line: 532
+#: src/gettextp.c:228 src/msgcmp.c:181 src/msgcomm.c:395 src/msgfmt.c:361
+#: src/msgmerge.c:323 src/msgunfmt.c:210 src/xgettext.c:539
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Δοκιμάστε `%s --help' για περισσότερες πληροφορίες.\n"
+
+#
+# File: src/gettextp.c, line: 233
+#: src/gettextp.c:233
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -n                        suppress trailing newline\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+"                            to MSGID from TEXTDOMAIN\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   ανάκτηση μεταφρασμένων μηνυμάτων από το TEXTDOMAIN\n"
+"  -e                        ενεργοποίηση της αναδίπλωσης ορισμένων σειρών\n"
+"                              χαρακτήρων διαφυγής\n"
+"  -E                        (αγνοείται για λόγους συμβατότητας)\n"
+"  -h, --help                εμφάνιση αυτής της βοήθειας και έξοδος\n"
+"  -n                        αποβολή χαρακτήρα αλλαγής γραμμής στο τέλος της σειράς\n"
+"  -v, --version             εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+"  [TEXTDOMAIN] MSGID        ανάκτηση αντίστοιχου μεταφρασμένου μηνύματος που αντιστοιχεί\n"
+"                            στο MSGID από το TEXTDOMAIN\n"
+
+#
+# File: src/gettextp.c, line: 245
+#: src/gettextp.c:245
+#, c-format, no-wrap
+msgid ""
+"\n"
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
+"But it does not simply copy its arguments to stdout.  Instead those messages\n"
+"found in the selected catalog are translated.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"\n"
+"Αν η παράμετρος TEXTDOMAIN δε δίνεται, τότε περιοχή ανακτάται από τη\n"
+"μεταβλητή περιβάλλοντος TEXTDOMAIN. Αν ο κατάλογος μηνυμάτων δε βρεθεί στο\n"
+"καθιερωμένο κατάλογο, ελέγχεται η τιμή της μεταβλητής περιβάλλοντος TEXTDOMAINDIR.\n"
+"Όταν γίνεται χρήση της επιλογής -s, το πρόγραμμα συμπεριφέρεται σαν\n"
+"την εντολή `echo'. Αλλά δεν αντιγράφει απλά τα ορίσματα στην κανονική έξοδο.\n"
+"Αντίθετα, τα μηνύματα που βρίσκονται στο επιλεγμένο κατάλογο, μεταφράζονται.\n"
+"Καθιερωμένος κατάλογος αναζήτησης: %s\n"
+
+#
+# File: src/gettextp.c, line: 255
+# File: src/msgcmp.c, line: 200
+# File: src/msgcomm.c, line: 442
+# File: src/msgfmt.c, line: 388
+# File: src/msgmerge.c, line: 334
+# File: src/msgunfmt.c, line: 234
+# File: src/xgettext.c, line: 584
+#: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
+#: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
+msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
+msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.org>.\n"
+
+#
+# File: src/message.c, line: 784
+#: src/message.c:900
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"τα μηνύματα προς μετάφραση δεν πρέπει να περιέχουν το χαρακτήρα διαφυγής "
+"`\\%c'"
+
+#
+# File: src/message.c, line: 1115
+#: src/message.c:1231
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "αδυναμία δημιουργίας αρχείου εξόδου \"%s\""
+
+#
+# File: src/message.c, line: 1122
+#: src/message.c:1238
+#, no-c-format
+msgid "standard output"
+msgstr "κανονική έξοδος"
+
+#
+# File: src/message.c, line: 1182
+#: src/message.c:1298
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "σφάλμα στην εγγραφή του αρχείου \"%s\""
+
+#
+# File: src/msgcmp.c, line: 160
+# File: src/msgmerge.c, line: 270
+#: src/msgcmp.c:160 src/msgmerge.c:279
+msgid "no input files given"
+msgstr "δεν καθορίστηκαν αρχεία εισόδου"
+
+#
+# File: src/msgcmp.c, line: 165
+# File: src/msgmerge.c, line: 275
+#: src/msgcmp.c:165 src/msgmerge.c:284
+msgid "exactly 2 input files required"
+msgstr "απαιτούνται ακριβώς δύο αρχεία εισόδου"
+
+#
+# File: src/msgcmp.c, line: 186
+#: src/msgcmp.c:186
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] def.po ref.po\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"\n"
+"Compare two Uniforum style .po files to check that both contain the same\n"
+"set of msgid strings.  The def.po file is an existing PO file with the\n"
+"old translations.  The ref.po file is the last created PO file\n"
+"(generally by xgettext).  This is useful for checking that you have\n"
+"translated each and every message in your program.  Where an exact match\n"
+"cannot be found, fuzzy matching is used to produce better diagnostics.\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] def.po ref.po\n"
+"Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
+"και για τα σύντομα ορίσματα.\n"
+"  -D, --directory=ΚΑΤΑΛΟΓΟΣ  πρόσθεσε τον ΚΑΤΑΛΟΓΟ στη λίστα\n"
+"                           για αναζήτηση αρχείων εισόδου.\n"
+"  -h, --help               εμφάνιση αυτής της βοήθειας και έξοδος\n"
+"  -V, --version            εμφάνιση πληροφοριών έκδοσης προγράμματος και έξοδος\n"
+"\n"
+"Σύγκριση δύο αρχείων .po της μορφής Uniforum για τον έλεγχο αν και τα δύο\n"
+"περιέχουν το ίδιο σύνολο από msgid αλφαριθμιτικά. Το αρχείο def.po είναι\n"
+"ένα προϋπάρχον αρχείο PO με τις παλιές μεταφράσεις. Το αρχείο ref.po file\n"
+"είναι το πιο πρόσφατο αρχείο PO (γενικά δημιουργημένο από το πρόγραμμα\n"
+"xgettext). Είναι χρήσιμο για το έλεγχο ότι όλα τα μηνύματα τους προγράμματος\n"
+"έχουν μεταφραστεί. Εκεί που δεν εντοπίζεται ακριβής αντιστoιχία,\n"
+"γίνεται ελαστικό ταίριασμα για καλύτερα αποτελέσματα.\n"
+
+#
+# File: src/msgcmp.c, line: 259
+# File: src/msgmerge.c, line: 714
+#: src/msgcmp.c:259 src/msgmerge.c:746
+msgid "this message is used but not defined..."
+msgstr "αυτό το μήνυμα χρησιμοποείται, αλλά δεν ορίζεται..."
+
+#
+# File: src/msgcmp.c, line: 261
+# File: src/msgmerge.c, line: 716
+#: src/msgcmp.c:261 src/msgmerge.c:748
+msgid "...but this definition is similar"
+msgstr "...αλλά αυτός ο ορισμός είναι παρόμοιος"
+
+#
+# File: src/msgcmp.c, line: 267
+# File: src/msgmerge.c, line: 743
+#: src/msgcmp.c:267 src/msgmerge.c:775
+#, c-format
+msgid "this message is used but not defined in %s"
+msgstr "αυτό το μήνυμα χρησιμοποείται, αλλά δεν ορίζεται στο %s"
+
+#
+# File: src/msgcmp.c, line: 281
+#: src/msgcmp.c:281
+msgid "warning: this message is not used"
+msgstr "προειδοποίηση: αυτό το μήνυμα δεν χρησιμοποείται"
+
+#
+# File: src/msgcmp.c, line: 355
+# File: src/msgfmt.c, line: 632
+# File: src/msgmerge.c, line: 493
+# File: src/xgettext.c, line: 1063
+#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1070
+msgid "duplicate message definition"
+msgstr "επαναλαμβανόμενος ορισμός μηνύματος"
+
+#
+# File: src/msgcmp.c, line: 356
+# File: src/msgfmt.c, line: 633
+# File: src/msgmerge.c, line: 494
+# File: src/xgettext.c, line: 1064
+#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1071
+msgid "...this is the location of the first definition"
+msgstr "...αυτή είναι η θέση του πρώτου ορισμού"
+
+#
+# File: src/msgcmp.c, line: 396
+# File: src/msgmerge.c, line: 542
+#: src/msgcmp.c:396 src/msgmerge.c:566
+#, c-format
+msgid "this message has no definition in the \"%s\" domain"
+msgstr "αυτό το μήνυμα δεν έχει ορισμό στη περιοχή \"%s\""
+
+#
+# File: src/msgcomm.c, line: 238
+# File: src/xgettext.c, line: 340
+# File: src/xgettext.c, line: 1258
+#. We are about to construct the absolute path to the
+#. directory for the output files but asprintf failed.
+#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1265
+msgid "while preparing output"
+msgstr "καθώς προετοιμαζόταν η έξοδος"
+
+#
+# File: src/msgcomm.c, line: 273
+# File: src/msgcomm.c, line: 277
+# File: src/xgettext.c, line: 378
+# File: src/xgettext.c, line: 382
+#: src/msgcomm.c:273 src/msgcomm.c:277 src/xgettext.c:378 src/xgettext.c:382
+#, c-format
+msgid "%s and %s are mutually exclusive"
+msgstr "τα %s και %s είναι αμοιβαία αποκλειώμενα"
+
+#
+# File: src/msgcomm.c, line: 341
+#: src/msgcomm.c:341
+msgid "at least two files must be specified"
+msgstr "πρέπει να οριστούν τουλάχιστον δύο αρχεία"
+
+#
+# File: src/msgcomm.c, line: 360
+#: src/msgcomm.c:360
+#, c-format
+msgid "impossible selection criteria specified (%d < n < %d)"
+msgstr "έχει επιλεχθεί αδύνατο κριτήριο επιλογής (%d < n < %d)"
+
+#
+# File: src/msgcomm.c, line: 400
+#: src/msgcomm.c:400
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] INPUTFILE ...\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"      --force-po                 write PO file even if empty\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"  -h, --help                     display this help and exit\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] ΑΡΧΕΙΟΕΙΣΟΔΟΥ ...\n"
+"Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
+"και για τα σύντομα ορίσματα.\n"
+"  -d, --default-domain=ΟΝΟΜΑ     χρήση του ΟΝΟΜΑ.po για έξοδο (αντί του messages.po)\n"
+"  -D, --directory=ΚΑΤΑΛΟΓΟΣ      προσθήκη του ΚΑΤΑΛΟΓΟΣ στην αναζήτηση αρχείων εισόδου\n"
+"  -e, --no-escape                αποφυγή χρήσης κωδικών διαφυγής αλά C στην έξοδο\n"
+"                                   (εξ ορισμού)\n"
+"  -E, --escape                   χρήση κωδικών διαφυγής αλά C στην έξοδο, όχι όμως\n"
+"                                 και εκτεταμένους χαρακτήρες.\n"
+"  -f, --files-from=ΑΡΧΕΙΟ        λήψη λίστας αρχείων εισόδου από ΑΡΧΕΙΟ\n"
+"      --force-po                 δημιουργία αρχείου PO ακόμα και αν είναι άδειο\n"
+"  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης αρχείου\n"
+"  -h, --help                     εμφάνιση αυτής της βοήθειας και έξοδος\n"
+
+#
+# File: src/msgcomm.c, line: 412
+#: src/msgcomm.c:412
+msgid ""
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines "
+"(default)\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory "
+"DIR\n"
+"  -s, --sort-output              generate sorted output and remove "
+"duplicates\n"
+"      --strict                   write out strict Uniforum conforming .po "
+"file\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+"  -i, --indent                   δημιουργία .po αρχείου με μορφοποιημένη "
+"έξοδο\n"
+"      --no-location              αποφυγή εμφάνισης γραμμών '#: "
+"filename:line'\n"
+"  -n, --add-location             δημιουργία γραμμών '#: filename:line' (εξ "
+"ορισμού)\n"
+"      --omit-header              να μη γραφτεί κεφαλίδα με εγγραφή `msgid "
+"\"\"'\n"
+"  -o, --output=ΑΡΧΕΙΟ            εγγραφή εξόδου στο επιλεγμένο αρχείο\n"
+"  -p, --output-dir=ΚΑΤΑΛΟΓΟΣ     τα αρχεία εξόδου θα τοποθετηθούν "
+"στοκατάλογο ΚΑΤΑΛΟΓΟΣ\n"
+"  -s, --sort-output              δημιουργία ταξινομημένης εξόδου και "
+"απαλοιφή επαναλήψεων\n"
+"      --strict                   δημιουργία αρχείο .po που συμφωνούν απόλυτα "
+"με το πρότυπο Uniforum\n"
+"  -T, --trigraphs                αποδοχή ANSI C τριγραμμάτων στην είσοδο\n"
+"  -u, --unique                   συντομογραφία του --less-than=2, αίτηση "
+"για\n"
+"                                 εμφάνιση μόνο των μοναδικών μηνυμάτων\n"
+
+#
+# File: src/msgcomm.c, line: 425
+#: src/msgcomm.c:425
+msgid ""
+"  -V, --version                  output version information and exit\n"
+"  -w, --width=NUMBER             set output page width\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 1 if not set\n"
+"\n"
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be preserved, but only from the first\n"
+"PO file to define them.  File positions from all PO files will be\n"
+"preserved.\n"
+msgstr ""
+"  -V, --version                  εμφάνιση πληροφοριών έκδοσης προγράμματος\n"
+"                                   και έξοδος\n"
+"  -w, --width=ΑΡΙΘΜΟΣ            ορισμός πλάτους σελίδας εξόδου\n"
+"  -<, --less-than=ΑΡΙΘΜΟΣ        εμφάνιση μηνυμάτων με λιγότερα από ΑΡΙΘΜΟΣ\n"
+"                                   ορισμούς, εξ ορισμού σε άπειρο αν δεν "
+"τεθεί\n"
+"  ->, --more-than=ΑΡΙΘΜΟΣ        εμφάνιση μηνυμάτων με περισσότερα από "
+"ΑΡΙΘΜΟΣ\n"
+"                                   ορισμούς, εξ ορισμού σε ένα αν δεν τεθεί\n"
+"\n"
+"Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία PO.\n"
+"Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί μεγαλύτερη\n"
+"συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή "
+"--less-than\n"
+"μπορεί να οριστεί μικρότερη συγγένεια πριν εμφανιστούν τα μηνύματα (π.χ.\n"
+"το --less-than=2 θα εμφανίσει μόνο τα μοναδικά μηνύματα).  Οι μεταφράσεις,\n"
+"τα σχόλια και τα μηνύματα σε μορφή σχολίων θα διατηρηθούν, αλλά μόνο από το\n"
+"πρώτο αρχείο PO που τα έχει ορίσει. Οι θέσεις αρχείου από όλα τα αρχεία PO\n"
+"θα διατηρηθούν.\n"
+
+#
+# File: src/msgcomm.c, line: 476
+# File: src/msgunfmt.c, line: 357
+# File: src/po-lex.c, line: 74
+# File: src/xget-lex.c, line: 159
+# File: src/xget-lex.c, line: 174
+# File: src/xget-lex.c, line: 191
+# File: src/xgettext.c, line: 618
+#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159
+#: src/xget-lex.c:174 src/xget-lex.c:191 src/xgettext.c:625
+#, c-format
+msgid "error while opening \"%s\" for reading"
+msgstr "σφάλμα στο άνοιγμα του \"%s\" για ανάγνωση"
+
+#
+# File: src/msgcomm.c, line: 557
+# File: src/xgettext.c, line: 660
+# File: src/xgettext.c, line: 970
+#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:977
+msgid "this file may not contain domain directives"
+msgstr "αυτό το αρχείο δεν μπορεί να περιέχει οδηγίες για τη περιοχή"
+
+#
+# File: src/msgfmt.c, line: 273
+# File: src/xgettext.c, line: 410
+#: src/msgfmt.c:273 src/xgettext.c:417
+msgid "no input file given"
+msgstr "δεν δόθηκε αρχείο εισόδου"
+
+#
+# File: src/msgfmt.c, line: 321
+#: src/msgfmt.c:321
+#, c-format
+msgid "error while opening \"%s\" for writing"
+msgstr "σφάλμα κατά το άνοιγμα του αρχείου \"%s\" για εγγραφή"
+
+#
+# File: src/msgfmt.c, line: 343
+#: src/msgfmt.c:343
+#, c-format
+msgid "%d translated messages"
+msgstr "%d μεταφρασμένα μυνήματα"
+
+#
+# File: src/msgfmt.c, line: 345
+#: src/msgfmt.c:345
+#, c-format
+msgid ", %d fuzzy translations"
+msgstr ", %d προσεγγιστικές μεταφράσεις"
+
+#
+# File: src/msgfmt.c, line: 347
+#: src/msgfmt.c:347
+#, c-format
+msgid ", %d untranslated messages"
+msgstr ", %d μη μεταφρασμένα μηνύματα"
+
+#
+# File: src/msgfmt.c, line: 366
+#: src/msgfmt.c:366
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] filename.po ...\n"
+"Generate binary message catalog from textual translation description.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+"  -c, --check                 perform language dependent checks on strings\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -f, --use-fuzzy             use fuzzy entries in output\n"
+"  -h, --help                  display this help and exit\n"
+"      --no-hash               binary file will not include the hash table\n"
+"  -o, --output-file=FILE      specify output file name as FILE\n"
+"      --statistics            print statistics about translations\n"
+"      --strict                enable strict Uniforum mode\n"
+"  -v, --verbose               list input file anomalies\n"
+"  -V, --version               output version information and exit\n"
+"\n"
+"Giving the -v option more than once increases the verbosity level.\n"
+"\n"
+"If input file is -, standard input is read.  If output file is -,\n"
+"output is written to standard output.\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] filename.po ...\n"
+"Δημιουργία δυαδικού καταλόγου μηνυμάτων από λεκτική μετάφραση περιγραφών.\n"
+"\n"
+"Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
+"και για τα σύντομα ορίσματα.\n"
+"  -a, --alignment=ΑΡΙΘΜΟΣ  στοίχηση αλφαριθμητικών σε ΑΡΙΘΜΟΣ από bytes\n"
+"                           (εξ ορισμού τιμή: %d)\n"
+"  -c, --check              εκτέλεση ελέγχων εξαρτημένων από τη γλώσσα\n"
+"                           στα αλφαριθμητικά\n"
+"  -D, --directory=ΚΑΤΑΛΟΓΟΣ  πρόσθεσε τον ΚΑΤΑΛΟΓΟ στη λίστα για αναζήτηση\n"
+"                           αρχείων εισόδου.\n"
+"  -f, --use-fuzzy          χρήση προσεγγιστικών εγγραφών στην έξοδο\n"
+"  -h, --help               εμφάνιση αυτής της βοήθειας και έξοδος\n"
+"      --no-hash            δυαδικά αρχεία δεν συμπεριλαμβάνονται στο\n"
+"                             hash table\n"
+"  -o, --output-file=ΑΡΧΕΙΟ καθορισμός του ΑΡΧΕΙΟ σαν αρχείο εξόδου\n"
+"      --statistics         εμφάνιση στατιστικών για τις μεταφράσεις\n"
+"      --strict             ενεργοποίηση κατάστασης αυστηρού Uniforum\n"
+"  -v, --verbose            εμφάνιση σφαλμάτων αρχείου εισόδου\n"
+"  -V, --version            εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+"\n"
+"Δίνοντας την παράμετρο -v περισσότερες από μια φορές, αυξάνει το βαθμό\n"
+"περιφραστικότητας των μηνυμάτων\n"
+"\n"
+"Αν το αρχείο εισόδου είναι το -, γίνεται ανάγνωση της κανονικής εισόδου.\n"
+"Αν το αρχείο εξόδου είναι -, τότε η έξοδος γράφεται στην κανονική έξοδο.\n"
+
+#
+# File: src/msgfmt.c, line: 409
+#: src/msgfmt.c:409
+msgid "while creating hash table"
+msgstr "κατά τη δημιουργία του hash table"
+
+#
+# File: src/msgfmt.c, line: 672
+#: src/msgfmt.c:451
+#, fuzzy, c-format
+msgid "%s: warning: PO file header missing, fuzzy, or invalid"
+msgstr ""
+"%s: προειδοποίηση: το αρχείο εισόδου περιέχει προσεγγιστικές μεταφράσεις"
+
+#
+# File: src/msgfmt.c, line: 473
+#: src/msgfmt.c:474
+#, c-format
+msgid "domain name \"%s\" not suitable as file name"
+msgstr "το όνομα για τη περιοχή \"%s\" δεν είναι κατάλληλο για όνομα αρχείου"
+
+#
+# File: src/msgfmt.c, line: 478
+#: src/msgfmt.c:479
+#, c-format
+msgid "domain name \"%s\" not suitable as file name: will use prefix"
+msgstr ""
+"το όνομα για τη περιοχή \"%s\" δεν είναι κατάλληλο για όνομα αρχείου· θα "
+"γίνει χρήση προθέματος"
+
+#
+# File: src/msgfmt.c, line: 491
+#. We don't change the exit status here because this is really
+#. only an information.
+#: src/msgfmt.c:492
+#, c-format
+msgid "`domain %s' directive ignored"
+msgstr "η οδηγία `domain %s' αγνοείται"
+
+#
+# File: src/msgfmt.c, line: 519
+#: src/msgfmt.c:520
+msgid "empty `msgstr' entry ignored"
+msgstr "η κενή εγγραφή `msgstr' αγνοείται"
+
+#
+# File: src/msgfmt.c, line: 520
+#: src/msgfmt.c:521
+msgid "fuzzy `msgstr' entry ignored"
+msgstr "η προσεγγιστική εγγραφή `msgstr' αγνοείται"
+
+#
+# File: src/msgfmt.c, line: 563
+#: src/msgfmt.c:564
+#, c-format
+msgid "headerfield `%s' missing in header"
+msgstr "το πεδίο `%s' έχει παραληφθεί από τη κεφαλίδα"
+
+#
+# File: src/msgfmt.c, line: 566
+#: src/msgfmt.c:567
+#, c-format
+msgid "header field `%s' should start at beginning of line"
+msgstr "το πεδία κεφαλίδας `%s' θα έπρεπε να ξεκινά στην αρχή της γραμμής"
+
+#
+# File: src/msgfmt.c, line: 576
+#: src/msgfmt.c:577
+msgid "some header fields still have the initial default value"
+msgstr "μερικά πεδία της κεφαλίδας έχουν ακόμα την αρχική εξ ορισμού τιμή"
+
+#
+# File: src/msgfmt.c, line: 587
+#: src/msgfmt.c:588
+#, c-format
+msgid "field `%s' still has initial default value"
+msgstr "το πεδίο `%s' έχει ακόμα την αρχική εξ ορισμού τιμή"
+
+#
+# File: src/msgfmt.c, line: 672
+#: src/msgfmt.c:673
+#, c-format
+msgid "%s: warning: source file contains fuzzy translation"
+msgstr ""
+"%s: προειδοποίηση: το αρχείο εισόδου περιέχει προσεγγιστικές μεταφράσεις"
+
+#
+# File: src/msgfmt.c, line: 874
+#: src/msgfmt.c:875
+msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+msgstr "Οι εγγραφές `msgid' και `msgstr' δεν ξεκινούν και οι δύο με '\\n'"
+
+#
+# File: src/msgfmt.c, line: 882
+#: src/msgfmt.c:883
+msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
+msgstr "Οι εγγραφές `msgid' και `msgstr' δεν τελειώνουν και οι δύο με '\\n'"
+
+#
+# File: src/msgfmt.c, line: 896
+#: src/msgfmt.c:897
+msgid "number of format specifications in `msgid' and `msgstr' does not match"
+msgstr ""
+"ο αριθμός των αναφορών σε μορφοποιήσεις των `msgid' και `msgstr' δε συμπίπτει"
+
+#
+# File: src/msgfmt.c, line: 913
+#: src/msgfmt.c:914
+#, c-format
+msgid "format specifications for argument %u are not the same"
+msgstr "οι μορφοποιήσεις για τη παράμετρο %u δεν είναι ίδιες"
+
+#
+# File: src/msgmerge.c, line: 306
+#: src/msgmerge.c:328
+#, fuzzy, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] def.po ref.po\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -C, --compendium=FILE       additional library of message translations,\n"
+"                              may be specified more than once\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -h, --help                  display this help and exit\n"
+"  -i, --indent                indented output style\n"
+"  -o, --output-file=FILE      result will be written to FILE\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -v, --verbose               increase verbosity level\n"
+"  -V, --version               output version information and exit\n"
+"  -w, --width=NUMBER          set output page width\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] def.po ref.po\n"
+"Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
+"και για τα σύντομα ορίσματα.\n"
+"  -D, --directory=ΚΑΤΑΛΟΓΟΣ   πρόσθεσε τον ΚΑΤΑΛΟΓΟ στη λίστα για αναζήτηση\n"
+"                                αρχείων εισόδου.\n"
+"  -e, --no-escape             αποφυγή χρήσης κωδικών διαφυγής αλά C στην έξοδο\n"
+"                                (εξ ορισμού)\n"
+"  -E, --escape                χρήση κωδικών διαφυγής αλά C στην έξοδο,\n"
+"                                όχι όμως και εκτεταμένους χαρακτήρες.\n"
+"      --force-po              δημιουργία αρχείου PO ακόμα και αν είναι άδειο\n"
+"  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
+"  -i, --indent                μορφοποιημένη έξοδος\n"
+"  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
+"      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:line'\n"
+"      --add-location          διατήρηση γραμμών '#: filename:line' (εξ ορισμού)\n"
+"      --strict                αυστηρή μορφή εξόδου Uniforum\n"
+"  -v, --verbose               περιφραστική εμφάνιση προειδοποιήσεων\n"
+"  -V, --version               εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+"  -w, --width=ΑΡΙΘΜΟΣ         ορισμός μεγέθους πλάτους σελίδας εξόδου\n"
+
+#
+# File: src/msgmerge.c, line: 324
+#: src/msgmerge.c:348
+#, no-wrap
+msgid ""
+"\n"
+"Merges two Uniforum style .po files together.  The def.po file is an\n"
+"existing PO file with the old translations which will be taken over to\n"
+"the newly created file as long as they still match; comments will be\n"
+"preserved, but extract comments and file positions will be discarded.\n"
+"The ref.po file is the last created PO file (generally by xgettext), any\n"
+"translations or comments in the file will be discarded, however dot\n"
+"comments and file positions will be preserved.  Where an exact match\n"
+"cannot be found, fuzzy matching is used to produce better results.  The\n"
+"results are written to stdout unless an output file is specified.\n"
+msgstr ""
+"\n"
+"Συνένωση δύο αρχείων .po μορφής Uniforum. Το αρχείο def.po είναι το\n"
+"προϋπάρχον αρχείο PO με τις παλιές μεταφράσεις που θα μεταφερθούν στο\n"
+"νέο αρχείο, όσα φυσικά δεν έχουν αλλάξει· τα σχόλια θα διατηρηθούν\n"
+"αλλά τα εξαγώμενα σχόλια και οι θέσεις αρχείων θα αφαιρεθούν.\n"
+"Το αρχείο ref.po είναι το τελευταία δημιουργημένο αρχείο PO \n"
+"(γενικά κατασκευάζεται από το xgettext) και ο,τι μεταφράσεις ή σχόλια \n"
+"υπάρχουν στο αρχείο θα αγνοηθούν, ωστόσο σχόλια που ξεκινούν με τελεία \n"
+"και θέσεις αρχείων θα διατηρηθούν. Εκεί που δεν εμφανίζεται απόλυτο\n"
+"ταίριασμα, γίνεται χρήση ελαστικού ταιριάσματος για καλύτερα αποτελέσματα.\n"
+"Τα αποτελέσματα γράφονται στην κανονική έξοδο εκτός και αν ορίζεται\n"
+"κάποιο αρχείο εξόδου.\n"
+
+#
+# File: src/msgmerge.c, line: 772
+#: src/msgmerge.c:804
+#, c-format
+msgid ""
+"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
+"%d.\n"
+msgstr ""
+"%sΑναγνώστηκαν %d παλαιά + %d αναφορές, συγχωνευμένα %d, προσεγγιστικά "
+"%d,έχουν παραληφθεί %d, αχρησιμοποίητα %d.\n"
+
+#
+# File: src/msgmerge.c, line: 778
+#: src/msgmerge.c:810
+msgid " done.\n"
+msgstr " έγινε.\n"
+
+#
+# File: src/msgunfmt.c, line: 215
+#: src/msgunfmt.c:215
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [FILE]...\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -e, --no-escape          do not use C escapes in output (default)\n"
+"  -E, --escape             use C escapes in output, no extended chars\n"
+"      --force-po           write PO file even if empty\n"
+"  -h, --help               display this help and exit\n"
+"  -i, --indent             write indented output style\n"
+"  -o, --output-file=FILE   write output into FILE instead of standard output\n"
+"      --strict             write strict uniforum style\n"
+"  -V, --version            output version information and exit\n"
+"  -w, --width=NUMBER       set output page width\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] def.po ref.po\n"
+"Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
+"και για τα σύντομα ορίσματα.\n"
+"  -e, --no-escape          αποφυγή χρήσης κωδικών διαφυγής αλά C στην έξοδο\n"
+"                           (εξ ορισμού)\n"
+"  -E, --escape             χρήση κωδικών διαφυγής αλά C στην έξοδο,\n"
+"                             όχι όμως και εκτεταμένους χαρακτήρες.\n"
+"      --force-po           δημιουργία αρχείου PO ακόμα και αν είναι άδειο\n"
+"  -h, --help               εμφάνιση αυτής της βοήθειας και έξοδος\n"
+"  -i, --indent             μορφοποιημένη έξοδος\n"
+"  -o, --output-file=ΑΡΧΕΙΟ  το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
+"      --strict             μορφή εξόδου το αυστηρό Uniforum\n"
+"  -V, --version            εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+"  -w, --width=ΑΡΙΘΜΟΣ      ορισμός μεγέθους πλάτους σελίδας εξόδου\n"
+
+#
+# File: src/msgunfmt.c, line: 229
+#: src/msgunfmt.c:229
+#, no-wrap
+msgid ""
+"\n"
+"Convert binary .mo files to Uniforum style .po files.\n"
+"Both little-endian and big-endian .mo files are handled.\n"
+"If no input file is given or it is -, standard input is read.\n"
+"By default the output is written to standard output.\n"
+msgstr ""
+"\n"
+"Μετατροπή δυαδικών αρχείων .mo σε Uniforum .po αρχεία.\n"
+"Και τα little-endian και τα big-endian αρχεία .mo μπορούν\n"
+"να χρησιμοποιηθούν. Αν το αρχείο εισόδου δίνεται ή είναι -,\n"
+"τότε αναγιγνώσκεται η κανονική είσοδος. Εξ ορισμού, η έξοδος\n"
+"γράφεται στην κανονική έξοδο.\n"
+
+#
+# File: src/msgunfmt.c, line: 266
+# File: src/msgunfmt.c, line: 330
+# File: src/po-lex.c, line: 185
+# File: src/xget-lex.c, line: 254
+#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "σφάλμα στην ανάγνωση του \"%s\""
+
+#
+# File: src/msgunfmt.c, line: 267
+# File: src/msgunfmt.c, line: 331
+#: src/msgunfmt.c:267 src/msgunfmt.c:331
+#, c-format
+msgid "file \"%s\" truncated"
+msgstr "το αρχείο \"%s\" μηδενίστηκε και θα γραφούν δεδομένα σε αυτό"
+
+#
+# File: src/msgunfmt.c, line: 298
+#: src/msgunfmt.c:298
+#, c-format
+msgid "seek \"%s\" offset %ld failed"
+msgstr "η πρόσβαση στο αρχείο \"%s\", θέση %ld, απέτυχε"
+
+#
+# File: src/msgunfmt.c, line: 373
+#: src/msgunfmt.c:373
+#, c-format
+msgid "file \"%s\" is not in GNU .mo format"
+msgstr "το αρχείο \"%s\" δεν είναι στη μορφή GNU .mo"
+
+#
+# File: ../../src/po-gram.y, line: 83
+#: ../../src/po-gram.y:83
+msgid "missing `msgstr' section"
+msgstr "λείπει ενότητα `msgstr'"
+
+#
+# File: src/po-lex.c, line: 84
+#: src/po-lex.c:84
+#, c-format
+msgid "found %d fatal errors"
+msgstr "βρέθηκαν %d σοβαρά σφάλματα"
+
+#
+# File: src/po-lex.c, line: 129
+# File: src/po-lex.c, line: 168
+#: src/po-lex.c:129 src/po-lex.c:168
+msgid "too many errors, aborting"
+msgstr "πάρα πολλά σφάλματα, εγκαταλείπω"
+
+#
+# File: src/po-lex.c, line: 241
+#: src/po-lex.c:241
+#, c-format
+msgid "keyword \"%s\" unknown"
+msgstr "άγνωστη εντολή \"%s\""
+
+#
+# File: src/po-lex.c, line: 332
+#: src/po-lex.c:335
+#, fuzzy
+msgid "invalid control sequence"
+msgstr "μη αποδεκτή σειρά χαρακτήρων διαφυγής"
+
+#
+# File: src/po-lex.c, line: 415
+#: src/po-lex.c:419
+msgid "end-of-line within string"
+msgstr "τέρμα-γραμμής (eol) στο αλφαριθμητικό"
+
+#
+# File: src/po-lex.c, line: 420
+#: src/po-lex.c:424
+msgid "end-of-file within string"
+msgstr "τέλος αρχείου (EOF) στο αλφαριθμητικό"
+
+#
+# File: src/xget-lex.c, line: 150
+#: src/xget-lex.c:150
+msgid "standard input"
+msgstr "κανονική είσοδος"
+
+#
+# File: src/xget-lex.c, line: 892
+#: src/xget-lex.c:892
+#, c-format
+msgid "%s:%d: warning: unterminated character constant"
+msgstr "%s:%d: προειδοποίηση: μη τερματισμένη σταθερά χαρακτήρων"
+
+#
+# File: src/xget-lex.c, line: 914
+#: src/xget-lex.c:914
+#, c-format
+msgid "%s:%d: warning: unterminated string literal"
+msgstr "%s:%d: προειδοποίηση: μη τερματισμένο αλφαριθμητικό"
+
+#
+# File: src/xgettext.c, line: 386
+#: src/xgettext.c:386
+msgid "--join-existing cannot be used when output is written to stdout"
+msgstr ""
+"το --join-existing δε μπορεί να χρησιμοποιηθεί όταν η έξοδος γράφεται στην "
+"κανονική έξοδο"
+
+#: src/xgettext.c:391
+msgid "xgettext cannot work without keywords to look for"
+msgstr ""
+
+#
+# File: src/xgettext.c, line: 501
+#: src/xgettext.c:508
+#, c-format
+msgid "warning: file `%s' extension `%s' is unknown; will try C"
+msgstr ""
+"προειδοποίηση: το αρχείο `%s' με κατάληξη `%s' είναι άγνωστο· θα δοκιμαστεί C"
+
+#
+# File: src/xgettext.c, line: 537
+#: src/xgettext.c:544
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] INPUTFILE ...\n"
+"Extract translatable string from given input files.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"  -a, --extract-all              extract all strings\n"
+"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
+"                                 preceding keyword lines) in output file\n"
+"  -C, --c++                      shorthand for --language=C++\n"
+"      --debug                    more detailed formatstring recognision result\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"      --force-po                 write PO file even if empty\n"
+"      --foreign-user             omit FSF copyright in output for foreign user\n"
+"  -F, --sort-by-file             sort output by file location\n"
+msgstr ""
+"Χρήση: %s [ΕΠΙΛΟΓΗ] ΑΡΧΕΙΟΕΙΣΟΔΟΥ ...\n"
+"Εξαγωγή αλφαριθμητικών που μπορούν να μεταφραστούν από δοσμένα αρχεία εισόδου.\n"
+"\n"
+"Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
+"και για τα σύντομα ορίσματα.\n"
+"  -a, --extract-all              εξαγωγή όλων των αλφαριθμητικών\n"
+"  -c, --add-comments[=TAG]       τοποθέτηση τμήμα σχολίων με TAG (ή αυτά που\n"
+"                                 ακολουθούν γραμμές με εντολές) στο αρχείο εξόδου\n"
+"  -C, --c++                      συντομογραφία για --language=C++\n"
+"      --debug                    περισσότερο λεπτομερής εμφάνιση μηνυμάτων\n"
+"  -d, --default-domain=ΟΝΟΜΑ     χρήση του ΟΝΟΜΑ.po για έξοδο (αντί του messages.po)\n"
+"  -D, --directory=ΚΑΤΑΛΟΓΟΣ      αλλαγή στο ΚΑΤΑΛΟΓΟΣ πριν την έναρξη της επεξεργασίας\n"
+"  -e, --no-escape                αποφυγή χρήσης κωδικών διαφυγής αλά C στην έξοδο\n"
+"                                   (εξ ορισμού)\n"
+"  -E, --escape                   χρήση κωδικών διαφυγής αλά C στην έξοδο, όχι όμως\n"
+"                                 και εκτεταμένους χαρακτήρες.\n"
+"  -f, --files-from=ΑΡΧΕΙΟ        λήψη λίστας αρχείων εισόδου από ΑΡΧΕΙΟ\n"
+"      --force-po                 δημιουργία αρχείου PO ακόμα και αν είναι άδειο\n"
+"      --foreign-user             παράλειψη εμφάνισης πνευματικών δικαιωμάτων της FSF\n"
+"                                 στην έξοδο για ξένο χρήστη\n"
+"  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης αρχείου\n"
+
+#
+# File: src/xgettext.c, line: 557
+#: src/xgettext.c:564
+#, c-format, no-wrap
+msgid ""
+"  -h, --help                     display this help and exit\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"  -j, --join-existing            join messages with existing file\n"
+"  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
+"                                 WORD means not to use default keywords)\n"
+"  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n"
+"  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
+"                                 otherwise is guessed from file extension\n"
+"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
+"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+msgstr ""
+"  -h, --help                     εμφάνιση αυτής της βοήθειας και έξοδος\n"
+"  -i, --indent                   δημιουργία .po αρχείου με μορφοποιημένη έξοδο\n"
+"  -j, --join-existing            πρόσθεση μηνυμάτων με το υπάρχον αρχείο\n"
+"  -k, --keyword[=ΛΕΞΗ]           επιπλέον λεκτικό για αναζήτηση (χωρίς ΛΕΞΗ σημαίνει\n"
+"                                 αναζήτηση για εξ ορισμού λεκτικά).\n"
+"  -l, --string-limit=ΑΡΙΘΜΟΣ     ορισμός μεγέθους αλφαριθμητικού σε ΑΡΙΘΜΟΣ αντί του %u\n"
+"  -m, --msgstr-prefix[=ΑΛΦΑΡΙΘΜΗΤΙΚΟ] χρήση του ΑΛΦΑΡΙΘΜΗΤΙΚΟ ή \"\" για πρόθεμα\n"
+"                                 σε εγγραφές msgstr\n"
+"  -M, --msgstr-suffix[=ΑΛΦΑΡΙΘΜΗΤΙΚΟ] χρήση του ΑΛΦΑΡΙΘΜΗΤΙΚΟ ή \"\" για κατάληξη\n"
+"                                 σε εγγραφές msgstr\n"
+"      --no-location              να μην γραφούν γραμμές '#: filename:line'\n"
+
+#
+# File: src/xgettext.c, line: 571
+#: src/xgettext.c:578
+#, no-wrap
+msgid ""
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
+"  -s, --sort-output              generate sorted output and remove duplicates\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"  -V, --version                  output version information and exit\n"
+"  -w, --width=NUMBER             set output page width\n"
+"  -x, --exclude-file=FILE        entries from FILE are not extracted\n"
+"\n"
+"If INPUTFILE is -, standard input is read.\n"
+msgstr ""
+"  -n, --add-location             δημιουργία γραμμών '#: filename:line' (εξ ορισμού)\n"
+"      --omit-header              να μη γραφεί κεφαλίδα με εγγραφή `msgid \"\"'\n"
+"  -o, --output=ΑΡΧΕΙΟ            εγγραφή εξόδου στο επιλεγμένο αρχείο\n"
+"  -p, --output-dir=ΚΑΤΑΛΟΓΟΣ     τα αρχεία εξόδου θα τοποθετηθούν\n"
+"                                   στο κατάλογο ΚΑΤΑΛΟΓΟΣ\n"
+"  -s, --sort-output              δημιουργία ταξινομημένης εξόδου και\n"
+"                                   απαλοιφή επαναλήψεων\n"
+"      --strict                   δημιουργία αρχείο .po που συμφωνούν απόλυτα\n"
+"                                   με το πρότυπο Uniforum\n"
+"  -T, --trigraphs                αποδοχή ANSI C τριγραμμάτων στην είσοδο\n"
+"  -V, --version                  εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+"  -x, --exclude-file=ΑΡΧΕΙΟ      εγγραφές από το ΑΡΧΕΙΟ δεν αφαιρούνται\n"
+"\n"
+"Αν το ΑΡΧΕΙΟΕΙΣΟΔΟΥ είναι -, γίνεται ανάγνωση της κανονικής εισόδου.\n"
+
+#
+# File: src/xgettext.c, line: 1344
+#: src/xgettext.c:1351
+#, c-format
+msgid "language `%s' unknown"
+msgstr "η γλώσσα `%s' είναι άγνωστη"
+
+#
+# File: src/msgfmt.c, line: 451
+#~ msgid "%s: warning: no header entry found"
+#~ msgstr "%s: προειδοποίηση: δε βρέθηκε αρχή κεφαλίδας"
+
+#
+#~ msgid "Report bugs to <bug-gnu-utils@prep.ai.mit.edu>.\n"
+#~ msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.ai.mit.edu>.\n"
+
+#
+#~ msgid "this is the location of the first definition"
+#~ msgstr "αυτή είναι η θέση του πρώτου ορισμού"
+
+#
+#~ msgid "found %d errors"
+#~ msgstr "βρέθηκαν %d σφάλματα"
+
+#
+#~ msgid ""
+#~ "Usage: %s [OPTION] filename.mo filename.po\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
+#~ "  -E, --escape             use C escapes in output, no extended chars\n"
+#~ "  -h, --help               display this help and exit\n"
+#~ "  -i, --indent             write indented output style\n"
+#~ "  -S, --strict             write strict uniforum style\n"
+#~ "  -V, --version            output version information and exit\n"
+#~ msgstr ""
+#~ "Χρήση: %s [ΕΠΙΛΟΓΗ] filename.mo filename.po\n"
+#~ "Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί και "
+#~ "για τα σύντομα ορίσματα.\n"
+#~ "  -e, --no-escape          αποφυγή χρήσης κωδικών διαφυγής αλά C στην έξοδο "
+#~ "(εξ ορισμού)\n"
+#~ "  -E, --escape             χρήση κωδικών διαφυγής αλά C στην έξοδο, όχι όμως "
+#~ "και εκτεταμένους χαρακτήρες.\n"
+#~ "  -h, --help               εμφάνιση αυτής της βοήθειας και έξοδος\n"
+#~ "  -i, --indent             μορφοποιημένη έξοδος\n"
+#~ "  -S, --strict             μορφή εξόδου το αυστηρό Uniforum\n"
+#~ "  -V, --version            εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+
+#
+#~ msgid "cannot change to directory \"%s\""
+#~ msgstr "αδυναμία αλλαγής στο κατάλογο \"%s\""
+
+#
+#~ msgid "cannot change back to directory \"%s\""
+#~ msgstr "αδυναμία επιστροφής στο κατάλογο \"%s\""

@@ -1,0 +1,2 @@
+fstrcmp.o: fstrcmp.c ../config.h system.h \
+ fstrcmp.h

@@ -1,0 +1,1 @@
+obstack.o: ../lib/obstack.c ../lib/obstack.h

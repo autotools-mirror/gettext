@@ -1,0 +1,88 @@
+Hi folks,
+
+gettext-0.10 is now avaialble at
+
+	prep.ai.mit.edu:/pub/gnu.
+
+It is a feature release which hopefully can be compiled on all
+interesting system.  This package is especially interesting for
+authors and maintainers who want to internationalize their packages,
+but in the presence of GNU sharutils-4.2 it is also useful for the
+common man.
+
+
+For those how don't know about GNU gettext it provides native language
+support in the messages a program prints.  GNU gettext provides the
+needed library and tool support to enable the programmers to extend
+their programs and maintain the message catalogs.
+
+It can work in two ways: using the possibly existing catalog handling
+functions of the local system or use the library it provides itself.
+Because there are already a lot of goodies which are only found in GNU
+gettext's library I would always suggest to use the provided
+implementation.
+
+The library code itself will be used in many GNU packages.  So
+installing this package and reporting possible problems will also help
+to prevent errors in other packages.
+
+Besides the library, GNU gettext contains programs to maintain message
+catalogs and to produce the needed binary representation.  Among the
+maintenance tools is the Emacs PO mode, written by Franc,ois Pinard.
+This mode helps translators to handle the translation files.
+
+For further information, consult the `README' file.  The `ABOUT-NLS'
+file gives information about the current state of the
+internationalization effort inside the GNU project.  `INSTALL'
+contains the usual information about installation.
+
+In case you find a bug or have problems installing the package, send a
+report to
+	bug-gnu-utils@prep.ai.mi.edu
+
+I want to thanks all those unselfish people helping me to develop
+this software.  A list can be found in the `THANKS' file.  In case
+I omitted somebody, I beg you not to believe it was intended.  Write
+to me, so I may include you in future versions.
+
+
+The next version will not contains many new things.  The Makefiles
+will be adjusted to use the new programs but mainly the documentation
+will adjusted.  The result will be called gettext-1.0.
+
+
+An excerpt from NEWS:
+
+Version 0.10 - December 1995, by Ulrich Drepper
+
+* implement --shell-script option for gettext program
+
+* implement object-oriented, lazy message handling :-)
+  Consult the manual for more/any information
+
+* implement locale name aliasing, similar to the one used
+  in the X Window System
+
+* support for GNU gettext sources in central place to support
+  use in development environments of other projects
+
+* implement CEN syntax for environment variable values
+
+* msgcmp program to find matches in two .po files
+
+* programs now have exit status != 0 if errors occured
+
+* libintl.a is now selfcontained and can be used without context in
+  other projects
+
+* gettextize now automatically runs config.status
+
+* swedish message catalog
+
+* new options for xgettext: -D/--directory to change in specified directory
+  before processing the input files and -f/--files-from to specify file from
+  which the names of the input files are read.
+  The later option in necessary for large projects such as GNU C Library.
+
+* new programs msgmerge and msgunfmt by Peter Miller.  The code of the other
+  programs is now also much cleaner.

@@ -1,0 +1,3 @@
+@set UPDATED 6 May 2000
+@set EDITION 0.10.36
+@set VERSION 0.10.36
