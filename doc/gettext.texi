@@ -1394,7 +1394,7 @@ code above by a sequence of @code{setlocale} lines
 @group
 @{
   @dots{}
-  setlocale (LC_TIME, "");
+  setlocale (LC_CTYPE, "");
   setlocale (LC_MESSAGES, "");
   @dots{}
 @}
@@ -1402,12 +1402,25 @@ code above by a sequence of @code{setlocale} lines
 @end example
 
 @noindent
-or to switch for and back to the character class in question.  On all
-POSIX conformant systems the locale categories @code{LC_CTYPE},
+On all POSIX conformant systems the locale categories @code{LC_CTYPE},
 @code{LC_COLLATE}, @code{LC_MONETARY}, @code{LC_NUMERIC}, and
 @code{LC_TIME} are available.  On some modern systems there is also a
 locale @code{LC_MESSAGES} which is called on some old, XPG2 compliant
 systems @code{LC_RESPONSES}.
+
+Note that changing the @code{LC_CTYPE} also affects the functions
+declared in the @code{<ctype.h>} standard header.  If this is not
+desirable in your application (for example in a compiler's parser),
+you can use a set of substitute functions which hardwire the C locale,
+such as found in the @code{<c-ctype.h>} and @code{<c-ctype.c>} files
+in the gettext source distribution.
+
+It is also possible to switch the locale forth and back between the
+environment dependent locale and the C locale, but this approach is
+normally avoided because a @code{setlocale} call is expensive,
+because it is tedious to determine the places where a locale switch
+is needed in a large program's source, and because switching a locale
+is not multithread-safe.
 
 @node Mark Keywords, Marking, Triggering, Sources
 @section How Marks Appears in Sources
