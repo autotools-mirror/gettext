@@ -1,5 +1,12 @@
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt-3: Filter out charset related warning from msgfmt.
+	* msgmerge-5: Filter out charset related warning from msgmerge.
+	* xgettext-3: Filter out charset related warning from xgettext.
+	* xg-test1.ok.po: Regenerated.
+
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
 	* test.mo: Change msgid so that it passes the newest msgfmt
 	verifications.
 	* gettext-1: Update.

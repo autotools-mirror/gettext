@@ -196,18 +196,6 @@ msgid "field `%s' still has initial default value"
 msgstr ""
 
 #, c-format
-msgid ""
-"%s: warning: charset \"%s\" is not a portable encoding name\n"
-"%*s  warning: charset conversion might not work"
-msgstr ""
-
-#, c-format
-msgid ""
-"%s: warning: charset missing in header\n"
-"%*s  warning: charset conversion will not work"
-msgstr ""
-
-#, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr ""
 
