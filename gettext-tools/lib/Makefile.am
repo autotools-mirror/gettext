@@ -135,13 +135,13 @@ DISTCLEANFILES += fnmatch.h
 
 
 # >>> gnulib module stdbool.
-EXTRA_DIST += stdbool.h.in
+EXTRA_DIST += stdbool_.h
 
 # The following is needed in order to create an <stdbool.h> when the system
 # doesn't have one that works.
 all-local $(libgettextlib_la_OBJECTS): @STDBOOL_H@
-stdbool.h: stdbool.h.in
-	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool.h.in > stdbool.h
+stdbool.h: stdbool_.h
+	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool_.h > stdbool.h
 MOSTLYCLEANFILES += stdbool.h
 # <<< gnulib module stdbool.
 

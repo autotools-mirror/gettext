@@ -1,3 +1,8 @@
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (windows/stdbool.h): Use stdbool_.h instead of
+	stdbool.h.in.
+
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gt_LOCALE_FR.
