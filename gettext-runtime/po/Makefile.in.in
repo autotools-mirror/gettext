@@ -86,7 +86,7 @@ all-no:
 # $(POFILES) has been designed to not touch files that don't need to be
 # changed.
 stamp-po: $(srcdir)/$(DOMAIN).pot
-	$(MAKE) $(CATALOGS)
+	test -z "$(CATALOGS)" || $(MAKE) $(CATALOGS)
 	@echo "touch stamp-po"
 	@echo timestamp > stamp-poT
 	@mv stamp-poT stamp-po
@@ -307,7 +307,7 @@ dist2: $(DISTFILES)
 
 update-po: Makefile
 	$(MAKE) $(DOMAIN).pot-update
-	$(MAKE) $(UPDATEPOFILES)
+	test -z "$(UPDATEPOFILES)" || $(MAKE) $(UPDATEPOFILES)
 	$(MAKE) update-gmo
 
 # General rule for updating PO files.

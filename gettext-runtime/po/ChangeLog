@@ -1,3 +1,8 @@
+2003-04-29  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (stamp-po, update-po): Avoid infinite recursion if
+	LINGUAS is empty.
+
 2003-04-22  Bruno Haible  <bruno@clisp.org>
 
 	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
