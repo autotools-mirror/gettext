@@ -1,5 +1,5 @@
-The GNU NLS utility package is the first full featured package
-directed to NLS support in the GNU packages.  It has it's roots in the
+The GNU gettext package is the first full featured package
+directed to NLS support in the GNU packages.  It has its roots in the
 GNU C Library development and of course the (never officially
 released) GNU locale package, mostly written by Jim Meyering.
 Therefore a lot of people participated in the process of creating this
@@ -9,12 +9,15 @@ Written in April-June 1995 by
 Ulrich Drepper		drepper@ipd.info.uni-karlsruhe.de
 
 Special thanks to François Pinard <pinard@iro.umontreal.ca>, who did a
-major part of the testing and provided the Emacs PO mode, wrote major
-parts of the manual, and contributed the Perl interface gettext.perl.
+major part of the testing, provided the Emacs PO mode, and wrote major
+parts of the manual.
 
 Peter Miller <millerp@canb.auug.org.au> invested a lot of his time in making
-gettext usable in other but GNU projects and wrote the msgmerge, msgcmp,
-and msgunfmt programs.
+gettext usable in other GNU projects and wrote the msgmerge, msgcmp, and
+msgunfmt programs.
+
+Guido Flohr <guido@imperia.net> wrote the Perl backend of xgettext and
+the libintl-perl package.
 
 Thanks to all of the following for their valuable
 hints/fixes/discussions/contributions:
@@ -22,6 +25,7 @@ hints/fixes/discussions/contributions:
 Adam Heath		doogie@debian.org
 Adrian Bunk		bunk@fs.tum.de
 Akim Demaille		akim@epita.fr
+Alain Guibert		derogaton+bggt@oreka.com
 Albert Chin-A-Young	china@thewrittenword.com
 Alexander V. Lukyanov	lav@yars.free.net
 Alexander Turbov	AVTurbov@gwise.eltech.ru
@@ -34,6 +38,7 @@ Andrew V. Samoilov	kai@cmail.ru
 Andrew Zabolotny	zap@cobra.ru
 Andries Brouwer		andries.brouwer@cwi.nl
 Artem Vakhitov		temcat@mail.ru
+A. Sopicki		a.sopicki@gmx.de
 Bang Jun Young		bangjy@nownuri.nowcom.co.kr
 Barry A. Warsaw		barry@zope.com
 Ben Elliston		bje@redhat.com
@@ -44,11 +49,15 @@ Bill Perry		wmperry@aventail.com
 Bram Moolenaar		bram@moolenaar.net
 Bruno Haible		haible@ma2s2.mathematik.uni-karlsruhe.de
 Carlo Wood		carlo@alinoe.com
+Carlos Perelló Marín	carlos@gnome.org
 Charles Wilson		cwilson@ece.gatech.edu
 Christian Casteyde	casteyde.christian@free.fr
+Christian Neumair	chris@gnome-de.org
 Christian von Roques	roques@pond.sub.org
+Christoph Thielecke	u15119@hs-harz.de
 Chuck Berg		chuckhberg@yahoo.com
 Colin Watson		cjwatson@debian.org
+Crispin Flowerday	cflowerday@zeus.com
 Daniel Burrows		dburrows@debian.org
 Daniel Schepler		schepler@math.berkeley.edu
 Denis Barbier		barbier@linuxfr.org
@@ -61,11 +70,13 @@ Eli Zaretskii		eliz@is.elta.co.il
 Enrico Scholz		enrico.scholz@informatik.tu-chemnitz.de
 Enrique Melero Gómez	justine@iprolink.ch
 Eric Backus		ericb@lsid.hp.com
+Eric Botcazou		ebotcazou@libertysurf.fr
 Fatih Demir		kabalak@gtranslator.org
 Felipe Contreras	al593181@mail.mty.itesm.mx
 Felix Natter		f.natter@ndh.net
 Francesco Potortì	pot@fly.cnuce.cnr.it
 Frank Donahoe		fdonahoe@wilkes1.wilkes.edu
+Frédéric L. W. Meunier	0@pervalidus.tk
 Glenn Popelka		gpp@mail.gpopelka.com
 Golubev I. N.		gin@mo.msk.ru
 Greg McGary		gkm@magilla.cichlid.com
@@ -79,7 +90,10 @@ James A Baker		jabaker@mac.com
 James Henstridge	james@daa.com.au
 Jan Djärv		jan.djarv@mbox200.swipnet.se
 Jan-Marek Glogowski	glogow@stud.fbi.fh-darmstadt.de
+Jan Schneider		jan@horde.org
+Jeff Bonggren		jbon@cfl.rr.com
 Jim Meyering		meyering@na-net.ornl.gov
+Jochen Hein		jochen@jochen.org
 Jonas Koch Bentzen	jonas@understroem.dk
 Joosep-Georg Järvemaa	joosep-georg.jarvemaa_4898@eesti.ee
 Joshua R. Poulson	jrp@plaza.ds.adp.com
@@ -93,11 +107,16 @@ Karl Eichwalder		ke@suse.de
 Kaveh R. Ghazi		ghazi@caip.rutgers.edu
 Kenichi Handa		handa@etl.go.jp
 Kingpin			mthurn@copper.dulles.tasc.com
+Kiyotaka Sakai		ksakai@isr.co.jp
+Kouichi Hashikawa	z01a7ksy@cs.ecip.tohoku.ac.jp
 Larry Schwimmer		rosebud@cyclone.stanford.edu
 Laurent Bourbeau	bourbeau@progiciels-bpi.ca
 Len Makin		len@hpc.csiro.au
+Liu Garfield		jackliu9999@hotmail.com
+Luke Schierer		lschiere@rackspace.com
 Maciej W. Rozycki	macro@ds2.pg.gda.pl
 Marc Prior		MarcPrior@compuserve.com
+Marcel Telka		marcel@telka.sk
 Marcus Daniels		marcus@sysc.pdx.edu
 Marcus Meissner		meissner@suse.de
 Marin Purgar		pmc@asgard.hr
@@ -107,11 +126,14 @@ Martin Quinson		martin.quinson@ens-lyon.fr
 Martin v. Löwis		martin@loewis.home.cs.tu-berlin.de
 Matthias Kiefer		kiefer@kde.org
 Max de Mendizabal	max@acer.com.mx
+Michael C. Toren	mct@toren.net
 Michael Opdenacker	m-opdenacker@ti.com
+Michael Stather		michaelstather@nuzi.de
 Michal Černoevič	Michal.Cernoevic@pvt.cz
 Michel Robitaille	robitail@iro.umontreal.ca
 Miroslaw Dobrzanski-Neumann	mne@mosaic-ag.com
 Nelson H. F. Beebe	beebe@math.utah.edu
+Niki Waibel		niki.waibel@newlogic.com
 Nils Naumann		naumann@unileoben.ac.at
 Nina Kusnetsova		nina@ns.kinetics.nsc.ru
 Noah Friedman		friedman@splode.com
@@ -144,6 +166,7 @@ Simos Xenitellis	simos74@gmx.net
 Stanislav Visnovsky	visnovsky@nenya.ms.mff.cuni.cz
 Stefan Hundhammer	sh@suse.de
 Stefan Kost		kost@imn.htwk-leipzig.de
+Stepan Kasal		kasal@math.cas.cz
 Stephan Kulow		coolo@kde.org
 Stephen Gildea		gildea@stop.mail-abuse.org
 Steven Edwards		Steven_Ed4153@yahoo.com
@@ -157,10 +180,13 @@ Tommy Johansson		tommy@kanalen.org
 Tor Lillqvist		tml@iki.fi
 Trond Eivind Glomsrød	teg@redhat.com
 Uwe Ohse		uwe@tirka.gun.de
+Valery Beaud		valery.beaud@art.alcatel.fr
 Veronica Loell		info@nakawe.se
 Volodymyr M. Lisivka	lvm@mystery.lviv.net
 Wang Jian		lark@linux.net.cn
+Warren L Dodge		warrend@mdhost.cse.tek.com
 Werner Koch		wk@gnupg.org
+Wojciech Polak		polak@gnu.org
 Xiong Jiang		jxiong@offtopic.org
 
 
