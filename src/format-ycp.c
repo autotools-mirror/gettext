@@ -1,0 +1,221 @@
+/* YCP format strings.
+   Copyright (C) 2001 Free Software Foundation, Inc.
+   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
+#include <stdbool.h>
+#include <stdlib.h>
+
+#include "format.h"
+#include "system.h"
+#include "error.h"
+#include "progname.h"
+#include "libgettext.h"
+
+#define _(str) gettext (str)
+
+/* YCP sformat strings are described in libycp documentation YCP-builtins.html.
+   A directive starts with '%' and is followed by '%' or a nonzero digit ('1'
+   to '9').
+ */
+
+struct spec
+{
+  unsigned int directives;
+  unsigned int arg_count;
+  bool args_used[9];
+};
+
+
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void *format_parse PARAMS ((const char *format));
+static void format_free PARAMS ((void *descr));
+static int format_get_number_of_directives PARAMS ((void *descr));
+static bool format_check PARAMS ((const lex_pos_ty *pos,
+				  void *msgid_descr, void *msgstr_descr));
+
+
+static void *
+format_parse (format)
+     const char *format;
+{
+  struct spec spec;
+  struct spec *result;
+
+  spec.directives = 0;
+  spec.arg_count = 0;
+
+  for (; *format != '\0';)
+    if (*format++ == '%')
+      {
+	/* A directive.  */
+	spec.directives++;
+
+	if (*format == '%')
+	  format++;
+	else if (*format >= '1' && *format <= '9')
+	  {
+	    unsigned int number = *format - '1';
+
+	    while (spec.arg_count <= number)
+	      spec.args_used[spec.arg_count++] = false;
+	    spec.args_used[number] = true;
+
+	    format++;
+	  }
+	else
+	  goto bad_format;
+      }
+
+  result = (struct spec *) xmalloc (sizeof (struct spec));
+  *result = spec;
+  return result;
+
+ bad_format:
+  return NULL;
+}
+
+static void
+format_free (descr)
+     void *descr;
+{
+  struct spec *spec = (struct spec *) descr;
+
+  free (spec);
+}
+
+static int
+format_get_number_of_directives (descr)
+     void *descr;
+{
+  struct spec *spec = (struct spec *) descr;
+
+  return spec->directives;
+}
+
+static bool
+format_check (pos, msgid_descr, msgstr_descr)
+     const lex_pos_ty *pos;
+     void *msgid_descr;
+     void *msgstr_descr;
+{
+  struct spec *spec1 = (struct spec *) msgid_descr;
+  struct spec *spec2 = (struct spec *) msgstr_descr;
+  bool err = false;
+  unsigned int i;
+
+  for (i = 0; i < spec1->arg_count || i < spec2->arg_count; i++)
+    {
+      bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
+      bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
+
+      if (arg_used1 != arg_used2)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, pos->file_name, pos->line_number,
+			 arg_used1
+			 ? _("a format specification for argument %u doesn't exist in 'msgstr'")
+			 : _("a format specification for argument %u doesn't exist in 'msgid'"),
+			 i + 1);
+	  error_with_progname = true;
+	  err = true;
+	  break;
+	}
+    }
+
+  return err;
+}
+
+
+struct formatstring_parser formatstring_ycp =
+{
+  format_parse,
+  format_free,
+  format_get_number_of_directives,
+  format_check
+};
+
+
+#ifdef TEST
+
+/* Test program: Print the argument list specification returned by
+   format_parse for strings read from standard input.  */
+
+#include <stdio.h>
+#include "getline.h"
+
+static void
+format_print (descr)
+     void *descr;
+{
+  struct spec *spec = (struct spec *) descr;
+  unsigned int i;
+
+  if (spec == NULL)
+    {
+      printf ("INVALID");
+      return;
+    }
+
+  printf ("(");
+  for (i = 0; i < spec->arg_count; i++)
+    {
+      if (i > 0)
+	printf (" ");
+      if (spec->args_used[i])
+	printf ("*");
+      else
+	printf ("_");
+    }
+  printf (")");
+}
+
+int
+main ()
+{
+  for (;;)
+    {
+      char *line = NULL;
+      size_t line_len = 0;
+      void *descr;
+
+      if (getline (&line, &line_len, stdin) < 0)
+	break;
+
+      descr = format_parse (line);
+
+      format_print (descr);
+      printf ("\n");
+
+      free (line);
+    }
+
+  return 0;
+}
+
+/*
+ * For Emacs M-x compile
+ * Local Variables:
+ * compile-command: "gcc -O -g -Wall -I.. -I../lib -I../intl -DHAVE_CONFIG_H -DTEST format-ycp.c ../lib/libnlsut.a"
+ * End:
+ */
+
+#endif /* TEST */
