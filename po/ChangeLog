@@ -1,3 +1,10 @@
+2002-07-19  Bruno Haible  <bruno@clisp.org>
+
+	* ru.po: Update from Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>.
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* sl.po: Update from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+
 2002-07-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.3 released.

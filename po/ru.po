@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.2\n"
+"Project-Id-Version: gettext 0.11.3\n"
 "POT-Creation-Date: 2002-07-17 13:52+0200\n"
-"PO-Revision-Date: 2002-04-25 08:40+0400\n"
+"PO-Revision-Date: 2002-07-18 08:03+0400\n"
 "Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"

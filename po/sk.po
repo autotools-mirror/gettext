@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.2\n"
+"Project-Id-Version: GNU gettext 0.11.3\n"
 "POT-Creation-Date: 2002-07-17 13:52+0200\n"
-"PO-Revision-Date: 2002-05-30 10:06+0200\n"
+"PO-Revision-Date: 2002-07-17 22:59+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"

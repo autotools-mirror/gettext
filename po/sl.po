@@ -2,13 +2,13 @@
 # Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002 Free Software Foundation, Inc.
 # Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2002.
 #
-# $Id: gettext-0.11.2.sl.po,v 1.2 2002/04/25 08:43:12 peterlin Exp $
+# $Id: gettext-0.11.3.sl.po,v 1.2 2002/07/18 11:09:04 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.2\n"
+"Project-Id-Version: GNU gettext 0.11.3\n"
 "POT-Creation-Date: 2002-07-17 13:52+0200\n"
-"PO-Revision-Date: 2002-04-25 10:43+0200\n"
+"PO-Revision-Date: 2002-07-18 13:08+0200\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
