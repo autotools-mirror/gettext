@@ -1,5 +1,5 @@
 /* Copying of files.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -41,6 +41,7 @@
 #endif
 
 #include "error.h"
+#include "safe-read.h"
 #include "full-write.h"
 #include "binary-io.h"
 #include "exit.h"
@@ -73,15 +74,9 @@ copy_file (const char *src_filename, const char *dest_filename)
   /* Copy the file contents.  */
   for (;;)
     {
-      ssize_t n_read = read (src_fd, buf, buf_size);
-      if (n_read < 0)
-	{
-#ifdef EINTR
-	  if (errno == EINTR)
-	    continue;
-#endif
-	  error (EXIT_FAILURE, errno, _("error reading \"%s\""), src_filename);
-	}
+      size_t n_read = safe_read (src_fd, buf, buf_size);
+      if (n_read == SAFE_READ_ERROR)
+	error (EXIT_FAILURE, errno, _("error reading \"%s\""), src_filename);
       if (n_read == 0)
 	break;
 
