@@ -2,3 +2,5 @@ List of known bugs and limitations:
 
 - getting the string for `dcgettext' or `dgettext' fails if the first
   argument is some different than a list of identifiers or strings.
+- gettext ("") returns the header entry of the message catalog (a multiline
+  string), not the empty string.
