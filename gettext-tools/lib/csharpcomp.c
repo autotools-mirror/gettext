@@ -324,16 +324,51 @@ compile_csharp_using_sscli (const char * const *sources,
   if (!csc_tested)
     {
       /* Test for presence of csc:
-	 "csc -help >/dev/null 2>/dev/null"  */
+	 "csc -help >/dev/null 2>/dev/null \
+	  && ! { csc -help 2>/dev/null | grep -i chicken > /dev/null; }"  */
       char *argv[3];
+      pid_t child;
+      int fd[1];
       int exitstatus;
 
       argv[0] = "csc";
       argv[1] = "-help";
       argv[2] = NULL;
-      exitstatus = execute ("csc", "csc", argv, false, false, true, true, true,
-			    false);
-      csc_present = (exitstatus == 0);
+      child = create_pipe_in ("csc", "csc", argv, DEV_NULL, true, true, false,
+			      fd);
+      csc_present = false;
+      if (child != -1)
+	{
+	  /* Read the subprocess output, and test whether it contains the
+	     string "chicken".  */
+	  char c[7];
+	  size_t count = 0;
+
+	  csc_present = true;
+	  while (safe_read (fd[0], &c[count], 1) > 0)
+	    {
+	      if (c[count] >= 'A' && c[count] <= 'Z')
+		c[count] += 'a' - 'A';
+	      count++;
+	      if (count == 7)
+		{
+		  if (memcmp (c, "chicken", 7) == 0)
+		    csc_present = false;
+		  c[0] = c[1]; c[1] = c[2]; c[2] = c[3];
+		  c[3] = c[4]; c[4] = c[5]; c[5] = c[6];
+		  count--;
+		}
+	    }
+
+	  close (fd[0]);
+
+	  /* Remove zombie process from process list, and retrieve exit
+	     status.  */
+	  exitstatus =
+	    wait_subprocess (child, "csc", false, true, true, false);
+	  if (exitstatus != 0)
+	    csc_present = false;
+	}
       csc_tested = true;
     }
 

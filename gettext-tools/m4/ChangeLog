@@ -1,3 +1,9 @@
+2004-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* csharpcomp.m4 (gt_CSHARPCOMP): Test whether csc is not the chicken
+	scheme's 'csc' compiler.
+	Reported by Colin Marquardt <colin@marquardt-home.de>.
+
 2004-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* csharp.m4 (gt_CSHARP_CHOICE): Drop extra quoting of the # sign.

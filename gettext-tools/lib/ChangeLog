@@ -1,3 +1,25 @@
+2004-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* csharpcomp.c (compile_csharp_using_sscli): Test whether csc is not
+	the chicken scheme's 'csc' compiler.
+	Reported by Colin Marquardt <colin@marquardt-home.de>.
+
+2004-02-07  Bruno Haible  <bruno@clisp.org>
+
+	* xalloc.h (xalloc_oversized): New macro, from gnulib.
+	* quotearg.h: New file, from gnulib.
+	* quotearg.c: New file, from gnulib.
+	* sh-quote.c: Include quotearg.h.
+	(sh_quoting_options): New variable.
+	(init_sh_quoting_options): New function.
+	(shell_quote_length, shell_quote_copy, shell_quote): Rewrite to use
+	quotearg.
+	* Makefile.am (libgettextlib_la_SOURCES): Add quotearg.h, quotearg.c.
+	* Makefile.msvc (OBJECTS): Add quotearg.obj.
+	(quotearg.obj): New rule.
+	* Makefile.vms (OBJECTS): Add quotearg.obj.
+	(quotearg.obj): New rule.
+
 2004-02-06  Bruno Haible  <bruno@clisp.org>
 
 	* allocsa.h (sa_alignof): Define differently with HP-UX cc, to avoid
