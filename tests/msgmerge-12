@@ -1,0 +1,58 @@
+#! /bin/sh
+
+# Test compendium option.  Use it there was no "old" PO file at all
+# (merely use /dev/null).
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="mm-test12.com mm-test12.pot"
+
+cat <<EOF > mm-test12.com
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: file.c:345
+msgid "5"
+msgstr "fünf"
+EOF
+
+cat <<EOF > mm-test12.pot
+#: file.c:123
+msgid "1"
+msgstr ""
+
+#: file.c:345
+msgid "5"
+msgstr ""
+EOF
+
+tmpfiles="$tmpfiles mm-test12.out"
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} -q --compendium mm-test12.com /dev/null mm-test12.pot -o mm-test12.out
+
+tmpfiles="$tmpfiles mm-test12.ok"
+cat << EOF > mm-test12.ok
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: file.c:123
+msgid "1"
+msgstr ""
+
+#: file.c:345
+msgid "5"
+msgstr "fünf"
+EOF
+
+: ${DIFF=diff}
+${DIFF} mm-test12.ok mm-test12.out
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result
