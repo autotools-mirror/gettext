@@ -1,5 +1,8 @@
-# getline.m4 serial 6 (gettext-0.12)
-dnl Copyright (C) 1998-2003 Free Software Foundation, Inc.
+# getline.m4 serial 9
+
+dnl Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003 Free Software
+dnl Foundation, Inc.
+
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -13,7 +16,10 @@ dnl We can't just do AC_REPLACE_FUNCS(getline) because some systems
 dnl have a function by that name in -linet that doesn't have anything
 dnl to do with the function we need.
 AC_DEFUN([AM_FUNC_GETLINE],
-[dnl
+[
+  dnl Persuade glibc <stdio.h> to declare getline() and getdelim().
+  AC_REQUIRE([AC_GNU_SOURCE])
+
   am_getline_needs_run_time_check=no
   AC_CHECK_FUNC(getline,
 		dnl Found it in some library.  Verify that it works.
@@ -50,5 +56,14 @@ AC_DEFUN([AM_FUNC_GETLINE],
     AC_DEFINE([getline], [gnu_getline],
       [Define to a replacement function name for getline().])
     AC_LIBOBJ(getline)
+    AC_LIBOBJ(getndelim2)
+    gl_PREREQ_GETLINE
+    gl_PREREQ_GETNDELIM2
   fi
+])
+
+# Prerequisites of lib/getline.c.
+AC_DEFUN([gl_PREREQ_GETLINE],
+[
+  AC_CHECK_FUNCS(getdelim)
 ])

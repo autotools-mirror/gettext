@@ -79,6 +79,7 @@ LIBADD_SOURCE = \
   canonicalize.h canonicalize.c \
   fnmatch.c \
   getline.h getline.c \
+  getndelim2.h getndelim2.c \
   memmove.c \
   memset.c \
   mkdtemp.h mkdtemp.c \
