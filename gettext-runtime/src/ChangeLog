@@ -1,4 +1,4 @@
-2003-05-08  Bruno Haible  <bruno@clisp.org>
+2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms (LDADD): Take options from .opt files.
 	(libiconv.opt): New rule.
