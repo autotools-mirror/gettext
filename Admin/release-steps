@@ -1,0 +1,9 @@
+Tasks not to forget before release:
+
+- Update ABOUT-NLS and doc/matrix.texi with information from Francois Pinard's
+  Translation Project.
+
+- Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
+
+- Bump version number in configure.in.
+
