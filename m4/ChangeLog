@@ -1,3 +1,12 @@
+2002-05-18  Bruno Haible  <bruno@clisp.org>
+
+	Make it possible to invoke AM_ICONV after AM_GNU_GETTEXT.
+	* iconv.m4 (AM_ICONV_LINKFLAGS_BODY): New macro.
+	(AM_ICONV_LINK): Require it.
+	(AM_ICONV): Invoke AM_ICONV_LINK. Requiring it is not sufficient,
+	because gettext.m4 invokes it inside an 'if'.
+	* gettext.m4 (AM_GNU_GETTEXT): Require AM_ICONV_LINKFLAGS_BODY.
+
 2002-05-04  Bruno Haible  <bruno@clisp.org>
 
 	* javacomp.m4 (gt_JAVACOMP): Ignore non-digits in the first line of
