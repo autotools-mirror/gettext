@@ -1,6 +1,9 @@
 2002-03-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MAKEINFO): New variable.
+	* missing (makeinfo): Don't call touch without arguments if the source
+	texinfo file doesn't contain a @setfilename command.
+	Reported by Miroslaw Dobrzanski-Neumann <mne@mosaic-ag.com>.
 
 2002-02-15  Bruno Haible  <bruno@clisp.org>
 
