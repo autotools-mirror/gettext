@@ -181,8 +181,10 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
       unsigned int n1 = spec1->named_arg_count;
       unsigned int n2 = spec2->named_arg_count;
 
-      /* Check the argument names are the same.
-	 Both arrays are sorted.  We search for the first difference.  */
+      /* Check the argument names in spec1 are contained in those of spec2.
+	 Additional arguments in spec2 are allowed; they expand to themselves
+	 (including the surrounding brackets) at runtime.
+	 Both arrays are sorted.  We search for the differences.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
 	{
 	  int cmp = (i >= n1 ? 1 :
@@ -190,18 +192,7 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 		     strcmp (spec1->named[i].name, spec2->named[j].name));
 
 	  if (cmp > 0)
-	    {
-	      if (noisy)
-		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument '%s', as in '%s', doesn't exist in 'msgid'"),
-				 spec2->named[j].name, pretty_msgstr);
-		  error_with_progname = true;
-		}
-	      err = true;
-	      break;
-	    }
+	    j++;
 	  else if (cmp < 0)
 	    {
 	      if (equality)
