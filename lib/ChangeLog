@@ -1,3 +1,9 @@
+2001-03-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* localcharset.c (locale_charset): Allow wildcard syntax. Resolve
+	alias also if codeset is empty.
+	* config.charset (BeOS): Use wildcard syntax.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* config.charset: Update from libiconv-1.6.
