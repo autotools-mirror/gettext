@@ -1,3 +1,8 @@
+2003-05-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* config/config.guess, config/config.sub: Update to GNU version
+	2003-02-22.
+
 2003-04-24  Bruno Haible  <bruno@clisp.org>
 
 	Support for libtool-1.5.
@@ -89,7 +94,8 @@
 
 2003-02-18  Bruno Haible  <haible@clisp.cons.org>
 
-	* config.guess, config.sub: Update to GNU version 2003-02-03.
+	* config/config.guess, config/config.sub: Update to GNU version
+	2003-02-03.
 
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
