@@ -1,3 +1,8 @@
+2003-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (archive.tar.gz): Avoid creating an empty tar.gz file.
+	Reported by Martin Mokrejš <mmokrejs@natur.cuni.cz>.
+
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New file.

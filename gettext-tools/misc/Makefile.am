@@ -33,8 +33,10 @@ EXTRA_DIST += add-to-archive cvsuser.c archive.tar.gz
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = archive.tar.gz
 
+# The archive.tar.gz is not in the CVS. Alpha-testers must use the one from an
+# already installed release.
 archive.tar.gz:
-	(cd autopoint-files && tar cf - --owner=root --group=root `find archive -type f | grep -v /CVS/`) | gzip -c -9 > $@
+	cp -p $(gettextsrcdir)/archive.tar.gz $@
 
 
 # Emacs Lisp code.
