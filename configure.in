@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.19 $)
+AC_REVISION($Revision: 1.20 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.10.36)
 RELEASE_DATE=2001-03-09      dnl in "date +%Y-%m-%d" format
@@ -119,4 +119,12 @@ changequote([, ])dnl
   sed -e "s/list='\\\$(lisp_LISP)'; for/list='\$(lisp_LISP)'; test '\$(EMACS)' = no || for/" \
       < misc/Makefile > misc/Makefile.tmp
   mv misc/Makefile.tmp misc/Makefile
+  dnl Workaround another automake-1.4 bug which forgets to add $(EXEEXT)
+  dnl suffixes to elements of EXTRA_PROGRAMS. It does correctly add the suffix
+  dnl to the elements of bin_PROGRAMS.
+changequote(,)dnl
+  sed -e '/^EXTRA_PROGRAMS = /{' -e 's/\([a-z0-9_]\)\( \)/\1\$(EXEEXT)\2/g' -e 's/\([a-z0-9_]\)$/\1\$(EXEEXT)/g' -e '}' \
+      < tests/Makefile > tests/Makefile.tmp
+changequote([, ])dnl
+  mv tests/Makefile.tmp tests/Makefile
 ])
