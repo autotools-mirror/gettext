@@ -21,6 +21,8 @@
 
 #include "message.h"
 
+#include <stdbool.h>
+
 /* If nonzero, remember comments for file name and line number for each
    msgid, if present in the reference input.  Defaults to true.  */
 extern int line_comment;

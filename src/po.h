@@ -22,6 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include "po-lex.h"
 
+#include <stdbool.h>
+
 /* Note: the _t suffix is reserved by ANSI C, so the _ty suffix is
    used to indicate a type name.  */
 

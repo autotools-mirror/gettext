@@ -1,3 +1,11 @@
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgl-cat.h: Include <stdbool.h>.
+	* po.h: Likewise.
+	* read-po.h: Likewise.
+	* write-po.h: Likewise.
+	* xget-lex.h: Likewise.
+
 2001-07-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgl-cat.h: New file.

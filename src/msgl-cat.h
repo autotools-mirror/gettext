@@ -22,6 +22,8 @@
 #include "message.h"
 #include "str-list.h"
 
+#include <stdbool.h>
+
 /* These variables control which messages are selected.  */
 extern int more_than;
 extern int less_than;

@@ -22,6 +22,8 @@
 
 #include "message.h"
 
+#include <stdbool.h>
+
 extern void
        message_page_width_set PARAMS ((size_t width));
 

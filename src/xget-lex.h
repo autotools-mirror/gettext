@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifndef _XGET_LEX_H
 #define _XGET_LEX_H
 
+#include <stdbool.h>
+
 enum xgettext_token_type_ty
 {
   xgettext_token_type_eof,
