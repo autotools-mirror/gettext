@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2003 Free Software Foundation, Inc.
+## Copyright (C) 2002-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -156,16 +156,16 @@ uninstall-pdf:
 
 TEXI2HTML = @PERL@ $(srcdir)/texi2html
 
-html-local: autosprintf.html
+html-local: autosprintf_all.html
 
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
-autosprintf.html: autosprintf.texi
+autosprintf_all.html: autosprintf.texi
 	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
 
-install-html: autosprintf.html
+install-html: autosprintf_all.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
-	$(INSTALL_DATA) `if test -f autosprintf.html; then echo .; else echo $(srcdir); fi`/autosprintf.html $(DESTDIR)$(htmldir)/autosprintf.html
+	$(INSTALL_DATA) `if test -f autosprintf_all.html; then echo .; else echo $(srcdir); fi`/autosprintf_all.html $(DESTDIR)$(htmldir)/autosprintf.html
 
 installdirs-html:
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
@@ -173,7 +173,7 @@ installdirs-html:
 uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html
 
-EXTRA_DIST += texi2html autosprintf.html
+EXTRA_DIST += texi2html autosprintf_all.html
 
 
 # VMS support.

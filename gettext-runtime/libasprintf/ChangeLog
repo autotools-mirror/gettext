@@ -1,3 +1,9 @@
+2004-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (autosprintf_all.html): Renamed from autosprintf.html.
+	Works around a problem with automake-1.8: It removes autosprintf.html
+	during "make mostlyclean".
+
 2003-10-30  Paul Eggert  <eggert@twinsun.com>
             Bruno Haible  <bruno@clisp.org>
 
