@@ -55,6 +55,10 @@ public class Matrix {
     Document doc;
     try {
       doc = builder.build(new File("matrix.xml"));
+    } catch (IOException e) {
+      e.printStackTrace();
+      doc = null;
+      System.exit(1);
     } catch (JDOMException e) {
       e.printStackTrace();
       doc = null;
