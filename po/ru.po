@@ -1,6 +1,6 @@
 # Локализация для gettext
 # Copyright (C) 1998 Free Software Foundation, Inc.
-# Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>, 1998.
+# Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>, 1998, 2001.
 #
 # Чтобы пользоваться локализованной версией утилиты gettextize, ее или (до
 # установки пакета gettext) файл misc/gettextize.in в корневом каталоге пакета
@@ -26,9 +26,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
+"Project-Id-Version: GNU gettext 0.10.38\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 1998-12-02 22:58+03:00\n"
+"PO-Revision-Date: 2001-06-04 13:18+04:00\n"
 "Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,9 +102,8 @@ msgstr "%s: ключ `-W %s' должен использоваться без аргумента\n"
 
 #: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
 #: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
-#, fuzzy
 msgid "memory exhausted"
-msgstr "оперативная память исчерпана\n"
+msgstr "оперативная память исчерпана"
 
 #: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:279 src/msgfmt.c:270
 #: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:388
@@ -247,7 +246,7 @@ msgid "warning: this message is not used"
 msgstr "предупреждение: это сообщение не используется"
 
 #: src/msgcmp.c:283 src/po-lex.c:103
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "найдено критических ошибок: %d"
@@ -398,7 +397,7 @@ msgstr "ошибка открытия файла \"%s\" для чтения"
 # это сообщение пока не используется
 #: src/msgcomm.c:539 src/xgettext.c:641 src/xgettext.c:1059
 msgid "this file may not contain domain directives"
-msgstr ""
+msgstr "этот файл не может содержать директивы домена"
 
 #: src/msgfmt.c:286 src/xgettext.c:404
 msgid "no input file given"
@@ -410,19 +409,19 @@ msgid "error while opening \"%s\" for writing"
 msgstr "ошибка открытия файла \"%s\" для записи"
 
 #: src/msgfmt.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "переведенных сообщений: %d"
 
 #: src/msgfmt.c:365
-#, fuzzy, c-format
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", неточных переводов: %d"
 
 #: src/msgfmt.c:370
-#, fuzzy, c-format
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", непереведенных сообщений: %d"
@@ -485,6 +484,9 @@ msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 msgstr ""
+"%s: предупреждение: заголовок PO-файла отсутствует, помечен как неточный или "
+"неправилен\n"
+"%*s  предупреждение: преобразование кодировки не сработает"
 
 #: src/msgfmt.c:503
 #, c-format
@@ -539,18 +541,17 @@ msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: предупреждение: исходный файл содержит неточные переводы"
 
 #: src/msgfmt.c:930
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr ""
-"одно из полей `msgid' или `msgstr' начинается с '\\n', тогда как другое -- "
-"нет"
+"одно из полей `msgid' или `msgid_plural' начинается с '\\n', тогда как "
+"другое -- нет"
 
 #: src/msgfmt.c:938
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr ""
-"одно из полей `msgid' или `msgstr' начинается с '\\n', тогда как другое -- "
-"нет"
+"одно из полей `msgid' или `msgstr[%u]' начинается с '\\n', тогда как другое "
+"-- нет"
 
 #: src/msgfmt.c:948
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
@@ -559,16 +560,17 @@ msgstr ""
 "нет"
 
 #: src/msgfmt.c:963
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr ""
-"одно из полей `msgid' или `msgstr' завершается '\\n', тогда как другое -- нет"
+"одно из полей `msgid' или `msgid_plural' завершается '\\n', тогда как другое "
+"-- нет"
 
 #: src/msgfmt.c:971
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr ""
-"одно из полей `msgid' или `msgstr' завершается '\\n', тогда как другое -- нет"
+"одно из полей `msgid' или `msgstr[%u]' завершается '\\n', тогда как другое "
+"-- нет"
 
 #: src/msgfmt.c:981
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
@@ -580,12 +582,12 @@ msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr "не совпадает число спецификаций формата печати в `msgid' и `msgstr'"
 
 #: src/msgfmt.c:1014
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "не совпадают спецификации формата для аргумента %u"
+msgstr "не совпадают спецификации формата для аргумента %lu"
 
 #: src/msgmerge.c:320
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -605,9 +607,10 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
-"Использование: %s [OPTION] def.po ref.po\n"
-"\n"
+"Использование: %s [КЛЮЧ] def.po ref.po\n"
 "Аргументы, обязательные для длинных ключей, обязательны и для коротких.\n"
+"  -C, --compendium=ФАЙЛ       дополнительная библиотека переводов,\n"
+"                              можно указать несколько\n"
 "  -D, --directory=КАТАЛОГ     добавить КАТАЛОГ в список каталогов для поиска\n"
 "                              входных файлов\n"
 "  -e, --no-escape             не использовать при выводе escape-\n"
@@ -615,9 +618,9 @@ msgstr ""
 "                              умолчанию)\n"
 "  -E, --escape                использовать escape-последовательности, а не\n"
 "                              расширенные символы\n"
-"      --force-po              записать PO-файл даже если он пуст\n"
+"      --force-po              записать PO-файл, даже если он пуст\n"
 "  -h, --help                  показать эту справку и выйти\n"
-"  -i, --indent                indented output style\n"
+"  -i, --indent                делать отступы в выводе\n"
 "  -o, --output-file=ФАЙЛ      записать вывод в указанный файл\n"
 "      --no-location           не выводить строки '#: filename:line'\n"
 "      --add-location          выводить строки '#: filename:line' (по умолчанию)\n"
@@ -653,13 +656,13 @@ msgstr ""
 "выходной файл, запись производится в стандартный вывод.\n"
 
 #: src/msgmerge.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
-"%sПрочитано сообщений: старых %d + новых %d; объединено %d, помечено "
-"неточными %d, недостающих %d, недействительных %d.\n"
+"%sПрочитано сообщений: старых %ld + новых %ld; объединено %ld, помечено "
+"неточными %ld, недостающих %ld, недействительных %ld.\n"
 
 #: src/msgmerge.c:806
 msgid " done.\n"
@@ -726,9 +729,9 @@ msgid "seek \"%s\" offset %ld failed"
 msgstr "ошибка обращения к файлу \"%s\" по смещению %ld"
 
 #: src/msgunfmt.c:332
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "файл \"%s\" не в соответствует формату GNU .mo"
+msgstr "файл \"%s\" содержит строку, не завершенную нулем"
 
 #: src/msgunfmt.c:377
 #, c-format
@@ -736,7 +739,7 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "файл \"%s\" не в соответствует формату GNU .mo"
 
 #: src/ngettext.c:209
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -748,19 +751,21 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"Использование: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
-"  -d, --domain=TEXTDOMAIN   использовать переведенные сообщения из\n"
-"                            домена TEXTDOMAIN\n"
-"  -e                        разрешить использование некоторых escape-\n"
-"                            -последовательностей\n"
-"  -E                        (игнорируется, введено для совместимости)\n"
-"  -h, --help                показать эту справку и выйти\n"
-"  -n                        не выводить завершающий символ перевода строки \n"
-"  -V, --version             показать информацию о версии и выйти\n"
-"  [TEXTDOMAIN] MSGID        найти перевод сообщения MSGID в TEXTDOMAIN\n"
+"Использование: %s [КЛЮЧ] [ДОМЕН] MSGID MSGID_PLURAL ЧИСЛО\n"
+"  -d, --domain=ДОМЕН     использовать переведенные сообщения из\n"
+"                         указанного ДОМЕНА \n"
+"  -e                     разрешить использование некоторых escape-\n"
+"                         -последовательностей\n"
+"  -E                     (игнорируется, введено для совместимости)\n"
+"  -h, --help             показать эту справку и выйти\n"
+"  -n                     не выводить завершающий символ перевода строки \n"
+"  -V, --version          показать информацию о версии и выйти\n"
+"  [ДОМЕН]                найти перевод сообщения в указанном ДОМЕНЕ\n"
+"  MSGID MSGID-PLURAL     перевести MSGID (ед. число) / MSGID-PLURAL (мн. число)\n"
+"  ЧИСЛО                  выбрать ед./мн. число на основе этого значения\n"
 
 #: src/ngettext.c:221
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -770,13 +775,10 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "\n"
-"Если не задан параметр TEXTDOMAIN, используется домен, установленный в\n"
-"переменной среды TEXTDOMAIN.  Если файл с переведенными сообщениями не найден в\n"
-"стандартном каталоге, можно указать другой каталог с помощью переменной среды\n"
-"TEXTDOMAINDIR.\n"
-"При использовании с ключом -s, поведение программы похоже на поведение команды\n"
-"`echo'.  Но вместо простого копирования аргументов в стандартный вывод,\n"
-"выводятся их переводы из указанного домена.\n"
+"Если не задан параметр ДОМЕН, используется домен, установленный в\n"
+"переменной среды TEXTDOMAIN.  Если файл с переведенными сообщениями не\n"
+"найден в стандартном каталоге, можно указать другой каталог с помощью\n"
+"переменной среды TEXTDOMAINDIR.\n"
 "Стандартный каталог поиска: %s\n"
 
 #: src/open-po.c:64
@@ -785,17 +787,15 @@ msgstr "<стандартный ввод>"
 
 #: po-gram-gen.y:87
 msgid "inconsistent use of #~"
-msgstr ""
+msgstr "непоследовательное применение #~"
 
 #: po-gram-gen.y:168
-#, fuzzy
 msgid "missing `msgstr[]' section"
-msgstr "пропущена секция `msgstr'"
+msgstr "пропущена секция `msgstr[]'"
 
 #: po-gram-gen.y:176
-#, fuzzy
 msgid "missing `msgid_plural' section"
-msgstr "пропущена секция `msgstr'"
+msgstr "пропущена секция `msgid_plural'"
 
 #: po-gram-gen.y:183
 msgid "missing `msgstr' section"
@@ -803,11 +803,11 @@ msgstr "пропущена секция `msgstr'"
 
 #: po-gram-gen.y:228
 msgid "first plural form has nonzero index"
-msgstr ""
+msgstr "первая форма множественного числа имеет ненулевой индекс"
 
 #: po-gram-gen.y:230
 msgid "plural form has wrong index"
-msgstr ""
+msgstr "форма множественного числа имеет неправильный индекс"
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
@@ -822,9 +822,8 @@ msgid "keyword \"%s\" unknown"
 msgstr "неизвестное ключевое слово \"%s\""
 
 #: src/po-lex.c:377
-#, fuzzy
 msgid "invalid control sequence"
-msgstr "недопустимая управляющая последовательность"
+msgstr "неверная управляющая последовательность"
 
 #: src/po-lex.c:480
 msgid "end-of-file within string"
@@ -836,12 +835,12 @@ msgstr "символ конца строки встречен внутри строки"
 
 #: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
-msgstr ""
+msgstr "неверная многобайтовая последовательность"
 
 #: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: предупреждение: "
 
 #: src/po.c:303
 #, c-format
@@ -849,14 +848,16 @@ msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
+"\"%s\" не является переносимым названием кодировки.\n"
+"Преобразование сообщений к кодировке пользователя может не сработать.\n"
 
 #: src/po.c:370 src/po.c:405
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "Выполнение продолжается, будут ошибки разбора."
 
 #: src/po.c:372
 msgid "Continuing anyway."
-msgstr ""
+msgstr "Выполнение продолжается."
 
 #: src/po.c:375
 #, c-format
@@ -864,17 +865,21 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"Кодирока \"%s\" не поддерживается.  %s полагается на iconv(), но iconv() не "
+"поддерживает \"%s\".\n"
 
 #: src/po.c:385 src/po.c:418
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
+"Чтобы решить эту проблему, установите GNU libiconv и переустановите GNU "
+"gettext.\n"
 
 #: src/po.c:393 src/po.c:425
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po.c:410
 #, c-format
@@ -882,12 +887,16 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"Кодирока \"%s\" не поддерживается.  %s полагается на iconv().\n"
+"Эта версия собрана без iconv().\n"
 
 #: src/po.c:440
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
+"В заголовке не указана кодировка.\n"
+"Преобразование сообщений к кодировке пользователя не сработает.\n"
 
 #: src/write-po.c:322
 #, c-format
@@ -932,7 +941,7 @@ msgstr ""
 
 #: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
+msgstr "xgettext не может работать, не зная искомых ключевых слов"
 
 #: src/xgettext.c:484
 #, c-format
@@ -987,7 +996,7 @@ msgstr ""
 "  -F, --sort-by-file             сортировать вывод по порядку файлов\n"
 
 #: src/xgettext.c:540
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
@@ -1001,13 +1010,11 @@ msgid ""
 "      --no-location              do not write '#: filename:line' lines\n"
 msgstr ""
 "  -h, --help                     показать эту справку и выйти\n"
-"  -i, --indent                   форматировать PO-файл используя отступы\n"
+"  -i, --indent                   форматировать PO-файл, используя отступы\n"
 "  -j, --join-existing            дописать сообщения в существующий файл\n"
 "  -k, --keyword[=СЛОВО]          дополнительное ключевое слово для поиска \n"
 "                                 (если СЛОВО пусто, то не использовать\n"
 "                                 стандартные ключевые слова)\n"
-"  -l, --string-limit=ЧИСЛО       установить предельный размер строки равным\n"
-"                                 ЧИСЛУ, вместо %u по умолчанию\n"
 "  -L, --language=ЯЗЫК            установить заданный ЯЗЫК (C, C++, PO); по\n"
 "                                 умолчанию язык определяется по расширению\n"
 "  -m, --msgstr-prefix[=СТРОКА]   использовать СТРОКУ как префикс к вхождениям\n"
@@ -1048,117 +1055,20 @@ msgstr ""
 "Если INPUTFILE задан равным '-', то читается стандартный ввод.\n"
 
 #: src/xgettext.c:914
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: предупреждение: незавершенная строка"
+msgstr ""
+"%s:%d: предупреждение: ключевое слово вложено в аргумент другого ключевого "
+"слова"
 
 #: src/xgettext.c:924
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
+"%s:%d: предупреждение: ключевое слово между внешним ключевым словом и его "
+"аргументом"
 
 #: src/xgettext.c:1420
 #, c-format
 msgid "language `%s' unknown"
 msgstr "язык `%s' неизвестен"
-
-#~ msgid "Memory exhausted"
-#~ msgstr "Оперативная память исчерпана"
-
-#~ msgid "illegal third argument"
-#~ msgstr "недопустимый третий аргумент"
-
-#~ msgid "wrong number of arguments"
-#~ msgstr "неправильное число аргументов"
-
-#~ msgid "%s: warning: no header entry found"
-#~ msgstr "%s: предупреждение: отсутствует заголовок"
-
-#~ msgid ""
-#~ "Usage: gettextize [OPTION]... [package-dir]\n"
-#~ "      --help           print this help and exit\n"
-#~ "      --version        print version information and exit\n"
-#~ "  -c, --copy           copy files instead of making symlinks\n"
-#~ "  -f, --force          force writing of new files even if old exist\n"
-#~ "Report bugs to <bug-gnu-utils@prep.ai.mit.edu>."
-#~ msgstr ""
-#~ "Использование: gettextize [OPTION]... [package-dir]\n"
-#~ "      --help           показать эту справку и выйти\n"
-#~ "      --version        показать информацию о версии и выйти\n"
-#~ "  -c, --copy           делать копии файлов, а не символьные ссылки\n"
-#~ "  -f, --force          принудительно перезаписывать новые файлы, даже "
-#~ "если\n"
-#~ "                       существуют старые\n"
-#~ "Об ошибках сообщайте <bug-gnu-utils@prep.ai.mit.edu>."
-
-#~ msgid ""
-#~ "Copyright (C) 1996, 1997, 1998 Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE."
-#~ msgstr ""
-#~ "Copyright (C) 1996, 1997, 1998 Free Software Foundation, Inc.\n"
-#~ "Это свободная программа; подробности об условиях распространения "
-#~ "смотрите\n"
-#~ "в исходном тексте.  Мы НЕ предоставляем гарантий; даже гарантий\n"
-#~ "КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ."
-
-#~ msgid "Written by"
-#~ msgstr "Автор программы --"
-
-#~ msgid "gettextize: unknown option"
-#~ msgstr "gettextize: неизвестный  ключ"
-
-#~ msgid "Try `gettextize --help' for more information."
-#~ msgstr ""
-#~ "Попробуйте `gettextize --help' для получения более подробного описания."
-
-#~ msgid "Cannot change directory to"
-#~ msgstr "Невозможно перейти в каталог"
-
-#~ msgid "Missing configure.in, please cd to your package first."
-#~ msgstr ""
-#~ "Отсутствует файл configure.in, перейдите в корневой каталог своего пакета."
-
-#~ msgid ""
-#~ "intl/ subdirectory exists: use option -f if you really want to delete it."
-#~ msgstr ""
-#~ "Каталог intl/ уже существует: используйте ключ -f, если вы действительно "
-#~ "хотите\n"
-#~ "его удалить."
-
-#~ msgid ""
-#~ "po/Makefile.in.in exists: use option -f if you really want to delete it."
-#~ msgstr ""
-#~ "Файл po/Makefile.in уже существует: используйте ключ -f, если вы "
-#~ "действительно\n"
-#~ "хотите его удалить."
-
-#~ msgid "NLS exists: use option -f if you really want to delete it."
-#~ msgstr ""
-#~ "Файл NLS уже существует: используйте ключ -f, если вы действительно "
-#~ "хотите его\n"
-#~ "удалить."
-
-#~ msgid "failed to create intl/ subdirectory"
-#~ msgstr "невозможно создать каталог intl/"
-
-#~ msgid "failed to create po/ subdirectory"
-#~ msgstr "невозможно создать каталог po/"
-
-#~ msgid "You should update your own `aclocal.m4' by adding the necessary"
-#~ msgstr "Вы должны обновить ваш установленный файл `aclocal.m4', добавив"
-
-#~ msgid "macro packages gettext.m4, lcmessage.m4 and progtest.m4 from"
-#~ msgstr "необходимые пакеты gettext.m4, lcmessage.m4 и progtest.m4 из"
-
-#~ msgid "the directory"
-#~ msgstr "каталога"
-
-#~ msgid "Your `aclocal.m4' file is newer than the installed gettext"
-#~ msgstr ""
-#~ "У вас установлен файл `aclocal.m4', более новый, чем программа gettext."
-
-#~ msgid "program.  Consider upgrading to a recent GNU gettext version."
-#~ msgstr "Рекомендуется установить новую версию GNU gettext."

@@ -1,14 +1,15 @@
 # Chinese translation for GNU gettext messages.
-# Copyright (C) 1998 Free Software Foundation, Inc.
+# Copyright (C) 2001 Free Software Foundation, Inc.
 # Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>, 1998.
+# Pofeng Lee <pofeng@linux.org.tw>, 2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
+"Project-Id-Version: GNU gettext 0.10.38\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 1998-11-12 18:00 +0800\n"
+"PO-Revision-Date: 2001-06-03 16:03 +0800\n"
 "Last-Translator: Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>\n"
-"Language-Team: Chinese <zh@li.org>\n"
+"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=big5\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -78,7 +79,6 @@ msgstr "%s: 選項 `-W %s' 並不需要參數 \n"
 
 #: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
 #: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
-#, fuzzy
 msgid "memory exhausted"
 msgstr "記憶體耗盡"
 
@@ -90,6 +90,9 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"這是自由軟體; 請參考原始碼的版權聲明.\n"
+"即使您是為了特定的目的而購買了本軟體, 本軟體依然不提供任何保證.\n"
 
 #: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:284 src/msgfmt.c:275
 #: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:393
@@ -216,7 +219,7 @@ msgid "warning: this message is not used"
 msgstr "警告：這個訊息沒有被用到"
 
 #: src/msgcmp.c:283 src/po-lex.c:103
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "找到了 %d 個重大的錯誤"
@@ -363,22 +366,22 @@ msgid "error while opening \"%s\" for writing"
 msgstr "當開啟 \"%s\" 這個檔案，準備寫入的時候發生錯誤"
 
 #: src/msgfmt.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d 已翻譯的訊息 "
 
 #: src/msgfmt.c:365
-#, fuzzy, c-format
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] ", %d 模糊翻譯"
+msgstr[0] ", %d 個模糊翻譯"
 
 #: src/msgfmt.c:370
-#, fuzzy, c-format
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
-msgstr[0] ", %d 未譯的訊息 "
+msgstr[0] ", %d 個未譯的訊息 "
 
 #: src/msgfmt.c:392
 #, c-format, no-wrap
@@ -433,6 +436,8 @@ msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 msgstr ""
+"%s: 警告: PO 檔標頭缺失, 或是非法的, 或是模糊的\n"
+"%*s  警告: 字元集(charset)轉換將不運作"
 
 #: src/msgfmt.c:503
 #, c-format
@@ -484,28 +489,26 @@ msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: 警告: 原始檔包含模糊翻譯"
 
 #: src/msgfmt.c:930
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 開始"
 
 #: src/msgfmt.c:938
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 開始"
+msgstr "`msgid' 和 `msgstr[%u]' 欄位並未同時以 '\\n' 開始"
 
 #: src/msgfmt.c:948
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 開始"
 
 #: src/msgfmt.c:963
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 結束"
+msgstr "`msgid' 和 `msgid_plural' 欄位並未同時以 '\\n' 結束"
 
 #: src/msgfmt.c:971
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 結束"
+msgstr "`msgid' 和 `msgstr[%u]' 欄位並未同時以 '\\n' 結束"
 
 #: src/msgfmt.c:981
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
@@ -516,12 +519,12 @@ msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr "在 `msgid' 和 `msgstr' 欄位裡指定的格式號碼並不符合"
 
 #: src/msgfmt.c:1014
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "第 %u 個參數指定的格式並不相同"
+msgstr "第 %lu 個參數指定的格式並不相同"
 
 #: src/msgmerge.c:320
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -541,15 +544,22 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
-"Usage: %s [OPTION] def.po ref.po \n"
+"Usage: %s [OPTION] def.po ref.po\n"
 " (短選項用的參數和長選項用的是一樣的) \n"
-"  -e, --no-escape          輸出的結果不使用 C 溢出字元 (預設)。 \n"
-"  -E, --escape             輸出結果用 C 溢出字元，不直接輸出延伸字元。  \n"
-"  -h, --help               顯示這段說明訊息。 \n"
-"  -i, --indent             對輸出結果做縮排處理。 \n"
-"  -o, --output-file=FILE   把輸出的結果寫入 FILE 這個檔案。 \n"
-"  -S, --strict             使用嚴格統一標準的輸出結果。 \n"
-"  -V, --version            顯示關於版本的資訊。 \n"
+"  -C, --compendium=FILE       增加訊息翻譯的檔案庫, 可以指定一個以上\n"
+"  -D, --directory=DIRECTORY   在輸入檔案的搜尋目錄名單中, 增加 DIRECTORY \n"
+"  -e, --no-escape             輸出的結果不使用 C 溢出字元 (預設)。 \n"
+"  -E, --escape                輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
+"      --force-po              即使內容是空的, 仍強迫寫入 PO 檔 \n"
+"  -h, --help                  顯示這段說明訊息。 \n"
+"  -i, --indent                對輸出結果做縮排處理。 \n"
+"  -o, --output-file=FILE      把輸出的結果寫入 FILE 這個檔案。 \n"
+"      --no-location           關閉 '#: filename:line' \n"
+"      --add-location          保留 '#: filename:line' (預設)\n"
+"      --strict                使用嚴格統一標準的輸出結果。\n"
+"  -v, --verbose               增加顯示冗長訊息\n"
+"  -V, --version               顯示關於版本的資訊\n"
+"  -w, --width=NUMBER          設定輸出頁寬\n"
 
 #: src/msgmerge.c:340
 #, no-wrap
@@ -582,6 +592,8 @@ msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
+"%s讀入 %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
 
 #: src/msgmerge.c:806
 msgid " done.\n"
@@ -645,9 +657,9 @@ msgid "seek \"%s\" offset %ld failed"
 msgstr "找尋 \"%s\" 在位移 %ld 處失敗"
 
 #: src/msgunfmt.c:332
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "所給的這個檔案 \"%s\" 並非 GNU .mo 格式的檔案"
+msgstr "所給的這個檔案 \"%s\" 包含非 NUL 結尾的字串"
 
 #: src/msgunfmt.c:377
 #, c-format
@@ -655,7 +667,7 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "所給的這個檔案 \"%s\" 並非 GNU .mo 格式的檔案"
 
 #: src/ngettext.c:209
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -667,18 +679,20 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"使用法：%s [選項] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]] \n"
+"使用法：%s [選項] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT \n"
 "  -d, --domain=TEXTDOMAIN   由 TEXTDOMAIN 這個文字領域讀取翻譯後的訊息。 \n"
-"  -e                        允許某些溢位字元被展開。 \n"
+"  -e                        允許一些溢位字元被展開。 \n"
 "  -E                        為了相容性存在的選項，不會造成任何影響。 \n"
 "  -h, --help                顯示這段說明訊息。 \n"
 "  -n                        抑制末端的新行字元。 \n"
 "  -v, --version             顯示關於版本的資訊。 \n"
-"  [TEXTDOMAIN] MSGID        由 TEXTDOMAIN 這個文字領域，依據 MSGID 讀取翻譯 \n"
+"  [TEXTDOMAIN]              由 TEXTDOMAIN 這個文字領域，依據 MSGID 讀取翻譯 \n"
 "                            後的訊息。 \n"
+"  MSGID MSGID-PLURAL        翻譯 MSGID (單數) / MSGID-PLURAL (複數) \n"
+"  COUNT                     依據 COUNT 的值來選擇單數或複數形\n"
 
 #: src/ngettext.c:221
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -690,29 +704,24 @@ msgstr ""
 "\n"
 "假如沒有給定 TEXTDOMAIN 這個參數的話，程式會依照名為 TEXTDOMAIN 的環境變數 \n"
 "來設定文字領域。假如訊息資料檔不在正常的目錄底下，使用者可以用環境變數 \n"
-" TEXTDOMAINDIR 指定訊息資料檔的所在的位置。 \n"
-"另外，當你使用選項 `-s' 的時候，這個程式的行為其實和 `echo' 指令是相似的。但 \n"
-"它不是直接把參數拷貝到標準輸出，而是把由訊息資料檔裡找到的翻譯過的訊息拷 \n"
-"到標準輸出。 \n"
+"TEXTDOMAINDIR 指定訊息資料檔的所在的位置。 \n"
 "目前的標準搜尋路徑為: %s \n"
 
 #: src/open-po.c:64
 msgid "<stdin>"
-msgstr ""
+msgstr "<stdin>"
 
 #: po-gram-gen.y:87
 msgid "inconsistent use of #~"
-msgstr ""
+msgstr "不合理的使用 #~"
 
 #: po-gram-gen.y:168
-#, fuzzy
 msgid "missing `msgstr[]' section"
-msgstr "找不到 `msgstr' 段落"
+msgstr "找不到 `msgstr[]' 段落"
 
 #: po-gram-gen.y:176
-#, fuzzy
 msgid "missing `msgid_plural' section"
-msgstr "找不到 `msgstr' 段落"
+msgstr "找不到 `msgstr_plural' 段落"
 
 #: po-gram-gen.y:183
 msgid "missing `msgstr' section"
@@ -720,11 +729,11 @@ msgstr "找不到 `msgstr' 段落"
 
 #: po-gram-gen.y:228
 msgid "first plural form has nonzero index"
-msgstr ""
+msgstr "第一個複數格式的指標不是0"
 
 #: po-gram-gen.y:230
 msgid "plural form has wrong index"
-msgstr ""
+msgstr "複數格式發現錯誤的指標"
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
@@ -739,7 +748,6 @@ msgid "keyword \"%s\" unknown"
 msgstr "不明的關鍵字 \"%s\""
 
 #: src/po-lex.c:377
-#, fuzzy
 msgid "invalid control sequence"
 msgstr "不合法的控制序列"
 
@@ -753,12 +761,12 @@ msgstr "在字串中間發現行結束字元 (end-of-line)"
 
 #: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
-msgstr ""
+msgstr "非法的多字元序列 (multibyte sequence)"
 
 #: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: 警告: "
 
 #: src/po.c:303
 #, c-format
@@ -766,14 +774,16 @@ msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
+"字元集 \"%s\" 的編碼名不具可攜性.\n"
+"轉換訊息至使用者字元集的功能將不會運作\n"
 
 #: src/po.c:370 src/po.c:405
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "縱然遭遇錯誤, 仍繼續執行"
 
 #: src/po.c:372
 msgid "Continuing anyway."
-msgstr ""
+msgstr "繼續"
 
 #: src/po.c:375
 #, c-format
@@ -781,17 +791,19 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"不支援字元集 \"%s\" %s 依賴 iconv() \n"
+"而 iconv() 目前不支援 \"%s\"\n"
 
 #: src/po.c:385 src/po.c:418
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
-msgstr ""
+msgstr "先安裝 GNU libiconv, 然後再安裝 GNU gettext, 將會修正此問題\n"
 
 #: src/po.c:393 src/po.c:425
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po.c:410
 #, c-format
@@ -799,12 +811,16 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"不支援字元集 \"%s\" \n"
+"%s 依賴 iconv(), 而此版本沒有內建 iconv().\n"
 
 #: src/po.c:440
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
+"檔頭找不到字元集.\n"
+"轉換訊息至使用者字元集的功能將不會運作\n"
 
 #: src/write-po.c:322
 #, c-format
@@ -847,7 +863,7 @@ msgstr "當輸出被重導至 stdout 時, 選項 --join-existing 不能使用"
 
 #: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
+msgstr "若無關鍵字, xgettext 將無法運作"
 
 #: src/xgettext.c:484
 #, c-format
@@ -892,7 +908,7 @@ msgstr ""
 "  -f, --files-frcm=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
 
 #: src/xgettext.c:540
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
@@ -909,8 +925,7 @@ msgstr ""
 "  -i, --indent                   使用縮排格式輸出 .po 檔案 \n"
 "  -j, --join-existing            合併已存的檔案 \n"
 "  -k, --keyword[=WORD]           其他要搜尋的關鍵字 \n"
-"                                 (若沒有指定 WORD ， 表示使用預設的關鍵字)。 \n"
-"  -l, --string-limit=NUMBER      把字串長度限制在 NUMBER 以下 (預設為 %u )。 \n"
+"                                 (若沒有指定 WORD ，表示使用預設的關鍵字)。\n"
 "  -L, --language=NAME            辨視指定的語言種類 (C, C++, PO), \n"
 "                                 如果沒指定語言種類, 則用依副檔名來辨視 \n"
 "  -m, --msgstr-prefix[=STRING]   用 STRING 或者 \"\" 當 msgstr 欄位的字首。 \n"
@@ -947,14 +962,14 @@ msgstr ""
 "假如給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
 
 #: src/xgettext.c:914
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: 警告: 不確定的字串文字"
+msgstr "%s:%d: 警告: 關鍵字內涵關鍵字(巢狀敘述)"
 
 #: src/xgettext.c:924
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
-msgstr ""
+msgstr "%s:%d: 警告: keyword between outer keyword and its arg"
 
 #: src/xgettext.c:1420
 #, c-format
