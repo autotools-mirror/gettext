@@ -1,3 +1,10 @@
+2002-03-09  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-find-file-coding-system-guts): Don't try to
+	detect the coding system when filename does not exists.
+	(po-compute-counters): Search for "^msgid" not 'po-next-entry' if
+	we don't know for sure any entry will follow at all.
+
 2002-02-18  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-mode): Provide it.
