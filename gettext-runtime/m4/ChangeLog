@@ -2,6 +2,12 @@
 
 	* gettext-0.14.3 released.
 
+2005-03-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Fix quoting bug. Fixes an endless loop
+	of 'aclocal' when a configure.ac contains two invocations of
+	AM_GNU_GETTEXT.
+
 2005-03-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): CATOBJEXT and INTLOBJS default to empty.
