@@ -1,5 +1,5 @@
 /* xmalloc.c -- malloc with out of memory checking
-   Copyright (C) 1990-1996, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1990-1996, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ fixup_null_alloc (n)
   if (n == 0)
     p = malloc ((size_t) 1);
   if (p == NULL)
-    error (xmalloc_exit_failure, 0, _("Memory exhausted"));
+    error (xmalloc_exit_failure, 0, _("memory exhausted"));
   return p;
 }
 

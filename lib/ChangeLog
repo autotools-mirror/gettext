@@ -1,3 +1,7 @@
+2001-03-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* xmalloc.c (fixup_null_alloc): Unify messages.
+
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* linebreak.c (iconv_string_length): Don't call
