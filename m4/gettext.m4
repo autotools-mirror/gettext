@@ -8,12 +8,15 @@
 
 # serial 8
 
-dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR]).
-dnl If SYMBOL is specified and is 'use-libtool', then a libtool library
+dnl Usage: AM_WITH_NLS([TOOLSYMBOL], [NEEDSYMBOL], [LIBDIR]).
+dnl If TOOLSYMBOL is specified and is 'use-libtool', then a libtool library
 dnl    $(top_builddir)/intl/libintl.la will be created (shared and/or static,
 dnl    depending on --{enable,disable}-{shared,static} and on the presence of
 dnl    AM_DISABLE_SHARED). Otherwise, a static library
 dnl    $(top_builddir)/intl/libintl.a will be created.
+dnl If NEEDSYMBOL is specified and is 'need-ngettext', then GNU gettext
+dnl    implementations (in libc or libintl) without the ngettext() function
+dnl    will be ignored.
 dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl
@@ -64,12 +67,16 @@ AC_DEFUN([AM_WITH_NLS],
         dnl to fall back to GNU NLS library.
 	CATOBJEXT=NONE
 
+        dnl Add a version number to the cache macros.
+        define(gt_cv_func_gnugettext_libc, [gt_cv_func_gnugettext]ifelse([$2], need-ngettext, 2, 1)[_libc])
+        define(gt_cv_func_gnugettext_libintl, [gt_cv_func_gnugettext]ifelse([$2], need-ngettext, 2, 1)[_libintl])
+
 	AC_CHECK_HEADER(libintl.h,
 	  [AC_CACHE_CHECK([for GNU gettext in libc], gt_cv_func_gnugettext_libc,
 	    [AC_TRY_LINK([#include <libintl.h>
 extern int _nl_msg_cat_cntr;],
 	       [bindtextdomain ("", "");
-return (int) gettext ("") + _nl_msg_cat_cntr],
+return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
 	       gt_cv_func_gnugettext_libc=yes,
 	       gt_cv_func_gnugettext_libc=no)])
 
@@ -81,7 +88,7 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 		AC_TRY_LINK([#include <libintl.h>
 extern int _nl_msg_cat_cntr;],
 		  [bindtextdomain ("", "");
-return (int) gettext ("") + _nl_msg_cat_cntr],
+return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
 		  gt_cv_func_gnugettext_libintl=yes,
 		  gt_cv_func_gnugettext_libintl=no)
 		LIBS="$gt_save_LIBS"])
@@ -125,7 +132,7 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
         CATOBJEXT=.gmo
-	INTLLIBS='ifelse([$2],[],$(top_builddir)/intl,[$2])/libintl.ifelse([$1], use-libtool, [l], [])a'
+	INTLLIBS='ifelse([$3],[],$(top_builddir)/intl,[$3])/libintl.ifelse([$1], use-libtool, [l], [])a'
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
