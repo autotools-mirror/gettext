@@ -1,5 +1,5 @@
 ;;; po-mode.el -- for helping GNU gettext lovers to edit PO files.
-;;; Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+;;; Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 ;;; François Pinard <pinard@iro.umontreal.ca>, 1995.
 ;;; Helped by Greg McGary <gkm@magilla.cichlid.com>.
 
@@ -27,11 +27,12 @@
 ;;; To install, merely put this file somewhere GNU Emacs will find it,
 ;;; then add the following lines to your .emacs file:
 ;;;
-;;;   (autoload 'po-mode "po-mode")
+;;;   (autoload 'po-mode "po-mode"
+;;;             "Major mode for translators to edit PO files" t)
 ;;;   (setq auto-mode-alist (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode)
 ;;;				  auto-mode-alist))
 ;;;
-;;; To automatically use proper fonts under Emacs 20, also add:
+;;; To automatically use the right coding system under Emacs 20, also add:
 ;;;
 ;;;   (autoload 'po-find-file-coding-system "po-mode")
 ;;;   (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
@@ -431,7 +432,7 @@ or remove the -m if you are not using the GNU version of `uuencode'."
 (defun po-mode-version ()
   "Show Emacs PO mode version."
   (interactive)
-  (message (_"Emacs PO mode, version %s") (substring "$Revision: 1.43 $" 11 -2)))
+  (message (_"Emacs PO mode, version %s") (substring "$Revision: 1.1.1.1 $" 11 -2)))
 
 (defconst po-help-display-string
   (_"\
@@ -556,8 +557,64 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
   "Message to post in the minibuffer when an edit buffer is displayed.")
 
 (defconst po-content-type-charset-alist
-  '((euc . japanese-iso-8bit))
-  "How to convert Content-Type into a Mule coding system.")
+  '(; Note: Emacs 20 doesn't support all encodings, thus the missing entries.
+    (ASCII . undecided)
+    (ANSI_X3.4-1968 . undecided)
+    (US-ASCII . undecided)
+    (ISO-8859-1 . iso-8859-1)
+    (ISO_8859-1 . iso-8859-1)
+    (ISO-8859-2 . iso-8859-2)
+    (ISO_8859-2 . iso-8859-2)
+    (ISO-8859-3 . iso-8859-3)
+    (ISO_8859-3 . iso-8859-3)
+    (ISO-8859-4 . iso-8859-4)
+    (ISO_8859-4 . iso-8859-4)
+    (ISO-8859-5 . iso-8859-5)
+    (ISO_8859-5 . iso-8859-5)
+    ;(ISO-8859-6 . ??)
+    ;(ISO_8859-6 . ??)
+    (ISO-8859-7 . iso-8859-7)
+    (ISO_8859-7 . iso-8859-7)
+    (ISO-8859-8 . iso-8859-8)
+    (ISO_8859-8 . iso-8859-8)
+    (ISO-8859-9 . iso-8859-9)
+    (ISO_8859-9 . iso-8859-9)
+    ;(ISO-8859-13 . ??)
+    ;(ISO_8859-13 . ??)
+    ;(ISO-8859-15 . ??)
+    ;(ISO_8859-15 . ??)
+    (KOI8-R . koi8-r)
+    ;(KOI8-U . ??)
+    ;(CP850 . ??)
+    ;(CP866 . ??)
+    ;(CP874 . ??)
+    ;(CP932 . ??)
+    ;(CP949 . ??)
+    ;(CP950 . ??)
+    ;(CP1250 . ??)
+    ;(CP1251 . ??)
+    ;(CP1252 . ??)
+    ;(CP1253 . ??)
+    ;(CP1254 . ??)
+    ;(CP1255 . ??)
+    ;(CP1256 . ??)
+    ;(CP1257 . ??)
+    ;(GB2312 . euc-cn)
+    ;(EUC-JP . euc-jp)
+    ;(EUC-KR . euc-kr)
+    ;(EUC-TW . ??)
+    ;(BIG5 . big5)
+    ;(BIG5HKSCS . ??)
+    ;(GBK . ??)
+    ;(GB18030 . ??)
+    ;(SJIS . shift_jis)
+    ;(JOHAB . ??)
+    ;(TIS-620 . th-tis620)
+    ;(VISCII . viscii)
+    (UTF-8 . utf-8)        ; requires Mule-UCS in Emacs 20
+    )
+  "How to convert a GNU libc canonical charset name as seen in Content-Type
+into a Mule coding system.")
 
 (defvar po-auxiliary-list nil
   "List of auxiliary PO files, in completing read format.")
@@ -644,14 +701,15 @@ Called through file-coding-system-alist, before the file is visited for real."
 		 (if (re-search-forward
 		      "^\"Content-Type: text/plain;[ \t]*charset=\\([^\\]+\\)"
 		      nil t)
-		     (let* ((charset (intern (downcase (buffer-substring
-							(match-beginning 1)
-							(match-end 1)))))
-			    (slot (assq charset
-					po-content-type-charset-alist)))
-		       (list (cond (slot (cdr slot))
-				   ((memq charset (coding-system-list)) charset)
-				   (t 'no-conversion))))
+		     (let* ((charset (buffer-substring
+				       (match-beginning 1) (match-end 1)))
+			    (charset-upper (intern (upcase charset)))
+			    (charset-lower (intern (downcase charset))))
+		       (list (or (cdr (assq charset-upper
+					    po-content-type-charset-alist))
+				 (if (memq charset-lower (coding-system-list))
+				     charset-lower
+				   'no-conversion))))
 		   '(no-conversion))))))
 
     ))
