@@ -1,3 +1,8 @@
+2002-11-11  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c (program_name): Declare as external.
+	* tstngettext.c (program_name): Likewise.
+
 2002-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* msgcmp-2: Filter out valgrind's messages from the stderr output.

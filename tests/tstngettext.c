@@ -39,7 +39,7 @@
 #define _(str) gettext (str)
 
 /* Name the program is called with.  */
-char *program_name;
+extern const char *program_name;
 
 /* Long options.  */
 static const struct option long_options[] =
