@@ -1,3 +1,8 @@
+2001-10-27  Bruno Haible  <haible@clisp.cons.org>
+
+	* KDE/trigger: Treat configure.ac like configure.in.
+	* GNOME/trigger: Likewise.
+
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am: New file.

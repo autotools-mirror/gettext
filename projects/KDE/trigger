@@ -1,10 +1,17 @@
 #!/bin/sh
 # Test whether the current package is a KDE package.
 while true; do
+  configfiles=
   if test -f configure.in; then
-    if grep '^KDE_' configure.in >/dev/null 2>&1 || \
-       grep '^AC_PATH_KDE' configure.in >/dev/null 2>&1 || \
-       grep '^AM_KDE_WITH_NLS' configure.in >/dev/null 2>&1 ; then
+    configfiles="$configfiles configure.in"
+  fi
+  if test -f configure.ac; then
+    configfiles="$configfiles configure.ac"
+  fi
+  if test -n "$configfiles"; then
+    if grep '^KDE_' $configfiles >/dev/null 2>&1 || \
+       grep '^AC_PATH_KDE' $configfiles >/dev/null 2>&1 || \
+       grep '^AM_KDE_WITH_NLS' $configfiles >/dev/null 2>&1 ; then
       exit 0
     fi
     exit 1
