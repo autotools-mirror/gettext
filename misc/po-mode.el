@@ -678,12 +678,14 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
      "---"
      "Msgstr"
      ["Edit msgstr" po-edit-msgstr t]
+     ["Ediff and merge msgstr" po-edit-msgstr-and-ediff t]
      ["Kill msgstr" po-kill-msgstr t]
      ["Save msgstr" po-kill-ring-save-msgstr t]
      ["Yank msgstr" po-yank-msgstr t]
      "---"
      "Comments"
      ["Edit comment" po-edit-comment t]
+     ["Ediff and merge comment" po-edit-comment-and-ediff t]
      ["Kill comment" po-kill-comment t]
      ["Save comment" po-kill-ring-save-comment t]
      ["Yank comment" po-yank-comment t]
@@ -735,6 +737,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
 
 (defconst po-subedit-mode-menu-layout
   '("PO-Edit"
+    ["Ediff and merge translation variants" po-subedit-ediff t]
     ["Cycle through auxiliary files" po-subedit-cycle-auxiliary t]
     "---"
     ["Abort edit" po-subedit-abort t]
@@ -1007,6 +1010,8 @@ Called through file-coding-system-alist, before the file is visited for real."
     (define-key po-mode-map "0" 'po-other-window)
     (define-key po-mode-map "\177" 'po-fade-out-entry)
     (define-key po-mode-map "\C-c\C-a" 'po-select-auxiliary)
+    (define-key po-mode-map "\C-c\C-e" 'po-edit-msgstr-and-ediff)
+    ;; (define-key po-mode-map "\C-c\C-#" 'po-edit-comment-and-ediff)
     (define-key po-mode-map "\M-," 'po-mark-translatable)
     (define-key po-mode-map "\M-." 'po-select-mark-and-mark)
 ;;;;  (define-key po-mode-map "\M-c" 'po-select-and-save-entry)
@@ -1083,6 +1088,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
   (let ((po-subedit-mode-map (make-keymap)))
     (define-key po-subedit-mode-map "\C-c\C-a" 'po-subedit-cycle-auxiliary)
     (define-key po-subedit-mode-map "\C-c\C-c" 'po-subedit-exit)
+    (define-key po-subedit-mode-map "\C-c\C-e" 'po-subedit-ediff)
     (define-key po-subedit-mode-map "\C-c\C-k" 'po-subedit-abort)
     po-subedit-mode-map)
   "Keymap while editing a PO mode entry (or the full PO file).")
@@ -2017,6 +2023,55 @@ The string is properly recommented before the replacement occurs."
 	(fundamental-mode)
 	(message (_"Type 'M-x po-mode RET' once done")))))
 
+(defun po-subedit-ediff ()
+  "Edit the subedit buffer using `ediff'.
+`po-subedit-ediff' calls `ediff-buffers' to edit translation variants side by
+side.  `msgcat' will mark every variant with:
+
+#-#-#-#-#  file name reference  #-#-#-#-#
+
+Put changes in \" *po-msgstr-2\" buffer.
+
+When done with the `ediff' session press C-M-c exit to `recursive-edit'."
+  (interactive)
+  (let* ((marker-regex "^#-#-#-#-#  .*  #-#-#-#-#\n")
+	 start-1 end-1 start-2 end-2
+	 (back-pointer po-subedit-back-pointer)
+	 (entry-marker (nth 0 back-pointer))
+	 (entry-buffer (marker-buffer entry-marker)))
+    (goto-char (point-min))
+    (if (looking-at marker-regex)
+	(forward-line 1))
+    (setq start-1 (point))
+    (if (not (re-search-forward marker-regex (point-max) t))
+	(error "Only 1 msgstr found")
+      (setq end-1 (match-beginning 0))
+      (let ((oldbuf (current-buffer)))
+	(save-current-buffer
+	  (set-buffer (get-buffer-create " *po-msgstr-1"))
+	  (setq buffer-read-only nil)
+	  (erase-buffer)
+	  (insert-buffer-substring oldbuf start-1 end-1)
+	  (setq buffer-read-only t))
+	
+	(setq start-2 (point))
+	(save-excursion
+	  (if (re-search-forward marker-regex (point-max) t)
+	      (setq end-2 (match-beginning 0))
+	    (setq end-2 (goto-char (1- (point-max))))))
+	(save-current-buffer
+	  (set-buffer (get-buffer-create " *po-msgstr-2"))
+	  (erase-buffer)
+	  (insert-buffer-substring oldbuf start-2 end-2))
+
+	(ediff-buffers " *po-msgstr-1" " *po-msgstr-2")
+	(recursive-edit)
+	(pop-to-buffer oldbuf))
+      
+      (delete-region (point-min) end-2)
+      (insert-buffer " *po-msgstr-2")
+      (display-buffer entry-buffer t))))
+
 (defun po-subedit-abort ()
   "Exit the subedit buffer, merely discarding its contents."
   (interactive)
@@ -2112,6 +2167,14 @@ Run functions on po-subedit-mode-hook."
   (interactive)
   (po-find-span-of-entry)
   (po-edit-string (po-get-comment nil) 'comment nil))
+  
+(defun po-edit-comment-and-ediff ()
+  "Use `ediff' to edit the current translator comment.
+This function calls `po-edit-msgstr' and `po-subedit-ediff'; for more info
+read `po-subedit-ediff' documentation."
+  (interactive)
+  (po-edit-comment)
+  (po-subedit-ediff))
 
 (defun po-edit-msgstr ()
   "Use another window to edit the current msgstr."
@@ -2123,6 +2186,14 @@ Run functions on po-subedit-mode-hook."
 		    (po-get-msgstr nil))
 		  'msgstr
 		  t))
+
+(defun po-edit-msgstr-and-ediff ()
+  "Use `ediff' to edit the current msgstr.
+This function calls `po-edit-msgstr' and `po-subedit-ediff'; for more info
+read `po-subedit-ediff' documentation."
+  (interactive)
+  (po-edit-msgstr)
+  (po-subedit-ediff))
 
 ;;; String normalization and searching.
 

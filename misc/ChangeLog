@@ -1,3 +1,14 @@
+2001-11-11  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-subedit-ediff): New function.
+	(po-edit-comment-and-ediff): New function.
+	(po-edit-msgstr-and-ediff): New function.
+	(po-subedit-mode-menu-layout): Add 'po-subedit-ediff'.
+	(po-subedit-mode-map): Add key binding for 'po-subedit-ediff'.
+	(po-mode-menu-layout): Add 'po-edit-comment-and-ediff' and
+	'po-edit-msgstr-and-ediff'.
+	(po-mode-map): Add key binding for 'po-edit-msgstr-and-ediff'.
+
 2001-11-12  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-subedit-mode-syntax-table): New variable.
