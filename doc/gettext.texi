@@ -573,7 +573,8 @@ their respective locales:
 
 @example
 12,345.67       English
-12.345,67       French
+12.345,67       German
+ 12345,67       French
 1,2345.67       Asia
 @end example
 
