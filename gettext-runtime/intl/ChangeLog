@@ -1,4 +1,9 @@
-2003-05-08  Bruno Haible  <bruno@clisp.org>
+2003-06-12  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h (_INTL_REDIRECT_ASM): Don't define when using Mingw.
+	Reported by Tor Lillqvist <tml@iki.fi>.
+
+2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (getcwd) [VMS]: Pass 3 arguments.
 	Reported by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
