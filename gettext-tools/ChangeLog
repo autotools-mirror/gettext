@@ -1,3 +1,7 @@
+2003-04-10  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gl_FUNC_EACCESS.
+
 2003-04-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h.msvc): Remove redundant sed expression.
