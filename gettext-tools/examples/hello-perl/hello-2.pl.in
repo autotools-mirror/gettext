@@ -8,6 +8,8 @@
 use Locale::TextDomain ("hello-perl" => "@localedir@");
 use POSIX qw(getpid);
 
+binmode STDOUT, ':raw'; # Needed to make it work in UTF-8 locales in Perl-5.8.
+
 print __"Hello, world!";
 print "\n";
 print __x ("This program is running as process number {pid}.", pid => getpid());

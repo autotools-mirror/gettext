@@ -1,3 +1,10 @@
+2003-12-29  Bruno Haible  <bruno@clisp.org>
+
+	* hello-perl/INSTALL: Mention that libintl-perl-1.09 required.
+	* hello-perl/hello-1.pl.in, hello-perl/hello-2.pl.in: Inhibit the
+	automatic UTF-8 conversion in UTF-8 locales with Perl-5.8.0. Thanks to
+	Guido Flohr.
+
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
 	* hello-csharp: New subdirectory.

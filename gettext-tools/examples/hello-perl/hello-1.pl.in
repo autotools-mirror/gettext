@@ -8,6 +8,8 @@
 use Locale::Messages qw (textdomain bindtextdomain gettext);
 use POSIX qw(getpid);
 
+binmode STDOUT, ':raw'; # Needed to make it work in UTF-8 locales in Perl-5.8.
+
 sub _ ($) { &gettext; }
 
 textdomain "hello-perl";
