@@ -1,3 +1,9 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	* localcharset.h: Change copyright to LGPL. Enclose declaration in
+	extern "C", for C++ compilers.
+	* localcharset.c: Drop C linkage declaration.
+
 2003-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Add an alias for CP1251 on Solaris.

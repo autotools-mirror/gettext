@@ -1,6 +1,6 @@
 /* Determine a canonical name for the current locale's character encoding.
 
-   Copyright (C) 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 2000-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -83,11 +83,6 @@
 #ifdef HAVE_GETC_UNLOCKED
 # undef getc
 # define getc getc_unlocked
-#endif
-
-#ifdef __cplusplus
-/* When compiling with "gcc -x c++", produce a function with C linkage.  */
-extern "C" const char * locale_charset (void);
 #endif
 
 /* The following static variable is declared 'volatile' to avoid a
