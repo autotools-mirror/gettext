@@ -1,3 +1,7 @@
+2004-11-13  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Preparing Shell Scripts): Document extra backslashing.
+
 2004-09-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add FAQ.html.

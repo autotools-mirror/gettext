@@ -7928,6 +7928,43 @@ followed by a no-argument @samp{echo} command (to account for the terminating
 newline). Similarly, for cases with plural handling, replace a conditional
 @samp{echo} command with an invocation of @samp{ngettext} or
 @samp{eval_ngettext}, followed by a no-argument @samp{echo} command.
+
+When doing this, you also need to add an extra backslash before the dollar
+sign in references to shell variables, so that the @samp{eval_gettext}
+function receives the translatable string before the variable values are
+substituted into it. For example,
+
+@smallexample
+echo "Remaining files: $filecount"
+@end smallexample
+
+becomes
+
+@smallexample
+eval_gettext "Remaining files: \$filecount"; echo
+@end smallexample
+
+If the output command is not @samp{echo}, you can make it use @samp{echo}
+nevertheless, through the use of backquotes. However, note that inside
+backquotes, backslashes must be doubled to be effective (because the
+backquoting eats one level of backslashes). For example, assuming that
+@samp{error} is a shell function that signals an error,
+
+@smallexample
+error "file not found: $filename"
+@end smallexample
+
+is first transformed into
+
+@smallexample
+error "`echo \"file not found: \$filename\"`"
+@end smallexample
+
+which then becomes
+
+@smallexample
+error "`eval_gettext \"file not found: \\\$filename\"`"
+@end smallexample
 @end enumerate
 
 @node gettext.sh, gettext Invocation, Preparing Shell Scripts, sh
