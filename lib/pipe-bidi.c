@@ -139,7 +139,7 @@ create_pipe_bidi (progname, prog_path, prog_argv, fd)
       _exit (-1);
     }
   if (child == -1)
-    error (EXIT_FAILURE, errno, _("%s subprocess failed"), prog_argv);
+    error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
 #endif
   close (ofd[0]);
   close (ifd[1]);
