@@ -1,5 +1,11 @@
 2004-01-10  Bruno Haible  <bruno@clisp.org>
 
+	* hello-c/*, hello-c-gnome/*, hello-objc/*, hello-objc-gnome/*,
+	hello-c++/*, hello-c++-gnome/*, hello-c++-kde/*: Use the autoconf
+	infrastructure from gettext-0.13.1, not 0.12.1.
+
+2004-01-10  Bruno Haible  <bruno@clisp.org>
+
 	* hello-csharp/hello.cs: Work around mono-0.29 CurrentUICulture bug.
 	* hello-csharp-forms/hello.cs: Likewise.
 
