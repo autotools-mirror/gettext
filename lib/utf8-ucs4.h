@@ -1,5 +1,5 @@
 /* Conversion UTF-8 to UCS-4.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
 This program is free software; you can redistribute it and/or modify
@@ -84,7 +84,11 @@ u8_mbtouc_aux (puc, s, n)
             {
               if ((s[1] ^ 0x80) < 0x40 && (s[2] ^ 0x80) < 0x40
                   && (s[3] ^ 0x80) < 0x40
-                  && (c >= 0xf1 || s[1] >= 0x90))
+                  && (c >= 0xf1 || s[1] >= 0x90)
+#if 1
+                  && (c < 0xf4 || (c == 0xf4 && s[1] < 0x90))
+#endif
+                 )
                 {
                   *puc = ((unsigned int) (c & 0x07) << 18)
                          | ((unsigned int) (s[1] ^ 0x80) << 12)
