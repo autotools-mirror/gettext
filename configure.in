@@ -168,6 +168,11 @@ AC_OUTPUT([Makefile \
     sed -e 's,^#distdir:,distdir:,' < $m > $m.tmp
     mv $m.tmp $m
   done
+  dnl Fix an automake-1.5 bug: all info files are erased by "make".
+  for m in doc/Makefile; do
+    sed -e '/cd \$(srcdir) && rm -f /d' < $m > $m.tmp
+    mv $m.tmp $m
+  done
   dnl Fix permissions of misc/gettextize.
   chmod a+x misc/gettextize
 ])
