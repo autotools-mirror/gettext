@@ -20,7 +20,7 @@
 This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
-Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
+Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -55,7 +55,7 @@ by the Foundation.
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 1995, 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
+Copyright @copyright{} 1995, 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -129,7 +129,7 @@ Making the PO Template File
 Creating a New PO File
 
 * msginit Invocation::          Invoking the @code{msginit} Program
-* Header Entry::                Fields in the Header Entry
+* Header Entry::                Filling in the Header Entry
 
 Updating Existing PO Files
 
@@ -231,6 +231,7 @@ The Maintainer's View
 * Prerequisites::               Prerequisite Works
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
+* autoconf macros::             Autoconf macros for use in @file{configure.in}
 
 Files You Must Create or Alter
 
@@ -243,12 +244,19 @@ Files You Must Create or Alter
 * acconfig::                    @file{acconfig.h} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
+* lib/gettext.h::               @file{gettext.h} in @file{lib/}
+
+Autoconf macros for use in @file{configure.in}
+
+* AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
+* AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 
 Other Programming Languages
 
 * Language Implementors::       The Language Implementor's View
 * Programmers for other Languages::  The Programmer's View
 * Translators for other Languages::  The Translator's View
+* Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
 * List of Data Formats::        Internationalizable Data
 
@@ -716,6 +724,7 @@ simply replace these definitions by the following:
 @end group
 @end example
 
+@noindent
 and link against @file{libintl.a} or @file{libintl.so}.  Note that on
 GNU systems, you don't need to link with @code{libintl} because the
 @code{gettext} library functions are already contained in GNU libc.
@@ -3323,7 +3332,7 @@ this from their @file{.login} or @file{.profile} file.
 @c FIXME: Reorganize whole chapter.
 
 One aim of the current message catalog implementation provided by
-GNU @code{gettext} was to use the systems message catalog handling, if the
+GNU @code{gettext} was to use the system's message catalog handling, if the
 installer wishes to do so.  So we perhaps should first take a look at
 the solutions we know about.  The people in the POSIX committee did not
 manage to agree on one of the semi-official standards which we'll
@@ -3454,7 +3463,7 @@ standard, though.
 The main points about this solution is that it does not follow the
 method of normal file handling (open-use-close) and that it does not
 burden the programmer so many task, especially the unique key handling.
-Of course here is also a unique key needed, but this key is the message
+Of course here also a unique key is needed, but this key is the message
 itself (how long or short it is).  See @ref{Comparison} for a more
 detailed comparison of the two methods.
 
@@ -3493,7 +3502,7 @@ This provides the possibility to change or query the current status of
 the current global domain of the @code{LC_MESSAGE} category.  The
 argument is a null-terminated string, whose characters must be legal in
 the use in filenames.  If the @var{domain_name} argument is @code{NULL},
-the function return the current value.  If no value has been set
+the function returns the current value.  If no value has been set
 before, the name of the default domain is returned: @emph{messages}.
 Please note that although the return value of @code{textdomain} is of
 type @code{char *} no changing is allowed.  It is also important to know
@@ -4284,12 +4293,6 @@ self-contained.  I.e., you can use it in your own programs without
 providing additional functions.  The @file{Makefile} will put the header
 and the library in directories selected using the @code{$(prefix)}.
 
-One exception of the above is found on HP-UX 10.01 systems.  Here the C
-library does not contain the @code{alloca} function (and the HP compiler
-does not generate it inlined).  But it is not intended to rewrite the whole
-library just because of this dumb system.  Instead include the
-@code{alloca} function in all package you use the @code{libintl.a} in.
-
 @node gettext grok, Temp Programmers, Using libintl.a, Programmers
 @section Being a @code{gettext} grok
 
@@ -4925,6 +4928,7 @@ for changes.
 * Prerequisites::               Prerequisite Works
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
+* autoconf macros::             Autoconf macros for use in @file{configure.in}
 @end menu
 
 @node Flat and Non-Flat, Prerequisites, Maintainers, Maintainers
@@ -5014,7 +5018,7 @@ to authentify the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
 the submission to @file{translation@@iro.umontreal.ca} in case of doubt),
 to ensure that the PO file format is not severely broken and does not
-prevent successful installation, and for the rest, to merely to put these
+prevent successful installation, and for the rest, to merely put these
 PO files in @file{po/} for distribution.
 
 As a maintainer, you do not have to take on your shoulders the
@@ -5030,7 +5034,7 @@ their team.  The simplest might be to send them the @file{ABOUT-NLS} file.
 Maintainers should @emph{never ever} apply PO file bug reports
 themselves, short-cutting translation teams.  If some translator has
 difficulty to get some of her points through her team, it should not be
-an issue for her to directly negotiate translations with maintainers.
+an option for her to directly negotiate translations with maintainers.
 Teams ought to settle their problems themselves, if any.  If you, as
 a maintainer, ever think there is a real problem with a team, please
 never try to @emph{solve} a team's problem on your own.
@@ -5116,6 +5120,11 @@ originally in the @file{intl/} directory of the GNU @code{gettext}
 distribution.  Also, if option @code{--force} (@code{-f}) is given,
 the @file{intl/} directory is emptied first.
 
+@item
+The @file{config.rpath} file is copied into the directory containing
+configuration support files. It is needed by the @code{AM_GNU_GETTEXT}
+autoconf macro.
+
 @end enumerate
 
 If your site support symbolic links, @code{gettextize} will not
@@ -5137,7 +5146,7 @@ common @file{Makefile.in.in} in @file{po/}, because the @file{po/}
 directory needs its own @file{Makefile}, and it has been designed so
 it can be identical in all packages.
 
-@node Adjusting Files,  , gettextize Invocation, Maintainers
+@node Adjusting Files, autoconf macros, gettextize Invocation, Maintainers
 @section Files You Must Create or Alter
 
 Besides files which are automatically added through @code{gettextize},
@@ -5149,10 +5158,12 @@ changes needed in each.
 
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-@code{gettext} @value{VERSION} distribution itself.  You may indeed
-refer to the source code of the GNU @code{gettext} package, as it
-is intended to be a good example and master implementation for using
-its own functionality.
+@code{gettext} @value{VERSION} distribution itself, or from the GNU
+@code{hello} distribution (@uref{http://www.franken.de/users/gnu/ke/hello}
+or @uref{http://www.gnu.franken.de/ke/hello/})  You may indeed
+refer to the source code of the GNU @code{gettext} and GNU @code{hello}
+packages, as they are intended to be good examples for using GNU
+gettext functionality.
 
 @menu
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
@@ -5164,6 +5175,7 @@ its own functionality.
 * acconfig::                    @file{acconfig.h} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
+* lib/gettext.h::               @file{gettext.h} in @file{lib/}
 @end menu
 
 @node po/POTFILES.in, po/LINGUAS, Adjusting Files, Adjusting Files
@@ -5450,7 +5462,7 @@ dist: Makefile
 
 @end enumerate
 
-@node src/Makefile,  , Makefile, Adjusting Files
+@node src/Makefile,  lib/gettext.h, Makefile, Adjusting Files
 @subsection @file{Makefile.in} in @file{src/}
 
 Some of the modifications made in the main @file{Makefile.in} will
@@ -5549,6 +5561,200 @@ dist: Makefile $(DISTFILES)
 
 @end enumerate
 
+@node lib/gettext.h,  , src/Makefile, Adjusting Files
+@subsection @file{gettext.h} in @file{lib/}
+
+Internationalization of packages, as provided by GNU @code{gettext}, is
+optional. It can be turned off in two situations:
+
+@itemize @bullet
+@item
+When the installer has specified @samp{./configure --disable-nls}. This
+can be useful when small binaries are more important than features, for
+example when building utilities for boot diskettes. It can also be useful
+in order to get some specific C compiler warnings about code quality with
+some older versions of GCC (older than 3.0).
+
+@item
+When the package does not include the @code{intl/} subdirectory, and the
+libintl.h header (with its associated libintl library, if any) is not
+already installed on the system, it is preferrable that the package builds
+without internationalization support, rather than to give a compilation
+error.
+@end itemize
+
+A C preprocessor macro can be used to detect these two cases. Usually,
+when @code{libintl.h} was found and not explicitly disabled, the
+@code{ENABLE_NLS} macro will be defined to 1 in the autoconf generated
+configuration file (usually called @file{config.h}). In the two negative
+situations, however, this macro will not be defined, thus it will evaluate
+to 0 in C preprocessor expressions.
+
+@file{gettext.h} is a convenience header file for conditional use of
+@file{<libintl.h>}, depending on the @code{ENABLE_NLS} macro. If
+@code{ENABLE_NLS} is set, it includes @file{<libintl.h>}; otherwise it
+defines no-op substitutes for the libintl.h functions. We recommend
+the use of @code{"gettext.h"} over direct use of @file{<libintl.h>},
+so that portability to older systems is guaranteed and installers can
+turn off internationalization if they want to. In the C code, you will
+then write
+
+@example
+#include "gettext.h"
+@end example
+
+@noindent
+instead of
+
+@example
+#include <libintl.h>
+@end example
+
+The location of @code{gettext.h} is usually in a directory containing
+auxiliary include files. In many GNU packages, there is a directory
+@file{lib/} containing helper functions; @file{gettext.h} fits there.
+In other packages, it can go into the @file{src} directory.
+
+Do not install the @code{gettext.h} file in public locations. Every
+package that needs it should contain a copy of it on its own.
+
+@node autoconf macros,  , Adjusting Files, Maintainers
+@section Autoconf macros for use in @file{configure.in}
+
+GNU @code{gettext} installs macros for use in a package's
+@file{configure.in} or @file{configure.ac}.
+@xref{Top, , Introduction, autoconf, The Autoconf Manual}.
+The primary macro is, of course, @code{AM_GNU_GETTEXT}.
+
+@menu
+* AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
+* AM_ICONV::                    AM_ICONV in @file{iconv.m4}
+@end menu
+
+@node AM_GNU_GETTEXT, AM_ICONV, autoconf macros, autoconf macros
+@subsection AM_GNU_GETTEXT in @file{gettext.m4}
+
+The @code{AM_GNU_GETTEXT} macro tests for the presence of the GNU gettext
+function family in either the C library or a separate @code{libintl}
+library (shared or static libraries are both supported) or in the package's
+@file{intl/} directory.
+
+@code{AM_GNU_GETTEXT} accepts up to three optional arguments. The general
+syntax is
+
+@example
+AM_GNU_GETTEXT([@var{intlsymbol}], [@var{needsymbol}], [@var{intldir}])
+@end example
+
+@var{intlsymbol} can be one of @samp{external}, @samp{no-libtool},
+@samp{use-libtool}. The default (if it is not specified or empty) is
+@samp{no-libtool}. @var{intlsymbol} should be @samp{external} for packages
+with no @file{intl/} directory, and @samp{no-libtool} or @samp{use-libtool}
+for packages with an @file{intl/} directory. If @var{intlsymbol} is
+@samp{use-libtool}, then a libtool library
+@code{$(top_builddir)/intl/libintl.la} will be created (shared and/or static,
+depending on @code{--@{enable,disable@}-@{shared,static@}} and on the
+presence of @code{AM_DISABLE_SHARED}). If @var{intlsymbol} is
+@samp{no-libtool}, a static library
+@code{$(top_builddir)/intl/libintl.a} will be created.
+
+If @var{needsymbol} is specified and is @samp{need-ngettext}, then GNU
+gettext implementations (in libc or libintl) without the @code{ngettext()}
+function will be ignored.
+
+@var{intldir} is used to find the intl libraries.  If empty, the value
+@samp{$(top_builddir)/intl/} is used.
+
+The @code{AM_GNU_GETTEXT} macro determines whether GNU gettext is
+available and should be used. If so, it sets the @code{USE_NLS} variable
+to @samp{yes}; it defines @code{ENABLE_NLS} to 1 in the autoconf
+generated configuration file (usually called @file{config.h}); it sets
+the variable @code{LIBINTL} to the linker options for use in a Makefile;
+it adds an @samp{-I} option to @code{CPPFLAGS} if necessary.
+In the negative case, it sets @code{USE_NLS} to @samp{no}; it sets
+@code{LIBINTL} to empty and doesn't change @code{CPPFLAGS}.
+
+The complexities that @code{AM_GNU_GETTEXT} deals with are the following:
+
+@itemize @bullet
+@item
+Some operating systems have @code{gettext} in the C library, for example
+glibc. Some have it in a separate library @code{libintl}. GNU @code{libintl}
+might have been installed as part of the GNU @code{gettext} package.
+
+@item
+GNU @code{libintl}, if installed, is not necessarily already in the search
+path (@code{CPPFLAGS} for the include file search path, @code{LDFLAGS} for
+the library search path).
+
+@item
+Except for glibc, the operating system's native @code{gettext} cannot
+exploit the GNU mo files, doesn't have the necessary locale dependency
+features, and cannot convert messages from the catalog's text encoding
+to the user's locale encoding.
+
+@item
+GNU @code{libintl}, if installed, is not necessarily already in the
+run time library search path. To avoid the need for setting an environment
+variable like @code{LD_LIBRARY_PATH}, the macro adds the appropriate
+run time search path options to the @code{LIBINTL} variable. This works
+on most systems, but not on some operating systems with limited shared
+library support, like SCO.
+
+@item
+GNU @code{libintl} relies on POSIX @code{iconv}. The macro checks for
+linker options needed to use iconv and appends them to the @code{LIBINTL}
+variable.
+@end itemize
+
+@node AM_ICONV,  , AM_GNU_GETTEXT, autoconf macros
+@subsection AM_ICONV in @file{iconv.m4}
+
+The @code{AM_ICONV} macro tests for the presence of the POSIX
+@code{iconv} function family in either the C library or a separate
+@code{libiconv} library. If found, it sets the @code{am_cv_func_iconv}
+variable to @samp{yes}; it defines @code{HAVE_ICONV} to 1 in the autoconf
+generated configuration file (usually called @file{config.h}); it defines
+@code{ICONV_CONST} to @samp{const} or to empty, depending on whether the
+second argument of @code{iconv()} is of type @samp{const char **} or
+@samp{char **}; it sets the variable @code{LIBICONV} to the linker options
+for use in a Makefile; it adds an @samp{-I} option to @code{CPPFLAGS} if
+necessary. If not found, it sets @code{LIBICONV} to empty and doesn't
+change @code{CPPFLAGS}.
+
+The complexities that @code{AM_ICONV} deals with are the following:
+
+@itemize @bullet
+@item
+Some operating systems have @code{iconv} in the C library, for example
+glibc. Some have it in a separate library @code{libiconv}, for example
+OSF/1 or FreeBSD. Regardless of the operating system, GNU @code{libiconv}
+might have been installed. In that case, it should be used instead of the
+operating system's native @code{iconv}.
+
+@item
+GNU @code{libiconv}, if installed, is not necessarily already in the search
+path (@code{CPPFLAGS} for the include file search path, @code{LDFLAGS} for
+the library search path).
+
+@item
+GNU @code{libiconv} is binary incompatible with some operating system's
+native @code{iconv}, for example on FreeBSD.  Use of an @file{iconv.h}
+and @file{libiconv.so} that don't fit together would produce program
+crashes.
+
+@item
+GNU @code{libiconv}, if installed, is not necessarily already in the
+run time library search path. To avoid the need for setting an environment
+variable like @code{LD_LIBRARY_PATH}, the macro adds the appropriate
+run time search path options to the @code{LIBICONV} variable. This works
+on most systems, but not on some operating systems with limited shared
+library support, like SCO.
+@end itemize
+
+@file{iconv.m4} is distributed with the GNU gettext package because
+@file{gettext.m4} relies on it.
+
 @node Programming Languages, Conclusion, Maintainers, Top
 @chapter Other Programming Languages
 
@@ -5562,6 +5768,7 @@ approach.
 * Language Implementors::       The Language Implementor's View
 * Programmers for other Languages::  The Programmer's View
 * Translators for other Languages::  The Translator's View
+* Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
 * List of Data Formats::        Internationalizable Data
 @end menu
@@ -5680,7 +5887,7 @@ file extension or a command-line option.  In some languages,
 @code{setlocale} is not needed because it is already performed by the
 underlying language runtime.
 
-@node Translators for other Languages, List of Programming Languages, Programmers for other Languages, Programming Languages
+@node Translators for other Languages, Maintainers for other Languages, Programmers for other Languages, Programming Languages
 @section The Translator's View
 
 The translator works exactly as in the C language case.  The only
@@ -5688,7 +5895,32 @@ difference is that when translating format strings, she has to be aware
 of the language's particular syntax for positional arguments in format
 strings.
 
-@node List of Programming Languages, List of Data Formats, Translators for other Languages, Programming Languages
+@node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
+@section The Maintainer's View
+
+For the maintainer, the general procedure differs from the C language
+case in two ways.
+
+@itemize @bullet
+@item
+For those languages that don't use GNU gettext, the @file{intl/} directory
+is not needed and can be omitted.  This means that the maintainer calls the
+@code{gettextize} program without the @samp{--intl} option, and that he
+invokes the @code{AM_GNU_GETTEXT} autoconf macro via
+@samp{AM_GNU_GETTEXT([external])}.
+
+@item
+If only a single programming language is used, the @code{XGETTEXT_OPTIONS}
+variable in @file{po/Makevars} (@pxref{po/Makevars}) should be adjusted to
+match the @code{xgettext} options for that particular programming language.
+If the package uses more than one programming language with @code{gettext}
+support, it becomes necessary to change the POT file construction rule
+in @file{po/Makefile.in.in}. It is recommended to make one @code{xgettext}
+invocation per programming language, each with the options appropriate for
+that language, and to combine the resulting files using @code{msgcat}.
+@end itemize
+
+@node List of Programming Languages, List of Data Formats, Maintainers for other Languages, Programming Languages
 @section Individual Programming Languages
 
 @menu

@@ -1,5 +1,16 @@
 2002-01-04  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Comparison): Remove paragraph about alloca. libintl
+	does not need alloca any more.
+	(gettextize Invocation): Mention config.rpath.
+	(Adjusting Files): Refer to GNU hello as an example.
+	(lib/gettext.h): New node.
+	(autoconf macros): New section.
+	(Maintainers for other Languages): New section.
+	* msgfilter.texi: Mention some filter requirements.
+
+2002-01-04  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.texi: Update --copyright-holder explanation.
 
 2002-01-03  Bruno Haible  <haible@clisp.cons.org>

@@ -40,6 +40,24 @@ The @var{filter} can be any program that reads a translation from standard
 input and writes a modified translation to standard output.  A frequently
 used filter is @samp{sed}.
 
+Note: It is your responsibility to ensure that the @var{filter} can cope
+with input encoded in the translation catalog's encoding.  If the
+@var{filter} wants input in a particular encoding, you can in a first step
+convert the translation catalog to that encoding using the @samp{msgconv}
+program, before invoking @samp{msgfilter}.  If the @var{filter} wants input
+in the locale's encoding, but you want to avoid the locale's encoding, then
+you can first convert the translation catalog to UTF-8 using the
+@samp{msgconv} program and then make @samp{msgfilter} work in an UTF-8
+locale, by using the @code{LC_ALL} environment variable.
+
+Note: Most translations in a translation catalog don't end with a newline
+character. For this reason, it is important that the @var{filter}
+recognizes its last input line even if it ends without a newline, and that
+it doesn't add an undesired trailing newline at the end. The @samp{sed}
+program on some platforms is known to ignore the last line of input if it
+is not terminated with a newline. You can use GNU @code{sed} instead; it
+does not have this limitation.
+
 @subsection Useful @var{filter-option}s when the @var{filter} is @samp{sed}
 
 @table @samp

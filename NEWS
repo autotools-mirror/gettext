@@ -1,4 +1,4 @@
-Version 0.11 - XXX 2001
+Version 0.11 - XXX 2002
 
 * New programs:
     msgattrib - attribute matching and manipulation on message catalog,
@@ -45,6 +45,14 @@ Version 0.11 - XXX 2001
 
 * gettextize has a new option --intl which determines whether a copy of the
   intl directory is included in the package.
+
+* New documentation sections:
+  - Manipulating
+  - po/LINGUAS
+  - po/Makevars
+  - lib/gettext.h
+  - autoconf macros
+  - Other Programming Languages
 
 Version 0.10.40 - September 2001
 
