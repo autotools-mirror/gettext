@@ -15,9 +15,9 @@
 @c %**end of header
 @set VERSION 1.0
 
-@dircategory GNU autosprintf
+@dircategory C++ libraries
 @direntry
-* autosprintf: (autosprintf).              GNU autosprintf
+* autosprintf: (autosprintf).   Support for printf format strings in C++.
 @end direntry
 
 @ifinfo
