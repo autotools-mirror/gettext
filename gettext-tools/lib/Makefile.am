@@ -69,7 +69,6 @@ libgettextlib_la_SOURCES = \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \
-  stpncpy.h stpncpy.c \
   strtoul.c \
   tmpdir.h tmpdir.c \
   ucs4-utf8.h ucs4-utf16.h \
@@ -99,6 +98,7 @@ LIBADD_SOURCE = \
   relocatable.h relocatable.c \
   setenv.h setenv.c unsetenv.c \
   stpcpy.h stpcpy.c \
+  stpncpy.h stpncpy.c \
   strcase.h strcasecmp.c strncasecmp.c \
   strcspn.c \
   strerror.c \

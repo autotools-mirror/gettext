@@ -1,5 +1,9 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gl_FUNC_STPNCPY.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_ERROR instead of gt_FUNC_ERROR_AT_LINE.
 	* Makefile.am (config.h_vms, config.h.msvc): Remove setting of
 	HAVE_DECL_STRERROR.

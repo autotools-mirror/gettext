@@ -71,7 +71,6 @@ OBJECTS = \
   safe-read.obj, \
   safe-write.obj, \
   sh-quote.obj, \
-  stpncpy.obj, \
   strtoul.obj, \
   tmpdir.obj, \
   wait-process.obj, \
@@ -88,6 +87,7 @@ OBJECTS = \
   mkdtemp.obj, \
   relocatable.obj, \
   stpcpy.obj, \
+  stpncpy.obj, \
   vasprintf.obj
 
 all : alloca.h,fnmatch.h,gettextlib.olb
@@ -204,9 +204,6 @@ safe-write.obj : safe-write.c
 sh-quote.obj : sh-quote.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) sh-quote.c
 
-stpncpy.obj : stpncpy.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) stpncpy.c
-
 strtoul.obj : strtoul.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) strtoul.c
 
@@ -257,6 +254,9 @@ relocatable.obj : relocatable.c
 
 stpcpy.obj : stpcpy.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) stpcpy.c
+
+stpncpy.obj : stpncpy.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) stpncpy.c
 
 vasprintf.obj : vasprintf.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) vasprintf.c

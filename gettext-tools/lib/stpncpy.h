@@ -1,5 +1,5 @@
 /* String copying.
-   Copyright (C) 1995, 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2001-2004 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@ extern "C" {
 #endif
 
 
-#ifndef __GNU_LIBRARY__
+#if !HAVE_STPNCPY
 
-/* Copy no more than N characters of SRC to DST, returning the address of
-   the last character written into DST.  */
+/* Copy no more than N bytes of SRC to DST, returning a pointer past the
+   last non-NUL byte written into DST.  */
 /* When not using the GNU libc we use the stpncpy implementation we
    provide here.  */
 extern char *gnu_stpncpy (char *dst, const char *src, size_t n);

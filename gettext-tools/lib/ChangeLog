@@ -1,5 +1,14 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* stpncpy.h: Update from gnulib.
+	* stpncpy.c: Update from gnulib with simplifications.
+	* Makefile.am (libgettextlib_la_SOURCES): Remove stpncpy.h, stpncpy.c.
+	(LIBADD_SOURCE): Add stpncpy.h, stpncpy.c.
+	* Makefile.msvc: Update.
+	* Makefie.vms: Update.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* error.h: Update from gnulib.
 	* error.c: Update from gnulib.
 	* Makefile.am (libgettextlib_la_SOURCES): Remove error.h, error.c.

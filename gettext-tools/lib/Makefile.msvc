@@ -113,7 +113,6 @@ OBJECTS = \
   safe-read.obj \
   safe-write.obj \
   sh-quote.obj \
-  stpncpy.obj \
   strtoul.obj \
   tmpdir.obj \
   wait-process.obj \
@@ -131,6 +130,7 @@ OBJECTS = \
   relocatable.obj \
   setenv.obj unsetenv.obj \
   stpcpy.obj \
+  stpncpy.obj \
   strcasecmp.obj strncasecmp.obj \
   vasprintf.obj
 
@@ -243,9 +243,6 @@ safe-write.obj : safe-write.c
 sh-quote.obj : sh-quote.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c sh-quote.c
 
-stpncpy.obj : stpncpy.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c stpncpy.c
-
 strtoul.obj : strtoul.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c strtoul.c
 
@@ -302,6 +299,9 @@ unsetenv.obj : unsetenv.c
 
 stpcpy.obj : stpcpy.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c stpcpy.c
+
+stpncpy.obj : stpncpy.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c stpncpy.c
 
 strcasecmp.obj : strcasecmp.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c strcasecmp.c
