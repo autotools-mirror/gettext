@@ -25,6 +25,10 @@ public class Program {
     // Some systems (like Solaris) don't set Locale.getDefault()
     // as specified by LC_ALL. So set it by hand.
     Locale.setDefault(new Locale("fr","FR"));
+EOF
+case "$host_os" in
+  darwin*)
+cat <<\EOF >> Program.java
     // Some systems (like MacOS X) don't set System.out's character encoding
     // to ISO-8859-1, which is what we need for comparison purposes.
     try {
@@ -32,6 +36,10 @@ public class Program {
                                     true, "ISO-8859-1"));
     } catch (UnsupportedEncodingException e) {
     }
+EOF
+    ;;
+esac
+cat <<\EOF >> Program.java
     int n = Integer.parseInt(args[0]);
     ResourceBundle catalog = ResourceBundle.getBundle("prog");
     System.out.println(GettextResource.gettext(catalog,"'Your command, please?', asked the waiter."));

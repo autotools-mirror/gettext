@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -143,6 +143,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    TESTCSHARP='@TESTCSHARP@' \
 		    TESTLIBASPRINTF='@TESTLIBASPRINTF@' \
 		    LOCALE_FR='@LOCALE_FR@' \
+		    host_os='@host_os@' \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 

@@ -1,3 +1,9 @@
+2004-09-08  Bruno Haible  <bruno@clisp.org>
+
+	Make lang-java work again on platforms with Java version < 1.4.
+	* lang-java: Undo last patch for all platforms except Darwin.
+	* Makefile.am (TESTS_ENVIRONMENT): Also define host_os.
+
 2004-08-13  Bruno Haible  <bruno@clisp.org>
 
 	Fix test failures on MacOS X.
