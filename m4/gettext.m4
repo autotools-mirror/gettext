@@ -312,7 +312,8 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       # compute GMOFILES, POFILES, CATALOGS. But hide it from automake.
       eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
       # Capture the value of $LINGUAS because we need it to compute CATALOGS.
-      LINGUAS="$LINGUAS"
+      LINGUAS="${LINGUAS-%UNSET%}"
+      test "%UNSET%" != "\$LINGUAS" || unset LINGUAS
      ])
 
 
@@ -339,7 +340,7 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       dnl Found it, now check the version.
       AC_MSG_CHECKING([version of bison])
 changequote(<<,>>)dnl
-      ac_prog_version=`$INTLBISON --version 2>&1 | sed -n 's/^.*GNU Bison .* \([0-9]*\.[0-9.]*\).*$/\1/p'`
+      ac_prog_version=`$INTLBISON --version 2>&1 | sed -n 's/^.*GNU Bison.* \([0-9]*\.[0-9.]*\).*$/\1/p'`
       case $ac_prog_version in
         '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
         1.2[6-9]* | 1.[3-9][0-9]* | [2-9].*)
