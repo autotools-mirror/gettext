@@ -1,3 +1,8 @@
+2004-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* TP/teams.html: Update.
+	Reported by Gabriele Stilli <superenzima@libero.it>.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.
