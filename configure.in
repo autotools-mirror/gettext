@@ -68,7 +68,7 @@ AC_FUNC_ALLOCA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([getcwd mblen memcpy posix_spawn raise select strchr strerror \
 uname])
-AC_REPLACE_FUNCS([memmove memset stpcpy stpncpy strcspn \
+AC_REPLACE_FUNCS([memset stpcpy stpncpy strcspn \
 strcasecmp strncasecmp strpbrk strstr strtoul vasprintf])
 AM_FUNC_GETLINE
 if test $am_cv_func_working_getline != yes; then

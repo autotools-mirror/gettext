@@ -1,3 +1,10 @@
+2001-09-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (libnlsut_a_SOURCES): Remove safe-read.c.
+	(libnlsut_a_HEADER, LIBADD_SOURCE, LIBADD_HEADER, UNUSED_SOURCE,
+	UNUSED_HEADER): New variables.
+	(noinst_HEADERS, EXTRA_DIST): Use them.
+
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* pipe-bidi.c (nonintr_close): Add function prototypes.
