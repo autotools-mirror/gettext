@@ -2,6 +2,10 @@ Version 0.11.6 - October 2002
 
 * xgettext now also supports Smalltalk and PHP.
 
+* A new C++ class, called gnu::autosprintf, makes it possible to use C format
+  strings in C++. This is needed for proper internationalization of C++
+  programs.
+
 * Compatibility with automake-1.7.
 
 Version 0.11.5 - August 2002
