@@ -5,6 +5,12 @@
    */
 #undef CRAY_STACKSEG_END
 
+/* Define if mono is the preferred C[#] implementation. */
+#undef CSHARP_CHOICE_MONO
+
+/* Define if pnet is the preferred C[#] implementation. */
+#undef CSHARP_CHOICE_PNET
+
 /* Define to 1 if using `alloca.c'. */
 #undef C_ALLOCA
 
@@ -317,6 +323,9 @@
 
 /* Define if integer division by zero raises signal SIGFPE. */
 #undef INTDIV0_RAISES_SIGFPE
+
+/* If malloc(0) is != NULL, define this to 1. Otherwise define this to 0. */
+#undef MALLOC_0_IS_NONNULL
 
 /* Name of package */
 #undef PACKAGE
