@@ -32,6 +32,8 @@ typedef struct _iconv_t
 #define _ICONV_T
 #include "iconv.h"
 
+#include <string.h>
+#include <malloc.h>
 #include <errno.h>
 #include <alloca.h>
 
@@ -41,14 +43,16 @@ cp_convert (const char *cp, UniChar *ucp)
 {
   size_t sl = 0;
 
-  if (!strcasecmp (cp, "EUC-JP"))
+  if (!stricmp (cp, "EUC-JP"))
     memcpy (ucp, L"IBM-954", 8*2);
-  else if (!strcasecmp (cp, "EUC-KR"))
+  else if (!stricmp (cp, "EUC-KR"))
     memcpy (ucp, L"IBM-970", 8*2);
-  else if (!strcasecmp (cp, "EUC-TW"))
+  else if (!stricmp (cp, "EUC-TW"))
     memcpy (ucp, L"IBM-964", 8*2);
-  else if (!strcasecmp (cp, "EUC-CN"))
+  else if (!stricmp (cp, "EUC-CN"))
     memcpy (ucp, L"IBM-1383", 9*2);
+  else if (!stricmp (cp, "BIG5"))
+    memcpy (ucp, L"IBM-950", 8*2);
   else
     {
       /* Transform CPXXX naming style to IBM-XXX style */
@@ -129,7 +133,7 @@ iconv (iconv_t conv,
     goto error;
   sl = ucs - orig_ucs;
   ucs = orig_ucs;
-  /* UniUconvFromUcs will stop at first NULL byte
+  /* UniUconvFromUcs will stop at first nul byte (huh? indeed?)
      while we want ALL the bytes converted.  */
 #if 1
   rc = UniUconvFromUcs (conv->to, &ucs, &sl, (void **)out, out_left, &nonid);

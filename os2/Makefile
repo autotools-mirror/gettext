@@ -47,11 +47,13 @@ INST = emx/
 # Tools
 CC = gcc -c
 CFLAGS = -Wall -Zmt $(INCLUDE) $(DEFS)
-INCLUDE = -I. -I$(ROOT) -I$(ROOT)intl -I$(ROOT)src -I$(ROOT)lib
+INCLUDE = -I. -I$(ROOT) -I$(ROOT)intl -I$(ROOT)src -I$(ROOT)lib -I$(ROOT)libuniname
 DEFS = -DHAVE_CONFIG_H -DLIBDIR=\"/usr/lib\" \
   -DLOCALEDIR=\"/usr/share/locale\" -DLOCALE_ALIAS_PATH=\"/usr/share/locale\" \
+  -DGETTEXTDATADIR=\"/usr/share/gettext\" \
   -DPROJECTSDIR=\"/usr/share/gettext/projects\" \
   -DGETTEXTJAR=\"/usr/share/gettext/gettext.jar\"
+
 
 LD = gcc
 LDFLAGS = -Zmt -Zcrtdll
@@ -113,7 +115,15 @@ LIB.SOURCES = $(addprefix $(ROOT)lib/, error.c stpcpy.c stpncpy.c mkdtemp.c getl
   $(shell sed $(ROOT)lib/Makefile.am -ne "/^libgettextlib_la_SOURCES =/,/[^\]$$/p"))))))
 LIB.OBJECTS = $(addprefix $(OUT),$(subst $(ROOT),,$(LIB.SOURCES:.c=.o)))
 
-OUTDIRS = $(OUT) $(sort $(dir $(INTL.OBJECTS) $(SRC.OBJECTS) $(LIB.OBJECTS) $(INSTALL.FILES)))
+LIBUNINAME.SOURCES = $(addprefix $(ROOT)libuniname/, \
+  $(subst libuniname_a_SOURCES = ,,\
+  $(subst \,,\
+  $(patsubst %.h,,\
+  $(shell sed $(ROOT)libuniname/Makefile.am -ne "/^libuniname_a_SOURCES =/,/^$$/p")))))
+LIBUNINAME.OBJECTS = $(addprefix $(OUT),$(subst $(ROOT),,$(LIBUNINAME.SOURCES:.c=.o)))
+
+OUTDIRS = $(OUT) $(sort $(dir $(INTL.OBJECTS) $(SRC.OBJECTS) $(LIB.OBJECTS) \
+  $(LIBUNINAME.OBJECTS) $(INSTALL.FILES)))
 
 INSTALL.FILES = $(addprefix $(INST)bin/,$(PROGRAMS)) \
   $(INST)lib/intl.a $(INST)lib/intl_s.a $(INST)include/libintl.h \
@@ -136,7 +146,7 @@ $(OUT)%.o: $(ROOT)%.c
 # instead a library containing all the object files from src directory, and
 # then link the library against the main program module, so that linker can
 # pull all the required functions from there
-$(OUT)%.exe: $(OUT)src/%.o $(OUT)util.a $(LINKINTL)
+$(OUT)%.exe: $(OUT)src/%.o $(OUT)util.a $(OUT)uniname.a $(LINKINTL)
 	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
 ifeq ($(LXLITE),1)
 	lxlite /b- $@
@@ -182,7 +192,7 @@ $(OUT)intl.def: $(INTL.OBJECTS)
 	@echo DATA MULTIPLE NONSHARED>>$@
 	@echo EXPORTS>>$@
 	type backward.def>>$@
-	emxexp $^ >>$@
+	emxexp -u $^ >>$@
 
 $(OUT)intl$(INTLDLLVER).dll: $(INTL.OBJECTS) $(OUT)intl.def
 	@echo *********************************************************
@@ -198,6 +208,9 @@ $(OUT)%.a: $(OUT)%.def
 	emximp -o $@ $<
 
 $(OUT)util.a: $(SRC.OBJECTS) $(LIB.OBJECTS)
+	$(AR) $(ARFLAGS) $@ $^
+
+$(OUT)uniname.a: $(LIBUNINAME.OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(ROOT)src/po-gram-gen2.h: $(ROOT)src/po-gram-gen.h

@@ -102,6 +102,10 @@ listed in the \language\codepage\ucstbl.lst file but the codepage files
 themselves are missing; I believe they are ommited from European OS/2's
 due to their large size.
 
+Also I have added "support" for the BIG5 codeset as an alias for IBM-950
+codepage. However, I'm not very sure about this; in any case OS/2 does not
+support (as far as I know) anything closer to BIG5.
+
 
 Additional API
 ==============
