@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 TESTS = gettext-1 gettext-2 msgcmp-1 msgcmp-2 msgfmt-1 msgfmt-2 msgfmt-3 \
 	msgfmt-4 msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 \
 	msgunfmt-1 xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 \
-	xgettext-6 xgettext-7 xgettext-8 xgettext-9 plural-1
+	xgettext-6 xgettext-7 xgettext-8 xgettext-9 plural-1 plural-2
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 
@@ -30,6 +30,7 @@ XGETTEXT = ../src/xgettext
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    GETTEXT=tstgettext \
+		    NGETTEXT=tstngettext \
 		    XGETTEXT=`echo xgettext|sed '$(transform)'` \
 		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
 		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
@@ -49,9 +50,11 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
-EXTRA_PROGRAMS = tstgettext cake
+EXTRA_PROGRAMS = tstgettext tstngettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
+tstngettext_SOURCES = tstngettext.c setlocale.c
+tstngettext_LDADD = ../lib/libnlsut.a $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 all-local: $(EXTRA_PROGRAMS)
 CLEANFILES = $(EXTRA_PROGRAMS)

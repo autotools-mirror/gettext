@@ -1,3 +1,13 @@
+2001-03-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* tstngettext.c: New file.
+	* plural-2: New file.
+	* Makefile.am (TESTS): Add plural-2.
+	(TESTS_ENVIRONMENT): Define NGETTEXT environment variable.
+	(EXTRA_PROGRAMS): Add tstngettext.
+	(tstngettext_SOURCES, tstngettext_LDADD): New variables.
+	* xg-test1.ok.po: Regenerated.
+
 2001-03-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-1-prg.c: Force inclusion of libgnuintl.h. On Solaris,
