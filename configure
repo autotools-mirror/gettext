@@ -6567,8 +6567,8 @@ fi
 
 fi
 
-for ac_func in getcwd mblen memcpy posix_spawn raise select strerror uname \
-utime utimes
+for ac_func in getcwd mblen memcpy posix_spawn putc_unlocked raise select \
+strerror uname utime utimes
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
 echo "configure:6575: checking for $ac_func" >&5
@@ -9051,9 +9051,9 @@ else
 fi
 done
 
-   for ac_func in feof_unlocked fgets_unlocked getcwd getegid geteuid \
-getgid getuid mempcpy munmap putenv setenv setlocale stpcpy strcasecmp strdup \
-strtoul tsearch __argz_count __argz_stringify __argz_next
+   for ac_func in feof_unlocked fgets_unlocked getc_unlocked getcwd getegid \
+geteuid getgid getuid mempcpy munmap putenv setenv setlocale stpcpy \
+strcasecmp strdup strtoul tsearch __argz_count __argz_stringify __argz_next
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
 echo "configure:9060: checking for $ac_func" >&5
@@ -9530,7 +9530,7 @@ done
                 INTLOBJS="\$(GETTOBJS)"
 	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
-	INTLLIBS="\$(top_builddir)/intl/libintl.la $LIBICONV"
+	INTLLIBS="\${top_builddir}/intl/libintl.la $LIBICONV"
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
@@ -9937,49 +9937,10 @@ else
   echo "$ac_t""no" 1>&6
 fi
 
-# Extract the first word of "texi2html", so it can be a program name with args.
-set dummy texi2html; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:9944: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_path_TEXI2HTML'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  case "$TEXI2HTML" in
-  /*)
-  ac_cv_path_TEXI2HTML="$TEXI2HTML" # Let the user override the test with a path.
-  ;;
-  ?:/*)			 
-  ac_cv_path_TEXI2HTML="$TEXI2HTML" # Let the user override the test with a dos path.
-  ;;
-  *)
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do 
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_path_TEXI2HTML="$ac_dir/$ac_word"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-  test -z "$ac_cv_path_TEXI2HTML" && ac_cv_path_TEXI2HTML="$ac_aux_dir_abs/missing texi2html"
-  ;;
-esac
-fi
-TEXI2HTML="$ac_cv_path_TEXI2HTML"
-if test -n "$TEXI2HTML"; then
-  echo "$ac_t""$TEXI2HTML" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-
-CROSS_COMPILING=$cross_compiling
-
 # Extract the first word of "perl", so it can be a program name with args.
 set dummy perl; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:9983: checking for $ac_word" >&5
+echo "configure:9944: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PERL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -10011,6 +9972,9 @@ if test -n "$PERL"; then
 else
   echo "$ac_t""no" 1>&6
 fi
+
+
+CROSS_COMPILING=$cross_compiling
 
 
 test -d intl || mkdir intl
@@ -10249,9 +10213,8 @@ s%@lispdir@%$lispdir%g
 s%@aclocaldir@%$aclocaldir%g
 s%@DVIPS@%$DVIPS%g
 s%@TEXI2PDF@%$TEXI2PDF%g
-s%@TEXI2HTML@%$TEXI2HTML%g
-s%@CROSS_COMPILING@%$CROSS_COMPILING%g
 s%@PERL@%$PERL%g
+s%@CROSS_COMPILING@%$CROSS_COMPILING%g
 
 CEOF
 EOF

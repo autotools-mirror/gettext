@@ -108,7 +108,6 @@ RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
 TESTJAVA = @TESTJAVA@
-TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
@@ -268,7 +267,9 @@ libintl.jar: gnu/gettext/GettextResource.class
 
 install-data-local: install-java-@BUILDJAVA@
 install-java-no:
+	$(mkinstalldirs) $(DESTDIR)$(jardir)
 install-java-yes: all-java-yes
+	$(mkinstalldirs) $(DESTDIR)$(jardir)
 	$(INSTALL_DATA) libintl.jar $(DESTDIR)$(jardir)/libintl.jar
 
 installdirs-local:

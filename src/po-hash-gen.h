@@ -1,7 +1,7 @@
 typedef union
 {
   char *string;
-  int number;
+  size_t number;
 } YYSTYPE;
 #define	STRING	257
 #define	NUMBER	258

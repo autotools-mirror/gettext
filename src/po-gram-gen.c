@@ -20,13 +20,16 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "po-gram.h"
+
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "str-list.h"
 #include "po-lex.h"
-#include "po-gram.h"
 #include "error.h"
-#include "system.h"
+#include "xmalloc.h"
 #include "libgettext.h"
 #include "po.h"
 
@@ -86,7 +89,7 @@ static long plural_counter;
     po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
 
 
-#line 103 "po-gram-gen.y"
+#line 106 "po-gram-gen.y"
 typedef union
 {
   struct { char *string; lex_pos_ty pos; bool obsolete; } string;
@@ -160,8 +163,8 @@ static const short yyrhs[] = {    -1,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   123,   124,   125,   126,   127,   131,   138,   156,   174,   182,
-   190,   199,   210,   214,   229,   251,   258,   269
+   126,   127,   128,   129,   130,   134,   141,   159,   177,   185,
+   193,   202,   213,   217,   232,   254,   261,   272
 };
 #endif
 
@@ -764,13 +767,13 @@ yyreduce:
   switch (yyn) {
 
 case 6:
-#line 132 "po-gram-gen.y"
+#line 135 "po-gram-gen.y"
 {
 		   po_callback_domain (yyvsp[0].string.string);
 		;
     break;}
 case 7:
-#line 139 "po-gram-gen.y"
+#line 142 "po-gram-gen.y"
 {
 		  char *string2 = string_list_concat_destroy (&yyvsp[-2].stringlist.stringlist);
 		  char *string4 = string_list_concat_destroy (&yyvsp[0].stringlist.stringlist);
@@ -790,7 +793,7 @@ case 7:
 		;
     break;}
 case 8:
-#line 157 "po-gram-gen.y"
+#line 160 "po-gram-gen.y"
 {
 		  char *string2 = string_list_concat_destroy (&yyvsp[-2].stringlist.stringlist);
 
@@ -810,7 +813,7 @@ case 8:
 		;
     break;}
 case 9:
-#line 175 "po-gram-gen.y"
+#line 178 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-2].pos, yyvsp[-1].stringlist);
 		  check_obsolete (yyvsp[-2].pos, yyvsp[0].string);
@@ -820,7 +823,7 @@ case 9:
 		;
     break;}
 case 10:
-#line 183 "po-gram-gen.y"
+#line 186 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-2].pos, yyvsp[-1].stringlist);
 		  check_obsolete (yyvsp[-2].pos, yyvsp[0].rhs);
@@ -830,7 +833,7 @@ case 10:
 		;
     break;}
 case 11:
-#line 191 "po-gram-gen.y"
+#line 194 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].pos, yyvsp[0].stringlist);
 		  po_gram_error_at_line (&yyvsp[-1].pos.pos, _("missing `msgstr' section"));
@@ -838,7 +841,7 @@ case 11:
 		;
     break;}
 case 12:
-#line 200 "po-gram-gen.y"
+#line 203 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].pos, yyvsp[0].stringlist);
 		  plural_counter = 0;
@@ -848,13 +851,13 @@ case 12:
 		;
     break;}
 case 13:
-#line 211 "po-gram-gen.y"
+#line 214 "po-gram-gen.y"
 {
 		  yyval.rhs = yyvsp[0].rhs;
 		;
     break;}
 case 14:
-#line 215 "po-gram-gen.y"
+#line 218 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].rhs, yyvsp[0].rhs);
 		  yyval.rhs.rhs.msgstr = (char *) xmalloc (yyvsp[-1].rhs.rhs.msgstr_len + yyvsp[0].rhs.rhs.msgstr_len);
@@ -868,7 +871,7 @@ case 14:
 		;
     break;}
 case 15:
-#line 230 "po-gram-gen.y"
+#line 233 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-4].pos, yyvsp[-3].pos);
 		  check_obsolete (yyvsp[-4].pos, yyvsp[-2].number);
@@ -889,7 +892,7 @@ case 15:
 		;
     break;}
 case 16:
-#line 252 "po-gram-gen.y"
+#line 255 "po-gram-gen.y"
 {
 		  string_list_init (&yyval.stringlist.stringlist);
 		  string_list_append (&yyval.stringlist.stringlist, yyvsp[0].string.string);
@@ -898,7 +901,7 @@ case 16:
 		;
     break;}
 case 17:
-#line 259 "po-gram-gen.y"
+#line 262 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].stringlist, yyvsp[0].string);
 		  yyval.stringlist.stringlist = yyvsp[-1].stringlist.stringlist;
@@ -908,7 +911,7 @@ case 17:
 		;
     break;}
 case 18:
-#line 270 "po-gram-gen.y"
+#line 273 "po-gram-gen.y"
 {
 		  po_callback_comment (yyvsp[0].string.string);
 		;
@@ -1135,4 +1138,4 @@ yyerrhandle:
     }
   return 1;
 }
-#line 274 "po-gram-gen.y"
+#line 277 "po-gram-gen.y"

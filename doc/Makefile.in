@@ -123,10 +123,6 @@ lispdir = @lispdir@
 DVIPS = @DVIPS@ -D600
 
 
-# Documentation in HTML format.
-TEXI2HTML = @TEXI2HTML@
-
-
 # Documentation in Portable Document Format.
 TEXI2PDF = @TEXI2PDF@
 
@@ -144,7 +140,13 @@ RM = rm -f
 MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
 info_TEXINFOS = gettext.texi
-gettext_TEXINFOS = iso-639.texi iso-3166.texi
+# List of texinfo sources @included by gettext.texi, excluding version.texi.
+gettext_TEXINFOS = \
+  xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
+  msggrep.texi msgexec.texi msguniq.texi msgcomm.texi msgcmp.texi \
+  msgattrib.texi msgen.texi msgfmt.texi msgunfmt.texi \
+  iso-639.texi iso-3166.texi
+
 
 EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi $(EXTRA_DIST_html)
 
@@ -153,6 +155,10 @@ CLEANFILES = gettext.pdf gettext.html
 # gettext.dvi and gettext.ps are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html
 SUFFIXES = .pdf
+
+
+# Documentation in HTML format.
+TEXI2HTML = @PERL@ $(srcdir)/texi2html
 subdir = doc
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -474,8 +480,8 @@ gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	case "$(TEXI2HTML)" in \
-	  *"/missing texi2html") \
+	case "@PERL@" in \
+	  *"/missing perl") \
 	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
 	  *) $(RM) gettext_*.html ; \
 	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
