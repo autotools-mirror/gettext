@@ -1,3 +1,8 @@
+2001-06-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm-17: New file, from Karl Eichwalder.
+	* Makefile.am (TESTS): Add it.
+
 2001-06-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (noinst_PROGRAMS): New variable.
