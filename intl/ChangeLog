@@ -1,5 +1,9 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.in (uninstall): Synchronize with the install target.
+
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in (mkinstalldirs): New macro. Needed when configured with
 	--srcdir=<relative pathname>; then ac_aux_dir will be a relative
 	pathname rooted at the top builddir, and @MKINSTALLDIRS@ likewise.

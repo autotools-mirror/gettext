@@ -140,7 +140,7 @@ install-exec: all
 	  $(INSTALL_DATA) libintl.a $(DESTDIR)$(libdir)/libintl.a; \
 	else \
 	  : ; \
-	fi; \
+	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
 	  test -f $(DESTDIR)$(libdir)/charset.alias \
@@ -171,10 +171,13 @@ install-data: all
 installcheck:
 
 uninstall:
-	dists="$(DISTFILES.common)"; \
-	for file in $$dists; do \
-	  rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
-	done; \
+	if test "$(PACKAGE)" = "gettext" \
+	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
+	  rm -f $(DESTDIR)$(includedir)/libintl.h; \
+	  rm -f $(DESTDIR)$(libdir)/libintl.a; \
+	else \
+	  : ; \
+	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes \
 	  && test -f $(DESTDIR)$(libdir)/charset.alias; then \
 	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
@@ -186,6 +189,14 @@ uninstall:
 	    $(INSTALL_DATA) $$temp $$dest; \
 	  fi; \
 	  rm -f $$temp; \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext"; then \
+	  dists="$(DISTFILES.common)"; \
+	  for file in VERSION $$dists; do \
+	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
 	else \
 	  : ; \
 	fi
