@@ -1,3 +1,7 @@
+2001-04-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (ps, pdf, html): New targets.
+
 2001-04-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (ALL_LINGUAS): Add pt_BR.

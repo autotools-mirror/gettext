@@ -38,3 +38,15 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \
 	  && $(MAKEINFO) --output=$(srcdir)/ABOUT-NLS --no-header \
 	    -I $(srcdir)/doc --no-validate nls.texi
+
+
+# Documentation tags not known to automake.
+
+ps:
+	cd doc && $(MAKE) ps
+
+pdf:
+	cd doc && $(MAKE) pdf
+
+html:
+	cd doc && $(MAKE) html
