@@ -1,3 +1,14 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Header Entry): The language-team address can be an
+	URL instead of an email address.
+	(Plural forms): Gaeilge is also known as Irish.
+	(src/Makefile): No need to put libsupport.a into LIBS twice.
+	(Java): Add more documentation.
+	(Pascal): Likewise.
+	(YCP): Likewise.
+	(RST): Update.
+
 2001-10-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* texi2html: New file, from texi2html-1.52 with modifications.
