@@ -1,5 +1,17 @@
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* msginit.c: New file.
+	* project-id: New file.
+	* Makefile.am (bin_PROGRAMS): Add msginit.
+	(projectsdir): New variable.
+	(DEFS): Add -DLIBDIR and -DPROJECTSDIR.
+	(msginit_SOURCES): New variable.
+	(msginit_LDADD): New variable.
+	(install-exec-local): Also install project-id.
+	(uninstall-local): Also uninstall project-id.
+
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* gnu/gettext/GetURL.java: New file.
 	* urlget.c: New file.
 	* Makefile.am (noinst_PROGRAMS): Add urlget.
@@ -51,7 +63,7 @@
 	* read-java.c (execute_and_read_po_output): Update for changed
 	create_pipe_in(), wait_subprocess().
 
-2001-01-08  Bruno Haible  <haible@clisp.cons.org>
+2001-10-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (remember_a_message): When the comment tag is seen,
 	remember all remaining comment lines, not just one.

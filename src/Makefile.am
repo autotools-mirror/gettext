@@ -21,7 +21,7 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msguniq
+msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msginit msguniq
 
 noinst_PROGRAMS = hostname urlget
 
@@ -35,11 +35,12 @@ EXTRA_DIST = FILES
 
 localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
+projectsdir = $(pkgdatadir)/projects
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
-@DEFS@
+-DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 LDADD = ../lib/libnlsut.a @INTLLIBS@
 
 SED = sed
@@ -79,6 +80,7 @@ msgconv_SOURCES   = msgconv.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po
 msgen_SOURCES     = msgen.c     $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-english.c
 msgexec_SOURCES   = msgexec.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
 msggrep_SOURCES   = msggrep.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
+msginit_SOURCES   = msginit.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-english.c po-time.c
 msguniq_SOURCES   = msguniq.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c
 hostname_SOURCES  = hostname.c
 urlget_SOURCES    = urlget.c
@@ -98,6 +100,8 @@ msgconv_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgen_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgexec_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msggrep_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
+                ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msguniq_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
 
@@ -124,6 +128,7 @@ install-exec-local:
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
 	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
+	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
 
 installdirs-local:
 	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
@@ -132,6 +137,7 @@ uninstall-local:
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
 
 
 # Special rules for Java compilation.

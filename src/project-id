@@ -1,0 +1,67 @@
+#!/bin/sh
+# Prints a package's identification PACKAGE VERSION or PACKAGE.
+
+want_version="$1"
+while true; do
+  if test -f configure; then
+    package=`grep '^PACKAGE=' configure | sed -e '1q' | sed -e 's/^PACKAGE=//'`
+    case "$package" in
+      *[\"\$\`\{\}]*)
+        # Some packages (gcal) retrieve the package name dynamically.
+        package=
+        ;;
+    esac
+    if test -n "$package"; then
+      is_gnu=`LC_ALL=C grep "GNU $package" * 2>/dev/null`
+      if test -n "$is_gnu"; then
+        package="GNU $package"
+      fi
+      if test -n "$want_version"; then
+        version=`grep '^VERSION=' configure | sed -e '1q' | sed -e 's/^VERSION=//'`
+        case "$version" in
+          *[\"\$\`\{\}]*)
+            # Some packages (gcal, gcc, clisp) retrieve the version dynamically.
+            version=
+            ;;
+        esac
+        if test -n "$version"; then
+          echo "$package $version"
+        else
+          echo "$package"
+        fi
+      else
+        echo "$package"
+      fi
+      exit 0
+    fi
+  fi
+  dir=`basename \`pwd\``
+  case "$dir" in
+    i18n)
+      # This directory name, used in GNU make, is not the top level directory.
+      ;;
+    *[A-Za-z]*[0-9]*)
+      package=`echo "$dir" | sed -e 's/^\([^0-9]*\)[0-9].*$/\1/' -e 's/[-_]$//'`
+      if test -n "$want_version"; then
+        version=`echo "$dir" | sed -e 's/^[^0-9]*\([0-9].*\)$/\1/'`
+        echo "$package $version"
+      else
+        echo "$package"
+      fi
+      exit 0
+      ;;
+  esac
+  # Go to parent directory
+  last=`/bin/pwd`
+  cd ..
+  curr=`/bin/pwd`
+  if test "$last" = "$curr"; then
+    # Oops, didn't find the package name.
+    if test -n "$want_version"; then
+      echo "PACKAGE VERSION"
+    else
+      echo "PACKAGE"
+    fi
+    exit 0
+  fi
+done
