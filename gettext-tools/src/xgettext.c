@@ -1553,7 +1553,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_PHP
     EXTENSIONS_RST
     EXTENSIONS_GLADE
-    /* Here will follow more file extensions: sh, cs ... */
+    /* Here will follow more file extensions: cs ... */
   };
 
   table_ty *tp;
