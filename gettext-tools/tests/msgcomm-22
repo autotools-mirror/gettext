@@ -1,9 +1,9 @@
 #! /bin/sh
 
+# Verify that the header entry is kept, otherwise the encoding is unknown.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
-
-# keep header file entry, otherwise the encoding is unknown
 
 tmpfiles="$tmpfiles mcomm-test22.in1 mcomm-test22.in2"
 cat <<\EOF > mcomm-test22.in1

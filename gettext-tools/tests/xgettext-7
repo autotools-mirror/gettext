@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# Test C support: --add-comments option.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 

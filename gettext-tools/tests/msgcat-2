@@ -1,9 +1,9 @@
 #! /bin/sh
 
+# Test handling of input files with different charsets.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
-
-# input files with different charsets.
 
 tmpfiles="$tmpfiles mcat-test2.in1 mcat-test2.in2"
 cat <<\EOF > mcat-test2.in1

@@ -1,10 +1,10 @@
 #! /bin/sh
 
+# Test handling of input files with different translations:
+# preserve all variants, add markers
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
-
-# input files with different translations:
-# preserve all variants, add markers
 
 tmpfiles="$tmpfiles mcat-test6.in1 mcat-test6.in2"
 cat <<\EOF > mcat-test6.in1

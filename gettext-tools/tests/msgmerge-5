@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# Test handling of header entry.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
