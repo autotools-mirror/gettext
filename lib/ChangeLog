@@ -1,3 +1,8 @@
+2002-10-27  Bruno Haible  <bruno@clisp.org>
+
+	* liballoca.h: Put under LGPL.
+	* libstdarg.h: Likewise.
+
 2002-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* vasprintf.c (int_vasprintf): Treat 'F' like 'f'.
