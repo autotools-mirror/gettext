@@ -1,3 +1,7 @@
+2002-07-25  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Unset also CVS_IGNORE_REMOTE_ROOT and CVSIGNORE.
+
 2002-07-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Add inttypes-pri.m4 to m4filelist.
