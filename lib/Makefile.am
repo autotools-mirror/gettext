@@ -27,13 +27,14 @@ strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c \
 gen-lbrkprop.c 3level.h
 
 libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c \
-getopt.c getopt1.c hash.c linebreak.c localcharset.c obstack.c xgetcwd.c \
-xmalloc.c xstrdup.c
+getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c obstack.c \
+xgetcwd.c xmalloc.c xstrdup.c
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
 noinst_HEADERS = c-ctype.h error.h fstrcmp.h getline.h getopt.h hash.h \
-lbrkprop.h linebreak.h obstack.h printf-parse.h printf.h system.h pathmax.h
+lbrkprop.h linebreak.h mbswidth.h obstack.h printf-parse.h printf.h system.h \
+pathmax.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl

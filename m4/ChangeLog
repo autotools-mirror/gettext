@@ -1,3 +1,10 @@
+2001-04-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* mbswidth.m4: New file, from textutils-2.0.13 with modifications.
+	* mbrtowc.m4: Likewise.
+	* mbstate_t.m4: Likewise.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2001-03-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.36 released.
