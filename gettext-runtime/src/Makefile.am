@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+DISTCLEANFILES =
 
 RM = rm -f
 
@@ -52,15 +53,9 @@ ngettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 envsubst_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 endif
 
-# Special rule for installing gettext.sh in $(bindir).
-# automake doesn't handle "bin_DATA = gettext.sh".
-EXTRA_DIST += gettext.sh
-all-local: gettext.sh
-install-data-local: all-local
-	$(mkinstalldirs) $(DESTDIR)$(bindir)
-	$(INSTALL_DATA) $(srcdir)/gettext.sh $(DESTDIR)$(bindir)/gettext.sh
-uninstall-local: all-local
-	$(RM) $(DESTDIR)$(bindir)/gettext.sh
+# For installing gettext.sh in $(bindir).
+bin_SCRIPTS = gettext.sh
+DISTCLEANFILES += gettext.sh
 
 # Support for relocatability.
 RELOCATABLE_LIBRARY_PATH = $(libdir)

@@ -121,7 +121,6 @@ install : all force
 	$(INSTALL_PROGRAM) gettext.exe $(bindir)\gettext.exe
 	$(INSTALL_PROGRAM) ngettext.exe $(bindir)\ngettext.exe
 	$(INSTALL_PROGRAM) envsubst.exe $(bindir)\envsubst.exe
-	$(INSTALL_DATA) gettext.sh $(bindir)\gettext.sh
 
 installdirs : force
 	-mkdir $(prefix)
@@ -132,7 +131,6 @@ uninstall : force
 	$(RM) $(bindir)\gettext.exe
 	$(RM) $(bindir)\ngettext.exe
 	$(RM) $(bindir)\envsubst.exe
-	$(RM) $(bindir)\gettext.sh
 
 check : all
 

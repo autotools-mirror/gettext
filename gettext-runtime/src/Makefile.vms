@@ -76,7 +76,6 @@ install : all
 	$(INSTALL_PROGRAM) gettext.exe $(bindir)]gettext.exe
 	$(INSTALL_PROGRAM) ngettext.exe $(bindir)]ngettext.exe
 	$(INSTALL_PROGRAM) envsubst.exe $(bindir)]envsubst.exe
-	$(INSTALL_DATA) gettext.sh $(bindir)]gettext.sh
 
 installdirs :
 	create /directory $(prefix)]
@@ -87,7 +86,6 @@ uninstall :
 	$(RM) $(bindir)]gettext.exe;
 	$(RM) $(bindir)]ngettext.exe;
 	$(RM) $(bindir)]envsubst.exe;
-	$(RM) $(bindir)]gettext.sh;
 
 check : all
 	write sys$output "Nothing else to be done for 'check'."

@@ -1,3 +1,16 @@
+2005-02-10  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.sh.in: Renamed from gettext.sh. Show help or usage or an
+	error message when invoked as an executable.
+	* Makefile.am (bin_SCRIPTS, DISTCLEANFILES): New variables.
+	(EXTRA_DIST): Remove gettext.sh.
+	(all-local, install-data-local, uninstall-local): Remove rules.
+	* Makefile.msvc (install): Don't install gettext.sh.
+	(uninstall): Don't uninstall gettext.sh.
+	* Makefile.vms (install): Don't install gettext.sh.
+	(uninstall): Don't uninstall gettext.sh.
+	Suggested by Alfred M. Szmidt <ams@kemisten.nu>.
+
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.c (main): Update year in --version output.

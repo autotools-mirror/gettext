@@ -159,6 +159,7 @@ AC_CONFIG_FILES([lib/csharpcomp.sh:../gettext-tools/lib/csharpcomp.sh.in])
 
 AC_CONFIG_FILES([src/Makefile],
                 [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([src/gettext.sh], [chmod a+x src/gettext.sh])
 
 AC_CONFIG_FILES([po/Makefile.in])
 
