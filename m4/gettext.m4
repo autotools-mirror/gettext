@@ -17,6 +17,25 @@ dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl INCDIR is used to find the include files.  If empty,
 dnl    the value `intl' is used.
+dnl
+dnl The result of the configuration is one of five cases:
+dnl 1) GNU gettext, as included in the intl subdirectory, will be compiled
+dnl    and used.
+dnl    Catalog format: GNU --> DATADIRNAME = share
+dnl    Catalog extension: .mo after installation, .gmo in source tree
+dnl 2) GNU gettext has been found in the system's C library.
+dnl    Catalog format: GNU --> DATADIRNAME = share
+dnl    Catalog extension: .mo after installation, .gmo in source tree
+dnl 3) An X/Open gettext has been found in the system's C library.
+dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
+dnl    Catalog extension: .mo
+dnl 4) A catgets has been found in the system's C library.
+dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
+dnl    Catalog extension: .cat
+dbl 5) No internationalization, always use English msgid.
+dnl    Catalog format: none
+dnl    Catalog extension: none
+dnl
 AC_DEFUN(AM_WITH_NLS,
   [AC_MSG_CHECKING([whether NLS is requested])
     dnl Default is enabled NLS
