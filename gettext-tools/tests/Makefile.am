@@ -94,7 +94,7 @@ TESTS = gettext-1 gettext-2 \
 	lang-perl-2 lang-php lang-po lang-rst
 
 EXTRA_DIST += $(TESTS) \
-	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \
+	test.mo xg-c-1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \
 	msguniq-a.out qttest_pl.po qttest_pl.qm ChangeLog.0
 
 XGETTEXT = ../src/xgettext
@@ -132,8 +132,8 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 
-xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
-	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) \
+xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
+	$(XGETTEXT) -d xg-c-1.ok -p $(srcdir) \
 	  -k_ --omit-header --no-location \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 
