@@ -1,7 +1,11 @@
 #! /bin/sh
+
+# This test often fails during development. It works after "make dist".
+
 # One argument is required which is the path to the toplevel directory
 # of the distribution.
 
+tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="zero-domain.po"
