@@ -1,3 +1,8 @@
+2001-04-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* mbswidth.m4: Also include <string.h>; this is where AIX 3.2.5
+	declares wcwidth.
+
 2001-04-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4: Workaround an automake-1.4 bug: Don't write

@@ -12,6 +12,10 @@ AC_DEFUN(jm_PREREQ_MBSWIDTH,
 
   AC_CACHE_CHECK([whether wcwidth is declared], ac_cv_have_decl_wcwidth,
     [AC_TRY_COMPILE([
+dnl AIX 3.2.5 declares wcwidth in <string.h>.
+#if HAVE_STRING_H
+# include <string.h>
+#endif
 #if HAVE_WCHAR_H
 # include <wchar.h>
 #endif
