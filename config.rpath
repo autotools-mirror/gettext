@@ -2,7 +2,7 @@
 # Output a system dependent set of variables, describing how to set the
 # run time search path of an executable in an executable.
 #
-#   Copyright 1996-2001 Free Software Foundation, Inc.
+#   Copyright 1996-2002 Free Software Foundation, Inc.
 #   Taken from GNU libtool, 2001
 #   Originally by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 #
@@ -394,7 +394,7 @@ case "$host_os" in
       *)
         case $LD in
           *-32|*"-32 ") libsuff= shlibsuff= ;;
-          *-n32|*"-n32 ") libsuff=32 shlibsuff=N32 2;;
+          *-n32|*"-n32 ") libsuff=32 shlibsuff=N32 ;;
           *-64|*"-64 ") libsuff=64 shlibsuff=64 ;;
           *) libsuff= shlibsuff= ;;
         esac

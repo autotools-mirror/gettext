@@ -1,3 +1,7 @@
+2002-01-07  Bruno Haible  <bruno@clisp.org>
+
+	* config.rpath [IRIX]: Fix typo.
+
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Postprocess doc/Makefile.
