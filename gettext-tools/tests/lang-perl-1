@@ -12,11 +12,14 @@ tmpfiles="$tmpfiles program.pl"
 cat <<\EOF > program.pl
 use Locale::Messages;
 textdomain "prog";
-bindtextdomain ("./");
+bindtextdomain "prog", "./";
 my $n = 2;
 print _"'Your command, please?', asked the waiter.";
+print "\n";
 printf ngettext ("a piece of cake", "%d pieces of cake", $n), $n;
+print "\n";
 printf _"%s is replaced by %s.", "FF", "EUR";
+print "\n";
 EOF
 
 tmpfiles="$tmpfiles prog.pot"
@@ -50,7 +53,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "'Your command, please?', asked the waiter."
-msgstr "«Votre commande, s'il vous plait», dit le garçon."
+msgstr "Votre commande, s'il vous plait, dit le garï¿½n."
 
 # Les gateaux allemands sont les meilleurs du monde.
 #, perl-format
@@ -82,7 +85,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
-«Votre commande, s'il vous plait», dit le garçon.
+Votre commande, s'il vous plait, dit le garï¿½n.
 2 morceaux de gateau
 EUR remplace FF.
 EOF

@@ -1,3 +1,9 @@
+2003-08-04  Bruno Haible  <bruno@clisp.org>
+
+	* lang-perl-1: Small tweaks.
+	* lang-perl-2: Likewise.
+	* xgettext-26: Likewise.
+
 2003-08-04  Guido Flohr  <guido@imperia.net>
 
 	* format-perl-brace-1: Fix last patch,

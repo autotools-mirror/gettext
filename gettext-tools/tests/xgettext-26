@@ -10,7 +10,7 @@ cat <<\EOF > xg-test26.pl
 use Locale::Messages;
 
 textdomain "prog";
-bindtextdomain ("./");
+bindtextdomain "prog", "./";
 
 s/foo/
           # stress test for string extraction /xe;
