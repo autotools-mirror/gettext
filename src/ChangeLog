@@ -1,3 +1,19 @@
+2001-10-04  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.l (object_list): New type.
+	(INITIAL_OBJECT_LIST_SIZE, OBJECT_LIST_GROWTH): New macros.
+	(java_keyword): New type.
+	(strip_ending_spaces): New function.
+	(object_list_alloc, object_list_destroy, get_num_objects, get_object,
+	add_object, alloc_keyword): New functions.
+	(java_keywords): Change type.
+	(extract_keyword, extract_msgid_arg, extract_msgid_plural_arg): New
+	functions.
+	(is_keyword): Change return type.
+	(x_java_keyword): Update.
+	(extract_java): Count arguments, and support plural keywords like
+	ngettext.
+
 2001-09-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.h (omit_header): New declaration.
