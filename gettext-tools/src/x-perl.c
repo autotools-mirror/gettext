@@ -2022,10 +2022,12 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		case 'w':
 		  tp->type = token_type_symbol;
 		  break;
-		default: /* q\000 */
+		case '\0':
 		  tp->type = token_type_string;
 		  tp->string_type = string_type_q;
 		  break;
+		default:
+		  abort ();
 		}
 	      return;
 	    }
