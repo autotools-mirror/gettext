@@ -1181,11 +1181,14 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
       p = strchr (msgid, accelerator_char);
       if (p != NULL && strchr (p + 1, accelerator_char) == NULL)
 	{
-	  /* Count the number of '&' in msgstr.  */
+	  /* Count the number of '&' in msgstr, but ignore '&&'.  */
 	  unsigned int count = 0;
 
 	  for (p = msgstr; (p = strchr (p, accelerator_char)) != NULL; p++)
-	    count++;
+	    if (p[1] == accelerator_char)
+	      p++;
+	    else
+	      count++;
 
 	  if (count == 0)
 	    {
