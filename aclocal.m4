@@ -534,6 +534,24 @@ AC_DEFUN(AM_PROG_NM, [indir([AC_PROG_NM])])dnl
 dnl This is just to silence aclocal about the macro not being used
 ifelse([AC_DISABLE_FAST_INSTALL])dnl
 
+#serial 1
+# This test replaces the one in autoconf.
+# Currently this macro should have the same name as the autoconf macro
+# because gettext's gettext.m4 (distributed in the automake package)
+# still uses it.  Otherwise, the use in gettext.m4 makes autoheader
+# give these diagnostics:
+#   configure.in:556: AC_TRY_COMPILE was called before AC_ISC_POSIX
+#   configure.in:556: AC_TRY_RUN was called before AC_ISC_POSIX
+
+undefine([AC_ISC_POSIX])
+
+AC_DEFUN(AC_ISC_POSIX,
+  [
+    dnl This test replaces the obsolescent AC_ISC_POSIX kludge.
+    AC_CHECK_LIB(cposix, strerror, [LIBS="$LIBS -lcposix"])
+  ]
+)
+
 # From Ulrich Drepper.
 
 # serial 1
@@ -569,11 +587,13 @@ AC_DEFUN(AM_FUNC_ERROR_AT_LINE,
 # but which still want to provide support for the GNU gettext functionality.
 # Please note that the actual code is *not* freely available.
 
-# serial 5
+# serial 7
 
 dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR], [INCDIR]).
-dnl If SYMBOL is specified and is `no-categets', then the catgets
-dnl    checks will be disabled.
+dnl If SYMBOL is specified and is `no-catgets', then the catgets checks
+dnl    will be disabled.  You must specify this if your program uses
+dnl    any of the ngettext/dngettext/dcngettext/bind_textdomain_codeset
+dnl    functions, which are not supported by the catgets backend.
 dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl INCDIR is used to find the include files.  If empty,
@@ -769,6 +789,7 @@ dnl Usage: Just like AM_WITH_NLS, which see.
 AC_DEFUN(AM_GNU_GETTEXT,
   [AC_REQUIRE([AC_PROG_MAKE_SET])dnl
    AC_REQUIRE([AC_PROG_CC])dnl
+   AC_REQUIRE([AC_CANONICAL_HOST])dnl
    AC_REQUIRE([AC_PROG_RANLIB])dnl
    AC_REQUIRE([AC_ISC_POSIX])dnl
    AC_REQUIRE([AC_HEADER_STDC])dnl
@@ -779,11 +800,14 @@ AC_DEFUN(AM_GNU_GETTEXT,
    AC_REQUIRE([AC_FUNC_ALLOCA])dnl
    AC_REQUIRE([AC_FUNC_MMAP])dnl
 
-   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h string.h \
-unistd.h sys/param.h])
-   AC_CHECK_FUNCS([getcwd munmap putenv setenv setlocale strchr strcasecmp \
-strdup __argz_count __argz_stringify __argz_next tsearch iconv stpcpy mempcpy])
+   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
+stdlib.h string.h unistd.h sys/param.h])
+   AC_CHECK_FUNCS([feof_unlocked fgets_unlocked getcwd mempcpy munmap putenv \
+setenv setlocale stpcpy strchr strcasecmp strdup tsearch \
+__argz_count __argz_stringify __argz_next])
 
+   AM_ICONV
+   AM_LANGINFO_CODESET
    AM_LC_MESSAGES
    AM_WITH_NLS([$1],[$2],[$3])
 
@@ -931,6 +955,64 @@ else
   AC_MSG_RESULT(no)
 fi
 AC_SUBST($1)dnl
+])
+
+#serial AM1
+
+dnl From Bruno Haible.
+
+AC_DEFUN(AM_ICONV,
+[
+  dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
+  dnl those with the standalone portable libiconv installed).
+  AC_CACHE_CHECK(for iconv, am_cv_func_iconv, [
+    am_cv_func_iconv="no, consider installing libiconv"
+    am_cv_lib_iconv=no
+    AC_TRY_LINK([#include <stdlib.h>
+#include <iconv.h>],
+      [iconv_t cd = iconv_open("","");
+       iconv(cd,NULL,NULL,NULL,NULL);
+       iconv_close(cd);],
+      am_cv_func_iconv=yes)
+    if test "$am_cv_func_iconv" != yes; then
+      am_save_LIBS="$LIBS"
+      LIBS="$LIBS -liconv"
+      AC_TRY_LINK([#include <stdlib.h>
+#include <iconv.h>],
+        [iconv_t cd = iconv_open("","");
+         iconv(cd,NULL,NULL,NULL,NULL);
+         iconv_close(cd);],
+        am_cv_lib_iconv=yes
+        am_cv_func_iconv=yes)
+      LIBS="$am_save_LIBS"
+    fi
+  ])
+  if test "$am_cv_func_iconv" = yes; then
+    AC_DEFINE(HAVE_ICONV, 1, [Define if you have the iconv() function.])
+  fi
+  LIBICONV=
+  if test "$am_cv_lib_iconv" = yes; then
+    LIBICONV="-liconv"
+  fi
+  AC_SUBST(LIBICONV)
+])
+
+#serial AM1
+
+dnl From Bruno Haible.
+
+AC_DEFUN(AM_LANGINFO_CODESET,
+[
+  AC_CACHE_CHECK([for nl_langinfo and CODESET], am_cv_langinfo_codeset,
+    [AC_TRY_LINK([#include <langinfo.h>],
+      [char* cs = nl_langinfo(CODESET);],
+      am_cv_langinfo_codeset=yes,
+      am_cv_langinfo_codeset=no)
+    ])
+  if test $am_cv_langinfo_codeset = yes; then
+    AC_DEFINE(HAVE_LANGINFO_CODESET, 1,
+      [Define if you have <langinfo.h> and nl_langinfo(CODESET).])
+  fi
 ])
 
 # Check whether LC_MESSAGES is available in <locale.h>.
