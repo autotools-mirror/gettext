@@ -1,0 +1,5 @@
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* intl.cs: New file.
+	* Makefile.am: New file.
+
