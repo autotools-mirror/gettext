@@ -1,5 +1,5 @@
 /* Error handler for noninteractive utilities
-   Copyright (C) 1990-1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1990-1998, 2000, 2001 Free Software Foundation, Inc.
 
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
@@ -27,7 +27,6 @@
 #endif
 
 #include <stdio.h>
-#include <libintl.h>
 
 #if HAVE_VPRINTF || HAVE_DOPRNT || _LIBC
 # if __STDC__
@@ -52,7 +51,14 @@ void exit ();
 #include "error.h"
 
 #ifndef _
-# define _(String) String
+# if ENABLE_NLS || defined _LIBC
+#  include <libintl.h>
+#  ifndef _
+#   define _(Str) gettext (Str)
+#  endif
+# else
+#  define _(Str) (Str)
+# endif
 #endif
 
 /* If NULL, error will flush stdout, then print on stderr the program

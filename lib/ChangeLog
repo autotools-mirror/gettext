@@ -1,3 +1,14 @@
+2001-02-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* system.h (O_BINARY, O_TEXT, setmode, fileno): New macros for systems
+	that distinguish between text and binary I/O.
+
+2001-02-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* error.c: Include <libintl.h> only if ENABLE_NLS || _LIBC.
+	* getopt.c: Test ENABLE_NLS instead of 'defined HAVE_LIBINTL_H'.
+	* obstack.c: Likewise.
+
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
 	* system.h: Assume <stdlib.h>, <string.h> exist.

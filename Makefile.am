@@ -26,7 +26,7 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh
-SUBDIRS = doc lib intl src po m4 misc tests
+SUBDIRS = doc intl lib src po m4 misc tests
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \
