@@ -12,7 +12,8 @@
 #define textdomain textdomain__
 #define bindtextdomain bindtextdomain__
 #define ngettext ngettext__
-#include <libgnuintl.h>
+#undef _LIBINTL_H
+#include "libgnuintl.h"
 
 int main (argc, argv)
   int argc;

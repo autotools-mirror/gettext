@@ -1,3 +1,8 @@
+2001-03-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-1-prg.c: Force inclusion of libgnuintl.h. On Solaris,
+	<locale.h> has already included libintl.h.
+
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcmp-2: Expect a singular error message.

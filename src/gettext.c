@@ -34,6 +34,7 @@
 # define bindtextdomain bindtextdomain__
 # define gettext gettext__
 # define dgettext dgettext__
+# undef _LIBINTL_H
 # include "libgnuintl.h"
 #else
 # include "libgettext.h"
