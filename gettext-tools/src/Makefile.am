@@ -223,9 +223,16 @@ po-gram-gen2.h: po-gram-gen.h
 	$(SED) 's/yy/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
 
+# We must add the '#include <vms_jackets.h>' here, not inside x-java.l,
+# because on VMS, <vms_jackets.h> must be included before <stdio.h>.
 x-java.c: x-java.l
-	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
-	test "$(LEX)" = ":" || mv $@-tmp $@
+	test "$(LEX)" = ":" || { \
+	  $(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l && \
+	  (echo '#ifdef VMS'; echo '#include <vms_jackets.h>'; echo '#endif'; \
+	   cat $@-tmp) > $@-tmq && \
+	  rm -f $@-tmp && \
+	  mv $@-tmq $@ ; \
+	}
 
 
 # Special rules for installation of auxiliary programs.

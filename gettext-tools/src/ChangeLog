@@ -2,6 +2,7 @@
 
 	* Makefile.vms: New file.
 	* Makefile.am (EXTRA_DIST): Add Makefile.vms.
+	(x-java.c): Prepend a few VMS specific lines.
 	* po-lex.c (mbfile_getc): Change element type of scatchbuf to
 	'unsigned char'.
 	* write-java.c (string_hashcode, write_java_string): Cast argument of
