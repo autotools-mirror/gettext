@@ -169,8 +169,10 @@ __add_to_environ (name, value, combined, replace)
 #endif
 
       /* We allocated this space; we can extend it.  */
-      new_environ = (char **) realloc (last_environ,
-				       (size + 2) * sizeof (char *));
+      new_environ =
+	(char **) (last_environ == NULL
+		   ? malloc ((size + 2) * sizeof (char *))
+		   : realloc (last_environ, (size + 2) * sizeof (char *)));
       if (new_environ == NULL)
 	{
 	  UNLOCK;
