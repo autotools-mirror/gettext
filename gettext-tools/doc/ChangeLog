@@ -1,3 +1,8 @@
+2004-08-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Aspects): Fix typo in ISO standard number.
+	Patch by <bethor@gmx.li>.
+
 2004-07-13  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Python): Remove mention of a bug that was fixed in

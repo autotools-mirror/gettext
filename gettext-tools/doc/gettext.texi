@@ -705,7 +705,7 @@ display currency figures in the native mode for each locale.
 
 The format of date varies between locales.  For example, Christmas day
 in 1994 is written as 12/25/94 in the USA and as 25/12/94 in Australia.
-Other countries might use @w{ISO 8061} dates, etc.
+Other countries might use @w{ISO 8601} dates, etc.
 
 Time of the day may be noted as @var{hh}:@var{mm}, @var{hh}.@var{mm},
 or otherwise.  Some locales require time to be specified in 24-hour
