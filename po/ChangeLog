@@ -1,5 +1,10 @@
 2000-07-26  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.in.in (MKINSTALLDIRS): Remove the  $(top_srcdir)/ prefix.
+	configure must get this right.
+	(install-data-yes): Use $(SHELL) for calling $(MKINSTALLDIRS), don't
+	rely on its execution permissions.
+
 	* Makefile.in.in (install, uninstall): Provide DESTDIR support, as
 	recommended by GNU standards.
 	(uninstall): Remove obsolete po-Makefile.in.in line.

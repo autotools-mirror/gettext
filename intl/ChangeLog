@@ -1,5 +1,8 @@
 2000-07-26  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.in (install-exec, install-data): Use $(SHELL) for calling
+	$(MKINSTALLDIRS), don't rely on its execution permissions.
+
 	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): New variables.
 	(libintl.la): Use them.
 
