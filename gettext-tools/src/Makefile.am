@@ -106,9 +106,9 @@ msgl-charset.c po-time.c plural.c plural-table.c $(FORMAT_SOURCE)
 libgettextpo_la_SOURCES = gettext-po.c
 # Libtool's library version information for libgettextpo.
 # See the libtool documentation, section "Library interface versions".
-LTV_CURRENT=0
+LTV_CURRENT=1
 LTV_REVISION=0
-LTV_AGE=0
+LTV_AGE=1
 
 # x-python needs table of Unicode character names.
 LIBUNINAME = ../libuniname/libuniname.a

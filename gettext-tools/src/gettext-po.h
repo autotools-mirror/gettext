@@ -56,6 +56,19 @@ extern void po_file_free (po_file_t file);
 extern const char * const * po_file_domains (po_file_t file);
 
 
+/* =========================== Header entry API ============================ */
+
+/* Return the header entry of a domain of a PO file in memory.
+   The domain NULL denotes the default domain.
+   Return NULL if there is no header entry.  */
+extern const char * po_file_domain_header (po_file_t file, const char *domain);
+
+/* Return the value of a field in a header entry.
+   The return value is either a freshly allocated string, to be freed by the
+   caller, or NULL.  */
+extern char * po_header_field (const char *header, const char *field);
+
+
 /* ======================= po_message_iterator_t API ======================= */
 
 /* Create an iterator for traversing a domain of a PO file in memory.
@@ -86,6 +99,16 @@ extern const char * po_message_msgstr (po_message_t message);
 /* Return the msgstr[index] for a message with plural handling, or
    NULL when the index is out of range or for a message without plural.  */
 extern const char * po_message_msgstr_plural (po_message_t message, int index);
+
+/* Return true if the message is marked obsolete.  */
+extern int po_message_is_obsolete (po_message_t message);
+
+/* Return true if the message is marked fuzzy.  */
+extern int po_message_is_fuzzy (po_message_t message);
+
+/* Return true if the message is marked as being a format string of the given
+   type (e.g. "c-format").  */
+extern int po_message_is_format (po_message_t message, const char *format_type);
 
 
 #ifdef __cplusplus

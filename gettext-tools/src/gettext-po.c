@@ -105,6 +105,76 @@ po_file_domains (po_file_t file)
 }
 
 
+/* Return the header entry of a domain of a PO file in memory.
+   The domain NULL denotes the default domain.
+   Return NULL if there is no header entry.  */
+
+const char *
+po_file_domain_header (po_file_t file, const char *domain)
+{
+  message_list_ty *mlp;
+  size_t j;
+
+  if (domain == NULL)
+    domain = MESSAGE_DOMAIN_DEFAULT;
+  mlp = msgdomain_list_sublist (file->mdlp, domain, false);
+  if (mlp != NULL)
+    for (j = 0; j < mlp->nitems; j++)
+      if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	{
+	  const char *header = mlp->item[j]->msgstr;
+
+	  if (header != NULL)
+	    return xstrdup (header);
+	  else
+	    return NULL;
+	}
+  return NULL;
+}
+
+
+/* Return the value of a field in a header entry.
+   The return value is either a freshly allocated string, to be freed by the
+   caller, or NULL.  */
+
+char *
+po_header_field (const char *header, const char *field)
+{
+  size_t len = strlen (field);
+  const char *line;
+
+  for (line = header;;)
+    {
+      if (strncmp (line, field, len) == 0
+	  && line[len] == ':' && line[len + 1] == ' ')
+	{
+	  const char *value_start;
+	  const char *value_end;
+	  char *value;
+
+	  value_start = line + len + 2;
+	  value_end = strchr (value_start, '\n');
+	  if (value_end == NULL)
+	    value_end = value_start + strlen (value_start);
+
+	  value = (char *) xmalloc (value_end - value_start + 1);
+	  memcpy (value, value_start, value_end - value_start);
+	  value[value_end - value_start] = '\0';
+
+	  return value;
+	}
+
+      line = strchr (line, '\n');
+      if (line != NULL)
+	line++;
+      else
+	break;
+    }
+
+  return NULL;
+}
+
+
 /* Create an iterator for traversing a domain of a PO file in memory.
    The domain NULL denotes the default domain.  */
 
@@ -207,4 +277,46 @@ po_message_msgstr_plural (po_message_t message, int index)
     }
   else
     return NULL;
+}
+
+
+/* Return true if the message is marked obsolete.  */
+
+int
+po_message_is_obsolete (po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  return (mp->obsolete ? 1 : 0);
+}
+
+
+/* Return true if the message is marked fuzzy.  */
+
+int
+po_message_is_fuzzy (po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  return (mp->is_fuzzy ? 1 : 0);
+}
+
+
+/* Return true if the message is marked as being a format string of the given
+   type (e.g. "c-format").  */
+
+int
+po_message_is_format (po_message_t message, const char *format_type)
+{
+  message_ty *mp = (message_ty *) message;
+  size_t len = strlen (format_type);
+  size_t i;
+
+  if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
+    for (i = 0; i < NFORMATS; i++)
+      if (strlen (format_language[i]) == len - 7
+	  && memcmp (format_language[i], format_type, len - 7) == 0)
+	/* The given format_type corresponds to (enum format_type) i.  */
+	return (possible_format_p (mp->is_format[i]) ? 1 : 0);
+  return 0;
 }

@@ -30,6 +30,11 @@ Version 0.12.2 - September 2003
   - Glade:
     xgettext now also supports Glade version 2.
 
+* libgettextpo library:
+
+  - New functions for testing the obsolete/fuzzy/*-format flags of a message.
+  - New convenience functions for extracting and analyzing the header entry.
+
 * Portability:
 
   - C format strings with positions, as they arise when a translator needs to

@@ -1,3 +1,9 @@
+2003-09-18  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextpo.def: Add po_file_domain_header, po_header_field,
+	po_message_is_obsolete, po_message_is_fuzzy, po_message_is_format.
+	* windows/gettextpo.rc: Bump version number to 0.12.2.
+
 2003-09-16  Bruno Haible  <bruno@clisp.org>
 
 	Portability to SunOS 4.
