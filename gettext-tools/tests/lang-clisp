@@ -95,6 +95,15 @@ version=`echo $version | sed -e 's/^\([0-9]*\.[0-9]*\).*/\1/'`
 clisp -norc -x "(sys::exit (not (>= $version 2.28)))" >/dev/null \
   || { rm -fr $tmpfiles; exit 77; }
 
+# Test whether the fr_FR locale is installed.
+: ${LOCALE_FR=fr_FR}
+LC_ALL=$LOCALE_FR ./testlocale
+case $? in
+  0) ;;
+  77) rm -fr $tmpfiles; exit 77;;
+  *) exit 1;;
+esac
+
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok

@@ -89,6 +89,15 @@ case `bash -c 'echo $BASH_VERSION'` in
   *) rm -fr $tmpfiles; exit 77;;
 esac
 
+# Test whether the fr_FR locale is installed.
+: ${LOCALE_FR=fr_FR}
+LC_ALL=$LOCALE_FR ./testlocale
+case $? in
+  0) ;;
+  77) rm -fr $tmpfiles; exit 77;;
+  *) exit 1;;
+esac
+
 tmpfiles="$tmpfiles prog.nok prog.ok prog.out"
 # Expected result when bash is built without i18n support.
 cat <<\EOF > prog.nok

@@ -1,5 +1,20 @@
 2003-12-05  Bruno Haible  <bruno@clisp.org>
 
+	* testlocale.c: New file.
+	* Makefile.am (noinst_PROGRAMS): Add testlocale.
+	(testlocale_SOURCES): New variable.
+	* lang-bash: Skip the test if the testlocale program determines that
+	the locale is not usable. (For example on glibc systems with no
+	installed fr_FR locale.)
+	* lang-clisp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-java: Likewise.
+	* lang-librep: Likewise.
+	* lang-php: Likewise.
+	* lang-sh: Likewise.
+
+2003-12-05  Bruno Haible  <bruno@clisp.org>
+
 	* lang-c: Use ANSI C function declaration syntax.
 	* lang-objc: Likewise.
 

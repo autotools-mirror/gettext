@@ -155,13 +155,14 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext cake fc3 fc4
+noinst_PROGRAMS = tstgettext tstngettext testlocale cake fc3 fc4
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
+testlocale_SOURCES = testlocale.c
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c

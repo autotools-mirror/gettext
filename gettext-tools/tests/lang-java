@@ -94,6 +94,15 @@ tmpfiles="$tmpfiles prog_fr.class"
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -j -d . -r prog -l fr fr.po || exit 1
 
+# Test whether the fr_FR locale is installed.
+: ${LOCALE_FR=fr_FR}
+LC_ALL=$LOCALE_FR ./testlocale
+case $? in
+  0) ;;
+  77) rm -fr $tmpfiles; exit 77;;
+  *) exit 1;;
+esac
+
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok

@@ -89,6 +89,15 @@ case `gawk --version 2>&1 | sed -e 's/^[^0-9]*//'` in
     rm -fr $tmpfiles; exit 77;;
 esac
 
+# Test whether the fr_FR locale is installed.
+: ${LOCALE_FR=fr_FR}
+LC_ALL=$LOCALE_FR ./testlocale
+case $? in
+  0) ;;
+  77) rm -fr $tmpfiles; exit 77;;
+  *) exit 1;;
+esac
+
 # Test that gawk wasn't built with --disable-nls.
 : ${LOCALE_FR=fr_FR}
 LANGUAGE= LC_ALL=$LOCALE_FR gawk --version | grep logiciel > /dev/null
