@@ -1,5 +1,15 @@
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt-7: Write "8bit", not "8-bit".
+	* msgfmt-8: Likewise.
+	* msgfmt-9: Likewise.
+	* msguniq-a.in: Likewise.
+	* msguniq-a.out: Likewise.
+	* msguniq-2: Likewise.
+	* msguniq-3: Likewise.
+
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
 	* plural-1: Adapt for changed xgettext behaviour w.r.t. format strings
 	in plural forms.
 	* lang-c: Likewise.
