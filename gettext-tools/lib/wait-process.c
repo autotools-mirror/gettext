@@ -110,9 +110,6 @@
 #endif
 
 
-void
-register_slave_subprocess (pid_t child)
-
 /* Type of an entry in the slaves array.
    The 'used' bit determines whether this entry is currently in use.
    (If pid_t was an atomic type like sig_atomic_t, we could just set the
