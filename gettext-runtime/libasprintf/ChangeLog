@@ -1,5 +1,10 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (install): Update for 2004-01-18 change.
+	* Makefile.vms (install): Likewise.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* vasnprintf.c (EOVERFLOW): Define to a fallback if needed.
 
 2004-12-19  Paul Eggert  <eggert@cs.ucla.edu>

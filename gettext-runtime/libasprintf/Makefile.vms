@@ -78,7 +78,7 @@ install : all
 	create /directory $(datadir)]
 	create /directory $(datadir).doc]
 	create /directory $(sub_docdir)]
-	$(INSTALL_DATA) [.doc]autosprintf.html $(sub_docdir)]autosprintf.html
+	$(INSTALL_DATA) [.doc]autosprintf_all.html $(sub_docdir)]autosprintf.html
 
 installdirs :
 	create /directory $(prefix)]

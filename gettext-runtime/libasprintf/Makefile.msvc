@@ -146,7 +146,7 @@ install : all force
 	-mkdir $(datadir)
 	-mkdir $(datadir)\doc
 	-mkdir $(sub_docdir)
-	$(INSTALL_DATA) autosprintf.html $(sub_docdir)\autosprintf.html
+	$(INSTALL_DATA) autosprintf_all.html $(sub_docdir)\autosprintf.html
 
 installdirs : force
 	-mkdir $(prefix)
