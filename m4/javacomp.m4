@@ -46,7 +46,7 @@ EOF
         rm -f conftest.java conftest.class
         exit $error
        ); then
-      HAVE_GCJ=1
+      HAVE_GCJ_C=1
       ac_result="gcj -C"
     else
       if test -n "$HAVE_JAVAC_IN_PATH" \
@@ -85,7 +85,7 @@ changequote([,])dnl
   AC_SUBST(JAVAC)
   AC_SUBST(CLASSPATH)
   AC_SUBST(CLASSPATH_SEPARATOR)
-  AC_SUBST(HAVE_GCJ)
+  AC_SUBST(HAVE_GCJ_C)
   AC_SUBST(HAVE_JAVAC)
   AC_SUBST(HAVE_JIKES)
 ])

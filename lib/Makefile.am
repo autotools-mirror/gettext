@@ -116,7 +116,7 @@ $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
 stdbool.h.in \
 gen-lbrkprop.c 3level.h Combining.txt
 
-DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
+DEFS = -DLIBDIR=\"$(libdir)\" -DEXEEXT=\"$(EXEEXT)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
 

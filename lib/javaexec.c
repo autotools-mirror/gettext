@@ -1,5 +1,5 @@
 /* Execute a Java program.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -31,6 +31,7 @@
 #include "execute.h"
 #include "xsetenv.h"
 #include "sh-quote.h"
+#include "pathname.h"
 #include "xmalloc.h"
 #include "error.h"
 #include "gettext.h"
@@ -75,6 +76,7 @@
 bool
 execute_java_class (class_name,
 		    classpaths, classpaths_count, use_minimal_classpath,
+		    exe_dir,
 		    args,
 		    verbose, quiet,
 		    executer, private_data)
@@ -82,6 +84,7 @@ execute_java_class (class_name,
      const char * const *classpaths;
      unsigned int classpaths_count;
      bool use_minimal_classpath;
+     const char *exe_dir;
      const char * const *args;
      bool verbose;
      bool quiet;
@@ -91,6 +94,46 @@ execute_java_class (class_name,
   bool err = false;
   unsigned int nargs;
   char *old_JAVA_HOME;
+
+  /* Count args.  */
+  {
+    const char * const *arg;
+
+    for (nargs = 0, arg = args; *arg != NULL; nargs++, arg++)
+     ;
+  }
+
+  /* First, try a class compiled to a native code executable.  */
+  if (exe_dir != NULL)
+    {
+      char *exe_pathname = concatenated_pathname (exe_dir, class_name, EXEEXT);
+      char *old_classpath;
+      char **argv = (char **) alloca ((1 + nargs + 1) * sizeof (char *));
+      unsigned int i;
+
+      /* Set CLASSPATH.  */
+      old_classpath =
+	set_classpath (classpaths, classpaths_count, use_minimal_classpath,
+		       verbose);
+
+      argv[0] = exe_pathname;
+      for (i = 0; i <= nargs; i++)
+	argv[1 + i] = (char *) args[i];
+
+      if (verbose)
+	{
+	  char *command = shell_quote_argv (argv);
+	  printf ("%s\n", command);
+	  free (command);
+	}
+
+      err = executer (class_name, exe_pathname, argv, private_data);
+
+      /* Reset CLASSPATH.  */
+      reset_classpath (old_classpath);
+
+      goto done1;
+    }
 
   {
     const char *java = getenv ("JAVA");
@@ -150,14 +193,6 @@ execute_java_class (class_name,
 
 	goto done1;
       }
-  }
-
-  /* Count args.  */
-  {
-    const char * const *arg;
-
-    for (nargs = 0, arg = args; *arg != NULL; nargs++, arg++)
-     ;
   }
 
   /* Unset the JAVA_HOME environment variable.  */

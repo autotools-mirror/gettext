@@ -1,5 +1,5 @@
 /* Execute a Java program.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,6 +32,7 @@ typedef bool execute_fn PARAMS ((const char *progname,
    use a minimal one. This is likely to reduce possible problems if the
    user's CLASSPATH contains garbage or a classes.zip file of the wrong
    Java version.
+   exe_dir is a directory that may contain a native executable for the class.
    args is a NULL terminated list of arguments to be passed to the program.
    If verbose, the command to be executed will be printed.
    Then the command is passed to the execute function together with the
@@ -42,6 +43,7 @@ extern bool execute_java_class PARAMS ((const char *class_name,
 					const char * const *classpaths,
 					unsigned int classpaths_count,
 					bool use_minimal_classpath,
+					const char *exe_dir,
 					const char * const *args,
 					bool verbose, bool quiet,
 					execute_fn *executer,

@@ -1,3 +1,11 @@
+2002-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* javaexec.h (execute_java_class): Add argument exe_dir.
+	* javaexec.c (execute_java_class): Add argument exe_dir. If given,
+	attempt to run a native executable.
+	* Makefile.am (DEFS): Define EXEEXT.
+	* javacomp.sh.in: Use HAVE_GCJ_C instead of HAVE_GCJ.
+
 2002-06-15  Bruno Haible  <bruno@clisp.org>
 
 	* javacomp.c (compile_java_class): Ignore gcj versions that start with

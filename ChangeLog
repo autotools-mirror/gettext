@@ -1,3 +1,7 @@
+2002-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Call gt_GCJ and set BUILDJAVAEXE.
+
 2002-07-16  Bruno Haible  <haible@clisp.cons.org>
 
 	* config.guess, config.sub: Update to GNU version 2002-07-09.

@@ -46,13 +46,16 @@ projectsdir = $(pkgdatadir)/projects
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/libuniname \
 -I../lib -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
-DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DUSEJEXE=$(USEJEXE) \
+-DGETTEXTJEXEDIR=\"$(pkglibdir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
 -DLIBDIR=\"$(libdir)\" -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
 -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 LDADD = ../lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
 YACC = @YACC@ -d
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 JAR = @JAR@
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
 
@@ -178,9 +181,21 @@ uninstall-local:
 
 # Special rules for Java compilation.
 
-all-local: all-java-@BUILDJAVA@
-all-java-no:
-all-java-yes: gettext.jar
+USEJEXE = $(USEJEXE_@BUILDJAVAEXE@)
+USEJEXE_yes = 1
+USEJEXE_no = 0
+
+all-local: all-java-@BUILDJAVAEXE@
+all-java-yes: gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT)
+all-java-no: all-java-no-@BUILDJAVA@
+all-java-no-yes: gettext.jar
+all-java-no-no:
+
+gnu.gettext.DumpResource$(EXEEXT): $(srcdir)/gnu/gettext/DumpResource.java
+	$(GCJ) $(GCJFLAGS) $(srcdir)/gnu/gettext/DumpResource.java --main=gnu.gettext.DumpResource -o $@
+
+gnu.gettext.GetURL$(EXEEXT): $(srcdir)/gnu/gettext/GetURL.java
+	$(GCJ) $(GCJFLAGS) $(srcdir)/gnu/gettext/GetURL.java --main=gnu.gettext.GetURL -o $@
 
 gnu/gettext/DumpResource.class: $(srcdir)/gnu/gettext/DumpResource.java
 	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/DumpResource.java
@@ -191,22 +206,39 @@ gnu/gettext/GetURL.class: $(srcdir)/gnu/gettext/GetURL.java
 gettext.jar: gnu/gettext/DumpResource.class gnu/gettext/GetURL.class
 	$(JAR) cf $@ gnu/gettext/DumpResource*.class gnu/gettext/GetURL*.class
 
-CLEANFILES = gettext.jar gnu/gettext/*.class
+CLEANFILES = gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT) \
+             gettext.jar gnu/gettext/*.class
 
-install-data-local: install-java-@BUILDJAVA@
-install-java-no:
-install-java-yes: all-java-yes
+install-exec-local: install-exec-java-@BUILDJAVAEXE@
+install-exec-java-yes: all-java-yes
+	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+	$(INSTALL_PROGRAM) gnu.gettext.DumpResource$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.DumpResource$(EXEEXT)
+	$(INSTALL_PROGRAM) gnu.gettext.GetURL$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.GetURL$(EXEEXT)
+install-exec-java-no:
+
+install-data-local: install-data-java-@BUILDJAVAEXE@
+install-data-java-yes:
+install-data-java-no: install-data-java-no-@BUILDJAVA@
+install-data-java-no-yes: all-java-no-yes
 	$(INSTALL_DATA) gettext.jar $(DESTDIR)$(jardir)/gettext.jar
+install-data-java-no-no:
 
-installdirs-local: installdirs-java-@BUILDJAVA@
-installdirs-java-no:
+installdirs-local: installdirs-java-@BUILDJAVAEXE@
 installdirs-java-yes:
+	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+installdirs-java-no: installdirs-java-no-@BUILDJAVA@
+installdirs-java-no-yes:
 	$(mkinstalldirs) $(DESTDIR)$(jardir)
+installdirs-java-no-no:
 
-uninstall-local: uninstall-java-@BUILDJAVA@
-uninstall-java-no:
+uninstall-local: uninstall-java-@BUILDJAVAEXE@
 uninstall-java-yes:
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.DumpResource$(EXEEXT)
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.GetURL$(EXEEXT)
+uninstall-java-no: uninstall-java-no-@BUILDJAVA@
+uninstall-java-no-yes:
 	$(RM) $(DESTDIR)$(jardir)/gettext.jar
+uninstall-java-no-no:
 
 
 # Special rules for Tcl auxiliary program.

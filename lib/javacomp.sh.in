@@ -1,7 +1,7 @@
 #!/bin/sh
 # Compile a Java program.
 
-# Copyright (C) 2001 Free Software Foundation, Inc.
+# Copyright (C) 2001-2002 Free Software Foundation, Inc.
 # Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -42,7 +42,7 @@ if test -n "$CONF_JAVAC"; then
   exec $CONF_JAVAC "$@"
 else
   unset JAVA_HOME
-  if test -n "@HAVE_GCJ@"; then
+  if test -n "@HAVE_GCJ_C@"; then
     CLASSPATH="$CLASSPATH"
     export CLASSPATH
     test -z "$JAVA_VERBOSE" || echo gcj -C "$@"

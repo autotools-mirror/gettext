@@ -1,3 +1,9 @@
+2002-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* gcj.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+	* javacomp.m4 (gt_JAVACOMP): Set HAVE_GCJ_C instead of HAVE_GCJ.
+
 2002-07-14  Bruno Haible  <bruno@clisp.org>
 
 	* libtool.m4 (_LT_AC_LTCONFIG_HACK): Add support for GNU/FreeBSD.
