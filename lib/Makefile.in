@@ -70,8 +70,11 @@ DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GENCAT = @GENCAT@
+GLIBC21 = @GLIBC21@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
@@ -105,12 +108,12 @@ noinst_LIBRARIES = libnlsut.a
 EXTRA_DIST = alloca.c config.charset error.c getline.c memset.c memmove.c printf-prs.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c gen-lbrkprop.c 3level.h
 
 
-libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c obstack.c xgetcwd.c xmalloc.c xstrdup.c
+libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c obstack.c progname.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
 
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
-noinst_HEADERS = c-ctype.h error.h fstrcmp.h getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h obstack.h printf-parse.h printf.h system.h pathmax.h
+noinst_HEADERS = c-ctype.h error.h fstrcmp.h getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h printf-parse.h printf.h progname.h system.h xerror.h
 
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
@@ -135,7 +138,8 @@ libnlsut_a_OBJECTS =  basename.$(OBJEXT) c-ctype.$(OBJEXT) \
 concatpath.$(OBJEXT) fstrcmp.$(OBJEXT) getopt.$(OBJEXT) \
 getopt1.$(OBJEXT) hash.$(OBJEXT) linebreak.$(OBJEXT) \
 localcharset.$(OBJEXT) mbswidth.$(OBJEXT) obstack.$(OBJEXT) \
-xgetcwd.$(OBJEXT) xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
+progname.$(OBJEXT) xerror.$(OBJEXT) xgetcwd.$(OBJEXT) xmalloc.$(OBJEXT) \
+xstrdup.$(OBJEXT)
 AR = ar
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)

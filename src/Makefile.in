@@ -22,6 +22,7 @@ exec_prefix = @exec_prefix@
 bindir = @bindir@
 sbindir = @sbindir@
 libexecdir = @libexecdir@
+datadir = @datadir@
 sysconfdir = @sysconfdir@
 sharedstatedir = @sharedstatedir@
 localstatedir = @localstatedir@
@@ -67,10 +68,14 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
+ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GENCAT = @GENCAT@
+GLIBC21 = @GLIBC21@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
@@ -88,6 +93,7 @@ PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+STRIP = @STRIP@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -100,12 +106,11 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 bin_PROGRAMS = gettext ngettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
-noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
+noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h po.h open-po.h read-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
 
 
 EXTRA_DIST = FILES
 
-datadir = $(prefix)/share
 localedir = $(datadir)/locale
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
@@ -119,16 +124,16 @@ YACC = @YACC@ -d
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
-msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c dir-list.c
+msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c dir-list.c
 
-msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c message.c dir-list.c
+msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c message.c dir-list.c
 
-msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c dir-list.c write-po.c
+msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c
 
 msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c
-xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c write-po.c
+xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c write-po.c
 
-msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c
+msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c
 
 
 # Link dependencies.
@@ -164,19 +169,20 @@ ngettext_LDADD = $(LDADD)
 ngettext_DEPENDENCIES =  ../lib/libnlsut.a
 ngettext_LDFLAGS = 
 msgcmp_OBJECTS =  message.$(OBJEXT) msgcmp.$(OBJEXT) open-po.$(OBJEXT) \
-po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
-po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT)
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT)
 msgcmp_DEPENDENCIES =  ../lib/libnlsut.a
 msgcmp_LDFLAGS = 
 msgfmt_OBJECTS =  msgfmt.$(OBJEXT) open-po.$(OBJEXT) \
-po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
-po.$(OBJEXT) str-list.$(OBJEXT) message.$(OBJEXT) dir-list.$(OBJEXT)
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) message.$(OBJEXT) \
+dir-list.$(OBJEXT)
 msgfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgfmt_LDFLAGS = 
 msgmerge_OBJECTS =  message.$(OBJEXT) msgmerge.$(OBJEXT) \
 open-po.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
-po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT) \
-write-po.$(OBJEXT)
+po-charset.$(OBJEXT) po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) \
+str-list.$(OBJEXT) dir-list.$(OBJEXT) write-po.$(OBJEXT)
 msgmerge_DEPENDENCIES =  ../lib/libnlsut.a
 msgmerge_LDFLAGS = 
 msgunfmt_OBJECTS =  message.$(OBJEXT) msgunfmt.$(OBJEXT) \
@@ -184,15 +190,15 @@ str-list.$(OBJEXT) write-po.$(OBJEXT)
 msgunfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgunfmt_LDFLAGS = 
 xgettext_OBJECTS =  message.$(OBJEXT) open-po.$(OBJEXT) \
-po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
-po.$(OBJEXT) str-list.$(OBJEXT) xget-lex.$(OBJEXT) xgettext.$(OBJEXT) \
-dir-list.$(OBJEXT) write-po.$(OBJEXT)
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) xget-lex.$(OBJEXT) \
+xgettext.$(OBJEXT) dir-list.$(OBJEXT) write-po.$(OBJEXT)
 xgettext_DEPENDENCIES =  ../lib/libnlsut.a
 xgettext_LDFLAGS = 
 msgcomm_OBJECTS =  msgcomm.$(OBJEXT) message.$(OBJEXT) \
-po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
-open-po.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT) \
-write-po.$(OBJEXT)
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) open-po.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT)
 msgcomm_DEPENDENCIES =  ../lib/libnlsut.a
 msgcomm_LDFLAGS = 
 YLWRAP = $(srcdir)/ylwrap

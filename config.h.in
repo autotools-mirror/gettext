@@ -85,8 +85,20 @@
 /* Define if you have the getdelim function.  */
 #undef HAVE_GETDELIM
 
+/* Define if you have the getegid function.  */
+#undef HAVE_GETEGID
+
+/* Define if you have the geteuid function.  */
+#undef HAVE_GETEUID
+
+/* Define if you have the getgid function.  */
+#undef HAVE_GETGID
+
 /* Define if you have the getpagesize function.  */
 #undef HAVE_GETPAGESIZE
+
+/* Define if you have the getuid function.  */
+#undef HAVE_GETUID
 
 /* Define if you have the isascii function.  */
 #undef HAVE_ISASCII
@@ -168,6 +180,9 @@
 
 /* Define if you have the <argz.h> header file.  */
 #undef HAVE_ARGZ_H
+
+/* Define if you have the <dlfcn.h> header file.  */
+#undef HAVE_DLFCN_H
 
 /* Define if you have the <limits.h> header file.  */
 #undef HAVE_LIMITS_H

@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
 
 # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
@@ -66,10 +66,14 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
+ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GENCAT = @GENCAT@
+GLIBC21 = @GLIBC21@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
@@ -87,6 +91,7 @@ PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+STRIP = @STRIP@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -104,7 +109,7 @@ ACLOCAL_AMFLAGS = -I m4
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
-SUBDIRS = doc intl lib src po m4 misc tests
+SUBDIRS = doc intl lib src po man m4 misc tests
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh              djgpp/Makefile.maint djgpp/README.in djgpp/README              djgpp/config.bat djgpp/config.in djgpp/config.sed              djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in              djgpp/fnchange.lst djgpp/tscript.sed              os2/README.os2 os2/os2.diff
 
@@ -117,7 +122,7 @@ DATA =  $(gettextsrc_DATA)
 DIST_COMMON =  README ./stamp-h.in ABOUT-NLS AUTHORS COPYING ChangeLog \
 INSTALL Makefile.am Makefile.in NEWS README-alpha THANKS TODO \
 acconfig.h aclocal.m4 config.guess config.h.in config.sub configure \
-configure.in install-sh ltconfig ltmain.sh missing mkinstalldirs
+configure.in install-sh ltmain.sh missing mkinstalldirs
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -134,11 +139,11 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 $(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/getline.m4 \
-		m4/gettext.m4 m4/iconv.m4 m4/inttypes_h.m4 \
-		m4/isc-posix.m4 m4/lcmessage.m4 m4/libtool.m4 \
-		m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 \
-		m4/progtest.m4 m4/setlocale.m4 m4/signed.m4 \
-		m4/uintmax_t.m4 m4/ulonglong.m4
+		m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 \
+		m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 \
+		m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 \
+		m4/mbswidth.m4 m4/progtest.m4 m4/setlocale.m4 \
+		m4/signed.m4 m4/uintmax_t.m4 m4/ulonglong.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
@@ -328,7 +333,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
