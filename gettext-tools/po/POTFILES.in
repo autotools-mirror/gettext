@@ -94,3 +94,4 @@ src/x-smalltalk.c
 src/x-tcl.c
 src/x-ycp.c
 src/xgettext.c
+src/user-email.sh.in

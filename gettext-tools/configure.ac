@@ -26,6 +26,7 @@ AM_INIT_AUTOMAKE(gettext-tools, $VERSION_NUMBER)
 AM_CONFIG_HEADER(config.h)
 
 dnl Installation directories.
+AC_SUBST([localedir], ['${datadir}/locale'])
 dnl Prefer modern Filesystem Hierarchy Standard over antiquated GNU standards.
 test "$mandir" != '${prefix}/man' || mandir='${datadir}/man'
 
@@ -254,7 +255,7 @@ AC_CONFIG_FILES([libuniname/Makefile],
 
 AC_CONFIG_FILES([src/Makefile],
                 [FIX_MAKEFILE_COMPILE])
-AC_CONFIG_FILES([src/user-email])
+AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])
 
 AC_CONFIG_FILES([po/Makefile.in])
 

@@ -1,3 +1,9 @@
+2003-11-05  Bruno Haible  <bruno@clisp.org>
+
+	* user-email.sh.in: Renamed from user-email.in. Internationalize, use
+	localedir and gettext.
+	* FILES: Update.
+
 2003-10-23  Bruno Haible  <bruno@clisp.org>
 
 	* read-stringtable.c (read_string, stringtable_parse): Cast

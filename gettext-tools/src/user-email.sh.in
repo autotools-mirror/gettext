@@ -17,11 +17,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-# Prerequisites for using @libdir@.
+# Prerequisites for using @libdir@ and @localedir@.
 prefix="@prefix@"
 exec_prefix="@exec_prefix@"
-# Set variable @libdir@.
+datadir="@datadir@"
+# Set variables libdir, localedir.
 libdir="@libdir@"
+localedir="@localedir@"
 
 # Support for relocatability.
 if test "@RELOCATABLE@" = yes; then
@@ -45,7 +47,15 @@ if test "@RELOCATABLE@" = yes; then
   done
   # Now relocate the directory variables that we use.
   libdir=`echo "$libdir/" | sed -e "s%^${orig_installdir}/%${curr_installdir}/%" | sed -e 's,/$,,'`
+  localedir=`echo "$localedir/" | sed -e "s%^${orig_installdir}/%${curr_installdir}/%" | sed -e 's,/$,,'`
 fi
+
+# Internationalization.
+. gettext.sh
+TEXTDOMAIN=gettext-tools
+export TEXTDOMAIN
+TEXTDOMAINDIR="$localedir"
+export TEXTDOMAINDIR
 
 # Redirect fileno 3 to interactive I/O.
 exec 3>/dev/tty
@@ -327,9 +337,9 @@ case "$addresses" in
 "
     done
     while true; do
-      echo "Which is your email address?" 1>&3
+      { gettext "Which is your email address?"; echo; } 1>&3
       echo "$lines" 1>&3
-      echo "Please choose the number, or enter your email address." 1>&3
+      { gettext "Please choose the number, or enter your email address."; echo; } 1>&3
       read answer < /dev/tty
       case "$answer" in
         *@*) ;;
@@ -347,10 +357,10 @@ case "$addresses" in
         "<"*">") answer=`echo "$answer" | sed -e 's/^<//' -e 's/>$//'` ;;
       esac
       case "$answer" in
-        *" "*) echo "Invalid email address: invalid character." 1>&3 ; echo 1>&3 ; continue ;;
+        *" "*) { gettext "Invalid email address: invalid character."; echo; echo; } 1>&3 ; continue ;;
         *@*.*) ;;
-        *@*) echo "Invalid email address: need a fully qualified host name or domain name." 1>&3 ; echo 1>&3 ; continue ;;
-        *) echo "Invalid email address: missing @" 1>&3 ; echo 1>&3 ; continue ;;
+        *@*) { gettext "Invalid email address: need a fully qualified host name or domain name."; echo; echo; } 1>&3 ; continue ;;
+        *) { gettext "Invalid email address: missing @"; echo; echo; } 1>&3 ; continue ;;
       esac
       addr=`echo "$answer" | sed -n -e "$lowercase_sed"`
       break
@@ -359,9 +369,9 @@ case "$addresses" in
   " "*)
     # One address.
     while true; do
-      echo "Is the following your email address?" 1>&3
+      { gettext "Is the following your email address?"; echo; } 1>&3
       echo " $addresses" 1>&3
-      echo "Please confirm by pressing Return, or enter your email address." 1>&3
+      { gettext "Please confirm by pressing Return, or enter your email address."; echo; } 1>&3
       read answer < /dev/tty
       if test -z "$answer"; then
         addr=`echo "$addresses" | sed -e 's/^ //'`
@@ -371,10 +381,10 @@ case "$addresses" in
         "<"*">") answer=`echo "$answer" | sed -e 's/^<//' -e 's/>$//'` ;;
       esac
       case "$answer" in
-        *" "*) echo "Invalid email address: invalid character." 1>&3 ; echo 1>&3 ; continue ;;
+        *" "*) { gettext "Invalid email address: invalid character."; echo; echo; } 1>&3 ; continue ;;
         *@*.*) ;;
-        *@*) echo "Invalid email address: need a fully qualified host name or domain name." 1>&3 ; echo 1>&3 ; continue ;;
-        *) echo "Invalid email address: missing @" 1>&3 ; echo 1>&3 ; continue ;;
+        *@*) { gettext "Invalid email address: need a fully qualified host name or domain name."; echo; echo; } 1>&3 ; continue ;;
+        *) { gettext "Invalid email address: missing @"; echo; echo; } 1>&3 ; continue ;;
       esac
       addr=`echo "$answer" | sed -n -e "$lowercase_sed"`
       break
@@ -382,18 +392,18 @@ case "$addresses" in
     ;;
   "")
     # No address.
-    echo "Couldn't find out about your email address." 1>&3
+    { gettext "Couldn't find out about your email address."; echo; } 1>&3
     while true; do
-      echo "Please enter your email address." 1>&3
+      { gettext "Please enter your email address."; echo; } 1>&3
       read answer < /dev/tty
       case "$answer" in
         "<"*">") answer=`echo "$answer" | sed -e 's/^<//' -e 's/>$//'` ;;
       esac
       case "$answer" in
-        *" "*) echo "Invalid email address: invalid character." 1>&3 ; echo 1>&3 ; continue ;;
+        *" "*) { gettext "Invalid email address: invalid character."; echo; echo; } 1>&3 ; continue ;;
         *@*.*) ;;
-        *@*) echo "Invalid email address: need a fully qualified host name or domain name." 1>&3 ; echo 1>&3 ; continue ;;
-        *) echo "Invalid email address: missing @" 1>&3 ; echo 1>&3 ; continue ;;
+        *@*) { gettext "Invalid email address: need a fully qualified host name or domain name."; echo; echo; } 1>&3 ; continue ;;
+        *) { gettext "Invalid email address: missing @"; echo; echo; } 1>&3 ; continue ;;
       esac
       addr=`echo "$answer" | sed -n -e "$lowercase_sed"`
       break

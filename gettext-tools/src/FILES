@@ -150,7 +150,7 @@ plural-table.c
 +-------------- The 'msginit' program
 | hostname.c
 |               The 'hostname' program.
-| user-email.in
+| user-email.sh.in
 |               Determine the user's email address.
 | urlget.c
 |               The 'urlget' program.
