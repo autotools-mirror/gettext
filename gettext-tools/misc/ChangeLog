@@ -1,5 +1,11 @@
 2005-03-05  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: Don't recommend to add AM_GNU_GETTEXT([external])
+	when it is already present.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-05  Bruno Haible  <bruno@clisp.org>
+
 	Remove old sh, tcl, perl interfaces.
 	* gettext-sh: Remove file.
 	* tcl_gettext.c, README-Tcl: Remove files.

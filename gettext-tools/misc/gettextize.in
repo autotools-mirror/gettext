@@ -591,10 +591,15 @@ if test -n "$intldir"; then
   cd ..
 else
   echo "Not copying intl/ directory."
-  please="$please
+  # Tell the user what to put into configure.ac, if it is not already there.
+  if grep '^AM_GNU_GETTEXT([[]\?external[]]\?[ 	]*[,)]' "$srcdir/$configure_in" > /dev/null; then
+    :
+  else
+    please="$please
 Please use AM_GNU_GETTEXT([external]) in order to cause autoconfiguration
 to look for an external libintl.
 "
+  fi
 fi
 
 # Copy files to po/ subdirectory.
