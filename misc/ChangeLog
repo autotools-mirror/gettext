@@ -1,3 +1,8 @@
+2002-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Unset all other environment variables which influence
+	cvs. Pass -d $CVSROOT explicitly.
+
 2002-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint-files: New directory.

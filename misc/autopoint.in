@@ -228,8 +228,21 @@ mkdir "$cvs_dir"
 mkdir "$work_dir"
 CVSROOT="$srcdir/$cvs_dir"
 export CVSROOT
+unset CVS_CLIENT_LOG
+unset CVS_CLIENT_PORT
+unset CVS_PASSFILE
+unset CVS_PASSWORD
+unset CVS_RCMD_PORT
+unset CVS_RSH
+unset CVS_SERVER
+unset CVS_SERVER_SLEEP
+unset CVSREAD
+unset CVSUMASK
+unset CVSWRAPPERS
 
-cvs init
+# Need to pass -d "$CVSROOT", because there may be a CVS directory in the
+# current directory.
+cvs -d "$CVSROOT" init
 gzip -d -c < "$gettext_dir/archive.tar.gz" | (cd "$cvs_dir" && tar xf -)
 
 cd "$work_dir"
