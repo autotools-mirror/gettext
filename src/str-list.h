@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -37,39 +37,37 @@ struct string_list_ty
 };
 
 /* Initialize an empty list of strings.  */
-extern void string_list_init PARAMS ((string_list_ty *slp));
+extern void string_list_init (string_list_ty *slp);
 
 /* Return a fresh, empty list of strings.  */
-extern string_list_ty *string_list_alloc PARAMS ((void));
+extern string_list_ty *string_list_alloc (void);
 
 /* Append a single string to the end of a list of strings.  */
-extern void string_list_append PARAMS ((string_list_ty *slp, const char *s));
+extern void string_list_append (string_list_ty *slp, const char *s);
 
 /* Append a single string to the end of a list of strings, unless it is
    already contained in the list.  */
-extern void string_list_append_unique PARAMS ((string_list_ty *slp,
-					       const char *s));
+extern void string_list_append_unique (string_list_ty *slp, const char *s);
 
 /* Destroy a list of strings.  */
-extern void string_list_destroy PARAMS ((string_list_ty *slp));
+extern void string_list_destroy (string_list_ty *slp);
 
 /* Free a list of strings.  */
-extern void string_list_free PARAMS ((string_list_ty *slp));
+extern void string_list_free (string_list_ty *slp);
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list.  */
-extern char *string_list_concat PARAMS ((const string_list_ty *slp));
+extern char *string_list_concat (const string_list_ty *slp);
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list, and destroy the list.  */
-extern char *string_list_concat_destroy PARAMS ((string_list_ty *slp));
+extern char *string_list_concat_destroy (string_list_ty *slp);
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list, separated by spaces.  */
-extern char *string_list_join PARAMS ((const string_list_ty *slp));
+extern char *string_list_join (const string_list_ty *slp);
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */
-extern bool string_list_member PARAMS ((const string_list_ty *slp,
-					const char *s));
+extern bool string_list_member (const string_list_ty *slp, const char *s);
 
 #endif /* _STR_LIST_H */

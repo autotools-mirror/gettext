@@ -24,9 +24,9 @@
   { "Python",     extract_python, &formatstring_python },		\
 
 /* Scan a Python file and add its translatable strings to mdlp.  */
-extern void extract_python PARAMS ((FILE *fp, const char *real_filename,
-				    const char *logical_filename,
-				    msgdomain_list_ty *mdlp));
+extern void extract_python (FILE *fp, const char *real_filename,
+			    const char *logical_filename,
+			    msgdomain_list_ty *mdlp);
 
-extern void x_python_keyword PARAMS ((const char *keyword));
-extern void x_python_extract_all PARAMS ((void));
+extern void x_python_keyword (const char *keyword);
+extern void x_python_extract_all (void);

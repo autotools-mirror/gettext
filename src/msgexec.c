@@ -80,23 +80,17 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status));
-#ifdef EINTR
-static inline int nonintr_close PARAMS ((int fd));
+/* Forward declaration of local functions.  */
+static void usage (int status)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
 #endif
-static void process_string PARAMS ((const message_ty *mp,
-				    const char *str, size_t len));
-static void process_message PARAMS ((const message_ty *mp));
-static void process_message_list PARAMS ((const message_list_ty *mlp));
-static void process_msgdomain_list PARAMS ((const msgdomain_list_ty *mdlp));
+;
+static void process_msgdomain_list (const msgdomain_list_ty *mdlp);
 
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main (int argc, char **argv)
 {
   int opt;
   bool do_help;
@@ -216,8 +210,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -279,8 +272,7 @@ Informative output:\n\
    signal handlers set up, namely when we get interrupted via SIGSTOP.  */
 
 static inline int
-nonintr_close (fd)
-     int fd;
+nonintr_close (int fd)
 {
   int retval;
 
@@ -298,10 +290,7 @@ nonintr_close (fd)
 /* Pipe a string STR of size LEN bytes to the subprogram.
    The byte after STR is known to be a '\0' byte.  */
 static void
-process_string (mp, str, len)
-     const message_ty *mp;
-     const char *str;
-     size_t len;
+process_string (const message_ty *mp, const char *str, size_t len)
 {
   ssize_t nwritten;
 
@@ -347,8 +336,7 @@ process_string (mp, str, len)
 
 
 static void
-process_message (mp)
-     const message_ty *mp;
+process_message (const message_ty *mp)
 {
   const char *msgstr = mp->msgstr;
   size_t msgstr_len = mp->msgstr_len;
@@ -367,8 +355,7 @@ process_message (mp)
 
 
 static void
-process_message_list (mlp)
-     const message_list_ty *mlp;
+process_message_list (const message_list_ty *mlp)
 {
   size_t j;
 
@@ -378,8 +365,7 @@ process_message_list (mlp)
 
 
 static void
-process_msgdomain_list (mdlp)
-     const msgdomain_list_ty *mdlp;
+process_msgdomain_list (const msgdomain_list_ty *mdlp)
 {
   size_t k;
 

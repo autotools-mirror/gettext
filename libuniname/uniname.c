@@ -30,12 +30,6 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static const char * unicode_name_word PARAMS ((unsigned int index, unsigned int *lengthp));
-static int unicode_name_word_lookup PARAMS ((const char *word, unsigned int length));
-
-
 /* Table of Unicode character names, derived from UnicodeData.txt.  */
 #define uint16_t unsigned short
 #define uint32_t unsigned int
@@ -57,9 +51,7 @@ static int unicode_name_word_lookup PARAMS ((const char *word, unsigned int leng
 
 /* Returns the word with a given index.  */
 static const char *
-unicode_name_word (index, lengthp)
-     unsigned int index;
-     unsigned int *lengthp;
+unicode_name_word (unsigned int index, unsigned int *lengthp)
 {
   unsigned int i1;
   unsigned int i2;
@@ -93,9 +85,7 @@ unicode_name_word (index, lengthp)
 
 /* Looks up the index of a word.  */
 static int
-unicode_name_word_lookup (word, length)
-     const char *word;
-     unsigned int length;
+unicode_name_word_lookup (const char *word, unsigned int length)
 {
   if (length > 0 && length < SIZEOF (unicode_name_by_length) - 1)
     {
@@ -156,9 +146,7 @@ static const char jamo_final_short_name[28][3] =
 /* Looks up the name of a Unicode character, in uppercase ASCII.
    Returns the filled buf, or NULL if the character does not have a name.  */
 char *
-unicode_character_name (c, buf)
-     unsigned int c;
-     char *buf;
+unicode_character_name (unsigned int c, char *buf)
 {
   if (c >= 0xAC00 && c <= 0xD7A3)
     {
@@ -302,8 +290,7 @@ unicode_character_name (c, buf)
 /* Looks up the Unicode character with a given name, in upper- or lowercase
    ASCII.  Returns the character if found, or UNINAME_INVALID if not found.  */
 unsigned int
-unicode_name_character (name)
-     const char *name;
+unicode_name_character (const char *name)
 {
   unsigned int len = strlen (name);
   if (len > 1 && len <= UNICODE_CHARNAME_MAX_LENGTH)

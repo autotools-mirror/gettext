@@ -24,12 +24,12 @@
   { "Tcl",        extract_tcl, &formatstring_tcl },			\
 
 /* Scan a Tcl file and add its translatable strings to mdlp.  */
-extern void extract_tcl PARAMS ((FILE *fp, const char *real_filename,
-				 const char *logical_filename,
-				 msgdomain_list_ty *mdlp));
+extern void extract_tcl (FILE *fp, const char *real_filename,
+			 const char *logical_filename,
+			 msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */
 
-extern void x_tcl_extract_all PARAMS ((void));
-extern void x_tcl_keyword PARAMS ((const char *name));
+extern void x_tcl_extract_all (void);
+extern void x_tcl_keyword (const char *name);

@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -22,6 +22,6 @@
 #include "message.h"
 
 /* Reads an existing .mo file and adds the messages to mlp.  */
-extern void read_mo_file PARAMS ((message_list_ty *mlp, const char *fn));
+extern void read_mo_file (message_list_ty *mlp, const char *fn);
 
 #endif /* _READ_MO_H */

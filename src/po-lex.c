@@ -31,6 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #if HAVE_ICONV
 # include <iconv.h>
@@ -39,7 +40,6 @@
 #include "c-ctype.h"
 #include "linebreak.h"
 #include "vasprintf.h"
-#include "libstdarg.h"
 #include "gettext.h"
 #include "po-charset.h"
 #include "xmalloc.h"
@@ -60,12 +60,6 @@
 # define getc getc_unlocked
 #endif
 
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
 
 /* Current position within the PO file.  */
 lex_pos_ty gram_pos;
@@ -84,15 +78,12 @@ int gram_pos_column;
 
 /* VARARGS1 */
 void
-po_gram_error VA_PARAMS ((const char *fmt, ...),
-			 (fmt, va_alist)
-     const char *fmt;
-     va_dcl)
+po_gram_error (const char *fmt, ...)
 {
   va_list ap;
   char *buffer;
 
-  VA_START (ap, fmt);
+  va_start (ap, fmt);
   if (vasprintf (&buffer, fmt, ap) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
@@ -116,16 +107,12 @@ po_gram_error VA_PARAMS ((const char *fmt, ...),
 
 /* VARARGS2 */
 void
-po_gram_error_at_line VA_PARAMS ((const lex_pos_ty *pp, const char *fmt, ...),
-				 (pp, fmt, va_alist)
-     const lex_pos_ty *pp;
-     const char *fmt;
-     va_dcl)
+po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
 {
   va_list ap;
   char *buffer;
 
-  VA_START (ap, fmt);
+  va_start (ap, fmt);
   if (vasprintf (&buffer, fmt, ap) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
@@ -178,30 +165,9 @@ struct mbchar
    therefore we use an array type.  */
 typedef struct mbchar mbchar_t[1];
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static inline void memcpy_small PARAMS ((void *dst, const void *src, size_t n));
-static inline bool mb_iseof PARAMS ((const mbchar_t mbc));
-static inline const char *mb_ptr PARAMS ((const mbchar_t mbc));
-static inline size_t mb_len PARAMS ((const mbchar_t mbc));
-static inline bool mb_iseq PARAMS ((const mbchar_t mbc,
-				    /*promote: char*/ int sc));
-static inline bool mb_isnul PARAMS ((const mbchar_t mbc));
-static inline int mb_cmp PARAMS ((const mbchar_t mbc1, const mbchar_t mbc2));
-static inline bool mb_equal PARAMS ((const mbchar_t mbc1, const mbchar_t mbc2));
-static inline bool mb_isascii PARAMS ((const mbchar_t mbc));
-static int mb_width PARAMS ((const mbchar_t mbc));
-static inline void mb_putc PARAMS ((const mbchar_t mbc, FILE *stream));
-static inline void mb_setascii PARAMS ((mbchar_t mbc,
-					/*promote: char*/ int sc));
-static inline void mb_copy PARAMS ((mbchar_t new, const mbchar_t old));
-
 /* A version of memcpy optimized for the case n <= 1.  */
 static inline void
-memcpy_small (dst, src, n)
-     void *dst;
-     const void *src;
-     size_t n;
+memcpy_small (void *dst, const void *src, size_t n)
 {
   if (n > 0)
     {
@@ -217,22 +183,19 @@ memcpy_small (dst, src, n)
 /* EOF (not a real character) is represented with bytes = 0 and
    uc_valid = false.  */
 static inline bool
-mb_iseof (mbc)
-     const mbchar_t mbc;
+mb_iseof (const mbchar_t mbc)
 {
   return (mbc->bytes == 0);
 }
 
 /* Access the current character.  */
 static inline const char *
-mb_ptr (mbc)
-     const mbchar_t mbc;
+mb_ptr (const mbchar_t mbc)
 {
   return mbc->buf;
 }
 static inline size_t
-mb_len (mbc)
-     const mbchar_t mbc;
+mb_len (const mbchar_t mbc)
 {
   return mbc->bytes;
 }
@@ -240,9 +203,7 @@ mb_len (mbc)
 /* Comparison of characters.  */
 
 static inline bool
-mb_iseq (mbc, sc)
-     const mbchar_t mbc;
-     char sc;
+mb_iseq (const mbchar_t mbc, char sc)
 {
   /* Note: It is wrong to compare only mbc->uc, because when the encoding is
      SHIFT_JIS, mbc->buf[0] == '\\' corresponds to mbc->uc == 0x00A5, but we
@@ -257,8 +218,7 @@ mb_iseq (mbc, sc)
 }
 
 static inline bool
-mb_isnul (mbc)
-     const mbchar_t mbc;
+mb_isnul (const mbchar_t mbc)
 {
 #if HAVE_ICONV
   if (mbc->uc_valid)
@@ -269,9 +229,7 @@ mb_isnul (mbc)
 }
 
 static inline int
-mb_cmp (mbc1, mbc2)
-     const mbchar_t mbc1;
-     const mbchar_t mbc2;
+mb_cmp (const mbchar_t mbc1, const mbchar_t mbc2)
 {
 #if HAVE_ICONV
   if (mbc1->uc_valid && mbc2->uc_valid)
@@ -286,9 +244,7 @@ mb_cmp (mbc1, mbc2)
 }
 
 static inline bool
-mb_equal (mbc1, mbc2)
-     const mbchar_t mbc1;
-     const mbchar_t mbc2;
+mb_equal (const mbchar_t mbc1, const mbchar_t mbc2)
 {
 #if HAVE_ICONV
   if (mbc1->uc_valid && mbc2->uc_valid)
@@ -302,8 +258,7 @@ mb_equal (mbc1, mbc2)
 /* <ctype.h>, <wctype.h> classification.  */
 
 static inline bool
-mb_isascii (mbc)
-     const mbchar_t mbc;
+mb_isascii (const mbchar_t mbc)
 {
 #if HAVE_ICONV
   if (mbc->uc_valid)
@@ -326,8 +281,7 @@ mb_isascii (mbc)
 #define MB_UNPRINTABLE_WIDTH 1
 
 static int
-mb_width (mbc)
-     const mbchar_t mbc;
+mb_width (const mbchar_t mbc)
 {
 #if HAVE_ICONV
   if (mbc->uc_valid)
@@ -370,18 +324,14 @@ mb_width (mbc)
 
 /* Output.  */
 static inline void
-mb_putc (mbc, stream)
-     const mbchar_t mbc;
-     FILE *stream;
+mb_putc (const mbchar_t mbc, FILE *stream)
 {
   fwrite (mbc->buf, 1, mbc->bytes, stream);
 }
 
 /* Assignment.  */
 static inline void
-mb_setascii (mbc, sc)
-     mbchar_t mbc;
-     char sc;
+mb_setascii (mbchar_t mbc, char sc)
 {
   mbc->bytes = 1;
 #if HAVE_ICONV
@@ -393,9 +343,7 @@ mb_setascii (mbc, sc)
 
 /* Copying a character.  */
 static inline void
-mb_copy (new, old)
-     mbchar_t new;
-     const mbchar_t old;
+mb_copy (mbchar_t new, const mbchar_t old)
 {
   memcpy_small (&new->buf[0], &old->buf[0], old->bytes);
   new->bytes = old->bytes;
@@ -431,16 +379,8 @@ typedef struct mbfile mbfile_t[1];
    or silently tolerated.  */
 static bool signal_eilseq;
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static inline void mbfile_init PARAMS ((mbfile_t mbf, FILE *stream));
-static void mbfile_getc PARAMS ((mbchar_t mbc, mbfile_t mbf));
-static void mbfile_ungetc PARAMS ((const mbchar_t mbc, mbfile_t mbf));
-
 static inline void
-mbfile_init (mbf, stream)
-     mbfile_t mbf;
-     FILE *stream;
+mbfile_init (mbfile_t mbf, FILE *stream)
 {
   mbf->fp = stream;
   mbf->eof_seen = false;
@@ -449,9 +389,7 @@ mbfile_init (mbf, stream)
 }
 
 static void
-mbfile_getc (mbc, mbf)
-     mbchar_t mbc;
-     mbfile_t mbf;
+mbfile_getc (mbchar_t mbc, mbfile_t mbf)
 {
   size_t bytes;
 
@@ -642,9 +580,7 @@ eof:
 }
 
 static void
-mbfile_ungetc (mbc, mbf)
-     const mbchar_t mbc;
-     mbfile_t mbf;
+mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 {
   if (mbf->have_pushback >= NPUSHBACK)
     abort ();
@@ -662,20 +598,9 @@ static bool pass_comments = false;
 bool pass_obsolete_entries = false;
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void lex_getc PARAMS ((mbchar_t mbc));
-static void lex_ungetc PARAMS ((const mbchar_t mbc));
-static int keyword_p PARAMS ((const char *s));
-static int control_sequence PARAMS ((void));
-
-
 /* Prepare lexical analysis.  */
 void
-lex_start (fp, real_filename, logical_filename)
-     FILE *fp;
-     const char *real_filename;
-     const char *logical_filename;
+lex_start (FILE *fp, const char *real_filename, const char *logical_filename)
 {
   /* Ignore the logical_filename, because PO file entries already have
      their file names attached.  But use real_filename for error messages.  */
@@ -718,8 +643,7 @@ lex_end ()
 
 /* Open the PO file FNAME and prepare its lexical analysis.  */
 void
-lex_open (fname)
-     const char *fname;
+lex_open (const char *fname)
 {
   char *real_filename;
   FILE *fp = open_po_file (fname, &real_filename);
@@ -746,8 +670,7 @@ lex_close ()
 /* Read a single character, dealing with backslash-newline.
    Also keep track of the current line number and column number.  */
 static void
-lex_getc (mbc)
-     mbchar_t mbc;
+lex_getc (mbchar_t mbc)
 {
   for (;;)
     {
@@ -793,8 +716,7 @@ lex_getc (mbc)
 
 
 static void
-lex_ungetc (mbc)
-     const mbchar_t mbc;
+lex_ungetc (const mbchar_t mbc)
 {
   if (!mb_iseof (mbc))
     {
@@ -811,8 +733,7 @@ lex_ungetc (mbc)
 
 
 static int
-keyword_p (s)
-     const char *s;
+keyword_p (const char *s)
 {
   if (!strcmp (s, "domain"))
     return DOMAIN;
@@ -857,7 +778,7 @@ control_sequence ()
 	return '\v';
 
       case 'a':
-	return ALERT_CHAR;
+	return '\a';
 
       case '\\':
       case '"':
@@ -1192,8 +1113,7 @@ po_gram_lex ()
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
 void
-po_lex_pass_comments (flag)
-     bool flag;
+po_lex_pass_comments (bool flag)
 {
   pass_comments = flag;
 }
@@ -1202,8 +1122,7 @@ po_lex_pass_comments (flag)
 /* po_gram_lex() can return obsolete entries as if they were normal entries.
    Switch this on or off.  */
 void
-po_lex_pass_obsolete_entries (flag)
-     bool flag;
+po_lex_pass_obsolete_entries (bool flag)
 {
   pass_obsolete_entries = flag;
 }

@@ -25,7 +25,7 @@
 #if !(__GLIBC__ >= 2)
 /* When not using the GNU libc we use the basename implementation we
    provide here.  */
-extern char *gnu_basename PARAMS ((const char *));
+extern char *gnu_basename (const char *);
 #define basename(Arg) gnu_basename (Arg)
 #endif
 

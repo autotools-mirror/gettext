@@ -28,7 +28,7 @@
 /* Canonicalize an encoding name.
    The results of this function are statically allocated and can be
    compared using ==.  */
-extern const char *po_charset_canonicalize PARAMS ((const char *charset));
+extern const char *po_charset_canonicalize (const char *charset);
 
 /* The canonicalized encoding name for ASCII.  */
 extern const char *po_charset_ascii;
@@ -37,17 +37,17 @@ extern const char *po_charset_ascii;
 extern const char *po_charset_utf8;
 
 /* Test for ASCII compatibility.  */
-extern bool po_charset_ascii_compatible PARAMS ((const char *canon_charset));
+extern bool po_charset_ascii_compatible (const char *canon_charset);
 
 /* Test for a weird encoding, i.e. an encoding which has double-byte
    characters ending in 0x5C.  */
-extern bool po_is_charset_weird PARAMS ((const char *canon_charset));
+extern bool po_is_charset_weird (const char *canon_charset);
 
 /* Test for a weird CJK encoding, i.e. a weird encoding with CJK structure.
    An encoding has CJK structure if every valid character stream is composed
    of single bytes in the range 0x{00..7F} and of byte pairs in the range
    0x{80..FF}{30..FF}.  */
-extern bool po_is_charset_weird_cjk PARAMS ((const char *canon_charset));
+extern bool po_is_charset_weird_cjk (const char *canon_charset);
 
 
 /* The PO file's encoding, as specified in the header entry.  */
@@ -62,13 +62,13 @@ extern iconv_t po_lex_iconv;
 extern bool po_lex_weird_cjk;
 
 /* Initialize the PO file's encoding.  */
-extern void po_lex_charset_init PARAMS ((void));
+extern void po_lex_charset_init (void);
 
 /* Set the PO file's encoding from the header entry.  */
-extern void po_lex_charset_set PARAMS ((const char *header_entry,
-					const char *filename));
+extern void po_lex_charset_set (const char *header_entry,
+				const char *filename);
 
 /* Finish up with the PO file's encoding.  */
-extern void po_lex_charset_close PARAMS ((void));
+extern void po_lex_charset_close (void);
 
 #endif /* _PO_CHARSET_H */

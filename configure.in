@@ -64,7 +64,6 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_C_INLINE
 bh_C_SIGNED
-AC_C_BACKSLASH_A
 jm_AC_TYPE_UNSIGNED_LONG_LONG
 AC_TYPE_OFF_T
 AC_TYPE_SIZE_T

@@ -81,41 +81,11 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int check_resource_name PARAMS ((const char *name));
-static unsigned int string_hashcode PARAMS ((const char *str));
-static unsigned int compute_hashsize PARAMS ((message_list_ty *mlp,
-					      bool *collisionp));
-static int compare_index PARAMS ((const void *pval1, const void *pval2));
-static struct table_item * compute_table_items PARAMS ((message_list_ty *mlp,
-							unsigned int hashsize));
-static void write_java_string PARAMS ((FILE *stream, const char *str));
-static void write_java_msgstr PARAMS ((FILE *stream, message_ty *mp));
-static void write_lookup_code PARAMS ((FILE *stream, unsigned int hashsize,
-				       bool collisions));
-static bool is_expression_boolean PARAMS ((struct expression *exp));
-static void write_java_expression PARAMS ((FILE *stream,
-					   struct expression *exp,
-					   bool as_boolean));
-static void write_java_code PARAMS ((FILE *stream, const char *class_name,
-				     message_list_ty *mlp, bool assume_java2));
-static void uninstall_handlers PARAMS ((void));
-static void cleanup PARAMS ((int sig));
-static void install_handlers PARAMS ((void));
-#if HAVE_POSIX_SIGNALBLOCKING
-static void init_signal_set PARAMS ((void));
-static void block PARAMS ((void));
-static void unblock PARAMS ((void));
-#endif
-
-
 /* Check that the resource name is a valid Java class name.  To simplify
    things, we allow only ASCII characters in the class name.
    Return the number of dots in the class name, or -1 if not OK.  */
 static int
-check_resource_name (name)
-     const char *name;
+check_resource_name (const char *name)
 {
   int ndots = 0;
   const char *p = name;
@@ -148,8 +118,7 @@ check_resource_name (name)
    this removes one bit but greatly simplifies the following "mod hash_size"
    and "mod (hash_size - 2)" operations.  */
 static unsigned int
-string_hashcode (str)
-     const char *str;
+string_hashcode (const char *str)
 {
   const char *str_limit = str + strlen (str);
   int hash = 0;
@@ -175,9 +144,7 @@ string_hashcode (str)
 
 /* Compute a good hash table size for the given set of msgids.  */
 static unsigned int
-compute_hashsize (mlp, collisionp)
-     message_list_ty *mlp;
-     bool *collisionp;
+compute_hashsize (message_list_ty *mlp, bool *collisionp)
 {
   /* This is an O(n^2) algorithm, but should be sufficient because few
      programs have more than 1000 messages in a single domain.  */
@@ -310,9 +277,7 @@ compute_hashsize (mlp, collisionp)
 struct table_item { unsigned int index; message_ty *mp; };
 
 static int
-compare_index (pval1, pval2)
-     const void *pval1;
-     const void *pval2;
+compare_index (const void *pval1, const void *pval2)
 {
   return (int)((const struct table_item *) pval1)->index
 	 - (int)((const struct table_item *) pval2)->index;
@@ -321,9 +286,7 @@ compare_index (pval1, pval2)
 /* Compute the list of messages and table indices, sorted according to the
    indices.  */
 static struct table_item *
-compute_table_items (mlp, hashsize)
-     message_list_ty *mlp;
-     unsigned int hashsize;
+compute_table_items (message_list_ty *mlp, unsigned int hashsize)
 {
   unsigned int n = mlp->nitems;
   struct table_item *arr =
@@ -366,9 +329,7 @@ compute_table_items (mlp, hashsize)
 
 /* Write a string in Java Unicode notation to the given stream.  */
 static void
-write_java_string (stream, str)
-     FILE *stream;
-     const char *str;
+write_java_string (FILE *stream, const char *str)
 {
   static const char hexdigit[] = "0123456789abcdef";
   const char *str_limit = str + strlen (str);
@@ -417,9 +378,7 @@ write_java_string (stream, str)
    has plural forms, it is an expression of type String[], otherwise it is
    an expression of type String.  */
 static void
-write_java_msgstr (stream, mp)
-     FILE *stream;
-     message_ty *mp;
+write_java_msgstr (FILE *stream, message_ty *mp)
 {
   if (mp->msgid_plural != NULL)
     {
@@ -450,10 +409,7 @@ write_java_msgstr (stream, mp)
 /* Writes the body of the function which returns the local value for a key
    named 'msgid'.  */
 static void
-write_lookup_code (stream, hashsize, collisions)
-     FILE *stream;
-     unsigned int hashsize;
-     bool collisions;
+write_lookup_code (FILE *stream, unsigned int hashsize, bool collisions)
 {
   fprintf (stream, "    int hash_val = msgid.hashCode() & 0x7fffffff;\n");
   fprintf (stream, "    int idx = (hash_val %% %d) << 1;\n", hashsize);
@@ -492,8 +448,7 @@ write_lookup_code (stream, hashsize, collisions)
 /* Tests whether a plural expression, evaluated according to the C rules,
    can only produce the values 0 and 1.  */
 static bool
-is_expression_boolean (exp)
-     struct expression *exp;
+is_expression_boolean (struct expression *exp)
 {
   switch (exp->operation)
     {
@@ -528,10 +483,7 @@ is_expression_boolean (exp)
 /* Write Java code that evaluates a plural expression according to the C rules.
    The variable is called 'n'.  */
 static void
-write_java_expression (stream, exp, as_boolean)
-     FILE *stream;
-     struct expression *exp;
-     bool as_boolean;
+write_java_expression (FILE *stream, struct expression *exp, bool as_boolean)
 {
   /* We use parentheses everywhere.  This frees us from tracking the priority
      of arithmetic operators.  */
@@ -712,11 +664,8 @@ write_java_expression (stream, exp, as_boolean)
    because applications can have their own classes called X.Y.ResourceBundle
    or X.Y.String.  */
 static void
-write_java_code (stream, class_name, mlp, assume_java2)
-     FILE *stream;
-     const char *class_name;
-     message_list_ty *mlp;
-     bool assume_java2;
+write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
+		 bool assume_java2)
 {
   const char *last_dot;
   unsigned int plurals;
@@ -963,8 +912,7 @@ uninstall_handlers ()
 
 /* The signal handler.  It gets called asynchronously.  */
 static void
-cleanup (sig)
-     int sig;
+cleanup (int sig)
 {
   unsigned int i;
 
@@ -1070,12 +1018,10 @@ unblock ()
 
 
 int
-msgdomain_write_java (mlp, resource_name, locale_name, directory, assume_java2)
-     message_list_ty *mlp;
-     const char *resource_name;
-     const char *locale_name;
-     const char *directory;
-     bool assume_java2;
+msgdomain_write_java (message_list_ty *mlp,
+		      const char *resource_name, const char *locale_name,
+		      const char *directory,
+		      bool assume_java2)
 {
   int retval;
   char *template;

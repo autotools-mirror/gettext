@@ -1,5 +1,5 @@
 /* Program name management.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,7 +33,7 @@
 extern const char *program_name;
 
 /* Set program_name, based on argv[0].  */
-extern void set_program_name PARAMS ((const char *argv0));
+extern void set_program_name (const char *argv0);
 
 /* Indicates whether errors and warnings get prefixed with program_name.
    Default is true.
@@ -43,6 +43,6 @@ extern bool error_with_progname;
 
 /* Print program_name prefix on stderr if and only if error_with_progname
    is true.  */
-extern void maybe_print_progname PARAMS ((void));
+extern void maybe_print_progname (void);
 
 #endif /* _PROGNAME_H */

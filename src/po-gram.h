@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -23,6 +23,6 @@
 /* Include some fundamental headers.  */
 #include <sys/types.h>
 
-extern int po_gram_parse PARAMS ((void));
+extern int po_gram_parse (void);
 
 #endif

@@ -46,10 +46,6 @@ ${DIFF} de.po.strip de.po.tmp || exit 1
 LANGUAGE= ./fc3 de_DE
 result=$?
 
-if test $result = 77; then
-  echo "SKIP: format-c-3"
-fi
-
 rm -fr $tmpfiles
 
 exit $result

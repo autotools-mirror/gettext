@@ -27,7 +27,7 @@
 
 #if HAVE_ICONV
 /* Converts the STRING through the conversion descriptor CD.  */
-extern char *convert_string PARAMS ((iconv_t cd, const char *string));
+extern char *convert_string (iconv_t cd, const char *string);
 #endif
 
 /* Converts the message list MLP to the (already canonicalized) encoding
@@ -35,15 +35,15 @@ extern char *convert_string PARAMS ((iconv_t cd, const char *string));
    can be passed as CANON_FROM_CODE; if NULL is passed instead, the
    encoding is looked up in the header entry.  */
 extern void
-       iconv_message_list PARAMS ((message_list_ty *mlp,
-				   const char *canon_from_code,
-				   const char *canon_to_code,
-				   const char *from_filename));
+       iconv_message_list (message_list_ty *mlp,
+			   const char *canon_from_code,
+			   const char *canon_to_code,
+			   const char *from_filename);
 
 /* Converts all the message lists in MDLP to the encoding TO_CODE.  */
 extern msgdomain_list_ty *
-       iconv_msgdomain_list PARAMS ((msgdomain_list_ty *mdlp,
-				     const char *to_code,
-				     const char *from_filename));
+       iconv_msgdomain_list (msgdomain_list_ty *mdlp,
+			     const char *to_code,
+			     const char *from_filename);
 
 #endif /* _MSGL_ICONV_H */

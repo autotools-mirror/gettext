@@ -23,20 +23,15 @@
 /* Specification.  */
 #include "vasnprintf.h"
 
-#include "libstdarg.h"
+#include <stdarg.h>
 
 char *
-asnprintf VA_PARAMS ((char *resultbuf, size_t *lengthp, const char *format, ...),
-		     (resultbuf, lengthp, format, va_alist)
-     char *resultbuf;
-     size_t *lengthp;
-     const char *format;
-     va_dcl)
+asnprintf (char *resultbuf, size_t *lengthp, const char *format, ...)
 {
   va_list args;
   char *result;
 
-  VA_START (args, format);
+  va_start (args, format);
   result = vasnprintf (resultbuf, lengthp, format, args);
   va_end (args);
   return result;

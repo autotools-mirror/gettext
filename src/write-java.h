@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,10 +29,10 @@
    separators) or NULL, directory is the base directory.
    Return 0 if ok, nonzero on error.  */
 extern int
-       msgdomain_write_java PARAMS ((message_list_ty *mlp,
-				     const char *resource_name,
-				     const char *locale_name,
-				     const char *directory,
-				     bool assume_java2));
+       msgdomain_write_java (message_list_ty *mlp,
+			     const char *resource_name,
+			     const char *locale_name,
+			     const char *directory,
+			     bool assume_java2);
 
 #endif /* _WRITE_JAVA_H */

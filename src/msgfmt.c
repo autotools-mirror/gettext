@@ -177,51 +177,21 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status))
+/* Forward declaration of local functions.  */
+static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
 	__attribute__ ((noreturn))
 #endif
 ;
-static const char *add_mo_suffix PARAMS ((const char *));
-static struct msg_domain *new_domain PARAMS ((const char *name,
-					      const char *file_name));
-static bool is_nonobsolete PARAMS ((const message_ty *mp));
-#if USE_SIGINFO
-static void sigfpe_handler PARAMS ((int sig, siginfo_t *sip, void *scp));
-#else
-static void sigfpe_handler PARAMS ((int sig));
-#endif
-static void install_sigfpe_handler PARAMS ((void));
-static void uninstall_sigfpe_handler PARAMS ((void));
-static void check_plural_eval PARAMS ((struct expression *plural_expr,
-				       unsigned long nplurals_value,
-				       const lex_pos_ty *header_pos));
-static void check_plural PARAMS ((message_list_ty *mlp));
-static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
-				const char *msgid_plural,
-				const char *msgstr, size_t msgstr_len,
-				const lex_pos_ty *msgstr_pos,
-				enum is_format is_format[NFORMATS]));
-static void check_header_entry PARAMS ((const char *msgstr_string));
-static void format_constructor PARAMS ((po_ty *that));
-static void format_debrief PARAMS ((po_ty *));
-static void format_directive_domain PARAMS ((po_ty *pop, char *name));
-static void format_directive_message PARAMS ((po_ty *pop, char *msgid,
-					      lex_pos_ty *msgid_pos,
-					      char *msgid_plural,
-					      char *msgstr, size_t msgstr_len,
-					      lex_pos_ty *msgstr_pos,
-					      bool obsolete));
-static void format_comment_special PARAMS ((po_ty *pop, const char *s));
-static void read_po_file PARAMS ((char *filename));
+static const char *add_mo_suffix (const char *);
+static struct msg_domain *new_domain (const char *name, const char *file_name);
+static bool is_nonobsolete (const message_ty *mp);
+static void check_plural (message_list_ty *mlp);
+static void read_po_file (char *filename);
 
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int opt;
   bool do_help = false;
@@ -521,8 +491,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -627,8 +596,7 @@ Informative output:\n\
 
 
 static const char *
-add_mo_suffix (fname)
-     const char *fname;
+add_mo_suffix (const char *fname)
 {
   size_t len;
   char *result;
@@ -645,9 +613,7 @@ add_mo_suffix (fname)
 
 
 static struct msg_domain *
-new_domain (name, file_name)
-     const char *name;
-     const char *file_name;
+new_domain (const char *name, const char *file_name)
 {
   struct msg_domain **p_dom = &domain_list;
 
@@ -671,8 +637,7 @@ new_domain (name, file_name)
 
 
 static bool
-is_nonobsolete (mp)
-     const message_ty *mp;
+is_nonobsolete (const message_ty *mp)
 {
   return !mp->obsolete;
 }
@@ -687,10 +652,7 @@ static int sigfpe_code;
 /* Signal handler called in case of arithmetic exception (e.g. division
    by zero) during plural_eval.  */
 static void
-sigfpe_handler (sig, sip, scp)
-     int sig;
-     siginfo_t *sip;
-     void *scp;
+sigfpe_handler (int sig, siginfo_t *sip, void *scp)
 {
   sigfpe_code = sip->si_code;
   siglongjmp (sigfpe_exit, 1);
@@ -701,8 +663,7 @@ sigfpe_handler (sig, sip, scp)
 /* Signal handler called in case of arithmetic exception (e.g. division
    by zero) during plural_eval.  */
 static void
-sigfpe_handler (sig)
-     int sig;
+sigfpe_handler (int sig)
 {
   siglongjmp (sigfpe_exit, 1);
 }
@@ -739,10 +700,9 @@ uninstall_sigfpe_handler ()
 
 /* Check the values returned by plural_eval.  */
 static void
-check_plural_eval (plural_expr, nplurals_value, header_pos)
-     struct expression *plural_expr;
-     unsigned long nplurals_value;
-     const lex_pos_ty *header_pos;
+check_plural_eval (struct expression *plural_expr,
+		   unsigned long nplurals_value,
+		   const lex_pos_ty *header_pos)
 {
   if (sigsetjmp (sigfpe_exit, 1) == 0)
     {
@@ -825,8 +785,7 @@ check_plural_eval (plural_expr, nplurals_value, header_pos)
 
 /* Perform plural expression checking.  */
 static void
-check_plural (mlp)
-     message_list_ty *mlp;
+check_plural (message_list_ty *mlp)
 {
   const lex_pos_ty *has_plural;
   unsigned long min_nplurals;
@@ -1034,15 +993,11 @@ check_plural (mlp)
 
 /* Perform miscellaneous checks on a message.  */
 static void
-check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
-	    is_format)
-     const char *msgid;
-     const lex_pos_ty *msgid_pos;
-     const char *msgid_plural;
-     const char *msgstr;
-     size_t msgstr_len;
-     const lex_pos_ty *msgstr_pos;
-     enum is_format is_format[NFORMATS];
+check_pair (const char *msgid,
+	    const lex_pos_ty *msgid_pos,
+	    const char *msgid_plural,
+	    const char *msgstr, size_t msgstr_len,
+	    const lex_pos_ty *msgstr_pos, enum is_format is_format[NFORMATS])
 {
   int has_newline;
   size_t i;
@@ -1258,8 +1213,7 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 
 /* Perform miscellaneous checks on a header entry.  */
 static void
-check_header_entry (msgstr_string)
-     const char *msgstr_string;
+check_header_entry (const char *msgstr_string)
 {
   static const char *required_fields[] =
   {
@@ -1323,8 +1277,7 @@ field `%s' still has initial default value\n"),
 
 /* Prepare for first message.  */
 static void
-format_constructor (that)
-     po_ty *that;
+format_constructor (po_ty *that)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   size_t i;
@@ -1340,8 +1293,7 @@ format_constructor (that)
 
 /* Some checks after whole file is read.  */
 static void
-format_debrief (that)
-     po_ty *that;
+format_debrief (po_ty *that)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
 
@@ -1375,9 +1327,7 @@ warning: older versions of msgfmt will give an error on this\n")));
 
 /* Process `domain' directive from .po file.  */
 static void
-format_directive_domain (pop, name)
-     po_ty *pop;
-     char *name;
+format_directive_domain (po_ty *pop, char *name)
 {
   /* If no output file was given, we change it with each `domain'
      directive.  */
@@ -1417,16 +1367,13 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 
 /* Process `msgid'/`msgstr' pair from .po file.  */
 static void
-format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
-			  msgstr_string, msgstr_len, msgstr_pos, obsolete)
-     po_ty *that;
-     char *msgid_string;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr_string;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
+format_directive_message (po_ty *that,
+			  char *msgid_string,
+			  lex_pos_ty *msgid_pos,
+			  char *msgid_plural,
+			  char *msgstr_string, size_t msgstr_len,
+			  lex_pos_ty *msgstr_pos,
+			  bool obsolete)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   message_ty *mp;
@@ -1535,9 +1482,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 
 /* Test for `#, fuzzy' comments and warn.  */
 static void
-format_comment_special (that, s)
-     po_ty *that;
-     const char *s;
+format_comment_special (po_ty *that, const char *s)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   bool fuzzy;
@@ -1585,8 +1530,7 @@ static po_method_ty format_methods =
 
 /* Read .po file FILENAME and store translation pairs.  */
 static void
-read_po_file (filename)
-     char *filename;
+read_po_file (char *filename)
 {
   po_ty *pop;
 

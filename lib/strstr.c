@@ -1,5 +1,5 @@
 /* Return the offset of one string within another.
-   Copyright (C) 1994, 1996, 1997, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1994, 1996, 1997, 2000, 2002 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -39,9 +39,7 @@ typedef unsigned chartype;
 #undef strstr
 
 char *
-strstr (phaystack, pneedle)
-     const char *phaystack;
-     const char *pneedle;
+strstr (const char *phaystack, const char *pneedle)
 {
   register const unsigned char *haystack, *needle;
   register chartype b, c;

@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table with string based keys.
-   Copyright (C) 1994, 1995, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1994-1995, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software; you can redistribute it and/or modify
@@ -77,22 +77,19 @@ typedef struct hash_entry
 }
 hash_entry;
 
-/* Prototypes for local functions.  */
-static void insert_entry_2 PARAMS ((hash_table *htab,
-				    const void *key, size_t keylen,
-				    unsigned long int hval, size_t idx,
-				    void *data));
-static size_t lookup PARAMS ((hash_table *htab,
-			      const void *key, size_t keylen,
-			      unsigned long int hval));
-static unsigned long compute_hashval PARAMS ((const void *key, size_t keylen));
-static int is_prime PARAMS ((unsigned long int candidate));
+/* Forward declaration of local functions.  */
+static void insert_entry_2 (hash_table *htab,
+			    const void *key, size_t keylen,
+			    unsigned long int hval, size_t idx, void *data);
+static size_t lookup (hash_table *htab,
+		      const void *key, size_t keylen,
+		      unsigned long int hval);
+static unsigned long compute_hashval (const void *key, size_t keylen);
+static int is_prime (unsigned long int candidate);
 
 
 int
-init_hash (htab, init_size)
-     hash_table *htab;
-     unsigned long int init_size;
+init_hash (hash_table *htab, unsigned long int init_size)
 {
   /* We need the size to be a prime.  */
   init_size = next_prime (init_size);
@@ -110,8 +107,7 @@ init_hash (htab, init_size)
 
 
 int
-delete_hash (htab)
-     hash_table *htab;
+delete_hash (hash_table *htab)
 {
   free (htab->table);
   obstack_free (&htab->mem_pool, NULL);
@@ -120,11 +116,7 @@ delete_hash (htab)
 
 
 int
-insert_entry (htab, key, keylen, data)
-     hash_table *htab;
-     const void *key;
-     size_t keylen;
-     void *data;
+insert_entry (hash_table *htab, const void *key, size_t keylen, void *data)
 {
   unsigned long int hval = compute_hashval (key, keylen);
   hash_entry *table = (hash_entry *) htab->table;
@@ -143,13 +135,9 @@ insert_entry (htab, key, keylen, data)
 }
 
 static void
-insert_entry_2 (htab, key, keylen, hval, idx, data)
-     hash_table *htab;
-     const void *key;
-     size_t keylen;
-     unsigned long int hval;
-     size_t idx;
-     void *data;
+insert_entry_2 (hash_table *htab,
+		const void *key, size_t keylen,
+		unsigned long int hval, size_t idx, void *data)
 {
   hash_entry *table = (hash_entry *) htab->table;
 
@@ -196,11 +184,7 @@ insert_entry_2 (htab, key, keylen, hval, idx, data)
 
 
 int
-find_entry (htab, key, keylen, result)
-     hash_table *htab;
-     const void *key;
-     size_t keylen;
-     void **result;
+find_entry (hash_table *htab, const void *key, size_t keylen, void **result)
 {
   hash_entry *table = (hash_entry *) htab->table;
   size_t idx = lookup (htab, key, keylen, compute_hashval (key, keylen));
@@ -214,12 +198,8 @@ find_entry (htab, key, keylen, result)
 
 
 int
-iterate_table (htab, ptr, key, keylen, data)
-     hash_table *htab;
-     void **ptr;
-     const void **key;
-     size_t *keylen;
-     void **data;
+iterate_table (hash_table *htab, void **ptr, const void **key, size_t *keylen,
+	       void **data)
 {
   if (*ptr == NULL)
     {
@@ -246,11 +226,9 @@ iterate_table (htab, ptr, key, keylen, data)
    [Knuth]	      The Art of Computer Programming, part3 (6.4) */
 
 static size_t
-lookup (htab, key, keylen, hval)
-     hash_table *htab;
-     const void *key;
-     size_t keylen;
-     unsigned long int hval;
+lookup (hash_table *htab,
+	const void *key, size_t keylen,
+	unsigned long int hval)
 {
   unsigned long int hash;
   size_t idx;
@@ -289,9 +267,7 @@ lookup (htab, key, keylen, hval)
 
 
 static unsigned long
-compute_hashval (key, keylen)
-     const void *key;
-     size_t keylen;
+compute_hashval (const void *key, size_t keylen)
 {
   size_t cnt;
   unsigned long int hval;
@@ -310,8 +286,7 @@ compute_hashval (key, keylen)
 
 
 unsigned long
-next_prime (seed)
-     unsigned long int seed;
+next_prime (unsigned long int seed)
 {
   /* Make it definitely odd.  */
   seed |= 1;
@@ -324,8 +299,7 @@ next_prime (seed)
 
 
 static int
-is_prime (candidate)
-     unsigned long int candidate;
+is_prime (unsigned long int candidate)
 {
   /* No even number and none less than 10 will be passed here.  */
   unsigned long int divn = 3;

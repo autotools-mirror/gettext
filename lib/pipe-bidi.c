@@ -1,5 +1,5 @@
 /* Creation of subprocesses, communicating via pipes.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -54,13 +54,6 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-#ifdef EINTR
-static inline int nonintr_close PARAMS ((int fd));
-#endif
-
-
 #ifdef EINTR
 
 /* EINTR handling for close().
@@ -68,8 +61,7 @@ static inline int nonintr_close PARAMS ((int fd));
    signal handlers set up, namely when we get interrupted via SIGSTOP.  */
 
 static inline int
-nonintr_close (fd)
-     int fd;
+nonintr_close (int fd)
 {
   int retval;
 
@@ -93,13 +85,11 @@ nonintr_close (fd)
  *
  */
 pid_t
-create_pipe_bidi (progname, prog_path, prog_argv, null_stderr, exit_on_error, fd)
-     const char *progname;
-     const char *prog_path;
-     char **prog_argv;
-     bool null_stderr;
-     bool exit_on_error;
-     int fd[2];
+create_pipe_bidi (const char *progname,
+		  const char *prog_path, char **prog_argv,
+		  bool null_stderr,
+		  bool exit_on_error,
+		  int fd[2])
 {
   int ifd[2];
   int ofd[2];

@@ -66,12 +66,6 @@ size_t alignment;
 bool no_hash_table;
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int compare_id PARAMS ((const void *pval1, const void *pval2));
-static void write_table PARAMS ((FILE *output_file, message_list_ty *mlp));
-
-
 /* Indices into the strings contained in 'struct pre_message' and
    'struct pre_sysdep_message'.  */
 enum
@@ -96,9 +90,7 @@ struct pre_message
 };
 
 static int
-compare_id (pval1, pval2)
-     const void *pval1;
-     const void *pval2;
+compare_id (const void *pval1, const void *pval2)
 {
   return strcmp (((struct pre_message *) pval1)->str[M_ID].pointer,
 		 ((struct pre_message *) pval2)->str[M_ID].pointer);
@@ -138,9 +130,7 @@ struct pre_sysdep_message
 
 /* Write the message list to the given open file.  */
 static void
-write_table (output_file, mlp)
-     FILE *output_file;
-     message_list_ty *mlp;
+write_table (FILE *output_file, message_list_ty *mlp)
 {
   size_t nstrings;
   struct pre_message *msg_arr;
@@ -678,10 +668,9 @@ write_table (output_file, mlp)
 
 
 int
-msgdomain_write_mo (mlp, domain_name, file_name)
-     message_list_ty *mlp;
-     const char *domain_name;
-     const char *file_name;
+msgdomain_write_mo (message_list_ty *mlp,
+		    const char *domain_name,
+		    const char *file_name)
 {
   FILE *output_file;
 

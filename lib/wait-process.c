@@ -78,10 +78,7 @@
 
 
 int
-wait_subprocess (child, progname, exit_on_error)
-     pid_t child;
-     const char *progname;
-     bool exit_on_error;
+wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
 {
   /* waitpid() is just as portable as wait() nowadays.  */
   WAIT_T status;

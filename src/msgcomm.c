@@ -80,9 +80,8 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status))
+/* Forward declaration of local functions.  */
+static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ > 4) || __GNUC__ > 2)
 	__attribute__ ((noreturn))
 #endif
@@ -90,9 +89,7 @@ static void usage PARAMS ((int status))
 
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int cnt;
   int optchar;
@@ -304,8 +301,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),

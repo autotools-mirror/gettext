@@ -1,5 +1,5 @@
 /* xgettext Lisp backend.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,12 +24,12 @@
   { "Lisp",       extract_lisp, &formatstring_lisp },			\
 
 /* Scan a Lisp file and add its translatable strings to mdlp.  */
-extern void extract_lisp PARAMS ((FILE *fp, const char *real_filename,
-				  const char *logical_filename,
-				  msgdomain_list_ty *mdlp));
+extern void extract_lisp (FILE *fp, const char *real_filename,
+			  const char *logical_filename,
+			  msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */
 
-extern void x_lisp_extract_all PARAMS ((void));
-extern void x_lisp_keyword PARAMS ((const char *name));
+extern void x_lisp_extract_all (void);
+extern void x_lisp_keyword (const char *name);

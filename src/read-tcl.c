@@ -46,9 +46,7 @@
    the msgid/msgstr pair to us, instead of storing it in the hash table.  */
 
 msgdomain_list_ty *
-msgdomain_read_tcl (locale_name, directory)
-     const char *locale_name;
-     const char *directory;
+msgdomain_read_tcl (const char *locale_name, const char *directory)
 {
   const char *gettextdatadir;
   char *tclscript;

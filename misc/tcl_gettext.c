@@ -1,5 +1,5 @@
 /* tcl_gettext - Module implementing gettext interface for Tcl.
-   Copyright (C) 1995, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, December 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,41 +27,10 @@
 /* Data for Tcl interpreter interface.  */
 #include "tcl.h"
 
-/* Prototypes for local functions.  */
-static int
-tcl_gettext (ClientData client_data, Tcl_Interp *interp, int argc,
-	     char *argv[]);
-static int
-tcl_textdomain (ClientData client_data, Tcl_Interp *interp, int argc,
-		char *argv[]);
-static int
-tcl_bindtextdomain (ClientData client_data, Tcl_Interp *interp, int argc,
-		    char *argv[]);
-
-
-/* Initialization functions.  Called from the tclAppInit.c/tkAppInit.c
-   or while the dynamic loading with Tcl7.x, x>= 5.  */
-int
-Gettext_Init (interp)
-     Tcl_Interp *interp;
-{
-  Tcl_CreateCommand (interp, "gettext", tcl_gettext, (ClientData) 0,
-		     (Tcl_CmdDeleteProc *) NULL);
-  Tcl_CreateCommand (interp, "textdomain", tcl_textdomain, (ClientData) 0,
-		     (Tcl_CmdDeleteProc *) NULL);
-  Tcl_CreateCommand (interp, "bindtextdomain", tcl_bindtextdomain,
-		     (ClientData) 0, (Tcl_CmdDeleteProc *) NULL);
-
-  return TCL_OK;
-}
-
 
 static int
-tcl_gettext (client_data, interp, argc, argv)
-     ClientData client_data;
-     Tcl_Interp *interp;
-     int argc;
-     char *argv[];
+tcl_gettext (ClientData client_data, Tcl_Interp *interp,
+	     int argc, char *argv[])
 {
   const char *domainname = NULL;
   int category = LC_MESSAGES;
@@ -130,11 +99,8 @@ tcl_gettext (client_data, interp, argc, argv)
 
 
 static int
-tcl_textdomain (client_data, interp, argc, argv)
-     ClientData client_data;
-     Tcl_Interp *interp;
-     int argc;
-     char *argv[];
+tcl_textdomain (ClientData client_data, Tcl_Interp *interp,
+		int argc, char *argv[])
 {
   if (argc != 2)
     {
@@ -149,11 +115,8 @@ tcl_textdomain (client_data, interp, argc, argv)
 
 
 static int
-tcl_bindtextdomain (client_data, interp, argc, argv)
-     ClientData client_data;
-     Tcl_Interp *interp;
-     int argc;
-     char *argv[];
+tcl_bindtextdomain (ClientData client_data, Tcl_Interp *interp,
+		    int argc, char *argv[])
 {
   if (argc != 3)
     {
@@ -162,4 +125,20 @@ tcl_bindtextdomain (client_data, interp, argc, argv)
     }
 
   return bindtextdomain (argv[1], argv[2]) == NULL ? TCL_ERROR : TCL_OK;
+}
+
+
+/* Initialization functions.  Called from the tclAppInit.c/tkAppInit.c
+   or while the dynamic loading with Tcl7.x, x>= 5.  */
+int
+Gettext_Init (Tcl_Interp *interp)
+{
+  Tcl_CreateCommand (interp, "gettext", tcl_gettext, (ClientData) 0,
+		     (Tcl_CmdDeleteProc *) NULL);
+  Tcl_CreateCommand (interp, "textdomain", tcl_textdomain, (ClientData) 0,
+		     (Tcl_CmdDeleteProc *) NULL);
+  Tcl_CreateCommand (interp, "bindtextdomain", tcl_bindtextdomain,
+		     (ClientData) 0, (Tcl_CmdDeleteProc *) NULL);
+
+  return TCL_OK;
 }

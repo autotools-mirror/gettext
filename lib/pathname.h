@@ -1,5 +1,5 @@
 /* Pathname support.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,14 +17,6 @@
 
 #ifndef _PATHNAME_H
 #define _PATHNAME_H
-
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
 
 /* Pathname support.
    ISSLASH(C)           tests whether C is a directory separator character.
@@ -52,8 +44,7 @@
 
 /* Concatenate a directory pathname, a relative pathname and an optional
    suffix.  Return a freshly allocated pathname.  */
-extern char *concatenated_pathname PARAMS ((const char *directory,
-					    const char *filename,
-					    const char *suffix));
+extern char *concatenated_pathname (const char *directory,
+				    const char *filename, const char *suffix);
 
 #endif /* _PATHNAME_H */

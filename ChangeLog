@@ -1,3 +1,9 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* configure.in: Remove AC_C_BACKSLASH_A call.
+	* os2/configure.awk: Remove HAVE_C_BACKSLASH_A setting.
+
 2002-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* ltmain.sh: Upgrade to libtool-1.4.3.

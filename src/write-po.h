@@ -25,23 +25,23 @@
 #include <stdbool.h>
 
 extern void
-       message_page_width_set PARAMS ((size_t width));
+       message_page_width_set (size_t width);
 extern void
-       message_page_width_ignore PARAMS ((void));
+       message_page_width_ignore (void);
 extern void
-       message_print_style_indent PARAMS ((void));
+       message_print_style_indent (void);
 extern void
-       message_print_style_uniforum PARAMS ((void));
+       message_print_style_uniforum (void);
 extern void
-       message_print_style_escape PARAMS ((bool flag));
+       message_print_style_escape (bool flag);
 
 extern void
-       msgdomain_list_print PARAMS ((msgdomain_list_ty *mdlp,
-				     const char *filename,
-				     bool force, bool debug));
+       msgdomain_list_print (msgdomain_list_ty *mdlp,
+			     const char *filename,
+			     bool force, bool debug);
 extern void
-       msgdomain_list_sort_by_msgid PARAMS ((msgdomain_list_ty *mdlp));
+       msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp);
 extern void
-       msgdomain_list_sort_by_filepos PARAMS ((msgdomain_list_ty *mdlp));
+       msgdomain_list_sort_by_filepos (msgdomain_list_ty *mdlp);
 
 #endif /* _WRITE_PO_H */

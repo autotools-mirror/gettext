@@ -1,5 +1,5 @@
 /* Creation of subprocesses, communicating via pipes.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -54,17 +54,6 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-#ifdef EINTR
-static inline int nonintr_close PARAMS ((int fd));
-# ifdef __GNUC__
-static inline int nonintr_open PARAMS ((const char *pathname, int oflag,
-					mode_t mode));
-# endif
-#endif
-
-
 #ifdef EINTR
 
 /* EINTR handling for close(), open().
@@ -72,8 +61,7 @@ static inline int nonintr_open PARAMS ((const char *pathname, int oflag,
    signal handlers set up, namely when we get interrupted via SIGSTOP.  */
 
 static inline int
-nonintr_close (fd)
-     int fd;
+nonintr_close (int fd)
 {
   int retval;
 
@@ -86,10 +74,7 @@ nonintr_close (fd)
 #define close nonintr_close
 
 static inline int
-nonintr_open (pathname, oflag, mode)
-     const char *pathname;
-     int oflag;
-     mode_t mode;
+nonintr_open (const char *pathname, int oflag, mode_t mode)
 {
   int retval;
 
@@ -112,14 +97,11 @@ nonintr_open (pathname, oflag, mode)
  *
  */
 pid_t
-create_pipe_out (progname, prog_path, prog_argv, prog_stdout, null_stderr, exit_on_error, fd)
-     const char *progname;
-     const char *prog_path;
-     char **prog_argv;
-     const char *prog_stdout;
-     bool null_stderr;
-     bool exit_on_error;
-     int fd[1];
+create_pipe_out (const char *progname,
+		 const char *prog_path, char **prog_argv,
+		 const char *prog_stdout, bool null_stderr,
+		 bool exit_on_error,
+		 int fd[1])
 {
   int ofd[2];
 #if HAVE_POSIX_SPAWN

@@ -1,5 +1,5 @@
 /* xgettext PO backend.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -38,24 +38,6 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void extract_constructor PARAMS ((po_ty *that));
-static void extract_directive_domain PARAMS ((po_ty *that, char *name));
-static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
-					       lex_pos_ty *msgid_pos,
-					       char *msgid_plural,
-					       char *msgstr, size_t msgstr_len,
-					       lex_pos_ty *msgstr_pos,
-					       bool obsolete));
-static void extract_parse_brief PARAMS ((po_ty *that));
-static void extract_comment PARAMS ((po_ty *that, const char *s));
-static void extract_comment_dot PARAMS ((po_ty *that, const char *s));
-static void extract_comment_filepos PARAMS ((po_ty *that, const char *name,
-					     size_t line));
-static void extract_comment_special PARAMS ((po_ty *that, const char *s));
-
-
 typedef struct extract_class_ty extract_class_ty;
 struct extract_class_ty
 {
@@ -79,8 +61,7 @@ struct extract_class_ty
 
 
 static void
-extract_constructor (that)
-     po_ty *that;
+extract_constructor (po_ty *that)
 {
   extract_class_ty *this = (extract_class_ty *) that;
   size_t i;
@@ -98,9 +79,7 @@ extract_constructor (that)
 
 
 static void
-extract_directive_domain (that, name)
-     po_ty *that;
-     char *name;
+extract_directive_domain (po_ty *that, char *name)
 {
   po_gram_error_at_line (&gram_pos,
 			 _("this file may not contain domain directives"));
@@ -108,16 +87,13 @@ extract_directive_domain (that, name)
 
 
 static void
-extract_directive_message (that, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos, obsolete)
-     po_ty *that;
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
+extract_directive_message (po_ty *that,
+			   char *msgid,
+			   lex_pos_ty *msgid_pos,
+			   char *msgid_plural,
+			   char *msgstr, size_t msgstr_len,
+			   lex_pos_ty *msgstr_pos,
+			   bool obsolete)
 {
   extract_class_ty *this = (extract_class_ty *)that;
   message_ty *mp;
@@ -213,17 +189,14 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
 
 
 static void
-extract_parse_brief (that)
-     po_ty *that;
+extract_parse_brief (po_ty *that)
 {
   po_lex_pass_comments (true);
 }
 
 
 static void
-extract_comment (that, s)
-     po_ty *that;
-     const char *s;
+extract_comment (po_ty *that, const char *s)
 {
   extract_class_ty *this = (extract_class_ty *) that;
 
@@ -234,9 +207,7 @@ extract_comment (that, s)
 
 
 static void
-extract_comment_dot (that, s)
-     po_ty *that;
-     const char *s;
+extract_comment_dot (po_ty *that, const char *s)
 {
   extract_class_ty *this = (extract_class_ty *) that;
 
@@ -247,10 +218,7 @@ extract_comment_dot (that, s)
 
 
 static void
-extract_comment_filepos (that, name, line)
-     po_ty *that;
-     const char *name;
-     size_t line;
+extract_comment_filepos (po_ty *that, const char *name, size_t line)
 {
   extract_class_ty *this = (extract_class_ty *) that;
   size_t nbytes;
@@ -269,9 +237,7 @@ extract_comment_filepos (that, name, line)
 
 
 static void
-extract_comment_special (that, s)
-     po_ty *that;
-     const char *s;
+extract_comment_special (po_ty *that, const char *s)
 {
   extract_class_ty *this = (extract_class_ty *) that;
 
@@ -303,11 +269,9 @@ static po_method_ty extract_methods =
 
 
 void
-extract_po (fp, real_filename, logical_filename, mdlp)
-     FILE *fp;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_po (FILE *fp,
+	    const char *real_filename, const char *logical_filename,
+	    msgdomain_list_ty *mdlp)
 {
   po_ty *pop = po_alloc (&extract_methods);
   ((extract_class_ty *) pop)->mlp = mdlp->item[0]->messages;

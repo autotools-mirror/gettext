@@ -38,12 +38,6 @@
 
 #define _(s) gettext(s)
 
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
 
 /* The awk syntax is defined in the gawk manual page and documentation.
    See also gawk/awkgram.y.  */
@@ -70,21 +64,6 @@ struct token_ty
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void init_keywords PARAMS ((void));
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-static int phase7_getc PARAMS ((void));
-static inline void free_token PARAMS ((token_ty *tp));
-static void x_awk_lex PARAMS ((token_ty *tp));
-static bool extract_parenthesized PARAMS ((message_list_ty *mlp,
-					   int commas_to_skip,
-					   int plural_commas));
-
-
 /* ====================== Keyword set customization.  ====================== */
 
 /* If true extract all strings.  */
@@ -102,8 +81,7 @@ x_awk_extract_all ()
 
 
 void
-x_awk_keyword (name)
-     const char *name;
+x_awk_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -186,8 +164,7 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   if (c != EOF)
     {
@@ -242,8 +219,7 @@ phase2_getc ()
 }
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   if (c != EOF)
     phase1_ungetc (c);
@@ -278,7 +254,7 @@ phase7_getc ()
 	switch (c)
 	  {
 	  case 'a':
-	    return ALERT_CHAR;
+	    return '\a';
 	  case 'b':
 	    return '\b';
 	  case 'f':
@@ -355,8 +331,7 @@ phase7_getc ()
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
 static inline void
-free_token (tp)
-     token_ty *tp;
+free_token (token_ty *tp)
 {
   switch (tp->type)
     {
@@ -385,8 +360,7 @@ free_token (tp)
 static bool prefer_division_over_regexp;
 
 static void
-x_awk_lex (tp)
-     token_ty *tp;
+x_awk_lex (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
@@ -688,10 +662,8 @@ x_awk_lex (tp)
    When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
    Return true upon eof, false upon closing parenthesis.  */
 static bool
-extract_parenthesized (mlp, commas_to_skip, plural_commas)
-     message_list_ty *mlp;
-     int commas_to_skip;
-     int plural_commas;
+extract_parenthesized (message_list_ty *mlp,
+		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
   message_ty *plural_mp = NULL;
@@ -834,11 +806,9 @@ extract_parenthesized (mlp, commas_to_skip, plural_commas)
 
 
 void
-extract_awk (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_awk (FILE *f,
+	     const char *real_filename, const char *logical_filename,
+	     msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 

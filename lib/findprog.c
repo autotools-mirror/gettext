@@ -1,5 +1,5 @@
 /* Locating a program in PATH.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -36,8 +36,7 @@
 
 
 const char *
-find_in_path (progname)
-     const char *progname;
+find_in_path (const char *progname)
 {
 #if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
   /* Win32, OS/2, DOS */

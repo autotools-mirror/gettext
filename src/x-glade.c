@@ -56,11 +56,6 @@
    libglade-0.16.  */
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void init_keywords PARAMS ((void));
-
-
 /* ====================== Keyword set customization.  ====================== */
 
 /* If true extract all strings.  */
@@ -78,8 +73,7 @@ x_glade_extract_all ()
 
 
 void
-x_glade_keyword (name)
-     const char *name;
+x_glade_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -116,29 +110,25 @@ init_keywords ()
 
 #if DYNLOAD_LIBEXPAT
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static bool load_libexpat PARAMS ((void));
-
 typedef void *XML_Parser;
 typedef char XML_Char;
 typedef char XML_LChar;
 enum XML_Error { XML_ERROR_NONE };
-typedef void (*XML_StartElementHandler) PARAMS ((void *userData, const XML_Char *name, const XML_Char **atts));
-typedef void (*XML_EndElementHandler) PARAMS ((void *userData, const XML_Char *name));
-typedef void (*XML_CharacterDataHandler) PARAMS ((void *userData, const XML_Char *s, int len));
-typedef void (*XML_CommentHandler) PARAMS ((void *userData, const XML_Char *data));
+typedef void (*XML_StartElementHandler) (void *userData, const XML_Char *name, const XML_Char **atts);
+typedef void (*XML_EndElementHandler) (void *userData, const XML_Char *name);
+typedef void (*XML_CharacterDataHandler) (void *userData, const XML_Char *s, int len);
+typedef void (*XML_CommentHandler) (void *userData, const XML_Char *data);
 
-static XML_Parser (*p_XML_ParserCreate) PARAMS ((const XML_Char *encoding));
-static void (*p_XML_SetElementHandler) PARAMS ((XML_Parser parser, XML_StartElementHandler start, XML_EndElementHandler end));
-static void (*p_XML_SetCharacterDataHandler) PARAMS ((XML_Parser parser, XML_CharacterDataHandler handler));
-static void (*p_XML_SetCommentHandler) PARAMS ((XML_Parser parser, XML_CommentHandler handler));
-static int (*p_XML_Parse) PARAMS ((XML_Parser parser, const char *s, int len, int isFinal));
-static enum XML_Error (*p_XML_GetErrorCode) PARAMS ((XML_Parser parser));
-static int (*p_XML_GetCurrentLineNumber) PARAMS ((XML_Parser parser));
-static int (*p_XML_GetCurrentColumnNumber) PARAMS ((XML_Parser parser));
-static void (*p_XML_ParserFree) PARAMS ((XML_Parser parser));
-static const XML_LChar * (*p_XML_ErrorString) PARAMS ((int code));
+static XML_Parser (*p_XML_ParserCreate) (const XML_Char *encoding);
+static void (*p_XML_SetElementHandler) (XML_Parser parser, XML_StartElementHandler start, XML_EndElementHandler end);
+static void (*p_XML_SetCharacterDataHandler) (XML_Parser parser, XML_CharacterDataHandler handler);
+static void (*p_XML_SetCommentHandler) (XML_Parser parser, XML_CommentHandler handler);
+static int (*p_XML_Parse) (XML_Parser parser, const char *s, int len, int isFinal);
+static enum XML_Error (*p_XML_GetErrorCode) (XML_Parser parser);
+static int (*p_XML_GetCurrentLineNumber) (XML_Parser parser);
+static int (*p_XML_GetCurrentColumnNumber) (XML_Parser parser);
+static void (*p_XML_ParserFree) (XML_Parser parser);
+static const XML_LChar * (*p_XML_ErrorString) (int code);
 
 #define XML_ParserCreate (*p_XML_ParserCreate)
 #define XML_SetElementHandler (*p_XML_SetElementHandler)
@@ -189,20 +179,6 @@ load_libexpat ()
 
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void ensure_stack_size PARAMS ((size_t size));
-static void start_element_handler PARAMS ((void *userData, const char *name,
-					   const char **attributes));
-static void end_element_handler PARAMS ((void *userData, const char *name));
-static void character_data_handler PARAMS ((void *userData, const char *s,
-					    int len));
-static void comment_handler PARAMS ((void *userData, const char *data));
-static void do_extract_glade PARAMS ((FILE *fp, const char *real_filename,
-				      const char *logical_filename,
-				      msgdomain_list_ty *mdlp));
-
-
 /* Accumulator for the extracted messages.  */
 static message_list_ty *mlp; 
 
@@ -225,8 +201,7 @@ static size_t stack_size;
 
 /* Ensures stack_size >= size.  */
 static void
-ensure_stack_size (size)
-     size_t size;
+ensure_stack_size (size_t size)
 {
   if (size > stack_size)
     {
@@ -243,10 +218,8 @@ static size_t stack_depth;
 
 /* Callback called when <element> is seen.  */
 static void
-start_element_handler (userData, name, attributes)
-     void *userData;
-     const char *name;
-     const char **attributes;
+start_element_handler (void *userData, const char *name,
+		       const char **attributes)
 {
   struct element_state *p;
   void *hash_result;
@@ -271,9 +244,7 @@ start_element_handler (userData, name, attributes)
 
 /* Callback called when </element> is seen.  */
 static void
-end_element_handler (userData, name)
-     void *userData;
-     const char *name;
+end_element_handler (void *userData, const char *name)
 {
   struct element_state *p = &stack[stack_depth];
 
@@ -309,10 +280,7 @@ end_element_handler (userData, name)
 
 /* Callback called when some text is seen.  */
 static void
-character_data_handler (userData, s, len)
-     void *userData;
-     const char *s;
-     int len;
+character_data_handler (void *userData, const char *s, int len)
 {
   struct element_state *p = &stack[stack_depth];
 
@@ -333,9 +301,7 @@ character_data_handler (userData, s, len)
 
 /* Callback called when some comment text is seen.  */
 static void
-comment_handler (userData, data)
-     void *userData;
-     const char *data;
+comment_handler (void *userData, const char *data)
 {
   /* Split multiline comment into lines, and remove leading and trailing
      whitespace.  */
@@ -364,11 +330,9 @@ comment_handler (userData, data)
 
 
 static void
-do_extract_glade (fp, real_filename, logical_filename, mdlp)
-     FILE *fp;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+do_extract_glade (FILE *fp,
+		  const char *real_filename, const char *logical_filename,
+		  msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 
@@ -424,11 +388,9 @@ error while reading \"%s\""), real_filename);
 #endif
 
 void
-extract_glade (fp, real_filename, logical_filename, mdlp)
-     FILE *fp;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_glade (FILE *fp,
+	       const char *real_filename, const char *logical_filename,
+	       msgdomain_list_ty *mdlp)
 {
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
   if (LIBEXPAT_AVAILABLE ())

@@ -1,5 +1,5 @@
 /* Lisp format strings.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -126,121 +126,28 @@ struct param
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
+/* Forward declaration of local functions.  */
 #define union make_union
-static void verify_element PARAMS ((const struct format_arg * e));
-static void verify_list PARAMS ((const struct format_arg_list *list));
-static inline void free_element PARAMS ((struct format_arg *element));
-static void free_list PARAMS ((struct format_arg_list *list));
-static inline void copy_element PARAMS ((struct format_arg *newelement,
-					 const struct format_arg *oldelement));
-static struct format_arg_list * copy_list
-				 PARAMS ((const struct format_arg_list *list));
-static bool equal_element PARAMS ((const struct format_arg * e1,
-				   const struct format_arg * e2));
-static bool equal_list PARAMS ((const struct format_arg_list *list1,
-				const struct format_arg_list *list2));
-static inline void ensure_initial_alloc PARAMS ((struct format_arg_list *list,
-						 unsigned int newcount));
-static inline void grow_initial_alloc PARAMS ((struct format_arg_list *list));
-static inline void ensure_repeated_alloc PARAMS ((struct format_arg_list *list,
-						  unsigned int newcount));
-static inline void grow_repeated_alloc PARAMS ((struct format_arg_list *list));
-static void normalize_outermost_list PARAMS ((struct format_arg_list *list));
-static void normalize_list PARAMS ((struct format_arg_list *list));
-static struct format_arg_list * make_unconstrained_list PARAMS ((void));
-static struct format_arg_list * make_empty_list PARAMS ((void));
-static bool is_empty_list PARAMS ((const struct format_arg_list *list));
-static void unfold_loop PARAMS ((struct format_arg_list *list, unsigned int m));
-static void rotate_loop PARAMS ((struct format_arg_list *list, unsigned int m));
-static unsigned int initial_splitelement PARAMS ((struct format_arg_list *list,
-						  unsigned int n));
-static unsigned int initial_unshare PARAMS ((struct format_arg_list *list,
-					     unsigned int n));
-static void shift_list PARAMS ((struct format_arg_list *list, unsigned int n));
-static bool make_intersected_element PARAMS ((struct format_arg *re,
-					      const struct format_arg * e1,
-					      const struct format_arg * e2));
-static void append_repeated_to_initial PARAMS ((struct format_arg_list *list));
-static struct format_arg_list * backtrack_in_initial
-				       PARAMS ((struct format_arg_list *list));
+static void verify_list (const struct format_arg_list *list);
+static void free_list (struct format_arg_list *list);
+static struct format_arg_list * copy_list (const struct format_arg_list *list);
+static bool equal_list (const struct format_arg_list *list1,
+			const struct format_arg_list *list2);
 static struct format_arg_list * make_intersected_list
-				      PARAMS ((struct format_arg_list *list1,
-					       struct format_arg_list *list2));
+					       (struct format_arg_list *list1,
+						struct format_arg_list *list2);
 static struct format_arg_list * make_intersection_with_empty_list
-				      PARAMS ((struct format_arg_list *list));
-#ifdef unused
-static struct format_arg_list * intersection
-				      PARAMS ((struct format_arg_list *list1,
-					       struct format_arg_list *list2));
-#endif
-static void make_union_element PARAMS ((struct format_arg *re,
-					const struct format_arg * e1,
-					const struct format_arg * e2));
+						(struct format_arg_list *list);
 static struct format_arg_list * make_union_list
-				      PARAMS ((struct format_arg_list *list1,
-					       struct format_arg_list *list2));
-static struct format_arg_list * make_union_with_empty_list
-				       PARAMS ((struct format_arg_list *list));
-static struct format_arg_list * union PARAMS ((struct format_arg_list *list1,
-					       struct format_arg_list *list2));
-static bool is_required PARAMS ((const struct format_arg_list *list,
-				 unsigned int n));
-static struct format_arg_list * add_required_constraint
-					 PARAMS ((struct format_arg_list *list,
-						  unsigned int n));
-static struct format_arg_list * add_end_constraint
-		       PARAMS ((struct format_arg_list *list, unsigned int n));
-static struct format_arg_list * add_type_constraint
-			 PARAMS ((struct format_arg_list *list, unsigned int n,
-				  enum format_arg_type type));
-static struct format_arg_list * add_listtype_constraint
-			 PARAMS ((struct format_arg_list *list, unsigned int n,
-				  enum format_arg_type type,
-				  struct format_arg_list *sublist));
-static void add_req_type_constraint
-			 PARAMS ((struct format_arg_list **listp,
-				  unsigned int position,
-				  enum format_arg_type type));
-static void add_req_listtype_constraint
-			 PARAMS ((struct format_arg_list **listp,
-				  unsigned int position,
-				  enum format_arg_type type,
-				  struct format_arg_list *sublist));
-static struct format_arg_list * make_repeated_list_of_lists
-				    PARAMS ((struct format_arg_list *sublist));
-static struct format_arg_list * make_repeated_list
-				      PARAMS ((struct format_arg_list *sublist,
-					       unsigned int period));
-static bool check_params PARAMS ((struct format_arg_list **listp,
-				  unsigned int paramcount,
-				  struct param *params, unsigned int t_count,
-				  const enum format_arg_type *t_types));
-static bool nocheck_params PARAMS ((struct format_arg_list **listp,
-				    unsigned int paramcount,
-				    struct param *params));
-static bool parse_upto PARAMS ((const char **formatp, int *positionp,
-				struct format_arg_list **listp,
-				struct format_arg_list **escapep,
-				int *separatorp, struct spec *spec,
-				/*promote: char*/ int terminator,
-				bool separator));
-static void *format_parse PARAMS ((const char *format));
-static void format_free PARAMS ((void *descr));
-static int format_get_number_of_directives PARAMS ((void *descr));
-static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr,
-				  bool equality,
-				  bool noisy, const char *pretty_msgstr));
+					       (struct format_arg_list *list1,
+						struct format_arg_list *list2);
 
 
 /* ======================= Verify a format_arg_list ======================= */
 
 /* Verify some invariants.  */
 static void
-verify_element (e)
-     const struct format_arg * e;
+verify_element (const struct format_arg * e)
 {
   ASSERT (e->repcount > 0);
   if (e->type == FAT_LIST)
@@ -250,8 +157,7 @@ verify_element (e)
 /* Verify some invariants.  */
 /* Memory effects: none.  */
 static void
-verify_list (list)
-     const struct format_arg_list *list;
+verify_list (const struct format_arg_list *list)
 {
   unsigned int i;
   unsigned int total_repcount;
@@ -282,8 +188,7 @@ verify_list (list)
 
 /* Free the data belonging to an argument list element.  */
 static inline void
-free_element (element)
-     struct format_arg *element;
+free_element (struct format_arg *element)
 {
   if (element->type == FAT_LIST)
     free_list (element->list);
@@ -292,8 +197,7 @@ free_element (element)
 /* Free an argument list.  */
 /* Memory effects: Frees list.  */
 static void
-free_list (list)
-     struct format_arg_list *list;
+free_list (struct format_arg_list *list)
 {
   unsigned int i;
 
@@ -313,9 +217,8 @@ free_list (list)
 
 /* Copy the data belonging to an argument list element.  */
 static inline void
-copy_element (newelement, oldelement)
-     struct format_arg *newelement;
-     const struct format_arg *oldelement;
+copy_element (struct format_arg *newelement,
+	      const struct format_arg *oldelement)
 {
   newelement->repcount = oldelement->repcount;
   newelement->presence = oldelement->presence;
@@ -327,8 +230,7 @@ copy_element (newelement, oldelement)
 /* Copy an argument list.  */
 /* Memory effects: Freshly allocated result.  */
 static struct format_arg_list *
-copy_list (list)
-     const struct format_arg_list *list;
+copy_list (const struct format_arg_list *list)
 {
   struct format_arg_list *newlist;
   unsigned int length;
@@ -388,9 +290,7 @@ copy_list (list)
 /* Tests whether two normalized argument constraints are equivalent,
    ignoring the repcount.  */
 static bool
-equal_element (e1, e2)
-     const struct format_arg * e1;
-     const struct format_arg * e2;
+equal_element (const struct format_arg * e1, const struct format_arg * e2)
 {
   return (e1->presence == e2->presence
 	  && e1->type == e2->type
@@ -400,9 +300,8 @@ equal_element (e1, e2)
 /* Tests whether two normalized argument list constraints are equivalent.  */
 /* Memory effects: none.  */
 static bool
-equal_list (list1, list2)
-     const struct format_arg_list *list1;
-     const struct format_arg_list *list2;
+equal_list (const struct format_arg_list *list1,
+	    const struct format_arg_list *list2)
 {
   unsigned int n, i;
 
@@ -441,9 +340,7 @@ equal_list (list1, list2)
 
 /* Ensure list->initial.allocated >= newcount.  */
 static inline void
-ensure_initial_alloc (list, newcount)
-     struct format_arg_list *list;
-     unsigned int newcount;
+ensure_initial_alloc (struct format_arg_list *list, unsigned int newcount)
 {
   if (newcount > list->initial.allocated)
     {
@@ -458,8 +355,7 @@ ensure_initial_alloc (list, newcount)
 
 /* Ensure list->initial.allocated > list->initial.count.  */
 static inline void
-grow_initial_alloc (list)
-     struct format_arg_list *list;
+grow_initial_alloc (struct format_arg_list *list)
 {
   if (list->initial.count >= list->initial.allocated)
     {
@@ -474,9 +370,7 @@ grow_initial_alloc (list)
 
 /* Ensure list->repeated.allocated >= newcount.  */
 static inline void
-ensure_repeated_alloc (list, newcount)
-     struct format_arg_list *list;
-     unsigned int newcount;
+ensure_repeated_alloc (struct format_arg_list *list, unsigned int newcount)
 {
   if (newcount > list->repeated.allocated)
     {
@@ -491,8 +385,7 @@ ensure_repeated_alloc (list, newcount)
 
 /* Ensure list->repeated.allocated > list->repeated.count.  */
 static inline void
-grow_repeated_alloc (list)
-     struct format_arg_list *list;
+grow_repeated_alloc (struct format_arg_list *list)
 {
   if (list->repeated.count >= list->repeated.allocated)
     {
@@ -512,8 +405,7 @@ grow_repeated_alloc (list)
    normalized.  */
 /* Memory effects: Destructively modifies list.  */
 static void
-normalize_outermost_list (list)
-     struct format_arg_list *list;
+normalize_outermost_list (struct format_arg_list *list)
 {
   unsigned int n, i, j;
 
@@ -669,8 +561,7 @@ normalize_outermost_list (list)
 /* Normalize an argument list constraint.  */
 /* Memory effects: Destructively modifies list.  */
 static void
-normalize_list (list)
-     struct format_arg_list *list;
+normalize_list (struct format_arg_list *list)
 {
   unsigned int n, i;
 
@@ -752,8 +643,7 @@ make_empty_list ()
 /* Test for an empty list.  */
 /* Memory effects: none.  */
 static bool
-is_empty_list (list)
-     const struct format_arg_list *list;
+is_empty_list (const struct format_arg_list *list)
 {
   return (list->initial.count == 0 && list->repeated.count == 0);
 }
@@ -765,9 +655,7 @@ is_empty_list (list)
    Assumes list->repeated.count > 0.  */
 /* Memory effects: list is destructively modified.  */
 static void
-unfold_loop (list, m)
-     struct format_arg_list *list;
-     unsigned int m;
+unfold_loop (struct format_arg_list *list, unsigned int m)
 {
   unsigned int i, j, k;
 
@@ -788,9 +676,7 @@ unfold_loop (list, m)
    Assumes list->repeated.count > 0.  */
 /* Memory effects: list is destructively modified.  */
 static void
-rotate_loop (list, m)
-     struct format_arg_list *list;
-     unsigned int m;
+rotate_loop (struct format_arg_list *list, unsigned int m)
 {
   if (m == list->initial.length)
     return;
@@ -899,9 +785,7 @@ rotate_loop (list, m)
    different adjacent elements.  */
 /* Memory effects: list is destructively modified.  */
 static unsigned int
-initial_splitelement (list, n)
-     struct format_arg_list *list;
-     unsigned int n;
+initial_splitelement (struct format_arg_list *list, unsigned int n)
 {
   unsigned int s;
   unsigned int t;
@@ -949,9 +833,7 @@ initial_splitelement (list, n)
 /* Ensure index n in the initial segment is not shared.  Return its index.  */
 /* Memory effects: list is destructively modified.  */
 static unsigned int
-initial_unshare (list, n)
-     struct format_arg_list *list;
-     unsigned int n;
+initial_unshare (struct format_arg_list *list, unsigned int n)
 {
   /* This does the same side effects as
        initial_splitelement (list, n);
@@ -1033,9 +915,7 @@ initial_unshare (list, n)
 /* Add n unconstrained elements at the front of the list.  */
 /* Memory effects: list is destructively modified.  */
 static void
-shift_list (list, n)
-     struct format_arg_list *list;
-     unsigned int n;
+shift_list (struct format_arg_list *list, unsigned int n)
 {
   VERIFY_LIST (list);
 
@@ -1066,10 +946,9 @@ shift_list (list, n)
    two constraints give a contradiction.  */
 /* Memory effects: Freshly allocated element's sublist.  */
 static bool
-make_intersected_element (re, e1, e2)
-     struct format_arg *re;
-     const struct format_arg * e1;
-     const struct format_arg * e2;
+make_intersected_element (struct format_arg *re,
+			  const struct format_arg * e1,
+			  const struct format_arg * e2)
 {
   /* Intersect the cdr types.  */
   if (e1->presence == FCT_REQUIRED || e2->presence == FCT_REQUIRED)
@@ -1168,8 +1047,7 @@ make_intersected_element (re, e1, e2)
 /* Append list->repeated to list->initial, and clear list->repeated.  */
 /* Memory effects: list is destructively modified.  */
 static void
-append_repeated_to_initial (list)
-     struct format_arg_list *list;
+append_repeated_to_initial (struct format_arg_list *list)
 {
   if (list->repeated.count > 0)
     {
@@ -1198,8 +1076,7 @@ append_repeated_to_initial (list)
 /* Memory effects: list is destructively modified.  If NULL is returned,
    list is freed.  */
 static struct format_arg_list *
-backtrack_in_initial (list)
-     struct format_arg_list *list;
+backtrack_in_initial (struct format_arg_list *list)
 {
   ASSERT (list->repeated.count == 0);
 
@@ -1239,9 +1116,8 @@ backtrack_in_initial (list)
 /* Memory effects: list1 and list2 are freed.  The result, if non-NULL, is
    freshly allocated.  */
 static struct format_arg_list *
-make_intersected_list (list1, list2)
-     struct format_arg_list *list1;
-     struct format_arg_list *list2;
+make_intersected_list (struct format_arg_list *list1,
+		       struct format_arg_list *list2)
 {
   struct format_arg_list *result;
 
@@ -1449,8 +1325,7 @@ make_intersected_list (list1, list2)
    Return NULL if the intersection is empty.  */
 /* Memory effects: The result, if non-NULL, is freshly allocated.  */
 static struct format_arg_list *
-make_intersection_with_empty_list (list)
-     struct format_arg_list *list;
+make_intersection_with_empty_list (struct format_arg_list *list)
 {
 #if 0 /* equivalent but slower */
   return make_intersected_list (copy_list (list), make_empty_list ());
@@ -1472,9 +1347,7 @@ make_intersection_with_empty_list (list)
 /* Memory effects: list1 and list2 are freed if non-NULL.  The result,
    if non-NULL, is freshly allocated.  */
 static struct format_arg_list *
-intersection (list1, list2)
-     struct format_arg_list *list1;
-     struct format_arg_list *list2;
+intersection (struct format_arg_list *list1, struct format_arg_list *list2)
 {
   if (list1 != NULL)
     {
@@ -1505,10 +1378,9 @@ intersection (list1, list2)
 /* Create the union (i.e. alternative constraints) of two argument
    constraints.  */
 static void
-make_union_element (re, e1, e2)
-     struct format_arg *re;
-     const struct format_arg * e1;
-     const struct format_arg * e2;
+make_union_element (struct format_arg *re,
+		    const struct format_arg * e1,
+		    const struct format_arg * e2)
 {
   /* Union of the cdr types.  */
   if (e1->presence == FCT_REQUIRED && e2->presence == FCT_REQUIRED)
@@ -1608,9 +1480,7 @@ make_union_element (re, e1, e2)
 /* Memory effects: list1 and list2 are freed.  The result is freshly
    allocated.  */
 static struct format_arg_list *
-make_union_list (list1, list2)
-     struct format_arg_list *list1;
-     struct format_arg_list *list2;
+make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
 {
   struct format_arg_list *result;
 
@@ -1884,8 +1754,7 @@ make_union_list (list1, list2)
 /* Create the union of an argument list and the empty list.  */
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-make_union_with_empty_list (list)
-     struct format_arg_list *list;
+make_union_with_empty_list (struct format_arg_list *list)
 {
 #if 0 /* equivalent but slower */
   return make_union_list (list, make_empty_list ());
@@ -1920,9 +1789,7 @@ make_union_with_empty_list (list)
 /* Memory effects: list1 and list2 are freed if non-NULL.  The result,
    if non-NULL, is freshly allocated.  */
 static struct format_arg_list *
-union (list1, list2)
-     struct format_arg_list *list1;
-     struct format_arg_list *list2;
+union (struct format_arg_list *list1, struct format_arg_list *list2)
 {
   if (list1 != NULL)
     {
@@ -1946,9 +1813,7 @@ union (list1, list2)
 
 /* Test whether arguments 0..n are required arguments in a list.  */
 static bool
-is_required (list, n)
-     const struct format_arg_list *list;
-     unsigned int n;
+is_required (const struct format_arg_list *list, unsigned int n)
 {
   unsigned int s;
   unsigned int t;
@@ -2006,9 +1871,7 @@ is_required (list, n)
    present.  NULL stands for an impossible situation, i.e. a contradiction.  */
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-add_required_constraint (list, n)
-     struct format_arg_list *list;
-     unsigned int n;
+add_required_constraint (struct format_arg_list *list, unsigned int n)
 {
   unsigned int i, rest;
 
@@ -2045,9 +1908,7 @@ add_required_constraint (list, n)
    contradiction.  */
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-add_end_constraint (list, n)
-     struct format_arg_list *list;
-     unsigned int n;
+add_end_constraint (struct format_arg_list *list, unsigned int n)
 {
   unsigned int s, i;
   enum format_cdr_type n_presence;
@@ -2095,10 +1956,8 @@ add_end_constraint (list, n)
    contradiction.  Assumes a preceding add_required_constraint (list, n).  */
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-add_type_constraint (list, n, type)
-     struct format_arg_list *list;
-     unsigned int n;
-     enum format_arg_type type;
+add_type_constraint (struct format_arg_list *list, unsigned int n,
+		     enum format_arg_type type)
 {
   unsigned int s;
   struct format_arg newconstraint;
@@ -2132,11 +1991,9 @@ add_type_constraint (list, n, type)
    contradiction.  Assumes a preceding add_required_constraint (list, n).  */
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-add_listtype_constraint (list, n, type, sublist)
-     struct format_arg_list *list;
-     unsigned int n;
-     enum format_arg_type type;
-     struct format_arg_list *sublist;
+add_listtype_constraint (struct format_arg_list *list, unsigned int n,
+			 enum format_arg_type type,
+			 struct format_arg_list *sublist)
 {
   unsigned int s;
   struct format_arg newconstraint;
@@ -2169,10 +2026,8 @@ add_listtype_constraint (list, n, type, sublist)
 /* ============= Subroutines used by the format string parser ============= */
 
 static void
-add_req_type_constraint (listp, position, type)
-     struct format_arg_list **listp;
-     unsigned int position;
-     enum format_arg_type type;
+add_req_type_constraint (struct format_arg_list **listp,
+			 unsigned int position, enum format_arg_type type)
 {
   *listp = add_required_constraint (*listp, position);
   *listp = add_type_constraint (*listp, position, type);
@@ -2180,11 +2035,9 @@ add_req_type_constraint (listp, position, type)
 
 
 static void
-add_req_listtype_constraint (listp, position, type, sublist)
-     struct format_arg_list **listp;
-     unsigned int position;
-     enum format_arg_type type;
-     struct format_arg_list *sublist;
+add_req_listtype_constraint (struct format_arg_list **listp,
+			     unsigned int position, enum format_arg_type type,
+			     struct format_arg_list *sublist)
 {
   *listp = add_required_constraint (*listp, position);
   *listp = add_listtype_constraint (*listp, position, type, sublist);
@@ -2195,8 +2048,7 @@ add_req_listtype_constraint (listp, position, type, sublist)
    by sublist.  */
 /* Memory effects: sublist is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-make_repeated_list_of_lists (sublist)
-     struct format_arg_list *sublist;
+make_repeated_list_of_lists (struct format_arg_list *sublist)
 {
   if (sublist == NULL)
     /* The list cannot have a single element.  */
@@ -2240,9 +2092,7 @@ make_repeated_list_of_lists (sublist)
  */
 /* Memory effects: sublist is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
-make_repeated_list (sublist, period)
-     struct format_arg_list *sublist;
-     unsigned int period;
+make_repeated_list (struct format_arg_list *sublist, unsigned int period)
 {
   struct segment tmp;
   struct segment *srcseg;
@@ -2475,12 +2325,9 @@ static const enum format_arg_type THREE [3] = {
 /* Check the parameters.  For V params, add the constraint to the argument
    list.  Return false if the format string is invalid.  */
 static bool
-check_params (listp, paramcount, params, t_count, t_types)
-     struct format_arg_list **listp;
-     unsigned int paramcount;
-     struct param *params;
-     unsigned int t_count;
-     const enum format_arg_type *t_types;
+check_params (struct format_arg_list **listp,
+	      unsigned int paramcount, struct param *params,
+	      unsigned int t_count, const enum format_arg_type *t_types)
 {
   for (; paramcount > 0 && t_count > 0;
 	 params++, paramcount--, t_types++, t_count--)
@@ -2548,10 +2395,8 @@ check_params (listp, paramcount, params, t_count, t_types)
    For V params, add the constraint to the argument list.
    Return false if the format string is invalid.  */
 static bool
-nocheck_params (listp, paramcount, params)
-     struct format_arg_list **listp;
-     unsigned int paramcount;
-     struct param *params;
+nocheck_params (struct format_arg_list **listp,
+		unsigned int paramcount, struct param *params)
 {
   for (; paramcount > 0; params++, paramcount--)
     if (params->type == PT_V)
@@ -2583,16 +2428,10 @@ nocheck_params (listp, paramcount, params)
    separator specifies if ~; separators are allowed.
    If the format string is invalid, false is returned.  */
 static bool
-parse_upto (formatp, positionp, listp, escapep,
-	    separatorp, spec, terminator, separator)
-     const char **formatp;
-     int *positionp;
-     struct format_arg_list **listp;
-     struct format_arg_list **escapep;
-     int *separatorp;
-     struct spec *spec;
-     char terminator;
-     bool separator;
+parse_upto (const char **formatp,
+	    int *positionp, struct format_arg_list **listp,
+	    struct format_arg_list **escapep, int *separatorp,
+	    struct spec *spec, char terminator, bool separator)
 {
   const char *format = *formatp;
   int position = *positionp;
@@ -3307,8 +3146,7 @@ parse_upto (formatp, positionp, listp, escapep,
 /* ============== Top level format string handling functions ============== */
 
 static void *
-format_parse (format)
-     const char *format;
+format_parse (const char *format)
 {
   struct spec spec;
   struct spec *result;
@@ -3340,8 +3178,7 @@ format_parse (format)
 }
 
 static void
-format_free (descr)
-     void *descr;
+format_free (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
@@ -3349,8 +3186,7 @@ format_free (descr)
 }
 
 static int
-format_get_number_of_directives (descr)
-     void *descr;
+format_get_number_of_directives (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
@@ -3358,13 +3194,8 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
-     const lex_pos_ty *pos;
-     void *msgid_descr;
-     void *msgstr_descr;
-     bool equality;
-     bool noisy;
-     const char *pretty_msgstr;
+format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
+	      bool equality, bool noisy, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -3430,11 +3261,10 @@ struct formatstring_parser formatstring_lisp =
 #include <stdio.h>
 #include "getline.h"
 
-static void print_list PARAMS ((struct format_arg_list *list));
+static void print_list (struct format_arg_list *list);
 
 static void
-print_element (element)
-     struct format_arg *element;
+print_element (struct format_arg *element)
 {
   switch (element->presence)
     {
@@ -3485,8 +3315,7 @@ print_element (element)
 }
 
 static void
-print_list (list)
-     struct format_arg_list *list;
+print_list (struct format_arg_list *list)
 {
   unsigned int i, j;
 
@@ -3515,8 +3344,7 @@ print_list (list)
 }
 
 static void
-format_print (descr)
-     void *descr;
+format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 

@@ -75,37 +75,6 @@
  */
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-struct char_syntax;
-struct token;
-struct object;
-static void init_keywords PARAMS ((void));
-static int do_getc PARAMS ((void));
-static void do_ungetc PARAMS ((int c));
-static inline void init_token PARAMS ((struct token *tp));
-static inline void free_token PARAMS ((struct token *tp));
-static inline void grow_token PARAMS ((struct token *tp));
-static void read_token PARAMS ((struct token *tp,
-				const struct char_syntax *first));
-static inline bool has_a_dot PARAMS ((const struct token *tp));
-static inline bool all_a_number PARAMS ((const struct token *tp));
-static inline void a_letter_to_digit PARAMS ((const struct token *tp,
-					      int base));
-static inline bool has_a_digit PARAMS ((const struct token *tp));
-static inline bool has_adjacent_letters PARAMS ((const struct token *tp));
-static bool is_potential_number PARAMS ((const struct token *tp, int *basep));
-static void upcase_token PARAMS ((struct token *tp));
-static void downcase_token PARAMS ((struct token *tp));
-static void case_convert_token  PARAMS ((struct token *tp));
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((size_t chars_to_remove));
-static inline void free_object PARAMS ((struct object *op));
-static char * string_of_object PARAMS ((const struct object *op));
-static void read_object PARAMS ((struct object *op));
-
-
 /* ========================= Lexer customization.  ========================= */
 
 /* 'readtable_case' is the case conversion that is applied to non-escaped
@@ -149,8 +118,7 @@ x_lisp_extract_all ()
 
 
 void
-x_lisp_keyword (name)
-     const char *name;
+x_lisp_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -244,8 +212,7 @@ error while reading \"%s\""), real_file_name);
 
 /* Put back the last fetched character, not EOF.  */
 static void
-do_ungetc (c)
-     int c;
+do_ungetc (int c)
 {
   if (c == '\n')
     line_number--;
@@ -270,16 +237,9 @@ enum syntax_code
   syntax_nt_macro	/* '#' (non-terminating macro)		*/
 };
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static enum syntax_code
-       syntax_code_of PARAMS ((/*promote: unsigned char*/ int c));
-static void read_char_syntax PARAMS ((struct char_syntax *p));
-
 /* Returns the syntax code of a character.  */
 static enum syntax_code
-syntax_code_of (c)
-     unsigned char c;
+syntax_code_of (unsigned char c)
 {
   switch (c)
     {
@@ -309,8 +269,7 @@ struct char_syntax
 
 /* Returns the next character and its syntax code.  */
 static void
-read_char_syntax (p)
-     struct char_syntax *p;
+read_char_syntax (struct char_syntax *p)
 {
   int c = do_getc ();
 
@@ -343,14 +302,9 @@ enum attribute
 #define is_letter_attribute(a) ((a) >= a_letter)
 #define is_number_attribute(a) ((a) >= a_ratio)
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static enum attribute attribute_of PARAMS ((/*promote: unsigned char*/ int c));
-
 /* Returns the attribute of a character, assuming base 10.  */
 static enum attribute
-attribute_of (c)
-     unsigned char c;
+attribute_of (unsigned char c)
 {
   switch (c)
     {
@@ -400,8 +354,7 @@ struct token
 
 /* Initialize a 'struct token'.  */
 static inline void
-init_token (tp)
-     struct token *tp;
+init_token (struct token *tp)
 {
   tp->allocated = 10;
   tp->chars =
@@ -411,16 +364,14 @@ init_token (tp)
 
 /* Free the memory pointed to by a 'struct token'.  */
 static inline void
-free_token (tp)
-     struct token *tp;
+free_token (struct token *tp)
 {
   free (tp->chars);
 }
 
 /* Ensure there is enough room in the token for one more character.  */
 static inline void
-grow_token (tp)
-     struct token *tp;
+grow_token (struct token *tp)
 {
   if (tp->charcount == tp->allocated)
     {
@@ -433,9 +384,7 @@ grow_token (tp)
    character, which has already been read.
    The algorithm follows CLHS 2.2 "Reader Algorithm".  */
 static void
-read_token (tp, first)
-     struct token *tp;
-     const struct char_syntax *first;
+read_token (struct token *tp, const struct char_syntax *first)
 {
   bool multiple_escape_flag;
   struct char_syntax curr;
@@ -530,8 +479,7 @@ read_token (tp, first)
  */
 
 static inline bool
-has_a_dot (tp)
-     const struct token *tp;
+has_a_dot (const struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -543,8 +491,7 @@ has_a_dot (tp)
 }
 
 static inline bool
-all_a_number (tp)
-     const struct token *tp;
+all_a_number (const struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -556,9 +503,7 @@ all_a_number (tp)
 }
 
 static inline void
-a_letter_to_digit (tp, base)
-     const struct token *tp;
-     int base;
+a_letter_to_digit (const struct token *tp, int base)
 {
   int n = tp->charcount;
   int i;
@@ -577,8 +522,7 @@ a_letter_to_digit (tp, base)
 }
 
 static inline bool
-has_a_digit (tp)
-     const struct token *tp;
+has_a_digit (const struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -592,8 +536,7 @@ has_a_digit (tp)
 }
 
 static inline bool
-has_adjacent_letters (tp)
-     const struct token *tp;
+has_adjacent_letters (const struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -606,9 +549,7 @@ has_adjacent_letters (tp)
 }
 
 static bool
-is_potential_number (tp, basep)
-     const struct token *tp;
-     int *basep;
+is_potential_number (const struct token *tp, int *basep)
 {
   /* CLHS 2.3.1.1.1:
      "A potential number cannot contain any escape characters."  */
@@ -653,14 +594,8 @@ enum number_type
   n_float
 };
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static enum number_type is_number PARAMS ((const struct token *tp, int *basep));
-
 static enum number_type
-is_number (tp, basep)
-     const struct token *tp;
-     int *basep;
+is_number (const struct token *tp, int *basep)
 {
   struct token_char *ptr_limit;
   struct token_char *ptr1;
@@ -801,8 +736,7 @@ is_number (tp, basep)
    For portability, we convert only ASCII characters here.  */
 
 static void
-upcase_token (tp)
-     struct token *tp;
+upcase_token (struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -817,8 +751,7 @@ upcase_token (tp)
 }
 
 static void
-downcase_token (tp)
-     struct token *tp;
+downcase_token (struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -833,8 +766,7 @@ downcase_token (tp)
 }
 
 static void
-case_convert_token  (tp)
-     struct token *tp;
+case_convert_token (struct token *tp)
 {
   int n = tp->charcount;
   int i;
@@ -895,8 +827,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   if (buflen >= bufmax)
     {
@@ -907,8 +838,7 @@ comment_add (c)
 }
 
 static inline void
-comment_line_end (chars_to_remove)
-     size_t chars_to_remove;
+comment_line_end (size_t chars_to_remove)
 {
   buflen -= chars_to_remove;
   while (buflen >= 1
@@ -960,8 +890,7 @@ struct object
 
 /* Free the memory pointed to by a 'struct object'.  */
 static inline void
-free_object (op)
-     struct object *op;
+free_object (struct object *op)
 {
   if (op->type == t_symbol || op->type == t_string)
     {
@@ -972,8 +901,7 @@ free_object (op)
 
 /* Convert a t_symbol/t_string token to a char*.  */
 static char *
-string_of_object (op)
-     const struct object *op;
+string_of_object (const struct object *op)
 {
   char *str;
   const struct token_char *p;
@@ -993,8 +921,7 @@ string_of_object (op)
 
 /* Read the next object.  */
 static void
-read_object (op)
-     struct object *op;
+read_object (struct object *op)
 {
   for (;;)
     {
@@ -1443,11 +1370,9 @@ read_object (op)
 
 
 void
-extract_lisp (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_lisp (FILE *f,
+	      const char *real_filename, const char *logical_filename,
+	      msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 

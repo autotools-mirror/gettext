@@ -1,5 +1,5 @@
 /* POSIX fnmatch().
-   Copyright 1991-1993, 1996, 1997, 2000, 2001 Free Software Foundation, Inc.
+   Copyright 1991-1993, 1996-1997, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -33,10 +33,7 @@
 /* Match STRING against the filename pattern PATTERN, returning zero if
    it matches, nonzero if not.  */
 int
-fnmatch (pattern, string, flags)
-     const char *pattern;
-     const char *string;
-     int flags;
+fnmatch (const char *pattern, const char *string, int flags)
 {
   register const char *p = pattern, *n = string;
   register char c;

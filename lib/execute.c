@@ -1,5 +1,5 @@
 /* Creation of autonomous subprocesses.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -59,17 +59,6 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-#ifdef EINTR
-static inline int nonintr_close PARAMS ((int fd));
-# ifdef __GNUC__
-static inline int nonintr_open PARAMS ((const char *pathname, int oflag,
-					mode_t mode));
-# endif
-#endif
-
-
 #ifdef EINTR
 
 /* EINTR handling for close(), open().
@@ -77,8 +66,7 @@ static inline int nonintr_open PARAMS ((const char *pathname, int oflag,
    signal handlers set up, namely when we get interrupted via SIGSTOP.  */
 
 static inline int
-nonintr_close (fd)
-     int fd;
+nonintr_close (int fd)
 {
   int retval;
 
@@ -91,10 +79,7 @@ nonintr_close (fd)
 #define close nonintr_close
 
 static inline int
-nonintr_open (pathname, oflag, mode)
-     const char *pathname;
-     int oflag;
-     mode_t mode;
+nonintr_open (const char *pathname, int oflag, mode_t mode)
 {
   int retval;
 
@@ -114,14 +99,10 @@ nonintr_open (pathname, oflag, mode)
    If it didn't terminate correctly, exit if exit_on_error is true, otherwise
    return 127.  */
 int
-execute (progname, prog_path, prog_argv, null_stdin, null_stdout, null_stderr, exit_on_error)
-     const char *progname;
-     const char *prog_path;
-     char **prog_argv;
-     bool null_stdin;
-     bool null_stdout;
-     bool null_stderr;
-     bool exit_on_error;
+execute (const char *progname,
+	 const char *prog_path, char **prog_argv,
+	 bool null_stdin, bool null_stdout, bool null_stderr,
+	 bool exit_on_error)
 {
   /* Note about 127: Some errors during posix_spawnp() cause the function
      posix_spawnp() to return an error code; some other errors cause the

@@ -113,30 +113,19 @@ struct statistics
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status));
-static void compendium PARAMS ((const char *filename));
-static bool msgfmt_check_pair_fails PARAMS ((const lex_pos_ty *pos,
-					     const char *msgid,
-					     const char *msgid_plural,
-					     const char *msgstr,
-					     size_t msgstr_len, size_t fmt));
-static message_ty *message_merge PARAMS ((message_ty *def, message_ty *ref));
-static void match_domain PARAMS ((const char *fn1, const char *fn2,
-				  message_list_list_ty *definitions,
-				  message_list_ty *refmlp,
-				  message_list_ty *resultmlp,
-				  struct statistics *stats,
-				  unsigned int *processed));
-static msgdomain_list_ty *merge PARAMS ((const char *fn1, const char *fn2,
-					 msgdomain_list_ty **defp));
+/* Forward declaration of local functions.  */
+static void usage (int status)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
+#endif
+;
+static void compendium (const char *filename);
+static msgdomain_list_ty *merge (const char *fn1, const char *fn2,
+				 msgdomain_list_ty **defp);
 
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main (int argc, char **argv)
 {
   int opt;
   bool do_help;
@@ -382,8 +371,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -495,8 +483,7 @@ Informative output:\n\
 
 
 static void
-compendium (filename)
-    const char *filename;
+compendium (const char *filename)
 {
   msgdomain_list_ty *mdlp;
   size_t k;
@@ -510,13 +497,10 @@ compendium (filename)
 
 
 static bool
-msgfmt_check_pair_fails (pos, msgid, msgid_plural, msgstr, msgstr_len, fmt)
-     const lex_pos_ty *pos;
-     const char *msgid;
-     const char *msgid_plural;
-     const char *msgstr;
-     size_t msgstr_len;
-     size_t fmt;
+msgfmt_check_pair_fails (const lex_pos_ty *pos,
+			 const char *msgid, const char *msgid_plural,
+			 const char *msgstr, size_t msgstr_len,
+			 size_t fmt)
 {
   bool failure;
   struct formatstring_parser *parser = formatstring_parsers[fmt];
@@ -554,9 +538,7 @@ msgfmt_check_pair_fails (pos, msgid, msgid_plural, msgstr, msgstr_len, fmt)
 
 
 static message_ty *
-message_merge (def, ref)
-     message_ty *def;
-     message_ty *ref;
+message_merge (message_ty *def, message_ty *ref)
 {
   const char *msgstr;
   size_t msgstr_len;
@@ -804,14 +786,10 @@ message_merge (def, ref)
 #define DOT_FREQUENCY 10
 
 static void
-match_domain (fn1, fn2, definitions, refmlp, resultmlp, stats, processed)
-     const char *fn1;
-     const char *fn2;
-     message_list_list_ty *definitions;
-     message_list_ty *refmlp;
-     message_list_ty *resultmlp;
-     struct statistics *stats;
-     unsigned int *processed;
+match_domain (const char *fn1, const char *fn2,
+	      message_list_list_ty *definitions, message_list_ty *refmlp,
+	      message_list_ty *resultmlp,
+	      struct statistics *stats, unsigned int *processed)
 {
   size_t j;
 
@@ -977,10 +955,7 @@ this message should not define plural forms"));
 }
 
 static msgdomain_list_ty *
-merge (fn1, fn2, defp)
-     const char *fn1;			/* definitions */
-     const char *fn2;			/* references */
-     msgdomain_list_ty **defp;		/* return definition list */
+merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
 {
   msgdomain_list_ty *def;
   msgdomain_list_ty *ref;

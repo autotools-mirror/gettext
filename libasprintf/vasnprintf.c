@@ -49,11 +49,7 @@
 #endif
 
 char *
-vasnprintf (resultbuf, lengthp, format, args)
-     char *resultbuf;
-     size_t *lengthp;
-     const char *format;
-     va_list args;
+vasnprintf (char *resultbuf, size_t *lengthp, const char *format, va_list args)
 {
   char_directives d;
   arguments a;

@@ -51,8 +51,7 @@ const char *po_charset_utf8 = utf8;
 
 /* Canonicalize an encoding name.  */
 const char *
-po_charset_canonicalize (charset)
-     const char *charset;
+po_charset_canonicalize (const char *charset)
 {
   /* The list of charsets supported by glibc's iconv() and by the portable
      iconv() across platforms.  Taken from intl/config.charset.  */
@@ -113,8 +112,7 @@ po_charset_canonicalize (charset)
 
 /* Test for ASCII compatibility.  */
 bool
-po_charset_ascii_compatible (canon_charset)
-     const char *canon_charset;
+po_charset_ascii_compatible (const char *canon_charset)
 {
   /* There are only a few exceptions to ASCII compatibility.  */
   if (strcmp (canon_charset, "SHIFT_JIS") == 0
@@ -127,8 +125,7 @@ po_charset_ascii_compatible (canon_charset)
 
 /* Test for a weird encoding, i.e. an encoding which has double-byte
    characters ending in 0x5C.  */
-bool po_is_charset_weird (canon_charset)
-     const char *canon_charset;
+bool po_is_charset_weird (const char *canon_charset)
 {
   static const char *weird_charsets[] =
   {
@@ -151,8 +148,7 @@ bool po_is_charset_weird (canon_charset)
    An encoding has CJK structure if every valid character stream is composed
    of single bytes in the range 0x{00..7F} and of byte pairs in the range
    0x{80..FF}{30..FF}.  */
-bool po_is_charset_weird_cjk (canon_charset)
-     const char *canon_charset;
+bool po_is_charset_weird_cjk (const char *canon_charset)
 {
   static const char *weird_cjk_charsets[] =
   {			/* single bytes   double bytes       */
@@ -194,9 +190,7 @@ po_lex_charset_init ()
 }
 
 void
-po_lex_charset_set (header_entry, filename)
-     const char *header_entry;
-     const char *filename;
+po_lex_charset_set (const char *header_entry, const char *filename)
 {
   /* Verify the validity of CHARSET.  It is necessary
      1. for the correct treatment of multibyte characters containing

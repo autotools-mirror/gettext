@@ -1,4 +1,4 @@
-/* Copyright (C) 1992, 1995, 1997 Free Software Foundation, Inc.
+/* Copyright (C) 1992, 1995, 1997, 2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -33,9 +33,7 @@
 
 /* Copy SRC to DEST, returning the address of the terminating '\0' in DEST.  */
 char *
-__stpcpy (dest, src)
-     char *dest;
-     const char *src;
+__stpcpy (char *dest, const char *src)
 {
   register char *d = dest;
   register const char *s = src;

@@ -25,7 +25,7 @@ extern "C" {
 /* Set NAME to VALUE in the environment.
    If REPLACE is nonzero, overwrite an existing value.
    With error checking.  */
-extern void xsetenv PARAMS ((const char *name, const char *value, int replace));
+extern void xsetenv (const char *name, const char *value, int replace);
 
 #ifdef	__cplusplus
 }

@@ -186,11 +186,10 @@ static header *last_alloca_header = NULL;	/* -> last alloca header.  */
 
 pointer
 #ifdef EMACS_WANTS_C_ALLOCA
-c_alloca (size)
+c_alloca (unsigned size)
 #else
-alloca (size)
+alloca (unsigned size)
 #endif
-     unsigned size;
 {
   auto char probe;		/* Probes stack depth: */
   register char *depth = ADDRESS_FUNCTION (probe);

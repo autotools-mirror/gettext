@@ -18,24 +18,16 @@
 #ifndef _UNINAME_H
 #define _UNINAME_H
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-#endif
-
 /* Required size of buffer for a Unicode character name.  */
 #define UNINAME_MAX 256
 
 /* Looks up the name of a Unicode character, in uppercase ASCII.
    Returns the filled buf, or NULL if the character does not have a name.  */
-extern char * unicode_character_name PARAMS ((unsigned int uc, char *buf));
+extern char * unicode_character_name (unsigned int uc, char *buf);
 
 /* Looks up the Unicode character with a given name, in upper- or lowercase
    ASCII.  Returns the character if found, or UNINAME_INVALID if not found.  */
-extern unsigned int unicode_name_character PARAMS ((const char *name));
+extern unsigned int unicode_name_character (const char *name);
 #define UNINAME_INVALID ((unsigned int) 0xFFFF)
 
 #endif /* _UNINAME_H */

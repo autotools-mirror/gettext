@@ -177,41 +177,28 @@ static const struct option long_options[] =
 /* The extractors must all be functions returning void and taking three
    arguments designating the input stream and one message domain list argument
    in which to add the messages.  */
-typedef void (*extractor_func) PARAMS ((FILE *fp, const char *real_filename,
-					const char *logical_filename,
-					msgdomain_list_ty *mdlp));
+typedef void (*extractor_func) (FILE *fp, const char *real_filename,
+				const char *logical_filename,
+				msgdomain_list_ty *mdlp);
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status))
+/* Forward declaration of local functions.  */
+static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ > 4) || __GNUC__ > 2)
 	__attribute__ ((noreturn))
 #endif
 ;
-static void exclude_directive_domain PARAMS ((po_ty *pop, char *name));
-static void exclude_directive_message PARAMS ((po_ty *pop, char *msgid,
-					       lex_pos_ty *msgid_pos,
-					       char *msgid_plural,
-					       char *msgstr, size_t msgstr_len,
-					       lex_pos_ty *msgstr_pos,
-					       bool obsolete));
-static void read_exclusion_file PARAMS ((char *file_name));
-static FILE *xgettext_open PARAMS ((const char *fn, char **logical_file_name_p,
-				    char **real_file_name_p));
-static void extract_from_file PARAMS ((const char *file_name,
-				       extractor_func extractor,
-				       msgdomain_list_ty *mdlp));
-static message_ty *construct_header PARAMS ((void));
-static void finalize_header PARAMS ((msgdomain_list_ty *mdlp));
-static extractor_func language_to_extractor PARAMS ((const char *name));
-static const char *extension_to_language PARAMS ((const char *extension));
+static void read_exclusion_file (char *file_name);
+static void extract_from_file (const char *file_name, extractor_func extractor,
+			       msgdomain_list_ty *mdlp);
+static message_ty *construct_header (void);
+static void finalize_header (msgdomain_list_ty *mdlp);
+static extractor_func language_to_extractor (const char *name);
+static const char *extension_to_language (const char *extension);
 
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int cnt;
   int optchar;
@@ -600,8 +587,7 @@ warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -718,9 +704,7 @@ Informative output:\n\
 
 
 static void
-exclude_directive_domain (pop, name)
-     po_ty *pop;
-     char *name;
+exclude_directive_domain (po_ty *pop, char *name)
 {
   po_gram_error_at_line (&gram_pos,
 			 _("this file may not contain domain directives"));
@@ -728,16 +712,13 @@ exclude_directive_domain (pop, name)
 
 
 static void
-exclude_directive_message (pop, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos, obsolete)
-     po_ty *pop;
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
+exclude_directive_message (po_ty *pop,
+			   char *msgid,
+			   lex_pos_ty *msgid_pos,
+			   char *msgid_plural,
+			   char *msgstr, size_t msgstr_len,
+			   lex_pos_ty *msgstr_pos,
+			   bool obsolete)
 {
   message_ty *mp;
 
@@ -783,8 +764,7 @@ static po_method_ty exclude_methods =
 
 
 static void
-read_exclusion_file (file_name)
-     char *file_name;
+read_exclusion_file (char *file_name)
 {
   po_ty *pop;
 
@@ -795,11 +775,8 @@ read_exclusion_file (file_name)
 
 
 void
-split_keywordspec (spec, endp, argnum1p, argnum2p)
-     const char *spec;
-     const char **endp;
-     int *argnum1p;
-     int *argnum2p;
+split_keywordspec (const char *spec,
+		   const char **endp, int *argnum1p, int *argnum2p)
 {
   const char *p;
 
@@ -862,8 +839,7 @@ split_keywordspec (spec, endp, argnum1p, argnum2p)
 static string_list_ty *comment;
 
 void
-xgettext_comment_add (str)
-     const char *str;
+xgettext_comment_add (const char *str)
 {
   if (comment == NULL)
     comment = string_list_alloc ();
@@ -871,8 +847,7 @@ xgettext_comment_add (str)
 }
 
 const char *
-xgettext_comment (n)
-     size_t n;
+xgettext_comment (size_t n)
 {
   if (comment == NULL || n >= comment->nitems)
     return NULL;
@@ -892,10 +867,8 @@ xgettext_comment_reset ()
 
 
 static FILE *
-xgettext_open (fn, logical_file_name_p, real_file_name_p)
-     const char *fn;
-     char **logical_file_name_p;
-     char **real_file_name_p;
+xgettext_open (const char *fn,
+	       char **logical_file_name_p, char **real_file_name_p)
 {
   FILE *fp;
   char *new_name;
@@ -955,10 +928,8 @@ error while opening \"%s\" for reading"), new_name);
 
 
 static void
-extract_from_file (file_name, extractor, mdlp)
-     const char *file_name;
-     extractor_func extractor;
-     msgdomain_list_ty *mdlp;
+extract_from_file (const char *file_name, extractor_func extractor,
+		   msgdomain_list_ty *mdlp)
 {
   char *logical_file_name;
   char *real_file_name;
@@ -1017,10 +988,7 @@ static struct formatstring_parser *current_formatstring_parser;
 
 
 message_ty *
-remember_a_message (mlp, string, pos)
-     message_list_ty *mlp;
-     char *string;
-     lex_pos_ty *pos;
+remember_a_message (message_list_ty *mlp, char *string, lex_pos_ty *pos)
 {
   enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
@@ -1204,10 +1172,7 @@ meta information, not the empty string.\n")));
 
 
 void
-remember_a_message_plural (mp, string, pos)
-     message_ty *mp;
-     char *string;
-     lex_pos_ty *pos;
+remember_a_message_plural (message_ty *mp, char *string, lex_pos_ty *pos)
 {
   char *msgid_plural;
   char *msgstr1;
@@ -1317,8 +1282,7 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
 }
 
 static void
-finalize_header (mdlp)
-     msgdomain_list_ty *mdlp;
+finalize_header (msgdomain_list_ty *mdlp)
 {
   /* If the generated PO file has plural forms, add a Plural-Forms template
      to the constructed header.  */
@@ -1402,8 +1366,7 @@ finalize_header (mdlp)
 
 
 static extractor_func
-language_to_extractor (name)
-     const char *name;
+language_to_extractor (const char *name)
 {
   typedef struct table_ty table_ty;
   struct table_ty
@@ -1451,8 +1414,7 @@ language_to_extractor (name)
 
 
 static const char *
-extension_to_language (extension)
-     const char *extension;
+extension_to_language (const char *extension)
 {
   typedef struct table_ty table_ty;
   struct table_ty

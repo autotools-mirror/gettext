@@ -44,9 +44,7 @@
    file's pathname is returned in *REAL_FILE_NAME_P, for error message
    purposes.  */
 FILE *
-open_po_file (input_name, real_file_name_p)
-     const char *input_name;
-     char **real_file_name_p;
+open_po_file (const char *input_name, char **real_file_name_p)
 {
   static const char *extension[] = { "", ".po", ".pot", };
   char *file_name;

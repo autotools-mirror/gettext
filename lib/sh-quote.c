@@ -1,5 +1,5 @@
 /* Shell quoting.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,8 +33,7 @@
 
 /* Returns the number of bytes needed for the quoted string.  */
 size_t
-shell_quote_length (string)
-     const char *string;
+shell_quote_length (const char *string)
 {
   if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
     return strlen (string);
@@ -66,9 +65,7 @@ shell_quote_length (string)
 
 /* Copies the quoted string to p and returns the incremented p.  */
 char *
-shell_quote_copy (p, string)
-     char *p;
-     const char *string;
+shell_quote_copy (char *p, const char *string)
 {
   if (strpbrk (string, SHELL_SPECIAL_CHARS) == NULL)
     {
@@ -102,8 +99,7 @@ shell_quote_copy (p, string)
 
 /* Returns the freshly allocated quoted string.  */
 char *
-shell_quote (string)
-     const char *string;
+shell_quote (const char *string)
 {
   size_t length = shell_quote_length (string);
   char *quoted = (char *) xmalloc (length + 1);
@@ -115,8 +111,7 @@ shell_quote (string)
 /* Returns a freshly allocated string containing all argument strings, quoted,
    separated through spaces.  */
 char *
-shell_quote_argv (argv)
-     char **argv;
+shell_quote_argv (char **argv)
 {
   if (*argv != NULL)
     {

@@ -112,32 +112,17 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status));
-#ifdef EINTR
-static inline int nonintr_close PARAMS ((int fd));
-static inline ssize_t nonintr_read PARAMS ((int fd, void *buf, size_t count));
-static inline ssize_t nonintr_write PARAMS ((int fd, const void *buf,
-					     size_t count));
-#if HAVE_SELECT
-static inline int nonintr_select PARAMS ((int n, fd_set *readfds,
-					  fd_set *writefds, fd_set *exceptfds,
-					  struct timeval *timeout));
+/* Forward declaration of local functions.  */
+static void usage (int status)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
 #endif
-#endif
-static void process_string PARAMS ((const char *str, size_t len,
-				    char **resultp, size_t *lengthp));
-static void process_message PARAMS ((message_ty *mp));
-static void process_message_list PARAMS ((message_list_ty *mlp));
-static msgdomain_list_ty *
-       process_msgdomain_list PARAMS ((msgdomain_list_ty *mdlp));
+;
+static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main (int argc, char **argv)
 {
   int opt;
   bool do_help;
@@ -344,8 +329,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -438,8 +422,7 @@ Informative output:\n\
    signal handlers set up, namely when we get interrupted via SIGSTOP.  */
 
 static inline int
-nonintr_close (fd)
-     int fd;
+nonintr_close (int fd)
 {
   int retval;
 
@@ -452,10 +435,7 @@ nonintr_close (fd)
 #define close nonintr_close
 
 static inline ssize_t
-nonintr_read (fd, buf, count)
-     int fd;
-     void *buf;
-     size_t count;
+nonintr_read (int fd, void *buf, size_t count)
 {
   ssize_t retval;
 
@@ -468,10 +448,7 @@ nonintr_read (fd, buf, count)
 #define read nonintr_read
 
 static inline ssize_t
-nonintr_write (fd, buf, count)
-     int fd;
-     const void *buf;
-     size_t count;
+nonintr_write (int fd, const void *buf, size_t count)
 {
   ssize_t retval;
 
@@ -486,12 +463,8 @@ nonintr_write (fd, buf, count)
 # if HAVE_SELECT
 
 static inline int
-nonintr_select (n, readfds, writefds, exceptfds, timeout)
-     int n;
-     fd_set *readfds;
-     fd_set *writefds;
-     fd_set *exceptfds;
-     struct timeval *timeout;
+nonintr_select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
+		struct timeval *timeout)
 {
   int retval;
 
@@ -527,11 +500,7 @@ nonintr_select (n, readfds, writefds, exceptfds, timeout)
    Store the freshly allocated result at *RESULTP and its length at *LENGTHP.
  */
 static void
-process_string (str, len, resultp, lengthp)
-     const char *str;
-     size_t len;
-     char **resultp;
-     size_t *lengthp;
+process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
 {
   pid_t child;
   int fd[2];
@@ -682,8 +651,7 @@ process_string (str, len, resultp, lengthp)
 
 
 static void
-process_message (mp)
-     message_ty *mp;
+process_message (message_ty *mp)
 {
   const char *msgstr = mp->msgstr;
   size_t msgstr_len = mp->msgstr_len;
@@ -738,8 +706,7 @@ process_message (mp)
 
 
 static void
-process_message_list (mlp)
-     message_list_ty *mlp;
+process_message_list (message_list_ty *mlp)
 {
   size_t j;
 
@@ -749,8 +716,7 @@ process_message_list (mlp)
 
 
 static msgdomain_list_ty *
-process_msgdomain_list (mdlp)
-     msgdomain_list_ty *mdlp;
+process_msgdomain_list (msgdomain_list_ty *mdlp)
 {
   size_t k;
 

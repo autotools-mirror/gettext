@@ -1,5 +1,5 @@
 /* Java CLASSPATH handling.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,26 +27,12 @@
 #endif
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static char * new_classpath PARAMS ((const char * const *classpaths,
-				     unsigned int classpaths_count,
-				     bool use_minimal_classpath));
-static char * set_classpath PARAMS ((const char * const *classpaths,
-				     unsigned int classpaths_count,
-				     bool use_minimal_classpath,
-				     bool verbose));
-static void reset_classpath PARAMS ((char *old_classpath));
-
-
 /* Return the new CLASSPATH value.  The given classpaths are prepended to
    the current CLASSPATH value.   If use_minimal_classpath, the current
    CLASSPATH is ignored.  */
 static char *
-new_classpath (classpaths, classpaths_count, use_minimal_classpath)
-     const char * const *classpaths;
-     unsigned int classpaths_count;
-     bool use_minimal_classpath;
+new_classpath (const char * const *classpaths, unsigned int classpaths_count,
+	       bool use_minimal_classpath)
 {
   const char *old_classpath;
   unsigned int length;
@@ -90,11 +76,8 @@ new_classpath (classpaths, classpaths_count, use_minimal_classpath)
 
 /* Set CLASSPATH and returns a safe copy of its old value.  */
 static char *
-set_classpath (classpaths, classpaths_count, use_minimal_classpath, verbose)
-     const char * const *classpaths;
-     unsigned int classpaths_count;
-     bool use_minimal_classpath;
-     bool verbose;
+set_classpath (const char * const *classpaths, unsigned int classpaths_count,
+	       bool use_minimal_classpath, bool verbose)
 {
   const char *old_CLASSPATH = getenv ("CLASSPATH");
   char *result = (old_CLASSPATH != NULL ? xstrdup (old_CLASSPATH) : NULL);
@@ -113,8 +96,7 @@ set_classpath (classpaths, classpaths_count, use_minimal_classpath, verbose)
 
 /* Restore CLASSPATH to its previous value.  */
 static void
-reset_classpath (old_classpath)
-     char *old_classpath;
+reset_classpath (char *old_classpath)
 {
   if (old_classpath != NULL)
     {

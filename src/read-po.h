@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,13 +34,13 @@ extern int line_comment;
 extern bool allow_duplicates;
 
 /* Read the input file from a stream.  Returns a list of messages.  */
-extern msgdomain_list_ty *read_po PARAMS ((FILE *fp, const char *real_filename,
-					   const char *logical_filename));
+extern msgdomain_list_ty *read_po (FILE *fp, const char *real_filename,
+				   const char *logical_filename);
 
 /* Read the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  Returns
    a list of messages.  */
-extern msgdomain_list_ty *read_po_file PARAMS ((const char *input_name));
+extern msgdomain_list_ty *read_po_file (const char *input_name);
 
 #endif /* _READ_PO_H */

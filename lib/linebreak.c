@@ -33,10 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "utf16-ucs4.h"
 
 static inline int
-u32_mbtouc (puc, s, n)
-     unsigned int *puc;
-     const unsigned int *s;
-     size_t n;
+u32_mbtouc (unsigned int *puc, const unsigned int *s, size_t n)
 {
   *puc = *s;
   return 1;
@@ -192,8 +189,7 @@ streq0 (const char *s1, const char *s2, char s20, char s21, char s22, char s23, 
 
 
 static int
-is_cjk_encoding (encoding)
-     const char *encoding;
+is_cjk_encoding (const char *encoding)
 {
   if (0
       /* Legacy Japanese encodings */
@@ -212,8 +208,7 @@ is_cjk_encoding (encoding)
 }
 
 static int
-is_utf8_encoding (encoding)
-     const char *encoding;
+is_utf8_encoding (const char *encoding)
 {
   if (STREQ (encoding, "UTF-8", 'U', 'T', 'F', '-', '8', 0, 0, 0 ,0))
     return 1;
@@ -222,7 +217,7 @@ is_utf8_encoding (encoding)
 
 
 /* Determine number of column positions required for UC. */
-int uc_width PARAMS ((unsigned int uc, const char *encoding));
+int uc_width (unsigned int uc, const char *encoding);
 
 /*
  * Non-spacing attribute table.
@@ -415,9 +410,7 @@ static const signed char nonspacing_table_ind[240] = {
 
 /* Determine number of column positions required for UC. */
 int
-uc_width (uc, encoding)
-     unsigned int uc;
-     const char *encoding;
+uc_width (unsigned int uc, const char *encoding)
 {
   /* Test for non-spacing or control character.  */
   if ((uc >> 9) < 240)
@@ -469,10 +462,7 @@ uc_width (uc, encoding)
    (or fewer if S ends before this) in S.  */
 
 int
-u8_width (s, n, encoding)
-     const unsigned char *s;
-     size_t n;
-     const char *encoding;
+u8_width (const unsigned char *s, size_t n, const char *encoding)
 {
   const unsigned char *s_end = s + n;
   int width = 0;
@@ -496,10 +486,7 @@ u8_width (s, n, encoding)
 }
 
 int
-u16_width (s, n, encoding)
-     const unsigned short *s;
-     size_t n;
-     const char *encoding;
+u16_width (const unsigned short *s, size_t n, const char *encoding)
 {
   const unsigned short *s_end = s + n;
   int width = 0;
@@ -523,10 +510,7 @@ u16_width (s, n, encoding)
 }
 
 int
-u32_width (s, n, encoding)
-     const unsigned int *s;
-     size_t n;
-     const char *encoding;
+u32_width (const unsigned int *s, size_t n, const char *encoding)
 {
   const unsigned int *s_end = s + n;
   int width = 0;
@@ -593,8 +577,7 @@ enum
 #include "lbrkprop.h"
 
 static inline unsigned char
-lbrkprop_lookup (uc)
-     unsigned int uc;
+lbrkprop_lookup (unsigned int uc)
 {
   unsigned int index1 = uc >> lbrkprop_header_0;
   if (index1 < lbrkprop_header_1)
@@ -647,11 +630,7 @@ static const unsigned char lbrk_table[19][19] = {
 /* Note: The (PR,ID) entry should probably be D instead of I.  */
 
 void
-u8_possible_linebreaks (s, n, encoding, p)
-     const unsigned char *s;
-     size_t n;
-     const char *encoding;
-     char *p;
+u8_possible_linebreaks (const unsigned char *s, size_t n, const char *encoding, char *p)
 {
   int LBP_AI_REPLACEMENT = (is_cjk_encoding (encoding) ? LBP_ID : LBP_AL);
   const unsigned char *s_end = s + n;
@@ -765,11 +744,7 @@ u8_possible_linebreaks (s, n, encoding, p)
 #ifdef unused
 
 void
-u16_possible_linebreaks (s, n, encoding, p)
-     const unsigned short *s;
-     size_t n;
-     const char *encoding;
-     char *p;
+u16_possible_linebreaks (const unsigned short *s, size_t n, const char *encoding, char *p)
 {
   int LBP_AI_REPLACEMENT = (is_cjk_encoding (encoding) ? LBP_ID : LBP_AL);
   const unsigned short *s_end = s + n;
@@ -881,11 +856,7 @@ u16_possible_linebreaks (s, n, encoding, p)
 }
 
 void
-u32_possible_linebreaks (s, n, encoding, p)
-     const unsigned int *s;
-     size_t n;
-     const char *encoding;
-     char *p;
+u32_possible_linebreaks (const unsigned int *s, size_t n, const char *encoding, char *p)
 {
   int LBP_AI_REPLACEMENT = (is_cjk_encoding (encoding) ? LBP_ID : LBP_AL);
   const unsigned int *s_end = s + n;
@@ -999,15 +970,10 @@ u32_possible_linebreaks (s, n, encoding, p)
    Return the column after the end of the string.  */
 
 int
-u8_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
-     const unsigned char *s;
-     size_t n;
-     int width;
-     int start_column;
-     int at_end_columns;
-     const char *o;
-     const char *encoding;
-     char *p;
+u8_width_linebreaks (const unsigned char *s, size_t n,
+                     int width, int start_column, int at_end_columns,
+                     const char *o, const char *encoding,
+                     char *p)
 {
   const unsigned char *s_end;
   char *last_p;
@@ -1090,15 +1056,10 @@ u8_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
 #ifdef unused
 
 int
-u16_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
-     const unsigned short *s;
-     size_t n;
-     int width;
-     int start_column;
-     int at_end_columns;
-     const char *o;
-     const char *encoding;
-     char *p;
+u16_width_linebreaks (const unsigned short *s, size_t n,
+                      int width, int start_column, int at_end_columns,
+                      const char *o, const char *encoding,
+                      char *p)
 {
   const unsigned short *s_end;
   char *last_p;
@@ -1179,15 +1140,10 @@ u16_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
 }
 
 int
-u32_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
-     const unsigned int *s;
-     size_t n;
-     int width;
-     int start_column;
-     int at_end_columns;
-     const char *o;
-     const char *encoding;
-     char *p;
+u32_width_linebreaks (const unsigned int *s, size_t n,
+                      int width, int start_column, int at_end_columns,
+                      const char *o, const char *encoding,
+                      char *p)
 {
   const unsigned int *s_end;
   char *last_p;
@@ -1276,8 +1232,7 @@ u32_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
 /* Read the contents of an input stream, and return it, terminated with a NUL
    byte. */
 char *
-read_file (stream)
-     FILE *stream;
+read_file (FILE *stream)
 {
 #define BUFSIZE 4096
   char *buf = NULL;
@@ -1323,9 +1278,7 @@ read_file (stream)
 }
 
 int
-main (argc, argv)
-     int argc;
-     char * argv[];
+main (int argc, char * argv[])
 {
   if (argc == 1)
     {
@@ -1423,10 +1376,7 @@ main (argc, argv)
 
 /* Return the length of a string after conversion through an iconv_t.  */
 static size_t
-iconv_string_length (cd, s, n)
-     iconv_t cd;
-     const char *s;
-     size_t n;
+iconv_string_length (iconv_t cd, const char *s, size_t n)
 {
 #define TMPBUFSIZE 4096
   size_t count = 0;
@@ -1461,13 +1411,8 @@ iconv_string_length (cd, s, n)
 }
 
 static void
-iconv_string_keeping_offsets (cd, s, n, offtable, t, m)
-     iconv_t cd;
-     const char *s;
-     size_t n;
-     size_t *offtable;
-     char *t;
-     size_t m;
+iconv_string_keeping_offsets (iconv_t cd, const char *s, size_t n,
+                              size_t *offtable, char *t, size_t m)
 {
   size_t i;
   const char *s_end;
@@ -1525,9 +1470,7 @@ iconv_string_keeping_offsets (cd, s, n, offtable, t, m)
 /* Tests whether a string is entirely ASCII.  Returns 1 if yes.
    Returns 0 if the string is in an 8-bit encoding or an ISO-2022 encoding.  */
 static int
-is_all_ascii (s, n)
-     const char *s;
-     size_t n;
+is_all_ascii (const char *s, size_t n)
 {
   for (; n > 0; s++, n--)
     {
@@ -1544,11 +1487,8 @@ is_all_ascii (s, n)
 #if defined unused || defined TEST2
 
 void
-mbs_possible_linebreaks (s, n, encoding, p)
-     const char *s;
-     size_t n;
-     const char *encoding;
-     char *p;
+mbs_possible_linebreaks (const char *s, size_t n, const char *encoding,
+                         char *p)
 {
   if (is_utf8_encoding (encoding))
     u8_possible_linebreaks ((const unsigned char *) s, n, encoding, p);
@@ -1626,15 +1566,10 @@ mbs_possible_linebreaks (s, n, encoding, p)
 #endif
 
 int
-mbs_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
-     const char *s;
-     size_t n;
-     int width;
-     int start_column;
-     int at_end_columns;
-     const char *o;
-     const char *encoding;
-     char *p;
+mbs_width_linebreaks (const char *s, size_t n,
+                      int width, int start_column, int at_end_columns,
+                      const char *o, const char *encoding,
+                      char *p)
 {
   if (is_utf8_encoding (encoding))
     return u8_width_linebreaks ((const unsigned char *) s, n, width, start_column, at_end_columns, o, encoding, p);
@@ -1735,8 +1670,7 @@ mbs_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
 /* Read the contents of an input stream, and return it, terminated with a NUL
    byte. */
 char *
-read_file (stream)
-     FILE *stream;
+read_file (FILE *stream)
 {
 #define BUFSIZE 4096
   char *buf = NULL;
@@ -1782,9 +1716,7 @@ read_file (stream)
 }
 
 int
-main (argc, argv)
-     int argc;
-     char * argv[];
+main (int argc, char * argv[])
 {
   setlocale (LC_CTYPE, "");
   if (argc == 1)

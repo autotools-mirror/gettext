@@ -18,21 +18,13 @@
 #ifndef _STPNCPY_H
 #define _STPNCPY_H
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
-
 #include <string.h>
 
 #ifndef __GNU_LIBRARY__
 
 /* When not using the GNU libc we use the stpncpy implementation we
    provide here.  */
-extern char *gnu_stpncpy PARAMS ((char *__dst, const char *__src, size_t __n));
+extern char *gnu_stpncpy (char *__dst, const char *__src, size_t __n);
 #define stpncpy(Dst, Src, N) gnu_stpncpy (Dst, Src, N)
 
 #endif

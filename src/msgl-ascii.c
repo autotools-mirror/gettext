@@ -31,8 +31,7 @@
 
 
 bool
-is_ascii_string (string)
-     const char *string;
+is_ascii_string (const char *string)
 {
   for (; *string; string++)
     if (!c_isascii ((unsigned char) *string))
@@ -41,8 +40,7 @@ is_ascii_string (string)
 }
 
 bool
-is_ascii_string_list (slp)
-     string_list_ty *slp;
+is_ascii_string_list (string_list_ty *slp)
 {
   size_t i;
 
@@ -54,8 +52,7 @@ is_ascii_string_list (slp)
 }
 
 bool
-is_ascii_message (mp)
-     message_ty *mp;
+is_ascii_message (message_ty *mp)
 {
   const char *p = mp->msgstr;
   const char *p_end = p + mp->msgstr_len;
@@ -80,8 +77,7 @@ is_ascii_message (mp)
 }
 
 bool
-is_ascii_message_list (mlp)
-     message_list_ty *mlp;
+is_ascii_message_list (message_list_ty *mlp)
 {
   size_t j;
 

@@ -70,24 +70,17 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status))
+/* Forward declaration of local functions.  */
+static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
      __attribute__ ((noreturn))
 #endif
 ;
-static void cat_file PARAMS ((const char *src_filename));
-static bool execute_it PARAMS ((const char *progname,
-				const char *prog_path, char **prog_argv,
-				void *private_data));
-static void fetch PARAMS ((const char *url, const char *file));
+static void fetch (const char *url, const char *file);
 
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int optchar;
   bool do_help;
@@ -157,8 +150,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -192,8 +184,7 @@ Informative output:\n\
 
 /* Copy a file's contents to stdout.  */
 static void
-cat_file (src_filename)
-     const char *src_filename;
+cat_file (const char *src_filename)
 {
   int src_fd;
   char buf[4096];
@@ -227,11 +218,9 @@ cat_file (src_filename)
 }
 
 static bool
-execute_it (progname, prog_path, prog_argv, private_data)
-     const char *progname;
-     const char *prog_path;
-     char **prog_argv;
-     void *private_data;
+execute_it (const char *progname,
+	    const char *prog_path, char **prog_argv,
+	    void *private_data)
 {
   (void) private_data;
 
@@ -241,9 +230,7 @@ execute_it (progname, prog_path, prog_argv, private_data)
 
 /* Fetch the URL.  Upon error, use the FILE as fallback.  */
 static void
-fetch (url, file)
-     const char *url;
-     const char *file;
+fetch (const char *url, const char *file)
 {
   /* First try: using Java.  */
   {

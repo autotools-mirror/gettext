@@ -57,21 +57,17 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status));
-static bool is_message_selected PARAMS ((const message_ty *mp));
-static msgdomain_list_ty * remove_obsoletes PARAMS ((msgdomain_list_ty *mdlp));
-static void match_domain PARAMS ((const char *fn1, const char *fn2,
-				  message_list_ty *defmlp,
-				  message_list_ty *refmlp, int *nerrors));
-static void compare PARAMS ((const char *, const char *));
+/* Forward declaration of local functions.  */
+static void usage (int status)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
+#endif
+;
+static void compare (const char *fn1, const char *fn2);
 
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int optchar;
   bool do_help;
@@ -159,8 +155,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -217,8 +212,7 @@ Informative output:\n\
 
 /* Return true if a message should be kept.  */
 static bool
-is_message_selected (mp)
-     const message_ty *mp;
+is_message_selected (const message_ty *mp)
 {
   /* Always keep the header entry.  */
   if (mp->msgid[0] == '\0')
@@ -230,8 +224,7 @@ is_message_selected (mp)
 
 /* Remove obsolete messages from a message list.  Return the modified list.  */
 static msgdomain_list_ty *
-remove_obsoletes (mdlp)
-     msgdomain_list_ty *mdlp;
+remove_obsoletes (msgdomain_list_ty *mdlp)
 {
   size_t k;
 
@@ -243,12 +236,9 @@ remove_obsoletes (mdlp)
 
 
 static void
-match_domain (fn1, fn2, defmlp, refmlp, nerrors)
-     const char *fn1;
-     const char *fn2;
-     message_list_ty *defmlp;
-     message_list_ty *refmlp;
-     int *nerrors;
+match_domain (const char *fn1, const char *fn2,
+	      message_list_ty *defmlp, message_list_ty *refmlp,
+	      int *nerrors)
 {
   size_t j;
 
@@ -287,9 +277,7 @@ this message is used but not defined in %s"), fn1);
 
 
 static void
-compare (fn1, fn2)
-     const char *fn1;
-     const char *fn2;
+compare (const char *fn1, const char *fn2)
 {
   msgdomain_list_ty *def;
   msgdomain_list_ty *ref;

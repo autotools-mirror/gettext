@@ -24,7 +24,6 @@
 /* Read the Tcl msg file given by locale_name and directory.
    Returns a list of messages.  */
 extern msgdomain_list_ty *
-       msgdomain_read_tcl PARAMS ((const char *locale_name,
-				   const char *directory));
+       msgdomain_read_tcl (const char *locale_name, const char *directory);
 
 #endif /* _READ_TCL_H */

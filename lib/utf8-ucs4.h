@@ -19,20 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <stddef.h>
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int
-u8_mbtouc_aux PARAMS ((unsigned int *puc, const unsigned char *s, size_t n));
-static inline int
-u8_mbtouc PARAMS ((unsigned int *puc, const unsigned char *s, size_t n));
-
 /* Return the length (number of units) of the first character in S, putting
    its 'ucs4_t' representation in *PUC.  */
 static int
-u8_mbtouc_aux (puc, s, n)
-     unsigned int *puc;
-     const unsigned char *s;
-     size_t n;
+u8_mbtouc_aux (unsigned int *puc, const unsigned char *s, size_t n)
 {
   unsigned char c = *s;
 
@@ -163,10 +153,7 @@ u8_mbtouc_aux (puc, s, n)
   return 1;
 }
 static inline int
-u8_mbtouc (puc, s, n)
-     unsigned int *puc;
-     const unsigned char *s;
-     size_t n;
+u8_mbtouc (unsigned int *puc, const unsigned char *s, size_t n)
 {
   unsigned char c = *s;
 

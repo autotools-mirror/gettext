@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -40,11 +40,10 @@
 
 #define _(str) gettext (str)
 
-extern const char * locale_charset PARAMS ((void));
+extern const char * locale_charset (void);
 
 void
-compare_po_locale_charsets (mdlp)
-     const msgdomain_list_ty *mdlp;
+compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
 {
   const char *locale_code;
   const char *canon_locale_code;

@@ -32,14 +32,14 @@ struct formatstring_parser
        1. the argument types/names needed for the format string,
        2. the total number of format directives.
      Return NULL if the string is not a valid format string.  */
-  void * (*parse) PARAMS ((const char *string));
+  void * (*parse) (const char *string);
 
   /* Free a format string descriptor, returned by parse().  */
-  void (*free) PARAMS ((void *descr));
+  void (*free) (void *descr);
 
   /* Return the number of format directives.
      A string that can be output literally has 0 format directives.  */
-  int (*get_number_of_directives) PARAMS ((void *descr));
+  int (*get_number_of_directives) (void *descr);
 
   /* Verify that the argument types/names in msgid_descr and those in
      msgstr_descr are the same (if equality=true), or (if equality=false)
@@ -50,7 +50,7 @@ struct formatstring_parser
        error_at_line (0, 0, pos->file_name, pos->line_number, ...);
        error_with_progname = true;
      (but only if noisy=true) and return true.  Otherwise return false.  */
-  bool (*check) PARAMS ((const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr, bool equality, bool noisy, const char *pretty_msgstr));
+  bool (*check) (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr, bool equality, bool noisy, const char *pretty_msgstr);
 };
 
 /* Format string parsers, each defined in its own file.  */
@@ -79,6 +79,6 @@ struct interval
   size_t startpos;
   size_t endpos;
 };
-extern void get_c99_format_directives PARAMS ((const char *string, struct interval **intervalsp, size_t *lengthp));
+extern void get_c99_format_directives (const char *string, struct interval **intervalsp, size_t *lengthp);
 
 #endif /* _FORMAT_H */

@@ -1,5 +1,5 @@
 /* Program name management.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,8 +34,7 @@ const char *program_name;
 
 /* Set program_name, based on argv[0].  */
 void
-set_program_name (argv0)
-     const char *argv0;
+set_program_name (const char *argv0)
 {
   /* libtool creates a temporary executable whose name is prefixed with
      "lt-".  Remove this prefix here.  */

@@ -61,8 +61,7 @@
    If NAME is all slashes, be sure to return `/'.  */
 
 char *
-basename (name)
-     char const *name;
+basename (char const *name)
 {
   char const *base = name += FILESYSTEM_PREFIX_LEN (name);
   int all_slashes = 1;

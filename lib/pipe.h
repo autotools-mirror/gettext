@@ -1,5 +1,5 @@
 /* Creation of subprocesses, communicating via pipes.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -53,11 +53,11 @@
  *    parent  ->   fd[0]   ->   STDIN_FILENO    ->   child
  *
  */
-extern pid_t create_pipe_out PARAMS ((const char *progname,
-				      const char *prog_path, char **prog_argv,
-				      const char *prog_stdout, bool null_stderr,
-				      bool exit_on_error,
-				      int fd[1]));
+extern pid_t create_pipe_out (const char *progname,
+			      const char *prog_path, char **prog_argv,
+			      const char *prog_stdout, bool null_stderr,
+			      bool exit_on_error,
+			      int fd[1]);
 
 /* Open a pipe for input from a child process.
  * The child's stdin comes from a file.
@@ -66,11 +66,11 @@ extern pid_t create_pipe_out PARAMS ((const char *progname,
  *    parent  <-   fd[0]   <-   STDOUT_FILENO   <-   child
  *
  */
-extern pid_t create_pipe_in PARAMS ((const char *progname,
-				     const char *prog_path, char **prog_argv,
-				     const char *prog_stdin, bool null_stderr,
-				     bool exit_on_error,
-				     int fd[1]));
+extern pid_t create_pipe_in (const char *progname,
+			     const char *prog_path, char **prog_argv,
+			     const char *prog_stdin, bool null_stderr,
+			     bool exit_on_error,
+			     int fd[1]);
 
 /* Open a bidirectional pipe.
  *
@@ -80,10 +80,10 @@ extern pid_t create_pipe_in PARAMS ((const char *progname,
  *           read        system                write
  *
  */
-extern pid_t create_pipe_bidi PARAMS ((const char *progname,
-				       const char *prog_path, char **prog_argv,
-				       bool null_stderr,
-				       bool exit_on_error,
-				       int fd[2]));
+extern pid_t create_pipe_bidi (const char *progname,
+			       const char *prog_path, char **prog_argv,
+			       bool null_stderr,
+			       bool exit_on_error,
+			       int fd[2]);
 
 #endif /* _PIPE_H */

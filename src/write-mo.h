@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,8 +34,8 @@ extern bool no_hash_table;
    domain_name is the domain name, file_name is the desired file name.
    Return 0 if ok, nonzero on error.  */
 extern int
-       msgdomain_write_mo PARAMS ((message_list_ty *mlp,
-				   const char *domain_name,
-				   const char *file_name));
+       msgdomain_write_mo (message_list_ty *mlp,
+			   const char *domain_name,
+			   const char *file_name);
 
 #endif /* _WRITE_MO_H */

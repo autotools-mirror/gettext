@@ -24,22 +24,22 @@
 #include <stdbool.h>
 
 extern bool
-       string_list_equal PARAMS ((const string_list_ty *slp1,
-				  const string_list_ty *slp2));
+       string_list_equal (const string_list_ty *slp1,
+			  const string_list_ty *slp2);
 
 /* Test whether the written representation of two messages / message lists
    would be the same.  */
 
 extern bool
-       message_equal PARAMS ((const message_ty *mp1, const message_ty *mp2,
-			      bool ignore_potcdate));
+       message_equal (const message_ty *mp1, const message_ty *mp2,
+		      bool ignore_potcdate);
 extern bool
-       message_list_equal PARAMS ((const message_list_ty *mlp1,
-				   const message_list_ty *mlp2,
-				   bool ignore_potcdate));
+       message_list_equal (const message_list_ty *mlp1,
+			   const message_list_ty *mlp2,
+			   bool ignore_potcdate);
 extern bool
-       msgdomain_list_equal PARAMS ((const msgdomain_list_ty *mdlp1,
-				     const msgdomain_list_ty *mdlp2,
-				     bool ignore_potcdate));
+       msgdomain_list_equal (const msgdomain_list_ty *mdlp1,
+			     const msgdomain_list_ty *mdlp2,
+			     bool ignore_potcdate);
 
 #endif /* _MSGL_EQUAL_H */

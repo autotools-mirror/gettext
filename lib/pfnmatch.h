@@ -1,5 +1,5 @@
 /* POSIX <fnmatch.h>.
-   Copyright (C) 1991-1993, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1991-1993, 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the
@@ -20,14 +20,6 @@
 
 #ifdef	__cplusplus
 extern "C" {
-#endif
-
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
 #endif
 
 
@@ -52,8 +44,7 @@ extern "C" {
 
 /* Match STRING against the filename pattern PATTERN,
    returning zero if it matches, FNM_NOMATCH if not.  */
-extern int fnmatch PARAMS ((const char *__pattern, const char *__string,
-			    int __flags));
+extern int fnmatch (const char *__pattern, const char *__string, int __flags);
 
 #ifdef	__cplusplus
 }

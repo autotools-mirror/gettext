@@ -1,5 +1,5 @@
 /* Multiline error-reporting functions.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,23 +23,19 @@
 #include "error.h"
 
 /* Format a message and return the freshly allocated resulting string.  */
-#if defined (__STDC__) && __STDC__
 extern char *xasprintf (const char *format, ...)
      __attribute__ ((__format__ (__printf__, 1, 2)));
-#else
-extern char *xasprintf ();
-#endif
 
 /* Emit a multiline warning to stderr, consisting of MESSAGE, with the
    first line prefixed with PREFIX and the remaining lines prefixed with
    the same amount of spaces.  Reuse the spaces of the previous call if
    PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
-extern void multiline_warning PARAMS ((char *prefix, char *message));
+extern void multiline_warning (char *prefix, char *message);
 
 /* Emit a multiline error to stderr, consisting of MESSAGE, with the
    first line prefixed with PREFIX and the remaining lines prefixed with
    the same amount of spaces.  Reuse the spaces of the previous call if
    PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
-extern void multiline_error PARAMS ((char *prefix, char *message));
+extern void multiline_error (char *prefix, char *message);
 
 #endif /* _XERROR_H */

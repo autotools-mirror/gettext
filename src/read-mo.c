@@ -52,26 +52,10 @@ struct binary_mo_file
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void read_binary_mo_file PARAMS ((struct binary_mo_file *bfp,
-					 FILE *fp, const char *filename));
-static nls_uint32 get_uint32 PARAMS ((const struct binary_mo_file *bfp,
-				      size_t offset));
-static char * get_string PARAMS ((const struct binary_mo_file *bfp,
-				  size_t offset, size_t *lengthp));
-static char * get_sysdep_string PARAMS ((const struct binary_mo_file *bfp,
-					 size_t offset,
-					 const struct mo_file_header *header,
-					 size_t *lengthp));
-
-
 /* Read the contents of the given input stream.  */
 static void
-read_binary_mo_file (bfp, fp, filename)
-     struct binary_mo_file *bfp;
-     FILE *fp;
-     const char *filename;
+read_binary_mo_file (struct binary_mo_file *bfp,
+		     FILE *fp, const char *filename)
 {
   char *buf = NULL;
   size_t alloc = 0;
@@ -106,9 +90,7 @@ read_binary_mo_file (bfp, fp, filename)
 
 /* Get a 32-bit number from the file, at the given file position.  */
 static nls_uint32
-get_uint32 (bfp, offset)
-     const struct binary_mo_file *bfp;
-     size_t offset;
+get_uint32 (const struct binary_mo_file *bfp, size_t offset)
 {
   nls_uint32 b0, b1, b2, b3;
 
@@ -127,10 +109,7 @@ get_uint32 (bfp, offset)
 
 /* Get a static string from the file, at the given file position.  */
 static char *
-get_string (bfp, offset, lengthp)
-     const struct binary_mo_file *bfp;
-     size_t offset;
-     size_t *lengthp;
+get_string (const struct binary_mo_file *bfp, size_t offset, size_t *lengthp)
 {
   /* See 'struct string_desc'.  */
   nls_uint32 s_length = get_uint32 (bfp, offset);
@@ -149,11 +128,8 @@ get_string (bfp, offset, lengthp)
 
 /* Get a system dependent string from the file, at the given file position.  */
 static char *
-get_sysdep_string (bfp, offset, header, lengthp)
-     const struct binary_mo_file *bfp;
-     size_t offset;
-     const struct mo_file_header *header;
-     size_t *lengthp;
+get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
+		   const struct mo_file_header *header, size_t *lengthp)
 {
   /* See 'struct sysdep_string'.  */
   size_t length;
@@ -244,9 +220,7 @@ get_sysdep_string (bfp, offset, header, lengthp)
 
 /* Reads an existing .mo file and adds the messages to mlp.  */
 void
-read_mo_file (mlp, fn)
-     message_list_ty *mlp;
-     const char *fn;
+read_mo_file (message_list_ty *mlp, const char *fn)
 {
   FILE *fp;
   struct binary_mo_file bf;

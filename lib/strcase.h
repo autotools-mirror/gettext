@@ -1,5 +1,5 @@
 /* Case-insensitive string comparison functions.
-   Copyright (C) 1995-1996, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,16 +20,7 @@
 
 #include <stddef.h>
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
-
-extern int strcasecmp PARAMS ((const char *__s1, const char *__s2));
-extern int strncasecmp PARAMS ((const char *__s1, const char *__s2,
-				size_t __n));
+extern int strcasecmp (const char *__s1, const char *__s2);
+extern int strncasecmp (const char *__s1, const char *__s2, size_t __n);
 
 #endif /* _STRCASE_H */

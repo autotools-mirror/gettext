@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -41,7 +41,7 @@ extern bool msgcomm_mode;
 extern bool omit_header;
 
 extern msgdomain_list_ty *
-       catenate_msgdomain_list PARAMS ((string_list_ty *file_list,
-					const char *to_code));
+       catenate_msgdomain_list (string_list_ty *file_list,
+				const char *to_code);
 
 #endif /* _MSGL_CAT_H */

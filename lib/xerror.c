@@ -27,28 +27,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include "error.h"
 #include "progname.h"
 #include "exit.h"
 #include "mbswidth.h"
 #include "vasprintf.h"
-#include "libstdarg.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
 
 /* Format a message and return the freshly allocated resulting string.  */
 char *
-xasprintf VA_PARAMS ((const char *format, ...),
-		     (format, va_alist)
-     const char *format;
-     va_dcl)
+xasprintf (const char *format, ...)
 {
   va_list args;
   char *result;
 
-  VA_START (args, format);
+  va_start (args, format);
   if (vasprintf (&result, format, args) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (args);
@@ -60,9 +57,7 @@ xasprintf VA_PARAMS ((const char *format, ...),
    the same amount of spaces.  Reuse the spaces of the previous call if
    PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
 void
-multiline_warning (prefix, message)
-     char *prefix;
-     char *message;
+multiline_warning (char *prefix, char *message)
 {
   static int width;
   const char *cp;
@@ -115,9 +110,7 @@ multiline_warning (prefix, message)
    the same amount of spaces.  Reuse the spaces of the previous call if
    PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
 void
-multiline_error (prefix, message)
-     char *prefix;
-     char *message;
+multiline_error (char *prefix, char *message)
 {
   if (prefix != NULL)
     ++error_message_count;

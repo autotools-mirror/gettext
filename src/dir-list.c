@@ -35,8 +35,7 @@ static string_list_ty *directory /* = NULL */;
 
 /* Append a directory to the end of the list of directories.  */
 void
-dir_list_append (s)
-     const char *s;
+dir_list_append (const char *s)
 {
   if (directory == NULL)
     directory = string_list_alloc ();
@@ -46,8 +45,7 @@ dir_list_append (s)
 
 /* Return the nth directory, or NULL of n is out of range.  */
 const char *
-dir_list_nth (n)
-     int n;
+dir_list_nth (int n)
 {
   /* The default value of the list consists of the single directory ".".  */
   if (directory == NULL)
@@ -73,8 +71,7 @@ dir_list_save_reset ()
 
 /* Restore a previously saved list of directories.  */
 void
-dir_list_restore (saved_value)
-     void *saved_value;
+dir_list_restore (void *saved_value)
 {
   /* Don't free the contained strings, because they may have been returned
      by dir_list_nth and may still be in use.  */

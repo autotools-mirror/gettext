@@ -25,16 +25,16 @@
    list consists of the single directory ".".  */
 
 /* Append a directory to the end of the list of directories.  */
-extern void dir_list_append PARAMS ((const char *directory));
+extern void dir_list_append (const char *directory);
 
 /* Return the nth directory, or NULL of n is out of range.  */
-extern const char *dir_list_nth PARAMS ((int n));
+extern const char *dir_list_nth (int n);
 
 /* Return the current list of directories, for later use with dir_list_restore.
    Reset the list to empty.  */
-extern void *dir_list_save_reset PARAMS ((void));
+extern void *dir_list_save_reset (void);
 
 /* Restore a previously saved list of directories.  */
-extern void dir_list_restore PARAMS ((void *saved_value));
+extern void dir_list_restore (void *saved_value);
 
 #endif /* _DIR_LIST_H */

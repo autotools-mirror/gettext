@@ -1,5 +1,5 @@
 /* write() wrapper.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,4 +24,4 @@
 
 /* Write LEN bytes at PTR to descriptor DESC, retrying if interrupted.
    Return LEN upon success, write's (negative) error code otherwise.  */
-extern ssize_t full_write PARAMS ((int desc, const char *ptr, size_t len));
+extern ssize_t full_write (int desc, const char *ptr, size_t len);

@@ -19,20 +19,8 @@
 #ifndef _VASPRINTF_H
 #define _VASPRINTF_H
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-#endif
-
 /* Get va_list.  */
-#if __STDC__ || defined __SUNPRO_C || defined __cplusplus
-# include <stdarg.h>
-#else
-# include <varargs.h>
-#endif
+#include <stdarg.h>
 
 #ifndef __attribute__
 /* This feature is available in gcc versions 2.5 and later.  */
@@ -51,9 +39,9 @@
 extern "C" {
 #endif
 
-extern int asprintf PARAMS ((char **result, const char *format, ...))
+extern int asprintf (char **result, const char *format, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
-extern int vasprintf PARAMS ((char **result, const char *format, va_list args))
+extern int vasprintf (char **result, const char *format, va_list args)
        __attribute__ ((__format__ (__printf__, 2, 0)));
 
 #ifdef	__cplusplus

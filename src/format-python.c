@@ -1,5 +1,5 @@
 /* Python format strings.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -101,30 +101,15 @@ struct spec
 #define isdigit(c) ((unsigned int) ((c) - '0') < 10)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int named_arg_compare PARAMS ((const void *p1, const void *p2));
-static void *format_parse PARAMS ((const char *format));
-static void format_free PARAMS ((void *descr));
-static int format_get_number_of_directives PARAMS ((void *descr));
-static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr,
-				  bool equality,
-				  bool noisy, const char *pretty_msgstr));
-
-
 static int
-named_arg_compare (p1, p2)
-     const void *p1;
-     const void *p2;
+named_arg_compare (const void *p1, const void *p2)
 {
   return strcmp (((const struct named_arg *) p1)->name,
 		 ((const struct named_arg *) p2)->name);
 }
 
 static void *
-format_parse (format)
-     const char *format;
+format_parse (const char *format)
 {
   struct spec spec;
   struct spec *result;
@@ -349,8 +334,7 @@ format_parse (format)
 }
 
 static void
-format_free (descr)
-     void *descr;
+format_free (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
@@ -367,8 +351,7 @@ format_free (descr)
 }
 
 static int
-format_get_number_of_directives (descr)
-     void *descr;
+format_get_number_of_directives (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
@@ -376,13 +359,8 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
-     const lex_pos_ty *pos;
-     void *msgid_descr;
-     void *msgstr_descr;
-     bool equality;
-     bool noisy;
-     const char *pretty_msgstr;
+format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
+	      bool equality, bool noisy, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -548,8 +526,7 @@ struct formatstring_parser formatstring_python =
 #include "getline.h"
 
 static void
-format_print (descr)
-     void *descr;
+format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
   unsigned int i;

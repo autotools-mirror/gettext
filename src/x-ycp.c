@@ -81,16 +81,6 @@ static int last_comment_line;
 static int last_non_comment_line;
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-static int phase7_getc PARAMS ((void));
-static void x_ycp_lex PARAMS ((token_ty *tp));
-
-
 /* 1. line_number handling.  */
 
 static int
@@ -118,8 +108,7 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   if (c != EOF)
     {
@@ -299,8 +288,7 @@ phase2_getc ()
 }
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   if (c != EOF)
     phase2_pushback[phase2_pushback_length++] = c;
@@ -382,8 +370,7 @@ phase7_getc ()
 /* Combine characters into tokens.  Discard whitespace.  */
 
 static void
-x_ycp_lex (tp)
-     token_ty *tp;
+x_ycp_lex (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
@@ -525,11 +512,9 @@ x_ycp_lex (tp)
 
 
 void
-extract_ycp (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_ycp (FILE *f,
+	     const char *real_filename, const char *logical_filename,
+	     msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
   int state;

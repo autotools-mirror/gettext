@@ -43,13 +43,6 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void write_tcl_string PARAMS ((FILE *stream, const char *str));
-static void write_msg PARAMS ((FILE *output_file, message_list_ty *mlp,
-			       const char *locale_name));
-
-
 /* Write a string in Tcl Unicode notation to the given stream.
    Tcl 8 uses Unicode for its internal string representation.
    In tcl-8.3.3, the .msg files are read in using the locale dependent
@@ -57,9 +50,7 @@ static void write_msg PARAMS ((FILE *output_file, message_list_ty *mlp,
    form is the \unnnn notation.  Newer tcl versions have this fixed:
    they read the .msg files in UTF-8 encoding.  */
 static void
-write_tcl_string (stream, str)
-     FILE *stream;
-     const char *str;
+write_tcl_string (FILE *stream, const char *str)
 {
   static const char hexdigit[] = "0123456789abcdef";
   const char *str_limit = str + strlen (str);
@@ -115,10 +106,7 @@ write_tcl_string (stream, str)
 
 
 static void
-write_msg (output_file, mlp, locale_name)
-     FILE *output_file;
-     message_list_ty *mlp;
-     const char *locale_name;
+write_msg (FILE *output_file, message_list_ty *mlp, const char *locale_name)
 {
   size_t j;
 
@@ -145,10 +133,9 @@ write_msg (output_file, mlp, locale_name)
 }
 
 int
-msgdomain_write_tcl (mlp, locale_name, directory)
-     message_list_ty *mlp;
-     const char *locale_name;
-     const char *directory;
+msgdomain_write_tcl (message_list_ty *mlp,
+		     const char *locale_name,
+		     const char *directory)
 {
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems == 0)

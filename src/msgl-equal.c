@@ -28,40 +28,17 @@
 #include <string.h>
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static inline bool msgstr_equal PARAMS ((const char *msgstr1,
-					 size_t msgstr1_len,
-					 const char *msgstr2,
-					 size_t msgstr2_len));
-static inline bool msgstr_equal_ignoring_potcdate PARAMS ((const char *msgstr1,
-							   size_t msgstr1_len,
-							   const char *msgstr2,
-							   size_t msgstr2_len));
-static inline bool pos_equal PARAMS ((const lex_pos_ty *pos1,
-				      const lex_pos_ty *pos2));
-static inline bool msgdomain_equal PARAMS ((const msgdomain_ty *mdp1,
-					    const msgdomain_ty *mdp2,
-					    bool ignore_potcdate));
-
-
 static inline bool
-msgstr_equal (msgstr1, msgstr1_len, msgstr2, msgstr2_len)
-     const char *msgstr1;
-     size_t msgstr1_len;
-     const char *msgstr2;
-     size_t msgstr2_len;
+msgstr_equal (const char *msgstr1, size_t msgstr1_len,
+	      const char *msgstr2, size_t msgstr2_len)
 {
   return (msgstr1_len == msgstr2_len
 	  && memcmp (msgstr1, msgstr2, msgstr1_len) == 0);
 }
 
 static bool
-msgstr_equal_ignoring_potcdate (msgstr1, msgstr1_len, msgstr2, msgstr2_len)
-     const char *msgstr1;
-     size_t msgstr1_len;
-     const char *msgstr2;
-     size_t msgstr2_len;
+msgstr_equal_ignoring_potcdate (const char *msgstr1, size_t msgstr1_len,
+				const char *msgstr2, size_t msgstr2_len)
 {
   const char *msgstr1_end = msgstr1 + msgstr1_len;
   const char *msgstr2_end = msgstr2 + msgstr2_len;
@@ -131,9 +108,7 @@ msgstr_equal_ignoring_potcdate (msgstr1, msgstr1_len, msgstr2, msgstr2_len)
 }
 
 static inline bool
-pos_equal (pos1, pos2)
-     const lex_pos_ty *pos1;
-     const lex_pos_ty *pos2;
+pos_equal (const lex_pos_ty *pos1, const lex_pos_ty *pos2)
 {
   return ((pos1->file_name == pos2->file_name
 	   || strcmp (pos1->file_name, pos2->file_name) == 0)
@@ -141,9 +116,7 @@ pos_equal (pos1, pos2)
 }
 
 bool
-string_list_equal (slp1, slp2)
-     const string_list_ty *slp1;
-     const string_list_ty *slp2;
+string_list_equal (const string_list_ty *slp1, const string_list_ty *slp2)
 {
   size_t i, i1, i2;
 
@@ -158,10 +131,8 @@ string_list_equal (slp1, slp2)
 }
 
 bool
-message_equal (mp1, mp2, ignore_potcdate)
-     const message_ty *mp1;
-     const message_ty *mp2;
-     bool ignore_potcdate;
+message_equal (const message_ty *mp1, const message_ty *mp2,
+	       bool ignore_potcdate)
 {
   size_t i, i1, i2;
 
@@ -212,10 +183,8 @@ message_equal (mp1, mp2, ignore_potcdate)
 }
 
 bool
-message_list_equal (mlp1, mlp2, ignore_potcdate)
-     const message_list_ty *mlp1;
-     const message_list_ty *mlp2;
-     bool ignore_potcdate;
+message_list_equal (const message_list_ty *mlp1, const message_list_ty *mlp2,
+		    bool ignore_potcdate)
 {
   size_t i, i1, i2;
 
@@ -230,10 +199,8 @@ message_list_equal (mlp1, mlp2, ignore_potcdate)
 }
 
 static inline bool
-msgdomain_equal (mdp1, mdp2, ignore_potcdate)
-     const msgdomain_ty *mdp1;
-     const msgdomain_ty *mdp2;
-     bool ignore_potcdate;
+msgdomain_equal (const msgdomain_ty *mdp1, const msgdomain_ty *mdp2,
+		 bool ignore_potcdate)
 {
   return (strcmp (mdp1->domain, mdp2->domain) == 0
 	  && message_list_equal (mdp1->messages, mdp2->messages,
@@ -241,10 +208,9 @@ msgdomain_equal (mdp1, mdp2, ignore_potcdate)
 }
 
 bool
-msgdomain_list_equal (mdlp1, mdlp2, ignore_potcdate)
-     const msgdomain_list_ty *mdlp1;
-     const msgdomain_list_ty *mdlp2;
-     bool ignore_potcdate;
+msgdomain_list_equal (const msgdomain_list_ty *mdlp1,
+		      const msgdomain_list_ty *mdlp2,
+		      bool ignore_potcdate)
 {
   size_t i, i1, i2;
 

@@ -38,10 +38,7 @@ const char * unicode_names [0x110000];
    Reads up to (but excluding) DELIM.
    Returns 1 when a field was successfully read, otherwise 0.  */
 static int
-getfield (stream, buffer, delim)
-     FILE *stream;
-     char *buffer;
-     int delim;
+getfield (FILE *stream, char *buffer, int delim)
 {
   int count = 0;
   int c;
@@ -67,8 +64,7 @@ getfield (stream, buffer, delim)
 /* Stores in unicode_names[] the relevant contents of the UnicodeData.txt
    file.  */
 static void
-fill_names (unicodedata_filename)
-     const char *unicodedata_filename;
+fill_names (const char *unicodedata_filename)
 {
   unsigned int i;
   FILE *stream;
@@ -253,9 +249,7 @@ test_inverse_lookup ()
 }
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int error = 0;
 

@@ -1,3 +1,26 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* libstdarg.h: Remove file.
+	* Makefile.am (lib_asprintf_EXTRASOURCES): Remove libstdarg.h.
+	* asnprintf.c: Include <stdarg.h> instead of libstdarg.h.
+	(asnprintf): Use ANSI C function declarations. Use va_start instead of
+	VA_START.
+	* asprintf.c: Include <stdarg.h> instead of libstdarg.h.
+	(asnprintf): Use ANSI C function declarations. Use va_start instead of
+	VA_START.
+	* printf-args.h (PARAMS): Remove macro.
+	(printf_fetchargs): Use ANSI C function declarations.
+	* printf-args.c (printf_fetchargs): Likewise.
+	* printf-parse.h (printf_parse): Likewise.
+	* printf-parse.c (printf_parse): Likewise.
+	* vasnprintf.h (PARAMS): Remove macro.
+	(asnprintf, vasnprintf): Use ANSI C function declarations.
+	* vasnprintf.c (vasnprintf): Likewise.
+	* vasprintf.h (PARAMS): Remove macro.
+	(asprintf, vasprintf): Use ANSI C function declarations.
+	* vasprintf.c (vasprintf): Likewise.
+
 2002-10-27  Bruno Haible  <bruno@clisp.org>
 
 	* printf-args.h, printf-args.c: New files.

@@ -80,18 +80,14 @@
  */
 
 bool
-compile_java_class (java_sources, java_sources_count,
-		    classpaths, classpaths_count,
-		    directory, optimize, debug, use_minimal_classpath, verbose)
-     const char * const *java_sources;
-     unsigned int java_sources_count;
-     const char * const *classpaths;
-     unsigned int classpaths_count;
-     const char *directory;
-     bool optimize;
-     bool debug;
-     bool use_minimal_classpath;
-     bool verbose;
+compile_java_class (const char * const *java_sources,
+		    unsigned int java_sources_count,
+		    const char * const *classpaths,
+		    unsigned int classpaths_count,
+		    const char *directory,
+		    bool optimize, bool debug,
+		    bool use_minimal_classpath,
+		    bool verbose)
 {
   bool err = false;
   char *old_JAVA_HOME;

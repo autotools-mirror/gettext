@@ -1,5 +1,5 @@
 /* read() wrapper.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,4 +25,4 @@
 /* Read LEN bytes at PTR from descriptor DESC, retrying if interrupted.
    Return the actual number of bytes read, zero for EOF, or negative
    for an error.  */
-extern ssize_t safe_read PARAMS ((int desc, void *ptr, size_t len));
+extern ssize_t safe_read (int desc, void *ptr, size_t len);

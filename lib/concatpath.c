@@ -1,5 +1,5 @@
 /* Construct a full pathname from a directory and a filename.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the
@@ -35,10 +35,8 @@
    argument may not start with the directory separator (it is relative).
    Return a freshly allocated pathname.  */
 char *
-concatenated_pathname (directory, filename, suffix)
-     const char *directory;
-     const char *filename;
-     const char *suffix;
+concatenated_pathname (const char *directory, const char *filename,
+		       const char *suffix)
 {
   char *result;
   char *p;

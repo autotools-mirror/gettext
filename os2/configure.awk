@@ -56,7 +56,6 @@ BEGIN{
   cfg["HAVE_ICONV"] = 1;
   cfg["ICONV_CONST"] = "const";
   cfg["_GNU_SOURCE"] = 1;
-  cfg["HAVE_C_BACKSLASH_A"] = 1;
   cfg["HAVE_UNSIGNED_LONG_LONG"] = 1;
   cfg["HAVE_PTRDIFF_T"] = 1;
   cfg["vfork"] = "fork";

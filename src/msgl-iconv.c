@@ -48,29 +48,13 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-#if HAVE_ICONV
-static int iconv_string PARAMS ((iconv_t cd,
-				 const char *start, const char *end,
-				 char **resultp, size_t *lengthp));
-static void convert_string_list PARAMS ((iconv_t cd, string_list_ty *slp));
-static void convert_msgid PARAMS ((iconv_t cd, message_ty *mp));
-static void convert_msgstr PARAMS ((iconv_t cd, message_ty *mp));
-#endif
-
-
 #if HAVE_ICONV
 
 /* Converts an entire string from one encoding to another, using iconv.
    Return value: 0 if successful, otherwise -1 and errno set.  */
 static int
-iconv_string (cd, start, end, resultp, lengthp)
-     iconv_t cd;
-     const char *start;
-     const char *end;
-     char **resultp;
-     size_t *lengthp;
+iconv_string (iconv_t cd, const char *start, const char *end,
+	      char **resultp, size_t *lengthp)
 {
 #define tmpbufsize 4096
   size_t length;
@@ -185,9 +169,7 @@ iconv_string (cd, start, end, resultp, lengthp)
 }
 
 char *
-convert_string (cd, string)
-     iconv_t cd;
-     const char *string;
+convert_string (iconv_t cd, const char *string)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
@@ -205,9 +187,7 @@ convert_string (cd, string)
 }
 
 static void
-convert_string_list (cd, slp)
-     iconv_t cd;
-     string_list_ty *slp;
+convert_string_list (iconv_t cd, string_list_ty *slp)
 {
   size_t i;
 
@@ -217,9 +197,7 @@ convert_string_list (cd, slp)
 }
 
 static void
-convert_msgid (cd, mp)
-     iconv_t cd;
-     message_ty *mp;
+convert_msgid (iconv_t cd, message_ty *mp)
 {
   mp->msgid = convert_string (cd, mp->msgid);
   if (mp->msgid_plural != NULL)
@@ -227,9 +205,7 @@ convert_msgid (cd, mp)
 }
 
 static void
-convert_msgstr (cd, mp)
-     iconv_t cd;
-     message_ty *mp;
+convert_msgstr (iconv_t cd, message_ty *mp)
 {
   char *result = NULL;
   size_t resultlen;
@@ -270,11 +246,9 @@ convert_msgstr (cd, mp)
 
 
 void
-iconv_message_list (mlp, canon_from_code, canon_to_code, from_filename)
-     message_list_ty *mlp;
-     const char *canon_from_code;
-     const char *canon_to_code;
-     const char *from_filename;
+iconv_message_list (message_list_ty *mlp,
+		    const char *canon_from_code, const char *canon_to_code,
+		    const char *from_filename)
 {
   bool canon_from_code_overridden = (canon_from_code != NULL);
   size_t j;
@@ -402,10 +376,9 @@ This version was built without iconv()."),
 }
 
 msgdomain_list_ty *
-iconv_msgdomain_list (mdlp, to_code, from_filename)
-     msgdomain_list_ty *mdlp;
-     const char *to_code;
-     const char *from_filename;
+iconv_msgdomain_list (msgdomain_list_ty *mdlp,
+		      const char *to_code,
+		      const char *from_filename)
 {
   const char *canon_to_code;
   size_t k;

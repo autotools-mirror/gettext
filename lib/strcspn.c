@@ -1,4 +1,4 @@
-/* Copyright (C) 1991, 1994, 1996, 1997 Free Software Foundation, Inc.
+/* Copyright (C) 1991, 1994, 1996-1997, 2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -36,9 +36,7 @@
 /* Return the length of the maximum initial segment of S
    which contains no characters from REJECT.  */
 size_t
-strcspn (s, reject)
-     const char *s;
-     const char *reject;
+strcspn (const char *s, const char *reject)
 {
   size_t count = 0;
 

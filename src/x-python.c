@@ -45,12 +45,6 @@
 
 #define _(s) gettext(s)
 
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
 
 /* The Python syntax is defined in the Python Reference Manual
    /usr/share/doc/packages/python/html/ref/index.html.
@@ -78,27 +72,6 @@ struct token_ty
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void init_keywords PARAMS ((void));
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((void));
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-static int phase7_getuc PARAMS ((int quote_char, bool triple,
-				 bool interpret_ansic, bool interpret_unicode,
-				 unsigned int *backslash_counter));
-static void phase5_get PARAMS ((token_ty *tp));
-static void phase5_unget PARAMS ((token_ty *tp));
-static void x_python_lex PARAMS ((token_ty *tp));
-static bool extract_parenthesized PARAMS ((message_list_ty *mlp,
-					   int commas_to_skip,
-					   int plural_commas));
-
-
 /* ====================== Keyword set customization.  ====================== */
 
 /* If true extract all strings.  */
@@ -116,8 +89,7 @@ x_python_extract_all ()
 
 
 void
-x_python_keyword (name)
-     const char *name;
+x_python_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -212,8 +184,7 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   if (c != EOF)
     {
@@ -238,8 +209,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   /* We assume the program source is in ISO-8859-1 (for consistency with
      Python's \ooo and \xnn syntax inside strings), but we produce a POT
@@ -320,8 +290,7 @@ phase2_getc ()
 }
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   phase1_ungetc (c);
 }
@@ -343,12 +312,9 @@ phase2_ungetc (c)
 #define P7_STRING_END (-2)
 
 static int
-phase7_getuc (quote_char, triple, interpret_ansic, interpret_unicode, backslash_counter)
-     int quote_char;
-     bool triple;
-     bool interpret_ansic;
-     bool interpret_unicode;
-     unsigned int *backslash_counter;
+phase7_getuc (int quote_char,
+	      bool triple, bool interpret_ansic, bool interpret_unicode,
+	      unsigned int *backslash_counter)
 {
   int c;
 
@@ -437,7 +403,7 @@ phase7_getuc (quote_char, triple, interpret_ansic, interpret_unicode, backslash_
 	    return c;
 	  case 'a':
 	    *backslash_counter = 0;
-	    return ALERT_CHAR;
+	    return '\a';
 	  case 'b':
 	    *backslash_counter = 0;
 	    return '\b';
@@ -672,8 +638,7 @@ static token_ty phase5_pushback[2];
 static int phase5_pushback_length;
 
 static void
-phase5_get (tp)
-     token_ty *tp;
+phase5_get (token_ty *tp)
 {
   int c;
 
@@ -953,8 +918,7 @@ phase5_get (tp)
 }
 
 static void
-phase5_unget (tp)
-     token_ty *tp;
+phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     phase5_pushback[phase5_pushback_length++] = *tp;
@@ -966,8 +930,7 @@ phase5_unget (tp)
    belong to different logical lines will not be concatenated.  */
 
 static void
-x_python_lex (tp)
-     token_ty *tp;
+x_python_lex (token_ty *tp)
 {
   phase5_get (tp);
   if (tp->type != token_type_string)
@@ -1016,10 +979,8 @@ x_python_lex (tp)
    When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
    Return true upon eof, false upon closing parenthesis.  */
 static bool
-extract_parenthesized (mlp, commas_to_skip, plural_commas)
-     message_list_ty *mlp;
-     int commas_to_skip;
-     int plural_commas;
+extract_parenthesized (message_list_ty *mlp,
+		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
   message_ty *plural_mp = NULL;
@@ -1151,11 +1112,9 @@ extract_parenthesized (mlp, commas_to_skip, plural_commas)
 
 
 void
-extract_python (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_python (FILE *f,
+		const char *real_filename, const char *logical_filename,
+		msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 

@@ -26,9 +26,9 @@
   { "PHP",        extract_php, &formatstring_php },			\
 
 /* Scan a PHP file and add its translatable strings to mdlp.  */
-extern void extract_php PARAMS ((FILE *fp, const char *real_filename,
-				 const char *logical_filename,
-				 msgdomain_list_ty *mdlp));
+extern void extract_php (FILE *fp, const char *real_filename,
+			 const char *logical_filename,
+			 msgdomain_list_ty *mdlp);
 
-extern void x_php_keyword PARAMS ((const char *keyword));
-extern void x_php_extract_all PARAMS ((void));
+extern void x_php_keyword (const char *keyword);
+extern void x_php_extract_all (void);

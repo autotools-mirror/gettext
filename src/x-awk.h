@@ -24,9 +24,9 @@
   { "awk",        extract_awk, &formatstring_awk },			\
 
 /* Scan an awk file and add its translatable strings to mdlp.  */
-extern void extract_awk PARAMS ((FILE *fp, const char *real_filename,
-				 const char *logical_filename,
-				 msgdomain_list_ty *mdlp));
+extern void extract_awk (FILE *fp, const char *real_filename,
+			 const char *logical_filename,
+			 msgdomain_list_ty *mdlp);
 
-extern void x_awk_keyword PARAMS ((const char *keyword));
-extern void x_awk_extract_all PARAMS ((void));
+extern void x_awk_keyword (const char *keyword);
+extern void x_awk_extract_all (void);

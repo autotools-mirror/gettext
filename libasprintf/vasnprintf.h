@@ -19,20 +19,8 @@
 #ifndef _VASNPRINTF_H
 #define _VASNPRINTF_H
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-#endif
-
 /* Get va_list.  */
-#if __STDC__ || defined __SUNPRO_C || defined __cplusplus
-# include <stdarg.h>
-#else
-# include <varargs.h>
-#endif
+#include <stdarg.h>
 
 /* Get size_t.  */
 #include <stddef.h>
@@ -54,9 +42,9 @@
 extern "C" {
 #endif
 
-extern char * asnprintf PARAMS ((char *resultbuf, size_t *lengthp, const char *format, ...))
+extern char * asnprintf (char *resultbuf, size_t *lengthp, const char *format, ...)
        __attribute__ ((__format__ (__printf__, 3, 4)));
-extern char * vasnprintf PARAMS ((char *resultbuf, size_t *lengthp, const char *format, va_list args))
+extern char * vasnprintf (char *resultbuf, size_t *lengthp, const char *format, va_list args)
        __attribute__ ((__format__ (__printf__, 3, 0)));
 
 #ifdef	__cplusplus

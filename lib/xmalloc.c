@@ -1,5 +1,5 @@
 /* xmalloc.c -- malloc with out of memory checking
-   Copyright (C) 1990-1996, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1990-1996, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,18 +31,12 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void *fixup_null_alloc PARAMS ((size_t n));
-
-
 /* Exit value when the requested amount of memory is not available.
    The caller may set it to some other value.  */
 int xmalloc_exit_failure = EXIT_FAILURE;
 
 static void *
-fixup_null_alloc (n)
-     size_t n;
+fixup_null_alloc (size_t n)
 {
   void *p;
 
@@ -57,8 +51,7 @@ fixup_null_alloc (n)
 /* Allocate N bytes of memory dynamically, with error checking.  */
 
 void *
-xmalloc (n)
-     size_t n;
+xmalloc (size_t n)
 {
   void *p;
 
@@ -71,8 +64,7 @@ xmalloc (n)
 /* Allocate memory for N elements of S bytes, with error checking.  */
 
 void *
-xcalloc (n, s)
-     size_t n, s;
+xcalloc (size_t n, size_t s)
 {
   void *p;
 
@@ -87,9 +79,7 @@ xcalloc (n, s)
    If P is NULL, run xmalloc.  */
 
 void *
-xrealloc (p, n)
-     void *p;
-     size_t n;
+xrealloc (void *p, size_t n)
 {
   if (p == NULL)
     return xmalloc (n);

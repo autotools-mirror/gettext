@@ -8,10 +8,7 @@
 #endif
 
 void *
-memmove (dest, source, length)
-     char *dest;
-     const char *source;
-     unsigned length;
+memmove (char *dest, const char *source, unsigned length)
 {
   char *d0 = dest;
   if (source < dest)

@@ -79,18 +79,6 @@ struct token_ty
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((void));
-static void phase2_get PARAMS ((token_ty *tp));
-static void phase2_unget PARAMS ((token_ty *tp));
-static void x_smalltalk_lex PARAMS ((token_ty *tp));
-
-
 /* ======================== Reading of characters.  ======================== */
 
 
@@ -127,8 +115,7 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   if (c != EOF)
     {
@@ -153,8 +140,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   if (buflen >= bufmax)
     {
@@ -193,8 +179,7 @@ static token_ty phase2_pushback[2];
 static int phase2_pushback_length;
 
 static void
-phase2_get (tp)
-     token_ty *tp;
+phase2_get (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
@@ -446,8 +431,7 @@ phase2_get (tp)
 }
 
 static void
-phase2_unget (tp)
-     token_ty *tp;
+phase2_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     phase2_pushback[phase2_pushback_length++] = *tp;
@@ -457,8 +441,7 @@ phase2_unget (tp)
 /* 3. Combine "# string_literal" and "# symbol" to a single token.  */
 
 static void
-x_smalltalk_lex (tp)
-     token_ty *tp;
+x_smalltalk_lex (token_ty *tp)
 {
   phase2_get (tp);
   if (tp->type == token_type_uniq)
@@ -492,11 +475,9 @@ x_smalltalk_lex (tp)
  */
 
 void
-extract_smalltalk (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_smalltalk (FILE *f,
+		   const char *real_filename, const char *logical_filename,
+		   msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 

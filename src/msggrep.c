@@ -106,28 +106,22 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void no_pass PARAMS ((int opt));
-static void usage PARAMS ((int status));
-static bool filename_list_match PARAMS ((const string_list_ty *slp,
-					 const char *filename));
-#ifdef EINTR
-static inline int nonintr_close PARAMS ((int fd));
+/* Forward declaration of local functions.  */
+static void no_pass (int opt)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
 #endif
-static bool is_string_selected PARAMS ((int grep_pass, const char *str,
-					size_t len));
-static bool is_message_selected PARAMS ((const message_ty *mp));
-static void process_message_list PARAMS ((const char *domain,
-					  message_list_ty *mlp));
-static msgdomain_list_ty *
-       process_msgdomain_list PARAMS ((msgdomain_list_ty *mdlp));
+;
+static void usage (int status)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
+#endif
+;
+static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main (int argc, char **argv)
 {
   int opt;
   bool do_help;
@@ -383,8 +377,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 
 static void
-no_pass (opt)
-     int opt;
+no_pass (int opt)
 {
   error (EXIT_SUCCESS, 0,
 	 _("option '%c' cannot be used before 'K' or 'T' has been specified"),
@@ -395,8 +388,7 @@ no_pass (opt)
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -500,9 +492,7 @@ Informative output:\n\
 /* Return 1 if FILENAME is contained in a list of filename patterns,
    0 otherwise.  */
 static bool
-filename_list_match (slp, filename)
-     const string_list_ty *slp;
-     const char *filename;
+filename_list_match (const string_list_ty *slp, const char *filename)
 {
   size_t j;
 
@@ -520,8 +510,7 @@ filename_list_match (slp, filename)
    signal handlers set up, namely when we get interrupted via SIGSTOP.  */
 
 static inline int
-nonintr_close (fd)
-     int fd;
+nonintr_close (int fd)
 {
   int retval;
 
@@ -539,10 +528,7 @@ nonintr_close (fd)
 /* Process a string STR of size LEN bytes through grep, and return true
    if it matches.  */
 static bool
-is_string_selected (grep_pass, str, len)
-     int grep_pass;
-     const char *str;
-     size_t len;
+is_string_selected (int grep_pass, const char *str, size_t len)
 {
   if (grep_args[grep_pass]->nitems > 0)
     {
@@ -573,8 +559,7 @@ is_string_selected (grep_pass, str, len)
 
 /* Return true if a message matches.  */
 static bool
-is_message_selected (mp)
-     const message_ty *mp;
+is_message_selected (const message_ty *mp)
 {
   size_t i;
   const char *msgstr;
@@ -646,9 +631,7 @@ is_message_selected (mp)
 
 
 static void
-process_message_list (domain, mlp)
-     const char *domain;
-     message_list_ty *mlp;
+process_message_list (const char *domain, message_list_ty *mlp)
 {
   if (string_list_member (domain_names, domain))
     /* Keep all the messages in the list.  */
@@ -660,8 +643,7 @@ process_message_list (domain, mlp)
 
 
 static msgdomain_list_ty *
-process_msgdomain_list (mdlp)
-     msgdomain_list_ty *mdlp;
+process_msgdomain_list (msgdomain_list_ty *mdlp)
 {
   size_t k;
 

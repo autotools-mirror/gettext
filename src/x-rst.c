@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -55,11 +55,9 @@
  */
 
 void
-extract_rst (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_rst (FILE *f,
+	     const char *real_filename, const char *logical_filename,
+	     msgdomain_list_ty *mdlp)
 {
   static char *buffer;
   static int bufmax;

@@ -94,10 +94,9 @@
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
-extern const char * locale_charset PARAMS ((void));
-extern const char * _nl_locale_name PARAMS ((int category,
-					     const char *categoryname));
-extern const char * _nl_expand_alias PARAMS ((const char *name));
+extern const char * locale_charset (void);
+extern const char * _nl_locale_name (int category, const char *categoryname);
+extern const char * _nl_expand_alias (const char *name);
 
 /* Locale name.  */
 static const char *locale;
@@ -125,48 +124,21 @@ static const struct option long_options[] =
   { NULL, 0, NULL, 0 }
 };
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status))
+/* Forward declaration of local functions.  */
+static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
      __attribute__ ((noreturn))
 #endif
 ;
-static const char *find_pot PARAMS ((void));
-static const char *catalogname_for_locale PARAMS ((const char *locale));
-static const char *language_of_locale PARAMS ((const char *locale));
-static const char *canonical_locale_charset PARAMS ((void));
-static const char *englishname_of_language PARAMS ((void));
-static const char *project_id PARAMS ((void));
-static const char *project_id_version PARAMS ((void));
-static const char *po_revision_date PARAMS ((const char *header));
-static struct passwd *get_user_pwd PARAMS ((void));
-static const char *get_user_fullname PARAMS ((void));
-static const char *get_user_email PARAMS ((void));
-static const char *last_translator PARAMS ((void));
-static const char *language_team_address PARAMS ((void));
-static const char *language_team PARAMS ((void));
-static const char *mime_version PARAMS ((void));
-static const char *content_type PARAMS ((const char *header));
-static const char *content_transfer_encoding PARAMS ((void));
-static const char *plural_forms PARAMS ((void));
-static char *get_field PARAMS ((const char *header, const char *field));
-static char *put_field PARAMS ((const char *old_header, const char *field,
-				const char *value));
-static const char *get_title PARAMS ((void));
-static const char *subst_string PARAMS ((const char *str,
-					 unsigned int nsubst,
-					 const char *(*subst)[2]));
-static void subst_string_list PARAMS ((string_list_ty *slp,
-				       unsigned int nsubst,
-				       const char *(*subst)[2]));
-static msgdomain_list_ty *fill_header PARAMS ((msgdomain_list_ty *mdlp));
+static const char *find_pot (void);
+static const char *catalogname_for_locale (const char *locale);
+static const char *language_of_locale (const char *locale);
+static char *get_field (const char *header, const char *field);
+static msgdomain_list_ty *fill_header (msgdomain_list_ty *mdlp);
 
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main (int argc, char **argv)
 {
   int opt;
   bool do_help;
@@ -342,8 +314,7 @@ the output .po file through the --output-file option.\n"),
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -473,8 +444,7 @@ Please specify the input .pot file through the --input option.\n")));
    because the resulting catalog can be used as a default for all "de_XX",
    such as "de_AT".  */
 static const char *
-catalogname_for_locale (locale)
-     const char *locale;
+catalogname_for_locale (const char *locale)
 {
   static const char *locales_with_principal_territory[] = {
 		/* Language	Main territory */
@@ -624,8 +594,7 @@ catalogname_for_locale (locale)
 
 /* Return the language of a locale.  */
 static const char *
-language_of_locale (locale)
-     const char *locale;
+language_of_locale (const char *locale)
 {
   const char *language_end;
 
@@ -982,8 +951,7 @@ project_id_version ()
 
 /* Construct the value for the PO-Revision-Date field.  */
 static const char *
-po_revision_date (header)
-     const char *header;
+po_revision_date (const char *header)
 {
   if (no_translator)
     /* Because the PO file is automatically generated, we use the
@@ -1214,8 +1182,7 @@ mime_version ()
 
 /* Construct the value for the Content-Type field.  */
 static const char *
-content_type (header)
-     const char *header;
+content_type (const char *header)
 {
   bool was_utf8;
   const char *old_field;
@@ -1272,8 +1239,8 @@ plural_forms ()
 static struct
 {
   const char *name;
-  const char * (*getter0) PARAMS ((void));
-  const char * (*getter1) PARAMS ((const char *header));
+  const char * (*getter0) (void);
+  const char * (*getter1) (const char *header);
 }
 fields[] =
   {
@@ -1293,9 +1260,7 @@ fields[] =
 
 /* Retrieve a freshly allocated copy of a field's value.  */
 static char *
-get_field (header, field)
-     const char *header;
-     const char *field;
+get_field (const char *header, const char *field)
 {
   size_t len = strlen (field);
   const char *line;
@@ -1333,10 +1298,7 @@ get_field (header, field)
 
 /* Add a field with value to a header, and return the new header.  */
 static char *
-put_field (old_header, field, value)
-     const char *old_header;
-     const char *field;
-     const char *value;
+put_field (const char *old_header, const char *field, const char *value)
 {
   size_t len = strlen (field);
   const char *line;
@@ -1491,10 +1453,8 @@ get_title ()
    string.  When subst[j][0] found, it is replaced with subst[j][1].
    subst[j][0] must not be the empty string.  */
 static const char *
-subst_string (str, nsubst, subst)
-     const char *str;
-     unsigned int nsubst;
-     const char *(*subst)[2];
+subst_string (const char *str,
+	      unsigned int nsubst, const char *(*subst)[2])
 {
   if (nsubst > 0)
     {
@@ -1544,10 +1504,8 @@ subst_string (str, nsubst, subst)
    When subst[j][0] found, it is replaced with subst[j][1].  subst[j][0]
    must not be the empty string.  */
 static void
-subst_string_list (slp, nsubst, subst)
-     string_list_ty *slp;
-     unsigned int nsubst;
-     const char *(*subst)[2];
+subst_string_list (string_list_ty *slp,
+		   unsigned int nsubst, const char *(*subst)[2])
 {
   size_t j;
 
@@ -1558,8 +1516,7 @@ subst_string_list (slp, nsubst, subst)
 
 /* Fill the templates in all fields of the header entry.  */
 static msgdomain_list_ty *
-fill_header (mdlp)
-     msgdomain_list_ty *mdlp;
+fill_header (msgdomain_list_ty *mdlp)
 {
   /* Cache the strings filled in, for use when there are multiple domains
      and a header entry for each domain.  */

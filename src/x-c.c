@@ -39,12 +39,6 @@
 
 #define _(s) gettext(s)
 
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
 
 /* The ANSI C standard defines several phases of translation:
 
@@ -137,38 +131,6 @@ struct token_ty
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void init_keywords PARAMS ((void));
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-static int phase3_getc PARAMS ((void));
-static void phase3_ungetc PARAMS ((int c));
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((size_t chars_to_remove));
-static int phase4_getc PARAMS ((void));
-static void phase4_ungetc PARAMS ((int c));
-static int phase7_getc PARAMS ((void));
-static void phase7_ungetc PARAMS ((int c));
-static inline void free_token PARAMS ((token_ty *tp));
-static void phase5_get PARAMS ((token_ty *tp));
-static void phase5_unget PARAMS ((token_ty *tp));
-static void phaseX_get PARAMS ((token_ty *tp));
-static void phase6_get PARAMS ((token_ty *tp));
-static void phase6_unget PARAMS ((token_ty *tp));
-static bool is_inttypes_macro PARAMS ((const char *name));
-static void phase8a_get PARAMS ((token_ty *tp));
-static void phase8a_unget PARAMS ((token_ty *tp));
-static void phase8_get PARAMS ((token_ty *tp));
-static void x_c_lex PARAMS ((xgettext_token_ty *tp));
-static bool extract_parenthesized PARAMS ((message_list_ty *mlp,
-					   int commas_to_skip,
-					   int plural_commas));
-
-
 /* ========================= Lexer customization.  ========================= */
 
 static bool trigraphs = false;
@@ -197,8 +159,7 @@ x_c_extract_all ()
 
 
 void
-x_c_keyword (name)
-     const char *name;
+x_c_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -329,8 +290,7 @@ error while reading \"%s\""), real_file_name);
 
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   switch (c)
     {
@@ -405,8 +365,7 @@ phase2_getc ()
 
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   if (c != EOF)
     phase2_pushback[phase2_pushback_length++] = c;
@@ -443,8 +402,7 @@ phase3_getc ()
 
 
 static void
-phase3_ungetc (c)
-     int c;
+phase3_ungetc (int c)
 {
   if (c != EOF)
     phase3_pushback[phase3_pushback_length++] = c;
@@ -464,8 +422,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   if (buflen >= bufmax)
     {
@@ -476,8 +433,7 @@ comment_add (c)
 }
 
 static inline void
-comment_line_end (chars_to_remove)
-     size_t chars_to_remove;
+comment_line_end (size_t chars_to_remove)
 {
   buflen -= chars_to_remove;
   while (buflen >= 1
@@ -580,8 +536,7 @@ phase4_getc ()
 
 
 static void
-phase4_ungetc (c)
-     int c;
+phase4_ungetc (int c)
 {
   phase3_ungetc (c);
 }
@@ -647,7 +602,7 @@ phase7_getc ()
       return c;
 
     case 'a':
-      return ALERT_CHAR;
+      return '\a';
     case 'b':
       return '\b';
 
@@ -733,8 +688,7 @@ phase7_getc ()
 
 
 static void
-phase7_ungetc (c)
-     int c;
+phase7_ungetc (int c)
 {
   phase3_ungetc (c);
 }
@@ -742,8 +696,7 @@ phase7_ungetc (c)
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
 static inline void
-free_token (tp)
-     token_ty *tp;
+free_token (token_ty *tp)
 {
   if (tp->type == token_type_name || tp->type == token_type_string_literal)
     free (tp->string);
@@ -759,8 +712,7 @@ static int phase5_pushback_length;
 
 
 static void
-phase5_get (tp)
-     token_ty *tp;
+phase5_get (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
@@ -1029,8 +981,7 @@ phase5_get (tp)
 
 
 static void
-phase5_unget (tp)
-     token_ty *tp;
+phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     phase5_pushback[phase5_pushback_length++] = *tp;
@@ -1042,8 +993,7 @@ phase5_unget (tp)
    makes the phase 6 easier.  */
 
 static void
-phaseX_get (tp)
-     token_ty *tp;
+phaseX_get (token_ty *tp)
 {
   static bool middle;	/* false at the beginning of a line, true otherwise.  */
 
@@ -1091,8 +1041,7 @@ static int phase6_pushback_length;
 
 
 static void
-phase6_get (tp)
-     token_ty *tp;
+phase6_get (token_ty *tp)
 {
   static token_ty *buf;
   static int bufmax;
@@ -1171,8 +1120,7 @@ phase6_get (tp)
 
 
 static void
-phase6_unget (tp)
-     token_ty *tp;
+phase6_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     phase6_pushback[phase6_pushback_length++] = *tp;
@@ -1184,8 +1132,7 @@ phase6_unget (tp)
 
 /* Test for an ISO C 99 section 7.8.1 format string directive.  */
 static bool
-is_inttypes_macro (name)
-     const char *name;
+is_inttypes_macro (const char *name)
 {
   /* Syntax:
      P R I { d | i | o | u | x | X }
@@ -1223,8 +1170,7 @@ is_inttypes_macro (name)
 }
 
 static void
-phase8a_get (tp)
-     token_ty *tp;
+phase8a_get (token_ty *tp)
 {
   phase6_get (tp);
   if (tp->type == token_type_name && is_inttypes_macro (tp->string))
@@ -1243,8 +1189,7 @@ phase8a_get (tp)
 }
 
 static void
-phase8a_unget (tp)
-     token_ty *tp;
+phase8a_unget (token_ty *tp)
 {
   phase6_unget (tp);
 }
@@ -1255,8 +1200,7 @@ phase8a_unget (tp)
    will miss).  */
 
 static void
-phase8_get (tp)
-     token_ty *tp;
+phase8_get (token_ty *tp)
 {
   phase8a_get (tp);
   if (tp->type != token_type_string_literal)
@@ -1288,8 +1232,7 @@ phase8_get (tp)
    discards any white space from the translation unit.  */
 
 static void
-x_c_lex (tp)
-     xgettext_token_ty *tp;
+x_c_lex (xgettext_token_ty *tp)
 {
   for (;;)
     {
@@ -1400,10 +1343,8 @@ x_c_lex (tp)
    When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
    Return true upon eof, false upon closing parenthesis.  */
 static bool
-extract_parenthesized (mlp, commas_to_skip, plural_commas)
-     message_list_ty *mlp;
-     int commas_to_skip;
-     int plural_commas;
+extract_parenthesized (message_list_ty *mlp,
+		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
   message_ty *plural_mp = NULL;
@@ -1516,11 +1457,9 @@ extract_parenthesized (mlp, commas_to_skip, plural_commas)
 
 
 void
-extract_c (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_c (FILE *f,
+	   const char *real_filename, const char *logical_filename,
+	   msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 

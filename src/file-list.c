@@ -1,5 +1,5 @@
 /* Reading file lists.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,8 +39,7 @@
 
 /* Read list of filenames from a file.  */
 string_list_ty *
-read_names_from_file (file_name)
-     const char *file_name;
+read_names_from_file (const char *file_name)
 {
   size_t line_len = 0;
   char *line_buf = NULL;

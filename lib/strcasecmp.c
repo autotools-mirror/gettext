@@ -1,4 +1,4 @@
-/* Copyright (C) 1991, 1992, 1995, 1996, 1997 Free Software Foundation, Inc.
+/* Copyright (C) 1991-1992, 1995-1997, 2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -38,21 +38,16 @@
 #endif
 
 #ifdef USE_IN_EXTENDED_LOCALE_MODEL
-# define LOCALE_PARAM , loc
-# define LOCALE_PARAM_DECL __locale_t loc;
+# define LOCALE_PARAM , __locale_t loc
 #else
 # define LOCALE_PARAM
-# define LOCALE_PARAM_DECL
 #endif
 
 /* Compare S1 and S2, ignoring case, returning less than, equal to or
    greater than zero if S1 is lexicographically less than,
    equal to or greater than S2.  */
 int
-__strcasecmp (s1, s2 LOCALE_PARAM)
-     const char *s1;
-     const char *s2;
-     LOCALE_PARAM_DECL
+__strcasecmp (const char *s1, const char *s2 LOCALE_PARAM)
 {
   const unsigned char *p1 = (const unsigned char *) s1;
   const unsigned char *p2 = (const unsigned char *) s2;

@@ -15,14 +15,6 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-#endif
-
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -32,4 +24,4 @@
    for use with mk[s]temp.  Will fail (-1) if DIR is non-null and
    doesn't exist, none of the searched dirs exists, or there's not
    enough space in TMPL. */
-extern int path_search PARAMS ((char *tmpl, size_t tmpl_len, const char *dir, const char *pfx, bool try_tmpdir));
+extern int path_search (char *tmpl, size_t tmpl_len, const char *dir, const char *pfx, bool try_tmpdir);

@@ -51,17 +51,15 @@ static const struct option long_options[] =
   { NULL, 0, NULL, 0 }
 };
 
-/* Prototypes for local functions.  */
-static void usage PARAMS ((int __status))
+/* Forward declaration of local functions.  */
+static void usage (int __status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
      __attribute__ ((noreturn))
 #endif
 ;
 
 int
-main (argc, argv)
-     int argc;
-     char *argv[];
+main (int argc, char *argv[])
 {
   int optchar;
   const char *msgid;
@@ -196,8 +194,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),

@@ -74,22 +74,14 @@
  */
 
 bool
-execute_java_class (class_name,
-		    classpaths, classpaths_count, use_minimal_classpath,
-		    exe_dir,
-		    args,
-		    verbose, quiet,
-		    executer, private_data)
-     const char *class_name;
-     const char * const *classpaths;
-     unsigned int classpaths_count;
-     bool use_minimal_classpath;
-     const char *exe_dir;
-     const char * const *args;
-     bool verbose;
-     bool quiet;
-     execute_fn *executer;
-     void *private_data;
+execute_java_class (const char *class_name,
+		    const char * const *classpaths,
+		    unsigned int classpaths_count,
+		    bool use_minimal_classpath,
+		    const char *exe_dir,
+		    const char * const *args,
+		    bool verbose, bool quiet,
+		    execute_fn *executer, void *private_data)
 {
   bool err = false;
   unsigned int nargs;

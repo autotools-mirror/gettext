@@ -1,5 +1,5 @@
 /* Creation of autonomous subprocesses.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,10 +25,9 @@
    descriptors to /dev/null.  Return its exit code.
    If it didn't terminate correctly, exit if exit_on_error is true, otherwise
    return 127.  */
-extern int execute PARAMS ((const char *progname,
-			    const char *prog_path, char **prog_argv,
-			    bool null_stdin,
-			    bool null_stdout, bool null_stderr,
-			    bool exit_on_error));
+extern int execute (const char *progname,
+		    const char *prog_path, char **prog_argv,
+		    bool null_stdin, bool null_stdout, bool null_stderr,
+		    bool exit_on_error);
 
 #endif /* _EXECUTE_H */

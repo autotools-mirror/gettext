@@ -1,5 +1,5 @@
 /* argmatch.h -- definitions and prototypes for argmatch.c
-   Copyright (C) 1990, 1998, 1999, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1990, 1998, 1999, 2001, 2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,14 +27,6 @@
 
 # include <sys/types.h>
 
-# ifndef PARAMS
-#  if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#   define PARAMS(args) args
-#  else
-#   define PARAMS(args) ()
-#  endif  /* ANSI C.  */
-# endif  /* Not PARAMS.  */
-
 /* Assert there are as many real arguments as there are values
    (argument list ends with a NULL guard).  There is no execution
    cost, since it will be statically evalauted to `assert (0)' or
@@ -51,9 +43,8 @@
    false ambiguities (i.e., different matches of ARG but corresponding
    to the same values in VALLIST).  */
 
-int argmatch
-  PARAMS ((const char *arg, const char *const *arglist,
-	   const char *vallist, size_t valsize));
+int argmatch (const char *arg, const char *const *arglist,
+	      const char *vallist, size_t valsize);
 
 # define ARGMATCH(Arg, Arglist, Vallist) \
   argmatch ((Arg), (Arglist), (const char *) (Vallist), sizeof (*(Vallist)))
@@ -61,13 +52,12 @@ int argmatch
 /* xargmatch calls this function when it fails.  This function should not
    return.  By default, this is a function that calls ARGMATCH_DIE which
    in turn defaults to `exit (EXIT_FAILURE)'.  */
-typedef void (*argmatch_exit_fn) PARAMS ((void));
+typedef void (*argmatch_exit_fn) (void);
 extern argmatch_exit_fn argmatch_die;
 
 /* Report on stderr why argmatch failed.  Report correct values. */
 
-void argmatch_invalid
-  PARAMS ((const char *context, const char *value, int problem));
+void argmatch_invalid (const char *context, const char *value, int problem);
 
 /* Left for compatibility with the old name invalid_arg */
 
@@ -78,9 +68,8 @@ void argmatch_invalid
 
 /* Report on stderr the list of possible arguments.  */
 
-void argmatch_valid
-  PARAMS ((const char *const *arglist,
-	   const char *vallist, size_t valsize));
+void argmatch_valid (const char *const *arglist,
+		     const char *vallist, size_t valsize);
 
 # define ARGMATCH_VALID(Arglist, Vallist) \
   argmatch_valid (Arglist, (const char *) Vallist, sizeof (*(Vallist)))
@@ -90,11 +79,10 @@ void argmatch_valid
 /* Same as argmatch, but upon failure, reports a explanation on the
    failure, and exits using the function EXIT_FN. */
 
-int __xargmatch_internal
-  PARAMS ((const char *context,
-	   const char *arg, const char *const *arglist,
-	   const char *vallist, size_t valsize,
-	   argmatch_exit_fn exit_fn));
+int __xargmatch_internal (const char *context,
+			  const char *arg, const char *const *arglist,
+			  const char *vallist, size_t valsize,
+			  argmatch_exit_fn exit_fn);
 
 /* Programmer friendly interface to __xargmatch_internal. */
 
@@ -106,9 +94,9 @@ int __xargmatch_internal
 
 /* Convert a value into a corresponding argument. */
 
-const char *argmatch_to_argument
-  PARAMS ((char const *value, const char *const *arglist,
-	   const char *vallist, size_t valsize));
+const char *argmatch_to_argument (char const *value,
+				  const char *const *arglist,
+				  const char *vallist, size_t valsize);
 
 # define ARGMATCH_TO_ARGUMENT(Value, Arglist, Vallist)			\
   argmatch_to_argument ((char const *) &(Value), (Arglist), 		\

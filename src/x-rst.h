@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,6 +24,6 @@
   { "RST",        extract_rst, &formatstring_pascal },			\
 
 /* Scan an RST file and add its translatable strings to mdlp.  */
-extern void extract_rst PARAMS ((FILE *fp, const char *real_filename,
-				 const char *logical_filename,
-				 msgdomain_list_ty *mdlp));
+extern void extract_rst (FILE *fp, const char *real_filename,
+			 const char *logical_filename,
+			 msgdomain_list_ty *mdlp);

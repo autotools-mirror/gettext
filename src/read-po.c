@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software; you can redistribute it and/or modify
@@ -76,29 +76,9 @@ struct readall_class_ty
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void readall_constructor PARAMS ((po_ty *that));
-static void readall_destructor PARAMS ((po_ty *that));
-static void readall_directive_domain PARAMS ((po_ty *that, char *name));
-static void readall_directive_message PARAMS ((po_ty *that, char *msgid,
-					       lex_pos_ty *msgid_pos,
-					       char *msgid_plural,
-					       char *msgstr, size_t msgstr_len,
-					       lex_pos_ty *msgstr_pos,
-					       bool obsolete));
-static void readall_parse_brief PARAMS ((po_ty *that));
-static void readall_comment PARAMS ((po_ty *that, const char *s));
-static void readall_comment_dot PARAMS ((po_ty *that, const char *s));
-static void readall_comment_special PARAMS ((po_ty *that, const char *s));
-static void readall_comment_filepos PARAMS ((po_ty *that, const char *name,
-					     size_t line));
-
-
 /* Prepare for first message.  */
 static void
-readall_constructor (that)
-     po_ty *that;
+readall_constructor (po_ty *that)
 {
   readall_class_ty *this = (readall_class_ty *) that;
   size_t i;
@@ -118,8 +98,7 @@ readall_constructor (that)
 
 
 static void
-readall_destructor (that)
-     po_ty *that;
+readall_destructor (po_ty *that)
 {
   readall_class_ty *this = (readall_class_ty *) that;
   size_t j;
@@ -138,9 +117,7 @@ readall_destructor (that)
 
 /* Process 'domain' directive from .po file.  */
 static void
-readall_directive_domain (that, name)
-     po_ty *that;
-     char *name;
+readall_directive_domain (po_ty *that, char *name)
 {
   size_t j;
 
@@ -172,16 +149,13 @@ readall_directive_domain (that, name)
 
 /* Process 'msgid'/'msgstr' pair from .po file.  */
 static void
-readall_directive_message (that, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos, obsolete)
-     po_ty *that;
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
+readall_directive_message (po_ty *that,
+			   char *msgid,
+			   lex_pos_ty *msgid_pos,
+			   char *msgid_plural,
+			   char *msgstr, size_t msgstr_len,
+			   lex_pos_ty *msgstr_pos,
+			   bool obsolete)
 {
   readall_class_ty *this = (readall_class_ty *) that;
   message_ty *mp;
@@ -253,17 +227,14 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
 
 
 static void
-readall_parse_brief (that)
-     po_ty *that;
+readall_parse_brief (po_ty *that)
 {
   po_lex_pass_comments (true);
 }
 
 
 static void
-readall_comment (that, s)
-     po_ty *that;
-     const char *s;
+readall_comment (po_ty *that, const char *s)
 {
   readall_class_ty *this = (readall_class_ty *) that;
 
@@ -274,9 +245,7 @@ readall_comment (that, s)
 
 
 static void
-readall_comment_dot (that, s)
-     po_ty *that;
-     const char *s;
+readall_comment_dot (po_ty *that, const char *s)
 {
   readall_class_ty *this = (readall_class_ty *) that;
 
@@ -288,9 +257,7 @@ readall_comment_dot (that, s)
 
 /* Test for '#, fuzzy' comments and warn.  */
 static void
-readall_comment_special (that, s)
-     po_ty *that;
-     const char *s;
+readall_comment_special (po_ty *that, const char *s)
 {
   readall_class_ty *this = (readall_class_ty *) that;
 
@@ -300,10 +267,7 @@ readall_comment_special (that, s)
 
 
 static void
-readall_comment_filepos (that, name, line)
-     po_ty *that;
-     const char *name;
-     size_t line;
+readall_comment_filepos (po_ty *that, const char *name, size_t line)
 {
   readall_class_ty *this = (readall_class_ty *) that;
   size_t nbytes;
@@ -342,10 +306,7 @@ static po_method_ty readall_methods =
 
 
 msgdomain_list_ty *
-read_po (fp, real_filename, logical_filename)
-     FILE *fp;
-     const char *real_filename;
-     const char *logical_filename;
+read_po (FILE *fp, const char *real_filename, const char *logical_filename)
 {
   po_ty *pop;
   msgdomain_list_ty *mdlp;
@@ -360,8 +321,7 @@ read_po (fp, real_filename, logical_filename)
 
 
 msgdomain_list_ty *
-read_po_file (filename)
-     const char *filename;
+read_po_file (const char *filename)
 {
   po_ty *pop;
   msgdomain_list_ty *mdlp;

@@ -77,15 +77,9 @@
 #endif
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static bool direxists PARAMS ((const char *dir));
-
-
 /* Return nonzero if DIR is an existent directory.  */
 static bool
-direxists (dir)
-     const char *dir;
+direxists (const char *dir)
 {
   struct_stat64 buf;
   return __xstat64 (_STAT_VER, dir, &buf) == 0 && S_ISDIR (buf.st_mode);
@@ -98,12 +92,8 @@ direxists (dir)
    doesn't exist, none of the searched dirs exists, or there's not
    enough space in TMPL. */
 int
-path_search (tmpl, tmpl_len, dir, pfx, try_tmpdir)
-     char *tmpl;
-     size_t tmpl_len;
-     const char *dir;
-     const char *pfx;
-     bool try_tmpdir;
+path_search (char *tmpl, size_t tmpl_len, const char *dir, const char *pfx,
+	     bool try_tmpdir)
 {
   const char *d;
   size_t dlen, plen;

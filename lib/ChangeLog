@@ -1,3 +1,146 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* libstdarg.h: Remove file.
+	* Makefile.am (LIBADD_SOURCE): Remove libstdarg.h.
+	* addext.c (addext): Use ANSI C function declarations.
+	* alloca.c (alloca): Likewise.
+	* argmatch.h (PARAMS): Remove macro.
+	(argmatch, argmatch_exit_fn, argmatch_invalid, argmatch_valid,
+	__xargmatch_internal, argmatch_to_argument): Use ANSI C function
+	declarations.
+	* argmatch.c (argmatch, argmatch_invalid, argmatch_valid,
+	__xargmatch_internal, argmatch_to_argument): Likewise.
+	* backupfile.h (PARAMS): Remove macro.
+	(find_backup_file_name, get_version, xget_version, addext): Use ANSI C
+	function declarations.
+	* backupfile.c (find_backup_file_name, max_backup_version,
+	version_number, get_version, xget_version): Likewise.
+	* basename.h (gnu_basename): Likewise.
+	* basename.c (basename): Likewise.
+	* c-ctype.h (PARAMS): Remove macro.
+	(c_isascii, c_isalnum, c_isalpha, c_isblank, c_iscntrl, c_isdigit,
+	c_islower, c_isgraph, c_isprint, c_ispunct, c_isspace, c_isupper,
+	c_isxdigit, c_tolower, c_toupper): Use ANSI C function declarations.
+	* c-ctype.c (c_isascii, c_isalnum, c_isalpha, c_isblank, c_iscntrl,
+	c_isdigit, c_islower, c_isgraph, c_isprint, c_ispunct, c_isspace,
+	c_isupper, c_isxdigit, c_tolower, c_toupper): Likewise.
+	* classpath.c (new_classpath, set_classpath, reset_classpath):
+	Likewise.
+	* concatpath.c (concatenated_pathname): Likewise.
+	* copy-file.h (copy_file): Likewise.
+	* copy-file.c (copy_file): Likewise.
+	* execute.h (execute): Likewise.
+	* execute.c (nonintr_close, nonintr_open, execute): Likewise.
+	* findprog.h (find_in_path): Likewise.
+	* findprog.c (find_in_path): Likewise.
+	* fstrcmp.h (fstrcmp): Likewise.
+	* fstrcmp.c (diag, compareseq, fstrcmp): Likewise.
+	* full-write.h (full_write): Likewise.
+	* full-write.c (full_write): Likewise.
+	* gcd.h (PARAMS): Remove macro.
+	(gcd): Use ANSI C function declarations.
+	* gcd.c (gcd): Likewise.
+	* getline.h (PARAMS): Remove macro.
+	(getline, getdelim): Use ANSI C function declarations.
+	* getline.c (getstr, getline, getdelim): Likewise.
+	* hash.h (PARAMS): Remove macro.
+	(init_hash, delete_hash, insert_entry, find_entry, iterate_table,
+	next_prime): Use ANSI C function declarations.
+	* hash.c (init_hash, delete_hash, insert_entry, insert_entry_2,
+	find_entry, iterate_table, lookup, compute_hashval, next_prime,
+	is_prime): Likewise.
+	* javacomp.h (compile_java_class): Likewise.
+	* javacomp.c (compile_java_class): Likewise.
+	* javaexec.h (execute_fn, execute_java_class): Likewise.
+	* javaexec.c (execute_java_class): Likewise.
+	* linebreak.h (PARAMS): Remove macro.
+	(locale_charset, uc_width, u8_width, u16_width, u32_width,
+	u8_possible_linebreaks, u16_possible_linebreaks,
+	u32_possible_linebreaks, mbs_possible_linebreaks, u8_width_linebreaks,
+	u16_width_linebreaks, u32_width_linebreaks, mbs_width_linebreaks): Use
+	ANSI C function declarations.
+	* linebreak.c (u32_mbtouc, is_cjk_encoding, is_utf8_encoding,
+	uc_width, u8_width, u16_width, u32_width, lbrkprop_lookup,
+	u8_possible_linebreaks, u16_possible_linebreaks,
+	u32_possible_linebreaks, u8_width_linebreaks, u16_width_linebreaks,
+	u32_width_linebreaks, read_file, main, iconv_string_length,
+	iconv_string_keeping_offsets, is_all_ascii, mbs_possible_linebreaks,
+	mbs_width_linebreaks, read_file, main): Likewise.
+	* mbswidth.h (PARAMS): Remove macro.
+	(mbswidth, mbsnwidth): Use ANSI C function declarations.
+	* mbswidth.c (mbswidth, mbsnwidth): Likewise.
+	* memmove.c (memmove): Likewise.
+	* memset.c (memset): Likewise.
+	* mkdtemp.h (PARAMS): Remove macro.
+	(mkdtemp): Use ANSI C function declarations.
+	* mkdtemp.c (gen_tempname, mkdtemp): Likewise.
+	* pathname.h (PARAMS): Remove macro.
+	(concatenated_pathname): Use ANSI C function declarations.
+	* pfnmatch.h (PARAMS): Remove macro.
+	(fnmatch): Use ANSI C function declarations.
+	* pfnmatch.c (fnmatch): Likewise.
+	* pipe.h (create_pipe_out, create_pipe_in, create_pipe_bidi):
+	Likewise.
+	* pipe-bidi.c (nonintr_close, create_pipe_bidi): Likewise.
+	* pipe-in.c (nonintr_close, nonintr_open, create_pipe_in): Likewise.
+	* pipe-out.c (nonintr_close, nonintr_open, create_pipe_out): Likewise.
+	* progname.h (set_program_name, maybe_print_progname): Likewise.
+	* progname.c (set_program_name): Likewise.
+	* safe-read.h (safe_read): Likewise.
+	* safe-read.c (safe_read): Likewise.
+	* setenv.h (PARAMS): Remove macro.
+	(setenv, unsetenv): Use ANSI C function declarations.
+	* setenv.c (compar_fn_t, __add_to_environ, setenv): Likewise.
+	* sh-quote.h (shell_quote_length, shell_quote_copy, shell_quote,
+	shell_quote_argv): Likewise.
+	* sh-quote.c (shell_quote_length, shell_quote_copy, shell_quote,
+	shell_quote_argv): Likewise.
+	* stpcpy.h (PARAMS): Remove macro.
+	(stpcpy): Use ANSI C function declarations.
+	* stpcpy.c (__stpcpy): Likewise.
+	* stpncpy.h (PARAMS): Remove macro.
+	(gnu_stpncpy): Use ANSI C function declarations.
+	* stpncpy.c (__stpncpy): Likewise.
+	* strcase.h (PARAMS): Remove macro.
+	(strcasecmp, strncasecmp): Use ANSI C function declarations.
+	* strcasecmp.c (__strcasecmp): Likewise.
+	* strncasecmp.c (__strncasecmp): Likewise.
+	* strcspn.c (strcspn): Likewise.
+	* strpbrk.h (PARAMS): Remove macro.
+	(strpbrk): Use ANSI C function declarations.
+	* strpbrk.c (strpbrk): Likewise.
+	* strstr.h (PARAMS): Remove macro.
+	(strstr): Use ANSI C function declarations.
+	* strstr.c (strstr): Likewise.
+	* tmpdir.h (PARAMS): Remove macro.
+	(path_search): Use ANSI C function declarations.
+	* tmpdir.c (direxists, path_search): Likewise.
+	* ucs4-utf8.h (u8_uctomb_aux, u8_uctomb): Likewise.
+	* ucs4-utf16.h (u16_uctomb_aux, u16_uctomb): Likewise.
+	* unsetenv.c (unsetenv): Likewise.
+	* utf8-ucs4.h (u8_mbtouc_aux, u8_mbtouc): Likewise.
+	* utf16-ucs4.h (u16_mbtouc_aux, u16_mbtouc): Likewise.
+	* vasprintf.h (PARAMS): Remove macro.
+	Include <stdarg.h> instead of libstdarg.h.
+	(asprintf, vasprintf): Use ANSI C function declarations.
+	* vasprintf.c: Include <stdarg.h> instead of libstdarg.h.
+	(int_vasprintf, asprintf, checkit): Use ANSI C function declarations.
+	Use va_start instead of VA_START.
+	* wait-process.h (wait_subprocess): Likewise.
+	* wait-process.c (wait_subprocess): Likewise.
+	* xerror.h (xasprintf, multiline_warning, multiline_error): Likewise.
+	* xerror.c: Include <stdarg.h> instead of libstdarg.h.
+	(xasprintf, multiline_warning, multiline_error): Use ANSI C function
+	declarations. Use va_start instead of VA_START.
+	* xgetcwd.h (PARAMS): Remove macro.
+	(xgetcwd): Use ANSI C function declarations.
+	* xmalloc.h (xmalloc, xcalloc, xrealloc, xstrdup): Likewise.
+	* xmalloc.c (fixup_null_alloc, xmalloc, xcalloc, xrealloc): Likewise.
+	* xsetenv.h (xsetenv): Likewise.
+	* xsetenv.c (xsetenv): Likewise.
+	* xstrdup.c (xstrdup): Likewise.
+
 2002-11-05  Bruno Haible  <bruno@clisp.org>
 
 	* argmatch.c: Include gettext.h instead of <locale.h> and <libintl.h>.

@@ -1,5 +1,5 @@
 /* Setting environment variables, with out-of-memory checking.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -34,10 +34,7 @@
    If REPLACE is nonzero, overwrite an existing value.
    With error checking.  */
 void
-xsetenv (name, value, replace)
-     const char *name;
-     const char *value;
-     int replace;
+xsetenv (const char *name, const char *value, int replace)
 {
   if (setenv (name, value, replace) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));

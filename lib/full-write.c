@@ -1,5 +1,5 @@
 /* full-write.c -- an interface to write that retries after interrupts
-   Copyright (C) 1993-1994, 1997-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1993-1994, 1997-1998, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -40,10 +40,7 @@ extern int errno;
    Return LEN upon success, write's (negative) error code otherwise.  */
 
 ssize_t
-full_write (desc, ptr, len)
-     int desc;
-     const char *ptr;
-     size_t len;
+full_write (int desc, const char *ptr, size_t len)
 {
   int total_written;
 

@@ -1,5 +1,5 @@
 /* Arithmetic.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,9 +23,7 @@
 
 /* Return the greatest common divisor of a > 0 and b > 0.  */
 unsigned int
-gcd (a, b)
-     unsigned int a;
-     unsigned int b;
+gcd (unsigned int a, unsigned int b)
 {
   /* Why no division, as in Euclid's algorithm? Because in Euclid's algorithm
      the division result floor(a/b) or floor(b/a) is very often = 1 or = 2,

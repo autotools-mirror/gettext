@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2001-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -112,15 +112,14 @@
 static const char *cur;
 
 
-void yyerror PARAMS ((char *));
-int yylex PARAMS ((void));
+void yyerror (char *);
+int yylex (void);
 
 
 int
-po_hash (s)
-     const char *s;
+po_hash (const char *s)
 {
-  extern int yyparse PARAMS ((void));
+  extern int yyparse (void);
 
   cur = s;
   return yyparse ();
@@ -128,8 +127,7 @@ po_hash (s)
 
 
 void
-yyerror (s)
-     char *s;
+yyerror (char *s)
 {
   /* Do nothing, the grammar is used as a recogniser.  */
 }

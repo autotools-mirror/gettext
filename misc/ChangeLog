@@ -1,3 +1,9 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* tcl_gettext.c (tcl_gettext, tcl_textdomain, tcl_bindtextdomain):
+	Use ANSI C function declarations.
+
 2002-10-25  Karl Eichwalder  <ke@suse.de>
 
         * po-compat.el (po-find-file-coding-system-guts): Provide the old

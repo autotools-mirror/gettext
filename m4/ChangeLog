@@ -1,3 +1,9 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* c-bs-a.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
 2002-11-08  Bruno Haible  <bruno@clisp.org>
 
 	* progtest.m4 (AM_PATH_PROG_WITH_TEST): Portability to OS/2.

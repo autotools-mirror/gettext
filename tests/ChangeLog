@@ -1,3 +1,24 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* format-c-3-prg.c (main): Use ANSI C function declarations and
+	preprocessor string concatenation.
+	* format-c-3: Don't test for return code 77.
+	* format-c-4-prg.c (main): Use ANSI C function declarations and
+	preprocessor string concatenation.
+	* format-c-4: Don't test for return code 77.
+	* plural-1-prg.c (main): Use ANSI C function declarations.
+	* setlocale.c (category_to_name, setlocale): Likewise.
+	* tstgettext.c (main, usage, expand_escape): Likewise.
+	* tstngettext.c (main, usage): Likewise.
+	* rpathlx/usex.c (rpathx_value): Likewise.
+	* rpathly/usey.c (rpathy_value): Likewise.
+	* rpathlyx/usey.c (rpathy_value): Likewise.
+	* rpathlz/usez.c (rpathz_value): Likewise.
+	* rpathlzyx/usez.c (rpathz_value): Likewise.
+	* rpathy/rpathy.c (rpathx_value): Likewise.
+	* rpathz/rpathz.c (rpathx_value, rpathy_value): Likewise.
+
 2002-11-11  Bruno Haible  <bruno@clisp.org>
 
 	* tstgettext.c (program_name): Declare as external.

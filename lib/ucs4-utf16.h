@@ -19,21 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <stddef.h>
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int
-u16_uctomb_aux PARAMS ((unsigned short *s, unsigned int uc, int n));
-static inline int
-u16_uctomb PARAMS ((unsigned short *s, unsigned int uc, int n));
-
 /* Return the length (number of units) of the UTF-16 representation of uc,
    after storing it at S.  Return -1 upon failure, -2 if the number of
    available units, N, is too small.  */
 static int
-u16_uctomb_aux (s, uc, n)
-     unsigned short *s;
-     unsigned int uc;
-     int n;
+u16_uctomb_aux (unsigned short *s, unsigned int uc, int n)
 {
   if (uc >= 0x10000)
     {
@@ -53,10 +43,7 @@ u16_uctomb_aux (s, uc, n)
 }
 
 static inline int
-u16_uctomb (s, uc, n)
-     unsigned short *s;
-     unsigned int uc;
-     int n;
+u16_uctomb (unsigned short *s, unsigned int uc, int n)
 {
   if (uc < 0x10000 && n > 0)
     {

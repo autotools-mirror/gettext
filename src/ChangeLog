@@ -1,3 +1,307 @@
+2002-11-13  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* dir-list.h (dir_list_append, dir_list_nth, dir_list_save_reset,
+	dir_list_restore): Use ANSI C function declarations.
+	* dir-list.c (dir_list_append, dir_list_nth, dir_list_restore):
+	Likewise.
+	* file-list.h (read_names_from_file): Likewise.
+	* file-list.c (read_names_from_file): Likewise.
+	* format.h (struct formatstring_parser, get_c99_format_directives):
+	Likewise.
+	* format-awk.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-c.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check,
+	get_c99_format_directives, format_print): Likewise.
+	* format-elisp.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-java.c (message_format_parse, date_format_parse,
+	number_format_parse, choice_format_parse, numbered_arg_compare,
+	format_parse, format_free, format_get_number_of_directives,
+	format_check, format_print): Likewise.
+	* format-librep.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-lisp.c (verify_element, verify_list, free_element, free_list,
+	copy_element, copy_list, equal_element, equal_list,
+	ensure_initial_alloc, grow_initial_alloc, ensure_repeated_alloc,
+	grow_repeated_alloc, normalize_outermost_list, normalize_list,
+	is_empty_list, unfold_loop, rotate_loop, initial_splitelement,
+	initial_unshare, shift_list, make_intersected_element,
+	append_repeated_to_initial, backtrack_in_initial,
+	make_intersected_list, make_intersection_with_empty_list,
+	intersection, make_union_element, make_union_list,
+	make_union_with_empty_list, union, is_required,
+	add_required_constraint, add_end_constraint, add_type_constraint,
+	add_listtype_constraint, add_req_type_constraint,
+	add_req_listtype_constraint, make_repeated_list_of_lists,
+	make_repeated_list, check_params, nocheck_params, parse_upto,
+	format_parse, format_free, format_get_number_of_directives,
+	format_check, print_element, print_list, format_print): Likewise.
+	* format-pascal.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-php.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-python.c (named_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-tcl.c (numbered_arg_compare, format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* format-ycp.c (format_parse, format_free,
+	format_get_number_of_directives, format_check, format_print): Likewise.
+	* gettext.c (main, usage, expand_escape): Likewise.
+	* hostname.c (main, usage): Likewise.
+	* message.h (possible_format_p, message_alloc, message_free,
+	message_comment_append, message_comment_dot_append,
+	message_comment_filepos, message_copy, message_list_alloc,
+	message_list_free, message_list_append, message_list_prepend,
+	message_list_delete_nth, message_predicate_ty,
+	message_list_remove_if_not, message_list_search,
+	message_list_search_fuzzy, message_list_list_alloc,
+	message_list_list_free, message_list_list_append,
+	message_list_list_append_list, message_list_list_search,
+	message_list_list_search_fuzzy, msgdomain_alloc, msgdomain_free,
+	msgdomain_list_alloc, msgdomain_list_free, msgdomain_list_append,
+	msgdomain_list_append_list, msgdomain_list_sublist,
+	msgdomain_list_search, msgdomain_list_search_fuzzy): Likewise.
+	* message.c (possible_format_p, message_alloc, message_free,
+	message_comment_append, message_comment_dot_append,
+	message_comment_filepos, message_copy, message_list_alloc,
+	message_list_free, message_list_append, message_list_prepend,
+	message_list_delete_nth, message_list_remove_if_not,
+	message_list_search, message_list_search_fuzzy_inner,
+	message_list_search_fuzzy, message_list_list_free,
+	message_list_list_append, message_list_list_append_list,
+	message_list_list_search, message_list_list_search_fuzzy,
+	msgdomain_alloc, msgdomain_free, msgdomain_list_alloc,
+	msgdomain_list_free, msgdomain_list_append,
+	msgdomain_list_append_list, msgdomain_list_sublist,
+	msgdomain_list_search, msgdomain_list_search_fuzzy): Likewise.
+	* msgattrib.c (main, usage, is_message_selected, process_message_list,
+	process_msgdomain_list): Likewise.
+	* msgcat.c (main, usage): Likewise.
+	* msgcmp.c (main, usage, is_message_selected, remove_obsoletes,
+	match_domain, compare): Likewise.
+	* msgcomm.c (main, usage): Likewise.
+	* msgconv.c (locale_charset, main, usage): Likewise.
+	* msgen.c (main, usage): Likewise.
+	* msgexec.c (main, usage, nonintr_close, process_string,
+	process_message, process_message_list, process_msgdomain_list):
+	Likewise.
+	* msgfilter.c (main, usage, nonintr_close, nonintr_read, nonintr_write,
+	nonintr_select, process_string, process_message, process_message_list,
+	process_msgdomain_list): Likewise.
+	* msgfmt.c (main, usage, add_mo_suffix, new_domain, is_nonobsolete,
+	sigfpe_handler, check_plural_eval, check_plural, check_pair,
+	check_header_entry, format_constructor, format_debrief,
+	format_directive_domain, format_directive_message,
+	format_comment_special, read_po_file): Likewise.
+	* msggrep.c (main, no_pass, usage, filename_list_match, nonintr_close,
+	is_string_selected, is_message_selected, process_message_list,
+	process_msgdomain_list): Likewise.
+	* msginit.c (locale_charset, _nl_locale_name, _nl_expand_alias, main,
+	usage, catalogname_for_locale, language_of_locale, po_revision_date,
+	content_type, fields, get_field, put_field, subst_string,
+	subst_string_list, fill_header): Likewise.
+	* msgl-ascii.h (is_ascii_string, is_ascii_string_list,
+	is_ascii_message, is_ascii_message_list): Likewise.
+	* msgl-ascii.c (is_ascii_string, is_ascii_string_list,
+	is_ascii_message, is_ascii_message_list): Likewise.
+	* msgl-cat.h (catenate_msgdomain_list): Likewise.
+	* msgl-cat.c (is_message_selected, is_message_needed,
+	is_message_first_needed, catenate_msgdomain_list): Likewise.
+	* msgl-charset.h (compare_po_locale_charsets): Likewise.
+	* msgl-charset.c (locale_charset, compare_po_locale_charsets):
+	Likewise.
+	* msgl-english.h (msgdomain_list_english): Likewise.
+	* msgl-english.c (msgdomain_list_english): Likewise.
+	* msgl-equal.h (string_list_equal, message_equal, message_list_equal,
+	msgdomain_list_equal): Likewise.
+	* msgl-equal.c (msgstr_equal, msgstr_equal_ignoring_potcdate,
+	pos_equal, string_list_equal, message_equal, message_list_equal,
+	msgdomain_equal, msgdomain_list_equal): Likewise.
+	* msgl-iconv.h (convert_string, iconv_message_list,
+	iconv_msgdomain_list): Likewise.
+	* msgl-iconv.c (iconv_string, convert_string, convert_string_list,
+	convert_msgid, convert_msgstr, iconv_message_list,
+	iconv_msgdomain_list): Likewise.
+	* msgmerge.c (main, usage, compendium, msgfmt_check_pair_fails,
+	message_merge, match_domain, merge): Likewise.
+	* msgunfmt.c (main, usage): Likewise.
+	* msguniq.c (main, usage): Likewise.
+	* ngettext.c (main, usage, expand_escape): Likewise.
+	* open-po.h (open_po_file): Likewise.
+	* open-po.c (open_po_file): Likewise.
+	* po-charset.h (po_charset_canonicalize, po_charset_ascii_compatible,
+	po_is_charset_weird, po_is_charset_weird_cjk, po_lex_charset_init,
+	po_lex_charset_set, po_lex_charset_close): Likewise.
+	* po-charset.c (po_charset_canonicalize, po_charset_ascii_compatible,
+	po_is_charset_weird, po_is_charset_weird_cjk, po_lex_charset_set):
+	Likewise.
+	* po-gram.h (po_gram_parse): Likewise.
+	* po-hash-gen.y (yyerror, yylex, po_hash): Likewise.
+	* po-hash.h (po_hash): Likewise.
+	* po-lex.h (lex_start, lex_end, lex_open, lex_close, po_gram_lex,
+	po_lex_pass_comments, po_lex_pass_obsolete_entries, po_gram_error,
+	po_gram_error_at_line): Likewise.
+	* po-lex.c: Include <stdarg.h> instead of libstdarg.h.
+	(ALERT_CHAR): Remove macro.
+	(po_gram_error, po_gram_error_at_line): Use ANSI C function
+	declarations. Use va_start instead of VA_START.
+	(memcpy_small, mb_iseof, mb_ptr, mb_len, mb_iseq, mb_isnul, mb_cmp,
+	mb_equal, mb_isascii, mb_width, mb_putc, mb_setascii, mb_copy,
+	mbfile_init, mbfile_getc, mbfile_ungetc, lex_start, lex_open,
+	lex_getc, lex_ungetc, keyword_p, po_lex_pass_comments,
+	po_lex_pass_obsolete_entries): Use ANSI C function declarations.
+	* po-time.h (po_strftime): Likewise.
+	* po-time.c (difftm, po_strftime): Likewise.
+	* po.h (struct po_method_ty, po_alloc, po_scan, po_scan_file, po_free,
+	po_callback_domain, po_callback_message, po_callback_comment,
+	po_callback_comment_dot, po_callback_comment_filepos,
+	po_parse_comment_special): Likewise.
+	* po.c (po_alloc, po_free, po_parse_brief, po_parse_debrief, po_scan,
+	po_scan_file, po_directive_domain, po_callback_domain,
+	po_directive_message, po_callback_message, po_comment_special,
+	po_comment, po_comment_dot, po_callback_comment, po_comment_filepos,
+	po_callback_comment_filepos, po_parse_comment_special): Likewise.
+	* read-java.h (msgdomain_read_java): Likewise.
+	* read-java.c (execute_and_read_po_output, msgdomain_read_java):
+	Likewise.
+	* read-mo.h (read_mo_file): Likewise.
+	* read-mo.c (read_binary_mo_file, get_uint32, get_string,
+	get_sysdep_string, read_mo_file): Likewise.
+	* read-po.h (read_po, read_po_file): Likewise.
+	* read-po.c (readall_constructor, readall_destructor,
+	readall_directive_domain, readall_directive_message,
+	readall_parse_brief, readall_comment, readall_comment_dot,
+	readall_comment_special, readall_comment_filepos, read_po,
+	read_po_file): Likewise.
+	* read-tcl.h (msgdomain_read_tcl): Likewise.
+	* read-tcl.c (msgdomain_read_tcl): Likewise.
+	* str-list.h (string_list_init, string_list_alloc, string_list_append,
+	string_list_append_unique, string_list_destroy, string_list_free,
+	string_list_concat, string_list_concat_destroy, string_list_join,
+	string_list_member): Likewise.
+	* str-list.c (string_list_init, string_list_append,
+	string_list_append_unique, string_list_destroy, string_list_free,
+	string_list_concat, string_list_concat_destroy, string_list_join,
+	string_list_member): Likewise.
+	* urlget.c (main, usage, cat_file, execute_it, fetch): Likewise.
+	* write-java.h (msgdomain_write_java): Likewise.
+	* write-java.c (check_resource_name, string_hashcode,
+	compute_hashsize, compare_index, compute_table_items,
+	write_java_string, write_java_msgstr, write_lookup_code,
+	is_expression_boolean, write_java_expression, write_java_code,
+	cleanup, msgdomain_write_java): Likewise.
+	* write-mo.h (msgdomain_write_mo): Likewise.
+	* write-mo.c (compare_id, write_table, msgdomain_write_mo): Likewise.
+	* write-po.h (message_page_width_set, message_page_width_ignore,
+	message_print_style_indent, message_print_style_uniforum,
+	message_print_style_escape, msgdomain_list_print,
+	msgdomain_list_sort_by_msgid, msgdomain_list_sort_by_filepos):
+	Likewise.
+	* write-po.c (message_page_width_set, message_print_style_escape,
+	make_format_description_string, significant_format_p,
+	has_significant_format_p, make_c_width_description_string,
+	memcpy_small, wrap, print_blank_line, message_print,
+	message_print_obsolete, msgdomain_list_print, cmp_by_msgid,
+	msgdomain_list_sort_by_msgid, cmp_filepos,
+	msgdomain_list_sort_filepos, cmp_by_filepos,
+	msgdomain_list_sort_by_filepos): Likewise.
+	* write-tcl.h (msgdomain_write_tcl): Likewise.
+	* write-tcl.c (write_tcl_string, write_msg, msgdomain_write_tcl):
+	Likewise.
+	* x-awk.h (extract_awk, x_awk_keyword, x_awk_extract_all): Likewise.
+	* x-awk.c (ALERT_CHAR): Remove macro.
+	(x_awk_keyword, phase1_ungetc, phase2_ungetc, free_token, x_awk_lex,
+	extract_parenthesized, extract_awk): Use ANSI C function declarations.
+	* x-c.h (extract_c, x_c_extract_all, x_c_keyword, x_c_any_keywords,
+	x_c_trigraphs): Likewise.
+	* x-c.c (ALERT_CHAR): Remove macro.
+	(x_c_keyword, phase1_ungetc, phase2_ungetc, phase3_ungetc,
+	comment_add, comment_line_end, phase4_ungetc, phase7_ungetc,
+	free_token, phase5_get, phaseX_get, phase6_get, phase6_unget,
+	is_inttypes_macro, phase8a_get, phase8a_unget, phase8_get, x_c_lex,
+	extract_parenthesized, extract_c): Use ANSI C function declarations.
+	* x-elisp.h (extract_elisp, x_elisp_extract_all, x_elisp_keyword):
+	Likewise.
+	* x-elisp.c (ALERT_CHAR): Remove macro.
+	(x_elisp_keyword, do_ungetc, init_token, free_token, grow_token,
+	is_integer, is_float, read_token, comment_add, comment_line_end,
+	free_object, string_of_object, do_getc_escaped, read_object,
+	extract_elisp): Use ANSI C function declarations.
+	* x-glade.h (extract_glade, x_glade_extract_all, x_glade_keyword):
+	Likewise.
+	* x-glade.c (x_glade_keyword, XML_StartElementHandler,
+	XML_EndElementHandler, XML_CharacterDataHandler, XML_CommentHandler,
+	p_XML_ParserCreate, p_XML_SetElementHandler,
+	p_XML_SetCharacterDataHandler, p_XML_SetCommentHandler, p_XML_Parse,
+	p_XML_GetErrorCode, p_XML_GetCurrentLineNumber,
+	p_XML_GetCurrentColumnNumber, p_XML_ParserFree, p_XML_ErrorString,
+	ensure_stack_size, start_element_handler, end_element_handler,
+	character_data_handler, comment_handler, do_extract_glade,
+	extract_glade): Likewise.
+	* x-java.h (extract_java, x_java_keyword, x_java_extract_all):
+	Likewise.
+	* x-java.l (append_char_buf, get_string, destroy_charbuf,
+	update_line_no, strip_ending_spaces, append_strings, isplus, isdot,
+	translate_esc, object_list_destroy, get_num_objects, get_object,
+	add_object, alloc_keyword, tailcmp, do_compare, is_keyword,
+	x_java_keyword, extract_java): Likewise.
+	* x-librep.h (extract_librep, x_librep_extract_all, x_librep_keyword):
+	Likewise.
+	* x-librep.c (ALERT_CHAR): Remove macro.
+	(x_librep_keyword, do_ungetc, init_token, free_token, grow_token,
+	read_token, comment_add, comment_line_end, free_object,
+	string_of_object, do_getc_escaped, read_object, extract_librep): Use
+	ANSI C function declarations.
+	* x-lisp.h (extract_lisp, x_lisp_extract_all, x_lisp_keyword):
+	Likewise.
+	* x-lisp.c (x_lisp_keyword, do_ungetc, syntax_code_of,
+	read_char_syntax, attribute_of, init_token, free_token, grow_token,
+	read_token, has_a_dot, all_a_number, a_letter_to_digit, has_a_digit,
+	has_adjacent_letters, is_potential_number, is_number, upcase_token,
+	downcase_token, case_convert_token, comment_add, comment_line_end,
+	free_object, string_of_object, read_object, extract_lisp): Likewise.
+	* x-php.h (extract_php, x_php_keyword, x_php_extract_all): Likewise.
+	* x-php.c (x_php_keyword, phase1_ungetc, phase2_ungetc, comment_add,
+	comment_line_end, phase3_ungetc, free_token, x_php_lex,
+	extract_parenthesized, extract_php): Likewise.
+	* x-po.h (extract_po): Likewise.
+	* x-po.c (extract_constructor, extract_directive_domain,
+	extract_directive_message, extract_parse_brief, extract_comment,
+	extract_comment_dot, extract_comment_filepos, extract_comment_special,
+	extract_po): Likewise.
+	* x-python.h (extract_python, x_python_keyword, x_python_extract_all):
+	Likewise.
+	* x-python.c (ALERT_CHAR): Remove macro.
+	(x_python_keyword, phase1_ungetc, comment_add, phase2_ungetc,
+	phase7_getuc, phase5_get, phase5_unget, x_python_lex,
+	extract_parenthesized, extract_python): Use ANSI C function
+	declarations.
+	* x-rst.h (extract_rst): Likewise.
+	* x-rst.c (extract_rst): Likewise.
+	* x-smalltalk.h (extract_smalltalk): Likewise.
+	* x-smalltalk.c (phase1_ungetc, comment_add, phase2_get, phase2_unget,
+	x_smalltalk_lex, extract_smalltalk): Likewise.
+	* x-tcl.h (extract_tcl, x_tcl_extract_all, x_tcl_keyword): Likewise.
+	* x-tcl.c (ALERT_CHAR): Remove macro.
+	(x_tcl_keyword, do_ungetc, phase1_ungetc, phase2_pop, phase2_ungetc,
+	init_token, free_token, grow_token, comment_add, free_word,
+	string_of_word, accumulate_word, read_word, read_command,
+	read_command_list, extract_tcl): Use ANSI C function declarations.
+	* x-ycp.h (extract_ycp): Likewise.
+	* x-ycp.c (phase1_ungetc, phase2_ungetc, x_ycp_lex, extract_ycp):
+	Likewise.
+	* xgettext.h (split_keywordspec, xgettext_comment_add,
+	xgettext_comment, xgettext_comment_reset, remember_a_message,
+	remember_a_message_plural): Likewise.
+	* xgettext.c (extractor_func, main, usage, exclude_directive_domain,
+	exclude_directive_message, read_exclusion_file, split_keywordspec,
+	xgettext_comment_add, xgettext_comment, xgettext_open,
+	extract_from_file, remember_a_message, remember_a_message_plural,
+	finalize_header, language_to_extractor, extension_to_language):
+	Likewise.
+
 2002-11-05  Bruno Haible  <bruno@clisp.org>
 
 	Allow non-ASCII msgids in POT files.

@@ -61,28 +61,6 @@ struct token_ty
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void init_keywords PARAMS ((void));
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static void skip_html PARAMS ((void));
-#if 0
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-#endif
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((size_t chars_to_remove));
-static int phase3_getc PARAMS ((void));
-static void phase3_ungetc PARAMS ((int c));
-static inline void free_token PARAMS ((token_ty *tp));
-static void x_php_lex PARAMS ((token_ty *tp));
-static bool extract_parenthesized PARAMS ((message_list_ty *mlp,
-					   int commas_to_skip,
-					   int plural_commas));
-
-
 /* ====================== Keyword set customization.  ====================== */
 
 /* If true extract all strings.  */
@@ -100,8 +78,7 @@ x_php_extract_all ()
 
 
 void
-x_php_keyword (name)
-     const char *name;
+x_php_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -193,8 +170,7 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   if (c != EOF)
     {
@@ -535,8 +511,7 @@ phase2_getc ()
 }
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   if (c != EOF)
     phase2_pushback[phase2_pushback_length++] = c;
@@ -558,8 +533,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   if (buflen >= bufmax)
     {
@@ -570,8 +544,7 @@ comment_add (c)
 }
 
 static inline void
-comment_line_end (chars_to_remove)
-     size_t chars_to_remove;
+comment_line_end (size_t chars_to_remove)
 {
   buflen -= chars_to_remove;
   while (buflen >= 1
@@ -733,8 +706,7 @@ phase3_getc ()
 }
 
 static void
-phase3_ungetc (c)
-     int c;
+phase3_ungetc (int c)
 {
   if (c != EOF)
     phase3_pushback[phase3_pushback_length++] = c;
@@ -743,8 +715,7 @@ phase3_ungetc (c)
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
 static inline void
-free_token (tp)
-     token_ty *tp;
+free_token (token_ty *tp)
 {
   if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
     free (tp->string);
@@ -754,8 +725,7 @@ free_token (tp)
 /* 4. Combine characters into tokens.  Discard whitespace.  */
 
 static void
-x_php_lex (tp)
-     token_ty *tp;
+x_php_lex (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
@@ -1207,10 +1177,8 @@ x_php_lex (tp)
    When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
    Return true upon eof, false upon closing parenthesis.  */
 static bool
-extract_parenthesized (mlp, commas_to_skip, plural_commas)
-     message_list_ty *mlp;
-     int commas_to_skip;
-     int plural_commas;
+extract_parenthesized (message_list_ty *mlp,
+		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
   message_ty *plural_mp = NULL;
@@ -1342,11 +1310,9 @@ extract_parenthesized (mlp, commas_to_skip, plural_commas)
 
 
 void
-extract_php (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_php (FILE *f,
+	     const char *real_filename, const char *logical_filename,
+	     msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 

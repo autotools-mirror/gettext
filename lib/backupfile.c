@@ -1,5 +1,5 @@
 /* backupfile.c -- make Emacs style backup file names
-   Copyright (C) 1990-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1990-1999, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -100,8 +100,8 @@
 const char *simple_backup_suffix = "~";
 
 #if HAVE_DIR
-static int max_backup_version PARAMS ((const char *, const char *));
-static int version_number PARAMS ((const char *, const char *, size_t));
+static int max_backup_version (const char *, const char *);
+static int version_number (const char *, const char *, size_t);
 #endif
 
 /* Return the name of the new backup file for file FILE,
@@ -110,9 +110,7 @@ static int version_number PARAMS ((const char *, const char *, size_t));
    Do not call this function if backup_type == none. */
 
 char *
-find_backup_file_name (file, backup_type)
-     const char *file;
-     enum backup_type backup_type;
+find_backup_file_name (const char *file, enum backup_type backup_type)
 {
   size_t backup_suffix_size_max;
   size_t file_len = strlen (file);
@@ -161,9 +159,7 @@ find_backup_file_name (file, backup_type)
    */
 
 static int
-max_backup_version (file, dir)
-     const char *file;
-     const char *dir;
+max_backup_version (const char *file, const char *dir)
 {
   DIR *dirp;
   struct dirent *dp;
@@ -197,10 +193,7 @@ max_backup_version (file, dir)
    */
 
 static int
-version_number (base, backup, base_length)
-     const char *base;
-     const char *backup;
-     size_t base_length;
+version_number (const char *base, const char *backup, size_t base_length)
 {
   int version;
   const char *p;
@@ -244,9 +237,7 @@ static const enum backup_type backup_types[] =
    for the specified CONTEXT.  Unambiguous abbreviations are accepted.  */
 
 enum backup_type
-get_version (context, version)
-     const char *context;
-     const char *version;
+get_version (const char *context, const char *version)
 {
   if (version == 0 || *version == 0)
     return numbered_existing;
@@ -262,9 +253,7 @@ get_version (context, version)
    Unambiguous abbreviations are accepted.  */
 
 enum backup_type
-xget_version (context, version)
-      const char *context;
-      const char *version;
+xget_version (const char *context, const char *version)
 {
   if (version && *version)
     return get_version (context, version);

@@ -1,5 +1,5 @@
 /* PO/POT file timestamps.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -26,18 +26,11 @@
 #include "xerror.h"
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static long difftm PARAMS ((const struct tm *a, const struct tm *b));
-
-
 #define TM_YEAR_ORIGIN 1900
 
 /* Yield A - B, measured in seconds.  */
 static long
-difftm (a, b)
-     const struct tm *a;
-     const struct tm *b;
+difftm (const struct tm *a, const struct tm *b)
 {
   int ay = a->tm_year + TM_YEAR_ORIGIN - 1;
   int by = b->tm_year + TM_YEAR_ORIGIN - 1;
@@ -59,8 +52,7 @@ difftm (a, b)
 
 
 char *
-po_strftime (tp)
-     const time_t *tp;
+po_strftime (const time_t *tp)
 {
   struct tm local_time;
   char tz_sign;

@@ -26,19 +26,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <math.h>
-
-#include "libstdarg.h"
 
 #ifdef TEST
 size_t global_total_width;
 #endif
 
 static int
-int_vasprintf (result, format, args)
-     char **result;
-     const char *format;
-     va_list *args;
+int_vasprintf (char **result, const char *format, va_list *args)
 {
   const char *p = format;
   /* Add one to make sure that it is never zero, which might cause malloc
@@ -126,25 +122,18 @@ int_vasprintf (result, format, args)
 }
 
 int
-vasprintf (result, format, args)
-     char **result;
-     const char *format;
-     va_list args;
+vasprintf (char **result, const char *format, va_list args)
 {
   return int_vasprintf (result, format, &args);
 }
 
 int
-asprintf VA_PARAMS ((char **result, const char *format, ...),
-		    (result, format, va_alist)
-     char **result;
-     const char *format;
-     va_dcl)
+asprintf (char **result, const char *format, ...)
 {
   va_list args;
   int done;
 
-  VA_START (args, format);
+  va_start (args, format);
   done = vasprintf (result, format, args);
   va_end (args);
 
@@ -158,15 +147,12 @@ asprintf VA_PARAMS ((char **result, const char *format, ...),
 #include <float.h>
 
 void
-checkit VA_PARAMS ((const char* format, ...),
-		   (format, va_alist)
-     const char *format;
-     va_dcl)
+checkit (const char* format, ...)
 {
   va_list args;
   char *result;
 
-  VA_START (args, format);
+  va_start (args, format);
   vasprintf (&result, format, args);
   if (strlen (result) < global_total_width)
     printf ("PASS: ");

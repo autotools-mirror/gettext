@@ -116,8 +116,7 @@ static const char letters[] =
 
    We use a clever algorithm to get hard-to-predict names. */
 static int
-gen_tempname (tmpl)
-     char *tmpl;
+gen_tempname (char *tmpl)
 {
   int len;
   char *XXXXXX;
@@ -191,8 +190,7 @@ gen_tempname (tmpl)
    The directory is created, mode 700, and its name is returned.
    (This function comes from OpenBSD.) */
 char *
-mkdtemp (template)
-     char *template;
+mkdtemp (char *template)
 {
   if (gen_tempname (template))
     return NULL;

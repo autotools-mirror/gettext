@@ -41,11 +41,6 @@ ARGMATCH_DIE_DECL;
 #endif
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void __argmatch_die PARAMS ((void));
-
-
 static void
 __argmatch_die ()
 {
@@ -69,11 +64,8 @@ argmatch_exit_fn argmatch_die = __argmatch_die;
    "y" is a valid argument, for `0', and "n" for `1'.  */
 
 int
-argmatch (arg, arglist, vallist, valsize)
-     const char *arg;
-     const char *const *arglist;
-     const char *vallist;
-     size_t valsize;
+argmatch (const char *arg, const char *const *arglist,
+	  const char *vallist, size_t valsize)
 {
   int i;			/* Temporary index in ARGLIST.  */
   size_t arglen;		/* Length of ARG.  */
@@ -119,10 +111,7 @@ argmatch (arg, arglist, vallist, valsize)
    PROBLEM is the return value from argmatch.  */
 
 void
-argmatch_invalid (context, value, problem)
-     const char *context;
-     const char *value;
-     int problem;
+argmatch_invalid (const char *context, const char *value, int problem)
 {
   char const *format = (problem == -1
 			? _("invalid argument `%s' for `%s'")
@@ -136,10 +125,8 @@ argmatch_invalid (context, value, problem)
    VALLIST is a pointer to an array of values.
    VALSIZE is the size of the elements of VALLIST */
 void
-argmatch_valid (arglist, vallist, valsize)
-     const char *const *arglist;
-     const char *vallist;
-     size_t valsize;
+argmatch_valid (const char *const *arglist,
+		const char *vallist, size_t valsize)
 {
   int i;
   const char *last_val = NULL;
@@ -168,13 +155,10 @@ argmatch_valid (arglist, vallist, valsize)
    calls the (supposed never to return) function EXIT_FN. */
 
 int
-__xargmatch_internal (context, arg, arglist, vallist, valsize, exit_fn)
-     const char *context;
-     const char *arg;
-     const char *const *arglist;
-     const char *vallist;
-     size_t valsize;
-     argmatch_exit_fn exit_fn;
+__xargmatch_internal (const char *context,
+		      const char *arg, const char *const *arglist,
+		      const char *vallist, size_t valsize,
+		      argmatch_exit_fn exit_fn)
 {
   int res = argmatch (arg, arglist, vallist, valsize);
   if (res >= 0)
@@ -192,11 +176,9 @@ __xargmatch_internal (context, arg, arglist, vallist, valsize, exit_fn)
 /* Look for VALUE in VALLIST, an array of objects of size VALSIZE and
    return the first corresponding argument in ARGLIST */
 const char *
-argmatch_to_argument (value, arglist, vallist, valsize)
-     const char *value;
-     const char *const *arglist;
-     const char *vallist;
-     size_t valsize;
+argmatch_to_argument (const char *value,
+		      const char *const *arglist,
+		      const char *vallist, size_t valsize)
 {
   int i;
 

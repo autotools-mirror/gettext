@@ -15,14 +15,6 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-#endif
-
 #if HAVE_SETENV || HAVE_UNSETENV
 
 /* Get setenv(), unsetenv() declarations.  */
@@ -38,14 +30,14 @@ extern "C" {
 
 /* Set NAME to VALUE in the environment.
    If REPLACE is nonzero, overwrite an existing value.  */
-extern int setenv PARAMS ((const char *name, const char *value, int replace));
+extern int setenv (const char *name, const char *value, int replace);
 
 #endif
 
 #if !HAVE_UNSETENV
 
 /* Remove the variable NAME from the environment.  */
-extern int unsetenv PARAMS ((const char *name));
+extern int unsetenv (const char *name);
 
 #endif
 

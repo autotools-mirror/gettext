@@ -27,9 +27,7 @@
 STATIC
 #endif
 int
-printf_fetchargs (args, a)
-     va_list args;
-     arguments *a;
+printf_fetchargs (va_list args, arguments *a)
 {
   unsigned int i;
   argument *ap;

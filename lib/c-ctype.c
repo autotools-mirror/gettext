@@ -38,15 +38,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* The function isascii is not locale dependent. Its use in EBCDIC is
    questionable. */
 bool
-c_isascii (c)
-     int c;
+c_isascii (int c)
 {
   return ((c & ~0x7f) == 0);
 }
 
 bool
-c_isalnum (c)
-     int c;
+c_isalnum (int c)
 {
 #if C_CTYPE_CONSECUTIVE_DIGITS \
     && C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
@@ -76,8 +74,7 @@ c_isalnum (c)
 }
 
 bool
-c_isalpha (c)
-     int c;
+c_isalpha (int c)
 {
 #if C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
   return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
@@ -102,15 +99,13 @@ c_isalpha (c)
 }
 
 bool
-c_isblank (c)
-     int c;
+c_isblank (int c)
 {
   return (c == ' ' || c == '\t');
 }
 
 bool
-c_iscntrl (c)
-     int c;
+c_iscntrl (int c)
 {
 #if C_CTYPE_ASCII
   return ((c & ~0x1f) == 0 || c == 0x7f);
@@ -144,8 +139,7 @@ c_iscntrl (c)
 }
 
 bool
-c_isdigit (c)
-     int c;
+c_isdigit (int c)
 {
 #if C_CTYPE_CONSECUTIVE_DIGITS
   return (c >= '0' && c <= '9');
@@ -162,8 +156,7 @@ c_isdigit (c)
 }
 
 bool
-c_islower (c)
-     int c;
+c_islower (int c)
 {
 #if C_CTYPE_CONSECUTIVE_LOWERCASE
   return (c >= 'a' && c <= 'z');
@@ -183,8 +176,7 @@ c_islower (c)
 }
 
 bool
-c_isgraph (c)
-     int c;
+c_isgraph (int c)
 {
 #if C_CTYPE_ASCII
   return (c >= '!' && c <= '~');
@@ -218,8 +210,7 @@ c_isgraph (c)
 }
 
 bool
-c_isprint (c)
-     int c;
+c_isprint (int c)
 {
 #if C_CTYPE_ASCII
   return (c >= ' ' && c <= '~');
@@ -253,8 +244,7 @@ c_isprint (c)
 }
 
 bool
-c_ispunct (c)
-     int c;
+c_ispunct (int c)
 {
 #if C_CTYPE_ASCII
   return ((c >= '!' && c <= '~')
@@ -279,16 +269,14 @@ c_ispunct (c)
 }
 
 bool
-c_isspace (c)
-     int c;
+c_isspace (int c)
 {
   return (c == ' ' || c == '\t'
           || c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }
 
 bool
-c_isupper (c)
-     int c;
+c_isupper (int c)
 {
 #if C_CTYPE_CONSECUTIVE_UPPERCASE
   return (c >= 'A' && c <= 'Z');
@@ -308,8 +296,7 @@ c_isupper (c)
 }
 
 bool
-c_isxdigit (c)
-     int c;
+c_isxdigit (int c)
 {
 #if C_CTYPE_CONSECUTIVE_DIGITS \
     && C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
@@ -331,8 +318,7 @@ c_isxdigit (c)
 }
 
 int
-c_tolower (c)
-     int c;
+c_tolower (int c)
 {
 #if C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
   return (c >= 'A' && c <= 'Z' ? c - 'A' + 'a' : c);
@@ -371,8 +357,7 @@ c_tolower (c)
 }
 
 int
-c_toupper (c)
-     int c;
+c_toupper (int c)
 {
 #if C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
   return (c >= 'a' && c <= 'z' ? c - 'a' + 'A' : c);

@@ -81,22 +81,8 @@ struct spec
 #define isdigit(c) ((unsigned int) ((c) - '0') < 10)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int numbered_arg_compare PARAMS ((const void *p1, const void *p2));
-static void *format_parse PARAMS ((const char *format));
-static void format_free PARAMS ((void *descr));
-static int format_get_number_of_directives PARAMS ((void *descr));
-static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr,
-				  bool equality,
-				  bool noisy, const char *pretty_msgstr));
-
-
 static int
-numbered_arg_compare (p1, p2)
-     const void *p1;
-     const void *p2;
+numbered_arg_compare (const void *p1, const void *p2)
 {
   unsigned int n1 = ((const struct numbered_arg *) p1)->number;
   unsigned int n2 = ((const struct numbered_arg *) p2)->number;
@@ -105,8 +91,7 @@ numbered_arg_compare (p1, p2)
 }
 
 static void *
-format_parse (format)
-     const char *format;
+format_parse (const char *format)
 {
   struct spec spec;
   struct spec *result;
@@ -256,8 +241,7 @@ format_parse (format)
 }
 
 static void
-format_free (descr)
-     void *descr;
+format_free (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
@@ -267,8 +251,7 @@ format_free (descr)
 }
 
 static int
-format_get_number_of_directives (descr)
-     void *descr;
+format_get_number_of_directives (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
@@ -276,13 +259,8 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
-     const lex_pos_ty *pos;
-     void *msgid_descr;
-     void *msgstr_descr;
-     bool equality;
-     bool noisy;
-     const char *pretty_msgstr;
+format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
+	      bool equality, bool noisy, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -387,8 +365,7 @@ struct formatstring_parser formatstring_librep =
 #include "getline.h"
 
 static void
-format_print (descr)
-     void *descr;
+format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
   unsigned int last;

@@ -28,9 +28,8 @@
 #undef _LIBINTL_H
 #include "libgnuintl.h"
 
-int main (argc, argv)
-  int argc;
-  char *argv[];
+int
+main (int argc, char *argv[])
 {
   int n = atoi (argv[2]);
 

@@ -24,6 +24,6 @@
   { "Smalltalk",  extract_smalltalk, &formatstring_smalltalk },		\
 
 /* Scan a Smalltalk file and add its translatable strings to mdlp.  */
-extern void extract_smalltalk PARAMS ((FILE *fp, const char *real_filename,
-				       const char *logical_filename,
-				       msgdomain_list_ty *mdlp));
+extern void extract_smalltalk (FILE *fp, const char *real_filename,
+			       const char *logical_filename,
+			       msgdomain_list_ty *mdlp);

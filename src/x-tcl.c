@@ -45,12 +45,6 @@
 
 #define _(s) gettext(s)
 
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
 
 /* The Tcl syntax is defined in the Tcl.n manual page.
    Summary of Tcl syntax:
@@ -67,30 +61,6 @@
      newline.
    - '#' at the beginning of a command introduces a comment until end of line.
    The parser is implemented in tcl8.3.3/generic/tclParse.c.  */
-
-
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-struct token;
-struct word;
-static void init_keywords PARAMS ((void));
-static int do_getc PARAMS ((void));
-static void do_ungetc PARAMS ((int c));
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static int phase2_push PARAMS ((void));
-static void phase2_pop PARAMS ((int previous_depth));
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-static inline void init_token PARAMS ((struct token *tp));
-static inline void free_token PARAMS ((struct token *tp));
-static inline void grow_token PARAMS ((struct token *tp));
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((void));
-static inline void free_word PARAMS ((struct word *wp));
-static char * string_of_word PARAMS ((const struct word *wp));
-static int do_getc_escaped PARAMS ((void));
 
 
 /* ====================== Keyword set customization.  ====================== */
@@ -110,8 +80,7 @@ x_tcl_extract_all ()
 
 
 void
-x_tcl_keyword (name)
-     const char *name;
+x_tcl_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -184,8 +153,7 @@ error while reading \"%s\""), real_file_name);
 
 /* Put back the last fetched character, not EOF.  */
 static void
-do_ungetc (c)
-     int c;
+do_ungetc (int c)
 {
   if (c == '\n')
     line_number--;
@@ -237,8 +205,7 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   switch (c)
     {
@@ -283,8 +250,7 @@ phase2_push ()
 }
 
 static void
-phase2_pop (previous_depth)
-     int previous_depth;
+phase2_pop (int previous_depth)
 {
   brace_depth = previous_depth;
 }
@@ -317,8 +283,7 @@ phase2_getc ()
 }
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   if (c != EOF)
     {
@@ -355,8 +320,7 @@ struct token
 
 /* Initialize a 'struct token'.  */
 static inline void
-init_token (tp)
-     struct token *tp;
+init_token (struct token *tp)
 {
   tp->allocated = 10;
   tp->chars = (char *) xmalloc (tp->allocated * sizeof (char));
@@ -365,16 +329,14 @@ init_token (tp)
 
 /* Free the memory pointed to by a 'struct token'.  */
 static inline void
-free_token (tp)
-     struct token *tp;
+free_token (struct token *tp)
 {
   free (tp->chars);
 }
 
 /* Ensure there is enough room in the token for one more character.  */
 static inline void
-grow_token (tp)
-     struct token *tp;
+grow_token (struct token *tp)
 {
   if (tp->charcount == tp->allocated)
     {
@@ -398,8 +360,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   if (buflen >= bufmax)
     {
@@ -461,8 +422,7 @@ struct word
 
 /* Free the memory pointed to by a 'struct word'.  */
 static inline void
-free_word (wp)
-     struct word *wp;
+free_word (struct word *wp)
 {
   if (wp->type == t_string)
     {
@@ -473,8 +433,7 @@ free_word (wp)
 
 /* Convert a t_string token to a char*.  */
 static char *
-string_of_word (wp)
-     const struct word *wp;
+string_of_word (const struct word *wp)
 {
   char *str;
   int n;
@@ -502,7 +461,7 @@ do_getc_escaped ()
     case EOF:
       return '\\';
     case 'a':
-      return ALERT_CHAR;
+      return '\a';
     case 'b':
       return '\b';
     case 'f':
@@ -597,20 +556,13 @@ enum terminator
   te_quote			/* looking for '"' */
 };
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int accumulate_word PARAMS ((struct word *wp,
-				    enum terminator looking_for));
-static void read_word PARAMS ((struct word *wp, int looking_for));
-static enum word_type read_command PARAMS ((int looking_for));
-static enum word_type read_command_list PARAMS ((int looking_for));
+/* Forward declaration of local functions.  */
+static enum word_type read_command_list (int looking_for);
 
 /* Accumulate tokens into the given word.
    'looking_for' denotes a parse terminator combination.  */
 static int
-accumulate_word (wp, looking_for)
-     struct word *wp;
-     enum terminator looking_for;
+accumulate_word (struct word *wp, enum terminator looking_for)
 {
   int c;
 
@@ -743,9 +695,7 @@ accumulate_word (wp, looking_for)
 /* Read the next word.
    'looking_for' denotes a parse terminator, either ']' or '\0'.  */
 static void
-read_word (wp, looking_for)
-     struct word *wp;
-     int looking_for;
+read_word (struct word *wp, int looking_for)
 {
   int c;
 
@@ -846,8 +796,7 @@ read_word (wp, looking_for)
    Returns the type of the word that terminated the command: t_separator or
    t_bracket (only if looking_for is ']') or t_brace or t_eof.  */
 static enum word_type
-read_command (looking_for)
-     int looking_for;
+read_command (int looking_for)
 {
   int c;
 
@@ -979,8 +928,7 @@ read_command (looking_for)
    Returns the type of the word that terminated the command list:
    t_bracket (only if looking_for is ']') or t_brace or t_eof.  */
 static enum word_type
-read_command_list (looking_for)
-     int looking_for;
+read_command_list (int looking_for)
 {
   for (;;)
     {
@@ -994,11 +942,9 @@ read_command_list (looking_for)
 
 
 void
-extract_tcl (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_tcl (FILE *f,
+	     const char *real_filename, const char *logical_filename,
+	     msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 

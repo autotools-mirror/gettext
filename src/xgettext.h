@@ -39,8 +39,8 @@ extern int xgettext_omit_header;
 extern bool substring_match;
 
 /* Split keyword spec into keyword, argnum1, argnum2.  */
-extern void split_keywordspec PARAMS ((const char *spec, const char **endp,
-				       int *argnum1p, int *argnum2p));
+extern void split_keywordspec (const char *spec, const char **endp,
+			       int *argnum1p, int *argnum2p);
 
 /* Canonicalized encoding name for all input files.  */
 extern const char *xgettext_global_source_encoding;
@@ -66,21 +66,21 @@ extern message_list_ty *exclude;
 
 /* Comment handling: There is a list of automatic comments that may be appended
    to the next message.  Used by remember_a_message().  */
-extern void xgettext_comment_add PARAMS ((const char *str));
-extern const char *xgettext_comment PARAMS ((size_t n));
-extern void xgettext_comment_reset PARAMS ((void));
+extern void xgettext_comment_add (const char *str);
+extern const char *xgettext_comment (size_t n);
+extern void xgettext_comment_reset (void);
 
 /* Add a message to the list of extracted messages.
    string must be malloc()ed string; its ownership is passed to the callee.
    pos->file_name must be allocated with indefinite extent.  */
-extern message_ty *remember_a_message PARAMS ((message_list_ty *mlp,
-					       char *string, lex_pos_ty *pos));
+extern message_ty *remember_a_message (message_list_ty *mlp,
+				       char *string, lex_pos_ty *pos);
 /* Add an msgid_plural to a message previously returned by
    remember_a_message.
    string must be malloc()ed string; its ownership is passed to the callee.
    pos->file_name must be allocated with indefinite extent.  */
-extern void remember_a_message_plural PARAMS ((message_ty *mp,
-					       char *string, lex_pos_ty *pos));
+extern void remember_a_message_plural (message_ty *mp,
+				       char *string, lex_pos_ty *pos);
 
 
 #endif /* _XGETTEXT_H */

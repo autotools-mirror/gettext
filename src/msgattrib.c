@@ -99,19 +99,17 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void usage PARAMS ((int status));
-static bool is_message_selected PARAMS ((const message_ty *mp));
-static void process_message_list PARAMS ((message_list_ty *mlp));
-static msgdomain_list_ty *
-       process_msgdomain_list PARAMS ((msgdomain_list_ty *mdlp));
+/* Forward declaration of local functions.  */
+static void usage (int status)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+	__attribute__ ((noreturn))
+#endif
+;
+static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 
 
 int
-main (argc, argv)
-     int argc;
-     char **argv;
+main (int argc, char **argv)
 {
   int optchar;
   bool do_help;
@@ -320,8 +318,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
 /* Display usage information and exit.  */
 static void
-usage (status)
-     int status;
+usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
@@ -416,8 +413,7 @@ Informative output:\n\
 
 /* Return true if a message should be kept.  */
 static bool
-is_message_selected (mp)
-     const message_ty *mp;
+is_message_selected (const message_ty *mp)
 {
   /* Always keep the header entry.  */
   if (mp->msgid[0] == '\0')
@@ -446,8 +442,7 @@ is_message_selected (mp)
 
 
 static void
-process_message_list (mlp)
-     message_list_ty *mlp;
+process_message_list (message_list_ty *mlp)
 {
   /* Keep only the selected messages.  */
   message_list_remove_if_not (mlp, is_message_selected);
@@ -476,8 +471,7 @@ process_message_list (mlp)
 
 
 static msgdomain_list_ty *
-process_msgdomain_list (mdlp)
-     msgdomain_list_ty *mdlp;
+process_msgdomain_list (msgdomain_list_ty *mdlp)
 {
   size_t k;
 

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -29,35 +29,16 @@
 #include <string.h>
 
 #include "po-charset.h"
+#include "po-gram.h"
 #include "po-hash.h"
 #include "xmalloc.h"
-
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static void po_parse_brief PARAMS ((po_ty *pop));
-static void po_parse_debrief PARAMS ((po_ty *pop));
-
-/* Methods used indirectly by po_scan.  */
-static void po_directive_domain PARAMS ((po_ty *pop, char *name));
-static void po_directive_message PARAMS ((po_ty *pop, char *msgid,
-					  lex_pos_ty *msgid_pos,
-					  char *msgid_plural,
-					  char *msgstr, size_t msgstr_len,
-					  lex_pos_ty *msgstr_pos,
-					  bool obsolete));
-static void po_comment PARAMS ((po_ty *pop, const char *s));
-static void po_comment_dot PARAMS ((po_ty *pop, const char *s));
-static void po_comment_filepos PARAMS ((po_ty *pop, const char *name,
-					size_t line));
-static void po_comment_special PARAMS ((po_ty *pop, const char *s));
 
 /* Local variables.  */
 static po_ty *callback_arg;
 
 
 po_ty *
-po_alloc (pomp)
-     po_method_ty *pomp;
+po_alloc (po_method_ty *pomp)
 {
   po_ty *pop;
 
@@ -70,8 +51,7 @@ po_alloc (pomp)
 
 
 void
-po_free (pop)
-     po_ty *pop;
+po_free (po_ty *pop)
 {
   if (pop->method->destructor)
     pop->method->destructor (pop);
@@ -79,15 +59,26 @@ po_free (pop)
 }
 
 
-void
-po_scan (pop, fp, real_filename, logical_filename)
-     po_ty *pop;
-     FILE *fp;
-     const char *real_filename;
-     const char *logical_filename;
+static void
+po_parse_brief (po_ty *pop)
 {
-  extern int po_gram_parse PARAMS ((void));
+  if (pop->method->parse_brief)
+    pop->method->parse_brief (pop);
+}
 
+
+static void
+po_parse_debrief (po_ty *pop)
+{
+  if (pop->method->parse_debrief)
+    pop->method->parse_debrief (pop);
+}
+
+
+void
+po_scan (po_ty *pop, FILE *fp,
+	 const char *real_filename, const char *logical_filename)
+{
   /* The parse will call the po_callback_... functions (see below)
      when the various directive are recognised.  The callback_arg
      variable is used to tell these functions which instance is to
@@ -105,12 +96,8 @@ po_scan (pop, fp, real_filename, logical_filename)
 
 
 void
-po_scan_file (pop, filename)
-     po_ty *pop;
-     const char *filename;
+po_scan_file (po_ty *pop, const char *filename)
 {
-  extern int po_gram_parse PARAMS ((void));
-
   /* The parse will call the po_callback_... functions (see below)
      when the various directive are recognised.  The callback_arg
      variable is used to tell these functions which instance is to
@@ -128,27 +115,7 @@ po_scan_file (pop, filename)
 
 
 static void
-po_parse_brief (pop)
-     po_ty *pop;
-{
-  if (pop->method->parse_brief)
-    pop->method->parse_brief (pop);
-}
-
-
-static void
-po_parse_debrief (pop)
-     po_ty *pop;
-{
-  if (pop->method->parse_debrief)
-    pop->method->parse_debrief (pop);
-}
-
-
-static void
-po_directive_domain (pop, name)
-     po_ty *pop;
-     char *name;
+po_directive_domain (po_ty *pop, char *name)
 {
   if (pop->method->directive_domain)
     pop->method->directive_domain (pop, name);
@@ -156,8 +123,7 @@ po_directive_domain (pop, name)
 
 
 void
-po_callback_domain (name)
-     char *name;
+po_callback_domain (char *name)
 {
   /* assert(callback_arg); */
   po_directive_domain (callback_arg, name);
@@ -165,16 +131,13 @@ po_callback_domain (name)
 
 
 static void
-po_directive_message (pop, msgid, msgid_pos, msgid_plural,
-		      msgstr, msgstr_len, msgstr_pos, obsolete)
-     po_ty *pop;
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
+po_directive_message (po_ty *pop,
+		      char *msgid,
+		      lex_pos_ty *msgid_pos,
+		      char *msgid_plural,
+		      char *msgstr, size_t msgstr_len,
+		      lex_pos_ty *msgstr_pos,
+		      bool obsolete)
 {
   if (pop->method->directive_message)
     pop->method->directive_message (pop, msgid, msgid_pos, msgid_plural,
@@ -183,16 +146,9 @@ po_directive_message (pop, msgid, msgid_pos, msgid_plural,
 
 
 void
-po_callback_message (msgid, msgid_pos, msgid_plural,
-		     msgstr, msgstr_len, msgstr_pos,
-		     obsolete)
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
+po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		     bool obsolete)
 {
   /* assert(callback_arg); */
 
@@ -206,9 +162,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 
 
 static void
-po_comment_special (pop, s)
-     po_ty *pop;
-     const char *s;
+po_comment_special (po_ty *pop, const char *s)
 {
   if (pop->method->comment_special != NULL)
     pop->method->comment_special (pop, s);
@@ -216,9 +170,7 @@ po_comment_special (pop, s)
 
 
 static void
-po_comment (pop, s)
-     po_ty *pop;
-     const char *s;
+po_comment (po_ty *pop, const char *s)
 {
   if (pop->method->comment != NULL)
     pop->method->comment (pop, s);
@@ -226,9 +178,7 @@ po_comment (pop, s)
 
 
 static void
-po_comment_dot (pop, s)
-     po_ty *pop;
-     const char *s;
+po_comment_dot (po_ty *pop, const char *s)
 {
   if (pop->method->comment_dot != NULL)
     pop->method->comment_dot (pop, s);
@@ -239,8 +189,7 @@ po_comment_dot (pop, s)
    seen.  It analyzes the comment to see what sort it is, and then
    dispatces it to the appropriate method.  */
 void
-po_callback_comment (s)
-     const char *s;
+po_callback_comment (const char *s)
 {
   /* assert(callback_arg); */
   if (*s == '.')
@@ -279,10 +228,7 @@ po_callback_comment (s)
 
 
 static void
-po_comment_filepos (pop, name, line)
-     po_ty *pop;
-     const char *name;
-     size_t line;
+po_comment_filepos (po_ty *pop, const char *name, size_t line)
 {
   if (pop->method->comment_filepos)
     pop->method->comment_filepos (pop, name, line);
@@ -290,9 +236,7 @@ po_comment_filepos (pop, name, line)
 
 
 void
-po_callback_comment_filepos (name, line)
-     const char *name;
-     size_t line;
+po_callback_comment_filepos (const char *name, size_t line)
 {
   /* assert(callback_arg); */
   po_comment_filepos (callback_arg, name, line);
@@ -301,11 +245,9 @@ po_callback_comment_filepos (name, line)
 
 /* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
 void
-po_parse_comment_special (s, fuzzyp, formatp, wrapp)
-     const char *s;
-     bool *fuzzyp;
-     enum is_format formatp[NFORMATS];
-     enum is_wrap *wrapp;
+po_parse_comment_special (const char *s,
+			  bool *fuzzyp, enum is_format formatp[NFORMATS],
+			  enum is_wrap *wrapp)
 {
   size_t i;
 

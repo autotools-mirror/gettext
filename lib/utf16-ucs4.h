@@ -1,5 +1,5 @@
 /* Conversion UTF-16 to UCS-4.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
 This program is free software; you can redistribute it and/or modify
@@ -19,20 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <stddef.h>
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static int
-u16_mbtouc_aux PARAMS ((unsigned int *puc, const unsigned short *s, size_t n));
-static inline int
-u16_mbtouc PARAMS ((unsigned int *puc, const unsigned short *s, size_t n));
-
 /* Return the length (number of units) of the first character in S, putting
    its 'ucs4_t' representation in *PUC.  */
 static int
-u16_mbtouc_aux (puc, s, n)
-     unsigned int *puc;
-     const unsigned short *s;
-     size_t n;
+u16_mbtouc_aux (unsigned int *puc, const unsigned short *s, size_t n)
 {
   unsigned short c = *s;
 
@@ -59,10 +49,7 @@ u16_mbtouc_aux (puc, s, n)
   return 1;
 }
 static inline int
-u16_mbtouc (puc, s, n)
-     unsigned int *puc;
-     const unsigned short *s;
-     size_t n;
+u16_mbtouc (unsigned int *puc, const unsigned short *s, size_t n)
 {
   unsigned short c = *s;
 

@@ -1,5 +1,5 @@
 /* Arithmetic.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,15 +19,7 @@
 #ifndef _GCD_H
 #define _GCD_H
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
-
 /* Return the greatest common divisor of a > 0 and b > 0.  */
-extern unsigned int gcd PARAMS ((unsigned int a, unsigned int b));
+extern unsigned int gcd (unsigned int a, unsigned int b);
 
 #endif /* _GCD_H */

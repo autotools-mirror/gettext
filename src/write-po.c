@@ -55,40 +55,13 @@
 #endif
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static const char *make_format_description_string PARAMS ((enum is_format,
-							   const char *lang,
-							   bool debug));
-static bool significant_format_p PARAMS ((enum is_format is_format));
-static bool has_significant_format_p
-			   PARAMS ((const enum is_format is_format[NFORMATS]));
-static const char *make_c_width_description_string PARAMS ((enum is_wrap));
-static inline void memcpy_small PARAMS ((void *dst, const void *src, size_t n));
-static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
-			  const char *value, enum is_wrap do_wrap,
-			  const char *charset));
-static void print_blank_line PARAMS ((FILE *fp));
-static void message_print PARAMS ((const message_ty *mp, FILE *fp,
-				   const char *charset, bool blank_line,
-				   bool debug));
-static void message_print_obsolete PARAMS ((const message_ty *mp, FILE *fp,
-					    const char *charset,
-					    bool blank_line));
-static int cmp_by_msgid PARAMS ((const void *va, const void *vb));
-static int cmp_filepos PARAMS ((const void *va, const void *vb));
-static void msgdomain_list_sort_filepos PARAMS ((msgdomain_list_ty *mdlp));
-static int cmp_by_filepos PARAMS ((const void *va, const void *vb));
-
-
 /* This variable controls the page width when printing messages.
    Defaults to PAGE_WIDTH if not set.  Zero (0) given to message_page_-
    width_set will result in no wrapping being performed.  */
 static size_t page_width = PAGE_WIDTH;
 
 void
-message_page_width_set (n)
-     size_t n;
+message_page_width_set (size_t n)
 {
   if (n == 0)
     {
@@ -134,8 +107,7 @@ message_print_style_uniforum ()
 }
 
 void
-message_print_style_escape (flag)
-     bool flag;
+message_print_style_escape (bool flag)
 {
   escape = flag;
 }
@@ -145,10 +117,8 @@ message_print_style_escape (flag)
 
 
 static const char *
-make_format_description_string (is_format, lang, debug)
-     enum is_format is_format;
-     const char *lang;
-     bool debug;
+make_format_description_string (enum is_format is_format, const char *lang,
+				bool debug)
 {
   static char result[100];
 
@@ -177,16 +147,14 @@ make_format_description_string (is_format, lang, debug)
 
 
 static bool
-significant_format_p (is_format)
-     enum is_format is_format;
+significant_format_p (enum is_format is_format)
 {
   return is_format != undecided && is_format != impossible;
 }
 
 
 static bool
-has_significant_format_p (is_format)
-     const enum is_format is_format[NFORMATS];
+has_significant_format_p (const enum is_format is_format[NFORMATS])
 {
   size_t i;
 
@@ -198,8 +166,7 @@ has_significant_format_p (is_format)
 
 
 static const char *
-make_c_width_description_string (do_wrap)
-     enum is_wrap do_wrap;
+make_c_width_description_string (enum is_wrap do_wrap)
 {
   const char *result = NULL;
 
@@ -221,10 +188,7 @@ make_c_width_description_string (do_wrap)
 
 /* A version of memcpy optimized for the case n <= 1.  */
 static inline void
-memcpy_small (dst, src, n)
-     void *dst;
-     const void *src;
-     size_t n;
+memcpy_small (void *dst, const void *src, size_t n)
 {
   if (n > 0)
     {
@@ -239,13 +203,8 @@ memcpy_small (dst, src, n)
 
 
 static void
-wrap (fp, line_prefix, name, value, do_wrap, charset)
-     FILE *fp;
-     const char *line_prefix;
-     const char *name;
-     const char *value;
-     enum is_wrap do_wrap;
-     const char *charset;
+wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
+      enum is_wrap do_wrap, const char *charset)
 {
   const char *canon_charset;
   const char *s;
@@ -613,8 +572,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 
 
 static void
-print_blank_line (fp)
-     FILE *fp;
+print_blank_line (FILE *fp)
 {
   if (uniforum)
     fputs ("#\n", fp);
@@ -623,12 +581,8 @@ print_blank_line (fp)
 }
 
 static void
-message_print (mp, fp, charset, blank_line, debug)
-     const message_ty *mp;
-     FILE *fp;
-     const char *charset;
-     bool blank_line;
-     bool debug;
+message_print (const message_ty *mp, FILE *fp, const char *charset,
+	       bool blank_line, bool debug)
 {
   size_t j;
 
@@ -810,11 +764,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 
 
 static void
-message_print_obsolete (mp, fp, charset, blank_line)
-     const message_ty *mp;
-     FILE *fp;
-     const char *charset;
-     bool blank_line;
+message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
+			bool blank_line)
 {
   size_t j;
 
@@ -905,11 +856,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 
 
 void
-msgdomain_list_print (mdlp, filename, force, debug)
-     msgdomain_list_ty *mdlp;
-     const char *filename;
-     bool force;
-     bool debug;
+msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
+		      bool force, bool debug)
 {
   FILE *fp;
   size_t j, k;
@@ -1031,9 +979,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
 
 
 static int
-cmp_by_msgid (va, vb)
-     const void *va;
-     const void *vb;
+cmp_by_msgid (const void *va, const void *vb)
 {
   const message_ty *a = *(const message_ty **) va;
   const message_ty *b = *(const message_ty **) vb;
@@ -1045,8 +991,7 @@ cmp_by_msgid (va, vb)
 
 
 void
-msgdomain_list_sort_by_msgid (mdlp)
-     msgdomain_list_ty *mdlp;
+msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp)
 {
   size_t k;
 
@@ -1063,9 +1008,7 @@ msgdomain_list_sort_by_msgid (mdlp)
 /* Sort the file positions of every message.  */
 
 static int
-cmp_filepos (va, vb)
-     const void *va;
-     const void *vb;
+cmp_filepos (const void *va, const void *vb)
 {
   const lex_pos_ty *a = (const lex_pos_ty *) va;
   const lex_pos_ty *b = (const lex_pos_ty *) vb;
@@ -1079,8 +1022,7 @@ cmp_filepos (va, vb)
 }
 
 static void
-msgdomain_list_sort_filepos (mdlp)
-    msgdomain_list_ty *mdlp;
+msgdomain_list_sort_filepos (msgdomain_list_ty *mdlp)
 {
   size_t j, k;
 
@@ -1103,9 +1045,7 @@ msgdomain_list_sort_filepos (mdlp)
 /* Sort the messages according to the file position.  */
 
 static int
-cmp_by_filepos (va, vb)
-     const void *va;
-     const void *vb;
+cmp_by_filepos (const void *va, const void *vb)
 {
   const message_ty *a = *(const message_ty **) va;
   const message_ty *b = *(const message_ty **) vb;
@@ -1139,8 +1079,7 @@ cmp_by_filepos (va, vb)
 
 
 void
-msgdomain_list_sort_by_filepos (mdlp)
-    msgdomain_list_ty *mdlp;
+msgdomain_list_sort_by_filepos (msgdomain_list_ty *mdlp)
 {
   size_t k;
 

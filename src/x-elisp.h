@@ -24,12 +24,12 @@
   { "EmacsLisp",  extract_elisp, &formatstring_elisp },			\
 
 /* Scan an Emacs Lisp file and add its translatable strings to mdlp.  */
-extern void extract_elisp PARAMS ((FILE *fp, const char *real_filename,
-				   const char *logical_filename,
-				   msgdomain_list_ty *mdlp));
+extern void extract_elisp (FILE *fp, const char *real_filename,
+			   const char *logical_filename,
+			   msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */
 
-extern void x_elisp_extract_all PARAMS ((void));
-extern void x_elisp_keyword PARAMS ((const char *name));
+extern void x_elisp_extract_all (void);
+extern void x_elisp_keyword (const char *name);

@@ -32,12 +32,6 @@
 #include "xmalloc.h"
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static message_ty *message_list_search_fuzzy_inner PARAMS ((
-       message_list_ty *mlp, const char *msgid, double *best_weight_p));
-
-
 const char *const format_language[NFORMATS] =
 {
   /* format_c */		"c",
@@ -72,20 +66,16 @@ const char *const format_language_pretty[NFORMATS] =
 
 
 bool
-possible_format_p (is_format)
-     enum is_format is_format;
+possible_format_p (enum is_format is_format)
 {
   return is_format == possible || is_format == yes;
 }
 
 
 message_ty *
-message_alloc (msgid, msgid_plural, msgstr, msgstr_len, pp)
-     const char *msgid;
-     const char *msgid_plural;
-     const char *msgstr;
-     size_t msgstr_len;
-     const lex_pos_ty *pp;
+message_alloc (const char *msgid, const char *msgid_plural,
+	       const char *msgstr, size_t msgstr_len,
+	       const lex_pos_ty *pp)
 {
   message_ty *mp;
   size_t i;
@@ -111,8 +101,7 @@ message_alloc (msgid, msgid_plural, msgstr, msgstr_len, pp)
 
 
 void
-message_free (mp)
-     message_ty *mp;
+message_free (message_ty *mp)
 {
   size_t j;
 
@@ -133,9 +122,7 @@ message_free (mp)
 
 
 void
-message_comment_append (mp, s)
-     message_ty *mp;
-     const char *s;
+message_comment_append (message_ty *mp, const char *s)
 {
   if (mp->comment == NULL)
     mp->comment = string_list_alloc ();
@@ -144,9 +131,7 @@ message_comment_append (mp, s)
 
 
 void
-message_comment_dot_append (mp, s)
-     message_ty *mp;
-     const char *s;
+message_comment_dot_append (message_ty *mp, const char *s)
 {
   if (mp->comment_dot == NULL)
     mp->comment_dot = string_list_alloc ();
@@ -155,10 +140,7 @@ message_comment_dot_append (mp, s)
 
 
 void
-message_comment_filepos (mp, name, line)
-     message_ty *mp;
-     const char *name;
-     size_t line;
+message_comment_filepos (message_ty *mp, const char *name, size_t line)
 {
   size_t j;
   size_t nbytes;
@@ -184,8 +166,7 @@ message_comment_filepos (mp, name, line)
 
 
 message_ty *
-message_copy (mp)
-     message_ty *mp;
+message_copy (message_ty *mp)
 {
   message_ty *result;
   size_t j, i;
@@ -217,8 +198,7 @@ message_copy (mp)
 
 
 message_list_ty *
-message_list_alloc (use_hashtable)
-     bool use_hashtable;
+message_list_alloc (bool use_hashtable)
 {
   message_list_ty *mlp;
 
@@ -233,8 +213,7 @@ message_list_alloc (use_hashtable)
 
 
 void
-message_list_free (mlp)
-     message_list_ty *mlp;
+message_list_free (message_list_ty *mlp)
 {
   size_t j;
 
@@ -249,9 +228,7 @@ message_list_free (mlp)
 
 
 void
-message_list_append (mlp, mp)
-     message_list_ty *mlp;
-     message_ty *mp;
+message_list_append (message_list_ty *mlp, message_ty *mp)
 {
   if (mlp->nitems >= mlp->nitems_max)
     {
@@ -272,9 +249,7 @@ message_list_append (mlp, mp)
 
 
 void
-message_list_prepend (mlp, mp)
-     message_list_ty *mlp;
-     message_ty *mp;
+message_list_prepend (message_list_ty *mlp, message_ty *mp)
 {
   size_t j;
 
@@ -301,9 +276,7 @@ message_list_prepend (mlp, mp)
 
 #if 0 /* unused */
 void
-message_list_delete_nth (mlp, n)
-     message_list_ty *mlp;
-     size_t n;
+message_list_delete_nth (message_list_ty *mlp, size_t n)
 {
   size_t j;
 
@@ -325,9 +298,8 @@ message_list_delete_nth (mlp, n)
 
 
 void
-message_list_remove_if_not (mlp, predicate)
-     message_list_ty *mlp;
-     message_predicate_ty *predicate;
+message_list_remove_if_not (message_list_ty *mlp,
+			    message_predicate_ty *predicate)
 {
   size_t i, j;
 
@@ -345,9 +317,7 @@ message_list_remove_if_not (mlp, predicate)
 
 
 message_ty *
-message_list_search (mlp, msgid)
-     message_list_ty *mlp;
-     const char *msgid;
+message_list_search (message_list_ty *mlp, const char *msgid)
 {
   if (mlp->use_hashtable)
     {
@@ -376,10 +346,8 @@ message_list_search (mlp, msgid)
 
 
 static message_ty *
-message_list_search_fuzzy_inner (mlp, msgid, best_weight_p)
-     message_list_ty *mlp;
-     const char *msgid;
-     double *best_weight_p;
+message_list_search_fuzzy_inner (message_list_ty *mlp, const char *msgid,
+				 double *best_weight_p)
 {
   size_t j;
   message_ty *best_mp;
@@ -406,9 +374,7 @@ message_list_search_fuzzy_inner (mlp, msgid, best_weight_p)
 
 
 message_ty *
-message_list_search_fuzzy (mlp, msgid)
-     message_list_ty *mlp;
-     const char *msgid;
+message_list_search_fuzzy (message_list_ty *mlp, const char *msgid)
 {
   double best_weight;
 
@@ -432,8 +398,7 @@ message_list_list_alloc ()
 
 #if 0 /* unused */
 void
-message_list_list_free (mllp)
-     message_list_list_ty *mllp;
+message_list_list_free (message_list_list_ty *mllp)
 {
   size_t j;
 
@@ -447,9 +412,7 @@ message_list_list_free (mllp)
 
 
 void
-message_list_list_append (mllp, mlp)
-     message_list_list_ty *mllp;
-     message_list_ty *mlp;
+message_list_list_append (message_list_list_ty *mllp, message_list_ty *mlp)
 {
   if (mllp->nitems >= mllp->nitems_max)
     {
@@ -464,9 +427,8 @@ message_list_list_append (mllp, mlp)
 
 
 void
-message_list_list_append_list (mllp, mllp2)
-     message_list_list_ty *mllp;
-     message_list_list_ty *mllp2;
+message_list_list_append_list (message_list_list_ty *mllp,
+			       message_list_list_ty *mllp2)
 {
   size_t j;
 
@@ -476,9 +438,7 @@ message_list_list_append_list (mllp, mllp2)
 
 
 message_ty *
-message_list_list_search (mllp, msgid)
-     message_list_list_ty *mllp;
-     const char *msgid;
+message_list_list_search (message_list_list_ty *mllp, const char *msgid)
 {
   message_ty *best_mp;
   int best_weight; /* 0: not found, 1: found without msgstr, 2: translated */
@@ -508,9 +468,7 @@ message_list_list_search (mllp, msgid)
 
 
 message_ty *
-message_list_list_search_fuzzy (mllp, msgid)
-     message_list_list_ty *mllp;
-     const char *msgid;
+message_list_list_search_fuzzy (message_list_list_ty *mllp, const char *msgid)
 {
   size_t j;
   double best_weight;
@@ -533,9 +491,7 @@ message_list_list_search_fuzzy (mllp, msgid)
 
 
 msgdomain_ty*
-msgdomain_alloc (domain, use_hashtable)
-     const char *domain;
-     bool use_hashtable;
+msgdomain_alloc (const char *domain, bool use_hashtable)
 {
   msgdomain_ty *mdp;
 
@@ -547,8 +503,7 @@ msgdomain_alloc (domain, use_hashtable)
 
 
 void
-msgdomain_free (mdp)
-     msgdomain_ty *mdp;
+msgdomain_free (msgdomain_ty *mdp)
 {
   message_list_free (mdp->messages);
   free (mdp);
@@ -556,8 +511,7 @@ msgdomain_free (mdp)
 
 
 msgdomain_list_ty *
-msgdomain_list_alloc (use_hashtable)
-     bool use_hashtable;
+msgdomain_list_alloc (bool use_hashtable)
 {
   msgdomain_list_ty *mdlp;
 
@@ -576,8 +530,7 @@ msgdomain_list_alloc (use_hashtable)
 
 #if 0 /* unused */
 void
-msgdomain_list_free (mdlp)
-     msgdomain_list_ty *mdlp;
+msgdomain_list_free (msgdomain_list_ty *mdlp)
 {
   size_t j;
 
@@ -591,9 +544,7 @@ msgdomain_list_free (mdlp)
 
 
 void
-msgdomain_list_append (mdlp, mdp)
-     msgdomain_list_ty *mdlp;
-     msgdomain_ty *mdp;
+msgdomain_list_append (msgdomain_list_ty *mdlp, msgdomain_ty *mdp)
 {
   if (mdlp->nitems >= mdlp->nitems_max)
     {
@@ -609,9 +560,7 @@ msgdomain_list_append (mdlp, mdp)
 
 #if 0 /* unused */
 void
-msgdomain_list_append_list (mdlp, mdlp2)
-     msgdomain_list_ty *mdlp;
-     msgdomain_list_ty *mdlp2;
+msgdomain_list_append_list (msgdomain_list_ty *mdlp, msgdomain_list_ty *mdlp2)
 {
   size_t j;
 
@@ -622,10 +571,8 @@ msgdomain_list_append_list (mdlp, mdlp2)
 
 
 message_list_ty *
-msgdomain_list_sublist (mdlp, domain, create)
-     msgdomain_list_ty *mdlp;
-     const char *domain;
-     bool create;
+msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
+			bool create)
 {
   size_t j;
 
@@ -646,9 +593,7 @@ msgdomain_list_sublist (mdlp, domain, create)
 
 #if 0 /* unused */
 message_ty *
-msgdomain_list_search (mdlp, msgid)
-     msgdomain_list_ty *mdlp;
-     const char *msgid;
+msgdomain_list_search (msgdomain_list_ty *mdlp, const char *msgid)
 {
   size_t j;
 
@@ -669,9 +614,7 @@ msgdomain_list_search (mdlp, msgid)
 
 #if 0 /* unused */
 message_ty *
-msgdomain_list_search_fuzzy (mdlp, msgid)
-     msgdomain_list_ty *mdlp;
-     const char *msgid;
+msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp, const char *msgid)
 {
   size_t j;
   double best_weight;

@@ -63,16 +63,8 @@ bool msgcomm_mode = false;
 bool omit_header = false;
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static bool is_message_selected PARAMS ((const message_ty *tmp));
-static bool is_message_needed PARAMS ((const message_ty *tmp));
-static bool is_message_first_needed PARAMS ((const message_ty *tmp));
-
-
 static bool
-is_message_selected (tmp)
-     const message_ty *tmp;
+is_message_selected (const message_ty *tmp)
 {
   int used = (tmp->used >= 0 ? tmp->used : - tmp->used);
 
@@ -83,8 +75,7 @@ is_message_selected (tmp)
 
 
 static bool
-is_message_needed (mp)
-     const message_ty *mp;
+is_message_needed (const message_ty *mp)
 {
   if (!msgcomm_mode
       && ((mp->msgid[0] != '\0' && mp->is_fuzzy) || mp->msgstr[0] == '\0'))
@@ -98,8 +89,7 @@ is_message_needed (mp)
 
 /* The use_first logic.  */
 static bool
-is_message_first_needed (mp)
-     const message_ty *mp;
+is_message_first_needed (const message_ty *mp)
 {
   if (mp->tmp->obsolete && is_message_needed (mp))
     {
@@ -112,9 +102,7 @@ is_message_first_needed (mp)
 
 
 msgdomain_list_ty *
-catenate_msgdomain_list (file_list, to_code)
-     string_list_ty *file_list;
-     const char *to_code;
+catenate_msgdomain_list (string_list_ty *file_list, const char *to_code)
 {
   const char * const *files = file_list->item;
   size_t nfiles = file_list->nitems;

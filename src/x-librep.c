@@ -39,12 +39,6 @@
 
 #define _(s) gettext(s)
 
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
 
 /* Summary of librep syntax:
    - ';' starts a comment until end of line.
@@ -66,26 +60,6 @@
    The reader is implemented in librep-0.14/src/lisp.c.  */
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-struct token;
-struct object;
-static void init_keywords PARAMS ((void));
-static int do_getc PARAMS ((void));
-static void do_ungetc PARAMS ((int c));
-static inline void init_token PARAMS ((struct token *tp));
-static inline void free_token PARAMS ((struct token *tp));
-static inline void grow_token PARAMS ((struct token *tp));
-static bool read_token PARAMS ((struct token *tp, const int *first));
-static inline void comment_start PARAMS ((void));
-static inline void comment_add PARAMS ((int c));
-static inline void comment_line_end PARAMS ((size_t chars_to_remove));
-static inline void free_object PARAMS ((struct object *op));
-static char * string_of_object PARAMS ((const struct object *op));
-static int do_getc_escaped PARAMS ((int c));
-static void read_object PARAMS ((struct object *op));
-
-
 /* ====================== Keyword set customization.  ====================== */
 
 /* If true extract all strings.  */
@@ -103,8 +77,7 @@ x_librep_extract_all ()
 
 
 void
-x_librep_keyword (name)
-     const char *name;
+x_librep_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -179,8 +152,7 @@ error while reading \"%s\""), real_file_name);
 
 /* Put back the last fetched character, not EOF.  */
 static void
-do_ungetc (c)
-     int c;
+do_ungetc (int c)
 {
   if (c == '\n')
     line_number--;
@@ -201,8 +173,7 @@ struct token
 
 /* Initialize a 'struct token'.  */
 static inline void
-init_token (tp)
-     struct token *tp;
+init_token (struct token *tp)
 {
   tp->allocated = 10;
   tp->chars = (char *) xmalloc (tp->allocated * sizeof (char));
@@ -211,16 +182,14 @@ init_token (tp)
 
 /* Free the memory pointed to by a 'struct token'.  */
 static inline void
-free_token (tp)
-     struct token *tp;
+free_token (struct token *tp)
 {
   free (tp->chars);
 }
 
 /* Ensure there is enough room in the token for one more character.  */
 static inline void
-grow_token (tp)
-     struct token *tp;
+grow_token (struct token *tp)
 {
   if (tp->charcount == tp->allocated)
     {
@@ -233,9 +202,7 @@ grow_token (tp)
    character, which has already been read.  Returns true for a symbol,
    false for a number.  */
 static bool
-read_token (tp, first)
-     struct token *tp;
-     const int *first;
+read_token (struct token *tp, const int *first)
 {
   int c;
   /* Variables for speculative number parsing:  */
@@ -449,8 +416,7 @@ comment_start ()
 }
 
 static inline void
-comment_add (c)
-     int c;
+comment_add (int c)
 {
   if (buflen >= bufmax)
     {
@@ -461,8 +427,7 @@ comment_add (c)
 }
 
 static inline void
-comment_line_end (chars_to_remove)
-     size_t chars_to_remove;
+comment_line_end (size_t chars_to_remove)
 {
   buflen -= chars_to_remove;
   while (buflen >= 1
@@ -514,8 +479,7 @@ struct object
 
 /* Free the memory pointed to by a 'struct object'.  */
 static inline void
-free_object (op)
-     struct object *op;
+free_object (struct object *op)
 {
   if (op->type == t_symbol || op->type == t_string)
     {
@@ -526,8 +490,7 @@ free_object (op)
 
 /* Convert a t_symbol/t_string token to a char*.  */
 static char *
-string_of_object (op)
-     const struct object *op;
+string_of_object (const struct object *op)
 {
   char *str;
   int n;
@@ -543,8 +506,7 @@ string_of_object (op)
 
 /* Returns the character represented by an escape sequence.  */
 static int
-do_getc_escaped (c)
-     int c;
+do_getc_escaped (int c)
 {
   switch (c)
     {
@@ -559,7 +521,7 @@ do_getc_escaped (c)
     case 'v':
       return '\v';
     case 'a':
-      return ALERT_CHAR;
+      return '\a';
     case '^':
       c = do_getc ();
       if (c == EOF)
@@ -620,8 +582,7 @@ do_getc_escaped (c)
 
 /* Read the next object.  */
 static void
-read_object (op)
-     struct object *op;
+read_object (struct object *op)
 {
   for (;;)
     {
@@ -1122,11 +1083,9 @@ read_object (op)
 
 
 void
-extract_librep (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_librep (FILE *f,
+		const char *real_filename, const char *logical_filename,
+		msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 

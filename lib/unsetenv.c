@@ -63,8 +63,7 @@ __libc_lock_define_initialized (static, envlock)
 
 
 int
-unsetenv (name)
-     const char *name;
+unsetenv (const char *name)
 {
   size_t len;
   char **ep;

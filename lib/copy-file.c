@@ -1,5 +1,5 @@
 /* Copying of files.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -45,9 +45,7 @@
 #define _(str) gettext (str)
 
 void
-copy_file (src_filename, dest_filename)
-     const char *src_filename;
-     const char *dest_filename;
+copy_file (const char *src_filename, const char *dest_filename)
 {
   int src_fd;
   struct stat statbuf;

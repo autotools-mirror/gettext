@@ -40,14 +40,6 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static bool execute_and_read_po_output PARAMS ((const char *progname,
-						const char *prog_path,
-						char **prog_argv,
-						void *private_data));
-
-
 /* A Java resource name can only be manipulated by a Java virtual machine.
    So we start a JVM to execute the DumpResource program, and read its
    output, which is .po format without comments.  */
@@ -59,11 +51,9 @@ struct locals
 };
 
 static bool
-execute_and_read_po_output (progname, prog_path, prog_argv, private_data)
-     const char *progname;
-     const char *prog_path;
-     char **prog_argv;
-     void *private_data;
+execute_and_read_po_output (const char *progname,
+			    const char *prog_path, char **prog_argv,
+			    void *private_data)
 {
   struct locals *l = (struct locals *) private_data;
   pid_t child;
@@ -95,9 +85,7 @@ execute_and_read_po_output (progname, prog_path, prog_argv, private_data)
 
 
 msgdomain_list_ty *
-msgdomain_read_java (resource_name, locale_name)
-     const char *resource_name;
-     const char *locale_name;
+msgdomain_read_java (const char *resource_name, const char *locale_name)
 {
   const char *class_name = "gnu.gettext.DumpResource";
   const char *gettextjexedir;

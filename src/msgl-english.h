@@ -1,5 +1,5 @@
 /* Message translation initialization for English.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -22,6 +22,6 @@
 #include "message.h"
 
 extern msgdomain_list_ty *
-       msgdomain_list_english PARAMS ((msgdomain_list_ty *mdlp));
+       msgdomain_list_english (msgdomain_list_ty *mdlp);
 
 #endif /* _MSGL_ENGLISH_H */

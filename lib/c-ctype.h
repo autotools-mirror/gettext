@@ -24,14 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifndef C_CTYPE_H
 #define C_CTYPE_H
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
-
 #include <stdbool.h>
 
 
@@ -100,23 +92,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* Function declarations. */
 
-extern bool c_isascii PARAMS ((int c)); /* not locale dependent */
+extern bool c_isascii (int c); /* not locale dependent */
 
-extern bool c_isalnum PARAMS ((int c));
-extern bool c_isalpha PARAMS ((int c));
-extern bool c_isblank PARAMS ((int c));
-extern bool c_iscntrl PARAMS ((int c));
-extern bool c_isdigit PARAMS ((int c));
-extern bool c_islower PARAMS ((int c));
-extern bool c_isgraph PARAMS ((int c));
-extern bool c_isprint PARAMS ((int c));
-extern bool c_ispunct PARAMS ((int c));
-extern bool c_isspace PARAMS ((int c));
-extern bool c_isupper PARAMS ((int c));
-extern bool c_isxdigit PARAMS ((int c));
+extern bool c_isalnum (int c);
+extern bool c_isalpha (int c);
+extern bool c_isblank (int c);
+extern bool c_iscntrl (int c);
+extern bool c_isdigit (int c);
+extern bool c_islower (int c);
+extern bool c_isgraph (int c);
+extern bool c_isprint (int c);
+extern bool c_ispunct (int c);
+extern bool c_isspace (int c);
+extern bool c_isupper (int c);
+extern bool c_isxdigit (int c);
 
-extern int c_tolower PARAMS ((int c));
-extern int c_toupper PARAMS ((int c));
+extern int c_tolower (int c);
+extern int c_toupper (int c);
 
 
 #if defined __GNUC__ && defined __OPTIMIZE__ && !defined __OPTIMIZE_SIZE__

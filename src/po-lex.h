@@ -46,28 +46,28 @@ extern bool pass_obsolete_entries;
 
 
 /* Prepare lexical analysis.  */
-extern void lex_start PARAMS ((FILE *fp, const char *real_filename,
-			       const char *logical_filename));
+extern void lex_start (FILE *fp, const char *real_filename,
+		       const char *logical_filename);
 
 /* Terminate lexical analysis.  */
-extern FILE *lex_end PARAMS ((void));
+extern FILE *lex_end (void);
 
 /* Open the PO file FNAME and prepare its lexical analysis.  */
-extern void lex_open PARAMS ((const char *fname));
+extern void lex_open (const char *fname);
 
 /* Terminate lexical analysis and close the current PO file.  */
-extern void lex_close PARAMS ((void));
+extern void lex_close (void);
 
 /* Return the next token in the PO file.  The return codes are defined
    in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval.  */
-extern int po_gram_lex PARAMS ((void));
+extern int po_gram_lex (void);
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
-extern void po_lex_pass_comments PARAMS ((bool flag));
+extern void po_lex_pass_comments (bool flag);
 
 /* po_gram_lex() can return obsolete entries as if they were normal entries.
    Switch this on or off.  */
-extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
+extern void po_lex_pass_obsolete_entries (bool flag);
 
 
 /* ISO C 99 is smart enough to allow optimizations like this.  */
@@ -142,9 +142,8 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
   } while (0)
 
 #else
-extern void po_gram_error PARAMS ((const char *fmt, ...));
-extern void po_gram_error_at_line PARAMS ((const lex_pos_ty *pos,
-					   const char *fmt, ...));
+extern void po_gram_error (const char *fmt, ...);
+extern void po_gram_error_at_line (const lex_pos_ty *pos, const char *fmt, ...);
 #endif
 
 

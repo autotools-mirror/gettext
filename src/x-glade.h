@@ -24,12 +24,12 @@
   { "glade",      extract_glade, NULL },				\
 
 /* Scan a glade XML file and add its translatable strings to mdlp.  */
-extern void extract_glade PARAMS ((FILE *fp, const char *real_filename,
-				   const char *logical_filename,
-				   msgdomain_list_ty *mdlp));
+extern void extract_glade (FILE *fp, const char *real_filename,
+			   const char *logical_filename,
+			   msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */
 
-extern void x_glade_extract_all PARAMS ((void));
-extern void x_glade_keyword PARAMS ((const char *name));
+extern void x_glade_extract_all (void);
+extern void x_glade_keyword (const char *name);

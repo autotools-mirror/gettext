@@ -1,5 +1,5 @@
 /* Locating a program in PATH.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -21,4 +21,4 @@
    of PROGNAME.  If successful, return a pathname containing a slash
    (either absolute or relative to the current directory).  Otherwise,
    return PROGNAME unmodified.  */
-extern const char *find_in_path PARAMS ((const char *progname));
+extern const char *find_in_path (const char *progname);

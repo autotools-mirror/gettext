@@ -26,10 +26,7 @@
 #include "vasnprintf.h"
 
 int
-vasprintf (resultp, format, args)
-     char **resultp;
-     const char *format;
-     va_list args;
+vasprintf (char **resultp, const char *format, va_list args)
 {
   size_t length;
   char *result = vasnprintf (NULL, &length, format, args);

@@ -40,12 +40,9 @@
 # define PRId8 "d"
 #endif
 
-int main (argc, argv)
-  int argc;
-  char *argv[];
+int
+main (int argc, char *argv[])
 {
-/* This test requires ANSI C string concatenation.  */
-#ifdef __STDC__
   unsigned char n = 5;
   const char *s;
   const char *c1;
@@ -84,7 +81,4 @@ int main (argc, argv)
       exit (1);
     }
   return 0;
-#else
-  exit (77);
-#endif
 }

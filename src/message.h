@@ -62,7 +62,7 @@ enum is_format
 };
 
 extern bool
-       possible_format_p PARAMS ((enum is_format));
+       possible_format_p (enum is_format);
 
 
 /* Is current msgid wrappable?  */
@@ -140,21 +140,19 @@ struct message_ty
 };
 
 extern message_ty *
-       message_alloc PARAMS ((const char *msgid, const char *msgid_plural,
-			      const char *msgstr, size_t msgstr_len,
-			      const lex_pos_ty *pp));
+       message_alloc (const char *msgid, const char *msgid_plural,
+		      const char *msgstr, size_t msgstr_len,
+		      const lex_pos_ty *pp);
 extern void
-       message_free PARAMS ((message_ty *mp));
+       message_free (message_ty *mp);
 extern void
-       message_comment_append PARAMS ((message_ty *mp, const char *comment));
+       message_comment_append (message_ty *mp, const char *comment);
 extern void
-       message_comment_dot_append PARAMS ((message_ty *mp,
-					   const char *comment));
+       message_comment_dot_append (message_ty *mp, const char *comment);
 extern void
-       message_comment_filepos PARAMS ((message_ty *mp,
-					const char *name, size_t line));
+       message_comment_filepos (message_ty *mp, const char *name, size_t line);
 extern message_ty *
-       message_copy PARAMS ((message_ty *mp));
+       message_copy (message_ty *mp);
 
 
 typedef struct message_list_ty message_list_ty;
@@ -172,24 +170,23 @@ struct message_list_ty
    message_list_search().  USE_HASHTABLE can only be set to true if it is
    known that the message list will not contain duplicate msgids.  */
 extern message_list_ty *
-       message_list_alloc PARAMS ((bool use_hashtable));
+       message_list_alloc (bool use_hashtable);
 extern void
-       message_list_free PARAMS ((message_list_ty *mlp));
+       message_list_free (message_list_ty *mlp);
 extern void
-       message_list_append PARAMS ((message_list_ty *mlp, message_ty *mp));
+       message_list_append (message_list_ty *mlp, message_ty *mp);
 extern void
-       message_list_prepend PARAMS ((message_list_ty *mlp, message_ty *mp));
+       message_list_prepend (message_list_ty *mlp, message_ty *mp);
 extern void
-       message_list_delete_nth PARAMS ((message_list_ty *mlp, size_t n));
-typedef bool message_predicate_ty PARAMS ((const message_ty *mp));
+       message_list_delete_nth (message_list_ty *mlp, size_t n);
+typedef bool message_predicate_ty (const message_ty *mp);
 extern void
-       message_list_remove_if_not PARAMS ((message_list_ty *mlp,
-					   message_predicate_ty *predicate));
+       message_list_remove_if_not (message_list_ty *mlp,
+				   message_predicate_ty *predicate);
 extern message_ty *
-       message_list_search PARAMS ((message_list_ty *mlp, const char *msgid));
+       message_list_search (message_list_ty *mlp, const char *msgid);
 extern message_ty *
-       message_list_search_fuzzy PARAMS ((message_list_ty *mlp,
-					  const char *msgid));
+       message_list_search_fuzzy (message_list_ty *mlp, const char *msgid);
 
 
 typedef struct message_list_list_ty message_list_list_ty;
@@ -201,21 +198,21 @@ struct message_list_list_ty
 };
 
 extern message_list_list_ty *
-       message_list_list_alloc PARAMS ((void));
+       message_list_list_alloc (void);
 extern void
-       message_list_list_free PARAMS ((message_list_list_ty *mllp));
+       message_list_list_free (message_list_list_ty *mllp);
 extern void
-       message_list_list_append PARAMS ((message_list_list_ty *mllp,
-					 message_list_ty *mlp));
+       message_list_list_append (message_list_list_ty *mllp,
+				 message_list_ty *mlp);
 extern void
-       message_list_list_append_list PARAMS ((message_list_list_ty *mllp,
-					      message_list_list_ty *mllp2));
+       message_list_list_append_list (message_list_list_ty *mllp,
+				      message_list_list_ty *mllp2);
 extern message_ty *
-       message_list_list_search PARAMS ((message_list_list_ty *mllp,
-					 const char *msgid));
+       message_list_list_search (message_list_list_ty *mllp,
+				 const char *msgid);
 extern message_ty *
-       message_list_list_search_fuzzy PARAMS ((message_list_list_ty *mllp,
-					       const char *msgid));
+       message_list_list_search_fuzzy (message_list_list_ty *mllp,
+				       const char *msgid);
 
 
 typedef struct msgdomain_ty msgdomain_ty;
@@ -226,9 +223,9 @@ struct msgdomain_ty
 };
 
 extern msgdomain_ty *
-       msgdomain_alloc PARAMS ((const char *domain, bool use_hashtable));
+       msgdomain_alloc (const char *domain, bool use_hashtable);
 extern void
-       msgdomain_free PARAMS ((msgdomain_ty *mdp));
+       msgdomain_free (msgdomain_ty *mdp);
 
 
 typedef struct msgdomain_list_ty msgdomain_list_ty;
@@ -241,24 +238,21 @@ struct msgdomain_list_ty
 };
 
 extern msgdomain_list_ty *
-       msgdomain_list_alloc PARAMS ((bool use_hashtable));
+       msgdomain_list_alloc (bool use_hashtable);
 extern void
-       msgdomain_list_free PARAMS ((msgdomain_list_ty *mdlp));
+       msgdomain_list_free (msgdomain_list_ty *mdlp);
 extern void
-       msgdomain_list_append PARAMS ((msgdomain_list_ty *mdlp,
-				      msgdomain_ty *mdp));
+       msgdomain_list_append (msgdomain_list_ty *mdlp, msgdomain_ty *mdp);
 extern void
-       msgdomain_list_append_list PARAMS ((msgdomain_list_ty *mdlp,
-					   msgdomain_list_ty *mdlp2));
+       msgdomain_list_append_list (msgdomain_list_ty *mdlp,
+				   msgdomain_list_ty *mdlp2);
 extern message_list_ty *
-       msgdomain_list_sublist PARAMS ((msgdomain_list_ty *mdlp,
-				       const char *domain, bool create));
+       msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
+			       bool create);
 extern message_ty *
-       msgdomain_list_search PARAMS ((msgdomain_list_ty *mdlp,
-				      const char *msgid));
+       msgdomain_list_search (msgdomain_list_ty *mdlp, const char *msgid);
 extern message_ty *
-       msgdomain_list_search_fuzzy PARAMS ((msgdomain_list_ty *mdlp,
-					    const char *msgid));
+       msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp, const char *msgid);
 
 
 #endif /* message.h */

@@ -25,19 +25,7 @@
 #endif
 
 /* Get va_list.  */
-#if __STDC__ || defined __SUNPRO_C || defined __cplusplus
-# include <stdarg.h>
-#else
-# include <varargs.h>
-#endif
-
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-#endif
+#include <stdarg.h>
 
 
 /* Argument types */
@@ -136,6 +124,6 @@ STATIC
 #else
 extern
 #endif
-int printf_fetchargs PARAMS ((va_list args, arguments *a));
+int printf_fetchargs (va_list args, arguments *a);
 
 #endif /* _PRINTF_ARGS_H */

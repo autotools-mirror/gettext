@@ -41,10 +41,7 @@
 STATIC
 #endif
 int
-printf_parse (format, d, a)
-     const char *format;
-     char_directives *d;
-     arguments *a;
+printf_parse (const char *format, char_directives *d, arguments *a)
 {
   const char *cp = format;		/* pointer into format */
   int arg_posn = 0;		/* number of regular arguments consumed */

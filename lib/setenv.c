@@ -73,7 +73,7 @@ __libc_lock_define_initialized (static, envlock)
 		      && defined __GNUC__)
 # define USE_TSEARCH	1
 # include <search.h>
-typedef int (*compar_fn_t) PARAMS ((const void *, const void *));
+typedef int (*compar_fn_t) (const void *, const void *);
 
 /* This is a pointer to the root of the search tree with the known
    values.  */
@@ -108,11 +108,8 @@ static char **last_environ;
    to reuse values once generated for a `setenv' call since we can never
    free the strings.  */
 int
-__add_to_environ (name, value, combined, replace)
-     const char *name;
-     const char *value;
-     const char *combined;
-     int replace;
+__add_to_environ (const char *name, const char *value, const char *combined,
+		  int replace)
 {
   register char **ep;
   register size_t size;
@@ -258,10 +255,7 @@ __add_to_environ (name, value, combined, replace)
 }
 
 int
-setenv (name, value, replace)
-     const char *name;
-     const char *value;
-     int replace;
+setenv (const char *name, const char *value, int replace)
 {
   return __add_to_environ (name, value, NULL, replace);
 }
