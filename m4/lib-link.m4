@@ -20,7 +20,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS],
   ])
   LIB[]NAME="$ac_cv_lib[]name[]_libs"
   INC[]NAME="$ac_cv_lib[]name[]_cppflags"
-  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INC[]NAME])
+  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INC]NAME)
   AC_SUBST([LIB[]NAME])
 ])
 
