@@ -28,7 +28,6 @@ EXTRA_DIST = misc/DISCLAIM
 # Files installed for use by gettextize.
 
 gettextsrcdir = $(datadir)/gettext
-gettextsrc_DATA = ../gettext-runtime/ABOUT-NLS
 gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath ../config/mkinstalldirs
 
 

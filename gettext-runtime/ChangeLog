@@ -1,3 +1,7 @@
+2003-02-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Install ABOUT-NLS in $(datadir)/gettext.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Extracted from gettext package.

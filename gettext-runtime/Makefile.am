@@ -28,6 +28,12 @@ DIST_SUBDIRS = doc intl intl-java lib libasprintf          src po man m4
 EXTRA_DIST = BUGS
 
 
+# Files installed for the user and for use by gettextize.
+
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = ABOUT-NLS
+
+
 # Documentation tags not known to automake.
 
 ps:

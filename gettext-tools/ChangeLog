@@ -1,3 +1,8 @@
+2003-02-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Don't install ABOUT-NLS in $(datadir)/gettext. This is
+	now done by the gettext-runtime package.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Big restructuring.
