@@ -224,7 +224,8 @@ static bool parse_upto PARAMS ((const char **formatp, int *positionp,
 				struct format_arg_list **listp,
 				struct format_arg_list **escapep,
 				int *separatorp, struct spec *spec,
-				char terminator, bool separator));
+				/*promote: char*/ int terminator,
+				bool separator));
 static void *format_parse PARAMS ((const char *format));
 static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));

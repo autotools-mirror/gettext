@@ -16,6 +16,11 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
+/* AIX 3 forces us to put this declaration at the beginning of the file.  */
+#if defined _AIX && !defined __GNUC__
+ #pragma alloca
+#endif
+
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif

@@ -1,6 +1,15 @@
 2001-12-20  Bruno Haible  <bruno@clisp.org>
 
 	* format-java.c: Include system.h.
+	* format-lisp.c (parse_upto): Fix prototype. char promotes to int.
+	* po-lex.c (mb_iseq, mb_setascii): Likewise.
+	* po-hash-gen.y: alloca fix for AIX 3.
+	* write-mo.c: Likewise.
+	* x-lisp.c (syntax_code_of, read_char_syntax, attribute_of): Move
+	prototypes, to avoid compilation errors on AIX 3.
+	* x-java.l (TOKEN_TYPE): Remove trailing comma in enum.
+	(PARSER_STATE): Likewise.
+	* msgfilter.c: Include <sys/select.h> on AIX.
 
 2001-12-12  Bruno Haible  <bruno@clisp.org>
 

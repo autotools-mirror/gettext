@@ -38,7 +38,7 @@ typedef enum
   JAVA_STRING,
   JAVA_OPERATOR,
   JAVA_FLOW,
-  JAVA_COMMENT,
+  JAVA_COMMENT
 } TOKEN_TYPE;
 
 typedef struct
@@ -62,7 +62,7 @@ typedef enum
   STATE_WORD,
   STATE_APPEND,
   STATE_INVOCATION,
-  STATE_KEYWORD,
+  STATE_KEYWORD
 } PARSER_STATE;
 
 typedef struct

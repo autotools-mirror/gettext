@@ -216,14 +216,16 @@ static inline void memcpy_small PARAMS ((void *dst, const void *src, size_t n));
 static inline bool mb_iseof PARAMS ((const mbchar_t mbc));
 static inline const char *mb_ptr PARAMS ((const mbchar_t mbc));
 static inline size_t mb_len PARAMS ((const mbchar_t mbc));
-static inline bool mb_iseq PARAMS ((const mbchar_t mbc, char sc));
+static inline bool mb_iseq PARAMS ((const mbchar_t mbc,
+				    /*promote: char*/ int sc));
 static inline bool mb_isnul PARAMS ((const mbchar_t mbc));
 static inline int mb_cmp PARAMS ((const mbchar_t mbc1, const mbchar_t mbc2));
 static inline bool mb_equal PARAMS ((const mbchar_t mbc1, const mbchar_t mbc2));
 static inline bool mb_isascii PARAMS ((const mbchar_t mbc));
 static int mb_width PARAMS ((const mbchar_t mbc));
 static inline void mb_putc PARAMS ((const mbchar_t mbc, FILE *stream));
-static inline void mb_setascii PARAMS ((mbchar_t mbc, char sc));
+static inline void mb_setascii PARAMS ((mbchar_t mbc,
+					/*promote: char*/ int sc));
 static inline void mb_copy PARAMS ((mbchar_t new, const mbchar_t old));
 
 /* A version of memcpy optimized for the case n <= 1.  */

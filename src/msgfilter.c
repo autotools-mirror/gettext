@@ -36,6 +36,11 @@
 # include <unistd.h>
 #endif
 
+/* Get fd_set.  */
+#ifdef _AIX
+# include <sys/select.h>
+#endif
+
 #include "dir-list.h"
 #include "error.h"
 #include "progname.h"

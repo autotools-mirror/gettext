@@ -82,9 +82,6 @@ struct object;
 static void init_keywords PARAMS ((void));
 static int do_getc PARAMS ((void));
 static void do_ungetc PARAMS ((int c));
-static enum syntax_code syntax_code_of PARAMS ((unsigned char c));
-static void read_char_syntax PARAMS ((struct char_syntax *p));
-static enum attribute attribute_of PARAMS ((unsigned char c));
 static inline void init_token PARAMS ((struct token *tp));
 static inline void free_token PARAMS ((struct token *tp));
 static inline void grow_token PARAMS ((struct token *tp));
@@ -273,6 +270,11 @@ enum syntax_code
   syntax_nt_macro	/* '#' (non-terminating macro)		*/
 };
 
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static enum syntax_code syntax_code_of PARAMS ((unsigned char c));
+static void read_char_syntax PARAMS ((struct char_syntax *p));
+
 /* Returns the syntax code of a character.  */
 static enum syntax_code
 syntax_code_of (c)
@@ -339,6 +341,10 @@ enum attribute
 
 #define is_letter_attribute(a) ((a) >= a_letter)
 #define is_number_attribute(a) ((a) >= a_ratio)
+
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static enum attribute attribute_of PARAMS ((unsigned char c));
 
 /* Returns the attribute of a character, assuming base 10.  */
 static enum attribute

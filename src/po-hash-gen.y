@@ -19,6 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 %{
 
+/* The bison generated parser uses alloca.  AIX 3 forces us to put this
+   declaration at the beginning of the file.  The declaration in bison's
+   skeleton file comes too late.  This must come before <config.h>
+   because <config.h> may include arbitrary system headers.  */
+#if defined _AIX && !defined __GNUC__
+ #pragma alloca
+#endif
+
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
