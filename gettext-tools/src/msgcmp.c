@@ -35,7 +35,6 @@
 #include "message.h"
 #include "exit.h"
 #include "read-po.h"
-#include "po.h"
 #include "msgl-iconv.h"
 #include "strstr.h"
 #include "strcase.h"

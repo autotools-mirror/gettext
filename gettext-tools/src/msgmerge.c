@@ -44,7 +44,6 @@
 #include "strcase.h"
 #include "stpcpy.h"
 #include "stpncpy.h"
-#include "po.h"
 #include "msgl-iconv.h"
 #include "msgl-equal.h"
 #include "plural-exp.h"

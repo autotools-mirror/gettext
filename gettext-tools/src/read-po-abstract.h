@@ -1,4 +1,4 @@
-/* GNU gettext - internationalization aids
+/* Reading PO files, abstract class.
    Copyright (C) 1995-1996, 1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -17,8 +17,8 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef _PO_H
-#define _PO_H
+#ifndef _READ_PO_ABSTRACT_H
+#define _READ_PO_ABSTRACT_H
 
 #include "po-lex.h"
 #include "message.h"
@@ -29,117 +29,123 @@
    used to indicate a type name.  */
 
 /* The following pair of structures cooperate to create an "Object" in
-   the OO sense, we are simply doing it manually, rather than with the
+   the OO sense.  We are simply doing it manually, rather than with the
    help of an OO compiler.  This implementation allows polymorphism
-   and inheritance - more than enough for the immediate needs.
-
-   This first structure contains pointers to functions.  Each function
-   is a method for the class (base or derived).
-
-   Use a NULL pointer where no action is required.  */
+   and inheritance - more than enough for the immediate needs.  */
 
 /* Forward declaration.  */
-struct po_ty;
+struct abstract_po_reader_ty;
 
 
-typedef struct po_method_ty po_method_ty;
-struct po_method_ty
+/* This first structure, playing the role of the "Class" in OO sense,
+   contains pointers to functions.  Each function is a method for the
+   class (base or derived).  Use a NULL pointer where no action is
+   required.  */
+
+typedef struct abstract_po_reader_class_ty abstract_po_reader_class_ty;
+struct abstract_po_reader_class_ty
 {
-  /* how many bytes to malloc for this class */
+  /* how many bytes to malloc for an instance of this class */
   size_t size;
 
   /* what to do immediately after the instance is malloc()ed */
-  void (*constructor) (struct po_ty *pop);
+  void (*constructor) (struct abstract_po_reader_ty *pop);
 
   /* what to do immediately before the instance is free()ed */
-  void (*destructor) (struct po_ty *pop);
+  void (*destructor) (struct abstract_po_reader_ty *pop);
+
+  /* This method is invoked before the parse, but after the file is
+     opened by the lexer.  */
+  void (*parse_brief) (struct abstract_po_reader_ty *pop);
+
+  /* This method is invoked after the parse, but before the file is
+     closed by the lexer.  The intention is to make consistency checks
+     against the file here, and emit the errors through the lex_error*
+     functions.  */
+  void (*parse_debrief) (struct abstract_po_reader_ty *pop);
 
   /* what to do with a domain directive */
-  void (*directive_domain) (struct po_ty *pop, char *name);
+  void (*directive_domain) (struct abstract_po_reader_ty *pop, char *name);
 
   /* what to do with a message directive */
-  void (*directive_message) (struct po_ty *pop,
+  void (*directive_message) (struct abstract_po_reader_ty *pop,
 			     char *msgid, lex_pos_ty *msgid_pos,
 			     char *msgid_plural,
 			     char *msgstr, size_t msgstr_len,
 			     lex_pos_ty *msgstr_pos,
 			     bool obsolete);
 
-  /* This method is invoked before the parse, but after the file is
-     opened by the lexer.  */
-  void (*parse_brief) (struct po_ty *pop);
-
-  /* This method is invoked after the parse, but before the file is
-     closed by the lexer.  The intention is to make consistency checks
-     against the file here, and emit the errors through the lex_error*
-     functions.  */
-  void (*parse_debrief) (struct po_ty *pop);
-
   /* What to do with a plain-vanilla comment - the expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment) (struct po_ty *pop, const char *s);
+  void (*comment) (struct abstract_po_reader_ty *pop, const char *s);
 
   /* What to do with a comment that starts with a dot (i.e.  extracted
      by xgettext) - the expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
-  void (*comment_dot) (struct po_ty *pop, const char *s);
+  void (*comment_dot) (struct abstract_po_reader_ty *pop, const char *s);
 
   /* What to do with a file position seen in a comment (i.e. a message
      location comment extracted by xgettext) - the expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment_filepos) (struct po_ty *pop, const char *s, size_t line);
+  void (*comment_filepos) (struct abstract_po_reader_ty *pop,
+			   const char *s, size_t line);
 
   /* What to do with a comment that starts with a ',' or '!' - this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
-  void (*comment_special) (struct po_ty *pop, const char *s);
+  void (*comment_special) (struct abstract_po_reader_ty *pop, const char *s);
 };
 
 
 /* This next structure defines the base class passed to the methods.
    Derived methods will often need to cast their first argument before
-   using it (this corresponds to the implicit ``this'' argument of many
-   C++ implementations).
+   using it (this corresponds to the implicit ``this'' argument in C++).
 
-   When declaring derived classes, use the PO_BASE_TY define at the
-   start of the structure, to declare inherited instance variables,
+   When declaring derived classes, use the ABSTRACT_PO_READER_TY define
+   at the start of the structure, to declare inherited instance variables,
    etc.  */
 
-#define PO_BASE_TY \
-  po_method_ty *method;
+#define ABSTRACT_PO_READER_TY \
+  abstract_po_reader_class_ty *methods;
 
-typedef struct po_ty po_ty;
-struct po_ty
+typedef struct abstract_po_reader_ty abstract_po_reader_ty;
+struct abstract_po_reader_ty
 {
-  PO_BASE_TY
+  ABSTRACT_PO_READER_TY
 };
 
 
-/* Allocate a fresh po_ty (or derived class) instance and call its
-   constructor.  */
-extern po_ty *po_alloc (po_method_ty *jtable);
+/* Allocate a fresh abstract_po_reader_ty (or derived class) instance and
+   call its constructor.  */
+extern abstract_po_reader_ty *
+       po_reader_alloc (abstract_po_reader_class_ty *method_table);
 
-/* Prepare for use of po_method_ty methods.  */
-extern void po_scan_start (po_ty *pop);
+/* Prepare for use of abstract_po_reader_class_ty methods.  */
+extern void
+       po_scan_start (abstract_po_reader_ty *pop);
 
-/* Terminate the use of po_method_ty methods.  */
-extern void po_scan_end (po_ty *pop);
+/* Terminate the use of abstract_po_reader_class_ty methods.  */
+extern void
+       po_scan_end (abstract_po_reader_ty *pop);
 
-/* Read a PO file from a stream, and dispatch to the various po_method_ty
-   methods.  */
-extern void po_scan (po_ty *pop, FILE *fp, const char *real_filename,
-		     const char *logical_filename);
+/* Read a PO file from a stream, and dispatch to the various
+   abstract_po_reader_class_ty methods.  */
+extern void
+       po_scan (abstract_po_reader_ty *pop, FILE *fp,
+		const char *real_filename, const char *logical_filename);
 
-/* Locate a PO file, open it, read it, dispatching to the various po_method_ty
-   methods, and close it.  */
-extern void po_scan_file (po_ty *pop, const char *filename);
+/* Locate a PO file, open it, read it, dispatching to the various
+   abstract_po_reader_class_ty methods, and close it.  */
+extern void
+       po_scan_file (abstract_po_reader_ty *pop, const char *filename);
 
-/* Call the destructor and deallocate a po_ty (or derived class)
-   instance.  */
-extern void po_free (po_ty *pop);
+/* Call the destructor and deallocate a abstract_po_reader_ty (or derived
+   class) instance.  */
+extern void
+       po_reader_free (abstract_po_reader_ty *pop);
 
 
 /* Callbacks used by po-gram.y or po-hash.y or po-lex.c, indirectly
@@ -159,4 +165,4 @@ extern void po_parse_comment_special (const char *s, bool *fuzzyp,
 				      enum is_format formatp[NFORMATS],
 				      enum is_wrap *wrapp);
 
-#endif /* _PO_H */
+#endif /* _READ_PO_ABSTRACT_H */

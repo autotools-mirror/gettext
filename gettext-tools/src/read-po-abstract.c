@@ -1,4 +1,4 @@
-/* GNU gettext - internationalization aids
+/* Reading PO files, abstract class.
    Copyright (C) 1995-1996, 1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -23,7 +23,7 @@
 #endif
 
 /* Specification.  */
-#include "po.h"
+#include "read-po-abstract.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -34,49 +34,109 @@
 #include "xmalloc.h"
 
 /* Local variables.  */
-static po_ty *callback_arg;
+static abstract_po_reader_ty *callback_arg;
 
 
-po_ty *
-po_alloc (po_method_ty *pomp)
+/* ========================================================================= */
+/* Allocating and freeing instances of abstract_po_reader_ty.  */
+
+
+abstract_po_reader_ty *
+po_reader_alloc (abstract_po_reader_class_ty *method_table)
 {
-  po_ty *pop;
+  abstract_po_reader_ty *pop;
 
-  pop = (po_ty *) xmalloc (pomp->size);
-  pop->method = pomp;
-  if (pomp->constructor)
-    pomp->constructor (pop);
+  pop = (abstract_po_reader_ty *) xmalloc (method_table->size);
+  pop->methods = method_table;
+  if (method_table->constructor)
+    method_table->constructor (pop);
   return pop;
 }
 
 
 void
-po_free (po_ty *pop)
+po_reader_free (abstract_po_reader_ty *pop)
 {
-  if (pop->method->destructor)
-    pop->method->destructor (pop);
+  if (pop->methods->destructor)
+    pop->methods->destructor (pop);
   free (pop);
 }
 
 
-static void
-po_parse_brief (po_ty *pop)
+/* ========================================================================= */
+/* Inline functions to invoke the methods.  */
+
+
+static inline void
+call_parse_brief (abstract_po_reader_ty *pop)
 {
-  if (pop->method->parse_brief)
-    pop->method->parse_brief (pop);
+  if (pop->methods->parse_brief)
+    pop->methods->parse_brief (pop);
+}
+
+static inline void
+call_parse_debrief (abstract_po_reader_ty *pop)
+{
+  if (pop->methods->parse_debrief)
+    pop->methods->parse_debrief (pop);
+}
+
+static inline void
+call_directive_domain (abstract_po_reader_ty *pop, char *name)
+{
+  if (pop->methods->directive_domain)
+    pop->methods->directive_domain (pop, name);
+}
+
+static inline void
+call_directive_message (abstract_po_reader_ty *pop,
+			char *msgid,
+			lex_pos_ty *msgid_pos,
+			char *msgid_plural,
+			char *msgstr, size_t msgstr_len,
+			lex_pos_ty *msgstr_pos,
+			bool obsolete)
+{
+  if (pop->methods->directive_message)
+    pop->methods->directive_message (pop, msgid, msgid_pos, msgid_plural,
+				     msgstr, msgstr_len, msgstr_pos, obsolete);
+}
+
+static inline void
+call_comment (abstract_po_reader_ty *pop, const char *s)
+{
+  if (pop->methods->comment != NULL)
+    pop->methods->comment (pop, s);
+}
+
+static inline void
+call_comment_dot (abstract_po_reader_ty *pop, const char *s)
+{
+  if (pop->methods->comment_dot != NULL)
+    pop->methods->comment_dot (pop, s);
+}
+
+static inline void
+call_comment_filepos (abstract_po_reader_ty *pop, const char *name, size_t line)
+{
+  if (pop->methods->comment_filepos)
+    pop->methods->comment_filepos (pop, name, line);
+}
+
+static inline void
+call_comment_special (abstract_po_reader_ty *pop, const char *s)
+{
+  if (pop->methods->comment_special != NULL)
+    pop->methods->comment_special (pop, s);
 }
 
 
-static void
-po_parse_debrief (po_ty *pop)
-{
-  if (pop->method->parse_debrief)
-    pop->method->parse_debrief (pop);
-}
+/* ========================================================================= */
+/* Exported functions.  */
 
 
 void
-po_scan_start (po_ty *pop)
+po_scan_start (abstract_po_reader_ty *pop)
 {
   /* The parse will call the po_callback_... functions (see below)
      when the various directive are recognised.  The callback_arg
@@ -84,19 +144,19 @@ po_scan_start (po_ty *pop)
      have the relevant method invoked.  */
   callback_arg = pop;
 
-  po_parse_brief (pop);
+  call_parse_brief (pop);
 }
 
 void
-po_scan_end (po_ty *pop)
+po_scan_end (abstract_po_reader_ty *pop)
 {
-  po_parse_debrief (pop);
+  call_parse_debrief (pop);
   callback_arg = NULL;
 }
 
 
 void
-po_scan (po_ty *pop, FILE *fp,
+po_scan (abstract_po_reader_ty *pop, FILE *fp,
 	 const char *real_filename, const char *logical_filename)
 {
   /* Parse the stream's content.  */
@@ -109,7 +169,7 @@ po_scan (po_ty *pop, FILE *fp,
 
 
 void
-po_scan_file (po_ty *pop, const char *filename)
+po_scan_file (abstract_po_reader_ty *pop, const char *filename)
 {
   /* Open the file and parse it.  */
   lex_open (filename);
@@ -120,12 +180,9 @@ po_scan_file (po_ty *pop, const char *filename)
 }
 
 
-static void
-po_directive_domain (po_ty *pop, char *name)
-{
-  if (pop->method->directive_domain)
-    pop->method->directive_domain (pop, name);
-}
+/* ========================================================================= */
+/* Callbacks used by po-gram.y or po-hash.y or po-lex.c, indirectly
+   from po_scan.  */
 
 
 /* This function is called by po_gram_lex() whenever a domain directive
@@ -134,22 +191,7 @@ void
 po_callback_domain (char *name)
 {
   /* assert(callback_arg); */
-  po_directive_domain (callback_arg, name);
-}
-
-
-static void
-po_directive_message (po_ty *pop,
-		      char *msgid,
-		      lex_pos_ty *msgid_pos,
-		      char *msgid_plural,
-		      char *msgstr, size_t msgstr_len,
-		      lex_pos_ty *msgstr_pos,
-		      bool obsolete)
-{
-  if (pop->method->directive_message)
-    pop->method->directive_message (pop, msgid, msgid_pos, msgid_plural,
-				    msgstr, msgstr_len, msgstr_pos, obsolete);
+  call_directive_domain (callback_arg, name);
 }
 
 
@@ -166,49 +208,18 @@ po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
   if (msgid[0] == '\0' && !obsolete)
     po_lex_charset_set (msgstr, gram_pos.file_name);
 
-  po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
-			msgstr, msgstr_len, msgstr_pos, obsolete);
+  call_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
+			  msgstr, msgstr_len, msgstr_pos, obsolete);
 }
 
 
-static void
-po_comment (po_ty *pop, const char *s)
-{
-  if (pop->method->comment != NULL)
-    pop->method->comment (pop, s);
-}
-
-
-static void
-po_comment_dot (po_ty *pop, const char *s)
-{
-  if (pop->method->comment_dot != NULL)
-    pop->method->comment_dot (pop, s);
-}
-
-
-static void
-po_comment_filepos (po_ty *pop, const char *name, size_t line)
-{
-  if (pop->method->comment_filepos)
-    pop->method->comment_filepos (pop, name, line);
-}
-
-
-/* This function is called by po_hash(), once for each filename.  */
+/* This function is called by po_parse_comment_filepos(), once for each
+   filename.  */
 void
 po_callback_comment_filepos (const char *name, size_t line)
 {
   /* assert(callback_arg); */
-  po_comment_filepos (callback_arg, name, line);
-}
-
-
-static void
-po_comment_special (po_ty *pop, const char *s)
-{
-  if (pop->method->comment_special != NULL)
-    pop->method->comment_special (pop, s);
+  call_comment_filepos (callback_arg, name, line);
 }
 
 
@@ -311,29 +322,30 @@ po_parse_comment_special (const char *s,
 
 /* This function is called by po_gram_lex() whenever a comment is
    seen.  It analyzes the comment to see what sort it is, and then
-   dispatches it to the appropriate method: po_comment, po_comment_dot,
-   po_comment_filepos (via po_hash), or po_comment_special.  */
+   dispatches it to the appropriate method: call_comment, call_comment_dot,
+   call_comment_filepos (via po_parse_comment_filepos), or
+   call_comment_special.  */
 void
 po_callback_comment (const char *s)
 {
   /* assert(callback_arg); */
   if (*s == '.')
-    po_comment_dot (callback_arg, s + 1);
+    call_comment_dot (callback_arg, s + 1);
   else if (*s == ':')
     {
       /* Parse the file location string.  If the parse succeeds, the
 	 appropriate callback will be invoked.  If the parse fails,
-	 the po_hash function will return non-zero - so pretend it was
-	 a normal comment.  */
-      if (po_hash (s + 1) == 0)
+	 the po_parse_comment_filepos function will return non-zero - so
+	 pretend it was a normal comment.  */
+      if (po_parse_comment_filepos (s + 1) == 0)
 	/* Do nothing, it is a GNU-style file pos line.  */ ;
       else
-	po_comment (callback_arg, s + 1);
+	call_comment (callback_arg, s + 1);
     }
   else if (*s == ',' || *s == '!')
     {
       /* Get all entries in the special comment line.  */
-      po_comment_special (callback_arg, s + 1);
+      call_comment_special (callback_arg, s + 1);
     }
   else
     {
@@ -344,9 +356,9 @@ po_callback_comment (const char *s)
 	 appropriate callback will be invoked.  */
       if (s[0] == ' ' && (s[1] == 'F' || s[1] == 'f') && s[2] == 'i'
 	  && s[3] == 'l' && s[4] == 'e' && s[5] == ':'
-	  && po_hash (s) == 0)
+	  && po_parse_comment_filepos (s) == 0)
 	/* Do nothing, it is a Sun-style file pos line.  */ ;
       else
-	po_comment (callback_arg, s);
+	call_comment (callback_arg, s);
     }
 }

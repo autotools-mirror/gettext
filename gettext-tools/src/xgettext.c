@@ -47,7 +47,7 @@
 #include "pathname.h"
 #include "strcase.h"
 #include "stpcpy.h"
-#include "po.h"
+#include "read-po-abstract.h"
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
@@ -713,7 +713,7 @@ Informative output:\n\
 
 
 static void
-exclude_directive_domain (po_ty *pop, char *name)
+exclude_directive_domain (abstract_po_reader_ty *pop, char *name)
 {
   po_gram_error_at_line (&gram_pos,
 			 _("this file may not contain domain directives"));
@@ -721,7 +721,7 @@ exclude_directive_domain (po_ty *pop, char *name)
 
 
 static void
-exclude_directive_message (po_ty *pop,
+exclude_directive_message (abstract_po_reader_ty *pop,
 			   char *msgid,
 			   lex_pos_ty *msgid_pos,
 			   char *msgid_plural,
@@ -756,15 +756,15 @@ exclude_directive_message (po_ty *pop,
    and all actions resulting from the parse will be through
    invocations of method functions of that object.  */
 
-static po_method_ty exclude_methods =
+static abstract_po_reader_class_ty exclude_methods =
 {
-  sizeof (po_ty),
+  sizeof (abstract_po_reader_ty),
   NULL, /* constructor */
   NULL, /* destructor */
-  exclude_directive_domain,
-  exclude_directive_message,
   NULL, /* parse_brief */
   NULL, /* parse_debrief */
+  exclude_directive_domain,
+  exclude_directive_message,
   NULL, /* comment */
   NULL, /* comment_dot */
   NULL, /* comment_filepos */
@@ -775,11 +775,11 @@ static po_method_ty exclude_methods =
 static void
 read_exclusion_file (char *file_name)
 {
-  po_ty *pop;
+  abstract_po_reader_ty *pop;
 
-  pop = po_alloc (&exclude_methods);
+  pop = po_reader_alloc (&exclude_methods);
   po_scan_file (pop, file_name);
-  po_free (pop);
+  po_reader_free (pop);
 }
 
 

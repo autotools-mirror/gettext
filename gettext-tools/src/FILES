@@ -1,11 +1,7 @@
                 Short description of the source files
                 =====================================
 
-1)
-gettext.c       Source for the 'gettext' program.
-ngettext.c      Source for the 'ngettext' program.
-
-2) The msg* and xgettext programs.
+The msg* and xgettext programs.
 
 Bottom-up structure:
 
@@ -53,14 +49,14 @@ write-po.c
 | po-lex.c
 |               Lexical analysis of PO files.
 |
-| po.h
+| read-po-abstract.h
 | po-hash.h
 | po-hash-gen.y
 | po-gram.h
 | po-gram-gen.y
-| po.c
+| read-po-abstract.c
 |               Parsing of PO files.
-|         po.h
+|         read-po-abstract.h
 |                       General parser structure.
 |         po-hash.h
 |         po-hash-gen.y
@@ -69,7 +65,7 @@ write-po.c
 |         po-gram.h
 |         po-gram-gen.y
 |                       Parsing of PO files, based on po-lex.{h,c}.
-|         po.c
+|         read-po-abstract.c
 |                       Top-level parser functions and callbacks.
 |
 | read-po.h

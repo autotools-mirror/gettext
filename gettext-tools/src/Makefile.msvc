@@ -104,7 +104,7 @@ msgattrib.exe msgcat.exe msgcomm.exe msgconv.exe msgen.exe msgexec.exe msgfilter
 
 OBJECTS = \
   message.obj \
-  po.obj \
+  read-po-abstract.obj \
   po-lex.obj \
   po-gram-gen.obj \
   po-hash-gen.obj \
@@ -163,8 +163,8 @@ all : gettextsrc.lib $(PROGRAMS)
 message.obj : message.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c message.c
 
-po.obj : po.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po.c
+read-po-abstract.obj : read-po-abstract.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c read-po-abstract.c
 
 po-lex.obj : po-lex.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-lex.c

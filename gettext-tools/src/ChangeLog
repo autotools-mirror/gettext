@@ -1,5 +1,98 @@
 2003-04-13  Bruno Haible  <bruno@clisp.org>
 
+	Unify three PO file parsers.
+	* read-po-abstract.h: Renamed from po.h.
+	(abstract_po_reader_class_ty): Renamed from po_method_ty.
+	(abstract_po_reader_ty): Renamed from po_ty.
+	(ABSTRACT_PO_READER_TY): Renamed from PO_BASE_TY.
+	(po_reader_alloc): Renamed from po_alloc.
+	(po_reader_free): Renamed from po_free.
+	* read-po-abstract.c: Renamed from po.c.
+	(po_reader_alloc): Renamed from po_alloc.
+	(po_reader_free): Renamed from po_free.
+	(call_parse_brief): Renamed from po_parse_brief.
+	(call_parse_debrief): Renamed from po_parse_debrief.
+	(call_directive_domain): Renamed from po_directive_domain.
+	(call_directive_message): Renamed from po_directive_message.
+	(call_comment): Renamed from po_comment.
+	(call_comment_dot): Renamed from po_comment_dot.
+	(call_comment_filepos): Renamed from po_comment_filepos.
+	(call_comment_special): Renamed from po_comment_special.
+	* read-po.h: Include read-po-abstract.h.
+	(default_po_reader_class_ty, default_po_reader_ty): New types.
+	(ABSTRACT_PO_READER_TY): New macro.
+	(default_constructor, default_destructor, default_parse_brief,
+	default_parse_debrief, default_directive_domain,
+	default_directive_message, default_comment, default_comment_dot,
+	default_comment_filepos, default_comment_special, default_set_domain,
+	default_add_message): New declarations.
+	(default_po_reader_alloc): New declaration.
+	* read-po.c (default_po_reader_ty): Renamed from readall_class_ty.
+	Add fields handle_comments, handle_filepos_comments,
+	allow_domain_directives, allow_duplicates,
+	allow_duplicates_if_same_msgstr.
+	(call_set_domain, call_add_message, call_frob_new_message): New
+	functions.
+	(default_constructor): Renamed from readall_constructor. Don't set
+	this->mdlp and this->mlp.
+	(default_destructor): Renamed from readall_destructor.
+	(default_parse_brief): Renamed from readall_parse_brief.
+	(default_parse_debrief): New function.
+	(default_copy_comment_state, default_reset_comment_state): New
+	functions.
+	(default_directive_domain): Renamed from readall_directive_domain.
+	Call set_domain method.
+	(default_directive_message): Renamed from readall_directive_message.
+	Call add_message method.
+	(default_comment): Renamed from readall_comment.
+	(default_comment_dot): Renamed from readall_comment_dot.
+	(default_comment_filepos): Renamed from readall_comment_filepos.
+	(default_comment_special): Renamed from readall_comment_special.
+	(default_set_domain, default_add_message): New functions.
+	(default_methods): Renamed from readall_methods.
+	(default_po_reader_alloc): New function.
+	(read_po, read_po_file): Update.
+	* msgfmt.c: Include read-po.h instead of po.h.
+	(msgfmt_po_reader_ty): Renamed from msgfmt_class_ty. Inherit
+	from default_po_reader_ty.
+	(main): Drop po_lex_pass_comments call, done by default_parse_brief.
+	(msgfmt_constructor): Renamed from format_constructor. Call superclass
+	function.
+	(msgfmt_parse_debrief): Renamed from format_debrief. Call superclass
+	function.
+	(format_directive_domain): Remove function.
+	(msgfmt_set_domain): New function.
+	(format_directive_message): Remove function.
+	(msgfmt_add_message, msgfmt_frob_new_message): New functions.
+	(msgfmt_comment_special): Renamed from format_comment_special.
+	(msgfmt_methods): Renamed from format_methods.
+	(read_po_file_msgfmt): Renamed from read_po_file.
+	* x-po.c: Include read-po.h instead of po.h.
+	(extract_class_ty, extract_constructor, extract_directive_domain,
+	extract_directive_message, extract_parse_brief, extract_comment,
+	extract_comment_dot, extract_comment_filepos, extract_comment_special):
+	Remove functions.
+	(extract_add_message): New function.
+	(extract_methods): Update.
+	(extract_po): Update.
+	* xgettext.c: Include read-po-abstract.h instead of po.h.
+	(exclude_directive_domain, exclude_directive_message, exclude_methods,
+	read_exclusion_file): Update.
+	* msgcmp.c: Don't include po.h.
+	* msgmerge.c: Likewise.
+	* po-gram-gen.y: Include read-po-abstract.h instead of po.h.
+	* po-hash-gen.y: Likewise.
+	(po_parse_comment_filepos): Renamed from po_hash.
+	* po-hash.h (po_parse_comment_filepos): Renamed from po_hash.
+	* Makefile.am (noinst_HEADERS): Remove po.h, add read-po-abstract.h.
+	(COMMON_SOURCE): Remove po.c, add read-po-abstract.c.
+	* Makefile.msvc (OBJECTS): Remove po.obj, add read-po-abstract.obj.
+	(read-po-abstract.obj): Renamed from po.obj.
+	* Makefile.vms (OBJECTS): Remove po.obj, add read-po-abstract.obj.
+	(read-po-abstract.obj): Renamed from po.obj.
+
+2003-04-13  Bruno Haible  <bruno@clisp.org>
+
 	* write-po.h (message_print_comment, message_print_comment_dot,
 	message_print_comment_filepos, message_print_comment_flags): New
 	declarations.

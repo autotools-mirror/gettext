@@ -50,7 +50,7 @@
 
 #include "gettext.h"
 #include "message.h"
-#include "po.h"
+#include "read-po.h"
 
 #define _(str) gettext (str)
 
@@ -69,22 +69,6 @@
 #if HAVE_SIGINFO && !defined (__sgi)
 # define USE_SIGINFO 1
 #endif
-
-/* This structure defines a derived class of the po_ty class.  (See
-   po.h for an explanation.)  */
-typedef struct msgfmt_class_ty msgfmt_class_ty;
-struct msgfmt_class_ty
-{
-  /* inherited instance variables, etc */
-  PO_BASE_TY
-
-  bool is_fuzzy;
-  enum is_format is_format[NFORMATS];
-  enum is_wrap do_wrap;
-
-  bool has_header_entry;
-  bool has_nonfuzzy_header_entry;
-};
 
 /* Contains exit status for case in which no premature exit occurs.  */
 static int exit_status;
@@ -196,7 +180,7 @@ static const char *add_mo_suffix (const char *);
 static struct msg_domain *new_domain (const char *name, const char *file_name);
 static bool is_nonobsolete (const message_ty *mp);
 static void check_plural (message_list_ty *mlp);
-static void read_po_file (char *filename);
+static void read_po_file_msgfmt (char *filename);
 
 
 int
@@ -418,10 +402,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 		  strict_uniforum ? add_mo_suffix (output_file_name)
 				  : output_file_name);
 
-  /* Prepare PO file reader.  We need to see the comments because inexact
-     translations must be reported.  */
-  po_lex_pass_comments (true);
-
   /* Process all given .po files.  */
   while (argc > optind)
     {
@@ -431,7 +411,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	current_domain = NULL;
 
       /* And process the input file.  */
-      read_po_file (argv[optind]);
+      read_po_file_msgfmt (argv[optind]);
 
       ++optind;
     }
@@ -1284,23 +1264,38 @@ field `%s' still has initial default value\n"),
 }
 
 
-/* The rest of the file is similar to read-po.c.  The differences are:
-   - Comments are not stored, they are discarded right away.
+/* The rest of the file defines a subclass msgfmt_po_reader_ty of
+   default_po_reader_ty.  Its particularities are:
    - The header entry check is performed on-the-fly.
+   - Comments are not stored, they are discarded right away.
+     (This is achieved by setting handle_comments = false and
+     handle_filepos_comments = false.)
+   - The multi-domain handling is adapted to our domain_list.
  */
+
+
+/* This structure defines a derived class of the default_po_reader_ty class.
+   (See read-po-abstract.h for an explanation.)  */
+typedef struct msgfmt_po_reader_ty msgfmt_po_reader_ty;
+struct msgfmt_po_reader_ty
+{
+  /* inherited instance variables, etc */
+  DEFAULT_PO_READER_TY
+
+  bool has_header_entry;
+  bool has_nonfuzzy_header_entry;
+};
 
 
 /* Prepare for first message.  */
 static void
-format_constructor (po_ty *that)
+msgfmt_constructor (abstract_po_reader_ty *that)
 {
-  msgfmt_class_ty *this = (msgfmt_class_ty *) that;
-  size_t i;
+  msgfmt_po_reader_ty *this = (msgfmt_po_reader_ty *) that;
 
-  this->is_fuzzy = false;
-  for (i = 0; i < NFORMATS; i++)
-    this->is_format[i] = undecided;
-  this->do_wrap = undecided;
+  /* Invoke superclass constructor.  */
+  default_constructor (that);
+
   this->has_header_entry = false;
   this->has_nonfuzzy_header_entry = false;
 }
@@ -1308,9 +1303,12 @@ format_constructor (po_ty *that)
 
 /* Some checks after whole file is read.  */
 static void
-format_debrief (po_ty *that)
+msgfmt_parse_debrief (abstract_po_reader_ty *that)
 {
-  msgfmt_class_ty *this = (msgfmt_class_ty *) that;
+  msgfmt_po_reader_ty *this = (msgfmt_po_reader_ty *) that;
+
+  /* Invoke superclass method.  */
+  default_parse_debrief (that);
 
   /* Test whether header entry was found.  */
   if (check_header)
@@ -1340,9 +1338,9 @@ warning: older versions of msgfmt will give an error on this\n")));
 }
 
 
-/* Process `domain' directive from .po file.  */
+/* Set 'domain' directive when seen in .po file.  */
 static void
-format_directive_domain (po_ty *pop, char *name)
+msgfmt_set_domain (default_po_reader_ty *this, char *name)
 {
   /* If no output file was given, we change it with each `domain'
      directive.  */
@@ -1368,143 +1366,120 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 
       /* Set new domain.  */
       current_domain = new_domain (name, add_mo_suffix (name));
+      this->domain = current_domain->domain_name;
+      this->mlp = current_domain->mlp;
     }
   else
     {
       if (check_domain)
-	error (0, 0, _("`domain %s' directive ignored"), name);
+	po_gram_error_at_line (&gram_pos,
+			       _("`domain %s' directive ignored"), name);
 
-      /* NAME was allocated in po-gram.y but is not used anywhere.  */
+      /* NAME was allocated in po-gram-gen.y but is not used anywhere.  */
       free (name);
     }
 }
 
 
-/* Process `msgid'/`msgstr' pair from .po file.  */
-static void
-format_directive_message (po_ty *that,
-			  char *msgid_string,
-			  lex_pos_ty *msgid_pos,
-			  char *msgid_plural,
-			  char *msgstr_string, size_t msgstr_len,
-			  lex_pos_ty *msgstr_pos,
-			  bool obsolete)
+void
+msgfmt_add_message (default_po_reader_ty *this,
+		    char *msgid,
+		    lex_pos_ty *msgid_pos,
+		    char *msgid_plural,
+		    char *msgstr, size_t msgstr_len,
+		    lex_pos_ty *msgstr_pos,
+		    bool obsolete)
 {
-  msgfmt_class_ty *this = (msgfmt_class_ty *) that;
-  message_ty *mp;
-  size_t i;
-
   /* Check whether already a domain is specified.  If not, use default
      domain.  */
   if (current_domain == NULL)
-    current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
-				 add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
-
-  /* Duplicate checking.  */
-  mp = message_list_search (current_domain->mlp, msgid_string);
-  if (mp)
     {
-      /* We give a fatal error about this, regardless whether the
-	 translations are equal or different.  This is for consistency
-	 with msgmerge, msgcat and others.  The user can use the
-	 msguniq program to get rid of duplicates.  */
-      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      po_gram_error_at_line (&mp->pos, _("\
-...this is the location of the first definition"));
-
-      /* We don't need the just constructed entries' parameter string
-	 (allocated in po-gram.y).  */
-      free (msgid_string);
-      free (msgstr_string);
+      current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
+				   add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
+      /* Keep current_domain and this->domain synchronized.  */
+      this->domain = current_domain->domain_name;
+      this->mlp = current_domain->mlp;
     }
-  else
+
+  /* Invoke superclass method.  */
+  default_add_message (this, msgid, msgid_pos, msgid_plural,
+		       msgstr, msgstr_len, msgstr_pos, obsolete);
+}
+
+
+static void
+msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
+			 const lex_pos_ty *msgid_pos,
+			 const lex_pos_ty *msgstr_pos)
+{
+  msgfmt_po_reader_ty *this = (msgfmt_po_reader_ty *) that;
+
+  if (!mp->obsolete)
     {
-      /* Construct message to add to the list.
-	 Non-obsolete messages will be output.
-	 Obsolete message go into the list only for duplicate checking.  */
-      mp = message_alloc (NULL, NULL, msgstr_string, msgstr_len, msgstr_pos);
-      mp->msgid = msgid_string;
-      mp->msgid_plural = msgid_plural;
-      mp->obsolete = obsolete;
-      for (i = 0; i < NFORMATS; i++)
-	mp->is_format[i] = this->is_format[i];
-
-      if (!obsolete)
+      /* Don't emit untranslated entries.
+	 Also don't emit fuzzy entries, unless --use-fuzzy was specified.
+	 But ignore fuzziness of the header entry.  */
+      if (mp->msgstr[0] == '\0'
+	  || (!include_all && mp->is_fuzzy && mp->msgid[0] != '\0'))
 	{
-	  /* Don't emit untranslated entries.
-	     Also don't emit fuzzy entries, unless --use-fuzzy was specified.
-	     But ignore fuzziness of the header entry.  */
-	  if (msgstr_string[0] == '\0'
-	      || (!include_all && this->is_fuzzy && msgid_string[0] != '\0'))
+	  if (check_compatibility)
 	    {
-	      if (check_compatibility)
-		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, msgstr_pos->file_name,
-				 msgstr_pos->line_number,
-				 (msgstr_string[0] == '\0'
-				  ? _("empty `msgstr' entry ignored")
-				  : _("fuzzy `msgstr' entry ignored")));
-		  error_with_progname = true;
-		}
+	      error_with_progname = false;
+	      error_at_line (0, 0, mp->pos.file_name, mp->pos.line_number,
+			     (mp->msgstr[0] == '\0'
+			      ? _("empty `msgstr' entry ignored")
+			      : _("fuzzy `msgstr' entry ignored")));
+	      error_with_progname = true;
+	    }
 
-	      /* Increment counter for fuzzy/untranslated messages.  */
-	      if (msgstr_string[0] == '\0')
-		++msgs_untranslated;
-	      else
-		++msgs_fuzzy;
+	  /* Increment counter for fuzzy/untranslated messages.  */
+	  if (mp->msgstr[0] == '\0')
+	    ++msgs_untranslated;
+	  else
+	    ++msgs_fuzzy;
 
-	      mp->obsolete = true;
+	  mp->obsolete = true;
+	}
+      else
+	{
+	  /* Test for header entry.  */
+	  if (mp->msgid[0] == '\0')
+	    {
+	      this->has_header_entry = true;
+	      if (!mp->is_fuzzy)
+		this->has_nonfuzzy_header_entry = true;
+
+	      /* Do some more tests on the contents of the header entry.  */
+	      if (check_header)
+		check_header_entry (mp->msgstr);
 	    }
 	  else
-	    {
-	      /* Test for header entry.  */
-	      if (msgid_string[0] == '\0')
-		{
-		  this->has_header_entry = true;
-		  if (!this->is_fuzzy)
-		    this->has_nonfuzzy_header_entry = true;
+	    /* We don't count the header entry in the statistic so place
+	       the counter incrementation here.  */
+	    if (mp->is_fuzzy)
+	      ++msgs_fuzzy;
+	    else
+	      ++msgs_translated;
 
-		  /* Do some more tests on the contents of the header
-		     entry.  */
-		  if (check_header)
-		    check_header_entry (msgstr_string);
-		}
-	      else
-		/* We don't count the header entry in the statistic so place
-		   the counter incrementation here.  */
-		if (this->is_fuzzy)
-		  ++msgs_fuzzy;
-		else
-		  ++msgs_translated;
-
-	      /* Do some more checks on both strings.  */
-	      check_pair (msgid_string, msgid_pos, msgid_plural,
-			  msgstr_string, msgstr_len, msgstr_pos,
-			  this->is_format);
-	    }
+	  /* Do some more checks on both strings.  */
+	  check_pair (mp->msgid, msgid_pos, mp->msgid_plural,
+		      mp->msgstr, mp->msgstr_len, msgstr_pos,
+		      mp->is_format);
 	}
-      message_list_append (current_domain->mlp, mp);
     }
-
-  /* Prepare for next message.  */
-  this->is_fuzzy = false;
-  for (i = 0; i < NFORMATS; i++)
-    this->is_format[i] = undecided;
-  this->do_wrap = undecided;
 }
 
 
 /* Test for `#, fuzzy' comments and warn.  */
 static void
-format_comment_special (po_ty *that, const char *s)
+msgfmt_comment_special (abstract_po_reader_ty *that, const char *s)
 {
-  msgfmt_class_ty *this = (msgfmt_class_ty *) that;
-  bool fuzzy;
+  msgfmt_po_reader_ty *this = (msgfmt_po_reader_ty *) that;
 
-  po_parse_comment_special (s, &fuzzy, this->is_format, &this->do_wrap);
+  /* Invoke superclass method.  */
+  default_comment_special (that, s);
 
-  if (fuzzy)
+  if (this->is_fuzzy)
     {
       static bool warned = false;
 
@@ -1515,8 +1490,6 @@ format_comment_special (po_ty *that, const char *s)
 %s: warning: source file contains fuzzy translation"),
 		 gram_pos.file_name);
 	}
-
-      this->is_fuzzy = true;
     }
 }
 
@@ -1527,30 +1500,48 @@ format_comment_special (po_ty *that, const char *s)
    and all actions resulting from the parse will be through
    invocations of method functions of that object.  */
 
-static po_method_ty format_methods =
+static default_po_reader_class_ty msgfmt_methods =
 {
-  sizeof (msgfmt_class_ty),
-  format_constructor, /* constructor */
-  NULL, /* destructor */
-  format_directive_domain,
-  format_directive_message,
-  NULL, /* parse_brief */
-  format_debrief, /* parse_debrief */
-  NULL, /* comment */
-  NULL, /* comment_dot */
-  NULL, /* comment_filepos */
-  format_comment_special /* comment */
+  {
+    sizeof (msgfmt_po_reader_ty),
+    msgfmt_constructor,
+    default_destructor,
+    default_parse_brief,
+    msgfmt_parse_debrief,
+    default_directive_domain,
+    default_directive_message,
+    default_comment,
+    default_comment_dot,
+    default_comment_filepos,
+    msgfmt_comment_special
+  },
+  msgfmt_set_domain, /* set_domain */
+  msgfmt_add_message, /* add_message */
+  msgfmt_frob_new_message /* frob_new_message */
 };
 
 
 /* Read .po file FILENAME and store translation pairs.  */
 static void
-read_po_file (char *filename)
+read_po_file_msgfmt (char *filename)
 {
-  po_ty *pop;
+  default_po_reader_ty *pop;
 
-  pop = po_alloc (&format_methods);
+  pop = default_po_reader_alloc (&msgfmt_methods);
+  pop->handle_comments = false;
+  pop->handle_filepos_comments = false;
+  pop->allow_domain_directives = true;
+  pop->allow_duplicates = false;
+  pop->allow_duplicates_if_same_msgstr = false;
+  pop->mdlp = NULL;
+  pop->mlp = NULL;
+  if (current_domain != NULL)
+    {
+      /* Keep current_domain and this->domain synchronized.  */
+      pop->domain = current_domain->domain_name;
+      pop->mlp = current_domain->mlp;
+    }
   po_lex_pass_obsolete_entries (true);
-  po_scan_file (pop, filename);
-  po_free (pop);
+  po_scan_file ((abstract_po_reader_ty *) pop, filename);
+  po_reader_free ((abstract_po_reader_ty *) pop);
 }

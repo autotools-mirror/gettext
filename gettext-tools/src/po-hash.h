@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2001-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -24,6 +24,6 @@
    sign "#:" or "#".  If the string contains file names and line numbers,
    return 0 and call po_callback_comment_filepos for each of them.  Otherwise
    return nonzero.  */
-extern int po_hash (const char *string);
+extern int po_parse_comment_filepos (const char *string);
 
 #endif /* _PO_HASH_H */
