@@ -1,5 +1,14 @@
 2003-04-04  Bruno Haible  <bruno@clisp.org>
 
+	* gettextP.h [!_LIBC]: Remove declarations of exported libintl_*
+	functions; include libgnuintl.h instead.
+	* intl-compat.c: Remove include of libgnuintl.h.
+	(DLL_EXPORTED): New macro.
+	(gettext, dgettext, dcgettext, ngettext, dngettext, dcngettext,
+	textdomain, bindtextdomain, bind_textdomain_codeset): Use it.
+
+2003-04-04  Bruno Haible  <bruno@clisp.org>
+
 	* libgnuintl.h.in (libintl_set_relocation_prefix): Convert extern
 	declaration to K&R syntax.
 

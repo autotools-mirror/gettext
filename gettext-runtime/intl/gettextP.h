@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -208,33 +208,15 @@ extern char *__bindtextdomain PARAMS ((const char *__domainname,
 extern char *__bind_textdomain_codeset PARAMS ((const char *__domainname,
 						const char *__codeset));
 #else
-extern char *libintl_gettext PARAMS ((const char *__msgid));
-extern char *libintl_dgettext PARAMS ((const char *__domainname,
-				       const char *__msgid));
-extern char *libintl_dcgettext PARAMS ((const char *__domainname,
-					const char *__msgid, int __category));
-extern char *libintl_ngettext PARAMS ((const char *__msgid1,
-				       const char *__msgid2,
-				       unsigned long int __n));
-extern char *libintl_dngettext PARAMS ((const char *__domainname,
-					const char *__msgid1,
-					const char *__msgid2,
-					unsigned long int __n));
-extern char *libintl_dcngettext PARAMS ((const char *__domainname,
-					 const char *__msgid1,
-					 const char *__msgid2,
-					 unsigned long int __n,
-					 int __category));
+/* Declare the exported libintl_* functions, in a way that allows us to
+   call them under their real name.  */
+# define _INTL_REDIRECT_MACROS
+# include "libgnuintl.h"
 extern char *libintl_dcigettext PARAMS ((const char *__domainname,
 					 const char *__msgid1,
 					 const char *__msgid2,
 					 int __plural, unsigned long int __n,
 					 int __category));
-extern char *libintl_textdomain PARAMS ((const char *__domainname));
-extern char *libintl_bindtextdomain PARAMS ((const char *__domainname,
-					     const char *__dirname));
-extern char *libintl_bind_textdomain_codeset PARAMS ((const char *__domainname,
-						      const char *__codeset));
 #endif
 
 /* @@ begin of epilog @@ */
