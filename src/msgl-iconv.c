@@ -40,7 +40,8 @@
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 #if HAVE_ICONV
 static int iconv_string PARAMS ((iconv_t cd,
 				 const char *start, const char *end,

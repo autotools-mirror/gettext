@@ -75,7 +75,8 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status));
 
 

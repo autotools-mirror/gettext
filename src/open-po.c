@@ -39,7 +39,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 extern int errno;
 #endif
 
-/* Prototypes for helper functions.  */
+/* Prototypes for helper functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 extern char *xstrdup PARAMS ((const char *string));
 
 /* This macro is used to determine the number of elements in an erray.  */

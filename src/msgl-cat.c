@@ -54,7 +54,8 @@ bool msgcomm_mode = false;
 bool omit_header = false;
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static bool is_message_selected PARAMS ((const message_ty *tmp));
 static bool is_message_needed PARAMS ((const message_ty *tmp));
 static bool is_message_first_needed PARAMS ((const message_ty *tmp));
