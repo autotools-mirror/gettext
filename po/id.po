@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2002-04-24 19:27+0200\n"
+"POT-Creation-Date: 2002-07-17 13:52+0200\n"
 "PO-Revision-Date: 1999-09-19 10:24+07:00\n"
 "Last-Translator: Tedi Heriyanto <tedi-h@usa.net>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -27,8 +27,8 @@ msgstr ""
 msgid "Valid arguments are:"
 msgstr ""
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:726 src/read-mo.c:171
-#: src/urlget.c:204 src/xgettext.c:829 src/xgettext.c:842 src/xgettext.c:852
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:171
+#: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "kesalahan saat membuka \"%s\" untuk dibaca"
@@ -119,11 +119,11 @@ msgstr "%s: pilihan `-W %s' rancu\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: pilihan `-W %s' tidak membolehkan sebuah argumen\n"
 
-#: lib/javacomp.c:440
+#: lib/javacomp.c:462
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
 
-#: lib/javaexec.c:379
+#: lib/javaexec.c:414
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 
@@ -235,7 +235,7 @@ msgid ""
 msgstr "spesifikasi format untuk argumen %u tidak sama"
 
 # )
-#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:269 src/msgcat.c:234
+#: src/gettext.c:135 src/hostname.c:175 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
@@ -250,7 +250,7 @@ msgstr ""
 "Ini adalah free software; lihat source untuk kondisi penyalinan. Tidak ada\n"
 "jaminan; bahkan untuk PENJUALAN atau KESESUAIAN UNTUK TUJUAN TERTENTU.\n"
 
-#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:274 src/msgcat.c:239
+#: src/gettext.c:140 src/hostname.c:180 src/msgattrib.c:274 src/msgcat.c:239
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
@@ -259,7 +259,7 @@ msgstr ""
 msgid "Written by %s.\n"
 msgstr "Ditulis oleh %s.\n"
 
-#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:271 src/ngettext.c:143
+#: src/gettext.c:158 src/hostname.c:190 src/msginit.c:271 src/ngettext.c:143
 msgid "too many arguments"
 msgstr "terlalu banyak argumen"
 
@@ -267,11 +267,11 @@ msgstr "terlalu banyak argumen"
 msgid "missing arguments"
 msgstr "Argumen hilang"
 
-#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:327 src/msgcat.c:295
-#: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:247 src/msgen.c:232
+#: src/gettext.c:240 src/hostname.c:204 src/msgattrib.c:327 src/msgcat.c:295
+#: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:248 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:529
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:537
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Coba `%s --help' untuk informasi lebih jauh.\n"
@@ -332,26 +332,26 @@ msgstr ""
 "diterjemahkan.\n"
 "Direktori pencarian standar: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:409 src/msgcat.c:378
-#: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:313 src/msgen.c:294
+#: src/gettext.c:277 src/hostname.c:234 src/msgattrib.c:409 src/msgcat.c:378
+#: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:314 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:626
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:634
 #, fuzzy
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Laporkan kesalahan ke <bug-gnu-utils@gnu.org>.\n"
 
-#: src/hostname.c:206 src/msginit.c:352
+#: src/hostname.c:209 src/msginit.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr ""
 
-#: src/hostname.c:211
+#: src/hostname.c:214
 #, no-wrap
 msgid "Print the machine's hostname.\n"
 msgstr ""
 
-#: src/hostname.c:216
+#: src/hostname.c:219
 #, no-wrap
 msgid ""
 "Output format:\n"
@@ -361,7 +361,7 @@ msgid ""
 "  -i, --ip-address      addresses for the hostname\n"
 msgstr ""
 
-#: src/hostname.c:225 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
+#: src/hostname.c:228 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:308
 #: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
 #: src/msginit.c:394 src/urlget.c:180
 #, no-wrap
@@ -371,7 +371,7 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 msgstr ""
 
-#: src/hostname.c:246 src/hostname.c:253
+#: src/hostname.c:249 src/hostname.c:256
 msgid "could not get host name"
 msgstr ""
 
@@ -391,7 +391,7 @@ msgstr ""
 msgid "%s and %s are mutually exclusive"
 msgstr "%s dan %s adalah mutually exclusive"
 
-#: src/msgattrib.c:332 src/msgconv.c:252 src/msggrep.c:407 src/msguniq.c:279
+#: src/msgattrib.c:332 src/msgconv.c:253 src/msggrep.c:407 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr ""
@@ -404,14 +404,14 @@ msgid ""
 msgstr ""
 
 #: src/msgattrib.c:343 src/msgcat.c:318 src/msgcmp.c:190 src/msgcomm.c:333
-#: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:248 src/msgfilter.c:366
+#: src/msgconv.c:263 src/msgen.c:250 src/msgexec.c:248 src/msgfilter.c:366
 #: src/msgfmt.c:543 src/msggrep.c:418 src/msginit.c:363 src/msgmerge.c:408
 #: src/msgunfmt.c:329 src/msguniq.c:296
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 
-#: src/msgattrib.c:348 src/msgconv.c:267 src/msggrep.c:423 src/msguniq.c:301
+#: src/msgattrib.c:348 src/msgconv.c:268 src/msggrep.c:423 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -420,7 +420,7 @@ msgid ""
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgattrib.c:356 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:379
+#: src/msgattrib.c:356 src/msgconv.c:276 src/msgen.c:263 src/msgfilter.c:379
 #: src/msggrep.c:431 src/msgmerge.c:430
 #, no-wrap
 msgid ""
@@ -492,7 +492,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "digunakan kriteria pemilihan yang tidak mungkin (%d < n < %d)"
 
-#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:534
+#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:542
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr ""
@@ -525,7 +525,7 @@ msgstr ""
 "komentar ekstraksi akan dijaga, tetapi hanya dari file PO pertama yang\n"
 "mendefinisikan mereka. Posisi file dari seluruh file PO akan dijaga.\n"
 
-#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:550
+#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:558
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -607,7 +607,7 @@ msgstr ""
 "  -V, --version              tampilkan informasi versi dan keluar\n"
 "  -w, --width=NUMBER         set lebar halaman output\n"
 
-#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:620
+#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:628
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -685,17 +685,17 @@ msgstr "pesan ini digunakan tapi tidak didefinisikan dalam %s"
 msgid "warning: this message is not used"
 msgstr "peringatan: pesan ini tidak digunakan"
 
-#: src/msgcmp.c:338 src/po-lex.c:699
+#: src/msgcmp.c:338 src/po-lex.c:701
 #, fuzzy, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "ditemukan %d kesalahan fatal"
 
-#: src/msgcmp.c:419 src/msgfmt.c:1457 src/read-po.c:202 src/x-po.c:163
+#: src/msgcmp.c:419 src/msgfmt.c:1449 src/read-po.c:202 src/x-po.c:163
 msgid "duplicate message definition"
 msgstr "definisi pesan ganda"
 
-#: src/msgcmp.c:420 src/msgfmt.c:1458 src/read-po.c:203 src/x-po.c:164
+#: src/msgcmp.c:420 src/msgfmt.c:1450 src/read-po.c:203 src/x-po.c:164
 msgid "...this is the location of the first definition"
 msgstr "...ini adalah lokasi definisi pertama"
 
@@ -791,12 +791,12 @@ msgstr ""
 "  -V, --version              tampilkan informasi versi dan keluar\n"
 "  -w, --width=NUMBER         set lebar halaman output\n"
 
-#: src/msgconv.c:257
+#: src/msgconv.c:258
 #, no-wrap
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr ""
 
-#: src/msgconv.c:283
+#: src/msgconv.c:284
 #, no-wrap
 msgid ""
 "Conversion target:\n"
@@ -804,7 +804,7 @@ msgid ""
 "The default encoding is the current locale's encoding.\n"
 msgstr ""
 
-#: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
+#: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:460
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -1142,188 +1142,188 @@ msgid ""
 "  -v, --verbose               increase verbosity level\n"
 msgstr ""
 
-#: src/msgfmt.c:774
+#: src/msgfmt.c:766
 msgid "plural expression can produce negative values"
 msgstr ""
 
-#: src/msgfmt.c:787
+#: src/msgfmt.c:779
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr ""
 
-#: src/msgfmt.c:813
+#: src/msgfmt.c:805
 msgid "plural expression can produce division by zero"
 msgstr ""
 
-#: src/msgfmt.c:818
+#: src/msgfmt.c:810
 msgid "plural expression can produce integer overflow"
 msgstr ""
 
-#: src/msgfmt.c:823
+#: src/msgfmt.c:815
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
 msgstr ""
 
-#: src/msgfmt.c:902 src/msgfmt.c:914
+#: src/msgfmt.c:894 src/msgfmt.c:906
 msgid "message catalog has plural form translations..."
 msgstr ""
 
-#: src/msgfmt.c:905
+#: src/msgfmt.c:897
 msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr ""
 
-#: src/msgfmt.c:917
+#: src/msgfmt.c:909
 msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr ""
 
-#: src/msgfmt.c:942
+#: src/msgfmt.c:934
 #, fuzzy
 msgid "invalid nplurals value"
 msgstr "urutan kendali ilegal"
 
-#: src/msgfmt.c:956
+#: src/msgfmt.c:948
 msgid "invalid plural expression"
 msgstr ""
 
-#: src/msgfmt.c:975 src/msgfmt.c:990
+#: src/msgfmt.c:967 src/msgfmt.c:982
 #, c-format
 msgid "nplurals = %lu..."
 msgstr ""
 
-#: src/msgfmt.c:978
+#: src/msgfmt.c:970
 #, fuzzy, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
 msgstr[0] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
 msgstr[1] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
 
-#: src/msgfmt.c:993
+#: src/msgfmt.c:985
 #, fuzzy, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
 msgstr[1] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
 
-#: src/msgfmt.c:1023
+#: src/msgfmt.c:1015
 #, c-format
 msgid "Try using the following, valid for %s:\n"
 msgstr ""
 
-#: src/msgfmt.c:1036
+#: src/msgfmt.c:1028
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
 
-#: src/msgfmt.c:1074
+#: src/msgfmt.c:1066
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
 
-#: src/msgfmt.c:1084
+#: src/msgfmt.c:1076
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
 
-#: src/msgfmt.c:1096
+#: src/msgfmt.c:1088
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
 
-#: src/msgfmt.c:1113
+#: src/msgfmt.c:1105
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
 
-#: src/msgfmt.c:1123
+#: src/msgfmt.c:1115
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
 
-#: src/msgfmt.c:1135
+#: src/msgfmt.c:1127
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
 
-#: src/msgfmt.c:1147
+#: src/msgfmt.c:1139
 msgid "plural handling is a GNU gettext extension"
 msgstr ""
 
-#: src/msgfmt.c:1212
+#: src/msgfmt.c:1204
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
-#: src/msgfmt.c:1250
+#: src/msgfmt.c:1242
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr ""
 
-#: src/msgfmt.c:1258
+#: src/msgfmt.c:1250
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr ""
 
-#: src/msgfmt.c:1293
+#: src/msgfmt.c:1285
 #, fuzzy, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "headerfield `%s' tidak ada dalam header"
 
-#: src/msgfmt.c:1297
+#: src/msgfmt.c:1289
 #, fuzzy, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "header field `%s' harus dimulai di awal baris"
 
-#: src/msgfmt.c:1308
+#: src/msgfmt.c:1300
 #, fuzzy
 msgid "some header fields still have the initial default value\n"
 msgstr "beberapa field header masih memiliki nilai baku awal"
 
-#: src/msgfmt.c:1320
+#: src/msgfmt.c:1312
 #, fuzzy, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "field `%s' masih memiliki nilai baku awal"
 
-#: src/msgfmt.c:1362
+#: src/msgfmt.c:1354
 msgid "warning: PO file header missing or invalid\n"
 msgstr ""
 
-#: src/msgfmt.c:1365
+#: src/msgfmt.c:1357
 msgid "warning: charset conversion will not work\n"
 msgstr ""
 
-#: src/msgfmt.c:1375
+#: src/msgfmt.c:1367
 msgid "warning: PO file header fuzzy\n"
 msgstr ""
 
-#: src/msgfmt.c:1377
+#: src/msgfmt.c:1369
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr ""
 
-#: src/msgfmt.c:1402
+#: src/msgfmt.c:1394
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "nama domain \"%s\" tidak sesuai dengan nama file"
 
-#: src/msgfmt.c:1407
+#: src/msgfmt.c:1399
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 "nama domain \"%s\" tidak sesuai dengan nama file: akan menggunakan prefix"
 
-#: src/msgfmt.c:1418
+#: src/msgfmt.c:1410
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktiv `domain %s' diabaikan"
 
-#: src/msgfmt.c:1490
+#: src/msgfmt.c:1482
 msgid "empty `msgstr' entry ignored"
 msgstr "masukan `msgstr' kosong diabaikan"
 
-#: src/msgfmt.c:1491
+#: src/msgfmt.c:1483
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "masukan fuzzy `msgstr' diabaikan"
 
-#: src/msgfmt.c:1560
+#: src/msgfmt.c:1552
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: peringatan: file source mengandung terjemahan fuzzy"
@@ -1513,46 +1513,46 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr ""
 
-#: src/msgl-cat.c:174 src/msgl-charset.c:87 src/msgl-iconv.c:304
+#: src/msgl-cat.c:187 src/msgl-charset.c:87 src/msgl-iconv.c:318
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr ""
 
-#: src/msgl-cat.c:182 src/msgl-iconv.c:314
+#: src/msgl-cat.c:196 src/msgl-iconv.c:329
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr ""
 
-#: src/msgl-cat.c:195
+#: src/msgl-cat.c:209
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
 msgstr ""
 
-#: src/msgl-cat.c:199
+#: src/msgl-cat.c:213
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
 
-#: src/msgl-cat.c:360 src/msgl-iconv.c:390
+#: src/msgl-cat.c:374 src/msgl-iconv.c:406
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 
-#: src/msgl-cat.c:410 src/msgl-cat.c:416 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/write-po.c:769 src/write-po.c:863
+#: src/msgl-cat.c:424 src/msgl-cat.c:430 src/msgl-charset.c:92
+#: src/msgl-charset.c:127 src/write-po.c:782 src/write-po.c:876
 msgid "warning: "
 msgstr ""
 
-#: src/msgl-cat.c:411
+#: src/msgl-cat.c:425
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
 "Converting the output to UTF-8.\n"
 msgstr ""
 
-#: src/msgl-cat.c:417
+#: src/msgl-cat.c:431
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -1604,18 +1604,18 @@ msgstr ""
 msgid "conversion failure"
 msgstr ""
 
-#: src/msgl-iconv.c:336
+#: src/msgl-iconv.c:351
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 
-#: src/msgl-iconv.c:354
+#: src/msgl-iconv.c:369
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
 "not support this conversion."
 msgstr ""
 
-#: src/msgl-iconv.c:370
+#: src/msgl-iconv.c:385
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -1891,53 +1891,53 @@ msgstr ""
 msgid "<stdin>"
 msgstr ""
 
-#: src/po-charset.c:222 src/po-charset.c:280 src/po-charset.c:308
-#: src/po-charset.c:334
+#: src/po-charset.c:225 src/po-charset.c:283 src/po-charset.c:311
+#: src/po-charset.c:337
 #, c-format
 msgid "%s: warning: "
 msgstr ""
 
-#: src/po-charset.c:223
+#: src/po-charset.c:226
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
 
-#: src/po-charset.c:276 src/po-charset.c:306
+#: src/po-charset.c:279 src/po-charset.c:309
 msgid "Continuing anyway, expect parse errors."
 msgstr ""
 
-#: src/po-charset.c:278
+#: src/po-charset.c:281
 msgid "Continuing anyway."
 msgstr ""
 
-#: src/po-charset.c:281
+#: src/po-charset.c:284
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
 
-#: src/po-charset.c:290 src/po-charset.c:316
+#: src/po-charset.c:293 src/po-charset.c:319
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
 
-#: src/po-charset.c:295 src/po-charset.c:320
+#: src/po-charset.c:298 src/po-charset.c:323
 #, c-format
 msgid "%s\n"
 msgstr ""
 
-#: src/po-charset.c:309
+#: src/po-charset.c:312
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
 
-#: src/po-charset.c:335
+#: src/po-charset.c:338
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -1974,44 +1974,44 @@ msgstr ""
 msgid "too many errors, aborting"
 msgstr "terlalu banyak kesalahan, dibatalkan"
 
-#: src/po-lex.c:515 src/write-po.c:351 src/write-po.c:453
+#: src/po-lex.c:517 src/write-po.c:364 src/write-po.c:466
 msgid "invalid multibyte sequence"
 msgstr ""
 
-#: src/po-lex.c:541
+#: src/po-lex.c:543
 msgid "incomplete multibyte sequence at end of file"
 msgstr ""
 
-#: src/po-lex.c:551
+#: src/po-lex.c:553
 msgid "incomplete multibyte sequence at end of line"
 msgstr ""
 
-#: src/po-lex.c:559
+#: src/po-lex.c:561
 msgid "iconv failure"
 msgstr ""
 
-#: src/po-lex.c:757 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
+#: src/po-lex.c:759 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
 #: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
 #: src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "kesalahan ketika membaca \"%s\""
 
-#: src/po-lex.c:823
+#: src/po-lex.c:825
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "kata kunci \"%s\" tidak dikenal"
 
-#: src/po-lex.c:933
+#: src/po-lex.c:935
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "urutan kendali ilegal"
 
-#: src/po-lex.c:1041
+#: src/po-lex.c:1043
 msgid "end-of-file within string"
 msgstr "end-of-file dalam string"
 
-#: src/po-lex.c:1047
+#: src/po-lex.c:1049
 msgid "end-of-line within string"
 msgstr "end-of-line dalam string"
 
@@ -2076,7 +2076,7 @@ msgstr ""
 msgid "failed to create \"%s\""
 msgstr ""
 
-#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1012
+#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1025
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "kesalahan saat menulis file \"%s\""
@@ -2090,13 +2090,13 @@ msgstr ""
 msgid "error while opening \"%s\" for writing"
 msgstr "kesalahan ketika membuka \"%s\" untuk ditulis"
 
-#: src/write-po.c:402
+#: src/write-po.c:415
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "Pesan internasionalisasi tidak boleh mengandung escape sequence `\\%c'"
 
-#: src/write-po.c:770 src/write-po.c:864
+#: src/write-po.c:783 src/write-po.c:877
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -2105,12 +2105,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: src/write-po.c:931
+#: src/write-po.c:944
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "tidak dapat membuat file output \"%s\""
 
-#: src/write-po.c:938
+#: src/write-po.c:951
 #, no-c-format
 msgid "standard output"
 msgstr "standard output"
@@ -2125,7 +2125,7 @@ msgstr "%s:%d: peringatan: karakter konstan yang unterminated"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: peringatan: string literal yang unterminated"
 
-#: src/x-po.c:106 src/xgettext.c:640
+#: src/x-po.c:106 src/xgettext.c:648
 msgid "this file may not contain domain directives"
 msgstr "file ini tidak boleh mengandung direktiv domain"
 
@@ -2152,24 +2152,24 @@ msgstr "--join-existing tidak dapat digunakan ketika output ditulis ke stdout"
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:494
+#: src/xgettext.c:502
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "peringatan: file `%s' ekstensi `%s' tidak dikenal; dicoba C"
 
-#: src/xgettext.c:539
+#: src/xgettext.c:547
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr ""
 
-#: src/xgettext.c:544
+#: src/xgettext.c:552
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 msgstr ""
 
-#: src/xgettext.c:559
+#: src/xgettext.c:567
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2179,7 +2179,7 @@ msgid ""
 "If output file is -, output is written to standard output.\n"
 msgstr ""
 
-#: src/xgettext.c:568
+#: src/xgettext.c:576
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
@@ -2191,7 +2191,7 @@ msgid ""
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
 
-#: src/xgettext.c:579
+#: src/xgettext.c:587
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2201,7 +2201,7 @@ msgid ""
 "                                 preceding keyword lines) in output file\n"
 msgstr ""
 
-#: src/xgettext.c:588
+#: src/xgettext.c:596
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2212,7 +2212,7 @@ msgid ""
 "      --debug                    more detailed formatstring recognition result\n"
 msgstr ""
 
-#: src/xgettext.c:598
+#: src/xgettext.c:606
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -2250,18 +2250,18 @@ msgstr ""
 "  -V, --version              tampilkan informasi versi dan keluar\n"
 "  -w, --width=NUMBER         set lebar halaman output\n"
 
-#: src/xgettext.c:820
+#: src/xgettext.c:828
 msgid "standard input"
 msgstr "standard input"
 
-#: src/xgettext.c:935
+#: src/xgettext.c:943
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 msgstr ""
 
-#: src/xgettext.c:1291
+#: src/xgettext.c:1299
 #, c-format
 msgid "language `%s' unknown"
 msgstr "bahasa `%s' tidak dikenal"

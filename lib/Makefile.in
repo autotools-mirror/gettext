@@ -61,6 +61,7 @@ AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
 BUILDJAVA = @BUILDJAVA@
+BUILDJAVAEXE = @BUILDJAVAEXE@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
@@ -76,10 +77,13 @@ ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GCC = @GCC@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_C = @HAVE_GCJ_C@
 HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
 HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
@@ -94,6 +98,7 @@ HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 HAVE_LIB = @HAVE_LIB@
+HAVE__BOOL = @HAVE__BOOL@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -142,6 +147,8 @@ lispdir = @lispdir@
 with_gnu_ld = @with_gnu_ld@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+
+RM = rm -f
 
 lib_LTLIBRARIES = libgettextlib.la
 
@@ -238,7 +245,7 @@ stdbool.h.in \
 gen-lbrkprop.c 3level.h Combining.txt
 
 
-DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
+DEFS = -DLIBDIR=\"$(libdir)\" -DEXEEXT=\"$(EXEEXT)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
 DISTCLEANFILES = fnmatch.h
@@ -509,9 +516,14 @@ uninstall-am: uninstall-gettextsrcDATA uninstall-info-am \
 	uninstall-libLTLIBRARIES uninstall-local
 
 
+# No need to install libgettextlib.a.
+install-exec-am: install-exec-clean
+install-exec-clean:
+	$(RM) $(DESTDIR)$(libdir)/libgettextlib.a
+
 all-local c-ctype.lo execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo tmpdir.lo wait-process.lo xerror.lo: @STDBOOL_H@
 stdbool.h: stdbool.h.in
-	cp $(srcdir)/stdbool.h.in stdbool.h
+	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool.h.in > stdbool.h
 
 # The following is needed in order to install a simple file in $(libdir)
 # which is shared with other installed packages. We use a list of referencing

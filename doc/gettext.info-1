@@ -36,6 +36,9 @@ File: gettext.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 GNU `gettext' utilities
 ***********************
 
+   This manual document the GNU gettext tools and the GNU libintl
+library, version 0.11.3.
+
 * Menu:
 
 * Introduction::                Introduction
@@ -87,7 +90,7 @@ Preparing Program Sources
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
-* c-format::                    Telling something about the following string
+* c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 
 Making the PO Template File
@@ -200,6 +203,7 @@ The Maintainer's View
 * gettextize Invocation::       Invoking the `gettextize' Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in `configure.in'
+* CVS Issues::                  Integrating with CVS
 
 Files You Must Create or Alter
 
@@ -208,8 +212,10 @@ Files You Must Create or Alter
 * po/Makevars::                 `Makefile' pieces in `po/'
 * configure.in::                `configure.in' at top level
 * config.guess::                `config.guess', `config.sub' at top level
+* mkinstalldirs::               `mkinstalldirs' at top level
 * aclocal::                     `aclocal.m4' at top level
 * acconfig::                    `acconfig.h' at top level
+* config.h.in::                 `config.h.in' at top level
 * Makefile::                    `Makefile.in' at top level
 * src/Makefile::                `Makefile.in' in `src/'
 * lib/gettext.h::               `gettext.h' in `lib/'
@@ -217,7 +223,14 @@ Files You Must Create or Alter
 Autoconf macros for use in `configure.in'
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in `gettext.m4'
+* AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in `gettext.m4'
 * AM_ICONV::                    AM_ICONV in `iconv.m4'
+
+Integrating with CVS
+
+* Distributed CVS::             Avoiding version mismatch in distributed development
+* Files under CVS::             Files to put under CVS version control
+* autopoint Invocation::        Invoking the `autopoint' Program
 
 Other Programming Languages
 
@@ -227,6 +240,20 @@ Other Programming Languages
 * Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
 * List of Data Formats::        Internationalizable Data
+
+The Translator's View
+
+* c-format::                    C Format Strings
+* python-format::               Python Format Strings
+* lisp-format::                 Lisp Format Strings
+* elisp-format::                Emacs Lisp Format Strings
+* librep-format::               librep Format Strings
+* smalltalk-format::            Smalltalk Format Strings
+* java-format::                 Java Format Strings
+* awk-format::                  awk Format Strings
+* object-pascal-format::        Object Pascal Format Strings
+* ycp-format::                  YCP Format Strings
+* tcl-format::                  Tcl Format Strings
 
 Individual Programming Languages
 
@@ -633,7 +660,7 @@ editing a PO file, PO mode allows for the easy browsing of auxiliary
 and compendium PO files, as well as for following references into the
 set of C program sources from which PO files have been derived.  It has
 a few special features, among which are the interactive marking of
-program strings as translatable, and the validatation of PO files with
+program strings as translatable, and the validation of PO files with
 easy repositioning to PO file lines showing errors.
 
    As a programmer, the first step to bringing GNU `gettext' into your
@@ -875,6 +902,12 @@ language.  One PO file "entry" has the following schematic structure:
 translator.  When using PO mode, very little has to be known about the
 format details, as PO mode takes care of them for her.
 
+   A simple entry can look like this:
+
+     #: lib/error.c:116
+     msgid "Unknown system error"
+     msgstr "Error desconegut del sistema"
+
    Entries begin with some optional white space.  Usually, when
 generated through GNU `gettext' tools, there is exactly one blank line
 between entries.  Then comments follow, on lines all starting with the
@@ -943,6 +976,15 @@ plural forms.
      msgstr[0] TRANSLATED-STRING-CASE-0
      ...
      msgstr[N] TRANSLATED-STRING-CASE-N
+
+   Such an entry can look like this:
+
+     #: src/msgcmp.c:338 src/po-lex.c:699
+     #, c-format
+     msgid "found %d fatal error"
+     msgid_plural "found %d fatal errors"
+     msgstr[0] "s'ha trobat %d error fatal"
+     msgstr[1] "s'han trobat %d errors fatals"
 
    It happens that some lines, usually whitespace or comments, follow
 the very last entry of a PO file.  Such lines are not part of any entry,

@@ -36,7 +36,7 @@ File: gettext.info,  Node: C Sources Context,  Next: Auxiliary,  Prev: Subedit, 
 C Sources Context
 =================
 
-   PO mode is particularily powerful when used with PO files created
+   PO mode is particularly powerful when used with PO files created
 through GNU `gettext' utilities, as those utilities insert special
 comments in the PO files they generate.  Some of these special comments
 relate the PO file entry to exactly where the untranslated string
@@ -45,9 +45,9 @@ appears in the program sources.
    When the translator gets to an untranslated entry, she is fairly
 often faced with an original string which is not as informative as it
 normally should be, being succinct, cryptic, or otherwise ambiguous.
-Before chosing how to translate the string, she needs to understand
+Before choosing how to translate the string, she needs to understand
 better what the string really means and how tight the translation has
-to be.  Most of times, when problems arise, the only way left to make
+to be.  Most of the time, when problems arise, the only way left to make
 her judgment is looking at the true program sources from where this
 string originated, searching for surrounding comments the programmer
 might have put in there, and looking around for helping clues of _any_
@@ -60,8 +60,8 @@ should not be shy at taking a look, once in a while.  It is most
 probable that she will still be able to find some of the hints she
 needs.  She will learn quickly to not feel uncomfortable in program
 code, paying more attention to programmer's comments, variable and
-function names (if he dared chosing them well), and overall
-organization, than to programmation itself.
+function names (if he dared choosing them well), and overall
+organization, than to the program code itself.
 
    The following commands are meant to help the translator at getting
 program source context for a PO file entry.

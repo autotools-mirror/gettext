@@ -2513,6 +2513,18 @@ freebsd1*)
   dynamic_linker=no
   ;;
 
+freebsd*-gnu*)
+  version_type=linux
+  need_lib_prefix=no
+  need_version=no
+  library_names_spec='${libname}${release}.so$versuffix ${libname}${release}.so$major $libname.so'
+  soname_spec='${libname}${release}.so$major'
+  shlibpath_var=LD_LIBRARY_PATH
+  shlibpath_overrides_runpath=no
+  hardcode_into_libs=yes
+  dynamic_linker='GNU ld.so'
+  ;;
+
 freebsd*)
   objformat=`test -x /usr/bin/objformat && /usr/bin/objformat || echo aout`
   version_type=freebsd-$objformat
@@ -4001,7 +4013,7 @@ AC_DEFUN([AM_PROG_NM],        [AC_PROG_NM])
 # This is just to silence aclocal about the macro not being used
 ifelse([AC_DISABLE_FAST_INSTALL])
 
-# lib-link.m4 serial 2 (gettext-0.11.2)
+# lib-link.m4 serial 3 (gettext-0.11.3)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -4119,6 +4131,10 @@ AC_DEFUN([AC_LIB_RPATH],
   hardcode_minus_L="$acl_cv_hardcode_minus_L"
   sys_lib_search_path_spec="$acl_cv_sys_lib_search_path_spec"
   sys_lib_dlsearch_path_spec="$acl_cv_sys_lib_dlsearch_path_spec"
+  dnl Determine whether the user wants rpath handling at all.
+  AC_ARG_ENABLE(rpath,
+    [  --disable-rpath         do not hardcode runtime library paths],
+    :, enable_rpath=yes)
 ])
 
 dnl AC_LIB_LINKFLAGS_BODY(name [, dependencies]) searches for libname and
@@ -4248,7 +4264,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
               dnl Linking with a shared library. We attempt to hardcode its
               dnl directory into the executable's runpath, unless it's the
               dnl standard /usr/lib.
-              if test "X$found_dir" = "X/usr/lib"; then
+              if test "$enable_rpath" = no || test "X$found_dir" = "X/usr/lib"; then
                 dnl No hardcoding is needed.
                 LIB[]NAME="${LIB[]NAME}${LIB[]NAME:+ }$found_so"
               else
@@ -4439,29 +4455,31 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                     ;;
                   -R*)
                     dir=`echo "X$dep" | sed -e 's/^X-R//'`
-                    dnl Potentially add DIR to rpathdirs.
-                    dnl The rpathdirs will be appended to $LIBNAME at the end.
-                    haveit=
-                    for x in $rpathdirs; do
-                      if test "X$x" = "X$dir"; then
-                        haveit=yes
-                        break
+                    if test "$enable_rpath" != no; then
+                      dnl Potentially add DIR to rpathdirs.
+                      dnl The rpathdirs will be appended to $LIBNAME at the end.
+                      haveit=
+                      for x in $rpathdirs; do
+                        if test "X$x" = "X$dir"; then
+                          haveit=yes
+                          break
+                        fi
+                      done
+                      if test -z "$haveit"; then
+                        rpathdirs="$rpathdirs $dir"
                       fi
-                    done
-                    if test -z "$haveit"; then
-                      rpathdirs="$rpathdirs $dir"
-                    fi
-                    dnl Potentially add DIR to ltrpathdirs.
-                    dnl The ltrpathdirs will be appended to $LTLIBNAME at the end.
-                    haveit=
-                    for x in $ltrpathdirs; do
-                      if test "X$x" = "X$dir"; then
-                        haveit=yes
-                        break
+                      dnl Potentially add DIR to ltrpathdirs.
+                      dnl The ltrpathdirs will be appended to $LTLIBNAME at the end.
+                      haveit=
+                      for x in $ltrpathdirs; do
+                        if test "X$x" = "X$dir"; then
+                          haveit=yes
+                          break
+                        fi
+                      done
+                      if test -z "$haveit"; then
+                        ltrpathdirs="$ltrpathdirs $dir"
                       fi
-                    done
-                    if test -z "$haveit"; then
-                      ltrpathdirs="$ltrpathdirs $dir"
                     fi
                     ;;
                   -l*)

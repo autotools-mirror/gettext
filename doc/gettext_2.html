@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 24 April 2002 -->
+     from gettext.texi on 16 July 2002 -->
 
 <TITLE>GNU gettext utilities - 2  PO Files and PO Mode Basics</TITLE>
 </HEAD>
@@ -119,6 +119,17 @@ about the format details, as PO mode takes care of them for her.
 
 </P>
 <P>
+A simple entry can look like this:
+
+</P>
+
+<PRE>
+#: lib/error.c:116
+msgid "Unknown system error"
+msgstr "Error desconegut del sistema"
+</PRE>
+
+<P>
 Entries begin with some optional white space.  Usually, when generated
 through GNU <CODE>gettext</CODE> tools, there is exactly one blank line
 between entries.  Then comments follow, on lines all starting with the
@@ -195,6 +206,7 @@ See section <A HREF="gettext_8.html#SEC119">8.1  Invoking the <CODE>msgfmt</CODE
 
 <P>
 <A NAME="IDX50"></A>
+<A NAME="IDX51"></A>
 A different kind of entries is used for translations which involve
 plural forms.
 
@@ -214,7 +226,21 @@ msgstr[N] <VAR>translated-string-case-n</VAR>
 </PRE>
 
 <P>
-<A NAME="IDX51"></A>
+Such an entry can look like this:
+
+</P>
+
+<PRE>
+#: src/msgcmp.c:338 src/po-lex.c:699
+#, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "s'ha trobat %d error fatal"
+msgstr[1] "s'han trobat %d errors fatals"
+</PRE>
+
+<P>
+<A NAME="IDX52"></A>
 It happens that some lines, usually whitespace or comments, follow the
 very last entry of a PO file.  Such lines are not part of any entry,
 and PO mode is unable to take action on those lines.  By using the
@@ -264,7 +290,7 @@ other character, we just did it this way because it is neater.
 
 </P>
 <P>
-<A NAME="IDX52"></A>
+<A NAME="IDX53"></A>
 One should carefully distinguish between end of lines marked as
 <SAMP>`\n&acute;</SAMP> <EM>inside</EM> quotes, which are part of the represented
 string, and end of lines in the PO file itself, outside string quotes,
@@ -272,7 +298,7 @@ which have no incidence on the represented string.
 
 </P>
 <P>
-<A NAME="IDX53"></A>
+<A NAME="IDX54"></A>
 Outside strings, white lines and comments may be used freely.
 Comments start at the beginning of a line with <SAMP>`#&acute;</SAMP> and extend
 until the end of the PO file line.  Comments written by translators
@@ -288,8 +314,8 @@ file is given to <CODE>msgmerge</CODE>.
 <H2><A NAME="SEC10" HREF="gettext_toc.html#TOC10">2.3  Main PO mode Commands</A></H2>
 
 <P>
-<A NAME="IDX54"></A>
 <A NAME="IDX55"></A>
+<A NAME="IDX56"></A>
 After setting up Emacs with something similar to the lines in
 section <A HREF="gettext_2.html#SEC8">2.1  Completing GNU <CODE>gettext</CODE> Installation</A>, PO mode is activated for a window when Emacs finds a
 PO file in that window.  This puts the window read-only and establishes a
@@ -321,47 +347,47 @@ in special ways.
 
 <DT><KBD>_</KBD>
 <DD>
-<A NAME="IDX56"></A>
+<A NAME="IDX57"></A>
 Undo last modification to the PO file (<CODE>po-undo</CODE>).
 
 <DT><KBD>Q</KBD>
 <DD>
-<A NAME="IDX57"></A>
+<A NAME="IDX58"></A>
 Quit processing and save the PO file (<CODE>po-quit</CODE>).
 
 <DT><KBD>q</KBD>
 <DD>
-<A NAME="IDX58"></A>
+<A NAME="IDX59"></A>
 Quit processing, possibly after confirmation (<CODE>po-confirm-and-quit</CODE>).
 
 <DT><KBD>0</KBD>
 <DD>
-<A NAME="IDX59"></A>
+<A NAME="IDX60"></A>
 Temporary leave the PO file window (<CODE>po-other-window</CODE>).
 
 <DT><KBD>?</KBD>
 <DD>
 <DT><KBD>h</KBD>
 <DD>
-<A NAME="IDX60"></A>
 <A NAME="IDX61"></A>
+<A NAME="IDX62"></A>
 Show help about PO mode (<CODE>po-help</CODE>).
 
 <DT><KBD>=</KBD>
 <DD>
-<A NAME="IDX62"></A>
+<A NAME="IDX63"></A>
 Give some PO file statistics (<CODE>po-statistics</CODE>).
 
 <DT><KBD>V</KBD>
 <DD>
-<A NAME="IDX63"></A>
+<A NAME="IDX64"></A>
 Batch validate the format of the whole PO file (<CODE>po-validate</CODE>).
 
 </DL>
 
 <P>
-<A NAME="IDX64"></A>
 <A NAME="IDX65"></A>
+<A NAME="IDX66"></A>
 The command <KBD>_</KBD> (<CODE>po-undo</CODE>) interfaces to the Emacs
 <EM>undo</EM> facility.  See section `Undoing Changes' in <CITE>The Emacs Editor</CITE>.  Each time <KBD>U</KBD> is typed, modifications which the translator
 did to the PO file are undone a little more.  For the purpose of
@@ -373,10 +399,10 @@ can undo the edition work quite parsimoniously.
 
 </P>
 <P>
-<A NAME="IDX66"></A>
 <A NAME="IDX67"></A>
 <A NAME="IDX68"></A>
 <A NAME="IDX69"></A>
+<A NAME="IDX70"></A>
 The commands <KBD>Q</KBD> (<CODE>po-quit</CODE>) and <KBD>q</KBD>
 (<CODE>po-confirm-and-quit</CODE>) are used when the translator is done with the
 PO file.  The former is a bit less verbose than the latter.  If the file
@@ -389,8 +415,8 @@ of an Emacs PO file buffer.  Merely killing it through the usual command
 
 </P>
 <P>
-<A NAME="IDX70"></A>
 <A NAME="IDX71"></A>
+<A NAME="IDX72"></A>
 The command <KBD>0</KBD> (<CODE>po-other-window</CODE>) is another, softer way,
 to leave PO mode, temporarily.  It just moves the cursor to some other
 Emacs window, and pops one if necessary.  For example, if the translator
@@ -404,9 +430,9 @@ PO mode is then recovered.
 
 </P>
 <P>
-<A NAME="IDX72"></A>
 <A NAME="IDX73"></A>
 <A NAME="IDX74"></A>
+<A NAME="IDX75"></A>
 The command <KBD>h</KBD> (<CODE>po-help</CODE>) displays a summary of all available PO
 mode commands.  The translator should then type any character to resume
 normal PO mode operations.  The command <KBD>?</KBD> has the same effect
@@ -414,8 +440,8 @@ as <KBD>h</KBD>.
 
 </P>
 <P>
-<A NAME="IDX75"></A>
 <A NAME="IDX76"></A>
+<A NAME="IDX77"></A>
 The command <KBD>=</KBD> (<CODE>po-statistics</CODE>) computes the total number of
 entries in the PO file, the ordinal of the current entry (counted from
 1), the number of untranslated entries, the number of obsolete entries,
@@ -423,8 +449,8 @@ and displays all these numbers.
 
 </P>
 <P>
-<A NAME="IDX77"></A>
 <A NAME="IDX78"></A>
+<A NAME="IDX79"></A>
 The command <KBD>V</KBD> (<CODE>po-validate</CODE>) launches <CODE>msgfmt</CODE> in
 checking and verbose
 mode over the current PO file.  This command first offers to save the
@@ -435,7 +461,7 @@ as well as all individual entries.
 
 </P>
 <P>
-<A NAME="IDX79"></A>
+<A NAME="IDX80"></A>
 The program <CODE>msgfmt</CODE> runs asynchronously with Emacs, so the
 translator regains control immediately while her PO file is being studied.
 Error output is collected in the Emacs <SAMP>`*compilation*&acute;</SAMP> buffer,
@@ -451,7 +477,7 @@ any PO mode action which would help correcting the error.
 <H2><A NAME="SEC11" HREF="gettext_toc.html#TOC11">2.4  Entry Positioning</A></H2>
 
 <P>
-<A NAME="IDX80"></A>
+<A NAME="IDX81"></A>
 The cursor in a PO file window is almost always part of
 an entry.  The only exceptions are the special case when the cursor
 is after the last entry in the file, or when the PO file is
@@ -462,7 +488,7 @@ the PO file, this also selects on which entry commands operate.
 
 </P>
 <P>
-<A NAME="IDX81"></A>
+<A NAME="IDX82"></A>
 Some PO mode commands alter the position of the cursor in a specialized
 way.  A few of those special purpose positioning are described here,
 the others are described in following sections (for a complete list try
@@ -473,51 +499,51 @@ the others are described in following sections (for a complete list try
 
 <DT><KBD>.</KBD>
 <DD>
-<A NAME="IDX82"></A>
+<A NAME="IDX83"></A>
 Redisplay the current entry (<CODE>po-current-entry</CODE>).
 
 <DT><KBD>n</KBD>
 <DD>
-<A NAME="IDX83"></A>
+<A NAME="IDX84"></A>
 Select the entry after the current one (<CODE>po-next-entry</CODE>).
 
 <DT><KBD>p</KBD>
 <DD>
-<A NAME="IDX84"></A>
+<A NAME="IDX85"></A>
 Select the entry before the current one (<CODE>po-previous-entry</CODE>).
 
 <DT><KBD>&#60;</KBD>
 <DD>
-<A NAME="IDX85"></A>
+<A NAME="IDX86"></A>
 Select the first entry in the PO file (<CODE>po-first-entry</CODE>).
 
 <DT><KBD>&#62;</KBD>
 <DD>
-<A NAME="IDX86"></A>
+<A NAME="IDX87"></A>
 Select the last entry in the PO file (<CODE>po-last-entry</CODE>).
 
 <DT><KBD>m</KBD>
 <DD>
-<A NAME="IDX87"></A>
+<A NAME="IDX88"></A>
 Record the location of the current entry for later use
 (<CODE>po-push-location</CODE>).
 
 <DT><KBD>r</KBD>
 <DD>
-<A NAME="IDX88"></A>
+<A NAME="IDX89"></A>
 Return to a previously saved entry location (<CODE>po-pop-location</CODE>).
 
 <DT><KBD>x</KBD>
 <DD>
-<A NAME="IDX89"></A>
+<A NAME="IDX90"></A>
 Exchange the current entry location with the previously saved one
 (<CODE>po-exchange-location</CODE>).
 
 </DL>
 
 <P>
-<A NAME="IDX90"></A>
 <A NAME="IDX91"></A>
+<A NAME="IDX92"></A>
 Any Emacs command able to reposition the cursor may be used
 to select the current entry in PO mode, including commands which
 move by characters, lines, paragraphs, screens or pages, and search
@@ -546,10 +572,10 @@ how <EM>others</EM> should do translation.
 
 </P>
 <P>
-<A NAME="IDX92"></A>
 <A NAME="IDX93"></A>
 <A NAME="IDX94"></A>
 <A NAME="IDX95"></A>
+<A NAME="IDX96"></A>
 The commands <KBD>n</KBD> (<CODE>po-next-entry</CODE>) and <KBD>p</KBD>
 (<CODE>po-previous-entry</CODE>) move the cursor the entry following,
 or preceding, the current one.  If <KBD>n</KBD> is given while the
@@ -558,10 +584,10 @@ is given while the cursor is on the first entry, no move is done.
 
 </P>
 <P>
-<A NAME="IDX96"></A>
 <A NAME="IDX97"></A>
 <A NAME="IDX98"></A>
 <A NAME="IDX99"></A>
+<A NAME="IDX100"></A>
 The commands <KBD>&#60;</KBD> (<CODE>po-first-entry</CODE>) and <KBD>&#62;</KBD>
 (<CODE>po-last-entry</CODE>) move the cursor to the first entry, or last
 entry, of the PO file.  When the cursor is located past the last
@@ -584,10 +610,10 @@ register for getting back, or else, use the location ring.
 
 </P>
 <P>
-<A NAME="IDX100"></A>
 <A NAME="IDX101"></A>
 <A NAME="IDX102"></A>
 <A NAME="IDX103"></A>
+<A NAME="IDX104"></A>
 PO mode offers another approach, by which cursor locations may be saved
 onto a special stack.  The command <KBD>m</KBD> (<CODE>po-push-location</CODE>)
 merely adds the location of current entry to the stack, pushing
@@ -607,8 +633,8 @@ ought to use <KBD>m</KBD> immediately after <KBD>r</KBD>.
 
 </P>
 <P>
-<A NAME="IDX104"></A>
 <A NAME="IDX105"></A>
+<A NAME="IDX106"></A>
 The command <KBD>x</KBD> (<CODE>po-exchange-location</CODE>) simultaneously
 repositions the cursor to the entry associated with the top element of
 the stack of saved locations, and replaces that top element with the
@@ -623,7 +649,7 @@ merely use <KBD>x</KBD> for making the switch.
 
 <H2><A NAME="SEC12" HREF="gettext_toc.html#TOC12">2.5  Normalizing Strings in Entries</A></H2>
 <P>
-<A NAME="IDX106"></A>
+<A NAME="IDX107"></A>
 
 </P>
 <P>
@@ -657,12 +683,12 @@ command is available:
 
 </P>
 <P>
-<A NAME="IDX107"></A>
+<A NAME="IDX108"></A>
 <DL COMPACT>
 
 <DT><KBD>M-x po-normalize</KBD>
 <DD>
-<A NAME="IDX108"></A>
+<A NAME="IDX109"></A>
 Tidy the whole PO file by making entries more uniform.
 
 </DL>
@@ -694,7 +720,7 @@ for continued lines.
 
 </P>
 <P>
-<A NAME="IDX109"></A>
+<A NAME="IDX110"></A>
 Having such an explicit normalizing command allows for importing PO
 files from other sources, but also eases the evolution of the current
 convention, evolution driven mostly by aesthetic concerns, as of now.
@@ -707,7 +733,7 @@ their PO files in nice ways.
 
 </P>
 <P>
-<A NAME="IDX110"></A>
+<A NAME="IDX111"></A>
 Right now, in PO mode, strings are single line or multi-line.  A string
 goes multi-line if and only if it has <EM>embedded</EM> newlines, that
 is, if it matches <SAMP>`[^\n]\n+[^\n]&acute;</SAMP>.  So, we would have:

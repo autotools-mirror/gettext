@@ -57,10 +57,27 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
+AMTAR = @AMTAR@
+AS = @AS@
+AWK = @AWK@
 CC = @CC@
+DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
+ECHO = @ECHO@
+EXEEXT = @EXEEXT@
+INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
+PACKAGE = @PACKAGE@
 RANLIB = @RANLIB@
+STRIP = @STRIP@
+VERSION = @VERSION@
+am__include = @am__include@
+am__quote = @am__quote@
 global_top_srcdir = @global_top_srcdir@
+install_sh = @install_sh@
 
 AUTOMAKE_OPTIONS = 1.5 foreign no-dependencies
 mkinstalldirs = $(SHELL) @global_top_srcdir@/mkinstalldirs
@@ -68,6 +85,7 @@ lib_LTLIBRARIES = librpathx.la
 librpathx_la_SOURCES = rpathx.c
 librpathx_la_LDFLAGS = -lc -no-undefined
 subdir = .
+ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
@@ -92,7 +110,7 @@ CFLAGS = @CFLAGS@
 DIST_SOURCES = $(librpathx_la_SOURCES)
 DIST_COMMON = ../../config.guess ../../config.sub ../../install-sh \
 	../../ltmain.sh ../../missing ../../mkinstalldirs Makefile.am \
-	Makefile.in configure configure.in
+	Makefile.in aclocal.m4 configure configure.in
 SOURCES = $(librpathx_la_SOURCES)
 
 all: all-am
@@ -120,6 +138,9 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	$(SHELL) ./config.status --recheck
 $(srcdir)/configure:  $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
+
+$(ACLOCAL_M4):  configure.in 
+	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	$(mkinstalldirs) $(DESTDIR)$(libdir)

@@ -409,23 +409,24 @@ Content-Type
      GNU `libc' and GNU `libiconv'. These are: `ASCII', `ISO-8859-1',
      `ISO-8859-2', `ISO-8859-3', `ISO-8859-4', `ISO-8859-5',
      `ISO-8859-6', `ISO-8859-7', `ISO-8859-8', `ISO-8859-9',
-     `ISO-8859-13', `ISO-8859-15', `KOI8-R', `KOI8-U', `CP850',
-     `CP866', `CP874', `CP932', `CP949', `CP950', `CP1250', `CP1251',
-     `CP1252', `CP1253', `CP1254', `CP1255', `CP1256', `CP1257',
-     `GB2312', `EUC-JP', `EUC-KR', `EUC-TW', `BIG5', `BIG5-HKSCS',
-     `GBK', `GB18030', `SHIFT_JIS', `JOHAB', `TIS-620', `VISCII',
-     `UTF-8'.
+     `ISO-8859-13', `ISO-8859-14', `ISO-8859-15', `KOI8-R', `KOI8-U',
+     `KOI8-T', `CP850', `CP866', `CP874', `CP932', `CP949', `CP950',
+     `CP1250', `CP1251', `CP1252', `CP1253', `CP1254', `CP1255',
+     `CP1256', `CP1257', `GB2312', `EUC-JP', `EUC-KR', `EUC-TW',
+     `BIG5', `BIG5-HKSCS', `GBK', `GB18030', `SHIFT_JIS', `JOHAB',
+     `TIS-620', `VISCII', `GEORGIAN-PS', `UTF-8'.
 
      In the GNU system, the following encodings are frequently used for
      the corresponding languages.
 
-        * `ISO-8859-1' for  Afrikaans, Albanian, Basque, Catalan,
-          Dutch, English, Estonian, Faroese,  Finnish, French,
-          Galician, German, Greenlandic, Icelandic, Indonesian,  Irish,
-          Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
+        * `ISO-8859-1' for  Afrikaans, Albanian, Basque, Breton,
+          Catalan, Cornish, Danish, Dutch,  English, Estonian, Faroese,
+          Finnish, French, Galician, German,  Greenlandic, Icelandic,
+          Indonesian, Irish, Italian, Malay, Manx,  Norwegian, Occitan,
+          Portuguese, Spanish, Swedish, Tagalog, Uzbek,  Walloon,
 
-        * `ISO-8859-2' for  Croatian, Czech, Hungarian, Polish,
-          Romanian, Serbian, Slovak, Slovenian,
+        * `ISO-8859-2' for  Bosnian, Croatian, Czech, Hungarian,
+          Polish, Romanian, Serbian, Slovak,  Slovenian,
 
         * `ISO-8859-3' for Maltese,
 
@@ -439,15 +440,19 @@ Content-Type
 
         * `ISO-8859-9' for Turkish,
 
-        * `ISO-8859-13' for Latvian, Lithuanian,
+        * `ISO-8859-13' for Latvian, Lithuanian, Maori,
+
+        * `ISO-8859-14' for Welsh,
 
         * `ISO-8859-15' for  Basque, Catalan, Dutch, English, Finnish,
           French, Galician, German, Irish,  Italian, Portuguese,
-          Spanish, Swedish,
+          Spanish, Swedish, Walloon,
 
         * `KOI8-R' for Russian,
 
         * `KOI8-U' for Ukrainian,
+
+        * `KOI8-T' for Tajik,
 
         * `CP1251' for Bulgarian, Byelorussian,
 
@@ -460,6 +465,8 @@ Content-Type
         * `EUC-KR' for Korean,
 
         * `TIS-620' for Thai,
+
+        * `GEORGIAN-PS' for Georgian,
 
         * `UTF-8' for any language, including those listed above.
 
@@ -719,7 +726,7 @@ Fuzzy Entries
 =============
 
    Each PO file entry may have a set of "attributes", which are
-qualities given a name and explicitely associated with the translation,
+qualities given a name and explicitly associated with the translation,
 using a special system comment.  One of these attributes has the name
 `fuzzy', and entries having this attribute are said to have a fuzzy
 translation.  They are called fuzzy entries, for short.

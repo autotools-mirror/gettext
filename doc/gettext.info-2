@@ -377,7 +377,7 @@ sections of this chapter.
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
-* c-format::                    Telling something about the following string
+* c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 
 
@@ -421,7 +421,7 @@ the `"C"' locale format.  In some situation, it might also be a problem
 with the notation itself which makes it impossible to recognize whether
 the number is in the `"C"' locale or the local format.  This can happen
 if thousands separator characters are used.  Some locales define this
-character accordfing to the national conventions to `'.'' which is the
+character according to the national conventions to `'.'' which is the
 same character used in the `"C"' locale to denote the decimal point.
 
    So it is sometimes necessary to replace the `LC_ALL' line in the
@@ -688,7 +688,7 @@ think it should be translated.  `"%s: %d"' is an example of string
 _not_ requiring translation!
 
 
-File: gettext.info,  Node: Marking,  Next: c-format,  Prev: Mark Keywords,  Up: Sources
+File: gettext.info,  Node: Marking,  Next: c-format Flag,  Prev: Mark Keywords,  Up: Sources
 
 Marking Translatable Strings
 ============================
@@ -832,7 +832,7 @@ the `M-.' command.  In fact, this is not useful to prefer `_', as this
 one is already built in the `M-,' command.
 
 
-File: gettext.info,  Node: c-format,  Next: Special cases,  Prev: Marking,  Up: Sources
+File: gettext.info,  Node: c-format Flag,  Next: Special cases,  Prev: Marking,  Up: Sources
 
 Special Comments preceding Keywords
 ===================================
@@ -881,14 +881,14 @@ only a heuristic.  In the `.po' file the entry is marked using the
 
    The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
-`xgettext' knows about special kind of comment which lets the
-programmer take over the decision.  If in the same line or the
-immediately preceding line of the `gettext' keyword the `xgettext'
-program find a comment containing the words `xgettext:c-format' it will
-mark the string in any case with the `c-format' flag.  This kind of
-comment should be used when `xgettext' does not recognize the string as
-a format string but is really is one and it should be tested.  Please
-note that when the comment is in the same line of the `gettext'
+`xgettext' knows about a special kind of comment which lets the
+programmer take over the decision.  If in the same line as or the
+immediately preceding line to the `gettext' keyword the `xgettext'
+program finds a comment containing the words `xgettext:c-format', it
+will mark the string in any case with the `c-format' flag.  This kind
+of comment should be used when `xgettext' does not recognize the string
+as a format string but it really is one and it should be tested.
+Please note that when the comment is in the same line as the `gettext'
 keyword, it must be before the string to be translated.
 
    This situation happens quite often.  The `printf' function is often
@@ -896,8 +896,8 @@ called with strings which do not contain a format specifier.  Of course
 one would normally use `fputs' but it does happen.  In this case
 `xgettext' does not recognize this as a format string but what happens
 if the translation introduces a valid format specifier?  The `printf'
-function will try to access one of the parameter but none exists
-because the original code does not refer to any parameter.
+function will try to access one of the parameters but none exists
+because the original code does not pass any parameters.
 
    `xgettext' of course could make a wrong decision the other way
 round, i.e. a string marked as a format string actually is not a format
@@ -912,7 +912,7 @@ xgettext Invocation:: to see how the `--debug' option can be used for
 solving this problem.
 
 
-File: gettext.info,  Node: Special cases,  Prev: c-format,  Up: Sources
+File: gettext.info,  Node: Special cases,  Prev: c-format Flag,  Up: Sources
 
 Special Cases of Translatable Strings
 =====================================
@@ -1002,6 +1002,13 @@ Making the PO Template File
 
    After preparing the sources, the programmer creates a PO template
 file.  This section explains how to use `xgettext' for this purpose.
+
+   `xgettext' creates a file named `DOMAINNAME.po'.  You should then
+rename it to `DOMAINNAME.pot'.  (Why doesn't `xgettext' create it under
+the name `DOMAINNAME.pot' right away?  The answer is: for historical
+reasons.  When `xgettext' was specified, the distinction between a PO
+file and PO file template was fuzzy, and the suffix `.pot' wasn't in
+use at that time.)
 
 * Menu:
 

@@ -61,6 +61,7 @@ AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
 BUILDJAVA = @BUILDJAVA@
+BUILDJAVAEXE = @BUILDJAVAEXE@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
@@ -76,10 +77,13 @@ ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GCC = @GCC@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_C = @HAVE_GCJ_C@
 HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
 HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
@@ -94,6 +98,7 @@ HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 HAVE_LIB = @HAVE_LIB@
+HAVE__BOOL = @HAVE__BOOL@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -141,18 +146,19 @@ lispdir = @lispdir@
 with_gnu_ld = @with_gnu_ld@
 
 aclocaldir = @aclocaldir@
-aclocal_DATA = codeset.m4 gettext.m4 glibc21.m4 iconv.m4 isc-posix.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 lcmessage.m4 progtest.m4
+aclocal_DATA = codeset.m4 gettext.m4 glibc21.m4 iconv.m4 intdiv0.m4 isc-posix.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 lcmessage.m4 progtest.m4
 
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n'|sort |fmt |tr '\012' @ \
 #   |sed 's/@$/%/;s/@/ \\@/g' |tr @% '\012\012'
 EXTRA_DIST = README \
-backupfile.m4 c-bs-a.m4 codeset.m4 error.m4 flex.m4 fnmatch.m4 getline.m4 \
-gettext.m4 glibc21.m4 hostname.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 \
-javacomp.m4 javaexec.m4 lcmessage.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 \
-libtool.m4 mbrtowc.m4 mbstate_t.m4 mbswidth.m4 mkdtemp.m4 progtest.m4 \
-setenv.m4 setlocale.m4 siginfo.m4 signalblocking.m4 signed.m4 ssize_t.m4 \
-stdbool.m4 stdint_h.m4 tmpdir.m4 uintmax_t.m4 ulonglong.m4 unionwait.m4
+backupfile.m4 c-bs-a.m4 codeset.m4 error.m4 flex.m4 fnmatch.m4 gcj.m4 \
+getline.m4 gettext.m4 glibc21.m4 hostname.m4 iconv.m4 intdiv0.m4 \
+inttypes_h.m4 isc-posix.m4 javacomp.m4 javaexec.m4 lcmessage.m4 lib-ld.m4 \
+lib-link.m4 lib-prefix.m4 libtool.m4 mbrtowc.m4 mbstate_t.m4 mbswidth.m4 \
+mkdtemp.m4 progtest.m4 setenv.m4 setlocale.m4 siginfo.m4 signalblocking.m4 \
+signed.m4 ssize_t.m4 stdbool.m4 stdint_h.m4 tmpdir.m4 uintmax_t.m4 \
+ulonglong.m4 unionwait.m4
 
 subdir = m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs

@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 24 April 2002 -->
+     from gettext.texi on 16 July 2002 -->
 
 <TITLE>GNU gettext utilities - 13  Other Programming Languages</TITLE>
 </HEAD>
@@ -10,7 +10,7 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous
 <P><HR><P>
 
 
-<H1><A NAME="SEC190" HREF="gettext_toc.html#TOC190">13  Other Programming Languages</A></H1>
+<H1><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13  Other Programming Languages</A></H1>
 
 <P>
 While the presentation of <CODE>gettext</CODE> focuses mostly on C and
@@ -23,10 +23,10 @@ approach.
 
 
 
-<H2><A NAME="SEC191" HREF="gettext_toc.html#TOC191">13.1  The Language Implementor's View</A></H2>
+<H2><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.1  The Language Implementor's View</A></H2>
 <P>
-<A NAME="IDX895"></A>
-<A NAME="IDX896"></A>
+<A NAME="IDX909"></A>
+<A NAME="IDX910"></A>
 
 </P>
 <P>
@@ -150,7 +150,7 @@ and plural handling).
 
 
 
-<H2><A NAME="SEC192" HREF="gettext_toc.html#TOC192">13.2  The Programmer's View</A></H2>
+<H2><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.2  The Programmer's View</A></H2>
 
 <P>
 For the programmer, the general procedure is the same as for the C
@@ -163,7 +163,7 @@ underlying language runtime.
 </P>
 
 
-<H2><A NAME="SEC193" HREF="gettext_toc.html#TOC193">13.3  The Translator's View</A></H2>
+<H2><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.3  The Translator's View</A></H2>
 
 <P>
 The translator works exactly as in the C language case.  The only
@@ -174,7 +174,131 @@ strings.
 </P>
 
 
-<H2><A NAME="SEC194" HREF="gettext_toc.html#TOC194">13.4  The Maintainer's View</A></H2>
+
+<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.3.1  C Format Strings</A></H3>
+
+<P>
+C format strings are described in POSIX (IEEE P1003.1 2001), section
+XSH 3 fprintf(),
+<A HREF="http://www.opengroup.org/onlinepubs/007904975/functions/fprintf.html">http://www.opengroup.org/onlinepubs/007904975/functions/fprintf.html</A>.
+See also the fprintf(3) manual page,
+<A HREF="http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php">http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php</A>,
+<A HREF="http://informatik.fh-wuerzburg.de/student/i510/man/printf.html">http://informatik.fh-wuerzburg.de/student/i510/man/printf.html</A>.
+
+</P>
+
+
+<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.3.2  Python Format Strings</A></H3>
+
+<P>
+Python format strings are described in
+Python Library reference /
+2. Built-in Types, Exceptions and Functions /
+2.2. Built-in Types /
+2.2.6. Sequence Types /
+2.2.6.2. String Formatting Operations.
+<A HREF="http://www.python.org/doc/2.2.1/lib/typesseq-strings.html">http://www.python.org/doc/2.2.1/lib/typesseq-strings.html</A>.
+
+</P>
+
+
+<H3><A NAME="SEC205" HREF="gettext_toc.html#TOC205">13.3.3  Lisp Format Strings</A></H3>
+
+<P>
+Lisp format strings are described in the Common Lisp HyperSpec,
+chapter 22.3 Formatted Output,
+<A HREF="http://www.lisp.org/HyperSpec/Body/sec_22-3.html">http://www.lisp.org/HyperSpec/Body/sec_22-3.html</A>.
+
+</P>
+
+
+<H3><A NAME="SEC206" HREF="gettext_toc.html#TOC206">13.3.4  Emacs Lisp Format Strings</A></H3>
+
+<P>
+Emacs Lisp format strings are documented in the Emacs Lisp reference,
+section Formatting Strings,
+<A HREF="http://www.gnu.org/manual/elisp-manual-21-2.8/html_chapter/elisp_4.html#SEC75">http://www.gnu.org/manual/elisp-manual-21-2.8/html_chapter/elisp_4.html#SEC75</A>.
+Note that as of version 21, XEmacs supports numbered argument specifications
+in format strings while FSF Emacs doesn't.
+
+</P>
+
+
+<H3><A NAME="SEC207" HREF="gettext_toc.html#TOC207">13.3.5  librep Format Strings</A></H3>
+
+<P>
+librep format strings are documented in the librep manual, section
+Formatted Output,
+<A HREF="http://librep.sourceforge.net/librep-manual.html#Formatted%20Output">http://librep.sourceforge.net/librep-manual.html#Formatted%20Output</A>,
+<A HREF="http://www.gwinnup.org/research/docs/librep.html#SEC122">http://www.gwinnup.org/research/docs/librep.html#SEC122</A>.
+
+</P>
+
+
+<H3><A NAME="SEC208" HREF="gettext_toc.html#TOC208">13.3.6  Smalltalk Format Strings</A></H3>
+
+<P>
+Smalltalk format strings are described in the GNU Smalltalk documentation,
+class <CODE>CharArray</CODE>, methods <SAMP>`bindWith:&acute;</SAMP> and
+<SAMP>`bindWithArguments:&acute;</SAMP>.
+<A HREF="http://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238">http://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238</A>.
+In summary, a directive starts with <SAMP>`%&acute;</SAMP> and is followed by <SAMP>`%&acute;</SAMP>
+or a nonzero digit (<SAMP>`1&acute;</SAMP> to <SAMP>`9&acute;</SAMP>).
+
+</P>
+
+
+<H3><A NAME="SEC209" HREF="gettext_toc.html#TOC209">13.3.7  Java Format Strings</A></H3>
+
+<P>
+Java format strings are described in the JDK documentation for class
+<CODE>java.text.MessageFormat</CODE>,
+<A HREF="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html</A>.
+See also the ICU documentation
+<A HREF="http://oss.software.ibm.com/icu/apiref/classMessageFormat.html">http://oss.software.ibm.com/icu/apiref/classMessageFormat.html</A>.
+
+</P>
+
+
+<H3><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13.3.8  awk Format Strings</A></H3>
+
+<P>
+awk format strings are described in the gawk documentation, section
+Printf,
+<A HREF="http://www.gnu.org/manual/gawk/html_node/Printf.html#Printf">http://www.gnu.org/manual/gawk/html_node/Printf.html#Printf</A>.
+
+</P>
+
+
+<H3><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.3.9  Object Pascal Format Strings</A></H3>
+
+<P>
+Where is this documented?
+
+</P>
+
+
+<H3><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.3.10  YCP Format Strings</A></H3>
+
+<P>
+YCP sformat strings are described in the libycp documentation
+<A HREF="file:/usr/share/doc/packages/libycp/YCP-builtins.html">file:/usr/share/doc/packages/libycp/YCP-builtins.html</A>.
+In summary, a directive starts with <SAMP>`%&acute;</SAMP> and is followed by <SAMP>`%&acute;</SAMP>
+or a nonzero digit (<SAMP>`1&acute;</SAMP> to <SAMP>`9&acute;</SAMP>).
+
+</P>
+
+
+<H3><A NAME="SEC213" HREF="gettext_toc.html#TOC213">13.3.11  Tcl Format Strings</A></H3>
+
+<P>
+Tcl format strings are described in the <TT>`format.n&acute;</TT> manual page,
+<A HREF="http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm">http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm</A>.
+
+</P>
+
+
+<H2><A NAME="SEC214" HREF="gettext_toc.html#TOC214">13.4  The Maintainer's View</A></H2>
 
 <P>
 For the maintainer, the general procedure differs from the C language
@@ -205,13 +329,13 @@ that language, and to combine the resulting files using <CODE>msgcat</CODE>.
 
 
 
-<H2><A NAME="SEC195" HREF="gettext_toc.html#TOC195">13.5  Individual Programming Languages</A></H2>
+<H2><A NAME="SEC215" HREF="gettext_toc.html#TOC215">13.5  Individual Programming Languages</A></H2>
 
 
 
-<H3><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13.5.1  C, C++, Objective C</A></H3>
+<H3><A NAME="SEC216" HREF="gettext_toc.html#TOC216">13.5.1  C, C++, Objective C</A></H3>
 <P>
-<A NAME="IDX897"></A>
+<A NAME="IDX911"></A>
 
 </P>
 <DL COMPACT>
@@ -280,9 +404,9 @@ yes
 
 
 
-<H3><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.5.2  sh - Shell Script</A></H3>
+<H3><A NAME="SEC217" HREF="gettext_toc.html#TOC217">13.5.2  sh - Shell Script</A></H3>
 <P>
-<A NAME="IDX898"></A>
+<A NAME="IDX912"></A>
 
 </P>
 <DL COMPACT>
@@ -305,18 +429,18 @@ bash, gettext
 
 <DT>gettext/ngettext functions
 <DD>
-<A NAME="IDX899"></A>
-<A NAME="IDX900"></A>
+<A NAME="IDX913"></A>
+<A NAME="IDX914"></A>
 <CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
 
 <DT>textdomain
 <DD>
-<A NAME="IDX901"></A>
+<A NAME="IDX915"></A>
 environment variable <CODE>TEXTDOMAIN</CODE>
 
 <DT>bindtextdomain
 <DD>
-<A NAME="IDX902"></A>
+<A NAME="IDX916"></A>
 environment variable <CODE>TEXTDOMAINDIR</CODE>
 
 <DT>setlocale
@@ -350,9 +474,9 @@ use
 
 
 
-<H3><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.5.3  bash - Bourne-Again Shell Script</A></H3>
+<H3><A NAME="SEC218" HREF="gettext_toc.html#TOC218">13.5.3  bash - Bourne-Again Shell Script</A></H3>
 <P>
-<A NAME="IDX903"></A>
+<A NAME="IDX917"></A>
 
 </P>
 <DL COMPACT>
@@ -375,18 +499,18 @@ bash 2.0 or newer, gettext
 
 <DT>gettext/ngettext functions
 <DD>
-<A NAME="IDX904"></A>
-<A NAME="IDX905"></A>
+<A NAME="IDX918"></A>
+<A NAME="IDX919"></A>
 <CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
 
 <DT>textdomain
 <DD>
-<A NAME="IDX906"></A>
+<A NAME="IDX920"></A>
 environment variable <CODE>TEXTDOMAIN</CODE>
 
 <DT>bindtextdomain
 <DD>
-<A NAME="IDX907"></A>
+<A NAME="IDX921"></A>
 environment variable <CODE>TEXTDOMAINDIR</CODE>
 
 <DT>setlocale
@@ -420,9 +544,9 @@ use
 
 
 
-<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.5.4  Python</A></H3>
+<H3><A NAME="SEC219" HREF="gettext_toc.html#TOC219">13.5.4  Python</A></H3>
 <P>
-<A NAME="IDX908"></A>
+<A NAME="IDX922"></A>
 
 </P>
 <DL COMPACT>
@@ -491,11 +615,11 @@ fully portable
 
 
 
-<H3><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.5.5  GNU clisp - Common Lisp</A></H3>
+<H3><A NAME="SEC220" HREF="gettext_toc.html#TOC220">13.5.5  GNU clisp - Common Lisp</A></H3>
 <P>
-<A NAME="IDX909"></A>
-<A NAME="IDX910"></A>
-<A NAME="IDX911"></A>
+<A NAME="IDX923"></A>
+<A NAME="IDX924"></A>
+<A NAME="IDX925"></A>
 
 </P>
 <DL COMPACT>
@@ -559,9 +683,9 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.5.6  GNU clisp C sources</A></H3>
+<H3><A NAME="SEC221" HREF="gettext_toc.html#TOC221">13.5.6  GNU clisp C sources</A></H3>
 <P>
-<A NAME="IDX912"></A>
+<A NAME="IDX926"></A>
 
 </P>
 <DL COMPACT>
@@ -627,9 +751,9 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.5.7  Emacs Lisp</A></H3>
+<H3><A NAME="SEC222" HREF="gettext_toc.html#TOC222">13.5.7  Emacs Lisp</A></H3>
 <P>
-<A NAME="IDX913"></A>
+<A NAME="IDX927"></A>
 
 </P>
 <DL COMPACT>
@@ -693,9 +817,9 @@ Only XEmacs. Without <CODE>I18N3</CODE> defined at build time, no translation.
 
 
 
-<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.5.8  librep</A></H3>
+<H3><A NAME="SEC223" HREF="gettext_toc.html#TOC223">13.5.8  librep</A></H3>
 <P>
-<A NAME="IDX914"></A>
+<A NAME="IDX928"></A>
 
 </P>
 <DL COMPACT>
@@ -759,9 +883,9 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.5.9  GNU Smalltalk</A></H3>
+<H3><A NAME="SEC224" HREF="gettext_toc.html#TOC224">13.5.9  GNU Smalltalk</A></H3>
 <P>
-<A NAME="IDX915"></A>
+<A NAME="IDX929"></A>
 
 </P>
 <DL COMPACT>
@@ -831,9 +955,9 @@ fully portable
 
 
 
-<H3><A NAME="SEC205" HREF="gettext_toc.html#TOC205">13.5.10  Java</A></H3>
+<H3><A NAME="SEC225" HREF="gettext_toc.html#TOC225">13.5.10  Java</A></H3>
 <P>
-<A NAME="IDX916"></A>
+<A NAME="IDX930"></A>
 
 </P>
 <DL COMPACT>
@@ -947,17 +1071,17 @@ a translation is missing, the <VAR>msgid</VAR> argument is returned unchanged.
 This has the advantage of having the <CODE>ngettext</CODE> function for plural
 handling.
 
-<A NAME="IDX917"></A>
+<A NAME="IDX931"></A>
 To use this API, one needs the <CODE>libintl.jar</CODE> file which is part of
 the GNU gettext package and distributed under the LGPL.
 </OL>
 
 
 
-<H3><A NAME="SEC206" HREF="gettext_toc.html#TOC206">13.5.11  GNU awk</A></H3>
+<H3><A NAME="SEC226" HREF="gettext_toc.html#TOC226">13.5.11  GNU awk</A></H3>
 <P>
-<A NAME="IDX918"></A>
-<A NAME="IDX919"></A>
+<A NAME="IDX932"></A>
+<A NAME="IDX933"></A>
 
 </P>
 <DL COMPACT>
@@ -1023,11 +1147,11 @@ yourself.
 
 
 
-<H3><A NAME="SEC207" HREF="gettext_toc.html#TOC207">13.5.12  Pascal - Free Pascal Compiler</A></H3>
+<H3><A NAME="SEC227" HREF="gettext_toc.html#TOC227">13.5.12  Pascal - Free Pascal Compiler</A></H3>
 <P>
-<A NAME="IDX920"></A>
-<A NAME="IDX921"></A>
-<A NAME="IDX922"></A>
+<A NAME="IDX934"></A>
+<A NAME="IDX935"></A>
+<A NAME="IDX936"></A>
 
 </P>
 <DL COMPACT>
@@ -1099,9 +1223,9 @@ using the <CODE>TranslateResourceStrings</CODE> function in the <CODE>gettext</C
 </P>
 
 
-<H3><A NAME="SEC208" HREF="gettext_toc.html#TOC208">13.5.13  wxWindows library</A></H3>
+<H3><A NAME="SEC228" HREF="gettext_toc.html#TOC228">13.5.13  wxWindows library</A></H3>
 <P>
-<A NAME="IDX923"></A>
+<A NAME="IDX937"></A>
 
 </P>
 <DL COMPACT>
@@ -1165,10 +1289,10 @@ yes
 
 
 
-<H3><A NAME="SEC209" HREF="gettext_toc.html#TOC209">13.5.14  YCP - YaST2 scripting language</A></H3>
+<H3><A NAME="SEC229" HREF="gettext_toc.html#TOC229">13.5.14  YCP - YaST2 scripting language</A></H3>
 <P>
-<A NAME="IDX924"></A>
-<A NAME="IDX925"></A>
+<A NAME="IDX938"></A>
+<A NAME="IDX939"></A>
 
 </P>
 <DL COMPACT>
@@ -1232,10 +1356,10 @@ fully portable
 
 
 
-<H3><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13.5.15  Tcl - Tk's scripting language</A></H3>
+<H3><A NAME="SEC230" HREF="gettext_toc.html#TOC230">13.5.15  Tcl - Tk's scripting language</A></H3>
 <P>
-<A NAME="IDX926"></A>
-<A NAME="IDX927"></A>
+<A NAME="IDX940"></A>
+<A NAME="IDX941"></A>
 
 </P>
 <DL COMPACT>
@@ -1313,9 +1437,9 @@ argument is given.
 </P>
 
 
-<H3><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.5.16  Perl</A></H3>
+<H3><A NAME="SEC231" HREF="gettext_toc.html#TOC231">13.5.16  Perl</A></H3>
 <P>
-<A NAME="IDX928"></A>
+<A NAME="IDX942"></A>
 
 </P>
 <DL COMPACT>
@@ -1380,9 +1504,9 @@ use
 
 
 
-<H3><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.5.17  PHP Hypertext Preprocessor</A></H3>
+<H3><A NAME="SEC232" HREF="gettext_toc.html#TOC232">13.5.17  PHP Hypertext Preprocessor</A></H3>
 <P>
-<A NAME="IDX929"></A>
+<A NAME="IDX943"></A>
 
 </P>
 <DL COMPACT>
@@ -1446,9 +1570,9 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H3><A NAME="SEC213" HREF="gettext_toc.html#TOC213">13.5.18  Pike</A></H3>
+<H3><A NAME="SEC233" HREF="gettext_toc.html#TOC233">13.5.18  Pike</A></H3>
 <P>
-<A NAME="IDX930"></A>
+<A NAME="IDX944"></A>
 
 </P>
 <DL COMPACT>
@@ -1512,7 +1636,7 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H2><A NAME="SEC214" HREF="gettext_toc.html#TOC214">13.6  Internationalizable Data</A></H2>
+<H2><A NAME="SEC234" HREF="gettext_toc.html#TOC234">13.6  Internationalizable Data</A></H2>
 
 <P>
 Here is a list of other data formats which can be internationalized
@@ -1522,7 +1646,7 @@ using GNU gettext.
 
 
 
-<H3><A NAME="SEC215" HREF="gettext_toc.html#TOC215">13.6.1  POT - Portable Object Template</A></H3>
+<H3><A NAME="SEC235" HREF="gettext_toc.html#TOC235">13.6.1  POT - Portable Object Template</A></H3>
 
 <DL COMPACT>
 
@@ -1541,9 +1665,9 @@ gettext
 
 
 
-<H3><A NAME="SEC216" HREF="gettext_toc.html#TOC216">13.6.2  Resource String Table</A></H3>
+<H3><A NAME="SEC236" HREF="gettext_toc.html#TOC236">13.6.2  Resource String Table</A></H3>
 <P>
-<A NAME="IDX931"></A>
+<A NAME="IDX945"></A>
 
 </P>
 <DL COMPACT>
@@ -1563,7 +1687,7 @@ fpk
 
 
 
-<H3><A NAME="SEC217" HREF="gettext_toc.html#TOC217">13.6.3  Glade - GNOME user interface description</A></H3>
+<H3><A NAME="SEC237" HREF="gettext_toc.html#TOC237">13.6.3  Glade - GNOME user interface description</A></H3>
 
 <DL COMPACT>
 

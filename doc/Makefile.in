@@ -61,6 +61,7 @@ AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
 BUILDJAVA = @BUILDJAVA@
+BUILDJAVAEXE = @BUILDJAVAEXE@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
@@ -75,10 +76,13 @@ ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GCC = @GCC@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_C = @HAVE_GCJ_C@
 HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
 HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
@@ -93,6 +97,7 @@ HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 HAVE_LIB = @HAVE_LIB@
+HAVE__BOOL = @HAVE__BOOL@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -166,7 +171,7 @@ gettext_TEXINFOS = \
   xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
   msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
-  iso-639.texi iso-3166.texi
+  gettextize.texi autopoint.texi iso-639.texi iso-3166.texi
 
 
 EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi texi2html

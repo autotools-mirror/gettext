@@ -328,11 +328,11 @@ is a list comments:
      Afterwards the path is constructed using the found value and the
      translation file is loaded if available.
 
-     What is now when the value for, say, `LANGUAGE' changes.  According
-     to the process explained above the new value of this variable is
-     found as soon as the `dcgettext' function is called.  But this
-     also means the (perhaps) different message catalog file is loaded.
-     In other words: the used language is changed.
+     What happens now when the value for, say, `LANGUAGE' changes?
+     According to the process explained above the new value of this
+     variable is found as soon as the `dcgettext' function is called.
+     But this also means the (perhaps) different message catalog file
+     is loaded.  In other words: the used language is changed.
 
      But there is one little hook.  The code for gcc-2.7.0 and up
      provides some optimization.  This optimization normally prevents
@@ -615,7 +615,7 @@ concerns.  Some of these doubts are presented and discussed, here.
      be very motivated at providing to themselves the pleasure of
      having their beloved free software speaking their mother tongue.
      They do themselves a personal favor, and do not pay that much
-     attention to the number of people beneficiating of their work.
+     attention to the number of people benefiting of their work.
 
    * Misinterpretation
 
@@ -956,6 +956,7 @@ ideally revise this chapter in subsequent releases, looking for changes.
 * gettextize Invocation::       Invoking the `gettextize' Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in `configure.in'
+* CVS Issues::                  Integrating with CVS
 
 
 File: gettext.info,  Node: Flat and Non-Flat,  Next: Prerequisites,  Prev: Maintainers,  Up: Maintainers

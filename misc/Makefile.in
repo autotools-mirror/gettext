@@ -61,6 +61,7 @@ AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
 BUILDJAVA = @BUILDJAVA@
+BUILDJAVAEXE = @BUILDJAVAEXE@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
@@ -76,10 +77,13 @@ ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GCC = @GCC@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_C = @HAVE_GCJ_C@
 HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
 HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
@@ -94,6 +98,7 @@ HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 HAVE_LIB = @HAVE_LIB@
+HAVE__BOOL = @HAVE__BOOL@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -143,22 +148,27 @@ with_gnu_ld = @with_gnu_ld@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
-DISTCLEANFILES = gettextize
+EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl add-to-autopoint-files archive.tar.gz $(lisp_LISP)
+DISTCLEANFILES = gettextize autopoint
 lisp_LISP = po-mode.el po-compat.el
 
-bin_SCRIPTS = gettextize
+bin_SCRIPTS = gettextize autopoint
+
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = archive.tar.gz
 subdir = misc
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = gettextize
+CONFIG_CLEAN_FILES = gettextize autopoint
 SCRIPTS = $(bin_SCRIPTS)
 
 DIST_SOURCES =
 LISP = $(lisp_LISP)
 
 ELCFILES = po-compat.elc po-mode.elc
-DIST_COMMON = ChangeLog Makefile.am Makefile.in elisp-comp \
+DATA = $(gettextsrc_DATA)
+
+DIST_COMMON = ChangeLog Makefile.am Makefile.in autopoint.in elisp-comp \
 	gettextize.in
 all: all-am
 
@@ -181,6 +191,8 @@ Makefile:  $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
 gettextize: $(top_builddir)/config.status gettextize.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
+autopoint: $(top_builddir)/config.status autopoint.in
 	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 install-binSCRIPTS: $(bin_SCRIPTS)
 	@$(NORMAL_INSTALL)
@@ -241,6 +253,23 @@ uninstall-lispLISP:
 
 clean-lisp:
 	-test -z "$(ELCFILES)" || rm -f $(ELCFILES)
+install-gettextsrcDATA: $(gettextsrc_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir)
+	@list='$(gettextsrc_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
+
+uninstall-gettextsrcDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(gettextsrc_DATA)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  rm -f $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
 tags: TAGS
 TAGS:
 
@@ -268,10 +297,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(SCRIPTS) $(LISP) $(ELCFILES)
+all-am: Makefile $(SCRIPTS) $(LISP) $(ELCFILES) $(DATA)
 
 installdirs:
-	$(mkinstalldirs) $(DESTDIR)$(bindir) $(DESTDIR)$(lispdir)
+	$(mkinstalldirs) $(DESTDIR)$(bindir) $(DESTDIR)$(lispdir) $(DESTDIR)$(gettextsrcdir)
 
 install: install-am
 install-exec: install-exec-am
@@ -313,7 +342,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-lispLISP
+install-data-am: install-gettextsrcDATA install-lispLISP
 
 install-exec-am: install-binSCRIPTS
 
@@ -331,19 +360,23 @@ mostlyclean: mostlyclean-am
 
 mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
-uninstall-am: uninstall-binSCRIPTS uninstall-info-am uninstall-lispLISP
+uninstall-am: uninstall-binSCRIPTS uninstall-gettextsrcDATA \
+	uninstall-info-am uninstall-lispLISP
 
 .PHONY: all all-am check check-am clean clean-generic clean-libtool \
 	clean-lisp distclean distclean-generic distclean-libtool \
 	distdir dvi dvi-am info info-am install install-am \
 	install-binSCRIPTS install-data install-data-am install-exec \
-	install-exec-am install-info install-info-am install-lispLISP \
-	install-man install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic mostlyclean-libtool uninstall \
-	uninstall-am uninstall-binSCRIPTS uninstall-info-am \
-	uninstall-lispLISP
+	install-exec-am install-gettextsrcDATA install-info \
+	install-info-am install-lispLISP install-man install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool uninstall uninstall-am uninstall-binSCRIPTS \
+	uninstall-gettextsrcDATA uninstall-info-am uninstall-lispLISP
 
+
+archive.tar.gz:
+	(cd autopoint-files && tar cf - --owner=root --group=root `find archive -type f | grep -v /CVS/`) | gzip -c -9 > $@
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

@@ -61,6 +61,7 @@ AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
 BUILDJAVA = @BUILDJAVA@
+BUILDJAVAEXE = @BUILDJAVAEXE@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
@@ -76,10 +77,13 @@ ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GCC = @GCC@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_C = @HAVE_GCJ_C@
 HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
 HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
@@ -94,6 +98,7 @@ HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 HAVE_LIB = @HAVE_LIB@
+HAVE__BOOL = @HAVE__BOOL@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -148,9 +153,9 @@ MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
-gettextsrc_SCRIPTS = config.rpath
+gettextsrc_SCRIPTS = config.rpath mkinstalldirs
 
-SUBDIRS = doc intl intl-java lib libuniname src po man m4 projects misc tests
+SUBDIRS = doc intl intl-java lib libuniname src po projects misc man m4 tests
 
 EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
@@ -168,13 +173,19 @@ CONFIGURES_RPATHX = $(srcdir)/tests/rpathx/Makefile.in $(srcdir)/tests/rpathx/ac
 
 CONFIGURES_RPATHY = $(srcdir)/tests/rpathy/Makefile.in $(srcdir)/tests/rpathy/aclocal.m4 $(srcdir)/tests/rpathy/configure
 
+CONFIGURES_RPATHZ = $(srcdir)/tests/rpathz/Makefile.in $(srcdir)/tests/rpathz/aclocal.m4 $(srcdir)/tests/rpathz/configure
+
 CONFIGURES_RPATHLX = $(srcdir)/tests/rpathlx/Makefile.in $(srcdir)/tests/rpathlx/aclocal.m4 $(srcdir)/tests/rpathlx/configure
 
 CONFIGURES_RPATHLY = $(srcdir)/tests/rpathly/Makefile.in $(srcdir)/tests/rpathly/aclocal.m4 $(srcdir)/tests/rpathly/configure
 
 CONFIGURES_RPATHLYX = $(srcdir)/tests/rpathlyx/Makefile.in $(srcdir)/tests/rpathlyx/aclocal.m4 $(srcdir)/tests/rpathlyx/configure
 
-SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX)
+CONFIGURES_RPATHLZ = $(srcdir)/tests/rpathlz/Makefile.in $(srcdir)/tests/rpathlz/aclocal.m4 $(srcdir)/tests/rpathlz/configure
+
+CONFIGURES_RPATHLZYX = $(srcdir)/tests/rpathlzyx/Makefile.in $(srcdir)/tests/rpathlzyx/aclocal.m4 $(srcdir)/tests/rpathlzyx/configure
+
+SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHZ) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX) $(CONFIGURES_RPATHLZ) $(CONFIGURES_RPATHLZYX)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -192,9 +203,9 @@ RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
 DIST_COMMON = README ./stamp-h.in ABOUT-NLS AUTHORS COPYING ChangeLog \
-	INSTALL Makefile.am Makefile.in NEWS THANKS TODO acconfig.h \
-	aclocal.m4 config.guess config.h.in config.sub configure \
-	configure.in install-sh ltmain.sh missing mkinstalldirs ylwrap
+	INSTALL Makefile.am Makefile.in NEWS THANKS TODO aclocal.m4 \
+	config.guess config.h.in config.sub configure configure.in \
+	install-sh ltmain.sh missing mkinstalldirs ylwrap
 DIST_SUBDIRS = $(SUBDIRS)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
@@ -222,7 +233,7 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 $(srcdir)/configure:  $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
 
-$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/error.m4 m4/flex.m4 m4/fnmatch.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/lib-ld.m4 m4/lib-link.m4 m4/lib-prefix.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/stdint_h.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
+$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/error.m4 m4/flex.m4 m4/fnmatch.m4 m4/gcj.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/intdiv0.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/lib-ld.m4 m4/lib-link.m4 m4/lib-prefix.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/stdint_h.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 config.h: stamp-h
 	@if test ! -f $@; then \
@@ -241,7 +252,7 @@ $(srcdir)/config.h.in:  $(srcdir)/./stamp-h.in
 		rm -f $(srcdir)/./stamp-h.in; \
 		$(MAKE) $(srcdir)/./stamp-h.in; \
 	else :; fi
-$(srcdir)/./stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) $(top_srcdir)/acconfig.h
+$(srcdir)/./stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	@rm -f $(srcdir)/./stamp-h.in $(srcdir)/./stamp-h.inT
 	@echo timestamp > $(srcdir)/./stamp-h.inT 2> /dev/null
 	cd $(top_srcdir) && $(AUTOHEADER)
@@ -583,6 +594,12 @@ $(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in $(srcdir)
 	cd $(srcdir)/tests/rpathy && aclocal -I ../../m4
 $(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && autoconf
+$(srcdir)/tests/rpathz/Makefile.in: $(srcdir)/tests/rpathz/Makefile.am $(srcdir)/tests/rpathz/configure.in
+	cd $(srcdir)/tests/rpathz && automake Makefile
+$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathz && aclocal -I ../../m4
+$(srcdir)/tests/rpathz/configure: $(srcdir)/tests/rpathz/configure.in $(srcdir)/tests/rpathz/aclocal.m4
+	cd $(srcdir)/tests/rpathz && autoconf
 $(srcdir)/tests/rpathlx/Makefile.in: $(srcdir)/tests/rpathlx/Makefile.am $(srcdir)/tests/rpathlx/configure.in
 	cd $(srcdir)/tests/rpathlx && automake Makefile
 $(srcdir)/tests/rpathlx/aclocal.m4: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
@@ -601,6 +618,18 @@ $(srcdir)/tests/rpathlyx/aclocal.m4: $(srcdir)/tests/rpathlyx/configure.in $(src
 	cd $(srcdir)/tests/rpathlyx && aclocal -I ../../m4
 $(srcdir)/tests/rpathlyx/configure: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/tests/rpathlyx/aclocal.m4
 	cd $(srcdir)/tests/rpathlyx && autoconf
+$(srcdir)/tests/rpathlz/Makefile.in: $(srcdir)/tests/rpathlz/Makefile.am $(srcdir)/tests/rpathlz/configure.in
+	cd $(srcdir)/tests/rpathlz && automake Makefile
+$(srcdir)/tests/rpathlz/aclocal.m4: $(srcdir)/tests/rpathlz/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlz && aclocal -I ../../m4
+$(srcdir)/tests/rpathlz/configure: $(srcdir)/tests/rpathlz/configure.in $(srcdir)/tests/rpathlz/aclocal.m4
+	cd $(srcdir)/tests/rpathlz && autoconf
+$(srcdir)/tests/rpathlzyx/Makefile.in: $(srcdir)/tests/rpathlzyx/Makefile.am $(srcdir)/tests/rpathlzyx/configure.in
+	cd $(srcdir)/tests/rpathlzyx && automake Makefile
+$(srcdir)/tests/rpathlzyx/aclocal.m4: $(srcdir)/tests/rpathlzyx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlzyx && aclocal -I ../../m4
+$(srcdir)/tests/rpathlzyx/configure: $(srcdir)/tests/rpathlzyx/configure.in $(srcdir)/tests/rpathlzyx/aclocal.m4
+	cd $(srcdir)/tests/rpathlzyx && autoconf
 
 subconfigures: $(SUBCONFIGURES)
 
