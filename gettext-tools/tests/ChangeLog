@@ -1,5 +1,9 @@
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (localedir): New variable.
+
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext-19: Add Report-Msgid-Bugs-To line to expected result.
 	* xgettext-20: Likewise.
 
