@@ -1,5 +1,10 @@
 2002-02-03  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c (check_header_entry): Terminate the error strings with
+	newlines.
+
+2002-02-03  Bruno Haible  <bruno@clisp.org>
+
 	* plural-table.h: New file.
 	* plural-table.c: New file.
 	* msginit.c: Include plural-table.h.

@@ -797,32 +797,36 @@ check_plural (mlp)
   min_pos = NULL;
   max_nplurals = 0;
   max_pos = NULL;
-  for (j = 0; j < mlp->nitems; j++) {
-    message_ty *mp = mlp->item[j];
+  for (j = 0; j < mlp->nitems; j++)
+    {
+      message_ty *mp = mlp->item[j];
 
-    if (mp->msgid_plural != NULL) {
-      const char *p;
-      const char *p_end;
-      unsigned long n;
+      if (mp->msgid_plural != NULL)
+	{
+	  const char *p;
+	  const char *p_end;
+	  unsigned long n;
 
-      if (has_plural == NULL)
-	has_plural = &mp->pos;
+	  if (has_plural == NULL)
+	    has_plural = &mp->pos;
 
-      n = 0;
-      for (p = mp->msgstr, p_end = p + mp->msgstr_len;
-	   p < p_end;
-	   p += strlen (p) + 1)
-	n++;
-      if (min_nplurals > n) {
-	min_nplurals = n;
-	min_pos = &mp->pos;
-      }
-      if (max_nplurals > n) {
-	max_nplurals = n;
-	min_pos = &mp->pos;
-      }
+	  n = 0;
+	  for (p = mp->msgstr, p_end = p + mp->msgstr_len;
+	       p < p_end;
+	       p += strlen (p) + 1)
+	    n++;
+	  if (min_nplurals > n)
+	    {
+	      min_nplurals = n;
+	      min_pos = &mp->pos;
+	    }
+	  if (max_nplurals > n)
+	    {
+	      max_nplurals = n;
+	      min_pos = &mp->pos;
+	    }
+	}
     }
-  }
 
   /* Look at the plural entry for this domain.
      Cf, function extract_plural_expression.  */
@@ -1230,12 +1234,12 @@ check_header_entry (msgstr_string)
 
       if (endp == NULL)
 	multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-			 xasprintf (_("headerfield `%s' missing in header"),
+			 xasprintf (_("headerfield `%s' missing in header\n"),
 				    required_fields[cnt]));
       else if (endp != msgstr_string && endp[-1] != '\n')
 	multiline_error (xasprintf ("%s: ", gram_pos.file_name),
 			 xasprintf (_("\
-header field `%s' should start at beginning of line"),
+header field `%s' should start at beginning of line\n"),
 				    required_fields[cnt]));
       else if (default_values[cnt] != NULL
 	       && strncmp (default_values[cnt],
@@ -1246,7 +1250,7 @@ header field `%s' should start at beginning of line"),
 	    {
 	      multiline_error (xasprintf ("%s: ", gram_pos.file_name),
 			       xstrdup (_("\
-some header fields still have the initial default value")));
+some header fields still have the initial default value\n")));
 	      initial = -1;
 	      break;
 	    }
@@ -1257,7 +1261,8 @@ some header fields still have the initial default value")));
 
   if (initial != -1)
     multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-		     xasprintf (_("field `%s' still has initial default value"),
+		     xasprintf (_("\
+field `%s' still has initial default value\n"),
 				required_fields[initial]));
 }
 
