@@ -227,12 +227,6 @@ $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
 EOF
 
-dnl These ought to go away some day.
-changequote(,)dnl
-LTALLOCA=`echo "$ALLOCA" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
-changequote([, ])dnl
-AC_SUBST(LTALLOCA)
-
 AC_CONFIG_FILES([Makefile])
 
 AC_CONFIG_FILES([doc/Makefile],

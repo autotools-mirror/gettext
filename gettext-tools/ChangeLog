@@ -1,5 +1,9 @@
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Remove computation of LTALLOCA.
+
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_ALLOCSA instead of gl_FUNC_ALLOCA.
 	* windows/gettextlib.def: Add mallocsa, xmallocsa, freesa.
 

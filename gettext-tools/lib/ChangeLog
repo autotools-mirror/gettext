@@ -1,5 +1,11 @@
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* alloca.c: Remove file.
+	* Makefile.am (LIBADD_SOURCE): Remove alloca.c.
+	(libgettextlib_la_LIBADD): Drop @LTALLOCA@.
+
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
 	Safer stack allocation.
 	* allocsa.h: New file.
 	* allocsa.c: New file.

@@ -81,7 +81,6 @@ libgettextlib_la_SOURCES = \
 # Sources that are compiled only on platforms that lack the functions.
 
 LIBADD_SOURCE = \
-  alloca.c \
   atexit.c \
   canonicalize.h canonicalize.c \
   fnmatch.c \
@@ -109,7 +108,7 @@ UNUSED_SOURCE = \
 
 # How to build libgettextlib.la.
 
-libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
+libgettextlib_la_LIBADD = @LTLIBOBJS@
 
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because linebreak.c uses iconv().

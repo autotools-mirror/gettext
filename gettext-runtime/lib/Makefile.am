@@ -53,7 +53,7 @@ LIBADD_SOURCE = \
 
 # How to build libgrt.a.
 
-libgrt_a_LIBADD = @ALLOCA@ @LIBOBJS@
+libgrt_a_LIBADD = @LIBOBJS@
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
