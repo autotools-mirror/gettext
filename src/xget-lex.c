@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -33,6 +33,7 @@
 #include "error.h"
 #include "system.h"
 #include "libgettext.h"
+#include "hash.h"
 #include "str-list.h"
 #include "xget-lex.h"
 
@@ -82,7 +83,8 @@ enum token_type_ty
   token_type_eof,
   token_type_eoln,
   token_type_hash,
-  token_type_lp,
+  token_type_lparen,
+  token_type_rparen,
   token_type_comma,
   token_type_name,
   token_type_number,
@@ -109,7 +111,7 @@ static FILE *fp;
 static int trigraphs;
 static int cplusplus_comments;
 static string_list_ty *comment;
-static string_list_ty *keywords;
+static hash_table keywords;
 static int default_keywords = 1;
 
 /* These are for tracking whether comments count as immediately before
@@ -938,7 +940,11 @@ phase5_get (tp)
       return;
 
     case '(':
-      tp->type = token_type_lp;
+      tp->type = token_type_lparen;
+      return;
+
+    case ')':
+      tp->type = token_type_rparen;
       return;
 
     case ',':
@@ -1179,6 +1185,7 @@ xgettext_lex (tp)
   while (1)
     {
       token_ty token;
+      void *keyword_value;
 
       phase8_get (&token);
       switch (token.type)
@@ -1213,27 +1220,36 @@ xgettext_lex (tp)
 	  if (default_keywords)
 	    {
 	      xgettext_lex_keyword ("gettext");
-	      xgettext_lex_keyword ("dgettext");
-	      xgettext_lex_keyword ("dcgettext");
+	      xgettext_lex_keyword ("dgettext:2");
+	      xgettext_lex_keyword ("dcgettext:2");
 	      xgettext_lex_keyword ("gettext_noop");
 	      default_keywords = 0;
 	    }
 
-	  if (string_list_member (keywords, token.string))
+	  if (find_entry (&keywords, token.string, strlen (token.string),
+			  &keyword_value)
+	      == 0)
 	    {
-	      tp->type = (strcmp (token.string, "dgettext") == 0
-			  || strcmp (token.string, "dcgettext") == 0)
-		? xgettext_token_type_keyword2 : xgettext_token_type_keyword1;
+	      tp->type = xgettext_token_type_keyword;
+	      tp->argnum = (int) (long) keyword_value;
+	      tp->line_number = token.line_number;
+	      tp->file_name = logical_file_name;
 	    }
 	  else
 	    tp->type = xgettext_token_type_symbol;
 	  free (token.string);
 	  return;
 
-	case token_type_lp:
+	case token_type_lparen:
 	  last_non_comment_line = newline_count;
 
-	  tp->type = xgettext_token_type_lp;
+	  tp->type = xgettext_token_type_lparen;
+	  return;
+
+	case token_type_rparen:
+	  last_non_comment_line = newline_count;
+
+	  tp->type = xgettext_token_type_rparen;
 	  return;
 
 	case token_type_comma:
@@ -1263,16 +1279,32 @@ xgettext_lex (tp)
 
 void
 xgettext_lex_keyword (name)
-     char *name;
+     const char *name;
 {
   if (name == NULL)
     default_keywords = 0;
   else
     {
-      if (keywords == NULL)
-	keywords = string_list_alloc ();
+      int argnum;
+      size_t len;
+      const char *sp;
 
-      string_list_append_unique (keywords, name);
+      if (keywords.table == NULL)
+	init_hash (&keywords, 100);
+
+      sp = strchr (name, ':');
+      if (sp)
+	{
+	  len = sp - name;
+	  argnum = atoi (sp + 1);
+	}
+      else
+	{
+	  len = strlen (name);
+	  argnum = 1;
+	}
+
+      insert_entry (&keywords, name, len, (void *) (long) argnum);
     }
 }
 
@@ -1280,7 +1312,7 @@ xgettext_lex_keyword (name)
 int
 xgettext_any_keywords ()
 {
-  return keywords != NULL || default_keywords;
+  return (keywords.filled > 0) || default_keywords;
 }
 
 

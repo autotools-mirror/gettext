@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -23,9 +23,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 enum xgettext_token_type_ty
 {
   xgettext_token_type_eof,
-  xgettext_token_type_keyword1,
-  xgettext_token_type_keyword2,
-  xgettext_token_type_lp,
+  xgettext_token_type_keyword,
+  xgettext_token_type_lparen,
+  xgettext_token_type_rparen,
   xgettext_token_type_comma,
   xgettext_token_type_string_literal,
   xgettext_token_type_symbol
@@ -37,8 +37,15 @@ struct xgettext_token_ty
 {
   xgettext_token_type_ty type;
 
-  /* These 3 are only set for xgettext_token_type_string_literal.  */
+  /* This field is used only for xgettext_token_type_keyword.  */
+  int argnum;
+
+  /* This field is used only for xgettext_token_type_string_literal.  */
   char *string;
+
+  /* These fields are only for
+       xgettext_token_type_keyword,
+       xgettext_token_type_string_literal.  */
   int line_number;
   char *file_name;
 };
@@ -50,7 +57,7 @@ void xgettext_lex PARAMS ((xgettext_token_ty *__tp));
 const char *xgettext_lex_comment PARAMS ((size_t __n));
 void xgettext_lex_comment_reset PARAMS ((void));
 /* void xgettext_lex_filepos PARAMS ((char **, int *)); FIXME needed?  */
-void xgettext_lex_keyword PARAMS ((char *__name));
+void xgettext_lex_keyword PARAMS ((const char *__name));
 int xgettext_any_keywords PARAMS ((void));
 void xgettext_lex_cplusplus PARAMS ((void));
 void xgettext_lex_trigraphs PARAMS ((void));

@@ -1,3 +1,45 @@
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* xget-lex.h (enum xgettext_token_type_ty): Rename
+	xgettext_token_type_lp/rp to xgettext_token_type_lparen/rparen.
+	* xget-lex.c (enum token_type_ty): Rename token_type_lp/rp to
+	token_type_lparen/rparen.
+	(xgettext_any_keywords): `keywords' is now a hash table.
+	* xgettext.c (construct_header): Change two printf directives %02d
+	to %02ld.
+
+1998-07-17  Paul Eggert  <eggert@twinsun.com>
+
+	Add support for user-specified argument numbers for keywords.
+	Extract all strings from a keyword arg, not just the first one.
+	Handle parenthesized commas inside keyword args correctly.
+	Warn about nested keywords.
+
+	* xgettext.c (scan_c_file):
+	Warn about nested keywords, e.g. _(_("xxx")).
+	Warn also about not-yet-implemented but allowed nesting, e.g.
+	dcgettext(..._("xxx")..., "yyy").
+	Get all strings in a keyword arg, not just the first one.
+	Handle parenthesized commas inside keyword args correctly.
+
+	* xget-lex.h (enum xgettext_token_type_ty):
+	Replace xgettext_token_type_keyword1 and
+	xgettext_token_type_keyword2 with just plain
+	xgettext_token_type_keyword; it now has argnum value.
+	Add xgettext_token_type_rp.
+	(struct xgettext_token_ty): Add argnum member.
+	line_number and file_name are now also set for
+	xgettext_token_type_keyword.
+	(xgettext_lex_keyword): Arg is const char *.
+
+	* xget-lex.c: Include "hash.h".
+	(enum token_type_ty): Add token_type_rp.
+	(keywords): Now a hash table.
+	(phase5_get): Return token_type_rp for ')'.
+	(xgettext_lex, xgettext_lex_keyword): Add support for keyword argnums.
+	(xgettext_lex): Return xgettext_token_type_rp for ')'.
+	Report keyword argnum, line number, and file name back to caller.
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* Makefile.am (EXTRA_DIST): Replace po-gram.gen.h and po-hash.gen.h

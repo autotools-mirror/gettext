@@ -1859,13 +1859,19 @@ List of directories searched for input files.
 Join messages with existing file.
 
 @item -k @var{word}
-@itemx --keyword[=@var{word}]
-Additonal keyword to be looked for (without @var{word} means not to
+@itemx --keyword[=@var{keywordspec}]
+Additional keyword to be looked for (without @var{keywordspec} means not to
 use default keywords).
 
-The default keywords, which are always looked for if not explicitly
-disabled, are @code{gettext}, @code{dgettext}, @code{dcgettext} and
-@code{gettext_noop}.
+If @var{keywordspec} is a C identifer @var{id}, @code{xgettext} looks
+for strings in the first argument of each call to the function or macro
+@var{id}.  If @var{keywordspec} is of the form
+@samp{@var{id}:@var{argnum}}, @code{xgettext} looks for strings in the
+@var{argnum}th argument of the call.
+
+The default keyword specifications, which are always looked for if not
+explicitly disabled, are @code{gettext}, @code{dgettext:2},
+@code{dcgettext:2} and @code{gettext_noop}.
 
 @item -m [@var{string}]
 @itemx --msgstr-prefix[=@var{string}]

@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -842,6 +842,8 @@ scan_c_file(filename, mlp, is_cpp_file)
      int is_cpp_file;
 {
   int state;
+  int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
+  int paren_nesting = 0;	/* defined only when in state 2 */
 
   /* Inform scanner whether we have C++ files or not.  */
   if (is_cpp_file)
@@ -861,66 +863,87 @@ scan_c_file(filename, mlp, is_cpp_file)
    {
      xgettext_token_ty token;
 
-     /* A simple state machine is used to do the recognising:
+     /* A state machine is used to do the recognising:
         State 0 = waiting for something to happen
-        State 1 = seen one of our keywords with string in first parameter
-        State 2 = was in state 1 and now saw a left paren
-	State 3 = seen one of our keywords with string in second parameter
-	State 4 = was in state 3 and now saw a left paren
-	State 5 = waiting for comma after being in state 4
-	State 6 = saw comma after being in state 5  */
+        State 1 = seen one of our keywords
+        State 2 = waiting for part of an argument */
      xgettext_lex (&token);
      switch (token.type)
        {
-       case xgettext_token_type_keyword1:
+       case xgettext_token_type_keyword:
+	 if (!extract_all && state == 2)
+	   {
+	     if (commas_to_skip == 0)
+	       {
+		 error (0, 0,
+			_("%s:%d: warning: keyword nested in keyword arg"),
+			token.file_name, token.line_number);
+		 continue;
+	       }
+
+	     /* Here we should nest properly, but this would require a
+		potentially unbounded stack.  We haven't run across an
+		example that needs this functionality yet.  For now,
+		we punt and forget the outer keyword.  */
+	     error (0, 0,
+		    _("%s:%d: warning: keyword between outer keyword and its arg"),
+		    token.file_name, token.line_number);
+	   }
+	 commas_to_skip = token.argnum - 1;
 	 state = 1;
 	 continue;
 
-       case xgettext_token_type_keyword2:
-	 state = 3;
-	 continue;
-
-       case xgettext_token_type_lp:
+       case xgettext_token_type_lparen:
 	 switch (state)
 	   {
 	   case 1:
+	     paren_nesting = 0;
 	     state = 2;
 	     break;
-	   case 3:
-	     state = 4;
+	   case 2:
+	     paren_nesting++;
 	     break;
-	   default:
-	     state = 0;
 	   }
+	 continue;
+
+       case xgettext_token_type_rparen:
+	 if (state == 2 && paren_nesting != 0)
+	   paren_nesting--;
+	 else
+	   state = 0;
 	 continue;
 
        case xgettext_token_type_comma:
-	 state = state == 5 ? 6 : 0;
+	 if (state == 2 && commas_to_skip != 0)
+	   {
+	     if (paren_nesting == 0)
+	       commas_to_skip--;
+	   }
+	 else
+	   state = 0;
 	 continue;
 
        case xgettext_token_type_string_literal:
-	 if (extract_all || state == 2 || state == 6)
-	   {
-	     remember_a_message (mlp, &token);
-	     state = 0;
-	   }
+	 if (extract_all || (state == 2 && commas_to_skip == 0))
+	   remember_a_message (mlp, &token);
 	 else
 	   {
 	     free (token.string);
-	     state = (state == 4 || state == 5) ? 5 : 0;
+	     if (state == 1)
+	       state = 0;
 	   }
 	 continue;
 
        case xgettext_token_type_symbol:
-	 state = (state == 4 || state == 5) ? 5 : 0;
-	 continue;
-
-       default:
-	 state = 0;
+	 if (state == 1)
+	   state = 0;
 	 continue;
 
        case xgettext_token_type_eof:
 	 break;
+
+       default:
+	 abort ();
        }
      break;
    }
@@ -1247,7 +1270,7 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
 
   asprintf (&msgstr, "\
 Project-Id-Version: PACKAGE VERSION\n\
-POT-Creation-Date: %d-%02d-%02d %02d:%02d%c%02d%02d\n\
+POT-Creation-Date: %d-%02d-%02d %02d:%02d%c%02ld%02ld\n\
 PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n\
 Last-Translator: FULL NAME <EMAIL@ADDRESS>\n\
 Language-Team: LANGUAGE <LL@li.org>\n\
