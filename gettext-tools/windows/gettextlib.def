@@ -6,11 +6,16 @@ error_with_progname
 program_name
 simple_backup_suffix
 __xargmatch_internal
+_obstack_begin
+_obstack_free
+_obstack_newchunk
 addext
 argmatch
 argmatch_invalid
 argmatch_to_argument
 argmatch_valid
+at_fatal_signal
+block_fatal_signals
 c_isalnum
 c_isalpha
 c_isascii
@@ -86,6 +91,7 @@ strncasecmp
 u8_possible_linebreaks
 u8_width_linebreaks
 uc_width
+unblock_fatal_signals
 unsetenv
 vasprintf
 wait_subprocess

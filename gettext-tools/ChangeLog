@@ -1,3 +1,10 @@
+2003-11-28  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.def: Add at_fatal_signal, block_fatal_signals,
+	unblock_fatal_signals, _obstack_begin, _obstack_free,
+	_obstack_newchunk.
+	* windows/gettextsrc.def: Add message_print_syntax_stringtable.
+
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (man/Makefile): Postprocess with FIX_MAKEFILE_DISTRIB.

@@ -99,6 +99,7 @@ message_print_style_escape
 message_print_style_indent
 message_print_style_uniforum
 message_print_syntax_properties
+message_print_syntax_stringtable
 msgdomain_alloc
 msgdomain_free
 msgdomain_list_alloc
