@@ -909,7 +909,15 @@ match_domain (const char *fn1, const char *fn2,
 	      message_list_ty *resultmlp,
 	      struct statistics *stats, unsigned int *processed)
 {
+  message_ty *header_entry;
+  unsigned long int nplurals;
+  char *untranslated_plural_msgstr;
   size_t j;
+
+  header_entry = message_list_search (definitions->item[0], "");
+  nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
+  untranslated_plural_msgstr = (char *) xmalloc (nplurals);
+  memset (untranslated_plural_msgstr, '\0', nplurals);
 
   for (j = 0; j < refmlp->nitems; j++, (*processed)++)
     {
@@ -981,12 +989,35 @@ this message is used but not defined..."));
 	  else
 	    {
 	      message_ty *mp;
+	      bool is_untranslated;
+	      const char *p;
+	      const char *pend;
 
 	      if (verbosity_level > 1)
 		po_gram_error_at_line (&refmsg->pos, _("\
 this message is used but not defined in %s"), fn1);
 
 	      mp = message_copy (refmsg);
+
+	      if (mp->msgid_plural != NULL)
+		{
+		  /* Test if mp is untranslated.  (It most likely is.)  */
+		  is_untranslated = true;
+		  for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
+		    if (*p != '\0')
+		      {
+			is_untranslated = false;
+			break;
+		      }
+		  if (is_untranslated)
+		    {
+		      /* Change mp->msgstr_len consecutive empty strings into
+			 nplurals consecutive empty strings.  */
+		      if (nplurals > mp->msgstr_len)
+			mp->msgstr = untranslated_plural_msgstr;
+		      mp->msgstr_len = nplurals;
+		    }
+		}
 
 	      message_list_append (resultmlp, mp);
 	      stats->missing++;

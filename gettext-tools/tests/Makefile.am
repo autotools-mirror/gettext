@@ -43,9 +43,10 @@ TESTS = gettext-1 gettext-2 \
 	msgfmt-properties-1 \
 	msgfmt-qt-1 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 \
+	msginit-1 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
-	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 \
+	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
 	msgmerge-compendium-1 msgmerge-compendium-2 msgmerge-compendium-3 \
 	msgmerge-compendium-4 \
 	msgmerge-properties-1 msgmerge-properties-2 \
@@ -131,6 +132,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    MSGFILTER="$(CHECKER) msgfilter" \
 		    MSGFMT="$(CHECKER) msgfmt" \
 		    MSGGREP="$(CHECKER) msggrep" \
+		    MSGINIT="$(CHECKER) msginit" \
 		    MSGMERGE="$(CHECKER) msgmerge" \
 		    MSGUNFMT="$(CHECKER) msgunfmt" \
 		    MSGUNIQ="$(CHECKER) msguniq" \

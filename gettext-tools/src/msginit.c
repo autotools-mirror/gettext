@@ -91,6 +91,7 @@
 #include "pathname.h"
 #include "xerror.h"
 #include "msgl-english.h"
+#include "plural-count.h"
 #include "pipe.h"
 #include "wait-process.h"
 #include "getline.h"
@@ -152,6 +153,7 @@ static const char *catalogname_for_locale (const char *locale);
 static const char *language_of_locale (const char *locale);
 static char *get_field (const char *header, const char *field);
 static msgdomain_list_ty *fill_header (msgdomain_list_ty *mdlp);
+static msgdomain_list_ty *update_msgstr_plurals (msgdomain_list_ty *mdlp);
 
 
 int
@@ -337,6 +339,8 @@ the output .po file through the --output-file option.\n"),
   /* Initialize translations.  */
   if (strcmp (language, "en") == 0)
     result = msgdomain_list_english (result);
+  else
+    result = update_msgstr_plurals (result);
 
   /* Write the modified message list out.  */
   msgdomain_list_print (result, output_file, true, false);
@@ -1749,5 +1753,56 @@ fill_header (msgdomain_list_ty *mdlp)
 	}
     }
 
+  return mdlp;
+}
+
+
+/* Update the msgstr plural entries according to the nplurals count.  */
+static msgdomain_list_ty *
+update_msgstr_plurals (msgdomain_list_ty *mdlp)
+{
+  size_t k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+      message_ty *header_entry;
+      unsigned long int nplurals;
+      char *untranslated_plural_msgstr;
+      size_t j;
+
+      header_entry = message_list_search (mlp, "");
+      nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
+      untranslated_plural_msgstr = (char *) xmalloc (nplurals);
+      memset (untranslated_plural_msgstr, '\0', nplurals);
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+	  bool is_untranslated;
+	  const char *p;
+	  const char *pend;
+
+	  if (mp->msgid_plural != NULL)
+	    {
+	      /* Test if mp is untranslated.  (It most likely is.)  */
+	      is_untranslated = true;
+	      for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
+		if (*p != '\0')
+		  {
+		    is_untranslated = false;
+		    break;
+		  }
+	      if (is_untranslated)
+		{
+		  /* Change mp->msgstr_len consecutive empty strings into
+		     nplurals consecutive empty strings.  */
+		  if (nplurals > mp->msgstr_len)
+		    mp->msgstr = untranslated_plural_msgstr;
+		  mp->msgstr_len = nplurals;
+		}
+	    }
+	}
+    }
   return mdlp;
 }

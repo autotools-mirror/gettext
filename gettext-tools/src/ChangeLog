@@ -1,3 +1,12 @@
+2004-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (msginit_SOURCES): Add plural-count.c.
+	* msginit.c (update_msgstr_plurals): New function.
+	(main): Call it.
+	* msgmerge.c (match_domain): Provide the appropriate number of plural
+	forms for messages that don't occur in the Def.po file.
+	Reported by Jens A. Tkotz <jens@peino.de>.
+
 2004-09-06  Bruno Haible  <bruno@clisp.org>
 
 	* format.h (formatstring_error_logger_t): New type.
