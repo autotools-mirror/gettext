@@ -1,3 +1,8 @@
+2002-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2002-08-06  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Files under CVS): Recommend use of
