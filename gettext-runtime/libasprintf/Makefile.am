@@ -219,7 +219,7 @@ config.h.msvc: config.h.in
 	    -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
 	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
-	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 2147483647U/' \
+	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 4294967295U/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \
 	  < $(srcdir)/config.h.in > $@
 

@@ -156,7 +156,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef MALLOC_0_IS_NONNULL$$/#define MALLOC_0_IS_NONNULL 1/' \
-	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 2147483647U/' \
+	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 4294967295U/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \

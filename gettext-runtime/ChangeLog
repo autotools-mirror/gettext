@@ -1,3 +1,7 @@
+2004-03-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config.h.msvc): Fix the value of SIZE_MAX.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.
