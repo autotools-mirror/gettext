@@ -38,7 +38,7 @@ int main (argc, argv)
   if (setlocale (LC_ALL, "") == NULL)
     {
       fprintf (stderr, "Couldn't set locale.\n");
-      exit (1);
+      exit (77);
     }
 
   textdomain ("prog");

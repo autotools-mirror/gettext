@@ -1,3 +1,7 @@
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
+	* lang-objc: If the locale couldn't be set, exit with code 77, not 1.
+
 2001-12-09  Bruno Haible  <bruno@clisp.org>
 
 	* lang-clisp: New file.
