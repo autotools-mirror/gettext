@@ -1,3 +1,15 @@
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-26: New file, derived from lang-perl.
+	* Makefile.am (TESTS): Add it.
+	* lang-perl: Turn into a real integration test.
+
+2003-06-12  Bruno Haible  <bruno@clisp.org>
+
+	* format-perl-1: Avoid conflict with format-awk-1.
+	* format-perl-2: Avoid conflict with format-awk-2.
+	* Makefile.am (TESTS): Mention perl between tcl and php.
+
 2003-06-11  Guido Flohr  <guido@imperia.net>
 
 	* format-perl-1: New file.

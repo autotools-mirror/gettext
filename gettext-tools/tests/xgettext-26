@@ -1,0 +1,148 @@
+#!/bin/sh
+
+# Test of Perl support.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles xg-test26.pl"
+cat <<\EOF > xg-test26.pl
+use Locale::Messages;
+
+textdomain "prog";
+bindtextdomain ("./");
+
+s/foo/
+          # stress test for string extraction /xe;
+
+print _"'Your command, please?', asked the waiter.";
+
+printf ngettext ("a piece of cake", "%d pieces of cake", $n), $n;
+
+printf _"%s is replaced by %s.", "FF", "EUR";
+
+# Should be found.
+printf dngettext prog => ("one file deleted", "%d files deleted"), $n, $n;
+
+# Should not be found.
+printf dngettext ("prog"), ("one file created", "%d files created"), $n, $n;
+
+printf dngettext "prog", <<PERL, <<PERL;
+Singular
+PERL
+Plural
+PERL
+
+print <<PERL
+tied hash $__{   Bareword
+}
+tied hash $__->{"quoted string"}
+tied hash $__->{  "weird
+formatting"}
+PERL
+
+print $__  # Welcome
+   ->   # to the
+ { # Republic of
+ 'Welcome to the Republic of Perl!' # 
+# Perl!
+}; 
+
+$! ? ?$__{"pattern match"}? : s  # This is no delimiter.
+{$__{substitution}}<$__-\>{"find me"}>;
+
+# No interpolation!
+m'$__{secret}';
+
+# Multiple here documents invoked from the same line.
+print gettext <<PERL; print gettext <<PERL;
+First here document.
+PERL
+Second here document.
+PERL
+__END__
+gettext "Discarded!";
+EOF
+
+tmpfiles="$tmpfiles xg-test26.po"
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header -n -k_ -k%__ -k\$__ xg-test26.pl -d xg-test26
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+tmpfiles="$tmpfiles xg-test26.ok"
+cat <<EOF > xg-test26.ok
+#: xg-test26.pl:9
+msgid "'Your command, please?', asked the waiter."
+msgstr ""
+
+#: xg-test26.pl:11
+#, perl-format
+msgid "a piece of cake"
+msgid_plural "%d pieces of cake"
+msgstr[0] ""
+msgstr[1] ""
+
+#: xg-test26.pl:13
+#, perl-format
+msgid "%s is replaced by %s."
+msgstr ""
+
+#: xg-test26.pl:16
+#, perl-format
+msgid "one file deleted"
+msgid_plural "%d files deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: xg-test26.pl:22
+msgid "Singular\n"
+msgid_plural "Plural\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: xg-test26.pl:28
+msgid "Bareword"
+msgstr ""
+
+#: xg-test26.pl:30
+msgid "quoted string"
+msgstr ""
+
+#: xg-test26.pl:31
+msgid ""
+"weird\n"
+"formatting"
+msgstr ""
+
+#: xg-test26.pl:38
+msgid "Welcome to the Republic of Perl!"
+msgstr ""
+
+#: xg-test26.pl:42
+msgid "pattern match"
+msgstr ""
+
+#: xg-test26.pl:43
+msgid "substitution"
+msgstr ""
+
+#: xg-test26.pl:43
+msgid "find me"
+msgstr ""
+
+#: xg-test26.pl:50
+msgid "First here document.\n"
+msgstr ""
+
+#: xg-test26.pl:52
+msgid "Second here document.\n"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-test26.ok xg-test26.po
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result
