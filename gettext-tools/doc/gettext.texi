@@ -6710,6 +6710,12 @@ The include file template that holds the C macros to be defined by
 @code{configure} is usually called @file{config.h.in} and may be
 maintained either manually or automatically.
 
+If @code{gettextize} has created an @file{intl/} directory, this file
+must be called @file{config.h.in} and must be at the top level.  If,
+however, you have suppressed the @file{intl/} directory by calling
+@code{gettextize} without @samp{--intl} option, then you can choose the
+name of this file and its location freely.
+
 If it is maintained automatically, by use of the @samp{autoheader}
 program, you need to do nothing about it.  This is the case in particular
 if you are using GNU @code{automake}.
