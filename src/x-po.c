@@ -85,7 +85,7 @@ extract_constructor (that)
   extract_class_ty *this = (extract_class_ty *) that;
   size_t i;
 
-  this->mlp = NULL; /* actually set in read_po_file, below */
+  this->mlp = NULL; /* actually set in extract_po, below */
   this->comment = NULL;
   this->comment_dot = NULL;
   this->is_fuzzy = false;

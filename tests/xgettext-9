@@ -40,7 +40,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-test9.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -c --c++ -d xg-test9 xg-test9.c
+${XGETTEXT} --omit-header --no-location -c --c++ -d xg-test9 xg-test9.c
 
 tmpfiles="$tmpfiles xg-test9.ok"
 cat <<EOF > xg-test9.ok

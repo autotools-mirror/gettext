@@ -24,6 +24,7 @@
 #include "message.h"
 #include "pos.h"
 
+/* Borrowed from read-po.h.  */
 extern int line_comment;
 
 extern int omit_header;

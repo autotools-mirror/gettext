@@ -73,9 +73,6 @@ struct passwd *getpwuid ();
 /* If nonzero add all comments immediately preceding one of the keywords. */
 static bool add_all_comments = false;
 
-/* If nonzero add comments for file name and line number for each msgid.  */
-int line_comment = 1;
-
 /* Tag used in comment of prevailing domain.  */
 static char *comment_tag;
 

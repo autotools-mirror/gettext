@@ -20,7 +20,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-test7.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --add-comments=XXX xg-test7.in.C \
+${XGETTEXT} --omit-header --no-location --add-comments=XXX xg-test7.in.C \
   -d xg-test7
 
 tmpfiles="$tmpfiles xg-test7.ok"

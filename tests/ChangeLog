@@ -1,5 +1,21 @@
 2001-11-03  Bruno Haible  <haible@clisp.cons.org>
 
+	* plural-1: Add option --no-location to xgettext call, no longer
+	implied by --omit-header.
+	* xgettext-1: Likewise.
+	* xgettext-2: Likewise.
+	* xgettext-5: Likewise.
+	* xgettext-6: Likewise.
+	* xgettext-7: Likewise.
+	* xgettext-9: Likewise.
+	* xgettext-10: Likewise.
+	* xgettext-11: Likewise.
+	* xgettext-12: Likewise.
+	* xgettext-15: Likewise.
+	* xgettext-16: Likewise.
+
+2001-11-03  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.am (TESTS): Add xgettext-17.
 
 2001-11-01  Karl Eichwalder  <keichwa@gmx.net>

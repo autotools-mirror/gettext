@@ -20,7 +20,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-test11.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -c --keyword-substring --keyword=Exception -d xg-test11 xg-test11.java
+${XGETTEXT} --omit-header --no-location -c --keyword-substring --keyword=Exception -d xg-test11 xg-test11.java
 
 tmpfiles="$tmpfiles xg-test11.ok"
 cat <<EOF > xg-test11.ok
