@@ -1,5 +1,10 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* allocsa.h: Add extern "C" for C++.
+	* xallocsa.h: Likewise.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* exitfail.h (exit_failure): Add DLL_VARIABLE attribute.
 
 2005-02-12  Bruno Haible  <bruno@clisp.org>

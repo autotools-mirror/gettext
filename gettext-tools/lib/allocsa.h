@@ -23,6 +23,12 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* safe_alloca(N) is equivalent to alloca(N) when it is safe to call
    alloca(N); otherwise it returns NULL.  It either returns N bytes of
    memory allocated on the stack, that lasts until the function returns,
@@ -67,6 +73,11 @@ extern void freesa (void *p);
 /* Maybe we should also define a variant
     nallocsa (size_t n, size_t s) - behaves like allocsa (n * s)
    If this would be useful in your application. please speak up.  */
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 /* ------------------- Auxiliary, non-public definitions ------------------- */
