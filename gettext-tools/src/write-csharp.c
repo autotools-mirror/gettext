@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -688,7 +688,28 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
     for (p = culture_name; *p != '\0'; p++)
       if (*p == '_')
 	*p = '-';
+    if (strncmp (culture_name, "sr-CS", 5) == 0)
+      memcpy (culture_name, "sr-SP", 5);
+    p = strchr (culture_name, '@');
+    if (p != NULL)
+      {
+	if (strcmp (p, "@latin") == 0)
+	  strcpy (p, "-Latn");
+	else if (strcmp (p, "@cyrillic") == 0)
+	  strcpy (p, "-Cyrl");
+      }
+    if (strcmp (culture_name, "sr-SP") == 0)
+      {
+	free (culture_name);
+	culture_name = xstrdup ("sr-SP-Latn");
+      }
+    else if (strcmp (culture_name, "uz-UZ") == 0)
+      {
+	free (culture_name);
+	culture_name = xstrdup ("uz-UZ-Latn");
+      }
   }
+  
 
   /* Compute the output file name.  This code must be kept consistent with
      intl.cs, function GetSatelliteAssembly().  */

@@ -1,3 +1,10 @@
+2004-03-02  Bruno Haible  <bruno@clisp.org>
+
+	* read-csharp.c (msgdomain_read_csharp): Extend the lang -> frobbedlang
+	mapping so as to support Serbian and Uzbek locales.
+	* write-csharp.c (msgdomain_write_csharp): Likewise.
+	Reported by Jorn Baayen <jbaayen@dds.nl>.
+
 2004-02-27  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Add an entry about Serbian.

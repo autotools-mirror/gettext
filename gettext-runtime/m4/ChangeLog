@@ -1,3 +1,9 @@
+2004-03-02  Bruno Haible  <bruno@clisp.org>
+
+	* po.m4 (AM_POSTPROCESS_PO_MAKEFILE): For RESOURCESDLLFILES and
+	CSHARPCATALOGS, extend the lang -> frobbedlang mapping so as to support
+	Serbian and Uzbek locales.
+
 2004-02-18  Bruno Haible  <bruno@clisp.org>
 
 	* xsize.m4 (gl_XSIZE): Require AC_C_INLINE.
