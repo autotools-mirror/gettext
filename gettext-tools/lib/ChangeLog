@@ -1,5 +1,12 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (OBJECTS): Remove strtoul.obj.
+	(strtoul.obj): Remove target.
+	* Makefile.vms (OBJECTS): Remove strtoul.obj.
+	(strtoul.obj): Remove target.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* allocsa.h: Add extern "C" for C++.
 	* xallocsa.h: Likewise.
 

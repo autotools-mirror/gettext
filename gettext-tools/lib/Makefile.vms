@@ -73,7 +73,6 @@ OBJECTS = \
   safe-read.obj, \
   safe-write.obj, \
   sh-quote.obj, \
-  strtoul.obj, \
   tmpdir.obj, \
   wait-process.obj, \
   xmalloc.obj, xstrdup.obj, \
@@ -211,9 +210,6 @@ safe-write.obj : safe-write.c
 
 sh-quote.obj : sh-quote.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) sh-quote.c
-
-strtoul.obj : strtoul.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) strtoul.c
 
 tmpdir.obj : tmpdir.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) tmpdir.c
