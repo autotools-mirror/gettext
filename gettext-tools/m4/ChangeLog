@@ -1,3 +1,13 @@
+2002-12-24  Bruno Haible  <bruno@clisp.org>
+
+	* mbswidth.m4 (gl_MBSWIDTH): Renamed from jm_PREREQ_MBSWIDTH. Use
+	onceonly macros.
+
+2002-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* mbswidth.m4 (jm_PREREQ_MBSWIDTH): Remove checks for limits.h,
+	stdlib.h, string.h.
+
 2003-02-17  Bruno Haible  <bruno@clisp.org>
 
 	* mkdtemp.m4 (gl_PREREQ_MKDTEMP): New macro.
