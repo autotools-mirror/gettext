@@ -36,10 +36,12 @@ import java.util.*;
  *       In the GNU gettext approach, the keys are the English/ASCII version
  *       of the messages.
  *   <LI>In the Sun approach, the translation files are called
- *       "Resource_locale.properties" and have non-ASCII characters encoded
- *       in the Java \-unnnn syntax. Very few editors can natively display
- *       international characters in this format. In the GNU gettext
- *       approach, the translation files are called "Resource.locale.po"
+ *       "<VAR>Resource</VAR>_<VAR>locale</VAR>.properties" and have non-ASCII
+ *       characters encoded in the Java
+ *       <CODE>\</CODE><CODE>u<VAR>nnnn</VAR></CODE> syntax. Very few editors
+ *       can natively display international characters in this format. In the
+ *       GNU gettext approach, the translation files are called
+ *       "<VAR>Resource</VAR>.<VAR>locale</VAR>.po"
  *       and are in the encoding the translator has chosen. Many editors
  *       can be used. There are at least three GUI translating tools
  *       (Emacs PO mode, KDE KBabel, GNOME gtranslator).
