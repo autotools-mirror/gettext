@@ -256,7 +256,7 @@ main (argc, argv)
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "1995, 1996, 1997, 1998");
+	      "1995-1998, 2000, 2001");
       printf (_("Written by %s.\n"), "Peter Miller");
       exit (EXIT_SUCCESS);
     }
@@ -797,10 +797,11 @@ this message is used but not defined in %s"), fn1);
   /* Report some statistics.  */
   if (verbosity_level > 0)
     fprintf (stderr, _("%s\
-Read %d old + %d reference, \
-merged %d, fuzzied %d, missing %d, obsolete %d.\n"),
+Read %ld old + %ld reference, \
+merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"),
 	     !quiet && verbosity_level <= 1 ? "\n" : "",
-	     def->nitems, ref->nitems, merged, fuzzied, missing, obsolete);
+	     (long) def->nitems, (long) ref->nitems,
+	     (long) merged, (long) fuzzied, (long) missing, (long) obsolete);
   else if (!quiet)
     fputs (_(" done.\n"), stderr);
 

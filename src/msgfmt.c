@@ -271,7 +271,7 @@ main (argc, argv)
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "1995, 1996, 1997, 1998");
+	      "1995-1998, 2000, 2001");
       printf (_("Written by %s.\n"), "Ulrich Drepper");
       exit (EXIT_SUCCESS);
     }
@@ -468,7 +468,7 @@ format_debrief (that)
   if (verbose_level > 0 && this->has_header_entry == 0)
     error (0, 0, _("%s: warning: PO file header missing, fuzzy, or invalid\n\
 %*s  warning: charset conversion will not work"),
-	   gram_pos.file_name, strlen (gram_pos.file_name), "");
+	   gram_pos.file_name, (int) strlen (gram_pos.file_name), "");
 }
 
 
@@ -1002,7 +1002,8 @@ number of format specifications in `msgid' and `msgstr' does not match"));
 	      {
 		error_at_line (0, 0, msgid_pos->file_name,
 			       msgid_pos->line_number, _("\
-format specifications for argument %u are not the same"), cnt);
+format specifications for argument %lu are not the same"),
+			       (unsigned long) cnt);
 		exit_status = EXIT_FAILURE;
 	      }
 	}
