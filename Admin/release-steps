@@ -6,7 +6,12 @@ Tasks not to forget before release:
 - Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
 - Update misc/locale.alias from glibc's intl/locale.alias.
 
-- Update -version-info in intl/Makefile.in.
+- Update -version-info arguments in intl/Makefile.in.
+  * increment LTV_REVISION,
+  * if any functions/classes have been added, removed or changed, increment
+    LTV_CURRENT and set LTV_REVISION to 0,
+  * if any functions/classes have been added, increment LTV_AGE,
+  * if backwards compatibility has been broken, set LTV_AGE to 0.
 
 - Bump version number in configure.in.
 
