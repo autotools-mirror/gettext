@@ -220,7 +220,7 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
 
 /* Reads an existing .mo file and adds the messages to mlp.  */
 void
-read_mo_file (message_list_ty *mlp, const char *fn)
+read_mo_file (message_list_ty *mlp, const char *filename)
 {
   FILE *fp;
   struct binary_mo_file bf;
@@ -228,21 +228,21 @@ read_mo_file (message_list_ty *mlp, const char *fn)
   unsigned int i;
   static lex_pos_ty pos = { __FILE__, __LINE__ };
 
-  if (strcmp (fn, "-") == 0 || strcmp (fn, "/dev/stdin") == 0)
+  if (strcmp (filename, "-") == 0 || strcmp (filename, "/dev/stdin") == 0)
     {
       fp = stdin;
       SET_BINARY (fileno (fp));
     }
   else
     {
-      fp = fopen (fn, "rb");
+      fp = fopen (filename, "rb");
       if (fp == NULL)
 	error (EXIT_FAILURE, errno,
-	       _("error while opening \"%s\" for reading"), fn);
+	       _("error while opening \"%s\" for reading"), filename);
     }
 
   /* Read the file contents into memory.  */
-  read_binary_mo_file (&bf, fp, fn);
+  read_binary_mo_file (&bf, fp, filename);
 
   /* Get a 32-bit number from the file header.  */
 # define GET_HEADER_FIELD(field) \
@@ -261,7 +261,7 @@ read_mo_file (message_list_ty *mlp, const char *fn)
 	{
 	unrecognised:
 	  error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
-		 fn);
+		 filename);
 	}
     }
 

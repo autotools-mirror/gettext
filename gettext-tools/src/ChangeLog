@@ -1,5 +1,10 @@
 2003-12-28  Bruno Haible  <bruno@clisp.org>
 
+	* read-mo.h (read_mo_file): Change 'fn' into 'filename'.
+	* read-mo.c (read_mo_file): Likewise.
+
+2003-12-28  Bruno Haible  <bruno@clisp.org>
+
 	* write-resources.h: New file.
 	* write-resources.c: New file.
 	* msgfmt.cs: New file.
