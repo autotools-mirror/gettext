@@ -31,7 +31,7 @@ cat <<EOF > mc-test2.ok
 mc-test2.in2:1: this message is used but not defined...
 mc-test2.in1:3: ...but this definition is similar
 mc-test2.in1:4: warning: this message is not used
-found 1 fatal errors
+found 1 fatal error
 EOF
 
 : ${DIFF=diff}

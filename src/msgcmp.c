@@ -279,7 +279,9 @@ this message is used but not defined in %s"), fn1);
 
   /* Exit with status 1 on any error.  */
   if (nerrors > 0)
-    error (EXIT_FAILURE, 0, _("found %d fatal errors"), nerrors);
+    error (EXIT_FAILURE, 0,
+	   ngettext ("found %d fatal error", "found %d fatal errors", nerrors),
+	   nerrors);
 }
 
 

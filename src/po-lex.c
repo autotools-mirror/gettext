@@ -99,7 +99,10 @@ void
 lex_close ()
 {
   if (error_message_count > 0)
-    error (EXIT_FAILURE, 0, _("found %d fatal errors"), error_message_count);
+    error (EXIT_FAILURE, 0,
+	   ngettext ("found %d fatal error", "found %d fatal errors",
+		     error_message_count),
+	   error_message_count);
 
   if (fp != stdin)
     fclose (fp);

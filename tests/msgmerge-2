@@ -30,7 +30,7 @@ tmpfiles="$tmpfiles mm-test2.ok"
 cat << EOF > mm-test2.ok
 mm-test2.in1:3: duplicate message definition
 mm-test2.in1:1: ...this is the location of the first definition
-found 1 fatal errors
+found 1 fatal error
 EOF
 
 : ${DIFF=diff}

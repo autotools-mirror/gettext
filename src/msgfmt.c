@@ -356,11 +356,21 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Print statistics if requested.  */
   if (verbose_level > 0 || do_statistics)
     {
-      fprintf (stderr, _("%d translated messages"), msgs_translated);
+      fprintf (stderr,
+	       ngettext ("%d translated message", "%d translated messages",
+			 msgs_translated),
+	       msgs_translated);
       if (msgs_fuzzy > 0)
-	fprintf (stderr, _(", %d fuzzy translations"), msgs_fuzzy);
+	fprintf (stderr,
+		 ngettext (", %d fuzzy translation", ", %d fuzzy translations",
+			   msgs_fuzzy),
+		 msgs_fuzzy);
       if (msgs_untranslated > 0)
-	fprintf (stderr, _(", %d untranslated messages"), msgs_untranslated);
+	fprintf (stderr,
+		 ngettext (", %d untranslated message",
+			   ", %d untranslated messages",
+			   msgs_untranslated),
+		 msgs_untranslated);
       fputs (".\n", stderr);
     }
 
