@@ -1,5 +1,14 @@
 2001-07-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.h (struct message_ty): Add fields 'alternative_count',
+	'alternative'.
+	* msgcat.c (catenate_msgdomain_list): is_c_format defaults to
+	undecided, not to no. If all alternative translations of a message
+	are the same, keep the first translation instead of mentioning them
+	all, and don't make the message fuzzy.
+
+2001-07-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgcomm.c (extract_directive_message): Don't make the message fuzzy
 	if the first occurrence wasn't fuzzy.
 

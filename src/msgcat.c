@@ -658,9 +658,12 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		{
 		  tmp = message_alloc (mp->msgid, mp->msgid_plural, NULL, 0,
 				       &mp->pos);
-		  tmp->is_c_format = no; /* may be set to yes later */
+		  tmp->is_fuzzy = true; /* may be set to false later */
+		  tmp->is_c_format = undecided; /* may be set to yes/no later */
 		  tmp->do_wrap = yes; /* may be set to no later */
 		  tmp->obsolete = true; /* may be set to false later */
+		  tmp->alternative_count = 0;
+		  tmp->alternative = NULL;
 		  message_list_append (total_mlp, tmp);
 		}
 
@@ -824,53 +827,20 @@ To select a different output encoding, use the --to-code option.\n\
 		  /* Copy mp, among others, into tmp.  */
 		  char *id = xasprintf ("#-#-#-#-#  %s  #-#-#-#-#",
 					identifications[n][k]);
-		  size_t id_len = strlen (id);
-		  const char *p;
-		  const char *p_end;
-		  const char *tp;
-		  const char *tp_end;
-		  char *new_msgstr;
-		  size_t len;
-		  char *np;
+		  size_t nbytes;
 
-		  if (tmp->msgstr == NULL)
+		  if (tmp->alternative_count == 0)
 		    tmp->pos = mp->pos;
 
-		  p_end = mp->msgstr + mp->msgstr_len;
-		  tp_end = tmp->msgstr + tmp->msgstr_len;
-		  len = mp->msgstr_len + tmp->msgstr_len;
-		  for (p = mp->msgstr; p < p_end; p += strlen (p) + 1)
-		    len += id_len + 2;
-		  new_msgstr = (char *) xmalloc (len);
-		  for (tp = tmp->msgstr, p = mp->msgstr, np = new_msgstr;
-		       tp < tp_end || p < p_end; )
-		    {
-		      if (tp < tp_end)
-			{
-			  len = strlen (tp);
-			  memcpy (np, tp, len);
-			  np += len;
-			  tp += len + 1;
-			}
-		      if (p < p_end)
-			{
-			  if (np > new_msgstr && np[-1] != '\0'
-			      && np[-1] != '\n')
-			    *np++ = '\n';
-			  memcpy (np, id, id_len);
-			  np += id_len;
-			  *np++ = '\n';
-			  len = strlen (p);
-			  memcpy (np, p, len);
-			  np += len;
-			  p += len + 1;
-			}
-		      *np++ = '\0';
-		    }
-		  if (tmp->msgstr != NULL)
-		    free ((char *) tmp->msgstr);
-		  tmp->msgstr = new_msgstr;
-		  tmp->msgstr_len = np - new_msgstr;
+		  i = tmp->alternative_count;
+		  nbytes = (i + 1) * sizeof (struct altstr);
+		  tmp->alternative = xrealloc (tmp->alternative, nbytes);
+		  tmp->alternative[i].msgstr = mp->msgstr;
+		  tmp->alternative[i].msgstr_len = mp->msgstr_len;
+		  tmp->alternative[i].msgstr_end =
+		    tmp->alternative[i].msgstr + tmp->alternative[i].msgstr_len;
+		  tmp->alternative[i].id = id;
+		  tmp->alternative_count = i + 1;
 
 		  if (mp->comment)
 		    {
@@ -888,13 +858,110 @@ To select a different output encoding, use the --to-code option.\n\
 		  for (i = 0; i < mp->filepos_count; i++)
 		    message_comment_filepos (tmp, mp->filepos[i].file_name,
 					     mp->filepos[i].line_number);
-		  tmp->is_fuzzy = true;
+		  if (!mp->is_fuzzy)
+		    tmp->is_fuzzy = false;
 		  if (mp->is_c_format == yes)
 		    tmp->is_c_format = yes;
+		  else if (mp->is_c_format == no
+			   && tmp->is_c_format == undecided)
+		    tmp->is_c_format = no;
 		  if (mp->do_wrap == no)
 		    tmp->do_wrap = no;
 		  if (!mp->obsolete)
 		    tmp->obsolete = false;
+		}
+	    }
+	}
+    }
+  for (k = 0; k < total_mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = total_mdlp->item[k]->messages;
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *tmp = mlp->item[j];
+
+	  if (tmp->alternative_count > 0)
+	    {
+	      /* Test whether all alternative translations are equal.  */
+	      struct altstr *first = &tmp->alternative[0];
+	      size_t i;
+
+	      for (i = 0; i < tmp->alternative_count; i++)
+		if (!(tmp->alternative[i].msgstr_len == first->msgstr_len
+		      && memcmp (tmp->alternative[i].msgstr, first->msgstr,
+				 first->msgstr_len) == 0))
+		  break;
+
+	      if (i == tmp->alternative_count)
+		{
+		  /* All alternatives are equal.  */
+		  tmp->msgstr = first->msgstr;
+		  tmp->msgstr_len = first->msgstr_len;
+		}
+	      else
+		{
+		  /* Concatenate the alternative msgstrs into a single one,
+		     separated by markers.  */
+		  size_t len;
+		  const char *p;
+		  const char *p_end;
+		  char *new_msgstr;
+		  char *np;
+
+		  len = 0;
+		  for (i = 0; i < tmp->alternative_count; i++)
+		    {
+		      size_t id_len = strlen (tmp->alternative[i].id);
+
+		      len += tmp->alternative[i].msgstr_len;
+
+		      p = tmp->alternative[i].msgstr;
+		      p_end = tmp->alternative[i].msgstr_end;
+		      for (; p < p_end; p += strlen (p) + 1)
+		        len += id_len + 2;
+		    }
+
+		  new_msgstr = (char *) xmalloc (len);
+		  np = new_msgstr;
+		  for (;;)
+		    {
+		      /* Test whether there's one more plural form to
+			 process.  */
+		      for (i = 0; i < tmp->alternative_count; i++)
+			if (tmp->alternative[i].msgstr
+			    < tmp->alternative[i].msgstr_end)
+			  break;
+		      if (i == tmp->alternative_count)
+			break;
+
+		      /* Process next plural form.  */
+		      for (i = 0; i < tmp->alternative_count; i++)
+			if (tmp->alternative[i].msgstr
+			    < tmp->alternative[i].msgstr_end)
+			  {
+			    if (np > new_msgstr && np[-1] != '\0'
+				&& np[-1] != '\n')
+			      *np++ = '\n';
+
+			    len = strlen (tmp->alternative[i].id);
+			    memcpy (np, tmp->alternative[i].id, len);
+			    np += len;
+			    *np++ = '\n';
+
+			    len = strlen (tmp->alternative[i].msgstr);
+			    memcpy (np, tmp->alternative[i].msgstr, len);
+			    np += len;
+			    tmp->alternative[i].msgstr += len + 1;
+			  }
+
+		      /* Plural forms are separated by NUL bytes.  */
+		      *np++ = '\0';
+		    }
+		  tmp->msgstr = new_msgstr;
+		  tmp->msgstr_len = np - new_msgstr;
+
+		  tmp->is_fuzzy = true;
 		}
 	    }
 	}

@@ -108,6 +108,17 @@ struct message_ty
 
   /* Used for looking up the target message, in the msgcat program.  */
   message_ty *tmp;
+
+  /* Used for combining alternative translations, in the msgcat program.  */
+  int alternative_count;
+  struct altstr
+    {
+      const char *msgstr;
+      size_t msgstr_len;
+      const char *msgstr_end;
+      char *id;
+    }
+    *alternative;
 };
 
 extern message_ty *
