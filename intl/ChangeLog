@@ -1,3 +1,11 @@
+2001-09-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* *.h, *.c, *.y, Makefile.in: Change copyright notice from GPL to LGPL.
+	This is a reaction to a blackmail from the GNOME project which
+	threatened to distribute an LGPLed clone of libintl.
+	* COPYING.LIB-2, COPYING.LIB-2.1: New files.
+	* Makefile.in (DISTFILES.common): Add them.
+
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* l10nflist.c (_nl_normalize_codeset): Cast isalnum, isalpha, isdigit,
