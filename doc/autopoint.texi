@@ -5,8 +5,8 @@ autopoint [@var{option}]...
 @end example
 
 The @code{autopoint} program copies standard gettext infrastructure files
-into a source package.  It extracts from an assignment of the form
-@code{GETTEXT_VERSION=@var{version}}, found in the package's
+into a source package.  It extracts from a macro call of the form
+@code{AM_GNU_GETTEXT_VERSION(@var{version})}, found in the package's
 @file{configure.in} or @file{configure.ac} file, the gettext version
 used by the package, and copies the infrastructure files belonging to
 this version into the package.

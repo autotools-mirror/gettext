@@ -287,6 +287,7 @@ Files You Must Create or Alter
 Autoconf macros for use in @file{configure.in}
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
+* AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 
 Integrating with CVS
@@ -6242,10 +6243,11 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 
 @menu
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
+* AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 @end menu
 
-@node AM_GNU_GETTEXT, AM_ICONV, autoconf macros, autoconf macros
+@node AM_GNU_GETTEXT, AM_GNU_GETTEXT_VERSION, autoconf macros, autoconf macros
 @subsection AM_GNU_GETTEXT in @file{gettext.m4}
 
 @amindex AM_GNU_GETTEXT
@@ -6325,7 +6327,17 @@ linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
 
-@node AM_ICONV,  , AM_GNU_GETTEXT, autoconf macros
+@node AM_GNU_GETTEXT_VERSION, AM_ICONV, AM_GNU_GETTEXT, autoconf macros
+@subsection AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+
+@amindex AM_GNU_GETTEXT_VERSION
+The @code{AM_GNU_GETTEXT_VERSION} macro declares the version number of
+the GNU gettext infrastructure that is used by the package.
+
+The use of this macro is optional; only the @code{autopoint} program makes
+use of it (@pxref{CVS Issues}).
+
+@node AM_ICONV,  , AM_GNU_GETTEXT_VERSION, autoconf macros
 @subsection AM_ICONV in @file{iconv.m4}
 
 @amindex AM_ICONV

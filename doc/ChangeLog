@@ -1,3 +1,8 @@
+2002-05-11  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.texi: Recommend AM_GNU_GETTEXT_VERSION(..) syntax.
+	* gettext.texi (AM_GNU_GETTEXT_VERSION): New subsection.
+
 2002-05-08  Bruno Haible  <bruno@clisp.org>
 
 	* matrix.texi: Update.

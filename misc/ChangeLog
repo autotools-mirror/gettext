@@ -1,3 +1,8 @@
+2002-05-11  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Recognize AM_GNU_GETTEXT_VERSION(..) syntax.
+	* gettextize.in: Likewise.
+
 2002-05-03  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in: Unset all other environment variables which influence

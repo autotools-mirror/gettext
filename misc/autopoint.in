@@ -138,7 +138,7 @@ fi
 
 # Check whether the -V option and the version number in configure.in match.
 # At least one of the two must be given. If both are given, they must agree.
-xver=`cat "$configure_in" | grep '^GETTEXT_VERSION=' | sed -e 's/^GETTEXT_VERSION=\([-+_.0-9A-Za-z]*\).*/\1/' | sed -e 1q`
+xver=`cat "$configure_in" | grep '^AM_GNU_GETTEXT_VERSION(' | sed -e 's/^AM_GNU_GETTEXT_VERSION(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
 if test -z "$xver" && test -f intl/VERSION; then
   xver=`cat intl/VERSION | sed -n -e 's/^.*gettext-\(-+_.0-9A-Za-z]*\).*$/\1/p'`
 fi
@@ -152,7 +152,7 @@ if test -n "$xver"; then
   fi
 else
   if test -z "$ver"; then
-    func_fatal_error "Missing version: please specify in $configure_in through a line 'GETTEXT_VERSION=x.yy.zz' the gettext version the package is using"
+    func_fatal_error "Missing version: please specify in $configure_in through a line 'AM_GNU_GETTEXT_VERSION(x.yy.zz)' the gettext version the package is using"
   fi
 fi
 
