@@ -1,5 +1,11 @@
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
+	* read-java.c (msgdomain_read_java): Relocate also the GETTEXTJAR
+	value.
+	* urlget.c (fetch): Likewise.
+
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
 	* write-java.c (write_java_code): Emit a static method
 	'get_msgid_plural_table' instead of a static field 'plural'.
 	* gnu/gettext/DumpResource.java (DumpResource.dump): Exploit a

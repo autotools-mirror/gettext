@@ -259,7 +259,7 @@ fetch (const char *url, const char *file)
        necessary for running the testsuite before "make install".  */
     gettextjar = getenv ("GETTEXTJAR");
     if (gettextjar == NULL || gettextjar[0] == '\0')
-      gettextjar = GETTEXTJAR;
+      gettextjar = relocate (GETTEXTJAR);
 
     /* Prepare arguments.  */
     args[0] = url;
