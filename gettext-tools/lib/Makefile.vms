@@ -57,7 +57,6 @@ OBJECTS = \
   full-write.obj, \
   fwriteerror.obj, \
   gcd.obj, \
-  getopt.obj, getopt1.obj, \
   hash.obj, \
   javacomp.obj, \
   javaexec.obj, \
@@ -83,6 +82,7 @@ OBJECTS = \
   fnmatch.obj, \
   getline.obj, \
   getndelim2.obj, \
+  getopt.obj, getopt1.obj, \
   mkdtemp.obj, \
   relocatable.obj, \
   stpcpy.obj, \
@@ -156,12 +156,6 @@ fwriteerror.obj : fwriteerror.c
 
 gcd.obj : gcd.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) gcd.c
-
-getopt.obj : getopt.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"ELIDE_CODE=1") getopt.c
-
-getopt1.obj : getopt1.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getopt1.c
 
 hash.obj : hash.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) hash.c
@@ -240,6 +234,12 @@ getline.obj : getline.c
 
 getndelim2.obj : getndelim2.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getndelim2.c
+
+getopt.obj : getopt.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"ELIDE_CODE=1") getopt.c
+
+getopt1.obj : getopt1.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getopt1.c
 
 mkdtemp.obj : mkdtemp.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) mkdtemp.c

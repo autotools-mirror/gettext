@@ -1,5 +1,11 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gl_GETOPT.
+	* Makefile.am (config.h_vms, config.h.msvc): Define __GETOPT_PREFIX
+	to empty.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (config.h_vms, config.h.msvc): Define USE_UNLOCKED_IO
 	to 1.
 

@@ -1,3 +1,12 @@
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Remove getopt files.
+	(LIBADD_SOURCE): Add getopt files here, except getopt.h.
+	(BUILT_SOURCES): New variable.
+	(EXTRA_DIST, all-local, getopt.h): Support for getopt module.
+	* getopt.c: New file.
+	* getopt1.c: New file.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.

@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -86,6 +86,7 @@ gl_ALLOCSA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([setlocale strerror strtoul])
 AC_REPLACE_FUNCS([atexit memmove])
+gl_GETOPT
 gt_FUNC_SETENV
 gl_FUNC_STRERROR
 gl_FUNC_GLIBC_UNLOCKED_IO

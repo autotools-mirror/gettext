@@ -99,7 +99,6 @@ OBJECTS = \
   full-write.obj \
   fwriteerror.obj \
   gcd.obj \
-  getopt.obj getopt1.obj \
   hash.obj \
   javacomp.obj \
   javaexec.obj \
@@ -125,6 +124,7 @@ OBJECTS = \
   fnmatch.obj \
   getline.obj \
   getndelim2.obj \
+  getopt.obj getopt1.obj \
   mkdtemp.obj \
   relocatable.obj \
   setenv.obj unsetenv.obj \
@@ -195,12 +195,6 @@ fwriteerror.obj : fwriteerror.c
 
 gcd.obj : gcd.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c gcd.c
-
-getopt.obj : getopt.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getopt.c
-
-getopt1.obj : getopt1.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getopt1.c
 
 hash.obj : hash.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c hash.c
@@ -279,6 +273,12 @@ getline.obj : getline.c
 
 getndelim2.obj : getndelim2.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getndelim2.c
+
+getopt.obj : getopt.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getopt.c
+
+getopt1.obj : getopt1.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getopt1.c
 
 mkdtemp.obj : mkdtemp.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c mkdtemp.c

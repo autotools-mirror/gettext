@@ -53,7 +53,6 @@ libgettextlib_la_SOURCES = \
   full-write.h full-write.c \
   fwriteerror.h fwriteerror.c \
   gcd.h gcd.c \
-  getopt.h getopt.c getopt1.c \
   hash.h hash.c \
   javacomp.h javacomp.c \
   javaexec.h javaexec.c \
@@ -90,6 +89,7 @@ LIBADD_SOURCE = \
   fnmatch.c \
   getline.h getline.c \
   getndelim2.h getndelim2.c \
+  getopt.c getopt1.c getopt_int.h \
   memmove.c \
   memset.c \
   mkdtemp.h mkdtemp.c \
@@ -190,6 +190,19 @@ fnmatch.h: fnmatch_.h
 	cp $(srcdir)/fnmatch_.h fnmatch.h
 MOSTLYCLEANFILES += fnmatch.h
 # <<< gnulib module fnmatch.
+
+
+# >>> gnulib module getopt.
+BUILT_SOURCES += $(GETOPT_H)
+EXTRA_DIST += getopt_.h getopt_int.h
+
+# The following is needed in order to create a <getopt.h> when the system
+# doesn't have one that works.
+all-local $(libgettextlib_la_OBJECTS): @GETOPT_H@
+getopt.h: getopt_.h
+	cp $(srcdir)/getopt_.h getopt.h
+MOSTLYCLEANFILES += getopt.h
+# <<< gnulib module getopt.
 
 
 # >>> gnulib module localcharset.

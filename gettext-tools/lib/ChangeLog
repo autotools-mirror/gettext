@@ -1,5 +1,17 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (libgettextlib_la_SOURCES): Remove getopt files.
+	(LIBADD_SOURCE): Add getopt files here, except getopt.h.
+	(BUILT_SOURCES, EXTRA_DIST, all-local, getopt.h): Support for getopt
+	module.
+	* getopt.h: Remove file.
+	* getopt_.h: New file, from gnulib, with DLL_VARIABLE modifications.
+	* getopt.c: Update from gnulib.
+	* getopt1.c: Update from gnulib.
+	* getopt_int.h: New file, from gnulib.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* fnmatch_.h: Upgrade from gnulib.
 	* fnmatch.c: Upgrade from gnulib.
 	* fnmatch_loop.c: New file, from gnulib.

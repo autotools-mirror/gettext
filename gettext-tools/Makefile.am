@@ -136,6 +136,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	     -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
+	     -e 's/#undef __GETOPT_PREFIX$$/#define __GETOPT_PREFIX/' \
 	     -e 's/#undef eaccess$$/#define eaccess access/' \
 	     -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	     -e 's/#undef getline$$/#define getline rpl_getline/' \
@@ -209,6 +210,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
+	    -e 's/#undef __GETOPT_PREFIX$$/#define __GETOPT_PREFIX/' \
 	    -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	    -e 's/#undef getline$$/#define getline rpl_getline/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \

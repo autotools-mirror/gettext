@@ -60,6 +60,7 @@ fnmatch.m4 \
 gcj.m4 \
 getline.m4 \
 getndelim2.m4 \
+getopt.m4 \
 hostname.m4 \
 javacomp.m4 \
 javaexec.m4 \

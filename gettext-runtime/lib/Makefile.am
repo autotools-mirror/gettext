@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+BUILT_SOURCES =
 MOSTLYCLEANFILES =
 
 noinst_LIBRARIES = libgrt.a
@@ -31,7 +32,6 @@ libgrt_a_SOURCES = \
   ../../gettext-tools/lib/error.h ../../gettext-tools/lib/error.c \
   ../../gettext-tools/lib/exit.h \
   ../../gettext-tools/lib/fwriteerror.h ../../gettext-tools/lib/fwriteerror.c \
-  ../../gettext-tools/lib/getopt.h ../../gettext-tools/lib/getopt.c ../../gettext-tools/lib/getopt1.c \
   ../../gettext-tools/lib/pathmax.h \
   ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c ../../gettext-tools/lib/progreloc.c \
   ../../gettext-tools/lib/strtoul.c \
@@ -44,6 +44,7 @@ libgrt_a_SOURCES = \
 LIBADD_SOURCE = \
   atexit.c \
   ../../gettext-tools/lib/canonicalize.h canonicalize.c \
+  getopt.c getopt1.c ../../gettext-tools/lib/getopt_int.h \
   memmove.c \
   readlink.c \
   ../../gettext-tools/lib/relocatable.h relocatable.c \
@@ -89,6 +90,19 @@ alloca.h: ../../gettext-tools/lib/alloca_.h
 	cp $(srcdir)/../../gettext-tools/lib/alloca_.h alloca.h
 MOSTLYCLEANFILES += alloca.h
 # <<< gnulib module alloca.
+
+
+# >>> gnulib module getopt.
+BUILT_SOURCES += $(GETOPT_H)
+EXTRA_DIST += ../../gettext-tools/lib/getopt_.h ../../gettext-tools/lib/getopt_int.h
+
+# The following is needed in order to create a <getopt.h> when the system
+# doesn't have one that works.
+all-local $(libgettextlib_la_OBJECTS): @GETOPT_H@
+getopt.h: ../../gettext-tools/lib/getopt_.h
+	cp $(srcdir)/../../gettext-tools/lib/getopt_.h getopt.h
+MOSTLYCLEANFILES += getopt.h
+# <<< gnulib module getopt.
 
 
 # VMS support.
