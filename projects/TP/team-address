@@ -18,7 +18,7 @@ if test -n "$address"; then
   esac
   (echo "Please visit your translation team's homepage at"
    echo "  "`echo "$html" | tr '\012' '|' | sed -e "$sed_addnl" | sed -n -e "s,^.*<td>$catalog</td>[^<>]*<td><a href=\"\\([^\"]*\\)\">[^<>]*</a></td>.*\$,\\1,p" | sed 1q`
-   echo "  $url"
+   echo "  http://www.iro.umontreal.ca/contrib/po/HTML/teams.html"
    echo "  http://www.iro.umontreal.ca/contrib/po/HTML/translators.html"
    echo "  http://www.iro.umontreal.ca/contrib/po/HTML/index.html"
    echo "and consider joining your translation team's mailing list"
@@ -38,14 +38,14 @@ if test -n "$address"; then
    echo
    echo "Please visit the existing translation team's homepage at"
    echo "  "`echo "$html" | tr '\012' '|' | sed -e "$sed_addnl" | sed -n -e "s,^.*<td>$language</td>[^<>]*<td><a href=\"\\([^\"]*\\)\">[^<>]*</a></td>.*\$,\\1,p" | sed 1q`
-   echo "  $url"
+   echo "  http://www.iro.umontreal.ca/contrib/po/HTML/teams.html"
    echo "  http://www.iro.umontreal.ca/contrib/po/HTML/translators.html"
    echo "  http://www.iro.umontreal.ca/contrib/po/HTML/index.html"
    echo "and consider joining the translation team's mailing list"
    echo "  $address"
    echo
    echo "If you want to create a new translation team for $catalog, please visit"
-   echo "  $url"
+   echo "  http://www.iro.umontreal.ca/contrib/po/HTML/teams.html"
    echo "  http://www.iro.umontreal.ca/contrib/po/HTML/leaders.html"
    echo "  http://www.iro.umontreal.ca/contrib/po/HTML/index.html"
   ) 1>&2
@@ -54,7 +54,7 @@ if test -n "$address"; then
 fi
 (echo "A translation team for your language ($language) does not exist yet."
  echo "If you want to create a new translation team for $language"`test "$catalog" = "$language" || echo " or $catalog"`", please visit"
- echo "  $url"
+ echo "  http://www.iro.umontreal.ca/contrib/po/HTML/teams.html"
  echo "  http://www.iro.umontreal.ca/contrib/po/HTML/leaders.html"
  echo "  http://www.iro.umontreal.ca/contrib/po/HTML/index.html"
 ) 1>&2
