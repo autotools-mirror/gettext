@@ -1,3 +1,8 @@
+1998-07-24  Paul Eggert  <eggert@twinsun.com>
+
+	* Makefile.in.in (cat-id-tbl.o): Depend on
+	$(top_srcdir)/intl/libgettext.h, not ../intl/libgettext.h.
+
 1998-07-26  Paul Eggert  <eggert@twinsun.com>
 
 	* Makefile.in.in (maintainer-clean): Remove cat-id-tbl.c and

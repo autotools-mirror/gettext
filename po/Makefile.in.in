@@ -178,7 +178,7 @@ uninstall:
 
 check: all
 
-cat-id-tbl.o: ../intl/libgettext.h
+cat-id-tbl.o: $(top_srcdir)/intl/libgettext.h
 
 dvi info tags TAGS ID:
 
