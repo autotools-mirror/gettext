@@ -2669,14 +2669,14 @@ corresponding languages.
 @cindex encoding for your language
 @itemize
 @item @code{ISO-8859-1} for
- Afrikaans, Albanian, Basque, Breton, Catalan, Cornish, Danish, Dutch,
- English, Estonian, Faroese, Finnish, French, Galician, German,
- Greenlandic, Icelandic, Indonesian, Irish, Italian, Malay, Manx,
- Norwegian, Occitan, Portuguese, Spanish, Swedish, Tagalog, Uzbek,
- Walloon,
+Afrikaans, Albanian, Basque, Breton, Catalan, Cornish, Danish, Dutch,
+English, Estonian, Faroese, Finnish, French, Galician, German,
+Greenlandic, Icelandic, Indonesian, Irish, Italian, Malay, Manx,
+Norwegian, Occitan, Portuguese, Spanish, Swedish, Tagalog, Uzbek,
+Walloon,
 @item @code{ISO-8859-2} for
- Bosnian, Croatian, Czech, Hungarian, Polish, Romanian, Serbian, Slovak,
- Slovenian,
+Bosnian, Croatian, Czech, Hungarian, Polish, Romanian, Serbian, Slovak,
+Slovenian,
 @item @code{ISO-8859-3} for Maltese,
 @item @code{ISO-8859-5} for Macedonian, Serbian,
 @item @code{ISO-8859-6} for Arabic,
@@ -2686,16 +2686,16 @@ corresponding languages.
 @item @code{ISO-8859-13} for Latvian, Lithuanian, Maori,
 @item @code{ISO-8859-14} for Welsh,
 @item @code{ISO-8859-15} for
- Basque, Catalan, Dutch, English, Finnish, French, Galician, German, Irish,
- Italian, Portuguese, Spanish, Swedish, Walloon,
+Basque, Catalan, Dutch, English, Finnish, French, Galician, German, Irish,
+Italian, Portuguese, Spanish, Swedish, Walloon,
 @item @code{KOI8-R} for Russian,
 @item @code{KOI8-U} for Ukrainian,
 @item @code{KOI8-T} for Tajik,
 @item @code{CP1251} for Bulgarian, Byelorussian,
 @item @code{GB2312}, @code{GBK}, @code{GB18030}
- for simplified writing of Chinese,
+for simplified writing of Chinese,
 @item @code{BIG5}, @code{BIG5-HKSCS}
- for traditional writing of Chinese,
+for traditional writing of Chinese,
 @item @code{EUC-JP} for Japanese,
 @item @code{EUC-KR} for Korean,
 @item @code{TIS-620} for Thai,
@@ -4371,7 +4371,7 @@ should better be @code{const char *}, but the standard is published in
 
 @noindent
 @cindex @code{catclose}, a @code{catgets} function
-The last of these function functions is used and behaves as expected:
+The last of these functions is used and behaves as expected:
 
 @example
 catclose (catd);
@@ -4404,9 +4404,9 @@ proposal and it is followed by at least one major Unix vendor
 (Sun) in its last developments.  It is not specified in any official
 standard, though.
 
-The main points about this solution is that it does not follow the
+The main point about this solution is that it does not follow the
 method of normal file handling (open-use-close) and that it does not
-burden the programmer so many task, especially the unique key handling.
+burden the programmer with so many tasks, especially the unique key handling.
 Of course here also a unique key is needed, but this key is the message
 itself (how long or short it is).  See @ref{Comparison} for a more
 detailed comparison of the two methods.
@@ -4464,10 +4464,10 @@ char *gettext (const char *msgid);
 @noindent
 is to be used.  This is the simplest reasonable form one can imagine.
 The translation of the string @var{msgid} is returned if it is available
-in the current domain.  If not available the argument itself is
+in the current domain.  If it is not available, the argument itself is
 returned.  If the argument is @code{NULL} the result is undefined.
 
-One things which should come into mind is that no explicit dependency to
+One thing which should come into mind is that no explicit dependency to
 the used domain is given.  The current value of the domain for the
 @code{LC_MESSAGES} locale is used.  If this changes between two
 executions of the same @code{gettext} call in the program, both calls
@@ -6996,7 +6996,7 @@ Each of these three approaches has different advantages and drawbacks.
 @item
 The advantage is that anyone can check out the CVS at any moment and
 gets a working build.  The drawbacks are:  1a. It requires some frequent
-"cvs commit" actions by the maintainers.  1b. The reposity grows in size
+"cvs commit" actions by the maintainers.  1b. The repository grows in size
 quite fast.
 
 @item

@@ -1,3 +1,12 @@
+2003-06-10  Stepan Kasal  <kasal@math.cas.cz>
+
+	* gettext.texi: Fix a few typos.
+
+2003-06-04  Stepan Kasal  <kasal@ucw.cz>
+
+	* gettext.texi (Header Entry): Delete some leading spaces;
+	they got copied verbatim to the info file.
+
 2003-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Plural forms): Correct formula for Slovak.
