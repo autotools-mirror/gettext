@@ -1155,21 +1155,28 @@ concerns.  Some of these doubts are presented and discussed, here.
      language, and ready to work together at improving the results they
      obtain.
 
-   * Dependencies over the GPL
+   * Dependencies over the GPL or LGPL
 
      Some people wonder if using GNU `gettext' necessarily brings their
      package under the protective wing of the GNU General Public
-     License, when they do not want to make their program free, or want
-     other kinds of freedom.  The simplest answer is yes.
+     License or the GNU Library General Public License, when they do
+     not want to make their program free, or want other kinds of
+     freedom.  The simplest answer is "normally not".
+
+     The GNU `gettext' library, i.e. the contents of `libintl', is
+     covered by the GNU Library General Public License.  The rest of
+     the GNU `gettext' package is covered by the GNU General Public
+     License.
 
      The mere marking of localizable strings in a package, or
      conditional inclusion of a few lines for initialization, is not
-     really including GPL'ed code.  However, the localization routines
-     themselves are under the GPL and would bring the remainder of the
-     package under the GPL if they were distributed with it.  So, I
-     presume that, for those for which this is a problem, it could be
-     circumvented by letting to the end installers the burden of
-     assembling a package prepared for localization, but not providing
-     the localization routines themselves.
+     really including GPL'ed or LGPL'ed code.  However, since the
+     localization routines in `libintl' are under the LGPL, the LGPL
+     needs to be considered.  It gives the right to distribute the
+     complete unmodified source of `libintl' even with non-free
+     programs.  It also gives the right to use `libintl' as a shared
+     library, even for non-free programs.  But it gives the right to
+     use `libintl' as a static library or to incorporate `libintl' into
+     another library only to free software.
 
 

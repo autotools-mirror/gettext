@@ -36,7 +36,7 @@ gettext.info-1: 1411
 gettext.info-2: 49085
 gettext.info-3: 98522
 gettext.info-4: 147287
-gettext.info-5: 196555
+gettext.info-5: 196901
 
 Tag Table:
 (Indirect)
@@ -110,29 +110,29 @@ Node: Translators188507
 Node: Trans Intro 0188886
 Node: Trans Intro 1191535
 Node: Discussions193399
-Node: Organization196555
-Node: Central Coordination198536
-Node: National Teams199664
-Node: Sub-Cultures202176
-Node: Organizational Ideas203095
-Node: Mailing Lists204098
-Node: Information Flow205901
-Node: Maintainers208034
-Node: Flat and Non-Flat209793
-Node: Prerequisites211276
-Node: gettextize Invocation215398
-Node: Adjusting Files218970
-Node: po/POTFILES.in220267
-Node: configure.in221211
-Node: config.guess223342
-Node: aclocal224401
-Node: acconfig225533
-Node: Makefile226016
-Node: src/Makefile228464
-Node: Conclusion231366
-Node: History231856
-Node: References235316
-Node: Language Codes236871
-Node: Country Codes240774
+Node: Organization196901
+Node: Central Coordination198882
+Node: National Teams200010
+Node: Sub-Cultures202522
+Node: Organizational Ideas203441
+Node: Mailing Lists204444
+Node: Information Flow206247
+Node: Maintainers208380
+Node: Flat and Non-Flat210139
+Node: Prerequisites211622
+Node: gettextize Invocation215744
+Node: Adjusting Files219316
+Node: po/POTFILES.in220613
+Node: configure.in221557
+Node: config.guess223688
+Node: aclocal224747
+Node: acconfig225879
+Node: Makefile226362
+Node: src/Makefile228810
+Node: Conclusion231712
+Node: History232202
+Node: References235662
+Node: Language Codes237217
+Node: Country Codes241120
 
 End Tag Table

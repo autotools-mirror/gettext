@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.51
-     from gettext.texi on 24 July 2001 -->
+     from gettext.texi on 15 September 2001 -->
 
 <TITLE>GNU gettext utilities - 11  The Maintainer's View</TITLE>
 </HEAD>
@@ -308,7 +308,7 @@ changes needed in each.
 <P>
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-<CODE>gettext</CODE> 0.10.39 distribution itself.  You may indeed
+<CODE>gettext</CODE> 0.10.40 distribution itself.  You may indeed
 refer to the source code of the GNU <CODE>gettext</CODE> package, as it
 is intended to be a good example and master implementation for using
 its own functionality.
@@ -363,7 +363,7 @@ This is done by a set of lines like these:
 
 <PRE>
 PACKAGE=gettext
-VERSION=0.10.39
+VERSION=0.10.40
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
@@ -371,9 +371,9 @@ AC_SUBST(VERSION)
 </PRE>
 
 Of course, you replace <SAMP>`gettext'</SAMP> with the name of your package,
-and <SAMP>`0.10.39'</SAMP> by its version numbers, exactly as they
+and <SAMP>`0.10.40'</SAMP> by its version numbers, exactly as they
 should appear in the packaged <CODE>tar</CODE> file name of your distribution
-(<TT>`gettext-0.10.39.tar.gz'</TT>, here).
+(<TT>`gettext-0.10.40.tar.gz'</TT>, here).
 
 <LI>Declare the available translations.
 
