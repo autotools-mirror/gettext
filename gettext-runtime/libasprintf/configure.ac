@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2004 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ AC_C_CONST
 AC_C_INLINE
 bh_C_SIGNED
 AC_TYPE_SIZE_T
-jm_AC_TYPE_LONG_LONG
+gl_AC_TYPE_LONG_LONG
 gt_TYPE_LONGDOUBLE
 gt_TYPE_WCHAR_T
 gt_TYPE_WINT_T
