@@ -19,6 +19,8 @@ msgunfmt programs.
 Guido Flohr <guido@imperia.net> wrote the Perl backend of xgettext and
 the libintl-perl package.
 
+Gora Mohanty <gora_mohanty@yahoo.co.in> wrote the tutorial.
+
 Thanks to all of the following for their valuable
 hints/fixes/discussions/contributions:
 

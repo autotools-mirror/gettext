@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -46,7 +46,8 @@ gettext_TEXINFOS = \
   $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi
 
 # The FAQ. To be edited with Mozilla.
-doc_DATA = FAQ.html
+# The tutorial. To be edited by hand.
+doc_DATA = FAQ.html tutorial.html
 EXTRA_DIST += $(doc_DATA)
 
 EXTRA_DIST += \
