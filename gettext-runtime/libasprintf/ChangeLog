@@ -6,6 +6,7 @@
 	* vasnprintf.c: Generalize to it can be compiled for wide strings.
 	(VASNPRINTF, CHAR_T, DIRECTIVE, DIRECTIVES, PRINTF_PARSE, USE_SNPRINTF,
 	SNPRINTF): New macros.
+	Don't include <alloca.h> if the file is used inside libintl.
 
 2003-05-30  Bruno Haible  <bruno@clisp.org>
 

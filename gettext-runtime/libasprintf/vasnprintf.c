@@ -26,7 +26,9 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
-#include <alloca.h>
+#ifndef IN_LIBINTL
+# include <alloca.h>
+#endif
 
 /* Specification.  */
 #if WIDE_CHAR_VERSION

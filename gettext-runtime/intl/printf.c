@@ -21,6 +21,28 @@
 # include <config.h>
 #endif
 
+#ifdef __GNUC__
+# define alloca __builtin_alloca
+# define HAVE_ALLOCA 1
+#else
+# ifdef _MSC_VER
+#  include <malloc.h>
+#  define alloca _alloca
+# else
+#  if defined HAVE_ALLOCA_H || defined _LIBC
+#   include <alloca.h>
+#  else
+#   ifdef _AIX
+ #pragma alloca
+#   else
+#    ifndef alloca
+char *alloca ();
+#    endif
+#   endif
+#  endif
+# endif
+#endif
+
 #include <stdio.h>
 
 #if !HAVE_POSIX_PRINTF
