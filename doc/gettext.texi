@@ -2852,15 +2852,15 @@ files} and @cite{extracting a message subset from a PO file}.
 @subsubsection Concatenate PO Files
 
 To concatenate several valid PO files into one compendium file you can
-use @command{msgcomm} or @command{msgcat} (the latter preferred):
+use @samp{msgcomm} or @samp{msgcat} (the latter preferred):
 
 @example
 msgcat -o compendium.po file1.po file2.po
 @end example
 
-By default, @command{msgcat} will accumulate divergent translations
+By default, @code{msgcat} will accumulate divergent translations
 for the same string.  Those occurences will be marked as @code{fuzzy}
-and highly visible decorated; calling @command{msgcat} on
+and highly visible decorated; calling @code{msgcat} on
 @file{file1.po}:
 
 @example
@@ -2902,18 +2902,15 @@ finally to remove the @code{fuzzy} mark.
 
 If the translator knows in advance the first found translation of a
 message is always the best translation she can make use to the
-@option{--use-first} switch:
+@samp{--use-first} switch:
 
 @example
 msgcat --use-first -o compendium.po file1.po file2.po
 @end example
 
 A good compendium file must not contain @code{fuzzy} or untranslated
-entries.  If input files are ``dirty'' you must use the
-@option{--translated-only} switch (FIXME: TBI) or a manual way to pre-
-or postprocess.  (FIXME: Handling of obsolete entries at this point?
-Proposal: By default, make them valid entries.
-@option{--no-obsolete-entries}.)
+entries.  If input files are ``dirty'' you must preprocess the input
+files or postprocess the result using @samp{msgattrib --translated --no-fuzzy}.
 
 @subsubsection Extract a Message Subset from a PO File
 
@@ -2921,8 +2918,7 @@ Nobody wants to translate the same messages again and again; thus you
 may wish to have a compendium file containing @file{getopt.c} messages.
 
 To extract a message subset (e.g., all @file{getopt.c} messages) from an
-existing PO file into one compendium file you can use
-@command{msggrep}:
+existing PO file into one compendium file you can use @samp{msggrep}:
 
 @example
 msggrep --location src/getopt.c -o compendium.po file.po
@@ -2947,7 +2943,7 @@ msgmerge --compendium compendium.po -o file.po /dev/null file.pot
 
 Concatenate the compendium file(s) and the existing PO, merge the
 result with the POT file and remove the obsolete entries (optional,
-here done using @command{sed}):
+here done using @samp{sed}):
 
 @example
 msgcat --use-first -o update.po compendium1.po compendium2.po file.po
