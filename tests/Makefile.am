@@ -112,7 +112,7 @@ xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/gettext.c
 
 # Three auxiliary programs used by the tests.
-INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
+INCLUDES = -I.. -I../lib -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la

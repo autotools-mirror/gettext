@@ -1,4 +1,4 @@
-# fnmatch.m4 serial 1 (gettext-0.11)
+# fnmatch.m4 serial 2 (gettext-0.11.1)
 dnl Copyright (C) 1996-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -37,6 +37,7 @@ AC_DEFUN([gt_FUNC_FNMATCH],
   if test $gt_cv_func_fnmatch_works = yes; then
     rm -f lib/fnmatch.h
   else
+    test -d lib || mkdir lib
     echo '#include "pfnmatch.h"' > lib/fnmatch.h
     dnl We must choose a different name for our function, since on ELF systems
     dnl a broken fnmatch() in libc.so would override our fnmatch() in

@@ -41,7 +41,7 @@ localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
 
-INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
+INCLUDES = -I. -I$(srcdir) -I.. -I../lib -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
 -DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@

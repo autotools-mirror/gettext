@@ -1,3 +1,8 @@
+2002-02-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (INCLUDES): Add -I../lib. Needed for builds with
+	builddir != srcdir on platforms that don't have stdbool.h.
+
 2002-01-31  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11 released.
