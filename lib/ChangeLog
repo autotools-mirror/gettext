@@ -1,3 +1,8 @@
+2002-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextlib_la_LDFLAGS): Use @LTLIBINTL@ instead of
+	@INTLLIBS@, and @LTLIBICONV@ instead of @LIBICONV@.
+
 2002-01-19  Bruno Haible  <bruno@clisp.org>
 
 	* xerror.c (multiline_warning): Add a newline if the message doesn't

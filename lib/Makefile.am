@@ -86,11 +86,11 @@ UNUSED_SOURCE = \
 
 libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
 
-# Need @INTLLIBS@ because many source files use gettext().
-# Need @LIBICONV@ because linebreak.c uses iconv().
+# Need @LTLIBINTL@ because many source files use gettext().
+# Need @LTLIBICONV@ because linebreak.c uses iconv().
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
-  @INTLLIBS@ @LIBICONV@ -lc -no-undefined
+  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 # Extra files to be installed.
 

@@ -5521,12 +5521,14 @@ Note that @code{@@datadir@@} defaults to @samp{$(prefix)/share}, thus
 @code{$(localedir)} defaults to @samp{$(prefix)/share/locale}.
 
 @item
-You should ensure that the final linking will use @code{@@INTLLIBS@@} as
-a library.  An easy way to achieve this is to manage that it gets into
-@code{LIBS}, like this:
+You should ensure that the final linking will use @code{@@LIBINTL@@} or
+@code{@@LTLIBINTL@@} as a library.  @code{@@LIBINTL@@} is for use without
+@code{libtool}, @code{@@LTLIBINTL@@} is for use with @code{libtool}. An
+easy way to achieve this is to manage that it gets into @code{LIBS}, like
+this:
 
 @example
-LIBS = @@INTLLIBS@@ @@LIBS@@
+LIBS = @@LIBINTL@@ @@LIBS@@
 @end example
 
 In most packages internationalized with GNU @code{gettext}, one will
@@ -5535,11 +5537,11 @@ functions will be build.  (You need at least the few functions which the
 GNU @code{gettext} Library itself needs.)  However some of the functions
 in the @file{lib/} also give messages to the user which of course should be
 translated, too.  Taking care of this, the support library (say
-@file{libsupport.a}) should be placed before @code{@@INTLLIBS@@} and
+@file{libsupport.a}) should be placed before @code{@@LIBINTL@@} and
 @code{@@LIBS@@} in the above example.  So one has to write this:
 
 @example
-LIBS = ../lib/libsupport.a @@INTLLIBS@@ @@LIBS@@
+LIBS = ../lib/libsupport.a @@LIBINTL@@ @@LIBS@@
 @end example
 
 @item
@@ -5670,10 +5672,12 @@ The @code{AM_GNU_GETTEXT} macro determines whether GNU gettext is
 available and should be used. If so, it sets the @code{USE_NLS} variable
 to @samp{yes}; it defines @code{ENABLE_NLS} to 1 in the autoconf
 generated configuration file (usually called @file{config.h}); it sets
-the variable @code{LIBINTL} to the linker options for use in a Makefile;
-it adds an @samp{-I} option to @code{CPPFLAGS} if necessary.
-In the negative case, it sets @code{USE_NLS} to @samp{no}; it sets
-@code{LIBINTL} to empty and doesn't change @code{CPPFLAGS}.
+the variables @code{LIBINTL} and @code{LTLIBINTL} to the linker options
+for use in a Makefile (@code{LIBINTL} for use without libtool,
+@code{LTLIBINTL} for use with libtool); it adds an @samp{-I} option to
+@code{CPPFLAGS} if necessary. In the negative case, it sets
+@code{USE_NLS} to @samp{no}; it sets @code{LIBINTL} and @code{LTLIBINTL}
+to empty and doesn't change @code{CPPFLAGS}.
 
 The complexities that @code{AM_GNU_GETTEXT} deals with are the following:
 
@@ -5698,14 +5702,14 @@ to the user's locale encoding.
 GNU @code{libintl}, if installed, is not necessarily already in the
 run time library search path. To avoid the need for setting an environment
 variable like @code{LD_LIBRARY_PATH}, the macro adds the appropriate
-run time search path options to the @code{LIBINTL} variable. This works
-on most systems, but not on some operating systems with limited shared
-library support, like SCO.
+run time search path options to the @code{LIBINTL} and @code{LTLIBINTL}
+variables. This works on most systems, but not on some operating systems
+with limited shared library support, like SCO.
 
 @item
 GNU @code{libintl} relies on POSIX @code{iconv}. The macro checks for
 linker options needed to use iconv and appends them to the @code{LIBINTL}
-variable.
+and @code{LTLIBINTL} variables.
 @end itemize
 
 @node AM_ICONV,  , AM_GNU_GETTEXT, autoconf macros
@@ -5718,10 +5722,12 @@ variable to @samp{yes}; it defines @code{HAVE_ICONV} to 1 in the autoconf
 generated configuration file (usually called @file{config.h}); it defines
 @code{ICONV_CONST} to @samp{const} or to empty, depending on whether the
 second argument of @code{iconv()} is of type @samp{const char **} or
-@samp{char **}; it sets the variable @code{LIBICONV} to the linker options
-for use in a Makefile; it adds an @samp{-I} option to @code{CPPFLAGS} if
-necessary. If not found, it sets @code{LIBICONV} to empty and doesn't
-change @code{CPPFLAGS}.
+@samp{char **}; it sets the variables @code{LIBICONV} and
+@code{LTLIBICONV} to the linker options for use in a Makefile
+(@code{LIBICONV} for use without libtool, @code{LTLIBICONV} for use with
+libtool); it adds an @samp{-I} option to @code{CPPFLAGS} if
+necessary. If not found, it sets @code{LIBICONV} and @code{LTLIBICONV} to
+empty and doesn't change @code{CPPFLAGS}.
 
 The complexities that @code{AM_ICONV} deals with are the following:
 

@@ -1,3 +1,10 @@
+2002-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (src/Makefile): Recommend @LIBINTL@, @LTLIBINTL@
+	instead of @INTLLIBS@.
+	(AM_GNU_GETTEXT): Likewise.
+	(AM_ICONV): Document variable @LTLIBICONV@.
+
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi: Remove the parentheses around the expansions of N_ and

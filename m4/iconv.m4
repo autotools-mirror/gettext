@@ -17,7 +17,8 @@ AC_DEFUN([AM_ICONV_LINK],
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
   AC_REQUIRE([AC_LIB_RPATH])
 
-  dnl Search for libiconv and define LIBICONV and INCICONV accordingly.
+  dnl Search for libiconv and define LIBICONV, LTLIBICONV and INCICONV
+  dnl accordingly.
   AC_LIB_LINKFLAGS_BODY([iconv])
 
   dnl Add $INCICONV to CPPFLAGS before performing the following checks,
@@ -60,8 +61,10 @@ AC_DEFUN([AM_ICONV_LINK],
     dnl either.
     CPPFLAGS="$am_save_CPPFLAGS"
     LIBICONV=
+    LTLIBICONV=
   fi
   AC_SUBST(LIBICONV)
+  AC_SUBST(LTLIBICONV)
 ])
 
 AC_DEFUN([AM_ICONV],

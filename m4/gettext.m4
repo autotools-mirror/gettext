@@ -87,7 +87,8 @@ AC_DEFUN([AM_GNU_GETTEXT],
     BUILD_INCLUDED_LIBINTL=no
     USE_INCLUDED_LIBINTL=no
   ])
-  INTLLIBS=
+  LIBINTL=
+  LTLIBINTL=
   POSUB=
 
   dnl If we use NLS figure out what method
@@ -126,9 +127,10 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
           ifelse(gt_included_intl, yes, , [
             AM_ICONV_LINK
           ])
-          dnl Search for libintl and define LIBINTL and INCINTL accordingly.
-          dnl Don't use AC_LIB_LINKFLAGS_BODY([intl],[iconv]) because that would
-          dnl add "-liconv" to LIBINTL even if libiconv doesn't exist.
+          dnl Search for libintl and define LIBINTL, LTLIBINTL and INCINTL
+          dnl accordingly. Don't use AC_LIB_LINKFLAGS_BODY([intl],[iconv])
+          dnl because that would add "-liconv" to LIBINTL and LTLIBINTL
+          dnl even if libiconv doesn't exist.
           AC_LIB_LINKFLAGS_BODY([intl])
           AC_CACHE_CHECK([for GNU gettext in libintl],
             gt_cv_func_gnugettext_libintl,
@@ -151,6 +153,7 @@ extern int _nl_msg_cat_cntr;],
                 [bindtextdomain ("", "");
 return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
                [LIBINTL="$LIBINTL $LIBICONV"
+                LTLIBINTL="$LTLIBINTL $LTLIBICONV"
                 gt_cv_func_gnugettext_libintl=yes
                ])
             fi
@@ -181,7 +184,8 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
         INTLOBJS="\$(GETTOBJS)"
         BUILD_INCLUDED_LIBINTL=yes
         USE_INCLUDED_LIBINTL=yes
-        INTLLIBS="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LIBICONV"
+        LIBINTL="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LIBICONV"
+        LTLIBINTL="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LTLIBICONV"
         LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
@@ -208,7 +212,6 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
       if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
         AC_MSG_CHECKING([how to link with libintl])
         AC_MSG_RESULT([$LIBINTL])
-        INTLLIBS="$LIBINTL"
         AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCINTL])
       fi
 
@@ -257,8 +260,13 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
     AC_SUBST(INTL_LIBTOOL_SUFFIX_PREFIX)
   ])
 
-  dnl Make all documented variables known to autoconf.
+  dnl For backward compatibility. Some Makefiles may be using this.
+  INTLLIBS="$LIBINTL"
   AC_SUBST(INTLLIBS)
+
+  dnl Make all documented variables known to autoconf.
+  AC_SUBST(LIBINTL)
+  AC_SUBST(LTLIBINTL)
   AC_SUBST(POSUB)
 ])
 

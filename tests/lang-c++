@@ -47,11 +47,11 @@ int main (int argc, char *argv[])
 }
 EOF
 
-# Variable needed by INTLLIBS.
+# Variable needed by LTLIBINTL.
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${INTLLIBS} \
+${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"

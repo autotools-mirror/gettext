@@ -45,7 +45,7 @@ INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
 -DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
-LDADD = ../lib/libgettextlib.la @INTLLIBS@
+LDADD = ../lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
 YACC = @YACC@ -d
@@ -99,12 +99,12 @@ urlget_SOURCES = urlget.c
 
 # How to build libgettextsrc.la.
 # Need ../lib/libgettextlib.la.
-# Need @INTLLIBS@ because many source files use gettext().
-# Need @LIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c use
-# iconv().
+# Need @LTLIBINTL@ because many source files use gettext().
+# Need @LTLIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c
+# use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@ -lc -no-undefined
+  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 # Link dependencies.
 msgcmp_LDADD = libgettextsrc.la

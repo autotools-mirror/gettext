@@ -1,3 +1,12 @@
+2002-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* lib-link.m4 (AC_LIB_LINKFLAGS): Also define LTLIB${NAME}.
+	(AC_LIB_HAVE_LINKFLAGS): Likewise.
+	(AC_LIB_LINKFLAGS_BODY): Also define LTLIB${NAME}.
+	* iconv.m4 (AM_ICONV_LINK): Also define LTLIBICONV.
+	* gettext.m4 (AM_GNU_GETTEXT): Define LIBINTL and LTLIBINTL instead
+	of INTLLIBS.
+
 2002-01-20  Bruno Haible  <bruno@clisp.org>
 
 	* lib-link.m4 (AC_LIB_LINKFLAGS): Fix quoting so that multiple

@@ -99,7 +99,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \
 		    CXX='@CXX@' CXXFLAGS='@CXXFLAGS@' \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
-		    INTLLIBS='@INTLLIBS@' \
+		    LTLIBINTL='@LTLIBINTL@' \
 		    TESTJAVA='@TESTJAVA@' \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
@@ -116,7 +116,7 @@ INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
-LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
+LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
 noinst_PROGRAMS = tstgettext tstngettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)

@@ -1,3 +1,9 @@
+2002-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (LDADD): Use @LTLIBINTL@ instead of @INTLLIBS@.
+	(libgettextsrc_la_LDFLAGS): Likewise. Use @LTLIBICONV@ instead of
+	@LIBICONV@.
+
 2002-01-21  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.c (main): On SunOS4, don't pass option "-q" to grep.

@@ -1,3 +1,7 @@
+2002-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (libintl.la): Use @LTLIBICONV@ instead of @LIBICONV@.
+
 2002-01-10  Andrew Zabolotny  <zap@cobra.ru>
 	    Bruno Haible  <bruno@clisp.org>
 
