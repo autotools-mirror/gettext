@@ -76,6 +76,10 @@
 	msgcomm.1.html, msgconv.1.html, msgen.1.html, msggrep.1.html,
 	msgsed.1.html): New rules.
 
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.40 released.
+
 2001-07-24  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.39 released.

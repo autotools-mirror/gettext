@@ -12,11 +12,6 @@
 	* Makefile.am (EXTRA_DIST): Add strpbrk.c.
 	(noinst_HEADERS): Add strpbrk.h.
 
-2001-09-13  Bruno Haible  <haible@clisp.cons.org>
-
-	* alloca.c (alloca): Replace 'REGISTER' with 'register'.
-	Reported by Len Makin <len@hpc.csiro.au>.
-
 2001-09-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* setenv.h: New file.
@@ -143,6 +138,15 @@
 
 	* vasprintf.c (int_vasprintf): Upon allocation failure, return -1,
 	not 0, to be consistent with glibc documentation.
+
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.40 released.
+
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* alloca.c (alloca): Replace 'REGISTER' with 'register'.
+	Reported by Len Makin <len@hpc.csiro.au>.
 
 2001-07-24  Bruno Haible  <haible@clisp.cons.org>
 

@@ -1,7 +1,3 @@
-2001-07-11  Ulrich Drepper  <drepper@redhat.com>
-
-	* locale.alias: Use he language code for hebrew, not iw.
-
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-exp.h: New file, extracted from gettextP.h.
@@ -23,16 +19,6 @@
 	(OBJECTS): Add plural-exp.$lo.
 	Update dependencies.
 
-2001-09-13  Bruno Haible  <haible@clisp.cons.org>
-
-	* *.h, *.c, *.y, Makefile.in: Change copyright notice from GPL to LGPL.
-	This is a reaction to a blackmail from the GNOME project which
-	threatened to distribute an LGPLed clone of libintl.
-	* COPYING.LIB-2, COPYING.LIB-2.1: New files.
-	* Makefile.in (DISTFILES.gettext): Add them.
-	(install-data): Install them.
-	(uninstall): Uninstall them.
-
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* l10nflist.c (_nl_normalize_codeset): Cast isalnum, isalpha, isdigit,
@@ -45,6 +31,24 @@
 2001-07-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.h: Assume <limits.h> exists.
+
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.40 released.
+
+2001-07-11  Ulrich Drepper  <drepper@redhat.com>
+
+	* locale.alias: Use he language code for hebrew, not iw.
+
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* *.h, *.c, *.y, Makefile.in: Change copyright notice from GPL to LGPL.
+	This is a reaction to a blackmail from the GNOME project which
+	threatened to distribute an LGPLed clone of libintl.
+	* COPYING.LIB-2, COPYING.LIB-2.1: New files.
+	* Makefile.in (DISTFILES.gettext): Add them.
+	(install-data): Install them.
+	(uninstall): Uninstall them.
 
 2001-07-24  Bruno Haible  <haible@clisp.cons.org>
 

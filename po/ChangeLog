@@ -1,19 +1,7 @@
-2001-08-31  Bruno Haible  <haible@clisp.cons.org>
-
-	* da.po: Update from <olau@hardworking.dk>
-
 2001-08-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (.po.mo, .po.gmo): Add msgfmt option -c, to guarantee
 	the PO file is really valid.
-
-2001-08-31  Bruno Haible  <haible@clisp.cons.org>
-
-	* da.po: Update from Keld Simonsen <keld@dkuug.dk>.
-
-2001-08-20  Bruno Haible  <haible@clisp.cons.org>
-
-	* cs.po: Update from Vladimir Michl <Vladimir.Michl@seznam.cz>.
 
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 
@@ -32,10 +20,6 @@
 	(uninstall): Depend on uninstall-exec and uninstall-data.
 	(uninstall-exec, uninstall-data, uninstall-data-no,
 	uninstall-data-yes): New rules.
-
-2001-07-29  Bruno Haible  <haible@clisp.cons.org>
-
-	* gl.po: Update from Jesús Bravo Álvarez <jba@pobox.com>.
 
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
@@ -62,6 +46,26 @@
 2001-04-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* POTFILES.in: Add src/po-charset.c.
+
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.40 released.
+
+2001-08-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* da.po: Update from <olau@hardworking.dk>
+
+2001-08-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* da.po: Update from Keld Simonsen <keld@dkuug.dk>.
+
+2001-08-20  Bruno Haible  <haible@clisp.cons.org>
+
+	* cs.po: Update from Vladimir Michl <Vladimir.Michl@seznam.cz>.
+
+2001-07-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* gl.po: Update from Jesús Bravo Álvarez <jba@pobox.com>.
 
 2001-07-24  Bruno Haible  <haible@clisp.cons.org>
 
