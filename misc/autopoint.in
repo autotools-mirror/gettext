@@ -308,6 +308,20 @@ if test -z "$force"; then
   fi
 fi
 
+# func_mkdir_for to
+# ensures the directory that would the given file exists.
+# 'to' is a relative pathname, relative to the current directory.
+func_mkdir_for ()
+{
+  base=`echo "$1" | sed -e 's,/[^/]*$,,'`
+  if test "X$base" != "X$1" && test -n "$base"; then
+    func_mkdir_for "$base"
+    # Recompute base. It was clobbered by the recursive call.
+    base=`echo "$1" | sed -e 's,/[^/]*$,,'`
+    test -d "$base" || { echo "Creating directory $base"; mkdir "$base"; }
+  fi
+}
+
 # func_copy from to
 # copies a file.
 # 'from' is a relative pathname, relative to the current directory.
@@ -315,6 +329,7 @@ fi
 func_copy ()
 {
   if $doit; then
+    func_mkdir_for "$2"
     rm -f "$2"
     echo "Copying file $2"
     cp "$1" "$2"

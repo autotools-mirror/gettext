@@ -2,6 +2,8 @@
 
 	* autopoint.in: Unset all other environment variables which influence
 	cvs. Pass -d $CVSROOT explicitly.
+	(func_mkdir_for): New function.
+	(func_copy): Call it.
 
 2002-05-01  Bruno Haible  <bruno@clisp.org>
 
