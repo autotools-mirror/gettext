@@ -1,3 +1,11 @@
+2002-05-29  Bruno Haible  <bruno@clisp.org>
+
+	* dir-list.h (dir_list_save_reset, dir_list_restore): New declarations.
+	* dir-list.c (dir_list_save_reset, dir_list_restore): New functions.
+	* xgettext.c (main): Temporarily reset the dir_list while opening
+	reading the contents of the output file.
+	Reported by Mark Eichin <eichin@thok.org>.
+
 2002-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-iconv.h (iconv_message_list): Add from_filename argument.

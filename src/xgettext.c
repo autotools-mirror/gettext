@@ -459,7 +459,15 @@ xgettext cannot work without keywords to look for"));
 
   /* Read in the old messages, so that we can add to them.  */
   if (join_existing)
-    extract_from_file (file_name, extract_po, mdlp);
+    {
+      /* Temporarily reset the directory list to empty, because file_name
+	 is an output file and therefore should not be searched for.  */
+      void *saved_directory_list = dir_list_save_reset ();
+
+      extract_from_file (file_name, extract_po, mdlp);
+
+      dir_list_restore (saved_directory_list);
+    }
 
   /* Process all input files.  */
   for (cnt = 0; cnt < file_list->nitems; ++cnt)

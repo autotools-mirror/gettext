@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1996, 1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -29,5 +29,12 @@ extern void dir_list_append PARAMS ((const char *directory));
 
 /* Return the nth directory, or NULL of n is out of range.  */
 extern const char *dir_list_nth PARAMS ((int n));
+
+/* Return the current list of directories, for later use with dir_list_restore.
+   Reset the list to empty.  */
+extern void *dir_list_save_reset PARAMS ((void));
+
+/* Restore a previously saved list of directories.  */
+extern void dir_list_restore PARAMS ((void *saved_value));
 
 #endif /* _DIR_LIST_H */
