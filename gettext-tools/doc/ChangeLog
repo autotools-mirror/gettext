@@ -1,3 +1,8 @@
+2005-01-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi: Put the table of contents at the beginning, after the
+	titlepage, not at the end.
+
 2004-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Preparing Shell Scripts): Document extra backslashing.

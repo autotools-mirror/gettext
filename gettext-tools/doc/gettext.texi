@@ -113,6 +113,9 @@ except that this permission notice may be stated in a translation approved
 by the Foundation.
 @end titlepage
 
+@c Table of Contents
+@contents
+
 @ifinfo
 @node Top, Introduction, (dir), (dir)
 @top GNU @code{gettext} utilities
@@ -10295,7 +10298,6 @@ Project should come from this standard.
 
 @printindex cp
 
-@contents
 @bye
 
 @c Local variables:
