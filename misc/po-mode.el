@@ -309,7 +309,7 @@ msgstr \"\"
 \"Language-Team: LANGUAGE <LL@li.org>\\n\"
 \"MIME-Version: 1.0\\n\"
 \"Content-Type: text/plain; charset=CHARSET\\n\"
-\"Content-Transfer-Encoding: 8-bit\\n\"
+\"Content-Transfer-Encoding: 8bit\\n\"
 "
   "*Default PO file header."
   :type 'string
