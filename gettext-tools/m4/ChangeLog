@@ -1,3 +1,9 @@
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.m4 (AC_RELOCATABLE): Use $(host) instead of @host@,
+	since the substitution of @host@ may occur before the substitution of
+	@SET_RELOCATABLE@.
+
 2002-12-24  Bruno Haible  <bruno@clisp.org>
 
 	* mbswidth.m4 (gl_MBSWIDTH): Renamed from jm_PREREQ_MBSWIDTH. Use

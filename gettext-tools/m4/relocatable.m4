@@ -1,4 +1,4 @@
-# relocatable.m4 serial 1 (gettext-0.12)
+# relocatable.m4 serial 2 (gettext-0.12.2)
 dnl Copyright (C) 2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -31,7 +31,7 @@ AC_DEFUN([AC_RELOCATABLE],
         /*) reloc_ldflags="$ac_aux_dir/reloc-ldflags" ;;
         *) reloc_ldflags="\$(top_builddir)/$ac_aux_dir/reloc-ldflags" ;;
       esac
-      SET_RELOCATABLE="RELOCATABLE_LDFLAGS = \"$reloc_ldflags\" \"@host@\" \"\$(RELOCATABLE_LIBRARY_PATH)\""
+      SET_RELOCATABLE="RELOCATABLE_LDFLAGS = \"$reloc_ldflags\" \"\$(host)\" \"\$(RELOCATABLE_LIBRARY_PATH)\""
     else
       dnl Unfortunately we cannot define INSTALL_PROGRAM to a command
       dnl consisting of more than one word - libtool doesn't support this.
