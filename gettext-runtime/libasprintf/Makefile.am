@@ -23,6 +23,8 @@ ACLOCAL_AMFLAGS = -I ../../config/m4 -I ../m4
 EXTRA_DIST =
 MOSTLYCLEANFILES =
 
+RM = rm -f
+
 
 # Library include file.
 

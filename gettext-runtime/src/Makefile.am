@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+
+RM = rm -f
 
 bin_PROGRAMS = gettext ngettext envsubst
 
