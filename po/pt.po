@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.23\n"
-"POT-Creation-Date: 2001-03-27 19:25+0200\n"
+"POT-Creation-Date: 2001-04-18 22:38+0200\n"
 "PO-Revision-Date: 1996-09-18 20:51 WET DST\n"
 "Last-Translator: Nuno Oliveira <nuno@eq.uc.pt>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -76,7 +76,8 @@ msgstr "%s: a opção `%s' é ambígua\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: a opção `--%s' não permite um argumento\n"
 
-#: lib/obstack.c:474 lib/xmalloc.c:86
+#: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
+#: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
 #, fuzzy
 msgid "memory exhausted"
 msgstr "memória exausta"
@@ -789,55 +790,64 @@ msgstr "fim-de-ficheiro dentro da cadeia"
 msgid "end-of-line within string"
 msgstr "fim-de-linha dentro da cadeia"
 
-#: src/po-lex.c:528 src/write-po.c:266 src/write-po.c:338
+#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "sequência de controlo ilegal"
 
-#: src/po.c:247
-#, fuzzy, c-format
-msgid ""
-"%s: warning: charset \"%s\" is not a portable encoding name\n"
-"%*s  warning: charset conversion might not work"
-msgstr "CUIDADO: o ficheiro fonte contém traduções aproximadas"
-
-#. TRANS: sentence starts at trans_id_1 or trans_id_2
-#: src/po.c:290 src/po.c:324
-msgid ", expect parse errors"
-msgstr ""
-
-#. TRANS: sentence trans_id_1 starts here
-#: src/po.c:296
+#: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
-msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgid "%s: warning: "
 msgstr ""
 
-#. TRANS: sentence trans_id_2 starts here
-#: src/po.c:301
+#: src/po.c:303
 #, fuzzy, c-format
 msgid ""
-"%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then\n"
-"%*s           reinstalling GNU gettext"
+"Charset \"%s\" is not a portable encoding name.\n"
+"Message conversion to user's charset might not work.\n"
 msgstr "CUIDADO: o ficheiro fonte contém traduções aproximadas"
 
-#. TRANS: sentence trans_id_3 starts here
-#: src/po.c:318
-#, fuzzy, c-format
+#: src/po.c:370 src/po.c:405
+msgid "Continuing anyway, expect parse errors."
+msgstr ""
+
+#: src/po.c:372
+msgid "Continuing anyway."
+msgstr ""
+
+#: src/po.c:375
+#, c-format
 msgid ""
-"%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then\n"
-"%*s           reinstalling GNU gettext"
-msgstr "CUIDADO: o ficheiro fonte contém traduções aproximadas"
+"Charset \"%s\" is not supported. %s relies on iconv(),\n"
+"and iconv() does not support \"%s\".\n"
+msgstr ""
 
-#: src/po.c:334
-#, fuzzy, c-format
+#: src/po.c:385 src/po.c:418
 msgid ""
-"%s: warning: charset missing in header\n"
-"%*s  warning: charset conversion will not work"
+"Installing GNU libiconv and then reinstalling GNU gettext\n"
+"would fix this problem.\n"
+msgstr ""
+
+#: src/po.c:393 src/po.c:425
+#, c-format
+msgid "%s\n"
+msgstr ""
+
+#: src/po.c:410
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv().\n"
+"This version was built without iconv().\n"
+msgstr ""
+
+#: src/po.c:440
+#, fuzzy
+msgid ""
+"Charset missing in header.\n"
+"Message conversion to user's charset will not work.\n"
 msgstr "CUIDADO: o ficheiro fonte contém traduções aproximadas"
 
-#: src/write-po.c:293
+#: src/write-po.c:316
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
@@ -845,17 +855,17 @@ msgstr ""
 "as mensagens de internacionalização não devem conter\n"
 "a sequência de escape `\\%c'"
 
-#: src/write-po.c:827
+#: src/write-po.c:857
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "impossível criar o ficheiro de saída \"%s\""
 
-#: src/write-po.c:834
+#: src/write-po.c:864
 #, no-c-format
 msgid "standard output"
 msgstr "canal de saída por defeito (stdout)"
 
-#: src/write-po.c:909
+#: src/write-po.c:939
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "erro durante a escrita do ficheiro \"%s\""
@@ -1012,6 +1022,20 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "%s: warning: charset \"%s\" is not supported by iconv%s\n"
+#~ "%*s  warning: consider installing GNU libiconv and then\n"
+#~ "%*s           reinstalling GNU gettext"
+#~ msgstr "CUIDADO: o ficheiro fonte contém traduções aproximadas"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s: warning: charset \"%s\" is not supported without iconv%s\n"
+#~ "%*s  warning: consider installing GNU libiconv and then\n"
+#~ "%*s           reinstalling GNU gettext"
+#~ msgstr "CUIDADO: o ficheiro fonte contém traduções aproximadas"
 
 #, fuzzy
 #~ msgid "Memory exhausted"

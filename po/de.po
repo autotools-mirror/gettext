@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.36\n"
-"POT-Creation-Date: 2001-04-13 02:14+0200\n"
+"POT-Creation-Date: 2001-04-18 22:38+0200\n"
 "PO-Revision-Date: 2001-04-11 06:44+02:00\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -82,8 +82,8 @@ msgstr "%s: Option »-W %s« ist mehrdeutig\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: Option »-W %s« erwartet kein Argument\n"
 
-#: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:359 src/po.c:367
-#: src/po.c:373 src/po.c:393 src/po.c:400 src/po.c:405 src/po.c:421
+#: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
+#: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
 msgid "memory exhausted"
 msgstr "virtueller Speicher erschöpft"
 
@@ -823,11 +823,11 @@ msgstr "Dateiende innerhalb einer Zeichenkette"
 msgid "end-of-line within string"
 msgstr "Zeilenende innerhalb einer Zeichenkette"
 
-#: src/po-lex.c:528 src/write-po.c:268 src/write-po.c:350
+#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
 msgid "invalid multibyte sequence"
 msgstr "ungültige Multibyte-Sequenz"
 
-#: src/po.c:302 src/po.c:352 src/po.c:387 src/po.c:416
+#: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
 msgid "%s: warning: "
 msgstr "%s: Warnung: "
@@ -842,15 +842,15 @@ msgstr ""
 "Konvertierung der Meldungen in den Zeichensatz des Anwenders\n"
 "könnte fehlschlagen.\n"
 
-#: src/po.c:348 src/po.c:383
+#: src/po.c:370 src/po.c:405
 msgid "Continuing anyway, expect parse errors."
 msgstr "Gleichwohl Fortsetzung; Parsing-Fehler sind zu erwarten."
 
-#: src/po.c:350
+#: src/po.c:372
 msgid "Continuing anyway."
 msgstr "Gleichwohl Fortsetzung."
 
-#: src/po.c:353
+#: src/po.c:375
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -859,7 +859,7 @@ msgstr ""
 "Zeichensatz »%s« wird nicht unterstützt.  %s hängt von iconv() ab,\n"
 "und iconv() unterstützt »%s« nicht.\n"
 
-#: src/po.c:363 src/po.c:396
+#: src/po.c:385 src/po.c:418
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
@@ -867,12 +867,12 @@ msgstr ""
 "Dieses Problem lässt sich beheben, wenn Sie GNU libiconv installieren\n"
 "und dann GNU gettext erneut installieren.\n"
 
-#: src/po.c:371 src/po.c:403
+#: src/po.c:393 src/po.c:425
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
 
-#: src/po.c:388
+#: src/po.c:410
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -881,7 +881,7 @@ msgstr ""
 "Zeichensatz »%s« wird nicht unterstützt.  %s hängt von iconv() ab.\n"
 "Diese Version wurde ohne iconv() erzeugt.\n"
 
-#: src/po.c:417
+#: src/po.c:440
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -890,7 +890,7 @@ msgstr ""
 "Konvertierung der Meldungen in den Zeichensatz des Anwenders\n"
 "wird fehlschlagen.\n"
 
-#: src/write-po.c:299
+#: src/write-po.c:316
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
@@ -898,17 +898,17 @@ msgstr ""
 "Zu übersetzende Meldungen sollten nicht die Ersatzdarstellung »\\%c« "
 "enthalten"
 
-#: src/write-po.c:840
+#: src/write-po.c:857
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "Ausgabedatei »%s« kann nicht erzeugt werden"
 
-#: src/write-po.c:847
+#: src/write-po.c:864
 #, no-c-format
 msgid "standard output"
 msgstr "Standardausgabe"
 
-#: src/write-po.c:922
+#: src/write-po.c:939
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "Fehler beim Schreiben von Datei »%s«"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.30\n"
-"POT-Creation-Date: 2001-03-27 19:25+0200\n"
+"POT-Creation-Date: 2001-04-18 22:38+0200\n"
 "PO-Revision-Date: 1997-09-03 12:52+0900\n"
 "Last-Translator: Bang Jun-Young <bangjy@geocities.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -76,7 +76,8 @@ msgstr "%s: `-W %s'는 모호한 옵션입니다\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
 
-#: lib/obstack.c:474 lib/xmalloc.c:86
+#: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
+#: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
 #, fuzzy
 msgid "memory exhausted"
 msgstr "메모리가 바닥남"
@@ -762,71 +763,80 @@ msgstr "문자열 내부에서 파일이 끝남"
 msgid "end-of-line within string"
 msgstr "문자열 내부에서 행이 끝남"
 
-#: src/po-lex.c:528 src/write-po.c:266 src/write-po.c:338
+#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "잘못된 제어 순서열"
 
-#: src/po.c:247
-#, fuzzy, c-format
-msgid ""
-"%s: warning: charset \"%s\" is not a portable encoding name\n"
-"%*s  warning: charset conversion might not work"
-msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
-
-#. TRANS: sentence starts at trans_id_1 or trans_id_2
-#: src/po.c:290 src/po.c:324
-msgid ", expect parse errors"
-msgstr ""
-
-#. TRANS: sentence trans_id_1 starts here
-#: src/po.c:296
+#: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
-msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgid "%s: warning: "
 msgstr ""
 
-#. TRANS: sentence trans_id_2 starts here
-#: src/po.c:301
+#: src/po.c:303
 #, fuzzy, c-format
 msgid ""
-"%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then\n"
-"%*s           reinstalling GNU gettext"
+"Charset \"%s\" is not a portable encoding name.\n"
+"Message conversion to user's charset might not work.\n"
 msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
 
-#. TRANS: sentence trans_id_3 starts here
-#: src/po.c:318
-#, fuzzy, c-format
+#: src/po.c:370 src/po.c:405
+msgid "Continuing anyway, expect parse errors."
+msgstr ""
+
+#: src/po.c:372
+msgid "Continuing anyway."
+msgstr ""
+
+#: src/po.c:375
+#, c-format
 msgid ""
-"%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then\n"
-"%*s           reinstalling GNU gettext"
-msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
+"Charset \"%s\" is not supported. %s relies on iconv(),\n"
+"and iconv() does not support \"%s\".\n"
+msgstr ""
 
-#: src/po.c:334
-#, fuzzy, c-format
+#: src/po.c:385 src/po.c:418
 msgid ""
-"%s: warning: charset missing in header\n"
-"%*s  warning: charset conversion will not work"
+"Installing GNU libiconv and then reinstalling GNU gettext\n"
+"would fix this problem.\n"
+msgstr ""
+
+#: src/po.c:393 src/po.c:425
+#, c-format
+msgid "%s\n"
+msgstr ""
+
+#: src/po.c:410
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv().\n"
+"This version was built without iconv().\n"
+msgstr ""
+
+#: src/po.c:440
+#, fuzzy
+msgid ""
+"Charset missing in header.\n"
+"Message conversion to user's charset will not work.\n"
 msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
 
-#: src/write-po.c:293
+#: src/write-po.c:316
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "국제화된 메시지는 `\\%c' 이스케이프 순서열을 포함할 수 없습니다"
 
-#: src/write-po.c:827
+#: src/write-po.c:857
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "출력 파일 \"%s\"을 만들 수 없습니다"
 
-#: src/write-po.c:834
+#: src/write-po.c:864
 #, no-c-format
 msgid "standard output"
 msgstr "표준 출력"
 
-#: src/write-po.c:909
+#: src/write-po.c:939
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" 파일을 쓰는 동안 오류 발생"
@@ -970,6 +980,20 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "`%s' 언어를 알 수 없음"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s: warning: charset \"%s\" is not supported by iconv%s\n"
+#~ "%*s  warning: consider installing GNU libiconv and then\n"
+#~ "%*s           reinstalling GNU gettext"
+#~ msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s: warning: charset \"%s\" is not supported without iconv%s\n"
+#~ "%*s  warning: consider installing GNU libiconv and then\n"
+#~ "%*s           reinstalling GNU gettext"
+#~ msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
 
 #~ msgid "Memory exhausted"
 #~ msgstr "메모리가 바닥남"
