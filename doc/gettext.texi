@@ -100,6 +100,9 @@ by the Foundation.
 @node Top, Introduction, (dir), (dir)
 @top GNU @code{gettext} utilities
 
+This manual document the GNU gettext tools and the GNU libintl library,
+version @value{VERSION}.
+
 @menu
 * Introduction::                Introduction
 * Basics::                      PO Files and PO Mode Basics
@@ -272,8 +275,10 @@ Files You Must Create or Alter
 * po/Makevars::                 @file{Makefile} pieces in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
+* mkinstalldirs::               @file{mkinstalldirs} at top level
 * aclocal::                     @file{aclocal.m4} at top level
 * acconfig::                    @file{acconfig.h} at top level
+* config.h.in::                 @file{config.h.in} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
 * lib/gettext.h::               @file{gettext.h} in @file{lib/}
@@ -5794,8 +5799,10 @@ gettext functionality.
 * po/Makevars::                 @file{Makefile} pieces in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
+* mkinstalldirs::               @file{mkinstalldirs} at top level
 * aclocal::                     @file{aclocal.m4} at top level
 * acconfig::                    @file{acconfig.h} at top level
+* config.h.in::                 @file{config.h.in} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
 * lib/gettext.h::               @file{gettext.h} in @file{lib/}
@@ -5971,7 +5978,7 @@ add @code{intl/Makefile} to the @code{AC_OUTPUT} line.
 
 @end enumerate
 
-@node config.guess, aclocal, configure.in, Adjusting Files
+@node config.guess, mkinstalldirs, configure.in, Adjusting Files
 @subsection @file{config.guess}, @file{config.sub} at top level
 
 If you haven't suppressed the @file{intl/} subdirectory,
@@ -5997,7 +6004,26 @@ moving the files, is to add the following line to your
 AC_CONFIG_AUX_DIR([@var{subdir}])
 @end example
 
-@node aclocal, acconfig, config.guess, Adjusting Files
+@node mkinstalldirs, aclocal, config.guess, Adjusting Files
+@subsection @file{mkinstalldirs} at top level
+@cindex @file{mkinstalldirs} file
+
+If @code{gettextize} has not already done it, you need to add the GNU
+@file{mkinstalldirs} script to your distribution.  It is needed because
+@samp{mkdir -p} is not portable enough.  You find this script in the
+GNU @code{automake} distribution.
+
+Normally, @file{mkinstalldirs} is put at the top level of a distribution.
+But it is also possible to put it in a subdirectory, altogether with other
+configuration support files like @file{install-sh}, @file{ltconfig},
+@file{ltmain.sh} or @file{missing}.  All you need to do, other than
+moving the files, is to add the following line to your @file{configure.in}.
+
+@example
+AC_CONFIG_AUX_DIR([@var{subdir}])
+@end example
+
+@node aclocal, acconfig, mkinstalldirs, Adjusting Files
 @subsection @file{aclocal.m4} at top level
 @cindex @file{aclocal.m4} file
 
@@ -6036,7 +6062,7 @@ might be integrated in the standard Autoconf set, because this
 piece of @code{m4} code will be the same for all projects using GNU
 @code{gettext}.
 
-@node acconfig, Makefile, aclocal, Adjusting Files
+@node acconfig, config.h.in, aclocal, Adjusting Files
 @subsection @file{acconfig.h} at top level
 @cindex @file{acconfig.h} file
 
@@ -6047,7 +6073,36 @@ Earlier GNU @code{gettext} releases required to put definitions for
 them from your @file{acconfig.h} file unless your package uses them
 independently from the @file{intl/} directory.
 
-@node Makefile, src/Makefile, acconfig, Adjusting Files
+@node config.h.in, Makefile, acconfig, Adjusting Files
+@subsection @file{config.h.in} at top level
+@cindex @file{config.h.in} file
+
+The include file template that holds the C macros to be defined by
+@code{configure} is usually called @file{config.h.in} and may be
+maintained either manually or automatically.
+
+If it is maintained automatically, by use of the @samp{autoheader}
+program, you need to do nothing about it.  This is the case in particular
+if you are using GNU @code{automake}.
+
+If it is maintained manually, and if @code{gettextize} has created an
+@file{intl/} directory, you should switch to using @samp{autoheader}.
+The list of C macros to be added for the sake of the @file{intl/}
+directory is just too long to be maintained manually; it also changes
+between different versions of GNU @code{gettext}.
+
+If it is maintained manually, and if on the other hand you have
+suppressed the @file{intl/} directory by calling @code{gettextize}
+without @samp{--intl} option, then you can get away by adding the
+following lines to @file{config.h.in}:
+
+@example
+/* Define to 1 if translation of program messages to the user's
+   native language is requested. */
+#undef ENABLE_NLS
+@end example
+
+@node Makefile, src/Makefile, config.h.in, Adjusting Files
 @subsection @file{Makefile.in} at top level
 
 Here are a few modifications you need to make to your main, top-level
@@ -6069,7 +6124,7 @@ distributed.
 
 @item
 Wherever you process subdirectories in your @file{Makefile.in}, be sure
-you also process dir subdirectories @samp{intl} and @samp{po}.  Special
+you also process the subdirectories @samp{intl} and @samp{po}.  Special
 rules in the @file{Makefiles} take care for the case where no
 internationalization is wanted.
 
@@ -6164,6 +6219,7 @@ The @code{main} function of your program will normally call
 
 @example
 bindtextdomain (@var{PACKAGE}, LOCALEDIR);
+textdomain (@var{PACKAGE});
 @end example
 
 To make LOCALEDIR known to the program, add the following lines to
