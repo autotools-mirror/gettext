@@ -1,3 +1,8 @@
+2002-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* INSTALL: Remove the recommendation to set CPPFLAGS and LDFLAGS.
+	The lib-link.m4 macros make this unnecessary.
+
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (gettextsrc_SCRIPTS): Add mkinstalldirs.
