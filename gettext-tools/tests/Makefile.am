@@ -109,7 +109,7 @@ localedir = $(datadir)/locale
 INCLUDES = \
   -I.. \
   -I../lib -I$(top_srcdir)/lib \
-  -I$(top_builddir)/../gettext-runtime/intl
+  -I../intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la

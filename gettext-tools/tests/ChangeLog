@@ -8,8 +8,7 @@
 	Native Woe32/MSVC support.
 	* Makefile.msvc: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
-	(INCLUDES): Look for libgnuintl.h in
-	$(top_builddir)/../gettext-runtime/intl, not
+	(INCLUDES): Look for libgnuintl.h in ../intl, not
 	$(top_srcdir)/../gettext-runtime/intl.
 
 2003-02-28  Bruno Haible  <bruno@clisp.org>
