@@ -1,3 +1,8 @@
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* printf.h (PARAMS): GNU C always supports prototypes.
+	* system.h (PARAMS): Likewise.
+
 2001-03-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* vasprintf.c (int_vasprintf): Cast second arg of strtoul, to avoid
