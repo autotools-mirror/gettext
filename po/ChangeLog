@@ -1,5 +1,9 @@
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
+	* da.po: Update from Keld Simonsen <keld@dkuug.dk>.
+
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in.in: Always use sed with -e option.
 	(.po.gmo): Use 'echo' to make the command look prettier.
 	($(POFILES)): Likewise. Make it work in the case $builddir != $srcdir.
