@@ -45,7 +45,7 @@ INSTALL_DATA = copy
 
 #### End of system configuration section. ####
 
-OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,relocatable.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
+OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
 
 all : intl.olb,libintl.h
 	write sys$output "Nothing else to be done for 'all'."
@@ -106,6 +106,9 @@ localcharset.obj : $(srcdir)localcharset.c,libgnuintl.h,$(srcdir)localcharset.h,
 
 relocatable.obj : $(srcdir)relocatable.c,libgnuintl.h,$(srcdir)relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)relocatable.c
+
+langprefs.obj : $(srcdir)langprefs.c,libgnuintl.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)langprefs.c
 
 localename.obj : $(srcdir)localename.c,libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localename.c

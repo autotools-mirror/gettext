@@ -1133,9 +1133,13 @@ guess_category_value (int category, const char *categoryname)
   /* The highest priority value is the `LANGUAGE' environment
      variable.  But we don't use the value if the currently selected
      locale is the C locale.  This is a GNU extension.  */
+#ifdef _LIBC
   language = getenv ("LANGUAGE");
   if (language != NULL && language[0] == '\0')
     language = NULL;
+#else
+  language = _nl_language_preferences ();
+#endif
 
   /* We have to proceed with the POSIX methods of looking to `LC_ALL',
      `LC_xxx', and `LANG'.  On some systems this can be done by the

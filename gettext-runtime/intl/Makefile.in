@@ -98,6 +98,7 @@ SOURCES = \
   plural-exp.c \
   localcharset.c \
   relocatable.c \
+  langprefs.c \
   localename.c \
   log.c \
   printf.c \
@@ -123,6 +124,7 @@ OBJECTS = \
   plural-exp.$lo \
   localcharset.$lo \
   relocatable.$lo \
+  langprefs.$lo \
   localename.$lo \
   log.$lo \
   printf.$lo \
@@ -212,6 +214,8 @@ localcharset.lo: $(srcdir)/localcharset.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localcharset.c
 relocatable.lo: $(srcdir)/relocatable.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/relocatable.c
+langprefs.lo: $(srcdir)/langprefs.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/langprefs.c
 localename.lo: $(srcdir)/localename.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localename.c
 log.lo: $(srcdir)/log.c

@@ -99,7 +99,7 @@ INSTALL_DATA = copy
 
 SHELL = /bin/sh
 
-OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
+OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
 
 RESOURCES = intl.res
 
@@ -165,6 +165,9 @@ localcharset.obj : $(srcdir)\localcharset.c libgnuintl.h $(srcdir)\localcharset.
 
 relocatable.obj : $(srcdir)\relocatable.c libgnuintl.h $(srcdir)\relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\relocatable.c
+
+langprefs.obj : $(srcdir)\langprefs.c libgnuintl.h
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\langprefs.c
 
 localename.obj : $(srcdir)\localename.c libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\localename.c

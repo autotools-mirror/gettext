@@ -1,3 +1,17 @@
+2004-09-05  Bruno Haible  <bruno@clisp.org>
+
+	* langprefs.c: New file.
+	* gettextP.h (_nl_language_preferences): New declaration.
+	* dcigettext.c (guess_category_value) [!_LIBC]: Use
+	_nl_language_preferences.
+	* Makefile.in (SOURCES): Add langprefs.c.
+	(OBJECTS): Add langprefs.$lo.
+	(langprefs.lo): New rule.
+	* Makefile.msvc (OBJECTS): Add langprefs.obj.
+	(langprefs.obj): New rule.
+	* Makefile.vms (OBJECTS): Add langprefs.obj.
+	(langprefs.obj): New rule.
+
 2004-09-03  Bruno Haible  <bruno@clisp.org>
 
 	* localename.c (_nl_locale_name): Use a more intelligent fallback on
