@@ -1,6 +1,6 @@
 # Special Makefile rules for generating a Makefile.msvc.
 
-DISTFILES.extra3 = Rules-msvc Makefile.msvc.sh Makefile.msvc
+DISTFILES.extra1 = Rules-msvc Makefile.msvc.sh Makefile.msvc
 
 dist distdir: $(srcdir)/Makefile.msvc
 

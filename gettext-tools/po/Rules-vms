@@ -1,6 +1,6 @@
 # Special Makefile rules for generating a Makefile.vms.
 
-DISTFILES.extra3 = Rules-vms Makefile.vms.sh Makefile.vms
+DISTFILES.extra2 = Rules-vms Makefile.vms.sh Makefile.vms
 
 dist distdir: $(srcdir)/Makefile.vms
 
