@@ -1,5 +1,5 @@
 /* Compatibility code for gettext-using-catgets interface.
-   Copyright (C) 1995, 1997 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1997, 2000 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,6 +36,12 @@ char *getenv ();
 #endif
 
 #include "libgettext.h"
+
+/* Tell the compiler when a conditional or integer expression is
+   almost always true or almost always false.  */
+#ifndef HAVE_BUILTIN_EXPECT
+# define __builtin_expect(expr, val) (expr)
+#endif
 
 /* @@ end of prolog @@ */
 
@@ -206,6 +212,21 @@ bindtextdomain (domainname, dirname)
   return (char *) domainname;
 }
 
+char *
+bind_textdomain_codeset (domainname, codeset)
+     const char *domainname;
+     const char *codeset;
+{
+  /* This does not make much sense here but to be compatible do it.  */
+  if (domainname == NULL)
+    return NULL;
+
+  /* catgets doesn't support character codeset conversion.  We could
+     call iconv() ourselves in gettext, but that's outside of the scope
+     of this compatibility hack.  */
+  return (char *) codeset;
+}
+
 #undef gettext
 char *
 gettext (msg)
@@ -236,7 +257,7 @@ msg_to_cat_id (msg)
   int cnt;
 
   for (cnt = 0; cnt < _msg_tbl_length; ++cnt)
-    if (strcmp (msg, _msg_tbl[cnt]._msg) == 0)
+    if (__builtin_expect (strcmp (msg, _msg_tbl[cnt]._msg) == 0, 0))
       return _msg_tbl[cnt]._msg_number;
 
   return -1;

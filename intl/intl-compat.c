@@ -1,6 +1,6 @@
 /* intl-compat.c - Stub functions to call gettext functions from GNU gettext
    Library.
-   Copyright (C) 1995 Software Foundation, Inc.
+   Copyright (C) 1995, 2000 Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #undef dcgettext
 #undef textdomain
 #undef bindtextdomain
+#undef bind_textdomain_codeset
 
 
 char *
@@ -38,6 +39,15 @@ bindtextdomain (domainname, dirname)
      const char *dirname;
 {
   return bindtextdomain__ (domainname, dirname);
+}
+
+
+char *
+bind_textdomain_codeset (domainname, codeset)
+     const char *domainname;
+     const char *codeset;
+{
+  return bind_textdomain_codeset__ (domainname, codeset);
 }
 
 

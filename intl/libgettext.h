@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -134,9 +134,16 @@ extern char *textdomain__ PARAMS ((const char *__domainname));
 /* Specify that the DOMAINNAME message catalog will be found
    in DIRNAME rather than in the system locale data base.  */
 extern char *bindtextdomain PARAMS ((const char *__domainname,
-				  const char *__dirname));
+				     const char *__dirname));
 extern char *bindtextdomain__ PARAMS ((const char *__domainname,
-				    const char *__dirname));
+				       const char *__dirname));
+
+/* Specify the character encoding in which the messages from the
+   DOMAINNAME message catalog will be returned.  */
+extern char *bind_textdomain_codeset PARAMS ((const char *__domainname,
+					      const char *__codeset));
+extern char *bind_textdomain_codeset__ PARAMS ((const char *__domainname,
+						const char *__codeset));
 
 #if ENABLE_NLS
 
@@ -172,6 +179,7 @@ extern char *bindtextdomain__ PARAMS ((const char *__domainname,
     ((N) == 1 ? (char *) (Msgid1) : (char *) (Msgid2))
 # define textdomain(Domainname) ((char *) (Domainname))
 # define bindtextdomain(Domainname, Dirname) ((char *) (Dirname))
+# define bind_textdomain_codeset(Domainname, Codeset) ((char *) (Codeset))
 
 #endif
 

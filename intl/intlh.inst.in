@@ -78,6 +78,11 @@ extern char *textdomain PARAMS ((const char *__domainname));
 extern char *bindtextdomain PARAMS ((const char *__domainname,
 				     const char *__dirname));
 
+/* Specify the character encoding in which the messages from the
+   DOMAINNAME message catalog will be returned.  */
+extern char *bind_textdomain_codeset PARAMS ((const char *__domainname,
+					      const char *__codeset));
+
 
 /* Optimized version of the functions above.  */
 #if defined __OPTIMIZED

@@ -1,5 +1,12 @@
 2000-06-16  Bruno Haible  <haible@clisp.cons.org>
 
+	* intlh.inst.in (bind_textdomain_codeset): New declaration.
+	* libgettext.h (bind_textdomain_codeset, bind_textdomain_codeset__):
+	New declarations.
+	(bind_textdomain_codeset) [!ENABLE_NLS]: New macro.
+	* cat-compat.c (bind_textdomain_codeset): New function.
+	* intl-compat.c (bind_textdomain_codeset): New function.
+
 	* libgettext.h (ngettext, dngettext, dcngettext): New
 	declarations.
 	(dcgettext): Remove macro definition.
