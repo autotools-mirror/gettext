@@ -1,6 +1,6 @@
 #!/usr/bin/gawk -f
 # A script for emulating configure on OS/2 without having even a Unix-like
-# shell. Designed specifically for compiling libgettext with gcc+emx.
+# shell. Designed specifically for compiling gettext with gcc+emx.
 
 BEGIN{
   print "/* config.h.  Generated automatically by configure.awk.  */"
