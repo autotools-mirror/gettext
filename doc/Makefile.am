@@ -21,7 +21,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 SED = sed
 
-MAKEINFO = LANG= LANGUAGE= @MAKEINFO@
+MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
 info_TEXINFOS = gettext.texi
 gettext_TEXINFOS = iso-apdx.texi

@@ -1,3 +1,12 @@
+2001-03-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (MAKEINFO): Add 'env', to avoid shell syntax error in
+	texi2dvi.
+
+	* gettext.texi (Overview): Including libintl.h is not enough. Talk
+	about libintl.so as well.
+	(Comparison): gettext_noop is never defined in libintl.h.
+
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* nls.texi (Using This Package): Rewrite paragraph about LANGUAGE.

@@ -633,8 +633,21 @@ or in a central header file:
 @noindent
 Doing this allows you to prepare the sources for internationalization.
 Later when you feel ready for the step to use the @code{gettext} library
-simply remove these definitions, include @file{libintl.h} and link
-against @file{libintl.a}.  That is all you have to change.
+simply replace these definitions by the following:
+
+@example
+@group
+#include <libintl.h>
+#define _(String) gettext (String)
+#define gettext_noop(String) (String)
+#define N_(String) gettext_noop (String)
+@end group
+@end example
+
+and link against @file{libintl.a} or @file{libintl.so}.  Note that on
+GNU systems, you don't need to link with @code{libintl} because the
+@code{gettext} library functions are already contained in GNU libc.
+That is all you have to change.
 
 Once the C sources have been modified, the @code{xgettext} program
 is used to find and extract all translatable strings, and create an
@@ -3899,17 +3912,12 @@ program which does not depend on translations to be available, but which
 can use any that becomes available.
 
 The same procedure can be done for the @code{gettext_noop} invocations
-(@pxref{Special cases}).  First you can define @code{gettext_noop} to a
-no-op macro and later use the definition from @file{libintl.h}.  Because
-this name is not used in Suns implementation of @file{libintl.h},
-you should consider the following code for your project:
+(@pxref{Special cases}).  One usually defines @code{gettext_noop} as a
+no-op macro.  So you should consider the following code for your project:
 
 @example
-#ifdef gettext_noop
-# define N_(String) gettext_noop (String)
-#else
-# define N_(String) (String)
-#endif
+#define gettext_noop(String) (String)
+#define N_(String) gettext_noop (String)
 @end example
 
 @code{N_} is a short form similar to @code{_}.  The @file{Makefile} in
