@@ -198,9 +198,27 @@ fi
 # Copy files to po/ subdirectory.
 cd po
 for file in *; do
-  rm -f $srcdir/po/$file
-  ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && $echo "Symlinking file po/$file") 2>/dev/null ||
-  { $echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
+  case $file in
+    Makevars)
+      rm -f $srcdir/po/$file.template
+      ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file.template && $echo "Symlinking file po/$file.template") 2>/dev/null ||
+      { $echo "Copying file po/$file.template"; cp $file $srcdir/po/$file.template; }
+      if test -f $srcdir/po/$file; then
+        echo "Please update po/$file so that it defines all the variables mentioned"
+        echo "in po/$file.template."
+      else
+        echo "Please create po/$file from the template in po/$file.template."
+      fi
+      echo "You can then remove po/$file.template."
+      ;;
+    *)
+      rm -f $srcdir/po/$file~
+      cp -p $srcdir/po/$file $srcdir/po/$file~
+      rm -f $srcdir/po/$file
+      ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && $echo "Symlinking file po/$file") 2>/dev/null ||
+      { $echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
+      ;;
+  esac
 done
 DATE=`date +%Y-%m-%d`
 cat > $srcdir/po/ChangeLog.tmp <<EOF

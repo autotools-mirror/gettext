@@ -1,3 +1,8 @@
+2002-01-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Handle po/Makevars specially, don't overwrite the
+	previous customizations.
+
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Update year in --version output.
