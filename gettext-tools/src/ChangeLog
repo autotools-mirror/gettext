@@ -1,3 +1,15 @@
+2003-04-13  Bruno Haible  <bruno@clisp.org>
+
+	* write-po.h (message_print_comment, message_print_comment_dot,
+	message_print_comment_filepos, message_print_comment_flags): New
+	declarations.
+	* write-po.c: Reorder functions.
+	(message_print_comment, message_print_comment_dot,
+	message_print_comment_filepos, message_print_comment_flags): New
+	functions, extracted from message_print.
+	(message_print): Use them.
+	(message_print_obsolete): Use message_print_comment.
+
 2003-04-22  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Add an entry about Faroese.

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -23,7 +23,21 @@
 #include "message.h"
 
 #include <stdbool.h>
+#include <stdio.h>
 
+/* These functions output parts of a message, as comments.  */
+extern void
+       message_print_comment (const message_ty *mp, FILE *fp);
+extern void
+       message_print_comment_dot (const message_ty *mp, FILE *fp);
+extern void
+       message_print_comment_filepos (const message_ty *mp, FILE *fp,
+				      bool uniforum, size_t page_width);
+extern void
+       message_print_comment_flags (const message_ty *mp, FILE *fp,
+				    bool debug);
+
+/* These functions set some parameters for use by 'msgdomain_list_print'.  */
 extern void
        message_page_width_set (size_t width);
 extern void
@@ -35,10 +49,14 @@ extern void
 extern void
        message_print_style_escape (bool flag);
 
+/* Output MDLP into a PO file with the given FILENAME, according to the
+   parameters set by the functions above.  */
 extern void
        msgdomain_list_print (msgdomain_list_ty *mdlp,
 			     const char *filename,
 			     bool force, bool debug);
+
+/* Sort MDLP destructively according to the given criterion.  */
 extern void
        msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp);
 extern void

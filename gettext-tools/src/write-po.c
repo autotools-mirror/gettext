@@ -55,6 +55,266 @@
 #endif
 
 
+/* =================== Putting together a #, flags line. =================== */
+
+
+/* Convert IS_FORMAT in the context of programming language LANG to a flag
+   string for use in #, flags.  */
+
+static const char *
+make_format_description_string (enum is_format is_format, const char *lang,
+				bool debug)
+{
+  static char result[100];
+
+  switch (is_format)
+    {
+    case possible:
+      if (debug)
+	{
+	  sprintf (result, " possible-%s-format", lang);
+	  break;
+	}
+      /* FALLTHROUGH */
+    case yes:
+      sprintf (result, " %s-format", lang);
+      break;
+    case no:
+      sprintf (result, " no-%s-format", lang);
+      break;
+    default:
+      /* The others have already been filtered out by significant_format_p.  */
+      abort ();
+    }
+
+  return result;
+}
+
+
+/* Return true if IS_FORMAT is worth mentioning in a #, flags list.  */
+
+static bool
+significant_format_p (enum is_format is_format)
+{
+  return is_format != undecided && is_format != impossible;
+}
+
+
+/* Return true if one of IS_FORMAT is worth mentioning in a #, flags list.  */
+
+static bool
+has_significant_format_p (const enum is_format is_format[NFORMATS])
+{
+  size_t i;
+
+  for (i = 0; i < NFORMATS; i++)
+    if (significant_format_p (is_format[i]))
+      return true;
+  return false;
+}
+
+
+/* Convert a wrapping flag DO_WRAP to a string for use in #, flags.  */
+
+static const char *
+make_c_width_description_string (enum is_wrap do_wrap)
+{
+  const char *result = NULL;
+
+  switch (do_wrap)
+    {
+    case yes:
+      result = " wrap";
+      break;
+    case no:
+      result = " no-wrap";
+      break;
+    default:
+      abort ();
+    }
+
+  return result;
+}
+
+
+/* ================ Output parts of a message, as comments. ================ */
+
+
+/* Output mp->comment as a set of comment lines.  */
+
+void
+message_print_comment (const message_ty *mp, FILE *fp)
+{
+  if (mp->comment != NULL)
+    {
+      size_t j;
+
+      for (j = 0; j < mp->comment->nitems; ++j)
+	{
+	  const char *s = mp->comment->item[j];
+	  do
+	    {
+	      const char *e;
+	      putc ('#', fp);
+	      if (*s != '\0' && *s != ' ')
+		putc (' ', fp);
+	      e = strchr (s, '\n');
+	      if (e == NULL)
+		{
+		  fputs (s, fp);
+		  s = NULL;
+		}
+	      else
+		{
+		  fwrite (s, 1, e - s, fp);
+		  s = e + 1;
+		}
+	      putc ('\n', fp);
+	    }
+	  while (s != NULL);
+	}
+    }
+}
+
+
+/* Output mp->comment_dot as a set of comment lines.  */
+
+void
+message_print_comment_dot (const message_ty *mp, FILE *fp)
+{
+  if (mp->comment_dot != NULL)
+    {
+      size_t j;
+
+      for (j = 0; j < mp->comment_dot->nitems; ++j)
+	{
+	  const char *s = mp->comment_dot->item[j];
+	  putc ('#', fp);
+	  putc ('.', fp);
+	  if (*s != '\0' && *s != ' ')
+	    putc (' ', fp);
+	  fputs (s, fp);
+	  putc ('\n', fp);
+	}
+    }
+}
+
+
+/* Output mp->filepos as a set of comment lines.  */
+
+void
+message_print_comment_filepos (const message_ty *mp, FILE *fp,
+			       bool uniforum, size_t page_width)
+{
+  if (mp->filepos_count != 0)
+    {
+      if (uniforum)
+	{
+	  size_t j;
+
+	  for (j = 0; j < mp->filepos_count; ++j)
+	    {
+	      lex_pos_ty *pp = &mp->filepos[j];
+	      char *cp = pp->file_name;
+	      while (cp[0] == '.' && cp[1] == '/')
+		cp += 2;
+	      /* There are two Sun formats to choose from: SunOS and
+		 Solaris.  Use the Solaris form here.  */
+	      fprintf (fp, "# File: %s, line: %ld\n",
+		       cp, (long) pp->line_number);
+	    }
+	}
+      else
+	{
+	  size_t column;
+	  size_t j;
+
+	  fputs ("#:", fp);
+	  column = 2;
+	  for (j = 0; j < mp->filepos_count; ++j)
+	    {
+	      lex_pos_ty *pp;
+	      char buffer[21];
+	      char *cp;
+	      size_t len;
+
+	      pp = &mp->filepos[j];
+	      cp = pp->file_name;
+	      while (cp[0] == '.' && cp[1] == '/')
+		cp += 2;
+	      /* Some xgettext input formats, like RST, lack line numbers.  */
+	      if (pp->line_number == (size_t)(-1))
+		buffer[0] = '\0';
+	      else
+		sprintf (buffer, ":%ld", (long) pp->line_number);
+	      len = strlen (cp) + strlen (buffer) + 1;
+	      if (column > 2 && column + len >= page_width)
+		{
+		  fputs ("\n#:", fp);
+		  column = 2;
+		}
+	      fprintf (fp, " %s%s", cp, buffer);
+	      column += len;
+	    }
+	  putc ('\n', fp);
+	}
+    }
+}
+
+
+/* Output mp->is_fuzzy, mp->is_format, mp->do_wrap as a comment line.  */
+
+void
+message_print_comment_flags (const message_ty *mp, FILE *fp, bool debug)
+{
+  if ((mp->is_fuzzy && mp->msgstr[0] != '\0')
+      || has_significant_format_p (mp->is_format)
+      || mp->do_wrap == no)
+    {
+      bool first_flag = true;
+      size_t i;
+
+      putc ('#', fp);
+      putc (',', fp);
+
+      /* We don't print the fuzzy flag if the msgstr is empty.  This
+	 might be introduced by the user but we want to normalize the
+	 output.  */
+      if (mp->is_fuzzy && mp->msgstr[0] != '\0')
+	{
+	  fputs (" fuzzy", fp);
+	  first_flag = false;
+	}
+
+      for (i = 0; i < NFORMATS; i++)
+	if (significant_format_p (mp->is_format[i]))
+	  {
+	    if (!first_flag)
+	      putc (',', fp);
+
+	    fputs (make_format_description_string (mp->is_format[i],
+						   format_language[i], debug),
+		   fp);
+	    first_flag = false;
+	  }
+
+      if (mp->do_wrap == no)
+	{
+	  if (!first_flag)
+	    putc (',', fp);
+
+	  fputs (make_c_width_description_string (mp->do_wrap), fp);
+	  first_flag = false;
+	}
+
+      putc ('\n', fp);
+    }
+}
+
+
+/* =========== Some parameters for use by 'msgdomain_list_print'. ========== */
+
+
 /* This variable controls the page width when printing messages.
    Defaults to PAGE_WIDTH if not set.  Zero (0) given to message_page_-
    width_set will result in no wrapping being performed.  */
@@ -113,77 +373,7 @@ message_print_style_escape (bool flag)
 }
 
 
-/* Local functions.  */
-
-
-static const char *
-make_format_description_string (enum is_format is_format, const char *lang,
-				bool debug)
-{
-  static char result[100];
-
-  switch (is_format)
-    {
-    case possible:
-      if (debug)
-	{
-	  sprintf (result, " possible-%s-format", lang);
-	  break;
-	}
-      /* FALLTHROUGH */
-    case yes:
-      sprintf (result, " %s-format", lang);
-      break;
-    case no:
-      sprintf (result, " no-%s-format", lang);
-      break;
-    default:
-      /* The others have already been filtered out by significant_format_p.  */
-      abort ();
-    }
-
-  return result;
-}
-
-
-static bool
-significant_format_p (enum is_format is_format)
-{
-  return is_format != undecided && is_format != impossible;
-}
-
-
-static bool
-has_significant_format_p (const enum is_format is_format[NFORMATS])
-{
-  size_t i;
-
-  for (i = 0; i < NFORMATS; i++)
-    if (significant_format_p (is_format[i]))
-      return true;
-  return false;
-}
-
-
-static const char *
-make_c_width_description_string (enum is_wrap do_wrap)
-{
-  const char *result = NULL;
-
-  switch (do_wrap)
-    {
-    case yes:
-      result = " wrap";
-      break;
-    case no:
-      result = " no-wrap";
-      break;
-    default:
-      abort ();
-    }
-
-  return result;
-}
+/* ================ msgdomain_list_print() and subroutines. ================ */
 
 
 /* A version of memcpy optimized for the case n <= 1.  */
@@ -600,12 +790,11 @@ print_blank_line (FILE *fp)
     putc ('\n', fp);
 }
 
+
 static void
 message_print (const message_ty *mp, FILE *fp, const char *charset,
 	       bool blank_line, bool debug)
 {
-  size_t j;
-
   /* Separate messages with a blank line.  Uniforum doesn't like blank
      lines, so use an empty comment (unless there already is one).  */
   if (blank_line && (!uniforum
@@ -615,139 +804,18 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
     print_blank_line (fp);
 
   /* Print translator comment if available.  */
-  if (mp->comment != NULL)
-    for (j = 0; j < mp->comment->nitems; ++j)
-      {
-	const char *s = mp->comment->item[j];
-	do
-	  {
-	    const char *e;
-	    putc ('#', fp);
-	    if (*s != '\0' && *s != ' ')
-	      putc (' ', fp);
-	    e = strchr (s, '\n');
-	    if (e == NULL)
-	      {
-		fputs (s, fp);
-		s = NULL;
-	      }
-	    else
-	      {
-		fwrite (s, 1, e - s, fp);
-		s = e + 1;
-	      }
-	    putc ('\n', fp);
-	  }
-	while (s != NULL);
-      }
+  message_print_comment (mp, fp);
 
-  if (mp->comment_dot != NULL)
-    for (j = 0; j < mp->comment_dot->nitems; ++j)
-      {
-	const char *s = mp->comment_dot->item[j];
-	putc ('#', fp);
-	putc ('.', fp);
-	if (*s != '\0' && *s != ' ')
-	  putc (' ', fp);
-	fputs (s, fp);
-	putc ('\n', fp);
-      }
+  /* Print xgettext extracted comments.  */
+  message_print_comment_dot (mp, fp);
 
   /* Print the file position comments.  This will help a human who is
      trying to navigate the sources.  There is no problem of getting
      repeated positions, because duplicates are checked for.  */
-  if (mp->filepos_count != 0)
-    {
-      if (uniforum)
-	for (j = 0; j < mp->filepos_count; ++j)
-	  {
-	    lex_pos_ty *pp = &mp->filepos[j];
-	    char *cp = pp->file_name;
-	    while (cp[0] == '.' && cp[1] == '/')
-	      cp += 2;
-	    /* There are two Sun formats to choose from: SunOS and
-	       Solaris.  Use the Solaris form here.  */
-	    fprintf (fp, "# File: %s, line: %ld\n",
-		     cp, (long) pp->line_number);
-	  }
-      else
-	{
-	  size_t column;
-
-	  fputs ("#:", fp);
-	  column = 2;
-	  for (j = 0; j < mp->filepos_count; ++j)
-	    {
-	      lex_pos_ty *pp;
-	      char buffer[21];
-	      char *cp;
-	      size_t len;
-
-	      pp = &mp->filepos[j];
-	      cp = pp->file_name;
-	      while (cp[0] == '.' && cp[1] == '/')
-		cp += 2;
-	      /* Some xgettext input formats, like RST, lack line numbers.  */
-	      if (pp->line_number == (size_t)(-1))
-		buffer[0] = '\0';
-	      else
-		sprintf (buffer, ":%ld", (long) pp->line_number);
-	      len = strlen (cp) + strlen (buffer) + 1;
-	      if (column > 2 && column + len >= page_width)
-		{
-		  fputs ("\n#:", fp);
-		  column = 2;
-		}
-	      fprintf (fp, " %s%s", cp, buffer);
-	      column += len;
-	    }
-	  putc ('\n', fp);
-	}
-    }
+  message_print_comment_filepos (mp, fp, uniforum, page_width);
 
   /* Print flag information in special comment.  */
-  if ((mp->is_fuzzy && mp->msgstr[0] != '\0')
-      || has_significant_format_p (mp->is_format)
-      || mp->do_wrap == no)
-    {
-      bool first_flag = true;
-      size_t i;
-
-      putc ('#', fp);
-      putc (',', fp);
-
-      /* We don't print the fuzzy flag if the msgstr is empty.  This
-	 might be introduced by the user but we want to normalize the
-	 output.  */
-      if (mp->is_fuzzy && mp->msgstr[0] != '\0')
-	{
-	  fputs (" fuzzy", fp);
-	  first_flag = false;
-	}
-
-      for (i = 0; i < NFORMATS; i++)
-	if (significant_format_p (mp->is_format[i]))
-	  {
-	    if (!first_flag)
-	      putc (',', fp);
-
-	    fputs (make_format_description_string (mp->is_format[i],
-						   format_language[i], debug),
-		   fp);
-	    first_flag = false;
-	  }
-
-      if (mp->do_wrap == no)
-	{
-	  if (!first_flag)
-	    putc (',', fp);
-
-	  fputs (make_c_width_description_string (mp->do_wrap), fp);
-	  first_flag = false;
-	}
-
-      putc ('\n', fp);
-    }
+  message_print_comment_flags (mp, fp, debug);
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
@@ -787,8 +855,6 @@ static void
 message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
 			bool blank_line)
 {
-  size_t j;
-
   /* If msgstr is the empty string we print nothing.  */
   if (mp->msgstr[0] == '\0')
     return;
@@ -799,31 +865,7 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
     print_blank_line (fp);
 
   /* Print translator comment if available.  */
-  if (mp->comment)
-    for (j = 0; j < mp->comment->nitems; ++j)
-      {
-	const char *s = mp->comment->item[j];
-	do
-	  {
-	    const char *e;
-	    putc ('#', fp);
-	    if (*s != '\0' && *s != ' ')
-	      putc (' ', fp);
-	    e = strchr (s, '\n');
-	    if (e == NULL)
-	      {
-		fputs (s, fp);
-		s = NULL;
-	      }
-	    else
-	      {
-		fwrite (s, 1, e - s, fp);
-		s = e + 1;
-	      }
-	    putc ('\n', fp);
-	  }
-	while (s != NULL);
-      }
+  message_print_comment (mp, fp);
 
   /* Print flag information in special comment.  */
   if (mp->is_fuzzy)
@@ -996,6 +1038,9 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 	   filename);
   fclose (fp);
 }
+
+
+/* =============================== Sorting. ================================ */
 
 
 static int
