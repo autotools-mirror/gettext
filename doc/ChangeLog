@@ -1,5 +1,9 @@
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.texi (Other Programming Languages): New chapter.
+
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.texi (po/LINGUAS): New node.
 	(configure.in): Remove paragraph about ALL_LINGUAS.
 

@@ -87,6 +87,7 @@ by the Foundation.
 * Programmers::                 The Programmer's View
 * Translators::                 The Translator's View
 * Maintainers::                 The Maintainer's View
+* Programming Languages::       Other Programming Languages
 * Conclusion::                  Concluding Remarks
 
 * Language Codes::              ISO 639 language codes
@@ -215,6 +216,38 @@ Files You Must Create or Alter
 * acconfig::                    @file{acconfig.h} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
+
+Other Programming Languages
+
+* Language Implementors::       The Language Implementor's View
+* Programmers for other Languages::  The Programmer's View
+* Translators for other Languages::  The Translator's View
+* List of Programming Languages::  Individual Programming Languages
+* List of Data Formats::        Internationalizable Data
+
+Individual Programming Languages
+
+* C::                           C, C++, Objective C
+* sh::                          sh - Shell Script
+* bash::                        bash - Bourne-Again Shell Script
+* Python::                      Python
+* Common Lisp::                 GNU clisp - Common Lisp
+* clisp C::                     GNU clisp C sources
+* Emacs Lisp::                  Emacs Lisp
+* librep::                      librep
+* Smalltalk::                   GNU Smalltalk
+* Java::                        Java
+* gawk::                        GNU awk
+* Pascal::                      Pascal - Free Pascal Compiler
+* wxWindows::                   wxWindows library
+* Perl::                        Perl
+* PHP::                         PHP Hypertext Preprocessor
+* Pike::                        Pike
+
+Internationalizable Data
+
+* POT::                         POT - Portable Object Template
+* RST::                         Resource String Table
 
 Concluding Remarks
 
@@ -4769,7 +4802,7 @@ I sent a proposal for a fast and flexible format, but it is not
 receiving acceptance yet by the GNU deciders.  I'll tell you when I
 have more information about this.
 
-@node Maintainers, Conclusion, Translators, Top
+@node Maintainers, Programming Languages, Translators, Top
 @chapter The Maintainer's View
 
 The maintainer of a package has many responsibilities.  One of them
@@ -5372,7 +5405,1028 @@ dist: Makefile $(DISTFILES)
 
 @end enumerate
 
-@node Conclusion, Language Codes, Maintainers, Top
+@node Programming Languages, Conclusion, Maintainers, Top
+@chapter Other Programming Languages
+
+While the presentation of @code{gettext} focuses mostly on C and
+implicitly applies to C++ as well, its scope is far broader than that:
+Many programming languages, scripting languages and other textual data
+like GUI resources or package descriptions can make use of the gettext
+approach.
+
+@menu
+* Language Implementors::       
+* Programmers for other Languages::  
+* Translators for other Languages::  
+* List of Programming Languages::  
+* List of Data Formats::        
+@end menu
+
+@node Language Implementors, Programmers for other Languages, Programming Languages, Programming Languages
+@section The Language Implementor's View
+
+All programming and scripting languages that have the notion of strings
+are eligible to supporting @code{gettext}.  Supporting @code{gettext}
+means the following:
+
+@enumerate
+@item
+You should add to the language a syntax for translatable strings.  In
+principle, a function call of @code{gettext} would do, but a shorthand
+syntax helps keeping the legibility of internationalized programs.  For
+example, in C we use the syntax @code{_("string")}, in bash we use the
+syntax @code{$"string"}, and in GNU awk we use the shorthand
+@code{_"string"}.
+
+@item
+You should arrange that evaluation of such a translatable string at
+runtime calls the @code{gettext} function, or performs equivalent
+processing.
+
+@item
+Similarly, you should make the functions @code{ngettext},
+@code{dcgettext}, @code{dcngettext} available from within the language.
+These functions are less often used, but are nevertheless necessary for
+particular purposes: @code{ngettext} for correct plural handling, and
+@code{dcgettext} and @code{dcngettext} for obeying other locale
+environment variables than @code{LC_MESSAGES}, such as @code{LC_TIME} or
+@code{LC_MONETARY}.  For these latter functions, you need to make the
+@code{LC_*} constants, available in the C header @code{<locale.h>},
+referenceable from within the language, usually either as enumeration
+values or as strings.
+
+@item
+You should allow the programmer to designate a message domain, either by
+making the @code{textdomain} function available from within the
+language, or by introducing a magic variable called @code{TEXTDOMAIN}.
+Similarly, you should allow the programmer to designate where to search
+for message catalogs, by providing access to the @code{bindtextdomain}
+function.
+
+@item
+You should either perform a @code{setlocale (LC_ALL, "")} call during
+the startup of your language runtime, or allow the programmer to do so.
+Remember that gettext will act as a no-op if the @code{LC_MESSAGES} and
+@code{LC_CTYPE} locale facets are not both set.
+
+@item
+A programmer should have a way to extract translatable strings from a
+program into a PO file.  The GNU @code{xgettext} program is being
+extended to support very different programming languages.  Please
+contact the GNU @code{gettext} maintainers to help them doing this.  If
+the string extractor is best integrated into your language's parser, GNU
+@code{xgettext} can function as a front end to your string extractor.
+
+@item
+The language's library should have a string formatting facility where
+the arguments of a format string are denoted by a positional number or a
+name.  This is needed because for some languages and some messages with
+more than one substitutable argument, the translation will need to
+output the substituted arguments in different order.  @xref{c-format}.
+
+@item
+If the language has more than one implementation, and not all of the
+implementations use @code{gettext}, but the programs should be portable
+across implementations, you should provide a no-i18n emulation, that
+makes the other implementations accept programs written for yours,
+without actually translating the strings.
+
+@item
+To help the programmer in the task of marking translatable strings,
+which is usually performed using the Emacs PO mode, you are welcome to
+contact the GNU @code{gettext} maintainers, so they can add support for
+your language to @file{po-mode.el}.
+@end enumerate
+
+On the implementation side, three approaches are possible, with
+different effects on portability and copyright:
+
+@itemize @bullet
+@item
+You may integrate the GNU @code{gettext}'s @file{intl/} directory in
+your package, as described in @ref{Maintainers}.  This allows you to
+have internationalization on all kinds of platforms.  Note that when you
+then distribute your package, it legally falls under the GNU General
+Public License, and the GNU project will be glad about your contribution
+to the Free Software pool.
+
+@item
+You may link against GNU @code{gettext} functions if they are found in
+the C library.  For example, an autoconf test for @code{gettext()} and
+@code{ngettext()} will detect this situation.  For the moment, this test
+will succeed on GNU systems and not on other platforms.  No severe
+copyright restrictions apply.
+
+@item
+You may emulate or reimplement the GNU @code{gettext} functionality.
+This has the advantage of full portability and no copyright
+restrictions, but also the drawback that you have to reimplement the GNU
+@code{gettext} features (such as the @code{LANGUAGE} environment
+variable, the locale aliases database, the automatic charset conversion,
+and plural handling).
+@end itemize
+
+@node Programmers for other Languages, Translators for other Languages, Language Implementors, Programming Languages
+@section The Programmer's View
+
+For the programmer, the general procedure is the same as for the C
+language.  The Emacs PO mode supports other languages, and the GNU
+@code{xgettext} string extractor recognizes other languages based on the
+file extension or a command-line option.  In some languages,
+@code{setlocale} is not needed because it is already performed by the
+underlying language runtime.
+
+@node Translators for other Languages, List of Programming Languages, Programmers for other Languages, Programming Languages
+@section The Translator's View
+
+The translator works exactly as in the C language case.  The only
+difference is that when translating format strings, she has to be aware
+of the language's particular syntax for positional arguments in format
+strings.
+
+@node List of Programming Languages, List of Data Formats, Translators for other Languages, Programming Languages
+@section Individual Programming Languages
+
+@menu
+* C::                           C, C++, Objective C
+* sh::                          sh - Shell Script
+* bash::                        bash - Bourne-Again Shell Script
+* Python::                      Python
+* Common Lisp::                 GNU clisp - Common Lisp
+* clisp C::                     GNU clisp C sources
+* Emacs Lisp::                  Emacs Lisp
+* librep::                      librep
+* Smalltalk::                   GNU Smalltalk
+* Java::                        Java
+* gawk::                        GNU awk
+* Pascal::                      Pascal - Free Pascal Compiler
+* wxWindows::                   wxWindows library
+* Perl::                        Perl
+* PHP::                         PHP Hypertext Preprocessor
+* Pike::                        Pike
+@end menu
+
+@node C, sh, List of Programming Languages, List of Programming Languages
+@subsection C, C++, Objective C
+
+@table @asis
+@item RPMs
+gcc, gpp, gobjc, glibc, gettext
+
+@item File extension
+For C: @code{c}, @code{h}.
+@*For C++: @code{C}, @code{c++}, @code{cc}, @code{cxx}, @code{cpp}, @code{hpp}.
+@*For Objective C: @code{m}.
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{_("abc")}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{dgettext}, @code{dcgettext}, @code{ngettext},
+@code{dngettext}, @code{dcngettext}
+
+@item textdomain
+@code{textdomain} function
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+Programmer must call @code{setlocale (LC_ALL, "")}
+
+@item Prerequisite
+@code{#include <libintl.h>}
+@*@code{#include <locale.h>}
+@*@code{#define _(string) gettext (string)}
+
+@item Use or emulate GNU gettext
+Use
+
+@item Extractor
+@code{xgettext -k_}
+
+@item Formatting with positions
+@code{fprintf "%2$d %1$d"} (POSIX but not C 99)
+
+@item Portability
+autoconf (gettext.m4) and #if ENABLE_NLS
+
+@item po-mode marking
+yes
+@end table
+
+@node sh, bash, C, List of Programming Languages
+@subsection sh - Shell Script
+
+@table @asis
+@item RPMs
+bash, gettext
+
+@item File extension
+@code{sh}
+
+@item String syntax
+@code{"abc"}, @code{'abc'}, @code{abc}
+
+@item gettext shorthand
+@code{"`gettext "abc"`"}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{ngettext} programs
+
+@item textdomain
+environment variable @code{TEXTDOMAIN}
+
+@item bindtextdomain
+environment variable @code{TEXTDOMAINDIR}
+
+@item setlocale
+automatic
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+---
+
+@item Formatting with positions
+---
+
+@item Portability
+---
+
+@item po-mode marking
+---
+@end table
+
+@node bash, Python, sh, List of Programming Languages
+@subsection bash - Bourne-Again Shell Script
+
+@table @asis
+@item RPMs
+bash 2.0 or newer, gettext
+
+@item File extension
+@code{sh}
+
+@item String syntax
+@code{"abc"}, @code{'abc'}, @code{abc}
+
+@item gettext shorthand
+@code{$"abc"}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{ngettext} programs
+
+@item textdomain
+environment variable @code{TEXTDOMAIN}
+
+@item bindtextdomain
+environment variable @code{TEXTDOMAINDIR}
+
+@item setlocale
+automatic
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{bash --dump-po-strings}
+
+@item Formatting with positions
+---
+
+@item Portability
+---
+
+@item po-mode marking
+---
+@end table
+
+@node Python, Common Lisp, bash, List of Programming Languages
+@subsection Python
+
+@table @asis
+@item RPMs
+python
+
+@item File extension
+@code{py}
+
+@item String syntax
+@code{'abc'}, @code{u'abc'}, @code{r'abc'}, @code{ur'abc'},
+@*@code{"abc"}, @code{u"abc"}, @code{r"abc"}, @code{ur"abc"},
+@*@code{'''abc'''}, @code{u'''abc'''}, @code{r'''abc'''}, @code{ur'''abc'''},
+@*@code{"""abc"""}, @code{u"""abc"""}, @code{r"""abc"""}, @code{ur"""abc"""}
+
+@item gettext shorthand
+@code{_('abc')} etc.
+
+@item gettext/ngettext functions
+@code{gettext.gettext}, @code{gettext.dgettext}, also @code{ugettext}
+
+@item textdomain
+@code{gettext.textdomain} function, or
+@code{gettext.install(@var{domain})} function
+
+@item bindtextdomain
+@code{gettext.bindtextdomain} function, or
+@code{gettext.install(@var{domain},@var{localedir})} function
+
+@item setlocale
+not used by the gettext emulation
+
+@item Prerequisite
+@code{import gettext}
+
+@item Use or emulate GNU gettext
+emulate. Bug: uses only the first found .mo file, not all of them
+
+@item Extractor
+pygettext.py
+
+@item Formatting with positions
+@code{'...%(ident)d...' % @{ 'ident': value @}}
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+@node Common Lisp, clisp C, Python, List of Programming Languages
+@subsection GNU clisp - Common Lisp
+
+@table @asis
+@item RPMs
+clisp
+
+@item File extension
+@code{lisp}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{(ENGLISH "abc")}
+
+@item gettext/ngettext functions
+---
+
+@item textdomain
+---
+
+@item bindtextdomain
+---
+
+@item setlocale
+automatic
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{clisp-xgettext}
+
+@item Formatting with positions
+@code{format "~1@@*~D ~0@@*~D"}
+
+@item Portability
+On platforms without gettext, no translation.
+
+@item po-mode marking
+---
+@end table
+
+@node clisp C, Emacs Lisp, Common Lisp, List of Programming Languages
+@subsection GNU clisp C sources
+
+@table @asis
+@item RPMs
+clisp
+
+@item File extension
+@code{d}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{ENGLISH ? "abc" : ""}
+@*@code{GETTEXT("abc")}
+@*@code{GETTEXTL("abc")}
+
+@item gettext/ngettext functions
+@code{clgettext}, @code{clgettextl}
+
+@item textdomain
+---
+
+@item bindtextdomain
+---
+
+@item setlocale
+automatic
+
+@item Prerequisite
+@code{#include "lispbibl.c"}
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{clisp-xgettext}
+
+@item Formatting with positions
+@code{fprintf "%2$d %1$d"} (POSIX but not C 99)
+
+@item Portability
+On platforms without gettext, no translation.
+
+@item po-mode marking
+---
+@end table
+
+@node Emacs Lisp, librep, clisp C, List of Programming Languages
+@subsection Emacs Lisp
+
+@table @asis
+@item RPMs
+emacs, xemacs
+
+@item File extension
+@code{el}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{(_"abc")}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{dgettext} (xemacs only)
+
+@item textdomain
+@code{domain} special form (xemacs only)
+
+@item bindtextdomain
+@code{bind-text-domain} function (xemacs only)
+
+@item setlocale
+automatic
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+xpot
+
+@item Formatting with positions
+@code{format "%2$d %1$d"}
+
+@item Portability
+Only XEmacs. Without @code{I18N3} defined at build time, no translation.
+
+@item po-mode marking
+---
+@end table
+
+@node librep, Smalltalk, Emacs Lisp, List of Programming Languages
+@subsection librep
+
+@table @asis
+@item RPMs
+librep
+
+@item File extension
+@code{jl}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{(_"abc")}
+
+@item gettext/ngettext functions
+@code{gettext}
+
+@item textdomain
+@code{textdomain} function
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+---
+
+@item Prerequisite
+@code{(require 'rep.i18n.gettext)}
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{rep-xgettext}
+
+@item Formatting with positions
+@code{format "%2$d %1$d"}
+
+@item Portability
+On platforms without gettext, no translation.
+
+@item po-mode marking
+---
+@end table
+
+@node Smalltalk, Java, librep, List of Programming Languages
+@subsection GNU Smalltalk
+
+@table @asis
+@item RPMs
+smalltalk
+
+@item File extension
+@code{st}
+
+@item String syntax
+@code{''abc''}
+
+@item gettext shorthand
+@code{NLS? ''abc''}
+@*@code{self? ''abc''}
+
+@item gettext/ngettext functions
+?
+
+@item textdomain
+?
+
+@item bindtextdomain
+?
+
+@item setlocale
+?
+
+@item Prerequisite
+?
+
+@item Use or emulate GNU gettext
+emulate
+
+@item Extractor
+---
+
+@item Formatting with positions
+?
+
+@item Portability
+fully portable, but locale handling relies on glibc-2.1 locale format
+
+@item po-mode marking
+---
+@end table
+
+@node Java, gawk, Smalltalk, List of Programming Languages
+@subsection Java
+
+@table @asis
+@item RPMs
+java, java2
+
+@item File extension
+@code{java}
+
+@item String syntax
+"abc"
+
+@item gettext shorthand
+---
+
+@item gettext/ngettext functions
+---
+
+@item textdomain
+---
+
+@item bindtextdomain
+---
+
+@item setlocale
+automatic
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+emulate
+
+@item Extractor
+---
+
+@item Formatting with positions
+@code{MessageFormat.format "@{1,number@} @{0,number@}"}
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+@node gawk, Pascal, Java, List of Programming Languages
+@subsection GNU awk
+
+@table @asis
+@item RPMs
+gawk 3.1 or newer
+
+@item File extension
+@code{awk}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{_"abc"}
+
+@item gettext/ngettext functions
+@code{dcgettext}
+
+@item textdomain
+@code{TEXTDOMAIN} variable
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+automatic, but missing @code{setlocale (LC_MESSAGES, "")} in gawk-3.1.0
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{gawk --gen-po}
+
+@item Formatting with positions
+@code{printf "%2$d %1$d"} (GNU awk only)
+
+@item Portability
+On platforms without gettext, no translation.  On non-GNU awks, you must
+define @code{dcgettext} and @code{bindtextdomain} yourself.
+
+@item po-mode marking
+---
+@end table
+
+@node Pascal, wxWindows, gawk, List of Programming Languages
+@subsection Pascal - Free Pascal Compiler
+
+@table @asis
+@item RPMs
+fpk
+
+@item File extension
+@code{pp}
+
+@item String syntax
+@code{'abc'}
+
+@item gettext shorthand
+automatic
+
+@item gettext/ngettext functions
+---, use @code{ResourceString} data type instead
+
+@item textdomain
+---, use @code{TranslateResourcestrings} function instead
+
+@item bindtextdomain
+---, use @code{TranslateResourcestrings} function instead
+
+@item setlocale
+automatic, but uses only LANG, not LC_MESSAGES or LC_ALL
+
+@item Prerequisite
+@code{uses gettext;}
+
+@item Use or emulate GNU gettext
+emulate partially
+
+@item Extractor
+?
+
+@item Formatting with positions
+?
+
+@item Portability
+?
+
+@item po-mode marking
+---
+@end table
+
+@node wxWindows, Perl, Pascal, List of Programming Languages
+@subsection wxWindows library
+
+@table @asis
+@item RPMs
+wxGTK, gettext
+
+@item File extension
+@code{cpp}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{_("abc")}
+
+@item gettext/ngettext functions
+@code{wxLocale::GetString}, @code{wxGetTranslation}
+
+@item textdomain
+@code{wxLocale::AddCatalog}
+
+@item bindtextdomain
+@code{wxLocale::AddCatalogLookupPathPrefix}
+
+@item setlocale
+@code{wxLocale::Init}, @code{wxSetLocale}
+
+@item Prerequisite
+@code{#include <wx/intl.h>}
+
+@item Use or emulate GNU gettext
+emulate, see @code{include/wx/intl.h} and @code{src/common/intl.cpp}
+
+@item Extractor
+xgettext
+
+@item Formatting with positions
+---
+
+@item Portability
+fully portable
+
+@item po-mode marking
+yes
+@end table
+
+@node Perl, PHP, wxWindows, List of Programming Languages
+@subsection Perl
+
+@table @asis
+@item RPMs
+perl, perl-gettext
+
+@item File extension
+@code{pl}, @code{PL}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+---
+
+@item gettext/ngettext functions
+@code{gettext}, @code{dgettext}, @code{dcgettext}
+
+@item textdomain
+@code{textdomain} function
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+Use @code{setlocale (LC_ALL, "");}
+
+@item Prerequisite
+@code{use POSIX;}
+@*@code{use Locale::gettext;}
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+?
+
+@item Formatting with positions
+---
+
+@item Portability
+?
+
+@item po-mode marking
+---
+@end table
+
+@node PHP, Pike, Perl, List of Programming Languages
+@subsection PHP Hypertext Preprocessor
+
+@table @asis
+@item RPMs
+mod_php4, phplib, phpdoc
+
+@item File extension
+@code{php}, @code{php3}, @code{php4}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{_("abc")}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{dgettext}, @code{dcgettext}
+
+@item textdomain
+@code{textdomain} function
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+@code{setlocale} function
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+---
+
+@item Formatting with positions
+---
+
+@item Portability
+On platforms without gettext, the functions are not available.
+
+@item po-mode marking
+---
+@end table
+
+@node Pike,  , PHP, List of Programming Languages
+@subsection Pike
+
+@table @asis
+@item RPMs
+roxen
+
+@item File extension
+@code{pike}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+---
+
+@item gettext/ngettext functions
+@code{gettext}, @code{dgettext}, @code{dcgettext}
+
+@item textdomain
+@code{textdomain} function
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+@code{setlocale} function
+
+@item Prerequisite
+@code{import Locale.Gettext;}
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+---
+
+@item Formatting with positions
+---
+
+@item Portability
+On platforms without gettext, the functions are not available.
+
+@item po-mode marking
+---
+@end table
+
+@c This is the template for new languages.
+@ignore
+
+@ node
+@ subsection 
+
+@table @asis
+@item RPMs
+
+@item File extension
+
+@item String syntax
+
+@item gettext shorthand
+
+@item gettext/ngettext functions
+
+@item textdomain
+
+@item bindtextdomain
+
+@item setlocale
+
+@item Prerequisite
+
+@item Use or emulate GNU gettext
+
+@item Extractor
+
+@item Formatting with positions
+
+@item Portability
+
+@item po-mode marking
+@end table
+
+@end ignore
+
+@node List of Data Formats,  , List of Programming Languages, Programming Languages
+@section Internationalizable Data
+
+Here is a list of other data formats which can be internationalized
+using GNU gettext.
+
+@menu
+* POT::                         POT - Portable Object Template
+* RST::                         Resource String Table
+@end menu
+
+@node POT, RST, List of Data Formats, List of Data Formats
+@subsection POT - Portable Object Template
+
+@table @asis
+@item RPMs
+gettext
+
+@item File extension
+@code{pot}, @code{po}, @code{pox}
+
+@item Extractor
+@code{xgettext}
+@end table
+
+@node RST,  , POT, List of Data Formats
+@subsection Resource String Table
+
+@table @asis
+@item RPMs
+fpk
+
+@item File extension
+@code{rst}
+
+@item Extractor
+@code{rstconv}
+@end table
+
+@c This is the template for new data formats.
+@ignore
+
+@ node
+@ subsection 
+
+@table @asis
+@item RPMs
+
+@item File extension
+
+@item Extractor
+@end table
+
+@end ignore
+
+@node Conclusion, Language Codes, Programming Languages, Top
 @chapter Concluding Remarks
 
 We would like to conclude this GNU @code{gettext} manual by presenting
