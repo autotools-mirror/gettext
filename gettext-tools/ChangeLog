@@ -1,3 +1,7 @@
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke AM_STDBOOL_H instead of gt_STDBOOL_H.
+
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gl_FUNC_READLINK.

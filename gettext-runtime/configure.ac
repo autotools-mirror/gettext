@@ -66,7 +66,7 @@ dnl Checks for libraries.
 
 dnl Checks for header files.
 AC_CHECK_HEADERS(string.h)
-gt_STDBOOL_H
+AM_STDBOOL_H
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
