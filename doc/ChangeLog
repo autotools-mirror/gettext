@@ -1,3 +1,8 @@
+2001-05-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Plural forms): Remove remark about continuation lines.
+	Add information about Croatian, Portuguese, Latvian, Korean.
+
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.38 released.
