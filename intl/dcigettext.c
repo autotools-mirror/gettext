@@ -243,6 +243,7 @@ static void *root;
 # endif
 
 /* Function to compare two entries in the table of known translations.  */
+static int transcmp PARAMS ((const void *p1, const void *p2));
 static int
 transcmp (p1, p2)
      const void *p1;
@@ -685,14 +686,15 @@ _nl_find_msg (domain_file, msgid, lengthp)
       nls_uint32 hash_val = hash_string (msgid);
       nls_uint32 idx = hash_val % domain->hash_size;
       nls_uint32 incr = 1 + (hash_val % (domain->hash_size - 2));
-      nls_uint32 nstr = W (domain->must_swap, domain->hash_tab[idx]);
-
-      if (nstr == 0)
-	/* Hash table entry is empty.  */
-	return NULL;
 
       while (1)
 	{
+	  nls_uint32 nstr = W (domain->must_swap, domain->hash_tab[idx]);
+
+	  if (nstr == 0)
+	    /* Hash table entry is empty.  */
+	    return NULL;
+
 	  /* Compare msgid with the original string at index nstr-1.
 	     We compare the lengths with >=, not ==, because plural entries
 	     are represented by strings with an embedded NUL.  */
@@ -710,11 +712,6 @@ _nl_find_msg (domain_file, msgid, lengthp)
 	    idx -= domain->hash_size - incr;
 	  else
 	    idx += incr;
-
-	  nstr = W (domain->must_swap, domain->hash_tab[idx]);
-	  if (nstr == 0)
-	    /* Hash table entry is empty.  */
-	    return NULL;
 	}
       /* NOTREACHED */
     }
@@ -988,57 +985,74 @@ plural_eval (pexp, n)
      struct expression *pexp;
      unsigned long int n;
 {
-  switch (pexp->operation)
+  switch (pexp->nargs)
     {
-    case var:
-      return n;
-    case num:
-      return pexp->val.num;
-    case lnot:
-      return ! plural_eval (pexp->val.args1.right, n);
-    case mult:
-      return (plural_eval (pexp->val.args2.left, n)
-	      * plural_eval (pexp->val.args2.right, n));
-    case divide:
-      return (plural_eval (pexp->val.args2.left, n)
-	      / plural_eval (pexp->val.args2.right, n));
-    case module:
-      return (plural_eval (pexp->val.args2.left, n)
-	      % plural_eval (pexp->val.args2.right, n));
-    case plus:
-      return (plural_eval (pexp->val.args2.left, n)
-	      + plural_eval (pexp->val.args2.right, n));
-    case minus:
-      return (plural_eval (pexp->val.args2.left, n)
-	      - plural_eval (pexp->val.args2.right, n));
-    case less_than:
-      return (plural_eval (pexp->val.args2.left, n)
-	      < plural_eval (pexp->val.args2.right, n));
-    case greater_than:
-      return (plural_eval (pexp->val.args2.left, n)
-	      > plural_eval (pexp->val.args2.right, n));
-    case less_or_equal:
-      return (plural_eval (pexp->val.args2.left, n)
-	      <= plural_eval (pexp->val.args2.right, n));
-    case greater_or_equal:
-      return (plural_eval (pexp->val.args2.left, n)
-	      >= plural_eval (pexp->val.args2.right, n));
-    case equal:
-      return (plural_eval (pexp->val.args2.left, n)
-	      == plural_eval (pexp->val.args2.right, n));
-    case not_equal:
-      return (plural_eval (pexp->val.args2.left, n)
-	      != plural_eval (pexp->val.args2.right, n));
-    case land:
-      return (plural_eval (pexp->val.args2.left, n)
-	      && plural_eval (pexp->val.args2.right, n));
-    case lor:
-      return (plural_eval (pexp->val.args2.left, n)
-	      || plural_eval (pexp->val.args2.right, n));
-    case qmop:
-      return (plural_eval (pexp->val.args3.bexp, n)
-	      ? plural_eval (pexp->val.args3.tbranch, n)
-	      : plural_eval (pexp->val.args3.fbranch, n));
+    case 0:
+      switch (pexp->operation)
+	{
+	case var:
+	  return n;
+	case num:
+	  return pexp->val.num;
+	default:
+	  break;
+	}
+      /* NOTREACHED */
+      break;
+    case 1:
+      {
+	/* pexp->operation must be lnot.  */
+	unsigned long int arg = plural_eval (pexp->val.args[0], n);
+	return ! arg;
+      }
+    case 2:
+      {
+	unsigned long int leftarg = plural_eval (pexp->val.args[0], n);
+	if (pexp->operation == lor)
+	  return leftarg || plural_eval (pexp->val.args[1], n);
+	else if (pexp->operation == land)
+	  return leftarg && plural_eval (pexp->val.args[1], n);
+	else
+	  {
+	    unsigned long int rightarg = plural_eval (pexp->val.args[1], n);
+
+	    switch (pexp->operation)
+	      {
+	      case mult:
+		return leftarg * rightarg;
+	      case divide:
+		return leftarg / rightarg;
+	      case module:
+		return leftarg % rightarg;
+	      case plus:
+		return leftarg + rightarg;
+	      case minus:
+		return leftarg - rightarg;
+	      case less_than:
+		return leftarg < rightarg;
+	      case greater_than:
+		return leftarg > rightarg;
+	      case less_or_equal:
+		return leftarg <= rightarg;
+	      case greater_or_equal:
+		return leftarg >= rightarg;
+	      case equal:
+		return leftarg == rightarg;
+	      case not_equal:
+		return leftarg != rightarg;
+	      default:
+		break;
+	      }
+	  }
+	/* NOTREACHED */
+	break;
+      }
+    case 3:
+      {
+	/* pexp->operation must be qmop.  */
+	unsigned long int boolarg = plural_eval (pexp->val.args[0], n);
+	return plural_eval (pexp->val.args[boolarg ? 1 : 2], n);
+      }
     }
   /* NOTREACHED */
   return 0;

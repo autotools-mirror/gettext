@@ -138,10 +138,12 @@ int _nl_msg_cat_cntr;
    form determination.  It represents the expression  "n != 1".  */
 static const struct expression plvar =
 {
+  .nargs = 0,
   .operation = var,
 };
 static const struct expression plone =
 {
+  .nargs = 0,
   .operation = num,
   .val =
   {
@@ -150,13 +152,14 @@ static const struct expression plone =
 };
 static struct expression germanic_plural =
 {
+  .nargs = 2,
   .operation = not_equal,
   .val =
   {
-    .args2 =
+    .args =
     {
-      .left = (struct expression *) &plvar,
-      .right = (struct expression *) &plone
+      [0] = (struct expression *) &plvar,
+      [1] = (struct expression *) &plone
     }
   }
 };
@@ -177,14 +180,17 @@ init_germanic_plural ()
 {
   if (plone.val.num == 0)
     {
+      plvar.nargs = 0;
       plvar.operation = var;
 
+      plone.nargs = 0;
       plone.operation = num;
       plone.val.num = 1;
 
+      germanic_plural.nargs = 2;
       germanic_plural.operation = not_equal;
-      germanic_plural.val.args2.left = &plvar;
-      germanic_plural.val.args2.right = &plone;
+      germanic_plural.val.args[0] = &plvar;
+      germanic_plural.val.args[1] = &plone;
     }
 }
 
@@ -441,7 +447,7 @@ _nl_load_domain (domain_file)
 	  nplurals += 9;
 	  while (*nplurals != '\0' && isspace (*nplurals))
 	    ++nplurals;
-#ifdef HAVE_STRTOUL
+#if defined HAVE_STRTOUL || defined _LIBC
 	  n = strtoul (nplurals, &endp, 10);
 #else
 	  for (endp = nplurals, n = 0; *endp >= '0' && *endp <= '9'; endp++)

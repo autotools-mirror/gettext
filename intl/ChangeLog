@@ -1,16 +1,30 @@
-2001-03-16  Bruno Haible  <haible@clisp.cons.org>
+2001-03-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextP.h (struct expression): Add operators lnot, less_than,
-	greater_than, less_or_equal, greater_or_equal. Add args1 to union.
-	* plural.y ('?' ':'): Make right-associative.
-	('<', '>', LE, GE, '!'): New operators.
-	(EQ): Renamed from '='.
-	(NE): Renamed from '!'.
-	(exp): Add rules with these operators.
+	greater_than, less_or_equal, greater_or_equal. Replace args2/args3
+	union by a 'nargs' counter and an 'args[]' array.
+	* plural.y: Don't include stdarg.h.
+	(new_exp): New function.
+	(new_exp_0, new_exp_2, new_exp_3): Rewritten to call new_exp.
 	(new_exp_1): New function.
-	(FREE_EXPRESSION): Recognize these operators.
-	(yylex): Don't skip "\\n". Recognize '<', '>', LE, GE, '!' operators.
-	* dcigettext.c (plural_eval): Recognize these operators.
+	('?' ':'): Make right-associative.
+	(EQUOP2): New token, replaces '=' and '!'.
+	(CMPOP2): New token.
+	(ADDOP2): New token, replaces '+' and '-'.
+	(MULOP2): New token, replaces '*', '/' and '%'.
+	('!'): New token.
+	(exp): Add rules for CMPOP2 and '!'. Don't call YYABORT.
+	(start): Call YYABORT here.
+	(FREE_EXPRESSION): Update.
+	(yylex): Don't skip "\\n". Recognize comparison and '!' operators.
+	Update for new token symbols.
+	* loadmsgcat.c (plvar, plone, germanic_plural, init_germanic_plural):
+	Update.
+	* dcigettext.c (_nl_find_msg): Optimize for space.
+	(plural_eval): Recognize comparison and '!' operators. Optimize for
+	space.
+
+	* dcigettext.c (transcmp): New declaration.
 
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 

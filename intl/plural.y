@@ -43,175 +43,77 @@
 
 %union {
   unsigned long int num;
+  enum operator op;
   struct expression *exp;
 }
 
 %{
 /* Prototypes for local functions.  */
-static struct expression *new_exp_0 PARAMS ((enum operator op));
-static struct expression *new_exp_1 PARAMS ((enum operator op,
-					     struct expression *right));
+static struct expression *new_exp PARAMS ((int nargs, enum operator op,
+					   struct expression * const *args));
+static inline struct expression *new_exp_0 PARAMS ((enum operator op));
+static inline struct expression *new_exp_1 PARAMS ((enum operator op,
+						   struct expression *right));
 static struct expression *new_exp_2 PARAMS ((enum operator op,
 					     struct expression *left,
 					     struct expression *right));
-static struct expression *new_exp_3 PARAMS ((enum operator op,
-					     struct expression *bexp,
-					     struct expression *tbranch,
-					     struct expression *fbranch));
+static inline struct expression *new_exp_3 PARAMS ((enum operator op,
+						   struct expression *bexp,
+						   struct expression *tbranch,
+						   struct expression *fbranch));
 static int yylex PARAMS ((YYSTYPE *lval, const char **pexp));
 static void yyerror PARAMS ((const char *str));
-%}
 
-/* This declares that all operators have the same associativity and the
-   precedence order as in C.  See [Harbison, Steele: C, A Reference Manual].
-   There is no unary minus and no bitwise operators.  */
-%right '?'			/*   ?		*/
-%left '|'			/*   ||		*/
-%left '&'			/*   &&		*/
-%left EQ, NE			/*   == !=	*/
-%left '<', '>', LE, GE		/*   < > <= >=	*/
-%left '+', '-'			/*   + -	*/
-%left '*', '/', '%'		/*   * / %	*/
-%right '!'			/*   !		*/
-
-%token <num> NUMBER
-%type <exp> exp
-
-%%
-
-start:	  exp
-	  {
-	    ((struct parse_args *) arg)->res = $1;
-	  }
-	;
-
-exp:	  exp '?' exp ':' exp
-	  {
-	    if (($$ = new_exp_3 (qmop, $1, $3, $5)) == NULL)
-	      YYABORT
-	  }
-	| exp '|' exp
-	  {
-	    if (($$ = new_exp_2 (lor, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '&' exp
-	  {
-	    if (($$ = new_exp_2 (land, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp EQ exp
-	  {
-	    if (($$ = new_exp_2 (equal, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp NE exp
-	  {
-	    if (($$ = new_exp_2 (not_equal, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '<' exp
-	  {
-	    if (($$ = new_exp_2 (less_than, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '>' exp
-	  {
-	    if (($$ = new_exp_2 (greater_than, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp LE exp
-	  {
-	    if (($$ = new_exp_2 (less_or_equal, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp GE exp
-	  {
-	    if (($$ = new_exp_2 (greater_or_equal, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '+' exp
-	  {
-	    if (($$ = new_exp_2 (plus, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '-' exp
-	  {
-	    if (($$ = new_exp_2 (minus, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '*' exp
-	  {
-	    if (($$ = new_exp_2 (mult, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '/' exp
-	  {
-	    if (($$ = new_exp_2 (divide, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| exp '%' exp
-	  {
-	    if (($$ = new_exp_2 (module, $1, $3)) == NULL)
-	      YYABORT
-	  }
-	| '!' exp
-	  {
-	    if (($$ = new_exp_1 (lnot, $2)) == NULL)
-	      YYABORT
-	  }
-	| 'n'
-	  {
-	    if (($$ = new_exp_0 (var)) == NULL)
-	      YYABORT
-	  }
-	| NUMBER
-	  {
-	    if (($$ = new_exp_0 (num)) == NULL)
-	      YYABORT;
-	    $$->val.num = $1
-	  }
-	| '(' exp ')'
-	  {
-	    $$ = $2
-	  }
-	;
-
-%%
+/* Allocation of expressions.  */
 
 static struct expression *
+new_exp (nargs, op, args)
+     int nargs;
+     enum operator op;
+     struct expression * const *args;
+{
+  int i;
+  struct expression *newp;
+
+  /* If any of the argument could not be malloc'ed, just return NULL.  */
+  for (i = nargs - 1; i >= 0; i--)
+    if (args[i] == NULL)
+      goto fail;
+
+  /* Allocate a new expression.  */
+  newp = (struct expression *) malloc (sizeof (*newp));
+  if (newp != NULL)
+    {
+      newp->nargs = nargs;
+      newp->operation = op;
+      for (i = nargs - 1; i >= 0; i--)
+	newp->val.args[i] = args[i];
+      return newp;
+    }
+
+ fail:
+  for (i = nargs - 1; i >= 0; i--)
+    FREE_EXPRESSION (args[i]);
+
+  return NULL;
+}
+
+static inline struct expression *
 new_exp_0 (op)
      enum operator op;
 {
-  struct expression *newp = (struct expression *) malloc (sizeof (*newp));
-
-  if (newp != NULL)
-    newp->operation = op;
-
-  return newp;
+  return new_exp (0, op, NULL);
 }
 
-static struct expression *
+static inline struct expression *
 new_exp_1 (op, right)
      enum operator op;
      struct expression *right;
 {
-  struct expression *newp = NULL;
+  struct expression *args[1];
 
-  if (right != NULL)
-    newp = (struct expression *) malloc (sizeof (*newp));
-
-  if (newp != NULL)
-    {
-      newp->operation = op;
-      newp->val.args1.right = right;
-    }
-  else
-    {
-      FREE_EXPRESSION (right);
-    }
-
-  return newp;
+  args[0] = right;
+  return new_exp (1, op, args);
 }
 
 static struct expression *
@@ -220,54 +122,106 @@ new_exp_2 (op, left, right)
      struct expression *left;
      struct expression *right;
 {
-  struct expression *newp = NULL;
+  struct expression *args[2];
 
-  if (left != NULL && right != NULL)
-    newp = (struct expression *) malloc (sizeof (*newp));
-
-  if (newp != NULL)
-    {
-      newp->operation = op;
-      newp->val.args2.left = left;
-      newp->val.args2.right = right;
-    }
-  else
-    {
-      FREE_EXPRESSION (left);
-      FREE_EXPRESSION (right);
-    }
-
-  return newp;
+  args[0] = left;
+  args[1] = right;
+  return new_exp (2, op, args);
 }
 
-static struct expression *
+static inline struct expression *
 new_exp_3 (op, bexp, tbranch, fbranch)
      enum operator op;
      struct expression *bexp;
      struct expression *tbranch;
      struct expression *fbranch;
 {
-  struct expression *newp = NULL;
+  struct expression *args[3];
 
-  if (bexp != NULL && tbranch != NULL && fbranch != NULL)
-    newp = (struct expression *) malloc (sizeof (*newp));
-
-  if (newp != NULL)
-    {
-      newp->operation = op;
-      newp->val.args3.bexp = bexp;
-      newp->val.args3.tbranch = tbranch;
-      newp->val.args3.fbranch = fbranch;
-    }
-  else
-    {
-      FREE_EXPRESSION (bexp);
-      FREE_EXPRESSION (tbranch);
-      FREE_EXPRESSION (fbranch);
-    }
-
-  return newp;
+  args[0] = bexp;
+  args[1] = tbranch;
+  args[2] = fbranch;
+  return new_exp (3, op, args);
 }
+
+%}
+
+/* This declares that all operators have the same associativity and the
+   precedence order as in C.  See [Harbison, Steele: C, A Reference Manual].
+   There is no unary minus and no bitwise operators.
+   Operators with the same syntactic behaviour have been merged into a single
+   token, to save space in the array generated by bison.  */
+%right '?'		/*   ?		*/
+%left '|'		/*   ||		*/
+%left '&'		/*   &&		*/
+%left EQUOP2		/*   == !=	*/
+%left CMPOP2		/*   < > <= >=	*/
+%left ADDOP2		/*   + -	*/
+%left MULOP2		/*   * / %	*/
+%right '!'		/*   !		*/
+
+%token <op> EQUOP2 CMPOP2 ADDOP2 MULOP2
+%token <num> NUMBER
+%type <exp> exp
+
+%%
+
+start:	  exp
+	  {
+	    if ($1 == NULL)
+	      YYABORT;
+	    ((struct parse_args *) arg)->res = $1;
+	  }
+	;
+
+exp:	  exp '?' exp ':' exp
+	  {
+	    $$ = new_exp_3 (qmop, $1, $3, $5);
+	  }
+	| exp '|' exp
+	  {
+	    $$ = new_exp_2 (lor, $1, $3);
+	  }
+	| exp '&' exp
+	  {
+	    $$ = new_exp_2 (land, $1, $3);
+	  }
+	| exp EQUOP2 exp
+	  {
+	    $$ = new_exp_2 ($2, $1, $3);
+	  }
+	| exp CMPOP2 exp
+	  {
+	    $$ = new_exp_2 ($2, $1, $3);
+	  }
+	| exp ADDOP2 exp
+	  {
+	    $$ = new_exp_2 ($2, $1, $3);
+	  }
+	| exp MULOP2 exp
+	  {
+	    $$ = new_exp_2 ($2, $1, $3);
+	  }
+	| '!' exp
+	  {
+	    $$ = new_exp_1 (lnot, $2);
+	  }
+	| 'n'
+	  {
+	    $$ = new_exp_0 (var);
+	  }
+	| NUMBER
+	  {
+	    if (($$ = new_exp_0 (num)) != NULL)
+	      $$->val.num = $1;
+	  }
+	| '(' exp ')'
+	  {
+	    $$ = $2;
+	  }
+	;
+
+%%
 
 void
 internal_function
@@ -278,37 +232,17 @@ FREE_EXPRESSION (exp)
     return;
 
   /* Handle the recursive case.  */
-  switch (exp->operation)
+  switch (exp->nargs)
     {
-    case qmop:
-      FREE_EXPRESSION (exp->val.args3.fbranch);
-      /* FREE_EXPRESSION (exp->val.args3.tbranch); */
-      /* FREE_EXPRESSION (exp->val.args3.bexp); */
-      /* break; */
-      /* instead: FALLTHROUGH */
-
-    case mult:
-    case divide:
-    case module:
-    case plus:
-    case minus:
-    case less_than:
-    case greater_than:
-    case less_or_equal:
-    case greater_or_equal:
-    case equal:
-    case not_equal:
-    case land:
-    case lor:
-      FREE_EXPRESSION (exp->val.args2.right);
-      /* FREE_EXPRESSION (exp->val.args2.left); */
-      /* break; */
-      /* instead: FALLTHROUGH */
-
-    case lnot:
-      FREE_EXPRESSION (exp->val.args1.right);
-      break;
-
+    case 3:
+      FREE_EXPRESSION (exp->val.args[2]);
+      /* FALLTHROUGH */
+    case 2:
+      FREE_EXPRESSION (exp->val.args[1]);
+      /* FALLTHROUGH */
+    case 1:
+      FREE_EXPRESSION (exp->val.args[0]);
+      /* FALLTHROUGH */
     default:
       break;
     }
@@ -361,7 +295,8 @@ yylex (lval, pexp)
       if (exp[0] == '=')
 	{
 	  ++exp;
-	  result = EQ;
+	  lval->op = equal;
+	  result = EQUOP2;
 	}
       else
 	result = YYERRCODE;
@@ -371,7 +306,8 @@ yylex (lval, pexp)
       if (exp[0] == '=')
 	{
 	  ++exp;
-	  result = NE;
+	  lval->op = not_equal;
+	  result = EQUOP2;
 	}
       break;
 
@@ -387,24 +323,50 @@ yylex (lval, pexp)
       if (exp[0] == '=')
 	{
 	  ++exp;
-	  result = LE;
+	  lval->op = less_or_equal;
 	}
+      else
+	lval->op = less_than;
+      result = CMPOP2;
       break;
 
     case '>':
       if (exp[0] == '=')
 	{
 	  ++exp;
-	  result = GE;
+	  lval->op = greater_or_equal;
 	}
+      else
+	lval->op = greater_than;
+      result = CMPOP2;
+      break;
+
+    case '*':
+      lval->op = mult;
+      result = MULOP2;
+      break;
+
+    case '/':
+      lval->op = divide;
+      result = MULOP2;
+      break;
+
+    case '%':
+      lval->op = module;
+      result = MULOP2;
+      break;
+
+    case '+':
+      lval->op = plus;
+      result = ADDOP2;
+      break;
+
+    case '-':
+      lval->op = minus;
+      result = ADDOP2;
       break;
 
     case 'n':
-    case '*':
-    case '/':
-    case '%':
-    case '+':
-    case '-':
     case '?':
     case ':':
     case '(':

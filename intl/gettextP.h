@@ -75,11 +75,15 @@ SWAP (i)
    plural form.  */
 struct expression
 {
+  int nargs;			/* Number of arguments.  */
   enum operator
   {
+    /* Without arguments:  */
     var,			/* The variable "n".  */
     num,			/* Decimal number.  */
+    /* Unary operators:  */
     lnot,			/* Logical NOT.  */
+    /* Binary operators:  */
     mult,			/* Multiplication.  */
     divide,			/* Division.  */
     module,			/* Module operation.  */
@@ -89,30 +93,17 @@ struct expression
     greater_than,		/* Comparison.  */
     less_or_equal,		/* Comparison.  */
     greater_or_equal,		/* Comparison.  */
-    equal,			/* Comparison for equality.  */
-    not_equal,			/* Comparison for inequality.  */
+    equal,			/* Comparision for equality.  */
+    not_equal,			/* Comparision for inequality.  */
     land,			/* Logical AND.  */
     lor,			/* Logical OR.  */
+    /* Ternary operators:  */
     qmop			/* Question mark operator.  */
   } operation;
   union
   {
     unsigned long int num;	/* Number value for `num'.  */
-    struct
-    {
-      struct expression *right;	/* Subexpression in unary operation.  */
-    } args1;
-    struct
-    {
-      struct expression *left;	/* Left expression in binary operation.  */
-      struct expression *right;	/* Right expression in binary operation.  */
-    } args2;
-    struct
-    {
-      struct expression *bexp;	/* Boolean expression in ?: operation.  */
-      struct expression *tbranch; /* True-branch in ?: operation.  */
-      struct expression *fbranch; /* False-branch in ?: operation.  */
-    } args3;
+    struct expression *args[3];	/* Up to three arguments.  */
   } val;
 };
 
