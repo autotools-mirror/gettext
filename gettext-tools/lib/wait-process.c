@@ -143,7 +143,7 @@ static size_t slaves_allocated = SIZEOF (static_slaves);
 
 /* The cleanup action.  It gets called asynchronously.  */
 static void
-cleanup_slaves ()
+cleanup_slaves (void)
 {
   for (;;)
     {
