@@ -36,13 +36,14 @@ typedef bool execute_fn PARAMS ((const char *progname,
    If verbose, the command to be executed will be printed.
    Then the command is passed to the execute function together with the
    private_data argument.  This function returns false if OK, true on error.
-   Return false if OK, true on error.  */
+   Return false if OK, true on error.
+   If quiet, error messages will not be printed.  */
 extern bool execute_java_class PARAMS ((const char *class_name,
 					const char * const *classpaths,
 					unsigned int classpaths_count,
 					bool use_minimal_classpath,
 					const char * const *args,
-					bool verbose,
+					bool verbose, bool quiet,
 					execute_fn *executer,
 					void *private_data));
 

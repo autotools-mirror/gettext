@@ -1,5 +1,10 @@
 2001-11-24  Bruno Haible  <bruno@clisp.org>
 
+	* read-java.c (msgdomain_read_java): Update for changed
+	execute_java_class parameter list.
+
+2001-11-24  Bruno Haible  <bruno@clisp.org>
+
 	* msgexec.c (process_message): Really process each plural form once.
 
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>

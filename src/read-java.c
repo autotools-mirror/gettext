@@ -129,7 +129,7 @@ msgdomain_read_java (resource_name, locale_name)
      resource can be found.  */
   if (execute_java_class (class_name, &gettextjar, 1, false,
 			  args,
-			  verbose,
+			  verbose, false,
 			  execute_and_read_po_output, &locals))
     /* An error message should already have been provided.  */
     exit (EXIT_FAILURE);

@@ -101,7 +101,7 @@ bool
 execute_java_class (class_name,
 		    classpaths, classpaths_count, use_minimal_classpath,
 		    args,
-		    verbose,
+		    verbose, quiet,
 		    executer, private_data)
      const char *class_name;
      const char * const *classpaths;
@@ -109,6 +109,7 @@ execute_java_class (class_name,
      bool use_minimal_classpath;
      const char * const *args;
      bool verbose;
+     bool quiet;
      execute_fn *executer;
      void *private_data;
 {
@@ -399,7 +400,8 @@ execute_java_class (class_name,
   }
 #endif
 
-  error (0, 0, _("Java virtual machine not found, try installing gij or set $JAVA"));
+  if (!quiet)
+    error (0, 0, _("Java virtual machine not found, try installing gij or set $JAVA"));
   err = true;
 
  done2:
