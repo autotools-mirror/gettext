@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 23 Febuary 2005 -->
+     from gettext.texi on 8 March 2005 -->
 
 <TITLE>GNU gettext utilities - 12  The Maintainer's View</TITLE>
 </HEAD>
@@ -438,7 +438,7 @@ changes needed in each.
 <P>
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-<CODE>gettext</CODE> 0.14.2 distribution itself, or from the GNU
+<CODE>gettext</CODE> 0.14.3 distribution itself, or from the GNU
 <CODE>hello</CODE> distribution (<A HREF="http://www.franken.de/users/gnu/ke/hello">http://www.franken.de/users/gnu/ke/hello</A>
 or <A HREF="http://www.gnu.franken.de/ke/hello/">http://www.gnu.franken.de/ke/hello/</A>)  You may indeed
 refer to the source code of the GNU <CODE>gettext</CODE> and GNU <CODE>hello</CODE>
@@ -544,7 +544,7 @@ directory; they are also installed by running <CODE>gettextize</CODE>.
 </P>
 
 
-<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">12.4.3  <TT>`Makefile&acute;</TT> pieces in <TT>`po/&acute;</TT></A></H3>
+<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">12.4.3  <TT>`Makevars&acute;</TT> in <TT>`po/&acute;</TT></A></H3>
 <P>
 <A NAME="IDX1043"></A>
 
@@ -603,7 +603,7 @@ This is done by a set of lines like these:
 
 <PRE>
 PACKAGE=gettext
-VERSION=0.14.2
+VERSION=0.14.3
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
@@ -614,13 +614,13 @@ or, if you are using GNU <CODE>automake</CODE>, by a line like this:
 
 
 <PRE>
-AM_INIT_AUTOMAKE(gettext, 0.14.2)
+AM_INIT_AUTOMAKE(gettext, 0.14.3)
 </PRE>
 
 Of course, you replace <SAMP>`gettext&acute;</SAMP> with the name of your package,
-and <SAMP>`0.14.2&acute;</SAMP> by its version numbers, exactly as they
+and <SAMP>`0.14.3&acute;</SAMP> by its version numbers, exactly as they
 should appear in the packaged <CODE>tar</CODE> file name of your distribution
-(<TT>`gettext-0.14.2.tar.gz&acute;</TT>, here).
+(<TT>`gettext-0.14.3.tar.gz&acute;</TT>, here).
 
 <LI>Check for internationalization support.
 
@@ -679,7 +679,15 @@ encoding and therefore needs to identify the platform.
 </P>
 <P>
 You can obtain the newest version of <TT>`config.guess&acute;</TT> and
-<TT>`config.sub&acute;</TT> from <TT>`ftp://ftp.gnu.org/pub/gnu/config/&acute;</TT>.
+<TT>`config.sub&acute;</TT> from the CVS of the <SAMP>`config&acute;</SAMP> project at
+<TT>`http://savannah.gnu.org/&acute;</TT>. The commands to fetch them are
+
+<PRE>
+$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.guess'
+$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.sub'
+</PRE>
+
+<P>
 Less recent versions are also contained in the GNU <CODE>automake</CODE> and
 GNU <CODE>libtool</CODE> packages.
 
@@ -811,6 +819,14 @@ independently from the <TT>`intl/&acute;</TT> directory.
 The include file template that holds the C macros to be defined by
 <CODE>configure</CODE> is usually called <TT>`config.h.in&acute;</TT> and may be
 maintained either manually or automatically.
+
+</P>
+<P>
+If <CODE>gettextize</CODE> has created an <TT>`intl/&acute;</TT> directory, this file
+must be called <TT>`config.h.in&acute;</TT> and must be at the top level.  If,
+however, you have suppressed the <TT>`intl/&acute;</TT> directory by calling
+<CODE>gettextize</CODE> without <SAMP>`--intl&acute;</SAMP> option, then you can choose the
+name of this file and its location freely.
 
 </P>
 <P>
@@ -987,7 +1003,7 @@ textdomain (<VAR>PACKAGE</VAR>);
 </PRE>
 
 To make LOCALEDIR known to the program, add the following lines to
-Makefile.in:
+<TT>`Makefile.in&acute;</TT>:
 
 
 <PRE>
@@ -1043,8 +1059,78 @@ reasonable definition for it:
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
 dist: Makefile $(DISTFILES)
 	for file in $(DISTFILES); do \
-	  ln $$file $(distdir) 2&#62;/dev/null || cp -p $$file $(distdir); \
+	  ln $$file $(distdir) 2&#62;/dev/null || cp -p $$file $(distdir) || exit 1; \
 	done
+</PRE>
+
+</OL>
+
+<P>
+Note that if you are using GNU <CODE>automake</CODE>, <TT>`Makefile.in&acute;</TT> is
+automatically generated from <TT>`Makefile.am&acute;</TT>, and the first three
+changes and the last change are not necessary.  The remaining needed
+<TT>`Makefile.am&acute;</TT> modifications are the following:
+
+</P>
+
+<OL>
+<LI>
+
+To make LOCALEDIR known to the program, add the following to
+<TT>`Makefile.am&acute;</TT>:
+
+
+<PRE>
+&#60;module&#62;_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+</PRE>
+
+for each specific module or compilation unit, or
+
+
+<PRE>
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+</PRE>
+
+for all modules and compilation units together.  Furthermore, add this
+line to define <SAMP>`localedir&acute;</SAMP>:
+
+
+<PRE>
+localedir = $(datadir)/locale
+</PRE>
+
+<LI>
+
+To ensure that the final linking will use <CODE>@LIBINTL@</CODE> or
+<CODE>@LTLIBINTL@</CODE> as a library, add the following to
+<TT>`Makefile.am&acute;</TT>:
+
+
+<PRE>
+&#60;program&#62;_LDADD = @LIBINTL@
+</PRE>
+
+for each specific program, or
+
+
+<PRE>
+LDADD = @LIBINTL@
+</PRE>
+
+for all programs together.  Remember that when you use <CODE>libtool</CODE>
+to link a program, you need to use @LTLIBINTL@ instead of @LIBINTL@
+for that program.
+
+<LI>
+
+If you have an <TT>`intl/&acute;</TT> directory, whose contents is created by
+<CODE>gettextize</CODE>, then to ensure that it will be searched for
+C preprocessor include files in all circumstances, add something like
+this to <TT>`Makefile.am&acute;</TT>:
+
+
+<PRE>
+AM_CPPFLAGS = -I../intl -I$(top_srcdir)/intl
 </PRE>
 
 </OL>
@@ -1482,7 +1568,7 @@ form
 </P>
 
 <PRE>
-AM_GNU_GETTEXT_VERSION(0.14.2)
+AM_GNU_GETTEXT_VERSION(0.14.3)
 </PRE>
 
 <P>
@@ -1573,8 +1659,8 @@ Output version information and exit.
 
 <P>
 <CODE>autopoint</CODE> supports the GNU <CODE>gettext</CODE> versions from 0.10.35 to
-the current one, 0.14.2.  In order to apply <CODE>autopoint</CODE> to
-a package using a <CODE>gettext</CODE> version newer than 0.14.2, you
+the current one, 0.14.3.  In order to apply <CODE>autopoint</CODE> to
+a package using a <CODE>gettext</CODE> version newer than 0.14.3, you
 need to install this same version of GNU <CODE>gettext</CODE> at least.
 
 </P>

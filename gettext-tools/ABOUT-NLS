@@ -179,7 +179,7 @@ programming skill, here.
 ======================
 
 Languages are not equally supported in all packages.  The following
-matrix shows the current state of internationalization, as of February
+matrix shows the current state of internationalization, as of March
 2005.  The matrix shows, in regard of each package, for which languages
 PO files have been submitted to translation coordination, with a
 translation percentage of at least 50%.
@@ -314,7 +314,7 @@ translation percentage of at least 50%.
      silky              |                                  ()             |
      skencil            |                               [] ()             |
      sketch             |                               [] ()             |
-     solfege            |                               [] []             |
+     solfege            |                                  []             |
      soundtracker       |                               [] []             |
      sp                 |                                  []             |
      stardict           |                         []                      |
@@ -332,12 +332,11 @@ translation percentage of at least 50%.
      wdiff              |                      []       [] []        []   |
      wget               |                []    []       [] [] []     []   |
      xchat              |                      []          [] []     []   |
-     xfree86_xkb_xml    | []       []             []    []                |
      xkeyboard-config   |                                                 |
      xpad               |                                                 |
                         +-------------------------------------------------+
                           af am ar az be bg bs ca cs cy da de el en en_GB
-                          11  0  0  3  7  4  0 42 44  3 55 92 21  1  15
+                          10  0  0  2  7  4  0 42 43  3 53 92 21  1  15
 
                           eo es et eu fa fi fr  ga gl he hr hu id is it
                         +-----------------------------------------------+
@@ -361,7 +360,7 @@ translation percentage of at least 50%.
      cpio               |    []             []                          |
      cpplib             |    []             []                          |
      darkstat           |    []             ()  []          [] []       |
-     dialog             |    [] [] []       []  []          []       [] |
+     dialog             |    [] [] []    [] []  []          []       [] |
      diffutils          | [] []          [] []  [] [] []    [] []    [] |
      doodle             |                       []                   [] |
      e2fsprogs          |    []             []                       [] |
@@ -376,34 +375,34 @@ translation percentage of at least 50%.
      gawk               |    []             []        []                |
      gbiff              |                   []                          |
      gcal               |    []             []                          |
-     gcc                |                                               |
-     gettext-examples   |    []             []  []                      |
-     gettext-runtime    |    []          [] []  []             []       |
+     gcc                |    []                                         |
+     gettext-examples   |    []             []  []                   [] |
+     gettext-runtime    |    []          [] []  []             []    [] |
      gettext-tools      |    []             []                          |
      gimp-print         |    []             []                          |
      gip                |    []    []       []                          |
      gliv               |                   ()                          |
      glunarclock        |                []     []          []          |
      gmult              |          []       []                       [] |
-     gnubiff            |    []             []                       () |
+     gnubiff            |                   ()                       () |
      gnucash            |    []                             ()       [] |
      gnucash-glossary   |    []                                      [] |
      gnupg              | [] [] []       [] []     []          []    [] |
      gpe-aerial         |    []             []                          |
      gpe-beam           |    []             []                          |
      gpe-calendar       |    []             []              [] []       |
-     gpe-clock          |    []             []                          |
+     gpe-clock          |    []          [] []                          |
      gpe-conf           |                   []                          |
      gpe-contacts       |                   []                          |
      gpe-edit           |                   []                 []       |
      gpe-go             |    []             []                          |
      gpe-login          |    []             []              []          |
-     gpe-ownerinfo      |    []             []              [] []       |
+     gpe-ownerinfo      |    []          [] []              [] []       |
      gpe-sketchbook     |    []             []                          |
-     gpe-su             |    []             []                          |
-     gpe-taskmanager    |    []             []                          |
+     gpe-su             |    []          [] []                          |
+     gpe-taskmanager    |    []          [] []                          |
      gpe-timesheet      |    []             []  []             []       |
-     gpe-today          |    []             []  []                      |
+     gpe-today          |    []          [] []  []                      |
      gpe-todo           |    []             []                 []       |
      gphoto2            |    []          [] []              []       [] |
      gprof              |    []             []                 []       |
@@ -453,7 +452,7 @@ translation percentage of at least 50%.
      nano_1_0           |    []             []     []          []    [] |
      opcodes            |    []             []                          |
      parted             |    []             []     []                [] |
-     psmisc             |          []                                   |
+     psmisc             |          []                                [] |
      ptx                | [] [] []       [] []  [] []       [] []       |
      pwdutils           |                                               |
      python             |                                               |
@@ -469,7 +468,7 @@ translation percentage of at least 50%.
      silky              |                () []              ()       () |
      skencil            |    []             []                          |
      sketch             |    []             []                          |
-     solfege            |    []             []                       [] |
+     solfege            |                                            [] |
      soundtracker       |    []             []                       [] |
      sp                 |                   []                          |
      stardict           |                                   []          |
@@ -481,18 +480,17 @@ translation percentage of at least 50%.
      tuxpaint           |    []          [] []  []    []    [] [] [] [] |
      unicode-han-tra... |                                               |
      unicode-transla... |                   []  []                      |
-     util-linux         |    [] []       [] []              []          |
+     util-linux         |    [] []       [] []              []       [] |
      vorbis-tools       |    []             []                          |
      wastesedge         |                   ()                          |
      wdiff              |    [] []          []  [] []       [] []    [] |
      wget               |    [] [] []    [] []  [] []    [] []       [] |
      xchat              |    []    []    [] []                       [] |
-     xfree86_xkb_xml    |                   []              []          |
      xkeyboard-config   |                                               |
      xpad               |    []                 []          []          |
                         +-----------------------------------------------+
                           eo es et eu fa fi fr  ga gl he hr hu id is it
-                          14 87 22 15  2 25 119 44 18  8  6 41 28  1 41
+                          14 86 22 15  2 31 117 44 18  8  6 40 28  1 45
 
                           ja ko lg lt lv mk mn ms mt nb nl nn no nso or
                         +-----------------------------------------------+
@@ -571,7 +569,7 @@ translation percentage of at least 50%.
      gst-plugins        |                               []           [] |
      gstreamer          |                               []              |
      gtick              |                               []              |
-     gtkspell           |                   []                          |
+     gtkspell           |                   []          []              |
      hello              | [] []       []       []    [] [] [] []        |
      id-utils           |                               []              |
      impost             |                                               |
@@ -608,7 +606,7 @@ translation percentage of at least 50%.
      nano_1_0           |                      []    []    []           |
      opcodes            |                               []              |
      parted             | []                               []           |
-     psmisc             |                               []              |
+     psmisc             |                            [] []              |
      ptx                |                            [] []    []        |
      pwdutils           |                                               |
      python             |                                               |
@@ -642,12 +640,11 @@ translation percentage of at least 50%.
      wdiff              |                      []    []                 |
      wget               | []                            []              |
      xchat              |    []       [] []             []              |
-     xfree86_xkb_xml    |                               []              |
      xkeyboard-config   |                               []              |
      xpad               |                               []              |
                         +-----------------------------------------------+
                           ja ko lg lt lv mk mn ms mt nb nl nn no nso or
-                          35 11  1  1  2  2  3 11  0 14 96  7  5  0   1
+                          35 11  1  1  2  2  3 11  0 15 96  7  5  0   1
 
                           pa pl pt pt_BR rm ro ru rw sk sl sq sr sv ta
                         +----------------------------------------------+
@@ -679,7 +676,7 @@ translation percentage of at least 50%.
      error              |           []      []       []                |
      fetchmail          |    []     ()         []    []    []          |
      fileutils          |    []             [] []       []       []    |
-     findutils          |    []             []       []       [] []    |
+     findutils          |    [] []          []       []       [] []    |
      flex               |    []     []      [] []                []    |
      fslint             |           []      []                []       |
      gas                |                                              |
@@ -744,7 +741,7 @@ translation percentage of at least 50%.
      latrine            |                   []                   []    |
      ld                 |                                        []    |
      libc               |    []     []         []    []          []    |
-     libextractor       |                                              |
+     libextractor       |                   []                         |
      libgpewidget       |       []  []      []       []       [] []    |
      libgsasl           |    []             []                []       |
      libiconv           |    []     []   [] [] []    [] [] [] [] []    |
@@ -763,7 +760,7 @@ translation percentage of at least 50%.
      nano_1_0           |    []             [] []                []    |
      opcodes            |                   []                   []    |
      parted             |    [] []  []                           []    |
-     psmisc             |    []                                  []    |
+     psmisc             |    []             []                         |
      ptx                |    [] []  []      [] []                []    |
      pwdutils           |    []                                        |
      python             |                                              |
@@ -772,14 +769,14 @@ translation percentage of at least 50%.
      rpm                |    [] []             []                []    |
      screem             |                                              |
      scrollkeeper       |    []             [] []    []    [] [] []    |
-     sed                |    []     []      [] []    []       [] []    |
+     sed                |    [] []  []      [] []    []       [] []    |
      sh-utils           |                      []       []    []       |
      shared-mime-info   |       []  []                     [] [] []    |
      sharutils          |                      []             [] []    |
      silky              |                      ()    []                |
      skencil            |       []  []                           []    |
      sketch             |       []  []                           []    |
-     solfege            |                      []                      |
+     solfege            |                                              |
      soundtracker       |                            []          []    |
      sp                 |                                              |
      stardict           |                      []    []                |
@@ -795,14 +792,13 @@ translation percentage of at least 50%.
      vorbis-tools       |                   [] []                      |
      wastesedge         |                                              |
      wdiff              |    []     []      [] []    []          []    |
-     wget               |    []     []      [] []    [] []    [] []    |
+     wget               |    [] []  []      [] []    [] []    [] []    |
      xchat              |                      []    [] [] [] [] []    |
-     xfree86_xkb_xml    |                      []    []    [] [] []    |
      xkeyboard-config   |                                              |
      xpad               |                                              |
                         +----------------------------------------------+
                           pa pl pt pt_BR rm ro ru rw sk sl sq sr sv ta
-                           0 48 27  58    6 79 71  4 47 13 13 51 90  0
+                           0 48 30  58    6 81 69  4 46 13 12 50 88  0
 
                           tg th tk tr uk ven vi wa xh zh_CN zh_TW zu
                         +--------------------------------------------+
@@ -812,7 +808,7 @@ translation percentage of at least 50%.
      ant-phone          |          []                                |  4
      anubis             |          []                                |  9
      ap-utils           |             ()                             |  1
-     aspell             |             []        []                   | 12
+     aspell             |             []     [] []                   | 13
      bash               |                                            | 10
      batchelor          |          []        []                      |  7
      bfd                |          []                                |  6
@@ -821,12 +817,12 @@ translation percentage of at least 50%.
      bison              |          []                                | 17
      bluez-pin          |          [] []     [] []     []            | 24
      clisp              |                                            |  7
-     console-tools      |                                            |  3
+     console-tools      |          []                                |  4
      coreutils          |          []                                | 16
      cpio               |          []                                |  5
-     cpplib             |          []                                |  6
+     cpplib             |          []        []                      |  7
      darkstat           |                    []        ()    ()      | 15
-     dialog             |             []     []                      | 22
+     dialog             |             []     []                      | 23
      diffutils          |          []                  []    []      | 27
      doodle             |                                            |  4
      e2fsprogs          |          []                                |  8
@@ -834,41 +830,41 @@ translation percentage of at least 50%.
      error              |          []                        []      | 15
      fetchmail          |          []                                | 12
      fileutils          |          []                  []    []      | 18
-     findutils          |          []                                | 14
+     findutils          |          []        []                      | 16
      flex               |          []                                | 14
      fslint             |                    []                      |  7
      gas                |          []                                |  3
      gawk               |          []                                | 13
      gbiff              |                                            |  4
      gcal               |          []                                |  5
-     gcc                |                                            |  1
-     gettext-examples   |          [] []     []        []            | 19
-     gettext-runtime    |          [] []     []        []    []      | 24
+     gcc                |          []                                |  3
+     gettext-examples   |          [] []     []        []            | 20
+     gettext-runtime    |          [] []     []        []    []      | 25
      gettext-tools      |          [] []               []            | 16
      gimp-print         |             []                             | 11
      gip                |                    []                      |  8
-     gliv               |                                            |  5
+     gliv               |          []                                |  6
      glunarclock        |                    [] []                   | 14
      gmult              |          []        []        []            | 13
-     gnubiff            |                                            |  3
+     gnubiff            |                    []                      |  3
      gnucash            |          ()                        []      | 10
      gnucash-glossary   |                                    []      |  8
      gnupg              |          []                  []    []      | 19
-     gpe-aerial         |                    []                      | 12
+     gpe-aerial         |                    []        []            | 13
      gpe-beam           |                    []        []            | 13
      gpe-calendar       |                    [] []     []    []      | 18
-     gpe-clock          |                    [] []     []            | 15
+     gpe-clock          |                    [] []     []            | 16
      gpe-conf           |                    []        []            | 12
      gpe-contacts       |                    []        []            |  6
      gpe-edit           |                    [] []           []      | 14
      gpe-go             |                    []                      | 10
      gpe-login          |                    [] []     []    []      | 17
-     gpe-ownerinfo      |                    []        []    []      | 17
+     gpe-ownerinfo      |                    []        []    []      | 18
      gpe-sketchbook     |                    []                      | 13
-     gpe-su             |                    []        []            | 14
-     gpe-taskmanager    |                    []        []            | 14
+     gpe-su             |                    []        []            | 15
+     gpe-taskmanager    |                    []        []            | 15
      gpe-timesheet      |                    []        []    []      | 16
-     gpe-today          |                    [] []     []    []      | 17
+     gpe-today          |                    [] []     []    []      | 18
      gpe-todo           |                    [] []           []      | 16
      gphoto2            |             []               []            | 17
      gprof              |          []        []                      | 10
@@ -881,12 +877,12 @@ translation percentage of at least 50%.
      gst-plugins        |             []     []                      | 16
      gstreamer          |          [] []     []                      | 14
      gtick              |                    []                      | 11
-     gtkspell           |                    [] []     []            | 18
+     gtkspell           |                    [] []     []            | 19
      hello              |          [] []     []        []            | 37
      id-utils           |          []        []                      | 13
      impost             |                    []                      |  3
      indent             |          []        []        []            | 24
-     iso_3166           |       []                                   |  9
+     iso_3166           |       [] []                                | 10
      iso_3166_1         |          []           []                   | 19
      iso_3166_2         |                                            |  2
      iso_3166_3         |                       []     []            |  8
@@ -899,7 +895,7 @@ translation percentage of at least 50%.
      latrine            |          []        []                      |  8
      ld                 |          []                                |  5
      libc               |          []                  []            | 22
-     libextractor       |                                            |  0
+     libextractor       |                                            |  1
      libgpewidget       |                    [] []                   | 17
      libgsasl           |                    []                      |  7
      libiconv           |          [] []     [] []     []            | 32
@@ -918,7 +914,7 @@ translation percentage of at least 50%.
      nano_1_0           |          [] []                             | 17
      opcodes            |          []                                |  7
      parted             |          [] []               []            | 17
-     psmisc             |                    []                      |  5
+     psmisc             |                    []                      |  7
      ptx                |          []                  []            | 23
      pwdutils           |                                            |  1
      python             |                                            |  0
@@ -927,14 +923,14 @@ translation percentage of at least 50%.
      rpm                |          [] []                             | 11
      screem             |                                            |  1
      scrollkeeper       |          [] []                             | 22
-     sed                |          []                                | 17
+     sed                |          []        []                      | 19
      sh-utils           |          []                                | 15
      shared-mime-info   |             []               []            | 19
      sharutils          |          []        []              []      | 20
      silky              |                                            |  3
      skencil            |                                            |  6
      sketch             |                                            |  6
-     solfege            |                                            |  8
+     solfege            |                                            |  4
      soundtracker       |          []                                |  8
      sp                 |          []                                |  3
      stardict           |             []     []        []    []      | 10
@@ -946,18 +942,17 @@ translation percentage of at least 50%.
      tuxpaint           |          []        [] []     []            | 34
      unicode-han-tra... |                                            |  0
      unicode-transla... |                                            |  2
-     util-linux         |          [] []                             | 16
+     util-linux         |          [] []                             | 17
      vorbis-tools       |             []                             | 10
      wastesedge         |                                            |  1
-     wdiff              |          []                                | 21
-     wget               |          [] []               []    []      | 30
-     xchat              |             []               []            | 21
-     xfree86_xkb_xml    |          [] []               []            | 15
+     wdiff              |          []        []                      | 22
+     wget               |          [] []               []    []      | 31
+     xchat              |             []     []        []            | 22
      xkeyboard-config   |                                            |  1
      xpad               |                    []                      |  5
                         +--------------------------------------------+
        71 teams           tg th tk tr uk ven vi wa xh zh_CN zh_TW zu
-      149 domains          0  0  1 66 30  0  54 16  0  42    21    0  1695
+      148 domains          0  0  1 69 29  0  61 16  0  42    21    0  1704
 
    Some counters in the preceding matrix are higher than the number of
 visible blocks let us expect.  This is because a few extra PO files are
@@ -970,9 +965,9 @@ distributed as such by its maintainer.  There might be an observable
 lag between the mere existence a PO file and its wide availability in a
 distribution.
 
-   If February 2005 seems to be old, you may fetch a more recent copy
-of this `ABOUT-NLS' file on most GNU archive sites.  The most
-up-to-date matrix with full percentage details can be found at
+   If March 2005 seems to be old, you may fetch a more recent copy of
+this `ABOUT-NLS' file on most GNU archive sites.  The most up-to-date
+matrix with full percentage details can be found at
 `http://www.iro.umontreal.ca/contrib/po/HTML/matrix.html'.
 
 1.6 Using `gettext' in new packages

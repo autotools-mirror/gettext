@@ -1,13 +1,13 @@
-#  Vietnamese Translation for hello-csharp-forms-0.14.1.
+#  Vietnamese Translation for hello-csharp-forms-0.14.2.
 #  Copyright (C) 2005 Yoyodyne, Inc.
 #  Copyright (C) 2005 Free Software Foundation, Inc.
 #  Clytie Siddall <clytie@riverland.net.au>, 2005.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: hello-csharp-forms 0.14.2-pre4\n"
+"Project-Id-Version: hello-csharp-forms 0.14.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"PO-Revision-Date: 2005-02-16 19:33+0930\n"
+"PO-Revision-Date: 2005-02-26 11:09+0950\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net> \n"
 "MIME-Version: 1.0\n"

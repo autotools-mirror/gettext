@@ -120,7 +120,7 @@ am__vpath_adj = case $$p in \
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 lispLISP_INSTALL = $(INSTALL_DATA)
 LISP = $(lisp_LISP)
-am__ELFILES = po-compat.el po-mode.el
+am__ELFILES = po-compat.el po-mode.el start-po.el
 am__ELCFILES = $(am__ELFILES:.el=.elc)
 ELCFILES = $(LISP:.el=.elc)
 elisp_comp = $(top_srcdir)/../config/elisp-comp
@@ -327,18 +327,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-# Old sh interface.
-
-# Old Tcl interface.
-
-# Old Perl interface.
-
 # VMS support.
 
 # Woe32 support.
 EXTRA_DIST = add-to-archive cvsuser.c archive.tar.gz $(lisp_LISP) \
-	gettext-sh tcl_gettext.c README-Tcl gettext.perl Makefile.vms \
-	Makefile.msvc
+	Makefile.vms Makefile.msvc
 DISTCLEANFILES = gettextize autopoint
 
 # Scripts for maintainers.
@@ -347,7 +340,7 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = archive.tar.gz
 
 # Emacs Lisp code.
-lisp_LISP = po-mode.el po-compat.el
+lisp_LISP = start-po.el po-mode.el po-compat.el
 all: all-am
 
 .SUFFIXES:
