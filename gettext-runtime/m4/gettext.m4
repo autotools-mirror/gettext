@@ -1,4 +1,4 @@
-# gettext.m4 serial 30 (gettext-0.15)
+# gettext.m4 serial 31 (gettext-0.15)
 dnl Copyright (C) 1995-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -428,7 +428,7 @@ __fsetlocking])
   AM_ICONV
   AM_LANGINFO_CODESET
   if test $ac_cv_header_locale_h = yes; then
-    AM_LC_MESSAGES
+    gt_LC_MESSAGES
   fi
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
