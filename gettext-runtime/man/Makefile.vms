@@ -10,7 +10,7 @@ man1dir = $(mandir).man1
 man3dir = $(mandir).man3
 docdir = $(datadir).doc.gettext
 
-LN = copy
+# Programs used by "make":
 RM = delete
 
 # Programs used by "make install":

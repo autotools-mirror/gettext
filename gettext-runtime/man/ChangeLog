@@ -1,3 +1,7 @@
+2003-05-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms (LN): Remove unused variable.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: Avoid rules with no lines. Don't use the force target.
