@@ -23,7 +23,7 @@
 update=
 while true; do
   case "$1" in
-    --update) update=yes;;
+    --update) update=yes; shift;;
     *) break;;
   esac
 done
