@@ -142,7 +142,7 @@ CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 DATA = $(aclocal_DATA)
 
-DIST_COMMON = README Makefile.am Makefile.in
+DIST_COMMON = README ChangeLog Makefile.am Makefile.in
 all: all-am
 
 .SUFFIXES:

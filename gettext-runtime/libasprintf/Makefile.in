@@ -178,7 +178,6 @@ lib_asprintf_EXTRASOURCES = \
   vasprintf.h vasprintf.c asprintf.c
 
 
-# <<< gnulib module alloca.
 
 # Documentation.
 docdir = $(prefix)/doc/@PACKAGE@
@@ -728,6 +727,11 @@ lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
 all-local $(libasprintf_la_OBJECTS): @ALLOCA_H@
 alloca.h: alloca_.h
 	cp $(srcdir)/alloca_.h alloca.h
+# <<< gnulib module alloca.
+
+# Clean up after Solaris cc.
+clean-am:
+	rm -rf SunWS_cache
 
 # We distribute only the HTML documentation.
 # The user can generate the others, via

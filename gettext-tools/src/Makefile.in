@@ -314,10 +314,11 @@ libgettextsrc_la_LDFLAGS = \
 
 # How to build libgettextpo.la.
 # Need libgettextsrc.la.
+# Need ../lib/libgettextlib.la because of xmalloc.
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  libgettextsrc.la -lc -no-undefined
+  libgettextsrc.la ../lib/libgettextlib.la -lc -no-undefined
 
 
 # Link dependencies.
@@ -325,7 +326,7 @@ msgcmp_LDADD = libgettextsrc.la
 msgfmt_LDADD = libgettextsrc.la
 msgmerge_LDADD = libgettextsrc.la
 msgunfmt_LDADD = libgettextsrc.la
-xgettext_LDADD = libgettextsrc.la $(LIBUNINAME) @LTLIBEXPAT@
+xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @LTLIBEXPAT@
 msgattrib_LDADD = libgettextsrc.la
 msgcat_LDADD = libgettextsrc.la
 msgcomm_LDADD = libgettextsrc.la
@@ -453,7 +454,7 @@ am_xgettext_OBJECTS = xgettext.$(OBJEXT) x-c.$(OBJEXT) x-po.$(OBJEXT) \
 	x-awk.$(OBJEXT) x-ycp.$(OBJEXT) x-tcl.$(OBJEXT) x-php.$(OBJEXT) \
 	x-rst.$(OBJEXT) x-glade.$(OBJEXT)
 xgettext_OBJECTS = $(am_xgettext_OBJECTS)
-xgettext_DEPENDENCIES = libgettextsrc.la ../libuniname/libuniname.a
+xgettext_DEPENDENCIES = ../libuniname/libuniname.a libgettextsrc.la
 xgettext_LDFLAGS =
 
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)

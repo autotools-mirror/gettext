@@ -130,6 +130,7 @@ msgid ""
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
 "      --copyright-holder=STRING  set copyright holder in output\n"
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
+"      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 msgstr ""
@@ -160,10 +161,24 @@ msgid ""
 "Please specify the source encoding through --from-code."
 msgstr ""
 
+#, c-format
+msgid "%s%s: warning: "
+msgstr ""
+
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
+msgstr ""
+
+msgid "warning: "
+msgstr ""
+
+msgid ""
+"The option --msgid-bugs-address was not specified.\n"
+"If you are using a `Makevars' file, please specify\n"
+"the MSGID_BUGS_ADDRESS variable there; otherwise please\n"
+"specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 
 #, c-format
@@ -441,44 +456,4 @@ msgstr ""
 
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr ""
-
-msgid "too many arguments"
-msgstr ""
-
-msgid "missing arguments"
-msgstr ""
-
-#, c-format, no-wrap
-msgid ""
-"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
-"or:    %s [OPTION] -s [MSGID]...\n"
-msgstr ""
-
-#, no-wrap
-msgid "Display native language translation of a textual message.\n"
-msgstr ""
-
-#, no-wrap
-msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -n                        suppress trailing newline\n"
-"  -V, --version             display version information and exit\n"
-"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-"                            to MSGID from TEXTDOMAIN\n"
-msgstr ""
-
-#, c-format, no-wrap
-msgid ""
-"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
-"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
-"regular directory, another location can be specified with the environment\n"
-"variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the `echo' command.\n"
-"But it does not simply copy its arguments to stdout.  Instead those messages\n"
-"found in the selected catalog are translated.\n"
-"Standard search directory: %s\n"
 msgstr ""

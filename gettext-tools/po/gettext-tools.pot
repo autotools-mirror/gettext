@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-02-12 19:49+0100\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2003-02-18 19:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,29 +31,29 @@ msgstr ""
 msgid "Valid arguments are:"
 msgstr ""
 
-#: lib/copy-file.c:63 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
-#: src/read-tcl.c:121 src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901
-#: src/xgettext.c:911
+#: lib/copy-file.c:64 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
+#: src/read-tcl.c:121 src/urlget.c:195 src/xgettext.c:896 src/xgettext.c:909
+#: src/xgettext.c:919
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr ""
 
-#: lib/copy-file.c:70
+#: lib/copy-file.c:71
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr ""
 
-#: lib/copy-file.c:83 src/urlget.c:207
+#: lib/copy-file.c:79 src/urlget.c:207
 #, c-format
 msgid "error reading \"%s\""
 msgstr ""
 
-#: lib/copy-file.c:89 lib/copy-file.c:93
+#: lib/copy-file.c:84 lib/copy-file.c:88
 #, c-format
 msgid "error writing \"%s\""
 msgstr ""
 
-#: lib/copy-file.c:95 src/urlget.c:217
+#: lib/copy-file.c:90 src/urlget.c:217
 #, c-format
 msgid "error after reading \"%s\""
 msgstr ""
@@ -243,7 +244,7 @@ msgstr ""
 #: src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177 src/msgexec.c:159
 #: src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285 src/msginit.c:230
 #: src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213 src/urlget.c:128
-#: src/xgettext.c:397
+#: src/xgettext.c:404
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -255,7 +256,7 @@ msgstr ""
 #: src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182 src/msgexec.c:164
 #: src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290 src/msginit.c:235
 #: src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218 src/urlget.c:133
-#: src/xgettext.c:402
+#: src/xgettext.c:409
 #, c-format
 msgid "Written by %s.\n"
 msgstr ""
@@ -268,7 +269,7 @@ msgstr ""
 #: src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232 src/msgexec.c:216
 #: src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394 src/msginit.c:320
 #: src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274 src/urlget.c:156
-#: src/xgettext.c:593
+#: src/xgettext.c:600
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -307,7 +308,7 @@ msgstr ""
 #: src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294 src/msgexec.c:260
 #: src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484 src/msginit.c:373
 #: src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350 src/urlget.c:178
-#: src/xgettext.c:698
+#: src/xgettext.c:706
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 
@@ -325,8 +326,8 @@ msgstr ""
 #: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
 #: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
 #: src/msggrep.c:315 src/msgmerge.c:298 src/msgmerge.c:319 src/msgmerge.c:323
-#: src/msgunfmt.c:220 src/msguniq.c:239 src/msguniq.c:243 src/xgettext.c:412
-#: src/xgettext.c:416
+#: src/msgunfmt.c:220 src/msguniq.c:239 src/msguniq.c:243 src/xgettext.c:419
+#: src/xgettext.c:423
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr ""
@@ -419,7 +420,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr ""
 
-#: src/msgcat.c:300 src/msgcomm.c:312 src/xgettext.c:598
+#: src/msgcat.c:300 src/msgcomm.c:312 src/xgettext.c:605
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr ""
@@ -438,7 +439,7 @@ msgid ""
 "File positions from all PO files will be cumulated.\n"
 msgstr ""
 
-#: src/msgcat.c:323 src/msgcomm.c:334 src/xgettext.c:614
+#: src/msgcat.c:323 src/msgcomm.c:334 src/xgettext.c:621
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -491,7 +492,7 @@ msgid ""
 "  -F, --sort-by-file             sort output by file location\n"
 msgstr ""
 
-#: src/msgcat.c:372 src/msgcomm.c:381 src/msguniq.c:344 src/xgettext.c:692
+#: src/msgcat.c:372 src/msgcomm.c:381 src/msguniq.c:344 src/xgettext.c:700
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -539,15 +540,15 @@ msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 msgstr ""
 
-#: src/msgcmp.c:265 src/msgmerge.c:848
+#: src/msgcmp.c:265 src/msgmerge.c:881
 msgid "this message is used but not defined..."
 msgstr ""
 
-#: src/msgcmp.c:267 src/msgmerge.c:850
+#: src/msgcmp.c:267 src/msgmerge.c:883
 msgid "...but this definition is similar"
 msgstr ""
 
-#: src/msgcmp.c:272 src/msgmerge.c:877
+#: src/msgcmp.c:272 src/msgmerge.c:910
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr ""
@@ -643,7 +644,7 @@ msgid ""
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
 
-#: src/msgen.c:193 src/msgfmt.c:337 src/xgettext.c:433
+#: src/msgen.c:193 src/msgfmt.c:337 src/xgettext.c:440
 msgid "no input file given"
 msgstr ""
 
@@ -1321,6 +1322,7 @@ msgstr ""
 
 #: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:90
 #: src/msgl-charset.c:125 src/write-po.c:757 src/write-po.c:849
+#: src/xgettext.c:1259
 msgid "warning: "
 msgstr ""
 
@@ -1386,14 +1388,14 @@ msgstr ""
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 
-#: src/msgl-iconv.c:353 src/xgettext.c:487
+#: src/msgl-iconv.c:353 src/xgettext.c:494
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
 "not support this conversion."
 msgstr ""
 
-#: src/msgl-iconv.c:370 src/xgettext.c:494
+#: src/msgl-iconv.c:370 src/xgettext.c:501
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -1472,22 +1474,22 @@ msgid ""
 "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr ""
 
-#: src/msgmerge.c:930
+#: src/msgmerge.c:963
 msgid "this message should define plural forms"
 msgstr ""
 
-#: src/msgmerge.c:953
+#: src/msgmerge.c:986
 msgid "this message should not define plural forms"
 msgstr ""
 
-#: src/msgmerge.c:1115
+#: src/msgmerge.c:1148
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
 
-#: src/msgmerge.c:1123
+#: src/msgmerge.c:1156
 msgid " done.\n"
 msgstr ""
 
@@ -1859,7 +1861,7 @@ msgid ""
 "This version was built without expat.\n"
 msgstr ""
 
-#: src/x-po.c:85 src/xgettext.c:710
+#: src/x-po.c:85 src/xgettext.c:718
 msgid "this file may not contain domain directives"
 msgstr ""
 
@@ -1883,32 +1885,32 @@ msgstr ""
 msgid "%s:%d: invalid string expression"
 msgstr ""
 
-#: src/xgettext.c:420
+#: src/xgettext.c:427
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 
-#: src/xgettext.c:425
+#: src/xgettext.c:432
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:552
+#: src/xgettext.c:559
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 
-#: src/xgettext.c:603
+#: src/xgettext.c:610
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr ""
 
-#: src/xgettext.c:608
+#: src/xgettext.c:615
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 msgstr ""
 
-#: src/xgettext.c:623
+#: src/xgettext.c:630
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1918,7 +1920,7 @@ msgid ""
 "If output file is -, output is written to standard output.\n"
 msgstr ""
 
-#: src/xgettext.c:632
+#: src/xgettext.c:639
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
@@ -1930,7 +1932,7 @@ msgid ""
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
 
-#: src/xgettext.c:643
+#: src/xgettext.c:650
 #, no-wrap
 msgid ""
 "Input file interpretation:\n"
@@ -1939,7 +1941,7 @@ msgid ""
 "By default the input files are assumed to be in ASCII.\n"
 msgstr ""
 
-#: src/xgettext.c:651
+#: src/xgettext.c:658
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1949,7 +1951,7 @@ msgid ""
 "                                 preceding keyword lines) in output file\n"
 msgstr ""
 
-#: src/xgettext.c:660
+#: src/xgettext.c:667
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -1960,7 +1962,7 @@ msgid ""
 "      --debug                    more detailed formatstring recognition result\n"
 msgstr ""
 
-#: src/xgettext.c:670
+#: src/xgettext.c:677
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1979,29 +1981,43 @@ msgid ""
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
 "      --copyright-holder=STRING  set copyright holder in output\n"
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
+"      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 msgstr ""
 
-#: src/xgettext.c:879
+#: src/xgettext.c:887
 msgid "standard input"
 msgstr ""
 
-#: src/xgettext.c:972
+#: src/xgettext.c:980
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
 "Please specify the source encoding through --from-code."
 msgstr ""
 
-#: src/xgettext.c:1028
+#: src/xgettext.c:1035
+#, c-format
+msgid "%s%s: warning: "
+msgstr ""
+
+#: src/xgettext.c:1037
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 msgstr ""
 
-#: src/xgettext.c:1410
+#: src/xgettext.c:1260
+msgid ""
+"The option --msgid-bugs-address was not specified.\n"
+"If you are using a `Makevars' file, please specify\n"
+"the MSGID_BUGS_ADDRESS variable there; otherwise please\n"
+"specify an --msgid-bugs-address command line option.\n"
+msgstr ""
+
+#: src/xgettext.c:1430
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""

@@ -228,9 +228,9 @@ TESTS = gettext-1 gettext-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python lang-clisp \
+	lang-c lang-c++ lang-objc lang-python lang-clisp \
 	lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal \
-	lang-wxwindows lang-ycp lang-tcl lang-perl lang-php lang-pike lang-po \
+	lang-ycp lang-tcl lang-php lang-po \
 	lang-rst
 
 
@@ -640,6 +640,10 @@ xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) \
 	  -k_ --omit-header --no-location \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
+
+# Clean up after Solaris cc.
+clean-am:
+	rm -rf SunWS_cache
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

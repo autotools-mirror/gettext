@@ -166,6 +166,11 @@ SUBDIRS = doc intl intl-java lib @SUBDIR_libasprintf@ src po man m4
 DIST_SUBDIRS = doc intl intl-java lib libasprintf          src po man m4
 
 EXTRA_DIST = BUGS
+
+
+# Files installed for the user and for use by gettextize.
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = ABOUT-NLS
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
@@ -174,18 +179,20 @@ CONFIG_CLEAN_FILES = intl/Makefile
 depcomp =
 am__depfiles_maybe =
 DIST_SOURCES =
+DATA = $(gettextsrc_DATA)
+
 
 RECURSIVE_TARGETS = info-recursive dvi-recursive pdf-recursive \
 	ps-recursive install-info-recursive uninstall-info-recursive \
 	all-recursive install-data-recursive install-exec-recursive \
 	installdirs-recursive install-recursive uninstall-recursive \
 	check-recursive installcheck-recursive
-DIST_COMMON = README ../config/config.guess ../config/config.sub \
-	../config/elisp-comp ../config/install-sh ../config/ltmain.sh \
-	../config/mdate-sh ../config/missing ../config/mkinstalldirs \
-	../config/texinfo.tex ../config/ylwrap ABOUT-NLS AUTHORS \
-	COPYING ChangeLog INSTALL Makefile.am Makefile.in NEWS \
-	aclocal.m4 config.h.in configure configure.ac
+DIST_COMMON = README ../config/config.guess ../config/config.rpath \
+	../config/config.sub ../config/elisp-comp ../config/install-sh \
+	../config/ltmain.sh ../config/mdate-sh ../config/missing \
+	../config/mkinstalldirs ../config/texinfo.tex ../config/ylwrap \
+	ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL Makefile.am \
+	Makefile.in NEWS aclocal.m4 config.h.in configure configure.ac
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -204,7 +211,7 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 $(srcdir)/configure:  $(srcdir)/configure.ac $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
 
-$(ACLOCAL_M4):  configure.ac m4/ansi-c++.m4 m4/codeset.m4 m4/error.m4 m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 m4/intdiv0.m4 m4/intmax.m4 m4/inttypes-pri.m4 m4/inttypes.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 m4/longdouble.m4 m4/longlong.m4 m4/progtest.m4 m4/signed.m4 m4/stdint_h.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/wchar_t.m4 m4/wint_t.m4 ../gettext-tools/m4/alloca.m4 ../gettext-tools/m4/backupfile.m4 ../gettext-tools/m4/error.m4 ../gettext-tools/m4/flex.m4 ../gettext-tools/m4/fnmatch.m4 ../gettext-tools/m4/gcj.m4 ../gettext-tools/m4/getline.m4 ../gettext-tools/m4/hostname.m4 ../gettext-tools/m4/javacomp.m4 ../gettext-tools/m4/javaexec.m4 ../gettext-tools/m4/mbrtowc.m4 ../gettext-tools/m4/mbstate_t.m4 ../gettext-tools/m4/mbswidth.m4 ../gettext-tools/m4/mkdtemp.m4 ../gettext-tools/m4/onceonly.m4 ../gettext-tools/m4/setenv.m4 ../gettext-tools/m4/setlocale.m4 ../gettext-tools/m4/siginfo.m4 ../gettext-tools/m4/signalblocking.m4 ../gettext-tools/m4/ssize_t.m4 ../gettext-tools/m4/stdbool.m4 ../gettext-tools/m4/stdint.m4 ../gettext-tools/m4/tmpdir.m4 ../gettext-tools/m4/unionwait.m4 ../autoconf-lib-link/m4/lib-ld.m4 ../autoconf-lib-link/m4/lib-link.m4 ../autoconf-lib-link/m4/lib-prefix.m4 ../config/m4/fixautomake.m4 ../config/m4/libtool.m4
+$(ACLOCAL_M4):  configure.ac m4/ansi-c++.m4 m4/codeset.m4 m4/error.m4 m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 m4/intdiv0.m4 m4/intmax.m4 m4/inttypes-pri.m4 m4/inttypes.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 m4/longdouble.m4 m4/longlong.m4 m4/progtest.m4 m4/signed.m4 m4/stdint_h.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/wchar_t.m4 m4/wint_t.m4 ../gettext-tools/m4/alloca.m4 ../gettext-tools/m4/backupfile.m4 ../gettext-tools/m4/error.m4 ../gettext-tools/m4/flex.m4 ../gettext-tools/m4/fnmatch.m4 ../gettext-tools/m4/gcj.m4 ../gettext-tools/m4/getline.m4 ../gettext-tools/m4/hostname.m4 ../gettext-tools/m4/javacomp.m4 ../gettext-tools/m4/javaexec.m4 ../gettext-tools/m4/mbrtowc.m4 ../gettext-tools/m4/mbstate_t.m4 ../gettext-tools/m4/mbswidth.m4 ../gettext-tools/m4/mkdtemp.m4 ../gettext-tools/m4/onceonly.m4 ../gettext-tools/m4/setenv.m4 ../gettext-tools/m4/setlocale.m4 ../gettext-tools/m4/siginfo.m4 ../gettext-tools/m4/signalblocking.m4 ../gettext-tools/m4/ssize_t.m4 ../gettext-tools/m4/stdbool.m4 ../gettext-tools/m4/tmpdir.m4 ../gettext-tools/m4/unionwait.m4 ../autoconf-lib-link/m4/lib-ld.m4 ../autoconf-lib-link/m4/lib-link.m4 ../autoconf-lib-link/m4/lib-prefix.m4 ../config/m4/fixautomake.m4 ../config/m4/libtool.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.h: stamp-h1
@@ -235,6 +242,24 @@ clean-libtool:
 distclean-libtool:
 	-rm -f libtool
 uninstall-info-am:
+gettextsrcDATA_INSTALL = $(INSTALL_DATA)
+install-gettextsrcDATA: $(gettextsrc_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir)
+	@list='$(gettextsrc_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(gettextsrcDATA_INSTALL) $$d$$p $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  $(gettextsrcDATA_INSTALL) $$d$$p $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
+
+uninstall-gettextsrcDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(gettextsrc_DATA)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  rm -f $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -482,9 +507,10 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-recursive
-all-am: Makefile config.h all-local
+all-am: Makefile $(DATA) config.h all-local
 installdirs: installdirs-recursive
 installdirs-am:
+	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir)
 
 install: install-recursive
 install-exec: install-exec-recursive
@@ -527,7 +553,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am:
+install-data-am: install-gettextsrcDATA
 
 install-exec-am:
 
@@ -554,7 +580,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-info-am
+uninstall-am: uninstall-gettextsrcDATA uninstall-info-am
 
 uninstall-info: uninstall-info-recursive
 
@@ -566,15 +592,16 @@ uninstall-info: uninstall-info-recursive
 	distuninstallcheck dvi dvi-am dvi-recursive info info-am \
 	info-recursive install install-am install-data install-data-am \
 	install-data-recursive install-exec install-exec-am \
-	install-exec-recursive install-info install-info-am \
-	install-info-recursive install-man install-recursive \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am installdirs-recursive maintainer-clean \
-	maintainer-clean-generic maintainer-clean-recursive mostlyclean \
-	mostlyclean-generic mostlyclean-libtool mostlyclean-recursive \
-	pdf pdf-am pdf-recursive ps ps-am ps-recursive tags \
-	tags-recursive uninstall uninstall-am uninstall-info-am \
-	uninstall-info-recursive uninstall-recursive
+	install-exec-recursive install-gettextsrcDATA install-info \
+	install-info-am install-info-recursive install-man \
+	install-recursive install-strip installcheck installcheck-am \
+	installdirs installdirs-am installdirs-recursive \
+	maintainer-clean maintainer-clean-generic \
+	maintainer-clean-recursive mostlyclean mostlyclean-generic \
+	mostlyclean-libtool mostlyclean-recursive pdf pdf-am \
+	pdf-recursive ps ps-am ps-recursive tags tags-recursive \
+	uninstall uninstall-am uninstall-gettextsrcDATA \
+	uninstall-info-am uninstall-info-recursive uninstall-recursive
 
 
 # Documentation tags not known to automake.
