@@ -1,0 +1,22 @@
+2005-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* libgrep.h: New file.
+	* kwset.h: From grep-2.5.1 with modifications.
+	* kwset.c: From grep-2.5.1 with modifications.
+	* dfa.h: From grep-2.5.1 with modifications.
+	* dfa.c: From grep-2.5.1 with modifications.
+	* m-common.h: New file.
+	* m-common.c: New file, with code from grep-2.5.1/src/search.c.
+	* m-fgrep.c: New file, with code from grep-2.5.1/src/search.c.
+	* m-regex.c: New file, with code from grep-2.5.1/src/search.c.
+	* hard-locale.h: New file, from gnulib.
+	* hard-locale.c: New file, from gnulib.
+	* memchr.c: New file, from gnulib.
+	* regex.h: New file, from gnulib.
+	* regex.c: New file, from gnulib.
+	* strdup.h: New file, from gnulib.
+	* strdup.c: New file, from gnulib.
+	* Makefile.am: New file.
+	* Makefile.msvc: New file.
+	* Makefile.vms: New file.
+
