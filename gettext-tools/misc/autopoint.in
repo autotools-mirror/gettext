@@ -349,8 +349,22 @@ omitintl=`if test 'external' = "$omitintl"; then echo yes; fi`
 # - work_dir        directory containing the temporary checkout
 cvs_dir=tmpcvs$$
 work_dir=tmpwrk$$
-mkdir "$cvs_dir"
-mkdir "$work_dir"
+# Use an umask of 077, to avoid attacks that work by overwriting files in the
+# "$CVSROOT"/CVSROOT directory.
+(umask 077 && mkdir "$cvs_dir") || {
+  if test -d "$cvs_dir"; then
+    func_fatal_error "directory $cvs_dir already exists"
+  else
+    func_fatal_error "cannot create directory $cvs_dir"
+  fi
+}
+mkdir "$work_dir" || {
+  if test -d "$work_dir"; then
+    func_fatal_error "directory $work_dir already exists"
+  else
+    func_fatal_error "cannot create directory $work_dir"
+  fi
+}
 CVSROOT="$srcdir/$cvs_dir"
 export CVSROOT
 unset CVS_CLIENT_LOG

@@ -1,3 +1,10 @@
+2005-01-10  Bruno Haible  <bruno@clisp.org>
+
+	Security fixes.
+	* autopoint.in: Exit if the creation of one of the temporary
+	directories fails. Also restrict the access to the temporary cvs_dir.
+	Reported by Javier Fernández-Sanguino Peña <jfs@computer.org>.
+
 2005-01-09  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in (func_tmpdir): New function.
