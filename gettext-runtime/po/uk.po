@@ -1,88 +1,89 @@
-# Переклад gettext-runtime на укра╖нську.
-# Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
-# Volodymyr M. Lisivka <lvm@mystery.lviv.net>, 2003.
+# Ukrainian translation to gettext-runtime
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gettext-runtime package.
+# Maxim V. Dziumanenko <mvd@mylinux.com.ua>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.12.1\n"
+"Project-Id-Version: gettext-runtime 0.14.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-10-16 21:36+0200\n"
-"PO-Revision-Date: 2003-07-22 15:21+0300\n"
-"Last-Translator: Volodymyr M. Lisivka <lvm@mystery.lviv.net>\n"
+"PO-Revision-Date: 2004-08-01 13:59+0200\n"
+"Last-Translator: Maxim V. Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=KOI8-U\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../gettext-tools/lib/closeout.c:66
 msgid "write error"
-msgstr ""
+msgstr "п©п╬п╪п╦п╩п╨п╟ п╥п╟п©п╦я│я┐"
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
-msgstr "Нев╕дома системна помилка"
+msgstr "п²п╣п╡я√п╢п╬п╪п╟ я│п╦я│я┌п╣п╪п╫п╟ п©п╬п╪п╦п╩п╨п╟"
 
 #: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: ключ \"%s\" неоднозначний\n"
+msgstr "%s: п╫п╣п╬п╢п╫п╬п╥п╫п╟я┤п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ `%s'\n"
 
 #: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: ключ \"%s\" вжива╓ться без аргумент╕в\n"
+msgstr "%s: п©п╟я─п╟п╪п╣я┌я─ `--%s' п╪п╟я■ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦я│я▄ п╠п╣п╥ п╟я─пЁя┐п╪п╣п╫я┌я√п╡\n"
 
 #: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: ключ \"%c%s\" вжива╓ться без аргумент╕в\n"
+msgstr "%s: п©п╟я─п╟п╪п╣я┌я─ `%c%s' п╪п╟я■ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦я│я▄ п╠п╣п╥ п╟я─пЁя┐п╪п╣п╫я┌я√п╡\n"
 
 #: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
 #: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: ключ \"%s\" вимага╓ аргумент\n"
+msgstr "%s: п©п╟я─п╟п╪п╣я┌я─ `%s' п╪п╟я■ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦я│я▄ п╥ п╟я─пЁя┐п╪п╣п╫я┌п╬п╪\n"
 
 #: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: незрозум╕лий ключ \"--%s\"\n"
+msgstr "%s: п╫п╣я─п╬п╥п©я√п╥п╫п╟п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ `--%s'\n"
 
 #: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: незрозум╕лий ключ \"%c%s\"\n"
+msgstr "%s: п╫п╣я─п╬п╥п©я√п╥п╫п╟п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ `%c%s'\n"
 
 #: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s: недопустимий ключ -- %c\n"
+msgstr "%s: п╫п╣п©я─п╟п╡п╦п╩я▄п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
 #, c-format
 msgid "%s: invalid option -- %c\n"
-msgstr "%s: неправильний ключ -- %c\n"
+msgstr "%s: п╫п╣п©я─п╟п╡п╦п╩я▄п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
 #: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: ключ вимага╓ аргумент -- %c\n"
+msgstr "%s: п©п╟я─п╟п╪п╣я┌я─ %c п╪п╟я■ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦я│я▄ п╥ п╟я─пЁя┐п╪п╣п╫я┌п╬п╪\n"
 
 #: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: ключ \"-W %s\" неоднозначний\n"
+msgstr "%s: п╫п╣п╬п╢п╫п╬п╥п╫п╟я┤п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ `-W %s'\n"
 
 #: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: ключ \"-W %s\" вжива╓ться без аргументу\n"
+msgstr "%s: п©п╟я─п╟п╪п╣я┌я─ `-W %s' п╪п╟я■ п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦я│я▄ п╠п╣п╥ п╟я─пЁя┐п╪п╣п╫я┌я√п╡\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
 #, c-format
 msgid "memory exhausted"
-msgstr "пам'ять вичерпана"
+msgstr "п©п╟п╪'я▐я┌я▄ п╡п╦я┤п╣я─п©п╟п╫п╟"
 
 #: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
@@ -91,66 +92,65 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Copyright (C) %s Free Software Foundation, Inc.\n"
-"Це в╕льно розповсюджуване програмне забезпечення. Умови коп╕ювання\n"
-"знаходяться у вих╕дних текстах. НЕ нада╓ться Н╤ЯКИХ гарант╕й, включаючи\n"
-"ГАРАНТ╤╥ ПРИДАТНОСТ╤ ╕ МОЖЛИВОСТ╤ ВИКОРИСТАННЯ ДЛЯ ВИЗНАЧЕНИХ Ц╤ЛЕЙ.\n"
+"п░п╡я┌п╬я─я│я▄п╨я√ п©я─п╟п╡п╟ (C) %s Free Software Foundation, Inc.\n"
+"п╕п╣ - п╡я√п╩я▄п╫п╣ п©я─п╬пЁя─п╟п╪п╫п╣ п╥п╟п╠п╣п╥п©п╣я┤п╣п╫п╫я▐; я┐п╪п╬п╡п╦ п╨п╬п©я√я▌п╡п╟п╫п╫я▐ п╡п╦п╨п╩п╟п╢п╣п╫я√ я┐ п╡п╦я┘я√п╢п╫п╬п╪я┐\n"
+"п╨п╬п╢я√. п²п╣ п╫п╟п╢п╟я■я┌я▄я│я▐ п²п├п╞п п·п┤ пЁп╟я─п╟п╫я┌я√я≈; п╫п╟п╡я√я┌я▄ пЁп╟я─п╟п╫я┌я√я≈ п п·п°п∙п═п╕п├п≥п²п·п┤ п÷п═п≤п■п░п╒п²п·п║п╒п├\n"
+"п╟п╠п╬ п÷п═п≤п■п░п╒п²п·п║п╒п├ п■п· п÷п∙п▓п²п·п┤ п°п∙п╒п≤.\n"
 
 #: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
-msgstr "Автор: %s.\n"
+msgstr "п░п╡я┌п╬я─ п©я─п╬пЁя─п╟п╪п╦ - %s.\n"
 
 #: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
-msgstr "надто багато аргумент╕в"
+msgstr "п╫п╟п╢я┌п╬ п╠п╟пЁп╟я┌п╬ п╟я─пЁя┐п╪п╣п╫я┌я√п╡"
 
 #: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
-msgstr "пропущен╕ аргументи"
+msgstr "п╡я√п╢я│я┐я┌п╫я√ п╟я─пЁя┐п╪п╣п╫я┌п╦"
 
-# * Dmytro O. Redchuk <dor@kiev-online.net>
 #: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Спробуйте \"%s --help\" для отримання додатково╖ ╕нформац╕╖.\n"
+msgstr "п║п©я─п╬п╠я┐п╧я┌п╣ `%s --help' п╢п╩я▐ п╬я┌я─п╦п╪п╟п╫п╫я▐ п╢п╬п╨п╩п╟п╢п╫я√я┬п╬пЁп╬ п╬п©п╦я│я┐.\n"
 
 #: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr ""
+msgstr "п▓п╦п╨п╬я─п╦я│я┌п╟п╫п╫я▐: %s [п÷п░п═п░п°п∙п╒п═] [SHELL-FORMAT]\n"
 
 #: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
-msgstr ""
+msgstr "п≈п╟п╪я√п╫я▌я■ п╥п╫п╟я┤п╣п╫п╫я▐ п╥п╪я√п╫п╫п╦я┘ п╬я┌п╬я┤п╣п╫п╫я▐.\n"
 
 #: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
-msgstr ""
+msgstr "п═п╣п╤п╦п╪ я─п╬п╠п╬я┌п╦:\n"
 
 #: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr ""
+msgstr "  -v, --variables             п╡п╦п╡п╬п╢п╦я┌п╦ п╥п╪я√п╫п╫я√, я┴п╬ п╥я┐я│я┌я─я√я┤п╟я▌я┌я▄я│я▐ я┐ SHELL-FORMAT\n"
 
 #: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
-msgstr ""
+msgstr "п├п╫я└п╬я─п╪п╟я┌п╦п╡п╫п╦п╧ п╡п╦п╡я√п╢:\n"
 
 #: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
-msgstr ""
+msgstr "  -h, --help                  п╡п╦п╡п╣я│я┌п╦ п╢п╬п╡я√п╢п╨я┐ я┌п╟ п╥п╟п╡п╣я─я┬п╦я┌п╦ я─п╬п╠п╬я┌я┐\n"
 
 #: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr ""
+msgstr "  -V, --version               п╡п╦п╡п╣я│я┌п╦ я√п╫я└п╬я─п╪п╟я├я√я▌ п©я─п╬ п╡п╣я─я│я√я▌ я┌п╟ п╡п╦п╧я┌п╦\n"
 
 #: src/envsubst.c:202
 #, c-format, no-wrap
@@ -162,6 +162,12 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
+"пё п╥п╡п╦я┤п╟п╧п╫п╬п╪я┐ я─п╣п╤п╦п╪я√ я─п╬п╠п╬я┌п╦, я│я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╡п╡я√п╢ п╨п╬п©я√я▌я■я┌я▄я│я▐ п╫п╟ я│я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╡п╦п╡я√п╢,\n"
+"п╢п╣ п©п╬я│п╦п╩п╟п╫п╫я▐ п╫п╟ п╥п╪я√п╫п╫я√ п╬я┌п╬я┤п╣п╫п╫я▐ я┐ я└п╬я─п╪я√ $VARIABLE п╟п╠п╬ ${VARIABLE}, \n"
+"п╥п╟п╪я√п╫я▌я▌я┌я▄я│я▐ п╡я√п╢п©п╬п╡я√п╢п╫п╦п╪п╦ п╥п╫п╟я┤п╣п╫п╫я▐п╪п╦. п╞п╨я┴п╬ п╡п╨п╟п╥п╟п╫п╬ SHELL-FORMAT,\n"
+"п╠я┐п╢я┐я┌я▄ п╥п╟п╪я√п╫я▌п╡п╟я┌п╦я│я▄ п╩п╦я┬п╣ п╥п╪я√п╫п╫я√, я┴п╬ п╡п╨п╟п╥п╟п╫я√ я┐ SHELL-FORMAT; я┐ я√п╫я┬п╬п╪я┐\n"
+"п╡п╦п©п╟п╢п╨я┐ п╠я┐п╢я┐я┌я▄ п╥п╟п╪я√п╫я▌п╡п╟я┌п╦я│я▄ я┐я│я√ п╥п╪я√п╫п╫я√ п╬я┌п╬я┤п╣п╫п╫я▐, я┴п╬ п╥я┐я│я┌я─я√я┤п╟я▌я┌я▄я│я▐ я┐\n"
+"я│я┌п╟п╫п╢п╟я─я┌п╫п╬п╪я┐ п╡п╡п╬п╢я√.\n"
 
 #: src/envsubst.c:211
 #, c-format, no-wrap
@@ -169,33 +175,35 @@ msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
+"п÷я─п╦ п╡п╦п╨п╬я─п╦я│я┌п╟п╫п╫я√ --variables, я│я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╡п╡я√п╢ я√пЁп╫п╬я─я┐я■я┌я▄я│я▐, п╟ п╡п╦п╡я√п╢\n"
+"я│п╨п╩п╟п╢п╟я■я┌я▄я│я▐ п╥я√ п╥п╪я√п╫п╫п╦я┘ п╬я┌п╬я┤п╣п╫п╫я▐, я▐п╨я√ п╡п╨п╟п╥п╟п╫я√ я┐ SHELL-FORMAT, п©п╬ п╬п╢п╫я√п╧ п╫п╟ я─я▐п╢п╬п╨.\n"
 
 #: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Пов╕домляйте про помилки на <bug-gnu-gettext@gnu.org>.\n"
+msgstr "п÷я─п╬ п©п╬п╪п╦п╩п╨п╦ п©п╬п╡я√п╢п╬п╪п╩я▐п╧я┌п╣ п╫п╟ <bug-gnu-gettext@gnu.org>.\n"
 
 #: src/envsubst.c:438
 #, c-format
 msgid "error while reading \"%s\""
-msgstr ""
+msgstr "п©п╬п╪п╦п╩п╨п╟ п©я─п╦ я┤п╦я┌п╟п╫п╫я√ \"%s\""
 
 #: src/envsubst.c:439
 msgid "standard input"
-msgstr ""
+msgstr "я│я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╡п╡я√п╢"
 
 #: src/gettext.c:244
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Використання: \n"
-"  %s [КЛЮЧ] [ДОМЕН] ╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ МНОЖИННА_ФОРМА К╤ЛЬК╤СТЬ\n"
+"п▓п╦п╨п╬я─п╦я│я┌п╟п╫п╫я▐: %s [п÷п░п═п░п°п∙п╒п═] [[п■п·п°п∙п²_п╒п∙п п║п╒пё] MSGID]\n"
+"п╟п╠п╬:          %s [п÷п░п═п░п°п∙п╒п═] -s [MSGID]...\n"
 
 #: src/gettext.c:250
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr "Показу╓ переклад текстового пов╕домлення р╕дною мовою користувача.\n"
+msgstr "п▓я√п╢п╬п╠я─п╟п╤п╟я■ п©п╣я─п╣п╨п╩п╟п╢ я┌п╣п╨я│я┌п╬п╡п╬пЁп╬ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐.\n"
 
 #: src/gettext.c:254
 #, c-format, no-wrap
@@ -209,13 +217,14 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=ДОМЕН         шукати переклад у вказаному ДОМЕН╤\n"
-"  -e                         дозволити деяк╕ контролююч╕ посл╕довност╕\n"
-"  -E                         (╕гнору╓ться для сум╕сност╕)\n"
-"  -h, --help                 показати дов╕дку та вийти\n"
-"  -n                         не переводити рядок п╕сля виводу пов╕домлення\n"
-"  -V, --version              показати ╕нформац╕ю про верс╕ю та вийти\n"
-"  [ДОМЕН] ПОВ╤ДОМЛЕННЯ       отримати ПОВ╤ДОМЛЕННЯ з вказаного домену\n"
+"  -d, --domain=п■п·п°п∙п²_п╒п∙п п║п╒пё п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦ п©п╣я─п╣п╨п╩п╟п╢п╣п╫я√ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐ п╥\n"
+"                            п╢п╬п╪п╣п╫я┐ п■п·п°п∙п²_п╒п∙п п║п╒пё\n"
+"  -e                        п╢п╬п╥п╡п╬п╩п╦я┌п╦ п╡п╦п╨п╬я─п╦я│я┌п╟п╫п╫я▐ п╢п╣я▐п╨п╦я┘ escape-п©п╬я│п╩я√п╢п╬п╡п╫п╬я│я┌п╣п╧\n"
+"  -E                        (я√пЁп╫п╬я─я┐я■я┌я▄я│я▐, п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐я■я┌я▄я│я▐ п╢п╩я▐ я│я┐п╪я√я│п╫п╬я│я┌я√)\n"
+"  -h, --help                п©п╬п╨п╟п╥п╟я┌п╦ я├я▌ п╢п╬п╡я√п╢п╨я┐ я┌п╟ п╡п╦п╧я┌п╦\n"
+"  -n                        п╫п╣ п╡п╦п╡п╬п╢п╦я┌п╦ п╫п╟п©я─п╦п╨я√п╫я├я√ я│п╦п╪п╡п╬п╩ п©п╣я─п╣п╡п╬п╢я┐ я─я▐п╢п╨п╟\n"
+"  -V, --version             п╡я√п╢п╬п╠я─п╟п╥п╦я┌п╦ я√п╫я└п╬я─п╪п╟я├я√я▌ п©я─п╬ п╡п╣я─я│я√я▌ я┌п╟ п╡п╦п╧я┌п╦\n"
+"  [п■п·п°п∙п²_п╒п∙п п║п╒пё] MSGID      п╥п╫п╟п╧я┌п╦ п©п╣я─п╣п╨п╩п╟п╢ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐ MSGID я┐ п■п·п°п∙п²_п╒п∙п п║п╒пё\n"
 
 #: src/gettext.c:265
 #, c-format, no-wrap
@@ -229,20 +238,19 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Якщо ДОМЕН не вказано, назва домену береться з╕ зм╕нно╖ середовища\n"
-"\"TEXTDOMAIN\". Якщо каталог пов╕домлень знаходиться не у стандартному\n"
-"каталоз╕, ╕нший каталог можна вказати через зм╕нну середовища TEXTDOMAINDIR.\n"
-"При вказан╕ ключа \"-s\", програма поводиться под╕бно до команди \"echo\".\n"
-"Але вона не просто коп╕ю╓ сво╖ аргументи на стандартний вих╕д, а й переклада╓\n"
-"╖х використовуючи вказаний каталог пов╕домлень.\n"
-"Стандартний каталог: %s\n"
+"п╞п╨я┴п╬ п╫п╣ п╡п╨п╟п╥п╟п╫п╦п╧ п©п╟я─п╟п╪п╣я┌я─ п■п·п°п∙п²_п╒п∙п п║п╒пё, п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐я■я┌я▄я│я▐ п╢п╬п╪п╣п╫, п╡я│я┌п╟п╫п╬п╡п╩п╣п╫п╦п╧\n"
+"я┐ п╥п╪я√п╫п╫я√п╧ п╬я┌п╬я┤п╣п╫п╫я▐ TEXTDOMAIN. п╞п╨я┴п╬ я└п╟п╧п╩ п╥ п©п╣я─п╣п╨п╩п╟п╢п╣п╫п╦п╪п╦ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐п╪п╦\n"
+"п╡я√п╢я│я┐я┌п╫я√п╧ я┐ я┌п╦п©п╬п╡п╬п╪я┐ п╨п╟я┌п╟п╩п╬п╥я√, п╪п╬п╤п╫п╟ п╡п╨п╟п╥п╟я┌п╦ я√п╫я┬п╦п╧ п╨п╟я┌п╟п╩п╬пЁ п╥п╟ п╢п╬п©п╬п╪п╬пЁп╬я▌\n"
+"п╥п╪я√п╫п╫п╬я≈ п╬я┌п╬я┤п╣п╫п╫я▐ TEXTDOMAINDIR.\n"
+"п÷я─п╦ п╡п╦п╨п╬я─п╦я│я┌п╟п╫п╫я√ п╥ п╨п╩я▌я┤п╣п╪ -s, п©п╬п╡п╣п╢я√п╫п╨п╟ п©я─п╬пЁя─п╟п╪п╦ я│я┘п╬п╤п╟ п╫п╟ п©п╬п╡п╣п╢я√п╫п╨я┐ п©я─п╬пЁя─п╟п╪п╦\n"
+"`echo'. п░п╩п╣ п╥п╟п╪я√я│я┌я▄ п©я─п╬я│я┌п╬пЁп╬ п╨п╬п©я√я▌п╡п╟п╫п╫я▐ п╟я─пЁя┐п╪п╣п╫я┌я√п╡ я┐ я│я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╡п╦п╡я√п╢,\n"
+"п╡п╦п╡п╬п╢я▐я┌я▄я│я▐ я≈я┘ п©п╣я─п╣п╨п╩п╟п╢п╦ п╥ п╡п╨п╟п╥п╟п╫п╬пЁп╬ п╢п╬п╪п╣п╫я┐.\n"
+"п║я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╨п╟я┌п╟п╩п╬пЁ п©п╬я┬я┐п╨я┐: %s\n"
 
 #: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr ""
-"Використання: \n"
-"  %s [КЛЮЧ] [ДОМЕН] ╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ МНОЖИННА_ФОРМА К╤ЛЬК╤СТЬ\n"
+msgstr "п▓п╦п╨п╬я─п╦я│я┌п╟п╫п╫я▐: %s [п÷п░п═п░п°п∙п╒п═] [п■п·п°п∙п²_п╒п∙п п║п╒пё] MSGID MSGID-PLURAL п╖п≤п║п⌡п·\n"
 
 #: src/ngettext.c:218
 #, c-format, no-wrap
@@ -250,8 +258,8 @@ msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
-"Показу╓ переклад текстового пов╕домлення р╕дною мовою користувача у.\n"
-"граматичн╕й форм╕, яка залежить в╕д числа.\n"
+"п▓я√п╢п╬п╠я─п╟п╤п╟я■ п©п╣я─п╣п╨п╩п╟п╢ я┌п╣п╨я│я┌п╬п╡п╬пЁп╬ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐, пЁя─п╟п╪п╟я┌п╦я┤п╫п╟ я└п╬я─п╪п╟ я▐п╨п╬пЁп╬ п╥п╟п╩п╣п╤п╦я┌я▄\n"
+"п╡я√п╢ я┤п╦я│п╩п╟.\n"
 
 #: src/ngettext.c:223
 #, c-format, no-wrap
@@ -265,15 +273,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=ДОМЕН         шукати переклад у вказаному ДОМЕН╤\n"
-"  -e                         дозволити деяк╕ контролююч╕ посл╕довност╕\n"
-"  -E                         (╕гнору╓ться для сум╕сност╕)\n"
-"  -h, --help                 показати дов╕дку та вийти\n"
-"  -V, --version              показати ╕нформац╕ю про верс╕ю та вийти\n"
-"  [ДОМЕН]                    шукати переклад у вказаному ДОМЕН╤\n"
-"  ╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ переклада╓ пов╕домлення\n"
-"  МНОЖИННА_ФОРМА             у множинн╕й форм╕   ЧИСЛО                      вибрати множинну верс╕ю пов╕домлення на основ╕\n"
-"                             значення цього ЧИСЛА\n"
+"  -d, --domain=п■п·п°п∙п²_п╒п∙п п║п╒пё п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐п╡п╟я┌п╦ п©п╣я─п╣п╨п╩п╟п╢п╣п╫я√ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐ п╥\n"
+"                            п╡п╨п╟п╥п╟п╫п╬пЁп╬ п╢п╬п╪п╣п╫я┐ п■п·п°п∙п²_п╒п∙п п║п╒пё\n"
+"  -e                        п╢п╬п╥п╡п╬п╩п╦я┌п╦ п╡п╦п╨п╬я─п╦я│я┌п╟п╫п╫я▐ п╢п╣я▐п╨п╦я┘ escape-п©п╬я│п╩я√п╢п╬п╡п╫п╬я│я┌п╣п╧\n"
+"  -E                        (я√пЁп╫п╬я─я┐я■я┌я▄я│я▐, п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐я■я┌я▄я│я▐ п╢п╩я▐ я│я┐п╪я√я│п╫п╬я│я┌я√)\n"
+"  -h, --help                п©п╬п╨п╟п╥п╟я┌п╦ я├я▌ п╢п╬п╡я√п╢п╨я┐ я┌п╟ п╡п╦п╧я┌п╦\n"
+"  -V, --version             п╡я√п╢п╬п╠я─п╟п╥п╦я┌п╦ я√п╫я└п╬я─п╪п╟я├я√я▌ п©я─п╬ п╡п╣я─я│я√я▌ я┌п╟ п╡п╦п╧я┌п╦\n"
+"  [п■п·п°п∙п²_п╒п∙п п║п╒пё]            п╥п╫п╟п╧я┌п╦ п©п╣я─п╣п╨п╩п╟п╢ я┐ п╡п╨п╟п╥п╟п╫п╬п╪я┐ п╢п╬п╪п╣п╫я√ п■п·п°п∙п²_п╒п∙п п║п╒пё\n"
+"  MSGID MSGID-PLURAL        п©п╣я─п╣п╨п╩п╟я│я┌п╦ MSGID (п╬п╢п╫п╦п╫п╟) / MSGID-PLURAL (п╪п╫п╬п╤п╦п╫п╟)\n"
+"  п╖п≤п║п⌡п·                     п╡п╦п╠я─п╟я┌п╦ п╬п╢п╫п╦п╫я┐/п╪п╫п╬п╤п╦п╫я┐ п╫п╟ п╬я│п╫п╬п╡я√ я├я▄п╬пЁп╬ п╥п╫п╟я┤п╣п╫п╫я▐\n"
 
 #: src/ngettext.c:234
 #, c-format, no-wrap
@@ -284,14 +292,8 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Якщо ДОМЕН не вказано, назва домену береться з╕ зм╕нно╖ середовища\n"
-"TEXTDOMAIN. Якщо каталог пов╕домлень знаходиться не у стандартному каталоз╕,\n"
-"╕нший каталог можна вказати через зм╕нну середовища TEXTDOMAINDIR.\n"
-"Стандартний каталог: %s\n"
-
-#~ msgid ""
-#~ "Usage: %s [OPTION] [[ДОМЕН] ╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ]\n"
-#~ "or:    %s [OPTION] -s [╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ]...\n"
-#~ msgstr ""
-#~ "Використання: %s [КЛЮЧ] [[ДОМЕН] ╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ]\n"
-#~ "або:    %s [КЛЮЧ] -s [╤ДЕНТИФ╤КАТОР_ПОВ╤ДОМЛЕННЯ]...\n"
+"п╞п╨я┴п╬ п©п╟я─п╟п╪п╣я┌я─ п■п·п°п∙п²_п╒п∙п п║п╒пё п╫п╣ п╡п╨п╟п╥п╟п╫п╦п╧, п╡п╦п╨п╬я─п╦я│я┌п╬п╡я┐я■я┌я▄я│я▐ п╢п╬п╪п╣п╫, п╡п╦п╥п╫п╟я┤п╣п╫п╦п╧ я┐\n"
+"п╥п╪я√п╫п╫я√п╧ п╬я┌п╬я┤п╣п╫п╫я▐ TEXTDOMAIN. п╞п╨я┴п╬ я└п╟п╧п╩ п╥ п©п╣я─п╣п╨п╩п╟п╢п╣п╫п╦п╪п╦ п©п╬п╡я√п╢п╬п╪п╩п╣п╫п╫я▐п╪п╦\n"
+"п╡я√п╢я│я┐я┌п╫я√п╧ я┐ я│я┌п╟п╫п╢п╟я─я┌п╫п╬п╪я┐ п╨п╟я┌п╟п╩п╬п╥я√, п╪п╬п╤п╫п╟ п╡п╨п╟п╥п╟я┌п╦ я√п╫я┬п╦п╧ п╨п╟я┌п╟п╩п╬пЁ п╥п╟ п╢п╬п©п╬п╪п╬пЁп╬я▌\n"
+"п╥п╪я√п╫п╫п╬я≈ п╬я┌п╬я┤п╣п╫п╫я▐ TEXTDOMAINDIR.\n"
+"п║я┌п╟п╫п╢п╟я─я┌п╫п╦п╧ п╨п╟я┌п╟п╩п╬пЁ п©п╬я┬я┐п╨я┐: %s\n"

@@ -1,6 +1,6 @@
 # German translations for GNU gettext-runtime package.
-# Copyright © 1995, 1996, 1997, 2001, 2002, 2003 Free Software Foundation, Inc.
-# Karl Eichwalder <ke@suse.de>, 2001, 2002, 2003.
+# Copyright © 1995, 1996, 1997, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+# Karl Eichwalder <ke@suse.de>, 2001, 2002, 2003, 2004.
 # Ulrich Drepper <drepper@gnu.org>, 1995-1997.
 #
 # Wörterbuch:
@@ -74,10 +74,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.13-pre1\n"
+"Project-Id-Version: gettext-runtime 0.14.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-10-16 21:36+0200\n"
-"PO-Revision-Date: 2003-11-19 16:35+0100\n"
+"PO-Revision-Date: 2004-08-28 12:02+0200\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -153,7 +153,7 @@ msgstr "%s: Option »-W %s« erwartet kein Argument\n"
 #: ../gettext-tools/lib/xmalloc.c:41
 #, c-format
 msgid "memory exhausted"
-msgstr "virtueller Speicher erschöpft"
+msgstr "virtueller Speicher aufgebraucht"
 
 #: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
@@ -205,7 +205,7 @@ msgstr "Art der Verarbeitung:\n"
 #: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr "  -v, --variables             Variablen ausgeben, die im SHELL-FORMAT vorkommen\n"
+msgstr "  -v, --variables              Variablen ausgeben, die im SHELL-FORMAT vorkommen\n"
 
 #: src/envsubst.c:192
 #, c-format, no-wrap
@@ -318,9 +318,9 @@ msgstr ""
 "sich nicht im Standardverzeichnis des Systems befindet, kann durch die\n"
 "Umgebungsvariable TEXTDOMAINDIR ein anderes Verzeichnis angegeben werden.\n"
 "\n"
-"Wenn die Option »-s« angeschaltet ist, verhält sich das Programm wie das\n"
-"Kommando »echo«.  Aber anstatt alle Argumente einfach auszugeben, werden\n"
-"diese übersetzt, falls sie im angegebenen Katalog (Textbereich) vorhanden sind.\n"
+"Wenn die Option »-s« angegeben ist, verhält sich das Programm wie der Befehl\n"
+"»echo«.  Aber anstatt alle Argumente einfach auszugeben, werden diese\n"
+"übersetzt, falls sie im angegebenen Katalog (Textbereich) vorhanden sind.\n"
 "\n"
 "Standardverzeichnis: %s\n"
 
@@ -371,7 +371,7 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Wenn der Parameter BEREICH nicht gegeben wurde, wird der Bereich durch die\n"
+"Wenn der Parameter BEREICH nicht angegeben wurde, wird der Bereich durch die\n"
 "Umgebungsvariable TEXTDOMAIN bestimmt.  Wenn der Katalog dieses Bereiches\n"
 "sich nicht im Standardverzeichnis des Systems befindet, kann durch die\n"
 "Umgebungsvariable TEXTDOMAINDIR ein anderes Verzeichnis angegeben werden.\n"
