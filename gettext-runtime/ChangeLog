@@ -1,3 +1,7 @@
+2003-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Remove argument of FIX_MAKEFILE_COMPILE.
+
 2003-09-16  Bruno Haible  <bruno@clisp.org>
 
 	Portability to SunOS 4.

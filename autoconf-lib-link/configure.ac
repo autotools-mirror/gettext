@@ -58,7 +58,7 @@ aclocaldir='${datadir}/aclocal'
 AC_SUBST(aclocaldir)
 
 AC_CONFIG_FILES([Makefile],
-                [FIX_MAKEFILE_DISTRIB([Makefile])])
+                [FIX_MAKEFILE_DISTRIB])
 
 AC_CONFIG_FILES([m4/Makefile])
 

@@ -233,9 +233,9 @@ AC_SUBST(LTALLOCA)
 AC_CONFIG_FILES([Makefile])
 
 AC_CONFIG_FILES([doc/Makefile],
-                [FIX_MAKEFILE_COMPILE([doc/Makefile])
-                 FIX_MAKEFILE_DISTRIB([doc/Makefile])
-                 FIX_MAKEFILE_INFO([doc/Makefile])])
+                [FIX_MAKEFILE_COMPILE
+                 FIX_MAKEFILE_DISTRIB
+                 FIX_MAKEFILE_INFO])
 
 AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
   # Change srcdir variable so that it points to ../gettext-runtime/intl.
@@ -245,14 +245,14 @@ AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
   ])
 
 AC_CONFIG_FILES([lib/Makefile],
-                [FIX_MAKEFILE_COMPILE([lib/Makefile])])
+                [FIX_MAKEFILE_COMPILE])
 AC_CONFIG_FILES([lib/javacomp.sh lib/javaexec.sh])
 
 AC_CONFIG_FILES([libuniname/Makefile],
-                [FIX_MAKEFILE_COMPILE([libuniname/Makefile])])
+                [FIX_MAKEFILE_COMPILE])
 
 AC_CONFIG_FILES([src/Makefile],
-                [FIX_MAKEFILE_COMPILE([src/Makefile])])
+                [FIX_MAKEFILE_COMPILE])
 AC_CONFIG_FILES([src/user-email])
 
 AC_CONFIG_FILES([po/Makefile.in])
@@ -269,6 +269,6 @@ AC_CONFIG_FILES([man/x-to-1])
 AC_CONFIG_FILES([m4/Makefile])
 
 AC_CONFIG_FILES([tests/Makefile],
-                [FIX_MAKEFILE_COMPILE([tests/Makefile])])
+                [FIX_MAKEFILE_COMPILE])
 
 AC_OUTPUT

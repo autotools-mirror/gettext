@@ -1,3 +1,7 @@
+2003-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Remove argument of FIX_MAKEFILE_DISTRIB.
+
 2003-06-17  Paul Eggert  <eggert@twinsun.com>
 
 	* config.rpath: Use grep instead of egrep, since POSIX 1003.1-2001 no

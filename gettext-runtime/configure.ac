@@ -141,11 +141,11 @@ AC_CONFIG_FILES([intl/Makefile])
 AC_CONFIG_FILES([intl-java/Makefile])
 
 AC_CONFIG_FILES([lib/Makefile],
-                [FIX_MAKEFILE_COMPILE([lib/Makefile])])
+                [FIX_MAKEFILE_COMPILE])
 AC_CONFIG_FILES([lib/javacomp.sh:../gettext-tools/lib/javacomp.sh.in])
 
 AC_CONFIG_FILES([src/Makefile],
-                [FIX_MAKEFILE_COMPILE([src/Makefile])])
+                [FIX_MAKEFILE_COMPILE])
 
 AC_CONFIG_FILES([po/Makefile.in])
 

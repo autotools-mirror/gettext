@@ -1,3 +1,8 @@
+2003-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* config/m4/fixautomake.m4 (FIX_MAKEFILE_COMPILE, FIX_MAKEFILE_DISTRIB,
+	FIX_MAKEFILE_INFO): Drop argument, use $ac_file instead.
+
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Add envsubst related files and gettext.sh.
