@@ -47,6 +47,7 @@ AC_DEFUN([AM_WITH_NLS],
 
     BUILD_INCLUDED_LIBINTL=no
     USE_INCLUDED_LIBINTL=no
+    INTLLIBS=
 
     dnl If we use NLS figure out what method
     if test "$USE_NLS" = "yes"; then
@@ -84,7 +85,7 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	     AC_CACHE_CHECK([for GNU gettext in libintl],
 	       gt_cv_func_gnugettext_libintl,
 	       [gt_save_LIBS="$LIBS"
-		LIBS="$LIBS -lintl"
+		LIBS="$LIBS -lintl $LIBICONV"
 		AC_TRY_LINK([#include <libintl.h>
 extern int _nl_msg_cat_cntr;],
 		  [bindtextdomain ("", "");
@@ -103,18 +104,29 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 		   && test "$PACKAGE" != gettext; }; then
 	     AC_DEFINE(HAVE_GETTEXT, 1,
                [Define if the GNU gettext() function is already present or preinstalled.])
+
+	     if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
+	       dnl If iconv() is in a separate libiconv library, then anyone
+	       dnl linking with libintl{.a,.so} also needs to link with
+	       dnl libiconv.
+	       INTLLIBS="-lintl $LIBICONV"
+	     fi
+
+	     gt_save_LIBS="$LIBS"
+	     LIBS="$LIBS $INTLLIBS"
 	     AC_CHECK_FUNCS(dcgettext)
+	     LIBS="$gt_save_LIBS"
+
 	     AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
 	       [test -z "`$ac_dir/$ac_word -h 2>&1 | grep 'dv '`"], no)dnl
 	     if test "$MSGFMT" != "no"; then
 	       AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 	     fi
+
 	     AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 	       [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
+
 	     CATOBJEXT=.gmo
-	     if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
-	       INTLLIBS="-lintl"
-	     fi
 	   fi
 	])
 
@@ -137,14 +149,8 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
         CATOBJEXT=.gmo
-	INTLLIBS='ifelse([$3],[],$(top_builddir)/intl,[$3])/libintl.ifelse([$1], use-libtool, [l], [])a'
+	INTLLIBS="ifelse([$3],[],$(top_builddir)/intl,[$3])/libintl.ifelse([$1], use-libtool, [l], [])a $LIBICONV"
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
-      fi
-
-      dnl If iconv() is in a separate libiconv library, then anyone linking
-      dnl with libintl{.a,.so} also needs to link with libiconv.
-      if test -n "$LIBICONV" && test -n "$INTLLIBS"; then
-        INTLLIBS="$INTLLIBS $LIBICONV"
       fi
 
       dnl Test whether we really found GNU xgettext.
