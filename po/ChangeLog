@@ -1,3 +1,11 @@
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in ($(DOMAIN).pot-update): Renamed from target
+	$(srcdir)/$(DOMAIN).pot.
+	($(srcdir)/$(DOMAIN).pot): New rule, which normally does nothing.
+	($(POFILES)): Depend on $(srcdir)/$(DOMAIN).pot, not on 'force'.
+	(update-po): Update.
+
 2002-01-07  Bruno Haible  <bruno@clisp.org>
 
 	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.

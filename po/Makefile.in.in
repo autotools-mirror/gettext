@@ -72,11 +72,11 @@ all: all-@USE_NLS@
 all-yes: $(CATALOGS)
 all-no:
 
-# Note: Target 'all' must not depend on target '$(srcdir)/$(DOMAIN).pot',
+# Note: Target 'all' must not depend on target '$(DOMAIN).pot-update',
 # otherwise packages like GCC can not be built if only parts of the source
 # have been downloaded.
 
-$(srcdir)/$(DOMAIN).pot: $(POTFILES) $(srcdir)/POTFILES.in
+$(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --files-from=$(srcdir)/POTFILES.in \
@@ -85,7 +85,10 @@ $(srcdir)/$(DOMAIN).pot: $(POTFILES) $(srcdir)/POTFILES.in
 	   || ( rm -f $(srcdir)/$(DOMAIN).pot \
 		&& mv $(DOMAIN).po $(srcdir)/$(DOMAIN).pot )
 
-$(POFILES): force
+$(srcdir)/$(DOMAIN).pot:
+	$(MAKE) $(DOMAIN).pot-update
+
+$(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
 	echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
@@ -202,7 +205,7 @@ dist2: $(DISTFILES)
 	done
 
 update-po: Makefile
-	$(MAKE) $(DOMAIN).pot
+	$(MAKE) $(DOMAIN).pot-update
 	$(MAKE) $(UPDATEPOFILES)
 	$(MAKE) update-gmo
 
