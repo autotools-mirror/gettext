@@ -19,7 +19,10 @@
 # include <config.h>
 #endif
 
-#if defined STDC_HEADERS || defined _LIBC
+#if defined HAVE_STDDEF_H || defined _LIBC
+# include <stddef.h>
+#endif
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #else
 # ifdef HAVE_MALLOC_H
@@ -233,7 +236,7 @@ set_binding_values (domainname, dirnamep, codesetp)
       /* We have to create a new binding.  */
       size_t len = strlen (domainname) + 1;
       struct binding *new_binding =
-	(struct binding *) malloc (sizeof (*new_binding) + len);
+	(struct binding *) malloc (offsetof (struct binding, domainname) + len);
 
       if (__builtin_expect (new_binding == NULL, 0))
 	goto failed;

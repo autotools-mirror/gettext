@@ -1,3 +1,17 @@
+2000-12-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextP.h (ZERO): New macro.
+	(struct binding): Always use ZERO.
+	* bindtextdom.c (set_binding_values): Use offsetof, not sizeof.
+	Include <stddef.h> whenever possible.
+	* dcigettext.c (ZERO): Remove macro.
+	(struct transmem_list): Use ZERO.
+	(DCIGETTEXT): Use offsetof, not sizeof.
+	Include <stddef.h> whenever possible.
+
+	* config.charset: Update from libiconv-1.5.1.
+	* localcharset.c: Likewise.
+
 2000-12-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* locale.alias: New file, moved here from ../misc/locale.alias. Add

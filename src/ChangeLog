@@ -1,5 +1,9 @@
 2000-12-31  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgunfmt.c (read_mo_file): Recognize "/dev/stdin", not "/dev/stdout".
+
+2000-12-31  Bruno Haible  <haible@clisp.cons.org>
+
 	* str-list.h: Fix typo. Add comments.
 	* str-list.c: Add comments.
 

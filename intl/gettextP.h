@@ -138,16 +138,20 @@ struct loaded_domain
   unsigned long int nplurals;
 };
 
+/* We want to allocate a string at the end of the struct.  But ISO C
+   doesn't allow zero sized arrays.  */
+#ifdef __GNUC__
+# define ZERO 0
+#else
+# define ZERO 1
+#endif
+
 struct binding
 {
   struct binding *next;
   char *dirname;
   char *codeset;
-#ifdef __GNUC__
-  char domainname[0];
-#else
-  char domainname[1];
-#endif
+  char domainname[ZERO];
 };
 
 extern int _nl_msg_cat_cntr;

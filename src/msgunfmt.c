@@ -1,5 +1,5 @@
 /* msgunfmt - converts binary .mo files to Uniforum style .po files
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -329,14 +329,14 @@ string32 (fp, fn, offset)
 	error (EXIT_FAILURE, errno, _("error while reading \"%s\""), fn);
       error (EXIT_FAILURE, 0, _("file \"%s\" truncated"), fn);
     }
-  buffer[length] = 0;
+  buffer[length] = '\0';
 
   /* Return the string to the caller.  */
   return buffer;
 }
 
 
-/* This function reads and existing .mo file.  Return a message list.  */
+/* This function reads an existing .mo file.  Return a message list.  */
 static message_list_ty *
 read_mo_file (mlp, fn)
      message_list_ty *mlp;
@@ -346,7 +346,7 @@ read_mo_file (mlp, fn)
   struct mo_file_header header;
   int j;
 
-  if (strcmp (fn, "-") == 0 || strcmp (fn, "/dev/stdout") == 0)
+  if (strcmp (fn, "-") == 0 || strcmp (fn, "/dev/stdin") == 0)
     fp = stdin;
   else
     {

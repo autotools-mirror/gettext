@@ -53,8 +53,10 @@ extern int errno;
 # define __set_errno(val) errno = (val)
 #endif
 
-#if defined STDC_HEADERS || defined _LIBC
+#if defined HAVE_STDDEF_H || defined _LIBC
 # include <stddef.h>
+#endif
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #else
 char *getenv ();
@@ -196,14 +198,6 @@ static void *mempcpy PARAMS ((void *dest, const void *src, size_t n));
 # define HAVE_LOCALE_NULL
 #endif
 
-/* We want to allocate a string at the end of the struct.  gcc makes
-   this easy.  */
-#ifdef __GNUC__
-# define ZERO 0
-#else
-# define ZERO 1
-#endif
-
 /* This is the type used for the search tree where known translations
    are stored.  */
 struct known_translation_t
@@ -329,7 +323,7 @@ struct block_list
 typedef struct transmem_list
 {
   struct transmem_list *next;
-  char data[0];
+  char data[ZERO];
 } transmem_block_t;
 static struct transmem_list *transmem_list;
 #else
@@ -623,8 +617,8 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 		  struct known_translation_t *newp;
 
 		  newp = (struct known_translation_t *)
-		    malloc (sizeof (*newp) + msgid_len
-			    + domainname_len + 1 - ZERO);
+		    malloc (offsetof (struct known_translation_t, msgid)
+			    + msgid_len + domainname_len + 1);
 		  if (newp != NULL)
 		    {
 		      newp->domain = mempcpy (newp->msgid, msgid1, msgid_len);
