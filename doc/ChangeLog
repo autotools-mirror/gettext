@@ -1,3 +1,7 @@
+2001-02-17  Karl Eichwalder  <keichwa@gmx.net>
+
+	* gettext.texi: ISO 639 specifies language codes, not country codes.
+
 2001-01-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Installation): Call autoload with 4 arguments.

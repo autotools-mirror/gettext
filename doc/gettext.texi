@@ -88,7 +88,7 @@ by the Foundation.
 * Maintainers::                 The Maintainer's View
 * Conclusion::                  Concluding Remarks
 
-* Country Codes::               ISO 639 country codes
+* Language Codes::              ISO 639 language codes
 
 @detailmenu
  --- The Detailed Node Listing ---
@@ -5110,7 +5110,7 @@ dist: Makefile $(DISTFILES)
 
 @end enumerate
 
-@node Conclusion, Country Codes, Maintainers, Top
+@node Conclusion, Language Codes, Maintainers, Top
 @chapter Concluding Remarks
 
 We would like to conclude this GNU @code{gettext} manual by presenting
@@ -5229,12 +5229,12 @@ ftp://ftp.ibp.fr/pub/linux/french/docs/
 @noindent
 together with French translations of many Linux-related documents.
 
-@node Country Codes,  , Conclusion, Top
-@appendix Country Codes
+@node Language Codes,  , Conclusion, Top
+@appendix Language Codes
 
-The @w{ISO 639} standard defines two character codes for many countries.
-All abreviations for countries or languages used in the Translation
-Project should come from this standard.
+The @w{ISO 639} standard defines two character codes for many languages.
+All abbreviations for languages used in the Translation Project should
+come from this standard.
 
 @table @samp
 @include iso-apdx.texi
