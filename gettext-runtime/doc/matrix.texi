@@ -103,7 +103,6 @@ libidn             |                                                 |
 lifelines          |                               [] ()             |
 lilypond           |                                  []             |
 lingoteach         |                                                 |
-lingoteach_lessons |                                  ()             |
 lynx               |                      [] []    [] []             |
 m4                 |                         []    [] [] []          |
 mailutils          |                      []                         |
@@ -261,7 +260,6 @@ libidn             |                   []                       [] |
 lifelines          |                   ()                          |
 lilypond           |                   []                          |
 lingoteach         |                   []                 []    [] |
-lingoteach_lessons |    ()                                         |
 lynx               |       []                          []       [] |
 m4                 |                   []  [] []          []       |
 mailutils          |    []             []                          |
@@ -289,7 +287,7 @@ sharutils          |    [] []       [] []     []       []       [] |
 silky              |                () []              ()       () |
 skencil            |    []             []                          |
 sketch             |    []             []                          |
-solfege            |    []             []                          |
+solfege            |    []             []                       [] |
 soundtracker       |    []             []                       [] |
 sp                 |                   []                          |
 stardict           |                                   []          |
@@ -312,7 +310,7 @@ xkeyboard-config   |                                               |
 xpad               |    []                 []          []          |
                    +-----------------------------------------------+
                      eo es et eu fa fi fr  ga gl he hr hu id is it
-                     14 87 22 15  2 25 119 44 18  8  6 41 28  1 40
+                     14 87 22 15  2 25 119 44 18  8  6 41 28  1 41
 @end group
 
 @group
@@ -347,7 +345,7 @@ error              |                               []              |
 fetchmail          | []                            []              |
 fileutils          | []    []                                      |
 findutils          |                                               |
-flex               |    []                                         |
+flex               |    []                         []              |
 fslint             |                               []              |
 gas                |                                               |
 gawk               | []                            []              |
@@ -419,7 +417,6 @@ libidn             |                                               |
 lifelines          |                               []              |
 lilypond           |                               []              |
 lingoteach         |                               []              |
-lingoteach_lessons |                                               |
 lynx               | []                            []              |
 m4                 | []                            []              |
 mailutils          |                                               |
@@ -470,7 +467,7 @@ xkeyboard-config   |                               []              |
 xpad               |                               []              |
                    +-----------------------------------------------+
                      ja ko lg lt lv mk mn ms mt nb nl nn no nso or
-                     35 11  1  1  2  2  3 11  0 14 95  7  5  0   1
+                     35 11  1  1  2  2  3 11  0 14 96  7  5  0   1
 @end group
 
 @group
@@ -489,7 +486,7 @@ bfd                |                   []                   []    |
 bibshelf           |                                              |
 binutils           |                      []                []    |
 bison              |    []     []      [] []                []    |
-bluez-pin          |    []     []   [] []       []       [] []    |
+bluez-pin          |    []     []   [] [] []    []       [] []    |
 clisp              |                      []                      |
 console-tools      |                      []                      |
 coreutils          |    []                []       []       []    |
@@ -549,7 +546,7 @@ gretl              |    []                                        |
 gsasl              |    []             []             [] [] []    |
 gss                |    []             []                   []    |
 gst-plugins        |                                  [] [] []    |
-gstreamer          |                                  [] [] []    |
+gstreamer          |                      []          [] [] []    |
 gtick              |                   [] []                []    |
 gtkspell           |           []   [] []       []       []       |
 hello              |    []     []      [] []    []       [] []    |
@@ -568,7 +565,7 @@ jwhois             |    []     []      [] ()                ()    |
 kbd                |    []             []                   []    |
 latrine            |                   []                   []    |
 ld                 |                                        []    |
-libc               |    []     []               []          []    |
+libc               |    []     []         []    []          []    |
 libextractor       |                                              |
 libgpewidget       |       []  []      []       []       [] []    |
 libgsasl           |    []             []                []       |
@@ -577,7 +574,6 @@ libidn             |    []                                  ()    |
 lifelines          |    []                                  []    |
 lilypond           |                                        []    |
 lingoteach         |           []                                 |
-lingoteach_lessons |                                              |
 lynx               |           []         []                []    |
 m4                 |    []     []      [] []                []    |
 mailutils          |    []             [] []                      |
@@ -628,7 +624,7 @@ xkeyboard-config   |                                              |
 xpad               |                                              |
                    +----------------------------------------------+
                      pa pl pt pt_BR rm ro ru rw sk sl sq sr sv ta
-                      0 48 27  58    6 79 68  4 47 13 13 51 90  0
+                      0 48 27  58    6 79 71  4 47 13 13 51 90  0
 @end group
 
 @group
@@ -647,7 +643,7 @@ bfd                |          []                                |  6
 bibshelf           |                    []                      |  5
 binutils           |          []                  []            |  8
 bison              |          []                                | 17
-bluez-pin          |          [] []     [] []     []            | 23
+bluez-pin          |          [] []     [] []     []            | 24
 clisp              |                                            |  7
 console-tools      |                                            |  3
 coreutils          |          []                                | 16
@@ -663,7 +659,7 @@ error              |          []                        []      | 15
 fetchmail          |          []                                | 12
 fileutils          |          []                  []    []      | 18
 findutils          |          []                                | 14
-flex               |          []                                | 13
+flex               |          []                                | 14
 fslint             |                    []                      |  7
 gas                |          []                                |  3
 gawk               |          []                                | 13
@@ -686,7 +682,7 @@ gpe-aerial         |                    []                      | 12
 gpe-beam           |                    []        []            | 13
 gpe-calendar       |                    [] []     []    []      | 18
 gpe-clock          |                    [] []     []            | 15
-gpe-conf           |                              []            | 11
+gpe-conf           |                    []        []            | 12
 gpe-contacts       |                    []        []            |  6
 gpe-edit           |                    [] []           []      | 14
 gpe-go             |                    []                      | 10
@@ -707,7 +703,7 @@ gretl              |                                            |  4
 gsasl              |                    []        []            | 12
 gss                |                    []                      |  5
 gst-plugins        |             []     []                      | 16
-gstreamer          |          [] []     []                      | 13
+gstreamer          |          [] []     []                      | 14
 gtick              |                    []                      | 11
 gtkspell           |                    [] []     []            | 18
 hello              |          [] []     []        []            | 37
@@ -726,7 +722,7 @@ jwhois             |          []        []              []      | 12
 kbd                |          []                                | 11
 latrine            |          []        []                      |  8
 ld                 |          []                                |  5
-libc               |          []                  []            | 21
+libc               |          []                  []            | 22
 libextractor       |                                            |  0
 libgpewidget       |                    [] []                   | 17
 libgsasl           |                    []                      |  7
@@ -735,24 +731,23 @@ libidn             |                    []                      |  4
 lifelines          |                                            |  4
 lilypond           |          []                                |  5
 lingoteach         |                                            |  5
-lingoteach_lessons |                              ()            |  0
 lynx               |          [] []                             | 14
-m4                 |                              []            | 16
-mailutils          |                                            |  6
+m4                 |                    []        []            | 17
+mailutils          |             []                             |  7
 make               |          []                  []            | 18
 man-db             |                                            |  5
 minicom            |                                            | 11
-mysecretdiary      |          []                                | 10
+mysecretdiary      |          []        []                      | 11
 nano               |                                            | 11
 nano_1_0           |          [] []                             | 17
 opcodes            |          []                                |  7
 parted             |          [] []               []            | 17
-psmisc             |                                            |  4
+psmisc             |                    []                      |  5
 ptx                |          []                  []            | 23
 pwdutils           |                                            |  1
 python             |                                            |  0
 radius             |             []                             |  6
-recode             |          []                                | 21
+recode             |          []        []                      | 22
 rpm                |          [] []                             | 11
 screem             |                                            |  1
 scrollkeeper       |          [] []                             | 22
@@ -763,11 +758,11 @@ sharutils          |          []        []              []      | 20
 silky              |                                            |  3
 skencil            |                                            |  6
 sketch             |                                            |  6
-solfege            |                                            |  7
+solfege            |                                            |  8
 soundtracker       |          []                                |  8
 sp                 |          []                                |  3
 stardict           |             []     []        []    []      | 10
-tar                |          []                                | 12
+tar                |          [] []                             | 13
 texinfo            |          []                  []            | 14
 textutils          |          []                  []    []      | 17
 tin                |                                            |  1
@@ -786,6 +781,6 @@ xkeyboard-config   |                                            |  1
 xpad               |                    []                      |  5
                    +--------------------------------------------+
   71 teams           tg th tk tr uk ven vi wa xh zh_CN zh_TW zu
- 150 domains          0  0  1 66 28  0  49 16  0  42    21    0  1683
+ 149 domains          0  0  1 66 30  0  54 16  0  42    21    0  1695
 @end group
 @end example
