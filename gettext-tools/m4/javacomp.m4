@@ -1,4 +1,4 @@
-# javacomp.m4 serial 5 (gettext-0.11.4)
+# javacomp.m4 serial 6 (gettext-0.12.2)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -37,7 +37,9 @@ changequote(,)dnl
     # gij 3.0.4 or with a VerifyError when executed by Sun Java. Likewise for
     # gcj 3.1.
     # I also exclude gcj 3.2, 3.3 etc. because I have no idea when this bug
-    # will be fixed. FIXME: Check new versions of gcj as they come out.
+    # will be fixed. The bug is registered as java/7066, see
+    # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=7066
+    # FIXME: Check new versions of gcj as they come out.
     if test -n "$HAVE_GCJ_IN_PATH" \
        && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^3\.[0123456789]/d' | grep '^[3-9]' >/dev/null \
        && (
