@@ -5,7 +5,7 @@ Ready PO files    bg ca cs da de el en eo es et fi fr gl he hr hu id it
 a2ps            |          [] []             []    []                () |
 bash            |             []       [] []       []                   |
 bfd             |                         []       []                   |
-binutils        |                                  []                   |
+binutils        |                         []       []                   |
 bison           |                            []    []                   |
 clisp           |             []    []    []       []                   |
 cpio            |          [] []          []       [] []                |
@@ -22,7 +22,7 @@ gawk            |                         []       []    []             |
 gcal            |    []                                                 |
 gcc             |                         []       []                   |
 gettext         |             []          []       []                   |
-gnupg           |             []       [] [] []    [] []             [] |
+gnupg           |             [] []    [] [] []    [] []             [] |
 gprof           |                         []       []                   |
 grep            |       []    []       [] [] []    [] []             [] |
 hello           |          [] [] []    [] [] [] [] [] []       []    [] |
@@ -52,14 +52,14 @@ sketch          |                         []                            |
 soundtracker    |             []          []       [] []                |
 sp              |                                                       |
 tar             |       [] [] []          [] []    []                [] |
-texinfo         |       [] [] []       []          []                   |
+texinfo         |       [] [] []       []          []    []             |
 textutils       |             []          []       []                   |
 util-linux      |       [] []             []       []                () |
 wdiff           |          [] []          [] []    []                   |
 wget            |       [] [] [] []       [] []    [] [] []    []       |
                 +-------------------------------------------------------+
                   bg ca cs da de el en eo es et fi fr gl he hr hu id it
-                   0  5 11 27 34  8  1  9 35 15  1 48 20  5  0  3  7 11
+                   0  5 11 27 34  9  1  9 36 15  1 48 20  6  0  3  7 11
 @end group
 
 @group
@@ -67,8 +67,8 @@ wget            |       [] [] [] []       [] []    [] [] []    []       |
                 +-------------------------------------------------------+
 a2ps            |    ()       []    () () ()       []    [] [] ()       |  8
 bash            |                                                       |  4
-bfd             | []                                           []       |  4
-binutils        | []                                           []       |  3
+bfd             | []                                        [] []       |  5
+binutils        | []                                           []       |  4
 bison           | []                               []       [] []       |  6
 clisp           |             []                                        |  5
 cpio            |    []       []       []     []   []       []          | 11
@@ -80,12 +80,12 @@ fileutils       | []                               []    [] [] []       | 10
 findutils       | [] []       []       []     []   []    [] [] []       | 17
 flex            |    []                            []       []          |  6
 freetype        |             ()                                        |  0
-gas             |                                                       |  1
-gawk            |                                              []       |  4
+gas             |                                              []       |  2
+gawk            |                                           [] []       |  5
 gcal            |                                           []          |  2
-gcc             | []                                                    |  3
+gcc             | []                                           []       |  4
 gettext         |    []                               [] [] [] []       |  8
-gnupg           | []                   []                   [] []       | 11
+gnupg           | []                   []                   [] []       | 12
 gprof           |                                           [] []       |  4
 grep            |                      []          []    [] [] []       | 13
 hello           | [] [] [] [] [] [] [] []          [] []    [] [] []    | 24
@@ -101,7 +101,7 @@ lynx            | []          []              []   []       []          |  9
 m4              | []          []       []          []       []          | 12
 make            | [] []       []       []     []   []          []       | 12
 mysecretdiary   |                                           []          |  3
-nano            | ()          ()    ()             []       []    []    | 11
+nano            | ()          () [] ()             []       []    []    | 12
 nano_1_0        | ()          ()    ()             []       []    []    | 11
 opcodes         |                                           [] []       |  4
 parted          | []                      []  []            []          |  8
@@ -115,13 +115,13 @@ sketch          |                                                       |  1
 soundtracker    |                                                       |  4
 sp              |                                                       |  0
 tar             | []       []       [] []     []      [] [] [] []       | 16
-texinfo         | []                               []       []          |  8
+texinfo         | []                               []       []          |  9
 textutils       |    []    []                            []    []       |  7
 util-linux      | []                          []            [] []       |  8
 wdiff           |                                  [] []    [] []       |  9
 wget            | []          []                   [] [] [] [] [] []    | 18
                 +-------------------------------------------------------+
   35 teams        ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
-  55 domains      21  9  1  6 16  1  5 13  2  11   25  9 11 36 27  4  1  438
+  55 domains      21  9  1  6 16  2  5 13  2  11   25  9 11 38 29  4  1  446
 @end group
 @end example
