@@ -1,3 +1,7 @@
+2002-04-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Treat mkinstalldirs like config.rpath.
+
 2002-04-27  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-mode-menu-layout): Add tooltips.

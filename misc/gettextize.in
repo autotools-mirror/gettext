@@ -199,7 +199,7 @@ for file in *; do
       ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && $echo "Symlinking file $file") 2>/dev/null ||
       { $echo "Copying file $file"; cp $file $srcdir/$file; }
       ;;
-    config.rpath)
+    config.rpath | mkinstalldirs)
       auxdir=`cat $srcdir/$configure_in | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
       if test -n "$auxdir"; then
         auxdir="$auxdir/"

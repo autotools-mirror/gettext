@@ -24,7 +24,7 @@ MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
-gettextsrc_SCRIPTS = config.rpath
+gettextsrc_SCRIPTS = config.rpath mkinstalldirs
 
 SUBDIRS = doc intl intl-java lib libuniname src po man m4 projects misc tests
 
