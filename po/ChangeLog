@@ -1,3 +1,8 @@
+2001-03-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* en@quot.po: New file.
+	* en@boldquot.po: New file.
+
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (update-gmo): New target.

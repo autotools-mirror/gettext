@@ -1,3 +1,7 @@
+2001-03-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (ALL_LINGUAS): Add en@quot and en@boldquot.
+
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* INSTALL: New section "Particular Systems".
