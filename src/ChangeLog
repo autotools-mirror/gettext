@@ -201,7 +201,6 @@
 	* format-lisp.c (parse_upto): Fix prototype. char promotes to int.
 	* po-lex.c (mb_iseq, mb_setascii): Likewise.
 	* po-hash-gen.y: alloca fix for AIX 3.
-	* write-mo.c: Likewise.
 	* x-lisp.c (syntax_code_of, read_char_syntax, attribute_of, is_number):
 	Move prototypes, to avoid compilation errors on AIX 3.
 	(syntax_code_of, attribute_of): Fix prototype. unsigned char promotes
