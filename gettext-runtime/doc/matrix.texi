@@ -13,8 +13,8 @@ bfd                |                   []                   [] |
 binutils           |                   []                   [] |
 bison              |                   [] []                [] |
 bluez-pin          |                []                   []    |
-clisp              |                      []    []          [] |
 clisp              |                                           |
+clisp              |                      []    []          [] |
 coreutils          |             []    [] []                [] |
 cpio               |                   [] []                [] |
 darkstat           |          []       ()                   [] |
@@ -38,7 +38,7 @@ gettext-runtime    |       []    []    [] []                [] |
 gettext-tools      |             []       []                [] |
 gimp-print         |                [] [] []        []      [] |
 gliv               |                                           |
-glunarclock        |    []             [] []                   |
+glunarclock        |                   [] []                   |
 gnubiff            |                      []                   |
 gnucash            |                []    ()        []      [] |
 gnucash-glossary   |                   [] ()                [] |
@@ -95,14 +95,17 @@ opcodes            |                                        [] |
 parted             |             [] [] [] []                [] |
 ptx                |             []    [] []             [] [] |
 python             |                                           |
-radius             |                                           |
+radius             |                                        [] |
 recode             |       []    []    [] [] []          [] [] |
+rpm                |                [] []                      |
 screem             |                                           |
 scrollkeeper       |       []    [] [] [] []                [] |
 sed                |             []    [] []             [] [] |
 sh-utils           |                   [] []                [] |
 shared-mime-info   |                                           |
 sharutils          |             [] [] [] [] []             [] |
+silky              |                      ()                   |
+skencil            |                   [] ()                [] |
 sketch             |                   [] ()                [] |
 soundtracker       |                   [] []                [] |
 sp                 |                      []                   |
@@ -121,7 +124,7 @@ xfree86_xkb_xml    |                []                         |
 xpad               |                                        [] |
                    +-------------------------------------------+
                      am az be bg ca cs da de el en en_GB eo es
-                      0  1  8  3 37 37 54 73 15  1   5   12 62
+                      0  0  8  3 37 38 56 73 15  1   5   12 64
 @end group
 
 @group
@@ -138,8 +141,8 @@ bfd                |          []                            |
 binutils           |          []                         [] |
 bison              | []       []                []    []    |
 bluez-pin          |       [] [] []          [] []          |
-clisp              |          []                            |
 clisp              |                                        |
+clisp              |          []                            |
 coreutils          | []    [] [] []                   [] [] |
 cpio               |          []    []       []             |
 darkstat           |          () []          [] []          |
@@ -163,7 +166,7 @@ gettext-runtime    |       [] []                []       [] |
 gettext-tools      |          []                         [] |
 gimp-print         |          []                         [] |
 gliv               |          ()                            |
-glunarclock        |       []    [] []       []          [] |
+glunarclock        |       []    [] []       []             |
 gnubiff            |                                        |
 gnucash            |          ()                      []    |
 gnucash-glossary   |                                  []    |
@@ -220,14 +223,17 @@ opcodes            |          []                            |
 parted             |          []    []                   [] |
 ptx                | []    [] [] [] []       [] []          |
 python             |                                        |
-radius             |                                        |
+radius             |          []                            |
 recode             |          []    [] []    [] []    []    |
+rpm                |                                        |
 screem             |                                        |
 scrollkeeper       |                         []             |
 sed                | []    [] [] [] []       [] []    [] [] |
 sh-utils           | []    [] [] []          []       [] [] |
 shared-mime-info   |                         []             |
 sharutils          | []       []    []       []          [] |
+silky              |       []                         ()    |
+skencil            |          []                            |
 sketch             |          []                            |
 soundtracker       |          []    []    []          []    |
 sp                 |          []                         () |
@@ -246,7 +252,7 @@ xfree86_xkb_xml    |                                        |
 xpad               |             []                         |
                    +----------------------------------------+
                      et fa fi fr ga gl he hr hu id is it ja
-                     21  1 24 84 24 24  8 10 38 31  1 22 33
+                     21  1 25 86 24 24  8 10 38 31  1 23 32
 @end group
 
 @group
@@ -263,8 +269,8 @@ bfd                |                                        [] |
 binutils           |                                           |
 bison              |             []    []              []   [] |
 bluez-pin          |                   []       []          [] |
-clisp              |                   []                      |
 clisp              |                                           |
+clisp              |                   []                      |
 coreutils          |                            []             |
 cpio               | []                []       []     []   [] |
 darkstat           |             []    []              []   [] |
@@ -273,7 +279,7 @@ e2fsprogs          |                            []             |
 enscript           |                   []              []   [] |
 error              |                   []              []   [] |
 fetchmail          |                   []       []     ()      |
-fileutils          |                            []             |
+fileutils          |                            []          [] |
 findutils          | []                []       []     []   [] |
 flex               | []                         []     []   [] |
 fslint             |                   []                   [] |
@@ -334,7 +340,7 @@ lingoteach         |                                           |
 lingoteach_lessons |                                           |
 lynx               |                   []              []      |
 m4                 |                   []       []     []   [] |
-mailutils          |                            []             |
+mailutils          |                            []          [] |
 make               | []                []       []     []      |
 man-db             |                                        [] |
 minicom            |                            []     []   [] |
@@ -347,12 +353,15 @@ ptx                |                [] []    [] [] []  []   [] |
 python             |                                           |
 radius             |                            []             |
 recode             |                            []     []   [] |
+rpm                | []                            []          |
 screem             |                                           |
 scrollkeeper       |                [] []       []          [] |
 sed                |                            []     []   [] |
 sh-utils           |                []                         |
 shared-mime-info   |                   []                      |
 sharutils          |                   []                      |
+silky              |                                           |
+skencil            |                               []  []      |
 sketch             |                               []  []      |
 soundtracker       |                                           |
 sp                 |                                           |
@@ -371,7 +380,7 @@ xfree86_xkb_xml    |                   []                      |
 xpad               |                   []                   [] |
                    +-------------------------------------------+
                      ko lg lt lv ms nb nl nn no pl pt pt_BR ro
-                     11  0  1  2 12 10 60  4  4 38 23  34   74
+                     12  0  1  2 12 10 60  4  4 38 25  35   76
 @end group
 
 @group
@@ -388,8 +397,8 @@ bfd                |             []    []                      |  6
 binutils           |             []    []           []         |  7
 bison              | []          []    []                      | 14
 bluez-pin          |    []       []             []             | 13
-clisp              |                                           |  5
 clisp              |                                           |  0
+clisp              |                                           |  5
 coreutils          | []    []    []    []                 []   | 16
 cpio               | []          []                 []         | 14
 darkstat           |    []    [] []                 ()    ()   | 12
@@ -398,7 +407,7 @@ e2fsprogs          |             []    []                      |  5
 enscript           | []          []    []                      | 12
 error              |    []             []                 []   | 15
 fetchmail          | [] []             []                      | 11
-fileutils          | []    []    []    []           []    []   | 16
+fileutils          | []    []    []    []           []    []   | 17
 findutils          | [] [] [] [] []    []           []         | 29
 flex               | []          []    []                      | 13
 fslint             |                                           |  2
@@ -408,12 +417,12 @@ gbiff              |                                           |  3
 gcal               |             []    []                      |  4
 gcc                |                   []                      |  4
 gettext            | [] [] []    []    []                 []   | 16
-gettext-examples   |          []                    []         |  9
+gettext-examples   |          [] []    []           []         | 11
 gettext-runtime    | [] [] [] [] []    [] []        []    []   | 21
 gettext-tools      |    [] [] [] []    []           []         | 14
 gimp-print         |    []       []                            | 10
 gliv               |                                           |  3
-glunarclock        | []       [] []             []             | 15
+glunarclock        | []       [] []             []             | 13
 gnubiff            |                                           |  1
 gnucash            | [] []                                []   |  9
 gnucash-glossary   |    []       []                       []   |  8
@@ -421,18 +430,18 @@ gnupg              |    []       []    []                 []   | 17
 gpe-aerial         | []          []                            |  7
 gpe-beam           | []          []                            |  8
 gpe-calendar       | [] []       []             []        []   | 13
-gpe-clock          | [] []       []                            |  9
+gpe-clock          | [] []    [] []                            | 10
 gpe-conf           | [] []       []                            |  9
 gpe-contacts       | [] []       []                       []   | 11
-gpe-edit           | [] []       []             []        []   | 11
+gpe-edit           | [] []    [] []             []        []   | 12
 gpe-go             | []                                        |  5
-gpe-login          | [] []       []             []        []   | 12
-gpe-ownerinfo      | [] []       []                       []   | 12
+gpe-login          | [] []    [] []             []        []   | 13
+gpe-ownerinfo      | [] []    [] []                       []   | 13
 gpe-sketchbook     | [] []       []                            |  9
-gpe-su             | [] []       []                            |  9
-gpe-taskmanager    | [] []       []                            |  9
-gpe-timesheet      | [] []       []                       []   | 11
-gpe-today          | [] []       []             []        []   | 12
+gpe-su             | [] []    [] []                            | 10
+gpe-taskmanager    | [] []    [] []                            | 10
+gpe-timesheet      | [] []    [] []                       []   | 12
+gpe-today          | [] []    [] []             []        []   | 13
 gpe-todo           | [] []       []             []        []   | 12
 gphoto2            |    []       []                 []         | 11
 gprof              |             []    []                      |  9
@@ -451,7 +460,7 @@ kbd                |             []    []                      | 11
 latrine            |                                           |  1
 ld                 |             []    []                      |  5
 libc               |    []       []    []           []         | 20
-libgpewidget       |    []       []             []             | 12
+libgpewidget       |    []    [] []             []             | 13
 libiconv           | [] [] [] [] []    [] []    []  []         | 27
 lifelines          |             []                            |  2
 lilypond           |             []                            |  3
@@ -459,7 +468,7 @@ lingoteach         |                                           |  2
 lingoteach_lessons |                                ()         |  0
 lynx               | []          []    [] []                   | 14
 m4                 | []          []                 []         | 15
-mailutils          | []                                        |  4
+mailutils          | []                                        |  5
 make               | []          []    []           []         | 16
 man-db             |             []                            |  5
 minicom            | []                                        | 11
@@ -470,14 +479,17 @@ opcodes            |             []    []                      |  6
 parted             |             []    []           []         | 15
 ptx                | []          []    []                      | 22
 python             |                                           |  0
-radius             | []                                        |  2
+radius             | []                                        |  4
 recode             | []    []    []    []                      | 20
+rpm                | []          []    []                      |  7
 screem             |             []                 []         |  2
 scrollkeeper       | [] []    [] []                            | 15
 sed                |    [] [] [] []    [] []                   | 23
 sh-utils           | []    []          []                      | 14
 shared-mime-info   |          [] []                            |  4
 sharutils          | []       [] []    []                 []   | 17
+silky              |    ()                                     |  2
+skencil            |             []                            |  6
 sketch             |             []                            |  6
 soundtracker       |    []       []                            |  9
 sp                 |                   []                      |  3
@@ -492,10 +504,10 @@ wastesedge         |                                           |  0
 wdiff              | [] []       []    []                      | 18
 wget               | [] [] []    []    [] []        []    []   | 23
 xchat              |    [] [] [] []                 []         | 14
-xfree86_xkb_xml    | []       []          []        []         |  6
+xfree86_xkb_xml    | [] []    []       [] []        []         |  8
 xpad               |                                           |  4
                    +-------------------------------------------+
   51 teams           ru sk sl sr sv ta tr uk vi wa zh_CN zh_TW
- 117 domains         58 41 16 16 78  0 53 12  1 10  21    22    1230
+ 120 domains         59 42 16 25 81  0 56 12  1 10  21    22    1260
 @end group
 @end example
