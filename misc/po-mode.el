@@ -190,8 +190,8 @@ or remove the -m if you are not using the GNU version of `uuencode'."
 
 ;;; Emacs portability matters - part II.
 
-;;; Many portability matters are addressed in this page.  All other cases
-;;; involve one of `eval-and-compile' or `fboundp', just search for these.
+;;; Many portability matters are addressed in this page.  The few remaining
+;;; cases, elsewhere, all involve  `eval-and-compile', `boundp' or `fboundp'.
 
 ;; Protect string comparisons from text properties if possible.
 (eval-and-compile
@@ -759,8 +759,8 @@ Content-Type into a Mule coding system.")
           ;; value was loaded.  Load the next 1024 bytes; if charset still
           ;; isn't available, give up.
           (insert-file-contents filename nil (point) (+ (point) 1024)))
-        (when (re-search-forward po-charset nil t)
-          (match-string 1))))))
+        (if (re-search-forward po-charset nil t)
+	    (match-string 1))))))
 
 (eval-and-compile
   (if (or po-EMACS20 po-XEMACS)
@@ -977,7 +977,7 @@ Then, update the mode line counters."
       (goto-char (point-min))
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
-      (when (string= (po-get-msgid nil) "")
+      (if (string= (po-get-msgid nil) "")
         (po-next-entry))
       ;; Start counting
       (while (re-search-forward po-any-msgstr-regexp nil t)
@@ -1062,7 +1062,11 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 	;; Not a single entry found.
 	(setq insert-flag t))
       (goto-char (point-min))
-      (and insert-flag (insert po-default-file-header "\n")))))
+      (if insert-flag
+	  (progn
+	    (insert po-default-file-header)
+	    (if (not (eobp))
+		(insert "\n")))))))
 
 (defun po-replace-revision-date ()
   "Replace the revision date by current time in the PO file header."
@@ -1612,21 +1616,21 @@ described by FORM is merely identical to the msgstr already in place."
     (save-excursion
       (goto-char po-start-of-entry)
       (save-excursion                   ; check for an indexed msgstr
-        (when (re-search-forward po-msgstr-idx-keyword-regexp
-				 po-end-of-entry t)
-          (setq msgstr-idx (buffer-substring-no-properties
-                     (match-beginning 0) (match-end 0)))))
+        (if (re-search-forward po-msgstr-idx-keyword-regexp
+			       po-end-of-entry t)
+	    (setq msgstr-idx (buffer-substring-no-properties
+			      (match-beginning 0) (match-end 0)))))
       (re-search-forward po-any-msgstr-regexp po-end-of-entry)
       (and (not (string-equal (po-match-string 0) string))
 	   (let ((buffer-read-only po-read-only))
 	     (po-decrease-type-counter)
 	     (replace-match string t t)
              (goto-char (match-beginning 0))
-             (unless (eq msgstr-idx nil) ; hack: replace msgstr with msgstr[d]
-               (progn
-                 (insert msgstr-idx)
-                 (looking-at "\\(#~[ \t]*\\)?msgstr")
-                 (replace-match "")))
+             (if (eq msgstr-idx nil) ; hack: replace msgstr with msgstr[d]
+		 nil
+	       (insert msgstr-idx)
+	       (looking-at "\\(#~[ \t]*\\)?msgstr")
+	       (replace-match ""))
 	     (goto-char po-start-of-msgid)
 	     (po-find-span-of-entry)
 	     (po-increase-type-counter)

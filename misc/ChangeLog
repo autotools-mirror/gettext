@@ -1,3 +1,13 @@
+2001-08-12  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-find-charset, po-compute-counters,
+	po-check-file-header, po-set-msgstr): Emacs 19 portability matters.
+
+2000-01-03  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-check-file-header): Add a new line after default
+	header only for non-empty PO files.
+
 1999-12-10  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-send-mail): Clarify some prompts.
