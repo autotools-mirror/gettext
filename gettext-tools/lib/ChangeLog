@@ -97,6 +97,11 @@
 	* mbswidth.h: Add extern "C" for C++.
 	Reported by Albert Chin-A-Young <china@thewrittenword.com>.
 
+2003-09-09  Paul Eggert  <eggert@twinsun.com>
+
+	* memmove.c, memset.c: Include <stddef.h>.
+	Use types required by C89 in prototype.
+
 2003-09-08  Paul Eggert  <eggert@twinsun.com>
 
 	* atexit.c (atexit): Define using a prototype.
