@@ -20,6 +20,10 @@
 # include <config.h>
 #endif
 
+#if !INTDIV0_RAISES_SIGFPE
+# include <signal.h>
+#endif
+
 #include "plural-exp.h"
 
 #define STATIC /*extern*/
