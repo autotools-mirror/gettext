@@ -33,6 +33,10 @@
 #include "mbswidth.h"
 #include "libgettext.h"
 
+#ifndef EXIT_FAILURE
+# define EXIT_FAILURE 1
+#endif
+
 #define _(str) gettext (str)
 
 #if __STDC__
@@ -63,7 +67,7 @@ xasprintf (va_alist)
   va_list args;
   char *result;
 
-  va_start (args, format);
+  VA_START (args, format);
 #if !__STDC__ && !NEW_VARARGS
   format = va_arg (args, const char *);
 #endif

@@ -1,3 +1,16 @@
+2001-10-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (execute.lo, javacomp.lo, javaexec.lo, pipe-bidi.lo,
+	pipe-in.lo, pipe-out.lo, progname.lo, wait-process.lo, xerror.lo):
+	Depend on @STDBOOL_H@.
+	* execute.c (EXIT_FAILURE): Provide a fallback definition, for SunOS 4.
+	* pipe-bidi.c (EXIT_FAILURE): Likewise.
+	* pipe-in.c (EXIT_FAILURE): Likewise.
+	* pipe-out.c (EXIT_FAILURE): Likewise.
+	* wait-process.c (EXIT_FAILURE): Likewise.
+	* xerror.c (EXIT_FAILURE): Likewise.
+	(xasprintf): Use VA_START instead of va_start.
+
 2001-10-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* progname.c (set_program_name) [BeOS]: Make program_name absolute
