@@ -1,3 +1,9 @@
+2003-06-22  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.c (compute_curr_prefix): Comment out this function in
+	the case when it is not used.
+	Reported by Pavel Roskin <proski@gnu.org>.
+
 2003-06-13  Bruno Haible  <bruno@clisp.org>
 
 	* wait-process.h (wait_subprocess): Add null_stderr argument.

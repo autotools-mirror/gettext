@@ -152,6 +152,8 @@ set_relocation_prefix (const char *orig_prefix_arg, const char *curr_prefix_arg)
 #endif
 }
 
+#if !defined IN_LIBRARY || (defined PIC && defined INSTALLDIR)
+
 /* Convenience function:
    Computes the current installation prefix, based on the original
    installation prefix, the original installation directory of a particular
@@ -265,6 +267,8 @@ compute_curr_prefix (const char *orig_installprefix,
     }
   }
 }
+
+#endif /* !IN_LIBRARY || PIC */
 
 #if defined PIC && defined INSTALLDIR
 
