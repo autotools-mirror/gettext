@@ -27,7 +27,6 @@ po-gram-gen.h po-hash-gen.h
 
 EXTRA_DIST = FILES
 
-datadir = $(prefix)/share
 localedir = $(datadir)/locale
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \

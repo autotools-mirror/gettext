@@ -1,3 +1,8 @@
+2001-06-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (datadir): Remove definition.
+	Reported by Albert Chin-A-Young <china@thewrittenword.com>.
+
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcmp.c (main): Call set_program_name instead of assigning
