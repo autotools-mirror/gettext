@@ -29,6 +29,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po.h"
 #include "po-hash.h"
 #include "system.h"
+#include "libgettext.h"
+
+#define _(str) gettext (str)
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* Prototypes for local functions.  */
 static void po_parse_brief PARAMS ((po_ty *__pop));
@@ -59,6 +64,7 @@ po_alloc (pomp)
 
   pop = xmalloc (pomp->size);
   pop->method = pomp;
+  pop->next_is_fuzzy = 0;
   if (pomp->constructor)
     pomp->constructor (pop);
   return pop;
@@ -163,8 +169,141 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
      lex_pos_ty *msgstr_pos;
 {
   /* assert(callback_arg); */
+
+  /* Test for header entry.  */
+  if (msgid[0] == '\0' && !callback_arg->next_is_fuzzy)
+    {
+      /* Verify the validity of CHARSET.  It is necessary
+	 1. for the correct treatment of multibyte characters containing
+	    0x5C bytes in the PO lexer,
+	 2. so that at run time, gettext() can call iconv() to convert
+	    msgstr.  */
+      const char *charsetstr = strstr (msgstr, "charset=");
+
+      if (charsetstr != NULL)
+	{
+	  /* The list of charsets supported by glibc's iconv() and by
+	     the portable iconv() across platforms.  Taken from
+	     intl/config.charset.  */
+	  static const char *standard_charsets[] =
+	  {
+	    "ASCII", "ANSI_X3.4-1968", "US-ASCII",
+	    "ISO-8859-1", "ISO_8859-1",
+	    "ISO-8859-2", "ISO_8859-2",
+	    "ISO-8859-3", "ISO_8859-3",
+	    "ISO-8859-4", "ISO_8859-4",
+	    "ISO-8859-5", "ISO_8859-5",
+	    "ISO-8859-6", "ISO_8859-6",
+	    "ISO-8859-7", "ISO_8859-7",
+	    "ISO-8859-8", "ISO_8859-8",
+	    "ISO-8859-9", "ISO_8859-9",
+	    "ISO-8859-13", "ISO_8859-13",
+	    "ISO-8859-15", "ISO_8859-15",
+	    "KOI8-R",
+	    "KOI8-U",
+	    "CP850",
+	    "CP866",
+	    "CP874",
+	    "CP932",
+	    "CP949",
+	    "CP950",
+	    "CP1250",
+	    "CP1251",
+	    "CP1252",
+	    "CP1253",
+	    "CP1254",
+	    "CP1255",
+	    "CP1256",
+	    "CP1257",
+	    "GB2312",
+	    "EUC-JP",
+	    "EUC-KR",
+	    "EUC-TW",
+	    "BIG5",
+	    "BIG5HKSCS",
+	    "GBK",
+	    "GB18030",
+	    "SJIS",
+	    "JOHAB",
+	    "TIS-620",
+	    "VISCII",
+	    "UTF-8"
+	  };
+	  size_t len;
+	  char *charset;
+	  size_t i;
+
+	  charsetstr += strlen ("charset=");
+	  len = strcspn (charsetstr, " \t\n");
+	  charset = (char *) alloca (len + 1);
+	  memcpy (charset, charsetstr, len);
+	  charset[len] = '\0';
+
+	  for (i = 0; i < SIZEOF (standard_charsets); i++)
+	    if (strcasecmp (charset, standard_charsets[i]) == 0)
+	      break;
+	  if (i == SIZEOF (standard_charsets))
+	    {
+	      error (0, 0, _("\
+%s: warning: charset \"%s\" is not a portable encoding name\n\
+%*s  warning: charset conversion might not work"),
+		     gram_pos.file_name, charset,
+		     strlen (gram_pos.file_name), "");
+	      --error_message_count;
+	    }
+	  else
+	    {
+	      po_lex_charset = standard_charsets[i];
+#if HAVE_ICONV
+	      if (po_lex_iconv != (iconv_t)(-1))
+		iconv_close (po_lex_iconv);
+	      po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
+	      if (po_lex_iconv == (iconv_t)(-1))
+		{
+		  /* For CJK encodings which have double-byte characters
+		     ending in 0x5C, the string parser is likely to be
+		     confused if it can't see the character boundaries.  */
+		  const char *note =
+		    (strcmp (po_lex_charset, "BIG5") == 0
+		     || strcmp (po_lex_charset, "BIG5HKSCS") == 0
+		     || strcmp (po_lex_charset, "GBK") == 0
+		     || strcmp (po_lex_charset, "GB18030") == 0
+		     || strcmp (po_lex_charset, "SJIS") == 0
+		     || strcmp (po_lex_charset, "JOHAB") == 0
+		     ? _(", expect parse errors")
+		     : "");
+
+# if _LIBICONV_VERSION
+		  error (0, 0, _("\
+%s: warning: charset \"%s\" is not supported by iconv%s"),
+			 gram_pos.file_name, po_lex_charset, note);
+# else
+		  error (0, 0, _("\
+%s: warning: charset \"%s\" is not supported by iconv%s\n\
+%*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
+			 gram_pos.file_name, po_lex_charset, note,
+			 strlen (gram_pos.file_name), "");
+# endif
+		  --error_message_count;
+		}
+#endif
+	    }
+	}
+      else
+	{
+	  error (0, 0, _("\
+%s: warning: charset missing in header\n\
+%*s  warning: charset conversion will not work"),
+		 gram_pos.file_name, strlen (gram_pos.file_name), "");
+	  --error_message_count;
+	}
+    }
+
   po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
 			msgstr, msgstr_len, msgstr_pos);
+
+  /* Prepare for next message.  */
+  callback_arg->next_is_fuzzy = 0;
 }
 
 
@@ -220,8 +359,12 @@ po_callback_comment (s)
 	po_comment (callback_arg, s + 1);
     }
   else if (*s == ',' || *s == '!')
-    /* Get all entries in the special comment line.  */
-    po_comment_special (callback_arg, s + 1);
+    {
+      /* Get all entries in the special comment line.  */
+      if (strstr (s + 1, "fuzzy") != NULL)
+	callback_arg->next_is_fuzzy = 1;
+      po_comment_special (callback_arg, s + 1);
+    }
   else
     {
       /* It looks like a plain vanilla comment, but Solaris-style file

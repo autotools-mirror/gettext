@@ -59,6 +59,10 @@
 static FILE *fp;
 lex_pos_ty gram_pos;
 unsigned int gram_max_allowed_errors = 20;
+const char *po_lex_charset;
+#if HAVE_ICONV
+iconv_t po_lex_iconv;
+#endif
 static int pass_comments = 0;
 static int pass_obsolete_entries = 0;
 
@@ -81,6 +85,10 @@ lex_open (fname)
 	   _("error while opening \"%s\" for reading"), fname);
 
   gram_pos.line_number = 1;
+  po_lex_charset = NULL;
+#if HAVE_ICONV
+  po_lex_iconv = (iconv_t)(-1);
+#endif
 }
 
 
@@ -97,6 +105,14 @@ lex_close ()
   gram_pos.file_name = 0;
   gram_pos.line_number = 0;
   error_message_count = 0;
+  po_lex_charset = NULL;
+#if HAVE_ICONV
+  if (po_lex_iconv != (iconv_t)(-1))
+    {
+      iconv_close (po_lex_iconv);
+      po_lex_iconv = (iconv_t)(-1);
+    }
+#endif
 }
 
 
@@ -427,38 +443,85 @@ po_gram_lex ()
 	  break;
 
 	case '"':
-	  bufpos = 0;
-	  while (1)
-	    {
-	      if (bufpos >= bufmax)
-		{
-		  bufmax += 100;
-		  buf = xrealloc (buf, bufmax);
-		}
-	      c = lex_getc ();
-	      if (c == '\n')
-		{
-		  po_gram_error (_("end-of-line within string"));
-		  break;
-		}
-	      if (c == EOF)
-		{
-		  po_gram_error (_("end-of-file within string"));
-		  break;
-		}
-	      if (c == '"')
-		break;
+	  /* Accumulate a string.  */
+	  {
+#if HAVE_ICONV
+	    size_t bufmbpos = 0;
+#endif
 
-	      if (c == '\\')
-		c = control_sequence ();
+	    bufpos = 0;
+	    while (1)
+	      {
+		if (bufpos >= bufmax)
+		  {
+		    bufmax += 100;
+		    buf = xrealloc (buf, bufmax);
+		  }
+		c = lex_getc ();
+		if (c == EOF)
+		  {
+		    po_gram_error (_("end-of-file within string"));
+		    break;
+		  }
+		if (c == '\n')
+		  {
+		    po_gram_error (_("end-of-line within string"));
+		    break;
+		  }
+#if HAVE_ICONV
+		/* Interpret c only if it is the first byte of a multi-byte
+		   character.  Don't interpret it as ASCII when it is the
+		   second byte.  This is needed for the BIG5, BIG5HKSCS, GBK,
+		   GB18030, SJIS, JOHAB encodings.  */
+		if (po_lex_iconv == (iconv_t)(-1) || bufmbpos == bufpos)
+#endif
+		  {
+		    if (c == '"')
+		      break;
 
-	      buf[bufpos++] = c;
-	    }
-	  buf[bufpos] = 0;
+		    if (c == '\\')
+		      {
+			buf[bufpos++] = control_sequence ();
+#if HAVE_ICONV
+			bufmbpos++;
+#endif
+			continue;
+		      }
+		  }
 
-	  /* FIXME: Treatment of embedded \000 chars is incorrect.  */
-	  po_gram_lval.string = xstrdup (buf);
-	  return STRING;
+		/* Add c to the accumulator.  */
+		buf[bufpos++] = c;
+#if HAVE_ICONV
+		if (po_lex_iconv != (iconv_t)(-1))
+		  {
+		    /* If c terminates a multibyte character, set
+		       bufmbpos = bufpos.  Otherwise keep bufmbpos
+		       pointing at the start of the multibyte character.  */
+		    char scratchbuf[64];
+		    const char *inptr = &buf[bufmbpos];
+		    size_t insize = bufpos - bufmbpos;
+		    char *outptr = &scratchbuf[0];
+		    size_t outsize = sizeof (scratchbuf);
+		    if (iconv (po_lex_iconv,
+			       (ICONV_CONST char **) &inptr, &insize,
+			       &outptr, &outsize)
+			== (size_t)(-1)
+			&& errno == EILSEQ)
+		      {
+			po_gram_error (_("invalid multibyte sequence"));
+			bufmbpos = bufpos;
+		      }
+		    else
+		      bufmbpos = inptr - buf;
+		  }
+#endif
+	      }
+	    buf[bufpos] = 0;
+
+	    /* FIXME: Treatment of embedded \000 chars is incorrect.  */
+	    po_gram_lval.string = xstrdup (buf);
+	    return STRING;
+	  }
 
 	case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
 	case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':

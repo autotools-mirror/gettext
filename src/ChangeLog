@@ -1,5 +1,27 @@
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
 
+	Fix parsing of strings in CJK encodings.
+	* po.h (PO_BASE_TY): New field next_is_fuzzy.
+	* po-lex.h: Include iconv.h.
+	(po_lex_charset, po_lex_iconv): New declarations.
+	* po.c (SIZEOF): New macro.
+	(po_alloc): Initialize next_is_fuzzy.
+	(po_callback_message): Add check of charset in header entry.
+	Set po_lex_charset and po_lex_iconv.
+	After calling po_directive_message, reset next_is_fuzzy.
+	(po_callback_comment): Set next_is_fuzzy.
+	* msgfmt.c (format_directive_message): Remove check of charset in
+	header entry, now done in po.c.
+	* po-lex.c (po_lex_charset, po_lex_iconv): New variables.
+	(lex_open): Initialize them.
+	(lex_close): Reset them.
+	(po_gram_lex): While parsing a string, use 'po_lex_iconv' to avoid
+	treating the second byte of a multi-byte character as an ASCII
+	character.
+	* Makefile.am (msgcmp_LDADD, msgfmt_LDADD): New variables.
+
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
 	* write-po.h: New file, pieces of message.h.
 	* message.h (message_page_width_set, message_print_style_indent,
 	message_print_style_uniforum, message_print_style_escape,

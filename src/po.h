@@ -106,7 +106,8 @@ struct po_method_ty
    etc.  */
 
 #define PO_BASE_TY \
-  po_method_ty *method;
+  po_method_ty *method; \
+  int next_is_fuzzy;
 
 typedef struct po_ty po_ty;
 struct po_ty

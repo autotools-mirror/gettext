@@ -51,7 +51,11 @@ po.c str-list.c xget-lex.c xgettext.c dir-list.c write-po.c
 msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-lex.c \
 open-po.c po.c str-list.c dir-list.c write-po.c
 
-# Link dependencies. write-po.c pulls in linebreak.c which may need -liconv.
+# Link dependencies.
+# po-lex.c and po.c may need -liconv.
+# write-po.c pulls in linebreak.c which may need -liconv.
+msgcmp_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgmerge_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgunfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 xgettext_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
