@@ -1774,7 +1774,7 @@ echo "$ac_t$hardcode_action" 1>&6
 
 reload_flag=
 reload_cmds='$LD$reload_flag -o $output$reload_objs'
-echo $ac_n "checking for $LD option to reload object files... $ac_c" 1>&6
+echo $ac_n "checking for $LD option to produce relocatable object files... $ac_c" 1>&6
 # PORTME Some linkers may need a different reload flag.
 reload_flag='-r'
 echo "$ac_t$reload_flag" 1>&6

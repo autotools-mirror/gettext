@@ -1,3 +1,11 @@
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* ltconfig:
+	sed -e 's/reload object files/produce relocatable object files/'.
+
+	Better support for DOS/Windows platforms.
+	* configure.in: Call AC_OBJEXT and AC_EXEEXT.
+
 2001-03-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Call bh_C_SIGNED.
