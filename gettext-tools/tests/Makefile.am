@@ -23,9 +23,12 @@ EXTRA_DIST =
 TESTS = gettext-1 gettext-2 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
-	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 msgattrib-15 \
+	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
+	msgattrib-properties-1 \
 	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
-	msgcat-8 msgcat-9 msgcat-10 msgcat-11 msgcat-12 msgcat-13 \
+	msgcat-8 msgcat-9 msgcat-10 \
+	msgcat-properties-1 msgcat-properties-2 \
+	msgcat-stringtable-1 \
 	msgcmp-1 msgcmp-2 msgcmp-3 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
@@ -36,23 +39,36 @@ TESTS = gettext-1 gettext-2 \
 	msgexec-1 msgexec-2 msgexec-3 \
 	msgfilter-1 msgfilter-2 msgfilter-3 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
-	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
-	msgfmt-15 \
+	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 \
+	msgfmt-properties-1 \
+	msgfmt-qt-1 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
-	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
-	msgmerge-18 msgmerge-19 msgmerge-20 msgmerge-21 msgmerge-22 \
-	msgmerge-23 msgmerge-24 msgmerge-25 \
-	msgunfmt-1 msgunfmt-2 msgunfmt-3 msgunfmt-4 \
+	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 \
+	msgmerge-compendium-1 msgmerge-compendium-2 msgmerge-compendium-3 \
+	msgmerge-compendium-4 \
+	msgmerge-properties-1 msgmerge-properties-2 \
+	msgmerge-update-1 msgmerge-update-2 msgmerge-update-3 \
+	msgunfmt-1 \
+	msgunfmt-java-1 \
+	msgunfmt-properties-1 \
+	msgunfmt-tcl-1 \
 	msguniq-1 msguniq-2 msguniq-3 msguniq-4 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
-	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
-	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
-	xgettext-18 xgettext-19 xgettext-20 xgettext-21 xgettext-22 \
-	xgettext-23 xgettext-24 xgettext-25 xgettext-26 xgettext-27 \
-	xgettext-28 xgettext-29 xgettext-30 xgettext-31 xgettext-32 \
-	xgettext-33 \
+	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
+	xgettext-c-6 xgettext-c-7 xgettext-c-8 \
+	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 \
+	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
+	xgettext-objc-1 \
+	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
+	xgettext-po-1 \
+	xgettext-properties-1 \
+	xgettext-python-1 \
+	xgettext-sh-1 \
+	xgettext-stringtable-1 \
+	xgettext-tcl-1 \
+	xgettext-ycp-1 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \

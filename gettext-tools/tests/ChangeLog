@@ -1,3 +1,70 @@
+2003-11-02  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib-properties-1: Renamed from msgattrib-15.
+	* msgcat-properties-1: Renamed from msgcat-11.
+	* msgcat-properties-2: Renamed from msgcat-12.
+	* msgcat-stringtable-1: Renamed from msgcat-13.
+	* msgfmt-properties-1: Renamed from msgfmt-13.
+	* msgfmt-qt-1: Renamed from msgfmt-15.
+	* msgfmt-13: Renamed from msgfmt-14.
+	* msgmerge-compendium-1: Renamed from msgmerge-6.
+	* msgmerge-compendium-2: Renamed from msgmerge-7.
+	* msgmerge-compendium-3: Renamed from msgmerge-8.
+	* msgmerge-compendium-4: Renamed from msgmerge-12.
+	* msgmerge-update-1: Renamed from msgmerge-14.
+	* msgmerge-update-2: Renamed from msgmerge-15.
+	* msgmerge-update-3: Renamed from msgmerge-16.
+	* msgmerge-properties-1: Renamed from msgmerge-23.
+	* msgmerge-properties-2: Renamed from msgmerge-24.
+	* msgmerge-6: Renamed from msgmerge-9.
+	* msgmerge-7: Renamed from msgmerge-10.
+	* msgmerge-8: Renamed from msgmerge-11.
+	* msgmerge-9: Renamed from msgmerge-13.
+	* msgmerge-10: Renamed from msgmerge-17.
+	* msgmerge-11: Renamed from msgmerge-18.
+	* msgmerge-12: Renamed from msgmerge-19.
+	* msgmerge-13: Renamed from msgmerge-20.
+	* msgmerge-14: Renamed from msgmerge-21.
+	* msgmerge-15: Renamed from msgmerge-22.
+	* msgmerge-16: Renamed from msgmerge-25.
+	* msgunfmt-java-1: Renamed from msgunfmt-2.
+	* msgunfmt-tcl-1: Renamed from msgunfmt-3.
+	* msgunfmt-properties-1: Renamed from msgunfmt-4.
+	* xgettext-java-1: Renamed from xgettext-10.
+	* xgettext-java-2: Renamed from xgettext-11.
+	* xgettext-java-3: Renamed from xgettext-15.
+	* xgettext-java-4: Renamed from xgettext-16.
+	* xgettext-ycp-1: Renamed from xgettext-17.
+	* xgettext-python-1: Renamed from xgettext-18.
+	* xgettext-glade-1: Renamed from xgettext-19.
+	* xgettext-glade-2: Renamed from xgettext-20.
+	* xgettext-tcl-1: Renamed from xgettext-21.
+	* xgettext-glade-3: Renamed from xgettext-25.
+	* xgettext-perl-1: Renamed from xgettext-26.
+	* xgettext-perl-2: Renamed from xgettext-27.
+	* xgettext-perl-3: Renamed from xgettext-28.
+	* xgettext-perl-4: Renamed from xgettext-29.
+	* xgettext-sh-1: Renamed from xgettext-30.
+	* xgettext-objc-1: Renamed from xgettext-32.
+	* xgettext-stringtable-1: Renamed from xgettext-33.
+	* xgettext-c-1: Renamed from xgettext-1.
+	* xgettext-c-2: Renamed from xgettext-2.
+	* xgettext-c-3: Renamed from xgettext-4.
+	* xgettext-c-4: Renamed from xgettext-5.
+	* xgettext-c-5: Renamed from xgettext-6.
+	* xgettext-c-6: Renamed from xgettext-7.
+	* xgettext-c-7: Renamed from xgettext-9.
+	* xgettext-c-8: Renamed from xgettext-22.
+	* xgettext-po-1: Renamed from xgettext-8.
+	* xgettext-properties-1: Renamed from xgettext-24.
+	* xgettext-1: Renamed from xgettext-3.
+	* xgettext-2: Renamed from xgettext-12.
+	* xgettext-3: Renamed from xgettext-13.
+	* xgettext-4: Renamed from xgettext-14.
+	* xgettext-5: Renamed from xgettext-23.
+	* xgettext-6: Renamed from xgettext-31.
+	* Makefile.am (TESTS): Update.
+
 2003-10-23  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat-13: Change expected result.
