@@ -34,7 +34,7 @@
 # include <wchar.h>
 #endif
 
-/* Get iswprint().  */
+/* Get iswprint(), iswcntrl().  */
 #if HAVE_WCTYPE_H
 # include <wctype.h>
 #endif
@@ -43,6 +43,12 @@
 #endif
 #if !defined iswcntrl && !HAVE_ISWCNTRL
 # define iswcntrl(wc) 0
+#endif
+
+#ifndef mbsinit
+# if !HAVE_MBSINIT
+#  define mbsinit(ps) 1
+# endif
 #endif
 
 #ifndef HAVE_DECL_WCWIDTH
