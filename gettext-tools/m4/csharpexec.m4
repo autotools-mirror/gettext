@@ -36,7 +36,7 @@ AC_DEFUN([gt_CSHARPEXEC],
           ac_result="ilrun"
           break
         fi
-        ;;  
+        ;;
       mono)
         if test -n "$HAVE_MONO_IN_PATH" \
            && mono --version >/dev/null 2>/dev/null; then
