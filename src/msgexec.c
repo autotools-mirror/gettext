@@ -63,7 +63,7 @@
    looping while waiting for the child.  Not good.)  */
 
 /* On BeOS select() works only on sockets, not on normal file descriptors.  */
-#ifdef __BeOS__
+#ifdef __BEOS__
 # undef HAVE_SELECT
 #endif
 

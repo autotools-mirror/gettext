@@ -1,5 +1,10 @@
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* stdbool.h.in: Avoid syntax error on BeOS if <sys/socket.h> has
+	already been included.
+
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* basename.c: #undef basename before defining it. This avoids a
 	warning on non-glibc platforms.
 
