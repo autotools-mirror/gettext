@@ -1,3 +1,7 @@
+2003-07-09  Paul Eggert  <eggert@twinsun.com>
+
+	* alloca_.h: Switch from LGPL to GPL.
+
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
 	* readlink.c: New file, from gnulib.
