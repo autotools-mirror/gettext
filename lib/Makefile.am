@@ -76,7 +76,7 @@ LIBADD_SOURCE = \
   strpbrk.h strpbrk.c \
   strstr.h strstr.c \
   strtol.c \
-  vasprintf.c
+  vasprintf.h vasprintf.c
 
 # Unused sources.
 

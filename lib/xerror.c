@@ -32,6 +32,7 @@
 #include "progname.h"
 #include "exit.h"
 #include "mbswidth.h"
+#include "vasprintf.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
