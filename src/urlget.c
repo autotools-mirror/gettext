@@ -360,6 +360,45 @@ fetch (url, file)
       }
   }
 
+  /* Fourth try: using "curl --silent url".  */
+  {
+    static bool curl_tested;
+    static bool curl_present;
+
+    if (!curl_tested)
+      {
+	/* Test for presence of curl: "curl --version > /dev/null"  */
+	char *argv[3];
+	int exitstatus;
+
+	argv[0] = "curl";
+	argv[1] = "--version";
+	argv[2] = NULL;
+	exitstatus = execute ("curl", "curl", argv, false, true, true, false);
+	curl_present = (exitstatus == 0 || exitstatus == 2);
+	curl_tested = true;
+      }
+
+    if (curl_present)
+      {
+	char *argv[4];
+	int exitstatus;
+
+	argv[0] = "curl";
+	argv[1] = "--silent";
+	argv[2] = (char *) url;
+	argv[3] = NULL;
+	exitstatus = execute ("curl", "curl", argv, false, false, false, false);
+	if (exitstatus != 127)
+	  {
+	    if (exitstatus != 0)
+	      /* Use the file as fallback.  */
+	      cat_file (file);
+	    return;
+	  }
+      }
+  }
+
   /* Use the file as fallback.  */
   cat_file (file);
 }
