@@ -81,7 +81,7 @@ msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.12-pre4\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-05-17 17:25+0200\n"
-"PO-Revision-Date: 2003-05-07 22:38+0200\n"
+"PO-Revision-Date: 2003-05-17 17:35+0200\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -724,79 +724,92 @@ msgstr ""
 
 #: src/msgattrib.c:390 src/msgcat.c:354 src/msgcomm.c:360 src/msguniq.c:325
 msgid "Message selection:\n"
-msgstr ""
+msgstr "Auswahl der Meldungen:\n"
 
 #: src/msgattrib.c:392
 msgid ""
 "      --translated            keep translated, remove untranslated messages\n"
 msgstr ""
+"      --translated            übersetzte übernehmen, unübersetzte verwerfen\n"
 
 #: src/msgattrib.c:394
 msgid ""
 "      --untranslated          keep untranslated, remove translated messages\n"
 msgstr ""
+"      --untranslated          unübersetzte übernehmen, übersetzte verwerfen\n"
 
 #: src/msgattrib.c:396
 msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
-msgstr ""
+msgstr "      --no-fuzzy              mit 'fuzzy' markierte verwerfen\n"
 
 #: src/msgattrib.c:398
 msgid "      --only-fuzzy            keep 'fuzzy' marked messages\n"
-msgstr ""
+msgstr "      --only-fuzzy            mit 'fuzzy' markierte übernehmen\n"
 
 #: src/msgattrib.c:400
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
-msgstr ""
+msgstr "      --no-obsolete           obsolete Meldungen (#~) verwerfen\n"
 
 #: src/msgattrib.c:402
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
-msgstr ""
+msgstr "      --only-obsolete         obsolete Meldungen (#~) übernehmen\n"
 
 #: src/msgattrib.c:405
 msgid "Attribute manipulation:\n"
-msgstr ""
+msgstr "Attribute verändern:\n"
 
 #: src/msgattrib.c:407
 msgid "      --set-fuzzy             set all messages 'fuzzy'\n"
-msgstr ""
+msgstr "      --set-fuzzy              alle Meldungen auf 'fuzzy' setzen\n"
 
 #: src/msgattrib.c:409
 msgid "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 msgstr ""
+"      --clear-fuzzy            'fuzzy'-Markierung von allen Meldungen "
+"entfernen\n"
 
 #: src/msgattrib.c:411
 msgid "      --set-obsolete          set all messages obsolete\n"
-msgstr ""
+msgstr "      --set-obsolete           alle Meldungen obsolet machen\n"
 
 #: src/msgattrib.c:413
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
-msgstr ""
+msgstr "      --clear-obsolete         alle Meldungen nicht-obsolet machen\n"
 
 #: src/msgattrib.c:415
 msgid ""
 "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
 msgstr ""
+"      --only-file=DATEI.po     nur die Einträge  manipulieren, die in DATEI."
+"po\n"
+"                                 gelistet sind\n"
 
 #: src/msgattrib.c:417
 msgid ""
 "      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
 msgstr ""
+"      --ignore-file=DATEI.po   nur die Einträge  manipulieren, die in DATEI."
+"po\n"
+"                                 nicht gelistet sind\n"
 
 #: src/msgattrib.c:419
 msgid "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 msgstr ""
+"      --fuzzy                  Synonym für »--only-fuzzy --clear-fuzzy«\n"
 
 #: src/msgattrib.c:421
 msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
+"      --obsolete               Synonym für »--only-obsolete --clear-"
+"obsolete«\n"
 
 #: src/msgattrib.c:424 src/msgcat.c:366 src/msgcmp.c:201 src/msgcomm.c:372
 #: src/msgconv.c:303 src/msgen.c:279 src/msgexec.c:258 src/msgfilter.c:397
 #: src/msgfmt.c:565 src/msggrep.c:480 src/msginit.c:373 src/msgmerge.c:476
 #: src/msguniq.c:332
 msgid "Input file syntax:\n"
-msgstr ""
+msgstr "Syntax der Eingabedatei:\n"
 
 #: src/msgattrib.c:426 src/msgconv.c:305 src/msgen.c:281 src/msgexec.c:260
 #: src/msgfilter.c:399 src/msggrep.c:482 src/msginit.c:375 src/msguniq.c:334
@@ -817,6 +830,7 @@ msgstr "Details zur Ausgabe:\n"
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
+"  -e, --no-escape           keine C-Escape-Sequenzen in Ausgabe verwenden\n"
 
 #: src/msgattrib.c:433 src/msgcat.c:380 src/msgcomm.c:381 src/msgconv.c:312
 #: src/msgen.c:288 src/msgfilter.c:406 src/msgmerge.c:485 src/msgunfmt.c:382
@@ -824,34 +838,41 @@ msgstr ""
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
 msgstr ""
+"  -E, --escape              C-Escape-Sequenzen und keine erweiterten\n"
+"                              Zeichen in Ausgabe verwenden\n"
 
 #: src/msgattrib.c:435 src/msgcat.c:382 src/msgcomm.c:383 src/msgconv.c:314
 #: src/msgen.c:290 src/msgfilter.c:408 src/msggrep.c:491 src/msgmerge.c:487
 #: src/msgunfmt.c:384 src/msguniq.c:348 src/xgettext.c:695
 msgid "      --force-po              write PO file even if empty\n"
 msgstr ""
+"      --force-po            PO-Datei erstellen, auch wenn sie leer ist\n"
 
 #: src/msgattrib.c:437 src/msgcat.c:384 src/msgcomm.c:385 src/msguniq.c:350
 #: src/xgettext.c:697
 msgid "  -i, --indent                write the .po file using indented style\n"
-msgstr ""
+msgstr "  -i, --indent              Ausgabe eingerückt darstellen\n"
 
 #: src/msgattrib.c:439 src/msgcat.c:386 src/msgcomm.c:387 src/msguniq.c:352
 #: src/xgettext.c:699
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr ""
+"      --no-location         Zeilen mit »#: Datei:Zeilennr.« nicht schreiben\n"
 
 #: src/msgattrib.c:441 src/msgcat.c:388 src/msgcomm.c:389 src/msguniq.c:354
 #: src/xgettext.c:701
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 msgstr ""
+"  -n, --add-location        Zeilen mit »#: Datei:Zeilennr.« erhalten "
+"(Vorgabe)\n"
 
 #: src/msgattrib.c:443 src/msgcat.c:390 src/msgcomm.c:391 src/msguniq.c:356
 #: src/xgettext.c:703
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
 msgstr ""
+"      --strict              .po-Datei streng nach Uniforum-Format erstellen\n"
 
 #: src/msgattrib.c:445 src/msgcat.c:392 src/msgcomm.c:393 src/msgconv.c:324
 #: src/msgen.c:300 src/msgfilter.c:420 src/msggrep.c:501 src/msginit.c:384
@@ -882,13 +903,14 @@ msgstr ""
 #: src/msgen.c:307 src/msgfilter.c:427 src/msgmerge.c:504 src/msgunfmt.c:397
 #: src/msguniq.c:365 src/xgettext.c:712
 msgid "  -s, --sort-output           generate sorted output\n"
-msgstr ""
+msgstr "  -s, --sort-output         sortierte Ausgabe erstellen\n"
 
 #: src/msgattrib.c:454 src/msgcat.c:401 src/msgcomm.c:402 src/msgconv.c:333
 #: src/msgen.c:309 src/msgfilter.c:429 src/msgmerge.c:506 src/msguniq.c:367
 #: src/xgettext.c:714
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
+"  -F, --sort-by-file        Ausgabe gemäß Vorkommen in Dateien erstellen\n"
 
 #: src/msgcat.c:273 src/msgcomm.c:290
 #, c-format
@@ -1148,7 +1170,7 @@ msgstr ""
 
 #: src/msgen.c:264
 msgid "  INPUTFILE                   input PO or POT file\n"
-msgstr ""
+msgstr "  EINGABEDATEI                PO- oder POT-Eingabedatei\n"
 
 #: src/msgexec.c:181
 msgid "missing command name"
@@ -1249,9 +1271,28 @@ msgid ""
 msgstr ""
 
 #: src/msgfilter.c:404 src/msggrep.c:487
+#, fuzzy
 msgid ""
 "      --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
+"Details zur Ausgabe:\n"
+"  -e, --no-escape           keine C-Escape-Sequenzen in Ausgabe verwenden\n"
+"                              (Vorgabe)\n"
+"  -E, --escape              C-Escape-Sequenzen und keine erweiterten\n"
+"                              Zeichen in Ausgabe verwenden\n"
+"      --force-po            PO-Datei erstellen, auch wenn sie leer ist\n"
+"  -i, --indent              Ausgabe eingerückt darstellen\n"
+"      --no-location         Zeilen mit »#: Datei:Zeilennr.« nicht schreiben\n"
+"  -n, --add-location        Zeilen mit »#: Datei:Zeilennr.« erhalten "
+"(Vorgabe)\n"
+"      --strict              .po-Datei streng nach Uniforum-Format erstellen\n"
+"  -w, --width=ANZAHL        Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
+"      --no-wrap             lange Zeilen in Meldungen, die länger als die\n"
+"                              Breite der Ausgabe sind, nicht auf mehrere "
+"Zeilen\n"
+"                              umbrechen\n"
+"  -s, --sort-output         sortierte Ausgabe erstellen\n"
+"  -F, --sort-by-file        Ausgabe gemäß Vorkommen in Dateien erstellen\n"
 
 #: src/msgfilter.c:410 src/msggrep.c:493
 msgid "      --indent                indented output style\n"
