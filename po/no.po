@@ -1,116 +1,125 @@
 # Norwegian messages for GNU gettext.  (bokmål dialect)
-# Copyright (C) 1996 Free Software Foundation, Inc.
+# Copyright (C) 1996, 1999 Free Software Foundation, Inc.
 # Karl Anders Øygard <karlo@ifi.uio.no>, 1996.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.12\n"
-"POT-Creation-Date: 1999-10-11 23:03-0700\n"
-"PO-Revision-Date: 1996-05-11 10:24 -0400\n"
-"Last-Translator: Karl Anders Øygard <karlo@ifi.uio.no>\n"
+"POT-Creation-Date: 2001-01-08 00:16+0100\n"
+"PO-Revision-Date: 1999-08-06 22:38+02:00\n"
+"Last-Translator: Trond Endrestøl <endrestol@hotmail.com>\n"
 "Language-Team: Norwegian-bokmål <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: lib/error.c:103
+#: lib/error.c:109
 msgid "Unknown system error"
 msgstr "Ukjent systemfeil"
 
-#: lib/getopt.c:680
+#: lib/getopt.c:691
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: flagg «%s» er flertydig\n"
+msgstr "%s: flagget «%s» er flertydig\n"
 
-#: lib/getopt.c:704
+#: lib/getopt.c:716
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: flagg «--%s» tar ikke argumenter\n"
+msgstr "%s: flagget «--%s» tillater ikke argumenter\n"
 
-#: lib/getopt.c:709
+#: lib/getopt.c:721
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: flagg «%c%s» tar ikke argumenter\n"
+msgstr "%s: flagget «%c%s» tillater ikke argumenter\n"
 
-#: lib/getopt.c:726 lib/getopt.c:899
+#: lib/getopt.c:739 lib/getopt.c:912
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: flagg «%s» behøver et argument\n"
+msgstr "%s: flagget «%s» krever et argument\n"
 
 #. --option
-#: lib/getopt.c:755
+#: lib/getopt.c:768
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: ukjent flagg «--%s»\n"
 
 #. +option or -option
-#: lib/getopt.c:759
+#: lib/getopt.c:772
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: ukjent flagg «%c%s»\n"
 
 #. 1003.2 specifies the format of this message.
-#: lib/getopt.c:785
+#: lib/getopt.c:798
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: ulovlig flagg -- %c\n"
 
-#: lib/getopt.c:788
+#: lib/getopt.c:801
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: ugyldig flagg -- %c\n"
 
 #. 1003.2 specifies the format of this message.
-#: lib/getopt.c:818 lib/getopt.c:948
+#: lib/getopt.c:831 lib/getopt.c:961
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: flagg behøver et argument -- %c\n"
+msgstr "%s: flagg krever et argument -- %c\n"
 
-#: lib/getopt.c:865
-#, fuzzy, c-format
+#: lib/getopt.c:878
+#, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: flagg «%s» er flertydig\n"
+msgstr "%s: flagg «-W %s» er flertydig\n"
 
-#: lib/getopt.c:883
-#, fuzzy, c-format
+#: lib/getopt.c:896
+#, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: flagg «--%s» tar ikke argumenter\n"
+msgstr "%s: flagg «-W %s» tillater ikke et argument\n"
 
-#: lib/xmalloc.c:82
+#: lib/obstack.c:474
 #, fuzzy
-msgid "Memory exhausted"
-msgstr "minnet oppbrukt"
+msgid "memory exhausted"
+msgstr "Minnet oppbrukt"
 
-#: src/gettextp.c:134 src/msgcmp.c:144 src/msgcomm.c:285 src/msgfmt.c:257
-#: src/msgmerge.c:263 src/msgunfmt.c:175 src/xgettext.c:401
+#: lib/xmalloc.c:86
+msgid "Memory exhausted"
+msgstr "Minnet oppbrukt"
+
+# Hva skal MERCHANTABILITY og FITNESS FOR PARTICULAR PURPOSE oversettes med?
+# Er denne oversettelsen grei nok?
+#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:282 src/msgfmt.c:270
+#: src/msgmerge.c:254 src/msgunfmt.c:169 src/xgettext.c:397
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"Dette er fri pogramvare; se kildekoden for kopieringsbetingelser.  Det finnes\n"
+"INGEN garanti; ikke engang for SALGBARHET eller SKIKKETHET FOR ET BESTEMT FORMÅL.\n"
 
-#: src/gettextp.c:139 src/msgcmp.c:149 src/msgcomm.c:290 src/msgfmt.c:262
-#: src/msgmerge.c:268 src/msgunfmt.c:180 src/xgettext.c:406
+#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:287 src/msgfmt.c:275
+#: src/msgmerge.c:259 src/msgunfmt.c:174 src/xgettext.c:402
 #, c-format
 msgid "Written by %s.\n"
-msgstr ""
+msgstr "Skrevet av %s.\n"
 
-#: src/gettextp.c:154
+#: src/gettext.c:158
 msgid "missing arguments"
-msgstr "mangler argument"
+msgstr "mangler argumenter"
 
-#: src/gettextp.c:164
+#: src/gettext.c:168
 msgid "too many arguments"
 msgstr "for mange argumenter"
 
-#: src/gettextp.c:228 src/msgcmp.c:181 src/msgcomm.c:395 src/msgfmt.c:361
-#: src/msgmerge.c:323 src/msgunfmt.c:210 src/xgettext.c:539
-#, fuzzy, c-format
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:392 src/msgfmt.c:374
+#: src/msgmerge.c:314 src/msgunfmt.c:204 src/xgettext.c:535
+#, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Prøv «%s --help» for mer informasjon\n"
+msgstr "Prøv «%s --help» for mer informasjon.\n"
 
-#: src/gettextp.c:233
+#: src/gettext.c:237
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -133,8 +142,8 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        hent oversatt melding som stemmer overens med MSGID\n"
 "                            fra TEXTDOMAIN\n"
 
-#: src/gettextp.c:245
-#, c-format, no-wrap
+#: src/gettext.c:249
+#, fuzzy, c-format, no-wrap
 msgid ""
 "\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -146,9 +155,8 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"\n"
-"Hvis TEXTDOMAIN-parameteren ikke er gitt, blir domenet valgt fra\n"
-"miljøvariabelen TEXTDOMAIN.  Hvis meldingskatalogen ikke finnes i den\n"
+"Dersom TEXTDOMAIN-parameteren ikke er gitt, blir domenet valgt fra\n"
+"miljøvariabelen TEXTDOMAIN.  Dersom meldingskatalogen ikke finnes i den\n"
 "vanlige filkatalogen, kan en annen filkatalog spesifiseres ved hjelp av\n"
 "miljøvariabelen TEXTDOMAIN.\n"
 "Når flagget -s blir brukt, oppfører programmet seg som kommandoen «echo».\n"
@@ -156,42 +164,42 @@ msgstr ""
 "stedet blir meldinger i den valgte katalogen oversatt.\n"
 "Standard søkekatalog er: %s\n"
 
-#: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
-#: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:439 src/msgfmt.c:401
+#: src/msgmerge.c:349 src/msgunfmt.c:228 src/xgettext.c:587
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
-msgstr ""
+msgstr "Rapporter feil til <bug-gnu-utils@gnu.org>.\n"
 
-#: src/message.c:900
+#: src/message.c:1006
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
-"internasjonaliserte meldinger skal ikke inneholde escape-sekvensen «\\%c»"
+"internasjonaliserte meldinger bør ikke inneholde escape-sekvensen «\\%c»"
 
-#: src/message.c:1231
+#: src/message.c:1385
 #, c-format
 msgid "cannot create output file \"%s\""
-msgstr "kan ikke opprette utfilen \"%s\""
+msgstr "kan ikke opprette utfilen «%s»"
 
-#: src/message.c:1238
+#: src/message.c:1392
 #, no-c-format
 msgid "standard output"
 msgstr "standard ut"
 
-#: src/message.c:1298
+#: src/message.c:1452
 #, c-format
 msgid "error while writing \"%s\" file"
-msgstr "feil under skriving av filen \"%s\""
+msgstr "feil under skriving av filen «%s»"
 
-#: src/msgcmp.c:160 src/msgmerge.c:279
+#: src/msgcmp.c:156 src/msgmerge.c:270
 msgid "no input files given"
-msgstr "ingen innfiler spesifisert"
+msgstr "ingen innfiler angitt"
 
-#: src/msgcmp.c:165 src/msgmerge.c:284
+#: src/msgcmp.c:161 src/msgmerge.c:275
 msgid "exactly 2 input files required"
-msgstr "behøver nøyaktig to innfiler"
+msgstr "trenger nøyaktig to innfiler"
 
-#: src/msgcmp.c:186
+#: src/msgcmp.c:182
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -207,70 +215,71 @@ msgid ""
 "translated each and every message in your program.  Where an exact match\n"
 "cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
-"Bruk: %s [FLAGG] def.po ref.po\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -h, --help               vis denne hjelpeteksten og avslutt\n"
-"  -V, --version            vis programversjon og avslutt\n"
+"Bruksmåte: %s [FLAGG] def.po ref.po\n"
+"Obligatoriske argumenter til lange flagg er også obligatoriske for korte flagg.\n"
+"  -D, --directory=KATALOG     legge til KATALOG til søkelisten for innfiler\n"
+"  -h, --help                  vise denne hjelpen og avslutte\n"
+"  -V, --version               skrive ut programversjon og avslutte\n"
 "\n"
-"Sammenligner to Uniforum .po-filer for å sjekke at begge inneholder det\n"
-"samme settet msgid-strenger.  def.po-filen er en eksisterende PO-fil med de\n"
-"gamle oversettelsene.  ref.po-filen er den sist genererte PO-filen\n"
-"(vanligvis generert med xgettext).  Dette er nyttig for å sjekke at du har\n"
-"oversatt alle meldinger i programmet.  Der en eksakt overensstemmelse ikke\n"
-"finnes, blir «fuzzy» sammenligning brukt for å få bedre diagnostikk.\n"
+"Sammenligne to Uniforum-aktige .po-filer for å sjekke at begge inneholder\n"
+"det samme settet med msgid-strenger.  def.po-filen er en eksisterende PO-fil\n"
+"med de gamle oversettelsene.  ref.po-filen er det sist lagde PO(T)-filen\n"
+"(som regel av xgettext).  Dette er nyttig for å sjekke at du har oversatt\n"
+"alle meldingene i programmet ditt.  Når en eksakt overensstemmelse ikke\n"
+"finnes, blir «fuzzy»-sammenligning brukt for å få en bedre diagnostikk.\n"
 
-#: src/msgcmp.c:259 src/msgmerge.c:746
+#: src/msgcmp.c:255 src/msgmerge.c:740
 msgid "this message is used but not defined..."
 msgstr "denne meldingen er brukt, men ikke definert..."
 
-#: src/msgcmp.c:261 src/msgmerge.c:748
+#: src/msgcmp.c:257 src/msgmerge.c:742
 msgid "...but this definition is similar"
 msgstr "... men denne definisjonen ligner"
 
-#: src/msgcmp.c:267 src/msgmerge.c:775
+#: src/msgcmp.c:263 src/msgmerge.c:769
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "denne meldingen er brukt, men ikke definert i %s"
 
-#: src/msgcmp.c:281
+#: src/msgcmp.c:277
 msgid "warning: this message is not used"
 msgstr "advarsel: denne meldingen er ikke brukt"
 
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1070
+#: src/msgcmp.c:354 src/msgfmt.c:735 src/msgmerge.c:511 src/xgettext.c:1179
 msgid "duplicate message definition"
 msgstr "duplisert definisjon av melding"
 
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1071
+#: src/msgcmp.c:355 src/msgfmt.c:737 src/msgmerge.c:512 src/xgettext.c:1180
 msgid "...this is the location of the first definition"
 msgstr "... dette er lokasjonen til den første definisjonen"
 
-#: src/msgcmp.c:396 src/msgmerge.c:566
+#: src/msgcmp.c:395 src/msgmerge.c:560
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
-msgstr "denne meldingen har ingen definisjon i \"%s\"-domenet"
+msgstr "denne meldingen har ingen definisjon i «%s»-domenet"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1265
+#: src/msgcomm.c:235 src/xgettext.c:336 src/xgettext.c:1375
 msgid "while preparing output"
 msgstr "under klargjøring av utdata"
 
-#: src/msgcomm.c:273 src/msgcomm.c:277 src/xgettext.c:378 src/xgettext.c:382
+#: src/msgcomm.c:270 src/msgcomm.c:274 src/xgettext.c:374 src/xgettext.c:378
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s og %s utelukker hverandre"
 
-#: src/msgcomm.c:341
+#: src/msgcomm.c:338
 msgid "at least two files must be specified"
-msgstr ""
+msgstr "minst to filer må angis"
 
-#: src/msgcomm.c:360
+#: src/msgcomm.c:357
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
-msgstr ""
+msgstr "umulig utvalgskriterie angitt (%d < n < %d)"
 
-#: src/msgcomm.c:400
-#, fuzzy, c-format, no-wrap
+#: src/msgcomm.c:397
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -283,25 +292,18 @@ msgid ""
 "  -F, --sort-by-file             sort output by file location\n"
 "  -h, --help                     display this help and exit\n"
 msgstr ""
-"Bruk: %s [FLAGG] INNFIL ...\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -a, --extract-all              ekstrahér alle strenger\n"
-"  -c, --add-comments[=TAG]       lagre kommentarblokker med TAG (eller\n"
-"                                 kommentarer i linjer som kommer foran\n"
-"                                 nøkkelord) i utfilen\n"
-"  -C, --c++                      kjenn igjen C++-kommentarer\n"
-"      --debug                    mer detaljert resultat fra igjenkjenning av\n"
-"                                 formatstreng\n"
-"  -d, --default-domain=NAVN      lagre utdata i NAVN.po (i stedet for\n"
-"                                 messages.po)\n"
-"  -D, --directory=FILKATALOG     skift til FILKATALOG før prosessering\n"
-"  -e, --no-escape                ikke bruk C-escapekoder i utdata (forvalgt)\n"
+"Bruksmåte: %s [FLAGG] INNFIL ...\n"
+"Obligatoriske argumenter til lange flagg er også obligatorisk for korte flagg.\n"
+"  -d, --default-domain=NAVN      bruk NAVN.po som resultatfil (istedet for messages.po)\n"
+"  -D, --directory=KATALOG        legge til KATALOG til søkelisten for innfiler\n"
+"  -e, --no-escape                ikke bruk C-escapekoder i utdata (standard)\n"
 "  -E, --escape                   bruk C-escapekoder i utdata, ingen utvidede tegn\n"
 "  -f, --files-from=FIL           hent liste av innfiler fra FIL\n"
 "      --force-po                 skriv PO-fil selv om den vil bli tom\n"
-"  -F, --sort-by-file             sorter utdata etter fil-lokasjon\n"
+"  -F, --sort-by-file             sorter utdata etter fillokasjon\n"
+"  -h, --help                     vise denne hjelpen og avslutte\n"
 
-#: src/msgcomm.c:412
+#: src/msgcomm.c:409
 #, fuzzy
 msgid ""
 "  -i, --indent                   write the .po file using indented style\n"
@@ -320,19 +322,20 @@ msgid ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 msgstr ""
-"  -n, --add-location             lag '#: filenavn:linje'-linjer (forvalgt)\n"
-"      --omit-header              ikke lag startseksjon med «msgid \"\"»\n"
-"  -p, --output-dir=KAT           plassér utfiler i filkatalogen KAT\n"
-"  -s, --sort-output              sortér utdata og ta bort duplikater\n"
-"      --strict                   lag strengt Uniforum-konform .po-fil\n"
+"  -i, --indent                   skrive ut .po-filen med innrykk\n"
+"      --no-location              ikke skriv «#: filnavn:linje»-linjer\n"
+"  -n, --add-location             genererer «#: filnavn:linje»-linjer "
+"(standard)\n"
+"      --omit-header              ikke skriv hode med «msgid »\n"
+"  -o, --output=FIL               skriv utdata til angitt FIL\n"
+"  -p, --output-dir=KAT           utfiler plasseres i katalogen KAT\n"
+"  -s, --sort-output              generer sortert utdata og fjern duplikater\n"
+"      --strict                   skriv ut streng Uniforum-konform .po-fil\n"
 "  -T, --trigraphs                forstå ANSI C trigraphs i inndata\n"
-"  -V, --version                  vis programversjon og avslutt\n"
-"  -w, --width=NUMMER             sett sidestørrelse for utdata\n"
-"  -x, --exclude-file=FIL         innslag fra FIL blir ikke ekstrahert\n"
-"\n"
-"Dersom INNFIL er -, vil det bli lest fra standard inn.\n"
+"  -u, --unique                   kortform --less-than=2, krever\n"
+"                                 at bare unike meldinger blir skrevet ut\n"
 
-#: src/msgcomm.c:425
+#: src/msgcomm.c:422
 msgid ""
 "  -V, --version                  output version information and exit\n"
 "  -w, --width=NUMBER             set output page width\n"
@@ -351,43 +354,60 @@ msgid ""
 "PO file to define them.  File positions from all PO files will be\n"
 "preserved.\n"
 msgstr ""
+"  -V, --version                  skrive ut programversjon og avslutte\n"
+"  -w, --width=ANTALL             sett sidebredden i utdata\n"
+"  -<, --less-than=ANTALL         skrive ut meldinger med mindre enn ANTALL\n"
+"                                 definisjoner, standard er uendelig dersom\n"
+"                                 ikke satt\n"
+"  ->, --more-than=ANTALL         skrive ut meldinger med mer enn ANTALL\n"
+"                                 definisjoner, standard er 1 dersom ikke "
+"satt\n"
+"\n"
+"Finne meldinger som er felles i to eller flere av de angitt PO-filene.\n"
+"Ved å bruke --more-than-flagget, kan økt fellesskap bli anmodet\n"
+"før meldingene blir skrevet ut.  Omvendt kan --less-than-flagget brukes\n"
+"for å angi mindre fellesskap for meldingene blir skrevet ut (eks.\n"
+"--less-than=2 vil bare skrive ut unike meldinger).  Oversettelser,\n"
+"kommentarer og uttrekkskommentarer bevares, men bare fra den første\n"
+"PO-filen som definerer dem.  Filposisjonene fra alle PO-filene vil\n"
+"bli bevart.\n"
 
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159
-#: src/xget-lex.c:174 src/xget-lex.c:191 src/xgettext.c:625
+#: src/msgcomm.c:473 src/msgunfmt.c:357 src/po-lex.c:81 src/xget-lex.c:157
+#: src/xget-lex.c:172 src/xget-lex.c:189 src/xgettext.c:621
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "feil under åpning av «%s» for lesing"
 
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:977
+#: src/msgcomm.c:554 src/xgettext.c:663 src/xgettext.c:1081
 msgid "this file may not contain domain directives"
-msgstr "denne filen kan ikke inneholde domene-nøkkelord"
+msgstr "denne filen kan ikke inneholde domene-direktiver"
 
-#: src/msgfmt.c:273 src/xgettext.c:417
+#: src/msgfmt.c:286 src/xgettext.c:413
 msgid "no input file given"
-msgstr "ingen innfil spesifisert"
+msgstr "ingen innfil angitt"
 
-#: src/msgfmt.c:321
+#: src/msgfmt.c:334
 #, c-format
 msgid "error while opening \"%s\" for writing"
-msgstr "feil under åpning av \"%s\" for skriving"
+msgstr "feil under åpning av «%s» for skriving"
 
-#: src/msgfmt.c:343
+#: src/msgfmt.c:356
 #, c-format
 msgid "%d translated messages"
 msgstr "%d oversatte meldinger"
 
-#: src/msgfmt.c:345
+#: src/msgfmt.c:358
 #, c-format
 msgid ", %d fuzzy translations"
 msgstr ", %d antatte oversettelser"
 
-#: src/msgfmt.c:347
+#: src/msgfmt.c:360
 #, c-format
 msgid ", %d untranslated messages"
 msgstr ", %d uoversatte meldinger"
 
-#: src/msgfmt.c:366
-#, fuzzy, c-format, no-wrap
+#: src/msgfmt.c:379
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
 "Generate binary message catalog from textual translation description.\n"
@@ -410,104 +430,142 @@ msgid ""
 "If input file is -, standard input is read.  If output file is -,\n"
 "output is written to standard output.\n"
 msgstr ""
-"Bruk: %s [FLAGG] filnavn.po ...\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -a, --alignment=ANTALL      justér strenger til ANTALL bytes (forvalgt: %d)\n"
-"  -c, --check                 gjør språkavhengige tester på strengene\n"
-"  -D, --directory=FILKATALOG  legg FILKATALOG til kataloger å søke i\n"
+"Bruksmåte: %s [FLAGG] filnavn.po ...\n"
+"Lage binær meldingskatalog fra tekstbasert beskrivelse.\n"
+"\n"
+"Obligatoriske argumenter for lange flagg er også obligatoriske for korte flagg.\n"
+"  -a, --alignment=ANTALL      juster strengene til ANTALL byter (standard: %d)\n"
+"  -c, --check                 utfør språkavhengige tester på strengene\n"
+"  -D, --directory=KATALOG     legge KATALOG til søkelisten for innfiler\n"
 "  -f, --use-fuzzy             bruk antatte linjer i utdata\n"
 "  -h, --help                  vis denne hjelpeteksten og avslutt\n"
-"      --no-hash               binærfil skal ikke inneholde hash-tabell\n"
-"  -o, --output-file=FILNAVN   sett utfil til FILNAVN\n"
-"      --statistics\n"
-"      --strict                lag strengt Uniforum-konform .po-fil\n"
+"      --no-hash               binær vil ikke bli inkludert i hash-tabellen\n"
+"  -o, --output-file=FIL       angi FIL som filnavn for utdata\n"
+"      --statistics            skrive ut statistikk om oversettelsene\n"
+"      --strict                lag streng Uniforum-konform .po-fil\n"
 "  -v, --verbose               list alle avvik i innfil\n"
-"  -V, --version               vis programversjon og avslutt\n"
+"  -V, --version               skriv ut programversjon og avslutt\n"
 "\n"
-"Dersom flagget -v blir gitt flere ganger, gis mer fyldige meldinger.\n"
+"Dersom -v-flagget blir gitt flere ganger, gis mer fyldige meldinger.\n"
 "\n"
-"Hvis innfil er -, vil inndata bli lest fra standard inn.  Dersom utfil er -,\n"
+"Dersom innfil er -, vil inndata bli lest fra standard inn.  Dersom utfil er -,\n"
 "vil utdata bli skrevet til standard ut.\n"
 
-#: src/msgfmt.c:409
+#: src/msgfmt.c:422
 msgid "while creating hash table"
 msgstr "mens hash-tabellen ble laget"
 
-#: src/msgfmt.c:451
+#: src/msgfmt.c:466
 #, fuzzy, c-format
-msgid "%s: warning: PO file header missing, fuzzy, or invalid"
-msgstr "ADVARSEL: kildefil har antatte oversettelser"
+msgid ""
+"%s: warning: PO file header missing, fuzzy, or invalid\n"
+"%*s  warning: charset conversion will not work"
+msgstr "%s: advarselL: kildefil har antatte oversettelser"
 
-#: src/msgfmt.c:474
+#: src/msgfmt.c:490
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
-msgstr "domenenavnet \"%s\" passer ikke som filnavn"
+msgstr "domenenavnet «%s» passer ikke som filnavn"
 
-#: src/msgfmt.c:479
+#: src/msgfmt.c:495
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
-msgstr "domenenavnet \"%s\" passer ikke som filnavn: bruker prefiks"
+msgstr "domenenavnet «%s» passer ikke som filnavn: bruker prefiks"
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:492
+#: src/msgfmt.c:508
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "nøkkelord «domain %s» ignorert"
 
-#: src/msgfmt.c:520
+#: src/msgfmt.c:538
 msgid "empty `msgstr' entry ignored"
 msgstr "tom «msgstr»-linje ignorert"
 
-#: src/msgfmt.c:521
+#: src/msgfmt.c:539
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "antatt «msgstr»-linje ignorert"
 
-#: src/msgfmt.c:564
+#: src/msgfmt.c:581
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "filhodefelt «%s» mangler i filhode"
 
-#: src/msgfmt.c:567
+#: src/msgfmt.c:584
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "filhodefelt «%s» skulle ha startet ved begynnelsen av linjen"
 
-#: src/msgfmt.c:577
+#: src/msgfmt.c:594
 msgid "some header fields still have the initial default value"
 msgstr "noen filhodefelt har fremdeles sin initielle verdi"
 
-#: src/msgfmt.c:588
+#: src/msgfmt.c:605
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "feltet «%s» har fremdeles sin forvalgte verdi"
 
-#: src/msgfmt.c:673
-#, fuzzy, c-format
-msgid "%s: warning: source file contains fuzzy translation"
-msgstr "ADVARSEL: kildefil har antatte oversettelser"
+#: src/msgfmt.c:677
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr ""
 
-#: src/msgfmt.c:875
+#: src/msgfmt.c:684
+#, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr ""
+
+#: src/msgfmt.c:776
+#, c-format
+msgid "%s: warning: source file contains fuzzy translation"
+msgstr "%s: advarselL: kildefil har antatte oversettelser"
+
+#: src/msgfmt.c:998
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med `\\n'"
+
+#: src/msgfmt.c:1006
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med `\\n'"
+
+#: src/msgfmt.c:1016
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med '\\n'"
+msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med `\\n'"
 
-#: src/msgfmt.c:883
+#: src/msgfmt.c:1031
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med `\\n'"
+
+#: src/msgfmt.c:1039
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med `\\n'"
+
+#: src/msgfmt.c:1049
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med '\\n'"
+msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med `\\n'"
 
-#: src/msgfmt.c:897
+#: src/msgfmt.c:1065
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
 "antall format-spesifiseringer i «msgid» og «msgstr» stemmer ikke overens"
 
-#: src/msgfmt.c:914
+#: src/msgfmt.c:1082
 #, c-format
 msgid "format specifications for argument %u are not the same"
 msgstr "format-spesifiseringene for argument %u er ulike"
 
-#: src/msgmerge.c:328
+#: src/msgmerge.c:319
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -528,20 +586,23 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
-"Bruk: %s [FLAGG] INNFIL ...\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -D, --directory=FILKATALOG  legg FILKATALOG til kataloger å søke i\n"
-"  -e, --no-escape             ikke bruk C-escapekoder i utdata (forvalgt)\n"
-"  -E, --escape                bruk C-escapekoder i utdata, ingen utvidede tegn\n"
-"  -h, --help                  vis denne hjelpeteksten og avslutt\n"
-"  -i, --indent                indentert utdata\n"
-"  -o, --output-file=FIL       resultat blir skrevet til FIL\n"
-"      --strict                lag strengt Uniforum-konformt utdata\n"
+"Bruksmåte: %s [FLAGG] def.po ref.po\n"
+"Obligatoriske argumenter til lange flagg er også obligatoriske for korte flagg.\n"
+"  -D, --directory=KATALOG     legge KATALOG til søkelisten over innfiler\n"
+"  -e, --no-escape             ikke bruke C-escapekoder i utdata (standard)\n"
+"  -E, --escape                bruk C-escaper i utdata, ingen utvidede tegn\n"
+"      --force-po              skriv PO-fil selv om den blir tom\n"
+"  -h, --help                  vise denne hjelpen og avslutte\n"
+"  -i, --indent                innrykk i utdata\n"
+"  -o, --output-file=FIL       resultat vil bli skrevet til FIL\n"
+"      --no-location           undertrykk «#: filnavn:linje»-linjer\n"
+"      --add-location          bevar «#: filnavn:linje»-linjer (standard)\n"
+"      --strict                lag streng Uniforum-konform utdata\n"
 "  -v, --verbose               gi mer fyldige meldinger\n"
-"  -V, --version               vis programversjon og avslutt\n"
-"  -w, --width=NUMMER          sett sidestørrelse for utdata\n"
+"  -V, --version               skriv ut programversjon og avslutt\n"
+"  -w, --width=ANTALL          sett sidebredden i utdata\n"
 
-#: src/msgmerge.c:348
+#: src/msgmerge.c:339
 #, no-wrap
 msgid ""
 "\n"
@@ -567,21 +628,21 @@ msgstr ""
 "resultater.  Resultatet blir skrevet til standard ut, med mindre en utfil\n"
 "er spesifisert.\n"
 
-#: src/msgmerge.c:804
+#: src/msgmerge.c:798
 #, c-format
 msgid ""
 "%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
 "%d.\n"
 msgstr ""
-"%sLeste %d gamle + %d referanser, flettet %d, antok %d, mangler %d,\n"
-"foreldete %d.\n"
+"%sLeste %d gamle + %d referanser, flettet %d, antok %d, mangler %d,foreldete "
+"%d.\n"
 
-#: src/msgmerge.c:810
+#: src/msgmerge.c:804
 msgid " done.\n"
 msgstr " ferdig.\n"
 
-#: src/msgunfmt.c:215
-#, fuzzy, c-format, no-wrap
+#: src/msgunfmt.c:209
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [FILE]...\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -595,19 +656,19 @@ msgid ""
 "  -V, --version            output version information and exit\n"
 "  -w, --width=NUMBER       set output page width\n"
 msgstr ""
-"Bruk: %s [FLAGG] INNFIL ...\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -e, --no-escape          ikke bruk C-escapekoder i utdata (forvalgt)\n"
+"Bruksmåte: %s [FLAGG] [FIL]...\n"
+"Obligatoriske argumenter til lange flagg er også obligatoriske for korte flagg.\n"
+"  -e, --no-escape          ikke bruk C-escapekoder i utdata (standard)\n"
 "  -E, --escape             bruk C-escapekoder i utdata, ingen utvidede tegn\n"
-"  -h, --help               vis denne hjelpeteksten og avslutt\n"
-"  -i, --indent             indentert utdata\n"
-"  -o, --output-file=FIL    resultat blir skrevet til FIL i stedet for\n"
-"                           standard ut\n"
-"      --strict             lag strengt Uniforum-konformt utdata\n"
-"  -V, --version            vis programversjon og avslutt\n"
-"  -w, --width=NUMMER       sett sidestørrelse for utdata\n"
+"      --force-po           skriv PO-fil selv om deb vil bli tom\n"
+"  -h, --help               vise denne hjelpen og avslutte\n"
+"  -i, --indent             skriv utdata med innrykk\n"
+"  -o, --output-file=FIL    skriv utdata til FIL istedet for standard ut\n"
+"      --strict             lag streng Uniforum-konform .po-fil\n"
+"  -V, --version            skriv ut programversjon og avslutt\n"
+"  -w, --width=ANTALL       sett sidebredden i utdata\n"
 
-#: src/msgunfmt.c:229
+#: src/msgunfmt.c:223
 #, no-wrap
 msgid ""
 "\n"
@@ -618,91 +679,121 @@ msgid ""
 msgstr ""
 "\n"
 "Konverter binære .mo-filer til Uniforum .po-filer.\n"
-"Både «little-endian» og «big-endian» .mo filer blir håndtert.\n"
+"Både «little-endian» og «big-endian» .mo-filer blir håndtert.\n"
 "Dersom innfil er -, blir standard inn lest.\n"
 "Dersom intet annet er spesifisert, blir det skrevet til standard ut.\n"
 
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
+#: src/msgunfmt.c:260 src/msgunfmt.c:325 src/po-lex.c:194 src/xget-lex.c:252
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "feil under lesing av \"%s\""
+msgstr "feil under lesing av «%s»"
 
-#: src/msgunfmt.c:267 src/msgunfmt.c:331
+#: src/msgunfmt.c:261 src/msgunfmt.c:326
 #, c-format
 msgid "file \"%s\" truncated"
-msgstr "filen \"%s\" er avkuttet"
+msgstr "filen «%s» er avkuttet"
 
-#: src/msgunfmt.c:298
+#: src/msgunfmt.c:292
 #, c-format
 msgid "seek \"%s\" offset %ld failed"
-msgstr "«seek» \"%s\" posisjon %ld feilet"
+msgstr "«seek» «%s» posisjon %ld mislyktes"
+
+#: src/msgunfmt.c:331
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated string"
+msgstr "filen «%s» er ikke i GNU .mo-format"
 
 #: src/msgunfmt.c:373
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
-msgstr "filen \"%s\" er ikke i GNU .mo-format"
+msgstr "filen «%s» er ikke i GNU .mo-format"
 
-#: ../../src/po-gram.y:83
+#: src/open-po.c:65
+msgid "<stdin>"
+msgstr ""
+
+#: po-gram-gen.y:142
+#, fuzzy
+msgid "missing `msgstr[]' section"
+msgstr "mangler «msgstr»-seksjon"
+
+#: po-gram-gen.y:148
+#, fuzzy
+msgid "missing `msgid_plural' section"
+msgstr "mangler «msgstr»-seksjon"
+
+#: po-gram-gen.y:154
 msgid "missing `msgstr' section"
 msgstr "mangler «msgstr»-seksjon"
 
-#: src/po-lex.c:84
+#: po-gram-gen.y:190
+msgid "first plural form has nonzero index"
+msgstr ""
+
+#: po-gram-gen.y:192
+msgid "plural form has wrong index"
+msgstr ""
+
+#. CAUTION: If you change this macro, you must also make identical
+#. changes to the function of the same name in src/po-lex.c
+#: src/po-lex.c:137 src/po-lex.c:176 src/po-lex.h:71 src/po-lex.h:85
+#: src/po-lex.h:101 src/po-lex.h:115
+msgid "too many errors, aborting"
+msgstr "for mange feil, avbryter"
+
+#: src/po-lex.c:92
 #, c-format
 msgid "found %d fatal errors"
 msgstr "fant %d fatale feil"
 
-#: src/po-lex.c:129 src/po-lex.c:168
-msgid "too many errors, aborting"
-msgstr "for mange feil, avslutter"
-
-#: src/po-lex.c:241
+#: src/po-lex.c:252
 #, c-format
 msgid "keyword \"%s\" unknown"
-msgstr "nøkkelord \"%s\" ukjent"
+msgstr "nøkkelord «%s» ukjent"
 
-#: src/po-lex.c:335
+#: src/po-lex.c:355
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "ulovlig kontrollsekvens"
 
-#: src/po-lex.c:419
+#: src/po-lex.c:441
 msgid "end-of-line within string"
 msgstr "slutt-på-linje inne i streng"
 
-#: src/po-lex.c:424
+#: src/po-lex.c:446
 msgid "end-of-file within string"
 msgstr "slutt-på-fil inne i streng"
 
-#: src/xget-lex.c:150
+#: src/xget-lex.c:148
 msgid "standard input"
 msgstr "standard inn"
 
-#: src/xget-lex.c:892
+#: src/xget-lex.c:885
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
-msgstr ""
+msgstr "%s:%d: advarsel: uavsluttet tegnkonstant"
 
-#: src/xget-lex.c:914
+#: src/xget-lex.c:907
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
-msgstr ""
+msgstr "%s:%d: advarsel: uavsluttet strengliteral"
 
-#: src/xgettext.c:386
+#: src/xgettext.c:382
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing kan ikke brukes når utdata blir skrevet til standard ut"
 
-#: src/xgettext.c:391
+#: src/xgettext.c:387
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:508
-#, fuzzy, c-format
+#: src/xgettext.c:504
+#, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
-msgstr "advarsel: typen til fil «%s» med ekstensjon «%s» er ukjent, forsøker C"
+msgstr "advarsel: typen til fil «%s» med utvidelsen «%s» er ukjent, forsøker C"
 
-#: src/xgettext.c:544
-#, fuzzy, c-format, no-wrap
+#: src/xgettext.c:540
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
 "Extract translatable string from given input files.\n"
@@ -722,25 +813,25 @@ msgid ""
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
 "  -F, --sort-by-file             sort output by file location\n"
 msgstr ""
-"Bruk: %s [FLAGG] INNFIL ...\n"
-"Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-"  -a, --extract-all              ekstrahér alle strenger\n"
-"  -c, --add-comments[=TAG]       lagre kommentarblokker med TAG (eller\n"
-"                                 kommentarer i linjer som kommer foran\n"
-"                                 nøkkelord) i utfilen\n"
-"  -C, --c++                      kjenn igjen C++-kommentarer\n"
-"      --debug                    mer detaljert resultat fra igjenkjenning av\n"
-"                                 formatstreng\n"
-"  -d, --default-domain=NAVN      lagre utdata i NAVN.po (i stedet for\n"
-"                                 messages.po)\n"
-"  -D, --directory=FILKATALOG     skift til FILKATALOG før prosessering\n"
-"  -e, --no-escape                ikke bruk C-escapekoder i utdata (forvalgt)\n"
-"  -E, --escape                   bruk C-escapekoder i utdata, ingen utvidede tegn\n"
-"  -f, --files-from=FIL           hent liste av innfiler fra FIL\n"
-"      --force-po                 skriv PO-fil selv om den vil bli tom\n"
-"  -F, --sort-by-file             sorter utdata etter fil-lokasjon\n"
+"Bruksmåte: %s [FLAGG] INNFIL ...\n"
+"Ekstrahere oversettbare strenger fra angitte innfiler.\n"
+"\n"
+"Obligatoriske argumenter for lange flagg er også obligatoriske for korte flagg.\n"
+"  -a, --extract-all              ekstrahere alle strengene\n"
+"  -c, --add-comments[=TAG]       lagre kommentarblokker med TAG (eller kommentarer\n"
+"                                 i linjer som kommer foran nøkkelord) i utfilen\n"
+"  -C, --c++                      kortform for --language=C++\n"
+"      --debug                    mer detaljert resultat fra gjenkjenning av formatstreng\n"
+"  -d, --default-domain=NAVN      bruk NAVN.po for utdata (istedet for messages.po)\n"
+"  -D, --directory=KATALOG        legg KATALOG til søkelisten for innfiler\n"
+"  -e, --no-escape                ikke bruk C-escapesekvenser i utdata (standard)\n"
+"  -E, --escape                   bruke C-escapekoder i utdata, ingen utvidede tegn\n"
+"  -f, --files-from=FIL           hent liste over innfiler fra FIL\n"
+"      --force-po                 skriv ut PO-fil selv om den vil bli tom\n"
+"      --foreign-user             utelat FSF-copyright i utdata for fremmede brukere\n"
+"  -F, --sort-by-file             sorter utdata etter fillokasjon\n"
 
-#: src/xgettext.c:564
+#: src/xgettext.c:560
 #, fuzzy, c-format, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
@@ -755,20 +846,19 @@ msgid ""
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 "      --no-location              do not write '#: filename:line' lines\n"
 msgstr ""
-"  -h, --help                     vis denne hjelpeteksten og avslutt\n"
-"  -i, --indent                   skriv .po-filen med indentering\n"
-"  -j, --join-existing            flett sammen meldinger med eksisterende fil\n"
-"  -k, --keyword[=ORD]            se også etter nøkkelordet ORD (mangler ORD,\n"
-"                                 skal heller ikke vanlige nøkkelord brukes)\n"
-"  -l, --string-limit=NUMMER      sett største streng-lengde til NUMMER\n"
-"                                 i stedet for %u\n"
-"  -m, --msgstr-prefix[=STRENG]   bruk STRENG eller \"\" som prefiks for\n"
-"                                 msgstr-verdier\n"
-"  -M, --msgstr-suffix[=STRENG]   bruk STRENG eller \"\" som suffiks for\n"
-"                                 msgstr-verdier\n"
-"      --no-location              ikke lag '#: filnavn:linje'-linjer\n"
+"  -h, --help                     vise denne hjelpen og avslutte\n"
+"  -i, --indent                   skrive .po-filen med innrykk\n"
+"  -j, --join-existing            flett meldinger med eksisterende fil\n"
+"  -k, --keyword[=ORD]            ytterligere nøkkelord for bruk i søk (mangler\n"
+"                                 ORD skal heller ikke standard nøkkelord brukes)\n"
+"  -l, --string-limit=ANTALL      sett begrensning på strenglengde til ANTALL istedet for %u\n"
+"  -L, --language=NAVN            gjenkjenn det angitt språket (C, C++, PO),\n"
+"                                 ellers blir det gjettet fra filutvidelsen\n"
+"  -m, --msgstr-prefix[=STRENG]   bruk STRENG eller «» som prefiks for msgstr-innslag\n"
+"  -M, --msgstr-suffix[=STRENG]   bruk STRENG eller «» som suffiks for msgstr-innslag\n"
+"      --no-location              ikke skriv ut «#: filnavn:linje»-linjer\n"
 
-#: src/xgettext.c:578
+#: src/xgettext.c:574
 #, fuzzy, no-wrap
 msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -784,29 +874,41 @@ msgid ""
 "\n"
 "If INPUTFILE is -, standard input is read.\n"
 msgstr ""
-"  -n, --add-location             lag '#: filenavn:linje'-linjer (forvalgt)\n"
-"      --omit-header              ikke lag startseksjon med «msgid \"\"»\n"
-"  -p, --output-dir=KAT           plassér utfiler i filkatalogen KAT\n"
-"  -s, --sort-output              sortér utdata og ta bort duplikater\n"
-"      --strict                   lag strengt Uniforum-konform .po-fil\n"
+"  -n, --add-location             generer «#: filnavn:linje»-linjer (standard)\n"
+"      --omit-header              ikke skriv hode med «msgid »-innslag\n"
+"  -o, --output=FIL               skriv utdata til FIL\n"
+"  -p, --output-dir=KAT           skriv ut filene til katalogen KAT\n"
+"  -s, --sort-output              sorter utdata og fjern duplikater\n"
+"      --strict                   lag streng Uniforum-konform .po-fil\n"
 "  -T, --trigraphs                forstå ANSI C trigraphs i inndata\n"
-"  -V, --version                  vis programversjon og avslutt\n"
-"  -w, --width=NUMMER             sett sidestørrelse for utdata\n"
+"  -V, --version                  skriv ut programversjon og avslutt\n"
+"  -w, --width=ANTALL             sett sidebredden i utdata\n"
 "  -x, --exclude-file=FIL         innslag fra FIL blir ikke ekstrahert\n"
 "\n"
-"Dersom INNFIL er -, vil det bli lest fra standard inn.\n"
+"Dersom INNFIL er -, lese standard inn.\n"
 
-#: src/xgettext.c:1351
+#: src/xgettext.c:936
+#, fuzzy, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr "%s:%d: advarsel: uavsluttet strengliteral"
+
+#: src/xgettext.c:946
 #, c-format
-msgid "language `%s' unknown"
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
 
-#, fuzzy
+#: src/xgettext.c:1444
+#, c-format
+msgid "language `%s' unknown"
+msgstr "språket «%s» er ukjent"
+
 #~ msgid "%s: warning: no header entry found"
-#~ msgstr "advarsel: intet filhode funnet"
+#~ msgstr "%s: advarsel: fant ikke filhode"
 
+#, fuzzy
 #~ msgid "this is the location of the first definition"
-#~ msgstr "den første definisjonen finnes her"
+#~ msgstr "... dette er lokasjonen til den første definisjonen"
 
+#, fuzzy
 #~ msgid "duplicate message ID"
-#~ msgstr "duplisert meldings-id"
+#~ msgstr "duplisert definisjon av melding"
