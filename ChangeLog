@@ -1,3 +1,11 @@
+2003-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.12.1 released.
+
+2003-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* version.sh: Bump version number to 0.12.1.
+
 2003-05-19  Bruno Haible  <bruno@clisp.org>
 
 	* config/mdate-sh: Update from automake-1.7.5.
@@ -6,15 +14,15 @@
 
 	* gettext-0.12 released.
 
-2003-05-17  Bruno Haible  <haible@clisp.cons.org>
+2003-05-17  Bruno Haible  <bruno@clisp.org>
 
 	* version.sh: Bump version number to 0.12.
 
-2003-05-08  Bruno Haible  <haible@clisp.cons.org>
+2003-05-08  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Update for changed default value of $mandir and $docdir.
 
-2003-05-06  Bruno Haible  <haible@clisp.cons.org>
+2003-05-06  Bruno Haible  <bruno@clisp.org>
 
 	* config/config.guess, config/config.sub: Update to GNU version
 	2003-02-22.

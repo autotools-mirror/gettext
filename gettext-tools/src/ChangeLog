@@ -1,3 +1,7 @@
+2003-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.12.1 released.
+
 2003-05-21  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.c (main) [Solaris]: Fix syntax error.

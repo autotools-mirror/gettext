@@ -1,5 +1,9 @@
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.12.1 released.
+
+2003-05-22  Bruno Haible  <bruno@clisp.org>
+
 	* de.po: Update from Karl Eichwalder <ke@suse.de>.
 	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
 	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.

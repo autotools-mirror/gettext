@@ -1,3 +1,7 @@
+Version 0.12.1 - May 2003
+
+* Bug fixes.
+
 Version 0.12 - May 2003
 
 * The gettext package is now separated into two subpackages:
