@@ -1,3 +1,8 @@
+2003-11-24  Bruno Haible  <bruno@clisp.org>
+
+	* format-lisp.c (check_params): Use ngettext for one of the messages.
+	Reported by Rafał Maszkowski <rzm@icm.edu.pl>.
+
 2003-11-15  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.

@@ -2386,7 +2386,10 @@ check_params (struct format_arg_list **listp,
       case PT_CHARACTER: case PT_INTEGER: case PT_ARGCOUNT:
 	/* too many params for directive */
 	*invalid_reason =
-	  xasprintf (_("In the directive number %u, too many parameters are given; expected at most %u parameters."), directives, orig_t_count);
+	  xasprintf (ngettext ("In the directive number %u, too many parameters are given; expected at most %u parameter.",
+			       "In the directive number %u, too many parameters are given; expected at most %u parameters.",
+			       orig_t_count),
+		     directives, orig_t_count);
 	return false;
       case PT_V:
 	/* Force argument to be NIL.  */
