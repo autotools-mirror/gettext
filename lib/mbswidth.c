@@ -22,13 +22,9 @@
 #endif
 
 /* Get MB_CUR_MAX.  */
-#if HAVE_STDLIB_H
-# include <stdlib.h>
-#endif
+#include <stdlib.h>
 
-#if HAVE_STRING_H
-# include <string.h>
-#endif
+#include <string.h>
 
 /* Get isprint().  */
 #include <ctype.h>
@@ -84,7 +80,9 @@ int wcwidth ();
    With flags = MBSW_REJECT_INVALID | MBSW_REJECT_UNPRINTABLE, this is
    the multibyte analogon of the wcswidth function.  */
 int
-mbswidth (const char *string, int flags)
+mbswidth (string, flags)
+     const char *string;
+     int flags;
 {
   return mbsnwidth (string, strlen (string), flags);
 }
@@ -94,7 +92,10 @@ mbswidth (const char *string, int flags)
    non-printable character occurs, and MBSW_REJECT_UNPRINTABLE is
    specified, -1 is returned.  */
 int
-mbsnwidth (const char *string, size_t nbytes, int flags)
+mbsnwidth (string, nbytes, flags)
+     const char *string;
+     size_t nbytes;
+     int flags;
 {
   const char *p = string;
   const char *plimit = p + nbytes;
