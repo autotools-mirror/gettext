@@ -2,7 +2,7 @@
 # Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001 Free Software Foundation, Inc.
 # Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999, 2000, 2001.
 #
-# $Id: sl.po,v 1.15 2001/05/28 15:13:22 haible Exp $
+# $Id: gettext-0.10.38.sl.po,v 1.2 2001/05/26 15:41:05 peterlin Exp $
 #
 msgid ""
 msgstr ""
@@ -458,23 +458,18 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"Uporaba: %s [IZBIRA] def.po ref.po\n"
+"Uporaba: %s [IZBIRA] [DATOTEKA]\n"
 "Argumenti, obvezni za dolge oblike izbire, so obvezni tudi za kratke.\n"
-"  -C, --compendimu=FILE       dodatna knji¾nica prevodov sporoèil; podana je\n"
-"                              lahko veè kot ena\n"
-"  -D, --directory=IMENIK      vhodne datoteke i¹èemo tudi v imeniku IMENIK\n"
-"  -e, --no-escape             brez ube¾nih sekvenc v obliki C (privzeto)\n"
-"  -E, --escape                z ube¾nimi sekvencami C, brez raz¹irjenega \n"
-"                              nabora znakov\n"
-"  -h, --help                  ta navodila\n"
-"  -i, --indent                izpis z zamiki\n"
+"  -e, --no-escape          brez ube¾nih sekvenc v obliki C (privzeto)\n"
+"  -E, --escape             z ube¾nimi sekvencami C, brez raz¹irjenega\n"
+"                           nabora znakov\n"
+"      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
+"  -h, --help               ta navodila\n"
+"  -i, --indent             izpis z zamiki\n"
 "  -o, --output-file=DATOTEKA  izhodna DATOTEKA\n"
-"      --no-location           brez vrstic ,#: filename:line`\n"
-"      --add-location          z vrsticami ,#: filename:line` (privzeto)\n"
-"      --strict                stroga oblika Uniforum pri izpisu\n"
-"  -v, --verbose               z dodatnimi sporoèili med izvajanjem\n"
-"  -V, --version               razlièica programa\n"
-"  -w, --width=©TEVILO         ¹irina strani pri izpisu, v znakih\n"
+"      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev\n"
+"  -V, --version            razlièica programa\n"
+"  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
 
 #: src/msgcat.c:254 src/msgcomm.c:277
 #, c-format
@@ -533,7 +528,7 @@ msgid ""
 msgstr ""
 
 #: src/msgcat.c:335
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  -<, --less-than=NUMBER         print messages with less than this many\n"
@@ -544,19 +539,6 @@ msgid ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 msgstr ""
-"  -V, --version                  razlièica programa\n"
-"  -w, --width=©TEVILO            ¹irina vrstice pri izpisu, v znakih\n"
-"  -<, --less-than=©TEVILO        izpi¹i sporoèila z manj kot ©TEVILO definicij\n"
-"                                 (privzeta vrednost je neskonèno)\n"
-"  ->, --more-than=©TEVILO        izpi¹i sporoèila z veè kot ©TEVILO definicij\n"
-"                                 (privzeta vrednost je 1)\n"
-"\n"
-"Poi¹èe sporoèila, ki so skupna dvema ali veè podanima datotekama PO. Z\n"
-"izbiro --more-than pred izpisom zahtevamo veè skupnih lastnosti. Obratno\n"
-"z izbiro --less-than izberemo manj skupnih lastnosti (npr. --less-than=2\n"
-"izpi¹e samo unikatna sporoèila). Prevodi, komentarji prevajalcev in komentarji\n"
-"pri izvlaèenju se ohranijo samo iz prve podane datoteke PO. Mesta v datotekah \n"
-"iz vseh datotek PO se ohranijo.\n"
 
 #: src/msgcat.c:347 src/msguniq.c:319
 #, fuzzy, no-wrap
@@ -2124,7 +2106,7 @@ msgid ""
 msgstr ""
 
 #: src/xgettext.c:566
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2142,23 +2124,6 @@ msgid ""
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 msgstr ""
-"Uporaba: %s [IZBIRA] def.po ref.po\n"
-"Argumenti, obvezni za dolge oblike izbire, so obvezni tudi za kratke.\n"
-"  -C, --compendimu=FILE       dodatna knji¾nica prevodov sporoèil; podana je\n"
-"                              lahko veè kot ena\n"
-"  -D, --directory=IMENIK      vhodne datoteke i¹èemo tudi v imeniku IMENIK\n"
-"  -e, --no-escape             brez ube¾nih sekvenc v obliki C (privzeto)\n"
-"  -E, --escape                z ube¾nimi sekvencami C, brez raz¹irjenega \n"
-"                              nabora znakov\n"
-"  -h, --help                  ta navodila\n"
-"  -i, --indent                izpis z zamiki\n"
-"  -o, --output-file=DATOTEKA  izhodna DATOTEKA\n"
-"      --no-location           brez vrstic ,#: filename:line`\n"
-"      --add-location          z vrsticami ,#: filename:line` (privzeto)\n"
-"      --strict                stroga oblika Uniforum pri izpisu\n"
-"  -v, --verbose               z dodatnimi sporoèili med izvajanjem\n"
-"  -V, --version               razlièica programa\n"
-"  -w, --width=©TEVILO         ¹irina strani pri izpisu, v znakih\n"
 
 #: src/xgettext.c:720
 msgid "standard input"
@@ -2189,11 +2154,11 @@ msgstr "jezik ,%s` ni poznan"
 #~ "%s:%d: opozorilo: kljuèna beseda med zun. kljuèno besedo in njenim "
 #~ "argumentom"
 
-#~ msgid "while preparing output"
-#~ msgstr "med pripravo izpisa"
-
 #~ msgid "this message has no definition in the \"%s\" domain"
 #~ msgstr "to sporoèilo ni definirano v domeni \"%s\""
+
+#~ msgid "while preparing output"
+#~ msgstr "med pripravo izpisa"
 
 #  POZOR!  Nepopolni prevodi
 #~ msgid ""
