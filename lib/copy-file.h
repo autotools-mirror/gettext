@@ -16,7 +16,7 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-/* Copy a reular file: from src_filename to dest_filename.
+/* Copy a regular file: from src_filename to dest_filename.
    The destination file is assumed to be a backup file.
    Exit upon failure.  */
 extern void copy_file PARAMS ((const char *src_filename,
