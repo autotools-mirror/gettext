@@ -36,7 +36,7 @@ hash_string (const char *str_param)
   while (*str != '\0')
     {
       hval <<= 4;
-      hval += (unsigned long int) *str++;
+      hval += (unsigned char) *str++;
       g = hval & ((unsigned long int) 0xf << (HASHWORDBITS - 4));
       if (g != 0)
 	{

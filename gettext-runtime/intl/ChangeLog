@@ -1,3 +1,8 @@
+2003-10-19  Bruno Haible  <bruno@clisp.org>
+
+	* hash-string.h (hash_string): Zero-extend each char from the string;
+	the old code did a sign-extend on some platforms.
+
 2003-10-19  Jim Meyering  <jim@meyering.net>
 
 	* vasnprintf.c (VASNPRINTF): Work around losing snprintf on HPUX 10.20.
