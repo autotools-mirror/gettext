@@ -1,3 +1,8 @@
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* team-address: Remove verbose argument.
+	* KDE/team-address, GNOME/team-address, TP/team-address: Likewise.
+
 2001-11-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* TP/team-address: Show URL

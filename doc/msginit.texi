@@ -58,8 +58,4 @@ Display this help and exit.
 @itemx --version
 Output version information and exit.
 
-@item -v
-@itemx --verbose
-Increase verbosity level.
-
 @end table

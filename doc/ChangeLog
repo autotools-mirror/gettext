@@ -1,3 +1,7 @@
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* msginit.texi: Remove --verbose documentation.
+
 2001-08-23  Karl Eichwalder  <ke@suse.de>
 
 	* gettext.texi (Main PO Commands): Reflect po-mode.el key binding

@@ -1,3 +1,11 @@
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* msginit.c (verbose): Remove variable.
+	(long_options): Remove --verbose.
+	(main): Remove --verbose option handling.
+	(usage): Remove --verbose documentation.
+	(language_team_address): Don't pass a verbose option to the subprocess.
+
 2001-11-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* message.h: New enum value format_smalltalk.

@@ -102,9 +102,6 @@ static const char *catalogname;
 /* Language (ISO-639 code).  */
 static const char *language;
 
-/* Verbosity control.  */
-static bool verbose;
-
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -112,7 +109,6 @@ static const struct option long_options[] =
   { "input", required_argument, NULL, 'i' },
   { "locale", required_argument, NULL, 'l' },
   { "output-file", required_argument, NULL, 'o' },
-  { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
@@ -190,7 +186,7 @@ main (argc, argv)
   input_file = NULL;
   locale = NULL;
 
-  while ((opt = getopt_long (argc, argv, "hi:l:o:vVw:", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "hi:l:o:Vw:", long_options, NULL))
 	 != EOF)
     switch (opt)
       {
@@ -216,10 +212,6 @@ main (argc, argv)
 
       case 'o':
 	output_file = optarg;
-	break;
-
-      case 'v':
-	verbose = true;
 	break;
 
       case 'V':
@@ -324,8 +316,7 @@ the output .po file through the --output-file option.\n"),
   /* Write the modified message list out.  */
   msgdomain_list_print (result, output_file, true, false);
 
-  if (verbose)
-    fprintf (stderr, "Created %s.\n", output_file);
+  fprintf (stderr, "Created %s.\n", output_file);
 
   exit (EXIT_SUCCESS);
 }
@@ -385,7 +376,6 @@ Output details:\n\
 Informative output:\n\
   -h, --help                  display this help and exit\n\
   -V, --version               output version information and exit\n\
-  -v, --verbose               increase verbosity level\n\
 "));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
@@ -1072,7 +1062,7 @@ static const char *
 language_team_address ()
 {
   char *prog = concatenated_pathname (PROJECTSDIR, "team-address", NULL);
-  char *argv[8];
+  char *argv[7];
   pid_t child;
   int fd[1];
   FILE *fp;
@@ -1088,8 +1078,7 @@ language_team_address ()
   argv[3] = concatenated_pathname (LIBDIR, "gettext", NULL);
   argv[4] = (char *) catalogname;
   argv[5] = (char *) language;
-  argv[6] = (verbose ? "yes" : "");
-  argv[7] = NULL;
+  argv[6] = NULL;
   child = create_pipe_in (prog, "/bin/sh", argv, "/dev/null", false, true, fd);
 
   /* Retrieve its result.  */

@@ -5,7 +5,6 @@ projectsdir="$1"
 progdir="$2"
 catalog="$3"  # e.g. "pt_BR"
 language="$4" # e.g. "pt"
-verbose="$5"
 
 url=`cat "$projectsdir/TP/teams.url"`
 html=`"$progdir/urlget" "$url" "$projectsdir/TP/teams.html"`
