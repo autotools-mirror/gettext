@@ -50,3 +50,12 @@ Things we plan to do. Comments welcome.
 - Split xgettext into a language dependent part and a language independent
   part.
 
+- Add c-ctype.{h,c} to misc. Document setlocale, LC_CTYPE, LC_MESSAGES issues.
+
+- Document what it means to add gettext support to a programming/scripting
+  language.
+
+- Ask EMX, cygwin, mingw32, pw people for testing.
+
+- Add msvc Makefile.
+
