@@ -1,3 +1,8 @@
+2003-05-17  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: Don't use the force target. Avoid rules with no lines.
