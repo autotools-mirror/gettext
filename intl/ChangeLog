@@ -10,6 +10,7 @@
 	* xopen-msg.sed: Renamed to ...
 	* po2msg.sin: ... here.
 	* linux-msg.sed: Remove file.
+	* Makefile.in (DISTFILES.common): Update.
 
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 

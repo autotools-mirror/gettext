@@ -71,8 +71,8 @@ explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
 plural.$lo localcharset.$lo
 CATOBJS = cat-compat.$lo ../po/cat-id-tbl.$lo
 GETTOBJS = intl-compat.$lo
-DISTFILES.common = ChangeLog Makefile.in linux-msg.sed po2tbl.sin \
-xopen-msg.sed config.charset ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
+DISTFILES.common = ChangeLog Makefile.in po2msg.sin po2tbl.sin \
+config.charset ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.normal = VERSION
 DISTFILES.gettext = libintl.glibc intlh.inst.in plural.c
 
