@@ -306,6 +306,7 @@ Autoconf macros for use in @file{configure.in}
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+* AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 
 Integrating with CVS
@@ -6732,6 +6733,7 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 @menu
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+* AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 @end menu
 
@@ -6742,7 +6744,8 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 The @code{AM_GNU_GETTEXT} macro tests for the presence of the GNU gettext
 function family in either the C library or a separate @code{libintl}
 library (shared or static libraries are both supported) or in the package's
-@file{intl/} directory.
+@file{intl/} directory.  It also invokes @code{AM_PO_SUBDIRS}, thus preparing
+the @file{po/} directories of the package for building.
 
 @code{AM_GNU_GETTEXT} accepts up to three optional arguments. The general
 syntax is
@@ -6820,7 +6823,7 @@ linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
 
-@node AM_GNU_GETTEXT_VERSION, AM_ICONV, AM_GNU_GETTEXT, autoconf macros
+@node AM_GNU_GETTEXT_VERSION, AM_PO_SUBDIRS, AM_GNU_GETTEXT, autoconf macros
 @subsection AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 
 @amindex AM_GNU_GETTEXT_VERSION
@@ -6830,7 +6833,23 @@ the GNU gettext infrastructure that is used by the package.
 The use of this macro is optional; only the @code{autopoint} program makes
 use of it (@pxref{CVS Issues}).
 
-@node AM_ICONV,  , AM_GNU_GETTEXT_VERSION, autoconf macros
+@node AM_PO_SUBDIRS, AM_ICONV, AM_GNU_GETTEXT_VERSION, autoconf macros
+@subsection AM_PO_SUBDIRS in @file{po.m4}
+
+@amindex AM_PO_SUBDIRS
+The @code{AM_PO_SUBDIRS} macro prepares the @file{po/} directories of the
+package for building.  This macro should be used in internationalized
+programs written in other programming languages than C, C++, Objective C,
+for example @code{sh}, @code{Python}, @code{Lisp}.  See @ref{Programming
+Languages} for a list of programming languages that support localization
+through PO files.
+
+The @code{AM_PO_SUBDIRS} macro determines whether internationalization
+should be used. If so, it sets the @code{USE_NLS} variable to @samp{yes},
+otherwise to @samp{no}. It also determines the right values for Makefile
+variables in each @file{po/} directory.
+
+@node AM_ICONV,  , AM_PO_SUBDIRS, autoconf macros
 @subsection AM_ICONV in @file{iconv.m4}
 
 @amindex AM_ICONV
