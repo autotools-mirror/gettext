@@ -899,7 +899,9 @@ check_plural (mlp)
 				 _("nplurals = %lu..."), nplurals_value);
 		  --error_message_count;
 		  error_at_line (0, 0, min_pos->file_name, min_pos->line_number,
-				 _("...but some messages have only %lu plural forms"),
+				 ngettext ("...but some messages have only one plural form",
+					   "...but some messages have only %lu plural forms",
+					   min_nplurals),
 				 min_nplurals);
 		  error_with_progname = true;
 		  exit_status = EXIT_FAILURE;
@@ -912,7 +914,9 @@ check_plural (mlp)
 				 _("nplurals = %lu..."), nplurals_value);
 		  --error_message_count;
 		  error_at_line (0, 0, max_pos->file_name, max_pos->line_number,
-				 _("...but some messages have %lu plural forms"),
+				 ngettext ("...but some messages have one plural form",
+					   "...but some messages have %lu plural forms",
+					   max_nplurals),
 				 max_nplurals);
 		  error_with_progname = true;
 		  exit_status = EXIT_FAILURE;

@@ -1,5 +1,10 @@
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c (check_plural): Use ngettext for two messages.
+	Reported by Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (remember_a_message_plural): Mark the message as xx-format
 	if the English plural form has xx format syntax and the singular form
 	may or may not have xx format syntax.
