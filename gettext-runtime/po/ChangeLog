@@ -1,3 +1,8 @@
+2003-11-06  Bruno Haible  <bruno@clisp.org>
+
+	* sr.po: New file, from Danilo Segan.
+	* LINGUAS: Add sr.
+
 2003-10-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (XGETTEXT_OPTIONS): Add --flag options.
