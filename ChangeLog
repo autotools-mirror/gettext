@@ -1,3 +1,8 @@
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (AC_OUTPUT): Add intl-java/Makefile.
+	* Makefile.am (SUBDIRS): Add intl-java.
+
 2001-09-16  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Don't check for memmove (unneeded).
