@@ -1152,7 +1152,8 @@ entries in the PO file, the ordinal of the current entry (counted from
 1), the number of untranslated entries, the number of obsolete entries,
 and displays all these numbers.
 
-The command @kbd{V} (@code{po-validate}) launches @code{msgfmt} in verbose
+The command @kbd{V} (@code{po-validate}) launches @code{msgfmt} in
+checking and verbose
 mode over the current PO file.  This command first offers to save the
 current PO file on disk.  The @code{msgfmt} tool, from GNU @code{gettext},
 has the purpose of creating a MO file out of a PO file, and PO mode uses
