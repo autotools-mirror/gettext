@@ -234,7 +234,7 @@ package.  Of course the GNU General Public License applies to your sources
 from then on if you include @code{gettext} directly in your distribution but
 since you are writing free software anyway this is no restriction.
 
-Once the sources are change appropriately and the setup can handle to
+Once the sources are changed appropriately and the setup can handle to
 use of @code{gettext} the only thing missing are the translations.  The
 Free Translation Project is also available for packages which are not
 developed inside the GNU project.  Therefore the information given above
