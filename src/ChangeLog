@@ -1,3 +1,7 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* read-java.c (execute_and_read_po_output): Return false, not 0.
+
 2001-10-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgattrib.c (usage): Fix: --sort-output doesn't deal with duplicates.

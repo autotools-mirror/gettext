@@ -90,7 +90,7 @@ execute_and_read_po_output (progname, prog_path, prog_argv, private_data)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
 	   progname, exitstatus);
 
-  return 0;
+  return false;
 }
 
 
