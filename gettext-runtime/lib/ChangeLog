@@ -1,5 +1,11 @@
 2005-02-13  Bruno Haible  <bruno@clisp.org>
 
+	* strtoul.c: New file, trvial link to ../../gettext-tools/lib.
+	* Makefile.am (libgrt_a_SOURCES): Remove strtoul.c.
+	(LIBADD_SOURCE): Add strtoul.c here.
+
+2005-02-13  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (libgrt_a_SOURCES): Add allocsa.h, allocsa.c. Needed
 	when --enable-relocatable is used.
 

@@ -1,3 +1,8 @@
+2005-02-13  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gl_FUNC_STRTOUL. Keep AC_CHECK_FUNCS(strtoul)
+	because plural-exp.c needs it.
+
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextsrc.def: Remove po_parse_comment_filepos. Add

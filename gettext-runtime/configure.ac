@@ -84,11 +84,12 @@ AC_TYPE_SIZE_T
 dnl Checks for library functions.
 gl_ALLOCSA
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([setlocale strerror strtoul])
+AC_CHECK_FUNCS([setlocale strerror])
 AC_REPLACE_FUNCS([atexit memmove])
 gl_GETOPT
 gt_FUNC_SETENV
 gl_FUNC_STRERROR
+gl_FUNC_STRTOUL
 gl_FUNC_GLIBC_UNLOCKED_IO
 gl_ERROR
 gl_PATHMAX

@@ -34,7 +34,6 @@ libgrt_a_SOURCES = \
   ../../gettext-tools/lib/fwriteerror.h ../../gettext-tools/lib/fwriteerror.c \
   ../../gettext-tools/lib/pathmax.h \
   ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c ../../gettext-tools/lib/progreloc.c \
-  ../../gettext-tools/lib/strtoul.c \
   ../../gettext-tools/lib/unlocked-io.h \
   ../../gettext-tools/lib/xalloc.h ../../gettext-tools/lib/xmalloc.c ../../gettext-tools/lib/xstrdup.c \
   ../../gettext-tools/lib/xreadlink.h ../../gettext-tools/lib/xreadlink.c
@@ -50,7 +49,8 @@ LIBADD_SOURCE = \
   readlink.c \
   ../../gettext-tools/lib/relocatable.h relocatable.c \
   ../../gettext-tools/lib/setenv.h setenv.c unsetenv.c \
-  strerror.c
+  strerror.c \
+  strtoul.c
 
 # How to build libgrt.a.
 

@@ -1,3 +1,9 @@
+2005-02-13  Bruno Haible  <bruno@clisp.org>
+
+	* strtoul.m4: New file, from gnulib.
+	* strtol.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add strtol.m4, strtoul.m4.
+
 2005-01-28  Bruno Haible  <bruno@clisp.org>
 
 	* stpncpy.m4 (gl_FUNC_STPNCPY): Undo the replacement here. Because of
