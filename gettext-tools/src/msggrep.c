@@ -51,6 +51,7 @@
 #include "str-list.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "exit.h"
 #include "full-write.h"
 #include "findprog.h"
@@ -659,11 +660,12 @@ is_message_selected (const message_ty *mp)
       char *total_comment;
       char *q;
       size_t j;
+      bool selected;
 
       length = 0;
       for (j = 0; j < mp->comment->nitems; j++)
 	length += strlen (mp->comment->item[j]) + 1;
-      total_comment = (char *) alloca (length);
+      total_comment = (char *) xallocsa (length);
 
       q = total_comment;
       for (j = 0; j < mp->comment->nitems; j++)
@@ -677,7 +679,11 @@ is_message_selected (const message_ty *mp)
       if (q != total_comment + length)
 	abort ();
 
-      if (is_string_selected (2, total_comment, length))
+      selected = is_string_selected (2, total_comment, length);
+
+      freesa (total_comment);
+
+      if (selected)
 	return true;
     }
 

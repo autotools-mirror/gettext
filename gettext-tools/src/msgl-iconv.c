@@ -41,6 +41,7 @@
 #include "po-charset.h"
 #include "msgl-ascii.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "strstr.h"
 #include "exit.h"
 #include "gettext.h"
@@ -279,7 +280,7 @@ iconv_message_list (message_list_ty *mlp,
 
 		charsetstr += strlen ("charset=");
 		len = strcspn (charsetstr, " \t\n");
-		charset = (char *) alloca (len + 1);
+		charset = (char *) xallocsa (len + 1);
 		memcpy (charset, charsetstr, len);
 		charset[len] = '\0';
 
@@ -316,6 +317,7 @@ present charset \"%s\" is not a portable encoding name"),
 two different charsets \"%s\" and \"%s\" in input file"),
 			     canon_from_code, canon_charset);
 		  }
+		freesa (charset);
 
 		len1 = charsetstr - header;
 		len2 = strlen (canon_to_code);

@@ -110,7 +110,7 @@ test -n "$libdirs" || exit 0
 
 # Compile wrapper.
 installdir=`echo "$destprog" | sed -e 's,/[^/]*$,,'`
-func_verbose $compile_command -I"$builddir" -I"$srcdir" -I"$config_h_dir" -DHAVE_CONFIG_H -DNO_XMALLOC -D"INSTALLPREFIX=\"$prefix\"" -D"INSTALLDIR=\"$installdir\"" -D"LIBPATHVAR=\"$library_path_var\"" -D"LIBDIRS=$libdirs" "$srcdir"/relocwrapper.c "$srcdir"/progname.c "$srcdir"/progreloc.c "$srcdir"/xreadlink.c "$srcdir"/readlink.c "$srcdir"/canonicalize.c "$srcdir"/relocatable.c "$srcdir"/setenv.c "$srcdir"/strerror.c -o $destprog.wrapper || exit $?
+func_verbose $compile_command -I"$builddir" -I"$srcdir" -I"$config_h_dir" -DHAVE_CONFIG_H -DNO_XMALLOC -D"INSTALLPREFIX=\"$prefix\"" -D"INSTALLDIR=\"$installdir\"" -D"LIBPATHVAR=\"$library_path_var\"" -D"LIBDIRS=$libdirs" "$srcdir"/relocwrapper.c "$srcdir"/progname.c "$srcdir"/progreloc.c "$srcdir"/xreadlink.c "$srcdir"/readlink.c "$srcdir"/canonicalize.c "$srcdir"/allocsa.c "$srcdir"/relocatable.c "$srcdir"/setenv.c "$srcdir"/strerror.c -o $destprog.wrapper || exit $?
 
 # Rename $destprog.wrapper -> $destprog -> $destprog.bin.
 ln -f $destprog $destprog.bin || exit 1

@@ -43,6 +43,7 @@
 #include "message.h"
 #include "format.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "binary-io.h"
 #include "fwriteerror.h"
 #include "exit.h"
@@ -560,8 +561,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	    struct pre_sysdep_string *pre = msg->str[m];
 	    struct sysdep_string *str =
 	      (struct sysdep_string *)
-	      alloca (sizeof (struct sysdep_string)
-		      + pre->segmentcount * sizeof (struct segment_pair));
+	      xallocsa (sizeof (struct sysdep_string)
+			+ pre->segmentcount * sizeof (struct segment_pair));
 	    unsigned int i;
 
 	    offset = roundup (offset, alignment);
@@ -582,7 +583,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 		    + pre->segmentcount * sizeof (struct segment_pair),
 		    1, output_file);
 
-	    freea (str);
+	    freesa (str);
 	  }
     }
 

@@ -1,3 +1,30 @@
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
+	Safer stack allocation.
+	* allocsa.h: New file.
+	* allocsa.c: New file.
+	* xallocsa.h: New file.
+	* xallocsa.c: New file.
+	* canonicalize.c: Include allocsa.h.
+	(__realpath): Use allocsa instead of alloca. Don't clobber errno right
+	before returning NULL.
+	* javacomp.c: Include xallocsa.h.
+	(compile_java_class): Use allocsa instead of alloca.
+	* javaexec.c: Include xallocsa.h.
+	(execute_java_class): Use allocsa instead of alloca.
+	* relocwrapper.c: Indirectly depends on allocsa.
+	* setenv.c: Include allocsa.h.
+	(alloca): Remove fallback definition.
+	(freea): Remove macro.
+	(__add_to_environ) [!_LIBC]: Use allocsa instead of alloca. Use freesa
+	instead of freea.
+	* Makefile.am (libgettextlib_la_SOURCES): Add allocsa.h, allocsa.c,
+	xallocsa.h, xallocsa.c.
+	* Makefile.msvc (OBJECTS): Add allocsa.obj, xallocsa.obj.
+	(allocsa.obj, xallocsa.obj): New rules.
+	* Makefile.vms (OBJECTS): Add allocsa.obj, xallocsa.obj.
+	(allocsa.obj, xallocsa.obj): New rules.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

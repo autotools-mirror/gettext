@@ -38,6 +38,7 @@ INSTALL_DATA = copy
 #### End of system configuration section. ####
 
 OBJECTS = \
+  allocsa.obj, \
   argmatch.obj, \
   backupfile.obj, addext.obj, \
   basename.obj, \
@@ -72,6 +73,7 @@ OBJECTS = \
   tmpdir.obj, \
   wait-process.obj, \
   xmalloc.obj, xstrdup.obj, \
+  xallocsa.obj, \
   xerror.obj, \
   xsetenv.obj, \
   \
@@ -91,6 +93,9 @@ alloca.h : alloca_.h
 
 fnmatch.h : fnmatch_.h
 	$(LN) fnmatch_.h fnmatch.h
+
+allocsa.obj : allocsa.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) allocsa.c
 
 argmatch.obj : argmatch.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) argmatch.c
@@ -211,6 +216,9 @@ xmalloc.obj : xmalloc.c
 
 xstrdup.obj : xstrdup.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xstrdup.c
+
+xallocsa.obj : xallocsa.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xallocsa.c
 
 xerror.obj : xerror.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xerror.c

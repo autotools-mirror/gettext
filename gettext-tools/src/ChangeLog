@@ -1,3 +1,37 @@
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
+	* format-java.c: Include xallocsa.h.
+	(message_format_parse): Use xallocsa instead of alloca.
+	(choice_format_parse): Likewise.
+	* msgl-cat.c: Include xallocsa.h.
+	(catenate_msgdomain_list): Use xallocsa instead of alloca.
+	* msgl-charset.c: Include xallocsa.h.
+	(compare_po_locale_charsets): Use xallocsa instead of alloca.
+	* msgl-iconv.c: Include xallocsa.h.
+	(iconv_message_list): Use xallocsa instead of alloca.
+	* po-charset.c: Include xallocsa.h.
+	(po_lex_charset_set): Use xallocsa instead of alloca.
+	* read-tcl.c: Include xallocsa.h.
+	(msgdomain_read_tcl): Use xallocsa instead of alloca.
+	* write-java.c: Include xallocsa.h.
+	(compute_hashsize, msgdomain_write_java): Use xallocsa instead of
+	alloca.
+	* write-mo.c: Include xallocsa.h.
+	(write_table): Use xallocsa instead of alloca.
+	* write-po.c: Include xallocsa.h.
+	(msgdomain_list_print_po): Use xallocsa instead of alloca.
+	* write-tcl.c: Include xallocsa.h.
+	(msgdomain_write_tcl): Use xallocsa instead of alloca.
+	* msggrep.c: Include xallocsa.h.
+	(is_message_selected): Use xallocsa instead of alloca.
+	* msginit.c: Include xallocsa.h.
+	(subst_string): Use xallocsa instead of alloca.
+	* msgmerge.c: Include obstack.h.
+	(obstack_chunk_alloc, obstack_chunk_free): New macros.
+	(message_merge): Use obstack_alloc instead of alloca.
+	* xgettext.c: Include xallocsa.h.
+	(flag_context_list_table_insert): Use xallocsa instead of alloca.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

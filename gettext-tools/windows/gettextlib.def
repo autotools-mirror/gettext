@@ -48,6 +48,7 @@ execute_java_class
 find_backup_file_name
 find_entry
 find_in_path
+freesa
 fstrcmp
 full_write
 fwriteerror
@@ -61,6 +62,7 @@ init_hash
 insert_entry
 iterate_table
 locale_charset
+mallocsa
 maybe_print_progname
 mbs_width_linebreaks
 mbsnwidth
@@ -100,6 +102,7 @@ xasprintf
 xcalloc
 xget_version
 xmalloc
+xmallocsa
 xrealloc
 xsetenv
 xstrdup

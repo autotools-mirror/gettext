@@ -35,6 +35,7 @@
 #include "pipe.h"
 #include "wait-process.h"
 #include "read-po.h"
+#include "xallocsa.h"
 #include "error.h"
 #include "exit.h"
 #include "gettext.h"
@@ -73,7 +74,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
 
   /* Convert the locale name to lowercase and remove any encoding.  */
   len = strlen (locale_name);
-  frobbed_locale_name = (char *) alloca (len + 1);
+  frobbed_locale_name = (char *) xallocsa (len + 1);
   memcpy (frobbed_locale_name, locale_name, len + 1);
   for (p = frobbed_locale_name; *p != '\0'; p++)
     if (*p >= 'A' && *p <= 'Z')
@@ -85,6 +86,8 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
       }
 
   file_name = concatenated_pathname (directory, frobbed_locale_name, ".msg");
+
+  freesa (frobbed_locale_name);
 
   /* Prepare arguments.  */
   argv[0] = "tclsh";

@@ -43,9 +43,11 @@ examplesconfig_DATA = gcj.m4 javacomp.m4 javaexec.m4
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
 EXTRA_DIST = README ChangeLog.0 \
 alloca.m4 \
+allocsa.m4 \
 backupfile.m4 \
 canonicalize.m4 \
 eaccess.m4 \
+eealloc.m4 \
 error.m4 \
 extensions.m4 \
 fnmatch.m4 \

@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "xallocsa.h"
 #include "xerror.h"
 #include "basename.h"
 #include "progname.h"
@@ -207,7 +208,7 @@ po_lex_charset_set (const char *header_entry, const char *filename)
 
       charsetstr += strlen ("charset=");
       len = strcspn (charsetstr, " \t\n");
-      charset = (char *) alloca (len + 1);
+      charset = (char *) xallocsa (len + 1);
       memcpy (charset, charsetstr, len);
       charset[len] = '\0';
 
@@ -336,6 +337,7 @@ would fix this problem.\n")));
 #endif
 	    }
 	}
+      freesa (charset);
     }
   else
     {

@@ -101,7 +101,7 @@ AC_TYPE_MODE_T
 gt_TYPE_SIG_ATOMIC_T
 
 dnl Checks for library functions.
-gl_FUNC_ALLOCA
+gl_ALLOCSA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
 utime utimes waitid])

@@ -33,6 +33,7 @@
 #include "error.h"
 #include "progname.h"
 #include "basename.h"
+#include "xallocsa.h"
 #include "xerror.h"
 #include "message.h"
 #include "strstr.h"
@@ -75,7 +76,7 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
 
 		    charsetstr += strlen ("charset=");
 		    len = strcspn (charsetstr, " \t\n");
-		    charset = (char *) alloca (len + 1);
+		    charset = (char *) xallocsa (len + 1);
 		    memcpy (charset, charsetstr, len);
 		    charset[len] = '\0';
 
@@ -85,6 +86,7 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
 			     _("\
 present charset \"%s\" is not a portable encoding name"),
 			     charset);
+		    freesa (charset);
 		    if (canon_locale_code != canon_charset)
 		      {
 			multiline_warning (xasprintf (_("warning: ")),

@@ -74,7 +74,7 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
-gl_FUNC_ALLOCA
+gl_ALLOCSA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([setlocale strerror strtoul])
 AC_REPLACE_FUNCS([atexit memmove])

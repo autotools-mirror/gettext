@@ -31,6 +31,7 @@ lib_LTLIBRARIES = libgettextlib.la
 # Sources that are compiled on all platforms.
 
 libgettextlib_la_SOURCES = \
+  allocsa.h allocsa.c \
   argmatch.h argmatch.c \
   backupfile.h backupfile.c addext.c \
   basename.h basename.c \
@@ -71,6 +72,7 @@ libgettextlib_la_SOURCES = \
   unlocked-io.h \
   wait-process.h wait-process.c \
   xalloc.h xmalloc.c xstrdup.c \
+  xallocsa.h xallocsa.c \
   xerror.h xerror.c \
   xreadlink.h xreadlink.c \
   xsetenv.h xsetenv.c \

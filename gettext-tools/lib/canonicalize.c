@@ -69,7 +69,7 @@
 # define __canonicalize_file_name canonicalize_file_name
 # define __realpath rpl_realpath
 # include "pathmax.h"
-# define __alloca alloca
+# include "allocsa.h"
 # if HAVE_GETCWD
 #  ifdef VMS
     /* We want the directory in Unix syntax, not in VMS syntax.  */
@@ -236,7 +236,7 @@ __realpath (const char *name, char *resolved)
 #ifdef S_ISLNK
 	  if (S_ISLNK (st.st_mode))
 	    {
-	      char *buf = __alloca (path_max);
+	      char *buf;
 	      size_t len;
 
 	      if (++num_links > MAXSYMLINKS)
@@ -245,17 +245,38 @@ __realpath (const char *name, char *resolved)
 		  goto error;
 		}
 
+	      buf = allocsa (path_max);
+	      if (!buf)
+		{
+		  errno = ENOMEM;
+		  goto error;
+		}
+
 	      n = __readlink (rpath, buf, path_max);
 	      if (n < 0)
-		goto error;
+		{
+		  int saved_errno = errno;
+		  freesa (buf);
+		  errno = saved_errno;
+		  goto error;
+		}
 	      buf[n] = '\0';
 
 	      if (!extra_buf)
-		extra_buf = __alloca (path_max);
+		{
+		  extra_buf = allocsa (path_max);
+		  if (!extra_buf)
+		    {
+		      freesa (buf);
+		      errno = ENOMEM;
+		      goto error;
+		    }
+		}
 
 	      len = strlen (end);
 	      if ((long int) (n + len) >= path_max)
 		{
+		  freesa (buf);
 		  __set_errno (ENAMETOOLONG);
 		  goto error;
 		}
@@ -278,13 +299,22 @@ __realpath (const char *name, char *resolved)
     --dest;
   *dest = '\0';
 
+  if (extra_buf)
+    freesa (extra_buf);
+
   return resolved ? memcpy (resolved, rpath, dest - rpath + 1) : rpath;
 
 error:
-  if (resolved)
-    strcpy (resolved, rpath);
-  else
-    free (rpath);
+  {
+    int saved_errno = errno;
+    if (extra_buf)
+      freesa (extra_buf);
+    if (resolved)
+      strcpy (resolved, rpath);
+    else
+      free (rpath);
+    errno = saved_errno;
+  }
   return NULL;
 }
 #ifdef _LIBC

@@ -36,6 +36,7 @@
 #include "sh-quote.h"
 #include "safe-read.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "error.h"
 #include "gettext.h"
 
@@ -122,7 +123,7 @@ compile_java_class (const char * const *java_sources,
 	  command_length += 1 + shell_quote_length (java_sources[i]);
 	command_length += 1;
 
-	command = (char *) alloca (command_length);
+	command = (char *) xallocsa (command_length);
 	p = command;
 	/* Don't shell_quote $JAVAC, because it may consist of a command
 	   and options.  */
@@ -164,6 +165,8 @@ compile_java_class (const char * const *java_sources,
 	exitstatus = execute (javac, "/bin/sh", argv, false, false, false,
 			      true, true);
 	err = (exitstatus != 0);
+
+	freesa (command);
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
@@ -263,7 +266,7 @@ compile_java_class (const char * const *java_sources,
 	argc =
 	  2 + (optimize ? 1 : 0) + (debug ? 1 : 0) + (directory != NULL ? 2 : 0)
 	  + java_sources_count;
-	argv = (char **) alloca ((argc + 1) * sizeof (char *));
+	argv = (char **) xallocsa ((argc + 1) * sizeof (char *));
 
 	argp = argv;
 	*argp++ = "gcj";
@@ -294,6 +297,8 @@ compile_java_class (const char * const *java_sources,
 	exitstatus = execute ("gcj", "gcj", argv, false, false, false, true,
 			      true);
 	err = (exitstatus != 0);
+
+	freesa (argv);
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
@@ -339,7 +344,7 @@ compile_java_class (const char * const *java_sources,
 	argc =
 	  1 + (optimize ? 1 : 0) + (debug ? 1 : 0) + (directory != NULL ? 2 : 0)
 	  + java_sources_count;
-	argv = (char **) alloca ((argc + 1) * sizeof (char *));
+	argv = (char **) xallocsa ((argc + 1) * sizeof (char *));
 
 	argp = argv;
 	*argp++ = "javac";
@@ -369,6 +374,8 @@ compile_java_class (const char * const *java_sources,
 	exitstatus = execute ("javac", "javac", argv, false, false, false,
 			      true, true);
 	err = (exitstatus != 0);
+
+	freesa (argv);
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
@@ -416,7 +423,7 @@ compile_java_class (const char * const *java_sources,
 	argc =
 	  1 + (optimize ? 1 : 0) + (debug ? 1 : 0) + (directory != NULL ? 2 : 0)
 	  + java_sources_count;
-	argv = (char **) alloca ((argc + 1) * sizeof (char *));
+	argv = (char **) xallocsa ((argc + 1) * sizeof (char *));
 
 	argp = argv;
 	*argp++ = "jikes";
@@ -446,6 +453,8 @@ compile_java_class (const char * const *java_sources,
 	exitstatus = execute ("jikes", "jikes", argv, false, false, false,
 			      true, true);
 	err = (exitstatus != 0);
+
+	freesa (argv);
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);

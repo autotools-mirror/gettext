@@ -80,6 +80,7 @@ INSTALL_DATA = copy
 SHELL = /bin/sh
 
 OBJECTS = \
+  allocsa.obj \
   argmatch.obj \
   backupfile.obj addext.obj \
   basename.obj \
@@ -114,6 +115,7 @@ OBJECTS = \
   tmpdir.obj \
   wait-process.obj \
   xmalloc.obj xstrdup.obj \
+  xallocsa.obj \
   xerror.obj \
   xsetenv.obj \
   \
@@ -130,6 +132,9 @@ OBJECTS = \
 RESOURCES = gettextlib.res
 
 all : gettextlib.lib
+
+allocsa.obj : allocsa.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c allocsa.c
 
 argmatch.obj : argmatch.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c argmatch.c
@@ -250,6 +255,9 @@ xmalloc.obj : xmalloc.c
 
 xstrdup.obj : xstrdup.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c xstrdup.c
+
+xallocsa.obj : xallocsa.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c xallocsa.c
 
 xerror.obj : xerror.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c xerror.c

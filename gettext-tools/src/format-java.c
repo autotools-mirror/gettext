@@ -28,6 +28,7 @@
 #include "format.h"
 #include "c-ctype.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "xerror.h"
 #include "format-invalid.h"
 #include "error.h"
@@ -193,7 +194,7 @@ message_format_parse (const char *format, struct spec *spec,
 	  element_end = format++;
 
 	  n = element_end - element_start;
-	  element = (char *) alloca (n + 1);
+	  element = (char *) xallocsa (n + 1);
 	  memcpy (element, element_start, n);
 	  element[n] = '\0';
 
@@ -201,6 +202,7 @@ message_format_parse (const char *format, struct spec *spec,
 	    {
 	      *invalid_reason =
 		xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec->directives);
+	      freesa (element);
 	      return false;
 	    }
 	  number = 0;
@@ -234,6 +236,7 @@ message_format_parse (const char *format, struct spec *spec,
 		    {
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid date/time style."), spec->directives, element);
+		      freesa (element);
 		      return false;
 		    }
 		}
@@ -243,6 +246,7 @@ message_format_parse (const char *format, struct spec *spec,
 		  element -= 4;
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  freesa (element);
 		  return false;
 		}
 	    }
@@ -264,6 +268,7 @@ message_format_parse (const char *format, struct spec *spec,
 		    {
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid number style."), spec->directives, element);
+		      freesa (element);
 		      return false;
 		    }
 		}
@@ -273,6 +278,7 @@ message_format_parse (const char *format, struct spec *spec,
 		  element -= 6;
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  freesa (element);
 		  return false;
 		}
 	    }
@@ -288,7 +294,10 @@ message_format_parse (const char *format, struct spec *spec,
 		  if (choice_format_parse (element, spec, invalid_reason))
 		    ;
 		  else
-		    return false;
+		    {
+		      freesa (element);
+		      return false;
+		    }
 		}
 	      else
 		{
@@ -296,6 +305,7 @@ message_format_parse (const char *format, struct spec *spec,
 		  element -= 6;
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  freesa (element);
 		  return false;
 		}
 	    }
@@ -303,8 +313,10 @@ message_format_parse (const char *format, struct spec *spec,
 	    {
 	      *invalid_reason =
 		xasprintf (_("In the directive number %u, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."), spec->directives, "time", "date", "number", "choice");
+	      freesa (element);
 	      return false;
 	    }
+	  freesa (element);
 
 	  if (spec->allocated == spec->numbered_arg_count)
 	    {
@@ -511,6 +523,7 @@ choice_format_parse (const char *format, struct spec *spec,
       bool number_nonempty;
       char *msgformat;
       char *mp;
+      bool msgformat_valid;
 
       /* Parse number.  */
       number_nonempty = false;
@@ -559,7 +572,7 @@ choice_format_parse (const char *format, struct spec *spec,
 	}
       HANDLE_QUOTE;
 
-      msgformat = (char *) alloca (strlen (format) + 1);
+      msgformat = (char *) xallocsa (strlen (format) + 1);
       mp = msgformat;
 
       while (*format != '\0' && !(!quoting && *format == '|'))
@@ -569,7 +582,11 @@ choice_format_parse (const char *format, struct spec *spec,
 	}
       *mp = '\0';
 
-      if (!message_format_parse (msgformat, spec, invalid_reason))
+      msgformat_valid = message_format_parse (msgformat, spec, invalid_reason);
+
+      freesa (msgformat);
+
+      if (!msgformat_valid)
 	return false;
 
       if (*format == '\0')

@@ -78,6 +78,7 @@
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "pathname.h"
 #include "fatal-signal.h"
 #include "fwriteerror.h"
@@ -158,7 +159,8 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
 #define XXN 3  /* can be tweaked */
 #define XXS 3  /* can be tweaked */
   unsigned int n = mlp->nitems;
-  unsigned int *hashcodes = (unsigned int *) alloca (n * sizeof (unsigned int));
+  unsigned int *hashcodes =
+    (unsigned int *) xallocsa (n * sizeof (unsigned int));
   unsigned int hashsize;
   unsigned int best_hashsize;
   unsigned int best_score;
@@ -274,6 +276,8 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
     }
   if (best_hashsize == 0 || best_score < best_hashsize)
     abort ();
+
+  freesa (hashcodes);
 
   /* There are collisions if and only if best_score > best_hashsize.  */
   *collisionp = (best_score > best_hashsize);
@@ -970,7 +974,7 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
   }
 
   /* Create a temporary directory where we can put the Java file.  */
-  template = (char *) alloca (PATH_MAX);
+  template = (char *) xallocsa (PATH_MAX);
   if (path_search (template, PATH_MAX, NULL, "msg", 1))
     {
       error (0, errno,
@@ -1010,7 +1014,7 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
   else
     class_name = xstrdup (resource_name);
 
-  subdirs = (ndots > 0 ? (char **) alloca (ndots * sizeof (char *)) : NULL);
+  subdirs = (ndots > 0 ? (char **) xallocsa (ndots * sizeof (char *)) : NULL);
   {
     const char *p;
     const char *last_dir;
@@ -1022,10 +1026,11 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
       {
 	const char *q = strchr (p, '.');
 	size_t n = q - p;
-	char *part = (char *) alloca (n + 1);
+	char *part = (char *) xallocsa (n + 1);
 	memcpy (part, p, n);
 	part[n] = '\0';
 	subdirs[i] = concatenated_pathname (last_dir, part, NULL);
+	freesa (part);
 	last_dir = subdirs[i];
 	p = q + 1;
       }
@@ -1113,11 +1118,13 @@ compilation of Java class failed, please try --verbose or set $JAVAC"));
     for (i = 0; i < ndots; i++)
       free (subdirs[i]);
   }
+  freesa (subdirs);
   free (class_name);
  quit2:
   rmdir (tmpdir);
  quit1:
   cleanup_list.tmpdir = NULL;
+  freesa (template);
   /* Here we could unregister the cleanup() handler.  */
   return retval;
 }

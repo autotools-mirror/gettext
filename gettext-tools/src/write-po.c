@@ -42,6 +42,7 @@
 #include "write-properties.h"
 #include "write-stringtable.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "strstr.h"
 #include "fwriteerror.h"
 #include "exit.h"
@@ -955,6 +956,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
       message_list_ty *mlp;
       const char *header;
       char *charset;
+      char *allocated_charset;
 
       /* If the first domain is the default, don't bother emitting
 	 the domain name, because it is the default.  */
@@ -980,6 +982,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
 
       /* Extract the charset name.  */
       charset = "ASCII";
+      allocated_charset = NULL;
       if (header != NULL)
 	{
 	  const char *charsetstr = strstr (header, "charset=");
@@ -990,7 +993,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
 
 	      charsetstr += strlen ("charset=");
 	      len = strcspn (charsetstr, " \t\n");
-	      charset = (char *) alloca (len + 1);
+	      charset = allocated_charset = (char *) xallocsa (len + 1);
 	      memcpy (charset, charsetstr, len);
 	      charset[len] = '\0';
 
@@ -1015,6 +1018,9 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
 	    message_print_obsolete (mlp->item[j], fp, charset, blank_line);
 	    blank_line = true;
 	  }
+
+      if (allocated_charset != NULL)
+	freesa (allocated_charset);
     }
 }
 

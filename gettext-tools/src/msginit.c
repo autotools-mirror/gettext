@@ -86,6 +86,7 @@
 #include "po-time.h"
 #include "plural-table.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "exit.h"
 #include "pathname.h"
 #include "xerror.h"
@@ -1581,7 +1582,7 @@ subst_string (const char *str,
       size_t i;
       unsigned int j;
 
-      substlen = (size_t *) alloca (nsubst * sizeof (size_t));
+      substlen = (size_t *) xallocsa (nsubst * sizeof (size_t));
       for (j = 0; j < nsubst; j++)
 	{
 	  substlen[j] = strlen (subst[j][0]);
@@ -1613,6 +1614,8 @@ subst_string (const char *str,
 	  if (j == nsubst)
 	    i++;
 	}
+
+      freesa (substlen);
     }
 
   return str;

@@ -1,3 +1,11 @@
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
+	* allocsa.m4: New file.
+	* eealloc.m4: New file.
+	* setenv.m4 (gl_PREREQ_SETENV): Require gl_ALLOCSA instead of
+	AC_FUNC_ALLOCA.
+	* Makefile.am (EXTRA_DIST): Add allocsa.m4, eealloc.m4.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

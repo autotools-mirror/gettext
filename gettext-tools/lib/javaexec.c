@@ -34,6 +34,7 @@
 #include "sh-quote.h"
 #include "pathname.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "error.h"
 #include "gettext.h"
 
@@ -98,7 +99,7 @@ execute_java_class (const char *class_name,
     {
       char *exe_pathname = concatenated_pathname (exe_dir, class_name, EXEEXT);
       char *old_classpath;
-      char **argv = (char **) alloca ((1 + nargs + 1) * sizeof (char *));
+      char **argv = (char **) xallocsa ((1 + nargs + 1) * sizeof (char *));
       unsigned int i;
 
       /* Set CLASSPATH.  */
@@ -121,6 +122,8 @@ execute_java_class (const char *class_name,
 
       /* Reset CLASSPATH.  */
       reset_classpath (old_classpath);
+
+      freesa (argv);
 
       goto done1;
     }
@@ -151,7 +154,7 @@ execute_java_class (const char *class_name,
 	  command_length += 1 + shell_quote_length (*arg);
 	command_length += 1;
 
-	command = (char *) alloca (command_length);
+	command = (char *) xallocsa (command_length);
 	p = command;
 	/* Don't shell_quote $JAVA, because it may consist of a command
 	   and options.  */
@@ -177,6 +180,8 @@ execute_java_class (const char *class_name,
 	argv[2] = command;
 	argv[3] = NULL;
 	err = executer (java, "/bin/sh", argv, private_data);
+
+	freesa (command);
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
@@ -215,7 +220,7 @@ execute_java_class (const char *class_name,
     if (gij_present)
       {
 	char *old_classpath;
-	char **argv = (char **) alloca ((2 + nargs + 1) * sizeof (char *));
+	char **argv = (char **) xallocsa ((2 + nargs + 1) * sizeof (char *));
 	unsigned int i;
 
 	/* Set CLASSPATH.  */
@@ -239,6 +244,8 @@ execute_java_class (const char *class_name,
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
+
+	freesa (argv);
 
 	goto done2;
       }
@@ -266,7 +273,7 @@ execute_java_class (const char *class_name,
     if (java_present)
       {
 	char *old_classpath;
-	char **argv = (char **) alloca ((2 + nargs + 1) * sizeof (char *));
+	char **argv = (char **) xallocsa ((2 + nargs + 1) * sizeof (char *));
 	unsigned int i;
 
 	/* Set CLASSPATH.  We don't use the "-classpath ..." option because
@@ -293,6 +300,8 @@ execute_java_class (const char *class_name,
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
 
+	freesa (argv);
+
 	goto done2;
       }
   }
@@ -318,7 +327,7 @@ execute_java_class (const char *class_name,
     if (jre_present)
       {
 	char *old_classpath;
-	char **argv = (char **) alloca ((2 + nargs + 1) * sizeof (char *));
+	char **argv = (char **) xallocsa ((2 + nargs + 1) * sizeof (char *));
 	unsigned int i;
 
 	/* Set CLASSPATH.  We don't use the "-classpath ..." option because
@@ -344,6 +353,8 @@ execute_java_class (const char *class_name,
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
+
+	freesa (argv);
 
 	goto done2;
       }
@@ -373,7 +384,7 @@ execute_java_class (const char *class_name,
     if (jview_present)
       {
 	char *old_classpath;
-	char **argv = (char **) alloca ((2 + nargs + 1) * sizeof (char *));
+	char **argv = (char **) xallocsa ((2 + nargs + 1) * sizeof (char *));
 	unsigned int i;
 
 	/* Set CLASSPATH.  */
@@ -397,6 +408,8 @@ execute_java_class (const char *class_name,
 
 	/* Reset CLASSPATH.  */
 	reset_classpath (old_classpath);
+
+	freesa (argv);
 
 	goto done2;
       }
