@@ -88,7 +88,8 @@ if test $# -eq 1; then
   if cd $srcdir; then
     srcdir=`pwd`
   else
-    $echo "Cannot change directory to \`$srcdir'"
+    $echo "gettextize: *** Cannot change directory to '$srcdir'."
+    $echo "gettextize: *** Stop."
     exit 1
   fi
 else
@@ -110,7 +111,8 @@ removed_acoutput=" intl/intlh.inst"
 please=
 
 test -f configure.in || test -f configure.ac || {
-  $echo "Missing configure.in or configure.ac, please cd to your package first."
+  $echo "gettextize: *** Missing configure.in or configure.ac, please cd to your package first."
+  $echo "gettextize: *** Stop."
   exit 1
 }
 configure_in=NONE
@@ -123,19 +125,20 @@ else
 fi
 
 if test -d intl && test $force -eq 0; then
-  $echo "\
-intl/ subdirectory exists: use option -f if you really want to delete it."
+  $echo "gettextize: *** intl/ subdirectory exists: use option -f if you really want to delete it."
+  $echo "gettextize: *** Stop."
   exit 1
 fi
 
 if test -f po/Makefile.in.in && test $force -eq 0; then
-  $echo "\
-po/Makefile.in.in exists: use option -f if you really want to delete it."
+  $echo "gettextize: *** po/Makefile.in.in exists: use option -f if you really want to delete it."
+  $echo "gettextize: *** Stop."
   exit 1
 fi
 
 if test -f ABOUT-NLS && test $force -eq 0; then
-  $echo "ABOUT-NLS exists: use option -f if you really want to delete it."
+  $echo "gettextize: *** ABOUT-NLS exists: use option -f if you really want to delete it."
+  $echo "gettextize: *** Stop."
   exit 1
 fi
 
@@ -162,7 +165,8 @@ else
   if test -n "$intldir"; then
     $echo "Creating intl/ subdirectory"
     mkdir intl || {
-      $echo "failed to create intl/ subdirectory"
+      $echo "gettextize: *** failed to create intl/ subdirectory"
+      $echo "gettextize: *** Stop."
       exit 1;
     }
     added_directories="$added_directories intl"
@@ -172,15 +176,17 @@ fi
 test -d po || {
   $echo "Creating po/ subdirectory"
   mkdir po || {
-    $echo "failed to create po/ subdirectory"
+    $echo "gettextize: *** failed to create po/ subdirectory"
+    $echo "gettextize: *** Stop."
     exit 1
   }
 }
 
 # For simplicity we changed to the gettext source directory.
 cd $gettext_dir || {
-   $echo "gettext source directory '${gettext_dir}' doesn't exist"
-   exit 1
+  $echo "gettextize: *** gettext source directory '${gettext_dir}' doesn't exist"
+  $echo "gettextize: *** Stop."
+  exit 1
 }
 
 DATE=`date +%Y-%m-%d`

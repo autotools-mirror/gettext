@@ -1,3 +1,8 @@
+2002-02-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Mark all error messages which lead to failure with
+	asterisks and "*** Stop.".
+
 2002-02-11  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-subedit-ediff): When variants are equal don't call
