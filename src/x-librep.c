@@ -43,7 +43,7 @@
 # define ALERT_CHAR '\a'
 #else
 # define ALERT_CHAR '\7'
-#endif 
+#endif
 
 
 /* Summary of librep syntax:

@@ -944,7 +944,7 @@ initial_splitelement (list, n)
 
   return s+1;
 }
-    
+
 
 /* Ensure index n in the initial segment is not shared.  Return its index.  */
 /* Memory effects: list is destructively modified.  */
@@ -2272,7 +2272,7 @@ make_repeated_list (sublist, period)
       /* p := lcm (period, period of L)  */
       unsigned int Lp = sublist->repeated.length;
       unsigned int m = period / gcd (period, Lp); /* = lcm(period,Lp) / Lp */
-      
+
       unfold_loop (sublist, m);
       p = m * Lp;
 

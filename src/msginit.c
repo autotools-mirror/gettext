@@ -126,8 +126,8 @@ static const struct option long_options[] =
 static void usage PARAMS ((int status))
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
      __attribute__ ((noreturn))
-#endif 
-;  
+#endif
+;
 static const char *find_pot PARAMS ((void));
 static const char *catalogname_for_locale PARAMS ((const char *locale));
 static const char *language_of_locale PARAMS ((const char *locale));
