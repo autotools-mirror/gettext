@@ -1,6 +1,6 @@
 ;;; po-mode.el -- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
+;; Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
