@@ -39,6 +39,15 @@ extern int errno;
 # include <unistd.h>
 #endif
 
+/* For those losing systems which don't have 'alloca' we have to add
+   some additional code emulating it.  */
+#if _LIBC || HAVE_ALLOCA
+# define freea(p) /* nothing */
+#else
+# define alloca(n) malloc (n)
+# define freea(p) free (p)
+#endif
+
 #if !_LIBC
 # define __environ	environ
 # ifndef HAVE_ENVIRON_DECL
@@ -176,6 +185,9 @@ __add_to_environ (const char *name, const char *value, const char *combined,
 	      new_environ[size] = (char *) malloc (namelen + 1 + vallen);
 	      if (new_environ[size] == NULL)
 		{
+#ifdef USE_TSEARCH
+		  freea (new_value);
+#endif
 		  __set_errno (ENOMEM);
 		  UNLOCK;
 		  return -1;
@@ -193,6 +205,9 @@ __add_to_environ (const char *name, const char *value, const char *combined,
 		 user string or not.  */
 	      STORE_VALUE (new_environ[size]);
 	    }
+#ifdef USE_TSEARCH
+	  freea (new_value);
+#endif
 	}
 
       if (__environ != last_environ)
@@ -230,6 +245,9 @@ __add_to_environ (const char *name, const char *value, const char *combined,
 	      np = malloc (namelen + 1 + vallen);
 	      if (np == NULL)
 		{
+#ifdef USE_TSEARCH
+		  freea (new_value);
+#endif
 		  UNLOCK;
 		  return -1;
 		}
@@ -244,6 +262,9 @@ __add_to_environ (const char *name, const char *value, const char *combined,
 	      /* And remember the value.  */
 	      STORE_VALUE (np);
 	    }
+#ifdef USE_TSEARCH
+	  freea (new_value);
+#endif
 	}
 
       *ep = np;
