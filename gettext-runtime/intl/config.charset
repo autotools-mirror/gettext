@@ -133,8 +133,8 @@ case "$os" in
 	         es_HN es_MX es_PA es_PE es_PY es_SV es_US es_UY es_VE et \
 	         et_EE eu eu_ES fi fi_FI fo fo_FO fr fr_BE fr_CA fr_CH fr_FR \
 	         fr_LU ga ga_IE gl gl_ES id id_ID in in_ID is is_IS it it_CH \
-	         it_IT kl kl_GL nl nl_BE nl_NL no no_NO pt pt_BR pt_PT ro \
-	         ro_RO sv sv_FI sv_SE; do
+	         it_IT kl kl_GL nl nl_BE nl_NL no no_NO pt pt_BR pt_PT sv \
+	         sv_FI sv_SE; do
 	  echo "$l ISO-8859-1"
 	  echo "$l.iso-8859-1 ISO-8859-1"
 	  echo "$l.iso-8859-15 ISO-8859-15"
@@ -148,16 +148,12 @@ case "$os" in
 	  echo "$l.utf-8 UTF-8"
 	  echo "$l.utf-8@euro UTF-8"
 	done
-	for l in cs cs_CZ hu hu_HU pl pl_PL sk sk_SK sl sl_SI sr sr_YU; do
+	for l in cs cs_CZ hr hr_HR hu hu_HU pl pl_PL ro ro_RO sk sk_SK sl \
+	         sl_SI sr sr_YU; do
 	  echo "$l ISO-8859-2"
 	  echo "$l.iso-8859-2 ISO-8859-2"
 	  echo "$l.cp-852 CP852"
 	  echo "$l.cp-1250 CP1250"
-	  echo "$l.utf-8 UTF-8"
-	done
-	for l in hr hr_HR; do
-	  echo "$l ISO-8859-4"
-	  echo "$l.iso-8859-4 ISO-8859-4"
 	  echo "$l.utf-8 UTF-8"
 	done
 	for l in mk mk_MK ru ru_RU; do
