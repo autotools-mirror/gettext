@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# From configure.in Revision: 1.1.1.1 
+# From configure.in Revision: 1.2 
 
 
 
@@ -4179,22 +4179,21 @@ echo "configure:4159: checking for catalogs to be installed" >&5
    fi
    
 
-            if test -f $srcdir/po2tbl.sed.in; then
-      test -d intl || mkdir intl
-      if test "$CATOBJEXT" = ".cat"; then
-	ac_safe=`echo "linux/version.h" | sed 'y%./+-%__p_%'`
+            test -d intl || mkdir intl
+   if test "$CATOBJEXT" = ".cat"; then
+     ac_safe=`echo "linux/version.h" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for linux/version.h""... $ac_c" 1>&6
-echo "configure:4188: checking for linux/version.h" >&5
+echo "configure:4187: checking for linux/version.h" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 4193 "configure"
+#line 4192 "configure"
 #include "confdefs.h"
 #include <linux/version.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:4198: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:4197: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -4217,11 +4216,10 @@ msgformat=xopen
 fi
 
 
-			sed -e '/^#/d' $srcdir/$msgformat-msg.sed > po2msg.sed
-      fi
-            sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
-        $srcdir/po2tbl.sed.in > po2tbl.sed
+               sed -e '/^#/d' $srcdir/intl/$msgformat-msg.sed > intl/po2msg.sed
    fi
+      sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
+     $srcdir/intl/po2tbl.sed.in > intl/po2tbl.sed
 
             if test "$PACKAGE" = "gettext"; then
      GT_NO="#NO#"
@@ -4270,7 +4268,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:4274: checking for $ac_word" >&5
+echo "configure:4272: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_EMACS'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -4308,7 +4306,7 @@ test -n "$EMACS" || EMACS="no"
 
   if test $EMACS != "no"; then
     echo $ac_n "checking where .elc files should go""... $ac_c" 1>&6
-echo "configure:4312: checking where .elc files should go" >&5
+echo "configure:4310: checking where .elc files should go" >&5
         lispdir="\$(datadir)/emacs/site-lisp"
     emacs_flavor=`echo "$EMACS" | sed -e 's,^.*/,,'`
     if test "x$prefix" = "xNONE"; then
