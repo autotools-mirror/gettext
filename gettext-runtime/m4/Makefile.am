@@ -19,6 +19,7 @@ longdouble.m4 \
 longlong.m4 \
 nls.m4 \
 po.m4 \
+printf-posix.m4 \
 progtest.m4 \
 signed.m4 \
 stdint_h.m4 \

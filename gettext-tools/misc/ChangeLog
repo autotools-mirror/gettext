@@ -1,3 +1,8 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (m4filelist): Add intmax.m4, longdouble.m4,
+	longlong.m4, printf-posix.m4, signed.m4, wchar_t.m4, wint_t.m4.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.

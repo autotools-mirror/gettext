@@ -1709,6 +1709,14 @@ having translated C strings should contain the line:
 #include <libintl.h>
 @end example
 
+Similarly, each C module containing @code{printf()}/@code{fprintf()}/...
+calls with a format string that could be a translated C string (even if
+the C string comes from a different C module) should contain the line:
+
+@example
+#include <libintl.h>
+@end example
+
 The remaining changes to your C sources are discussed in the further
 sections of this chapter.
 
@@ -6426,10 +6434,12 @@ AC_CONFIG_AUX_DIR([@var{subdir}])
 If you do not have an @file{aclocal.m4} file in your distribution,
 the simplest is to concatenate the files @file{codeset.m4},
 @file{gettext.m4}, @file{glibc21.m4}, @file{iconv.m4}, @file{intdiv0.m4},
-@file{inttypes.m4}, @file{inttypes_h.m4}, @file{inttypes-pri.m4},
-@file{isc-posix.m4}, @file{lcmessage.m4}, @file{lib-ld.m4},
-@file{lib-link.m4}, @file{lib-prefix.m4}, @file{progtest.m4},
-@file{stdint_h.m4}, @file{uintmax_t.m4}, @file{ulonglong.m4}
+@file{intmax.m4}, @file{inttypes.m4}, @file{inttypes_h.m4},
+@file{inttypes-pri.m4}, @file{isc-posix.m4}, @file{lcmessage.m4},
+@file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
+@file{longdouble.m4}, @file{longlong.m4}, @file{printf-posix.m4},
+@file{progtest.m4}, @file{signed.m4}, @file{stdint_h.m4}, @file{uintmax_t.m4},
+@file{ulonglong.m4}, @file{wchar_t.m4}, @file{wint_t.m4}
 from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
 @file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
@@ -7210,6 +7220,26 @@ See also the fprintf(3) manual page,
 @uref{http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php},
 @uref{http://informatik.fh-wuerzburg.de/student/i510/man/printf.html}.
 
+Although format strings with positions that reorder arguments, such as
+
+@example
+"Only %2$d bytes free on '%1$s'."
+@end example
+
+@noindent
+which is semantically equivalent to
+
+@example
+"'%s' has only %d bytes free."
+@end example
+
+@noindent
+are a POSIX/XSI feature and not specified by ISO C 99, translators can rely
+on this reordering ability: On the few platforms where @code{printf()},
+@code{fprintf()} etc. don't support this feature natively, @file{libintl.a}
+or @file{libintl.so} provides replacement functions, and GNU @code{<libintl.h>}
+activates these replacement functions automatically.
+
 @node python-format, lisp-format, c-format, Translators for other Languages
 @subsection Python Format Strings
 
@@ -7450,7 +7480,7 @@ Use
 @code{xgettext -k_}
 
 @item Formatting with positions
-@code{fprintf "%2$d %1$d"} (POSIX/XSI but not C 99 - in practice, not NetBSD and not Windows)
+@code{fprintf "%2$d %1$d"}
 @*In C++: @code{autosprintf "%2$d %1$d"}
 (@pxref{Top, , Introduction, autosprintf, GNU autosprintf})
 
@@ -7711,7 +7741,7 @@ use
 @code{clisp-xgettext}
 
 @item Formatting with positions
-@code{fprintf "%2$d %1$d"} (POSIX/XSI but not C 99)
+@code{fprintf "%2$d %1$d"}
 
 @item Portability
 On platforms without gettext, no translation.

@@ -1,5 +1,13 @@
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h_vms, config.h.msvc): Update.
+	(intl/libgnuintl.h_vms, intl/libgnuintl.h.msvc-static): New rule.
+	(all-local): Depend on them.
+	(intl/libgnuintl.h.msvc-shared): Also perform some AC_SUBST
+	substitutions.
+
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: New option --disable-libasprintf.
 
 2003-06-08  Bruno Haible  <bruno@clisp.org>

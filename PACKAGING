@@ -111,6 +111,7 @@ following file list.
       $prefix/share/aclocal/glibc21.m4
       $prefix/share/aclocal/iconv.m4
       $prefix/share/aclocal/intdiv0.m4
+      $prefix/share/aclocal/intmax.m4
       $prefix/share/aclocal/inttypes.m4
       $prefix/share/aclocal/inttypes_h.m4
       $prefix/share/aclocal/inttypes-pri.m4
@@ -119,12 +120,18 @@ following file list.
       $prefix/share/aclocal/lib-ld.m4
       $prefix/share/aclocal/lib-link.m4
       $prefix/share/aclocal/lib-prefix.m4
+      $prefix/share/aclocal/longdouble.m4
+      $prefix/share/aclocal/longlong.m4
       $prefix/share/aclocal/nls.m4
       $prefix/share/aclocal/po.m4
+      $prefix/share/aclocal/printf-posix.m4
       $prefix/share/aclocal/progtest.m4
+      $prefix/share/aclocal/signed.m4
       $prefix/share/aclocal/stdint_h.m4
       $prefix/share/aclocal/uintmax_t.m4
       $prefix/share/aclocal/ulonglong.m4
+      $prefix/share/aclocal/wchar_t.m4
+      $prefix/share/aclocal/wint_t.m4
       $prefix/share/emacs/site-lisp/po-compat.el
       $prefix/share/emacs/site-lisp/po-compat.elc
       $prefix/share/emacs/site-lisp/po-mode.el

@@ -1,3 +1,12 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (jm_AC_TYPE_LONG_LONG): Replaces gt_TYPE_LONGLONG.
+	* printf-args.c: Generalize to it can be compiled for wide strings.
+	(PRINTF_PARSE, CHAR_T, DIRECTIVE, DIRECTIVES): New macros.
+	* vasnprintf.c: Generalize to it can be compiled for wide strings.
+	(VASNPRINTF, CHAR_T, DIRECTIVE, DIRECTIVES, PRINTF_PARSE, USE_SNPRINTF,
+	SNPRINTF): New macros.
+
 2003-05-30  Bruno Haible  <bruno@clisp.org>
 
 	* autosprintf.texi: Tweak @dircategory and @direntry.

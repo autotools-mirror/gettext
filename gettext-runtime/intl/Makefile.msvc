@@ -99,7 +99,7 @@ INSTALL_DATA = copy
 
 SHELL = /bin/sh
 
-OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj localename.obj log.obj osdep.obj intl-compat.obj
+OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
 
 RESOURCES = intl.res
 
@@ -107,7 +107,7 @@ all : intl.lib libintl.h
 
 libgnuintl.h :
 !if !$(DLL)
-	$(LN) $(srcdir)\libgnuintl.h.in libgnuintl.h
+	$(LN) $(srcdir)\libgnuintl.h.msvc-static libgnuintl.h
 !else
 	$(LN) $(srcdir)\libgnuintl.h.msvc-shared libgnuintl.h
 !endif
@@ -171,6 +171,9 @@ localename.obj : $(srcdir)\localename.c libgnuintl.h
 
 log.obj : $(srcdir)\log.c libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\log.c
+
+printf.obj : $(srcdir)\printf.c libgnuintl.h $(srcdir)\printf-args.h $(srcdir)\printf-args.c $(srcdir)\printf-parse.h $(srcdir)\wprintf-parse.h $(srcdir)\printf-parse.c $(srcdir)\vasnprintf.h $(srcdir)\vasnwprintf.h $(srcdir)\vasnprintf.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\printf.c
 
 osdep.obj : $(srcdir)\osdep.c libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\osdep.c

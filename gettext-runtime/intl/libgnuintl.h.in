@@ -289,6 +289,97 @@ extern char *bind_textdomain_codeset _INTL_PARAMS ((const char *__domainname,
 #endif
 
 
+/* Support for format strings with positions in *printf(), following the
+   POSIX/XSI specification.
+   Note: These replacements for the *printf() functions are visible only
+   in source files that #include <libintl.h> or #include "gettext.h".
+   Packages that use *printf() in source files that don't refer to _()
+   or gettext() but for which the format string could be the return value
+   of _() or gettext() need to add this #include.  Oh well.  */
+
+#if !@HAVE_POSIX_PRINTF@
+
+#include <stdio.h>
+#include <stddef.h>
+
+/* Get va_list.  */
+#if __STDC__ || defined __cplusplus
+# include <stdarg.h>
+#else
+# include <varargs.h>
+#endif
+
+#undef fprintf
+#define fprintf libintl_fprintf
+extern int fprintf _INTL_PARAMS ((FILE *, const char *, ...));
+#undef vfprintf
+#define vfprintf libintl_vfprintf
+extern int vfprintf _INTL_PARAMS ((FILE *, const char *, va_list));
+
+#undef printf
+#define printf libintl_printf
+extern int printf _INTL_PARAMS ((const char *, ...));
+#undef vprintf
+#define vprintf libintl_vprintf
+extern int vprintf _INTL_PARAMS ((const char *, va_list));
+
+#undef sprintf
+#define sprintf libintl_sprintf
+extern int sprintf _INTL_PARAMS ((char *, const char *, ...));
+#undef vsprintf
+#define vsprintf libintl_vsprintf
+extern int vsprintf _INTL_PARAMS ((char *, const char *, va_list));
+
+#if @HAVE_SNPRINTF@
+
+#undef snprintf
+#define snprintf libintl_snprintf
+extern int snprintf _INTL_PARAMS ((char *, size_t, const char *, ...));
+#undef vsnprintf
+#define vsnprintf libintl_vsnprintf
+extern int vsnprintf _INTL_PARAMS ((char *, size_t, const char *, va_list));
+
+#endif
+
+#if @HAVE_ASPRINTF@
+
+#undef asprintf
+#define asprintf libintl_asprintf
+extern int asprintf _INTL_PARAMS ((char **, const char *, ...));
+#undef vasprintf
+#define vasprintf libintl_vasprintf
+extern int vasprintf _INTL_PARAMS ((char **, const char *, va_list));
+
+#endif
+
+#if @HAVE_WPRINTF@
+
+#undef fwprintf
+#define fwprintf libintl_fwprintf
+extern int fwprintf _INTL_PARAMS ((FILE *, const wchar_t *, ...));
+#undef vfwprintf
+#define vfwprintf libintl_vfwprintf
+extern int vfwprintf _INTL_PARAMS ((FILE *, const wchar_t *, va_list));
+
+#undef wprintf
+#define wprintf libintl_wprintf
+extern int wprintf _INTL_PARAMS ((const wchar_t *, ...));
+#undef vwprintf
+#define vwprintf libintl_vwprintf
+extern int vwprintf _INTL_PARAMS ((const wchar_t *, va_list));
+
+#undef swprintf
+#define swprintf libintl_swprintf
+extern int swprintf _INTL_PARAMS ((wchar_t *, size_t, const wchar_t *, ...));
+#undef vswprintf
+#define vswprintf libintl_vswprintf
+extern int vswprintf _INTL_PARAMS ((wchar_t *, size_t, const wchar_t *, va_list));
+
+#endif
+
+#endif
+
+
 /* Support for relocatable packages.  */
 
 /* Sets the original and the current installation prefix of the package.

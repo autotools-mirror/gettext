@@ -12,17 +12,24 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/glibc21.m4 \
   ../../gettext-runtime/m4/iconv.m4 \
   ../../gettext-runtime/m4/intdiv0.m4 \
+  ../../gettext-runtime/m4/intmax.m4 \
   ../../gettext-runtime/m4/inttypes.m4 \
   ../../gettext-runtime/m4/inttypes_h.m4 \
   ../../gettext-runtime/m4/inttypes-pri.m4 \
   ../../gettext-runtime/m4/isc-posix.m4 \
   ../../gettext-runtime/m4/lcmessage.m4 \
+  ../../gettext-runtime/m4/longdouble.m4 \
+  ../../gettext-runtime/m4/longlong.m4 \
   ../../gettext-runtime/m4/nls.m4 \
   ../../gettext-runtime/m4/po.m4 \
+  ../../gettext-runtime/m4/printf-posix.m4 \
   ../../gettext-runtime/m4/progtest.m4 \
+  ../../gettext-runtime/m4/signed.m4 \
   ../../gettext-runtime/m4/stdint_h.m4 \
   ../../gettext-runtime/m4/uintmax_t.m4 \
-  ../../gettext-runtime/m4/ulonglong.m4
+  ../../gettext-runtime/m4/ulonglong.m4 \
+  ../../gettext-runtime/m4/wchar_t.m4 \
+  ../../gettext-runtime/m4/wint_t.m4
 
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'

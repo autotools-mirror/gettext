@@ -69,12 +69,16 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_LC_MESSAGES$$/#define HAVE_LC_MESSAGES 1/' \
 	     -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
 	     -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
+	     -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
+	     -e 's/#undef HAVE_LONG_LONG$$/#define HAVE_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_MALLOC_H$$/#define HAVE_MALLOC_H 1/' \
 	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
 	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
 	     -e 's/#undef HAVE_MMAP$$/#define HAVE_MMAP 1/' \
 	     -e 's/#undef HAVE_MUNMAP$$/#define HAVE_MUNMAP 1/' \
 	     -e 's/#undef HAVE_NL_TYPES_H$$/#define HAVE_NL_TYPES_H 1/' \
+	     -e 's/#undef HAVE_POSIX_PRINTF$$/#define HAVE_POSIX_PRINTF 1/' \
+	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
 	     -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
 	     -e 's/#undef HAVE_SETENV$$/#define HAVE_SETENV 1/' \
 	     -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
@@ -94,6 +98,9 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_UNSETENV$$/#define HAVE_UNSETENV 1/' \
 	     -e 's/#undef HAVE_UNSIGNED_LONG_LONG$$/#define HAVE_UNSIGNED_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
+	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
+	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	     -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
@@ -103,6 +110,15 @@ config.h_vms: config.h.in ../version.sh
 	   < $(srcdir)/config.h.in; echo; echo '#define alloca __ALLOCA') > $@
 # vms_jackets.h is a header that comes with Compaq's "porting library".
 # KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
+
+intl/libgnuintl.h_vms: intl/libgnuintl.h.in
+	sed -e 's,@''HAVE_POSIX_PRINTF''@,1,g ' \
+	    -e 's,@''HAVE_ASPRINTF''@,0,g' \
+	    -e 's,@''HAVE_SNPRINTF''@,0,g' \
+	    -e 's,@''HAVE_WPRINTF''@,1,g' \
+	  < $(srcdir)/intl/libgnuintl.h.in > $@
+
+all-local: intl/libgnuintl.h_vms
 
 EXTRA_DIST += Makefile.vms config.h_vms
 
@@ -120,9 +136,12 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
 	    -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
 	    -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
+	    -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
 	    -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
+	    -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
 	    -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
 	    -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
+	    -e 's/#undef HAVE_SNPRINTF$$/#define HAVE_SNPRINTF 1/' \
 	    -e 's/#undef HAVE_STDDEF_H$$/#define HAVE_STDDEF_H 1/' \
 	    -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
 	    -e 's/#undef HAVE_STRDUP$$/#define HAVE_STRDUP 1/' \
@@ -132,6 +151,9 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
 	    -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
 	    -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
+	    -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
+	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
@@ -142,9 +164,22 @@ config.h.msvc: config.h.in ../version.sh
 	    -e '/#undef INSTALLPREFIX$$/d' \
 	  < $(srcdir)/config.h.in > $@
 
-intl/libgnuintl.h.msvc-shared: intl/libgnuintl.h.in windows/dllexport.h
-	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' -e '/#define _LIBINTL_H/r windows/dllexport.h' < $(srcdir)/intl/libgnuintl.h.in > $@
+intl/libgnuintl.h.msvc-static: intl/libgnuintl.h.in
+	sed -e 's,@''HAVE_POSIX_PRINTF''@,0,g ' \
+	    -e 's,@''HAVE_ASPRINTF''@,0,g' \
+	    -e 's,@''HAVE_SNPRINTF''@,0,g' \
+	    -e 's,@''HAVE_WPRINTF''@,1,g' \
+	  < $(srcdir)/intl/libgnuintl.h.in > $@
 
-all-local: intl/libgnuintl.h.msvc-shared
+intl/libgnuintl.h.msvc-shared: intl/libgnuintl.h.in windows/dllexport.h
+	sed -e 's,@''HAVE_POSIX_PRINTF''@,0,g ' \
+	    -e 's,@''HAVE_ASPRINTF''@,0,g' \
+	    -e 's,@''HAVE_SNPRINTF''@,0,g' \
+	    -e 's,@''HAVE_WPRINTF''@,1,g' \
+	    -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
+	    -e '/#define _LIBINTL_H/r windows/dllexport.h' \
+	  < $(srcdir)/intl/libgnuintl.h.in > $@
+
+all-local: intl/libgnuintl.h.msvc-static intl/libgnuintl.h.msvc-shared
 
 EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/dllexport.h windows/intl.rc

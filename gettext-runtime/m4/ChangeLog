@@ -1,3 +1,15 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* printf-posix.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add printf-posix.m4.
+	* gettext.m4 (AM_INTL_SUBDIR): Require bh_C_SIGNED,
+	jm_AC_TYPE_LONG_LONG, gt_TYPE_LONGDOUBLE, gt_TYPE_WCHAR_T,
+	gt_TYPE_WINT_T, jm_AC_HEADER_INTTYPES_H, jm_AC_HEADER_STDINT_H,
+	gt_TYPE_INTMAX_T, gt_PRINTF_POSIX. Check for ptrdiff_t, asprintf,
+	snprintf, wprintf.
+	* longlong.m4: Update from gnulib.
+	(jm_AC_TYPE_LONG_LONG): Replaces gt_TYPE_LONGLONG.
+
 2003-01-11  Bruno Haible  <bruno@clisp.org>
 
 	* ulonglong.m4 (jm_AC_TYPE_UNSIGNED_LONG_LONG): Also test the ULL

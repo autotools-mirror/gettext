@@ -1,3 +1,32 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* printf-args.h: New file, from ../libasprintf.
+	* printf-args.c: New file, from ../libasprintf.
+	* printf-parse.h: New file, from ../libasprintf.
+	* printf-parse.c: New file, from ../libasprintf.
+	* vasnprintf.h: New file, from ../libasprintf.
+	* vasnprintf.c: New file, from ../libasprintf.
+	* wprintf-parse.h: New file.
+	* vasnwprintf.h: New file.
+	* printf.c: New file.
+	* libgnuintl.h.in (fprintf, vfprintf, printf, vprintf, sprintf,
+	vsprintf, snprintf, vsnprintf, asprintf, vasprintf, fwprintf,
+	vfwprintf, wprintf, vwprintf, swprintf, vswprintf): New fallback
+	macros.
+	* Makefile.in (HEADERS): Add printf-args.h, printf-args.c,
+	printf-parse.h, wprintf-parse.h, printf-parse.c, vasnprintf.h,
+	vasnwprintf.h, vasnprintf.c.
+	(SOURCES): Add printf.c.
+	(OBJECTS): Add printf.$lo.
+	(DISTFILES.gettext): Add libgnuintl.h_vms, libgnuintl.h.msvc-static.
+	(printf.lo): New rule.
+	(libgnuintl.h): Also perform some AC_SUBST substitutions.
+	(printf.$lo): New dependencies.
+	* Makefile.msvc (OBJECTS): Add printf.obj.
+	(libgnuintl.h): Use libgnuintl.h.msvc-static.
+	(printf.obj): New rule.
+	* Makefile.vms (libgnuintl.h): Use libgnuintl.h_vms.
+
 2003-06-12  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h (_INTL_REDIRECT_ASM): Don't define when using Mingw.

@@ -1,3 +1,8 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Add intmax.m4, longdouble.m4, longlong.m4,
+	printf-posix.m4, signed.m4, wchar_t.m4, wint_t.m4.
+
 2003-06-18  Bruno Haible  <bruno@clisp.org>
 
 	* config/install-sh: Update from automake-1.7.5.

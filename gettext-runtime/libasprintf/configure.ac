@@ -48,7 +48,7 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 bh_C_SIGNED
 AC_TYPE_SIZE_T
-gt_TYPE_LONGLONG
+jm_AC_TYPE_LONG_LONG
 gt_TYPE_LONGDOUBLE
 gt_TYPE_WCHAR_T
 gt_TYPE_WINT_T
