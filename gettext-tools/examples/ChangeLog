@@ -1,5 +1,9 @@
 2005-03-08  Bruno Haible  <bruno@clisp.org>
 
+	* po/vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
 	* po/it.po: New file, from Marco Colombo <m.colombo@ed.ac.uk>.
 	* po/LINGUAS: Add it.
 	* hello-*/po/LINGUAS: Update.
