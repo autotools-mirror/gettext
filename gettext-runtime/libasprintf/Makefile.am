@@ -75,7 +75,7 @@ clean-am:
 
 # Documentation.
 
-docdir = $(prefix)/doc/@PACKAGE@
+docdir = $(datadir)/doc/@PACKAGE@
 dvidir = $(docdir)
 psdir = $(docdir)
 pdfdir = $(docdir)

@@ -5,11 +5,12 @@
 # Directories used by "make install":
 prefix = SYS$DATA:[
 exec_prefix = $(prefix)
+datadir = $(prefix).share
 bindir = $(exec_prefix).bin
 libdir = $(exec_prefix).lib
 includedir = $(prefix).include
 # For this subpackage only.
-sub_docdir = $(prefix).doc.libasprintf
+sub_docdir = $(datadir).doc.libasprintf
 
 # Programs used by "make":
 

@@ -44,8 +44,8 @@ includedir = $(prefix)\include
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
 pkgdatadir = $(datadir)\gettext
-mandir = $(prefix)\man
-docdir = $(prefix)\doc\gettext
+mandir = $(datadir)\man
+docdir = $(datadir)\doc\gettext
 emacsdir = $(datadir)\emacs
 lispdir = $(emacsdir)\site-lisp
 

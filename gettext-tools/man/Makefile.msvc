@@ -10,9 +10,10 @@ PREFIX = c:\usr
 
 # Directories used by "make install":
 prefix = $(PREFIX)
-mandir = $(prefix)\man
+datadir = $(prefix)\share
+mandir = $(datadir)\man
 man1dir = $(mandir)\man1
-docdir = $(prefix)\doc\gettext
+docdir = $(datadir)\doc\gettext
 
 LN = copy
 RM = -del
@@ -30,6 +31,7 @@ all :
 
 install : all force
 	-mkdir $(prefix)
+	-mkdir $(datadir)
 	-mkdir $(mandir)
 	-mkdir $(man1dir)
 	$(INSTALL_DATA) msgcmp.1 $(man1dir)\msgcmp.1
@@ -47,7 +49,7 @@ install : all force
 	$(INSTALL_DATA) msggrep.1 $(man1dir)\msggrep.1
 	$(INSTALL_DATA) msginit.1 $(man1dir)\msginit.1
 	$(INSTALL_DATA) msguniq.1 $(man1dir)\msguniq.1
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
 	$(INSTALL_DATA) msgcmp.1.html $(docdir)\msgcmp.1.html
 	$(INSTALL_DATA) msgfmt.1.html $(docdir)\msgfmt.1.html
@@ -67,9 +69,10 @@ install : all force
 
 installdirs : force
 	-mkdir $(prefix)
+	-mkdir $(datadir)
 	-mkdir $(mandir)
 	-mkdir $(man1dir)
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
 
 uninstall : force

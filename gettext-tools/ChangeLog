@@ -1,3 +1,8 @@
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (mandir): Change default value.
+	* Makefile.msvc (mandir, docdir): Use datadir instead of prefix.
+
 2003-04-10  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gl_FUNC_EACCESS.

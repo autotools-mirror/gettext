@@ -19,7 +19,7 @@
 
 VERSION = @VERSION@
 mandir = @mandir@
-docdir = $(prefix)/doc/gettext
+docdir = $(datadir)/doc/gettext
 htmldir = $(docdir)
 
 localedir = $(datadir)/locale

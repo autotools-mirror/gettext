@@ -10,10 +10,11 @@ PREFIX = c:\usr
 
 # Directories used by "make install":
 prefix = $(PREFIX)
-mandir = $(prefix)\man
+datadir = $(prefix)\share
+mandir = $(datadir)\man
 man1dir = $(mandir)\man1
 man3dir = $(mandir)\man3
-docdir = $(prefix)\doc\gettext
+docdir = $(datadir)\doc\gettext
 
 LN = copy
 RM = -del
@@ -31,6 +32,7 @@ all :
 
 install : all force
 	-mkdir $(prefix)
+	-mkdir $(datadir)
 	-mkdir $(mandir)
 	-mkdir $(man1dir)
 	$(INSTALL_DATA) gettext.1.in $(man1dir)\gettext.1
@@ -45,7 +47,7 @@ install : all force
 	$(INSTALL_DATA) dcgettext.3 $(man3dir)\dcgettext.3
 	$(INSTALL_DATA) dngettext.3 $(man3dir)\dngettext.3
 	$(INSTALL_DATA) dcngettext.3 $(man3dir)\dcngettext.3
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
 	$(INSTALL_DATA) gettext.1.html.in $(docdir)\gettext.1.html
 	$(INSTALL_DATA) ngettext.1.html.in $(docdir)\ngettext.1.html
@@ -57,10 +59,11 @@ install : all force
 
 installdirs : force
 	-mkdir $(prefix)
+	-mkdir $(datadir)
 	-mkdir $(mandir)
 	-mkdir $(man1dir)
 	-mkdir $(man3dir)
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
 
 uninstall : force

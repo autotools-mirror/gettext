@@ -4,7 +4,8 @@
 
 # Directories used by "make install":
 prefix = SYS$DATA:[
-docdir = $(prefix).doc.gettext
+datadir = $(prefix).share
+docdir = $(datadir).doc.gettext
 
 LN = copy
 RM = delete

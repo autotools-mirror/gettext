@@ -34,11 +34,12 @@ PREFIX = c:\usr
 # Directories used by "make install":
 prefix = $(PREFIX)
 exec_prefix = $(prefix)
+datadir = $(prefix)\share
 bindir = $(exec_prefix)\bin
 libdir = $(exec_prefix)\lib
 includedir = $(prefix)\include
 # For this subpackage only.
-sub_docdir = $(prefix)\doc\libasprintf
+sub_docdir = $(datadir)\doc\libasprintf
 
 # Programs used by "make":
 
@@ -140,7 +141,8 @@ install : all force
 !endif
 	-mkdir $(libdir)
 	$(INSTALL_DATA) asprintf.lib $(libdir)\asprintf.lib
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)
+	-mkdir $(datadir)\doc
 	-mkdir $(sub_docdir)
 	$(INSTALL_DATA) autosprintf.html $(sub_docdir)\autosprintf.html
 
@@ -152,7 +154,8 @@ installdirs : force
 	-mkdir $(bindir)
 !endif
 	-mkdir $(libdir)
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)
+	-mkdir $(datadir)\doc
 	-mkdir $(sub_docdir)
 
 uninstall : force

@@ -10,7 +10,8 @@ PREFIX = c:\usr
 
 # Directories used by "make install":
 prefix = $(PREFIX)
-docdir = $(prefix)\doc\gettext
+datadir = $(prefix)\share
+docdir = $(datadir)\doc\gettext
 
 LN = copy
 RM = -del
@@ -28,13 +29,15 @@ all :
 
 install : all force
 	-mkdir $(prefix)
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)
+	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
 	$(INSTALL_DATA) gettext_*.html $(docdir)
 
 installdirs : force
 	-mkdir $(prefix)
-	-mkdir $(prefix)\doc
+	-mkdir $(datadir)
+	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
 
 uninstall : force

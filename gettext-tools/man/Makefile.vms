@@ -4,9 +4,10 @@
 
 # Directories used by "make install":
 prefix = SYS$DATA:[
-mandir = $(prefix).man
+datadir = $(prefix).share
+mandir = $(datadir).man
 man1dir = $(mandir).man1
-docdir = $(prefix).doc.gettext
+docdir = $(datadir).doc.gettext
 
 LN = copy
 RM = delete

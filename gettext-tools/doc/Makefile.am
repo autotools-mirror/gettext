@@ -17,7 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-docdir = $(prefix)/doc/gettext
+docdir = $(datadir)/doc/gettext
 dvidir = $(docdir)
 psdir = $(docdir)
 pdfdir = $(docdir)

@@ -1,3 +1,7 @@
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.msvc (mandir, docdir): Use datadir instead of prefix.
+
 2003-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* config/install-reloc: Also compile progreloc.c.

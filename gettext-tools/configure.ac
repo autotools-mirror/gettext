@@ -25,6 +25,10 @@ AC_CONFIG_AUX_DIR(../config)
 AM_INIT_AUTOMAKE(gettext-tools, $VERSION_NUMBER)
 AM_CONFIG_HEADER(config.h)
 
+dnl Installation directories.
+dnl Prefer modern Filesystem Hierarchy Standard over antiquated GNU standards.
+test "$mandir" != '${prefix}/man' || mandir='${datadir}/man'
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL

@@ -43,8 +43,8 @@ libdir = $(exec_prefix)\lib
 includedir = $(prefix)\include
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
-mandir = $(prefix)\man
-docdir = $(prefix)\doc\gettext
+mandir = $(datadir)\man
+docdir = $(datadir)\doc\gettext
 
 # Programs used by "make":
 
