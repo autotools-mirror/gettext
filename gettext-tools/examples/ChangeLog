@@ -1,5 +1,11 @@
 2003-12-06  Bruno Haible  <bruno@clisp.org>
 
+	* hello-objc-gnustep/po/LocaleAliases: Add many new locales. Fix typo
+	for EcuadorSpanish. Remove conflicting entries for Indonesian and
+	Hebrew.
+
+2003-12-06  Bruno Haible  <bruno@clisp.org>
+
 	* hello-objc-gnustep/autoclean.sh: Also remove the *.lproj directories.
 	* hello-objc-gnustep/po/GNUmakefile: Include the general rules at the
 	beginning, not at the end, so that our .SUFFIXES tag has an effect.
