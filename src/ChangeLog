@@ -1,3 +1,10 @@
+2001-03-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm.c (main): Don't give an error message if there are "too few"
+	messages in the input files. Do sanity checking before reading the
+	input files. Make --add-location the default, even if --omit-header
+	is specified.
+
 2001-03-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (construct_header): Replace ENCODING with 8-bit.

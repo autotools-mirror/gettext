@@ -160,7 +160,6 @@ main (argc, argv)
   textdomain (PACKAGE);
 
   /* Set initial value of variables.  */
-  line_comment = -1;
   default_domain = MESSAGE_DOMAIN_DEFAULT;
 
   while ((optchar = getopt_long (argc, argv,
@@ -263,10 +262,7 @@ main (argc, argv)
 	/* NOTREACHED */
       }
 
-  /* Normalize selected options.  */
-  if (omit_header != 0 && line_comment < 0)
-    line_comment = 0;
-
+  /* Verify selected options.  */
   if (!line_comment && sort_by_file)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--no-location", "--sort-by-file");
@@ -328,6 +324,16 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       usage (EXIT_FAILURE);
     }
 
+  /* Default the message selection criteria, and check them for sanity.  */
+  if (more_than < 0)
+    more_than = (less_than < 0 ? 1 : 0);
+  if (less_than < 0)
+    less_than = INT_MAX;
+  if (more_than >= less_than || less_than < 2)
+    error (EXIT_FAILURE, 0,
+           _("impossible selection criteria specified (%d < n < %d)"),
+           more_than, less_than);
+
   /* Allocate a message list to remember all the messages.  */
   mlp = message_list_alloc ();
 
@@ -335,16 +341,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   for (cnt = 0; cnt < file_list->nitems; ++cnt)
     read_po_file (file_list->item[cnt], mlp);
   string_list_free (file_list);
-
-  /* Default the message selection criteria, and check them for sanity.  */
-  if (more_than < 0)
-    more_than = (less_than < 0 ? 1 : 0);
-  if (less_than < 0)
-    less_than = INT_MAX;
-  if (more_than >= less_than || less_than < 2 || more_than >= mlp->nitems)
-    error (EXIT_FAILURE, 0,
-           _("impossible selection criteria specified (%d < n < %d)"),
-           more_than, less_than);
 
   /* Remove messages which do not fit the criteria.  */
   j = 0;
