@@ -15,15 +15,19 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
+#ifndef STATIC
+#define STATIC static
 #endif
 
-#include "plural-exp.h"
+/* Evaluate the plural expression and return an index value.  */
+STATIC unsigned long int plural_eval PARAMS ((struct expression *pexp,
+					      unsigned long int n))
+     internal_function;
 
+STATIC
 unsigned long int
 internal_function
-PLURAL_EVAL (pexp, n)
+plural_eval (pexp, n)
      struct expression *pexp;
      unsigned long int n;
 {
@@ -44,19 +48,19 @@ PLURAL_EVAL (pexp, n)
     case 1:
       {
 	/* pexp->operation must be lnot.  */
-	unsigned long int arg = PLURAL_EVAL (pexp->val.args[0], n);
+	unsigned long int arg = plural_eval (pexp->val.args[0], n);
 	return ! arg;
       }
     case 2:
       {
-	unsigned long int leftarg = PLURAL_EVAL (pexp->val.args[0], n);
+	unsigned long int leftarg = plural_eval (pexp->val.args[0], n);
 	if (pexp->operation == lor)
-	  return leftarg || PLURAL_EVAL (pexp->val.args[1], n);
+	  return leftarg || plural_eval (pexp->val.args[1], n);
 	else if (pexp->operation == land)
-	  return leftarg && PLURAL_EVAL (pexp->val.args[1], n);
+	  return leftarg && plural_eval (pexp->val.args[1], n);
 	else
 	  {
-	    unsigned long int rightarg = PLURAL_EVAL (pexp->val.args[1], n);
+	    unsigned long int rightarg = plural_eval (pexp->val.args[1], n);
 
 	    switch (pexp->operation)
 	      {
@@ -92,8 +96,8 @@ PLURAL_EVAL (pexp, n)
     case 3:
       {
 	/* pexp->operation must be qmop.  */
-	unsigned long int boolarg = PLURAL_EVAL (pexp->val.args[0], n);
-	return PLURAL_EVAL (pexp->val.args[boolarg ? 1 : 2], n);
+	unsigned long int boolarg = plural_eval (pexp->val.args[0], n);
+	return plural_eval (pexp->val.args[boolarg ? 1 : 2], n);
       }
     }
   /* NOTREACHED */

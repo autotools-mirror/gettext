@@ -1,3 +1,10 @@
+2001-11-27  Ulrich Drepper  <drepper@redhat.com>
+
+	* plural-eval.c (plural_eval): Rename back from PLURAL_EVAL.
+	* plural-exp.h (PLURAL_EVAL): Remove declaration.
+	* dcigettext.c Include plural-eval.c.
+	(plural_lookup): Call plural_eval instead of PLURAL_EVAL.
+
 2001-11-22  Bruno Haible  <bruno@clisp.org>
 
 	* plural-exp.h (GERMANIC_PLURAL): New declaration.

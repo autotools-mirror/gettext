@@ -377,6 +377,9 @@ static int enable_secure;
     }
 #endif
 
+/* Get the function to evaluate the plural expression.  */
+#include "plural-eval.c"
+
 /* Look up MSGID in the DOMAINNAME message catalog for the current
    CATEGORY locale and, if PLURAL is nonzero, search over string
    depending on the plural form determined by N.  */
@@ -959,7 +962,7 @@ plural_lookup (domain, n, translation, translation_len)
   unsigned long int index;
   const char *p;
 
-  index = PLURAL_EVAL (domaindata->plural, n);
+  index = plural_eval (domaindata->plural, n);
   if (index >= domaindata->nplurals)
     /* This should never happen.  It means the plural expression and the
        given maximum value do not match.  */
