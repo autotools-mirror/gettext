@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ Report bugs to <bug-gnu-gettext@gnu.org>."
 func_version ()
 {
   echo "$progname (GNU $package) $version"
-  echo "Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+  echo "Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
   echo "Written by" "Ulrich Drepper"
@@ -509,24 +509,24 @@ for file in *; do
     Makefile.in.in)
       # Already handled above.
       ;;
-    Makevars)
-      func_linkorcopy $file "$gettext_dir/po/$file" po/$file.template
-      if test -f "$srcdir/po/$file"; then
-        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/$file" | LC_ALL=C sort > "$srcdir/po/$file.tmp1"
-        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/$file.template" | LC_ALL=C sort > "$srcdir/po/$file.tmp2"
-        missingvars=`LC_ALL=C comm -13 "$srcdir/po/$file.tmp1" "$srcdir/po/$file.tmp2"`
-        rm -f "$srcdir/po/$file.tmp1" "$srcdir/po/$file.tmp2"
+    Makevars.template)
+      func_linkorcopy Makevars.template "$gettext_dir/po/Makevars.template" po/Makevars.template
+      if test -f "$srcdir/po/Makevars"; then
+        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp1"
+        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars.template" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp2"
+        missingvars=`LC_ALL=C comm -13 "$srcdir/po/Makevars.tmp1" "$srcdir/po/Makevars.tmp2"`
+        rm -f "$srcdir/po/Makevars.tmp1" "$srcdir/po/Makevars.tmp2"
         if test -n "$missingvars"; then
           please="$please
-Please update po/$file so that it defines all the variables mentioned
-in po/$file.template.
-You can then remove po/$file.template.
+Please update po/Makevars so that it defines all the variables mentioned
+in po/Makevars.template.
+You can then remove po/Makevars.template.
 "
         fi
       else
         please="$please
-Please create po/$file from the template in po/$file.template.
-You can then remove po/$file.template.
+Please create po/Makevars from the template in po/Makevars.template.
+You can then remove po/Makevars.template.
 "
       fi
       ;;

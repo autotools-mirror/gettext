@@ -42,9 +42,9 @@ POFILES = @POFILES@
 GMOFILES = @GMOFILES@
 UPDATEPOFILES = @UPDATEPOFILES@
 DUMMYPOFILES = @DUMMYPOFILES@
-DISTFILES.common = Makefile.in.in Makevars remove-potcdate.sin \
+DISTFILES.common = Makefile.in.in remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
-DISTFILES = $(DISTFILES.common) POTFILES.in $(DOMAIN).pot stamp-po \
+DISTFILES = $(DISTFILES.common) Makevars POTFILES.in $(DOMAIN).pot stamp-po \
 $(POFILES) $(GMOFILES) \
 $(DISTFILES.extra1) $(DISTFILES.extra2) $(DISTFILES.extra3)
 
@@ -101,7 +101,8 @@ $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --files-from=$(srcdir)/POTFILES.in \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)'
+	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
+	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)'
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \
 	    sed -f remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \
@@ -137,9 +138,12 @@ install-exec:
 install-data: install-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
-	  for file in $(DISTFILES.common); do \
+	  for file in $(DISTFILES.common) Makevars.template; do \
 	    $(INSTALL_DATA) $(srcdir)/$$file \
 			    $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
+	  for file in Makevars; do \
+	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
 	  : ; \
@@ -237,7 +241,7 @@ uninstall: uninstall-exec uninstall-data
 uninstall-exec:
 uninstall-data: uninstall-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  for file in $(DISTFILES.common); do \
+	  for file in $(DISTFILES.common) Makevars.template; do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
@@ -281,6 +285,9 @@ dist distdir:
 # This is a separate target because 'update-po' must be executed before.
 dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
+	  dists="$$dists Makevars.template"; \
+	fi; \
 	if test -f $(srcdir)/ChangeLog; then \
 	  dists="$$dists ChangeLog"; \
 	fi; \

@@ -1,5 +1,10 @@
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.m4 (AM_PO_SUBDIRS): Require an xgettext that supports the
+	--msgid-bugs-address option.
+
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Move INTLOBJS to backward compatibility
 	section.
 

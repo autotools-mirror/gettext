@@ -1,3 +1,14 @@
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge.c (message_merge): Add support for Report-Msgid-Bugs-To
+	field.
+	* xgettext.c (msgid_bugs_address): New variable.
+	(long_options): Add option --msgid-bugs-address.
+	(main): Handle option --msgid-bugs-address.
+	(usage): Document option --msgid-bugs-address.
+	(construct_header): Add 'Report-Msgid-Bugs-To:' field. Warn if
+	msgid_bugs_address is empty.
+
 2003-02-15  Bruno Haible  <bruno@clisp.org>
 
 	* user-email.in: Add support for GNOME evolution, OpenOffice and

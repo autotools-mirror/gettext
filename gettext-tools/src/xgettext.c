@@ -102,6 +102,9 @@ static int force_po;
 /* Copyright holder of the output file and the translations.  */
 static const char *copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER";
 
+/* Email address or URL for reports of bugs in msgids.  */
+static const char *msgid_bugs_address = "";
+
 /* String used as prefix for msgstr.  */
 static const char *msgstr_prefix;
 
@@ -155,6 +158,7 @@ static const struct option long_options[] =
   { "keyword", optional_argument, NULL, 'k' },
   { "keyword-substring", no_argument, NULL, 'K'},
   { "language", required_argument, NULL, 'L' },
+  { "msgid-bugs-address", required_argument, NULL, CHAR_MAX + 5 },
   { "msgstr-prefix", optional_argument, NULL, 'm' },
   { "msgstr-suffix", optional_argument, NULL, 'M' },
   { "no-escape", no_argument, NULL, 'e' },
@@ -383,6 +387,9 @@ main (int argc, char *argv[])
 	break;
       case CHAR_MAX + 4:	/* --no-wrap */
 	message_page_width_ignore ();
+	break;
+      case CHAR_MAX + 5:	/* --msgid-bugs-address */
+	msgid_bugs_address = optarg;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -684,6 +691,7 @@ Output details:\n\
       --omit-header              don't write header with `msgid \"\"' entry\n\
       --copyright-holder=STRING  set copyright holder in output\n\
       --foreign-user             omit FSF copyright in output for foreign user\n\
+      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n\
   -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
   -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
 "));
@@ -1024,7 +1032,8 @@ remember_a_message (message_list_ty *mlp, char *string, lex_pos_ty *pos)
 	buffer[0] = '\0';
       else
 	sprintf (buffer, ":%ld", (long) pos->line_number);
-      multiline_warning (xasprintf ("%s%s: warning: ", pos->file_name, buffer),
+      multiline_warning (xasprintf (_("%s%s: warning: "), pos->file_name,
+				    buffer),
 			 xstrdup (_("\
 Empty msgid.  It is reserved by GNU gettext:\n\
 gettext(\"\") returns the header entry with\n\
@@ -1246,11 +1255,21 @@ construct_header ()
   char *msgstr;
   static lex_pos_ty pos = { __FILE__, __LINE__, };
 
+  if (msgid_bugs_address[0] == '\0')
+    multiline_warning (xasprintf (_("warning: ")),
+                       xstrdup (_("\
+The option --msgid-bugs-address was not specified.\n\
+If you are using a `Makevars' file, please specify\n\
+the MSGID_BUGS_ADDRESS variable there; otherwise please\n\
+specify an --msgid-bugs-address command line option.\n\
+")));
+
   time (&now);
   timestring = po_strftime (&now);
 
   msgstr = xasprintf ("\
 Project-Id-Version: PACKAGE VERSION\n\
+Report-Msgid-Bugs-To: %s\n\
 POT-Creation-Date: %s\n\
 PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n\
 Last-Translator: FULL NAME <EMAIL@ADDRESS>\n\
@@ -1258,7 +1277,7 @@ Language-Team: LANGUAGE <LL@li.org>\n\
 MIME-Version: 1.0\n\
 Content-Type: text/plain; charset=CHARSET\n\
 Content-Transfer-Encoding: 8bit\n",
-		      timestring);
+		      msgid_bugs_address, timestring);
   free (timestring);
 
   mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);

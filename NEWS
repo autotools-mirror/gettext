@@ -7,6 +7,11 @@ Version 0.11.6 - October 2002
   system that has users who desire to use internationalization. Whereas the
   'gettext-tools' package is only for developers and translators.
 
+* The po/Makevars file has a new field MSGID_BUGS_ADDRESS, which program
+  maintainers should fill in, to help feedback from the translators to the
+  program maintainers.
+  xgettext, accordingly, has a new option --msgid-bugs-address.
+
 * xgettext now also supports Smalltalk and PHP.
 
 * A new C++ class, called gnu::autosprintf, makes it possible to use C format

@@ -366,12 +366,12 @@ AC_DEFUN([AM_PO_SUBDIRS],
     :)
   AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 
-  dnl Search for GNU xgettext 0.11 or newer in the PATH.
+  dnl Search for GNU xgettext 0.12 or newer in the PATH.
   dnl The first test excludes Solaris xgettext and early GNU xgettext versions.
   dnl The second test excludes FreeBSD xgettext.
   AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-    [$ac_dir/$ac_word --omit-header --copyright-holder= /dev/null >/dev/null 2>&1 &&
-     (if $ac_dir/$ac_word --omit-header --copyright-holder= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi)],
+    [$ac_dir/$ac_word --omit-header --copyright-holder= --msgid-bugs-address= /dev/null >/dev/null 2>&1 &&
+     (if $ac_dir/$ac_word --omit-header --copyright-holder= --msgid-bugs-address= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi)],
     :)
   dnl Remove leftover from FreeBSD xgettext call.
   rm -f messages.po
@@ -401,8 +401,8 @@ AC_DEFUN([AM_PO_SUBDIRS],
   if test "$XGETTEXT" != ":"; then
     dnl If it is no GNU xgettext we define it as : so that the
     dnl Makefiles still can work.
-    if $XGETTEXT --omit-header --copyright-holder= /dev/null >/dev/null 2>&1 &&
-       (if $XGETTEXT --omit-header --copyright-holder= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi); then
+    if $XGETTEXT --omit-header --copyright-holder= --msgid-bugs-address= /dev/null >/dev/null 2>&1 &&
+       (if $XGETTEXT --omit-header --copyright-holder= --msgid-bugs-address= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi); then
       : ;
     else
       AC_MSG_RESULT(

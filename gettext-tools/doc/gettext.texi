@@ -2514,6 +2514,22 @@ entry.  You should fill in the following fields.
 @item Project-Id-Version
 This is the name and version of the package.
 
+@item Report-Msgid-Bugs-To
+This has already been filled in by @code{xgettext}.  It contains an email
+address or URL where you can report bugs in the untranslated strings:
+
+@itemize -
+@item Strings which are not entire sentences, see the maintainer guidelines
+in @ref{Preparing Strings}.
+@item Strings which use unclear terms or require additional context to be
+understood.
+@item Strings which make invalid assumptions about notation of date, time or
+money.
+@item Pluralisation problems.
+@item Incorrect English spelling.
+@item Incorrect formatting.
+@end itemize
+
 @item POT-Creation-Date
 This has already been filled in by @code{xgettext}.
 

@@ -1,3 +1,13 @@
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars (MSGID_BUGS_ADDRESS): New variable.
+	* Makefile.in.in (DISTFILES.common): Remove Makevars.
+	(DISTFILES): Add Makevars here.
+	($(DOMAIN).pot-update): Pass --msgid-bugs-address to xgettext.
+	(install-data): Install Makevars.template. Uninstall Makevars.
+	(uninstall-data): Uninstall Makevars.template.
+	(dist2): Distribute Makevars.template, in gettext-tools package only.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: New file.

@@ -269,6 +269,30 @@ Omit FSF copyright in output.  This option is equivalent to
 @samp{--copyright-holder=''}.  It can be useful for packages outside the GNU
 project that want their translations to be in the public domain.
 
+@item --msgid-bugs-address=@var{email@@address}
+@opindex --msgid-bugs-address@r{, @code{xgettext} option}
+Set the reporting address for msgid bugs.  This is the email address or URL
+to which the translators shall report bugs in the untranslated strings:
+
+@itemize -
+@item Strings which are not entire sentences, see the maintainer guidelines
+in @ref{Preparing Strings}.
+@item Strings which use unclear terms or require additional context to be
+understood.
+@item Strings which make invalid assumptions about notation of date, time or
+money.
+@item Pluralisation problems.
+@item Incorrect English spelling.
+@item Incorrect formatting.
+@end itemize
+
+It can be your email address, or a mailing list address where translators
+can write to without being subscribed, or the URL of a web page through
+which the translators can contact you.
+
+The default value is empty, which means that translators will be clueless!
+Don't forget to specify this option.
+
 @item -m [@var{string}]
 @itemx --msgstr-prefix[=@var{string}]
 @opindex -m@r{, @code{xgettext} option}
