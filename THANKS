@@ -19,23 +19,30 @@ and msgunfmt programs.
 Thanks to all of the following for their valuable
 hints/fixes/discussions/contributions:
 
+Adam Heath		doogie@debian.org
 Adrian Bunk		bunk@fs.tum.de
 Akim Demaille		akim@epita.fr
 Albert Chin-A-Young	china@thewrittenword.com
 Alexander V. Lukyanov	lav@yars.free.net
 Alexandre Duret-Lutz	aduret@enst.fr
+Andreas Fischer		a.fischer@asentics.de
 Andreas Schwab		schwab@issan.informatik.uni-dortmund.de
+Andrew V. Samoilov	kai@cmail.ru
 Andrew Zabolotny	zap@cobra.ru
 Andries Brouwer		andries.brouwer@cwi.nl
 Bang Jun Young		bangjy@nownuri.nowcom.co.kr
 Barry A. Warsaw		barry@zope.com
 Ben Elliston		bje@redhat.com
+Benoît Sibaud		benoit.sibaud@rd.francetelecom.com
+Bernard Massot		bmassot@free.fr
 Bernhard Herzog		bernhard@users.sourceforge.net
 Bill Perry		wmperry@aventail.com
 Bram Moolenaar		bram@moolenaar.net
 Bruno Haible		haible@ma2s2.mathematik.uni-karlsruhe.de
 Charles Wilson		cwilson@ece.gatech.edu
+Christian Casteyde	casteyde.christian@free.fr
 Christian von Roques	roques@pond.sub.org
+Colin Watson		cjwatson@debian.org
 Daniel Burrows		dburrows@debian.org
 Daniel Schepler		schepler@math.berkeley.edu
 Dennis Bjorklund	db@zigo.dhs.org
@@ -45,6 +52,8 @@ Eli Zaretskii		eliz@is.elta.co.il
 Enrico Scholz		enrico.scholz@informatik.tu-chemnitz.de
 Enrique Melero Gómez	justine@iprolink.ch
 Eric Backus		ericb@lsid.hp.com
+Fatih Demir		kabalak@gtranslator.org
+Felipe Contreras	al593181@mail.mty.itesm.mx
 Felix Natter		f.natter@ndh.net
 Francesco Potortì	pot@fly.cnuce.cnr.it
 Frank Donahoe		fdonahoe@wilkes1.wilkes.edu
@@ -54,9 +63,14 @@ Greg McGary		gkm@magilla.cichlid.com
 Göran Uddeborg		gvran@uddeborg.pp.se
 H. J. Lu		hjl@lucon.org
 Hrvoje Niksic		hniksic@srce.hr
+Igor Brezac		igor@ipass.net
 Jakub Jelinek		jj@sunsite.ms.mff.cuni.cz
+James Henstridge	james@daa.com.au
 Jan Djärv		jan.djarv@mbox200.swipnet.se
+Jan-Marek Glogowski	glogow@stud.fbi.fh-darmstadt.de
 Jim Meyering		meyering@na-net.ornl.gov
+Jonas Koch Bentzen	jonas@understroem.dk
+Joosep-Georg Järvemaa	joosep-georg.jarvemaa_4898@eesti.ee
 Joshua R. Poulson	jrp@plaza.ds.adp.com
 Juan Manuel Guerrero	st001906@hrz1.hrz.tu-darmstadt.de
 Jun Sawataishi		jsawa@attglobal.net
@@ -65,41 +79,66 @@ Karl Berry		kb@cs.umb.edu
 Karl Eichwalder		ke@suse.de
 Kaveh R. Ghazi		ghazi@caip.rutgers.edu
 Kenichi Handa		handa@etl.go.jp
+Kingpin			mthurn@copper.dulles.tasc.com
 Larry Schwimmer		rosebud@cyclone.stanford.edu
 Laurent Bourbeau	bourbeau@progiciels-bpi.ca
 Len Makin		len@hpc.csiro.au
+Maciej W. Rozycki	macro@ds2.pg.gda.pl
+Marc Prior		MarcPrior@compuserve.com
 Marcus Daniels		marcus@sysc.pdx.edu
+Marcus Meissner		meissner@suse.de
 Marin Purgar		pmc@asgard.hr
+Mark Eichin		eichin@thok.org
 Martin Quinson		martin.quinson@ens-lyon.fr
 Martin v. Löwis		martin@loewis.home.cs.tu-berlin.de
+Matthias Kiefer		kiefer@kde.org
 Max de Mendizabal	max@acer.com.mx
+Michael Opdenacker	m-opdenacker@ti.com
 Michel Robitaille	robitail@iro.umontreal.ca
+Miroslaw Dobrzanski-Neumann	mne@mosaic-ag.com
 Nelson H. F. Beebe	beebe@math.utah.edu
 Nils Naumann		naumann@unileoben.ac.at
+Nina Kusnetsova		nina@ns.kinetics.nsc.ru
 Noah Friedman		friedman@splode.com
+Olly Betts		olly@survex.com
 Owen Taylor		otaylor@redhat.com
 Paolo Bonzini		bonzini@gnu.org
+Paul D. Smith		psmith@gnu.org
 Paul Eggert		eggert@twinsun.com
 Pavel Roskin		proski@gnu.org
-Perry			prapp@erols.com
+Pekka Järveläinen	pj@csc.fi
+Perry Rapp		prapp@erols.com
+Peter Breitenlohner	peb@mppmu.mpg.de
 Philipp Thomas		pthomas@suse.de
+Primoz Peterlin		primoz.peterlin@biofiz.mf.uni-lj.si
+Richard S. Blake	blakers@presence-group.com
 Richard Stallman	rms@gnu.org
+Rob Leslie		rob@mars.org
 Rodrigo Stulzer Lopes	rodrigo@conectiva.com.br
 Roger Leigh		rl117@york.ac.uk
 Roland McGrath		roland@gnu.ai.mit.edu
 Sakai Kiyotaka		ksakai@netwk.ntt-at.co.jp
+Sam Hocevar		sam@zoy.org
 Sam Steingold		sds@gnu.org
 Santiago Vila Doncel    sanvila@unex.es
 Sebastian Günther	sguenther@gmx.de
+Simon Josefsson		jas@extundo.com
+Simos Xenitellis	simos74@gmx.net
+Stanislav Visnovsky	visnovsky@nenya.ms.mff.cuni.cz
 Stefan Hundhammer	sh@suse.de
+Stefan Kost		kost@imn.htwk-leipzig.de
 Stephan Kulow		coolo@kde.org
+Stephen Gildea		gildea@stop.mail-abuse.org
 Thomas E. Dickey	dickey@clark.net
 Thorsten Kukuk		kukuk@suse.de
 Tim Van Holder		tim.van.holder@pandora.be
 Tom Tromey		tromey@cygnus.com
 Tommy Johansson		tommy@kanalen.org
 Tor Lillqvist		tml@iki.fi
+Trond Eivind Glomsrød	teg@redhat.com
 Uwe Ohse		uwe@tirka.gun.de
+Veronica Loell		info@nakawe.se
+Wang Jian		lark@linux.net.cn
 Werner Koch		wk@gnupg.org
 
 
