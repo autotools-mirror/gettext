@@ -1,6 +1,7 @@
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke AM_STDBOOL_H instead of gt_STDBOOL_H.
+	Invoke gl_FUNC_FNMATCH_POSIX instead of gt_FUNC_FNMATCH.
 
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 

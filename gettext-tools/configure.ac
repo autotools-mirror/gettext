@@ -108,7 +108,7 @@ AM_FUNC_GETLINE
 if test $am_cv_func_working_getline != yes; then
   AC_CHECK_FUNCS(getdelim)
 fi
-gt_FUNC_FNMATCH
+gl_FUNC_FNMATCH_POSIX
 gl_FUNC_EACCESS
 jm_PREREQ_MBSWIDTH
 gt_PREREQ_BACKUPFILE
