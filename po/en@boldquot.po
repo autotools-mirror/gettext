@@ -28,7 +28,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.36\n"
-"POT-Creation-Date: 2001-03-11 17:25+0100\n"
+"POT-Creation-Date: 2001-03-11 21:31+0100\n"
 "PO-Revision-Date: 2001-03-11 00:36+0100\n"
 "Last-Translator: Bruno Haible <haible@clisp.cons.org>\n"
 "Language-Team: English <en@li.org>\n"
@@ -100,15 +100,11 @@ msgstr "%s: option ‘[1m-W %s[0m’ is ambiguous\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: option ‘[1m-W %s[0m’ doesn't allow an argument\n"
 
-#: lib/obstack.c:474
+#: lib/obstack.c:474 lib/xmalloc.c:86
 msgid "memory exhausted"
 msgstr "memory exhausted"
 
-#: lib/xmalloc.c:86
-msgid "Memory exhausted"
-msgstr "Memory exhausted"
-
-#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/gettext.c:139 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
 #: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
@@ -120,27 +116,27 @@ msgstr ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
-#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/gettext.c:144 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
 #: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Written by %s.\n"
 
-#: src/gettext.c:158
+#: src/gettext.c:159
 msgid "missing arguments"
 msgstr "missing arguments"
 
-#: src/gettext.c:168
+#: src/gettext.c:169
 msgid "too many arguments"
 msgstr "too many arguments"
 
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
+#: src/gettext.c:233 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
 #: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Try ‘[1m%s --help[0m’ for more information.\n"
 
-#: src/gettext.c:237
+#: src/gettext.c:238
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -163,7 +159,7 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 
-#: src/gettext.c:249
+#: src/gettext.c:250
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -186,7 +182,7 @@ msgstr ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
+#: src/gettext.c:260 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
 #: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Report bugs to <bug-gnu-utils@gnu.org>.\n"
@@ -784,16 +780,19 @@ msgstr ""
 "%s: warning: charset “[1m%s[0m” is not a portable encoding name\n"
 "%*s  warning: charset conversion might not work"
 
-#: src/po.c:289 src/po.c:316
+#. TRANS: sentence starts at trans_id_1 or trans_id_2
+#: src/po.c:290 src/po.c:321
 msgid ", expect parse errors"
 msgstr ", expect parse errors"
 
-#: src/po.c:294
+#. TRANS: sentence trans_id_1 starts here
+#: src/po.c:296
 #, c-format
 msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
 msgstr "%s: warning: charset “[1m%s[0m” is not supported by iconv%s"
 
-#: src/po.c:298
+#. TRANS: sentence trans_id_2 starts here
+#: src/po.c:301
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
@@ -802,7 +801,8 @@ msgstr ""
 "%s: warning: charset “[1m%s[0m” is not supported by iconv%s\n"
 "%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
 
-#: src/po.c:312
+#. TRANS: sentence trans_id_3 starts here
+#: src/po.c:316
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
@@ -811,7 +811,7 @@ msgstr ""
 "%s: warning: charset “[1m%s[0m” is not supported without iconv%s\n"
 "%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
 
-#: src/po.c:325
+#: src/po.c:330
 #, c-format
 msgid ""
 "%s: warning: charset missing in header\n"
@@ -979,3 +979,6 @@ msgstr "%s:%d: warning: keyword between outer keyword and its arg"
 #, c-format
 msgid "language `%s' unknown"
 msgstr "language ‘[1m%s[0m’ unknown"
+
+#~ msgid "Memory exhausted"
+#~ msgstr "Memory exhausted"

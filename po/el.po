@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
-"POT-Creation-Date: 2001-03-11 17:25+0100\n"
+"POT-Creation-Date: 2001-03-11 21:31+0100\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -90,18 +90,13 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: η επιλογή `-W %s' δεν επιτρέπει παράμετρο\n"
 
 #
-#: lib/obstack.c:474
+#: lib/obstack.c:474 lib/xmalloc.c:86
 #, fuzzy
 msgid "memory exhausted"
 msgstr "H μνήμη εξαντλήθηκε"
 
 #
-#: lib/xmalloc.c:86
-msgid "Memory exhausted"
-msgstr "H μνήμη εξαντλήθηκε"
-
-#
-#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/gettext.c:139 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
 #: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
@@ -115,31 +110,31 @@ msgstr ""
 "ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑ ΓΙΑ ΕΝΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ.\n"
 
 #
-#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/gettext.c:144 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
 #: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Γραμμένο από τον/την %s.\n"
 
 #
-#: src/gettext.c:158
+#: src/gettext.c:159
 msgid "missing arguments"
 msgstr "υπολείπονται ορίσματα"
 
 #
-#: src/gettext.c:168
+#: src/gettext.c:169
 msgid "too many arguments"
 msgstr "πάρα πολλά ορίσματα"
 
 #
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
+#: src/gettext.c:233 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
 #: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Δοκιμάστε `%s --help' για περισσότερες πληροφορίες.\n"
 
 #
-#: src/gettext.c:237
+#: src/gettext.c:238
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -164,7 +159,7 @@ msgstr ""
 "                            στο MSGID από το TEXTDOMAIN\n"
 
 #
-#: src/gettext.c:249
+#: src/gettext.c:250
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -187,7 +182,7 @@ msgstr ""
 "Καθιερωμένος κατάλογος αναζήτησης: %s\n"
 
 #
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
+#: src/gettext.c:260 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
 #: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.org>.\n"
@@ -870,16 +865,19 @@ msgid ""
 msgstr ""
 "%s: προειδοποίηση: το αρχείο εισόδου περιέχει προσεγγιστικές μεταφράσεις"
 
-#: src/po.c:289 src/po.c:316
+#. TRANS: sentence starts at trans_id_1 or trans_id_2
+#: src/po.c:290 src/po.c:321
 msgid ", expect parse errors"
 msgstr ""
 
-#: src/po.c:294
+#. TRANS: sentence trans_id_1 starts here
+#: src/po.c:296
 #, c-format
 msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
 msgstr ""
 
-#: src/po.c:298
+#. TRANS: sentence trans_id_2 starts here
+#: src/po.c:301
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
@@ -887,7 +885,8 @@ msgid ""
 msgstr ""
 
 #
-#: src/po.c:312
+#. TRANS: sentence trans_id_3 starts here
+#: src/po.c:316
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
@@ -896,7 +895,7 @@ msgstr ""
 "%s: προειδοποίηση: το αρχείο εισόδου περιέχει προσεγγιστικές μεταφράσεις"
 
 #
-#: src/po.c:325
+#: src/po.c:330
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset missing in header\n"
@@ -1086,6 +1085,10 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "η γλώσσα `%s' είναι άγνωστη"
+
+#
+#~ msgid "Memory exhausted"
+#~ msgstr "H μνήμη εξαντλήθηκε"
 
 #
 #~ msgid "%s: warning: no header entry found"

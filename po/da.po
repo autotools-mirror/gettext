@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.31\n"
-"POT-Creation-Date: 2001-03-11 17:25+0100\n"
+"POT-Creation-Date: 2001-03-11 21:31+0100\n"
 "PO-Revision-Date: 1997-08-29 07:21 MDT\n"
 "Last-Translator: Thorbjoern Ravn Andersen <ravn@mip.ou.dk>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -76,16 +76,12 @@ msgstr "%s: tilvalget '%s' kan betyde flere ting\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: tilvalget '--%s' tager ikke et argument\n"
 
-#: lib/obstack.c:474
+#: lib/obstack.c:474 lib/xmalloc.c:86
 #, fuzzy
 msgid "memory exhausted"
 msgstr "ikke mere ledig hukommelse"
 
-#: lib/xmalloc.c:86
-msgid "Memory exhausted"
-msgstr "ikke mere ledig hukommelse"
-
-#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/gettext.c:139 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
 #: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
@@ -98,27 +94,27 @@ msgstr ""
 "INGEN garanti -- end ikke for SALGBARHED eller VELEGNETHED TIL NOGET SÆRLIGT\n"
 "FORMÅL.\n"
 
-#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/gettext.c:144 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
 #: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrevet af %s.\n"
 
-#: src/gettext.c:158
+#: src/gettext.c:159
 msgid "missing arguments"
 msgstr "argumenter mangler"
 
-#: src/gettext.c:168
+#: src/gettext.c:169
 msgid "too many arguments"
 msgstr "for mange argumenter"
 
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
+#: src/gettext.c:233 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
 #: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Information fås med `%s --help'\n"
 
-#: src/gettext.c:237
+#: src/gettext.c:238
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -143,7 +139,7 @@ msgstr ""
 "\n"
 "(TEKSTID svarer til 'msgid' felterne)\n"
 
-#: src/gettext.c:249
+#: src/gettext.c:250
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -166,7 +162,7 @@ msgstr ""
 "oversættes de tekster der findes i det valgte tekstkatalog.\n"
 "Standard filkataloget for søgning er: %s\n"
 
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
+#: src/gettext.c:260 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
 #: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Rapportér fejl på engelsk til <bug-gnu-utils@gnu.org>.\n"
@@ -740,30 +736,34 @@ msgid ""
 "%*s  warning: charset conversion might not work"
 msgstr "%s: advarsel: kildetekstfilen indeholder løse oversættelser (fuzzy)"
 
-#: src/po.c:289 src/po.c:316
+#. TRANS: sentence starts at trans_id_1 or trans_id_2
+#: src/po.c:290 src/po.c:321
 msgid ", expect parse errors"
 msgstr ""
 
-#: src/po.c:294
+#. TRANS: sentence trans_id_1 starts here
+#: src/po.c:296
 #, c-format
 msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
 msgstr ""
 
-#: src/po.c:298
+#. TRANS: sentence trans_id_2 starts here
+#: src/po.c:301
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
 "%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
 msgstr ""
 
-#: src/po.c:312
+#. TRANS: sentence trans_id_3 starts here
+#: src/po.c:316
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
 "%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
 msgstr "%s: advarsel: kildetekstfilen indeholder løse oversættelser (fuzzy)"
 
-#: src/po.c:325
+#: src/po.c:330
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset missing in header\n"
@@ -928,6 +928,9 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "ukendt sprog `%s'"
+
+#~ msgid "Memory exhausted"
+#~ msgstr "ikke mere ledig hukommelse"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: advarsel: \"header\" element ikke angivet"
