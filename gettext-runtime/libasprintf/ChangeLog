@@ -1,3 +1,28 @@
+2003-11-16  Paul Eggert  <eggert@twinsun.com>
+            Bruno Haible  <bruno@clisp.org>
+
+	Protect against address arithmetic overflow.
+	* printf-args.h: Include stddef.h.
+	(arguments): Change type of field 'count' to size_t.
+	* printf-args.c (printf_fetchargs): Use size_t instead of
+	'unsigned int' where appropriate.
+	* printf-parse.h: Include sys/types.h.
+	(char_directive): Change type of *arg_index fields to ssize_t.
+	(char_directives): Change type of fields 'count', max_*_length to
+	size_t.
+	* printf-parse.c: Include sys/types.h and xsize.h.
+	(SSIZE_MAX): Define fallback value.
+	(PRINTF_PARSE): Use size_t instead of 'unsigned int' and ssize_t
+	instead of 'int' where appropriate. Check a_allocated, d_allocated
+	against overflow. Reject %m$ argument numbers > SSIZE_MAX + 1.
+	* vasnprintf.c: Include xsize.h.
+	(VASNPRINTF): Use size_t instead of 'unsigned int' where appropriate.
+	Check alloca, malloc, realloc, ENSURE_ALLOCATION arguments against
+	overflow. Avoid wraparound when converting a width or precision from
+	decimal to binary.
+	* xsize.h: New file, from gnulib.
+	* Makefile.am (lib_asprintf_EXTRASOURCES): Add xsize.h.
+
 2003-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MAKEINFO): Set LC_MESSAGES and LC_ALL to empty as well.
@@ -46,7 +71,7 @@
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (jm_AC_TYPE_LONG_LONG): Replaces gt_TYPE_LONGLONG.
-	* printf-args.c: Generalize to it can be compiled for wide strings.
+	* printf-parse.c: Generalize to it can be compiled for wide strings.
 	(PRINTF_PARSE, CHAR_T, DIRECTIVE, DIRECTIVES): New macros.
 	* vasnprintf.c: Generalize to it can be compiled for wide strings.
 	(VASNPRINTF, CHAR_T, DIRECTIVE, DIRECTIVES, PRINTF_PARSE, USE_SNPRINTF,

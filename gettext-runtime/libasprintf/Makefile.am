@@ -48,6 +48,7 @@ libasprintf_la_SOURCES = \
 
 # Sources used only on platforms lacking vasprintf().
 lib_asprintf_EXTRASOURCES = \
+  xsize.h \
   printf-args.h printf-args.c \
   printf-parse.h printf-parse.c \
   vasnprintf.h vasnprintf.c asnprintf.c \

@@ -19,6 +19,9 @@
 #ifndef _PRINTF_ARGS_H
 #define _PRINTF_ARGS_H
 
+/* Get size_t.  */
+#include <stddef.h>
+
 /* Get wchar_t.  */
 #ifdef HAVE_WCHAR_T
 # include <stddef.h>
@@ -117,7 +120,7 @@ argument;
 
 typedef struct
 {
-  unsigned int count;
+  size_t count;
   argument *arg;
 }
 arguments;
