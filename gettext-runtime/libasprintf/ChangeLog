@@ -1,3 +1,17 @@
+2003-11-23  Paul Eggert  <eggert@twinsun.com>
+            Bruno Haible  <bruno@clisp.org>
+
+	* printf-parse.h: Don't include sys/types.h.
+	(ARG_NONE): New macro.
+	(char_directive): Change type of *arg_index fields to size_t.
+	* printf-parse.c: Don't include sys/types.h.
+	(SSIZE_MAX): Remove macro.
+	(PRINTF_PARSE): Change the type of the arg_index variables to size_t.
+	Remove unnecessary overflow check.
+	* vasnprintf.c (VASNPRINTF): Update for type change of *arg_index
+	fields.
+	* configure.ac: Don't invoke gt_TYPE_SSIZE_T.
+
 2003-11-19  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Better test for ptrdiff_t. Invoke gt_TYPE_SSIZE_T and

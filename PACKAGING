@@ -133,7 +133,6 @@ following file list.
       $prefix/share/aclocal/progtest.m4
       $prefix/share/aclocal/signed.m4
       $prefix/share/aclocal/size_max.m4
-      $prefix/share/aclocal/ssize_t.m4
       $prefix/share/aclocal/stdint_h.m4
       $prefix/share/aclocal/uintmax_t.m4
       $prefix/share/aclocal/ulonglong.m4

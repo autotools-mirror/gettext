@@ -1,3 +1,7 @@
+2003-11-23  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Remove ssize_t.m4.
+
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Add size_max.m4, ssize_t.m4, xsize.m4.

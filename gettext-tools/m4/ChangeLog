@@ -1,3 +1,9 @@
+2003-11-23  Bruno Haible  <bruno@clisp.org>
+
+	* ssize_t.m4: New file, moved here from ../../gettext-runtime/m4/.
+	* Makefile.am (aclocal_DATA): Remove ssize_t.m4.
+	(EXTRA_DIST): Add ssize_t.m4.
+
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
 	* size_max.m4: Remove file, moved to ../../gettext-runtime/m4/.

@@ -26,7 +26,6 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/progtest.m4 \
   ../../gettext-runtime/m4/signed.m4 \
   ../../gettext-runtime/m4/size_max.m4 \
-  ../../gettext-runtime/m4/ssize_t.m4 \
   ../../gettext-runtime/m4/stdint_h.m4 \
   ../../gettext-runtime/m4/uintmax_t.m4 \
   ../../gettext-runtime/m4/ulonglong.m4 \
@@ -70,6 +69,7 @@ setlocale.m4 \
 sig_atomic_t.m4 \
 siginfo.m4 \
 signalblocking.m4 \
+ssize_t.m4 \
 stdbool.m4 \
 strerror.m4 \
 strerror_r.m4 \

@@ -1,4 +1,4 @@
-# gettext.m4 serial 27 (gettext-0.13)
+# gettext.m4 serial 28 (gettext-0.13)
 dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -373,7 +373,6 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([jm_AC_TYPE_UINTMAX_T])dnl
   AC_REQUIRE([gt_HEADER_INTTYPES_H])dnl
   AC_REQUIRE([gt_INTTYPES_PRI])dnl
-  AC_REQUIRE([gt_TYPE_SSIZE_T])dnl
   AC_REQUIRE([gl_XSIZE])dnl
 
   AC_CHECK_TYPE([ptrdiff_t], ,

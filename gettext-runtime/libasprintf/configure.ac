@@ -57,7 +57,6 @@ AC_CHECK_TYPE([ptrdiff_t], ,
      [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
   ])
 gt_TYPE_INTMAX_T
-gt_TYPE_SSIZE_T
 gl_XSIZE
 
 dnl Checks for library functions.

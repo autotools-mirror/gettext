@@ -1,3 +1,9 @@
+2003-11-23  Bruno Haible  <bruno@clisp.org>
+
+	* ssize_t.m4: Remove file, moved to ../../gettext-tools/m4/.
+	* gettext.m4 (AM_INTL_SUBDIR): Don't require gt_TYPE_SSIZE_T.
+	* Makefile.am (EXTRA_DIST): Remove ssize_t.m4.
+
 2003-11-19  Bruno Haible  <bruno@clisp.org>
 
 	* size_max.m4 (gl_SIZE_MAX): Don't use the _ONCE macros here.
