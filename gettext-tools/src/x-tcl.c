@@ -1,5 +1,5 @@
 /* xgettext Tcl backend.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -719,7 +719,8 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 
   do
     c = phase2_getc ();
-  while (c == ' ' || c == BS_NL);
+  while (c == ' ' || c == BS_NL
+	 || c == '\t' || c == '\v' || c == '\f' || c == '\r');
 
   if (c == EOF)
     {

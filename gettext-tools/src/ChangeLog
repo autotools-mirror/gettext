@@ -1,5 +1,10 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* x-tcl.c (read_word): Ignore non-space whitespace at the beginning.
+	Reported by William J Poser <wjposer@ldc.upenn.edu>.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* write-csharp.c (msgdomain_write_csharp): Don't call fclose after
 	fwriteerror.
 	* write-java.c (msgdomain_write_java): Likewise.
