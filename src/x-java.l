@@ -102,6 +102,7 @@ static char *append_strings PARAMS ((char *a, char *b));
 static inline bool isplus PARAMS ((char *s));
 static inline bool isdot PARAMS ((char *s));
 static char *translate_esc PARAMS ((char *s));
+static bool tailcmp PARAMS ((const char *s1, const char *s2));
 static bool do_compare PARAMS ((const char *s1, const char *s2));
 static java_keyword *is_keyword PARAMS ((const char *s));
 static void free_global PARAMS ((void));
@@ -431,6 +432,22 @@ extract_msgid_plural_arg (key)
 
 
 /**
+ * Backwards substring match.
+ */
+static bool
+tailcmp (s1, s2)
+     const char *s1;
+     const char *s2;
+{
+  int len1 = strlen (s1);
+  int len2 = strlen (s2);
+  int start = len1 - len2;
+  if (start < 0)
+    return false;
+  return strcmp (s1 + start, s2) == 0;
+}
+
+/**
  * Try to match a string against the keyword. If substring_match is
  * true substring match is used.
  */
@@ -442,7 +459,7 @@ do_compare (s1, s2)
   if (substring_match)
     return strstr (s1, s2) != NULL;
   else
-    return strcmp (s1, s2) == 0;
+    return tailcmp (s1, s2);
 }
 
 /**
@@ -547,8 +564,10 @@ extract_java (f, real_filename, logical_filename, mdlp)
   if (java_keywords == NULL)
     {
       /* ops, no standard keywords */
-      x_java_keyword ("gettext");	/* GettextResource.gettext */
-      x_java_keyword ("ngettext:1,2");	/* GettextResource.ngettext */
+      x_java_keyword ("GettextResource.gettext:2");	/* static method */
+      x_java_keyword ("GettextResource.ngettext:2,3");	/* static method */
+      x_java_keyword ("gettext");
+      x_java_keyword ("ngettext:1,2");
       x_java_keyword ("getString");	/* ResourceBundle.getString */
     }
 
@@ -575,7 +594,6 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	      k2 = append_strings (key, ".");
 	      free (key);
 	      key = append_strings (k2, parser_global->word);
-	      state = STATE_NONE;
 	    }
 	  else
 	    {

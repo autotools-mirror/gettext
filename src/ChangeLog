@@ -1,3 +1,10 @@
+2001-12-03  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.l (tailcmp): New function.
+	(do_compare): Use it instead of strcmp.
+	(extract_java): After seeing an invocation, don't set the state to
+	STATE_NONE.
+
 2001-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* message.c (message_merge): Determine whether postprocessing is
