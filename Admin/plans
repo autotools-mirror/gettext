@@ -14,20 +14,10 @@ Things we plan to do. Comments welcome.
 
 - Stop documenting AM_WITH_NLS. AM_GNU_GETTEXT is the right macro to use.
 
-- Check the *.m4 macros with bleeding-edge autoconf & automake.
-
 - Documentation: Distinguish more clearly between gettext/xgettext,
   the Translation Project for GNU packages, and the PO mode.
 
 - Read Francois Pinard's gettext folder.
-
-- Split xgettext into a language dependent part and a language independent
-  part.
-
-- Document what it means to add gettext support to a programming/scripting
-  language.
-
-- Add support for Java.
 
 - KDE wants a kind of gettext2("role","msg")  function whose key is the
   concatenation of "role" and "msg" but whose default value is only "msg".
@@ -60,3 +50,5 @@ Things we plan to do. Comments welcome.
 
 - Check portability of coding-system-list, apparently not defined
   in XEmacs 20.4.
+
+- Refer also to the GNOME translation project http://www.klid.dk/gnome/ ?
