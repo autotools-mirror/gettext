@@ -153,10 +153,22 @@ cd $gettext_dir || {
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
   case $file in
-    ABOUT-NLS | config.rpath)
+    ABOUT-NLS)
       rm -f $srcdir/$file
       ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && $echo "Symlinking file $file") 2>/dev/null ||
       { $echo "Copying file $file"; cp $file $srcdir/$file; }
+      ;;
+    config.rpath)
+      auxdir=
+      if test -f $srcdir/configure.in || test -f $srcdir/configure.ac; then
+        auxdir=`(cat $srcdir/configure.in 2>/dev/null; cat $srcdir/configure.ac 2>/dev/null) | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | head -1`
+      fi
+      if test -n "$auxdir"; then
+        auxdir="$auxdir/"
+      fi
+      rm -f $srcdir/$auxdir$file
+      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$auxdir$file && $echo "Symlinking file $auxdir$file") 2>/dev/null ||
+      { $echo "Copying file $auxdir$file"; cp $file $srcdir/$auxdir$file; }
       ;;
   esac
 done

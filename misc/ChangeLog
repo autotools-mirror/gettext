@@ -1,3 +1,8 @@
+2001-12-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Install config.rpath in the directory specified
+	through AC_CONFIG_AUX_DIR, not necessarily in the toplevel dir.
+
 2001-12-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Also copy config.rpath, and recommend to copy
