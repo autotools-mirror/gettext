@@ -1,3 +1,7 @@
+2003-09-09  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Don't test for putc_unlocked.
+
 2003-08-31  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextsrc.def: Add formatstring_sh.

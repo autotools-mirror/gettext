@@ -101,8 +101,8 @@ AC_TYPE_MODE_T
 dnl Checks for library functions.
 gl_FUNC_ALLOCA
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([chown getcwd posix_spawn putc_unlocked raise select strerror \
-strtoul uname utime utimes])
+AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
+utime utimes])
 AC_REPLACE_FUNCS([memmove memset stpcpy strcspn \
 strcasecmp strncasecmp strpbrk strstr vasprintf])
 AM_FUNC_GETLINE
