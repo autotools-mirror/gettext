@@ -1,3 +1,9 @@
+2003-02-17  Bruno Haible  <bruno@clisp.org>
+
+	* mkdtemp.m4 (gl_PREREQ_MKDTEMP): New macro.
+	(gt_FUNC_MKDTEMP): Invoke it. Invoke jm_AC_TYPE_UINTMAX_T instead of
+	just jm_AC_HEADER_INTTYPES_H and jm_AC_HEADER_STDINT_H.
+
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* getline.m4: Update from gnulib.
