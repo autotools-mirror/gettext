@@ -1,3 +1,10 @@
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* po/it.po: New file, from Marco Colombo <m.colombo@ed.ac.uk>.
+	* po/LINGUAS: Add it.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
 	* po/Makefile.am, hello-*/po/Makefile.am (stamp-po): Do nothing if
