@@ -2,14 +2,14 @@ Version 0.11 - XXX 2001
 
 * New programs msgattrib, msgcat, msgconv, msgen, msgexec, msggrep, msguniq.
 
-* The tools now know about format strings in other languages than C.  They
+* The tools now know about format strings in languages other than C.  They
   recognize new message flags named lisp-format, java-format, python-format,
   ycp-format.  When such a flag is present, the msgfmt program verifies the
   consistency of the translated and the untranslated format string.
 
 * The msgfmt command line options have changed.  Option -c now also checks
-  the header entry, a check which was earlier activated through -v.  Option
-  -C corresponds to the compatibility checks earlier activated through -v -v.
+  the header entry, a check which was previously activated through -v.  Option
+  -C corresponds to the compatibility checks previously activated through -v -v.
   Option -v now only increases verbosity and doesn't influence whether msgfmt
   succeeds or fails.
 
