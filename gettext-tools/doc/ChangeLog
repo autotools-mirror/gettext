@@ -1,3 +1,8 @@
+2004-02-24  Bruno Haible  <bruno@clisp.org>
+
+	* FAQ.html (How do I make use of gettext() in my package?): New
+	question. Suggested by Paul Eggert <eggert@cs.ucla.edu>.
+
 2004-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* FAQ.html: New file.
