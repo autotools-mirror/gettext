@@ -228,9 +228,6 @@ charset.alias: $(srcdir)/config.charset
 
 check: all
 
-# This installation goal is only used in GNU gettext.  Packages which
-# only use the library should use install instead.
-
 # We must not install the libintl.h/libintl.a files if we are on a
 # system which has the GNU gettext() function in its C library or in a
 # separate library.
@@ -400,6 +397,7 @@ dcigettext.$lo: $(srcdir)/hash-string.h
 explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
 dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: $(srcdir)/plural-exp.h
 dcigettext.$lo: $(srcdir)/eval-plural.h
+localcharset.$lo: $(srcdir)/localcharset.h
 localealias.$lo localcharset.$lo relocatable.$lo: $(srcdir)/relocatable.h
 
 tags: TAGS
