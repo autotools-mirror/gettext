@@ -1,5 +1,11 @@
 2003-11-17  Bruno Haible  <bruno@clisp.org>
 
+	* canonicalize.c: #undef realpath after <config.h> but before the
+	system includes, so as to avoid a prototype clash on Solaris 2.5.1.
+	Reported by Warren L. Dodge <warrend@mdhost.cse.tek.com>.
+
+2003-11-17  Bruno Haible  <bruno@clisp.org>
+
 	* wait-process.c (wait_process): Disable the 2003-10-31 waitid() patch.
 
 2003-11-16  Bruno Haible  <bruno@clisp.org>

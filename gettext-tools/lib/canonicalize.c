@@ -21,6 +21,10 @@
 # include <config.h>
 #endif
 
+/* Avoid a clash of our rpl_realpath() function with the prototype in
+   <stdlib.h> on Solaris 2.5.1.  */
+#undef realpath
+
 #if !HAVE_CANONICALIZE_FILE_NAME || defined _LIBC
 
 #include <alloca.h>
