@@ -20,6 +20,10 @@
 #ifndef _PO_HASH_H
 #define _PO_HASH_H
 
+/* Analyze a pseudo-comment in a PO file (usually introduced by the hash
+   sign "#:" or "#".  If the string contains file names and line numbers,
+   return 0 and call po_callback_comment_filepos for each of them.  Otherwise
+   return nonzero.  */
 extern int po_hash (const char *string);
 
 #endif /* _PO_HASH_H */
