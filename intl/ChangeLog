@@ -1,3 +1,13 @@
+2001-11-29  Bruno Haible  <bruno@clisp.org>
+
+	* gettextP.h (_nl_locale_name): Don't declare inside glibc.
+	* localename.c (_nl_locale_name): Remove _LIBC conditional.
+
+2001-11-27  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (guess_category_value): Inside glibc, use setlocale
+	directly, not _nl_locale_name.
+
 2001-11-27  Ulrich Drepper  <drepper@redhat.com>
 
 	* loadmsgcat.c (_nl_init_domain_conv): Modify #if expression.

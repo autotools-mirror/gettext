@@ -1067,9 +1067,14 @@ guess_category_value (category, categoryname)
   if (language != NULL && language[0] == '\0')
     language = NULL;
 
-  /* Proceed with the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and
-    'LANG'.  */
+  /* We have to proceed with the POSIX methods of looking to `LC_ALL',
+     `LC_xxx', and `LANG'.  On some systems this can be done by the
+     `setlocale' function itself.  */
+#ifdef _LIBC
+  retval = setlocale (category, NULL);
+#else
   retval = _nl_locale_name (category, categoryname);
+#endif
 
   /* Ignore LANGUAGE if the locale is set to "C" because
      1. "C" locale usually uses the ASCII encoding, and most international

@@ -372,7 +372,7 @@ _nl_locale_name (category, categoryname)
 
   /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
      On some systems this can be done by the 'setlocale' function itself.  */
-# if defined _LIBC || (defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL)
+# if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
   retval = setlocale (category, NULL);
 # else
   /* Setting of LC_ALL overwrites all other.  */
