@@ -9,6 +9,15 @@
 	two PO directories.
 	Reported by Alexander Turbov <AVTurbov@gwise.eltech.ru>.
 
+2002-12-22  Bruno Haible  <bruno@clisp.org>
+
+	* inttypes_h.m4 (jm_AC_HEADER_INTTYPES_H): Whitespace change, takes
+	advantage of autoconf >= 2.52.
+	* stdint_h.m4 (jm_AC_HEADER_STDINT_H): Likewise.
+	* uintmax_t.m4 (jm_AC_TYPE_UINTMAX_T): Define HAVE_UINTMAX_T if
+	uintmax_t already exists. For consistency with HAVE_INTMAX_T, defined
+	by intmax.m4, needed by printf-parse.c.
+
 2002-12-07  Bruno Haible  <bruno@clisp.org>
 
 	Switch to autoconf-2.57 and automake-1.7.2.
