@@ -93,13 +93,13 @@ main (int argc, char *argv[])
     case '\0':		/* Long option.  */
       break;
     case 'h':
-      do_help = false;
+      do_help = true;
       break;
     case 'v':
-      show_variables = false;
+      show_variables = true;
       break;
     case 'V':
-      do_version = false;
+      do_version = true;
       break;
     default:
       usage (EXIT_FAILURE);
