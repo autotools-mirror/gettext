@@ -7268,7 +7268,7 @@ with the 0.11.5 infrastructure in all developers' builds.  When the
 maintainer then runs gettextize from, say, version 0.12.1 on the package,
 the occurrence of @code{AM_GNU_GETTEXT_VERSION(0.11.5)} will be changed
 into @code{AM_GNU_GETTEXT_VERSION(0.12.1)}, and all other developers that
-use the CVS will henceforth need to have GNU code{gettext} 0.12.1 or newer
+use the CVS will henceforth need to have GNU @code{gettext} 0.12.1 or newer
 installed.
 
 @node autopoint Invocation,  , Files under CVS, CVS Issues
