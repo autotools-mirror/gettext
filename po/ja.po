@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.2\n"
-"POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-04-25 23:47+0900\n"
+"POT-Creation-Date: 2002-05-02 15:48+0200\n"
+"PO-Revision-Date: 2002-05-08 22:22+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "%s: オプション `-W %s' には引数はありません\n"
 #: lib/javacomp.c:440
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
-"Jave コンパイラが見つかりません. gcj をインストールするか $JAVAC を設定してみ"
+"Java コンパイラが見つかりません. gcj をインストールするか $JAVAC を設定してみ"
 "てください"
 
 #: lib/javaexec.c:379
@@ -239,7 +239,7 @@ msgid ""
 msgstr ""
 "引数 '%2$s' に対する 'msgid' と '%1$s' での形式指定が同じではありません"
 
-#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:269 src/msgcat.c:234
+#: src/gettext.c:135 src/hostname.c:175 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
@@ -259,7 +259,7 @@ msgstr ""
 "市場性及び特定目的適合性の如何によらず, いかなる保証もありません.\n"
 "\n"
 
-#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:274 src/msgcat.c:239
+#: src/gettext.c:140 src/hostname.c:180 src/msgattrib.c:274 src/msgcat.c:239
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
@@ -268,7 +268,7 @@ msgstr ""
 msgid "Written by %s.\n"
 msgstr "作者 %s.\n"
 
-#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:271 src/ngettext.c:143
+#: src/gettext.c:158 src/hostname.c:190 src/msginit.c:271 src/ngettext.c:143
 msgid "too many arguments"
 msgstr "引数が多すぎます"
 
@@ -276,7 +276,7 @@ msgstr "引数が多すぎます"
 msgid "missing arguments"
 msgstr "引数がありません"
 
-#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:327 src/msgcat.c:295
+#: src/gettext.c:240 src/hostname.c:204 src/msgattrib.c:327 src/msgcat.c:295
 #: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:247 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
@@ -341,7 +341,7 @@ msgstr ""
 "翻訳されたものを表示します.\n"
 "標準の検索ディレクトリ: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:409 src/msgcat.c:378
+#: src/gettext.c:277 src/hostname.c:234 src/msgattrib.c:409 src/msgcat.c:378
 #: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:313 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
@@ -349,17 +349,17 @@ msgstr ""
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "バグレポートは <bug-gnu-gettext@gnu.org> まで.\n"
 
-#: src/hostname.c:206 src/msginit.c:352
+#: src/hostname.c:209 src/msginit.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "使用法: %s [オプション]\n"
 
-#: src/hostname.c:211
+#: src/hostname.c:214
 #, no-wrap
 msgid "Print the machine's hostname.\n"
 msgstr "マシンのホスト名を表示.\n"
 
-#: src/hostname.c:216
+#: src/hostname.c:219
 #, no-wrap
 msgid ""
 "Output format:\n"
@@ -374,7 +374,7 @@ msgstr ""
 "                          別名 (エイリアス) を含む\n"
 "  -i, --ip-address      ホスト名に対するアドレス\n"
 
-#: src/hostname.c:225 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
+#: src/hostname.c:228 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
 #: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
 #: src/msginit.c:394 src/urlget.c:180
 #, no-wrap
@@ -387,7 +387,7 @@ msgstr ""
 "  -h, --help                  このヘルプを表示して終了\n"
 "  -V, --version               バージョン情報を表示して終了\n"
 
-#: src/hostname.c:246 src/hostname.c:253
+#: src/hostname.c:249 src/hostname.c:256
 msgid "could not get host name"
 msgstr "ホスト名を取得できませんでした"
 
