@@ -2,6 +2,7 @@
 
 	* Makefile.in (COMSRCS): Add localcharset.c.
 	(OBJECTS): Add localcharset.$lo.
+	(DISTFILES.common): Add config.charset, ref-{add,del}.sin.
 	(DEFS): Add -DLIBDIR.
 	(all-yes): Add charset.alias, ref-{add,del}.sed.
 	(.SUFFIXES): Add .sin and .sed.
