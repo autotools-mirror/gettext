@@ -3799,7 +3799,7 @@ fi
         fi
         ;;
       no)
-        HAVE_CSHARPEXEC=
+        HAVE_CSHARPCOMP=
         ac_result="no"
         break
         ;;
