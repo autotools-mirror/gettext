@@ -64,13 +64,13 @@ EXTRA_DIST += $(LIBADD_SOURCE)
 
 
 # >>> gnulib module stdbool.
-EXTRA_DIST += ../../gettext-tools/lib/stdbool.h.in
+EXTRA_DIST += ../../gettext-tools/lib/stdbool_.h
 
 # The following is needed in order to create an <stdbool.h> when the system
 # doesn't have one that works.
 all-local $(libgrt_a_OBJECTS): @STDBOOL_H@
-stdbool.h: ../../gettext-tools/lib/stdbool.h.in
-	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/../../gettext-tools/lib/stdbool.h.in > stdbool.h
+stdbool.h: ../../gettext-tools/lib/stdbool_.h
+	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/../../gettext-tools/lib/stdbool_.h > stdbool.h
 MOSTLYCLEANFILES += stdbool.h
 # <<< gnulib module stdbool.
 

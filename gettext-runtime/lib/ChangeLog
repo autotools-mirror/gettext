@@ -1,3 +1,8 @@
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST, stdbool.h): Use stdbool_.h instead of
+	stdbool.h.in.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.
