@@ -21,9 +21,12 @@ AC_DEFUN(jm_PREREQ_MBSWIDTH,
 #endif
 ], ac_cv_have_decl_wcwidth=yes, ac_cv_have_decl_wcwidth=no)])
   if test $ac_cv_have_decl_wcwidth = yes; then
-    AC_DEFINE(HAVE_DECL_WCWIDTH, 1,
-      [Define to 1 if you have the declaration of wcwidth().])
+    ac_val=1
+  else
+    ac_val=0
   fi
+  AC_DEFINE_UNQUOTED(HAVE_DECL_WCWIDTH, $ac_val,
+    [Define to 1 if you have the declaration of wcwidth(), and to 0 otherwise.])
 
   AC_MBSTATE_T
 ])
