@@ -68,7 +68,7 @@ AC_EGREP_CPP([Need own alloca], [
   ALLOCA_H=)
 AC_SUBST([ALLOCA_H])
 
-AC_CHECK_FUNCS([snprintf vasprintf])
+AC_CHECK_FUNCS([snprintf vasprintf wcslen])
 gt_PRINTF_POSIX
 
 dnl Check for tools needed for formatting the documentation.

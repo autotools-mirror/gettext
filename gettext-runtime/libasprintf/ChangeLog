@@ -2,6 +2,7 @@
 
 	* vasnprintf.c (local_wcslen): New function, for Solaris 2.5.1.
 	(VASNPRINTF): Use it instead of wcslen.
+	* configure.ac: Also check for wcslen.
 
 2003-06-20  Bruno Haible  <bruno@clisp.org>
 
