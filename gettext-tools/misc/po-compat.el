@@ -221,10 +221,10 @@ Called through file-coding-system-alist, before the file is visited for real."
 	       (let ((coding-system-for-read 'no-conversion))
                  (let* ((charset (or (po-find-charset filename)
 				     "ascii"))
-                        (charset-upper (intern (upcase charset)))
+                        (charset-upper (upcase charset))
                         (charset-lower (intern (downcase charset))))
-                   (list (or (cdr (assq charset-upper
-                                        po-content-type-charset-alist))
+                   (list (or (cdr (assoc charset-upper
+                                         po-content-type-charset-alist))
                              (if (memq charset-lower (coding-system-list))
                                  charset-lower
                                'no-conversion)))))))))
@@ -246,5 +246,18 @@ Called through file-coding-system-alist, before the file is visited for real."
   )
 
 (provide 'po-compat)
+
+;;; Testing this file:
+
+;; For each emacsimpl in { emacs, xemacs } do
+;;   For each pofile in {
+;;     cs.po           ; gettext/po/cs.el, charset=ISO-8859-2
+;;     cs-modified.po  ; gettext/po/cs.el, charset=ISO_8859-2
+;;     de.po           ; gettext/po/de.el, charset=UTF-8, if $emacsimpl = emacs
+;;   } do
+;;     Start $emacsimpl
+;;     M-x load-file  po-compat.el RET
+;;     C-x C-f  $pofile RET
+;;     Verify charset marker in status line ('2' = ISO-8859-2, 'u' = UTF-8).
 
 ;;; po-compat.el ends here

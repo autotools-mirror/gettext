@@ -1,3 +1,10 @@
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
+	* po-compat.el: Add testing instructions.
+	(po-find-file-coding-system-guts) [XEMACS]: Make it work again,
+	after (car (nth i po-content-type-charset-alist)) changed from symbol
+	to string.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* elisp-comp: Move to ../../config/elisp-comp.
