@@ -1,5 +1,5 @@
 ## Makefile for the man subdirectory of the GNU NLS Utilities
-## Copyright (C) 2001 Free Software Foundation, Inc.
+## Copyright (C) 2001-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,11 +26,13 @@ localedir = $(datadir)/locale
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-# A manual page for each of the bin_PROGRAMS in src/Makefile.am.
+# A manual page for each of the bin_PROGRAMS in src/Makefile.am
+# and for each of the bin_SCRIPTS in misc/Makefile.am.
 
 man_aux  = gettext.x ngettext.x \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
-msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x msggrep.x msginit.x msguniq.x
+msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x msggrep.x msginit.x msguniq.x \
+gettextize.x autopoint.x
 
 # Likewise, plus additional manual pages for the libintl functions.
 
@@ -52,6 +54,7 @@ man_HTMLIN = gettext.1.html.in ngettext.1.html.in
 man_HTMLOTHER = \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
 msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
+gettextize.1.html autopoint.1.html \
 gettext.3.html ngettext.3.html \
 textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
 man_HTML = $(man_HTMLGEN) $(man_HTMLOTHER)
@@ -128,6 +131,11 @@ msginit.1: msginit.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msginit$(EXEEXT) $(srcdir)/msginit.x msginit.1
 msguniq.1: msguniq.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msguniq$(EXEEXT) $(srcdir)/msguniq.x msguniq.1
+
+gettextize.1: gettextize.x
+	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../misc/gettextize $(srcdir)/gettextize.x gettextize.1
+autopoint.1: autopoint.x
+	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
 
 # Depend on configure.in to get version number changes.
 $(man_MAN1): help2man $(top_srcdir)/configure.in
@@ -211,6 +219,12 @@ msginit.1.html: msginit.1
 	mv t-$@ $@
 msguniq.1.html: msguniq.1
 	$(MAN2HTML) `if test -f msguniq.1; then echo .; else echo $(srcdir); fi`/msguniq.1 | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+gettextize.1.html: gettextize.1
+	$(MAN2HTML) `if test -f gettextize.1; then echo .; else echo $(srcdir); fi`/gettextize.1 | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+autopoint.1.html: autopoint.1
+	$(MAN2HTML) `if test -f autopoint.1; then echo .; else echo $(srcdir); fi`/autopoint.1 | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 gettext.3.html: gettext.3.in
 	$(MAN2HTML) $(srcdir)/gettext.3.in | sed -e '/CreationDate:/d' > t-$@

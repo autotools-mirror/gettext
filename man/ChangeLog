@@ -1,3 +1,12 @@
+2002-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.x: New file.
+	* autopoint.x: New file.
+	* Makefile.am (man_aux): Add gettextize.x, autopoint.x.
+	(man_HTMLOTHER): Add gettextize.1.html, autopoint.1.html.
+	(gettextize.1, autopoint.1): New rules.
+	(gettextize.1.html, autopoint.1.html): New rules.
+
 2002-04-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.2 released.

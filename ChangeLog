@@ -1,3 +1,8 @@
+2002-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (SUBDIRS): Move man and m4 after projects and misc.
+	'man' must be after 'misc' because 'misc' contains some programs.
+
 2002-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in (AC_OUTPUT): Add misc/autopoint. Make misc/autopoint
