@@ -90,271 +90,355 @@ char *alloca ();
 /* Provide fallback values for macros that ought to be defined in <inttypes.h>.
    Note that our fallback values need not be literal strings, because we don't
    use them with preprocessor string concatenation.  */
-#ifndef PRId8
+#if !defined PRId8 || PRI_MACROS_BROKEN
+# undef PRId8
 # define PRId8 "d"
 #endif
-#ifndef PRIi8
+#if !defined PRIi8 || PRI_MACROS_BROKEN
+# undef PRIi8
 # define PRIi8 "i"
 #endif
-#ifndef PRIo8
+#if !defined PRIo8 || PRI_MACROS_BROKEN
+# undef PRIo8
 # define PRIo8 "o"
 #endif
-#ifndef PRIu8
+#if !defined PRIu8 || PRI_MACROS_BROKEN
+# undef PRIu8
 # define PRIu8 "u"
 #endif
-#ifndef PRIx8
+#if !defined PRIx8 || PRI_MACROS_BROKEN
+# undef PRIx8
 # define PRIx8 "x"
 #endif
-#ifndef PRIX8
+#if !defined PRIX8 || PRI_MACROS_BROKEN
+# undef PRIX8
 # define PRIX8 "X"
 #endif
-#ifndef PRId16
+#if !defined PRId16 || PRI_MACROS_BROKEN
+# undef PRId16
 # define PRId16 "d"
 #endif
-#ifndef PRIi16
+#if !defined PRIi16 || PRI_MACROS_BROKEN
+# undef PRIi16
 # define PRIi16 "i"
 #endif
-#ifndef PRIo16
+#if !defined PRIo16 || PRI_MACROS_BROKEN
+# undef PRIo16
 # define PRIo16 "o"
 #endif
-#ifndef PRIu16
+#if !defined PRIu16 || PRI_MACROS_BROKEN
+# undef PRIu16
 # define PRIu16 "u"
 #endif
-#ifndef PRIx16
+#if !defined PRIx16 || PRI_MACROS_BROKEN
+# undef PRIx16
 # define PRIx16 "x"
 #endif
-#ifndef PRIX16
+#if !defined PRIX16 || PRI_MACROS_BROKEN
+# undef PRIX16
 # define PRIX16 "X"
 #endif
-#ifndef PRId32
+#if !defined PRId32 || PRI_MACROS_BROKEN
+# undef PRId32
 # define PRId32 "d"
 #endif
-#ifndef PRIi32
+#if !defined PRIi32 || PRI_MACROS_BROKEN
+# undef PRIi32
 # define PRIi32 "i"
 #endif
-#ifndef PRIo32
+#if !defined PRIo32 || PRI_MACROS_BROKEN
+# undef PRIo32
 # define PRIo32 "o"
 #endif
-#ifndef PRIu32
+#if !defined PRIu32 || PRI_MACROS_BROKEN
+# undef PRIu32
 # define PRIu32 "u"
 #endif
-#ifndef PRIx32
+#if !defined PRIx32 || PRI_MACROS_BROKEN
+# undef PRIx32
 # define PRIx32 "x"
 #endif
-#ifndef PRIX32
+#if !defined PRIX32 || PRI_MACROS_BROKEN
+# undef PRIX32
 # define PRIX32 "X"
 #endif
-#ifndef PRId64
+#if !defined PRId64 || PRI_MACROS_BROKEN
+# undef PRId64
 # define PRId64 (sizeof (long) == 8 ? "ld" : "lld")
 #endif
-#ifndef PRIi64
+#if !defined PRIi64 || PRI_MACROS_BROKEN
+# undef PRIi64
 # define PRIi64 (sizeof (long) == 8 ? "li" : "lli")
 #endif
-#ifndef PRIo64
+#if !defined PRIo64 || PRI_MACROS_BROKEN
+# undef PRIo64
 # define PRIo64 (sizeof (long) == 8 ? "lo" : "llo")
 #endif
-#ifndef PRIu64
+#if !defined PRIu64 || PRI_MACROS_BROKEN
+# undef PRIu64
 # define PRIu64 (sizeof (long) == 8 ? "lu" : "llu")
 #endif
-#ifndef PRIx64
+#if !defined PRIx64 || PRI_MACROS_BROKEN
+# undef PRIx64
 # define PRIx64 (sizeof (long) == 8 ? "lx" : "llx")
 #endif
-#ifndef PRIX64
+#if !defined PRIX64 || PRI_MACROS_BROKEN
+# undef PRIX64
 # define PRIX64 (sizeof (long) == 8 ? "lX" : "llX")
 #endif
-#ifndef PRIdLEAST8
+#if !defined PRIdLEAST8 || PRI_MACROS_BROKEN
+# undef PRIdLEAST8
 # define PRIdLEAST8 "d"
 #endif
-#ifndef PRIiLEAST8
+#if !defined PRIiLEAST8 || PRI_MACROS_BROKEN
+# undef PRIiLEAST8
 # define PRIiLEAST8 "i"
 #endif
-#ifndef PRIoLEAST8
+#if !defined PRIoLEAST8 || PRI_MACROS_BROKEN
+# undef PRIoLEAST8
 # define PRIoLEAST8 "o"
 #endif
-#ifndef PRIuLEAST8
+#if !defined PRIuLEAST8 || PRI_MACROS_BROKEN
+# undef PRIuLEAST8
 # define PRIuLEAST8 "u"
 #endif
-#ifndef PRIxLEAST8
+#if !defined PRIxLEAST8 || PRI_MACROS_BROKEN
+# undef PRIxLEAST8
 # define PRIxLEAST8 "x"
 #endif
-#ifndef PRIXLEAST8
+#if !defined PRIXLEAST8 || PRI_MACROS_BROKEN
+# undef PRIXLEAST8
 # define PRIXLEAST8 "X"
 #endif
-#ifndef PRIdLEAST16
+#if !defined PRIdLEAST16 || PRI_MACROS_BROKEN
+# undef PRIdLEAST16
 # define PRIdLEAST16 "d"
 #endif
-#ifndef PRIiLEAST16
+#if !defined PRIiLEAST16 || PRI_MACROS_BROKEN
+# undef PRIiLEAST16
 # define PRIiLEAST16 "i"
 #endif
-#ifndef PRIoLEAST16
+#if !defined PRIoLEAST16 || PRI_MACROS_BROKEN
+# undef PRIoLEAST16
 # define PRIoLEAST16 "o"
 #endif
-#ifndef PRIuLEAST16
+#if !defined PRIuLEAST16 || PRI_MACROS_BROKEN
+# undef PRIuLEAST16
 # define PRIuLEAST16 "u"
 #endif
-#ifndef PRIxLEAST16
+#if !defined PRIxLEAST16 || PRI_MACROS_BROKEN
+# undef PRIxLEAST16
 # define PRIxLEAST16 "x"
 #endif
-#ifndef PRIXLEAST16
+#if !defined PRIXLEAST16 || PRI_MACROS_BROKEN
+# undef PRIXLEAST16
 # define PRIXLEAST16 "X"
 #endif
-#ifndef PRIdLEAST32
+#if !defined PRIdLEAST32 || PRI_MACROS_BROKEN
+# undef PRIdLEAST32
 # define PRIdLEAST32 "d"
 #endif
-#ifndef PRIiLEAST32
+#if !defined PRIiLEAST32 || PRI_MACROS_BROKEN
+# undef PRIiLEAST32
 # define PRIiLEAST32 "i"
 #endif
-#ifndef PRIoLEAST32
+#if !defined PRIoLEAST32 || PRI_MACROS_BROKEN
+# undef PRIoLEAST32
 # define PRIoLEAST32 "o"
 #endif
-#ifndef PRIuLEAST32
+#if !defined PRIuLEAST32 || PRI_MACROS_BROKEN
+# undef PRIuLEAST32
 # define PRIuLEAST32 "u"
 #endif
-#ifndef PRIxLEAST32
+#if !defined PRIxLEAST32 || PRI_MACROS_BROKEN
+# undef PRIxLEAST32
 # define PRIxLEAST32 "x"
 #endif
-#ifndef PRIXLEAST32
+#if !defined PRIXLEAST32 || PRI_MACROS_BROKEN
+# undef PRIXLEAST32
 # define PRIXLEAST32 "X"
 #endif
-#ifndef PRIdLEAST64
+#if !defined PRIdLEAST64 || PRI_MACROS_BROKEN
+# undef PRIdLEAST64
 # define PRIdLEAST64 PRId64
 #endif
-#ifndef PRIiLEAST64
+#if !defined PRIiLEAST64 || PRI_MACROS_BROKEN
+# undef PRIiLEAST64
 # define PRIiLEAST64 PRIi64
 #endif
-#ifndef PRIoLEAST64
+#if !defined PRIoLEAST64 || PRI_MACROS_BROKEN
+# undef PRIoLEAST64
 # define PRIoLEAST64 PRIo64
 #endif
-#ifndef PRIuLEAST64
+#if !defined PRIuLEAST64 || PRI_MACROS_BROKEN
+# undef PRIuLEAST64
 # define PRIuLEAST64 PRIu64
 #endif
-#ifndef PRIxLEAST64
+#if !defined PRIxLEAST64 || PRI_MACROS_BROKEN
+# undef PRIxLEAST64
 # define PRIxLEAST64 PRIx64
 #endif
-#ifndef PRIXLEAST64
+#if !defined PRIXLEAST64 || PRI_MACROS_BROKEN
+# undef PRIXLEAST64
 # define PRIXLEAST64 PRIX64
 #endif
-#ifndef PRIdFAST8
+#if !defined PRIdFAST8 || PRI_MACROS_BROKEN
+# undef PRIdFAST8
 # define PRIdFAST8 "d"
 #endif
-#ifndef PRIiFAST8
+#if !defined PRIiFAST8 || PRI_MACROS_BROKEN
+# undef PRIiFAST8
 # define PRIiFAST8 "i"
 #endif
-#ifndef PRIoFAST8
+#if !defined PRIoFAST8 || PRI_MACROS_BROKEN
+# undef PRIoFAST8
 # define PRIoFAST8 "o"
 #endif
-#ifndef PRIuFAST8
+#if !defined PRIuFAST8 || PRI_MACROS_BROKEN
+# undef PRIuFAST8
 # define PRIuFAST8 "u"
 #endif
-#ifndef PRIxFAST8
+#if !defined PRIxFAST8 || PRI_MACROS_BROKEN
+# undef PRIxFAST8
 # define PRIxFAST8 "x"
 #endif
-#ifndef PRIXFAST8
+#if !defined PRIXFAST8 || PRI_MACROS_BROKEN
+# undef PRIXFAST8
 # define PRIXFAST8 "X"
 #endif
-#ifndef PRIdFAST16
+#if !defined PRIdFAST16 || PRI_MACROS_BROKEN
+# undef PRIdFAST16
 # define PRIdFAST16 "d"
 #endif
-#ifndef PRIiFAST16
+#if !defined PRIiFAST16 || PRI_MACROS_BROKEN
+# undef PRIiFAST16
 # define PRIiFAST16 "i"
 #endif
-#ifndef PRIoFAST16
+#if !defined PRIoFAST16 || PRI_MACROS_BROKEN
+# undef PRIoFAST16
 # define PRIoFAST16 "o"
 #endif
-#ifndef PRIuFAST16
+#if !defined PRIuFAST16 || PRI_MACROS_BROKEN
+# undef PRIuFAST16
 # define PRIuFAST16 "u"
 #endif
-#ifndef PRIxFAST16
+#if !defined PRIxFAST16 || PRI_MACROS_BROKEN
+# undef PRIxFAST16
 # define PRIxFAST16 "x"
 #endif
-#ifndef PRIXFAST16
+#if !defined PRIXFAST16 || PRI_MACROS_BROKEN
+# undef PRIXFAST16
 # define PRIXFAST16 "X"
 #endif
-#ifndef PRIdFAST32
+#if !defined PRIdFAST32 || PRI_MACROS_BROKEN
+# undef PRIdFAST32
 # define PRIdFAST32 "d"
 #endif
-#ifndef PRIiFAST32
+#if !defined PRIiFAST32 || PRI_MACROS_BROKEN
+# undef PRIiFAST32
 # define PRIiFAST32 "i"
 #endif
-#ifndef PRIoFAST32
+#if !defined PRIoFAST32 || PRI_MACROS_BROKEN
+# undef PRIoFAST32
 # define PRIoFAST32 "o"
 #endif
-#ifndef PRIuFAST32
+#if !defined PRIuFAST32 || PRI_MACROS_BROKEN
+# undef PRIuFAST32
 # define PRIuFAST32 "u"
 #endif
-#ifndef PRIxFAST32
+#if !defined PRIxFAST32 || PRI_MACROS_BROKEN
+# undef PRIxFAST32
 # define PRIxFAST32 "x"
 #endif
-#ifndef PRIXFAST32
+#if !defined PRIXFAST32 || PRI_MACROS_BROKEN
+# undef PRIXFAST32
 # define PRIXFAST32 "X"
 #endif
-#ifndef PRIdFAST64
+#if !defined PRIdFAST64 || PRI_MACROS_BROKEN
+# undef PRIdFAST64
 # define PRIdFAST64 PRId64
 #endif
-#ifndef PRIiFAST64
+#if !defined PRIiFAST64 || PRI_MACROS_BROKEN
+# undef PRIiFAST64
 # define PRIiFAST64 PRIi64
 #endif
-#ifndef PRIoFAST64
+#if !defined PRIoFAST64 || PRI_MACROS_BROKEN
+# undef PRIoFAST64
 # define PRIoFAST64 PRIo64
 #endif
-#ifndef PRIuFAST64
+#if !defined PRIuFAST64 || PRI_MACROS_BROKEN
+# undef PRIuFAST64
 # define PRIuFAST64 PRIu64
 #endif
-#ifndef PRIxFAST64
+#if !defined PRIxFAST64 || PRI_MACROS_BROKEN
+# undef PRIxFAST64
 # define PRIxFAST64 PRIx64
 #endif
-#ifndef PRIXFAST64
+#if !defined PRIXFAST64 || PRI_MACROS_BROKEN
+# undef PRIXFAST64
 # define PRIXFAST64 PRIX64
 #endif
-#ifndef PRIdMAX
+#if !defined PRIdMAX || PRI_MACROS_BROKEN
+# undef PRIdMAX
 # define PRIdMAX (sizeof (uintmax_t) == sizeof (long) ? "ld" : "lld")
 #endif
-#ifndef PRIiMAX
+#if !defined PRIiMAX || PRI_MACROS_BROKEN
+# undef PRIiMAX
 # define PRIiMAX (sizeof (uintmax_t) == sizeof (long) ? "li" : "lli")
 #endif
-#ifndef PRIoMAX
+#if !defined PRIoMAX || PRI_MACROS_BROKEN
+# undef PRIoMAX
 # define PRIoMAX (sizeof (uintmax_t) == sizeof (long) ? "lo" : "llo")
 #endif
-#ifndef PRIuMAX
+#if !defined PRIuMAX || PRI_MACROS_BROKEN
+# undef PRIuMAX
 # define PRIuMAX (sizeof (uintmax_t) == sizeof (long) ? "lu" : "llu")
 #endif
-#ifndef PRIxMAX
+#if !defined PRIxMAX || PRI_MACROS_BROKEN
+# undef PRIxMAX
 # define PRIxMAX (sizeof (uintmax_t) == sizeof (long) ? "lx" : "llx")
 #endif
-#ifndef PRIXMAX
+#if !defined PRIXMAX || PRI_MACROS_BROKEN
+# undef PRIXMAX
 # define PRIXMAX (sizeof (uintmax_t) == sizeof (long) ? "lX" : "llX")
 #endif
-#ifndef PRIdPTR
+#if !defined PRIdPTR || PRI_MACROS_BROKEN
+# undef PRIdPTR
 # define PRIdPTR \
   (sizeof (void *) == sizeof (long) ? "ld" : \
    sizeof (void *) == sizeof (int) ? "d" : \
    "lld")
 #endif
-#ifndef PRIiPTR
+#if !defined PRIiPTR || PRI_MACROS_BROKEN
+# undef PRIiPTR
 # define PRIiPTR \
   (sizeof (void *) == sizeof (long) ? "li" : \
    sizeof (void *) == sizeof (int) ? "i" : \
    "lli")
 #endif
-#ifndef PRIoPTR
+#if !defined PRIoPTR || PRI_MACROS_BROKEN
+# undef PRIoPTR
 # define PRIoPTR \
   (sizeof (void *) == sizeof (long) ? "lo" : \
    sizeof (void *) == sizeof (int) ? "o" : \
    "llo")
 #endif
-#ifndef PRIuPTR
+#if !defined PRIuPTR || PRI_MACROS_BROKEN
+# undef PRIuPTR
 # define PRIuPTR \
   (sizeof (void *) == sizeof (long) ? "lu" : \
    sizeof (void *) == sizeof (int) ? "u" : \
    "llu")
 #endif
-#ifndef PRIxPTR
+#if !defined PRIxPTR || PRI_MACROS_BROKEN
+# undef PRIxPTR
 # define PRIxPTR \
   (sizeof (void *) == sizeof (long) ? "lx" : \
    sizeof (void *) == sizeof (int) ? "x" : \
    "llx")
 #endif
-#ifndef PRIXPTR
+#if !defined PRIXPTR || PRI_MACROS_BROKEN
+# undef PRIXPTR
 # define PRIXPTR \
   (sizeof (void *) == sizeof (long) ? "lX" : \
    sizeof (void *) == sizeof (int) ? "X" : \

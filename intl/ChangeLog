@@ -1,3 +1,7 @@
+2002-07-23  Bruno Haible  <bruno@clisp.org>
+
+	* loadmsgcat.c (PRI*): Redefine the macros if PRI_MACROS_BROKEN is set.
+
 2002-07-21  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h (__GNU_GETTEXT_SUPPORTED_REVISION): New macro.
