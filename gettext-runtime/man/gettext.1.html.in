@@ -16,7 +16,7 @@
 <a href="#SEE ALSO">SEE ALSO</a><br>
 
 <hr>
-<!-- Creator     : groff version 1.17 -->
+<!-- Creator     : groff version 1.17.2 -->
 <a name="NAME"></a>
 <h2>NAME</h2>
 <table width="100%" border=0 rules="none" frame="void"
@@ -174,7 +174,7 @@ Report bugs to &lt;bug-gnu-gettext@gnu.org&gt;.</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-Copyright 1995-1997, 2000-2002 Free Software Foundation,
+Copyright 1995-1997, 2000-2003 Free Software Foundation,
 Inc.<br>
 This is free software; see the source for copying
 conditions. There is NO warranty; not even for

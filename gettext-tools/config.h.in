@@ -4,14 +4,6 @@
 /* Default value for alignment of strings in .mo file.  */
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
-
 
 /* Define to 1 if the `closedir' function returns void instead of `int'. */
 #undef CLOSEDIR_VOID
@@ -46,6 +38,15 @@
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
+
+/* Define to 1 if you have the `asprintf' function. */
+#undef HAVE_ASPRINTF
+
+/* Define to 1 if you have the `atexit' function. */
+#undef HAVE_ATEXIT
+
+/* Define to 1 if you have the `btowc' function. */
+#undef HAVE_BTOWC
 
 /* Define to 1 if you have the `canonicalize_file_name' function. */
 #undef HAVE_CANONICALIZE_FILE_NAME
@@ -101,6 +102,10 @@
    don't. */
 #undef HAVE_DECL_GETC_UNLOCKED
 
+/* Define to 1 if you have the declaration of `getenv', and to 0 if you don't.
+   */
+#undef HAVE_DECL_GETENV
+
 /* Define to 1 if you have the declaration of `putchar_unlocked', and to 0 if
    you don't. */
 #undef HAVE_DECL_PUTCHAR_UNLOCKED
@@ -121,6 +126,14 @@
    */
 #undef HAVE_DECL_WCWIDTH
 
+/* Define to 1 if you have the declaration of `_snprintf', and to 0 if you
+   don't. */
+#undef HAVE_DECL__SNPRINTF
+
+/* Define to 1 if you have the declaration of `_snwprintf', and to 0 if you
+   don't. */
+#undef HAVE_DECL__SNWPRINTF
+
 /* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
    */
 #undef HAVE_DIRENT_H
@@ -140,26 +153,14 @@
 /* Define to 1 if you have the functions error() and error_at_line(). */
 #undef HAVE_ERROR_AT_LINE
 
-/* Define to 1 if you have the <fcntl.h> header file. */
-#undef HAVE_FCNTL_H
-
-/* Define to 1 if you have the `feof_unlocked' function. */
-#undef HAVE_FEOF_UNLOCKED
-
-/* Define to 1 if you have the `fgets_unlocked' function. */
-#undef HAVE_FGETS_UNLOCKED
-
-/* Define if you have <fnmatch.h> and a working fnmatch() function. */
-#undef HAVE_FNMATCH
-
 /* Define to 1 if you have the `fork' function. */
 #undef HAVE_FORK
 
+/* Define to 1 if you have the `fwprintf' function. */
+#undef HAVE_FWPRINTF
+
 /* Define to 1 if you have the `getcwd' function. */
 #undef HAVE_GETCWD
-
-/* Define to 1 if you have the `getc_unlocked' function. */
-#undef HAVE_GETC_UNLOCKED
 
 /* Define to 1 if you have the `getdelim' function. */
 #undef HAVE_GETDELIM
@@ -197,6 +198,9 @@
 /* Define to 1 if you have the `inet_ntop' function. */
 #undef HAVE_INET_NTOP
 
+/* Define if you have the 'intmax_t' type in <stdint.h> or <inttypes.h>. */
+#undef HAVE_INTMAX_T
+
 /* Define if <inttypes.h> exists and doesn't clash with <sys/types.h>. */
 #undef HAVE_INTTYPES_H
 
@@ -231,8 +235,14 @@
 /* Define to 1 if you have the <locale.h> header file. */
 #undef HAVE_LOCALE_H
 
+/* Define if you have the 'long double' type. */
+#undef HAVE_LONG_DOUBLE
+
 /* Define to 1 if you support file names longer than 14 characters. */
 #undef HAVE_LONG_FILE_NAMES
+
+/* Define if you have the 'long long' type. */
+#undef HAVE_LONG_LONG
 
 /* Define to 1 if you have the <malloc.h> header file. */
 #undef HAVE_MALLOC_H
@@ -242,6 +252,12 @@
 
 /* Define to 1 if you have the `mbsinit' function. */
 #undef HAVE_MBSINIT
+
+/* Define to 1 if you have the `mbsrtowcs' function. */
+#undef HAVE_MBSRTOWCS
+
+/* Define to 1 if <wchar.h> declares mbstate_t. */
+#undef HAVE_MBSTATE_T
 
 /* Define to 1 if you have the `memmove' function. */
 #undef HAVE_MEMMOVE
@@ -273,6 +289,9 @@
 /* Define to 1 if you have the `pathconf' function. */
 #undef HAVE_PATHCONF
 
+/* Define if your printf() function supports format strings with positions. */
+#undef HAVE_POSIX_PRINTF
+
 /* Define to 1 if you have the sigset_t type and the sigprocmask function. */
 #undef HAVE_POSIX_SIGNALBLOCKING
 
@@ -282,9 +301,6 @@
 /* Define to 1 if the system has the type `ptrdiff_t'. */
 #undef HAVE_PTRDIFF_T
 
-/* Define to 1 if you have the `putc_unlocked' function. */
-#undef HAVE_PUTC_UNLOCKED
-
 /* Define to 1 if you have the `putenv' function. */
 #undef HAVE_PUTENV
 
@@ -293,6 +309,9 @@
 
 /* Define to 1 if you have the `raise' function. */
 #undef HAVE_RAISE
+
+/* Define to 1 if you have the `readlink' function. */
+#undef HAVE_READLINK
 
 /* Define to 1 if you have the <search.h> header file. */
 #undef HAVE_SEARCH_H
@@ -310,7 +329,13 @@
    has the sa_sigaction member and the SA_SIGINFO flag. */
 #undef HAVE_SIGINFO
 
-/* Define if you have a working <stdbool.h> header file. */
+/* Define to 1 if the system has the type `sig_atomic_t'. */
+#undef HAVE_SIG_ATOMIC_T
+
+/* Define to 1 if you have the `snprintf' function. */
+#undef HAVE_SNPRINTF
+
+/* Define to 1 if stdbool.h conforms to C99. */
 #undef HAVE_STDBOOL_H
 
 /* Define to 1 if you have the <stddef.h> header file. */
@@ -403,7 +428,7 @@
 /* Define to 1 if you have the `unsetenv' function. */
 #undef HAVE_UNSETENV
 
-/* Define if you have the unsigned long long type. */
+/* Define if you have the 'unsigned long long' type. */
 #undef HAVE_UNSIGNED_LONG_LONG
 
 /* Define to 1 if you have the `utime' function. */
@@ -430,11 +455,20 @@
 /* Define to 1 if you have the `vprintf' function. */
 #undef HAVE_VPRINTF
 
+/* Define to 1 if you have the `waitid' function. */
+#undef HAVE_WAITID
+
 /* Define to 1 if you have the `waitpid' function. */
 #undef HAVE_WAITPID
 
 /* Define to 1 if you have the <wchar.h> header file. */
 #undef HAVE_WCHAR_H
+
+/* Define if you have the 'wchar_t' type. */
+#undef HAVE_WCHAR_T
+
+/* Define to 1 if you have the `wcslen' function. */
+#undef HAVE_WCSLEN
 
 /* Define to 1 if you have the <wctype.h> header file. */
 #undef HAVE_WCTYPE_H
@@ -442,11 +476,20 @@
 /* Define to 1 if you have the `wcwidth' function. */
 #undef HAVE_WCWIDTH
 
+/* Define if you have the 'wint_t' type. */
+#undef HAVE_WINT_T
+
+/* Define to 1 if you have the `wmempcpy' function. */
+#undef HAVE_WMEMPCPY
+
 /* Define to 1 if `fork' works. */
 #undef HAVE_WORKING_FORK
 
 /* Define to 1 if `vfork' works. */
 #undef HAVE_WORKING_VFORK
+
+/* Define to 1 if the system has the type `_Bool'. */
+#undef HAVE__BOOL
 
 /* Define to 1 if you have the `__argz_count' function. */
 #undef HAVE___ARGZ_COUNT
@@ -496,12 +539,16 @@
 /* Define as const if the declaration of setlocale() needs const. */
 #undef SETLOCALE_CONST
 
+/* Define as the maximum value of type 'size_t', if the system doesn't define
+   it. */
+#undef SIZE_MAX
+
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
    automatically deduced at run-time.
-        STACK_DIRECTION > 0 => grows toward higher addresses
-        STACK_DIRECTION < 0 => grows toward lower addresses
-        STACK_DIRECTION = 0 => direction of growth unknown */
+	STACK_DIRECTION > 0 => grows toward higher addresses
+	STACK_DIRECTION < 0 => grows toward lower addresses
+	STACK_DIRECTION = 0 => direction of growth unknown */
 #undef STACK_DIRECTION
 
 /* Define to 1 if the `S_IS*' macros in <sys/stat.h> do not work properly. */
@@ -521,6 +568,11 @@
 # undef _GNU_SOURCE
 #endif
 
+/* Enable extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# undef __EXTENSIONS__
+#endif
+
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
@@ -533,9 +585,11 @@
 /* Define to a replacement function name for getline(). */
 #undef getline
 
-/* Define as `__inline' if that's what the C compiler calls it, or to nothing
-   if it is not supported. */
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
 #undef inline
+#endif
 
 /* Define to a type if <wchar.h> does not define. */
 #undef mbstate_t
@@ -549,8 +603,16 @@
 /* Define to `int' if <sys/types.h> does not define. */
 #undef pid_t
 
+/* Define as the type of the result of subtracting two pointers, if the system
+   doesn't define it. */
+#undef ptrdiff_t
+
 /* Define to a replacement function name for realpath(). */
 #undef realpath
+
+/* Define as an integer type suitable for memory locations that can be
+   accessed atomically even in the presence of asynchnonous signals. */
+#undef sig_atomic_t
 
 /* Define to empty if the C compiler doesn't support this keyword. */
 #undef signed
@@ -589,6 +651,13 @@
    it).  It is used to wrap the msgid and msgstr strings, and also to
    wrap the file position (#:) comments.  */
 #define PAGE_WIDTH 79
+
+/* On Windows, variables that may be in a DLL must be marked specially.  */
+#if defined _MSC_VER && defined _DLL
+# define DLL_VARIABLE __declspec (dllimport)
+#else
+# define DLL_VARIABLE
+#endif
 
 /* Extra OS/2 (emx+gcc) defines.  */
 #ifdef __EMX__
