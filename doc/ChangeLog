@@ -1,3 +1,7 @@
+2002-01-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Makefile): Undocument the POSUB variable.
+
 2002-01-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (gettextize Invocation): Document --no-changelog

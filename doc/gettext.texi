@@ -5433,7 +5433,7 @@ example, we also define @code{SUBDIRS} in @code{Makefile.in} for it
 to be further used in the @samp{dist:} goal.
 
 @example
-SUBDIRS = doc intl lib src @@POSUB@@
+SUBDIRS = doc intl lib src po
 @end example
 
 Note that you must arrange for @samp{make} to descend into the
