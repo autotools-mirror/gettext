@@ -1054,6 +1054,7 @@ remember_a_message_plural (mp, string, pos)
   char *msgstr1;
   size_t msgstr1_len;
   char *msgstr;
+  size_t i;
 
   msgid_plural = string;
 
@@ -1081,6 +1082,29 @@ remember_a_message_plural (mp, string, pos)
       memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
       mp->msgstr = msgstr;
       mp->msgstr_len = mp->msgstr_len + msgstr1_len;
+
+      /* If it is not already decided, through programmer comments or
+	 the msgid, whether the msgid is a format string, examine the
+	 msgid_plural.  This is a heuristic.  */
+      for (i = 0; i < NFORMATS; i++)
+	if (formatstring_parsers[i] == current_formatstring_parser
+	    && (mp->is_format[i] == undecided || mp->is_format[i] == possible))
+	  {
+	    struct formatstring_parser *parser = formatstring_parsers[i];
+	    void *descr = parser->parse (mp->msgid_plural);
+
+	    if (descr != NULL)
+	      {
+		/* Same heuristic as in remember_a_message.  */
+		if (parser->get_number_of_directives (descr) > 0)
+		  mp->is_format[i] = possible;
+
+		parser->free (descr);
+	      }
+	    else
+	      /* msgid_plural is not a valid format string.  */
+	      mp->is_format[i] = impossible;
+	  }
     }
   else
     free (msgid_plural);

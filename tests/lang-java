@@ -43,6 +43,7 @@ cat <<EOF > prog.ok
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
+#, java-format
 msgid "a piece of cake"
 msgid_plural "{0,number} pieces of cake"
 msgstr[0] ""
@@ -67,6 +68,7 @@ msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
 # Les gateaux allemands sont les meilleurs du monde.
+#, java-format
 msgid "a piece of cake"
 msgid_plural "{0,number} pieces of cake"
 msgstr[0] "un morceau de gateau"

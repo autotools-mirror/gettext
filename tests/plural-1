@@ -9,6 +9,7 @@ ${XGETTEXT} -o cake.pot --omit-header --no-location ${top_srcdir}/tests/plural-1
 
 tmpfiles="$tmpfiles cake.ok"
 cat <<EOF > cake.ok
+#, c-format
 msgid "a piece of cake"
 msgid_plural "%d pieces of cake"
 msgstr[0] ""
@@ -21,6 +22,7 @@ ${DIFF} cake.ok cake.pot || exit 1
 tmpfiles="$tmpfiles fr.po"
 cat <<EOF > fr.po
 # Les gateaux allemands sont les meilleurs du monde.
+#, c-format
 msgid "a piece of cake"
 msgid_plural "%d pieces of cake"
 msgstr[0] "un morceau de gateau"
@@ -46,7 +48,7 @@ tmpfiles="$tmpfiles fr.po.tmp"
 ${MSGUNFMT} fr/LC_MESSAGES/cake.mo -o fr.po.tmp
 
 tmpfiles="$tmpfiles fr.po.strip"
-sed 1d < fr.po > fr.po.strip
+sed 1,2d < fr.po > fr.po.strip
 
 : ${DIFF=diff}
 ${DIFF} fr.po.strip fr.po.tmp || exit 1

@@ -25,6 +25,7 @@ cat <<EOF > prog.ok
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
+#, ycp-format
 msgid "a piece of cake"
 msgid_plural "%1 pieces of cake"
 msgstr[0] ""
@@ -49,6 +50,7 @@ msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
 # Les gateaux allemands sont les meilleurs du monde.
+#, ycp-format
 msgid "a piece of cake"
 msgid_plural "%1 pieces of cake"
 msgstr[0] "un morceau de gateau"

@@ -12,6 +12,7 @@ cat <<\EOF > prog-in.pot
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
+#, c-format
 msgid "a piece of cake"
 msgid_plural "%d pieces of cake"
 msgstr[0] ""
@@ -42,6 +43,7 @@ msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
 # Les gateaux allemands sont les meilleurs du monde.
+#, c-format
 msgid "a piece of cake"
 msgid_plural "%d pieces of cake"
 msgstr[0] "un morceau de gateau"

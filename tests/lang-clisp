@@ -28,6 +28,7 @@ cat <<EOF > prog.ok
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
+#, lisp-format
 msgid "a piece of cake"
 msgid_plural "~D pieces of cake"
 msgstr[0] ""
@@ -48,6 +49,7 @@ msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
 # Les gateaux allemands sont les meilleurs du monde.
+#, lisp-format
 msgid "a piece of cake"
 msgid_plural "~D pieces of cake"
 msgstr[0] "un morceau de gateau"

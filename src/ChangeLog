@@ -1,5 +1,11 @@
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (remember_a_message_plural): Mark the message as xx-format
+	if the English plural form has xx format syntax and the singular form
+	may or may not have xx format syntax.
+
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
 	* format.h (struct formatstring_parser): Add 'equality' and
 	'pretty_msgstr' arguments to 'check' field.
 	* format-c.c (format_check): Add 'equality' and 'pretty_msgstr'
