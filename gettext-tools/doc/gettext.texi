@@ -8682,9 +8682,9 @@ in order to make the interface consistent (the parser will extract
 all strings and quote-like expressions).
 
 @item @strong{here documents}
-@group
 @*
 @example
+@group
 print gettext <<'EOF';
 program not found in $PATH
 EOF
@@ -8694,8 +8694,8 @@ one file deleted
 EOF
 several files deleted
 EOF
-@end example
 @end group
+@end example
 
 Here-documents are recognized.  If the delimiter is enclosed in single
 quotes, the string is not interpolated.  If it is enclosed in double
