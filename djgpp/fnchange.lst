@@ -25,3 +25,4 @@ gettext-0.10.36/tests/xgettext-8      gettext-0.10.36/tests/xgettext.8
 gettext-0.10.36/tests/xgettext-9      gettext-0.10.36/tests/xgettext.9
 gettext-0.10.36/tests/xg-test1.ok.po  gettext-0.10.36/tests/xg-test1.ok-po
 gettext-0.10.36/tests/plural-1        gettext-0.10.36/tests/plural.1
+gettext-0.10.36/tests/plural-2        gettext-0.10.36/tests/plural.2

@@ -40,7 +40,7 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s,xgettext-8,xgettext.8,g\
   s,xgettext-9,xgettext.9,g\
   s,xg-test1.ok.po,xg-test1.ok-po,g\
-  /^TESTS[ 	]*=/ s,plural-1,plural.1,g\
+  /^TESTS[ 	]*=/ s,plural-\\([1-9]\\+\\),plural.\\1,g\
   /^install-info-am:/,/^$/ {\
     /@list=/ s,\\\$(INFO_DEPS),& gettext.i,\
     s,file-\\[0-9\\]\\[0-9\\],& \\$\\$file[0-9] \\$\\$file[0-9][0-9],\

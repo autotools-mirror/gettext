@@ -112,6 +112,11 @@ This is a port of GNU Gettext 0.10.36 to MSDOS/DJGPP.
         (The name of the distribution archive and the top-level directory will
         be different for versions other than 0.10.36.)
 
+        It is always recommended to download the DJGPP packages from some
+        Simtel.NET mirror and *not* the original GNU distribution because
+        only the binary distribution of the DJGPP port will contain the
+        files needed to patch libc.a. This are: conio.h and conio.o.
+
 2.3.:   Changing libc.a and conio.h.
         Apart from the ussual directories, the binary package will create the
         following directory:
@@ -162,7 +167,7 @@ This is a port of GNU Gettext 0.10.36 to MSDOS/DJGPP.
         Please note the plus sign at the beginning of the line. This plus sign
         should **NOT** be omited or a lot of shell scripts, in this and in
         other packages, that try to reset this value will stop working. The
-        LANG entry is obligatory, the LANGUAGE entry is may be omited. The
+        LANG entry is obligatory, the LANGUAGE entry may be omited. The
         LANGUAGE variable allows you to select an alternate catalog that the
         one stipulated by LANG. Replace xx, yy and zz by the language code of
         the catalogs you want to use.
@@ -170,12 +175,12 @@ This is a port of GNU Gettext 0.10.36 to MSDOS/DJGPP.
         Some examples:
         If you only want to use the catalog containig the translations for
         your mother tongue (in my case the spanish translations) the above
-        lines will only use the LANG variable and will look like:
+        lines will only use the LANG variable and will look like this:
 
 +LANG=es
 
         If you want to use the spanish (es) and german (de) catalogs
-        the above lines will look like:
+        the above lines will look like this:
 
 +LANG=es
 +LANGUAGE=es:de
@@ -252,8 +257,10 @@ This is a port of GNU Gettext 0.10.36 to MSDOS/DJGPP.
         recoding with the functionality provided by libiconv.a from licv16b.zip.
         This implies that licv16b.zip *MUST* be installed *before* you try to
         compile the package or the build process will fail.
+        It should be noticed that when you compile your own binaries with NLS
+        you must *always* link with libiconv.a
         If you compile this package with a later version of libc.a or if you
-        prefer no NLS support you will have to reconfigure this package.
+        prefer no NLS support at all you will have to reconfigure this package.
         The configuration batch file of this package, located in the djgpp
         directory, allows you to enable or disable NLS support and to compile
         from a different partition than from where the sources are located.
