@@ -444,7 +444,7 @@ tailcmp (s1, s2)
   int start = len1 - len2;
   if (start < 0)
     return false;
-  return strcmp (s1 + start, s2) == 0;
+  return (start == 0 || s1[start-1] == '.') && (strcmp (s1 + start, s2) == 0);
 }
 
 /**

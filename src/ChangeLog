@@ -1,3 +1,8 @@
+2001-12-10  Bruno Haible  <bruno@clisp.org>
+
+	* x-java.l (tailcmp): If s1 ends with s2, it must be either equal to
+	s2 or have a dot right before s2.
+
 2001-12-01  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (project_id): Make it possible to specify the location
