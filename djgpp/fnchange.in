@@ -26,3 +26,4 @@
 @V@/tests/xgettext-9      @V@/tests/xgettext.9
 @V@/tests/xg-test1.ok.po  @V@/tests/xg-test1.ok-po
 @V@/tests/plural-1        @V@/tests/plural.1
+@V@/tests/plural-2        @V@/tests/plural.2

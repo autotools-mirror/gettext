@@ -9,7 +9,7 @@ all: README fnchange.lst config.sed
 
 config.sed: config.in fnchange.in
 	sed \
-	    -e '/plural-1/ d' \
+	    -e '/plural-[1-9]\+/ d' \
 	    -e 's|\.h\.in|\\\\\\\\.h\\\\\\\\.in|' \
 	    -e 's|\.in\.in|\\\\\\\\.in\\\\\\\\.in|' \
 	    -e 's|[ ]\+.*/|,|' \

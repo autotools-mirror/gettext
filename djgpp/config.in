@@ -15,7 +15,7 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s,\\.tab\\.c,_tab.c,g\
   s,\\.tab\\.h,_tab.h,g\
   @append_list_of_renamed_files@
-  /^TESTS[ 	]*=/ s,plural-1,plural.1,g\
+  /^TESTS[ 	]*=/ s,plural-\\([1-9]\\+\\),plural.\\1,g\
   /^install-info-am:/,/^$/ {\
     /@list=/ s,\\\$(INFO_DEPS),& gettext.i,\
     s,file-\\[0-9\\]\\[0-9\\],& \\$\\$file[0-9] \\$\\$file[0-9][0-9],\

@@ -80,5 +80,7 @@ if not errorlevel 1 mv -f ./tests/plural-1 ./tests/plural.1
 sed -f ./djgpp/tscript.sed ./tests/plural.1 > plural.1
 update plural.1 ./tests/plural.1
 rm -f plural.1
+test -f ./tests/plural-2
+if not errorlevel 1 mv -f ./tests/plural-2 ./tests/plural.2
 touch ./tests/stamp-test
 echo Done.
