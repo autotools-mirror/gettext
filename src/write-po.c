@@ -242,12 +242,12 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
       /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS, GBK,
 	 GB18030.  */
 # if defined __sun && !defined _LIBICONV_VERSION
-      if (   strcmp (po_lex_charset, "GB2312") == 0
-	  || strcmp (po_lex_charset, "EUC-TW") == 0
-	  || strcmp (po_lex_charset, "BIG5") == 0
-	  || strcmp (po_lex_charset, "BIG5-HKSCS") == 0
-	  || strcmp (po_lex_charset, "GBK") == 0
-	  || strcmp (po_lex_charset, "GB18030") == 0)
+      if (   strcmp (canon_charset, "GB2312") == 0
+	  || strcmp (canon_charset, "EUC-TW") == 0
+	  || strcmp (canon_charset, "BIG5") == 0
+	  || strcmp (canon_charset, "BIG5-HKSCS") == 0
+	  || strcmp (canon_charset, "GBK") == 0
+	  || strcmp (canon_charset, "GB18030") == 0)
 	conv = (iconv_t)(-1);
       else
 # endif
