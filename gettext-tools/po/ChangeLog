@@ -2,6 +2,11 @@
 
 	* gettext-0.14.3 released.
 
+2005-03-13  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (Makefile): Depend on Makevars.
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (dist2): Fail if some of the files to be distributed
