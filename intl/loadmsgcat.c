@@ -195,7 +195,7 @@ _nl_init_domain_conv (domain_file, domain, domainbinding)
 		  outcharset = (*_nl_current[LC_CTYPE])->values[_NL_ITEM_INDEX (CODESET)].string;
 # else
 #  if HAVE_ICONV
-		  extern const char *locale_charset (void);
+		  extern const char *locale_charset PARAMS ((void));
 		  outcharset = locale_charset ();
 #  endif
 # endif
