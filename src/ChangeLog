@@ -1,3 +1,11 @@
+2002-01-09  Bruno Haible  <bruno@clisp.org>
+
+	* x-java.l (strip_ending_spaces): Fix logic.
+
+2002-01-09  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.l: Avoid endless loop when encountering unterminated string.
+
 2002-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_elisp'.

@@ -164,8 +164,8 @@ strip_ending_spaces (str)
 {
   int len = strlen (str);
 
-  while (isspace ((unsigned char) str[len--]))
-    ;
+  while (len > 0 && isspace ((unsigned char) str[len - 1]))
+    len--;
   str[len] = '\0';
 }
 %}
@@ -205,7 +205,7 @@ ID [a-zA-Z_][a-zA-Z0-9_]*
   int c;
   char *str;
   char_buf *charbuf = create_char_buf ();
-  while ((c = input ()) != '"')
+  while ((c = input ()) != EOF && c != '"')
     {
       update_line_no (c);
       append_char_buf (charbuf, c);
