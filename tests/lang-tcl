@@ -63,9 +63,10 @@ test -d msgs || mkdir msgs
 : ${MSGFMT=msgfmt}
 ${MSGFMT} --tcl -d msgs -l fr fr.po || exit 1
 
-# Test for presence of tclsh.
+# Test for presence of tclsh with msgcat extension.
 tmpfiles="$tmpfiles version.tcl"
 cat <<\EOF > version.tcl
+package require msgcat
 puts $tcl_version
 EOF
 (tclsh version.tcl) >/dev/null 2>/dev/null \

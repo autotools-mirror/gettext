@@ -1,3 +1,7 @@
+2002-03-07  Bruno Haible  <bruno@clisp.org>
+
+	* lang-tcl: Skip the test if tcl exists but has no msgcat extension.
+
 2002-03-05  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-19: When skipping the test, use exit code 77.
