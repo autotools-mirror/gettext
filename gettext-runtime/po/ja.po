@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
-"POT-Creation-Date: 2003-01-08 14:39+0100\n"
+"POT-Creation-Date: 2003-01-29 13:56+0100\n"
 "PO-Revision-Date: 2002-08-09 00:00+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -120,13 +120,13 @@ msgstr "%s: オプション `-W %s' は曖昧です\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: オプション `-W %s' には引数はありません\n"
 
-#: lib/javacomp.c:458
+#: lib/javacomp.c:456
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
 "Java コンパイラが見つかりません. gcj をインストールするか $JAVAC を設定してみ"
 "てください"
 
-#: lib/javaexec.c:406
+#: lib/javaexec.c:404
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 "Java 仮想マシンが見つかりません. gij をインストールするか $JAVA を設定してく"
@@ -240,9 +240,9 @@ msgstr ""
 "引数 '%2$s' に対する 'msgid' と '%1$s' での形式指定が同じではありません"
 
 #: src/gettext.c:132 src/hostname.c:171 src/msgattrib.c:267 src/msgcat.c:235
-#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:189 src/msgen.c:177
+#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177
 #: src/msgexec.c:159 src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285
-#: src/msginit.c:230 src/msgmerge.c:260 src/msgunfmt.c:205 src/msguniq.c:213
+#: src/msginit.c:230 src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213
 #: src/ngettext.c:123 src/urlget.c:128 src/xgettext.c:397
 #, c-format, no-wrap
 msgid ""
@@ -260,9 +260,9 @@ msgstr ""
 "\n"
 
 #: src/gettext.c:137 src/hostname.c:176 src/msgattrib.c:272 src/msgcat.c:240
-#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:194 src/msgen.c:182
+#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182
 #: src/msgexec.c:164 src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290
-#: src/msginit.c:235 src/msgmerge.c:265 src/msgunfmt.c:210 src/msguniq.c:218
+#: src/msginit.c:235 src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218
 #: src/ngettext.c:128 src/urlget.c:133 src/xgettext.c:402
 #, c-format
 msgid "Written by %s.\n"
@@ -277,9 +277,9 @@ msgid "missing arguments"
 msgstr "引数がありません"
 
 #: src/gettext.c:236 src/hostname.c:199 src/msgattrib.c:324 src/msgcat.c:295
-#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:248 src/msgen.c:232
+#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232
 #: src/msgexec.c:216 src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394
-#: src/msginit.c:320 src/msgmerge.c:377 src/msgunfmt.c:314 src/msguniq.c:274
+#: src/msginit.c:320 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
 #: src/ngettext.c:206 src/urlget.c:156 src/xgettext.c:593
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -342,9 +342,9 @@ msgstr ""
 "標準の検索ディレクトリ: %s\n"
 
 #: src/gettext.c:273 src/hostname.c:229 src/msgattrib.c:406 src/msgcat.c:378
-#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:314 src/msgen.c:294
+#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294
 #: src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484
-#: src/msginit.c:373 src/msgmerge.c:477 src/msgunfmt.c:395 src/msguniq.c:350
+#: src/msginit.c:373 src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350
 #: src/ngettext.c:240 src/urlget.c:178 src/xgettext.c:698
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "バグレポートは <bug-gnu-gettext@gnu.org> まで.\n"
@@ -374,7 +374,7 @@ msgstr ""
 "                          別名 (エイリアス) を含む\n"
 "  -i, --ip-address      ホスト名に対するアドレス\n"
 
-#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:308
+#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:307
 #: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
 #: src/msginit.c:367 src/urlget.c:172
 #, no-wrap
@@ -391,23 +391,23 @@ msgstr ""
 msgid "could not get host name"
 msgstr "ホスト名を取得できませんでした"
 
-#: src/msgattrib.c:287 src/msgconv.c:209 src/msgexec.c:139 src/msgfilter.c:184
+#: src/msgattrib.c:287 src/msgconv.c:208 src/msgexec.c:139 src/msgfilter.c:184
 #: src/msggrep.c:305 src/msginit.c:184 src/msguniq.c:233
 msgid "at most one input file allowed"
 msgstr "最大 1つの入力ファイルが許されます"
 
 #: src/msgattrib.c:293 src/msgattrib.c:297 src/msgcat.c:250 src/msgcat.c:254
-#: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:215 src/msgconv.c:219
+#: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:214 src/msgconv.c:218
 #: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
 #: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
-#: src/msggrep.c:315 src/msgmerge.c:290 src/msgmerge.c:311 src/msgmerge.c:315
+#: src/msggrep.c:315 src/msgmerge.c:298 src/msgmerge.c:319 src/msgmerge.c:323
 #: src/msgunfmt.c:220 src/msguniq.c:239 src/msguniq.c:243 src/xgettext.c:412
 #: src/xgettext.c:416
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s と %s は背反です"
 
-#: src/msgattrib.c:329 src/msgconv.c:253 src/msggrep.c:399 src/msguniq.c:279
+#: src/msgattrib.c:329 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "使用法: %s [オプション] [入力ファイル]\n"
@@ -420,14 +420,14 @@ msgid ""
 msgstr "属性に従って翻訳カタログのメッセージを選別し, 属性をうまく操作します.\n"
 
 #: src/msgattrib.c:340 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
-#: src/msgconv.c:263 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
-#: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:400
+#: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
+#: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:408
 #: src/msgunfmt.c:329 src/msguniq.c:296
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "長いオプションに必須の引数は短いオプションにも必須です.\n"
 
-#: src/msgattrib.c:345 src/msgconv.c:268 src/msggrep.c:415 src/msguniq.c:301
+#: src/msgattrib.c:345 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -440,8 +440,8 @@ msgstr ""
 "  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
 "入力ファイルが指定されない, もしくは - の場合は標準入力が読み込まれます.\n"
 
-#: src/msgattrib.c:353 src/msgconv.c:276 src/msgen.c:263 src/msgfilter.c:363
-#: src/msggrep.c:423 src/msgmerge.c:422
+#: src/msgattrib.c:353 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
+#: src/msggrep.c:423 src/msgmerge.c:430
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -648,15 +648,15 @@ msgstr ""
 "  -h, --help                     このヘルプを表示して終了\n"
 "  -V, --version                  バージョン情報を表示して終了\n"
 
-#: src/msgcmp.c:141 src/msgmerge.c:276
+#: src/msgcmp.c:141 src/msgmerge.c:284
 msgid "no input files given"
 msgstr "入力ファイルが指定されていません"
 
-#: src/msgcmp.c:146 src/msgmerge.c:281
+#: src/msgcmp.c:146 src/msgmerge.c:289
 msgid "exactly 2 input files required"
 msgstr "正確に 2つの入力ファイルが必要です"
 
-#: src/msgcmp.c:166 src/msgmerge.c:382
+#: src/msgcmp.c:166 src/msgmerge.c:390
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "使用法: %s [オプション] def.po ref.pot\n"
@@ -692,7 +692,7 @@ msgstr ""
 "  ref.pot                     ソースへの参照\n"
 "  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
 
-#: src/msgcmp.c:194 src/msgmerge.c:446
+#: src/msgcmp.c:194
 #, no-wrap
 msgid ""
 "Operation modifiers:\n"
@@ -701,15 +701,15 @@ msgstr ""
 "操作指定:\n"
 "  -m, --multi-domain          ref.pot を def.po 内のドメインの各々に適用\n"
 
-#: src/msgcmp.c:265 src/msgmerge.c:837
+#: src/msgcmp.c:265 src/msgmerge.c:848
 msgid "this message is used but not defined..."
 msgstr "このメッセージは使われますが定義されていません..."
 
-#: src/msgcmp.c:267 src/msgmerge.c:839
+#: src/msgcmp.c:267 src/msgmerge.c:850
 msgid "...but this definition is similar"
 msgstr "...しかしこの定義が似ています"
 
-#: src/msgcmp.c:272 src/msgmerge.c:866
+#: src/msgcmp.c:272 src/msgmerge.c:877
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "このメッセージは使われますが %s では定義されていません"
@@ -801,12 +801,12 @@ msgstr ""
 "  -F, --sort-by-file             ファイルで出力をソート\n"
 "      --omit-header              `msgid \"\"' を含んだヘッダを出力しない\n"
 
-#: src/msgconv.c:258
+#: src/msgconv.c:257
 #, no-wrap
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr "翻訳カタログを異なった文字エンコーディングに変換.\n"
 
-#: src/msgconv.c:284
+#: src/msgconv.c:283
 #, no-wrap
 msgid ""
 "Conversion target:\n"
@@ -817,7 +817,7 @@ msgstr ""
 "  -t, --to-code=NAME          出力のエンコーディング\n"
 "標準のエンコーディングは現在のローカルのエンコーディングです.\n"
 
-#: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:452
+#: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:461
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1050,7 +1050,7 @@ msgstr "%s には \"-d ディレクトリ\" の指定が必要です"
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s には \"-l ロカール\" の指定が必要です"
 
-#: src/msgfmt.c:386 src/msgmerge.c:298 src/msgmerge.c:304 src/msgunfmt.c:258
+#: src/msgfmt.c:386 src/msgmerge.c:306 src/msgmerge.c:312 src/msgunfmt.c:258
 #: src/msgunfmt.c:264
 #, c-format
 msgid "%s is only valid with %s"
@@ -1652,7 +1652,7 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "%s パッケージに対する英訳"
 
-#: src/msgl-cat.c:175 src/msgl-charset.c:86 src/msgl-iconv.c:302
+#: src/msgl-cat.c:175 src/msgl-charset.c:85 src/msgl-iconv.c:302
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "現在の文字セット \"%s\" は可搬性のあるエンコーディング名ではありません"
@@ -1683,8 +1683,8 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 "対象となる文字セット \"%s\" は可搬性のあるエンコーディング名ではありません"
 
-#: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:91
-#: src/msgl-charset.c:126 src/write-po.c:737 src/write-po.c:829
+#: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:90
+#: src/msgl-charset.c:125 src/write-po.c:757 src/write-po.c:849
 msgid "warning: "
 msgstr "警告: "
 
@@ -1710,7 +1710,7 @@ msgstr ""
 "別の出力エンコーディングを選択する場合は --to-code オプションを使ってくださ"
 "い.\n"
 
-#: src/msgl-charset.c:92
+#: src/msgl-charset.c:91
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -1723,12 +1723,12 @@ msgstr ""
 "'%s' の出力は不正確である可能性があります.\n"
 "可能な回避策:\n"
 
-#: src/msgl-charset.c:99
+#: src/msgl-charset.c:98
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr "- LC_ALL をエンコーディング %s のロカールに設定.\n"
 
-#: src/msgl-charset.c:104
+#: src/msgl-charset.c:103
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -1739,7 +1739,7 @@ msgstr ""
 "  その後 '%s' を適用.\n"
 "  更に 'msgconv' を使って %s に戻す.\n"
 
-#: src/msgl-charset.c:113
+#: src/msgl-charset.c:112
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -1752,7 +1752,7 @@ msgstr ""
 "  その後 '%s' を適用.\n"
 "  更に 'msgconv' を使って %s に戻す.\n"
 
-#: src/msgl-charset.c:127
+#: src/msgl-charset.c:126
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -1789,11 +1789,11 @@ msgstr ""
 "\"%s\" から \"%s\" に変換できません. %s は iconv() に依存しています.このバー"
 "ジョンは iconv() なしで作られています."
 
-#: src/msgmerge.c:351
+#: src/msgmerge.c:359
 msgid "backup type"
 msgstr "バックアップタイプ"
 
-#: src/msgmerge.c:387
+#: src/msgmerge.c:395
 #, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -1815,7 +1815,7 @@ msgstr ""
 "残されます. 正確に一致している個所が見つからない場合は, あいまい (fuzzy)\n"
 "検索を使うとより良い結果を生むでしょう. \n"
 
-#: src/msgmerge.c:405
+#: src/msgmerge.c:413
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1832,7 +1832,7 @@ msgstr ""
 "  -C, --compendium=FILE       メッセージ翻訳の追加文献\n"
 "                              1回以上指定される可能性あり\n"
 
-#: src/msgmerge.c:415
+#: src/msgmerge.c:423
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1843,7 +1843,7 @@ msgstr ""
 "  -U, --update                def.po を更新\n"
 "                              def.po が既に最新版であれば何もしない\n"
 
-#: src/msgmerge.c:430
+#: src/msgmerge.c:438
 #, no-wrap
 msgid ""
 "Output file location in update mode:\n"
@@ -1872,7 +1872,17 @@ msgstr ""
 "--suffix や環境変数 SIMPLE_BACKUP_SUFFIX が設定されていなければ,\n"
 "バックアップ接尾辞は `~' です.\n"
 
-#: src/msgmerge.c:469
+#: src/msgmerge.c:454
+#, fuzzy, no-wrap
+msgid ""
+"Operation modifiers:\n"
+"  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
+"  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
+msgstr ""
+"操作指定:\n"
+"  -m, --multi-domain          ref.pot を def.po 内のドメインの各々に適用\n"
+
+#: src/msgmerge.c:478
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1887,15 +1897,15 @@ msgstr ""
 "  -v, --verbose               診断レベルを上げる\n"
 "  -q, --quiet, --silent       進行状況を表示しない\n"
 
-#: src/msgmerge.c:919
+#: src/msgmerge.c:930
 msgid "this message should define plural forms"
 msgstr "このメッセージは複数形を定義すべきです"
 
-#: src/msgmerge.c:942
+#: src/msgmerge.c:953
 msgid "this message should not define plural forms"
 msgstr "このメッセージは複数形を定義すべきではありません"
 
-#: src/msgmerge.c:1104
+#: src/msgmerge.c:1115
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -1904,7 +1914,7 @@ msgstr ""
 "%s %ld(前の版) + %ld(新版) を読み込み (マージ %ld, あいまい %ld, 欠落 %ld, 破"
 "棄 %ld).\n"
 
-#: src/msgmerge.c:1112
+#: src/msgmerge.c:1123
 msgid " done.\n"
 msgstr " 完了.\n"
 
@@ -2107,8 +2117,8 @@ msgstr ""
 msgid "<stdin>"
 msgstr "<標準入力>"
 
-#: src/po-charset.c:224 src/po-charset.c:282 src/po-charset.c:310
-#: src/po-charset.c:336
+#: src/po-charset.c:224 src/po-charset.c:294 src/po-charset.c:322
+#: src/po-charset.c:348
 #, c-format
 msgid "%s: warning: "
 msgstr "%s: 警告: "
@@ -2122,15 +2132,15 @@ msgstr ""
 "文字セット \"%s\" は汎用のエンコーディグ名ではありません.\n"
 "ユーザの文字セットへのメッセージの変換はうまく働かないかも知れません.\n"
 
-#: src/po-charset.c:278 src/po-charset.c:308
+#: src/po-charset.c:290 src/po-charset.c:320
 msgid "Continuing anyway, expect parse errors."
 msgstr "とにかく続けますが, 文法エラーを起こすでしょう."
 
-#: src/po-charset.c:280
+#: src/po-charset.c:292
 msgid "Continuing anyway."
 msgstr "とにかく続けます."
 
-#: src/po-charset.c:283
+#: src/po-charset.c:295
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -2139,7 +2149,7 @@ msgstr ""
 "文字セット \"%s\" は実装されていません. %s は iconv() に依存しますが,\n"
 "iconv() は \"%s\" を実装していません.\n"
 
-#: src/po-charset.c:292 src/po-charset.c:318
+#: src/po-charset.c:304 src/po-charset.c:330
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
@@ -2147,12 +2157,12 @@ msgstr ""
 "GNU libiconv をインストールしてから GNU gettext を再インストールすれば\n"
 "この問題は解決するでしょう.\n"
 
-#: src/po-charset.c:297 src/po-charset.c:322
+#: src/po-charset.c:309 src/po-charset.c:334
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
 
-#: src/po-charset.c:311
+#: src/po-charset.c:323
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -2161,7 +2171,7 @@ msgstr ""
 "文字セット \"%s\" は実装されていません. %s は iconv() に依存します.\n"
 "このバージョンは iconv() 無しで作られました.\n"
 
-#: src/po-charset.c:337
+#: src/po-charset.c:349
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -2198,7 +2208,7 @@ msgstr "複数形に間違った索引があります"
 msgid "too many errors, aborting"
 msgstr "エラーが多過ぎるので, 処理を打ち切ります"
 
-#: src/po-lex.c:455 src/write-po.c:323 src/write-po.c:425
+#: src/po-lex.c:455 src/write-po.c:339 src/write-po.c:445
 msgid "invalid multibyte sequence"
 msgstr "不正な複数バイトのシーケンス"
 
@@ -2298,7 +2308,7 @@ msgstr "正しい Java クラス名ではありません: %s"
 msgid "failed to create \"%s\""
 msgstr "\"%s\" の生成に失敗しました"
 
-#: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:975
+#: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:995
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" ファイルを書き込み中にエラーが発生しました"
@@ -2313,7 +2323,7 @@ msgstr ""
 msgid "error while opening \"%s\" for writing"
 msgstr "\"%s\" に書き込もうとしてエラーが発生しました"
 
-#: src/write-po.c:374
+#: src/write-po.c:390
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
@@ -2321,7 +2331,7 @@ msgstr ""
 "国際化されたメッセージは `\\%c' というエスケープシーケンスを含んではいけませ"
 "ん"
 
-#: src/write-po.c:738 src/write-po.c:830
+#: src/write-po.c:758 src/write-po.c:850
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -2335,12 +2345,12 @@ msgstr ""
 "検討してください.\n"
 "%s\n"
 
-#: src/write-po.c:894
+#: src/write-po.c:914
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "出力ファイル \"%s\" を作ることができません"
 
-#: src/write-po.c:901
+#: src/write-po.c:921
 #, no-c-format
 msgid "standard output"
 msgstr "標準出力"
