@@ -25,7 +25,7 @@ ACLOCAL_AMFLAGS = -I m4
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
-SUBDIRS = doc intl lib src po m4 misc tests
+SUBDIRS = doc intl lib src po man m4 misc tests
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
