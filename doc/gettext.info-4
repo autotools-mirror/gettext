@@ -246,7 +246,7 @@ details are explained in the GNU `gettext' manual.  Here only a a bit
 of information is provided.
 
    The information about the plural form selection has to be stored in
-the header entry (the one with the empty (`msgid' string).  There should
+the header entry (the one with the empty `msgid' string).  There should
 be something like:
 
        nplurals=2; plural=n == 1 ? 0 : 1
@@ -269,7 +269,7 @@ below).(1)
 
 Only one form:
      Some languages only require one single form.  There is no
-     distinction between the singular and plural form.  And appropriate
+     distinction between the singular and plural form.  An appropriate
      header entry would look like this:
 
           nplurals=1; plural=0

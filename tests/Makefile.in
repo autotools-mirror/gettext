@@ -109,7 +109,9 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=
 # Two auxiliary programs used by the tests.
 INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-LDADD = ../intl/libintl.la @LIBICONV@
+LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
+LDADD_yes = ../intl/libintl.la
+LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
 EXTRA_PROGRAMS = tstgettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
@@ -122,11 +124,11 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 tstgettext_OBJECTS =  tstgettext.$(OBJEXT) setlocale.$(OBJEXT)
-tstgettext_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.la
+tstgettext_DEPENDENCIES =  ../lib/libnlsut.a
 tstgettext_LDFLAGS = 
 cake_OBJECTS =  plural-1-prg.$(OBJEXT) setlocale.$(OBJEXT)
 cake_LDADD = $(LDADD)
-cake_DEPENDENCIES =  ../intl/libintl.la
+cake_DEPENDENCIES = 
 cake_LDFLAGS = 
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)

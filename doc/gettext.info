@@ -36,7 +36,7 @@ gettext.info-1: 1411
 gettext.info-2: 49514
 gettext.info-3: 98183
 gettext.info-4: 147581
-gettext.info-5: 197086
+gettext.info-5: 197084
 
 Tag Table:
 (Indirect)
@@ -94,42 +94,42 @@ Ref: Locating Catalogs-Footnote-1148728
 Ref: Locating Catalogs-Footnote-2148953
 Node: Charset conversion149102
 Node: Plural forms151544
-Ref: Plural forms-Footnote-1161322
-Node: GUI program problems161414
-Node: Optimized gettext166517
-Node: Comparison167850
-Node: Using libintl.a172122
-Node: gettext grok172893
-Node: Temp Programmers175525
-Node: Temp Implementations175965
-Node: Temp catgets177331
-Node: Temp WSI179018
-Node: Temp Notes181006
-Node: Translators181495
-Node: Trans Intro 0181874
-Node: Trans Intro 1184523
-Node: Discussions186387
-Node: Organization189543
-Node: Central Coordination191524
-Node: National Teams192652
-Node: Sub-Cultures195164
-Node: Organizational Ideas196083
-Node: Mailing Lists197086
-Node: Information Flow198889
-Node: Maintainers201022
-Node: Flat and Non-Flat202781
-Node: Prerequisites204542
-Node: gettextize Invocation208651
-Node: Adjusting Files212223
-Node: po/POTFILES.in213446
-Node: configure.in214385
-Node: aclocal216511
-Node: acconfig217690
-Node: Makefile218288
-Node: src/Makefile220476
-Node: Conclusion222873
-Node: History223363
-Node: References226823
-Node: Language Codes228378
+Ref: Plural forms-Footnote-1161320
+Node: GUI program problems161412
+Node: Optimized gettext166515
+Node: Comparison167848
+Node: Using libintl.a172120
+Node: gettext grok172891
+Node: Temp Programmers175523
+Node: Temp Implementations175963
+Node: Temp catgets177329
+Node: Temp WSI179016
+Node: Temp Notes181004
+Node: Translators181493
+Node: Trans Intro 0181872
+Node: Trans Intro 1184521
+Node: Discussions186385
+Node: Organization189541
+Node: Central Coordination191522
+Node: National Teams192650
+Node: Sub-Cultures195162
+Node: Organizational Ideas196081
+Node: Mailing Lists197084
+Node: Information Flow198887
+Node: Maintainers201020
+Node: Flat and Non-Flat202779
+Node: Prerequisites204540
+Node: gettextize Invocation208649
+Node: Adjusting Files212221
+Node: po/POTFILES.in213444
+Node: configure.in214383
+Node: aclocal216509
+Node: acconfig217688
+Node: Makefile218286
+Node: src/Makefile220474
+Node: Conclusion222871
+Node: History223361
+Node: References226821
+Node: Language Codes228376
 
 End Tag Table
