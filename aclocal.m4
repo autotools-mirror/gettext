@@ -598,6 +598,25 @@ dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl INCDIR is used to find the include files.  If empty,
 dnl    the value `intl' is used.
+dnl
+dnl The result of the configuration is one of five cases:
+dnl 1) GNU gettext, as included in the intl subdirectory, will be compiled
+dnl    and used.
+dnl    Catalog format: GNU --> DATADIRNAME = share
+dnl    Catalog extension: .mo after installation, .gmo in source tree
+dnl 2) GNU gettext has been found in the system's C library.
+dnl    Catalog format: GNU --> DATADIRNAME = share
+dnl    Catalog extension: .mo after installation, .gmo in source tree
+dnl 3) An X/Open gettext has been found in the system's C library.
+dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
+dnl    Catalog extension: .mo
+dnl 4) A catgets has been found in the system's C library.
+dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
+dnl    Catalog extension: .cat
+dnl 5) No internationalization, always use English msgid.
+dnl    Catalog format: none
+dnl    Catalog extension: none
+dnl
 AC_DEFUN(AM_WITH_NLS,
   [AC_MSG_CHECKING([whether NLS is requested])
     dnl Default is enabled NLS
@@ -843,16 +862,12 @@ __argz_count __argz_stringify __argz_next])
    fi
    AC_SUBST(INCLUDE_LOCALE_H)
 
-   dnl Determine which catalog format we have (if any is needed)
-   dnl For now we know about two different formats:
-   dnl   Linux libc-5 and the normal X/Open format
    test -d intl || mkdir intl
    if test "$CATOBJEXT" = ".cat"; then
-     AC_CHECK_HEADER(linux/version.h, msgformat=linux, msgformat=xopen)
-
+     dnl Only the X/Open catalog format is supported.
      dnl Transform the SED scripts while copying because some dumb SEDs
      dnl cannot handle comments.
-     sed -e '/^#/d' $srcdir/intl/$msgformat-msg.sed > intl/po2msg.sed
+     sed -e '/^#/d' $srcdir/intl/po2msg.sin > intl/po2msg.sed
    fi
    dnl po2tbl.sed is always needed.
    sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
