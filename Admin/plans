@@ -16,15 +16,9 @@ Things we plan to do. Comments welcome.
 - Look at Christian Robottom Reis's manual:
   http://www.async.com.br/~kiko/gettext.html
 
-- Check whether ../lib/libsupport.a @@INTLLIBS@@ @@LIBS@@ is sufficient (see
-  gettext.texi:5083) on HP-UX 10.01 and other systems lacking alloca.
-
 - KBabel:
   http://i18n.kde.org/translation-howto/gui-specialized-apps.html
   http://i18n.kde.org/tools/kbabel/
-
-- Rewrite doc node "Compendium", discuss functionality, then check
-  implementation and add Karl's new tests.
 
 - Tool to help people to correct msgid strings:
   1. Program to move msgstr contents to msgid contents,
@@ -35,18 +29,143 @@ Things we plan to do. Comments welcome.
 
 - Refer also to the GNOME translation project http://www.klid.dk/gnome/ ?
 
-- Bug:
-
-  > ke@tux:> msginit --locale=de_DE.ISO-8859-1 -i project.pot -o - \
-  >            | grep charset
-  > "Content-Type: text/plain; charset=UTF-8\n"
-
-  Oh, this is a bug. If de_DE.ISO-8859-1 is installed, it should use
-  ISO-8859-1, not UTF-8. If the locale is not installed, it should
-  complain.
-
 - Document in section 2.2 the pascal-format, lisp-format etc. flags
 
 - Add to the gettext.info file the version number:
     This file documents the GNU gettext package, version 0.11.xx.
+
+- Mention Qt linguist (part of Qt 3)
+
+- Find a distribution structure similar to the po/ subdir for non-C
+  projects (Awk, Lisp, ...)
+
+- Easier delivery of PO directory for maintainer! Add a target for incoming
+  PO files
+
+- Qt 3.0 compatibility:
+  - .ts, .qph catalogs
+  - .qm binary catalogs
+
+- Add logging to libintl, in order to catch each of these problems:
+>         - if the directory that was argument to bindtextdomain is usable
+>         - what catalogs are installed there
+>         - if the language , that is requested by LC_ALL or some other
+>                 variable is really there ...
+>         - if program tries to translate some message, it doesn't really know 
+>                 if it really get translated ... And if requested more than 
+>                 one language , you have no way to realize into what
+>                 language, it had been really translated !!!!!!!
+
+- Program for logused both as preloadable lib for glibc and modified libintl
+  for other platforms.
+- Doc about logused
+
+- msgdiff
+
+- soffice:
+
+Liest erst $HOME/.sversionrc
+Dort stehen Verzeichnisnamen
+StarOffice*: sofficerc, user/sofficerc
+OpenOffice*: user/config/registry/instance/org/openoffice/UserProfile.xml
+   <mail cfg:type="string">bruno@openoffice.haible.de</mail>
+
+- evolution:
+
+Liest $HOME/evolution/config.xmldb
+
+<?xml version="1.0"?>
+<bonobo-config>
+  <section path="/Shell">
+    <entry name="upgrade_from_1_0_to_1_2_performed" type="boolean" value="1"/>
+  </section>
+  <section path="/DefaultFolders">
+    <entry name="mail_path" type="string" value="65766f6c7574696f6e3a2f6c6f63616c2f496e626f78"/>
+    <entry name="mail_uri" type="string" value="66696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f496e626f78"/>
+    <entry name="contacts_path" type="string" value="65766f6c7574696f6e3a2f6c6f63616c2f436f6e7461637473"/>
+    <entry name="contacts_uri" type="string" value="66696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f436f6e7461637473"/>
+    <entry name="calendar_path" type="string" value="65766f6c7574696f6e3a2f6c6f63616c2f43616c656e646172"/>
+    <entry name="calendar_uri" type="string" value="66696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f43616c656e646172"/>
+    <entry name="tasks_path" type="string" value="65766f6c7574696f6e3a2f6c6f63616c2f5461736b73"/>
+    <entry name="tasks_uri" type="string" value="66696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f5461736b73"/>
+  </section>
+  <section path="/Mail/Signatures">
+    <entry name="num" type="long" value="0"/>
+  </section>
+  <section path="/Addressbook/Completion">
+    <entry name="uris" type="string" value="3c3f786d6c2076657273696f6e3d22312e30223f3e0a3c45766f6c7574696f6e466f6c6465724c6973743e0a20203c666f6c646572207572693d2265766f6c7574696f6e3a2f6c6f63616c2f436f6e74616374732220706879736963616c2d7572693d2266696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f436f6e74616374732220646973706c61792d6e616d653d224b6f6e74616b7465222f3e0a3c2f45766f6c7574696f6e466f6c6465724c6973743e0a"/>
+  </section>
+  <section path="/Calendar/AlarmNotify">
+    <entry name="LastNotificationTime" type="long" value="1044821227"/>
+  </section>
+  <section path="/Importer/Gnomecard">
+    <entry name="address" type="boolean" value="0"/>
+  </section>
+  <section path="/Importer/Elm">
+    <entry name="mail" type="boolean" value="1"/>
+  </section>
+  <section path="/Importer/Netscape">
+    <entry name="mail" type="boolean" value="0"/>
+    <entry name="settings" type="boolean" value="0"/>
+    <entry name="filters" type="boolean" value="0"/>
+  </section>
+  <section path="/Importer/Pine">
+    <entry name="mail" type="boolean" value="0"/>
+    <entry name="address" type="boolean" value="0"/>
+  </section>
+  <section path="/Calendar/Display">
+    <entry name="Timezone" type="string" value="4575726f70652f4265726c696e"/>
+  </section>
+  <section path="My-Evolution/Mail">
+    <entry name="display_folders-1.2" type="string" value="65766f6c7574696f6e3a2f6c6f63616c2f496e626f7820213c2d2d3e212066696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f496e626f7820213c2d2d3e212065766f6c7574696f6e3a2f6c6f63616c2f4f7574626f7820213c2d2d3e212066696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f4f7574626f78"/>
+    <entry name="show_full_path" type="boolean" value="0"/>
+  </section>
+  <section path="My-Evolution/RDF">
+    <entry name="rdf_urls" type="string" value="687474703a2f2f6c696e7578746f6461792e636f6d2f6261636b656e642f6d792d6e657473636170652e72646620213c2d2d3e2120687474703a2f2f7777772e73616c6f6e2e636f6d2f666565642f5244462f73616c6f6e5f7573652e726466"/>
+    <entry name="rdf_refresh_time" type="long" value="600"/>
+    <entry name="limit" type="long" value="10"/>
+  </section>
+  <section path="My-Evolution/Weather">
+    <entry name="stations" type="string" value="4b424f53"/>
+    <entry name="units" type="long" value="1"/>
+    <entry name="weather_refresh_time" type="long" value="600"/>
+  </section>
+  <section path="My-Evolution/Schedule">
+    <entry name="days" type="long" value="0"/>
+    <entry name="show_tasks" type="long" value="0"/>
+  </section>
+  <section path="/Mail/Accounts">
+    <entry name="num" type="long" value="1"/>
+    <entry name="default_account" type="long" value="0"/>
+    <entry name="account_name_0" type="string" value="6272756e6f4065766f6c7574696f6e"/>
+    <entry name="account_drafts_folder_uri_0" type="string" value="66696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f447261667473"/>
+    <entry name="account_sent_folder_uri_0" type="string" value="66696c653a2f2f2f686f6d652f6b6e6f707069782f65766f6c7574696f6e2f6c6f63616c2f53656e74"/>
+    <entry name="account_always_cc_0" type="boolean" value="0"/>
+    <entry name="account_always_cc_addrs_0" type="string" value=""/>
+    <entry name="account_always_bcc_0" type="boolean" value="0"/>
+    <entry name="account_always_bcc_addrs_0" type="string" value=""/>
+    <entry name="account_pgp_key_0" type="string" value=""/>
+    <entry name="account_pgp_always_sign_0" type="boolean" value="0"/>
+    <entry name="account_pgp_no_imip_sign_0" type="boolean" value="0"/>
+    <entry name="account_pgp_encrypt_to_self_0" type="boolean" value="0"/>
+    <entry name="account_pgp_always_trust_0" type="boolean" value="0"/>
+    <entry name="account_smime_key_0" type="string" value=""/>
+    <entry name="account_smime_always_sign_0" type="boolean" value="0"/>
+    <entry name="account_smime_encrypt_to_self_0" type="boolean" value="0"/>
+    <entry name="identity_name_0" type="string" value="4272756e6f20486169626c65"/>
+    <entry name="identity_address_0" type="string" value="6272756e6f4065766f6c7574696f6e2e686169626c652e6465"/>
+    <entry name="identity_reply_to_0" type="string" value=""/>
+    <entry name="identity_organization_0" type="string" value=""/>
+    <entry name="identity_def_signature_0" type="long" value="-1"/>
+    <entry name="identity_autogenerated_signature_0" type="boolean" value="0"/>
+    <entry name="source_url_0" type="string" value="73706f6f6c3a2f7661722f6d61696c2f6b6e6f70706978"/>
+    <entry name="source_keep_on_server_0" type="boolean" value="0"/>
+    <entry name="source_auto_check_0" type="boolean" value="0"/>
+    <entry name="source_auto_check_time_0" type="long" value="0"/>
+    <entry name="source_enabled_0" type="boolean" value="1"/>
+    <entry name="source_save_passwd_0" type="boolean" value="0"/>
+    <entry name="transport_url_0" type="string" value="73656e646d61696c3a"/>
+    <entry name="transport_save_passwd_0" type="boolean" value="0"/>
+  </section>
+</bonobo-config>
 
