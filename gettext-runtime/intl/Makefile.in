@@ -485,7 +485,7 @@ dist distdir: Makefile
 	  $(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
 	  for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
 	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
-	    cp -p $$dir/$$file $(distdir); \
+	    cp -p $$dir/$$file $(distdir) || exit 1; \
 	  done; \
 	fi
 

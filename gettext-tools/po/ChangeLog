@@ -1,5 +1,11 @@
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in.in (dist2): Fail if some of the files to be distributed
+	do not exist or cannot be copied.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in.in (DISTFILES): Remove $(DOMAIN).pot, stamp-po.
 	(stamp-po): Do nothing if $(DOMAIN).pot does not exist.
 	(dist2): Depend on stamp-po. If $(DOMAIN).pot exists, distribute also

@@ -1,3 +1,9 @@
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (dist, distdir): Fail if some of the files to be
+	distributed do not exist or cannot be copied.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.2 released.
