@@ -59,6 +59,7 @@ install-data-local: all-local
 	$(INSTALL_DATA) $(srcdir)/gettext.sh $(DESTDIR)$(bindir)/gettext.sh
 uninstall-local: all-local
 	$(RM) $(DESTDIR)$(bindir)/gettext.sh
+EXTRA_DIST += gettext.sh
 
 # Support for relocatability.
 RELOCATABLE_LIBRARY_PATH = $(libdir)

@@ -1,3 +1,7 @@
+2003-10-23  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Add gettext.sh.
+
 2003-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c: Include xalloc.h instead of xmalloc.h.
