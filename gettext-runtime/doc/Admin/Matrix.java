@@ -195,6 +195,12 @@ public class Matrix {
         groups[0] = new int[] { 0, nteams };
       }
 
+      int[] columnwidth = new int[nteams];
+      for (int t = 0; t < nteams; t++)
+        columnwidth[t] =
+          Math.max(teams[t].length(),
+                   Integer.toString(total_per_team[t]).length());
+
       stream.println("@example");
       for (int group = 0; group < ngroups; group++) {
         if (group > 0)
@@ -206,13 +212,17 @@ public class Matrix {
           stream.print("Ready PO files      ");
         else
           stream.print("                    ");
-        for (int t = groups[group][0]; t < groups[group][1]; t++)
-          stream.print(" "+teams[t]);
+        for (int t = groups[group][0]; t < groups[group][1]; t++) {
+          int i = columnwidth[t]-teams[t].length();
+          spaces(stream,1+i/2);
+          stream.print(teams[t]);
+          spaces(stream,(i+1)/2);
+        }
         stream.println();
 
         stream.print("                   +");
         for (int t = groups[group][0]; t < groups[group][1]; t++)
-          for (int i = teams[t].length() + 1; i > 0; i--)
+          for (int i = columnwidth[t] + 1; i > 0; i--)
             stream.print('-');
         stream.println("-+");
 
@@ -226,17 +236,17 @@ public class Matrix {
           for (int t = groups[group][0]; t < groups[group][1]; t++) {
             stream.print(' ');
             if (matrix[d][t] == TRUE) {
-              int i = teams[t].length()-2;
+              int i = columnwidth[t]-2;
               spaces(stream,i/2);
               stream.print("[]");
               spaces(stream,(i+1)/2);
             } else if (matrix[d][t] == EXTERNAL) {
-              int i = teams[t].length()-2;
+              int i = columnwidth[t]-2;
               spaces(stream,i/2);
               stream.print("()");
               spaces(stream,(i+1)/2);
             } else {
-              spaces(stream,teams[t].length());
+              spaces(stream,columnwidth[t]);
             }
           }
           stream.print(' ');
@@ -252,7 +262,7 @@ public class Matrix {
 
         stream.print("                   +");
         for (int t = groups[group][0]; t < groups[group][1]; t++)
-          for (int i = teams[t].length() + 1; i > 0; i--)
+          for (int i = columnwidth[t] + 1; i > 0; i--)
             stream.print('-');
         stream.println("-+");
 
@@ -264,8 +274,12 @@ public class Matrix {
         } else {
           stream.print("                    ");
         }
-        for (int t = groups[group][0]; t < groups[group][1]; t++)
-          stream.print(" "+teams[t]);
+        for (int t = groups[group][0]; t < groups[group][1]; t++) {
+          int i = columnwidth[t]-teams[t].length();
+          spaces(stream,1+i/2);
+          stream.print(teams[t]);
+          spaces(stream,(i+1)/2);
+        }
         stream.println();
 
         if (group == ngroups-1) {
@@ -279,10 +293,11 @@ public class Matrix {
         for (int t = groups[group][0]; t < groups[group][1]; t++) {
           stream.print(' ');
           String s = Integer.toString(total_per_team[t]);
-          int i = teams[t].length()-2;
-          spaces(stream,i/2 + (2-s.length()));
+          int i = columnwidth[t]-s.length();
+          int j = (s.length() < 2 ? 1 : 0);
+          spaces(stream,(i+j)/2);
           stream.print(s);
-          spaces(stream,(i+1)/2);
+          spaces(stream,(i+1-j)/2);
         }
         if (group == ngroups-1) {
           stream.print(' ');
