@@ -1,3 +1,7 @@
+2001-06-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* dcigettext.c (DCIGETTEXT): Release the lock before returning.
+
 2001-04-30  Bruno Haible  <haible@clisp.cons.org>
 
 	Silence "gcc -Wall -Wwrite-strings" warnings.
