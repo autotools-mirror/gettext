@@ -3,7 +3,7 @@
 	* autopoint-files: New directory.
 	* add-to-autopoint-files: New file.
 	* autopoint.in: New file.
-	* Makefile.am (EXTRA_DIST): Add add-to-autopoint-files.
+	* Makefile.am (EXTRA_DIST): Add add-to-autopoint-files, archive.tar.gz.
 	(DISTCLEANFILES): Add autopoint.
 	(gettextsrcdir): New variable.
 	(gettextsrc_DATA): New variable.
