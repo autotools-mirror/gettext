@@ -795,7 +795,7 @@ like:
 @example
 (setq auto-mode-alist
       (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode) auto-mode-alist))
-(autoload 'po-mode "po-mode")
+(autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 @end example
 
 Later, whenever you edit some @file{.po}, @file{.pot} or @file{.pox}
@@ -806,20 +806,23 @@ The string @emph{PO} appears in the mode line for any buffer for
 which PO mode is active.  Many PO files may be active at once in a
 single Emacs session.
 
-If you are using Emacs version 20 or better, and have already installed
-the appropriate international fonts on your system, you may also manage
-for the these fonts to be automatically loaded and used for displaying
-the translations on your Emacs screen, whenever necessary.  For this to
-happen, you might want to add the lines:
+If you are using Emacs version 20 or newer, and have already installed
+the appropriate international fonts on your system, you may also tell
+Emacs how to determine automatically the coding system of every PO file.
+This will often (but not always) cause the necessary fonts to be loaded
+and used for displaying the translations on your Emacs screen.  For this
+to happen, add the lines:
 
 @example
-(autoload 'po-find-file-coding-system "po-mode")
 (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
                             'po-find-file-coding-system)
+(autoload 'po-find-file-coding-system "po-mode")
 @end example
 
 @noindent
-to your @file{.emacs} file.
+to your @file{.emacs} file.  If, with this, you still see boxes instead
+of international characters, try a different font set (via Shift Mouse
+button 1).
 
 @node PO Files, Main PO Commands, Installation, Basics
 @section The Format of PO Files
