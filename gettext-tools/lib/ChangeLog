@@ -1,0 +1,6 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Add ChangeLog.0.
+
+
+See ChangeLog.0 for earlier changes.

@@ -1,4 +1,4 @@
-## Makefile for the support lib subdirectory of the GNU NLS Utilities
+## Makefile for the gettext-tools/lib subdirectory of GNU gettext
 ## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -117,8 +117,9 @@ gettextsrc_DATA = gettext.h
 noinst_HEADERS = gettext.h
 
 EXTRA_DIST += \
-$(LIBADD_SOURCE) $(UNUSED_SOURCE) \
-gen-lbrkprop.c 3level.h Combining.txt
+  $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
+  gen-lbrkprop.c 3level.h Combining.txt \
+  ChangeLog.0
 
 DEFS = -DEXEEXT=\"$(EXEEXT)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
