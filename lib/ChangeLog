@@ -1,3 +1,7 @@
+2001-08-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* stdbool.h.in (_Bool): Define differently in C++ mode.
+
 2001-07-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* system.h: Assume <limits.h> exists.

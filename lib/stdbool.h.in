@@ -23,7 +23,11 @@
 /* 7.16. Boolean type and values */
 
 /* For the sake of symbolic names in gdb, define _Bool as an enum type.  */
+#ifndef __cplusplus
 typedef enum { false = 0, true = 1 } _Bool;
+#else
+typedef bool _Bool;
+#endif
 #define bool _Bool
 
 /* The other macros must be usable in preprocessor directives.  */
