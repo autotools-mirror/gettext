@@ -1,3 +1,7 @@
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
+	* localcharset.c: Add OS/2 support.
+
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* argmatch.c: Include <stdlib.h>, to declare exit().

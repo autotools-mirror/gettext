@@ -44,3 +44,8 @@
    it).  It is used to wrap the msgid and msgstr strings, and also to
    wrap the file position (#:) comments.  */
 #define PAGE_WIDTH 79
+
+/* Extra OS/2 (emx+gcc) defines.  */
+#ifdef __EMX__
+# include "os2/os2compat.h"
+#endif

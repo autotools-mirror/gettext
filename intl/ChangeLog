@@ -1,3 +1,16 @@
+2001-12-15  Andrew Zabolotny  <zap@cobra.ru>
+	    Bruno Haible  <bruno@clisp.org>
+
+	* osdep.c: New file.
+	* os2.c: New file.
+	* dcigettext.c (DCIGETTEXT): Add backward compatibility support for
+	OS/2.
+	* localcharset.c: Add OS/2 support.
+	* localealias.c (_nl_expand_alias): Initialize locale_alias_path once,
+	but not statically.
+	* Makefile.in (COMSRCS): Add osdep.c, os2.c.
+	(OBJECTS): Add osdep.$lo.
+
 2001-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* libgettext.h [!ENABLE_NLS]: Cast all function results to

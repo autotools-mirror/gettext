@@ -1,0 +1,2 @@
+This directory implements the POSIX iconv() function family, based on the
+OS/2 Unicode API.  It is independent of GNU gettext.

@@ -135,7 +135,7 @@ const char *
 _nl_expand_alias (name)
     const char *name;
 {
-  static const char *locale_alias_path = LOCALE_ALIAS_PATH;
+  static const char *locale_alias_path;
   struct alias_map *retval;
   const char *result = NULL;
   size_t added;
@@ -143,6 +143,9 @@ _nl_expand_alias (name)
 #ifdef _LIBC
   __libc_lock_lock (lock);
 #endif
+
+  if (locale_alias_path == NULL)
+    locale_alias_path = LOCALE_ALIAS_PATH;
 
   do
     {

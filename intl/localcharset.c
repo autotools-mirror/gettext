@@ -42,7 +42,12 @@
 # define WIN32
 #endif
 
-#ifndef WIN32
+#if defined __EMX__
+/* Assume EMX program runs on OS/2, even if compiled under DOS.  */
+# define OS2
+#endif
+
+#if !(defined WIN32 || defined OS2)
 # if HAVE_LANGINFO_CODESET
 #  include <langinfo.h>
 # else
@@ -50,9 +55,12 @@
 #   include <locale.h>
 #  endif
 # endif
-#else /* WIN32 */
+#elif defined WIN32
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
+#elif defined OS2
+# define INCL_DOS
+# include <os2.h>
 #endif
 
 #ifndef DIRECTORY_SEPARATOR
@@ -91,7 +99,7 @@ get_charset_aliases ()
   cp = charset_aliases;
   if (cp == NULL)
     {
-#ifndef WIN32
+#if !(defined WIN32 || defined OS2)
       FILE *fp;
       const char *dir = LIBDIR;
       const char *base = "charset.alias";
@@ -179,14 +187,20 @@ get_charset_aliases ()
       if (file_name != NULL)
 	free (file_name);
 
-#else /* WIN32 */
+#else
 
       /* To avoid the troubles of installing a separate file in the same
 	 directory as the DLL and of retrieving the DLL's directory at
 	 runtime, simply inline the aliases here.  */
 
+# if defined WIN32
       cp = "CP936" "\0" "GBK" "\0"
 	   "CP1361" "\0" "JOHAB" "\0";
+
+# elif defined OS2
+      cp = "";
+
+# endif
 #endif
 
       charset_aliases = cp;
@@ -210,7 +224,7 @@ locale_charset ()
   const char *codeset;
   const char *aliases;
 
-#ifndef WIN32
+#if !(defined WIN32 || defined OS2)
 
 # if HAVE_LANGINFO_CODESET
 
@@ -247,13 +261,28 @@ locale_charset ()
 
 # endif
 
-#else /* WIN32 */
+#elif WIN32
 
   static char buf[2 + 10 + 1];
 
   /* Win32 has a function returning the locale's codepage as a number.  */
   sprintf (buf, "CP%u", GetACP ());
   codeset = buf;
+
+#elif OS2
+
+  static char buf[2 + 10 + 1];
+  ULONG cp[3];
+  ULONG cplen;
+
+  /* OS/2 has a function returning the locale's codepage as a number.  */
+  if (DosQueryCp (sizeof (cp), cp, &cplen))
+    codeset = "";
+  else
+    {
+      sprintf (buf, "CP%u", cp[0]);
+      codeset = buf;
+    }
 
 #endif
 

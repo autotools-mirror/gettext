@@ -423,6 +423,12 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
   if (domainname == NULL)
     domainname = _nl_current_default_domain;
 
+  /* OS/2 specific: backward compatibility with older libintl versions  */
+#ifdef LC_MESSAGES_COMPAT
+  if (category == LC_MESSAGES_COMPAT)
+    category = LC_MESSAGES;
+#endif
+
 #if defined HAVE_TSEARCH || defined _LIBC
   msgid_len = strlen (msgid1) + 1;
 
