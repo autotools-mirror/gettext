@@ -31,8 +31,7 @@ EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/config.bat djgpp/config.in djgpp/config.sed \
              djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in \
              djgpp/fnchange.lst djgpp/tscript.sed \
-             os2/README.OS2 os2/Makefile os2/backward.def \
-             os2/iconv/README os2/configure.awk
+             os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \

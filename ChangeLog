@@ -1,3 +1,7 @@
+2002-02-10  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Remove os2/iconv/README.
+
 2002-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Add check for libexpat.
