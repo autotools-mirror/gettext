@@ -1,5 +1,9 @@
 2002-01-11  Bruno Haible  <bruno@clisp.org>
 
+	* write-po.c: Include po-charset.h.
+
+2002-01-11  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt.c (install_sigfpe_handler, uninstall_sigfpe_handler): On AIX,
 	treat SIGTRAP like SIGFPE.
 
