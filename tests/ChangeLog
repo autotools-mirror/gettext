@@ -1,3 +1,11 @@
+2001-12-16  Bruno Haible  <bruno@clisp.org>
+
+	* format-librep-1: New file.
+	* format-librep-2: New file.
+	* lang-librep: New file.
+	* Makefile.am (TESTS): Add format-librep-1, format-librep-2,
+	lang-librep.
+
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (TESTS_ENVIRONMENT): Don't use $(transform) here.

@@ -6087,7 +6087,7 @@ librep
 use
 
 @item Extractor
-@code{rep-xgettext}
+@code{xgettext}
 
 @item Formatting with positions
 @code{format "%2$d %1$d"}

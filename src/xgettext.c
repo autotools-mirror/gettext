@@ -66,6 +66,7 @@ struct passwd *getpwuid ();
 #include "x-c.h"
 #include "x-po.h"
 #include "x-lisp.h"
+#include "x-librep.h"
 #include "x-java.h"
 #include "x-ycp.h"
 #include "x-rst.h"
@@ -227,6 +228,7 @@ main (argc, argv)
       case 'a':
 	x_c_extract_all ();
 	x_lisp_extract_all ();
+	x_librep_extract_all ();
 	x_java_extract_all ();
 	break;
       case 'c':
@@ -279,6 +281,7 @@ main (argc, argv)
 	  {
 	    x_c_keyword (optarg);
 	    x_lisp_keyword (optarg);
+	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
 	  }
 	break;
@@ -1174,6 +1177,7 @@ language_to_extractor (name)
     SCANNERS_C
     SCANNERS_PO
     SCANNERS_LISP
+    SCANNERS_LIBREP
     SCANNERS_JAVA
     SCANNERS_YCP
     SCANNERS_RST
@@ -1215,6 +1219,7 @@ extension_to_language (extension)
     EXTENSIONS_C
     EXTENSIONS_PO
     EXTENSIONS_LISP
+    EXTENSIONS_LIBREP
     EXTENSIONS_JAVA
     EXTENSIONS_YCP
     EXTENSIONS_RST

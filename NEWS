@@ -13,13 +13,13 @@ Version 0.11 - XXX 2001
 
 * msgfmt can create (and msgunfmt can dump) Java ResourceBundles.
 
-* xgettext now also supports Lisp, Java, ObjectPascal, YCP.
+* xgettext now also supports Lisp, librep, Java, ObjectPascal, YCP.
 
 * The tools now know about format strings in languages other than C.
-  They recognize new message flags named lisp-format, smalltalk-format,
-  java-format, python-format, ycp-format.  When such a flag is present,
-  the msgfmt program verifies the consistency of the translated and the
-  untranslated format string.
+  They recognize new message flags named lisp-format, librep-format,
+  smalltalk-format, java-format, python-format, ycp-format.  When such
+  a flag is present, the msgfmt program verifies the consistency of
+  the translated and the untranslated format string.
 
 * The msgfmt command line options have changed.  Option -c now also checks
   the header entry, a check which was previously activated through -v.

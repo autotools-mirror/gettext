@@ -1,3 +1,22 @@
+2001-12-16  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (format_type): New enum value 'format_librep'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_librep entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_librep): New declaration.
+	* format-librep.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_librep.
+	* x-librep.h: New file.
+	* x-librep.c: New file.
+	* xgettext.c: Include x-librep.h.
+	(main): Call x_librep_extract_all, x_librep_keyword.
+	(language_to_scanner): Add librep rule.
+	(extension_to_language): Add librep rule.
+	* Makefile.am (noinst_HEADERS): Add x-librep.h.
+	(FORMAT_SOURCE): Add format-librep.c.
+	(xgettext_SOURCES): Add x-librep.c.
+
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt.c (check_plural): Use ngettext for two messages.

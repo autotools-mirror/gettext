@@ -1,4 +1,4 @@
-/* Format strings.
+/* xgettext librep backend.
    Copyright (C) 2001 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -16,22 +16,20 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
 
-/* Specification.  */
-#include "format.h"
+#define EXTENSIONS_LIBREP \
+  { "jl",        "librep"     },					\
 
-/* Table of all format string parsers.  */
-struct formatstring_parser *formatstring_parsers[NFORMATS] =
-{
-  /* format_c */		&formatstring_c,
-  /* format_python */		&formatstring_python,
-  /* format_lisp */		&formatstring_lisp,
-  /* format_librep */		&formatstring_librep,
-  /* format_smalltalk */	&formatstring_smalltalk,
-  /* format_java */		&formatstring_java,
-  /* format_pascal */		&formatstring_pascal,
-  /* format_ycp */		&formatstring_ycp
-};
+#define SCANNERS_LIBREP \
+  { "librep",     extract_librep, &formatstring_librep },		\
+
+/* Scan a librep file and add its translatable strings to mdlp.  */
+extern void extract_librep PARAMS ((FILE *fp, const char *real_filename,
+				    const char *logical_filename,
+				    msgdomain_list_ty *mdlp));
+
+
+/* Handling of options specific to this language.  */
+
+extern void x_librep_extract_all PARAMS ((void));
+extern void x_librep_keyword PARAMS ((const char *name));

@@ -32,7 +32,7 @@ po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
 write-mo.h read-java.h write-java.h po-time.h format.h xgettext.h x-c.h \
-x-po.h x-lisp.h x-java.h x-ycp.h x-rst.h
+x-po.h x-lisp.h x-librep.h x-java.h x-ycp.h x-rst.h
 
 EXTRA_DIST = FILES project-id \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
@@ -66,8 +66,8 @@ open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c \
-format-c.c format-java.c format-lisp.c format-python.c format-pascal.c \
-format-ycp.c
+format-c.c format-java.c format-lisp.c format-librep.c format-python.c \
+format-pascal.c format-ycp.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
@@ -82,7 +82,8 @@ msgcmp_SOURCES = msgcmp.c
 msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
-xgettext_SOURCES = xgettext.c x-c.c x-po.c x-lisp.c x-java.l x-ycp.c x-rst.c
+xgettext_SOURCES = xgettext.c \
+  x-c.c x-po.c x-lisp.c x-librep.c x-java.l x-ycp.c x-rst.c
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c

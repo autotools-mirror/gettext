@@ -47,12 +47,13 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	format-c-1 format-c-2 \
 	format-java-1 format-java-2 \
+	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-clisp lang-java lang-pascal lang-ycp lang-po lang-rst
+	lang-c lang-c++ lang-objc lang-clisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out
 

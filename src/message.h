@@ -37,12 +37,13 @@ enum format_type
   format_c,
   format_python,
   format_lisp,
+  format_librep,
   format_smalltalk,
   format_java,
   format_pascal,
   format_ycp
 };
-#define NFORMATS 7	/* Number of format_type enum values.  */
+#define NFORMATS 8	/* Number of format_type enum values.  */
 extern const char *const format_language[NFORMATS];
 extern const char *const format_language_pretty[NFORMATS];
 
