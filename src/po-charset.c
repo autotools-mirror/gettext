@@ -44,6 +44,11 @@ static const char ascii[] = "ASCII";
 /* The canonicalized encoding name for ASCII.  */
 const char *po_charset_ascii = ascii;
 
+static const char utf8[] = "UTF-8";
+
+/* The canonicalized encoding name for UTF-8.  */
+const char *po_charset_utf8 = utf8;
+
 /* Canonicalize an encoding name.  */
 const char *
 po_charset_canonicalize (charset)
@@ -96,7 +101,7 @@ po_charset_canonicalize (charset)
     "TIS-620",
     "VISCII",
     "GEORGIAN-PS",
-    "UTF-8"
+    utf8
   };
   size_t i;
 

@@ -1,3 +1,43 @@
+2002-11-05  Bruno Haible  <bruno@clisp.org>
+
+	Allow non-ASCII msgids in POT files.
+	* po-charset.h (po_charset_utf8): New declaration.
+	* po-charset.c (utf8, po_charset_utf8): New variables.
+	(po_charset_canonicalize): Use po_charset_utf8.
+	* msgl-iconv.h: Include iconv.h.
+	(convert_string): New declaration.
+	* msgl-iconv.c (convert_string): Export function.
+	(convert_msgid): New function.
+	(iconv_message_list): Call it.
+	* xgettext.h: Include iconv.h.
+	(xgettext_global_source_encoding, xgettext_global_source_iconv,
+	xgettext_current_source_encoding, xgettext_current_source_iconv): New
+	declarations.
+	* xgettext.c (xgettext_global_source_encoding,
+	xgettext_global_source_iconv, xgettext_current_source_encoding,
+	xgettext_current_source_iconv): New variables.
+	(long_options): New option --from-code.
+	(main): Initialize xgettext_global_source_encoding. Handle option
+	--from-code. Initialize and destroy xgettext_global_source_iconv.
+	(usage): Document option --from-code.
+	(extract_from_file): Set xgettext_current_source_encoding and
+	xgettext_current_source_iconv.
+	(CONVERT_STRING): New macro.
+	(remember_a_message, remember_a_message_plural): Call CONVERT_STRING.
+	(finalize_header): Set the charset in the header here.
+	* x-glade.c (do_extract_glade): Set xgettext_current_source_encoding.
+	Don't set the result's header charset; this is now done in xgettext.c.
+	* x-python.c (extract_python): Likewise.
+	* x-tcl.c (extract_tcl): Likewise.
+	* write-po.c (message_print, message_print_obsolete): Don't warn about
+	non-ASCII msgids if the file's encoding is UTF-8.
+	* msginit.c (content_type): Add header argument. Use charset UTF-8
+	if that was already the POT file's encoding.
+	(fields): Update.
+	* msgmerge.c (merge): If the POT file was in UTF-8, convert the
+	definitions to UTF-8.
+	* msgcmp.c (compare): Likewise.
+
 2002-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* msgcmp.c: Include read-po.h.

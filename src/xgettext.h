@@ -21,6 +21,11 @@
 #define _XGETTEXT_H
 
 #include <stddef.h>
+
+#if HAVE_ICONV
+#include <iconv.h>
+#endif
+
 #include "message.h"
 #include "pos.h"
 
@@ -36,6 +41,24 @@ extern bool substring_match;
 /* Split keyword spec into keyword, argnum1, argnum2.  */
 extern void split_keywordspec PARAMS ((const char *spec, const char **endp,
 				       int *argnum1p, int *argnum2p));
+
+/* Canonicalized encoding name for all input files.  */
+extern const char *xgettext_global_source_encoding;
+
+#if HAVE_ICONV
+/* Converter from xgettext_global_source_encoding to UTF-8 (except from
+   ASCII or UTF-8, when this conversion is a no-op).  */
+extern iconv_t xgettext_global_source_iconv;
+#endif
+
+/* Canonicalized encoding name for the current input file.  */
+extern const char *xgettext_current_source_encoding;
+
+#if HAVE_ICONV
+/* Converter from xgettext_current_source_encoding to UTF-8 (except from
+   ASCII or UTF-8, when this conversion is a no-op).  */
+extern iconv_t xgettext_current_source_iconv;
+#endif
 
 /* List of messages whose msgids must not be extracted, or NULL.
    Used by remember_a_message().  */

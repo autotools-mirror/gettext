@@ -39,13 +39,14 @@ TESTS = gettext-1 gettext-2 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
 	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
-	msgmerge-18 msgmerge-19 msgmerge-20 \
+	msgmerge-18 msgmerge-19 msgmerge-20 msgmerge-21 \
 	msgunfmt-1 msgunfmt-2 msgunfmt-3 \
 	msguniq-1 msguniq-2 msguniq-3 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	xgettext-18 xgettext-19 xgettext-20 xgettext-21 xgettext-22 \
+	xgettext-23 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \

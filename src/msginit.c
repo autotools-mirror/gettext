@@ -69,6 +69,8 @@
 #include "progname.h"
 #include "basename.h"
 #include "strpbrk.h"
+#include "strstr.h"
+#include "strcase.h"
 #include "message.h"
 #include "read-po.h"
 #include "write-po.h"
@@ -145,7 +147,7 @@ static const char *last_translator PARAMS ((void));
 static const char *language_team_address PARAMS ((void));
 static const char *language_team PARAMS ((void));
 static const char *mime_version PARAMS ((void));
-static const char *content_type PARAMS ((void));
+static const char *content_type PARAMS ((const char *header));
 static const char *content_transfer_encoding PARAMS ((void));
 static const char *plural_forms PARAMS ((void));
 static char *get_field PARAMS ((const char *header, const char *field));
@@ -1212,9 +1214,30 @@ mime_version ()
 
 /* Construct the value for the Content-Type field.  */
 static const char *
-content_type ()
+content_type (header)
+     const char *header;
 {
-  return xasprintf ("text/plain; charset=%s", canonical_locale_charset ());
+  bool was_utf8;
+  const char *old_field;
+
+  /* If the POT file contains charset=UTF-8, it means that the POT file
+     contains non-ASCII characters, and we keep the UTF-8 encoding.
+     Otherwise, when the POT file is plain ASCII, we use the locale's
+     encoding.  */
+  was_utf8 = false;
+  old_field = get_field (header, "Content-Type");
+  if (old_field != NULL)
+    {
+      const char *charsetstr = strstr (old_field, "charset=");
+
+      if (charsetstr != NULL)
+	{
+	  charsetstr += strlen ("charset=");
+	  was_utf8 = (strcasecmp (charsetstr, "UTF-8") == 0);
+	}
+    }
+  return xasprintf ("text/plain; charset=%s",
+		    was_utf8 ? "UTF-8" : canonical_locale_charset ());
 }
 
 
@@ -1259,7 +1282,7 @@ fields[] =
     { "Last-Translator", last_translator, NULL },
     { "Language-Team", language_team, NULL },
     { "MIME-Version", mime_version, NULL },
-    { "Content-Type", content_type, NULL },
+    { "Content-Type", NULL, content_type },
     { "Content-Transfer-Encoding", content_transfer_encoding, NULL },
     { "Plural-Forms", plural_forms, NULL }
   };

@@ -33,6 +33,9 @@ extern const char *po_charset_canonicalize PARAMS ((const char *charset));
 /* The canonicalized encoding name for ASCII.  */
 extern const char *po_charset_ascii;
 
+/* The canonicalized encoding name for UTF-8.  */
+extern const char *po_charset_utf8;
+
 /* Test for ASCII compatibility.  */
 extern bool po_charset_ascii_compatible PARAMS ((const char *canon_charset));
 

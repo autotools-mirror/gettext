@@ -54,8 +54,8 @@
 static int iconv_string PARAMS ((iconv_t cd,
 				 const char *start, const char *end,
 				 char **resultp, size_t *lengthp));
-static const char *convert_string PARAMS ((iconv_t cd, const char *string));
 static void convert_string_list PARAMS ((iconv_t cd, string_list_ty *slp));
+static void convert_msgid PARAMS ((iconv_t cd, message_ty *mp));
 static void convert_msgstr PARAMS ((iconv_t cd, message_ty *mp));
 #endif
 
@@ -184,7 +184,7 @@ iconv_string (cd, start, end, resultp, lengthp)
 #undef tmpbufsize
 }
 
-static const char *
+char *
 convert_string (cd, string)
      iconv_t cd;
      const char *string;
@@ -214,6 +214,16 @@ convert_string_list (cd, slp)
   if (slp != NULL)
     for (i = 0; i < slp->nitems; i++)
       slp->item[i] = convert_string (cd, slp->item[i]);
+}
+
+static void
+convert_msgid (cd, mp)
+     iconv_t cd;
+     message_ty *mp;
+{
+  mp->msgid = convert_string (cd, mp->msgid);
+  if (mp->msgid_plural != NULL)
+    mp->msgid_plural = convert_string (cd, mp->msgid_plural);
 }
 
 static void
@@ -377,6 +387,7 @@ and iconv() does not support this conversion."),
 
 	  convert_string_list (cd, mp->comment);
 	  convert_string_list (cd, mp->comment_dot);
+	  convert_msgid (cd, mp);
 	  convert_msgstr (cd, mp);
 	}
 

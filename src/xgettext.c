@@ -48,6 +48,9 @@
 #include "stpcpy.h"
 #include "po.h"
 #include "message.h"
+#include "po-charset.h"
+#include "msgl-iconv.h"
+#include "msgl-ascii.h"
 #include "po-time.h"
 #include "write-po.h"
 #include "format.h"
@@ -111,6 +114,24 @@ static char *output_dir;
 /* If nonzero omit header with information about this run.  */
 int xgettext_omit_header;
 
+/* Canonicalized encoding name for all input files.  */
+const char *xgettext_global_source_encoding;
+
+#if HAVE_ICONV
+/* Converter from xgettext_global_source_encoding to UTF-8 (except from
+   ASCII or UTF-8, when this conversion is a no-op).  */
+iconv_t xgettext_global_source_iconv;
+#endif
+
+/* Canonicalized encoding name for the current input file.  */
+const char *xgettext_current_source_encoding;
+
+#if HAVE_ICONV
+/* Converter from xgettext_current_source_encoding to UTF-8 (except from
+   ASCII or UTF-8, when this conversion is a no-op).  */
+iconv_t xgettext_current_source_iconv;
+#endif
+
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -127,6 +148,7 @@ static const struct option long_options[] =
   { "files-from", required_argument, NULL, 'f' },
   { "force-po", no_argument, &force_po, 1 },
   { "foreign-user", no_argument, NULL, CHAR_MAX + 2 },
+  { "from-code", required_argument, NULL, CHAR_MAX + 3 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
   { "join-existing", no_argument, NULL, 'j' },
@@ -137,7 +159,7 @@ static const struct option long_options[] =
   { "msgstr-suffix", optional_argument, NULL, 'M' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
-  { "no-wrap", no_argument, NULL, CHAR_MAX + 3 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
@@ -220,6 +242,7 @@ main (argc, argv)
 
   /* Set initial value of variables.  */
   default_domain = MESSAGE_DOMAIN_DEFAULT;
+  xgettext_global_source_encoding = po_charset_ascii;
 
   while ((optchar = getopt_long (argc, argv,
 				 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:x:",
@@ -366,7 +389,12 @@ main (argc, argv)
       case CHAR_MAX + 2:	/* --foreign-user */
 	copyright_holder = "";
 	break;
-      case CHAR_MAX + 3:	/* --no-wrap */
+      case CHAR_MAX + 3:	/* --from-code */
+	xgettext_global_source_encoding = po_charset_canonicalize (optarg);
+	if (xgettext_global_source_encoding == NULL)
+	  xgettext_global_source_encoding = po_charset_ascii;
+	break;
+      case CHAR_MAX + 4:	/* --no-wrap */
 	message_page_width_ignore ();
 	break;
       default:
@@ -453,6 +481,37 @@ xgettext cannot work without keywords to look for"));
   for (cnt = optind; cnt < argc; ++cnt)
     string_list_append_unique (file_list, argv[cnt]);
 
+  /* Allocate converter from xgettext_global_source_encoding to UTF-8 (except
+     from ASCII or UTF-8, when this conversion is a no-op).  */
+  if (xgettext_global_source_encoding != po_charset_ascii
+      && xgettext_global_source_encoding != po_charset_utf8)
+    {
+#if HAVE_ICONV
+      iconv_t cd;
+
+      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+      if (strcmp (xgettext_global_source_encoding, "EUC-KR") == 0)
+	cd = (iconv_t)(-1);
+      else
+# endif
+      cd = iconv_open (po_charset_utf8, xgettext_global_source_encoding);
+      if (cd == (iconv_t)(-1))
+	error (EXIT_FAILURE, 0, _("\
+Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
+and iconv() does not support this conversion."),
+	       xgettext_global_source_encoding, po_charset_utf8,
+	       basename (program_name));
+      xgettext_global_source_iconv = cd;
+#else
+      error (EXIT_FAILURE, 0, _("\
+Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
+This version was built without iconv()."),
+	     xgettext_global_source_encoding, po_charset_utf8,
+	     basename (program_name));
+#endif
+    }
+
   /* Allocate a message list to remember all the messages.  */
   mdlp = msgdomain_list_alloc (true);
 
@@ -518,6 +577,13 @@ warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
   /* Finalize the constructed header.  */
   if (!xgettext_omit_header)
     finalize_header (mdlp);
+
+  /* Free the allocated converter.  */
+#if HAVE_ICONV
+  if (xgettext_global_source_encoding != po_charset_ascii
+      && xgettext_global_source_encoding != po_charset_utf8)
+    iconv_close (xgettext_global_source_iconv);
+#endif
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
@@ -585,6 +651,14 @@ Choice of input file language:\n\
                                    YCP, Tcl, PHP, RST, Glade)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file interpretation:\n\
+      --from-code=NAME           encoding of input files\n\
+                                   (except for Python, Tcl, Glade)\n\
+By default the input files are assumed to be in ASCII.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -890,6 +964,13 @@ extract_from_file (file_name, extractor, mdlp)
   char *real_file_name;
   FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
 
+  /* Set the default for the source file encoding.  May be overridden by
+     the extractor function.  */
+  xgettext_current_source_encoding = xgettext_global_source_encoding;
+#if HAVE_ICONV
+  xgettext_current_source_iconv = xgettext_global_source_iconv;
+#endif
+
   extractor (fp, real_file_name, logical_file_name, mdlp);
 
   if (fp != stdin)
@@ -903,6 +984,36 @@ extract_from_file (file_name, extractor, mdlp)
 /* Language dependent format string parser.
    NULL if the language has no notion of format strings.  */
 static struct formatstring_parser *current_formatstring_parser;
+
+
+/* Convert the given string from xgettext_current_source_encoding to
+   the output file encoding (i.e. ASCII or UTF-8).  */
+#define CONVERT_STRING(string) \
+  if (xgettext_current_source_encoding == po_charset_ascii)		\
+    {									\
+      if (!is_ascii_string (string))					\
+	{								\
+	  char buffer[21];						\
+	  if (pos->line_number == (size_t)(-1))				\
+	    buffer[0] = '\0';						\
+	  else								\
+	    sprintf (buffer, ":%ld", (long) pos->line_number);		\
+	  error (EXIT_FAILURE, 0, _("Non-ASCII string at %s%s.\nPlease specify the source encoding through --from-code."), \
+		 pos->file_name, buffer);				\
+	}								\
+    }									\
+  else if (xgettext_current_source_encoding != po_charset_utf8)		\
+    {									\
+      string = convert_string (xgettext_current_source_iconv, string);	\
+    }
+
+#if !HAVE_ICONV
+/* If we don't have iconv(), the only supported values for
+   xgettext_global_source_encoding and thus also for
+   xgettext_current_source_encoding are ASCII and UTF-8.
+   convert_string() should not be called in this case.  */
+#define convert_string(cd,string) (abort (), (string))
+#endif
 
 
 message_ty *
@@ -933,6 +1044,8 @@ remember_a_message (mlp, string, pos)
   for (i = 0; i < NFORMATS; i++)
     is_format[i] = undecided;
   do_wrap = undecided;
+
+  CONVERT_STRING (msgid);
 
   if (msgid[0] == '\0' && !xgettext_omit_header)
     {
@@ -998,6 +1111,8 @@ meta information, not the empty string.\n")));
 	  const char *t;
 	  if (s == NULL)
 	    break;
+
+	  CONVERT_STRING (s);
 
 	  /* To reduce the possibility of unwanted matches be do a two
 	     step match: the line must contain `xgettext:' and one of
@@ -1102,6 +1217,8 @@ remember_a_message_plural (mp, string, pos)
 
   msgid_plural = string;
 
+  CONVERT_STRING (msgid_plural);
+
   /* See if the message is already a plural message.  */
   if (mp->msgid_plural == NULL)
     {
@@ -1205,53 +1322,78 @@ finalize_header (mdlp)
 {
   /* If the generated PO file has plural forms, add a Plural-Forms template
      to the constructed header.  */
-  bool has_plural;
-  size_t i, j;
+  {
+    bool has_plural;
+    size_t i, j;
 
-  has_plural = false;
-  for (i = 0; i < mdlp->nitems; i++)
-    {
-      message_list_ty *mlp = mdlp->item[i]->messages;
+    has_plural = false;
+    for (i = 0; i < mdlp->nitems; i++)
+      {
+	message_list_ty *mlp = mdlp->item[i]->messages;
 
-      for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
+	for (j = 0; j < mlp->nitems; j++)
+	  {
+	    message_ty *mp = mlp->item[j];
 
-	  if (mp->msgid_plural != NULL)
-	    {
-	      has_plural = true;
-	      break;
-	    }
-	}
-      if (has_plural)
-	break;
-    }
+	    if (mp->msgid_plural != NULL)
+	      {
+		has_plural = true;
+		break;
+	      }
+	  }
+	if (has_plural)
+	  break;
+      }
 
-  if (has_plural)
-    {
-      message_ty *header = message_list_search (mdlp->item[0]->messages, "");
-      if (header != NULL
-	  && strstr (header->msgstr, "Plural-Forms:") == NULL)
-	{
-	  size_t insertpos = strlen (header->msgstr);
-	  const char *suffix;
-	  size_t suffix_len;
-	  char *new_msgstr;
+    if (has_plural)
+      {
+	message_ty *header = message_list_search (mdlp->item[0]->messages, "");
+	if (header != NULL
+	    && strstr (header->msgstr, "Plural-Forms:") == NULL)
+	  {
+	    size_t insertpos = strlen (header->msgstr);
+	    const char *suffix;
+	    size_t suffix_len;
+	    char *new_msgstr;
 
-	  suffix = "\nPlural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n";
-	  if (insertpos == 0 || header->msgstr[insertpos-1] == '\n')
-	    suffix++;
-	  suffix_len = strlen (suffix);
-	  new_msgstr = (char *) xmalloc (header->msgstr_len + suffix_len);
-	  memcpy (new_msgstr, header->msgstr, insertpos);
-	  memcpy (new_msgstr + insertpos, suffix, suffix_len);
-	  memcpy (new_msgstr + insertpos + suffix_len,
-		  header->msgstr + insertpos,
-		  header->msgstr_len - insertpos);
-	  header->msgstr = new_msgstr;
-	  header->msgstr_len = header->msgstr_len + suffix_len;
-	}
-    }
+	    suffix = "\nPlural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n";
+	    if (insertpos == 0 || header->msgstr[insertpos-1] == '\n')
+	      suffix++;
+	    suffix_len = strlen (suffix);
+	    new_msgstr = (char *) xmalloc (header->msgstr_len + suffix_len);
+	    memcpy (new_msgstr, header->msgstr, insertpos);
+	    memcpy (new_msgstr + insertpos, suffix, suffix_len);
+	    memcpy (new_msgstr + insertpos + suffix_len,
+		    header->msgstr + insertpos,
+		    header->msgstr_len - insertpos);
+	    header->msgstr = new_msgstr;
+	    header->msgstr_len = header->msgstr_len + suffix_len;
+	  }
+      }
+  }
+
+  /* If not all the strings were plain ASCII, set the charset in the header
+     to UTF-8.  All messages have already been converted to UTF-8 in
+     remember_a_message and remember_a_message_plural.  */
+  {
+    bool has_nonascii = false;
+    size_t i;
+
+    for (i = 0; i < mdlp->nitems; i++)
+      {
+	message_list_ty *mlp = mdlp->item[i]->messages;
+
+	if (!is_ascii_message_list (mlp))
+	  has_nonascii = true;
+      }
+
+    if (has_nonascii)
+      {
+	message_list_ty *mlp = mdlp->item[0]->messages;
+
+	iconv_message_list (mlp, po_charset_utf8, po_charset_utf8, NULL);
+      }
+  }
 }
 
 

@@ -44,6 +44,7 @@
 #include "stpcpy.h"
 #include "stpncpy.h"
 #include "po.h"
+#include "msgl-iconv.h"
 #include "msgl-equal.h"
 #include "plural-exp.h"
 #include "backupfile.h"
@@ -1016,6 +1017,40 @@ merge (fn1, fn2, defp)
 
 	message_list_prepend (ref->item[k]->messages, refheader);
       }
+
+  /* The references file can be either in ASCII or in UTF-8.  If it is
+     in UTF-8, we have to convert the definitions to UTF-8 as well.  */
+  {
+    bool was_utf8 = false;
+    for (k = 0; k < ref->nitems; k++)
+      {
+	message_list_ty *mlp = ref->item[k]->messages;
+
+	for (j = 0; j < mlp->nitems; j++)
+	  if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	    {
+	      const char *header = mlp->item[j]->msgstr; 
+
+	      if (header != NULL)
+		{
+		  const char *charsetstr = strstr (header, "charset=");
+
+		  if (charsetstr != NULL)
+		    {
+		      size_t len;
+
+		      charsetstr += strlen ("charset=");
+		      len = strcspn (charsetstr, " \t\n");
+		      if (len == strlen ("UTF-8")
+			  && strncasecmp (charsetstr, "UTF-8", len) == 0)
+			was_utf8 = true;
+		    }
+		}
+	    }
+	}
+    if (was_utf8)
+      def = iconv_msgdomain_list (def, "UTF-8", fn1);
+  }
 
   result = msgdomain_list_alloc (false);
   processed = 0;

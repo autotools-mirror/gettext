@@ -84,6 +84,20 @@ This is a shorthand for @code{--language=C++}.
 By default the language is guessed depending on the input file name
 extension.
 
+@subsection Input file interpretation
+
+@table @samp
+@item --from-code=@var{name}
+@opindex --from-code@r{, @code{xgettext} option}
+Specifies the encoding of the input files.  This option is needed only
+if some untranslated message strings or their corresponding comments
+contain non-ASCII characters.  Note that Python, Tcl, and Glade input
+files are always assumed to be in UTF-8, regardless of this option.
+
+@end table
+
+By default the input files are assumed to be in ASCII.
+
 @subsection Operation mode
 
 @table @samp

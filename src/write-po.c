@@ -778,7 +778,8 @@ message_print (mp, fp, charset, blank_line, debug)
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
      this domain, emit an empty string.  */
-  if (!is_ascii_string (mp->msgid))
+  if (!is_ascii_string (mp->msgid)
+      && po_charset_canonicalize (charset) != po_charset_utf8)
     multiline_warning (xasprintf (_("warning: ")),
 		       xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\
@@ -872,7 +873,8 @@ message_print_obsolete (mp, fp, charset, blank_line)
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
-  if (!is_ascii_string (mp->msgid))
+  if (!is_ascii_string (mp->msgid)
+      && po_charset_canonicalize (charset) != po_charset_utf8)
     multiline_warning (xasprintf (_("warning: ")),
 		       xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\

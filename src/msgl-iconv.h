@@ -19,7 +19,16 @@
 #ifndef _MSGL_ICONV_H
 #define _MSGL_ICONV_H
 
+#if HAVE_ICONV
+#include <iconv.h>
+#endif
+
 #include "message.h"
+
+#if HAVE_ICONV
+/* Converts the STRING through the conversion descriptor CD.  */
+extern char *convert_string PARAMS ((iconv_t cd, const char *string));
+#endif
 
 /* Converts the message list MLP to the (already canonicalized) encoding
    CANON_TO_CODE.  The (already canonicalized) encoding before conversion

@@ -33,9 +33,12 @@
 #include "basename.h"
 #include "message.h"
 #include "exit.h"
-#include "gettext.h"
 #include "read-po.h"
 #include "po.h"
+#include "msgl-iconv.h"
+#include "strstr.h"
+#include "strcase.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 
@@ -300,6 +303,40 @@ compare (fn1, fn2)
   /* This is the generated file, created by groping the sources with
      the xgettext program.  */
   ref = remove_obsoletes (read_po_file (fn2));
+
+  /* The references file can be either in ASCII or in UTF-8.  If it is
+     in UTF-8, we have to convert the definitions to UTF-8 as well.  */
+  {
+    bool was_utf8 = false;
+    for (k = 0; k < ref->nitems; k++)
+      {
+	message_list_ty *mlp = ref->item[k]->messages;
+
+	for (j = 0; j < mlp->nitems; j++)
+	  if (mlp->item[j]->msgid[0] == '\0' /* && !mlp->item[j]->obsolete */)
+	    {
+	      const char *header = mlp->item[j]->msgstr; 
+
+	      if (header != NULL)
+		{
+		  const char *charsetstr = strstr (header, "charset=");
+
+		  if (charsetstr != NULL)
+		    {
+		      size_t len;
+
+		      charsetstr += strlen ("charset=");
+		      len = strcspn (charsetstr, " \t\n");
+		      if (len == strlen ("UTF-8")
+			  && strncasecmp (charsetstr, "UTF-8", len) == 0)
+			was_utf8 = true;
+		    }
+		}
+	    }
+	}
+    if (was_utf8)
+      def = iconv_msgdomain_list (def, "UTF-8", fn1);
+  }
 
   empty_list = message_list_alloc (false);
 

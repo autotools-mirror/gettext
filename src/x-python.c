@@ -1159,6 +1159,9 @@ extract_python (f, real_filename, logical_filename, mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
+  /* We convert our strings to UTF-8 encoding.  */
+  xgettext_current_source_encoding = po_charset_utf8;
+
   fp = f;
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
@@ -1175,14 +1178,6 @@ extract_python (f, real_filename, logical_filename, mdlp)
      due to an unbalanced closing parenthesis, just restart it.  */
   while (!extract_parenthesized (mlp, -1, 0))
     ;
-
-  /* We converted our strings to UTF-8 encoding.  If not all the strings
-     were plain ASCII, set the charset in the header to UTF-8.  */
-  if (!is_ascii_message_list (mlp))
-    {
-      const char *canon_utf_8 = po_charset_canonicalize ("UTF-8");
-      iconv_message_list (mlp, canon_utf_8, canon_utf_8, NULL);
-    }
 
   fp = NULL;
   real_file_name = NULL;
