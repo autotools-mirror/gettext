@@ -1,17 +1,18 @@
 # Chinese translation for GNU gettext messages.
-# Copyright (C) 1998 Free Software Foundation, Inc.
+# Copyright (C) 2001 Free Software Foundation, Inc.
 # Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>, 1998.
+# Pofeng Lee <pofeng@linux.org.tw>, 2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
-"PO-Revision-Date: 1998-11-12 18:00 +0800\n"
+"Project-Id-Version: GNU gettext 0.10.38\n"
+"POT-Creation-Date: 2001-05-18 16:24+0200\n"
+"PO-Revision-Date: 2001-05-27 23:03 +0800\n"
 "Last-Translator: Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>\n"
-"Language-Team: Chinese <zh@li.org>\n"
+"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=big5\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: lib/error.c:115
 msgid "Unknown system error"
@@ -76,45 +77,57 @@ msgstr "%s: 選項 `-W %s' 是不明確的 \n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: 選項 `-W %s' 並不需要參數 \n"
 
-#: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
-#: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
-#, fuzzy
+#: lib/obstack.c:474 lib/xerror.c:69 lib/xmalloc.c:86
 msgid "memory exhausted"
 msgstr "記憶體耗盡"
 
-#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:279 src/msgfmt.c:270
-#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:388
+#: src/gettext.c:143 src/msgcmp.c:138 src/msgcomm.c:275 src/msgfmt.c:268
+#: src/msgmerge.c:199 src/msgunfmt.c:172 src/ngettext.c:123 src/xgettext.c:387
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"這是自由軟體; 請參考原始碼的版權聲明.\n"
+"即使您是為了特定的目的而購買了本軟體, 本軟體依然不提供任何保證.\n"
 
-#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:284 src/msgfmt.c:275
-#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:393
+#: src/gettext.c:148 src/msgcmp.c:143 src/msgcomm.c:280 src/msgfmt.c:273
+#: src/msgmerge.c:204 src/msgunfmt.c:177 src/ngettext.c:128 src/xgettext.c:392
 #, c-format
 msgid "Written by %s.\n"
 msgstr "由 %s 所譔寫 \n"
 
-#: src/gettext.c:163 src/ngettext.c:137
+#: src/gettext.c:166 src/ngettext.c:140
 msgid "too many arguments"
 msgstr "參數太多了"
 
-#: src/gettext.c:173 src/ngettext.c:149
+#: src/gettext.c:176 src/ngettext.c:152
 msgid "missing arguments"
 msgstr "沒有參數"
 
-#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:377 src/msgfmt.c:387
-#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:515
+#: src/gettext.c:248 src/msgcmp.c:175 src/msgcomm.c:373 src/msgfmt.c:385
+#: src/msgmerge.c:263 src/msgunfmt.c:211 src/ngettext.c:207 src/xgettext.c:514
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "試試看打 `%s --help' 來獲得更多資訊 \n"
 
-#: src/gettext.c:250
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
-"Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+"or:    %s [OPTION] -s [MSGID]...\n"
+msgstr ""
+
+#: src/gettext.c:259
+#, no-wrap
+msgid "Display native language translation of a textual message.\n"
+msgstr ""
+
+#: src/gettext.c:263
+#, fuzzy, no-wrap
+msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
 "  -E                        (ignored for compatibility)\n"
@@ -134,10 +147,9 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        由 TEXTDOMAIN 這個文字領域，依據 MSGID 讀取翻譯 \n"
 "                            後的訊息。 \n"
 
-#: src/gettext.c:262
-#, c-format, no-wrap
+#: src/gettext.c:274
+#, fuzzy, c-format, no-wrap
 msgid ""
-"\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
@@ -156,34 +168,33 @@ msgstr ""
 "到標準輸出。 \n"
 "目前的標準搜尋路徑為: %s \n"
 
-#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:424 src/msgfmt.c:414
-#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:565
+#: src/gettext.c:284 src/msgcmp.c:214 src/msgcomm.c:452 src/msgfmt.c:444
+#: src/msgmerge.c:332 src/msgunfmt.c:264 src/ngettext.c:240 src/xgettext.c:605
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "請回報錯誤至 <bug-gnu-utils@gnu.org>.\n"
 
-#: src/msgcmp.c:156 src/msgmerge.c:271
+#: src/msgcmp.c:154 src/msgmerge.c:215
 msgid "no input files given"
 msgstr "未給與所要處理的檔案"
 
-#: src/msgcmp.c:161 src/msgmerge.c:276
+#: src/msgcmp.c:159 src/msgmerge.c:220
 msgid "exactly 2 input files required"
 msgstr "此功能需要恰好指定兩個輸入檔"
 
-#: src/msgcmp.c:182
+#: src/msgcmp.c:180 src/msgmerge.c:268
 #, c-format, no-wrap
+msgid "Usage: %s [OPTION] def.po ref.pot\n"
+msgstr ""
+
+#: src/msgcmp.c:185
+#, fuzzy, no-wrap
 msgid ""
-"Usage: %s [OPTION] def.po ref.po\n"
-"Mandatory arguments to long options are mandatory for short options too.\n"
-"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
-"  -h, --help                  display this help and exit\n"
-"  -V, --version               output version information and exit\n"
-"\n"
 "Compare two Uniforum style .po files to check that both contain the same\n"
 "set of msgid strings.  The def.po file is an existing PO file with the\n"
-"old translations.  The ref.po file is the last created PO file\n"
-"(generally by xgettext).  This is useful for checking that you have\n"
-"translated each and every message in your program.  Where an exact match\n"
-"cannot be found, fuzzy matching is used to produce better diagnostics.\n"
+"translations.  The ref.pot file is the last created PO file, or a PO Template\n"
+"file (generally created by xgettext).  This is useful for checking that\n"
+"you have translated each and every message in your program.  Where an exact\n"
+"match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
 "使用法：%s [選項] def.po ref.po \n"
 " (短選項用的參數和長選項用的是一樣的) \n"
@@ -198,126 +209,94 @@ msgstr ""
 "比較的時候，假如找不到完全一致的欄位，那麼程式會用模糊邏輯的方法 \n"
 "來得到比較好的檢查結果。\n"
 
-#: src/msgcmp.c:255 src/msgmerge.c:741
+#: src/msgcmp.c:195 src/msgcomm.c:395 src/msgfmt.c:400 src/msgmerge.c:286
+#: src/msgunfmt.c:226
+#, no-wrap
+msgid "Mandatory arguments to long options are mandatory for short options too.\n"
+msgstr ""
+
+#: src/msgcmp.c:200
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  def.po                      translations\n"
+"  ref.pot                     references to the sources\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+msgstr ""
+
+#: src/msgcmp.c:208
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+msgstr ""
+
+#: src/msgcmp.c:263 src/msgmerge.c:414
 msgid "this message is used but not defined..."
 msgstr "這個訊息有被使用到但是並未被定義過..."
 
-#: src/msgcmp.c:257 src/msgmerge.c:743
+#: src/msgcmp.c:265 src/msgmerge.c:416
 msgid "...but this definition is similar"
 msgstr "...不過這個定義相似"
 
-#: src/msgcmp.c:263 src/msgmerge.c:770
+#: src/msgcmp.c:271 src/msgmerge.c:443
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "在 %s 裡使用到的訊息並未被定義"
 
-#: src/msgcmp.c:277
+#: src/msgcmp.c:285
 msgid "warning: this message is not used"
 msgstr "警告：這個訊息沒有被用到"
 
-#: src/msgcmp.c:283 src/po-lex.c:103
-#, fuzzy, c-format
+#: src/msgcmp.c:291 src/po-lex.c:98
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "找到了 %d 個重大的錯誤"
 
-#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
+#: src/msgcmp.c:365 src/msgfmt.c:699 src/read-po.c:237 src/xgettext.c:1199
 msgid "duplicate message definition"
 msgstr "重複的訊息定義"
 
-#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1158
+#: src/msgcmp.c:366 src/msgfmt.c:701 src/read-po.c:238 src/xgettext.c:1200
 msgid "...this is the location of the first definition"
 msgstr "... 這是第一次定義的位置"
 
-#: src/msgcmp.c:397 src/msgmerge.c:561
+#: src/msgcmp.c:406 src/read-po.c:286
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "這個訊息不曾在 \"%s\" 這個領域被定義過"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:235 src/xgettext.c:327 src/xgettext.c:1353
+#: src/msgcomm.c:231 src/xgettext.c:326 src/xgettext.c:1395
 msgid "while preparing output"
 msgstr "當正在準備輸出的時候"
 
-#: src/msgcomm.c:267 src/msgcomm.c:271 src/xgettext.c:365 src/xgettext.c:369
+#: src/msgcomm.c:263 src/msgcomm.c:267 src/msgmerge.c:225 src/xgettext.c:364
+#: src/xgettext.c:368
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s 和 %s 兩者是互不相容的"
 
-#: src/msgcomm.c:323
+#: src/msgcomm.c:319
 msgid "at least two files must be specified"
 msgstr "必須恰好指定兩個檔案"
 
-#: src/msgcomm.c:334
+#: src/msgcomm.c:330
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "不可能的選擇 (%d < n <%d) "
 
-#: src/msgcomm.c:382
+#: src/msgcomm.c:378 src/xgettext.c:519
 #, c-format, no-wrap
-msgid ""
-"Usage: %s [OPTION] INPUTFILE ...\n"
-"Mandatory arguments to long options are mandatory for short options too.\n"
-"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
-"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
-"  -e, --no-escape                do not use C escapes in output (default)\n"
-"  -E, --escape                   use C escapes in output, no extended chars\n"
-"  -f, --files-from=FILE          get list of input files from FILE\n"
-"      --force-po                 write PO file even if empty\n"
-"  -F, --sort-by-file             sort output by file location\n"
-"  -h, --help                     display this help and exit\n"
+msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr ""
-"使用法： %s [選項] INPUTFILE ... \n"
-" (短選項用的參數和長選項用的是一樣的) \n"
-"  -d, --default-domain=NAME      用 NAME.po 做為輸出檔名 (預設是  messages.po) \n"
-"  -D, --directory=DIRECTORY      處理前先改變目錄到 DIRECTORY 底下。 \n"
-"  -e, --no-escape                輸出的結果不使用 C 溢出字元。 \n"
-"  -E, --escape                   輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
-"  -f, --files-from=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
-"      --force-po                 即使內容是空的，仍然強迫輸出 PO 檔\n"
-"  -F, --sort-by-file             依檔案位置排序輸出結果。 \n"
-"  -h, --help                     顯示這段說明訊息。 \n"
 
-#: src/msgcomm.c:394
+#: src/msgcomm.c:383
+#, fuzzy, no-wrap
 msgid ""
-"  -i, --indent                   write the .po file using indented style\n"
-"      --no-location              do not write '#: filename:line' lines\n"
-"  -n, --add-location             generate '#: filename:line' lines "
-"(default)\n"
-"      --omit-header              don't write header with `msgid \"\"' entry\n"
-"  -o, --output=FILE              write output to specified file\n"
-"  -p, --output-dir=DIR           output files will be placed in directory "
-"DIR\n"
-"  -s, --sort-output              generate sorted output and remove "
-"duplicates\n"
-"      --strict                   write out strict Uniforum conforming .po "
-"file\n"
-"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
-"  -u, --unique                   shorthand for --less-than=2, requests\n"
-"                                 that only unique messages be printed\n"
-msgstr ""
-"  -i, --indent                   使用縮排格式輸出 .po 檔案 \n"
-"      --no-location              不要產生 '#: filename:line'\n"
-"  -n, --add-location             要產生 '#: filename:line' (內定)\n"
-"       --omit-header              不要在輸出檔一開始放 `msgid \"\"' 欄位 \n"
-"  -o, --output=FILE              指定輸出的檔名為 FILE \n"
-"  -p, --output-dir=DIR           把輸出的檔案放到 目錄 DIR \n"
-"  -s, --sort-output              製造排序妥當的輸出，並移除重覆的欄位。\n"
-"       --strict                   寫出嚴格符合標準的 .po 檔案。 \n"
-"  -T, --trigraphs                接受 ANSI C trigraphs 的輸入。 \n"
-"  -u, --unique                   只印出獨特的訊息，同 --less-than=2 \n"
-
-#: src/msgcomm.c:407
-msgid ""
-"  -V, --version                  output version information and exit\n"
-"  -w, --width=NUMBER             set output page width\n"
-"  -<, --less-than=NUMBER         print messages with less than this many\n"
-"                                 definitions, defaults to infinite if not\n"
-"                                 set\n"
-"  ->, --more-than=NUMBER         print messages with more than this many\n"
-"                                 definitions, defaults to 1 if not set\n"
-"\n"
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
 "before messages are printed.  Conversely, the --less-than option may be\n"
@@ -325,7 +304,7 @@ msgid ""
 "--less-than=2 will only print the unique messages).  Translations,\n"
 "comments and extract comments will be preserved, but only from the first\n"
 "PO file to define them.  File positions from all PO files will be\n"
-"preserved.\n"
+"cumulated.\n"
 msgstr ""
 "  -V, --version                  顯示關於版本的資訊 \n"
 "  -w, --width=NUMBER             設定輸出頁寬\n"
@@ -343,227 +322,301 @@ msgstr ""
 "PO file to define them.  File positions from all PO files will be\n"
 "preserved.\n"
 
-#: src/msgcomm.c:458 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
-#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:599
+#: src/msgcomm.c:400 src/xgettext.c:535
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE ...                  input files\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgcomm.c:409 src/xgettext.c:544
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
+"If output file is -, output is written to standard output.\n"
+msgstr ""
+
+#: src/msgcomm.c:418
+#, fuzzy, no-wrap
+msgid ""
+"Message selection:\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 1 if not set\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+"  -V, --version                  顯示關於版本的資訊 \n"
+"  -w, --width=NUMBER             設定輸出頁寬\n"
+"  -<, --less-than=NUMBER         顯示定義數目小於 NUMBER 的訊息\n"
+"                                 內定值為無限大 \n"
+"  ->, --more-than=NUMBER         顯示定義數目小於 NUMBER 的訊息\n"
+"                                 內定值為無限大 \n"
+"\n"
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be preserved, but only from the first\n"
+"PO file to define them.  File positions from all PO files will be\n"
+"preserved.\n"
+
+#: src/msgcomm.c:430
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"  -s, --sort-output              generate sorted output and remove duplicates\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+msgstr ""
+"Usage: %s [OPTION] def.po ref.po\n"
+" (短選項用的參數和長選項用的是一樣的) \n"
+"  -C, --compendium=FILE       增加訊息翻譯的檔案庫, 可以指定一個以上\n"
+"  -D, --directory=DIRECTORY   在輸入檔案的搜尋目錄名單中, 增加 DIRECTORY \n"
+"  -e, --no-escape             輸出的結果不使用 C 溢出字元 (預設)。 \n"
+"  -E, --escape                輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
+"      --force-po              即使內容是空的, 仍強迫寫入 PO 檔 \n"
+"  -h, --help                  顯示這段說明訊息。 \n"
+"  -i, --indent                對輸出結果做縮排處理。 \n"
+"  -o, --output-file=FILE      把輸出的結果寫入 FILE 這個檔案。 \n"
+"      --no-location           關閉 '#: filename:line' \n"
+"      --add-location          保留 '#: filename:line' (預設)\n"
+"      --strict                使用嚴格統一標準的輸出結果。\n"
+"  -v, --verbose               增加顯示冗長訊息\n"
+"  -V, --version               顯示關於版本的資訊\n"
+"  -w, --width=NUMBER          設定輸出頁寬\n"
+
+#: src/msgcomm.c:446 src/xgettext.c:599
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                     display this help and exit\n"
+"  -V, --version                  output version information and exit\n"
+msgstr ""
+
+#: src/msgcomm.c:477 src/msgunfmt.c:386 src/po-lex.c:84 src/xget-lex.c:158
+#: src/xget-lex.c:171 src/xget-lex.c:181 src/xgettext.c:630
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "當開啟檔案 \"%s\" 準備讀取時發生錯誤 "
 
-#: src/msgcomm.c:539 src/xgettext.c:641 src/xgettext.c:1059
+#: src/msgcomm.c:563 src/xgettext.c:677 src/xgettext.c:1100
 msgid "this file may not contain domain directives"
 msgstr "這個檔案不能含有領域指令"
 
-#: src/msgfmt.c:286 src/xgettext.c:404
+#: src/msgfmt.c:284 src/xgettext.c:403
 msgid "no input file given"
 msgstr "未給與所要處理的檔案"
 
-#: src/msgfmt.c:337
+#: src/msgfmt.c:335
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "當開啟 \"%s\" 這個檔案，準備寫入的時候發生錯誤"
 
-#: src/msgfmt.c:360
-#, fuzzy, c-format
+#: src/msgfmt.c:358
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d 已翻譯的訊息 "
 
-#: src/msgfmt.c:365
-#, fuzzy, c-format
+#: src/msgfmt.c:363
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] ", %d 模糊翻譯"
+msgstr[0] ", %d 個模糊翻譯"
 
-#: src/msgfmt.c:370
-#, fuzzy, c-format
+#: src/msgfmt.c:368
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
-msgstr[0] ", %d 未譯的訊息 "
+msgstr[0] ", %d 個未譯的訊息 "
 
-#: src/msgfmt.c:392
+#: src/msgfmt.c:390
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] filename.po ...\n"
+msgstr ""
+
+#: src/msgfmt.c:395
+#, no-wrap
+msgid "Generate binary message catalog from textual translation description.\n"
+msgstr ""
+
+#: src/msgfmt.c:405
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  filename.po ...             input files\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgfmt.c:413
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified file\n"
+"      --strict                enable strict Uniforum mode\n"
+"If output file is -, output is written to standard output.\n"
+msgstr ""
+
+#: src/msgfmt.c:421
+#, no-wrap
+msgid ""
+"Input file interpretation:\n"
+"  -c, --check                 perform language dependent checks on strings\n"
+"  -f, --use-fuzzy             use fuzzy entries in output\n"
+msgstr ""
+
+#: src/msgfmt.c:428
 #, c-format, no-wrap
 msgid ""
-"Usage: %s [OPTION] filename.po ...\n"
-"Generate binary message catalog from textual translation description.\n"
-"\n"
-"Mandatory arguments to long options are mandatory for short options too.\n"
+"Output details:\n"
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
-"  -c, --check                 perform language dependent checks on strings\n"
-"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
-"  -f, --use-fuzzy             use fuzzy entries in output\n"
-"  -h, --help                  display this help and exit\n"
 "      --no-hash               binary file will not include the hash table\n"
-"  -o, --output-file=FILE      specify output file name as FILE\n"
-"      --statistics            print statistics about translations\n"
-"      --strict                enable strict Uniforum mode\n"
-"  -v, --verbose               list input file anomalies\n"
-"  -V, --version               output version information and exit\n"
-"\n"
-"Giving the -v option more than once increases the verbosity level.\n"
-"\n"
-"If input file is -, standard input is read.  If output file is -,\n"
-"output is written to standard output.\n"
 msgstr ""
-"使用法：%s [選項] filename.po ... \n"
-" (短選項用的參數和長選項用的是一樣的) \n"
-"  -a, --alignment=NUMBER      字串依 NUMBER 個字元對齊 (預設值為：%d)。 \n"
-"  -c, --check                 perform language dependent checks on strings\n"
-"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
-"  -f, --use-fuzzy             use fuzzy entries in output\n"
-"  -h, --help                  顯示這段說明訊息。 \n"
-"      --no-hash               產生的二位元檔案不包含雜湊表。 \n"
-"  -o, --output-file=FILE      把產生的結果寫到 FILE 這個檔案去。 \n"
-"      --statistics            print statistics about translations\n"
-"      --strict                使用嚴格標準模式。 \n"
-"  -v, --verbose               列出輸入檔中異常的部份。 \n"
-"  -V, --version               顯示關於版本的訊息。 \n"
-"\n"
-"重覆指定選項 -v 會有更多的輸入檔異常被顯出來。\n"
-"\n"
-"假如給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
-"假如給定的輸出檔名為 `-' 的話，程式會把結果寫到標準輸出。\n"
 
 #: src/msgfmt.c:435
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"      --statistics            print statistics about translations\n"
+"  -v, --verbose               list input file anomalies\n"
+"Giving the -v option more than once increases the verbosity level.\n"
+msgstr ""
+
+#: src/msgfmt.c:465
 msgid "while creating hash table"
 msgstr "正在建立雜湊表時"
 
-#: src/msgfmt.c:479
-#, c-format
-msgid ""
-"%s: warning: PO file header missing, fuzzy, or invalid\n"
-"%*s  warning: charset conversion will not work"
+#: src/msgfmt.c:501
+#, fuzzy
+msgid "warning: PO file header missing, fuzzy, or invalid\n"
 msgstr ""
+"%s: 警告: PO 檔標頭缺失, 或是非法的, 或是模糊的\n"
+"%*s  警告: 字元集(charset)轉換將不運作"
 
-#: src/msgfmt.c:503
+#: src/msgfmt.c:504
+#, fuzzy
+msgid "warning: charset conversion will not work\n"
+msgstr ""
+"檔頭找不到字元集.\n"
+"轉換訊息至使用者字元集的功能將不會運作\n"
+
+#: src/msgfmt.c:528
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "領域名稱 \"%s\" 不適合做為檔案名稱"
 
-#: src/msgfmt.c:508
+#: src/msgfmt.c:533
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "領域名稱 \"%s\" 不適合做為檔案名稱：將使用字首"
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:521
+#: src/msgfmt.c:546
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "忽略 `domain %s' 指令"
 
-#: src/msgfmt.c:551
+#: src/msgfmt.c:582
 msgid "empty `msgstr' entry ignored"
 msgstr "忽略空的 `msgstr' 欄位"
 
-#: src/msgfmt.c:552
+#: src/msgfmt.c:583
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "忽略模糊翻譯的 `msgstr' 欄位"
 
-#: src/msgfmt.c:594
+#: src/msgfmt.c:626
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "缺少標頭欄位 `%s'"
 
-#: src/msgfmt.c:597
+#: src/msgfmt.c:629
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "標頭欄位 `%s' 應該位於行首"
 
-#: src/msgfmt.c:607
+#: src/msgfmt.c:639
 msgid "some header fields still have the initial default value"
 msgstr "一些標頭欄位仍然是內定值"
 
-#: src/msgfmt.c:618
+#: src/msgfmt.c:650
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "標頭欄位 `%s' 仍然是內定值"
 
-#: src/msgfmt.c:708
+#: src/msgfmt.c:741
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: 警告: 原始檔包含模糊翻譯"
 
-#: src/msgfmt.c:930
-#, fuzzy
+#: src/msgfmt.c:964
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 開始"
 
-#: src/msgfmt.c:938
-#, fuzzy, c-format
+#: src/msgfmt.c:974
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 開始"
+msgstr "`msgid' 和 `msgstr[%u]' 欄位並未同時以 '\\n' 開始"
 
-#: src/msgfmt.c:948
+#: src/msgfmt.c:986
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 開始"
 
-#: src/msgfmt.c:963
-#, fuzzy
+#: src/msgfmt.c:1003
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 結束"
+msgstr "`msgid' 和 `msgid_plural' 欄位並未同時以 '\\n' 結束"
 
-#: src/msgfmt.c:971
-#, fuzzy, c-format
+#: src/msgfmt.c:1013
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 結束"
+msgstr "`msgid' 和 `msgstr[%u]' 欄位並未同時以 '\\n' 結束"
 
-#: src/msgfmt.c:981
+#: src/msgfmt.c:1025
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "`msgid' 和 `msgstr' 欄位並未同時以 '\\n' 結束"
 
-#: src/msgfmt.c:997
+#: src/msgfmt.c:1043
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr "在 `msgid' 和 `msgstr' 欄位裡指定的格式號碼並不符合"
 
-#: src/msgfmt.c:1014
-#, fuzzy, c-format
+#: src/msgfmt.c:1062
+#, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "第 %u 個參數指定的格式並不相同"
+msgstr "第 %lu 個參數指定的格式並不相同"
 
-#: src/msgmerge.c:320
-#, fuzzy, c-format, no-wrap
+#: src/msgmerge.c:273
+#, fuzzy, no-wrap
 msgid ""
-"Usage: %s [OPTION] def.po ref.po\n"
-"Mandatory arguments to long options are mandatory for short options too.\n"
-"  -C, --compendium=FILE       additional library of message translations,\n"
-"                              may be specified more than once\n"
-"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
-"  -e, --no-escape             do not use C escapes in output (default)\n"
-"  -E, --escape                use C escapes in output, no extended chars\n"
-"      --force-po              write PO file even if empty\n"
-"  -h, --help                  display this help and exit\n"
-"  -i, --indent                indented output style\n"
-"  -o, --output-file=FILE      result will be written to FILE\n"
-"      --no-location           suppress '#: filename:line' lines\n"
-"      --add-location          preserve '#: filename:line' lines (default)\n"
-"      --strict                strict Uniforum output style\n"
-"  -v, --verbose               increase verbosity level\n"
-"  -V, --version               output version information and exit\n"
-"  -w, --width=NUMBER          set output page width\n"
-msgstr ""
-"Usage: %s [OPTION] def.po ref.po \n"
-" (短選項用的參數和長選項用的是一樣的) \n"
-"  -e, --no-escape          輸出的結果不使用 C 溢出字元 (預設)。 \n"
-"  -E, --escape             輸出結果用 C 溢出字元，不直接輸出延伸字元。  \n"
-"  -h, --help               顯示這段說明訊息。 \n"
-"  -i, --indent             對輸出結果做縮排處理。 \n"
-"  -o, --output-file=FILE   把輸出的結果寫入 FILE 這個檔案。 \n"
-"  -S, --strict             使用嚴格統一標準的輸出結果。 \n"
-"  -V, --version            顯示關於版本的資訊。 \n"
-
-#: src/msgmerge.c:340
-#, no-wrap
-msgid ""
-"\n"
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
-"existing PO file with the old translations which will be taken over to\n"
-"the newly created file as long as they still match; comments will be\n"
-"preserved, but extract comments and file positions will be discarded.\n"
-"The ref.po file is the last created PO file (generally by xgettext), any\n"
-"translations or comments in the file will be discarded, however dot\n"
+"existing PO file with translations which will be taken over to the newly\n"
+"created file as long as they still match; comments will be preserved,\n"
+"but extracted comments and file positions will be discarded.  The ref.pot\n"
+"file is the last created PO file with up-to-date source references but\n"
+"old translations, or a PO Template file (generally created by xgettext);\n"
+"any translations or comments in the file will be discarded, however dot\n"
 "comments and file positions will be preserved.  Where an exact match\n"
-"cannot be found, fuzzy matching is used to produce better results.  The\n"
-"results are written to stdout unless an output file is specified.\n"
+"cannot be found, fuzzy matching is used to produce better results.\n"
 msgstr ""
 "\n"
 "把兩個相同格式的 .po 檔案合併在一起。 \n"
@@ -576,88 +629,177 @@ msgstr ""
 "式會用模糊邏輯的方法來得到比較好的結果。 \n"
 "除非你指定一個輸出檔案，否則合併的結果會被送到標準輸出去。 \n"
 
-#: src/msgmerge.c:799
+#: src/msgmerge.c:291
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  def.po                      translations referring to old sources\n"
+"  ref.pot                     references to new sources\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -C, --compendium=FILE       additional library of message translations,\n"
+"                              may be specified more than once\n"
+msgstr ""
+
+#: src/msgmerge.c:301
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+
+#: src/msgmerge.c:309
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -i, --indent                indented output style\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"  -s, --sort-output           generate sorted output and remove duplicates\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Usage: %s [OPTION] def.po ref.po\n"
+" (短選項用的參數和長選項用的是一樣的) \n"
+"  -C, --compendium=FILE       增加訊息翻譯的檔案庫, 可以指定一個以上\n"
+"  -D, --directory=DIRECTORY   在輸入檔案的搜尋目錄名單中, 增加 DIRECTORY \n"
+"  -e, --no-escape             輸出的結果不使用 C 溢出字元 (預設)。 \n"
+"  -E, --escape                輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
+"      --force-po              即使內容是空的, 仍強迫寫入 PO 檔 \n"
+"  -h, --help                  顯示這段說明訊息。 \n"
+"  -i, --indent                對輸出結果做縮排處理。 \n"
+"  -o, --output-file=FILE      把輸出的結果寫入 FILE 這個檔案。 \n"
+"      --no-location           關閉 '#: filename:line' \n"
+"      --add-location          保留 '#: filename:line' (預設)\n"
+"      --strict                使用嚴格統一標準的輸出結果。\n"
+"  -v, --verbose               增加顯示冗長訊息\n"
+"  -V, --version               顯示關於版本的資訊\n"
+"  -w, --width=NUMBER          設定輸出頁寬\n"
+
+#: src/msgmerge.c:324
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"  -v, --verbose               increase verbosity level\n"
+"  -q, --quiet, --silent       suppress progress indicators\n"
+msgstr ""
+
+#: src/msgmerge.c:472
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
+"%s讀入 %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
 
-#: src/msgmerge.c:806
+#: src/msgmerge.c:479
 msgid " done.\n"
 msgstr " 完成.\n"
 
-#: src/msgunfmt.c:210
+#: src/msgunfmt.c:216
 #, c-format, no-wrap
+msgid "Usage: %s [OPTION] [FILE]...\n"
+msgstr ""
+
+#: src/msgunfmt.c:221
+#, no-wrap
+msgid "Convert binary message catalog to Uniforum style .po file.\n"
+msgstr ""
+
+#: src/msgunfmt.c:231
+#, no-wrap
 msgid ""
-"Usage: %s [OPTION] [FILE]...\n"
-"Mandatory arguments to long options are mandatory for short options too.\n"
+"Input file location:\n"
+"  FILE ...                 input .mo files\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+
+#: src/msgunfmt.c:238
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE   write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+
+#: src/msgunfmt.c:246
+#, fuzzy, no-wrap
+msgid ""
+"Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
 "  -E, --escape             use C escapes in output, no extended chars\n"
 "      --force-po           write PO file even if empty\n"
-"  -h, --help               display this help and exit\n"
 "  -i, --indent             write indented output style\n"
-"  -o, --output-file=FILE   write output into FILE instead of standard output\n"
 "      --strict             write strict uniforum style\n"
-"  -V, --version            output version information and exit\n"
 "  -w, --width=NUMBER       set output page width\n"
+"  -s, --sort-output        generate sorted output and remove duplicates\n"
 msgstr ""
-"Usage: %s [OPTION] [FILE]... \n"
+"使用法： %s [選項] filename.mo filename.po \n"
 " (短選項用的參數和長選項用的是一樣的) \n"
 "  -e, --no-escape          輸出的結果不使用 C 溢出字元 (預設)。 \n"
-"  -E, --escape             輸出結果用 C 溢出字元，不直接輸出延伸字元。  \n"
-"      --force-po           即使內容是空的，仍然強迫輸出 PO 檔\n"
+"  -E, --escape             輸出結果用 C 溢出字元，不直接輸出延伸字元。 \n"
 "  -h, --help               顯示這段說明訊息。 \n"
 "  -i, --indent             對輸出結果做縮排處理。 \n"
-"  -o, --output-file=FILE   把輸出的結果寫入 FILE 這個檔案。 \n"
-"      --strict             使用嚴格統一標準的輸出結果。 \n"
+"  -S, --strict             用嚴格統一標準的輸出結果。 \n"
 "  -V, --version            顯示關於版本的資訊。 \n"
-"  -w, --width=NUMBER       設定輸出的頁寬\n"
 
-#: src/msgunfmt.c:224
+#: src/msgunfmt.c:258
 #, no-wrap
 msgid ""
-"\n"
-"Convert binary .mo files to Uniforum style .po files.\n"
-"Both little-endian and big-endian .mo files are handled.\n"
-"If no input file is given or it is -, standard input is read.\n"
-"By default the output is written to standard output.\n"
+"Informative output:\n"
+"  -h, --help               display this help and exit\n"
+"  -V, --version            output version information and exit\n"
 msgstr ""
-"\n"
-"把二進位形式的 .mo 檔案轉換成標準格式的 .po 檔。\n"
-"不管是 little-endian 或是 big-endian 的格式都作處理。 \n"
-"假如未指定輸入檔名或給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
-"程式內定會把結果寫到標準輸出。 \n"
 
-#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:216 src/xget-lex.c:243
+#: src/msgunfmt.c:286 src/msgunfmt.c:351 src/po-lex.c:212 src/xget-lex.c:244
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "正在讀取 \"%s\" 的時候碰到錯誤"
 
-#: src/msgunfmt.c:262 src/msgunfmt.c:327
+#: src/msgunfmt.c:287 src/msgunfmt.c:352
 #, c-format
 msgid "file \"%s\" truncated"
 msgstr "已經把檔案 \"%s\" 截斷了"
 
-#: src/msgunfmt.c:293
+#: src/msgunfmt.c:318
 #, c-format
 msgid "seek \"%s\" offset %ld failed"
 msgstr "找尋 \"%s\" 在位移 %ld 處失敗"
 
-#: src/msgunfmt.c:332
-#, fuzzy, c-format
+#: src/msgunfmt.c:357
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "所給的這個檔案 \"%s\" 並非 GNU .mo 格式的檔案"
+msgstr "所給的這個檔案 \"%s\" 包含非 NUL 結尾的字串"
 
-#: src/msgunfmt.c:377
+#: src/msgunfmt.c:402
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "所給的這個檔案 \"%s\" 並非 GNU .mo 格式的檔案"
 
-#: src/ngettext.c:209
-#, fuzzy, c-format, no-wrap
+#: src/ngettext.c:212
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+msgstr ""
+
+#: src/ngettext.c:217
+#, no-wrap
 msgid ""
-"Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+"Display native language translation of a textual message whose grammatical\n"
+"form depends on a number.\n"
+msgstr ""
+
+#: src/ngettext.c:222
+#, fuzzy, no-wrap
+msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
 "  -E                        (ignored for compatibility)\n"
@@ -667,20 +809,21 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"使用法：%s [選項] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]] \n"
+"使用法：%s [選項] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT \n"
 "  -d, --domain=TEXTDOMAIN   由 TEXTDOMAIN 這個文字領域讀取翻譯後的訊息。 \n"
-"  -e                        允許某些溢位字元被展開。 \n"
+"  -e                        允許一些溢位字元被展開。 \n"
 "  -E                        為了相容性存在的選項，不會造成任何影響。 \n"
 "  -h, --help                顯示這段說明訊息。 \n"
 "  -n                        抑制末端的新行字元。 \n"
 "  -v, --version             顯示關於版本的資訊。 \n"
-"  [TEXTDOMAIN] MSGID        由 TEXTDOMAIN 這個文字領域，依據 MSGID 讀取翻譯 \n"
+"  [TEXTDOMAIN]              由 TEXTDOMAIN 這個文字領域，依據 MSGID 讀取翻譯 \n"
 "                            後的訊息。 \n"
+"  MSGID MSGID-PLURAL        翻譯 MSGID (單數) / MSGID-PLURAL (複數) \n"
+"  COUNT                     依據 COUNT 的值來選擇單數或複數形\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:233
 #, fuzzy, c-format, no-wrap
 msgid ""
-"\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
@@ -690,121 +833,124 @@ msgstr ""
 "\n"
 "假如沒有給定 TEXTDOMAIN 這個參數的話，程式會依照名為 TEXTDOMAIN 的環境變數 \n"
 "來設定文字領域。假如訊息資料檔不在正常的目錄底下，使用者可以用環境變數 \n"
-" TEXTDOMAINDIR 指定訊息資料檔的所在的位置。 \n"
-"另外，當你使用選項 `-s' 的時候，這個程式的行為其實和 `echo' 指令是相似的。但 \n"
-"它不是直接把參數拷貝到標準輸出，而是把由訊息資料檔裡找到的翻譯過的訊息拷 \n"
-"到標準輸出。 \n"
+"TEXTDOMAINDIR 指定訊息資料檔的所在的位置。 \n"
 "目前的標準搜尋路徑為: %s \n"
 
 #: src/open-po.c:64
 msgid "<stdin>"
-msgstr ""
+msgstr "<stdin>"
 
-#: po-gram-gen.y:87
-msgid "inconsistent use of #~"
-msgstr ""
-
-#: po-gram-gen.y:168
-#, fuzzy
-msgid "missing `msgstr[]' section"
-msgstr "找不到 `msgstr' 段落"
-
-#: po-gram-gen.y:176
-#, fuzzy
-msgid "missing `msgid_plural' section"
-msgstr "找不到 `msgstr' 段落"
-
-#: po-gram-gen.y:183
-msgid "missing `msgstr' section"
-msgstr "找不到 `msgstr' 段落"
-
-#: po-gram-gen.y:228
-msgid "first plural form has nonzero index"
-msgstr ""
-
-#: po-gram-gen.y:230
-msgid "plural form has wrong index"
-msgstr ""
-
-#. CAUTION: If you change this macro, you must also make identical
-#. changes to the function of the same name in src/po-lex.c
-#: src/po-lex.c:159 src/po-lex.c:198 src/po-lex.h:85 src/po-lex.h:99
-#: src/po-lex.h:115 src/po-lex.h:129
-msgid "too many errors, aborting"
-msgstr "太多錯誤，中斷不玩了"
-
-#: src/po-lex.c:274
-#, c-format
-msgid "keyword \"%s\" unknown"
-msgstr "不明的關鍵字 \"%s\""
-
-#: src/po-lex.c:377
-#, fuzzy
-msgid "invalid control sequence"
-msgstr "不合法的控制序列"
-
-#: src/po-lex.c:480
-msgid "end-of-file within string"
-msgstr "在字串中間發現檔案結束字元 (EOF)"
-
-#: src/po-lex.c:485
-msgid "end-of-line within string"
-msgstr "在字串中間發現行結束字元 (end-of-line)"
-
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
-msgid "invalid multibyte sequence"
-msgstr ""
-
-#: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
+#: src/po-charset.c:145 src/po-charset.c:213 src/po-charset.c:239
+#: src/po-charset.c:265
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: 警告: "
 
-#: src/po.c:303
+#: src/po-charset.c:146
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
+"字元集 \"%s\" 的編碼名不具可攜性.\n"
+"轉換訊息至使用者字元集的功能將不會運作\n"
 
-#: src/po.c:370 src/po.c:405
+#: src/po-charset.c:209 src/po-charset.c:237
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "縱然遭遇錯誤, 仍繼續執行"
 
-#: src/po.c:372
+#: src/po-charset.c:211
 msgid "Continuing anyway."
-msgstr ""
+msgstr "繼續"
 
-#: src/po.c:375
+#: src/po-charset.c:214
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"不支援字元集 \"%s\" %s 依賴 iconv() \n"
+"而 iconv() 目前不支援 \"%s\"\n"
 
-#: src/po.c:385 src/po.c:418
+#: src/po-charset.c:223 src/po-charset.c:247
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
-msgstr ""
+msgstr "先安裝 GNU libiconv, 然後再安裝 GNU gettext, 將會修正此問題\n"
 
-#: src/po.c:393 src/po.c:425
+#: src/po-charset.c:228 src/po-charset.c:251
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
-#: src/po.c:410
+#: src/po-charset.c:240
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"不支援字元集 \"%s\" \n"
+"%s 依賴 iconv(), 而此版本沒有內建 iconv().\n"
 
-#: src/po.c:440
+#: src/po-charset.c:266
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
+"檔頭找不到字元集.\n"
+"轉換訊息至使用者字元集的功能將不會運作\n"
+
+#: po-gram-gen.y:88
+msgid "inconsistent use of #~"
+msgstr "不合理的使用 #~"
+
+#: po-gram-gen.y:178
+msgid "missing `msgstr[]' section"
+msgstr "找不到 `msgstr[]' 段落"
+
+#: po-gram-gen.y:186
+msgid "missing `msgid_plural' section"
+msgstr "找不到 `msgstr_plural' 段落"
+
+#: po-gram-gen.y:193
+msgid "missing `msgstr' section"
+msgstr "找不到 `msgstr' 段落"
+
+#: po-gram-gen.y:238
+msgid "first plural form has nonzero index"
+msgstr "第一個復數格式的指標不是0"
+
+#: po-gram-gen.y:240
+msgid "plural form has wrong index"
+msgstr "復數格式發現錯誤的指標"
+
+#. CAUTION: If you change this macro, you must also make identical
+#. changes to the function of the same name in src/po-lex.c
+#: src/po-lex.c:151 src/po-lex.c:194 src/po-lex.h:77 src/po-lex.h:93
+#: src/po-lex.h:111 src/po-lex.h:127
+msgid "too many errors, aborting"
+msgstr "太多錯誤，中斷不玩了"
+
+#: src/po-lex.c:270
+#, c-format
+msgid "keyword \"%s\" unknown"
+msgstr "不明的關鍵字 \"%s\""
+
+#: src/po-lex.c:373
+msgid "invalid control sequence"
+msgstr "不合法的控制序列"
+
+#: src/po-lex.c:476
+msgid "end-of-file within string"
+msgstr "在字串中間發現檔案結束字元 (EOF)"
+
+#: src/po-lex.c:481
+msgid "end-of-line within string"
+msgstr "在字串中間發現行結束字元 (end-of-line)"
+
+#: src/po-lex.c:524 src/write-po.c:285 src/write-po.c:367
+msgid "invalid multibyte sequence"
+msgstr "非法的多字元序列 (multibyte sequence)"
 
 #: src/write-po.c:316
 #, c-format
@@ -827,139 +973,326 @@ msgstr "標準輸出"
 msgid "error while writing \"%s\" file"
 msgstr "當寫入 \"%s\" 這個檔案時發生錯誤"
 
-#: src/xget-lex.c:148
+#: src/xget-lex.c:149
 msgid "standard input"
 msgstr "標準輸入"
 
-#: src/xget-lex.c:876
+#: src/xget-lex.c:878
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: 警告: 不確定的字元常數"
 
-#: src/xget-lex.c:898
+#: src/xget-lex.c:902
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 警告: 不確定的字串文字"
 
-#: src/xgettext.c:373
+#: src/xgettext.c:372
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "當輸出被重導至 stdout 時, 選項 --join-existing 不能使用"
 
-#: src/xgettext.c:378
+#: src/xgettext.c:377
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
+msgstr "若無關鍵字, xgettext 將無法運作"
 
-#: src/xgettext.c:484
+#: src/xgettext.c:483
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "警告: 檔案 `%s' 的副檔名 `%s' 未明 ; 副檔名將使用 C"
 
-#: src/xgettext.c:520
-#, c-format, no-wrap
-msgid ""
-"Usage: %s [OPTION] INPUTFILE ...\n"
-"Extract translatable string from given input files.\n"
-"\n"
-"Mandatory arguments to long options are mandatory for short options too.\n"
-"  -a, --extract-all              extract all strings\n"
-"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
-"                                 preceding keyword lines) in output file\n"
-"  -C, --c++                      shorthand for --language=C++\n"
-"      --debug                    more detailed formatstring recognision result\n"
-"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
-"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
-"  -e, --no-escape                do not use C escapes in output (default)\n"
-"  -E, --escape                   use C escapes in output, no extended chars\n"
-"  -f, --files-from=FILE          get list of input files from FILE\n"
-"      --force-po                 write PO file even if empty\n"
-"      --foreign-user             omit FSF copyright in output for foreign user\n"
-"  -F, --sort-by-file             sort output by file location\n"
+#: src/xgettext.c:524
+#, no-wrap
+msgid "Extract translatable strings from given input files.\n"
 msgstr ""
-"使用法： %s [選項] INPUTFILE ... \n"
-" (短選項用的參數和長選項用的是一樣的) \n"
-"  -a, --extract-all              把所有的字串都選錄出來。 \n"
-"  -c, --add-comments[=TAG]       把註解區塊加一個 TAG (或者是那些前置於關  \n"
-"                                 鍵字的行) 再放到輸出檔裡。 \n"
-"  -C, --c++                      接受 C++ 格式的註解。 \n"
-"      --debug                    顯示詳細的除錯訊息 \n"
-"  -d, --default-domain=NAME      用 NAME.po 做為輸出檔名 (預設是  messages.po)\n"
-"  -D, --directory=DIRECTORY      增加 DIRECTORY 到檔案搜尋列表中  \n"
-"  -e, --no-escape                輸出的結果不使用 C 溢出字元。\n"
-"  -E, --escape                   輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
-"  -f, --files-frcm=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
-"      --force-po                 即使內容是空的，仍然強迫輸出 PO 檔 \n"
-"      --foreign-user             忽略 FSF 的版權宣告 \n"
-"  -f, --files-frcm=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
 
-#: src/xgettext.c:540
-#, fuzzy, no-wrap
-msgid ""
-"  -h, --help                     display this help and exit\n"
-"  -i, --indent                   write the .po file using indented style\n"
-"  -j, --join-existing            join messages with existing file\n"
-"  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
-"                                 WORD means not to use default keywords)\n"
-"  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
-"                                 otherwise is guessed from file extension\n"
-"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
-"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
-"      --no-location              do not write '#: filename:line' lines\n"
-msgstr ""
-"  -h, --help                     顯示這段說明訊息。 \n"
-"  -i, --indent                   使用縮排格式輸出 .po 檔案 \n"
-"  -j, --join-existing            合併已存的檔案 \n"
-"  -k, --keyword[=WORD]           其他要搜尋的關鍵字 \n"
-"                                 (若沒有指定 WORD ， 表示使用預設的關鍵字)。 \n"
-"  -l, --string-limit=NUMBER      把字串長度限制在 NUMBER 以下 (預設為 %u )。 \n"
-"  -L, --language=NAME            辨視指定的語言種類 (C, C++, PO), \n"
-"                                 如果沒指定語言種類, 則用依副檔名來辨視 \n"
-"  -m, --msgstr-prefix[=STRING]   用 STRING 或者 \"\" 當 msgstr 欄位的字首。 \n"
-"  -M, --msgstr-suffix[=STRING]   用 STRING 或者 \"\" 當 msgstr 欄位的字尾。 \n"
-"      --no-location              不要在註解裡面標示訊息出處。 \n"
-
-#: src/xgettext.c:552
+#: src/xgettext.c:529
 #, no-wrap
 msgid ""
-"  -n, --add-location             generate '#: filename:line' lines (default)\n"
-"      --omit-header              don't write header with `msgid \"\"' entry\n"
-"  -o, --output=FILE              write output to specified file\n"
-"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
-"  -s, --sort-output              generate sorted output and remove duplicates\n"
-"      --strict                   write out strict Uniforum conforming .po file\n"
-"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
-"  -V, --version                  output version information and exit\n"
-"  -w, --width=NUMBER             set output page width\n"
-"  -x, --exclude-file=FILE        entries from FILE are not extracted\n"
-"\n"
-"If INPUTFILE is -, standard input is read.\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"Similarly for optional arguments.\n"
 msgstr ""
-"  -n, --add-location             在註解標示 '#: filename:line' (預設)\n"
-"      --omit-header              不要在輸出檔一開始放 `msgid \"\"' 欄位。 \n"
-"  -o, --output-file=FILE         把產生的結果寫到 FILE 這個檔案去。 \n"
-"  -p, --output-dir=DIR           把輸出的檔案放到 DIR 這個目錄底下。 \n"
-"  -s, --sort-output              製造排序妥當的輸出，並移除重覆的欄位。 \n"
-"      --strict                   寫出嚴格符合標準的 .po 檔案。 \n"
-"  -T, --trigraphs                接受 ANSI C trigraphs 的輸入。 \n"
-"  -V, --version                  顯示關於版本的訊息。 \n"
-"  -w, --width=NUMBER             設定輸出頁寬\n"
-"  -x, --exclude-file=FILE        不要抽出檔案 FILE 裡面的欄位。 \n"
-"\n"
-"假如給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
 
-#: src/xgettext.c:914
-#, fuzzy, c-format
+#: src/xgettext.c:553
+#, no-wrap
+msgid ""
+"Choice of input file language:\n"
+"  -L, --language=NAME            recognise the specified language (C, C++, PO)\n"
+"  -C, --c++                      shorthand for --language=C++\n"
+"By default the language is guessed depending on the input file name extension.\n"
+msgstr ""
+
+#: src/xgettext.c:561
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --join-existing            join messages with existing file\n"
+"  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n"
+"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
+"                                 preceding keyword lines) in output file\n"
+msgstr ""
+
+#: src/xgettext.c:570
+#, no-wrap
+msgid ""
+"Language=C/C++ specific options:\n"
+"  -a, --extract-all              extract all strings\n"
+"  -k, --keyword[=WORD]           additional keyword to be looked for (without\n"
+"                                 WORD means not to use default keywords)\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"      --debug                    more detailed formatstring recognition result\n"
+msgstr ""
+
+#: src/xgettext.c:580
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"  -s, --sort-output              generate sorted output and remove duplicates\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"      --foreign-user             omit FSF copyright in output for foreign user\n"
+"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
+"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+msgstr ""
+
+#: src/xgettext.c:952
+#, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: 警告: 不確定的字串文字"
+msgstr "%s:%d: 警告: 關鍵字內涵關鍵字(巢狀敘述)"
 
-#: src/xgettext.c:924
+#: src/xgettext.c:964
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
-msgstr ""
+msgstr "%s:%d: 警告: keyword between outer keyword and its arg"
 
-#: src/xgettext.c:1420
+#: src/xgettext.c:1462
 #, c-format
 msgid "language `%s' unknown"
 msgstr "未知的語言 `%s'"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] INPUTFILE ...\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -E, --escape                   use C escapes in output, no extended chars\n"
+#~ "  -f, --files-from=FILE          get list of input files from FILE\n"
+#~ "      --force-po                 write PO file even if empty\n"
+#~ "  -F, --sort-by-file             sort output by file location\n"
+#~ "  -h, --help                     display this help and exit\n"
+#~ msgstr ""
+#~ "使用法： %s [選項] INPUTFILE ... \n"
+#~ " (短選項用的參數和長選項用的是一樣的) \n"
+#~ "  -d, --default-domain=NAME      用 NAME.po 做為輸出檔名 (預設是  messages.po) \n"
+#~ "  -D, --directory=DIRECTORY      處理前先改變目錄到 DIRECTORY 底下。 \n"
+#~ "  -e, --no-escape                輸出的結果不使用 C 溢出字元。 \n"
+#~ "  -E, --escape                   輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
+#~ "  -f, --files-from=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
+#~ "      --force-po                 即使內容是空的，仍然強迫輸出 PO 檔\n"
+#~ "  -F, --sort-by-file             依檔案位置排序輸出結果。 \n"
+#~ "  -h, --help                     顯示這段說明訊息。 \n"
+
+#~ msgid ""
+#~ "  -i, --indent                   write the .po file using indented style\n"
+#~ "      --no-location              do not write '#: filename:line' lines\n"
+#~ "  -n, --add-location             generate '#: filename:line' lines "
+#~ "(default)\n"
+#~ "      --omit-header              don't write header with `msgid \"\"' "
+#~ "entry\n"
+#~ "  -o, --output=FILE              write output to specified file\n"
+#~ "  -p, --output-dir=DIR           output files will be placed in directory "
+#~ "DIR\n"
+#~ "  -s, --sort-output              generate sorted output and remove "
+#~ "duplicates\n"
+#~ "      --strict                   write out strict Uniforum conforming .po "
+#~ "file\n"
+#~ "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+#~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
+#~ "                                 that only unique messages be printed\n"
+#~ msgstr ""
+#~ "  -i, --indent                   使用縮排格式輸出 .po 檔案 \n"
+#~ "      --no-location              不要產生 '#: filename:line'\n"
+#~ "  -n, --add-location             要產生 '#: filename:line' (內定)\n"
+#~ "       --omit-header              不要在輸出檔一開始放 `msgid \"\"' 欄"
+#~ "位 \n"
+#~ "  -o, --output=FILE              指定輸出的檔名為 FILE \n"
+#~ "  -p, --output-dir=DIR           把輸出的檔案放到 目錄 DIR \n"
+#~ "  -s, --sort-output              製造排序妥當的輸出，並移除重覆的欄位。\n"
+#~ "       --strict                   寫出嚴格符合標準的 .po 檔案。 \n"
+#~ "  -T, --trigraphs                接受 ANSI C trigraphs 的輸入。 \n"
+#~ "  -u, --unique                   只印出獨特的訊息，同 --less-than=2 \n"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] filename.po ...\n"
+#~ "Generate binary message catalog from textual translation description.\n"
+#~ "\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+#~ "  -c, --check                 perform language dependent checks on strings\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+#~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
+#~ "  -h, --help                  display this help and exit\n"
+#~ "      --no-hash               binary file will not include the hash table\n"
+#~ "  -o, --output-file=FILE      specify output file name as FILE\n"
+#~ "      --statistics            print statistics about translations\n"
+#~ "      --strict                enable strict Uniforum mode\n"
+#~ "  -v, --verbose               list input file anomalies\n"
+#~ "  -V, --version               output version information and exit\n"
+#~ "\n"
+#~ "Giving the -v option more than once increases the verbosity level.\n"
+#~ "\n"
+#~ "If input file is -, standard input is read.  If output file is -,\n"
+#~ "output is written to standard output.\n"
+#~ msgstr ""
+#~ "使用法：%s [選項] filename.po ... \n"
+#~ " (短選項用的參數和長選項用的是一樣的) \n"
+#~ "  -a, --alignment=NUMBER      字串依 NUMBER 個字元對齊 (預設值為：%d)。 \n"
+#~ "  -c, --check                 perform language dependent checks on strings\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+#~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
+#~ "  -h, --help                  顯示這段說明訊息。 \n"
+#~ "      --no-hash               產生的二位元檔案不包含雜湊表。 \n"
+#~ "  -o, --output-file=FILE      把產生的結果寫到 FILE 這個檔案去。 \n"
+#~ "      --statistics            print statistics about translations\n"
+#~ "      --strict                使用嚴格標準模式。 \n"
+#~ "  -v, --verbose               列出輸入檔中異常的部份。 \n"
+#~ "  -V, --version               顯示關於版本的訊息。 \n"
+#~ "\n"
+#~ "重覆指定選項 -v 會有更多的輸入檔異常被顯出來。\n"
+#~ "\n"
+#~ "假如給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
+#~ "假如給定的輸出檔名為 `-' 的話，程式會把結果寫到標準輸出。\n"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] [FILE]...\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
+#~ "  -E, --escape             use C escapes in output, no extended chars\n"
+#~ "      --force-po           write PO file even if empty\n"
+#~ "  -h, --help               display this help and exit\n"
+#~ "  -i, --indent             write indented output style\n"
+#~ "  -o, --output-file=FILE   write output into FILE instead of standard output\n"
+#~ "      --strict             write strict uniforum style\n"
+#~ "  -V, --version            output version information and exit\n"
+#~ "  -w, --width=NUMBER       set output page width\n"
+#~ msgstr ""
+#~ "Usage: %s [OPTION] [FILE]... \n"
+#~ " (短選項用的參數和長選項用的是一樣的) \n"
+#~ "  -e, --no-escape          輸出的結果不使用 C 溢出字元 (預設)。 \n"
+#~ "  -E, --escape             輸出結果用 C 溢出字元，不直接輸出延伸字元。  \n"
+#~ "      --force-po           即使內容是空的，仍然強迫輸出 PO 檔\n"
+#~ "  -h, --help               顯示這段說明訊息。 \n"
+#~ "  -i, --indent             對輸出結果做縮排處理。 \n"
+#~ "  -o, --output-file=FILE   把輸出的結果寫入 FILE 這個檔案。 \n"
+#~ "      --strict             使用嚴格統一標準的輸出結果。 \n"
+#~ "  -V, --version            顯示關於版本的資訊。 \n"
+#~ "  -w, --width=NUMBER       設定輸出的頁寬\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Convert binary .mo files to Uniforum style .po files.\n"
+#~ "Both little-endian and big-endian .mo files are handled.\n"
+#~ "If no input file is given or it is -, standard input is read.\n"
+#~ "By default the output is written to standard output.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "把二進位形式的 .mo 檔案轉換成標準格式的 .po 檔。\n"
+#~ "不管是 little-endian 或是 big-endian 的格式都作處理。 \n"
+#~ "假如未指定輸入檔名或給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
+#~ "程式內定會把結果寫到標準輸出。 \n"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] INPUTFILE ...\n"
+#~ "Extract translatable string from given input files.\n"
+#~ "\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -a, --extract-all              extract all strings\n"
+#~ "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
+#~ "                                 preceding keyword lines) in output file\n"
+#~ "  -C, --c++                      shorthand for --language=C++\n"
+#~ "      --debug                    more detailed formatstring recognision result\n"
+#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -E, --escape                   use C escapes in output, no extended chars\n"
+#~ "  -f, --files-from=FILE          get list of input files from FILE\n"
+#~ "      --force-po                 write PO file even if empty\n"
+#~ "      --foreign-user             omit FSF copyright in output for foreign user\n"
+#~ "  -F, --sort-by-file             sort output by file location\n"
+#~ msgstr ""
+#~ "使用法： %s [選項] INPUTFILE ... \n"
+#~ " (短選項用的參數和長選項用的是一樣的) \n"
+#~ "  -a, --extract-all              把所有的字串都選錄出來。 \n"
+#~ "  -c, --add-comments[=TAG]       把註解區塊加一個 TAG (或者是那些前置於關  \n"
+#~ "                                 鍵字的行) 再放到輸出檔裡。 \n"
+#~ "  -C, --c++                      接受 C++ 格式的註解。 \n"
+#~ "      --debug                    顯示詳細的除錯訊息 \n"
+#~ "  -d, --default-domain=NAME      用 NAME.po 做為輸出檔名 (預設是  messages.po)\n"
+#~ "  -D, --directory=DIRECTORY      增加 DIRECTORY 到檔案搜尋列表中  \n"
+#~ "  -e, --no-escape                輸出的結果不使用 C 溢出字元。\n"
+#~ "  -E, --escape                   輸出結果用 C 溢出字元，不直接輸出延伸字元。\n"
+#~ "  -f, --files-frcm=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
+#~ "      --force-po                 即使內容是空的，仍然強迫輸出 PO 檔 \n"
+#~ "      --foreign-user             忽略 FSF 的版權宣告 \n"
+#~ "  -f, --files-frcm=FILE          從檔案 FILE 裡面讀取輸入檔檔名的列表。 \n"
+
+#~ msgid ""
+#~ "  -h, --help                     display this help and exit\n"
+#~ "  -i, --indent                   write the .po file using indented style\n"
+#~ "  -j, --join-existing            join messages with existing file\n"
+#~ "  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
+#~ "                                 WORD means not to use default keywords)\n"
+#~ "  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
+#~ "                                 otherwise is guessed from file extension\n"
+#~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
+#~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+#~ "      --no-location              do not write '#: filename:line' lines\n"
+#~ msgstr ""
+#~ "  -h, --help                     顯示這段說明訊息。 \n"
+#~ "  -i, --indent                   使用縮排格式輸出 .po 檔案 \n"
+#~ "  -j, --join-existing            合併已存的檔案 \n"
+#~ "  -k, --keyword[=WORD]           其他要搜尋的關鍵字 \n"
+#~ "                                 (若沒有指定 WORD ，表示使用預設的關鍵字)。\n"
+#~ "  -L, --language=NAME            辨視指定的語言種類 (C, C++, PO), \n"
+#~ "                                 如果沒指定語言種類, 則用依副檔名來辨視 \n"
+#~ "  -m, --msgstr-prefix[=STRING]   用 STRING 或者 \"\" 當 msgstr 欄位的字首。 \n"
+#~ "  -M, --msgstr-suffix[=STRING]   用 STRING 或者 \"\" 當 msgstr 欄位的字尾。 \n"
+#~ "      --no-location              不要在註解裡面標示訊息出處。 \n"
+
+#~ msgid ""
+#~ "  -n, --add-location             generate '#: filename:line' lines (default)\n"
+#~ "      --omit-header              don't write header with `msgid \"\"' entry\n"
+#~ "  -o, --output=FILE              write output to specified file\n"
+#~ "  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
+#~ "  -s, --sort-output              generate sorted output and remove duplicates\n"
+#~ "      --strict                   write out strict Uniforum conforming .po file\n"
+#~ "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+#~ "  -V, --version                  output version information and exit\n"
+#~ "  -w, --width=NUMBER             set output page width\n"
+#~ "  -x, --exclude-file=FILE        entries from FILE are not extracted\n"
+#~ "\n"
+#~ "If INPUTFILE is -, standard input is read.\n"
+#~ msgstr ""
+#~ "  -n, --add-location             在註解標示 '#: filename:line' (預設)\n"
+#~ "      --omit-header              不要在輸出檔一開始放 `msgid \"\"' 欄位。 \n"
+#~ "  -o, --output-file=FILE         把產生的結果寫到 FILE 這個檔案去。 \n"
+#~ "  -p, --output-dir=DIR           把輸出的檔案放到 DIR 這個目錄底下。 \n"
+#~ "  -s, --sort-output              製造排序妥當的輸出，並移除重覆的欄位。 \n"
+#~ "      --strict                   寫出嚴格符合標準的 .po 檔案。 \n"
+#~ "  -T, --trigraphs                接受 ANSI C trigraphs 的輸入。 \n"
+#~ "  -V, --version                  顯示關於版本的訊息。 \n"
+#~ "  -w, --width=NUMBER             設定輸出頁寬\n"
+#~ "  -x, --exclude-file=FILE        不要抽出檔案 FILE 裡面的欄位。 \n"
+#~ "\n"
+#~ "假如給定的輸入檔名為 `-' 的話，則從標準輸入讀入資料； \n"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: 警告: 沒有標頭欄位"
@@ -969,25 +1302,6 @@ msgstr "未知的語言 `%s'"
 
 #~ msgid "found %d errors"
 #~ msgstr "找到 %d 個錯誤"
-
-#~ msgid ""
-#~ "Usage: %s [OPTION] filename.mo filename.po\n"
-#~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
-#~ "  -E, --escape             use C escapes in output, no extended chars\n"
-#~ "  -h, --help               display this help and exit\n"
-#~ "  -i, --indent             write indented output style\n"
-#~ "  -S, --strict\t           write strict uniforum style\n"
-#~ "  -V, --version            output version information and exit\n"
-#~ msgstr ""
-#~ "使用法： %s [選項] filename.mo filename.po \n"
-#~ " (短選項用的參數和長選項用的是一樣的) \n"
-#~ "  -e, --no-escape          輸出的結果不使用 C 溢出字元 (預設)。 \n"
-#~ "  -E, --escape             輸出結果用 C 溢出字元，不直接輸出延伸字元。 \n"
-#~ "  -h, --help               顯示這段說明訊息。 \n"
-#~ "  -i, --indent             對輸出結果做縮排處理。 \n"
-#~ "  -S, --strict             用嚴格統一標準的輸出結果。 \n"
-#~ "  -V, --version            顯示關於版本的資訊。 \n"
 
 #~ msgid "cannot change to directory \"%s\""
 #~ msgstr "無法進入 \"%s\" 這個目錄"

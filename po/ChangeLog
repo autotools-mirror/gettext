@@ -1,3 +1,10 @@
+2001-05-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* sl.po: Update from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* sv.po: Update from Jan Djärv <Jan.Djarv@mbox200.swipnet.se>.
+	* zh.po: Update from Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>.
+
 2001-05-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* tr.po: Update from Nilgün Belma Bugüner <nilgun@technologist.com>.
