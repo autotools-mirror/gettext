@@ -19,7 +19,7 @@ VPATH = @srcdir@
 
 prefix = @prefix@
 exec_prefix = @exec_prefix@
-datadir = $(prefix)/@DATADIRNAME@
+datadir = $(prefix)/share
 localedir = $(datadir)/locale
 gettextsrcdir = $(prefix)/share/gettext/po
 subdir = po
@@ -44,20 +44,17 @@ INCLUDES = -I.. -I$(top_srcdir)/intl
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-SOURCES = cat-id-tbl.c
 POFILES = @POFILES@
 GMOFILES = @GMOFILES@
 DISTFILES = ChangeLog Makefile.in.in POTFILES.in $(PACKAGE).pot \
-stamp-cat-id $(POFILES) $(GMOFILES) $(SOURCES)
+$(POFILES) $(GMOFILES)
 
 POTFILES = \
 
 CATALOGS = @CATALOGS@
-CATOBJEXT = @CATOBJEXT@
-INSTOBJEXT = @INSTOBJEXT@
 
 .SUFFIXES:
-.SUFFIXES: .c .o .po .pox .gmo .mo .msg .cat
+.SUFFIXES: .c .o .po .pox .gmo .mo
 
 .c.o:
 	$(COMPILE) $<
@@ -73,14 +70,10 @@ INSTOBJEXT = @INSTOBJEXT@
 	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
 	  && rm -f $$file && $(GMSGFMT) -o $$file $<
 
-.po.cat:
-	sed -f ../intl/po2msg.sed < $< > $*.msg \
-	  && rm -f $@ && $(GENCAT) $@ $*.msg
-
 
 all: all-@USE_NLS@
 
-all-yes: cat-id-tbl.c $(CATALOGS)
+all-yes: $(CATALOGS)
 all-no:
 
 $(srcdir)/$(PACKAGE).pot: $(POTFILES)
@@ -90,20 +83,6 @@ $(srcdir)/$(PACKAGE).pot: $(POTFILES)
 	&& test ! -f $(PACKAGE).po \
 	   || ( rm -f $(srcdir)/$(PACKAGE).pot \
 		&& mv $(PACKAGE).po $(srcdir)/$(PACKAGE).pot )
-
-$(srcdir)/cat-id-tbl.c: stamp-cat-id; @:
-$(srcdir)/stamp-cat-id: $(PACKAGE).pot
-	rm -f cat-id-tbl.tmp
-	sed -f ../intl/po2tbl.sed $(srcdir)/$(PACKAGE).pot \
-		| sed -e "s/@PACKAGE NAME@/$(PACKAGE)/" > cat-id-tbl.tmp
-	if cmp -s cat-id-tbl.tmp $(srcdir)/cat-id-tbl.c; then \
-	  rm cat-id-tbl.tmp; \
-	else \
-	  echo cat-id-tbl.c changed; \
-	  rm -f $(srcdir)/cat-id-tbl.c; \
-	  mv cat-id-tbl.tmp $(srcdir)/cat-id-tbl.c; \
-	fi
-	cd $(srcdir) && rm -f stamp-cat-id && echo timestamp > stamp-cat-id
 
 
 install: install-exec install-data
@@ -115,31 +94,16 @@ install-data-yes: all
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
+	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
 	  if test -r $$cat; then \
-	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
-	    echo "installing $$cat as" \
-		 "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
+	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE).mo; \
+	    echo "installing $$cat as $(DESTDIR)$$dir/$(PACKAGE).mo"; \
 	  else \
-	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
+	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE).mo; \
 	    echo "installing $(srcdir)/$$cat as" \
-		 "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
-	  fi; \
-	  if test -r $$cat.m; then \
-	    $(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
-	    echo "installing $$cat.m as" \
-		 "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
-	  else \
-	    if test -r $(srcdir)/$$cat.m ; then \
-	      $(INSTALL_DATA) $(srcdir)/$$cat.m \
-		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
-	      echo "installing $(srcdir)/$$cat as" \
-		   "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
-	    else \
-	      true; \
-	    fi; \
+		 "$(DESTDIR)$$dir/$(PACKAGE).mo"; \
 	  fi; \
 	done
 	if test "$(PACKAGE)" = "gettext"; then \
@@ -157,9 +121,8 @@ uninstall:
 	catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
-	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
-	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
+	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE).mo; \
 	done
 	if test "$(PACKAGE)" = "gettext"; then \
 	  rm -f $(DESTDIR)$(gettextsrcdir)/Makefile.in.in; \
@@ -169,23 +132,21 @@ uninstall:
 
 check: all
 
-cat-id-tbl.o: $(top_srcdir)/intl/libgettext.h
-
 dvi info tags TAGS ID:
 
 mostlyclean:
-	rm -f core core.* *.pox $(PACKAGE).po *.new.po cat-id-tbl.tmp
+	rm -f core core.* *.pox $(PACKAGE).po *.new.po
 	rm -fr *.o
 
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile Makefile.in POTFILES *.mo *.msg *.cat *.cat.m
+	rm -f Makefile Makefile.in POTFILES *.mo
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
-	rm -f $(GMOFILES) cat-id-tbl.c stamp-cat-id
+	rm -f $(GMOFILES)
 
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
 dist distdir: $(DISTFILES)
@@ -202,7 +163,7 @@ update-po: Makefile
 	catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
+	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
 	  echo "$$lang:"; \
 	  if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$lang.new.po; then \
 	    mv -f $$lang.new.po $$lang.po; \

@@ -9,27 +9,20 @@
 # serial 8
 
 dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR], [INCDIR]).
-dnl If SYMBOL is specified and is `no-catgets', then the catgets checks
-dnl    will be disabled.  You must specify this if your program uses
-dnl    any of the ngettext/dngettext/dcngettext/bind_textdomain_codeset
-dnl    functions, which are not supported by the catgets backend.
 dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl INCDIR is used to find the include files.  If empty,
 dnl    the value `intl' is used.
 dnl
-dnl The result of the configuration is one of four cases:
+dnl The result of the configuration is one of three cases:
 dnl 1) GNU gettext, as included in the intl subdirectory, will be compiled
 dnl    and used.
-dnl    Catalog format: GNU --> DATADIRNAME = share
+dnl    Catalog format: GNU --> install in $(datadir)
 dnl    Catalog extension: .mo after installation, .gmo in source tree
 dnl 2) GNU gettext has been found in the system's C library.
-dnl    Catalog format: GNU --> DATADIRNAME = share
+dnl    Catalog format: GNU --> install in $(datadir)
 dnl    Catalog extension: .mo after installation, .gmo in source tree
-dnl 3) A catgets has been found in the system's C library.
-dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
-dnl    Catalog extension: .cat
-dnl 4) No internationalization, always use English msgid.
+dnl 3) No internationalization, always use English msgid.
 dnl    Catalog format: none
 dnl    Catalog extension: none
 dnl The use of .gmo is historical (it was needed to avoid overwriting the
@@ -61,9 +54,8 @@ AC_DEFUN(AM_WITH_NLS,
       nls_cv_use_gnu_gettext="$nls_cv_force_use_gnu_gettext"
       if test "$nls_cv_force_use_gnu_gettext" != "yes"; then
         dnl User does not insist on using GNU NLS library.  Figure out what
-        dnl to use.  If GNU gettext or catgets are available (in this order)
-        dnl we use this.  Else we have to fall back to GNU NLS library.
-	dnl catgets is only used if permitted by option --with-catgets.
+        dnl to use.  If GNU gettext is available we use this.  Else we have
+        dnl to fall back to GNU NLS library.
 	nls_cv_header_intl=
 	nls_cv_header_libgt=
 	CATOBJEXT=NONE
@@ -102,8 +94,6 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 		AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 		  [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
 		CATOBJEXT=.gmo
-		DATADIRNAME=share
-		INSTOBJEXT=.mo
 	      fi
 	      if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
 		INTLLIBS="-lintl"
@@ -111,45 +101,8 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 	    fi
 	])
 
-ifelse([$1], no-catgets, ,[
         if test "$CATOBJEXT" = "NONE"; then
-	  AC_MSG_CHECKING([whether catgets can be used])
-	  AC_ARG_WITH(catgets,
-	    [  --with-catgets          use catgets functions if available],
-	    nls_cv_use_catgets=$withval, nls_cv_use_catgets=no)
-	  AC_MSG_RESULT($nls_cv_use_catgets)
-
-	  if test "$nls_cv_use_catgets" = "yes"; then
-	    dnl No gettext in C library.  Try catgets next.
-	    AC_CHECK_LIB(i, main)
-	    AC_CHECK_FUNC(catgets,
-	      [AC_DEFINE(HAVE_CATGETS)
-	       INTLOBJS="\$(CATOBJS)"
-	       AC_PATH_PROG(GENCAT, gencat, no)dnl
-	       if test "$GENCAT" != "no"; then
-		 AC_PATH_PROG(GMSGFMT, gmsgfmt, no)
-		 if test "$GMSGFMT" = "no"; then
-		   AM_PATH_PROG_WITH_TEST(GMSGFMT, msgfmt,
-		    [test -z "`$ac_dir/$ac_word -h 2>&1 | grep 'dv '`"], no)
-		 fi
-		 AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-		   [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
-		 USE_INCLUDED_LIBINTL=yes
-		 CATOBJEXT=.cat
-		 INSTOBJEXT=.cat
-		 DATADIRNAME=lib
-		 INTLDEPS='ifelse([$2],[],$(top_builddir)/intl/libintl.a,[$2])'
-		 INTLLIBS=$INTLDEPS
-		 LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
-		 nls_cv_header_intl=ifelse([$3],[],intl,[$3])/libintl.h
-		 nls_cv_header_libgt=ifelse([$3],[],intl,[$3])/libgettext.h
-	       fi])
-	  fi
-        fi
-])
-
-        if test "$CATOBJEXT" = "NONE"; then
-	  dnl Neither gettext nor catgets in included in the C library.
+	  dnl GNU gettext is not found in the C library.
 	  dnl Fall back on GNU gettext library.
 	  nls_cv_use_gnu_gettext=yes
         fi
@@ -166,8 +119,6 @@ ifelse([$1], no-catgets, ,[
         AC_SUBST(MSGFMT)
 	USE_INCLUDED_LIBINTL=yes
         CATOBJEXT=.gmo
-        INSTOBJEXT=.mo
-        DATADIRNAME=share
 	INTLDEPS='ifelse([$2],[],$(top_builddir)/intl/libintl.a,[$2])'
 	INTLLIBS=$INTLDEPS
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
@@ -191,7 +142,6 @@ ifelse([$1], no-catgets, ,[
       # We need to process the po/ directory.
       POSUB=po
     else
-      DATADIRNAME=share
       nls_cv_header_intl=ifelse([$3],[],intl,[$3])/libintl.h
       nls_cv_header_libgt=ifelse([$3],[],intl,[$3])/libgettext.h
     fi
@@ -221,14 +171,16 @@ ifelse([$1], no-catgets, ,[
     AC_SUBST(USE_INCLUDED_LIBINTL)
     AC_SUBST(CATALOGS)
     AC_SUBST(CATOBJEXT)
-    AC_SUBST(DATADIRNAME)
     AC_SUBST(GMOFILES)
-    AC_SUBST(INSTOBJEXT)
     AC_SUBST(INTLDEPS)
     AC_SUBST(INTLLIBS)
     AC_SUBST(INTLOBJS)
     AC_SUBST(POFILES)
     AC_SUBST(POSUB)
+
+    dnl For backward compatibility. Some Makefiles may be using this.
+    DATADIRNAME=share
+    AC_SUBST(DATADIRNAME)
   ])
 
 dnl Usage: Just like AM_WITH_NLS, which see.
@@ -288,17 +240,6 @@ __argz_count __argz_stringify __argz_next])
 /* The system does not provide the header <locale.h>.  Take care yourself.  */"
    fi
    AC_SUBST(INCLUDE_LOCALE_H)
-
-   test -d intl || mkdir intl
-   if test "$CATOBJEXT" = ".cat"; then
-     dnl Only the X/Open catalog format is supported.
-     dnl Transform the SED scripts while copying because some dumb SEDs
-     dnl cannot handle comments.
-     sed -e '/^#/d' $srcdir/intl/po2msg.sin > intl/po2msg.sed
-   fi
-   dnl po2tbl.sed is always needed.
-   sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
-     $srcdir/intl/po2tbl.sin > intl/po2tbl.sed
 
    dnl In the intl/Makefile.in we have a special dependency which makes
    dnl only sense for gettext.  We comment this out for non-gettext

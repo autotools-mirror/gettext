@@ -1,5 +1,20 @@
 2001-01-06  Bruno Haible  <haible@clisp.cons.org>
 
+	Remove catgets fallback code.
+	- It does not handle message clash prevention through domains and
+	  dgettext().
+	- It does not handle message catalog inheritance and the LANGUAGE
+	  environment variable.
+	- It does not handle locale aliases.
+	- It does not handle automatic charset conversion.
+	- It does not handle plural form handling and ngettext().
+	- It uses a slow string to integer conversion.
+	- It is sensitive against installation problems.
+	* gettext.m4 (AM_WITH_NLS): Don't look for catgets any more. Don't
+	define INSTOBJEXT. Don't create intl/po2msg.sed and intl/po2tbl.sed.
+
+2001-01-06  Bruno Haible  <haible@clisp.cons.org>
+
 	* setlocale.m4: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
 

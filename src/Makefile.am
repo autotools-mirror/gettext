@@ -26,7 +26,7 @@ str-list.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
 
 EXTRA_DIST = FILES
 
-datadir = $(prefix)/@DATADIRNAME@
+datadir = $(prefix)/share
 localedir = $(datadir)/locale
 
 l = @l@

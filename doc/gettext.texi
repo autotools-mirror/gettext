@@ -2990,14 +2990,15 @@ Translation Project sites, and also on most GNU archive sites.
 By default, packages fully using GNU @code{gettext}, internally,
 are installed in such a way that they to allow translation of
 messages.  At @emph{configuration} time, those packages should
-automatically detect whether the underlying host system provides usable
-@code{catgets} or @code{gettext} functions.  If neither is present,
+automatically detect whether the underlying host system already provides
+the GNU @code{gettext} functions.  If not,
 the GNU @code{gettext} library should be automatically prepared
 and used.  Installers may use special options at configuration
 time for changing this behavior.  The command @samp{./configure
---with-included-gettext} bypasses system @code{catgets} or @code{gettext} to
-use GNU @code{gettext} instead, while @samp{./configure --disable-nls}
-produces program totally unable to translate messages.
+--with-included-gettext} bypasses system @code{gettext} to
+use the included GNU @code{gettext} instead,
+while @samp{./configure --disable-nls}
+produces programs totally unable to translate messages.
 
 Internationalized packages have usually many @file{@var{ll}.po}
 files.  Unless
@@ -3974,10 +3975,7 @@ For interactive programs it might be useful to offer a selection of the
 used language at runtime.  To understand how to do this one need to know
 how the used language is determined while executing the @code{gettext}
 function.  The method which is presented here only works correctly
-with the GNU implementation of the @code{gettext} functions.  It is not
-possible with underlying @code{catgets} functions or @code{gettext}
-functions from the systems C library.  The exception is of course the
-GNU C Library which uses the GNU @code{gettext} Library for message handling.
+with the GNU implementation of the @code{gettext} functions.
 
 In the function @code{dcgettext} at every call the current setting of
 the highest priority environment variable is determined and used.
@@ -4112,20 +4110,20 @@ Supposing another catalog access system is implemented.  Which do
 we recommend?  At least for Linux, we need to attract as many
 software developers as possible.  Hence we need to make it as easy
 for them to port their software as possible.  Which means supporting
-@code{catgets}.  We will be implementing the @code{glocale} code
+@code{catgets}.  We will be implementing the @code{libintl} code
 within our @code{libc}, but does this mean we also have to incorporate
 another message catalog access scheme within our @code{libc} as well?
-And what about people who are going to be using the @code{glocale}
+And what about people who are going to be using the @code{libintl}
 + non-@code{catgets} routines.  When they port their software to
 other platforms, they're now going to have to include the front-end
-(@code{glocale}) code plus the back-end code (the non-@code{catgets}
+(@code{libintl}) code plus the back-end code (the non-@code{catgets}
 access routines) with their software instead of just including the
-@code{glocale} code with their software.
+@code{libintl} code with their software.
 
 Message catalog support is however only the tip of the iceberg.
 What about the data for the other locale categories.  They also have
 a number of deficiencies.  Are we going to abandon them as well and
-develop another duplicate set of routines (should @code{glocale}
+develop another duplicate set of routines (should @code{libintl}
 expand beyond message catalog support)?
 
 Like many parts of Unix that can be improved upon, we're stuck with balancing
@@ -4952,11 +4950,11 @@ piece of @code{m4} code will be the same for all projects using GNU
 If you do not have an @file{acconfig.h} file in your distribution, the
 simplest is use take a copy of @file{acconfig.h} from GNU
 @code{gettext}.  But to be precise, you only need the lines and comments
-for @code{ENABLE_NLS}, @code{HAVE_CATGETS}, @code{HAVE_GETTEXT} and
-@code{HAVE_LC_MESSAGES}, @code{HAVE_STPCPY}, @code{PACKAGE} and
-@code{VERSION}, so you may use an editor and remove everything else.  If
-you already have an @file{acconfig.h} file, then you should merge the
-said definitions into your @file{acconfig.h}.
+for @code{ENABLE_NLS}, @code{HAVE_GETTEXT} and @code{HAVE_LC_MESSAGES},
+@code{HAVE_STPCPY}, @code{PACKAGE} and @code{VERSION}, so you may use an
+editor and remove everything else.  If you already have an
+@file{acconfig.h} file, then you should merge the said definitions into
+your @file{acconfig.h}.
 
 @node Makefile, src/Makefile, acconfig, Adjusting Files
 @subsection @file{Makefile.in} at top level

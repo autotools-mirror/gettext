@@ -48,7 +48,8 @@ to force usage of internationalizing routines provided within this
 package, despite the existence of internationalizing capabilities in the
 operating system where this package is being installed.  So far, only
 the @code{gettext} implementation in the GNU C library version 2
-provides as many features (such as locale alias or message inheritance)
+provides as many features (such as locale alias, message inheritance,
+automatic charset conversion or plural form handling)
 as the implementation here.  It is also not possible to offer this
 additional functionality on top of a @code{catgets} implementation.
 Future versions of GNU @code{gettext} will very likely convey even more
@@ -69,9 +70,8 @@ Most such packages use GNU @code{gettext}.  Other packages have their
 own ways to internationalization, predating GNU @code{gettext}.
 
 By default, this package will be installed to allow translation of
-messages.  It will automatically detect whether the system provides
-usable @code{catgets} (if using this is selected by the installer) or
-@code{gettext} functions.  If neither is available, the GNU
+messages.  It will automatically detect whether the system already
+provides the GNU @code{gettext} functions.  If not, the GNU
 @code{gettext} own library will be used.  This library is wholly
 contained within this package, usually in the @file{intl/} subdirectory,
 so prior installation of the GNU @code{gettext} package is @emph{not}
@@ -80,16 +80,13 @@ changing the default behaviour.  The commands:
 
 @example
 ./configure --with-included-gettext
-./configure --with-catgets
 ./configure --disable-nls
 @end example
 
 @noindent
-will respectively bypass any pre-existing @code{catgets} or
-@code{gettext} to use the internationalizing routines provided within
-this package, enable the use of the @code{catgets} functions (if found
-on the locale system), or else, @emph{totally} disable translation of
-messages.
+will respectively bypass any pre-existing @code{gettext} to use the
+internationalizing routines provided within this package, or else,
+@emph{totally} disable translation of messages.
 
 When you already have GNU @code{gettext} installed on your system and
 run configure without an option for your new package, @code{configure}
@@ -106,22 +103,10 @@ which comes with this package is more recent, you should use
 @noindent
 to prevent auto-detection.
 
-By default the configuration process will not test for the
-@code{catgets} function and therefore they will not be used.  The
-reasons are already given above: the emulation on top of @code{catgets}
-cannot provide all the extensions provided by the GNU @code{gettext}
-library.  If you nevertheless want to use the @code{catgets} functions
-use
-
-@example
-./configure --with-catgets
-@end example
-
-@noindent
-to enable the test for @code{catgets} (this causes no harm if
-@code{catgets} is not available on your system).  If you really select
-this option we would like to hear about the reasons because we cannot
-think of any good one ourself.
+The configuration process will not test for the @code{catgets} function
+and therefore it will not be used.  The reason is that even an
+emulation of @code{gettext} on top of @code{catgets} could not provide
+all the extensions of the GNU @code{gettext} library.
 
 Internationalized packages have usually many @file{po/@var{ll}.po}
 files, where @var{ll} gives an @w{ISO 639} two-letter code

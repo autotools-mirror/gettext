@@ -1,5 +1,29 @@
 2001-01-06  Bruno Haible  <haible@clisp.cons.org>
 
+	Remove catgets fallback code.
+	- It does not handle message clash prevention through domains and
+	  dgettext().
+	- It does not handle message catalog inheritance and the LANGUAGE
+	  environment variable.
+	- It does not handle locale aliases.
+	- It does not handle automatic charset conversion.
+	- It does not handle plural form handling and ngettext().
+	- It uses a slow string to integer conversion.
+	- It is sensitive against installation problems.
+	* Makefile.in.in (datadir): Assume DATADIRNAME = share.
+	(SOURCES): Remove, assume empty.
+	(CATOBJEXT): Remove, assume .gmo.
+	(INSTOBJEXT): Remove, assume .mo.
+	(.SUFFIXES): Remove .msg and .cat.
+	(.po.cat): Remove rule.
+	($(srcdir)/cat-id-tbl.c, $(srcdir)/stamp-cat-id): Remove rules.
+	(install-data-yes): Update and simplify.
+	(cat-id-tbl.o): Remove rule.
+	(mostlyclean, distclean, maintainer-clean): Update.
+	* cat-id-tbl.c: Remove file.
+
+2001-01-06  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in.in (update-po): Set PATH only for the gettext package.
 
 2001-01-04  Bruno Haible  <haible@clisp.cons.org>

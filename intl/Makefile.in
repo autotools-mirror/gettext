@@ -30,7 +30,7 @@ exec_prefix = @exec_prefix@
 transform = @program_transform_name@
 libdir = $(exec_prefix)/lib
 includedir = $(prefix)/include
-datadir = $(prefix)/@DATADIRNAME@
+datadir = $(prefix)/share
 localedir = $(datadir)/locale
 gettextsrcdir = @datadir@/gettext/intl
 aliaspath = $(localedir)
@@ -60,7 +60,7 @@ COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
 HEADERS = $(COMHDRS) libgettext.h loadinfo.h
 COMHDRS = gettext.h gettextP.h hash-string.h
-SOURCES = $(COMSRCS) intl-compat.c cat-compat.c
+SOURCES = $(COMSRCS) intl-compat.c
 COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
 finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
 explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
@@ -69,9 +69,8 @@ OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
 finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
 plural.$lo localcharset.$lo
-CATOBJS = cat-compat.$lo ../po/cat-id-tbl.$lo
 GETTOBJS = intl-compat.$lo
-DISTFILES.common = ChangeLog Makefile.in po2msg.sin po2tbl.sin \
+DISTFILES.common = ChangeLog Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.normal = VERSION
 DISTFILES.gettext = libintl.glibc intlh.inst.in plural.c
@@ -113,9 +112,6 @@ libintl.la: $(OBJECTS)
 		   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
 		   -rpath $(libdir)
 
-../po/cat-id-tbl.$lo: ../po/cat-id-tbl.c $(top_srcdir)/po/$(PACKAGE).pot
-	cd ../po && $(MAKE) cat-id-tbl.$lo
-
 charset.alias: config.charset
 	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
 	mv t-$@ $@
@@ -126,9 +122,8 @@ check: all
 # only use the library should use install instead.
 
 # We must not install the libintl.h/libintl.a files if we are on a
-# system which has the gettext() function in its C library or in a
-# separate library or use the catgets interface.  A special case is
-# where configure found a previously installed GNU gettext library.
+# system which has the GNU gettext() function in its C library or in a
+# separate library.
 # If you want to use the one which comes with this version of the
 # package, you have to use `configure --with-included-gettext'.
 install: install-exec install-data
@@ -246,7 +241,7 @@ mostlyclean:
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile ID TAGS po2msg.sed po2tbl.sed
+	rm -f Makefile ID TAGS
 	if test "$(PACKAGE)" = gettext; then \
 	  rm -f $(DISTFILES.normal); \
 	else \

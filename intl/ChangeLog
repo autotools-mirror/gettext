@@ -1,3 +1,27 @@
+2001-01-06  Bruno Haible  <haible@clisp.cons.org>
+
+	Remove catgets fallback code.
+	- It does not handle message clash prevention through domains and
+	  dgettext().
+	- It does not handle message catalog inheritance and the LANGUAGE
+	  environment variable.
+	- It does not handle locale aliases.
+	- It does not handle automatic charset conversion.
+	- It does not handle plural form handling and ngettext().
+	- It uses a slow string to integer conversion.
+	- It is sensitive against installation problems.
+	* cat-compat.c: Remove file.
+	* po2msg.sin, po2tbl.sin: Remove files.
+	* Makefile.in (datadir): Assume DATADIRNAME = share.
+	(SOURCES): Remove cat-compat.c.
+	(DISTFILES.common): Remove po2msg.sin, po2tbl.sin.
+	(distclean): No need to remove po2msg.sed, po2tbl.sed.
+	(../po/cat-id-tbl.$lo): Remove rule.
+	* libgettext.h (_msg_ent): Remove.
+	(_msg_tbl, _msg_tbl_length): Remove declarations.
+	(gettext, dgettext, ngettext, dngettext): Don't depend on
+	!HAVE_CATGETS.
+
 2001-01-04  Ulrich Drepper  <drepper@redhat.com>
 
 	* plural.y (yylex): Minimal improvement in number scanner.

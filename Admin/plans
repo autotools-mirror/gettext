@@ -50,7 +50,3 @@ Things we plan to do. Comments welcome.
 - Split xgettext into a language dependent part and a language independent
   part.
 
-Future:
-
-- Remove support for catgets.
-

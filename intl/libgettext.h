@@ -67,23 +67,6 @@ extern "C" {
 #endif
 
 
-/* Declarations for gettext-using-catgets interface.  Derived from
-   Jim Meyering's libintl.h.  */
-struct _msg_ent
-{
-  const char *_msg;
-  int _msg_number;
-};
-
-
-#if HAVE_CATGETS
-/* These two variables are defined in the automatically by po-to-tbl.sed
-   generated file `cat-id-tbl.c'.  */
-extern const struct _msg_ent _msg_tbl[];
-extern int _msg_tbl_length;
-#endif
-
-
 /* For automatical extraction of messages sometimes no real
    translation is needed.  Instead the string itself is the result.  */
 #define gettext_noop(Str) (Str)
@@ -158,7 +141,7 @@ extern char *bind_textdomain_codeset__ PARAMS ((const char *__domainname,
 /* Solaris 2.3 has the gettext function but dcgettext is missing.
    So we omit this optimization for Solaris 2.3.  BTW, Solaris 2.4
    has dcgettext.  */
-# if !HAVE_CATGETS && (!HAVE_GETTEXT || HAVE_DCGETTEXT)
+# if !HAVE_GETTEXT || HAVE_DCGETTEXT
 
 #  define gettext(Msgid)						      \
      dgettext (NULL, Msgid)

@@ -1,3 +1,12 @@
+2001-01-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi: (Magic for Installers) Remove references to catgets
+	based emulation of gettext.
+	(Being a `gettext' grok): Likewise. LANGUAGE now always works.
+	(acconfig.h): Don't mention HAVE_CATGETS.
+	* nls.texi: Remove references to catgets. Describe new working of
+	autoconf macro.
+
 2001-01-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (MAKEINFO): New macro. Unset LANG and LANGUAGE while
