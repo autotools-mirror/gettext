@@ -1,14 +1,14 @@
 # Slovak translations for GNU gettext-runtime package.
-# Copyright (C) 1999, 2001, 2002, 2003 Free Software Foundation, Inc.
-# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003.
+# Copyright (C) 1999, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
+# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004.
 # Štefan Ondrejička <ondrej@idata.sk>, 1999.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.13.1\n"
+"Project-Id-Version: GNU gettext-runtime 0.14-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-10-16 21:36+0200\n"
-"PO-Revision-Date: 2003-12-19 23:29+0100\n"
+"PO-Revision-Date: 2004-01-22 00:24+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
