@@ -1,3 +1,15 @@
+Version 0.11 - XXX 2001
+
+* New programs msgcat, msgconv, msgen, msggrep, msgsed.
+
+* Manual pages for all the programs have been added.
+
+Version 0.10.38 - May 2001
+
+* This is a bug-fix release.
+
+* Manual pages for the GNU libintl library functions have been added.
+
 Version 0.10.37 - April 2001
 
 This is a bug-fix release.
