@@ -53,13 +53,14 @@ dnl Checks for compiler output filename suffixes.
 AC_OBJEXT
 AC_EXEEXT
 
+dnl Make sure we see all GNU extensions.
+AC_GNU_SOURCE
+
 dnl Check for build configuration.
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
 AC_RELOCATABLE
-
-AC_DEFINE(_GNU_SOURCE, 1, [Make sure we see all GNU extensions.])
 
 dnl Checks for libraries.
 

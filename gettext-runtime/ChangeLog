@@ -1,6 +1,6 @@
 2003-05-12  Bruno Haible  <bruno@clisp.org>
 
-	* configure.ac: Invoke jm_FUNC_GLIBC_UNLOCKED_IO.
+	* configure.ac: Invoke AC_GNU_SOURCE and jm_FUNC_GLIBC_UNLOCKED_IO.
 
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
