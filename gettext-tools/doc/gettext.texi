@@ -7124,9 +7124,8 @@ means the following:
 You should add to the language a syntax for translatable strings.  In
 principle, a function call of @code{gettext} would do, but a shorthand
 syntax helps keeping the legibility of internationalized programs.  For
-example, in C we use the syntax @code{_("string")}, in bash we use the
-syntax @code{$"string"}, and in GNU awk we use the shorthand
-@code{_"string"}.
+example, in C we use the syntax @code{_("string")}, and in GNU awk we use
+the shorthand @code{_"string"}.
 
 @item
 You should arrange that evaluation of such a translatable string at
