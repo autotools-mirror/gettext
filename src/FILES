@@ -36,6 +36,10 @@ open-po.h
 open-po.c
                 Opening PO files for reading.
 
+po-charset.h
+po-charset.c
+                Charset handling while reading PO files.
+
 po-lex.h
 po-lex.c
                 Lexical analysis of PO files.

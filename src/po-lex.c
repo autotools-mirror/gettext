@@ -43,6 +43,7 @@
 # define va_dcl char *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8;
 #endif
 
+#include "po-charset.h"
 #include "po-lex.h"
 #include "system.h"
 #include "error.h"
@@ -60,10 +61,6 @@ static FILE *fp;
 lex_pos_ty gram_pos;
 unsigned int gram_max_allowed_errors = 20;
 static int po_lex_obsolete;
-const char *po_lex_charset;
-#if HAVE_ICONV
-iconv_t po_lex_iconv;
-#endif
 static int pass_comments = 0;
 int pass_obsolete_entries = 0;
 
@@ -87,10 +84,7 @@ lex_open (fname)
 
   gram_pos.line_number = 1;
   po_lex_obsolete = 0;
-  po_lex_charset = NULL;
-#if HAVE_ICONV
-  po_lex_iconv = (iconv_t)(-1);
-#endif
+  po_lex_charset_init ();
 }
 
 
@@ -111,14 +105,7 @@ lex_close ()
   gram_pos.line_number = 0;
   error_message_count = 0;
   po_lex_obsolete = 0;
-  po_lex_charset = NULL;
-#if HAVE_ICONV
-  if (po_lex_iconv != (iconv_t)(-1))
-    {
-      iconv_close (po_lex_iconv);
-      po_lex_iconv = (iconv_t)(-1);
-    }
-#endif
+  po_lex_charset_close ();
 }
 
 

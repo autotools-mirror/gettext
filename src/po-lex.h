@@ -21,9 +21,6 @@
 #define _PO_LEX_H
 
 #include <sys/types.h>
-#if HAVE_ICONV
-#include <iconv.h>
-#endif
 #include "error.h"
 #include "pos.h"
 
@@ -38,14 +35,6 @@ extern lex_pos_ty gram_pos;
 /* Number of parse errors within a PO file that cause the program to
    terminate.  Cf. error_message_count, declared in <error.h>.  */
 extern unsigned int gram_max_allowed_errors;
-
-/* The PO file's encoding, as specified in the header entry.  */
-extern const char *po_lex_charset;
-
-#if HAVE_ICONV
-/* Converter from the PO file's encoding to UTF-8.  */
-extern iconv_t po_lex_iconv;
-#endif
 
 /* Nonzero if obsolete entries shall be considered as valid.  */
 extern int pass_obsolete_entries;

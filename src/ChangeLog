@@ -1,5 +1,28 @@
 2001-04-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* po-charset.h: New file.
+	* po-charset.c: New file, extracted from po.c. Don't warn about wrong
+	or missing charset if it's a POT file.
+	* po-lex.h (iconv.h, po_lex_iconv): Move to po-charset.h.
+	(po_lex_charset): Remove declaration.
+	* po-lex.c: Include po-charset.h.
+	(po_lex_charset, po_lex_iconv): Move to po-charset.c.
+	(lex_open): Call po_lex_charset_init.
+	(lex_close): Call po_lex_charset_close.
+	* po.c: Don't include ctype.h, stdio.h, mbswidth.h, libgettext.h.
+	Include po-charset.h instead.
+	(program_name, _, SIZEOF, multiline_warning): Move to po-charset.c.
+	(po_callback_message): Move charset handling to po-charset.c.
+	* Makefile.am (noinst_HEADERS): Add po-charset.h.
+	(msgcmp_SOURCES, msgfmt_SOURCES, msgmerge_SOURCES, xgettext_SOURCES,
+	msgcomm_SOURCES): Add po-charset.c.
+	* FILES: Update.
+
+	* msgfmt.c: Don't include ctype.h.
+	* msgunfmt.c: Likewise.
+
+2001-04-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* po.h (PO_BASE_TY): Remove next_is_fuzzy field.
 	* po.c (po_alloc): Don't reset next_is_fuzzy.
 	(po_callback_message): Ignore fuzziness of the header entry. Don't
