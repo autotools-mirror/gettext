@@ -21,7 +21,6 @@
 # internationalize their package with the help of GNU gettext.  For
 # further information how to use it consult the GNU gettext manual.
 
-echo=echo
 progname=$0
 force=0
 intldir=
@@ -53,7 +52,7 @@ while test $# -gt 0; do
       shift
       configstatus=1 ;;
     --help | --hel | --he | --h )
-      $echo "$usage"; exit 0 ;;
+      echo "$usage"; exit 0 ;;
     --intl | --int | --in | --i )
       shift
       intldir=yes ;;
@@ -62,23 +61,23 @@ while test $# -gt 0; do
       do_changelog=false ;;
     --version | --versio | --versi | --vers | --ver | --ve | --v )
       echo "$progname (GNU $package) $version"
-      $echo "Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+      echo "Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
-      $echo "Written by" "Ulrich Drepper"
+      echo "Written by" "Ulrich Drepper"
       exit 0 ;;
     -- )	# Stop option prcessing
       shift; break ;;
     -* )
-      $echo "gettextize: unknown option $1"
-      $echo "Try \`gettextize --help' for more information."; exit 1 ;;
+      echo "gettextize: unknown option $1"
+      echo "Try \`gettextize --help' for more information."; exit 1 ;;
     * )
       break ;;
   esac
 done
 
 if test $# -gt 1; then
-  $echo "$usage"
+  echo "$usage"
   exit 1
 fi
 
@@ -88,8 +87,8 @@ if test $# -eq 1; then
   if cd $srcdir; then
     srcdir=`pwd`
   else
-    $echo "gettextize: *** Cannot change directory to '$srcdir'."
-    $echo "gettextize: *** Stop."
+    echo "gettextize: *** Cannot change directory to '$srcdir'."
+    echo "gettextize: *** Stop."
     exit 1
   fi
 else
@@ -111,8 +110,8 @@ removed_acoutput=" intl/intlh.inst"
 please=
 
 test -f configure.in || test -f configure.ac || {
-  $echo "gettextize: *** Missing configure.in or configure.ac, please cd to your package first."
-  $echo "gettextize: *** Stop."
+  echo "gettextize: *** Missing configure.in or configure.ac, please cd to your package first."
+  echo "gettextize: *** Stop."
   exit 1
 }
 configure_in=NONE
@@ -125,20 +124,20 @@ else
 fi
 
 if test -d intl && test $force -eq 0; then
-  $echo "gettextize: *** intl/ subdirectory exists: use option -f if you really want to delete it."
-  $echo "gettextize: *** Stop."
+  echo "gettextize: *** intl/ subdirectory exists: use option -f if you really want to delete it."
+  echo "gettextize: *** Stop."
   exit 1
 fi
 
 if test -f po/Makefile.in.in && test $force -eq 0; then
-  $echo "gettextize: *** po/Makefile.in.in exists: use option -f if you really want to delete it."
-  $echo "gettextize: *** Stop."
+  echo "gettextize: *** po/Makefile.in.in exists: use option -f if you really want to delete it."
+  echo "gettextize: *** Stop."
   exit 1
 fi
 
 if test -f ABOUT-NLS && test $force -eq 0; then
-  $echo "gettextize: *** ABOUT-NLS exists: use option -f if you really want to delete it."
-  $echo "gettextize: *** Stop."
+  echo "gettextize: *** ABOUT-NLS exists: use option -f if you really want to delete it."
+  echo "gettextize: *** Stop."
   exit 1
 fi
 
@@ -151,7 +150,7 @@ fi
 if test -d intl; then
   # Remove everything inside intl except for RCS and CVS subdirs and invisible
   # files.
-  $echo "Wiping out intl/ subdirectory"
+  echo "Wiping out intl/ subdirectory"
   (cd intl &&
    for f in *; do
      if test CVS != "$f" && test RCS != "$f"; then
@@ -163,10 +162,10 @@ if test -d intl; then
   fi
 else
   if test -n "$intldir"; then
-    $echo "Creating intl/ subdirectory"
+    echo "Creating intl/ subdirectory"
     mkdir intl || {
-      $echo "gettextize: *** failed to create intl/ subdirectory"
-      $echo "gettextize: *** Stop."
+      echo "gettextize: *** failed to create intl/ subdirectory"
+      echo "gettextize: *** Stop."
       exit 1;
     }
     added_directories="$added_directories intl"
@@ -174,18 +173,18 @@ else
 fi
 
 test -d po || {
-  $echo "Creating po/ subdirectory"
+  echo "Creating po/ subdirectory"
   mkdir po || {
-    $echo "gettextize: *** failed to create po/ subdirectory"
-    $echo "gettextize: *** Stop."
+    echo "gettextize: *** failed to create po/ subdirectory"
+    echo "gettextize: *** Stop."
     exit 1
   }
 }
 
 # For simplicity we changed to the gettext source directory.
 cd $gettext_dir || {
-  $echo "gettextize: *** gettext source directory '${gettext_dir}' doesn't exist"
-  $echo "gettextize: *** Stop."
+  echo "gettextize: *** gettext source directory '${gettext_dir}' doesn't exist"
+  echo "gettextize: *** Stop."
   exit 1
 }
 
@@ -196,8 +195,8 @@ for file in *; do
   case $file in
     ABOUT-NLS)
       rm -f $srcdir/$file
-      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && $echo "Symlinking file $file") 2>/dev/null ||
-      { $echo "Copying file $file"; cp $file $srcdir/$file; }
+      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && echo "Symlinking file $file") 2>/dev/null ||
+      { echo "Copying file $file"; cp $file $srcdir/$file; }
       ;;
     config.rpath | mkinstalldirs)
       auxdir=`cat $srcdir/$configure_in | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
@@ -210,8 +209,8 @@ for file in *; do
         added_extradist="$added_extradist $auxdir$file"
       fi
       rm -f $srcdir/$auxdir$file
-      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$auxdir$file && $echo "Symlinking file $auxdir$file") 2>/dev/null ||
-      { $echo "Copying file $auxdir$file"; cp $file $srcdir/$auxdir$file; }
+      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$auxdir$file && echo "Symlinking file $auxdir$file") 2>/dev/null ||
+      { echo "Copying file $auxdir$file"; cp $file $srcdir/$auxdir$file; }
       ;;
   esac
 done
@@ -223,11 +222,11 @@ if test -n "$intldir"; then
     if test $file != COPYING.LIB-2.0 && test $file != COPYING.LIB-2.1; then
       rm -f $srcdir/intl/$file
       if test $file != plural.c; then
-        ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file && $echo "Symlinking file intl/$file") 2>/dev/null ||
-        { $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file; }
+        ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file && echo "Symlinking file intl/$file") 2>/dev/null ||
+        { echo "Copying file intl/$file"; cp $file $srcdir/intl/$file; }
       else
         # plural.c is a generated file; it must be copied and touched.
-        $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file
+        echo "Copying file intl/$file"; cp $file $srcdir/intl/$file
         (sleep 2; touch $srcdir/intl/$file) &
        fi
     fi
@@ -270,8 +269,8 @@ for file in Makefile.in.in; do
     cp -p $srcdir/po/$file $srcdir/po/$file~
   fi
   rm -f $srcdir/po/$file
-  ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && $echo "Symlinking file po/$file") 2>/dev/null ||
-  { $echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
+  ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && echo "Symlinking file po/$file") 2>/dev/null ||
+  { echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
 done
 for file in *; do
   case $file in
@@ -280,8 +279,8 @@ for file in *; do
       ;;
     Makevars)
       rm -f $srcdir/po/$file.template
-      ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file.template && $echo "Symlinking file po/$file.template") 2>/dev/null ||
-      { $echo "Copying file po/$file.template"; cp $file $srcdir/po/$file.template; }
+      ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file.template && echo "Symlinking file po/$file.template") 2>/dev/null ||
+      { echo "Copying file po/$file.template"; cp $file $srcdir/po/$file.template; }
       if test -f $srcdir/po/$file; then
         please="$please
 Please update po/$file so that it defines all the variables mentioned
@@ -319,13 +318,13 @@ You can then remove po/$file.template.
         cp -p $srcdir/po/$file $srcdir/po/$file~
       fi
       rm -f $srcdir/po/$file
-      ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && $echo "Symlinking file po/$file") 2>/dev/null ||
-      { $echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
+      ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && echo "Symlinking file po/$file") 2>/dev/null ||
+      { echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
       ;;
   esac
 done
 if test -f $srcdir/po/cat-id-tbl.c; then
-  $echo "Removing po/cat-id-tbl.c"
+  echo "Removing po/cat-id-tbl.c"
   rm -f $srcdir/po/cat-id-tbl.c
   if $do_changelog; then
     if test -z "$modified_poChangeLog"; then
@@ -333,11 +332,11 @@ if test -f $srcdir/po/cat-id-tbl.c; then
       echo >> $srcdir/po/ChangeLog.tmp
       modified_poChangeLog=yes
     fi
-    $echo "	* cat-id-tbl.c: Remove file." >> $srcdir/po/ChangeLog.tmp
+    echo "	* cat-id-tbl.c: Remove file." >> $srcdir/po/ChangeLog.tmp
   fi
 fi
 if test -f $srcdir/po/stamp-cat-id; then
-  $echo "Removing po/stamp-cat-id"
+  echo "Removing po/stamp-cat-id"
   rm -f $srcdir/po/stamp-cat-id
   if $do_changelog; then
     if test -z "$modified_poChangeLog"; then
@@ -345,17 +344,17 @@ if test -f $srcdir/po/stamp-cat-id; then
       echo >> $srcdir/po/ChangeLog.tmp
       modified_poChangeLog=yes
     fi
-    $echo "	* stamp-cat-id: Remove file." >> $srcdir/po/ChangeLog.tmp
+    echo "	* stamp-cat-id: Remove file." >> $srcdir/po/ChangeLog.tmp
   fi
 fi
 if $do_changelog && test -n "$modified_poChangeLog"; then
-  $echo >> $srcdir/po/ChangeLog.tmp
+  echo >> $srcdir/po/ChangeLog.tmp
   if test -f $srcdir/po/ChangeLog; then
-    $echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)"
+    echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)"
     cat $srcdir/po/ChangeLog >> $srcdir/po/ChangeLog.tmp
     cp -p $srcdir/po/ChangeLog $srcdir/po/ChangeLog~
   else
-    $echo "Creating po/ChangeLog"
+    echo "Creating po/ChangeLog"
   fi
   cp $srcdir/po/ChangeLog.tmp $srcdir/po/ChangeLog
   rm -f $srcdir/po/ChangeLog.tmp
@@ -396,7 +395,7 @@ if test -f $srcdir/Makefile.am; then
   if test -d "$srcdir/$m4dir"; then
     :
   else
-    $echo "Creating directory $m4dir"
+    echo "Creating directory $m4dir"
     mkdir "$srcdir/$m4dir"
     added_directories="$added_directories $m4dir"
   fi
@@ -426,12 +425,12 @@ if test -f $srcdir/Makefile.am; then
       cp -p $srcdir/$m4dir/$file $srcdir/$m4dir/$file~
     fi
     rm -f $srcdir/$m4dir/$file
-    ($try_ln_s && ln -s @datadir@/aclocal/$file $srcdir/$m4dir/$file && $echo "Symlinking file $m4dir/$file") 2>/dev/null ||
-    { $echo "Copying file $m4dir/$file"; cp @datadir@/aclocal/$file $srcdir/$m4dir/$file; }
+    ($try_ln_s && ln -s @datadir@/aclocal/$file $srcdir/$m4dir/$file && echo "Symlinking file $m4dir/$file") 2>/dev/null ||
+    { echo "Copying file $m4dir/$file"; cp @datadir@/aclocal/$file $srcdir/$m4dir/$file; }
   done
   if test -n "$added_m4files"; then
     if test -f $srcdir/$m4dir/Makefile.am; then
-      $echo "Updating EXTRA_DIST in $m4dir/Makefile.am (backup is in $m4dir/Makefile.am~)"
+      echo "Updating EXTRA_DIST in $m4dir/Makefile.am (backup is in $m4dir/Makefile.am~)"
       rm -f $srcdir/$m4dir/Makefile.am~
       cp -p $srcdir/$m4dir/Makefile.am $srcdir/$m4dir/Makefile.am~
       rm -f $srcdir/$m4dir/Makefile.am
@@ -443,7 +442,7 @@ if test -f $srcdir/Makefile.am; then
         $do_changelog && echo "	* Makefile.am (EXTRA_DIST): New variable." >> $srcdir/$m4dir/ChangeLog.tmp
       fi
     else
-      $echo "Creating $m4dir/Makefile.am"
+      echo "Creating $m4dir/Makefile.am"
       echo "EXTRA_DIST =$added_m4files" > $srcdir/$m4dir/Makefile.am
       $do_changelog && echo "	* Makefile.am: New file." >> $srcdir/$m4dir/ChangeLog.tmp
       added_acoutput="$added_acoutput $m4dir/Makefile"
@@ -452,11 +451,11 @@ if test -f $srcdir/Makefile.am; then
   if $do_changelog && test -n "$modified_m4ChangeLog"; then
     echo >> $srcdir/$m4dir/ChangeLog.tmp
     if test -f $srcdir/$m4dir/ChangeLog; then
-      $echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
+      echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
       cat $srcdir/$m4dir/ChangeLog >> $srcdir/$m4dir/ChangeLog.tmp
       cp -p $srcdir/$m4dir/ChangeLog $srcdir/$m4dir/ChangeLog~
     else
-      $echo "Creating $m4dir/ChangeLog"
+      echo "Creating $m4dir/ChangeLog"
     fi
     cp $srcdir/$m4dir/ChangeLog.tmp $srcdir/$m4dir/ChangeLog
     rm -f $srcdir/$m4dir/ChangeLog.tmp
@@ -478,7 +477,7 @@ Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
       echo >> $srcdir/ChangeLog.tmp
       modified_ChangeLog=yes
     fi
-    $echo "Updating Makefile.am (backup is in Makefile.am~)"
+    echo "Updating Makefile.am (backup is in Makefile.am~)"
     rm -f $srcdir/Makefile.am~
     cp -p $srcdir/Makefile.am $srcdir/Makefile.am~
     rm -f $srcdir/Makefile.am
@@ -571,7 +570,7 @@ fi
 modified_configure_in=
 if test -n "$added_acoutput"; then
   if grep '^AC_CONFIG_FILES(' $srcdir/$configure_in > /dev/null; then
-    $echo "Updating $configure_in (backup is in $configure_in~)"
+    echo "Updating $configure_in (backup is in $configure_in~)"
     rm -f $srcdir/$configure_in~
     cp -p $srcdir/$configure_in $srcdir/$configure_in~
     rm -f $srcdir/$configure_in
@@ -587,7 +586,7 @@ if test -n "$added_acoutput"; then
     modified_configure_in=yes
   else
     if grep '^AC_OUTPUT(' $srcdir/$configure_in > /dev/null; then
-      $echo "Updating $configure_in (backup is in $configure_in~)"
+      echo "Updating $configure_in (backup is in $configure_in~)"
       rm -f $srcdir/$configure_in~
       cp -p $srcdir/$configure_in $srcdir/$configure_in~
       rm -f $srcdir/$configure_in
@@ -642,7 +641,7 @@ if test -n "$removed_acoutput"; then
     fi
     if test -n "$tag"; then
       if test -z "$modified_configure_in"; then
-        $echo "Updating $configure_in (backup is in $configure_in~)"
+        echo "Updating $configure_in (backup is in $configure_in~)"
         rm -f $srcdir/$configure_in~
         cp -p $srcdir/$configure_in $srcdir/$configure_in~
       fi
@@ -677,7 +676,7 @@ if cmp -s $srcdir/$configure_in $srcdir/$configure_in.tmp; then
   :
 else
   if test -z "$modified_configure_in"; then
-    $echo "Updating $configure_in (backup is in $configure_in~)"
+    echo "Updating $configure_in (backup is in $configure_in~)"
     rm -f $srcdir/$configure_in~
     cp -p $srcdir/$configure_in $srcdir/$configure_in~
   fi
@@ -703,7 +702,7 @@ if cmp -s $srcdir/$configure_in $srcdir/$configure_in.tmp; then
   :
 else
   if test -z "$modified_configure_in"; then
-    $echo "Updating $configure_in (backup is in $configure_in~)"
+    echo "Updating $configure_in (backup is in $configure_in~)"
     rm -f $srcdir/$configure_in~
     cp -p $srcdir/$configure_in $srcdir/$configure_in~
   fi
@@ -727,11 +726,11 @@ rm -f $srcdir/$configure_in.tmp
 if $do_changelog && test -n "$modified_ChangeLog"; then
   echo >> $srcdir/ChangeLog.tmp
   if test -f $srcdir/ChangeLog; then
-    $echo "Adding an entry to ChangeLog (backup is in ChangeLog~)"
+    echo "Adding an entry to ChangeLog (backup is in ChangeLog~)"
     cat $srcdir/ChangeLog >> $srcdir/ChangeLog.tmp
     cp -p $srcdir/ChangeLog $srcdir/ChangeLog~
   else
-    $echo "Creating ChangeLog"
+    echo "Creating ChangeLog"
   fi
   cp $srcdir/ChangeLog.tmp $srcdir/ChangeLog
   rm -f $srcdir/ChangeLog.tmp
