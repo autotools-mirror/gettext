@@ -1,2 +1,2 @@
 /* The system doesn't have <fnmatch.h>.  Use our fnmatch.h emulation.  */
-#include "pfnmatch.h"
+#include "fnmatch_.h"
