@@ -1,3 +1,8 @@
+2003-06-17  Paul Eggert  <eggert@twinsun.com>
+
+	* gettext-tools/tests/msgcat-7: Put msgcat options before file name, so
+	that the test doesn't fail if POSIXLY_CORRECT is set.
+
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-26: New file, derived from lang-perl.

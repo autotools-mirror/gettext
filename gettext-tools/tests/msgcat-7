@@ -21,7 +21,7 @@ EOF
 tmpfiles="$tmpfiles mcat-test7.out"
 rm -f mcat-test7.out
 : ${MSGCAT=msgcat}
-${MSGCAT} mcat-test7.in1 --sort-output -o mcat-test7.out
+${MSGCAT} --sort-output -o mcat-test7.out mcat-test7.in1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test7.ok"
