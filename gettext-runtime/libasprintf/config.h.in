@@ -74,6 +74,9 @@
 /* Define if you have the 'wchar_t' type. */
 #undef HAVE_WCHAR_T
 
+/* Define if you have the 'wint_t' type. */
+#undef HAVE_WINT_T
+
 /* Name of package */
 #undef PACKAGE
 
