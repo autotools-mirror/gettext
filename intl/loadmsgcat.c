@@ -288,7 +288,7 @@ _nl_init_domain_conv (domain_file, domain, domainbinding)
 # else
 #  if HAVE_ICONV
 	  /* When using GNU libiconv, we want to use transliteration.  */
-#   if _LIBICONV_VERSION
+#   if _LIBICONV_VERSION >= 0x0105
 	  len = strlen (outcharset);
 	  {
 	    char *tmp = (char *) alloca (len + 10 + 1);
@@ -298,7 +298,7 @@ _nl_init_domain_conv (domain_file, domain, domainbinding)
 	  }
 #   endif
 	  domain->conv = iconv_open (outcharset, charset);
-#   if _LIBICONV_VERSION
+#   if _LIBICONV_VERSION >= 0x0105
 	  freea (outcharset);
 #   endif
 #  endif

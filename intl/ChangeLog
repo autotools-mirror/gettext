@@ -1,3 +1,8 @@
+2001-04-19  Bruno Haible <haible@clisp.cons.org>
+
+	* loadmsgcat.c (_nl_init_domain_conv): Don't append //TRANSLIT when
+	the libiconv version is smaller than 1.5.
+
 2001-04-09  Bruno Haible <haible@clisp.cons.org>
 
 	* loadmsgcat.c: Don't use GNU C extensions if __APPLE_CC__ is defined.
