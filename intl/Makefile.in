@@ -190,6 +190,12 @@ install-data: all
 			    $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	  chmod a+x $(DESTDIR)$(gettextsrcdir)/config.charset; \
+	  dists="$(DISTFILES.generated)"; \
+	  for file in $$dists; do \
+	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
+	    $(INSTALL_DATA) $$dir/$$file \
+			    $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
 	  dists="$(DISTFILES.obsolete)"; \
 	  for file in $$dists; do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
@@ -237,7 +243,7 @@ uninstall:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext"; then \
-	  for file in VERSION ChangeLog $(DISTFILES.common); do \
+	  for file in VERSION ChangeLog $(DISTFILES.common) $(DISTFILES.generated); do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
