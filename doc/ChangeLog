@@ -1,3 +1,8 @@
+2002-09-09  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Smalltalk): Update.
+	* xgettext.texi: Mention language Smalltalk.
+
 2002-08-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (php-format): New subsection.

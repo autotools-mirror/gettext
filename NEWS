@@ -1,3 +1,11 @@
+Version 0.11.6 - September 2002
+
+* xgettext now also supports Smalltalk and PHP.
+
+Version 0.11.5 - August 2002
+
+* Bug fixes in the gettext.m4 autoconf macros.
+
 Version 0.11.4 - July 2002
 
 * The tools now know about the ISO C 99 <inttypes.h> format string directive

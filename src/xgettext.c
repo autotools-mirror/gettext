@@ -63,6 +63,7 @@
 #include "x-lisp.h"
 #include "x-elisp.h"
 #include "x-librep.h"
+#include "x-smalltalk.h"
 #include "x-java.h"
 #include "x-awk.h"
 #include "x-ycp.h"
@@ -580,8 +581,8 @@ If output file is -, output is written to standard output.\n\
 Choice of input file language:\n\
   -L, --language=NAME            recognise the specified language\n\
                                    (C, C++, ObjectiveC, PO, Python, Lisp,\n\
-                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n\
-                                   PHP, RST, Glade)\n\
+                                   EmacsLisp, librep, Smalltalk, Java, awk,\n\
+                                   YCP, Tcl, PHP, RST, Glade)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
 "));
@@ -1278,6 +1279,7 @@ language_to_extractor (name)
     SCANNERS_LISP
     SCANNERS_ELISP
     SCANNERS_LIBREP
+    SCANNERS_SMALLTALK
     SCANNERS_JAVA
     SCANNERS_AWK
     SCANNERS_YCP
@@ -1325,6 +1327,7 @@ extension_to_language (extension)
     EXTENSIONS_LISP
     EXTENSIONS_ELISP
     EXTENSIONS_LIBREP
+    EXTENSIONS_SMALLTALK
     EXTENSIONS_JAVA
     EXTENSIONS_AWK
     EXTENSIONS_YCP

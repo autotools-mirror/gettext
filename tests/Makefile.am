@@ -58,7 +58,7 @@ TESTS = gettext-1 gettext-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-php lang-po lang-rst \
+	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-php lang-po lang-rst \
 	rpath-1a rpath-1b \
 	rpath-2aaa rpath-2aab rpath-2aac rpath-2aad \
 	rpath-2aba rpath-2abb rpath-2abc rpath-2abd \

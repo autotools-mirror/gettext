@@ -6885,7 +6885,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @c   Haskell                    9
 @c   Visual Basic               9
 @c   C#                         6
-@c   Smalltalk                  6
+@c   Smalltalk                  6     *
 @c   Basic                      5
 @c   Erlang                     5
 @c   Modula                     5
@@ -7343,37 +7343,33 @@ smalltalk
 @code{st}
 
 @item String syntax
-@code{''abc''}
+@code{'abc'}
 
 @item gettext shorthand
-@code{NLS? ''abc''}
-@*@code{self? ''abc''}
+@code{NLS ? 'abc'}
 
 @item gettext/ngettext functions
 @code{LcMessagesDomain>>#at:}, @code{LcMessagesDomain>>#at:plural:with:}
 
 @item textdomain
-@code{LcMessages>>#?} (returns a @code{LcMessagesDomain} object).@*
-Example: @code{Locale default messages ? 'gettext'}
+@code{LcMessages>>#domain:localeDirectory:} (returns a @code{LcMessagesDomain}
+object).@*
+Example: @code{I18N Locale default messages domain: 'gettext' localeDirectory: /usr/local/share/locale'}
 
 @item bindtextdomain
-@code{LcMessages>>#domain:directory:} (returns a @code{LcMessagesDomain}
-object)
+@code{LcMessages>>#domain:localeDirectory:}, see above.
 
 @item setlocale
-You can obtain any @code{Locale} object from @code{Locale} class methods
-such as @code{#fromString:} or @code{#default}.@*
-Example: @code{Locale default messages} gives the @code{LcMessages}
-object for the default locale.
+Automatic if you use @code{I18N Locale default}.
 
 @item Prerequisite
-The gettext code is contained in the @file{I18N} package.
+@code{PackageLoader fileInPackage: 'I18N'!}
 
 @item Use or emulate GNU gettext
 emulate
 
 @item Extractor
----
+@code{xgettext}
 
 @item Formatting with positions
 @code{'%1 %2' bindWith: 'Hello' with: 'world'}

@@ -35,7 +35,8 @@ po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
 write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
 plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
-x-elisp.h x-librep.h x-java.h x-awk.h x-ycp.h x-tcl.h x-php.h x-rst.h x-glade.h
+x-elisp.h x-librep.h x-smalltalk.h x-java.h x-awk.h x-ycp.h x-tcl.h x-php.h \
+x-rst.h x-glade.h
 
 EXTRA_DIST = FILES project-id msgunfmt.tcl \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
@@ -94,8 +95,8 @@ msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
-  x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-java.l x-awk.c \
-  x-ycp.c x-tcl.c x-php.c x-rst.c x-glade.c
+  x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-smalltalk.c \
+  x-java.l x-awk.c x-ycp.c x-tcl.c x-php.c x-rst.c x-glade.c
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c
