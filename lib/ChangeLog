@@ -1,3 +1,9 @@
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* linebreak.c (mbs_possible_linebreaks): Avoid broken EUC-KR
+	conversion in glibc-2.1.
+	(mbs_width_linebreaks): Likewise.
+
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* progname.h (set_program_name): New declaration.

@@ -211,6 +211,12 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
     /* Write a PO file in old format, with extraneous backslashes.  */
     conv = (iconv_t)(-1);
   else
+    /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+    if (strcmp (charset, "EUC-KR") == 0)
+      conv = (iconv_t)(-1);
+    else
+# endif
     /* Use iconv() to parse multibyte characters.  */
     conv = iconv_open ("UTF-8", charset);
 #endif
