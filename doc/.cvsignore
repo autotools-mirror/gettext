@@ -1,2 +1,14 @@
 Makefile
 stamp-vti
+*.aux
+*.toc
+*.cp
+*.fn
+*.ky
+*.pg
+*.tp
+*.vr
+*.my
+*.log
+*.cps
+*.fns
