@@ -1,0 +1,428 @@
+This is a port of GNU Gettext @VER@ to MSDOS/DJGPP.
+
+
+        TO USE THE GNU GETTEXT LIBRARY YOU **MUST** MODIFY YOUR C-LIBRARY.
+        PLEASE, READ SECTION #2 (Installing the binary package) CAREFULLY
+        TO LEARN HOW TO INSTALL THE GNU GETTEXT LIBRARY AND HOW TO CHANGE
+        YOUR C-LIBRARY AND SYSTEM HEADER FILE.
+        TO USE THE GNU GETTEXT LIBRARY YOU **MUST** DOWNLOAD AND INSTALL
+        LICV16B.ZIP TOO. THIS IS **NOT** OPTIONAL.
+        IT IS NOT RECOMMED TO DOWNLOAD THE GNU DISTRIBUTION OF GETTEXT
+        BECAUSE ONLY THE DJGPP PORT WILL CONTAIN THE REQUIRED HEADER AND
+        OBJECT FILE TO PATCH THE C LIBRARY.
+
+
+1.:     DJGPP specific changes.
+        =======================
+
+        The DJGPP specific changes are the followings:
+     1) The conflict existing between the BORLAND-compatibility gettext function
+        from DJGPP's libc.a defined in conio.h and the GNU gettext function from
+        libintl.a defined in libintl.h has been removed. But this conflict can not
+        be removed **WITHOUT** changing a system header file and libc.a.
+     1.1)  libc.a and system header changes.
+        In conio.c, the BORLAND-compatibility gettext function has been renamed
+        into _conio_gettext. In conio.h some code has been added to check if
+        libintl.h is included or not by the same source file. If libintl.h is NOT
+        included, the BORLAND-compatibility gettext function will be available as
+        gettext. If libintl.h has been included then the BORLAND-compatibility
+        gettext function will **ONLY** be available as _conio_gettext.
+        The BORLAND-compatibility gettext function is now available as gettext
+        and _conio_gettext.
+     1.2)  GNU gettext library changes.
+        If both headers, libintl.h and conio.h, are included in the same source
+        file the gettext keyword makes **ALWAYS** reference to the GNU gettext
+        function and **NEVER** to the BORLAND-compatibility gettext function.
+
+     2) The binary package gtxt@packageversion@b.zip contains all needed files to get NLS
+        support for the following DJGPP ports:
+          bison-1.28 (bsn128s.zip)
+          enscript-1.5.0 (ens150s.zip)
+          enscript-1.6.1 (ens161s.zip)
+          fileutils-3.16 (fil316s.zip)
+          grep-2.4 (grep24s.zip)
+          id-utils-3.2 (idu32s.zip)
+          make-3.79.1 (mak3791s.zip)
+          recode-3.5 (rcode35s.zip)
+          recode-3.6 (rcode36s.zip)
+          sed-3.02.80 (sed-3.02.80.tar.gz from ftp://alpha.gnu.org/pub/gnu/sed)
+          sharutils-4.2c (shar42cs.zip)
+          sh-utils-2.0i (shl20is.zip)
+          sh-utils-2.0j (shl20js.zip)
+          tar-1.12a (tar112as.zip)
+          texinfo-4.0 (txi40s.zip)
+          textutils-2.0 (txt20s.zip)
+
+        See section #4 for further information about this issue.
+        To implement NLS support for one of those packages you will also need
+        to download the following packages:
+          gtxt@packageversion@b.zip (binaries of GNU Gettext @VER@)
+          licv16b.zip (binaries of GNU libiconv 1.6)
+          fil316b.zip  (binaries of GNU Fileutils 3.16 Date: 2000-05-30)
+          shl112b.zip  (binaries of GNU Sh-utils 1.12  Date: 2000-08-11)
+
+
+2.:     Installing the binary package.
+        ==============================
+
+2.1.:   To use this binary package you **MUST** install licv16b.zip or later
+        first. licv16b.zip provides the required functionality to recode the
+        .mo files on-the-fly from the unix charsets used to create them to the
+        dos codepages used to display them. Copy the binary distribution into
+        the top DJGPP installation directory. If you are installing Gettext on
+        a dual DOS/WINDOWS 9X systems, you should first turn off the generation
+        of numeric tails for 8.3 aliases Windows creats for long file names.
+        For information about how to do this, please read the DJGPP FAQ List
+        V 2.30, chapter 22.19: "How to Set Up a Dual DOS/Windows Installation".
+        It should be noticed that neither the libintl.a library nor the
+        binaries (xgettext.exe, gettext.exe, etc.) contain any code to handle
+        nuneric tails in short file names. This implies that if you install
+        the binary packages in a DOS box of Win9X (LFN) **WITHOUT** turning
+        off the numeric tail generation you will **NOT** be able to use NLS
+        on plain DOS. Once again: if you want NLS support on both Win9X **AND**
+        on plain DOS you **MUST** turn off the numeric tail generation **BEFORE**
+        installing the binary package. After having installed the package
+        you can turn on numerical tail generation again if you wish.
+        All this also applies to any other package that has been compiled with
+        NLS support. You **MUST** turn off numeric tail generation every time
+        you install a package that has been compiled with NLS or the binaries
+        will **NOT** be able to find their .mo files (translations) when you
+        switch to plain DOS.
+
+2.2.:   If you download the source distribution from one of the DJGPP archives,
+        just unzip it preserving the directory structure running *ONE* of the
+        following commands:
+          unzip32 gtxt@packageversion@b.zip      or
+          djtarx gtxt@packageversion@b.zip       or
+          pkunzip -d gtxt@packageversion@b.zip
+
+        Source distributions downloaded from one of the GNU FTP sites need
+        some more work to unpack.  First, you *MUST* use the `djtar' program
+        to unzip the package.  That's because some file names in the official
+        distributions need to be changed to avoid problems on the various
+        platforms supported by DJGPP.  `djtar' can rename files on the fly
+        given a file with name mappings.  The distribution includes a file
+        `djgpp/fnchange.lst' with the necessary mappings.  So you need first
+        to retrieve that file, and then invoke `djtar' to unpack the
+        distribution.  Here's how:
+
+          djtar -x -p -o @V@/djgpp/fnchange.lst @V@.tar.gz > lst
+          djtar -x -n lst @V@.tar.gz
+
+        (The name of the distribution archive and the top-level directory will
+        be different for versions other than @VER@.)
+
+2.3.:   Changing libc.a and conio.h.
+        Apart from the ussual directories, the binary package will create the
+        following directory:
+          %DJDIR%/gnu/gtxt-@treeversion@/djgpp/djdev-2.03
+        where %DJDIR% stands for the root of your DJGPP installation tree.
+        Cd into the djdev-2.03 directory. You will find the following files:
+          conio.diffs
+          conio.h
+          conio.o
+        conio.diffs is a patch file that documents the changes I have done against
+        the files of the original djdev203.zip and djlsr203.zip distributions.
+        This file is not needed by the average user. conio.h is the modified header
+        and conio.o is the recompiled new conio.c file that will replace the old
+        conio.o contained in libc.a.
+
+        For all commands that will follow now I will assume that you have
+        cd'ed into the %DJDIR%/gnu/gtxt-@treeversion@/djgpp/djdev-2.03 directory.
+        First, you should backup your old header and library. For this task,
+        run the commands:
+          copy %DJDIR%\include\conio.h %DJDIR%\include\conio.bak
+          copy %DJDIR%\lib\libc.a %DJDIR%\lib\libc.bak
+        Substitute %DJDIR% by the path to your DJGPP installation.
+
+        Now you can copy the new header into your include directory
+        running the command:
+          copy conio.h %DJDIR%\include
+        Substitute %DJDIR% by the path to your DJGPP installation.
+
+        Now you can substitute the old conio.o file in libc.a with the new one.
+        For this task you will need the ar program from binutils.
+        Run the command:
+          ar -rv %DJDIR%\lib\libc.a conio.o
+        Substitute %DJDIR% by the path to your DJGPP installation.
+        You are done.
+
+2.4.:   Edit the djgpp.env file which is located in the top DJGPP
+        installation directory. Move to the first or global part
+        of your djgpp.env. The global part of your djgpp.env is
+        everything *BEFORE* the *FIRST* line that looks like:
+[xxxx]
+        where xxxx stands for the name of some DJGPP binary (usually this is bison).
+        Add the following line to the first part of your djgpp.env:
+
++LANG=xx
++LANGUAGE=yy:zz
+
+        The line must be completely shifted to the left in your djgpp.env file.
+        Please note the plus sign at the beginning of the line. This plus sign
+        should **NOT** be omited or a lot of shell scripts, in this and in
+        other packages, that try to reset this value will stop working. The
+        LANG entry is obligatory, the LANGUAGE entry is may be omited. The
+        LANGUAGE variable allows you to select an alternate catalog that the
+        one stipulated by LANG. Replace xx, yy and zz by the language code of
+        the catalogs you want to use.
+
+        Some examples:
+        If you only want to use the catalog containig the translations for
+        your mother tongue (in my case the spanish translations) the above
+        lines will only use the LANG variable and will look like:
+
++LANG=es
+
+        If you want to use the spanish (es) and german (de) catalogs
+        the above lines will look like:
+
++LANG=es
++LANGUAGE=es:de
+
+        In this case a DJGPP binary that has been compiled with NLS support
+        will first search for the spanish translations. If this translations
+        can not be found it will search for the german translations and if
+        this can also not been found it will default to the build-in english
+        messages. If you want to reverse this search order the above lines
+        would look like this one:
+
++LANG=es
++LANGUAGE=de:es
+
+        Please note that if you omit the LANG environment variable, the
+        LANGUAGE variable will not be honuored at all. The LANG varaiable must
+        always be set to your default catalog. With the aid of LANGUAGE you can
+        select other catalogs apart of the default one. If for some reason you
+        want to disable NLS, then you should comment out the LANG variable or
+        select 'C' as your catalog:
++LANG=C
+
+        Users not familiar with djgpp.env should refer to kb.info.
+        This document can be read running the command:
+          info -f kb -n DJGPP.ENV
+
+2.5.:   To create an entry for the gettext info docs in your dir file
+        run from the top DJGPP installation directory the command:
+          install-info --info-dir=./info ./info/gettext.info
+
+2.6.:   The binaries distributed in this package have NLS support.
+        E.G. run the command:
+          xgettext
+        and the binary should talk to you in your mother tonge, if
+        supported.
+        For futher information about GNU gettext please read the info docs.
+
+
+3.:     Building the binaries from sources.
+        ===================================
+
+3.1.:   To build the binaries you will need the following binary packages:
+          djdev203.zip (NOT a prior version)
+          bsh203b.zip  (NOT a prior version)
+          gcc2952b.zip, bnu2951b.zip, mak3791b.zip,
+          fil316b.zip, shl112b.zip, txt20b.zip,
+          txi40b.zip, grep24b.zip, sed302b.zip,
+          licv16b.zip
+
+        If you want to run the check you will need also:
+          dif272b.zip
+
+        All this packages can be found in the v2gnu directory of any
+        Simtel.NET mirror.
+        You must have licv16b.zip installed before configuring or compiling the
+        package or the configuration and build process will fail due to unresolved
+        references to libiconv.a
+        You will need bsh203b.zip and *NOT* a prior version or the build will fail.
+        The same applies to djdev203.zip. You *MUST* use the updated version of
+        fil316b.zip (date: 2000-05-30) and shl112b.zip (date: 2000-08-11).
+        This updated versions have been recompiled with djdev203.zip and know
+        about the "/dev/env" functionality introduced with djdev203.zip. All the
+        other packages are the ones I have used to build the binaries from this
+        sources. Previuos versions of this packages may do the job as well but
+        I have not tested this.
+
+3.2.:   Create a temporary directory. Copy the source package: gtxt@packageversion@s.zip
+        into the directory and unzip it runnig ONE of the following commands:
+          unzip32 gtxt@packageversion@s.zip      or
+          djtarx gtxt@packageversion@s.zip       or
+          pkunzip -d gtxt@packageversion@s.zip
+
+3.3.:   This package is preconfigured for NLS support and for on-the-fly
+        recoding with the functionality provided by libiconv.a from licv16b.zip.
+        This implies that licv16b.zip *MUST* be installed *before* you try to
+        compile the package or the build process will fail.
+        If you compile this package with a later version of libc.a or if you
+        prefer no NLS support you will have to reconfigure this package.
+        The configuration batch file of this package, located in the djgpp
+        directory, allows you to enable or disable NLS support and to compile
+        from a different partition than from where the sources are located.
+        config.bat always configures the package for NLS support enabled and
+        for in-place compilation if no options are given.
+        The available NLS options are:
+          NLS
+          no-NLS
+
+        If for some reason you want no NLS support you will have to reconfigure
+        the package. For this purpose cd into the top srcdir (gtxt-@treeversion@)
+        and run the following commands:
+          make distclean
+          djgpp\config no-NLS
+
+        This step is **NOT** optional and the "distclean" option must be used.
+        If you do not use the "distclean" option the config.cache file will not
+        be deleted. In this case you are **NOT** reconfiguring because the
+        configuration informations are read from the cache file instead of being
+        newly computed.
+        You **MUST** specify "no-NLS" or config.bat will default to "NLS".
+        To build the programs in a directory other than where the sources are,
+        you must add a parameter that specifies the source directory,
+        e.g:
+          x:\src\gnu\gtxt-@treeversion@\djgpp\config x:/src/gnu/gtxt-@treeversion@ no-NLS
+
+        Lets assume you want to build the binaries in a directory placed on a 
+        different drive (z:\build in this case) from where the sources are,
+        then you will run the following commands:
+          z:
+          cd \build
+          x:\src\gnu\gtxt-@treeversion@\djgpp\config x:/src/gnu/gtxt-@treeversion@ no-NLS
+
+        If you want NLS support you will omit "no-NLS" or replace it by
+        "NLS" in the above examples.
+        The order of the "NLS" option and the srcdir option does *NOT* matter.
+        You *MUST* use forward slashes to specify the source directory.
+
+        This batch file will set same environment variables, make MSDOS
+        specific modifications to the Makefile.ins and supply all other
+        needed options to the configure script.
+
+3.4.:   To compile the package run from the top srcdir the command:
+          make
+
+3.5.:   Now you can run the tests if you like.
+        From the top srcdir run the command:
+          make check
+
+        Non test should fail.
+
+3.6.:   To install the binaries, header, library, catalogs, and info docs
+        run the following command from the top srcdir:
+          make install CATALOGS="xx.gmo yy.gmo zz.gmo"
+        or
+          make install CATALOGS="xx.gmo yy.gmo zz.gmo" prefix=z:/some/other/place
+
+        This will install the products into your DJGPP installation tree given
+        by the default prefix "/dev/env/DJDIR". If you prefer to install them
+        into some other directory you will have to set prefix to the appropiate
+        value. Replace xx, yy and zz by the language codes of the catalogs you
+        want to install.
+
+3.7.:   Now you have to set the LANG environment variable.
+        Please refer to section 2.3 for further information.
+
+
+4.:     NLS support for other DJGPP ports.
+        ==================================
+
+        This package contains all needed files to get NLS support for the
+        following DJGPP ports:
+          bison-1.28 (bsn128s.zip)
+          enscript-1.5.0 (ens150s.zip)
+          enscript-1.6.1 (ens161s.zip)
+          fileutils-3.16 (fil316s.zip)
+          grep-2.4 (grep24s.zip)
+          id-utils-3.2 (idu32s.zip)
+          make-3.79.1 (mak3791s.zip)
+          recode-3.5 (rcode35s.zip)
+          recode-3.6 (rcode36s.zip)
+          sed-3.02.80 (sed-3.02.80.tar.gz from ftp://alpha.gnu.org/pub/gnu/sed)
+          sharutils-4.2c (shar42cs.zip)
+          sh-utils-2.0i (shl20is.zip)
+          sh-utils-2.0j (shl20js.zip)
+          tar-1.12a (tar112as.zip)
+          texinfo-4.0 (txi40s.zip)
+          textutils-2.0 (txt20s.zip)
+
+        The files needed are placed in the NLS_for_djgpp_packages tree located
+        in djgpp directory. I will explane this using bison-1.28 as example.
+        This means that file names or command names may change from port to port.
+        The configuration batch files and the sed scripts of every package have
+        the same name as the original ones that this ones will replace. If you
+        are familiar with the original package you shall have no difficulties
+        in reconfigure the package for NLS support.
+        Please inspect the tree NLS_for_djgpp_packages to see what files will
+        be replaced.
+
+4.1.:   To reconfigure and recompile a source package with NLS support you
+        *MUST* install the gtxt@packageversion@b.zip and licv16b.zip packages
+        first. NLS support will **NOT** work with any prior version of the above
+        mentioned packages. Before installing gtxt@packageversion@b.zip and licv16b.zip
+        you *MUST* deinstall the old packages if you ever have installed them.
+        For this purpose use the provided manifest files from the old packages.
+        Old packages means previous beta releases of gtxt@packageversion@b.zip and licv16b.zip
+        *AND* also previous versions of gettext like gettext 0.10.32, etc.
+
+4.2.:   We will assume that the required sources will be unzipped into
+        a directory called src.
+        Copy bsn128s.zip into /src and decompress them preserving the directory
+        structure running the command:
+          unzip32 *.zip
+        This will create the directory:
+          /src/gnu/bison-1.28
+
+        The binary package gtxt@packageversion@b.zip will create the directory:
+          %DJDIR%/gnu/gtxt-@treeversion@/djgpp/NLS_for_djgpp_packages/bison-1.28
+        This directory contains all needed files.
+        The files are:
+          bison-1.28/djconfig.bat      (new .bat file that replaces the original one.)
+          bison-1.28/djgpp/config.sed  (sed script to modify configure.)
+          bison-1.28/djgpp/config.site (defaults for configure.)
+
+        Now we will xcopy the needed files into the original bison-1.28 directory.
+        First we will cd into the bison-1.28 directory and then we will run the
+        following command:
+          xcopy %DJDIR%\gnu\gtxt-@treeversion@\djgpp\NLS_for_djgpp_packages\bison-1.28 /v/s/e
+
+4.3.:   Before the package can be reconfigured, the old configuration must be
+        cleared. Run the command:
+          make distclean
+
+        This will remove all Makefiles, config.h and config.cache file with old
+        configuration information. This step is *NOT* optional and it must be
+        used the "distclean" target.
+
+4.4.:   Now the package can be configured running the command:
+          djconfig
+        if you want to build the products in the /src/bison-1.28 directory, or:
+          c:\src\bison-1.28\djconfig c:/src/bison-1.28
+        if you want to build the products on a different drive or directory.
+        You can still configure without NLS support if you want. In this case
+        simply add the option "no-NLS" to the above commands.
+
+4.5.:   Now the package can be compiled and checked by running the commands:
+          make
+          make check
+        The first command will create also all the available translation
+        catalogs (.gmo files). Before running the tests you should clear
+        the LANGUAGE and/or LANG variable or the tests will probably fail.
+
+4.6.:   Now the products can be installed by running the command:
+          make install CATALOGS="xx.gmo yy.gmo"
+
+        Replace xx and yy by the appropiate language codeof the catalogs you
+        want to install. If you omit CATALOGS then all catalogs will be installed.
+        You can install into a temp directory if you want by specifying a prefix:
+          make install prefix=z:/tmp CATALOGS="xx.gmo yy.gmo zz.gmo"
+
+4.7.:   Now you have to set the LANG environment variable.
+        Please refer to 2.4.
+
+
+        Send GNU gettext specific bug reports to <bug-gnu-utils@gnu.org>.
+        Send suggestions and bug reports concerning the DJGPP port to
+        comp.os.msdos.djgpp or <djgpp@delorie.com>.
+
+
+Enjoy.
+
+        Guerrero, Juan Manuel <st001906@hrz1.hrz.tu-darmstadt.de>
