@@ -53,6 +53,10 @@
 ;;; Here is the minimum for customization to work.  See part II.
 
 ;; Identify which Emacs variety is being used.
+;; This file supports:
+;;   - XEmacs (version 19 and above) -> po-XEMACS = t,
+;;   - GNU Emacs (version 20 and above) -> po-EMACS20 = t,
+;;   - GNU Emacs (version 19) -> no flag.
 (eval-and-compile
   (cond ((string-match "XEmacs\\|Lucid" emacs-version)
 	 (setq po-EMACS20 nil po-XEMACS t))
@@ -147,7 +151,7 @@ slightly different."
   :group 'po)
 
 (defcustom po-team-name-to-code
-  ;; FIXME: Add all possible languages, complete ISO 639 list.
+  ;; All possible languages, a complete ISO 639 list and a little more.
   '(("LANGUAGE" . "LL")
     ("(Afan) Oromo" . "om")
     ("Abkhazian" . "ab")
