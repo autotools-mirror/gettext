@@ -1,3 +1,5 @@
+#! /bin/sh
+
 # Test of gettext facilities in the Tcl language.
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: tcl.
