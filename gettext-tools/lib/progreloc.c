@@ -1,5 +1,5 @@
 /* Provide relocatable programs.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify it
@@ -51,6 +51,7 @@
 
 #ifdef NO_XMALLOC
 # define xmalloc malloc
+# define xstrdup strdup
 #else
 # include "xalloc.h"
 #endif
