@@ -347,7 +347,7 @@ string32 (fp, fn, offset, lengthp)
 
   /* Allocate memory for the string to be read into.  Leave space for
      the NUL on the end.  */
-  buffer = xmalloc (length + 1);
+  buffer = (char *) xmalloc (length + 1);
 
   /* Read in the string.  Complain if there is an error or it comes up
      short.  Add the NUL ourselves.  */

@@ -145,7 +145,7 @@ string_list_concat (slp)
   len = 1;
   for (j = 0; j < slp->nitems; ++j)
     len += strlen (slp->item[j]);
-  result = xmalloc (len);
+  result = (char *) xmalloc (len);
   pos = 0;
   for (j = 0; j < slp->nitems; ++j)
     {
@@ -199,7 +199,7 @@ string_list_join (slp)
 	++len;
       len += strlen (slp->item[j]);
     }
-  result = xmalloc (len);
+  result = (char *) xmalloc (len);
   pos = 0;
   for (j = 0; j < slp->nitems; ++j)
     {

@@ -58,7 +58,7 @@ po_alloc (pomp)
 {
   po_ty *pop;
 
-  pop = xmalloc (pomp->size);
+  pop = (po_ty *) xmalloc (pomp->size);
   pop->method = pomp;
   if (pomp->constructor)
     pomp->constructor (pop);

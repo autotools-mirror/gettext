@@ -81,7 +81,7 @@ message_alloc (msgid, msgid_plural, msgstr, msgstr_len, pp)
 {
   message_ty *mp;
 
-  mp = xmalloc (sizeof (message_ty));
+  mp = (message_ty *) xmalloc (sizeof (message_ty));
   mp->msgid = msgid;
   mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
   mp->msgstr = msgstr;
@@ -449,7 +449,7 @@ message_list_alloc ()
 {
   message_list_ty *mlp;
 
-  mlp = xmalloc (sizeof (message_list_ty));
+  mlp = (message_list_ty *) xmalloc (sizeof (message_list_ty));
   mlp->nitems = 0;
   mlp->nitems_max = 0;
   mlp->item = NULL;
@@ -608,7 +608,7 @@ message_list_list_alloc ()
 {
   message_list_list_ty *mllp;
 
-  mllp = xmalloc (sizeof (message_list_list_ty));
+  mllp = (message_list_list_ty *) xmalloc (sizeof (message_list_list_ty));
   mllp->nitems = 0;
   mllp->nitems_max = 0;
   mllp->item = NULL;
@@ -711,9 +711,9 @@ msgdomain_ty*
 msgdomain_alloc (domain)
      const char *domain;
 {
-  msgdomain_ty * mdp;
+  msgdomain_ty *mdp;
 
-  mdp = xmalloc (sizeof (msgdomain_ty));
+  mdp = (msgdomain_ty *) xmalloc (sizeof (msgdomain_ty));
   mdp->domain = domain;
   mdp->messages = message_list_alloc ();
   return mdp;
@@ -734,12 +734,13 @@ msgdomain_list_alloc ()
 {
   msgdomain_list_ty *mdlp;
 
-  mdlp = xmalloc (sizeof (msgdomain_list_ty));
+  mdlp = (msgdomain_list_ty *) xmalloc (sizeof (msgdomain_list_ty));
   /* Put the default domain first, so that when we output it,
      we can omit the 'domain' directive.  */
   mdlp->nitems = 1;
   mdlp->nitems_max = 1;
-  mdlp->item = xmalloc (mdlp->nitems_max * sizeof (msgdomain_ty *));
+  mdlp->item =
+    (msgdomain_ty **) xmalloc (mdlp->nitems_max * sizeof (msgdomain_ty *));
   mdlp->item[0] = msgdomain_alloc (MESSAGE_DOMAIN_DEFAULT);
   return mdlp;
 }

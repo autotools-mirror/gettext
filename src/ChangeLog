@@ -1,5 +1,17 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.c (message_alloc): Cast xmalloc return value.
+	(message_list_alloc): Likewise.
+	(message_list_list_alloc): Likewise.
+	(msgdomain_alloc): Likewise.
+	(msgdomain_list_alloc): Likewise.
+	* msgunfmt.c (string32): Likewise.
+	* po.c (po_alloc): Likewise.
+	* str-list.c (string_list_concat): Likewise.
+	(string_list_join): Likewise.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.h (message_ty): New field 'tmp'.
 	(message_predicate_ty): New type.
 	(message_list_remove_if_not): New declaration.
