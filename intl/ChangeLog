@@ -1,3 +1,8 @@
+2001-01-24  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextP.h (SWAP): Remove declaration, to work around a compilation
+	failure on alphaev5-cray-unicosmk2.0.5.X.
+
 2001-01-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* dcigettext.c (_nl_find_msg): Cast the second iconv() arg, to avoid
