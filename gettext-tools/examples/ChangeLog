@@ -1,3 +1,9 @@
+2005-02-23  Bruno Haible  <bruno@clisp.org>
+
+	* xsmallpot.sh: Add srcdir argument. Make it work when
+	builddir != srcdir.
+	* Makefile.am (hello-*.pot): Update xsmallpot.sh invocations.
+
 2005-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* po/vi.po: New file, from Clytie Siddall <clytie@riverland.net.au>.

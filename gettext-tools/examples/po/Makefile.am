@@ -196,85 +196,85 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS) remove-potcdate.sed
 
 
 hello-c.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-c
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c
 
 hello-c-gnome.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-c-gnome
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c-gnome
 
 hello-c++.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-c++
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++
 
 hello-c++-qt.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-c++-qt
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-qt
 
 hello-c++-kde.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-c++-kde
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-kde
 
 hello-c++-gnome.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-c++-gnome
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-gnome
 
 hello-objc.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-objc
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc
 
 hello-objc-gnustep.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-objc-gnustep
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc-gnustep
 
 hello-objc-gnome.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-objc-gnome
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc-gnome
 
 hello-sh.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-sh
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-sh
 
 hello-python.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-python
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-python
 
 hello-clisp.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-clisp
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-clisp
 
 hello-librep.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-librep
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-librep
 
 hello-guile.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-guile
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-guile
 
 hello-smalltalk.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-smalltalk
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-smalltalk
 
 hello-java.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-java
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-java
 
 hello-java-awt.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-java-awt
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-java-awt
 
 hello-java-swing.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-java-swing
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-java-swing
 
 hello-csharp.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-csharp
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-csharp
 
 hello-csharp-forms.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-csharp-forms
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-csharp-forms
 
 hello-gawk.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-gawk
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-gawk
 
 hello-pascal.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-pascal
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-pascal
 
 hello-ycp.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-ycp
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ycp
 
 hello-tcl.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-tcl
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-tcl
 
 hello-tcl-tk.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-tcl-tk
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-tcl-tk
 
 hello-perl.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-perl
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-perl
 
 hello-php.pot : $(POTFILES_DEPS)
-	$(SHELL) xsmallpot.sh hello-php
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-php
 
 
 # This rule has no dependencies: we don't need to update $(DOMAIN).pot at

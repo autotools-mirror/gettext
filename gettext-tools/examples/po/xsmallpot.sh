@@ -1,15 +1,21 @@
 #!/bin/sh
-# Usage: xsmallpot.sh hello-foo [hello-foobar.pot]
+# Usage: xsmallpot.sh srcdir hello-foo [hello-foobar.pot]
 
 set -e
 
-test $# = 1 || test $# = 2 || { echo "Usage: xsmallpot.sh hello-foo [hello-foobar.pot]" 1>&2; exit 1; }
-directory=$1
-potfile=${2-$directory.pot}
+# Nuisances.
+(unset CDPATH) >/dev/null 2>&1 && unset CDPATH
+
+test $# = 2 || test $# = 3 || { echo "Usage: xsmallpot.sh srcdir hello-foo [hello-foobar.pot]" 1>&2; exit 1; }
+srcdir=$1
+directory=$2
+potfile=${3-$directory.pot}
+
+abs_srcdir=`cd "$srcdir" && pwd`
 
 cd ..
 rm -rf tmp-$directory
-cp -p -r $directory tmp-$directory
+cp -p -r "$abs_srcdir"/../$directory tmp-$directory
 cd tmp-$directory
 case $directory in
   hello-c++-kde)
