@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -17,9 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef SRC_PO_HASH_H
-#define SRC_PO_HASH_H
+#ifndef _PO_HASH_H
+#define _PO_HASH_H
 
-int po_hash PARAMS ((const char *__string));
+extern int po_hash PARAMS ((const char *string));
 
-#endif
+#endif /* _PO_HASH_H */

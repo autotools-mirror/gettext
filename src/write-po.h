@@ -22,14 +22,23 @@
 
 #include "message.h"
 
-extern void message_page_width_set PARAMS ((size_t width));
+extern void
+       message_page_width_set PARAMS ((size_t width));
 
-extern void message_print_style_indent PARAMS ((void));
-extern void message_print_style_uniforum PARAMS ((void));
-extern void message_print_style_escape PARAMS ((int));
+extern void
+       message_print_style_indent PARAMS ((void));
+extern void
+       message_print_style_uniforum PARAMS ((void));
+extern void
+       message_print_style_escape PARAMS ((int flag));
 
-extern void message_list_print PARAMS ((message_list_ty *, const char *, int, int));
-extern void message_list_sort_by_msgid PARAMS ((message_list_ty *));
-extern void message_list_sort_by_filepos PARAMS ((message_list_ty *));
+extern void
+       msgdomain_list_print PARAMS ((msgdomain_list_ty *mdlp,
+				     const char *filename,
+				     int force, int debug));
+extern void
+       msgdomain_list_sort_by_msgid PARAMS ((msgdomain_list_ty *mdlp));
+extern void
+       msgdomain_list_sort_by_filepos PARAMS ((msgdomain_list_ty *mdlp));
 
 #endif /* _WRITE_PO_H */

@@ -23,6 +23,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Include some fundamental headers.  */
 #include <sys/types.h>
 
-int po_gram_parse PARAMS ((void));
+extern int po_gram_parse PARAMS ((void));
 
 #endif

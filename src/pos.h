@@ -1,5 +1,5 @@
 /* Source file positions.
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef SRC_POS_H
-#define SRC_POS_H
+#ifndef _POS_H
+#define _POS_H
 
 /* Position of a message within a source file.
    Used for error reporting purposes.  */
@@ -27,4 +27,4 @@ struct lex_pos_ty
   size_t line_number;
 };
 
-#endif
+#endif /* _POS_H */

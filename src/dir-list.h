@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1996, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -17,17 +17,17 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef SRC_DIR_LIST_H
-#define SRC_DIR_LIST_H
+#ifndef _DIR_LIST_H
+#define _DIR_LIST_H
 
 /* Management of the list of directories where PO files are searched.
    It is an ordered list, without duplicates.  The default value of the
    list consists of the single directory ".".  */
 
 /* Append a directory to the end of the list of directories.  */
-extern void dir_list_append PARAMS ((const char *__directory));
+extern void dir_list_append PARAMS ((const char *directory));
 
 /* Return the nth directory, or NULL of n is out of range.  */
-extern const char *dir_list_nth PARAMS ((int __n));
+extern const char *dir_list_nth PARAMS ((int n));
 
-#endif /* SRC_DIR_LIST_H */
+#endif /* _DIR_LIST_H */

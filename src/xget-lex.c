@@ -118,23 +118,24 @@ static int last_non_comment_line = -1;
 static int newline_count = 0;
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int __c));
+static void phase1_ungetc PARAMS ((int c));
 static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int __c));
+static void phase2_ungetc PARAMS ((int c));
 static int phase3_getc PARAMS ((void));
-static void phase3_ungetc PARAMS ((int __c));
+static void phase3_ungetc PARAMS ((int c));
 static int phase4_getc PARAMS ((void));
-static void phase4_ungetc PARAMS ((int __c));
+static void phase4_ungetc PARAMS ((int c));
 static int phase7_getc PARAMS ((void));
-static void phase7_ungetc PARAMS ((int __c));
-static void phase5_get PARAMS ((token_ty *__tp));
-static void phase5_unget PARAMS ((token_ty *__tp));
-static void phaseX_get PARAMS ((token_ty *__tp));
-static void phase6_get PARAMS ((token_ty *__tp));
-static void phase6_unget PARAMS ((token_ty *__tp));
-static void phase8_get PARAMS ((token_ty *__tp));
+static void phase7_ungetc PARAMS ((int c));
+static void phase5_get PARAMS ((token_ty *tp));
+static void phase5_unget PARAMS ((token_ty *tp));
+static void phaseX_get PARAMS ((token_ty *tp));
+static void phase6_get PARAMS ((token_ty *tp));
+static void phase6_unget PARAMS ((token_ty *tp));
+static void phase8_get PARAMS ((token_ty *tp));
 
 
 

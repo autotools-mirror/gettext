@@ -98,30 +98,30 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status))
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ > 4) || __GNUC__ > 2)
 	__attribute__ ((noreturn))
 #endif
 ;
-static string_list_ty *read_name_from_file PARAMS ((const char *__file_name));
-static void extract_constructor PARAMS ((po_ty *__that));
-static void extract_directive_domain PARAMS ((po_ty *__that, char *__name));
-static void extract_directive_message PARAMS ((po_ty *__that, char *__msgid,
-					       lex_pos_ty *__msgid_pos,
-					       char *__msgid_plural,
-					       char *__msgstr,
-					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos,
+static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
+static void extract_constructor PARAMS ((po_ty *that));
+static void extract_directive_domain PARAMS ((po_ty *that, char *name));
+static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
+					       lex_pos_ty *msgid_pos,
+					       char *msgid_plural,
+					       char *msgstr, size_t msgstr_len,
+					       lex_pos_ty *msgstr_pos,
 					       int obsolete));
-static void extract_parse_brief PARAMS ((po_ty *__that));
-static void extract_comment PARAMS ((po_ty *__that, const char *__s));
-static void extract_comment_dot PARAMS ((po_ty *__that, const char *__s));
-static void extract_comment_filepos PARAMS ((po_ty *__that, const char *__name,
-					     int __line));
+static void extract_parse_brief PARAMS ((po_ty *that));
+static void extract_comment PARAMS ((po_ty *that, const char *s));
+static void extract_comment_dot PARAMS ((po_ty *that, const char *s));
+static void extract_comment_filepos PARAMS ((po_ty *that, const char *name,
+					     int line));
 static void extract_comment_special PARAMS ((po_ty *that, const char *s));
-static void read_po_file PARAMS ((const char *__file_name,
-				  message_list_ty *__mlp));
+static void read_po_file PARAMS ((const char *file_name,
+				  message_list_ty *mlp));
 
 
 int
@@ -134,6 +134,7 @@ main (argc, argv)
   int do_help = 0;
   int do_version = 0;
   message_list_ty *mlp;
+  msgdomain_list_ty *result;
   int sort_by_msgid = 0;
   int sort_by_filepos = 0;
   const char *file_name;
@@ -331,7 +332,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
            more_than, less_than);
 
   /* Allocate a message list to remember all the messages.  */
-  mlp = message_list_alloc ();
+  result = msgdomain_list_alloc ();
+  mlp = result->item[0]->messages;
 
   /* Process all input files.  */
   for (cnt = 0; cnt < file_list->nitems; ++cnt)
@@ -353,12 +355,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
-    message_list_sort_by_filepos (mlp);
+    msgdomain_list_sort_by_filepos (result);
   else if (sort_by_msgid)
-    message_list_sort_by_msgid (mlp);
+    msgdomain_list_sort_by_msgid (result);
 
   /* Write the PO file.  */
-  message_list_print (mlp, file_name, force_po, 0);
+  msgdomain_list_print (result, file_name, force_po, 0);
 
   exit (EXIT_SUCCESS);
 }
@@ -578,7 +580,6 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
 {
   extract_class_ty *this = (extract_class_ty *)that;
   message_ty *mp;
-  message_variant_ty *mvp;
   size_t j;
 
   /* If the msgid is the empty string, and we are omiting headers, throw
@@ -606,10 +607,13 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   /* See if this message ID has been seen before.  */
   mp = message_list_search (this->mlp, msgid);
   if (mp)
-    free (msgid);
+    {
+      free (msgid);
+      free (msgstr);
+    }
   else
     {
-      mp = message_alloc (msgid, msgid_plural);
+      mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
       message_list_append (this->mlp, mp);
     }
 
@@ -660,14 +664,6 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   this->is_fuzzy = 0;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
-
-  /* See if this domain has been seen for this message ID.  */
-  mvp = message_variant_search (mp, MESSAGE_DOMAIN_DEFAULT);
-  if (mvp != NULL)
-    free (msgstr);
-  else
-    message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_len,
-			    msgstr_pos);
 }
 
 

@@ -42,7 +42,7 @@ extern int pass_obsolete_entries;
 
 
 /* Open the PO file FNAME and prepare its lexical analysis.  */
-extern void lex_open PARAMS ((const char *__fname));
+extern void lex_open PARAMS ((const char *fname));
 
 /* Terminate lexical analysis and close the current PO file.  */
 extern void lex_close PARAMS ((void));
@@ -52,11 +52,11 @@ extern void lex_close PARAMS ((void));
 extern int po_gram_lex PARAMS ((void));
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
-extern void po_lex_pass_comments PARAMS ((int __flag));
+extern void po_lex_pass_comments PARAMS ((int flag));
 
 /* po_gram_lex() can return obsolete entries as if they were normal entries.
    Switch this on or off.  */
-extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
+extern void po_lex_pass_obsolete_entries PARAMS ((int flag));
 
 
 /* ISO C 99 is smart enough to allow optimizations like this.  */
@@ -128,9 +128,9 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
   } while (0)
 
 #else
-extern void po_gram_error PARAMS ((const char *__fmt, ...));
-extern void po_gram_error_at_line PARAMS ((const lex_pos_ty *__pos,
-					   const char *__fmt, ...));
+extern void po_gram_error PARAMS ((const char *fmt, ...));
+extern void po_gram_error_at_line PARAMS ((const lex_pos_ty *pos,
+					   const char *fmt, ...));
 #endif
 
 

@@ -17,8 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef SRC_PO_H
-#define SRC_PO_H
+#ifndef _PO_H
+#define _PO_H
 
 #include "po-lex.h"
 
@@ -46,54 +46,54 @@ struct po_method_ty
   size_t size;
 
   /* what to do immediately after the instance is malloc()ed */
-  void (*constructor) PARAMS ((struct po_ty *__pop));
+  void (*constructor) PARAMS ((struct po_ty *pop));
 
   /* what to do immediately before the instance is free()ed */
-  void (*destructor) PARAMS ((struct po_ty *__pop));
+  void (*destructor) PARAMS ((struct po_ty *pop));
 
   /* what to do with a domain directive */
-  void (*directive_domain) PARAMS ((struct po_ty *__pop, char *__name));
+  void (*directive_domain) PARAMS ((struct po_ty *pop, char *name));
 
   /* what to do with a message directive */
-  void (*directive_message) PARAMS ((struct po_ty *__pop,
-				     char *__msgid, lex_pos_ty *__msgid_pos,
-				     char *__msgid_plural,
-				     char *__msgstr, size_t __msgstr_len,
-				     lex_pos_ty *__msgstr_pos,
-				     int __obsolete));
+  void (*directive_message) PARAMS ((struct po_ty *pop,
+				     char *msgid, lex_pos_ty *msgid_pos,
+				     char *msgid_plural,
+				     char *msgstr, size_t msgstr_len,
+				     lex_pos_ty *msgstr_pos,
+				     int obsolete));
 
   /* This method is invoked before the parse, but after the file is
      opened by the lexer.  */
-  void (*parse_brief) PARAMS ((struct po_ty *__pop));
+  void (*parse_brief) PARAMS ((struct po_ty *pop));
 
   /* This method is invoked after the parse, but before the file is
      closed by the lexer.  The intention is to make consistency checks
      against the file here, and emit the errors through the lex_error*
      functions.  */
-  void (*parse_debrief) PARAMS ((struct po_ty *__pop));
+  void (*parse_debrief) PARAMS ((struct po_ty *pop));
 
   /* What to do with a plain-vanilla comment - the expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment) PARAMS ((struct po_ty *__pop, const char *__s));
+  void (*comment) PARAMS ((struct po_ty *pop, const char *s));
 
   /* What to do with a comment that starts with a dot (i.e.  extracted
      by xgettext) - the expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
-  void (*comment_dot) PARAMS ((struct po_ty *__pop, const char *__s));
+  void (*comment_dot) PARAMS ((struct po_ty *pop, const char *s));
 
   /* What to do with a file position seen in a comment (i.e. a message
      location comment extracted by xgettext) - the expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment_filepos) PARAMS ((struct po_ty *__pop, const char *__s,
-				   int __line));
+  void (*comment_filepos) PARAMS ((struct po_ty *pop, const char *s,
+				   int line));
 
   /* What to do with a comment that starts with a `!' - this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
-  void (*comment_special) PARAMS ((struct po_ty *__pop, const char *__s));
+  void (*comment_special) PARAMS ((struct po_ty *pop, const char *s));
 };
 
 
@@ -118,27 +118,26 @@ struct po_ty
 
 /* Allocate a fresh po_ty (or derived class) instance and call its
    constructor.  */
-extern po_ty *po_alloc PARAMS ((po_method_ty *__jtable));
+extern po_ty *po_alloc PARAMS ((po_method_ty *jtable));
 
 /* Read a PO file, and dispatch to the various po_method_ty methods.  */
-extern void po_scan PARAMS ((po_ty *__pop, const char *__filename));
+extern void po_scan PARAMS ((po_ty *pop, const char *filename));
 
 /* Call the destructor and deallocate a po_ty (or derived class)
    instance.  */
-extern void po_free PARAMS ((po_ty *__pop));
+extern void po_free PARAMS ((po_ty *pop));
 
 
 /* Callbacks used by po-gram.y or po-hash.y or po-lex.c, indirectly
    from po_scan.  */
-extern void po_callback_domain PARAMS ((char *__name));
-extern void po_callback_message PARAMS ((char *__msgid,
-					 lex_pos_ty *__msgid_pos,
-					 char *__msgid_plural,
-					 char *__msgstr, size_t __msgstr_len,
-					 lex_pos_ty *__msgstr_pos,
-					 int __obsolete));
-extern void po_callback_comment PARAMS ((const char *__s));
-extern void po_callback_comment_dot PARAMS ((const char *__s));
-extern void po_callback_comment_filepos PARAMS ((const char *__s, int __line));
+extern void po_callback_domain PARAMS ((char *name));
+extern void po_callback_message PARAMS ((char *msgid, lex_pos_ty *msgid_pos,
+					 char *msgid_plural,
+					 char *msgstr, size_t msgstr_len,
+					 lex_pos_ty *msgstr_pos,
+					 int obsolete));
+extern void po_callback_comment PARAMS ((const char *s));
+extern void po_callback_comment_dot PARAMS ((const char *s));
+extern void po_callback_comment_filepos PARAMS ((const char *s, int line));
 
-#endif
+#endif /* _PO_H */

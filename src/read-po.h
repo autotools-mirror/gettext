@@ -29,6 +29,6 @@ extern int line_comment;
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  Returns
    a list of messages.  */
-extern message_list_ty *read_po_file PARAMS ((const char *input_name));
+extern msgdomain_list_ty *read_po_file PARAMS ((const char *input_name));
 
 #endif /* _READ_PO_H */

@@ -26,7 +26,7 @@ TESTS = gettext-1 gettext-2 \
 	msgcomm-14 msgcomm-15 msgcomm-16 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
-	msgmerge-7 msgmerge-8 msgmerge-9 \
+	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 \
 	msgunfmt-1 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 \

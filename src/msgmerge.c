@@ -48,7 +48,10 @@ static int verbosity_level;
 /* Force output of PO file even if empty.  */
 static int force_po;
 
-/* list of user-specified compendiums.  */
+/* Apply the .pot file to each of the domains in the PO file.  */
+static int multi_domain_mode;
+
+/* List of user-specified compendiums.  */
 static message_list_list_ty *compendiums;
 
 /* Long options.  */
@@ -61,6 +64,7 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "multi-domain", no_argument, NULL, 'm' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
   { "output-file", required_argument, NULL, 'o' },
@@ -76,10 +80,25 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  */
-static void usage PARAMS ((int __status));
-static message_list_ty *merge PARAMS ((const char *__fn1, const char *__fn2));
-static void compendium PARAMS ((const char *__filename));
+struct statistics
+{
+  size_t merged;
+  size_t fuzzied;
+  size_t missing;
+  size_t obsolete;
+};
+
+
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void usage PARAMS ((int status));
+static msgdomain_list_ty *merge PARAMS ((const char *fn1, const char *fn2));
+static void compendium PARAMS ((const char *filename));
+static void match_domain PARAMS ((const char *fn1, const char *fn2,
+				  message_list_list_ty *definitions,
+				  message_list_ty *refmlp,
+				  message_list_ty *resultmlp,
+				  struct statistics *stats, int *processed));
 
 
 int
@@ -91,7 +110,7 @@ main (argc, argv)
   int do_help;
   int do_version;
   char *output_file;
-  message_list_ty *result;
+  msgdomain_list_ty *result;
   int sort_by_filepos = 0;
   int sort_by_msgid = 0;
 
@@ -117,7 +136,7 @@ main (argc, argv)
   output_file = NULL;
 
   while ((opt
-	  = getopt_long (argc, argv, "C:D:eEFhio:qsvVw:", long_options, NULL))
+	  = getopt_long (argc, argv, "C:D:eEFhimo:qsvVw:", long_options, NULL))
 	 != EOF)
     switch (opt)
       {
@@ -150,6 +169,10 @@ main (argc, argv)
 
       case 'i':
 	message_print_style_indent ();
+	break;
+
+      case 'm':
+	multi_domain_mode = 1;
 	break;
 
       case 'o':
@@ -230,27 +253,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Sort the results.  */
   if (sort_by_filepos)
-    message_list_sort_by_filepos (result);
+    msgdomain_list_sort_by_filepos (result);
   else if (sort_by_msgid)
-    message_list_sort_by_msgid (result);
+    msgdomain_list_sort_by_msgid (result);
 
   /* Write the merged message list out.  */
-  message_list_print (result, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, 0);
 
   exit (EXIT_SUCCESS);
-}
-
-
-static void
-compendium (filename)
-    const char *filename;
-{
-  message_list_ty *mlp;
-
-  mlp = read_po_file (filename);
-  if (!compendiums)
-    compendiums = message_list_list_alloc ();
-  message_list_list_append (compendiums, mlp);
 }
 
 
@@ -307,6 +317,12 @@ or if it is -.\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
+Operation modifiers:\n\
+  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
 Output details:\n\
   -e, --no-escape             do not use C escapes in output (default)\n\
   -E, --escape                use C escapes in output, no extended chars\n\
@@ -337,59 +353,46 @@ Informative output:\n\
 }
 
 
+static void
+compendium (filename)
+    const char *filename;
+{
+  msgdomain_list_ty *mdlp;
+  size_t k;
+
+  mdlp = read_po_file (filename);
+  if (!compendiums)
+    compendiums = message_list_list_alloc ();
+  for (k = 0; k < mdlp->nitems; k++)
+    message_list_list_append (compendiums, mdlp->item[k]->messages);
+}
+
+
 #define DOT_FREQUENCE 10
 
-static message_list_ty *
-merge (fn1, fn2)
-     const char *fn1;			/* definitions */
-     const char *fn2;			/* references */
+static void
+match_domain (fn1, fn2, definitions, refmlp, resultmlp, stats, processed)
+     const char *fn1;
+     const char *fn2;
+     message_list_list_ty *definitions;
+     message_list_ty *refmlp;
+     message_list_ty *resultmlp;
+     struct statistics *stats;
+     int *processed;
 {
-  message_list_ty *def;
-  message_list_ty *ref;
-  message_ty *defmsg;
-  size_t j, k;
-  size_t merged, fuzzied, missing, obsolete;
-  message_list_ty *result;
-  message_list_list_ty *definitions;
+  size_t j;
 
-  merged = fuzzied = missing = obsolete = 0;
-
-  /* This is the definitions file, created by a human.  */
-  def = read_po_file (fn1);
-
-  /* Glue the definition file and the compendiums together, to define
-     the set of places to look for message definitions.  */
-  definitions = message_list_list_alloc ();
-  message_list_list_append (definitions, def);
-  if (compendiums)
-    message_list_list_append_list (definitions, compendiums);
-
-  /* This is the references file, created by groping the sources with
-     the xgettext program.  */
-  ref = read_po_file (fn2);
-  /* Add a dummy header entry, if the references file contains none.  */
-  if (message_list_search (ref, "") == NULL)
-    {
-      static lex_pos_ty pos = { __FILE__, __LINE__ };
-      message_ty *refmsg = message_alloc ("", NULL);
-
-      message_variant_append (refmsg, MESSAGE_DOMAIN_DEFAULT, "", 1, &pos);
-      message_list_prepend (ref, refmsg);
-    }
-
-  result = message_list_alloc ();
-
-  /* Every reference must be matched with its definition. */
-  for (j = 0; j < ref->nitems; ++j)
+  for (j = 0; j < refmlp->nitems; j++, (*processed)++)
     {
       message_ty *refmsg;
+      message_ty *defmsg;
 
       /* Because merging can take a while we print something to signal
 	 we are not dead.  */
-      if (!quiet && verbosity_level <= 1 && j % DOT_FREQUENCE == 0)
+      if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCE == 0)
 	fputc ('.', stderr);
 
-      refmsg = ref->item[j];
+      refmsg = refmlp->item[j];
 
       /* See if it is in the other file.  */
       defmsg = message_list_list_search (definitions, refmsg->msgid);
@@ -401,65 +404,147 @@ merge (fn1, fn2)
 	     this merged entry to the output message list.  */
 	  message_ty *mp = message_merge (defmsg, refmsg);
 
-	  message_list_append (result, mp);
+	  message_list_append (resultmlp, mp);
 
 	  /* Remember that this message has been used, when we scan
 	     later to see if anything was omitted.  */
 	  defmsg->used = 1;
-	  ++merged;
-	  continue;
+	  stats->merged++;
 	}
-
-      /* Special treatment for the header entry.  */
-      if (refmsg->msgid[0] == '\0')
-	continue;
-
-      /* If the message was not defined at all, try to find a very
-	 similar message, it could be a typo, or the suggestion may
-	 help.  */
-      defmsg = message_list_list_search_fuzzy (definitions, refmsg->msgid);
-      if (defmsg)
+      else if (refmsg->msgid[0] != '\0')
 	{
-	  message_ty *mp;
-
-	  if (verbosity_level > 1)
+	  /* If the message was not defined at all, try to find a very
+	     similar message, it could be a typo, or the suggestion may
+	     help.  */
+	  defmsg = message_list_list_search_fuzzy (definitions, refmsg->msgid);
+	  if (defmsg)
 	    {
-	      po_gram_error_at_line (&refmsg->variant[0].pos, _("\
+	      message_ty *mp;
+
+	      if (verbosity_level > 1)
+		{
+		  po_gram_error_at_line (&refmsg->pos, _("\
 this message is used but not defined..."));
-	      po_gram_error_at_line (&defmsg->variant[0].pos, _("\
+		  po_gram_error_at_line (&defmsg->pos, _("\
 ...but this definition is similar"));
+		}
+
+	      /* Merge the reference with the definition: take the #. and
+		 #: comments from the reference, take the # comments from
+		 the definition, take the msgstr from the definition.  Add
+		 this merged entry to the output message list.  */
+	      mp = message_merge (defmsg, refmsg);
+
+	      mp->is_fuzzy = 1;
+
+	      message_list_append (resultmlp, mp);
+
+	      /* Remember that this message has been used, when we scan
+		 later to see if anything was omitted.  */
+	      defmsg->used = 1;
+	      stats->fuzzied++;
+	      if (!quiet && verbosity_level <= 1)
+		/* Always print a dot if we handled a fuzzy match.  */
+		fputc ('.', stderr);
 	    }
+	  else
+	    {
+	      message_ty *mp;
 
-	  /* Merge the reference with the definition: take the #. and
-	     #: comments from the reference, take the # comments from
-	     the definition, take the msgstr from the definition.  Add
-	     this merged entry to the output message list.  */
-	  mp = message_merge (defmsg, refmsg);
-
-	  mp->is_fuzzy = 1;
-
-	  message_list_append (result, mp);
-
-	  /* Remember that this message has been used, when we scan
-	     later to see if anything was omitted.  */
-	  defmsg->used = 1;
-	  ++fuzzied;
-	  if (!quiet && verbosity_level <= 1)
-	    /* Always print a dot if we handled a fuzzy match.  */
-	    fputc ('.', stderr);
-	}
-      else
-	{
-	  message_ty *mp;
-
-	  if (verbosity_level > 1)
-	      po_gram_error_at_line (&refmsg->variant[0].pos, _("\
+	      if (verbosity_level > 1)
+		po_gram_error_at_line (&refmsg->pos, _("\
 this message is used but not defined in %s"), fn1);
 
-	  mp = message_copy (refmsg);
+	      mp = message_copy (refmsg);
 
-	  message_list_append (result, mp);
-	  ++missing;
+	      message_list_append (resultmlp, mp);
+	      stats->missing++;
+	    }
+	}
+    }
+}
+
+static msgdomain_list_ty *
+merge (fn1, fn2)
+     const char *fn1;			/* definitions */
+     const char *fn2;			/* references */
+{
+  msgdomain_list_ty *def;
+  msgdomain_list_ty *ref;
+  size_t j, k;
+  size_t processed;
+  struct statistics stats;
+  msgdomain_list_ty *result;
+  message_list_list_ty *definitions;
+  message_list_ty *empty_list;
+
+  stats.merged = stats.fuzzied = stats.missing = stats.obsolete = 0;
+
+  /* This is the definitions file, created by a human.  */
+  def = read_po_file (fn1);
+
+  /* Create the set of places to look for message definitions: a list
+     whose first element will be definitions for the current domain, and
+     whose other elements come from the compendiums.  */
+  definitions = message_list_list_alloc ();
+  message_list_list_append (definitions, NULL);
+  if (compendiums)
+    message_list_list_append_list (definitions, compendiums);
+  empty_list = message_list_alloc ();
+
+  /* This is the references file, created by groping the sources with
+     the xgettext program.  */
+  ref = read_po_file (fn2);
+  /* Add a dummy header entry, if the references file contains none.  */
+  for (k = 0; k < ref->nitems; k++)
+    if (message_list_search (ref->item[k]->messages, "") == NULL)
+      {
+	static lex_pos_ty pos = { __FILE__, __LINE__ };
+	message_ty *refheader = message_alloc ("", NULL, "", 1, &pos);
+
+	message_list_prepend (ref->item[k]->messages, refheader);
+      }
+
+  result = msgdomain_list_alloc ();
+  processed = 0;
+
+  /* Every reference must be matched with its definition. */
+  if (!multi_domain_mode)
+    for (k = 0; k < ref->nitems; k++)
+      {
+	const char *domain = ref->item[k]->domain;
+	message_list_ty *refmlp = ref->item[k]->messages;
+	message_list_ty *resultmlp = msgdomain_list_sublist (result, domain, 1);
+
+	definitions->item[0] = msgdomain_list_sublist (def, domain, 0);
+	if (definitions->item[0] == NULL)
+	  definitions->item[0] = empty_list;
+
+	match_domain (fn1, fn2, definitions, refmlp, resultmlp,
+		      &stats, &processed);
+      }
+  else
+    {
+      /* Apply the references messages in the default domain to each of
+	 the definition domains.  */
+      message_list_ty *refmlp = ref->item[0]->messages;
+
+      for (k = 0; k < def->nitems; k++)
+	{
+	  const char *domain = def->item[k]->domain;
+	  message_list_ty *defmlp = def->item[k]->messages;
+
+	  /* Ignore the default message domain if it has no messages.  */
+	  if (k > 0 || defmlp->nitems > 0)
+	    {
+	      message_list_ty *resultmlp =
+		msgdomain_list_sublist (result, domain, 1);
+
+	      definitions->item[0] = defmlp;
+
+	      match_domain (fn1, fn2, definitions, refmlp, resultmlp,
+			    &stats, &processed);
+	    }
 	}
     }
 
@@ -468,16 +553,24 @@ this message is used but not defined in %s"), fn1);
      used in the program.  Don't scan the compendium(s).  */
   for (k = 0; k < def->nitems; ++k)
     {
-      defmsg = def->item[k];
-      if (defmsg->used)
-	continue;
+      const char *domain = def->item[k]->domain;
+      message_list_ty *defmlp = def->item[k]->messages;
 
-      /* Remember the old translation although it is not used anymore.
-	 But we mark it as obsolete.  */
-      defmsg->obsolete = 1;
+      for (j = 0; j < defmlp->nitems; j++)
+	{
+	  message_ty *defmsg = defmlp->item[j];
 
-      message_list_append (result, defmsg);
-      ++obsolete;
+	  if (!defmsg->used)
+	    {
+	      /* Remember the old translation although it is not used anymore.
+		 But we mark it as obsolete.  */
+	      defmsg->obsolete = 1;
+
+	      message_list_append (msgdomain_list_sublist (result, domain, 1),
+				   defmsg);
+	      stats.obsolete++;
+	    }
+	}
     }
 
   /* Report some statistics.  */
@@ -487,7 +580,8 @@ Read %ld old + %ld reference, \
 merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"),
 	     !quiet && verbosity_level <= 1 ? "\n" : "",
 	     (long) def->nitems, (long) ref->nitems,
-	     (long) merged, (long) fuzzied, (long) missing, (long) obsolete);
+	     (long) stats.merged, (long) stats.fuzzied, (long) stats.missing,
+	     (long) stats.obsolete);
   else if (!quiet)
     fputs (_(" done.\n"), stderr);
 

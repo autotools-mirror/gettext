@@ -66,10 +66,11 @@ static int pass_comments = 0;
 int pass_obsolete_entries = 0;
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static int lex_getc PARAMS ((void));
-static void lex_ungetc PARAMS ((int __ch));
-static int keyword_p PARAMS ((const char *__s));
+static void lex_ungetc PARAMS ((int ch));
+static int keyword_p PARAMS ((const char *s));
 static int control_sequence PARAMS ((void));
 
 

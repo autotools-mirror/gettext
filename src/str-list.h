@@ -17,8 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef SRC_STR_LIST_H
-#define SRC_STR_LIST_H 1
+#ifndef _STR_LIST_H
+#define _STR_LIST_H 1
 
 /* Get size_t and NULL.  */
 #include <stddef.h>
@@ -34,40 +34,39 @@ struct string_list_ty
 };
 
 /* Initialize an empty list of strings.  */
-extern void string_list_init PARAMS ((string_list_ty *__slp));
+extern void string_list_init PARAMS ((string_list_ty *slp));
 
 /* Return a fresh, empty list of strings.  */
 extern string_list_ty *string_list_alloc PARAMS ((void));
 
 /* Append a single string to the end of a list of strings.  */
-extern void string_list_append PARAMS ((string_list_ty *__slp,
-					const char *__s));
+extern void string_list_append PARAMS ((string_list_ty *slp, const char *s));
 
 /* Append a single string to the end of a list of strings, unless it is
    already contained in the list.  */
-extern void string_list_append_unique PARAMS ((string_list_ty *__slp,
-					       const char *__s));
+extern void string_list_append_unique PARAMS ((string_list_ty *slp,
+					       const char *s));
 
 /* Destroy a list of strings.  */
-extern void string_list_destroy PARAMS ((string_list_ty *__slp));
+extern void string_list_destroy PARAMS ((string_list_ty *slp));
 
 /* Free a list of strings.  */
-extern void string_list_free PARAMS ((string_list_ty *__slp));
+extern void string_list_free PARAMS ((string_list_ty *slp));
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list.  */
-extern char *string_list_concat PARAMS ((const string_list_ty *__slp));
+extern char *string_list_concat PARAMS ((const string_list_ty *slp));
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list, and destroy the list.  */
-extern char *string_list_concat_destroy PARAMS ((string_list_ty *__slp));
+extern char *string_list_concat_destroy PARAMS ((string_list_ty *slp));
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list, separated by spaces.  */
-extern char *string_list_join PARAMS ((const string_list_ty *__slp));
+extern char *string_list_join PARAMS ((const string_list_ty *slp));
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */
-extern int string_list_member PARAMS ((const string_list_ty *__slp,
-				       const char *__s));
+extern int string_list_member PARAMS ((const string_list_ty *slp,
+				       const char *s));
 
-#endif
+#endif /* _STR_LIST_H */

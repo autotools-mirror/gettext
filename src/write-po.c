@@ -46,24 +46,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define _(str) gettext (str)
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static const char *make_c_format_description_string PARAMS ((enum is_c_format,
 							     int debug));
+static int significant_c_format_p PARAMS ((enum is_c_format is_c_format));
 static const char *make_c_width_description_string PARAMS ((enum is_c_format));
-static int significant_c_format_p PARAMS ((enum is_c_format __is_c_format));
-static void wrap PARAMS ((FILE *__fp, const char *__line_prefix,
-			  const char *__name, const char *__value,
-			  enum is_wrap do_wrap, const char *__charset));
-static void print_blank_line PARAMS ((FILE *__fp));
-static void message_print PARAMS ((const message_ty *__mp, FILE *__fp,
-				   const char *__domain, const char *__charset,
-				   int blank_line, int __debug));
-static void message_print_obsolete PARAMS ((const message_ty *__mp, FILE *__fp,
-					    const char *__domain,
-					    const char *__charset,
+static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
+			  const char *value, enum is_wrap do_wrap,
+			  const char *charset));
+static void print_blank_line PARAMS ((FILE *fp));
+static void message_print PARAMS ((const message_ty *mp, FILE *fp,
+				   const char *charset, int blank_line,
+				   int debug));
+static void message_print_obsolete PARAMS ((const message_ty *mp, FILE *fp,
+					    const char *charset,
 					    int blank_line));
-static int msgid_cmp PARAMS ((const void *__va, const void *__vb));
-static int filepos_cmp PARAMS ((const void *__va, const void *__vb));
+static int msgid_cmp PARAMS ((const void *va, const void *vb));
+static int filepos_cmp PARAMS ((const void *va, const void *vb));
 
 
 /* This variable controls the page width when printing messages.
@@ -516,32 +516,14 @@ print_blank_line (fp)
 
 
 static void
-message_print (mp, fp, domain, charset, blank_line, debug)
+message_print (mp, fp, charset, blank_line, debug)
      const message_ty *mp;
      FILE *fp;
-     const char *domain;
      const char *charset;
      int blank_line;
      int debug;
 {
-  message_variant_ty *mvp;
-  int first;
   size_t j;
-
-  /* Find the relevant message variant.  If there isn't one, remember
-     this using a NULL pointer.  */
-  mvp = NULL;
-  first = 0;
-
-  for (j = 0; j < mp->variant_count; ++j)
-    {
-      if (strcmp (domain, mp->variant[j].domain) == 0)
-	{
-	  mvp = &mp->variant[j];
-	  first = (j == 0);
-	  break;
-	}
-    }
 
   /* Separate messages with a blank line.  Uniforum doesn't like blank
      lines, so use an empty comment (unless there already is one).  */
@@ -551,55 +533,48 @@ message_print (mp, fp, domain, charset, blank_line, debug)
 		     || mp->comment->item[0][0] != '\0'))
     print_blank_line (fp);
 
-  /* The first variant of a message will have the comments attached to
-     it.  We can't attach them to all variants in case we are read in
-     again, multiplying the number of comment lines.  Usually there is
-     only one variant.  */
-  if (first)
-    {
-      if (mp->comment != NULL)
-	for (j = 0; j < mp->comment->nitems; ++j)
+  /* Print translator comment if available.  */
+  if (mp->comment != NULL)
+    for (j = 0; j < mp->comment->nitems; ++j)
+      {
+	const char *s = mp->comment->item[j];
+	do
 	  {
-	    const char *s = mp->comment->item[j];
-	    do
-	      {
-		const char *e;
-		putc ('#', fp);
-		if (*s != '\0' && *s != ' ')
-		  putc (' ', fp);
-		e = strchr (s, '\n');
-		if (e == NULL)
-		  {
-		    fputs (s, fp);
-		    s = NULL;
-		  }
-		else
-		  {
-		    fwrite (s, 1, e - s, fp);
-		    s = e + 1;
-		  }
-		putc ('\n', fp);
-	      }
-	    while (s != NULL);
-	  }
-
-      if (mp->comment_dot != NULL)
-	for (j = 0; j < mp->comment_dot->nitems; ++j)
-	  {
-	    const char *s = mp->comment_dot->item[j];
+	    const char *e;
 	    putc ('#', fp);
-	    putc ('.', fp);
 	    if (*s != '\0' && *s != ' ')
 	      putc (' ', fp);
-	    fputs (s, fp);
+	    e = strchr (s, '\n');
+	    if (e == NULL)
+	      {
+		fputs (s, fp);
+		s = NULL;
+	      }
+	    else
+	      {
+		fwrite (s, 1, e - s, fp);
+		s = e + 1;
+	      }
 	    putc ('\n', fp);
 	  }
-    }
+	while (s != NULL);
+      }
 
-  /* Print the file position comments for every domain.  This will
-     help a human who is trying to navigate the sources.  There is no
-     problem of getting repeat positions, because duplicates are
-     checked for.  */
+  if (mp->comment_dot != NULL)
+    for (j = 0; j < mp->comment_dot->nitems; ++j)
+      {
+	const char *s = mp->comment_dot->item[j];
+	putc ('#', fp);
+	putc ('.', fp);
+	if (*s != '\0' && *s != ' ')
+	  putc (' ', fp);
+	fputs (s, fp);
+	putc ('\n', fp);
+      }
+
+  /* Print the file position comments.  This will help a human who is
+     trying to navigate the sources.  There is no problem of getting
+     repeated positions, because duplicates are checked for.  */
   if (mp->filepos_count != 0)
     {
       if (uniforum)
@@ -646,9 +621,9 @@ message_print (mp, fp, domain, charset, blank_line, debug)
     }
 
   /* Print flag information in special comment.  */
-  if (first && ((mp->is_fuzzy && mvp != NULL && mvp->msgstr[0] != '\0')
-		|| significant_c_format_p (mp->is_c_format)
-		|| mp->do_wrap == no))
+  if ((mp->is_fuzzy && mp->msgstr[0] != '\0')
+      || significant_c_format_p (mp->is_c_format)
+      || mp->do_wrap == no)
     {
       int first_flag = 1;
 
@@ -658,7 +633,7 @@ message_print (mp, fp, domain, charset, blank_line, debug)
       /* We don't print the fuzzy flag if the msgstr is empty.  This
 	 might be introduced by the user but we want to normalize the
 	 output.  */
-      if (mp->is_fuzzy && mvp != NULL && mvp->msgstr[0] != '\0')
+      if (mp->is_fuzzy && mp->msgstr[0] != '\0')
 	{
 	  fputs (" fuzzy", fp);
 	  first_flag = 0;
@@ -694,62 +669,35 @@ message_print (mp, fp, domain, charset, blank_line, debug)
     wrap (fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (fp, NULL, "msgstr", mvp ? mvp->msgstr : "", mp->do_wrap, charset);
+    wrap (fp, NULL, "msgstr", mp->msgstr, mp->do_wrap, charset);
   else
     {
       char prefix_buf[20];
       unsigned int i;
+      const char *p;
 
-      if (mvp)
+      for (p = mp->msgstr, i = 0;
+	   p < mp->msgstr + mp->msgstr_len;
+	   p += strlen (p) + 1, i++)
 	{
-	  const char *p;
-
-	  for (p = mvp->msgstr, i = 0;
-	       p < mvp->msgstr + mvp->msgstr_len;
-	       p += strlen (p) + 1, i++)
-	    {
-	      sprintf (prefix_buf, "msgstr[%u]", i);
-	      wrap (fp, NULL, prefix_buf, p, mp->do_wrap, charset);
-	    }
-	}
-      else
-	{
-	  for (i = 0; i < 2; i++)
-	    {
-	      sprintf (prefix_buf, "msgstr[%u]", i);
-	      wrap (fp, NULL, prefix_buf, "", mp->do_wrap, charset);
-	    }
+	  sprintf (prefix_buf, "msgstr[%u]", i);
+	  wrap (fp, NULL, prefix_buf, p, mp->do_wrap, charset);
 	}
     }
 }
 
 
 static void
-message_print_obsolete (mp, fp, domain, charset, blank_line)
+message_print_obsolete (mp, fp, charset, blank_line)
      const message_ty *mp;
      FILE *fp;
-     const char *domain;
      const char *charset;
      int blank_line;
 {
-  message_variant_ty *mvp;
   size_t j;
 
-  /* Find the relevant message variant.  If there isn't one, remember
-     this using a NULL pointer.  */
-  mvp = NULL;
-
-  for (j = 0; j < mp->variant_count; ++j)
-    {
-      if (strcmp (domain, mp->variant[j].domain) == 0)
-	{
-	  mvp = &mp->variant[j];
-	  break;
-	}
-    }
-
-  /* If no msgstr is found or it is the empty string we print nothing.  */
-  if (mvp == NULL || mvp->msgstr[0] == '\0')
+  /* If msgstr is the empty string we print nothing.  */
+  if (mp->msgstr[0] == '\0')
     return;
 
   /* Separate messages with a blank line.  Uniforum doesn't like blank
@@ -808,15 +756,15 @@ message_print_obsolete (mp, fp, domain, charset, blank_line)
     wrap (fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (fp, "#~ ", "msgstr", mvp->msgstr, mp->do_wrap, charset);
+    wrap (fp, "#~ ", "msgstr", mp->msgstr, mp->do_wrap, charset);
   else
     {
       char prefix_buf[20];
       unsigned int i;
       const char *p;
 
-      for (p = mvp->msgstr, i = 0;
-	   p < mvp->msgstr + mvp->msgstr_len;
+      for (p = mp->msgstr, i = 0;
+	   p < mp->msgstr + mp->msgstr_len;
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
@@ -827,31 +775,36 @@ message_print_obsolete (mp, fp, domain, charset, blank_line)
 
 
 void
-message_list_print (mlp, filename, force, debug)
-     message_list_ty *mlp;
+msgdomain_list_print (mdlp, filename, force, debug)
+     msgdomain_list_ty *mdlp;
      const char *filename;
      int force;
      int debug;
 {
   FILE *fp;
-  size_t i, j, k;
-  string_list_ty *dl;
+  size_t j, k;
   int blank_line;
 
-  /* We will not write anything if we have no message or only the
-     header entry.  */
-  if (force == 0
-      && (mlp->nitems == 0
-	  || (mlp->nitems == 1 && *mlp->item[0]->msgid == '\0')))
-    return;
-
-  /* Build the list of domains.  */
-  dl = string_list_alloc ();
-  for (j = 0; j < mlp->nitems; ++j)
+  /* We will not write anything if, for every domain, we have no message
+     or only the header entry.  */
+  if (!force)
     {
-      message_ty *mp = mlp->item[j];
-      for (k = 0; k < mp->variant_count; ++k)
-	string_list_append_unique (dl, mp->variant[k].domain);
+      int found_nonempty = 0;
+
+      for (k = 0; k < mdlp->nitems; k++)
+	{
+	  message_list_ty *mlp = mdlp->item[k]->messages;
+
+	  if (!(mlp->nitems == 0
+		|| (mlp->nitems == 1 && mlp->item[0]->msgid[0] == '\0')))
+	    {
+	      found_nonempty = 1;
+	      break;
+	    }
+	}
+
+      if (!found_nonempty)
+	return;
     }
 
   /* Open the output file.  */
@@ -872,33 +825,31 @@ message_list_print (mlp, filename, force, debug)
 
   /* Write out the messages for each domain.  */
   blank_line = 0;
-  for (k = 0; k < dl->nitems; ++k)
+  for (k = 0; k < mdlp->nitems; k++)
     {
+      message_list_ty *mlp;
       const char *header;
       char *charset;
 
-      /* If there is only one domain, and that domain is the default,
-	 don't bother emitting the domain name, because it is the
-	 default.  */
-      if (dl->nitems != 1 || strcmp (dl->item[0], MESSAGE_DOMAIN_DEFAULT) != 0)
+      /* If the first domain is the default, don't bother emitting
+	 the domain name, because it is the default.  */
+      if (!(k == 0
+	    && strcmp (mdlp->item[k]->domain, MESSAGE_DOMAIN_DEFAULT) == 0))
 	{
 	  if (blank_line)
 	    print_blank_line (fp);
-	  fprintf (fp, "domain \"%s\"\n", dl->item[k]);
+	  fprintf (fp, "domain \"%s\"\n", mdlp->item[k]->domain);
 	  blank_line = 1;
 	}
+
+      mlp = mdlp->item[k]->messages;
 
       /* Search the header entry.  */
       header = NULL;
       for (j = 0; j < mlp->nitems; ++j)
-	if (*mlp->item[j]->msgid == '\0' && mlp->item[j]->obsolete == 0)
+	if (mlp->item[j]->msgid[0] == '\0' && mlp->item[j]->obsolete == 0)
 	  {
-	    for (i = 0; i < mlp->item[j]->variant_count; i++)
-	      if (strcmp (dl->item[k], mlp->item[j]->variant[i].domain) == 0)
-		{
-		  header = mlp->item[j]->variant[i].msgstr;
-		  break;
-		}
+	    header = mlp->item[j]->msgstr;
 	    break;
 	  }
 
@@ -924,8 +875,7 @@ message_list_print (mlp, filename, force, debug)
       for (j = 0; j < mlp->nitems; ++j)
 	if (mlp->item[j]->obsolete == 0)
 	  {
-	    message_print (mlp->item[j], fp, dl->item[k], charset,
-			   blank_line, debug);
+	    message_print (mlp->item[j], fp, charset, blank_line, debug);
 	    blank_line = 1;
 	  }
 
@@ -933,12 +883,10 @@ message_list_print (mlp, filename, force, debug)
       for (j = 0; j < mlp->nitems; ++j)
 	if (mlp->item[j]->obsolete != 0)
 	  {
-	    message_print_obsolete (mlp->item[j], fp, dl->item[k], charset,
-				    blank_line);
+	    message_print_obsolete (mlp->item[j], fp, charset, blank_line);
 	    blank_line = 1;
 	  }
     }
-  string_list_free (dl);
 
   /* Make sure nothing went wrong.  */
   if (fflush (fp))
@@ -963,10 +911,18 @@ msgid_cmp (va, vb)
 
 
 void
-message_list_sort_by_msgid (mlp)
-     message_list_ty *mlp;
+msgdomain_list_sort_by_msgid (mdlp)
+     msgdomain_list_ty *mdlp;
 {
-  qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), msgid_cmp);
+  size_t k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+
+      if (mlp->nitems > 0)
+	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), msgid_cmp);
+    }
 }
 
 
@@ -1007,8 +963,16 @@ filepos_cmp (va, vb)
 
 
 void
-message_list_sort_by_filepos (mlp)
-    message_list_ty *mlp;
+msgdomain_list_sort_by_filepos (mdlp)
+    msgdomain_list_ty *mdlp;
 {
-  qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), filepos_cmp);
+  size_t k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+
+      if (mlp->nitems > 0)
+	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), filepos_cmp);
+    }
 }

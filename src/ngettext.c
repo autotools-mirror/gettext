@@ -49,13 +49,14 @@ static const struct option long_options[] =
   { NULL, 0, NULL, 0 }
 };
 
-/* Prototypes for local functions.  */
-static void usage PARAMS ((int __status))
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void usage PARAMS ((int status))
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
      __attribute__ ((noreturn))
 #endif
 ;
-static const char *expand_escape PARAMS ((const char *__str));
+static const char *expand_escape PARAMS ((const char *str));
 
 int
 main (argc, argv)

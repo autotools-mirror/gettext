@@ -141,53 +141,52 @@ static const struct option long_options[] =
 };
 
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status))
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ > 4) || __GNUC__ > 2)
 	__attribute__ ((noreturn))
 #endif
 ;
-static string_list_ty *read_name_from_file PARAMS ((const char *__file_name));
-static void exclude_directive_domain PARAMS ((po_ty *__pop, char *__name));
-static void exclude_directive_message PARAMS ((po_ty *__pop, char *__msgid,
-					       lex_pos_ty *__msgid_pos,
-					       char *__msgid_plural,
-					       char *__msgstr,
-					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos,
-					       int __obsolete));
-static void read_exclusion_file PARAMS ((char *__file_name));
-static message_ty *remember_a_message PARAMS ((message_list_ty *__mlp,
-					       xgettext_token_ty *__tp));
-static void remember_a_message_plural PARAMS ((message_ty *__mp,
-					       xgettext_token_ty *__tp));
-static void scan_c_file PARAMS ((const char *__file_name,
-				 message_list_ty *__mlp));
-static void extract_constructor PARAMS ((po_ty *__that));
-static void extract_directive_domain PARAMS ((po_ty *__that, char *__name));
-static void extract_directive_message PARAMS ((po_ty *__that, char *__msgid,
-					       lex_pos_ty *__msgid_pos,
-					       char *__msgid_plural,
-					       char *__msgstr,
-					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos,
-					       int __obsolete));
-static void extract_parse_brief PARAMS ((po_ty *__that));
-static void extract_comment PARAMS ((po_ty *__that, const char *__s));
-static void extract_comment_dot PARAMS ((po_ty *__that, const char *__s));
-static void extract_comment_filepos PARAMS ((po_ty *__that, const char *__name,
-					     int __line));
+static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
+static void exclude_directive_domain PARAMS ((po_ty *pop, char *name));
+static void exclude_directive_message PARAMS ((po_ty *pop, char *msgid,
+					       lex_pos_ty *msgid_pos,
+					       char *msgid_plural,
+					       char *msgstr, size_t msgstr_len,
+					       lex_pos_ty *msgstr_pos,
+					       int obsolete));
+static void read_exclusion_file PARAMS ((char *file_name));
+static message_ty *remember_a_message PARAMS ((message_list_ty *mlp,
+					       xgettext_token_ty *tp));
+static void remember_a_message_plural PARAMS ((message_ty *mp,
+					       xgettext_token_ty *tp));
+static void scan_c_file PARAMS ((const char *file_name,
+				 msgdomain_list_ty *mdlp));
+static void extract_constructor PARAMS ((po_ty *that));
+static void extract_directive_domain PARAMS ((po_ty *that, char *name));
+static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
+					       lex_pos_ty *msgid_pos,
+					       char *msgid_plural,
+					       char *msgstr, size_t msgstr_len,
+					       lex_pos_ty *msgstr_pos,
+					       int obsolete));
+static void extract_parse_brief PARAMS ((po_ty *that));
+static void extract_comment PARAMS ((po_ty *that, const char *s));
+static void extract_comment_dot PARAMS ((po_ty *that, const char *s));
+static void extract_comment_filepos PARAMS ((po_ty *that, const char *name,
+					     int line));
 static void extract_comment_special PARAMS ((po_ty *that, const char *s));
-static void read_po_file PARAMS ((const char *__file_name,
-				  message_list_ty *__mlp));
-static long difftm PARAMS ((const struct tm *__a, const struct tm *__b));
+static void read_po_file PARAMS ((const char *file_name,
+				  msgdomain_list_ty *mdlp));
+static long difftm PARAMS ((const struct tm *a, const struct tm *b));
 static message_ty *construct_header PARAMS ((void));
-static enum is_c_format test_whether_c_format PARAMS ((const char *__s));
+static enum is_c_format test_whether_c_format PARAMS ((const char *s));
 
 
 /* The scanners must all be functions returning void and taking one
    string argument and a message list argument.  */
-typedef void (*scanner_fp) PARAMS ((const char *, message_list_ty *));
+typedef void (*scanner_fp) PARAMS ((const char *, msgdomain_list_ty *));
 
 static const char *extension_to_language PARAMS ((const char *));
 static scanner_fp language_to_scanner PARAMS ((const char *));
@@ -202,7 +201,7 @@ main (argc, argv)
   int optchar;
   int do_help = 0;
   int do_version = 0;
-  message_list_ty *mlp;
+  msgdomain_list_ty *mdlp;
   int join_existing = 0;
   int sort_by_msgid = 0;
   int sort_by_filepos = 0;
@@ -439,16 +438,16 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     string_list_append_unique (file_list, argv[cnt]);
 
   /* Allocate a message list to remember all the messages.  */
-  mlp = message_list_alloc ();
+  mdlp = msgdomain_list_alloc ();
 
   /* Generate a header, so that we know how and when this PO file was
      created.  */
   if (!omit_header)
-    message_list_append (mlp, construct_header ());
+    message_list_append (mdlp->item[0]->messages, construct_header ());
 
   /* Read in the old messages, so that we can add to them.  */
   if (join_existing)
-    read_po_file (file_name, mlp);
+    read_po_file (file_name, mdlp);
 
   /* Process all input files.  */
   for (cnt = 0; cnt < file_list->nitems; ++cnt)
@@ -479,27 +478,27 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	     function from the language.  */
 	  language = extension_to_language (extension);
 	  if (language == NULL)
-	  {
-	    error (0, 0, _("\
+	    {
+	      error (0, 0, _("\
 warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
-	    language = "C";
-	  }
+	      language = "C";
+	    }
 	  scan_file = language_to_scanner (language);
 	}
 
       /* Scan the file.  */
-      scan_file (fname, mlp);
+      scan_file (fname, mdlp);
     }
   string_list_free (file_list);
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
-    message_list_sort_by_filepos (mlp);
+    msgdomain_list_sort_by_filepos (mdlp);
   else if (sort_by_msgid)
-    message_list_sort_by_msgid (mlp);
+    msgdomain_list_sort_by_msgid (mdlp);
 
   /* Write the PO file.  */
-  message_list_print (mlp, file_name, force_po, do_debug);
+  msgdomain_list_print (mdlp, file_name, force_po, do_debug);
 
   exit (EXIT_SUCCESS);
 }
@@ -700,7 +699,7 @@ exclude_directive_message (pop, msgid, msgid_pos, msgid_plural,
     free (msgid);
   else
     {
-      mp = message_alloc (msgid, msgid_plural);
+      mp = message_alloc (msgid, msgid_plural, "", 1, msgstr_pos);
       /* Do not free msgid.  */
       message_list_append (exclude, mp);
     }
@@ -780,11 +779,6 @@ remember_a_message (mlp, tp)
     {
       static lex_pos_ty pos = { __FILE__, __LINE__ };
 
-      /* Allocate a new message and append the message to the list.  */
-      mp = message_alloc (msgid, NULL);
-      /* Do not free msgid.  */
-      message_list_append (mlp, mp);
-
       /* Construct the msgstr from the prefix and suffix, otherwise use the
 	 empty string.  */
       if (msgstr_prefix)
@@ -797,8 +791,11 @@ remember_a_message (mlp, tp)
 	}
       else
 	msgstr = "";
-      message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr,
-			      strlen (msgstr) + 1, &pos);
+
+      /* Allocate a new message and append the message to the list.  */
+      mp = message_alloc (msgid, NULL, msgstr, strlen (msgstr) + 1, &pos);
+      /* Do not free msgid.  */
+      message_list_append (mlp, mp);
     }
 
   /* Ask the lexer for the comments it has seen.  Only do this for the
@@ -858,7 +855,6 @@ remember_a_message_plural (mp, tp)
      xgettext_token_ty *tp;
 {
   char *msgid_plural;
-  message_variant_ty *mvp;
   char *msgstr1;
   size_t msgstr1_len;
   char *msgstr;
@@ -873,26 +869,22 @@ remember_a_message_plural (mp, tp)
       /* Construct the first plural form from the prefix and suffix,
 	 otherwise use the empty string.  The translator will have to
 	 provide additional plural forms.  */
-      mvp = message_variant_search (mp, MESSAGE_DOMAIN_DEFAULT);
-      if (mvp != NULL)
+      if (msgstr_prefix)
 	{
-	  if (msgstr_prefix)
-	    {
-	      msgstr1 = (char *) xmalloc (strlen (msgstr_prefix)
-					  + strlen (msgid_plural)
-					  + strlen (msgstr_suffix) + 1);
-	      stpcpy (stpcpy (stpcpy (msgstr1, msgstr_prefix), msgid_plural),
-		      msgstr_suffix);
-	    }
-	  else
-	    msgstr1 = "";
-	  msgstr1_len = strlen (msgstr1) + 1;
-	  msgstr = (char *) xmalloc (mvp->msgstr_len + msgstr1_len);
-	  memcpy (msgstr, mvp->msgstr, mvp->msgstr_len);
-	  memcpy (msgstr + mvp->msgstr_len, msgstr1, msgstr1_len);
-	  mvp->msgstr = msgstr;
-	  mvp->msgstr_len = mvp->msgstr_len + msgstr1_len;
+	  msgstr1 = (char *) xmalloc (strlen (msgstr_prefix)
+				      + strlen (msgid_plural)
+				      + strlen (msgstr_suffix) + 1);
+	  stpcpy (stpcpy (stpcpy (msgstr1, msgstr_prefix), msgid_plural),
+		  msgstr_suffix);
 	}
+      else
+	msgstr1 = "";
+      msgstr1_len = strlen (msgstr1) + 1;
+      msgstr = (char *) xmalloc (mp->msgstr_len + msgstr1_len);
+      memcpy (msgstr, mp->msgstr, mp->msgstr_len);
+      memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
+      mp->msgstr = msgstr;
+      mp->msgstr_len = mp->msgstr_len + msgstr1_len;
     }
   else
     free (msgid_plural);
@@ -900,10 +892,11 @@ remember_a_message_plural (mp, tp)
 
 
 static void
-scan_c_file (filename, mlp)
+scan_c_file (filename, mdlp)
      const char *filename;
-     message_list_ty *mlp;
+     msgdomain_list_ty *mdlp;
 {
+  message_list_ty *mlp = mdlp->item[0]->messages;
   int state;
   int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
   int plural_commas = 0;	/* defined only when in states 1 and 2 */
@@ -1115,7 +1108,6 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
 {
   extract_class_ty *this = (extract_class_ty *)that;
   message_ty *mp;
-  message_variant_ty *mvp;
   size_t j;
 
   /* See whether we shall exclude this message.  */
@@ -1148,10 +1140,20 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   /* See if this message ID has been seen before.  */
   mp = message_list_search (this->mlp, msgid);
   if (mp)
-    free (msgid);
+    {
+      if (msgstr_len != mp->msgstr_len
+	  || memcmp (msgstr, mp->msgstr, msgstr_len) != 0)
+	{
+	  po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
+	  po_gram_error_at_line (&mp->pos, _("\
+...this is the location of the first definition"));
+	}
+      free (msgid);
+      free (msgstr);
+    }
   else
     {
-      mp = message_alloc (msgid, msgid_plural);
+      mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
       message_list_append (this->mlp, mp);
     }
 
@@ -1189,21 +1191,6 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   this->is_fuzzy = 0;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
-
-  /* See if this domain has been seen for this message ID.  */
-  mvp = message_variant_search (mp, MESSAGE_DOMAIN_DEFAULT);
-  if (mvp != NULL
-      && (msgstr_len != mvp->msgstr_len
-	  || memcmp (msgstr, mvp->msgstr, msgstr_len) != 0))
-    {
-      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      po_gram_error_at_line (&mvp->pos, _("\
-...this is the location of the first definition"));
-      free (msgstr);
-    }
-  else
-    message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_len,
-			    msgstr_pos);
 }
 
 
@@ -1302,12 +1289,12 @@ static po_method_ty extract_methods =
 /* Read the contents of the specified .po file into a message list.  */
 
 static void
-read_po_file (file_name, mlp)
+read_po_file (file_name, mdlp)
      const char *file_name;
-     message_list_ty *mlp;
+     msgdomain_list_ty *mdlp;
 {
   po_ty *pop = po_alloc (&extract_methods);
-  ((extract_class_ty *) pop)->mlp = mlp;
+  ((extract_class_ty *) pop)->mlp = mdlp->item[0]->messages;
   po_scan (pop, file_name);
   po_free (pop);
 }
@@ -1351,20 +1338,6 @@ construct_header ()
   char tz_sign;
   long tz_min;
 
-  mp = message_alloc ("", NULL);
-
-  if (foreign_user)
-    message_comment_append (mp, "\
-SOME DESCRIPTIVE TITLE.\n\
-FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
-  else
-    message_comment_append (mp, "\
-SOME DESCRIPTIVE TITLE.\n\
-Copyright (C) YEAR Free Software Foundation, Inc.\n\
-FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
-
-  mp->is_fuzzy = 1;
-
   time (&now);
   local_time = *localtime (&now);
   tz_sign = '+';
@@ -1394,8 +1367,19 @@ Content-Transfer-Encoding: 8bit\n",
   if (msgstr == NULL)
     error (EXIT_FAILURE, errno, _("while preparing output"));
 
-  message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr,
-			  strlen (msgstr) + 1, &pos);
+  mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);
+
+  if (foreign_user)
+    message_comment_append (mp, "\
+SOME DESCRIPTIVE TITLE.\n\
+FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
+  else
+    message_comment_append (mp, "\
+SOME DESCRIPTIVE TITLE.\n\
+Copyright (C) YEAR Free Software Foundation, Inc.\n\
+FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
+
+  mp->is_fuzzy = 1;
 
   return mp;
 }

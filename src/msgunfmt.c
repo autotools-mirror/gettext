@@ -74,14 +74,15 @@ static const struct option long_options[] =
 static enum { MO_LITTLE_ENDIAN, MO_BIG_ENDIAN } endian;
 
 
-/* Prototypes for local functions.  */
-static void usage PARAMS ((int __status));
-static nls_uint32 read32 PARAMS ((FILE *__fp, const char *__fn));
-static void seek32 PARAMS ((FILE *__fp, const char *__fn, long __offset));
-static char *string32 PARAMS ((FILE *__fp, const char *__fn, long __offset,
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void usage PARAMS ((int status));
+static nls_uint32 read32 PARAMS ((FILE *fp, const char *fn));
+static void seek32 PARAMS ((FILE *fp, const char *fn, long offset));
+static char *string32 PARAMS ((FILE *fp, const char *fn, long offset,
 			       size_t *lengthp));
-static message_list_ty *read_mo_file PARAMS ((message_list_ty *__mlp,
-					      const char *__fn));
+static message_list_ty *read_mo_file PARAMS ((message_list_ty *mlp,
+					      const char *fn));
 
 
 int
@@ -93,7 +94,8 @@ main (argc, argv)
   int do_help = 0;
   int do_version = 0;
   const char *output_file = "-";
-  message_list_ty *mlp = NULL;
+  message_list_ty *mlp;
+  msgdomain_list_ty *result;
   int sort_by_msgid = 0;
 
   /* Set program name for messages.  */
@@ -184,18 +186,24 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Read the given .mo file. */
   if (optind < argc)
-    do
-      mlp = read_mo_file (mlp, argv[optind]);
-    while (++optind < argc);
+    {
+      mlp = NULL;
+      do
+	mlp = read_mo_file (mlp, argv[optind]);
+      while (++optind < argc);
+    }
   else
     mlp = read_mo_file (NULL, "-");
 
+  result = msgdomain_list_alloc ();
+  result->item[0]->messages = mlp;
+
   /* Sorting the list of messages.  */
   if (sort_by_msgid)
-    message_list_sort_by_msgid (mlp);
+    msgdomain_list_sort_by_msgid (result);
 
   /* Write the resulting message list to the given .po file.  */
-  message_list_print (mlp, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, 0);
 
   /* No problems.  */
   exit (EXIT_SUCCESS);
@@ -434,9 +442,8 @@ read_mo_file (mlp, fn)
       mp = message_alloc (msgid,
 			  (strlen (msgid) + 1 < msgid_len
 			   ? msgid + strlen (msgid) + 1
-			   : NULL));
-      message_variant_append (mp, MESSAGE_DOMAIN_DEFAULT, msgstr, msgstr_len,
-			      &pos);
+			   : NULL),
+			  msgstr, msgstr_len, &pos);
       message_list_append (mlp, mp);
     }
 

@@ -162,22 +162,22 @@ static const struct option long_options[] =
 # endif	/* GNU CC2  */
 #endif /* roundup  */
 
-/* Prototypes for local functions.  */
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status))
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
 	__attribute__ ((noreturn))
 #endif
 ;
-static void grammar PARAMS ((char *__filename));
-static void format_constructor PARAMS ((po_ty *__that));
-static void format_directive_domain PARAMS ((po_ty *__pop, char *__name));
-static void format_directive_message PARAMS ((po_ty *__pop, char *__msgid,
-					      lex_pos_ty *__msgid_pos,
-					      char *__msgid_plural,
-					      char *__msgstr,
-					      size_t __msgstr_len,
-					      lex_pos_ty *__msgstr_pos,
-					      int __obsolete));
+static void grammar PARAMS ((char *filename));
+static void format_constructor PARAMS ((po_ty *that));
+static void format_directive_domain PARAMS ((po_ty *pop, char *name));
+static void format_directive_message PARAMS ((po_ty *pop, char *msgid,
+					      lex_pos_ty *msgid_pos,
+					      char *msgid_plural,
+					      char *msgstr, size_t msgstr_len,
+					      lex_pos_ty *msgstr_pos,
+					      int obsolete));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
 static void format_debrief PARAMS ((po_ty *));
 static struct msg_domain *new_domain PARAMS ((const char *name,

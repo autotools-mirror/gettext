@@ -1,5 +1,112 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.h (struct message_variant_ty): Remove type.
+	(struct message_ty): Remove variant_count, variant fields. Add
+	msgstr, msgstr_len, pos fields.
+	(message_alloc): Add msgstr, msgstr_len, pp arguments.
+	(message_variant_search, message_variant_append): Remove declarations.
+	(msgdomain_ty): New type.
+	(msgdomain_alloc, msgdomain_free): New declarations.
+	(msgdomain_list_ty): New type.
+	(msgdomain_list_alloc, msgdomain_list_free, msgdomain_list_append,
+	msgdomain_list_append_list, msgdomain_list_sublist,
+	msgdomain_list_search, msgdomain_list_search_fuzzy): New declarations.
+	* message.c (message_alloc): Add msgstr, msgstr_len, pp arguments.
+	(message_free): Update.
+	(message_variant_search): Remove function.
+	(message_variant_append): Remove function.
+	(message_copy): Update.
+	(message_merge): Update.
+	(message_list_alloc): Use NULL, not 0.
+	(message_list_search): Likewise.
+	(message_list_search_fuzzy_inner): Update.
+	(message_list_list_alloc): Use NULL, not 0.
+	(message_list_list_search): Likewise.
+	(message_list_list_free): Comment out.
+	(msgdomain_alloc, msgdomain_free, msgdomain_list_alloc,
+	msgdomain_list_append, msgdomain_list_sublist): New functions.
+	* read-po.h (read_po_file): Change return type to
+	'msgdomain_list_ty *'.
+	* read-po.c (readall_class_ty): Remove field domain_list, add field
+	mdlp.
+	(readall_constructor): Update.
+	(readall_destructor): Likewise.
+	(readall_directive_message): Likewise.
+	(readall_parse_debrief): Remove function.
+	(readall_methods): Use NULL instead of readall_parse_debrief.
+	(read_po_file): Change return type to 'msgdomain_list_ty *'.
+	* write-po.h (message_list_print, message_list_sort_by_msgid,
+	message_list_sort_by_filepos): Remove declarations.
+	(msgdomain_list_print, msgdomain_list_sort_by_msgid,
+	msgdomain_list_sort_by_filepos): New declarations.
+	* write-po.c (message_print): Remove domain argument. Update. Assume
+	'first' is true.
+	(message_print_obsolete): Likewise.
+	(msgdomain_list_print): Renamed from message_list_print. Change type
+	of first argument.
+	(msgdomain_list_sort_by_msgid): Renamed from
+	message_list_sort_by_msgid. Change type of argument.
+	(msgdomain_list_sort_by_filepos): Renamed from
+	message_list_sort_by_filepos. Change type of argument.
+	* msgcmp.c (compare_class_ty): Remove field domain_list, add field
+	mdlp.
+	(multi_domain_mode): New variable.
+	(long_options): Add --multi-domain.
+	(main): Accept -m/--multi-domain.
+	(usage): Explain --multi-domain.
+	(match_domain): New function, extracted from 'compare'.
+	(compare): Update. Handle multi_domain_mode. Change argument types to
+	'const char *'.
+	(compare_constructor): Update.
+	(compare_destructor): Likewise.
+	(compare_directive_message): Likewise.
+	(compare_parse_debrief): Remove function.
+	(compare_methods): Use NULL instead of compare_parse_debrief.
+	(grammar): Change argument type to 'const char *' and return type to
+	'msgdomain_list_ty *'.
+	* msgcomm.c (main): Update.
+	(extract_directive_message): Update.
+	* msgmerge.c (multi_domain_mode): New variable.
+	(long_options): Add --multi-domain.
+	(struct statistics): New type.
+	(main): Accept -m/--multi-domain. Update.
+	(usage): Explain --multi-domain.
+	(compendium): Update.
+	(match_domain): New function, extracted from 'merge'.
+	(merge): Update. Handle multi_domain_mode.
+	* msgunfmt.c (main): Update.
+	(read_mo_file): Update.
+	* xgettext.c (main): Update.
+	(exclude_directive_message): Update.
+	(remember_a_message): Likewise.
+	(remember_a_message_plural): Likewise.
+	(scan_c_file): Change argument type to 'msgdomain_list_ty *'.
+	(extract_directive_message): Update.
+	(read_po_file): Change argument type to 'msgdomain_list_ty *'.
+	(construct_header): Update.
+
+	* dir-list.h: Don't use reserved identifiers in prototypes.
+	* gettext.c: Likewise.
+	* message.c: Likewise.
+	* msgcmp.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgfmt.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* ngettext.c: Likewise.
+	* open-po.h: Likewise.
+	* po-hash.h: Likewise.
+	* po-lex.h: Likewise.
+	* po-lex.c: Likewise.
+	* po.h: Likewise.
+	* po.c: Likewise.
+	* str-list.h: Likewise.
+	* write-po.c: Likewise.
+	* xget-lex.h: Likewise.
+	* xget-lex.c: Likewise.
+	* xgettext.c: Likewise.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.h (message_list_prepend): New declaration.
 	* message.c (message_list_prepend): New function.
 	* msgmerge.c (merge): Add a header entry to the ref list if it has

@@ -37,49 +37,37 @@
 #define _(str) gettext (str)
 
 
-/* This structure defines a derived class of the po_ty class.  (See
-   po.h for an explanation.)  */
-typedef struct compare_class_ty compare_class_ty;
-struct compare_class_ty
-{
-  /* inherited instance variables, etc */
-  PO_BASE_TY
-
-  /* Name of domain we are currently examining.  */
-  const char *domain;
-
-  /* List of domains already appeared in the current file.  */
-  string_list_ty *domain_list;
-
-  /* List of messages already appeared in the current file.  */
-  message_list_ty *mlp;
-};
+/* Apply the .pot file to each of the domains in the PO file.  */
+static int multi_domain_mode;
 
 /* Long options.  */
 static const struct option long_options[] =
 {
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
+  { "multi-domain", no_argument, NULL, 'm' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
 
 
-/* Prototypes for local functions.  */
-static void usage PARAMS ((int __status));
-static void compare PARAMS ((char *, char *));
-static message_list_ty *grammar PARAMS ((char *__filename));
-static void compare_constructor PARAMS ((po_ty *__that));
-static void compare_destructor PARAMS ((po_ty *__that));
-static void compare_directive_domain PARAMS ((po_ty *__that, char *__name));
-static void compare_directive_message PARAMS ((po_ty *__that, char *__msgid,
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void usage PARAMS ((int status));
+static void match_domain PARAMS ((const char *fn1, const char *fn2,
+				  message_list_ty *defmlp,
+				  message_list_ty *refmlp, int *nerrors));
+static void compare PARAMS ((const char *, const char *));
+static msgdomain_list_ty *grammar PARAMS ((const char *filename));
+static void compare_constructor PARAMS ((po_ty *that));
+static void compare_destructor PARAMS ((po_ty *that));
+static void compare_directive_domain PARAMS ((po_ty *that, char *name));
+static void compare_directive_message PARAMS ((po_ty *that, char *msgid,
 					       lex_pos_ty *msgid_pos,
-					       char *__msgid_plural,
-					       char *__msgstr,
-					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos,
-					       int __obsolete));
-static void compare_parse_debrief PARAMS ((po_ty *__that));
+					       char *msgid_plural,
+					       char *msgstr, size_t msgstr_len,
+					       lex_pos_ty *msgstr_pos,
+					       int obsolete));
 
 
 int
@@ -106,7 +94,7 @@ main (argc, argv)
 
   do_help = 0;
   do_version = 0;
-  while ((optchar = getopt_long (argc, argv, "D:hV", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "D:hmV", long_options, NULL))
 	 != EOF)
     switch (optchar)
       {
@@ -119,6 +107,10 @@ main (argc, argv)
 
       case 'h':
 	do_help = 1;
+	break;
+
+      case 'm':
+	multi_domain_mode = 1;
 	break;
 
       case 'V':
@@ -206,6 +198,12 @@ Input file location:\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
+Operation modifiers:\n\
+  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
 Informative output:\n\
   -h, --help                  display this help and exit\n\
   -V, --version               output version information and exit\n\
@@ -219,70 +217,116 @@ Informative output:\n\
 
 
 static void
-compare (fn1, fn2)
-     char *fn1;
-     char *fn2;
+match_domain (fn1, fn2, defmlp, refmlp, nerrors)
+     const char *fn1;
+     const char *fn2;
+     message_list_ty *defmlp;
+     message_list_ty *refmlp;
+     int *nerrors;
 {
-  message_list_ty *list1;
-  message_list_ty *list2;
+  size_t j;
+
+  for (j = 0; j < refmlp->nitems; j++)
+    {
+      message_ty *refmsg;
+      message_ty *defmsg;
+
+      refmsg = refmlp->item[j];
+
+      /* See if it is in the other file.  */
+      defmsg = message_list_search (defmlp, refmsg->msgid);
+      if (defmsg)
+	defmsg->used = 1;
+      else
+	{
+	  /* If the message was not defined at all, try to find a very
+	     similar message, it could be a typo, or the suggestion may
+	     help.  */
+	  (*nerrors)++;
+	  defmsg = message_list_search_fuzzy (defmlp, refmsg->msgid);
+	  if (defmsg)
+	    {
+	      po_gram_error_at_line (&refmsg->pos, _("\
+this message is used but not defined..."));
+	      po_gram_error_at_line (&defmsg->pos, _("\
+...but this definition is similar"));
+	      defmsg->used = 1;
+	    }
+	  else
+	    po_gram_error_at_line (&refmsg->pos, _("\
+this message is used but not defined in %s"), fn1);
+	}
+    }
+}
+
+
+static void
+compare (fn1, fn2)
+     const char *fn1;
+     const char *fn2;
+{
+  msgdomain_list_ty *def;
+  msgdomain_list_ty *ref;
   int nerrors;
-  message_ty *mp1;
   size_t j, k;
+  message_list_ty *empty_list;
 
   /* This is the master file, created by a human.  */
-  list1 = grammar (fn1);
+  def = grammar (fn1);
 
   /* This is the generated file, created by groping the sources with
      the xgettext program.  */
-  list2 = grammar (fn2);
+  ref = grammar (fn2);
+
+  empty_list = message_list_alloc ();
 
   /* Every entry in the xgettext generated file must be matched by a
      (single) entry in the human created file.  */
   nerrors = 0;
-  for (j = 0; j < list2->nitems; ++j)
+  if (!multi_domain_mode)
+    for (k = 0; k < ref->nitems; k++)
+      {
+	const char *domain = ref->item[k]->domain;
+	message_list_ty *refmlp = ref->item[k]->messages;
+	message_list_ty *defmlp;
+
+	defmlp = msgdomain_list_sublist (def, domain, 0);
+	if (defmlp == NULL)
+	  defmlp = empty_list;
+
+	match_domain (fn1, fn2, defmlp, refmlp, &nerrors);
+      }
+  else
     {
-      message_ty *mp2;
+      /* Apply the references messages in the default domain to each of
+	 the definition domains.  */
+      message_list_ty *refmlp = ref->item[0]->messages;
 
-      mp2 = list2->item[j];
+      for (k = 0; k < def->nitems; k++)
+	{
+	  message_list_ty *defmlp = def->item[k]->messages;
 
-      /* See if it is in the other file.  */
-      mp1 = message_list_search (list1, mp2->msgid);
-      if (mp1)
-	{
-	  mp1->used = 1;
-	  continue;
-	}
-
-      /* If the message was not defined at all, try to find a very
-	 similar message, it could be a typo, or the suggestion may
-	 help.  */
-      ++nerrors;
-      mp1 = message_list_search_fuzzy (list1, mp2->msgid);
-      if (mp1)
-	{
-	  po_gram_error_at_line (&mp2->variant[0].pos, _("\
-this message is used but not defined..."));
-	  po_gram_error_at_line (&mp1->variant[0].pos, _("\
-...but this definition is similar"));
-	  mp1->used = 1;
-	}
-      else
-	{
-	  po_gram_error_at_line (&mp2->variant[0].pos, _("\
-this message is used but not defined in %s"), fn1);
+	  /* Ignore the default message domain if it has no messages.  */
+	  if (k > 0 || defmlp->nitems > 0)
+	    match_domain (fn1, fn2, defmlp, refmlp, &nerrors);
 	}
     }
 
-  /* Look for messages in the human generated file, which are not
-     present in the xgettext generated file, indicating messages which
-     are not used in the program.  */
-  for (k = 0; k < list1->nitems; ++k)
+  /* Look for messages in the definition file, which are not present
+     in the reference file, indicating messages which defined but not
+     used in the program.  */
+  for (k = 0; k < def->nitems; ++k)
     {
-      mp1 = list1->item[k];
-      if (mp1->used)
-	continue;
-      po_gram_error_at_line (&mp1->variant[0].pos,
-			   _("warning: this message is not used"));
+      message_list_ty *defmlp = def->item[k]->messages;
+
+      for (j = 0; j < defmlp->nitems; j++)
+	{
+	  message_ty *defmsg = defmlp->item[j];
+
+	  if (!defmsg->used)
+	    po_gram_error_at_line (&defmsg->pos,
+				   _("warning: this message is not used"));
+	}
     }
 
   /* Exit with status 1 on any error.  */
@@ -295,15 +339,33 @@ this message is used but not defined in %s"), fn1);
 
 /* Local functions.  */
 
+/* This structure defines a derived class of the po_ty class.  (See
+   po.h for an explanation.)  */
+typedef struct compare_class_ty compare_class_ty;
+struct compare_class_ty
+{
+  /* inherited instance variables, etc */
+  PO_BASE_TY
+
+  /* List of messages already appeared in the current file.  */
+  msgdomain_list_ty *mdlp;
+
+  /* Name of domain we are currently examining.  */
+  char *domain;
+
+  /* List of messages belonging to the current domain.  */
+  message_list_ty *mlp;
+};
+
 static void
 compare_constructor (that)
      po_ty *that;
 {
   compare_class_ty *this = (compare_class_ty *) that;
 
-  this->mlp = message_list_alloc ();
+  this->mdlp = msgdomain_list_alloc ();
   this->domain = MESSAGE_DOMAIN_DEFAULT;
-  this->domain_list = string_list_alloc ();
+  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
 }
 
 
@@ -313,8 +375,8 @@ compare_destructor (that)
 {
   compare_class_ty *this = (compare_class_ty *) that;
 
-  string_list_free (this->domain_list);
-  /* Do not free this->mlp!  */
+  (void) this;
+  /* Do not free this->mdlp and this->mlp.  */
 }
 
 
@@ -343,69 +405,24 @@ compare_directive_message (that, msgid, msgid_pos, msgid_plural,
 {
   compare_class_ty *this = (compare_class_ty *) that;
   message_ty *mp;
-  message_variant_ty *mvp;
 
-  /* Remember the domain names for later.  */
-  string_list_append_unique (this->domain_list, this->domain);
+  /* Select the appropriate sublist of this->mdlp.  */
+  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
 
   /* See if this message ID has been seen before.  */
   mp = message_list_search (this->mlp, msgid);
   if (mp)
-    free (msgid);
-  else
-    {
-      mp = message_alloc (msgid, msgid_plural);
-      message_list_append (this->mlp, mp);
-    }
-
-  /* See if this domain has been seen for this message ID.  */
-  mvp = message_variant_search (mp, this->domain);
-  if (mvp)
     {
       po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      po_gram_error_at_line (&mvp->pos, _("\
+      po_gram_error_at_line (&mp->pos, _("\
 ...this is the location of the first definition"));
       free (msgstr);
+      free (msgid);
     }
   else
-    message_variant_append (mp, this->domain, msgstr, msgstr_len, msgstr_pos);
-}
-
-
-static void
-compare_parse_debrief (that)
-     po_ty *that;
-{
-  compare_class_ty *this = (compare_class_ty *) that;
-  message_list_ty *mlp = this->mlp;
-  size_t j;
-
-  /* For each domain in the used-domain-list, make sure each message
-     defines a msgstr in that domain.  */
-  for (j = 0; j < this->domain_list->nitems; ++j)
     {
-      const char *domain_name;
-      size_t k;
-
-      domain_name = this->domain_list->item[j];
-      for (k = 0; k < mlp->nitems; ++k)
-	{
-	  const message_ty *mp;
-	  size_t m;
-
-	  mp = mlp->item[k];
-	  for (m = 0; m < mp->variant_count; ++m)
-	    {
-	      message_variant_ty *mvp;
-
-	      mvp = &mp->variant[m];
-	      if (strcmp (domain_name, mvp->domain) == 0)
-		break;
-	    }
-	  if (m >= mp->variant_count)
-	    po_gram_error_at_line (&mp->variant[0].pos, _("\
-this message has no definition in the \"%s\" domain"), domain_name);
-	}
+      mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
+      message_list_append (this->mlp, mp);
     }
 }
 
@@ -424,7 +441,7 @@ static po_method_ty compare_methods =
   compare_directive_domain,
   compare_directive_message,
   NULL, /* parse_brief */
-  compare_parse_debrief,
+  NULL, /* parse_debrief */
   NULL, /* comment */
   NULL, /* comment_dot */
   NULL, /* comment_filepos */
@@ -432,16 +449,16 @@ static po_method_ty compare_methods =
 };
 
 
-static message_list_ty *
+static msgdomain_list_ty *
 grammar (filename)
-     char *filename;
+     const char *filename;
 {
   po_ty *pop;
-  message_list_ty *mlp;
+  msgdomain_list_ty *mdlp;
 
   pop = po_alloc (&compare_methods);
   po_scan (pop, filename);
-  mlp = ((compare_class_ty *)pop)->mlp;
+  mdlp = ((compare_class_ty *)pop)->mdlp;
   po_free (pop);
-  return mlp;
+  return mdlp;
 }

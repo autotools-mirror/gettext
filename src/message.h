@@ -24,7 +24,7 @@
 #include "pos.h"
 
 /* According to Sun's Uniforum proposal the default message domain is
-   named `messages'.  */
+   named 'messages'.  */
 #define MESSAGE_DOMAIN_DEFAULT "messages"
 
 
@@ -40,7 +40,8 @@ enum is_c_format
 
 extern enum is_c_format
        parse_c_format_description_string PARAMS ((const char *s));
-extern int possible_c_format_p PARAMS ((enum is_c_format));
+extern int
+       possible_c_format_p PARAMS ((enum is_c_format));
 
 
 /* Is current msgid wrappable?  */
@@ -55,23 +56,27 @@ enum is_wrap
 #define is_wrap is_c_format
 #endif
 
-extern enum is_wrap parse_c_width_description_string PARAMS ((const char *s));
+extern enum is_wrap
+       parse_c_width_description_string PARAMS ((const char *s));
 
-
-typedef struct message_variant_ty message_variant_ty;
-struct message_variant_ty
-{
-  const char *domain;
-
-  lex_pos_ty pos;
-
-  const char *msgstr;
-  size_t msgstr_len;
-};
 
 typedef struct message_ty message_ty;
 struct message_ty
 {
+  /* The msgid string.  */
+  const char *msgid;
+
+  /* The msgid's plural, if present.  */
+  const char *msgid_plural;
+
+  /* The msgstr strings.  */
+  const char *msgstr;
+  /* The number of bytes in msgstr, including the terminating NUL.  */
+  size_t msgstr_len;
+
+  /* Position in the source PO file.  */
+  lex_pos_ty pos;
+
   /* Plain comments (#) appearing before the message.  */
   string_list_ty *comment;
 
@@ -91,18 +96,8 @@ struct message_ty
   /* Do we want the string to be wrapped in the emitted PO file?  */
   enum is_wrap do_wrap;
 
-  /* The msgid string.  */
-  const char *msgid;
-
-  /* The msgid's plural, if present.  */
-  const char *msgid_plural;
-
-  /* The msgstr strings, one for each observed domain in the file.  */
-  size_t variant_count;
-  message_variant_ty *variant;
-
-  /* Used for checking that messages have been used, in the msgcmp and
-     msgmerge programs.  */
+  /* Used for checking that messages have been used, in the msgcmp,
+     msgmerge and msgcomm programs.  */
   int used;
 
   /* If set the message is obsolete and while writing out it should be
@@ -110,20 +105,24 @@ struct message_ty
   int obsolete;
 };
 
-message_ty *message_alloc PARAMS ((const char *msgid,
-				   const char *msgid_plural));
-void message_free PARAMS ((message_ty *));
-
-message_variant_ty *message_variant_search PARAMS ((message_ty *mp,
-						    const char *domain));
-void message_variant_append PARAMS ((message_ty *mp, const char *domain,
-				     const char *msgstr, size_t msgstr_len,
-				     const lex_pos_ty *pp));
-void message_comment_append PARAMS ((message_ty *, const char *));
-void message_comment_dot_append PARAMS ((message_ty *, const char *));
-message_ty *message_copy PARAMS ((message_ty *));
-message_ty *message_merge PARAMS ((message_ty *def, message_ty *ref));
-void message_comment_filepos PARAMS ((message_ty *, const char *, size_t));
+extern message_ty *
+       message_alloc PARAMS ((const char *msgid, const char *msgid_plural,
+			      const char *msgstr, size_t msgstr_len,
+			      const lex_pos_ty *pp));
+extern void
+       message_free PARAMS ((message_ty *mp));
+extern void
+       message_comment_append PARAMS ((message_ty *mp, const char *comment));
+extern void
+       message_comment_dot_append PARAMS ((message_ty *mp,
+					   const char *comment));
+extern void
+       message_comment_filepos PARAMS ((message_ty *mp,
+					const char *name, size_t line));
+extern message_ty *
+       message_copy PARAMS ((message_ty *mp));
+extern message_ty *
+       message_merge PARAMS ((message_ty *def, message_ty *ref));
 
 
 typedef struct message_list_ty message_list_ty;
@@ -134,14 +133,21 @@ struct message_list_ty
   size_t nitems_max;
 };
 
-message_list_ty *message_list_alloc PARAMS ((void));
-void message_list_free PARAMS ((message_list_ty *));
-void message_list_append PARAMS ((message_list_ty *, message_ty *));
-void message_list_prepend PARAMS ((message_list_ty *, message_ty *));
-void message_list_delete_nth PARAMS ((message_list_ty *, size_t));
-message_ty *message_list_search PARAMS ((message_list_ty *, const char *));
-message_ty *message_list_search_fuzzy PARAMS ((message_list_ty *,
-					       const char *));
+extern message_list_ty *
+       message_list_alloc PARAMS ((void));
+extern void
+       message_list_free PARAMS ((message_list_ty *mlp));
+extern void
+       message_list_append PARAMS ((message_list_ty *mlp, message_ty *mp));
+extern void
+       message_list_prepend PARAMS ((message_list_ty *mlp, message_ty *mp));
+extern void
+       message_list_delete_nth PARAMS ((message_list_ty *mlp, size_t n));
+extern message_ty *
+       message_list_search PARAMS ((message_list_ty *mlp, const char *msgid));
+extern message_ty *
+       message_list_search_fuzzy PARAMS ((message_list_ty *mlp,
+					  const char *msgid));
 
 
 typedef struct message_list_list_ty message_list_list_ty;
@@ -152,15 +158,64 @@ struct message_list_list_ty
   size_t nitems_max;
 };
 
-message_list_list_ty *message_list_list_alloc PARAMS ((void));
-void message_list_list_free PARAMS ((message_list_list_ty *));
-void message_list_list_append PARAMS ((message_list_list_ty *,
-				       message_list_ty *));
-void message_list_list_append_list PARAMS ((message_list_list_ty *,
-					    message_list_list_ty *));
-message_ty *message_list_list_search PARAMS ((message_list_list_ty *,
-					      const char *));
-message_ty *message_list_list_search_fuzzy PARAMS ((message_list_list_ty *,
-						    const char *));
+extern message_list_list_ty *
+       message_list_list_alloc PARAMS ((void));
+extern void
+       message_list_list_free PARAMS ((message_list_list_ty *mllp));
+extern void
+       message_list_list_append PARAMS ((message_list_list_ty *mllp,
+					 message_list_ty *mlp));
+extern void
+       message_list_list_append_list PARAMS ((message_list_list_ty *mllp,
+					      message_list_list_ty *mllp2));
+extern message_ty *
+       message_list_list_search PARAMS ((message_list_list_ty *mllp,
+					 const char *msgid));
+extern message_ty *
+       message_list_list_search_fuzzy PARAMS ((message_list_list_ty *mllp,
+					       const char *msgid));
+
+
+typedef struct msgdomain_ty msgdomain_ty;
+struct msgdomain_ty
+{
+  const char *domain;
+  message_list_ty *messages;
+};
+
+extern msgdomain_ty *
+       msgdomain_alloc PARAMS ((const char *domain));
+extern void
+       msgdomain_free PARAMS ((msgdomain_ty *mdp));
+
+
+typedef struct msgdomain_list_ty msgdomain_list_ty;
+struct msgdomain_list_ty
+{
+  msgdomain_ty **item;
+  size_t nitems;
+  size_t nitems_max;
+};
+
+extern msgdomain_list_ty *
+       msgdomain_list_alloc PARAMS ((void));
+extern void
+       msgdomain_list_free PARAMS ((msgdomain_list_ty *mdlp));
+extern void
+       msgdomain_list_append PARAMS ((msgdomain_list_ty *mdlp,
+				      msgdomain_ty *mdp));
+extern void
+       msgdomain_list_append_list PARAMS ((msgdomain_list_ty *mdlp,
+					   msgdomain_list_ty *mdlp2));
+extern message_list_ty *
+       msgdomain_list_sublist PARAMS ((msgdomain_list_ty *mdlp,
+				       const char *domain, int create));
+extern message_ty *
+       msgdomain_list_search PARAMS ((msgdomain_list_ty *mdlp,
+				      const char *msgid));
+extern message_ty *
+       msgdomain_list_search_fuzzy PARAMS ((msgdomain_list_ty *mdlp,
+					    const char *msgid));
+
 
 #endif /* message.h */

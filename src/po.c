@@ -29,22 +29,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po-hash.h"
 #include "system.h"
 
-/* Prototypes for local functions.  */
-static void po_parse_brief PARAMS ((po_ty *__pop));
-static void po_parse_debrief PARAMS ((po_ty *__pop));
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void po_parse_brief PARAMS ((po_ty *pop));
+static void po_parse_debrief PARAMS ((po_ty *pop));
 
 /* Methods used indirectly by po_scan.  */
-static void po_directive_domain PARAMS ((po_ty *__pop, char *__name));
-static void po_directive_message PARAMS ((po_ty *__pop, char *__msgid,
-					  lex_pos_ty *__msgid_pos,
-					  char *__msgid_plural,
-					  char *__msgstr, size_t __msgstr_len,
-					  lex_pos_ty *__msgstr_pos,
-					  int __obsolete));
-static void po_comment PARAMS ((po_ty *__pop, const char *__s));
-static void po_comment_dot PARAMS ((po_ty *__pop, const char *__s));
-static void po_comment_filepos PARAMS ((po_ty *__pop, const char *__name,
-					int __line));
+static void po_directive_domain PARAMS ((po_ty *pop, char *name));
+static void po_directive_message PARAMS ((po_ty *pop, char *msgid,
+					  lex_pos_ty *msgid_pos,
+					  char *msgid_plural,
+					  char *msgstr, size_t msgstr_len,
+					  lex_pos_ty *msgstr_pos,
+					  int obsolete));
+static void po_comment PARAMS ((po_ty *pop, const char *s));
+static void po_comment_dot PARAMS ((po_ty *pop, const char *s));
+static void po_comment_filepos PARAMS ((po_ty *pop, const char *name,
+					int line));
 static void po_comment_special PARAMS ((po_ty *pop, const char *s));
 
 /* Local variables.  */

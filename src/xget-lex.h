@@ -17,8 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef SRC_XGET_LEX_H
-#define SRC_XGET_LEX_H
+#ifndef _XGET_LEX_H
+#define _XGET_LEX_H
 
 enum xgettext_token_type_ty
 {
@@ -52,14 +52,14 @@ struct xgettext_token_ty
 };
 
 
-void xgettext_lex_open PARAMS ((const char *__file_name));
+void xgettext_lex_open PARAMS ((const char *file_name));
 void xgettext_lex_close PARAMS ((void));
-void xgettext_lex PARAMS ((xgettext_token_ty *__tp));
-const char *xgettext_lex_comment PARAMS ((size_t __n));
+void xgettext_lex PARAMS ((xgettext_token_ty *tp));
+const char *xgettext_lex_comment PARAMS ((size_t n));
 void xgettext_lex_comment_reset PARAMS ((void));
 /* void xgettext_lex_filepos PARAMS ((char **, int *)); FIXME needed?  */
-void xgettext_lex_keyword PARAMS ((const char *__name));
+void xgettext_lex_keyword PARAMS ((const char *name));
 int xgettext_any_keywords PARAMS ((void));
 void xgettext_lex_trigraphs PARAMS ((void));
 
-#endif
+#endif /* _XGET_LEX_H */
