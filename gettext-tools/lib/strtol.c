@@ -1,8 +1,10 @@
 /* Convert string representation of a number into an integer value.
-   Copyright (C) 1991,92,94,95,96,97,98,99,2000 Free Software Foundation, Inc.
 
-   NOTE: The canonical source of this file is maintained with the GNU C Library.
-   Bugs can be reported to bug-glibc@gnu.org.
+   Copyright (C) 1991, 1992, 1994, 1995, 1996, 1997, 1998, 1999, 2003
+   Free Software Foundation, Inc.
+
+   NOTE: The canonical source of this file is maintained with the GNU C
+   Library.  Bugs can be reported to bug-glibc@gnu.org.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the
@@ -15,9 +17,8 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
-   USA.  */
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #if HAVE_CONFIG_H
 # include <config.h>
@@ -25,8 +26,6 @@
 
 #ifdef _LIBC
 # define USE_NUMBER_GROUPING
-# define STDC_HEADERS
-# define HAVE_LIMITS_H
 #endif
 
 #include <ctype.h>
@@ -38,19 +37,10 @@ extern int errno;
 # define __set_errno(Val) errno = (Val)
 #endif
 
-#ifdef HAVE_LIMITS_H
-# include <limits.h>
-#endif
-
-#ifdef STDC_HEADERS
-# include <stddef.h>
-# include <stdlib.h>
-# include <string.h>
-#else
-# ifndef NULL
-#  define NULL 0
-# endif
-#endif
+#include <limits.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef USE_NUMBER_GROUPING
 # include "../locale/localeinfo.h"
@@ -133,6 +123,31 @@ extern int errno;
 # define STRTOL_LONG_MIN LONG_LONG_MIN
 # define STRTOL_LONG_MAX LONG_LONG_MAX
 # define STRTOL_ULONG_MAX ULONG_LONG_MAX
+
+/* The extra casts work around common compiler bugs,
+   e.g. Cray C 5.0.3.0 when t == time_t.  */
+# ifndef TYPE_SIGNED
+#  define TYPE_SIGNED(t) (! ((t) 0 < (t) -1))
+# endif
+# ifndef TYPE_MINIMUM
+#  define TYPE_MINIMUM(t) ((t) (TYPE_SIGNED (t) \
+				? ~ (t) 0 << (sizeof (t) * CHAR_BIT - 1) \
+				: (t) 0))
+# endif
+# ifndef TYPE_MAXIMUM
+#  define TYPE_MAXIMUM(t) ((t) (~ (t) 0 - TYPE_MINIMUM (t)))
+# endif
+
+# ifndef ULONG_LONG_MAX
+#  define ULONG_LONG_MAX TYPE_MAXIMUM (unsigned long long)
+# endif
+# ifndef LONG_LONG_MAX
+#  define LONG_LONG_MAX TYPE_MAXIMUM (long long int)
+# endif
+# ifndef LONG_LONG_MIN
+#  define LONG_LONG_MIN TYPE_MINIMUM (long long int)
+# endif
+
 # if __GNUC__ == 2 && __GNUC_MINOR__ < 7
    /* Work around gcc bug with using this constant.  */
    static const unsigned long long int maxquad = ULONG_LONG_MAX;
@@ -141,13 +156,6 @@ extern int errno;
 # endif
 #else
 # define LONG long
-
-# ifndef ULONG_MAX
-#  define ULONG_MAX ((unsigned long) ~(unsigned long) 0)
-# endif
-# ifndef LONG_MAX
-#  define LONG_MAX ((long int) (ULONG_MAX >> 1))
-# endif
 # define STRTOL_LONG_MIN LONG_MIN
 # define STRTOL_LONG_MAX LONG_MAX
 # define STRTOL_ULONG_MAX ULONG_MAX
@@ -163,10 +171,10 @@ extern int errno;
 # define _NL_CURRENT(category, item) \
   (current->values[_NL_ITEM_INDEX (item)].string)
 # define LOCALE_PARAM , loc
-# define LOCALE_PARAM_DECL __locale_t loc;
+# define LOCALE_PARAM_PROTO , __locale_t loc
 #else
 # define LOCALE_PARAM
-# define LOCALE_PARAM_DECL
+# define LOCALE_PARAM_PROTO
 #endif
 
 #if defined _LIBC || defined HAVE_WCHAR_H
@@ -187,15 +195,15 @@ extern int errno;
 #  define ISALPHA(Ch) iswalpha (Ch)
 #  define TOUPPER(Ch) towupper (Ch)
 # endif
+#else
+# if defined STDC_HEADERS || (!defined isascii && !defined HAVE_ISASCII)
+#  define IN_CTYPE_DOMAIN(c) 1
 # else
-#  if defined STDC_HEADERS || (!defined isascii && !defined HAVE_ISASCII)
-#   define IN_CTYPE_DOMAIN(c) 1
-#  else
-#   define IN_CTYPE_DOMAIN(c) isascii(c)
-#  endif
-#  define L_(Ch) Ch
-#  define UCHAR_TYPE unsigned char
-#  define STRING_TYPE char
+#  define IN_CTYPE_DOMAIN(c) isascii(c)
+# endif
+# define L_(Ch) Ch
+# define UCHAR_TYPE unsigned char
+# define STRING_TYPE char
 # ifdef USE_IN_EXTENDED_LOCALE_MODEL
 #  define ISSPACE(Ch) __isspace_l ((Ch), loc)
 #  define ISALPHA(Ch) __isalpha_l ((Ch), loc)
@@ -207,13 +215,9 @@ extern int errno;
 # endif
 #endif
 
-#ifdef __STDC__
-# define INTERNAL(X) INTERNAL1(X)
-# define INTERNAL1(X) __##X##_internal
-# define WEAKNAME(X) WEAKNAME1(X)
-#else
-# define INTERNAL(X) __/**/X/**/_internal
-#endif
+#define INTERNAL(X) INTERNAL1(X)
+#define INTERNAL1(X) __##X##_internal
+#define WEAKNAME(X) WEAKNAME1(X)
 
 #ifdef USE_NUMBER_GROUPING
 /* This file defines a function to check for correct grouping.  */
@@ -230,12 +234,8 @@ extern int errno;
    one converted is stored in *ENDPTR.  */
 
 INT
-INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
-     const STRING_TYPE *nptr;
-     STRING_TYPE **endptr;
-     int base;
-     int group;
-     LOCALE_PARAM_DECL
+INTERNAL (strtol) (const STRING_TYPE *nptr, STRING_TYPE **endptr,
+		   int base, int group LOCALE_PARAM_PROTO)
 {
   int negative;
   register unsigned LONG int cutoff;
@@ -245,21 +245,13 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
   register UCHAR_TYPE c;
   const STRING_TYPE *save, *end;
   int overflow;
-#if defined USE_NUMBER_GROUPING && !defined USE_WIDE_CHAR
-  int cnt;
-#endif
 
 #ifdef USE_NUMBER_GROUPING
 # ifdef USE_IN_EXTENDED_LOCALE_MODEL
   struct locale_data *current = loc->__locales[LC_NUMERIC];
 # endif
   /* The thousands character of the current locale.  */
-# ifdef USE_WIDE_CHAR
   wchar_t thousands = L'\0';
-# else
-  const char *thousands = NULL;
-  size_t thousands_len = 0;
-# endif
   /* The numeric grouping specification of the current locale,
      in the format described in <locale.h>.  */
   const char *grouping;
@@ -272,23 +264,13 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
       else
 	{
 	  /* Figure out the thousands separator character.  */
-# ifdef USE_WIDE_CHAR
-#  ifdef _LIBC
-	  thousands = _NL_CURRENT_WORD (LC_NUMERIC,
-					_NL_NUMERIC_THOUSANDS_SEP_WC);
-#  endif
+# if defined _LIBC || defined _HAVE_BTOWC
+	  thousands = __btowc (*_NL_CURRENT (LC_NUMERIC, THOUSANDS_SEP));
+	  if (thousands == WEOF)
+	    thousands = L'\0';
+# endif
 	  if (thousands == L'\0')
 	    grouping = NULL;
-# else
-#  ifdef _LIBC
-	  thousands = _NL_CURRENT (LC_NUMERIC, THOUSANDS_SEP);
-#  endif
-	  if (*thousands == '\0')
-	    {
-	      thousands = NULL;
-	      grouping = NULL;
-	    }
-# endif
 	}
     }
   else
@@ -341,44 +323,19 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
   save = s;
 
 #ifdef USE_NUMBER_GROUPING
-  if (base != 10)
-    grouping = NULL;
-
-  if (grouping)
+  if (group)
     {
-# ifndef USE_WIDE_CHAR
-      thousands_len = strlen (thousands);
-# endif
-
       /* Find the end of the digit string and check its grouping.  */
       end = s;
-      if (
-# ifdef USE_WIDE_CHAR
-	  *s != thousands
-# else
-	  ({ for (cnt = 0; cnt < thousands_len; ++cnt)
-	       if (thousands[cnt] != end[cnt])
-		 break;
-	     cnt < thousands_len; })
-# endif
-	  )
-	{
-	  for (c = *end; c != L_('\0'); c = *++end)
-	    if (((wchar_t) c < L_('0') || (wchar_t) c > L_('9'))
-# ifdef USE_WIDE_CHAR
-		&& c != thousands
-# else
-		&& ({ for (cnt = 0; cnt < thousands_len; ++cnt)
-		      if (thousands[cnt] != end[cnt])
-			break;
-		      cnt < thousands_len; })
-# endif
-		&& (!ISALPHA (c)
-		    || (int) (TOUPPER (c) - L_('A') + 10) >= base))
-	      break;
-
-	  end = correctly_grouped_prefix (s, end, thousands, grouping);
-	}
+      for (c = *end; c != L_('\0'); c = *++end)
+	if ((wchar_t) c != thousands
+	    && ((wchar_t) c < L_('0') || (wchar_t) c > L_('9'))
+	    && (!ISALPHA (c) || (int) (TOUPPER (c) - L_('A') + 10) >= base))
+	  break;
+      if (*s == thousands)
+	end = s;
+      else
+	end = correctly_grouped_prefix (s, end, thousands, grouping);
     }
   else
 #endif
@@ -389,104 +346,27 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
 
   overflow = 0;
   i = 0;
-  c = *s;
-  if (sizeof (long int) != sizeof (LONG int))
+  for (c = *s; c != L_('\0'); c = *++s)
     {
-      unsigned long int j = 0;
-      unsigned long int jmax = ULONG_MAX / base;
-
-      for (;c != L_('\0'); c = *++s)
+      if (s == end)
+	break;
+      if (c >= L_('0') && c <= L_('9'))
+	c -= L_('0');
+      else if (ISALPHA (c))
+	c = TOUPPER (c) - L_('A') + 10;
+      else
+	break;
+      if ((int) c >= base)
+	break;
+      /* Check for overflow.  */
+      if (i > cutoff || (i == cutoff && c > cutlim))
+	overflow = 1;
+      else
 	{
-	  if (s == end)
-	    break;
-	  if (c >= L_('0') && c <= L_('9'))
-	    c -= L_('0');
-#ifdef USE_NUMBER_GROUPING
-# ifdef USE_WIDE_CHAR
-	  else if (grouping && c == thousands)
-	    continue;
-# else
-	  else if (thousands_len)
-	    {
-	      for (cnt = 0; cnt < thousands_len; ++cnt)
-		if (thousands[cnt] != s[cnt])
-		  break;
-	      if (cnt == thousands_len)
-		{
-		  s += thousands_len - 1;
-		  continue;
-		}
-	      if (ISALPHA (c))
-		c = TOUPPER (c) - L_('A') + 10;
-	      else
-		break;
-	    }
-# endif
-#endif
-	  else if (ISALPHA (c))
-	    c = TOUPPER (c) - L_('A') + 10;
-	  else
-	    break;
-	  if ((int) c >= base)
-	    break;
-	  /* Note that we never can have an overflow.  */
-	  else if (j >= jmax)
-	    {
-	      /* We have an overflow.  Now use the long representation.  */
-	      i = (unsigned LONG int) j;
-	      goto use_long;
-	    }
-	  else
-	    j = j * (unsigned long int) base + c;
+	  i *= (unsigned LONG int) base;
+	  i += c;
 	}
-
-      i = (unsigned LONG int) j;
     }
-  else
-    for (;c != L_('\0'); c = *++s)
-      {
-	if (s == end)
-	  break;
-	if (c >= L_('0') && c <= L_('9'))
-	  c -= L_('0');
-#ifdef USE_NUMBER_GROUPING
-# ifdef USE_WIDE_CHAR
-	else if (grouping && c == thousands)
-	  continue;
-# else
-	else if (thousands_len)
-	  {
-	    for (cnt = 0; cnt < thousands_len; ++cnt)
-	      if (thousands[cnt] != s[cnt])
-		break;
-	    if (cnt == thousands_len)
-	      {
-		s += thousands_len - 1;
-		continue;
-	      }
-	    if (ISALPHA (c))
-	      c = TOUPPER (c) - L_('A') + 10;
-	    else
-	      break;
-	  }
-# endif
-#endif
-	else if (ISALPHA (c))
-	  c = TOUPPER (c) - L_('A') + 10;
-	else
-	  break;
-	if ((int) c >= base)
-	  break;
-	/* Check for overflow.  */
-	if (i > cutoff || (i == cutoff && c > cutlim))
-	  overflow = 1;
-	else
-	  {
-	  use_long:
-	    i *= (unsigned LONG int) base;
-	    i += c;
-	  }
-      }
 
   /* Check if anything actually happened.  */
   if (s == save)
@@ -540,28 +420,13 @@ noconv:
 
 /* External user entry point.  */
 
-#if _LIBC - 0 == 0
-# undef PARAMS
-# if defined (__STDC__) && __STDC__
-#  define PARAMS(Args) Args
-# else
-#  define PARAMS(Args) ()
-# endif
-
-/* Prototype.  */
-INT strtol PARAMS ((const STRING_TYPE *nptr, STRING_TYPE **endptr, int base));
-#endif
-
 
 INT
 #ifdef weak_function
 weak_function
 #endif
-strtol (nptr, endptr, base LOCALE_PARAM)
-     const STRING_TYPE *nptr;
-     STRING_TYPE **endptr;
-     int base;
-     LOCALE_PARAM_DECL
+strtol (const STRING_TYPE *nptr, STRING_TYPE **endptr,
+	int base LOCALE_PARAM_PROTO)
 {
   return INTERNAL (strtol) (nptr, endptr, base, 0 LOCALE_PARAM);
 }
