@@ -1,13 +1,28 @@
-This is gettext.info, produced by makeinfo version 4.0 from
+This is gettext.info, produced by makeinfo version 4.2 from
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
-* Gettext: (gettext).                           GNU gettext utilities.
-* gettextize: (gettext)gettextize Invocation.   Prepare a package for gettext.
-* msgfmt: (gettext)msgfmt Invocation.           Make MO files out of PO files.
-* msgmerge: (gettext)msgmerge Invocation.       Update two PO files into one.
-* xgettext: (gettext)xgettext Invocation.       Extract strings into a PO file.
+* gettext: (gettext).                          GNU gettext utilities.
+* autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
+* msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
+* msgcat: (gettext)msgcat Invocation.          Combine several PO files.
+* msgcmp: (gettext)msgcmp Invocation.          Compare a PO file and template.
+* msgcomm: (gettext)msgcomm Invocation.        Match two PO files.
+* msgconv: (gettext)msgconv Invocation.        Convert PO file to encoding.
+* msgen: (gettext)msgen Invocation.            Create an English PO file.
+* msgexec: (gettext)msgexec Invocation.        Process a PO file.
+* msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
+* msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
+* msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
+* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
+* msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
+* msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
+* ISO639: (gettext)Language Codes.             ISO 639 language codes.
+* ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
 END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `gettext' utilities.  It
@@ -197,7 +212,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.11.4 distribution itself, or from the GNU `hello'
+`gettext' 0.11.6-pre2 distribution itself, or from the GNU `hello'
 distribution (`http://www.franken.de/users/gnu/ke/hello' or
 `http://www.gnu.franken.de/ke/hello/')  You may indeed refer to the
 source code of the GNU `gettext' and GNU `hello' packages, as they are
@@ -317,7 +332,7 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.11.4
+          VERSION=0.11.6-pre2
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
@@ -325,12 +340,12 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
 
      or, if you are using GNU `automake', by a line like this:
 
-          AM_INIT_AUTOMAKE(gettext, 0.11.4)
+          AM_INIT_AUTOMAKE(gettext, 0.11.6-pre2)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.11.4' by its version numbers, exactly as they should appear
-     in the packaged `tar' file name of your distribution
-     (`gettext-0.11.4.tar.gz', here).
+     and `0.11.6-pre2' by its version numbers, exactly as they should
+     appear in the packaged `tar' file name of your distribution
+     (`gettext-0.11.6-pre2.tar.gz', here).
 
   2. Check for internationalization support.
 
@@ -420,10 +435,10 @@ simplest is to concatenate the files `codeset.m4', `gettext.m4',
 `glibc21.m4', `iconv.m4', `intdiv0.m4', `inttypes.m4', `inttypes_h.m4',
 `inttypes-pri.m4', `isc-posix.m4', `lcmessage.m4', `lib-ld.m4',
 `lib-link.m4', `lib-prefix.m4', `progtest.m4', `stdint_h.m4',
-`uintmax_t.m4' from GNU `gettext''s `m4/' directory into a single file.
-If you have suppressed the `intl/' directory, only `gettext.m4',
-`iconv.m4', `lib-ld.m4', `lib-link.m4', `lib-prefix.m4', `progtest.m4'
-need to be concatenated.
+`uintmax_t.m4', `ulonglong.m4' from GNU `gettext''s `m4/' directory
+into a single file.  If you have suppressed the `intl/' directory, only
+`gettext.m4', `iconv.m4', `lib-ld.m4', `lib-link.m4', `lib-prefix.m4',
+`progtest.m4' need to be concatenated.
 
    If you already have an `aclocal.m4' file, then you will have to
 merge the said macro files into your `aclocal.m4'.  Note that if you
@@ -933,7 +948,7 @@ repository all the files that `gettextize' mentions as "copy".
 Instead, he adds to the `configure.in' or `configure.ac' a line of the
 form
 
-     GETTEXT_VERSION=0.11.4
+     AM_GNU_GETTEXT_VERSION(0.11.6-pre2)
 
 and adds to the package's pre-build script an invocation of
 `autopoint'.  For everyone who checks out the CVS, this `autopoint'
@@ -978,9 +993,9 @@ Informative output
      Output version information and exit.
 
    `autopoint' supports the GNU `gettext' versions from 0.10.35 to the
-current one, 0.11.4.  In order to apply `autopoint' to a package using
-a `gettext' version newer than 0.11.4, you need to install this same
-version of GNU `gettext' at least.
+current one, 0.11.6-pre2.  In order to apply `autopoint' to a package
+using a `gettext' version newer than 0.11.6-pre2, you need to install
+this same version of GNU `gettext' at least.
 
    In packages using GNU `automake', an invocation of `autopoint'
 should be followed by invocations of `aclocal' and then `autoconf' and
@@ -1144,6 +1159,7 @@ strings.
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
 * tcl-format::                  Tcl Format Strings
+* php-format::                  PHP Format Strings
 
 
 File: gettext.info,  Node: c-format,  Next: python-format,  Prev: Translators for other Languages,  Up: Translators for other Languages

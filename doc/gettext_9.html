@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 24 July 2002 -->
+     from gettext.texi on 5 November 2002 -->
 
 <TITLE>GNU gettext utilities - 9  The User's View</TITLE>
 </HEAD>
@@ -10,7 +10,7 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_8.html">previous<
 <P><HR><P>
 
 
-<H1><A NAME="SEC137" HREF="gettext_toc.html#TOC137">9  The User's View</A></H1>
+<H1><A NAME="SEC138" HREF="gettext_toc.html#TOC138">9  The User's View</A></H1>
 
 <P>
 When GNU <CODE>gettext</CODE> will truly have reached its goal, average users
@@ -43,11 +43,11 @@ for both installers and end users.
 
 
 
-<H2><A NAME="SEC138" HREF="gettext_toc.html#TOC138">9.1  The Current <TT>`ABOUT-NLS&acute;</TT> Matrix</A></H2>
+<H2><A NAME="SEC139" HREF="gettext_toc.html#TOC139">9.1  The Current <TT>`ABOUT-NLS&acute;</TT> Matrix</A></H2>
 <P>
-<A NAME="IDX811"></A>
 <A NAME="IDX812"></A>
 <A NAME="IDX813"></A>
+<A NAME="IDX814"></A>
 
 </P>
 <P>
@@ -57,7 +57,7 @@ may check the distribution for the <TT>`ABOUT-NLS&acute;</TT> information file, 
 some <TT>`<VAR>ll</VAR>.po&acute;</TT> files, often kept together into some <TT>`po/&acute;</TT>
 directory, or for an <TT>`intl/&acute;</TT> directory.  Internationalized packages
 have usually many <TT>`<VAR>ll</VAR>.po&acute;</TT> files, where <VAR>ll</VAR> represents
-the language.  section <A HREF="gettext_9.html#SEC140">9.3  Magic for End Users</A> for a complete description of the format
+the language.  section <A HREF="gettext_9.html#SEC141">9.3  Magic for End Users</A> for a complete description of the format
 for <VAR>ll</VAR>.
 
 </P>
@@ -75,10 +75,10 @@ Translation Project sites, and also on most GNU archive sites.
 </P>
 
 
-<H2><A NAME="SEC139" HREF="gettext_toc.html#TOC139">9.2  Magic for Installers</A></H2>
+<H2><A NAME="SEC140" HREF="gettext_toc.html#TOC140">9.2  Magic for Installers</A></H2>
 <P>
-<A NAME="IDX814"></A>
 <A NAME="IDX815"></A>
+<A NAME="IDX816"></A>
 
 </P>
 <P>
@@ -97,7 +97,7 @@ produces programs totally unable to translate messages.
 
 </P>
 <P>
-<A NAME="IDX816"></A>
+<A NAME="IDX817"></A>
 Internationalized packages have usually many <TT>`<VAR>ll</VAR>.po&acute;</TT>
 files.  Unless
 translations are disabled, all those available are installed together
@@ -109,20 +109,20 @@ codes, stating which languages are allowed.
 </P>
 
 
-<H2><A NAME="SEC140" HREF="gettext_toc.html#TOC140">9.3  Magic for End Users</A></H2>
+<H2><A NAME="SEC141" HREF="gettext_toc.html#TOC141">9.3  Magic for End Users</A></H2>
 <P>
-<A NAME="IDX817"></A>
 <A NAME="IDX818"></A>
 <A NAME="IDX819"></A>
+<A NAME="IDX820"></A>
 
 </P>
 <P>
-<A NAME="IDX820"></A>
+<A NAME="IDX821"></A>
 We consider here those packages using GNU <CODE>gettext</CODE> internally,
 and for which the installers did not disable translation at
 <EM>configure</EM> time.  Then, users only have to set the <CODE>LANG</CODE>
 environment variable to the appropriate <SAMP>`<VAR>ll</VAR>_<VAR>CC</VAR>&acute;</SAMP>
-combination prior to using the programs in the package.  See section <A HREF="gettext_9.html#SEC138">9.1  The Current <TT>`ABOUT-NLS&acute;</TT> Matrix</A>.
+combination prior to using the programs in the package.  See section <A HREF="gettext_9.html#SEC139">9.1  The Current <TT>`ABOUT-NLS&acute;</TT> Matrix</A>.
 For example, let's presume a German site.  At the shell prompt, users
 merely have to execute <SAMP>`setenv LANG de_DE&acute;</SAMP> (in <CODE>csh</CODE>) or
 <SAMP>`export LANG; LANG=de_DE&acute;</SAMP> (in <CODE>sh</CODE>).  They could even do

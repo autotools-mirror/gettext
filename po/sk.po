@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
-"POT-Creation-Date: 2002-08-20 15:24+0200\n"
+"POT-Creation-Date: 2003-01-08 14:39+0100\n"
 "PO-Revision-Date: 2002-08-17 22:10+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -15,197 +15,197 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural= (n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 
-#: lib/argmatch.c:134
+#: lib/argmatch.c:120
 #, c-format
 msgid "invalid argument `%s' for `%s'"
 msgstr "neplatný parameter \"%s\" pre \"%s\""
 
-#: lib/argmatch.c:135
+#: lib/argmatch.c:121
 #, c-format
 msgid "ambiguous argument `%s' for `%s'"
 msgstr "nejednoznaèný parameter \"%s\" pre \"%s\""
 
-#: lib/argmatch.c:155
+#: lib/argmatch.c:139
 msgid "Valid arguments are:"
 msgstr "Platné parametre sú:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:267
-#: src/urlget.c:204 src/xgettext.c:840 src/xgettext.c:853 src/xgettext.c:863
+#: lib/copy-file.c:63 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
+#: src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901 src/xgettext.c:911
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "chyba pri otváraní súboru \"%s\" na èítanie"
 
-#: lib/copy-file.c:68
+#: lib/copy-file.c:70
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "nemô¾em otvori» súbor  \"%s\" na zápis"
 
-#: lib/copy-file.c:81 src/urlget.c:216
+#: lib/copy-file.c:83 src/urlget.c:207
 #, c-format
 msgid "error reading \"%s\""
 msgstr "chyba pri èítaní \"%s\""
 
-#: lib/copy-file.c:87 lib/copy-file.c:91
+#: lib/copy-file.c:89 lib/copy-file.c:93
 #, c-format
 msgid "error writing \"%s\""
 msgstr "chyba pri zápise \"%s\""
 
-#: lib/copy-file.c:93 src/urlget.c:226
+#: lib/copy-file.c:95 src/urlget.c:217
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "chyba po èítaní \"%s\""
 
-#: lib/error.c:116
+#: lib/error.c:112
 msgid "Unknown system error"
 msgstr "Neznáma systémová chyba"
 
-#: lib/execute.c:169 lib/execute.c:204 lib/pipe-bidi.c:153 lib/pipe-bidi.c:188
-#: lib/pipe-in.c:168 lib/pipe-in.c:204 lib/pipe-out.c:168 lib/pipe-out.c:204
-#: lib/wait-process.c:132
+#: lib/execute.c:150 lib/execute.c:185 lib/pipe-bidi.c:143 lib/pipe-bidi.c:178
+#: lib/pipe-in.c:150 lib/pipe-in.c:186 lib/pipe-out.c:150 lib/pipe-out.c:186
+#: lib/wait-process.c:129
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s podproces zlyhal"
 
-#: lib/getopt.c:691
+#: lib/getopt.c:689 lib/getopt.c:701
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: voµba `%s' nie je jednoznaèná\n"
 
-#: lib/getopt.c:716
+#: lib/getopt.c:734 lib/getopt.c:738
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: voµba `--%s' nepovoµuje parameter\n"
 
-#: lib/getopt.c:721
+#: lib/getopt.c:747 lib/getopt.c:752
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: voµba `%c%s' nepovoµuje parameter\n"
 
-#: lib/getopt.c:739 lib/getopt.c:912
+#: lib/getopt.c:788 lib/getopt.c:801 lib/getopt.c:1090 lib/getopt.c:1103
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: voµba `%s' vy¾aduje parameter\n"
 
-#: lib/getopt.c:768
+#: lib/getopt.c:839 lib/getopt.c:842
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: neznáma voµba `--%s'\n"
 
-#: lib/getopt.c:772
+#: lib/getopt.c:850 lib/getopt.c:853
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: neznáma voµba `%c%s'\n"
 
-#: lib/getopt.c:798
+#: lib/getopt.c:900 lib/getopt.c:903
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: neprípustná voµba -- %c\n"
 
-#: lib/getopt.c:801
+#: lib/getopt.c:909 lib/getopt.c:912
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: neplatná voµba -- %c\n"
 
-#: lib/getopt.c:831 lib/getopt.c:961
+#: lib/getopt.c:959 lib/getopt.c:970 lib/getopt.c:1156 lib/getopt.c:1169
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: voµba vy¾aduje parameter -- %c\n"
 
-#: lib/getopt.c:878
+#: lib/getopt.c:1022 lib/getopt.c:1033
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: voµba `-W %s' nie je jednoznaèná\n"
 
-#: lib/getopt.c:896
+#: lib/getopt.c:1057 lib/getopt.c:1069
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: voµba `-W %s' nedovoµuje pou¾itie parametra\n"
 
-#: lib/javacomp.c:462
+#: lib/javacomp.c:458
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
 "Kompilátor Javy nebol nájdený. Skúste nain¹talova» gcj alebo nastavte $JAVAC"
 
-#: lib/javaexec.c:414
+#: lib/javaexec.c:406
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 "Virtuálny stroj Javy nebol nájdený. Skúste nain¹talova» gij alebo nastavte "
 "$JAVA"
 
-#: lib/obstack.c:474 lib/xerror.c:53 lib/xmalloc.c:53 src/po-lex.c:97
-#: src/po-lex.c:130
+#: lib/obstack.c:491 lib/obstack.c:494 lib/xerror.c:50 lib/xmalloc.c:47
+#: src/po-lex.c:88 src/po-lex.c:117
 msgid "memory exhausted"
 msgstr "pamä» je vyèerpaná"
 
-#: lib/pipe-bidi.c:116 lib/pipe-bidi.c:118 lib/pipe-in.c:135
-#: lib/pipe-out.c:135
+#: lib/pipe-bidi.c:106 lib/pipe-bidi.c:108 lib/pipe-in.c:117
+#: lib/pipe-out.c:117
 msgid "cannot create pipe"
 msgstr "nemô¾em vytvori» rúru"
 
-#: lib/wait-process.c:110
+#: lib/wait-process.c:107
 #, c-format
 msgid "%s subprocess"
 msgstr "%s podproces"
 
-#: lib/wait-process.c:124
+#: lib/wait-process.c:121
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s podproces dostal kritický signál %d"
 
-#: src/format-c.c:760 src/format-python.c:506
+#: src/format-c.c:738 src/format-python.c:484
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "poèet formátovacích znaèiek v 'msgid' a '%s' sa nezhoduje"
 
-#: src/format-c.c:774 src/format-elisp.c:389 src/format-librep.c:353
-#: src/format-pascal.c:443 src/format-python.c:520
+#: src/format-c.c:752 src/format-elisp.c:367 src/format-librep.c:331
+#: src/format-pascal.c:421 src/format-python.c:498
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr "formátovacie znaèky v 'msgid' a '%s' pre parameter %u nie sú rovnaké"
 
-#: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
-#: src/format-ycp.c:145
+#: src/format-elisp.c:327 src/format-librep.c:291 src/format-pascal.c:381
+#: src/format-ycp.c:126
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "formátovacia znaèka pre parameter %u v '%s' nie je v 'msgid'"
 
-#: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
-#: src/format-ycp.c:144
+#: src/format-elisp.c:342 src/format-librep.c:306 src/format-pascal.c:396
+#: src/format-ycp.c:125
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "formátovacia znaèka pre parameter %u nie je v '%s'"
 
-#: src/format-java.c:660
+#: src/format-java.c:632
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "formátovacia znaèka pre parameter {%u} v '%s' nie je v 'msgid'"
 
-#: src/format-java.c:675
+#: src/format-java.c:647
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "formátovacia znaèka pre parameter {%u} neexistuje v '%s'"
 
-#: src/format-java.c:700
+#: src/format-java.c:672
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
 msgstr "formátovacie znaèky v 'msgid' a '%s' pre parameter {%u} nie sú rovnaké"
 
-#: src/format-lisp.c:3381
+#: src/format-lisp.c:3212
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "formátovacie znaèky v 'msgid' a '%s' nie sú ekvivalentné"
 
-#: src/format-lisp.c:3402
+#: src/format-lisp.c:3233
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr "formátovacie znaèky v '%s' nie sú podmno¾inou znaèiek z 'msgid'"
 
-#: src/format-python.c:397
+#: src/format-python.c:375
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
@@ -214,7 +214,7 @@ msgstr ""
 "formátovacie znaèky v 'msgid' predpokladajú mapovanie, ale znaèky v '%s' "
 "predpokladajú tuple"
 
-#: src/format-python.c:409
+#: src/format-python.c:387
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
@@ -223,29 +223,29 @@ msgstr ""
 "formátovacie znaèky v 'msgid' predpokladajú tuple, ale znaèky v '%s' "
 "predpokladajú mapovanie"
 
-#: src/format-python.c:437
+#: src/format-python.c:415
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "formátovacia znaèka pre parameter '%s' v '%s' nie je v 'msgid'"
 
-#: src/format-python.c:452
+#: src/format-python.c:430
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "formátovacia znaèka pre parameter '%s' nie je v '%s'"
 
-#: src/format-python.c:478
+#: src/format-python.c:456
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "formátovacie znaèky v 'msgid' a '%s' pre parameter '%s' nie sú rovnaké"
 
-#: src/gettext.c:135 src/hostname.c:175 src/msgattrib.c:269 src/msgcat.c:234
-#: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
-#: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
-#: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
-#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:381
+#: src/gettext.c:132 src/hostname.c:171 src/msgattrib.c:267 src/msgcat.c:235
+#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:189 src/msgen.c:177
+#: src/msgexec.c:159 src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285
+#: src/msginit.c:230 src/msgmerge.c:260 src/msgunfmt.c:205 src/msguniq.c:213
+#: src/ngettext.c:123 src/urlget.c:128 src/xgettext.c:397
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -257,33 +257,33 @@ msgstr ""
 "Neposkytuje sa ®IADNA záruka; ani èo sa týka OBCHODOVATE¥NOSTI alebo VHODNOSTI\n"
 "NA KONKRÉTNY ÚÈEL.\n"
 
-#: src/gettext.c:140 src/hostname.c:180 src/msgattrib.c:274 src/msgcat.c:239
-#: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
-#: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
-#: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
-#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:386
+#: src/gettext.c:137 src/hostname.c:176 src/msgattrib.c:272 src/msgcat.c:240
+#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:194 src/msgen.c:182
+#: src/msgexec.c:164 src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290
+#: src/msginit.c:235 src/msgmerge.c:265 src/msgunfmt.c:210 src/msguniq.c:218
+#: src/ngettext.c:128 src/urlget.c:133 src/xgettext.c:402
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napísal %s.\n"
 
-#: src/gettext.c:158 src/hostname.c:190 src/msginit.c:271 src/ngettext.c:143
+#: src/gettext.c:155 src/hostname.c:186 src/msginit.c:245 src/ngettext.c:140
 msgid "too many arguments"
 msgstr "príli¹ veµa parametrov"
 
-#: src/gettext.c:168 src/ngettext.c:155
+#: src/gettext.c:165 src/ngettext.c:152
 msgid "missing arguments"
 msgstr "chýbajúce parametre"
 
-#: src/gettext.c:240 src/hostname.c:204 src/msgattrib.c:327 src/msgcat.c:295
-#: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:248 src/msgen.c:232
-#: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
-#: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:540
+#: src/gettext.c:236 src/hostname.c:199 src/msgattrib.c:324 src/msgcat.c:295
+#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:248 src/msgen.c:232
+#: src/msgexec.c:216 src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394
+#: src/msginit.c:320 src/msgmerge.c:377 src/msgunfmt.c:314 src/msguniq.c:274
+#: src/ngettext.c:206 src/urlget.c:156 src/xgettext.c:593
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Skúste `%s --help' a dozviete sa viac informácií.\n"
 
-#: src/gettext.c:245
+#: src/gettext.c:241
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -292,12 +292,12 @@ msgstr ""
 "Pou¾itie: %s [VO¥BA] [[DOMÉNA] ID_SPRÁVY]\n"
 "alebo:    %s [VO¥BA] -s [ID_SPRÁVY]...\n"
 
-#: src/gettext.c:251
+#: src/gettext.c:247
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Zobrazi» preklad textovej správy do natívneho jazyka.\n"
 
-#: src/gettext.c:255
+#: src/gettext.c:251
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -319,7 +319,7 @@ msgstr ""
 "  [DOMÉNA] ID_SPRÁVY        vybra» prelo¾enú správu zodpovedajúcu ID_SPRÁVY\n"
 "                            z DOMÉNY\n"
 
-#: src/gettext.c:266
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -339,11 +339,11 @@ msgstr ""
 "ktoré sa nachádzajú vo vybranom katalógu správ budú prelo¾ené.\n"
 "©tandardný adresár, v ktorom sa budú hµada» katalógy: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:234 src/msgattrib.c:409 src/msgcat.c:378
-#: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:314 src/msgen.c:294
-#: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
-#: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:637
+#: src/gettext.c:273 src/hostname.c:229 src/msgattrib.c:406 src/msgcat.c:378
+#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:314 src/msgen.c:294
+#: src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484
+#: src/msginit.c:373 src/msgmerge.c:477 src/msgunfmt.c:395 src/msguniq.c:350
+#: src/ngettext.c:240 src/urlget.c:178 src/xgettext.c:698
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Správy o chybách zasielajte na adresu <bug-gnu-gettext@gnu.org> (iba "
@@ -351,17 +351,17 @@ msgstr ""
 "Komentáre k slovenskému prekladu zasielajte na adresu <sk-i18n@lists.linux."
 "sk>.\n"
 
-#: src/hostname.c:209 src/msginit.c:352
+#: src/hostname.c:204 src/msginit.c:325
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Pou¾itie: %s [VO¥BA]\n"
 
-#: src/hostname.c:214
+#: src/hostname.c:209
 #, no-wrap
 msgid "Print the machine's hostname.\n"
 msgstr "Zobrazi» hostiteµské meno stroja.\n"
 
-#: src/hostname.c:219
+#: src/hostname.c:214
 #, no-wrap
 msgid ""
 "Output format:\n"
@@ -376,9 +376,9 @@ msgstr ""
 "                          doménového mena a prezývok\n"
 "  -i, --ip-address      adresy pre meno hostiteµa\n"
 
-#: src/hostname.c:228 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:308
-#: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
-#: src/msginit.c:394 src/urlget.c:180
+#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:308
+#: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
+#: src/msginit.c:367 src/urlget.c:172
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -389,32 +389,32 @@ msgstr ""
 "  -h, --help                  zobrazi» túto nápovedu a skonèi»\n"
 "  -V, --version               zobrazi» informáciu o verzii a skonèi»\n"
 
-#: src/hostname.c:249 src/hostname.c:256
+#: src/hostname.c:244 src/hostname.c:251
 msgid "could not get host name"
 msgstr "Nemô¾em získa» meno hostiteµa"
 
-#: src/msgattrib.c:289 src/msgconv.c:208 src/msgexec.c:145 src/msgfilter.c:199
-#: src/msggrep.c:311 src/msginit.c:210 src/msguniq.c:232
+#: src/msgattrib.c:287 src/msgconv.c:209 src/msgexec.c:139 src/msgfilter.c:184
+#: src/msggrep.c:305 src/msginit.c:184 src/msguniq.c:233
 msgid "at most one input file allowed"
 msgstr "povolený najviac jeden vstupný súbor"
 
-#: src/msgattrib.c:295 src/msgattrib.c:299 src/msgcat.c:249 src/msgcat.c:253
-#: src/msgcomm.c:252 src/msgcomm.c:256 src/msgconv.c:214 src/msgconv.c:218
-#: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
-#: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
-#: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
-#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:396
-#: src/xgettext.c:400
+#: src/msgattrib.c:293 src/msgattrib.c:297 src/msgcat.c:250 src/msgcat.c:254
+#: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:215 src/msgconv.c:219
+#: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
+#: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
+#: src/msggrep.c:315 src/msgmerge.c:290 src/msgmerge.c:311 src/msgmerge.c:315
+#: src/msgunfmt.c:220 src/msguniq.c:239 src/msguniq.c:243 src/xgettext.c:412
+#: src/xgettext.c:416
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s a %s sa navzájom vyluèujú"
 
-#: src/msgattrib.c:332 src/msgconv.c:253 src/msggrep.c:407 src/msguniq.c:279
+#: src/msgattrib.c:329 src/msgconv.c:253 src/msggrep.c:399 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Pou¾itie: %s [VO¥BA] [VSTUPNÝSÚBOR]\n"
 
-#: src/msgattrib.c:337
+#: src/msgattrib.c:334
 #, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -423,15 +423,15 @@ msgstr ""
 "Filtruje správy z prekladového katalógu podµa ich vlastností a mení tieto\n"
 "vlastnosti.\n"
 
-#: src/msgattrib.c:343 src/msgcat.c:318 src/msgcmp.c:190 src/msgcomm.c:333
-#: src/msgconv.c:263 src/msgen.c:250 src/msgexec.c:248 src/msgfilter.c:366
-#: src/msgfmt.c:543 src/msggrep.c:418 src/msginit.c:363 src/msgmerge.c:408
+#: src/msgattrib.c:340 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
+#: src/msgconv.c:263 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
+#: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:400
 #: src/msgunfmt.c:329 src/msguniq.c:296
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Povinné parametre pre dlhé voµby sú povinnými aj pre skrátené voµby.\n"
 
-#: src/msgattrib.c:348 src/msgconv.c:268 src/msggrep.c:423 src/msguniq.c:301
+#: src/msgattrib.c:345 src/msgconv.c:268 src/msggrep.c:415 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -445,8 +445,8 @@ msgstr ""
 "                              vstupné súbory\n"
 "Ak nie je zadaný vstupný súbor alebo je -, naèítaný je ¹tandardný vstup.\n"
 
-#: src/msgattrib.c:356 src/msgconv.c:276 src/msgen.c:263 src/msgfilter.c:379
-#: src/msggrep.c:431 src/msgmerge.c:430
+#: src/msgattrib.c:353 src/msgconv.c:276 src/msgen.c:263 src/msgfilter.c:363
+#: src/msggrep.c:423 src/msgmerge.c:422
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -459,7 +459,7 @@ msgstr ""
 "Ak nie je zadaný výstupný súbor alebo je -, výsledky su zapísané\n"
 "na ¹tandardný výstup.\n"
 
-#: src/msgattrib.c:364
+#: src/msgattrib.c:361
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -478,7 +478,7 @@ msgstr ""
 "      --no-obsolete           odstráni» zastarané správy oznaèené #~\n"
 "      --only-obsolete         zachova» zastarané správy oznaèené #~\n"
 
-#: src/msgattrib.c:375
+#: src/msgattrib.c:372
 #, no-wrap
 msgid ""
 "Attribute manipulation:\n"
@@ -497,7 +497,7 @@ msgstr ""
 "      --fuzzy                 synonymum pre --only-fuzzy --clear-fuzzy\n"
 "      --obsolete              synonymum pre --only-obsolete --clear-obsolete\n"
 
-#: src/msgattrib.c:386
+#: src/msgattrib.c:383
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -532,12 +532,12 @@ msgstr ""
 "  -s, --sort-output           generova» utriedený výstup\n"
 "  -F, --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
-#: src/msgcat.c:259 src/msgcomm.c:282
+#: src/msgcat.c:260 src/msgcomm.c:279
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "je uvedené nepovolené kritérium výberu (%d < n < %d)"
 
-#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:545
+#: src/msgcat.c:300 src/msgcomm.c:312 src/xgettext.c:598
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Pou¾itie: %s [VO¥BA] [VSTUPNÝSÚBOR]...\n"
@@ -565,7 +565,7 @@ msgstr ""
 "zabezpeèí ich zachovanie iba z prvého PO súboru, ktorý ich definuje.\n"
 "Pozície v zdrojových súboroch budú zlúèené zo v¹etkých PO súborov.\n"
 
-#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:561
+#: src/msgcat.c:323 src/msgcomm.c:334 src/xgettext.c:614
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -581,7 +581,7 @@ msgstr ""
 "                                 vstupné súbory\n"
 "Ak je vstupný súbor -, naèítaný je ¹tandardný vstup.\n"
 
-#: src/msgcat.c:332 src/msgcomm.c:347 src/msguniq.c:309
+#: src/msgcat.c:332 src/msgcomm.c:343 src/msguniq.c:309
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -656,7 +656,7 @@ msgstr ""
 "  -s, --sort-output              generova» utriedený výstup\n"
 "  -F, --sort-by-file             utriedi» výstup podµa umiestnenia v súboroch\n"
 
-#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:631
+#: src/msgcat.c:372 src/msgcomm.c:381 src/msguniq.c:344 src/xgettext.c:692
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -667,20 +667,20 @@ msgstr ""
 "  -h, --help                     zobrazi» túto nápovedu a skonèi»\n"
 "  -V, --version                  zobrazi» informáciu o verzii a skonèi»\n"
 
-#: src/msgcmp.c:149 src/msgmerge.c:286
+#: src/msgcmp.c:141 src/msgmerge.c:276
 msgid "no input files given"
 msgstr "neboli zadané vstupné súbory"
 
-#: src/msgcmp.c:154 src/msgmerge.c:291
+#: src/msgcmp.c:146 src/msgmerge.c:281
 msgid "exactly 2 input files required"
 msgstr "potrebné sú presne 2 vstupné súbory"
 
-#: src/msgcmp.c:175 src/msgmerge.c:390
+#: src/msgcmp.c:166 src/msgmerge.c:382
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "Pou¾itie: %s [VO¥BA] def.po ref.pot\n"
 
-#: src/msgcmp.c:180
+#: src/msgcmp.c:171
 #, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
@@ -697,7 +697,7 @@ msgstr ""
 "Keï nie je mo¾né nájs» presnú zhodu, je pou¾itý fuzzy algoritmus, ktorý\n"
 "umo¾òuje lep¹iu kontrolu zhody.\n"
 
-#: src/msgcmp.c:195
+#: src/msgcmp.c:186
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -711,7 +711,7 @@ msgstr ""
 "  -D, --directory=ADRESÁR     prida» ADRESÁR do zoznamu pre vyhµadávané\n"
 "                              vstupné súbory\n"
 
-#: src/msgcmp.c:203 src/msgmerge.c:454
+#: src/msgcmp.c:194 src/msgmerge.c:446
 #, no-wrap
 msgid ""
 "Operation modifiers:\n"
@@ -720,24 +720,24 @@ msgstr ""
 "Modifikátory operácie:\n"
 "  -m, --multi-domain          opu¾ije ref.pot na v¹etky domény v def.po\n"
 
-#: src/msgcmp.c:252 src/msgmerge.c:855
+#: src/msgcmp.c:265 src/msgmerge.c:837
 msgid "this message is used but not defined..."
 msgstr "táto správa je pou¾itá, ale nie je definovaná..."
 
-#: src/msgcmp.c:254 src/msgmerge.c:857
+#: src/msgcmp.c:267 src/msgmerge.c:839
 msgid "...but this definition is similar"
 msgstr "...ale táto definícia je podobná"
 
-#: src/msgcmp.c:259 src/msgmerge.c:884
+#: src/msgcmp.c:272 src/msgmerge.c:866
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "táto správa je pou¾itá, ale nie je definovaná v %s"
 
-#: src/msgcmp.c:331
+#: src/msgcmp.c:376
 msgid "warning: this message is not used"
 msgstr "upozornenie: táto správa nie je pou¾itá"
 
-#: src/msgcmp.c:338 src/po-lex.c:701
+#: src/msgcmp.c:383 src/po-lex.c:626
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -745,19 +745,11 @@ msgstr[0] "nájdených %d záva¾ných chýb"
 msgstr[1] "nájdená %d záva¾ná chyba"
 msgstr[2] "nájdené %d záva¾né chyby"
 
-#: src/msgcmp.c:419 src/msgfmt.c:1449 src/read-po.c:202 src/x-po.c:163
-msgid "duplicate message definition"
-msgstr "duplicitná definícia správy"
-
-#: src/msgcmp.c:420 src/msgfmt.c:1450 src/read-po.c:203 src/x-po.c:164
-msgid "...this is the location of the first definition"
-msgstr "...toto je miesto prvého definovania"
-
-#: src/msgcomm.c:271
+#: src/msgcomm.c:268
 msgid "at least two files must be specified"
 msgstr "musia by» uvedené minimálne dva súbory"
 
-#: src/msgcomm.c:321
+#: src/msgcomm.c:317
 #, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -777,7 +769,7 @@ msgstr ""
 "komentáre budú zachované iba z prvého PO súboru, v ktorom sú definované.\n"
 "Pozície v zdrojových súboroch budú zlúèené zo v¹etkých PO súborov.\n"
 
-#: src/msgcomm.c:355
+#: src/msgcomm.c:351
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -798,7 +790,7 @@ msgstr ""
 "  -u, --unique                   skratka pre --less-than=2, nastavuje výpis\n"
 "                                 len unikátnych správ\n"
 
-#: src/msgcomm.c:367
+#: src/msgcomm.c:363
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -851,7 +843,7 @@ msgstr ""
 "  -t, --to-code=NÁZOV         kódovanie výstupu\n"
 "Predvolené kódovanie je kódovanie aktuálneho národného prostreda.\n"
 
-#: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:460
+#: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:452
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -885,11 +877,11 @@ msgstr ""
 "  -s, --sort-output           generova» utriedený výstup\n"
 "  -F, --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
-#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:417
+#: src/msgen.c:193 src/msgfmt.c:337 src/xgettext.c:433
 msgid "no input file given"
 msgstr "nie sú zadané vstupné súbory"
 
-#: src/msgen.c:197
+#: src/msgen.c:198
 msgid "exactly one input file required"
 msgstr "potrebné je presne jeden vstupný súbor"
 
@@ -925,16 +917,16 @@ msgstr ""
 "                              vstupné súbory\n"
 "Ak je vstupný súbor -, naèítaný je ¹tandardný vstup.\n"
 
-#: src/msgexec.c:180
+#: src/msgexec.c:174
 msgid "missing command name"
 msgstr "chýbajúci názov príkazu"
 
-#: src/msgexec.c:228
+#: src/msgexec.c:221
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 msgstr "Pou¾itie: %s [VO¥BA] PRÍKAZ [VO¥BA-PRÍKAZU]\n"
 
-#: src/msgexec.c:233
+#: src/msgexec.c:226
 #, no-wrap
 msgid ""
 "Applies a command to all translations of a translation catalog.\n"
@@ -949,7 +941,7 @@ msgstr ""
 "bude aj výstupom programu msgexec. Návratová hodnota programu msgexec je\n"
 "maximum návratových hodnôt v¹etkých spustení príkazu.\n"
 
-#: src/msgexec.c:242
+#: src/msgexec.c:235
 #, no-wrap
 msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
@@ -958,7 +950,7 @@ msgstr ""
 "©peciálny vstavaný príkaz s názvom '0' vypisuje preklad nasledovaný nulovým\n"
 "bajtom. Výstup príkazu \"msgexec 0\" je pou¾iteµný ako vstup pre \"xargs -0\".\n"
 
-#: src/msgexec.c:253 src/msgfilter.c:371
+#: src/msgexec.c:246 src/msgfilter.c:355
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -972,34 +964,34 @@ msgstr ""
 "                              vstupných súborov\n"
 "Ak nie je zadaný vstupný súbor alebo je -, je naèítaný ¹tandardný vstup.\n"
 
-#: src/msgexec.c:313
+#: src/msgexec.c:299
 msgid "write to stdout failed"
 msgstr "zápis na ¹tandardný výstup zlyhal"
 
-#: src/msgexec.c:337 src/msgfilter.c:610
+#: src/msgexec.c:322 src/msgfilter.c:579
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "zápis do podprocesu %s zlyhal"
 
-#: src/msgfilter.c:268
+#: src/msgfilter.c:253
 msgid "missing filter name"
 msgstr "chýbajúci názov filtra"
 
-#: src/msgfilter.c:292
+#: src/msgfilter.c:277
 msgid "at least one sed script must be specified"
 msgstr "musí by» uvedený aspoò jeden sed skript"
 
-#: src/msgfilter.c:356
+#: src/msgfilter.c:340
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Pou¾itie: %s [VO¥BA] FILTER [VO¥BA-FILTRA]\n"
 
-#: src/msgfilter.c:361
+#: src/msgfilter.c:345
 #, no-wrap
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Aplikova» filter na v¹etky preklady prekladového katalógu.\n"
 
-#: src/msgfilter.c:387
+#: src/msgfilter.c:371
 #, no-wrap
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -1008,7 +1000,7 @@ msgstr ""
 "FILTER mô¾e by» µubovoµný program, ktorý èíta preklady zo ¹tandardného vstupu\n"
 "a zapisuje upravené preklady na ¹tandardný výstup.\n"
 
-#: src/msgfilter.c:393
+#: src/msgfilter.c:377
 #, no-wrap
 msgid ""
 "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
@@ -1023,7 +1015,7 @@ msgstr ""
 "                                príkazom\n"
 "  -n, --quiet, --silent       potlaèi» automatickú tlaè priestoru vzorov\n"
 
-#: src/msgfilter.c:402
+#: src/msgfilter.c:386
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1060,53 +1052,53 @@ msgstr ""
 "  -s, --sort-output           generova» utriedený výstup\n"
 "  -F, --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
-#: src/msgfilter.c:562
+#: src/msgfilter.c:531
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "nemô¾em nastavi» neblokujúce V/V na podproces %s"
 
-#: src/msgfilter.c:590
+#: src/msgfilter.c:559
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "komunikácia s podprocesom %s zlyhala"
 
-#: src/msgfilter.c:641
+#: src/msgfilter.c:610
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "èítanie z podprocesu %s zlyhalo"
 
-#: src/msgfilter.c:657
+#: src/msgfilter.c:626
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "podproces %s bol ukonèený s ukonèovacím kódom %d"
 
-#: src/msgfmt.c:318
+#: src/msgfmt.c:288
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "parameter pre %s by malo by» len jedno interpunkèné znamienko"
 
-#: src/msgfmt.c:385 src/msgfmt.c:407 src/msgunfmt.c:248
+#: src/msgfmt.c:355 src/msgfmt.c:377 src/msgunfmt.c:249
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s vy¾aduje ¹pecifikáciu \"-d adresár\""
 
-#: src/msgfmt.c:400 src/msgunfmt.c:241
+#: src/msgfmt.c:370 src/msgunfmt.c:242
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s vy¾aduje ¹pecifikáciu \"-l národné prostredie\""
 
-#: src/msgfmt.c:416 src/msgmerge.c:308 src/msgmerge.c:314 src/msgunfmt.c:257
-#: src/msgunfmt.c:263
+#: src/msgfmt.c:386 src/msgmerge.c:298 src/msgmerge.c:304 src/msgunfmt.c:258
+#: src/msgunfmt.c:264
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s je platné len s %s"
 
-#: src/msgfmt.c:422 src/msgfmt.c:428
+#: src/msgfmt.c:392 src/msgfmt.c:398
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "%s je platné len s %s alebo %s"
 
-#: src/msgfmt.c:501
+#: src/msgfmt.c:471
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
@@ -1114,7 +1106,7 @@ msgstr[0] "%d prelo¾ených správ"
 msgstr[1] "%d prelo¾ená správa"
 msgstr[2] "%d prelo¾ené správy"
 
-#: src/msgfmt.c:506
+#: src/msgfmt.c:476
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
@@ -1122,7 +1114,7 @@ msgstr[0] ", %d nepresných prekladov"
 msgstr[1] ", %d nepresný preklad"
 msgstr[2] ", %d nepresné preklady"
 
-#: src/msgfmt.c:511
+#: src/msgfmt.c:481
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
@@ -1130,17 +1122,17 @@ msgstr[0] ", %d neprelo¾ených správ"
 msgstr[1] ", %d neprelo¾ená správa"
 msgstr[2] ", %d neprelo¾ené správy"
 
-#: src/msgfmt.c:533
+#: src/msgfmt.c:502
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr "Pou¾itie: %s [VO¥BA] menosúboru.po ...\n"
 
-#: src/msgfmt.c:538
+#: src/msgfmt.c:507
 #, no-wrap
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr "Generova» binárny katalóg správ z textového popisu prekladu.\n"
 
-#: src/msgfmt.c:548
+#: src/msgfmt.c:517
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1154,7 +1146,7 @@ msgstr ""
 "                              vstupných súborov\n"
 "Ak je vstupný súbor -, je naèítaný ¹tandardný vstup.\n"
 
-#: src/msgfmt.c:556
+#: src/msgfmt.c:525
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1168,7 +1160,7 @@ msgstr ""
 "                              vy¹¹ie)\n"
 "      --tcl                   mód Tcl: generova» súbor .msg tcl/msgcat\n"
 
-#: src/msgfmt.c:564
+#: src/msgfmt.c:533
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1181,7 +1173,7 @@ msgstr ""
 "      --strict                povoli» presne dodr¾aný mód Uniforum\n"
 "Ak je výstupný súbor -, výstup je zapísaný na ¹tandardný výstup.\n"
 
-#: src/msgfmt.c:572
+#: src/msgfmt.c:541
 #, no-wrap
 msgid ""
 "Output file location in Java mode:\n"
@@ -1201,7 +1193,7 @@ msgstr ""
 "oddelené znakom \"_\". Voµba -d je povinná. Trieda je zapísaná do zadaného\n"
 "adresára.\n"
 
-#: src/msgfmt.c:583
+#: src/msgfmt.c:552
 #, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
@@ -1216,7 +1208,7 @@ msgstr ""
 "  -d ADRESÁR                  základný adresár katalógov správ .msg\n"
 "Voµby -l a -d sú povinné. Súbor .msg je zapísaný do zadaného adresára.\n"
 
-#: src/msgfmt.c:592
+#: src/msgfmt.c:561
 #, no-wrap
 msgid ""
 "Input file interpretation:\n"
@@ -1244,7 +1236,7 @@ msgstr ""
 "                                pre polo¾ky menu\n"
 "  -f, --use-fuzzy             pou¾i» polo¾ky fuzzy vo výstupe\n"
 
-#: src/msgfmt.c:607
+#: src/msgfmt.c:576
 #, c-format, no-wrap
 msgid ""
 "Output details:\n"
@@ -1255,7 +1247,7 @@ msgstr ""
 "  -a, --alignment=POÈET       zarovna» re»azce na POÈET bajtov (¹tandardne: %d)\n"
 "      --no-hash               binárny súbor nebude obsahova» ha¹ovaciu tabuµku\n"
 
-#: src/msgfmt.c:614
+#: src/msgfmt.c:583
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1270,26 +1262,26 @@ msgstr ""
 "      --statistics            zobrazi» ¹tatistiky prekladov\n"
 "  -v, --verbose               zvý¹i» úroveò táravosti\n"
 
-#: src/msgfmt.c:766
+#: src/msgfmt.c:726
 msgid "plural expression can produce negative values"
 msgstr "výraz pre mno¾né èíslo mô¾e nadobúda» záporné hodnoty"
 
-#: src/msgfmt.c:779
+#: src/msgfmt.c:739
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr ""
 "nplurals = %lu, ale výraz pre mno¾né èíslo mô¾e nadobúda» hodnoty väè¹ie ako "
 "%lu"
 
-#: src/msgfmt.c:805
+#: src/msgfmt.c:765
 msgid "plural expression can produce division by zero"
 msgstr "výraz pre mno¾né èíslo mô¾e spôsobi» delenie nulou"
 
-#: src/msgfmt.c:810
+#: src/msgfmt.c:770
 msgid "plural expression can produce integer overflow"
 msgstr "výraz pre mno¾né èíslo mô¾e spôsobi» celoèíselné preteèenie"
 
-#: src/msgfmt.c:815
+#: src/msgfmt.c:775
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
@@ -1297,32 +1289,32 @@ msgstr ""
 "výraz pre mno¾né èíslo mô¾e spôsobi» aritmetickú výnimku, pravdepodobne "
 "delenie nulou"
 
-#: src/msgfmt.c:894 src/msgfmt.c:906
+#: src/msgfmt.c:853 src/msgfmt.c:865
 msgid "message catalog has plural form translations..."
 msgstr "katalóg správ má preklady s mno¾nými èíslami..."
 
-#: src/msgfmt.c:897
+#: src/msgfmt.c:856
 msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr "...ale v hlavièke chýba \"plural=VÝRAZ\""
 
-#: src/msgfmt.c:909
+#: src/msgfmt.c:868
 msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr "...ale v hlavièke chýba \"nplurals=ÈÍSLO\""
 
-#: src/msgfmt.c:934
+#: src/msgfmt.c:893
 msgid "invalid nplurals value"
 msgstr "neplatná hodnota nplurals"
 
-#: src/msgfmt.c:948
+#: src/msgfmt.c:907
 msgid "invalid plural expression"
 msgstr "neplatný výraz pre mno¾né èíslo"
 
-#: src/msgfmt.c:967 src/msgfmt.c:982
+#: src/msgfmt.c:926 src/msgfmt.c:941
 #, c-format
 msgid "nplurals = %lu..."
 msgstr "nplurals = %lu..."
 
-#: src/msgfmt.c:970
+#: src/msgfmt.c:929
 #, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
@@ -1330,7 +1322,7 @@ msgstr[0] "...ale niektoré správy majú len %lu tvarov mno¾ných èísel"
 msgstr[1] "...ale niektoré správy majú len %lu tvar mno¾ného èísla"
 msgstr[2] "...ale niektoré správy majú len %lu tvary mno¾ných èísel"
 
-#: src/msgfmt.c:985
+#: src/msgfmt.c:944
 #, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
@@ -1338,12 +1330,12 @@ msgstr[0] "...ale niektoré správy majú %lu tvarov mno¾ných èísel"
 msgstr[1] "...ale niektoré správy majú %lu tvar mno¾ného èísla"
 msgstr[2] "...ale niektoré správy majú %lu tvary mno¾ných èísel"
 
-#: src/msgfmt.c:1015
+#: src/msgfmt.c:974
 #, c-format
 msgid "Try using the following, valid for %s:\n"
 msgstr "Skúste pou¾i» nasledujúce, platné pre %s:\n"
 
-#: src/msgfmt.c:1028
+#: src/msgfmt.c:987
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
@@ -1351,122 +1343,130 @@ msgstr ""
 "katalóg správ má preklady s mno¾nými èíslami, ale v hlavièke chýba \"Plural-"
 "Forms: nplurals=ÈÍSLO; plural=VÝRAZ;\""
 
-#: src/msgfmt.c:1066
+#: src/msgfmt.c:1021
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "polo¾ky `msgid' a `msgid_plural' nezaèínajú obe s '\\n'"
 
-#: src/msgfmt.c:1076
+#: src/msgfmt.c:1031
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "polo¾ky `msgid' a `msgstr[%u]' nezaèínajú obe s '\\n'"
 
-#: src/msgfmt.c:1088
+#: src/msgfmt.c:1043
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "polo¾ky `msgid' a `msgstr' nezaèínajú obe s '\\n'"
 
-#: src/msgfmt.c:1105
+#: src/msgfmt.c:1060
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "polo¾ky `msgid' a `msgid_plural' nie sú obe ukonèené s '\\n'"
 
-#: src/msgfmt.c:1115
+#: src/msgfmt.c:1070
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "polo¾ky `msgid' a `msgstr[%u]' nie sú obe ukonèené s '\\n'"
 
-#: src/msgfmt.c:1127
+#: src/msgfmt.c:1082
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "polo¾ky `msgid' a `msgstr' nie sú obe ukonèené s '\\n'"
 
-#: src/msgfmt.c:1139
+#: src/msgfmt.c:1094
 msgid "plural handling is a GNU gettext extension"
 msgstr "spracovanie mno¾ných èísel je roz¹írením GNU"
 
-#: src/msgfmt.c:1204
+#: src/msgfmt.c:1159
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'"
 msgstr "'%s' nie je platný formátovací re»azec %s, na rozdiel od 'msgid'"
 
-#: src/msgfmt.c:1242
+#: src/msgfmt.c:1197
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "v msgstr chýba znaèka klávesovej skratky '%c'"
 
-#: src/msgfmt.c:1250
+#: src/msgfmt.c:1205
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr obsahuje príli¹ veµa znaèiek klávesových skratiek '%c'"
 
-#: src/msgfmt.c:1285
+#: src/msgfmt.c:1239
 #, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "hlavièková polo¾ka `%s' chýba v hlavièke\n"
 
-#: src/msgfmt.c:1289
+#: src/msgfmt.c:1243
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "hlavièková polo¾ka `%s' má zaèína» na zaèiatku riadku\n"
 
-#: src/msgfmt.c:1300
+#: src/msgfmt.c:1254
 msgid "some header fields still have the initial default value\n"
 msgstr ""
 "niektoré polo¾ky hlavièky e¹te obsahujú poèiatoèné ¹tandardné hodnoty\n"
 
-#: src/msgfmt.c:1312
+#: src/msgfmt.c:1266
 #, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "polo¾ka `%s' e¹te obsahuje poèiatoènú ¹tandardnú hodnotu\n"
 
-#: src/msgfmt.c:1354
+#: src/msgfmt.c:1306
 msgid "warning: PO file header missing or invalid\n"
 msgstr "upozornenie: hlavièka súboru PO chýba alebo je neplatná\n"
 
-#: src/msgfmt.c:1357
+#: src/msgfmt.c:1309
 msgid "warning: charset conversion will not work\n"
 msgstr "upozornenie: konverzia znakovej sady nebude fungova»\n"
 
-#: src/msgfmt.c:1367
+#: src/msgfmt.c:1319
 msgid "warning: PO file header fuzzy\n"
 msgstr "upozornenie: hlavièka súboru PO je nepresná\n"
 
-#: src/msgfmt.c:1369
+#: src/msgfmt.c:1321
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "upozornenie: star¹ie verzie msgfmt vrátia pri tomto chybu\n"
 
-#: src/msgfmt.c:1394
+#: src/msgfmt.c:1344
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "meno domény \"%s\" nie je pou¾itelné ako meno súboru"
 
-#: src/msgfmt.c:1399
+#: src/msgfmt.c:1349
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 "meno domény \"%s\" nie je pou¾itelné ako meno súboru: pou¾ije sa predpona"
 
-#: src/msgfmt.c:1410
+#: src/msgfmt.c:1360
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktíva `domain %s' bola ignorovaná"
 
-#: src/msgfmt.c:1484
+#: src/msgfmt.c:1396 src/read-po.c:176 src/x-po.c:139
+msgid "duplicate message definition"
+msgstr "duplicitná definícia správy"
+
+#: src/msgfmt.c:1397 src/read-po.c:177 src/x-po.c:140
+msgid "...this is the location of the first definition"
+msgstr "...toto je miesto prvého definovania"
+
+#: src/msgfmt.c:1431
 msgid "empty `msgstr' entry ignored"
 msgstr "prázdna polo¾ka `msgstr' bola ignorovaná"
 
-#: src/msgfmt.c:1485
+#: src/msgfmt.c:1432
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "nepresná polo¾ka `msgstr' bola ignorovaná"
 
-#: src/msgfmt.c:1554
+#: src/msgfmt.c:1499
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: upozornenie: zdrojový súbor obsahuje nepresné preklady"
 
-#: src/msggrep.c:390
+#: src/msggrep.c:383
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr "voµba '%c' nemô¾e by» pou¾itá pred ¹pecifikovaným 'K' alebo 'T'"
 
-#: src/msggrep.c:412
+#: src/msggrep.c:404
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1475,7 +1475,7 @@ msgstr ""
 "Vyberie v¹etky správy z prekladového katalógu, ktoré vyhovujú zadanému\n"
 "vzoru alebo sú v zadaných zdrojových súboroch.\n"
 
-#: src/msggrep.c:439
+#: src/msggrep.c:431
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1534,7 +1534,7 @@ msgstr ""
 "  -f, --file=SÚBOR             získa» VZOR zo SÚBORu\n"
 "  -i, --ignore-case            ignorova» rozlí¹enie veµkých a malých písmen\n"
 
-#: src/msggrep.c:469
+#: src/msggrep.c:461
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1568,11 +1568,11 @@ msgstr ""
 "      --sort-outout           generova» utriedený výstup\n"
 "      --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
-#: src/msggrep.c:561
+#: src/msggrep.c:545
 msgid "write to grep subprocess failed"
 msgstr "zlyhal zápis do podprocesu grep"
 
-#: src/msginit.c:284
+#: src/msginit.c:258
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -1583,7 +1583,7 @@ msgstr ""
 "ABOUT-NLS. Toto je potrebné na to, aby ste mohli otestova»\n"
 "va¹e preklady.\n"
 
-#: src/msginit.c:312
+#: src/msginit.c:286
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -1594,12 +1594,12 @@ msgstr ""
 "Zadajte, prosím, národné prostredie pomocou voµby --locale alebo\n"
 "výstupný .po súbor pomocou voµby --output-file.\n"
 
-#: src/msginit.c:335
+#: src/msginit.c:309
 #, c-format
 msgid "Created %s.\n"
 msgstr "Vytvorený %s.\n"
 
-#: src/msginit.c:357
+#: src/msginit.c:330
 #, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -1608,7 +1608,7 @@ msgstr ""
 "Vytvorí nový PO súbor, inicializuje meta informácie podµa hodnôt z prostredia\n"
 "pou¾ívateµa.\n"
 
-#: src/msginit.c:368
+#: src/msginit.c:341
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1621,7 +1621,7 @@ msgstr ""
 "Ak nie je zadaný vstupný súbor, bude vyhµadaný POT súbor v aktuálnom adresári.\n"
 "Ak je -, naèítaný je ¹tandardný vstup.\n"
 
-#: src/msginit.c:376
+#: src/msginit.c:349
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1635,7 +1635,7 @@ msgstr ""
 "nastavenia národného prostredia pou¾ívateµa. Ak je -, výstup je zapísaný na\n"
 "¹tandardný výstup.\n"
 
-#: src/msginit.c:384
+#: src/msginit.c:357
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1652,7 +1652,7 @@ msgstr ""
 "      --no-wrap               nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
 "                              ¹írka výstupnej strany, do viacerých riadkov\n"
 
-#: src/msginit.c:437
+#: src/msginit.c:410
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -1660,11 +1660,11 @@ msgstr ""
 "Nájdených viac ako jeden .pot súbor.\n"
 "Prosím zadajte vstupný .pot súbor pomocou voµby --input.\n"
 
-#: src/msginit.c:445 src/msginit.c:450
+#: src/msginit.c:418 src/msginit.c:423
 msgid "error reading current directory"
 msgstr "chyba pri èítaní adresára"
 
-#: src/msginit.c:458
+#: src/msginit.c:431
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -1672,23 +1672,23 @@ msgstr ""
 "V aktuálnom adresári nebol nájdený ¾iaden .pot súbor.\n"
 "Prosím zadajte vstupný .pot súbor pomocou voµby --input.\n"
 
-#: src/msginit.c:908 src/msginit.c:960 src/msginit.c:1098 src/msginit.c:1165
-#: src/read-java.c:80
+#: src/msginit.c:879 src/msginit.c:931 src/msginit.c:1068 src/msginit.c:1135
+#: src/read-java.c:70
 msgid "fdopen() failed"
 msgstr "fdopen() zlyhalo"
 
-#: src/msginit.c:913 src/msginit.c:965 src/msginit.c:1103
+#: src/msginit.c:884 src/msginit.c:936 src/msginit.c:1073
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "V/V chyba podprocesu %s"
 
-#: src/msginit.c:922 src/msginit.c:974 src/msginit.c:1112 src/msginit.c:1179
-#: src/read-java.c:90
+#: src/msginit.c:893 src/msginit.c:945 src/msginit.c:1082 src/msginit.c:1149
+#: src/read-java.c:80
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "podproces %s zlyhal s ukonèovacím kódom %d"
 
-#: src/msginit.c:1088
+#: src/msginit.c:1058
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -1705,28 +1705,28 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1432
+#: src/msginit.c:1417
 #, c-format
 msgid "English translations for %s package"
 msgstr "Slovenské preklady pre balík %s"
 
-#: src/msgl-cat.c:187 src/msgl-charset.c:87 src/msgl-iconv.c:318
+#: src/msgl-cat.c:175 src/msgl-charset.c:86 src/msgl-iconv.c:302
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "aktuálna znaková sada \"%s\" nie je prenositeµné meno kódovania"
 
-#: src/msgl-cat.c:196 src/msgl-iconv.c:329
+#: src/msgl-cat.c:184 src/msgl-iconv.c:313
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "dve rozdielne znakové sady \"%s\" a \"%s\" vo vstupnom súbore"
 
-#: src/msgl-cat.c:209
+#: src/msgl-cat.c:197
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
 msgstr "vstupný súbor \"%s\" nemá v hlavièke uvedenú znakovú sadu"
 
-#: src/msgl-cat.c:213
+#: src/msgl-cat.c:201
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
@@ -1734,17 +1734,17 @@ msgid ""
 msgstr ""
 "doména \"%s\" vo vstupnom súbore \"%s\" nemá v hlavièke uvedenú znakovú sadu"
 
-#: src/msgl-cat.c:374 src/msgl-iconv.c:406
+#: src/msgl-cat.c:362 src/msgl-iconv.c:390
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "cieµová znaková sada \"%s\" nie je prenositeµné meno kódovania."
 
-#: src/msgl-cat.c:424 src/msgl-cat.c:430 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/write-po.c:782 src/write-po.c:876
+#: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:91
+#: src/msgl-charset.c:126 src/write-po.c:737 src/write-po.c:829
 msgid "warning: "
 msgstr "upozornenie: "
 
-#: src/msgl-cat.c:425
+#: src/msgl-cat.c:413
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
 "Converting the output to UTF-8.\n"
@@ -1753,7 +1753,7 @@ msgstr ""
 "UTF-8.\n"
 "Konvertujem výstup do UTF-8.\n"
 
-#: src/msgl-cat.c:431
+#: src/msgl-cat.c:419
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -1766,7 +1766,7 @@ msgstr ""
 "Konvertujem výstup do UTF-8.\n"
 "Iné výstupné kódovanie si mô¾ete zvoli» pomocou voµby --to-code.\n"
 
-#: src/msgl-charset.c:93
+#: src/msgl-charset.c:92
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -1779,12 +1779,12 @@ msgstr ""
 "Výstup z '%s' mô¾e by» nesprávny.\n"
 "Mo¾né rie¹enia sú:\n"
 
-#: src/msgl-charset.c:100
+#: src/msgl-charset.c:99
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr "- Nastavi» LC_ALL na národné prostredie s kódovaním %s.\n"
 
-#: src/msgl-charset.c:105
+#: src/msgl-charset.c:104
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -1795,7 +1795,7 @@ msgstr ""
 "  potom pou¾i» '%s',\n"
 "  potom konvertova» spä» na %s pomocou 'msgconv'.\n"
 
-#: src/msgl-charset.c:114
+#: src/msgl-charset.c:113
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -1808,7 +1808,7 @@ msgstr ""
 "  potom pou¾i» '%s',\n"
 "  potom konvertova» spä» na %s pomocou 'msgconv'.\n"
 
-#: src/msgl-charset.c:128
+#: src/msgl-charset.c:127
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -1820,15 +1820,15 @@ msgstr ""
 "Výstup z '%s' mô¾e by» nesprávny.\n"
 "Mo¾nou obchádzkou je nastavenie LC_ALL=C.\n"
 
-#: src/msgl-iconv.c:202 src/msgl-iconv.c:256
+#: src/msgl-iconv.c:184 src/msgl-iconv.c:242
 msgid "conversion failure"
 msgstr "konverzia zlyhala"
 
-#: src/msgl-iconv.c:351
+#: src/msgl-iconv.c:335
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "vstupný súbor nemá v hlavièke uvedenú znakovú sadu"
 
-#: src/msgl-iconv.c:369
+#: src/msgl-iconv.c:353 src/xgettext.c:487
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -1837,7 +1837,7 @@ msgstr ""
 "Nemô¾em konvertova» z \"%s\" do \"%s\". %s spolieha na iconv() a iconv() "
 "nepodporuje takúto konverziu."
 
-#: src/msgl-iconv.c:385
+#: src/msgl-iconv.c:370 src/xgettext.c:494
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -1846,11 +1846,11 @@ msgstr ""
 "Nemô¾em konvertova» z \"%s\" do \"%s\". %s spolieha na iconv(). Táto verzia "
 "bola prelo¾ená bez iconv()."
 
-#: src/msgmerge.c:358
+#: src/msgmerge.c:351
 msgid "backup type"
 msgstr "typ zálohy"
 
-#: src/msgmerge.c:395
+#: src/msgmerge.c:387
 #, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -1874,7 +1874,7 @@ msgstr ""
 "pri ktorých nie je mo¾né nájs» presnú zhodu, bude pou¾itý fuzzy algoritmus,\n"
 "ktorý dosahuje lep¹ie výsledky.\n"
 
-#: src/msgmerge.c:413
+#: src/msgmerge.c:405
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1892,7 +1892,7 @@ msgstr ""
 "  -C, --compendium=SÚBOR      prídavna kni¾nica prekladov správ, mô¾e by»\n"
 "                              zadaná viac ako raz\n"
 
-#: src/msgmerge.c:423
+#: src/msgmerge.c:415
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1903,7 +1903,7 @@ msgstr ""
 "  -U, --update                aktualizova» def.po,\n"
 "                              nerobi» niè, ak def.po je aktuálny\n"
 
-#: src/msgmerge.c:438
+#: src/msgmerge.c:430
 #, no-wrap
 msgid ""
 "Output file location in update mode:\n"
@@ -1932,7 +1932,7 @@ msgstr ""
 "Prípona zálohy je '~', pokiaµ nie je zadaná voµba --suffix alebo nastavená\n"
 "premenná prostredia SIMPLE_BACKUP_SUFFIX.\n"
 
-#: src/msgmerge.c:477
+#: src/msgmerge.c:469
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1947,15 +1947,15 @@ msgstr ""
 "  -v, --verbose               zvý¹i» úroveò táravosti\n"
 "  -q, --quiet, --silent       potlaèi» indikátory postupu\n"
 
-#: src/msgmerge.c:937
+#: src/msgmerge.c:919
 msgid "this message should define plural forms"
 msgstr "táto správa by mala definova» tvary mno¾ného èísla"
 
-#: src/msgmerge.c:960
+#: src/msgmerge.c:942
 msgid "this message should not define plural forms"
 msgstr "táto správa by nemala definova» tvary mno¾ného èísla"
 
-#: src/msgmerge.c:1091
+#: src/msgmerge.c:1104
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -1964,11 +1964,11 @@ msgstr ""
 "%sNaèítané %ld starých + %ld odkazov, %ld zluèených, %ld nepresných, %ld "
 "chýbajucich, %ld zru¹ených.\n"
 
-#: src/msgmerge.c:1099
+#: src/msgmerge.c:1112
 msgid " done.\n"
 msgstr " hotovo.\n"
 
-#: src/msgunfmt.c:226 src/msgunfmt.c:235
+#: src/msgunfmt.c:227 src/msgunfmt.c:236
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "%s a explicitné mená súborov sa navzájom vyluèujú"
@@ -2122,12 +2122,12 @@ msgstr ""
 "  -d, --repeated                 zobrazi» len duplikáty\n"
 "  -u, --unique                   zobrazi» len unikátne správy, potlaèi» duplikáty\n"
 
-#: src/ngettext.c:215
+#: src/ngettext.c:211
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Pou¾itie: %s [VO¥BA] [DOMÉNA] ID_SPRÁVY ID_SPRÁVY-MNÈ POÈET\n"
 
-#: src/ngettext.c:220
+#: src/ngettext.c:216
 #, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -2136,7 +2136,7 @@ msgstr ""
 "Zobrazi» preklad textovej správy, ktorej gramatický tvar závisí od èísla,\n"
 "do natívneho jazyka.\n"
 
-#: src/ngettext.c:225
+#: src/ngettext.c:221
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -2159,7 +2159,7 @@ msgstr ""
 "                            (mno¾né èíslo)\n"
 "  POÈET                     vybra» jednotné/mno¾né èíslo na základe tejto hodnoty\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:232
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -2173,17 +2173,17 @@ msgstr ""
 "mô¾e by» urèené obsahom premennej prostredia TEXTDOMAINDIR.\n"
 "©tandardný adresár, v ktorom sa budú hµada» katalógy: %s\n"
 
-#: src/open-po.c:60
+#: src/open-po.c:58
 msgid "<stdin>"
 msgstr "<¹tandardný vstup>"
 
-#: src/po-charset.c:225 src/po-charset.c:283 src/po-charset.c:311
-#: src/po-charset.c:337
+#: src/po-charset.c:224 src/po-charset.c:282 src/po-charset.c:310
+#: src/po-charset.c:336
 #, c-format
 msgid "%s: warning: "
 msgstr "%s: upozornenie: "
 
-#: src/po-charset.c:226
+#: src/po-charset.c:225
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
@@ -2192,15 +2192,15 @@ msgstr ""
 "Znaková sada \"%s\" nie je prenositeµné meno kódovania.\n"
 "Konverzia hlásení do znakovej sady pou¾ívateµa nemusí fungova».\n"
 
-#: src/po-charset.c:279 src/po-charset.c:309
+#: src/po-charset.c:278 src/po-charset.c:308
 msgid "Continuing anyway, expect parse errors."
 msgstr "Pokraèovanie aj napriek tomu. Mo¾no sa vyskytnú chyby pri analýze."
 
-#: src/po-charset.c:281
+#: src/po-charset.c:280
 msgid "Continuing anyway."
 msgstr "Pokraèovanie aj napriek tomu."
 
-#: src/po-charset.c:284
+#: src/po-charset.c:283
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -2209,7 +2209,7 @@ msgstr ""
 "Znaková sada \"%s\" nie je podporovaná. %s spolieha na iconv()\n"
 "a iconv() nepodporuje \"%s\".\n"
 
-#: src/po-charset.c:293 src/po-charset.c:319
+#: src/po-charset.c:292 src/po-charset.c:318
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
@@ -2217,12 +2217,12 @@ msgstr ""
 "In¹talácia GNU balíka libiconv a následná prein¹talácia\n"
 "balíka GNU gettext by mala tento problém odstráni».\n"
 
-#: src/po-charset.c:298 src/po-charset.c:323
+#: src/po-charset.c:297 src/po-charset.c:322
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
 
-#: src/po-charset.c:312
+#: src/po-charset.c:311
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -2231,7 +2231,7 @@ msgstr ""
 "Znaková sada \"%s\" nie je podporovaná. %s spolieha na iconv().\n"
 "Táto verzia bola prelo¾ená bez iconv().\n"
 
-#: src/po-charset.c:338
+#: src/po-charset.c:337
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -2264,79 +2264,79 @@ msgid "plural form has wrong index"
 msgstr "mno¾né èíslo má nesprávny index"
 
 #: src/po-lex.h:91 src/po-lex.h:106 src/po-lex.h:126 src/po-lex.h:141
-#: src/po-lex.c:111 src/po-lex.c:144
+#: src/po-lex.c:102 src/po-lex.c:131
 msgid "too many errors, aborting"
 msgstr "vyskytlo sa príli¹ veµa chýb, ukonèuje sa program"
 
-#: src/po-lex.c:517 src/write-po.c:364 src/write-po.c:466
+#: src/po-lex.c:455 src/write-po.c:323 src/write-po.c:425
 msgid "invalid multibyte sequence"
 msgstr "neplatná viacznaková sekvencia"
 
-#: src/po-lex.c:543
+#: src/po-lex.c:481
 msgid "incomplete multibyte sequence at end of file"
 msgstr "nekompletná viacznaková sekvencia na konci súboru"
 
-#: src/po-lex.c:553
+#: src/po-lex.c:491
 msgid "incomplete multibyte sequence at end of line"
 msgstr "nekompletná viacznaková sekvencia na konci riadku"
 
-#: src/po-lex.c:561
+#: src/po-lex.c:499
 msgid "iconv failure"
 msgstr "iconv zlyhal"
 
-#: src/po-lex.c:759 src/read-mo.c:95 src/x-c.c:299 src/x-elisp.c:172
-#: src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:104
+#: src/po-lex.c:682 src/read-mo.c:79 src/x-c.c:260 src/x-elisp.c:142
+#: src/x-librep.c:144 src/x-lisp.c:204 src/x-rst.c:225 src/x-ycp.c:94
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "chyba pri èítaní súboru \"%s\""
 
-#: src/po-lex.c:825
+#: src/po-lex.c:746
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "neznáme kµúèové slovo \"%s\""
 
-#: src/po-lex.c:935
+#: src/po-lex.c:856
 msgid "invalid control sequence"
 msgstr "neplatná riadiaca sekvencia"
 
-#: src/po-lex.c:1043
+#: src/po-lex.c:964
 msgid "end-of-file within string"
 msgstr "koniec súboru uprostred re»azca"
 
-#: src/po-lex.c:1049
+#: src/po-lex.c:970
 msgid "end-of-line within string"
 msgstr "koniec riadku uprostred re»azca"
 
-#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:214
+#: src/read-mo.c:98 src/read-mo.c:119 src/read-mo.c:164 src/read-mo.c:190
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "súbor \"%s\" je skrátený"
 
-#: src/read-mo.c:143
+#: src/read-mo.c:122
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "súbor \"%s\" obsahuje re»azce, ktoré nie sú ukonèené nulou"
 
-#: src/read-mo.c:181 src/read-mo.c:289
+#: src/read-mo.c:157 src/read-mo.c:263
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "súbor \"%s\" nie je vo formáte GNU .mo"
 
-#: src/read-mo.c:194
+#: src/read-mo.c:170
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "súbor \"%s\" obsahuje re»azec, ktorý nie je ukonèený nulou, na %s"
 
-#: src/urlget.c:150
+#: src/urlget.c:143
 msgid "expected two arguments"
 msgstr "oèakávané dva parametre"
 
-#: src/urlget.c:169
+#: src/urlget.c:161
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] URL FILE\n"
 msgstr "Pou¾itie: %s [VO¥BA] URL SÚBOR\n"
 
-#: src/urlget.c:174
+#: src/urlget.c:166
 #, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
@@ -2345,51 +2345,51 @@ msgstr ""
 "Stiahne a zobrazí obsah z URL. Ak URL nie je dostupné, pou¾ije sa SÚBOR\n"
 "z lokálneho disku.\n"
 
-#: src/urlget.c:222
+#: src/urlget.c:213
 msgid "error writing stdout"
 msgstr "chyba pri zápise na ¹tandardný výstup"
 
-#: src/write-java.c:1109
+#: src/write-java.c:1055
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "nemô¾em nájs» doèasný adresár, skúste nastavi» $TMPDIR"
 
-#: src/write-java.c:1119
+#: src/write-java.c:1065
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "nemô¾em vytvori» doèasný adresár so ¹ablónou \"%s\""
 
-#: src/write-java.c:1132
+#: src/write-java.c:1078
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "nie je platným názvom triedy Java: %s"
 
-#: src/write-java.c:1189 src/write-java.c:1202
+#: src/write-java.c:1135 src/write-java.c:1148
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "zlyhalo vytvorenie \"%s\""
 
-#: src/write-java.c:1210 src/write-mo.c:713 src/write-po.c:1025
+#: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:975
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "chyba poèas zápisu do súboru \"%s\""
 
-#: src/write-java.c:1224
+#: src/write-java.c:1170
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 "kompilácia triedy Java zlyhalo, prosím skúste --verbose alebo nastavte $JAVAC"
 
-#: src/write-mo.c:701
+#: src/write-mo.c:690
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "chyba pri otváraní súboru  \"%s\" na zápis"
 
-#: src/write-po.c:415
+#: src/write-po.c:374
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "internacionalizované správy nesmú obsahova» riadiacu sekvenciu `\\%c'"
 
-#: src/write-po.c:783 src/write-po.c:877
+#: src/write-po.c:738 src/write-po.c:830
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -2402,66 +2402,66 @@ msgstr ""
 "ako vy. Zvá¾te namiesto to pou¾itie msgid len s ASCII znakmi.\n"
 "%s\n"
 
-#: src/write-po.c:944
+#: src/write-po.c:894
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "nie je mo¾né vytvori» výstupný súbor \"%s\""
 
-#: src/write-po.c:951
+#: src/write-po.c:901
 #, no-c-format
 msgid "standard output"
 msgstr "¹tandardný výstup"
 
-#: src/x-c.c:954
+#: src/x-c.c:906
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: upozornenie: neukonèená znaková kon¹tanta"
 
-#: src/x-c.c:978
+#: src/x-c.c:930
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: upozornenie: neukonèený znakový re»azec"
 
-#: src/x-po.c:106 src/xgettext.c:651
+#: src/x-po.c:85 src/xgettext.c:710
 msgid "this file may not contain domain directives"
 msgstr "tento súbor nesmie obsahova» direktívy pre doménu"
 
-#: src/x-rst.c:108
+#: src/x-rst.c:106
 #, c-format
 msgid "%s:%d: invalid string definition"
 msgstr "%s:%d: neplatná definícia re»azca"
 
-#: src/x-rst.c:168
+#: src/x-rst.c:166
 #, c-format
 msgid "%s:%d: missing number after #"
 msgstr "%s:%d: chýbajúce èíslo za #"
 
-#: src/x-rst.c:203
+#: src/x-rst.c:201
 #, c-format
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: neplatný výraz re»azca"
 
-#: src/xgettext.c:404
+#: src/xgettext.c:420
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing nesmie by» pou¾ité ak je výstup posielaný na ¹tandardný "
 "výstup"
 
-#: src/xgettext.c:409
+#: src/xgettext.c:425
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext nemô¾e pracova» bez kµúèových slov, ktoré má hµada»"
 
-#: src/xgettext.c:505
+#: src/xgettext.c:552
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "upozornenie: súbor `%s' s príponou `%s' je neznámy; skúsim C"
 
-#: src/xgettext.c:550
+#: src/xgettext.c:603
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extrahova» prelo¾iteµné re»azce zo zadaných vstupných súborov.\n"
 
-#: src/xgettext.c:555
+#: src/xgettext.c:608
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2470,7 +2470,7 @@ msgstr ""
 "Povinné parametre dlhých volieb sú povinné aj pre krátke voµby.\n"
 "Podobne aj pre voliteµné parametre.\n"
 
-#: src/xgettext.c:570
+#: src/xgettext.c:623
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2485,14 +2485,14 @@ msgstr ""
 "  -p, --output-dir=ADRESÁR       výstupné súbory budú umiestnené v adresári ADRESÁR\n"
 "Ak je výstupný súbor -, výstup je zapísaný na ¹tandardný výstup.\n"
 
-#: src/xgettext.c:579
+#: src/xgettext.c:632
 #, fuzzy, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
 "                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
-"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
-"                                   PHP, RST, Glade)\n"
+"                                   EmacsLisp, librep, Smalltalk, Java, awk,\n"
+"                                   YCP, Tcl, PHP, RST, Glade)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
@@ -2504,7 +2504,16 @@ msgstr ""
 "  -C, --c++                      skratka pre --language=C++\n"
 "©tandardne je jazyk odhadnutý podµa prípony vstupného súboru.\n"
 
-#: src/xgettext.c:590
+#: src/xgettext.c:643
+#, no-wrap
+msgid ""
+"Input file interpretation:\n"
+"      --from-code=NAME           encoding of input files\n"
+"                                   (except for Python, Tcl, Glade)\n"
+"By default the input files are assumed to be in ASCII.\n"
+msgstr ""
+
+#: src/xgettext.c:651
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2520,7 +2529,7 @@ msgstr ""
 "                                 (alebo tie, ktoré predchádzajú kµúèové riadky)\n"
 "                                 do výstupného súboru\n"
 
-#: src/xgettext.c:599
+#: src/xgettext.c:660
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2539,7 +2548,7 @@ msgstr ""
 "      --debug                    detailnej¹ie výsledky rozoznávania formátovacích\n"
 "                                 re»azcov\n"
 
-#: src/xgettext.c:609
+#: src/xgettext.c:670
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -2587,11 +2596,18 @@ msgstr ""
 "  -M, --msgstr-suffix[=RE«AZEC]  pou¾i» RE«AZEC alebo \"\" ako príponu pre\n"
 "                                 polo¾ky msgstr\n"
 
-#: src/xgettext.c:831
+#: src/xgettext.c:879
 msgid "standard input"
 msgstr "¹tandardný vstup"
 
-#: src/xgettext.c:946
+#: src/xgettext.c:972
+#, c-format
+msgid ""
+"Non-ASCII string at %s%s.\n"
+"Please specify the source encoding through --from-code."
+msgstr ""
+
+#: src/xgettext.c:1028
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2601,7 +2617,7 @@ msgstr ""
 "gettext(\"\") vráti hlavièku s meta informáciami\n"
 "a nie prázdny re»azec.\n"
 
-#: src/xgettext.c:1303
+#: src/xgettext.c:1410
 #, c-format
 msgid "language `%s' unknown"
 msgstr "jazyk `%s' je neznámy"

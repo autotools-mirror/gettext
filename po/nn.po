@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.12\n"
-"POT-Creation-Date: 2002-07-23 15:23+0200\n"
+"POT-Creation-Date: 2003-01-08 14:39+0100\n"
 "PO-Revision-Date: 1996-03-21 08:46 EST\n"
 "Last-Translator: Karl Anders Øygard <karlo@ifi.uio.no>\n"
 "Language-Team: Norwegian-nynorsk <no@li.org>\n"
@@ -14,197 +14,197 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/argmatch.c:134
+#: lib/argmatch.c:120
 #, c-format
 msgid "invalid argument `%s' for `%s'"
 msgstr ""
 
-#: lib/argmatch.c:135
+#: lib/argmatch.c:121
 #, c-format
 msgid "ambiguous argument `%s' for `%s'"
 msgstr ""
 
-#: lib/argmatch.c:155
+#: lib/argmatch.c:139
 msgid "Valid arguments are:"
 msgstr ""
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
-#: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
+#: lib/copy-file.c:63 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
+#: src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901 src/xgettext.c:911
 #, fuzzy, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "feil under skriving av fila \"%s\""
 
-#: lib/copy-file.c:68
+#: lib/copy-file.c:70
 #, fuzzy, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "feil under skriving av fila \"%s\""
 
-#: lib/copy-file.c:81 src/urlget.c:216
+#: lib/copy-file.c:83 src/urlget.c:207
 #, fuzzy, c-format
 msgid "error reading \"%s\""
 msgstr "feil under skriving av fila \"%s\""
 
-#: lib/copy-file.c:87 lib/copy-file.c:91
+#: lib/copy-file.c:89 lib/copy-file.c:93
 #, fuzzy, c-format
 msgid "error writing \"%s\""
 msgstr "feil under skriving av fila \"%s\""
 
-#: lib/copy-file.c:93 src/urlget.c:226
+#: lib/copy-file.c:95 src/urlget.c:217
 #, fuzzy, c-format
 msgid "error after reading \"%s\""
 msgstr "feil under skriving av fila \"%s\""
 
-#: lib/error.c:116
+#: lib/error.c:112
 msgid "Unknown system error"
 msgstr ""
 
-#: lib/execute.c:169 lib/execute.c:204 lib/pipe-bidi.c:153 lib/pipe-bidi.c:188
-#: lib/pipe-in.c:168 lib/pipe-in.c:204 lib/pipe-out.c:168 lib/pipe-out.c:204
-#: lib/wait-process.c:132
+#: lib/execute.c:150 lib/execute.c:185 lib/pipe-bidi.c:143 lib/pipe-bidi.c:178
+#: lib/pipe-in.c:150 lib/pipe-in.c:186 lib/pipe-out.c:150 lib/pipe-out.c:186
+#: lib/wait-process.c:129
 #, c-format
 msgid "%s subprocess failed"
 msgstr ""
 
-#: lib/getopt.c:691
+#: lib/getopt.c:689 lib/getopt.c:701
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: flagg «%s» er fleirtydig\n"
 
-#: lib/getopt.c:716
+#: lib/getopt.c:734 lib/getopt.c:738
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: flagg «--%s» tek ikkje argument\n"
 
-#: lib/getopt.c:721
+#: lib/getopt.c:747 lib/getopt.c:752
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: flagg «%c%s» tek ikkje argument\n"
 
-#: lib/getopt.c:739 lib/getopt.c:912
+#: lib/getopt.c:788 lib/getopt.c:801 lib/getopt.c:1090 lib/getopt.c:1103
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: flagg «%s» treng eit argument\n"
 
-#: lib/getopt.c:768
+#: lib/getopt.c:839 lib/getopt.c:842
 #, fuzzy, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: ulovleg flagg -- %c\n"
 
-#: lib/getopt.c:772
+#: lib/getopt.c:850 lib/getopt.c:853
 #, fuzzy, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: ulovleg flagg -- %c\n"
 
-#: lib/getopt.c:798
+#: lib/getopt.c:900 lib/getopt.c:903
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: ulovleg flagg -- %c\n"
 
-#: lib/getopt.c:801
+#: lib/getopt.c:909 lib/getopt.c:912
 #, fuzzy, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: ulovleg flagg -- %c\n"
 
-#: lib/getopt.c:831 lib/getopt.c:961
+#: lib/getopt.c:959 lib/getopt.c:970 lib/getopt.c:1156 lib/getopt.c:1169
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: flagg treng eit argument -- %c\n"
 
-#: lib/getopt.c:878
+#: lib/getopt.c:1022 lib/getopt.c:1033
 #, fuzzy, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: flagg «%s» er fleirtydig\n"
 
-#: lib/getopt.c:896
+#: lib/getopt.c:1057 lib/getopt.c:1069
 #, fuzzy, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: flagg «--%s» tek ikkje argument\n"
 
-#: lib/javacomp.c:462
+#: lib/javacomp.c:458
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
 
-#: lib/javaexec.c:414
+#: lib/javaexec.c:406
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 
-#: lib/obstack.c:474 lib/xerror.c:53 lib/xmalloc.c:53 src/po-lex.c:97
-#: src/po-lex.c:130
+#: lib/obstack.c:491 lib/obstack.c:494 lib/xerror.c:50 lib/xmalloc.c:47
+#: src/po-lex.c:88 src/po-lex.c:117
 msgid "memory exhausted"
 msgstr ""
 
-#: lib/pipe-bidi.c:116 lib/pipe-bidi.c:118 lib/pipe-in.c:135
-#: lib/pipe-out.c:135
+#: lib/pipe-bidi.c:106 lib/pipe-bidi.c:108 lib/pipe-in.c:117
+#: lib/pipe-out.c:117
 #, fuzzy
 msgid "cannot create pipe"
 msgstr "kan ikkje opprette utfila \"%s\""
 
-#: lib/wait-process.c:110
+#: lib/wait-process.c:107
 #, c-format
 msgid "%s subprocess"
 msgstr ""
 
-#: lib/wait-process.c:124
+#: lib/wait-process.c:121
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr ""
 
-#: src/format-c.c:760 src/format-python.c:506
+#: src/format-c.c:738 src/format-python.c:484
 #, fuzzy, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr ""
 "antall format-spesifiseringar i «msgid» og «msgstr» stemmer ikkje overeins"
 
-#: src/format-c.c:774 src/format-elisp.c:389 src/format-librep.c:353
-#: src/format-pascal.c:443 src/format-python.c:520
+#: src/format-c.c:752 src/format-elisp.c:367 src/format-librep.c:331
+#: src/format-pascal.c:421 src/format-python.c:498
 #, fuzzy, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
-#: src/format-ycp.c:145
+#: src/format-elisp.c:327 src/format-librep.c:291 src/format-pascal.c:381
+#: src/format-ycp.c:126
 #, fuzzy, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
-#: src/format-ycp.c:144
+#: src/format-elisp.c:342 src/format-librep.c:306 src/format-pascal.c:396
+#: src/format-ycp.c:125
 #, fuzzy, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-java.c:660
+#: src/format-java.c:632
 #, fuzzy, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-java.c:675
+#: src/format-java.c:647
 #, fuzzy, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-java.c:700
+#: src/format-java.c:672
 #, fuzzy, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-lisp.c:3381
+#: src/format-lisp.c:3212
 #, fuzzy, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr ""
 "antall format-spesifiseringar i «msgid» og «msgstr» stemmer ikkje overeins"
 
-#: src/format-lisp.c:3402
+#: src/format-lisp.c:3233
 #, fuzzy, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-python.c:397
+#: src/format-python.c:375
 #, fuzzy, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
@@ -212,7 +212,7 @@ msgid ""
 msgstr ""
 "antall format-spesifiseringar i «msgid» og «msgstr» stemmer ikkje overeins"
 
-#: src/format-python.c:409
+#: src/format-python.c:387
 #, fuzzy, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
@@ -220,29 +220,29 @@ msgid ""
 msgstr ""
 "antall format-spesifiseringar i «msgid» og «msgstr» stemmer ikkje overeins"
 
-#: src/format-python.c:437
+#: src/format-python.c:415
 #, fuzzy, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-python.c:452
+#: src/format-python.c:430
 #, fuzzy, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/format-python.c:478
+#: src/format-python.c:456
 #, fuzzy, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "format-spesifiseringane for argument %u er ulike"
 
-#: src/gettext.c:135 src/hostname.c:175 src/msgattrib.c:269 src/msgcat.c:234
-#: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
-#: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
-#: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
-#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:378
+#: src/gettext.c:132 src/hostname.c:171 src/msgattrib.c:267 src/msgcat.c:235
+#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:189 src/msgen.c:177
+#: src/msgexec.c:159 src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285
+#: src/msginit.c:230 src/msgmerge.c:260 src/msgunfmt.c:205 src/msguniq.c:213
+#: src/ngettext.c:123 src/urlget.c:128 src/xgettext.c:397
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -250,46 +250,46 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 
-#: src/gettext.c:140 src/hostname.c:180 src/msgattrib.c:274 src/msgcat.c:239
-#: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
-#: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
-#: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
-#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:383
+#: src/gettext.c:137 src/hostname.c:176 src/msgattrib.c:272 src/msgcat.c:240
+#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:194 src/msgen.c:182
+#: src/msgexec.c:164 src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290
+#: src/msginit.c:235 src/msgmerge.c:265 src/msgunfmt.c:210 src/msguniq.c:218
+#: src/ngettext.c:128 src/urlget.c:133 src/xgettext.c:402
 #, c-format
 msgid "Written by %s.\n"
 msgstr ""
 
-#: src/gettext.c:158 src/hostname.c:190 src/msginit.c:271 src/ngettext.c:143
+#: src/gettext.c:155 src/hostname.c:186 src/msginit.c:245 src/ngettext.c:140
 #, fuzzy
 msgid "too many arguments"
 msgstr "manglar argument"
 
-#: src/gettext.c:168 src/ngettext.c:155
+#: src/gettext.c:165 src/ngettext.c:152
 msgid "missing arguments"
 msgstr "manglar argument"
 
-#: src/gettext.c:240 src/hostname.c:204 src/msgattrib.c:327 src/msgcat.c:295
-#: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:248 src/msgen.c:232
-#: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
-#: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:537
+#: src/gettext.c:236 src/hostname.c:199 src/msgattrib.c:324 src/msgcat.c:295
+#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:248 src/msgen.c:232
+#: src/msgexec.c:216 src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394
+#: src/msginit.c:320 src/msgmerge.c:377 src/msgunfmt.c:314 src/msguniq.c:274
+#: src/ngettext.c:206 src/urlget.c:156 src/xgettext.c:593
 #, fuzzy, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Prøv «%s --help» for meir informasjon\n"
 
-#: src/gettext.c:245
+#: src/gettext.c:241
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 
-#: src/gettext.c:251
+#: src/gettext.c:247
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr ""
 
-#: src/gettext.c:255
+#: src/gettext.c:251
 #, fuzzy, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -311,7 +311,7 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        hent oversett melding som stemmer overeins med\n"
 "                            MSGID frå TEXTDOMAIN\n"
 
-#: src/gettext.c:266
+#: src/gettext.c:262
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -333,25 +333,25 @@ msgstr ""
 "staden vert meldingar som er funne i den valgte katalogen oversatt.\n"
 "Standard søkekatalog er: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:234 src/msgattrib.c:409 src/msgcat.c:378
-#: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:314 src/msgen.c:294
-#: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
-#: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:634
+#: src/gettext.c:273 src/hostname.c:229 src/msgattrib.c:406 src/msgcat.c:378
+#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:314 src/msgen.c:294
+#: src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484
+#: src/msginit.c:373 src/msgmerge.c:477 src/msgunfmt.c:395 src/msguniq.c:350
+#: src/ngettext.c:240 src/urlget.c:178 src/xgettext.c:698
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 
-#: src/hostname.c:209 src/msginit.c:352
+#: src/hostname.c:204 src/msginit.c:325
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr ""
 
-#: src/hostname.c:214
+#: src/hostname.c:209
 #, no-wrap
 msgid "Print the machine's hostname.\n"
 msgstr ""
 
-#: src/hostname.c:219
+#: src/hostname.c:214
 #, no-wrap
 msgid ""
 "Output format:\n"
@@ -361,9 +361,9 @@ msgid ""
 "  -i, --ip-address      addresses for the hostname\n"
 msgstr ""
 
-#: src/hostname.c:228 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:308
-#: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
-#: src/msginit.c:394 src/urlget.c:180
+#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:308
+#: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
+#: src/msginit.c:367 src/urlget.c:172
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -371,47 +371,47 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 msgstr ""
 
-#: src/hostname.c:249 src/hostname.c:256
+#: src/hostname.c:244 src/hostname.c:251
 msgid "could not get host name"
 msgstr ""
 
-#: src/msgattrib.c:289 src/msgconv.c:208 src/msgexec.c:145 src/msgfilter.c:199
-#: src/msggrep.c:311 src/msginit.c:210 src/msguniq.c:232
+#: src/msgattrib.c:287 src/msgconv.c:209 src/msgexec.c:139 src/msgfilter.c:184
+#: src/msggrep.c:305 src/msginit.c:184 src/msguniq.c:233
 msgid "at most one input file allowed"
 msgstr ""
 
-#: src/msgattrib.c:295 src/msgattrib.c:299 src/msgcat.c:249 src/msgcat.c:253
-#: src/msgcomm.c:252 src/msgcomm.c:256 src/msgconv.c:214 src/msgconv.c:218
-#: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
-#: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
-#: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
-#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:393
-#: src/xgettext.c:397
+#: src/msgattrib.c:293 src/msgattrib.c:297 src/msgcat.c:250 src/msgcat.c:254
+#: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:215 src/msgconv.c:219
+#: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
+#: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
+#: src/msggrep.c:315 src/msgmerge.c:290 src/msgmerge.c:311 src/msgmerge.c:315
+#: src/msgunfmt.c:220 src/msguniq.c:239 src/msguniq.c:243 src/xgettext.c:412
+#: src/xgettext.c:416
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s og %s utelukker kvarandre"
 
-#: src/msgattrib.c:332 src/msgconv.c:253 src/msggrep.c:407 src/msguniq.c:279
+#: src/msgattrib.c:329 src/msgconv.c:253 src/msggrep.c:399 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr ""
 
-#: src/msgattrib.c:337
+#: src/msgattrib.c:334
 #, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
 "and manipulates the attributes.\n"
 msgstr ""
 
-#: src/msgattrib.c:343 src/msgcat.c:318 src/msgcmp.c:190 src/msgcomm.c:333
-#: src/msgconv.c:263 src/msgen.c:250 src/msgexec.c:248 src/msgfilter.c:366
-#: src/msgfmt.c:543 src/msggrep.c:418 src/msginit.c:363 src/msgmerge.c:408
+#: src/msgattrib.c:340 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
+#: src/msgconv.c:263 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
+#: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:400
 #: src/msgunfmt.c:329 src/msguniq.c:296
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 
-#: src/msgattrib.c:348 src/msgconv.c:268 src/msggrep.c:423 src/msguniq.c:301
+#: src/msgattrib.c:345 src/msgconv.c:268 src/msggrep.c:415 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -420,8 +420,8 @@ msgid ""
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgattrib.c:356 src/msgconv.c:276 src/msgen.c:263 src/msgfilter.c:379
-#: src/msggrep.c:431 src/msgmerge.c:430
+#: src/msgattrib.c:353 src/msgconv.c:276 src/msgen.c:263 src/msgfilter.c:363
+#: src/msggrep.c:423 src/msgmerge.c:422
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -430,7 +430,7 @@ msgid ""
 "or if it is -.\n"
 msgstr ""
 
-#: src/msgattrib.c:364
+#: src/msgattrib.c:361
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -442,7 +442,7 @@ msgid ""
 "      --only-obsolete         keep obsolete #~ messages\n"
 msgstr ""
 
-#: src/msgattrib.c:375
+#: src/msgattrib.c:372
 #, no-wrap
 msgid ""
 "Attribute manipulation:\n"
@@ -454,7 +454,7 @@ msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
 
-#: src/msgattrib.c:386
+#: src/msgattrib.c:383
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -481,12 +481,12 @@ msgstr ""
 "      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
-#: src/msgcat.c:259 src/msgcomm.c:282
+#: src/msgcat.c:260 src/msgcomm.c:279
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr ""
 
-#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:542
+#: src/msgcat.c:300 src/msgcomm.c:312 src/xgettext.c:598
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr ""
@@ -505,7 +505,7 @@ msgid ""
 "File positions from all PO files will be cumulated.\n"
 msgstr ""
 
-#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:558
+#: src/msgcat.c:323 src/msgcomm.c:334 src/xgettext.c:614
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -515,7 +515,7 @@ msgid ""
 "If input file is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgcat.c:332 src/msgcomm.c:347 src/msguniq.c:309
+#: src/msgcat.c:332 src/msgcomm.c:343 src/msguniq.c:309
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -567,7 +567,7 @@ msgstr ""
 "      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
-#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:628
+#: src/msgcat.c:372 src/msgcomm.c:381 src/msguniq.c:344 src/xgettext.c:692
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -575,21 +575,21 @@ msgid ""
 "  -V, --version                  output version information and exit\n"
 msgstr ""
 
-#: src/msgcmp.c:149 src/msgmerge.c:286
+#: src/msgcmp.c:141 src/msgmerge.c:276
 #, fuzzy
 msgid "no input files given"
 msgstr "inga innfil spesifisert"
 
-#: src/msgcmp.c:154 src/msgmerge.c:291
+#: src/msgcmp.c:146 src/msgmerge.c:281
 msgid "exactly 2 input files required"
 msgstr "treng nøyaktig to innfiler"
 
-#: src/msgcmp.c:175 src/msgmerge.c:390
+#: src/msgcmp.c:166 src/msgmerge.c:382
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr ""
 
-#: src/msgcmp.c:180
+#: src/msgcmp.c:171
 #, fuzzy, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
@@ -611,7 +611,7 @@ msgstr ""
 "oversett alle meldingar i programmet.  Der samsvar ikkje kan finnast, vert\n"
 "«fuzzy» samanlikning brukt for å få betre diagnostikk.\n"
 
-#: src/msgcmp.c:195
+#: src/msgcmp.c:186
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -620,50 +620,41 @@ msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr ""
 
-#: src/msgcmp.c:203 src/msgmerge.c:454
+#: src/msgcmp.c:194 src/msgmerge.c:446
 #, no-wrap
 msgid ""
 "Operation modifiers:\n"
 "  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 msgstr ""
 
-#: src/msgcmp.c:252 src/msgmerge.c:855
+#: src/msgcmp.c:265 src/msgmerge.c:837
 msgid "this message is used but not defined..."
 msgstr "denne meldinga er brukt, men ikkje definert..."
 
-#: src/msgcmp.c:254 src/msgmerge.c:857
+#: src/msgcmp.c:267 src/msgmerge.c:839
 msgid "...but this definition is similar"
 msgstr "... men denne definisjonen liknar"
 
-#: src/msgcmp.c:259 src/msgmerge.c:884
+#: src/msgcmp.c:272 src/msgmerge.c:866
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "denne meldinga er brukt, men ikkje definert i %s"
 
-#: src/msgcmp.c:331
+#: src/msgcmp.c:376
 msgid "warning: this message is not used"
 msgstr "advarsel: denne meldinga er ikkje brukt"
 
-#: src/msgcmp.c:338 src/po-lex.c:701
+#: src/msgcmp.c:383 src/po-lex.c:626
 #, fuzzy, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "fann %d fatale feil"
 
-#: src/msgcmp.c:419 src/msgfmt.c:1449 src/read-po.c:202 src/x-po.c:163
-msgid "duplicate message definition"
-msgstr ""
-
-#: src/msgcmp.c:420 src/msgfmt.c:1450 src/read-po.c:203 src/x-po.c:164
-#, fuzzy
-msgid "...this is the location of the first definition"
-msgstr "den første definisjonen finst her"
-
-#: src/msgcomm.c:271
+#: src/msgcomm.c:268
 msgid "at least two files must be specified"
 msgstr ""
 
-#: src/msgcomm.c:321
+#: src/msgcomm.c:317
 #, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -676,7 +667,7 @@ msgid ""
 "cumulated.\n"
 msgstr ""
 
-#: src/msgcomm.c:355
+#: src/msgcomm.c:351
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -689,7 +680,7 @@ msgid ""
 "                                 that only unique messages be printed\n"
 msgstr ""
 
-#: src/msgcomm.c:367
+#: src/msgcomm.c:363
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -730,7 +721,7 @@ msgid ""
 "The default encoding is the current locale's encoding.\n"
 msgstr ""
 
-#: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:460
+#: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:452
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -757,11 +748,11 @@ msgstr ""
 "      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
-#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:414
+#: src/msgen.c:193 src/msgfmt.c:337 src/xgettext.c:433
 msgid "no input file given"
 msgstr "inga innfil spesifisert"
 
-#: src/msgen.c:197
+#: src/msgen.c:198
 #, fuzzy
 msgid "exactly one input file required"
 msgstr "treng nøyaktig to innfiler"
@@ -789,17 +780,17 @@ msgid ""
 "If input file is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgexec.c:180
+#: src/msgexec.c:174
 #, fuzzy
 msgid "missing command name"
 msgstr "manglar argument"
 
-#: src/msgexec.c:228
+#: src/msgexec.c:221
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 msgstr ""
 
-#: src/msgexec.c:233
+#: src/msgexec.c:226
 #, no-wrap
 msgid ""
 "Applies a command to all translations of a translation catalog.\n"
@@ -809,14 +800,14 @@ msgid ""
 "across all invocations.\n"
 msgstr ""
 
-#: src/msgexec.c:242
+#: src/msgexec.c:235
 #, no-wrap
 msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
 "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
 msgstr ""
 
-#: src/msgexec.c:253 src/msgfilter.c:371
+#: src/msgexec.c:246 src/msgfilter.c:355
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -825,42 +816,42 @@ msgid ""
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgexec.c:313
+#: src/msgexec.c:299
 msgid "write to stdout failed"
 msgstr ""
 
-#: src/msgexec.c:337 src/msgfilter.c:610
+#: src/msgexec.c:322 src/msgfilter.c:579
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr ""
 
-#: src/msgfilter.c:268
+#: src/msgfilter.c:253
 #, fuzzy
 msgid "missing filter name"
 msgstr "manglar argument"
 
-#: src/msgfilter.c:292
+#: src/msgfilter.c:277
 msgid "at least one sed script must be specified"
 msgstr ""
 
-#: src/msgfilter.c:356
+#: src/msgfilter.c:340
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr ""
 
-#: src/msgfilter.c:361
+#: src/msgfilter.c:345
 #, no-wrap
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr ""
 
-#: src/msgfilter.c:387
+#: src/msgfilter.c:371
 #, no-wrap
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
 "and writes a modified translation to standard output.\n"
 msgstr ""
 
-#: src/msgfilter.c:393
+#: src/msgfilter.c:377
 #, no-wrap
 msgid ""
 "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
@@ -870,7 +861,7 @@ msgid ""
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
 
-#: src/msgfilter.c:402
+#: src/msgfilter.c:386
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -898,84 +889,84 @@ msgstr ""
 "      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
-#: src/msgfilter.c:562
+#: src/msgfilter.c:531
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr ""
 
-#: src/msgfilter.c:590
+#: src/msgfilter.c:559
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr ""
 
-#: src/msgfilter.c:641
+#: src/msgfilter.c:610
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr ""
 
-#: src/msgfilter.c:657
+#: src/msgfilter.c:626
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr ""
 
-#: src/msgfmt.c:318
+#: src/msgfmt.c:288
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr ""
 
-#: src/msgfmt.c:385 src/msgfmt.c:407 src/msgunfmt.c:248
+#: src/msgfmt.c:355 src/msgfmt.c:377 src/msgunfmt.c:249
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr ""
 
-#: src/msgfmt.c:400 src/msgunfmt.c:241
+#: src/msgfmt.c:370 src/msgunfmt.c:242
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr ""
 
-#: src/msgfmt.c:416 src/msgmerge.c:308 src/msgmerge.c:314 src/msgunfmt.c:257
-#: src/msgunfmt.c:263
+#: src/msgfmt.c:386 src/msgmerge.c:298 src/msgmerge.c:304 src/msgunfmt.c:258
+#: src/msgunfmt.c:264
 #, c-format
 msgid "%s is only valid with %s"
 msgstr ""
 
-#: src/msgfmt.c:422 src/msgfmt.c:428
+#: src/msgfmt.c:392 src/msgfmt.c:398
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr ""
 
-#: src/msgfmt.c:501
+#: src/msgfmt.c:471
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/msgfmt.c:506
+#: src/msgfmt.c:476
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/msgfmt.c:511
+#: src/msgfmt.c:481
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/msgfmt.c:533
+#: src/msgfmt.c:502
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr ""
 
-#: src/msgfmt.c:538
+#: src/msgfmt.c:507
 #, no-wrap
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr ""
 
-#: src/msgfmt.c:548
+#: src/msgfmt.c:517
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -984,7 +975,7 @@ msgid ""
 "If input file is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgfmt.c:556
+#: src/msgfmt.c:525
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -993,7 +984,7 @@ msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
 
-#: src/msgfmt.c:564
+#: src/msgfmt.c:533
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1002,7 +993,7 @@ msgid ""
 "If output file is -, output is written to standard output.\n"
 msgstr ""
 
-#: src/msgfmt.c:572
+#: src/msgfmt.c:541
 #, no-wrap
 msgid ""
 "Output file location in Java mode:\n"
@@ -1014,7 +1005,7 @@ msgid ""
 "written under the specified directory.\n"
 msgstr ""
 
-#: src/msgfmt.c:583
+#: src/msgfmt.c:552
 #, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
@@ -1024,7 +1015,7 @@ msgid ""
 "specified directory.\n"
 msgstr ""
 
-#: src/msgfmt.c:592
+#: src/msgfmt.c:561
 #, no-wrap
 msgid ""
 "Input file interpretation:\n"
@@ -1040,7 +1031,7 @@ msgid ""
 "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr ""
 
-#: src/msgfmt.c:607
+#: src/msgfmt.c:576
 #, c-format, no-wrap
 msgid ""
 "Output details:\n"
@@ -1048,7 +1039,7 @@ msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
 
-#: src/msgfmt.c:614
+#: src/msgfmt.c:583
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1058,205 +1049,214 @@ msgid ""
 "  -v, --verbose               increase verbosity level\n"
 msgstr ""
 
-#: src/msgfmt.c:766
+#: src/msgfmt.c:726
 msgid "plural expression can produce negative values"
 msgstr ""
 
-#: src/msgfmt.c:779
+#: src/msgfmt.c:739
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr ""
 
-#: src/msgfmt.c:805
+#: src/msgfmt.c:765
 msgid "plural expression can produce division by zero"
 msgstr ""
 
-#: src/msgfmt.c:810
+#: src/msgfmt.c:770
 msgid "plural expression can produce integer overflow"
 msgstr ""
 
-#: src/msgfmt.c:815
+#: src/msgfmt.c:775
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
 msgstr ""
 
-#: src/msgfmt.c:894 src/msgfmt.c:906
+#: src/msgfmt.c:853 src/msgfmt.c:865
 msgid "message catalog has plural form translations..."
 msgstr ""
 
-#: src/msgfmt.c:897
+#: src/msgfmt.c:856
 msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr ""
 
-#: src/msgfmt.c:909
+#: src/msgfmt.c:868
 msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr ""
 
-#: src/msgfmt.c:934
+#: src/msgfmt.c:893
 msgid "invalid nplurals value"
 msgstr ""
 
-#: src/msgfmt.c:948
+#: src/msgfmt.c:907
 msgid "invalid plural expression"
 msgstr ""
 
-#: src/msgfmt.c:967 src/msgfmt.c:982
+#: src/msgfmt.c:926 src/msgfmt.c:941
 #, c-format
 msgid "nplurals = %lu..."
 msgstr ""
 
-#: src/msgfmt.c:970
+#: src/msgfmt.c:929
 #, fuzzy, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
 msgstr[0] "denne meldinga er brukt, men ikkje definert i %s"
 msgstr[1] "denne meldinga er brukt, men ikkje definert i %s"
 
-#: src/msgfmt.c:985
+#: src/msgfmt.c:944
 #, fuzzy, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] "denne meldinga er brukt, men ikkje definert i %s"
 msgstr[1] "denne meldinga er brukt, men ikkje definert i %s"
 
-#: src/msgfmt.c:1015
+#: src/msgfmt.c:974
 #, c-format
 msgid "Try using the following, valid for %s:\n"
 msgstr ""
 
-#: src/msgfmt.c:1028
+#: src/msgfmt.c:987
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
 
-#: src/msgfmt.c:1066
+#: src/msgfmt.c:1021
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiane byrjarr ikkje båe med '\\n'"
 
-#: src/msgfmt.c:1076
+#: src/msgfmt.c:1031
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiane byrjarr ikkje båe med '\\n'"
 
-#: src/msgfmt.c:1088
+#: src/msgfmt.c:1043
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiane byrjarr ikkje båe med '\\n'"
 
-#: src/msgfmt.c:1105
+#: src/msgfmt.c:1060
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiane sluttar ikkje båe med '\\n'"
 
-#: src/msgfmt.c:1115
+#: src/msgfmt.c:1070
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiane sluttar ikkje båe med '\\n'"
 
-#: src/msgfmt.c:1127
+#: src/msgfmt.c:1082
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiane sluttar ikkje båe med '\\n'"
 
-#: src/msgfmt.c:1139
+#: src/msgfmt.c:1094
 msgid "plural handling is a GNU gettext extension"
 msgstr ""
 
-#: src/msgfmt.c:1204
+#: src/msgfmt.c:1159
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
-#: src/msgfmt.c:1242
+#: src/msgfmt.c:1197
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr ""
 
-#: src/msgfmt.c:1250
+#: src/msgfmt.c:1205
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr ""
 
-#: src/msgfmt.c:1285
+#: src/msgfmt.c:1239
 #, fuzzy, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "filhovud-feltet «%s» manglar i filhovud"
 
-#: src/msgfmt.c:1289
+#: src/msgfmt.c:1243
 #, fuzzy, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "filhovud-feltet «%s» skulle ha starta på byrjinga av linja"
 
-#: src/msgfmt.c:1300
+#: src/msgfmt.c:1254
 #, fuzzy
 msgid "some header fields still have the initial default value\n"
 msgstr "nokre filhovud-felt har framleis sin initielle verdi"
 
-#: src/msgfmt.c:1312
+#: src/msgfmt.c:1266
 #, fuzzy, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "feltet «%s» har framleis sin forvalgte verdi"
 
-#: src/msgfmt.c:1354
+#: src/msgfmt.c:1306
 msgid "warning: PO file header missing or invalid\n"
 msgstr ""
 
-#: src/msgfmt.c:1357
+#: src/msgfmt.c:1309
 msgid "warning: charset conversion will not work\n"
 msgstr ""
 
-#: src/msgfmt.c:1367
+#: src/msgfmt.c:1319
 msgid "warning: PO file header fuzzy\n"
 msgstr ""
 
-#: src/msgfmt.c:1369
+#: src/msgfmt.c:1321
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr ""
 
-#: src/msgfmt.c:1394
+#: src/msgfmt.c:1344
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "domenenamnet \"%s\" passar ikkje som filnavn"
 
-#: src/msgfmt.c:1399
+#: src/msgfmt.c:1349
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "domenenamnet \"%s\" passar ikkje som filnavn: brukar prefiks"
 
-#: src/msgfmt.c:1410
+#: src/msgfmt.c:1360
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr ""
 
-#: src/msgfmt.c:1484
+#: src/msgfmt.c:1396 src/read-po.c:176 src/x-po.c:139
+msgid "duplicate message definition"
+msgstr ""
+
+#: src/msgfmt.c:1397 src/read-po.c:177 src/x-po.c:140
+#, fuzzy
+msgid "...this is the location of the first definition"
+msgstr "den første definisjonen finst her"
+
+#: src/msgfmt.c:1431
 msgid "empty `msgstr' entry ignored"
 msgstr ""
 
-#: src/msgfmt.c:1485
+#: src/msgfmt.c:1432
 msgid "fuzzy `msgstr' entry ignored"
 msgstr ""
 
-#: src/msgfmt.c:1554
+#: src/msgfmt.c:1499
 #, fuzzy, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "ADVARSEL: kildefila har «fuzzy» oversetjingar"
 
-#: src/msggrep.c:390
+#: src/msggrep.c:383
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr ""
 
-#: src/msggrep.c:412
+#: src/msggrep.c:404
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
 "or belong to some given source files.\n"
 msgstr ""
 
-#: src/msggrep.c:439
+#: src/msggrep.c:431
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1287,7 +1287,7 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 
-#: src/msggrep.c:469
+#: src/msggrep.c:461
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -1314,18 +1314,18 @@ msgstr ""
 "      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
-#: src/msggrep.c:561
+#: src/msggrep.c:545
 msgid "write to grep subprocess failed"
 msgstr ""
 
-#: src/msginit.c:284
+#: src/msginit.c:258
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
 "file.  This is necessary so you can test your translations.\n"
 msgstr ""
 
-#: src/msginit.c:312
+#: src/msginit.c:286
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -1333,19 +1333,19 @@ msgid ""
 "the output .po file through the --output-file option.\n"
 msgstr ""
 
-#: src/msginit.c:335
+#: src/msginit.c:309
 #, c-format
 msgid "Created %s.\n"
 msgstr ""
 
-#: src/msginit.c:357
+#: src/msginit.c:330
 #, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
 "user's environment.\n"
 msgstr ""
 
-#: src/msginit.c:368
+#: src/msginit.c:341
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1354,7 +1354,7 @@ msgid ""
 "If it is -, standard input is read.\n"
 msgstr ""
 
-#: src/msginit.c:376
+#: src/msginit.c:349
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1363,7 +1363,7 @@ msgid ""
 "locale setting.  If it is -, the results are written to standard output.\n"
 msgstr ""
 
-#: src/msginit.c:384
+#: src/msginit.c:357
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1374,39 +1374,39 @@ msgid ""
 "                              the output page width, into several lines\n"
 msgstr ""
 
-#: src/msginit.c:437
+#: src/msginit.c:410
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
 
-#: src/msginit.c:445 src/msginit.c:450
+#: src/msginit.c:418 src/msginit.c:423
 msgid "error reading current directory"
 msgstr ""
 
-#: src/msginit.c:458
+#: src/msginit.c:431
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
 
-#: src/msginit.c:908 src/msginit.c:960 src/msginit.c:1098 src/msginit.c:1165
-#: src/read-java.c:80
+#: src/msginit.c:879 src/msginit.c:931 src/msginit.c:1068 src/msginit.c:1135
+#: src/read-java.c:70
 msgid "fdopen() failed"
 msgstr ""
 
-#: src/msginit.c:913 src/msginit.c:965 src/msginit.c:1103
+#: src/msginit.c:884 src/msginit.c:936 src/msginit.c:1073
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr ""
 
-#: src/msginit.c:922 src/msginit.c:974 src/msginit.c:1112 src/msginit.c:1179
-#: src/read-java.c:90
+#: src/msginit.c:893 src/msginit.c:945 src/msginit.c:1082 src/msginit.c:1149
+#: src/read-java.c:80
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr ""
 
-#: src/msginit.c:1088
+#: src/msginit.c:1058
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -1418,51 +1418,51 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1432
+#: src/msginit.c:1417
 #, c-format
 msgid "English translations for %s package"
 msgstr ""
 
-#: src/msgl-cat.c:187 src/msgl-charset.c:87 src/msgl-iconv.c:318
+#: src/msgl-cat.c:175 src/msgl-charset.c:86 src/msgl-iconv.c:302
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr ""
 
-#: src/msgl-cat.c:196 src/msgl-iconv.c:329
+#: src/msgl-cat.c:184 src/msgl-iconv.c:313
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr ""
 
-#: src/msgl-cat.c:209
+#: src/msgl-cat.c:197
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
 msgstr ""
 
-#: src/msgl-cat.c:213
+#: src/msgl-cat.c:201
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
 
-#: src/msgl-cat.c:374 src/msgl-iconv.c:406
+#: src/msgl-cat.c:362 src/msgl-iconv.c:390
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 
-#: src/msgl-cat.c:424 src/msgl-cat.c:430 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/write-po.c:782 src/write-po.c:876
+#: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:91
+#: src/msgl-charset.c:126 src/write-po.c:737 src/write-po.c:829
 msgid "warning: "
 msgstr ""
 
-#: src/msgl-cat.c:425
+#: src/msgl-cat.c:413
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
 "Converting the output to UTF-8.\n"
 msgstr ""
 
-#: src/msgl-cat.c:431
+#: src/msgl-cat.c:419
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -1471,7 +1471,7 @@ msgid ""
 "To select a different output encoding, use the --to-code option.\n"
 msgstr ""
 
-#: src/msgl-charset.c:93
+#: src/msgl-charset.c:92
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -1480,12 +1480,12 @@ msgid ""
 "Possible workarounds are:\n"
 msgstr ""
 
-#: src/msgl-charset.c:100
+#: src/msgl-charset.c:99
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr ""
 
-#: src/msgl-charset.c:105
+#: src/msgl-charset.c:104
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -1493,7 +1493,7 @@ msgid ""
 "  then convert back to %s using 'msgconv'.\n"
 msgstr ""
 
-#: src/msgl-charset.c:114
+#: src/msgl-charset.c:113
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -1502,7 +1502,7 @@ msgid ""
 "  then convert back to %s using 'msgconv'.\n"
 msgstr ""
 
-#: src/msgl-charset.c:128
+#: src/msgl-charset.c:127
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -1510,33 +1510,33 @@ msgid ""
 "A possible workaround is to set LC_ALL=C.\n"
 msgstr ""
 
-#: src/msgl-iconv.c:202 src/msgl-iconv.c:256
+#: src/msgl-iconv.c:184 src/msgl-iconv.c:242
 msgid "conversion failure"
 msgstr ""
 
-#: src/msgl-iconv.c:351
+#: src/msgl-iconv.c:335
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 
-#: src/msgl-iconv.c:369
+#: src/msgl-iconv.c:353 src/xgettext.c:487
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
 "not support this conversion."
 msgstr ""
 
-#: src/msgl-iconv.c:385
+#: src/msgl-iconv.c:370 src/xgettext.c:494
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
 "built without iconv()."
 msgstr ""
 
-#: src/msgmerge.c:358
+#: src/msgmerge.c:351
 msgid "backup type"
 msgstr ""
 
-#: src/msgmerge.c:395
+#: src/msgmerge.c:387
 #, fuzzy, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -1561,7 +1561,7 @@ msgstr ""
 "resultat.  Resultatet vert skrive til standard ut, med mindre ei utfil er\n"
 "spesifisert.\n"
 
-#: src/msgmerge.c:413
+#: src/msgmerge.c:405
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1572,7 +1572,7 @@ msgid ""
 "                              may be specified more than once\n"
 msgstr ""
 
-#: src/msgmerge.c:423
+#: src/msgmerge.c:415
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1580,7 +1580,7 @@ msgid ""
 "                              do nothing if def.po already up to date\n"
 msgstr ""
 
-#: src/msgmerge.c:438
+#: src/msgmerge.c:430
 #, no-wrap
 msgid ""
 "Output file location in update mode:\n"
@@ -1597,7 +1597,7 @@ msgid ""
 "environment variable.\n"
 msgstr ""
 
-#: src/msgmerge.c:477
+#: src/msgmerge.c:469
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1607,17 +1607,17 @@ msgid ""
 "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr ""
 
-#: src/msgmerge.c:937
+#: src/msgmerge.c:919
 #, fuzzy
 msgid "this message should define plural forms"
 msgstr "denne meldinga er brukt, men ikkje definert i %s"
 
-#: src/msgmerge.c:960
+#: src/msgmerge.c:942
 #, fuzzy
 msgid "this message should not define plural forms"
 msgstr "denne meldinga er brukt, men ikkje definert i %s"
 
-#: src/msgmerge.c:1091
+#: src/msgmerge.c:1104
 #, fuzzy, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -1626,11 +1626,11 @@ msgstr ""
 "%sLeste %d gamle + %d referansar, fletta inn %d, «fuzzya» %d, manglar %d,\n"
 "utdaterte %d.\n"
 
-#: src/msgmerge.c:1099
+#: src/msgmerge.c:1112
 msgid " done.\n"
 msgstr ""
 
-#: src/msgunfmt.c:226 src/msgunfmt.c:235
+#: src/msgunfmt.c:227 src/msgunfmt.c:236
 #, fuzzy, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "%s og %s utelukker kvarandre"
@@ -1744,19 +1744,19 @@ msgid ""
 "  -u, --unique                   print only unique messages, discard duplicates\n"
 msgstr ""
 
-#: src/ngettext.c:215
+#: src/ngettext.c:211
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
 
-#: src/ngettext.c:220
+#: src/ngettext.c:216
 #, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
 
-#: src/ngettext.c:225
+#: src/ngettext.c:221
 #, fuzzy, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -1778,7 +1778,7 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        hent oversett melding som stemmer overeins med\n"
 "                            MSGID frå TEXTDOMAIN\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:232
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -1797,57 +1797,57 @@ msgstr ""
 "staden vert meldingar som er funne i den valgte katalogen oversatt.\n"
 "Standard søkekatalog er: %s\n"
 
-#: src/open-po.c:60
+#: src/open-po.c:58
 msgid "<stdin>"
 msgstr ""
 
-#: src/po-charset.c:225 src/po-charset.c:283 src/po-charset.c:311
-#: src/po-charset.c:337
+#: src/po-charset.c:224 src/po-charset.c:282 src/po-charset.c:310
+#: src/po-charset.c:336
 #, c-format
 msgid "%s: warning: "
 msgstr ""
 
-#: src/po-charset.c:226
+#: src/po-charset.c:225
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
 
-#: src/po-charset.c:279 src/po-charset.c:309
+#: src/po-charset.c:278 src/po-charset.c:308
 msgid "Continuing anyway, expect parse errors."
 msgstr ""
 
-#: src/po-charset.c:281
+#: src/po-charset.c:280
 msgid "Continuing anyway."
 msgstr ""
 
-#: src/po-charset.c:284
+#: src/po-charset.c:283
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
 
-#: src/po-charset.c:293 src/po-charset.c:319
+#: src/po-charset.c:292 src/po-charset.c:318
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
 
-#: src/po-charset.c:298 src/po-charset.c:323
+#: src/po-charset.c:297 src/po-charset.c:322
 #, c-format
 msgid "%s\n"
 msgstr ""
 
-#: src/po-charset.c:312
+#: src/po-charset.c:311
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
 
-#: src/po-charset.c:338
+#: src/po-charset.c:337
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -1880,133 +1880,133 @@ msgid "plural form has wrong index"
 msgstr ""
 
 #: src/po-lex.h:91 src/po-lex.h:106 src/po-lex.h:126 src/po-lex.h:141
-#: src/po-lex.c:111 src/po-lex.c:144
+#: src/po-lex.c:102 src/po-lex.c:131
 #, fuzzy
 msgid "too many errors, aborting"
 msgstr "for mange feil, avsluttar"
 
-#: src/po-lex.c:517 src/write-po.c:364 src/write-po.c:466
+#: src/po-lex.c:455 src/write-po.c:323 src/write-po.c:425
 msgid "invalid multibyte sequence"
 msgstr ""
 
-#: src/po-lex.c:543
+#: src/po-lex.c:481
 msgid "incomplete multibyte sequence at end of file"
 msgstr ""
 
-#: src/po-lex.c:553
+#: src/po-lex.c:491
 msgid "incomplete multibyte sequence at end of line"
 msgstr ""
 
-#: src/po-lex.c:561
+#: src/po-lex.c:499
 msgid "iconv failure"
 msgstr ""
 
-#: src/po-lex.c:759 src/read-mo.c:95 src/x-c.c:299 src/x-elisp.c:172
-#: src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:104
+#: src/po-lex.c:682 src/read-mo.c:79 src/x-c.c:260 src/x-elisp.c:142
+#: src/x-librep.c:144 src/x-lisp.c:204 src/x-rst.c:225 src/x-ycp.c:94
 #, fuzzy, c-format
 msgid "error while reading \"%s\""
 msgstr "feil under skriving av fila \"%s\""
 
-#: src/po-lex.c:825
+#: src/po-lex.c:746
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr ""
 
-#: src/po-lex.c:935
+#: src/po-lex.c:856
 msgid "invalid control sequence"
 msgstr ""
 
-#: src/po-lex.c:1043
+#: src/po-lex.c:964
 msgid "end-of-file within string"
 msgstr ""
 
-#: src/po-lex.c:1049
+#: src/po-lex.c:970
 msgid "end-of-line within string"
 msgstr ""
 
-#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#: src/read-mo.c:98 src/read-mo.c:119 src/read-mo.c:164 src/read-mo.c:190
 #, fuzzy, c-format
 msgid "file \"%s\" is truncated"
 msgstr "filen \"%s\" er avkutta"
 
-#: src/read-mo.c:143
+#: src/read-mo.c:122
 #, fuzzy, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "fila \"%s\" er ikkje i GNU .mo-format"
 
-#: src/read-mo.c:181 src/read-mo.c:285
+#: src/read-mo.c:157 src/read-mo.c:263
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "fila \"%s\" er ikkje i GNU .mo-format"
 
-#: src/read-mo.c:191
+#: src/read-mo.c:170
 #, fuzzy, c-format
-msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "fila \"%s\" er ikkje i GNU .mo-format"
 
-#: src/urlget.c:150
+#: src/urlget.c:143
 #, fuzzy
 msgid "expected two arguments"
 msgstr "manglar argument"
 
-#: src/urlget.c:169
+#: src/urlget.c:161
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] URL FILE\n"
 msgstr ""
 
-#: src/urlget.c:174
+#: src/urlget.c:166
 #, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
 "the locally accessible FILE is used instead.\n"
 msgstr ""
 
-#: src/urlget.c:222
+#: src/urlget.c:213
 #, fuzzy
 msgid "error writing stdout"
 msgstr "feil under skriving av fila \"%s\""
 
-#: src/write-java.c:1109
+#: src/write-java.c:1055
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr ""
 
-#: src/write-java.c:1119
+#: src/write-java.c:1065
 #, fuzzy, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "kan ikkje skifte tilbake til filkatalog \"%s\""
 
-#: src/write-java.c:1132
+#: src/write-java.c:1078
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr ""
 
-#: src/write-java.c:1189 src/write-java.c:1202
+#: src/write-java.c:1135 src/write-java.c:1148
 #, c-format
 msgid "failed to create \"%s\""
 msgstr ""
 
-#: src/write-java.c:1210 src/write-mo.c:713 src/write-po.c:1025
+#: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:975
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "feil under skriving av fila \"%s\""
 
-#: src/write-java.c:1224
+#: src/write-java.c:1170
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 
-#: src/write-mo.c:701
+#: src/write-mo.c:690
 #, fuzzy, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "feil under skriving av fila \"%s\""
 
-#: src/write-po.c:415
+#: src/write-po.c:374
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
 "internasjonaliserte meldingar skal ikkje innehalde escape-sekvensen «\\%c»"
 
-#: src/write-po.c:783 src/write-po.c:877
+#: src/write-po.c:738 src/write-po.c:830
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -2015,72 +2015,72 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: src/write-po.c:944
+#: src/write-po.c:894
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "kan ikkje opprette utfila \"%s\""
 
-#: src/write-po.c:951
+#: src/write-po.c:901
 #, no-c-format
 msgid "standard output"
 msgstr ""
 
-#: src/x-c.c:954
+#: src/x-c.c:906
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr ""
 
-#: src/x-c.c:978
+#: src/x-c.c:930
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr ""
 
-#: src/x-po.c:106 src/xgettext.c:648
+#: src/x-po.c:85 src/xgettext.c:710
 msgid "this file may not contain domain directives"
 msgstr "denne fila kan ikkje innehalde domene-nøkkelord"
 
-#: src/x-rst.c:108
+#: src/x-rst.c:106
 #, c-format
 msgid "%s:%d: invalid string definition"
 msgstr ""
 
-#: src/x-rst.c:168
+#: src/x-rst.c:166
 #, c-format
 msgid "%s:%d: missing number after #"
 msgstr ""
 
-#: src/x-rst.c:203
+#: src/x-rst.c:201
 #, c-format
 msgid "%s:%d: invalid string expression"
 msgstr ""
 
-#: src/xgettext.c:401
+#: src/xgettext.c:420
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing kan ikkje brukast når utdata vert skrive til standard ut"
 
-#: src/xgettext.c:406
+#: src/xgettext.c:425
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:502
+#: src/xgettext.c:552
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 
-#: src/xgettext.c:547
+#: src/xgettext.c:603
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr ""
 
-#: src/xgettext.c:552
+#: src/xgettext.c:608
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 msgstr ""
 
-#: src/xgettext.c:567
+#: src/xgettext.c:623
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2090,19 +2090,28 @@ msgid ""
 "If output file is -, output is written to standard output.\n"
 msgstr ""
 
-#: src/xgettext.c:576
+#: src/xgettext.c:632
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
 "                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
-"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
-"                                   RST, Glade)\n"
+"                                   EmacsLisp, librep, Smalltalk, Java, awk,\n"
+"                                   YCP, Tcl, PHP, RST, Glade)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
 
-#: src/xgettext.c:587
+#: src/xgettext.c:643
+#, no-wrap
+msgid ""
+"Input file interpretation:\n"
+"      --from-code=NAME           encoding of input files\n"
+"                                   (except for Python, Tcl, Glade)\n"
+"By default the input files are assumed to be in ASCII.\n"
+msgstr ""
+
+#: src/xgettext.c:651
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2112,7 +2121,7 @@ msgid ""
 "                                 preceding keyword lines) in output file\n"
 msgstr ""
 
-#: src/xgettext.c:596
+#: src/xgettext.c:660
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2123,7 +2132,7 @@ msgid ""
 "      --debug                    more detailed formatstring recognition result\n"
 msgstr ""
 
-#: src/xgettext.c:606
+#: src/xgettext.c:670
 #, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
@@ -2155,21 +2164,32 @@ msgstr ""
 "      --strict             lag strengt Uniforum-konformt utdata\n"
 "  -V, --version            vis programversjon og avslutt\n"
 
-#: src/xgettext.c:828
+#: src/xgettext.c:879
 msgid "standard input"
 msgstr ""
 
-#: src/xgettext.c:943
+#: src/xgettext.c:972
+#, c-format
+msgid ""
+"Non-ASCII string at %s%s.\n"
+"Please specify the source encoding through --from-code."
+msgstr ""
+
+#: src/xgettext.c:1028
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 msgstr ""
 
-#: src/xgettext.c:1299
+#: src/xgettext.c:1410
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""
+
+#, fuzzy
+#~ msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+#~ msgstr "fila \"%s\" er ikkje i GNU .mo-format"
 
 #~ msgid "seek \"%s\" offset %ld failed"
 #~ msgstr "«seek» \"%s\" posisjon %ld feila"

@@ -1,13 +1,28 @@
-This is gettext.info, produced by makeinfo version 4.0 from
+This is gettext.info, produced by makeinfo version 4.2 from
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
-* Gettext: (gettext).                           GNU gettext utilities.
-* gettextize: (gettext)gettextize Invocation.   Prepare a package for gettext.
-* msgfmt: (gettext)msgfmt Invocation.           Make MO files out of PO files.
-* msgmerge: (gettext)msgmerge Invocation.       Update two PO files into one.
-* xgettext: (gettext)xgettext Invocation.       Extract strings into a PO file.
+* gettext: (gettext).                          GNU gettext utilities.
+* autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
+* msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
+* msgcat: (gettext)msgcat Invocation.          Combine several PO files.
+* msgcmp: (gettext)msgcmp Invocation.          Compare a PO file and template.
+* msgcomm: (gettext)msgcomm Invocation.        Match two PO files.
+* msgconv: (gettext)msgconv Invocation.        Convert PO file to encoding.
+* msgen: (gettext)msgen Invocation.            Create an English PO file.
+* msgexec: (gettext)msgexec Invocation.        Process a PO file.
+* msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
+* msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
+* msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
+* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
+* msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
+* msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
+* ISO639: (gettext)Language Codes.             ISO 639 language codes.
+* ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
 END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `gettext' utilities.  It
@@ -105,6 +120,7 @@ Option Index
 * --force-po, msguniq option:            msguniq Invocation.
 * --force-po, xgettext option:           xgettext Invocation.
 * --foreign-user, xgettext option:       xgettext Invocation.
+* --from-code, xgettext option:          xgettext Invocation.
 * --fuzzy, msgattrib option:             msgattrib Invocation.
 * --help, autopoint option:              autopoint Invocation.
 * --help, gettextize option:             gettextize Invocation.

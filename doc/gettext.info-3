@@ -1,13 +1,28 @@
-This is gettext.info, produced by makeinfo version 4.0 from
+This is gettext.info, produced by makeinfo version 4.2 from
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
-* Gettext: (gettext).                           GNU gettext utilities.
-* gettextize: (gettext)gettextize Invocation.   Prepare a package for gettext.
-* msgfmt: (gettext)msgfmt Invocation.           Make MO files out of PO files.
-* msgmerge: (gettext)msgmerge Invocation.       Update two PO files into one.
-* xgettext: (gettext)xgettext Invocation.       Extract strings into a PO file.
+* gettext: (gettext).                          GNU gettext utilities.
+* autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
+* msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
+* msgcat: (gettext)msgcat Invocation.          Combine several PO files.
+* msgcmp: (gettext)msgcmp Invocation.          Compare a PO file and template.
+* msgcomm: (gettext)msgcomm Invocation.        Match two PO files.
+* msgconv: (gettext)msgconv Invocation.        Convert PO file to encoding.
+* msgen: (gettext)msgen Invocation.            Create an English PO file.
+* msgexec: (gettext)msgexec Invocation.        Process a PO file.
+* msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
+* msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
+* msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
+* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
+* msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
+* msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
+* ISO639: (gettext)Language Codes.             ISO 639 language codes.
+* ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
 END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `gettext' utilities.  It
@@ -86,7 +101,8 @@ Choice of input file language
 `--language=NAME'
      Specifies the language of the input files.  The supported languages
      are `C', `C++', `ObjectiveC', `PO', `Python', `Lisp', `EmacsLisp',
-     `librep', `Java', `awk', `YCP', `Tcl', `RST', `Glade'.
+     `librep', `Smalltalk', `Java', `awk', `YCP', `Tcl', `PHP', `RST',
+     `Glade'.
 
 `-C'
 `--c++'
@@ -94,6 +110,18 @@ Choice of input file language
 
    By default the language is guessed depending on the input file name
 extension.
+
+Input file interpretation
+-------------------------
+
+`--from-code=NAME'
+     Specifies the encoding of the input files.  This option is needed
+     only if some untranslated message strings or their corresponding
+     comments contain non-ASCII characters.  Note that Python, Tcl, and
+     Glade input files are always assumed to be in UTF-8, regardless of
+     this option.
+
+   By default the input files are assumed to be in ASCII.
 
 Operation mode
 --------------
@@ -264,7 +292,7 @@ example:
 
      $ cd PACKAGE-VERSION
      $ cd po
-     $ msginit --verbose
+     $ msginit
 
    The alternative way is to do the copy and modifications by hand.  To
 do so, the translator copies `PACKAGE.pot' to `LANG.po'.  Then she

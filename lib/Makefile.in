@@ -115,7 +115,6 @@ LIB = @LIB@
 LIBEXPAT = @LIBEXPAT@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
-LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
@@ -123,7 +122,6 @@ LTLIB = @LTLIB@
 LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
-LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
@@ -183,6 +181,7 @@ libgettextlib_la_SOURCES = \
   pipe.h pipe-bidi.c pipe-in.c pipe-out.c \
   progname.h progname.c \
   safe-read.h safe-read.c \
+  safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \
   stpncpy.h stpncpy.c \
   strtoul.c \
@@ -203,7 +202,6 @@ LIBADD_SOURCE = \
   mkdtemp.h mkdtemp.c \
   pfnmatch.h pfnmatch.c \
   setenv.h setenv.c unsetenv.c \
-  libstdarg.h \
   stpcpy.h stpcpy.c \
   strcase.h strcasecmp.c strncasecmp.c \
   strcspn.c \
@@ -271,8 +269,8 @@ am_libgettextlib_la_OBJECTS = argmatch.lo backupfile.lo addext.lo \
 	getopt1.lo hash.lo javacomp.lo javaexec.lo linebreak.lo \
 	localcharset.lo mbswidth.lo obstack.lo concatpath.lo \
 	pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo safe-read.lo \
-	sh-quote.lo stpncpy.lo strtoul.lo tmpdir.lo wait-process.lo \
-	xerror.lo xmalloc.lo xstrdup.lo xsetenv.lo
+	safe-write.lo sh-quote.lo stpncpy.lo strtoul.lo tmpdir.lo \
+	wait-process.lo xerror.lo xmalloc.lo xstrdup.lo xsetenv.lo
 libgettextlib_la_OBJECTS = $(am_libgettextlib_la_OBJECTS)
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@

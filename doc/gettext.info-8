@@ -1,13 +1,28 @@
-This is gettext.info, produced by makeinfo version 4.0 from
+This is gettext.info, produced by makeinfo version 4.2 from
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
-* Gettext: (gettext).                           GNU gettext utilities.
-* gettextize: (gettext)gettextize Invocation.   Prepare a package for gettext.
-* msgfmt: (gettext)msgfmt Invocation.           Make MO files out of PO files.
-* msgmerge: (gettext)msgmerge Invocation.       Update two PO files into one.
-* xgettext: (gettext)xgettext Invocation.       Extract strings into a PO file.
+* gettext: (gettext).                          GNU gettext utilities.
+* autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
+* msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
+* msgcat: (gettext)msgcat Invocation.          Combine several PO files.
+* msgcmp: (gettext)msgcmp Invocation.          Compare a PO file and template.
+* msgcomm: (gettext)msgcomm Invocation.        Match two PO files.
+* msgconv: (gettext)msgconv Invocation.        Convert PO file to encoding.
+* msgen: (gettext)msgen Invocation.            Create an English PO file.
+* msgexec: (gettext)msgexec Invocation.        Process a PO file.
+* msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
+* msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
+* msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
+* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
+* msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
+* msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
+* ISO639: (gettext)Language Codes.             ISO 639 language codes.
+* ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
 END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `gettext' utilities.  It
@@ -95,13 +110,23 @@ directive starts with `%' and is followed by `%' or a nonzero digit
 (`1' to `9').
 
 
-File: gettext.info,  Node: tcl-format,  Prev: ycp-format,  Up: Translators for other Languages
+File: gettext.info,  Node: tcl-format,  Next: php-format,  Prev: ycp-format,  Up: Translators for other Languages
 
 Tcl Format Strings
 ------------------
 
    Tcl format strings are described in the `format.n' manual page,
 `http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm'.
+
+
+File: gettext.info,  Node: php-format,  Prev: tcl-format,  Up: Translators for other Languages
+
+PHP Format Strings
+------------------
+
+   PHP format strings are described in the documentation of the PHP
+function `sprintf', in `phpdoc/manual/function.sprintf.html' or
+`http://www.php.net/manual/en/function.sprintf.php'.
 
 
 File: gettext.info,  Node: Maintainers for other Languages,  Next: List of Programming Languages,  Prev: Translators for other Languages,  Up: Programming Languages
@@ -202,6 +227,8 @@ Extractor
 
 Formatting with positions
      `fprintf "%2$d %1$d"' (POSIX but not C 99)
+     In C++: `autosprintf "%2$d %1$d"' (*note Introduction:
+     (autosprintf)Top.)
 
 Portability
      autoconf (gettext.m4) and #if ENABLE_NLS
@@ -565,37 +592,34 @@ File extension
      `st'
 
 String syntax
-     `''abc'''
+     `'abc''
 
 gettext shorthand
-     `NLS? ''abc'''
-     `self? ''abc'''
+     `NLS ? 'abc''
 
 gettext/ngettext functions
      `LcMessagesDomain>>#at:', `LcMessagesDomain>>#at:plural:with:'
 
 textdomain
-     `LcMessages>>#?' (returns a `LcMessagesDomain' object).
-     Example: `Locale default messages ? 'gettext''
+     `LcMessages>>#domain:localeDirectory:' (returns a
+     `LcMessagesDomain' object).
+     Example: `I18N Locale default messages domain: 'gettext'
+     localeDirectory: /usr/local/share/locale''
 
 bindtextdomain
-     `LcMessages>>#domain:directory:' (returns a `LcMessagesDomain'
-     object)
+     `LcMessages>>#domain:localeDirectory:', see above.
 
 setlocale
-     You can obtain any `Locale' object from `Locale' class methods
-     such as `#fromString:' or `#default'.
-     Example: `Locale default messages' gives the `LcMessages' object
-     for the default locale.
+     Automatic if you use `I18N Locale default'.
 
 Prerequisite
-     The gettext code is contained in the `I18N' package.
+     `PackageLoader fileInPackage: 'I18N'!'
 
 Use or emulate GNU gettext
      emulate
 
 Extractor
-     --
+     `xgettext'
 
 Formatting with positions
      `'%1 %2' bindWith: 'Hello' with: 'world''
@@ -1013,13 +1037,13 @@ PHP Hypertext Preprocessor
 --------------------------
 
 RPMs
-     mod_php4, phplib, phpdoc
+     mod_php4, mod_php4-core, phplib, phpdoc
 
 File extension
      `php', `php3', `php4'
 
 String syntax
-     `"abc"'
+     `"abc"', `'abc''
 
 gettext shorthand
      `_("abc")'
@@ -1034,7 +1058,7 @@ bindtextdomain
      `bindtextdomain' function
 
 setlocale
-     `setlocale' function
+     Programmer must call `setlocale (LC_ALL, "")'
 
 Prerequisite
      --
@@ -1043,10 +1067,10 @@ Use or emulate GNU gettext
      use
 
 Extractor
-     --
+     `xgettext'
 
 Formatting with positions
-     --
+     `printf "%2\$d %1\$d"'
 
 Portability
      On platforms without gettext, the functions are not available.

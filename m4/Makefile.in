@@ -115,7 +115,6 @@ LIB = @LIB@
 LIBEXPAT = @LIBEXPAT@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
-LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
@@ -123,7 +122,6 @@ LTLIB = @LTLIB@
 LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
-LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
@@ -153,7 +151,7 @@ aclocal_DATA = codeset.m4 gettext.m4 glibc21.m4 iconv.m4 intdiv0.m4 inttypes.m4 
 # find . -type f -name '*.m4' -printf '%f\n'|sort |fmt |tr '\012' @ \
 #   |sed 's/@$/%/;s/@/ \\@/g' |tr @% '\012\012'
 EXTRA_DIST = README \
-backupfile.m4 c-bs-a.m4 codeset.m4 error.m4 flex.m4 fnmatch.m4 gcj.m4 \
+backupfile.m4 codeset.m4 error.m4 flex.m4 fnmatch.m4 gcj.m4 \
 getline.m4 gettext.m4 glibc21.m4 hostname.m4 iconv.m4 intdiv0.m4 intmax.m4 \
 inttypes.m4 inttypes_h.m4 inttypes-pri.m4 isc-posix.m4 javacomp.m4 \
 javaexec.m4 lcmessage.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 libtool.m4 \
