@@ -1,3 +1,8 @@
+2001-07-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (configure.in): Remove automake bug workarounds, not
+	needed anymore with automake-1.4-p5.
+
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (ALL_LINGUAS): Remove assignment.

@@ -1,3 +1,7 @@
+2001-07-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* automake.diff: Update for automake-1.4-p5.
+
 2001-08-01  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Optimize testing for XEmacs.

@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.37 $)
+AC_REVISION($Revision: 1.38 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.11)
 RELEASE_DATE=2001-05-23      dnl in "date +%Y-%m-%d" format
@@ -106,22 +106,4 @@ EOF
 
 AC_OUTPUT([Makefile lib/Makefile intl/Makefile src/Makefile po/Makefile.in \
            doc/Makefile man/Makefile tests/Makefile m4/Makefile \
-	   misc/Makefile misc/gettextize], [
-  dnl Workaround an automake-1.4 bug which generates a distclean-recursive
-  dnl target in Makefile.in which causes a "make distclean" failure on FreeBSD.
-changequote(,)dnl
-  sed -e 's/test \([^ ]*\) = \([^ ]*\) \&\& /test \1 != \2 \|\| /' < Makefile \
-      > Makefile.tmp
-changequote([, ])dnl
-  mv Makefile.tmp Makefile
-  dnl Workaround an automake-1.4 bug which generates an incorrect uninstall
-  dnl target in misc/Makefile.in.
-  sed -e 's/rm -f \$(lispdir)/rm -f \$(DESTDIR)\$(lispdir)/' < misc/Makefile \
-      > misc/Makefile.tmp
-  mv misc/Makefile.tmp misc/Makefile
-  dnl Workaround another automake-1.4 bug which generates incorrect install
-  dnl and uninstall targets in misc/Makefile.in.
-  sed -e "s/list='\\\$(lisp_LISP)'; for/list='\$(lisp_LISP)'; test '\$(EMACS)' = no || for/" \
-      < misc/Makefile > misc/Makefile.tmp
-  mv misc/Makefile.tmp misc/Makefile
-])
+           misc/Makefile misc/gettextize])
