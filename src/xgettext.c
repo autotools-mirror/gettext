@@ -59,6 +59,7 @@ struct passwd *getpwuid ();
 
 #include "x-c.h"
 #include "x-po.h"
+#include "x-java.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -69,6 +70,10 @@ int line_comment;
 
 /* Tag used in comment of prevailing domain.  */
 static char *comment_tag;
+
+/* Compare tokens with keywords using substring matching instead of
+   equality.  */
+bool substring_match;
 
 /* Name of default domain file.  If not set defaults to messages.po.  */
 static const char *default_domain;
@@ -118,6 +123,7 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "join-existing", no_argument, NULL, 'j' },
   { "keyword", optional_argument, NULL, 'k' },
+  { "keyword-substring", no_argument, NULL, 'K'},
   { "language", required_argument, NULL, 'L' },
   { "msgstr-prefix", optional_argument, NULL, 'm' },
   { "msgstr-suffix", optional_argument, NULL, 'M' },
@@ -263,7 +269,13 @@ main (argc, argv)
 	break;
       case 'k':
 	if (optarg == NULL || *optarg != '\0')
-	  x_c_keyword (optarg);
+	  {
+	    x_c_keyword (optarg);
+	    x_java_keyword (optarg);
+	  }
+	break;
+      case 'K':
+	substring_match = true;
 	break;
       case 'l':
 	/* Accepted for backward compatibility with 0.10.35.  */
@@ -529,7 +541,8 @@ If output file is -, output is written to standard output.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Choice of input file language:\n\
-  -L, --language=NAME            recognise the specified language (C, C++, PO)\n\
+  -L, --language=NAME            recognise the specified language\n\
+                                   (C, C++, ObjectiveC, PO, Java)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
 "));
@@ -1007,6 +1020,24 @@ scan_po_file (file_name, mdlp)
 }
 
 
+static void
+scan_java_file (file_name, mdlp)
+     const char *file_name;
+     msgdomain_list_ty *mdlp;
+{
+  char *logical_file_name;
+  char *real_file_name;
+  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+
+  extract_java (fp, real_file_name, logical_file_name, mdlp);
+
+  if (fp != stdin)
+    fclose (fp);
+  free (logical_file_name);
+  free (real_file_name);
+}
+
+
 #define TM_YEAR_ORIGIN 1900
 
 /* Yield A - B, measured in seconds.  */
@@ -1112,9 +1143,9 @@ language_to_scanner (name)
   {
     SCANNERS_C
     SCANNERS_PO
+    SCANNERS_JAVA
     { "Python", scan_c_file, &formatstring_python },
     { "Lisp", scan_c_file, &formatstring_lisp },
-    { "Java", scan_c_file, &formatstring_java },
     { "YCP", scan_c_file, &formatstring_ycp },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exclude-file option.  */
@@ -1152,6 +1183,7 @@ extension_to_language (extension)
   {
     EXTENSIONS_C
     EXTENSIONS_PO
+    EXTENSIONS_JAVA
     /* Here will follow more file extensions: sh, pl, tcl, lisp ... */
   };
 

@@ -26,6 +26,8 @@
 
 extern int line_comment;
 
+extern bool substring_match;
+
 /* List of messages whose msgids must not be extracted, or NULL.
    Used by remember_a_message().  */
 extern message_list_ty *exclude;

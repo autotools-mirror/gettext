@@ -1,3 +1,7 @@
+2001-09-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call gt_PROG_LEX.
+
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* read-mo.h: New file.

@@ -55,7 +55,7 @@ msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c \
 read-mo.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xgettext.c dir-list.c write-po.c \
-msgl-ascii.c file-list.c x-c.c x-po.c \
+msgl-ascii.c file-list.c x-c.c x-po.c x-java.l \
 format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
 msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
@@ -101,5 +101,9 @@ po-lex.o: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
 	$(SED) 's/[yY][yY]/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
+
+x-java.c: x-java.l
+	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
+	test "$(LEX)" = ":" || mv $@-tmp $@
 
 DISTCLEANFILES = po-gram-gen2.h
