@@ -27,6 +27,7 @@ noinst_LIBRARIES = libgrt.a
 # Sources that are compiled on all platforms.
 
 libgrt_a_SOURCES = \
+  ../../gettext-tools/lib/allocsa.h ../../gettext-tools/lib/allocsa.c \
   ../../gettext-tools/lib/basename.h ../../gettext-tools/lib/basename.c \
   ../../gettext-tools/lib/closeout.h ../../gettext-tools/lib/closeout.c \
   ../../gettext-tools/lib/exit.h \
