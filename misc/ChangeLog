@@ -1,7 +1,11 @@
+2001-05-21  Alexandre Duret-Lutz  <duret_g@epita.fr>
+
+	* gettextize.in: Check for configure.ac in addition to configure.in.
+
 2001-05-12  Paul Eggert  <eggert@twinsun.com>
 
-	* misc/gettextize.in: Replace "test -e" with "test -f", since the
-	'test' builtin of Solaris 8 /bin/sh doesn't grok "test -e".
+	* gettextize.in: Replace "test -e" with "test -f", since the 'test'
+	builtin of Solaris 8 /bin/sh doesn't grok "test -e".
 
 2001-05-11  Bruno Haible  <haible@clisp.cons.org>
 
