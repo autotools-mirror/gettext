@@ -27,7 +27,7 @@ EOF
 tmpfiles="$tmpfiles xg-test13.po"
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
-${XGETTEXT} --output - --no-location -k_ xg-test13.in.c \
+${XGETTEXT} --output - --no-location -k_ xg-test13.in.c 2>/dev/null \
   | sed '/\"POT-Creation-Date:.*/d' > xg-test13.po
 
 tmpfiles="$tmpfiles xg-test13.ok"
