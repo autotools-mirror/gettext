@@ -6820,7 +6820,8 @@ Tcl format strings are described in the @file{format.n} manual page,
 @subsection PHP Format Strings
 
 PHP format strings are described in the documentation of the PHP function
-@code{sprintf}, in @file{phpdoc/manual/function.sprintf.html}.
+@code{sprintf}, in @file{phpdoc/manual/function.sprintf.html} or
+@uref{http://www.php.net/manual/en/function.sprintf.php}.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View
