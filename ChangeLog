@@ -1,3 +1,7 @@
+2003-05-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* PACKAGING: Update for changed default value of $mandir and $docdir.
+
 2003-05-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* config/config.guess, config/config.sub: Update to GNU version

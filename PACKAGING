@@ -50,26 +50,26 @@ following file list.
 
       $prefix/bin/gettext
       $prefix/bin/ngettext
-      $prefix/man/man1/gettext.1
-      $prefix/man/man1/ngettext.1
-      $prefix/doc/gettext/gettext.1.html
-      $prefix/doc/gettext/ngettext.1.html
+      $prefix/share/man/man1/gettext.1
+      $prefix/share/man/man1/ngettext.1
+      $prefix/share/doc/gettext/gettext.1.html
+      $prefix/share/doc/gettext/ngettext.1.html
       $prefix/share/locale/*/LC_MESSAGES/gettext-runtime.mo
 
       $prefix/lib/libintl.*               (not installed on glibc systems)
       $prefix/lib/charset.alias           (not installed on glibc systems)
       $prefix/share/locale/locale.alias   (not installed on glibc systems)
       $prefix/include/libintl.h           (not installed on glibc systems)
-      $prefix/man/man3/*
-      $prefix/doc/gettext/*.3.html
+      $prefix/share/man/man3/*
+      $prefix/share/doc/gettext/*.3.html
 
       $prefix/share/gettext/libintl.jar
-      $prefix/doc/gettext/javadoc1/*
-      $prefix/doc/gettext/javadoc2/*
+      $prefix/share/doc/gettext/javadoc1/*
+      $prefix/share/doc/gettext/javadoc2/*
 
       $prefix/lib/libasprintf.*
       $prefix/include/autosprintf.h
-      $prefix/doc/libasprintf/autosprintf.html
+      $prefix/share/doc/libasprintf/autosprintf.html
       $prefix/info/autosprintf.info
 
    gettext-tools
@@ -80,15 +80,15 @@ following file list.
       $prefix/bin/xgettext
       $prefix/bin/gettextize
       $prefix/bin/autopoint
-      $prefix/man/man1/msg*.1
-      $prefix/man/man1/xgettext.1
-      $prefix/man/man1/gettextize.1
-      $prefix/man/man1/autopoint.1
-      $prefix/doc/gettext/msg*.1.html
-      $prefix/doc/gettext/xgettext.1.html
-      $prefix/doc/gettext/gettextize.1.html
-      $prefix/doc/gettext/autopoint.1.html
-      $prefix/doc/gettext/gettext_*.html
+      $prefix/share/man/man1/msg*.1
+      $prefix/share/man/man1/xgettext.1
+      $prefix/share/man/man1/gettextize.1
+      $prefix/share/man/man1/autopoint.1
+      $prefix/share/doc/gettext/msg*.1.html
+      $prefix/share/doc/gettext/xgettext.1.html
+      $prefix/share/doc/gettext/gettextize.1.html
+      $prefix/share/doc/gettext/autopoint.1.html
+      $prefix/share/doc/gettext/gettext_*.html
       $prefix/info/gettext.info*
       $prefix/include/gettext-po.h
       $prefix/lib/libgettextlib*
