@@ -39,6 +39,49 @@ dnl Checks for library functions.
 AC_FUNC_ALLOCA
 AC_CHECK_FUNCS([snprintf vasprintf])
 
+dnl Check for C++ libraries needed to avoid link errors when creating
+dnl libasprintf.
+LIBCXX=
+cat > conftest.cc <<EOF
+#ifdef __SUNPRO_C
+SunPro C
+#endif
+#ifdef __SUNPRO_CC
+SunPro C++
+#endif
+EOF
+if $CXX -E conftest.cc  | grep SunPro > /dev/null ; then
+  # SUNWspro CC, defines __SUNPRO_CC
+  cxxcmd=CC
+  for word in $CXX; do
+    case "$word" in
+      CC | */CC) cxxcmd=$word ;;
+    esac
+  done
+  case "$cxxcmd" in
+    */*) ;;
+    *)
+      IFS="${IFS=	 }"; save_ifs="$IFS"; IFS="${IFS}:"
+      for dir in $PATH; do
+        test -z "$dir" && dir=.
+        if test -f "$dir/$cxxcmd"; then
+          cxxcmd="$dir/$cxxcmd"
+          break
+        fi
+      done
+      IFS="$save_ifs"
+      ;;
+  esac
+  case "$cxxcmd" in
+    */bin/CC)
+      cxxdir=`echo "$cxxcmd" | sed -e 's,/bin/CC$,,'`
+      LIBCXX="-L$cxxdir -lCstd -lCrun"
+      ;;
+  esac
+fi
+rm -f conftest.cc
+AC_SUBST(LIBCXX)
+
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG(DVIPS, dvips, $ac_aux_dir_abs/missing dvips)
