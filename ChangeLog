@@ -1,6 +1,7 @@
 2001-10-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Change version number to 0.11-pre1.
+	* Makefile.am (EXTRA_DIST): Add README-alpha.
 
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
