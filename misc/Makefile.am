@@ -1,5 +1,5 @@
 ## Makefile for the misc subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1997, 2000, 2001 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2000-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -21,6 +21,6 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
 DISTCLEANFILES = gettextize
-lisp_LISP = po-mode.el
+lisp_LISP = po-mode.el po-compat.el
 
 bin_SCRIPTS = gettextize

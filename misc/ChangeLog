@@ -1,6 +1,17 @@
+2002-04-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (lisp_LISP): Add po-compat.el.
+
+2002-03-17  Karl Eichwalder  <ke@suse.de>
+
+	* po-compat.el: New file, extracted from po-mode.el.
+	* po-mode.el (po-content-type-charset-alist, po-find-charset,
+	po-find-file-coding-system-guts, po-find-file-coding-system): Move to
+	po-compat.el.
+
 2002-04-19  Bruno Haible  <bruno@clisp.org>
 
-	* po-model.el (po-team-name-to-code): Add Ido and Walloon. Change
+	* po-mode.el (po-team-name-to-code): Add Ido and Walloon. Change
 	Javanese from jw to jv.
 
 2002-03-15  Bruno Haible  <bruno@clisp.org>
