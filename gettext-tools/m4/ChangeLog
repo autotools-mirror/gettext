@@ -1,3 +1,8 @@
+2003-07-01  Paul Eggert  <eggert@twinsun.com>
+
+	* xreadlink.m4 (gl_XREADLINK): Don't check for sys/types.h, since
+	xreadlink.c now includes it unconditionally.
+
 2003-08-16  Paul Eggert  <eggert@twinsun.com>
 
 	* readlink.m4 (gl_PREREQ_READLINK): Renamed from gl_PREREQ_READLINE,
