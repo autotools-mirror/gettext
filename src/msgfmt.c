@@ -28,6 +28,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 
 #include "dir-list.h"
@@ -124,6 +125,11 @@ static bool check_domain = false;
    X/Open msgfmt or XView msgfmt.  */
 static bool check_compatibility = false;
 
+/* If true, consider that strings containing an '&' are menu items and
+   the '&' designates a keyboard accelerator, and verify that the translations
+   also have a keyboard accelerator.  */
+static bool check_accelerators = false;
+
 /* Counters for statistics on translations for the processed files.  */
 static int msgs_translated;
 static int msgs_untranslated;
@@ -137,16 +143,17 @@ static const struct option long_options[] =
 {
   { "alignment", required_argument, NULL, 'a' },
   { "check", no_argument, NULL, 'c' },
+  { "check-accelerators", no_argument, NULL, CHAR_MAX + 1 },
   { "check-compatibility", no_argument, NULL, 'C' },
-  { "check-domain", no_argument, NULL, CHAR_MAX + 1 },
-  { "check-format", no_argument, NULL, CHAR_MAX + 2 },
-  { "check-header", no_argument, NULL, CHAR_MAX + 3 },
+  { "check-domain", no_argument, NULL, CHAR_MAX + 2 },
+  { "check-format", no_argument, NULL, CHAR_MAX + 3 },
+  { "check-header", no_argument, NULL, CHAR_MAX + 4 },
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "java", no_argument, NULL, 'j' },
-  { "java2", no_argument, NULL, CHAR_MAX + 4 },
+  { "java2", no_argument, NULL, CHAR_MAX + 5 },
   { "locale", required_argument, NULL, 'l' },
-  { "no-hash", no_argument, NULL, CHAR_MAX + 5 },
+  { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
   { "resource", required_argument, NULL, 'r' },
   { "statistics", no_argument, &do_statistics, 1 },
@@ -284,19 +291,22 @@ main (argc, argv)
 	do_version = true;
 	break;
       case CHAR_MAX + 1:
-	check_domain = true;
+	check_accelerators = true;
 	break;
       case CHAR_MAX + 2:
-	check_format_strings = true;
+	check_domain = true;
 	break;
       case CHAR_MAX + 3:
-	check_header = true;
+	check_format_strings = true;
 	break;
       case CHAR_MAX + 4:
+	check_header = true;
+	break;
+      case CHAR_MAX + 5:
 	java_mode = true;
 	assume_java2 = true;
 	break;
-      case CHAR_MAX + 5:
+      case CHAR_MAX + 6:
 	no_hash_table = true;
 	break;
       default:
@@ -515,6 +525,8 @@ Input file interpretation:\n\
       --check-domain          check for conflicts between domain directives\n\
                                 and the --output-file option\n\
   -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n\
+      --check-accelerators    check presence of keyboard accelerators for\n\
+                                menu items\n\
   -f, --use-fuzzy             use fuzzy entries in output\n\
 "));
       printf ("\n");
@@ -1063,6 +1075,42 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 	      parser->free (msgid_descr);
 	    }
 	}
+
+  if (check_accelerators && msgid_plural == NULL)
+    /* Test 4: Check that if msgid is a menu item with a keyboard accelerator,
+       the msgstr has an accelerator as well.  A keyboard accelerator is
+       designated by an immediately preceding '&'.  We cannot check whether
+       two accelerators collide, only whether the translator has bothered
+       thinking about them.  */
+    {
+      const char *p;
+
+      /* We are only interested in msgids that contain exactly one '&'.  */
+      p = strchr (msgid, '&');
+      if (p != NULL && strchr (p + 1, '&') == NULL)
+	{
+	  /* Count the number of '&' in msgstr.  */
+	  unsigned int count = 0;
+
+	  for (p = msgstr; (p = strchr (p, '&')) != NULL; p++)
+	    count++;
+
+	  if (count == 0)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			     _("msgstr lacks the keyboard accelerator mark '&'"));
+	      error_with_progname = true;
+	    }
+	  else if (count > 1)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			     _("msgstr has too many keyboard accelerator marks '&'"));
+	      error_with_progname = true;
+	    }
+	}
+    }
 }
 
 

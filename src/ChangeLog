@@ -1,5 +1,13 @@
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt.c (check_accelerators): New variable.
+	(long_options): Add --check-accelerators.
+	(main): Handle --check-accelerators.
+	(usage): Document --check-accelerators option.
+	(check_pair): Implement check_accelerators handling.
+
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgl-cat.c (catenate_msgdomain_list): Fix a typo in 2001-11-01 patch.
 	Reported by Karl Eichwalder.
 

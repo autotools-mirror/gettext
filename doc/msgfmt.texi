@@ -119,6 +119,14 @@ option
 Check that GNU msgfmt behaves like X/Open msgfmt.  This will give an error
 when attempting to use the GNU extensions.
 
+@item --check-accelerators
+Check presence of keyboard accelerators for menu items.  This is based on
+the convention used in some GUIs that a keyboard accelerator in a menu
+item string is designated by an immediately preceding @samp{&} character.
+Sometimes a keyboard accelerator is also called "keyboard mnemonic".
+This check verifies that if the untranslated string has exactly one
+@samp{&} character, the translated string has exactly one @samp{&} as well.
+
 @item -f
 @itemx --use-fuzzy
 Use fuzzy entries in output.  Note that using this option is usually wrong,
