@@ -1088,30 +1088,30 @@ in special ways.
 
 @table @kbd
 @item _
-Undo last modification to the PO file.
+Undo last modification to the PO file (@code{po-undo}).
 
 @item Q
-Quit processing and save the PO file.
+Quit processing and save the PO file (@code{po-quit}).
 
 @item q
-Quit processing, possibly after confirmation.
+Quit processing, possibly after confirmation (@code{po-confirm-and-quit}).
 
 @item 0
-Temporary leave the PO file window.
+Temporary leave the PO file window (@code{po-other-window}).
 
 @item ?
 @itemx h
-Show help about PO mode.
+Show help about PO mode (@code{po-help}).
 
 @item =
-Give some PO file statistics.
+Give some PO file statistics (@code{po-statistics}).
 
 @item V
-Batch validate the format of the whole PO file.
+Batch validate the format of the whole PO file (@code{po-validate}).
 
 @end table
 
-The command @kbd{U} (@code{po-undo}) interfaces to the Emacs
+The command @kbd{_} (@code{po-undo}) interfaces to the Emacs
 @emph{undo} facility.  @xref{Undo, , Undoing Changes, emacs, The Emacs
 Editor}.  Each time @kbd{U} is typed, modifications which the translator
 did to the PO file are undone a little more.  For the purpose of
@@ -1182,35 +1182,36 @@ the PO file, this also selects on which entry commands operate.
 
 Some PO mode commands alter the position of the cursor in a specialized
 way.  A few of those special purpose positioning are described here,
-the others are described in following sections.
+the others are described in following sections (for a complete list try
+@kbd{C-h m}):
 
 @table @kbd
 
 @item .
-Redisplay the current entry.
+Redisplay the current entry (@code{po-current-entry}).
 
 @item n
-@itemx n
-Select the entry after the current one.
+Select the entry after the current one (@code{po-next-entry}).
 
 @item p
-@itemx p
-Select the entry before the current one.
+Select the entry before the current one (@code{po-previous-entry}).
 
 @item <
-Select the first entry in the PO file.
+Select the first entry in the PO file (@@code{po-first-entry}).
 
 @item >
-Select the last entry in the PO file.
+Select the last entry in the PO file (@code{po-last-entry}).
 
 @item m
-Record the location of the current entry for later use.
+Record the location of the current entry for later use
+(@code{po-push-location}).
 
-@item l
-Return to a previously saved entry location.
+@item r
+Return to a previously saved entry location (@code{po-pop-location}).
 
 @item x
-Exchange the current entry location with the previously saved one.
+Exchange the current entry location with the previously saved one
+(@code{po-exchange-location}).
 
 @end table
 
@@ -1618,15 +1619,15 @@ fill in while you mark strings as translatable in your program sources.
 @table @kbd
 @item ,
 Search through program sources for a string which looks like a
-candidate for translation.
+candidate for translation (@code{po-tags-search}).
 
 @item M-,
-Mark the last string found with @samp{_()}.
+Mark the last string found with @samp{_()} (@code{po-mark-translatable}).
 
 @item M-.
 Mark the last string found with a keyword taken from a set of possible
 keywords.  This command with a prefix allows some management of these
-keywords.
+keywords (@code{po-select-mark-and-mark}).
 
 @end table
 
@@ -2120,15 +2121,15 @@ Some commands are more specifically related to translated entry processing.
 
 @table @kbd
 @item t
-Find the next translated entry.
+Find the next translated entry (@code{po-next-translated-entry}).
 
 @item T
-Find the previous translated entry.
+Find the previous translated entry (@code{po-previous-translated-entry}).
 
 @end table
 
 The commands @kbd{t} (@code{po-next-translated-entry}) and @kbd{M-t}
-(@code{po-previous-transted-entry}) move forwards or backwards, chasing
+(@code{po-previous-translated-entry}) move forwards or backwards, chasing
 for an translated entry.  If none is found, the search is extended and
 wraps around in the PO file buffer.
 
@@ -2166,19 +2167,20 @@ has to be later revisited.  So, some commands are more specifically
 related to fuzzy entry processing.
 
 @table @kbd
-@item f
-Find the next fuzzy entry.
+@item z
+@c better append "-entry" all the time. -ke-
+Find the next fuzzy entry (@code{po-next-fuzzy-entry}).
 
-@item F
-Find the previous fuzzy entry.
+@item Z
+Find the previous fuzzy entry (@code{po-previous-fuzzy-entry}).
 
 @item @key{TAB}
-Remove the fuzzy attribute of the current entry.
+Remove the fuzzy attribute of the current entry (@code{po-unfuzzy}).
 
 @end table
 
-The commands @kbd{f} (@code{po-next-fuzzy}) and @kbd{M-f}
-(@code{po-previous-fuzzy}) move forwards or backwards, chasing for
+The commands @kbd{z} (@code{po-next-fuzzy-entry}) and @kbd{Z}
+(@code{po-previous-fuzzy-entry}) move forwards or backwards, chasing for
 a fuzzy entry.  If none is found, the search is extended and wraps
 around in the PO file buffer.
 
@@ -2231,13 +2233,13 @@ processing.
 
 @table @kbd
 @item u
-Find the next untranslated entry.
+Find the next untranslated entry (@code{po-next-untranslated-entry}).
 
 @item U
-Find the previous untranslated entry.
+Find the previous untranslated entry (@code{po-previous-untransted-entry}).
 
 @item k
-Turn the current entry into an untranslated one.
+Turn the current entry into an untranslated one (@code{po-kill-msgstr}).
 
 @end table
 
@@ -2278,13 +2280,14 @@ entry processing.
 
 @table @kbd
 @item o
-Find the next obsolete entry.
+Find the next obsolete entry (@code{po-next-obsolete-entry}).
 
 @item O
-Find the previous obsolete entry.
+Find the previous obsolete entry (@code{po-previous-obsolete-entry}).
 
 @item @key{DEL}
-Make an active entry obsolete, or zap out an obsolete entry.
+Make an active entry obsolete, or zap out an obsolete entry
+(@code{po-fade-out-entry}).
 
 @end table
 
@@ -2341,19 +2344,23 @@ using the following commands for modifying the translations.
 
 @table @kbd
 @item @key{RET}
-Interactively edit the translation.
+Interactively edit the translation (@code{po-edit-msgstr}).
 
 @item @key{LFD}
-Reinitialize the translation with the original, untranslated string.
+@itemx C-j
+Reinitialize the translation with the original, untranslated string
+(@code{po-msgid-to-msgstr}).
 
 @item k
-Save the translation on the kill ring, and delete it.
+Save the translation on the kill ring, and delete it (@code{po-kill-msgstr}).
 
 @item w
-Save the translation on the kill ring, without deleting it.
+Save the translation on the kill ring, without deleting it
+(@code{po-kill-ring-save-msgstr}).
 
 @item y
-Replace the translation, taking the new from the kill ring.
+Replace the translation, taking the new from the kill ring
+(@code{po-yank-msgstr}).
 
 @end table
 
@@ -2494,16 +2501,19 @@ Translations}.
 @table @kbd
 
 @item #
-Interactively edit the translator comments.
+Interactively edit the translator comments (@code{po-edit-comment}).
 
 @item K
-Save the translator comments on the kill ring, and delete it.
+Save the translator comments on the kill ring, and delete it
+(@code{po-kill-comment}).
 
 @item W
-Save the translator comments on the kill ring, without deleting it.
+Save the translator comments on the kill ring, without deleting it
+(@code{po-kill-ring-save-comment}).
 
 @item Y
-Replace the translator comments, taking the new from the kill ring.
+Replace the translator comments, taking the new from the kill ring
+(@code{po-yank-comment}).
 
 @end table
 
@@ -2568,13 +2578,13 @@ of Emacs, which are described below.
 
 @table @kbd
 @item C-c C-c
-Complete edition.
+Complete edition (@code{po-subedit-exit}).
 
 @item C-c C-k
-Abort edition.
+Abort edition (@code{po-subedit-abort}).
 
 @item C-c C-a
-Consult auxiliary PO files.
+Consult auxiliary PO files (@code{po-subedit-cycle-auxiliary}).
 
 @end table
 
@@ -2593,7 +2603,8 @@ the original translation or comment.  Another way would be for her to exit
 normally with @w{@kbd{C-c C-c}}, then type @code{U} once for undoing the
 whole effect of last edition.
 
-The command @w{@kbd{C-c C-a}} allows for glancing through translations
+The command @w{@kbd{C-c C-a}} (@code{po-subedit-cycle-auxiliary})
+allows for glancing through translations
 already achieved in other languages, directly while editing the current
 translation.  This may be quite convenient when the translator is fluent
 at many languages, but of course, only makes sense when such completed
@@ -2669,20 +2680,24 @@ program source context for a PO file entry.
 
 @table @kbd
 @item s
-Resume the display of a program source context, or cycle through them.
+Resume the display of a program source context, or cycle through them
+(@code{po-cycle-source-reference}).
 
 @item M-s
-Display of a program source context selected by menu.
+Display of a program source context selected by menu
+(@code{po-select-source-reference}).
 
 @item S
-Add a directory to the search path for source files.
+Add a directory to the search path for source files
+(@code{po-consider-source-path}).
 
 @item M-S
-Delete a directory from the search path for source files.
+Delete a directory from the search path for source files
+(@code{po-ignore-source-path}).
 
 @end table
 
-The commands @kbd{s} (@code{po-cycle-reference}) and @kbd{M-s}
+The commands @kbd{s} (@code{po-cycle-source-reference}) and @kbd{M-s}
 (@code{po-select-source-reference}) both open another window displaying
 some source program file, and already positioned in such a way that
 it shows an actual use of the string to be translated.  By doing
@@ -2751,16 +2766,18 @@ Here are the auxiliary file commands available in PO mode.
 
 @table @kbd
 @item a
-Seek auxiliary files for another translation for the same entry.
+Seek auxiliary files for another translation for the same entry
+(@code{po-cycle-auxiliary}).
 
 @item C-c C-a
-Switch to a particular auxiliary file.
+Switch to a particular auxiliary file (@code{po-select-auxiliary}).
 
 @item A
-Declare this PO file as an auxiliary file.
+Declare this PO file as an auxiliary file (@code{po-consider-as-auxiliary}).
 
 @item M-A
-Remove this PO file from the list of auxiliary files.
+Remove this PO file from the list of auxiliary files
+(@code{po-ignore-as-auxiliary}).
 
 @end table
 
