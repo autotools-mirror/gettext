@@ -52,6 +52,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	     -e 's/#undef HAVE_ARPA_INET_H$$/#define HAVE_ARPA_INET_H 1/' \
 	     -e 's/#undef HAVE_CHOWN$$/#define HAVE_CHOWN 1/' \
+	     -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
@@ -149,6 +150,7 @@ config.h.msvc: config.h.in ../version.sh
 	sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	    -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	    -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 0/' \
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
