@@ -7323,9 +7323,19 @@ Tcl format strings are described in the @file{format.n} manual page,
 @node perl-format, php-format, tcl-format, Translators for other Languages
 @subsection Perl Format Strings
 
-Perl format strings are described in the @file{Locale::TextDomain}
-manual page, or in
-@uref{http://let.imperia.org/howto/en/perl-i18n/}.
+There are two kinds format strings in Perl: those acceptable to the
+Perl built-in function @code{printf}, labelled as @samp{perl-format},
+and those acceptable to the @code{libintl-perl} function @code{__x},
+labelled as @samp{perl-bracket-format}.
+
+Perl @code{printf} format strings are described in the @code{sprintf}
+section of @samp{man perlfunc}.
+
+Perl bracketed format strings are described in the
+@file{Locale::TextDomain(3pm)} manual page of the CPAN package
+libintl-perl.  In brief, Perl format uses placeholders put between
+brackets (@samp{[} and @samp{]}).  The placeholder must have the syntax
+of simple identifiers.
 
 @node php-format,  , perl-format, Translators for other Languages
 @subsection PHP Format Strings
@@ -7366,7 +7376,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @c on SourceForge/Freshmeat, as of February 2002.  Those supported by gettext
 @c are marked with a star.
 @c   C                       3580     *
-@c   Perl                    1911
+@c   Perl                    1911     *
 @c   C++                     1379     *
 @c   Java                    1200     *
 @c   PHP                     1051     *
@@ -8343,14 +8353,16 @@ http://www.cpan.org/).
 emulate
 
 @item Extractor
-@code{xgettext -k__ -k\$__ -k%__ -k__x -kN__ -k}
+@code{xgettext -k__ -k\$__ -k%__ -k__x -k__n -k__nx -k__xn -kN__ -k}
 
 @item Formatting with positions
-@code{__x("error opening '[file]': [err]", file => $file, err => $!);}
+Both kinds of format strings support formatting with positions.
+@*@code{printf "%2\$d %1\$d", ...} (requires Perl 5.8.0 or newer)
+@*@code{__expand("[new] replaces [old]", old => $oldvalue, new => $newvalue)}
 
 @item Portability
-The @code{libintl-perl} package is platform-independent but does
-not belong to the Perl core.  The programmer is responsible for
+The @code{libintl-perl} package is platform independent but is not
+part of the Perl core.  The programmer is responsible for
 providing a dummy implementation of the required functions if the 
 package is not installed on the target system.
 
@@ -8358,8 +8370,8 @@ package is not installed on the target system.
 ---
 
 @item Documentation
-In-depth documentation can be found at
-http://let.imperia.org/howto/en/perl-18n/.
+Included in @code{libintl-perl}, available on CPAN
+(http://www.cpan.org/).
 
 @end table
 
@@ -8369,7 +8381,7 @@ The @code{xgettext} parser backend for Perl differs significantly from
 the parser backends for other programming languages, just as Perl
 itself differs significantly from other programming languages.  The
 Perl parser backend offers many more string marking facilities than
-the other backends but it also has some Perl-specific limitations, the
+the other backends but it also has some Perl specific limitations, the
 worst probably being its imperfectness.
 
 @menu
@@ -8409,7 +8421,7 @@ In this context, the string @code{gettext} looks more like a
 file handle.  But not necessarily:
 
 @example
-use Locale::Messages;
+use Locale::Messages qw (:libintl_h);
 open gettext ">testfile" or die;
 print gettext "Hello world!";
 @end example
@@ -8485,8 +8497,9 @@ probably parsed incorrectly.
 If you find that @code{xgettext} fails to extract strings from
 portions of your sources, you should therefore look out for slashes
 and/or question marks preceding these sections.  You may have come
-across a bug in the @code{xgettext}'s Perl parser (and of course you
-should report that bug).
+across a bug in @code{xgettext}'s Perl parser (and of course you
+should report that bug).  In the meantime you should consider to
+reformulate your code in a manner less challenging to @code{xgettext}.
 
 @node Default Keywords, Special Keywords, General Problems, Perl
 @subsubsection Which keywords will xgettext look for?
@@ -8567,7 +8580,7 @@ print $gettext@{Error@};
 
 The exact rule is: You can omit the surrounding quotes, when the hash
 key is a valid C (!) identifier, i. e. when it starts with an
-underscore or a ASCII letter and is followed by an arbitrary number
+underscore or an ASCII letter and is followed by an arbitrary number
 of underscores, ASCII letters or digits.  Other Unicode characters
 are @emph{not} allowed, regardless of the @code{use utf8} pragma.
 
@@ -8625,8 +8638,11 @@ The operator @code{qx} is fully supported.  You can use arbitrary
 delimiters, including the four bracketing delimiters (round, angle,
 square, curly) that nest.
 
-Use this feature with care!  If you use it, you lose control of the
-external code executed from within your Perl script to your translator!
+The example is actually a useless use of @code{gettext}.  It will
+invoke the @code{gettext} function on the output of the command
+specified with the @code{qx} operator.  The feature was included
+in order to make the interface consistent (the parser will extract
+all strings and quote-like expressions).
 
 @item @strong{here documents}
 @group
@@ -8674,7 +8690,7 @@ executed).  The interpolation is performed by Perl before the string
 argument is passed to @code{gettext()} and will therefore depend on
 the name of the script which can only be determined at runtime.
 Consequently, it is almost impossible that a translation can be looked
-up at runtime (except if by accident the interpolated string is found
+up at runtime (except if, by accident, the interpolated string is found
 in the message catalog).
 
 The @code{xgettext} program will therefore terminate parsing with a fatal
@@ -8781,9 +8797,12 @@ for (i = 0; i < 100; ++i) @{
 EOF
 @end example
 
-If you exaggerate with constructs like the above, you will run the
-risk that the translators of your package will look out for a less
-challenging project.  You should consider an alternative expression:
+The parser will extract the entire here document, and it will appear
+entirely in the resulting PO file, including the JavaScript snippet
+embedded in the HTML code.  If you exaggerate with constructs like 
+the above, you will run the risk that the translators of your package 
+will look out for a less challenging project.  You should consider an 
+alternative expression here:
 
 @example
 print <<EOF;
@@ -8796,8 +8815,8 @@ for (i = 0; i < 100; ++i) @{
 EOF
 @end example
 
-The resulting PO file will begrudgingly improve in terms of
-readability.
+Only the translatable portions of the code will be extracted here, and
+the resulting PO file will begrudgingly improve in terms of readability.
 
 You can interpolate hash lookups in all strings or quote-like
 expressions that are subject to interpolation (see the manual page
@@ -8808,10 +8827,10 @@ expressions that are subject to interpolation (see the manual page
 print gettext qq@{Welcome to $gettext->@{"the earth"@}@};
 @end example
 
-The quoted string is recognized as an argument to @code{xgettext} in
+The @code{qq}-quoted string is recognized as an argument to @code{xgettext} in
 the first place, and checked for invalid variable interpolation.  The
-dollar sign will therefore terminate the parser with an ``invalid
-interpolation'' error.
+dollar sign of hash-dereferencing will therefore terminate the parser 
+with an ``invalid interpolation'' error.
 
 It is valid to interpolate hash lookups in regular expressions:
 
@@ -8888,6 +8907,11 @@ Perl is smart enough to concatenate these constant string fragments
 into one long string at compile time, and so is
 @code{xgettext}.  You will only find one long message in the resulting
 POT file.
+
+Note that the future Perl 6 will probably use the underscore
+(@samp{_}) as the string concatenation operator, and the dot 
+(@samp{.}) for dereferencing.  This new syntax is not yet supported by
+@code{xgettext}.
 
 If embedded newline characters are not an issue, or even desired, you
 may also insert newline characters inside quoted strings wherever you
@@ -8985,6 +9009,54 @@ problems if you use identifiers with characters outside the range of
 Maybe some of these missing features will be implemented in future
 versions, but since you can always make do without them at minimal effort,
 these todos have very low priority.
+
+A nasty problem are bracketed format strings that already contain brackets
+as part of the normal text, for example the usage strings typically
+encountered in programs:
+
+@example
+die "usage: $0 [OPTIONS] FILENAME...\n";
+@end example
+
+If you want to internationalize this code with Perl bracketed format strings,
+you will run into a problem:
+
+@example
+die __x ("usage: [program] [OPTIONS] FILENAME...\n", program => $0);
+@end example
+
+Whereas @code{@samp{[program]}} is a placeholder, @code{@samp{[OPTIONS]}}
+is not and should probably be translated. Yet, there is no way to teach
+the Perl parser in @code{xgettext} to recognize the first one, and leave
+the other one alone.
+
+There are two possible work-arounds for this problem.  If you are
+sure that your program will run under Perl 5.8.0 or newer (these
+Perl versions handle positional parameters in @code{printf()}) or
+if you are sure that the translator will not have to reorder the arguments
+in her translation -- for example if you have only one bracketed placeholder
+in your string, or if it describes a syntax, like in this one --, you can
+mark the string as @code{no-perl-bracket-format} and use @code{printf()}:
+
+@example
+# xgettext: no-perl-bracket-format
+die sprintf ("usage: %s [OPTIONS] FILENAME...\n", $0);
+@end example
+
+If you want to use the more portable Perl bracket format, you will have to do
+put placeholders in place of the literal brackets:
+
+@example
+die __x ("usage: [program] [@{]OPTIONS[@}] FILENAME...\n",
+         program => $0, '@{' => '[', '@}' => ']');
+@end example
+
+Perl bracketed format strings know no escaping mechanism.  No matter how this
+escaping mechanism looked like, it would either give the programmer a
+hard time, make translating Perl bracketed format strings heavy-going, or
+result in a performance penalty at runtime, when the format directives
+get executed.  Most of the time you will happily get along with
+@code{printf()} for this special case.
 
 @node PHP, Pike, Perl, List of Programming Languages
 @subsection PHP Hypertext Preprocessor

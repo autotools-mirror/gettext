@@ -24,7 +24,7 @@
   { "cgi",   "perl"   },						\
 
 #define SCANNERS_PERL \
-  { "perl",        extract_perl, &formatstring_c, &formatstring_perl },	\
+  { "perl",  extract_perl, &formatstring_perl, &formatstring_perl_bracket }, \
 
 /* Scan a Perl file and add its translatable strings to mdlp.  */
 extern void extract_perl (FILE *fp, const char *real_filename,

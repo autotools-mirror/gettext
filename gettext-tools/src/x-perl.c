@@ -811,6 +811,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
   quotemeta = false;
   while (*crs)
     {
+      bool backslashed;
+
       /* Ensure room for 6 bytes.  */
       if (bufpos + 6 > bufmax)
 	{
@@ -1032,10 +1034,15 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	      buffer[bufpos++] = *crs;
 	      ++crs;
 	      continue;
+	    default:
+	      backslashed = true;
+	      break;
 	    }
 	}
+      else
+	backslashed = false;
 
-      if (*crs == '$' || *crs == '@')
+      if (!backslashed && (*crs == '$' || *crs == '@'))
 	{
 	  error_with_progname = false;
 	  error (error_level, 0, _("\

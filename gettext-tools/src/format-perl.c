@@ -1,6 +1,6 @@
 /* Perl format strings.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
-   Written by Guido Flohr <guido@imperia.net>, 2003.
+   Copyright (C) 2003 Free Software Foundation, Inc.
+   Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,133 +19,523 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
-#include <alloca.h>
 
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "format.h"
+#include "c-ctype.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "error.h"
 #include "progname.h"
-#include "hash.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
 
-/* Perl format strings are currently quite simple.  They consist of
-   place-holders embedded in the string.
+/* Perl format strings are implemented in function Perl_sv_vcatpvfn in
+   perl-5.8.0/sv.c.
+   A directive
+   - starts with '%' or '%m$' where m is a positive integer starting with a
+     nonzero digit,
+   - is optionally followed by any of the characters '#', '0', '-', ' ', '+',
+     each of which acts as a flag,
+   - is optionally followed by a vector specification: 'v' or '*v' (reads an
+     argument) or '*m$v' where m is a positive integer starting with a nonzero
+     digit,
+   - is optionally followed by a width specification: '*' (reads an argument)
+     or '*m$' where m is a positive integer starting with a nonzero digit or
+     a nonempty digit sequence starting with a nonzero digit,
+   - is optionally followed by '.' and a precision specification: '*' (reads
+     an argument) or '*m$' where m is a positive integer starting with a
+     nonzero digit or a digit sequence,
+   - is optionally followed by a size specifier, one of 'h' 'l' 'll' 'L' 'q'
+     'V' 'I32' 'I64' 'I',
+   - is finished by a specifier
+       - '%', that needs no argument,
+       - 'c', that needs a small integer argument,
+       - 's', that needs a string argument,
+       - '_', that needs a scalar vector argument,
+       - 'p', that needs a pointer argument,
+       - 'i', 'd', 'D', that need an integer argument,
+       - 'u', 'U', 'b', 'o', 'O', 'x', 'X', that need an unsigned integer
+         argument,
+       - 'e', 'E', 'f', 'F', 'g', 'G', that need a floating-point argument,
+       - 'n', that needs a pointer to integer.
+   So there can be numbered argument specifications:
+   - '%m$' for the format string,
+   - '*m$v' for the vector,
+   - '*m$' for the width,
+   - '.*m$' for the precision.
+   Numbered and unnumbered argument specifications can be used in the same
+   string. The effect of '%m$' is to take argument number m, without affecting
+   the current argument number. The current argument number is incremented
+   after processing a directive with an unnumbered argument specification.
+ */
 
-   messageFormatPattern := string ("[" messageFormatElement "]" string)*
+enum format_arg_type
+{
+  FAT_NONE		= 0,
+  /* Basic types */
+  FAT_INTEGER		= 1,
+  FAT_DOUBLE		= 2,
+  FAT_CHAR		= 3,
+  FAT_STRING		= 4,
+  FAT_SCALAR_VECTOR	= 5,
+  FAT_POINTER		= 6,
+  FAT_COUNT_POINTER	= 7,
+  /* Flags */
+  FAT_UNSIGNED		= 1 << 3,
+  FAT_SIZE_SHORT	= 1 << 4,
+  FAT_SIZE_V		= 2 << 4,
+  FAT_SIZE_PTR		= 3 << 4,
+  FAT_SIZE_LONG		= 4 << 4,
+  FAT_SIZE_LONGLONG	= 5 << 4,
+  /* Bitmasks */
+  FAT_SIZE_MASK		= (FAT_SIZE_SHORT | FAT_SIZE_V | FAT_SIZE_PTR
+			   | FAT_SIZE_LONG | FAT_SIZE_LONGLONG)
+};
 
-   messageFormatElement := [_A-Za-z][_0-9A-Za-z]+
-
-   However, C format strings are also allowed and used.  The following
-   functions are therefore decorators for the C format checker, and
-   will only fall back to Perl format if the C check is negative.  */
+struct numbered_arg
+{
+  unsigned int number;
+  enum format_arg_type type;
+};
 
 struct spec
 {
   unsigned int directives;
-  hash_table hash;
-  void *c_format;
+  unsigned int numbered_arg_count;
+  unsigned int allocated;
+  struct numbered_arg *numbered;
 };
 
-static void *
-format_parse (const char *string, char **invalid_reason)
+/* Locale independent test for a decimal digit.
+   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
+   <ctype.h> isdigit must be an 'unsigned char'.)  */
+#undef isdigit
+#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
+
+/* Locale independent test for a nonzero decimal digit.  */
+#define isnonzerodigit(c) ((unsigned int) ((c) - '1') < 9)
+
+
+static int
+numbered_arg_compare (const void *p1, const void *p2)
 {
-  char *last_pos = (char *) string;
-  char *pos;
-  struct spec *spec;
-  void *c_format = formatstring_c.parse (string, invalid_reason);
+  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
+  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
 
-  if (c_format == NULL)
-    return NULL;
+  return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
+}
 
-  spec = (struct spec *) xmalloc (sizeof (struct spec));
+static void *
+format_parse (const char *format, char **invalid_reason)
+{
+  unsigned int directives;
+  unsigned int numbered_arg_count;
+  unsigned int allocated;
+  struct numbered_arg *numbered;
+  unsigned int unnumbered_arg_count;
+  struct spec *result;
 
-  spec->c_format = c_format;
+  directives = 0;
+  numbered_arg_count = 0;
+  unnumbered_arg_count = 0;
+  allocated = 0;
+  numbered = NULL;
 
-  init_hash (&spec->hash, 13);
-  while ((pos = strchr (last_pos, '[')) != NULL)
+  for (; *format != '\0';)
+    if (*format++ == '%')
+      {
+	/* A directive.  */
+	unsigned int number = 0;
+	bool vectorize = false;
+	enum format_arg_type type;
+	enum format_arg_type size;
+
+	directives++;
+
+	if (isnonzerodigit (*format))
+	  {
+	    const char *f = format;
+	    unsigned int m = 0;
+
+	    do
+	      {
+		m = 10 * m + (*f - '0');
+		f++;
+	      }
+	    while (isdigit (*f));
+
+	    if (*f == '$')
+	      {
+		number = m;
+		format = ++f;
+	      }
+	  }
+
+	/* Parse flags.  */
+	while (*format == ' ' || *format == '+' || *format == '-'
+	       || *format == '#' || *format == '0')
+	  format++;
+
+	/* Parse vector.  */
+	if (*format == 'v')
+	  {
+	    format++;
+	    vectorize = true;
+	  }
+	else if (*format == '*')
+	  {
+	    const char *f = format;
+
+	    f++;
+	    if (*f == 'v')
+	      {
+		format = ++f;
+		vectorize = true;
+
+		/* Unnumbered argument.  */
+		if (allocated == numbered_arg_count)
+		  {
+		    allocated = 2 * allocated + 1;
+		    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+		  }
+		numbered[numbered_arg_count].number = ++unnumbered_arg_count;
+		numbered[numbered_arg_count].type = FAT_SCALAR_VECTOR; /* or FAT_STRING? */
+		numbered_arg_count++;
+	      }
+	    else if (isnonzerodigit (*f))
+	      {
+		unsigned int m = 0;
+
+		do
+		  {
+		    m = 10 * m + (*f - '0');
+		    f++;
+		  }
+		while (isdigit (*f));
+
+		if (*f == '$')
+		  {
+		    f++;
+		    if (*f == 'v')
+		      {
+			unsigned int vector_number = m;
+
+			format = ++f;
+			vectorize = true;
+
+			/* Numbered argument.  */
+			/* Note: As of perl-5.8.0, this is not correctly
+			   implemented in perl's sv.c.  */
+			if (allocated == numbered_arg_count)
+			  {
+			    allocated = 2 * allocated + 1;
+			    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+			  }
+			numbered[numbered_arg_count].number = vector_number;
+			numbered[numbered_arg_count].type = FAT_SCALAR_VECTOR; /* or FAT_STRING? */
+			numbered_arg_count++;
+		      }
+		  }
+	      }
+	  }
+
+	if (vectorize)
+	  {
+	    /* Numbered or unnumbered argument.  */
+	    if (allocated == numbered_arg_count)
+	      {
+		allocated = 2 * allocated + 1;
+		numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+	      }
+	    numbered[numbered_arg_count].number = (number ? number : ++unnumbered_arg_count);
+	    numbered[numbered_arg_count].type = FAT_SCALAR_VECTOR;
+	    numbered_arg_count++;
+	  }
+
+	/* Parse width.  */
+	if (*format == '*')
+	  {
+	    unsigned int width_number = 0;
+
+	    format++;
+
+	    if (isnonzerodigit (*format))
+	      {
+		const char *f = format;
+		unsigned int m = 0;
+
+		do
+		  {
+		    m = 10 * m + (*f - '0');
+		    f++;
+		  }
+		while (isdigit (*f));
+
+		if (*f == '$')
+		  {
+		    width_number = m;
+		    format = ++f;
+		  }
+	      }
+
+	    /* Numbered or unnumbered argument.  */
+	    /* Note: As of perl-5.8.0, this is not correctly
+	       implemented in perl's sv.c.  */
+	    if (allocated == numbered_arg_count)
+	      {
+		allocated = 2 * allocated + 1;
+		numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+	      }
+	    numbered[numbered_arg_count].number = (width_number ? width_number : ++unnumbered_arg_count);
+	    numbered[numbered_arg_count].type = FAT_INTEGER;
+	    numbered_arg_count++;
+	  }
+	else if (isnonzerodigit (*format))
+	  {
+	    do format++; while (isdigit (*format));
+	  }
+
+	/* Parse precision.  */
+	if (*format == '.')
+	  {
+	    format++;
+
+	    if (*format == '*')
+	      {
+		unsigned int precision_number = 0;
+
+		format++;
+
+		if (isnonzerodigit (*format))
+		  {
+		    const char *f = format;
+		    unsigned int m = 0;
+
+		    do
+		      {
+			m = 10 * m + (*f - '0');
+			f++;
+		      }
+		    while (isdigit (*f));
+
+		    if (*f == '$')
+		      {
+			precision_number = m;
+			format = ++f;
+		      }
+		  }
+
+		/* Numbered or unnumbered argument.  */
+		if (allocated == numbered_arg_count)
+		  {
+		    allocated = 2 * allocated + 1;
+		    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+		  }
+		numbered[numbered_arg_count].number = (precision_number ? precision_number : ++unnumbered_arg_count);
+		numbered[numbered_arg_count].type = FAT_INTEGER;
+		numbered_arg_count++;
+	      }
+	    else
+	      {
+		while (isdigit (*format)) format++;
+	      }
+	  }
+
+	/* Parse size.  */
+	size = 0;
+	if (*format == 'h')
+	  {
+	    size = FAT_SIZE_SHORT;
+	    format++;
+	  }
+	else if (*format == 'l')
+	  {
+	    if (format[1] == 'l')
+	      {
+		size = FAT_SIZE_LONGLONG;
+		format += 2;
+	      }
+	    else
+	      {
+		size = FAT_SIZE_LONG;
+		format++;
+	      }
+	  }
+	else if (*format == 'L' || *format == 'q')
+	  {
+	    size = FAT_SIZE_LONGLONG;
+	    format++;
+	  }
+	else if (*format == 'V')
+	  {
+	    size = FAT_SIZE_V;
+	    format++;
+	  }
+	else if (*format == 'I')
+	  {
+	    if (format[1] == '6' && format[2] == '4')
+	      {
+		size = FAT_SIZE_LONGLONG;
+		format += 3;
+	      }
+	    else if (format[1] == '3' && format[2] == '2')
+	      {
+		size = 0; /* FAT_SIZE_INT */
+		format += 3;
+	      }
+	    else
+	      {
+		size = FAT_SIZE_PTR;
+		format++;
+	      }
+	  }	
+
+	switch (*format)
+	  {
+	  case '%':
+	    type = FAT_NONE;
+	    break;
+	  case 'c':
+	    type = FAT_CHAR;
+	    break;
+	  case 's':
+	    type = FAT_STRING;
+	    break;
+	  case '_':
+	    type = FAT_SCALAR_VECTOR;
+	    break;
+	  case 'D':
+	    type = FAT_INTEGER | FAT_SIZE_V;
+	    break;
+	  case 'i': case 'd':
+	    type = FAT_INTEGER | size;
+	    break;
+	  case 'U': case 'O':
+	    type = FAT_INTEGER | FAT_UNSIGNED | FAT_SIZE_V;
+	    break;
+	  case 'u': case 'b': case 'o': case 'x': case 'X':
+	    type = FAT_INTEGER | FAT_UNSIGNED | size;
+	    break;
+	  case 'e': case 'E': case 'f': case 'F': case 'g': case 'G':
+	    if (size == FAT_SIZE_SHORT || size == FAT_SIZE_LONG)
+	      {
+		*invalid_reason =
+		  xasprintf (_("In the directive number %u, the size specifier is incompatible with the conversion specifier '%c'."), directives, *format);
+		goto bad_format;
+	      }
+	    type = FAT_DOUBLE | size;
+	    break;
+	  case 'p':
+	    type = FAT_POINTER;
+	    break;
+	  case 'n':
+	    type = FAT_COUNT_POINTER | size;
+	    break;
+	  default:
+	    *invalid_reason =
+	      (*format == '\0'
+	       ? INVALID_UNTERMINATED_DIRECTIVE ()
+	       : INVALID_CONVERSION_SPECIFIER (directives, *format));
+	    goto bad_format;
+	  }
+
+	if (type != FAT_NONE && !vectorize)
+	  {
+	    /* Numbered or unnumbered argument.  */
+	    if (allocated == numbered_arg_count)
+	      {
+		allocated = 2 * allocated + 1;
+		numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+	      }
+	    numbered[numbered_arg_count].number = (number ? number : ++unnumbered_arg_count);
+	    numbered[numbered_arg_count].type = type;
+	    numbered_arg_count++;
+	  }
+
+	format++;
+      }
+
+  /* Sort the numbered argument array, and eliminate duplicates.  */
+  if (numbered_arg_count > 1)
     {
-      char *start = pos + 1;
+      unsigned int i, j;
+      bool err;
 
-      last_pos = start;
+      qsort (numbered, numbered_arg_count,
+	     sizeof (struct numbered_arg), numbered_arg_compare);
 
-      if (*last_pos == '_'
-	  || (*last_pos >= 'A' && *last_pos <= 'Z')
-	  || (*last_pos >= 'a' && *last_pos <= 'z'))
-	{
-	  ++last_pos;
+      /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
+      err = false;
+      for (i = j = 0; i < numbered_arg_count; i++)
+	if (j > 0 && numbered[i].number == numbered[j-1].number)
+	  {
+	    enum format_arg_type type1 = numbered[i].type;
+	    enum format_arg_type type2 = numbered[j-1].type;
+	    enum format_arg_type type_both;
 
-	  while (*last_pos == '_'
-		 || (*last_pos >= '0' && *last_pos <= '9')
-		 || (*last_pos >= 'A' && *last_pos <= 'Z')
-		 || (*last_pos >= 'a' && *last_pos <= 'z'))
-	    ++last_pos;
+	    if (type1 == type2)
+	      type_both = type1;
+	    else
+	      {
+		/* Incompatible types.  */
+		type_both = FAT_NONE;
+		if (!err)
+		  *invalid_reason =
+		    INVALID_INCOMPATIBLE_ARG_TYPES (numbered[i].number);
+		err = true;
+	      }
 
-	  if (*last_pos == ']')
-	    {
-	      size_t len = last_pos - start;
-	      int *hits;
-
-	      if (find_entry (&spec->hash, start, len, (void **) &hits) == 0)
-		{
-		  ++(*hits);
-		}
-	      else
-		{
-		  hits = (int *) xmalloc (sizeof (int));
-		  *hits = 1;
-		  insert_entry (&spec->hash, start, len, hits);
-		}
-	      ++last_pos;
-	      ++spec->directives;
-	    }
-	}
+	    numbered[j-1].type = type_both;
+	  }
+	else
+	  {
+	    if (j < i)
+	      {
+		numbered[j].number = numbered[i].number;
+		numbered[j].type = numbered[i].type;
+	      }
+	    j++;
+	  }
+      numbered_arg_count = j;
+      if (err)
+	/* *invalid_reason has already been set above.  */
+	goto bad_format;
     }
 
-  return spec;
+  result = (struct spec *) xmalloc (sizeof (struct spec));
+  result->directives = directives;
+  result->numbered_arg_count = numbered_arg_count;
+  result->allocated = allocated;
+  result->numbered = numbered;
+  return result;
+
+ bad_format:
+  if (numbered != NULL)
+    free (numbered);
+  return NULL;
 }
 
 static void
-format_free (void *description)
+format_free (void *descr)
 {
-  struct spec *spec = (struct spec *) description;
+  struct spec *spec = (struct spec *) descr;
 
-  if (spec != NULL)
-    {
-      void *ptr = NULL;
-      const void *key;
-      size_t keylen;
-      void *data;
-
-      while (iterate_table (&spec->hash, &ptr, &key, &keylen, &data) == 0)
-	free (data);
-
-      delete_hash (&spec->hash);
-
-      if (spec->c_format)
-	formatstring_c.free (spec->c_format);
-
-      free (spec);
-    }
+  if (spec->numbered != NULL)
+    free (spec->numbered);
+  free (spec);
 }
 
 static int
-format_get_number_of_directives (void *description)
+format_get_number_of_directives (void *descr)
 {
-  struct spec *spec = (struct spec *) description;
-  int c_directives;
+  struct spec *spec = (struct spec *) descr;
 
-  if (spec->c_format)
-    c_directives = formatstring_c.get_number_of_directives (spec->c_format);
-  else
-    c_directives = 0;
-
-  return c_directives + spec->directives;
+  return spec->directives;
 }
 
 static bool
@@ -154,106 +544,88 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
-  bool result = false;
-  void *ptr = NULL;
-  const void *key;
-  size_t keylen;
-  int *hits1;
-  int *hits2;
+  bool err = false;
 
-  /* First check the perl arguments.  We are probably faster than format-c.  */
-  if (equality)
+  if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      /* Pass 1: Check that every format specification in msgid has its
-	 counterpart in msgstr.  This is only necessary for equality.  */
-      while (iterate_table (&spec1->hash, &ptr, &key, &keylen,
-			    (void **) &hits1) == 0)
-	{
-	  if (find_entry (&spec2->hash, key, keylen, (void **) &hits2) == 0)
-	    {
-	      if (*hits1 != *hits2)
-		{
-		  result = true;
-		  if (noisy)
-		    {
-		      char *argname = (char *) alloca (keylen + 1);
-		      memcpy (argname, key, keylen);
-		      argname[keylen] = '\0';
+      unsigned int i, j;
+      unsigned int n1 = spec1->numbered_arg_count;
+      unsigned int n2 = spec2->numbered_arg_count;
 
-		      /* The next message shows the limitations of ngettext.
-			 It is not smart enough to say "once", "twice",
-			 "thrice/%d times", "%d times", ..., and it cannot
-			 grok with two variable arguments.  We have to
-			 work around the problem.  */
-		      error_with_progname = false;
-		      error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("\
-appearances of named argument '[%s]' do not match \
-(%d in original string, %d in '%s')"),
-				     argname, *hits1, *hits2, pretty_msgstr);
-		      error_with_progname = true;
-		    }
-		  else
-		    return true;
-		}
-	    }
-	  else
+      /* Check the argument names are the same.
+	 Both arrays are sorted.  We search for the first difference.  */
+      for (i = 0, j = 0; i < n1 || j < n2; )
+	{
+	  int cmp = (i >= n1 ? 1 :
+		     j >= n2 ? -1 :
+		     spec1->numbered[i].number > spec2->numbered[j].number ? 1 :
+		     spec1->numbered[i].number < spec2->numbered[j].number ? -1 :
+		     0);
+
+	  if (cmp > 0)
 	    {
-	      result = true;
 	      if (noisy)
 		{
-		  char *argname = (char *) alloca (keylen + 1);
-		  memcpy (argname, key, keylen);
-		  argname[keylen] = '\0';
-
 		  error_with_progname = false;
 		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("\
-named argument '[%s]' appears in original string but not in '%s'"),
-				 argname, pretty_msgstr);
+				 _("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
+				 spec2->numbered[j].number, pretty_msgstr);
 		  error_with_progname = true;
 		}
-	      else
-		return true;
+	      err = true;
+	      break;
 	    }
-	}
-    }
-
-  /* Pass 2: Check that the number of format specifications in msgstr
-     does not exceed the number of appearances in msgid.  */
-  ptr = NULL;
-  while (iterate_table (&spec2->hash, &ptr, &key, &keylen, (void**) &hits2)
-	 == 0)
-    {
-      if (find_entry (&spec1->hash, key, keylen, (void**) &hits1) != 0)
-	{
-	  result = true;
-	  if (noisy)
+	  else if (cmp < 0)
 	    {
-	      char *argname = (char *) alloca (keylen + 1);
-	      memcpy (argname, key, keylen);
-	      argname[keylen] = '\0';
-
-	      error_with_progname = false;
-	      error_at_line (0, 0, pos->file_name, pos->line_number,
-			     _("\
-named argument '[%s]' appears only in '%s' but not in the original string"),
-			     argname, pretty_msgstr);
-	      error_with_progname = true;
+	      if (equality)
+		{
+		  if (noisy)
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, pos->file_name, pos->line_number,
+				     _("a format specification for argument %u doesn't exist in '%s'"),
+				     spec1->numbered[i].number, pretty_msgstr);
+		      error_with_progname = true;
+		    }
+		  err = true;
+		  break;
+		}
+	      else
+		i++;
 	    }
 	  else
-	    return true;
+	    j++, i++;
 	}
+      /* Check the argument types are the same.  */
+      if (!err)
+	for (i = 0, j = 0; j < n2; )
+	  {
+	    if (spec1->numbered[i].number == spec2->numbered[j].number)
+	      {
+		if (spec1->numbered[i].type != spec2->numbered[j].type)
+		  {
+		    if (noisy)
+		      {
+			error_with_progname = false;
+			error_at_line (0, 0, pos->file_name, pos->line_number,
+				       _("format specifications in 'msgid' and '%s' for argument %u are not the same"),
+				       pretty_msgstr,
+				       spec2->numbered[j].number);
+			error_with_progname = true;
+		      }
+		    err = true;
+		    break;
+		  }
+		j++, i++;
+	      }
+	    else
+	      i++;
+	  }
     }
 
-  if (spec1->c_format && spec2->c_format)
-    {
-      result |= formatstring_c.check (pos, spec1->c_format, spec2->c_format,
-				      equality, noisy, pretty_msgstr);
-    }
-
-  return result;
+  return err;
 }
+
 
 struct formatstring_parser formatstring_perl =
 {
@@ -273,15 +645,11 @@ struct formatstring_parser formatstring_perl =
 #include "getline.h"
 
 static void
-format_print (void *descr, const char *line)
+format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  void *ptr = NULL;
-  const void *key;
-  size_t keylen;
-  int *data;
-
-  printf ("%s=> ", line);
+  unsigned int last;
+  unsigned int i;
 
   if (spec == NULL)
     {
@@ -289,14 +657,71 @@ format_print (void *descr, const char *line)
       return;
     }
 
-  while (iterate_table (&spec->hash, &ptr, &key, &keylen, (void**) &data) == 0)
+  printf ("(");
+  last = 1;
+  for (i = 0; i < spec->numbered_arg_count; i++)
     {
-      char *argname = (char *) alloca (keylen + 1);
-      memcpy (argname, key, keylen);
-      argname[keylen] = '\0';
+      unsigned int number = spec->numbered[i].number;
 
-      printf (">>>[%s]<<< ", argname);
+      if (i > 0)
+	printf (" ");
+      if (number < last)
+	abort ();
+      for (; last < number; last++)
+	printf ("_ ");
+      if (spec->numbered[i].type & FAT_UNSIGNED)
+	printf ("[unsigned]");
+      switch (spec->numbered[i].type & FAT_SIZE_MASK)
+	{
+	case 0:
+	  break;
+	case FAT_SIZE_SHORT:
+	  printf ("[short]");
+	  break;
+	case FAT_SIZE_V:
+	  printf ("[IV]");
+	  break;
+	case FAT_SIZE_PTR:
+	  printf ("[PTR]");
+	  break;
+	case FAT_SIZE_LONG:
+	  printf ("[long]");
+	  break;
+	case FAT_SIZE_LONGLONG:
+	  printf ("[long long]");
+	  break;
+	default:
+	  abort ();
+	}
+      switch (spec->numbered[i].type & ~(FAT_UNSIGNED | FAT_SIZE_MASK))
+	{
+	case FAT_INTEGER:
+	  printf ("i");
+	  break;
+	case FAT_DOUBLE:
+	  printf ("f");
+	  break;
+	case FAT_CHAR:
+	  printf ("c");
+	  break;
+	case FAT_STRING:
+	  printf ("s");
+	  break;
+	case FAT_SCALAR_VECTOR:
+	  printf ("sv");
+	  break;
+	case FAT_POINTER:
+	  printf ("p");
+	  break;
+	case FAT_COUNT_POINTER:
+	  printf ("n");
+	  break;
+	default:
+	  abort ();
+	}
+      last = number + 1;
     }
+  printf (")");
 }
 
 int
@@ -319,12 +744,11 @@ main ()
       invalid_reason = NULL;
       descr = format_parse (line, &invalid_reason);
 
-      format_print (descr, line);
+      format_print (descr);
       printf ("\n");
       if (descr == NULL)
 	printf ("%s\n", invalid_reason);
 
-      format_free (descr);
       free (invalid_reason);
       free (line);
     }

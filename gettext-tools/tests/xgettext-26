@@ -60,6 +60,71 @@ First here document.
 PERL
 Second here document.
 PERL
+
+# These are not invalid interpolations, because the dollar is backslashed.
+printf "%s\n", gettext "abc\$def";
+printf "%s\n", gettext "abc\\\$def";
+
+# These are not interpolations.
+printf "%s\n", gettext 'abc$defg';
+printf "%s\n", gettext 'abc\$defg';
+printf "%s\n", gettext 'abc\\$defg';
+printf "%s\n", gettext 'abc\\\$defg';
+
+# Two consecutive backslashes count as one inside single-quote strings.
+printf "%s\n", gettext 'ecs\tasy';
+printf "%s\n", gettext 'ecs\\tasy';
+printf "%s\n", gettext 'ecs\\\tasy';
+printf "%s\n", gettext 'ecs\\\\tasy';
+printf "%s\n", gettext 'ecs\\\\\tasy';
+printf "%s\n", gettext q(ecs\tasy);
+printf "%s\n", gettext q(ecs\\tasy);
+printf "%s\n", gettext q(ecs\\\tasy);
+printf "%s\n", gettext q(ecs\\\\tasy);
+printf "%s\n", gettext q(ecs\\\\\tasy);
+
+# Similarly, inside double-quote strings, two consecutive backslashes count
+# as one, but the last backslash of a sequence is combined with the following
+# character if possible.
+printf "%s\n", gettext "ecs\tasy";
+printf "%s\n", gettext "ecs\\tasy";
+printf "%s\n", gettext "ecs\\\tasy";
+printf "%s\n", gettext "ecs\\\\tasy";
+printf "%s\n", gettext "ecs\\\\\tasy";
+printf "%s\n", gettext qq(ecs\tasy);
+printf "%s\n", gettext qq(ecs\\tasy);
+printf "%s\n", gettext qq(ecs\\\tasy);
+printf "%s\n", gettext qq(ecs\\\\tasy);
+printf "%s\n", gettext qq(ecs\\\\\tasy);
+printf "%s\n", gettext "mari\huana";
+printf "%s\n", gettext "mari\\huana";
+printf "%s\n", gettext "mari\\\huana";
+printf "%s\n", gettext "mari\\\\huana";
+printf "%s\n", gettext "mari\\\\\huana";
+printf "%s\n", gettext qq(mari\huana);
+printf "%s\n", gettext qq(mari\\huana);
+printf "%s\n", gettext qq(mari\\\huana);
+printf "%s\n", gettext qq(mari\\\\huana);
+printf "%s\n", gettext qq(mari\\\\\huana);
+
+# Recognition of format strings.
+gettext "This is [only] a bracketed formatstring.";
+gettext "This is %s [mixed].";
+gettext "This is only %c.";
+gettext "This is nothing at all.";
+gettext "And this is %l also no format at all.";
+
+# xgettext: no-perl-format, perl-bracket-format
+gettext "The function '[func]' expects '%c' here.";
+
+# This is a contradictory case: The same string three times,
+# with different xgettext comments.
+# xgettext: perl-bracket-format, no-perl-format
+gettext "Left as an %exercise to [maintainer].";
+# xgettext: no-perl-bracket-format, perl-format
+gettext "Left as an %exercise to [maintainer].";
+# No xgettext comment this time.
+gettext "Left as an %exercise to [maintainer].";
 __END__
 gettext "Discarded!";
 EOF
@@ -70,7 +135,7 @@ ${XGETTEXT} --omit-header -n -k_ -k%__ -k\$__ xg-test26.pl -d xg-test26
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test26.ok"
-cat <<EOF > xg-test26.ok
+cat <<\EOF > xg-test26.ok
 #: xg-test26.pl:9
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
@@ -136,6 +201,101 @@ msgstr ""
 
 #: xg-test26.pl:52
 msgid "Second here document.\n"
+msgstr ""
+
+#: xg-test26.pl:56
+msgid "abc$def"
+msgstr ""
+
+#: xg-test26.pl:57
+msgid "abc\\$def"
+msgstr ""
+
+#: xg-test26.pl:60
+msgid "abc$defg"
+msgstr ""
+
+#: xg-test26.pl:61
+msgid "abc\\$defg"
+msgstr ""
+
+#: xg-test26.pl:62
+msgid "abc\\\\$defg"
+msgstr ""
+
+#: xg-test26.pl:63
+msgid "abc\\\\\\$defg"
+msgstr ""
+
+#: xg-test26.pl:66 xg-test26.pl:67 xg-test26.pl:71 xg-test26.pl:72
+#: xg-test26.pl:81 xg-test26.pl:86
+msgid "ecs\\tasy"
+msgstr ""
+
+#: xg-test26.pl:68 xg-test26.pl:69 xg-test26.pl:73 xg-test26.pl:74
+#: xg-test26.pl:83 xg-test26.pl:88
+msgid "ecs\\\\tasy"
+msgstr ""
+
+#: xg-test26.pl:70 xg-test26.pl:75
+msgid "ecs\\\\\\tasy"
+msgstr ""
+
+#: xg-test26.pl:80 xg-test26.pl:85
+msgid "ecs\tasy"
+msgstr ""
+
+#: xg-test26.pl:82 xg-test26.pl:87
+msgid "ecs\\\tasy"
+msgstr ""
+
+#: xg-test26.pl:84 xg-test26.pl:89
+msgid "ecs\\\\\tasy"
+msgstr ""
+
+#: xg-test26.pl:90 xg-test26.pl:95
+msgid "marihuana"
+msgstr ""
+
+#: xg-test26.pl:91 xg-test26.pl:92 xg-test26.pl:96 xg-test26.pl:97
+msgid "mari\\huana"
+msgstr ""
+
+#: xg-test26.pl:93 xg-test26.pl:94 xg-test26.pl:98 xg-test26.pl:99
+msgid "mari\\\\huana"
+msgstr ""
+
+#: xg-test26.pl:102
+#, perl-bracket-format
+msgid "This is [only] a bracketed formatstring."
+msgstr ""
+
+#: xg-test26.pl:103
+#, perl-format, perl-bracket-format
+msgid "This is %s [mixed]."
+msgstr ""
+
+#: xg-test26.pl:104
+#, perl-format
+msgid "This is only %c."
+msgstr ""
+
+#: xg-test26.pl:105
+msgid "This is nothing at all."
+msgstr ""
+
+#: xg-test26.pl:106
+msgid "And this is %l also no format at all."
+msgstr ""
+
+#: xg-test26.pl:109
+#, no-perl-format, perl-bracket-format
+msgid "The function '[func]' expects '%c' here."
+msgstr ""
+
+#: xg-test26.pl:114 xg-test26.pl:116 xg-test26.pl:118
+#, perl-format, no-perl-bracket-format
+msgid "Left as an %exercise to [maintainer]."
 msgstr ""
 EOF
 

@@ -1,3 +1,20 @@
+2003-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-26: Add more test cases, some from Guido Flohr.
+	* format-perl-1: Complete rewrite, based on format-c-1.
+	* format-perl-2: Complete rewrite, based on format-c-2.
+	* format-perl-bracket-1: New file, based on format-python-1, partially
+	from Guido Flohr.
+	* format-perl-bracket-2: New file, based on format-python-2, partially
+	from Guido Flohr.
+	* format-perl-mixed-1: New file, from Guido Flohr.
+	* format-perl-mixed-2: New file, from Guido Flohr.
+	* lang-perl-1: Renamed from lang-perl.
+	* lang-perl-2: New file, from Guido Flohr, based on lang-perl.
+	* Makefile.am (TESTS): Add format-perl-bracket-1,
+	format-perl-bracket-2, format-perl-mixed-1, format-perl-mixed-2,
+	lang-perl-1, lang-perl-2. Remove lang-perl.
+
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (TESTS_ENVIRONMENT): Also set LOCALE_FR.

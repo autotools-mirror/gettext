@@ -50,6 +50,9 @@ msgstr "xyz%1$uvw%2$c"
 msgid  "abc%i"
 msgstr "xyz%d"
 # Valid: type compatibility
+msgid  "abc%b"
+msgstr "xyz%o"
+# Valid: type compatibility
 msgid  "abc%o"
 msgstr "xyz%u"
 # Valid: type compatibility
@@ -58,12 +61,18 @@ msgstr "xyz%x"
 # Valid: type compatibility
 msgid  "abc%u"
 msgstr "xyz%X"
+# Valid: type and size compatibility
+msgid  "abc%x"
+msgstr "xyz%X"
 # Valid: type compatibility
 msgid  "abc%e"
 msgstr "xyz%E"
 # Valid: type compatibility
 msgid  "abc%e"
 msgstr "xyz%f"
+# Valid: type compatibility
+msgid  "abc%e"
+msgstr "xyz%F"
 # Valid: type compatibility
 msgid  "abc%e"
 msgstr "xyz%g"
@@ -75,49 +84,127 @@ msgid  "abc%c"
 msgstr "xyz%s"
 # Invalid: type incompatibility
 msgid  "abc%c"
+msgstr "xyz%_"
+# Invalid: type incompatibility
+msgid  "abc%c"
 msgstr "xyz%i"
 # Invalid: type incompatibility
 msgid  "abc%c"
-msgstr "xyz%o"
+msgstr "xyz%u"
 # Invalid: type incompatibility
 msgid  "abc%c"
 msgstr "xyz%e"
+# Invalid: type incompatibility
+msgid  "abc%c"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%c"
+msgstr "xyz%n"
+# Invalid: type incompatibility
+msgid  "abc%s"
+msgstr "xyz%_"
 # Invalid: type incompatibility
 msgid  "abc%s"
 msgstr "xyz%i"
 # Invalid: type incompatibility
 msgid  "abc%s"
-msgstr "xyz%o"
+msgstr "xyz%u"
 # Invalid: type incompatibility
 msgid  "abc%s"
 msgstr "xyz%e"
 # Invalid: type incompatibility
+msgid  "abc%s"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%s"
+msgstr "xyz%n"
+# Invalid: type incompatibility
+msgid  "abc%_"
+msgstr "xyz%i"
+# Invalid: type incompatibility
+msgid  "abc%_"
+msgstr "xyz%u"
+# Invalid: type incompatibility
+msgid  "abc%_"
+msgstr "xyz%e"
+# Invalid: type incompatibility
+msgid  "abc%_"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%_"
+msgstr "xyz%n"
+# Invalid: type incompatibility
 msgid  "abc%i"
-msgstr "xyz%o"
+msgstr "xyz%u"
 # Invalid: type incompatibility
 msgid  "abc%i"
 msgstr "xyz%e"
+# Invalid: type incompatibility
+msgid  "abc%i"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%i"
+msgstr "xyz%n"
 # Invalid: type incompatibility
 msgid  "abc%u"
 msgstr "xyz%e"
+# Invalid: type incompatibility
+msgid  "abc%u"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%u"
+msgstr "xyz%n"
+# Invalid: type incompatibility
+msgid  "abc%e"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%e"
+msgstr "xyz%n"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%n"
+# Invalid: size incompatibility
+msgid  "abc%hd"
+msgstr "xyz%d"
+# Invalid: size incompatibility
+msgid  "abc%hd"
+msgstr "xyz%ld"
+# Invalid: size incompatibility
+msgid  "abc%hd"
+msgstr "xyz%Vd"
+# Invalid: size incompatibility
+msgid  "abc%hd"
+msgstr "xyz%qd"
+# Invalid: size incompatibility
+msgid  "abc%d"
+msgstr "xyz%ld"
+# Invalid: size incompatibility
+msgid  "abc%d"
+msgstr "xyz%Vd"
+# Invalid: size incompatibility
+msgid  "abc%d"
+msgstr "xyz%qd"
+# Invalid: size incompatibility
+msgid  "abc%ld"
+msgstr "xyz%Vd"
+# Invalid: size incompatibility
+msgid  "abc%ld"
+msgstr "xyz%qd"
+# Invalid: size incompatibility
+msgid  "abc%Vd"
+msgstr "xyz%qd"
+# Invalid: size incompatibility
+msgid  "abc%d"
+msgstr "xyz%D"
+# Invalid: size incompatibility
+msgid  "abc%u"
+msgstr "xyz%U"
+# Invalid: size incompatibility
+msgid  "abc%o"
+msgstr "xyz%O"
 # Invalid: type incompatibility for width
 msgid  "abc%g%*g"
 msgstr "xyz%*g%g"
-# Valid: named arguments in arbitrary order
-msgid "[foo] [bar] [baz]: 1"
-msgstr "[baz] [bar] [foo]: 1"
-# Invalid: missing named argument in msgstr
-msgid "[foo] [bar] [baz]: 2"
-msgstr "[baz] [foo]: 2"
-# Invalid: missing named arguments in msgid
-msgid "[foo] [baz]: 3"
-msgstr "[baz] [bar] [foo]: 3"
-# Invalid: number of named arguments in msgstr exceeds msgid
-msgid "[foo] [bar] [baz]: 4"
-msgstr "[baz] [bar] [foo] [bar]: 4"
-# Invalid: number of named arguments in msgid exceeds msgstr
-msgid "[baz] [bar] [foo] [bar]: 5"
-msgstr "[foo] [bar] [baz]: 5"
 EOF
 
 : ${MSGFMT=msgfmt}
@@ -152,6 +239,7 @@ EOF
     cat f-pl-2-$n.po 1>&2
     exit 1
   fi
+  rm -f f-pl-2-$n.po f-pl-2-$n.mo
 done < f-pl-2.data
 
 rm -fr $tmpfiles

@@ -60,12 +60,14 @@ TESTS = gettext-1 gettext-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
 	format-perl-1 format-perl-2 \
+	format-perl-bracket-1 format-perl-bracket-2 \
+	format-perl-mixed-1 format-perl-mixed-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
 	lang-c lang-c++ lang-objc lang-python-1 lang-python-2 lang-clisp \
 	lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal \
-	lang-ycp lang-tcl lang-perl lang-php lang-po \
+	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po \
 	lang-rst
 
 EXTRA_DIST += $(TESTS) \

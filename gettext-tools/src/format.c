@@ -38,5 +38,6 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_ycp */		&formatstring_ycp,
   /* format_tcl */		&formatstring_tcl,
   /* format_perl */		&formatstring_perl,
+  /* format_perl_bracket */	&formatstring_perl_bracket,
   /* format_php */		&formatstring_php
 };

@@ -46,6 +46,7 @@ const char *const format_language[NFORMATS] =
   /* format_ycp */		"ycp",
   /* format_tcl */		"tcl",
   /* format_perl */		"perl",
+  /* format_perl_bracket */	"perl-bracket",
   /* format_php */		"php"
 };
 
@@ -63,6 +64,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_ycp */		"YCP",
   /* format_tcl */		"Tcl",
   /* format_perl */		"Perl",
+  /* format_perl_bracket */	"Perl bracket",
   /* format_php */		"PHP"
 };
 

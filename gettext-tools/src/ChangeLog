@@ -1,5 +1,27 @@
 2003-06-21  Bruno Haible  <bruno@clisp.org>
 
+	* format-perl.c: Complete rewrite.
+	* format-perl-bracket.c: New file.
+	* message.h (format_perl_bracket): New enum value.
+	(NFORMATS): Increment.
+	* format.h (formatstring_perl_bracket): New declaration.
+	* format.c (formatstring_parsers): Add entry for perl_bracket.
+	* message.c (format_language, format_language_pretty): Likewise.
+	* x-perl.h (SCANNERS_PERL): Use formatstring_perl and
+	formatstring_perl_bracket.
+	* Makefile.am (FORMAT_SOURCE): Add format-perl-bracket.c.
+	* Makefile.msvc (OBJECTS): Add format-perl.obj,format-perl-bracket.obj.
+	(xgettext_OBJECTS): Add x-perl.obj.
+	(format-perl.obj, format-perl-bracket.obj, x-perl.obj): New rules.
+	* Makefile.vms (OBJECTS): Add format-perl.obj, format-perl-bracket.obj.
+	(xgettext_OBJECTS): Add x-perl.obj.
+	(format-perl.obj, format-perl-bracket.obj, x-perl.obj): New rules.
+
+	* x-perl.c (extract_quotelike_pass3): Don't give an invalid
+	interpolation error for a backslashed dollar sign.
+
+2003-06-21  Bruno Haible  <bruno@clisp.org>
+
 	* x-perl.c (extract_quotelike_pass3): Fix handling of double backslash.
 
 2003-06-19  Bruno Haible  <bruno@clisp.org>

@@ -85,13 +85,15 @@ OBJECTS = \
   format-pascal.obj, \
   format-ycp.obj, \
   format-tcl.obj, \
+  format-perl.obj, \
+  format-perl-bracket.obj, \
   format-php.obj
 
 msgcmp_OBJECTS = msgcmp.obj
 msgfmt_OBJECTS = msgfmt.obj, write-mo.obj, write-java.obj, write-tcl.obj, plural-eval.obj
 msgmerge_OBJECTS = msgmerge.obj
 msgunfmt_OBJECTS = msgunfmt.obj, read-mo.obj, read-java.obj, read-tcl.obj
-xgettext_OBJECTS = xgettext.obj, x-c.obj, x-po.obj, x-python.obj, x-lisp.obj, x-elisp.obj, x-librep.obj, x-smalltalk.obj, x-java.obj, x-awk.obj, x-ycp.obj, x-tcl.obj, x-php.obj, x-rst.obj, x-glade.obj
+xgettext_OBJECTS = xgettext.obj, x-c.obj, x-po.obj, x-python.obj, x-lisp.obj, x-elisp.obj, x-librep.obj, x-smalltalk.obj, x-java.obj, x-awk.obj, x-ycp.obj, x-tcl.obj, x-perl.obj, x-php.obj, x-rst.obj, x-glade.obj
 msgattrib_OBJECTS = msgattrib.obj
 msgcat_OBJECTS = msgcat.obj
 msgcomm_OBJECTS = msgcomm.obj
@@ -210,6 +212,12 @@ format-ycp.obj : format-ycp.c
 format-tcl.obj : format-tcl.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-tcl.c
 
+format-perl.obj : format-perl.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-perl.c
+
+format-perl-bracket.obj : format-perl-bracket.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-perl-bracket.c
+
 format-php.obj : format-php.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-php.c
 
@@ -286,6 +294,9 @@ x-ycp.obj : x-ycp.c
 
 x-tcl.obj : x-tcl.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-tcl.c
+
+x-perl.obj : x-perl.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-perl.c
 
 x-php.obj : x-php.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-php.c
