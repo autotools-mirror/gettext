@@ -1,5 +1,12 @@
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
+	* djgpp/*: DJGPP support.
+	From Juan Manuel Guerrero <st001906@hrz1.hrz.tu-darmstadt.de>.
+	* Makefile.am (EXTRA_DIST): Add these files.
+	(MAINTAINERCLEANFILES): New variable.
+
+2001-03-09  Bruno Haible  <haible@clisp.cons.org>
+
 	* configure.in (RELEASE_DATE): New variable.
 	Create intl/ChangeLog.inst.
 
