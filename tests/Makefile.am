@@ -54,7 +54,7 @@ TESTS = gettext-1 gettext-2 \
 	plural-1 plural-2 \
 	lang-c lang-c++ lang-objc lang-clisp lang-java lang-pascal lang-ycp lang-po lang-rst
 
-EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-a.in msguniq-a.out
+EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out
 
 XGETTEXT = ../src/xgettext
 

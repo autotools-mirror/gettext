@@ -59,19 +59,10 @@ EOF
 
 tmpfiles="$tmpfiles mex-test2.out"
 : ${MSGEXEC=msgexec}
-(${MSGEXEC} -i mex-test2.po 0 | tr '\000' '@' ; echo) > mex-test2.out
+${MSGEXEC} -i mex-test2.po 0 > mex-test2.out
 
-tmpfiles="$tmpfiles mex-test2.ok"
-cat <<EOF > mex-test2.ok
-Project-Id-Version: Bonnie Tyler
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-@So viele verheiratete Männer@und ihre Frauen verstehen sie nicht@@@@@Die Flügel der frischen Liebe
-heben dich zum Himmel@Für die anderen@bist du bloß ein verrücktes dummes Ding@das einen verheirateten Mann liebt@
-EOF
-
-: ${DIFF=diff}
-${DIFF} mex-test2.ok mex-test2.out
+: ${CMP=cmp}
+${CMP} mex-test2.ok mex-test2.out >/dev/null 2>/dev/null
 result=$?
 
 rm -fr $tmpfiles

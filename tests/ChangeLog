@@ -1,3 +1,9 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* msgexec-2: Don't use 'tr'. It is broken on Solaris.
+	* mex-test2.ok: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt-7: Write "8bit", not "8-bit".
