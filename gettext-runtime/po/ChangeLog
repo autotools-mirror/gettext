@@ -1,3 +1,7 @@
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add ../gettext-tools/lib/closeout.c, src/envsubst.c.
+
 2003-08-22  Bruno Haible  <bruno@clisp.org>
 
 	* zh_CN.po: New file, from Funda Wang <fundawang@linux.net.cn>.

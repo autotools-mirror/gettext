@@ -1,3 +1,7 @@
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add src/format-sh.c, src/x-sh.c, lib/closeout.c.
+
 2003-08-25  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: Add format-gcc-internal.c.

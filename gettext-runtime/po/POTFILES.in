@@ -5,10 +5,12 @@
 #   $ grep -l '[^A-Za-z_]_(' {lib,src}/*.[chly]
 
 # Files from the compatibility library
+../gettext-tools/lib/closeout.c
 ../gettext-tools/lib/error.c
 ../gettext-tools/lib/getopt.c
 ../gettext-tools/lib/xmalloc.c
 
 # Package source files
+src/envsubst.c
 src/gettext.c
 src/ngettext.c

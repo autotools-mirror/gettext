@@ -6,6 +6,7 @@
 
 # Files from the compatibility library
 lib/argmatch.c
+lib/closeout.c
 lib/copy-file.c
 lib/error.c
 lib/execute.c
@@ -37,6 +38,7 @@ src/format-perl.c
 src/format-perl-brace.c
 src/format-php.c
 src/format-python.c
+src/format-sh.c
 src/format-tcl.c
 src/format-ycp.c
 src/hostname.c
@@ -83,6 +85,7 @@ src/x-php.c
 src/x-po.c
 src/x-python.c
 src/x-rst.c
+src/x-sh.c
 src/x-smalltalk.c
 src/x-tcl.c
 src/x-ycp.c
