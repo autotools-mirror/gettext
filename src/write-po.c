@@ -49,7 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static const char *make_c_format_description_string PARAMS ((enum is_c_format,
-							     int debug));
+							     bool debug));
 static int significant_c_format_p PARAMS ((enum is_c_format is_c_format));
 static const char *make_c_width_description_string PARAMS ((enum is_c_format));
 static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
@@ -57,11 +57,11 @@ static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
 			  const char *charset));
 static void print_blank_line PARAMS ((FILE *fp));
 static void message_print PARAMS ((const message_ty *mp, FILE *fp,
-				   const char *charset, int blank_line,
-				   int debug));
+				   const char *charset, bool blank_line,
+				   bool debug));
 static void message_print_obsolete PARAMS ((const message_ty *mp, FILE *fp,
 					    const char *charset,
-					    int blank_line));
+					    bool blank_line));
 static int msgid_cmp PARAMS ((const void *va, const void *vb));
 static int filepos_cmp PARAMS ((const void *va, const void *vb));
 
@@ -90,27 +90,27 @@ message_page_width_set (n)
 
 /* These three variables control the output style of the message_print
    function.  Interface functions for them are to be used.  */
-static int indent;
-static int uniforum;
-static int escape;
+static bool indent = false;
+static bool uniforum = false;
+static bool escape = false;
 
 void
 message_print_style_indent ()
 {
-  indent = 1;
+  indent = true;
 }
 
 void
 message_print_style_uniforum ()
 {
-  uniforum = 1;
+  uniforum = true;
 }
 
 void
 message_print_style_escape (flag)
-     int flag;
+     bool flag;
 {
-  escape = (flag != 0);
+  escape = flag;
 }
 
 
@@ -120,7 +120,7 @@ message_print_style_escape (flag)
 static const char *
 make_c_format_description_string (is_c_format, debug)
      enum is_c_format is_c_format;
-     int debug;
+     bool debug;
 {
   const char *result = NULL;
 
@@ -193,7 +193,7 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
      const char *charset;
 {
   const char *s;
-  int first_line;
+  bool first_line;
 #if HAVE_ICONV
   const char *envval;
   iconv_t conv;
@@ -223,7 +223,7 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 
   /* Loop over the '\n' delimited portions of value.  */
   s = value;
-  first_line = 1;
+  first_line = true;
   do
     {
       /* The \a and \v escapes were added by the ANSI C Standard.
@@ -449,7 +449,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	    fputs (line_prefix, fp);
 	  fputs (name, fp);
 	  fputs (" \"\"\n", fp);
-	  first_line = 0;
+	  first_line = false;
 	  /* Recompute startcol and linebreaks.  */
 	  goto recompute;
 	}
@@ -463,7 +463,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	{
 	  fputs (name, fp);
 	  putc (indent ? '\t' : ' ', fp);
-	  first_line = 0;
+	  first_line = false;
 	}
       else
 	{
@@ -520,8 +520,8 @@ message_print (mp, fp, charset, blank_line, debug)
      const message_ty *mp;
      FILE *fp;
      const char *charset;
-     int blank_line;
-     int debug;
+     bool blank_line;
+     bool debug;
 {
   size_t j;
 
@@ -625,7 +625,7 @@ message_print (mp, fp, charset, blank_line, debug)
       || significant_c_format_p (mp->is_c_format)
       || mp->do_wrap == no)
     {
-      int first_flag = 1;
+      bool first_flag = true;
 
       putc ('#', fp);
       putc (',', fp);
@@ -636,7 +636,7 @@ message_print (mp, fp, charset, blank_line, debug)
       if (mp->is_fuzzy && mp->msgstr[0] != '\0')
 	{
 	  fputs (" fuzzy", fp);
-	  first_flag = 0;
+	  first_flag = false;
 	}
 
       if (significant_c_format_p (mp->is_c_format))
@@ -646,7 +646,7 @@ message_print (mp, fp, charset, blank_line, debug)
 
 	  fputs (make_c_format_description_string (mp->is_c_format, debug),
 		 fp);
-	  first_flag = 0;
+	  first_flag = false;
 	}
 
       if (mp->do_wrap == no)
@@ -655,7 +655,7 @@ message_print (mp, fp, charset, blank_line, debug)
 	    putc (',', fp);
 
 	  fputs (make_c_width_description_string (mp->do_wrap), fp);
-	  first_flag = 0;
+	  first_flag = false;
 	}
 
       putc ('\n', fp);
@@ -692,7 +692,7 @@ message_print_obsolete (mp, fp, charset, blank_line)
      const message_ty *mp;
      FILE *fp;
      const char *charset;
-     int blank_line;
+     bool blank_line;
 {
   size_t j;
 
@@ -735,7 +735,7 @@ message_print_obsolete (mp, fp, charset, blank_line)
   /* Print flag information in special comment.  */
   if (mp->is_fuzzy)
     {
-      int first = 1;
+      bool first = true;
 
       putc ('#', fp);
       putc (',', fp);
@@ -743,7 +743,7 @@ message_print_obsolete (mp, fp, charset, blank_line)
       if (mp->is_fuzzy)
 	{
 	  fputs (" fuzzy", fp);
-	  first = 0;
+	  first = false;
 	}
 
       putc ('\n', fp);
@@ -778,18 +778,18 @@ void
 msgdomain_list_print (mdlp, filename, force, debug)
      msgdomain_list_ty *mdlp;
      const char *filename;
-     int force;
-     int debug;
+     bool force;
+     bool debug;
 {
   FILE *fp;
   size_t j, k;
-  int blank_line;
+  bool blank_line;
 
   /* We will not write anything if, for every domain, we have no message
      or only the header entry.  */
   if (!force)
     {
-      int found_nonempty = 0;
+      bool found_nonempty = false;
 
       for (k = 0; k < mdlp->nitems; k++)
 	{
@@ -798,7 +798,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
 	  if (!(mlp->nitems == 0
 		|| (mlp->nitems == 1 && mlp->item[0]->msgid[0] == '\0')))
 	    {
-	      found_nonempty = 1;
+	      found_nonempty = true;
 	      break;
 	    }
 	}
@@ -824,7 +824,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
     }
 
   /* Write out the messages for each domain.  */
-  blank_line = 0;
+  blank_line = false;
   for (k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp;
@@ -839,7 +839,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
 	  if (blank_line)
 	    print_blank_line (fp);
 	  fprintf (fp, "domain \"%s\"\n", mdlp->item[k]->domain);
-	  blank_line = 1;
+	  blank_line = true;
 	}
 
       mlp = mdlp->item[k]->messages;
@@ -847,7 +847,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
       /* Search the header entry.  */
       header = NULL;
       for (j = 0; j < mlp->nitems; ++j)
-	if (mlp->item[j]->msgid[0] == '\0' && mlp->item[j]->obsolete == 0)
+	if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
 	  {
 	    header = mlp->item[j]->msgstr;
 	    break;
@@ -873,18 +873,18 @@ msgdomain_list_print (mdlp, filename, force, debug)
 
       /* Write out each of the messages for this domain.  */
       for (j = 0; j < mlp->nitems; ++j)
-	if (mlp->item[j]->obsolete == 0)
+	if (!mlp->item[j]->obsolete)
 	  {
 	    message_print (mlp->item[j], fp, charset, blank_line, debug);
-	    blank_line = 1;
+	    blank_line = true;
 	  }
 
       /* Write out each of the obsolete messages for this domain.  */
       for (j = 0; j < mlp->nitems; ++j)
-	if (mlp->item[j]->obsolete != 0)
+	if (mlp->item[j]->obsolete)
 	  {
 	    message_print_obsolete (mlp->item[j], fp, charset, blank_line);
-	    blank_line = 1;
+	    blank_line = true;
 	  }
     }
 

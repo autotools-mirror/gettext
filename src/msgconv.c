@@ -79,13 +79,13 @@ main (argc, argv)
      char **argv;
 {
   int opt;
-  int do_help;
-  int do_version;
+  bool do_help;
+  bool do_version;
   char *output_file;
   const char *input_file;
   msgdomain_list_ty *result;
-  int sort_by_filepos = 0;
-  int sort_by_msgid = 0;
+  bool sort_by_filepos = false;
+  bool sort_by_msgid = false;
 
   /* Set program name for messages.  */
   program_name = argv[0];
@@ -101,8 +101,8 @@ main (argc, argv)
   textdomain (PACKAGE);
 
   /* Set default values for variables.  */
-  do_help = 0;
-  do_version = 0;
+  do_help = false;
+  do_version = false;
   output_file = NULL;
   input_file = NULL;
 
@@ -118,19 +118,19 @@ main (argc, argv)
 	break;
 
       case 'e':
-	message_print_style_escape (0);
+	message_print_style_escape (false);
 	break;
 
       case 'E':
-	message_print_style_escape (1);
+	message_print_style_escape (true);
 	break;
 
       case 'F':
-	sort_by_filepos = 1;
+	sort_by_filepos = true;
 	break;
 
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
 
       case 'i':
@@ -142,7 +142,7 @@ main (argc, argv)
 	break;
 
       case 's':
-	sort_by_msgid = 1;
+	sort_by_msgid = true;
 	break;
 
       case 'S':
@@ -154,7 +154,7 @@ main (argc, argv)
 	break;
 
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
 
       case 'w':
@@ -219,7 +219,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the merged message list out.  */
-  msgdomain_list_print (result, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, false);
 
   exit (EXIT_SUCCESS);
 }

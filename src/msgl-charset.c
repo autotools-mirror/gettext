@@ -43,20 +43,20 @@ compare_po_locale_charsets (mdlp)
 {
   const char *locale_code;
   const char *canon_locale_code;
-  int warned;
+  bool warned;
   size_t j, k;
 
   /* Check whether the locale encoding and the PO file's encoding are the
      same.  Otherwise emit a warning.  */
   locale_code = locale_charset ();
   canon_locale_code = po_charset_canonicalize (locale_code);
-  warned = 0;
+  warned = false;
   for (k = 0; k < mdlp->nitems; k++)
     {
       const message_list_ty *mlp = mdlp->item[k]->messages;
 
       for (j = 0; j < mlp->nitems; j++)
-	if (mlp->item[j]->msgid[0] == '\0' && mlp->item[j]->obsolete == 0)
+	if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
 	  {
 	    const char *header = mlp->item[j]->msgstr;
 
@@ -112,7 +112,7 @@ Possible workarounds are:\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
 "), "UTF-8", "UTF-8", basename (program_name), canon_charset));
-			warned = 1;
+			warned = true;
 		      }
 		  }
 	      }

@@ -215,7 +215,7 @@ string_list_join (slp)
 
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */
-int
+bool
 string_list_member (slp, s)
      const string_list_ty *slp;
      const char *s;
@@ -224,6 +224,6 @@ string_list_member (slp, s)
 
   for (j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
-      return 1;
-  return 0;
+      return true;
+  return false;
 }

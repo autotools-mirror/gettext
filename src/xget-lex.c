@@ -106,10 +106,10 @@ static const char *file_name;
 static char *logical_file_name;
 static int line_number;
 static FILE *fp;
-static int trigraphs;
+static bool trigraphs = false;
 static string_list_ty *comment;
 static hash_table keywords;
-static int default_keywords = 1;
+static bool default_keywords = true;
 
 /* These are for tracking whether comments count as immediately before
    keyword.  */
@@ -697,7 +697,7 @@ phase5_get (tp)
       *tp = phase5_pushback[--phase5_pushback_length];
       return;
     }
-  tp->string = 0;
+  tp->string = NULL;
   tp->number = 0;
   tp->line_number = line_number;
   c = phase4_getc ();
@@ -875,10 +875,10 @@ phase5_get (tp)
 	  c = phase7_getc ();
 	  if (c == P7_NEWLINE)
 	    {
-	      error_with_progname = 0;
+	      error_with_progname = false;
 	      error (0, 0, _("%s:%d: warning: unterminated character constant"),
 	        logical_file_name, line_number - 1);
-	      error_with_progname = 1;
+	      error_with_progname = true;
 	      phase7_ungetc ('\n');
 	      break;
 	    }
@@ -899,10 +899,10 @@ phase5_get (tp)
 	  c = phase7_getc ();
 	  if (c == P7_NEWLINE)
 	    {
-	      error_with_progname = 0;
+	      error_with_progname = false;
 	      error (0, 0, _("%s:%d: warning: unterminated string literal"),
 	        logical_file_name, line_number - 1);
-	      error_with_progname = 1;
+	      error_with_progname = true;
 	      phase7_ungetc ('\n');
 	      break;
 	    }
@@ -970,12 +970,12 @@ static void
 phaseX_get (tp)
      token_ty *tp;
 {
-  static int middle;	/* 0 at the beginning of a line, 1 otherwise.  */
+  static bool middle;	/* false at the beginning of a line, true otherwise.  */
 
   phase5_get (tp);
 
   if (tp->type == token_type_eoln || tp->type == token_type_eof)
-    middle = 0;
+    middle = false;
   else
     {
       if (middle)
@@ -999,7 +999,7 @@ phaseX_get (tp)
 	      else
 		phase5_unget (&next);
 	    }
-	  middle = 1;
+	  middle = true;
 	}
     }
 }
@@ -1202,7 +1202,7 @@ xgettext_lex (tp)
 	      xgettext_lex_keyword ("dngettext:2,3");
 	      xgettext_lex_keyword ("dcngettext:2,3");
 	      xgettext_lex_keyword ("gettext_noop");
-	      default_keywords = 0;
+	      default_keywords = false;
 	    }
 
 	  if (find_entry (&keywords, token.string, strlen (token.string) + 1,
@@ -1262,7 +1262,7 @@ xgettext_lex_keyword (name)
      const char *name;
 {
   if (name == NULL)
-    default_keywords = 0;
+    default_keywords = false;
   else
     {
       int argnum1;
@@ -1310,7 +1310,7 @@ xgettext_lex_keyword (name)
 }
 
 
-int
+bool
 xgettext_any_keywords ()
 {
   return (keywords.filled > 0) || default_keywords;
@@ -1341,5 +1341,5 @@ xgettext_lex_comment_reset ()
 void
 xgettext_lex_trigraphs ()
 {
-  trigraphs = 1;
+  trigraphs = true;
 }

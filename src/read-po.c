@@ -58,7 +58,7 @@ struct readall_class_ty
   string_list_ty *comment_dot;
 
   /* Flags transported in special comments.  */
-  int is_fuzzy;
+  bool is_fuzzy;
   enum is_c_format is_c_format;
   enum is_wrap do_wrap;
 
@@ -78,7 +78,7 @@ static void readall_directive_message PARAMS ((po_ty *that, char *msgid,
 					       char *msgid_plural,
 					       char *msgstr, size_t msgstr_len,
 					       lex_pos_ty *msgstr_pos,
-					       int obsolete));
+					       bool obsolete));
 static void readall_parse_brief PARAMS ((po_ty *that));
 static void readall_comment PARAMS ((po_ty *that, const char *s));
 static void readall_comment_dot PARAMS ((po_ty *that, const char *s));
@@ -100,7 +100,7 @@ readall_constructor (that)
   this->comment_dot = NULL;
   this->filepos_count = 0;
   this->filepos = NULL;
-  this->is_fuzzy = 0;
+  this->is_fuzzy = false;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
 }
@@ -168,7 +168,7 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
-     int obsolete;
+     bool obsolete;
 {
   readall_class_ty *this = (readall_class_ty *) that;
   message_ty *mp;
@@ -226,7 +226,7 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
     free (this->filepos);
   this->filepos_count = 0;
   this->filepos = NULL;
-  this->is_fuzzy = 0;
+  this->is_fuzzy = false;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
 }
@@ -236,7 +236,7 @@ static void
 readall_parse_brief (that)
      po_ty *that;
 {
-  po_lex_pass_comments (1);
+  po_lex_pass_comments (true);
 }
 
 
@@ -274,7 +274,7 @@ readall_comment_special (that, s)
   readall_class_ty *this = (readall_class_ty *) that;
 
   if (strstr (s, "fuzzy") != NULL)
-    this->is_fuzzy = 1;
+    this->is_fuzzy = true;
 
   this->is_c_format = parse_c_format_description_string (s);
   this->do_wrap = parse_c_width_description_string (s);
@@ -331,7 +331,7 @@ read_po_file (filename)
   msgdomain_list_ty *mdlp;
 
   pop = po_alloc (&readall_methods);
-  po_lex_pass_obsolete_entries (1);
+  po_lex_pass_obsolete_entries (true);
   po_scan (pop, filename);
   mdlp = ((readall_class_ty *) pop)->mdlp;
   po_free (pop);

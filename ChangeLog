@@ -1,3 +1,7 @@
+2001-06-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call gt_STDBOOL_H.
+
 2001-06-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (ACLOCAL_VERSION): Remove.

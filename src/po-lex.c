@@ -61,9 +61,9 @@
 static FILE *fp;
 lex_pos_ty gram_pos;
 unsigned int gram_max_allowed_errors = 20;
-static int po_lex_obsolete;
-static int pass_comments = 0;
-int pass_obsolete_entries = 0;
+static bool po_lex_obsolete;
+static bool pass_comments = false;
+bool pass_obsolete_entries = false;
 
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
@@ -85,7 +85,7 @@ lex_open (fname)
 	   _("error while opening \"%s\" for reading"), fname);
 
   gram_pos.line_number = 1;
-  po_lex_obsolete = 0;
+  po_lex_obsolete = false;
   po_lex_charset_init ();
 }
 
@@ -103,10 +103,10 @@ lex_close ()
   if (fp != stdin)
     fclose (fp);
   fp = NULL;
-  gram_pos.file_name = 0;
+  gram_pos.file_name = NULL;
   gram_pos.line_number = 0;
   error_message_count = 0;
-  po_lex_obsolete = 0;
+  po_lex_obsolete = false;
   po_lex_charset_close ();
 }
 
@@ -133,14 +133,14 @@ po_gram_error (fmt, va_alist)
 
   vasprintf (&buffer, fmt, ap);
   va_end (ap);
-  error_with_progname = 0;
+  error_with_progname = false;
   error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number, "%s", buffer);
-  error_with_progname = 1;
+  error_with_progname = true;
 # else
-  error_with_progname = 0;
+  error_with_progname = false;
   error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number, fmt,
 		 a1, a2, a3, a4, a5, a6, a7, a8);
-  error_with_progname = 1;
+  error_with_progname = true;
 # endif
 
   /* Some messages need more than one line.  Continuation lines are
@@ -175,14 +175,14 @@ po_gram_error_at_line (pp, fmt, va_alist)
 
   vasprintf (&buffer, fmt, ap);
   va_end (ap);
-  error_with_progname = 0;
+  error_with_progname = false;
   error_at_line (0, 0, pp->file_name, pp->line_number, "%s", buffer);
-  error_with_progname = 1;
+  error_with_progname = true;
 # else
-  error_with_progname = 0;
+  error_with_progname = false;
   error_at_line (0, 0, pp->file_name, pp->line_number, fmt,
 		 a1, a2, a3, a4, a5, a6, a7, a8);
-  error_with_progname = 1;
+  error_with_progname = true;
 # endif
 
   /* Some messages need more than one line, or more than one location.
@@ -396,7 +396,7 @@ po_gram_lex ()
 	  return 0;
 
 	case '\n':
-	  po_lex_obsolete = 0;
+	  po_lex_obsolete = false;
 	  break;
 
 	case ' ':
@@ -414,7 +414,7 @@ po_gram_lex ()
 	       We simply discard the "#~" prefix.  The following
 	       characters are expected to be well formed.  */
 	    {
-	      po_lex_obsolete = 1;
+	      po_lex_obsolete = true;
 	      break;
 	    }
 
@@ -442,7 +442,7 @@ po_gram_lex ()
 	      po_gram_lval.string.string = buf;
 	      po_gram_lval.string.pos = gram_pos;
 	      po_gram_lval.string.obsolete = po_lex_obsolete;
-	      po_lex_obsolete = 0;
+	      po_lex_obsolete = false;
 	      return COMMENT;
 	    }
 	  else
@@ -452,7 +452,7 @@ po_gram_lex ()
 		 is not very effective.  */
 	      while (c != EOF && c != '\n')
 		c = lex_getc ();
-	      po_lex_obsolete = 0;
+	      po_lex_obsolete = false;
 	    }
 	  break;
 
@@ -658,9 +658,9 @@ po_gram_lex ()
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
 void
 po_lex_pass_comments (flag)
-     int flag;
+     bool flag;
 {
-  pass_comments = (flag != 0);
+  pass_comments = flag;
 }
 
 
@@ -668,7 +668,7 @@ po_lex_pass_comments (flag)
    Switch this on or off.  */
 void
 po_lex_pass_obsolete_entries (flag)
-     int flag;
+     bool flag;
 {
-  pass_obsolete_entries = (flag != 0);
+  pass_obsolete_entries = flag;
 }

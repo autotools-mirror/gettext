@@ -91,12 +91,12 @@ main (argc, argv)
      char **argv;
 {
   int optchar;
-  int do_help = 0;
-  int do_version = 0;
+  bool do_help = false;
+  bool do_version = false;
   const char *output_file = "-";
   message_list_ty *mlp;
   msgdomain_list_ty *result;
-  int sort_by_msgid = 0;
+  bool sort_by_msgid = false;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -120,15 +120,15 @@ main (argc, argv)
 	break;
 
       case 'e':
-	message_print_style_escape (0);
+	message_print_style_escape (false);
 	break;
 
       case 'E':
-	message_print_style_escape (1);
+	message_print_style_escape (true);
 	break;
 
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
 
       case 'i':
@@ -140,7 +140,7 @@ main (argc, argv)
 	break;
 
       case 's':
-	sort_by_msgid = 1;
+	sort_by_msgid = true;
 	break;
 
       case 'S':
@@ -148,7 +148,7 @@ main (argc, argv)
 	break;
 
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
 
       case 'w':
@@ -203,7 +203,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the resulting message list to the given .po file.  */
-  msgdomain_list_print (result, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, false);
 
   /* No problems.  */
   exit (EXIT_SUCCESS);

@@ -87,9 +87,9 @@ static const struct option long_options[] =
 /* Prototypes for local functions.  */
 static void usage PARAMS ((int status));
 static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
-static int is_message_selected PARAMS ((const message_ty *tmp));
-static int is_message_needed PARAMS ((const message_ty *tmp));
-static int is_message_first_needed PARAMS ((const message_ty *tmp));
+static bool is_message_selected PARAMS ((const message_ty *tmp));
+static bool is_message_needed PARAMS ((const message_ty *tmp));
+static bool is_message_first_needed PARAMS ((const message_ty *tmp));
 static msgdomain_list_ty *
        catenate_msgdomain_list PARAMS ((string_list_ty *file_list,
 					const char *to_code));
@@ -102,14 +102,14 @@ main (argc, argv)
 {
   int cnt;
   int optchar;
-  int do_help;
-  int do_version;
+  bool do_help;
+  bool do_version;
   char *output_file;
   const char *files_from;
   string_list_ty *file_list;
   msgdomain_list_ty *result;
-  int sort_by_msgid = 0;
-  int sort_by_filepos = 0;
+  bool sort_by_msgid = false;
+  bool sort_by_filepos = false;
 
   /* Set program name for messages.  */
   program_name = argv[0];
@@ -125,8 +125,8 @@ main (argc, argv)
   textdomain (PACKAGE);
 
   /* Set default values for variables.  */
-  do_help = 0;
-  do_version = 0;
+  do_help = false;
+  do_version = false;
   output_file = NULL;
   files_from = NULL;
 
@@ -162,11 +162,11 @@ main (argc, argv)
 	break;
 
       case 'e':
-	message_print_style_escape (0);
+	message_print_style_escape (false);
 	break;
 
       case 'E':
-	message_print_style_escape (1);
+	message_print_style_escape (true);
 	break;
 
       case 'f':
@@ -174,11 +174,11 @@ main (argc, argv)
 	break;
 
       case 'F':
-	sort_by_filepos = 1;
+	sort_by_filepos = true;
         break;
 
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
 
       case 'i':
@@ -194,7 +194,7 @@ main (argc, argv)
 	break;
 
       case 's':
-	sort_by_msgid = 1;
+	sort_by_msgid = true;
 	break;
 
       case 'S':
@@ -210,7 +210,7 @@ main (argc, argv)
         break;
 
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
 
       case 'w':
@@ -282,7 +282,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the PO file.  */
-  msgdomain_list_print (result, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, false);
 
   exit (EXIT_SUCCESS);
 }
@@ -442,7 +442,7 @@ read_name_from_file (file_name)
 }
 
 
-static int
+static bool
 is_message_selected (tmp)
      const message_ty *tmp;
 {
@@ -453,7 +453,7 @@ is_message_selected (tmp)
 }
 
 
-static int
+static bool
 is_message_needed (mp)
      const message_ty *mp;
 {
@@ -467,17 +467,17 @@ is_message_needed (mp)
 
 
 /* The use_first logic.  */
-static int
+static bool
 is_message_first_needed (mp)
      const message_ty *mp;
 {
   if (mp->tmp->obsolete && is_message_needed (mp))
     {
-      mp->tmp->obsolete = 0;
-      return 1;
+      mp->tmp->obsolete = false;
+      return true;
     }
   else
-    return 0;
+    return false;
 }
 
 
@@ -518,7 +518,7 @@ catenate_msgdomain_list (file_list, to_code)
 	  if (mlp->nitems > 0)
 	    {
 	      for (j = 0; j < mlp->nitems; j++)
-		if (mlp->item[j]->msgid[0] == '\0' && mlp->item[j]->obsolete == 0)
+		if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
 		  {
 		    const char *header = mlp->item[j]->msgstr;
 
@@ -588,7 +588,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	  char *project_id = NULL;
 
 	  for (j = 0; j < mlp->nitems; j++)
-	    if (mlp->item[j]->msgid[0] == '\0' && mlp->item[j]->obsolete == 0)
+	    if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
 	      {
 		const char *header = mlp->item[j]->msgstr;
 
@@ -658,9 +658,9 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		{
 		  tmp = message_alloc (mp->msgid, mp->msgid_plural, NULL, 0,
 				       &mp->pos);
-		  tmp->is_c_format = 0; /* may be set to 1 later */
-		  tmp->do_wrap = 1; /* may be set to 0 later */
-		  tmp->obsolete = 1; /* may be set to 0 later */
+		  tmp->is_c_format = no; /* may be set to yes later */
+		  tmp->do_wrap = yes; /* may be set to no later */
+		  tmp->obsolete = true; /* may be set to false later */
 		  message_list_append (total_mlp, tmp);
 		}
 
@@ -725,7 +725,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	 all in a single encoding.  If so, conversion is not needed.  */
       const char *first = NULL;
       const char *second = NULL;
-      int with_UTF8 = 0;
+      bool with_UTF8 = false;
 
       for (n = 0; n < nfiles; n++)
 	{
@@ -740,7 +740,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		  second = canon_charsets[n][k];
 
 		if (strcmp (canon_charsets[n][k], "UTF-8") == 0)
-		  with_UTF8 = 1;
+		  with_UTF8 = true;
 	      }
 	}
 
@@ -888,13 +888,13 @@ To select a different output encoding, use the --to-code option.\n\
 		  for (i = 0; i < mp->filepos_count; i++)
 		    message_comment_filepos (tmp, mp->filepos[i].file_name,
 					     mp->filepos[i].line_number);
-		  tmp->is_fuzzy = 1;
-		  if (mp->is_c_format)
-		    tmp->is_c_format = 1;
-		  if (!mp->do_wrap)
-		    tmp->do_wrap = 0;
+		  tmp->is_fuzzy = true;
+		  if (mp->is_c_format == yes)
+		    tmp->is_c_format = yes;
+		  if (mp->do_wrap == no)
+		    tmp->do_wrap = no;
 		  if (!mp->obsolete)
-		    tmp->obsolete = 0;
+		    tmp->obsolete = false;
 		}
 	    }
 	}

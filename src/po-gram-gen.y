@@ -102,11 +102,11 @@ static long plural_counter;
 
 %union
 {
-  struct { char *string; lex_pos_ty pos; int obsolete; } string;
-  struct { string_list_ty stringlist; lex_pos_ty pos; int obsolete; } stringlist;
-  struct { long number; lex_pos_ty pos; int obsolete; } number;
-  struct { lex_pos_ty pos; int obsolete; } pos;
-  struct { struct msgstr_def rhs; lex_pos_ty pos; int obsolete; } rhs;
+  struct { char *string; lex_pos_ty pos; bool obsolete; } string;
+  struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
+  struct { long number; lex_pos_ty pos; bool obsolete; } number;
+  struct { lex_pos_ty pos; bool obsolete; } pos;
+  struct { struct msgstr_def rhs; lex_pos_ty pos; bool obsolete; } rhs;
 }
 
 %type <string> STRING COMMENT NAME msgid_pluralform

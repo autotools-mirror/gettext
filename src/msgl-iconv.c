@@ -264,7 +264,7 @@ iconv_message_list (mlp, canon_to_code)
   /* Search the header entry, and extract and replace the charset name.  */
   canon_from_code = NULL;
   for (j = 0; j < mlp->nitems; j++)
-    if (mlp->item[j]->msgid[0] == '\0' && mlp->item[j]->obsolete == 0)
+    if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
       {
 	const char *header = mlp->item[j]->msgstr;
 

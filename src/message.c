@@ -91,11 +91,11 @@ message_alloc (msgid, msgid_plural, msgstr, msgstr_len, pp)
   mp->comment_dot = NULL;
   mp->filepos_count = 0;
   mp->filepos = NULL;
-  mp->is_fuzzy = 0;
+  mp->is_fuzzy = false;
   mp->is_c_format = undecided;
   mp->do_wrap = undecided;
   mp->used = 0;
-  mp->obsolete = 0;
+  mp->obsolete = false;
   return mp;
 }
 

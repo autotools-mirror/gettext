@@ -59,7 +59,7 @@ const char *xgettext_lex_comment PARAMS ((size_t n));
 void xgettext_lex_comment_reset PARAMS ((void));
 /* void xgettext_lex_filepos PARAMS ((char **, int *)); FIXME needed?  */
 void xgettext_lex_keyword PARAMS ((const char *name));
-int xgettext_any_keywords PARAMS ((void));
+bool xgettext_any_keywords PARAMS ((void));
 void xgettext_lex_trigraphs PARAMS ((void));
 
 #endif /* _XGET_LEX_H */

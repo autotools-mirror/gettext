@@ -39,7 +39,7 @@
 
 
 /* Apply the .pot file to each of the domains in the PO file.  */
-static int multi_domain_mode;
+static bool multi_domain_mode = false;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -68,7 +68,7 @@ static void compare_directive_message PARAMS ((po_ty *that, char *msgid,
 					       char *msgid_plural,
 					       char *msgstr, size_t msgstr_len,
 					       lex_pos_ty *msgstr_pos,
-					       int obsolete));
+					       bool obsolete));
 
 
 int
@@ -77,8 +77,8 @@ main (argc, argv)
      char *argv[];
 {
   int optchar;
-  int do_help;
-  int do_version;
+  bool do_help;
+  bool do_version;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -94,8 +94,8 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  do_help = 0;
-  do_version = 0;
+  do_help = false;
+  do_version = false;
   while ((optchar = getopt_long (argc, argv, "D:hmV", long_options, NULL))
 	 != EOF)
     switch (optchar)
@@ -108,15 +108,15 @@ main (argc, argv)
 	break;
 
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
 
       case 'm':
-	multi_domain_mode = 1;
+	multi_domain_mode = true;
 	break;
 
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
 
       default:
@@ -403,7 +403,7 @@ compare_directive_message (that, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
-     int obsolete;
+     bool obsolete;
 {
   compare_class_ty *this = (compare_class_ty *) that;
   message_ty *mp;

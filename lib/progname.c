@@ -45,7 +45,7 @@ set_program_name (argv0)
 
 /* Indicates whether errors and warnings get prefixed with program_name.
    Default is true.  */
-int error_with_progname = 1;
+bool error_with_progname = true;
 
 /* Print program_name prefix on stderr if and only if error_with_progname
    is true.  */

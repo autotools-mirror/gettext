@@ -19,6 +19,8 @@
 #ifndef _PROGNAME_H
 #define _PROGNAME_H
 
+#include <stdbool.h>
+
 /* This file supports selectively prefixing or nor prefixing error messages
    with the program name.
 
@@ -37,7 +39,7 @@ extern void set_program_name PARAMS ((const char *argv0));
    Default is true.
    A reason to omit the prefix is for better interoperability with Emacs'
    compile.el.  */
-extern int error_with_progname;
+extern bool error_with_progname;
 
 /* Print program_name prefix on stderr if and only if error_with_progname
    is true.  */

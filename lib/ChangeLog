@@ -1,3 +1,14 @@
+2001-06-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* stdbool.h.in: New file.
+	* Makefile.am (EXTRA_DIST): Add stdbool.h.in.
+	(all-local): Depend on @STDBOOL_H@.
+	(stdbool.h): New rule.
+	(MOSTLYCLEANFILES): New variable.
+	* progname.h: Include stdbool.h.
+	(error_with_progname): Change type to bool.
+	* progname.c (error_with_progname): Likewise.
+
 2001-06-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* mbswidth.c (mbsinit): Define to 1 if not defined. For SCO 3.2v5.0.2.

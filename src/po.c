@@ -41,7 +41,7 @@ static void po_directive_message PARAMS ((po_ty *pop, char *msgid,
 					  char *msgid_plural,
 					  char *msgstr, size_t msgstr_len,
 					  lex_pos_ty *msgstr_pos,
-					  int obsolete));
+					  bool obsolete));
 static void po_comment PARAMS ((po_ty *pop, const char *s));
 static void po_comment_dot PARAMS ((po_ty *pop, const char *s));
 static void po_comment_filepos PARAMS ((po_ty *pop, const char *name,
@@ -146,7 +146,7 @@ po_directive_message (pop, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
-     int obsolete;
+     bool obsolete;
 {
   if (pop->method->directive_message)
     pop->method->directive_message (pop, msgid, msgid_pos, msgid_plural,
@@ -164,7 +164,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
-     int obsolete;
+     bool obsolete;
 {
   /* assert(callback_arg); */
 

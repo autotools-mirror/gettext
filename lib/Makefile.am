@@ -24,6 +24,7 @@ noinst_LIBRARIES = libnlsut.a
 EXTRA_DIST = alloca.c config.charset error.c getline.c memset.c memmove.c \
 printf-prs.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c \
 strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c \
+stdbool.h.in \
 gen-lbrkprop.c 3level.h
 
 libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c findprog.c fstrcmp.c \
@@ -40,6 +41,12 @@ wait-process.h xerror.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl
+
+
+all-local: @STDBOOL_H@
+stdbool.h: stdbool.h.in
+	cp $(srcdir)/stdbool.h.in stdbool.h
+MOSTLYCLEANFILES = @STDBOOL_H@
 
 
 # The following is needed in order to install a simple file in $(libdir)

@@ -1,3 +1,122 @@
+2001-06-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* message.h: Include stdbool.h.
+	(message_ty): Change type of fields 'is_fuzzy', 'obsolete' to bool.
+	(message_predicate_ty): Change return type to bool.
+	* message.c (message_alloc): Update.
+	* msgcat.c (is_message_selected): Change return type to bool.
+	(is_message_needed): Likewise.
+	(is_message_first_needed): Likewise.
+	(main): Use bool.
+	(catenate_msgdomain_list): Update. Use yes/no for is_c_format and
+	do_wrap.
+	* msgcmp.c (multi_domain_mode): Change type to bool.
+	(compare_directive_message): Change 'obsolete' argument type to bool.
+	(main): Use bool.
+	* msgcomm.c (is_message_selected): Change return type to bool.
+	(extract_directive_message): Change 'obsolete' argument type to bool.
+	(main): Use bool.
+	(struct extract_class_ty): Change type of field 'is_fuzzy' to bool.
+	Change type of field 'filepos_count' to size_t.
+	(extract_constructor): Update.
+	(extract_parse_brief): Update.
+	(extract_comment_special): Update.
+	(read_po_file): Update.
+	* msgconv.c (main): Use bool.
+	* msgen.c (main): Use bool.
+	* msgfmt.c (struct msgfmt_class_ty): Change type of fields 'is_fuzzy',
+	'has_header_entry' to bool.
+	(include_all): Change type to bool.
+	(do_check): Likewise.
+	(long_options): Update.
+	(format_directive_message): Change 'obsolete' argument type to bool.
+	(main): Use bool.
+	(format_constructor): Update.
+	(format_debrief): Update.
+	(format_comment_special): Update.
+	(check_pair): Update.
+	* msggrep.c (is_string_selected): Change return type to bool.
+	(is_message_selected): Likewise.
+	(main): Use bool.
+	* msgl-charset.c (compare_po_locale_charsets): Use bool.
+	* msgl-iconv.c (iconv_message_list): Update.
+	* msgmerge.c (quiet): Change type to bool.
+	(multi_domain_mode): Likewise.
+	(main): Use bool.
+	(match_domain): Update.
+	(merge): Update.
+	* msgsed.c (main): Use bool.
+	* msgunfmt.c (main): Use bool.
+	* po-gram-gen.y (string, stringlist, number, pos, rhs): Change type of
+	'obsolete' field to bool.
+	* po-lex.h: Include stdbool.h.
+	(pass_obsolete_entries): Change type to bool.
+	(po_lex_pass_comments): Change argument type to bool.
+	(po_lex_pass_obsolete_entries): Likewise.
+	(po_gram_error): Update.
+	(po_gram_error_at_line): Update.
+	* po-lex.c (po_lex_obsolete): Change type to bool.
+	(pass_comments): Likewise.
+	(pass_obsolete_entries): Likewise.
+	(lex_open): Update.
+	(lex_close): Update.
+	(po_gram_error): Update.
+	(po_gram_error_at_line): Update.
+	(po_gram_lex): Update.
+	(po_lex_pass_comments): Change argument type to bool.
+	(po_lex_pass_obsolete_entries): Likewise.
+	* po.h (struct po_method_ty): Change 'obsolete' argument type of
+	directive_message to bool.
+	(po_callback_message): Change 'obsolete' argument type to bool.
+	* po.c (po_directive_message): Change 'obsolete' argument type to bool.
+	(po_callback_message): Likewise.
+	* read-po.c (struct readall_class_ty): Change type of field 'is_fuzzy'
+	to bool.
+	(readall_directive_message): Change 'obsolete' argument type to bool.
+	(readall_constructor): Update.
+	(readall_parse_brief): Update.
+	(readall_comment_special): Update.
+	(read_po_file): Update.
+	* str-list.h: Include stdbool.h.
+	(string_list_member): Change return type to bool.
+	* str-list.c (string_list_member): Change return type to bool.
+	* write-po.h (message_print_style_escape, msgdomain_list_print): Change
+	argument type to bool.
+	* write-po.c (make_c_format_description_string) Change argument type
+	to bool.
+	(message_print): Likewise.
+	(message_print_obsolete): Likewise.
+	(indent): Change type to bool.
+	(uniforum): Likewise.
+	(escape): Likewise.
+	(message_print_style_indent): Update.
+	(message_print_style_uniforum): Update.
+	(message_print_style_escape): Change argument type to bool.
+	(wrap): Update.
+	(msgdomain_list_print): Change argument type to bool.
+	* xget-lex.h (xgettext_any_keywords): Change return type to bool.
+	* xget-lex.c (trigraphs): Change type to bool.
+	(default_keywords): Likewise.
+	(phase5_get): Use NULL not 0. Update.
+	(phaseX_get): Use bool.
+	(xgettext_lex): Update.
+	(xgettext_lex_keyword): Update.
+	(xgettext_any_keywords): Change return type to bool.
+	(xgettext_lex_trigraphs): Update.
+	* xgettext.c (add_all_comments): Change type to bool.
+	(extract_all): Likewise.
+	(long_options): Update.
+	(exclude_directive_message): Change 'obsolete' argument type to bool.
+	(extract_directive_message): Likewise.
+	(main): Use bool.
+	(scan_c_file): Update.
+	(struct extract_class_ty): Change type of field 'is_fuzzy' to bool.
+	Change type of field 'filepos_count' to size_t.
+	(extract_constructor): Update.
+	(extract_parse_brief): Update.
+	(extract_comment_special): Update.
+	(construct_header): Update.
+
 2001-06-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* msggrep.c (usage): Explain the pattern syntax.

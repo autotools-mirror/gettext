@@ -108,9 +108,9 @@ static void usage PARAMS ((int status));
 #ifdef EINTR
 static inline int nonintr_close PARAMS ((int fd));
 #endif
-static int is_string_selected PARAMS ((int grep_pass, const char *str,
-				       size_t len));
-static int is_message_selected PARAMS ((const message_ty *mp));
+static bool is_string_selected PARAMS ((int grep_pass, const char *str,
+					size_t len));
+static bool is_message_selected PARAMS ((const message_ty *mp));
 static void process_message_list PARAMS ((const char *domain,
 					  message_list_ty *mlp));
 static msgdomain_list_ty *
@@ -123,14 +123,14 @@ main (argc, argv)
      char **argv;
 {
   int opt;
-  int do_help;
-  int do_version;
+  bool do_help;
+  bool do_version;
   char *output_file;
   const char *input_file;
   int grep_pass;
   msgdomain_list_ty *result;
-  int sort_by_filepos = 0;
-  int sort_by_msgid = 0;
+  bool sort_by_filepos = false;
+  bool sort_by_msgid = false;
   size_t i;
 
   /* Set program name for messages.  */
@@ -147,8 +147,8 @@ main (argc, argv)
   textdomain (PACKAGE);
 
   /* Set default values for variables.  */
-  do_help = 0;
-  do_version = 0;
+  do_help = false;
+  do_version = false;
   output_file = NULL;
   input_file = NULL;
   grep_pass = -1;
@@ -196,7 +196,7 @@ main (argc, argv)
 	break;
 
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
 
       case 'i':
@@ -230,7 +230,7 @@ main (argc, argv)
 	break;
 
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
 
       case 'w':
@@ -244,7 +244,7 @@ main (argc, argv)
 	break;
 
       case CHAR_MAX + 1:
-	message_print_style_escape (1);
+	message_print_style_escape (true);
 	break;
 
       case CHAR_MAX + 2:
@@ -252,15 +252,15 @@ main (argc, argv)
 	break;
 
       case CHAR_MAX + 3:
-	message_print_style_escape (0);
+	message_print_style_escape (false);
 	break;
 
       case CHAR_MAX + 4:
-	sort_by_filepos = 1;
+	sort_by_filepos = true;
 	break;
 
       case CHAR_MAX + 5:
-	sort_by_msgid = 1;
+	sort_by_msgid = true;
 	break;
 
       default:
@@ -340,7 +340,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the merged message list out.  */
-  msgdomain_list_print (result, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, false);
 
   exit (EXIT_SUCCESS);
 }
@@ -480,9 +480,9 @@ nonintr_close (fd)
 #endif
 
 
-/* Process a string STR of size LEN bytes through grep, and return nonzero
+/* Process a string STR of size LEN bytes through grep, and return true
    if it matches.  */
-static int
+static bool
 is_string_selected (grep_pass, str, len)
      int grep_pass;
      const char *str;
@@ -515,8 +515,8 @@ is_string_selected (grep_pass, str, len)
 }
 
 
-/* Return nonzero if a message matches.  */
-static int
+/* Return true if a message matches.  */
+static bool
 is_message_selected (mp)
      const message_ty *mp;
 {
@@ -527,19 +527,19 @@ is_message_selected (mp)
 
   /* Always keep the header entry.  */
   if (mp->msgid[0] == '\0')
-    return 1;
+    return true;
 
   /* Test whether one of mp->filepos[] is selected.  */
   for (i = 0; i < mp->filepos_count; i++)
     if (string_list_member (location_files, mp->filepos[i].file_name))
-      return 1;
+      return true;
 
   /* Test msgid and msgid_plural using the --msgid arguments.  */
   if (is_string_selected (0, mp->msgid, strlen (mp->msgid)))
-    return 1;
+    return true;
   if (mp->msgid_plural != NULL
       && is_string_selected (0, mp->msgid_plural, strlen (mp->msgid_plural)))
-    return 1;
+    return true;
 
   /* Test msgstr using the --msgstr arguments.  */
   msgstr = mp->msgstr;
@@ -550,12 +550,12 @@ is_message_selected (mp)
       size_t length = strlen (p);
 
       if (is_string_selected (1, p, length))
-	return 1;
+	return true;
 
       p += length + 1;
     }
 
-  return 0;
+  return false;
 }
 
 

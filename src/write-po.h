@@ -30,12 +30,12 @@ extern void
 extern void
        message_print_style_uniforum PARAMS ((void));
 extern void
-       message_print_style_escape PARAMS ((int flag));
+       message_print_style_escape PARAMS ((bool flag));
 
 extern void
        msgdomain_list_print PARAMS ((msgdomain_list_ty *mdlp,
 				     const char *filename,
-				     int force, int debug));
+				     bool force, bool debug));
 extern void
        msgdomain_list_sort_by_msgid PARAMS ((msgdomain_list_ty *mdlp));
 extern void

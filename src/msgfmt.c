@@ -81,11 +81,11 @@ struct msgfmt_class_ty
   /* inherited instance variables, etc */
   PO_BASE_TY
 
-  int is_fuzzy;
+  bool is_fuzzy;
   enum is_c_format is_c_format;
   enum is_wrap do_wrap;
 
-  int has_header_entry;
+  bool has_header_entry;
 };
 
 /* Alignment of strings in resulting .mo file.  */
@@ -94,8 +94,8 @@ static size_t alignment;
 /* Contains exit status for case in which no premature exit occurs.  */
 static int exit_status;
 
-/* If nonzero include even fuzzy translations in output file.  */
-static int include_all;
+/* If true include even fuzzy translations in output file.  */
+static bool include_all = false;
 
 /* Nonzero if no hash table in .mo is wanted.  */
 static int no_hash_table;
@@ -123,9 +123,9 @@ static struct msg_domain *current_domain;
 /* If not zero list duplicate message identifiers.  */
 static int verbose_level;
 
-/* If not zero check strings according to format string rules for the
+/* If true check strings according to format string rules for the
    language.  */
-static int do_check;
+static bool do_check = false;
 
 /* Counters for statistics on translations for the processed files.  */
 static int msgs_translated;
@@ -139,7 +139,7 @@ static int do_statistics;
 static const struct option long_options[] =
 {
   { "alignment", required_argument, NULL, 'a' },
-  { "check", no_argument, &do_check, 1 },
+  { "check", no_argument, NULL, 'c' },
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "no-hash", no_argument, &no_hash_table, 1 },
@@ -177,7 +177,7 @@ static void format_directive_message PARAMS ((po_ty *pop, char *msgid,
 					      char *msgid_plural,
 					      char *msgstr, size_t msgstr_len,
 					      lex_pos_ty *msgstr_pos,
-					      int obsolete));
+					      bool obsolete));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
 static void format_debrief PARAMS ((po_ty *));
 static struct msg_domain *new_domain PARAMS ((const char *name,
@@ -197,9 +197,9 @@ main (argc, argv)
      char *argv[];
 {
   int opt;
-  int do_help = 0;
-  int do_version = 0;
-  int strict_uniforum = 0;
+  bool do_help = false;
+  bool do_version = false;
+  bool strict_uniforum = false;
   struct msg_domain *domain;
 
   /* Set default value for global variables.  */
@@ -236,28 +236,28 @@ main (argc, argv)
 	}
 	break;
       case 'c':
-	do_check = 1;
+	do_check = true;
 	break;
       case 'D':
 	dir_list_append (optarg);
 	break;
       case 'f':
-	include_all = 1;
+	include_all = true;
 	break;
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
       case 'o':
 	output_file_name = optarg;
 	break;
       case 'S':
-	strict_uniforum = 1;
+	strict_uniforum = true;
 	break;
       case 'v':
 	++verbose_level;
 	break;
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -299,7 +299,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Prepare PO file reader.  We need to see the comments because inexact
      translations must be reported.  */
-  po_lex_pass_comments (1);
+  po_lex_pass_comments (true);
 
   /* Now write out all domains.  */
   /* Process all given .po files.  */
@@ -481,10 +481,10 @@ format_constructor (that)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
 
-  this->is_fuzzy = 0;
+  this->is_fuzzy = false;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
-  this->has_header_entry = 0;
+  this->has_header_entry = false;
 }
 
 
@@ -498,7 +498,7 @@ format_debrief (that)
   /* Test whether header entry was found.
      FIXME: Should do this even if not in verbose mode, because the
      consequences are not harmless.  But it breaks the test suite.  */
-  if (verbose_level > 0 && this->has_header_entry == 0)
+  if (verbose_level > 0 && !this->has_header_entry)
     {
       multiline_error (xasprintf ("%s: ", gram_pos.file_name),
 		       xasprintf (_("\
@@ -565,7 +565,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
      char *msgstr_string;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
-     int obsolete;
+     bool obsolete;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   struct hashtable_entry *entry;
@@ -579,12 +579,12 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 	{
 	  /* We don't change the exit status here because this is really
 	     only an information.  */
-	  error_with_progname = 0;
+	  error_with_progname = false;
 	  error_at_line (0, 0, msgstr_pos->file_name, msgstr_pos->line_number,
 			 (msgstr_string[0] == '\0'
 			  ? _("empty `msgstr' entry ignored")
 			  : _("fuzzy `msgstr' entry ignored")));
-	  error_with_progname = 1;
+	  error_with_progname = true;
 	}
 
       /* Increment counter for fuzzy/untranslated messages.  */
@@ -601,7 +601,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
       /* Test for header entry.  */
       if (msgid_string[0] == '\0')
 	{
-	  this->has_header_entry = 1;
+	  this->has_header_entry = true;
 
 	  /* Do some more tests on test contents of the header entry.  */
 	  if (verbose_level > 0)
@@ -721,7 +721,7 @@ duplicate message definition"));
   free (msgid_string);
 
   /* Prepare for next message.  */
-  this->is_fuzzy = 0;
+  this->is_fuzzy = false;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
 }
@@ -737,17 +737,17 @@ format_comment_special (that, s)
 
   if (strstr (s, "fuzzy") != NULL)
     {
-      static int warned = 0;
+      static bool warned = false;
 
-      if (!include_all && verbose_level > 1 && warned == 0)
+      if (!include_all && verbose_level > 1 && !warned)
 	{
-	  warned = 1;
+	  warned = true;
 	  error (0, 0, _("\
 %s: warning: source file contains fuzzy translation"),
 		 gram_pos.file_name);
 	}
 
-      this->is_fuzzy = 1;
+      this->is_fuzzy = true;
     }
   this->is_c_format = parse_c_format_description_string (s);
   this->do_wrap = parse_c_width_description_string (s);
@@ -963,21 +963,21 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgid_plural) != has_newline)
 	{
-	  error_with_progname = 0;
+	  error_with_progname = false;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgid_plural' entries do not both begin with '\\n'"));
-	  error_with_progname = 1;
+	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
       for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
-	    error_with_progname = 0;
+	    error_with_progname = false;
 	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			   _("\
 `msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), i);
-	    error_with_progname = 1;
+	    error_with_progname = true;
 	    exit_status = EXIT_FAILURE;
 	  }
     }
@@ -985,11 +985,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgstr) != has_newline)
 	{
-	  error_with_progname = 0;
+	  error_with_progname = false;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgstr' entries do not both begin with '\\n'"));
-	  error_with_progname = 1;
+	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
     }
@@ -1002,21 +1002,21 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgid_plural) != has_newline)
 	{
-	  error_with_progname = 0;
+	  error_with_progname = false;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgid_plural' entries do not both end with '\\n'"));
-	  error_with_progname = 1;
+	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
       for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
-	    error_with_progname = 0;
+	    error_with_progname = false;
 	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			   _("\
 `msgid' and `msgstr[%u]' entries do not both end with '\\n'"), i);
-	    error_with_progname = 1;
+	    error_with_progname = true;
 	    exit_status = EXIT_FAILURE;
 	  }
     }
@@ -1024,11 +1024,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgstr) != has_newline)
 	{
-	  error_with_progname = 0;
+	  error_with_progname = false;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgstr' entries do not both end with '\\n'"));
-	  error_with_progname = 1;
+	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
     }
@@ -1042,11 +1042,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
       nstrfmts = parse_printf_format (msgstr, 0, NULL);
       if (nidfmts != nstrfmts)
 	{
-	  error_with_progname = 0;
+	  error_with_progname = false;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 number of format specifications in `msgid' and `msgstr' does not match"));
-	  error_with_progname = 1;
+	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
       else
@@ -1061,12 +1061,12 @@ number of format specifications in `msgid' and `msgstr' does not match"));
 	  for (cnt = 0; cnt < nidfmts; ++cnt)
 	    if (id_args[cnt] != str_args[cnt])
 	      {
-		error_with_progname = 0;
+		error_with_progname = false;
 		error_at_line (0, 0, msgid_pos->file_name,
 			       msgid_pos->line_number, _("\
 format specifications for argument %lu are not the same"),
 			       (unsigned long) (cnt + 1));
-		error_with_progname = 1;
+		error_with_progname = true;
 		exit_status = EXIT_FAILURE;
 	      }
 	}

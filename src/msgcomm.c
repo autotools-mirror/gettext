@@ -100,7 +100,7 @@ static void usage PARAMS ((int status))
 #endif
 ;
 static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
-static int is_message_selected PARAMS ((const message_ty *mp));
+static bool is_message_selected PARAMS ((const message_ty *mp));
 static void extract_constructor PARAMS ((po_ty *that));
 static void extract_directive_domain PARAMS ((po_ty *that, char *name));
 static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
@@ -108,7 +108,7 @@ static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
 					       char *msgid_plural,
 					       char *msgstr, size_t msgstr_len,
 					       lex_pos_ty *msgstr_pos,
-					       int obsolete));
+					       bool obsolete));
 static void extract_parse_brief PARAMS ((po_ty *that));
 static void extract_comment PARAMS ((po_ty *that, const char *s));
 static void extract_comment_dot PARAMS ((po_ty *that, const char *s));
@@ -126,12 +126,12 @@ main (argc, argv)
 {
   int cnt;
   int optchar;
-  int do_help = 0;
-  int do_version = 0;
+  bool do_help = false;
+  bool do_version = false;
   message_list_ty *mlp;
   msgdomain_list_ty *result;
-  int sort_by_msgid = 0;
-  int sort_by_filepos = 0;
+  bool sort_by_msgid = false;
+  bool sort_by_filepos = false;
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;
@@ -177,19 +177,19 @@ main (argc, argv)
 	dir_list_append (optarg);
 	break;
       case 'e':
-	message_print_style_escape (0);
+	message_print_style_escape (false);
 	break;
       case 'E':
-	message_print_style_escape (1);
+	message_print_style_escape (true);
 	break;
       case 'f':
 	files_from = optarg;
 	break;
       case 'F':
-	sort_by_filepos = 1;
+	sort_by_filepos = true;
         break;
       case 'h':
-	do_help = 1;
+	do_help = true;
 	break;
       case 'i':
 	message_print_style_indent ();
@@ -201,7 +201,7 @@ main (argc, argv)
 	output_file = optarg;
 	break;
       case 's':
-	sort_by_msgid = 1;
+	sort_by_msgid = true;
 	break;
       case 'S':
 	message_print_style_uniforum ();
@@ -210,7 +210,7 @@ main (argc, argv)
         less_than = 2;
         break;
       case 'V':
-	do_version = 1;
+	do_version = true;
 	break;
       case 'w':
 	{
@@ -298,7 +298,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the PO file.  */
-  msgdomain_list_print (result, output_file, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, false);
 
   exit (EXIT_SUCCESS);
 }
@@ -455,7 +455,7 @@ read_name_from_file (file_name)
 }
 
 
-static int
+static bool
 is_message_selected (mp)
      const message_ty *mp;
 {
@@ -477,11 +477,11 @@ struct extract_class_ty
   string_list_ty *comment;
   string_list_ty *comment_dot;
 
-  int is_fuzzy;
+  bool is_fuzzy;
   enum is_c_format is_c_format;
   enum is_wrap do_wrap;
 
-  int filepos_count;
+  size_t filepos_count;
   lex_pos_ty *filepos;
 };
 
@@ -495,7 +495,7 @@ extract_constructor (that)
   this->mlp = NULL; /* actually set in read_po_file, below */
   this->comment = NULL;
   this->comment_dot = NULL;
-  this->is_fuzzy = 0;
+  this->is_fuzzy = false;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
   this->filepos_count = 0;
@@ -522,7 +522,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
-     int obsolete;
+     bool obsolete;
 {
   extract_class_ty *this = (extract_class_ty *)that;
   message_ty *mp;
@@ -544,7 +544,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
       this->comment_dot = NULL;
       this->filepos_count = 0;
       this->filepos = NULL;
-      this->is_fuzzy = 0;
+      this->is_fuzzy = false;
       this->is_c_format = undecided;
       this->do_wrap = undecided;
       return;
@@ -566,9 +566,9 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   /* The ``obsolete'' flag is cleared before reading each PO file.
      If thisflag is clear, set it, and increment the ``used'' counter.
      This allows us to count how many of the PO files use the message.  */
-  if (mp->obsolete == 0)
+  if (!mp->obsolete)
     {
-      mp->obsolete = 1;
+      mp->obsolete = true;
       mp->used++;
     }
 
@@ -607,7 +607,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
     free (this->filepos);
   this->filepos_count = 0;
   this->filepos = NULL;
-  this->is_fuzzy = 0;
+  this->is_fuzzy = false;
   this->is_c_format = undecided;
   this->do_wrap = undecided;
 }
@@ -617,7 +617,7 @@ static void
 extract_parse_brief (that)
      po_ty *that;
 {
-  po_lex_pass_comments (1);
+  po_lex_pass_comments (true);
 }
 
 
@@ -677,7 +677,7 @@ extract_comment_special (that, s)
   extract_class_ty *this = (extract_class_ty *) that;
 
   if (strstr (s, "fuzzy") != NULL)
-    this->is_fuzzy = 1;
+    this->is_fuzzy = true;
   if (strstr (s, "c-format") != NULL)
     this->is_c_format = yes;
   if (strstr (s, "no-c-format") != NULL)
@@ -730,5 +730,5 @@ read_po_file (file_name, mlp)
      is clear, it is set, and increment the ``used'' counter.  This
      allows us to count how many of the PO files use each message.  */
   for (j = 0; j < mlp->nitems; ++j)
-    mlp->item[j]->obsolete = 0;
+    mlp->item[j]->obsolete = false;
 }

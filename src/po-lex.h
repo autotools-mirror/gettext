@@ -21,6 +21,7 @@
 #define _PO_LEX_H
 
 #include <sys/types.h>
+#include <stdbool.h>
 #include "error.h"
 #include "progname.h"
 #include "pos.h"
@@ -37,8 +38,8 @@ extern lex_pos_ty gram_pos;
    terminate.  Cf. error_message_count, declared in <error.h>.  */
 extern unsigned int gram_max_allowed_errors;
 
-/* Nonzero if obsolete entries shall be considered as valid.  */
-extern int pass_obsolete_entries;
+/* True if obsolete entries shall be considered as valid.  */
+extern bool pass_obsolete_entries;
 
 
 /* Open the PO file FNAME and prepare its lexical analysis.  */
@@ -52,11 +53,11 @@ extern void lex_close PARAMS ((void));
 extern int po_gram_lex PARAMS ((void));
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
-extern void po_lex_pass_comments PARAMS ((int flag));
+extern void po_lex_pass_comments PARAMS ((bool flag));
 
 /* po_gram_lex() can return obsolete entries as if they were normal entries.
    Switch this on or off.  */
-extern void po_lex_pass_obsolete_entries PARAMS ((int flag));
+extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
 
 
 /* ISO C 99 is smart enough to allow optimizations like this.  */
@@ -67,10 +68,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int flag));
 
 # define po_gram_error(fmt, ...)					    \
   do {									    \
-    error_with_progname = 0;						    \
+    error_with_progname = false;					    \
     error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
 		    fmt, __VA_ARGS__);					    \
-    error_with_progname = 1;						    \
+    error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
@@ -83,10 +84,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int flag));
 
 # define po_gram_error_at_line(pos, fmt, ...)				    \
   do {									    \
-    error_with_progname = 0;						    \
+    error_with_progname = false;					    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
 		    fmt, __VA_ARGS__);					    \
-    error_with_progname = 1;						    \
+    error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
@@ -101,10 +102,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int flag));
 
 # define po_gram_error(fmt, args...)					    \
   do {									    \
-    error_with_progname = 0;						    \
+    error_with_progname = false;					    \
     error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
 		    fmt, ## args);					    \
-    error_with_progname = 1;						    \
+    error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
@@ -117,10 +118,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int flag));
 
 # define po_gram_error_at_line(pos, fmt, args...)			    \
   do {									    \
-    error_with_progname = 0;						    \
+    error_with_progname = false;					    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
 		    fmt, ## args);					    \
-    error_with_progname = 1;						    \
+    error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
