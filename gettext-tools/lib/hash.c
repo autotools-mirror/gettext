@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table with string based keys.
-   Copyright (C) 1994-1995, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1994-1995, 2000-2004 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,49 +23,18 @@
 /* Specification.  */
 #include "hash.h"
 
-#if STDC_HEADERS 
-# include <stdlib.h> 
-#else
-# ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-# endif
-#endif 
-
-#ifdef HAVE_STRING_H
-# include <string.h>
-#else
-# include <strings.h>
-#endif
-
+#include <stdlib.h> 
+#include <string.h>
 #include <stdio.h>
+#include <limits.h>
 #include <sys/types.h>
 
-#if HAVE_OBSTACK
-# include <obstack.h>
-#else
-# include "obstack.h"
-#endif
-
-#if HAVE_VALUES_H
-# include <values.h>
-#endif
+#include <obstack.h>
 
 #include "xalloc.h"
 
 #define obstack_chunk_alloc xmalloc
 #define obstack_chunk_free free
-
-#ifndef BITSPERBYTE
-# define BITSPERBYTE 8
-#endif
-
-#ifndef	LONGBITS
-# define LONGBITS (sizeof (long) * BITSPERBYTE)
-#endif
-
-#ifndef bcopy
-# define bcopy(S, D, N)	memcpy ((D), (S), (N))
-#endif
 
 typedef struct hash_entry
 {
@@ -146,7 +115,7 @@ insert_entry_2 (hash_table *htab,
   table[idx].keylen = keylen;
   table[idx].data = data;
 
-      /* List the new value in the list.  */
+  /* List the new value in the list.  */
   if ((hash_entry *) htab->first == NULL)
     {
       table[idx].next = &table[idx];
@@ -278,7 +247,7 @@ compute_hashval (const void *key, size_t keylen)
   hval = keylen;
   while (cnt < keylen)
     {
-      hval = (hval << 9) | (hval >> (LONGBITS - 9));
+      hval = (hval << 9) | (hval >> (sizeof (unsigned long) * CHAR_BIT - 9));
       hval += (unsigned long int) *(((const char *) key) + cnt++);
     }
   return hval != 0 ? hval : ~((unsigned long) 0);
