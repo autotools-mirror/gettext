@@ -26,6 +26,7 @@
 #include "tmpdir.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 #include <errno.h>
 #ifndef __set_errno

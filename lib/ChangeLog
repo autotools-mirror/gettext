@@ -1,3 +1,7 @@
+2001-11-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* tmpdir.c: Include string.h.
+
 2001-11-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* execute.c (execute): If the subprocess fails, exit with return code

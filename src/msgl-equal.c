@@ -24,6 +24,8 @@
 /* Specification.  */
 #include "msgl-equal.h"
 
+#include <string.h>
+
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
