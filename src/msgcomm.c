@@ -163,7 +163,7 @@ main (argc, argv)
   default_domain = MESSAGE_DOMAIN_DEFAULT;
 
   while ((optchar = getopt_long (argc, argv,
-				 "<>ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTuVw:x:",
+				 "<:>:ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTuVw:x:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {

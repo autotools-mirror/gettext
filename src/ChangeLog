@@ -1,3 +1,7 @@
+2001-01-20  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm.c (main): Options '-<' and '->' want an argument.
+
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.c: Renamed from gettextp.c. Use included libintl if TESTS
