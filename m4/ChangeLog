@@ -1,3 +1,7 @@
+2001-05-12  Paul Eggert  <eggert@twinsun.com>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Add check for strtoul.
+
 2001-05-14  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Create po/POTFILES right before

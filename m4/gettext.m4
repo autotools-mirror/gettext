@@ -285,7 +285,7 @@ AC_DEFUN([AM_GNU_GETTEXT],
 stdlib.h string.h unistd.h sys/param.h])
    AC_CHECK_FUNCS([feof_unlocked fgets_unlocked getcwd getegid geteuid \
 getgid getuid mempcpy munmap putenv setenv setlocale stpcpy strchr strcasecmp \
-strdup tsearch __argz_count __argz_stringify __argz_next])
+strdup strtoul tsearch __argz_count __argz_stringify __argz_next])
 
    AM_ICONV
    AM_LANGINFO_CODESET
