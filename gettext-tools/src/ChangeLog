@@ -1,5 +1,9 @@
 2003-10-21  Bruno Haible  <bruno@clisp.org>
 
+	* hostname.c (xgethostname): Add support for native Woe32 API.
+
+2003-10-21  Bruno Haible  <bruno@clisp.org>
+
 	* message.c (message_list_search): Avoid casting a pointer to a local
 	variable; it violated strict aliasing.
 

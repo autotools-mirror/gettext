@@ -77,6 +77,10 @@
 #  define __getcwd(buf, max) getwd (buf)
 # endif
 # define __readlink readlink
+  /* On systems without symbolic links, call stat() instead of lstat().  */
+# if !defined S_ISNLK && !HAVE_READLINK
+#  define lstat stat
+# endif
 #endif
 
 /* Return the canonical absolute name of file NAME.  A canonical name

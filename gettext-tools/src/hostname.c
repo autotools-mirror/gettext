@@ -38,10 +38,15 @@
 # include <unistd.h>
 #endif
 
+#ifdef WIN32
+/* Native Woe32 API lacks gethostname() but has GetComputerName() instead.  */
+# include <windows.h>
+#else
 /* Some systems, like early Solaris versions, lack gethostname() but
    have uname() instead.  */
-#if !HAVE_GETHOSTNAME
-# include <sys/utsname.h>
+# if !HAVE_GETHOSTNAME
+#  include <sys/utsname.h>
+# endif
 #endif
 
 /* Get MAXHOSTNAMELEN.  */
@@ -241,7 +246,14 @@ Informative output:\n"));
 static char *
 xgethostname ()
 {
-#if HAVE_GETHOSTNAME
+#ifdef WIN32
+  char hostname[MAX_COMPUTERNAME_LENGTH+1];
+  DWORD size = sizeof (hostname);
+
+  if (!GetComputerName (hostname, &size))
+    error (EXIT_FAILURE, 0, _("could not get host name"));
+  return xstrdup (hostname);
+#elif HAVE_GETHOSTNAME
   char hostname[MAXHOSTNAMELEN+1];
 
   if (gethostname (hostname, MAXHOSTNAMELEN) < 0)

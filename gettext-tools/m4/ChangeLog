@@ -1,3 +1,7 @@
+2003-10-21  Bruno Haible  <bruno@clisp.org>
+
+	* canonicalize.m4 (gl_PREREQ_CANONICALIZE): Also test for readlink().
+
 2003-10-14  Bruno Haible  <bruno@clisp.org>
 
 	* sig_atomic_t.m4: New file.
