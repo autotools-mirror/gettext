@@ -243,7 +243,7 @@ libintl_asprintf (char **resultp, const char *format, ...)
 
 #endif
 
-#if HAVE_WPRINTF
+#if HAVE_FWPRINTF
 
 #include <wchar.h>
 

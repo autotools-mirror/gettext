@@ -1,3 +1,8 @@
+2003-09-17  Bruno Haible  <bruno@clisp.org>
+
+	* printf.c: Test HAVE_FWPRINTF, not HAVE_WPRINTF. Needed for
+	portability to Cygwin.
+
 2003-09-04  Bruno Haible  <bruno@clisp.org>
 
 	* dgettext.c: Include <locale.h> after gettextP.h, not before. This
