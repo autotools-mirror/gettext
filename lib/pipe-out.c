@@ -194,7 +194,7 @@ create_pipe_out (progname, prog_path, prog_argv, prog_stdout, null_stderr, exit_
 	      || (dup2 (stdoutfd, STDOUT_FILENO) >= 0
 		  && close (stdoutfd) >= 0)))
 	execvp (prog_path, prog_argv);
-      _exit (-1);
+      _exit (127);
     }
   if (child == -1)
     {

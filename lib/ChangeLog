@@ -1,3 +1,11 @@
+2001-11-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* execute.c (execute): If the subprocess fails, exit with return code
+	127, not -1 (which becomes 255).
+	* pipe-bidi.c (create_pipe_bidi): Likewise.
+	* pipe-in.c (create_pipe_in): Likewise.
+	* pipe-out.c (create_pipe_out): Likewise.
+
 2001-10-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (execute.lo, javacomp.lo, javaexec.lo, pipe-bidi.lo,

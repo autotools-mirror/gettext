@@ -183,7 +183,7 @@ create_pipe_bidi (progname, prog_path, prog_argv, null_stderr, exit_on_error, fd
 		      || (dup2 (nulloutfd, STDERR_FILENO) >= 0
 			  && close (nulloutfd) >= 0)))))
 	execvp (prog_path, prog_argv);
-      _exit (-1);
+      _exit (127);
     }
   if (child == -1)
     {

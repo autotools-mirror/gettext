@@ -194,7 +194,7 @@ create_pipe_in (progname, prog_path, prog_argv, prog_stdin, null_stderr, exit_on
 	      || (dup2 (stdinfd, STDIN_FILENO) >= 0
 		  && close (stdinfd) >= 0)))
 	execvp (prog_path, prog_argv);
-      _exit (-1);
+      _exit (127);
     }
   if (child == -1)
     {

@@ -197,7 +197,7 @@ execute (progname, prog_path, prog_argv, null_stdin, null_stdout, null_stderr, e
 		      || (null_stderr && nulloutfd == STDERR_FILENO)
 		      || close (nulloutfd) >= 0))))
 	execvp (prog_path, prog_argv);
-      _exit (-1);
+      _exit (127);
     }
   if (child == -1)
     {
