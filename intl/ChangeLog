@@ -1,3 +1,10 @@
+2002-07-13  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (freea): New macro.
+	(FREE_BLOCKS): Free also the registered blocks.
+	(DCIGETTEXT): Free the 'search' variable.
+	Reported by Andreas Fischer <a.fischer@asentics.de>.
+
 2002-06-13  Bruno Haible  <bruno@clisp.org>
 
 	Make absolute pathnames inside $LANGUAGE work.

@@ -306,6 +306,7 @@ static const char *guess_category_value PARAMS ((int category,
    some additional code emulating it.  */
 #ifdef HAVE_ALLOCA
 /* Nothing has to be done.  */
+# define freea(p) /* nothing */
 # define ADD_BLOCK(list, address) /* nothing */
 # define FREE_BLOCKS(list) /* nothing */
 #else
@@ -330,11 +331,13 @@ struct block_list
     while (list != NULL) {						      \
       struct block_list *old = list;					      \
       list = list->next;						      \
+      free (old->address);						      \
       free (old);							      \
     }									      \
   } while (0)
 # undef alloca
 # define alloca(size) (malloc (size))
+# define freea(p) free (p)
 #endif	/* have alloca */
 
 
@@ -460,6 +463,7 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
   search->category = category;
 
   foundp = (struct known_translation_t **) tfind (search, &root, transcmp);
+  freea (search);
   if (foundp != NULL && (*foundp)->counter == _nl_msg_cat_cntr)
     {
       /* Now deal with plural.  */
