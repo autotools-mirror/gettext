@@ -28,6 +28,8 @@ MFLAGS=-MD
 prefix = c:\usr
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)\bin
+libdir = $(exec_prefix)\lib
+includedir = $(prefix)\include
 
 # Programs used by "make":
 
@@ -52,9 +54,9 @@ OPTIMFLAGS = -Od -Z7
 OPTIMFLAGS = -D_NDEBUG -O1
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DEXEEXT=\".exe\"
 
-INCLUDES =
+INCLUDES = -I. -I.. -I..\intl -I..\windows -I$(includedir)
 
 AR = lib
 AR_FLAGS = /out:
@@ -94,7 +96,6 @@ OBJECTS = \
   concatpath.obj \
   pipe-bidi.obj pipe-in.obj pipe-out.obj \
   progname.obj \
-  relocatable.obj \
   safe-read.obj \
   safe-write.obj \
   sh-quote.obj \
@@ -198,9 +199,6 @@ pipe-out.obj : pipe-out.c
 progname.obj : progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c progname.c
 
-relocatable.obj : relocatable.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c relocatable.c
-
 safe-read.obj : safe-read.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c safe-read.c
 
@@ -276,8 +274,8 @@ gettextlib.lib : $(OBJECTS)
 !else
 
 # gettextlib.dll and gettextlib.lib are created together.
-gettextlib.lib : $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD $(OBJECTS) $(RESOURCES)
+gettextlib.lib : ..\windows\gettextlib.def $(OBJECTS) $(RESOURCES)
+	$(CC) $(MFLAGS) -LD ..\windows\gettextlib.def $(OBJECTS) ..\intl\intl.lib $(libdir)\iconv.lib $(RESOURCES) -Fegettextlib.dll
 
 gettextlib.res : ../windows/gettextlib.rc
 	rc -Fo gettextlib.res ../windows/gettextlib.rc

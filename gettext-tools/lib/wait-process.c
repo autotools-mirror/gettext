@@ -1,5 +1,5 @@
 /* Waiting for a subprocess to finish.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,37 @@
 
 #include <sys/types.h>
 
+#if defined _MSC_VER || defined __MINGW32__
+
+/* Native Woe32 API.  */
+
+int
+wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
+{
+  /* Not yet implemented.  Should probably use _cwait.  */
+  return 127;
+}
+
+#else
+
+/* Unix API.  */
+
+#if defined _MSC_VER || defined __MINGW32__
+
+/* Native Woe32 API.  */
+#include <process.h>
+#define waitpid(pid,statusp,options) _cwait (statusp, pid, WAIT_CHILD)
+#define WAIT_T int
+#define WTERMSIG(x) ((x) & 0xff) /* or: SIGABRT ?? */
+#define WCOREDUMP(x) 0
+#define WEXITSTATUS(x) (((x) >> 8) & 0xff) /* or: (x) ?? */
+#define WIFSIGNALED(x) (WTERMSIG (x) != 0) /* or: ((x) == 3) ?? */
+#define WIFEXITED(x) (WTERMSIG (x) == 0) /* or: ((x) != 3) ?? */
+#define WIFSTOPPED(x) 0
+
+#else
+
+/* Unix API.  */
 #include <sys/wait.h>
 /* On Linux, WEXITSTATUS are bits 15..8 and WTERMSIG are bits 7..0, while
    BeOS uses the contrary.  Therefore we use the abstract macros.  */
@@ -69,6 +100,8 @@
 /* Note that portable applications may access
    WTERMSIG(x) only if WIFSIGNALED(x) is true, and
    WEXITSTATUS(x) only if WIFEXITED(x) is true.  */
+
+#endif
 
 #include "error.h"
 #include "exit.h"
@@ -132,3 +165,5 @@ wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
     }
   return WEXITSTATUS (status);
 }
+
+#endif /* Woe32 / Unix */

@@ -1,3 +1,30 @@
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
+	* progname.c (ISSLASH, HAS_DEVICE, IS_PATH_WITH_DIR,
+	FILESYSTEM_PREFIX_LEN): New macros.
+	(maybe_executable): Make a nop on Woe32.
+	(find_executable) [WIN32]: Fix compilation.
+
+	* relocatable.h (RELOCATABLE_DLL_EXPORTED): New macro.
+
+	* w32spawn.h: New file.
+	* execute.c: Add alternative implementation using native Woe32 API.
+	* pipe-bidi.c: Likewise.
+	* pipe-in.c: Likewise.
+	* pipe-out.c: Likewise.
+	* wait-process.c: Likewise.
+	* Makefile.am (libgettextlib_la_SOURCES): Add w32spawn.h.
+
+	* pipe.h (DEV_NULL): New macro.
+	* javacomp.c (compile_java_class): Use DEV_NULL instead of "/dev/null".
+
+	* pipe-bidi.c (STDERR_FILENO): Provide a fallback value.
+	* pipe-in.c (STDERR_FILENO): Likewise.
+	* pipe-out.c (STDERR_FILENO): Likewise.
+
+	* copy-file.c (copy_file_preserving): Don't set owner if the function
+	chown() doesn't exist.
+
 2003-03-17  Bruno Haible  <bruno@clisp.org>
 
 	Native Woe32/MSVC support.

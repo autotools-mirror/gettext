@@ -1,5 +1,5 @@
 /* Creation of subprocesses, communicating via pipes.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,12 +32,23 @@
 # include <unistd.h>
 #endif
 
-#ifdef HAVE_POSIX_SPAWN
-# include <spawn.h>
+#if defined _MSC_VER || defined __MINGW32__
+
+/* Native Woe32 API.  */
+# include <process.h>
+# include "w32spawn.h"
+
 #else
-# ifdef HAVE_VFORK_H
-#  include <vfork.h>
+
+/* Unix API.  */
+# ifdef HAVE_POSIX_SPAWN
+#  include <spawn.h>
+# else
+#  ifdef HAVE_VFORK_H
+#   include <vfork.h>
+#  endif
 # endif
+
 #endif
 
 #include "error.h"
@@ -49,6 +60,9 @@
 #endif
 #ifndef STDOUT_FILENO
 # define STDOUT_FILENO 1
+#endif
+#ifndef STDERR_FILENO
+# define STDERR_FILENO 2
 #endif
 
 #define _(str) gettext (str)
@@ -91,6 +105,88 @@ create_pipe_bidi (const char *progname,
 		  bool exit_on_error,
 		  int fd[2])
 {
+#if defined _MSC_VER || defined __MINGW32__
+
+  /* Native Woe32 API.
+     This uses _pipe(), dup2(), and spawnv().  It could also be implemented
+     using the low-level functions CreatePipe(), DuplicateHandle(),
+     CreateProcess() and _open_osfhandle(); see the GNU make and GNU clisp
+     and cvs source code.  */
+  int ifd[2];
+  int ofd[2];
+  int orig_stdin;
+  int orig_stdout;
+  int orig_stderr;
+  int child;
+  int nulloutfd;
+
+  prog_argv = prepare_spawn (prog_argv);
+
+  if (_pipe (ifd, 4096, O_BINARY | O_NOINHERIT) < 0)
+    error (EXIT_FAILURE, errno, _("cannot create pipe"));
+  if (_pipe (ofd, 4096, O_BINARY | O_NOINHERIT) < 0)
+    error (EXIT_FAILURE, errno, _("cannot create pipe"));
+/* Data flow diagram:
+ *
+ *           write        system         read
+ *    parent  ->   ofd[1]   ->   ofd[0]   ->   child
+ *    parent  <-   ifd[0]   <-   ifd[1]   <-   child
+ *           read         system         write
+ *
+ */
+
+  /* Save standard file handles of parent process.  */
+  orig_stdin = dup_noinherit (STDIN_FILENO);
+  orig_stdout = dup_noinherit (STDOUT_FILENO);
+  if (null_stderr)
+    orig_stderr = dup_noinherit (STDERR_FILENO);
+  child = -1;
+
+  /* Create standard file handles of child process.  */
+  nulloutfd = -1;
+  if (dup2 (ofd[0], STDIN_FILENO) >= 0
+      && dup2 (ifd[1], STDOUT_FILENO) >= 0
+      && (!null_stderr
+	  || ((nulloutfd = open ("NUL", O_RDWR, 0)) >= 0
+	      && (nulloutfd == STDERR_FILENO
+		  || (dup2 (nulloutfd, STDERR_FILENO) >= 0
+		      && close (nulloutfd) >= 0)))))
+    /* The child process doesn't inherit ifd[0], ifd[1], ofd[0], ofd[1],
+       but it inherits all open()ed or dup2()ed file handles (which is what
+       we want in the case of STD*_FILENO) and also orig_stdin,
+       orig_stdout, orig_stderr (which is not explicitly wanted but
+       harmless).  */
+    child = spawnvp (P_NOWAIT, prog_path, prog_argv);
+  if (nulloutfd >= 0)
+    close (nulloutfd);
+
+  /* Restore standard file handles of parent process.  */
+  if (null_stderr)
+    dup2 (orig_stderr, STDERR_FILENO), close (orig_stderr);
+  dup2 (orig_stdout, STDOUT_FILENO), close (orig_stdout);
+  dup2 (orig_stdin, STDIN_FILENO), close (orig_stdin);
+
+  close (ofd[0]);
+  close (ifd[1]);
+  if (child == -1)
+    {
+      if (exit_on_error)
+	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
+      else
+	{
+	  close (ifd[0]);
+	  close (ofd[1]);
+	  return -1;
+	}
+    }
+
+  fd[0] = ifd[0];
+  fd[1] = ofd[1];
+  return child;
+
+#else
+
+  /* Unix API.  */
   int ifd[2];
   int ofd[2];
 #if HAVE_POSIX_SPAWN
@@ -192,4 +288,6 @@ create_pipe_bidi (const char *progname,
   fd[0] = ifd[0];
   fd[1] = ofd[1];
   return child;
+
+#endif
 }

@@ -198,8 +198,7 @@ compile_java_class (const char * const *java_sources,
 	argv[0] = "gcj";
 	argv[1] = "--version";
 	argv[2] = NULL;
-	child = create_pipe_in ("gcj", "gcj", argv, "/dev/null", true, false,
-				fd);
+	child = create_pipe_in ("gcj", "gcj", argv, DEV_NULL, true, false, fd);
 	gcj_present = false;
 	if (child != -1)
 	  {

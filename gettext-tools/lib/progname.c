@@ -54,6 +54,26 @@
 # include "xmalloc.h"
 #endif
 
+/* Pathname support.
+   ISSLASH(C)           tests whether C is a directory separator character.
+   IS_PATH_WITH_DIR(P)  tests whether P contains a directory specification.
+ */
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, OS/2, DOS */
+# define ISSLASH(C) ((C) == '/' || (C) == '\\')
+# define HAS_DEVICE(P) \
+    ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
+     && (P)[1] == ':')
+# define IS_PATH_WITH_DIR(P) \
+    (strchr (P, '/') != NULL || strchr (P, '\\') != NULL || HAS_DEVICE (P))
+# define FILESYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
+#else
+  /* Unix */
+# define ISSLASH(C) ((C) == '/')
+# define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
+# define FILESYSTEM_PREFIX_LEN(P) 0
+#endif
+
 #undef set_program_name
 
 
@@ -96,6 +116,7 @@ static int executable_fd = -1;
 static bool
 maybe_executable (const char *filename)
 {
+#if !defined WIN32
   if (access (filename, X_OK) < 0)
     return false;
 
@@ -118,6 +139,7 @@ maybe_executable (const char *filename)
 	}
     }
 #endif
+#endif
 
   return true;
 }
@@ -134,7 +156,7 @@ find_executable (const char *argv0)
   int length = GetModuleFileName (NULL, buf, sizeof (buf));
   if (length < 0)
     return NULL;
-  if (!IS_PATH_WITH_DIR (location))
+  if (!IS_PATH_WITH_DIR (buf))
     /* Shouldn't happen.  */
     return NULL;
   return xstrdup (buf);

@@ -39,7 +39,7 @@ libgettextlib_la_SOURCES = \
   classpath.h classpath.c \
   copy-file.h copy-file.c \
   error.h error.c \
-  execute.h execute.c \
+  execute.h execute.c w32spawn.h \
   exit.h \
   findprog.h findprog.c \
   fstrcmp.h fstrcmp.c \
@@ -55,7 +55,7 @@ libgettextlib_la_SOURCES = \
   obstack.h obstack.c \
   pathmax.h \
   pathname.h concatpath.c \
-  pipe.h pipe-bidi.c pipe-in.c pipe-out.c \
+  pipe.h pipe-bidi.c pipe-in.c pipe-out.c w32spawn.h \
   progname.h progname.c \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \
