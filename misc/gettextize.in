@@ -157,7 +157,7 @@ done
 # Copy files to intl/ subdirectory.
 cd intl
 for file in *; do
-  if test $file != COPYING.LIB-2 && test $file != COPYING.LIB-2.1; then
+  if test $file != COPYING.LIB-2.0 && test $file != COPYING.LIB-2.1; then
     rm -f $srcdir/intl/$file
     if test $file != plural.c; then
       ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file && $echo "Symlinking file intl/$file") 2>/dev/null ||

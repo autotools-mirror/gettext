@@ -1,3 +1,7 @@
+2001-10-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextize.in: Renamed COPYING.LIB-2 to COPYING.LIB-2.0.
+
 2001-10-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-mode.el (po-team-name-to-code): Extend the list using items from
