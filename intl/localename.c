@@ -573,7 +573,7 @@ _nl_locale_name (category, categoryname)
     case 0x3c: /* GAELIC */
       switch (sub)
 	{
-	case 0x01: /* SCOTTISH */ return "gd_UK";
+	case 0x01: /* SCOTTISH */ return "gd_GB";
 	case 0x02: /* IRISH */ return "ga_IE";
 	}
       return "C";
@@ -759,7 +759,7 @@ _nl_locale_name (category, categoryname)
       return "uz";
     case 0x33: /* VENDA */ return "ven_ZA";
     case LANG_VIETNAMESE: return "vi_VN";
-    case 0x52: /* WELSH */ return "cy_UK";
+    case 0x52: /* WELSH */ return "cy_GB";
     case 0x34: /* XHOSA */ return "xh_ZA";
     case 0x78: /* YI */ return "sit_CN";
     case 0x3d: /* YIDDISH */ return "yi_IL";
