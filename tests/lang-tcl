@@ -14,7 +14,7 @@ package require msgcat
 ::msgcat::mcload [file join [file dirname [info script]] msgs]
 proc _ {s} {return [::msgcat::mc $s]}
 puts [_ "'Your command, please?', asked the waiter."]
-puts [::msgcat::mc "%s is replaced by %s." "FF" "EUR"]
+puts [format [::msgcat::mc "%s is replaced by %s."] "FF" "EUR"]
 EOF
 
 tmpfiles="$tmpfiles prog.pot"
