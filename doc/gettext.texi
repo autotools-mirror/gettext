@@ -1087,7 +1087,7 @@ subsequent sections.  These allow for quitting PO mode or for managing windows
 in special ways.
 
 @table @kbd
-@item U
+@item _
 Undo last modification to the PO file.
 
 @item Q
@@ -1096,7 +1096,7 @@ Quit processing and save the PO file.
 @item q
 Quit processing, possibly after confirmation.
 
-@item O
+@item 0
 Temporary leave the PO file window.
 
 @item ?
@@ -1131,7 +1131,7 @@ off working with this PO file.  This is the preferred way of getting rid
 of an Emacs PO file buffer.  Merely killing it through the usual command
 @w{@kbd{C-x k}} (@code{kill-buffer}) is not the tidiest way to proceed.
 
-The command @kbd{O} (@code{po-other-window}) is another, softer way,
+The command @kbd{0} (@code{po-other-window}) is another, softer way,
 to leave PO mode, temporarily.  It just moves the cursor to some other
 Emacs window, and pops one if necessary.  For example, if the translator
 just got PO mode to show some source context in some other, she might
@@ -2122,7 +2122,7 @@ Some commands are more specifically related to translated entry processing.
 @item t
 Find the next translated entry.
 
-@item M-t
+@item T
 Find the previous translated entry.
 
 @end table
@@ -2169,7 +2169,7 @@ related to fuzzy entry processing.
 @item f
 Find the next fuzzy entry.
 
-@item M-f
+@item F
 Find the previous fuzzy entry.
 
 @item @key{TAB}
@@ -2233,7 +2233,7 @@ processing.
 @item u
 Find the next untranslated entry.
 
-@item M-u
+@item U
 Find the previous untranslated entry.
 
 @item k
@@ -2280,7 +2280,7 @@ entry processing.
 @item o
 Find the next obsolete entry.
 
-@item M-o
+@item O
 Find the previous obsolete entry.
 
 @item @key{DEL}
@@ -2753,7 +2753,7 @@ Here are the auxiliary file commands available in PO mode.
 @item a
 Seek auxiliary files for another translation for the same entry.
 
-@item M-a
+@item C-c C-a
 Switch to a particular auxiliary file.
 
 @item A
@@ -2777,7 +2777,7 @@ file is also made into an auxiliary file, if not already.  So, @kbd{a}
 in this newly displayed PO file will seek another PO file, and so on,
 so repeating @kbd{a} will eventually yield back the original PO file.
 
-The command @kbd{M-a} (@code{po-select-auxiliary}) asks the translator
+The command @kbd{C-c C-a} (@code{po-select-auxiliary}) asks the translator
 for her choice of a particular auxiliary file, with completion, and
 then switches to that selected PO file.  The command also checks if
 the selected file has an @code{msgid} field identical as the one for

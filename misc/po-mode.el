@@ -608,13 +608,13 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
   (_"\
 PO Mode Summary           Next Previous            Miscellaneous
 *: Later, /: Docum        n    p    Any type       .     Redisplay
-                          /t   /M-t Translated     /v    Version info
-Moving around             f    M-f  Fuzzy          ?, h  This help
-<    First if any         o    M-o  Obsolete       =     Current index
->    Last if any          u    M-u  Untranslated   O     Other window
+                          /t   /T Translated       /v    Version info
+Moving around             f    F    Fuzzy          ?, h  This help
+<    First if any         o    O    Obsolete       =     Current index
+>    Last if any          u    U    Untranslated   0     Other window
 /SPC Auto select                                   V     Validate
                         Msgstr Comments            M     Mail officially
-Modifying entries         RET  #    Call editor    U     Undo
+Modifying entries         RET  #    Call editor    _     Undo
 TAB   Remove fuzzy mark   k    K    Kill to        E     Edit out full
 /DEL  Fuzzy or fade out   w    W    Copy to        Q     Forceful quit
 LFD   Init with msgid     y    Y    Yank from      q     Confirm and quit
@@ -626,7 +626,7 @@ M-.  Change mark, mark    *M-C  Select, save       x  Exchange current/top
 
 Program Sources           Auxiliary Files          Lexicography
 s    Cycle reference      a    Cycle file          *l    Lookup translation
-M-s  Select reference     M-a  Select file         *M-l  Add/edit translation
+M-s  Select reference     C-cC-a  Select file      *M-l  Add/edit translation
 S    Consider path        A    Consider PO file    *L    Consider lexicon
 M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
 ")
@@ -981,26 +981,26 @@ Called through file-coding-system-alist, before the file is visited for real."
   (define-key po-mode-map "y" 'po-yank-msgstr)
   (define-key po-mode-map "A" 'po-consider-as-auxiliary)
   (define-key po-mode-map "E" 'po-edit-out-full)
+  (define-key po-mode-map "F" 'po-previous-fuzzy-entry)
   (define-key po-mode-map "K" 'po-kill-comment)
 ;;;;  (define-key po-mode-map "L" 'po-consider-lexicon-file)
   (define-key po-mode-map "M" 'po-send-mail)
-  (define-key po-mode-map "O" 'po-other-window)
+  (define-key po-mode-map "O" 'po-previous-obsolete-entry)
+  (define-key po-mode-map "T" 'po-previous-translated-entry)
+  (define-key po-mode-map "U" 'po-previous-untranslated-entry)
   (define-key po-mode-map "Q" 'po-quit)
   (define-key po-mode-map "S" 'po-consider-source-path)
-  (define-key po-mode-map "U" 'po-undo)
   (define-key po-mode-map "V" 'po-validate)
   (define-key po-mode-map "W" 'po-kill-ring-save-comment)
   (define-key po-mode-map "Y" 'po-yank-comment)
+  (define-key po-mode-map "_" 'po-undo)
+  (define-key po-mode-map "0" 'po-other-window)
   (define-key po-mode-map "\177" 'po-fade-out-entry)
+  (define-key po-mode-map "\C-c\C-a" 'po-select-auxiliary)
   (define-key po-mode-map "\M-," 'po-mark-translatable)
   (define-key po-mode-map "\M-." 'po-select-mark-and-mark)
-  (define-key po-mode-map "\M-a" 'po-select-auxiliary)
 ;;;;  (define-key po-mode-map "\M-c" 'po-select-and-save-entry)
-  (define-key po-mode-map "\M-f" 'po-previous-fuzzy-entry)
 ;;;;  (define-key po-mode-map "\M-l" 'po-edit-lexicon-entry)
-  (define-key po-mode-map "\M-o" 'po-previous-obsolete-entry)
-  (define-key po-mode-map "\M-t" 'po-previous-translated-entry)
-  (define-key po-mode-map "\M-u" 'po-previous-untranslated-entry)
   (define-key po-mode-map "\M-s" 'po-select-source-reference)
   (define-key po-mode-map "\M-A" 'po-ignore-as-auxiliary)
 ;;;;  (define-key po-mode-map "\M-L" 'po-ignore-lexicon-file)

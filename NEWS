@@ -29,6 +29,12 @@ Version 0.11 - XXX 2001
   -d/--default-domain and -p/--output-dir have been removed.
 
 * Manual pages for all the programs have been added.
+
+* PO mode changes:
+  New key bindings for 'po-previous-fuzzy-entry',
+  'po-previous-obsolete-entry', 'po-previous-translated-entry',
+  'po-previous-untranslated', 'po-undo', 'po-other-window', and
+  'po-select-auxiliary'.
 
 Version 0.10.40 - September 2001
 

@@ -1,3 +1,13 @@
+2001-08-23  Karl Eichwalder  <ke@suse.de>
+
+	* gettext.texi (Main PO Commands): Reflect po-mode.el key binding
+	changes.
+	(Translated Entries): Likewise.
+	(Fuzzy Entries): Likewise.
+	(Untranslated Entries): Likewise.
+	(Obsolete Entries): Likewise.
+	(Auxiliary): Likewise.
+
 2001-11-07  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Smalltalk): Update from

@@ -1,5 +1,18 @@
 2001-08-23  Karl Eichwalder  <ke@suse.de>
 
+	* po-mode.el (po-mode-map): Assign new Key bindings to avoid
+	clashes with moving actions:
+	'po-previous-fuzzy-entry' = 'F',
+	'po-previous-obsolete-entry' = 'O',
+	'po-previous-translated-entry' = 'T',
+	'po-previous-untranslated' = 'U',
+	'po-undo' = '_',
+	'po-other-window' = '0',
+	'po-select-auxiliary' = '\C-c\C-a'.
+	(po-help-display-string): Likewise.
+
+2001-08-23  Karl Eichwalder  <ke@suse.de>
+
 	* po-mode.el (po-next-translated-entry): Actually search for
 	'translated', not 'untranslated'.
 
