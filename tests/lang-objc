@@ -23,6 +23,7 @@ ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o hello hello.m 2>/dev/null \
 
 tmpfiles="$tmpfiles prog.m"
 cat <<\EOF > prog.m
+#include "config.h"
 #include <libintl.h>
 #include <locale.h>
 #include <stdio.h>
@@ -63,7 +64,7 @@ EOF
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet --mode=link ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.m -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${INTLLIBS} \
+${LIBTOOL} --quiet --mode=link ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.m -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${INTLLIBS} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"

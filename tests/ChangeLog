@@ -1,5 +1,11 @@
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* lang-c: Include config.h, needed by xsetenv.h.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* msgattrib-*: Use \EOF, not EOF, to create here documents containing
 	non-ASCII characters. Needed on FreeBSD.
 	* msgcat-*: Likewise.

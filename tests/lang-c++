@@ -14,6 +14,7 @@ fi
 
 tmpfiles="$tmpfiles prog.cc"
 cat <<\EOF > prog.cc
+#include "config.h"
 #include <iostream.h>
 #include <libintl.h>
 #include <locale.h>
@@ -50,7 +51,7 @@ EOF
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${INTLLIBS} \
+${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${INTLLIBS} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
