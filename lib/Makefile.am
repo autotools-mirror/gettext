@@ -54,6 +54,7 @@ libgettextlib_la_SOURCES = \
   sh-quote.h sh-quote.c \
   strtoul.c \
   tmpdir.h tmpdir.c \
+  ucs4-utf8.h ucs4-utf16.h \
   wait-process.h wait-process.c \
   xerror.h xerror.c \
   xmalloc.h xmalloc.c xstrdup.c \
