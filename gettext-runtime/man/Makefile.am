@@ -98,7 +98,7 @@ envsubst.1: envsubst.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
 
 # Depend on version.sh to get version number changes.
-$(man_MAN1): help2man $(top_srcdir)/../version.sh
+$(man_MAN1IN) $(man_MAN1OTHER): help2man $(top_srcdir)/../version.sh
 
 gettext.3: gettext.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@
