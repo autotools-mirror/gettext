@@ -1,3 +1,8 @@
+2004-02-22  Bruno Haible  <bruno@clisp.org>
+
+	* config.rpath: Add support for Comeau C++ on Linux.
+	Patch by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+
 2004-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath: Upgrade to libtool-1.5.2.

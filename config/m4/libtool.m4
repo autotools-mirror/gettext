@@ -4901,6 +4901,9 @@ AC_MSG_CHECKING([for $compiler option to produce PIC])
         # All Alpha code is PIC.
         _LT_AC_TAGVAR(lt_prog_compiler_static, $1)='-non_shared'
         ;;
+      como)
+        _LT_AC_TAGVAR(lt_prog_compiler_wl, $1)='-lopt='
+        ;;
       esac
       ;;
 

@@ -78,6 +78,9 @@ else
         ccc*)
           wl='-Wl,'
           ;;
+        como)
+          wl='-lopt='
+          ;;
       esac
       ;;
     osf3* | osf4* | osf5*)
