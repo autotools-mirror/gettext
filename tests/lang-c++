@@ -15,7 +15,15 @@ fi
 tmpfiles="$tmpfiles prog.cc"
 cat <<\EOF > prog.cc
 #include "config.h"
-#include <iostream.h>
+
+/* Avoid deprecation warnings from g++ 3.1 or newer.  */
+#if defined __GNUG__ && defined __DEPRECATED
+# include <iostream>
+using namespace std;
+#else
+# include <iostream.h>
+#endif
+
 #include <libintl.h>
 #include <locale.h>
 #include <stdio.h>

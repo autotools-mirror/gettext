@@ -1,3 +1,8 @@
+2002-05-04  Bruno Haible  <bruno@clisp.org>
+
+	* lang-c++: Use <iostream> instead of <iostream.h> to avoid g++ 3.1
+	deprecation warnings.
+
 2002-04-27  Bruno Haible  <bruno@clisp.org>
 
 	* plural-1-prg.c: No need to redirect textdomain() etc., now done in
