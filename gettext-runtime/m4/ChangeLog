@@ -1,3 +1,12 @@
+2003-09-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Test for fwprintf, not wprintf. Needed
+	because cygwin-1.3.22 has a broken definition of wprintf in
+	winsup/cygwin/syscalls.cc and lacks 1. the declaration of this function
+	and 2. the other wide-char I/O functions fwprintf, fwscanf, wprintf,
+	wscanf, swprintf, swscanf, vfwprintf, vwprintf, vwsprintf, fgetwc,
+	fgetwc, fputwc, fputws, getwc, getwchar, putwc, putwchar, ungetwc.
+
 2003-08-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Test whether _snprintf and _snwprintf
