@@ -1,3 +1,8 @@
+2001-11-19  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-mode-map): Enable key binding for
+	'po-edit-comment-and-ediff' ('C-c C-c' and 'C-c C-#').
+
 2001-11-18  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-help-display-string): Adjust it.
