@@ -36,11 +36,13 @@ IIPREFIX = c:\\usr
 prefix = $(PREFIX)
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)\bin
+libdir = $(exec_prefix)\lib
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
 IIprefix = $(IIPREFIX)
 IIexec_prefix = $(IIprefix)
 IIbindir = $(IIexec_prefix)\\bin
+IIlibdir = $(IIexec_prefix)\\lib
 IIdatadir = $(IIprefix)\\share
 IIlocaledir = $(IIdatadir)\\locale
 
@@ -98,10 +100,10 @@ ngettext.obj : ngettext.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c ngettext.c
 
 gettext.exe : $(gettext_OBJECTS)
-	$(CC) $(gettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(LDADD) -Fegettext.exe
+	$(CC) $(gettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fegettext.exe
 
 ngettext.exe : $(ngettext_OBJECTS)
-	$(CC) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(LDADD) -Fengettext.exe
+	$(CC) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fengettext.exe
 
 install : all force
 	-mkdir $(prefix)

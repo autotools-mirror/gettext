@@ -398,49 +398,49 @@ msguniq.obj : msguniq.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msguniq.c
 
 msgcmp.exe : $(msgcmp_OBJECTS)
-	$(CC) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgcmp.exe
+	$(CC) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcmp.exe
 
 msgfmt.exe : $(msgfmt_OBJECTS)
-	$(CC) $(msgfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgfmt.exe
+	$(CC) $(msgfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfmt.exe
 
 msgmerge.exe : $(msgmerge_OBJECTS)
-	$(CC) $(msgmerge_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgmerge.exe
+	$(CC) $(msgmerge_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgmerge.exe
 
 msgunfmt.exe : $(msgunfmt_OBJECTS)
-	$(CC) $(msgunfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgunfmt.exe
+	$(CC) $(msgunfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgunfmt.exe
 
 xgettext.exe : $(xgettext_OBJECTS)
 	$(CC) $(xgettext_OBJECTS) ..\libuniname\uniname.lib gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fexgettext.exe
 
 msgattrib.exe : $(msgattrib_OBJECTS)
-	$(CC) $(msgattrib_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgattrib.exe
+	$(CC) $(msgattrib_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgattrib.exe
 
 msgcat.exe : $(msgcat_OBJECTS)
-	$(CC) $(msgcat_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgcat.exe
+	$(CC) $(msgcat_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcat.exe
 
 msgcomm.exe : $(msgcomm_OBJECTS)
-	$(CC) $(msgcomm_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgcomm.exe
+	$(CC) $(msgcomm_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcomm.exe
 
 msgconv.exe : $(msgconv_OBJECTS)
-	$(CC) $(msgconv_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgconv.exe
+	$(CC) $(msgconv_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgconv.exe
 
 msgen.exe : $(msgen_OBJECTS)
-	$(CC) $(msgen_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgen.exe
+	$(CC) $(msgen_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgen.exe
 
 msgexec.exe : $(msgexec_OBJECTS)
-	$(CC) $(msgexec_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgexec.exe
+	$(CC) $(msgexec_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgexec.exe
 
 msgfilter.exe : $(msgfilter_OBJECTS)
-	$(CC) $(msgfilter_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgfilter.exe
+	$(CC) $(msgfilter_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfilter.exe
 
 msggrep.exe : $(msggrep_OBJECTS)
-	$(CC) $(msggrep_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsggrep.exe
+	$(CC) $(msggrep_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsggrep.exe
 
 msginit.exe : $(msginit_OBJECTS)
-	$(CC) $(msginit_OBJECTS) ..\intl\localename.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsginit.exe
+	$(CC) $(msginit_OBJECTS) ..\intl\localename.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsginit.exe
 
 msguniq.exe : $(msguniq_OBJECTS)
-	$(CC) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsguniq.exe
+	$(CC) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsguniq.exe
 
 install : all force
 	-mkdir $(prefix)

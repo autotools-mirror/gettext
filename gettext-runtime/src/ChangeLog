@@ -1,3 +1,8 @@
+2003-05-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.msvc (libdir, IIlibdir): New variables.
+	(gettext.exe, ngettext.exe): Link with iconv.lib, needed by intl.lib.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no
