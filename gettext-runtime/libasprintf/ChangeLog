@@ -1,3 +1,8 @@
+2003-02-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (installdirs): Remove dependency, redundant with
+	automake >= 1.6.
+
 2003-02-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (clean-am): New rule. For Solaris cc.

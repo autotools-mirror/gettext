@@ -180,7 +180,3 @@ uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html
 
 EXTRA_DIST += texi2html autosprintf.html
-
-
-# One more automake bug.
-installdirs: installdirs-local

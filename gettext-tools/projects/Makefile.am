@@ -66,7 +66,3 @@ uninstall-local:
 	  echo "$(RM) $(DESTDIR)$(projectsdir)/$$f"; \
 	  $(RM) $(DESTDIR)$(projectsdir)/$$f; \
 	done
-
-
-# One more automake bug.
-installdirs: installdirs-local

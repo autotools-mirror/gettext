@@ -160,7 +160,3 @@ uninstall-javadoc2:
 	  echo "$(RM) $(DESTDIR)$(htmldir)/$$f"; \
 	  $(RM) $(DESTDIR)$(htmldir)/$$f; \
 	done
-
-
-# One more automake bug.
-installdirs: installdirs-local

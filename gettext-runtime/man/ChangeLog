@@ -1,3 +1,8 @@
+2003-02-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (installdirs): Remove dependency, redundant with
+	automake >= 1.6.
+
 2003-02-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.3.in, ngettext.3.in, textdomain.3.in, bindtextdomain.3.in,

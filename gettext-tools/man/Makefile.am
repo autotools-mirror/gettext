@@ -188,7 +188,3 @@ uninstall-html:
 	for file in $(man_HTML); do \
 	  $(RM) $(DESTDIR)$(htmldir)/$$file; \
 	done
-
-
-# One more automake bug.
-installdirs: installdirs-local

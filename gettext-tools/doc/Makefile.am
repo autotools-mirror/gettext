@@ -198,7 +198,3 @@ dist-html-split:
 	for file in `cd $$d && echo gettext_*.html`; do \
 	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
 	done
-
-
-# One more automake bug.
-installdirs: installdirs-local

@@ -291,7 +291,3 @@ installdirs-tcl:
 uninstall-local: uninstall-tcl
 uninstall-tcl:
 	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
-
-
-# One more automake bug.
-installdirs: installdirs-local
