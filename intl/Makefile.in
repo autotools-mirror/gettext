@@ -32,7 +32,6 @@ libdir = $(exec_prefix)/lib
 includedir = $(prefix)/include
 datadir = $(prefix)/@DATADIRNAME@
 localedir = $(datadir)/locale
-gnulocaledir = $(prefix)/share/locale
 gettextsrcdir = @datadir@/gettext/intl
 aliaspath = $(localedir)
 subdir = intl
@@ -51,8 +50,8 @@ RANLIB = @RANLIB@
 YACC = @YACC@ -d
 YFLAGS = --name-prefix=__gettext
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
--DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DLIBDIR=\"$(libdir)\" @DEFS@
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
+-DLIBDIR=\"$(libdir)\" @DEFS@
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@

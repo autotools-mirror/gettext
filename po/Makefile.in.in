@@ -21,7 +21,6 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 datadir = $(prefix)/@DATADIRNAME@
 localedir = $(datadir)/locale
-gnulocaledir = $(prefix)/share/locale
 gettextsrcdir = $(prefix)/share/gettext/po
 subdir = po
 
@@ -116,12 +115,8 @@ install-data-yes: all
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  case "$$cat" in \
-	    *.gmo) destdir=$(gnulocaledir);; \
-	    *)     destdir=$(localedir);; \
-	  esac; \
 	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
-	  dir=$$destdir/$$lang/LC_MESSAGES; \
+	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
 	  if test -r $$cat; then \
 	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
@@ -162,13 +157,9 @@ uninstall:
 	catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  case "$$cat" in \
-	    *.gmo) destdir=$(gnulocaledir);; \
-	    *)     destdir=$(localedir);; \
-	  esac; \
 	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
-	  rm -f $(DESTDIR)$$destdir/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
-	  rm -f $(DESTDIR)$$destdir/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT); \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE)$(INSTOBJEXT).m; \
 	done
 	if test "$(PACKAGE)" = "gettext"; then \
 	  rm -f $(DESTDIR)$(gettextsrcdir)/Makefile.in.in; \

@@ -261,7 +261,7 @@ const char _nl_default_default_domain[] = "messages";
 const char *_nl_current_default_domain = _nl_default_default_domain;
 
 /* Contains the default location of the message catalogs.  */
-const char _nl_default_dirname[] = GNULOCALEDIR;
+const char _nl_default_dirname[] = LOCALEDIR;
 
 /* List with bindings of specific domains created by bindtextdomain()
    calls.  */

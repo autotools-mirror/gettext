@@ -1,5 +1,12 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	Simplification: In all cases where $(gnulocaledir) is used, it is
+	identical to $(localedir).
+	* Makefile.in (DEFS): Remove setting for GNULOCALEDIR.
+	* dcigettext.c (_nl_default_dirname): Initialize with LOCALEDIR.
+
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* xopen-msg.sed: Renamed to ...
 	* po2msg.sin: ... here.
 	* linux-msg.sed: Remove file.
