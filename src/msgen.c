@@ -1,0 +1,327 @@
+/* Creates an English translation catalog.
+   Copyright (C) 2001 Free Software Foundation, Inc.
+   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+
+
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
+#include <getopt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+#include "dir-list.h"
+#include "error.h"
+#include "progname.h"
+#include "message.h"
+#include "read-po.h"
+#include "write-po.h"
+#include "system.h"
+#include "libgettext.h"
+
+#define _(str) gettext (str)
+
+
+/* Force output of PO file even if empty.  */
+static int force_po;
+
+/* Long options.  */
+static const struct option long_options[] =
+{
+  { "add-location", no_argument, &line_comment, 1 },
+  { "directory", required_argument, NULL, 'D' },
+  { "escape", no_argument, NULL, 'E' },
+  { "force-po", no_argument, &force_po, 1 },
+  { "help", no_argument, NULL, 'h' },
+  { "indent", no_argument, NULL, 'i' },
+  { "no-escape", no_argument, NULL, 'e' },
+  { "no-location", no_argument, &line_comment, 0 },
+  { "output-file", required_argument, NULL, 'o' },
+  { "sort-by-file", no_argument, NULL, 'F' },
+  { "sort-output", no_argument, NULL, 's' },
+  { "strict", no_argument, NULL, 'S' },
+  { "version", no_argument, NULL, 'V' },
+  { "width", required_argument, NULL, 'w', },
+  { NULL, 0, NULL, 0 }
+};
+
+
+/* Prototypes for local functions.  */
+static void usage PARAMS ((int status));
+static msgdomain_list_ty *english PARAMS ((msgdomain_list_ty *mdlp));
+
+
+int
+main (argc, argv)
+     int argc;
+     char **argv;
+{
+  int opt;
+  int do_help;
+  int do_version;
+  char *output_file;
+  msgdomain_list_ty *result;
+  int sort_by_filepos = 0;
+  int sort_by_msgid = 0;
+
+  /* Set program name for messages.  */
+  program_name = argv[0];
+  error_print_progname = maybe_print_progname;
+
+#ifdef HAVE_SETLOCALE
+  /* Set locale via LC_ALL.  */
+  setlocale (LC_ALL, "");
+#endif
+
+  /* Set the text message domain.  */
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  textdomain (PACKAGE);
+
+  /* Set default values for variables.  */
+  do_help = 0;
+  do_version = 0;
+  output_file = NULL;
+
+  while ((opt = getopt_long (argc, argv, "D:eEFhio:sVw:", long_options, NULL))
+	 != EOF)
+    switch (opt)
+      {
+      case '\0':		/* Long option.  */
+	break;
+
+      case 'D':
+	dir_list_append (optarg);
+	break;
+
+      case 'e':
+	message_print_style_escape (0);
+	break;
+
+      case 'E':
+	message_print_style_escape (1);
+	break;
+
+      case 'F':
+	sort_by_filepos = 1;
+	break;
+
+      case 'h':
+	do_help = 1;
+	break;
+
+      case 'i':
+	message_print_style_indent ();
+	break;
+
+      case 'o':
+	output_file = optarg;
+	break;
+
+      case 's':
+	sort_by_msgid = 1;
+	break;
+
+      case 'S':
+	message_print_style_uniforum ();
+	break;
+
+      case 'V':
+	do_version = 1;
+	break;
+
+      case 'w':
+	{
+	  int value;
+	  char *endp;
+	  value = strtol (optarg, &endp, 10);
+	  if (endp != optarg)
+	    message_page_width_set (value);
+	}
+	break;
+
+      default:
+	usage (EXIT_FAILURE);
+	break;
+      }
+
+  /* Version information is requested.  */
+  if (do_version)
+    {
+      printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
+      /* xgettext: no-wrap */
+      printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
+This is free software; see the source for copying conditions.  There is NO\n\
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
+"),
+	      "2001");
+      printf (_("Written by %s.\n"), "Bruno Haible");
+      exit (EXIT_SUCCESS);
+    }
+
+  /* Help is requested.  */
+  if (do_help)
+    usage (EXIT_SUCCESS);
+
+  /* Test whether we have an .po file name as argument.  */
+  if (optind >= argc)
+    {
+      error (EXIT_SUCCESS, 0, _("no input file given"));
+      usage (EXIT_FAILURE);
+    }
+  if (optind + 1 != argc)
+    {
+      error (EXIT_SUCCESS, 0, _("exactly one input file required"));
+      usage (EXIT_FAILURE);
+    }
+
+  if (sort_by_msgid && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--sort-output", "--sort-by-file");
+
+  /* Read input file and add English translations.  */
+  result = english (read_po_file (argv[optind]));
+
+  /* Sort the results.  */
+  if (sort_by_filepos)
+    msgdomain_list_sort_by_filepos (result);
+  else if (sort_by_msgid)
+    msgdomain_list_sort_by_msgid (result);
+
+  /* Write the merged message list out.  */
+  msgdomain_list_print (result, output_file, force_po, 0);
+
+  exit (EXIT_SUCCESS);
+}
+
+
+/* Display usage information and exit.  */
+static void
+usage (status)
+     int status;
+{
+  if (status != EXIT_SUCCESS)
+    fprintf (stderr, _("Try `%s --help' for more information.\n"),
+	     program_name);
+  else
+    {
+      /* xgettext: no-wrap */
+      printf (_("\
+Usage: %s [OPTION] INPUTFILE\n\
+"), program_name);
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Creates an English translation catalog.  The input file is the last\n\
+created English PO file, or a PO Template file (generally created by\n\
+xgettext).  Untranslated entries are assigned a translation that is\n\
+identical to the msgid, and are marked fuzzy.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  INPUTFILE                   input PO or POT file\n\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
+If input file is -, standard input is read.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location:\n\
+  -o, --output-file=FILE      write output to specified file\n\
+The results are written to standard output if no output file is specified\n\
+or if it is -.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Output details:\n\
+  -e, --no-escape             do not use C escapes in output (default)\n\
+  -E, --escape                use C escapes in output, no extended chars\n\
+      --force-po              write PO file even if empty\n\
+  -i, --indent                indented output style\n\
+      --no-location           suppress '#: filename:line' lines\n\
+      --add-location          preserve '#: filename:line' lines (default)\n\
+      --strict                strict Uniforum output style\n\
+  -w, --width=NUMBER          set output page width\n\
+  -s, --sort-output           generate sorted output and remove duplicates\n\
+  -F, --sort-by-file          sort output by file location\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Informative output:\n\
+  -h, --help                  display this help and exit\n\
+  -V, --version               output version information and exit\n\
+"));
+      printf ("\n");
+      fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
+	     stdout);
+    }
+
+  exit (status);
+}
+
+
+static msgdomain_list_ty *
+english (mdlp)
+     msgdomain_list_ty *mdlp;
+{
+  size_t j, k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+
+	  if (mp->msgid_plural == NULL)
+	    {
+	      if (mp->msgstr_len == 1 && mp->msgstr[0] == '\0')
+		{
+		  mp->msgstr = mp->msgid; /* no need for xstrdup */
+		  mp->msgstr_len = strlen (mp->msgid) + 1;
+		}
+	    }
+	  else
+	    {
+	      if (mp->msgstr_len == 2
+		  && mp->msgstr[0] == '\0' && mp->msgstr[1] == '\0')
+		{
+		  size_t len0 = strlen (mp->msgid) + 1;
+		  size_t len1 = strlen (mp->msgid_plural) + 1;
+		  char *cp = (char *) xmalloc (len0 + len1);
+		  memcpy (cp, mp->msgid, len0);
+		  memcpy (cp + len0, mp->msgid_plural, len1);
+		  mp->msgstr = cp;
+		  mp->msgstr_len = len0 + len1;
+		}
+	    }
+	}
+    }
+
+  return mdlp;
+}

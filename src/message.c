@@ -510,6 +510,7 @@ message_list_prepend (mlp, mp)
 }
 
 
+#if 0 /* unused */
 void
 message_list_delete_nth (mlp, n)
      message_list_ty *mlp;
@@ -523,6 +524,21 @@ message_list_delete_nth (mlp, n)
   for (j = n + 1; j < mlp->nitems; ++j)
     mlp->item[j - 1] = mlp->item[j];
   mlp->nitems--;
+}
+#endif
+
+
+void
+message_list_remove_if_not (mlp, predicate)
+     message_list_ty *mlp;
+     message_predicate_ty *predicate;
+{
+  size_t i, j;
+
+  for (j = 0, i = 0; j < mlp->nitems; j++)
+    if (predicate (mlp->item[j]))
+      mlp->item[i++] = mlp->item[j];
+  mlp->nitems = i;
 }
 
 

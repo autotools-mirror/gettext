@@ -1,5 +1,10 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* POTFILES.in: Add src/msgcat.c, src/msgconv.c, src/msgen.c,
+	src/msggrep.c, src/msgl-charset.c, src/msgl-iconv.c, src/msgsed.c.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* POTFILES.in: Add lib/pipe-bidi.c, lib/pipe-in.c, lib/pipe-out.c,
 	lib/wait-process.c.
 

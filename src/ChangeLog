@@ -1,5 +1,37 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.h (message_ty): New field 'tmp'.
+	(message_predicate_ty): New type.
+	(message_list_remove_if_not): New declaration.
+	* message.c (message_list_delete_nth): Comment out.
+	(message_list_remove_if_not): New function.
+	* msgl-charset.h: New file.
+	* msgl-charset.c: New file.
+	* msgl-iconv.h: New file.
+	* msgl-iconv.c: New file.
+	* msgcat.c: New file.
+	* msgconv.c: New file.
+	* msgen.c: New file.
+	* msggrep.c: New file.
+	* msgsed.c: New file.
+	* msgcomm.c (default_domain, output_dir): Remove variables.
+	(long_options): Remove --default-domain and --output-dir. Add
+	--output-file.
+	(main): Don't accept -a, -C, -d, -k, -l, -L, -m, -M, -p, -T, -x.
+	Use output_file instead of complexly computed file_name.
+	Use O(n) loop instead of O(n^2) loop for removing messages.
+	(usage): Don't document --default-domain and --output-dir.
+	(is_message_selected): New function.
+	* Makefile.am (bin_PROGRAMS): Add msgcat, msgconv, msgen, msggrep,
+	msgsed.
+	(noinst_HEADERS): Add msgl-charset.h, msgl-iconv.h.
+	(msgcat_SOURCES, msgconv_SOURCES, msgen_SOURCES, msggrep_SOURCES,
+	msgsed_SOURCES): New variables.
+	(msgcat_LDADD, msgconv_LDADD, msgen_LDADD, msggrep_LDADD,
+	msgsed_LDADD): New variables.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.h (struct message_variant_ty): Remove type.
 	(struct message_ty): Remove variant_count, variant fields. Add
 	msgstr, msgstr_len, pos fields.

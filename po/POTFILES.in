@@ -18,10 +18,17 @@ lib/xmalloc.c
 # Package source files
 src/gettext.c
 src/message.c
+src/msgcat.c
 src/msgcmp.c
 src/msgcomm.c
+src/msgconv.c
+src/msgen.c
 src/msgfmt.c
+src/msggrep.c
+src/msgl-charset.c
+src/msgl-iconv.c
 src/msgmerge.c
+src/msgsed.c
 src/msgunfmt.c
 src/ngettext.c
 src/open-po.c

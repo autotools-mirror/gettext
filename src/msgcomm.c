@@ -55,14 +55,8 @@
 /* If nonzero add comments for file name and line number for each msgid.  */
 static int line_comment = 1;
 
-/* Name of default domain file.  If not set defaults to messages.po.  */
-static const char *default_domain;
-
 /* Force output of PO file even if empty.  */
 static int force_po;
-
-/* Directory in which output files are created.  */
-static char *output_dir;
 
 /* If nonzero omit header with information about this run.  */
 static int omit_header;
@@ -75,7 +69,6 @@ static int less_than = -1;
 static const struct option long_options[] =
 {
   { "add-location", no_argument, &line_comment, 1 },
-  { "default-domain", required_argument, NULL, 'd' },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
   { "files-from", required_argument, NULL, 'f' },
@@ -85,8 +78,8 @@ static const struct option long_options[] =
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
   { "omit-header", no_argument, &omit_header, 1 },
-  { "output", required_argument, NULL, 'o' },
-  { "output-dir", required_argument, NULL, 'p' },
+  { "output", required_argument, NULL, 'o' }, /* for backward compatibility */
+  { "output-file", required_argument, NULL, 'o' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -106,6 +99,7 @@ static void usage PARAMS ((int status))
 #endif
 ;
 static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
+static int is_message_selected PARAMS ((const message_ty *mp));
 static void extract_constructor PARAMS ((po_ty *that));
 static void extract_directive_domain PARAMS ((po_ty *that, char *name));
 static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
@@ -137,11 +131,9 @@ main (argc, argv)
   msgdomain_list_ty *result;
   int sort_by_msgid = 0;
   int sort_by_filepos = 0;
-  const char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;
-  size_t j;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -156,11 +148,7 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  /* Set initial value of variables.  */
-  default_domain = MESSAGE_DOMAIN_DEFAULT;
-
-  while ((optchar = getopt_long (argc, argv,
-				 "<:>:aCd:D:eEf:Fhik::l:L:m::M::no:p:sTuVw:x:",
+  while ((optchar = getopt_long (argc, argv, "<:>:D:eEf:Fhino:suVw:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -183,9 +171,6 @@ main (argc, argv)
 	  if (endp != optarg)
 	    less_than = value;
 	}
-	break;
-      case 'd':
-	default_domain = optarg;
 	break;
       case 'D':
 	dir_list_append (optarg);
@@ -213,25 +198,6 @@ main (argc, argv)
 	break;
       case 'o':
 	output_file = optarg;
-	break;
-      case 'p':
-	{
-	  size_t len = strlen (optarg);
-
-	  if (output_dir != NULL)
-	    free (output_dir);
-
-	  if (optarg[len - 1] == '/')
-	    output_dir = xstrdup (optarg);
-	  else
-	    {
-	      asprintf (&output_dir, "%s/", optarg);
-	      if (output_dir == NULL)
-		/* We are about to construct the absolute path to the
-		   directory for the output files but asprintf failed.  */
-		error (EXIT_FAILURE, errno, _("while preparing output"));
-	    }
-	}
 	break;
       case 's':
 	sort_by_msgid = 1;
@@ -286,25 +252,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
-  /* Default output directory is the current directory.  */
-  if (output_dir == NULL)
-    output_dir = ".";
-
-  /* Construct the name of the output file.  If the default domain has
-     the special name "-" we write to stdout.  */
-  if (output_file)
-    {
-      if (IS_ABSOLUTE_PATH (output_file) || strcmp (output_file, "-") == 0)
-	file_name = xstrdup (output_file);
-      else
-	/* Please do NOT add a .po suffix! */
-	file_name = concatenated_pathname (output_dir, output_file, NULL);
-    }
-  else if (strcmp (default_domain, "-") == 0)
-    file_name = "-";
-  else
-    file_name = concatenated_pathname (output_dir, default_domain, ".po");
-
   /* Determine list of files we have to process.  */
   if (files_from != NULL)
     file_list = read_name_from_file (files_from);
@@ -341,17 +288,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   string_list_free (file_list);
 
   /* Remove messages which do not fit the criteria.  */
-  j = 0;
-  while (j < mlp->nitems)
-    {
-      message_ty *mp;
-
-      mp = mlp->item[j];
-      if (mp->used > more_than && mp->used < less_than)
-        ++j;
-      else
-        message_list_delete_nth (mlp, j);
-    }
+  message_list_remove_if_not (mlp, is_message_selected);
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
@@ -360,7 +297,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the PO file.  */
-  msgdomain_list_print (result, file_name, force_po, 0);
+  msgdomain_list_print (result, output_file, force_po, 0);
 
   exit (EXIT_SUCCESS);
 }
@@ -410,10 +347,9 @@ If input file is -, standard input is read.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Output file location:\n\
-  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n\
-  -o, --output=FILE              write output to specified file\n\
-  -p, --output-dir=DIR           output files will be placed in directory DIR\n\
-If output file is -, output is written to standard output.\n\
+  -o, --output-file=FILE         write output to specified file\n\
+The results are written to standard output if no output file is specified\n\
+or if it is -.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -515,6 +451,15 @@ read_name_from_file (file_name)
     fclose (fp);
 
   return result;
+}
+
+
+static int
+is_message_selected (mp)
+     const message_ty *mp;
+{
+  /* FIXME: Add mp->msgid[0] == '\0' || ... here? */
+  return (mp->used > more_than && mp->used < less_than);
 }
 
 

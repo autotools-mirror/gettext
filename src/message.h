@@ -96,13 +96,16 @@ struct message_ty
   /* Do we want the string to be wrapped in the emitted PO file?  */
   enum is_wrap do_wrap;
 
-  /* Used for checking that messages have been used, in the msgcmp,
-     msgmerge and msgcomm programs.  */
-  int used;
-
   /* If set the message is obsolete and while writing out it should be
      commented out.  */
   int obsolete;
+
+  /* Used for checking that messages have been used, in the msgcmp,
+     msgmerge, msgcomm and msgcat programs.  */
+  int used;
+
+  /* Used for looking up the target message, in the msgcat program.  */
+  message_ty *tmp;
 };
 
 extern message_ty *
@@ -143,6 +146,10 @@ extern void
        message_list_prepend PARAMS ((message_list_ty *mlp, message_ty *mp));
 extern void
        message_list_delete_nth PARAMS ((message_list_ty *mlp, size_t n));
+typedef int message_predicate_ty PARAMS ((const message_ty *mp));
+extern void
+       message_list_remove_if_not PARAMS ((message_list_ty *mlp,
+					   message_predicate_ty *predicate));
 extern message_ty *
        message_list_search PARAMS ((message_list_ty *mlp, const char *msgid));
 extern message_ty *
