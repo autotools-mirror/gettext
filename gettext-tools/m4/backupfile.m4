@@ -1,4 +1,4 @@
-# backupfile.m4 serial 1 (gettext-0.11)
+# backupfile.m4 serial 2 (gettext-0.11.2)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -13,9 +13,9 @@ AC_DEFUN([gt_PREREQ_BACKUPFILE],
   dnl For backupfile.c.
   AC_REQUIRE([AC_HEADER_DIRENT])
   AC_FUNC_CLOSEDIR_VOID
-  AC_CHECK_HEADERS(limits.h string.h)
+  AC_CHECK_HEADERS(string.h)
   dnl For addext.c.
   AC_SYS_LONG_FILE_NAMES
   AC_CHECK_FUNCS(pathconf)
-  AC_CHECK_HEADERS(limits.h string.h unistd.h)
+  AC_CHECK_HEADERS(string.h unistd.h)
 ])
