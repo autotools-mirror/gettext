@@ -63,6 +63,10 @@
 
 	* setenv.c: Import changes from coreutils.
 
+2004-08-03  Simon Josefsson  <jas@extundo.com>
+
+	* progname.h: Don't include stdbool.h.
+
 2003-09-08  Paul Eggert  <eggert@twinsun.com>
 
 	* atexit.c (atexit): Define using a prototype.

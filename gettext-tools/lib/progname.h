@@ -1,5 +1,5 @@
 /* Program name management.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -18,8 +18,6 @@
 
 #ifndef _PROGNAME_H
 #define _PROGNAME_H
-
-#include <stdbool.h>
 
 /* Programs using this file should do the following in main():
      set_program_name (argv[0]);
