@@ -1,3 +1,8 @@
+2005-02-26  Bruno Haible  <bruno@clisp.org>
+
+	* format-scheme.c (parse_upto): Remove support for ~!.
+	Reported by Kevin Ryde <user42@zip.com.au>.
+
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.2 released.

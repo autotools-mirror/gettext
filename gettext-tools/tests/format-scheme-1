@@ -241,8 +241,6 @@ cat <<\EOF > f-sc-1.data
 "abc~{~(~}~)"
 # Invalid: wrongly nested
 "abc~{~<~}~>"
-# Valid: FORMAT-CALL, (f * | . *)
-"abc~!"
 # Valid: any number of arguments
 "abc~v,v,v,v,v!"
 # Invalid: type incompatibility between integer and list

@@ -3236,17 +3236,6 @@ parse_upto (const char **formatp,
 	    *separatorp = (colon_p ? 2 : 1);
 	    return true;
 
-	  case '!': /* FORMAT-CALL, a CLISP extension */
-	    if (!nocheck_params (&list, paramcount, params,
-				 spec->directives, invalid_reason))
-	      return false;
-	    if (position >= 0)
-	      {
-		add_req_type_constraint (&list, position++, FAT_FUNCTION);
-		add_req_type_constraint (&list, position++, FAT_OBJECT);
-	      }
-	    break;
-
 	  default:
 	    --format;
 	    *invalid_reason =
