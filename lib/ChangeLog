@@ -1,3 +1,7 @@
+2001-06-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* mbswidth.c (mbsinit): Define to 1 if not defined. For SCO 3.2v5.0.2.
+
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* findprog.h: New file.
