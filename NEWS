@@ -1,3 +1,7 @@
+Version 0.10.37 - April 2001
+
+This is a bug-fix release.
+
 Version 0.10.36 - March 2001, by Ulrich Drepper and Bruno Haible
 
 * General plural handling. New functions ngettext, dngettext, dcngettext.
