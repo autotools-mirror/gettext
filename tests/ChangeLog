@@ -1,5 +1,11 @@
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
 
+	* test.mo: Change msgid so that it passes the newest msgfmt
+	verifications.
+	* gettext-1: Update.
+
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.am (LDADD): Add @LIBICONV@. Needed on platforms where
 	iconv() is not in libc.
 

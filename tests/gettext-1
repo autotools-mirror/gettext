@@ -18,12 +18,12 @@ cp $top_srcdir/tests/test.mo LC_MESSAGES
 
 tmpfiles="$tmpfiles gt-test1.out"
 : ${GETTEXT=gettext}
-${GETTEXT} test 'SYS_(C)' > gt-test1.out
+${GETTEXT} -e test 'SYS_(C)\n' > gt-test1.out
 
 # Create correct file.
 tmpfile="$tmpfiles gtmf-test1.ok"
 cat <<EOF > gtmf-test1.ok
-MSGFMT(3) portable message object file compiler
+MSGFMT(1) portable message object file compiler
 Copyright (C) 1995 Free Software Foundation
 Report bugs to <bug-gnu-utils@gnu.org>
 EOF
