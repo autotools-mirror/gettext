@@ -705,7 +705,7 @@ extract_parenthesized (mlp, commas_to_skip, plural_commas)
   /* Start state is 0.  */
   state = 0;
 
-  while (1)
+  for (;;)
     {
       token_ty token;
 

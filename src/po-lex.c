@@ -1020,7 +1020,7 @@ po_gram_lex ()
 	    if (pass_comments)
 	      {
 		bufpos = 0;
-		while (1)
+		for (;;)
 		  {
 		    while (bufpos + mb_len (mbc) >= bufmax)
 		      {
@@ -1059,7 +1059,7 @@ po_gram_lex ()
 	  case '"':
 	    /* Accumulate a string.  */
 	    bufpos = 0;
-	    while (1)
+	    for (;;)
 	      {
 		lex_getc (mbc);
 		while (bufpos + mb_len (mbc) >= bufmax)

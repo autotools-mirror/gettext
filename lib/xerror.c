@@ -105,7 +105,7 @@ multiline_warning (prefix, message)
       goto after_indent;
     }
 
-  while (1)
+  for (;;)
     {
       const char *np;
 

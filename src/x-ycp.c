@@ -170,7 +170,7 @@ phase2_getc ()
 	  /* sh comment.  */
 	  buflen = 0;
 	  lineno = line_number;
-	  while (1)
+	  for (;;)
 	    {
 	      c = phase1_getc ();
 	      if (c == '\n' || c == EOF)
@@ -271,7 +271,7 @@ phase2_getc ()
 	  /* C++ comment.  */
 	  buflen = 0;
 	  lineno = line_number;
-	  while (1)
+	  for (;;)
 	    {
 	      c = phase1_getc ();
 	      if (c == '\n' || c == EOF)

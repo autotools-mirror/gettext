@@ -284,7 +284,7 @@ phase1_getc ()
 	++line_number;
       return c;
     }
-  while (1)
+  for (;;)
     {
       c = getc (fp);
       switch (c)
@@ -522,7 +522,7 @@ phase4_getc ()
       /* C comment.  */
       comment_start ();
       last_was_star = false;
-      while (1)
+      for (;;)
 	{
 	  c = phase3_getc ();
 	  if (c == EOF)
@@ -562,7 +562,7 @@ phase4_getc ()
     case '/':
       /* C++ or ISO C 99 comment.  */
       comment_start ();
-      while (1)
+      for (;;)
 	{
 	  c = phase3_getc ();
 	  if (c == '\n' || c == EOF)
@@ -879,7 +879,7 @@ phase5_get (tp)
 	 number tokens.  This is mostly due to token pasting (another
 	 thing we can ignore here).  */
       bufpos = 0;
-      while (1)
+      for (;;)
 	{
 	  if (bufpos >= bufmax)
 	    {
@@ -942,7 +942,7 @@ phase5_get (tp)
 	 but ignoring it has no effect unless one of the keywords is
 	 "L".  Just pretend it won't happen.  Also, we don't need to
 	 remember the character constant.  */
-      while (1)
+      for (;;)
 	{
 	  c = phase7_getc ();
 	  if (c == P7_NEWLINE)
@@ -966,7 +966,7 @@ phase5_get (tp)
 	 let the compiler complain about the argument not matching the
 	 prototype.  Just pretend it won't happen.  */
       bufpos = 0;
-      while (1)
+      for (;;)
 	{
 	  c = phase7_getc ();
 	  if (c == P7_NEWLINE)
@@ -1101,7 +1101,7 @@ phase6_get (tp)
       *tp = phase6_pushback[--phase6_pushback_length];
       return;
     }
-  while (1)
+  for (;;)
     {
       /* Get the next token.  If it is not a '#' at the beginning of a
 	 line (ignoring whitespace), return immediately.  */
@@ -1112,7 +1112,7 @@ phase6_get (tp)
       /* Accumulate the rest of the directive in a buffer, until the
 	 "define" keyword is seen or until end of line.  */
       bufpos = 0;
-      while (1)
+      for (;;)
 	{
 	  phaseX_get (tp);
 	  if (tp->type == token_type_eoln || tp->type == token_type_eof)
@@ -1187,7 +1187,7 @@ phase8_get (tp)
   phase6_get (tp);
   if (tp->type != token_type_string_literal)
     return;
-  while (1)
+  for (;;)
     {
       token_ty tmp;
       size_t len;
@@ -1217,7 +1217,7 @@ static void
 x_c_lex (tp)
      xgettext_token_ty *tp;
 {
-  while (1)
+  for (;;)
     {
       token_ty token;
       void *keyword_value;
@@ -1343,7 +1343,7 @@ extract_parenthesized (mlp, commas_to_skip, plural_commas)
   /* Start state is 0.  */
   state = 0;
 
-  while (1)
+  for (;;)
     {
       xgettext_token_ty token;
 

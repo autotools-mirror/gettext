@@ -191,7 +191,7 @@ ID [a-zA-Z_][a-zA-Z0-9_]*
   char *str;
 
   char_buf *charbuf = create_char_buf ();
-  while (1)
+  for (;;)
     {
       c = input ();
       last = input ();
