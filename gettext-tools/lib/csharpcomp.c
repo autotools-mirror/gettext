@@ -1,5 +1,5 @@
 /* Compile a C# program.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,6 +34,7 @@
 #include "wait-process.h"
 #include "getline.h"
 #include "sh-quote.h"
+#include "safe-read.h"
 #include "xallocsa.h"
 #include "error.h"
 #include "gettext.h"
