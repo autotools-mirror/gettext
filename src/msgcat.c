@@ -345,7 +345,7 @@ Message selection:\n\
                                  definitions, defaults to infinite if not\n\
                                  set\n\
   ->, --more-than=NUMBER         print messages with more than this many\n\
-                                 definitions, defaults to 1 if not set\n\
+                                 definitions, defaults to 0 if not set\n\
   -u, --unique                   shorthand for --less-than=2, requests\n\
                                  that only unique messages be printed\n\
 "));
@@ -448,8 +448,8 @@ is_message_selected (tmp)
 {
   int used = (tmp->used >= 0 ? tmp->used : - tmp->used);
 
-  /* FIXME: Add tmp->msgid[0] == '\0' || ... here? */
-  return (used > more_than && used < less_than);
+  return (tmp->msgid[0] == '\0') /* keep the header entry */
+	 || (used > more_than && used < less_than);
 }
 
 
