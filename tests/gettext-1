@@ -25,7 +25,7 @@ tmpfile="$tmpfiles gtmf-test1.ok"
 cat <<EOF > gtmf-test1.ok
 MSGFMT(3) portable message object file compiler
 Copyright (C) 1995 Free Software Foundation
-Report bugs to <bug-gnu-utils@gnu.ai.mit.edu>
+Report bugs to <bug-gnu-utils@gnu.org>
 EOF
 
 : ${DIFF=diff}

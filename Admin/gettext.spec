@@ -4,7 +4,7 @@ Version: 0.10.23
 Release: 1
 Copyright: GPL
 Group: Development/Libraries
-Source: ftp://alpha.gnu.ai.mit.edu/gnu/gettext-0.10.23.tar.gz
+Source: ftp://alpha.gnu.org/gnu/gettext-0.10.23.tar.gz
 Packager: Ulrich Drepper <drepper@cygnus.com>
 Buildprefix: /tmp
 

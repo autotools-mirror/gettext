@@ -1,13 +1,13 @@
 # German translations for GNU gettext package.
 # Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
-# Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995-1997.
+# Ulrich Drepper <drepper@gnu.org>, 1995-1997.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
 "POT-Creation-Date: 2000-07-28 22:51+0200\n"
 "PO-Revision-Date: 1998-04-30 23:23-0700\n"
-"Last-Translator: Ulrich Drepper <drepper@gnu.ai.mit.edu>\n"
+"Last-Translator: Ulrich Drepper <drepper@gnu.org>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -630,7 +630,7 @@ msgid ""
 "  -V, --version            output version information and exit\n"
 "  -w, --width=NUMBER       set output page width\n"
 msgstr ""
-"Benutzung: %s [OPTION] DATEI1.mo DATEI2.po\n"
+"Benutzung: %s [OPTION] [DATEI]...\n"
 "Notwendige Argumente für Optionen in Langform sind auch für die\n"
 "Kurzform notwendig.\n"
 "  -e, --no-escape           verwende keine C Ersatzdarstellung in Ausgabe (Std)\n"

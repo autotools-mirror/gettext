@@ -1120,8 +1120,8 @@ msgstr "η γλώσσα `%s' είναι άγνωστη"
 #~ msgstr "%s: προειδοποίηση: δε βρέθηκε αρχή κεφαλίδας"
 
 #
-#~ msgid "Report bugs to <bug-gnu-utils@prep.ai.mit.edu>.\n"
-#~ msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.ai.mit.edu>.\n"
+#~ msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
+#~ msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.org>.\n"
 
 #
 #~ msgid "this is the location of the first definition"

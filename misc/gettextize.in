@@ -32,7 +32,7 @@ Usage: gettextize [OPTION]... [package-dir]
       --version        print version information and exit
   -c, --copy           copy files instead of making symlinks
   -f, --force          force writing of new files even if old exist
-Report bugs to <bug-gnu-utils@prep.ai.mit.edu>."
+Report bugs to <bug-gnu-utils@gnu.org>."
 package=@PACKAGE@
 version=@VERSION@
 aclocal_version=@ACLOCAL_VERSION@

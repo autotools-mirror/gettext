@@ -164,7 +164,7 @@ msgstr ""
 #: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
 #, fuzzy
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
-msgstr "Rapportér fejl på engelsk til <bug-gnu-utils@prep.ai.mit.edu>.\n"
+msgstr "Rapportér fejl på engelsk til <bug-gnu-utils@gnu.org>.\n"
 
 #: src/message.c:900
 #, c-format
@@ -815,5 +815,5 @@ msgstr "ukendt sprog `%s'"
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: advarsel: \"header\" element ikke angivet"
 
-#~ msgid "Report bugs to <bug-gnu-utils@prep.ai.mit.edu>.\n"
-#~ msgstr "Rapportér fejl på engelsk til <bug-gnu-utils@prep.ai.mit.edu>.\n"
+#~ msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
+#~ msgstr "Rapportér fejl på engelsk til <bug-gnu-utils@gnu.org>.\n"

@@ -1,5 +1,5 @@
-$Revision: 1.1 $
-$Date: 2000/06/16 07:49:23 $
+$Revision: 1.2 $
+$Date: 2001/02/20 15:21:13 $
 20
 !!! README for gemtext.  !!!
 If you think the above mentioned date is old check out
@@ -36,7 +36,7 @@ you have the GNU gettext package or another internationalization package
 that can be compared with gettext already installed. You will find the
 latest version of GNU gettext at
 
-  ftp://prep.ai.mit.edu/pub/gnu
+  ftp://ftp.gnu.org/pub/gnu
 
 It compiles without any problems with the GNU C-compiler and MiNTLib PL46.
 (Well, there's a little problem:  If your msgfmt keeps on crashing with a
