@@ -59,7 +59,6 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-ACLOCAL_VERSION = @ACLOCAL_VERSION@
 AS = @AS@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
@@ -95,6 +94,7 @@ PERL = @PERL@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
@@ -107,7 +107,7 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-TESTS = gettext-1 gettext-2 	msgcmp-1 msgcmp-2 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 	msgcomm-14 msgcomm-15 msgcomm-16 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 	msgunfmt-1 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 	xgettext-7 xgettext-8 xgettext-9 	plural-1 plural-2
+TESTS = gettext-1 gettext-2 	msgcmp-1 msgcmp-2 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 	msgcomm-20 msgcomm-21 msgcomm-22 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 	msgunfmt-1 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 	xgettext-7 xgettext-8 xgettext-9 	plural-1 plural-2
 
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
@@ -123,16 +123,19 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
-EXTRA_PROGRAMS = tstgettext tstngettext cake
+noinst_PROGRAMS = tstgettext tstngettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_LDADD = ../lib/libnlsut.a $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
-CLEANFILES = $(EXTRA_PROGRAMS)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
+noinst_PROGRAMS =  tstgettext$(EXEEXT) tstngettext$(EXEEXT) \
+cake$(EXEEXT)
+PROGRAMS =  $(noinst_PROGRAMS)
+
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
@@ -171,6 +174,15 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
+
+mostlyclean-noinstPROGRAMS:
+
+clean-noinstPROGRAMS:
+	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
+
+distclean-noinstPROGRAMS:
+
+maintainer-clean-noinstPROGRAMS:
 
 .c.o:
 	$(COMPILE) -c $<
@@ -317,7 +329,7 @@ install-am: all-am
 install: install-am
 uninstall-am:
 uninstall: uninstall-am
-all-am: Makefile all-local
+all-am: Makefile $(PROGRAMS)
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
@@ -327,30 +339,32 @@ installdirs:
 mostlyclean-generic:
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES)
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
-mostlyclean-am:  mostlyclean-compile mostlyclean-libtool \
-		mostlyclean-tags mostlyclean-generic
+mostlyclean-am:  mostlyclean-noinstPROGRAMS mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-tags \
+		mostlyclean-generic
 
 mostlyclean: mostlyclean-am
 
-clean-am:  clean-compile clean-libtool clean-tags clean-generic \
-		mostlyclean-am
+clean-am:  clean-noinstPROGRAMS clean-compile clean-libtool clean-tags \
+		clean-generic mostlyclean-am
 
 clean: clean-am
 
-distclean-am:  distclean-compile distclean-libtool distclean-tags \
-		distclean-generic clean-am
+distclean-am:  distclean-noinstPROGRAMS distclean-compile \
+		distclean-libtool distclean-tags distclean-generic \
+		clean-am
 	-rm -f libtool
 
 distclean: distclean-am
 
-maintainer-clean-am:  maintainer-clean-compile maintainer-clean-libtool \
+maintainer-clean-am:  maintainer-clean-noinstPROGRAMS \
+		maintainer-clean-compile maintainer-clean-libtool \
 		maintainer-clean-tags maintainer-clean-generic \
 		distclean-am
 	@echo "This command is intended for maintainers to use;"
@@ -358,14 +372,16 @@ maintainer-clean-am:  maintainer-clean-compile maintainer-clean-libtool \
 
 maintainer-clean: maintainer-clean-am
 
-.PHONY: mostlyclean-compile distclean-compile clean-compile \
+.PHONY: mostlyclean-noinstPROGRAMS distclean-noinstPROGRAMS \
+clean-noinstPROGRAMS maintainer-clean-noinstPROGRAMS \
+mostlyclean-compile distclean-compile clean-compile \
 maintainer-clean-compile mostlyclean-libtool distclean-libtool \
 clean-libtool maintainer-clean-libtool tags mostlyclean-tags \
 distclean-tags clean-tags maintainer-clean-tags distdir check-TESTS \
 info-am info dvi-am dvi check check-am installcheck-am installcheck \
 install-exec-am install-exec install-data-am install-data install-am \
-install uninstall-am uninstall all-local all-redirect all-am all \
-installdirs mostlyclean-generic distclean-generic clean-generic \
+install uninstall-am uninstall all-redirect all-am all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
 maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 
@@ -374,7 +390,6 @@ xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) -k_ --omit-header \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/gettext.c
-all-local: $(EXTRA_PROGRAMS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
