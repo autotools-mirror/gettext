@@ -1,3 +1,10 @@
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
+	Support for C#.
+	* configure.ac: Invoke gt_CSHARPCOMP, gt_CSHARPEXEC. Set BUILDCSHARP
+	and TESTCSHARP.
+	(AC_CONFIG_FILES): Add lib/csharpcomp.sh and lib/csharpexec.sh.
+
 2003-12-27  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Set and AC_SUBST the TESTLIBASPRINTF variable.

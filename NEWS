@@ -1,3 +1,22 @@
+Version 0.14 - January 2004
+
+* Programming languages support:
+
+  - C#:
+
+    xgettext now also supports C#.
+
+    New library: GNU.Gettext.dll contains the runtime for using GNU gettext
+    message catalogs in C#.
+
+    msgfmt can create (and msgunfmt can dump) message catalogs for C#.
+
+* Documentation:
+
+  - New documentation section: C#.
+  - Complete examples illustrating the use of gettext in C# (in text mode and
+    in Forms applications) have been added.
+
 Version 0.13.1 - December 2003
 
 * Bug fixes in the testsuite and in the examples.

@@ -88,6 +88,8 @@ OBJECTS = \
   classpath.obj \
   closeout.obj \
   copy-file.obj \
+  csharpcomp.obj \
+  csharpexec.obj \
   error.obj \
   error-progname.obj \
   execute.obj \
@@ -159,6 +161,12 @@ closeout.obj : closeout.c
 
 copy-file.obj : copy-file.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c copy-file.c
+
+csharpcomp.obj : csharpcomp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c csharpcomp.c
+
+csharpexec.obj : csharpexec.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c csharpexec.c
 
 error.obj : error.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c error.c

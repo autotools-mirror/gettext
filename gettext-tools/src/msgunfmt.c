@@ -38,6 +38,7 @@
 #include "msgunfmt.h"
 #include "read-mo.h"
 #include "read-java.h"
+#include "read-csharp.h"
 #include "read-tcl.h"
 #include "write-po.h"
 #include "gettext.h"
@@ -53,6 +54,12 @@ static bool java_mode;
 static const char *java_resource_name;
 static const char *java_locale_name;
 
+/* C# mode input file specification.  */
+static bool csharp_mode;
+static const char *csharp_resource_name;
+static const char *csharp_locale_name;
+static const char *csharp_base_directory;
+
 /* Tcl mode input file specification.  */
 static bool tcl_mode;
 static const char *tcl_locale_name;
@@ -64,6 +71,7 @@ static int force_po;
 /* Long options.  */
 static const struct option long_options[] =
 {
+  { "csharp", no_argument, NULL, CHAR_MAX + 4 },
   { "escape", no_argument, NULL, 'E' },
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
@@ -130,6 +138,7 @@ main (int argc, char **argv)
 	break;
 
       case 'd':
+	csharp_base_directory = optarg;
 	tcl_base_directory = optarg;
 	break;
 
@@ -155,6 +164,7 @@ main (int argc, char **argv)
 
       case 'l':
 	java_locale_name = optarg;
+	csharp_locale_name = optarg;
 	tcl_locale_name = optarg;
 	break;
 
@@ -168,6 +178,7 @@ main (int argc, char **argv)
 
       case 'r':
 	java_resource_name = optarg;
+	csharp_resource_name = optarg;
 	break;
 
       case 's':
@@ -196,7 +207,7 @@ main (int argc, char **argv)
 	}
 	break;
 
-      case CHAR_MAX + 1:
+      case CHAR_MAX + 1: /* --tcl */
 	tcl_mode = true;
 	break;
 
@@ -206,6 +217,10 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 3: /* --stringtable-output */
 	message_print_syntax_stringtable ();
+	break;
+
+      case CHAR_MAX + 4: /* --csharp */
+	csharp_mode = true;
 	break;
 
       default:
@@ -232,9 +247,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     usage (EXIT_SUCCESS);
 
   /* Check for contradicting options.  */
+  if (java_mode && csharp_mode)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--java", "--csharp");
   if (java_mode && tcl_mode)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--java", "--tcl");
+  if (csharp_mode && tcl_mode)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--csharp", "--tcl");
   if (java_mode)
     {
       if (optind < argc)
@@ -242,6 +263,29 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	  error (EXIT_FAILURE, 0,
 		 _("%s and explicit file names are mutually exclusive"),
 		 "--java");
+	}
+    }
+  else if (csharp_mode)
+    {
+      if (optind < argc)
+	{
+	  error (EXIT_FAILURE, 0,
+		 _("%s and explicit file names are mutually exclusive"),
+		 "--csharp");
+	}
+      if (csharp_locale_name == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-l locale\" specification"),
+		 "--csharp");
+	  usage (EXIT_FAILURE);
+	}
+      if (csharp_base_directory == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-d directory\" specification"),
+		 "--csharp");
+	  usage (EXIT_FAILURE);
 	}
     }
   else if (tcl_mode)
@@ -271,14 +315,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     {
       if (java_resource_name != NULL)
 	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--resource", "--java");
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
+		 "--resource", "--java", "--csharp");
 	  usage (EXIT_FAILURE);
 	}
       if (java_locale_name != NULL)
 	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--locale", "--java");
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
+		 "--locale", "--java", "--csharp");
 	  usage (EXIT_FAILURE);
 	}
     }
@@ -287,6 +331,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (java_mode)
     {
       result = msgdomain_read_java (java_resource_name, java_locale_name);
+    }
+  else if (csharp_mode)
+    {
+      result = msgdomain_read_csharp (csharp_resource_name, csharp_locale_name,
+				      csharp_base_directory);
     }
   else if (tcl_mode)
     {
@@ -347,6 +396,8 @@ Operation mode:\n"));
       printf (_("\
   -j, --java                  Java mode: input is a Java ResourceBundle class\n"));
       printf (_("\
+      --csharp                C# mode: input is a .NET .dll file\n"));
+      printf (_("\
       --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"));
       printf ("\n");
       printf (_("\
@@ -366,6 +417,18 @@ Input file location in Java mode:\n"));
 The class name is determined by appending the locale name to the resource name,\n\
 separated with an underscore.  The class is located using the CLASSPATH.\n\
 "));
+      printf ("\n");
+      printf (_("\
+Input file location in C# mode:\n"));
+      printf (_("\
+  -r, --resource=RESOURCE     resource name\n"));
+      printf (_("\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
+  -d DIRECTORY                base directory for locale dependent .dll files\n"));
+      printf (_("\
+The -l and -d options are mandatory.  The .dll file is located in a\n\
+subdirectory of the specified directory whose name depends on the locale.\n"));
       printf ("\n");
       printf (_("\
 Input file location in Tcl mode:\n"));

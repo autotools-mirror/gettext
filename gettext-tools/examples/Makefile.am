@@ -418,6 +418,45 @@ EXAMPLESFILES = \
   hello-java-swing/po/tr.po \
   hello-java-swing/po/zh_CN.po \
   \
+  hello-csharp/INSTALL \
+  hello-csharp/autogen.sh \
+  hello-csharp/autoclean.sh \
+  hello-csharp/hello.cs \
+  hello-csharp/Makefile.am \
+  hello-csharp/configure.ac \
+  hello-csharp/m4/Makefile.am \
+  hello-csharp/po/Makefile.am \
+  hello-csharp/po/LINGUAS \
+  hello-csharp/po/ca.po \
+  hello-csharp/po/de.po \
+  hello-csharp/po/es.po \
+  hello-csharp/po/fr.po \
+  hello-csharp/po/ja.po \
+  hello-csharp/po/pl.po \
+  hello-csharp/po/ro.po \
+  hello-csharp/po/sr.po \
+  hello-csharp/po/zh_CN.po \
+  \
+  hello-csharp-forms/INSTALL \
+  hello-csharp-forms/BUGS \
+  hello-csharp-forms/autogen.sh \
+  hello-csharp-forms/autoclean.sh \
+  hello-csharp-forms/hello.cs \
+  hello-csharp-forms/Makefile.am \
+  hello-csharp-forms/configure.ac \
+  hello-csharp-forms/m4/Makefile.am \
+  hello-csharp-forms/po/Makefile.am \
+  hello-csharp-forms/po/LINGUAS \
+  hello-csharp-forms/po/ca.po \
+  hello-csharp-forms/po/de.po \
+  hello-csharp-forms/po/es.po \
+  hello-csharp-forms/po/fr.po \
+  hello-csharp-forms/po/ja.po \
+  hello-csharp-forms/po/pl.po \
+  hello-csharp-forms/po/ro.po \
+  hello-csharp-forms/po/sr.po \
+  hello-csharp-forms/po/zh_CN.po \
+  \
   hello-gawk/INSTALL \
   hello-gawk/autogen.sh \
   hello-gawk/autoclean.sh \

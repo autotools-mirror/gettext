@@ -96,9 +96,9 @@ OBJECTS = \
   format-qt.obj
 
 msgcmp_OBJECTS = msgcmp.obj
-msgfmt_OBJECTS = msgfmt.obj, write-mo.obj, write-java.obj, write-tcl.obj, write-qt.obj, plural-eval.obj
+msgfmt_OBJECTS = msgfmt.obj, write-mo.obj, write-java.obj, write-csharp.obj, write-tcl.obj, write-qt.obj, plural-eval.obj
 msgmerge_OBJECTS = msgmerge.obj, plural-count.obj
-msgunfmt_OBJECTS = msgunfmt.obj, read-mo.obj, read-java.obj, read-tcl.obj
+msgunfmt_OBJECTS = msgunfmt.obj, read-mo.obj, read-java.obj, read-csharp.obj, read-tcl.obj
 xgettext_OBJECTS = xgettext.obj, x-c.obj, x-po.obj, x-sh.obj, x-python.obj, x-lisp.obj, x-elisp.obj, x-librep.obj, x-smalltalk.obj, x-java.obj, x-csharp.obj, x-awk.obj, x-ycp.obj, x-tcl.obj, x-perl.obj, x-php.obj, x-rst.obj, x-glade.obj
 msgattrib_OBJECTS = msgattrib.obj
 msgcat_OBJECTS = msgcat.obj
@@ -262,6 +262,9 @@ write-mo.obj : write-mo.c
 write-java.obj : write-java.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-java.c
 
+write-csharp.obj : write-csharp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-csharp.c
+
 write-tcl.obj : write-tcl.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-tcl.c
 
@@ -285,6 +288,9 @@ read-mo.obj : read-mo.c
 
 read-java.obj : read-java.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-java.c
+
+read-csharp.obj : read-csharp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-csharp.c
 
 read-tcl.obj : read-tcl.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-tcl.c

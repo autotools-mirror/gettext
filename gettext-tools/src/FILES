@@ -170,6 +170,10 @@ plural-table.c
 | read-java.h
 | read-java.c
 |               Reading Java ResourceBundle files.
+| read-csharp.h
+| read-csharp.c
+| msgunfmt.cs
+|               Reading C# satellite assemblies.
 | read-tcl.h
 | read-tcl.c
 | msgunfmt.tcl
@@ -213,6 +217,9 @@ format.c        Table of the language dependent format string handlers.
 | write-java.h
 | write-java.c
 |               Generating Java ResourceBundle files.
+| write-csharp.h
+| write-csharp.c
+|               Generating C# satellite assemblies.
 | write-tcl.h
 | write-tcl.c
 |               Generating Tcl .msg files.

@@ -1,5 +1,53 @@
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
+	Support for C#.
+	* write-csharp.h: New file.
+	* write-csharp.c: New file.
+	* msgfmt.c: Include write-csharp.h.
+	(csharp_mode, csharp_resource_name, csharp_locale_name,
+	csharp_base_directory): New variables.
+	(long_options): Add option --csharp.
+	(main): Handle option --csharp. Initialize csharp_resource_name,
+	csharp_locale_name, csharp_base_directory. Perform checks for C# mode.
+	Invoke msgdomain_write_csharp.
+	(usage): Document --csharp option and C# mode.
+	(msgfmt_set_domain): Ignore in C# mode.
+	* read-csharp.h: New file.
+	* read-csharp.c: New file.
+	* msgunfmt.cs: New file.
+	* msgunfmt.c: Include read-csharp.h.
+	(csharp_mode, csharp_resource_name, csharp_locale_name,
+	csharp_base_directory): New variables.
+	(long_options): Add option --csharp.
+	(main): Handle option --csharp. Initialize csharp_resource_name,
+	csharp_locale_name, csharp_base_directory. Perform checks for C# mode.
+	Invoke msgdomain_read_csharp.
+	(usage): Document --csharp option and C# mode.
+	* Makefile.am (noinst_HEADERS): Add read-csharp.h, write-csharp.h.
+	(CSHARPCOMP, CSHARPCOMPFLAGS): New variables.
+	(msgfmt_SOURCES): Add write-csharp.c.
+	(msgunfmt_SOURCES): Add read-csharp.c.
+	(EXTRA_DIST): Add msgunfmt.cs.
+	(CLEANFILES): Add msgunfmt.net.exe.
+	(all-csharp-yes, all-csharp-no): New rules.
+	(all-local): Depend on them.
+	(msgunfmt.net.exe): New rule.
+	(install-exec-csharp-yes, install-exec-csharp-no): New rules.
+	(install-exec-local): Depend on them.
+	(installdirs-csharp): New rule.
+	(installdirs-local): Depend on it.
+	(uninstall-csharp-yes, uninstall-csharp-no): New rules.
+	(uninstall-local): Depend on it.
+	* Makefile.msvc (msgfmt_OBJECTS): Add write-csharp.obj.
+	(msgunfmt_OBJECTS): Add read-csharp.obj.
+	(write-csharp.obj, read-csharp.obj): New rules.
+	* Makefile.vms (msgfmt_OBJECTS): Add write-csharp.obj.
+	(msgunfmt_OBJECTS): Add read-csharp.obj.
+	(write-csharp.obj, read-csharp.obj): New rules.
+	* FILES: Update.
+
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
 	* read-java.c (msgdomain_read_java): Relocate also the GETTEXTJAR
 	value.
 	* urlget.c (fetch): Likewise.

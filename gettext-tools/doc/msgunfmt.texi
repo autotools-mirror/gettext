@@ -18,6 +18,12 @@ Uniforum style .po file.
 @cindex Java mode, and @code{msgunfmt} program
 Java mode: input is a Java @code{ResourceBundle} class.
 
+@item --csharp
+@opindex --csharp@r{, @code{msgunfmt} option}
+@cindex C# mode, and @code{msgunfmt} program
+C# mode: input is a .NET .dll file containing a subclass of
+@code{GettextResourceSet}.
+
 @item --tcl
 @opindex --tcl@r{, @code{msgunfmt} option}
 @cindex Tcl mode, and @code{msgunfmt} program
@@ -55,6 +61,32 @@ or a combined language and country specification of the form @var{ll_CC}.
 
 The class name is determined by appending the locale name to the resource name,
 separated with an underscore.  The class is located using the @code{CLASSPATH}.
+
+@subsection Input file location in C# mode
+
+@table @samp
+@item -r @var{resource}
+@itemx --resource=@var{resource}
+@opindex -r@r{, @code{msgunfmt} option}
+@opindex --resource@r{, @code{msgunfmt} option}
+Specify the resource name.
+
+@item -l @var{locale}
+@itemx --locale=@var{locale}
+@opindex -l@r{, @code{msgunfmt} option}
+@opindex --locale@r{, @code{msgunfmt} option}
+Specify the locale name, either a language specification of the form @var{ll}
+or a combined language and country specification of the form @var{ll_CC}.
+
+@item -d @var{directory}
+@opindex -d@r{, @code{msgunfmt} option}
+Specify the base directory for locale dependent @file{.dll} files.
+
+@end table
+
+The @samp{-l} and @samp{-d} options are mandatory.  The @file{.msg} file is
+located in a subdirectory of the specified directory whose name depends on the
+locale.
 
 @subsection Input file location in Tcl mode
 

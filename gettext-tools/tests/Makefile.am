@@ -51,6 +51,7 @@ TESTS = gettext-1 gettext-2 \
 	msgmerge-properties-1 msgmerge-properties-2 \
 	msgmerge-update-1 msgmerge-update-2 msgmerge-update-3 \
 	msgunfmt-1 \
+	msgunfmt-csharp-1 \
 	msgunfmt-java-1 \
 	msgunfmt-properties-1 \
 	msgunfmt-tcl-1 \
@@ -101,8 +102,8 @@ TESTS = gettext-1 gettext-2 \
 	plural-1 plural-2 \
 	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python-1 \
 	lang-python-2 lang-clisp lang-elisp lang-librep lang-smalltalk \
-	lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-perl-1 \
-	lang-perl-2 lang-php lang-po lang-rst
+	lang-java lang-csharp lang-gawk lang-pascal lang-ycp lang-tcl \
+	lang-perl-1 lang-perl-2 lang-php lang-po lang-rst
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-c-1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \
@@ -139,6 +140,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
 		    LTLIBINTL='@LTLIBINTL@' \
 		    TESTJAVA='@TESTJAVA@' \
+		    TESTCSHARP='@TESTCSHARP@' \
 		    TESTLIBASPRINTF='@TESTLIBASPRINTF@' \
 		    LOCALE_FR='@LOCALE_FR@' \
 		    CONFIG_SHELL='$(SHELL)' \

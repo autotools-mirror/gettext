@@ -40,6 +40,8 @@ libgettextlib_la_SOURCES = \
   classpath.h classpath.c \
   closeout.h closeout.c \
   copy-file.h copy-file.c \
+  csharpcomp.h csharpcomp.c \
+  csharpexec.h csharpexec.c \
   error.h error.c \
   error-progname.h error-progname.c \
   execute.h execute.c w32spawn.h \
@@ -130,7 +132,9 @@ gettextsrc_DATA = gettext.h
 
 docdir = @docdir@
 examplesconfigdir = $(docdir)/examples/config
-examplesconfig_DATA = javacomp.sh.in javaexec.sh.in
+examplesconfig_DATA = \
+  javacomp.sh.in javaexec.sh.in \
+  csharpcomp.sh.in csharpexec.sh.in
 
 # List of files to be distributed.
 

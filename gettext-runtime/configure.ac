@@ -44,6 +44,14 @@ else
 fi
 AC_SUBST(BUILDJAVA)
 
+gt_CSHARPCOMP
+if test -n "$HAVE_CSHARPCOMP"; then
+  BUILDCSHARP=yes
+else
+  BUILDCSHARP=no
+fi
+AC_SUBST(BUILDCSHARP)
+
 dnl Check for host type.
 AC_CANONICAL_HOST
 
@@ -141,9 +149,12 @@ AC_CONFIG_FILES([intl/Makefile])
 
 AC_CONFIG_FILES([intl-java/Makefile])
 
+AC_CONFIG_FILES([intl-csharp/Makefile])
+
 AC_CONFIG_FILES([lib/Makefile],
                 [FIX_MAKEFILE_COMPILE])
 AC_CONFIG_FILES([lib/javacomp.sh:../gettext-tools/lib/javacomp.sh.in])
+AC_CONFIG_FILES([lib/csharpcomp.sh:../gettext-tools/lib/csharpcomp.sh.in])
 
 AC_CONFIG_FILES([src/Makefile],
                 [FIX_MAKEFILE_COMPILE])

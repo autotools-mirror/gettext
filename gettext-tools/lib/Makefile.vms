@@ -46,6 +46,8 @@ OBJECTS = \
   classpath.obj, \
   closeout.obj, \
   copy-file.obj, \
+  csharpcomp.obj, \
+  csharpexec.obj, \
   error.obj, \
   error-progname.obj, \
   execute.obj, \
@@ -120,6 +122,12 @@ closeout.obj : closeout.c
 
 copy-file.obj : copy-file.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) copy-file.c
+
+csharpcomp.obj : csharpcomp.c,alloca.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) csharpcomp.c
+
+csharpexec.obj : csharpexec.c,alloca.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) csharpexec.c
 
 error.obj : error.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) error.c

@@ -30,6 +30,11 @@
 #include "xsetenv.h"
 #include "xalloc.h"
 
+/* Name of environment variable.  */
+#ifndef CLASSPATHVAR
+# define CLASSPATHVAR "CLASSPATH"
+#endif
+
 /* Separator in PATH like lists of pathnames.  */
 #if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
   /* Win32, OS/2, DOS */
@@ -52,7 +57,7 @@ new_classpath (const char * const *classpaths, unsigned int classpaths_count,
   char *result;
   char *p;
 
-  old_classpath = (use_minimal_classpath ? NULL : getenv ("CLASSPATH"));
+  old_classpath = (use_minimal_classpath ? NULL : getenv (CLASSPATHVAR));
   if (old_classpath == NULL)
     old_classpath = "";
 
@@ -91,15 +96,15 @@ char *
 set_classpath (const char * const *classpaths, unsigned int classpaths_count,
 	       bool use_minimal_classpath, bool verbose)
 {
-  const char *old_CLASSPATH = getenv ("CLASSPATH");
+  const char *old_CLASSPATH = getenv (CLASSPATHVAR);
   char *result = (old_CLASSPATH != NULL ? xstrdup (old_CLASSPATH) : NULL);
   char *new_CLASSPATH =
     new_classpath (classpaths, classpaths_count, use_minimal_classpath);
 
   if (verbose)
-    printf ("CLASSPATH=%s ", new_CLASSPATH);
+    printf (CLASSPATHVAR "=%s ", new_CLASSPATH);
 
-  xsetenv ("CLASSPATH", new_CLASSPATH, 1);
+  xsetenv (CLASSPATHVAR, new_CLASSPATH, 1);
 
   free (new_CLASSPATH);
 
@@ -112,9 +117,9 @@ reset_classpath (char *old_classpath)
 {
   if (old_classpath != NULL)
     {
-      xsetenv ("CLASSPATH", old_classpath, 1);
+      xsetenv (CLASSPATHVAR, old_classpath, 1);
       free (old_classpath);
     }
   else
-    unsetenv ("CLASSPATH");
+    unsetenv (CLASSPATHVAR);
 }

@@ -71,6 +71,9 @@ following file list.
       $prefix/share/doc/gettext/javadoc1/*
       $prefix/share/doc/gettext/javadoc2/*
 
+      $prefix/lib/GNU.Gettext.dll
+      $prefix/share/doc/gettext/csharpdoc/*
+
       $prefix/lib/libasprintf.*
       $prefix/include/autosprintf.h
       $prefix/share/doc/libasprintf/autosprintf.html

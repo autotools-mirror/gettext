@@ -1,3 +1,11 @@
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
+	Support for C#.
+	* csharpcomp.m4: New file.
+	* csharpexec.m4: New file.
+	* Makefile.am (examplesconfig_DATA): Add them.
+	(EXTRA_DIST): Likewise.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* allocsa.m4: New file.

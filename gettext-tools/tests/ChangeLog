@@ -1,5 +1,13 @@
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
+	Support for C#.
+	* msgunfmt-csharp-1: New file.
+	* lang-csharp: New file.
+	* Makefile.am (TESTS): Add them.
+	(TESTS_ENVIRONMENT): Also set the TESTCSHARP variable.
+
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
 	* format-csharp-1: New file.
 	* format-csharp-2: New file.
 	* xgettext-csharp-1: New file.

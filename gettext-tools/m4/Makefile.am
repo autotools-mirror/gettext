@@ -37,7 +37,9 @@ aclocal_DATA = \
 
 docdir = @docdir@
 examplesconfigdir = $(docdir)/examples/config
-examplesconfig_DATA = gcj.m4 javacomp.m4 javaexec.m4
+examplesconfig_DATA = \
+  gcj.m4 javacomp.m4 javaexec.m4 \
+  csharpcomp.m4 csharpexec.m4
 
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
@@ -46,6 +48,8 @@ alloca.m4 \
 allocsa.m4 \
 backupfile.m4 \
 canonicalize.m4 \
+csharpcomp.m4 \
+csharpexec.m4 \
 eaccess.m4 \
 eealloc.m4 \
 error.m4 \
