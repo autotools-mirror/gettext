@@ -1,3 +1,11 @@
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (message_merge): Remove declaration.
+	* message.c (msgfmt_check_pair_fails, message_merge): Move to
+	msgmerge.c.
+	* msgmerge.c (msgfmt_check_pair_fails, message_merge): Moved to here
+	from message.c.
+
 2001-12-20  Bruno Haible  <bruno@clisp.org>
 
 	* format-java.c: Include system.h.

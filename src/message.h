@@ -151,8 +151,6 @@ extern void
 					const char *name, size_t line));
 extern message_ty *
        message_copy PARAMS ((message_ty *mp));
-extern message_ty *
-       message_merge PARAMS ((message_ty *def, message_ty *ref));
 
 
 typedef struct message_list_ty message_list_ty;
