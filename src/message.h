@@ -22,6 +22,7 @@
 
 #include "str-list.h"
 #include "pos.h"
+#include "hash.h"
 
 #include <stdbool.h>
 
@@ -159,10 +160,16 @@ struct message_list_ty
   message_ty **item;
   size_t nitems;
   size_t nitems_max;
+  bool use_hashtable;
+  hash_table htable;	/* Table mapping msgid to 'message_ty *'.  */
 };
 
+/* Create a fresh message list.
+   If USE_HASHTABLE is true, a hash table will be used to speed up
+   message_list_search().  USE_HASHTABLE can only be set to true if it is
+   known that the message list will not contain duplicate msgids.  */
 extern message_list_ty *
-       message_list_alloc PARAMS ((void));
+       message_list_alloc PARAMS ((bool use_hashtable));
 extern void
        message_list_free PARAMS ((message_list_ty *mlp));
 extern void
@@ -216,7 +223,7 @@ struct msgdomain_ty
 };
 
 extern msgdomain_ty *
-       msgdomain_alloc PARAMS ((const char *domain));
+       msgdomain_alloc PARAMS ((const char *domain, bool use_hashtable));
 extern void
        msgdomain_free PARAMS ((msgdomain_ty *mdp));
 
@@ -227,10 +234,11 @@ struct msgdomain_list_ty
   msgdomain_ty **item;
   size_t nitems;
   size_t nitems_max;
+  bool use_hashtable;
 };
 
 extern msgdomain_list_ty *
-       msgdomain_list_alloc PARAMS ((void));
+       msgdomain_list_alloc PARAMS ((bool use_hashtable));
 extern void
        msgdomain_list_free PARAMS ((msgdomain_list_ty *mdlp));
 extern void

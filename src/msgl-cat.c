@@ -269,7 +269,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
      If for a message, there is at least one non-fuzzy, non-empty translation,
      use only the non-fuzzy, non-empty translations.  Otherwise use the
      fuzzy or empty translations as well.  */
-  total_mdlp = msgdomain_list_alloc ();
+  total_mdlp = msgdomain_list_alloc (true);
   for (n = 0; n < nfiles; n++)
     {
       msgdomain_list_ty *mdlp = mdlps[n];

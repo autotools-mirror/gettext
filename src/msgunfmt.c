@@ -227,7 +227,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     {
       message_list_ty *mlp;
 
-      mlp = message_list_alloc ();
+      mlp = message_list_alloc (false);
       if (optind < argc)
 	{
 	  do
@@ -237,7 +237,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       else
 	read_mo_file (mlp, "-");
 
-      result = msgdomain_list_alloc ();
+      result = msgdomain_list_alloc (false);
       result->item[0]->messages = mlp;
     }
 

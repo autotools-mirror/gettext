@@ -282,7 +282,7 @@ compare (fn1, fn2)
      the xgettext program.  */
   ref = grammar (fn2);
 
-  empty_list = message_list_alloc ();
+  empty_list = message_list_alloc (false);
 
   /* Every entry in the xgettext generated file must be matched by a
      (single) entry in the human created file.  */
@@ -367,7 +367,7 @@ compare_constructor (that)
 {
   compare_class_ty *this = (compare_class_ty *) that;
 
-  this->mdlp = msgdomain_list_alloc ();
+  this->mdlp = msgdomain_list_alloc (true);
   this->domain = MESSAGE_DOMAIN_DEFAULT;
   this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
 }

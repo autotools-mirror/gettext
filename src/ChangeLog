@@ -1,5 +1,38 @@
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.h: Include hash.h.
+	(message_list_ty): Add use_hashtable, htable fields.
+	(message_list_alloc): Add 'use_hashtable' argument.
+	(msgdomain_alloc): Likewise.
+	(msgdomain_list_ty): Add use_hashtable field.
+	(msgdomain_list_alloc): Add 'use_hashtable' argument.
+	* message.c: Include hash.h.
+	(message_list_alloc): Add 'use_hashtable' argument.
+	(message_list_free): Delete the hash table if present.
+	(message_list_append): If a hash table is in use, verify no duplicates.
+	(message_list_prepend): Likewise.
+	(message_list_remove_if_not): Remove hash table after removal.
+	(message_list_search): Use hash table if present.
+	(msgdomain_alloc): Add 'use_hashtable' argument.
+	(msgdomain_list_alloc): Add 'use_hashtable' argument.
+	(msgdomain_list_sublist): Use 'use_hashtable'.
+	* msgcmp.c (compare): Update.
+	(compare_constructor): Allocate a message list with hash table.
+	* msgfmt.c (new_domain): Allocate a message list with hash table.
+	Remove impossible error message.
+	* msgl-cat.c (catenate_msgdomain_list): Allocate message lists with
+	hash table.
+	* msgmerge.c (merge): Update.
+	* msgunfmt.c (main): Update.
+	* read-po.c (readall_constructor): Allocate a message list with hash
+	table if and only if duplicates will lead to an error message.
+	* xgettext.c (main): Allocate a message list with hash table, to
+	speed up insertion.
+	(exclude_directive_message): Allocate a message list with hash table,
+	to speed up exclusion test.
+
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.h (msgdomain_list_sublist): Change last argument to bool.
 	* message.c (msgdomain_list_sublist): Likewise.
 	* msgcmp.c (compare): Update msgdomain_list_sublist calls.

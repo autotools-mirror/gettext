@@ -606,7 +606,7 @@ merge (fn1, fn2, defp)
   message_list_list_append (definitions, NULL);
   if (compendiums)
     message_list_list_append_list (definitions, compendiums);
-  empty_list = message_list_alloc ();
+  empty_list = message_list_alloc (false);
 
   /* This is the references file, created by groping the sources with
      the xgettext program.  */
@@ -621,7 +621,7 @@ merge (fn1, fn2, defp)
 	message_list_prepend (ref->item[k]->messages, refheader);
       }
 
-  result = msgdomain_list_alloc ();
+  result = msgdomain_list_alloc (false);
   processed = 0;
 
   /* Every reference must be matched with its definition. */

@@ -102,7 +102,7 @@ readall_constructor (that)
   readall_class_ty *this = (readall_class_ty *) that;
   size_t i;
 
-  this->mdlp = msgdomain_list_alloc ();
+  this->mdlp = msgdomain_list_alloc (!allow_duplicates);
   this->domain = MESSAGE_DOMAIN_DEFAULT;
   this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
   this->comment = NULL;

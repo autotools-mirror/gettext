@@ -597,9 +597,8 @@ new_domain (name, file_name)
       struct msg_domain *domain;
 
       domain = (struct msg_domain *) xmalloc (sizeof (struct msg_domain));
-      domain->mlp = message_list_alloc ();
-      if (init_hash (&domain->symbol_tab, 100) != 0)
-	error (EXIT_FAILURE, errno, _("while creating hash table"));
+      domain->mlp = message_list_alloc (true);
+      init_hash (&domain->symbol_tab, 100);
       domain->domain_name = name;
       domain->file_name = file_name;
       domain->next = NULL;

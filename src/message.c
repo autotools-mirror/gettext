@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <string.h>
 
 #include "fstrcmp.h"
+#include "hash.h"
 #include "xmalloc.h"
 #include "strstr.h"
 #include "system.h"
@@ -425,7 +426,8 @@ message_merge (def, ref)
 
 
 message_list_ty *
-message_list_alloc ()
+message_list_alloc (use_hashtable)
+     bool use_hashtable;
 {
   message_list_ty *mlp;
 
@@ -433,6 +435,8 @@ message_list_alloc ()
   mlp->nitems = 0;
   mlp->nitems_max = 0;
   mlp->item = NULL;
+  if ((mlp->use_hashtable = use_hashtable))
+    init_hash (&mlp->htable, 10);
   return mlp;
 }
 
@@ -447,6 +451,8 @@ message_list_free (mlp)
     message_free (mlp->item[j]);
   if (mlp->item)
     free (mlp->item);
+  if (mlp->use_hashtable)
+    delete_hash (&mlp->htable);
   free (mlp);
 }
 
@@ -465,6 +471,12 @@ message_list_append (mlp, mp)
       mlp->item = xrealloc (mlp->item, nbytes);
     }
   mlp->item[mlp->nitems++] = mp;
+
+  if (mlp->use_hashtable)
+    if (insert_entry (&mlp->htable, mp->msgid, strlen (mp->msgid) + 1, mp))
+      /* A message list has duplicates, although it was allocated with the
+	 assertion that it wouldn't have duplicates.  It is a bug.  */
+      abort ();
 }
 
 
@@ -487,6 +499,12 @@ message_list_prepend (mlp, mp)
     mlp->item[j] = mlp->item[j - 1];
   mlp->item[0] = mp;
   mlp->nitems++;
+
+  if (mlp->use_hashtable)
+    if (insert_entry (&mlp->htable, mp->msgid, strlen (mp->msgid) + 1, mp))
+      /* A message list has duplicates, although it was allocated with the
+	 assertion that it wouldn't have duplicates.  It is a bug.  */
+      abort ();
 }
 
 
@@ -504,6 +522,13 @@ message_list_delete_nth (mlp, n)
   for (j = n + 1; j < mlp->nitems; ++j)
     mlp->item[j - 1] = mlp->item[j];
   mlp->nitems--;
+
+  if (mlp->use_hashtable)
+    {
+      /* Our simple-minded hash tables don't support removal.  */
+      delete_hash (&mlp->htable);
+      mlp->use_hashtable = false;
+    }
 }
 #endif
 
@@ -518,6 +543,12 @@ message_list_remove_if_not (mlp, predicate)
   for (j = 0, i = 0; j < mlp->nitems; j++)
     if (predicate (mlp->item[j]))
       mlp->item[i++] = mlp->item[j];
+  if (mlp->use_hashtable && i < mlp->nitems)
+    {
+      /* Our simple-minded hash tables don't support removal.  */
+      delete_hash (&mlp->htable);
+      mlp->use_hashtable = false;
+    }
   mlp->nitems = i;
 }
 
@@ -527,17 +558,29 @@ message_list_search (mlp, msgid)
      message_list_ty *mlp;
      const char *msgid;
 {
-  size_t j;
-
-  for (j = 0; j < mlp->nitems; ++j)
+  if (mlp->use_hashtable)
     {
       message_ty *mp;
 
-      mp = mlp->item[j];
-      if (strcmp (msgid, mp->msgid) == 0)
+      if (find_entry (&mlp->htable, msgid, strlen (msgid) + 1, (void **) &mp))
+	return NULL;
+      else
 	return mp;
     }
-  return NULL;
+  else
+    {
+      size_t j;
+
+      for (j = 0; j < mlp->nitems; ++j)
+	{
+	  message_ty *mp;
+
+	  mp = mlp->item[j];
+	  if (strcmp (msgid, mp->msgid) == 0)
+	    return mp;
+	}
+      return NULL;
+    }
 }
 
 
@@ -699,14 +742,15 @@ message_list_list_search_fuzzy (mllp, msgid)
 
 
 msgdomain_ty*
-msgdomain_alloc (domain)
+msgdomain_alloc (domain, use_hashtable)
      const char *domain;
+     bool use_hashtable;
 {
   msgdomain_ty *mdp;
 
   mdp = (msgdomain_ty *) xmalloc (sizeof (msgdomain_ty));
   mdp->domain = domain;
-  mdp->messages = message_list_alloc ();
+  mdp->messages = message_list_alloc (use_hashtable);
   return mdp;
 }
 
@@ -721,7 +765,8 @@ msgdomain_free (mdp)
 
 
 msgdomain_list_ty *
-msgdomain_list_alloc ()
+msgdomain_list_alloc (use_hashtable)
+     bool use_hashtable;
 {
   msgdomain_list_ty *mdlp;
 
@@ -732,7 +777,8 @@ msgdomain_list_alloc ()
   mdlp->nitems_max = 1;
   mdlp->item =
     (msgdomain_ty **) xmalloc (mdlp->nitems_max * sizeof (msgdomain_ty *));
-  mdlp->item[0] = msgdomain_alloc (MESSAGE_DOMAIN_DEFAULT);
+  mdlp->item[0] = msgdomain_alloc (MESSAGE_DOMAIN_DEFAULT, use_hashtable);
+  mdlp->use_hashtable = use_hashtable;
   return mdlp;
 }
 
@@ -798,7 +844,7 @@ msgdomain_list_sublist (mdlp, domain, create)
 
   if (create)
     {
-      msgdomain_ty *mdp = msgdomain_alloc (domain);
+      msgdomain_ty *mdp = msgdomain_alloc (domain, mdlp->use_hashtable);
       msgdomain_list_append (mdlp, mdp);
       return mdp->messages;
     }

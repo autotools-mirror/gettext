@@ -424,7 +424,7 @@ xgettext cannot work without keywords to look for"));
     string_list_append_unique (file_list, argv[cnt]);
 
   /* Allocate a message list to remember all the messages.  */
-  mdlp = msgdomain_list_alloc ();
+  mdlp = msgdomain_list_alloc (true);
 
   /* Generate a header, so that we know how and when this PO file was
      created.  */
@@ -622,7 +622,7 @@ exclude_directive_message (pop, msgid, msgid_pos, msgid_plural,
 
   /* See if this message ID has been seen before.  */
   if (exclude == NULL)
-    exclude = message_list_alloc ();
+    exclude = message_list_alloc (true);
   mp = message_list_search (exclude, msgid);
   if (mp != NULL)
     free (msgid);
