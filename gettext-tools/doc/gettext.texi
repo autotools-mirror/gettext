@@ -335,6 +335,7 @@ The Translator's View
 * librep-format::               librep Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * java-format::                 Java Format Strings
+* csharp-format::               C# Format Strings
 * awk-format::                  awk Format Strings
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
@@ -356,6 +357,7 @@ Individual Programming Languages
 * librep::                      librep
 * Smalltalk::                   GNU Smalltalk
 * Java::                        Java
+* C#::                          C#
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
@@ -1215,6 +1217,12 @@ Likewise for Smalltalk, see @ref{smalltalk-format}.
 @itemx no-java-format
 @kwindex no-java-format@r{ flag}
 Likewise for Java, see @ref{java-format}.
+
+@item csharp-format
+@kwindex csharp-format@r{ flag}
+@itemx no-csharp-format
+@kwindex no-csharp-format@r{ flag}
+Likewise for C#, see @ref{csharp-format}.
 
 @item awk-format
 @kwindex awk-format@r{ flag}
@@ -2091,9 +2099,10 @@ of 100 is safe, because all available hardware integer types are limited to
 regardless whether in decimal, octal or hexadecimal.
 
 @cindex Java, string concatenation
+@cindex C#, string concatenation
 All this applies to other programming languages as well.  For example, in
-Java, string contenation is very frequently used, because it is a compiler
-built-in operator.  Like in C, in Java, you would change
+Java and C#, string contenation is very frequently used, because it is a
+compiler built-in operator.  Like in C, in Java, you would change
 
 @example
 System.out.println("Replace "+object1+" with "+object2+"?");
@@ -2106,6 +2115,20 @@ into a statement involving a format string:
 System.out.println(
     MessageFormat.format("Replace @{0@} with @{1@}?",
                          new Object[] @{ object1, object2 @}));
+@end example
+
+Similarly, in C#, you would change
+
+@example
+Console.WriteLine("Replace "+object1+" with "+object2+"?");
+@end example
+
+@noindent
+into a statement involving a format string:
+
+@example
+Console.WriteLine(
+    String.Format("Replace @{0@} with @{1@}?", object1, object2));
 @end example
 
 @node Mark Keywords, Marking, Preparing Strings, Sources
@@ -7274,6 +7297,7 @@ strings.
 * librep-format::               librep Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * java-format::                 Java Format Strings
+* csharp-format::               C# Format Strings
 * awk-format::                  awk Format Strings
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
@@ -7385,7 +7409,7 @@ class @code{CharArray}, methods @samp{bindWith:} and
 In summary, a directive starts with @samp{%} and is followed by @samp{%}
 or a nonzero digit (@samp{1} to @samp{9}).
 
-@node java-format, awk-format, smalltalk-format, Translators for other Languages
+@node java-format, csharp-format, smalltalk-format, Translators for other Languages
 @subsection Java Format Strings
 
 Java format strings are described in the JDK documentation for class
@@ -7394,7 +7418,14 @@ Java format strings are described in the JDK documentation for class
 See also the ICU documentation
 @uref{http://oss.software.ibm.com/icu/apiref/classMessageFormat.html}.
 
-@node awk-format, object-pascal-format, java-format, Translators for other Languages
+@node csharp-format, awk-format, java-format, Translators for other Languages
+@subsection C# Format Strings
+
+C# format strings are described in the .NET documentation for class
+@code{System.String} and in
+@uref{http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpConFormattingOverview.asp}.
+
+@node awk-format, object-pascal-format, csharp-format, Translators for other Languages
 @subsection awk Format Strings
 
 awk format strings are described in the gawk documentation, section
@@ -7531,7 +7562,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @c   Cold Fusion               10
 @c   Haskell                    9
 @c   Visual Basic               9
-@c   C#                         6
+@c   C#                         6     *
 @c   Smalltalk                  6     *
 @c   Basic                      5
 @c   Erlang                     5
@@ -7562,6 +7593,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * librep::                      librep
 * Smalltalk::                   GNU Smalltalk
 * Java::                        Java
+* C#::                          C#
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
@@ -8187,7 +8219,7 @@ fully portable
 An example is available in the @file{examples} directory:
 @code{hello-smalltalk}.
 
-@node Java, gawk, Smalltalk, List of Programming Languages
+@node Java, C#, Smalltalk, List of Programming Languages
 @subsection Java
 @cindex Java
 
@@ -8302,7 +8334,55 @@ the GNU gettext package and distributed under the LGPL.
 Three examples, using the second API, are available in the @file{examples}
 directory: @code{hello-java}, @code{hello-java-awt}, @code{hello-java-swing}.
 
-@node gawk, Pascal, Java, List of Programming Languages
+@node C#, gawk, Java, List of Programming Languages
+@subsection C#
+@cindex C#
+
+@table @asis
+@item RPMs
+pnet, pnetlib
+
+@item File extension
+@code{cs}
+
+@item String syntax
+@code{"abc"}, @code{@@"abc"}
+
+@item gettext shorthand
+_("abc")
+
+@item gettext/ngettext functions
+---
+
+@item textdomain
+---, use @code{ResourceManager} instead
+
+@item bindtextdomain
+---
+
+@item setlocale
+automatic
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+---, uses a C# specific message catalog format
+
+@item Extractor
+@code{xgettext -k_}
+
+@item Formatting with positions
+@code{String.Format "@{1@} @{0@}"}
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+@node gawk, Pascal, C#, List of Programming Languages
 @subsection GNU awk
 @cindex awk
 @cindex gawk

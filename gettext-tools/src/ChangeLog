@@ -1,3 +1,33 @@
+2003-12-14  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (format_type): New enum value 'format_csharp'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_csharp entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_csharp): New declaration.
+	* format-csharp.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_csharp.
+	* x-csharp.h: New file.
+	* x-csharp.c: New file.
+	* xgettext.c: Include x-csharp.h.
+	(flag_table_csharp): New variable.
+	(main): Invoke init_flag_table_csharp, x_csharp_extract_all,
+	x_csharp_keyword.
+	(usage): Mention C# source language.
+	(xgettext_record_flag): Handle format_csharp.
+	(language_to_extractor): Add C# rule.
+	(extension_to_language): Add C# rule.
+	* Makefile.am (noinst_HEADERS): Add x-csharp.h.
+	(FORMAT_SOURCE): Add format-csharp.c.
+	(xgettext_SOURCES): Add x-csharp.c.
+	* Makefile.msvc (OBJECTS): Add format-csharp.obj.
+	(xgettext_OBJECTS): Add x-csharp.obj.
+	(format-csharp.obj, x-csharp.obj): New rules.
+	* Makefile.vms (OBJECTS): Add format-csharp.obj.
+	(xgettext_OBJECTS): Add x-csharp.obj.
+	(format-csharp.obj, x-csharp.obj): New rules.
+	* FILES: Update.
+
 2003-12-28  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c (process_string): Pass ignore_sigpipe = false.

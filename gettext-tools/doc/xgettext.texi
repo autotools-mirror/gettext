@@ -71,8 +71,9 @@ is written to standard output.
 Specifies the language of the input files.  The supported languages
 are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Python},
 @code{Lisp}, @code{EmacsLisp}, @code{librep}, @code{Smalltalk}, @code{Java},
-@code{JavaProperties}, @code{awk}, @code{YCP}, @code{Tcl}, @code{Perl},
-@code{PHP}, @code{GCC-source}, @code{NXStringTable}, @code{RST}, @code{Glade}.
+@code{JavaProperties}, @code{C#}, @code{awk}, @code{YCP}, @code{Tcl},
+@code{Perl}, @code{PHP}, @code{GCC-source}, @code{NXStringTable}, @code{RST},
+@code{Glade}.
 
 @item -C
 @itemx --c++
@@ -133,8 +134,9 @@ in output file.
 @opindex --extract-all@r{, @code{xgettext} option}
 Extract all strings.
 
-This option has an effect with most languages, namely C, C++, ObjectiveC, Shell,
-Python, Lisp, EmacsLisp, librep, Java, awk, Tcl, Perl, PHP, GCC-source, Glade.
+This option has an effect with most languages, namely C, C++, ObjectiveC,
+Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,
+GCC-source, Glade.
 
 @item -k @var{keywordspec}
 @itemx --keyword[=@var{keywordspec}]
@@ -159,8 +161,9 @@ explicitly disabled, are @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
 @code{dcngettext:2,3}, and @code{gettext_noop}.
 @*
-This option has an effect with most languages, namely C, C++, ObjectiveC, Shell,
-Python, Lisp, EmacsLisp, librep, Java, awk, Tcl, Perl, PHP, GCC-source, Glade.
+This option has an effect with most languages, namely C, C++, ObjectiveC,
+Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,
+GCC-source, Glade.
 
 @item --flag=@var{word}:@var{arg}:@var{flag}
 @opindex --flag@r{, @code{xgettext} option}
@@ -205,6 +208,10 @@ This is useful when such strings contain no format string directives:
 together with the checks done by @samp{msgfmt -c} it will ensure that
 translators cannot accidentally use format string directives that would
 lead to a crash at runtime.
+@*
+This option has an effect with most languages, namely C, C++, ObjectiveC,
+Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, YCP, Tcl, Perl, PHP,
+GCC-source.
 
 @item -T
 @itemx --trigraphs

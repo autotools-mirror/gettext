@@ -1,3 +1,14 @@
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* format-csharp-1: New file.
+	* format-csharp-2: New file.
+	* xgettext-csharp-1: New file.
+	* xgettext-csharp-2: New file.
+	* xgettext-csharp-3: New file.
+	* xgettext-csharp-4: New file.
+	* xgettext-csharp-5: New file.
+	* Makefile.am (TESTS): Add them.
+
 2003-12-27  Bruno Haible  <bruno@clisp.org>
 
 	* lang-c++: Skip the test if TESTLIBASPRINTF is not set to "yes".

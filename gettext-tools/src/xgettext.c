@@ -80,6 +80,7 @@ extern "C" {
 #include "x-smalltalk.h"
 #include "x-java.h"
 #include "x-properties.h"
+#include "x-csharp.h"
 #include "x-awk.h"
 #include "x-ycp.h"
 #include "x-tcl.h"
@@ -144,6 +145,7 @@ static flag_context_list_table_ty flag_table_lisp;
 static flag_context_list_table_ty flag_table_elisp;
 static flag_context_list_table_ty flag_table_librep;
 static flag_context_list_table_ty flag_table_java;
+static flag_context_list_table_ty flag_table_csharp;
 static flag_context_list_table_ty flag_table_awk;
 static flag_context_list_table_ty flag_table_ycp;
 static flag_context_list_table_ty flag_table_tcl;
@@ -298,6 +300,7 @@ main (int argc, char *argv[])
   init_flag_table_elisp ();
   init_flag_table_librep ();
   init_flag_table_java ();
+  init_flag_table_csharp ();
   init_flag_table_awk ();
   init_flag_table_ycp ();
   init_flag_table_tcl ();
@@ -319,6 +322,7 @@ main (int argc, char *argv[])
 	x_elisp_extract_all ();
 	x_librep_extract_all ();
 	x_java_extract_all ();
+	x_csharp_extract_all ();
 	x_awk_extract_all ();
 	x_tcl_extract_all ();
 	x_perl_extract_all ();
@@ -381,6 +385,7 @@ main (int argc, char *argv[])
 	    x_elisp_keyword (optarg);
 	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
+	    x_csharp_keyword (optarg);
 	    x_awk_keyword (optarg);
 	    x_tcl_keyword (optarg);
 	    x_perl_keyword (optarg);
@@ -748,7 +753,7 @@ Choice of input file language:\n"));
   -L, --language=NAME         recognise the specified language\n\
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Smalltalk, Java,\n\
-                                JavaProperties, awk, YCP, Tcl, Perl, PHP,\n\
+                                JavaProperties, C#, awk, YCP, Tcl, Perl, PHP,\n\
                                 GCC-source, NXStringTable, RST, Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
@@ -779,21 +784,21 @@ Language specific options:\n"));
   -a, --extract-all           extract all strings\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
-                                Python, Lisp, EmacsLisp, librep, Java, awk,\n\
+                                Python, Lisp, EmacsLisp, librep, Java, C#, awk,\n\
                                 Tcl, Perl, PHP, GCC-source, Glade)\n"));
       printf (_("\
   -k, --keyword[=WORD]        additional keyword to be looked for (without\n\
                               WORD means not to use default keywords)\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
-                                Python, Lisp, EmacsLisp, librep, Java, awk,\n\
+                                Python, Lisp, EmacsLisp, librep, Java, C#, awk,\n\
                                 Tcl, Perl, PHP, GCC-source, Glade)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
-                                Python, Lisp, EmacsLisp, librep, Java, awk,\n\
+                                Python, Lisp, EmacsLisp, librep, Java, C#, awk,\n\
                                 YCP, Tcl, Perl, PHP, GCC-source)\n"));
       printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
@@ -1380,6 +1385,11 @@ xgettext_record_flag (const char *optionstring)
 		    break;
 		  case format_java:
 		    flag_context_list_table_insert (&flag_table_java, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
+		  case format_csharp:
+		    flag_context_list_table_insert (&flag_table_csharp, 0,
 						    name_start, name_end,
 						    argnum, value, pass);
 		    break;
@@ -2149,6 +2159,7 @@ language_to_extractor (const char *name)
     SCANNERS_SMALLTALK
     SCANNERS_JAVA
     SCANNERS_PROPERTIES
+    SCANNERS_CSHARP
     SCANNERS_AWK
     SCANNERS_YCP
     SCANNERS_TCL
@@ -2157,7 +2168,7 @@ language_to_extractor (const char *name)
     SCANNERS_STRINGTABLE
     SCANNERS_RST
     SCANNERS_GLADE
-    /* Here will follow more languages and their scanners: pike, C#, etc...
+    /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
 
@@ -2213,6 +2224,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_SMALLTALK
     EXTENSIONS_JAVA
     EXTENSIONS_PROPERTIES
+    EXTENSIONS_CSHARP
     EXTENSIONS_AWK
     EXTENSIONS_YCP
     EXTENSIONS_TCL
@@ -2221,7 +2233,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_STRINGTABLE
     EXTENSIONS_RST
     EXTENSIONS_GLADE
-    /* Here will follow more file extensions: cs ... */
+    /* Here may follow more file extensions... */
   };
 
   table_ty *tp;

@@ -60,6 +60,8 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-awk-1 \
 	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 \
+	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
+	xgettext-csharp-4 xgettext-csharp-5 \
 	xgettext-elisp-1 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
@@ -80,6 +82,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-ycp-1 xgettext-ycp-2 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
+	format-csharp-1 format-csharp-2 \
 	format-elisp-1 format-elisp-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
 	format-java-1 format-java-2 \

@@ -1,3 +1,12 @@
+2003-12-14  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention csharp-format.
+	(Preparing String): Add an example in C# syntax.
+	(csharp-format): New subsection.
+	(C#): New subsection.
+	* xgettext.texi: Document C# source language. Document the languages to
+	which --flag is applicable.
+
 2003-12-12  Bruno Haible  <bruno@clisp.org>
 
 	Assume automake-1.8.

@@ -188,6 +188,7 @@ format-lisp.c          Format string handling for Common Lisp.
 format-elisp.c         Format string handling for Emacs Lisp.
 format-librep.c        Format string handling for librep.
 format-java.c          Format string handling for Java.
+format-csharp.c        Format string handling for C#.
 format-awk.c           Format string handling for awk.
 format-pascal.c        Format string handling for Object Pascal.
 format-ycp.c           Format string handling for YCP.
@@ -256,6 +257,9 @@ format.c        Table of the language dependent format string handlers.
 | x-java.h
 | x-java.c
 |               String extractor for Java.
+| x-csharp.h
+| x-csharp.c
+|               String extractor for C#.
 | x-awk.h
 | x-awk.c
 |               String extractor for awk.

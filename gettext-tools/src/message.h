@@ -49,6 +49,7 @@ enum format_type
   format_librep,
   format_smalltalk,
   format_java,
+  format_csharp,
   format_awk,
   format_pascal,
   format_ycp,
@@ -59,7 +60,7 @@ enum format_type
   format_gcc_internal,
   format_qt
 };
-#define NFORMATS 18	/* Number of format_type enum values.  */
+#define NFORMATS 19	/* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 
