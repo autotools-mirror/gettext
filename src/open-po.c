@@ -1,5 +1,5 @@
 /* open-po - search for .po file along search path list and open for reading
-   Copyright (C) 1995-1996, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
 This program is free software; you can redistribute it and/or modify
@@ -51,7 +51,8 @@ open_po_file (input_name, real_file_name_p)
   static const char *extension[] = { "", ".po", ".pot", };
   char *file_name;
   FILE *ret_val;
-  int j, k;
+  int j;
+  size_t k;
   const char *dir;
 
   if (strcmp (input_name, "-") == 0 || strcmp (input_name, "/dev/stdin") == 0)

@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -156,7 +156,7 @@ read_mo_file (mlp, fn)
 {
   FILE *fp;
   struct mo_file_header header;
-  int j;
+  unsigned int j;
 
   if (strcmp (fn, "-") == 0 || strcmp (fn, "/dev/stdin") == 0)
     {

@@ -275,8 +275,8 @@ translate_esc (s)
      char *s;
 {
   char *n = (char *) xmalloc (strlen (s) + 1);
-  int i;
-  int j = 0;
+  size_t i;
+  size_t j = 0;
 
   for (i = 0; i < strlen (s); i++)
     switch (s[i])
