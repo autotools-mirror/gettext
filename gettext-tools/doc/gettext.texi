@@ -685,8 +685,8 @@ speaking parts of the world is the ASCII codeset.  However, there are
 many characters needed by various locales that are not found within
 this codeset.  The 8-bit @w{ISO 8859-1} code set has most of the special
 characters needed to handle the major European languages.  However, in
-many cases, the @w{ISO 8859-1} font is not adequate: it doesn't even
-handle the major European currency.  Hence each locale
+many cases, choosing @w{ISO 8859-1} is nevertheless not adequate: it
+doesn't even handle the major European currency.  Hence each locale
 will need to specify which codeset they need to use and will need
 to have the appropriate character handling routines to cope with
 the codeset.
