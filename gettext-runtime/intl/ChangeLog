@@ -1,3 +1,7 @@
+2003-05-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.12 released.
+
 2003-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc (PICFLAGS, CFLAGS): Move BUILDING_* macros from

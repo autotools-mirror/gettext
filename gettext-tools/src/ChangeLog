@@ -1,5 +1,9 @@
 2003-05-17  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.12 released.
+
+2003-05-17  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.msvc (msgcmp.exe, msgfmt.exe, msgmerge.exe, msgunfmt.exe,
 	msgattrib.exe, msgcat.exe, msgcomm.exe, msgconv.exe, msgen.exe,
 	msgexec.exe, msgfilter.exe, msggrep.exe, msginit.exe, msguniq.exe):

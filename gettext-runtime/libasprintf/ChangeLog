@@ -1,3 +1,7 @@
+2003-05-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.12 released.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h_vms): Renamed from config.h.vms.

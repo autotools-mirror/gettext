@@ -1,5 +1,9 @@
 2003-05-17  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.12 released.
+
+2003-05-17  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (config.h.msvc): Define HAVE_STRPBRK.
 
 2003-05-15  Bruno Haible  <bruno@clisp.org>
