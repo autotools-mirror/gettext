@@ -197,7 +197,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
   /* assert(callback_arg); */
 
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
-  if (msgid[0] == '\0')
+  if (msgid[0] == '\0' && !obsolete)
     po_lex_charset_set (msgstr, gram_pos.file_name);
 
   po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,

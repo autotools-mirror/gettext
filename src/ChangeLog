@@ -1,5 +1,11 @@
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* po.c (po_callback_message): Ignore obsolete header entries, for
+	consistency with msgdomain_list_print(), compare_po_locale_charsets(),
+	iconv_message_list(), catenate_msgdomain_list().
+
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgfmt.c (struct msg_domain): Remove symbol_tab field.
 	(main, new_domain): Update.
 	(format_directive_message): Use message_list_search instead of
