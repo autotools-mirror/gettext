@@ -1,5 +1,9 @@
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
+	* version.sh: Bump version number to 0.14-pre1.
+
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
 	* config/config.guess, config/config.sub: Update to GNU version
 	2004-01-05.
 
