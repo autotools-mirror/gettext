@@ -1,13 +1,13 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.20 $)
+AC_REVISION($Revision: 1.21 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.10.36)
 RELEASE_DATE=2001-03-09      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
 
 dnl Set of available languages.
-ALL_LINGUAS="da de el en@quot en@boldquot es fr ja ko nl nn no pl pt sl sv tr"
+ALL_LINGUAS="da de el en@quot en@boldquot es fr ja ko nl nn no pl pt pt_BR sl sv tr"
 
 dnl Checks for programs.
 AC_PROG_CC

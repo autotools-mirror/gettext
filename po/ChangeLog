@@ -1,3 +1,8 @@
+2001-04-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* pt_BR.po: New file,
+	from Flávio Bruno Leitner <flavio@conectiva.com.br>.
+
 2001-04-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* de.po: Update from Karl Eichwalder.
