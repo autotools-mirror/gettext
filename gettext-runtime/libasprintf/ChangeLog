@@ -1,5 +1,7 @@
 2003-08-29  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Test whether _snprintf is declared, not only existent
+	as a function.
 	* vasnprintf.c: Test HAVE_DECL__SNPRINTF instead of HAVE__SNPRINTF.
 	Test HAVE_DECL__SNWPRINTF instead of HAVE__SNWPRINTF.
 
