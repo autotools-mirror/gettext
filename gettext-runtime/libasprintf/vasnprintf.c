@@ -52,7 +52,7 @@
 /* Checked size_t computations.  */
 #include "xsize.h"
 
-/* Some systems, like Woe32, don't have EOVERFLOW.  */
+/* Some systems, like OSF/1 4.0 and Woe32, don't have EOVERFLOW.  */
 #ifndef EOVERFLOW
 # define EOVERFLOW E2BIG
 #endif
