@@ -1,3 +1,5 @@
+LIBRARY gettextsrc
+EXPORTS
 allow_duplicates
 format_language
 format_language_pretty
@@ -97,6 +99,7 @@ po_callback_message
 po_charset_ascii_compatible
 po_charset_canonicalize
 po_free
+po_gram_error_at_line
 po_gram_lex
 po_gram_parse
 po_hash
