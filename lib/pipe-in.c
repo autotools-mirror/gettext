@@ -174,8 +174,8 @@ create_pipe_in (progname, prog_path, prog_argv, prog_stdin, null_stderr, exit_on
   if ((child = vfork ()) == 0)
     {
       /* Child process code.  */
-      int stdinfd;
       int nulloutfd;
+      int stdinfd;
 
       if (dup2 (ifd[1], STDOUT_FILENO) >= 0
 	  && close (ifd[1]) >= 0

@@ -174,6 +174,7 @@ create_pipe_out (progname, prog_path, prog_argv, prog_stdout, null_stderr, exit_
   if ((child = vfork ()) == 0)
     {
       /* Child process code.  */
+      int nulloutfd;
       int stdoutfd;
 
       if (dup2 (ofd[0], STDIN_FILENO) >= 0
@@ -197,8 +198,8 @@ create_pipe_out (progname, prog_path, prog_argv, prog_stdout, null_stderr, exit_
 	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
       else
 	{
-	  close (ifd[0]);
-	  close (ifd[1]);
+	  close (ofd[0]);
+	  close (ofd[1]);
 	  return -1;
 	}
     }

@@ -165,6 +165,8 @@ create_pipe_bidi (progname, prog_path, prog_argv, null_stderr, exit_on_error, fd
   if ((child = vfork ()) == 0)
     {
       /* Child process code.  */
+      int nulloutfd;
+
       if (dup2 (ofd[0], STDIN_FILENO) >= 0
 	  && dup2 (ifd[1], STDOUT_FILENO) >= 0
 	  && close (ofd[0]) >= 0
