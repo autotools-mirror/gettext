@@ -2,6 +2,9 @@
 
 # Test catching of division by zero in plural expression.
 
+# Note: On AIX 3 with xlc, this test fails. To make it work, add "-qcheck"
+# to the CFLAGS, or use gcc.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
