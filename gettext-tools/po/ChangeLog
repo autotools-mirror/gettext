@@ -1,3 +1,11 @@
+2003-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@superonline.com>.
+
 2003-05-20  Bruno Haible  <bruno@clisp.org>
 
 	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
