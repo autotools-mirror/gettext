@@ -162,6 +162,7 @@ html-local: autosprintf_all.html
 # We want to use texi2html, not makeinfo --html.
 autosprintf_all.html: autosprintf.texi
 	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
+	mv autosprintf.html autosprintf_all.html
 
 install-html: autosprintf_all.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
