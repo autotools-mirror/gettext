@@ -99,7 +99,7 @@ parted          | []       []                []                   |  5
 ptx             |          [] [] [] []       []       [] []       | 14
 python          |                                                 |  0
 recode          |                []          []    [] []          | 13
-sed             | []       []           []   [] [] [] []          | 17
+sed             | []       []           []   [] [] [] [] []       | 18
 sh-utils        | []       [] [] []     []   [] [] [] [] []    [] | 20
 sharutils       | []       []                []       []          | 11
 soundtracker    |                                                 |  0
@@ -112,6 +112,6 @@ wdiff           |                            [] []                |  4
 wget            |          []                [] [] [] [] []       | 14
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 15  1  2  358
+  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 16  1  2  359
 @end group
 @end example
