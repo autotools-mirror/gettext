@@ -2092,6 +2092,7 @@ compiler."
 	  for deplib in $tmp_libs; do
 	    case $deplib in
 	    -L*) new_libs="$deplib $new_libs" ;;
+	    -R*) ;;
 	    *)
 	      case " $specialdeplibs " in
 	      *" $deplib "*) new_libs="$deplib $new_libs" ;;
