@@ -247,6 +247,7 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
      enum is_wrap do_wrap;
      const char *charset;
 {
+  const char *canon_charset;
   const char *s;
   bool first_line;
 #if HAVE_ICONV
@@ -254,6 +255,8 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
   iconv_t conv;
 #endif
   bool weird_cjk;
+
+  canon_charset = po_charset_canonicalize (charset);
 
 #if HAVE_ICONV
   /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35 don't know
@@ -267,20 +270,30 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
     /* Write a PO file in old format, with extraneous backslashes.  */
     conv = (iconv_t)(-1);
   else
-    /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
-    if (strcmp (charset, "EUC-KR") == 0)
+    if (canon_charset == NULL)
+      /* Invalid PO file encoding.  */
       conv = (iconv_t)(-1);
     else
+      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+      if (strcmp (canon_charset, "EUC-KR") == 0)
+	conv = (iconv_t)(-1);
+      else
 # endif
-    /* Use iconv() to parse multibyte characters.  */
-    conv = iconv_open ("UTF-8", charset);
+      /* Use iconv() to parse multibyte characters.  */
+      conv = iconv_open ("UTF-8", canon_charset);
 
   if (conv != (iconv_t)(-1))
     weird_cjk = false;
   else
 #endif
-    weird_cjk = po_is_charset_weird_cjk (po_charset_canonicalize (charset));
+    if (canon_charset == NULL)
+      weird_cjk = false;
+    else
+      weird_cjk = po_is_charset_weird_cjk (canon_charset);
+
+  if (canon_charset == NULL)
+    canon_charset = po_charset_ascii;
 
   /* Loop over the '\n' delimited portions of value.  */
   s = value;
@@ -528,7 +541,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 
       /* Do line breaking on the portion.  */
       mbs_width_linebreaks (portion, portion_len, width, startcol, 0,
-			    overrides, charset, linebreaks);
+			    overrides, canon_charset, linebreaks);
 
       /* If this is the first line, and we are not using the indented
 	 style, and the line would wrap, then use an empty first line

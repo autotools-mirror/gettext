@@ -1,3 +1,9 @@
+2002-05-14  Bruno Haible  <bruno@clisp.org>
+
+	* write-po.c (wrap): Canonicalize the charset. Handle the case when
+	po_charset_canonicalize returns NULL.
+	Reported by Jan-Marek Glogowski <glogow@stud.fbi.fh-darmstadt.de>.
+
 2002-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* po-charset.c (po_charset_canonicalize): Add ISO-8859-14, KOI8-T,
