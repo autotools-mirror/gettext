@@ -116,45 +116,43 @@ AC_DEFUN([AM_GNU_GETTEXT],
         dnl Search for libintl and define LIBINTL and INCINTL accordingly.
         AC_LIB_LINKFLAGS_BODY([intl], [iconv])
 
-        AC_CHECK_HEADER(libintl.h,
-         [AC_CACHE_CHECK([for GNU gettext in libc], gt_cv_func_gnugettext_libc,
-           [AC_TRY_LINK([#include <libintl.h>
+        AC_CACHE_CHECK([for GNU gettext in libc], gt_cv_func_gnugettext_libc,
+         [AC_TRY_LINK([#include <libintl.h>
+extern int _nl_msg_cat_cntr;],
+            [bindtextdomain ("", "");
+return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
+            gt_cv_func_gnugettext_libc=yes,
+            gt_cv_func_gnugettext_libc=no)])
+
+        if test "$gt_cv_func_gnugettext_libc" != "yes"; then
+          ifelse(gt_included_intl, yes, , [
+            AM_ICONV
+          ])
+          AC_CACHE_CHECK([for GNU gettext in libintl],
+            gt_cv_func_gnugettext_libintl,
+           [gt_save_CPPFLAGS="$CPPFLAGS"
+            CPPFLAGS="$CPPFLAGS $INCINTL"
+            gt_save_LIBS="$LIBS"
+            LIBS="$LIBS $LIBINTL"
+            AC_TRY_LINK([#include <libintl.h>
 extern int _nl_msg_cat_cntr;],
               [bindtextdomain ("", "");
 return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
-              gt_cv_func_gnugettext_libc=yes,
-              gt_cv_func_gnugettext_libc=no)])
+              gt_cv_func_gnugettext_libintl=yes,
+              gt_cv_func_gnugettext_libintl=no)
+            CPPFLAGS="$gt_save_CPPFLAGS"
+            LIBS="$gt_save_LIBS"])
+        fi
 
-          if test "$gt_cv_func_gnugettext_libc" != "yes"; then
-            ifelse(gt_included_intl, yes, , [
-              AM_ICONV
-            ])
-            AC_CACHE_CHECK([for GNU gettext in libintl],
-              gt_cv_func_gnugettext_libintl,
-             [gt_save_CPPFLAGS="$CPPFLAGS"
-              CPPFLAGS="$CPPFLAGS $INCINTL"
-              gt_save_LIBS="$LIBS"
-              LIBS="$LIBS $LIBINTL"
-              AC_TRY_LINK([#include <libintl.h>
-extern int _nl_msg_cat_cntr;],
-                [bindtextdomain ("", "");
-return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr],
-                gt_cv_func_gnugettext_libintl=yes,
-                gt_cv_func_gnugettext_libintl=no)
-              CPPFLAGS="$gt_save_CPPFLAGS"
-              LIBS="$gt_save_LIBS"])
-          fi
-
-          dnl If an already present or preinstalled GNU gettext() is found,
-          dnl use it.  But if this macro is used in GNU gettext, and GNU
-          dnl gettext is already preinstalled in libintl, we update this
-          dnl libintl.  (Cf. the install rule in intl/Makefile.in.)
-          if test "$gt_cv_func_gnugettext_libc" = "yes" \
-             || { test "$gt_cv_func_gnugettext_libintl" = "yes" \
-                  && test "$PACKAGE" != gettext; }; then
-            gt_use_preinstalled_gnugettext=yes
-          fi
-         ])
+        dnl If an already present or preinstalled GNU gettext() is found,
+        dnl use it.  But if this macro is used in GNU gettext, and GNU
+        dnl gettext is already preinstalled in libintl, we update this
+        dnl libintl.  (Cf. the install rule in intl/Makefile.in.)
+        if test "$gt_cv_func_gnugettext_libc" = "yes" \
+           || { test "$gt_cv_func_gnugettext_libintl" = "yes" \
+                && test "$PACKAGE" != gettext; }; then
+          gt_use_preinstalled_gnugettext=yes
+        fi
 
     ifelse(gt_included_intl, yes, [
         if test "$gt_use_preinstalled_gnugettext" != "yes"; then

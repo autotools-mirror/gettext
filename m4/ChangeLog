@@ -1,3 +1,7 @@
+2002-01-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Remove shortcut check for <libintl.h>.
+
 2002-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_PO_SUBDIRS): Split preprocessing of POTFILES.in into
