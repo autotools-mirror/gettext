@@ -1,3 +1,7 @@
+2003-11-28  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config.h.msvc): Define SIZE_MAX and inline.
+
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (man/Makefile): Postprocess with FIX_MAKEFILE_DISTRIB.

@@ -1,5 +1,9 @@
 2003-11-28  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h.msvc): Define SIZE_MAX and inline.
+
+2003-11-28  Bruno Haible  <bruno@clisp.org>
+
 	* windows/gettextlib.def: Add at_fatal_signal, block_fatal_signals,
 	unblock_fatal_signals, _obstack_begin, _obstack_free,
 	_obstack_newchunk.

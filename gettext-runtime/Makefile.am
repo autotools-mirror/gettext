@@ -160,9 +160,10 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
+	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 2147483647U/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
-	    -e 's/#undef inline$$/#define inline/' \
+	    -e 's/#undef inline$$/#define inline __inline/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
 	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
 	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \

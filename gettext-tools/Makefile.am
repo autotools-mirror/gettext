@@ -204,11 +204,12 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
+	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 2147483647U/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	    -e 's/#undef getline$$/#define getline rpl_getline/' \
-	    -e 's/#undef inline$$/#define inline/' \
+	    -e 's/#undef inline$$/#define inline __inline/' \
 	    -e 's/#undef mode_t$$/#define mode_t int/' \
 	    -e 's/#undef pid_t$$/#define pid_t int/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
