@@ -108,10 +108,10 @@ tar             | []       [] [] []     []   []    [] [] []       | 17
 texinfo         | []                         []                   |  7
 textutils       | []       [] [] []     []   [] [] []             | 15
 util-linux      |                       []                        |  3
-wdiff           |                            []                   |  3
+wdiff           |                            [] []                |  4
 wget            |          []                [] [] [] [] []       | 14
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  8 11 19 15  1  2  357
+  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 15  1  2  358
 @end group
 @end example
