@@ -19,12 +19,15 @@ Things we plan to do. Comments welcome.
 - Update documentation for plural features and bind_textdomain_codeset.
 
 - Treatment of plurals in pot-files: Use the following pattern:
-    msgid "a piece of cake" | "%d pieces of cake"
-    msgstr "un morceau de gateau" | "%d morceaux de gateau" [ | more strings ]
-  or the following:
     msgid "a piece of cake"
+    msgid_plural "%d pieces of cake"
     msgstr0 "un morceau de gateau"
     msgstr1 "%d morceaux de gateau"
+  or possibly:
+    msgid "a piece of cake"
+    msgid_plural "%d pieces of cake"
+    msgstr[0] "un morceau de gateau"
+    msgstr[1] "%d morceaux de gateau"
 
 - Work towards integration with automake.
 
@@ -35,6 +38,13 @@ Things we plan to do. Comments welcome.
 - Build also libintl.so, using libtool.
 
 - Check the *.m4 macros with bleeding-edge autoconf & automake.
+
+- Documentation: Distinguish more clearly between gettext/xgettext,
+  the Translation Project for GNU packages, and the PO mode.
+
+- Read Francois Pinard's gettext folder.
+
+- Evaluate Francois Pinard's po-utils and xpot. Takeover? Merge? Refer to?
 
 Future:
 
