@@ -48,7 +48,6 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_BTOWC$$/#define HAVE_BTOWC 1/' \
 	     -e 's/#undef HAVE_CHOWN$$/#define HAVE_CHOWN 1/' \
 	     -e 's/#undef HAVE_DECL_GETENV$$/#define HAVE_DECL_GETENV 1/' \
-	     -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \

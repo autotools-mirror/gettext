@@ -1,5 +1,9 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* error.m4: Upgrade from gnulib.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* quote.m4: New file, from gnulib.
 	* Makefile.am (EXTRA_DIST): Add quote.m4.
 

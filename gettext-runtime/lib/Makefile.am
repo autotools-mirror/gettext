@@ -29,7 +29,6 @@ noinst_LIBRARIES = libgrt.a
 libgrt_a_SOURCES = \
   ../../gettext-tools/lib/basename.h ../../gettext-tools/lib/basename.c \
   ../../gettext-tools/lib/closeout.h ../../gettext-tools/lib/closeout.c \
-  ../../gettext-tools/lib/error.h ../../gettext-tools/lib/error.c \
   ../../gettext-tools/lib/exit.h \
   ../../gettext-tools/lib/fwriteerror.h ../../gettext-tools/lib/fwriteerror.c \
   ../../gettext-tools/lib/pathmax.h \
@@ -44,6 +43,7 @@ libgrt_a_SOURCES = \
 LIBADD_SOURCE = \
   atexit.c \
   ../../gettext-tools/lib/canonicalize.h canonicalize.c \
+  error.h error.c \
   getopt.c getopt1.c ../../gettext-tools/lib/getopt_int.h \
   memmove.c \
   readlink.c \

@@ -90,7 +90,6 @@ OBJECTS = \
   copy-file.obj \
   csharpcomp.obj \
   csharpexec.obj \
-  error.obj \
   error-progname.obj \
   execute.obj \
   exitfail.obj \
@@ -123,6 +122,7 @@ OBJECTS = \
   xerror.obj \
   xsetenv.obj \
   \
+  error.obj \
   fnmatch.obj \
   getline.obj \
   getndelim2.obj \
@@ -170,9 +170,6 @@ csharpcomp.obj : csharpcomp.c
 
 csharpexec.obj : csharpexec.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c csharpexec.c
-
-error.obj : error.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c error.c
 
 error-progname.obj : error-progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c error-progname.c
@@ -272,6 +269,9 @@ xerror.obj : xerror.c
 
 xsetenv.obj : xsetenv.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c xsetenv.c
+
+error.obj : error.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c error.c
 
 fnmatch.obj : fnmatch.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c fnmatch.c

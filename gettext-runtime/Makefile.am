@@ -48,7 +48,6 @@ config.h_vms: config.h.in ../version.sh
 	(echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>'; echo '#undef realpath'; \
 	 sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
-	     -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
 	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	     -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \

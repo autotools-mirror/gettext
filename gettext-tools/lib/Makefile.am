@@ -43,7 +43,6 @@ libgettextlib_la_SOURCES = \
   copy-file.h copy-file.c \
   csharpcomp.h csharpcomp.c \
   csharpexec.h csharpexec.c \
-  error.h error.c \
   error-progname.h error-progname.c \
   execute.h execute.c w32spawn.h \
   exit.h \
@@ -88,6 +87,7 @@ libgettextlib_la_SOURCES = \
 LIBADD_SOURCE = \
   atexit.c \
   canonicalize.h canonicalize.c \
+  error.h error.c \
   fnmatch.c \
   getline.h getline.c \
   getndelim2.h getndelim2.c \

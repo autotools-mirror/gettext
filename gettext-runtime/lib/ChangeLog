@@ -1,5 +1,12 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (libgrt_a_SOURCES): Remove error.h, error.c.
+	(LIBADD_SOURCE): Add error.h, error.c here.
+	* error.h: New file.
+	* error.c: New file.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (libgrt_a_SOURCES): Remove getopt files.
 	(LIBADD_SOURCE): Add getopt files here, except getopt.h.
 	(BUILT_SOURCES): New variable.
