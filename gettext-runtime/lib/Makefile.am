@@ -31,7 +31,7 @@ libgrt_a_SOURCES = \
   ../../gettext-tools/lib/exit.h \
   ../../gettext-tools/lib/getopt.h ../../gettext-tools/lib/getopt.c ../../gettext-tools/lib/getopt1.c \
   ../../gettext-tools/lib/pathmax.h \
-  ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c \
+  ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c ../../gettext-tools/lib/progreloc.c \
   ../../gettext-tools/lib/xmalloc.h ../../gettext-tools/lib/xmalloc.c ../../gettext-tools/lib/xstrdup.c \
   ../../gettext-tools/lib/xreadlink.h ../../gettext-tools/lib/xreadlink.c
 

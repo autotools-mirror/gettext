@@ -1,3 +1,12 @@
+2003-05-10  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Add
+	../../gettext-tools/lib/progreloc.c.
+	* Makefile.msvc (OBJECTS): Add progreloc.obj.
+	(progreloc.obj): New rule.
+	* Makefile.vms (OBJECTS): Add progreloc.obj.
+	(progreloc.obj): New rule.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no
