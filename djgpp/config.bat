@@ -64,14 +64,6 @@ if not errorlevel 1 mv -f %XSRC%/config.h.in %XSRC%/config.h-in
 test -f %XSRC%/po/Makefile.in.in
 if not errorlevel 1 mv -f %XSRC%/po/Makefile.in.in %XSRC%/po/Makefile.in-in
 
-Rem Let libtool use _libs all the time.
-test -f %XSRC%/ltconfig.orig
-if errorlevel 1 update %XSRC%/ltconfig %XSRC%/ltconfig.orig
-sed "/objdir=/s|\.libs|_libs|" %XSRC%/ltconfig > ltconfig.tmp
-if errorlevel 1 goto SedError
-update ltconfig.tmp %XSRC%/ltconfig
-rm ltconfig.tmp
-
 Rem While building the binaries in src/ subdir an intermediary
 Rem file called po-gram-gen2.h is generated from po-gram-gen.h.
 Rem Both resolve to the same 8.3 filename. po-gram-gen2.h will
