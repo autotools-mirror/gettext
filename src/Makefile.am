@@ -201,21 +201,5 @@ uninstall-java-yes:
 	$(RM) $(DESTDIR)$(jardir)/gettext.jar
 
 
-# Special rules for Tcl auxiliary program.
-
-install-data-local: install-tcl
-install-tcl:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
-	$(INSTALL_DATA) $(srcdir)/msgunfmt.tcl $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
-
-installdirs-local: installdirs-tcl
-installdirs-tcl:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
-
-uninstall-local: uninstall-tcl
-uninstall-tcl:
-	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
-
-
 # One more automake bug.
 installdirs: installdirs-local
