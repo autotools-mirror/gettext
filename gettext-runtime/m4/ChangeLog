@@ -1,3 +1,8 @@
+2003-08-29  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Test whether _snprintf and _snwprintf
+	are declared, not only existent as functions.
+
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Also check for _snprintf, _snwprintf.

@@ -1,4 +1,4 @@
-# gettext.m4 serial 24 (gettext-0.12.2)
+# gettext.m4 serial 25 (gettext-0.12.2)
 dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -379,8 +379,13 @@ AC_DEFUN([AM_INTL_SUBDIR],
 stdlib.h string.h unistd.h sys/param.h])
   AC_CHECK_FUNCS([asprintf getcwd getegid geteuid getgid getuid mempcpy \
 munmap putenv setenv setlocale snprintf stpcpy strcasecmp strdup strtoul \
-tsearch wcslen wprintf _snprintf _snwprintf __argz_count __argz_stringify \
-__argz_next __fsetlocking])
+tsearch wcslen wprintf __argz_count __argz_stringify __argz_next \
+__fsetlocking])
+
+  dnl Use the _snprintf function only if it is declared (because on NetBSD it
+  dnl is defined as a weak alias of snprintf; we prefer to use the latter).
+  gt_CHECK_DECL(_snprintf, [#include <stdio.h>])
+  gt_CHECK_DECL(_snwprintf, [#include <stdio.h>])
 
   dnl Use the *_unlocked functions only if they are declared.
   dnl (because some of them were defined without being declared in Solaris

@@ -164,7 +164,7 @@ libintl_sprintf (char *resultbuf, const char *format, ...)
 
 #if HAVE_SNPRINTF
 
-# if HAVE__SNPRINTF
+# if HAVE_DECL__SNPRINTF
    /* Windows.  */
 #  define system_vsnprintf _vsnprintf
 # else
@@ -260,7 +260,7 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #include "asnprintf.c"
 #endif
 
-# if HAVE__SNWPRINTF
+# if HAVE_DECL__SNWPRINTF
    /* Windows.  */
 #  define system_vswprintf _vsnwprintf
 # else
