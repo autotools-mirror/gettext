@@ -1,3 +1,8 @@
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* hello-c++-qt/m4/qt.m4: Quote the first argument of AC_DEFUN.
+	* hello-c++-gnome/m4/gtk.m4, hello-c++-gnome/m4/gtk--.m4: Likewise.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.

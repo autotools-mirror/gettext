@@ -7,7 +7,7 @@
 # check for a built-in bool type
 # HAVE_BOOL will be defined in the config header
 
-AC_DEFUN(FUN_TYPE_BOOL,
+AC_DEFUN([FUN_TYPE_BOOL],
 [
   AC_REQUIRE([AC_PROG_CXX])
     
@@ -26,7 +26,7 @@ AC_DEFUN(FUN_TYPE_BOOL,
 # FUN_HEADER_STDCXX
 # check for standard ISO C++ headers
 
-AC_DEFUN(FUN_HEADER_STDCXX,
+AC_DEFUN([FUN_HEADER_STDCXX],
 [
   AC_REQUIRE([AC_PROG_CXX])
 
@@ -55,7 +55,7 @@ AC_DEFUN(FUN_HEADER_STDCXX,
 # sets PTHREAD_LIBS and PTHREAD_CFLAGS
 # sets HAVE_PTHREADS in the configuration header
 
-AC_DEFUN(FUN_CHECK_PTHREAD,
+AC_DEFUN([FUN_CHECK_PTHREAD],
 [
   AC_REQUIRE([AC_CANONICAL_HOST])
   AC_REQUIRE([AC_PROG_CC])
@@ -137,7 +137,7 @@ AC_DEFUN(FUN_CHECK_PTHREAD,
 # substs QTVERSION, MOC and UIC
 # LIBQT, MOC and UIC 'precious' variables
 
-AC_DEFUN(FUN_CHECK_QT,
+AC_DEFUN([FUN_CHECK_QT],
 [
   AC_REQUIRE([AC_PROG_CXX])
   AC_REQUIRE([AC_PATH_X])
@@ -232,7 +232,7 @@ AC_DEFUN(FUN_CHECK_QT,
 # helper function for FUN_CHECK_QT
 # check for qt headers in standard locations
 
-AC_DEFUN(FUN_QT_HEADERS,
+AC_DEFUN([FUN_QT_HEADERS],
 [
   AC_MSG_CHECKING([for Qt headers])
 
@@ -287,7 +287,7 @@ AC_DEFUN(FUN_QT_HEADERS,
 # helper function for FUN_CHECK_QT
 # check for qt libs in standard locations
 
-AC_DEFUN(FUN_QT_LIBRARIES,
+AC_DEFUN([FUN_QT_LIBRARIES],
 [
   AC_REQUIRE([FUN_QT_HEADERS])
 
@@ -342,7 +342,7 @@ AC_DEFUN(FUN_QT_LIBRARIES,
 # helper function for FUN_CHECK_QT
 # searches for moc and uic
 
-AC_DEFUN(FUN_QT_PROGRAMS,
+AC_DEFUN([FUN_QT_PROGRAMS],
 [
   AC_REQUIRE([FUN_QT_LIBRARIES])
 
@@ -425,7 +425,7 @@ AC_DEFUN(FUN_QT_PROGRAMS,
 # helper function for FUN_CHECK_QT
 # compile a simple qt program
 
-AC_DEFUN(FUN_QT_COMPILE,
+AC_DEFUN([FUN_QT_COMPILE],
 [
   AC_REQUIRE([FUN_QT_HEADERS])
   AC_REQUIRE([FUN_QT_LIBRARIES])

@@ -7,7 +7,7 @@ dnl Test for GTKMM, and define GTKMM_CFLAGS and GTKMM_LIBS
 dnl   to be used as follows:
 dnl AM_PATH_GTKMM([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
 dnl
-AC_DEFUN(AM_PATH_GTKMM,
+AC_DEFUN([AM_PATH_GTKMM],
 [dnl 
 dnl Get the cflags and libraries from the gtkmm-config script
 dnl
