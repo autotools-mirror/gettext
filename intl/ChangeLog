@@ -1,3 +1,10 @@
+2000-09-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* dcigettext.c: Outside libc, use local variable names that don't
+	clash with those in libc.
+	* bindtextdom.c: Likewise.
+	* textdomain.c: Likewise.
+
 2000-07-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural.y: Include config.h. Needed to define 'inline' away for C
