@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.10
+# Revision: 1.11
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.13\n"
+"Project-Id-Version: gettext-tools 0.13.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-12-17 21:25+0100\n"
-"PO-Revision-Date: 2003-12-05 18:09+0100\n"
+"POT-Creation-Date: 2004-01-08 13:52+0100\n"
+"PO-Revision-Date: 2003-12-20 18:39+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,8 +36,8 @@ msgid "write error"
 msgstr "skrivfel"
 
 #: lib/copy-file.c:65 src/file-list.c:56 src/open-po.c:118 src/read-mo.c:241
-#: src/read-tcl.c:122 src/urlget.c:200 src/xgettext.c:1489 src/xgettext.c:1502
-#: src/xgettext.c:1512
+#: src/read-tcl.c:125 src/urlget.c:200 src/xgettext.c:1505 src/xgettext.c:1518
+#: src/xgettext.c:1528
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "fel uppstod när \"%s\" öppnades för läsning"
@@ -66,10 +66,10 @@ msgstr "fel efter \"%s\" lästes"
 msgid "Unknown system error"
 msgstr "Okänt systemfel"
 
-#: lib/execute.c:181 lib/execute.c:257 lib/execute.c:299 lib/pipe-bidi.c:178
+#: lib/execute.c:182 lib/execute.c:258 lib/execute.c:300 lib/pipe-bidi.c:178
 #: lib/pipe-bidi.c:265 lib/pipe-bidi.c:305 lib/pipe-in.c:194 lib/pipe-in.c:274
 #: lib/pipe-in.c:315 lib/pipe-out.c:194 lib/pipe-out.c:274 lib/pipe-out.c:315
-#: lib/wait-process.c:332 lib/wait-process.c:395
+#: lib/wait-process.c:336 lib/wait-process.c:403
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s-barnprocess misslyckades"
@@ -129,12 +129,12 @@ msgstr "%s: flaggan \"-W %s\" är tvetydig\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"-W %s\" tar inget argument\n"
 
-#: lib/javacomp.c:457
+#: lib/javacomp.c:467
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr "Javakompilator hittades inte, försök installera gcj eller sätt $JAVAC"
 
-#: lib/javaexec.c:407
+#: lib/javaexec.c:420
 #, c-format
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
@@ -163,12 +163,12 @@ msgstr "DuplicateHandle misslyckades med felkod 0x%08x"
 msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle misslyckades"
 
-#: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:365
+#: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:369
 #, c-format
 msgid "%s subprocess"
 msgstr "%s-barnprocess"
 
-#: lib/wait-process.c:324 lib/wait-process.c:387
+#: lib/wait-process.c:328 lib/wait-process.c:395
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s-barnprocess fick ödesdiger signal %d"
@@ -287,18 +287,18 @@ msgstr ""
 msgid "The string refers to argument number %u in incompatible ways."
 msgstr "Strängen refererar till argument nummer %u på inkompatibla sätt."
 
-#: src/format-java.c:190
+#: src/format-java.c:191
 msgid ""
 "The string ends in the middle of a directive: found '{' without matching '}'."
 msgstr ""
 "Strängen slutar mitt i ett direktiv: hittade \"{\" utan tillhörande \"}\"."
 
-#: src/format-java.c:203
+#: src/format-java.c:204
 #, c-format
 msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "I direktiv nummer %u följs inte \"{\" av ett argumentnummer."
 
-#: src/format-java.c:236
+#: src/format-java.c:238
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid date/time "
@@ -306,18 +306,18 @@ msgid ""
 msgstr ""
 "I direktiv nummer %u är delsträngen \"%s\" inte en giltig datum/tid-stil."
 
-#: src/format-java.c:245 src/format-java.c:275 src/format-java.c:298
+#: src/format-java.c:248 src/format-java.c:280 src/format-java.c:307
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
 msgstr "I direktiv nummer %u följs inte \"%s\" av ett komma."
 
-#: src/format-java.c:266
+#: src/format-java.c:270
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid number style."
 msgstr "I direktiv nummer %u är delsträngen \"%s\" inte en giltig nummerstil."
 
-#: src/format-java.c:305
+#: src/format-java.c:315
 #, c-format
 msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
@@ -326,19 +326,19 @@ msgstr ""
 "I direktiv nummer %u följs inte argumentnummret av ett komma och en av \"%s"
 "\", \"%s\", \"%s\", \"%s\"."
 
-#: src/format-java.c:322
+#: src/format-java.c:334
 msgid ""
 "The string starts in the middle of a directive: found '}' without matching "
 "'{'."
 msgstr ""
 "Strängen startar mitt i ett direktiv: hittade \"}\" utan tillhörande \"{\"."
 
-#: src/format-java.c:546
+#: src/format-java.c:559
 #, c-format
 msgid "In the directive number %u, a choice contains no number."
 msgstr "I direktiv nummer %u innehåller ett val inga nummer."
 
-#: src/format-java.c:557
+#: src/format-java.c:570
 #, c-format
 msgid ""
 "In the directive number %u, a choice contains a number that is not followed "
@@ -347,7 +347,7 @@ msgstr ""
 "I direktiv nummer %u innehåller ett val ett nummer som inte följs av \"<\", "
 "\"#\" eller \"%s\"."
 
-#: src/format-java.c:715
+#: src/format-java.c:732
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
@@ -355,12 +355,12 @@ msgid ""
 msgstr ""
 "formateringsdirektiv för argument {%u}, som i \"%s\", finns inte i \"msgid\""
 
-#: src/format-java.c:730
+#: src/format-java.c:747
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "formateringsdirektiv för argument {%u} finns inte i \"%s\""
 
-#: src/format-java.c:755
+#: src/format-java.c:772
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
@@ -550,9 +550,9 @@ msgstr ""
 
 #: src/hostname.c:182 src/msgattrib.c:311 src/msgcat.c:263 src/msgcmp.c:140
 #: src/msgcomm.c:260 src/msgconv.c:217 src/msgen.c:203 src/msgexec.c:177
-#: src/msgfilter.c:270 src/msgfmt.c:338 src/msggrep.c:313 src/msginit.c:265
-#: src/msgmerge.c:293 src/msgunfmt.c:221 src/msguniq.c:239 src/urlget.c:134
-#: src/xgettext.c:492
+#: src/msgfilter.c:270 src/msgfmt.c:352 src/msggrep.c:314 src/msginit.c:266
+#: src/msgmerge.c:297 src/msgunfmt.c:236 src/msguniq.c:239 src/urlget.c:134
+#: src/xgettext.c:498
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -566,28 +566,28 @@ msgstr ""
 
 #: src/hostname.c:187 src/msgattrib.c:316 src/msgcat.c:268 src/msgcmp.c:145
 #: src/msgcomm.c:265 src/msgconv.c:222 src/msgen.c:208 src/msgexec.c:182
-#: src/msgfilter.c:275 src/msgfmt.c:343 src/msggrep.c:318 src/msginit.c:270
-#: src/msgmerge.c:298 src/msgunfmt.c:226 src/msguniq.c:244 src/urlget.c:139
-#: src/xgettext.c:497
+#: src/msgfilter.c:275 src/msgfmt.c:357 src/msggrep.c:319 src/msginit.c:271
+#: src/msgmerge.c:302 src/msgunfmt.c:241 src/msguniq.c:244 src/urlget.c:139
+#: src/xgettext.c:503
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrivet av %s.\n"
 
-#: src/hostname.c:197 src/msginit.c:280
+#: src/hostname.c:197 src/msginit.c:281
 #, c-format
 msgid "too many arguments"
 msgstr "för många argument"
 
 #: src/hostname.c:210 src/msgattrib.c:372 src/msgcat.c:327 src/msgcmp.c:176
 #: src/msgcomm.c:333 src/msgconv.c:280 src/msgen.c:258 src/msgexec.c:234
-#: src/msgfilter.c:367 src/msgfmt.c:529 src/msggrep.c:432 src/msginit.c:356
-#: src/msgmerge.c:417 src/msgunfmt.c:330 src/msguniq.c:300 src/urlget.c:162
-#: src/xgettext.c:704
+#: src/msgfilter.c:367 src/msgfmt.c:581 src/msggrep.c:433 src/msginit.c:357
+#: src/msgmerge.c:421 src/msgunfmt.c:379 src/msguniq.c:300 src/urlget.c:162
+#: src/xgettext.c:710
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Försök med \"%s --help\" för mer information.\n"
 
-#: src/hostname.c:214 src/msginit.c:360
+#: src/hostname.c:214 src/msginit.c:361
 #, c-format
 msgid "Usage: %s [OPTION]\n"
 msgstr "Användning: %s [FLAGGA]\n"
@@ -624,36 +624,36 @@ msgstr "  -i, --ip-address            adresser för värdnamnet\n"
 
 #: src/hostname.c:231 src/msgattrib.c:476 src/msgcat.c:425 src/msgcmp.c:219
 #: src/msgcomm.c:427 src/msgconv.c:356 src/msgen.c:331 src/msgexec.c:276
-#: src/msgfilter.c:453 src/msgfmt.c:635 src/msggrep.c:534 src/msginit.c:412
-#: src/msgmerge.c:532 src/msgunfmt.c:412 src/msguniq.c:389 src/urlget.c:176
-#: src/xgettext.c:850
+#: src/msgfilter.c:453 src/msgfmt.c:701 src/msggrep.c:535 src/msginit.c:413
+#: src/msgmerge.c:536 src/msgunfmt.c:475 src/msguniq.c:389 src/urlget.c:176
+#: src/xgettext.c:856
 #, c-format
 msgid "Informative output:\n"
 msgstr "Informativ utskrift:\n"
 
 #: src/hostname.c:233 src/msgattrib.c:478 src/msgcat.c:427 src/msgcmp.c:221
 #: src/msgcomm.c:429 src/msgconv.c:358 src/msgen.c:333 src/msgexec.c:278
-#: src/msgfilter.c:455 src/msgfmt.c:637 src/msggrep.c:536 src/msginit.c:414
-#: src/msgmerge.c:534 src/msgunfmt.c:414 src/msguniq.c:391 src/urlget.c:178
-#: src/xgettext.c:852
+#: src/msgfilter.c:455 src/msgfmt.c:703 src/msggrep.c:537 src/msginit.c:415
+#: src/msgmerge.c:538 src/msgunfmt.c:477 src/msguniq.c:391 src/urlget.c:178
+#: src/xgettext.c:858
 #, c-format
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  visa denna hjälptext och avsluta\n"
 
 #: src/hostname.c:235 src/msgattrib.c:480 src/msgcat.c:429 src/msgcmp.c:223
 #: src/msgcomm.c:431 src/msgconv.c:360 src/msgen.c:335 src/msgexec.c:280
-#: src/msgfilter.c:457 src/msgfmt.c:639 src/msggrep.c:538 src/msginit.c:416
-#: src/msgmerge.c:536 src/msgunfmt.c:416 src/msguniq.c:393 src/urlget.c:180
-#: src/xgettext.c:854
+#: src/msgfilter.c:457 src/msgfmt.c:705 src/msggrep.c:539 src/msginit.c:417
+#: src/msgmerge.c:540 src/msgunfmt.c:479 src/msguniq.c:393 src/urlget.c:180
+#: src/xgettext.c:860
 #, c-format
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               visa versionsinformation och avsluta\n"
 
 #: src/hostname.c:238 src/msgattrib.c:483 src/msgcat.c:432 src/msgcmp.c:226
 #: src/msgcomm.c:434 src/msgconv.c:363 src/msgen.c:338 src/msgexec.c:283
-#: src/msgfilter.c:460 src/msgfmt.c:646 src/msggrep.c:541 src/msginit.c:419
-#: src/msgmerge.c:543 src/msgunfmt.c:421 src/msguniq.c:396 src/urlget.c:183
-#: src/xgettext.c:857
+#: src/msgfilter.c:460 src/msgfmt.c:712 src/msggrep.c:542 src/msginit.c:420
+#: src/msgmerge.c:547 src/msgunfmt.c:484 src/msguniq.c:396 src/urlget.c:183
+#: src/xgettext.c:863
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Rapportera fel till <bug-gnu-gettext@gnu.org>.\n"
@@ -665,7 +665,7 @@ msgid "could not get host name"
 msgstr "kunde inte hämta värdnamn"
 
 #: src/msgattrib.c:331 src/msgconv.c:237 src/msgexec.c:149 src/msgfilter.c:200
-#: src/msggrep.c:333 src/msginit.c:203 src/msguniq.c:259
+#: src/msggrep.c:334 src/msginit.c:204 src/msguniq.c:259
 #, c-format
 msgid "at most one input file allowed"
 msgstr "högst en infil tillåten"
@@ -673,15 +673,17 @@ msgstr "högst en infil tillåten"
 #: src/msgattrib.c:337 src/msgattrib.c:341 src/msgcat.c:278 src/msgcat.c:282
 #: src/msgcomm.c:275 src/msgcomm.c:279 src/msgconv.c:243 src/msgconv.c:247
 #: src/msgen.c:230 src/msgen.c:234 src/msgfilter.c:290 src/msgfilter.c:294
-#: src/msgfmt.c:360 src/msgfmt.c:363 src/msgfmt.c:366 src/msgfmt.c:372
-#: src/msgfmt.c:387 src/msggrep.c:339 src/msggrep.c:343 src/msgmerge.c:323
-#: src/msgmerge.c:344 src/msgmerge.c:348 src/msgunfmt.c:236 src/msguniq.c:265
-#: src/msguniq.c:269 src/xgettext.c:507 src/xgettext.c:511
+#: src/msgfmt.c:374 src/msgfmt.c:377 src/msgfmt.c:380 src/msgfmt.c:383
+#: src/msgfmt.c:386 src/msgfmt.c:389 src/msgfmt.c:395 src/msgfmt.c:410
+#: src/msgfmt.c:432 src/msggrep.c:340 src/msggrep.c:344 src/msgmerge.c:327
+#: src/msgmerge.c:348 src/msgmerge.c:352 src/msgunfmt.c:251 src/msgunfmt.c:254
+#: src/msgunfmt.c:257 src/msguniq.c:265 src/msguniq.c:269 src/xgettext.c:513
+#: src/xgettext.c:517
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s och %s är ömsesidigt uteslutande"
 
-#: src/msgattrib.c:376 src/msgconv.c:284 src/msggrep.c:436 src/msguniq.c:304
+#: src/msgattrib.c:376 src/msgconv.c:284 src/msggrep.c:437 src/msguniq.c:304
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Användning: %s [FLAGGA] [INFIL]\n"
@@ -697,7 +699,7 @@ msgstr ""
 
 #: src/msgattrib.c:385 src/msgcat.c:348 src/msgcmp.c:194 src/msgcomm.c:353
 #: src/msgconv.c:292 src/msgen.c:274 src/msgexec.c:257 src/msgfilter.c:379
-#: src/msggrep.c:446 src/msginit.c:370 src/msgmerge.c:438 src/msgunfmt.c:342
+#: src/msggrep.c:447 src/msginit.c:371 src/msgmerge.c:442 src/msgunfmt.c:391
 #: src/msguniq.c:320
 #, c-format
 msgid ""
@@ -707,50 +709,50 @@ msgstr ""
 
 #: src/msgattrib.c:388 src/msgcat.c:351 src/msgcmp.c:197 src/msgcomm.c:356
 #: src/msgconv.c:295 src/msgen.c:277 src/msgexec.c:260 src/msgfilter.c:382
-#: src/msgfmt.c:547 src/msggrep.c:449 src/msginit.c:373 src/msgmerge.c:441
-#: src/msgunfmt.c:352 src/msguniq.c:323 src/xgettext.c:722
+#: src/msgfmt.c:599 src/msggrep.c:450 src/msginit.c:374 src/msgmerge.c:445
+#: src/msgunfmt.c:403 src/msguniq.c:323 src/xgettext.c:728
 #, c-format
 msgid "Input file location:\n"
 msgstr "Plats för infiler:\n"
 
-#: src/msgattrib.c:390 src/msgconv.c:297 src/msggrep.c:451 src/msguniq.c:325
+#: src/msgattrib.c:390 src/msgconv.c:297 src/msggrep.c:452 src/msguniq.c:325
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
 msgstr "  INFIL                       PO-infil\n"
 
 #: src/msgattrib.c:392 src/msgcat.c:357 src/msgcmp.c:203 src/msgcomm.c:362
 #: src/msgconv.c:299 src/msgen.c:281 src/msgexec.c:264 src/msgfilter.c:386
-#: src/msgfmt.c:551 src/msggrep.c:453 src/msgmerge.c:447 src/msguniq.c:327
-#: src/xgettext.c:728
+#: src/msgfmt.c:603 src/msggrep.c:454 src/msgmerge.c:451 src/msguniq.c:327
+#: src/xgettext.c:734
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr "  -D, --directory=KATALOG     sök infiler även i KATALOG\n"
 
 #: src/msgattrib.c:394 src/msgconv.c:301 src/msgexec.c:266 src/msgfilter.c:388
-#: src/msggrep.c:455 src/msgunfmt.c:356 src/msguniq.c:329
+#: src/msggrep.c:456 src/msgunfmt.c:407 src/msguniq.c:329
 #, c-format
 msgid "If no input file is given or if it is -, standard input is read.\n"
 msgstr "Om ingen infil är given eller om den är - läses standard in.\n"
 
 #: src/msgattrib.c:397 src/msgcat.c:362 src/msgcomm.c:367 src/msgconv.c:304
-#: src/msgen.c:286 src/msgfilter.c:391 src/msgfmt.c:567 src/msggrep.c:458
-#: src/msginit.c:381 src/msgmerge.c:459 src/msgunfmt.c:380 src/msguniq.c:332
-#: src/xgettext.c:733
+#: src/msgen.c:286 src/msgfilter.c:391 src/msgfmt.c:621 src/msggrep.c:459
+#: src/msginit.c:382 src/msgmerge.c:463 src/msgunfmt.c:443 src/msguniq.c:332
+#: src/xgettext.c:739
 #, c-format
 msgid "Output file location:\n"
 msgstr "Plats för utfil:\n"
 
 #: src/msgattrib.c:399 src/msgcat.c:364 src/msgcomm.c:369 src/msgconv.c:306
-#: src/msgen.c:288 src/msgfilter.c:393 src/msgfmt.c:569 src/msggrep.c:460
-#: src/msgmerge.c:461 src/msgunfmt.c:382 src/msguniq.c:334
+#: src/msgen.c:288 src/msgfilter.c:393 src/msgfmt.c:623 src/msggrep.c:461
+#: src/msgmerge.c:465 src/msgunfmt.c:445 src/msguniq.c:334
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr "  -o, --output-file=FIL       skriv resultat till angiven fil\n"
 
 #: src/msgattrib.c:401 src/msgcat.c:366 src/msgcomm.c:371 src/msgconv.c:308
-#: src/msgen.c:290 src/msgfilter.c:395 src/msggrep.c:462 src/msgmerge.c:463
-#: src/msgunfmt.c:384 src/msguniq.c:336
+#: src/msgen.c:290 src/msgfilter.c:395 src/msggrep.c:463 src/msgmerge.c:467
+#: src/msgunfmt.c:447 src/msguniq.c:336
 #, c-format
 msgid ""
 "The results are written to standard output if no output file is specified\n"
@@ -859,21 +861,21 @@ msgstr ""
 
 #: src/msgattrib.c:439 src/msgcat.c:382 src/msgcmp.c:211 src/msgcomm.c:387
 #: src/msgconv.c:319 src/msgen.c:294 src/msgexec.c:269 src/msgfilter.c:414
-#: src/msgfmt.c:600 src/msggrep.c:497 src/msginit.c:389 src/msgmerge.c:494
+#: src/msgfmt.c:666 src/msggrep.c:498 src/msginit.c:390 src/msgmerge.c:498
 #: src/msguniq.c:347
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "Syntax på infil:\n"
 
 #: src/msgattrib.c:441 src/msgconv.c:321 src/msgen.c:296 src/msgexec.c:271
-#: src/msgfilter.c:416 src/msggrep.c:499 src/msginit.c:391 src/msguniq.c:349
+#: src/msgfilter.c:416 src/msggrep.c:500 src/msginit.c:392 src/msguniq.c:349
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
 msgstr "  -P, --properties-input      infil har \"Java .properties\"-syntax\n"
 
 #: src/msgattrib.c:443 src/msgconv.c:323 src/msgen.c:298 src/msgexec.c:273
-#: src/msgfilter.c:418 src/msggrep.c:501 src/msginit.c:393 src/msguniq.c:351
+#: src/msgfilter.c:418 src/msggrep.c:502 src/msginit.c:394 src/msguniq.c:351
 #, c-format
 msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
@@ -883,16 +885,16 @@ msgstr ""
 "syntax\n"
 
 #: src/msgattrib.c:446 src/msgcat.c:390 src/msgcomm.c:395 src/msgconv.c:326
-#: src/msgen.c:301 src/msgfilter.c:421 src/msgfmt.c:628 src/msggrep.c:504
-#: src/msginit.c:396 src/msgmerge.c:502 src/msgunfmt.c:388 src/msguniq.c:354
-#: src/xgettext.c:808
+#: src/msgen.c:301 src/msgfilter.c:421 src/msgfmt.c:694 src/msggrep.c:505
+#: src/msginit.c:397 src/msgmerge.c:506 src/msgunfmt.c:451 src/msguniq.c:354
+#: src/xgettext.c:814
 #, c-format
 msgid "Output details:\n"
 msgstr "Resultatdetaljer:\n"
 
 #: src/msgattrib.c:448 src/msgcat.c:397 src/msgcomm.c:397 src/msgconv.c:328
-#: src/msgen.c:303 src/msgmerge.c:504 src/msgunfmt.c:390 src/msguniq.c:361
-#: src/xgettext.c:810
+#: src/msgen.c:303 src/msgmerge.c:508 src/msgunfmt.c:453 src/msguniq.c:361
+#: src/xgettext.c:816
 #, c-format
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -901,8 +903,8 @@ msgstr ""
 "                                (normalläge)\n"
 
 #: src/msgattrib.c:450 src/msgcat.c:399 src/msgcomm.c:399 src/msgconv.c:330
-#: src/msgen.c:305 src/msgfilter.c:425 src/msgmerge.c:506 src/msgunfmt.c:392
-#: src/msguniq.c:363 src/xgettext.c:812
+#: src/msgen.c:305 src/msgfilter.c:425 src/msgmerge.c:510 src/msgunfmt.c:455
+#: src/msguniq.c:363 src/xgettext.c:818
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -911,27 +913,27 @@ msgstr ""
 "                              inte \\v aller \\a\n"
 
 #: src/msgattrib.c:452 src/msgcat.c:401 src/msgcomm.c:401 src/msgconv.c:332
-#: src/msgen.c:307 src/msgfilter.c:427 src/msggrep.c:510 src/msgmerge.c:508
-#: src/msgunfmt.c:394 src/msguniq.c:365 src/xgettext.c:814
+#: src/msgen.c:307 src/msgfilter.c:427 src/msggrep.c:511 src/msgmerge.c:512
+#: src/msgunfmt.c:457 src/msguniq.c:365 src/xgettext.c:820
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr "      --force-po              skriv PO-fil även om den är tom\n"
 
 #: src/msgattrib.c:454 src/msgcat.c:403 src/msgcomm.c:403 src/msguniq.c:367
-#: src/xgettext.c:816
+#: src/xgettext.c:822
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr "  -i, --indent                indentera resultatet\n"
 
 #: src/msgattrib.c:456 src/msgcat.c:405 src/msgcomm.c:405 src/msguniq.c:369
-#: src/xgettext.c:818
+#: src/xgettext.c:824
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr ""
 "      --no-location           skriv inte rader med \"#: filnamn:rad\"\n"
 
 #: src/msgattrib.c:458 src/msgcat.c:407 src/msgcomm.c:407 src/msguniq.c:371
-#: src/xgettext.c:820
+#: src/xgettext.c:826
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
@@ -940,22 +942,22 @@ msgstr ""
 "\" (normalläge)\n"
 
 #: src/msgattrib.c:460 src/msgcat.c:409 src/msgcomm.c:409 src/msguniq.c:373
-#: src/xgettext.c:822
+#: src/xgettext.c:828
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
 msgstr "      --strict                strikt Uniforum-format på resultatet\n"
 
 #: src/msgattrib.c:462 src/msgcat.c:411 src/msgcomm.c:411 src/msgconv.c:342
-#: src/msgen.c:317 src/msgfilter.c:439 src/msggrep.c:520 src/msginit.c:402
-#: src/msgmerge.c:518 src/msgunfmt.c:400 src/msguniq.c:375
+#: src/msgen.c:317 src/msgfilter.c:439 src/msggrep.c:521 src/msginit.c:403
+#: src/msgmerge.c:522 src/msgunfmt.c:463 src/msguniq.c:375
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr "  -p, --properties-output     skriv en \"Java .properties\"-fil\n"
 
 #: src/msgattrib.c:464 src/msgcat.c:413 src/msgcomm.c:413 src/msgconv.c:344
-#: src/msgen.c:319 src/msgfilter.c:441 src/msggrep.c:522 src/msginit.c:404
-#: src/msgmerge.c:520 src/msgunfmt.c:402 src/msguniq.c:377 src/xgettext.c:826
+#: src/msgen.c:319 src/msgfilter.c:441 src/msggrep.c:523 src/msginit.c:405
+#: src/msgmerge.c:524 src/msgunfmt.c:465 src/msguniq.c:377 src/xgettext.c:832
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
@@ -963,15 +965,15 @@ msgstr ""
 "      --stringtable-output    skriv en NeXTstep/GNUstep \".strings\"-fil\n"
 
 #: src/msgattrib.c:466 src/msgcat.c:415 src/msgcomm.c:415 src/msgconv.c:346
-#: src/msgen.c:321 src/msgfilter.c:443 src/msggrep.c:524 src/msginit.c:406
-#: src/msgmerge.c:522 src/msgunfmt.c:404 src/msguniq.c:379 src/xgettext.c:828
+#: src/msgen.c:321 src/msgfilter.c:443 src/msggrep.c:525 src/msginit.c:407
+#: src/msgmerge.c:526 src/msgunfmt.c:467 src/msguniq.c:379 src/xgettext.c:834
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=ANTAL           välj antal kolumner i resultatet\n"
 
 #: src/msgattrib.c:468 src/msgcat.c:417 src/msgcomm.c:417 src/msgconv.c:348
-#: src/msgen.c:323 src/msgfilter.c:445 src/msggrep.c:526 src/msginit.c:408
-#: src/msgmerge.c:524 src/msgunfmt.c:406 src/msguniq.c:381 src/xgettext.c:830
+#: src/msgen.c:323 src/msgfilter.c:445 src/msggrep.c:527 src/msginit.c:409
+#: src/msgmerge.c:528 src/msgunfmt.c:469 src/msguniq.c:381 src/xgettext.c:836
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -981,15 +983,15 @@ msgstr ""
 "                              resultatets kolumnantal i flera rader\n"
 
 #: src/msgattrib.c:471 src/msgcat.c:420 src/msgcomm.c:420 src/msgconv.c:351
-#: src/msgen.c:326 src/msgfilter.c:448 src/msgmerge.c:527 src/msgunfmt.c:409
-#: src/msguniq.c:384 src/xgettext.c:833
+#: src/msgen.c:326 src/msgfilter.c:448 src/msgmerge.c:531 src/msgunfmt.c:472
+#: src/msguniq.c:384 src/xgettext.c:839
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr "  -s, --sort-output           sortera resultatet\n"
 
 #: src/msgattrib.c:473 src/msgcat.c:422 src/msgcomm.c:422 src/msgconv.c:353
-#: src/msgen.c:328 src/msgfilter.c:450 src/msgmerge.c:529 src/msguniq.c:386
-#: src/xgettext.c:835
+#: src/msgen.c:328 src/msgfilter.c:450 src/msgmerge.c:533 src/msguniq.c:386
+#: src/xgettext.c:841
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr "  -F, --sort-by-file          sortera resultatet efter filposition\n"
@@ -999,7 +1001,7 @@ msgstr "  -F, --sort-by-file          sortera resultatet efter filposition\n"
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "omöjligt urvalskriterium angivet (%d < n < %d)"
 
-#: src/msgcat.c:331 src/msgcomm.c:337 src/xgettext.c:708
+#: src/msgcat.c:331 src/msgcomm.c:337 src/xgettext.c:714
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Användning: %s [FLAGGA] [INFIL]...\n"
@@ -1027,18 +1029,18 @@ msgstr ""
 "utom om --use-first ges.  Då tas de endast från den första PO-filen som\n"
 "definierar dem.  Filpositioner från alla filer bevaras.\n"
 
-#: src/msgcat.c:353 src/msgcomm.c:358 src/xgettext.c:724
+#: src/msgcat.c:353 src/msgcomm.c:358 src/xgettext.c:730
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr "  INFIL ...                   infiler\n"
 
-#: src/msgcat.c:355 src/msgcomm.c:360 src/xgettext.c:726
+#: src/msgcat.c:355 src/msgcomm.c:360 src/xgettext.c:732
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr "  -f, --files-from=FIL        läs lista av infiler från FIL\n"
 
-#: src/msgcat.c:359 src/msgcomm.c:364 src/msgen.c:283 src/msgfmt.c:553
-#: src/xgettext.c:730
+#: src/msgcat.c:359 src/msgcomm.c:364 src/msgen.c:283 src/msgfmt.c:605
+#: src/xgettext.c:736
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr "Om infil är - läses standard in.\n"
@@ -1070,16 +1072,16 @@ msgstr ""
 "  -u, --unique                samma som --less-than=2, begär att\n"
 "                              endast unika meddelanden skrivs\n"
 
-#: src/msgcat.c:384 src/msgcmp.c:213 src/msgcomm.c:389 src/msgfmt.c:602
-#: src/msgmerge.c:496
+#: src/msgcat.c:384 src/msgcmp.c:213 src/msgcomm.c:389 src/msgfmt.c:668
+#: src/msgmerge.c:500
 #, c-format
 msgid ""
 "  -P, --properties-input      input files are in Java .properties syntax\n"
 msgstr ""
 "  -P, --properties-input      infiler har \"Java .properties\"-syntax\n"
 
-#: src/msgcat.c:386 src/msgcmp.c:215 src/msgcomm.c:391 src/msgfmt.c:604
-#: src/msgmerge.c:498
+#: src/msgcat.c:386 src/msgcmp.c:215 src/msgcomm.c:391 src/msgfmt.c:670
+#: src/msgmerge.c:502
 #, c-format
 msgid ""
 "      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n"
@@ -1102,17 +1104,17 @@ msgstr ""
 "      --use-first             använd först hittade översättning för varje\n"
 "                              meddelande, slå inte ihop översättningar\n"
 
-#: src/msgcmp.c:156 src/msgmerge.c:309
+#: src/msgcmp.c:156 src/msgmerge.c:313
 #, c-format
 msgid "no input files given"
 msgstr "inga infiler givna"
 
-#: src/msgcmp.c:161 src/msgmerge.c:314
+#: src/msgcmp.c:161 src/msgmerge.c:318
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "exakt 2 infiler krävs"
 
-#: src/msgcmp.c:180 src/msgmerge.c:421
+#: src/msgcmp.c:180 src/msgmerge.c:425
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "Användning: %s [FLAGGA] def.po ref.pot\n"
@@ -1145,12 +1147,12 @@ msgstr "  def.po                      översättningar\n"
 msgid "  ref.pot                     references to the sources\n"
 msgstr "  ref.pot                     referenser till källkod\n"
 
-#: src/msgcmp.c:206 src/msgmerge.c:487
+#: src/msgcmp.c:206 src/msgmerge.c:491
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "Bearbetningsvarianter:\n"
 
-#: src/msgcmp.c:208 src/msgmerge.c:489
+#: src/msgcmp.c:208 src/msgmerge.c:493
 #, c-format
 msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in def."
@@ -1158,17 +1160,17 @@ msgid ""
 msgstr ""
 "  -m, --multi-domain          tillämpa ref.pot till alla domäner i def.po\n"
 
-#: src/msgcmp.c:285 src/msgmerge.c:945
+#: src/msgcmp.c:285 src/msgmerge.c:957
 #, c-format
 msgid "this message is used but not defined..."
 msgstr "detta meddelande används men är inte definierat..."
 
-#: src/msgcmp.c:287 src/msgmerge.c:947
+#: src/msgcmp.c:287 src/msgmerge.c:959
 #, c-format
 msgid "...but this definition is similar"
 msgstr "...men denna definition är likartad"
 
-#: src/msgcmp.c:292 src/msgmerge.c:974
+#: src/msgcmp.c:292 src/msgmerge.c:986
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "detta meddelande används men är inte definierat i %s"
@@ -1220,7 +1222,7 @@ msgstr ""
 "  ->, --more-than=ANTAL       skriv meddelanden med fler än ANTAL\n"
 "                              definitioner. Standardvärde: 1\n"
 
-#: src/msgcomm.c:424 src/xgettext.c:837
+#: src/msgcomm.c:424 src/xgettext.c:843
 #, c-format
 msgid ""
 "      --omit-header           don't write header with `msgid \"\"' entry\n"
@@ -1241,20 +1243,20 @@ msgstr "Konverteringsmål:\n"
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "Standardvärde är nuvarande lokals kodning.\n"
 
-#: src/msgconv.c:334 src/msgen.c:309 src/msgmerge.c:510
+#: src/msgconv.c:334 src/msgen.c:309 src/msgmerge.c:514
 #, c-format
 msgid "  -i, --indent                indented output style\n"
 msgstr "  -i, --indent                indentera resultatet\n"
 
-#: src/msgconv.c:336 src/msgen.c:311 src/msgfilter.c:433 src/msggrep.c:514
-#: src/msgmerge.c:512
+#: src/msgconv.c:336 src/msgen.c:311 src/msgfilter.c:433 src/msggrep.c:515
+#: src/msgmerge.c:516
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr ""
 "      --no-location           skriv inte rader med \"#: filnamn:rad\"\n"
 
-#: src/msgconv.c:338 src/msgen.c:313 src/msgfilter.c:435 src/msggrep.c:516
-#: src/msgmerge.c:514
+#: src/msgconv.c:338 src/msgen.c:313 src/msgfilter.c:435 src/msggrep.c:517
+#: src/msgmerge.c:518
 #, c-format
 msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
@@ -1262,13 +1264,13 @@ msgstr ""
 "      --add-location          skriv rader med \"#: filnamn:rad"
 "\" (normalläge)\n"
 
-#: src/msgconv.c:340 src/msgen.c:315 src/msgfilter.c:437 src/msggrep.c:518
-#: src/msgmerge.c:516
+#: src/msgconv.c:340 src/msgen.c:315 src/msgfilter.c:437 src/msggrep.c:519
+#: src/msgmerge.c:520
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr "      --strict                strikt Uniforum-format på resultatet\n"
 
-#: src/msgen.c:219 src/msgfmt.c:354 src/xgettext.c:528
+#: src/msgen.c:219 src/msgfmt.c:368 src/xgettext.c:534
 #, c-format
 msgid "no input file given"
 msgstr "inga infiler givna"
@@ -1410,7 +1412,7 @@ msgstr ""
 "  -n, --quiet, --silent       undertryck automatisk utskrift av "
 "mönsterutrymmet\n"
 
-#: src/msgfilter.c:423 src/msggrep.c:506
+#: src/msgfilter.c:423 src/msggrep.c:507
 #, c-format
 msgid ""
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1418,7 +1420,7 @@ msgstr ""
 "      --no-escape             använd inte C-kontrollsekvenser i resultatet\n"
 "                                (normalläge)\n"
 
-#: src/msgfilter.c:429 src/msggrep.c:512
+#: src/msgfilter.c:429 src/msggrep.c:513
 #, c-format
 msgid "      --indent                indented output style\n"
 msgstr "      --indent                indentera resultatet\n"
@@ -1456,65 +1458,65 @@ msgstr "läsning från %s-barnprocess misslyckades"
 msgid "%s subprocess terminated with exit code %d"
 msgstr "%s-barnprocess avslutade med slutstatus %d"
 
-#: src/msgfmt.c:299
+#: src/msgfmt.c:310
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "argumentet till %s ska vara ett enskilt skiljetecken"
 
-#: src/msgfmt.c:378 src/msgfmt.c:400 src/msgunfmt.c:265
+#: src/msgfmt.c:401 src/msgfmt.c:423 src/msgfmt.c:445 src/msgunfmt.c:286
+#: src/msgunfmt.c:309
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s kräver att \"-d katalog\" anges"
 
-#: src/msgfmt.c:393 src/msgunfmt.c:258
+#: src/msgfmt.c:416 src/msgfmt.c:438 src/msgunfmt.c:279 src/msgunfmt.c:302
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s kräver att \"-l lokal\" anges"
 
-#: src/msgfmt.c:409 src/msgmerge.c:331 src/msgmerge.c:337 src/msgunfmt.c:274
-#: src/msgunfmt.c:280
-#, c-format
-msgid "%s is only valid with %s"
-msgstr "%s är endast giltig med %s"
-
-#: src/msgfmt.c:415 src/msgfmt.c:421
+#: src/msgfmt.c:454 src/msgunfmt.c:318 src/msgunfmt.c:324
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "%s är endast giltig med %s eller %s"
 
-#: src/msgfmt.c:503
+#: src/msgfmt.c:460 src/msgfmt.c:466
+#, fuzzy, c-format
+msgid "%s is only valid with %s, %s or %s"
+msgstr "%s är endast giltig med %s eller %s"
+
+#: src/msgfmt.c:555
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d översatt meddelande"
 msgstr[1] "%d översatta meddelanden"
 
-#: src/msgfmt.c:508
+#: src/msgfmt.c:560
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d luddig översättning"
 msgstr[1] ", %d luddiga översättningar"
 
-#: src/msgfmt.c:513
+#: src/msgfmt.c:565
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d oöversatt meddelande"
 msgstr[1] ", %d oöversatta meddelanden"
 
-#: src/msgfmt.c:533
+#: src/msgfmt.c:585
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr "Användning: %s [FLAGGA] filnamn.po ...\n"
 
-#: src/msgfmt.c:537
+#: src/msgfmt.c:589
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr ""
 "Generera en binär meddelandekatalog från en textuell meddelandekatalog.\n"
 
-#: src/msgfmt.c:542 src/xgettext.c:717
+#: src/msgfmt.c:594 src/xgettext.c:723
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -1523,17 +1525,17 @@ msgstr ""
 "Obligatoriska argument för långa flaggor är obligatoriska även för korta.\n"
 "Motsvarande gäller för frivilliga argument.\n"
 
-#: src/msgfmt.c:549
+#: src/msgfmt.c:601
 #, c-format
 msgid "  filename.po ...             input files\n"
 msgstr "  filnamn.po ...              infiler\n"
 
-#: src/msgfmt.c:556 src/msgmerge.c:453 src/msgunfmt.c:345 src/xgettext.c:765
+#: src/msgfmt.c:608 src/msgmerge.c:457 src/msgunfmt.c:394 src/xgettext.c:771
 #, c-format
 msgid "Operation mode:\n"
 msgstr "Körläge:\n"
 
-#: src/msgfmt.c:558
+#: src/msgfmt.c:610
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: generate a Java ResourceBundle "
@@ -1542,7 +1544,7 @@ msgstr ""
 "  -j, --java                  Javaläge: generera en Java ResourceBundle-"
 "klass\n"
 
-#: src/msgfmt.c:560
+#: src/msgfmt.c:612
 #, c-format
 msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
@@ -1551,7 +1553,12 @@ msgstr ""
 "      --java2                 som --java, och anta Java2 (JDK 1.2 eller "
 "högre)\n"
 
-#: src/msgfmt.c:562
+#: src/msgfmt.c:614
+#, fuzzy, c-format
+msgid "      --csharp                C# mode: generate a .NET .dll file\n"
+msgstr "      --qt                    Qt-läge: generera en Qt .qm-fil\n"
+
+#: src/msgfmt.c:616
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
@@ -1559,32 +1566,33 @@ msgstr ""
 "      --tcl                   Tcl-läge: generera en .msg-fil av tcl/msgcat-"
 "typ\n"
 
-#: src/msgfmt.c:564
+#: src/msgfmt.c:618
 #, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
 msgstr "      --qt                    Qt-läge: generera en Qt .qm-fil\n"
 
-#: src/msgfmt.c:571
+#: src/msgfmt.c:625
 #, c-format
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr "      --strict                strikt Uniforum-format på resultatet\n"
 
-#: src/msgfmt.c:573 src/xgettext.c:741
+#: src/msgfmt.c:627 src/xgettext.c:747
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr "Om UTFIL är - skrivs resultatet till standard ut.\n"
 
-#: src/msgfmt.c:576
+#: src/msgfmt.c:630
 #, c-format
 msgid "Output file location in Java mode:\n"
 msgstr "Plats för utfil i Javaläge:\n"
 
-#: src/msgfmt.c:578 src/msgunfmt.c:361
+#: src/msgfmt.c:632 src/msgfmt.c:646 src/msgunfmt.c:412 src/msgunfmt.c:423
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
 msgstr "  -r, --resource=RESURS       resursnamn\n"
 
-#: src/msgfmt.c:580 src/msgfmt.c:592 src/msgunfmt.c:363 src/msgunfmt.c:372
+#: src/msgfmt.c:634 src/msgfmt.c:648 src/msgfmt.c:658 src/msgunfmt.c:414
+#: src/msgunfmt.c:425 src/msgunfmt.c:435
 #, c-format
 msgid ""
 "  -l, --locale=LOCALE         locale name, either language or "
@@ -1592,13 +1600,13 @@ msgid ""
 msgstr ""
 "  -l, --locale=LOKAL          lokalnamn, antingen språk eller språk_LAND\n"
 
-#: src/msgfmt.c:582
+#: src/msgfmt.c:636
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
 msgstr "  -d KATALOG                  startkatalog för klassers katalogträd\n"
 
-#: src/msgfmt.c:584
+#: src/msgfmt.c:638
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -1610,18 +1618,39 @@ msgstr ""
 "avskiljt med ett understreck.  Flaggan -d är obligatorisk.  Klassen skrivs\n"
 "till den givna katalogen.\n"
 
-#: src/msgfmt.c:590
+#: src/msgfmt.c:644
+#, fuzzy, c-format
+msgid "Output file location in C# mode:\n"
+msgstr "Plats för utfil i Tcl-läge:\n"
+
+#: src/msgfmt.c:650 src/msgunfmt.c:427
+#, fuzzy, c-format
+msgid ""
+"  -d DIRECTORY                base directory for locale dependent .dll "
+"files\n"
+msgstr "  -d KATALOG                  startkatalog för klassers katalogträd\n"
+
+#: src/msgfmt.c:652
+#, fuzzy, c-format
+msgid ""
+"The -l and -d options are mandatory.  The .dll file is written in a\n"
+"subdirectory of the specified directory whose name depends on the locale.\n"
+msgstr ""
+"Flaggorna -l och -d är obligatoriska.  .msg-filen skrivs till den givna\n"
+"katalogen.\n"
+
+#: src/msgfmt.c:656
 #, c-format
 msgid "Output file location in Tcl mode:\n"
 msgstr "Plats för utfil i Tcl-läge:\n"
 
-#: src/msgfmt.c:594 src/msgunfmt.c:374
+#: src/msgfmt.c:660 src/msgunfmt.c:437
 #, c-format
 msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
 msgstr ""
 "  -d KATALOG                  startkatalog för .msg-meddelandekataloger\n"
 
-#: src/msgfmt.c:596
+#: src/msgfmt.c:662
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
@@ -1630,12 +1659,12 @@ msgstr ""
 "Flaggorna -l och -d är obligatoriska.  .msg-filen skrivs till den givna\n"
 "katalogen.\n"
 
-#: src/msgfmt.c:608 src/xgettext.c:757
+#: src/msgfmt.c:674 src/xgettext.c:763
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "Tolkning av infil:\n"
 
-#: src/msgfmt.c:610
+#: src/msgfmt.c:676
 #, c-format
 msgid ""
 "  -c, --check                 perform all the checks implied by\n"
@@ -1646,13 +1675,13 @@ msgstr ""
 "                                --check-format, --check-header, --check-"
 "domain\n"
 
-#: src/msgfmt.c:613
+#: src/msgfmt.c:679
 #, c-format
 msgid "      --check-format          check language dependent format strings\n"
 msgstr ""
 "      --check-format          kontrollera språkberoende formatsträngar\n"
 
-#: src/msgfmt.c:615
+#: src/msgfmt.c:681
 #, c-format
 msgid ""
 "      --check-header          verify presence and contents of the header "
@@ -1660,7 +1689,7 @@ msgid ""
 msgstr ""
 "      --check-header          verifiera närvaro och innehåll av huvudrader\n"
 
-#: src/msgfmt.c:617
+#: src/msgfmt.c:683
 #, c-format
 msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
@@ -1669,7 +1698,7 @@ msgstr ""
 "      --check-domain          kontrollera konflikter mellan domändirektiv\n"
 "                                och flaggan --output-file\n"
 
-#: src/msgfmt.c:620
+#: src/msgfmt.c:686
 #, c-format
 msgid ""
 "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open "
@@ -1678,7 +1707,7 @@ msgstr ""
 "  -C, --check-compatibility   kontrollera att GNU msgfmt uppför sig som\n"
 "                                X/Open msgfmt\n"
 
-#: src/msgfmt.c:622
+#: src/msgfmt.c:688
 #, c-format
 msgid ""
 "      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
@@ -1689,111 +1718,111 @@ msgstr ""
 "tangentkortkommandon\n"
 "                                för menyer\n"
 
-#: src/msgfmt.c:625
+#: src/msgfmt.c:691
 #, c-format
 msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             använd luddiga poster i resultatet\n"
 
-#: src/msgfmt.c:630
+#: src/msgfmt.c:696
 #, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 msgstr ""
 "  -a, --alignment=TAL         lägg strängar på jämna TAL byte (normalt: %d)\n"
 
-#: src/msgfmt.c:632
+#: src/msgfmt.c:698
 #, c-format
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr "      --no-hash               binärfil innehåller inte hashtabellen\n"
 
-#: src/msgfmt.c:641
+#: src/msgfmt.c:707
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            skriv ut statistik om översättningarna\n"
 
-#: src/msgfmt.c:643 src/msgmerge.c:538 src/msgunfmt.c:418
+#: src/msgfmt.c:709 src/msgmerge.c:542 src/msgunfmt.c:481
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               öka mängden information i meddelanden\n"
 
-#: src/msgfmt.c:781
+#: src/msgfmt.c:847
 #, c-format
 msgid "plural expression can produce negative values"
 msgstr "pluraluttryck kan producera negativa värden"
 
-#: src/msgfmt.c:794
+#: src/msgfmt.c:860
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr "nplurals = %lu men pluraluttryck kan ge värden upp till %lu"
 
-#: src/msgfmt.c:821
+#: src/msgfmt.c:887
 #, c-format
 msgid "plural expression can produce division by zero"
 msgstr "pluraluttryck kan ge division med noll"
 
-#: src/msgfmt.c:827
+#: src/msgfmt.c:893
 #, c-format
 msgid "plural expression can produce integer overflow"
 msgstr "pluraluttryck kan ge överflöde av heltal"
 
-#: src/msgfmt.c:833
+#: src/msgfmt.c:899
 #, c-format
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
 msgstr "pluraluttryck kan ge aritmetiska fel, möjligen division med noll"
 
-#: src/msgfmt.c:911 src/msgfmt.c:923
+#: src/msgfmt.c:977 src/msgfmt.c:989
 #, c-format
 msgid "message catalog has plural form translations..."
 msgstr "meddelandekatalog har översättningar med pluralform..."
 
-#: src/msgfmt.c:914
+#: src/msgfmt.c:980
 #, c-format
 msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr "...men huvudrader saknar attribut av typ \"plurals=UTTRYCK\""
 
-#: src/msgfmt.c:926
+#: src/msgfmt.c:992
 #, c-format
 msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr "...men huvudrader saknar attribut av typ \"plurals=HELTAL\""
 
-#: src/msgfmt.c:951
+#: src/msgfmt.c:1017
 #, c-format
 msgid "invalid nplurals value"
 msgstr "ogiltigt värde för nplurals"
 
-#: src/msgfmt.c:965
+#: src/msgfmt.c:1031
 #, c-format
 msgid "invalid plural expression"
 msgstr "ogiltigt pluraluttryck"
 
-#: src/msgfmt.c:984 src/msgfmt.c:999
+#: src/msgfmt.c:1050 src/msgfmt.c:1065
 #, c-format
 msgid "nplurals = %lu..."
 msgstr "nplurals = %lu..."
 
-#: src/msgfmt.c:987
+#: src/msgfmt.c:1053
 #, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
 msgstr[0] "...men några meddelanden har bara en pluralform"
 msgstr[1] "...men några meddelanden har bara %lu pluralformer"
 
-#: src/msgfmt.c:1002
+#: src/msgfmt.c:1068
 #, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] "...men några meddelanden har en pluralform"
 msgstr[1] "...men några meddelanden har %lu pluralformer"
 
-#: src/msgfmt.c:1032
+#: src/msgfmt.c:1098
 #, c-format
 msgid "Try using the following, valid for %s:\n"
 msgstr "Försök använda den här, gäller för \"%s\":\n"
 
-#: src/msgfmt.c:1045
+#: src/msgfmt.c:1111
 #, c-format
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
@@ -1802,136 +1831,136 @@ msgstr ""
 "meddelandekatalog har översättningar med pluralformer, men saknar huvudrad "
 "med \"Plural-Forms: nplurals=HELTAL; plural=UTTRYCK;\""
 
-#: src/msgfmt.c:1079
+#: src/msgfmt.c:1145
 #, c-format
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "\"msgid\"- och \"msgid_plural\"-raderna börjar inte båda med \"\\n\""
 
-#: src/msgfmt.c:1089
+#: src/msgfmt.c:1155
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "\"msgid\"- och \"msgstr[%u]\"-raderna börjar inte båda med \"\\n\""
 
-#: src/msgfmt.c:1101
+#: src/msgfmt.c:1167
 #, c-format
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "\"msgid\"- och \"msgstr\"-raderna börjar inte båda med \"\\n\""
 
-#: src/msgfmt.c:1118
+#: src/msgfmt.c:1184
 #, c-format
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "\"msgid\"- och \"msgid_plural\"-raderna slutar inte båda med \"\\n\""
 
-#: src/msgfmt.c:1128
+#: src/msgfmt.c:1194
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "\"msgid\"- och \"msgstr[%u]\"-raderna slutar inte båda med \"\\n\""
 
-#: src/msgfmt.c:1140
+#: src/msgfmt.c:1206
 #, c-format
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "\"msgid\"- och \"msgstr\"-raderna slutar inte båda med \"\\n\""
 
-#: src/msgfmt.c:1152
+#: src/msgfmt.c:1218
 #, c-format
 msgid "plural handling is a GNU gettext extension"
 msgstr "hantering av plural är en utökning i GNU gettext"
 
-#: src/msgfmt.c:1219
+#: src/msgfmt.c:1285
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr ""
 "\"%s\" är inte en giltig formatsträng i %s, till skillnad från \"msgid\".\n"
 "Orsak: %s"
 
-#: src/msgfmt.c:1261
+#: src/msgfmt.c:1327
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "msgstr saknar märket \"%c\" för tangentkortkommandon"
 
-#: src/msgfmt.c:1269
+#: src/msgfmt.c:1335
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr har för många märken \"%c\" för tangentkortkommandon"
 
-#: src/msgfmt.c:1303
+#: src/msgfmt.c:1369
 #, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "huvudrad \"%s\" saknas i huvudet\n"
 
-#: src/msgfmt.c:1307
+#: src/msgfmt.c:1373
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "huvudrad \"%s\" bör ligga i början på raden\n"
 
-#: src/msgfmt.c:1318
+#: src/msgfmt.c:1384
 msgid "some header fields still have the initial default value\n"
 msgstr "vissa huvudrader har kvar initiala standardvärden\n"
 
-#: src/msgfmt.c:1330
+#: src/msgfmt.c:1396
 #, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "huvudrad \"%s\" har kvar initialt standardvärde\n"
 
-#: src/msgfmt.c:1388
+#: src/msgfmt.c:1454
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "varning: PO-filens huvudrader saknas eller är ogiltiga\n"
 
-#: src/msgfmt.c:1391
+#: src/msgfmt.c:1457
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr ""
 "varning: konvertering till användarens teckenuppsättning kommer att "
 "misslyckas.\n"
 
-#: src/msgfmt.c:1401
+#: src/msgfmt.c:1467
 #, c-format
 msgid "warning: PO file header fuzzy\n"
 msgstr "varning: PO-filens huvudrader är luddiga\n"
 
-#: src/msgfmt.c:1403
+#: src/msgfmt.c:1469
 #, c-format
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "varning: äldre versioner av msgfmt ger ett fel för detta\n"
 
-#: src/msgfmt.c:1426
+#: src/msgfmt.c:1493
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "domännamnet \"%s\" är inte lämpligt som filnamn"
 
-#: src/msgfmt.c:1431
+#: src/msgfmt.c:1498
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "domännamnet \"%s\" är inte lämpligt som filnamn: använder ett prefix"
 
-#: src/msgfmt.c:1445
+#: src/msgfmt.c:1512
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktivet \"domain %s\" ignoreras"
 
-#: src/msgfmt.c:1499
+#: src/msgfmt.c:1566
 #, c-format
 msgid "empty `msgstr' entry ignored"
 msgstr "tom \"msgstr\"-rad ignorerad"
 
-#: src/msgfmt.c:1500
+#: src/msgfmt.c:1567
 #, c-format
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "luddig \"msgstr\"-rad ignorerad"
 
-#: src/msgfmt.c:1558
+#: src/msgfmt.c:1625
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: varning: källfilen innehåller luddiga översättningar"
 
-#: src/msggrep.c:421
+#: src/msggrep.c:422
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' or 'C' has been specified"
 msgstr ""
 "flagga \"%c\" kan inte användas förrän \"K\", \"T\" eller \"C\" angivits"
 
-#: src/msggrep.c:441
+#: src/msggrep.c:442
 #, c-format, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1940,7 +1969,7 @@ msgstr ""
 "Extraherar alla meddelanden i en meddelandekatalog som matchar ett visst\n"
 "mönster eller hör till någon given källkodsfil.\n"
 
-#: src/msggrep.c:467
+#: src/msggrep.c:468
 #, c-format, no-wrap
 msgid ""
 "Message selection:\n"
@@ -2000,7 +2029,7 @@ msgstr ""
 "  -f, --file=FIL              hämta MÖNSTER från FIL\n"
 "  -i, --ignore-case           versaler och gemener jämförs lika\n"
 
-#: src/msggrep.c:508
+#: src/msggrep.c:509
 #, c-format
 msgid ""
 "      --escape                use C escapes in output, no extended chars\n"
@@ -2008,22 +2037,22 @@ msgstr ""
 "      --escape                använd C-kontrollsekvenser i resultatet, men\n"
 "                                inte \\v eller \\a\n"
 
-#: src/msggrep.c:529
+#: src/msggrep.c:530
 #, c-format
 msgid "      --sort-output           generate sorted output\n"
 msgstr "      --sort-output           sortera resultatet\n"
 
-#: src/msggrep.c:531
+#: src/msggrep.c:532
 #, c-format
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr "      --sort-by-file          sortera resultatet efter filposition\n"
 
-#: src/msggrep.c:602
+#: src/msggrep.c:603
 #, c-format
 msgid "write to grep subprocess failed"
 msgstr "skrivning till grep barnprocess misslyckades"
 
-#: src/msginit.c:293
+#: src/msginit.c:294
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -2033,7 +2062,7 @@ msgstr ""
 "LANG såsom beskrivs i filen ABOUT-NLS.  Detta är nödvändigt för att\n"
 "du ska kunna testa dina översättningar.\n"
 
-#: src/msginit.c:321
+#: src/msginit.c:322
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2044,12 +2073,12 @@ msgstr ""
 "Ange lokal med flaggan --locale eller\n"
 ".po-utfilen med flaggan --output-file.\n"
 
-#: src/msginit.c:345
+#: src/msginit.c:346
 #, c-format
 msgid "Created %s.\n"
 msgstr "Skapade %s.\n"
 
-#: src/msginit.c:365
+#: src/msginit.c:366
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -2058,12 +2087,12 @@ msgstr ""
 "Skapar en ny PO-fil och initierar metainformation med värden från\n"
 "användarens miljövariabler.\n"
 
-#: src/msginit.c:375
+#: src/msginit.c:376
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr "  -i, --input=INFIL           POT-infil\n"
 
-#: src/msginit.c:377
+#: src/msginit.c:378
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
@@ -2073,13 +2102,13 @@ msgstr ""
 "Om ingen infil ges söks POT-filen i aktuell katalog.\n"
 "Om den är - läses standard in.\n"
 
-#: src/msginit.c:383
+#: src/msginit.c:384
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr ""
 "  -o, --output-file=FIL       skriv resultatet till den givna PO-filen\n"
 
-#: src/msginit.c:385
+#: src/msginit.c:386
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
@@ -2088,18 +2117,18 @@ msgstr ""
 "Om ingen utfil ges beror den på flaggan --locale eller användarens\n"
 "lokalinställning.  Om den är - skrivs resultatet till standard ut.\n"
 
-#: src/msginit.c:398
+#: src/msginit.c:399
 #, c-format
 msgid "  -l, --locale=LL_CC          set target locale\n"
 msgstr "  -l, --locale=LL_CC          sätt mållokal\n"
 
-#: src/msginit.c:400
+#: src/msginit.c:401
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
 msgstr "      --no-translator         antag att PO-filen är automatgenererad\n"
 
-#: src/msginit.c:456
+#: src/msginit.c:457
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2107,12 +2136,12 @@ msgstr ""
 "Hittade fler än en .pot-fil.\n"
 "Ange .pot-infil med flaggan --input.\n"
 
-#: src/msginit.c:464 src/msginit.c:469
+#: src/msginit.c:465 src/msginit.c:470
 #, c-format
 msgid "error reading current directory"
 msgstr "fel vid läsning av aktuell katalog"
 
-#: src/msginit.c:477
+#: src/msginit.c:478
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2120,24 +2149,24 @@ msgstr ""
 "Hittade ingen .pot-fil i aktuell katalog.\n"
 "Ange .pot-infil med flaggan --input.\n"
 
-#: src/msginit.c:938 src/msginit.c:1005 src/msginit.c:1163 src/msginit.c:1245
-#: src/read-java.c:71 src/read-tcl.c:108
+#: src/msginit.c:939 src/msginit.c:1006 src/msginit.c:1164 src/msginit.c:1246
+#: src/read-java.c:71 src/read-tcl.c:111
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen() misslyckades"
 
-#: src/msginit.c:946 src/msginit.c:1013 src/msginit.c:1171
+#: src/msginit.c:947 src/msginit.c:1014 src/msginit.c:1172
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "I/O-fel i %s-barnprocess"
 
-#: src/msginit.c:958 src/msginit.c:1025 src/msginit.c:1183 src/msginit.c:1262
-#: src/read-java.c:81 src/read-tcl.c:124
+#: src/msginit.c:959 src/msginit.c:1026 src/msginit.c:1184 src/msginit.c:1263
+#: src/read-java.c:81 src/read-tcl.c:127
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s-barnprocess terminerade med slutstatus %d"
 
-#: src/msginit.c:1149
+#: src/msginit.c:1150
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2152,28 +2181,28 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1535
+#: src/msginit.c:1536
 #, c-format
 msgid "English translations for %s package"
 msgstr "Svenska översättningar för paket %s"
 
-#: src/msgl-cat.c:175 src/msgl-charset.c:85 src/msgl-iconv.c:304
+#: src/msgl-cat.c:176 src/msgl-charset.c:86 src/msgl-iconv.c:305
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "nuvarande teckenuppsättning \"%s\" är inte ett portabelt kodningsnamn"
 
-#: src/msgl-cat.c:184 src/msgl-iconv.c:315
+#: src/msgl-cat.c:187 src/msgl-iconv.c:316
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "två olika teckenuppsättningar \"%s\" och \"%s\" i infilen"
 
-#: src/msgl-cat.c:199
+#: src/msgl-cat.c:202
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
 msgstr "infilen \"%s\" saknar en huvudrad som anger teckenuppsättning"
 
-#: src/msgl-cat.c:203
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
@@ -2181,19 +2210,19 @@ msgid ""
 msgstr ""
 "domän \"%s\" i infil \"%s\" saknar en huvudrad som anger teckenuppsättning"
 
-#: src/msgl-cat.c:380 src/msgl-iconv.c:403
+#: src/msgl-cat.c:383 src/msgl-iconv.c:405
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "målteckenuppsättning \"%s\" är inte ett portabelt kodningsnamn"
 
-#: src/msgl-cat.c:430 src/msgl-cat.c:436 src/msgl-charset.c:90
-#: src/msgl-charset.c:125 src/write-po.c:850 src/write-po.c:916
-#: src/xgettext.c:1989
+#: src/msgl-cat.c:433 src/msgl-cat.c:439 src/msgl-charset.c:92
+#: src/msgl-charset.c:127 src/write-po.c:851 src/write-po.c:917
+#: src/xgettext.c:2005
 #, c-format
 msgid "warning: "
 msgstr "varning: "
 
-#: src/msgl-cat.c:431
+#: src/msgl-cat.c:434
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -2202,7 +2231,7 @@ msgstr ""
 "Infiler har meddelanden med flera kodningar, däribland UTF-8.\n"
 "Konverterar resultatet till UTF-8.\n"
 
-#: src/msgl-cat.c:437
+#: src/msgl-cat.c:440
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -2214,7 +2243,7 @@ msgstr ""
 "Konverterar resultatet till UTF-8.\n"
 "Använd flaggan --to-code för att välja en annan kodning.\n"
 
-#: src/msgl-charset.c:91
+#: src/msgl-charset.c:93
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -2227,12 +2256,12 @@ msgstr ""
 "Resultatet för \"%s\" kan bli felaktigt.\n"
 "Möjliga sätt att komma runt problemet är:\n"
 
-#: src/msgl-charset.c:98
+#: src/msgl-charset.c:100
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr "- Sätt LC_ALL till en lokal med kodning %s.\n"
 
-#: src/msgl-charset.c:103
+#: src/msgl-charset.c:105
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -2243,7 +2272,7 @@ msgstr ""
 "  tillämpa därefter \"%s\",\n"
 "  konvertera sedan tillbaka till %s med \"msgconv\".\n"
 
-#: src/msgl-charset.c:112
+#: src/msgl-charset.c:114
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -2256,7 +2285,7 @@ msgstr ""
 "  tillämpa därefter \"%s\"\n"
 "  konvertera sedan tillbaka till %s med \"msgconv\".\n"
 
-#: src/msgl-charset.c:126
+#: src/msgl-charset.c:128
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -2267,17 +2296,17 @@ msgstr ""
 "Resultatet för \"%s\" kan bli felaktigt.\n"
 "Ett möjligt sätt att komma runt problemet är att sätta LC_ALL=C.\n"
 
-#: src/msgl-iconv.c:186 src/msgl-iconv.c:244
+#: src/msgl-iconv.c:187 src/msgl-iconv.c:245
 #, c-format
 msgid "conversion failure"
 msgstr "konverteringsfel"
 
-#: src/msgl-iconv.c:337
+#: src/msgl-iconv.c:339
 #, c-format
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "infilen saknar en huvudrad som anger teckenuppsättning"
 
-#: src/msgl-iconv.c:356 src/xgettext.c:586
+#: src/msgl-iconv.c:358 src/xgettext.c:592
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -2286,7 +2315,7 @@ msgstr ""
 "Kan inte konvertera från \"%s\" till \"%s\".  %s beror på iconv()\n"
 "och iconv() stöder inte denna konvertering."
 
-#: src/msgl-iconv.c:378
+#: src/msgl-iconv.c:380
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -2295,7 +2324,7 @@ msgstr ""
 "Konvertering från \"%s\" till \"%s\" ger duplikat: några msgid som skiljer "
 "sig blir lika."
 
-#: src/msgl-iconv.c:383 src/xgettext.c:593
+#: src/msgl-iconv.c:385 src/xgettext.c:599
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -2304,11 +2333,16 @@ msgstr ""
 "Kan inte konvertera från \"%s\" till \"%s\". %s beror på iconv().\n"
 "Denna version byggdes utan iconv()."
 
-#: src/msgmerge.c:391
+#: src/msgmerge.c:335 src/msgmerge.c:341
+#, c-format
+msgid "%s is only valid with %s"
+msgstr "%s är endast giltig med %s"
+
+#: src/msgmerge.c:395
 msgid "backup type"
 msgstr "säkerhetskopieringstyp"
 
-#: src/msgmerge.c:426
+#: src/msgmerge.c:430
 #, c-format, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -2331,19 +2365,19 @@ msgstr ""
 "dock bevaras punktkommentarer och filpositioner.  Om en exakt likhet\n"
 "inte kan hittas används luddig jämförelse för att ge bättre resultat.\n"
 
-#: src/msgmerge.c:443
+#: src/msgmerge.c:447
 #, c-format
 msgid "  def.po                      translations referring to old sources\n"
 msgstr ""
 "  def.po                      översättningar som refererar till gamla "
 "källkoden\n"
 
-#: src/msgmerge.c:445
+#: src/msgmerge.c:449
 #, c-format
 msgid "  ref.pot                     references to new sources\n"
 msgstr "  ref.pot                     referenser till den nya källkoden\n"
 
-#: src/msgmerge.c:449
+#: src/msgmerge.c:453
 #, c-format
 msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
@@ -2352,7 +2386,7 @@ msgstr ""
 "  -C, --compendium=FIL        ytterligare kataloger med översättningar,\n"
 "                              kan anges flera gånger\n"
 
-#: src/msgmerge.c:455
+#: src/msgmerge.c:459
 #, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
@@ -2361,27 +2395,27 @@ msgstr ""
 "  -U, --update                updatera def.po,\n"
 "                              gör ingenting om def.po redan är aktuell\n"
 
-#: src/msgmerge.c:467
+#: src/msgmerge.c:471
 #, c-format
 msgid "Output file location in update mode:\n"
 msgstr "Plats för utfil i uppdateringsläge:\n"
 
-#: src/msgmerge.c:469
+#: src/msgmerge.c:473
 #, c-format
 msgid "The result is written back to def.po.\n"
 msgstr "Resultatet skrivs tillbaka till def.po.\n"
 
-#: src/msgmerge.c:471
+#: src/msgmerge.c:475
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
 msgstr "      --backup=KONTROLL       gör en säkerhetskopia av def.po\n"
 
-#: src/msgmerge.c:473
+#: src/msgmerge.c:477
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
 msgstr "      --suffix=SUFFIX         använd ett annat suffix än det vanliga\n"
 
-#: src/msgmerge.c:475
+#: src/msgmerge.c:479
 #, c-format
 msgid ""
 "The version control method may be selected via the --backup option or "
@@ -2400,7 +2434,7 @@ msgstr ""
 "annars\n"
 "  simple, never   gör alltid enkla säkerhetskopior\n"
 
-#: src/msgmerge.c:482
+#: src/msgmerge.c:486
 #, c-format
 msgid ""
 "The backup suffix is `~', unless set with --suffix or the "
@@ -2410,27 +2444,27 @@ msgstr ""
 "Suffix för säkerhetskopior är \"~\", om den inte sätts med --suffix eller\n"
 "miljövariabeln SIMPLE_BACKUP_SUFFIX.\n"
 
-#: src/msgmerge.c:491
+#: src/msgmerge.c:495
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr "  -N, --no-fuzzy-matching     använd inte luddig jämförelse\n"
 
-#: src/msgmerge.c:540
+#: src/msgmerge.c:544
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent       visa inte förloppsindikatorer\n"
 
-#: src/msgmerge.c:1024
+#: src/msgmerge.c:1036
 #, c-format
 msgid "this message should define plural forms"
 msgstr "detta meddelande ska definiera pluralformer"
 
-#: src/msgmerge.c:1047
+#: src/msgmerge.c:1059
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "detta meddelande ska inte definiera pluralformer"
 
-#: src/msgmerge.c:1213
+#: src/msgmerge.c:1225
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -2439,27 +2473,27 @@ msgstr ""
 "%sLäste %ld gamla + %ld referenser, %ld sammanslagna, %ld luddiga, %ld "
 "saknade, %ld föråldrade.\n"
 
-#: src/msgmerge.c:1221
+#: src/msgmerge.c:1233
 msgid " done.\n"
 msgstr " klar.\n"
 
-#: src/msgunfmt.c:243 src/msgunfmt.c:252
+#: src/msgunfmt.c:264 src/msgunfmt.c:273 src/msgunfmt.c:296
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "%s och explicita filnamn är ömsesidigt uteslutande"
 
-#: src/msgunfmt.c:334
+#: src/msgunfmt.c:383
 #, c-format
 msgid "Usage: %s [OPTION] [FILE]...\n"
 msgstr "Användning: %s [FLAGGA] [FIL]...\n"
 
-#: src/msgunfmt.c:338
+#: src/msgunfmt.c:387
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr ""
 "Konvertera en binär meddelandekatalog till en .po-fil av Uniforum-typ\n"
 
-#: src/msgunfmt.c:347
+#: src/msgunfmt.c:396
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: input is a Java ResourceBundle "
@@ -2468,7 +2502,14 @@ msgstr ""
 "  -j, --java                  Javaläge: indata är en Java ResourceBundle-"
 "klass\n"
 
-#: src/msgunfmt.c:349
+#: src/msgunfmt.c:398
+#, fuzzy, c-format
+msgid "      --csharp                C# mode: input is a .NET .dll file\n"
+msgstr ""
+"      --tcl                   Tcl-läge: indata är en .msg-fil av tcl/msgcat-"
+"typ\n"
+
+#: src/msgunfmt.c:400
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
@@ -2476,17 +2517,17 @@ msgstr ""
 "      --tcl                   Tcl-läge: indata är en .msg-fil av tcl/msgcat-"
 "typ\n"
 
-#: src/msgunfmt.c:354
+#: src/msgunfmt.c:405
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
 msgstr "  FIL ...                     .mo-infiler\n"
 
-#: src/msgunfmt.c:359
+#: src/msgunfmt.c:410
 #, c-format
 msgid "Input file location in Java mode:\n"
 msgstr "Plats för infil i Javaläge:\n"
 
-#: src/msgunfmt.c:365
+#: src/msgunfmt.c:416
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -2496,12 +2537,26 @@ msgstr ""
 "Klassnamnet härleds genom att lägga till lokalnamnet till resursnamnet\n"
 "avskiljt med ett understreck.  Klassen söks med hjälp av CLASSPATH.\n"
 
-#: src/msgunfmt.c:370
+#: src/msgunfmt.c:421
+#, fuzzy, c-format
+msgid "Input file location in C# mode:\n"
+msgstr "Plats för infil i Tcl-läge:\n"
+
+#: src/msgunfmt.c:429
+#, fuzzy, c-format
+msgid ""
+"The -l and -d options are mandatory.  The .dll file is located in a\n"
+"subdirectory of the specified directory whose name depends on the locale.\n"
+msgstr ""
+"Flaggorna -l och -d är obligatoriska.  .msg-filen ligger i den givna\n"
+"katalogen.\n"
+
+#: src/msgunfmt.c:433
 #, c-format
 msgid "Input file location in Tcl mode:\n"
 msgstr "Plats för infil i Tcl-läge:\n"
 
-#: src/msgunfmt.c:376
+#: src/msgunfmt.c:439
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
@@ -2510,12 +2565,12 @@ msgstr ""
 "Flaggorna -l och -d är obligatoriska.  .msg-filen ligger i den givna\n"
 "katalogen.\n"
 
-#: src/msgunfmt.c:396
+#: src/msgunfmt.c:459
 #, c-format
 msgid "  -i, --indent                write indented output style\n"
 msgstr "  -i, --indent                indentera resultatet\n"
 
-#: src/msgunfmt.c:398
+#: src/msgunfmt.c:461
 #, c-format
 msgid "      --strict                write strict uniforum style\n"
 msgstr "      --strict                strikt Uniforum-format på resultatet\n"
@@ -2559,13 +2614,13 @@ msgstr ""
 msgid "<stdin>"
 msgstr "<standard in>"
 
-#: src/po-charset.c:224 src/po-charset.c:294 src/po-charset.c:322
-#: src/po-charset.c:348
+#: src/po-charset.c:225 src/po-charset.c:295 src/po-charset.c:323
+#: src/po-charset.c:350
 #, c-format
 msgid "%s: warning: "
 msgstr "%s: varning: "
 
-#: src/po-charset.c:225
+#: src/po-charset.c:226
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
@@ -2574,15 +2629,15 @@ msgstr ""
 "Teckenuppsättning \"%s\" är inte namn på en portabel kodning.\n"
 "Meddelandekonvertering till användarens teckenuppsättning kan misslyckas.\n"
 
-#: src/po-charset.c:290 src/po-charset.c:320
+#: src/po-charset.c:291 src/po-charset.c:321
 msgid "Continuing anyway, expect parse errors."
 msgstr "Fortsätter ändå, tolkningsfel kan förväntas."
 
-#: src/po-charset.c:292
+#: src/po-charset.c:293
 msgid "Continuing anyway."
 msgstr "Fortsätter ändå."
 
-#: src/po-charset.c:295
+#: src/po-charset.c:296
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -2591,7 +2646,7 @@ msgstr ""
 "Teckenuppsättning \"%s\" stöds ej. %s beror på iconv(),\n"
 "och iconv() stöder inte \"%s\".\n"
 
-#: src/po-charset.c:304 src/po-charset.c:330
+#: src/po-charset.c:305 src/po-charset.c:331
 #, c-format
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
@@ -2600,12 +2655,12 @@ msgstr ""
 "Installation av GNU libiconv med efterföljande ominstallation av\n"
 "GNU gettext skulle lösa detta problem.\n"
 
-#: src/po-charset.c:309 src/po-charset.c:334
+#: src/po-charset.c:310 src/po-charset.c:335
 #, c-format
 msgid "%s\n"
 msgstr "%s\n"
 
-#: src/po-charset.c:323
+#: src/po-charset.c:324
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -2614,7 +2669,7 @@ msgstr ""
 "Teckenuppsättning \"%s\" stöds ej. %s beror på iconv().\n"
 "Denna version byggdes utan iconv().\n"
 
-#: src/po-charset.c:349
+#: src/po-charset.c:351
 #, c-format
 msgid ""
 "Charset missing in header.\n"
@@ -2660,7 +2715,7 @@ msgstr "pluralform har fel index"
 msgid "too many errors, aborting"
 msgstr "för många fel, avbryter körningen"
 
-#: src/po-lex.c:458 src/po-lex.c:522 src/write-po.c:554 src/write-po.c:660
+#: src/po-lex.c:458 src/po-lex.c:522 src/write-po.c:555 src/write-po.c:661
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "ogiltig flerbytesekvens"
@@ -2681,11 +2736,11 @@ msgid "iconv failure"
 msgstr "iconv misslyckades"
 
 #: src/po-lex.c:666 src/read-mo.c:79 src/read-properties.c:80
-#: src/read-stringtable.c:96 src/x-awk.c:143 src/x-c.c:352 src/x-elisp.c:149
-#: src/x-glade.c:406 src/x-java.c:174 src/x-librep.c:151 src/x-lisp.c:214
-#: src/x-perl.c:230 src/x-perl.c:304 src/x-perl.c:397 src/x-php.c:161
-#: src/x-python.c:167 src/x-rst.c:232 src/x-sh.c:156 src/x-smalltalk.c:88
-#: src/x-tcl.c:150 src/x-ycp.c:89
+#: src/read-stringtable.c:96 src/x-awk.c:143 src/x-c.c:354 src/x-elisp.c:149
+#: src/x-glade.c:406 src/x-java.c:176 src/x-librep.c:151 src/x-lisp.c:214
+#: src/x-perl.c:230 src/x-perl.c:305 src/x-perl.c:398 src/x-php.c:162
+#: src/x-python.c:170 src/x-rst.c:232 src/x-sh.c:159 src/x-smalltalk.c:91
+#: src/x-tcl.c:152 src/x-ycp.c:91
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "fel uppstod då \"%s\" lästes"
@@ -2731,7 +2786,7 @@ msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr ""
 "filen \"%s\" innehåller en sträng som inte avslutas med nolltecknet vid %s"
 
-#: src/read-po.c:318 src/xgettext.c:869
+#: src/read-po.c:318 src/xgettext.c:875
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "denna fil kan inte innehålla domändirektiv"
@@ -2800,51 +2855,51 @@ msgstr ""
 msgid "error writing stdout"
 msgstr "fel vid skrivning till standard ut"
 
-#: src/write-java.c:977
+#: src/write-java.c:982
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "kan inte hitta temporärkatalog, försök sätta $TMPDIR"
 
-#: src/write-java.c:987
+#: src/write-java.c:992
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "kan inte skapa temporärkatalog med mallen \"%s\""
 
-#: src/write-java.c:1000
+#: src/write-java.c:1005
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "inte ett giltigt Javaklassnamn: %s"
 
-#: src/write-java.c:1057 src/write-java.c:1070
+#: src/write-java.c:1063 src/write-java.c:1076
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "misslyckades med att skapa \"%s\""
 
-#: src/write-java.c:1078 src/write-mo.c:707 src/write-po.c:1120
-#: src/write-qt.c:530 src/write-tcl.c:202
+#: src/write-java.c:1084 src/write-mo.c:708 src/write-po.c:1126
+#: src/write-qt.c:530 src/write-tcl.c:204
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "fel vid skrivning till filen \"%s\""
 
-#: src/write-java.c:1092
+#: src/write-java.c:1098
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 "kompilering av Javaklass misslyckades, försök med --verbose eller sätt $JAVAC"
 
-#: src/write-mo.c:695 src/write-qt.c:518 src/write-tcl.c:193
+#: src/write-mo.c:696 src/write-qt.c:518 src/write-tcl.c:194
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "fel uppstod när \"%s\" öppnades för skrivning"
 
-#: src/write-po.c:605
+#: src/write-po.c:606
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
 "internationaliserade meddelanden bör inte ha kontrollsekvensen \"\\%c\""
 
-#: src/write-po.c:851 src/write-po.c:917
+#: src/write-po.c:852 src/write-po.c:918
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -2857,7 +2912,7 @@ msgstr ""
 "som är en annan än din.  Försök använda en ren ASCII-msgid istället.\n"
 "%s\n"
 
-#: src/write-po.c:1057
+#: src/write-po.c:1063
 #, c-format
 msgid ""
 "Cannot output multiple translation domains into a single file with Java ."
@@ -2866,7 +2921,7 @@ msgstr ""
 "Kan inte skriva ut flera översättningsdomäner till en enstaka fil med\n"
 "\"Java properties\"-syntax. Försök använda PO-filsyntax istället."
 
-#: src/write-po.c:1059
+#: src/write-po.c:1065
 #, c-format
 msgid ""
 "Cannot output multiple translation domains into a single file with NeXTstep/"
@@ -2875,7 +2930,7 @@ msgstr ""
 "Kan inte skriva ut flera översättningsdomäner till en enstaka fil med\n"
 " NeXTstep/GNUstep \".strings\"-syntax."
 
-#: src/write-po.c:1085
+#: src/write-po.c:1091
 #, c-format
 msgid ""
 "message catalog has plural form translations, but the output format does not "
@@ -2886,7 +2941,7 @@ msgstr ""
 "stödjer inte dem. Försök generera en Java-klass med \"msgfmt --java\"\n"
 "istället för en \"properties\"-fil."
 
-#: src/write-po.c:1089
+#: src/write-po.c:1095
 #, c-format
 msgid ""
 "message catalog has plural form translations, but the output format does not "
@@ -2895,12 +2950,12 @@ msgstr ""
 "meddelandekatalog har översättningar med pluralformer, men utdataformatet "
 "stöder inte pluralhantering."
 
-#: src/write-po.c:1101
+#: src/write-po.c:1107
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "kan inte skapa utfilen \"%s\""
 
-#: src/write-po.c:1108
+#: src/write-po.c:1114
 #, no-c-format
 msgid "standard output"
 msgstr "standard ut"
@@ -2923,7 +2978,7 @@ msgstr ""
 "men formatet för meddelandekataloger i Qt stöder Unicode endast i de\n"
 "översatta strängarna, inte i de oöversatta strängarna\n"
 
-#: src/write-tcl.c:157
+#: src/write-tcl.c:158
 msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
@@ -2931,22 +2986,22 @@ msgstr ""
 "meddelandekatalog har översättningar med pluralformer, men formatet för\n"
 "Tcl-meddelandekataloger stöder inte pluralhantering\n"
 
-#: src/x-awk.c:343 src/x-python.c:388
+#: src/x-awk.c:345 src/x-python.c:395
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: varning: oavslutad sträng"
 
-#: src/x-awk.c:594
+#: src/x-awk.c:596
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: varning: oavslutat reguljärt uttryck"
 
-#: src/x-c.c:1078 src/x-java.c:903
+#: src/x-c.c:1088 src/x-java.c:919
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: varning: oavslutad teckenkonstant"
 
-#: src/x-c.c:1102
+#: src/x-c.c:1112
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: varning: oavslutad sträng"
@@ -2965,62 +3020,62 @@ msgstr ""
 "Språk \"glade\" stöds ej. %s beror på expat.\n"
 "Denna version byggdes utan expat.\n"
 
-#: src/x-java.c:906
-#, fuzzy, c-format
+#: src/x-java.c:922
+#, c-format
 msgid "%s:%d: warning: unterminated string constant"
-msgstr "%s:%d: varning: oavslutad sträng"
+msgstr "%s:%d: varning: oavslutad strängkonstant"
 
-#: src/x-java.c:1391
+#: src/x-java.c:1416
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: varning: \")\" hittades där \"}\" förväntades"
 
-#: src/x-java.c:1415
+#: src/x-java.c:1440
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: varning: \"}\" hittades där \")\" förväntades"
 
-#: src/x-perl.c:310
+#: src/x-perl.c:311
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: hittar inte strängslutet \"%s\" någonstans före filslut"
 
-#: src/x-perl.c:1036
+#: src/x-perl.c:1038
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: höger krullparentes fattas i \\x{HEXNUMMER}"
 
-#: src/x-perl.c:1156
+#: src/x-perl.c:1158
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (\"\\l\") för åttabitarstecknet \"%c\""
 
-#: src/x-perl.c:1176
+#: src/x-perl.c:1178
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (\"\\u\") för åttabitarstecknet \"%c\""
 
-#: src/x-perl.c:1210
+#: src/x-perl.c:1212
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: ogiltig variabelinterpolation vid \"%c\""
 
-#: src/x-perl.c:1223
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (\"\\L\") för åttabitarstecknet \"%c\""
 
-#: src/x-perl.c:1240
+#: src/x-perl.c:1242
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (\"\\U\") för åttabitarstecknet \"%c\""
 
-#: src/x-perl.c:2997
+#: src/x-perl.c:2999
 #, c-format
 msgid "%s:%d: fatal: plural message seen before singular message\n"
 msgstr "%s:%d: fatalt: pluralmeddelande kommer före singularmeddelandet\n"
 
-#: src/x-python.c:588
+#: src/x-python.c:595
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: varning: ogiltigt Unicodetecken"
@@ -3040,7 +3095,7 @@ msgstr "%s:%d fattas tal efter #"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: ogiltigt strängmönster"
 
-#: src/x-sh.c:1012
+#: src/x-sh.c:1015
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
@@ -3049,28 +3104,28 @@ msgstr ""
 "%s:%lu: varning: syntaxen $\"...\" kommer att tas bort av säkerhetsskäl; "
 "använd eval_gettext istället"
 
-#: src/xgettext.c:515
+#: src/xgettext.c:521
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing kan inte användas då resultatet skrivs till standard ut"
 
-#: src/xgettext.c:520
+#: src/xgettext.c:526
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext måste ha nyckelord att söka efter för att fungera"
 
-#: src/xgettext.c:661
+#: src/xgettext.c:667
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "varning: filtyp \"%s\" med suffix \"%s\" är okänd; försöker med C"
 
-#: src/xgettext.c:712
+#: src/xgettext.c:718
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extrahera översättbara strängar från givna infiler.\n"
 
-#: src/xgettext.c:735
+#: src/xgettext.c:741
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
@@ -3079,30 +3134,31 @@ msgstr ""
 "  -d, --default-domain=NAMN  använd NAMN.po som utfil (i st.f. messages."
 "po) \n"
 
-#: src/xgettext.c:737
+#: src/xgettext.c:743
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr "  -o, --output=FIL            skriv resultatet till FIL\n"
 
-#: src/xgettext.c:739
+#: src/xgettext.c:745
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
 msgstr "  -p, --output-dir=KATALOG    utfiler placeras i katalogen KATALOG\n"
 
-#: src/xgettext.c:744
+#: src/xgettext.c:750
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "Språkval i infiler:\n"
 
-#: src/xgettext.c:746
-#, c-format
+#: src/xgettext.c:752
+#, fuzzy, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
 "                                EmacsLisp, librep, Smalltalk, Java,\n"
-"                                JavaProperties, awk, YCP, Tcl, Perl, PHP,\n"
+"                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
+"PHP,\n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
 msgstr ""
 "  -L, --language=NAMN          känn igen angivet språk\n"
@@ -3112,19 +3168,19 @@ msgstr ""
 "                                 JavaProperties, awk, YCP, Tcl, Perl, PHP,\n"
 "                                 GCC-source, NXStringTable, RST, Glade)\n"
 
-#: src/xgettext.c:752
+#: src/xgettext.c:758
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr "  -C, --c++                   samma som --language=C++\n"
 
-#: src/xgettext.c:754
+#: src/xgettext.c:760
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
 "extension.\n"
 msgstr "I normalläge gissas språket från filändelsen på infilen.\n"
 
-#: src/xgettext.c:759
+#: src/xgettext.c:765
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
@@ -3133,23 +3189,23 @@ msgstr ""
 "      --from-code=NAMN        kodning av infiler\n"
 "                                (utom för Python, Tcl, Glade)\n"
 
-#: src/xgettext.c:762
+#: src/xgettext.c:768
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr "Normalt antas att filer är i ASCII-format.\n"
 
-#: src/xgettext.c:767
+#: src/xgettext.c:773
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr ""
 "  -j, --join-existing         slå ihop meddelanden med existerande fil\n"
 
-#: src/xgettext.c:769
+#: src/xgettext.c:775
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr "  -x, --exclude-file=FIL.po   rader från FIL tas inte ut\n"
 
-#: src/xgettext.c:771
+#: src/xgettext.c:777
 #, c-format
 msgid ""
 "  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
@@ -3158,28 +3214,29 @@ msgstr ""
 "  -c, --add-comments[=MÄRKE]  skriv kommentarsblock med MÄRKE (eller de\n"
 "                              före nyckelordsrader) till resultatet\n"
 
-#: src/xgettext.c:775
+#: src/xgettext.c:781
 #, c-format
 msgid "Language specific options:\n"
 msgstr "Språkspecifika val:\n"
 
-#: src/xgettext.c:777
+#: src/xgettext.c:783
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           extrahera alla strängar\n"
 
-#: src/xgettext.c:779 src/xgettext.c:786
-#, c-format
+#: src/xgettext.c:785 src/xgettext.c:792
+#, fuzzy, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, awk,\n"
+"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
+"awk,\n"
 "                                Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
 "                                 (bara språken C, C++, ObjectiveC, Shell,\n"
 "                                 Python, Lisp, EmacsLisp, librep, Java, awk\n"
 "                                 Tcl, Perl, PHP, GCC-source, Glade)\n"
 
-#: src/xgettext.c:783
+#: src/xgettext.c:789
 #, c-format
 msgid ""
 "  -k, --keyword[=WORD]        additional keyword to be looked for (without\n"
@@ -3189,7 +3246,7 @@ msgstr ""
 "                              utelämnas, titta inte efter "
 "standardnyckelord)\n"
 
-#: src/xgettext.c:790
+#: src/xgettext.c:796
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -3199,11 +3256,12 @@ msgstr ""
 "      --flag=ORD:NR:FLAGGA    extra FLAGGA för strängar inne i argument\n"
 "                              nummer NR för nyckelord ORD\n"
 
-#: src/xgettext.c:793
-#, c-format
+#: src/xgettext.c:799
+#, fuzzy, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, awk,\n"
+"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
+"awk,\n"
 "                                YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
 "                                 (bara språken C, C++, ObjectiveC, Shell,\n"
@@ -3211,53 +3269,53 @@ msgstr ""
 "awk,\n"
 "                                 YCP, Tcl, Perl, PHP, GCC-source)\n"
 
-#: src/xgettext.c:797
+#: src/xgettext.c:803
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr ""
 "  -T, --trigraphs             hantera ANSI C treteckenssekvenser i infiler\n"
 
-#: src/xgettext.c:799
+#: src/xgettext.c:805
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
 msgstr "                                (bara språken C, C++, ObjectiveC)\n"
 
-#: src/xgettext.c:801
+#: src/xgettext.c:807
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr "      --qt                    känn igen Qt-formatsträngar\n"
 
-#: src/xgettext.c:803
+#: src/xgettext.c:809
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                                (bara språket C++)\n"
 
-#: src/xgettext.c:805
+#: src/xgettext.c:811
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
 msgstr ""
 "      --debug                 mer detaljerad igenkänning av formatsträngar\n"
 
-#: src/xgettext.c:824
+#: src/xgettext.c:830
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr "      --properties-output     skriv en \"Java .properties\"-fil\n"
 
-#: src/xgettext.c:839
+#: src/xgettext.c:845
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr ""
 "      --copyright-holder=STRÄNG  sätt copyrightinnehavare i resultatet\n"
 
-#: src/xgettext.c:841
+#: src/xgettext.c:847
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
 msgstr ""
 "      --foreign-user          utelämna FSF copyrighttext i resultatet\n"
 
-#: src/xgettext.c:843
+#: src/xgettext.c:849
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
@@ -3265,7 +3323,7 @@ msgstr ""
 "      --msgid-bugs-address=EPOST@ADRESS   sätt mottagare för msgid-"
 "felrapporter\n"
 
-#: src/xgettext.c:845
+#: src/xgettext.c:851
 #, c-format
 msgid ""
 "  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr "
@@ -3274,7 +3332,7 @@ msgstr ""
 "  -m, --msgstr-prefix[=STRÄNG]  inled översatta strängar med STRÄNG eller "
 "\"\"\n"
 
-#: src/xgettext.c:847
+#: src/xgettext.c:853
 #, c-format
 msgid ""
 "  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr "
@@ -3283,7 +3341,7 @@ msgstr ""
 "  -M, --msgstr-suffix[=STRÄNG]  avsluta översatta strängar med STRÄNG eller "
 "\"\"\n"
 
-#: src/xgettext.c:1434
+#: src/xgettext.c:1450
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %"
@@ -3291,11 +3349,11 @@ msgid ""
 msgstr ""
 "Ett \"--flag\"-argument har inte <ord>:<nummer>:[pass-]<flagga> syntax: %s"
 
-#: src/xgettext.c:1480
+#: src/xgettext.c:1496
 msgid "standard input"
 msgstr "standard in"
 
-#: src/xgettext.c:1592
+#: src/xgettext.c:1608
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
@@ -3304,12 +3362,12 @@ msgstr ""
 "Sträng är inte i ASCII i %s%s.\n"
 "Ange källkodning med --from-code.\n"
 
-#: src/xgettext.c:1651 src/xgettext.c:1706
+#: src/xgettext.c:1667 src/xgettext.c:1722
 #, c-format
 msgid "%s%s: warning: "
 msgstr "%s%s: varning: "
 
-#: src/xgettext.c:1653
+#: src/xgettext.c:1669
 #, c-format
 msgid ""
 "Although being used in a format string position, the %s is not a valid %s "
@@ -3318,7 +3376,7 @@ msgstr ""
 "%s är inte en giltig formatsträng för %s trots att den används i en "
 "formatsträngsposition. Orsak: %s\n"
 
-#: src/xgettext.c:1653
+#: src/xgettext.c:1669
 #, c-format
 msgid ""
 "Although declared as such, the %s is not a valid %s format string. Reason: %"
@@ -3327,7 +3385,7 @@ msgstr ""
 "%s är inte en giltig formatsträng för %s trots att den är deklarerad som en. "
 "Orsak: %s\n"
 
-#: src/xgettext.c:1708
+#: src/xgettext.c:1724
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -3337,7 +3395,7 @@ msgstr ""
 "gettext(\"\") returnerar huvudet med metainformation,\n"
 "inte den tomma strängen.\n"
 
-#: src/xgettext.c:1990
+#: src/xgettext.c:2006
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a `Makevars' file, please specify\n"
@@ -3349,7 +3407,7 @@ msgstr ""
 "på variabeln MSGID_BUGS_ADDRESS där, annars ange\n"
 "flaggan --msgid-bugs-address på kommandoraden.\n"
 
-#: src/xgettext.c:2179
+#: src/xgettext.c:2196
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"
