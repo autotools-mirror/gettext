@@ -1114,83 +1114,81 @@ read_command (int looking_for)
 	      remember_a_message (mlp, string_of_word (&inner), &pos);
 	    }
 	}
+
+      if (arg_of_redirect)
+	{
+	  /* Ignore arguments of redirection operators.  */
+	  arg_of_redirect = false;
+	}
+      else if (inner.type == t_redirect)
+	{
+	  /* Ignore this word and the following one.  */
+	  arg_of_redirect = true;
+	}
       else
 	{
-	  if (arg_of_redirect)
+	  if (argnum1 < 0 && argnum2 < 0)
 	    {
-	      /* Ignore arguments of redirection operators.  */
-	      arg_of_redirect = false;
-	    }
-	  else if (inner.type == t_redirect)
-	    {
-	      /* Ignore this word and the following one.  */
-	      arg_of_redirect = true;
+	      /* This is the function position.  */
+	      arg = 0;
+	      if (inner.type == t_string)
+		{
+		  char *function_name = string_of_word (&inner);
+		  void *keyword_value;
+
+		  if (find_entry (&keywords,
+				  function_name, strlen (function_name),
+				  &keyword_value)
+		      == 0)
+		    {
+		      argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
+		      argnum2 = (int) (long) keyword_value >> 10;
+		    }
+
+		  free (function_name);
+		}
 	    }
 	  else
 	    {
-	      if (argnum1 < 0 && argnum2 < 0)
+	      /* These are the argument positions.
+		 Extract a string if we have reached the right
+		 argument position.  */
+	      if (arg == argnum1)
 		{
-		  /* This is the function position.  */
-		  arg = 0;
 		  if (inner.type == t_string)
 		    {
-		      char *function_name = string_of_word (&inner);
-		      void *keyword_value;
+		      lex_pos_ty pos;
+		      message_ty *mp;
 
-		      if (find_entry (&keywords,
-				      function_name, strlen (function_name),
-				      &keyword_value)
-			  == 0)
-			{
-			  argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-			  argnum2 = (int) (long) keyword_value >> 10;
-			}
-
-		      free (function_name);
+		      pos.file_name = logical_file_name;
+		      pos.line_number = inner.line_number_at_start;
+		      mp = remember_a_message (mlp, string_of_word (&inner), &pos);
+		      if (argnum2 > 0)
+			plural_mp = mp;
 		    }
 		}
-	      else
+	      else if (arg == argnum2)
 		{
-		  /* These are the argument positions.
-		     Extract a string if we have reached the right
-		     argument position.  */
-		  if (arg == argnum1)
+		  if (inner.type == t_string && plural_mp != NULL)
 		    {
-		      if (inner.type == t_string)
-			{
-			  lex_pos_ty pos;
-			  message_ty *mp;
+		      lex_pos_ty pos;
 
-			  pos.file_name = logical_file_name;
-			  pos.line_number = inner.line_number_at_start;
-			  mp = remember_a_message (mlp, string_of_word (&inner), &pos);
-			  if (argnum2 > 0)
-			    plural_mp = mp;
-			}
-		    }
-		  else if (arg == argnum2)
-		    {
-		      if (inner.type == t_string && plural_mp != NULL)
-			{
-			  lex_pos_ty pos;
-
-			  pos.file_name = logical_file_name;
-			  pos.line_number = inner.line_number_at_start;
-			  remember_a_message_plural (plural_mp, string_of_word (&inner), &pos);
-			}
-		    }
-
-		  if (arg >= argnum1 && arg >= argnum2)
-		    {
-		      /* Stop looking for arguments of the last function_name.  */
-		      argnum1 = -1;
-		      argnum2 = -1;
-		      plural_mp = NULL;
+		      pos.file_name = logical_file_name;
+		      pos.line_number = inner.line_number_at_start;
+		      remember_a_message_plural (plural_mp, string_of_word (&inner), &pos);
 		    }
 		}
 
-	      arg++;
+	      if (arg >= argnum1 && arg >= argnum2)
+		{
+		  /* Stop looking for arguments of the last function_name.  */
+		  argnum1 = -1;
+		  argnum2 = -1;
+		  plural_mp = NULL;
+		}
 	    }
+
+	  arg++;
 	}
 
       free_word (&inner);

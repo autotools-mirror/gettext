@@ -2024,8 +2024,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  return;
 		}
 	      extract_triple_quotelike (mlp, tp, delim,
-					buffer[0] == 's' && !extract_all
-					&& delim != '\'');
+					buffer[0] == 's' && delim != '\'');
 
 	      /* Eat the following modifiers.  */
 	      do
@@ -2059,7 +2058,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  return;
 		}
 	      extract_quotelike (tp, delim);
-	      if (!extract_all && delim != '\'')
+	      if (delim != '\'')
 		interpolate_keywords (mlp, tp->string, line_number);
 	      free (tp->string);
 	      tp->type = token_type_regex_op;
@@ -2116,8 +2115,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		case 'x':
 		  tp->type = token_type_string;
 		  tp->sub_type = string_type_qq;
-		  if (!extract_all)
-		    interpolate_keywords (mlp, tp->string, line_number);
+		  interpolate_keywords (mlp, tp->string, line_number);
 		  break;
 		case 'r':
 		  tp->type = token_type_regex_op;
@@ -2151,16 +2149,14 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	  prefer_division_over_regexp = true;
 	  extract_quotelike (tp, c);
 	  tp->sub_type = string_type_qq;
-	  if (!extract_all)
-	    interpolate_keywords (mlp, tp->string, line_number);
+	  interpolate_keywords (mlp, tp->string, line_number);
 	  return;
 
 	case '`':
 	  prefer_division_over_regexp = true;
 	  extract_quotelike (tp, c);
 	  tp->sub_type = string_type_qq;
-	  if (!extract_all)
-	    interpolate_keywords (mlp, tp->string, line_number);
+	  interpolate_keywords (mlp, tp->string, line_number);
 	  return;
 
 	case '\'':
@@ -2274,8 +2270,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  tp->type = token_type_string;
 		  tp->sub_type = string_type_qq;
 		  tp->line_number = line_number + 1;
-		  if (!extract_all)
-		    interpolate_keywords (mlp, tp->string, line_number + 1);
+		  interpolate_keywords (mlp, tp->string, line_number + 1);
 		  return;
 		}
 	      else if ((c >= 'A' && c <= 'Z')
@@ -2316,8 +2311,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		      tp->type = token_type_string;
 		      tp->sub_type = string_type_qq;
 		      tp->line_number = line_number + 1;
-		      if (!extract_all)
-			interpolate_keywords (mlp, tp->string, line_number + 1);
+		      interpolate_keywords (mlp, tp->string, line_number + 1);
 		      return;
 		    }
 		}
@@ -2352,8 +2346,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	  if (!prefer_division_over_regexp)
 	    {
 	      extract_quotelike (tp, c);
-	      if (!extract_all)
-		interpolate_keywords (mlp, tp->string, line_number);
+	      interpolate_keywords (mlp, tp->string, line_number);
 	      free (tp->string);
 	      tp->type = token_type_other;
 	      prefer_division_over_regexp = true;
@@ -2731,23 +2724,21 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		   tp->string);
 #endif
 
-	  /* No need to bother if we extract all strings anyway.  */
-	  if (!extract_all)
-	    {
-	      void *keyword_value;
+	  {
+	    void *keyword_value;
 
-	      if (find_entry (&keywords, tp->string, strlen (tp->string),
-			      &keyword_value) == 0)
-		{
-		  last_token = token_type_keyword_symbol;
+	    if (find_entry (&keywords, tp->string, strlen (tp->string),
+			    &keyword_value) == 0)
+	      {
+		last_token = token_type_keyword_symbol;
 
-		  arg_sg = (int) (long) keyword_value & ((1 << 10) - 1);
-		  arg_pl = (int) (long) keyword_value >> 10;
-		  arg_count = 1;
+		arg_sg = (int) (long) keyword_value & ((1 << 10) - 1);
+		arg_pl = (int) (long) keyword_value >> 10;
+		arg_count = 1;
 
-		  state = 2;
-		}
-	    }
+		state = 2;
+	      }
+	  }
 	  break;
 
 	case token_type_variable:
@@ -2765,21 +2756,15 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 #endif
 	  ++paren_seen;
 
-	  /* No need to recurse if we extract all strings anyway.  */
-	  if (extract_all)
-	    ;
-	  else
+	  if (extract_balanced (mlp, arg_sg - arg_count + 1,
+				arg_pl - arg_count + 1, state,
+				token_type_rparen))
 	    {
-	      if (extract_balanced (mlp, arg_sg - arg_count + 1,
-				    arg_pl - arg_count + 1, state,
-				    token_type_rparen))
-		{
-		  free_token (tp);
-		  return true;
-		}
-	      if (my_last_token == token_type_keyword_symbol)
-		arg_sg = arg_pl = -1;
+	      free_token (tp);
+	      return true;
 	    }
+	  if (my_last_token == token_type_keyword_symbol)
+	    arg_sg = arg_pl = -1;
 	  break;
 
 	case token_type_rparen:
@@ -2788,11 +2773,6 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  --paren_seen;
-
-	  /* No need to return if we extract all strings anyway.  */
-	  if (extract_all)
-	    ;
-
 	  break;
 
 	case token_type_comma:
@@ -2801,25 +2781,18 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type comma (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  /* No need to bother if we extract all strings anyway.  */
-	  if (extract_all)
-	    ;
-	  else
+	  ++arg_count;
+	  if (arg_count > arg_sg && arg_count > arg_pl)
 	    {
-	      ++arg_count;
-
-	      if (arg_count > arg_sg && arg_count > arg_pl)
-		{
-		  /* We have missed the argument.  */
-		  arg_sg = arg_pl = -1;
-		  arg_count = 0;
-		}
-#if DEBUG_PERL
-	      fprintf (stderr, "%s:%d: arg_count: %d, arg_sg: %d, arg_pl: %d\n",
-		       real_file_name, tp->line_number,
-		       arg_count, arg_sg, arg_pl);
-#endif
+	      /* We have missed the argument.  */
+	      arg_sg = arg_pl = -1;
+	      arg_count = 0;
 	    }
+#if DEBUG_PERL
+	   fprintf (stderr, "%s:%d: arg_count: %d, arg_sg: %d, arg_pl: %d\n",
+		    real_file_name, tp->line_number,
+		    arg_count, arg_sg, arg_pl);
+#endif
 	  break;
 
 	case token_type_string:
@@ -2895,16 +2868,10 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type lbrace (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  /* No need to recurse if we extract all strings anyway.  */
-	  if (extract_all)
-	    ;
-	  else
+	  if (extract_balanced (mlp, -1, -1, 0, token_type_rbrace))
 	    {
-	      if (extract_balanced (mlp, -1, -1, 0, token_type_rbrace))
-		{
-		  free_token (tp);
-		  return true;
-		}
+	      free_token (tp);
+	      return true;
 	    }
 	  break;
 
@@ -2921,16 +2888,10 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type lbracket (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  /* No need to recurse if we extract all strings anyway.  */
-	  if (extract_all)
-	    ;
-	  else
+	  if (extract_balanced (mlp, -1, -1, 0, token_type_rbracket))
 	    {
-	      if (extract_balanced (mlp, -1, -1, 0, token_type_rbracket))
-		{
-		  free_token (tp);
-		  return true;
-		}
+	      free_token (tp);
+	      return true;
 	    }
 	  break;
 

@@ -1025,68 +1025,64 @@ read_object (struct object *op)
 		    if (inner.type == t_eof)
 		      break;
 
-		    /* No need to bother if we extract all strings anyway.  */
-		    if (!extract_all)
+		    if (arg == 0)
 		      {
-			if (arg == 0)
+			/* This is the function position.  */
+			if (inner.type == t_symbol)
 			  {
-			    /* This is the function position.  */
-			    if (inner.type == t_symbol)
+			    char *symbol_name = string_of_object (&inner);
+			    int i;
+			    int prefix_len;
+			    void *keyword_value;
+
+			    /* Omit any package name.  */
+			    i = inner.token->charcount;
+			    while (i > 0
+				   && inner.token->chars[i-1].attribute != a_pack_m)
+			      i--;
+			    prefix_len = i;
+
+			    if (find_entry (&keywords,
+					    symbol_name + prefix_len,
+					    strlen (symbol_name + prefix_len),
+					    &keyword_value)
+				== 0)
 			      {
-				char *symbol_name = string_of_object (&inner);
-				int i;
-				int prefix_len;
-				void *keyword_value;
+				argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
+				argnum2 = (int) (long) keyword_value >> 10;
+			      }
 
-				/* Omit any package name.  */
-				i = inner.token->charcount;
-				while (i > 0
-				       && inner.token->chars[i-1].attribute != a_pack_m)
-				  i--;
-				prefix_len = i;
+			    free (symbol_name);
+			  }
+		      }
+		    else
+		      {
+			/* These are the argument positions.
+			   Extract a string if we have reached the right
+			   argument position.  */
+			if (arg == argnum1)
+			  {
+			    if (inner.type == t_string)
+			      {
+				lex_pos_ty pos;
+				message_ty *mp;
 
-				if (find_entry (&keywords,
-						symbol_name + prefix_len,
-						strlen (symbol_name + prefix_len),
-						&keyword_value)
-				    == 0)
-				  {
-				    argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-				    argnum2 = (int) (long) keyword_value >> 10;
-				  }
-
-				free (symbol_name);
+				pos.file_name = logical_file_name;
+				pos.line_number = inner.line_number_at_start;
+				mp = remember_a_message (mlp, string_of_object (&inner), &pos);
+				if (argnum2 > 0)
+				  plural_mp = mp;
 			      }
 			  }
-			else
+			else if (arg == argnum2)
 			  {
-			    /* These are the argument positions.
-			       Extract a string if we have reached the right
-			       argument position.  */
-			    if (arg == argnum1)
+			    if (inner.type == t_string && plural_mp != NULL)
 			      {
-				if (inner.type == t_string)
-				  {
-				    lex_pos_ty pos;
-				    message_ty *mp;
+				lex_pos_ty pos;
 
-				    pos.file_name = logical_file_name;
-				    pos.line_number = inner.line_number_at_start;
-				    mp = remember_a_message (mlp, string_of_object (&inner), &pos);
-				    if (argnum2 > 0)
-				      plural_mp = mp;
-				  }
-			      }
-			    else if (arg == argnum2)
-			      {
-				if (inner.type == t_string && plural_mp != NULL)
-				  {
-				    lex_pos_ty pos;
-
-				    pos.file_name = logical_file_name;
-				    pos.line_number = inner.line_number_at_start;
-				    remember_a_message_plural (plural_mp, string_of_object (&inner), &pos);
-				  }
+				pos.file_name = logical_file_name;
+				pos.line_number = inner.line_number_at_start;
+				remember_a_message_plural (plural_mp, string_of_object (&inner), &pos);
 			      }
 			  }
 		      }

@@ -1373,9 +1373,6 @@ extract_parenthesized (message_list_ty *mlp,
       switch (token.type)
 	{
 	case xgettext_token_type_keyword:
-	  /* No need to bother if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  next_commas_to_skip = token.argnum1 - 1;
 	  next_plural_commas = (token.argnum2 > token.argnum1
 				? token.argnum2 - token.argnum1 : 0);
@@ -1383,9 +1380,6 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case xgettext_token_type_lparen:
-	  /* No need to recurse if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  if (state
 	      ? extract_parenthesized (mlp, next_commas_to_skip,
 				       next_plural_commas)
@@ -1395,15 +1389,9 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case xgettext_token_type_rparen:
-	  /* No need to return if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  return false;
 
 	case xgettext_token_type_comma:
-	  /* No need to bother if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  if (commas_to_skip >= 0)
 	    {
 	      if (commas_to_skip > 0)
@@ -1445,8 +1433,8 @@ extract_parenthesized (message_list_ty *mlp,
 		}
 	      else
 		free (token.string);
-	      state = 0;
 	    }
+	  state = 0;
 	  continue;
 
 	case xgettext_token_type_symbol:

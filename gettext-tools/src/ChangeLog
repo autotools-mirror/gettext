@@ -1,3 +1,16 @@
+2003-09-23  Bruno Haible  <bruno@clisp.org>
+
+	* x-awk.c (extract_parenthesized): Remove optimization of the
+	extract_all case.
+	* x-c.c (extract_parenthesized): Likewise.
+	* x-elisp.c (read_object): Likewise.
+	* x-librep.c (read_object): Likewise.
+	* x-lisp.c (read_object): Likewise.
+	* x-perl.c (x_perl_prelex, extract_balanced): Likewise.
+	* x-php.c (extract_parenthesized): Likewise.
+	* x-python.c (extract_parenthesized): Likewise.
+	* x-sh.c (read_command): Likewise.
+
 2003-10-08  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge.c (main): Make option -N work.

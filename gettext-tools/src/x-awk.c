@@ -689,32 +689,27 @@ extract_parenthesized (message_list_ty *mlp,
       switch (token.type)
 	{
 	case token_type_symbol:
-	  /* No need to bother if we extract all strings anyway.  */
-	  if (!extract_all)
-	    {
-	      void *keyword_value;
+	  {
+	    void *keyword_value;
 
-	      if (find_entry (&keywords, token.string, strlen (token.string),
-			      &keyword_value)
-		  == 0)
-		{
-		  int argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-		  int argnum2 = (int) (long) keyword_value >> 10;
+	    if (find_entry (&keywords, token.string, strlen (token.string),
+			    &keyword_value)
+		== 0)
+	      {
+		int argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
+		int argnum2 = (int) (long) keyword_value >> 10;
 
-		  next_commas_to_skip = argnum1 - 1;
-		  next_plural_commas = (argnum2 > argnum1 ? argnum2 - argnum1 : 0);
-		  state = 1;
-		}
-	      else
-		state = 0;
-	    }
+		next_commas_to_skip = argnum1 - 1;
+		next_plural_commas = (argnum2 > argnum1 ? argnum2 - argnum1 : 0);
+		state = 1;
+	      }
+	    else
+	      state = 0;
+	  }
 	  free (token.string);
 	  continue;
 
 	case token_type_lparen:
-	  /* No need to recurse if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  if (state
 	      ? extract_parenthesized (mlp, next_commas_to_skip,
 				       next_plural_commas)
@@ -724,15 +719,9 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case token_type_rparen:
-	  /* No need to return if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  return false;
 
 	case token_type_comma:
-	  /* No need to bother if we extract all strings anyway.  */
-	  if (extract_all)
-	    continue;
 	  if (commas_to_skip >= 0)
 	    {
 	      if (commas_to_skip > 0)
@@ -779,10 +768,10 @@ extract_parenthesized (message_list_ty *mlp,
 		  }
 		else
 		  free (token.string);
-		state = 0;
 	      }
-	    continue;
 	  }
+	  state = 0;
+	  continue;
 
 	case token_type_i18nstring:
 	  {
