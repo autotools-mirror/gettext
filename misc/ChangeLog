@@ -1,3 +1,10 @@
+2000-12-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextize.in: Preserve RCS and CVS subdirs in intl/.
+	Reported by Santiago Vila <sanvila@unex.es>.
+
+	* gettextize.in: Test for ABOUT-NLS, not NLS.
+
 2000-10-26  GOTO Masanori  <gotom@debian.or.jp>
 
 	* locale.alias: Add ja_JP.ujis alias.

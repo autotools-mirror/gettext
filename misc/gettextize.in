@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -107,9 +107,26 @@ po/Makefile.in.in exists: use option -f if you really want to delete it."
   exit 1
 fi
 
-if test -f NLS && test $force -eq 0; then
-  $echo "NLS exists: use option -f if you really want to delete it."
+if test -f ABOUT-NLS && test $force -eq 0; then
+  $echo "ABOUT-NLS exists: use option -f if you really want to delete it."
   exit 1
+fi
+
+if test -d intl; then
+  # Remove everything inside intl except for RCS and CVS subdirs and invisible
+  # files.
+  (cd intl &&
+   for f in *; do
+     if test CVS != "$f" && test RCS != "$f"; then
+       rm -rf "$f"
+     fi
+   done)
+else
+  rm -f intl
+  mkdir intl || {
+    $echo "failed to create intl/ subdirectory"
+    exit 1;
+  }
 fi
 
 rm -fr intl
