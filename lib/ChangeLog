@@ -1,3 +1,8 @@
+2001-05-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* vasprintf.c (int_vasprintf): Upon allocation failure, return -1,
+	not 0, to be consistent with glibc documentation.
+
 2001-05-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* linebreak.c (iconv_string_keeping_offsets): Work around a glibc-2.1

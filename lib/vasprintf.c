@@ -123,7 +123,7 @@ int_vasprintf (result, format, args)
   if (*result != NULL)
     return vsprintf (*result, format, *args);
   else
-    return 0;
+    return -1;
 }
 
 int
