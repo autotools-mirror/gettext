@@ -20,11 +20,13 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "read-po.h"
+
 #include <stdlib.h>
 #include <string.h>
 
 #include "po.h"
-#include "read-po.h"
 #include "system.h"
 #include "libgettext.h"
 

@@ -22,6 +22,9 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "full-write.h"
+
 #include <sys/types.h>
 
 #if HAVE_UNISTD_H
@@ -32,8 +35,6 @@
 #ifndef errno
 extern int errno;
 #endif
-
-#include "full-write.h"
 
 /* Write LEN bytes at PTR to descriptor DESC, retrying if interrupted.
    Return LEN upon success, write's (negative) error code otherwise.  */

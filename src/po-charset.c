@@ -21,7 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
 #include "po-charset.h"
+
 #include "error.h"
 #include "xerror.h"
 #include "system.h"

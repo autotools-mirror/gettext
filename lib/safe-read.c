@@ -20,6 +20,9 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "safe-read.h"
+
 #include <sys/types.h>
 
 #if HAVE_UNISTD_H
@@ -30,8 +33,6 @@
 #ifndef errno
 extern int errno;
 #endif
-
-#include "safe-read.h"
 
 /* Read LEN bytes at PTR from descriptor DESC, retrying if interrupted.
    Return the actual number of bytes read, zero for EOF, or negative

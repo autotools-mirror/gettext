@@ -21,6 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "msgl-iconv.h"
+
 #include <errno.h>
 #include <stdlib.h>
 
@@ -28,7 +31,6 @@
 # include <iconv.h>
 #endif
 
-#include "msgl-iconv.h"
 #include "error.h"
 #include "progname.h"
 #include "message.h"

@@ -21,6 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "wait-process.h"
+
 #include <errno.h>
 #include <stdlib.h>
 
@@ -71,7 +74,6 @@
 # endif
 #endif
 
-#include "wait-process.h"
 #include "error.h"
 #include "libgettext.h"
 

@@ -21,11 +21,13 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "xerror.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "xerror.h"
 #include "error.h"
 #include "progname.h"
 #include "mbswidth.h"

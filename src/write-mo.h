@@ -19,9 +19,10 @@
 #ifndef _WRITE_MO_H
 #define _WRITE_MO_H
 
+#include <stddef.h>
 #include <stdbool.h>
 
-#include "msgfmt.h"
+#include "message.h"
 
 /* Alignment of strings in resulting .mo file.  */
 extern size_t alignment;

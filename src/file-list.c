@@ -19,12 +19,14 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "file-list.h"
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "file-list.h"
 #include "str-list.h"
 #include "error.h"
 #include "getline.h"

@@ -21,11 +21,13 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "msgl-charset.h"
+
 #include <stdlib.h>
 #include <string.h>
 
 #include "po-charset.h"
-#include "msgl-charset.h"
 #include "error.h"
 #include "progname.h"
 #include "xerror.h"

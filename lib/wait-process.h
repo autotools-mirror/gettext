@@ -19,6 +19,13 @@
 #ifndef _WAIT_PROCESS_H
 #define _WAIT_PROCESS_H
 
+/* Get pid_t.  */
+#include <stdlib.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+#include <sys/types.h>
+
 /* Wait for a subprocess to finish.  Exit if it didn't terminate
    correctly.  Otherwise return its exit code.  */
 extern int wait_subprocess PARAMS ((pid_t child, const char *progname));

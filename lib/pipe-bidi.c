@@ -21,6 +21,7 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
 #include "pipe.h"
 
 #include <errno.h>

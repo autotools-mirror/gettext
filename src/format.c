@@ -20,6 +20,7 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
 #include "format.h"
 
 /* Table of all format string parsers.  */

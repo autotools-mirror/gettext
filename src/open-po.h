@@ -18,6 +18,8 @@
 #ifndef _OPEN_PO_H
 #define _OPEN_PO_H
 
+#include <stdio.h>
+
 /* Open the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  The

@@ -34,12 +34,14 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "fstrcmp.h"
+
 #include <string.h>
 #include <stdio.h>
 #include <limits.h>
 
 #include "system.h"
-#include "fstrcmp.h"
 
 
 /*

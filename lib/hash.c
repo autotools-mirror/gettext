@@ -20,6 +20,9 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "hash.h"
+
 #if STDC_HEADERS 
 # include <stdlib.h> 
 #else
@@ -46,8 +49,6 @@
 #if HAVE_VALUES_H
 # include <values.h>
 #endif
-
-#include "hash.h"
 
 #define obstack_chunk_alloc xmalloc
 #define obstack_chunk_free free

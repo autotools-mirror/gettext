@@ -21,10 +21,11 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "progname.h"
+
 #include <stdio.h>
 #include <string.h>
-
-#include "progname.h"
 
 
 /* String containing name the program is called with.

@@ -1,6 +1,6 @@
 /* getline.c -- Replacement for GNU C library function getline
 
-Copyright (C) 1993, 1996 Free Software Foundation, Inc.
+Copyright (C) 1993, 1996, 2001 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -21,6 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 #if HAVE_CONFIG_H
 # include <config.h>
 #endif
+
+/* Specification.  */
+#include "getline.h"
 
 /* The `getdelim' function is only declared if the following symbol
    is defined.  */

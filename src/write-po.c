@@ -21,6 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "write-po.h"
+
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
@@ -31,7 +34,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include <iconv.h>
 #endif
 
-#include "write-po.h"
 #include "c-ctype.h"
 #include "linebreak.h"
 #include "msgl-ascii.h"

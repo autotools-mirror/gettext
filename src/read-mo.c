@@ -20,6 +20,7 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
 #include "read-mo.h"
 
 #include <errno.h>

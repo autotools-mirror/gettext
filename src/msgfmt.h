@@ -1,4 +1,4 @@
-/* msgfmt specific message representation
+/* msgfmt specifics
    Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
@@ -18,8 +18,6 @@
 
 #ifndef _MSGFMT_H
 #define _MSGFMT_H
-
-#include "message.h"
 
 /* Be more verbose.  Use only 'fprintf' and 'multiline_warning' but not
    'error' or 'multiline_error' to emit verbosity messages, because 'error'

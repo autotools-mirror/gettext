@@ -22,11 +22,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "po-gram.h"
+
 #include <stdio.h>
 
 #include "str-list.h"
 #include "po-lex.h"
-#include "po-gram.h"
 #include "error.h"
 #include "system.h"
 #include "libgettext.h"

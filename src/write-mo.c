@@ -20,6 +20,9 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "write-mo.h"
+
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -27,7 +30,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "write-mo.h"
 #include "msgfmt.h"
 
 /* These two include files describe the binary .mo format.  */

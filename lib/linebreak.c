@@ -20,9 +20,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "linebreak.h"
+
 #include <stddef.h>
 #include <string.h>
-#include "linebreak.h"
 #include "c-ctype.h"
 
 #include "utf8-ucs4.h"

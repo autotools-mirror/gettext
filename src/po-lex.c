@@ -23,6 +23,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "po-lex.h"
+
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
@@ -54,7 +57,6 @@
 
 #include "str-list.h"
 #include "po-charset.h"
-#include "po-lex.h"
 #include "system.h"
 #include "error.h"
 #include "open-po.h"

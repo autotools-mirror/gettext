@@ -1,3 +1,24 @@
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* dir-list.c: Include specification header before all other headers.
+	* file-list.c: Likewise.
+	* message.c: Likewise.
+	* msgl-cat.c: Likewise.
+	* msgl-charset.c: Likewise.
+	* msgl-iconv.c: Likewise.
+	* open-po.c: Likewise.
+	* po.c: Likewise.
+	* po-gram-gen.y: Likewise.
+	* po-hash-gen.y: Likewise.
+	* po-lex.c: Likewise.
+	* read-po.c: Likewise.
+	* str-list.c: Likewise.
+	* write-mo.c: Likewise.
+	* write-po.c: Likewise.
+	* msgfmt.h: Don't include message.h.
+	* open-po.h: Include <stdio.h>, for FILE.
+	* write-mo.h: Include message.h and <stddef.h>.
+
 2001-09-21  Tommy Johansson  <tommy.johansson@kanalen.org>
 
 	* x-java.l (create_char_buf): Fix problem with empty messages.

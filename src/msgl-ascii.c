@@ -21,7 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
 #include "msgl-ascii.h"
+
 #include "c-ctype.h"
 
 

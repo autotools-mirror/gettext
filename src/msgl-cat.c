@@ -21,9 +21,11 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "msgl-cat.h"
+
 #include <stdlib.h>
 
-#include "msgl-cat.h"
 #include "error.h"
 #include "xerror.h"
 #include "message.h"

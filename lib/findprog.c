@@ -21,6 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "findprog.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -28,7 +31,6 @@
 # include <unistd.h>
 #endif
 
-#include "findprog.h"
 #include "system.h"
 
 

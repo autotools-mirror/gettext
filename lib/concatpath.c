@@ -22,6 +22,7 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
 #include "system.h"
 
 /* Concatenate a directory pathname, a relative pathname and an optional

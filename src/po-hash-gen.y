@@ -23,10 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "po-hash.h"
+
 #include <stdio.h>
 
-#include <system.h>
-#include "po-hash.h"
+#include "system.h"
 #include "po.h"
 
 /* Remap normal yacc parser interface names (yyparse, yylex, yyerror, etc),
