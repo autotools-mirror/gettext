@@ -13,10 +13,10 @@
 
 2003-10-19  Bruno Haible  <bruno@clisp.org>
 
-        * message.h (format_type): New enum value 'format_qt'.
-        (NFORMATS): Increment.
-        * message.c (format_language): Add format_qt entry.
-        (format_language_pretty): Likewise.
+	* message.h (format_type): New enum value 'format_qt'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_qt entry.
+	(format_language_pretty): Likewise.
 	* format.h (formatstring_qt): New declaration.
 	* format-qt.c: New file.
 	* format.c (formatstring_parsers): Add formatstring_qt.
