@@ -19,6 +19,8 @@
 /* Specification.  */
 #include "gcd.h"
 
+#include <stdlib.h>
+
 /* Return the greatest common divisor of a > 0 and b > 0.  */
 unsigned int
 gcd (a, b)

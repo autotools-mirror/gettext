@@ -26,6 +26,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 #if HAVE_UTIME || HAVE_UTIMES
 # include <utime.h>

@@ -20,6 +20,32 @@
 # include <config.h>
 #endif
 
+#ifdef __GNUC__
+# ifndef alloca
+#  define alloca __builtin_alloca
+# endif
+#else
+# if HAVE_ALLOCA_H
+#  include <alloca.h>
+# else
+#  ifdef _AIX
+ #pragma alloca
+#  else
+#   ifdef __hpux /* This section must match that of bison generated files. */
+#    ifdef __cplusplus
+extern "C" void *alloca (unsigned int);
+#    else /* not __cplusplus */
+void *alloca ();
+#    endif /* not __cplusplus */
+#   else /* not __hpux */
+#    ifndef alloca
+char *alloca ();
+#    endif
+#   endif /* __hpux */
+#  endif
+# endif
+#endif
+
 #include <errno.h>
 #if !_LIBC
 # if !defined errno && !defined HAVE_ERRNO_DECL
@@ -73,6 +99,7 @@ __libc_lock_define_initialized (static, envlock)
 		      && defined __GNUC__)
 # define USE_TSEARCH	1
 # include <search.h>
+typedef int (*compar_fn_t) PARAMS ((const void *, const void *));
 
 /* This is a pointer to the root of the search tree with the known
    values.  */
@@ -80,11 +107,11 @@ static void *known_values;
 
 # define KNOWN_VALUE(Str) \
   ({									      \
-    void *value = tfind (Str, &known_values, (__compar_fn_t) strcmp);	      \
+    void *value = tfind (Str, &known_values, (compar_fn_t) strcmp);	      \
     value != NULL ? *(char **) value : NULL;				      \
   })
 # define STORE_VALUE(Str) \
-  tsearch (Str, &known_values, (__compar_fn_t) strcmp)
+  tsearch (Str, &known_values, (compar_fn_t) strcmp)
 
 #else
 # undef USE_TSEARCH

@@ -1,3 +1,12 @@
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
+	* argmatch.c: Include <stdlib.h>, to declare exit().
+	* copy-file.c: Include <sys/stat.h>, for struct stat.
+	* gcd.c: Include <stdlib.h>, to declare abort().
+	* setenv.c: Declare alloca.
+	(compar_fn_t): New typedef.
+	(KNOWN_VALUE, STORE_VALUE): Use it.
+
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
 	* pipe-in.c (create_pipe_in): Don't redirect stdin if prog_stdin

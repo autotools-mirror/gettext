@@ -21,6 +21,7 @@
 #include "argmatch.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #ifdef STDC_HEADERS
 # include <string.h>
 #endif
