@@ -1,3 +1,8 @@
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_PO_SUBDIRS): Don't insert obsolete Rules-* files into
+	the Makefile.
+
 2001-12-03  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_PO_SUBDIRS): Fix construction of Makefile if
