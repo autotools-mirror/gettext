@@ -1,3 +1,7 @@
+2003-09-04  Bruno Haible  <bruno@clisp.org>
+
+	* locale-fr.m4 (gt_LOCALE_FR): Add support for Solaris 7.
+
 2003-08-26  Bruno Haible  <bruno@clisp.org>
 
 	* fnmatch.m4 (_AC_LIBOBJ_FNMATCH): Remove AC_DEFINE of fnmatch here.

@@ -47,12 +47,17 @@ changequote([,])dnl
             if (LC_ALL=fr_FR.iso88591 ./conftest; exit) 2>/dev/null; then
               gt_cv_locale_fr=fr_FR.iso88591
             else
-              # Special test for NetBSD 1.6.
-              if test -f /usr/share/locale/fr_FR.ISO8859-1/LC_CTYPE; then
-                gt_cv_locale_fr=fr_FR.ISO8859-1
+              # Test for the Solaris 7 locale name.
+              if (LC_ALL=fr ./conftest; exit) 2>/dev/null; then
+                gt_cv_locale_fr=fr
               else
-                # None found.
-                gt_cv_locale_fr=fr_FR
+                # Special test for NetBSD 1.6.
+                if test -f /usr/share/locale/fr_FR.ISO8859-1/LC_CTYPE; then
+                  gt_cv_locale_fr=fr_FR.ISO8859-1
+                else
+                  # None found.
+                  gt_cv_locale_fr=fr_FR
+                fi
               fi
             fi
           fi
