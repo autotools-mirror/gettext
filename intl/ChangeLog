@@ -1,3 +1,24 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-exp.h: New file, extracted from gettextP.h.
+	* plural-exp.c: New file, extracted from loadmsgcat.c.
+	* gettextP.h (struct expression, struct parse_args,
+	__gettext_free_exp, __gettextparse): Move to plural-exp.h.
+	* loadmsgcat.c: Include plural-exp.h.
+	(PLURAL_PARSE): Move macro to plural-exp.h.
+	(plvar, plone, germanic_plural, INIT_GERMANIC_PLURAL): Move to
+	plural-exp.c.
+	(_nl_load_domain): Move plural handling code to plural-exp.c. Call
+	EXTRACT_PLURAL_EXPRESSION.
+	* dcigettext.c: Include plural-exp.h.
+	* plural.y: Include plural-exp.h, not gettextP.h.
+	(FREE_EXPRESSION): Move macro to plural-exp.h.
+	* Makefile.in (DEFS): Define IN_LIBINTL.
+	(COMHDRS): Add plural-exp.h.
+	(COMSRCS): Add plural-exp.c.
+	(OBJECTS): Add plural-exp.$lo.
+	Update dependencies.
+
 2001-09-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* *.h, *.c, *.y, Makefile.in: Change copyright notice from GPL to LGPL.

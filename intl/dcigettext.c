@@ -75,6 +75,7 @@ extern int errno;
 #endif
 
 #include "gettextP.h"
+#include "plural-exp.h"
 #ifdef _LIBC
 # include <libintl.h>
 #else
