@@ -11,10 +11,11 @@ tmpfiles="$tmpfiles prog.scm"
 cat <<\EOF > prog.scm
 (use-modules (ice-9 format))
 
+(setlocale LC_ALL "")
 (textdomain "prog")
 (bindtextdomain "prog" ".")
 
-(define n (list-ref (command-line) 1))
+(define n (string->number (list-ref (command-line) 1)))
 
 (format #t "~A~%" (gettext "'Your command, please?', asked the waiter."))
 

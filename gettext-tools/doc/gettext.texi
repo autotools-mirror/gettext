@@ -8370,7 +8370,7 @@ guile
 @code{bindtextdomain}
 
 @item setlocale
-automatic
+@code{(catch #t (lambda () (setlocale LC_ALL "")) (lambda args #f))}
 
 @item Prerequisite
 @code{(use-modules (ice-9 format))}

@@ -8,8 +8,9 @@
 
 (use-modules (ice-9 format))
 
+(catch #t (lambda () (setlocale LC_ALL "")) (lambda args #f))
 (textdomain "hello-guile")
-(bindtextdomaindir "hello-guile" "@localedir@")
+(bindtextdomain "hello-guile" "@localedir@")
 (define _ gettext)
 
 (display (_ "Hello, world!"))
