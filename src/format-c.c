@@ -1,5 +1,5 @@
 /* C format strings.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -54,7 +54,9 @@
        - 'p', that needs a 'void *' argument,
        - 'n', that needs a pointer to integer.
    Numbered ('%m$' or '*m$') and unnumbered argument specifications cannot
-   be used in the same string.
+   be used in the same string.  When numbered argument specifications are
+   used, specifying the Nth argument requires that all the leading arguments,
+   from the first to the (N-1)th, are specified in the format string.
  */
 
 enum format_arg_type
