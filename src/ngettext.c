@@ -238,7 +238,7 @@ regular directory, another location can be specified with the environment\n\
 variable TEXTDOMAINDIR.\n\
 Standard search directory: %s\n"), LOCALEDIR);
       printf ("\n");
-      fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
+      fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
     }
 
   exit (status);

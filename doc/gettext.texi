@@ -259,7 +259,7 @@ Please send suggestions and corrections to:
 @example
 @group
 @r{Internet address:}
-    bug-gnu-utils@@gnu.org
+    bug-gnu-gettext@@gnu.org
 @end group
 @end example
 

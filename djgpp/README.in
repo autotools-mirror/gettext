@@ -425,7 +425,7 @@ This is a port of GNU Gettext @VER@ to MSDOS/DJGPP.
         Please refer to 2.4.
 
 
-        Send GNU gettext specific bug reports to <bug-gnu-utils@gnu.org>.
+        Send GNU gettext specific bug reports to <bug-gnu-gettext@gnu.org>.
         Send suggestions and bug reports concerning the DJGPP port to
         comp.os.msdos.djgpp or <djgpp@delorie.com>.
 

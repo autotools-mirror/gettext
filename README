@@ -26,7 +26,7 @@ the other possibility does.
 Please share your results with us.  If this package compiles ok for
 you future GNU release will likely also not fail, at least for reasons
 found in message handling.  Send comments and bug reports to
-		bug-gnu-utils@gnu.org
+		bug-gnu-gettext@gnu.org
 
 
 The goal of this library was to give a unique interface to message

@@ -1,3 +1,8 @@
+2001-08-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* README: Change bug report address to <bug-gnu-gettext@gnu.org>.
+	* configure.in: Likewise.
+
 2001-07-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (AUTOMAKE_OPTIONS): Bump to 1.4. Use option 'gnu', not

@@ -1,3 +1,21 @@
+2001-08-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.c (usage): Change bug report address to
+	<bug-gnu-gettext@gnu.org>.
+	* ngettext.c (usage): Likewise.
+	* msgcat.c (usage): Likewise.
+	* msgcmp.c (usage): Likewise.
+	* msgcomm.c (usage): Likewise.
+	* msgconv.c (usage): Likewise.
+	* msgen.c (usage): Likewise.
+	* msgexec.c (usage): Likewise.
+	* msgfmt.c (usage): Likewise.
+	* msggrep.c (usage): Likewise.
+	* msgmerge.c (usage): Likewise.
+	* msgunfmt.c (usage): Likewise.
+	* msguniq.c (usage): Likewise.
+	* xgettext.c (usage): Likewise.
+
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (language_to_scanner): Add language "ObjectiveC".

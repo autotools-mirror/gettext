@@ -21,8 +21,6 @@ Things we plan to do. Comments welcome.
 
 - Read Francois Pinard's gettext folder.
 
-- Change bug report address to bug-gettext instead of bug-gnu-utils@gnu.org
-
 - Split xgettext into a language dependent part and a language independent
   part.
 

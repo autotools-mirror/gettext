@@ -345,7 +345,7 @@ Informative output:\n\
   -q, --quiet, --silent       suppress progress indicators\n\
 "));
       printf ("\n");
-      fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
+      fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);
     }
 

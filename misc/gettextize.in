@@ -32,7 +32,7 @@ Usage: gettextize [OPTION]... [package-dir]
       --version        print version information and exit
   -c, --copy           copy files instead of making symlinks
   -f, --force          force writing of new files even if old exist
-Report bugs to <bug-gnu-utils@gnu.org>."
+Report bugs to <bug-gnu-gettext@gnu.org>."
 package=@PACKAGE@
 version=@VERSION@
 try_ln_s=:
@@ -179,7 +179,7 @@ for file in *; do
 done
 DATE=`date +%Y-%m-%d`
 cat > $srcdir/po/ChangeLog.tmp <<EOF
-$DATE  gettextize  <bug-gnu-utils@gnu.org>
+$DATE  gettextize  <bug-gnu-gettext@gnu.org>
 
 	* Makefile.in.in: Upgrade to gettext-${version}.
 EOF

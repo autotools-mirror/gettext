@@ -282,7 +282,7 @@ But it does not simply copy its arguments to stdout.  Instead those messages\n\
 found in the selected catalog are translated.\n\
 Standard search directory: %s\n"), LOCALEDIR);
       printf ("\n");
-      fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
+      fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
     }
 
   exit (status);

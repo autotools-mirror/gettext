@@ -211,7 +211,7 @@ Informative output:\n\
   -V, --version               output version information and exit\n\
 "));
       printf ("\n");
-      fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
+      fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
     }
 
   exit (status);
