@@ -45,34 +45,8 @@ Things we plan to do. Comments welcome.
   ISO-8859-1, not UTF-8. If the locale is not installed, it should
   complain.
 
-- Recommendations for --help messages:
+- Document in section 2.2 the pascal-format, lisp-format etc. flags
 
-
-. Try rip out common phrases all and everywhere.  These are good
-candidates:
-
-"      --help                     display this help and exit\n"
-"      --version                  output version information and exit\n"
-
-or:
-
-"Mandatory arguments to long options are mandatory for short options too.\n"
-
-'xgettext' is able to accumulate common messages or common parts of
-messages and the translators has to translate those messages only once
-when proper splitting took place.
-
-. It's not okay to split sentences; this is a fatal error (please, split
-at paragraph bounderies):
-
-#: src/ptx.c:1972
-#, fuzzy
-msgid ""
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2, or (at your option)\n"
-"any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-msgstr ""
+- Add to the gettext.info file the version number:
+    This file documents the GNU gettext package, version 0.11.xx.
 
