@@ -17,12 +17,12 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-# Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
+# Usage: add-to-autopoint-files /somewhere/gettext-0.xx.yy.tar.gz
 # Adds the infrastructure files for gettext version 0.xx.yy to the
 # CVS repository in the archive directory.
 
 if test $# != 1; then
-  echo "Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz"
+  echo "Usage: add-to-autopoint-files /somewhere/gettext-0.xx.yy.tar.gz"
   exit 1
 fi
 
