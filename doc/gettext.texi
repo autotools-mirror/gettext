@@ -1304,7 +1304,7 @@ merely use @kbd{x} for making the switch.
 There are many different ways for encoding a particular string into a
 PO file entry, because there are so many different ways to split and
 quote multi-line strings, and even, to represent special characters
-by backslahsed escaped sequences.  Some features of PO mode rely on
+by backslashed escaped sequences.  Some features of PO mode rely on
 the ability for PO mode to scan an already existing PO file for a
 particular string encoded into the @code{msgid} field of some entry.
 Even if PO mode has internally all the built-in machinery for
@@ -1760,8 +1760,11 @@ string is regarded as the address.
 
 To prevent errors at runtime caused by translations the @code{msgfmt}
 tool can check statically whether the arguments in the original and the
-translation string match in type and number.  If this is not the case a
-warning will be given and the error cannot causes problems at runtime.
+translation string match in type and number.  If this is not the case
+and the @samp{-c} option has been passed to @code{msgfmt}, @code{msgfmt}
+will give an error and refuse to produce a MO file.  Thus consequent
+use of @samp{msgfmt -c} will catch the error, so that it cannot cause
+cause problems at runtime.
 
 @noindent
 If the word order in the above German translation would be correct one
@@ -3146,7 +3149,7 @@ prefer this because a precomputed hashing table takes disk space, and
 does not win @emph{that} much speed.  The hash table contains indices
 to the sorted array of strings in the MO file.  Conflict resolution is
 done by double hashing.  The precise hashing algorithm used is fairly
-dependent of GNU @code{gettext} code, and is not documented here.
+dependent on GNU @code{gettext} code, and is not documented here.
 
 As for the strings themselves, they follow the hash file, and each
 is terminated with a @key{NUL}, and this @key{NUL} is not counted in
@@ -3365,7 +3368,7 @@ does not guarantee a unique interface.
 Another, personal comment on this that only a bunch of committee members
 could have made this interface.  They never really tried to program
 using this interface.  It is a fast, memory-saving implementation, an
-user can happily live with it.  But programmers hate it (at least me and
+user can happily live with it.  But programmers hate it (at least I and
 some others do@dots{})
 
 But we must not forget one point: after all the trouble with transfering
