@@ -1,3 +1,9 @@
+2002-01-19  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (install-data-yes): Avoid syntax error if
+	EXTRA_LOCALE_CATEGORIES is empty.
+	(installdirs-data-yes): Likewise.
+
 2002-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* ca.po: New file, from Ivan Vilata i Balaguer <ivan@selidor.net>.
