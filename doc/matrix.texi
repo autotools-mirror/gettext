@@ -7,7 +7,7 @@ bash            |          []       [] []       []             |
 bison           |          []          [] []    []             |
 clisp           |          []    []    []       []             |
 cpio            |       [] []          []       []             |
-diffutils       |       [] []          []       [] []    []    |
+diffutils       |       [] []       [] []       [] []    []    |
 enscript        |          []                   []             |
 error           |                               []             |
 fileutils       |    [] [] [] []       []       [] []          |
@@ -39,12 +39,12 @@ sp              |                                              |
 tar             |    [] [] []          [] []    []       [] [] |
 texinfo         |    []    []       []          []             |
 textutils       |    [] [] [] []       []       [] []          |
-util-linux      |                                              |
+util-linux      |    []                                        |
 wdiff           |    [] []             [] []    [] []    []    |
 wget            |    [] [] [] []       [] []    [] []       [] |
                 +----------------------------------------------+
                   bg cs da de el en eo es et fi fr gl hr id it
-                   0 13 21 27 10  1  6 20 13  1 28 17  0  9 11  333
+                   0 14 21 27 10  1  7 20 13  1 28 17  0  9 11  335
 @end group
 
 @group
@@ -55,7 +55,7 @@ bash            |                                           |  4
 bison           | []       []                []             |  7
 clisp           |          []                               |  5
 cpio            |    []    []    []     []   []             |  9
-diffutils       |                []          []       []    |  9
+diffutils       |                []          []       []    | 10
 enscript        |          []           []   []             |  5
 error           |                                           |  1
 fileutils       | [] []    []    []     []   [] [] [] []    | 16
@@ -87,11 +87,11 @@ sp              |                                           |  0
 tar             | []       [] [] []     []   []    [] []    | 16
 texinfo         | []                         []             |  6
 textutils       | []       [] [] []     []   [] [] []       | 15
-util-linux      |                       []                  |  1
+util-linux      |                       []                  |  2
 wdiff           |          []    []          [] []    []    | 12
 wget            | []          []        []   [] [] [] [] [] | 17
                 +-------------------------------------------+
   28 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv zh
-  40 domains      19  8  0 24  6 16  1  15   26  9  9 20  3  333
+  40 domains      19  8  0 24  6 16  1  15   26  9  9 20  3  335
 @end group
 @end example
