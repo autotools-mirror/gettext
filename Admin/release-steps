@@ -20,6 +20,7 @@ Tasks not to forget before release:
 
 - Update the version numbers in
     gettext-runtime/windows/intl.rc
+    gettext-tools/src/gettext-po.h
     gettext-tools/windows/gettextlib.rc
     gettext-tools/windows/gettextsrc.rc
     gettext-tools/windows/gettextpo.rc
