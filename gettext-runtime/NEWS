@@ -2,6 +2,13 @@ Version 0.14 - January 2004
 
 * New library: GNU.Gettext.dll contains the runtime for using GNU gettext
   message catalogs in C#.
+
+* Special advice for Norwegian users: The language code for Norwegian
+  bokmål changed from 'no' to 'nb' recently (in 2003). During the transition
+  period, while some message catalogs for this language are installed under
+  'nb' and some older ones under 'no', it's recommended for Norwegian users to
+  set the LANGUAGE environment variable to 'nb:no' so that both newer and
+  older translations are used.
 
 Version 0.13 - November 2003
 

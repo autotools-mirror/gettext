@@ -160,6 +160,13 @@ For example, some Swedish users who would rather read translations in
 German than English for when Swedish is not available, set @code{LANGUAGE}
 to @samp{sv:de} while leaving @code{LANG} to @samp{sv_SE}.
 
+Special advice for Norwegian users: The language code for Norwegian
+bokm@ringaccent{a}l changed from @samp{no} to @samp{nb} recently (in 2003).
+During the transition period, while some message catalogs for this language
+are installed under @samp{nb} and some older ones under @samp{no}, it's
+recommended for Norwegian users to set @code{LANGUAGE} to @samp{nb:no} so that
+both newer and older translations are used.
+
 In the @code{LANGUAGE} environment variable, but not in the @code{LANG}
 environment variable, @samp{@var{ll}_@var{CC}} combinations can be
 abbreviated as @samp{@var{ll}} to denote the language's main dialect.

@@ -1,5 +1,9 @@
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
+	* nls.texi: Give some advice for smoothing the no -> nb transition.
+
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
 	* matrix.texi: Update.
 	* nls.texi (STATUS): Likewise.
 
