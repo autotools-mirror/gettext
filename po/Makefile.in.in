@@ -88,6 +88,13 @@ $(srcdir)/$(PACKAGE).pot: $(POTFILES)
 install: install-exec install-data
 install-exec:
 install-data: install-data-@USE_NLS@
+	if test "$(PACKAGE)" = "gettext"; then \
+	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
+	  $(INSTALL_DATA) $(srcdir)/Makefile.in.in \
+			  $(DESTDIR)$(gettextsrcdir)/Makefile.in.in; \
+	else \
+	  : ; \
+	fi
 install-data-no: all
 install-data-yes: all
 	$(mkinstalldirs) $(DESTDIR)$(datadir)
@@ -106,13 +113,6 @@ install-data-yes: all
 		 "$(DESTDIR)$$dir/$(PACKAGE).mo"; \
 	  fi; \
 	done
-	if test "$(PACKAGE)" = "gettext"; then \
-	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
-	  $(INSTALL_DATA) $(srcdir)/Makefile.in.in \
-			  $(DESTDIR)$(gettextsrcdir)/Makefile.in.in; \
-	else \
-	  : ; \
-	fi
 
 # Define this as empty until I found a useful application.
 installcheck:

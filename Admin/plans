@@ -20,8 +20,6 @@ Things we plan to do. Comments welcome.
 
 - Stop documenting AM_WITH_NLS. AM_GNU_GETTEXT is the right macro to use.
 
-- Build also libintl.so, using libtool.
-
 - Check the *.m4 macros with bleeding-edge autoconf & automake.
 
 - Documentation: Distinguish more clearly between gettext/xgettext,
@@ -51,7 +49,12 @@ Things we plan to do. Comments welcome.
 
 - Add msvc Makefile.
 
+- Look at Christian Gafton's msghack.
+
 - Look at Ben Bullock's manual: http://www.hayamasa.demon.co.uk/doc/gettext.texi
+
+- Check whether ../lib/libsupport.a @@INTLLIBS@@ @@LIBS@@ is sufficient (see
+  gettext.texi:5083) on HP-UX 10.01 and other systems lacking alloca.
 
 - Provide a way to merge two .po files, coming from different translators of
   the same pot file.

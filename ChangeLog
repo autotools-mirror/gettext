@@ -1,3 +1,8 @@
+2001-01-21  Bruno Haible  <haible@clisp.cons.org>
+
+	Use libtool.
+	* configure.in: Add argument 'use-libtool' to AM_GNU_GETTEXT call.
+
 2001-01-20  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Add a third argument to AC_DEFINE.

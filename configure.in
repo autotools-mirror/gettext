@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.8 $)
+AC_REVISION($Revision: 1.9 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.10.36)
 AM_CONFIG_HEADER(config.h)
@@ -58,7 +58,7 @@ gt_SETLOCALE
 
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_OUTPUT has also some parts.)
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT(use-libtool)
 
 dnl Check for Emacs and where to install .elc files.
 AM_PATH_LISPDIR

@@ -29,12 +29,10 @@ EXTRA_DIST = FILES
 datadir = $(prefix)/share
 localedir = $(datadir)/locale
 
-l = @l@
-
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-LDADD = ../lib/libnlsut.a @INTLLIBS@ ../intl/libintl.$la
+LDADD = ../lib/libnlsut.a @INTLLIBS@
 
 SED = sed
 YACC = @YACC@ -d

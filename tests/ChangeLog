@@ -1,3 +1,8 @@
+2001-01-21  Bruno Haible  <haible@clisp.cons.org>
+
+	Use libtool.
+	* Makefile.am (LDADD): Use libintl.la instead of libintl.a.
+
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
 	* setlocale.c: New file, moved here from ../src.

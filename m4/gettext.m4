@@ -9,6 +9,11 @@
 # serial 8
 
 dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR]).
+dnl If SYMBOL is specified and is 'use-libtool', then a libtool library
+dnl    $(top_builddir)/intl/libintl.la will be created (shared and/or static,
+dnl    depending on --{enable,disable}-{shared,static} and on the presence of
+dnl    AM_DISABLE_SHARED). Otherwise, a static library
+dnl    $(top_builddir)/intl/libintl.a will be created.
 dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl
@@ -37,6 +42,7 @@ AC_DEFUN(AM_WITH_NLS,
     AC_MSG_RESULT($USE_NLS)
     AC_SUBST(USE_NLS)
 
+    BUILD_INCLUDED_LIBINTL=no
     USE_INCLUDED_LIBINTL=no
 
     dnl If we use NLS figure out what method
@@ -116,10 +122,10 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
         AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 	  [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
         AC_SUBST(MSGFMT)
+	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
         CATOBJEXT=.gmo
-	INTLDEPS='ifelse([$2],[],$(top_builddir)/intl/libintl.a,[$2])'
-	INTLLIBS=$INTLDEPS
+	INTLLIBS='ifelse([$2],[],$(top_builddir)/intl,[$2])/libintl.ifelse([$1], use-libtool, [l], [])a'
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
@@ -140,16 +146,15 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
       POSUB=po
     fi
     AC_OUTPUT_COMMANDS(
-     [case "$CONFIG_FILES" in *po/Makefile.in*)
+     [case " $CONFIG_FILES " in *" po/Makefile.in "*)
         sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
       esac])
 
 
-    # If this is used in GNU gettext we have to set USE_NLS to `yes'
-    # because some of the sources are only built for this goal.
+    # If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
+    # to 'yes' because some of the testsuite requires it.
     if test "$PACKAGE" = gettext; then
-      USE_NLS=yes
-      USE_INCLUDED_LIBINTL=yes
+      BUILD_INCLUDED_LIBINTL=yes
     fi
 
     dnl These rules are solely for the distribution goal.  While doing this
@@ -161,11 +166,11 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
     done
 
     dnl Make all variables we use known to autoconf.
+    AC_SUBST(BUILD_INCLUDED_LIBINTL)
     AC_SUBST(USE_INCLUDED_LIBINTL)
     AC_SUBST(CATALOGS)
     AC_SUBST(CATOBJEXT)
     AC_SUBST(GMOFILES)
-    AC_SUBST(INTLDEPS)
     AC_SUBST(INTLLIBS)
     AC_SUBST(INTLOBJS)
     AC_SUBST(POFILES)
@@ -250,9 +255,9 @@ __argz_count __argz_stringify __argz_next])
    fi
    AC_SUBST(MKINSTALLDIRS)
 
-   dnl *** For now the libtool support in intl/Makefile is not for real.
-   l=
-   AC_SUBST(l)
+   dnl Enable libtool support if the surrounding package wishes it.
+   INTL_LIBTOOL_SUFFIX_PREFIX=ifelse([$1], use-libtool, [l], [])
+   AC_SUBST(INTL_LIBTOOL_SUFFIX_PREFIX)
 
    dnl Generate list of files to be processed by xgettext which will
    dnl be included in po/Makefile.  But only do this if the po directory

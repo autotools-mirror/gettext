@@ -41,7 +41,7 @@ INSTALL_DATA = @INSTALL_DATA@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 mkinstalldirs = $(SHELL) `case "$(MKINSTALLDIRS)" in /*) echo "$(MKINSTALLDIRS)" ;; *) echo "$(top_builddir)/$(MKINSTALLDIRS)" ;; esac`
 
-l = @l@
+l = @INTL_LIBTOOL_SUFFIX_PREFIX@
 
 AR = ar
 CC = @CC@
@@ -76,6 +76,10 @@ DISTFILES.normal = VERSION
 DISTFILES.gettext = libintl.glibc plural.c
 
 # Libtool's library version information for libintl.
+# Before making a gettext release, the gettext maintainer must change this
+# according to the libtool documentation, section "Library interface versions".
+# Maintainers of other packages that include the intl directory must *not*
+# change these values.
 LTV_CURRENT=1
 LTV_REVISION=0
 LTV_AGE=0
@@ -98,9 +102,10 @@ LTV_AGE=0
 INCLUDES = -I.. -I. -I$(top_srcdir)/intl
 
 all: all-@USE_INCLUDED_LIBINTL@
-
 all-yes: libintl.$la libintl.h charset.alias ref-add.sed ref-del.sed
-all-no:
+all-no: all-no-@BUILD_INCLUDED_LIBINTL@
+all-no-yes: libintl.$la
+all-no-no:
 
 libintl.a: $(OBJECTS)
 	rm -f $@
@@ -108,9 +113,10 @@ libintl.a: $(OBJECTS)
 	$(RANLIB) $@
 
 libintl.la: $(OBJECTS)
-	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@ $(OBJECTS) \
-		   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
-		   -rpath $(libdir)
+	$(LIBTOOL) --mode=link \
+	  $(CC) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS) $(LDFLAGS) -o $@ $(OBJECTS) \
+	  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
+	  -rpath $(libdir)
 
 libintl.h: libgnuintl.h
 	cp $(srcdir)/libgnuintl.h libintl.h
@@ -135,7 +141,8 @@ install-exec: all
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	  $(INSTALL_DATA) libintl.h $(DESTDIR)$(includedir)/libintl.h; \
-	  $(INSTALL_DATA) libintl.a $(DESTDIR)$(libdir)/libintl.a; \
+	  $(LIBTOOL) --mode=install \
+	    $(INSTALL_DATA) libintl.$la $(DESTDIR)$(libdir)/libintl.$la; \
 	else \
 	  : ; \
 	fi
@@ -181,7 +188,8 @@ uninstall:
 	if test "$(PACKAGE)" = "gettext" \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  rm -f $(DESTDIR)$(includedir)/libintl.h; \
-	  rm -f $(DESTDIR)$(libdir)/libintl.a; \
+	  $(LIBTOOL) --mode=uninstall \
+	    rm -f $(DESTDIR)$(libdir)/libintl.$la; \
 	else \
 	  : ; \
 	fi
@@ -238,8 +246,9 @@ ID: $(HEADERS) $(SOURCES)
 
 
 mostlyclean:
-	rm -f *.a *.o *.lo core core.*
+	rm -f *.a *.la *.o *.lo core core.*
 	rm -f libintl.h charset.alias ref-add.sed ref-del.sed
+	rm -f -r .libs _libs
 
 clean: mostlyclean
 

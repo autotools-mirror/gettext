@@ -16,6 +16,12 @@ Version 0.10.36 - XXX 2001, by Ulrich Drepper and Bruno Haible
 
 * Support for the old Linux specific .msg catalog format has been dropped.
 
+* When the included GNU libintl is installed (i.e. on GNU platforms, when
+  the configure option --with-included-gettext is given, or on non-GNU
+  platforms, when the configure option --disable-nls is not given), it is
+  also installed as a shared library, unless the configure option
+  --disable-shared is given.
+
 * PO mode changes:
 
 ** PO mode does not use recursive edit anymore, many edits may be worked on
