@@ -1,3 +1,8 @@
+2002-02-10  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Don't prevent installation of libintl
+	on NetBSD.
+
 2002-02-06  Bruno Haible  <bruno@clisp.org>
 
 	* libtool.m4: Upgrade from libtool-1.4 to libtool-1.4.2.
