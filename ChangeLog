@@ -1,5 +1,10 @@
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
+	* config/config.guess, config/config.sub: Update to GNU version
+	2003-11-03.
+
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
 	* version.sh: Bump version number to 0.13-pre1.
 
 2003-11-15  Bruno Haible  <bruno@clisp.org>
