@@ -173,6 +173,7 @@ static void usage PARAMS ((int status))
 static const char *add_mo_suffix PARAMS ((const char *));
 static struct msg_domain *new_domain PARAMS ((const char *name,
 					      const char *file_name));
+static bool is_nonobsolete PARAMS ((const message_ty *mp));
 #if HAVE_SIGINFO
 static void sigfpe_handler PARAMS ((int sig, siginfo_t *sip, void *scp));
 #else
@@ -189,6 +190,7 @@ static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
 				const char *msgstr, size_t msgstr_len,
 				const lex_pos_ty *msgstr_pos,
 				enum is_format is_format[NFORMATS]));
+static void check_header_entry PARAMS ((const char *msgstr_string));
 static void format_constructor PARAMS ((po_ty *that));
 static void format_debrief PARAMS ((po_ty *));
 static void format_directive_domain PARAMS ((po_ty *pop, char *name));
@@ -411,6 +413,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       ++optind;
     }
 
+  /* Remove obsolete messages.  They were only needed for duplicate
+     checking.  */
+  for (domain = domain_list; domain != NULL; domain = domain->next)
+    message_list_remove_if_not (domain->mlp, is_nonobsolete);
+
   /* Check the plural expression is present if needed and has valid syntax.  */
   if (check_header)
     for (domain = domain_list; domain != NULL; domain = domain->next)
@@ -600,6 +607,14 @@ new_domain (name, file_name)
     }
 
   return *p_dom;
+}
+
+
+static bool
+is_nonobsolete (mp)
+     const message_ty *mp;
+{
+  return !mp->obsolete;
 }
 
 
@@ -1120,6 +1135,59 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 }
 
 
+/* Perform miscellaneous checks on a header entry.  */
+static void
+check_header_entry (msgstr_string)
+     const char *msgstr_string;
+{
+  static const char *required_fields[] =
+  {
+    "Project-Id-Version", "PO-Revision-Date", "Last-Translator",
+    "Language-Team", "MIME-Version", "Content-Type",
+    "Content-Transfer-Encoding"
+  };
+  static const char *default_values[] =
+  {
+    "PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE", NULL,
+    "text/plain; charset=CHARSET", "ENCODING"
+  };
+  const size_t nfields = SIZEOF (required_fields);
+  int initial = -1;
+  int cnt;
+
+  for (cnt = 0; cnt < nfields; ++cnt)
+    {
+      char *endp = strstr (msgstr_string, required_fields[cnt]);
+
+      if (endp == NULL)
+	error (0, 0, _("headerfield `%s' missing in header"),
+	       required_fields[cnt]);
+      else if (endp != msgstr_string && endp[-1] != '\n')
+	error (0, 0, _("header field `%s' should start at beginning of line"),
+	       required_fields[cnt]);
+      else if (default_values[cnt] != NULL
+	       && strncmp (default_values[cnt],
+			   endp + strlen (required_fields[cnt]) + 2,
+			   strlen (default_values[cnt])) == 0)
+	{
+	  if (initial != -1)
+	    {
+	      error (0, 0, _("\
+some header fields still have the initial default value"));
+	      initial = -1;
+	      break;
+	    }
+	  else
+	    initial = cnt;
+	}
+    }
+
+  if (initial != -1)
+    error (0, 0, _("field `%s' still has initial default value"),
+	   required_fields[initial]);
+}
+
+
 /* The rest of the file is similar to read-po.c.  The differences are:
    - Comments are not stored, they are discarded right away.
    - The header entry check is performed on-the-fly.
@@ -1218,144 +1286,97 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
      bool obsolete;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
-  message_ty *entry;
-  message_ty *other_entry;
+  message_ty *mp;
   size_t i;
 
-  /* Don't emit untranslated entries.  Also don't emit fuzzy entries, unless
-     --use-fuzzy was specified.  But ignore fuzziness of the header entry.  */
-  if (msgstr_string[0] == '\0'
-      || (!include_all && this->is_fuzzy && msgid_string[0] != '\0'))
+  /* Check whether already a domain is specified.  If not, use default
+     domain.  */
+  if (current_domain == NULL)
+    current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
+				 add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
+
+  /* Duplicate checking.  */
+  mp = message_list_search (current_domain->mlp, msgid_string);
+  if (mp)
     {
-      if (check_compatibility)
-	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgstr_pos->file_name, msgstr_pos->line_number,
-			 (msgstr_string[0] == '\0'
-			  ? _("empty `msgstr' entry ignored")
-			  : _("fuzzy `msgstr' entry ignored")));
-	  error_with_progname = true;
-	}
+      /* We give a fatal error about this, regardless whether the
+	 translations are equal or different.  This is for consistency
+	 with msgmerge, msgcat and others.  The user can use the
+	 msguniq program to get rid of duplicates.  */
+      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
+      po_gram_error_at_line (&mp->pos, _("\
+...this is the location of the first definition"));
 
-      /* Increment counter for fuzzy/untranslated messages.  */
-      if (msgstr_string[0] == '\0')
-	++msgs_untranslated;
-      else
-	++msgs_fuzzy;
-
-      /* Free strings allocated in po-gram.y.  */
+      /* We don't need the just constructed entries' parameter string
+	 (allocated in po-gram.y).  */
+      free (msgid_string);
       free (msgstr_string);
     }
   else
     {
-      /* Test for header entry.  */
-      if (msgid_string[0] == '\0')
+      /* Construct message to add to the list.
+	 Non-obsolete messages will be output.
+	 Obsolete message go into the list only for duplicate checking.  */
+      mp = message_alloc (NULL, NULL, msgstr_string, msgstr_len, msgstr_pos);
+      mp->msgid = msgid_string;
+      mp->msgid_plural = msgid_plural;
+      mp->obsolete = obsolete;
+
+      if (!obsolete)
 	{
-	  this->has_header_entry = true;
-
-	  /* Do some more tests on test contents of the header entry.  */
-	  if (check_header)
+	  /* Don't emit untranslated entries.
+	     Also don't emit fuzzy entries, unless --use-fuzzy was specified.
+	     But ignore fuzziness of the header entry.  */
+	  if (msgstr_string[0] == '\0'
+	      || (!include_all && this->is_fuzzy && msgid_string[0] != '\0'))
 	    {
-	      static const char *required_fields[] =
-	      {
-		"Project-Id-Version", "PO-Revision-Date",
-		"Last-Translator", "Language-Team", "MIME-Version",
-		"Content-Type", "Content-Transfer-Encoding"
-	      };
-	      static const char *default_values[] =
-	      {
-		"PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE",
-		NULL, "text/plain; charset=CHARSET", "ENCODING"
-	      };
-	      const size_t nfields = SIZEOF (required_fields);
-	      int initial = -1;
-	      int cnt;
-
-	      for (cnt = 0; cnt < nfields; ++cnt)
+	      if (check_compatibility)
 		{
-		  char *endp = strstr (msgstr_string, required_fields[cnt]);
-
-		  if (endp == NULL)
-		    error (0, 0, _("headerfield `%s' missing in header"),
-			   required_fields[cnt]);
-		  else if (endp != msgstr_string && endp[-1] != '\n')
-		    error (0, 0, _("\
-header field `%s' should start at beginning of line"),
-			   required_fields[cnt]);
-		  else if (default_values[cnt] != NULL
-			   && strncmp (default_values[cnt],
-				       endp + strlen (required_fields[cnt]) + 2,
-				       strlen (default_values[cnt])) == 0)
-		    {
-		      if (initial != -1)
-			{
-			  error (0, 0, _("\
-some header fields still have the initial default value"));
-			  initial = -1;
-			  break;
-			}
-		      else
-			initial = cnt;
-		    }
+		  error_with_progname = false;
+		  error_at_line (0, 0, msgstr_pos->file_name,
+				 msgstr_pos->line_number,
+				 (msgstr_string[0] == '\0'
+				  ? _("empty `msgstr' entry ignored")
+				  : _("fuzzy `msgstr' entry ignored")));
+		  error_with_progname = true;
 		}
 
-	      if (initial != -1)
-		error (0, 0, _("field `%s' still has initial default value"),
-		       required_fields[initial]);
+	      /* Increment counter for fuzzy/untranslated messages.  */
+	      if (msgstr_string[0] == '\0')
+		++msgs_untranslated;
+	      else
+		++msgs_fuzzy;
+
+	      mp->obsolete = true;
+	    }
+	  else
+	    {
+	      /* Test for header entry.  */
+	      if (msgid_string[0] == '\0')
+		{
+		  this->has_header_entry = true;
+
+		  /* Do some more tests on the contents of the header
+		     entry.  */
+		  if (check_header)
+		    check_header_entry (msgstr_string);
+		}
+	      else
+		/* We don't count the header entry in the statistic so place
+		   the counter incrementation here.  */
+		if (this->is_fuzzy)
+		  ++msgs_fuzzy;
+		else
+		  ++msgs_translated;
+
+	      /* Do some more checks on both strings.  */
+	      check_pair (msgid_string, msgid_pos, msgid_plural,
+			  msgstr_string, msgstr_len, msgstr_pos,
+			  this->is_format);
 	    }
 	}
-      else
-	/* We don't count the header entry in the statistic so place the
-	   counter incrementation here.  */
-	if (this->is_fuzzy)
-	  ++msgs_fuzzy;
-	else
-	  ++msgs_translated;
-
-      /* We found a valid pair of msgid/msgstr.
-	 Construct struct to describe msgstr definition.  */
-      entry = message_alloc (NULL, NULL, NULL, 0, msgstr_pos);
-      entry->msgid = msgid_string;
-      entry->msgid_plural = msgid_plural;
-      entry->msgstr = msgstr_string;
-      entry->msgstr_len = msgstr_len;
-
-      /* Do some more checks on both strings.  */
-      check_pair (msgid_string, msgid_pos, msgid_plural,
-		  msgstr_string, msgstr_len, msgstr_pos,
-		  this->is_format);
-
-      /* Check whether already a domain is specified.  If not use default
-	 domain.  */
-      if (current_domain == NULL)
-	current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
-				     add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
-
-      /* We insert the ID/string pair into the list and hashing table.
-	 But we have to take care for duplicates.  */
-      other_entry = message_list_search (current_domain->mlp, msgid_string);
-      if (other_entry != NULL)
-	{
-	  /* We don't need the just constructed entry.  */
-	  free (entry);
-
-	  /* We give a fatal error about this, regardless whether the
-	     translations are equal or different.  This is for consistency
-	     with msgmerge, msgcat and others.  The user can use the
-	     msguniq program to get rid of duplicates.  */
-	  po_gram_error_at_line (msgid_pos, _("\
-duplicate message definition"));
-	  po_gram_error_at_line (&other_entry->pos, _("\
-...this is the location of the first definition"));
-
-	  /* We don't need the just constructed entries'
-	     parameter string (allocated in po-gram.y).  */
-	  free (msgid_string);
-	  free (msgstr_string);
-	}
-      else
-	message_list_append (current_domain->mlp, entry);
-  }
+      message_list_append (current_domain->mlp, mp);
+    }
 
   /* Prepare for next message.  */
   this->is_fuzzy = false;
@@ -1423,6 +1444,7 @@ read_po_file (filename)
   po_ty *pop;
 
   pop = po_alloc (&format_methods);
+  po_lex_pass_obsolete_entries (true);
   po_scan_file (pop, filename);
   po_free (pop);
 }

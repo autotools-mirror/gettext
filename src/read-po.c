@@ -95,6 +95,7 @@ static void readall_comment_filepos PARAMS ((po_ty *that, const char *name,
 					     size_t line));
 
 
+/* Prepare for first message.  */
 static void
 readall_constructor (that)
      po_ty *that;
@@ -135,6 +136,7 @@ readall_destructor (that)
 }
 
 
+/* Process 'domain' directive from .po file.  */
 static void
 readall_directive_domain (that, name)
      po_ty *that;
@@ -168,6 +170,7 @@ readall_directive_domain (that, name)
 }
 
 
+/* Process 'msgid'/'msgstr' pair from .po file.  */
 static void
 readall_directive_message (that, msgid, msgid_pos, msgid_plural,
 			   msgstr, msgstr_len, msgstr_pos, obsolete)
@@ -283,6 +286,7 @@ readall_comment_dot (that, s)
 }
 
 
+/* Test for '#, fuzzy' comments and warn.  */
 static void
 readall_comment_special (that, s)
      po_ty *that;

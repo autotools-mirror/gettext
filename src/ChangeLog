@@ -1,5 +1,17 @@
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt.c (is_nonobsolete): New function.
+	(main): Remove obsolete messages after reading all input files.
+	(check_header_entry): New function, extracted from
+	format_directive_message.
+	(format_directive_message): Perform duplicate checking also on
+	obsolete, untranslated and fuzzy messages, like msgmerge and the
+	other tools do. Put also obsolete, untranslated and fuzzy messages
+	on the result list, but mark them obsolete.
+	(read_po_file): Call po_lex_pass_obsolete_entries.
+
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* po.c (po_callback_message): Ignore obsolete header entries, for
 	consistency with msgdomain_list_print(), compare_po_locale_charsets(),
 	iconv_message_list(), catenate_msgdomain_list().
