@@ -1,3 +1,9 @@
+2002-03-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Use "sed -e 1q" instead of "head -1", for compliance
+	to pure naked POSIX 1003.1-2001 environments.
+	From Paul Eggert.
+
 2002-03-14  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-team-name-to-code): Add es_AR, zh_CN, and zh_TW.

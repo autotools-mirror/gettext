@@ -200,7 +200,7 @@ for file in *; do
       { $echo "Copying file $file"; cp $file $srcdir/$file; }
       ;;
     config.rpath)
-      auxdir=`cat $srcdir/$configure_in | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | head -1`
+      auxdir=`cat $srcdir/$configure_in | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
       if test -n "$auxdir"; then
         auxdir="$auxdir/"
       fi
