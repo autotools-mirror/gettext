@@ -1,5 +1,16 @@
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
+	* po/Makefile.am (POTFILES): Add hello-csharp, hello-csharp-forms
+	sources.
+	(SMALLPOTS): Add hello-csharp.pot, hello-csharp-forms.pot.
+	(hello-csharp.pot, hello-csharp-forms.pot): New rules.
+	(SMALLPOFILES_FOR_lang): Add hello-csharp, hello-csharp-forms elements.
+	(../hello-csharp/po/$(LL).po, ../hello-csharp-forms/po/$(LL).po): New
+	rules.
+	* po/mmsmallpo.sh: Use option --force-po.
+
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
 	* hello-*/po/Makefile.am: Adapt to changes made in po/Makefile.in.in.
 
 2004-01-17  Bruno Haible  <bruno@clisp.org>

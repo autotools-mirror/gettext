@@ -44,6 +44,8 @@ POTFILES = \
   examples/hello-java/Hello.java \
   examples/hello-java-awt/Hello.java \
   examples/hello-java-swing/Hello.java \
+  examples/hello-csharp/hello.cs \
+  examples/hello-csharp-forms/hello.cs \
   examples/hello-gawk/hello.awk \
   examples/hello-pascal/hello.pas \
   examples/hello-ycp/hello.ycp \
@@ -72,6 +74,8 @@ SMALLPOTS = \
   hello-java.pot \
   hello-java-awt.pot \
   hello-java-swing.pot \
+  hello-csharp.pot \
+  hello-csharp-forms.pot \
   hello-gawk.pot \
   hello-pascal.pot \
   hello-ycp.pot \
@@ -235,6 +239,12 @@ hello-java-awt.pot : $(POTFILES_DEPS)
 hello-java-swing.pot : $(POTFILES_DEPS)
 	$(SHELL) xsmallpot.sh hello-java-swing
 
+hello-csharp.pot : $(POTFILES_DEPS)
+	$(SHELL) xsmallpot.sh hello-csharp
+
+hello-csharp-forms.pot : $(POTFILES_DEPS)
+	$(SHELL) xsmallpot.sh hello-csharp-forms
+
 hello-gawk.pot : $(POTFILES_DEPS)
 	$(SHELL) xsmallpot.sh hello-gawk
 
@@ -346,6 +356,8 @@ SMALLPOFILES_FOR_lang = \
   ../hello-java/po/$$lang.po \
   ../hello-java-awt/po/$$lang.po \
   ../hello-java-swing/po/$$lang.po \
+  ../hello-csharp/po/$$lang.po \
+  ../hello-csharp-forms/po/$$lang.po \
   ../hello-gawk/po/$$lang.po \
   ../hello-pascal/po/$$lang.po \
   ../hello-ycp/po/$$lang.po \
@@ -404,6 +416,12 @@ SMALLPOFILES_FOR_lang = \
 
 ../hello-java-swing/po/$(LL).po: hello-java-swing.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-java-swing $(LL)
+
+../hello-csharp/po/$(LL).po: hello-csharp.pot $(LL).po
+	$(SHELL) mmsmallpo.sh hello-csharp $(LL)
+
+../hello-csharp-forms/po/$(LL).po: hello-csharp-forms.pot $(LL).po
+	$(SHELL) mmsmallpo.sh hello-csharp-forms $(LL)
 
 ../hello-gawk/po/$(LL).po: hello-gawk.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-gawk $(LL)
