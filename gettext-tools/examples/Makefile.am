@@ -513,6 +513,8 @@ EXAMPLESFILES = \
   hello-csharp/po/ro.po \
   hello-csharp/po/sk.po \
   hello-csharp/po/sr.po \
+  hello-csharp/po/sv.po \
+  hello-csharp/po/tr.po \
   hello-csharp/po/zh_CN.po \
   \
   hello-csharp-forms/INSTALL \
@@ -536,6 +538,8 @@ EXAMPLESFILES = \
   hello-csharp-forms/po/ro.po \
   hello-csharp-forms/po/sk.po \
   hello-csharp-forms/po/sr.po \
+  hello-csharp-forms/po/sv.po \
+  hello-csharp-forms/po/tr.po \
   hello-csharp-forms/po/zh_CN.po \
   \
   hello-gawk/INSTALL \
