@@ -93,6 +93,7 @@ create_char_buf ()
 {
   char_buf *b = (char_buf *) xmalloc (sizeof (char_buf));
   b->data = (char *) xmalloc (INITIAL_CHARBUF_SIZE);
+  b->data[0] = '\0';
   b->len = 0;
   b->maxlen = INITIAL_CHARBUF_SIZE;
   return b;
@@ -200,7 +201,7 @@ ID [a-zA-Z_][a-zA-Z0-9_]*
 "#"|"@"|"\r"|"`" /* ignore whitespace */
 
 "//"[^\n]* {
-  parser_global->comment = xstrdup (yytext);
+  parser_global->comment = xstrdup (yytext + 2);
   return JAVA_COMMENT;
 }
 "\n"|"\r"|"\r\n" parser_global->line_no++;
@@ -311,6 +312,14 @@ void
 x_java_keyword (keyword)
      const char *keyword;
 {
+  if (keyword == NULL) {
+    if (java_keywords != NULL) {
+      string_list_destroy (java_keywords);
+      java_keywords = NULL;
+    }
+    return;
+  }
+
   if (java_keywords == NULL)
     java_keywords = string_list_alloc ();
 

@@ -1,3 +1,9 @@
+2001-09-21  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.l (create_char_buf): Fix problem with empty messages.
+	(//): Remove leading "//" from result.
+	(x_java_keyword): Handle NULL argument.
+
 2001-09-19  Tommy Johansson  <tommy.johansson@kanalen.org>
 
 	* x-java.l (is_keyword): Swap arguments of do_compare.
