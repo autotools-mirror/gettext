@@ -110,6 +110,12 @@ dnl Check for tools needed for formatting man pages.
 CROSS_COMPILING=$cross_compiling
 AC_SUBST(CROSS_COMPILING)
 
+dnl Checks for optional programs for the tests/lang-* tests.
+AC_CHECK_PROGS(CXX, $CCC c++ g++ gcc CC cxx cc++ cl, :)
+if test "$CXX" != ":"; then
+  AC_PROG_CXX_WORKS
+fi
+
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl
 echo "GNU gettext library from $PACKAGE-$VERSION" > intl/VERSION

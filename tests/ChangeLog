@@ -1,3 +1,17 @@
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* lang-c: New file.
+	* lang-c++: New file.
+	* lang-objc: New file.
+	* lang-java: New file.
+	* lang-pascal: New file.
+	* lang-ycp: New file.
+	* lang-po: New file.
+	* lang-rst: New file.
+	* Makefile.am (TESTS): Add them.
+	(TESTS_ENVIRONMENT): Pass OBJEXT, EXEEXT, CC, CFLAGS, CXX, CXXFLAGS,
+	CPPFLAGS, LDFLAGS, INTLLIBS, TESTJAVA variables to the tests.
+
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (TESTS); Add msgfmt-7, msgfmt-8, msgfmt-9, msgmerge-13.

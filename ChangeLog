@@ -1,3 +1,7 @@
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Check for C++ compiler.
+
 2001-11-18  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Make misc/gettextize executable.

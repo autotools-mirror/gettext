@@ -42,7 +42,8 @@ TESTS = gettext-1 gettext-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
-	plural-1 plural-2
+	plural-1 plural-2 \
+	lang-c lang-c++ lang-objc lang-java lang-pascal lang-ycp lang-po lang-rst
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-a.in msguniq-a.out
 
@@ -59,6 +60,12 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
 		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    MSGUNIQ=`echo msguniq|sed '$(transform)'` \
+		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
+		    CC='@CC@' CFLAGS='@CFLAGS@' \
+		    CXX='@CXX@' CXXFLAGS='@CXXFLAGS@' \
+		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
+		    INTLLIBS='@INTLLIBS@' \
+		    TESTJAVA='@TESTJAVA@' \
 		    $(SHELL)
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
