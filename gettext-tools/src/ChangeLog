@@ -1,3 +1,24 @@
+2003-07-05  Bruno Haible  <bruno@clisp.org>
+
+	* format-perl-brace.c: Renamed from format-perl-bracket.c. Recognize
+	braces instead of brackets.
+	* format.h (formatstring_perl_brace): Renamed from
+	formatstring_perl_bracket.
+	* format.c (formatstring_parsers): Add formatstring_perl_brace, remove
+	formatstring_perl_bracket.
+	* message.h (enum format_type): Add format_perl_brace, remove
+	format_perl_bracket.
+	* message.c (format_language, format_language_pretty): Update.
+	* x-perl.h (SCANNERS_PERL): Update.
+	* Makefile.am (FORMAT_SOURCE): Add format-perl-brace.c, remove
+	format-perl-bracket.c.
+	* Makefile.msvc (OBJECTS): Add format-perl-brace.obj, remove
+	format-perl-bracket.obj.
+	(format-perl-brace.obj): Renamed from format-perl-bracket.obj.
+	* Makefile.vms (OBJECTS): Add format-perl-brace.obj, remove
+	format-perl-bracket.obj.
+	(format-perl-brace.obj): Renamed from format-perl-bracket.obj.
+
 2003-07-03  Bruno Haible  <bruno@clisp.org>
 
 	Support for PHP >= 4.2.0.

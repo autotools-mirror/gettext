@@ -86,7 +86,7 @@ OBJECTS = \
   format-ycp.obj, \
   format-tcl.obj, \
   format-perl.obj, \
-  format-perl-bracket.obj, \
+  format-perl-brace.obj, \
   format-php.obj
 
 msgcmp_OBJECTS = msgcmp.obj
@@ -215,8 +215,8 @@ format-tcl.obj : format-tcl.c
 format-perl.obj : format-perl.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-perl.c
 
-format-perl-bracket.obj : format-perl-bracket.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-perl-bracket.c
+format-perl-brace.obj : format-perl-brace.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-perl-brace.c
 
 format-php.obj : format-php.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-php.c

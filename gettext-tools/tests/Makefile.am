@@ -61,7 +61,7 @@ TESTS = gettext-1 gettext-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
 	format-perl-1 format-perl-2 \
-	format-perl-bracket-1 format-perl-bracket-2 \
+	format-perl-brace-1 format-perl-brace-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \

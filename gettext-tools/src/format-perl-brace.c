@@ -1,4 +1,4 @@
-/* Perl bracketed format strings.
+/* Perl brace format strings.
    Copyright (C) 2003 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
@@ -32,12 +32,12 @@
 
 #define _(str) gettext (str)
 
-/* Perl bracketed format strings are supported by Guido Flohr's libintl-perl
+/* Perl brace format strings are supported by Guido Flohr's libintl-perl
    package, more precisely by the __expand and __x functions therein.
    A format string directive here consists of
-     - an opening bracket '[',
+     - an opening brace '{',
      - an identifier [_A-Za-z][_0-9A-Za-z]*,
-     - a closing bracket ']'.
+     - a closing brace '}'.
  */
 
 struct named_arg
@@ -79,7 +79,7 @@ format_parse (const char *format, char **invalid_reason)
   spec.named = NULL;
 
   for (; *format != '\0';)
-    if (*format++ == '[')
+    if (*format++ == '{')
       {
 	const char *f = format;
 	char c;
@@ -91,7 +91,7 @@ format_parse (const char *format, char **invalid_reason)
 	      c = *++f;
 	    while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'
 		   || (c >= '0' && c <= '9'));
-	    if (c == ']')
+	    if (c == '}')
 	      {
 		/* A directive.  */
 		char *name;
@@ -183,7 +183,7 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 
       /* Check the argument names in spec1 are contained in those of spec2.
 	 Additional arguments in spec2 are allowed; they expand to themselves
-	 (including the surrounding brackets) at runtime.
+	 (including the surrounding braces) at runtime.
 	 Both arrays are sorted.  We search for the differences.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
 	{
@@ -220,7 +220,7 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 }
 
 
-struct formatstring_parser formatstring_perl_bracket =
+struct formatstring_parser formatstring_perl_brace =
 {
   format_parse,
   format_free,
@@ -294,7 +294,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "/bin/sh ../libtool --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../lib -I../intl -DHAVE_CONFIG_H -DTEST format-perl-bracket.c ../lib/libgettextlib.la"
+ * compile-command: "/bin/sh ../libtool --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../lib -I../intl -DHAVE_CONFIG_H -DTEST format-perl-brace.c ../lib/libgettextlib.la"
  * End:
  */
 

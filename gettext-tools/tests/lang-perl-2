@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Test of gettext facilities in the Perl language,
-# using bracket format strings.
+# using brace format strings.
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: perl, libintl-perl.
 
@@ -16,7 +16,7 @@ print __"'Your command, please?', asked the waiter.";
 print "\n"
 printf __n ("a piece of cake", "%d pieces of cake", $n), $n;
 print "\n"
-printf __x ("[old] is replaced by [new].", old => "FF", new => "EUR");
+printf __x ("{old} is replaced by {new}.", old => "FF", new => "EUR");
 print "\n"
 EOF
 
@@ -35,8 +35,8 @@ msgid_plural "%d pieces of cake"
 msgstr[0] ""
 msgstr[1] ""
 
-#, perl-bracket-format
-msgid "[old] is replaced by [new]."
+#, perl-brace-format
+msgid "{old} is replaced by {new}."
 msgstr ""
 EOF
 
@@ -61,9 +61,9 @@ msgstr[0] "un morceau de gateau"
 msgstr[1] "%d morceaux de gateau"
 
 # Reverse the arguments.
-#, perl-bracket-format
-msgid "[old] is replaced by [new]."
-msgstr "[new] remplace [old]."
+#, perl-brace-format
+msgid "{old} is replaced by {new}."
+msgstr "{new} remplace {old}."
 EOF
 
 tmpfiles="$tmpfiles fr.po.new"

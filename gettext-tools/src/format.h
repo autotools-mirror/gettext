@@ -67,7 +67,7 @@ extern struct formatstring_parser formatstring_pascal;
 extern struct formatstring_parser formatstring_ycp;
 extern struct formatstring_parser formatstring_tcl;
 extern struct formatstring_parser formatstring_perl;
-extern struct formatstring_parser formatstring_perl_bracket;
+extern struct formatstring_parser formatstring_perl_brace;
 extern struct formatstring_parser formatstring_php;
 
 /* Table of all format string parsers.  */

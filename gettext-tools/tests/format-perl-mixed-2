@@ -1,7 +1,7 @@
 #! /bin/sh
 
 # Test checking of Perl format strings.
-# This test is for the combination of printf and bracketed format strings.
+# This test is for the combination of printf and brace format strings.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -9,32 +9,32 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 tmpfiles="$tmpfiles f-pm-2.data"
 cat <<\EOF > f-pm-2.data
 # Valid: normal case.
-#, perl-format, perl-bracket-format
-msgid  "[foo] %d [bar] %s"
-msgstr "[bar] [foo] %d %s"
+#, perl-format, perl-brace-format
+msgid  "{foo} %d {bar} %s"
+msgstr "{bar} {foo} %d %s"
 # Invalid: missing argument.
-#, perl-format, perl-bracket-format
-msgid  "[foo] %d [bar] %s"
-msgstr "[bar] %d %s"
+#, perl-format, perl-brace-format
+msgid  "{foo} %d {bar} %s"
+msgstr "{bar} %d %s"
 # Valid: missing argument but checking disabled.
-#, perl-format, no-perl-bracket-format
-msgid  "[foo] %d [bar] %s"
-msgstr "[bar] %d %s"
+#, perl-format, no-perl-brace-format
+msgid  "{foo} %d {bar} %s"
+msgstr "{bar} %d %s"
 # Invalid: printf format reordered without position specifiers %1$, %2$.
-#, perl-format, perl-bracket-format
-msgid  "[foo] %d [bar] %s"
-msgstr "[bar] %s [foo] %d"
+#, perl-format, perl-brace-format
+msgid  "{foo} %d {bar} %s"
+msgstr "{bar} %s {foo} %d"
 # Valid: same thing but checking disabled.
-#, no-perl-format, perl-bracket-format
-msgid  "[foo] %d [bar] %s"
-msgstr "[bar] %s [foo] %d"
+#, no-perl-format, perl-brace-format
+msgid  "{foo} %d {bar} %s"
+msgstr "{bar} %s {foo} %d"
 # Invalid: unnamed vs. named arguments
 #, perl-format
 msgid  "abc%sdef"
-msgstr "xyz[value]"
+msgstr "xyz{value}"
 # Invalid: named vs. unnamed arguments
-#, perl-bracket-format
-msgid  "abc[value]def"
+#, perl-brace-format
+msgid  "abc{value}def"
 msgstr "xyz%s"
 EOF
 

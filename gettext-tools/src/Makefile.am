@@ -93,7 +93,7 @@ read-properties.c open-po.c dir-list.c str-list.c
 FORMAT_SOURCE = format.c format-invalid.h \
 format-c.c format-python.c format-lisp.c format-elisp.c format-librep.c \
 format-java.c format-awk.c format-pascal.c format-ycp.c format-tcl.c \
-format-perl.c format-perl-bracket.c format-php.c
+format-perl.c format-perl-brace.c format-php.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \

@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Test recognition of Perl format strings of both kinds (printf and bracketed).
+# Test recognition of Perl format strings of both kinds (printf and brace).
 # This test is for the combination of both kinds.
 
 tmpfiles=""
@@ -10,23 +10,23 @@ tmpfiles="$tmpfiles f-pm-1.data"
 
 cat <<\EOF > f-pm-1.data
 # Both formats.
-#, perl-format, perl-bracket-format
-"[foo] %c [bar] %d [baz]"
+#, perl-format, perl-brace-format
+"{foo} %c {bar} %d {baz}"
 # printf format only.
 #, perl-format
 "%c %d"
 # printf format only, because '%' is not allowed in identifier.
 #, perl-format
-"[foo%cbar]"
+"{foo%cbar}"
 # Valid bracketed format because there is still one valid identifier.
-#, perl-format, perl-bracket-format
-"[foo%cbar] [baz]"
+#, perl-format, perl-brace-format
+"{foo%cbar} {baz}"
 # Bracketed format only, because %l is not recognized in printf format.
-#, perl-bracket-format
-"[foo] %l [bar]"
+#, perl-brace-format
+"{foo} %l {bar}"
 # Neither format recognized here.
 
-"[foo bar %l"
+"{foo bar %l"
 EOF
 
 : ${XGETTEXT=xgettext}

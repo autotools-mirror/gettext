@@ -108,23 +108,23 @@ printf "%s\n", gettext qq(mari\\\\huana);
 printf "%s\n", gettext qq(mari\\\\\huana);
 
 # Recognition of format strings.
-gettext "This is [only] a bracketed formatstring.";
-gettext "This is %s [mixed].";
+gettext "This is {only} a brace formatstring.";
+gettext "This is %s {mixed}.";
 gettext "This is only %c.";
 gettext "This is nothing at all.";
 gettext "And this is %l also no format at all.";
 
-# xgettext: no-perl-format, perl-bracket-format
-gettext "The function '[func]' expects '%c' here.";
+# xgettext: no-perl-format, perl-brace-format
+gettext "The function '{func}' expects '%c' here.";
 
 # This is a contradictory case: The same string three times,
 # with different xgettext comments.
-# xgettext: perl-bracket-format, no-perl-format
-gettext "Left as an %exercise to [maintainer].";
-# xgettext: no-perl-bracket-format, perl-format
-gettext "Left as an %exercise to [maintainer].";
+# xgettext: perl-brace-format, no-perl-format
+gettext "Left as an %exercise to {maintainer}.";
+# xgettext: no-perl-brace-format, perl-format
+gettext "Left as an %exercise to {maintainer}.";
 # No xgettext comment this time.
-gettext "Left as an %exercise to [maintainer].";
+gettext "Left as an %exercise to {maintainer}.";
 __END__
 gettext "Discarded!";
 EOF
@@ -262,13 +262,13 @@ msgid "mari\\\\huana"
 msgstr ""
 
 #: xg-test26.pl:102
-#, perl-bracket-format
-msgid "This is [only] a bracketed formatstring."
+#, perl-brace-format
+msgid "This is {only} a brace formatstring."
 msgstr ""
 
 #: xg-test26.pl:103
-#, perl-format, perl-bracket-format
-msgid "This is %s [mixed]."
+#, perl-format, perl-brace-format
+msgid "This is %s {mixed}."
 msgstr ""
 
 #: xg-test26.pl:104
@@ -285,13 +285,13 @@ msgid "And this is %l also no format at all."
 msgstr ""
 
 #: xg-test26.pl:109
-#, no-perl-format, perl-bracket-format
-msgid "The function '[func]' expects '%c' here."
+#, no-perl-format, perl-brace-format
+msgid "The function '{func}' expects '%c' here."
 msgstr ""
 
 #: xg-test26.pl:114 xg-test26.pl:116 xg-test26.pl:118
-#, perl-format, no-perl-bracket-format
-msgid "Left as an %exercise to [maintainer]."
+#, perl-format, no-perl-brace-format
+msgid "Left as an %exercise to {maintainer}."
 msgstr ""
 EOF
 

@@ -1,3 +1,16 @@
+2003-07-05  Bruno Haible  <bruno@clisp.org>
+
+	* format-perl-brace-1: Renamed from format-perl-bracket-1. Use braces
+	instead of brackets.
+	* format-perl-brace-2: Renamed from format-perl-bracket-2. Use braces
+	instead of brackets.
+	* format-perl-mixed-1: Use braces instead of brackets.
+	* format-perl-mixed-2: Likewise.
+	* xgettext-26: Likewise.
+	* lang-perl-2: Likewise.
+	* Makefile.am (TESTS): Add format-perl-brace-[12], remove
+	format-perl-bracket-[12].
+
 2003-06-27  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-27: Also test Unicode character names in here documents.

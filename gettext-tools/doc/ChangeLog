@@ -1,3 +1,9 @@
+2003-07-05  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (perl-format): Use braces, not brackets, in format
+	strings.
+	(Perl pitfalls): Likewise.
+
 2003-07-03  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PHP): Mention plural form functions.

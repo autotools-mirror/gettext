@@ -7335,15 +7335,15 @@ Tcl format strings are described in the @file{format.n} manual page,
 There are two kinds format strings in Perl: those acceptable to the
 Perl built-in function @code{printf}, labelled as @samp{perl-format},
 and those acceptable to the @code{libintl-perl} function @code{__x},
-labelled as @samp{perl-bracket-format}.
+labelled as @samp{perl-brace-format}.
 
 Perl @code{printf} format strings are described in the @code{sprintf}
 section of @samp{man perlfunc}.
 
-Perl bracketed format strings are described in the
+Perl brace format strings are described in the
 @file{Locale::TextDomain(3pm)} manual page of the CPAN package
 libintl-perl.  In brief, Perl format uses placeholders put between
-brackets (@samp{[} and @samp{]}).  The placeholder must have the syntax
+braces (@samp{@{} and @samp{@}}).  The placeholder must have the syntax
 of simple identifiers.
 
 @node php-format,  , perl-format, Translators for other Languages
@@ -9019,22 +9019,22 @@ Maybe some of these missing features will be implemented in future
 versions, but since you can always make do without them at minimal effort,
 these todos have very low priority.
 
-A nasty problem are bracketed format strings that already contain brackets
+A nasty problem are brace format strings that already contain braces
 as part of the normal text, for example the usage strings typically
 encountered in programs:
 
 @example
-die "usage: $0 [OPTIONS] FILENAME...\n";
+die "usage: $0 @{OPTIONS@} FILENAME...\n";
 @end example
 
-If you want to internationalize this code with Perl bracketed format strings,
+If you want to internationalize this code with Perl brace format strings,
 you will run into a problem:
 
 @example
-die __x ("usage: [program] [OPTIONS] FILENAME...\n", program => $0);
+die __x ("usage: @{program@} @{OPTIONS@} FILENAME...\n", program => $0);
 @end example
 
-Whereas @code{@samp{[program]}} is a placeholder, @code{@samp{[OPTIONS]}}
+Whereas @samp{@{program@}} is a placeholder, @samp{@{OPTIONS@}}
 is not and should probably be translated. Yet, there is no way to teach
 the Perl parser in @code{xgettext} to recognize the first one, and leave
 the other one alone.
@@ -9043,26 +9043,26 @@ There are two possible work-arounds for this problem.  If you are
 sure that your program will run under Perl 5.8.0 or newer (these
 Perl versions handle positional parameters in @code{printf()}) or
 if you are sure that the translator will not have to reorder the arguments
-in her translation -- for example if you have only one bracketed placeholder
+in her translation -- for example if you have only one brace placeholder
 in your string, or if it describes a syntax, like in this one --, you can
-mark the string as @code{no-perl-bracket-format} and use @code{printf()}:
+mark the string as @code{no-perl-brace-format} and use @code{printf()}:
 
 @example
-# xgettext: no-perl-bracket-format
-die sprintf ("usage: %s [OPTIONS] FILENAME...\n", $0);
+# xgettext: no-perl-brace-format
+die sprintf ("usage: %s @{OPTIONS@} FILENAME...\n", $0);
 @end example
 
-If you want to use the more portable Perl bracket format, you will have to do
-put placeholders in place of the literal brackets:
+If you want to use the more portable Perl brace format, you will have to do
+put placeholders in place of the literal braces:
 
 @example
-die __x ("usage: [program] [@{]OPTIONS[@}] FILENAME...\n",
-         program => $0, '@{' => '[', '@}' => ']');
+die __x ("usage: @{program@} @{[@}OPTIONS@{]@} FILENAME...\n",
+         program => $0, '[' => '@{', ']' => '@}');
 @end example
 
-Perl bracketed format strings know no escaping mechanism.  No matter how this
+Perl brace format strings know no escaping mechanism.  No matter how this
 escaping mechanism looked like, it would either give the programmer a
-hard time, make translating Perl bracketed format strings heavy-going, or
+hard time, make translating Perl brace format strings heavy-going, or
 result in a performance penalty at runtime, when the format directives
 get executed.  Most of the time you will happily get along with
 @code{printf()} for this special case.

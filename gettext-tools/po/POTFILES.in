@@ -33,7 +33,7 @@ src/format-librep.c
 src/format-lisp.c
 src/format-pascal.c
 src/format-perl.c
-src/format-perl-bracket.c
+src/format-perl-brace.c
 src/format-php.c
 src/format-python.c
 src/format-tcl.c

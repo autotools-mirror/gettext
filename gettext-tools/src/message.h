@@ -46,7 +46,7 @@ enum format_type
   format_ycp,
   format_tcl,
   format_perl,
-  format_perl_bracket,
+  format_perl_brace,
   format_php
 };
 #define NFORMATS 14	/* Number of format_type enum values.  */

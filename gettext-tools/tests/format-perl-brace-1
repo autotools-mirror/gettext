@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Test recognition of Perl bracket format strings.
+# Test recognition of Perl brace format strings.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -10,25 +10,25 @@ cat <<\EOF > f-pb-1.data
 # Invalid: no argument
 "abc"
 # Valid: a named argument
-"abc[value]"
+"abc{value}"
 # Invalid: an empty name
-"abc[]"
+"abc{}"
 # Invalid: unterminated name
-"abc[value"
+"abc{value"
 # Valid: three arguments, two with equal names
-"abc[addr],[char],[addr]"
+"abc{addr},{char},{addr}"
 # Invalid: place-holder contains a space.
-"[foo bar]"
+"{foo bar}"
 # Invalid: missing right angle bracket.
-"[foo bar"
+"{foo bar"
 # Valid: not nested, but one single place-holder.
-"[foo[bar]baz]"
+"{foo{bar}baz}"
 # Valid: no nesting error, but one single place-holder.
-"[foo[bar]baz"
+"{foo{bar}baz"
 # Valid: place-holder with spaces must be ignored, but still one remaining.
-"[foo bar] [baz]"
+"{foo bar} {baz}"
 # Invalid: percent sign not allowed.
-"[foo%bar]"
+"{foo%bar}"
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -50,7 +50,7 @@ EOF
       fail=yes
     fi
   else
-    if grep perl-bracket-format f-pb-1-$n.po > /dev/null; then
+    if grep perl-brace-format f-pb-1-$n.po > /dev/null; then
       fail=yes
     else
       :
