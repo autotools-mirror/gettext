@@ -4,7 +4,7 @@ Ready PO files    bg ca cs da de el en eo es et fi fr gl he hr hu id it
                 +-------------------------------------------------------+
 a2ps            |          [] []             []    []                () |
 bash            |             []       [] []       []                   |
-bfd             |                                  []                   |
+bfd             |                         []       []                   |
 binutils        |                                  []                   |
 bison           |                            []    []                   |
 clisp           |             []    []    []       []                   |
@@ -23,24 +23,24 @@ gcal            |    []                                                 |
 gcc             |                         []       []                   |
 gettext         |             []          []       []                   |
 gnupg           |             []       [] [] []    [] []             [] |
-gprof           |                                  []                   |
+gprof           |                         []       []                   |
 grep            |       []    []       [] [] []    [] []             [] |
 hello           |          [] [] []    [] [] [] [] [] []       []    [] |
 id-utils        |          [] []                   []                   |
-indent          |             []       []    []                         |
+indent          |             []       []    []    [] []                |
 jpilot          |       () [] []                   []                   |
 jwhois          |                         []       []                   |
 kbd             |                                  []                   |
-ld              |                                  []                   |
+ld              |                         []       []                   |
 libc            |    [] [] [] [] []       []       [] []                |
 lilypond        |          []                      []                   |
-lynx            |       [] [] []                                        |
+lynx            |       [] [] []             []                         |
 m4              |       [] [] [] []                [] []          []    |
 make            |          [] []          []       [] []                |
 mysecretdiary   |             []                   []                   |
 nano            |    [] () [] []          []       [] []          [] [] |
 nano_1_0        |    [] () [] []          []       [] []          [] [] |
-opcodes         |                                  []                   |
+opcodes         |                         []       []                   |
 parted          |          [] []                   [] []                |
 ptx             |          [] []          [] []    [] []          []    |
 python          |                                                       |
@@ -59,7 +59,7 @@ wdiff           |          [] []          [] []    []                   |
 wget            |       [] [] [] []       [] []    [] [] []    []       |
                 +-------------------------------------------------------+
                   bg ca cs da de el en eo es et fi fr gl he hr hu id it
-                   0  5 11 27 34  8  1  9 31 14  1 47 19  5  0  3  7 11
+                   0  5 11 27 34  8  1  9 35 15  1 48 20  5  0  3  7 11
 @end group
 
 @group
@@ -67,7 +67,7 @@ wget            |       [] [] [] []       [] []    [] [] []    []       |
                 +-------------------------------------------------------+
 a2ps            |    ()       []    () () ()       []    [] [] ()       |  8
 bash            |                                                       |  4
-bfd             | []                                           []       |  3
+bfd             | []                                           []       |  4
 binutils        | []                                           []       |  3
 bison           | []                               []       [] []       |  6
 clisp           |             []                                        |  5
@@ -76,7 +76,7 @@ diffutils       |                      []          []       [] []       | 12
 enscript        |             []              []   []                   |  5
 error           |                                     []       []       |  5
 fetchmail       |                      ()     ()                        |  1
-fileutils       | []                                     [] [] []       |  9
+fileutils       | []                               []    [] [] []       | 10
 findutils       | [] []       []       []     []   []    [] [] []       | 17
 flex            |    []                            []       []          |  6
 freetype        |             ()                                        |  0
@@ -86,24 +86,24 @@ gcal            |                                           []          |  2
 gcc             | []                                                    |  3
 gettext         |    []                               [] [] [] []       |  8
 gnupg           | []                   []                   [] []       | 11
-gprof           |                                           [] []       |  3
-grep            |                      []                [] [] []       | 12
+gprof           |                                           [] []       |  4
+grep            |                      []          []    [] [] []       | 13
 hello           | [] [] [] [] [] [] [] []          [] []    [] [] []    | 24
 id-utils        |             []                   []       []          |  6
-indent          |                                           [] []       |  5
+indent          |                                  []       [] []       |  8
 jpilot          | ()          ()    ()                      ()          |  3
 jwhois          |                                  ()       ()          |  2
 kbd             |                                           [] []       |  3
-ld              |                                           [] []       |  3
+ld              |                                           [] []       |  4
 libc            | [] []    []       [] []     []      []    [] []       | 17
 lilypond        | []          []                            []          |  5
-lynx            | []          []              []   []       []          |  8
+lynx            | []          []              []   []       []          |  9
 m4              | []          []       []          []       []          | 12
 make            | [] []       []       []     []   []          []       | 12
 mysecretdiary   |                                           []          |  3
 nano            | ()          ()    ()             []       []    []    | 11
 nano_1_0        | ()          ()    ()             []       []    []    | 11
-opcodes         |                                           [] []       |  3
+opcodes         |                                           [] []       |  4
 parted          | []                      []  []            []          |  8
 ptx             |          [] []    [] [] []       []       [] []       | 15
 python          |                                                       |  0
@@ -116,12 +116,12 @@ soundtracker    |                                                       |  4
 sp              |                                                       |  0
 tar             | []       []       [] []     []      [] [] [] []       | 16
 texinfo         | []                               []       []          |  8
-textutils       |    []    []                            []             |  6
+textutils       |    []    []                            []    []       |  7
 util-linux      | []                          []            [] []       |  8
 wdiff           |                                  [] []    [] []       |  9
 wget            | []          []                   [] [] [] [] [] []    | 18
                 +-------------------------------------------------------+
   35 teams        ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
-  55 domains      21  9  1  6 16  1  5 13  2  11   22  9 11 36 26  4  1  427
+  55 domains      21  9  1  6 16  1  5 13  2  11   25  9 11 36 27  4  1  438
 @end group
 @end example
