@@ -59,13 +59,16 @@
 #  include <arpa/inet.h> /* declares inet_ntoa(), inet_ntop() */
 # endif
 # if HAVE_IPV6
-#  if defined(__APPLE__) && defined(__MACH__) /* MacOS X */
-#   define in6_u __u6_addr
-#   define u6_addr16 __u6_addr16
-#  endif
-   /* Use s6_addr16 for portability.  See RFC 2553.  */
-#  ifndef s6_addr16
-#   define s6_addr16 in6_u.u6_addr16
+#  if !defined(__CYGWIN__) /* Cygwin has only s6_addr, no s6_addr16 */
+#   if defined(__APPLE__) && defined(__MACH__) /* MacOS X */
+#    define in6_u __u6_addr
+#    define u6_addr16 __u6_addr16
+#   endif
+    /* Use s6_addr16 for portability.  See RFC 2553.  */
+#   ifndef s6_addr16
+#    define s6_addr16 in6_u.u6_addr16
+#   endif
+#   define HAVE_IN6_S6_ADDR16 1
 #  endif
 # endif
 # include <netdb.h> /* defines struct hostent, declares gethostbyname() */
@@ -271,7 +274,7 @@ xgethostname ()
 # if HAVE_INET_NTOP
 #  define ipv6_ntop(buffer,addr) \
      inet_ntop (AF_INET6, &addr, buffer, 45+1)
-# else
+# elif HAVE_IN6_S6_ADDR16
 #  define ipv6_ntop(buffer,addr) \
      sprintf (buffer, "%x:%x:%x:%x:%x:%x:%x:%x", \
 	      ntohs ((addr).s6_addr16[0]), \
@@ -282,6 +285,17 @@ xgethostname ()
 	      ntohs ((addr).s6_addr16[5]), \
 	      ntohs ((addr).s6_addr16[6]), \
 	      ntohs ((addr).s6_addr16[7]))
+# else
+#  define ipv6_ntop(buffer,addr) \
+     sprintf (buffer, "%x:%x:%x:%x:%x:%x:%x:%x", \
+	      ((addr).s6_addr[0] << 8) | (addr).s6_addr[1], \
+	      ((addr).s6_addr[2] << 8) | (addr).s6_addr[3], \
+	      ((addr).s6_addr[4] << 8) | (addr).s6_addr[5], \
+	      ((addr).s6_addr[6] << 8) | (addr).s6_addr[7], \
+	      ((addr).s6_addr[8] << 8) | (addr).s6_addr[9], \
+	      ((addr).s6_addr[10] << 8) | (addr).s6_addr[11], \
+	      ((addr).s6_addr[12] << 8) | (addr).s6_addr[13], \
+	      ((addr).s6_addr[14] << 8) | (addr).s6_addr[15])
 # endif
 #endif
 

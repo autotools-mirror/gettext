@@ -1,3 +1,9 @@
+2002-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* hostname.c (ipv6_ntop): Provide a fallback definition for systems
+	that define s6_addr but no s6_addr16 element of 'struct in6_addr'.
+	Reported by Perry Rapp <PRapp@smartronix.com>.
+
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
 	* project-id: Recognize package name and version when given by a
