@@ -1,3 +1,8 @@
+2003-02-23  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add src/format-invalid.h. Replace src/po-gram-gen.c
+	with src/po-gram-gen.y.
+
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars.template: New file.

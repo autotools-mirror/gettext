@@ -1,5 +1,5 @@
 /* YCP and Smalltalk format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,10 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "c-ctype.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "error.h"
 #include "progname.h"
 #include "gettext.h"
@@ -47,7 +50,7 @@ struct spec
 
 
 static void *
-format_parse (const char *format)
+format_parse (const char *format, char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -74,7 +77,15 @@ format_parse (const char *format)
 	    format++;
 	  }
 	else
-	  goto bad_format;
+	  {
+	    *invalid_reason =
+	      (*format == '\0'
+	       ? INVALID_UNTERMINATED_DIRECTIVE ()
+	       : (c_isprint (*format)
+		  ? xasprintf (_("In the directive number %u, the character '%c' is not a digit between 1 and 9."), spec.directives, *format)
+		  : xasprintf (_("The character that terminates the directive number %u is not a digit between 1 and 9."), spec.directives)));
+	    goto bad_format;
+	  }
       }
 
   result = (struct spec *) xmalloc (sizeof (struct spec));
@@ -193,17 +204,26 @@ main ()
   for (;;)
     {
       char *line = NULL;
-      size_t line_len = 0;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
       void *descr;
 
-      if (getline (&line, &line_len, stdin) < 0)
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
 
-      descr = format_parse (line);
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
 
       format_print (descr);
       printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
 
+      free (invalid_reason);
       free (line);
     }
 

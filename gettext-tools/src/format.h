@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -31,8 +31,9 @@ struct formatstring_parser
      Return a freshly allocated structure describing
        1. the argument types/names needed for the format string,
        2. the total number of format directives.
-     Return NULL if the string is not a valid format string.  */
-  void * (*parse) (const char *string);
+     Return NULL if the string is not a valid format string. In this case,
+     also set *invalid_reason to an error message explaining why.  */
+  void * (*parse) (const char *string, char **invalid_reason);
 
   /* Free a format string descriptor, returned by parse().  */
   void (*free) (void *descr);

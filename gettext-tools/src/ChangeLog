@@ -1,3 +1,44 @@
+2003-02-23  Bruno Haible  <bruno@clisp.org>
+
+	Improve error messages for invalid format strings.
+	* format-invalid.h: New file.
+	* format.h (struct formatstring_parser): Add invalid_reason argument
+	to 'parse' field.
+	* format-awk.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* format-c.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(INVALID_C99_MACRO): New macro.
+	(format_parse): Add invalid_reason argument.
+	(get_c99_format_directives): Update.
+	* format-elisp.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* format-java.c: Include xerror.h, format-invalid.h.
+	(message_format_parse, choice_format_parse, format_parse): Add
+	invalid_reason argument.
+	(choice_format_parse): Return false if a choice contains an empty
+	number part.
+	* format-librep.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* format-lisp.c: Include xerror.h, format-invalid.h.
+	(check_params, nocheck_params): Add directives, invalid_reason
+	arguments.
+	(parse_upto, format_parse): Add invalid_reason argument.
+	* format-pascal.c: Include xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* format-php.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* format-python.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(INVALID_MIXES_NAMED_UNNAMED): New macro.
+	(format_parse): Add invalid_reason argument.
+	* format-tcl.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* format-ycp.c: Include c-ctype.h, xerror.h, format-invalid.h.
+	(format_parse): Add invalid_reason argument.
+	* msgfmt.c (check_pair): Output invalid_reason returned for msgstr.
+	* msgmerge.c (msgfmt_check_pair_fails): Update.
+	* xgettext.c (remember_a_message, remember_a_message_plural): Update.
+	* Makefile.am (FORMAT_SOURCE): Add format-invalid.h.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* x-python.c (init_keywords): Add u*gettext variants and plural

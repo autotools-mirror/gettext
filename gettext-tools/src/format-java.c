@@ -28,6 +28,8 @@
 #include "format.h"
 #include "c-ctype.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "error.h"
 #include "progname.h"
 #include "gettext.h"
@@ -129,7 +131,8 @@ struct spec
 /* Forward declaration of local functions.  */
 static bool date_format_parse (const char *format);
 static bool number_format_parse (const char *format);
-static bool choice_format_parse (const char *format, struct spec *spec);
+static bool choice_format_parse (const char *format, struct spec *spec,
+				 char **invalid_reason);
 
 
 /* Quote handling:
@@ -147,7 +150,8 @@ static bool choice_format_parse (const char *format, struct spec *spec);
 /* Return true if a format is a valid messageFormatPattern.
    Extracts argument type information into spec.  */
 static bool
-message_format_parse (const char *format, struct spec *spec)
+message_format_parse (const char *format, struct spec *spec,
+		      char **invalid_reason)
 {
   bool quoting = false;
 
@@ -181,7 +185,11 @@ message_format_parse (const char *format, struct spec *spec)
 		}
 	    }
 	  if (*format == '\0')
-	    return false;
+	    {
+	      *invalid_reason =
+		xstrdup (_("The string ends in the middle of a directive: found '{' without matching '}'."));
+	      return false;
+	    }
 	  element_end = format++;
 
 	  n = element_end - element_start;
@@ -190,7 +198,11 @@ message_format_parse (const char *format, struct spec *spec)
 	  element[n] = '\0';
 
 	  if (!c_isdigit (*element))
-	    return false;
+	    {
+	      *invalid_reason =
+		xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec->directives);
+	      return false;
+	    }
 	  number = 0;
 	  do
 	    {
@@ -209,15 +221,30 @@ message_format_parse (const char *format, struct spec *spec)
 	      element += 5;
 	      if (*element == '\0')
 		;
-	      else if (*element++ == ','
-		       && (strcmp (element, "short") == 0
-			   || strcmp (element, "medium") == 0
-			   || strcmp (element, "long") == 0
-			   || strcmp (element, "full") == 0
-			   || date_format_parse (element)))
-		;
+	      else if (*element == ',')
+		{
+		  element++;
+		  if (strcmp (element, "short") == 0
+		      || strcmp (element, "medium") == 0
+		      || strcmp (element, "long") == 0
+		      || strcmp (element, "full") == 0
+		      || date_format_parse (element))
+		    ;
+		  else
+		    {
+		      *invalid_reason =
+			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid date/time style."), spec->directives, element);
+		      return false;
+		    }
+		}
 	      else
-		return false;
+		{
+		  *element = '\0';
+		  element -= 4;
+		  *invalid_reason =
+		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  return false;
+		}
 	    }
 	  else if (strncmp (element, ",number", 7) == 0)
 	    {
@@ -225,14 +252,29 @@ message_format_parse (const char *format, struct spec *spec)
 	      element += 7;
 	      if (*element == '\0')
 		;
-	      else if (*element++ == ','
-		       && (strcmp (element, "currency") == 0
-			   || strcmp (element, "percent") == 0
-			   || strcmp (element, "integer") == 0
-			   || number_format_parse (element)))
-		;
+	      else if (*element == ',')
+		{
+		  element++;
+		  if (strcmp (element, "currency") == 0
+		      || strcmp (element, "percent") == 0
+		      || strcmp (element, "integer") == 0
+		      || number_format_parse (element))
+		    ;
+		  else
+		    {
+		      *invalid_reason =
+			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid number style."), spec->directives, element);
+		      return false;
+		    }
+		}
 	      else
-		return false;
+		{
+		  *element = '\0';
+		  element -= 6;
+		  *invalid_reason =
+		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  return false;
+		}
 	    }
 	  else if (strncmp (element, ",choice", 7) == 0)
 	    {
@@ -240,14 +282,29 @@ message_format_parse (const char *format, struct spec *spec)
 	      element += 7;
 	      if (*element == '\0')
 		;
-	      else if (*element++ == ','
-		       && choice_format_parse (element, spec))
-		;
+	      else if (*element == ',')
+		{
+		  element++;
+		  if (choice_format_parse (element, spec, invalid_reason))
+		    ;
+		  else
+		    return false;
+		}
 	      else
-		return false;
+		{
+		  *element = '\0';
+		  element -= 6;
+		  *invalid_reason =
+		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  return false;
+		}
 	    }
 	  else
-	    return false;
+	    {
+	      *invalid_reason =
+		xasprintf (_("In the directive number %u, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."), spec->directives, "time", "date", "number", "choice");
+	      return false;
+	    }
 
 	  if (spec->allocated == spec->numbered_arg_count)
 	    {
@@ -260,7 +317,11 @@ message_format_parse (const char *format, struct spec *spec)
 	}
       /* The doc says "ab}de" is invalid.  Even though JDK accepts it.  */
       else if (!quoting && *format == '}')
-	return false;
+	{
+	  *invalid_reason =
+	    xstrdup (_("The string starts in the middle of a directive: found '}' without matching '{'."));
+	  return false;
+	}
       else if (*format != '\0')
 	format++;
       else
@@ -427,7 +488,8 @@ number_format_parse (const char *format)
 /* Return true if a format is a valid choiceFormatPattern.
    Extracts argument type information into spec.  */
 static bool
-choice_format_parse (const char *format, struct spec *spec)
+choice_format_parse (const char *format, struct spec *spec,
+		     char **invalid_reason)
 {
   /* Pattern syntax:
        pattern   := | choice | choice '|' pattern
@@ -446,10 +508,12 @@ choice_format_parse (const char *format, struct spec *spec)
     {
       /* Don't bother looking too precisely into the syntax of the number.
 	 It can contain various Unicode characters.  */
+      bool number_nonempty;
       char *msgformat;
       char *mp;
 
       /* Parse number.  */
+      number_nonempty = false;
       while (*format != '\0'
 	     && !(!quoting && (*format == '<' || *format == '#'
 			       || strncmp (format, "\\u2264", 6) == 0
@@ -468,6 +532,7 @@ choice_format_parse (const char *format, struct spec *spec)
 	    }
 	  else
 	    format += 1;
+	  number_nonempty = true;
 	  HANDLE_QUOTE;
 	}
 
@@ -475,12 +540,23 @@ choice_format_parse (const char *format, struct spec *spec)
       if (*format == '\0')
 	break;
 
+      if (!number_nonempty)
+	{
+	  *invalid_reason =
+	    xasprintf (_("In the directive number %u, a choice contains no number."), spec->directives);
+	  return false;
+	}
+
       if (*format == '<' || *format == '#')
 	format += 1;
       else if (strncmp (format, "\\u2264", 6) == 0)
 	format += 6;
       else
-	return false;
+	{
+	  *invalid_reason =
+	    xasprintf (_("In the directive number %u, a choice contains a number that is not followed by '<', '#' or '%s'."), spec->directives, "\\u2264");
+	  return false;
+	}
       HANDLE_QUOTE;
 
       msgformat = (char *) alloca (strlen (format) + 1);
@@ -493,7 +569,7 @@ choice_format_parse (const char *format, struct spec *spec)
 	}
       *mp = '\0';
 
-      if (!message_format_parse (msgformat, spec))
+      if (!message_format_parse (msgformat, spec, invalid_reason))
 	return false;
 
       if (*format == '\0')
@@ -516,7 +592,7 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format)
+format_parse (const char *format, char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -526,7 +602,7 @@ format_parse (const char *format)
   spec.allocated = 0;
   spec.numbered = NULL;
 
-  if (!message_format_parse (format, &spec))
+  if (!message_format_parse (format, &spec, invalid_reason))
     goto bad_format;
 
   /* Sort the numbered argument array, and eliminate duplicates.  */
@@ -552,8 +628,14 @@ format_parse (const char *format)
 	    else if (type1 == FAT_OBJECT)
 	      type_both = type2;
 	    else
-	      /* Incompatible types.  */
-	      type_both = FAT_NONE, err = true;
+	      {
+		/* Incompatible types.  */
+		type_both = FAT_NONE;
+		if (!err)
+		  *invalid_reason =
+		    INVALID_INCOMPATIBLE_ARG_TYPES (spec.numbered[i].number);
+		err = true;
+	      }
 
 	    spec.numbered[j-1].type = type_both;
 	  }
@@ -568,6 +650,7 @@ format_parse (const char *format)
 	  }
       spec.numbered_arg_count = j;
       if (err)
+	/* *invalid_reason has already been set above.  */
 	goto bad_format;
     }
 
@@ -755,17 +838,26 @@ main ()
   for (;;)
     {
       char *line = NULL;
-      size_t line_len = 0;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
       void *descr;
 
-      if (getline (&line, &line_len, stdin) < 0)
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
 
-      descr = format_parse (line);
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
 
       format_print (descr);
       printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
 
+      free (invalid_reason);
       free (line);
     }
 

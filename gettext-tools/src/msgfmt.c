@@ -1120,8 +1120,10 @@ check_pair (const char *msgid,
 		arguments that are used by other translations.  */
 
 	  struct formatstring_parser *parser = formatstring_parsers[i];
+	  char *invalid_reason = NULL;
 	  void *msgid_descr =
-	    parser->parse (msgid_plural != NULL ? msgid_plural : msgid);
+	    parser->parse (msgid_plural != NULL ? msgid_plural : msgid,
+			   &invalid_reason);
 
 	  if (msgid_descr != NULL)
 	    {
@@ -1140,7 +1142,7 @@ check_pair (const char *msgid,
 		      pretty_msgstr = buf;
 		    }
 
-		  msgstr_descr = parser->parse (p);
+		  msgstr_descr = parser->parse (p, &invalid_reason);
 
 		  if (msgstr_descr != NULL)
 		    {
@@ -1157,15 +1159,19 @@ check_pair (const char *msgid,
 		      error_at_line (0, 0, msgid_pos->file_name,
 				     msgid_pos->line_number,
 				     _("\
-'%s' is not a valid %s format string, unlike 'msgid'"),
-				     pretty_msgstr, format_language_pretty[i]);
+'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"),
+				     pretty_msgstr, format_language_pretty[i],
+				     invalid_reason);
 		      error_with_progname = true;
 		      exit_status = EXIT_FAILURE;
+		      free (invalid_reason);
 		    }
 		}
 
 	      parser->free (msgid_descr);
 	    }
+	  else
+	    free (invalid_reason);
 	}
 
   if (check_accelerators && msgid_plural == NULL)

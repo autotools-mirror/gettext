@@ -24,7 +24,10 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "c-ctype.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "error.h"
 #include "progname.h"
 #include "gettext.h"
@@ -169,8 +172,11 @@ numbered_arg_compare (const void *p1, const void *p2)
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
 
+#define INVALID_C99_MACRO(directive_number) \
+  xasprintf (_("In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."), directive_number)
+
 static void *
-format_parse (const char *format)
+format_parse (const char *format, char **invalid_reason)
 {
   struct spec spec;
   unsigned int numbered_arg_count;
@@ -211,7 +217,10 @@ format_parse (const char *format)
 	    if (*f == '$')
 	      {
 		if (m == 0)
-		  goto bad_format;
+		  {
+		    *invalid_reason = INVALID_ARGNO_0 (spec.directives);
+		    goto bad_format;
+		  }
 		number = m;
 		format = ++f;
 	      }
@@ -244,7 +253,11 @@ format_parse (const char *format)
 		if (*f == '$')
 		  {
 		    if (m == 0)
-		      goto bad_format;
+		      {
+			*invalid_reason =
+			  INVALID_WIDTH_ARGNO_0 (spec.directives);
+			goto bad_format;
+		      }
 		    width_number = m;
 		    format = ++f;
 		  }
@@ -256,7 +269,10 @@ format_parse (const char *format)
 
 		/* Numbered and unnumbered specifications are exclusive.  */
 		if (spec.unnumbered_arg_count > 0)
-		  goto bad_format;
+		  {
+		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    goto bad_format;
+		  }
 
 		if (spec.allocated == numbered_arg_count)
 		  {
@@ -273,7 +289,10 @@ format_parse (const char *format)
 
 		/* Numbered and unnumbered specifications are exclusive.  */
 		if (numbered_arg_count > 0)
-		  goto bad_format;
+		  {
+		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    goto bad_format;
+		  }
 
 		if (spec.allocated == spec.unnumbered_arg_count)
 		  {
@@ -315,7 +334,11 @@ format_parse (const char *format)
 		    if (*f == '$')
 		      {
 			if (m == 0)
-			  goto bad_format;
+			  {
+			    *invalid_reason =
+			      INVALID_PRECISION_ARGNO_0 (spec.directives);
+			    goto bad_format;
+			  }
 			precision_number = m;
 			format = ++f;
 		      }
@@ -327,7 +350,10 @@ format_parse (const char *format)
 
 		    /* Numbered and unnumbered specifications are exclusive.  */
 		    if (spec.unnumbered_arg_count > 0)
-		      goto bad_format;
+		      {
+			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			goto bad_format;
+		      }
 
 		    if (spec.allocated == numbered_arg_count)
 		      {
@@ -344,7 +370,10 @@ format_parse (const char *format)
 
 		    /* Numbered and unnumbered specifications are exclusive.  */
 		    if (numbered_arg_count > 0)
-		      goto bad_format;
+		      {
+			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			goto bad_format;
+		      }
 
 		    if (spec.allocated == spec.unnumbered_arg_count)
 		      {
@@ -376,13 +405,22 @@ format_parse (const char *format)
 	       P R I { d | i | o | u | x | X }
 	       { { | LEAST | FAST } { 8 | 16 | 32 | 64 } | MAX | PTR }  */
 	    if (*format != 'P')
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		goto bad_format;
+	      }
 	    format++;
 	    if (*format != 'R')
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		goto bad_format;
+	      }
 	    format++;
 	    if (*format != 'I')
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		goto bad_format;
+	      }
 	    format++;
 
 	    switch (*format)
@@ -394,6 +432,7 @@ format_parse (const char *format)
 		type = FAT_INTEGER | FAT_UNSIGNED;
 		break;
 	      default:
+		*invalid_reason = INVALID_C99_MACRO (spec.directives);
 		goto bad_format;
 	      }
 	    format++;
@@ -435,7 +474,10 @@ format_parse (const char *format)
 			format += 2;
 		      }
 		    else
-		      goto bad_format;
+		      {
+			*invalid_reason = INVALID_C99_MACRO (spec.directives);
+			goto bad_format;
+		      }
 		  }
 		else if (format[0] == 'F' && format[1] == 'A'
 			 && format[2] == 'S' && format[3] == 'T')
@@ -462,7 +504,10 @@ format_parse (const char *format)
 			format += 2;
 		      }
 		    else
-		      goto bad_format;
+		      {
+			*invalid_reason = INVALID_C99_MACRO (spec.directives);
+			goto bad_format;
+		      }
 		  }
 		else
 		  {
@@ -487,12 +532,19 @@ format_parse (const char *format)
 			format += 2;
 		      }
 		    else
-		      goto bad_format;
+		      {
+			*invalid_reason = INVALID_C99_MACRO (spec.directives);
+			goto bad_format;
+		      }
 		  }
 	      }
 
 	    if (*format != '>')
-	      goto bad_format;
+	      {
+		*invalid_reason =
+		  xasprintf (_("In the directive number %u, the token after '<' is not followed by '>'."), spec.directives);
+		goto bad_format;
+	      }
 
 	    spec.c99_directives[2 * spec.c99_directives_count + 1] = format;
 	    spec.c99_directives_count++;
@@ -578,6 +630,10 @@ format_parse (const char *format)
 		type |= (size & FAT_SIZE_MASK);
 		break;
 	      default:
+		*invalid_reason =
+		  (*format == '\0'
+		   ? INVALID_UNTERMINATED_DIRECTIVE ()
+		   : INVALID_CONVERSION_SPECIFIER (spec.directives, *format));
 		goto bad_format;
 	      }
 	  }
@@ -590,7 +646,10 @@ format_parse (const char *format)
 
 		/* Numbered and unnumbered specifications are exclusive.  */
 		if (spec.unnumbered_arg_count > 0)
-		  goto bad_format;
+		  {
+		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    goto bad_format;
+		  }
 
 		if (spec.allocated == numbered_arg_count)
 		  {
@@ -607,7 +666,10 @@ format_parse (const char *format)
 
 		/* Numbered and unnumbered specifications are exclusive.  */
 		if (numbered_arg_count > 0)
-		  goto bad_format;
+		  {
+		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    goto bad_format;
+		  }
 
 		if (spec.allocated == spec.unnumbered_arg_count)
 		  {
@@ -643,8 +705,14 @@ format_parse (const char *format)
 	    if (type1 == type2)
 	      type_both = type1;
 	    else
-	      /* Incompatible types.  */
-	      type_both = FAT_NONE, err = true;
+	      {
+		/* Incompatible types.  */
+		type_both = FAT_NONE;
+		if (!err)
+		  *invalid_reason =
+		    INVALID_INCOMPATIBLE_ARG_TYPES (numbered[i].number);
+		err = true;
+	      }
 
 	    numbered[j-1].type = type_both;
 	  }
@@ -659,6 +727,7 @@ format_parse (const char *format)
 	  }
       numbered_arg_count = j;
       if (err)
+	/* *invalid_reason has already been set above.  */
 	goto bad_format;
     }
 
@@ -670,7 +739,11 @@ format_parse (const char *format)
 
       for (i = 0; i < numbered_arg_count; i++)
 	if (numbered[i].number != i + 1)
-	  goto bad_format;
+	  {
+	    *invalid_reason =
+	      xasprintf (_("The string refers to argument number %u but ignores argument number %u."), numbered[i].number, i + 1);
+	    goto bad_format;
+	  }
 
       /* So now the numbered arguments array is equivalent to a sequence
 	 of unnumbered arguments.  */
@@ -773,7 +846,8 @@ void
 get_c99_format_directives (const char *string,
 			   struct interval **intervalsp, size_t *lengthp)
 {
-  struct spec *descr = (struct spec *) format_parse (string);
+  char *invalid_reason = NULL;
+  struct spec *descr = (struct spec *) format_parse (string, &invalid_reason);
 
   if (descr != NULL && descr->c99_directives_count > 0)
     {
@@ -798,6 +872,8 @@ get_c99_format_directives (const char *string,
 
   if (descr != NULL)
     format_free (descr);
+  else
+    free (invalid_reason);
 }
 
 
@@ -928,17 +1004,26 @@ main ()
   for (;;)
     {
       char *line = NULL;
-      size_t line_len = 0;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
       void *descr;
 
-      if (getline (&line, &line_len, stdin) < 0)
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
 
-      descr = format_parse (line);
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
 
       format_print (descr);
       printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
 
+      free (invalid_reason);
       free (line);
     }
 

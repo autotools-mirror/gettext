@@ -513,8 +513,10 @@ msgfmt_check_pair_fails (const lex_pos_ty *pos,
 {
   bool failure;
   struct formatstring_parser *parser = formatstring_parsers[fmt];
+  char *invalid_reason = NULL;
   void *msgid_descr =
-    parser->parse (msgid_plural != NULL ? msgid_plural : msgid);
+    parser->parse (msgid_plural != NULL ? msgid_plural : msgid,
+		   &invalid_reason);
 
   failure = false;
   if (msgid_descr != NULL)
@@ -524,7 +526,7 @@ msgfmt_check_pair_fails (const lex_pos_ty *pos,
 
       for (p = msgstr; p < p_end; p += strlen (p) + 1)
 	{
-	  void *msgstr_descr = parser->parse (msgstr);
+	  void *msgstr_descr = parser->parse (msgstr, &invalid_reason);
 
 	  if (msgstr_descr != NULL)
 	    {
@@ -533,7 +535,10 @@ msgfmt_check_pair_fails (const lex_pos_ty *pos,
 	      parser->free (msgstr_descr);
 	    }
 	  else
-	    failure = true;
+	    {
+	      failure = true;
+	      free (invalid_reason);
+	    }
 
 	  if (failure)
 	    break;
@@ -541,6 +546,8 @@ msgfmt_check_pair_fails (const lex_pos_ty *pos,
 
       parser->free (msgid_descr);
     }
+  else
+    free (invalid_reason);
 
   return failure;
 }

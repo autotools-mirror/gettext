@@ -1,5 +1,5 @@
 /* Python format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,10 @@
 #include <string.h>
 
 #include "format.h"
+#include "c-ctype.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "error.h"
 #include "progname.h"
 #include "gettext.h"
@@ -108,8 +111,11 @@ named_arg_compare (const void *p1, const void *p2)
 		 ((const struct named_arg *) p2)->name);
 }
 
+#define INVALID_MIXES_NAMED_UNNAMED() \
+  xstrdup (_("The string refers to arguments both through argument names and through unnamed argument specifications."))
+
 static void *
-format_parse (const char *format)
+format_parse (const char *format, char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -152,7 +158,10 @@ format_parse (const char *format)
 		  }
 	      }
 	    if (*format == '\0')
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		goto bad_format;
+	      }
 	    name_end = format++;
 
 	    n = name_end - name_start;
@@ -171,7 +180,10 @@ format_parse (const char *format)
 
 	    /* Named and unnamed specifications are exclusive.  */
 	    if (spec.named_arg_count > 0)
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		goto bad_format;
+	      }
 
 	    if (spec.allocated == spec.unnamed_arg_count)
 	      {
@@ -196,7 +208,10 @@ format_parse (const char *format)
 
 		/* Named and unnamed specifications are exclusive.  */
 		if (spec.named_arg_count > 0)
-		  goto bad_format;
+		  {
+		    *invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		    goto bad_format;
+		  }
 
 		if (spec.allocated == spec.unnamed_arg_count)
 		  {
@@ -233,6 +248,10 @@ format_parse (const char *format)
 	    type = FAT_FLOAT;
 	    break;
 	  default:
+	    *invalid_reason =
+	      (*format == '\0'
+	       ? INVALID_UNTERMINATED_DIRECTIVE ()
+	       : INVALID_CONVERSION_SPECIFIER (spec.directives, *format));
 	    goto bad_format;
 	  }
 
@@ -242,7 +261,10 @@ format_parse (const char *format)
 
 	    /* Named and unnamed specifications are exclusive.  */
 	    if (spec.unnamed_arg_count > 0)
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		goto bad_format;
+	      }
 
 	    if (spec.allocated == spec.named_arg_count)
 	      {
@@ -259,7 +281,10 @@ format_parse (const char *format)
 
 	    /* Named and unnamed specifications are exclusive.  */
 	    if (spec.named_arg_count > 0)
-	      goto bad_format;
+	      {
+		*invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		goto bad_format;
+	      }
 
 	    if (spec.allocated == spec.unnamed_arg_count)
 	      {
@@ -296,8 +321,14 @@ format_parse (const char *format)
 	    else if (type1 == FAT_ANY)
 	      type_both = type2;
 	    else
-	      /* Incompatible types.  */
-	      type_both = FAT_NONE, err = true;
+	      {
+		/* Incompatible types.  */
+		type_both = FAT_NONE;
+		if (!err)
+		  *invalid_reason =
+		    xasprintf (_("The string refers to the argument named '%s' in incompatible ways."), spec.named[i].name);
+		err = true;
+	      }
 
 	    spec.named[j-1].type = type_both;
 	    free (spec.named[i].name);
@@ -313,6 +344,7 @@ format_parse (const char *format)
 	  }
       spec.named_arg_count = j;
       if (err)
+	/* *invalid_reason has already been set above.  */
 	goto bad_format;
     }
 
@@ -609,17 +641,26 @@ main ()
   for (;;)
     {
       char *line = NULL;
-      size_t line_len = 0;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
       void *descr;
 
-      if (getline (&line, &line_len, stdin) < 0)
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
 
-      descr = format_parse (line);
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
 
       format_print (descr);
       printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
 
+      free (invalid_reason);
       free (line);
     }
 

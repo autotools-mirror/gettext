@@ -26,6 +26,7 @@ src/file-list.c
 src/format-awk.c
 src/format-c.c
 src/format-elisp.c
+src/format-invalid.h
 src/format-java.c
 src/format-librep.c
 src/format-lisp.c
@@ -54,7 +55,7 @@ src/msgunfmt.c
 src/msguniq.c
 src/open-po.c
 src/po-charset.c
-src/po-gram-gen.c
+src/po-gram-gen.y
 src/po-lex.h
 src/po-lex.c
 src/read-java.c

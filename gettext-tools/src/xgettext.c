@@ -1142,7 +1142,8 @@ meta information, not the empty string.\n")));
 	  && formatstring_parsers[i] == current_formatstring_parser)
 	{
 	  struct formatstring_parser *parser = formatstring_parsers[i];
-	  void *descr = parser->parse (mp->msgid);
+	  char *invalid_reason = NULL;
+	  void *descr = parser->parse (mp->msgid, &invalid_reason);
 
 	  if (descr != NULL)
 	    {
@@ -1160,8 +1161,11 @@ meta information, not the empty string.\n")));
 	      parser->free (descr);
 	    }
 	  else
-	    /* msgid is not a valid format string.  */
-	    is_format[i] = impossible;
+	    {
+	      /* msgid is not a valid format string.  */
+	      is_format[i] = impossible;
+	      free (invalid_reason);
+	    }
 	}
       mp->is_format[i] = is_format[i];
     }
@@ -1226,7 +1230,8 @@ remember_a_message_plural (message_ty *mp, char *string, lex_pos_ty *pos)
 	    && (mp->is_format[i] == undecided || mp->is_format[i] == possible))
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
-	    void *descr = parser->parse (mp->msgid_plural);
+	    char *invalid_reason = NULL;
+	    void *descr = parser->parse (mp->msgid_plural, &invalid_reason);
 
 	    if (descr != NULL)
 	      {
@@ -1237,8 +1242,11 @@ remember_a_message_plural (message_ty *mp, char *string, lex_pos_ty *pos)
 		parser->free (descr);
 	      }
 	    else
-	      /* msgid_plural is not a valid format string.  */
-	      mp->is_format[i] = impossible;
+	      {
+		/* msgid_plural is not a valid format string.  */
+		mp->is_format[i] = impossible;
+		free (invalid_reason);
+	      }
 	  }
     }
   else

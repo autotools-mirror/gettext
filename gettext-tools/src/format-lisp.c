@@ -1,5 +1,5 @@
 /* Lisp format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,6 +27,8 @@
 #include "c-ctype.h"
 #include "gcd.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "minmax.h"
 #include "error.h"
 #include "progname.h"
@@ -2323,12 +2325,17 @@ static const enum format_arg_type THREE [3] = {
 
 
 /* Check the parameters.  For V params, add the constraint to the argument
-   list.  Return false if the format string is invalid.  */
+   list.  Return false and fill in *invalid_reason if the format string is
+   invalid.  */
 static bool
 check_params (struct format_arg_list **listp,
 	      unsigned int paramcount, struct param *params,
-	      unsigned int t_count, const enum format_arg_type *t_types)
+	      unsigned int t_count, const enum format_arg_type *t_types,
+	      unsigned int directives, char **invalid_reason)
 {
+  unsigned int orig_paramcount = paramcount;
+  unsigned int orig_t_count = t_count;
+
   for (; paramcount > 0 && t_count > 0;
 	 params++, paramcount--, t_types++, t_count--)
     {
@@ -2342,7 +2349,10 @@ check_params (struct format_arg_list **listp,
 	    case PT_NIL: case PT_CHARACTER: case PT_V:
 	      break;
 	    case PT_INTEGER: case PT_ARGCOUNT:
-	      return false; /* wrong param type */
+	      /* wrong param type */
+	      *invalid_reason =
+		xasprintf (_("In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."), directives, orig_paramcount - paramcount + 1, "integer", "character");
+	      return false;
 	    }
 	  break;
 	case FAT_INTEGER_NULL:
@@ -2351,7 +2361,10 @@ check_params (struct format_arg_list **listp,
 	    case PT_NIL: case PT_INTEGER: case PT_ARGCOUNT: case PT_V:
 	      break;
 	    case PT_CHARACTER:
-	      return false; /* wrong param type */
+	      /* wrong param type */
+	      *invalid_reason =
+		xasprintf (_("In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."), directives, orig_paramcount - paramcount + 1, "character", "integer");
+	      return false;
 	    }
 	  break;
 	default:
@@ -2371,7 +2384,10 @@ check_params (struct format_arg_list **listp,
       case PT_NIL:
 	break;
       case PT_CHARACTER: case PT_INTEGER: case PT_ARGCOUNT:
-	return false; /* too many params for directive */
+	/* too many params for directive */
+	*invalid_reason =
+	  xasprintf (_("In the directive number %u, too many parameters are given; expected at most %u parameters."), directives, orig_t_count);
+	return false;
       case PT_V:
 	/* Force argument to be NIL.  */
 	{
@@ -2393,11 +2409,16 @@ check_params (struct format_arg_list **listp,
 
 /* Handle the parameters, without a priori type information.
    For V params, add the constraint to the argument list.
-   Return false if the format string is invalid.  */
+   Return false and fill in *invalid_reason if the format string is
+   invalid.  */
 static bool
 nocheck_params (struct format_arg_list **listp,
-		unsigned int paramcount, struct param *params)
+		unsigned int paramcount, struct param *params,
+		unsigned int directives, char **invalid_reason)
 {
+  (void) directives;
+  (void) invalid_reason;
+
   for (; paramcount > 0; params++, paramcount--)
     if (params->type == PT_V)
       {
@@ -2426,12 +2447,14 @@ nocheck_params (struct format_arg_list **listp,
    spec is the global struct spec.
    terminator is the directive that terminates this parse.
    separator specifies if ~; separators are allowed.
-   If the format string is invalid, false is returned.  */
+   If the format string is invalid, false is returned and *invalid_reason is
+   set to an error message explaining why.  */
 static bool
 parse_upto (const char **formatp,
 	    int *positionp, struct format_arg_list **listp,
 	    struct format_arg_list **escapep, int *separatorp,
-	    struct spec *spec, char terminator, bool separator)
+	    struct spec *spec, char terminator, bool separator,
+	    char **invalid_reason)
 {
   const char *format = *formatp;
   int position = *positionp;
@@ -2471,7 +2494,13 @@ parse_upto (const char **formatp,
 		type = PT_INTEGER;
 		format++;
 		if (!c_isdigit (*format))
-		  return false;
+		  {
+		    *invalid_reason =
+		      (*format == '\0'
+		       ? INVALID_UNTERMINATED_DIRECTIVE ()
+		       : xasprintf (_("In the directive number %u, '%c' is not followed by a digit."), spec->directives, format[-1]));
+		    return false;
+		  }
 		do
 		  {
 		    value = 10 * value + (*format - '0');
@@ -2486,7 +2515,10 @@ parse_upto (const char **formatp,
 		type = PT_CHARACTER;
 		format++;
 		if (*format == '\0')
-		  return false;
+		  {
+		    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		    return false;
+		  }
 		format++;
 	      }
 	    else if (*format == 'V' || *format == 'v')
@@ -2539,14 +2571,16 @@ parse_upto (const char **formatp,
 	  {
 	  case 'A': case 'a': /* 22.3.4.1 FORMAT-ASCII */
 	  case 'S': case 's': /* 22.3.4.2 FORMAT-S-EXPRESSION */
-	    if (!check_params (&list, paramcount, params, 4, IIIC))
+	    if (!check_params (&list, paramcount, params, 4, IIIC,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_OBJECT);
 	    break;
 
 	  case 'W': case 'w': /* 22.3.4.3 FORMAT-WRITE */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_OBJECT);
@@ -2556,21 +2590,24 @@ parse_upto (const char **formatp,
 	  case 'B': case 'b': /* 22.3.2.3 FORMAT-BINARY */
 	  case 'O': case 'o': /* 22.3.2.4 FORMAT-OCTAL */
 	  case 'X': case 'x': /* 22.3.2.5 FORMAT-HEXADECIMAL */
-	    if (!check_params (&list, paramcount, params, 4, ICCI))
+	    if (!check_params (&list, paramcount, params, 4, ICCI,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_INTEGER);
 	    break;
 
 	  case 'R': case 'r': /* 22.3.2.1 FORMAT-RADIX */
-	    if (!check_params (&list, paramcount, params, 5, IICCI))
+	    if (!check_params (&list, paramcount, params, 5, IICCI,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_INTEGER);
 	    break;
 
 	  case 'P': case 'p': /* 22.3.8.3 FORMAT-PLURAL */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (colon_p)
 	      {
@@ -2583,14 +2620,16 @@ parse_upto (const char **formatp,
 	    break;
 
 	  case 'C': case 'c': /* 22.3.1.1 FORMAT-CHARACTER */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_CHARACTER);
 	    break;
 
 	  case 'F': case 'f': /* 22.3.3.1 FORMAT-FIXED-FLOAT */
-	    if (!check_params (&list, paramcount, params, 5, IIICC))
+	    if (!check_params (&list, paramcount, params, 5, IIICC,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_REAL);
@@ -2598,14 +2637,16 @@ parse_upto (const char **formatp,
 
 	  case 'E': case 'e': /* 22.3.3.2 FORMAT-EXPONENTIAL-FLOAT */
 	  case 'G': case 'g': /* 22.3.3.3 FORMAT-GENERAL-FLOAT */
-	    if (!check_params (&list, paramcount, params, 7, IIIICCC))
+	    if (!check_params (&list, paramcount, params, 7, IIIICCC,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_REAL);
 	    break;
 
 	  case '$': /* 22.3.3.4 FORMAT-DOLLARS-FLOAT */
-	    if (!check_params (&list, paramcount, params, 4, IIIC))
+	    if (!check_params (&list, paramcount, params, 4, IIIC,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_REAL);
@@ -2616,23 +2657,27 @@ parse_upto (const char **formatp,
 	  case '|': /* 22.3.1.4 FORMAT-PAGE */
 	  case '~': /* 22.3.1.5 FORMAT-TILDE */
 	  case 'I': case 'i': /* 22.3.5.3 */
-	    if (!check_params (&list, paramcount, params, 1, I))
+	    if (!check_params (&list, paramcount, params, 1, I,
+			       spec->directives, invalid_reason))
 	      return false;
 	    break;
 
 	  case '\n': /* 22.3.9.3 #\Newline */
 	  case '_': /* 22.3.5.1 */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    break;
 
 	  case 'T': case 't': /* 22.3.6.1 FORMAT-TABULATE */
-	    if (!check_params (&list, paramcount, params, 2, II))
+	    if (!check_params (&list, paramcount, params, 2, II,
+			       spec->directives, invalid_reason))
 	      return false;
 	    break;
 
 	  case '*': /* 22.3.7.1 FORMAT-GOTO */
-	    if (!check_params (&list, paramcount, params, 1, I))
+	    if (!check_params (&list, paramcount, params, 1, I,
+			       spec->directives, invalid_reason))
 	      return false;
 	    {
 	      int n; /* value of first parameter */
@@ -2648,7 +2693,12 @@ parse_upto (const char **formatp,
 		  break;
 		}
 	      if (n < 0)
-		return false; /* invalid argument */
+		{
+		  /* invalid argument */
+		  *invalid_reason =
+		    xasprintf (_("In the directive number %u, the argument %d is negative."), spec->directives, n);
+		  return false;
+		}
 	      if (atsign_p)
 		{
 		  /* Absolute goto.  */
@@ -2680,7 +2730,8 @@ parse_upto (const char **formatp,
 	    break;
 
 	  case '?': /* 22.3.7.6 FORMAT-INDIRECTION */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_FORMATSTRING);
@@ -2697,19 +2748,25 @@ parse_upto (const char **formatp,
 	    break;
 
 	  case '/': /* 22.3.5.4 FORMAT-CALL-USER-FUNCTION */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_OBJECT);
 	    while (*format != '\0' && *format != '/')
 	      format++;
 	    if (*format == '\0')
-	      return false;
+	      {
+		*invalid_reason =
+		  xstrdup (_("The string ends in the middle of a ~/.../ directive."));
+		return false;
+	      }
 	    format++;
 	    break;
 
 	  case '(': /* 22.3.8.1 FORMAT-CASE-CONVERSION */
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    *formatp = format;
 	    *positionp = position;
@@ -2717,7 +2774,8 @@ parse_upto (const char **formatp,
 	    *escapep = escape;
 	    {
 	      if (!parse_upto (formatp, positionp, listp, escapep,
-			       NULL, spec, ')', false))
+			       NULL, spec, ')', false,
+			       invalid_reason))
 		return false;
 	    }
 	    format = *formatp;
@@ -2728,8 +2786,13 @@ parse_upto (const char **formatp,
 
 	  case ')': /* 22.3.8.2 FORMAT-CASE-CONVERSION-END */
 	    if (terminator != ')')
-	      return false;
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	      {
+		*invalid_reason =
+		  xasprintf (_("Found '~%c' without matching '~%c'."), ')', '(');
+		return false;
+	      }
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    *formatp = format;
 	    *positionp = position;
@@ -2739,13 +2802,18 @@ parse_upto (const char **formatp,
 
 	  case '[': /* 22.3.7.2 FORMAT-CONDITIONAL */
 	    if (atsign_p && colon_p)
-	      return false;
+	      {
+		*invalid_reason =
+		  xasprintf (_("In the directive number %u, both the @ and the : modifiers are given."), spec->directives);
+		return false;
+	      }
 	    else if (atsign_p)
 	      {
 		struct format_arg_list *nil_list;
 		struct format_arg_list *union_list;
 
-		if (!check_params (&list, paramcount, params, 0, NULL))
+		if (!check_params (&list, paramcount, params, 0, NULL,
+				   spec->directives, invalid_reason))
 		  return false;
 
 		*formatp = format;
@@ -2767,7 +2835,8 @@ parse_upto (const char **formatp,
 		  struct format_arg_list *sub_list =
 		    (list != NULL ? copy_list (list) : NULL);
 		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   NULL, spec, ']', false))
+				   NULL, spec, ']', false,
+				   invalid_reason))
 		    return false;
 		  if (sub_list != NULL)
 		    {
@@ -2801,7 +2870,8 @@ parse_upto (const char **formatp,
 		int union_position;
 		struct format_arg_list *union_list;
 
-		if (!check_params (&list, paramcount, params, 0, NULL))
+		if (!check_params (&list, paramcount, params, 0, NULL,
+				   spec->directives, invalid_reason))
 		  return false;
 
 		if (position >= 0)
@@ -2826,10 +2896,15 @@ parse_upto (const char **formatp,
 		      free_list (empty_list);
 		    }
 		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   &sub_separator, spec, ']', true))
+				   &sub_separator, spec, ']', true,
+				   invalid_reason))
 		    return false;
 		  if (!sub_separator)
-		    return false;
+		    {
+		      *invalid_reason =
+			xasprintf (_("In the directive number %u, '~:[' is not followed by two clauses, separated by '~;'."), spec->directives);
+		      return false;
+		    }
 		  if (sub_list != NULL)
 		    union_position = sub_position;
 		  union_list = union (union_list, sub_list);
@@ -2841,7 +2916,8 @@ parse_upto (const char **formatp,
 		  struct format_arg_list *sub_list =
 		    (list != NULL ? copy_list (list) : NULL);
 		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   NULL, spec, ']', false))
+				   NULL, spec, ']', false,
+				   invalid_reason))
 		    return false;
 		  if (sub_list != NULL)
 		    {
@@ -2869,7 +2945,8 @@ parse_upto (const char **formatp,
 		struct format_arg_list *union_list;
 		bool last_alternative;
 
-		if (!check_params (&list, paramcount, params, 1, I))
+		if (!check_params (&list, paramcount, params, 1, I,
+				   spec->directives, invalid_reason))
 		  return false;
 
 		/* If there was no first parameter, an argument is consumed.  */
@@ -2891,7 +2968,8 @@ parse_upto (const char **formatp,
 		      (list != NULL ? copy_list (list) : NULL);
 		    int sub_separator = 0;
 		    if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				     &sub_separator, spec, ']', !last_alternative))
+				     &sub_separator, spec, ']', !last_alternative,
+				     invalid_reason))
 		      return false;
 		    if (sub_list != NULL)
 		      {
@@ -2931,8 +3009,13 @@ parse_upto (const char **formatp,
 
 	  case ']': /* 22.3.7.3 FORMAT-CONDITIONAL-END */
 	    if (terminator != ']')
-	      return false;
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	      {
+		*invalid_reason =
+		  xasprintf (_("Found '~%c' without matching '~%c'."), ']', '[');
+		return false;
+	      }
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    *formatp = format;
 	    *positionp = position;
@@ -2941,7 +3024,8 @@ parse_upto (const char **formatp,
 	    return true;
 
 	  case '{': /* 22.3.7.4 FORMAT-ITERATION */
-	    if (!check_params (&list, paramcount, params, 1, I))
+	    if (!check_params (&list, paramcount, params, 1, I,
+			       spec->directives, invalid_reason))
 	      return false;
 	    *formatp = format;
 	    {
@@ -2952,7 +3036,8 @@ parse_upto (const char **formatp,
 	      sub_spec.directives = 0;
 	      sub_spec.list = sub_list;
 	      if (!parse_upto (formatp, &sub_position, &sub_list, &sub_escape,
-			       NULL, &sub_spec, '}', false))
+			       NULL, &sub_spec, '}', false,
+			       invalid_reason))
 		return false;
 	      spec->directives += sub_spec.directives;
 
@@ -3030,8 +3115,13 @@ parse_upto (const char **formatp,
 
 	  case '}': /* 22.3.7.5 FORMAT-ITERATION-END */
 	    if (terminator != '}')
-	      return false;
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	      {
+		*invalid_reason =
+		  xasprintf (_("Found '~%c' without matching '~%c'."), '}', '{');
+		return false;
+	      }
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    *formatp = format;
 	    *positionp = position;
@@ -3040,7 +3130,8 @@ parse_upto (const char **formatp,
 	    return true;
 
 	  case '<': /* 22.3.6.2, 22.3.5.2 FORMAT-JUSTIFICATION */
-	    if (!check_params (&list, paramcount, params, 4, IIIC))
+	    if (!check_params (&list, paramcount, params, 4, IIIC,
+			       spec->directives, invalid_reason))
 	      return false;
 	    {
 	      struct format_arg_list *sub_escape = NULL;
@@ -3053,7 +3144,8 @@ parse_upto (const char **formatp,
 		{
 		  int sub_separator = 0;
 		  if (!parse_upto (formatp, positionp, listp, &sub_escape,
-				   &sub_separator, spec, '>', true))
+				   &sub_separator, spec, '>', true,
+				   invalid_reason))
 		    return false;
 		  if (!sub_separator)
 		    break;
@@ -3072,8 +3164,13 @@ parse_upto (const char **formatp,
 
 	  case '>': /* 22.3.6.3 FORMAT-JUSTIFICATION-END */
 	    if (terminator != '>')
-	      return false;
-	    if (!check_params (&list, paramcount, params, 0, NULL))
+	      {
+		*invalid_reason =
+		  xasprintf (_("Found '~%c' without matching '~%c'."), '>', '<');
+		return false;
+	      }
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
 	      return false;
 	    *formatp = format;
 	    *positionp = position;
@@ -3082,7 +3179,8 @@ parse_upto (const char **formatp,
 	    return true;
 
 	  case '^': /* 22.3.9.2 FORMAT-UP-AND-OUT */
-	    if (!check_params (&list, paramcount, params, 3, THREE))
+	    if (!check_params (&list, paramcount, params, 3, THREE,
+			       spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0 && list != NULL && is_required (list, position))
 	      /* This ~^ can never be executed.  Ignore it.  */
@@ -3100,15 +3198,21 @@ parse_upto (const char **formatp,
 
 	  case ';': /* 22.3.9.1 FORMAT-SEPARATOR */
 	    if (!separator)
-	      return false;
+	      {
+		*invalid_reason =
+		  xasprintf (_("In the directive number %u, '~;' is used in an invalid position."), spec->directives);
+		return false;
+	      }
 	    if (terminator == '>')
 	      {
-		if (!check_params (&list, paramcount, params, 1, I))
+		if (!check_params (&list, paramcount, params, 1, I,
+				   spec->directives, invalid_reason))
 		   return false;
 	      }
 	    else
 	      {
-		if (!check_params (&list, paramcount, params, 0, NULL))
+		if (!check_params (&list, paramcount, params, 0, NULL,
+				   spec->directives, invalid_reason))
 		   return false;
 	      }
 	    *formatp = format;
@@ -3119,7 +3223,8 @@ parse_upto (const char **formatp,
 	    return true;
 
 	  case '!': /* FORMAT-CALL, a CLISP extension */
-	    if (!nocheck_params (&list, paramcount, params))
+	    if (!nocheck_params (&list, paramcount, params,
+				 spec->directives, invalid_reason))
 	      return false;
 	    if (position >= 0)
 	      {
@@ -3129,6 +3234,11 @@ parse_upto (const char **formatp,
 	    break;
 
 	  default:
+	    --format;
+	    *invalid_reason =
+	      (*format == '\0'
+	       ? INVALID_UNTERMINATED_DIRECTIVE ()
+	       : INVALID_CONVERSION_SPECIFIER (spec->directives, *format));
 	    return false;
 	  }
 
@@ -3139,14 +3249,20 @@ parse_upto (const char **formatp,
   *positionp = position;
   *listp = list;
   *escapep = escape;
-  return (terminator == '\0');
+  if (terminator != '\0')
+    {
+      *invalid_reason =
+	xasprintf (_("Found '~%c' without matching '~%c'."), terminator - 1, terminator);
+      return false;
+    }
+  return true;
 }
 
 
 /* ============== Top level format string handling functions ============== */
 
 static void *
-format_parse (const char *format)
+format_parse (const char *format, char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -3158,7 +3274,8 @@ format_parse (const char *format)
   escape = NULL;
 
   if (!parse_upto (&format, &position, &spec.list, &escape,
-		   NULL, &spec, '\0', false))
+		   NULL, &spec, '\0', false,
+		   invalid_reason))
     /* Invalid format string.  */
     return NULL;
 
@@ -3166,8 +3283,12 @@ format_parse (const char *format)
   spec.list = union (spec.list, escape);
 
   if (spec.list == NULL)
-    /* Contradictory argument type information.  */
-    return NULL;
+    {
+      /* Contradictory argument type information.  */
+      *invalid_reason =
+	xstrdup (_("The string refers to some argument in incompatible ways."));
+      return NULL;
+    }
 
   /* Normalize the result.  */
   normalize_list (spec.list);
@@ -3252,6 +3373,8 @@ struct formatstring_parser formatstring_lisp =
 
 
 /* ============================= Testing code ============================= */
+
+#undef union
 
 #ifdef TEST
 
@@ -3363,16 +3486,26 @@ main ()
   for (;;)
     {
       char *line = NULL;
-      size_t line_len = 0;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
       void *descr;
 
-      if (getline (&line, &line_len, stdin) < 0)
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
 
-      descr = format_parse (line);
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
+
       format_print (descr);
       printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
 
+      free (invalid_reason);
       free (line);
     }
 

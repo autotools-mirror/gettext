@@ -1,5 +1,5 @@
 /* Emacs Lisp format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,10 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "c-ctype.h"
 #include "xmalloc.h"
+#include "xerror.h"
+#include "format-invalid.h"
 #include "error.h"
 #include "progname.h"
 #include "gettext.h"
@@ -94,7 +97,7 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format)
+format_parse (const char *format, char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -206,6 +209,10 @@ format_parse (const char *format)
 	    type = FAT_OBJECT;
 	    break;
 	  default:
+	    *invalid_reason =
+	      (*format == '\0'
+	       ? INVALID_UNTERMINATED_DIRECTIVE ()
+	       : INVALID_CONVERSION_SPECIFIER (spec.directives, *format));
 	    goto bad_format;
 	  }
 
@@ -247,8 +254,14 @@ format_parse (const char *format)
 	    if (type1 == type2)
 	      type_both = type1;
 	    else
-	      /* Incompatible types.  */
-	      type_both = FAT_NONE, err = true;
+	      {
+		/* Incompatible types.  */
+		type_both = FAT_NONE;
+		if (!err)
+		  *invalid_reason =
+		    INVALID_INCOMPATIBLE_ARG_TYPES (spec.numbered[i].number);
+		err = true;
+	      }
 
 	    spec.numbered[j-1].type = type_both;
 	  }
@@ -263,6 +276,7 @@ format_parse (const char *format)
 	  }
       spec.numbered_arg_count = j;
       if (err)
+	/* *invalid_reason has already been set above.  */
 	goto bad_format;
     }
 
@@ -456,17 +470,26 @@ main ()
   for (;;)
     {
       char *line = NULL;
-      size_t line_len = 0;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
       void *descr;
 
-      if (getline (&line, &line_len, stdin) < 0)
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
 
-      descr = format_parse (line);
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
 
       format_print (descr);
       printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
 
+      free (invalid_reason);
       free (line);
     }
 

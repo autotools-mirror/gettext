@@ -87,7 +87,7 @@ po.c po-lex.c po-gram-gen.y po-hash-gen.y po-charset.c \
 open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
-FORMAT_SOURCE = format.c \
+FORMAT_SOURCE = format.c format-invalid.h \
 format-c.c format-python.c format-lisp.c format-elisp.c format-librep.c \
 format-java.c format-awk.c format-pascal.c format-ycp.c format-tcl.c \
 format-php.c
