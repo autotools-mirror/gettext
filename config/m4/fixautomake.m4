@@ -1,4 +1,4 @@
-# fixautomake.m4 serial 1 (gettext-0.12)
+# fixautomake.m4 serial 2 (gettext-0.12)
 dnl Copyright (C) 2002-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -20,7 +20,7 @@ AC_DEFUN([FIX_MAKEFILE_DISTRIB], [
   mv $1.tmp $1
 ])
 
-dnl Fix an automake-1-5.1.7.2 bug: all info files are erased by "make".
+dnl Fix an automake-1.5-1.7.2 bug: all info files are erased by "make".
 AC_DEFUN([FIX_MAKEFILE_INFO], [
   sed -e '/@rm -f \$''@/d' < $1 > $1.tmp
   mv $1.tmp $1
