@@ -1,3 +1,8 @@
+2003-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* binary-io.h: Undefine O_BINARY before defining it. This avoids a
+	warning on QNX, which defines O_BINARY to 000000.
+
 2003-08-27  Bruno Haible  <bruno@clisp.org>
 
 	* getopt.h: Include config.h. Needed for DLL_VARIABLE on OSF/1 4.0.
