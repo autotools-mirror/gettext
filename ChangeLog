@@ -1,5 +1,15 @@
 2002-01-31  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.11 released.
+
+2002-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Bump version number to 0.11.
+	(RELEASE_DATE): Bump.
+	* Makefile.am (EXTRA_DIST): Remove README-alpha.
+
+2002-01-31  Bruno Haible  <bruno@clisp.org>
+
 	* INSTALL: Remove instructions for using Intel icc. It's getting to
 	be fixed in icc.
 

@@ -1,3 +1,7 @@
+2002-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11 released.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* da.po: Update from Keld Simonsen <keld@dkuug.dk>.

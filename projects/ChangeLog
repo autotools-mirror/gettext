@@ -1,3 +1,7 @@
+2002-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11 released.
+
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (install-data-local): Make it work when
