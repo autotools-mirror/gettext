@@ -1,6 +1,6 @@
 # Macro to add for using GNU gettext.
 # Ulrich Drepper <drepper@cygnus.com>, 1995-2000.
-# Bruno Haible <haible@clisp.cons.org>, 2000-2001.
+# Bruno Haible <haible@clisp.cons.org>, 2000-2002.
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
@@ -84,9 +84,6 @@ AC_DEFUN([AM_GNU_GETTEXT],
 
   dnl If we use NLS figure out what method
   if test "$USE_NLS" = "yes"; then
-    AC_DEFINE(ENABLE_NLS, 1,
-      [Define to 1 if translation of program messages to the user's native language
-   is requested.])
     gt_use_preinstalled_gnugettext=no
     ifelse(gt_included_intl, yes, [
       AC_MSG_CHECKING([whether included gettext is requested])
@@ -174,6 +171,13 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
         CATOBJEXT=.gmo
       fi
     ])
+
+    if test "$gt_use_preinstalled_gnugettext" = "yes" \
+       || test "$nls_cv_use_gnu_gettext" = "yes"; then
+      AC_DEFINE(ENABLE_NLS, 1,
+        [Define to 1 if translation of program messages to the user's native language
+   is requested.])
+    fi
 
     if test "$gt_use_preinstalled_gnugettext" = "yes"; then
       if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
