@@ -159,10 +159,12 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       POSUB=po
     fi
     AC_OUTPUT_COMMANDS(
-     [case " "$CONFIG_FILES" " in *" po/Makefile.in "* | *" po/Makefile.in:"*)
-        sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
-        ;;
-      esac])
+     [for f in $CONFIG_FILES; do
+        case $f in po/Makefile.in | po/Makefile.in:*)
+          sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
+          ;;
+        esac
+      done])
 
 
     dnl If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
@@ -228,6 +230,14 @@ changequote([,])dnl
     dnl For backward compatibility. Some Makefiles may be using this.
     DATADIRNAME=share
     AC_SUBST(DATADIRNAME)
+
+    dnl For backward compatibility. Some Makefiles may be using this.
+    INSTOBJEXT=.mo
+    AC_SUBST(INSTOBJEXT)
+
+    dnl For backward compatibility. Some Makefiles may be using this.
+    GENCAT=gencat
+    AC_SUBST(GENCAT)
   ])
 
 dnl Usage: Just like AM_WITH_NLS, which see.

@@ -1,3 +1,9 @@
+2001-04-27  H. J. Lu  <hjl@lucon.org>
+            Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Fix $CONFIG_FILES matching so it deals
+	correctly with tabs. Define INSTOBJEXT and GENCAT for older Makefiles.
+
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.37 released.
