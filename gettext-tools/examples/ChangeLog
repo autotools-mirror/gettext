@@ -4,6 +4,10 @@
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (EXAMPLESFILES): Add hello-pascal/hello.rst.
+
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
 	* hello-*/po/LINGUAS: Update.
 	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
 
