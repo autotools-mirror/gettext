@@ -10,18 +10,69 @@ AC_DEFUN([AC_LIB_LINKFLAGS],
 [
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
   AC_REQUIRE([AC_LIB_RPATH])
-  define([name],[translit([$1],[./-], [___])])
+  define([Name],[translit([$1],[./-], [___])])
   define([NAME],[translit([$1],[abcdefghijklmnopqrstuvwxyz./-],
                                [ABCDEFGHIJKLMNOPQRSTUVWXYZ___])])
-  AC_CACHE_CHECK([how to link with lib[]$1], [ac_cv_lib[]name[]_libs], [
+  AC_CACHE_CHECK([how to link with lib[]$1], [ac_cv_lib[]Name[]_libs], [
     AC_LIB_LINKFLAGS_BODY([$1], [$2])
-    ac_cv_lib[]name[]_libs="$LIB[]NAME"
-    ac_cv_lib[]name[]_cppflags="$INC[]NAME"
+    ac_cv_lib[]Name[]_libs="$LIB[]NAME"
+    ac_cv_lib[]Name[]_cppflags="$INC[]NAME"
   ])
-  LIB[]NAME="$ac_cv_lib[]name[]_libs"
-  INC[]NAME="$ac_cv_lib[]name[]_cppflags"
+  LIB[]NAME="$ac_cv_lib[]Name[]_libs"
+  INC[]NAME="$ac_cv_lib[]Name[]_cppflags"
   AC_LIB_APPENDTOVAR([CPPFLAGS], [$INC]NAME)
   AC_SUBST([LIB[]NAME])
+  undefine([Name])
+  undefine([NAME])
+])
+
+dnl AC_LIB_HAVE_LINKFLAGS(name, dependencies, includes, testcode)
+dnl searches for libname and the libraries corresponding to explicit and
+dnl implicit dependencies, together with the specified include files and
+dnl the ability to compile and link the specified testcode. If found, it
+dnl sets and AC_SUBSTs HAVE_LIB${NAME}=yes and the LIB${NAME} variable
+dnl and augments the CPPFLAGS variable, and #defines HAVE_LIB${NAME} to 1.
+dnl Otherwise, it sets and AC_SUBSTs HAVE_LIB${NAME}=no and LIB${NAME} to
+dnl empty.
+AC_DEFUN([AC_LIB_HAVE_LINKFLAGS],
+[
+  AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
+  AC_REQUIRE([AC_LIB_RPATH])
+  define([Name],[translit([$1],[./-], [___])])
+  define([NAME],[translit([$1],[abcdefghijklmnopqrstuvwxyz./-],
+                               [ABCDEFGHIJKLMNOPQRSTUVWXYZ___])])
+
+  dnl Search for lib[]Name and define LIB[]NAME and INC[]NAME accordingly.
+  AC_LIB_LINKFLAGS_BODY([$1], [$2])
+
+  dnl Add $INC[]NAME to CPPFLAGS before performing the following checks,
+  dnl because if the user has installed lib[]Name and not disabled its use
+  dnl via --without-lib[]Name-prefix, he wants to use it.
+  ac_save_CPPFLAGS="$CPPFLAGS"
+  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INC]NAME)
+
+  AC_CACHE_CHECK([for lib[]$1], [ac_cv_lib[]Name], [
+    ac_save_LIBS="$LIBS"
+    LIBS="$LIBS $LIB[]NAME"
+    AC_TRY_LINK([$3], [$4], [ac_cv_lib[]Name=yes], [ac_cv_lib[]Name=no])
+    LIBS="$ac_save_LIBS"
+  ])
+  if test "$ac_cv_lib[]Name" = yes; then
+    HAVE_LIB[]NAME=yes
+    AC_DEFINE([HAVE_LIB]NAME, 1, [Define if you have the $1 library.])
+    AC_MSG_CHECKING([how to link with lib[]$1])
+    AC_MSG_RESULT([$LIB[]NAME])
+  else
+    HAVE_LIB[]NAME=no
+    dnl If $LIB[]NAME didn't lead to a usable library, we don't need
+    dnl $INC[]NAME either.
+    CPPFLAGS="$ac_save_CPPFLAGS"
+    LIB[]NAME=
+  fi
+  AC_SUBST([HAVE_LIB[]NAME])
+  AC_SUBST([LIB[]NAME])
+  undefine([Name])
+  undefine([NAME])
 ])
 
 dnl Determine the platform dependent parameters needed to use rpath:
