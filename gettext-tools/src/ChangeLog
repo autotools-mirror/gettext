@@ -1,5 +1,9 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* msgfilter.c (process_message): Cast xrealloc() result.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* msgfilter.c: On Windows, include <io.h> instead of <unistd.h>.
 	* msggrep.c: Likewise.
 

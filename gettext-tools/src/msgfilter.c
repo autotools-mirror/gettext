@@ -720,7 +720,7 @@ process_message (message_ty *mp)
       size_t length;
 
       process_string (p, strlen (p), &result, &length);
-      result = xrealloc (result, length + 1);
+      result = (char *) xrealloc (result, length + 1);
       result[length] = '\0';
       substrings[k] = result;
       total_len += length + 1;
