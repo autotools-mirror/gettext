@@ -48,8 +48,9 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    GETTEXT=tstgettext \
 		    NGETTEXT=tstngettext \
 		    XGETTEXT=`echo xgettext|sed '$(transform)'` \
-		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
+		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
+		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` \
 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
 		    MSGCAT=`echo msgcat|sed '$(transform)'` \

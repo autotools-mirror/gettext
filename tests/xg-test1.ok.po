@@ -121,25 +121,14 @@ msgstr ""
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr ""
 
-#, c-format
-msgid "error while opening \"%s\" for reading"
-msgstr ""
-
 msgid "this file may not contain domain directives"
 msgstr ""
 
-#, c-format
-msgid "%s:%d: warning: keyword nested in keyword arg"
+msgid "standard input"
 msgstr ""
 
 #, c-format
-msgid "%s:%d: warning: keyword between outer keyword and its arg"
-msgstr ""
-
-msgid "duplicate message definition"
-msgstr ""
-
-msgid "...this is the location of the first definition"
+msgid "error while opening \"%s\" for reading"
 msgstr ""
 
 #, c-format
@@ -199,7 +188,13 @@ msgstr ""
 #, no-wrap
 msgid ""
 "Input file interpretation:\n"
-"  -c, --check                 perform language dependent checks on strings\n"
+"  -c, --check                 perform all the checks implied by\n"
+"                                --check-format, --check-header, --check-domain\n"
+"      --check-format          check language dependent format strings\n"
+"      --check-header          verify presence and contents of the header entry\n"
+"      --check-domain          check for conflicts between domain directives\n"
+"                                and the --output-file option\n"
+"  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"
 "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr ""
 
@@ -216,8 +211,7 @@ msgid ""
 "  -h, --help                  display this help and exit\n"
 "  -V, --version               output version information and exit\n"
 "      --statistics            print statistics about translations\n"
-"  -v, --verbose               list input file anomalies\n"
-"Giving the -v option more than once increases the verbosity level.\n"
+"  -v, --verbose               increase verbosity level\n"
 msgstr ""
 
 msgid "while creating hash table"
@@ -262,6 +256,12 @@ msgstr ""
 msgid "field `%s' still has initial default value"
 msgstr ""
 
+msgid "duplicate message definition"
+msgstr ""
+
+msgid "...this is the location of the first definition"
+msgstr ""
+
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr ""
@@ -286,11 +286,11 @@ msgstr ""
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr ""
 
-msgid "number of format specifications in `msgid' and `msgstr' does not match"
+msgid "plural handling is a GNU gettext extension"
 msgstr ""
 
 #, c-format
-msgid "format specifications for argument %lu are not the same"
+msgid "'msgstr' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
 msgid "too many arguments"

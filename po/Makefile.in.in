@@ -55,11 +55,11 @@ CATALOGS = @CATALOGS@
 	$(MSGMERGE) $< $(srcdir)/$(PACKAGE).pot -o $*.pox
 
 .po.mo:
-	$(MSGFMT) -o $@ $<
+	$(MSGFMT) -c -o $@ $<
 
 .po.gmo:
 	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
-	  && rm -f $$file && $(GMSGFMT) --statistics -o $$file $<
+	  && rm -f $$file && $(GMSGFMT) -c --statistics -o $$file $<
 
 
 all: all-@USE_NLS@

@@ -22,6 +22,7 @@
 
 #include <errno.h>
 #include <getopt.h>
+#include <limits.h>
 #include <stdio.h>
 #include <sys/param.h>
 #include <sys/types.h>
@@ -120,12 +121,25 @@ struct msg_domain
 static struct msg_domain *domain_list;
 static struct msg_domain *current_domain;
 
-/* If not zero list duplicate message identifiers.  */
-static int verbose_level;
+/* Be more verbose.  Use only 'fprintf' and 'multiline_warning' but not
+   'error' or 'multiline_error' to emit verbosity messages, because 'error'
+   and 'multiline_error' during PO file parsing cause the program to exit
+   with EXIT_FAILURE.  See function lex_end().  */
+static bool verbose = false;
 
 /* If true check strings according to format string rules for the
    language.  */
-static bool do_check = false;
+static bool check_format_strings = false;
+
+/* If true check the header entry is present and complete.  */
+static bool check_header = false;
+
+/* Check that domain directives can be satisfied.  */
+static bool check_domain = false;
+
+/* Check that msgfmt's behaviour is semantically compatible with
+   X/Open msgfmt or XView msgfmt.  */
+static bool check_compatibility = false;
 
 /* Counters for statistics on translations for the processed files.  */
 static int msgs_translated;
@@ -140,6 +154,10 @@ static const struct option long_options[] =
 {
   { "alignment", required_argument, NULL, 'a' },
   { "check", no_argument, NULL, 'c' },
+  { "check-compatibility", no_argument, NULL, 'C' },
+  { "check-domain", no_argument, NULL, CHAR_MAX + 1 },
+  { "check-format", no_argument, NULL, CHAR_MAX + 2 },
+  { "check-header", no_argument, NULL, CHAR_MAX + 3 },
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "no-hash", no_argument, &no_hash_table, 1 },
@@ -221,7 +239,7 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((opt = getopt_long (argc, argv, "a:cD:fho:vV", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "a:cCD:fho:vV", long_options, NULL))
 	 != EOF)
     switch (opt)
       {
@@ -237,7 +255,12 @@ main (argc, argv)
 	}
 	break;
       case 'c':
-	do_check = true;
+	check_domain = true;
+	check_format_strings = true;
+	check_header = true;
+	break;
+      case 'C':
+	check_compatibility = true;
 	break;
       case 'D':
 	dir_list_append (optarg);
@@ -255,10 +278,19 @@ main (argc, argv)
 	strict_uniforum = true;
 	break;
       case 'v':
-	++verbose_level;
+	verbose = true;
 	break;
       case 'V':
 	do_version = true;
+	break;
+      case CHAR_MAX + 1:
+	check_domain = true;
+	break;
+      case CHAR_MAX + 2:
+	check_format_strings = true;
+	break;
+      case CHAR_MAX + 3:
+	check_header = true;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -352,7 +384,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Print statistics if requested.  */
-  if (verbose_level > 0 || do_statistics)
+  if (verbose || do_statistics)
     {
       fprintf (stderr,
 	       ngettext ("%d translated message", "%d translated messages",
@@ -420,7 +452,13 @@ If output file is -, output is written to standard output.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Input file interpretation:\n\
-  -c, --check                 perform language dependent checks on strings\n\
+  -c, --check                 perform all the checks implied by\n\
+                                --check-format, --check-header, --check-domain\n\
+      --check-format          check language dependent format strings\n\
+      --check-header          verify presence and contents of the header entry\n\
+      --check-domain          check for conflicts between domain directives\n\
+                                and the --output-file option\n\
+  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n\
   -f, --use-fuzzy             use fuzzy entries in output\n\
 "));
       printf ("\n");
@@ -437,8 +475,7 @@ Informative output:\n\
   -h, --help                  display this help and exit\n\
   -V, --version               output version information and exit\n\
       --statistics            print statistics about translations\n\
-  -v, --verbose               list input file anomalies\n\
-Giving the -v option more than once increases the verbosity level.\n\
+  -v, --verbose               increase verbosity level\n\
 "));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
@@ -498,10 +535,8 @@ format_debrief (that)
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
 
-  /* Test whether header entry was found.
-     FIXME: Should do this even if not in verbose mode, because the
-     consequences are not harmless.  But it breaks the test suite.  */
-  if (verbose_level > 0 && !this->has_header_entry)
+  /* Test whether header entry was found.  */
+  if (check_header && !this->has_header_entry)
     {
       multiline_error (xasprintf ("%s: ", gram_pos.file_name),
 		       xasprintf (_("\
@@ -546,9 +581,7 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
     }
   else
     {
-      if (verbose_level > 0)
-	/* We don't change the exit status here because this is really
-	   only an information.  */
+      if (check_domain)
 	error (0, 0, _("`domain %s' directive ignored"), name);
 
       /* NAME was allocated in po-gram.y but is not used anywhere.  */
@@ -579,10 +612,8 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
   if (msgstr_string[0] == '\0'
       || (!include_all && this->is_fuzzy && msgid_string[0] != '\0'))
     {
-      if (verbose_level > 1)
+      if (check_compatibility)
 	{
-	  /* We don't change the exit status here because this is really
-	     only an information.  */
 	  error_with_progname = false;
 	  error_at_line (0, 0, msgstr_pos->file_name, msgstr_pos->line_number,
 			 (msgstr_string[0] == '\0'
@@ -608,7 +639,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 	  this->has_header_entry = true;
 
 	  /* Do some more tests on test contents of the header entry.  */
-	  if (verbose_level > 0)
+	  if (check_header)
 	    {
 	      static const char *required_fields[] =
 	      {
@@ -694,25 +725,19 @@ some header fields still have the initial default value"));
 	  /* We don't need the just constructed entry.  */
 	  free (entry);
 
-	  if (verbose_level > 0)
+	  /* We give a fatal error about this, regardless whether the
+	     translations are equal or different.  This is for consistency
+	     with msgmerge, msgcat and others.  The user can use the
+	     msguniq program to get rid of duplicates.  */
+	  find_entry (&current_domain->symbol_tab, msgid_string,
+		      strlen (msgid_string) + 1, (void **) &entry);
+	  if (msgstr_len != entry->msgstr_len
+	      || memcmp (msgstr_string, entry->msgstr, msgstr_len) != 0)
 	    {
-	      /* We give a fatal error about this, but only if the
-		 translations are different.  Tell the user the old
-		 definition for reference.  */
-	      find_entry (&current_domain->symbol_tab, msgid_string,
-			  strlen (msgid_string) + 1, (void **) &entry);
-	      if (msgstr_len != entry->msgstr_len
-		  || memcmp (msgstr_string, entry->msgstr, msgstr_len) != 0)
-		{
-		  po_gram_error_at_line (msgid_pos, _("\
+	      po_gram_error_at_line (msgid_pos, _("\
 duplicate message definition"));
-		  po_gram_error_at_line (&entry->pos, _("\
+	      po_gram_error_at_line (&entry->pos, _("\
 ...this is the location of the first definition"));
-
-		  /* FIXME Should this be always a reason for an
-		     exit status != 0?  */
-		  exit_status = EXIT_FAILURE;
-		}
 	    }
 
 	  /* We don't need the just constructed entries'
@@ -747,7 +772,7 @@ format_comment_special (that, s)
     {
       static bool warned = false;
 
-      if (!include_all && verbose_level > 1 && !warned)
+      if (!include_all && check_compatibility && !warned)
 	{
 	  warned = true;
 	  error (0, 0, _("\
@@ -1039,7 +1064,16 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     }
 #undef TEST_NEWLINE
 
-  if (do_check && msgid_plural == NULL)
+  if (check_compatibility && msgid_plural != NULL)
+    {
+      error_with_progname = false;
+      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+		     _("plural handling is a GNU gettext extension"));
+      error_with_progname = true;
+      exit_status = EXIT_FAILURE;
+    }
+
+  if (check_format_strings && msgid_plural == NULL)
     /* Test 3: Check whether both formats strings contain the same number
        of format specifications.
        We check only those messages for which the msgid's is_format flag

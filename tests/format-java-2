@@ -122,13 +122,13 @@ ${msgstr_line}
 EOF
   fail=
   if echo "$comment" | grep 'Valid:' > /dev/null; then
-    if ${MSGFMT} -c -o f-j-2-$n.mo f-j-2-$n.po; then
+    if ${MSGFMT} --check-format -o f-j-2-$n.mo f-j-2-$n.po; then
       :
     else
       fail=yes
     fi
   else
-    ${MSGFMT} -c -o f-j-2-$n.mo f-j-2-$n.po 2> /dev/null
+    ${MSGFMT} --check-format -o f-j-2-$n.mo f-j-2-$n.po 2> /dev/null
     if test $? = 1; then
       :
     else

@@ -1,3 +1,23 @@
+2001-08-30  Bruno Haible  <haible@clisp.cons.org>
+
+	Reorganize msgfmt checking options.
+	* msgfmt.c: Include limits.h.
+	(verbose): Renamed from verbose_level.
+	(check_format_strings): Renamed from do_check.
+	(check_header, check_domain, check_compatibility): New variables.
+	(long_options): Add --check-domain, --check-format, --check-header,
+	--check-compatibility.
+	(main): Recognize options -C, --check-compatibility, --check-domain,
+	--check-format, --check-header. Option -c implies the last three.
+	(usage): Update.
+	(format_debrief): Test check_header, not verbose_level.
+	(format_directive_domain): Test check_domain, not verbose_level.
+	(format_directive_message): Test check_compatibility and check_header,
+	not verbose_level. Always perform the check for duplicates.
+	(format_comment_special): Test check_compatibility, not verbose_level.
+	(check_pair): Error if check_compatibility is true an msgid_plural is
+	used.
+
 2001-08-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* format.h: New file.

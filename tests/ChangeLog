@@ -1,3 +1,17 @@
+2001-08-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (TESTS_ENVIRONMENT): Define MSGCAT environment variable.
+	* format-c-2: Use --check-format, not -c, because the test snippets
+	don't have a header entry.
+	* format-java-2: Likewise.
+	* format-lisp-2: Likewise.
+	* format-python-2: Likewise.
+	* format-ycp-2: Likewise.
+	* msgcomm-16: Add ycp-format to expected output.
+	* msgfmt-1: Use msgcat --use-first to pass msgfmt's duplicate checking.
+	* msgfmt-2: Likewise.
+	* xg-test1.ok.po: Update.
+
 2001-08-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* format-c-1: New file.
