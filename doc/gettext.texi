@@ -208,6 +208,7 @@ The Maintainer's View
 Files You Must Create or Alter
 
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
+* po/LINGUAS::                  @file{LINGUAS} in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * aclocal::                     @file{aclocal.m4} at top level
