@@ -43,8 +43,8 @@ EXIT_FAILURE=1
 
 PROGRAM=ltmain.sh
 PACKAGE=libtool
-VERSION=1.5.12
-TIMESTAMP=" (1.1220.2.191 2005/02/05 15:01:15)"
+VERSION=1.5.14
+TIMESTAMP=" (1.1220.2.195 2005/02/12 12:12:33)"
 
 # See if we are running on zsh, and set the options which allow our
 # commands through without removal of \ escapes.
@@ -438,7 +438,7 @@ do
   --version)
     $echo "$PROGRAM (GNU $PACKAGE) $VERSION$TIMESTAMP"
     $echo
-    $echo "Copyright (C) 2003  Free Software Foundation, Inc."
+    $echo "Copyright (C) 2005  Free Software Foundation, Inc."
     $echo "This is free software; see the source for copying conditions.  There is NO"
     $echo "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
     exit $?
@@ -1527,6 +1527,8 @@ EOF
 
      -mt|-mthreads|-kthread|-Kthread|-pthread|-pthreads|--thread-safe)
 	compiler_flags="$compiler_flags $arg"
+	compile_command="$compile_command $arg"
+	finalize_command="$finalize_command $arg"
 	continue
 	;;
 
