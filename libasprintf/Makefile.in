@@ -110,8 +110,7 @@ lib_asprintf_EXTRASOURCES = \
   printf-parse.h printf-parse.c \
   vasnprintf.h vasnprintf.c asnprintf.c \
   vasprintf.h vasprintf.c asprintf.c \
-  liballoca.h \
-  libstdarg.h
+  liballoca.h
 
 
 
