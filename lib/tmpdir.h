@@ -1,5 +1,5 @@
 /* Determine a temporary directory.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 # endif
 #endif
 
+#include <stdbool.h>
 #include <stddef.h>
 
 /* Path search algorithm, for tmpnam, tmpfile, etc.  If DIR is
@@ -31,4 +32,4 @@
    for use with mk[s]temp.  Will fail (-1) if DIR is non-null and
    doesn't exist, none of the searched dirs exists, or there's not
    enough space in TMPL. */
-extern int path_search PARAMS ((char *tmpl, size_t tmpl_len, const char *dir, const char *pfx, int try_tmpdir));
+extern int path_search PARAMS ((char *tmpl, size_t tmpl_len, const char *dir, const char *pfx, bool try_tmpdir));

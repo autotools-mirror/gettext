@@ -1,3 +1,14 @@
+2002-02-09  Bruno Haible  <bruno@clisp.org>
+
+	* c-ctype.h (c_is*): Change return type to bool.
+	* c-ctype.c (c_is*): Likewise.
+
+	* tmpdir.h (path_search): Change last argument's type to bool.
+	* tmpdir.c (path_search): Likewise.
+	(direxists): Change return type to bool.
+
+	* vasprintf.c (int_vasprintf): Change total_width to size_t.
+
 2002-02-11  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Add support for NetBSD.

@@ -5,7 +5,7 @@
    <ctype.h> functions' behaviour depends on the current locale set via
    setlocale.
 
-   Copyright (C) 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 2000-2002 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,6 +31,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #  define PARAMS(args) ()
 # endif
 #endif
+
+#include <stdbool.h>
 
 
 /* Check whether the ASCII optimizations apply. */
@@ -98,20 +100,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* Function declarations. */
 
-extern int c_isascii PARAMS ((int c)); /* not locale dependent */
+extern bool c_isascii PARAMS ((int c)); /* not locale dependent */
 
-extern int c_isalnum PARAMS ((int c));
-extern int c_isalpha PARAMS ((int c));
-extern int c_isblank PARAMS ((int c));
-extern int c_iscntrl PARAMS ((int c));
-extern int c_isdigit PARAMS ((int c));
-extern int c_islower PARAMS ((int c));
-extern int c_isgraph PARAMS ((int c));
-extern int c_isprint PARAMS ((int c));
-extern int c_ispunct PARAMS ((int c));
-extern int c_isspace PARAMS ((int c));
-extern int c_isupper PARAMS ((int c));
-extern int c_isxdigit PARAMS ((int c));
+extern bool c_isalnum PARAMS ((int c));
+extern bool c_isalpha PARAMS ((int c));
+extern bool c_isblank PARAMS ((int c));
+extern bool c_iscntrl PARAMS ((int c));
+extern bool c_isdigit PARAMS ((int c));
+extern bool c_islower PARAMS ((int c));
+extern bool c_isgraph PARAMS ((int c));
+extern bool c_isprint PARAMS ((int c));
+extern bool c_ispunct PARAMS ((int c));
+extern bool c_isspace PARAMS ((int c));
+extern bool c_isupper PARAMS ((int c));
+extern bool c_isxdigit PARAMS ((int c));
 
 extern int c_tolower PARAMS ((int c));
 extern int c_toupper PARAMS ((int c));

@@ -1,4 +1,4 @@
-/* Copyright (C) 1999, 2001 Free Software Foundation, Inc.
+/* Copyright (C) 1999, 2001-2002 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -25,6 +25,7 @@
 /* Specification.  */
 #include "tmpdir.h"
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -78,11 +79,11 @@
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
-static int direxists PARAMS ((const char *dir));
+static bool direxists PARAMS ((const char *dir));
 
 
 /* Return nonzero if DIR is an existent directory.  */
-static int
+static bool
 direxists (dir)
      const char *dir;
 {
@@ -102,7 +103,7 @@ path_search (tmpl, tmpl_len, dir, pfx, try_tmpdir)
      size_t tmpl_len;
      const char *dir;
      const char *pfx;
-     int try_tmpdir;
+     bool try_tmpdir;
 {
   const char *d;
   size_t dlen, plen;

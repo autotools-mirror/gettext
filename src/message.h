@@ -59,7 +59,7 @@ enum is_format
   impossible
 };
 
-extern int
+extern bool
        possible_format_p PARAMS ((enum is_format));
 
 

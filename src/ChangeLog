@@ -1,3 +1,8 @@
+2002-02-09  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (possible_format_p): Change return type to bool.
+	* message.c (possible_format_p): Likewise.
+
 2002-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* x-glade.h: New file.

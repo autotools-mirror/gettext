@@ -67,7 +67,7 @@ const char *const format_language_pretty[NFORMATS] =
 };
 
 
-int
+bool
 possible_format_p (is_format)
      enum is_format is_format;
 {

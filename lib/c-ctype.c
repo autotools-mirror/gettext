@@ -1,6 +1,6 @@
 /* Character handling in C locale.
 
-   Copyright 2000, 2001 Free Software Foundation, Inc.
+   Copyright 2000-2002 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,14 +37,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* The function isascii is not locale dependent. Its use in EBCDIC is
    questionable. */
-int
+bool
 c_isascii (c)
      int c;
 {
   return ((c & ~0x7f) == 0);
 }
 
-int
+bool
 c_isalnum (c)
      int c;
 {
@@ -75,7 +75,7 @@ c_isalnum (c)
 #endif
 }
 
-int
+bool
 c_isalpha (c)
      int c;
 {
@@ -101,14 +101,14 @@ c_isalpha (c)
 #endif
 }
 
-int
+bool
 c_isblank (c)
      int c;
 {
   return (c == ' ' || c == '\t');
 }
 
-int
+bool
 c_iscntrl (c)
      int c;
 {
@@ -143,7 +143,7 @@ c_iscntrl (c)
 #endif
 }
 
-int
+bool
 c_isdigit (c)
      int c;
 {
@@ -161,7 +161,7 @@ c_isdigit (c)
 #endif
 }
 
-int
+bool
 c_islower (c)
      int c;
 {
@@ -182,7 +182,7 @@ c_islower (c)
 #endif
 }
 
-int
+bool
 c_isgraph (c)
      int c;
 {
@@ -217,7 +217,7 @@ c_isgraph (c)
 #endif
 }
 
-int
+bool
 c_isprint (c)
      int c;
 {
@@ -252,7 +252,7 @@ c_isprint (c)
 #endif
 }
 
-int
+bool
 c_ispunct (c)
      int c;
 {
@@ -278,7 +278,7 @@ c_ispunct (c)
 #endif
 }
 
-int
+bool
 c_isspace (c)
      int c;
 {
@@ -286,7 +286,7 @@ c_isspace (c)
           || c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }
 
-int
+bool
 c_isupper (c)
      int c;
 {
@@ -307,7 +307,7 @@ c_isupper (c)
 #endif
 }
 
-int
+bool
 c_isxdigit (c)
      int c;
 {
