@@ -1,3 +1,7 @@
+2004-01-21  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset: Add support for MacOS X (Darwin).
+
 2004-01-10  Bruno Haible  <bruno@clisp.org>
 
 	* csharpcomp.c (compile_csharp_using_pnet, compile_csharp_using_mono,
