@@ -2270,7 +2270,9 @@ if test "$enable_shared" = yes && test "$GCC" = yes; then
       allow_undefined_flag=$save_allow_undefined_flag
     else
       cat conftest.err 1>&5
-    fi])
+    fi
+    $rm conftest*
+    ])
     AC_MSG_RESULT([$lt_cv_archive_cmds_need_lc])
     ;;
   esac
