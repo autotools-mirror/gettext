@@ -57,3 +57,8 @@ EXTRA_DIST += tcl_gettext.c README-Tcl
 # Old Perl interface.
 
 EXTRA_DIST += gettext.perl
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

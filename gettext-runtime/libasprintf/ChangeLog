@@ -1,3 +1,16 @@
+2003-03-17  Bruno Haible  <bruno@clisp.org>
+
+	Native Woe32/MSVC support.
+	* autosprintf.h.in: Renamed from autosprintf.h.
+	* Makefile.msvc: New file.
+	* README.woe32: New file.
+	* windows/dllexport.h: New file.
+	* windows/asprintf.rc: New file.
+	* Makefile.am (EXTRA_DIST): Add them and config.h.msvc.
+	(autosprintf.h): New rule.
+	(MOSTLYCLEANFILES): Add autosprintf.h.
+	(config.h.msvc, autosprintf.h.msvc-shared): New rules.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* autosprintf.texi: Add comment about indices.

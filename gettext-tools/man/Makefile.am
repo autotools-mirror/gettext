@@ -25,6 +25,7 @@ htmldir = $(docdir)
 localedir = $(datadir)/locale
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
 
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am
 # and for each of the bin_SCRIPTS in misc/Makefile.am.
@@ -49,7 +50,7 @@ msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexe
 gettextize.1.html autopoint.1.html
 man_HTML = $(man_HTMLOTHER)
 
-EXTRA_DIST = help2man $(man_aux) $(man_MAN1OTHER) $(man_HTMLOTHER) ChangeLog.0
+EXTRA_DIST += help2man $(man_aux) $(man_MAN1OTHER) $(man_HTMLOTHER) ChangeLog.0
 MAINTAINERCLEANFILES = $(man_MAN1OTHER) $(man_HTMLOTHER)
 
 PERL = @PERL@
@@ -188,3 +189,8 @@ uninstall-html:
 	for file in $(man_HTML); do \
 	  $(RM) $(DESTDIR)$(htmldir)/$$file; \
 	done
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

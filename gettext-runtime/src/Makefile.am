@@ -18,6 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+EXTRA_DIST =
 
 bin_PROGRAMS = gettext ngettext
 
@@ -52,3 +53,8 @@ RELOCATABLE_SRC_DIR = $(top_srcdir)/../gettext-tools/lib
 RELOCATABLE_BUILD_DIR = ../lib
 RELOCATABLE_CONFIG_H_DIR = ..
 @SET_RELOCATABLE@
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

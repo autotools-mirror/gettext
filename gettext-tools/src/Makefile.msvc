@@ -1,0 +1,488 @@
+# -*- Makefile -*- for gettext-tools/src
+
+#### Start of system configuration section. ####
+
+# Flags that can be set on the nmake command line:
+#   DLL=1     for compiling a .dll with a stub .lib (default is a static .lib)
+#             Note that this works only with MFLAGS=-MD.
+#   MFLAGS={-ML|-MT|-MD} for defining the compilation model
+#     MFLAGS=-ML (the default)  Single-threaded, statically linked - libc.lib
+#     MFLAGS=-MT                Multi-threaded, statically linked  - libcmt.lib
+#     MFLAGS=-MD                Multi-threaded, dynamically linked - msvcrt.lib
+#   DEBUG=1   for compiling with debugging information
+!if !defined(DLL)
+DLL=0
+!endif
+!if !defined(DEBUG)
+DEBUG=0
+!endif
+!if !defined(MFLAGS)
+!if !$(DLL)
+MFLAGS=
+!else
+MFLAGS=-MD
+!endif
+!endif
+
+# Directories used by "make install":
+prefix = c:\usr
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)\bin
+libdir = $(exec_prefix)\lib
+includedir = $(prefix)\include
+datadir = $(prefix)\share
+localedir = $(datadir)\locale
+aliaspath =
+pkgdatadir = $(datadir)\gettext
+
+# Programs used by "make":
+
+CC = cl
+
+# Set to -W3 if you want to see maximum amount of warnings, including stupid
+# ones. Set to -W1 to avoid warnings about signed/unsigned combinations.
+WARN_CFLAGS = -W1
+
+!if !$(DLL)
+PICFLAGS =
+!else
+# "-GD" (msvc5) optimizes for DLL.
+# mscv4 doesn't know about this flag and ignores it.
+PICFLAGS = -GD
+!endif
+
+!if $(DEBUG)
+OPTIMFLAGS = -Od -Z7
+!else
+# Some people prefer -O2 -G6 instead of -O1, but -O2 is not reliable in MSVC5.
+OPTIMFLAGS = -D_NDEBUG -O1
+!endif
+
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+
+INCLUDES =
+
+AR = lib
+AR_FLAGS = /out:
+
+LN = copy
+RM = -del
+
+# Programs used by "make install":
+INSTALL = copy
+INSTALL_PROGRAM = copy
+INSTALL_DATA = copy
+
+#### End of system configuration section. ####
+
+SHELL = /bin/sh
+
+PROGRAMS = \
+msgcmp.exe msgfmt.exe msgmerge.exe msgunfmt.exe xgettext.exe \
+msgattrib.exe msgcat.exe msgcomm.exe msgconv.exe msgen.exe msgexec.exe msgfilter.exe msggrep.exe msginit.exe msguniq.exe
+
+OBJECTS = \
+  message.obj \
+  po.obj \
+  po-lex.obj \
+  po-gram-gen.obj \
+  po-hash-gen.obj \
+  po-charset.obj \
+  open-po.obj \
+  dir-list.obj \
+  str-list.obj \
+  read-po.obj \
+  write-po.obj \
+  msgl-ascii.obj \
+  msgl-iconv.obj \
+  msgl-equal.obj \
+  msgl-cat.obj \
+  msgl-english.obj \
+  file-list.obj \
+  msgl-charset.obj \
+  po-time.obj \
+  plural.obj \
+  plural-table.obj \
+  format.obj \
+  format-c.obj \
+  format-python.obj \
+  format-lisp.obj \
+  format-elisp.obj \
+  format-librep.obj \
+  format-java.obj \
+  format-awk.obj \
+  format-pascal.obj \
+  format-ycp.obj \
+  format-tcl.obj \
+  format-php.obj
+
+msgcmp_OBJECTS = msgcmp.obj
+msgfmt_OBJECTS = msgfmt.obj write-mo.obj write-java.obj write-tcl.obj plural-eval.obj
+msgmerge_OBJECTS = msgmerge.obj
+msgunfmt_OBJECTS = msgunfmt.obj read-mo.obj read-java.obj read-tcl.obj
+xgettext_OBJECTS = xgettext.obj x-c.obj x-po.obj x-python.obj x-lisp.obj x-elisp.obj x-librep.obj x-smalltalk.obj x-java.obj x-awk.obj x-ycp.obj x-tcl.obj x-php.obj x-rst.obj x-glade.obj
+msgattrib_OBJECTS = msgattrib.obj
+msgcat_OBJECTS = msgcat.obj
+msgcomm_OBJECTS = msgcomm.obj
+msgconv_OBJECTS = msgconv.obj
+msgen_OBJECTS = msgen.obj
+msgexec_OBJECTS = msgexec.obj
+msgfilter_OBJECTS = msgfilter.obj
+msggrep_OBJECTS = msggrep.obj
+msginit_OBJECTS = msginit.obj localealias.obj
+msguniq_OBJECTS = msguniq.obj
+
+RESOURCES = gettextsrc.res
+
+all : gettextsrc.lib $(PROGRAMS)
+
+# Compilation rules for $(OBJECTS), with $(PICFLAGS).
+
+message.obj : message.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c message.c
+
+po.obj : po.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po.c
+
+po-lex.obj : po-lex.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-lex.c
+
+po-gram-gen.obj : po-gram-gen.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-gram-gen.c
+
+po-hash-gen.obj : po-hash-gen.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-hash-gen.c
+
+po-charset.obj : po-charset.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-charset.c
+
+open-po.obj : open-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c open-po.c
+
+dir-list.obj : dir-list.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c dir-list.c
+
+str-list.obj : str-list.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c str-list.c
+
+read-po.obj : read-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c read-po.c
+
+write-po.obj : write-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c write-po.c
+
+msgl-ascii.obj : msgl-ascii.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c msgl-ascii.c
+
+msgl-iconv.obj : msgl-iconv.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c msgl-iconv.c
+
+msgl-equal.obj : msgl-equal.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c msgl-equal.c
+
+msgl-cat.obj : msgl-cat.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c msgl-cat.c
+
+msgl-english.obj : msgl-english.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c msgl-english.c
+
+file-list.obj : file-list.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c file-list.c
+
+msgl-charset.obj : msgl-charset.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c msgl-charset.c
+
+po-time.obj : po-time.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-time.c
+
+plural.obj : plural.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c plural.c
+
+plural-table.obj : plural-table.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c plural-table.c
+
+format.obj : format.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format.c
+
+format-c.obj : format-c.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-c.c
+
+format-python.obj : format-python.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-python.c
+
+format-lisp.obj : format-lisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-lisp.c
+
+format-elisp.obj : format-elisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-elisp.c
+
+format-librep.obj : format-librep.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-librep.c
+
+format-java.obj : format-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-java.c
+
+format-awk.obj : format-awk.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-awk.c
+
+format-pascal.obj : format-pascal.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-pascal.c
+
+format-ycp.obj : format-ycp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-ycp.c
+
+format-tcl.obj : format-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-tcl.c
+
+format-php.obj : format-php.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-php.c
+
+!if !$(DLL)
+
+gettextsrc.lib : $(OBJECTS)
+	-$(RM) gettextsrc.lib
+	$(AR) $(AR_FLAGS)gettextsrc.lib $(OBJECTS)
+
+!else
+
+# gettextsrc.dll and gettextsrc.lib are created together.
+gettextsrc.lib : $(OBJECTS) $(RESOURCES)
+	$(CC) $(MFLAGS) -LD $(OBJECTS) $(RESOURCES)
+
+gettextsrc.res : ../windows/gettextsrc.rc
+	rc -Fo gettextsrc.res ../windows/gettextsrc.rc
+
+!endif
+
+# Compilation rules for $(program_OBJECTS), without $(PICFLAGS).
+
+msgcmp.obj : msgcmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgcmp.c
+
+msgfmt.obj : msgfmt.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgfmt.c
+
+write-mo.obj : write-mo.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c write-mo.c
+
+write-java.obj : write-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c write-java.c
+
+write-tcl.obj : write-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c write-tcl.c
+
+plural-eval.obj : plural-eval.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c plural-eval.c
+
+msgmerge.obj : msgmerge.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgmerge.c
+
+msgunfmt.obj : msgunfmt.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgunfmt.c
+
+read-mo.obj : read-mo.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c read-mo.c
+
+read-java.obj : read-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c read-java.c
+
+read-tcl.obj : read-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c read-tcl.c
+
+xgettext.obj : xgettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c xgettext.c
+
+x-c.obj : x-c.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-c.c
+
+x-po.obj : x-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-po.c
+
+x-python.obj : x-python.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-python.c
+
+x-lisp.obj : x-lisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-lisp.c
+
+x-elisp.obj : x-elisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-elisp.c
+
+x-librep.obj : x-librep.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-librep.c
+
+x-smalltalk.obj : x-smalltalk.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-smalltalk.c
+
+x-java.obj : x-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-java.c
+
+x-awk.obj : x-awk.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-awk.c
+
+x-ycp.obj : x-ycp.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-ycp.c
+
+x-tcl.obj : x-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-tcl.c
+
+x-php.obj : x-php.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-php.c
+
+x-rst.obj : x-rst.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-rst.c
+
+x-glade.obj : x-glade.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c x-glade.c
+
+msgattrib.obj : msgattrib.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgattrib.c
+
+msgcat.obj : msgcat.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgcat.c
+
+msgcomm.obj : msgcomm.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgcomm.c
+
+msgconv.obj : msgconv.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgconv.c
+
+msgen.obj : msgen.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgen.c
+
+msgexec.obj : msgexec.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgexec.c
+
+msgfilter.obj : msgfilter.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgfilter.c
+
+msggrep.obj : msggrep.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msggrep.c
+
+msginit.obj : msginit.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msginit.c
+
+localealias.obj : ..\..\gettext-runtime\intl\localealias.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -c ..\..\gettext-runtime\intl\localealias.c
+
+msguniq.obj : msguniq.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msguniq.c
+
+msgcmp.exe : $(msgcmp_OBJECTS)
+	$(CC) $(msgcmp_OBJECTS) -lgettextsrc -Femsgcmp.exe
+
+msgfmt.exe : $(msgfmt_OBJECTS)
+	$(CC) $(msgfmt_OBJECTS) -lgettextsrc -Fmsgfmte.exe
+
+msgmerge.exe : $(msgmerge_OBJECTS)
+	$(CC) $(msgmerge_OBJECTS) -lgettextsrc -Femsgmerge.exe
+
+msgunfmt.exe : $(msgunfmt_OBJECTS)
+	$(CC) $(msgunfmt_OBJECTS) -lgettextsrc -Femsgunfmt.exe
+
+xgettext.exe : $(xgettext_OBJECTS)
+	$(CC) $(xgettext_OBJECTS) ..\libuniname\uniname.lib -lgettextsrc -Fexgettext.exe
+
+msgattrib.exe : $(msgattrib_OBJECTS)
+	$(CC) $(msgattrib_OBJECTS) -lgettextsrc -Femsgattrib.exe
+
+msgcat.exe : $(msgcat_OBJECTS)
+	$(CC) $(msgcat_OBJECTS) -lgettextsrc -Femsgcat.exe
+
+msgcomm.exe : $(msgcomm_OBJECTS)
+	$(CC) $(msgcomm_OBJECTS) -lgettextsrc -Femsgcomm.exe
+
+msgconv.exe : $(msgconv_OBJECTS)
+	$(CC) $(msgconv_OBJECTS) -lgettextsrc -Femsgconv.exe
+
+msgen.exe : $(msgen_OBJECTS)
+	$(CC) $(msgen_OBJECTS) -lgettextsrc -Femsgen.exe
+
+msgexec.exe : $(msgexec_OBJECTS)
+	$(CC) $(msgexec_OBJECTS) -lgettextsrc -Femsgexec.exe
+
+msgfilter.exe : $(msgfilter_OBJECTS)
+	$(CC) $(msgfilter_OBJECTS) -lgettextsrc -Femsgfilter.exe
+
+msggrep.exe : $(msggrep_OBJECTS)
+	$(CC) $(msggrep_OBJECTS) -lgettextsrc -Femsggrep.exe
+
+msginit.exe : $(msginit_OBJECTS)
+	$(CC) $(msginit_OBJECTS) ..\intl\localename.obj -lgettextsrc -Femsginit.exe
+
+msguniq.exe : $(msguniq_OBJECTS)
+	$(CC) $(msguniq_OBJECTS) -lgettextsrc -Femsguniq.exe
+
+install : all force
+	-mkdir $(prefix)
+	-mkdir $(exec_prefix)
+!if $(DLL)
+	-mkdir $(bindir)
+	$(INSTALL_DATA) gettextsrc.dll $(bindir)\gettextsrc.dll
+!endif
+	$(INSTALL_PROGRAM) msgcmp.exe $(bindir)\msgcmp.exe
+	$(INSTALL_PROGRAM) msgfmt.exe $(bindir)\msgfmt.exe
+	$(INSTALL_PROGRAM) msgmerge.exe $(bindir)\msgmerge.exe
+	$(INSTALL_PROGRAM) msgunfmt.exe $(bindir)\msgunfmt.exe
+	$(INSTALL_PROGRAM) xgettext.exe $(bindir)\xgettext.exe
+	$(INSTALL_PROGRAM) msgattrib.exe $(bindir)\msgattrib.exe
+	$(INSTALL_PROGRAM) msgcat.exe $(bindir)\msgcat.exe
+	$(INSTALL_PROGRAM) msgcomm.exe $(bindir)\msgcomm.exe
+	$(INSTALL_PROGRAM) msgconv.exe $(bindir)\msgconv.exe
+	$(INSTALL_PROGRAM) msgen.exe $(bindir)\msgen.exe
+	$(INSTALL_PROGRAM) msgexec.exe $(bindir)\msgexec.exe
+	$(INSTALL_PROGRAM) msgfilter.exe $(bindir)\msgfilter.exe
+	$(INSTALL_PROGRAM) msggrep.exe $(bindir)\msggrep.exe
+	$(INSTALL_PROGRAM) msginit.exe $(bindir)\msginit.exe
+	$(INSTALL_PROGRAM) msguniq.exe $(bindir)\msguniq.exe
+	-mkdir $(datadir)
+	-mkdir $(pkgdatadir)
+	$(INSTALL_DATA) msgunfmt.tcl $(pkgdatadir)\msgunfmt.tcl
+
+installdirs : force
+	-mkdir $(prefix)
+	-mkdir $(exec_prefix)
+!if $(DLL)
+	-mkdir $(bindir)
+!endif
+	-mkdir $(datadir)
+	-mkdir $(pkgdatadir)
+
+uninstall : force
+!if $(DLL)
+	$(RM) $(bindir)\gettextsrc.dll
+!endif
+	$(RM) $(bindir)\msgcmp.exe
+	$(RM) $(bindir)\msgfmt.exe
+	$(RM) $(bindir)\msgmerge.exe
+	$(RM) $(bindir)\msgunfmt.exe
+	$(RM) $(bindir)\xgettext.exe
+	$(RM) $(bindir)\msgattrib.exe
+	$(RM) $(bindir)\msgcat.exe
+	$(RM) $(bindir)\msgcomm.exe
+	$(RM) $(bindir)\msgconv.exe
+	$(RM) $(bindir)\msgen.exe
+	$(RM) $(bindir)\msgexec.exe
+	$(RM) $(bindir)\msgfilter.exe
+	$(RM) $(bindir)\msggrep.exe
+	$(RM) $(bindir)\msginit.exe
+	$(RM) $(bindir)\msguniq.exe
+	$(RM) $(pkgdatadir)\msgunfmt.tcl
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.obj
+	$(RM) *.lib
+	$(RM) *.exp
+	$(RM) *.dll
+	$(RM) gettextsrc.res
+	$(RM) $(PROGRAMS)
+	$(RM) core
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

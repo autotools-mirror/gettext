@@ -71,7 +71,7 @@ HEADERS = \
   localcharset.h \
   relocatable.h \
   os2compat.h \
-  libgnuintl.h
+  libgnuintl.h.in
 SOURCES = \
   bindtextdom.c \
   dcgettext.c \
@@ -123,9 +123,9 @@ DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
-DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc
+DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc Makefile.msvc
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
-COPYING.LIB-2 gettext.h libgettext.h plural-eval.c
+COPYING.LIB-2 gettext.h libgettext.h plural-eval.c libgnuintl.h
 
 all: all-@USE_INCLUDED_LIBINTL@
 all-yes: libintl.$la libintl.h charset.alias ref-add.sed ref-del.sed
@@ -219,8 +219,11 @@ ref-del.sed: $(srcdir)/ref-del.sin
 
 INCLUDES = -I.. -I. -I$(srcdir)
 
-libintl.h: $(srcdir)/libgnuintl.h
-	cp $(srcdir)/libgnuintl.h libintl.h
+libgnuintl.h: $(srcdir)/libgnuintl.h.in
+	cp $(srcdir)/libgnuintl.h.in libgnuintl.h
+
+libintl.h: libgnuintl.h
+	cp libgnuintl.h libintl.h
 
 charset.alias: $(srcdir)/config.charset
 	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
@@ -391,9 +394,9 @@ uninstall:
 
 info dvi ps pdf html:
 
-$(OBJECTS): ../config.h $(srcdir)/libgnuintl.h
+$(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
-dcigettext.$lo: $(srcdir)/hash-string.h
+dcigettext.$lo loadmsgcat.$lo: $(srcdir)/hash-string.h
 explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
 dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: $(srcdir)/plural-exp.h
 dcigettext.$lo: $(srcdir)/eval-plural.h
@@ -418,7 +421,7 @@ ID: $(HEADERS) $(SOURCES)
 
 mostlyclean:
 	rm -f *.a *.la *.o *.obj *.lo core core.*
-	rm -f libintl.h charset.alias ref-add.sed ref-del.sed
+	rm -f libgnuintl.h libintl.h charset.alias ref-add.sed ref-del.sed
 	rm -f -r .libs _libs
 
 clean: mostlyclean

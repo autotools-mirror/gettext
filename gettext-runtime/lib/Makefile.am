@@ -82,3 +82,8 @@ alloca.h: ../../gettext-tools/lib/alloca_.h
 	cp $(srcdir)/../../gettext-tools/lib/alloca_.h alloca.h
 MOSTLYCLEANFILES += alloca.h
 # <<< gnulib module alloca.
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

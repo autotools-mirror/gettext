@@ -1,3 +1,19 @@
+2003-03-17  Bruno Haible  <bruno@clisp.org>
+
+	Native Woe32/MSVC support.
+	* libgnuintl.h.in: Renamed from libgnuintl.h.
+	* Makefile.msvc: New file.
+	* README.woe32: New file.
+	* Makefile.in (HEADERS): Remove libgnuintl.h, add libgnuintl.h.in.
+	(DISTFILES.gettext): Add Makefile.msvc.
+	(DISTFILES.obsolete): Add libgnuintl.h.
+	(libgnuintl.h): New rule.
+	(libintl.h, $(OBJECTS)): Expect libgnuintl.h in builddir, not in
+	srcdir.
+	(mostlyclean): Also remove libgnuintl.h.
+
+	* Makefile.in (loadmsgcat.$lo): Depend on hash-string.h.
+
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (localcharset.$lo): Depend on localcharset.h.

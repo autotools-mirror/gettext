@@ -18,10 +18,16 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
 
-EXTRA_DIST = nls.texi matrix.texi
+EXTRA_DIST += nls.texi matrix.texi
 
 
 # Documentation tag not known to automake.
 
 html:
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

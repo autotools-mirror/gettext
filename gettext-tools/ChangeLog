@@ -1,3 +1,15 @@
+2003-03-17  Bruno Haible  <bruno@clisp.org>
+
+	Native Woe32/MSVC support.
+	* Makefile.msvc: New file.
+	* README.woe32: New file.
+	* windows/gettextlib.exp: New file.
+	* windows/gettextlib.rc: New file.
+	* windows/gettextsrc.exp: New file.
+	* windows/gettextsrc.rc: New file.
+	* Makefile.am (EXTRA_DIST): Add them and config.h.msvc.
+	(config.h.msvc, intl/libgnuintl.h.msvc-shared): New rules.
+
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
 	Support for relocatable installation.

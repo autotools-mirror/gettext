@@ -1,3 +1,9 @@
+2003-03-17  Bruno Haible  <bruno@clisp.org>
+
+	Native Woe32/MSVC support.
+	* Makefile.msvc: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Make use of += for variables.

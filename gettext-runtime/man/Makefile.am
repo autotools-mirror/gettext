@@ -25,6 +25,7 @@ htmldir = $(docdir)
 localedir = $(datadir)/locale
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
 
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am.
 
@@ -49,7 +50,7 @@ gettext.3.html ngettext.3.html \
 textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
 man_HTML = $(man_HTMLGEN) $(man_HTMLOTHER)
 
-EXTRA_DIST = help2man $(man_aux) $(man_MAN1IN) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLIN) $(man_HTMLOTHER)
+EXTRA_DIST += help2man $(man_aux) $(man_MAN1IN) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLIN) $(man_HTMLOTHER)
 CLEANFILES = $(man_MAN1GEN) $(man_HTMLGEN)
 MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_MAN3) $(man_HTMLIN) $(man_HTMLOTHER)
 
@@ -159,3 +160,8 @@ uninstall-html:
 	for file in $(man_HTML); do \
 	  $(RM) $(DESTDIR)$(htmldir)/$$file; \
 	done
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

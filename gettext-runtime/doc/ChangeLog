@@ -1,3 +1,9 @@
+2003-03-17  Bruno Haible  <bruno@clisp.org>
+
+	Native Woe32/MSVC support.
+	* Makefile.msvc: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (ps, pdf): Remove rules, redundant with automake 1.7.2.

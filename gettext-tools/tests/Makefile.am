@@ -18,6 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+EXTRA_DIST =
 
 TESTS = gettext-1 gettext-2 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
@@ -65,7 +66,7 @@ TESTS = gettext-1 gettext-2 \
 	lang-ycp lang-tcl lang-php lang-po \
 	lang-rst
 
-EXTRA_DIST = $(TESTS) \
+EXTRA_DIST += $(TESTS) \
 	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out \
 	ChangeLog.0
 
@@ -130,3 +131,8 @@ fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
 # Clean up after Solaris cc.
 clean-am:
 	rm -rf SunWS_cache
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

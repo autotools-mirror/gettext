@@ -18,6 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
 
 RM = rm -f
 
@@ -33,7 +34,7 @@ DATAFILES = index \
 	TP/teams.url TP/teams.html \
 	KDE/teams.url KDE/teams.html \
 	GNOME/teams.url GNOME/teams.html
-EXTRA_DIST = $(SCRIPTFILES) $(DATAFILES)
+EXTRA_DIST += $(SCRIPTFILES) $(DATAFILES)
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(projectsdir)
@@ -66,3 +67,8 @@ uninstall-local:
 	  echo "$(RM) $(DESTDIR)$(projectsdir)/$$f"; \
 	  $(RM) $(DESTDIR)$(projectsdir)/$$f; \
 	done
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

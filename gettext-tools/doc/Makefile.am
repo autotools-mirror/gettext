@@ -24,6 +24,7 @@ pdfdir = $(docdir)
 htmldir = $(docdir)
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
 MOSTLYCLEANFILES =
 
 SED = sed
@@ -39,7 +40,7 @@ gettext_TEXINFOS = \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
   gettextize.texi autopoint.texi iso-639.texi iso-3166.texi
 
-EXTRA_DIST = \
+EXTRA_DIST += \
   iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de texi2html \
   ChangeLog.0
 
@@ -196,3 +197,8 @@ dist-html-split:
 	for file in `cd $$d && echo gettext_*.html`; do \
 	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
 	done
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc

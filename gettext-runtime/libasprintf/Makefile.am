@@ -28,6 +28,11 @@ MOSTLYCLEANFILES =
 
 include_HEADERS = autosprintf.h
 
+all-local $(libasprintf_la_OBJECTS): autosprintf.h
+autosprintf.h: autosprintf.h.in
+	cp $(srcdir)/autosprintf.h.in autosprintf.h
+MOSTLYCLEANFILES += autosprintf.h
+
 
 # Library code.
 
@@ -168,3 +173,22 @@ uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html
 
 EXTRA_DIST += texi2html autosprintf.html
+
+
+# Woe32 support.
+
+config.h.msvc: config.h.in
+	(sed -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	     -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
+	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
+	     -e 's/#undef HAVE_SNPRINTF$$/#define HAVE_SNPRINTF 1/' \
+	     -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
+	     -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
+	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	   < $<; echo; echo '#define snprintf _snprintf') > $@
+
+autosprintf.h.msvc-shared: autosprintf.h.in windows/dllexport.h
+	sed -e 's/extern \([^"]\)/extern LIBASPRINTF_DLL_EXPORTED \1/' -e '/#define _AUTOSPRINTF_H/r windows/dllexport.h' < $< > $@
+
+EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/dllexport.h windows/asprintf.rc

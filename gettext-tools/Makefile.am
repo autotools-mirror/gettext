@@ -42,3 +42,58 @@ $(srcdir)/ABOUT-NLS: $(srcdir)/../gettext-runtime/ABOUT-NLS
 
 html:
 	cd doc && $(MAKE) html
+
+
+# Woe32 support.
+
+config.h.msvc: config.h.in
+	sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
+	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
+	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
+	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
+	    -e 's/#undef HAVE_FCNTL_H$$/#define HAVE_FCNTL_H 1/' \
+	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
+	    -e 's/#undef HAVE_GETHOSTBYNAME$$/#define HAVE_GETHOSTBYNAME 1/' \
+	    -e 's/#undef HAVE_GETHOSTNAME$$/#define HAVE_GETHOSTNAME 1/' \
+	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
+	    -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
+	    -e 's/#undef HAVE_ISASCII$$/#define HAVE_ISASCII 1/' \
+	    -e 's/#undef HAVE_ISWCNTRL$$/#define HAVE_ISWCNTRL 1/' \
+	    -e 's/#undef HAVE_ISWPRINT$$/#define HAVE_ISWPRINT 1/' \
+	    -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
+	    -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
+	    -e 's/#undef HAVE_LONG_FILE_NAMES$$/#define HAVE_LONG_FILE_NAMES 1/' \
+	    -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
+	    -e 's/#undef HAVE_MEMSET$$/#define HAVE_MEMSET 1/' \
+	    -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
+	    -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
+	    -e 's/#undef HAVE_RAISE$$/#define HAVE_RAISE 1/' \
+	    -e 's/#undef HAVE_SEARCH_H$$/#define HAVE_SEARCH_H 1/' \
+	    -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
+	    -e 's/#undef HAVE_STDDEF_H$$/#define HAVE_STDDEF_H 1/' \
+	    -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
+	    -e 's/#undef HAVE_STRCSPN$$/#define HAVE_STRCSPN 1/' \
+	    -e 's/#undef HAVE_STRDUP$$/#define HAVE_STRDUP 1/' \
+	    -e 's/#undef HAVE_STRERROR$$/#define HAVE_STRERROR 1/' \
+	    -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	    -e 's/#undef HAVE_STRSTR$$/#define HAVE_STRSTR 1/' \
+	    -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
+	    -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
+	    -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
+	    -e 's/#undef HAVE_TIME_H$$/#define HAVE_TIME_H 1/' \
+	    -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
+	    -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
+	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
+	    -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
+	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
+	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	    -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
+	    -e 's/#undef getline$$/#define getline rpl_getline/' \
+	    -e 's/#undef pid_t$$/#define pid_t int/' \
+	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
+	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
+	    -e '/#undef INSTALLPREFIX$$/d' \
+	  < $< > $@
+
+EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/gettextlib.exp windows/gettextsrc.exp windows/gettextlib.rc windows/gettextsrc.rc

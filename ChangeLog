@@ -1,3 +1,10 @@
+2003-03-17  Bruno Haible  <bruno@clisp.org>
+
+	Native Woe32/MSVC support.
+	* Makefile.msvc: New file.
+	* README.woe32: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
 	Support for relocatable installation.

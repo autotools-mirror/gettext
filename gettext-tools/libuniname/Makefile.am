@@ -37,3 +37,8 @@ noinst_PROGRAMS = test-names
 test_names_LDADD = libuniname.a ../lib/libgettextlib.la
 
 EXTRA_DIST += $(TESTS) UnicodeDataNames.txt
+
+
+# Woe32 support.
+
+EXTRA_DIST += Makefile.msvc
