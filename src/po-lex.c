@@ -49,6 +49,12 @@
 #include "error.h"
 #include "po-gram-gen2.h"
 
+#if HAVE_C_BACKSLASH_A
+# define ALERT_CHAR '\a'
+#else
+# define ALERT_CHAR '\7'
+#endif
+
 
 static FILE *fp;
 lex_pos_ty gram_pos;
@@ -271,6 +277,9 @@ control_sequence ()
     case 'v':
       return '\v';
 
+    case 'a':
+      return ALERT_CHAR;
+
     case '\\':
     case '"':
       return c;
@@ -278,10 +287,13 @@ control_sequence ()
     case '0': case '1': case '2': case '3':
     case '4': case '5': case '6': case '7':
       val = 0;
-      for (max = 0; max < 3; ++max)
+      max = 0;
+      for (;;)
 	{
 	  /* Warning: not portable, can't depend on '0'..'7' ordering.  */
-	  val = val * 8 + c - '0';
+	  val = val * 8 + (c - '0');
+	  if (++max == 3)
+	    break;
 	  c = lex_getc ();
 	  switch (c)
 	    {
@@ -292,12 +304,12 @@ control_sequence ()
 	    default:
 	      break;
 	    }
+	  lex_ungetc (c);
 	  break;
 	}
-      lex_ungetc (c);
       return val;
 
-    case 'x': case 'X':
+    case 'x':
       c = lex_getc ();
       if (c == EOF || !isxdigit (c))
 	break;
@@ -328,10 +340,12 @@ control_sequence ()
 	    default:
 	      break;
 	    }
+	  lex_ungetc (c);
 	  break;
 	}
-      lex_ungetc (c);
       return val;
+
+    /* FIXME: \u and \U are not handled.  */
     }
   po_gram_error (_("invalid control sequence"));
   return ' ';
@@ -435,6 +449,7 @@ po_gram_lex ()
 	    }
 	  buf[bufpos] = 0;
 
+	  /* FIXME: Treatment of embedded \000 chars is incorrect.  */
 	  po_gram_lval.string = xstrdup (buf);
 	  return STRING;
 
