@@ -164,6 +164,14 @@ public class Matrix {
       int ngroups;
       int[][] groups;
       if (true) {
+        ngroups = 5;
+        groups = new int[ngroups][];
+        groups[0] = new int[] { 0, (nteams+4)/5 };
+        groups[1] = new int[] { (nteams+4)/5, (2*nteams+8)/5 };
+        groups[2] = new int[] { (2*nteams+8)/5, (3*nteams+12)/5 };
+        groups[3] = new int[] { (3*nteams+12)/5, (4*nteams+12)/5 };
+        groups[4] = new int[] { (4*nteams+12)/5, nteams };
+      } else if (true) {
         ngroups = 4;
         groups = new int[ngroups][];
         groups[0] = new int[] { 0, nteams/4+1 };
