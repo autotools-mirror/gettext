@@ -68,12 +68,12 @@
      && (P)[1] == ':')
 # define IS_PATH_WITH_DIR(P) \
     (strchr (P, '/') != NULL || strchr (P, '\\') != NULL || HAS_DEVICE (P))
-# define FILESYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
+# define FILE_SYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
 #else
   /* Unix */
 # define ISSLASH(C) ((C) == '/')
 # define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
-# define FILESYSTEM_PREFIX_LEN(P) 0
+# define FILE_SYSTEM_PREFIX_LEN(P) 0
 #endif
 
 #undef set_program_name

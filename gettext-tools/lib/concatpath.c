@@ -53,7 +53,7 @@ concatenated_pathname (const char *directory, const char *filename,
     {
       size_t directory_len = strlen (directory);
       int need_slash =
-	(directory_len > FILESYSTEM_PREFIX_LEN (directory)
+	(directory_len > FILE_SYSTEM_PREFIX_LEN (directory)
 	 && !ISSLASH (directory[directory_len - 1]));
       result = (char *) xmalloc (directory_len + need_slash
 				 + strlen (filename)

@@ -80,12 +80,12 @@
      && (P)[1] == ':')
 # define IS_PATH_WITH_DIR(P) \
     (strchr (P, '/') != NULL || strchr (P, '\\') != NULL || HAS_DEVICE (P))
-# define FILESYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
+# define FILE_SYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
 #else
   /* Unix */
 # define ISSLASH(C) ((C) == '/')
 # define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
-# define FILESYSTEM_PREFIX_LEN(P) 0
+# define FILE_SYSTEM_PREFIX_LEN(P) 0
 #endif
 
 /* Original installation prefix.  */
@@ -189,7 +189,7 @@ compute_curr_prefix (const char *orig_installprefix,
 
   /* Determine the current installation directory.  */
   {
-    const char *p_base = curr_pathname + FILESYSTEM_PREFIX_LEN (curr_pathname);
+    const char *p_base = curr_pathname + FILE_SYSTEM_PREFIX_LEN (curr_pathname);
     const char *p = curr_pathname + strlen (curr_pathname);
     char *q;
 
@@ -216,7 +216,7 @@ compute_curr_prefix (const char *orig_installprefix,
     const char *rp = rel_installdir + strlen (rel_installdir);
     const char *cp = curr_installdir + strlen (curr_installdir);
     const char *cp_base =
-      curr_installdir + FILESYSTEM_PREFIX_LEN (curr_installdir);
+      curr_installdir + FILE_SYSTEM_PREFIX_LEN (curr_installdir);
 
     while (rp > rel_installdir && cp > cp_base)
       {
