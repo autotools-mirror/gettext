@@ -34,6 +34,12 @@
 #
 # The set of defined variables is at the end of this script.
 
+# Known limitations:
+# - On IRIX 6.5 with CC="cc", the run time search patch must not be longer
+#   than 256 bytes, otherwise the compiler driver will dump core. The only
+#   known workaround is to choose shorter directory names for the build
+#   directory and/or the installation directory.
+
 # All known linkers require a `.a' archive for static linking (except M$VC,
 # which needs '.lib').
 libext=a
