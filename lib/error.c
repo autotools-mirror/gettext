@@ -51,16 +51,12 @@ void exit ();
 
 #include "error.h"
 
-#ifndef _
-# if ENABLE_NLS || defined _LIBC
-#  include <libintl.h>
-#  ifndef _
-#   define _(Str) gettext (Str)
-#  endif
-# else
-#  define _(Str) (Str)
-# endif
+#ifdef _LIBC
+# include <libintl.h>
+#else
+# include "gettext.h"
 #endif
+#define _(msgid) gettext (msgid)
 
 /* If NULL, error will flush stdout, then print on stderr the program
    name, a colon and a space.  Otherwise, error will call this

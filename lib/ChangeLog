@@ -1,3 +1,10 @@
+2002-11-05  Bruno Haible  <bruno@clisp.org>
+
+	* argmatch.c: Include gettext.h instead of <libintl.h>.
+	* error.c [!_LIBC]: Include gettext.h instead of <libintl.h>.
+	* getopt.c [!_LIBC]: Include gettext.h instead of <libintl.h>.
+	* obstack.c [!_LIBC]: Include gettext.h instead of <libintl.h>.
+
 2002-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* getopt.c: Don't test HAVE_LIBINTL_H.

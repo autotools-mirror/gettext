@@ -1,5 +1,5 @@
 /* obstack.c - subroutines used implicitly by object stack macros
-   Copyright (C) 1988,89,90,91,92,93,94,96,97 Free Software Foundation, Inc.
+   Copyright (C) 1988-1994, 1996-1997, 2002 Free Software Foundation, Inc.
 
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
@@ -457,16 +457,12 @@ _obstack_memory_used (h)
 }
 
 /* Define the error handler.  */
-#ifndef _
-# if ENABLE_NLS || defined _LIBC
-#  include <libintl.h>
-#  ifndef _
-#   define _(Str) gettext (Str)
-#  endif
-# else
-#  define _(Str) (Str)
-# endif
+#ifdef _LIBC
+# include <libintl.h>
+#else
+# include "gettext.h"
 #endif
+#define _(msgid) gettext (msgid)
 
 static void
 print_and_abort ()
