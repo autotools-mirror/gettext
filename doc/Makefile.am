@@ -66,7 +66,9 @@ html: html-split
 install-html: install-html-split
 uninstall-html: uninstall-html-split
 
-EXTRA_DIST_html = $(wildcard gettext_*.html)
+# This strange way of taking wildcards is a workaround to an automake-1.5 bug
+# which would occur if we wrote $(wildcard $(srcdir)/gettext_*.html).
+EXTRA_DIST_html = $(notdir $(wildcard gettext_*.html) $(wildcard $(addprefix $(srcdir), $(addprefix /, gettext_*.html))))
 CLEANFILES = gettext.pdf gettext.html
 # gettext.dvi and gettext.ps are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html

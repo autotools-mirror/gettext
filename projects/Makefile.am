@@ -39,12 +39,12 @@ install-data-local:
 	  $(mkinstalldirs) $(DESTDIR)$(projectsdir)/$$p; \
 	done
 	@for f in $(SCRIPTFILES); do \
-	  echo "$(INSTALL_SCRIPT) $$f $(DESTDIR)$(projectsdir)/$$f"; \
-	  $(INSTALL_SCRIPT) $$f $(DESTDIR)$(projectsdir)/$$f; \
+	  echo "$(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f"; \
+	  $(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f; \
 	done
 	@for f in $(DATAFILES); do \
-	  echo "$(INSTALL_DATA) $$f $(DESTDIR)$(projectsdir)/$$f"; \
-	  $(INSTALL_DATA) $$f $(DESTDIR)$(projectsdir)/$$f; \
+	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f"; \
+	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f; \
 	done
 
 installdirs-local:

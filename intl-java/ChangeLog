@@ -1,3 +1,8 @@
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (install-javadoc1): Make it work when builddir != srcdir.
+	(install-javadoc2): Likewise.
+
 2001-11-03  Bruno Haible  <haible@clisp.cons.org>
 
 	Distribute javadoc generated documentation.

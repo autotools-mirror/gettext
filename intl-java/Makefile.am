@@ -97,8 +97,8 @@ install-javadoc1: all-javadoc1
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1/images
 	@for f in $(JAVADOC1_FILES); do \
-	  echo "$(INSTALL_DATA) $$f $(DESTDIR)$(htmldir)/$$f"; \
-	  $(INSTALL_DATA) $$f $(DESTDIR)$(htmldir)/$$f; \
+	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f"; \
+	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f; \
 	done
 
 installdirs-javadoc1:
@@ -139,8 +139,8 @@ install-javadoc2: all-javadoc2
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2/gnu/gettext
 	@for f in $(JAVADOC2_FILES); do \
-	  echo "$(INSTALL_DATA) $$f $(DESTDIR)$(htmldir)/$$f"; \
-	  $(INSTALL_DATA) $$f $(DESTDIR)$(htmldir)/$$f; \
+	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f"; \
+	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f; \
 	done
 
 installdirs-javadoc2:
