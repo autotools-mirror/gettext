@@ -1,6 +1,7 @@
 2003-06-11  Bruno Haible  <bruno@clisp.org>
 
 	* README.gemtext: Remove outdated file.
+	* Makefile.am (EXTRA_DIST): Remove it.
 	Reported by Guido Flohr <guido@imperia.net>.
 
 2003-06-08  Bruno Haible  <bruno@clisp.org>

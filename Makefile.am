@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 SUBDIRS = autoconf-lib-link gettext-runtime gettext-tools
 
 EXTRA_DIST = \
-  version.sh PACKAGING README.gemtext ChangeLog.0 \
+  version.sh PACKAGING ChangeLog.0 \
   config/config.libpath config/reloc-ldflags config/install-reloc \
   config/m4/fixautomake.m4 \
   config/m4/libtool.m4
