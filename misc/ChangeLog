@@ -1,3 +1,9 @@
+2002-06-13  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-mode-line-entry...): Try harder to find a good place
+	for adding po-mode-line-entry into mode-line-format.
+	Reported by Sam Steingold <sds@gnu.org>.
+
 2002-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* po-compat.el: Add ISO-8859-14, KOI8-T, GEORGIAN-PS to the list of
