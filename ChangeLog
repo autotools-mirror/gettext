@@ -1,3 +1,12 @@
+2000-06-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am: Put back the ACLOCAL_AMFLAGS definition, but define
+	ACLOCAL as a wrapper around aclocal.
+	* aclocal.sh: New file.
+
+	* config.guess, config.sub: Update to GNU version 2000-06-13.
+	* misc/locale.alias: Update to glibc CVS version 2000-06-13.
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* Makefile.am: Comment out ACLOCAL_AMFLAGS definition.  The files
