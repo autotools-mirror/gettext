@@ -1,3 +1,7 @@
+2005-02-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 7:1:4.
+
 2005-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libintl.la, libgnuintl.la): Use INTL_MACOSX_LIBS
