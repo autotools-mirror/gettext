@@ -1,5 +1,11 @@
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
+	* getline.m4: Update from gnulib.
+	* getndelim2.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add getndelim2.m4.
+
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
 	* fnmatch.m4: Replace with the version from gnulib.
 
 2002-12-24  Bruno Haible  <bruno@clisp.org>
