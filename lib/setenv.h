@@ -1,5 +1,5 @@
 /* Setting environment variables.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,11 +30,19 @@
 
 #else
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 /* Set NAME to VALUE in the environment.
    If REPLACE is nonzero, overwrite an existing value.  */
 extern int setenv PARAMS ((const char *name, const char *value, int replace));
 
 /* Remove the variable NAME from the environment.  */
 extern int unsetenv PARAMS ((const char *name));
+
+#ifdef	__cplusplus
+}
+#endif
 
 #endif
