@@ -416,9 +416,11 @@ cd ..
 # func_destfile file
 # determines the destination file, relative to the package's top level
 # directory, for a given file name, relative to archive.
-# Sets variable
+# Sets variables
 # - destfile        relative destination file name, or
 #                   empty if the file shall be omitted
+# - sharedowner     yes if the file is not only owned by GNU gettext but may
+#                   be installed by automake or other tools, otherwise empty
 func_destfile ()
 {
   # There are five categories of files:
@@ -427,10 +429,12 @@ func_destfile ()
   # m4/* -> $m4dir/
   # intl/* -> intl/
   # po/* -> po/
+  sharedowner=
   case `echo "$1" | sed -e 's,[^/]*$,,'` in
     "" )
       case "$1" in
-        config.rpath | mkinstalldirs ) destfile="$auxdir$1" ;;
+        config.rpath ) destfile="$auxdir$1" ;;
+        mkinstalldirs ) destfile="$auxdir$1" sharedowner=yes ;;
         * ) destfile="$1" ;;
       esac
       ;;
@@ -455,9 +459,13 @@ if test -z "$force"; then
         if cmp -s "$work_dir/archive/$file" "$destfile"; then
           :
         else
-          echo "autopoint: File $destfile has been locally modified." 1>&2
-          mismatch=yes
-          diff -c "$work_dir/archive/$file" "$destfile" | sed -e "1s,$work_dir/archive/,," >> "$mismatchfile"
+          if test -n "$sharedowner"; then
+            echo "autopoint: warning: File $destfile has been locally modified." 1>&2
+          else
+            echo "autopoint: File $destfile has been locally modified." 1>&2
+            mismatch=yes
+            diff -c "$work_dir/archive/$file" "$destfile" | sed -e "1s,$work_dir/archive/,," >> "$mismatchfile"
+          fi
         fi
       fi
     fi
@@ -521,8 +529,12 @@ for file in `find "$work_dir/archive" -type f -print | sed -e "s,^$work_dir/arch
       if cmp -s "$work_dir/archive/$file" "$destfile"; then
         :
       else
-        # Overwrite locally modified file.
-        mustcopy=yes
+        if test -n "$force"; then
+          # Overwrite locally modified file.
+          mustcopy=yes
+        fi
+        # If --force is not specified, don't overwrite locally modified files
+        # for which GNU gettext is a shared owner.
       fi
     else
       mustcopy=yes
