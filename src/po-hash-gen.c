@@ -32,6 +32,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 
 #include "xmalloc.h"
@@ -85,36 +86,22 @@
 #define yycheck  po_hash_yycheck
 
 
-#line 101 "po-hash-gen.y"
+#line 102 "po-hash-gen.y"
 typedef union
 {
   char *string;
   size_t number;
 } YYSTYPE;
-#line 110 "po-hash-gen.y"
+#line 111 "po-hash-gen.y"
 
 
-static const char *cur;
-
-
-void yyerror PARAMS ((char *));
-int yylex PARAMS ((void));
-
-
-int
-po_hash (s)
-     const char *s;
-{
-  extern int yyparse PARAMS ((void));
-
-  cur = s;
-  return yyparse ();
-}
+/* Forward declarations, to avoid gcc warnings.  */
+void yyerror (char *);
+int yylex (void);
 
 
 void
-yyerror (s)
-     char *s;
+yyerror (char *s)
 {
   /* Do nothing, the grammar is used as a recogniser.  */
 }
@@ -179,7 +166,7 @@ static const short yyrhs[] = {    -1,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   141,   142,   146,   152,   158,   164,   170
+   128,   129,   133,   139,   145,   151,   157
 };
 #endif
 
@@ -775,7 +762,7 @@ yyreduce:
   switch (yyn) {
 
 case 3:
-#line 147 "po-hash-gen.y"
+#line 134 "po-hash-gen.y"
 {
 		  /* GNU style */
 		  po_callback_comment_filepos (yyvsp[-2].string, yyvsp[0].number);
@@ -783,7 +770,7 @@ case 3:
 		;
     break;}
 case 4:
-#line 153 "po-hash-gen.y"
+#line 140 "po-hash-gen.y"
 {
 		  /* GNU style, without line number (e.g. from Pascal .rst) */
 		  po_callback_comment_filepos (yyvsp[0].string, (size_t)(-1));
@@ -791,7 +778,7 @@ case 4:
 		;
     break;}
 case 5:
-#line 159 "po-hash-gen.y"
+#line 146 "po-hash-gen.y"
 {
 		  /* SunOS style */
 		  po_callback_comment_filepos (yyvsp[-4].string, yyvsp[0].number);
@@ -799,7 +786,7 @@ case 5:
 		;
     break;}
 case 6:
-#line 165 "po-hash-gen.y"
+#line 152 "po-hash-gen.y"
 {
 		  /* Solaris style */
 		  po_callback_comment_filepos (yyvsp[-5].string, yyvsp[0].number);
@@ -807,7 +794,7 @@ case 6:
 		;
     break;}
 case 7:
-#line 171 "po-hash-gen.y"
+#line 158 "po-hash-gen.y"
 {
 		  /* GNU style, but STRING is `file'.  Esoteric, but it
 		     happened.  */
@@ -1036,22 +1023,30 @@ yyerrhandle:
     }
   return 1;
 }
-#line 178 "po-hash-gen.y"
+#line 165 "po-hash-gen.y"
 
 
 
+/* Current position in the pseudo-comment line.  */
+static const char *cur;
+
+/* The NUMBER token must only be recognized after colon.  So we have to
+   remember whether the last token was a colon.  */
+static bool last_was_colon;
+
+/* Returns the next token from the current pseudo-comment line.  */
 int
 yylex ()
 {
   static char *buf;
   static size_t bufmax;
-  size_t bufpos;
-  size_t n;
-  int c;
+
+  bool look_for_number = last_was_colon;
+  last_was_colon = false;
 
   for (;;)
     {
-      c = *cur++;
+      int c = *cur++;
       switch (c)
 	{
 	case 0:
@@ -1064,6 +1059,7 @@ yylex ()
 	  break;
 
 	case ':':
+	  last_was_colon = true;
 	  return COLON;
 
 	case ',':
@@ -1079,79 +1075,99 @@ yylex ()
 	case '7':
 	case '8':
 	case '9':
-	  /* Accumulate a number.  */
-	  n = 0;
-	  for (;;)
+	  if (look_for_number)
 	    {
-	      n = n * 10 + c - '0';
-	      c = *cur++;
-	      switch (c)
-		{
-		default:
-		  break;
+	      /* Accumulate a number.  */
+	      size_t n = 0;
 
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-		  continue;
+	      for (;;)
+		{
+		  n = n * 10 + c - '0';
+		  c = *cur++;
+		  switch (c)
+		    {
+		    default:
+		      break;
+
+		    case '0':
+		    case '1':
+		    case '2':
+		    case '3':
+		    case '4':
+		    case '5':
+		    case '6':
+		    case '7':
+		    case '8':
+		    case '9':
+		      continue;
+		    }
+		  break;
 		}
-	      break;
+	      --cur;
+	      yylval.number = n;
+	      return NUMBER;
 	    }
-	  --cur;
-	  yylval.number = n;
-	  return NUMBER;
+	  /* FALLTHROUGH */
 
 	default:
 	  /* Accumulate a string.  */
-	  bufpos = 0;
-	  for (;;)
-	    {
-	      if (bufpos >= bufmax)
-		{
-		  bufmax += 100;
-		  buf = xrealloc (buf, bufmax);
-		}
-	      buf[bufpos++] = c;
+	  {
+	    size_t bufpos;
 
-	      c = *cur++;
-	      switch (c)
-	        {
-	        default:
-	          continue;
+	    bufpos = 0;
+	    for (;;)
+	      {
+		if (bufpos >= bufmax)
+		  {
+		    bufmax += 100;
+		    buf = xrealloc (buf, bufmax);
+		  }
+		buf[bufpos++] = c;
 
-	        case 0:
-	        case ':':
-	        case ',':
-	        case ' ':
-	        case '\t':
-	          --cur;
-	          break;
-	        }
-	      break;
-	    }
+		c = *cur++;
+		switch (c)
+		  {
+		  default:
+		    continue;
 
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax += 100;
-	      buf = xrealloc (buf, bufmax);
-	    }
-	  buf[bufpos] = 0;
+		  case 0:
+		  case ':':
+		  case ',':
+		  case ' ':
+		  case '\t':
+		    --cur;
+		    break;
+		  }
+		break;
+	      }
 
-	  if (strcmp (buf, "file") == 0 || strcmp (buf, "File") == 0)
-	    return FILE_KEYWORD;
-	  if (strcmp (buf, "line") == 0)
-	    return LINE_KEYWORD;
-	  if (strcmp (buf, "number") == 0)
-	    return NUMBER_KEYWORD;
-	  yylval.string = xstrdup (buf);
-	  return STRING;
+	    if (bufpos >= bufmax)
+	      {
+		bufmax += 100;
+		buf = xrealloc (buf, bufmax);
+	      }
+	    buf[bufpos] = 0;
+
+	    if (strcmp (buf, "file") == 0 || strcmp (buf, "File") == 0)
+	      return FILE_KEYWORD;
+	    if (strcmp (buf, "line") == 0)
+	      return LINE_KEYWORD;
+	    if (strcmp (buf, "number") == 0)
+	      return NUMBER_KEYWORD;
+	    yylval.string = xstrdup (buf);
+	    return STRING;
+	  }
 	}
     }
+}
+
+
+/* Analyze whether the string (a pseudo-comment line) contains file names
+   and line numbers.  */
+int
+po_hash (const char *s)
+{
+  cur = s;
+  last_was_colon = false;
+  return yyparse ();
 }

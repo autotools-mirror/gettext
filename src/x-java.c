@@ -501,31 +501,6 @@ typedef struct _java_keyword
 } java_keyword;
 
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-static char_buf *create_char_buf PARAMS ((void));
-static void append_char_buf PARAMS ((char_buf *b, int c));
-static char *get_string PARAMS ((char_buf *b));
-static void destroy_charbuf PARAMS ((char_buf *b));
-static void update_line_no PARAMS ((int c));
-static void strip_ending_spaces PARAMS ((char *str));
-static char *append_strings PARAMS ((char *a, char *b));
-static inline bool isplus PARAMS ((char *s));
-static inline bool isdot PARAMS ((char *s));
-static char *translate_esc PARAMS ((char *s));
-static object_list * object_list_alloc PARAMS ((void));
-static void object_list_destroy PARAMS ((object_list *list));
-static int get_num_objects PARAMS ((const object_list *list));
-static void * get_object PARAMS ((const object_list *list, int i));
-static void add_object PARAMS ((object_list *list, void *object));
-static java_keyword * alloc_keyword PARAMS ((const char *keyword,
-					     int arg1, int arg2));
-static bool tailcmp PARAMS ((const char *s1, const char *s2));
-static bool do_compare PARAMS ((const char *s1, const char *s2));
-static java_keyword *is_keyword PARAMS ((const char *s));
-static void free_global PARAMS ((void));
-
-
 #define INITIAL_CHARBUF_SIZE 500
 #define CHARBUF_GROWTH 100
 static char_buf *
@@ -540,9 +515,7 @@ create_char_buf ()
 }
 
 static void
-append_char_buf (b, c)
-     char_buf *b;
-     int c;
+append_char_buf (char_buf *b, int c)
 {
   if (b->len >= b->maxlen - 1)
     {
@@ -554,31 +527,27 @@ append_char_buf (b, c)
 }
 
 static char *
-get_string (b)
-     char_buf *b;
+get_string (char_buf *b)
 {
   return xstrdup (b->data);
 }
 
 static void
-destroy_charbuf (b)
-     char_buf *b;
+destroy_charbuf (char_buf *b)
 {
   free (b->data);
   free (b);
 }
 
 static void
-update_line_no (c)
-     int c;
+update_line_no (int c)
 {
   if (c == '\n')
     parser_global->line_no++;
 }
 
 static void
-strip_ending_spaces (str)
-     char *str;
+strip_ending_spaces (char *str)
 {
   int len = strlen (str);
 
@@ -586,7 +555,7 @@ strip_ending_spaces (str)
     len--;
   str[len] = '\0';
 }
-#line 590 "x-java.c-tmp"
+#line 559 "x-java.c-tmp"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -737,10 +706,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 186 "./x-java.l"
+#line 155 "./x-java.l"
 
 
-#line 744 "x-java.c-tmp"
+#line 713 "x-java.c-tmp"
 
 	if ( yy_init )
 		{
@@ -825,7 +794,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 188 "./x-java.l"
+#line 157 "./x-java.l"
 {
   int c;
   int last;
@@ -851,12 +820,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 211 "./x-java.l"
+#line 180 "./x-java.l"
 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 212 "./x-java.l"
+#line 181 "./x-java.l"
 {
   int c;
   char *str;
@@ -874,7 +843,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 227 "./x-java.l"
+#line 196 "./x-java.l"
 {
   parser_global->word = yytext;
   return JAVA_WORD;
@@ -882,7 +851,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 232 "./x-java.l"
+#line 201 "./x-java.l"
 {
   parser_global->flow = yytext;
   return JAVA_FLOW;
@@ -890,7 +859,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 237 "./x-java.l"
+#line 206 "./x-java.l"
 {
   parser_global->operator = yytext;
   return JAVA_OPERATOR;
@@ -898,12 +867,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 242 "./x-java.l"
+#line 211 "./x-java.l"
 /* ignore whitespace */
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 244 "./x-java.l"
+#line 213 "./x-java.l"
 {
   parser_global->comment = xstrdup (yytext + 2);
   return JAVA_COMMENT;
@@ -911,29 +880,29 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 248 "./x-java.l"
+#line 217 "./x-java.l"
 parser_global->line_no++;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 249 "./x-java.l"
+#line 218 "./x-java.l"
 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 250 "./x-java.l"
+#line 219 "./x-java.l"
 
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 251 "./x-java.l"
+#line 220 "./x-java.l"
 return -1;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 252 "./x-java.l"
+#line 221 "./x-java.l"
 ECHO;
 	YY_BREAK
-#line 937 "x-java.c-tmp"
+#line 906 "x-java.c-tmp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1817,13 +1786,11 @@ int main()
 	return 0;
 	}
 #endif
-#line 252 "./x-java.l"
+#line 221 "./x-java.l"
 
 
 static char *
-append_strings (a, b)
-     char *a;
-     char *b;
+append_strings (char *a, char *b)
 {
   int total_size = strlen (a) + strlen (b) + 1;
   char *new_string = (char *) xmalloc (total_size);
@@ -1833,23 +1800,20 @@ append_strings (a, b)
 }
 
 static inline bool
-isplus (s)
-     char *s;
+isplus (char *s)
 {
   return *s == '+';
 }
 
 static inline bool
-isdot (s)
-     char *s;
+isdot (char *s)
 {
   return *s == '.';
 }
 
 
 static char *
-translate_esc (s)
-     char *s;
+translate_esc (char *s)
 {
   char *n = (char *) xmalloc (strlen (s) + 1);
   size_t i;
@@ -1883,32 +1847,26 @@ object_list_alloc ()
 }
 
 static void
-object_list_destroy (list)
-     object_list *list;
+object_list_destroy (object_list *list)
 {
   free (list->objects);
   free (list);
 }
 
 static int
-get_num_objects (list)
-     const object_list *list;
+get_num_objects (const object_list *list)
 {
   return list->num_obj;
 }
 
 static void *
-get_object (list, i)
-     const object_list *list;
-     int i;
+get_object (const object_list *list, int i)
 {
   return list->objects[i];
 }
 
 static void
-add_object (list, object)
-     object_list *list;
-     void *object;
+add_object (object_list *list, void *object)
 {
   if (list->num_obj + 1 >= list->max_num_obj)
     {
@@ -1931,10 +1889,7 @@ x_java_extract_all ()
 
 
 static java_keyword *
-alloc_keyword (keyword, arg1, arg2)
-     const char *keyword;
-     int arg1;
-     int arg2;
+alloc_keyword (const char *keyword, int arg1, int arg2)
 {
   java_keyword *jk = xmalloc (sizeof (java_keyword));
   jk->keyword = xstrdup (keyword);
@@ -1950,9 +1905,7 @@ static object_list *java_keywords = NULL;
  * Backwards substring match.
  */
 static bool
-tailcmp (s1, s2)
-     const char *s1;
-     const char *s2;
+tailcmp (const char *s1, const char *s2)
 {
   int len1 = strlen (s1);
   int len2 = strlen (s2);
@@ -1967,9 +1920,7 @@ tailcmp (s1, s2)
  * true substring match is used.
  */
 static bool
-do_compare (s1, s2)
-     const char *s1;
-     const char *s2;
+do_compare (const char *s1, const char *s2)
 {
   if (substring_match)
     return strstr (s1, s2) != NULL;
@@ -1981,8 +1932,7 @@ do_compare (s1, s2)
  * Check if a string is a keyword or not.
  */
 static java_keyword *
-is_keyword (s)
-     const char *s;
+is_keyword (const char *s)
 {
   int i;
   int num_keywords = get_num_objects (java_keywords);
@@ -2002,8 +1952,7 @@ is_keyword (s)
  * Add a keyword to the list of possible keywords.
  */
 void
-x_java_keyword (keyword)
-     const char *keyword;
+x_java_keyword (const char *keyword)
 {
   const char *keyword_end;
   int arg1;
@@ -2068,11 +2017,9 @@ free_global ()
  * Main java keyword extract function.
  */
 void
-extract_java (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_java (FILE *f,
+	      const char *real_filename, const char *logical_filename,
+	      msgdomain_list_ty *mdlp)
 {
   char *logical_file_name = xstrdup (logical_filename);
   int token;
