@@ -1,3 +1,8 @@
+2002-01-30  Bruno Haible  <bruno@clisp.org>
+
+	* nls.texi (Using This Package): Document how to deal with locale name
+	variations on other operating systems.
+
 2002-01-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Makefile): Undocument the POSUB variable.
