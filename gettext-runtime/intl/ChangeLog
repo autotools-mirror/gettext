@@ -1,3 +1,11 @@
+2005-03-16  Bruno Haible  <bruno@clisp.org>
+
+	Canonicalize locale names on MacOS X.
+	* localename.c (_nl_locale_name_canonicalize): New function.
+	(_nl_locale_name_default): Use it.
+	* langprefs.c (_nl_locale_name_canonicalize): New declaration.
+	(_nl_language_preferences_default): Use it.
+
 2005-03-14  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.3 released.

@@ -30,6 +30,7 @@
 # include <CFPropertyList.h>
 # include <CFArray.h>
 # include <CFString.h>
+extern void _nl_locale_name_canonicalize (char *name);
 #endif
 
 /* Determine the user's language preferences, as a colon separated list of
@@ -71,6 +72,7 @@ _nl_language_preferences_default (void)
 					   buf, sizeof (buf),
 					   kCFStringEncodingASCII))
 		  {
+		    _nl_locale_name_canonicalize (buf);
 		    size += strlen (buf) + 1;
 		    /* Most GNU programs use msgids in English and don't ship
 		       an en.mo message catalog.  Therefore when we see "en"
@@ -101,6 +103,7 @@ _nl_language_preferences_default (void)
 						   buf, sizeof (buf),
 						   kCFStringEncodingASCII))
 			  {
+			    _nl_locale_name_canonicalize (buf);
 			    strcpy (p, buf);
 			    p += strlen (buf);
 			    *p++ = ':';
