@@ -152,6 +152,13 @@ public class Matrix {
       int ngroups;
       int[][] groups;
       if (true) {
+        ngroups = 4;
+        groups = new int[ngroups][];
+        groups[0] = new int[] { 0, nteams/4+1 };
+        groups[1] = new int[] { nteams/4+1, (2*nteams)/4+1 };
+        groups[2] = new int[] { (2*nteams)/4+1, (3*nteams)/4+1 };
+        groups[3] = new int[] { (3*nteams)/4+1, nteams };
+      } else if (true) {
         ngroups = 3;
         groups = new int[ngroups][];
         groups[0] = new int[] { 0, nteams/3+1 };
@@ -176,14 +183,14 @@ public class Matrix {
         stream.println("@group");
 
         if (group == 0)
-          stream.print("Ready PO files   ");
+          stream.print("Ready PO files      ");
         else
-          stream.print("                 ");
+          stream.print("                    ");
         for (int t = groups[group][0]; t < groups[group][1]; t++)
           stream.print(" "+teams[t]);
         stream.println();
 
-        stream.print("                +");
+        stream.print("                   +");
         for (int t = groups[group][0]; t < groups[group][1]; t++)
           for (int i = teams[t].length() + 1; i > 0; i--)
             stream.print('-');
@@ -220,7 +227,7 @@ public class Matrix {
           stream.println();
         }
 
-        stream.print("                +");
+        stream.print("                   +");
         for (int t = groups[group][0]; t < groups[group][1]; t++)
           for (int i = teams[t].length() + 1; i > 0; i--)
             stream.print('-');
@@ -230,9 +237,9 @@ public class Matrix {
           String s = Integer.toString(nteams);
           spaces(stream,4-s.length());
           stream.print(s);
-          stream.print(" teams       ");
+          stream.print(" teams          ");
         } else {
-          stream.print("                 ");
+          stream.print("                    ");
         }
         for (int t = groups[group][0]; t < groups[group][1]; t++)
           stream.print(" "+teams[t]);
@@ -242,9 +249,9 @@ public class Matrix {
           String s = Integer.toString(ndomains);
           spaces(stream,4-s.length());
           stream.print(s);
-          stream.print(" domains     ");
+          stream.print(" domains        ");
         } else {
-          stream.print("                 ");
+          stream.print("                    ");
         }
         for (int t = groups[group][0]; t < groups[group][1]; t++) {
           stream.print(' ');
