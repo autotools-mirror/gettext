@@ -23,9 +23,10 @@
 # define _GETOPT_H 1
 #endif
 
-/* Ensure that DLL_VARIABLE is defined.  Since on OSF/1 4.0 <stdlib.h> includes
-   <getopt.h>, and <config.h> is not a prerequisite for using <stdlib.h>, this
-   file can be included without a prior "#include <config.h>.  */
+/* Ensure that DLL_VARIABLE is defined.  Since on OSF/1 4.0 and Irix 6.5
+   <stdlib.h> includes <getopt.h>, and <config.h> is not a prerequisite for
+   using <stdlib.h>, this file can be included without a prior
+   "#include <config.h>".  */
 #if HAVE_CONFIG_H
 # include <config.h>
 #endif
