@@ -1,5 +1,9 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* exitfail.h (exit_failure): Add DLL_VARIABLE attribute.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* obstack.c: Update from current gnulib version.
 
 2005-02-10  Bruno Haible  <bruno@clisp.org>
