@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Test than an empty header entry is OK.
+# Test that an empty header entry is OK.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
