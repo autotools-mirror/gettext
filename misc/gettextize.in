@@ -209,7 +209,11 @@ echo "Please add the files"
 echo "  codeset.m4 gettext.m4 glibc21.m4 iconv.m4 isc-posix.m4 lcmessage.m4"
 echo "  progtest.m4"
 echo "from the @datadir@/aclocal directory to your autoconf macro directory"
-echo "or directly to your aclocal.m4 file."
+if test -f $srcdir/Makefile.am; then
+  echo "and run 'aclocal' to regenerate the aclocal.m4 file."
+else
+  echo "or directly to your aclocal.m4 file."
+fi
 echo "You will also need config.guess and config.sub, which you can get from"
 echo "ftp://ftp.gnu.org/pub/gnu/config/."
 echo
