@@ -1,3 +1,8 @@
+2004-07-10  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.c (expand_escape): Support also \a and \v.
+	* ngettext.c (expand_escape): Likewise.
+
 2004-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (RM): New variable.

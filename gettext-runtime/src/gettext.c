@@ -293,7 +293,7 @@ expand_escape (const char *str)
 	++cp;
     }
   while (cp[0] != '\0' && cp[1] != '\0'
-	 && strchr ("bcfnrt\\01234567", cp[1]) == NULL);
+	 && strchr ("abcfnrtv\\01234567", cp[1]) == NULL);
 
   if (cp[0] == '\0')
     return str;
@@ -307,6 +307,10 @@ expand_escape (const char *str)
     {
       switch (*++cp)
 	{
+	case 'a':		/* alert */
+	  *rp++ = '\a';
+	  ++cp;
+	  break;
 	case 'b':		/* backspace */
 	  *rp++ = '\b';
 	  ++cp;
@@ -329,6 +333,10 @@ expand_escape (const char *str)
 	  break;
 	case 't':		/* horizontal tab */
 	  *rp++ = '\t';
+	  ++cp;
+	  break;
+	case 'v':		/* vertical tab */
+	  *rp++ = '\v';
 	  ++cp;
 	  break;
 	case '\\':

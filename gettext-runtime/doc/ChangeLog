@@ -1,3 +1,8 @@
+2004-07-10  Bruno Haible  <bruno@clisp.org>
+
+	* rt-gettext.texi: Document also \a.
+	* rt-ngettext.texi: Likewise.
+
 2004-03-23  Bruno Haible  <bruno@clisp.org>
 
 	* nls.texi: Small wording fixes,

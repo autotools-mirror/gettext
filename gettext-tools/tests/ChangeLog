@@ -1,3 +1,7 @@
+2004-07-10  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c (expand_escape): Support also \a and \v.
+
 2004-03-14  Bruno Haible  <bruno@clisp.org>
 
 	* format-lisp-2: Add one more test for ~[...~].
