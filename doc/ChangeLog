@@ -1,3 +1,11 @@
+2002-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.texi: New file, mostly extracted from gettext.texi.
+	* autopoint.texi: New file.
+	* gettext.texi (gettextize Invocation): Move to gettextize.texi.
+	(CVS Issues): New section.
+	* Makefile.am (gettext_TEXINFOS): Add gettextize.texi, autopoint.texi.
+
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (gettextize Invocation): Document option --dry-run.

@@ -1,3 +1,16 @@
+2002-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint-files: New directory.
+	* add-to-autopoint-files: New file.
+	* autopoint.in: New file.
+	* Makefile.am (EXTRA_DIST): Add add-to-autopoint-files.
+	(DISTCLEANFILES): Add autopoint.
+	(gettextsrcdir): New variable.
+	(gettextsrc_DATA): New variable.
+	(archive.tar.gz): New rule.
+	* gettextize.in: Bump GETTEXT_VERSION value in configure.in.
+	Ask maintainer to acknowledge the remaining changes.
+
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Avoid the remarks about po/Makevars and config.guess

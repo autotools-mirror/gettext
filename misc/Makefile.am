@@ -19,8 +19,14 @@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
-DISTCLEANFILES = gettextize
+EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl add-to-autopoint-files $(lisp_LISP)
+DISTCLEANFILES = gettextize autopoint
 lisp_LISP = po-mode.el po-compat.el
 
-bin_SCRIPTS = gettextize
+bin_SCRIPTS = gettextize autopoint
+
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = archive.tar.gz
+
+archive.tar.gz:
+	(cd autopoint-files && tar cf - `find archive -type f | grep -v /CVS/`) | gzip -c -9 > $@

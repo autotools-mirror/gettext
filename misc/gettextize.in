@@ -31,6 +31,10 @@ func_usage ()
 {
   echo "\
 Usage: gettextize [OPTION]... [package-dir]
+
+Prepares a source package to use gettext.
+
+Options:
       --help           print this help and exit
       --version        print version information and exit
   -c, --copy           copy files instead of making symlinks
@@ -38,6 +42,7 @@ Usage: gettextize [OPTION]... [package-dir]
       --intl           install libintl in a subdirectory
       --no-changelog   don't update or create ChangeLog files
   -n, --dry-run        print modifications but don't perform them
+
 Report bugs to <bug-gnu-gettext@gnu.org>."
 }
 
@@ -862,6 +867,8 @@ sed -e 's%sed -e "/POTFILES =/r po/POTFILES" po/Makefile\.in > po/Makefile *;* *
 func_modify_configure_in "(AC_OUTPUT): Remove command that created po/Makefile."
 sed -e '/^\(dnl \|\)AC_LINK_FILES(\$nls_cv_header_libgt, \$nls_cv_header_intl)$/d' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
 func_modify_configure_in "(AC_LINK_FILES): Remove invocation."
+sed -e 's/^GETTEXT_VERSION=\([-+_.0-9A-Za-z]*\)/GETTEXT_VERSION='"$version"'/' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
+func_modify_configure_in "(GETTEXT_VERSION): Bump to $version."
 $do_changelog && func_ChangeLog_finish
 
 # Recommend replacement for deprecated Makefile variables.
@@ -946,6 +953,20 @@ if $doit; then
   echo "It is a wrapper around <libintl.h> that implements the configure --disable-nls"
   echo "option."
   echo
+  count=`echo "$please" | grep '^$' | wc -l`
+  count=`echo "$count" | sed -e 's/[ 	]//g'`
+  case "$count" in
+    1) count="paragraph";;
+    2) count="two paragraphs";;
+    3) count="three paragraphs";;
+    4) count="four paragraphs";;
+    5) count="five paragraphs";;
+    *) count="$count paragraphs";;
+  esac
+  echo "Press Return to acknowledge the previous $count."
+  # Read from /dev/tty, not stdin, so that gettextize cannot be abused by
+  # non-interactive tools.
+  read < /dev/tty
 fi
 
 exit 0

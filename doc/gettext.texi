@@ -267,6 +267,7 @@ The Maintainer's View
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.in}
+* CVS Issues::                  Integrating with CVS
 
 Files You Must Create or Alter
 
@@ -287,6 +288,12 @@ Autoconf macros for use in @file{configure.in}
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
+
+Integrating with CVS
+
+* Distributed CVS::             Avoiding version mismatch in distributed development
+* Files under CVS::             Files to put under CVS version control
+* autopoint Invocation::        Invoking the @code{autopoint} Program
 
 Other Programming Languages
 
@@ -5539,6 +5546,7 @@ for changes.
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.in}
+* CVS Issues::                  Integrating with CVS
 @end menu
 
 @node Flat and Non-Flat, Prerequisites, Maintainers, Maintainers
@@ -5655,131 +5663,7 @@ never try to @emph{solve} a team's problem on your own.
 @node gettextize Invocation, Adjusting Files, Prerequisites, Maintainers
 @section Invoking the @code{gettextize} Program
 
-Some files are consistently and identically needed in every package
-internationalized through GNU @code{gettext}.  As a matter of
-convenience, the @code{gettextize} program puts all these files right
-in your package.  This program has the following synopsis:
-
-@pindex gettextize
-@cindex @code{gettextize} program, usage
-@example
-gettextize [ @var{option}@dots{} ] [ @var{directory} ]
-@end example
-
-@noindent
-and accepts the following options:
-
-@table @samp
-@item -c
-@itemx --copy
-@opindex -c@r{, @code{gettextize} option}
-@opindex --copy@r{, @code{gettextize} option}
-Copy the needed files instead of making symbolic links.  Using links
-would allow the package to always use the latest @code{gettext} code
-available on the system, but it might disturb some mechanism the
-maintainer is used to apply to the sources.  Because running
-@code{gettextize} is easy there shouldn't be problems with using copies.
-
-@item -f
-@itemx --force
-@opindex -f@r{, @code{gettextize} option}
-@opindex --force@r{, @code{gettextize} option}
-Force replacement of files which already exist.
-
-@item --intl
-@opindex --intl@r{, @code{gettextize} option}
-Install the libintl sources in a subdirectory named @file{intl/}.
-This libintl will be used to provide internationalization on systems
-that don't have GNU libintl installed. If this option is omitted,
-the call to @code{AM_GNU_GETTEXT} in @file{configure.in} should read:
-@samp{AM_GNU_GETTEXT([external])}, and internationalization will not
-be enabled on systems lacking GNU gettext.
-
-@item --no-changelog
-@opindex --no-changelog@r{, @code{gettextize} option}
-Don't update or create ChangeLog files.  By default, @code{gettextize}
-logs all changes (file additions, modifications ans removals) in a
-file called @samp{ChangeLog} in each affected directory.
-
-@item -n
-@itemx --dry-run
-@opindex -d@r{, @code{gettextize} option}
-@opindex --dry-run@r{, @code{gettextize} option}
-Print modifications but don't perform them.  All actions that
-@code{gettextize} would normally execute are inhibited and instead only
-listed on standard output.
-
-@item --help
-@opindex --help@r{, @code{gettextize} option}
-Display this help and exit.
-
-@item --version
-@opindex --version@r{, @code{gettextize} option}
-Output version information and exit.
-
-@end table
-
-If @var{directory} is given, this is the top level directory of a
-package to prepare for using GNU @code{gettext}.  If not given, it
-is assumed that the current directory is the top level directory of
-such a package.
-
-The program @code{gettextize} provides the following files.  However,
-no existing file will be replaced unless the option @code{--force}
-(@code{-f}) is specified.
-
-@enumerate
-@item
-The @file{ABOUT-NLS} file is copied in the main directory of your package,
-the one being at the top level.  This file gives the main indications
-about how to install and use the Native Language Support features
-of your program.  You might elect to use a more recent copy of this
-@file{ABOUT-NLS} file than the one provided through @code{gettextize},
-if you have one handy.  You may also fetch a more recent copy of file
-@file{ABOUT-NLS} from Translation Project sites, and from most GNU
-archive sites.
-
-@item
-A @file{po/} directory is created for eventually holding
-all translation files, but initially only containing the file
-@file{po/Makefile.in.in} from the GNU @code{gettext} distribution.
-(beware the double @samp{.in} in the file name) and a few auxiliary
-files. If the @file{po/} directory already exists, it will be preserved
-along with the files it contains, and only @file{Makefile.in.in} and
-the auxiliary files will be overwritten.
-
-@item
-Only if @samp{--intl} has been specified:
-A @file{intl/} directory is created and filled with most of the files
-originally in the @file{intl/} directory of the GNU @code{gettext}
-distribution.  Also, if option @code{--force} (@code{-f}) is given,
-the @file{intl/} directory is emptied first.
-
-@item
-The @file{config.rpath} file is copied into the directory containing
-configuration support files. It is needed by the @code{AM_GNU_GETTEXT}
-autoconf macro.
-
-@end enumerate
-
-If your site support symbolic links, @code{gettextize} will not
-actually copy the files into your package, but establish symbolic
-links instead.  This avoids duplicating the disk space needed in
-all packages.  Merely using the @samp{-h} option while creating the
-@code{tar} archive of your distribution will resolve each link by an
-actual copy in the distribution archive.  So, to insist, you really
-should use @samp{-h} option with @code{tar} within your @code{dist}
-goal of your main @file{Makefile.in}.
-
-It is interesting to understand that most new files for supporting
-GNU @code{gettext} facilities in one package go in @file{intl/}
-and @file{po/} subdirectories.  One distinction between these two
-directories is that @file{intl/} is meant to be completely identical
-in all packages using GNU @code{gettext}, while all newly created
-files, which have to be different, go into @file{po/}.  There is a
-common @file{Makefile.in.in} in @file{po/}, because the @file{po/}
-directory needs its own @file{Makefile}, and it has been designed so
-it can be identical in all packages.
+@include gettextize.texi
 
 @node Adjusting Files, autoconf macros, gettextize Invocation, Maintainers
 @section Files You Must Create or Alter
@@ -6347,7 +6231,7 @@ In other packages, it can go into the @file{src} directory.
 Do not install the @code{gettext.h} file in public locations. Every
 package that needs it should contain a copy of it on its own.
 
-@node autoconf macros,  , Adjusting Files, Maintainers
+@node autoconf macros, CVS Issues, Adjusting Files, Maintainers
 @section Autoconf macros for use in @file{configure.in}
 @cindex autoconf macros for @code{gettext}
 
@@ -6492,6 +6376,130 @@ library support, like SCO.
 
 @file{iconv.m4} is distributed with the GNU gettext package because
 @file{gettext.m4} relies on it.
+
+@node CVS Issues,  , autoconf macros, Maintainers
+@section Integrating with CVS
+
+Many projects use CVS for distributed development, version control and
+source backup.  This section gives some advice how to manage the uses
+of @code{cvs}, @code{gettextize}, @code{autopoint} and @code{autoconf}.
+
+@menu
+* Distributed CVS::             Avoiding version mismatch in distributed development
+* Files under CVS::             Files to put under CVS version control
+* autopoint Invocation::        Invoking the @code{autopoint} Program
+@end menu
+
+@node Distributed CVS, Files under CVS, CVS Issues, CVS Issues
+@subsection Avoiding version mismatch in distributed development
+
+In a project development with multiple developers, using CVS, there
+should be a single developer who occasionally - when there is desire to
+upgrade to a new @code{gettext} version - runs @code{gettextize} and
+performs the changes listed in @ref{Adjusting Files}, and then commits
+his changes to the CVS.
+
+It is highly recommended that all developers on a project use the same
+version of GNU @code{gettext} in the package.  In other words, if a
+developer runs @code{gettextize}, he should go the whole way, make the
+necessary remaining changes and commit his changes to the CVS.
+Otherwise the following damages will likely occur:
+
+@itemize @bullet
+@item
+Apparent version mismatch between developers.  Since some @code{gettext}
+specific portions in @file{configure.in}, @file{configure.ac} and
+@code{Makefile.am}, @code{Makefile.in} files depend on the @code{gettext}
+version, the use of infrastructure files belonging to different
+@code{gettext} versions can easily lead to build errors.
+
+@item
+Hidden version mismatch.  Such version mismatch can also lead to
+malfunctioning of the package, that may be undiscovered by the developers.
+The worst case of hidden version mismatch is that internationalization
+of the package doesn't work at all.
+
+@item
+Release risks.  All developers implicitly perform constant testing on
+a package.  This is important in the days and weeks before a release.
+If the guy who makes the release tar files uses a different version
+of GNU @code{gettext} than the other developers, the distribution will
+be less well tested than if all had been using the same @code{gettext}
+version.  For example, it is possible that a platform specific bug goes
+undiscovered due to this constellation.
+@end itemize
+
+@node Files under CVS, autopoint Invocation, Distributed CVS, CVS Issues
+@subsection Files to put under CVS version control
+
+There are basically three ways to deal with generated files in the
+context of a CVS repository, such as @file{configure} generated from
+@file{configure.in}, @code{@var{parser}.c} generated from
+@code{@var{parser}.y}, or @code{po/Makefile.in.in} autoinstalled by
+@code{gettextize} or @code{autopoint}.
+
+@enumerate
+@item
+All generated files are always committed into the repository.
+
+@item
+All generated files are committed into the repository occasionally,
+for example each time a release is made.
+
+@item
+Generated files are never committed into the repository.
+@end enumerate
+
+Each of these three approaches has different advantages and drawbacks.
+
+@enumerate
+@item
+The advantage is that anyone can check out the CVS at any moment and
+gets a working build.  The drawbacks are:  1a. It requires some frequent
+"cvs commit" actions by the maintainers.  1b. The reposity grows in size
+quite fast.
+
+@item
+The advantage is that anyone can check out the CVS, and the usual
+"./configure; make" will work.  The drawbacks are:  2a. The one who
+checks out the repository needs tools like GNU @code{automake},
+GNU @code{autoconf}, GNU @code{m4} installed in his PATH; sometimes
+he even needs particular versions of them.  2b. When a release is made
+and a commit is made on the generated files, the other developers get
+conflicts on the generated files after doing "cvs update".  Although
+these conflicts are easy to resolve, they are annoying.
+
+@item
+The advantage is less work for the maintainers.  The drawback is that
+anyone who checks out the CVS not only needs tools like GNU @code{automake},
+GNU @code{autoconf}, GNU @code{m4} installed in his PATH, but also that
+he needs to perform a package specific pre-build step before being able
+to "./configure; make".
+@end enumerate
+
+For the first and second approach, all files modified or brought in
+by the occasional @code{gettextize} invocation and update should be
+committed into the CVS.
+
+For the third approach, the maintainer can omit from the CVS repository
+all the files that @code{gettextize} mentions as "copy".  Instead, he
+adds to the @file{configure.in} or @file{configure.ac} a line of the
+form
+
+@example
+GETTEXT_VERSION=@value{VERSION}
+@end example
+
+@noindent
+and adds to the package's pre-build script an invocation of
+@samp{autopoint}.  For everyone who checks out the CVS, this
+@code{autopoint} invocation will copy into the right place the
+@code{gettext} infrastructure filss that have been omitted from the CVS.
+
+@node autopoint Invocation,  , Files under CVS, CVS Issues
+@subsection Invoking the @code{autopoint} Program
+
+@include autopoint.texi
 
 @node Programming Languages, Conclusion, Maintainers, Top
 @chapter Other Programming Languages

@@ -36,7 +36,7 @@ gettext_TEXINFOS = \
   xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
   msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
-  iso-639.texi iso-3166.texi
+  gettextize.texi autopoint.texi iso-639.texi iso-3166.texi
 
 EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi texi2html
 

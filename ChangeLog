@@ -1,5 +1,10 @@
 2002-05-01  Bruno Haible  <bruno@clisp.org>
 
+	* configure.in (AC_OUTPUT): Add misc/autopoint. Make misc/autopoint
+	executable.
+
+2002-05-01  Bruno Haible  <bruno@clisp.org>
+
 	* INSTALL: Remove the recommendation to set CPPFLAGS and LDFLAGS.
 	The lib-link.m4 macros make this unnecessary.
 

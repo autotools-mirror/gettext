@@ -1,3 +1,11 @@
+Version 0.11.3 - May 2002
+
+* New program:
+    autopoint - copies standard gettext infrastructure
+
+* The documentation makes it clear that 'gettextize' is a wizard and
+  migration tool.
+
 Version 0.11.2 - April 2002
 
 * Bug fixes in the gettext.m4 autoconf macros.
