@@ -286,7 +286,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       usage (EXIT_FAILURE);
     }
 
-  /* The -o option determines the name of the domain and therefor
+  /* The -o option determines the name of the domain and therefore
      the output file.  */
   if (output_file_name != NULL)
     current_domain = new_domain (output_file_name);
@@ -390,26 +390,50 @@ usage (status)
       /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] filename.po ...\n\
+"), program_name);
+      /* xgettext: no-wrap */
+      printf (_("\
 Generate binary message catalog from textual translation description.\n\
-\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
-  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n\
-  -c, --check                 perform language dependent checks on strings\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  filename.po ...             input files\n\
   -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-  -f, --use-fuzzy             use fuzzy entries in output\n\
-  -h, --help                  display this help and exit\n\
-      --no-hash               binary file will not include the hash table\n\
-  -o, --output-file=FILE      specify output file name as FILE\n\
-      --statistics            print statistics about translations\n\
+If input file is -, standard input is read.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location:\n\
+  -o, --output-file=FILE      write output to specified file\n\
       --strict                enable strict Uniforum mode\n\
-  -v, --verbose               list input file anomalies\n\
+If output file is -, output is written to standard output.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file interpretation:\n\
+  -c, --check                 perform language dependent checks on strings\n\
+  -f, --use-fuzzy             use fuzzy entries in output\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output details:\n\
+  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n\
+      --no-hash               binary file will not include the hash table\n\
+\n"), DEFAULT_OUTPUT_ALIGNMENT);
+      /* xgettext: no-wrap */
+      printf (_("\
+Informative output:\n\
+  -h, --help                  display this help and exit\n\
   -V, --version               output version information and exit\n\
-\n\
+      --statistics            print statistics about translations\n\
+  -v, --verbose               list input file anomalies\n\
 Giving the -v option more than once increases the verbosity level.\n\
-\n\
-If input file is -, standard input is read.  If output file is -,\n\
-output is written to standard output.\n"),
-	      program_name, DEFAULT_OUTPUT_ALIGNMENT);
+\n"));
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
     }
 

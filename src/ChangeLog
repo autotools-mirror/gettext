@@ -1,5 +1,28 @@
 2001-04-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgcmp.c (usage): Restructure usage message. Talk about ref.pot, not
+	ref.po.
+	* msgcomm.c (long_options): Remove --add-comments, --join-existing
+	options.
+	(main): Rename local variables sort_output, sort_by_file to
+	sort_by_msgid, sort_by_filepos. Remove -c and -j options.
+	(usage): Restructure usage message. INPUTFILE is not mandatory. Remove
+	--trigraphs option.
+	* msgfmt.c (usage): Restructure usage message.
+	* msgmerge.c (main): Signal error if both --sort-output and
+	--sort-by-file were given.
+	(usage): Restructure usage message. Talk about ref.pot, not ref.po.
+	Document --sort-output, --sort-by-file, --quiet.
+	* msgunfmt.c (long_options): Add --sort-output.
+	(main): Recognize -s/--sort-output option, and sort the message list
+	when it is given.
+	(usage): Restructure usage message.
+	* xgettext.c (main): Rename local variables sort_output, sort_by_file
+	to sort_by_msgid, sort_by_filepos.
+	(usage): Restructure usage message.
+
+2001-04-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* po-charset.h: New file.
 	* po-charset.c: New file, extracted from po.c. Don't warn about wrong
 	or missing charset if it's a POT file.

@@ -205,8 +205,8 @@ main (argc, argv)
   int do_version = 0;
   message_list_ty *mlp;
   int join_existing = 0;
-  int sort_output = 0;
-  int sort_by_file = 0;
+  int sort_by_msgid = 0;
+  int sort_by_filepos = 0;
   char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
@@ -274,7 +274,7 @@ main (argc, argv)
 	files_from = optarg;
 	break;
       case 'F':
-	sort_by_file = 1;
+	sort_by_filepos = 1;
         break;
       case 'h':
 	do_help = 1;
@@ -329,7 +329,7 @@ main (argc, argv)
 	}
 	break;
       case 's':
-	sort_output = 1;
+	sort_by_msgid = 1;
 	break;
       case 'S':
 	message_print_style_uniforum ();
@@ -361,11 +361,11 @@ main (argc, argv)
   if (omit_header != 0 && line_comment < 0)
     line_comment = 0;
 
-  if (!line_comment && sort_by_file)
+  if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--no-location", "--sort-by-file");
 
-  if (sort_output && sort_by_file)
+  if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
 
@@ -445,7 +445,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Generate a header, so that we know how and when this PO file was
      created.  */
   if (!omit_header)
-      message_list_append (mlp, construct_header ());
+    message_list_append (mlp, construct_header ());
 
   /* Read in the old messages, so that we can add to them.  */
   if (join_existing)
@@ -494,9 +494,9 @@ warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
   string_list_free (file_list);
 
   /* Sorting the list of messages.  */
-  if (sort_by_file)
+  if (sort_by_filepos)
     message_list_sort_by_filepos (mlp);
-  else if (sort_output)
+  else if (sort_by_msgid)
     message_list_sort_by_msgid (mlp);
 
   /* Write the PO file.  */
@@ -518,50 +518,81 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] INPUTFILE ...\n\
-Extract translatable string from given input files.\n\
-\n\
-Mandatory arguments to long options are mandatory for short options too.\n\
-  -a, --extract-all              extract all strings\n\
-  -c, --add-comments[=TAG]       place comment block with TAG (or those\n\
-                                 preceding keyword lines) in output file\n\
-  -C, --c++                      shorthand for --language=C++\n\
-      --debug                    more detailed formatstring recognision result\n\
-  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n\
-  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
-  -e, --no-escape                do not use C escapes in output (default)\n\
-  -E, --escape                   use C escapes in output, no extended chars\n\
-  -f, --files-from=FILE          get list of input files from FILE\n\
-      --force-po                 write PO file even if empty\n\
-      --foreign-user             omit FSF copyright in output for foreign user\n\
-  -F, --sort-by-file             sort output by file location\n"),
-	      program_name);
+Usage: %s [OPTION] [INPUTFILE]...\n\
+"), program_name);
       /* xgettext: no-wrap */
       printf (_("\
-  -h, --help                     display this help and exit\n\
-  -i, --indent                   write the .po file using indented style\n\
-  -j, --join-existing            join messages with existing file\n\
-  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n\
-                                 WORD means not to use default keywords)\n\
-  -L, --language=NAME            recognise the specified language (C, C++, PO),\n\
-                                 otherwise is guessed from file extension\n\
-  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
-  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
-      --no-location              do not write '#: filename:line' lines\n"));
+Extract translatable string from given input files.\n\
+\n"));
       /* xgettext: no-wrap */
-      fputs (_("\
-  -n, --add-location             generate '#: filename:line' lines (default)\n\
-      --omit-header              don't write header with `msgid \"\"' entry\n\
+      printf (_("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+Similarly for optional arguments.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  INPUTFILE ...                  input files\n\
+  -f, --files-from=FILE          get list of input files from FILE\n\
+  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
+If input file is -, standard input is read.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location:\n\
+  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n\
   -o, --output=FILE              write output to specified file\n\
   -p, --output-dir=DIR           output files will be placed in directory DIR\n\
-  -s, --sort-output              generate sorted output and remove duplicates\n\
-      --strict                   write out strict Uniforum conforming .po file\n\
+If output file is -, output is written to standard output.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Choice of input file language:\n\
+  -L, --language=NAME            recognise the specified language (C, C++, PO)\n\
+  -C, --c++                      shorthand for --language=C++\n\
+By default the language is guessed depending on the input file name extension.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Operation mode:\n\
+  -j, --join-existing            join messages with existing file\n\
+  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n\
+  -c, --add-comments[=TAG]       place comment block with TAG (or those\n\
+                                 preceding keyword lines) in output file\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Language=C/C++ specific options:\n\
+  -a, --extract-all              extract all strings\n\
+  -k, --keyword[=WORD]           additional keyword to be looked for (without\n\
+                                 WORD means not to use default keywords)\n\
   -T, --trigraphs                understand ANSI C trigraphs for input\n\
-  -V, --version                  output version information and exit\n\
+      --debug                    more detailed formatstring recognition result\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output details:\n\
+  -e, --no-escape                do not use C escapes in output (default)\n\
+  -E, --escape                   use C escapes in output, no extended chars\n\
+      --force-po                 write PO file even if empty\n\
+  -i, --indent                   write the .po file using indented style\n\
+      --no-location              do not write '#: filename:line' lines\n\
+  -n, --add-location             generate '#: filename:line' lines (default)\n\
+      --strict                   write out strict Uniforum conforming .po file\n\
   -w, --width=NUMBER             set output page width\n\
-  -x, --exclude-file=FILE        entries from FILE are not extracted\n\
-\n\
-If INPUTFILE is -, standard input is read.\n"), stdout);
+  -s, --sort-output              generate sorted output and remove duplicates\n\
+  -F, --sort-by-file             sort output by file location\n\
+      --omit-header              don't write header with `msgid \"\"' entry\n\
+      --foreign-user             omit FSF copyright in output for foreign user\n\
+  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
+  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Informative output:\n\
+  -h, --help                     display this help and exit\n\
+  -V, --version                  output version information and exit\n\
+\n"));
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

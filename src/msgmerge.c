@@ -277,6 +277,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       usage (EXIT_FAILURE);
     }
 
+  if (sort_by_msgid && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+           "--sort-output", "--sort-by-file");
+
   /* merge the two files */
   result = merge (argv[optind], argv[optind + 1]);
 
@@ -318,35 +322,62 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] def.po ref.po\n\
+Usage: %s [OPTION] def.po ref.pot\n\
+"), program_name);
+      /* xgettext: no-wrap */
+      printf (_("\
+Merges two Uniforum style .po files together.  The def.po file is an\n\
+existing PO file with translations which will be taken over to the newly\n\
+created file as long as they still match; comments will be preserved,\n\
+but extracted comments and file positions will be discarded.  The ref.pot\n\
+file is the last created PO file with up-to-date source references but\n\
+old translations, or a PO Template file (generally created by xgettext);\n\
+any translations or comments in the file will be discarded, however dot\n\
+comments and file positions will be preserved.  Where an exact match\n\
+cannot be found, fuzzy matching is used to produce better results.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  def.po                      translations referring to old sources\n\
+  ref.pot                     references to new sources\n\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
   -C, --compendium=FILE       additional library of message translations,\n\
                               may be specified more than once\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location:\n\
+  -o, --output-file=FILE      write output to specified file\n\
+The results are written to standard output if no output file is specified\n\
+or if it is -.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output details:\n\
   -e, --no-escape             do not use C escapes in output (default)\n\
   -E, --escape                use C escapes in output, no extended chars\n\
       --force-po              write PO file even if empty\n\
-  -h, --help                  display this help and exit\n\
   -i, --indent                indented output style\n\
-  -o, --output-file=FILE      result will be written to FILE\n\
       --no-location           suppress '#: filename:line' lines\n\
       --add-location          preserve '#: filename:line' lines (default)\n\
       --strict                strict Uniforum output style\n\
-  -v, --verbose               increase verbosity level\n\
-  -V, --version               output version information and exit\n\
-  -w, --width=NUMBER          set output page width\n"),
-		program_name);
+  -w, --width=NUMBER          set output page width\n\
+  -s, --sort-output           generate sorted output and remove duplicates\n\
+  -F, --sort-by-file          sort output by file location\n\
+\n"));
       /* xgettext: no-wrap */
-      fputs (_("\n\
-Merges two Uniforum style .po files together.  The def.po file is an\n\
-existing PO file with the old translations which will be taken over to\n\
-the newly created file as long as they still match; comments will be\n\
-preserved, but extract comments and file positions will be discarded.\n\
-The ref.po file is the last created PO file (generally by xgettext), any\n\
-translations or comments in the file will be discarded, however dot\n\
-comments and file positions will be preserved.  Where an exact match\n\
-cannot be found, fuzzy matching is used to produce better results.  The\n\
-results are written to stdout unless an output file is specified.\n"), stdout);
+      printf (_("\
+Informative output:\n\
+  -h, --help                  display this help and exit\n\
+  -V, --version               output version information and exit\n\
+  -v, --verbose               increase verbosity level\n\
+  -q, --quiet, --silent       suppress progress indicators\n\
+\n"));
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

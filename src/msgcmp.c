@@ -180,19 +180,34 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] def.po ref.po\n\
-Mandatory arguments to long options are mandatory for short options too.\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-\n\
+Usage: %s [OPTION] def.po ref.pot\n\
+"), program_name);
+      /* xgettext: no-wrap */
+      printf (_("\
 Compare two Uniforum style .po files to check that both contain the same\n\
 set of msgid strings.  The def.po file is an existing PO file with the\n\
-old translations.  The ref.po file is the last created PO file\n\
-(generally by xgettext).  This is useful for checking that you have\n\
-translated each and every message in your program.  Where an exact match\n\
-cannot be found, fuzzy matching is used to produce better diagnostics.\n"),
-	      program_name);
+translations.  The ref.pot file is the last created PO file, or a PO Template\n\
+file (generally created by xgettext).  This is useful for checking that\n\
+you have translated each and every message in your program.  Where an exact\n\
+match cannot be found, fuzzy matching is used to produce better diagnostics.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  def.po                      translations\n\
+  ref.pot                     references to the sources\n\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Informative output:\n\
+  -h, --help                  display this help and exit\n\
+  -V, --version               output version information and exit\n\
+\n"));
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
     }
 

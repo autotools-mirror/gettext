@@ -63,6 +63,7 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "no-escape", no_argument, NULL, 'e' },
   { "output-file", required_argument, NULL, 'o' },
+  { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -96,6 +97,7 @@ main (argc, argv)
   int do_version = 0;
   const char *output_file = "-";
   message_list_ty *mlp = NULL;
+  int sort_by_msgid = 0;
 
   /* Set program name for messages.  */
   program_name = argv[0];
@@ -110,7 +112,7 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((optchar = getopt_long (argc, argv, "eEhio:Vw:", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "eEhio:sVw:", long_options, NULL))
 	 != EOF)
     switch (optchar)
       {
@@ -136,6 +138,10 @@ main (argc, argv)
 
       case 'o':
 	output_file = optarg;
+	break;
+
+      case 's':
+	sort_by_msgid = 1;
 	break;
 
       case 'S':
@@ -187,6 +193,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   else
     mlp = read_mo_file (NULL, "-");
 
+  /* Sorting the list of messages.  */
+  if (sort_by_msgid)
+    message_list_sort_by_msgid (mlp);
+
   /* Write the resulting message list to the given .po file.  */
   message_list_print (mlp, output_file, force_po, 0);
 
@@ -208,23 +218,45 @@ usage (status)
       /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] [FILE]...\n\
+"), program_name);
+      /* xgettext: no-wrap */
+      printf (_("\
+Convert binary message catalog to Uniforum style .po file.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  FILE ...                 input .mo files\n\
+If no input file is given or if it is -, standard input is read.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location:\n\
+  -o, --output-file=FILE   write output to specified file\n\
+The results are written to standard output if no output file is specified\n\
+or if it is -.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output details:\n\
   -e, --no-escape          do not use C escapes in output (default)\n\
   -E, --escape             use C escapes in output, no extended chars\n\
       --force-po           write PO file even if empty\n\
-  -h, --help               display this help and exit\n\
   -i, --indent             write indented output style\n\
-  -o, --output-file=FILE   write output into FILE instead of standard output\n\
       --strict             write strict uniforum style\n\
-  -V, --version            output version information and exit\n\
-  -w, --width=NUMBER       set output page width\n"),
-	      program_name);
+  -w, --width=NUMBER       set output page width\n\
+  -s, --sort-output        generate sorted output and remove duplicates\n\
+\n"));
       /* xgettext: no-wrap */
-      fputs (_("\n\
-Convert binary .mo files to Uniforum style .po files.\n\
-Both little-endian and big-endian .mo files are handled.\n\
-If no input file is given or it is -, standard input is read.\n\
-By default the output is written to standard output.\n"), stdout);
+      printf (_("\
+Informative output:\n\
+  -h, --help               display this help and exit\n\
+  -V, --version            output version information and exit\n\
+\n"));
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

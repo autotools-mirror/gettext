@@ -76,7 +76,6 @@ static int less_than = -1;
 /* Long options.  */
 static const struct option long_options[] =
 {
-  { "add-comments", optional_argument, NULL, 'c' },
   { "add-location", no_argument, &line_comment, 1 },
   { "default-domain", required_argument, NULL, 'd' },
   { "directory", required_argument, NULL, 'D' },
@@ -85,7 +84,6 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
-  { "join-existing", no_argument, NULL, 'j' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
   { "omit-header", no_argument, &omit_header, 1 },
@@ -138,8 +136,8 @@ main (argc, argv)
   int do_help = 0;
   int do_version = 0;
   message_list_ty *mlp;
-  int sort_output = 0;
-  int sort_by_file = 0;
+  int sort_by_msgid = 0;
+  int sort_by_filepos = 0;
   char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
@@ -163,7 +161,7 @@ main (argc, argv)
   default_domain = MESSAGE_DOMAIN_DEFAULT;
 
   while ((optchar = getopt_long (argc, argv,
-				 "<:>:ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTuVw:x:",
+				 "<:>:aCd:D:eEf:Fhik::l:L:m::M::no:p:sTuVw:x:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -203,7 +201,7 @@ main (argc, argv)
 	files_from = optarg;
 	break;
       case 'F':
-	sort_by_file = 1;
+	sort_by_filepos = 1;
         break;
       case 'h':
 	do_help = 1;
@@ -237,7 +235,7 @@ main (argc, argv)
 	}
 	break;
       case 's':
-	sort_output = 1;
+	sort_by_msgid = 1;
 	break;
       case 'S':
 	message_print_style_uniforum ();
@@ -263,11 +261,11 @@ main (argc, argv)
       }
 
   /* Verify selected options.  */
-  if (!line_comment && sort_by_file)
+  if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--no-location", "--sort-by-file");
 
-  if (sort_output && sort_by_file)
+  if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
 
@@ -317,7 +315,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   for (cnt = optind; cnt < argc; ++cnt)
     string_list_append_unique (file_list, argv[cnt]);
 
-  /* Test whether sufficient input files weregiven.  */
+  /* Test whether sufficient input files were given.  */
   if (file_list->nitems < 2)
     {
       error (EXIT_SUCCESS, 0, _("at least two files must be specified"));
@@ -356,9 +354,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Sorting the list of messages.  */
-  if (sort_by_file)
+  if (sort_by_filepos)
     message_list_sort_by_filepos (mlp);
-  else if (sort_output)
+  else if (sort_by_msgid)
     message_list_sort_by_msgid (mlp);
 
   /* Write the PO file.  */
@@ -380,39 +378,10 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] INPUTFILE ...\n\
-Mandatory arguments to long options are mandatory for short options too.\n\
-  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n\
-  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
-  -e, --no-escape                do not use C escapes in output (default)\n\
-  -E, --escape                   use C escapes in output, no extended chars\n\
-  -f, --files-from=FILE          get list of input files from FILE\n\
-      --force-po                 write PO file even if empty\n\
-  -F, --sort-by-file             sort output by file location\n\
-  -h, --help                     display this help and exit\n"),
-	      program_name);
-      fputs (_("\
-  -i, --indent                   write the .po file using indented style\n\
-      --no-location              do not write '#: filename:line' lines\n\
-  -n, --add-location             generate '#: filename:line' lines (default)\n\
-      --omit-header              don't write header with `msgid \"\"' entry\n\
-  -o, --output=FILE              write output to specified file\n\
-  -p, --output-dir=DIR           output files will be placed in directory DIR\n\
-  -s, --sort-output              generate sorted output and remove duplicates\n\
-      --strict                   write out strict Uniforum conforming .po file\n\
-  -T, --trigraphs                understand ANSI C trigraphs for input\n\
-  -u, --unique                   shorthand for --less-than=2, requests\n\
-                                 that only unique messages be printed\n"),
-	     stdout);
-      fputs (_("\
-  -V, --version                  output version information and exit\n\
-  -w, --width=NUMBER             set output page width\n\
-  -<, --less-than=NUMBER         print messages with less than this many\n\
-                                 definitions, defaults to infinite if not\n\
-                                 set\n\
-  ->, --more-than=NUMBER         print messages with more than this many\n\
-                                 definitions, defaults to 1 if not set\n\
-\n\
+Usage: %s [OPTION] [INPUTFILE]...\n\
+"), program_name);
+      /* xgettext: no-wrap */
+      printf (_("\
 Find messages which are common to two or more of the specified PO files.\n\
 By using the --more-than option, greater commonality may be requested\n\
 before messages are printed.  Conversely, the --less-than option may be\n\
@@ -420,7 +389,60 @@ used to specify less commonality before messages are printed (i.e.\n\
 --less-than=2 will only print the unique messages).  Translations,\n\
 comments and extract comments will be preserved, but only from the first\n\
 PO file to define them.  File positions from all PO files will be\n\
-preserved.\n"), stdout);
+cumulated.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Mandatory arguments to long options are mandatory for short options too.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location:\n\
+  INPUTFILE ...                  input files\n\
+  -f, --files-from=FILE          get list of input files from FILE\n\
+  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
+If input file is -, standard input is read.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location:\n\
+  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n\
+  -o, --output=FILE              write output to specified file\n\
+  -p, --output-dir=DIR           output files will be placed in directory DIR\n\
+If output file is -, output is written to standard output.\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Message selection:\n\
+  -<, --less-than=NUMBER         print messages with less than this many\n\
+                                 definitions, defaults to infinite if not\n\
+                                 set\n\
+  ->, --more-than=NUMBER         print messages with more than this many\n\
+                                 definitions, defaults to 1 if not set\n\
+  -u, --unique                   shorthand for --less-than=2, requests\n\
+                                 that only unique messages be printed\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Output details:\n\
+  -e, --no-escape                do not use C escapes in output (default)\n\
+  -E, --escape                   use C escapes in output, no extended chars\n\
+      --force-po                 write PO file even if empty\n\
+  -i, --indent                   write the .po file using indented style\n\
+      --no-location              do not write '#: filename:line' lines\n\
+  -n, --add-location             generate '#: filename:line' lines (default)\n\
+      --strict                   write out strict Uniforum conforming .po file\n\
+  -w, --width=NUMBER             set output page width\n\
+  -s, --sort-output              generate sorted output and remove duplicates\n\
+  -F, --sort-by-file             sort output by file location\n\
+      --omit-header              don't write header with `msgid \"\"' entry\n\
+\n"));
+      /* xgettext: no-wrap */
+      printf (_("\
+Informative output:\n\
+  -h, --help                     display this help and exit\n\
+  -V, --version                  output version information and exit\n\
+\n"));
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }
