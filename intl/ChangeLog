@@ -1,5 +1,10 @@
 2001-04-30  Bruno Haible  <haible@clisp.cons.org>
 
+	* dcigettext.c (getuid, getgid, geteuid, getegid): Provide default
+	definitions. Needed for mingw32.
+
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
 	Silence "gcc -Wall -Wwrite-strings" warnings.
 	* localcharset.c (charset_aliases): Change type to 'const char *'.
 	(get_charset_aliases): Change type of 'cp' to 'const char *'.

@@ -370,6 +370,18 @@ __libc_rwlock_define_initialized (, _nl_state_lock)
 # define ENABLE_SECURE __libc_enable_secure
 # define DETERMINE_SECURE
 #else
+# ifndef HAVE_GETUID
+#  define getuid() 0
+# endif
+# ifndef HAVE_GETGID
+#  define getgid() 0
+# endif
+# ifndef HAVE_GETEUID
+#  define geteuid() getuid()
+# endif
+# ifndef HAVE_GETEGID
+#  define getegid() getgid()
+# endif
 static int enable_secure;
 # define ENABLE_SECURE (enable_secure == 1)
 # define DETERMINE_SECURE \
