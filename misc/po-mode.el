@@ -288,7 +288,7 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
   :type 'boolean
   :group 'po)
 
-(defcustom po-auto-replace-revision-date 'ask
+(defcustom po-auto-replace-revision-date t
   "*Automatically revise date in headers.  Value is nil, t, or ask."
   :type '(choice (const nil)
 		 (const t)
@@ -860,6 +860,7 @@ all reachable through `M-x customize', in group `Emacs.Editing.I18n.Po'."
   (make-local-variable 'po-string-start)
   (make-local-variable 'po-string-end)
   (make-local-variable 'po-marking-overlay)
+  (add-hook 'write-contents-hooks 'po-replace-revision-date)
   (setq po-keywords '(("gettext") ("gettext_noop") ("_") ("N_"))
 	po-next-file-list nil
 	po-string-start nil
@@ -2541,10 +2542,6 @@ keyword for subsequent commands, also added to possible completions."
 
     (po-msgfmt-version-check)
 
-    ;; If modifications were done already, change the last revision date.
-    (if (buffer-modified-p)
-        (po-replace-revision-date))
-
     (compile command)))
 
 (defvar po-msgfmt-version-checked nil)
@@ -2720,7 +2717,6 @@ appropriate and ask confirmation if untranslated strings remain."
 	;; Or else, kill buffers and quit for true.
 	(if quit
 	    (progn
-	      (and (buffer-modified-p) (po-replace-revision-date))
 	      (save-buffer)
 	      (kill-buffer (current-buffer)))))))
 

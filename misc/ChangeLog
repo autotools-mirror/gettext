@@ -1,3 +1,14 @@
+2001-07-01  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-mode): Use add-hook to call po-replace-revision-date
+	saving the buffer.
+	(po-quit): Don't call po-replace-revision-date.
+	(po-validate): Likewise.
+	Proposed by Bernd Schandl.
+
+	(po-auto-replace-revision-date): Change default to 't'; otherwise the
+	user will be asked too often.
+
 2001-06-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-mode.el (po-find-file-coding-system): Make it work in XEmacs 20
