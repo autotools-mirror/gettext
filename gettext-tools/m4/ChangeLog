@@ -1,3 +1,10 @@
+2005-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* stpncpy.m4 (gl_FUNC_STPNCPY): Undo the replacement here. Because of
+	AIX, the replacement has to be done only after <string.h> is included,
+	therefore not in config.h. stpncpy.h does the replacement, and
+	stpncpy.c uses it.
+
 2005-01-19  Bruno Haible  <bruno@clisp.org>
 
 	* alloca.m4, allocsa.m4, backupfile.m4, canonicalize.m4, csharpcomp.m4:
