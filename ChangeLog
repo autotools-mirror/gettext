@@ -1,3 +1,7 @@
+2001-09-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call gt_FUNC_SETENV.
+
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Call gt_TMPDIR and gt_FUNC_MKDTEMP.

@@ -1,3 +1,10 @@
+2001-09-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* setenv.h: New file.
+	* setenv.c: New file, from glibc-2.2.4.
+	* Makefile.am (EXTRA_DIST): Add setenv.c.
+	(noinst_HEADERS): Add setenv.h.
+
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* mkdtemp.h: New file.
