@@ -1,5 +1,9 @@
 2001-11-10  Karl Eichwalder  <ke@suse.de>
 
+	* po-mode.el (po-subedit-mode-syntax-table): New variable.
+
+2001-11-10  Karl Eichwalder  <ke@suse.de>
+
 	* po-mode.el (po-find-file-coding-system-guts): Use
 	'po-with-temp-buffer' instead of 'with-temp-buffer'.
 	(po-msgfmt-version-check): Likewise.
