@@ -1262,7 +1262,7 @@ construct_header ()
   char *timestring;
   message_ty *mp;
   char *msgstr;
-  static lex_pos_ty pos = { __FILE__, __LINE__, };
+  static lex_pos_ty pos = { __FILE__, __LINE__ };
 
   if (msgid_bugs_address != NULL && msgid_bugs_address[0] == '\0')
     multiline_warning (xasprintf (_("warning: ")),
