@@ -1014,8 +1014,10 @@ flag_context_list_iterator_ty passthrough_context_list_iterator =
 flag_context_list_iterator_ty
 flag_context_list_iterator (flag_context_list_ty *list)
 {
-  flag_context_list_iterator_ty result = { 1, list };
+  flag_context_list_iterator_ty result;
 
+  result.argnum = 1;
+  result.head = list;
   return result;
 }
 
@@ -2047,12 +2049,12 @@ language_to_extractor (const char *name)
   for (tp = table; tp < ENDOF(table); ++tp)
     if (strcasecmp (name, tp->name) == 0)
       {
-	extractor_ty result =
-	  {
-	    tp->func,
-	    tp->flag_table,
-	    tp->formatstring_parser1, tp->formatstring_parser2
-	  };
+	extractor_ty result;
+
+	result.func = tp->func;
+	result.flag_table = tp->flag_table;
+	result.formatstring_parser1 = tp->formatstring_parser1;
+	result.formatstring_parser2 = tp->formatstring_parser2;
 
 	return result;
       }

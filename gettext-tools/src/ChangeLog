@@ -1,3 +1,11 @@
+2003-10-20  Bruno Haible  <bruno@clisp.org>
+
+	Portability to Solaris with cc.
+	* x-java.c (string_buffer_append): Avoid aggregate initializer
+	containing non-constant expressions.
+	* xgettext.c (flag_context_list_iterator): Likewise.
+	(language_to_extractor): Likewise.
+
 2003-10-11  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.c (main): Drop suffix ".in" from input file name, if
