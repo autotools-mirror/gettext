@@ -165,12 +165,12 @@ Understand ANSI C trigraphs for input.
 @itemx --debug
 @opindex --debug@r{, @code{xgettext} option}
 @cindex debugging messages marked as format strings
-Use the flags @kbd{c-format} and @kbd{possible-c-format} to show who was
+Use the flags @code{c-format} and @code{possible-c-format} to show who was
 responsible for marking a message as a format string.  The latter form is
 used if the @code{xgettext} program decided, the format form is used if
 the programmer prescribed it.
 
-By default only the @kbd{c-format} form is used.  The translator should
+By default only the @code{c-format} form is used.  The translator should
 not have to care about these details.
 
 @end table
