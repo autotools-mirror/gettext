@@ -1,3 +1,10 @@
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt.c (check_plural_eval): Mark some strings as c-format.
+	(msgfmt_add_message): Make static.
+	* po-lex.c (mbfile_getc, control_sequence): Mark some strings as
+	c-format.
+
 2003-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* FILES: Update.

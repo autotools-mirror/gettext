@@ -784,16 +784,19 @@ check_plural_eval (struct expression *plural_expr,
 #if USE_SIGINFO
 # ifdef FPE_INTDIV
 	case FPE_INTDIV:
+	  /* xgettext: c-format */
 	  msg = _("plural expression can produce division by zero");
 	  break;
 # endif
 # ifdef FPE_INTOVF
 	case FPE_INTOVF:
+	  /* xgettext: c-format */
 	  msg = _("plural expression can produce integer overflow");
 	  break;
 # endif
 	default:
 #endif
+	  /* xgettext: c-format */
 	  msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
 	}
 
@@ -1414,7 +1417,7 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 }
 
 
-void
+static void
 msgfmt_add_message (default_po_reader_ty *this,
 		    char *msgid,
 		    lex_pos_ty *msgid_pos,
