@@ -1,3 +1,8 @@
+2003-05-09  Bruno Haible  <bruno@clisp.org>
+
+	* canonicalize.c: Add #ifdef around versioned_symbol. Avoids an
+	"extraneous semicolon" warning from Tru64 cc.
+
 2003-05-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (DEFS): Fix spelling of DEPENDS_ON_LIBICONV.

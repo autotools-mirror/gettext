@@ -274,7 +274,9 @@ error:
     free (rpath);
   return NULL;
 }
+#ifdef _LIBC
 versioned_symbol (libc, __realpath, realpath, GLIBC_2_3);
+#endif
 
 
 #if SHLIB_COMPAT(libc, GLIBC_2_0, GLIBC_2_3)
