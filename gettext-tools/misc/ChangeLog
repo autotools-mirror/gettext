@@ -1,3 +1,11 @@
+2005-03-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (func_m4ChangeLog_init, func_m4ChangeLog_add_entry,
+	func_m4ChangeLog_finish): Let the behaviour depend on
+	using_m4ChangeLog. Initialize using_m4ChangeLog depending on whether
+	an m4/ChangeLog already exists.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Update the instructions for fetching config.guess and

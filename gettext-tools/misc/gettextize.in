@@ -468,48 +468,59 @@ func_poChangeLog_finish ()
 # manage the $m4dir/ChangeLog file, relative to $srcdir.
 func_m4ChangeLog_init ()
 {
-  modified_m4ChangeLog=
-  created_m4ChangeLog=
+  if test -n "$using_m4ChangeLog"; then
+    modified_m4ChangeLog=
+    created_m4ChangeLog=
+  fi
 }
 func_m4ChangeLog_add_entry ()
 {
-  if $doit; then
-    if test -z "$modified_m4ChangeLog"; then
-      echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/$m4dir/ChangeLog.tmp"
-      echo >> "$srcdir/$m4dir/ChangeLog.tmp"
+  if test -n "$using_m4ChangeLog"; then
+    if $doit; then
+      if test -z "$modified_m4ChangeLog"; then
+        echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/$m4dir/ChangeLog.tmp"
+        echo >> "$srcdir/$m4dir/ChangeLog.tmp"
+        modified_m4ChangeLog=yes
+      fi
+      echo "$1" >> "$srcdir/$m4dir/ChangeLog.tmp"
+    else
       modified_m4ChangeLog=yes
     fi
-    echo "$1" >> "$srcdir/$m4dir/ChangeLog.tmp"
   else
-    modified_m4ChangeLog=yes
+    line="$1"
+    line=`echo "$line" | sed -e "s%^	\\* %	* $m4dir/%"`
+    func_ChangeLog_add_entry "$line"
   fi
 }
 func_m4ChangeLog_finish ()
 {
-  if test -n "$modified_m4ChangeLog"; then
-    if $doit; then
-      echo >> "$srcdir/$m4dir/ChangeLog.tmp"
-      if test -f "$srcdir/$m4dir/ChangeLog"; then
-        echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
-        cat "$srcdir/$m4dir/ChangeLog" >> "$srcdir/$m4dir/ChangeLog.tmp"
-        rm -f "$srcdir/$m4dir/ChangeLog~"
-        cp -p "$srcdir/$m4dir/ChangeLog" "$srcdir/$m4dir/ChangeLog~"
+  if test -n "$using_m4ChangeLog"; then
+    if test -n "$modified_m4ChangeLog"; then
+      if $doit; then
+        echo >> "$srcdir/$m4dir/ChangeLog.tmp"
+        if test -f "$srcdir/$m4dir/ChangeLog"; then
+          echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
+          cat "$srcdir/$m4dir/ChangeLog" >> "$srcdir/$m4dir/ChangeLog.tmp"
+          rm -f "$srcdir/$m4dir/ChangeLog~"
+          cp -p "$srcdir/$m4dir/ChangeLog" "$srcdir/$m4dir/ChangeLog~"
+        else
+          echo "Creating $m4dir/ChangeLog"
+          created_m4ChangeLog=yes
+        fi
+        cp "$srcdir/$m4dir/ChangeLog.tmp" "$srcdir/$m4dir/ChangeLog"
+        rm -f "$srcdir/$m4dir/ChangeLog.tmp"
       else
-        echo "Creating $m4dir/ChangeLog"
-        created_m4ChangeLog=yes
-      fi
-      cp "$srcdir/$m4dir/ChangeLog.tmp" "$srcdir/$m4dir/ChangeLog"
-      rm -f "$srcdir/$m4dir/ChangeLog.tmp"
-    else
-      if test -f "$srcdir/$m4dir/ChangeLog"; then
-        echo "Add an entry to $m4dir/ChangeLog"
-      else
-        echo "Create $m4dir/ChangeLog"
-        created_m4ChangeLog=yes
+        if test -f "$srcdir/$m4dir/ChangeLog"; then
+          echo "Add an entry to $m4dir/ChangeLog"
+        else
+          echo "Create $m4dir/ChangeLog"
+          created_m4ChangeLog=yes
+        fi
       fi
     fi
   fi
 }
+using_m4ChangeLog=yes
 
 if test ! -f "$srcdir/intl/Makefile.in" && test -n "$intldir"; then
   added_acoutput="$added_acoutput intl/Makefile"
@@ -746,6 +757,12 @@ if test -f "$srcdir/Makefile.am"; then
       fi
     fi
   done
+
+  # Decide whether to use $m4dir/ChangeLog, or to use ChangeLog instead.
+  if test -d "$srcdir/$m4dir" && test -f "$srcdir/ChangeLog" && test ! -f "$srcdir/$m4dir/ChangeLog"; then
+    # The programmer has no $m4dir/ChangeLog so far. Don't introduce one.
+    using_m4ChangeLog=
+  fi
 
   # Update the *.m4 files and the corresponding Makefile.am.
   $do_changelog && func_m4ChangeLog_init
