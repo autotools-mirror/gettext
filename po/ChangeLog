@@ -1,3 +1,8 @@
+2002-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: New file, from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* LINGUAS: Add ca.
+
 2002-01-16  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (EXTRA_LOCALE_CATEGORIES): New variable.
