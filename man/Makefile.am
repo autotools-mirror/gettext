@@ -40,7 +40,8 @@ man_MAN1GEN = gettext.1 ngettext.1
 man_MAN1IN = gettext.1.in ngettext.1.in
 man_MAN1OTHER = \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
-msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 msggrep.1 msginit.1 msguniq.1
+msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 msggrep.1 msginit.1 msguniq.1 \
+gettextize.1 autopoint.1
 man_MAN1 = $(man_MAN1GEN) $(man_MAN1OTHER)
 man_MAN3 = gettext.3 ngettext.3 \
 textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3

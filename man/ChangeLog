@@ -3,6 +3,7 @@
 	* gettextize.x: New file.
 	* autopoint.x: New file.
 	* Makefile.am (man_aux): Add gettextize.x, autopoint.x.
+	(man_MAN1OTHER): Add gettextize.1, autopoint.1.
 	(man_HTMLOTHER): Add gettextize.1.html, autopoint.1.html.
 	(gettextize.1, autopoint.1): New rules.
 	(gettextize.1.html, autopoint.1.html): New rules.
