@@ -1,3 +1,15 @@
+2003-08-08  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal.c: New file.
+	* message.h (format_gcc_internal): New enum value.
+	(NFORMATS): Increment.
+	* format.h (formatstring_gcc_internal): New declaration.
+	* format.c (formatstring_parsers): Add entry for gcc_internal.
+	* message.c (format_language, format_language_pretty): Likewise.
+	* x-c.h (SCANNERS_C): Add an entry for GCC-source.
+	* xgettext.c (usage): Mention GCC-source language.
+	* Makefile.am (FORMAT_SOURCE): Add format-gcc-internal.c.
+
 2003-08-04  Bruno Haible  <bruno@clisp.org>
 
 	* x-perl.c (extract_quotelike_pass3): Fix \x handling.

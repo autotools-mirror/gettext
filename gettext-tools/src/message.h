@@ -47,9 +47,10 @@ enum format_type
   format_tcl,
   format_perl,
   format_perl_brace,
-  format_php
+  format_php,
+  format_gcc_internal
 };
-#define NFORMATS 14	/* Number of format_type enum values.  */
+#define NFORMATS 15	/* Number of format_type enum values.  */
 extern const char *const format_language[NFORMATS];
 extern const char *const format_language_pretty[NFORMATS];
 

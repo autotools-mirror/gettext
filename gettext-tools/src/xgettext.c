@@ -658,7 +658,7 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Python, Lisp,\n\
                                 EmacsLisp, librep, Smalltalk, Java,\n\
                                 JavaProperties, awk, YCP, Tcl, Perl, PHP,\n\
-                                RST, Glade)\n"));
+                                GCC-source, RST, Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\

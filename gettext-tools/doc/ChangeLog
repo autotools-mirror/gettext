@@ -1,3 +1,10 @@
+2003-08-08  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention gcc-internal-format.
+	(gcc-internal-format): New subsection.
+	(GCC-source): New subsection.
+	* xgettext.texi: Mention GCC-source language.
+
 2003-07-05  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (perl-format): Use braces, not brackets, in format

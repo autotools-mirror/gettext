@@ -34,6 +34,7 @@
   { "C",          extract_c, &formatstring_c, NULL },			\
   { "C++",        extract_c, &formatstring_c, NULL },			\
   { "ObjectiveC", extract_c, &formatstring_c, NULL },			\
+  { "GCC-source", extract_c, &formatstring_gcc_internal, NULL },	\
 
 /* Scan a C/C++/ObjectiveC file and add its translatable strings to mdlp.  */
 extern void extract_c (FILE *fp, const char *real_filename,

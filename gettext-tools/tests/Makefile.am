@@ -54,6 +54,7 @@ TESTS = gettext-1 gettext-2 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \
+	format-gcc-internal-1 format-gcc-internal-2 \
 	format-java-1 format-java-2 \
 	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
