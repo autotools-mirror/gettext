@@ -459,7 +459,7 @@ static bool
 is_message_selected (mp)
      const message_ty *mp;
 {
-  return (mp->msgid[0] == '\0') /* keep the header entry, see msgcomm-17 test */
+  return (mp->msgid[0] == '\0') /* keep the header entry, see msgcomm-22 test */
 	 || (mp->used > more_than && mp->used < less_than);
 }
 
