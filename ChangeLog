@@ -1,3 +1,7 @@
+2001-03-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call bh_C_SIGNED.
+
 2001-02-27  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (ALL_LINGUAS): Replace no@nynorsk with nn.

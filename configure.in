@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.11 $)
+AC_REVISION($Revision: 1.12 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.10.36)
 AM_CONFIG_HEADER(config.h)
@@ -26,6 +26,7 @@ AC_CHECK_HEADERS(limits.h malloc.h string.h unistd.h values.h)
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_C_INLINE
+bh_C_SIGNED
 AC_C_BACKSLASH_A
 jm_AC_TYPE_UNSIGNED_LONG_LONG
 AC_TYPE_OFF_T
