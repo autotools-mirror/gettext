@@ -1,3 +1,9 @@
+2003-11-19  Bruno Haible  <bruno@clisp.org>
+
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* zh_CN.po: Update from Funda Wang <fundawang@linux.net.cn>.
+
 2003-11-09  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (stamp-po): Remake all GMOFILES, not just those
