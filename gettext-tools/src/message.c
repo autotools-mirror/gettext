@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -528,7 +528,6 @@ msgdomain_list_alloc (bool use_hashtable)
 }
 
 
-#if 0 /* unused */
 void
 msgdomain_list_free (msgdomain_list_ty *mdlp)
 {
@@ -540,7 +539,6 @@ msgdomain_list_free (msgdomain_list_ty *mdlp)
     free (mdlp->item);
   free (mdlp);
 }
-#endif
 
 
 void

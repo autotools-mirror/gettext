@@ -146,10 +146,11 @@ install-exec-clean:
 
 # How to build libgettextpo.la.
 # Need libgettextsrc.la.
+# Need ../lib/libgettextlib.la because of xmalloc.
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  libgettextsrc.la -lc -no-undefined
+  libgettextsrc.la ../lib/libgettextlib.la -lc -no-undefined
 
 # Link dependencies.
 msgcmp_LDADD = libgettextsrc.la
