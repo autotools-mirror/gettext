@@ -64,8 +64,10 @@ static void message_print PARAMS ((const message_ty *mp, FILE *fp,
 static void message_print_obsolete PARAMS ((const message_ty *mp, FILE *fp,
 					    const char *charset,
 					    bool blank_line));
-static int msgid_cmp PARAMS ((const void *va, const void *vb));
-static int filepos_cmp PARAMS ((const void *va, const void *vb));
+static int cmp_by_msgid PARAMS ((const void *va, const void *vb));
+static int cmp_filepos PARAMS ((const void *va, const void *vb));
+static void msgdomain_list_sort_filepos PARAMS ((msgdomain_list_ty *mdlp));
+static int cmp_by_filepos PARAMS ((const void *va, const void *vb));
 
 
 /* This variable controls the page width when printing messages.
@@ -922,7 +924,7 @@ msgdomain_list_print (mdlp, filename, force, debug)
 
 
 static int
-msgid_cmp (va, vb)
+cmp_by_msgid (va, vb)
      const void *va;
      const void *vb;
 {
@@ -946,13 +948,55 @@ msgdomain_list_sort_by_msgid (mdlp)
       message_list_ty *mlp = mdlp->item[k]->messages;
 
       if (mlp->nitems > 0)
-	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), msgid_cmp);
+	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), cmp_by_msgid);
     }
 }
 
 
+/* Sort the file positions of every message.  */
+
 static int
-filepos_cmp (va, vb)
+cmp_filepos (va, vb)
+     const void *va;
+     const void *vb;
+{
+  const lex_pos_ty *a = (const lex_pos_ty *) va;
+  const lex_pos_ty *b = (const lex_pos_ty *) vb;
+  int cmp;
+
+  cmp = strcmp (a->file_name, b->file_name);
+  if (cmp == 0)
+    cmp = (int) a->line_number - (int) b->line_number;
+
+  return cmp;
+}
+
+static void
+msgdomain_list_sort_filepos (mdlp)
+    msgdomain_list_ty *mdlp;
+{
+  size_t j, k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+
+	  if (mp->filepos_count > 0)
+	    qsort (mp->filepos, mp->filepos_count, sizeof (mp->filepos[0]),
+		   cmp_filepos);
+	}
+    }
+}
+
+
+/* Sort the messages according to the file position.  */
+
+static int
+cmp_by_filepos (va, vb)
      const void *va;
      const void *vb;
 {
@@ -993,11 +1037,15 @@ msgdomain_list_sort_by_filepos (mdlp)
 {
   size_t k;
 
+  /* It makes sense to compare filepos[0] of different messages only after
+     the filepos[] array of each message has been sorted.  Sort it now.  */
+  msgdomain_list_sort_filepos (mdlp);
+
   for (k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 
       if (mlp->nitems > 0)
-	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), filepos_cmp);
+	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), cmp_by_filepos);
     }
 }

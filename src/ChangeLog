@@ -1,3 +1,12 @@
+2001-07-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* message.c (message_comment_filepos): Don't keep the filepos[] array
+	sorted.
+	* write-po.c (cmp_by_msgid): Renamed from msgid_cmp.
+	(cmp_filepos, msgdomain_list_sort_filepos): New functions.
+	(cmp_by_filepos): Renamed from filepos_cmp.
+	(msgdomain_list_sort_by_filepos): Call msgdomain_list_sort_filepos.
+
 2001-07-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgexec.c: New file.

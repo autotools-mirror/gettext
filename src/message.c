@@ -150,47 +150,24 @@ message_comment_filepos (mp, name, line)
      const char *name;
      size_t line;
 {
+  size_t j;
   size_t nbytes;
   lex_pos_ty *pp;
-  int min, max;
-  int j;
 
-  /* See if we have this position already.  They are kept in sorted
-     order, so use a binary chop.  */
-  /* FIXME: use bsearch */
-  min = 0;
-  max = (int) mp->filepos_count - 1;
-  while (min <= max)
+  /* See if we have this position already.  */
+  for (j = 0; j < mp->filepos_count; j++)
     {
-      int mid;
-      int cmp;
-
-      mid = (min + max) / 2;
-      pp = &mp->filepos[mid];
-      cmp = strcmp (pp->file_name, name);
-      if (cmp == 0)
-	cmp = (int) pp->line_number - line;
-      if (cmp == 0)
+      pp = &mp->filepos[j];
+      if (strcmp (pp->file_name, name) == 0 && pp->line_number == line)
 	return;
-      if (cmp < 0)
-	min = mid + 1;
-      else
-	max = mid - 1;
     }
 
-  /* Extend the list so that we can add an position to it.  */
+  /* Extend the list so that we can add a position to it.  */
   nbytes = (mp->filepos_count + 1) * sizeof (mp->filepos[0]);
   mp->filepos = xrealloc (mp->filepos, nbytes);
 
-  /* Shuffle the rest of the list up one, so that we can insert the
-     position at 'min'.  */
-  /* FIXME: use memmove */
-  for (j = mp->filepos_count; j > min; --j)
-    mp->filepos[j] = mp->filepos[j - 1];
-  mp->filepos_count++;
-
-  /* Insert the postion into the empty slot.  */
-  pp = &mp->filepos[min];
+  /* Insert the position at the end.  Don't sort the file positions here.  */
+  pp = &mp->filepos[mp->filepos_count++];
   pp->file_name = xstrdup (name);
   pp->line_number = line;
 }
