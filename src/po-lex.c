@@ -496,15 +496,17 @@ mbfile_getc (mbc, mbf)
 	  char *outptr = &scratchbuf[0];
 	  size_t outsize = sizeof (scratchbuf);
 
-	  if (iconv (po_lex_iconv,
-		     (ICONV_CONST char **) &inptr, &insize,
-		     &outptr, &outsize)
-	      == (size_t)(-1))
+	  size_t res = iconv (po_lex_iconv,
+			      (ICONV_CONST char **) &inptr, &insize,
+			      &outptr, &outsize);
+	  /* We expect that a character has been produced if and only if
+	     some input bytes have been consumed.  */
+	  if ((insize < mbf->bufcount) != (outsize < sizeof (scratchbuf)))
+	    abort ();
+	  if (outsize == sizeof (scratchbuf))
 	    {
-	      /* We expect that no character has been produced.  */
-	      if (insize < mbf->bufcount)
-		abort ();
-	      if (outsize < sizeof (scratchbuf))
+	      /* No character has been produced.  Must be an error.  */
+	      if (res != (size_t)(-1))
 		abort ();
 
 	      if (errno == EILSEQ)

@@ -34,7 +34,7 @@ TESTS = gettext-1 gettext-2 \
 	msgexec-1 msgexec-2 \
 	msgfilter-1 msgfilter-2 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
-	msgfmt-8 msgfmt-9 msgfmt-10 \
+	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \

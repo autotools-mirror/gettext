@@ -1,3 +1,10 @@
+2002-06-14  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.c (mbfile_getc): Handle the case where iconv converts
+	some character and returns -1 at once; this can happen immediately
+	after an invalid multibyte sequence.
+	Reported by Andrew V. Samoilov <kai@cmail.ru>.
+
 2002-06-07  Bruno Haible  <bruno@clisp.org>
 
 	* user-email.in: Look at /etc/mailname, found on Debian systems.
