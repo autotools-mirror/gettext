@@ -262,7 +262,7 @@ install-exec: all
 	    $(INSTALL_DATA) libintl.$la $(DESTDIR)$(libdir)/libintl.$la; \
 	  if test "@RELOCATABLE@" = yes; then \
 	    dependencies=`sed -n -e 's,^dependency_libs=\(.*\),\1,p' < $(DESTDIR)$(libdir)/libintl.la | sed -e "s,^',," -e "s,'\$$,,"`; \
-	    if test -n "$dependencies"; then \
+	    if test -n "$$dependencies"; then \
 	      rm -f $(DESTDIR)$(libdir)/libintl.la; \
 	    fi; \
 	  fi; \

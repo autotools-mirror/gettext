@@ -1,3 +1,7 @@
+2003-08-27  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (install-exec): Fix the 2003-04-06 patch.
+
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (local_wcslen): Protect against multiple definition.
