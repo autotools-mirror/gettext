@@ -36,7 +36,7 @@
 #endif
 
 #if HAVE_VPRINTF || HAVE_DOPRNT || _LIBC
-# if __STDC__
+# if __STDC__ || defined _MSC_VER
 #  include <stdarg.h>
 #  define VA_START(args, lastarg) va_start(args, lastarg)
 # else

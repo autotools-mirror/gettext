@@ -303,7 +303,7 @@ extern char *bind_textdomain_codeset _INTL_PARAMS ((const char *__domainname,
 #include <stddef.h>
 
 /* Get va_list.  */
-#if __STDC__ || defined __cplusplus
+#if __STDC__ || defined __cplusplus || defined _MSC_VER
 # include <stdarg.h>
 #else
 # include <varargs.h>
