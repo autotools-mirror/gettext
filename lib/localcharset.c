@@ -63,6 +63,11 @@
 # define ISSLASH(C) ((C) == DIRECTORY_SEPARATOR)
 #endif
 
+#ifdef HAVE_GETC_UNLOCKED
+# undef getc
+# define getc getc_unlocked
+#endif
+
 /* The following static variable is declared 'volatile' to avoid a
    possible multithread problem in the function get_charset_aliases. If we
    are running in a threaded environment, and if two threads initialize
@@ -138,19 +143,19 @@ get_charset_aliases ()
 		  continue;
 		}
 	      ungetc (c, fp);
-	      if (fscanf(fp, "%50s %50s", buf1, buf2) < 2)
+	      if (fscanf (fp, "%50s %50s", buf1, buf2) < 2)
 		break;
 	      l1 = strlen (buf1);
 	      l2 = strlen (buf2);
 	      if (res_size == 0)
 		{
 		  res_size = l1 + 1 + l2 + 1;
-		  res_ptr = malloc (res_size + 1);
+		  res_ptr = (char *) malloc (res_size + 1);
 		}
 	      else
 		{
 		  res_size += l1 + 1 + l2 + 1;
-		  res_ptr = realloc (res_ptr, res_size + 1);
+		  res_ptr = (char *) realloc (res_ptr, res_size + 1);
 		}
 	      if (res_ptr == NULL)
 		{

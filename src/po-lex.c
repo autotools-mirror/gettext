@@ -67,6 +67,11 @@
 # include "utf8-ucs4.h"
 #endif
 
+#ifdef HAVE_GETC_UNLOCKED
+# undef getc
+# define getc getc_unlocked
+#endif
+
 #if HAVE_C_BACKSLASH_A
 # define ALERT_CHAR '\a'
 #else

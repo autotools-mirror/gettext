@@ -1,3 +1,7 @@
+2001-10-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* localcharset.c (getc): Define as getc_unlocked if available.
+
 2001-09-27  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (install-strip, installdirs): New rules.
