@@ -1,3 +1,9 @@
+2003-10-14  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-22: Update expected result.
+	* lang-c: Likewise.
+	* lang-objc: Likewise.
+
 2003-10-12  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat-13: New file.

@@ -31,9 +31,11 @@ msgstr ""
 msgid "File age is %10<PRIdMAX> microseconds"
 msgstr ""
 
+#, c-format
 msgid "<PRIXFAST16> errors"
 msgstr ""
 
+#, c-format
 msgid " mistakes"
 msgstr ""
 EOF

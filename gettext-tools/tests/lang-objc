@@ -73,6 +73,7 @@ ${XGETTEXT} -o prog.pot --omit-header --no-location -k_ prog.m
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok
+#, c-format
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
@@ -97,6 +98,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#, c-format
 msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
