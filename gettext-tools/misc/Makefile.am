@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/misc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2000-2003, 2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -44,21 +44,6 @@ archive.tar.gz:
 lisp_LISP = po-mode.el po-compat.el
 
 EXTRA_DIST += $(lisp_LISP)
-
-
-# Old sh interface.
-
-EXTRA_DIST += gettext-sh
-
-
-# Old Tcl interface.
-
-EXTRA_DIST += tcl_gettext.c README-Tcl
-
-
-# Old Perl interface.
-
-EXTRA_DIST += gettext.perl
 
 
 # VMS support.
