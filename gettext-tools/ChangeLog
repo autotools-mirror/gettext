@@ -1,3 +1,9 @@
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.rc: Bump version number to 0.14.
+	* windows/gettextsrc.rc: Likewise.
+	* windows/gettextpo.rc: Likewise.
+
 2004-01-10  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: When --disable-csharp was given, set BUILDCSHARP=no.
