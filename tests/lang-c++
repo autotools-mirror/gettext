@@ -48,7 +48,7 @@ EOF
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I../intl ${INTLLIBS} \
+${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I../intl ${INTLLIBS} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
