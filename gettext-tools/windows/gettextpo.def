@@ -1,5 +1,6 @@
 LIBRARY gettextpo
 EXPORTS
+libgettextpo_version
 po_file_create
 po_file_domains
 po_file_domain_header

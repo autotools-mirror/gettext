@@ -26,6 +26,12 @@ extern "C" {
 #endif
 
 
+/* =========================== Meta Information ============================ */
+
+/* Version number: (major<<16) + (minor<<8) + subminor */
+#define LIBGETTEXTPO_VERSION 0x000E02
+extern int libgettextpo_version;
+
 /* ================================= Types ================================= */
 
 /* A po_file_t represents the contents of a PO file.  */

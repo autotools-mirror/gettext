@@ -1,5 +1,11 @@
 2005-02-10  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-po.h (LIBGETTEXTPO_VERSION): New macro.
+	(libgettextpo_version): New declaration.
+	* gettext-po.c (libgettextpo_version): New variable.
+
+2005-02-10  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-po.h (po_message_remove_filepos, po_message_add_filepos): New
 	declarations.
 	* gettext-po.c (po_message_remove_filepos, po_message_add_filepos): New

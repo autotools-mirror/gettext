@@ -64,6 +64,10 @@ struct po_message_iterator
 /* A po_filepos_t is actually a 'lex_pos_ty *'.  */
 
 
+/* Version number: (major<<16) + (minor<<8) + subminor */
+int libgettextpo_version = LIBGETTEXTPO_VERSION;
+
+
 /* Create an empty PO file representation in memory.  */
 
 po_file_t
