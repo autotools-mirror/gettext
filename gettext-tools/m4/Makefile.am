@@ -58,6 +58,7 @@ readlink.m4 \
 relocatable.m4 \
 setenv.m4 \
 setlocale.m4 \
+sig_atomic_t.m4 \
 siginfo.m4 \
 signalblocking.m4 \
 ssize_t.m4 \

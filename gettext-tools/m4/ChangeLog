@@ -1,3 +1,8 @@
+2003-10-14  Bruno Haible  <bruno@clisp.org>
+
+	* sig_atomic_t.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2003-10-04  Bruno Haible  <bruno@clisp.org>
 
 	* flex.m4: Remove file.

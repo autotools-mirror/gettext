@@ -96,6 +96,7 @@ jm_AC_TYPE_UINTMAX_T
 gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
 AC_TYPE_MODE_T
+gt_TYPE_SIG_ATOMIC_T
 
 dnl Checks for library functions.
 gl_FUNC_ALLOCA

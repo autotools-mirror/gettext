@@ -1,3 +1,8 @@
+2003-10-08  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gt_SIG_ATOMIC_T.
+	* Makefile.am (config.h_vms, config.h.msvc): Define HAVE_SIG_ATOMIC_T.
+
 2003-10-04  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Remove gt_PROG_LEX invocation.

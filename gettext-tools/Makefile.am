@@ -99,6 +99,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_SELECT$$/#define HAVE_SELECT 1/' \
 	     -e 's/#undef HAVE_SETENV$$/#define HAVE_SETENV 1/' \
 	     -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
+	     -e 's/#undef HAVE_SIG_ATOMIC_T$$/#define HAVE_SIG_ATOMIC_T 1/' \
 	     -e 's/#undef HAVE_STDBOOL_H$$/#define HAVE_STDBOOL_H 1/' \
 	     -e 's/#undef HAVE_STDDEF_H$$/#define HAVE_STDDEF_H 1/' \
 	     -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
@@ -183,6 +184,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_RAISE$$/#define HAVE_RAISE 1/' \
 	    -e 's/#undef HAVE_SEARCH_H$$/#define HAVE_SEARCH_H 1/' \
 	    -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
+	    -e 's/#undef HAVE_SIG_ATOMIC_T$$/#define HAVE_SIG_ATOMIC_T 1/' \
 	    -e 's/#undef HAVE_STDDEF_H$$/#define HAVE_STDDEF_H 1/' \
 	    -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
 	    -e 's/#undef HAVE_STRCSPN$$/#define HAVE_STRCSPN 1/' \
