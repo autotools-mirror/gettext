@@ -39,6 +39,12 @@
 
 #define _(s) gettext(s)
 
+#if HAVE_C_BACKSLASH_A
+# define ALERT_CHAR '\a'
+#else
+# define ALERT_CHAR '\7'
+#endif
+
 
 /* The ANSI C standard defines several phases of translation:
 
@@ -125,7 +131,7 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;
+  char *string;		/* for token_type_name, token_type_string_literal */
   long number;
   int line_number;
 };
@@ -147,6 +153,7 @@ static int phase4_getc PARAMS ((void));
 static void phase4_ungetc PARAMS ((int c));
 static int phase7_getc PARAMS ((void));
 static void phase7_ungetc PARAMS ((int c));
+static inline void free_token PARAMS ((token_ty *tp));
 static void phase5_get PARAMS ((token_ty *tp));
 static void phase5_unget PARAMS ((token_ty *tp));
 static void phaseX_get PARAMS ((token_ty *tp));
@@ -154,6 +161,9 @@ static void phase6_get PARAMS ((token_ty *tp));
 static void phase6_unget PARAMS ((token_ty *tp));
 static void phase8_get PARAMS ((token_ty *tp));
 static void x_c_lex PARAMS ((xgettext_token_ty *tp));
+static bool extract_parenthesized PARAMS ((message_list_ty *mlp,
+					   int commas_to_skip,
+					   int plural_commas));
 
 
 /* ========================= Lexer customization.  ========================= */
@@ -633,14 +643,8 @@ phase7_getc ()
     case '\\':
       return c;
 
-      /* The \a and \v escapes were added by the ANSI C Standard.
-	 Prior to the Standard, most compilers did not have them.
-	 Because we need the same program on all platforms we don't
-	 provide support for them here.
-
-	 The gcc sources comment that \a is commonly available in
-	 pre-ANSI compilers.  --PMiller  */
-
+    case 'a':
+      return ALERT_CHAR;
     case 'b':
       return '\b';
 
@@ -656,6 +660,8 @@ phase7_getc ()
       return '\r';
     case 't':
       return '\t';
+    case 'v':
+      return '\v';
 
     case 'x':
       c = phase3_getc ();
@@ -728,6 +734,16 @@ phase7_ungetc (c)
      int c;
 {
   phase3_ungetc (c);
+}
+
+
+/* Free the memory pointed to by a 'struct token_ty'.  */
+static inline void
+free_token (tp)
+     token_ty *tp;
+{
+  if (tp->type == token_type_name || tp->type == token_type_string_literal)
+    free (tp->string);
 }
 
 
@@ -1143,18 +1159,7 @@ phase6_get (tp)
 
       /* Release the storage held by the directive.  */
       for (j = 0; j < bufpos; ++j)
-	{
-	  switch (buf[j].type)
-	    {
-	    case token_type_name:
-	    case token_type_string_literal:
-	      free (buf[j].string);
-	      break;
-
-	    default:
-	      break;
-	    }
-	}
+	free_token (&buf[j]);
 
       /* We must reset the selected comments.  */
       xgettext_comment_reset ();

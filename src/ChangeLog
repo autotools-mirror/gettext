@@ -1,5 +1,13 @@
 2002-01-27  Bruno Haible  <bruno@clisp.org>
 
+	* x-c.c (ALERT_CHAR): New macro.
+	(phase7_getc): Accept \a and \v as well.
+
+	* x-c.c (free_token): New inline function.
+	(phase6_get): Use it.
+
+2002-01-27  Bruno Haible  <bruno@clisp.org>
+
 	* format-elisp.c (format_check): Don't use Java syntax for format
 	argument number in error message.
 	* format-librep.c (format_check): Likewise.
