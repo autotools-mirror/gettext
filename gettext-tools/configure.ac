@@ -102,7 +102,7 @@ dnl Checks for library functions.
 gl_FUNC_ALLOCA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
-utime utimes])
+utime utimes waitid])
 AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn \
 strcasecmp strncasecmp strpbrk strstr vasprintf])
 AM_FUNC_GETLINE

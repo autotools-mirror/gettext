@@ -1,3 +1,8 @@
+2003-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* wait-process.h (wait_process): Use waitid with WNOWAIT if available,
+	to avoid (extremely rare) race condition.
+
 2003-10-27  Bruno Haible  <bruno@clisp.org>
 
 	* stdbool_.h: Better support for BeOS.

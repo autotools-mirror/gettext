@@ -1,5 +1,9 @@
 2003-10-31  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Also check for waitid.
+
+2003-10-31  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Remove argument of FIX_MAKEFILE_COMPILE,
 	FIX_MAKEFILE_DISTRIB, FIX_MAKEFILE_INFO.
 
