@@ -59,3 +59,7 @@ Things we plan to do. Comments welcome.
 - Provide a way to merge two .po files, coming from different translators of
   the same pot file.
 
+- KBabel:
+  http://i18n.kde.org/translation-howto/gui-specialized-apps.html
+  http://i18n.kde.org/tools/kbabel/
+
