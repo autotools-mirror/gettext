@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <locale.h>
+#include "xsetenv.h"
 
 /* Make sure we use the included libintl, not the system's one. */
 #define textdomain textdomain__
@@ -21,7 +22,8 @@ int main (argc, argv)
 {
   int n = atoi (argv[2]);
 
-  if (setlocale (LC_ALL, argv[1]) == NULL)
+  xsetenv ("LC_ALL", argv[1], 1);
+  if (setlocale (LC_ALL, "") == NULL)
     return 1;
 
   textdomain ("cake");

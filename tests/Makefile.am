@@ -105,3 +105,4 @@ tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
+cake_LDADD = ../lib/libgettextlib.la $(LDADD)

@@ -13,6 +13,7 @@ cat <<\EOF > prog.c
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "xsetenv.h"
 #define _(string) gettext (string)
 
 int main (argc, argv)
@@ -21,7 +22,8 @@ int main (argc, argv)
 {
   int n = atoi (argv[2]);
 
-  if (setlocale (LC_ALL, argv[1]) == NULL)
+  xsetenv ("LC_ALL", argv[1], 1);
+  if (setlocale (LC_ALL, "") == NULL)
     {
       fprintf (stderr, "Couldn't set locale.\n");
       exit (77);
@@ -47,7 +49,7 @@ EOF
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet --mode=link ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.c -I../intl ${INTLLIBS} \
+${LIBTOOL} --quiet --mode=link ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.c -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${INTLLIBS} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
