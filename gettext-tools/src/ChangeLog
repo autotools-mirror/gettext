@@ -1,3 +1,10 @@
+2003-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* write-java.c (write_java_code): Emit a static method
+	'get_msgid_plural_table' instead of a static field 'plural'.
+	* gnu/gettext/DumpResource.java (DumpResource.dump): Exploit a
+	'get_msgid_plural_table' method if it exists.
+
 2003-12-14  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_csharp'.

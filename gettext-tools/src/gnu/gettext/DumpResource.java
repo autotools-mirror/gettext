@@ -1,5 +1,5 @@
 /* GNU gettext for Java
- * Copyright (C) 2001 Free Software Foundation, Inc.
+ * Copyright (C) 2001-2003 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,6 @@ public class DumpResource {
   }
   private ResourceBundle catalog;
   private Method lookupMethod;
-  private Field pluralField;
   // Lookup the value corresponding to a key found in catalog.getKeys().
   // Here we assume that the catalog returns a non-inherited value for
   // these keys. FIXME: Not true. Better see whether handleGetObject is
@@ -98,7 +97,13 @@ public class DumpResource {
     } catch (NoSuchMethodException e) {
     } catch (SecurityException e) {
     }
-    pluralField = null;
+    Method pluralMethod = null;
+    try {
+      pluralMethod = catalog.getClass().getMethod("get_msgid_plural_table", new Class[0]);
+    } catch (NoSuchMethodException e) {
+    } catch (SecurityException e) {
+    }
+    Field pluralField = null;
     try {
       pluralField = catalog.getClass().getField("plural");
     } catch (NoSuchFieldException e) {
@@ -124,12 +129,24 @@ public class DumpResource {
     {
       Enumeration keys = catalog.getKeys();
       Object plural = null;
-      if (pluralField != null)
+      if (pluralMethod != null) {
+        // msgfmt versions > 0.13.1 create a static get_msgid_plural_table()
+        // method.
+        try {
+          plural = pluralMethod.invoke(catalog, new Object[0]);
+        } catch (IllegalAccessException e) {
+          e.printStackTrace();
+        } catch (InvocationTargetException e) {
+          e.getTargetException().printStackTrace();
+        }
+      } else if (pluralField != null) {
+        // msgfmt versions <= 0.13.1 create a static plural field.
         try {
           plural = pluralField.get(catalog);
         } catch (IllegalAccessException e) {
           e.printStackTrace();
         }
+      }
       if (plural instanceof String[]) {
         // A GNU gettext created class with plural handling, Java2 format.
         int i = 0;

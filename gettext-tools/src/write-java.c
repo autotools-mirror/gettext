@@ -742,7 +742,8 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
       if (plurals)
 	{
 	  bool first;
-	  fprintf (stream, "  public static final java.lang.String[] plural = new java.lang.String[] { ");
+	  fprintf (stream, "  public static final java.lang.String[] get_msgid_plural_table () {\n");
+	  fprintf (stream, "    return new java.lang.String[] { ");
 	  first = true;
 	  for (j = 0; j < mlp->nitems; j++)
 	    {
@@ -756,6 +757,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
 		}
 	    }
 	  fprintf (stream, " };\n");
+	  fprintf (stream, "  }\n");
 	}
 
       if (plurals)
@@ -821,8 +823,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
       /* Emit the msgid_plural strings.  Only used by msgunfmt.  */
       if (plurals)
 	{
-	  fprintf (stream, "  public static final java.util.Hashtable plural;\n");
-	  fprintf (stream, "  static {\n");
+	  fprintf (stream, "  public static final java.util.Hashtable get_msgid_plural_table () {\n");
 	  fprintf (stream, "    java.util.Hashtable p = new java.util.Hashtable();\n");
 	  for (j = 0; j < mlp->nitems; j++)
 	    if (mlp->item[j]->msgid_plural != NULL)
@@ -833,7 +834,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
 		write_java_string (stream, mlp->item[j]->msgid_plural);
 		fprintf (stream, ");\n");
 	      }
-	  fprintf (stream, "    plural = p;\n");
+	  fprintf (stream, "    return p;\n");
 	  fprintf (stream, "  }\n");
 	}
 
