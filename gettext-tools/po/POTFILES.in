@@ -27,6 +27,7 @@ src/file-list.c
 src/format-awk.c
 src/format-c.c
 src/format-elisp.c
+src/format-gcc-internal.c
 src/format-invalid.h
 src/format-java.c
 src/format-librep.c
