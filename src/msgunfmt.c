@@ -292,11 +292,11 @@ If no input file is given or if it is -, standard input is read.\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-Input file location in Java mode:
-  -r, --resource=RESOURCE  resource name
-  -l, --locale=LOCALE      locale name, either language or language_COUNTRY
-The class name is determined by appending the locale name to the resource name,
-separated with an underscore.  The class is located using the CLASSPATH.
+Input file location in Java mode:\n\
+  -r, --resource=RESOURCE  resource name\n\
+  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n\
+The class name is determined by appending the locale name to the resource name,\n\
+separated with an underscore.  The class is located using the CLASSPATH.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -324,7 +324,7 @@ Output details:\n\
 Informative output:\n\
   -h, --help               display this help and exit\n\
   -V, --version            output version information and exit\n\
-  -v, --verbose            increase verbosity level
+  -v, --verbose            increase verbosity level\n\
 "));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),

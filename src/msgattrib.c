@@ -367,7 +367,7 @@ Message selection:\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-Attribute manipulation:
+Attribute manipulation:\n\
       --set-fuzzy             set all messages 'fuzzy'\n\
       --clear-fuzzy           set all messages non-'fuzzy'\n\
       --set-obsolete          set all messages obsolete\n\
