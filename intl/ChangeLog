@@ -1,3 +1,8 @@
+2001-09-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-exp.c (EXTRACT_PLURAL_EXPRESSION): Reject numbers that don't
+	start with a digit; nplurals must be positive.
+
 2001-10-20  Bruno Haible  <haible@clisp.cons.org>
 
 	Assume strchr() exists. (Without it, explodename.c wouldn't link

@@ -112,14 +112,16 @@ EXTRACT_PLURAL_EXPRESSION (nullentry, pluralp, npluralsp)
 	goto no_plural;
       else
 	{
-	  /* First get the number.  */
 	  char *endp;
 	  unsigned long int n;
 	  struct parse_args args;
 
+	  /* First get the number.  */
 	  nplurals += 9;
 	  while (*nplurals != '\0' && isspace ((unsigned char) *nplurals))
 	    ++nplurals;
+	  if (!(*nplurals >= '0' && *nplurals <= '9'))
+	    goto no_plural;
 #if defined HAVE_STRTOUL || defined _LIBC
 	  n = strtoul (nplurals, &endp, 10);
 #else
