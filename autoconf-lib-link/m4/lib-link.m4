@@ -1,5 +1,5 @@
-# lib-link.m4 serial 3 (gettext-0.11.3)
-dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# lib-link.m4 serial 4 (gettext-0.11.6)
+dnl Copyright (C) 2001-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -135,7 +135,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
     eval additional_includedir=\"$includedir\"
     eval additional_libdir=\"$libdir\"
   ])
-  AC_ARG_WITH([lib$1-prefix],
+  AC_LIB_ARG_WITH([lib$1-prefix],
 [  --with-lib$1-prefix[=DIR]  search for lib$1 in DIR/include and DIR/lib
   --without-lib$1-prefix     don't search for lib$1 in includedir and libdir],
 [

@@ -836,7 +836,7 @@ AC_MSG_RESULT($objdir)
 
 ## FIXME: this should be a separate macro
 ##
-AC_ARG_WITH(pic,
+AC_LIBTOOL_ARG_WITH(pic,
 [  --with-pic              try to use only PIC/non-PIC objects [default=use both]],
 pic_mode="$withval", pic_mode=default)
 test -z "$pic_mode" && pic_mode=default
@@ -3238,7 +3238,7 @@ fi
 
 # AC_PROG_LD - find the path to the GNU or non-GNU linker
 AC_DEFUN([AC_PROG_LD],
-[AC_ARG_WITH(gnu-ld,
+[AC_LIBTOOL_ARG_WITH(gnu-ld,
 [  --with-gnu-ld           assume the C compiler uses GNU ld [default=no]],
 test "$withval" = no || with_gnu_ld=yes, with_gnu_ld=no)
 AC_REQUIRE([AC_PROG_CC])dnl
@@ -3629,6 +3629,13 @@ AC_DEFUN([AC_LIBLTDL_INSTALLABLE],
   # For backwards non-gettext consistent compatibility...
   INCLTDL="$LTDLINCL"
 ])
+
+dnl AC_LIBTOOL_ARG_WITH is synonymous to AC_ARG_WITH in autoconf-2.13, and
+dnl similar to AC_ARG_WITH in autoconf 2.52...2.57 except that is doesn't
+dnl require excessive bracketing.
+ifdef([AC_HELP_STRING],
+[AC_DEFUN([AC_LIBTOOL_ARG_WITH], [AC_ARG_WITH([$1],[[$2]],[$3],[$4])])],
+[AC_DEFUN([AC_LIBTOOL_ARG_WITH], [AC_ARG_WITH([$1],[$2],[$3],[$4])])])
 
 # old names
 AC_DEFUN([AM_PROG_LIBTOOL],   [AC_PROG_LIBTOOL])

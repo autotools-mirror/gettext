@@ -1,0 +1,9 @@
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
+	Workaround autoconf >= 2.52 breakage.
+	* lib-prefix.m4 (AC_LIB_ARG_WITH): New macro.
+	(AC_LIB_PREFIX): Use it instead of AC_ARG_WITH.
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Likewise.
+
+
+See ../../gettext-tools/m4/ChangeLog.0 for earlier changes.
