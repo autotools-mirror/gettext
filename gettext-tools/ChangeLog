@@ -1,5 +1,9 @@
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gl_USE_SYSTEM_EXTENSIONS.
+
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
 	* windows/fnmatch.h: Include fnmatch_.h.
 
 2003-08-23  Bruno Haible  <bruno@clisp.org>

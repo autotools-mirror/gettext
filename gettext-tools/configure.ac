@@ -70,8 +70,9 @@ dnl Checks for compiler output filename suffixes.
 AC_OBJEXT
 AC_EXEEXT
 
-dnl Make sure we see all GNU extensions.
+dnl Make sure we see all GNU and Solaris extensions.
 AC_GNU_SOURCE
+gl_USE_SYSTEM_EXTENSIONS
 
 dnl Check for build configuration.
 AC_LIBTOOL_WIN32_DLL
