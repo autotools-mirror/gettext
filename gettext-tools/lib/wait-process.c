@@ -32,21 +32,6 @@
 #if defined _MSC_VER || defined __MINGW32__
 
 /* Native Woe32 API.  */
-
-int
-wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
-{
-  /* Not yet implemented.  Should probably use _cwait.  */
-  return 127;
-}
-
-#else
-
-/* Unix API.  */
-
-#if defined _MSC_VER || defined __MINGW32__
-
-/* Native Woe32 API.  */
 #include <process.h>
 #define waitpid(pid,statusp,options) _cwait (statusp, pid, WAIT_CHILD)
 #define WAIT_T int
@@ -165,5 +150,3 @@ wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
     }
   return WEXITSTATUS (status);
 }
-
-#endif /* Woe32 / Unix */
