@@ -1,3 +1,7 @@
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (TESTS_ENVIRONMENT): Don't use $(transform) here.
+
 2001-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec-2: Don't use 'tr'. It is broken on Solaris.

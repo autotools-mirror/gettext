@@ -61,20 +61,20 @@ XGETTEXT = ../src/xgettext
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    GETTEXT=tstgettext \
 		    NGETTEXT=tstngettext \
-		    XGETTEXT=`echo xgettext|sed '$(transform)'` \
-		    MSGATTRIB=`echo msgattrib|sed '$(transform)'` \
-		    MSGCAT=`echo msgcat|sed '$(transform)'` \
-		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
-		    MSGCOMM=`echo msgcomm|sed '$(transform)'` \
-		    MSGCONV=`echo msgconv|sed '$(transform)'` \
-		    MSGEN=`echo msgen|sed '$(transform)'` \
-		    MSGEXEC=`echo msgexec|sed '$(transform)'` \
-		    MSGFILTER=`echo msgfilter|sed '$(transform)'` \
-		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
-		    MSGGREP=`echo msggrep|sed '$(transform)'` \
-		    MSGMERGE=`echo msgmerge|sed '$(transform)'` \
-		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
-		    MSGUNIQ=`echo msguniq|sed '$(transform)'` \
+		    XGETTEXT=xgettext \
+		    MSGATTRIB=msgattrib \
+		    MSGCAT=msgcat \
+		    MSGCMP=msgcmp \
+		    MSGCOMM=msgcomm \
+		    MSGCONV=msgconv \
+		    MSGEN=msgen \
+		    MSGEXEC=msgexec \
+		    MSGFILTER=msgfilter \
+		    MSGFMT=msgfmt \
+		    MSGGREP=msggrep \
+		    MSGMERGE=msgmerge \
+		    MSGUNFMT=msgunfmt \
+		    MSGUNIQ=msguniq \
 		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
 		    LIBTOOL='@LIBTOOL@' \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \
