@@ -1,5 +1,18 @@
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.vms: New file.
+	* Makefile.am (EXTRA_DIST): Add Makefile.vms.
+	* po-lex.c (mbfile_getc): Change element type of scatchbuf to
+	'unsigned char'.
+	* write-java.c (string_hashcode, write_java_string): Cast argument of
+	u8_mbtouc.
+	* write-tcl.c (write_tcl_string): Likewise.
+	* x-python.c (phase7_getuc): Cast argument of unicode_name_character.
+	* msgfilter.c (write): #undef before redefining it. Needed for VMS.
+	(select): Likewise.
+
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (noinst_HEADERS): Add po-gram-gen2.h.
 	(BUILT_SOURCES): Add po-gram-gen2.h.
 	(DISTCLEANFILES): Remove po-gram-gen2.h.

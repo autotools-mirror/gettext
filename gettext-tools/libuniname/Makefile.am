@@ -39,6 +39,11 @@ test_names_LDADD = libuniname.a ../lib/libgettextlib.la
 EXTRA_DIST += $(TESTS) UnicodeDataNames.txt
 
 
+# VMS support.
+
+EXTRA_DIST += Makefile.vms
+
+
 # Woe32 support.
 
 EXTRA_DIST += Makefile.msvc

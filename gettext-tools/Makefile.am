@@ -44,6 +44,104 @@ html:
 	cd doc && $(MAKE) html
 
 
+# VMS support.
+
+config.h.vms: config.h.in ../version.sh
+	(sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
+	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	     -e 's/#undef HAVE_ARPA_INET_H$$/#define HAVE_ARPA_INET_H 1/' \
+	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
+	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
+	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
+	     -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
+	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
+	     -e 's/#undef HAVE_FCNTL_H$$/#define HAVE_FCNTL_H 1/' \
+	     -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
+	     -e 's/#undef HAVE_GETEGID$$/#define HAVE_GETEGID 1/' \
+	     -e 's/#undef HAVE_GETEUID$$/#define HAVE_GETEUID 1/' \
+	     -e 's/#undef HAVE_GETGID$$/#define HAVE_GETGID 1/' \
+	     -e 's/#undef HAVE_GETHOSTBYNAME$$/#define HAVE_GETHOSTBYNAME 1/' \
+	     -e 's/#undef HAVE_GETHOSTNAME$$/#define HAVE_GETHOSTNAME 1/' \
+	     -e 's/#undef HAVE_GETPAGESIZE$$/#define HAVE_GETPAGESIZE 1/' \
+	     -e 's/#undef HAVE_GETTIMEOFDAY$$/#define HAVE_GETTIMEOFDAY 1/' \
+	     -e 's/#undef HAVE_GETUID$$/#define HAVE_GETUID 1/' \
+	     -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
+	     -e 's/#undef HAVE_INTTYPES_H$$/#define HAVE_INTTYPES_H 1/' \
+	     -e 's/#undef HAVE_INTTYPES_H_WITH_UINTMAX$$/#define HAVE_INTTYPES_H_WITH_UINTMAX 1/' \
+	     -e 's/#undef HAVE_ISASCII$$/#define HAVE_ISASCII 1/' \
+	     -e 's/#undef HAVE_ISWCNTRL$$/#define HAVE_ISWCNTRL 1/' \
+	     -e 's/#undef HAVE_ISWPRINT$$/#define HAVE_ISWPRINT 1/' \
+	     -e 's/#undef HAVE_LANGINFO_CODESET$$/#define HAVE_LANGINFO_CODESET 1/' \
+	     -e 's/#undef HAVE_LC_MESSAGES$$/#define HAVE_LC_MESSAGES 1/' \
+	     -e 's/#undef HAVE_LIBEXPAT$$/#define HAVE_LIBEXPAT 1/' \
+	     -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
+	     -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
+	     -e 's/#undef HAVE_LONG_FILE_NAMES$$/#define HAVE_LONG_FILE_NAMES 1/' \
+	     -e 's/#undef HAVE_MALLOC_H$$/#define HAVE_MALLOC_H 1/' \
+	     -e 's/#undef HAVE_MBRTOWC$$/#define HAVE_MBRTOWC 1/' \
+	     -e 's/#undef HAVE_MBSINIT$$/#define HAVE_MBSINIT 1/' \
+	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
+	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
+	     -e 's/#undef HAVE_MEMSET$$/#define HAVE_MEMSET 1/' \
+	     -e 's/#undef HAVE_MMAP$$/#define HAVE_MMAP 1/' \
+	     -e 's/#undef HAVE_MUNMAP$$/#define HAVE_MUNMAP 1/' \
+	     -e 's/#undef HAVE_NL_TYPES_H$$/#define HAVE_NL_TYPES_H 1/' \
+	     -e 's/#undef HAVE_PATHCONF$$/#define HAVE_PATHCONF 1/' \
+	     -e 's/#undef HAVE_POSIX_SIGNALBLOCKING$$/#define HAVE_POSIX_SIGNALBLOCKING 1/' \
+	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
+	     -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
+	     -e 's/#undef HAVE_RAISE$$/#define HAVE_RAISE 1/' \
+	     -e 's/#undef HAVE_SELECT$$/#define HAVE_SELECT 1/' \
+	     -e 's/#undef HAVE_SETENV$$/#define HAVE_SETENV 1/' \
+	     -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
+	     -e 's/#undef HAVE_STDBOOL_H$$/#define HAVE_STDBOOL_H 1/' \
+	     -e 's/#undef HAVE_STDDEF_H$$/#define HAVE_STDDEF_H 1/' \
+	     -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
+	     -e 's/#undef HAVE_STRCASECMP$$/#define HAVE_STRCASECMP 1/' \
+	     -e 's/#undef HAVE_STRCSPN$$/#define HAVE_STRCSPN 1/' \
+	     -e 's/#undef HAVE_STRDUP$$/#define HAVE_STRDUP 1/' \
+	     -e 's/#undef HAVE_STRERROR$$/#define HAVE_STRERROR 1/' \
+	     -e 's/#undef HAVE_STRINGS_H$$/#define HAVE_STRINGS_H 1/' \
+	     -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	     -e 's/#undef HAVE_STRNCASECMP$$/#define HAVE_STRNCASECMP 1/' \
+	     -e 's/#undef HAVE_STRPBRK$$/#define HAVE_STRPBRK 1/' \
+	     -e 's/#undef HAVE_STRSTR$$/#define HAVE_STRSTR 1/' \
+	     -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
+	     -e 's/#undef HAVE_SYS_PARAM_H$$/#define HAVE_SYS_PARAM_H 1/' \
+	     -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
+	     -e 's/#undef HAVE_SYS_TIME_H$$/#define HAVE_SYS_TIME_H 1/' \
+	     -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
+	     -e 's/#undef HAVE_TIME_H$$/#define HAVE_TIME_H 1/' \
+	     -e 's/#undef HAVE_UINTMAX_T$$/#define HAVE_UINTMAX_T 1/' \
+	     -e 's/#undef HAVE_UNAME$$/#define HAVE_UNAME 1/' \
+	     -e 's/#undef HAVE_UNISTD_H$$/#define HAVE_UNISTD_H 1/' \
+	     -e 's/#undef HAVE_UNSETENV$$/#define HAVE_UNSETENV 1/' \
+	     -e 's/#undef HAVE_UNSIGNED_LONG_LONG$$/#define HAVE_UNSIGNED_LONG_LONG 1/' \
+	     -e 's/#undef HAVE_UTIME$$/#define HAVE_UTIME 1/' \
+	     -e 's/#undef HAVE_UTIMES$$/#define HAVE_UTIMES 1/' \
+	     -e 's/#undef HAVE_UTIME_H$$/#define HAVE_UTIME_H 1/' \
+	     -e 's/#undef HAVE_VFORK$$/#define HAVE_VFORK 1/' \
+	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
+	     -e 's/#undef HAVE_WAITPID$$/#define HAVE_WAITPID 1/' \
+	     -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
+	     -e 's/#undef HAVE_WCTYPE_H$$/#define HAVE_WCTYPE_H 1/' \
+	     -e 's/#undef HAVE_WCWIDTH$$/#define HAVE_WCWIDTH 1/' \
+	     -e 's/#undef HAVE_WORKING_VFORK$$/#define HAVE_WORKING_VFORK 1/' \
+	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
+	     -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
+	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	     -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
+	     -e 's/#undef getline$$/#define getline rpl_getline/' \
+	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
+	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \
+	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
+	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#define pw_gecos pw_name'; echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>') > $@
+# vms_jackets.h is a header that comes with Compaq's "porting library".
+# KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
+
+EXTRA_DIST += Makefile.vms config.h.vms
+
+
 # Woe32 support.
 
 config.h.msvc: config.h.in ../version.sh

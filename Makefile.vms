@@ -1,0 +1,80 @@
+# -*- Makefile -*- for gettext on VMS using the MMS utility
+# Usage: $ mms /description=Makefile.vms
+
+#### Start of system configuration section. ####
+
+#### End of system configuration section. ####
+
+all : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+
+install : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+
+installdirs : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+
+uninstall : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+
+check : all,force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+
+mostlyclean : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+
+clean : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+
+distclean : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+
+maintainer-clean : force
+	set default [.gettext-runtime]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.gettext-tools]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+
+force :

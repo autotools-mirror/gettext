@@ -48,6 +48,62 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	    -I $(srcdir)/doc --no-validate nls.texi
 
 
+# VMS support.
+
+config.h.vms: config.h.in ../version.sh
+	(sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
+	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
+	     -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
+	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
+	     -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
+	     -e 's/#undef HAVE_GETEGID$$/#define HAVE_GETEGID 1/' \
+	     -e 's/#undef HAVE_GETEUID$$/#define HAVE_GETEUID 1/' \
+	     -e 's/#undef HAVE_GETGID$$/#define HAVE_GETGID 1/' \
+	     -e 's/#undef HAVE_GETPAGESIZE$$/#define HAVE_GETPAGESIZE 1/' \
+	     -e 's/#undef HAVE_GETUID$$/#define HAVE_GETUID 1/' \
+	     -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
+	     -e 's/#undef HAVE_INTTYPES_H$$/#define HAVE_INTTYPES_H 1/' \
+	     -e 's/#undef HAVE_INTTYPES_H_WITH_UINTMAX$$/#define HAVE_INTTYPES_H_WITH_UINTMAX 1/' \
+	     -e 's/#undef HAVE_LANGINFO_CODESET$$/#define HAVE_LANGINFO_CODESET 1/' \
+	     -e 's/#undef HAVE_LC_MESSAGES$$/#define HAVE_LC_MESSAGES 1/' \
+	     -e 's/#undef HAVE_MALLOC_H$$/#define HAVE_MALLOC_H 1/' \
+	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
+	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
+	     -e 's/#undef HAVE_MMAP$$/#define HAVE_MMAP 1/' \
+	     -e 's/#undef HAVE_MUNMAP$$/#define HAVE_MUNMAP 1/' \
+	     -e 's/#undef HAVE_NL_TYPES_H$$/#define HAVE_NL_TYPES_H 1/' \
+	     -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
+	     -e 's/#undef HAVE_SETENV$$/#define HAVE_SETENV 1/' \
+	     -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
+	     -e 's/#undef HAVE_STDBOOL_H$$/#define HAVE_STDBOOL_H 1/' \
+	     -e 's/#undef HAVE_STDDEF_H$$/#define HAVE_STDDEF_H 1/' \
+	     -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
+	     -e 's/#undef HAVE_STRCASECMP$$/#define HAVE_STRCASECMP 1/' \
+	     -e 's/#undef HAVE_STRDUP$$/#define HAVE_STRDUP 1/' \
+	     -e 's/#undef HAVE_STRERROR$$/#define HAVE_STRERROR 1/' \
+	     -e 's/#undef HAVE_STRINGS_H$$/#define HAVE_STRINGS_H 1/' \
+	     -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	     -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
+	     -e 's/#undef HAVE_SYS_PARAM_H$$/#define HAVE_SYS_PARAM_H 1/' \
+	     -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
+	     -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
+	     -e 's/#undef HAVE_UINTMAX_T$$/#define HAVE_UINTMAX_T 1/' \
+	     -e 's/#undef HAVE_UNISTD_H$$/#define HAVE_UNISTD_H 1/' \
+	     -e 's/#undef HAVE_UNSETENV$$/#define HAVE_UNSETENV 1/' \
+	     -e 's/#undef HAVE_UNSIGNED_LONG_LONG$$/#define HAVE_UNSIGNED_LONG_LONG 1/' \
+	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
+	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
+	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
+	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
+	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>') > $@
+# vms_jackets.h is a header that comes with Compaq's "porting library".
+# KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
+
+EXTRA_DIST += Makefile.vms config.h.vms
+
+
 # Woe32 support.
 
 config.h.msvc: config.h.in ../version.sh

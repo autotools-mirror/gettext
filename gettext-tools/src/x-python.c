@@ -605,7 +605,7 @@ phase7_getuc (int quote_char,
 			}
 		      buf[i] = '\0';
 
-		      n = unicode_name_character (buf);
+		      n = unicode_name_character ((char *) buf);
 		      if (n != UNINAME_INVALID)
 			{
 			  *backslash_counter = 0;

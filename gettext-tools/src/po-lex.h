@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -98,7 +98,7 @@ extern void po_lex_pass_obsolete_entries (bool flag);
   do {									    \
     error_with_progname = false;					    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
-		   fmt, __VA_ARGS__ + 0);					    \
+		   fmt, __VA_ARGS__ + 0);				    \
     error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \

@@ -1,3 +1,11 @@
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms: New file.
+	* Makefile.am (EXTRA_DIST): Add Makefile.vms.
+	* execute.c (open): #undef before redefining it. Needed for VMS.
+	* pipe-in.c (open): Likewise.
+	* pipe-out.c (open): Likewise.
+
 2003-03-31  Bruno Haible  <bruno@clisp.org>
 
 	* sh-quote.c (shell_quote_length, shell_quote_copy): Handle empty

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -428,10 +428,10 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
 	 tty.  */
       for (;;)
 	{
-	  char scratchbuf[64];
+	  unsigned char scratchbuf[64];
 	  const char *inptr = &mbf->buf[0];
 	  size_t insize = mbf->bufcount;
-	  char *outptr = &scratchbuf[0];
+	  char *outptr = (char *) &scratchbuf[0];
 	  size_t outsize = sizeof (scratchbuf);
 
 	  size_t res = iconv (po_lex_iconv,

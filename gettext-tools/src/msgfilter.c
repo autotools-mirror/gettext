@@ -462,6 +462,7 @@ nonintr_write (int fd, const void *buf, size_t count)
 
   return retval;
 }
+#undef write /* avoid warning on VMS */
 #define write nonintr_write
 
 # if HAVE_SELECT
@@ -478,6 +479,7 @@ nonintr_select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 
   return retval;
 }
+#undef select /* avoid warning on VMS */
 #define select nonintr_select
 
 # endif

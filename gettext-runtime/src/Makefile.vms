@@ -1,0 +1,83 @@
+# -*- Makefile -*- for gettext-runtime/src on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+# Directories used by "make install":
+prefix = SYS$DATA:[
+exec_prefix = $(prefix)
+bindir = $(exec_prefix).bin
+datadir = $(prefix).share
+localedir = $(datadir).locale
+
+# Programs used by "make":
+
+CC = cc
+
+WARN_CFLAGS = /warning
+
+OPTIMFLAGS = /optimize
+
+CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""")
+
+INCLUDES = /include=([],[-],[-.intl],[-.lib],[-.-.gettext-tools.lib])
+
+LDADD = sys$share:vms_jackets/share
+
+LN = copy
+RM = delete
+
+# Programs used by "make install":
+INSTALL = copy
+INSTALL_PROGRAM = copy
+INSTALL_DATA = copy
+
+#### End of system configuration section. ####
+
+PROGRAMS = gettext.exe, ngettext.exe
+
+gettext_OBJECTS = gettext.obj
+ngettext_OBJECTS = ngettext.obj
+
+all : $(PROGRAMS)
+
+gettext.obj : gettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") gettext.c
+
+ngettext.obj : ngettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") ngettext.c
+
+gettext.exe : $(gettext_OBJECTS)
+	link /executable=gettext.exe $(gettext_OBJECTS) [-.lib]grt.olb $(LDADD)
+
+ngettext.exe : $(ngettext_OBJECTS)
+	link /executable=ngettext.exe $(ngettext_OBJECTS) [-.lib]grt.olb $(LDADD)
+
+install : all,force
+	create /directory $(prefix)]
+	create /directory $(exec_prefix)]
+	create /directory $(bindir)]
+	$(INSTALL_PROGRAM) gettext.exe $(bindir)]gettext.exe
+	$(INSTALL_PROGRAM) ngettext.exe $(bindir)]ngettext.exe
+
+installdirs : force
+	create /directory $(prefix)]
+	create /directory $(exec_prefix)]
+	create /directory $(bindir)]
+
+uninstall : force
+	$(RM) $(bindir)]gettext.exe
+	$(RM) $(bindir)]ngettext.exe
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.obj
+	$(RM) $(PROGRAMS)
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

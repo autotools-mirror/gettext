@@ -1,0 +1,25 @@
+# -*- Makefile -*- for gettext-tools/projects on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+#### End of system configuration section. ####
+
+all :
+
+install : all
+
+installdirs :
+
+uninstall :
+
+check :
+
+mostlyclean : clean
+
+clean : force
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

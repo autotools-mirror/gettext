@@ -1,0 +1,308 @@
+# -*- Makefile -*- for gettext-tools on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+# Programs used by "make":
+
+LN = copy
+RM = delete
+
+#### End of system configuration section. ####
+
+all : config.h,force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] all
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
+
+config.h : config.h.vms
+	$(RM) config.h
+	$(LN) config.h.vms config.h
+
+install : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] install
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
+
+installdirs : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] installdirs
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+
+uninstall : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] uninstall
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
+
+check : all,force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] check
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
+
+mostlyclean : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] mostlyclean
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	$(RM) config.h
+
+clean : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] clean
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
+	$(RM) config.h
+
+distclean : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] distclean
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
+	$(RM) config.h
+
+maintainer-clean : force
+	set default [.doc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.intl]
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] maintainer-clean
+	set default [-]
+	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.libuniname]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.src]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.po]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.projects]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.misc]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.man]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	$(RM) config.h
+
+force :

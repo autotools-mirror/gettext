@@ -1,0 +1,233 @@
+# -*- Makefile -*- for gettext-tools/lib on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+# Directories used by "make install":
+prefix = SYS$DATA:[
+exec_prefix = $(prefix)
+libdir = $(exec_prefix).lib
+
+# Programs used by "make":
+
+CC = cc
+
+WARN_CFLAGS = /warning
+
+OPTIMFLAGS = /optimize
+
+CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("HAVE_CONFIG_H=1","EXEEXT="".exe""","LIBDIR=""$(libdir)]""")
+
+INCLUDES = /include=([],[-],[-.intl])
+
+AR = library
+AR_FLAGS = /create
+
+LN = copy
+RM = delete
+
+# Programs used by "make install":
+INSTALL = copy
+INSTALL_PROGRAM = copy
+INSTALL_DATA = copy
+
+#### End of system configuration section. ####
+
+OBJECTS = \
+  argmatch.obj, \
+  backupfile.obj, addext.obj, \
+  basename.obj, \
+  c-ctype.obj, \
+  classpath.obj, \
+  copy-file.obj, \
+  error.obj, \
+  execute.obj, \
+  findprog.obj, \
+  fstrcmp.obj, \
+  full-write.obj, \
+  gcd.obj, \
+  getopt.obj, getopt1.obj, \
+  hash.obj, \
+  javacomp.obj, \
+  javaexec.obj, \
+  linebreak.obj, \
+  mbswidth.obj, \
+  obstack.obj, \
+  concatpath.obj, \
+  pipe-bidi.obj, pipe-in.obj, pipe-out.obj, \
+  progname.obj, \
+  relocatable.obj, \
+  safe-read.obj, \
+  safe-write.obj, \
+  sh-quote.obj, \
+  stpncpy.obj, \
+  strtoul.obj, \
+  tmpdir.obj, \
+  wait-process.obj, \
+  xerror.obj, \
+  xmalloc.obj, xstrdup.obj, \
+  xsetenv.obj, \
+  \
+  getline.obj, \
+  mkdtemp.obj, \
+  pfnmatch.obj, \
+  relocatable.obj, \
+  stpcpy.obj, \
+  vasprintf.obj
+
+all : gettextlib.olb
+
+argmatch.obj : argmatch.c
+	$(CC) $(INCLUDES) $(CFLAGS) argmatch.c
+
+backupfile.obj : backupfile.c
+	$(CC) $(INCLUDES) $(CFLAGS) backupfile.c
+
+addext.obj : addext.c
+	$(CC) $(INCLUDES) $(CFLAGS) addext.c
+
+basename.obj : basename.c
+	$(CC) $(INCLUDES) $(CFLAGS) basename.c
+
+c-ctype.obj : c-ctype.c
+	$(CC) $(INCLUDES) $(CFLAGS) c-ctype.c
+
+classpath.obj : classpath.c
+	$(CC) $(INCLUDES) $(CFLAGS) classpath.c
+
+copy-file.obj : copy-file.c
+	$(CC) $(INCLUDES) $(CFLAGS) copy-file.c
+
+error.obj : error.c
+	$(CC) $(INCLUDES) $(CFLAGS) error.c
+
+execute.obj : execute.c
+	$(CC) $(INCLUDES) $(CFLAGS) execute.c
+
+findprog.obj : findprog.c
+	$(CC) $(INCLUDES) $(CFLAGS) findprog.c
+
+fstrcmp.obj : fstrcmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) fstrcmp.c
+
+full-write.obj : full-write.c
+	$(CC) $(INCLUDES) $(CFLAGS) full-write.c
+
+gcd.obj : gcd.c
+	$(CC) $(INCLUDES) $(CFLAGS) gcd.c
+
+getopt.obj : getopt.c
+	$(CC) $(INCLUDES) $(CFLAGS) getopt.c
+
+getopt1.obj : getopt1.c
+	$(CC) $(INCLUDES) $(CFLAGS) getopt1.c
+
+hash.obj : hash.c
+	$(CC) $(INCLUDES) $(CFLAGS) hash.c
+
+javacomp.obj : javacomp.c
+	$(CC) $(INCLUDES) $(CFLAGS) javacomp.c
+
+javaexec.obj : javaexec.c
+	$(CC) $(INCLUDES) $(CFLAGS) javaexec.c
+
+linebreak.obj : linebreak.c
+	$(CC) $(INCLUDES) $(CFLAGS) linebreak.c
+
+mbswidth.obj : mbswidth.c
+	$(CC) $(INCLUDES) $(CFLAGS) mbswidth.c
+
+obstack.obj : obstack.c
+	$(CC) $(INCLUDES) $(CFLAGS) obstack.c
+
+concatpath.obj : concatpath.c
+	$(CC) $(INCLUDES) $(CFLAGS) concatpath.c
+
+pipe-bidi.obj : pipe-bidi.c
+	$(CC) $(INCLUDES) $(CFLAGS) pipe-bidi.c
+
+pipe-in.obj : pipe-in.c
+	$(CC) $(INCLUDES) $(CFLAGS) pipe-in.c
+
+pipe-out.obj : pipe-out.c
+	$(CC) $(INCLUDES) $(CFLAGS) pipe-out.c
+
+progname.obj : progname.c
+	$(CC) $(INCLUDES) $(CFLAGS) progname.c
+
+relocatable.obj : relocatable.c
+	$(CC) $(INCLUDES) $(CFLAGS) relocatable.c
+
+safe-read.obj : safe-read.c
+	$(CC) $(INCLUDES) $(CFLAGS) safe-read.c
+
+safe-write.obj : safe-write.c
+	$(CC) $(INCLUDES) $(CFLAGS) safe-write.c
+
+sh-quote.obj : sh-quote.c
+	$(CC) $(INCLUDES) $(CFLAGS) sh-quote.c
+
+stpncpy.obj : stpncpy.c
+	$(CC) $(INCLUDES) $(CFLAGS) stpncpy.c
+
+strtoul.obj : strtoul.c
+	$(CC) $(INCLUDES) $(CFLAGS) strtoul.c
+
+tmpdir.obj : tmpdir.c
+	$(CC) $(INCLUDES) $(CFLAGS) tmpdir.c
+
+wait-process.obj : wait-process.c
+	$(CC) $(INCLUDES) $(CFLAGS) wait-process.c
+
+xerror.obj : xerror.c
+	$(CC) $(INCLUDES) $(CFLAGS) xerror.c
+
+xmalloc.obj : xmalloc.c
+	$(CC) $(INCLUDES) $(CFLAGS) xmalloc.c
+
+xstrdup.obj : xstrdup.c
+	$(CC) $(INCLUDES) $(CFLAGS) xstrdup.c
+
+xsetenv.obj : xsetenv.c
+	$(CC) $(INCLUDES) $(CFLAGS) xsetenv.c
+
+getline.obj : getline.c
+	$(CC) $(INCLUDES) $(CFLAGS) getline.c
+
+mkdtemp.obj : mkdtemp.c
+	$(CC) $(INCLUDES) $(CFLAGS) mkdtemp.c
+
+pfnmatch.obj : pfnmatch.c
+	$(CC) $(INCLUDES) $(CFLAGS) pfnmatch.c
+
+relocatable.obj : relocatable.c
+	$(CC) $(INCLUDES) $(CFLAGS) relocatable.c
+
+stpcpy.obj : stpcpy.c
+	$(CC) $(INCLUDES) $(CFLAGS) stpcpy.c
+
+vasprintf.obj : vasprintf.c
+	$(CC) $(INCLUDES) $(CFLAGS) vasprintf.c
+
+gettextlib.olb : $(OBJECTS)
+	$(RM) gettextlib.olb
+	$(AR) $(AR_FLAGS) gettextlib.olb $(OBJECTS)
+
+install : all,force
+
+installdirs : force
+
+uninstall : force
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.obj
+	$(RM) *.olb
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

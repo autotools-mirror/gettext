@@ -59,6 +59,11 @@ EXTRA_DIST += tcl_gettext.c README-Tcl
 EXTRA_DIST += gettext.perl
 
 
+# VMS support.
+
+EXTRA_DIST += Makefile.vms
+
+
 # Woe32 support.
 
 EXTRA_DIST += Makefile.msvc

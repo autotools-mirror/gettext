@@ -60,7 +60,7 @@ write_tcl_string (FILE *stream, const char *str)
     {
       unsigned int uc;
       unsigned int count;
-      count = u8_mbtouc (&uc, str, str_limit - str);
+      count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
 	{
 	  /* Single UCS-2 'char'.  */

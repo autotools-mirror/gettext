@@ -1,5 +1,11 @@
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.vms: New file.
+	* Makefile.am (config.h.vms): New rule.
+	(EXTRA_DIST): Add Makefile.vms and config.h.vms.
+
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Add checks for <pwd.h> and chown().
 
 2003-03-17  Bruno Haible  <bruno@clisp.org>

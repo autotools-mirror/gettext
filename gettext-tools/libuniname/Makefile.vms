@@ -1,0 +1,54 @@
+# -*- Makefile -*- for gettext-tools/libuniname on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+# Programs used by "make":
+
+CC = cc
+
+WARN_CFLAGS = /warning
+
+OPTIMFLAGS = /optimize
+
+CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("HAVE_CONFIG_H=1")
+
+INCLUDES = /include=([],[-],[-.lib])
+
+AR = library
+AR_FLAGS = /create
+
+LN = copy
+RM = delete
+
+#### End of system configuration section. ####
+
+OBJECTS = uniname.obj
+
+all : uniname.olb
+
+uniname.obj : uniname.c
+	$(CC) $(INCLUDES) $(CFLAGS) uniname.c
+
+uniname.olb : $(OBJECTS)
+	$(RM) uniname.olb
+	$(AR) $(AR_FLAGS) uniname.olb $(OBJECTS)
+
+install : all
+
+installdirs :
+
+uninstall :
+
+check :
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.obj
+	$(RM) *.olb
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

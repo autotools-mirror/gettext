@@ -1,0 +1,75 @@
+# -*- Makefile -*- for gettext-runtime/lib on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+# Programs used by "make":
+
+CC = cc
+
+WARN_CFLAGS = /warning
+
+OPTIMFLAGS = /optimize
+
+CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("HAVE_CONFIG_H=1")
+
+INCLUDES = /include=([],[-],[-.intl],[-.-.gettext-tools.lib])
+
+AR = library
+AR_FLAGS = /create
+
+LN = copy
+RM = delete
+
+#### End of system configuration section. ####
+
+OBJECTS = basename.obj,error.obj,getopt.obj,getopt1.obj,progname.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
+
+all : grt.olb
+
+basename.obj : [-.-.gettext-tools.lib]basename.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]basename.c
+
+error.obj : [-.-.gettext-tools.lib]error.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]error.c
+
+getopt.obj : [-.-.gettext-tools.lib]getopt.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]getopt.c
+
+getopt1.obj : [-.-.gettext-tools.lib]getopt1.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]getopt1.c
+
+progname.obj : [-.-.gettext-tools.lib]progname.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]progname.c
+
+relocatable.obj : [-.-.gettext-tools.lib]relocatable.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]relocatable.c
+
+xmalloc.obj : [-.-.gettext-tools.lib]xmalloc.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]xmalloc.c
+
+xstrdup.obj : [-.-.gettext-tools.lib]xstrdup.c
+	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]xstrdup.c
+
+grt.olb : $(OBJECTS)
+	$(RM) grt.olb
+	$(AR) $(AR_FLAGS) grt.olb $(OBJECTS)
+
+install : all
+
+installdirs :
+
+uninstall :
+
+check :
+
+mostlyclean : clean
+
+clean : force
+	$(RM) *.obj
+	$(RM) *.olb
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

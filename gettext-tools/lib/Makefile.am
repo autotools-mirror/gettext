@@ -211,6 +211,11 @@ CLEANFILES += charset.alias ref-add.sed ref-del.sed
 # <<< gnulib module localcharset.
 
 
+# VMS support.
+
+EXTRA_DIST += Makefile.vms
+
+
 # Woe32 support.
 
 EXTRA_DIST += Makefile.msvc

@@ -125,7 +125,7 @@ string_hashcode (const char *str)
   while (str < str_limit)
     {
       unsigned int uc;
-      str += u8_mbtouc (&uc, str, str_limit - str);
+      str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
 	/* Single UCS-2 'char'.  */
 	hash = 31 * hash + uc;
@@ -338,7 +338,7 @@ write_java_string (FILE *stream, const char *str)
   while (str < str_limit)
     {
       unsigned int uc;
-      str += u8_mbtouc (&uc, str, str_limit - str);
+      str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
 	{
 	  /* Single UCS-2 'char'.  */

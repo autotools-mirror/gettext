@@ -124,7 +124,7 @@ config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
 DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc \
-libgnuintl.h.msvc-shared README.woe32 Makefile.msvc
+Makefile.vms libgnuintl.h.msvc-shared README.woe32 Makefile.msvc
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
 COPYING.LIB-2 gettext.h libgettext.h plural-eval.c libgnuintl.h
 

@@ -1,5 +1,10 @@
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.vms: New file.
+	* Makefile.in (DISTFILES.gettext): Add Makefile.vms.
+
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in (INCLUDES): Mention the current directory first.
 
 2003-03-17  Bruno Haible  <bruno@clisp.org>

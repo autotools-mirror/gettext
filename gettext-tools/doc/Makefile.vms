@@ -1,0 +1,45 @@
+# -*- Makefile -*- for gettext-tools/doc on VMS using the MMS utility
+
+#### Start of system configuration section. ####
+
+# Directories used by "make install":
+prefix = SYS$DATA:[
+docdir = $(prefix).doc.gettext
+
+LN = copy
+RM = delete
+
+# Programs used by "make install":
+INSTALL = copy
+INSTALL_PROGRAM = copy
+INSTALL_DATA = copy
+
+#### End of system configuration section. ####
+
+all :
+
+install : all,force
+	create /directory $(prefix)]
+	create /directory $(prefix).doc]
+	create /directory $(docdir)]
+	$(INSTALL_DATA) gettext_*.html $(docdir)
+
+installdirs : force
+	create /directory $(prefix)]
+	create /directory $(prefix).doc]
+	create /directory $(docdir)]
+
+uninstall : force
+	$(RM) $(docdir)]gettext_*.html
+
+check : all
+
+mostlyclean : clean
+
+clean : force
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :

@@ -1,0 +1,21 @@
+# -*- Makefile -*- for gettext-runtime/doc on VMS using the MMS utility
+
+all :
+
+install : all
+
+installdirs :
+
+uninstall :
+
+check :
+
+mostlyclean : clean
+
+clean : force
+
+distclean : clean
+
+maintainer-clean : distclean
+
+force :
