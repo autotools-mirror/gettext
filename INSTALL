@@ -136,6 +136,12 @@ to use an ANSI C compiler:
 
      env CC="cc -Ae" ./configure
 
+   On AIX 3, the C include files by default don't define some necessary
+prototype declarations.  If GNU CC is not installed, it is recommended to
+use the following options:
+
+     env CC="xlc -D_ALL_SOURCE" ./configure
+
    On BeOS, user installed software goes in /boot/home/config, not
 /usr/local.  It is recommended to use the following options:
 
