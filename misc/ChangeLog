@@ -1,3 +1,8 @@
+2001-08-11  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-edit-string): Set indent-line-function to
+	indent-relative; useful for editing --help messages.
+
 2001-08-02  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-find-charset): Drop 'interactive'. Use
