@@ -8,7 +8,7 @@ A few packages already provide translations for their messages.
 
    If you found this `ABOUT-NLS' file inside a distribution, you may
 assume that the distributed package does use GNU `gettext' internally,
-itself available at your nearest GNU archive site.  But you do *not*
+itself available at your nearest GNU archive site.  But you do _not_
 need to install GNU `gettext' prior to configuring, installing or using
 this package with messages translated.
 
@@ -22,8 +22,8 @@ related to internationalization, you should tell about the version of
 `gettext' which is used.  The information can be found in the
 `intl/VERSION' file, in internationalized packages.
 
-One advise in advance
-=====================
+Quick configuration advice
+==========================
 
    If you want to exploit the full power of internationalization, you
 should configure it using
@@ -40,7 +40,7 @@ functionality on top of a `catgets' implementation.  Future versions of
 GNU `gettext' will very likely convey even more functionality.  So it
 might be a good idea to change to GNU `gettext' as soon as possible.
 
-   So you need not provide this option if you are using GNU libc 2 or
+   So you need _not_ provide this option if you are using GNU libc 2 or
 you have installed a recent copy of the GNU gettext package with the
 included `libintl'.
 
@@ -58,7 +58,7 @@ usable `catgets' (if using this is selected by the installer) or
 `gettext' functions.  If neither is available, the GNU `gettext' own
 library will be used.  This library is wholly contained within this
 package, usually in the `intl/' subdirectory, so prior installation of
-the GNU `gettext' package is *not* required.  Installers may use
+the GNU `gettext' package is _not_ required.  Installers may use
 special options at configuration time for changing the default
 behaviour.  The commands:
 
@@ -69,7 +69,7 @@ behaviour.  The commands:
 will respectively bypass any pre-existing `catgets' or `gettext' to use
 the internationalizing routines provided within this package, enable
 the use of the `catgets' functions (if found on the locale system), or
-else, *totally* disable translation of messages.
+else, _totally_ disable translation of messages.
 
    When you already have GNU `gettext' installed on your system and run
 configure without an option for your new package, `configure' will
@@ -136,7 +136,7 @@ able to synergize with other translators speaking the same language.
 Each translation team has its own mailing list, courtesy of Linux
 International.  You may reach your translation team at the address
 `LL@li.org', replacing LL by the two-letter ISO 639 code for your
-language.  Language codes are *not* the same as the country codes given
+language.  Language codes are _not_ the same as the country codes given
 in ISO 3166.  The following translation teams exist, as of August 1998:
 
      Chinese `zh', Czech `cs', Danish `da', Dutch `nl', English `en',
@@ -149,16 +149,16 @@ in ISO 3166.  The following translation teams exist, as of August 1998:
 For example, you may reach the Chinese translation team by writing to
 `zh@li.org'.
 
-   If you'd like to volunteer to *work* at translating messages, you
+   If you'd like to volunteer to _work_ at translating messages, you
 should become a member of the translating team for your own language.
-The subscribing address is *not* the same as the list itself, it has
+The subscribing address is _not_ the same as the list itself, it has
 `-request' appended.  For example, speakers of Swedish can send a
 message to `sv-request@li.org', having this message body:
 
      subscribe
 
    Keep in mind that team members are expected to participate
-*actively* in translations, or at solving translational difficulties,
+_actively_ in translations, or at solving translational difficulties,
 rather than merely lurking around.  If your team does not exist yet and
 you want to start one, or if you are unsure about what to do or how to
 get started, please write to `translation@iro.umontreal.ca' to reach the
