@@ -1,5 +1,10 @@
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* tstgettext.c (main): Update year in --version output.
+	* tstngettext.c (main): Likewise.
+
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* msgexec-2: Make it work when builddir != srcdir.
 
 2002-01-12  Bruno Haible  <bruno@clisp.org>
