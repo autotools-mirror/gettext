@@ -27,12 +27,12 @@ gettextsrc_DATA = ABOUT-NLS
 
 SUBDIRS = doc intl lib src po m4 misc tests
 
-MAINTAINERCLEANFILES = djgpp/README djgpp/config.sed djgpp/fnchange.lst
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh \
-             djgpp/Makefile.maint djgpp/README.in djgpp/config.bat \
-             djgpp/config.in djgpp/config.site djgpp/edtests.bat \
-             djgpp/fnchange.in djgpp/tscript.sed os2/README.os2 os2/os2.diff \
-             $(MAINTAINERCLEANFILES)
+             djgpp/Makefile.maint djgpp/README.in djgpp/README \
+             djgpp/config.bat djgpp/config.in djgpp/config.sed \
+             djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in \
+             djgpp/fnchange.lst djgpp/tscript.sed \
+             os2/README.os2 os2/os2.diff
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \
