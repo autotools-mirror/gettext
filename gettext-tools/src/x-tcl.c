@@ -521,7 +521,7 @@ do_getc_escaped ()
       {
 	int n = c - '0';
 
-        c = phase1_getc ();
+	c = phase1_getc ();
 	if (c != EOF)
 	  {
 	    if (c >= '0' && c <= '7')

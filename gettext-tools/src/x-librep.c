@@ -525,7 +525,7 @@ do_getc_escaped (int c)
     case '^':
       c = do_getc ();
       if (c == EOF)
-        return EOF;
+	return EOF;
       return c & 0x1f;
     case '0': case '1': case '2': case '3': case '4':
     case '5': case '6': case '7':

@@ -133,7 +133,7 @@ main (int argc, char **argv)
 	break;
 
       case 'd':
-        more_than = 1;
+	more_than = 1;
 	less_than = INT_MAX;
 	break;
 
@@ -151,7 +151,7 @@ main (int argc, char **argv)
 
       case 'F':
 	sort_by_filepos = true;
-        break;
+	break;
 
       case 'h':
 	do_help = true;
@@ -190,9 +190,9 @@ main (int argc, char **argv)
 	break;
 
       case 'u':
-        more_than = 0;
+	more_than = 0;
 	less_than = 2;
-        break;
+	break;
 
       case 'V':
 	do_version = true;

@@ -173,7 +173,7 @@ main (int argc, char *argv[])
 
       case 'F':
 	sort_by_filepos = true;
-        break;
+	break;
 
       case 'h':
 	do_help = true;
@@ -212,8 +212,8 @@ main (int argc, char *argv[])
 	break;
 
       case 'u':
-        less_than = 2;
-        break;
+	less_than = 2;
+	break;
 
       case 'V':
 	do_version = true;
@@ -292,8 +292,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     less_than = INT_MAX;
   if (more_than >= less_than || less_than < 2)
     error (EXIT_FAILURE, 0,
-           _("impossible selection criteria specified (%d < n < %d)"),
-           more_than, less_than);
+	   _("impossible selection criteria specified (%d < n < %d)"),
+	   more_than, less_than);
 
   /* Read input files, then filter, convert and merge messages.  */
   allow_duplicates = true;

@@ -417,7 +417,7 @@ normalize_outermost_list (struct format_arg_list *list)
   n = list->initial.count;
   for (i = j = 0; i < n; i++)
     if (j > 0
-        && equal_element (&list->initial.element[i],
+	&& equal_element (&list->initial.element[i],
 			  &list->initial.element[j-1]))
       {
 	list->initial.element[j-1].repcount +=
@@ -435,7 +435,7 @@ normalize_outermost_list (struct format_arg_list *list)
   n = list->repeated.count;
   for (i = j = 0; i < n; i++)
     if (j > 0
-        && equal_element (&list->repeated.element[i],
+	&& equal_element (&list->repeated.element[i],
 			  &list->repeated.element[j-1]))
       {
 	list->repeated.element[j-1].repcount +=
@@ -2469,7 +2469,7 @@ parse_upto (const char **formatp,
 	unsigned int paramcount = 0;
 	struct param *params = NULL;
 
-        /* Count number of directives.  */
+	/* Count number of directives.  */
 	spec->directives++;
 
 	/* Parse parameters.  */

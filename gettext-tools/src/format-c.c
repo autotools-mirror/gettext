@@ -751,7 +751,7 @@ format_parse (const char *format, char **invalid_reason)
       spec.allocated = spec.unnumbered_arg_count;
       spec.unnumbered = (struct unnumbered_arg *) xmalloc (spec.allocated * sizeof (struct unnumbered_arg));
       for (i = 0; i < spec.unnumbered_arg_count; i++)
-        spec.unnumbered[i].type = numbered[i].type;
+	spec.unnumbered[i].type = numbered[i].type;
       free (numbered);
       numbered_arg_count = 0;
     }

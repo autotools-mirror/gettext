@@ -135,7 +135,7 @@ main (int argc, char *argv[])
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-              "2001-2003");
+	      "2001-2003");
       printf (_("Written by %s.\n"), "Bruno Haible");
       exit (EXIT_SUCCESS);
     }

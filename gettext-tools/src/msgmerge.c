@@ -193,8 +193,8 @@ main (int argc, char **argv)
 	break;
 
       case 'F':
-        sort_by_filepos = true;
-        break;
+	sort_by_filepos = true;
+	break;
 
       case 'h':
 	do_help = true;
@@ -229,8 +229,8 @@ main (int argc, char **argv)
 	break;
 
       case 's':
-        sort_by_msgid = true;
-        break;
+	sort_by_msgid = true;
+	break;
 
       case 'U':
 	update_mode = true;

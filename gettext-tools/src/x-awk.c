@@ -716,8 +716,8 @@ extract_parenthesized (message_list_ty *mlp,
 	  if (extract_all)
 	    continue;
 	  if (state
-	      ?  extract_parenthesized (mlp, next_commas_to_skip,
-					next_plural_commas)
+	      ? extract_parenthesized (mlp, next_commas_to_skip,
+				       next_plural_commas)
 	      : extract_parenthesized (mlp, -1, 0))
 	    return true;
 	  state = 0;

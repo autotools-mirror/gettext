@@ -313,7 +313,7 @@ main (int argc, char *argv[])
 	break;
       case 'F':
 	sort_by_filepos = true;
-        break;
+	break;
       case 'h':
 	do_help = true;
 	break;
@@ -565,7 +565,7 @@ This version was built without iconv()."),
       fname = file_list->item[cnt];
 
       if (extractor)
-        this_file_extractor = extractor;
+	this_file_extractor = extractor;
       else
 	{
 	  const char *extension;
@@ -1342,7 +1342,7 @@ construct_header ()
 
   if (msgid_bugs_address != NULL && msgid_bugs_address[0] == '\0')
     multiline_warning (xasprintf (_("warning: ")),
-                       xstrdup (_("\
+		       xstrdup (_("\
 The option --msgid-bugs-address was not specified.\n\
 If you are using a `Makevars' file, please specify\n\
 the MSGID_BUGS_ADDRESS variable there; otherwise please\n\

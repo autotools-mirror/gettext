@@ -612,7 +612,7 @@ msgdomain_list_search (msgdomain_list_ty *mdlp, const char *msgid)
       mdp = mdlp->item[j];
       mp = message_list_search (mdp->messages, msgid);
       if (mp)
-        return mp;
+	return mp;
     }
   return NULL;
 }

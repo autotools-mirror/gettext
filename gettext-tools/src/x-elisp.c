@@ -526,7 +526,7 @@ do_getc_escaped (int c, bool in_string)
     case '^':
       c = do_getc ();
       if (c == EOF)
-        return EOF;
+	return EOF;
       if (c == '\\')
 	{
 	  c = do_getc ();

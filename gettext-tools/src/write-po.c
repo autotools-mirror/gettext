@@ -400,7 +400,7 @@ memcpy_small (void *dst, const void *src, size_t n)
 
       *q = *p;
       if (--n > 0)
-        do *++q = *++p; while (--n > 0);
+	do *++q = *++p; while (--n > 0);
     }
 }
 
@@ -475,9 +475,9 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
   do
     {
       /* The \a and \v escapes were added by the ANSI C Standard.
-         Prior to the Standard, most compilers did not have them.
-         Because we need the same program on all platforms we don't provide
-         support for them here.  Thus we only support \b\f\n\r\t.  */
+	 Prior to the Standard, most compilers did not have them.
+	 Because we need the same program on all platforms we don't provide
+	 support for them here.  Thus we only support \b\f\n\r\t.  */
 #     define is_escape(c) \
        ((c) == '\b' || (c) == '\f' || (c) == '\n' || (c) == '\r' || (c) == '\t')
 
@@ -747,7 +747,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	 this is the first line, and if the indented style is being
 	 used.  INDENT-F.  */
       if (line_prefix != NULL)
-        fputs (line_prefix, fp);
+	fputs (line_prefix, fp);
       if (first_line)
 	{
 	  fputs (name, fp);

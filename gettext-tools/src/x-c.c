@@ -580,8 +580,8 @@ phase7_getc ()
       return '\b';
 
       /* The \e escape is preculiar to gcc, and assumes an ASCII
-         character set (or superset).  We don't provide support for it
-         here.  */
+	 character set (or superset).  We don't provide support for it
+	 here.  */
 
     case 'f':
       return '\f';
@@ -945,8 +945,8 @@ phase5_get (token_ty *tp)
 
     default:
       /* We could carefully recognize each of the 2 and 3 character
-        operators, but it is not necessary, as we only need to recognize
-        gettext invocations.  Don't bother.  */
+	operators, but it is not necessary, as we only need to recognize
+	gettext invocations.  Don't bother.  */
       tp->type = token_type_symbol;
       return;
     }
@@ -1387,8 +1387,8 @@ extract_parenthesized (message_list_ty *mlp,
 	  if (extract_all)
 	    continue;
 	  if (state
-	      ?  extract_parenthesized (mlp, next_commas_to_skip,
-					next_plural_commas)
+	      ? extract_parenthesized (mlp, next_commas_to_skip,
+				       next_plural_commas)
 	      : extract_parenthesized (mlp, -1, 0))
 	    return true;
 	  state = 0;

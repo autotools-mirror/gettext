@@ -178,7 +178,7 @@ main (int argc, char **argv)
 
       case 'F':
 	sort_by_filepos = true;
-        break;
+	break;
 
       case 'h':
 	do_help = true;

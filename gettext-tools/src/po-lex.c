@@ -177,7 +177,7 @@ memcpy_small (void *dst, const void *src, size_t n)
 
       *q = *p;
       if (--n > 0)
-        do *++q = *++p; while (--n > 0);
+	do *++q = *++p; while (--n > 0);
     }
 }
 
