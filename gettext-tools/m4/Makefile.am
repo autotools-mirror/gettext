@@ -70,6 +70,7 @@ mbswidth.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
 pathmax.m4 \
+quotearg.m4 \
 readlink.m4 \
 relocatable.m4 \
 setenv.m4 \

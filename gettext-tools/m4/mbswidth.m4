@@ -32,5 +32,5 @@ AC_DEFUN([gl_MBSWIDTH],
   AC_DEFINE_UNQUOTED(HAVE_DECL_WCWIDTH, $ac_val,
     [Define to 1 if you have the declaration of wcwidth(), and to 0 otherwise.])
 
-  AC_MBSTATE_T
+  AC_TYPE_MBSTATE_T
 ])
