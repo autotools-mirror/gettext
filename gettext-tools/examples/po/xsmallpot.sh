@@ -16,6 +16,7 @@ abs_srcdir=`cd "$srcdir" && pwd`
 cd ..
 rm -rf tmp-$directory
 cp -p -r "$abs_srcdir"/../$directory tmp-$directory
+chmod -R u+w tmp-$directory
 cd tmp-$directory
 case $directory in
   hello-c++-kde)

@@ -1,5 +1,9 @@
 2005-02-23  Bruno Haible  <bruno@clisp.org>
 
+	* xsmallpot.sh: Make the temporary directory writable.
+
+2005-02-23  Bruno Haible  <bruno@clisp.org>
+
 	* xsmallpot.sh: Add srcdir argument. Make it work when
 	builddir != srcdir.
 	* Makefile.am (hello-*.pot): Update xsmallpot.sh invocations.
