@@ -164,7 +164,7 @@ strip_ending_spaces (str)
 {
   int len = strlen (str);
 
-  while (isspace (str[len--]))
+  while (isspace ((unsigned char) str[len--]))
     ;
   str[len] = '\0';
 }
