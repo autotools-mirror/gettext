@@ -170,6 +170,13 @@ AH_BOTTOM([
    wrap the file position (#:) comments.  */
 #define PAGE_WIDTH 79
 
+/* On Windows, variables that may be in a DLL must be marked specially.  */
+#if defined _MSC_VER && defined _DLL
+# define DLL_VARIABLE __declspec (dllimport)
+#else
+# define DLL_VARIABLE
+#endif
+
 /* Extra OS/2 (emx+gcc) defines.  */
 #ifdef __EMX__
 # include "intl/os2compat.h"
