@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.1\n"
+"Project-Id-Version: gettext 0.11.3\n"
 "POT-Creation-Date: 2002-07-17 13:52+0200\n"
-"PO-Revision-Date: 2002-04-14 09:16 +0800\n"
+"PO-Revision-Date: 2002-07-21 06:45 +0800\n"
 "Last-Translator: Pofeng Lee <pofeng@linux.org.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -210,6 +210,8 @@ msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 "tuple"
 msgstr ""
+"在 'msgid' 裡面的字串格式定義對應的是一個雜湊表(mapping)，而在 '%s' 裡面的對"
+"應的卻是一個固定有序列 (tuple)"
 
 #: src/format-python.c:409
 #, c-format
@@ -217,6 +219,8 @@ msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr ""
+"在 'msgid' 裡面的字串格式定義對應的是一個固定有序列(tuple)，而在 '%s' 裡面的"
+"對應的卻是一個雜湊表 (mapping)"
 
 #: src/format-python.c:437
 #, c-format
@@ -323,7 +327,7 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"假如沒有指定<文字領域>參數，程式會根據 TEXTDOMAIN 環境變數來設定文字領域。\n"
+"假如沒有指定<文字領域>參數，程式會根據 TEXTDOMAIN 環境變數來設定<文字領域>。\n"
 "假如訊息資料檔不在正常的目錄下，可以用環境變數 TEXTDOMAINDIR 指定訊息資料檔\n"
 "的所在的位置。\n"
 "使用選項‘-s’時此程式和‘echo’指令類似。但它不是直接把參數複製至標準輸出，\n"
@@ -438,8 +442,8 @@ msgid ""
 "or if it is -.\n"
 msgstr ""
 "輸出檔位置：\n"
-"  -o, --output-file=檔案      將輸出寫入至指定的檔案\n"
-"如果沒有指定輸出檔或輸出檔是‘-’，則會將結果寫入至標準輸出。\n"
+"  -o, --output-file=輸出檔    將輸出結果寫至<輸出檔>\n"
+"如果沒有指定<輸出檔>或<輸出檔>是‘-’，則會將結果寫至標準輸出。\n"
 
 #: src/msgattrib.c:364
 #, no-wrap
@@ -480,7 +484,7 @@ msgstr ""
 "      --obsolete              等於 --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -505,6 +509,8 @@ msgstr ""
 "  -n, --add-location          產生 '#: filename:line' 註解(預設)\n"
 "      --strict                輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字            設定輸出的寬度\n"
+"      --no-wrap               即使輸出的訊息超出指定的寬度，也不將輸出的訊息\n"
+"                              斷行\n"
 "  -s, --sort-output           輸出時先將項目排序\n"
 "  -F, --sort-by-file          根據檔案位置進行排序\n"
 
@@ -534,8 +540,8 @@ msgstr ""
 "合併指定的 PO 檔。\n"
 "在兩個或多個指定的 PO 檔中找出共同的翻譯訊息。利用 --more-than 選項，可以\n"
 "令訊息在不同檔案出現的次數較多才會列印。相反地，--less-than 選項則會令訊息\n"
-"在不同檔案出現的次數較少才列印（例如 --less-than=2 表示列印只出現一次的\n"
-"訊息）。翻譯內容、自行加上的註解和源程式碼的註解都會累積，除非使用了\n"
+"在不同檔案出現的次數較少才列印（例如 --less-than=2 表示列印只出現一次的訊\n"
+"息）。翻譯內容、自行加上的註解和原程式碼的註解都會累積，除非使用了\n"
 "--use-first 選項，那樣則會由第一個含有該翻譯條目的檔案取得資料。\n"
 "所有 PO 檔中的翻譯條目的檔案位置都會累積下來。\n"
 
@@ -563,8 +569,8 @@ msgid ""
 "or if it is -.\n"
 msgstr ""
 "輸出檔位置：\n"
-"  -o, --output-file=檔案         將輸出寫入至指定的檔案\n"
-"如果沒有指定輸出檔或輸出檔是‘-’，則會將結果寫入至標準輸出。\n"
+"  -o, --output-file=輸出檔       將輸出結果寫至<輸出檔>\n"
+"如果沒有指定<輸出檔>或<輸出檔>是‘-’，則會將結果寫至標準輸出。\n"
 
 #: src/msgcat.c:340
 #, no-wrap
@@ -587,7 +593,7 @@ msgstr ""
 "                                 的訊息\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -618,6 +624,7 @@ msgstr ""
 "  -n, --add-location             產生 '#: filename:line' 註解(預設)\n"
 "      --strict                   輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字               設定輸出的寬度\n"
+"      --no-wrap                  即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 "  -s, --sort-output              輸出時先將項目排序\n"
 "  -F, --sort-by-file             根據檔案位置進行排序\n"
 
@@ -689,7 +696,7 @@ msgstr "這個訊息有使用過但沒有定義..."
 
 #: src/msgcmp.c:254 src/msgmerge.c:857
 msgid "...but this definition is similar"
-msgstr "...但這個定義較相似"
+msgstr "...但這個定義很相似"
 
 #: src/msgcmp.c:259 src/msgmerge.c:884
 #, c-format
@@ -733,7 +740,7 @@ msgstr ""
 "在兩個或多個指定的 PO 檔中找出共同的翻譯訊息。利用 --more-than 選項，可以\n"
 "令訊息在不同檔案出現的次數較多才會列印。相反地，--less-than 選項則會令訊息\n"
 "在不同檔案出現的次數較少才列印（例如 --less-than=2 表示列印只出現一次的\n"
-"訊息）。翻譯內容、自行加上的註解和源程式碼的註解都會保留，但只會由第一個\n"
+"訊息）。翻譯內容、自行加上的註解和原程式碼的註解都會保留，但只會由第一個\n"
 "含有該翻譯條目的檔案取得。所有 PO 檔中的翻譯條目的檔案位置都會累積下來。\n"
 
 #: src/msgcomm.c:355
@@ -756,7 +763,7 @@ msgstr ""
 "                                 的訊息\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -782,6 +789,7 @@ msgstr ""
 "  -n, --add-location             產生 '#: filename:line' 註解(預設)\n"
 "      --strict                   輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字               設定輸出的寬度\n"
+"      --no-wrap                  即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 "  -s, --sort-output              輸出時先將項目排序\n"
 "  -F, --sort-by-file             根據檔案位置進行排序\n"
 "      --omit-header              不寫入含有‘msgid \"\"’欄位的檔頭\n"
@@ -803,7 +811,7 @@ msgstr ""
 "預設的編碼為目前語系的編碼。\n"
 
 #: src/msgconv.c:291 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -828,6 +836,7 @@ msgstr ""
 "      --add-location          保留 '#: filename:line' 註解(預設)\n"
 "      --strict                輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字            設定輸出的寬度\n"
+"      --no-wrap               即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 "  -s, --sort-output           輸出時先將項目排序\n"
 "  -F, --sort-by-file          根據檔案位置進行排序\n"
 
@@ -910,9 +919,9 @@ msgid ""
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 "輸入檔位置：\n"
-"  -i, --input=INPUTFILE       輸入的 PO 檔\n"
+"  -i, --input=輸入檔          輸入的 PO 檔\n"
 "  -D, --directory=目錄        同時在<目錄>中搜尋輸入檔\n"
-"如果沒有指定輸入檔或者輸入檔是‘-’，則讀取標準輸入。\n"
+"如果沒有指定<輸入檔>或者<輸入檔>是‘-’，則讀取標準輸入。\n"
 
 #: src/msgexec.c:313
 msgid "write to stdout failed"
@@ -959,9 +968,14 @@ msgid ""
 "                                to be executed\n"
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
+"當<過濾器>是'sed'時，一些有用的<過濾器選項>：\n"
+"  -e, --expression=SCRIPT     把 SCRIPT 加入待執行的命令之中\n"
+"  -f, --file=SCRIPTFILE       把 SCRIPTFILE 的內容加入待執行的命令之中\n"
+"  -n, --quiet, --silent       禁止自動印出空白 (pattern space)\n"
 
+# esrc/msgfilter.c:402
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -988,6 +1002,7 @@ msgstr ""
 "      --add-location          保留 '#: filename:line' 註解(預設)\n"
 "      --strict                輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字            設定輸出的寬度\n"
+"      --no-wrap               即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 "  -s, --sort-output           輸出時先將項目排序\n"
 "  -F, --sort-by-file          根據檔案位置進行排序\n"
 
@@ -1101,9 +1116,9 @@ msgid ""
 "If output file is -, output is written to standard output.\n"
 msgstr ""
 "輸出檔位置：\n"
-"  -o, --output-file=檔案      將輸出寫入至指定的檔案\n"
+"  -o, --output-file=輸出檔    將輸出寫入至指定的<輸出檔>\n"
 "      --strict                使用嚴格的 Uniforum 模式\n"
-"如果輸出檔是‘-’，則會將結果寫入至標準輸出。\n"
+"如果<輸出檔>是‘-’，則會將結果寫至標準輸出。\n"
 
 #: src/msgfmt.c:572
 #, no-wrap
@@ -1252,7 +1267,7 @@ msgstr[0] "...但某些訊息有 %lu 種複數型態"
 #: src/msgfmt.c:1015
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "嘗試使用下列 %s 中屬於合法的型態:\n"
 
 #: src/msgfmt.c:1028
 msgid ""
@@ -1412,9 +1427,32 @@ msgid ""
 "  -f, --file=FILE             obtain PATTERN from FILE\n"
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
+"訊息選擇：XXX  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
+"  [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]\n"
+"程式會依據其指定的原始檔來選擇翻譯訊息，或 依據其指定的文字領域，\n"
+"或 依據選項 -K，關鍵字 (msgid or msgid_plural) 符合 MSGID-PATTERN,\n"
+"或 依據選項 -T，翻譯字串 (msgstr) 符合 MSGSTR-PATTERN,\n"
+"或 依據選項 -T，翻譯註解符合 COMMENT-PATTERN。\n"
+"\n"
+"若指定了兩個以上的選擇標準，則會選擇符合每一個條件的訊息集合檔。\n"
+"\n"
+"MSGID-PATTERN 或 MSGSTR-PATTERN 的語法:\n"
+"  [-E | -F] [-e PATTERN | -f FILE]...\n"
+" PATTERNs 內定是 基礎常規運算式 ( basic regular expressions)，\n"
+"如果指定 -E 則是 延伸常規運算式 ( extended regular expressions)，如果指定 -F 則是 固定的字串。\n"
+"\n"
+"  -N, --location=SOURCEFILE   選擇自 SOURCEFILE 抽取出來的翻譯訊息\n"
+"  -M, --domain=DOMAINNAME     選擇屬於 DOMAINNAME 領域的翻譯訊息\n"
+"  -K, --msgid                 指定 msgid 比對樣式\n"
+"  -T, --msgstr                指定 msgstr 樣式\n"
+"  -E, --extended-regexp       指定 PATTERN 為延伸常規運算式\n"
+"  -F, --fixed-strings         指定 PATTERN 為一組固定的字串\n"
+"  -e, --regexp=PATTERN        指定 PATTERN 為基礎常規運算式\n"
+"  -f, --file=FILE             PATTERN 採用 FILE 的內容 \n"
+"  -i, --ignore-case           忽略大小寫\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1439,6 +1477,7 @@ msgstr ""
 "      --add-location          保留 '#: filename:line' 註解(預設)\n"
 "      --strict                輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字            設定輸出的寬度\n"
+"      --no-wrap               即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 "      --sort-output           輸出時先將項目排序\n"
 "      --sort-by-file          根據檔案位置進行排序\n"
 
@@ -1500,12 +1539,12 @@ msgid ""
 "locale setting.  If it is -, the results are written to standard output.\n"
 msgstr ""
 "輸出檔位置：\n"
-"  -o, --output-file=檔案      將輸出寫入至指定的 PO 檔\n"
-"如果沒有指定輸出檔，輸出檔的名稱將會由 --locale 選項或是使用者的語系決定。\n"
-"如果輸出檔是‘-’，則會將結果寫入至標準輸出。\n"
+"  -o, --output-file=輸出檔    將輸出寫至指定的 PO 檔\n"
+"如果沒有指定<輸出檔>，則檔名將會由 --locale 選項或是使用者的語系決定。\n"
+"如果<輸出檔>是‘-’，則會將結果寫至標準輸出。\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1518,6 +1557,7 @@ msgstr ""
 "  -l, --locale=LL_CC          設定目標語系\n"
 "      --no-translator         假設 PO 檔是自動產生的\n"
 "  -w, --width=數字            設定輸出的寬度\n"
+"      --no-wrap               即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -1722,7 +1762,7 @@ msgid ""
 msgstr ""
 "合併兩個 Uniforum 格式的 .po 檔。def.po 是舊的 PO 檔，裡面的翻譯訊息只要\n"
 "和新產生的檔案條目符合，都會被合併進去；合併時會保留自行加上的註解，不過\n"
-"會捨棄源程式碼的註解和檔案位置。ref.pot 可以是有最新來源條目但只含有舊翻譯\n"
+"會捨棄原程式碼的註解和檔案位置。ref.pot 可以是有最新來源條目但只含有舊翻譯\n"
 "的 PO 檔，或是一個 POT 檔 (通常由 xgettext 產生)；任何翻譯後的訊息或檔案裡\n"
 "的註解都會被捨棄，但特殊旗標註解和檔案位置都會被保留。比較時如果有不完全\n"
 "配合的字串出現，程式會以模糊配對的方式得出較好的結果。\n"
@@ -1895,11 +1935,11 @@ msgid ""
 "or if it is -.\n"
 msgstr ""
 "輸出檔位置：\n"
-"  -o, --output-file=檔案   將輸出寫入至指定的檔案\n"
-"如果沒有指定輸出檔或輸出檔是‘-’，則會將結果寫入至標準輸出。\n"
+"  -o, --output-file=輸出檔    將輸出寫入至指定的檔案\n"
+"如果沒有指定<輸出檔>或<輸出檔>是‘-’，則會將結果寫入至標準輸出。\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -1919,6 +1959,7 @@ msgstr ""
 "  -i, --indent             使用縮排方式寫入 .po 檔\n"
 "      --strict             輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字         設定輸出的寬度\n"
+"      --no-wrap            即使輸出的訊息超出指定的寬度，也不將輸出的訊息\n"
 "  -s, --sort-output        輸出時先將項目排序\n"
 
 #: src/msgunfmt.c:388
@@ -1950,7 +1991,7 @@ msgstr ""
 "它會搜尋擁有相同訊息識別碼的重覆翻譯條目。這些條目對於其它像 msgfmt、\n"
 "msgmerge 或 msgcat 等的程式而言是無效的輸入資料。預設模式中，重覆的條目將會\n"
 "合併在一起。當使用 --repeated 選項時，只會顯示重覆的條目而捨棄其它條目。\n"
-"自行加上的註解和源程式碼旳註解都會累積，除非指定了 --use-first 選項，那樣\n"
+"自行加上的註解和原程式碼旳註解都會累積，除非指定了 --use-first 選項，那樣\n"
 "則會由第一個翻譯條目中獲取這些資料。檔案位置是會累積下來的。當使用 --unique\n"
 "選項時，則會捨棄任何重覆的翻譯條目。\n"
 
@@ -2346,6 +2387,11 @@ msgid ""
 "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
 "                                 preceding keyword lines) in output file\n"
 msgstr ""
+"操作模式：\n"
+"  -j, --join-existing            合併已存在的訊息檔\n"
+"  -x, --exclude-file=FILE.po     不取出 FILE.po 中i的訊息\n"
+"  -c, --add-comments[=TAG]       在輸出檔中增加註解區塊 TAG (or those\n"
+"                                 preceding keyword lines) in output file\n"
 
 #: src/xgettext.c:596
 #, no-wrap
@@ -2365,7 +2411,7 @@ msgstr ""
 "      --debug                    進行格式字串識別時顯示更詳細的結果\n"
 
 #: src/xgettext.c:606
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2395,6 +2441,7 @@ msgstr ""
 "  -n, --add-location             產生 '#: filename:line' 註解(預設)\n"
 "      --strict                   輸出嚴格符合 Uniforum 格式的 .po 檔\n"
 "  -w, --width=數字               設定輸出的寬度\n"
+"      --no-wrap                  即使輸出的訊息超出頁寬，也不將輸出的訊息斷行\n"
 "  -s, --sort-output              輸出時先將項目排序\n"
 "  -F, --sort-by-file             根據檔案位置進行排序\n"
 "      --omit-header              不寫入含有‘msgid \"\"’欄位的檔頭\n"
