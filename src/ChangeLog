@@ -1,3 +1,20 @@
+2001-08-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* x-c.c (real_file_name): Renamed from file_name.
+	(last_comment_line, last_non_comment_line, newline_count): Don't
+	initialize statically.
+	(phase1_getc): Update.
+	(x_c_lex): Don't reset last_comment_line, last_non_comment_line,
+	newline_count upon EOF.
+	(extract_c): Reset them here. Update.
+
+	* x-c.c (x_c_lex): Move lazy keyword initialization...
+	(init_keywords): ... to here. New function.
+	(extract_c): Call init_keywords.
+
+	* x-c.c (x_c_lex): Look up token without NUL in hash table.
+	(x_c_keyword): Store keywords without NUL in hash table.
+
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.c (usage): If IN_HELP2MAN is set, output template for

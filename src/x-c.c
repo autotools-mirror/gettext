@@ -139,16 +139,21 @@ static bool default_keywords = true;
 
 static bool trigraphs = false;
 
-static const char *file_name;
+/* Real filename, used in error messages about the input file.  */
+static const char *real_file_name;
+
+/* Logical filename and line number, used to label the extracted messages.  */
 static char *logical_file_name;
 static int line_number;
+
+/* The input file stream.  */
 static FILE *fp;
 
 /* These are for tracking whether comments count as immediately before
    keyword.  */
-static int last_comment_line = -1;
-static int last_non_comment_line = -1;
-static int newline_count = 0;
+static int last_comment_line;
+static int last_non_comment_line;
+static int newline_count;
 
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
@@ -170,6 +175,7 @@ static void phase6_get PARAMS ((token_ty *tp));
 static void phase6_unget PARAMS ((token_ty *tp));
 static void phase8_get PARAMS ((token_ty *tp));
 static void x_c_lex PARAMS ((xgettext_token_ty *tp));
+static void init_keywords PARAMS ((void));
 
 
 /* 1. Terminate line by \n, regardless of the external representation of
@@ -204,7 +210,7 @@ phase1_getc ()
 	    {
 	    bomb:
 	      error (EXIT_FAILURE, errno, _("\
-error while reading \"%s\""), file_name);
+error while reading \"%s\""), real_file_name);
 	    }
 	  return EOF;
 
@@ -834,7 +840,7 @@ phase5_get (tp)
 	    {
 	      error_with_progname = false;
 	      error (0, 0, _("%s:%d: warning: unterminated character constant"),
-	        logical_file_name, line_number - 1);
+		     logical_file_name, line_number - 1);
 	      error_with_progname = true;
 	      phase7_ungetc ('\n');
 	      break;
@@ -858,7 +864,7 @@ phase5_get (tp)
 	    {
 	      error_with_progname = false;
 	      error (0, 0, _("%s:%d: warning: unterminated string literal"),
-	        logical_file_name, line_number - 1);
+		     logical_file_name, line_number - 1);
 	      error_with_progname = true;
 	      phase7_ungetc ('\n');
 	      break;
@@ -1122,9 +1128,6 @@ x_c_lex (tp)
       switch (token.type)
 	{
 	case token_type_eof:
-	  newline_count = 0;
-	  last_comment_line = -1;
-	  last_non_comment_line = -1;
 	  tp->type = xgettext_token_type_eof;
 	  return;
 
@@ -1148,19 +1151,7 @@ x_c_lex (tp)
 	case token_type_name:
 	  last_non_comment_line = newline_count;
 
-	  if (default_keywords)
-	    {
-	      x_c_keyword ("gettext");
-	      x_c_keyword ("dgettext:2");
-	      x_c_keyword ("dcgettext:2");
-	      x_c_keyword ("ngettext:1,2");
-	      x_c_keyword ("dngettext:2,3");
-	      x_c_keyword ("dcngettext:2,3");
-	      x_c_keyword ("gettext_noop");
-	      default_keywords = false;
-	    }
-
-	  if (find_entry (&keywords, token.string, strlen (token.string) + 1,
+	  if (find_entry (&keywords, token.string, strlen (token.string),
 			  &keyword_value)
 	      == 0)
 	    {
@@ -1243,9 +1234,15 @@ extract_c (f, real_filename, logical_filename, mdlp)
      At point [E]: state == 0.  */
 
   fp = f;
-  file_name = real_filename;
+  real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
+
+  newline_count = 0;
+  last_comment_line = -1;
+  last_non_comment_line = -1;
+
+  init_keywords ();
 
   /* Start state is 0.  */
   state = 0;
@@ -1371,7 +1368,7 @@ extract_c (f, real_filename, logical_filename, mdlp)
 
   /* Close scanner.  */
   fp = NULL;
-  file_name = NULL;
+  real_file_name = NULL;
   logical_file_name = NULL;
   line_number = 0;
 }
@@ -1403,16 +1400,7 @@ x_c_keyword (name)
       sp = strchr (name, ':');
       if (sp)
 	{
-	  /* Make a temporary copy of 'name' up to 'sp', because
-	     insert_entry() expects a NUL terminated string.  */
-	  char *name_copy;
-
 	  len = sp - name;
-	  name_copy = (char *) alloca (len + 1);
-	  memcpy (name_copy, name, len);
-	  name_copy[len] = '\0';
-	  name = name_copy;
-
 	  sp++;
 	  argnum1 = strtol (sp, &sp, 10);
 	  if (*sp == ',')
@@ -1431,7 +1419,7 @@ x_c_keyword (name)
 	  argnum2 = 0;
 	}
 
-      insert_entry (&keywords, name, len + 1,
+      insert_entry (&keywords, name, len,
 		    (void *) (long) (argnum1 + (argnum2 << 10)));
     }
 }
@@ -1440,6 +1428,24 @@ bool
 x_c_any_keywords ()
 {
   return (keywords.filled > 0) || default_keywords;
+}
+
+/* Finish initializing the keywords hash table.
+   Called after argument processing, before each file is processed.  */
+static void
+init_keywords ()
+{
+  if (default_keywords)
+    {
+      x_c_keyword ("gettext");
+      x_c_keyword ("dgettext:2");
+      x_c_keyword ("dcgettext:2");
+      x_c_keyword ("ngettext:1,2");
+      x_c_keyword ("dngettext:2,3");
+      x_c_keyword ("dcngettext:2,3");
+      x_c_keyword ("gettext_noop");
+      default_keywords = false;
+    }
 }
 
 
