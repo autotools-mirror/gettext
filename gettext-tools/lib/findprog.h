@@ -1,5 +1,5 @@
 /* Locating a program in PATH.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -20,5 +20,8 @@
    Attempt to determine the pathname that would be called by execlp/execvp
    of PROGNAME.  If successful, return a pathname containing a slash
    (either absolute or relative to the current directory).  Otherwise,
-   return PROGNAME unmodified.  */
+   return PROGNAME unmodified.
+   Because of the latter case, callers should use execlp/execvp, not
+   execl/execv on the returned pathname.
+   The returned string is freshly malloc()ed if it is != PROGNAME.  */
 extern const char *find_in_path (const char *progname);

@@ -1,3 +1,8 @@
+2003-04-10  Bruno Haible  <bruno@clisp.org>
+
+	* findprog.c (find_in_path): Use 'bool' and eaccess().
+	Suggested by Paul Eggert.
+
 2003-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* progname.c: Move out all methods depending on ENABLE_RELOCATABLE...
