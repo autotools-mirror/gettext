@@ -1,3 +1,9 @@
+2002-01-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Change version number to 0.11-pre5.
+
+	* config.guess, config.sub: Update to GNU version 2002-01-02.
+
 2001-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Call gt_FUNC_FNMATCH.
