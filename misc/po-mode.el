@@ -3009,10 +3009,12 @@ Leave point after marked string."
 			nil t nil "--verbose" "--version")
 	(file-error nil))
 
-      ;; Make sure there's a version number in the output: 0.11 or 0.10.36
+      ;; Make sure there's a version number in the output:
+      ;; 0.11 or 0.10.36 or 0.11-pre1
       (progn (goto-char (point-min))
              (or (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)$")
-                 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$")))
+                 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$")
+		 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")))
 
       ;; Make sure the version is recent enough.
       (>= (string-to-number

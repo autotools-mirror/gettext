@@ -1,3 +1,8 @@
+2001-11-01  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-msgfmt-version-check): Also accept pre-release
+	versions.
+
 2001-10-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextize.in: Renamed COPYING.LIB-2 to COPYING.LIB-2.0.
