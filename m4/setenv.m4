@@ -1,4 +1,4 @@
-# setenv.m4 serial 1 (gettext-0.11)
+# setenv.m4 serial 2 (gettext-0.11.1)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -29,7 +29,7 @@ AC_DEFUN([gt_CHECK_VAR_DECL],
 
 AC_DEFUN([gt_FUNC_SETENV],
 [
-  AC_REPLACE_FUNCS(setenv)
+  AC_REPLACE_FUNCS(setenv unsetenv)
   AC_CHECK_HEADERS(search.h stdlib.h string.h unistd.h)
   AC_CHECK_FUNCS(tsearch)
   gt_CHECK_VAR_DECL([#include <errno.h>], errno)

@@ -23,26 +23,32 @@
 # endif
 #endif
 
-#if HAVE_SETENV
+#if HAVE_SETENV || HAVE_UNSETENV
 
 /* Get setenv(), unsetenv() declarations.  */
 #include <stdlib.h>
 
-#else
+#endif
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
+#if !HAVE_SETENV
+
 /* Set NAME to VALUE in the environment.
    If REPLACE is nonzero, overwrite an existing value.  */
 extern int setenv PARAMS ((const char *name, const char *value, int replace));
 
+#endif
+
+#if !HAVE_UNSETENV
+
 /* Remove the variable NAME from the environment.  */
 extern int unsetenv PARAMS ((const char *name));
 
-#ifdef	__cplusplus
-}
 #endif
 
+#ifdef	__cplusplus
+}
 #endif

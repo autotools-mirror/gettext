@@ -1,4 +1,4 @@
-/* Copyright (C) 1992,95,96,97,98,99,2000,2001 Free Software Foundation, Inc.
+/* Copyright (C) 1992,1995-1999,2000-2002 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -60,7 +60,6 @@ __libc_lock_define_initialized (static, envlock)
 /* In the GNU C library we must keep the namespace clean.  */
 #ifdef _LIBC
 # define setenv __setenv
-# define unsetenv __unsetenv
 # define clearenv __clearenv
 # define tfind __tfind
 # define tsearch __tsearch
@@ -267,43 +266,6 @@ setenv (name, value, replace)
   return __add_to_environ (name, value, NULL, replace);
 }
 
-int
-unsetenv (name)
-     const char *name;
-{
-  size_t len;
-  char **ep;
-
-  if (name == NULL || *name == '\0' || strchr (name, '=') != NULL)
-    {
-      __set_errno (EINVAL);
-      return -1;
-    }
-
-  len = strlen (name);
-
-  LOCK;
-
-  ep = __environ;
-  while (*ep != NULL)
-    if (!strncmp (*ep, name, len) && (*ep)[len] == '=')
-      {
-	/* Found it.  Remove this pointer by moving later ones back.  */
-	char **dp = ep;
-
-	do
-	  dp[0] = dp[1];
-	while (*dp++);
-	/* Continue the loop in case NAME appears again.  */
-      }
-    else
-      ++ep;
-
-  UNLOCK;
-
-  return 0;
-}
-
 /* The `clearenv' was planned to be added to POSIX.1 but probably
    never made it.  Nevertheless the POSIX.9 standard (POSIX bindings
    for Fortran 77) requires this function.  */
@@ -326,6 +288,7 @@ clearenv ()
 
   return 0;
 }
+
 #ifdef _LIBC
 static void
 free_mem (void)
@@ -341,9 +304,7 @@ text_set_element (__libc_subfreeres, free_mem);
 
 
 # undef setenv
-# undef unsetenv
 # undef clearenv
 weak_alias (__setenv, setenv)
-weak_alias (__unsetenv, unsetenv)
 weak_alias (__clearenv, clearenv)
 #endif

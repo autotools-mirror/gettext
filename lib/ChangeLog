@@ -1,3 +1,12 @@
+2002-03-04  Bruno Haible  <bruno@clisp.org>
+
+	Portability to AIX 4.3.3.
+	* unsetenv.c: New file, extracted from setenv.c.
+	* setenv.c: Move the unsetenv() function to unsetenv.c.
+	* setenv.h: Cope with systems that have setenv() but not unsetenv().
+	* Makefile.am (LIBADD_SOURCE): Add unsetenv.c.
+	(c-ctype.lo, tmpdir.lo): Depend on stdbool.h.
+
 2002-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* strncasecmp.c (__strncasecmp): Trivial simplification.

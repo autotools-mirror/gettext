@@ -1,3 +1,7 @@
+2002-03-04  Bruno Haible  <bruno@clisp.org>
+
+	* setenv.m4 (gt_FUNC_SETENV): Also check whether unsetenv is missing.
+
 2002-03-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): Set LIBINTL and LTLIBINTL to empty if

@@ -68,7 +68,7 @@ LIBADD_SOURCE = \
   memset.c \
   mkdtemp.h mkdtemp.c \
   pfnmatch.h pfnmatch.c \
-  setenv.h setenv.c \
+  setenv.h setenv.c unsetenv.c \
   libstdarg.h \
   stpcpy.h stpcpy.c \
   stpncpy.h stpncpy.c \
@@ -116,7 +116,7 @@ INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 DISTCLEANFILES = fnmatch.h
 
 
-all-local execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo wait-process.lo xerror.lo: @STDBOOL_H@
+all-local c-ctype.lo execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo tmpdir.lo wait-process.lo xerror.lo: @STDBOOL_H@
 stdbool.h: stdbool.h.in
 	cp $(srcdir)/stdbool.h.in stdbool.h
 MOSTLYCLEANFILES = @STDBOOL_H@
