@@ -1,5 +1,10 @@
 2001-10-20  Bruno Haible  <haible@clisp.cons.org>
 
+	* DISCLAIM: Update from
+	http://www.iro.umontreal.ca/contrib/po/doc/DISCLAIM.
+
+2001-10-20  Bruno Haible  <haible@clisp.cons.org>
+
 	Assume strchr() exists.
 	* configure.in: Remove check for strchr.
 
