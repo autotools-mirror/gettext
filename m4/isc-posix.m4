@@ -7,6 +7,8 @@
 #   configure.in:556: AC_TRY_COMPILE was called before AC_ISC_POSIX
 #   configure.in:556: AC_TRY_RUN was called before AC_ISC_POSIX
 
+undefine([AC_ISC_POSIX])
+
 AC_DEFUN(AC_ISC_POSIX,
   [
     dnl This test replaces the obsolescent AC_ISC_POSIX kludge.

@@ -1,3 +1,9 @@
+2000-06-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* isc-posix.m4: Undefine the macro before calling AC_DEFUN, otherwise
+	with autoconf-2.13 we get lots of ***BUG in Autoconf--please report***
+	errors.
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* gettext.m4: Add tests for tsearch, iconv, and mempcpy.
