@@ -1,4 +1,4 @@
-## Makefile for the check subdirectory of the GNU NLS Utilities
+## Makefile for the gettext-tools/tests subdirectory of GNU gettext
 ## Copyright (C) 1995-1997, 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -60,42 +60,14 @@ TESTS = gettext-1 gettext-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-php lang-po lang-rst \
-	rpath-1a rpath-1b \
-	rpath-2aaa rpath-2aab rpath-2aac rpath-2aad \
-	rpath-2aba rpath-2abb rpath-2abc rpath-2abd \
-	rpath-2baa rpath-2bab rpath-2bac rpath-2bad \
-	rpath-2bba rpath-2bbb rpath-2bbc rpath-2bbd \
-	rpath-3aaa rpath-3aab rpath-3aac rpath-3aad \
-	           rpath-3aaf            rpath-3aah \
-	rpath-3aba rpath-3abb rpath-3abc rpath-3abd \
-	           rpath-3abf            rpath-3abh \
-	rpath-3baa rpath-3bab rpath-3bac rpath-3bad \
-	rpath-3bae rpath-3baf rpath-3bag rpath-3bah \
-	rpath-3bba rpath-3bbb rpath-3bbc rpath-3bbd \
-	rpath-3bbe rpath-3bbf rpath-3bbg rpath-3bbh
+	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python lang-clisp \
+	lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal \
+	lang-wxwindows lang-ycp lang-tcl lang-perl lang-php lang-pike lang-po \
+	lang-rst
 
 EXTRA_DIST = $(TESTS) \
 	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out \
-	rpathx/configure.in rpathx/aclocal.m4 rpathx/configure \
-	rpathx/Makefile.am rpathx/Makefile.in rpathx/rpathx.c \
-	rpathy/configure.in rpathy/aclocal.m4 rpathy/configure \
-	rpathy/Makefile.am rpathy/Makefile.in rpathy/rpathy.c \
-	rpathz/configure.in rpathz/aclocal.m4 rpathz/configure \
-	rpathz/Makefile.am rpathz/Makefile.in rpathz/rpathz.c \
-	rpathlx/configure.in rpathlx/aclocal.m4 rpathlx/configure \
-	rpathlx/Makefile.am rpathlx/Makefile.in rpathlx/usex.c \
-	rpathly/configure.in rpathly/aclocal.m4 rpathly/configure \
-	rpathly/Makefile.am rpathly/Makefile.in rpathly/usey.c \
-	rpathlyx/configure.in rpathlyx/aclocal.m4 rpathlyx/configure \
-	rpathlyx/Makefile.am rpathlyx/Makefile.in rpathlyx/usey.c \
-	rpathlz/configure.in rpathlz/aclocal.m4 rpathlz/configure \
-	rpathlz/Makefile.am rpathlz/Makefile.in rpathlz/usez.c \
-	rpathlzyx/configure.in rpathlzyx/aclocal.m4 rpathlzyx/configure \
-	rpathlzyx/Makefile.am rpathlzyx/Makefile.in rpathlzyx/usez.c \
-	rpath-1 rpath-2_a rpath-2_b rpath-3_a rpath-3_b rpath.README \
-	rpath-3aae rpath-3aag rpath-3abe rpath-3abg \
-	rpathcfg.sh
+	ChangeLog.0
 
 XGETTEXT = ../src/xgettext
 
@@ -126,15 +98,16 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 
-xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
-		$(top_srcdir)/src/gettext.c
+xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) \
 	  -k_ --omit-header --no-location \
-	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
-	  $(top_srcdir)/src/gettext.c
+	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 
 # Three auxiliary programs used by the tests.
-INCLUDES = -I.. -I../lib -I$(top_srcdir)/lib -I$(top_srcdir)/intl
+INCLUDES = \
+  -I.. \
+  -I../lib -I$(top_srcdir)/lib \
+  -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
@@ -150,14 +123,3 @@ fc3_SOURCES = format-c-3-prg.c setlocale.c
 fc3_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc4_SOURCES = format-c-4-prg.c setlocale.c
 fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
-
-# Help maintaining config.rpath.
-rpathcfg: rpathcfg.sh
-	top_srcdir=$(top_srcdir) \
-	CONFIG_SHELL='$(SHELL)' \
-	CC='@CC@' GCC='@GCC@' \
-	LDFLAGS='@LDFLAGS@' \
-	LD='@LD@' with_gnu_ld='@with_gnu_ld@' \
-	host='@host@' \
-	$(SHELL) $(srcdir)/rpathcfg.sh > rpathcfg 2> rpathcfg.log
-MOSTLYCLEANFILES = rpathcfg rpathcfg.log

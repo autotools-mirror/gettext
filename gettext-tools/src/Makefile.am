@@ -1,4 +1,4 @@
-## Makefile for program src directory in GNU NLS utilities package.
+## Makefile for the gettext-tools/src subdirectory of GNU gettext
 ## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,7 @@ DISTCLEANFILES =
 
 RM = rm -f
 
-bin_PROGRAMS = gettext ngettext \
+bin_PROGRAMS = \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
 msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq
 
@@ -43,18 +43,28 @@ plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
 x-elisp.h x-librep.h x-smalltalk.h x-java.h x-awk.h x-ycp.h x-tcl.h x-php.h \
 x-rst.h x-glade.h
 
-EXTRA_DIST += FILES project-id
+EXTRA_DIST += FILES project-id ChangeLog.0
 
 localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
+pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
+pkglibdir = $(libdir)/gettext
 
-INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/libuniname \
--I../lib -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
-DEFS = -DLOCALEDIR=\"$(localedir)\" -DUSEJEXE=$(USEJEXE) \
--DGETTEXTJEXEDIR=\"$(pkglibdir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
--DLIBDIR=\"$(libdir)\" -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
--DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
+INCLUDES = \
+  -I. -I$(srcdir) \
+  -I.. \
+  -I$(top_srcdir)/libuniname \
+  -I../lib -I$(top_srcdir)/lib \
+  -I../intl -I$(top_srcdir)/../gettext-runtime/intl
+DEFS = \
+  -DLOCALEDIR=\"$(localedir)\" \
+  -DUSEJEXE=$(USEJEXE) \
+  -DGETTEXTJEXEDIR=\"$(pkglibdir)\" \
+  -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
+  -DLIBDIR=\"$(libdir)\" \
+  -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
+  -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 LDADD = ../lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
@@ -100,8 +110,6 @@ LTV_AGE=0
 LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
-gettext_SOURCES = gettext.c
-ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = msgcmp.c
 msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
@@ -144,8 +152,6 @@ libgettextpo_la_LDFLAGS = \
   libgettextsrc.la -lc -no-undefined
 
 # Link dependencies.
-gettext_LDADD = ../lib/basename.lo ../lib/error.lo ../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo ../lib/xmalloc.lo @LTLIBINTL@
-ngettext_LDADD = ../lib/basename.lo ../lib/error.lo ../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo ../lib/xmalloc.lo @LTLIBINTL@
 msgcmp_LDADD = libgettextsrc.la
 msgfmt_LDADD = libgettextsrc.la
 msgmerge_LDADD = libgettextsrc.la
@@ -184,20 +190,20 @@ DISTCLEANFILES += po-gram-gen2.h
 # Special rules for installation of auxiliary programs.
 
 install-exec-local:
-	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
-	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
-	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
-	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
-	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
+	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
+	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(pkglibdir)/user-email
+	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(pkglibdir)/project-id
 
 installdirs-local:
-	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
 
 uninstall-local:
-	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
-	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
-	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
-	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
+	$(RM) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibdir)/user-email
+	$(RM) $(DESTDIR)$(pkglibdir)/project-id
 
 DISTCLEANFILES += user-email
 
@@ -236,9 +242,9 @@ CLEANFILES += gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT) \
 
 install-exec-local: install-exec-java-@BUILDJAVAEXE@
 install-exec-java-yes: all-java-yes
-	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
-	$(INSTALL_PROGRAM) gnu.gettext.DumpResource$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.DumpResource$(EXEEXT)
-	$(INSTALL_PROGRAM) gnu.gettext.GetURL$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.GetURL$(EXEEXT)
+	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(INSTALL_PROGRAM) gnu.gettext.DumpResource$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.DumpResource$(EXEEXT)
+	$(INSTALL_PROGRAM) gnu.gettext.GetURL$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.GetURL$(EXEEXT)
 install-exec-java-no:
 
 install-data-local: install-data-java-@BUILDJAVAEXE@
@@ -250,7 +256,7 @@ install-data-java-no-no:
 
 installdirs-local: installdirs-java-@BUILDJAVAEXE@
 installdirs-java-yes:
-	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
 installdirs-java-no: installdirs-java-no-@BUILDJAVA@
 installdirs-java-no-yes:
 	$(mkinstalldirs) $(DESTDIR)$(jardir)
@@ -258,8 +264,8 @@ installdirs-java-no-no:
 
 uninstall-local: uninstall-java-@BUILDJAVAEXE@
 uninstall-java-yes:
-	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.DumpResource$(EXEEXT)
-	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/gnu.gettext.GetURL$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibdir)/gnu.gettext.DumpResource$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibdir)/gnu.gettext.GetURL$(EXEEXT)
 uninstall-java-no: uninstall-java-no-@BUILDJAVA@
 uninstall-java-no-yes:
 	$(RM) $(DESTDIR)$(jardir)/gettext.jar

@@ -12,7 +12,7 @@ tmpfiles="$tmpfiles zero-domain.po xg-test3.err"
 rm -f zero-domain.po
 : ${XGETTEXT=xgettext}
 LC_MESSAGES=C LC_ALL= \
-${XGETTEXT} -k_ -d zero-domain -x $top_srcdir/po/gettext.pot \
+${XGETTEXT} -k_ -d zero-domain -x $top_srcdir/po/gettext-tools.pot \
   $top_srcdir/src/xgettext.c >xg-test3.err 2>&1
 result=$?
 cat xg-test3.err | grep -v 'warning: Charset' | grep -v '^ '

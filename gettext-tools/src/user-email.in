@@ -45,10 +45,10 @@ exec_prefix="@exec_prefix@"
 # hostname on some systems (SVR3.2, old Linux) returns a bogus exit status,
 # so uname gets run too, so we keep only the first line of output.
 #host=`(hostname || uname -n) 2>/dev/null | sed 1q`
-host=`@libdir@/@PACKAGE@/hostname --short 2>/dev/null | sed 1q`
+host=`@libdir@/gettext/hostname --short 2>/dev/null | sed 1q`
 
 # Find the hostname.
-hostfqdn=`@libdir@/@PACKAGE@/hostname --fqdn 2>/dev/null | sed 1q`
+hostfqdn=`@libdir@/gettext/hostname --fqdn 2>/dev/null | sed 1q`
 
 # Find a list of email addresses from various mailer configuration files.
 # All mailers use configuration files under $HOME. We handle them in a

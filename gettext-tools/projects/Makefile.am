@@ -1,5 +1,5 @@
-## Makefile for the projects subdirectory of the GNU NLS Utilities
-## Copyright (C) 2001-2002 Free Software Foundation, Inc.
+## Makefile for the gettext-tools/projects subdirectory of GNU gettext
+## Copyright (C) 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 RM = rm -f
 
+pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
 
 PROJECTS = TP KDE GNOME

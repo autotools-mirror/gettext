@@ -32,7 +32,7 @@ EOF
 
 tmpfiles="$tmpfiles Program.class"
 : ${JAVACOMP="/bin/sh ../lib/javacomp.sh"}
-CLASSPATH=../intl-java/libintl.jar ${JAVACOMP} -d . Program.java || exit 1
+CLASSPATH=../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d . Program.java || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
@@ -100,7 +100,7 @@ EUR remplace FF.
 EOF
 
 : ${JAVAEXEC="/bin/sh ../lib/javaexec.sh"}
-LANGUAGE= LC_ALL=fr_FR CLASSPATH=.:../intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
+LANGUAGE= LC_ALL=fr_FR CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles
