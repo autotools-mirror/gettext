@@ -28,13 +28,13 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 man_aux  = gettext.x ngettext.x \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
-msgcat.x msgcomm.x msgconv.x msgen.x msggrep.x msgsed.x
+msgcat.x msgcomm.x msgconv.x msgen.x msggrep.x msgexec.x
 
 # Likewise, plus additional manual pages for the libintl functions.
 
 man_MAN1 = gettext.1 ngettext.1 \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
-msgcat.1 msgcomm.1 msgconv.1 msgen.1 msggrep.1 msgsed.1
+msgcat.1 msgcomm.1 msgconv.1 msgen.1 msggrep.1 msgexec.1
 man_MAN3 = gettext.3 ngettext.3 \
 textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
 man_MAN3IN = gettext.3.in ngettext.3.in \
@@ -44,7 +44,7 @@ dgettext.3 dcgettext.3 dngettext.3 dcngettext.3
 
 man_HTML = gettext.1.html ngettext.1.html \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
-msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msggrep.1.html msgsed.1.html \
+msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msggrep.1.html msgexec.1.html \
 gettext.3.html ngettext.3.html \
 textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
 
@@ -151,8 +151,8 @@ msgen.1.html: msgen.1
 msggrep.1.html: msggrep.1
 	$(MAN2HTML) `if test -f msggrep.1; then echo .; else echo $(srcdir); fi`/msggrep.1 > t-$@
 	mv t-$@ $@
-msgsed.1.html: msgsed.1
-	$(MAN2HTML) `if test -f msgsed.1; then echo .; else echo $(srcdir); fi`/msgsed.1 > t-$@
+msgexec.1.html: msgexec.1
+	$(MAN2HTML) `if test -f msgexec.1; then echo .; else echo $(srcdir); fi`/msgexec.1 > t-$@
 	mv t-$@ $@
 gettext.3.html: gettext.3.in
 	$(MAN2HTML) $(srcdir)/gettext.3.in > t-$@

@@ -1,3 +1,11 @@
+2001-07-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgexec.c: New file.
+	* msgsed.c: Remove file.
+	* Makefile.am (bin_PROGRAMS): Replace msgsed with msgexec.
+	(msgexec_SOURCES, msgexec_LDADD): New variables.
+	(msgsed_SOURCES, msgsed_LDADD): Remove variables.
+
 2001-07-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (test_whether_c_format): When encountering an

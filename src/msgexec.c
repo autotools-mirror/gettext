@@ -1,4 +1,4 @@
-/* Edit translations using a script of editing commands.
+/* Edit translations using a subprocess.
    Copyright (C) 2001 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -56,12 +56,12 @@
 #define _(str) gettext (str)
 
 
-/* We use a child process running 'sed', and communicate through a
-   bidirectional pipe.  To avoid deadlocks, let the child process decide
-   when it wants to read or to write, and let the parent behave accordingly.
-   The parent uses select() to know whether it must write or read.  On
-   platforms without select(), we use non-blocking I/O.  (This means the
-   parent is busy looping while waiting for the child.  Not good.)  */
+/* We use a child process, and communicate through a bidirectional pipe.
+   To avoid deadlocks, let the child process decide when it wants to read
+   or to write, and let the parent behave accordingly.  The parent uses
+   select() to know whether it must write or read.  On platforms without
+   select(), we use non-blocking I/O.  (This means the parent is busy
+   looping while waiting for the child.  Not good.)  */
 
 /* On BeOS select() works only on sockets, not on normal file descriptors.  */
 #ifdef __BeOS__
@@ -72,14 +72,15 @@
 /* Force output of PO file even if empty.  */
 static int force_po;
 
-/* Arguments to be passed to the sed subprocess.  */
-static string_list_ty *sed_args;
+/* Name of the subprogram.  */
+static const char *sub_name;
 
-/* Pathname of the sed program.  */
-static const char *sed_path;
+/* Pathname of the subprogram.  */
+static const char *sub_path;
 
-/* Argument list for the sed program.  */
-static char **sed_argv;
+/* Argument list for the subprogram.  */
+static char **sub_argv;
+static int sub_argc;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -87,16 +88,13 @@ static const struct option long_options[] =
   { "add-location", no_argument, &line_comment, 1 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
-  { "expression", required_argument, NULL, 'e' },
-  { "file", required_argument, NULL, 'f' },
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
-  { "indent", no_argument, NULL, 'i' },
-  { "no-escape", no_argument, NULL, CHAR_MAX + 1 },
+  { "indent", no_argument, NULL, CHAR_MAX + 1 },
+  { "input", required_argument, NULL, 'i' },
+  { "no-escape", no_argument, NULL, CHAR_MAX + 2 },
   { "no-location", no_argument, &line_comment, 0 },
   { "output-file", required_argument, NULL, 'o' },
-  { "quiet", no_argument, NULL, 'n' },
-  { "silent", no_argument, NULL, 'n' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -155,10 +153,10 @@ main (argc, argv)
   do_version = false;
   output_file = NULL;
   input_file = NULL;
-  sed_args = string_list_alloc ();
 
-  while ((opt = getopt_long (argc, argv, "D:e:Ef:Fhino:sVw:",
-			     long_options, NULL))
+  /* The '+' in the options string causes option parsing to terminate when
+     the first non-option, i.e. the subprogram name, is encountered.  */
+  while ((opt = getopt_long (argc, argv, "+D:EFhio:sVw:", long_options, NULL))
 	 != EOF)
     switch (opt)
       {
@@ -169,18 +167,8 @@ main (argc, argv)
 	dir_list_append (optarg);
 	break;
 
-      case 'e':
-	string_list_append (sed_args, "-e");
-	string_list_append (sed_args, optarg);
-	break;
-
       case 'E':
 	message_print_style_escape (true);
-	break;
-
-      case 'f':
-	string_list_append (sed_args, "-f");
-	string_list_append (sed_args, optarg);
 	break;
 
       case 'F':
@@ -192,11 +180,12 @@ main (argc, argv)
 	break;
 
       case 'i':
-	message_print_style_indent ();
-	break;
-
-      case 'n':
-	string_list_append (sed_args, "-n");
+	if (input_file != NULL)
+	  {
+	    error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+	    usage (EXIT_FAILURE);
+	  }
+	input_file = optarg;
 	break;
 
       case 'o':
@@ -226,6 +215,10 @@ main (argc, argv)
 	break;
 
       case CHAR_MAX + 1:
+	message_print_style_indent ();
+	break;
+
+      case CHAR_MAX + 2:
 	message_print_style_escape (false);
 	break;
 
@@ -252,23 +245,49 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
-  /* Test whether we have an .po file name as argument.  */
+  /* Test for the subprogram name.  */
   if (optind == argc)
-    input_file = "-";
-  else if (optind + 1 == argc)
-    input_file = argv[optind];
-  else
-    {
-      error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
-      usage (EXIT_FAILURE);
-    }
+    error (EXIT_FAILURE, 0, _("missing filter name"));
+  sub_name = argv[optind];
 
-  if (sed_args->nitems == 0)
-    error (EXIT_FAILURE, 0, _("at least one sed script must be specified"));
+  /* Build argument list for the program.  */
+  sub_argc = argc - optind;
+  sub_argv = (char **) xmalloc ((sub_argc + 1) * sizeof (char *));
+  for (i = 0; i < sub_argc; i++)
+    sub_argv[i] = argv[optind + i];
+  sub_argv[i] = NULL;
+
+  /* Extra checks for sed scripts.  */
+  if (strcmp (sub_name, "sed") == 0)
+    {
+      if (sub_argc == 1)
+	error (EXIT_FAILURE, 0,
+	       _("at least one sed script must be specified"));
+
+      /* Replace GNU sed specific options with portable sed options.  */
+      for (i = 1; i < sub_argc; i++)
+	{
+	  if (strcmp (sub_argv[i], "--expression") == 0)
+	    sub_argv[i] = "-e";
+	  else if (strcmp (sub_argv[i], "--file") == 0)
+	    sub_argv[i] = "-f";
+	  else if (strcmp (sub_argv[i], "--quiet") == 0
+		   || strcmp (sub_argv[i], "--silent") == 0)
+	    sub_argv[i] = "-n";
+
+	  if (strcmp (sub_argv[i], "-e") == 0
+	      || strcmp (sub_argv[i], "-f") == 0)
+	    i++;
+	}
+    }
 
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
+
+  /* By default, input comes from standard input.  */
+  if (input_file == NULL)
+    input_file = "-";
 
   /* Read input file.  */
   result = read_po_file (input_file);
@@ -276,19 +295,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Warn if the current locale is not suitable for this PO file.  */
   compare_po_locale_charsets (result);
 
-  /* Attempt to locate the 'sed' program.
+  /* Attempt to locate the program.
      This is an optimization, to avoid that spawn/exec searches the PATH
      on every call.  */
-  sed_path = find_in_path ("sed");
+  sub_path = find_in_path (sub_name);
 
-  /* Build argument list for the 'sed' program.  */
-  sed_argv = (char **) xmalloc ((1 + sed_args->nitems + 1) * sizeof (char *));
-  sed_argv[0] = (char *) sed_path;
-  for (i = 1; i <= sed_args->nitems; i++)
-    sed_argv[i] = (char *) sed_args->item[i - 1];
-  sed_argv[i] = NULL;
+  /* Finish argument list for the program.  */
+  sub_argv[0] = (char *) sub_path;
 
-  /* Apply the sed script.  */
+  /* Apply the subprogram.  */
   result = process_msgdomain_list (result);
 
   /* Sort the results.  */
@@ -316,12 +331,12 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] [INPUTFILE]\n\
+Usage: %s [OPTION] FILTER [FILTER-OPTION]\n\
 "), program_name);
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-Applies a sed script to all translations of a translation catalog.\n\
+Applies a filter to all translations of a translation catalog.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -332,7 +347,7 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
-  INPUTFILE                   input PO file\n\
+  -i, --input=INPUTFILE       input PO file\n\
   -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
 If no input file is given or if it is -, standard input is read.\n\
 "));
@@ -347,7 +362,13 @@ or if it is -.\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-Sed options:\n\
+The FILTER can be any program that reads a translation from standard input\n\
+and writes a modified translation to standard output.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Useful FILTER-OPTIONs when the FILTER is 'sed':\n\
   -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n\
   -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the commands\n\
                                 to be executed\n\
@@ -360,7 +381,7 @@ Output details:\n\
       --no-escape             do not use C escapes in output (default)\n\
   -E, --escape                use C escapes in output, no extended chars\n\
       --force-po              write PO file even if empty\n\
-  -i, --indent                indented output style\n\
+      --indent                indented output style\n\
       --no-location           suppress '#: filename:line' lines\n\
       --add-location          preserve '#: filename:line' lines (default)\n\
       --strict                strict Uniforum output style\n\
@@ -475,7 +496,8 @@ nonintr_select (n, readfds, writefds, exceptfds, timeout)
 # endif
 #endif
 
-/* Process a string STR of size LEN bytes through sed, then remove NUL bytes.
+/* Process a string STR of size LEN bytes through the subprogram, then
+   remove NUL bytes.
    Store the freshly allocated result at *RESULTP and its length at *LENGTHP.
  */
 static void
@@ -492,8 +514,8 @@ process_string (str, len, resultp, lengthp)
   size_t length;
   int exitstatus;
 
-  /* Open a bidirectional pipe to a sed subprocess.  */
-  child = create_pipe_bidi ("sed", sed_path, sed_argv, fd);
+  /* Open a bidirectional pipe to a subprocess.  */
+  child = create_pipe_bidi (sub_name, sub_path, sub_argv, fd);
      
   /* Enable non-blocking I/O.  This permits the read() and write() calls
      to return -1/EAGAIN without blocking; this is important for polling
@@ -511,7 +533,7 @@ process_string (str, len, resultp, lengthp)
 	|| (fcntl_flags = fcntl (fd[0], F_GETFL, 0)) < 0
 	|| fcntl (fd[0], F_SETFL, fcntl_flags | O_NONBLOCK) < 0)
       error (EXIT_FAILURE, errno,
-	     _("cannot set up nonblocking I/O to sed subprocess"));
+	     _("cannot set up nonblocking I/O to %s subprocess"), sub_name);
   }
 
   allocated = len + (len >> 2) + 1;
@@ -539,7 +561,7 @@ process_string (str, len, resultp, lengthp)
       n = select (n, &readfds, (str != NULL ? &writefds : NULL), NULL, NULL);
       if (n < 0)
 	error (EXIT_FAILURE, errno,
-	       _("communication with sed subprocess failed"));
+	       _("communication with %s subprocess failed"), sub_name);
       if (str != NULL && FD_ISSET (fd[1], &writefds))
 	goto try_write;
       if (FD_ISSET (fd[0], &readfds))
@@ -559,7 +581,7 @@ process_string (str, len, resultp, lengthp)
 	      ssize_t nwritten = write (fd[1], str, len);
 	      if (nwritten < 0 && !IS_EAGAIN (errno))
 		error (EXIT_FAILURE, errno,
-		       _("write to sed subprocess failed"));
+		       _("write to %s subprocess failed"), sub_name);
 	      if (nwritten > 0)
 		{
 		  str += nwritten;
@@ -589,7 +611,8 @@ process_string (str, len, resultp, lengthp)
       {
 	ssize_t nread = read (fd[0], result + length, allocated - length);
 	if (nread < 0 && !IS_EAGAIN (errno))
-	  error (EXIT_FAILURE, errno, _("read from sed subprocess failed"));
+	  error (EXIT_FAILURE, errno,
+		 _("read from %s subprocess failed"), sub_name);
 	if (nread > 0)
 	  length += nread;
 	if (nread == 0 && str == NULL)
@@ -603,10 +626,10 @@ process_string (str, len, resultp, lengthp)
   close (fd[0]);
 
   /* Remove zombie process from process list.  */
-  exitstatus = wait_subprocess (child, "sed");
+  exitstatus = wait_subprocess (child, sub_name);
   if (exitstatus != 0)
-    error (EXIT_FAILURE, 0, _("sed subprocess terminated with exit code %d"),
-	   exitstatus);
+    error (EXIT_FAILURE, 0, _("%s subprocess terminated with exit code %d"),
+	   sub_name, exitstatus);
 
   /* Remove NUL bytes from result.  */
   {
