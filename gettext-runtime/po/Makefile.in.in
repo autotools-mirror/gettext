@@ -1,5 +1,5 @@
 # Makefile for PO directory in any package using GNU gettext.
-# Copyright (C) 1995-1997, 2000-2002 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
+# Copyright (C) 1995-1997, 2000-2003 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
@@ -135,7 +135,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 install: install-exec install-data
 install-exec:
 install-data: install-data-@USE_NLS@
-	if test "$(PACKAGE)" = "gettext"; then \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	  for file in $(DISTFILES.common); do \
 	    $(INSTALL_DATA) $(srcdir)/$$file \
@@ -191,7 +191,7 @@ install-strip: install
 installdirs: installdirs-exec installdirs-data
 installdirs-exec:
 installdirs-data: installdirs-data-@USE_NLS@
-	if test "$(PACKAGE)" = "gettext"; then \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	else \
 	  : ; \
@@ -236,7 +236,7 @@ installcheck:
 uninstall: uninstall-exec uninstall-data
 uninstall-exec:
 uninstall-data: uninstall-data-@USE_NLS@
-	if test "$(PACKAGE)" = "gettext"; then \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  for file in $(DISTFILES.common); do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
@@ -281,7 +281,14 @@ dist distdir:
 # This is a separate target because 'update-po' must be executed before.
 dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
-	if test -f $(srcdir)/ChangeLog; then dists="$$dists ChangeLog"; fi; \
+	if test -f $(srcdir)/ChangeLog; then \
+	  dists="$$dists ChangeLog"; \
+	fi; \
+	for i in 0 1 2 3 4 5 6 7 8 9; do \
+	  if test -f $(srcdir)/ChangeLog.$$i; then \
+	    dists="$$dists ChangeLog.$$i"; \
+	  fi; \
+	done; \
 	if test -f $(srcdir)/LINGUAS; then dists="$$dists LINGUAS"; fi; \
 	for file in $$dists; do \
 	  if test -f $$file; then \
@@ -300,7 +307,7 @@ update-po: Makefile
 
 .nop.po-update:
 	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
-	if test "$(PACKAGE)" = "gettext"; then PATH=`pwd`/../src:$$PATH; fi; \
+	if test "$(PACKAGE)" = "gettext-tools"; then PATH=`pwd`/../src:$$PATH; fi; \
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
