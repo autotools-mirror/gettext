@@ -1,3 +1,9 @@
+2000-11-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* nls.texi: In section "Translating Teams", refer to the Free
+	Translation Project's homepage. It is more up to date than the
+	previously included list.
+
 2000-07-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* nls.texi: Rename section "One advise in advance" to "Quick

@@ -170,52 +170,10 @@ is not available.  This is easily accomplished by setting
 For the Free Translation Project to be a success, we need interested
 people who like their own language and write it well, and who are also
 able to synergize with other translators speaking the same language.
-Each translation team has its own mailing list, courtesy of Linux
-International.  You may reach your translation team at the address
-@file{@var{ll}@@li.org}, replacing @var{ll} by the two-letter @w{ISO
-639} code for your language.  Language codes are @emph{not} the same as
-the country codes given in @w{ISO 3166}.  The following translation
-teams exist, as of @value{STATUS}:
-
-@quotation
-Breton @code{br},
-Bulgarian @code{bg} (email: @file{bg@@bulgaria.com}),
-Chinese @code{zh},
-Czech @code{cs},
-Danish @code{da},
-Dutch @code{nl},
-English @code{en},
-Esperanto @code{eo},
-Estonian @code{et},
-Finnish @code{fi},
-French @code{fr},
-Galician @code{gl} (email: @file{gpul-traduccion@@ceu.fi.udc.es}),
-German @code{de},
-Greek @code{el} (email: @file{nls@@tux.hellug.gr}),
-Hungarian @code{hu},
-Irish @code{ga},
-Italian @code{it},
-Indonesian @code{id},
-Japanese @code{ja},
-Korean @code{ko},
-Latin @code{la},
-Latvian @code{lv} (email: @file{translations@@lv.quite.net}),
-Norwegian @code{no},
-Persian @code{fa},
-Polish @code{pl},
-Portuguese @code{pt},
-Portuguese/Brazil @code{pt_BR} (email: @file{ldp-br@@bazar.conectiva.com.br}),
-Russian @code{ru},
-Slovak @code{sk} (email: @file{sk-i18n@@rak.isternet.sk}),
-Slovenian @code{sl},
-Spanish @code{es},
-Swedish @code{sv}, and
-Turkish @code{tr}.
-@end quotation
-
-@noindent
-For example, you may reach the Chinese translation team by writing to
-@file{zh@@li.org}.
+Each translation team has its own mailing list.  The up-to-date list
+of teams can be found at the Free Translation Project's homepage,
+@file{http://www.iro.umontreal.ca/~pinard/po/HTML/}, in the
+"National teams" area.
 
 If you'd like to volunteer to @emph{work} at translating messages, you
 should become a member of the translating team for your own language.
