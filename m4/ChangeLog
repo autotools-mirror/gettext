@@ -1,5 +1,16 @@
 2002-01-20  Bruno Haible  <bruno@clisp.org>
 
+	* lib-link.m4 (AC_LIB_LINKFLAGS): Fix quoting so that multiple
+	invocations of this macro work. Also set HAVE_LIBNAME for use by
+	AC_LIB_LINKFLAGS_BODY.
+	(AC_LIB_HAVE_LINKFLAGS): Fix quoting here as well.
+	(AC_LIB_LINKFLAGS_BODY): If a HAVE_LIBNAME macro is already set,
+	use the result of the corresponding previous AC_LIB_LINKFLAGS
+	invocation, don't look on the filesystem. Fix typo for /usr/lib.
+	Fix hardcode_libdir_flag_spec evaluation.
+
+2002-01-20  Bruno Haible  <bruno@clisp.org>
+
 	* libtool.m4 (_LT_AC_LTCONFIG_HACK): Remove two temporary files after
 	use.
 
