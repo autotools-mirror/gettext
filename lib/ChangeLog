@@ -1,5 +1,11 @@
 2002-05-18  Bruno Haible  <bruno@clisp.org>
 
+	* basename.h: Use __GLIBC__ >= 2, because BeOS (which defines __GLIBC__
+	to -2) doesn't declare basename() properly.
+	* basename.c: Likewise.
+
+2002-05-18  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (RM): New variable.
 	(install-exec-am): Depend on install-exec-clean.
 	(install-exec-clean): New rule.

@@ -26,7 +26,7 @@
 /* Specification.  */
 #include "basename.h"
 
-#ifndef __GLIBC__
+#if !(__GLIBC__ >= 2)
 
 #include <stdio.h>
 #include <assert.h>

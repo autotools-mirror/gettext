@@ -22,7 +22,7 @@
 /* This is where basename() is declared.  */
 #include <string.h>
 
-#ifndef __GLIBC__
+#if !(__GLIBC__ >= 2)
 /* When not using the GNU libc we use the basename implementation we
    provide here.  */
 extern char *gnu_basename PARAMS ((const char *));
