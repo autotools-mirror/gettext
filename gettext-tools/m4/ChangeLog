@@ -1,3 +1,7 @@
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
+	* stdbool.m4: Upgrade to gnulib version.
+
 2004-11-02  Bruno Haible  <bruno@clisp.org>
 
 	* setenv.m4 (gt_FUNC_SETENV): Define VOID_UNSETENV if unsetenv()
