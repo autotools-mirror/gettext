@@ -38,7 +38,7 @@ gettext_TEXINFOS = \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
   gettextize.texi autopoint.texi iso-639.texi iso-3166.texi
 
-EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi texi2html
+EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de nls.texi matrix.texi texi2html
 
 iso-639.texi: ISO_639 iso-639.sed
 	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
