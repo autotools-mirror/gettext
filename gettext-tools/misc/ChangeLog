@@ -1,3 +1,9 @@
+2003-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Ignore ACLOCAL_AMFLAGS options of the form -Idir when
+	dir is an absolute pathname.
+	Reported by Jürgen A. Erhard <jae+debian@jerhard.org>.
+
 2003-04-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Recommend running automake only after aclocal,

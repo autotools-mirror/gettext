@@ -661,8 +661,14 @@ if test -f "$srcdir/Makefile.am"; then
   m4dir_is_next=
   for arg in $aclocal_amflags; do
     if test -n "$m4dir_is_next"; then
-      m4dir="$arg"
-      break
+      # Ignore absolute directory pathnames, like /usr/local/share/aclocal.
+      case "$arg" in
+        /*) ;;
+        *)
+          m4dir="$arg"
+          break
+          ;;
+      esac
     else
       if test "X$arg" = "X-I"; then
         m4dir_is_next=yes
