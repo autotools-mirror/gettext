@@ -1,3 +1,20 @@
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* vasprintf.c: Include stdlib.h if it exists.
+	(int_vasprintf): Increase buffer size for float/double values with
+	positive exponent only.
+	(main): Add more tests.
+
+1999-12-27  Geoff Keating  <geoffk@cygnus.com>
+
+	* vasprintf.c (int_vasprintf): Don't re-read the format character
+	as this mishandles strings like '%%s'.
+
+1998-01-18  Michael Snyder  <msnyder@cleaver.cygnus.com>
+
+	* vasprintf.c (int_vasprintf): Increase buffer size for float/double
+	values.
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* Makefile.am (EXTRA_DIST): Add basename.c.
