@@ -35,7 +35,8 @@ Tasks not to forget before release:
 - Update djgpp/*.
 
 - Update gettext-tools/examples/*/LINGUAS and the file list in
-  gettext-tools/examples/Makefile.am.
+  gettext-tools/examples/Makefile.am. Also
+  "cd gettext-tools/examples/po; make update-po".
 
 - Update
     NEWS
