@@ -1,0 +1,10 @@
+Makefile
+po-gram-gen2.h
+.libs
+gettext
+msgcmp
+msgcomm
+msgfmt
+msgmerge
+msgunfmt
+xgettext

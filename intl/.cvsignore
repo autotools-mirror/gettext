@@ -1,0 +1,6 @@
+ChangeLog.inst
+Makefile
+VERSION
+.libs
+*.lo
+*.la

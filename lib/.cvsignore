@@ -1,1 +1,5 @@
+Makefile
+charset.alias
+ref-add.sed
+ref-del.sed
 lbrkprop.txt
