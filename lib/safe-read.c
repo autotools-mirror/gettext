@@ -1,5 +1,5 @@
-/* An interface to read() that retries after interrupts.
-   Copyright (C) 1993, 1994, 1998, 2002 Free Software Foundation, Inc.
+/* An interface to read and write that retries after interrupts.
+   Copyright (C) 1993, 1994, 1998, 2002-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,7 +20,11 @@
 #endif
 
 /* Specification.  */
-#include "safe-read.h"
+#ifdef SAFE_WRITE
+# include "safe-write.h"
+#else
+# include "safe-read.h"
+#endif
 
 /* Get ssize_t.  */
 #include <sys/types.h>
@@ -33,51 +37,62 @@
 extern int errno;
 #endif
 
+#ifdef EINTR
+# define IS_EINTR(x) ((x) == EINTR)
+#else
+# define IS_EINTR(x) 0
+#endif
+
 #include <limits.h>
 
-/* We don't pass an nbytes count > SSIZE_MAX to read() - POSIX says the
-   effect would be implementation-defined.  Also we don't pass an nbytes
-   count > INT_MAX but <= SSIZE_MAX to read() - this triggers a bug in
-   Tru64 5.1.  */
-#define MAX_BYTES_TO_READ INT_MAX
-
-/* Read up to COUNT bytes at BUF from descriptor FD, retrying if interrupted.
-   Return the actual number of bytes read, zero for EOF, or (size_t) -1
-   for an error.  */
-size_t
-safe_read (int fd, void *buf, size_t count)
-{
-  size_t total_read = 0;
-
-  if (count > 0)
-    {
-      char *ptr = (char *) buf;
-      do
-	{
-	  size_t nbytes_to_read = count;
-	  ssize_t result;
-
-	  /* Limit the number of bytes to read in one round, to avoid running
-	     into unspecified behaviour.  But keep the file pointer block
-	     aligned when doing so.  */
-	  if (nbytes_to_read > MAX_BYTES_TO_READ)
-	    nbytes_to_read = MAX_BYTES_TO_READ & ~8191;
-
-	  result = read (fd, ptr, nbytes_to_read);
-	  if (result < 0)
-	    {
-#ifdef EINTR
-	      if (errno == EINTR)
-		continue;
+#ifndef CHAR_BIT
+# define CHAR_BIT 8
 #endif
-	      return result;
-	    }
-	  total_read += result;
-	  ptr += result;
-	  count -= result;
-	}
-      while (count > 0);
-    }
 
-  return total_read;
+/* The extra casts work around common compiler bugs.  */
+#define TYPE_SIGNED(t) (! ((t) 0 < (t) -1))
+/* The outer cast is needed to work around a bug in Cray C 5.0.3.0.
+   It is necessary at least when t == time_t.  */
+#define TYPE_MINIMUM(t) ((t) (TYPE_SIGNED (t) \
+			      ? ~ (t) 0 << (sizeof (t) * CHAR_BIT - 1) : (t) 0))
+#define TYPE_MAXIMUM(t) ((t) (~ (t) 0 - TYPE_MINIMUM (t)))
+
+#ifndef INT_MAX
+# define INT_MAX TYPE_MAXIMUM (int)
+#endif
+
+#ifdef SAFE_WRITE
+# define safe_rw safe_write
+# define rw write
+#else
+# define safe_rw safe_read
+# define rw read
+# undef const
+# define const /* empty */
+#endif
+
+/* Read(write) up to COUNT bytes at BUF from(to) descriptor FD, retrying if
+   interrupted.  Return the actual number of bytes read(written), zero for EOF,
+   or SAFE_READ_ERROR(SAFE_WRITE_ERROR) upon error.  */
+size_t
+safe_rw (int fd, void const *buf, size_t count)
+{
+  ssize_t result;
+
+  /* POSIX limits COUNT to SSIZE_MAX, but we limit it further, requiring
+     that COUNT <= INT_MAX, to avoid triggering a bug in Tru64 5.1.
+     When decreasing COUNT, keep the file pointer block-aligned.
+     Note that in any case, read(write) may succeed, yet read(write)
+     fewer than COUNT bytes, so the caller must be prepared to handle
+     partial results.  */
+  if (count > INT_MAX)
+    count = INT_MAX & ~8191;
+
+  do
+    {
+      result = rw (fd, buf, count);
+    }
+  while (result < 0 && IS_EINTR (errno));
+
+  return (size_t) result;
 }
