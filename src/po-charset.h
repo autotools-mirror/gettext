@@ -23,7 +23,9 @@
 #include <iconv.h>
 #endif
 
-/* Canonicalize an encoding name.  */
+/* Canonicalize an encoding name.
+   The results of this function are statically allocated and can be
+   compared using ==.  */
 extern const char *po_charset_canonicalize PARAMS ((const char *charset));
 
 #if HAVE_ICONV
