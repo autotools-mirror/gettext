@@ -1,3 +1,7 @@
+2002-01-11  Bruno Haible  <bruno@clisp.org>
+
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+
 2002-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: Add src/format-elisp.c, src/x-elisp.c.
