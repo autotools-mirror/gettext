@@ -1,0 +1,15 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Big restructuring.
+	* rpath*: Moved to autoconf-lib-link package.
+	* Makefile.am (TESTS, EXTRA_DIST): Remove rpath*.
+	(EXTRA_DIST): Add ChangeLog.0.
+	(xg-test1.ok.po): Drop gettext.c from input files.
+	(INCLUDES): Refer to intl in gettext-runtime directory.
+	* lang-c++: Update for changed directory structure.
+	* lang-java: Likewise.
+	* xgettext-1: Drop gettext.c from input files.
+	* xgettext-3: Update for changed domain name.
+
+
+See ChangeLog.0 for earlier changes.

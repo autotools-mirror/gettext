@@ -1,0 +1,20 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Big restructuring.
+	* gettext.c: Remove file.
+	* ngettext.c: Remove file.
+	* Makefile.am (bin_PROGRAMS): Remove gettext, ngettext.
+	(EXTRA_DIST): Add ChangeLog.0.
+	(pkgdatadir): Define using 'gettext' instead of @PACKAGE@.
+	(pkglibdir): Likewise.
+	(INCLUDES): Refer to intl in gettext-runtime directory.
+	(gettext_SOURCES, ngettext_SOURCES, gettext_LDADD, ngettext_LDADD):
+	Remove variables.
+	(install-exec-local, installdirs-local, uninstall-local,
+	install-exec-java-yes, installdirs-java-yes, uninstall-java-yes): Use
+	$(pkglibdir) instead of $(libdir)/$(PACKAGE).
+	* plural.c: Update for changed directory structure.
+	* user-email.in: Use 'gettext' instead of @PACKAGE@.
+
+
+See ChangeLog.0 for earlier changes.
