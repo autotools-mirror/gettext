@@ -1,4 +1,4 @@
-# stdbool.m4 serial 1 (gettext-0.11)
+# stdbool.m4 serial 2 (gettext-0.11.3)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -32,6 +32,17 @@ if test $gt_cv_header_stdbool_h = yes; then
   STDBOOL_H=''
 else
   STDBOOL_H='stdbool.h'
+  AC_MSG_CHECKING([for _Bool type])
+  AC_CACHE_VAL(gt_cv_type_Bool, [
+    AC_TRY_COMPILE([_Bool x = sizeof (_Bool);], [],
+      gt_cv_type_Bool=yes, gt_cv_type_Bool=no)])
+  AC_MSG_RESULT([$gt_cv_type_Bool])
+  if test $gt_cv_type_Bool = yes; then
+    HAVE__BOOL=1
+  else
+    HAVE__BOOL=0
+  fi
+  AC_SUBST(HAVE__BOOL)
 fi
 AC_SUBST(STDBOOL_H)
 ])
