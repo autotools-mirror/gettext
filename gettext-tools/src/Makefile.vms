@@ -105,7 +105,7 @@ msggrep_OBJECTS = msggrep.obj
 msginit_OBJECTS = msginit.obj, localealias.obj
 msguniq_OBJECTS = msguniq.obj
 
-all : gettextsrc.olb,$(PROGRAMS)
+all : gettextsrc.olb,$(PROGRAMS),gettextpo.olb
 	write sys$output "Nothing else to be done for 'all'."
 
 # Compilation rules for $(OBJECTS).
@@ -389,6 +389,14 @@ msginit.exe : $(msginit_OBJECTS),libiconv.opt
 msguniq.exe : $(msguniq_OBJECTS),libiconv.opt
 	link /executable=msguniq.exe $(msguniq_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
+# Compilation rules for gettextpo.olb objects.
+
+gettext-po.obj : gettext-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) gettext-po.c
+
+gettextpo.olb : gettext-po.obj
+	$(AR) $(AR_FLAGS) gettextpo.olb gettext-po.obj
+
 install : all
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
@@ -410,12 +418,18 @@ install : all
 	create /directory $(datadir)]
 	create /directory $(pkgdatadir)]
 	$(INSTALL_DATA) msgunfmt.tcl $(pkgdatadir)]msgunfmt.tcl
+	create /directory $(includedir)]
+	$(INSTALL_DATA) gettext-po.h $(includedir)]gettext-po.h
+	create /directory $(libdir)]
+	$(INSTALL_DATA) gettextpo.olb $(libdir)]gettextpo.olb
 
 installdirs :
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
 	create /directory $(datadir)]
 	create /directory $(pkgdatadir)]
+	create /directory $(includedir)]
+	create /directory $(libdir)]
 
 uninstall :
 	$(RM) $(bindir)]msgcmp.exe;
@@ -434,6 +448,8 @@ uninstall :
 	$(RM) $(bindir)]msginit.exe;
 	$(RM) $(bindir)]msguniq.exe;
 	$(RM) $(pkgdatadir)]msgunfmt.tcl;
+	$(RM) $(includedir)]gettext-po.h
+	$(RM) $(libdir)]gettextpo.olb
 
 check : all
 	write sys$output "Nothing else to be done for 'check'."
