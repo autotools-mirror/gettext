@@ -7,10 +7,9 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-# Test whether a C++ compiler is found.
-if test "${CXX}" = ":"; then
-  exit 77
-fi
+# Test whether a C++ compiler is found and libasprintf is built.
+test "${CXX}" != ":" || exit 77
+test "${TESTLIBASPRINTF}" = yes || exit 77
 
 tmpfiles="$tmpfiles prog.cc"
 cat <<\EOF > prog.cc

@@ -1,3 +1,9 @@
+2003-12-27  Bruno Haible  <bruno@clisp.org>
+
+	* lang-c++: Skip the test if TESTLIBASPRINTF is not set to "yes".
+	* Makefile.am (TESTS_ENVIRONMENT): Also set TESTLIBASPRINTF.
+	Reported by Adrian Bunk <bunk@fs.tum.de>.
+
 2003-12-12  Bruno Haible  <bruno@clisp.org>
 
 	Assume automake-1.8.

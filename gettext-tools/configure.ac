@@ -217,6 +217,22 @@ dnl Checks for optional programs for the tests/lang-* tests.
 gt_PROG_ANSI_CXX
 gt_LOCALE_FR
 
+dnl Check whether to execute tests that rely on libasprintf.
+dnl This test must be consistent with gettext-runtime/configure.ac.
+if test "${enable_libasprintf+set}" = set; then
+  if test "$enable_libasprintf" != no; then
+    TESTLIBASPRINTF=yes
+  else
+    TESTLIBASPRINTF=no
+  fi
+else
+  TESTLIBASPRINTF=yes
+fi
+if test "$CXX" = ":"; then
+  TESTLIBASPRINTF=no
+fi
+AC_SUBST(TESTLIBASPRINTF)
+
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl
 echo "GNU gettext library from gettext-$VERSION" > intl/VERSION
