@@ -7,6 +7,14 @@ Version 0.11 - XXX 2001
 
 * Manual pages for all the programs have been added.
 
+Version 0.10.39 - July 2001
+
+* This is a bug-fix release.
+
+* Now uses libtool-1.4.  Linking with the libintl shared library is easier.
+
+* The autoconf macros now work with both autoconf-2.13 and autoconf-2.50.
+
 Version 0.10.38 - May 2001
 
 * This is a bug-fix release.
