@@ -1,5 +1,10 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* windows/gettextsrc.def: Add formatstring_gcc_internal,
+	formatstring_perl, formatstring_perl_brace to the export list.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* windows/gettextpo.def: New file.
 	* windows/gettextpo.rc: New file.
 	* Makefile.am (EXTRA_DIST): Add them.

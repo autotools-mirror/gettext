@@ -6,11 +6,14 @@ format_language_pretty
 formatstring_awk
 formatstring_c
 formatstring_elisp
+formatstring_gcc_internal
 formatstring_java
 formatstring_librep
 formatstring_lisp
 formatstring_parsers
 formatstring_pascal
+formatstring_perl
+formatstring_perl_brace
 formatstring_php
 formatstring_python
 formatstring_smalltalk
