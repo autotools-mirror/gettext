@@ -1,3 +1,8 @@
+2003-01-23  Bruno Haible  <bruno@clisp.org>
+
+	* format-c.c (get_c99_format_directives): Free the allocated
+	descriptor after use.
+
 2003-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* FILES: Update.

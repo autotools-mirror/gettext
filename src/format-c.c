@@ -1,5 +1,5 @@
 /* C format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -795,6 +795,9 @@ get_c99_format_directives (const char *string,
       *intervalsp = NULL;
       *lengthp = 0;
     }
+
+  if (descr != NULL)
+    format_free (descr);
 }
 
 
