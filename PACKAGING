@@ -78,3 +78,8 @@ following file list.
       $prefix/share/aclocal/progtest.m4
       $prefix/share/emacs/site-lisp/po-mode.el
       $prefix/share/emacs/site-lisp/po-mode.elc
+
+Note: Although installed by "make install", the static libraries
+      $prefix/lib/libgettextlib.a
+      $prefix/lib/libgettextsrc.a
+don't need to be included in binary distributions; they are redundant.
