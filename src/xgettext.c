@@ -171,7 +171,7 @@ static void read_exclusion_file PARAMS ((char *__file_name));
 static void remember_a_message PARAMS ((message_list_ty *__mlp,
 					xgettext_token_ty *__tp));
 static void scan_c_file PARAMS ((const char *__file_name,
-				 message_list_ty *__mlp,  int __is_cpp_file));
+				 message_list_ty *__mlp));
 static void extract_constructor PARAMS ((po_ty *__that));
 static void extract_directive_domain PARAMS ((po_ty *__that, char *__name));
 static void extract_directive_message PARAMS ((po_ty *__that, char *__msgid,
@@ -836,18 +836,13 @@ remember_a_message (mlp, tp)
 
 
 static void
-scan_c_file(filename, mlp, is_cpp_file)
+scan_c_file(filename, mlp)
      const char *filename;
      message_list_ty *mlp;
-     int is_cpp_file;
 {
   int state;
   int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
   int paren_nesting = 0;	/* defined only when in state 2 */
-
-  /* Inform scanner whether we have C++ files or not.  */
-  if (is_cpp_file)
-    xgettext_lex_cplusplus ();
 
   /* The file is broken into tokens.  Scan the token stream, looking for
      a keyword, followed by a left paren, followed by a string.  When we
@@ -1322,24 +1317,6 @@ test_whether_c_format (s)
 }
 
 
-static void
-  scanner_c (filename, mlp)
-  const char *filename;
-  message_list_ty *mlp;
-{
-  scan_c_file (filename, mlp, 0);
-}
-
-
-static void
-scanner_cxx (filename, mlp)
-  const char *filename;
-  message_list_ty *mlp;
-{
-  scan_c_file (filename, mlp, 1);
-}
-
-
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 #define ENDOF(a) ((a) + SIZEOF(a))
 
@@ -1357,8 +1334,8 @@ language_to_scanner (name)
 
   static table_ty table[] =
   {
-    { "C", scanner_c, },
-    { "C++", scanner_cxx, },
+    { "C", scan_c_file, },
+    { "C++", scan_c_file, },
     { "PO", read_po_file, },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exlude-file option.  */

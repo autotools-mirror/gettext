@@ -59,7 +59,6 @@ void xgettext_lex_comment_reset PARAMS ((void));
 /* void xgettext_lex_filepos PARAMS ((char **, int *)); FIXME needed?  */
 void xgettext_lex_keyword PARAMS ((const char *__name));
 int xgettext_any_keywords PARAMS ((void));
-void xgettext_lex_cplusplus PARAMS ((void));
 void xgettext_lex_trigraphs PARAMS ((void));
 
 #endif

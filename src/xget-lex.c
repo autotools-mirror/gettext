@@ -109,7 +109,6 @@ static char *logical_file_name;
 static int line_number;
 static FILE *fp;
 static int trigraphs;
-static int cplusplus_comments;
 static string_list_ty *comment;
 static hash_table keywords;
 static int default_keywords = 1;
@@ -307,7 +306,7 @@ phase1_ungetc (c)
 
 /* 2. Convert trigraphs to their single character equivalents.  Most
    sane human beings vomit copiously at the mention of trigraphs, which
-   is why they are on option.  */
+   is why they are an option.  */
 
 /* Maximum used guaranteed to be < 4.  */
 static unsigned char phase2_pushback[4];
@@ -492,12 +491,7 @@ phase4_getc ()
       return ' ';
 
     case '/':
-      /* C++ comment.  */
-      if (!cplusplus_comments)
-	{
-	  phase3_ungetc ('/');
-	  return '/';
-	}
+      /* C++ or ISO C 99 comment.  */
       buflen = 0;
       while (1)
 	{
@@ -982,55 +976,36 @@ static void
 phaseX_get (tp)
      token_ty *tp;
 {
-  static int middle;
-  token_ty tmp;
+  static int middle;	/* 0 at the beginning of a line, 1 otherwise.  */
 
   phase5_get (tp);
-  if (middle)
-    {
-      switch (tp->type)
-	{
-	case token_type_eoln:
-	case token_type_eof:
-	  middle = 0;
-	  break;
 
-	case token_type_hash:
-	  tp->type = token_type_symbol;
-	  break;
-
-	default:
-	  break;
-	}
-    }
+  if (tp->type == token_type_eoln || tp->type == token_type_eof)
+    middle = 0;
   else
     {
-      switch (tp->type)
+      if (middle)
 	{
-	case token_type_eoln:
-	case token_type_eof:
-	  break;
-
-	case token_type_white_space:
-	  tmp = *tp;
-	  phase5_get (tp);
-	  if (tp->type != token_type_hash)
-	    {
-	      phase5_unget (tp);
-	      *tp = tmp;
-	      middle = 1;
-	      return;
-	    }
-
-	  /* Discard the leading white space token, the hash is all
+	  /* Turn hash in the middle of a line into a plain symbol token.  */
+	  if (tp->type == token_type_hash)
+	    tp->type = token_type_symbol;
+	}
+      else
+	{
+	  /* When we see leading whitespace followed by a hash sign,
+	     discard the leading white space token.  The hash is all
 	     phase 6 is interested in.  */
-	  if (tp->type != token_type_eof && tp->type != token_type_eoln)
-	    middle = 1;
-	  break;
+	  if (tp->type == token_type_white_space)
+	    {
+	      token_ty next;
 
-	default:
+	      phase5_get (&next);
+	      if (next.type == token_type_hash)
+		*tp = next;
+	      else
+		phase5_unget (&next);
+	    }
 	  middle = 1;
-	  break;
 	}
     }
 }
@@ -1038,8 +1013,8 @@ phaseX_get (tp)
 
 /* 6. Recognize and carry out directives (it also expands macros on
    non-directive lines, which we do not do here).  The only directive
-   we care about is the #line directive.  We throw all the others
-   away.  */
+   we care about are the #line and #define directive.  We throw all the
+   others away.  */
 
 /* Maximum used guaranteed to be < 4.  */
 static token_ty phase6_pushback[4];
@@ -1063,13 +1038,13 @@ phase6_get (tp)
   while (1)
     {
       /* Get the next token.  If it is not a '#' at the beginning of a
-	 line, return immediately.  Be careful of white space.  */
+	 line (ignoring whitespace), return immediately.  */
       phaseX_get (tp);
       if (tp->type != token_type_hash)
 	return;
 
-      /* Accumulate the rest of the directive in a buffer.  Work out
-	 what it is later.  */
+      /* Accumulate the rest of the directive in a buffer, until the
+	 "define" keyword is seen or until end of line.  */
       bufpos = 0;
       while (1)
 	{
@@ -1077,19 +1052,26 @@ phase6_get (tp)
 	  if (tp->type == token_type_eoln || tp->type == token_type_eof)
 	    break;
 
-	  /* White space would be important in the directive, if we
-	     were interested in the #define directive.  But we are
-	     going to ignore the #define directive, so just throw
-	     white space away.  */
-	  if (tp->type == token_type_white_space)
-	    continue;
-
-	  if (bufpos >= bufmax)
+	  /* Before the "define" keyword and inside other directives
+	     white space is irrelevant.  So just throw it away.  */
+	  if (tp->type != token_type_white_space)
 	    {
-	      bufmax += 100;
-	      buf = xrealloc (buf, bufmax * sizeof (buf[0]));
+	      /* If it is a #define directive, return immediately,
+		 thus treating the body of the #define directive like
+		 normal input.  */
+	      if (bufpos == 0
+		  && tp->type == token_type_name
+		  && strcmp (tp->string, "define") == 0)
+		return;
+
+	      /* Accumulate.  */
+	      if (bufpos >= bufmax)
+		{
+		  bufmax += 100;
+		  buf = xrealloc (buf, bufmax * sizeof (buf[0]));
+		}
+	      buf[bufpos++] = *tp;
 	    }
-	  buf[bufpos++] = *tp;
 	}
 
       /* If it is a #line directive, with no macros to expand, act on
@@ -1334,13 +1316,6 @@ xgettext_lex_comment_reset ()
       string_list_free (comment);
       comment = NULL;
     }
-}
-
-
-void
-xgettext_lex_cplusplus ()
-{
-  cplusplus_comments = 1;
 }
 
 

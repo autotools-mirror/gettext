@@ -1,3 +1,19 @@
+2000-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	Look into #define bodies.
+	* xget-lex.c (phaseX_get): Simplify.
+	(phase6_get): Stop the loop when recognizing a #define directive.
+	Based on a patch by Martin v. Löwis.
+
+	Accept ISO C 99 comment syntax.
+	* xget-lex.c (cplusplus_comments: Remove variable.
+	(phase4_getc): Always recognize // comments.
+	(xgettext_lex_cplusplus): Remove function.
+	* xget-lex.h (xgettext_lex_cplusplus): Remove declaration.
+	* xgettext.c (scan_c_file): Remove is_cpp_file argument.
+	(scanner_c, scanner_cxx): Remove functions.
+	(language_to_scanner): Call scan_c_file directly.
+
 2000-08-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-lex.c (ALERT_CHAR): New constant macro.
