@@ -13,6 +13,11 @@ Installation on Woe32 (WinNT/2000/XP, Win95/98/ME):
    In a typical MSVC7.0 installation, it can be achieved by running
         C:\Program Files\Microsoft Visual Studio .NET\VC7\bin\vcvars32.bat
 
+   Decide which compilation model you will use:
+     MFLAGS=-ML (the default)  Single-threaded, statically linked - libc.lib
+     MFLAGS=-MT                Multi-threaded, statically linked  - libcmt.lib
+     MFLAGS=-MD                Multi-threaded, dynamically linked - msvcrt.lib
+
    For shared library (DLL):
 
         nmake -f Makefile.msvc DLL=1 MFLAGS=-MD
