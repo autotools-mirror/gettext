@@ -1,4 +1,4 @@
-# javacomp.m4 serial 1 (gettext-0.11)
+# javacomp.m4 serial 2 (gettext-0.11.1)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -30,6 +30,7 @@ AC_DEFUN([gt_JAVACOMP],
     popdef([AC_MSG_RESULT])dnl
     popdef([AC_CHECKING])dnl
     popdef([AC_MSG_CHECKING])dnl
+changequote(,)dnl
     if test -n "$HAVE_GCJ_IN_PATH" \
        && gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null; then
       HAVE_GCJ=1
@@ -65,6 +66,7 @@ EOF
         fi
       fi
     fi
+changequote([,])dnl
   fi
   AC_MSG_RESULT([$ac_result])
   AC_SUBST(JAVAC)
