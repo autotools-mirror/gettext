@@ -20,6 +20,7 @@
 AUTOMAKE_OPTIONS = 1.2 gnits
 
 TESTS = gettext-1 gettext-2 \
+	msgcat-1 \
 	msgcmp-1 msgcmp-2 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \

@@ -1,3 +1,8 @@
+2001-07-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcat-1: New file, from Karl Eichwalder with modifications.
+	* Makefile.am (TESTS): Add it.
+
 2001-07-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgmerge-7: rm $tmpfiles.
