@@ -2108,7 +2108,7 @@
 2001-09-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgattrib.c (main): Call set_program_name instead of assigning
-        program_name directly.
+	program_name directly.
 	* msgcat.c (main): Likewise.
 	* msgconv.c (main): Likewise.
 	* msgen.c (main): Likewise.
