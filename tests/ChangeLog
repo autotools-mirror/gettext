@@ -1,5 +1,11 @@
 2001-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* lang-c: Remove $tmpfiles before exiting with code 77.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+
+2001-11-30  Bruno Haible  <bruno@clisp.org>
+
 	* lang-c: Use $LIBTOOL.
 	* lang-c++: Likewise.
 	* lang-objc: Likewise.

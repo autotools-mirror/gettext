@@ -19,7 +19,7 @@ int main ()
 }
 EOF
 ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o hello hello.m \
-  || { echo "SKIP: lang-objc"; exit 77; }
+  || { echo "SKIP: lang-objc"; rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles prog.m"
 cat <<\EOF > prog.m

@@ -119,7 +119,7 @@ EOF
 LANGUAGE= LC_ALL=fr_FR ./prog 2 > prog.out
 case $? in
   0) ;;
-  77) echo "SKIP: lang-c"; exit 77;;
+  77) echo "SKIP: lang-c"; rm -fr $tmpfiles; exit 77;;
   *) exit 1;;
 esac
 ${DIFF} prog.ok prog.out || exit 1
