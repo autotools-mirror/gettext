@@ -511,8 +511,11 @@ incomplete multibyte sequence at end of line"));
 		abort ();
 	      /* Convert it from UTF-8 to UCS-4.  */
 	      mbc->uc_valid = true;
-	      if (u8_mbtouc (&mbc->uc, scratchbuf, outbytes) != outbytes)
-		abort ();
+	      /* We ignore the return value of u8_mbtouc(): Usually it returns
+		 outbytes, but if scratchbuf contains an out-of-range Unicode
+		 character (> 0x10ffff), it can also return 1 and set mbc->uc
+		 to 0xfffd.  This is precisely what we need.  */
+	      u8_mbtouc (&mbc->uc, scratchbuf, outbytes);
 	      break;
 	    }
 	}

@@ -1,3 +1,8 @@
+2003-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.c (mbfile_getc): Ignore the return value of u8_mbtouc().
+	Reported by Jochen Hein <jochen@jochen.org>.
+
 2003-09-09  Bruno Haible  <bruno@clisp.org>
 
 	* read-properties.c (phase4_getuc): Cast line_number to 'unsigned long'
