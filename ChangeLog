@@ -1,5 +1,9 @@
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
+	* version.sh: Bump version number to 0.14.2-pre1.
+
+2005-01-05  Bruno Haible  <bruno@clisp.org>
+
 	* config/ltmain.sh: Upgrade to libtool-1.5.10.
 	2003-11-27  Bruno Haible  <bruno@clisp.org>
 		* config/ltmain.sh: In the trampoline code, include string.h,

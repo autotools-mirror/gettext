@@ -1,5 +1,5 @@
-# lib-link.m4 serial 5 (gettext-0.15)
-dnl Copyright (C) 2001-2004 Free Software Foundation, Inc.
+# lib-link.m4 serial 5 (gettext-0.14.2)
+dnl Copyright (C) 2001-2005 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
