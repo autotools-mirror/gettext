@@ -1,3 +1,10 @@
+2001-09-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* strpbrk.h: New file.
+	* strpbrk.c: New file, from glibc-2.2.4.
+	* Makefile.am (EXTRA_DIST): Add strpbrk.c.
+	(noinst_HEADERS): Add strpbrk.h.
+
 2001-09-13  Bruno Haible  <haible@clisp.cons.org>
 
 	* alloca.c (alloca): Replace 'REGISTER' with 'register'.
