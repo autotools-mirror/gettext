@@ -110,12 +110,6 @@ struct spec
   struct unnumbered_arg *unnumbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static void *
 format_parse (const char *format, char **invalid_reason)

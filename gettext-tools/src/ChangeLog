@@ -1,3 +1,8 @@
+2003-08-31  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal.c (isdigit): Remove unused macro.
+	* format-perl-brace.c (isdigit): Likewise.
+
 2003-09-01  Guido Flohr  <guido@imperia.net>
 
 	* x-perl.c (extract_balanced): Access the global last_token.

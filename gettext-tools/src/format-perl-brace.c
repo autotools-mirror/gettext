@@ -53,12 +53,6 @@ struct spec
   struct named_arg *named;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 named_arg_compare (const void *p1, const void *p2)
