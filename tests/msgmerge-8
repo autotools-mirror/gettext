@@ -1,0 +1,60 @@
+#! /bin/sh
+
+# Test compendium option.
+
+# Translation is available within the compendium (mm-test8.com)
+# the old translation file (mm-test8.in1) contains the same msgid
+# Why not make use of the translation from the compendium?
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="mm-test8.in1 mm-test8.com mm-test8.pot"
+cat <<EOF > mm-test8.in1
+#: file.c:123
+msgid "1"
+msgstr "1x"
+
+#: file.c:345
+msgid "one, two, three"
+msgstr ""
+EOF
+
+cat <<EOF > mm-test8.com
+#: file.c:345
+msgid "one, two, three"
+msgstr "1, 2, 3"
+EOF
+
+cat <<EOF > mm-test8.pot
+#: file.c:123
+msgid "1"
+msgstr ""
+
+#: file.c:345
+msgid "one, two, three"
+msgstr ""
+EOF
+
+tmpfiles="$tmpfiles mm-test8.out"
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} -q -C mm-test8.com mm-test8.in1 mm-test8.pot -o mm-test8.out
+
+tmpfiles="$tmpfiles mm-test8.ok"
+cat << EOF > mm-test8.ok
+#: file.c:123
+msgid "1"
+msgstr "1x"
+
+#: file.c:345
+msgid "one, two, three"
+msgstr "1, 2, 3"
+EOF
+
+: ${DIFF=diff}
+${DIFF} mm-test8.ok mm-test8.out
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

@@ -1,0 +1,52 @@
+#! /bin/sh
+
+# Test compendium option.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="mm-test6.in1 mm-test6.com mm-test6.pot"
+cat <<EOF > mm-test6.in1
+#: file.c:123
+msgid "1"
+msgstr "1x"
+EOF
+
+cat <<EOF > mm-test6.com
+#: file.c:345
+msgid "2"
+msgstr "2x"
+EOF
+
+cat <<EOF > mm-test6.pot
+#: file.c:123
+msgid "1"
+msgstr ""
+
+#: file.c:345
+msgid "2"
+msgstr ""
+EOF
+
+tmpfiles="$tmpfiles mm-test6.out"
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} -q -C mm-test6.com mm-test6.in1 mm-test6.pot -o mm-test6.out
+
+tmpfiles="$tmpfiles mm-test6.ok"
+cat << EOF > mm-test6.ok
+#: file.c:123
+msgid "1"
+msgstr "1x"
+
+#: file.c:345
+msgid "2"
+msgstr "2x"
+EOF
+
+: ${DIFF=diff}
+${DIFF} mm-test6.ok mm-test6.out
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result
