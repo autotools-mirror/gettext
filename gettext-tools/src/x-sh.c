@@ -988,6 +988,12 @@ read_word (struct word *wp, int looking_for)
 		}
 	      remember_a_message (mlp, string_of_token (&string), &pos);
 	      free_token (&string);
+
+	      error_with_progname = false;
+	      error (0, 0, _("%s:%d: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"),
+		     pos.file_name, pos.line_number);
+	      error_with_progname = true;
+
 	      /* The result at runtime is not constant. Therefore we
 		 change wp->type.  */
 	    }

@@ -1,3 +1,7 @@
+2003-09-22  Bruno Haible  <bruno@clisp.org>
+
+	* x-sh.c (read_word): Warn about $"...".
+
 2003-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h (po_file_domain_header, po_header_field,
