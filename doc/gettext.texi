@@ -235,6 +235,7 @@ Files You Must Create or Alter
 
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
+* po/Makevars::                 @file{Makefile} pieces in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * aclocal::                     @file{aclocal.m4} at top level
@@ -1197,7 +1198,7 @@ Select the entry after the current one (@code{po-next-entry}).
 Select the entry before the current one (@code{po-previous-entry}).
 
 @item <
-Select the first entry in the PO file (@@code{po-first-entry}).
+Select the first entry in the PO file (@code{po-first-entry}).
 
 @item >
 Select the last entry in the PO file (@code{po-last-entry}).
@@ -5092,11 +5093,13 @@ archive sites.
 A @file{po/} directory is created for eventually holding
 all translation files, but initially only containing the file
 @file{po/Makefile.in.in} from the GNU @code{gettext} distribution.
-(beware the double @samp{.in} in the file name). If the @file{po/}
-directory already exists, it will be preserved along with the files
-it contains, and only @file{Makefile.in.in} will be overwritten.
+(beware the double @samp{.in} in the file name) and a few auxiliary
+files. If the @file{po/} directory already exists, it will be preserved
+along with the files it contains, and only @file{Makefile.in.in} and
+the auxiliary files will be overwritten.
 
 @item
+Only of @samp{--intl} has been specified:
 A @file{intl/} directory is created and filled with most of the files
 originally in the @file{intl/} directory of the GNU @code{gettext}
 distribution.  Also, if option @code{--force} (@code{-f}) is given,
@@ -5143,6 +5146,7 @@ its own functionality.
 @menu
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
+* po/Makevars::                 @file{Makefile} pieces in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * aclocal::                     @file{aclocal.m4} at top level
@@ -5183,7 +5187,7 @@ list those source files containing strings marked for translation
 of your whole distribution, rather than the location of the
 @file{POTFILES.in} file itself.
 
-@node po/LINGUAS, configure.in, po/POTFILES.in, Adjusting Files
+@node po/LINGUAS, po/Makevars, po/POTFILES.in, Adjusting Files
 @subsection @file{LINGUAS} in @file{po/}
 
 The @file{po/} directory should also receive a file named
@@ -5206,8 +5210,36 @@ languages, this should not be done by modifying the @file{LINGUAS} file,
 but rather by using the @code{LINGUAS} environment variable
 (@pxref{Installers}).
 
+@node po/Makevars, configure.in, po/LINGUAS, Adjusting Files
+@subsection @file{Makefile} pieces in @file{po/}
 
-@node configure.in, config.guess, po/LINGUAS, Adjusting Files
+The @file{po/} directory also has a file named @file{Makevars}.
+It can be left unmodified if your package has a single message domain
+and, accordingly, a single @file{po/} directory. Only packages which
+have multiple @file{po/} directories at different locations need to
+adjust the three variables defined in @file{Makevars}.
+
+@file{po/Makevars} gets inserted into the @file{po/Makefile} when the
+latter is created. At the same time, all files called @file{Rules-*} in the
+@file{po/} directory get appended to the @file{po/Makefile}. They present
+an opportunity to add rules for special PO files to the Makefile, without
+needing to mess with @file{po/Makefile.in.in}.
+
+GNU gettext comes with a @file{Rules-quot} file, containing rules for
+building catalogs @file{en@@quot.po} and @file{en@@boldquot.po}. The
+effect of @file{en@@quot.po} is that people who set their @code{LANGUAGE}
+environment variable to @samp{en@@quot} will get messages with proper
+looking symmetric Unicode quotation marks instead of abusing the ASCII
+grave accent and the ASCII apostrophe for indicating quotations. To
+enable this catalog, simply add @code{en@@quot} to the @file{po/LINGUAS}
+file. The effect of @file{en@@boldquot.po} is that people who set
+@code{LANGUAGE} to @samp{en@@boldquot} will get not only proper quotation
+marks, but also the quoted text will be shown in a bold font on terminals
+and consoles. This catalog is useful only for command-line programs, not
+GUI programs. To enable it, similarly add @code{en@@boldquot} to the
+@file{po/LINGUAS} file.
+
+@node configure.in, config.guess, po/Makevars, Adjusting Files
 @subsection @file{configure.in} at top level
 
 @file{configure.in} or @file{configure.ac} - this is the source from which
