@@ -1,3 +1,7 @@
+2004-09-01  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset: Add support for Darwin 7.
+
 2004-08-13  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (__GNU_GETTEXT_SUPPORTED_REVISION): Treat major
