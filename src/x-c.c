@@ -1204,6 +1204,144 @@ x_c_lex (tp)
 }
 
 
+/* The file is broken into tokens.  Scan the token stream, looking for
+   a keyword, followed by a left paren, followed by a string.  When we
+   see this sequence, we have something to remember.  We assume we are
+   looking at a valid C or C++ program, and leave the complaints about
+   the grammar to the compiler.
+
+     Normal handling: Look for
+       keyword ( ... msgid ... )
+     Plural handling: Look for
+       keyword ( ... msgid ... msgid_plural ... )
+
+   We use recursion because the arguments before msgid or between msgid
+   and msgid_plural can contain subexpressions of the same form.  */
+
+
+/* Extract messages until the next balanced closing parenthesis.
+   Extracted messages are added to MLP.
+   When a specific argument shall be extracted, COMMAS_TO_SKIP >= 0 and,
+   if also a plural argument shall be extracted, PLURAL_COMMAS > 0,
+   otherwise PLURAL_COMMAS = 0.
+   When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
+   Return true upon eof, false upon closing parenthesis.  */
+static bool
+extract_parenthesized (mlp, commas_to_skip, plural_commas)
+     message_list_ty *mlp;
+     int commas_to_skip;
+     int plural_commas;
+{
+  /* Remember the message containing the msgid, for msgid_plural.  */
+  message_ty *plural_mp = NULL;
+
+  /* 0 when no keyword has been seen.  1 right after a keyword is seen.  */
+  int state;
+  /* Parameters of the keyword just seen.  Defined only in state 1.  */
+  int next_commas_to_skip = -1;
+  int next_plural_commas = 0;
+
+  /* Start state is 0.  */
+  state = 0;
+
+  while (1)
+    {
+      xgettext_token_ty token;
+
+      x_c_lex (&token);
+      switch (token.type)
+	{
+	case xgettext_token_type_keyword:
+	  /* No need to bother if we extract all strings anyway.  */
+	  if (extract_all)
+	    continue;
+	  next_commas_to_skip = token.argnum1 - 1;
+	  next_plural_commas = (token.argnum2 > token.argnum1
+				? token.argnum2 - token.argnum1 : 0);
+	  state = 1;
+	  continue;
+
+	case xgettext_token_type_lparen:
+	  /* No need to recurse if we extract all strings anyway.  */
+	  if (extract_all)
+	    continue;
+	  if (state
+	      ?  extract_parenthesized (mlp, next_commas_to_skip,
+					next_plural_commas)
+	      : extract_parenthesized (mlp, -1, 0))
+	    return true;
+	  state = 0;
+	  continue;
+
+	case xgettext_token_type_rparen:
+	  /* No need to return if we extract all strings anyway.  */
+	  if (extract_all)
+	    continue;
+	  return false;
+
+	case xgettext_token_type_comma:
+	  /* No need to bother if we extract all strings anyway.  */
+	  if (extract_all)
+	    continue;
+	  if (commas_to_skip >= 0)
+	    {
+	      if (commas_to_skip > 0)
+		commas_to_skip--;
+	      else
+		if (plural_mp != NULL && plural_commas > 0)
+		  {
+		    commas_to_skip = plural_commas - 1;
+		    plural_commas = 0;
+		  }
+		else
+		  commas_to_skip = -1;
+	    }
+	  state = 0;
+	  continue;
+
+	case xgettext_token_type_string_literal:
+	  if (extract_all)
+	    remember_a_message (mlp, token.string, &token.pos);
+	  else
+	    {
+	      if (commas_to_skip == 0)
+		{
+		  if (plural_mp == NULL)
+		    {
+		      /* Seen an msgid.  */
+		      message_ty *mp = remember_a_message (mlp, token.string,
+							   &token.pos);
+		      if (plural_commas > 0)
+			plural_mp = mp;
+		    }
+		  else
+		    {
+		      /* Seen an msgid_plural.  */
+		      remember_a_message_plural (plural_mp, token.string,
+						 &token.pos);
+		      plural_mp = NULL;
+		    }
+		}
+	      else
+		free (token.string);
+	      state = 0;
+	    }
+	  continue;
+
+	case xgettext_token_type_symbol:
+	  state = 0;
+	  continue;
+
+	case xgettext_token_type_eof:
+	  return true;
+
+	default:
+	  abort ();
+	}
+    }
+}
+
+
 void
 extract_c (f, real_filename, logical_filename, mdlp)
      FILE *f;
@@ -1212,27 +1350,6 @@ extract_c (f, real_filename, logical_filename, mdlp)
      msgdomain_list_ty *mdlp;
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
-  int state;
-  int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
-  int plural_commas = 0;	/* defined only when in states 1 and 2 */
-  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
-  int paren_nesting = 0;	/* defined only when in state 2 */
-
-  /* The file is broken into tokens.  Scan the token stream, looking for
-     a keyword, followed by a left paren, followed by a string.  When we
-     see this sequence, we have something to remember.  We assume we are
-     looking at a valid C or C++ program, and leave the complaints about
-     the grammar to the compiler.
-
-     Normal handling: Look for
-       [A] keyword [B] ( ... [C] ... msgid ... ) [E]
-     Plural handling: Look for
-       [A] keyword [B] ( ... [C] ... msgid ... [D] ... msgid_plural ... ) [E]
-     At point [A]: state == 0.
-     At point [B]: state == 1, commas_to_skip set, plural_mp == NULL.
-     At point [C]: state == 2, commas_to_skip set, plural_mp == NULL.
-     At point [D]: state == 2, commas_to_skip set again, plural_mp != NULL.
-     At point [E]: state == 0.  */
 
   fp = f;
   real_file_name = real_filename;
@@ -1245,129 +1362,10 @@ extract_c (f, real_filename, logical_filename, mdlp)
 
   init_keywords ();
 
-  /* Start state is 0.  */
-  state = 0;
-
-  while (1)
-   {
-     xgettext_token_ty token;
-
-     /* A state machine is used to do the recognising:
-        State 0 = waiting for something to happen
-        State 1 = seen one of our keywords
-        State 2 = waiting for part of an argument */
-     x_c_lex (&token);
-     switch (token.type)
-       {
-       case xgettext_token_type_keyword:
-	 if (!extract_all && state == 2)
-	   {
-	     if (commas_to_skip == 0)
-	       {
-		 error_with_progname = false;
-		 error (0, 0,
-			_("%s:%lu: warning: keyword nested in keyword arg"),
-			token.pos.file_name,
-			(unsigned long) token.pos.line_number);
-		 error_with_progname = true;
-		 continue;
-	       }
-
-	     /* Here we should nest properly, but this would require a
-		potentially unbounded stack.  We haven't run across an
-		example that needs this functionality yet.  For now,
-		we punt and forget the outer keyword.  */
-	     error_with_progname = false;
-	     error (0, 0,
-		    _("%s:%lu: warning: keyword between outer keyword and its arg"),
-		    token.pos.file_name,
-		    (unsigned long) token.pos.line_number);
-	     error_with_progname = true;
-	   }
-	 commas_to_skip = token.argnum1 - 1;
-	 plural_commas = (token.argnum2 > token.argnum1
-			  ? token.argnum2 - token.argnum1 : 0);
-	 plural_mp = NULL;
-	 state = 1;
-	 continue;
-
-       case xgettext_token_type_lparen:
-	 switch (state)
-	   {
-	   case 1:
-	     paren_nesting = 0;
-	     state = 2;
-	     break;
-	   case 2:
-	     paren_nesting++;
-	     break;
-	   }
-	 continue;
-
-       case xgettext_token_type_rparen:
-	 if (state == 2 && paren_nesting != 0)
-	   paren_nesting--;
-	 else
-	   state = 0;
-	 continue;
-
-       case xgettext_token_type_comma:
-	 if (state == 2 && commas_to_skip != 0)
-	   {
-	     if (paren_nesting == 0)
-	       commas_to_skip--;
-	   }
-	 else
-	   state = 0;
-	 continue;
-
-       case xgettext_token_type_string_literal:
-	 if (extract_all)
-	   remember_a_message (mlp, token.string, &token.pos);
-	 else if (state == 2 && commas_to_skip == 0)
-	   {
-	     if (plural_mp == NULL)
-	       {
-		 /* Seen an msgid.  */
-		 if (plural_commas == 0)
-		   remember_a_message (mlp, token.string, &token.pos);
-		 else
-		   {
-		     plural_mp = remember_a_message (mlp, token.string,
-						     &token.pos);
-		     commas_to_skip = plural_commas;
-		     plural_commas = 0;
-		   }
-	       }
-	     else
-	       {
-		 /* Seen an msgid_plural.  */
-		 remember_a_message_plural (plural_mp, token.string,
-					    &token.pos);
-		 plural_mp = NULL;
-	       }
-	   }
-	 else
-	   {
-	     free (token.string);
-	     if (state == 1)
-	       state = 0;
-	   }
-	 continue;
-
-       case xgettext_token_type_symbol:
-	 if (state == 1)
-	   state = 0;
-	 continue;
-
-       case xgettext_token_type_eof:
-	 break;
-
-       default:
-	 abort ();
-       }
-     break;
-   }
+  /* Eat tokens until eof is seen.  When extract_parenthesized returns
+     due to an unbalanced closing parenthesis, just restart it.  */
+  while (!extract_parenthesized (mlp, -1, 0))
+    ;
 
   /* Close scanner.  */
   fp = NULL;
