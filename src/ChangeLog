@@ -1,3 +1,9 @@
+2001-03-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (test_whether_c_format): Recognize '%%' as valid.
+	* msgfmt.c (check_pair): In error message, count format
+	specifications starting from 1, not 0.
+
 2001-03-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (warn_id_len): Remove unused variable.

@@ -1013,7 +1013,7 @@ number of format specifications in `msgid' and `msgstr' does not match"));
 		error_at_line (0, 0, msgid_pos->file_name,
 			       msgid_pos->line_number, _("\
 format specifications for argument %lu are not the same"),
-			       (unsigned long) cnt);
+			       (unsigned long) (cnt + 1));
 		exit_status = EXIT_FAILURE;
 	      }
 	}

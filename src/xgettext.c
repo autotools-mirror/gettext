@@ -1380,7 +1380,7 @@ test_whether_c_format (s)
       size_t dummy;
 
       (void) parse_one_spec (s, 0, &spec, &dummy);
-      if (strchr ("iduoxXeEfgGcspnm", spec.info.spec) == NULL)
+      if (strchr ("iduoxXeEfgGcspnm%", spec.info.spec) == NULL)
 	return impossible;
     }
 
