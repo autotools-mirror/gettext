@@ -27,6 +27,7 @@
 #include "format.h"
 #include "c-ctype.h"
 #include "xmalloc.h"
+#include "system.h"
 #include "error.h"
 #include "progname.h"
 #include "libgettext.h"

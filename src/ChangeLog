@@ -1,3 +1,7 @@
+2001-12-20  Bruno Haible  <bruno@clisp.org>
+
+	* format-java.c: Include system.h.
+
 2001-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.c: Include <limits.h>.
