@@ -1,3 +1,8 @@
+1998-07-26  Paul Eggert  <eggert@twinsun.com>
+
+	* Makefile.in.in (maintainer-clean): Remove cat-id-tbl.c and
+	stamp-cat-id.
+
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (uninstall): Synchronize with the install target.
