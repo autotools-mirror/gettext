@@ -1,3 +1,7 @@
+2001-04-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (GENCAT): Remove variable.
+
 2001-04-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (datadir): Use the autoconf determined value, in
