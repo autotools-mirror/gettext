@@ -17,8 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.3 gnits
-MAINT_CHARSET = latin1
+AUTOMAKE_OPTIONS = 1.4 gnu
 ACLOCAL = ./aclocal.sh @ACLOCAL@
 ACLOCAL_AMFLAGS = -I m4
 

@@ -1,3 +1,8 @@
+2001-07-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (AUTOMAKE_OPTIONS): Bump to 1.4. Use option 'gnu', not
+	'gnits', to avoid distributing README-alpha.
+
 2001-06-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Call gt_STDBOOL_H.
