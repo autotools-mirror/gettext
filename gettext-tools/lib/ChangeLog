@@ -92,6 +92,10 @@
 
 2004-08-06  Paul Eggert  <eggert@cs.ucla.edu>
 
+	* safe-read.c: Import changes from coreutils.
+
+2004-08-06  Paul Eggert  <eggert@cs.ucla.edu>
+
 	* quotearg.c, quotearg.h: Import changes from coreutils.
 
 2004-08-06  Paul Eggert  <eggert@cs.ucla.edu>
