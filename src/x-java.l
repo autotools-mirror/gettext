@@ -98,10 +98,18 @@ static void append_char_buf PARAMS ((char_buf *b, int c));
 static char *get_string PARAMS ((char_buf *b));
 static void destroy_charbuf PARAMS ((char_buf *b));
 static void update_line_no PARAMS ((int c));
+static void strip_ending_spaces PARAMS ((char *str));
 static char *append_strings PARAMS ((char *a, char *b));
 static inline bool isplus PARAMS ((char *s));
 static inline bool isdot PARAMS ((char *s));
 static char *translate_esc PARAMS ((char *s));
+static object_list * object_list_alloc PARAMS ((void));
+static void object_list_destroy PARAMS ((object_list *list));
+static int get_num_objects PARAMS ((const object_list *list));
+static void * get_object PARAMS ((const object_list *list, int i));
+static void add_object PARAMS ((object_list *list, void *object));
+static java_keyword * alloc_keyword PARAMS ((const char *keyword,
+					     int arg1, int arg2));
 static bool tailcmp PARAMS ((const char *s1, const char *s2));
 static bool do_compare PARAMS ((const char *s1, const char *s2));
 static java_keyword *is_keyword PARAMS ((const char *s));
@@ -501,7 +509,8 @@ extract_java (f, real_filename, logical_filename, mdlp)
   int token;
   PARSER_STATE state = STATE_NONE;
   PARSER_STATE last_state = STATE_NONE;
-  char *str = NULL;		/* used only if state == STATE_STRING */
+  char *str = NULL;		/* used only if state == STATE_STRING
+						|| state == STATE_APPEND */
   char *key = NULL;		/* used only if state == STATE_WORD
 						|| state == STATE_INVOCATION */
   message_ty *plural = NULL;	/* used only after state was STATE_KEYWORD */
@@ -547,6 +556,11 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	    }
 	  else
 	    {
+	      if (str != NULL)
+		{
+		  free (str);
+		  str = NULL;
+		}
 	      state = STATE_WORD;
 	      key = xstrdup (parser_global->word);
 	    }
@@ -582,7 +596,14 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	  if (state == STATE_STRING && isplus (parser_global->operator))
 	    state = STATE_APPEND;
 	  else
-	    state = STATE_NONE;
+	    {
+	      if (str != NULL)
+		{
+		  free (str);
+		  str = NULL;
+		}
+	      state = STATE_NONE;
+	    }
 	  break;
 
 	case JAVA_FLOW:
@@ -615,19 +636,31 @@ extract_java (f, real_filename, logical_filename, mdlp)
 		    }
 
 		}
-	      else if (argument_counter == current_keyword->msgid_plural_arg)
+	      else if (argument_counter == current_keyword->msgid_plural_arg
+		       && str != NULL)
 		{
 		  remember_a_message_plural (plural, str, &pos);
 		  state = STATE_NONE;
 		  last_state = STATE_NONE;
 		  argument_counter = 0;
 		}
+	      else
+		{
+		  if (str != NULL)
+		    free (str);
+		}
+	      str = NULL;
 	    }
 
 	  if (extract_all_strings)
 	    {
-		state = STATE_NONE;
-		last_state = STATE_NONE;
+	      if (str != NULL)
+		{
+		  free (str);
+		  str = NULL;
+		}
+	      state = STATE_NONE;
+	      last_state = STATE_NONE;
 	    }
 
 	  if (state == STATE_WORD && isdot (parser_global->flow))
@@ -638,15 +671,28 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	  break;
 
 	case JAVA_COMMENT:
+	  if (str != NULL)
+	    {
+	      free (str);
+	      str = NULL;
+	    }
 	  state = STATE_NONE;
 	  last_state = STATE_NONE;
 	  xgettext_comment_add (parser_global->comment);
 	  break;
 
 	default:
+	  if (str != NULL)
+	    {
+	      free (str);
+	      str = NULL;
+	    }
 	  state = STATE_NONE;
 	}
       free_global ();
     }
   while (token != -1);
+
+  if (str != NULL)
+    free (str);
 }
