@@ -1,0 +1,13 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Big restructuring.
+	* autoconf-lib-link: New subdirectory.
+	* gettext-runtime: New subdirectory.
+	* gettext-tools: New subdirectory.
+	* config: New subdirectory.
+	* configure.ac: New file.
+	* Makefile.am: New file.
+	* version.sh: New file.
+
+
+See ChangeLog.0 for earlier changes.

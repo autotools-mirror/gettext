@@ -1,4 +1,4 @@
-## Makefile for the toplevel directory of the GNU NLS Utilities
+## Makefile for the toplevel directory of GNU gettext
 ## Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -18,32 +18,13 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4
 
-MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+SUBDIRS = autoconf-lib-link gettext-runtime gettext-tools
 
-SUBDIRS = \
-  doc intl intl-java lib @SUBDIR_libasprintf@ libuniname \
-  src po projects misc man m4 tests
-DIST_SUBDIRS = \
-  doc intl intl-java lib libasprintf libuniname \
-  src po projects misc man m4 tests
-
-EXTRA_DIST = BUGS DISCLAIM PACKAGING README.gemtext
-
-
-# Files installed for use by gettextize.
-
-gettextsrcdir = $(datadir)/gettext
-gettextsrc_DATA = ABOUT-NLS
-gettextsrc_SCRIPTS = config.rpath mkinstalldirs
-
-EXTRA_DIST += config.rpath
-
-ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
-	rm -f $(srcdir)/ABOUT-NLS \
-	  && $(MAKEINFO) --output=$(srcdir)/ABOUT-NLS --no-header \
-	    -I $(srcdir)/doc --no-validate nls.texi
+EXTRA_DIST = \
+  version.sh PACKAGING README.gemtext ChangeLog.0 \
+  config/m4/fixautomake.m4 \
+  config/m4/libtool.m4
 
 
 # DJGPP port.
@@ -64,85 +45,10 @@ EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 # Documentation tags not known to automake.
 
 ps:
-	cd doc && $(MAKE) ps
+	cd gettext-tools && $(MAKE) ps
 
 pdf:
-	cd doc && $(MAKE) pdf
+	cd gettext-tools && $(MAKE) pdf
 
 html:
-	cd doc && $(MAKE) html
-
-
-# Subdirectories with separate autoconfiguration.
-
-CONFIGURES_RPATHX = $(srcdir)/tests/rpathx/Makefile.in $(srcdir)/tests/rpathx/aclocal.m4 $(srcdir)/tests/rpathx/configure
-$(srcdir)/tests/rpathx/Makefile.in: $(srcdir)/tests/rpathx/Makefile.am $(srcdir)/tests/rpathx/configure.in
-	cd $(srcdir)/tests/rpathx && automake Makefile
-$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.in $(srcdir)/m4/libtool.m4
-	cd $(srcdir)/tests/rpathx && aclocal -I ../../m4
-$(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.in $(srcdir)/tests/rpathx/aclocal.m4
-	cd $(srcdir)/tests/rpathx && autoconf
-
-CONFIGURES_RPATHY = $(srcdir)/tests/rpathy/Makefile.in $(srcdir)/tests/rpathy/aclocal.m4 $(srcdir)/tests/rpathy/configure
-$(srcdir)/tests/rpathy/Makefile.in: $(srcdir)/tests/rpathy/Makefile.am $(srcdir)/tests/rpathy/configure.in
-	cd $(srcdir)/tests/rpathy && automake Makefile
-$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in $(srcdir)/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathy && aclocal -I ../../m4
-$(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/tests/rpathy/aclocal.m4
-	cd $(srcdir)/tests/rpathy && autoconf
-
-CONFIGURES_RPATHZ = $(srcdir)/tests/rpathz/Makefile.in $(srcdir)/tests/rpathz/aclocal.m4 $(srcdir)/tests/rpathz/configure
-$(srcdir)/tests/rpathz/Makefile.in: $(srcdir)/tests/rpathz/Makefile.am $(srcdir)/tests/rpathz/configure.in
-	cd $(srcdir)/tests/rpathz && automake Makefile
-$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.in $(srcdir)/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathz && aclocal -I ../../m4
-$(srcdir)/tests/rpathz/configure: $(srcdir)/tests/rpathz/configure.in $(srcdir)/tests/rpathz/aclocal.m4
-	cd $(srcdir)/tests/rpathz && autoconf
-
-CONFIGURES_RPATHLX = $(srcdir)/tests/rpathlx/Makefile.in $(srcdir)/tests/rpathlx/aclocal.m4 $(srcdir)/tests/rpathlx/configure
-$(srcdir)/tests/rpathlx/Makefile.in: $(srcdir)/tests/rpathlx/Makefile.am $(srcdir)/tests/rpathlx/configure.in
-	cd $(srcdir)/tests/rpathlx && automake Makefile
-$(srcdir)/tests/rpathlx/aclocal.m4: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathlx && aclocal -I ../../m4
-$(srcdir)/tests/rpathlx/configure: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/tests/rpathlx/aclocal.m4
-	cd $(srcdir)/tests/rpathlx && autoconf
-
-CONFIGURES_RPATHLY = $(srcdir)/tests/rpathly/Makefile.in $(srcdir)/tests/rpathly/aclocal.m4 $(srcdir)/tests/rpathly/configure
-$(srcdir)/tests/rpathly/Makefile.in: $(srcdir)/tests/rpathly/Makefile.am $(srcdir)/tests/rpathly/configure.in
-	cd $(srcdir)/tests/rpathly && automake Makefile
-$(srcdir)/tests/rpathly/aclocal.m4: $(srcdir)/tests/rpathly/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathly && aclocal -I ../../m4
-$(srcdir)/tests/rpathly/configure: $(srcdir)/tests/rpathly/configure.in $(srcdir)/tests/rpathly/aclocal.m4
-	cd $(srcdir)/tests/rpathly && autoconf
-
-CONFIGURES_RPATHLYX = $(srcdir)/tests/rpathlyx/Makefile.in $(srcdir)/tests/rpathlyx/aclocal.m4 $(srcdir)/tests/rpathlyx/configure
-$(srcdir)/tests/rpathlyx/Makefile.in: $(srcdir)/tests/rpathlyx/Makefile.am $(srcdir)/tests/rpathlyx/configure.in
-	cd $(srcdir)/tests/rpathlyx && automake Makefile
-$(srcdir)/tests/rpathlyx/aclocal.m4: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathlyx && aclocal -I ../../m4
-$(srcdir)/tests/rpathlyx/configure: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/tests/rpathlyx/aclocal.m4
-	cd $(srcdir)/tests/rpathlyx && autoconf
-
-CONFIGURES_RPATHLZ = $(srcdir)/tests/rpathlz/Makefile.in $(srcdir)/tests/rpathlz/aclocal.m4 $(srcdir)/tests/rpathlz/configure
-$(srcdir)/tests/rpathlz/Makefile.in: $(srcdir)/tests/rpathlz/Makefile.am $(srcdir)/tests/rpathlz/configure.in
-	cd $(srcdir)/tests/rpathlz && automake Makefile
-$(srcdir)/tests/rpathlz/aclocal.m4: $(srcdir)/tests/rpathlz/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathlz && aclocal -I ../../m4
-$(srcdir)/tests/rpathlz/configure: $(srcdir)/tests/rpathlz/configure.in $(srcdir)/tests/rpathlz/aclocal.m4
-	cd $(srcdir)/tests/rpathlz && autoconf
-
-CONFIGURES_RPATHLZYX = $(srcdir)/tests/rpathlzyx/Makefile.in $(srcdir)/tests/rpathlzyx/aclocal.m4 $(srcdir)/tests/rpathlzyx/configure
-$(srcdir)/tests/rpathlzyx/Makefile.in: $(srcdir)/tests/rpathlzyx/Makefile.am $(srcdir)/tests/rpathlzyx/configure.in
-	cd $(srcdir)/tests/rpathlzyx && automake Makefile
-$(srcdir)/tests/rpathlzyx/aclocal.m4: $(srcdir)/tests/rpathlzyx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathlzyx && aclocal -I ../../m4
-$(srcdir)/tests/rpathlzyx/configure: $(srcdir)/tests/rpathlzyx/configure.in $(srcdir)/tests/rpathlzyx/aclocal.m4
-	cd $(srcdir)/tests/rpathlzyx && autoconf
-
-SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHZ) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX) $(CONFIGURES_RPATHLZ) $(CONFIGURES_RPATHLZYX)
-
-subconfigures: $(SUBCONFIGURES)
-
-# Hidden from automake, but really activated. Works around an automake-1.5 bug.
-#distdir: subconfigures
-
+	cd gettext-tools && $(MAKE) html
