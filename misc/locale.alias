@@ -26,6 +26,8 @@
 # it with the rest of us.  Send it using the `glibcbug' script to
 # bugs@gnu.org.
 
+bokmal		nb_NO.ISO-8859-1
+bokmål		nb_NO.ISO-8859-1
 catalan		ca_ES.ISO-8859-1
 croatian	hr_HR.ISO-8859-2
 czech		cs_CZ.ISO-8859-2
@@ -47,10 +49,18 @@ hrvatski	hr_HR.ISO-8859-2
 hungarian       hu_HU.ISO-8859-2
 icelandic       is_IS.ISO-8859-1
 italian         it_IT.ISO-8859-1
-japanese	ja_JP.SJIS
+japanese	ja_JP.eucJP
 japanese.euc	ja_JP.eucJP
+ja_JP		ja_JP.eucJP
+ja_JP.ujis	ja_JP.eucJP
+japanese.sjis	ja_JP.SJIS
+korean		ko_KR.eucKR
+korean.euc 	ko_KR.eucKR
+ko_KR		ko_KR.eucKR
 lithuanian      lt_LT.ISO-8859-13
+nb_NO		no_NO.ISO-8859-1
 norwegian       no_NO.ISO-8859-1
+nynorsk		nn_NO.ISO-8859-1
 polish          pl_PL.ISO-8859-2
 portuguese      pt_PT.ISO-8859-1
 romanian        ro_RO.ISO-8859-2

@@ -1,3 +1,19 @@
+2000-10-26  GOTO Masanori  <gotom@debian.or.jp>
+
+	* locale.alias: Add ja_JP.ujis alias.
+
+2000-08-31  Ulrich Drepper  <drepper@redhat.com>
+
+	* locale.alias: Add aliases for bokmal and nynorsk.
+
+2000-08-21  Ulrich Drepper  <drepper@redhat.com>
+
+	* locale.alias: Add aliases for Korean.
+
+2000-08-01  Ulrich Drepper  <drepper@redhat.com>
+
+	* locale.alias: Update japanese aliases.
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* gettextize.in: Remove code to test for version of the m4 files.
