@@ -1,3 +1,11 @@
+2004-01-16  Bruno Haible  <bruno@clisp.org>
+
+	Create en@quot.po when it doesn't exist.
+	* Makefile.in.in (.SUFFIXES): Add .po-create.
+	($(POFILES)): Invoke .po-create target when the PO file does not exist.
+	(.nop.po-create): New rule.
+	* Rules-quot (en@quot.po-create, en@boldquot.po-create): New rules.
+
 2003-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13.1 released.
