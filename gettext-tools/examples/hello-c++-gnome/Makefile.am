@@ -22,7 +22,7 @@ localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 # Make sure the gnome.h include file is found.
-INCLUDES = $(GTKMM_CFLAGS) $(GNOME_INCLUDEDIR)
+AM_CPPFLAGS = $(GTKMM_CFLAGS) $(GNOME_INCLUDEDIR)
 
 # Link time dependencies.
 LDADD = $(GTKMM_LIBS) $(GNOME_LIBDIR) $(GNOMEUI_LIBS) @LIBINTL@

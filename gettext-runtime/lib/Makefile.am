@@ -55,7 +55,7 @@ LIBADD_SOURCE = \
 
 libgrt_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
-INCLUDES = \
+AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. \
   -I../intl -I$(srcdir)/../intl \

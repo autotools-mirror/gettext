@@ -1,3 +1,7 @@
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+
 2003-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c: Include xalloc.h instead of xmalloc.h.

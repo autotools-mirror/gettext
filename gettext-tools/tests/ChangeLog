@@ -1,5 +1,9 @@
 2003-11-15  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (EXTRA_DIST): Remove xg-test1.ok.po, add xg-c-1.ok.po.
 	(xg-c-1.ok.po): Renamed from xg-test1.ok.po.
 

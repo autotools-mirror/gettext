@@ -22,7 +22,7 @@ localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 # Make sure the gettext.h include file is found.
-INCLUDES = -I. -I$(srcdir)
+AM_CPPFLAGS = -I. -I$(srcdir)
 
 # Link time dependencies.
 LDADD = @LIBASPRINTF@ @LIBINTL@

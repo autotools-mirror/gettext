@@ -140,7 +140,7 @@ EXTRA_DIST += \
   gen-lbrkprop.c 3level.h Combining.txt \
   ChangeLog.0
 
-INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
+AM_CPPFLAGS = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
 DEFS = -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1 @DEFS@
 

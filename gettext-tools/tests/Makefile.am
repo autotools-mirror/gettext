@@ -139,7 +139,7 @@ xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 
 # Three auxiliary programs used by the tests.
 localedir = $(datadir)/locale
-INCLUDES = \
+AM_CPPFLAGS = \
   -I.. \
   -I../lib -I$(top_srcdir)/lib \
   -I../intl

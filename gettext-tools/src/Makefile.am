@@ -54,7 +54,7 @@ pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
 pkglibdir = $(libdir)/gettext
 
-INCLUDES = \
+AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. \
   -I$(top_srcdir)/libuniname \

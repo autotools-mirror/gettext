@@ -24,7 +24,7 @@ bin_PROGRAMS = gettext ngettext envsubst
 
 localedir = $(datadir)/locale
 
-INCLUDES = \
+AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. \
   -I../intl -I$(srcdir)/../intl \

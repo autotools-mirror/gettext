@@ -25,7 +25,7 @@ noinst_LIBRARIES = libuniname.a
 
 libuniname_a_SOURCES = uniname.h uniname.c uninames.h
 
-INCLUDES = -I.. -I../lib -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib
 
 EXTRA_DIST += gen-uninames
 

@@ -1,5 +1,9 @@
 2003-11-15  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (docdir, examplesconfigdir, examplesconfig_DATA): New
 	variables.
 

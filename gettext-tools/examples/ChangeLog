@@ -1,5 +1,15 @@
 2003-11-15  Bruno Haible  <bruno@clisp.org>
 
+	* hello-c/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+	* hello-c-gnome/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+	* hello-c++/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+	* hello-c++-kde/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+	* hello-c++-gnome/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+	* hello-objc/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+	* hello-objc-gnome/Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.
+
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am: New file.
 	* README: New file.
 	* installpaths.in: New file.

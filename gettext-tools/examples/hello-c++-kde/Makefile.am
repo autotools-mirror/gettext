@@ -25,7 +25,7 @@ localedir = $(datadir)/locale
 DEFS = -DPREFIX=\"$(prefix)\" @DEFS@
 
 # Make sure the KDE, Qt, X include file is found.
-INCLUDES = $(KDE_INCLUDES) $(QT_INCLUDES) $(X_INCLUDES)
+AM_CPPFLAGS = $(KDE_INCLUDES) $(QT_INCLUDES) $(X_INCLUDES)
 
 # CXXFLAGS += $(QT_CXXFLAGS) $(PTHREAD_CFLAGS)
 
