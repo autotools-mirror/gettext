@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.31\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
 "PO-Revision-Date: 1997-03-11 22:38 \n"
 "Last-Translator: Erick Branderhorst <Erick.Branderhorst@asml.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr ""
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -77,11 +81,11 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: optie `-W %s' staat geen argument toe\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
-#, fuzzy
+#, fuzzy, c-format
 msgid "memory exhausted"
 msgstr "Geen geheugen meer beschikbaar"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,38 +97,107 @@ msgstr ""
 "garantie; zelfs niet voor VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN\n"
 "SPECIFIEK DOEL.\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Geschreven door %s.\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "te veel argumenten"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "ontbrekende argumenten"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie.\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr ""
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr ""
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr ""
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr ""
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr ""
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr ""
+
+#: src/envsubst.c:198
+#, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr ""
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+#, fuzzy
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Meld fouten via <bug-gnu-utils@gnu.org>.\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "fout tijdens lezen \"%s\""
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr "standaard invoer"
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr ""
 
-#: src/gettext.c:248
-#, fuzzy, no-wrap
+#: src/gettext.c:254
+#, fuzzy, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -145,7 +218,7 @@ msgstr ""
 "  [TEXTDOMEIN] MSGID        ontvang vertaalde meldingen corresponderend aan\n"
 "                            MSGID vanuit TEKSTDOMEIN\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -167,25 +240,20 @@ msgstr ""
 "worden de in de katalogus gevonden meldingen vertaald.\n"
 "Standaard zoek directory: %s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-#, fuzzy
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Meld fouten via <bug-gnu-utils@gnu.org>.\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
 
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
 
-#: src/ngettext.c:218
-#, fuzzy, no-wrap
+#: src/ngettext.c:223
+#, fuzzy, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -206,7 +274,7 @@ msgstr ""
 "  [TEXTDOMEIN] MSGID        ontvang vertaalde meldingen corresponderend aan\n"
 "                            MSGID vanuit TEKSTDOMEIN\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -889,9 +957,6 @@ msgstr ""
 #~ msgid "incomplete multibyte sequence at end of line"
 #~ msgstr "illegale kontrol sequence"
 
-#~ msgid "error while reading \"%s\""
-#~ msgstr "fout tijdens lezen \"%s\""
-
 #~ msgid "keyword \"%s\" unknown"
 #~ msgstr "sleutelwoord \"%s\" onbekend"
 
@@ -1021,9 +1086,6 @@ msgstr ""
 #~ "  -V, --version               toon versie-informatie en bekindig "
 #~ "programma\n"
 #~ "  -W, --width=NUMBER          stel uitvoer pagina breedte in\n"
-
-#~ msgid "standard input"
-#~ msgstr "standaard invoer"
 
 #~ msgid "language `%s' unknown"
 #~ msgstr "taal `%s' onbekend"

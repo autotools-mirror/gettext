@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-18 17:10+0100\n"
+"POT-Creation-Date: 2003-11-28 20:31+0100\n"
 "PO-Revision-Date: 2003-11-23 03:06+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
@@ -69,7 +69,7 @@ msgstr "알 수 없는 시스템 오류"
 #: lib/execute.c:181 lib/execute.c:257 lib/execute.c:299 lib/pipe-bidi.c:178
 #: lib/pipe-bidi.c:265 lib/pipe-bidi.c:305 lib/pipe-in.c:194 lib/pipe-in.c:274
 #: lib/pipe-in.c:315 lib/pipe-out.c:194 lib/pipe-out.c:274 lib/pipe-out.c:315
-#: lib/wait-process.c:329 lib/wait-process.c:392
+#: lib/wait-process.c:332 lib/wait-process.c:395
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s 서브프로세스가 실패했습니다"
@@ -164,13 +164,13 @@ msgstr "DuplicateHandle이 오류 코드 0x%08x로 실패했습니다"
 msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle 실패"
 
-#: lib/wait-process.c:276 lib/wait-process.c:308 lib/wait-process.c:362
+#: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:365
 #, c-format
 msgid "%s subprocess"
 msgstr "%s 서브프로세스"
 
 # fatal signal 번역 개선
-#: lib/wait-process.c:321 lib/wait-process.c:384
+#: lib/wait-process.c:324 lib/wait-process.c:387
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s 서브프로세스가 치명적인 시그널 %d을(를) 받았습니다"
@@ -367,40 +367,43 @@ msgstr ""
 "지시자 %u번에서, 파라미터 %u은(는) '%s' 타입이지만, '%s' 타입이어야 합니다."
 
 #: src/format-lisp.c:2389
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
+"u parameter."
+msgid_plural ""
+"In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
-msgstr ""
+msgstr[0] ""
 "지시자 %u번에서, 매개변수가 너무 많습니다; 최대 %u개의 매개변수만 올 수 있습"
 "니다."
 
-#: src/format-lisp.c:2501
+#: src/format-lisp.c:2504
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "지시자 %u번에서, '%c' 다음에 숫자가 오지 않습니다."
 
-#: src/format-lisp.c:2699
+#: src/format-lisp.c:2702
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "지시자 %u번에서, 인자 %d이(가) 0보다 작습니다."
 
-#: src/format-lisp.c:2761
+#: src/format-lisp.c:2764
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "문자열이 ~/.../ 지시자의 중간에서 끝납니다."
 
-#: src/format-lisp.c:2791 src/format-lisp.c:3014 src/format-lisp.c:3120
-#: src/format-lisp.c:3169 src/format-lisp.c:3255
+#: src/format-lisp.c:2794 src/format-lisp.c:3017 src/format-lisp.c:3123
+#: src/format-lisp.c:3172 src/format-lisp.c:3258
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "'~%c'에 짝이 맞는 '~%c'이(가) 없습니다."
 
-#: src/format-lisp.c:2807
+#: src/format-lisp.c:2810
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "지시자 %u번에서, @와 : 변경자가 모두 들어 있습니다."
 
-#: src/format-lisp.c:2905
+#: src/format-lisp.c:2908
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
@@ -409,22 +412,22 @@ msgstr ""
 "지시자 %u번에서, '~:[' 다음에 와야 하는 '~;'로 구분된 두 개의 절이 오지 않습"
 "니다."
 
-#: src/format-lisp.c:3203
+#: src/format-lisp.c:3206
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "지시자 %u번에서, '~;'이 잘못된 위치에 쓰여졌습니다."
 
-#: src/format-lisp.c:3289
+#: src/format-lisp.c:3292
 msgid "The string refers to some argument in incompatible ways."
 msgstr "문자열이 호환되지 않는 방법으로 인자를 참조합니다."
 
 # 여기서 equivalent에 대한 해석은?
-#: src/format-lisp.c:3333
+#: src/format-lisp.c:3336
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "'msgid'와 '%s'의 서식 지정이 동등하지 않습니다"
 
-#: src/format-lisp.c:3354
+#: src/format-lisp.c:3357
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr "'%s' 안에 있는 서식 지정이 'msgid'에 없습니다"
@@ -2886,22 +2889,22 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만, \n"
 "Tcl 메세지 목록은 복수형을 처리할 수 없습니다\n"
 
-#: src/x-awk.c:339 src/x-python.c:388
+#: src/x-awk.c:343 src/x-python.c:388
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열"
 
-#: src/x-awk.c:590
+#: src/x-awk.c:594
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: 경고: 완결되지 않은 정규식"
 
-#: src/x-c.c:1077 src/x-java.c:899
+#: src/x-c.c:1079 src/x-java.c:901
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: 경고: 완결되지 않은 문자 상수"
 
-#: src/x-c.c:1101
+#: src/x-c.c:1103
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
@@ -2920,12 +2923,12 @@ msgstr ""
 "언어 \"glade\"는 지원되지 않습니다. %s은(는) expat에 의존합니다.\n"
 "이 버전은 expat 없이 빌드되었습니다.\n"
 
-#: src/x-java.c:1385
+#: src/x-java.c:1387
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: 경고: '}'가 와야 하는 곳에 ')'가 발견되었습니다"
 
-#: src/x-java.c:1409
+#: src/x-java.c:1411
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: 경고: ')가 와야 하는 곳에 '}'가 발견되었습니다"
@@ -2991,7 +2994,7 @@ msgstr "%s:%d: # 다음에 숫자가 빠졌습니다"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: 잘못된 문자열 표현"
 
-#: src/x-sh.c:1010
+#: src/x-sh.c:1012
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "

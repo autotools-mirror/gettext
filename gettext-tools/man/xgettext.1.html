@@ -16,7 +16,7 @@
 <a href="#SEE ALSO">SEE ALSO</a><br>
 
 <hr>
-<!-- Creator     : groff version 1.17 -->
+<!-- Creator     : groff version 1.17.2 -->
 <a name="NAME"></a>
 <h2>NAME</h2>
 <table width="100%" border=0 rules="none" frame="void"
@@ -164,8 +164,9 @@ output.</td></table>
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
 recognise the specified language (C, C++, ObjectiveC, PO,
-Python, Lisp, EmacsLisp, librep, Smalltalk, Java,
-JavaProperties, awk, YCP, Tcl, PHP, RST, Glade)</td></table>
+Shell, Python, Lisp, EmacsLisp, librep, Smalltalk, Java,
+JavaProperties, awk, YCP, Tcl, Perl, PHP, GCC-source,
+NXStringTable, RST, Glade)</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -259,7 +260,7 @@ lines) in output file</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="4%"></td><td width="96%">
-<b>Language=C/C++ specific options:</b></td></table>
+<b>Language specific options:</b></td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -271,7 +272,9 @@ lines) in output file</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
-extract all strings</td></table>
+extract all strings (only languages C, C++, ObjectiveC,
+Shell, Python, Lisp, EmacsLisp, librep, Java, awk, Tcl,
+Perl, PHP, GCC-source, Glade)</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -289,6 +292,35 @@ to use default keywords)</td></table>
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+(only languages C, C++, ObjectiveC, Shell, Python, Lisp,
+EmacsLisp, librep, Java, awk, Tcl, Perl, PHP, GCC-source,
+Glade)</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>--flag</b>=<i>WORD</i>:ARG:FLAG</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+additional flag for strings inside the argument number ARG
+of keyword WORD</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+(only languages C, C++, ObjectiveC, Shell, Python, Lisp,
+EmacsLisp, librep, Java, awk, YCP, Tcl, Perl, PHP,
+GCC-source)</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
 <b>-T</b>, <b>--trigraphs</b></td></table>
 
@@ -296,7 +328,20 @@ to use default keywords)</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
-understand ANSI C trigraphs for input</td></table>
+understand ANSI C trigraphs for input (only languages C,
+C++, ObjectiveC)</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>--qt</b></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+recognize Qt format strings (only language C++)</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -411,6 +456,18 @@ write out strict Uniforum conforming .po file</td></table>
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
 write out a Java .properties file</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>--stringtable-output</b></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+write out a NeXTstep/GNUstep .strings file</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">

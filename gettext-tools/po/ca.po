@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-18 17:10+0100\n"
+"POT-Creation-Date: 2003-11-28 20:31+0100\n"
 "PO-Revision-Date: 2003-11-23 18:02+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -107,7 +107,7 @@ msgstr "Error desconegut del sistema"
 #: lib/execute.c:181 lib/execute.c:257 lib/execute.c:299 lib/pipe-bidi.c:178
 #: lib/pipe-bidi.c:265 lib/pipe-bidi.c:305 lib/pipe-in.c:194 lib/pipe-in.c:274
 #: lib/pipe-in.c:315 lib/pipe-out.c:194 lib/pipe-out.c:274 lib/pipe-out.c:315
-#: lib/wait-process.c:329 lib/wait-process.c:392
+#: lib/wait-process.c:332 lib/wait-process.c:395
 #, c-format
 msgid "%s subprocess failed"
 msgstr "el subprocés «%s» ha fallat"
@@ -204,12 +204,12 @@ msgstr "DuplicateHandle() ha fallat amb el codi d'error 0x%08x"
 msgid "_open_osfhandle failed"
 msgstr "ha fallat _open_osfhandle()"
 
-#: lib/wait-process.c:276 lib/wait-process.c:308 lib/wait-process.c:362
+#: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:365
 #, c-format
 msgid "%s subprocess"
 msgstr "subprocés «%s»"
 
-#: lib/wait-process.c:321 lib/wait-process.c:384
+#: lib/wait-process.c:324 lib/wait-process.c:387
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "el subprocés «%s» ha rebut el senyal fatal %d"
@@ -436,43 +436,49 @@ msgstr ""
 "n'esperava un de tipus «%s»."
 
 #: src/format-lisp.c:2389
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
+"u parameter."
+msgid_plural ""
+"In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
-msgstr ""
+msgstr[0] ""
+"En la directiva número %u, s'han especificat massa paràmetres; se "
+"n'esperaven %u com a molt."
+msgstr[1] ""
 "En la directiva número %u, s'han especificat massa paràmetres; se "
 "n'esperaven %u com a molt."
 
-#: src/format-lisp.c:2501
+#: src/format-lisp.c:2504
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "En la directiva número %u, «%c» no està seguit d'un dígit."
 
-#: src/format-lisp.c:2699
+#: src/format-lisp.c:2702
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "En la directiva número %u, l'argument %d és negatiu."
 
-#: src/format-lisp.c:2761
+#: src/format-lisp.c:2764
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "La cadena termina emmig d'una directiva «~/.../»."
 
 # Són parèntesis.  ivb
-#: src/format-lisp.c:2791 src/format-lisp.c:3014 src/format-lisp.c:3120
-#: src/format-lisp.c:3169 src/format-lisp.c:3255
+#: src/format-lisp.c:2794 src/format-lisp.c:3017 src/format-lisp.c:3123
+#: src/format-lisp.c:3172 src/format-lisp.c:3258
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "S'ha trobat «~%c» sense el «~%c» corresponent."
 
-#: src/format-lisp.c:2807
+#: src/format-lisp.c:2810
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr ""
 "En la directiva número %u, s'han especificat tant el modificador «@» com el "
 "«:»."
 
-#: src/format-lisp.c:2905
+#: src/format-lisp.c:2908
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
@@ -481,21 +487,21 @@ msgstr ""
 "En la directiva número %u, «~[» no està seguit de dues clàusules separades "
 "per «~;»."
 
-#: src/format-lisp.c:3203
+#: src/format-lisp.c:3206
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "En la directiva número %u, «~;» s'usa en una posició no vàlida."
 
-#: src/format-lisp.c:3289
+#: src/format-lisp.c:3292
 msgid "The string refers to some argument in incompatible ways."
 msgstr "La cadena es refereix a algun argument de formes incompatibles."
 
-#: src/format-lisp.c:3333
+#: src/format-lisp.c:3336
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "les especificacions de format en «msgid» i «%s» no són equivalents"
 
-#: src/format-lisp.c:3354
+#: src/format-lisp.c:3357
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr ""
@@ -3156,22 +3162,22 @@ msgstr ""
 "format de catàleg de missatges de Tcl no suporta el tractament de\n"
 "plurals.\n"
 
-#: src/x-awk.c:339 src/x-python.c:388
+#: src/x-awk.c:343 src/x-python.c:388
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: avís: la cadena no està terminada"
 
-#: src/x-awk.c:590
+#: src/x-awk.c:594
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: avís: l'expressió regular no està terminada"
 
-#: src/x-c.c:1077 src/x-java.c:899
+#: src/x-c.c:1079 src/x-java.c:901
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: avís: el literal caràcter no està terminat"
 
-#: src/x-c.c:1101
+#: src/x-c.c:1103
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: avís: el literal cadena no està terminat"
@@ -3192,12 +3198,12 @@ msgstr ""
 "No es suporta el llenguatge «glade».  «%s» fa ús d'«expat».\n"
 "Aquesta versió ha estat construïda sense «expat».\n"
 
-#: src/x-java.c:1385
+#: src/x-java.c:1387
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: avís: s'ha trobat «)» on s'esperava «}»"
 
-#: src/x-java.c:1409
+#: src/x-java.c:1411
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: avís: s'ha trobat «}» on s'esperava «)»"
@@ -3269,7 +3275,7 @@ msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: l'expressió de cadena no és vàlida"
 
 # És una funció d'intèrpret.  ivb
-#: src/x-sh.c:1010
+#: src/x-sh.c:1012
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "

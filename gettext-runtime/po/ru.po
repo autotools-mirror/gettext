@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.12-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
 "PO-Revision-Date: 2003-02-21 08:18+0300\n"
 "Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr ""
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -78,10 +82,11 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: ключ `-W %s' должен использоваться без аргумента\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
+#, c-format
 msgid "memory exhausted"
 msgstr "оперативная память исчерпана"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,25 +98,93 @@ msgstr ""
 "в исходном тексте.  Мы НЕ предоставляем гарантий; даже гарантий\n"
 "КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ.\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Автор программы -- %s.\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "слишком много аргументов"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "необходимо задать аргументы"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Попробуйте `%s --help' для получения более подробного описания.\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr ""
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr ""
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr ""
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr ""
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr ""
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr ""
+
+#: src/envsubst.c:198
+#, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr ""
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Об ошибках сообщайте по адресу <bug-gnu-gettext@gnu.org>.\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr ""
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr ""
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -120,13 +193,13 @@ msgstr ""
 "Использование: %s [КЛЮЧ] [[ДОМЕН] MSGID]\n"
 "      или:     %s [КЛЮЧ] -s [MSGID]...\n"
 
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Отображает перевод текстого сообщения.\n"
 
-#: src/gettext.c:248
-#, no-wrap
+#: src/gettext.c:254
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -147,7 +220,7 @@ msgstr ""
 "  -V, --version             показать информацию о версии и выйти\n"
 "  [TEXTDOMAIN] MSGID        найти перевод сообщения MSGID в TEXTDOMAIN\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -168,17 +241,13 @@ msgstr ""
 "выводятся их переводы из указанного домена.\n"
 "Стандартный каталог поиска: %s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Об ошибках сообщайте по адресу <bug-gnu-gettext@gnu.org>.\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Использование: %s [КЛЮЧ] [ДОМЕН] MSGID MSGID-PLURAL ЧИСЛО\n"
 
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
@@ -186,8 +255,8 @@ msgstr ""
 "Отображает перевод текстового сообщения, грамматическая форма которого\n"
 "зависит от числа.\n"
 
-#: src/ngettext.c:218
-#, no-wrap
+#: src/ngettext.c:223
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -209,7 +278,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL     перевести MSGID (ед. число) / MSGID-PLURAL (мн. число)\n"
 "  ЧИСЛО                  выбрать ед./мн. число на основе этого значения\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

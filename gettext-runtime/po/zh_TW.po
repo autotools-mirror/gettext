@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
 "PO-Revision-Date: 2002-07-21 06:45 +0800\n"
 "Last-Translator: Pofeng Lee <pofeng@linux.org.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=Big5\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr ""
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -79,10 +83,11 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s：選項‘-W %s’不允許有參數\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
+#, c-format
 msgid "memory exhausted"
 msgstr "記憶體耗盡"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,25 +98,96 @@ msgstr ""
 "這是自由軟體；請參考原始碼的版權聲明。本軟體不提供任何保證，甚至不會包括\n"
 "可售性和適用於任何特定目的的保證。\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "由 %s 編寫。\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "參數過多"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "缺少了參數"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "試試‘%s --help’來獲取更多資訊。\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, fuzzy, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr "用法：%s [選項] [檔案]...\n"
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr ""
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr ""
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr ""
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr ""
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr ""
+
+#: src/envsubst.c:198
+#, fuzzy, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr ""
+"輸出資訊：\n"
+"  -h, --help                  顯示此段說明並離開\n"
+"  -V, --version               顯示版本資訊並離開\n"
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "請回報錯誤至 <bug-gnu-gettext@gnu.org>。\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "讀取“%s”時出現錯誤"
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr "標準輸入"
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -120,13 +196,13 @@ msgstr ""
 "用法：%s [選項] [[文字領域] MSGID]\n"
 "或：  %s [選項] -s [MSGID]...\n"
 
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "顯示某文字訊息的本地語言翻譯。\n"
 
-#: src/gettext.c:248
-#, no-wrap
+#: src/gettext.c:254
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -145,7 +221,7 @@ msgstr ""
 "  -V, --version             顯示版本資訊並離開\n"
 "  [文字領域] MSGID          由<文字領域>讀取相應於 MSGID 的翻譯訊息\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -164,24 +240,20 @@ msgstr ""
 "而是尋找訊息資料檔裡翻譯過的訊息。\n"
 "標準的搜尋目錄為：%s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "請回報錯誤至 <bug-gnu-gettext@gnu.org>。\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "用法：%s [選項] [文字領域] MSGID 複數-MSGID 數字\n"
 
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "顯示某文字訊息的本地語言翻譯，而翻譯的文法和數字有關。\n"
 
-#: src/ngettext.c:218
-#, no-wrap
+#: src/ngettext.c:223
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -201,7 +273,7 @@ msgstr ""
 "  MSGID 複數-MSGID          翻譯 MSGID (單數) / 複數-MSGID (複數)\n"
 "  數字                      根據<數字>來選擇單數或複數型態\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -337,15 +409,6 @@ msgstr ""
 #~ "  -s, --short           短的主機名稱\n"
 #~ "  -f, --fqdn, --long    長的主機名稱，包括正式的網域名稱（FQDN）及別名\n"
 #~ "  -i, --ip-address      主機的 IP 地址\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ msgstr ""
-#~ "輸出資訊：\n"
-#~ "  -h, --help                  顯示此段說明並離開\n"
-#~ "  -V, --version               顯示版本資訊並離開\n"
 
 #~ msgid "could not get host name"
 #~ msgstr "無法取得主機名稱"
@@ -1654,9 +1717,6 @@ msgstr ""
 #~ msgid "%s and explicit file names are mutually exclusive"
 #~ msgstr "使用 %s 不能同時指定檔案名稱"
 
-#~ msgid "Usage: %s [OPTION] [FILE]...\n"
-#~ msgstr "用法：%s [選項] [檔案]...\n"
-
 #~ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 #~ msgstr "將二元碼翻譯檔轉換為 Uniforum 型式的 .po 檔。\n"
 
@@ -1871,9 +1931,6 @@ msgstr ""
 
 #~ msgid "iconv failure"
 #~ msgstr "iconv 失敗"
-
-#~ msgid "error while reading \"%s\""
-#~ msgstr "讀取“%s”時出現錯誤"
 
 #~ msgid "keyword \"%s\" unknown"
 #~ msgstr "不明的關鍵字“%s”"
@@ -2118,9 +2175,6 @@ msgstr ""
 #~ "                                 (預設為空白字串 \"\")\n"
 #~ "  -M, --msgstr-suffix[=字串]     msgstr 條目使用<字串>作為後置字串\n"
 #~ "                                 (預設為空白字串 \"\")\n"
-
-#~ msgid "standard input"
-#~ msgstr "標準輸入"
 
 #~ msgid ""
 #~ "Empty msgid.  It is reserved by GNU gettext:\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
 "PO-Revision-Date: 2002-08-13 13:19+0200\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr ""
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -81,10 +85,11 @@ msgstr "%s: izbira ,-W %s` ne dovoljuje argumenta\n"
 
 #  Morda ,,Zmanjkalo pomnilnika''?
 #: ../gettext-tools/lib/xmalloc.c:41
+#, c-format
 msgid "memory exhausted"
 msgstr "zmanjkalo pomnilnika"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -96,25 +101,96 @@ msgstr ""
 "raz¹irjate so navedeni v izvorni kodi. Za program ni NOBENEGA jamstva,\n"
 "niti jamstev USTREZNOSTI ZA PRODAJO ali PRIMERNOSTI ZA RABO.\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Avtor %s.\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "preveè argumentov"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "argumenti manjkajo"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Poskusite ,%s --help` za izèrpnej¹a navodila\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, fuzzy, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr "Uporaba: %s [IZBIRA] [DATOTEKA]...\n"
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr ""
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr ""
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr ""
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr ""
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr ""
+
+#: src/envsubst.c:198
+#, fuzzy, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr ""
+"Informativni izpis:\n"
+"  -h, --help                  ta navodila\n"
+"  -V, --version               razlièica programa\n"
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Morebitne napake v programu sporoèite na <bug-gnu-gettext@gnu.org>.\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "napaka pri branju \"%s\""
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr "standardni vhod"
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -123,13 +199,13 @@ msgstr ""
 "Uporaba: %s [IZBIRA] [[DOMENA] MSGID]\n"
 "ali:     %s [IZBIRA] -s [MSGID]...\n"
 
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Prikaz prevoda tekstovnega sporoèila.\n"
 
-#: src/gettext.c:248
-#, no-wrap
+#: src/gettext.c:254
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -148,7 +224,7 @@ msgstr ""
 "  -V, --version             razlièica programa\n"
 "  [DOMENA] MSGID            i¹èemo prevod gesla MSGID v podani tekstovni DOMENI\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -168,17 +244,13 @@ msgstr ""
 "kataloga sporoèil.\n"
 "Privzet imenik s katalogom sporoèil: %s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Morebitne napake v programu sporoèite na <bug-gnu-gettext@gnu.org>.\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Uporaba: %s [IZBIRA] [DOMENA] MSGID MSGID-PLURAL ©TEVEC\n"
 
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
@@ -186,8 +258,8 @@ msgstr ""
 "Prikaz prevoda besedilnega sporoèila, katerega slovnièna oblika je odvisna\n"
 "od ¹tevila.\n"
 
-#: src/ngettext.c:218
-#, no-wrap
+#: src/ngettext.c:223
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -207,7 +279,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL        prevod MSGID (ednina) ali MSGID_PLURAL (mno¾ina)\n"
 "  ©TEVEC                    doloèitev edninske/mno¾inske oblike\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -345,15 +417,6 @@ msgstr ""
 #~ "polnim\n"
 #~ "                          internetim imenom in vzdevki\n"
 #~ "  -i, --ip-address      internetni naslov za gostiteljsko ime\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ msgstr ""
-#~ "Informativni izpis:\n"
-#~ "  -h, --help                  ta navodila\n"
-#~ "  -V, --version               razlièica programa\n"
 
 #~ msgid "could not get host name"
 #~ msgstr "gostiteljskega imena ni moè ugotoviti"
@@ -1784,9 +1847,6 @@ msgstr ""
 #~ msgid "%s and explicit file names are mutually exclusive"
 #~ msgstr "%s in izrecna imena datotek se med seboj izkljuèujejo"
 
-#~ msgid "Usage: %s [OPTION] [FILE]...\n"
-#~ msgstr "Uporaba: %s [IZBIRA] [DATOTEKA]...\n"
-
 #~ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 #~ msgstr ""
 #~ "Pretvorba kataloga sporoèil iz binarne oblike .mo v obliko Uniforum .po.\n"
@@ -2012,9 +2072,6 @@ msgstr ""
 
 #~ msgid "iconv failure"
 #~ msgstr "iconv neuspe¹en"
-
-#~ msgid "error while reading \"%s\""
-#~ msgstr "napaka pri branju \"%s\""
 
 #~ msgid "keyword \"%s\" unknown"
 #~ msgstr "kljuèna beseda \"%s\" neprepoznana"
@@ -2271,9 +2328,6 @@ msgstr ""
 #~ "uporabnike\n"
 #~ "  -m, --msgstr-prefix[=NIZ]  NIZ ali \"\" kot predpona za msgstr\n"
 #~ "  -m, --msgstr-suffix[=NIZ]  NIZ ali \"\" kot pripona za msgstr\n"
-
-#~ msgid "standard input"
-#~ msgstr "standardni vhod"
 
 #~ msgid ""
 #~ "Empty msgid.  It is reserved by GNU gettext:\n"

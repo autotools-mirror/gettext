@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-15 14:44+0100\n"
+"POT-Creation-Date: 2003-11-16 18:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgid "This program is running as process number %d."
 msgstr ""
 
 #: hello-c++-qt/hello.cc:53 hello-c++-kde/hellowindow.cc:49
-#: hello-smalltalk/hello.st.in:20 hello-ycp/hello.ycp:19
+#: hello-smalltalk/hello.st.in:20 hello-ycp/hello.ycp:20
 #, ycp-format
 msgid "This program is running as process number %1."
 msgstr ""

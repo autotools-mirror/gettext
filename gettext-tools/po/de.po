@@ -81,7 +81,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-18 17:10+0100\n"
+"POT-Creation-Date: 2003-11-28 20:31+0100\n"
 "PO-Revision-Date: 2003-11-19 14:54+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -143,7 +143,7 @@ msgstr "Unbekannter Systemfehler"
 #: lib/execute.c:181 lib/execute.c:257 lib/execute.c:299 lib/pipe-bidi.c:178
 #: lib/pipe-bidi.c:265 lib/pipe-bidi.c:305 lib/pipe-in.c:194 lib/pipe-in.c:274
 #: lib/pipe-in.c:315 lib/pipe-out.c:194 lib/pipe-out.c:274 lib/pipe-out.c:315
-#: lib/wait-process.c:329 lib/wait-process.c:392
+#: lib/wait-process.c:332 lib/wait-process.c:395
 #, c-format
 msgid "%s subprocess failed"
 msgstr "Subprozess %s fehlgeschlagen"
@@ -239,12 +239,12 @@ msgstr "DuplicateHandle ist mit dem Exitcode 0x%08x fehlgeschlagen"
 msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle fehlgeschlagen"
 
-#: lib/wait-process.c:276 lib/wait-process.c:308 lib/wait-process.c:362
+#: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:365
 #, c-format
 msgid "%s subprocess"
 msgstr "Subprozess %s"
 
-#: lib/wait-process.c:321 lib/wait-process.c:384
+#: lib/wait-process.c:324 lib/wait-process.c:387
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "Subprozess %s hat das fatale Signal %d erhalten"
@@ -464,41 +464,47 @@ msgstr ""
 "ein Parameter vom Typ '%s' erwartet."
 
 #: src/format-lisp.c:2389
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
+"u parameter."
+msgid_plural ""
+"In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
-msgstr ""
+msgstr[0] ""
+"In der %u. Formatanweisung sind zo viele Parameter angegeben; es werden "
+"höchstens %u Parameter erwartet."
+msgstr[1] ""
 "In der %u. Formatanweisung sind zo viele Parameter angegeben; es werden "
 "höchstens %u Parameter erwartet."
 
-#: src/format-lisp.c:2501
+#: src/format-lisp.c:2504
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "In der %u. Formatanweisung folgt dem '%c' keine Ziffer."
 
-#: src/format-lisp.c:2699
+#: src/format-lisp.c:2702
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "In der %u. Formatanweisung ist das %d. Argument negativ."
 
-#: src/format-lisp.c:2761
+#: src/format-lisp.c:2764
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "Die Zeichenkette endet mitten in einer ~/.../-Anweisung."
 
 # Bezieht sich auf Klammenpaare -ke-
-#: src/format-lisp.c:2791 src/format-lisp.c:3014 src/format-lisp.c:3120
-#: src/format-lisp.c:3169 src/format-lisp.c:3255
+#: src/format-lisp.c:2794 src/format-lisp.c:3017 src/format-lisp.c:3123
+#: src/format-lisp.c:3172 src/format-lisp.c:3258
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "'~%c' ohne zugehörige '~%c' gefunden."
 
-#: src/format-lisp.c:2807
+#: src/format-lisp.c:2810
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "In der %u. Formatanweisung sind die beiden Modifier @ und : angegeben."
 
-#: src/format-lisp.c:2905
+#: src/format-lisp.c:2908
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
@@ -507,23 +513,23 @@ msgstr ""
 "In der %u. Formatanweisung folgen dem '~:[' keine zwei Clausen, abgetrennt "
 "durch '~;'."
 
-#: src/format-lisp.c:3203
+#: src/format-lisp.c:3206
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr ""
 "In der %u. Formatanweisung wird '~;' an einer ungültigen Stelle verwendet."
 
-#: src/format-lisp.c:3289
+#: src/format-lisp.c:3292
 msgid "The string refers to some argument in incompatible ways."
 msgstr ""
 "Die Zeichenkette bezieht sich in nicht kompatibler Weise auf ein Argument."
 
-#: src/format-lisp.c:3333
+#: src/format-lisp.c:3336
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "Formatspezifikationen in »msgid« und »%s« sind nicht gleichbedeutend"
 
-#: src/format-lisp.c:3354
+#: src/format-lisp.c:3357
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr ""
@@ -3150,22 +3156,22 @@ msgstr ""
 "Katalog mit Meldungen weist Übersetzungen mit Pluralformen auf, aber der\n"
 "Tcl-Katalog mit den Meldungen unterstützt keine Pluralbehandlung\n"
 
-#: src/x-awk.c:339 src/x-python.c:388
+#: src/x-awk.c:343 src/x-python.c:388
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: Warnung: Zeichenkette nicht korrekt terminiert"
 
-#: src/x-awk.c:590
+#: src/x-awk.c:594
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: Warnung: regulärer Ausdruck nicht korrekt terminiert"
 
-#: src/x-c.c:1077 src/x-java.c:899
+#: src/x-c.c:1079 src/x-java.c:901
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: Warnung: Zeichenkonstante nicht korrekt terminiert"
 
-#: src/x-c.c:1101
+#: src/x-c.c:1103
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: Warnung: Zeichenkette nicht korrekt terminiert"
@@ -3184,12 +3190,12 @@ msgstr ""
 "Die Sprache »glade« wird nicht unterstützt.  %s hängt von expat ab.\n"
 "Diese Version wurde ohne expat erstellt.\n"
 
-#: src/x-java.c:1385
+#: src/x-java.c:1387
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: Warnung: ')' gefunden, wo '}' erwartet wurde"
 
-#: src/x-java.c:1409
+#: src/x-java.c:1411
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: Warnung: '}' gefunden, wo ')' erwartet wurde"
@@ -3256,7 +3262,7 @@ msgstr "%s:%d: Zahl nach # fehlt"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: ungültiger Ausdruck einer Zeichenkette"
 
-#: src/x-sh.c:1010
+#: src/x-sh.c:1012
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-18 17:10+0100\n"
+"POT-Creation-Date: 2003-11-28 20:31+0100\n"
 "PO-Revision-Date: 2003-11-24 06:19+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -69,7 +69,7 @@ msgstr "Bilinmeyen sistem hatası"
 #: lib/execute.c:181 lib/execute.c:257 lib/execute.c:299 lib/pipe-bidi.c:178
 #: lib/pipe-bidi.c:265 lib/pipe-bidi.c:305 lib/pipe-in.c:194 lib/pipe-in.c:274
 #: lib/pipe-in.c:315 lib/pipe-out.c:194 lib/pipe-out.c:274 lib/pipe-out.c:315
-#: lib/wait-process.c:329 lib/wait-process.c:392
+#: lib/wait-process.c:332 lib/wait-process.c:395
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s alt süreci başarısız"
@@ -165,12 +165,12 @@ msgstr "DuplicateHandle 0x%08x hata kodu vererek başarısız oldu"
 msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle başarısız oldu"
 
-#: lib/wait-process.c:276 lib/wait-process.c:308 lib/wait-process.c:362
+#: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:365
 #, c-format
 msgid "%s subprocess"
 msgstr "%s alt süreci"
 
-#: lib/wait-process.c:321 lib/wait-process.c:384
+#: lib/wait-process.c:324 lib/wait-process.c:387
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s alt süreci ölümcül sinyal %d aldı"
@@ -383,40 +383,46 @@ msgstr ""
 "parametre bekleniyordu."
 
 #: src/format-lisp.c:2389
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
+"u parameter."
+msgid_plural ""
+"In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
-msgstr ""
+msgstr[0] ""
+"%u numaralı yönergede, çok fazla parametre verilmiş; en fazla %u parametre "
+"umuluyordu."
+msgstr[1] ""
 "%u numaralı yönergede, çok fazla parametre verilmiş; en fazla %u parametre "
 "umuluyordu."
 
-#: src/format-lisp.c:2501
+#: src/format-lisp.c:2504
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "%u numaralı yönergede, '%c' den sonra bir rakam gelmiyor."
 
-#: src/format-lisp.c:2699
+#: src/format-lisp.c:2702
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "%u numaralı yönergede, %d. argüman negatif."
 
-#: src/format-lisp.c:2761
+#: src/format-lisp.c:2764
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "Dizge, bir ~/.../ yönergesinin ortasında bitiyor."
 
-#: src/format-lisp.c:2791 src/format-lisp.c:3014 src/format-lisp.c:3120
-#: src/format-lisp.c:3169 src/format-lisp.c:3255
+#: src/format-lisp.c:2794 src/format-lisp.c:3017 src/format-lisp.c:3123
+#: src/format-lisp.c:3172 src/format-lisp.c:3258
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "'~%2$c' ile eşleşmeyen '~%1$c' bulundu."
 
-#: src/format-lisp.c:2807
+#: src/format-lisp.c:2810
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "%u numaralı yönergede, hem @ hem de : değiştiricileri verilmiş."
 
-#: src/format-lisp.c:2905
+#: src/format-lisp.c:2908
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
@@ -425,21 +431,21 @@ msgstr ""
 "%u numaralı yönergede, '~:[' yönergesinden sonra  '~;' ile ayrılmış iki "
 "cümle gelmiyor."
 
-#: src/format-lisp.c:3203
+#: src/format-lisp.c:3206
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "%u numaralı yönergede, '~;' geçersiz bir konumda kullanılmış."
 
-#: src/format-lisp.c:3289
+#: src/format-lisp.c:3292
 msgid "The string refers to some argument in incompatible ways."
 msgstr "Dizge bazı argümanlara uyumsuz bir yolla karşılık getirilmiş."
 
-#: src/format-lisp.c:3333
+#: src/format-lisp.c:3336
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri aynı değil"
 
-#: src/format-lisp.c:3354
+#: src/format-lisp.c:3357
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr ""
@@ -2927,22 +2933,22 @@ msgstr ""
 "ileti kataloğu çoğul çeviriler içermesine rağmen Tcl ileti kataloğu\n"
 "biçemi çoğul çevirileri desteklemiyor\n"
 
-#: src/x-awk.c:339 src/x-python.c:388
+#: src/x-awk.c:343 src/x-python.c:388
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: uyarı: sonlandırılmamış dizge"
 
-#: src/x-awk.c:590
+#: src/x-awk.c:594
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: uyarı: sonlandırılmamış düzenli ifade"
 
-#: src/x-c.c:1077 src/x-java.c:899
+#: src/x-c.c:1079 src/x-java.c:901
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: uyarı: sonlandırılmamış karakter sabiti"
 
-#: src/x-c.c:1101
+#: src/x-c.c:1103
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: uyarı: sonlandırılmamış dizge sabiti"
@@ -2961,12 +2967,12 @@ msgstr ""
 "\"glade\" dili desteklenmiyor. %s expat'a bağlı.\n"
 "Bu sürüm expat olmaksızın kurgulanmış.\n"
 
-#: src/x-java.c:1385
+#: src/x-java.c:1387
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: uyarı: '}' umulan yerde ')' var"
 
-#: src/x-java.c:1409
+#: src/x-java.c:1411
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: uyarı: ')' umulan yerde '}' var"
@@ -3032,7 +3038,7 @@ msgstr "%s:%d:  # dan sonra sayı yok"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: dizge ifade geçersiz"
 
-#: src/x-sh.c:1010
+#: src/x-sh.c:1012
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
