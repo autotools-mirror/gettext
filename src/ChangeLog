@@ -1,5 +1,10 @@
 2002-01-19  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c (check_header_entry): Emit error messages including the
+	file name.
+
+2002-01-19  Bruno Haible  <bruno@clisp.org>
+
 	* open-po.c (open_po_file): Use 'size_t' instead of 'int'.
 	* x-java.l (translate_esc): Likewise.
 	* read-mo.c (read_mo_file): Use 'unsigned int' instead of 'int'.

@@ -1197,11 +1197,14 @@ check_header_entry (msgstr_string)
       char *endp = strstr (msgstr_string, required_fields[cnt]);
 
       if (endp == NULL)
-	error (0, 0, _("headerfield `%s' missing in header"),
-	       required_fields[cnt]);
+	multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+			 xasprintf (_("headerfield `%s' missing in header"),
+				    required_fields[cnt]));
       else if (endp != msgstr_string && endp[-1] != '\n')
-	error (0, 0, _("header field `%s' should start at beginning of line"),
-	       required_fields[cnt]);
+	multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+			 xasprintf (_("\
+header field `%s' should start at beginning of line"),
+				    required_fields[cnt]));
       else if (default_values[cnt] != NULL
 	       && strncmp (default_values[cnt],
 			   endp + strlen (required_fields[cnt]) + 2,
@@ -1209,8 +1212,9 @@ check_header_entry (msgstr_string)
 	{
 	  if (initial != -1)
 	    {
-	      error (0, 0, _("\
-some header fields still have the initial default value"));
+	      multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+			       xstrdup (_("\
+some header fields still have the initial default value")));
 	      initial = -1;
 	      break;
 	    }
@@ -1220,8 +1224,9 @@ some header fields still have the initial default value"));
     }
 
   if (initial != -1)
-    error (0, 0, _("field `%s' still has initial default value"),
-	   required_fields[initial]);
+    multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+		     xasprintf (_("field `%s' still has initial default value"),
+				required_fields[initial]));
 }
 
 

@@ -1,3 +1,8 @@
+2002-01-19  Bruno Haible  <bruno@clisp.org>
+
+	* xerror.c (multiline_warning): Add a newline if the message doesn't
+	terminate with a newline.
+
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.h (gettext_noop): Remove the parentheses around the

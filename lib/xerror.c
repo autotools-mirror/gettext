@@ -1,5 +1,5 @@
 /* Multiline error-reporting functions.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -118,6 +118,9 @@ multiline_warning (prefix, message)
       if (np == NULL || np[1] == '\0')
 	{
 	  fputs (cp, stderr);
+	  /* Temporary hack for gettext-0.11 check_header_entry function.  */
+	  if (np == NULL)
+	    fputc ('\n', stderr);
 	  break;
 	}
 
