@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.12-pre4\n"
+"Project-Id-Version: gettext-runtime 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-10-16 21:36+0200\n"
-"PO-Revision-Date: 2003-05-19 11:38+0200\n"
+"PO-Revision-Date: 2003-12-07 09:42+0200\n"
 "Last-Translator: Sami J. Laine <sami.laine@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../gettext-tools/lib/closeout.c:66
 msgid "write error"
-msgstr ""
+msgstr "virhe kirjoitettaessa"
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -119,43 +119,43 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Yritä `%s --help' saadaksesi lisää tietoja.\n"
 
 #: src/envsubst.c:176
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "Käyttö: %s [VALITSIN]\n"
+msgstr "Käyttö: %s [VALITSIN] [SHELL-MUOTO]\n"
 
 #: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
-msgstr ""
+msgstr "Korvaa ympäristömuuttujien arvot.\n"
 
 #: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
-msgstr ""
+msgstr "Toimintatila:\n"
 
 #: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr ""
+msgstr "  -v, --variables             tulostaa SHELL-MUOTO:ssa ilmenevät muuttujat\n"
 
 #: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
-msgstr ""
+msgstr "Selittävä tuloste:\n"
 
 #: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr ""
+"  -h, --help                  tulosta tämä ohje ja lopeta ohjelman\n"
+"                              ohjelman suoritus\n"
 
 #: src/envsubst.c:198
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr ""
-"Tietoja antavat tulosteet:\n"
-"  -h, --help                  näyttää tämän ohjeen ja lopettaa suorituksen\n"
-"  -V, --version               näyttää ohjelmiston version ja lopettaa\n"
-"                              suorituksen\n"
+"  -V, --version                tulosta ohjelman versiotiedot ja\n"
+"                               ohjelman lopeta suoritus\n"
 
 #: src/envsubst.c:202
 #, c-format, no-wrap
@@ -167,6 +167,12 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
+"Tavallisessa toimintatilassa vakiosyöte kopioitaan vakiotulosteeseen\n"
+"siten, että viittaukset, muodossa $MUUTTUJA tai ${MUUTTUJA},\n"
+"ympäristömuuttujiin korvataan vastaavilla arvoilla. Mikäli SHELL-MUOTO\n"
+"annetaan, vain ne ympäristömuuttujat, joihin viitataan SHELL-MUOTO:ssa\n"
+"korvataan. Muussa tapauksessa kaikki vakiosyötteessä esiintyvät\n"
+"ympäristömuuttujat korvataan.\n"
 
 #: src/envsubst.c:211
 #, c-format, no-wrap
@@ -174,19 +180,22 @@ msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
+"Jos valitsinta --variables käytetään, vakiosyöte jätetään huomiotta ja\n"
+"tuloste muodostuu ympäristömuuttujista, yksi kutakin riviä kohti,\n"
+"joihin viitataan SHELL-MUOTO:ssa.\n"
 
 #: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Ilmoita ohjelmiston vioista osoitteeseen <bug-gnu-gettext@gnu.org>.\n"
 
 #: src/envsubst.c:438
-#, fuzzy, c-format
+#, c-format
 msgid "error while reading \"%s\""
 msgstr "virhe luettaessa \"%s\""
 
 #: src/envsubst.c:439
 msgid "standard input"
-msgstr ""
+msgstr "vakiosyöte"
 
 #: src/gettext.c:244
 #, c-format, no-wrap
