@@ -1,3 +1,10 @@
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* lib-prefix.m4 (AC_LIB_ARG_WITH): Avoid "duplicated macro" error from
+	aclocal-1.4-p4.
+	Reported by Luke Schierer <lschiere@rackspace.com> and
+	Michael C. Toren <mct@toren.net>.
+
 2003-06-17  Paul Eggert  <eggert@twinsun.com>
 
 	* lib-ld.m4 (AC_LIB_PROG_LD_GNU, AC_LIB_PROG_LD): Don't use egrep, for
