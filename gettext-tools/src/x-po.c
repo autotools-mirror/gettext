@@ -1,5 +1,5 @@
 /* xgettext PO backend.
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -149,21 +149,16 @@ extract_directive_message (po_ty *that,
       message_list_append (this->mlp, mp);
     }
 
-  /* Add the accumulated comments to the message.  Clear the
-     accumulation in preparation for the next message. */
+  /* Add the accumulated comments to the message.  */
   if (this->comment != NULL)
     {
       for (j = 0; j < this->comment->nitems; ++j)
 	message_comment_append (mp, this->comment->item[j]);
-      string_list_free (this->comment);
-      this->comment = NULL;
     }
   if (this->comment_dot != NULL)
     {
       for (j = 0; j < this->comment_dot->nitems; ++j)
 	message_comment_dot_append (mp, this->comment_dot->item[j]);
-      string_list_free (this->comment_dot);
-      this->comment_dot = NULL;
     }
   mp->is_fuzzy = this->is_fuzzy;
   for (i = 0; i < NFORMATS; i++)
@@ -175,6 +170,24 @@ extract_directive_message (po_ty *that,
 
       pp = &this->filepos[j];
       message_comment_filepos (mp, pp->file_name, pp->line_number);
+    }
+
+  /* Prepare for next message.  */
+  if (this->comment != NULL)
+    {
+      string_list_free (this->comment);
+      this->comment = NULL;
+    }
+  if (this->comment_dot != NULL)
+    {
+      string_list_free (this->comment_dot);
+      this->comment_dot = NULL;
+    }
+  for (j = 0; j < this->filepos_count; ++j)
+    {
+      lex_pos_ty *pp;
+
+      pp = &this->filepos[j];
       free (pp->file_name);
     }
   if (this->filepos != NULL)

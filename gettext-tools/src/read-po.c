@@ -186,19 +186,37 @@ readall_directive_message (po_ty *that,
       mp->obsolete = obsolete;
     }
 
-  /* Add the accumulated comments to the message.  Clear the
-     accumulation in preparation for the next message.  */
+  /* Add the accumulated comments to the message.  */
   if (this->comment != NULL)
     {
       for (j = 0; j < this->comment->nitems; ++j)
 	message_comment_append (mp, this->comment->item[j]);
-      string_list_free (this->comment);
-      this->comment = NULL;
     }
   if (this->comment_dot != NULL)
     {
       for (j = 0; j < this->comment_dot->nitems; ++j)
 	message_comment_dot_append (mp, this->comment_dot->item[j]);
+    }
+  for (j = 0; j < this->filepos_count; ++j)
+    {
+      lex_pos_ty *pp;
+
+      pp = &this->filepos[j];
+      message_comment_filepos (mp, pp->file_name, pp->line_number);
+    }
+  mp->is_fuzzy = this->is_fuzzy;
+  for (i = 0; i < NFORMATS; i++)
+    mp->is_format[i] = this->is_format[i];
+  mp->do_wrap = this->do_wrap;
+
+  /* Prepare for next message.  */
+  if (this->comment != NULL)
+    {
+      string_list_free (this->comment);
+      this->comment = NULL;
+    }
+  if (this->comment_dot != NULL)
+    {
       string_list_free (this->comment_dot);
       this->comment_dot = NULL;
     }
@@ -207,14 +225,8 @@ readall_directive_message (po_ty *that,
       lex_pos_ty *pp;
 
       pp = &this->filepos[j];
-      message_comment_filepos (mp, pp->file_name, pp->line_number);
       free (pp->file_name);
     }
-  mp->is_fuzzy = this->is_fuzzy;
-  for (i = 0; i < NFORMATS; i++)
-    mp->is_format[i] = this->is_format[i];
-  mp->do_wrap = this->do_wrap;
-
   if (this->filepos != NULL)
     free (this->filepos);
   this->filepos_count = 0;

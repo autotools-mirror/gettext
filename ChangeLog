@@ -1,3 +1,9 @@
+2003-04-13  Bruno Haible  <bruno@clisp.org>
+
+	* read-po.c (readall_directive_message): Separate accumulation and
+	reset.
+	* x-po.c (extract_directive_message): Likewise.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: Don't use the force target.
