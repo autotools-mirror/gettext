@@ -24,55 +24,27 @@
 #include <getopt.h>
 #include <limits.h>
 #include <stdio.h>
-#include <sys/param.h>
-#include <sys/types.h>
 #include <stdlib.h>
 #include <locale.h>
 
-#include "hash.h"
-
 #include "dir-list.h"
 #include "error.h"
+#include "hash.h"
 #include "progname.h"
 #include "xerror.h"
 #include "getline.h"
 #include "format.h"
-#include <system.h>
+#include "system.h"
+#include "msgfmt.h"
+#include "write-mo.h"
 
-#include "gettext.h"
-#include "hash-string.h"
 #include "libgettext.h"
 #include "message.h"
 #include "po.h"
 
 #define _(str) gettext (str)
 
-#ifndef errno
-extern int errno;
-#endif
-
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
-
-/* Define the data structure which we need to represent the data to
-   be written out.  */
-struct id_str_pair
-{
-  char *id;
-  size_t id_len;
-  char *id_plural;
-  size_t id_plural_len;
-  char *str;
-  size_t str_len;
-};
-
-/* Contains information about the definition of one translation.  */
-struct hashtable_entry
-{
-  char *msgid_plural;
-  char *msgstr;
-  size_t msgstr_len;
-  lex_pos_ty pos;
-};
 
 /* This structure defines a derived class of the po_ty class.  (See
    po.h for an explanation.)  */
@@ -89,17 +61,11 @@ struct msgfmt_class_ty
   bool has_header_entry;
 };
 
-/* Alignment of strings in resulting .mo file.  */
-static size_t alignment;
-
 /* Contains exit status for case in which no premature exit occurs.  */
 static int exit_status;
 
 /* If true include even fuzzy translations in output file.  */
 static bool include_all = false;
-
-/* Nonzero if no hash table in .mo is wanted.  */
-static int no_hash_table;
 
 /* Specifies name of the output file.  */
 static const char *output_file_name;
@@ -160,7 +126,7 @@ static const struct option long_options[] =
   { "check-header", no_argument, NULL, CHAR_MAX + 3 },
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
-  { "no-hash", no_argument, &no_hash_table, 1 },
+  { "no-hash", no_argument, NULL, CHAR_MAX + 4 },
   { "output-file", required_argument, NULL, 'o' },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
@@ -171,15 +137,6 @@ static const struct option long_options[] =
 };
 
 
-#ifndef roundup
-# if defined __GNUC__ && __GNUC__ >= 2
-#  define roundup(x, y) ({typeof(x) _x = (x); typeof(y) _y = (y); \
-			  ((_x + _y - 1) / _y) * _y; })
-# else
-#  define roundup(x, y) ((((x)+((y)-1))/(y))*(y))
-# endif	/* GNU CC2  */
-#endif /* roundup  */
-
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status))
@@ -187,8 +144,16 @@ static void usage PARAMS ((int status))
 	__attribute__ ((noreturn))
 #endif
 ;
-static void grammar PARAMS ((char *filename));
+static const char *add_mo_suffix PARAMS ((const char *));
+static struct msg_domain *new_domain PARAMS ((const char *name,
+					      const char *file_name));
+static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
+				const char *msgid_plural,
+				const char *msgstr, size_t msgstr_len,
+				const lex_pos_ty *msgstr_pos,
+				enum is_format is_format[NFORMATS]));
 static void format_constructor PARAMS ((po_ty *that));
+static void format_debrief PARAMS ((po_ty *));
 static void format_directive_domain PARAMS ((po_ty *pop, char *name));
 static void format_directive_message PARAMS ((po_ty *pop, char *msgid,
 					      lex_pos_ty *msgid_pos,
@@ -197,17 +162,7 @@ static void format_directive_message PARAMS ((po_ty *pop, char *msgid,
 					      lex_pos_ty *msgstr_pos,
 					      bool obsolete));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
-static void format_debrief PARAMS ((po_ty *));
-static struct msg_domain *new_domain PARAMS ((const char *name,
-					      const char *file_name));
-static int compare_id PARAMS ((const void *pval1, const void *pval2));
-static void write_table PARAMS ((FILE *output_file, hash_table *tab));
-static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
-				const char *msgid_plural,
-				const char *msgstr, size_t msgstr_len,
-				const lex_pos_ty *msgstr_pos,
-				enum is_format is_format[NFORMATS]));
-static const char *add_mo_suffix PARAMS ((const char *));
+static void read_po_file PARAMS ((char *filename));
 
 
 int
@@ -292,6 +247,9 @@ main (argc, argv)
       case CHAR_MAX + 3:
 	check_header = true;
 	break;
+      case CHAR_MAX + 4:
+	no_hash_table = true;
+	break;
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -344,43 +302,19 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	current_domain = NULL;
 
       /* And process the input file.  */
-      grammar (argv[optind]);
+      read_po_file (argv[optind]);
 
       ++optind;
     }
 
   for (domain = domain_list; domain != NULL; domain = domain->next)
     {
-      FILE *output_file;
+      if (msgdomain_write_mo (&domain->symbol_tab, domain->domain_name,
+			      domain->file_name))
+	exit_status = EXIT_FAILURE;
 
-      /* If no entry for this domain don't even create the file.  */
-      if (domain->symbol_tab.filled != 0)
-	{
-	  if (strcmp (domain->domain_name, "-") == 0)
-	    {
-	      output_file = stdout;
-	      SET_BINARY (fileno (output_file));
-	    }
-	  else
-	    {
-	      const char *fname = domain->file_name;
-
-	      output_file = fopen (fname, "wb");
-	      if (output_file == NULL)
-		{
-		  error (0, errno,
-			 _("error while opening \"%s\" for writing"), fname);
-		  exit_status = EXIT_FAILURE;
-		}
-	    }
-
-	  if (output_file != NULL)
-	    {
-	      write_table (output_file, &domain->symbol_tab);
-	      if (output_file != stdout)
-		fclose (output_file);
-	    }
-	}
+      /* Hashing table is not used anmore.  */
+      delete_hash (&domain->symbol_tab);
     }
 
   /* Print statistics if requested.  */
@@ -485,6 +419,24 @@ Informative output:\n\
 }
 
 
+static const char *
+add_mo_suffix (fname)
+     const char *fname;
+{
+  size_t len;
+  char *result;
+
+  len = strlen (fname);
+  if (len > 3 && memcmp (fname + len - 3, ".mo", 3) == 0)
+    return fname;
+  if (len > 4 && memcmp (fname + len - 4, ".gmo", 4) == 0)
+    return fname;
+  result = (char *) xmalloc (len + 4);
+  stpcpy (stpcpy (result, fname), ".mo");
+  return result;
+}
+
+
 static struct msg_domain *
 new_domain (name, file_name)
      const char *name;
@@ -510,6 +462,179 @@ new_domain (name, file_name)
 
   return *p_dom;
 }
+
+
+/* Perform miscellaneous checks on a message.  */
+static void
+check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
+	    is_format)
+     const char *msgid;
+     const lex_pos_ty *msgid_pos;
+     const char *msgid_plural;
+     const char *msgstr;
+     size_t msgstr_len;
+     const lex_pos_ty *msgstr_pos;
+     enum is_format is_format[NFORMATS];
+{
+  int has_newline;
+  size_t i;
+  const char *p;
+
+  /* If the msgid string is empty we have the special entry reserved for
+     information about the translation.  */
+  if (msgid[0] == '\0')
+    return;
+
+  /* Test 1: check whether all or none of the strings begin with a '\n'.  */
+  has_newline = (msgid[0] == '\n');
+#define TEST_NEWLINE(p) (p[0] == '\n')
+  if (msgid_plural != NULL)
+    {
+      if (TEST_NEWLINE(msgid_plural) != has_newline)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgid_plural' entries do not both begin with '\\n'"));
+	  error_with_progname = true;
+	  exit_status = EXIT_FAILURE;
+	}
+      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
+	if (TEST_NEWLINE(p) != has_newline)
+	  {
+	    error_with_progname = false;
+	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			   _("\
+`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), i);
+	    error_with_progname = true;
+	    exit_status = EXIT_FAILURE;
+	  }
+    }
+  else
+    {
+      if (TEST_NEWLINE(msgstr) != has_newline)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgstr' entries do not both begin with '\\n'"));
+	  error_with_progname = true;
+	  exit_status = EXIT_FAILURE;
+	}
+    }
+#undef TEST_NEWLINE
+
+  /* Test 2: check whether all or none of the strings end with a '\n'.  */
+  has_newline = (msgid[strlen (msgid) - 1] == '\n');
+#define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
+  if (msgid_plural != NULL)
+    {
+      if (TEST_NEWLINE(msgid_plural) != has_newline)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgid_plural' entries do not both end with '\\n'"));
+	  error_with_progname = true;
+	  exit_status = EXIT_FAILURE;
+	}
+      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
+	if (TEST_NEWLINE(p) != has_newline)
+	  {
+	    error_with_progname = false;
+	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			   _("\
+`msgid' and `msgstr[%u]' entries do not both end with '\\n'"), i);
+	    error_with_progname = true;
+	    exit_status = EXIT_FAILURE;
+	  }
+    }
+  else
+    {
+      if (TEST_NEWLINE(msgstr) != has_newline)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+			 _("\
+`msgid' and `msgstr' entries do not both end with '\\n'"));
+	  error_with_progname = true;
+	  exit_status = EXIT_FAILURE;
+	}
+    }
+#undef TEST_NEWLINE
+
+  if (check_compatibility && msgid_plural != NULL)
+    {
+      error_with_progname = false;
+      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
+		     _("plural handling is a GNU gettext extension"));
+      error_with_progname = true;
+      exit_status = EXIT_FAILURE;
+    }
+
+  if (check_format_strings && msgid_plural == NULL)
+    /* Test 3: Check whether both formats strings contain the same number
+       of format specifications.
+       We check only those messages for which the msgid's is_format flag
+       is one of 'yes' or 'possible'.  We don't check msgids with is_format
+       'no' or 'impossible', to obey the programmer's order.  We don't check
+       msgids with is_format 'undecided' because that would introduce too
+       many checks, thus forcing the programmer to add "xgettext: no-c-format"
+       anywhere where a translator wishes to use a percent sign.  */
+    for (i = 0; i < NFORMATS; i++)
+      if (possible_format_p (is_format[i]))
+	{
+	  /* At runtime, we can assume the program passes arguments that
+	     fit well for msgid.  We must signal an error if msgstr wants
+	     more arguments that msgid accepts.
+	     If msgstr wants fewer arguments than msgid, it wouldn't lead
+	     to a crash at runtime, but we nevertheless give an error because
+	     1) this situation occurs typically after the programmer has
+		added some arguments to msgid, so we must make the translator
+		specially aware of it (more than just "fuzzy"),
+	     2) it is generally wrong if a translation wants to ignore
+		arguments that are used by other translations.  */
+
+	  struct formatstring_parser *parser = formatstring_parsers[i];
+	  void *msgid_descr = parser->parse (msgid);
+
+	  if (msgid_descr != NULL)
+	    {
+	      void *msgstr_descr = parser->parse (msgstr);
+
+	      if (msgstr_descr != NULL)
+		{
+		  if (parser->check (msgid_pos, msgid_descr, msgstr_descr))
+		    exit_status = EXIT_FAILURE;
+
+		  parser->free (msgstr_descr);
+		}
+	      else
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0, msgid_pos->file_name,
+				 msgid_pos->line_number,
+				 _("\
+'msgstr' is not a valid %s format string, unlike 'msgid'"),
+				 format_language_pretty[i]);
+		  error_with_progname = true;
+		  exit_status = EXIT_FAILURE;
+		}
+
+	      parser->free (msgid_descr);
+	    }
+	}
+}
+
+
+/* The rest of the file is similar to read-po.c.  The differences are:
+   - The result is a hash table of msgid -> struct hashtable_entry, not
+     a linear list.  This is more efficient, because the order of the
+     entries does not matter and the only lookup operation performed on
+     the message set is the duplicate lookup.
+   - Comments are not stored, they are discarded right away.
+   - The header entry check is performed on-the-fly.
+ */
 
 
 /* Prepare for first message.  */
@@ -785,349 +910,6 @@ format_comment_special (that, s)
 }
 
 
-static int
-compare_id (pval1, pval2)
-     const void *pval1;
-     const void *pval2;
-{
-  return strcmp (((struct id_str_pair *) pval1)->id,
-		 ((struct id_str_pair *) pval2)->id);
-}
-
-
-static void
-write_table (output_file, tab)
-     FILE *output_file;
-     hash_table *tab;
-{
-  static char null = '\0';
-  /* This should be explained:
-     Each string has an associate hashing value V, computed by a fixed
-     function.  To locate the string we use open addressing with double
-     hashing.  The first index will be V % M, where M is the size of the
-     hashing table.  If no entry is found, iterating with a second,
-     independent hashing function takes place.  This second value will
-     be 1 + V % (M - 2).
-     The approximate number of probes will be
-
-       for unsuccessful search:  (1 - N / M) ^ -1
-       for successful search:    - (N / M) ^ -1 * ln (1 - N / M)
-
-     where N is the number of keys.
-
-     If we now choose M to be the next prime bigger than 4 / 3 * N,
-     we get the values
-			 4   and   1.85  resp.
-     Because unsuccesful searches are unlikely this is a good value.
-     Formulas: [Knuth, The Art of Computer Programming, Volume 3,
-		Sorting and Searching, 1973, Addison Wesley]  */
-  nls_uint32 hash_tab_size = no_hash_table ? 0
-					   : next_prime ((tab->filled * 4)
-							 / 3);
-  nls_uint32 *hash_tab;
-
-  /* Header of the .mo file to be written.  */
-  struct mo_file_header header;
-  struct id_str_pair *msg_arr;
-  void *ptr;
-  size_t cnt;
-  const void *id;
-  size_t id_len;
-  struct hashtable_entry *entry;
-  struct string_desc sd;
-
-  /* Fill the structure describing the header.  */
-  header.magic = _MAGIC;		/* Magic number.  */
-  header.revision = MO_REVISION_NUMBER;	/* Revision number of file format.  */
-  header.nstrings = tab->filled;	/* Number of strings.  */
-  header.orig_tab_offset = sizeof (header);
-			/* Offset of table for original string offsets.  */
-  header.trans_tab_offset = sizeof (header)
-			    + tab->filled * sizeof (struct string_desc);
-			/* Offset of table for translation string offsets.  */
-  header.hash_tab_size = hash_tab_size;	/* Size of used hashing table.  */
-  header.hash_tab_offset =
-	no_hash_table ? 0 : sizeof (header)
-			    + 2 * (tab->filled * sizeof (struct string_desc));
-			/* Offset of hashing table.  */
-
-  /* Write the header out.  */
-  fwrite (&header, sizeof (header), 1, output_file);
-
-  /* Allocate table for the all elements of the hashing table.  */
-  msg_arr = (struct id_str_pair *) alloca (tab->filled * sizeof (msg_arr[0]));
-
-  /* Read values from hashing table into array.  */
-  for (cnt = 0, ptr = NULL;
-       iterate_table (tab, &ptr, &id, &id_len, (void **) &entry) >= 0;
-       ++cnt)
-    {
-      msg_arr[cnt].id = (char *) id;
-      msg_arr[cnt].id_len = id_len;
-      msg_arr[cnt].id_plural = entry->msgid_plural;
-      msg_arr[cnt].id_plural_len =
-	(entry->msgid_plural != NULL ? strlen (entry->msgid_plural) + 1 : 0);
-      msg_arr[cnt].str = entry->msgstr;
-      msg_arr[cnt].str_len = entry->msgstr_len;
-    }
-
-  /* Sort the table according to original string.  */
-  qsort (msg_arr, tab->filled, sizeof (msg_arr[0]), compare_id);
-
-  /* Set offset to first byte after all the tables.  */
-  sd.offset = roundup (sizeof (header)
-		       + tab->filled * sizeof (sd)
-		       + tab->filled * sizeof (sd)
-		       + hash_tab_size * sizeof (nls_uint32),
-		       alignment);
-
-  /* Write out length and starting offset for all original strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
-    {
-      /* Subtract 1 because of the terminating NUL.  */
-      sd.length = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len - 1;
-      fwrite (&sd, sizeof (sd), 1, output_file);
-      sd.offset += roundup (sd.length + 1, alignment);
-    }
-
-  /* Write out length and starting offset for all translation strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
-    {
-      /* Subtract 1 because of the terminating NUL.  */
-      sd.length = msg_arr[cnt].str_len - 1;
-      fwrite (&sd, sizeof (sd), 1, output_file);
-      sd.offset += roundup (sd.length + 1, alignment);
-    }
-
-  /* Skip this part when no hash table is needed.  */
-  if (!no_hash_table)
-    {
-      /* Allocate room for the hashing table to be written out.  */
-      hash_tab = (nls_uint32 *) alloca (hash_tab_size * sizeof (nls_uint32));
-      memset (hash_tab, '\0', hash_tab_size * sizeof (nls_uint32));
-
-      /* Insert all value in the hash table, following the algorithm described
-	 above.  */
-      for (cnt = 0; cnt < tab->filled; ++cnt)
-	{
-	  nls_uint32 hash_val = hash_string (msg_arr[cnt].id);
-	  nls_uint32 idx = hash_val % hash_tab_size;
-
-	  if (hash_tab[idx] != 0)
-	    {
-	      /* We need the second hashing function.  */
-	      nls_uint32 c = 1 + (hash_val % (hash_tab_size - 2));
-
-	      do
-		if (idx >= hash_tab_size - c)
-		  idx -= hash_tab_size - c;
-		else
-		  idx += c;
-	      while (hash_tab[idx] != 0);
-	    }
-
-	  hash_tab[idx] = cnt + 1;
-	}
-
-      /* Write the hash table out.  */
-      fwrite (hash_tab, sizeof (nls_uint32), hash_tab_size, output_file);
-    }
-
-  /* Write bytes to make first string to be aligned.  */
-  cnt = sizeof (header) + 2 * tab->filled * sizeof (sd)
-	+ hash_tab_size * sizeof (nls_uint32);
-  fwrite (&null, 1, roundup (cnt, alignment) - cnt, output_file);
-
-  /* Now write the original strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
-    {
-      size_t len = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len;
-
-      fwrite (msg_arr[cnt].id, msg_arr[cnt].id_len, 1, output_file);
-      if (msg_arr[cnt].id_plural_len > 0)
-	fwrite (msg_arr[cnt].id_plural, msg_arr[cnt].id_plural_len, 1,
-		output_file);
-      fwrite (&null, 1, roundup (len, alignment) - len, output_file);
-    }
-
-  /* Now write the translation strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
-    {
-      size_t len = msg_arr[cnt].str_len;
-
-      fwrite (msg_arr[cnt].str, len, 1, output_file);
-      fwrite (&null, 1, roundup (len, alignment) - len, output_file);
-
-      free (msg_arr[cnt].str);
-    }
-
-  /* Hashing table is not used anmore.  */
-  delete_hash (tab);
-}
-
-
-static void
-check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
-	    is_format)
-     const char *msgid;
-     const lex_pos_ty *msgid_pos;
-     const char *msgid_plural;
-     const char *msgstr;
-     size_t msgstr_len;
-     const lex_pos_ty *msgstr_pos;
-     enum is_format is_format[NFORMATS];
-{
-  int has_newline;
-  size_t i;
-  const char *p;
-
-  /* If the msgid string is empty we have the special entry reserved for
-     information about the translation.  */
-  if (msgid[0] == '\0')
-    return;
-
-  /* Test 1: check whether all or none of the strings begin with a '\n'.  */
-  has_newline = (msgid[0] == '\n');
-#define TEST_NEWLINE(p) (p[0] == '\n')
-  if (msgid_plural != NULL)
-    {
-      if (TEST_NEWLINE(msgid_plural) != has_newline)
-	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
-`msgid' and `msgid_plural' entries do not both begin with '\\n'"));
-	  error_with_progname = true;
-	  exit_status = EXIT_FAILURE;
-	}
-      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
-	if (TEST_NEWLINE(p) != has_newline)
-	  {
-	    error_with_progname = false;
-	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			   _("\
-`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), i);
-	    error_with_progname = true;
-	    exit_status = EXIT_FAILURE;
-	  }
-    }
-  else
-    {
-      if (TEST_NEWLINE(msgstr) != has_newline)
-	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
-`msgid' and `msgstr' entries do not both begin with '\\n'"));
-	  error_with_progname = true;
-	  exit_status = EXIT_FAILURE;
-	}
-    }
-#undef TEST_NEWLINE
-
-  /* Test 2: check whether all or none of the strings end with a '\n'.  */
-  has_newline = (msgid[strlen (msgid) - 1] == '\n');
-#define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
-  if (msgid_plural != NULL)
-    {
-      if (TEST_NEWLINE(msgid_plural) != has_newline)
-	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
-`msgid' and `msgid_plural' entries do not both end with '\\n'"));
-	  error_with_progname = true;
-	  exit_status = EXIT_FAILURE;
-	}
-      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
-	if (TEST_NEWLINE(p) != has_newline)
-	  {
-	    error_with_progname = false;
-	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			   _("\
-`msgid' and `msgstr[%u]' entries do not both end with '\\n'"), i);
-	    error_with_progname = true;
-	    exit_status = EXIT_FAILURE;
-	  }
-    }
-  else
-    {
-      if (TEST_NEWLINE(msgstr) != has_newline)
-	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
-`msgid' and `msgstr' entries do not both end with '\\n'"));
-	  error_with_progname = true;
-	  exit_status = EXIT_FAILURE;
-	}
-    }
-#undef TEST_NEWLINE
-
-  if (check_compatibility && msgid_plural != NULL)
-    {
-      error_with_progname = false;
-      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-		     _("plural handling is a GNU gettext extension"));
-      error_with_progname = true;
-      exit_status = EXIT_FAILURE;
-    }
-
-  if (check_format_strings && msgid_plural == NULL)
-    /* Test 3: Check whether both formats strings contain the same number
-       of format specifications.
-       We check only those messages for which the msgid's is_format flag
-       is one of 'yes' or 'possible'.  We don't check msgids with is_format
-       'no' or 'impossible', to obey the programmer's order.  We don't check
-       msgids with is_format 'undecided' because that would introduce too
-       many checks, thus forcing the programmer to add "xgettext: no-c-format"
-       anywhere where a translator wishes to use a percent sign.  */
-    for (i = 0; i < NFORMATS; i++)
-      if (possible_format_p (is_format[i]))
-	{
-	  /* At runtime, we can assume the program passes arguments that
-	     fit well for msgid.  We must signal an error if msgstr wants
-	     more arguments that msgid accepts.
-	     If msgstr wants fewer arguments than msgid, it wouldn't lead
-	     to a crash at runtime, but we nevertheless give an error because
-	     1) this situation occurs typically after the programmer has
-		added some arguments to msgid, so we must make the translator
-		specially aware of it (more than just "fuzzy"),
-	     2) it is generally wrong if a translation wants to ignore
-		arguments that are used by other translations.  */
-
-	  struct formatstring_parser *parser = formatstring_parsers[i];
-	  void *msgid_descr = parser->parse (msgid);
-
-	  if (msgid_descr != NULL)
-	    {
-	      void *msgstr_descr = parser->parse (msgstr);
-
-	      if (msgstr_descr != NULL)
-		{
-		  if (parser->check (msgid_pos, msgid_descr, msgstr_descr))
-		    exit_status = EXIT_FAILURE;
-
-		  parser->free (msgstr_descr);
-		}
-	      else
-		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, msgid_pos->file_name,
-				 msgid_pos->line_number,
-				 _("\
-'msgstr' is not a valid %s format string, unlike 'msgid'"),
-				 format_language_pretty[i]);
-		  error_with_progname = true;
-		  exit_status = EXIT_FAILURE;
-		}
-
-	      parser->free (msgid_descr);
-	    }
-	}
-}
-
-
 /* So that the one parser can be used for multiple programs, and also
    use good data hiding and encapsulation practices, an object
    oriented approach has been taken.  An object instance is allocated,
@@ -1152,7 +934,7 @@ static po_method_ty format_methods =
 
 /* Read .po file FILENAME and store translation pairs.  */
 static void
-grammar (filename)
+read_po_file (filename)
      char *filename;
 {
   po_ty *pop;
@@ -1160,22 +942,4 @@ grammar (filename)
   pop = po_alloc (&format_methods);
   po_scan_file (pop, filename);
   po_free (pop);
-}
-
-
-static const char *
-add_mo_suffix (fname)
-     const char *fname;
-{
-  size_t len;
-  char *result;
-
-  len = strlen (fname);
-  if (len > 3 && memcmp (fname + len - 3, ".mo", 3) == 0)
-    return fname;
-  if (len > 4 && memcmp (fname + len - 4, ".gmo", 4) == 0)
-    return fname;
-  result = (char *) xmalloc (len + 4);
-  stpcpy (stpcpy (result, fname), ".mo");
-  return result;
 }
