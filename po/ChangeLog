@@ -1,3 +1,11 @@
+2002-04-29  Bruno Haible  <bruno@clisp.org>
+
+	* be.po: New file, from Ales Nyakhaychyk <nyakhaychyk@i18n.linux.by>.
+	* LINGUAS: Add be.
+
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+
 2002-04-25  Bruno Haible  <bruno@clisp.org>
 
 	* de.po: Update from Karl Eichwalder <ke@suse.de>.

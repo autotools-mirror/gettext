@@ -6,14 +6,14 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.1\n"
+"Project-Id-Version: GNU gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-03-17 20:00-0500\n"
+"PO-Revision-Date: 2002-04-26 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: lib/argmatch.c:134
@@ -513,7 +513,7 @@ msgstr ""
 "      --obsolete              identique à --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -534,7 +534,8 @@ msgstr ""
 "  -E, --escape                échappements C en sortie, éviter les 8-bits\n"
 "      --force-po              produire un fichier PO, même vide\n"
 "  -i, --indent                sortie en style indenté\n"
-"  -n, --add-location          générer les lignes de format '#: fichier:ligne» (par défaut)\n"
+"      --no-location           ne pas produire les lignes « #: fichier:ligne »\n"
+"  -n, --add-location          générer les lignes de format « #: fichier:ligne » (par défaut)\n"
 "      --strict                générer un fichier .po avec conformité stricte Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 "  -s, --sort-output           générer une sortie triée\n"
@@ -620,7 +621,7 @@ msgstr ""
 "  -u, --unique                   identique à « -< 2 ou --less-than=2 »\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -647,7 +648,8 @@ msgstr ""
 "  -E, --escape                échappements C en sortie, éviter les 8-bits\n"
 "      --force-po              produire un fichier PO, même vide\n"
 "  -i, --indent                sortie en style indenté\n"
-"  -n, --add-location          générer les lignes de format '#: fichier:ligne» (par défaut)\n"
+"      --no-location           ne pas produire les lignes « #: fichier:ligne »\n"
+"  -n, --add-location          générer les lignes de format « #: fichier:ligne » (par défaut)\n"
 "      --strict                générer un fichier .po avec conformité stricte Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 "  -s, --sort-output           générer une sortie triée\n"
@@ -793,7 +795,7 @@ msgstr ""
 "  -u, --unique                   identique à « -< 2 ou --less-than=2 »\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -815,7 +817,8 @@ msgstr ""
 "  -E, --escape                échappements C en sortie, éviter les 8-bits\n"
 "      --force-po              produire un fichier PO, même vide\n"
 "  -i, --indent                sortie en style indenté\n"
-"  -n, --add-location          générer les lignes de format '#: fichier:ligne» (par défaut)\n"
+"      --no-location           ne pas produire les lignes « #: fichier:ligne »\n"
+"  -n, --add-location          générer les lignes de format « #: fichier:ligne » (par défaut)\n"
 "      --strict                générer un fichier .po avec conformité stricte Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 "  -s, --sort-output           générer une sortie triée\n"
@@ -839,7 +842,7 @@ msgstr ""
 "L'encodage par défaut se fait selon l'encodage locale.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -860,8 +863,8 @@ msgstr ""
 "  -E, --escape                échappements C en sortie, éviter les 8-bits\n"
 "      --force-po              produire un fichier PO, même vide\n"
 "  -i, --indent                sortie en style indenté\n"
-"      --no-location           ne pas produire les « #: FICHIER:LIGNE »\n"
-"      --add-location          produire les « #: FICHIER:LIGNE » (implicite)\n"
+"      --no-location           ne pas produire les ligne « #: fichier:ligne »\n"
+"      --add-location          produire les « #: fichier:ligne » (implicite)\n"
 "      --strict                produire un fichier PO strictement Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 "  -s, --sort-output           générer une sortie triée\n"
@@ -1004,7 +1007,7 @@ msgstr ""
 "  -n, --quiet, --silent       supprimer l'affichage automatique d'espace\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1031,6 +1034,8 @@ msgstr ""
 "      --add-location          produire les « #: FICHIER:LIGNE » (implicite)\n"
 "      --strict                produire un fichier PO strictement Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
+"      --no-wrap               ne pas briser les lignes de longs messages plus longues que\n"
+"                              que la largeur des pages de sortie en plusieurs lignes\n"
 "  -s, --sort-output           générer une sortie triée\n"
 "  -F, --sort-by-file          trier la sortie selon la localisation des fichiers\n"
 
@@ -1505,7 +1510,7 @@ msgstr ""
 "  -i, --ignore-case             ignorer la distinction liée à la casse\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1526,8 +1531,8 @@ msgstr ""
 "      --escape                échappements C en sortie, éviter les 8-bits\n"
 "      --force-po              produire un fichier PO, même vide\n"
 "      --indent                sortie en style indenté\n"
-"      --no-location           ne pas produire les « #: FICHIER:LIGNE »\n"
-"      --add-location          produire les « #: FICHIER:LIGNE » (implicite)\n"
+"      --no-location           ne pas produire les « #: fichier:ligne »\n"
+"      --add-location          produire les « #: fichier:ligne » (implicite)\n"
 "      --strict                produire un fichier PO strictement Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 "      --sort-output           générer une sortie triée\n"
@@ -1600,7 +1605,7 @@ msgstr ""
 "sur la sortie standard.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1611,7 +1616,10 @@ msgid ""
 msgstr ""
 "Détails de sortie:\n"
 "  -l, --locale=LL_CC          définir la locale cible\n"
+"      --no-translator         assumer que le fichier PO est automatiquement généré\n"
 "  -w, --width=NOMBRE          initialiser la largeur de page\n"
+"      --no-wrap               ne pas briser les lignes de longs messages plus longues que\n"
+"                              que la largeur des pages de sortie en plusieurs lignes\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -2016,7 +2024,7 @@ msgstr ""
 "Les résultats sont écrits sur la sortie standard si aucun fichier n'est spécifié.\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -2037,6 +2045,8 @@ msgstr ""
 "      --strict                produire un fichier .po strictement Uniforum\n"
 "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 "  -s, --sort-output           générer une sortie triée\n"
+"      --no-wrap               ne pas briser les lignes de longs messages plus longues que\n"
+"                              que la largeur des pages de sortie en plusieurs lignes\n"
 
 #: src/msgunfmt.c:388
 #, no-wrap
@@ -2505,7 +2515,7 @@ msgstr ""
 "                                 des chaînes de format\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2535,6 +2545,8 @@ msgstr ""
 "  -n, --add-location             générer les lignes de format '#: fichier:ligne' (par défaut)\n"
 "      --strict                   générer un fichier .po avec conformité stricte Uniforum\n"
 "  -w, --width=COLONNES           limiter le nombre de COLONNES en sortie\n"
+"      --no-wrap                  ne pas briser les lignes de longs messages plus longues que\n"
+"                                 que la largeur des pages de sortie, en plusieurs lignes\n"
 "  -s, --sort-output              générer une sortie triée\n"
 "  -F, --sort-by-file             trier la sortie selon la localisation des fichiers\n"
 "      --omit-header              omettre les en-têtes pour « msgid \"\" »\n"
