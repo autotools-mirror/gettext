@@ -10,7 +10,7 @@ rm -f zero-domain.po
 LC_MESSAGES=C LC_ALL= \
 ${XGETTEXT} -k_ -d zero-domain -x $top_srcdir/po/gettext.pot \
   $top_srcdir/src/xgettext.c 2>&1 \
-  | grep -v 'warning: charset'
+  | grep -v '\(warning: Charset\|^ \)'
 
 test ! -f zero-domain.po
 result=$?
