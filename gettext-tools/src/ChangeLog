@@ -1,3 +1,12 @@
+2003-10-04  Bruno Haible  <bruno@clisp.org>
+
+	New Java backend.
+	* x-java.c: New file.
+	* x-java.l: Remove file.
+	* Makefile.am (xgettext_SOURCES): Add x-java.c, remove x-java.l.
+	(x-java.c): Remove rule.
+	* FILES: Update.
+
 2003-09-22  Bruno Haible  <bruno@clisp.org>
 
 	* x-glade.c (start_element_handler): Implement extract_all behaviour.

@@ -120,7 +120,7 @@ msgmerge_SOURCES = msgmerge.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-smalltalk.c \
-  x-java.l x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c x-rst.c x-glade.c
+  x-java.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c x-rst.c x-glade.c
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c
@@ -224,17 +224,6 @@ po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
 	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
-
-# We must add the '#include <vms_jackets.h>' here, not inside x-java.l,
-# because on VMS, <vms_jackets.h> must be included before <stdio.h>.
-x-java.c: x-java.l
-	test "$(LEX)" = ":" || { \
-	  $(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l && \
-	  (echo '#ifdef VMS'; echo '#include <vms_jackets.h>'; echo '#endif'; \
-	   cat $@-tmp) > $@-tmq && \
-	  rm -f $@-tmp && \
-	  mv $@-tmq $@ ; \
-	}
 
 
 # Special rules for installation of auxiliary programs.

@@ -238,7 +238,7 @@ format.c        Table of the language dependent format string handlers.
 | x-smalltalk.c
 |               String extractor for Smalltalk.
 | x-java.h
-| x-java.l
+| x-java.c
 |               String extractor for Java.
 | x-awk.h
 | x-awk.c

@@ -1,3 +1,7 @@
+2003-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Remove gt_PROG_LEX invocation.
+
 2003-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextpo.def: Add po_file_domain_header, po_header_field,

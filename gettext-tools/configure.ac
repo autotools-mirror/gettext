@@ -33,7 +33,6 @@ dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_YACC
-gt_PROG_LEX
 
 gt_GCJ
 if test -n "$HAVE_GCJ"; then

@@ -1,3 +1,8 @@
+2003-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* flex.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
 2003-09-04  Bruno Haible  <bruno@clisp.org>
 
 	* locale-fr.m4 (gt_LOCALE_FR): Add support for Solaris 7.

@@ -40,7 +40,6 @@ canonicalize.m4 \
 eaccess.m4 \
 error.m4 \
 extensions.m4 \
-flex.m4 \
 fnmatch.m4 \
 gcj.m4 \
 getline.m4 \
