@@ -734,18 +734,6 @@ if test -f "$srcdir/Makefile.am"; then
     fi
   fi
   $do_changelog && func_m4ChangeLog_finish
-  # Also create $m4dir/Makefile.in from $m4dir/Makefile.am, because automake
-  # doesn't do it by itself.
-  if $doit; then
-    case "$added_acoutput" in
-      *" $m4dir/Makefile")
-        (cd "$srcdir" && automake "$m4dir/Makefile") 2>/dev/null ||
-        please="$please
-Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
-"
-        ;;
-    esac
-  fi
 
   # Update the top-level Makefile.am.
   modified_Makefile_am=
@@ -843,6 +831,19 @@ Please run 'aclocal -I $m4dir' to regenerate the aclocal.m4 file.
 You need aclocal from GNU automake 1.5 (or newer) to do this.
 Then run 'autoconf' to regenerate the configure file.
 "
+
+  # Also create $m4dir/Makefile.in from $m4dir/Makefile.am, because automake
+  # doesn't do it by itself.
+  if $doit; then
+    case "$added_acoutput" in
+      *" $m4dir/Makefile")
+        (cd "$srcdir" && automake "$m4dir/Makefile") 2>/dev/null ||
+        please="$please
+Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
+"
+        ;;
+    esac
+  fi
 else
   please="$please
 Please add the files
