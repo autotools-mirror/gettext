@@ -1669,7 +1669,7 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
 
 	((or (eq po-entry-type 'fuzzy)
 	     (eq po-entry-type 'untranslated))
-	 (if (yes-or-no-p (_"Should I really obsolete this entry? "))
+	 (if (y-or-n-p (_"Should I really obsolete this entry? "))
 	     (progn
 	       (po-decrease-type-counter)
 	       (save-excursion

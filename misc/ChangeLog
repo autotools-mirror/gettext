@@ -1,3 +1,8 @@
+2001-07-13  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-fade-out-entry): Replace yes-or-no-p by y-or-n-p;
+	obsoleting an entry isn't fatal.
+
 2000-01-18  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-ensure-source-references): Correctly imply the file
