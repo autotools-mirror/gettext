@@ -49,7 +49,7 @@ OPTIMFLAGS = -D_NDEBUG -O1
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
 
-INCLUDES =
+INCLUDES = -I.. -I..\lib -I..\windows
 
 AR = lib
 AR_FLAGS = /out:

@@ -39,9 +39,9 @@ for cat in $catalogs; do
   cat=`basename $cat`
   lang=`echo $cat | sed -e 's/\.gmo$//'`
 cat <<EOF
-	-mkdir \$(localedir)\\${cat}
-	-mkdir \$(localedir)\\${cat}\\LC_MESSAGES
-	\$(INSTALL_DATA) ${cat}.gmo \$(localedir)\\${cat}\\LC_MESSAGES\\${domain}.mo
+	-mkdir \$(localedir)\\${lang}
+	-mkdir \$(localedir)\\${lang}\\LC_MESSAGES
+	\$(INSTALL_DATA) ${lang}.gmo \$(localedir)\\${lang}\\LC_MESSAGES\\${domain}.mo
 EOF
 done
 cat <<\EOF
@@ -55,8 +55,8 @@ for cat in $catalogs; do
   cat=`basename $cat`
   lang=`echo $cat | sed -e 's/\.gmo$//'`
 cat <<EOF
-	-mkdir \$(localedir)\\${cat}
-	-mkdir \$(localedir)\\${cat}\\LC_MESSAGES
+	-mkdir \$(localedir)\\${lang}
+	-mkdir \$(localedir)\\${lang}\\LC_MESSAGES
 EOF
 done
 cat <<\EOF
@@ -67,7 +67,7 @@ for cat in $catalogs; do
   cat=`basename $cat`
   lang=`echo $cat | sed -e 's/\.gmo$//'`
 cat <<EOF
-	\$(RM) \$(localedir)\\${cat}\\LC_MESSAGES\\${domain}.mo
+	\$(RM) \$(localedir)\\${lang}\\LC_MESSAGES\\${domain}.mo
 EOF
 done
 cat <<\EOF
