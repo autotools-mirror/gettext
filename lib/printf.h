@@ -40,7 +40,9 @@ struct printf_info
   char spec;			/* Format letter.  */
   unsigned is_long_double:1;	/* L flag.  */
   unsigned is_short:1;		/* h flag.  */
+  unsigned is_char:1;		/* hh flag.  */
   unsigned is_long:1;		/* l flag.  */
+  unsigned is_longlong:1;	/* ll flag.  */
   unsigned alt:1;		/* # flag.  */
   unsigned space:1;		/* Space flag.  */
   unsigned left:1;		/* - flag.  */
@@ -103,6 +105,7 @@ enum
 #define	PA_FLAG_LONG		(1 << 9)
 #define	PA_FLAG_SHORT		(1 << 10)
 #define	PA_FLAG_PTR		(1 << 11)
+#define	PA_FLAG_CHAR		(1 << 12)
 
 
 #endif /* printf.h  */

@@ -1,3 +1,8 @@
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call jm_AC_TYPE_UNSIGNED_LONG_LONG and
+	jm_AC_TYPE_UINTMAX_T.
+
 2000-11-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (ALL_LINGUAS): Add tr.

@@ -1,5 +1,5 @@
 /* Internal header for parsing printf format strings.
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,9 @@
 #if HAVE_STDDEF_H
 # include <stddef.h>
 #endif
+#if HAVE_INTTYPES_H
+# include <inttypes.h>
+#endif
 
 #if HAVE_STRING_H
 # include <string.h>
@@ -31,11 +34,19 @@
 #endif
 
 #if __GNUC__ >= 2
-# define long_long_int long long int
 # define long_double long double
 #else
-# define long_long_int long
 # define long_double double
+#endif
+
+#if HAVE_UNSIGNED_LONG_LONG
+# define long_long_int long long int
+#else
+# define long_long_int long int
+#endif
+
+#if !HAVE_PTRDIFF_T
+# define ptrdiff_t long int
 #endif
 
 #define NDEBUG 1
@@ -294,31 +305,49 @@ parse_one_spec (format, posn, spec, max_ref_arg)
     }
 
   /* Check for type modifiers.  */
-#define is_longlong is_long_double
   spec->info.is_long_double = 0;
   spec->info.is_short = 0;
+  spec->info.is_char = 0;
   spec->info.is_long = 0;
+  spec->info.is_longlong = 0;
 
   while (*format == 'h' || *format == 'l' || *format == 'L' ||
 	 *format == 'Z' || *format == 'q')
     switch (*format++)
       {
       case 'h':
-	/* int's are short int's.  */
-	spec->info.is_short = 1;
+	if (spec->info.is_short)
+	  /* int's are char's.  */
+	  spec->info.is_char = 1;
+	else
+	  /* int's are short int's.  */
+	  spec->info.is_short = 1;
 	break;
       case 'l':
 	if (spec->info.is_long)
 	  /* A double `l' is equivalent to an `L'.  */
-	  spec->info.is_longlong = 1;
+	  spec->info.is_longlong = spec->info.is_long_double = 1;
 	else
 	  /* int's are long int's.  */
 	  spec->info.is_long = 1;
 	break;
       case 'L':
 	/* double's are long double's, and int's are long long int's.  */
-	spec->info.is_long_double = 1;
+	spec->info.is_long_double = spec->info.is_longlong = 1;
 	break;
+      case 'j':
+	/* int's are intmax_t's.  */
+	assert (sizeof(uintmax_t) <= sizeof(unsigned long_long_int));
+	spec->info.is_longlong = sizeof(uintmax_t) > sizeof(unsigned long int);
+	spec->info.is_long = sizeof(uintmax_t) > sizeof(unsigned int);
+	break;
+      case 't':
+	/* int's are ptrdiff_t's.  */
+	assert (sizeof(ptrdiff_t) <= sizeof(unsigned long_long_int));
+	spec->info.is_longlong = sizeof(ptrdiff_t) > sizeof(unsigned long int);
+	spec->info.is_long = sizeof(ptrdiff_t) > sizeof(unsigned int);
+	break;
+      case 'z':
       case 'Z':
 	/* int's are size_t's.  */
 	assert (sizeof(size_t) <= sizeof(unsigned long_long_int));
@@ -348,6 +377,8 @@ parse_one_spec (format, posn, spec, max_ref_arg)
 	spec->data_arg_type = PA_INT|PA_FLAG_LONG_LONG;
       else if (spec->info.is_long)
 	spec->data_arg_type = PA_INT|PA_FLAG_LONG;
+      else if (spec->info.is_char)
+	spec->data_arg_type = PA_INT|PA_FLAG_CHAR;
       else if (spec->info.is_short)
 	spec->data_arg_type = PA_INT|PA_FLAG_SHORT;
       else

@@ -1,5 +1,14 @@
 2000-12-30  Bruno Haible  <haible@clisp.cons.org>
 
+	* printf.h (printf_info): New fields is_char, is_longlong.
+	(PA_FLAG_CHAR): New macro.
+	* printf-parse.h: Include inttypes.h.
+	(long_long_int): Define depending on HAVE_UNSIGNED_LONG_LONG.
+	(ptrdiff_t): Define depending on HAVE_PTRDIFF_T.
+	(parse_one_spec): Handle new ISO C99 length modifiers 'j', 't', 'z'.
+
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
 	* basename.c: Update from current fileutils version, keeping the
 	function name as `basename' or `gnu_basename'.
 
