@@ -1,3 +1,10 @@
+2005-02-11  Bruno Haible  <bruno@clisp.org>
+
+	* po/ga.po: New file, from Kevin Patrick Scannell <scannell@slu.edu>.
+	* po/LINGUAS: Add ga.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2005-02-06  Bruno Haible  <bruno@clisp.org>
 
 	* hello-*/po/Makefile.am ($(DOMAIN).pot-update): If MSGID_BUGS_ADDRESS
