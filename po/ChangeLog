@@ -1,3 +1,8 @@
+2001-05-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (dist2): Don't assume $(srcdir) = ".". Distribute
+	file in either current directory or $(srcdir), whichever exists.
+
 2001-05-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* cs.po: New file, from Vladimir Michl <Vladimir.Michl@seznam.cz>.
