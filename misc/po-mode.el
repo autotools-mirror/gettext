@@ -752,8 +752,12 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
   (_"Type 'C-c C-c' once done, or 'C-c C-k' to abort edit")
   "Message to post in the minibuffer when an edit buffer is displayed.")
 
+; Make the cpnnn codesets available.
+(if po-EMACS20
+  (mapc #'codepage-setup (mapcar #'car (cp-supported-codepages))))
+
 (defconst po-content-type-charset-alist
-  '(; Note: Emacs 20 doesn't support all encodings, thus the missing entries.
+  '(; Note: Emacs 21 doesn't support all encodings, thus the missing entries.
     (ASCII . undecided)
     (ANSI_X3.4-1968 . undecided)
     (US-ASCII . undecided)
@@ -781,20 +785,36 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     (ISO_8859-15 . iso-8859-15) ; requires Emacs 21
     (KOI8-R . koi8-r)
     ;(KOI8-U . ??)
-    ;(CP850 . ??)
-    ;(CP866 . ??)
+    (CP437 . cp437) ; requires Emacs 20
+    (CP775 . cp775) ; requires Emacs 20
+    (CP850 . cp850) ; requires Emacs 20
+    (CP852 . cp852) ; requires Emacs 20
+    (CP855 . cp855) ; requires Emacs 20
+    ;(CP856 . ??)
+    (CP857 . cp857) ; requires Emacs 20
+    (CP861 . cp861) ; requires Emacs 20
+    (CP862 . cp862) ; requires Emacs 20
+    (CP864 . cp864) ; requires Emacs 20
+    (CP865 . cp865) ; requires Emacs 20
+    (CP866 . cp866) ; requires Emacs 21
+    (CP869 . cp869) ; requires Emacs 20
     ;(CP874 . ??)
+    ;(CP922 . ??)
     ;(CP932 . ??)
+    ;(CP943 . ??)
     ;(CP949 . ??)
     ;(CP950 . ??)
-    ;(CP1250 . ??)
-    ;(CP1251 . ??)
-    ;(CP1252 . ??)
-    ;(CP1253 . ??)
-    ;(CP1254 . ??)
-    ;(CP1255 . ??)
+    ;(CP1046 . ??)
+    ;(CP1124 . ??)
+    ;(CP1129 . ??)
+    (CP1250 . cp1250) ; requires Emacs 20
+    (CP1251 . cp1251) ; requires Emacs 20
+    (CP1252 . iso-8859-1) ; approximation
+    (CP1253 . cp1253) ; requires Emacs 20
+    (CP1254 . iso-8859-9) ; approximation
+    (CP1255 . iso-8859-8) ; approximation
     ;(CP1256 . ??)
-    ;(CP1257 . ??)
+    (CP1257 . cp1257) ; requires Emacs 20
     (GB2312 . cn-gb-2312)  ; also named 'gb2312' in XEmacs 21 or Emacs 21
                            ; also named 'euc-cn' in Emacs 20 or Emacs 21
     (EUC-JP . euc-jp)
