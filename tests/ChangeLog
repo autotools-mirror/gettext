@@ -1,5 +1,6 @@
 2002-03-07  Bruno Haible  <bruno@clisp.org>
 
+	* lang-gawk: Fix the version recognition, to work with gawk 2.xx.
 	* lang-tcl: Skip the test if tcl exists but has no msgcat extension.
 
 2002-03-05  Bruno Haible  <bruno@clisp.org>

@@ -84,7 +84,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 # Test for presence of gawk version 3.1.1 or newer.
 (gawk --version) >/dev/null 2>/dev/null \
   || { echo "SKIP: lang-awk"; rm -fr $tmpfiles; exit 77; }
-case `gawk --version | sed -e 's/^[^0-9]*//'` in
+case `gawk --version 2>&1 | sed -e 's/^[^0-9]*//'` in
   0.* | 1.* | 2.* | 3.0* | 3.1.0*)
     echo "SKIP: lang-awk"; rm -fr $tmpfiles; exit 77;;
 esac
