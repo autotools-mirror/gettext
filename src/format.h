@@ -65,6 +65,7 @@ extern struct formatstring_parser formatstring_awk;
 extern struct formatstring_parser formatstring_pascal;
 extern struct formatstring_parser formatstring_ycp;
 extern struct formatstring_parser formatstring_tcl;
+extern struct formatstring_parser formatstring_php;
 
 /* Table of all format string parsers.  */
 extern struct formatstring_parser *formatstring_parsers[NFORMATS];

@@ -1,3 +1,22 @@
+2002-08-18  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (enum format_type): New enum value 'format_php'.
+	(NFORMATS): Increment.
+	* message.c (format_language, format_language_pretty): Add entry
+	for php.
+	* format.h (formatstring_php): New declaration.
+	* format-php.c: New file.
+	* format.c (formatstring_parsers): Add entry for php.
+	* x-php.h: New file.
+	* x-php.c: New file.
+	* xgettext.c: Include x-php.c.
+	(main): Call x_php_extract_all, x_php_keyword.
+	(language_to_scanner): Add PHP rule.
+	(extension_to_language): Add PHP rule.
+	* Makefile.am (noinst_HEADERS): Add x-php.h.
+	(FORMAT_SOURCE): Add format-php.c.
+	(xgettext_SOURCES): Add x-php.c.
+
 2002-08-17  Bruno Haible  <bruno@clisp.org>
 
 	* urlget.c (fetch): Also try invoking the 'curl' program.

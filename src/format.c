@@ -36,5 +36,6 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_awk */		&formatstring_awk,
   /* format_pascal */		&formatstring_pascal,
   /* format_ycp */		&formatstring_ycp,
-  /* format_tcl */		&formatstring_tcl
+  /* format_tcl */		&formatstring_tcl,
+  /* format_php */		&formatstring_php
 };

@@ -52,12 +52,13 @@ TESTS = gettext-1 gettext-2 \
 	format-java-1 format-java-2 \
 	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
+	format-php-1 format-php-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-po lang-rst \
+	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-php lang-po lang-rst \
 	rpath-1a rpath-1b \
 	rpath-2aaa rpath-2aab rpath-2aac rpath-2aad \
 	rpath-2aba rpath-2abb rpath-2abc rpath-2abd \

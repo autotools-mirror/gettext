@@ -1,3 +1,14 @@
+2002-08-18  Bruno Haible  <bruno@clisp.org>
+
+	* format-php-1: New file.
+	* format-php-2: New file.
+	* lang-php: New file.
+	* Makefile.am (TESTS): Add them.
+
+2002-08-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.5 released.
+
 2002-08-06  Bruno Haible  <bruno@clisp.org>
 
 	* msgunfmt-2: Fix typo.

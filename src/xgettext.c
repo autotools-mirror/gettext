@@ -67,6 +67,7 @@
 #include "x-awk.h"
 #include "x-ycp.h"
 #include "x-tcl.h"
+#include "x-php.h"
 #include "x-rst.h"
 #include "x-glade.h"
 
@@ -235,6 +236,7 @@ main (argc, argv)
 	x_java_extract_all ();
 	x_awk_extract_all ();
 	x_tcl_extract_all ();
+	x_php_extract_all ();
 	x_glade_extract_all ();
 	break;
       case 'c':
@@ -293,6 +295,7 @@ main (argc, argv)
 	    x_java_keyword (optarg);
 	    x_awk_keyword (optarg);
 	    x_tcl_keyword (optarg);
+	    x_php_keyword (optarg);
 	    x_glade_keyword (optarg);
 	  }
 	break;
@@ -578,7 +581,7 @@ Choice of input file language:\n\
   -L, --language=NAME            recognise the specified language\n\
                                    (C, C++, ObjectiveC, PO, Python, Lisp,\n\
                                    EmacsLisp, librep, Java, awk, YCP, Tcl,\n\
-                                   RST, Glade)\n\
+                                   PHP, RST, Glade)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
 "));
@@ -1279,6 +1282,7 @@ language_to_extractor (name)
     SCANNERS_AWK
     SCANNERS_YCP
     SCANNERS_TCL
+    SCANNERS_PHP
     SCANNERS_RST
     SCANNERS_GLADE
     /* Here will follow more languages and their scanners: perl, etc...
@@ -1325,6 +1329,7 @@ extension_to_language (extension)
     EXTENSIONS_AWK
     EXTENSIONS_YCP
     EXTENSIONS_TCL
+    EXTENSIONS_PHP
     EXTENSIONS_RST
     EXTENSIONS_GLADE
     /* Here will follow more file extensions: sh, pl ... */

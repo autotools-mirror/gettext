@@ -50,7 +50,8 @@ const char *const format_language[NFORMATS] =
   /* format_awk */		"awk",
   /* format_pascal */		"object-pascal",
   /* format_ycp */		"ycp",
-  /* format_tcl */		"tcl"
+  /* format_tcl */		"tcl",
+  /* format_php */		"php"
 };
 
 const char *const format_language_pretty[NFORMATS] =
@@ -65,7 +66,8 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_awk */		"awk",
   /* format_pascal */		"Object Pascal",
   /* format_ycp */		"YCP",
-  /* format_tcl */		"Tcl"
+  /* format_tcl */		"Tcl",
+  /* format_php */		"PHP"
 };
 
 

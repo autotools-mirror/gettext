@@ -318,6 +318,7 @@ The Translator's View
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
 * tcl-format::                  Tcl Format Strings
+* php-format::                  PHP Format Strings
 
 Individual Programming Languages
 
@@ -6722,6 +6723,7 @@ strings.
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
 * tcl-format::                  Tcl Format Strings
+* php-format::                  PHP Format Strings
 @end menu
 
 @node c-format, python-format, Translators for other Languages, Translators for other Languages
@@ -6808,11 +6810,17 @@ YCP sformat strings are described in the libycp documentation
 In summary, a directive starts with @samp{%} and is followed by @samp{%}
 or a nonzero digit (@samp{1} to @samp{9}).
 
-@node tcl-format,  , ycp-format, Translators for other Languages
+@node tcl-format, php-format, ycp-format, Translators for other Languages
 @subsection Tcl Format Strings
 
 Tcl format strings are described in the @file{format.n} manual page,
 @uref{http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm}.
+
+@node php-format,  , tcl-format, Translators for other Languages
+@subsection PHP Format Strings
+
+PHP format strings are described in the documentation of the PHP function
+@code{sprintf}, in @file{phpdoc/manual/function.sprintf.html}.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View
@@ -6849,7 +6857,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @c   Perl                    1911
 @c   C++                     1379     *
 @c   Java                    1200     *
-@c   PHP                     1051
+@c   PHP                     1051     *
 @c   Python                   613     *
 @c   Unix Shell               357
 @c   Tcl                      266     *
@@ -7792,13 +7800,13 @@ use
 
 @table @asis
 @item RPMs
-mod_php4, phplib, phpdoc
+mod_php4, mod_php4-core, phplib, phpdoc
 
 @item File extension
 @code{php}, @code{php3}, @code{php4}
 
 @item String syntax
-@code{"abc"}
+@code{"abc"}, @code{'abc'}
 
 @item gettext shorthand
 @code{_("abc")}
@@ -7813,7 +7821,7 @@ mod_php4, phplib, phpdoc
 @code{bindtextdomain} function
 
 @item setlocale
-@code{setlocale} function
+Programmer must call @code{setlocale (LC_ALL, "")}
 
 @item Prerequisite
 ---
@@ -7822,10 +7830,10 @@ mod_php4, phplib, phpdoc
 use
 
 @item Extractor
----
+@code{xgettext}
 
 @item Formatting with positions
----
+@code{printf "%2\$d %1\$d"}
 
 @item Portability
 On platforms without gettext, the functions are not available.
