@@ -1,5 +1,10 @@
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
+	* x-java.l (extract_java): Avoid "uninitialized variable" warnings.
+	Free a temporary string.
+
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (libgettextsrc_la_LDFLAGS): Add -lc. Needed on AIX.
 
 2002-01-05  Bruno Haible  <bruno@clisp.org>

@@ -1,5 +1,5 @@
 /* xgettext Java backend.					-*- C -*-
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Tommy Johansson <tommy.johansson@kanalen.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -501,9 +501,10 @@ extract_java (f, real_filename, logical_filename, mdlp)
   int token;
   PARSER_STATE state = STATE_NONE;
   PARSER_STATE last_state = STATE_NONE;
-  char *str;
-  char *key;
-  message_ty *plural;
+  char *str = NULL;		/* used only if state == STATE_STRING */
+  char *key = NULL;		/* used only if state == STATE_WORD
+						|| state == STATE_INVOCATION */
+  message_ty *plural = NULL;	/* used only after state was STATE_KEYWORD */
   message_list_ty *mlp = mdlp->item[0]->messages;
   java_keyword *current_keyword = NULL;
   java_keyword *keyword;
@@ -542,6 +543,7 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	      k2 = append_strings (key, ".");
 	      free (key);
 	      key = append_strings (k2, parser_global->word);
+	      free (k2);
 	    }
 	  else
 	    {
@@ -557,38 +559,30 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	      free (key);
 	      state = STATE_KEYWORD;
 	      argument_counter = 1;
+	      plural = NULL;
 	    }
 	  break;
 
 	case JAVA_STRING:
 	  if (state == STATE_KEYWORD)
-	    {
-	      last_state = STATE_KEYWORD;
-	    }
+	    last_state = STATE_KEYWORD;
 	  if (state == STATE_APPEND)
 	    {
 	      char *s2;
 	      s2 = append_strings (str, translate_esc (parser_global->string));
 	      free (str);
 	      str = s2;
-	      state = STATE_STRING;
 	    }
 	  else
-	    {
-	      state = STATE_STRING;
-	      str = translate_esc (parser_global->string);
-	    }
+	    str = translate_esc (parser_global->string);
+	  state = STATE_STRING;
 	  break;
 
 	case JAVA_OPERATOR:
 	  if (state == STATE_STRING && isplus (parser_global->operator))
-	    {
-	      state = STATE_APPEND;
-	    }
+	    state = STATE_APPEND;
 	  else
-	    {
-	      state = STATE_NONE;
-	    }
+	    state = STATE_NONE;
 	  break;
 
 	case JAVA_FLOW:
@@ -603,8 +597,7 @@ extract_java (f, real_filename, logical_filename, mdlp)
 		{
 		  remember_a_message (mlp, str, &pos);
 		}
-	      else if (!extract_all_strings
-		       && argument_counter == current_keyword->msgid_arg)
+	      else if (argument_counter == current_keyword->msgid_arg)
 		{
 		  plural = remember_a_message (mlp, str, &pos);
 		  if (current_keyword->msgid_plural_arg == 0)
@@ -622,8 +615,7 @@ extract_java (f, real_filename, logical_filename, mdlp)
 		    }
 
 		}
-	      else if (!extract_all_strings &&
-		       argument_counter == current_keyword->msgid_plural_arg)
+	      else if (argument_counter == current_keyword->msgid_plural_arg)
 		{
 		  remember_a_message_plural (plural, str, &pos);
 		  state = STATE_NONE;
