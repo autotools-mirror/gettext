@@ -1,3 +1,8 @@
+2002-10-25  Karl Eichwalder  <ke@suse.de>
+
+        * po-compat.el (po-find-file-coding-system-guts): Provide the old
+        version (pre 2002-09-27) for XEmacs.
+
 2002-10-16  Bruno Haible  <bruno@clisp.org>
 
 	* po-compat.el: Remove call of codepage-setup of all support codepages.

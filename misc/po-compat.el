@@ -181,7 +181,7 @@ Content-Type into a Mule coding system.")
 		 (match-string 1))))))
 
 (eval-and-compile
-  (if (or po-EMACS20 po-XEMACS)
+  (if po-EMACS20
       (defun po-find-file-coding-system-guts (operation filename)
 	"\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
@@ -209,6 +209,25 @@ Called through file-coding-system-alist, before the file is visited for real."
 			     (intern try-string))
 			    (t
 			     'no-conversion))))))))
+
+  (if po-XEMACS
+      (defun po-find-file-coding-system-guts (operation filename)
+	"\
+Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
+Called through file-coding-system-alist, before the file is visited for real."
+	(and (eq operation 'insert-file-contents)
+	     (file-exists-p filename)
+	     (po-with-temp-buffer
+	       (let ((coding-system-for-read 'no-conversion))
+                 (let* ((charset (or (po-find-charset filename)
+				     "ascii"))
+                        (charset-upper (intern (upcase charset)))
+                        (charset-lower (intern (downcase charset))))
+                   (list (or (cdr (assq charset-upper
+                                        po-content-type-charset-alist))
+                             (if (memq charset-lower (coding-system-list))
+                                 charset-lower
+                               'no-conversion)))))))))
 
   (if po-EMACS20
       (defun po-find-file-coding-system (arg-list)
