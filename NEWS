@@ -1,3 +1,8 @@
+Version 0.10.40 - September 2001
+
+* The libintl library is now covered by the GNU LGPL.  The tools are still
+  covered by the GNU GPL.
+
 Version 0.10.39 - July 2001
 
 * This is a bug-fix release.

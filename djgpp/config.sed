@@ -5,16 +5,45 @@
 /ac_given_INSTALL=/,/^CEOF/ {
   /^CEOF$/ i\
 # DJGPP specific Makefile changes.\
-  /^aliaspath *	*=/s,:,";",g\
-  /^lispdir *	*=/ c\\\\\
+  /^aliaspath[ 	]*=/s,:,";",g\
+  /^lispdir[ 	]*=/ c\\\\\
 lispdir = \\$(prefix)/gnu/emacs/site-lisp\
-  /TEXINPUTS=/s,:,";",g\
-  /PATH=/s,:,";",g\
+  /TEXINPUTS[ 	]*=/s,:,";",g\
+  /PATH[ 	]*=/s,:,";",g\
   s,\\.new\\.,_new.,g\
   s,\\.old\\.,_old.,g\
   s,\\.tab\\.c,_tab.c,g\
   s,\\.tab\\.h,_tab.h,g\
+  s,\\([1-9]\\)\\.html,\\1-html,g\
+  s,\\([1-9]\\)\\.in,\\1-in,g\
+  s,gettext_\\*\\.,gettext.*-,g\
   s,config\\.h\\.in,config.h-in,g\
+  s,gettext_1.html,gettext.1-html,g\
+  s,gettext_10.html,gettext.10-html,g\
+  s,gettext_11.html,gettext.11-html,g\
+  s,gettext_12.html,gettext.12-html,g\
+  s,gettext_13.html,gettext.13-html,g\
+  s,gettext_14.html,gettext.14-html,g\
+  s,gettext_2.html,gettext.2-html,g\
+  s,gettext_3.html,gettext.3-html,g\
+  s,gettext_4.html,gettext.4-html,g\
+  s,gettext_5.html,gettext.5-html,g\
+  s,gettext_6.html,gettext.6-html,g\
+  s,gettext_7.html,gettext.7-html,g\
+  s,gettext_8.html,gettext.8-html,g\
+  s,gettext_9.html,gettext.9-html,g\
+  s,gettext_foot.html,gettext.foot-html,g\
+  s,gettext_toc.html,gettext.toc-html,g\
+  s,gettext.3.html,gettext.3-html,g\
+  s,ngettext.3.html,ngettext.3-html,g\
+  s,textdomain.3.html,textdomain.3-html,g\
+  s,bindtextdomain.3.html,bindtextdomain.3-html,g\
+  s,bind_textdomain_codeset.3.html,bind_textdomain_codeset.3-html,g\
+  s,gettext.3.in,gettext.3-in,g\
+  s,ngettext.3.in,ngettext.3-in,g\
+  s,textdomain.3.in,textdomain.3-in,g\
+  s,bindtextdomain.3.in,bindtextdomain.3-in,g\
+  s,bind_textdomain_codeset.3.in,bind_textdomain_codeset.3-in,g\
   s,Makefile\\.in\\.in,Makefile.in-in,g\
   s,gettext-1,gettext.1,g\
   s,gettext-2,gettext.2,g\
@@ -45,9 +74,13 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
     /@list=/ s,\\\$(INFO_DEPS),& gettext.i,\
     s,file-\\[0-9\\]\\[0-9\\],& \\$\\$file[0-9] \\$\\$file[0-9][0-9],\
   }\
-  /^iso-apdx\\.texi *	*:.*$/ {\
-    s,iso-apdx,\\$(srcdir)/&,g\
+  /^iso-639\\.texi[ 	]*:.*$/ {\
+    s,iso-639,\\$(srcdir)/&,g\
     s,ISO_639,\\$(srcdir)/&,\
+  }\
+  /^iso-3166\\.texi[ 	]*:.*$/ {\
+    s,iso-3166,\\$(srcdir)/&,g\
+    s,ISO_3166,\\$(srcdir)/&,\
   }\
   /^# Some rules for yacc handling\\./,$ {\
     /\\\$(YACC)/ a\\\\\
@@ -59,7 +92,9 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s,po-gram-gen2\\.h,po-gram_gen2.h,g\
   /^Makefile[ 	]*:/,/^$/ {\
     /CONFIG_FILES=/ s,\\\$(subdir)/\\\$@\\.in,&:\\$(subdir)/\\$@.in-in,\
-  }
+  }\
+  /html:/ s,split$,monolithic,g\
+  /^TEXI2HTML[ 	]*=/ s,=[ 	]*,&-,
 }
 
 # Makefile.in.in is renamed to Makefile.in-in...
@@ -85,13 +120,14 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s|config\.h|&:config.h-in|2
 }
 
-# Replace (command) > /dev/null with `command > /dev/null`, since
+# Replace `(command) > /dev/null` with `command > /dev/null`, since
 # parenthesized commands always return zero status in the ported Bash,
 # even if the named command doesn't exist
-/if ([^|;]*null/{
-  s,(,`,
-  s,),,
-  s,;  *then,`; then,
+/if [^{].*null/,/ then/ {
+  /test .*null/ {
+    s,(,,
+    s,),,
+  }
 }
 
 # DOS-style absolute file names should be supported as well
@@ -130,3 +166,6 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
 /# Make a symlink if possible; otherwise try a hard link./,/EOF/ {
   s,;.*then, 2>/dev/null || cp -pf \$srcdir/\$ac_source \$ac_dest&,
 }
+
+# Let libtool use _libs all the time.
+/objdir=/s,\.libs,_libs,
