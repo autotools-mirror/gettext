@@ -1,5 +1,10 @@
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
 	* po/es.po: New file, from Max de Mendizábal <max@upn.mx>.
 	* po/LINGUAS: Add es.
 
