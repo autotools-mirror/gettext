@@ -1,3 +1,8 @@
+2005-01-19  Bruno Haible  <bruno@clisp.org>
+
+	* lib-ld.m4, lib-link.m4, lib-prefix.m4: Use an all-permissive
+	copyright notice, recommended by RMS.
+
 2004-07-13  Robert Millan  <robertmh@gnu.org>
 
 	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Same /usr/local/include handling
