@@ -91,7 +91,7 @@ os2_initialize ()
 
   {
     extern const char _nl_default_dirname__[];
-    if (strlen (_os2_localedir) <= 1024)
+    if (strlen (_os2_localedir) <= LOCALEDIR_MAX)
       strcpy (_nl_default_dirname__, _os2_localedir);
   }
 }

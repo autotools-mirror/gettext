@@ -1,3 +1,7 @@
+2001-12-23  Bruno Haible  <bruno@clisp.org>
+
+	* os2.c (os2_initialize): Use LOCALEDIR_MAX macro.
+
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.c (ISSLASH): Provide definition for DOS-like systems.
