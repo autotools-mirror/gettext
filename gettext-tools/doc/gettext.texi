@@ -292,6 +292,7 @@ The Maintainer's View
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.in}
 * CVS Issues::                  Integrating with CVS
+* Release Management::          Creating a Distribution Tarball
 
 Files You Must Create or Alter
 
@@ -6252,6 +6253,7 @@ for changes.
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.in}
 * CVS Issues::                  Integrating with CVS
+* Release Management::          Creating a Distribution Tarball
 @end menu
 
 @node Flat and Non-Flat, Prerequisites, Maintainers, Maintainers
@@ -7138,7 +7140,7 @@ library support, like SCO.
 @file{iconv.m4} is distributed with the GNU gettext package because
 @file{gettext.m4} relies on it.
 
-@node CVS Issues,  , autoconf macros, Maintainers
+@node CVS Issues, Release Management, autoconf macros, Maintainers
 @section Integrating with CVS
 
 Many projects use CVS for distributed development, version control and
@@ -7261,6 +7263,24 @@ and adds to the package's pre-build script an invocation of
 @subsection Invoking the @code{autopoint} Program
 
 @include autopoint.texi
+
+@node Release Management,  , CVS Issues, Maintainers
+@section Creating a Distribution Tarball
+
+@cindex release
+@cindex distribution tarball
+In projects that use GNU @code{automake}, the usual commands for creating
+a distribution tarball, @samp{make dist} or @samp{make distcheck},
+automatically update the PO files as needed.
+
+If GNU @code{automake} is not used, the maintainer needs to perform this
+update before making a release:
+
+@example
+$ ./configure
+$ (cd po; make update-po)
+$ make distclean
+@end example
 
 @node Programming Languages, Conclusion, Maintainers, Top
 @chapter Other Programming Languages
