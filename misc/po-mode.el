@@ -1094,8 +1094,8 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
 
 ;; Insert MODE-LINE-ENTRY in mode line, but on first load only.
 (or (member po-mode-line-entry mode-line-format)
-    ; mode-line-format usually contains global-mode-string, but some
-    ; people customize this variable. As a last resort, append at the end.
+    ;; mode-line-format usually contains global-mode-string, but some
+    ;; people customize this variable. As a last resort, append at the end.
     (let ((prev-entry (or (member 'global-mode-string mode-line-format)
                           (member "   " mode-line-format)
                           (last mode-line-format))))
