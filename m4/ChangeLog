@@ -4,6 +4,7 @@
 	jikes in $PATH. Needed because the call of a program not found in PATH
 	yields return code 1 with SunOS 4 /bin/sh and is thus indistinguishable
 	from a successful call returning 1.
+	* javaexec.m4 (gt_JAVAEXEC): Likewise for gij, java, jre, jview.
 
 2001-10-30  Bruno Haible  <haible@clisp.cons.org>
 
