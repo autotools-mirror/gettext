@@ -1,3 +1,11 @@
+2002-05-14  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Add two examples.
+	(c-format Flag): Renamed from c-format.
+	(c-format, python-format, lisp-format, elisp-format, librep-format,
+	smalltalk-format, java-format, awk-format, object-pascal-format,
+	ycp-format, tcl-format): New subsections.
+
 2002-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Header Entry): Add ISO-8859-14, KOI8-T, GEORGIAN-PS to

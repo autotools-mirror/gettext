@@ -154,7 +154,7 @@ Preparing Program Sources
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
-* c-format::                    Telling something about the following string
+* c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 
 Making the PO Template File
@@ -304,6 +304,20 @@ Other Programming Languages
 * Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
 * List of Data Formats::        Internationalizable Data
+
+The Translator's View
+
+* c-format::                    C Format Strings
+* python-format::               Python Format Strings
+* lisp-format::                 Lisp Format Strings
+* elisp-format::                Emacs Lisp Format Strings
+* librep-format::               librep Format Strings
+* smalltalk-format::            Smalltalk Format Strings
+* java-format::                 Java Format Strings
+* awk-format::                  awk Format Strings
+* object-pascal-format::        Object Pascal Format Strings
+* ycp-format::                  YCP Format Strings
+* tcl-format::                  Tcl Format Strings
 
 Individual Programming Languages
 
@@ -1032,6 +1046,14 @@ The general structure of a PO file should be well understood by
 the translator.  When using PO mode, very little has to be known
 about the format details, as PO mode takes care of them for her.
 
+A simple entry can look like this:
+
+@example
+#: lib/error.c:116
+msgid "Unknown system error"
+msgstr "Error desconegut del sistema"
+@end example
+
 Entries begin with some optional white space.  Usually, when generated
 through GNU @code{gettext} tools, there is exactly one blank line
 between entries.  Then comments follow, on lines all starting with the
@@ -1096,6 +1118,7 @@ does some more tests to check to validity of the translation.
 @end table
 
 @kwindex msgid_plural
+@cindex plural forms, in PO files
 A different kind of entries is used for translations which involve
 plural forms.
 
@@ -1110,6 +1133,17 @@ msgid_plural @var{untranslated-string-plural}
 msgstr[0] @var{translated-string-case-0}
 ...
 msgstr[N] @var{translated-string-case-n}
+@end example
+
+Such an entry can look like this:
+
+@example
+#: src/msgcmp.c:338 src/po-lex.c:699
+#, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "s'ha trobat %d error fatal"
+msgstr[1] "s'han trobat %d errors fatals"
 @end example
 
 @efindex po-normalize@r{, PO Mode command}
@@ -1591,7 +1625,7 @@ sections of this chapter.
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
-* c-format::                    Telling something about the following string
+* c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 @end menu
 
@@ -1976,7 +2010,7 @@ new or altered string requires translation, and include it within
 @samp{_()} if you think it should be translated.  @samp{"%s: %d"} is
 an example of string @emph{not} requiring translation!
 
-@node Marking, c-format, Mark Keywords, Sources
+@node Marking, c-format Flag, Mark Keywords, Sources
 @section Marking Translatable Strings
 @emindex marking strings for translation
 
@@ -2132,7 +2166,7 @@ it afresh.  When a PO file is newly brought up in an Emacs window, only
 is preferred for the @kbd{M-.} command.  In fact, this is not useful to
 prefer @samp{_}, as this one is already built in the @kbd{M-,} command.
 
-@node c-format, Special cases, Marking, Sources
+@node c-format Flag, Special cases, Marking, Sources
 @section Special Comments preceding Keywords
 
 @c FIXME document c-format and no-c-format.
@@ -2224,7 +2258,7 @@ user can find out who is responsible for the decision.  See
 @ref{xgettext Invocation} to see how the @kbd{--debug} option can be
 used for solving this problem.
 
-@node Special cases,  , c-format, Sources
+@node Special cases,  , c-format Flag, Sources
 @section Special Cases of Translatable Strings
 
 @cindex marking string initializers
@@ -4950,7 +4984,7 @@ priority:
 Afterwards the path is constructed using the found value and the
 translation file is loaded if available.
 
-What is now when the value for, say, @code{LANGUAGE} changes.  According
+What happens now when the value for, say, @code{LANGUAGE} changes?  According
 to the process explained above the new value of this variable is found
 as soon as the @code{dcgettext} function is called.  But this also means
 the (perhaps) different message catalog file is loaded.  In other
@@ -6601,7 +6635,7 @@ The language's library should have a string formatting facility where
 the arguments of a format string are denoted by a positional number or a
 name.  This is needed because for some languages and some messages with
 more than one substitutable argument, the translation will need to
-output the substituted arguments in different order.  @xref{c-format}.
+output the substituted arguments in different order.  @xref{c-format Flag}.
 
 @item
 If the language has more than one implementation, and not all of the
@@ -6662,6 +6696,110 @@ The translator works exactly as in the C language case.  The only
 difference is that when translating format strings, she has to be aware
 of the language's particular syntax for positional arguments in format
 strings.
+
+@menu
+* c-format::                    C Format Strings
+* python-format::               Python Format Strings
+* lisp-format::                 Lisp Format Strings
+* elisp-format::                Emacs Lisp Format Strings
+* librep-format::               librep Format Strings
+* smalltalk-format::            Smalltalk Format Strings
+* java-format::                 Java Format Strings
+* awk-format::                  awk Format Strings
+* object-pascal-format::        Object Pascal Format Strings
+* ycp-format::                  YCP Format Strings
+* tcl-format::                  Tcl Format Strings
+@end menu
+
+@node c-format, python-format, Translators for other Languages, Translators for other Languages
+@subsection C Format Strings
+
+C format strings are described in POSIX (IEEE P1003.1 2001), section
+XSH 3 fprintf(),
+@uref{http://www.opengroup.org/onlinepubs/007904975/functions/fprintf.html}.
+See also the fprintf(3) manual page,
+@uref{http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php},
+@uref{http://informatik.fh-wuerzburg.de/student/i510/man/printf.html}.
+
+@node python-format, lisp-format, c-format, Translators for other Languages
+@subsection Python Format Strings
+
+Python format strings are described in
+@w{Python Library reference} /
+@w{2. Built-in Types, Exceptions and Functions} /
+@w{2.2. Built-in Types} /
+@w{2.2.6. Sequence Types} /
+@w{2.2.6.2. String Formatting Operations}.
+@uref{http://www.python.org/doc/2.2.1/lib/typesseq-strings.html}.
+
+@node lisp-format, elisp-format, python-format, Translators for other Languages
+@subsection Lisp Format Strings
+
+Lisp format strings are described in the Common Lisp HyperSpec,
+chapter 22.3 @w{Formatted Output},
+@uref{http://www.lisp.org/HyperSpec/Body/sec_22-3.html}.
+
+@node elisp-format, librep-format, lisp-format, Translators for other Languages
+@subsection Emacs Lisp Format Strings
+
+Emacs Lisp format strings are documented in the Emacs Lisp reference,
+section @w{Formatting Strings},
+@uref{http://www.gnu.org/manual/elisp-manual-21-2.8/html_chapter/elisp_4.html#SEC75}.
+Note that as of version 21, XEmacs supports numbered argument specifications
+in format strings while FSF Emacs doesn't.
+
+@node librep-format, smalltalk-format, elisp-format, Translators for other Languages
+@subsection librep Format Strings
+
+librep format strings are documented in the librep manual, section
+@w{Formatted Output},
+@url{http://librep.sourceforge.net/librep-manual.html#Formatted%20Output},
+@url{http://www.gwinnup.org/research/docs/librep.html#SEC122}.
+
+@node smalltalk-format, java-format, librep-format, Translators for other Languages
+@subsection Smalltalk Format Strings
+
+Smalltalk format strings are described in the GNU Smalltalk documentation,
+class @code{CharArray}, methods @samp{bindWith:} and
+@samp{bindWithArguments:}.
+@uref{http://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238}.
+In summary, a directive starts with @samp{%} and is followed by @samp{%}
+or a nonzero digit (@samp{1} to @samp{9}).
+
+@node java-format, awk-format, smalltalk-format, Translators for other Languages
+@subsection Java Format Strings
+
+Java format strings are described in the JDK documentation for class
+@code{java.text.MessageFormat},
+@uref{http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html}.
+See also the ICU documentation
+@uref{http://oss.software.ibm.com/icu/apiref/classMessageFormat.html}.
+
+@node awk-format, object-pascal-format, java-format, Translators for other Languages
+@subsection awk Format Strings
+
+awk format strings are described in the gawk documentation, section
+@w{Printf},
+@uref{http://www.gnu.org/manual/gawk/html_node/Printf.html#Printf}.
+
+@node object-pascal-format, ycp-format, awk-format, Translators for other Languages
+@subsection Object Pascal Format Strings
+
+Where is this documented?
+
+@node ycp-format, tcl-format, object-pascal-format, Translators for other Languages
+@subsection YCP Format Strings
+
+YCP sformat strings are described in the libycp documentation
+@uref{file:/usr/share/doc/packages/libycp/YCP-builtins.html}.
+In summary, a directive starts with @samp{%} and is followed by @samp{%}
+or a nonzero digit (@samp{1} to @samp{9}).
+
+@node tcl-format,  , ycp-format, Translators for other Languages
+@subsection Tcl Format Strings
+
+Tcl format strings are described in the @file{format.n} manual page,
+@uref{http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm}.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View
