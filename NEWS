@@ -47,6 +47,10 @@ Version 0.11 - XXX 2002
 * gettextize has a new option --intl which determines whether a copy of the
   intl directory is included in the package.
 
+* The Makefile variable @INTLLIBS@ is deprecated. It is replaced with
+  @LIBINTL@ (in projects without libtool) or @LTLIBINTL@ (in projects with
+  libtool).
+
 * New documentation sections:
   - Manipulating
   - po/LINGUAS
