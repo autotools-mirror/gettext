@@ -1,5 +1,5 @@
 ## Makefile for the check subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1997, 2001-2002 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ TESTS = gettext-1 gettext-2 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
 	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
+	msgcat-8 msgcat-9 msgcat-10 \
 	msgcmp-1 msgcmp-2 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
