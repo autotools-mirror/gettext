@@ -39,6 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "linebreak.h"
 #include "system.h"
 #include "error.h"
+#include "xerror.h"
 #include "libgettext.h"
 
 
@@ -56,6 +57,7 @@ static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
 			  const char *value, enum is_wrap do_wrap,
 			  const char *charset));
 static void print_blank_line PARAMS ((FILE *fp));
+static bool has_nonascii PARAMS ((const char *str));
 static void message_print PARAMS ((const message_ty *mp, FILE *fp,
 				   const char *charset, bool blank_line,
 				   bool debug));
@@ -514,6 +516,15 @@ print_blank_line (fp)
     putc ('\n', fp);
 }
 
+static bool
+has_nonascii (str)
+     const char *str;
+{
+  for (; *str; str++)
+    if (!c_isascii ((unsigned char) *str))
+      return true;
+  return false;
+}
 
 static void
 message_print (mp, fp, charset, blank_line, debug)
@@ -664,6 +675,13 @@ message_print (mp, fp, charset, blank_line, debug)
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
      this domain, emit an empty string.  */
+  if (has_nonascii (mp->msgid))
+    multiline_warning (xasprintf (_("warning: ")),
+		       xasprintf (_("\
+The following msgid contains non-ASCII characters.\n\
+This will cause problems to translators who use a character encoding\n\
+different from yours. Consider using a pure ASCII msgid instead.\n\
+%s\n"), mp->msgid));
   wrap (fp, NULL, "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
     wrap (fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
@@ -751,6 +769,13 @@ message_print_obsolete (mp, fp, charset, blank_line)
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
+  if (has_nonascii (mp->msgid))
+    multiline_warning (xasprintf (_("warning: ")),
+		       xasprintf (_("\
+The following msgid contains non-ASCII characters.\n\
+This will cause problems to translators who use a character encoding\n\
+different from yours. Consider using a pure ASCII msgid instead.\n\
+%s\n"), mp->msgid));
   wrap (fp, "#~ ", "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
     wrap (fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
