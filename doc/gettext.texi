@@ -2359,6 +2359,13 @@ use this second method in this situation.
 After preparing the sources, the programmer creates a PO template file.
 This section explains how to use @code{xgettext} for this purpose.
 
+@code{xgettext} creates a file named @file{@var{domainname}.po}.  You
+should then rename it to @file{@var{domainname}.pot}.  (Why doesn't
+@code{xgettext} create it under the name @file{@var{domainname}.pot}
+right away?  The answer is: for historical reasons.  When @code{xgettext}
+was specified, the distinction between a PO file and PO file template
+was fuzzy, and the suffix @samp{.pot} wasn't in use at that time.)
+
 @c FIXME: Rewrite.
 
 @menu
