@@ -161,7 +161,6 @@ msgstr ""
 
 #: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
 #: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
-#, fuzzy
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Meld fouten via <bug-gnu-utils@gnu.org>.\n"
 
@@ -833,6 +832,3 @@ msgstr "taal `%s' onbekend"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: let op: geen header ingang gevonden"
-
-#~ msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
-#~ msgstr "Meld fouten via <bug-gnu-utils@gnu.org>.\n"

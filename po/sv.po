@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996 Free Software Foundation, Inc.
 # Jan Djärv <Jan.Djarv@mbox200.swipnet.se>, 1996.
-# $Revision: 1.3 $
+# $Revision: 1.4 $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.31\n"
 "POT-Creation-Date: 2000-07-28 22:51+0200\n"
-"PO-Revision-Date: $Date: 2001/02/20 15:21:14 $\n"
+"PO-Revision-Date: $Date: 2001/03/09 19:19:21 $\n"
 "Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,6 @@ msgstr ""
 
 #: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
 #: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
-#, fuzzy
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr ""
 "Rapportera fel till <bug-gnu-utils@gnu.org>.\n"
@@ -830,8 +829,3 @@ msgstr "språket \"%s\" okänt"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: varning: inga huvudrader funna"
-
-#~ msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
-#~ msgstr ""
-#~ "Rapportera fel till <bug-gnu-utils@gnu.org>.\n"
-#~ "Rapportera fel på översättningen till <sv@li.org>.\n"

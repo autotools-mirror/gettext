@@ -159,7 +159,6 @@ msgstr ""
 
 #: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
 #: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
-#, fuzzy
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "<bug-gnu-utils@gnu.org>로 문제점을 보고하십시오.\n"
 
