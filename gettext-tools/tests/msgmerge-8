@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles foo.po"
-cat <<\EOF > foo.po
+tmpfiles="$tmpfiles mm-test8.po"
+cat <<\EOF > mm-test8.po
 domain "foo-de"
 msgid ""
 msgstr "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -32,19 +32,19 @@ msgid "bye"
 msgstr "A bientôt"
 EOF
 
-tmpfiles="$tmpfiles foo.pot"
-cat <<EOF > foo.pot
+tmpfiles="$tmpfiles mm-test8.pot"
+cat <<EOF > mm-test8.pot
 msgid "Hello"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles foo.out"
+tmpfiles="$tmpfiles mm-test8.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} --multi-domain -q foo.po foo.pot -o foo.out
+${MSGMERGE} --multi-domain -q mm-test8.po mm-test8.pot -o mm-test8.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles foo.ok"
-cat <<\EOF > foo.ok
+tmpfiles="$tmpfiles mm-test8.ok"
+cat <<\EOF > mm-test8.ok
 domain "foo-de"
 
 msgid ""
@@ -75,7 +75,7 @@ msgstr "Salut"
 EOF
 
 : ${DIFF=diff}
-${DIFF} foo.ok foo.out
+${DIFF} mm-test8.ok mm-test8.out
 result=$?
 
 rm -fr $tmpfiles

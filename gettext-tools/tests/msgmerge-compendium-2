@@ -5,20 +5,20 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test7.in1 mm-test7.com mm-test7.pot"
-cat <<EOF > mm-test7.in1
+tmpfiles="$tmpfiles mm-c-2.in1 mm-c-2.com mm-c-2.pot"
+cat <<EOF > mm-c-2.in1
 #: file.c:123
 msgid "1"
 msgstr "1x"
 EOF
 
-cat <<EOF > mm-test7.com
+cat <<EOF > mm-c-2.com
 #: file.c:345
 msgid "one, two, three"
 msgstr "1, 2, 3"
 EOF
 
-cat <<EOF > mm-test7.pot
+cat <<EOF > mm-c-2.pot
 #: file.c:123
 msgid "1"
 msgstr ""
@@ -28,13 +28,13 @@ msgid "one, two, three..."
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test7.out"
+tmpfiles="$tmpfiles mm-c-2.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -C mm-test7.com mm-test7.in1 mm-test7.pot -o mm-test7.out
+${MSGMERGE} -q -C mm-c-2.com mm-c-2.in1 mm-c-2.pot -o mm-c-2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test7.ok"
-cat << EOF > mm-test7.ok
+tmpfiles="$tmpfiles mm-c-2.ok"
+cat << EOF > mm-c-2.ok
 #: file.c:123
 msgid "1"
 msgstr "1x"
@@ -46,7 +46,7 @@ msgstr "1, 2, 3"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test7.ok mm-test7.out
+${DIFF} mm-c-2.ok mm-c-2.out
 result=$?
 
 rm -fr $tmpfiles

@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test9.in1.po mm-test9.in2.po"
-cat <<\EOF > mm-test9.in1.po
+tmpfiles="$tmpfiles mm-test6.in1.po mm-test6.in2.po"
+cat <<\EOF > mm-test6.in1.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -27,7 +27,7 @@ msgid "white"
 msgstr "weiﬂ"
 EOF
 
-cat <<EOF > mm-test9.in2.po
+cat <<EOF > mm-test6.in2.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -56,14 +56,14 @@ msgid "was correct."
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test9.out"
+tmpfiles="$tmpfiles mm-test6.out"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
-${MSGMERGE} -q mm-test9.in1.po mm-test9.in2.po -o mm-test9.out
+${MSGMERGE} -q mm-test6.in1.po mm-test6.in2.po -o mm-test6.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test9.ok"
-cat <<\EOF > mm-test9.ok
+tmpfiles="$tmpfiles mm-test6.ok"
+cat <<\EOF > mm-test6.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -93,7 +93,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test9.ok mm-test9.out
+${DIFF} mm-test6.ok mm-test6.out
 result=$?
 
 rm -fr $tmpfiles

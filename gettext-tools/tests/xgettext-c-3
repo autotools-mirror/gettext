@@ -5,21 +5,21 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test4.in.c"
-cat <<EOF > xg-test4.in.c
+tmpfiles="$tmpfiles xg-c-3.in.c"
+cat <<EOF > xg-c-3.in.c
 #line 42 "bozo"
 main(){printf(gettext("Hello, World!\n"));}
 # 6 "clown"
 gettext("nothing");
 EOF
 
-tmpfiles="$tmpfiles xg-test4.po"
+tmpfiles="$tmpfiles xg-c-3.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --add-location xg-test4.in.c -d xg-test4
+${XGETTEXT} --omit-header --add-location xg-c-3.in.c -d xg-c-3
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test4.ok"
-cat <<EOF > xg-test4.ok
+tmpfiles="$tmpfiles xg-c-3.ok"
+cat <<EOF > xg-c-3.ok
 #: bozo:42
 #, c-format
 msgid "Hello, World!\n"
@@ -31,7 +31,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test4.ok xg-test4.po
+${DIFF} xg-c-3.ok xg-c-3.po
 result=$?
 
 rm -fr $tmpfiles

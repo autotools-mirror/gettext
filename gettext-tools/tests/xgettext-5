@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test23.c"
-cat <<EOF > xg-test23.c
+tmpfiles="$tmpfiles xg-test5.c"
+cat <<EOF > xg-test5.c
 void foo (int option)
 {
   printf (_("%s: neznámý pøepínaè -- %c\n"), option);
@@ -14,18 +14,18 @@ void foo (int option)
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test23.po"
+tmpfiles="$tmpfiles xg-test5.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --no-location -k_ -o xg-test23.po xg-test23.c 2>/dev/null
+${XGETTEXT} --no-location -k_ -o xg-test5.po xg-test5.c 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
-${XGETTEXT} --no-location -k_ --from-code=iso-8859-2 -o xg-test23.po xg-test23.c
+${XGETTEXT} --no-location -k_ --from-code=iso-8859-2 -o xg-test5.po xg-test5.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test23.pot"
-sed -e '/POT-Creation-Date/d' < xg-test23.po > xg-test23.pot
+tmpfiles="$tmpfiles xg-test5.pot"
+sed -e '/POT-Creation-Date/d' < xg-test5.po > xg-test5.pot
 
-tmpfiles="$tmpfiles xg-test23.ok"
-cat <<EOF > xg-test23.ok
+tmpfiles="$tmpfiles xg-test5.ok"
+cat <<EOF > xg-test5.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -53,7 +53,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test23.ok xg-test23.pot
+${DIFF} xg-test5.ok xg-test5.pot
 result=$?
 
 rm -fr $tmpfiles

@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mu-test4.in"
-cat <<EOF > mu-test4.in
+tmpfiles="$tmpfiles mu-p-1.in"
+cat <<EOF > mu-p-1.in
 eight=eighth
 
 five=fifth
@@ -24,18 +24,18 @@ three=third
 two=second
 EOF
 
-tmpfiles="$tmpfiles mu-test4.mo"
+tmpfiles="$tmpfiles mu-p-1.mo"
 : ${MSGFMT=msgfmt}
-${MSGFMT} --properties-input mu-test4.in -o mu-test4.mo
+${MSGFMT} --properties-input mu-p-1.in -o mu-p-1.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mu-test4.out"
+tmpfiles="$tmpfiles mu-p-1.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} --properties-output mu-test4.mo -o mu-test4.out
+${MSGUNFMT} --properties-output mu-p-1.mo -o mu-p-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
-${DIFF} mu-test4.in mu-test4.out
+${DIFF} mu-p-1.in mu-p-1.out
 result=$?
 
 rm -fr $tmpfiles

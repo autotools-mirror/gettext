@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test13.in.c"
-cat <<EOF > xg-test13.in.c
+tmpfiles="$tmpfiles xg-test3.in.c"
+cat <<EOF > xg-test3.in.c
 This is a test of the xgettext functionality.
 /* xgettext:no-c-format */
 _("extract me")
@@ -24,14 +24,14 @@ _
 _("")
 EOF
 
-tmpfiles="$tmpfiles xg-test13.po"
+tmpfiles="$tmpfiles xg-test3.po"
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
-${XGETTEXT} --output - --no-location -k_ xg-test13.in.c 2>/dev/null \
-  | sed '/\"POT-Creation-Date:.*/d' > xg-test13.po
+${XGETTEXT} --output - --no-location -k_ xg-test3.in.c 2>/dev/null \
+  | sed '/\"POT-Creation-Date:.*/d' > xg-test3.po
 
-tmpfiles="$tmpfiles xg-test13.ok"
-cat <<EOF > xg-test13.ok
+tmpfiles="$tmpfiles xg-test3.ok"
+cat <<EOF > xg-test3.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -61,7 +61,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test13.ok xg-test13.po
+${DIFF} xg-test3.ok xg-test3.po
 result=$?
 
 rm -fr $tmpfiles

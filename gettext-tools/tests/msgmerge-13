@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test20.po"
-cat <<EOF > mm-test20.po
+tmpfiles="$tmpfiles mm-test13.po"
+cat <<EOF > mm-test13.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -46,8 +46,8 @@ msgid "%age"
 msgstr "%-Satz"
 EOF
 
-tmpfiles="$tmpfiles mm-test20.pot"
-cat <<EOF > mm-test20.pot
+tmpfiles="$tmpfiles mm-test13.pot"
+cat <<EOF > mm-test13.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -87,13 +87,13 @@ msgid "%age"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test20.out"
+tmpfiles="$tmpfiles mm-test13.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q mm-test20.po mm-test20.pot -o mm-test20.out
+${MSGMERGE} -q mm-test13.po mm-test13.pot -o mm-test13.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test20.ok"
-cat <<EOF > mm-test20.ok
+tmpfiles="$tmpfiles mm-test13.ok"
+cat <<EOF > mm-test13.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -134,7 +134,7 @@ msgstr "%-Satz"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test20.ok mm-test20.out
+${DIFF} mm-test13.ok mm-test13.out
 result=$?
 
 rm -fr $tmpfiles

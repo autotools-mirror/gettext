@@ -5,73 +5,73 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test31.c"
-cat <<\EOF > xg-test31.c
+tmpfiles="$tmpfiles xg-test6.c"
+cat <<\EOF > xg-test6.c
 fprintf (fp, gettext ("c-format positive1"), gettext ("c-format negative1"));
 printk (gettext ("c-format negative2"));
 EOF
 
-tmpfiles="$tmpfiles xg-test31.sh"
-cat <<\EOF > xg-test31.sh
+tmpfiles="$tmpfiles xg-test6.sh"
+cat <<\EOF > xg-test6.sh
 eval_gettext "sh-format positive1" "`gettext \"sh-format negative1\"`"
 echo "`gettext \"sh-format negative2\"`"
 EOF
 
-tmpfiles="$tmpfiles xg-test31.py"
-cat <<\EOF > xg-test31.py
+tmpfiles="$tmpfiles xg-test6.py"
+cat <<\EOF > xg-test6.py
 my_printf (gettext ("python-format positive1"),
            gettext ("python-format negative1"));
 printk (gettext ("python-format negative2"));
 EOF
 
-tmpfiles="$tmpfiles xg-test31.lisp"
-cat <<\EOF > xg-test31.lisp
+tmpfiles="$tmpfiles xg-test6.lisp"
+cat <<\EOF > xg-test6.lisp
 (format t (gettext "lisp-format positive1") (gettext "lisp-format negative1"))
 (prin1 (gettext "lisp-format negative2"))
 EOF
 
-tmpfiles="$tmpfiles xg-test31.el"
-cat <<\EOF > xg-test31.el
+tmpfiles="$tmpfiles xg-test6.el"
+cat <<\EOF > xg-test6.el
 (format (_ "elisp-format positive1") (_ "elisp-format negative1"))
 (printk (_ "elisp-format negative2"))
 EOF
 
-tmpfiles="$tmpfiles xg-test31.jl"
-cat <<\EOF > xg-test31.jl
+tmpfiles="$tmpfiles xg-test6.jl"
+cat <<\EOF > xg-test6.jl
 (format stream (_ "librep-format positive1") (_ "librep-format negative1"))
 (printk (_ "librep-format negative2"))
 EOF
 
-tmpfiles="$tmpfiles xg-test31.java"
-cat <<\EOF > xg-test31.java
+tmpfiles="$tmpfiles xg-test6.java"
+cat <<\EOF > xg-test6.java
 MessageFormat.format(gettext("java-format positive1"),
                      gettext("java-format negative1"));
 System.err.println(gettext("java-format negative2"));
 EOF
 
-tmpfiles="$tmpfiles xg-test31.awk"
-cat <<\EOF > xg-test31.awk
+tmpfiles="$tmpfiles xg-test6.awk"
+cat <<\EOF > xg-test6.awk
 printf dcgettext ("awk-format positive1"), dcgettext ("awk-format negative1");
 printf (dcgettext ("awk-format positive2"), dcgettext ("awk-format negative2"));
 printf dcgettext ("awk-format positive3"); dcgettext ("awk-format negative3");
 printk dcgettext ("awk-format negative4");
 EOF
 
-tmpfiles="$tmpfiles xg-test31.ycp"
-cat <<\EOF > xg-test31.ycp
+tmpfiles="$tmpfiles xg-test6.ycp"
+cat <<\EOF > xg-test6.ycp
 sformat (_("ycp-format positive1"), _("ycp-format negative1"));
 printk (_("ycp-format negative2"));
 EOF
 
-tmpfiles="$tmpfiles xg-test31.tcl"
-cat <<\EOF > xg-test31.tcl
+tmpfiles="$tmpfiles xg-test6.tcl"
+cat <<\EOF > xg-test6.tcl
 [format [::msgcat::mc "tcl-format positive1"]
         [::msgcat::mc "tcl-format negative1"]]
 [print [::msgcat::mc "tcl-format negative2"]]
 EOF
 
-tmpfiles="$tmpfiles xg-test31.pl"
-cat <<\EOF > xg-test31.pl
+tmpfiles="$tmpfiles xg-test6.pl"
+cat <<\EOF > xg-test6.pl
 printf gettext "perl-format positive1", gettext ("perl-format negative1");
 gettext ("perl-format negative2");
 printf gettext "perl-format positive2"; gettext ("perl-format negative3");
@@ -80,24 +80,24 @@ print sprintf gettext "perl-format positive3";
 print kprintf gettext "perl-format negative5";
 EOF
 
-tmpfiles="$tmpfiles xg-test31.php"
-cat <<\EOF > xg-test31.php
+tmpfiles="$tmpfiles xg-test6.php"
+cat <<\EOF > xg-test6.php
 <? php
 printf (_ ("php-format positive1"), _ ("php-format negative1"));
 printk (_ ("php-format negative2"));
 EOF
 
-tmpfiles="$tmpfiles xg-test31.po"
+tmpfiles="$tmpfiles xg-test6.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-test31 \
+${XGETTEXT} --omit-header --no-location -d xg-test6 \
   --flag=my_printf:1:python-format \
-  xg-test31.c xg-test31.sh xg-test31.py xg-test31.lisp xg-test31.el \
-  xg-test31.jl xg-test31.java xg-test31.awk xg-test31.ycp xg-test31.tcl \
-  xg-test31.pl xg-test31.php 
+  xg-test6.c xg-test6.sh xg-test6.py xg-test6.lisp xg-test6.el \
+  xg-test6.jl xg-test6.java xg-test6.awk xg-test6.ycp xg-test6.tcl \
+  xg-test6.pl xg-test6.php 
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test31.ok"
-cat <<\EOF > xg-test31.ok
+tmpfiles="$tmpfiles xg-test6.ok"
+cat <<\EOF > xg-test6.ok
 #, c-format
 msgid "c-format positive1"
 msgstr ""
@@ -251,7 +251,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test31.ok xg-test31.po
+${DIFF} xg-test6.ok xg-test6.po
 result=$?
 
 rm -fr $tmpfiles

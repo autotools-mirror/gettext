@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test8.in.po xg-test8.c xg-test8.cc"
-cat <<EOF > xg-test8.in.po
+tmpfiles="$tmpfiles xg-po-1.in.po xg-po-1.c xg-po-1.cc"
+cat <<EOF > xg-po-1.in.po
 #: file1.c:199
 #, fuzzy
 msgid "extract me"
@@ -22,7 +22,7 @@ msgid "hello"
 msgstr "Again some text for fuzzy"
 EOF
 
-cat <<EOF > xg-test8.c
+cat <<EOF > xg-po-1.c
 #include <libintl.h>
 #include <stdio.h>
 int
@@ -33,7 +33,7 @@ main (int argc, char *argv[])
 }
 EOF
 
-cat <<EOF > xg-test8.cc
+cat <<EOF > xg-po-1.cc
 #include <iostream.h>
 #include <libintl.h>
 #include <locale.h>
@@ -45,14 +45,14 @@ main (int argc, char *argv[])
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test8.po"
+tmpfiles="$tmpfiles xg-po-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -n xg-test8.in.po \
-  xg-test8.c xg-test8.cc -d xg-test8
+${XGETTEXT} --omit-header -n xg-po-1.in.po \
+  xg-po-1.c xg-po-1.cc -d xg-po-1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test8.ok"
-cat <<EOF > xg-test8.ok
+tmpfiles="$tmpfiles xg-po-1.ok"
+cat <<EOF > xg-po-1.ok
 #: file1.c:199
 #, fuzzy
 msgid "extract me"
@@ -67,18 +67,18 @@ msgstr ""
 msgid "hello"
 msgstr "Again some text for fuzzy"
 
-#: xg-test8.c:6
+#: xg-po-1.c:6
 #, c-format
 msgid "Hello, world."
 msgstr ""
 
-#: xg-test8.cc:7
+#: xg-po-1.cc:7
 msgid "Hello world!"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test8.ok xg-test8.po
+${DIFF} xg-po-1.ok xg-po-1.po
 result=$?
 
 rm -fr $tmpfiles

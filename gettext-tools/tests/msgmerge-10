@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test17.po"
-cat <<EOF > mm-test17.po
+tmpfiles="$tmpfiles mm-test10.po"
+cat <<EOF > mm-test10.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -29,8 +29,8 @@ msgid "%d error"
 msgstr "%d erreur"
 EOF
 
-tmpfiles="$tmpfiles mm-test17.pot"
-cat <<EOF > mm-test17.pot
+tmpfiles="$tmpfiles mm-test10.pot"
+cat <<EOF > mm-test10.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -54,13 +54,13 @@ msgstr[0] ""
 msgstr[1] ""
 EOF
 
-tmpfiles="$tmpfiles mm-test17.out"
+tmpfiles="$tmpfiles mm-test10.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q mm-test17.po mm-test17.pot -o mm-test17.out
+${MSGMERGE} -q mm-test10.po mm-test10.pot -o mm-test10.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test17.ok"
-cat <<EOF > mm-test17.ok
+tmpfiles="$tmpfiles mm-test10.ok"
+cat <<EOF > mm-test10.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -85,7 +85,7 @@ msgstr[1] "%d erreur"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test17.ok mm-test17.out
+${DIFF} mm-test10.ok mm-test10.out
 result=$?
 
 rm -fr $tmpfiles

@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test33.strings"
-cat <<\EOF > xg-test33.strings
+tmpfiles="$tmpfiles xg-st-1.strings"
+cat <<\EOF > xg-st-1.strings
 /***
 German.lproj/Localizable.strings
 updated by make_strings 2003-10-12 15:31:50 +0200
@@ -23,14 +23,14 @@ add comments above this one
 = "Dieses Programm l‰uft mit der Prozess-Nummer %d.";
 EOF
 
-tmpfiles="$tmpfiles xg-test33.tmp xg-test33.po"
+tmpfiles="$tmpfiles xg-st-1.tmp xg-st-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} xg-test33.strings -o xg-test33.tmp
+${XGETTEXT} xg-st-1.strings -o xg-st-1.tmp
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-test33.tmp > xg-test33.po
+grep -v 'POT-Creation-Date' < xg-st-1.tmp > xg-st-1.po
 
-tmpfiles="$tmpfiles xg-test33.ok"
-cat <<\EOF > xg-test33.ok
+tmpfiles="$tmpfiles xg-st-1.ok"
+cat <<\EOF > xg-st-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -64,7 +64,7 @@ msgstr "Dieses Programm l√§uft mit der Prozess-Nummer %d."
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test33.ok xg-test33.po
+${DIFF} xg-st-1.ok xg-st-1.po
 result=$?
 
 rm -fr $tmpfiles

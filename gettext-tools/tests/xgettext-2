@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test12.in.c"
-cat <<EOF > xg-test12.in.c
+tmpfiles="$tmpfiles xg-test2.in.c"
+cat <<EOF > xg-test2.in.c
 This is a test of the xgettext functionality.
 /* xgettext:no-c-format */
 _("extract me")
@@ -24,13 +24,13 @@ _
 _("")
 EOF
 
-tmpfiles="$tmpfiles xg-test12.po"
+tmpfiles="$tmpfiles xg-test2.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -d xg-test12 -k_ --omit-header --no-location xg-test12.in.c
+${XGETTEXT} -d xg-test2 -k_ --omit-header --no-location xg-test2.in.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test12.ok"
-cat <<EOF > xg-test12.ok
+tmpfiles="$tmpfiles xg-test2.ok"
+cat <<EOF > xg-test2.ok
 #, no-c-format
 msgid "extract me"
 msgstr ""
@@ -46,7 +46,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test12.ok xg-test12.po
+${DIFF} xg-test2.ok xg-test2.po
 result=$?
 
 rm -fr $tmpfiles

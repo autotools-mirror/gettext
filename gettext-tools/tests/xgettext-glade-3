@@ -152,14 +152,14 @@ button or double click the character in the table.</property>
 </glade-interface>
 EOF
 
-tmpfiles="$tmpfiles xg-test25.tmp xg-test25.pot"
+tmpfiles="$tmpfiles xg-gl-3.tmp xg-gl-3.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o xg-test25.tmp asciitable.glade2 
+${XGETTEXT} -o xg-gl-3.tmp asciitable.glade2 
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-test25.tmp > xg-test25.pot
+grep -v 'POT-Creation-Date' < xg-gl-3.tmp > xg-gl-3.pot
 
-tmpfiles="$tmpfiles xg-test25.ok"
-cat <<EOF > xg-test25.ok
+tmpfiles="$tmpfiles xg-gl-3.ok"
+cat <<EOF > xg-gl-3.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -194,7 +194,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test25.ok xg-test25.pot
+${DIFF} xg-gl-3.ok xg-gl-3.pot
 result=$?
 
 rm -fr $tmpfiles

@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test25.po"
-cat <<\EOF > mm-test25.po
+tmpfiles="$tmpfiles mm-test16.po"
+cat <<\EOF > mm-test16.po
 msgid ""
 msgstr ""
 "Project-Id-Version: hello-cplusplus-qt 0\n"
@@ -31,8 +31,8 @@ msgid "error %1."
 msgstr "b³±d %1."
 EOF
 
-tmpfiles="$tmpfiles mm-test25.pot"
-cat <<EOF > mm-test25.pot
+tmpfiles="$tmpfiles mm-test16.pot"
+cat <<EOF > mm-test16.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Yoyodyne, Inc.
 # This file is distributed under the same license as the PACKAGE package.
@@ -60,13 +60,13 @@ msgid "error %1."
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test25.new.po"
+tmpfiles="$tmpfiles mm-test16.new.po"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q mm-test25.po mm-test25.pot -o mm-test25.new.po
+${MSGMERGE} -q mm-test16.po mm-test16.pot -o mm-test16.new.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test25.ok"
-cat <<\EOF > mm-test25.ok
+tmpfiles="$tmpfiles mm-test16.ok"
+cat <<\EOF > mm-test16.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: hello-cplusplus-qt 0\n"
@@ -91,7 +91,7 @@ msgstr "bÅ‚Ä…d %1."
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test25.ok mm-test25.new.po
+${DIFF} mm-test16.ok mm-test16.new.po
 result=$?
 
 rm -fr $tmpfiles

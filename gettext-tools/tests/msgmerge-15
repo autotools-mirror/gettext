@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test22.pot mm-test22.po"
-cat <<\EOF > mm-test22.pot
+tmpfiles="$tmpfiles mm-test15.pot mm-test15.po"
+cat <<\EOF > mm-test15.pot
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
@@ -22,20 +22,20 @@ msgid "invalid argument `%s' for `%s'"
 msgstr "ungültiges Argument »%s« für »%s«"
 EOF
 
-cat <<\EOF > mm-test22.po
+cat <<\EOF > mm-test15.po
 #: 123.c:134
 #, c-format
 msgid "invalid argument `%s' for `%s'"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test22.out"
+tmpfiles="$tmpfiles mm-test15.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q mm-test22.pot mm-test22.po -o mm-test22.out
+${MSGMERGE} -q mm-test15.pot mm-test15.po -o mm-test15.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test22.ok"
-cat <<\EOF > mm-test22.ok
+tmpfiles="$tmpfiles mm-test15.ok"
+cat <<\EOF > mm-test15.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
@@ -52,7 +52,7 @@ msgstr "ungültiges Argument »%s« für »%s«"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test22.ok mm-test22.out
+${DIFF} mm-test15.ok mm-test15.out
 result=$?
 
 rm -fr $tmpfiles

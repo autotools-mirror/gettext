@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test27.pl"
-cat <<\EOF > xg-test27.pl
+tmpfiles="$tmpfiles xg-pl-2.pl"
+cat <<\EOF > xg-pl-2.pl
 use charnames ':full';
 printf "%s\n", gettext "Böse Bübchen - wo sind sie blo\N{LATIN SMALL LETTER SHARP S}?";
 print gettext <<STR
@@ -14,15 +14,15 @@ Die europäische Währung ist \N{EURO SIGN}.
 STR
 EOF
 
-tmpfiles="$tmpfiles xg-test27.po"
+tmpfiles="$tmpfiles xg-pl-2.po"
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
-${XGETTEXT} --output - --from-code=ISO-8859-1 xg-test27.pl \
-  | sed '/\"POT-Creation-Date:.*/d' > xg-test27.po
+${XGETTEXT} --output - --from-code=ISO-8859-1 xg-pl-2.pl \
+  | sed '/\"POT-Creation-Date:.*/d' > xg-pl-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test27.ok"
-cat <<\EOF > xg-test27.ok
+tmpfiles="$tmpfiles xg-pl-2.ok"
+cat <<\EOF > xg-pl-2.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -40,17 +40,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: xg-test27.pl:2
+#: xg-pl-2.pl:2
 msgid "BÃ¶se BÃ¼bchen - wo sind sie bloÃŸ?"
 msgstr ""
 
-#: xg-test27.pl:4
+#: xg-pl-2.pl:4
 msgid "Die europÃ¤ische WÃ¤hrung ist â‚¬.\n"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test27.ok xg-test27.po
+${DIFF} xg-pl-2.ok xg-pl-2.po
 result=$?
 
 rm -fr $tmpfiles

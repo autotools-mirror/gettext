@@ -5,25 +5,25 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test5.in.c"
-cat <<EOF > xg-test5.in.c
+tmpfiles="$tmpfiles xg-c-4.in.c"
+cat <<EOF > xg-c-4.in.c
 main()??<printf(gettext("Hello, " "World!" "??/n")); ??>
 EOF
 
-tmpfiles="$tmpfiles xg-test5.po"
+tmpfiles="$tmpfiles xg-c-4.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --trigraphs xg-test5.in.c -d xg-test5
+${XGETTEXT} --omit-header --no-location --trigraphs xg-c-4.in.c -d xg-c-4
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test5.ok"
-cat <<EOF > xg-test5.ok
+tmpfiles="$tmpfiles xg-c-4.ok"
+cat <<EOF > xg-c-4.ok
 #, c-format
 msgid "Hello, World!\n"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test5.ok xg-test5.po
+${DIFF} xg-c-4.ok xg-c-4.po
 result=$?
 
 rm -fr $tmpfiles

@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mf-test14.po"
-cat <<\EOF >mf-test14.po
+tmpfiles="$tmpfiles mf-test13.po"
+cat <<\EOF >mf-test13.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -28,9 +28,9 @@ msgstr " [Gehe zu]  [ZurÃ¼ck]  [Anzeigen]  [Markieren]  [Markierung lö³£¨en]  [O
 
 EOF
 
-tmpfiles="$tmpfiles mf-test14.mo"
+tmpfiles="$tmpfiles mf-test13.mo"
 : ${MSGFMT=msgfmt}
-${MSGFMT} mf-test14.po -o mf-test14.mo 2>/dev/null
+${MSGFMT} mf-test13.po -o mf-test13.mo 2>/dev/null
 # Exit code must be 1.
 # If the invalid sequence didn't get noticed, it would be 0.
 # If it produced a core dump, it would be 134 (= 128 + SIGABRT).

@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test11.java"
-cat <<\EOF > xg-test11.java
+tmpfiles="$tmpfiles xg-j-2.java"
+cat <<\EOF > xg-j-2.java
 class TestCase {
   public static void main (String[] args) {
     // Test recognition of \u escapes: Böse Bübchen
@@ -58,14 +58,14 @@ comment! */ "this is a single " /* now comes the concatenation! */ + // after +
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test11.tmp xg-test11.pot"
+tmpfiles="$tmpfiles xg-j-2.tmp xg-j-2.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --from-code=ISO-8859-1 -c -o xg-test11.tmp xg-test11.java 2>/dev/null
+${XGETTEXT} --from-code=ISO-8859-1 -c -o xg-j-2.tmp xg-j-2.java 2>/dev/null
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-test11.tmp > xg-test11.pot
+grep -v 'POT-Creation-Date' < xg-j-2.tmp > xg-j-2.pot
 
-tmpfiles="$tmpfiles xg-test11.ok"
-cat <<\EOF > xg-test11.ok
+tmpfiles="$tmpfiles xg-j-2.ok"
+cat <<\EOF > xg-j-2.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -84,57 +84,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Test recognition of \u escapes: BÃ¶se BÃ¼bchen
-#: xg-test11.java:4
+#: xg-j-2.java:4
 msgid "BÃ¶se BÃ¼bchen"
 msgstr ""
 
 #. Test recognition of \u escapes with different number of u
-#: xg-test11.java:6
+#: xg-j-2.java:6
 msgid "Japanese: æ—¥æœ¬èªž"
 msgstr ""
 
 #. Test recognition of \u escapes when they form UTF-16 surrogates
 #. Here: U+1D49E MATHEMATICAL SCRIPT CAPITAL C
-#: xg-test11.java:9
+#: xg-j-2.java:9
 msgid "script ð’ž = ..."
 msgstr ""
 
 #. Test invalid surrogates.
-#: xg-test11.java:11
+#: xg-j-2.java:11
 msgid "invalid surrogate ï¿½ first half"
 msgstr ""
 
-#: xg-test11.java:12
+#: xg-j-2.java:12
 msgid "invalid surrogate í²ž second half"
 msgstr ""
 
 #. Don't let the line numbers be confused by \u newlines.
-#: xg-test11.java:15
+#: xg-j-2.java:15
 msgid ""
 "embedded\n"
 "newline"
 msgstr ""
 
 #. Spaces from end of comment are removed.
-#: xg-test11.java:16
+#: xg-j-2.java:16
 msgid "dummy"
 msgstr ""
 
 #. Various ways to write a backslash are equivalent.
-#: xg-test11.java:18 xg-test11.java:19 xg-test11.java:20 xg-test11.java:21
-#: xg-test11.java:22
+#: xg-j-2.java:18 xg-j-2.java:19 xg-j-2.java:20 xg-j-2.java:21 xg-j-2.java:22
 msgid "\\"
 msgstr ""
 
 #. Escape sequences in strings.
-#: xg-test11.java:24
+#: xg-j-2.java:24
 msgid ""
 "t -> \t, b -> \b, n -> \n"
 ", dquote -> \", squote -> ' ..."
 msgstr ""
 
 #. Octal escapes have 2 or 3 digits, depending on the initial digit.
-#: xg-test11.java:26
+#: xg-j-2.java:26
 msgid ""
 "bel: \n"
 "newline: \n"
@@ -143,34 +142,34 @@ msgid ""
 msgstr ""
 
 #. Hex escapes are not recognized
-#: xg-test11.java:28
+#: xg-j-2.java:28
 msgid "no bel: \\x07\n"
 msgstr ""
 
 #. Recognized despite comments
 #. Even across multiline
 #. comment!
-#: xg-test11.java:31
+#: xg-j-2.java:31
 msgid "this is a single long line"
 msgstr ""
 
 #. Invalid concatenations are not concatenated.
-#: xg-test11.java:36
+#: xg-j-2.java:36
 msgid "fooba"
 msgstr ""
 
 #. Verify that the static function name has priority.
-#: xg-test11.java:38
+#: xg-j-2.java:38
 msgid "this one is extracted"
 msgstr ""
 
-#: xg-test11.java:46
+#: xg-j-2.java:46
 msgid "this is the second argument"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test11.ok xg-test11.pot
+${DIFF} xg-j-2.ok xg-j-2.pot
 result=$?
 
 rm -fr $tmpfiles

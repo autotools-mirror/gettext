@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mcat-test13.in"
-cat <<\EOF > mcat-test13.in
+tmpfiles="$tmpfiles mcat-s-1.in"
+cat <<\EOF > mcat-s-1.in
 /* This is an example of a string table file. Everything inside a comment
 is completely ignored, even if in "quotes", or \escape characters, etc.
 */
@@ -27,14 +27,14 @@ is completely ignored, even if in "quotes", or \escape characters, etc.
 "hoe322070.element";
 EOF
 
-tmpfiles="$tmpfiles mcat-test13.out"
-rm -f mcat-test13.out
+tmpfiles="$tmpfiles mcat-s-1.out"
+rm -f mcat-s-1.out
 : ${MSGCAT=msgcat}
-${MSGCAT} --stringtable-input mcat-test13.in -o mcat-test13.out
+${MSGCAT} --stringtable-input mcat-s-1.in -o mcat-s-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mcat-test13.ok"
-cat << \EOF > mcat-test13.ok
+tmpfiles="$tmpfiles mcat-s-1.ok"
+cat << \EOF > mcat-s-1.ok
 # This is an example of a string table file. Everything inside a comment
 # is completely ignored, even if in "quotes", or \escape characters, etc.
 #
@@ -61,7 +61,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mcat-test13.ok mcat-test13.out
+${DIFF} mcat-s-1.ok mcat-s-1.out
 result=$?
 
 rm -fr $tmpfiles

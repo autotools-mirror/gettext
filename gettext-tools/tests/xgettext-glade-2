@@ -12,9 +12,9 @@ cat <<EOF > empty.glade
 <GTK-Interface/>
 EOF
 
-tmpfiles="$tmpfiles xg-test20.pot"
+tmpfiles="$tmpfiles xg-gl-2.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o xg-test20.pot empty.glade 2>/dev/null
+${XGETTEXT} -o xg-gl-2.pot empty.glade 2>/dev/null
 test $? = 0 || { rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles simple.glade"
@@ -56,14 +56,14 @@ cat <<\EOF > simple.glade
 </GTK-Interface>
 EOF
 
-tmpfiles="$tmpfiles xg-test20.tmp xg-test20.pot"
+tmpfiles="$tmpfiles xg-gl-2.tmp xg-gl-2.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments -o xg-test20.tmp simple.glade 
+${XGETTEXT} --add-comments -o xg-gl-2.tmp simple.glade 
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-test20.tmp > xg-test20.pot
+grep -v 'POT-Creation-Date' < xg-gl-2.tmp > xg-gl-2.pot
 
-tmpfiles="$tmpfiles xg-test20.ok"
-cat <<EOF > xg-test20.ok
+tmpfiles="$tmpfiles xg-gl-2.ok"
+cat <<EOF > xg-gl-2.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -96,7 +96,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test20.ok xg-test20.pot
+${DIFF} xg-gl-2.ok xg-gl-2.pot
 result=$?
 
 rm -fr $tmpfiles

@@ -7,8 +7,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test16.po"
-cat <<\EOF > mm-test16.po
+tmpfiles="$tmpfiles mm-u-3.po"
+cat <<\EOF > mm-u-3.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -29,8 +29,8 @@ msgid "white"
 msgstr "weiﬂ"
 EOF
 
-tmpfiles="$tmpfiles mm-test16.pot"
-cat <<EOF > mm-test16.pot
+tmpfiles="$tmpfiles mm-u-3.pot"
+cat <<EOF > mm-u-3.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -51,13 +51,13 @@ msgid "white"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test16.po~"
+tmpfiles="$tmpfiles mm-u-3.po~"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --update mm-test16.po mm-test16.pot
+${MSGMERGE} -q --update mm-u-3.po mm-u-3.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test16.ok"
-cat <<\EOF > mm-test16.ok
+tmpfiles="$tmpfiles mm-u-3.ok"
+cat <<\EOF > mm-u-3.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -79,7 +79,7 @@ msgstr "weiﬂ"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test16.ok mm-test16.po
+${DIFF} mm-u-3.ok mm-u-3.po
 result=$?
 
 rm -fr $tmpfiles

@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test10.java"
-cat <<EOF > xg-test10.java
+tmpfiles="$tmpfiles xg-j-1.java"
+cat <<EOF > xg-j-1.java
 class TestCase {
     public TestCase() {
         ResourceBundle b = ResourceBundle.getBundle("test");
@@ -31,13 +31,13 @@ class TestCase {
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test10.po"
+tmpfiles="$tmpfiles xg-j-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -c -d xg-test10 xg-test10.java
+${XGETTEXT} --omit-header --no-location -c -d xg-j-1 xg-j-1.java
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test10.ok"
-cat <<EOF > xg-test10.ok
+tmpfiles="$tmpfiles xg-j-1.ok"
+cat <<EOF > xg-j-1.ok
 #. standard usage
 msgid "Test String 1"
 msgstr ""
@@ -60,7 +60,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test10.ok xg-test10.po
+${DIFF} xg-j-1.ok xg-j-1.po
 result=$?
 
 rm -fr $tmpfiles

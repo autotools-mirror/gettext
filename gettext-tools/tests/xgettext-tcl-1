@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test21.tcl"
-cat <<\EOF > xg-test21.tcl
+tmpfiles="$tmpfiles xg-t-1.tcl"
+cat <<\EOF > xg-t-1.tcl
 #!/usr/bin/tclsh
 
 proc isValid {target} {
@@ -24,14 +24,14 @@ proc isValid {target} {
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test21.err xg-test21.tmp xg-test21.pot"
+tmpfiles="$tmpfiles xg-t-1.err xg-t-1.tmp xg-t-1.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments --no-location -k_ -o xg-test21.tmp xg-test21.tcl 2>xg-test21.err
-test $? = 0 || { cat xg-test21.err; rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-test21.tmp > xg-test21.pot
+${XGETTEXT} --add-comments --no-location -k_ -o xg-t-1.tmp xg-t-1.tcl 2>xg-t-1.err
+test $? = 0 || { cat xg-t-1.err; rm -fr $tmpfiles; exit 1; }
+grep -v 'POT-Creation-Date' < xg-t-1.tmp > xg-t-1.pot
 
-tmpfiles="$tmpfiles xg-test21.ok"
-cat <<\EOF > xg-test21.ok
+tmpfiles="$tmpfiles xg-t-1.ok"
+cat <<\EOF > xg-t-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -61,7 +61,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test21.ok xg-test21.pot
+${DIFF} xg-t-1.ok xg-t-1.pot
 result=$?
 
 rm -fr $tmpfiles

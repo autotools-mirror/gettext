@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test14.po"
-cat <<\EOF > mm-test14.po
+tmpfiles="$tmpfiles mm-u-1.po"
+cat <<\EOF > mm-u-1.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -33,8 +33,8 @@ msgstr ""
 "schwarz"
 EOF
 
-tmpfiles="$tmpfiles mm-test14.pot"
-cat <<EOF > mm-test14.pot
+tmpfiles="$tmpfiles mm-u-1.pot"
+cat <<EOF > mm-u-1.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -59,16 +59,16 @@ msgid "black"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test14.bak"
-cp mm-test14.po mm-test14.bak
+tmpfiles="$tmpfiles mm-u-1.bak"
+cp mm-u-1.po mm-u-1.bak
 
-tmpfiles="$tmpfiles mm-test14.po~"
+tmpfiles="$tmpfiles mm-u-1.po~"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --update mm-test14.po mm-test14.pot
+${MSGMERGE} -q --update mm-u-1.po mm-u-1.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
-${DIFF} mm-test14.bak mm-test14.po
+${DIFF} mm-u-1.bak mm-u-1.po
 result=$?
 
 rm -fr $tmpfiles

@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test29.pl"
-cat <<\EOPERL > xg-test29.pl
+tmpfiles="$tmpfiles xg-pl-4.pl"
+cat <<\EOPERL > xg-pl-4.pl
 use strict;
 
 # A double quoted string.
@@ -52,14 +52,14 @@ print "\U\x70\LO\154\x{69}\x{004E}a \Q\lRu\LLeS\E\041\n";
 #      "\x{430}\x{447}\x{43a}\x{430}\n";
 EOPERL
 
-tmpfiles="$tmpfiles xg-test29.pot"
+tmpfiles="$tmpfiles xg-pl-4.pot"
 : ${XGETTEXT=xgettext}
 LC_MESSAGES=C LC_ALL= \
-${XGETTEXT} -a --omit-header --no-location -o xg-test29.pot xg-test29.pl
+${XGETTEXT} -a --omit-header --no-location -o xg-pl-4.pot xg-pl-4.pl
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test29.ok"
-cat <<\EOF > xg-test29.ok
+tmpfiles="$tmpfiles xg-pl-4.ok"
+cat <<\EOF > xg-pl-4.ok
 msgid "'Your command, please?', asked the waiter.\n"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test29.ok xg-test29.pot
+${DIFF} xg-pl-4.ok xg-pl-4.pot
 result=$?
 
 rm -fr $tmpfiles

@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test22.c"
-cat <<EOF > xg-test22.c
+tmpfiles="$tmpfiles xg-c-8.c"
+cat <<EOF > xg-c-8.c
 void foo ()
 {
   printf (_("File size is: %" PRId64), size);
@@ -16,13 +16,13 @@ void foo ()
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test22.po"
+tmpfiles="$tmpfiles xg-c-8.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -k_ -o xg-test22.po xg-test22.c
+${XGETTEXT} --omit-header --no-location -k_ -o xg-c-8.po xg-c-8.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test22.ok"
-cat <<EOF > xg-test22.ok
+tmpfiles="$tmpfiles xg-c-8.ok"
+cat <<EOF > xg-c-8.ok
 #, c-format
 msgid "File size is: %<PRId64>"
 msgstr ""
@@ -41,7 +41,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test22.ok xg-test22.po
+${DIFF} xg-c-8.ok xg-c-8.po
 result=$?
 
 rm -fr $tmpfiles

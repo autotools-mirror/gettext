@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test30.sh"
-cat <<\EOF > xg-test30.sh
+tmpfiles="$tmpfiles xg-sh-1.sh"
+cat <<\EOF > xg-sh-1.sh
 # Test backslash before normal alphabetic character.
 
 gettext  depth_0_none_0_x
@@ -464,13 +464,13 @@ echo "`echo "\`ngettext 'depth_2_11_squote_7_semi \\\\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_8_semi \\\\\\\\;'\`"`"
 EOF
 
-tmpfiles="$tmpfiles xg-test30.po"
+tmpfiles="$tmpfiles xg-sh-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location xg-test30.sh -d xg-test30
+${XGETTEXT} --omit-header --no-location xg-sh-1.sh -d xg-sh-1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test30.ok"
-cat <<\EOF > xg-test30.ok
+tmpfiles="$tmpfiles xg-sh-1.ok"
+cat <<\EOF > xg-sh-1.ok
 msgid "depth_0_none_0_x"
 msgstr ""
 
@@ -1803,7 +1803,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test30.ok xg-test30.po
+${DIFF} xg-sh-1.ok xg-sh-1.po
 result=$?
 
 rm -fr $tmpfiles

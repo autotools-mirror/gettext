@@ -2,15 +2,15 @@
 
 # Test compendium option.
 
-# Translation is available within the compendium (mm-test8.com)
-# the old translation file (mm-test8.in1) contains the same msgid
+# Translation is available within the compendium (mm-c-3.com)
+# the old translation file (mm-c-3.in1) contains the same msgid
 # Why not make use of the translation from the compendium?
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test8.in1 mm-test8.com mm-test8.pot"
-cat <<EOF > mm-test8.in1
+tmpfiles="$tmpfiles mm-c-3.in1 mm-c-3.com mm-c-3.pot"
+cat <<EOF > mm-c-3.in1
 #: file.c:123
 msgid "1"
 msgstr "1x"
@@ -20,13 +20,13 @@ msgid "one, two, three"
 msgstr ""
 EOF
 
-cat <<EOF > mm-test8.com
+cat <<EOF > mm-c-3.com
 #: file.c:345
 msgid "one, two, three"
 msgstr "1, 2, 3"
 EOF
 
-cat <<EOF > mm-test8.pot
+cat <<EOF > mm-c-3.pot
 #: file.c:123
 msgid "1"
 msgstr ""
@@ -36,13 +36,13 @@ msgid "one, two, three"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test8.out"
+tmpfiles="$tmpfiles mm-c-3.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -C mm-test8.com mm-test8.in1 mm-test8.pot -o mm-test8.out
+${MSGMERGE} -q -C mm-c-3.com mm-c-3.in1 mm-c-3.pot -o mm-c-3.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test8.ok"
-cat << EOF > mm-test8.ok
+tmpfiles="$tmpfiles mm-c-3.ok"
+cat << EOF > mm-c-3.ok
 #: file.c:123
 msgid "1"
 msgstr "1x"
@@ -53,7 +53,7 @@ msgstr "1, 2, 3"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test8.ok mm-test8.out
+${DIFF} mm-c-3.ok mm-c-3.out
 result=$?
 
 rm -fr $tmpfiles

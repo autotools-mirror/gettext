@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles ma-test15.properties"
-cat <<\EOF > ma-test15.properties
+tmpfiles="$tmpfiles ma-s-1.properties"
+cat <<\EOF > ma-s-1.properties
 # HEADER.
 #
 !=Project-Id-Version\: Bonnie Tyler\n
@@ -32,13 +32,13 @@ with\ wives\ who\ never\ understand=und ihre Frauen verstehen sie nicht
 !They\ warn\ you\ and\ darn\ you=
 EOF
 
-tmpfiles="$tmpfiles ma-test15.out"
+tmpfiles="$tmpfiles ma-s-1.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --translated --properties-input --properties-output ma-test15.properties -o ma-test15.out
+${MSGATTRIB} --translated --properties-input --properties-output ma-s-1.properties -o ma-s-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles ma-test15.ok"
-cat <<\EOF > ma-test15.ok
+tmpfiles="$tmpfiles ma-s-1.ok"
+cat <<\EOF > ma-s-1.ok
 # HEADER.
 #
 !=Project-Id-Version\: Bonnie Tyler\n
@@ -52,7 +52,7 @@ with\ wives\ who\ never\ understand=und ihre Frauen verstehen sie nicht
 EOF
 
 : ${DIFF=diff}
-${DIFF} ma-test15.ok ma-test15.out
+${DIFF} ma-s-1.ok ma-s-1.out
 result=$?
 
 rm -fr $tmpfiles

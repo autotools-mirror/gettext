@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test26.pl"
-cat <<\EOF > xg-test26.pl
+tmpfiles="$tmpfiles xg-pl-1.pl"
+cat <<\EOF > xg-pl-1.pl
 use Locale::Messages qw (textdomain bindtextdomain gettext ngettext dngettext);
 
 textdomain "prog";
@@ -148,179 +148,179 @@ __END__
 gettext "Discarded!";
 EOF
 
-tmpfiles="$tmpfiles xg-test26.po"
+tmpfiles="$tmpfiles xg-pl-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header -n \
   -k_ --flag=_:1:pass-perl-format --flag=_:1:pass-perl-brace-format \
   -k%__ --flag=%__:1:pass-perl-format --flag=%__:1:pass-perl-brace-format \
   -k\$__ --flag=\$__:1:pass-perl-format --flag=\$__:1:pass-perl-brace-format \
-  xg-test26.pl -d xg-test26
+  xg-pl-1.pl -d xg-pl-1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test26.ok"
-cat <<\EOF > xg-test26.ok
-#: xg-test26.pl:9
+tmpfiles="$tmpfiles xg-pl-1.ok"
+cat <<\EOF > xg-pl-1.ok
+#: xg-pl-1.pl:9
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
-#: xg-test26.pl:11
+#: xg-pl-1.pl:11
 #, perl-format
 msgid "a piece of cake"
 msgid_plural "%d pieces of cake"
 msgstr[0] ""
 msgstr[1] ""
 
-#: xg-test26.pl:13
+#: xg-pl-1.pl:13
 #, perl-format
 msgid "%s is replaced by %s."
 msgstr ""
 
-#: xg-test26.pl:16
+#: xg-pl-1.pl:16
 #, perl-format
 msgid "one file deleted"
 msgid_plural "%d files deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: xg-test26.pl:22
+#: xg-pl-1.pl:22
 #, perl-format
 msgid "Singular\n"
 msgid_plural "Plural\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: xg-test26.pl:28
+#: xg-pl-1.pl:28
 msgid "Bareword"
 msgstr ""
 
-#: xg-test26.pl:30
+#: xg-pl-1.pl:30
 msgid "quoted string"
 msgstr ""
 
-#: xg-test26.pl:31
+#: xg-pl-1.pl:31
 msgid ""
 "weird\n"
 "formatting"
 msgstr ""
 
-#: xg-test26.pl:38
+#: xg-pl-1.pl:38
 msgid "Welcome to the Republic of Perl!"
 msgstr ""
 
-#: xg-test26.pl:42
+#: xg-pl-1.pl:42
 msgid "pattern match"
 msgstr ""
 
-#: xg-test26.pl:43
+#: xg-pl-1.pl:43
 msgid "substitution"
 msgstr ""
 
-#: xg-test26.pl:43
+#: xg-pl-1.pl:43
 msgid "find me"
 msgstr ""
 
-#: xg-test26.pl:50
+#: xg-pl-1.pl:50
 msgid "First here document.\n"
 msgstr ""
 
-#: xg-test26.pl:52
+#: xg-pl-1.pl:52
 msgid "Second here document.\n"
 msgstr ""
 
-#: xg-test26.pl:56
+#: xg-pl-1.pl:56
 msgid "abc$def"
 msgstr ""
 
-#: xg-test26.pl:57
+#: xg-pl-1.pl:57
 msgid "abc\\$def"
 msgstr ""
 
-#: xg-test26.pl:60
+#: xg-pl-1.pl:60
 msgid "abc$defg"
 msgstr ""
 
-#: xg-test26.pl:61 xg-test26.pl:62
+#: xg-pl-1.pl:61 xg-pl-1.pl:62
 msgid "abc\\$defg"
 msgstr ""
 
-#: xg-test26.pl:63
+#: xg-pl-1.pl:63
 msgid "abc\\\\$defg"
 msgstr ""
 
-#: xg-test26.pl:66 xg-test26.pl:67 xg-test26.pl:71 xg-test26.pl:72
-#: xg-test26.pl:81 xg-test26.pl:86
+#: xg-pl-1.pl:66 xg-pl-1.pl:67 xg-pl-1.pl:71 xg-pl-1.pl:72 xg-pl-1.pl:81
+#: xg-pl-1.pl:86
 msgid "ecs\\tasy"
 msgstr ""
 
-#: xg-test26.pl:68 xg-test26.pl:69 xg-test26.pl:73 xg-test26.pl:74
-#: xg-test26.pl:83 xg-test26.pl:88
+#: xg-pl-1.pl:68 xg-pl-1.pl:69 xg-pl-1.pl:73 xg-pl-1.pl:74 xg-pl-1.pl:83
+#: xg-pl-1.pl:88
 msgid "ecs\\\\tasy"
 msgstr ""
 
-#: xg-test26.pl:70 xg-test26.pl:75
+#: xg-pl-1.pl:70 xg-pl-1.pl:75
 msgid "ecs\\\\\\tasy"
 msgstr ""
 
-#: xg-test26.pl:80 xg-test26.pl:85
+#: xg-pl-1.pl:80 xg-pl-1.pl:85
 msgid "ecs\tasy"
 msgstr ""
 
-#: xg-test26.pl:82 xg-test26.pl:87
+#: xg-pl-1.pl:82 xg-pl-1.pl:87
 msgid "ecs\\\tasy"
 msgstr ""
 
-#: xg-test26.pl:84 xg-test26.pl:89
+#: xg-pl-1.pl:84 xg-pl-1.pl:89
 msgid "ecs\\\\\tasy"
 msgstr ""
 
-#: xg-test26.pl:90 xg-test26.pl:95
+#: xg-pl-1.pl:90 xg-pl-1.pl:95
 msgid "marihuana"
 msgstr ""
 
-#: xg-test26.pl:91 xg-test26.pl:92 xg-test26.pl:96 xg-test26.pl:97
+#: xg-pl-1.pl:91 xg-pl-1.pl:92 xg-pl-1.pl:96 xg-pl-1.pl:97
 msgid "mari\\huana"
 msgstr ""
 
-#: xg-test26.pl:93 xg-test26.pl:94 xg-test26.pl:98 xg-test26.pl:99
+#: xg-pl-1.pl:93 xg-pl-1.pl:94 xg-pl-1.pl:98 xg-pl-1.pl:99
 msgid "mari\\\\huana"
 msgstr ""
 
-#: xg-test26.pl:102
+#: xg-pl-1.pl:102
 #, perl-brace-format
 msgid "This is {only} a brace formatstring."
 msgstr ""
 
-#: xg-test26.pl:103
+#: xg-pl-1.pl:103
 #, perl-format, perl-brace-format
 msgid "This is %s {mixed}."
 msgstr ""
 
-#: xg-test26.pl:104
+#: xg-pl-1.pl:104
 #, perl-format
 msgid "This is only %c."
 msgstr ""
 
-#: xg-test26.pl:105
+#: xg-pl-1.pl:105
 msgid "This is nothing at all."
 msgstr ""
 
-#: xg-test26.pl:106
+#: xg-pl-1.pl:106
 msgid "And this is %l also no format at all."
 msgstr ""
 
-#: xg-test26.pl:109
+#: xg-pl-1.pl:109
 #, no-perl-format, perl-brace-format
 msgid "The function '{func}' expects '%c' here."
 msgstr ""
 
-#: xg-test26.pl:114 xg-test26.pl:116 xg-test26.pl:118
+#: xg-pl-1.pl:114 xg-pl-1.pl:116 xg-pl-1.pl:118
 #, perl-format, no-perl-brace-format
 msgid "Left as an %exercise to {maintainer}."
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test26.ok xg-test26.po
+${DIFF} xg-pl-1.ok xg-pl-1.po
 result=$?
 
 rm -fr $tmpfiles

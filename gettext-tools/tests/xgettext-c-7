@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test9.c"
-cat <<EOF > xg-test9.c
+tmpfiles="$tmpfiles xg-c-7.c"
+cat <<EOF > xg-c-7.c
 int
 main()
 {
@@ -40,13 +40,13 @@ main()
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test9.po"
+tmpfiles="$tmpfiles xg-c-7.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -c --c++ -d xg-test9 xg-test9.c
+${XGETTEXT} --omit-header --no-location -c --c++ -d xg-c-7 xg-c-7.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test9.ok"
-cat <<EOF > xg-test9.ok
+tmpfiles="$tmpfiles xg-c-7.ok"
+cat <<EOF > xg-c-7.ok
 #. This is a comment which immediately before a keyword.
 msgid "1"
 msgstr ""
@@ -79,7 +79,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test9.ok xg-test9.po
+${DIFF} xg-c-7.ok xg-c-7.po
 result=$?
 
 rm -fr $tmpfiles

@@ -7,8 +7,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test21-ru.po"
-cat <<\EOF > mm-test21-ru.po
+tmpfiles="$tmpfiles mm-test14-ru.po"
+cat <<\EOF > mm-test14-ru.po
 # Russian messages for CLISP
 # Copyright (C) 1998 Free Software Foundation, Inc.
 # Eduard Haritonov <hed@iis.nsk.su>, 1998.
@@ -30,8 +30,8 @@ msgid "Division durch Null"
 msgstr "ƒ≈Ã≈Œ…≈ Œ¡ Œ’Ãÿ"
 EOF
 
-tmpfiles="$tmpfiles mm-test21.pot"
-cat <<\EOF > mm-test21.pot
+tmpfiles="$tmpfiles mm-test14.pot"
+cat <<\EOF > mm-test14.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -58,13 +58,13 @@ msgid "√úberlauf"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test21.out"
+tmpfiles="$tmpfiles mm-test14.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q mm-test21-ru.po mm-test21.pot -o mm-test21.out
+${MSGMERGE} -q mm-test14-ru.po mm-test14.pot -o mm-test14.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test21.ok"
-cat <<\EOF > mm-test21.ok
+tmpfiles="$tmpfiles mm-test14.ok"
+cat <<\EOF > mm-test14.ok
 # Russian messages for CLISP
 # Copyright (C) 1998 Free Software Foundation, Inc.
 # Eduard Haritonov <hed@iis.nsk.su>, 1998.
@@ -91,7 +91,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test21.ok mm-test21.out
+${DIFF} mm-test14.ok mm-test14.out
 result=$?
 
 rm -fr $tmpfiles

@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test18.py"
-cat <<\EOF > xg-test18.py
+tmpfiles="$tmpfiles xg-py-1.py"
+cat <<\EOF > xg-py-1.py
 # interpret_ansic = true, interpret_unicode = false
 _("abc\
 \\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
@@ -24,14 +24,14 @@ _(ur"abc\
 \\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
 EOF
 
-tmpfiles="$tmpfiles xg-test18.err xg-test18.tmp xg-test18.pot"
+tmpfiles="$tmpfiles xg-py-1.err xg-py-1.tmp xg-py-1.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments --no-location -o xg-test18.tmp xg-test18.py 2>xg-test18.err
-test $? = 0 || { cat xg-test18.err; rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-test18.tmp > xg-test18.pot
+${XGETTEXT} --add-comments --no-location -o xg-py-1.tmp xg-py-1.py 2>xg-py-1.err
+test $? = 0 || { cat xg-py-1.err; rm -fr $tmpfiles; exit 1; }
+grep -v 'POT-Creation-Date' < xg-py-1.tmp > xg-py-1.pot
 
-tmpfiles="$tmpfiles xg-test18.ok"
-cat <<\EOF > xg-test18.ok
+tmpfiles="$tmpfiles xg-py-1.ok"
+cat <<\EOF > xg-py-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -77,7 +77,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test18.ok xg-test18.pot
+${DIFF} xg-py-1.ok xg-py-1.pot
 result=$?
 
 rm -fr $tmpfiles

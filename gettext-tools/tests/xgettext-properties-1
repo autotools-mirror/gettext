@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test24.in.properties xg-test24.c xg-test24.cc"
-cat <<EOF > xg-test24.in.properties
+tmpfiles="$tmpfiles xg-pr-1.in.properties xg-pr-1.c xg-pr-1.cc"
+cat <<EOF > xg-pr-1.in.properties
 #: file1.c:199
 #, fuzzy
 !extract\ me=some text to get fuzzy copied to result
@@ -19,7 +19,7 @@ cat <<EOF > xg-test24.in.properties
 !hello=Again some text for fuzzy
 EOF
 
-cat <<EOF > xg-test24.c
+cat <<EOF > xg-pr-1.c
 #include <libintl.h>
 #include <stdio.h>
 int
@@ -30,7 +30,7 @@ main (int argc, char *argv[])
 }
 EOF
 
-cat <<EOF > xg-test24.cc
+cat <<EOF > xg-pr-1.cc
 #include <iostream.h>
 #include <libintl.h>
 #include <locale.h>
@@ -42,14 +42,14 @@ main (int argc, char *argv[])
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test24.po"
+tmpfiles="$tmpfiles xg-pr-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -n xg-test24.in.properties \
-  xg-test24.c xg-test24.cc -d xg-test24
+${XGETTEXT} --omit-header -n xg-pr-1.in.properties \
+  xg-pr-1.c xg-pr-1.cc -d xg-pr-1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test24.ok"
-cat <<EOF > xg-test24.ok
+tmpfiles="$tmpfiles xg-pr-1.ok"
+cat <<EOF > xg-pr-1.ok
 #: file1.c:199
 #, fuzzy
 msgid "extract me"
@@ -64,18 +64,18 @@ msgstr ""
 msgid "hello"
 msgstr "Again some text for fuzzy"
 
-#: xg-test24.c:6
+#: xg-pr-1.c:6
 #, c-format
 msgid "Hello, world."
 msgstr ""
 
-#: xg-test24.cc:7
+#: xg-pr-1.cc:7
 msgid "Hello world!"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test24.ok xg-test24.po
+${DIFF} xg-pr-1.ok xg-pr-1.po
 result=$?
 
 rm -fr $tmpfiles

@@ -5,36 +5,36 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mcat-test11.in1 mcat-test11.in2"
-cat <<\EOF > mcat-test11.in1
+tmpfiles="$tmpfiles mcat-p-1.in1 mcat-p-1.in2"
+cat <<\EOF > mcat-p-1.in1
 #. Help text (HTML-like) START
 #: clients/inst_ask_config.ycp:119
 Congratulations\!=Gl\u00fcckwunsch\!
 EOF
 
-cat <<\EOF > mcat-test11.in2
+cat <<\EOF > mcat-p-1.in2
 #. Help text (HTML-like) START
 #: clients/inst_ask_config.ycp:119
 Congratulations\!=Herzlichen Gl\u00fcckwunsch\!
 EOF
 
-tmpfiles="$tmpfiles mcat-test11.out"
-rm -f mcat-test11.out
+tmpfiles="$tmpfiles mcat-p-1.out"
+rm -f mcat-p-1.out
 
 : ${MSGCAT=msgcat}
 ${MSGCAT} --use-first --more-than=0 --properties-input --properties-output \
-    mcat-test11.in1 mcat-test11.in2 -o mcat-test11.out
+    mcat-p-1.in1 mcat-p-1.in2 -o mcat-p-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mcat-test11.ok"
-cat << \EOF > mcat-test11.ok
+tmpfiles="$tmpfiles mcat-p-1.ok"
+cat << \EOF > mcat-p-1.ok
 #. Help text (HTML-like) START
 #: clients/inst_ask_config.ycp:119
 Congratulations\!=Gl\u00fcckwunsch\!
 EOF
 
 : ${DIFF=diff}
-${DIFF} mcat-test11.ok mcat-test11.out
+${DIFF} mcat-p-1.ok mcat-p-1.out
 result=$?
 
 rm -fr $tmpfiles

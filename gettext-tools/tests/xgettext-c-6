@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-test7.in.C"
-cat <<EOF > xg-test7.in.C
+tmpfiles="$tmpfiles xg-c-6.in.C"
+cat <<EOF > xg-c-6.in.C
 /* This comment will not be extracted.  */
 gettext ("help");
 
@@ -20,14 +20,14 @@ dcgettext ("foo", "quick", LC_MESSAGES);
 dgettext ("bar", "!");
 EOF
 
-tmpfiles="$tmpfiles xg-test7.po"
+tmpfiles="$tmpfiles xg-c-6.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --add-comments=XXX xg-test7.in.C \
-  -d xg-test7
+${XGETTEXT} --omit-header --no-location --add-comments=XXX xg-c-6.in.C \
+  -d xg-c-6
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-test7.ok"
-cat <<EOF > xg-test7.ok
+tmpfiles="$tmpfiles xg-c-6.ok"
+cat <<EOF > xg-c-6.ok
 msgid "help"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-test7.ok xg-test7.po
+${DIFF} xg-c-6.ok xg-c-6.po
 result=$?
 
 rm -fr $tmpfiles
