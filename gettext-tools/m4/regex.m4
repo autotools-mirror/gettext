@@ -1,4 +1,11 @@
-#serial 21
+#serial 22
+
+dnl Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004 Free
+dnl Software Foundation, Inc.
+dnl
+dnl This file is free software; the Free Software Foundation
+dnl gives unlimited permission to copy and/or distribute it,
+dnl with or without modifications, as long as this notice is preserved.
 
 dnl Initially derived from code in GNU grep.
 dnl Mostly written by Jim Meyering.

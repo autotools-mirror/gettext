@@ -1,3 +1,9 @@
+2005-03-01  Bruno Haible  <bruno@clisp.org>
+
+	* exitfail.m4, getopt.m4, hard-locale.m4, memchr.m4, pathmax.m4:
+	* quote.m4, quotearg.m4, regex.m4, restrict.m4, strdup.m4, strerror.m4:
+	* xreadlink.m4: Update from gnulib.
+
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.2 released.
