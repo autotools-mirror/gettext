@@ -525,7 +525,7 @@ gettextpo.lib : gettext-po.obj
 
 # gettextpo.dll and gettextpo.lib are created together.
 gettextpo.lib : ..\windows\gettextpo.def gettext-po.obj gettextpo.res gettextsrc.lib
-	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD ..\windows\gettextpo.def gettext-po.obj gettextsrc.lib ..\lib\gettextlib.lib gettextpo.res -Fegettextpo.dll
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD ..\windows\gettextpo.def gettext-po.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib gettextpo.res -Fegettextpo.dll
 
 gettextpo.res : ../windows/gettextpo.rc
 	rc -Fo gettextpo.res ../windows/gettextpo.rc

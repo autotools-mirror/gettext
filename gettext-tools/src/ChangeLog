@@ -1,5 +1,9 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (gettextpo.lib): Link with intl.lib as well.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.msvc (msginit_OBJECTS): Add plural-count.obj.
 	* Makefile.vms (msginit_OBJECTS): Add plural-count.obj.
 
