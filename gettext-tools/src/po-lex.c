@@ -389,6 +389,8 @@ mbfile_init (mbfile_t mbf, FILE *stream)
   mbf->bufcount = 0;
 }
 
+/* Read the next multibyte character from mbf and put it into mbc.
+   If a read error occurs, errno is set and ferror (mbf->fp) becomes true.  */
 static void
 mbfile_getc (mbchar_t mbc, mbfile_t mbf)
 {
@@ -478,6 +480,8 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
 		  if (c == EOF)
 		    {
 		      mbf->eof_seen = true;
+		      if (ferror (mbf->fp))
+			goto eof;
 		      if (signal_eilseq)
 			po_gram_error (_("\
 incomplete multibyte sequence at end of file"));
@@ -535,7 +539,15 @@ incomplete multibyte sequence at end of line"));
 	    {
 	      /* Read one more byte.  */
 	      int c = getc (mbf->fp);
-	      if (c != EOF)
+	      if (c == EOF)
+		{
+		  if (ferror (mbf->fp))
+		    {
+		      mbf->eof_seen = true;
+		      goto eof;
+		    }
+		}
+	      else
 		{
 		  mbf->buf[1] = (unsigned char) c;
 		  mbf->bufcount++;
@@ -649,8 +661,11 @@ lex_getc (mbchar_t mbc)
       if (mb_iseof (mbc))
 	{
 	  if (ferror (mbf->fp))
-	    error (EXIT_FAILURE, errno,	_("error while reading \"%s\""),
-		   gram_pos.file_name);
+	    {
+	    bomb:
+	      error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+		     gram_pos.file_name);
+	    }
 	  break;
 	}
 
@@ -669,10 +684,16 @@ lex_getc (mbchar_t mbc)
 
 	  mbfile_getc (mbc2, mbf);
 
+	  if (mb_iseof (mbc2))
+	    {
+	      if (ferror (mbf->fp))
+		goto bomb;
+	      break;
+	    }
+
 	  if (!mb_iseq (mbc2, '\n'))
 	    {
-	      if (!mb_iseof (mbc2))
-		mbfile_ungetc (mbc2, mbf);
+	      mbfile_ungetc (mbc2, mbf);
 	      break;
 	    }
 

@@ -1,5 +1,14 @@
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
+	More reliable checking for read errors.
+	* po-lex.c (mbfile_getc): Diagnose read errors also in the middle of
+	multibyte characters.
+	(lex_getc): Diagnose read errors also right after backslash.
+	* x-rst.c (extract_rst): Diagnose read errors also inside ConstName
+	and immediately after #.
+
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
 	* write-mo.c: Include fwriterror.h.
 	(msgdomain_write_mo): Use fwriteerror, to get right errno value in
 	error message about write error.

@@ -116,6 +116,8 @@ extract_rst (FILE *f,
 	    break;
 	  buffer[bufpos++] = c;
 	  c = getc (f);
+	  if (c == EOF && ferror (f))
+	    goto bomb;
 	}
       buffer[bufpos] = '\0';
       location = xstrdup (buffer);
@@ -160,6 +162,8 @@ extract_rst (FILE *f,
 	    {
 	      int n;
 	      c = getc (f);
+	      if (c == EOF && ferror (f))
+		goto bomb;
 	      if (c == EOF || !isdigit (c))
 		{
 		  error_with_progname = false;
@@ -222,6 +226,9 @@ extract_rst (FILE *f,
     }
 
   if (ferror (f))
-    error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-	   real_filename);
+    {
+    bomb:
+      error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+	     real_filename);
+    }
 }
