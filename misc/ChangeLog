@@ -1,3 +1,15 @@
+2001-11-10  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-find-file-coding-system-guts): Use
+	'po-with-temp-buffer' instead of 'with-temp-buffer'.
+	(po-msgfmt-version-check): Likewise.
+
+2001-11-09  Dave Love  <fx@gnu.org>
+            Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el: Doc fixes.
+	(po-mode-map): Put all in defvar.
+
 2001-08-23  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-mode-map): Assign new Key bindings to avoid

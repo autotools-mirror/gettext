@@ -919,7 +919,7 @@ Content-Type into a Mule coding system.")
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
 	(and (eq operation 'insert-file-contents)
-	     (with-temp-buffer
+	     (po-with-temp-buffer
 	       (let ((coding-system-for-read 'no-conversion))
                  (let* ((charset (or (po-find-charset filename)
 				     "ascii"))
@@ -3004,7 +3004,7 @@ Leave point after marked string."
 (defvar po-msgfmt-version-checked nil)
 (defun po-msgfmt-version-check ()
   "'msgfmt' from GNU gettext 0.10.36 or greater is required."
-  (with-temp-buffer
+  (po-with-temp-buffer
     (or
      ;; Don't bother checking again.
      po-msgfmt-version-checked
