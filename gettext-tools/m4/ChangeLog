@@ -1,3 +1,8 @@
+2004-04-26  Bruno Haible  <bruno@clisp.org>
+
+	* csharpcomp.m4 (gt_CSHARPCOMP): Avoid using !.
+	Reported by Alexandre Duret-Lutz.
+
 2004-04-19  Bruno Haible  <bruno@clisp.org>
 
 	* error.m4: Change jm_ to gl_ in AC_DEFINE'd names. Update all uses.

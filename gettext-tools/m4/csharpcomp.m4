@@ -1,4 +1,4 @@
-# csharpcomp.m4 serial 3 (gettext-0.15)
+# csharpcomp.m4 serial 4 (gettext-0.15)
 dnl Copyright (C) 2003-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -44,7 +44,7 @@ AC_DEFUN([gt_CSHARPCOMP],
       sscli)
         if test -n "$HAVE_CSC_IN_PATH" \
            && csc -help >/dev/null 2>/dev/null \
-           && ! { csc -help 2>/dev/null | grep -i chicken > /dev/null; }; then
+           && { if csc -help 2>/dev/null | grep -i chicken > /dev/null; then false; else true; fi; }; then
           HAVE_CSC=1
           ac_result="csc"
           break
