@@ -47,11 +47,12 @@ Things we plan to do. Comments welcome.
 - KDE wants a kind of gettext2("role","msg")  function whose key is the
   concatenation of "role" and "msg" but whose default value is only "msg".
 
-- For cygwin: Call open() with O_BINARY.
-
 - Ask EMX, cygwin, mingw32, pw people for testing.
 
 - Add msvc Makefile.
 
 - Look at Ben Bullock's manual: http://www.hayamasa.demon.co.uk/doc/gettext.texi
+
+- Provide a way to merge two .po files, coming from different translators of
+  the same pot file.
 

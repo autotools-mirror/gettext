@@ -108,6 +108,23 @@ char *alloca ();
 # define freea(p) free (p)
 #endif
 
+/* For systems that distinguish between text and binary I/O.
+   O_BINARY is usually declared in <fcntl.h>. */
+#if !defined O_BINARY && defined _O_BINARY
+  /* For MSC-compatible compilers.  */
+# define O_BINARY _O_BINARY
+# define O_TEXT _O_TEXT
+#endif
+#ifdef __BEOS__
+  /* BeOS 5 has O_BINARY and O_TEXT, but they have no effect.  */
+# undef O_BINARY
+# undef O_TEXT
+#endif
+/* On reasonable systems, binary I/O is the default.  */
+#ifndef O_BINARY
+# define O_BINARY 0
+#endif
+
 /* We need a sign, whether a new catalog was loaded, which can be associated
    with all translations.  This is important if the translations are
    cached by one of GCC's features.  */
@@ -206,7 +223,7 @@ _nl_load_domain (domain_file)
     return;
 
   /* Try to open the addressed file.  */
-  fd = open (domain_file->filename, O_RDONLY);
+  fd = open (domain_file->filename, O_RDONLY | O_BINARY);
   if (fd == -1)
     return;
 
