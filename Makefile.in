@@ -133,6 +133,7 @@ POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+SUBDIR_libasprintf = @SUBDIR_libasprintf@
 TESTJAVA = @TESTJAVA@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -155,7 +156,14 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 gettextsrc_SCRIPTS = config.rpath mkinstalldirs
 
-SUBDIRS = doc intl intl-java lib libuniname src po projects misc man m4 tests
+SUBDIRS = \
+  doc intl intl-java lib @SUBDIR_libasprintf@ libuniname \
+  src po projects misc man m4 tests
+
+DIST_SUBDIRS = \
+  doc intl intl-java lib libasprintf libuniname \
+  src po projects misc man m4 tests
+
 
 EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
@@ -206,7 +214,6 @@ DIST_COMMON = README ./stamp-h.in ABOUT-NLS AUTHORS COPYING ChangeLog \
 	INSTALL Makefile.am Makefile.in NEWS THANKS TODO aclocal.m4 \
 	config.guess config.h.in config.sub configure configure.in \
 	install-sh ltmain.sh missing mkinstalldirs ylwrap
-DIST_SUBDIRS = $(SUBDIRS)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -233,7 +240,7 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 $(srcdir)/configure:  $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
 
-$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/error.m4 m4/flex.m4 m4/fnmatch.m4 m4/gcj.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/intdiv0.m4 m4/inttypes-pri.m4 m4/inttypes.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/lib-ld.m4 m4/lib-link.m4 m4/lib-prefix.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/stdint_h.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
+$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/error.m4 m4/flex.m4 m4/fnmatch.m4 m4/gcj.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/intdiv0.m4 m4/intmax.m4 m4/inttypes-pri.m4 m4/inttypes.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/lib-ld.m4 m4/lib-link.m4 m4/lib-prefix.m4 m4/libtool.m4 m4/longdouble.m4 m4/longlong.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/stdint_h.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4 m4/wchar_t.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 config.h: stamp-h
 	@if test ! -f $@; then \
@@ -421,7 +428,7 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-	for subdir in $(SUBDIRS); do \
+	for subdir in $(DIST_SUBDIRS); do \
 	  if test "$$subdir" = .; then :; else \
 	    test -d $(distdir)/$$subdir \
 	    || mkdir $(distdir)/$$subdir \
