@@ -1,6 +1,6 @@
 /* getline.c -- Replacement for GNU C library function getline
 
-Copyright (C) 1993, 1996, 2001 Free Software Foundation, Inc.
+Copyright (C) 1993, 1996, 2001, 2002 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -46,7 +46,6 @@ getline (lineptr, n, stream)
 
 #else /* ! have getdelim */
 
-# define NDEBUG
 # include <assert.h>
 
 # if HAVE_STDLIB_H
