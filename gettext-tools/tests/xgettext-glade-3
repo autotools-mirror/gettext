@@ -5,6 +5,17 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
+tmpfiles="$tmpfiles empty.glade"
+cat <<EOF > empty.glade
+<?xml version="1.0"?>
+<GTK-Interface/>
+EOF
+
+tmpfiles="$tmpfiles xg-gl-3.pot"
+: ${XGETTEXT=xgettext}
+${XGETTEXT} -o xg-gl-3.pot empty.glade 2>/dev/null
+test $? = 0 || { rm -fr $tmpfiles; exit 77; }
+
 tmpfiles="$tmpfiles asciitable.glade2"
 cat <<EOF > asciitable.glade2
 <?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
