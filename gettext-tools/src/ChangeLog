@@ -1,5 +1,16 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* plural-count.h: New file.
+	* plural-count.c: New file, extracted from msgmerge.c.
+	* Makefile.am (noinst_HEADERS): Add plural-count.h.
+	(msgmerge_SOURCES): Add plural-count.c.
+	* Makefile.msvc (msgmerge_OBJECTS): Add plural-count.obj.
+	(plural-count.obj): New rule.
+	* Makefile.vms (msgmerge_OBJECTS): Add plural-count.obj.
+	(plural-count.obj): New rule.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	Support for building DLLs on Windows.
 	* format.h (formatstring_c, formatstring_python, formatstring_lisp,
 	formatstring_elisp, formatstring_librep, formatstring_smalltalk,

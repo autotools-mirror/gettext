@@ -92,7 +92,7 @@ OBJECTS = \
 
 msgcmp_OBJECTS = msgcmp.obj
 msgfmt_OBJECTS = msgfmt.obj, write-mo.obj, write-java.obj, write-tcl.obj, plural-eval.obj
-msgmerge_OBJECTS = msgmerge.obj
+msgmerge_OBJECTS = msgmerge.obj, plural-count.obj
 msgunfmt_OBJECTS = msgunfmt.obj, read-mo.obj, read-java.obj, read-tcl.obj
 xgettext_OBJECTS = xgettext.obj, x-c.obj, x-po.obj, x-python.obj, x-lisp.obj, x-elisp.obj, x-librep.obj, x-smalltalk.obj, x-java.obj, x-awk.obj, x-ycp.obj, x-tcl.obj, x-perl.obj, x-php.obj, x-rst.obj, x-glade.obj
 msgattrib_OBJECTS = msgattrib.obj
@@ -250,6 +250,9 @@ plural-eval.obj : plural-eval.c
 
 msgmerge.obj : msgmerge.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgmerge.c
+
+plural-count.obj : plural-count.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) plural-count.c
 
 msgunfmt.obj : msgunfmt.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgunfmt.c
