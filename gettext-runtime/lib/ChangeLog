@@ -1,3 +1,11 @@
+2003-09-16  Bruno Haible  <bruno@clisp.org>
+
+	Portability to SunOS 4.
+	* atexit.c: New file, trivial link to ../../gettext-tools/lib.
+	* Makefile.am (libgrt_a_SOURCES):
+	Add ../../gettext-tools/lib/strtoul.c.
+	(LIBADD_SOURCE): Add atexit.c.
+
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgrt_a_SOURCES): Add fwriteerror.h, fwriteerror.c.
