@@ -1,3 +1,18 @@
+2003-02-15  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib.c (main): Update year in --version output.
+	* msgcat.c (main): Likewise.
+	* msgcmp.c (main): Likewise.
+	* msgcomm.c (main): Likewise.
+	* msgconv.c (main): Likewise.
+	* msgen.c (main): Likewise.
+	* msgexec.c (main): Likewise.
+	* msgfilter.c (main): Likewise.
+	* msgfmt.c (main): Likewise.
+	* msgunfmt.c (main): Likewise.
+	* msguniq.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Big restructuring.
