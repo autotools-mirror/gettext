@@ -1,4 +1,4 @@
-# po2msg.sed - Convert Uniforum style .po file to Linux style .msg file
+# po2msg.sed - Convert Uniforum style .po file to X/Open style .msg file
 # Copyright (C) 1995 Free Software Foundation, Inc.
 # Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 #
@@ -28,18 +28,31 @@ $set 1 # Automatically created by po2msg.sed
   x
 }
 #
-# Mitch's old catalog format does not allow comments.
+# We copy all comments into the .msg file.  Perhaps they can help.
+#
+/^#/ s/^#[ 	]*/$ /p
 #
 # We copy the original message as a comment into the .msg file.
 #
 /^msgid/ {
-  s/msgid[ 	]*"//
+# Does not work now
+#  /"$/! {
+#    s/\\$//
+#    s/$/ ... (more lines following)"/
+#  }
+  s/^msgid[ 	]*"\(.*\)"$/$ Original Message: \1/
+  p
+}
 #
-# This does not work now with the new format.
-# /"$/! {
-#   s/\\$//
-#   s/$/ ... (more lines following)"/
-# }
+# The .msg file contains, other than the .po file, only the translations
+# but each given a unique ID.  Starting from 1 and incrementing by 1 for
+# each message we assign them to the messages.
+# It is important that the .po file used to generate the cat-id-tbl.c file
+# (with po-to-tbl) is the same as the one used here.  (At least the order
+# of declarations must not be changed.)
+#
+/^msgstr/ {
+  s/msgstr[ 	]*"\(.*\)"/\1/
   x
 # The following nice solution is by
 # Bruno <Haible@ma2s2.mathematik.uni-karlsruhe.de>
@@ -64,36 +77,27 @@ $set 1 # Automatically created by po2msg.sed
 # Convert the hidden `9' digits to `0's.
   s/_/0/g
   x
+# Bring the line in the format `<number> <message>'
   G
-  s/\(.*\)"\n\([0-9]*\)/$ #\2 Original Message:(\1)/p
-}
-#
-# The .msg file contains, other then the .po file, only the translations
-# but each given a unique ID.  Starting from 1 and incrementing by 1 for
-# each message we assign them to the messages.
-# It is important that the .po file used to generate the cat-id-tbl.c file
-# (with po-to-tbl) is the same as the one used here.  (At least the order
-# of declarations must not be changed.)
-#
-/^msgstr/ {
-  s/msgstr[ 	]*"\(.*\)"/# \1/
-# Clear substitution flag.
+  s/^[^\n]*$/& /
+  s/\(.*\)\n\([0-9]*\)/\2 \1/
+# Clear flag from last substitution.
   tb
 # Append the next line.
   :b
   N
-# Look whether second part is continuation line.
+# Look whether second part is a continuation line.
   s/\(.*\n\)"\(.*\)"/\1\2/
 # Yes, then branch.
   ta
   P
   D
-# Note that D includes a jump to the start!!
+# Note that `D' includes a jump to the start!!
 # We found a continuation line.  But before printing insert '\'.
   :a
   s/\(.*\)\(\n.*\)/\1\\\2/
   P
-# We cannot use D here.
+# We cannot use the sed command `D' here
   s/.*\n\(.*\)/\1/
   tb
 }

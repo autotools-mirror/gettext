@@ -262,16 +262,12 @@ __argz_count __argz_stringify __argz_next])
    fi
    AC_SUBST(INCLUDE_LOCALE_H)
 
-   dnl Determine which catalog format we have (if any is needed)
-   dnl For now we know about two different formats:
-   dnl   Linux libc-5 and the normal X/Open format
    test -d intl || mkdir intl
    if test "$CATOBJEXT" = ".cat"; then
-     AC_CHECK_HEADER(linux/version.h, msgformat=linux, msgformat=xopen)
-
+     dnl Only the X/Open catalog format is supported.
      dnl Transform the SED scripts while copying because some dumb SEDs
      dnl cannot handle comments.
-     sed -e '/^#/d' $srcdir/intl/$msgformat-msg.sed > intl/po2msg.sed
+     sed -e '/^#/d' $srcdir/intl/po2msg.sin > intl/po2msg.sed
    fi
    dnl po2tbl.sed is always needed.
    sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \

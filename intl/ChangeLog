@@ -1,5 +1,11 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* xopen-msg.sed: Renamed to ...
+	* po2msg.sin: ... here.
+	* linux-msg.sed: Remove file.
+
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* po2tbl.sed.in: Renamed to ...
 	* po2tbl.sin: ... here.
 	* Makefile.in (DISTFILES.common): Update.

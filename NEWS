@@ -6,6 +6,8 @@ Version 0.10.36 - XXX 2000, by Ulrich Drepper
   ja_JP.UTF-8, can now share the same message catalogs. gettext converts
   the messages to the appropriate character encoding on the fly.
 
+* Support for the old Linux specific .msg catalog format has been dropped.
+
 * PO mode changes:
 
 ** PO mode does not use recursive edit anymore, many edits may be worked on

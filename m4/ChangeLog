@@ -1,5 +1,11 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	Drop support for old Linux specific .msg catalog format.
+	* gettext.m4 (AM_GNU_GETTEXT): Assume .cat is always X/Open format.
+	Renamed xopen-msg.sed to po2msg.sin.
+
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Renamed po2tbl.sed.in to po2tbl.sin.
 
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
