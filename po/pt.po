@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.10.23\n"
+"Project-Id-Version: GNU gettext 0.10.23\n"
 "POT-Creation-Date: 2001-03-11 17:25+0100\n"
 "PO-Revision-Date: 1996-09-18 20:51 WET DST\n"
 "Last-Translator: Nuno Oliveira <nuno@eq.uc.pt>\n"
