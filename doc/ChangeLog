@@ -1,3 +1,8 @@
+2002-01-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (gettextize Invocation): Document --no-changelog
+	option.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (src/Makefile): Recommend @LIBINTL@, @LTLIBINTL@

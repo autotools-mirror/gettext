@@ -1,3 +1,12 @@
+2002-01-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: New option --no-changelog.
+	Don't create ChangeLog entries for files that don't change.
+	Verify the existence of a configure.in line starting with "AC_OUTPUT("
+	before attempting to modify it.
+	Treat "AC_CONFIGURE_FILES(" like "AC_OUTPUT(".
+	Recommend replacement for INTLLIBS Makefile variable.
+
 2002-01-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Always recommend the full set of m4 files. Many

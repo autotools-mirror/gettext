@@ -5076,8 +5076,12 @@ the call to @code{AM_GNU_GETTEXT} in @file{configure.in} should read:
 @samp{AM_GNU_GETTEXT([external])}, and internationalization will not
 be enabled on systems lacking GNU gettext.
 
-@item -h
-@itemx --help
+@item --no-changelog
+Don't update or create ChangeLog files.  By default, @code{gettextize}
+logs all changes (file additions, modifications ans removals) in a
+file called @samp{ChangeLog} in each affected directory.
+
+@item --help
 Display this help and exit.
 
 @item --version
