@@ -26,9 +26,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.38\n"
+"Project-Id-Version: GNU gettext 0.10.40\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 2001-06-04 13:18+04:00\n"
+"PO-Revision-Date: 2001-09-17 07:50+0400\n"
 "Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
