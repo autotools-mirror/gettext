@@ -1,3 +1,9 @@
+2002-03-15  Andrew Zabolotny  <zap@cobra.ru>
+
+	* os2compat.h: Use prefix _nlos2 instead of _os2, to avoid any
+	possible name clashes.
+	* os2compat.c: Likewise.
+
 2002-03-15  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h (LC_MESSAGES): Don't define on Solaris 2.5, to avoid
