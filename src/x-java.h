@@ -27,3 +27,4 @@ extern void extract_java PARAMS ((FILE *fp, const char *real_filename,
 				  msgdomain_list_ty *mdlp));
 
 extern void x_java_keyword PARAMS ((const char *keyword));
+extern void x_java_extract_all PARAMS ((void));

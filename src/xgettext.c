@@ -221,6 +221,7 @@ main (argc, argv)
 	break;
       case 'a':
 	x_c_extract_all ();
+	x_java_extract_all ();
 	break;
       case 'c':
 	if (optarg == NULL)

@@ -261,6 +261,17 @@ translate_esc (s)
   return n;
 }
 
+
+/* options */
+static bool extract_all_strings = false;
+
+void
+x_java_extract_all () 
+{
+  extract_all_strings = true;
+}
+
+
 static string_list_ty *java_keywords = NULL;
 
 /**
@@ -423,7 +434,8 @@ extract_java (f, real_filename, logical_filename, mdlp)
 
 	case JAVA_FLOW:
 	  /* Did we get something? */
-	  if (state == STATE_STRING && last_state == STATE_KEYWORD)
+	  if (state == STATE_STRING
+	      && (last_state == STATE_KEYWORD || extract_all_strings))
 	    {
 	      lex_pos_ty pos;
 	      pos.file_name = logical_file_name;

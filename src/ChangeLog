@@ -1,3 +1,11 @@
+2001-09-14  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.h (x_java_extract_all): New declaration.
+	* x-java.l (extract_all_strings): New variable.
+	(x_java_extract_all): New function.
+	(extract_java): Test extract_all_strings.
+	* xgettext.c (main): Call x_java_extract_all.
+
 2001-09-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* x-c.h (EXTENSIONS_C, SCANNERS_C): Remove extraneous commas.
