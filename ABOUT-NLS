@@ -137,14 +137,19 @@ Each translation team has its own mailing list, courtesy of Linux
 International.  You may reach your translation team at the address
 `LL@li.org', replacing LL by the two-letter ISO 639 code for your
 language.  Language codes are _not_ the same as the country codes given
-in ISO 3166.  The following translation teams exist, as of August 1998:
+in ISO 3166.  The following translation teams exist, as of July 2000:
 
-     Chinese `zh', Czech `cs', Danish `da', Dutch `nl', English `en',
-     Esperanto `eo', Finnish `fi', French `fr', German `de', Hungarian
-     `hu', Irish `ga', Italian `it', Indonesian `id', Japanese `ja',
-     Korean `ko', Latin `la', Norwegian `no', Persian `fa', Polish
-     `pl', Portuguese `pt', Russian `ru', Slovenian `sl', Spanish `es',
-     Swedish `sv', and Turkish `tr'.
+     Breton `br', Bulgarian `bg' (email: `bg@bulgaria.com'), Chinese
+     `zh', Czech `cs', Danish `da', Dutch `nl', English `en', Esperanto
+     `eo', Estonian `et', Finnish `fi', French `fr', Galician `gl'
+     (email: `gpul-traduccion@ceu.fi.udc.es'), German `de', Greek `el'
+     (email: `nls@tux.hellug.gr'), Hungarian `hu', Irish `ga', Italian
+     `it', Indonesian `id', Japanese `ja', Korean `ko', Latin `la',
+     Latvian `lv' (email: `translations@lv.quite.net'), Norwegian `no',
+     Persian `fa', Polish `pl', Portuguese `pt', Portuguese/Brazil
+     `pt_BR' (email: `ldp-br@bazar.conectiva.com.br'), Russian `ru',
+     Slovak `sk' (email: `sk-i18n@rak.isternet.sk'), Slovenian `sl',
+     Spanish `es', Swedish `sv', and Turkish `tr'.
 
 For example, you may reach the Chinese translation team by writing to
 `zh@li.org'.
@@ -172,8 +177,8 @@ Available Packages
 ==================
 
    Languages are not equally supported in all packages.  The following
-matrix shows the current state of internationalization, as of August
-1998.  The matrix shows, in regard of each package, for which languages
+matrix shows the current state of internationalization, as of July
+2000.  The matrix shows, in regard of each package, for which languages
 PO files have been submitted to translation coordination.
 
      Ready PO files    cs da de el en es fi fr it
@@ -257,7 +262,7 @@ distributed as such by its maintainer.  There might be an observable
 lag between the mere existence a PO file and its wide availability in a
 distribution.
 
-   If August 1998 seems to be old, you may fetch a more recent copy of
+   If July 2000 seems to be old, you may fetch a more recent copy of
 this `ABOUT-NLS' file on most GNU archive sites.
 
 Using `gettext' in new packages
