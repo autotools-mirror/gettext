@@ -1,3 +1,7 @@
+2005-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Add $(LIBADD_SOURCE).
+
 2005-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* libgrep.h: New file.
