@@ -1,5 +1,11 @@
 2002-02-02  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext-18: New file.
+	* lang-python: New file.
+	* Makefile.am (TESTS): Add xgettext-18, lang-python.
+
+2002-02-02  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (INCLUDES): Add -I../lib. Needed for builds with
 	builddir != srcdir on platforms that don't have stdbool.h.
 

@@ -1,3 +1,17 @@
+2002-02-02  Bruno Haible  <bruno@clisp.org>
+
+	* x-python.h: New file.
+	* x-python.c: New file.
+	* xgettext.c: Include x-python.h.
+	(main): Call x_python_extract_all, x_python_keyword.
+	(language_to_scanner): Add Python rule.
+	(extension_to_language): Add Python rule.
+	* Makefile.am (noinst_HEADERS): Add x-python.h.
+	(INCLUDES): Add -I$(top_srcdir)/libuniname.
+	(LIBUNINAME): New variable.
+	(xgettext_SOURCES): Add x-python.c.
+	(xgettext_LDADD): Add $(LIBUNINAME).
+
 2002-02-03  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt.c (check_header_entry): Terminate the error strings with

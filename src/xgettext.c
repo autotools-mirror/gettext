@@ -59,6 +59,7 @@
 
 #include "x-c.h"
 #include "x-po.h"
+#include "x-python.h"
 #include "x-lisp.h"
 #include "x-elisp.h"
 #include "x-librep.h"
@@ -223,6 +224,7 @@ main (argc, argv)
 	break;
       case 'a':
 	x_c_extract_all ();
+	x_python_extract_all ();
 	x_lisp_extract_all ();
 	x_elisp_extract_all ();
 	x_librep_extract_all ();
@@ -277,6 +279,7 @@ main (argc, argv)
 	if (optarg == NULL || *optarg != '\0')
 	  {
 	    x_c_keyword (optarg);
+	    x_python_keyword (optarg);
 	    x_lisp_keyword (optarg);
 	    x_elisp_keyword (optarg);
 	    x_librep_keyword (optarg);
@@ -1244,13 +1247,13 @@ language_to_extractor (name)
   {
     SCANNERS_C
     SCANNERS_PO
+    SCANNERS_PYTHON
     SCANNERS_LISP
     SCANNERS_ELISP
     SCANNERS_LIBREP
     SCANNERS_JAVA
     SCANNERS_YCP
     SCANNERS_RST
-    { "Python", extract_c, &formatstring_python },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exclude-file option.  */
   };
@@ -1287,6 +1290,7 @@ extension_to_language (extension)
   {
     EXTENSIONS_C
     EXTENSIONS_PO
+    EXTENSIONS_PYTHON
     EXTENSIONS_LISP
     EXTENSIONS_ELISP
     EXTENSIONS_LIBREP

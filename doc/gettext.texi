@@ -6566,7 +6566,7 @@ not used by the gettext emulation
 emulate. Bug: uses only the first found .mo file, not all of them
 
 @item Extractor
-pygettext.py
+@code{xgettext}
 
 @item Formatting with positions
 @code{'...%(ident)d...' % @{ 'ident': value @}}

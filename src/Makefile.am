@@ -32,7 +32,8 @@ po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
 write-mo.h read-java.h write-java.h po-time.h plural-table.h format.h \
-xgettext.h x-c.h x-po.h x-lisp.h x-elisp.h x-librep.h x-java.h x-ycp.h x-rst.h
+xgettext.h x-c.h x-po.h x-python.h x-lisp.h x-elisp.h x-librep.h x-java.h \
+x-ycp.h x-rst.h
 
 EXTRA_DIST = FILES project-id \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
@@ -41,8 +42,8 @@ localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
 
-INCLUDES = -I. -I$(srcdir) -I.. -I../lib -I$(top_srcdir)/lib -I../intl \
--I$(top_srcdir)/intl
+INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/libuniname \
+-I../lib -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
 -DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 LDADD = ../lib/libgettextlib.la @LTLIBINTL@
@@ -75,6 +76,9 @@ $(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
 msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
 plural-table.c $(FORMAT_SOURCE)
 
+# x-python needs table of Unicode character names.
+LIBUNINAME = ../libuniname/libuniname.a
+
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
@@ -83,7 +87,8 @@ msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
 xgettext_SOURCES = xgettext.c \
-  x-c.c x-po.c x-lisp.c x-elisp.c x-librep.c x-java.l x-ycp.c x-rst.c
+  x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-java.l x-ycp.c \
+  x-rst.c
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c
@@ -113,7 +118,7 @@ msgcmp_LDADD = libgettextsrc.la
 msgfmt_LDADD = libgettextsrc.la
 msgmerge_LDADD = libgettextsrc.la
 msgunfmt_LDADD = libgettextsrc.la
-xgettext_LDADD = libgettextsrc.la
+xgettext_LDADD = libgettextsrc.la $(LIBUNINAME)
 msgattrib_LDADD = libgettextsrc.la
 msgcat_LDADD = libgettextsrc.la
 msgcomm_LDADD = libgettextsrc.la
