@@ -1,6 +1,8 @@
 2001-12-05  Bruno Haible  <bruno@clisp.org>
 
 	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@fide.org>.
 
 2001-12-04  Bruno Haible  <bruno@clisp.org>
 
