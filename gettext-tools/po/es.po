@@ -1,13 +1,14 @@
 # Mensajes en español para GNU gettext.
-# Copyright (C) 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
-# Max de Mendizábal <max@upn.mx>, 1996, 1997, 1998, 2001.
+# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Max de Mendizábal <max@upn.mx>, 1996, 1997, 1998, 1999, 2000,
+# 2001, 2002, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.13-pre1\n"
+"Project-Id-Version: GNU gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-24 19:21-0600\n"
+"PO-Revision-Date: 2003-12-01 11:36-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -403,7 +404,7 @@ msgstr ""
 "requiere de un parámetro de tipo '%s'."
 
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -411,8 +412,8 @@ msgid_plural ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
 msgstr[0] ""
-"En la instrucción número %u se dieron demasiados parámetros; se esperan a lo "
-"más %u parámetros."
+"En la instrucción número %u se dieron demasiados parámetros; se espera a lo "
+"más %u parámetro."
 msgstr[1] ""
 "En la instrucción número %u se dieron demasiados parámetros; se esperan a lo "
 "más %u parámetros."

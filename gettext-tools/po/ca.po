@@ -42,10 +42,10 @@
 #   warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.13-pre1\n"
+"Project-Id-Version: gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-23 18:02+0100\n"
+"PO-Revision-Date: 2003-12-03 09:00+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -436,7 +436,7 @@ msgstr ""
 "n'esperava un de tipus «%s»."
 
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -444,8 +444,8 @@ msgid_plural ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
 msgstr[0] ""
-"En la directiva número %u, s'han especificat massa paràmetres; se "
-"n'esperaven %u com a molt."
+"En la directiva número %u, s'han especificat massa paràmetres; se n'esperava "
+"%u com a molt."
 msgstr[1] ""
 "En la directiva número %u, s'han especificat massa paràmetres; se "
 "n'esperaven %u com a molt."

@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.9
+# Revision: 1.10
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.13-pre1\n"
+"Project-Id-Version: gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-23 18:28+0100\n"
+"PO-Revision-Date: 2003-12-05 18:09+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -378,7 +378,7 @@ msgstr ""
 "\" förväntades."
 
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -387,7 +387,7 @@ msgid_plural ""
 "u parameters."
 msgstr[0] ""
 "I direktiv nummer %u anges för många parametrar, förväntade högst %u "
-"parametrar."
+"parameter."
 msgstr[1] ""
 "I direktiv nummer %u anges för många parametrar, förväntade högst %u "
 "parametrar."

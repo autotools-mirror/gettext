@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.13-pre1\n"
+"Project-Id-Version: GNU gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-21 23:08+0900\n"
+"PO-Revision-Date: 2003-12-02 16:57+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -365,7 +365,7 @@ msgstr ""
 "れていません."
 
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -373,8 +373,8 @@ msgid_plural ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
 msgstr[0] ""
-"命令番号 %u では, 指定されたパラメータが多すぎています: パラメータは最大でも "
-"%u 個です."
+"命令番号 %u では, 指定されたパラメータが多すぎます: パラメータは最大でも %u "
+"個です."
 
 #: src/format-lisp.c:2504
 #, c-format
@@ -1148,7 +1148,6 @@ msgstr "警告: このメッセージは使われません"
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "%d 個の致命的エラーが見つかりました"
-msgstr[1] "%d 個の致命的エラーが見つかりました"
 
 #: src/msgcomm.c:294
 #, c-format

@@ -79,10 +79,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.13-pre1\n"
+"Project-Id-Version: GNU gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-19 14:54+0100\n"
+"PO-Revision-Date: 2003-12-01 18:18+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -464,7 +464,7 @@ msgstr ""
 "ein Parameter vom Typ '%s' erwartet."
 
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -472,7 +472,7 @@ msgid_plural ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
 msgstr[0] ""
-"In der %u. Formatanweisung sind zo viele Parameter angegeben; es werden "
+"In der %u. Formatanweisung sind zo viele Parameter angegeben; es wird "
 "höchstens %u Parameter erwartet."
 msgstr[1] ""
 "In der %u. Formatanweisung sind zo viele Parameter angegeben; es werden "

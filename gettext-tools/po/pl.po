@@ -6,15 +6,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.13-pre1\n"
+"Project-Id-Version: GNU gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-22 20:05+0100\n"
+"PO-Revision-Date: 2003-12-01 18:15+0100\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -379,11 +379,11 @@ msgid ""
 "In the directive number %u, parameter %u is of type '%s' but a parameter of "
 "type '%s' is expected."
 msgstr ""
-"W dyrektywie numer %u parametr %u jest typu '%s' zamiast oczekiwanego '%s'"
+"W dyrektywie numer %u parametr %u jest typu '%s' zamiast oczekiwanego '%s'."
 
 # plural
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -391,11 +391,11 @@ msgid_plural ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameters."
 msgstr[0] ""
-"Za du¿o parametrów w dyrektywie numer %u, oczekiwano najwy¿ej %u parametrów"
+"Za du¿o parametrów w dyrektywie numer %u, oczekiwano najwy¿ej %u parametru."
 msgstr[1] ""
-"Za du¿o parametrów w dyrektywie numer %u, oczekiwano najwy¿ej %u parametrów"
+"Za du¿o parametrów w dyrektywie numer %u, oczekiwano najwy¿ej %u parametrów."
 msgstr[2] ""
-"Za du¿o parametrów w dyrektywie numer %u, oczekiwano najwy¿ej %u parametrów"
+"Za du¿o parametrów w dyrektywie numer %u, oczekiwano najwy¿ej %u parametrów."
 
 #: src/format-lisp.c:2504
 #, c-format

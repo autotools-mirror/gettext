@@ -1,3 +1,18 @@
+2003-12-07  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* es.po: Update from Max de Mendizábal <max@upn.mx>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* sr.po: Update from Danilo Segan <dsegan@gmx.net>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@superonline.com>.
+	* zh_CN.po: Update from Funda Wang <fundawang@linux.net.cn>.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13 released.

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.13-pre1\n"
+"Project-Id-Version: GNU gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-29 10:03+0100\n"
+"PO-Revision-Date: 2003-12-04 23:08+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -368,7 +368,7 @@ msgstr ""
 "očakávaný."
 
 #: src/format-lisp.c:2389
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
 "u parameter."
@@ -379,11 +379,11 @@ msgstr[0] ""
 "V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávaných "
 "najviac %u parametrov."
 msgstr[1] ""
-"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávaných "
-"najviac %u parametrov."
+"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávaný najviac %"
+"u parameter."
 msgstr[2] ""
-"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávaných "
-"najviac %u parametrov."
+"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávané najviac %"
+"u parametre."
 
 #: src/format-lisp.c:2504
 #, c-format
