@@ -1,9 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.22 $)
+AC_REVISION($Revision: 1.23 $)
 AC_INIT(src/msgfmt.c)
-AM_INIT_AUTOMAKE(gettext, 0.10.36)
-RELEASE_DATE=2001-03-09      dnl in "date +%Y-%m-%d" format
+AM_INIT_AUTOMAKE(gettext, 0.10.37)
+RELEASE_DATE=2001-04-17      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
 
 dnl Set of available languages.
