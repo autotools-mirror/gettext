@@ -6,6 +6,8 @@
 2003-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* error.c: Update from gnulib with modifications.
+	* unlocked-io.h: New file, from gnulib.
+	* Makefile.am (libgettextlib_la_SOURCES): Add it.
 
 2003-05-09  Bruno Haible  <bruno@clisp.org>
 

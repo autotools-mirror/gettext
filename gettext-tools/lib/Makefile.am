@@ -64,6 +64,7 @@ libgettextlib_la_SOURCES = \
   strtoul.c \
   tmpdir.h tmpdir.c \
   ucs4-utf8.h ucs4-utf16.h \
+  unlocked-io.h \
   wait-process.h wait-process.c \
   xerror.h xerror.c \
   xmalloc.h xmalloc.c xstrdup.c \
