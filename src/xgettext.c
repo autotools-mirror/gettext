@@ -157,7 +157,8 @@ static void exclude_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					       char *__msgid_plural,
 					       char *__msgstr,
 					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos));
+					       lex_pos_ty *__msgstr_pos,
+					       int __obsolete));
 static void read_exclusion_file PARAMS ((char *__file_name));
 static message_ty *remember_a_message PARAMS ((message_list_ty *__mlp,
 					       xgettext_token_ty *__tp));
@@ -172,7 +173,8 @@ static void extract_directive_message PARAMS ((po_ty *__that, char *__msgid,
 					       char *__msgid_plural,
 					       char *__msgstr,
 					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos));
+					       lex_pos_ty *__msgstr_pos,
+					       int __obsolete));
 static void extract_parse_brief PARAMS ((po_ty *__that));
 static void extract_comment PARAMS ((po_ty *__that, const char *__s));
 static void extract_comment_dot PARAMS ((po_ty *__that, const char *__s));
@@ -675,7 +677,7 @@ exclude_directive_domain (pop, name)
 
 static void
 exclude_directive_message (pop, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos)
+			   msgstr, msgstr_len, msgstr_pos, obsolete)
      po_ty *pop;
      char *msgid;
      lex_pos_ty *msgid_pos;
@@ -683,6 +685,7 @@ exclude_directive_message (pop, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   message_ty *mp;
 
@@ -1093,7 +1096,7 @@ extract_directive_domain (that, name)
 
 static void
 extract_directive_message (that, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos)
+			   msgstr, msgstr_len, msgstr_pos, obsolete)
      po_ty *that;
      char *msgid;
      lex_pos_ty *msgid_pos;
@@ -1101,6 +1104,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   extract_class_ty *this = (extract_class_ty *)that;
   message_ty *mp;

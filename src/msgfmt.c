@@ -176,7 +176,8 @@ static void format_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					      char *__msgid_plural,
 					      char *__msgstr,
 					      size_t __msgstr_len,
-					      lex_pos_ty *__msgstr_pos));
+					      lex_pos_ty *__msgstr_pos,
+					      int __obsolete));
 static void format_comment_special PARAMS ((po_ty *pop, const char *s));
 static void format_debrief PARAMS ((po_ty *));
 static struct msg_domain *new_domain PARAMS ((const char *name));
@@ -552,7 +553,7 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 /* Process `msgid'/`msgstr' pair from .po file.  */
 static void
 format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
-			  msgstr_string, msgstr_len, msgstr_pos)
+			  msgstr_string, msgstr_len, msgstr_pos, obsolete)
      po_ty *that;
      char *msgid_string;
      lex_pos_ty *msgid_pos;
@@ -560,6 +561,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
      char *msgstr_string;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   struct hashtable_entry *entry;

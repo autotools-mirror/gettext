@@ -59,7 +59,8 @@ struct po_method_ty
 				     char *__msgid, lex_pos_ty *__msgid_pos,
 				     char *__msgid_plural,
 				     char *__msgstr, size_t __msgstr_len,
-				     lex_pos_ty *__msgstr_pos));
+				     lex_pos_ty *__msgstr_pos,
+				     int __obsolete));
 
   /* This method is invoked before the parse, but after the file is
      opened by the lexer.  */
@@ -134,7 +135,8 @@ extern void po_callback_message PARAMS ((char *__msgid,
 					 lex_pos_ty *__msgid_pos,
 					 char *__msgid_plural,
 					 char *__msgstr, size_t __msgstr_len,
-					 lex_pos_ty *__msgstr_pos));
+					 lex_pos_ty *__msgstr_pos,
+					 int __obsolete));
 extern void po_callback_comment PARAMS ((const char *__s));
 extern void po_callback_comment_dot PARAMS ((const char *__s));
 extern void po_callback_comment_filepos PARAMS ((const char *__s, int __line));

@@ -76,7 +76,8 @@ static void readall_directive_message PARAMS ((po_ty *that, char *msgid,
 					       lex_pos_ty *msgid_pos,
 					       char *msgid_plural,
 					       char *msgstr, size_t msgstr_len,
-					       lex_pos_ty *msgstr_pos));
+					       lex_pos_ty *msgstr_pos,
+					       int obsolete));
 static void readall_parse_brief PARAMS ((po_ty *that));
 static void readall_parse_debrief PARAMS ((po_ty *that));
 static void readall_comment PARAMS ((po_ty *that, const char *s));
@@ -160,7 +161,7 @@ readall_directive_domain (that, name)
 
 static void
 readall_directive_message (that, msgid, msgid_pos, msgid_plural,
-			 msgstr, msgstr_len, msgstr_pos)
+			   msgstr, msgstr_len, msgstr_pos, obsolete)
      po_ty *that;
      char *msgid;
      lex_pos_ty *msgid_pos;
@@ -168,6 +169,7 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   readall_class_ty *this = (readall_class_ty *) that;
   message_ty *mp;
@@ -180,11 +182,16 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
   /* See if this message ID has been seen before.  */
   mp = message_list_search (this->mlp, msgid);
   if (mp)
-    free (msgid);
+    {
+      free (msgid);
+      if (!obsolete)
+	mp->obsolete = 0;
+    }
   else
     {
       mp = message_alloc (msgid, msgid_plural);
       message_list_append (this->mlp, mp);
+      mp->obsolete = obsolete;
     }
 
   /* Add the accumulated comments to the message.  Clear the

@@ -145,7 +145,8 @@ message
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
 		    po_callback_message (string2, &$1.pos, NULL,
-					 string4, strlen (string4) + 1, &$3.pos);
+					 string4, strlen (string4) + 1, &$3.pos,
+					 $1.obsolete);
 		  else
 		    {
 		      free (string2);
@@ -161,7 +162,8 @@ message
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
 		    po_callback_message (string2, &$1.pos, $3.string,
-					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos);
+					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
+					 $1.obsolete);
 		  else
 		    {
 		      free (string2);

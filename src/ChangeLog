@@ -1,3 +1,21 @@
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
+	Save the messages' obsoleteness status in the 'message_ty'.
+	* po.h (struct po_method_ty): Add 'obsolete' argument to
+	directive_message method.
+	(po_callback_message): Add 'obsolete' argument.
+	* po.c (po_directive_message): Add 'obsolete' argument. Pass it to
+	method->directive_message.
+	(po_callback_message): Add 'obsolete' argument.
+	* po-gram-gen.y (message): Pass 'obsolete' argument to
+	po_callback_message.
+	* msgcmp.c (compare_directive_message): Add 'obsolete' argument.
+	* msgcomm.c (extract_directive_message): Likewise.
+	* msgfmt.c (format_directive_message): Likewise.
+	* xgettext.c (exclude_directive_message, extract_directive_message):
+	Likewise.
+	* read-po.c (readall_directive_message): Likewise. Set mp->obsolete.
+
 2001-05-01  Bruno Haible  <haible@clisp.cons.org>
 
 	Reduce running time for very long msgstrs from O(n^2) to O(n) where

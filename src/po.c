@@ -39,7 +39,8 @@ static void po_directive_message PARAMS ((po_ty *__pop, char *__msgid,
 					  lex_pos_ty *__msgid_pos,
 					  char *__msgid_plural,
 					  char *__msgstr, size_t __msgstr_len,
-					  lex_pos_ty *__msgstr_pos));
+					  lex_pos_ty *__msgstr_pos,
+					  int __obsolete));
 static void po_comment PARAMS ((po_ty *__pop, const char *__s));
 static void po_comment_dot PARAMS ((po_ty *__pop, const char *__s));
 static void po_comment_filepos PARAMS ((po_ty *__pop, const char *__name,
@@ -136,7 +137,7 @@ po_callback_domain (name)
 
 static void
 po_directive_message (pop, msgid, msgid_pos, msgid_plural,
-		      msgstr, msgstr_len, msgstr_pos)
+		      msgstr, msgstr_len, msgstr_pos, obsolete)
      po_ty *pop;
      char *msgid;
      lex_pos_ty *msgid_pos;
@@ -144,22 +145,25 @@ po_directive_message (pop, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   if (pop->method->directive_message)
     pop->method->directive_message (pop, msgid, msgid_pos, msgid_plural,
-				    msgstr, msgstr_len, msgstr_pos);
+				    msgstr, msgstr_len, msgstr_pos, obsolete);
 }
 
 
 void
 po_callback_message (msgid, msgid_pos, msgid_plural,
-		     msgstr, msgstr_len, msgstr_pos)
+		     msgstr, msgstr_len, msgstr_pos,
+		     obsolete)
      char *msgid;
      lex_pos_ty *msgid_pos;
      char *msgid_plural;
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   /* assert(callback_arg); */
 
@@ -168,7 +172,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
     po_lex_charset_set (msgstr, gram_pos.file_name);
 
   po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
-			msgstr, msgstr_len, msgstr_pos);
+			msgstr, msgstr_len, msgstr_pos, obsolete);
 }
 
 

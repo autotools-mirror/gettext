@@ -80,7 +80,8 @@ static void compare_directive_message PARAMS ((po_ty *__that, char *__msgid,
 					       char *__msgid_plural,
 					       char *__msgstr,
 					       size_t __msgstr_len,
-					       lex_pos_ty *__msgstr_pos));
+					       lex_pos_ty *__msgstr_pos,
+					       int __obsolete));
 static void compare_parse_debrief PARAMS ((po_ty *__that));
 
 
@@ -338,7 +339,7 @@ compare_directive_domain (that, name)
 
 static void
 compare_directive_message (that, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos)
+			   msgstr, msgstr_len, msgstr_pos, obsolete)
      po_ty *that;
      char *msgid;
      lex_pos_ty *msgid_pos;
@@ -346,6 +347,7 @@ compare_directive_message (that, msgid, msgid_pos, msgid_plural,
      char *msgstr;
      size_t msgstr_len;
      lex_pos_ty *msgstr_pos;
+     int obsolete;
 {
   compare_class_ty *this = (compare_class_ty *) that;
   message_ty *mp;
