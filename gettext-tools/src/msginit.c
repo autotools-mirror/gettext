@@ -476,6 +476,7 @@ catalogname_for_locale (const char *locale)
 		/* Language	Main territory */
     "af_ZA",	/* Afrikaans	South Africa */
     "am_ET",	/* Amharic	Ethiopia */
+    "an_ES",	/* Aragonese	Spain */
     "as_IN",	/* Assamese	India */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
     "be_BY",	/* Belarusian	Belarus */
@@ -508,9 +509,11 @@ catalogname_for_locale (const char *locale)
     "he_IL",	/* Hebrew	Israel */
     "hi_IN",	/* Hindi	India */
     "hr_HR",	/* Croatian	Croatia */
+    "ht_HT",	/* Haitian	Haiti */
     "hu_HU",	/* Hungarian	Hungary */
     "hy_AM",	/* Armenian	Armenia */
     "id_ID",	/* Indonesian	Indonesia */
+    "ii_CN",	/* Sichuan Yi	China */
     "is_IS",	/* Icelandic	Iceland */
     "it_IT",	/* Italian	Italy */
     "ja_JP",	/* Japanese	Japan */
@@ -522,6 +525,7 @@ catalogname_for_locale (const char *locale)
     "kn_IN",	/* Kannada	India */
     "ko_KR",	/* Korean	Korea (South) */
     "kok_IN",	/* Konkani	India */
+    "li_BE",	/* Limburgish	Belgium */
     "lo_LA",	/* Laotian	Laos */
     "lt_LT",	/* Lithuanian	Lithuania */
     "lv_LV",	/* Latvian	Latvia */
@@ -698,6 +702,7 @@ englishname_of_language ()
     { "ae", "Avestan" },
     { "af", "Afrikaans" },
     { "am", "Amharic" },
+    { "an", "Aragonese" },
     { "ar", "Arabic" },
     { "as", "Assamese" },
     { "ay", "Aymara" },
@@ -745,12 +750,14 @@ englishname_of_language ()
     { "hi", "Hindi" },
     { "ho", "Hiri Motu" },
     { "hr", "Croatian" },
+    { "ht", "Haitian" },
     { "hu", "Hungarian" },
     { "hy", "Armenian" },
     { "hz", "Herero" },
     { "ia", "Interlingua" },
     { "id", "Indonesian" },
     { "ie", "Interlingue" },
+    { "ii", "Sichuan Yi" },
     { "ik", "Inupiak" },
     { "is", "Icelandic" },
     { "it", "Italian" },
@@ -773,6 +780,7 @@ englishname_of_language ()
     { "kok", "Konkani" },
     { "la", "Latin" },
     { "lb", "Letzeburgesch" },
+    { "li", "Limburgish" },
     { "ln", "Lingala" },
     { "lo", "Laotian" },
     { "lt", "Lithuanian" },

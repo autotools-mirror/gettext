@@ -1,3 +1,9 @@
+2003-08-15  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (catalogname_for_locale): Add entries for Aragonese,
+	Haitian, Sichuan Yi, Limburgish.
+	(englishname_of_language): Likewise.
+
 2003-08-08  Bruno Haible  <bruno@clisp.org>
 
 	* format-gcc-internal.c: New file.
