@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002.
-# Revision: 1.47
+# Revision: 1.48
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.2\n"
 "POT-Creation-Date: 2002-05-02 15:48+0200\n"
-"PO-Revision-Date: 2002-06-02 10:15+0200\n"
+"PO-Revision-Date: 2002-06-04 22:20+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2362,7 +2362,7 @@ msgid ""
 "%s\n"
 msgstr ""
 "Följande meddelande-id (msgid) innehåller tecken som inte är ASCII.\n"
-"Detta förosakar problem för översättare som använder en teckenuppsättning\n"
+"Detta förorsakar problem för översättare som använder en teckenuppsättning\n"
 "som är en annan än din.  Försök använda en ren ASCII-msgid istället.\n"
 "%s\n"
 
