@@ -53,6 +53,7 @@ signalblocking.m4 \
 ssize_t.m4 \
 stdbool.m4 \
 strerror.m4 \
+strerror_r.m4 \
 tmpdir.m4 \
 unionwait.m4 \
 xreadlink.m4

@@ -1,5 +1,9 @@
 2003-05-09  Bruno Haible  <bruno@clisp.org>
 
+	* error.c: Update from gnulib with modifications.
+
+2003-05-09  Bruno Haible  <bruno@clisp.org>
+
 	* canonicalize.c: Add #ifdef around versioned_symbol. Avoids an
 	"extraneous semicolon" warning from Tru64 cc.
 
