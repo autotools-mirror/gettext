@@ -4,6 +4,9 @@ Tasks not to forget before release:
   Translation Project.
 
 - Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
+  now from
+    wget http://savannah.gnu.org/cgi-bin/viewcvs/config/config/config.guess?rev=HEAD&content-type=text/plain
+    wget http://savannah.gnu.org/cgi-bin/viewcvs/config/config/config.sub?rev=HEAD&content-type=text/plain
 - Update gettext-runtime/intl/locale.alias from glibc's intl/locale.alias.
 - Update {gettext-tools/lib,gettext-runtime/intl}/{localcharset.h,localcharset.c,config.charset}
   from libcharset inside libiconv.
@@ -25,6 +28,9 @@ Tasks not to forget before release:
 - Bump po-mode-version-string in gettext-tools/misc/po-mode.el.
 
 - Bump version number and release date in version.sh.
+
+- Verify that the C files generated from *.y files contain no absolute
+  filenames.
 
 - Update djgpp/*.
 
