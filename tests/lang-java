@@ -33,7 +33,7 @@ CLASSPATH=../intl-java/libintl.jar ${JAVACOMP} -d . Program.java || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o prog.pot Program.java
+${XGETTEXT} -o prog.pot --omit-header --no-location Program.java
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok

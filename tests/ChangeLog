@@ -1,3 +1,7 @@
+2001-12-03  Bruno Haible  <bruno@clisp.org>
+
+	* lang-java: Pass --omit-header --no-location to xgettext.
+
 2001-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge-14: Add the msgmerge-created backup file to tmpfiles.
