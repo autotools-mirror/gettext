@@ -184,17 +184,27 @@ dist2: $(DISTFILES)
 update-po: Makefile
 	$(MAKE) $(PACKAGE).pot
 	if test "$(PACKAGE)" = "gettext"; then PATH=`pwd`/../src:$$PATH; fi; \
+	tmpdir=`pwd`; \
 	cd $(srcdir); \
 	catalogs='$(GMOFILES)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
 	  echo "$$lang:"; \
-	  if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$lang.new.po; then \
-	    mv -f $$lang.new.po $$lang.po; \
+	  if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$tmpdir/$$lang.new.po; then \
+	    if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
+	      rm -f $$tmpdir/$$lang.new.po; \
+	    else
+	      if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
+	        :; \
+	      else \
+	        echo "msgmerge for $$cat failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
+	        exit 1; \
+	      fi; \
+	    fi; \
 	  else \
-	    echo "msgmerge for $$cat failed!"; \
-	    rm -f $$lang.new.po; \
+	    echo "msgmerge for $$cat failed!" 1>&2; \
+	    rm -f $$tmpdir/$$lang.new.po; \
 	  fi; \
 	done
 	$(MAKE) update-gmo
