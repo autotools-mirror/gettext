@@ -1,3 +1,9 @@
+2001-04-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Fix syntax error in 'case'. Change
+	whitespace in $CONFIG_FILES to spaces for matching with 'case'.
+	Reported by Thorsten Kukuk <kukuk@suse.de>.
+
 2001-04-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Even if 'msgfmt' is not found in $PATH,
