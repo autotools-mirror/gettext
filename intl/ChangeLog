@@ -1,5 +1,13 @@
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettextP.h (__gettextdebug): Remove declaration.
+	(gettext_free_exp__, gettextparse__): New non-libc declarations.
+	* plural.y [!_LIBC]: Define gettextparse__, gettext_free_exp__, not
+	__gettextparse, __gettext_free_exp.
+	* loadmsgcat.c [!_LIBC]: Use gettextparse__, not __gettextparse.
+
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
 	* libgnuintl.h: Renamed from intlh.inst.in.
 	Remove comment about __builtin_constant_p.
 	(gettext): Use NULL.

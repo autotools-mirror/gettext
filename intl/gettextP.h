@@ -224,10 +224,15 @@ extern char *bind_textdomain_codeset__ PARAMS ((const char *__domainname,
 						const char *__codeset));
 #endif
 
-extern int __gettextdebug;
+#ifdef _LIBC
 extern void __gettext_free_exp PARAMS ((struct expression *exp))
      internal_function;
 extern int __gettextparse PARAMS ((void *arg));
+#else
+extern void gettext_free_exp__ PARAMS ((struct expression *exp))
+     internal_function;
+extern int gettextparse__ PARAMS ((void *arg));
+#endif
 
 /* @@ begin of epilog @@ */
 

@@ -89,6 +89,16 @@ char *alloca ();
 # define munmap __munmap
 #endif
 
+/* Names for the libintl functions are a problem.  They must not clash
+   with existing names and they should follow ANSI C.  But this source
+   code is also used in GNU C Library where the names have a __
+   prefix.  So we have to make a difference here.  */
+#ifdef _LIBC
+# define PLURAL_PARSE __gettextparse
+#else
+# define PLURAL_PARSE gettextparse__
+#endif
+
 /* For those losing systems which don't have `alloca' we have to add
    some additional code emulating it.  */
 #ifdef HAVE_ALLOCA
@@ -431,7 +441,7 @@ _nl_load_domain (domain_file)
 	     is passed down to the parser.  */
 	  plural += 7;
 	  args.cp = plural;
-	  if (__gettextparse (&args) != 0)
+	  if (PLURAL_PARSE (&args) != 0)
 	    goto no_plural;
 	  domain->plural = args.res;
 	}

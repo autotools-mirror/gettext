@@ -24,6 +24,17 @@
 #include <stdlib.h>
 #include "gettextP.h"
 
+/* Names for the libintl functions are a problem.  They must not clash
+   with existing names and they should follow ANSI C.  But this source
+   code is also used in GNU C Library where the names have a __
+   prefix.  So we have to make a difference here.  */
+#ifdef _LIBC
+# define FREE_EXPRESSION __gettext_free_exp
+#else
+# define FREE_EXPRESSION gettext_free_exp__
+# define __gettextparse gettextparse__
+#endif
+
 #define YYLEX_PARAM	&((struct parse_args *) arg)->cp
 #define YYPARSE_PARAM	arg
 %}
@@ -166,8 +177,8 @@ new_exp_2 (op, left, right)
     }
   else
     {
-      __gettext_free_exp (left);
-      __gettext_free_exp (right);
+      FREE_EXPRESSION (left);
+      FREE_EXPRESSION (right);
     }
 
   return newp;
@@ -194,9 +205,9 @@ new_exp_3 (op, bexp, tbranch, fbranch)
     }
   else
     {
-      __gettext_free_exp (bexp);
-      __gettext_free_exp (tbranch);
-      __gettext_free_exp (fbranch);
+      FREE_EXPRESSION (bexp);
+      FREE_EXPRESSION (tbranch);
+      FREE_EXPRESSION (fbranch);
     }
 
   return newp;
@@ -204,7 +215,7 @@ new_exp_3 (op, bexp, tbranch, fbranch)
 
 void
 internal_function
-__gettext_free_exp (exp)
+FREE_EXPRESSION (exp)
      struct expression *exp;
 {
   if (exp == NULL)
@@ -214,7 +225,7 @@ __gettext_free_exp (exp)
   switch (exp->operation)
     {
     case qmop:
-      __gettext_free_exp (exp->val.args3.fbranch);
+      FREE_EXPRESSION (exp->val.args3.fbranch);
       /* FALLTHROUGH */
 
     case mult:
@@ -226,8 +237,8 @@ __gettext_free_exp (exp)
     case not_equal:
     case land:
     case lor:
-      __gettext_free_exp (exp->val.args2.right);
-      __gettext_free_exp (exp->val.args2.left);
+      FREE_EXPRESSION (exp->val.args2.right);
+      FREE_EXPRESSION (exp->val.args2.left);
       break;
 
     default:
