@@ -2,6 +2,7 @@
 
 	* Makefile.am (install-html-split): Install into correct directory.
 	Don't use $<.
+	(RM): New variable.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 

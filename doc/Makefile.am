@@ -26,6 +26,7 @@ htmldir = $(docdir)
 AUTOMAKE_OPTIONS = 1.2 gnits
 
 SED = sed
+RM = rm -f
 
 MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
