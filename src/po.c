@@ -248,30 +248,47 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 %s: warning: charset \"%s\" is not a portable encoding name\n\
 %*s  warning: charset conversion might not work"),
 		     gram_pos.file_name, charset,
-		     strlen (gram_pos.file_name), "");
+		     (int) strlen (gram_pos.file_name), "");
 	      --error_message_count;
 	    }
 	  else
 	    {
+	      /* The list of encodings in standard_charsets which have
+		 double-byte characters ending in 0x5C.  For these encodings,
+		 the string parser is likely to be confused if it can't see
+		 the character boundaries.  */
+	      static const char *weird_charsets[] =
+	      {
+		"BIG5",
+		"BIG5HKSCS",
+		"GBK",
+		"GB18030",
+		"SJIS",
+		"JOHAB"
+	      };
+
 	      po_lex_charset = standard_charsets[i];
 #if HAVE_ICONV
 	      if (po_lex_iconv != (iconv_t)(-1))
 		iconv_close (po_lex_iconv);
+	      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+	      if (strcmp (po_lex_charset, "EUC-KR") == 0)
+		po_lex_iconv = (iconv_t)(-1);
+	      else
+#endif
 	      po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
 	      if (po_lex_iconv == (iconv_t)(-1))
 		{
-		  /* For CJK encodings which have double-byte characters
-		     ending in 0x5C, the string parser is likely to be
-		     confused if it can't see the character boundaries.  */
-		  const char *note =
-		    (strcmp (po_lex_charset, "BIG5") == 0
-		     || strcmp (po_lex_charset, "BIG5HKSCS") == 0
-		     || strcmp (po_lex_charset, "GBK") == 0
-		     || strcmp (po_lex_charset, "GB18030") == 0
-		     || strcmp (po_lex_charset, "SJIS") == 0
-		     || strcmp (po_lex_charset, "JOHAB") == 0
-		     ? _(", expect parse errors")
-		     : "");
+		  const char *note;
+
+		  for (i = 0; i < SIZEOF (weird_charsets); i++)
+		    if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
+		      break;
+		  if (i < SIZEOF (weird_charsets))
+		    note = _(", expect parse errors");
+		  else
+		    note = "";
 
 # if _LIBICONV_VERSION
 		  error (0, 0, _("\
@@ -282,8 +299,22 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 %s: warning: charset \"%s\" is not supported by iconv%s\n\
 %*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
 			 gram_pos.file_name, po_lex_charset, note,
-			 strlen (gram_pos.file_name), "");
+			 (int) strlen (gram_pos.file_name), "");
 # endif
+		  --error_message_count;
+		}
+#else
+	      for (i = 0; i < SIZEOF (weird_charsets); i++)
+		if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
+		  break;
+	      if (i < SIZEOF (weird_charsets))
+		{
+		  error (0, 0, _("\
+%s: warning: charset \"%s\" is not supported without iconv%s\n\
+%*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
+			 gram_pos.file_name, po_lex_charset,
+			 _(", expect parse errors"),
+			 (int) strlen (gram_pos.file_name), "");
 		  --error_message_count;
 		}
 #endif
@@ -294,7 +325,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 	  error (0, 0, _("\
 %s: warning: charset missing in header\n\
 %*s  warning: charset conversion will not work"),
-		 gram_pos.file_name, strlen (gram_pos.file_name), "");
+		 gram_pos.file_name, (int) strlen (gram_pos.file_name), "");
 	  --error_message_count;
 	}
     }

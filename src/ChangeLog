@@ -1,3 +1,22 @@
+2001-03-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* po.c (po_callback_message): Cast %*s argument from size_t to int.
+	* msgfmt.c (format_debrief): Likewise.
+	(check_pair): Cast format string argument from size_t to long.
+	* msgmerge.c (merge): Likewise.
+
+	* gettext.c (main): Update copyright year.
+	* msgcmp.c (main): Likewise.
+	* msgcomm.c (main): Likewise.
+	* msgfmt.c (main): Likewise.
+	* msgmerge.c (main): Likewise.
+	* msgunfmt.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+
+	* po.c (po_callback_message): Also warn if no iconv is present and
+	the charset is a CJK encoding requiring iconv. Also avoid broken
+	EUC-KR conversion in glibc-2.1.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	Fix output of strings in CJK encodings.
