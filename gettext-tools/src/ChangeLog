@@ -1,3 +1,45 @@
+2003-12-28  Bruno Haible  <bruno@clisp.org>
+
+	* write-resources.h: New file.
+	* write-resources.c: New file.
+	* msgfmt.cs: New file.
+	* msgfmt.c: Include write-resources.h.
+	(csharp_resources_mode): New variable.
+	(long_options): Add --csharp-resources.
+	(main): Handle --csharp-resources. More generic code for detection of
+	contradicting modes. Invoke msgdomain_write_csharp_resources.
+	(usage): Document --csharp-resources option.
+	(msgfmt_set_domain): Update.
+	* read-resources.h: New file.
+	* read-resources.c: New file.
+	* msgunfmt.cs (DumpResource): Add a constructor that dumps a .resources
+	file.
+	(Main): Invoke it when only one argument is given.
+	* msgunfmt.c: Include read-resources.h.
+	(csharp_resources_mode): New variable.
+	(long_options): Add --csharp-resources.
+	(main): Handle --csharp-resources. More generic code for detection of
+	contradicting modes. Invoke read_one_file instead of read_mo_file.
+	(usage): Document --csharp-resources option.
+	(read_one_file): New function.
+	* Makefile.am (noinst_HEADERS): Add read-resources.h and
+	write-resources.h.
+	(msgfmt_SOURCES): Add write-resources.c.
+	(msgunfmt_SOURCES): Add read-resources.c.
+	(EXTRA_DIST): Add msgfmt.cs.
+	(CLEANFILES): Add msgfmt.net.exe.
+	(msgfmt.net.exe): New rule.
+	(all-csharp-yes): Depend on it.
+	(install-exec-csharp-yes): Also install msgfmt.net.exe.
+	(uninstall-csharp-yes): Also uninstall msgfmt.net.exe.
+	* Makefile.msvc (msgfmt_OBJECTS): Add write-resources.obj.
+	(msgunfmt_OBJECTS): Add read-resources.obj.
+	(write-resources.obj, read-resources.obj): New rules.
+	* Makefile.vms (msgfmt_OBJECTS): Add write-resources.obj.
+	(msgunfmt_OBJECTS): Add read-resources.obj.
+	(write-resources.obj, read-resources.obj): New rules.
+	* FILES: Update.
+
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
 	Support for C#.

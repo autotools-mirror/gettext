@@ -8420,12 +8420,16 @@ Note that these .NET @code{.dll} and @code{.exe} files are not tied to a
 particular platform; their file format and GNU gettext for C# can be used
 on any platform.
 
-To convert a PO file to a @code{.resources} file, the @code{resgen}
-program (from the @code{pnet} package) or the @code{monoresgen} program
-(from the @code{mono}/@code{mcs} package) can be used.  These programs
-can also convert a @code{.resources} file back to a PO file.  But beware:
-as of this writing (January 2004), the @code{monoresgen} converter is quite
-buggy and the @code{resgen} converter ignores the encoding of the PO files.
+To convert a PO file to a @code{.resources} file, the @code{msgfmt} program
+can be used with the option @samp{--csharp-resources}.  To convert a
+@code{.resources} file back to a PO file, the @code{msgunfmt} program can be
+used with the option @samp{--csharp-resources}.  You can also, in some cases,
+use the @code{resgen} program (from the @code{pnet} package) or the
+@code{monoresgen} program (from the @code{mono}/@code{mcs} package).  These
+programs can also convert a @code{.resources} file back to a PO file.  But
+beware: as of this writing (January 2004), the @code{monoresgen} converter is
+quite buggy and the @code{resgen} converter ignores the encoding of the PO
+files.
 
 To convert a PO file to a @code{.dll} file, the @code{msgfmt} program can be
 used with the option @code{--csharp}.  The result will be a @code{.dll} file

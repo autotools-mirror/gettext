@@ -1,3 +1,9 @@
+2003-12-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (C#): Mention the --csharp-resources option.
+	* msgfmt.texi: Document the --csharp-resources option.
+	* msgunfmt.texi: Likewise.
+
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
 	Support for C#.

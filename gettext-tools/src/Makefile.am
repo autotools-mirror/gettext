@@ -40,8 +40,8 @@ str-list.h write-po.h write-properties.h write-stringtable.h dir-list.h \
 file-list.h po-gram-gen.h po-gram-gen2.h po-hash-gen.h msgl-charset.h \
 msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h \
 msgunfmt.h plural-count.h read-mo.h write-mo.h read-java.h write-java.h \
-read-csharp.h write-csharp.h read-tcl.h write-tcl.h write-qt.h po-time.h \
-plural-table.h format.h \
+read-csharp.h write-csharp.h read-resources.h write-resources.h read-tcl.h \
+write-tcl.h write-qt.h po-time.h plural-table.h format.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h x-tcl.h \
 x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h
@@ -83,8 +83,8 @@ CSHARPCOMPFLAGS = -O -g
 
 
 # All programs deal with message lists.
-# All programs must read PO files. (msgunfmt also, for read-java.c and
-# read-csharp.c.)
+# All programs must read PO files. (msgunfmt also, for read-java.c,
+# read-csharp.c and read-resources.c.)
 # message.c -> str-list.c.
 # (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> str-list.c.
 # (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> open-po.c -> dir-list.c -> str-list.c.
@@ -120,10 +120,12 @@ LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-csharp.c write-tcl.c \
+msgfmt_SOURCES = msgfmt.c \
+  write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
   write-qt.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c plural-count.c
-msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-csharp.c read-tcl.c
+msgunfmt_SOURCES = msgunfmt.c \
+  read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-smalltalk.c \
   x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c x-rst.c \
@@ -318,15 +320,18 @@ uninstall-java-no-yes:
 uninstall-java-no-no:
 
 
-# Special rules for C# auxiliary program.
+# Special rules for C# auxiliary programs.
 
-EXTRA_DIST += msgunfmt.cs
+EXTRA_DIST += msgfmt.cs msgunfmt.cs
 
-CLEANFILES += msgunfmt.net.exe
+CLEANFILES += msgfmt.net.exe msgunfmt.net.exe
 
 all-local: all-csharp-@BUILDCSHARP@
-all-csharp-yes: msgunfmt.net.exe
+all-csharp-yes: msgfmt.net.exe msgunfmt.net.exe
 all-csharp-no:
+
+msgfmt.net.exe: msgfmt.cs
+	$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ $(srcdir)/msgfmt.cs
 
 msgunfmt.net.exe: msgunfmt.cs
 	$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ -L ../../gettext-runtime/intl-csharp -l GNU.Gettext $(srcdir)/msgunfmt.cs
@@ -334,6 +339,7 @@ msgunfmt.net.exe: msgunfmt.cs
 install-exec-local: install-exec-csharp-@BUILDCSHARP@
 install-exec-csharp-yes: all-csharp-yes
 	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(INSTALL_DATA) msgfmt.net.exe $(DESTDIR)$(pkglibdir)/msgfmt.net.exe
 	$(INSTALL_DATA) msgunfmt.net.exe $(DESTDIR)$(pkglibdir)/msgunfmt.net.exe
 install-exec-csharp-no:
 	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
@@ -344,6 +350,7 @@ installdirs-csharp:
 
 uninstall-local: uninstall-csharp-@BUILDCSHARP@
 uninstall-csharp-yes: all-csharp-yes
+	$(RM) $(DESTDIR)$(pkglibdir)/msgfmt.net.exe
 	$(RM) $(DESTDIR)$(pkglibdir)/msgunfmt.net.exe
 uninstall-csharp-no:
 

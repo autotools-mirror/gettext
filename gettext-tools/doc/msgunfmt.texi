@@ -24,6 +24,11 @@ Java mode: input is a Java @code{ResourceBundle} class.
 C# mode: input is a .NET .dll file containing a subclass of
 @code{GettextResourceSet}.
 
+@item --csharp-resources
+@opindex --csharp-resources@r{, @code{msgunfmt} option}
+@cindex C# resources mode, and @code{msgunfmt} program
+C# resources mode: input is a .NET @file{.resources} file.
+
 @item --tcl
 @opindex --tcl@r{, @code{msgunfmt} option}
 @cindex Tcl mode, and @code{msgunfmt} program

@@ -39,6 +39,7 @@
 #include "read-mo.h"
 #include "read-java.h"
 #include "read-csharp.h"
+#include "read-resources.h"
 #include "read-tcl.h"
 #include "write-po.h"
 #include "gettext.h"
@@ -60,6 +61,9 @@ static const char *csharp_resource_name;
 static const char *csharp_locale_name;
 static const char *csharp_base_directory;
 
+/* C# resources mode input file specification.  */
+static bool csharp_resources_mode;
+
 /* Tcl mode input file specification.  */
 static bool tcl_mode;
 static const char *tcl_locale_name;
@@ -72,6 +76,7 @@ static int force_po;
 static const struct option long_options[] =
 {
   { "csharp", no_argument, NULL, CHAR_MAX + 4 },
+  { "csharp-resources", no_argument, NULL, CHAR_MAX + 5 },
   { "escape", no_argument, NULL, 'E' },
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
@@ -100,6 +105,7 @@ static void usage (int status)
 	__attribute__ ((noreturn))
 #endif
 ;
+static void read_one_file (message_list_ty *mlp, const char *filename);
 
 
 int
@@ -223,6 +229,10 @@ main (int argc, char **argv)
 	csharp_mode = true;
 	break;
 
+      case CHAR_MAX + 5: /* --csharp-resources */
+	csharp_resources_mode = true;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -247,15 +257,32 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     usage (EXIT_SUCCESS);
 
   /* Check for contradicting options.  */
-  if (java_mode && csharp_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--java", "--csharp");
-  if (java_mode && tcl_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--java", "--tcl");
-  if (csharp_mode && tcl_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--csharp", "--tcl");
+  {
+    unsigned int modes =
+      (java_mode ? 1 : 0)
+      | (csharp_mode ? 2 : 0)
+      | (csharp_resources_mode ? 4 : 0)
+      | (tcl_mode ? 8 : 0);
+    static const char *mode_options[] =
+      { "--java", "--csharp", "--csharp-resources", "--tcl" };
+    /* More than one bit set?  */
+    if (modes & (modes - 1))
+      {
+	const char *first_option;
+	const char *second_option;
+	unsigned int i;
+	for (i = 0; ; i++)
+	  if (modes & (1 << i))
+	    break;
+	first_option = mode_options[i];
+	for (i = i + 1; ; i++)
+	  if (modes & (1 << i))
+	    break;
+	second_option = mode_options[i];
+	error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	       first_option, second_option);
+      }
+  }
   if (java_mode)
     {
       if (optind < argc)
@@ -349,11 +376,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       if (optind < argc)
 	{
 	  do
-	    read_mo_file (mlp, argv[optind]);
+	    read_one_file (mlp, argv[optind]);
 	  while (++optind < argc);
 	}
       else
-	read_mo_file (mlp, "-");
+	read_one_file (mlp, "-");
 
       result = msgdomain_list_alloc (false);
       result->item[0]->messages = mlp;
@@ -397,6 +424,8 @@ Operation mode:\n"));
   -j, --java                  Java mode: input is a Java ResourceBundle class\n"));
       printf (_("\
       --csharp                C# mode: input is a .NET .dll file\n"));
+      printf (_("\
+      --csharp-resources      C# resources mode: input is a .NET .resources file\n"));
       printf (_("\
       --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"));
       printf ("\n");
@@ -486,4 +515,14 @@ Informative output:\n"));
     }
 
   exit (status);
+}
+
+
+static void
+read_one_file (message_list_ty *mlp, const char *filename)
+{
+  if (csharp_resources_mode)
+    read_resources_file (mlp, filename);
+  else
+    read_mo_file (mlp, filename);
 }

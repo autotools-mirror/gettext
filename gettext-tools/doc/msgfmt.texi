@@ -45,6 +45,11 @@ Like --java, and assume Java2 (JDK 1.2 or higher).
 C# mode: generate a .NET .dll file containing a subclass of
 @code{GettextResourceSet}.
 
+@item --csharp-resources
+@opindex --csharp-resources@r{, @code{msgfmt} option}
+@cindex C# resources mode, and @code{msgfmt} program
+C# resources mode: generate a .NET @file{.resources} file.
+
 @item --tcl
 @opindex --tcl@r{, @code{msgfmt} option}
 @cindex Tcl mode, and @code{msgfmt} program

@@ -49,6 +49,7 @@
 #include "write-mo.h"
 #include "write-java.h"
 #include "write-csharp.h"
+#include "write-resources.h"
 #include "write-tcl.h"
 #include "write-qt.h"
 
@@ -97,6 +98,9 @@ static bool csharp_mode;
 static const char *csharp_resource_name;
 static const char *csharp_locale_name;
 static const char *csharp_base_directory;
+
+/* C# resources mode output file specification.  */
+static bool csharp_resources_mode;
 
 /* Tcl mode output file specification.  */
 static bool tcl_mode;
@@ -168,6 +172,7 @@ static const struct option long_options[] =
   { "check-format", no_argument, NULL, CHAR_MAX + 3 },
   { "check-header", no_argument, NULL, CHAR_MAX + 4 },
   { "csharp", no_argument, NULL, CHAR_MAX + 10 },
+  { "csharp-resources", no_argument, NULL, CHAR_MAX + 11 },
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "java", no_argument, NULL, 'j' },
@@ -339,6 +344,9 @@ main (int argc, char *argv[])
       case CHAR_MAX + 10: /* --csharp */
 	csharp_mode = true;
 	break;
+      case CHAR_MAX + 11: /* --csharp-resources */
+	csharp_resources_mode = true;
+	break;
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -370,24 +378,33 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Check for contradicting options.  */
-  if (java_mode && csharp_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--java", "--csharp");
-  if (java_mode && tcl_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--java", "--tcl");
-  if (java_mode && qt_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--java", "--qt");
-  if (csharp_mode && tcl_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--csharp", "--tcl");
-  if (csharp_mode && qt_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--csharp", "--qt");
-  if (tcl_mode && qt_mode)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--tcl", "--qt");
+  {
+    unsigned int modes =
+      (java_mode ? 1 : 0)
+      | (csharp_mode ? 2 : 0)
+      | (csharp_resources_mode ? 4 : 0)
+      | (tcl_mode ? 8 : 0)
+      | (qt_mode ? 16 : 0);
+    static const char *mode_options[] =
+      { "--java", "--csharp", "--csharp-resources", "--tcl", "--qt" };
+    /* More than one bit set?  */
+    if (modes & (modes - 1))
+      {
+	const char *first_option;
+	const char *second_option;
+	unsigned int i;
+	for (i = 0; ; i++)
+	  if (modes & (1 << i))
+	    break;
+	first_option = mode_options[i];
+	for (i = i + 1; ; i++)
+	  if (modes & (1 << i))
+	    break;
+	second_option = mode_options[i];
+	error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	       first_option, second_option);
+      }
+  }
   if (java_mode)
     {
       if (output_file_name != NULL)
@@ -474,8 +491,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (output_file_name != NULL)
     current_domain =
       new_domain (output_file_name,
-		  !qt_mode && strict_uniforum ? add_mo_suffix (output_file_name)
-					      : output_file_name);
+		  strict_uniforum && !csharp_resources_mode && !qt_mode
+		  ? add_mo_suffix (output_file_name)
+		  : output_file_name);
 
   /* Process all given .po files.  */
   while (argc > optind)
@@ -523,6 +541,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	  if (msgdomain_write_csharp (domain->mlp, canon_encoding,
 				      csharp_resource_name, csharp_locale_name,
 				      csharp_base_directory))
+	    exit_status = EXIT_FAILURE;
+	}
+      else if (csharp_resources_mode)
+	{
+	  if (msgdomain_write_csharp_resources (domain->mlp, canon_encoding,
+						domain->domain_name,
+						domain->file_name))
 	    exit_status = EXIT_FAILURE;
 	}
       else if (tcl_mode)
@@ -613,6 +638,8 @@ Operation mode:\n"));
       --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"));
       printf (_("\
       --csharp                C# mode: generate a .NET .dll file\n"));
+      printf (_("\
+      --csharp-resources      C# resources mode: generate a .NET .resources file\n"));
       printf (_("\
       --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"));
       printf (_("\
@@ -1479,8 +1506,8 @@ msgfmt_set_domain (default_po_reader_ty *this, char *name)
 {
   /* If no output file was given, we change it with each `domain'
      directive.  */
-  if (!java_mode && !csharp_mode && !tcl_mode && !qt_mode
-      && output_file_name == NULL)
+  if (!java_mode && !csharp_mode && !csharp_resources_mode && !tcl_mode
+      && !qt_mode && output_file_name == NULL)
     {
       size_t correct;
 

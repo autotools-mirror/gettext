@@ -19,14 +19,15 @@
 
 /*
  * This program dumps a GettextResourceSet subclass (in a satellite assembly)
- * as a PO file.
+ * or a .resources file as a PO file.
  */
 
 using System; /* Object, String, Type, Console, Exception */
 using System.Reflection; /* Assembly, MethodInfo, ConstructorInfo */
-using System.Collections; /* Hashtable */
+using System.Collections; /* Hashtable, DictionaryEntry */
 using System.IO; /* BufferedStream, StreamWriter, TextWriter, FileNotFoundException, Path */
 using System.Text; /* StringBuilder, UTF8Encoding */
+using System.Resources; /* ResourceReader */
 using GNU.Gettext; /* GettextResourceSet */
 
 namespace GNU.Gettext {
@@ -68,6 +69,9 @@ namespace GNU.Gettext {
       }
       Out.Write('\n');
     }
+
+    // ---------------- Dumping a GettextResourceSet ----------------
+
     private void Dump (GettextResourceSet catalog) {
       MethodInfo pluralMethod =
         catalog.GetType().GetMethod("GetMsgidPluralTable", Type.EmptyTypes);
@@ -177,9 +181,50 @@ namespace GNU.Gettext {
       Out.Close();
       stream.Close();
     }
+
+    // ----------------- Dumping a .resources file ------------------
+
+    public DumpResource (String filename) {
+      BufferedStream stream = new BufferedStream(Console.OpenStandardOutput());
+      Out = new StreamWriter(stream, new UTF8Encoding());
+      ResourceReader rr;
+      if (filename.Equals("-")) {
+        BufferedStream input = new BufferedStream(Console.OpenStandardInput());
+        // A temporary output stream is needed because ResourceReader expects
+        // to be able to seek in the Stream.
+        byte[] contents;
+        {
+          MemoryStream tmpstream = new MemoryStream();
+          byte[] buf = new byte[1024];
+          for (;;) {
+            int n = input.Read(buf, 0, 1024);
+            if (n == 0)
+              break;
+            tmpstream.Write(buf, 0, n);
+          }
+          contents = tmpstream.ToArray();
+          tmpstream.Close();
+        }
+        MemoryStream tmpinput = new MemoryStream(contents);
+        rr = new ResourceReader(tmpinput);
+      } else {
+        rr = new ResourceReader(filename);
+      }
+      foreach (DictionaryEntry entry in rr) // uses rr.GetEnumerator()
+        DumpMessage(entry.Key as String, null, entry.Value as String);
+      rr.Close();
+      Out.Close();
+      stream.Close();
+    }
+
+    // --------------------------------------------------------------
+
     public static int Main (String[] args) {
       try {
-        new DumpResource(args[0], args[1], args[2]);
+        if (args.Length > 1)
+          new DumpResource(args[0], args[1], args[2]);
+        else
+          new DumpResource(args[0]);
       } catch (Exception e) {
         Console.Error.WriteLine(e);
         Console.Error.WriteLine(e.StackTrace);
