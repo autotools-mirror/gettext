@@ -1,5 +1,10 @@
 2002-04-08  Bruno Haible  <bruno@clisp.org>
 
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Handle -R options that appear
+	in $dependency_libs, for example on HP-UX 10.20 and OSF/1.
+	Reported by Albert Chin-A-Young <china@thewrittenword.com>
+	and Nelson H. F. Beebe <beebe@math.utah.edu>.
+
 	* javacomp.m4 (gt_JAVACOMP): Test whether "gcj -C" really works, to
 	protect against systems where libgcj.jar is missing or misinstalled.
 
