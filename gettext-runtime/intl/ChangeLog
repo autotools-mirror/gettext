@@ -1,3 +1,21 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Big restructuring.
+	* Makefile.in: Make usable with $srcdir != $builddir even when not
+	using GNU make.
+	(VPATH): Remove variable.
+	(.c.lo): Remove rule. Use a separate rule for every object file.
+	(libintl.h, charset.alias, $(OBJECTS)): Refer to $srcdir where
+	appropriate.
+	(INCLUDES): Simplify.
+	(install-exec): Special case packages 'gettext-runtime' and
+	'gettext-tools'.
+	(install-data): Special case package 'gettext-tools'.
+	(installdirs, uninstall): Special case packages 'gettext-runtime' and
+	'gettext-tools'.
+	(distclean, dist): Likewise.
+	(Makefile): Work around autoconf error message.
+
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.h: New file.

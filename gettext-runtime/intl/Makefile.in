@@ -1,4 +1,4 @@
-# Makefile for directory with message catalog handling in GNU NLS Utilities.
+# Makefile for directory with message catalog handling library of GNU gettext
 # Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -24,7 +24,6 @@ SHELL = /bin/sh
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 top_builddir = ..
-VPATH = @srcdir@
 
 prefix = @prefix@
 exec_prefix = @exec_prefix@
@@ -59,16 +58,58 @@ LDFLAGS = @LDFLAGS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-HEADERS = gmo.h gettextP.h hash-string.h loadinfo.h plural-exp.h \
-eval-plural.h localcharset.h os2compat.h libgnuintl.h
-SOURCES = bindtextdom.c dcgettext.c dgettext.c gettext.c \
-finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
-explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
-plural-exp.c localcharset.c localename.c osdep.c os2compat.c intl-compat.c
-OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
-finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
-explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
-plural.$lo plural-exp.$lo localcharset.$lo localename.$lo osdep.$lo
+HEADERS = \
+  gmo.h \
+  gettextP.h \
+  hash-string.h \
+  loadinfo.h \
+  plural-exp.h \
+  eval-plural.h \
+  localcharset.h \
+  os2compat.h \
+  libgnuintl.h
+SOURCES = \
+  bindtextdom.c \
+  dcgettext.c \
+  dgettext.c \
+  gettext.c \
+  finddomain.c \
+  loadmsgcat.c \
+  localealias.c \
+  textdomain.c \
+  l10nflist.c \
+  explodename.c \
+  dcigettext.c \
+  dcngettext.c \
+  dngettext.c \
+  ngettext.c \
+  plural.y \
+  plural-exp.c \
+  localcharset.c \
+  localename.c \
+  osdep.c \
+  os2compat.c \
+  intl-compat.c
+OBJECTS = @INTLOBJS@ \
+  bindtextdom.$lo \
+  dcgettext.$lo \
+  dgettext.$lo \
+  gettext.$lo \
+  finddomain.$lo \
+  loadmsgcat.$lo \
+  localealias.$lo \
+  textdomain.$lo \
+  l10nflist.$lo \
+  explodename.$lo \
+  dcigettext.$lo \
+  dcngettext.$lo \
+  dngettext.$lo \
+  ngettext.$lo \
+  plural.$lo \
+  plural-exp.$lo \
+  localcharset.$lo \
+  localename.$lo \
+  osdep.$lo
 GETTOBJS = intl-compat.$lo
 DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
@@ -77,32 +118,6 @@ DISTFILES.normal = VERSION
 DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
 COPYING.LIB-2 gettext.h libgettext.h plural-eval.c
-
-# Libtool's library version information for libintl.
-# Before making a gettext release, the gettext maintainer must change this
-# according to the libtool documentation, section "Library interface versions".
-# Maintainers of other packages that include the intl directory must *not*
-# change these values.
-LTV_CURRENT=4
-LTV_REVISION=0
-LTV_AGE=2
-
-.SUFFIXES:
-.SUFFIXES: .c .y .o .lo .sin .sed
-.c.o:
-	$(COMPILE) $<
-.c.lo:
-	$(LIBTOOL) --mode=compile $(COMPILE) $<
-
-.y.c:
-	$(YACC) $(YFLAGS) --output $@ $<
-	rm -f $*.h
-
-.sin.sed:
-	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $< > t-$@
-	mv t-$@ $@
-
-INCLUDES = -I.. -I. -I$(top_srcdir)/intl
 
 all: all-@USE_INCLUDED_LIBINTL@
 all-yes: libintl.$la libintl.h charset.alias ref-add.sed ref-del.sed
@@ -123,10 +138,76 @@ libintl.la libgnuintl.la: $(OBJECTS)
 	  -rpath $(libdir) \
 	  -no-undefined
 
-libintl.h: libgnuintl.h
+# Libtool's library version information for libintl.
+# Before making a gettext release, the gettext maintainer must change this
+# according to the libtool documentation, section "Library interface versions".
+# Maintainers of other packages that include the intl directory must *not*
+# change these values.
+LTV_CURRENT=4
+LTV_REVISION=0
+LTV_AGE=2
+
+.SUFFIXES:
+.SUFFIXES: .c .y .o .lo .sin .sed
+
+.c.o:
+	$(COMPILE) $<
+
+.y.c:
+	$(YACC) $(YFLAGS) --output $@ $<
+	rm -f $*.h
+
+.sin.sed:
+	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $< > t-$@
+	mv t-$@ $@
+
+bindtextdom.lo: $(srcdir)/bindtextdom.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/bindtextdom.c
+dcgettext.lo: $(srcdir)/dcgettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dcgettext.c
+dgettext.lo: $(srcdir)/dgettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dgettext.c
+gettext.lo: $(srcdir)/gettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/gettext.c
+finddomain.lo: $(srcdir)/finddomain.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/finddomain.c
+loadmsgcat.lo: $(srcdir)/loadmsgcat.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/loadmsgcat.c
+localealias.lo: $(srcdir)/localealias.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localealias.c
+textdomain.lo: $(srcdir)/textdomain.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/textdomain.c
+l10nflist.lo: $(srcdir)/l10nflist.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/l10nflist.c
+explodename.lo: $(srcdir)/explodename.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/explodename.c
+dcigettext.lo: $(srcdir)/dcigettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dcigettext.c
+dcngettext.lo: $(srcdir)/dcngettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dcngettext.c
+dngettext.lo: $(srcdir)/dngettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dngettext.c
+ngettext.lo: $(srcdir)/ngettext.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/ngettext.c
+plural.lo: $(srcdir)/plural.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/plural.c
+plural-exp.lo: $(srcdir)/plural-exp.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/plural-exp.c
+localcharset.lo: $(srcdir)/localcharset.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localcharset.c
+localename.lo: $(srcdir)/localename.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localename.c
+osdep.lo: $(srcdir)/osdep.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
+intl-compat.lo: $(srcdir)/intl-compat.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
+
+INCLUDES = -I.. -I. -I$(srcdir)
+
+libintl.h: $(srcdir)/libgnuintl.h
 	cp $(srcdir)/libgnuintl.h libintl.h
 
-charset.alias: config.charset
+charset.alias: $(srcdir)/config.charset
 	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
 	mv t-$@ $@
 
@@ -142,7 +223,7 @@ check: all
 # package, you have to use `configure --with-included-gettext'.
 install: install-exec install-data
 install-exec: all
-	if test "$(PACKAGE)" = "gettext" \
+	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	  $(INSTALL_DATA) libintl.h $(DESTDIR)$(includedir)/libintl.h; \
@@ -181,7 +262,7 @@ install-exec: all
 	  : ; \
 	fi
 install-data: all
-	if test "$(PACKAGE)" = "gettext"; then \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
 	  $(INSTALL_DATA) ChangeLog.inst $(DESTDIR)$(gettextsrcdir)/ChangeLog; \
@@ -208,7 +289,7 @@ install-data: all
 install-strip: install
 
 installdirs:
-	if test "$(PACKAGE)" = "gettext" \
+	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	else \
@@ -220,7 +301,7 @@ installdirs:
 	else \
 	  : ; \
 	fi
-	if test "$(PACKAGE)" = "gettext"; then \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	else \
 	  : ; \
@@ -230,7 +311,7 @@ installdirs:
 installcheck:
 
 uninstall:
-	if test "$(PACKAGE)" = "gettext" \
+	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  rm -f $(DESTDIR)$(includedir)/libintl.h; \
 	  $(LIBTOOL) --mode=uninstall \
@@ -264,7 +345,7 @@ uninstall:
 	else \
 	  : ; \
 	fi
-	if test "$(PACKAGE)" = "gettext"; then \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  for file in VERSION ChangeLog COPYING.LIB-2.0 COPYING.LIB-2.1 $(DISTFILES.common) $(DISTFILES.generated); do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
@@ -274,12 +355,12 @@ uninstall:
 
 info dvi ps pdf html:
 
-$(OBJECTS): ../config.h libgnuintl.h
-bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: gettextP.h gmo.h loadinfo.h
-dcigettext.$lo: hash-string.h
-explodename.$lo l10nflist.$lo: loadinfo.h
-dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: plural-exp.h
-dcigettext.$lo: eval-plural.h
+$(OBJECTS): ../config.h $(srcdir)/libgnuintl.h
+bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+dcigettext.$lo: $(srcdir)/hash-string.h
+explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
+dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: $(srcdir)/plural-exp.h
+dcigettext.$lo: $(srcdir)/eval-plural.h
 
 tags: TAGS
 
@@ -306,7 +387,7 @@ clean: mostlyclean
 
 distclean: clean
 	rm -f Makefile ID TAGS
-	if test "$(PACKAGE)" = gettext; then \
+	if test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; then \
 	  rm -f ChangeLog.inst $(DISTFILES.normal); \
 	else \
 	  : ; \
@@ -321,20 +402,26 @@ maintainer-clean: distclean
 # other files which should not be distributed in other packages.
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
 dist distdir: Makefile
-	if test "$(PACKAGE)" = gettext; then \
-	  additional="$(DISTFILES.gettext)"; \
+	if test "$(PACKAGE)" = "gettext-tools"; then \
+	  : ; \
 	else \
-	  additional="$(DISTFILES.normal)"; \
-	fi; \
-	$(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
-	for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
-	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
-	  cp -p $$dir/$$file $(distdir); \
-	done
+	  if test "$(PACKAGE)" = "gettext-runtime"; then \
+	    additional="$(DISTFILES.gettext)"; \
+	  else \
+	    additional="$(DISTFILES.normal)"; \
+	  fi; \
+	  $(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
+	  for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
+	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
+	    cp -p $$dir/$$file $(distdir); \
+	  done; \
+	fi
 
-Makefile: Makefile.in ../config.status
-	cd .. \
-	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+	cd $(top_builddir) && $(SHELL) ./config.status
+# This would be more efficient, but doesn't work any more with autoconf-2.57,
+# when AC_CONFIG_FILES([intl/Makefile:somedir/Makefile.in]) is used.
+#	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 # Tell versions [3.59,3.63) of GNU make not to export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
