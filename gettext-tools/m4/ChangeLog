@@ -1,3 +1,18 @@
+2005-01-19  Bruno Haible  <bruno@clisp.org>
+
+	* alloca.m4, allocsa.m4, backupfile.m4, canonicalize.m4, csharpcomp.m4:
+	* csharpexec.m4, csharp.m4, eaccess.m4, eealloc.m4, error.m4:
+	* exitfail.m4, extensions.m4, fnmatch.m4, gcj.m4, getline.m4:
+	* getndelim2.m4, getopt.m4, hard-locale.m4, hostname.m4, javacomp.m4:
+	* javaexec.m4, libgrep.m4, locale-fr.m4, mbrtowc.m4, mbstate_t.m4:
+	* mbswidth.m4, memchr.m4, mkdtemp.m4, onceonly.m4, pathmax.m4:
+	* quotearg.m4, quote.m4, readlink.m4, relocatable.m4, restrict.m4:
+	* setenv.m4, setlocale.m4, sig_atomic_t.m4, siginfo.m4:
+	* signalblocking.m4, ssize_t.m4, stdbool.m4, stpncpy.m4, strcase.m4:
+	* strdup.m4, strerror.m4, strerror_r.m4, tmpdir.m4, unionwait.m4:
+	* unlocked-io.m4, xreadlink.m4:
+	Use an all-permissive copyright notice, recommended by RMS.
+
 2005-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* stpncpy.m4 (gl_FUNC_STPNCPY): Rename the replacement function to
