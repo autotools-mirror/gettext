@@ -964,8 +964,8 @@ Content-Type into a Mule coding system.")
 	"\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-	(and (file-exists-p filename)
-	     (eq operation 'insert-file-contents)
+	(and (eq operation 'insert-file-contents)
+	     (file-exists-p filename)
 	     (po-with-temp-buffer
 	       (let ((coding-system-for-read 'no-conversion))
                  (let* ((charset (or (po-find-charset filename)

@@ -1,7 +1,14 @@
+2002-03-11  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-find-file-coding-system-guts): Checking
+	'insert-file-contents' must come first to avoid messing up with
+	arguments.
+	Reported by Neil Darlow; fixed by Andreas Schwab.
+
 2002-03-09  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-find-file-coding-system-guts): Don't try to
-	detect the coding system when filename does not exists.
+	detect the coding system when filename does not exist.
 	(po-compute-counters): Search for "^msgid" not 'po-next-entry' if
 	we don't know for sure any entry will follow at all.
 
