@@ -49,6 +49,9 @@
 
 ;;; Code:
 
+(defconst po-mode-version-string "1.90" "\
+Version number of this version of po-mode.el.")
+
 ;;; Emacs portability matters - part I.
 ;;; Here is the minimum for customization to work.  See part II.
 
@@ -618,8 +621,7 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 (defun po-mode-version ()
   "Show Emacs PO mode version."
   (interactive)
-  (message (_"Emacs PO mode, version %s")
-	   (substring "$Revision: 1.1.1.1 $" 11 -2)))
+  (message (_"Emacs PO mode, version %s") po-mode-version-string))
 
 (defconst po-help-display-string
   (_"\
