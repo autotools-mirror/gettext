@@ -1,3 +1,7 @@
+2002-03-14  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-team-name-to-code): Add es_AR, zh_CN, and zh_TW.
+
 2002-03-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.1 released.
