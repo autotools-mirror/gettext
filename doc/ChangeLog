@@ -25,7 +25,8 @@
 
 	* gettext.texi (Plural forms): Add section about Lithuanian, reported
 	by Ricardas Cepas <rch@richard.eu.org>. Fix formula for Slovenian,
-	reported by Roman Maurer <roman.maurer@amis.net>.
+	reported by Roman Maurer <roman.maurer@amis.net>. Ukrainian is like
+	Russian, reported by Andy Rysin <arysin@yahoo.com>.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
