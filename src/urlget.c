@@ -245,25 +245,110 @@ fetch (url, file)
      const char *url;
      const char *file;
 {
-  const char *class_name = "gnu.gettext.GetURL";
-  const char *gettextjar;
-  const char *args[2];
+  /* First try: using Java.  */
+  {
+    const char *class_name = "gnu.gettext.GetURL";
+    const char *gettextjar;
+    const char *args[2];
 
-  /* Make it possible to override the gettext.jar location.  This is
-     necessary for running the testsuite before "make install".  */
-  gettextjar = getenv ("GETTEXTJAR");
-  if (gettextjar == NULL || gettextjar[0] == '\0')
-    gettextjar = GETTEXTJAR;
+    /* Make it possible to override the gettext.jar location.  This is
+       necessary for running the testsuite before "make install".  */
+    gettextjar = getenv ("GETTEXTJAR");
+    if (gettextjar == NULL || gettextjar[0] == '\0')
+      gettextjar = GETTEXTJAR;
 
-  /* Prepare arguments.  */
-  args[0] = url;
-  args[1] = NULL;
+    /* Prepare arguments.  */
+    args[0] = url;
+    args[1] = NULL;
 
-  /* Fetch the URL's contents.  */
-  if (execute_java_class (class_name, &gettextjar, 1, true,
-			  args,
-			  false,
-			  execute_it, NULL))
-    /* Use the file as fallback.  */
-    cat_file (file);
+    /* Fetch the URL's contents.  */
+    if (execute_java_class (class_name, &gettextjar, 1, true,
+			    args,
+			    false, true,
+			    execute_it, NULL) == 0)
+      return;
+  }
+
+  /* Second try: using "wget -q -O - url".  */
+  {
+    static bool wget_tested;
+    static bool wget_present;
+
+    if (!wget_tested)
+      {
+	/* Test for presence of wget: "wget --version > /dev/null"  */
+	char *argv[3];
+	int exitstatus;
+
+	argv[0] = "wget";
+	argv[1] = "--version";
+	argv[2] = NULL;
+	exitstatus = execute ("wget", "wget", argv, false, true, true, false);
+	wget_present = (exitstatus == 0);
+	wget_tested = true;
+      }
+
+    if (wget_present)
+      {
+	char *argv[8];
+	int exitstatus;
+
+	argv[0] = "wget";
+	argv[1] = "-q";
+	argv[2] = "-O"; argv[3] = "-";
+	argv[4] = "-T"; argv[5] = "30";
+	argv[6] = (char *) url;
+	argv[7] = NULL;
+	exitstatus = execute ("wget", "wget", argv, false, false, false, false);
+	if (exitstatus != 127)
+	  {
+	    if (exitstatus != 0)
+	      /* Use the file as fallback.  */
+	      cat_file (file);
+	    return;
+	  }
+      }
+  }
+
+  /* Third try: using "lynx -source url".  */
+  {
+    static bool lynx_tested;
+    static bool lynx_present;
+
+    if (!lynx_tested)
+      {
+	/* Test for presence of lynx: "lynx --version > /dev/null"  */
+	char *argv[3];
+	int exitstatus;
+
+	argv[0] = "lynx";
+	argv[1] = "--version";
+	argv[2] = NULL;
+	exitstatus = execute ("lynx", "lynx", argv, false, true, true, false);
+	lynx_present = (exitstatus == 0);
+	lynx_tested = true;
+      }
+
+    if (lynx_present)
+      {
+	char *argv[4];
+	int exitstatus;
+
+	argv[0] = "lynx";
+	argv[1] = "-source";
+	argv[2] = (char *) url;
+	argv[3] = NULL;
+	exitstatus = execute ("lynx", "lynx", argv, false, false, false, false);
+	if (exitstatus != 127)
+	  {
+	    if (exitstatus != 0)
+	      /* Use the file as fallback.  */
+	      cat_file (file);
+	    return;
+	  }
+      }
+  }
+
+  /* Use the file as fallback.  */
+  cat_file (file);
 }

@@ -1,5 +1,8 @@
 2001-11-24  Bruno Haible  <bruno@clisp.org>
 
+	* urlget.c (fetch): Call execute_java_class with quiet=true. If Java
+	program failed, try wget or lynx.
+
 	* read-java.c (msgdomain_read_java): Update for changed
 	execute_java_class parameter list.
 
