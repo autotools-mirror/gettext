@@ -154,7 +154,13 @@ or remove the -m if you are not using the GNU version of `uuencode'."
   (fset 'po-buffer-substring
 	(symbol-function (if (fboundp 'buffer-substring-no-properties)
 			     'buffer-substring-no-properties
-			   'buffer-substring))))
+			   'buffer-substring)))
+
+  (if (fboundp 'match-string-no-properties)
+      (fset 'po-match-string (symbol-function 'match-string-no-properties))
+    (defun po-match-string (number)
+      "Return string of text matched by last search."
+      (po-buffer-substring (match-beginning number) (match-end number)))))
 
 ;; Handle missing `with-temp-buffer' function.
 (eval-and-compile
@@ -1543,9 +1549,7 @@ described by FORM is merely identical to the msgid already in place."
     (save-excursion
       (goto-char po-start-of-entry)
       (re-search-forward po-any-msgid-regexp po-start-of-msgstr)
-      (and (not (string-equal (po-buffer-substring (match-beginning 0)
-						   (match-end 0))
-			      string))
+      (and (not (string-equal (po-match-string 0) string))
 	   (let ((buffer-read-only po-read-only))
 	     (replace-match string t t)
 	     (goto-char po-start-of-msgid)
@@ -1570,9 +1574,7 @@ described by FORM is merely identical to the msgstr already in place."
           (setq msgstr-idx (buffer-substring-no-properties
                      (match-beginning 0) (match-end 0)))))
       (re-search-forward po-any-msgstr-regexp po-end-of-entry)
-      (and (not (string-equal (po-buffer-substring (match-beginning 0)
-						   (match-end 0))
-			      string))
+      (and (not (string-equal (po-match-string 0) string))
 	   (let ((buffer-read-only po-read-only))
 	     (po-decrease-type-counter)
 	     (replace-match string t t)
@@ -1707,9 +1709,7 @@ The string is properly recommented before the replacement occurs."
     (if (re-search-forward
 	 (if obsolete po-obsolete-comment-regexp po-active-comment-regexp)
 	 po-end-of-entry t)
-	(if (not (string-equal (po-buffer-substring (match-beginning 0)
-						    (match-end 0))
-			       string))
+	(if (not (string-equal (po-match-string 0) string))
 	    (let ((buffer-read-only po-read-only))
 	      (replace-match string t t)))
       (skip-chars-forward " \t\n")
@@ -2128,10 +2128,8 @@ the file without moving its cursor."
       (if (re-search-forward "^#:" po-start-of-msgid t)
 	  (while (looking-at "\\(\n#:\\)? *\\([^: ]+\\):\\([0-9]+\\)")
 	    (goto-char (match-end 0))
-	    (let* ((name (po-buffer-substring (match-beginning 2)
-					      (match-end 2)))
-		   (line (po-buffer-substring (match-beginning 3)
-					      (match-end 3)))
+	    (let* ((name (po-match-string 2))
+		   (line (po-match-string 3))
 		   (path po-search-path)
 		   file)
 	      (while (and (progn (setq file (concat (car (car path)) name))
@@ -2532,7 +2530,7 @@ Return the adjusted value for END."
 	   (format "%d%03d%03d"
 		   (string-to-int (match-string 1))
 		   (string-to-int (match-string 2))
-                   (string-to-int (or (match-string 3) "0"))))
+		   (string-to-int (or (match-string 3) "0"))))
 	  010036)
 
       ;; Remember the outcome.
@@ -2554,8 +2552,8 @@ Return the adjusted value for END."
       (if (re-search-forward
 	   "\n\"Project-Id-Version:\\( GNU\\)? \\([^\n ]+\\) \\([^\n ]+\\)\\\\n\"$"
 	   end-of-header t)
-	  (setq package (buffer-substring (match-beginning 2) (match-end 2))
-		version (buffer-substring (match-beginning 3) (match-end 3))))
+	  (setq package (po-match-string 2)
+		version (po-match-string 3)))
       (if (or (not package) (string-equal package "PACKAGE")
 	      (not version) (string-equal version "VERSION"))
 	  (error (_"Project-Id-Version field does not have a proper value")))
@@ -2563,7 +2561,7 @@ Return the adjusted value for END."
       (goto-char start-of-header)
       (if (re-search-forward "\n\"Language-Team:.*<\\(.*\\)@li.org>\\\\n\"$"
 			     end-of-header t)
-	  (setq team (buffer-substring (match-beginning 1) (match-end 1))))
+	  (setq team (po-match-string 1)))
       (if (or (not team) (string-equal team "LL"))
 	  (error (_"Language-Team field does not have a proper value")))
       ;; Compose the name.
@@ -2579,10 +2577,10 @@ Return the adjusted value for END."
       (if (re-search-forward
 	   "\n\"Language-Team: +\\(.*<\\(.*\\)@li.org>\\)\\\\n\"$"
 	   (match-end 0) t)
-	  (setq team (buffer-substring (match-beginning 2) (match-end 2))))
+	  (setq team (po-match-string 2)))
       (if (or (not team) (string-equal team "LL"))
 	  (error (_"Language-Team field does not have a proper value")))
-      (buffer-substring (match-beginning 1) (match-end 1)))))
+      (po-match-string 1))))
 
 (defun po-send-mail ()
   "Start composing a letter, possibly including the current PO file."

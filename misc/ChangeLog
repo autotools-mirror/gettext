@@ -1,3 +1,13 @@
+1999-07-25  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-match-string): New function.
+	(po-set-msgid): Use it.
+	(po-set-msgstr): Likewise.
+	(po-set-comment): Likewise.
+	(po-ensure-source-references): Likewise.
+	(po-guess-archive-name): Likewise.
+	(po-guess-team-address): Likewise.
+
 2000-08-11  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Move blocks of code around in view of later patches.
