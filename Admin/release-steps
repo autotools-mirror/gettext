@@ -8,8 +8,6 @@ Tasks not to forget before release:
 - Update {lib,intl}/{localcharset.c,config.charset} from libcharset inside
   libiconv.
 
-- Update djgpp/*.
-
 - Update -version-info arguments in intl/Makefile.in.
   * increment LTV_REVISION,
   * if any functions/classes have been added, removed or changed, increment
@@ -22,4 +20,10 @@ Tasks not to forget before release:
 - Bump po-mode-version-string in misc/po-mode.el.
 
 - Bump version number and release date in configure.in.
+
+- Update djgpp/*.
+
+- "make"; "make dist"; "make distcheck"
+- cd misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
+- again: "make dist"
 
