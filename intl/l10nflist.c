@@ -54,11 +54,6 @@
 /* @@ end of prolog @@ */
 
 #ifdef _LIBC
-/* Use more efficient version of <ctype.h> function.  */
-# define tolower _tolower
-#endif
-
-#ifdef _LIBC
 /* Rename the non ANSI C functions.  This is required by the standard
    because some ANSI C functions will require linking with this object
    file and the name space must not be polluted.  */

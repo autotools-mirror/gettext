@@ -242,7 +242,6 @@
 	(_nl_find_language): Convert to K&R C syntax.
 	* finddomain.c: Include stdlib.h whenever possible.
 	* l10nflist.c Include stdlib.h whenever possible.
-	(tolower): Conditional macro.
 	(_nl_normalize_codeset): Use tolower, not _tolower.
 	* loadmsgcat.c: Include stdlib.h whenever possible.
 	Include headers needed for alloca().
