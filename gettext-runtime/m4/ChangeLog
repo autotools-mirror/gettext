@@ -1,0 +1,8 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Restructure gettext package.
+	* ansi-c++.m4: New file.
+	* gettext.m4 (AM_GNU_GETTEXT): Special case the packages
+	'gettext-runtime' and 'gettext-tools'.
+	* Makefile.am: New file.
+

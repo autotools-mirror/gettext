@@ -1,5 +1,5 @@
 # gettext.m4 serial 18 (gettext-0.11.6)
-dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -216,7 +216,8 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
         dnl libintl.  (Cf. the install rule in intl/Makefile.in.)
         if test "$gt_cv_func_gnugettext_libc" = "yes" \
            || { test "$gt_cv_func_gnugettext_libintl" = "yes" \
-                && test "$PACKAGE" != gettext; }; then
+                && test "$PACKAGE" != gettext-runtime \
+                && test "$PACKAGE" != gettext-tools; }; then
           gt_use_preinstalled_gnugettext=yes
         else
           dnl Reset the values set by searching for libintl.
@@ -299,7 +300,7 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
   ifelse(gt_included_intl, yes, [
     dnl If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
     dnl to 'yes' because some of the testsuite requires it.
-    if test "$PACKAGE" = gettext; then
+    if test "$PACKAGE" = gettext-runtime || test "$PACKAGE" = gettext-tools; then
       BUILD_INCLUDED_LIBINTL=yes
     fi
 
