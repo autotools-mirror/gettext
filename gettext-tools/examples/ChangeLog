@@ -1,3 +1,8 @@
+2003-11-30  Bruno Haible  <bruno@clisp.org>
+
+	* po/es.po: New file, from Max de Mendizábal <max@upn.mx>.
+	* po/LINGUAS: Add es.
+
 2003-11-24  Bruno Haible  <bruno@clisp.org>
 
 	* po/ca.po: New file, from Ivan Vilata i Balaguer <ivan@selidor.net>.
