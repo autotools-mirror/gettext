@@ -19,6 +19,13 @@
 #ifndef _PIPE_H
 #define _PIPE_H
 
+/* Get pid_t.  */
+#include <stdlib.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+#include <sys/types.h>
+
 /* Open a pipe for output to a child process.
  * The child's stdout goes to a file.
  *

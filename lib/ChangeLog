@@ -1,3 +1,10 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* pipe.h: Ensure pid_t gets declared.
+	* pipe-bidi.c: Include pipe.h.
+	* pipe-in.c: Likewise.
+	* pipe-out.c: Likewise.
+
 2001-08-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* printf-parse.h: Remove file.

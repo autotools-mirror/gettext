@@ -21,6 +21,8 @@
 # include "config.h"
 #endif
 
+#include "pipe.h"
+
 #include <errno.h>
 #include <stdlib.h>
 
