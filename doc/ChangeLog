@@ -1,3 +1,7 @@
+2001-06-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* nls.texi (Using gettext in own code): Clarify copyright wording.
+
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am: (installdirs): New dependency. Yet another automake bug.
