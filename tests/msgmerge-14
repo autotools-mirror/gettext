@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles mm-test14.in1"
-cat <<EOF > mm-test14.in1
+tmpfiles="$tmpfiles mm-test14.po"
+cat <<EOF > mm-test14.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -60,13 +60,14 @@ msgstr ""
 EOF
 
 tmpfiles="$tmpfiles mm-test14.bak"
-cp mm-test14.in1 mm-test14.bak
+cp mm-test14.po mm-test14.bak
 
+tmpfiles="$tmpfiles mm-test14.po~"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --update mm-test14.in1 mm-test14.pot
+${MSGMERGE} -q --update mm-test14.po mm-test14.pot
 
 : ${DIFF=diff}
-${DIFF} mm-test14.bak mm-test14.in1
+${DIFF} mm-test14.bak mm-test14.po
 result=$?
 
 rm -fr $tmpfiles

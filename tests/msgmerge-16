@@ -50,6 +50,7 @@ msgid "white"
 msgstr ""
 EOF
 
+tmpfiles="$tmpfiles mm-test16.po~"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q --update mm-test16.po mm-test16.pot
 
