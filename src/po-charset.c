@@ -92,7 +92,7 @@ po_charset_canonicalize (charset)
 }
 
 /* The PO file's encoding, as specified in the header entry.  */
-static const char *po_lex_charset;
+const char *po_lex_charset;
 
 #if HAVE_ICONV
 /* Converter from the PO file's encoding to UTF-8.  */

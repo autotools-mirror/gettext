@@ -1,3 +1,11 @@
+2001-07-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* utf8-ucs4.h: New file, extracted from linebreak.c.
+	* utf16-ucs4.h: New file, extracted from linebreak.c.
+	* linebreak.c (u8_mbtouc_aux, u8_mbtouc): Moved to utf8-ucs4.h.
+	(u16_mbtouc_aux, u16_mbtouc): Moved to utf16-ucs4.h.
+	* Makefile.am (noinst_HEADERS): Add utf8-ucs4.h, utf16-ucs4.h.
+
 2001-06-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* stdbool.h.in: New file.

@@ -25,6 +25,7 @@
 #include "error.h"
 #include "progname.h"
 #include "pos.h"
+#include "xerror.h"
 
 /* Lexical analyzer for reading PO files.  */
 
@@ -33,6 +34,7 @@
 
 /* Current position within the PO file.  */
 extern lex_pos_ty gram_pos;
+extern int gram_pos_column;
 
 /* Number of parse errors within a PO file that cause the program to
    terminate.  Cf. error_message_count, declared in <error.h>.  */
@@ -68,16 +70,17 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
 
 # define po_gram_error(fmt, ...)					    \
   do {									    \
+    char *totalfmt = xasprintf ("%s%s", "%s:%d:%d: ", fmt);		    \
     error_with_progname = false;					    \
-    error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
-		    fmt, __VA_ARGS__);					    \
+    error (0, 0, totalfmt, gram_pos.file_name, gram_pos.line_number,	    \
+	   gram_pos_column + 1, __VA_ARGS__);				    \
     error_with_progname = true;						    \
+    free (totalfmt);							    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
       error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
-
 
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */
@@ -102,16 +105,17 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
 
 # define po_gram_error(fmt, args...)					    \
   do {									    \
+    char *totalfmt = xasprintf ("%s%s", "%s:%d:%d: ", fmt);		    \
     error_with_progname = false;					    \
-    error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
-		    fmt, ## args);					    \
+    error (0, 0, totalfmt, gram_pos.file_name, gram_pos.line_number,	    \
+	   gram_pos_column + 1 , ## args);				    \
     error_with_progname = true;						    \
+    free (totalfmt);							    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
       error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
-
 
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */
@@ -120,7 +124,7 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
   do {									    \
     error_with_progname = false;					    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
-		    fmt, ## args);					    \
+		    fmt , ## args);					    \
     error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \

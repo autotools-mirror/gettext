@@ -28,6 +28,9 @@
    compared using ==.  */
 extern const char *po_charset_canonicalize PARAMS ((const char *charset));
 
+/* The PO file's encoding, as specified in the header entry.  */
+extern const char *po_lex_charset;
+
 #if HAVE_ICONV
 /* Converter from the PO file's encoding to UTF-8.  */
 extern iconv_t po_lex_iconv;

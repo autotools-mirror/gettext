@@ -1,3 +1,39 @@
+2001-07-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-charset.h (po_lex_charset): New declaration.
+	* po-charset.c (po_lex_charset): Export variable.
+	* po-lex.h: Include xerror.h.
+	(gram_pos_column): New declaration.
+	(po_gram_error): Also output current column number.
+	(po_gram_error_at_line): Work around ## problem in gcc.
+	* po-lex.c: Include linebreak.h and utf8-ucs4.h.
+	(gram_pos_column): New variable.
+	(po_gram_error): Also output current column number.
+	(MBCHAR_BUF_SIZE): New macro.
+	(struct mbchar, mbchar_t): New types.
+	(memcpy_small, mb_iseof, mb_ptr, mb_len, mb_iseq, mb_isnul, mb_cmp,
+	mb_equal, mb_isascii): New functions.
+	(MB_UNPRINTABLE_WIDTH): New macro.
+	(mb_width, mb_putc, mb_setascii, mb_copy): New functions.
+	(NPUSHBACK): New macro.
+	(struct mbfile, mbfile_t): New types.
+	(signal_eilseq): New variable.
+	(mbfile_init, mbfile_getc, mbfile_ungetc): New functions.
+	(mbf): New variable.
+	(fp): Remove variable.
+	(lex_open): Initialize mbf, gram_pos_column, signal_eilseq.
+	(lex_close): Reset mbf, gram_pos_column, signal_eilseq.
+	(lex_getc): Return a multibyte character. Update gram_pos_column.
+	(lex_ungetc): Take a multibyte character. Update gram_pos_column.
+	(keyword_p): Use po_gram_error_at_line instead of po_gram_error.
+	No column number needed here.
+	(control_sequence): Read multibyte characters instead of bytes.
+	(po_gram_lex): Likewise.
+	* xgettext.c (exclude_directive_domain): Use po_gram_error_at_line
+	instead of po_gram_error. No column number needed here.
+	(extract_directive_domain): Likewise.
+	* msgcomm.c (extract_directive_domain): Likewise.
+
 2001-06-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* message.h: Include stdbool.h.

@@ -673,7 +673,8 @@ exclude_directive_domain (pop, name)
      po_ty *pop;
      char *name;
 {
-  po_gram_error (_("this file may not contain domain directives"));
+  po_gram_error_at_line (&gram_pos,
+			 _("this file may not contain domain directives"));
 }
 
 
@@ -1090,7 +1091,8 @@ extract_directive_domain (that, name)
      po_ty *that;
      char *name;
 {
-  po_gram_error (_("this file may not contain domain directives"));
+  po_gram_error_at_line (&gram_pos,
+			 _("this file may not contain domain directives"));
 }
 
 

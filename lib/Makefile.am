@@ -37,7 +37,7 @@ libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 noinst_HEADERS = c-ctype.h error.h findprog.h fstrcmp.h full-write.h \
 getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h obstack.h \
 pathmax.h pipe.h printf-parse.h printf.h progname.h safe-read.h system.h \
-wait-process.h xerror.h
+utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl
