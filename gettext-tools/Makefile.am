@@ -137,7 +137,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long long/' \
 	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \
 	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
-	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#define pw_gecos pw_name') > $@
+	   < $(srcdir)/config.h.in; echo; echo '#define alloca __ALLOCA'; echo '#define pw_gecos pw_name') > $@
 # vms_jackets.h is a header that comes with Compaq's "porting library".
 # KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
 
@@ -200,10 +200,10 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \
 	    -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
 	    -e '/#undef INSTALLPREFIX$$/d' \
-	  < $< > $@
+	  < $(srcdir)/config.h.in > $@
 
 windows/stdbool.h: lib/stdbool.h.in
-	sed -e 's/@''HAVE__BOOL''@/0/' < $< > $@
+	sed -e 's/@''HAVE__BOOL''@/0/' < $(srcdir)/windows/stdbool.h > $@
 
 all-local : windows/stdbool.h
 

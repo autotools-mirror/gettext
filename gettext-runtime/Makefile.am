@@ -101,7 +101,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long long/' \
 	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
 	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
-	   < $<; echo; echo '#define alloca __ALLOCA') > $@
+	   < $(srcdir)/config.h.in; echo; echo '#define alloca __ALLOCA') > $@
 # vms_jackets.h is a header that comes with Compaq's "porting library".
 # KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
 
@@ -141,10 +141,10 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
 	    -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
 	    -e '/#undef INSTALLPREFIX$$/d' \
-	  < $< > $@
+	  < $(srcdir)/config.h.in > $@
 
 intl/libgnuintl.h.msvc-shared: intl/libgnuintl.h.in windows/dllexport.h
-	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' -e '/#define _LIBINTL_H/r windows/dllexport.h' < $< > $@
+	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' -e '/#define _LIBINTL_H/r windows/dllexport.h' < $(srcdir)/intl/libgnuintl.h.in > $@
 
 all-local: intl/libgnuintl.h.msvc-shared
 

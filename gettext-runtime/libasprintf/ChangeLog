@@ -1,3 +1,8 @@
+2003-05-20  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config.h_vms, config.h.msvc, autosprintf.h.msvc-shared):
+	Don't use $< here.
+
 2003-05-19  Bruno Haible  <bruno@clisp.org>
 
 	* windows/asprintf.rc: Include <winver.h>.

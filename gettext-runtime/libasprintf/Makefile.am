@@ -199,7 +199,7 @@ config.h_vms: config.h.in
 	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
 	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
-	   < $<; echo; echo '#define alloca __ALLOCA') > $@
+	   < $(srcdir)/config.h.in; echo; echo '#define alloca __ALLOCA') > $@
 
 EXTRA_DIST += Makefile.vms config.h_vms
 
@@ -215,12 +215,12 @@ config.h.msvc: config.h.in
 	     -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
 	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
 	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
-	   < $<; echo; echo '#define snprintf _snprintf') > $@
+	   < $(srcdir)/config.h.in; echo; echo '#define snprintf _snprintf') > $@
 
 autosprintf.h.msvc-shared: autosprintf.h.in windows/dllexport.h
 	sed -e 's/extern \([^"]\)/extern LIBASPRINTF_DLL_EXPORTED \1/' \
 	    -e 's/class /class LIBASPRINTF_DLL_EXPORTED /' \
 	    -e 's/struct /struct LIBASPRINTF_DLL_EXPORTED /' \
-	    -e '/#define _AUTOSPRINTF_H/r windows/dllexport.h' < $< > $@
+	    -e '/#define _AUTOSPRINTF_H/r windows/dllexport.h' < $(srcdir)/autosprintf.h.in > $@
 
 EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc autosprintf.h.msvc-shared windows/dllexport.h windows/asprintf.rc
