@@ -1,3 +1,15 @@
+2002-01-20  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CONFIGURES_RPATH*): New variables.
+	($(srcdir)/tests/rpath*/Makefile.in): New rules.
+	($(srcdir)/tests/rpath*/aclocal.m4): New rules.
+	($(srcdir)/tests/rpath*/configure): New rules.
+	(SUBCONFIGURES): New variable.
+	(subconfigures): New target.
+	(distdir): Depend on subconfigures.
+	* configure.in: Propagate GCC, LD, with_gnu_ld to Makefiles.
+	Postprocess Makefile because of distdir dependency.
+
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* INSTALL: Add instructions for using Intel icc.

@@ -54,9 +54,26 @@ TESTS = gettext-1 gettext-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-clisp lang-elisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst
+	lang-c lang-c++ lang-objc lang-clisp lang-elisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst \
+	rpath-1a rpath-1b \
+	rpath-2aaa rpath-2aab rpath-2aac rpath-2aad \
+	rpath-2aba rpath-2abb rpath-2abc rpath-2abd \
+	rpath-2baa rpath-2bab rpath-2bac rpath-2bad \
+	rpath-2bba rpath-2bbb rpath-2bbc rpath-2bbd
 
-EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out
+EXTRA_DIST = $(TESTS) \
+	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out \
+	rpathx/configure.in rpathx/aclocal.m4 rpathx/configure \
+	rpathx/Makefile.am rpathx/Makefile.in rpathx/rpathx.c \
+	rpathy/configure.in rpathy/aclocal.m4 rpathy/configure \
+	rpathy/Makefile.am rpathy/Makefile.in rpathy/rpathy.c \
+	rpathlx/configure.in rpathlx/aclocal.m4 rpathlx/configure \
+	rpathlx/Makefile.am rpathlx/Makefile.in rpathlx/usex.c \
+	rpathly/configure.in rpathly/aclocal.m4 rpathly/configure \
+	rpathly/Makefile.am rpathly/Makefile.in rpathly/usey.c \
+	rpathlyx/configure.in rpathlyx/aclocal.m4 rpathlyx/configure \
+	rpathlyx/Makefile.am rpathlyx/Makefile.in rpathlyx/usey.c \
+	rpath-1 rpath-2_a rpath-2_b rpath-2.README rpathcfg.sh
 
 XGETTEXT = ../src/xgettext
 
@@ -84,6 +101,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
 		    INTLLIBS='@INTLLIBS@' \
 		    TESTJAVA='@TESTJAVA@' \
+		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
@@ -93,7 +111,7 @@ xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/gettext.c
 
-# Two auxiliary programs used by the tests.
+# Three auxiliary programs used by the tests.
 INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
@@ -106,3 +124,14 @@ tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)
+
+# Help maintaining config.rpath.
+rpathcfg: rpathcfg.sh
+	top_srcdir=$(top_srcdir) \
+	CONFIG_SHELL='$(SHELL)' \
+	CC='@CC@' GCC='@GCC@' \
+	LDFLAGS='@LDFLAGS@' \
+	LD='@LD@' with_gnu_ld='@with_gnu_ld@' \
+	host='@host@' \
+	$(SHELL) $(srcdir)/rpathcfg.sh > rpathcfg 2> rpathcfg.log
+MOSTLYCLEANFILES = rpathcfg rpathcfg.log

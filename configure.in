@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
 AC_INIT(src/msgfmt.c)
-AM_INIT_AUTOMAKE(gettext, 0.11-pre5)
+AM_INIT_AUTOMAKE(gettext, 0.11-pre5+)
 RELEASE_DATE=2001-05-23      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
 
@@ -127,6 +127,11 @@ if test "$CXX" != ":"; then
   fi
 fi
 
+dnl Checks for tests/rpathcfg.
+AC_SUBST(GCC)
+AC_SUBST(LD)
+AC_SUBST(with_gnu_ld)
+
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl
 echo "GNU gettext library from $PACKAGE-$VERSION" > intl/VERSION
@@ -164,7 +169,7 @@ AC_OUTPUT([Makefile \
     mv $m.tmp $m
   done
   dnl Fix an automake-1.5 bug.
-  for m in doc/Makefile; do
+  for m in Makefile doc/Makefile; do
     sed -e 's,^#distdir:,distdir:,' < $m > $m.tmp
     mv $m.tmp $m
   done

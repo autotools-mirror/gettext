@@ -50,3 +50,54 @@ pdf:
 
 html:
 	cd doc && $(MAKE) html
+
+
+# Subdirectories with separate autoconfiguration.
+
+CONFIGURES_RPATHX = $(srcdir)/tests/rpathx/Makefile.in $(srcdir)/tests/rpathx/aclocal.m4 $(srcdir)/tests/rpathx/configure
+$(srcdir)/tests/rpathx/Makefile.in: $(srcdir)/tests/rpathx/Makefile.am $(srcdir)/tests/rpathx/configure.in
+	cd $(srcdir)/tests/rpathx && automake Makefile
+$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.in
+	cd $(srcdir)/tests/rpathx && aclocal -I ../../m4
+$(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.in $(srcdir)/tests/rpathx/aclocal.m4
+	cd $(srcdir)/tests/rpathx && autoconf
+
+CONFIGURES_RPATHY = $(srcdir)/tests/rpathy/Makefile.in $(srcdir)/tests/rpathy/aclocal.m4 $(srcdir)/tests/rpathy/configure
+$(srcdir)/tests/rpathy/Makefile.in: $(srcdir)/tests/rpathy/Makefile.am $(srcdir)/tests/rpathy/configure.in
+	cd $(srcdir)/tests/rpathy && automake Makefile
+$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in
+	cd $(srcdir)/tests/rpathy && aclocal -I ../../m4
+$(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/tests/rpathy/aclocal.m4
+	cd $(srcdir)/tests/rpathy && autoconf
+
+CONFIGURES_RPATHLX = $(srcdir)/tests/rpathlx/Makefile.in $(srcdir)/tests/rpathlx/aclocal.m4 $(srcdir)/tests/rpathlx/configure
+$(srcdir)/tests/rpathlx/Makefile.in: $(srcdir)/tests/rpathlx/Makefile.am $(srcdir)/tests/rpathlx/configure.in
+	cd $(srcdir)/tests/rpathlx && automake Makefile
+$(srcdir)/tests/rpathlx/aclocal.m4: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlx && aclocal -I ../../m4
+$(srcdir)/tests/rpathlx/configure: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/tests/rpathlx/aclocal.m4
+	cd $(srcdir)/tests/rpathlx && autoconf
+
+CONFIGURES_RPATHLY = $(srcdir)/tests/rpathly/Makefile.in $(srcdir)/tests/rpathly/aclocal.m4 $(srcdir)/tests/rpathly/configure
+$(srcdir)/tests/rpathly/Makefile.in: $(srcdir)/tests/rpathly/Makefile.am $(srcdir)/tests/rpathly/configure.in
+	cd $(srcdir)/tests/rpathly && automake Makefile
+$(srcdir)/tests/rpathly/aclocal.m4: $(srcdir)/tests/rpathly/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathly && aclocal -I ../../m4
+$(srcdir)/tests/rpathly/configure: $(srcdir)/tests/rpathly/configure.in $(srcdir)/tests/rpathly/aclocal.m4
+	cd $(srcdir)/tests/rpathly && autoconf
+
+CONFIGURES_RPATHLYX = $(srcdir)/tests/rpathlyx/Makefile.in $(srcdir)/tests/rpathlyx/aclocal.m4 $(srcdir)/tests/rpathlyx/configure
+$(srcdir)/tests/rpathlyx/Makefile.in: $(srcdir)/tests/rpathlyx/Makefile.am $(srcdir)/tests/rpathlyx/configure.in
+	cd $(srcdir)/tests/rpathlyx && automake Makefile
+$(srcdir)/tests/rpathlyx/aclocal.m4: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlyx && aclocal -I ../../m4
+$(srcdir)/tests/rpathlyx/configure: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/tests/rpathlyx/aclocal.m4
+	cd $(srcdir)/tests/rpathlyx && autoconf
+
+SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX)
+
+subconfigures: $(SUBCONFIGURES)
+
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: subconfigures
+

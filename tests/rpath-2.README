@@ -1,0 +1,32 @@
+Tests for config.rpath and lib-link.m4.
+
+rpath-1 w
+        |
+        +---- a = static, b = shared
+
+rpath-2 u v w
+        | | |
+        | | +---- a = static/static, b = static/shared,
+        | |       c = shared/static, d = shared/shared.
+        | |
+        | +------ a = all libraries and the program have the same prefix,
+        |         b = the libraries are in different directories.
+        |
+        +-------- a = all shared libraries use the libtool *.la files for
+                  resolving dependencies, b = dependencies are given as
+                  AC_LIB_LINKFLAGS argument instead.
+
+The rpath-2* tests are sensitive to
+  - incomplete shared library in the system,
+  - bugs in libtool that creates the shared libraries,
+  - bugs in lib-link.m4.
+
+Known failures:
+
+* FreeBSD4: rpath-2bad, rpath-2bbd fail because of a combination of a bug
+  in libtool (the libtool command line for creating librpathy.la contains
+  a -rpath command, but the resulting gcc command line doesn't) and a bug
+  in FreeBSD's runtime loader (it searches for librpathx.so.0 twice, and
+  in the second search it not only ignores the success in the first search
+  but also the rpath given in the executable).
+

@@ -1,3 +1,20 @@
+2002-01-20  Bruno Haible  <bruno@clisp.org>
+
+	* rpathx: New subdirectory.
+	* rpathy: New subdirectory.
+	* rpathlx: New subdirectory.
+	* rpathly: New subdirectory.
+	* rpathlyx: New subdirectory.
+	* rpath-1[ab], rpath-1: New files.
+	* rpath-2[ab][ab][abcd], rpath-2_[ab], rpath-2.README: New files.
+	* rpathcfg.sh: New file.
+	* Makefile.am (TESTS): Add rpath-1[ab], rpath-2[ab][ab][abcd].
+	(EXTRA_DIST): Add rpathx/*, rpathy/*, rpathlx/*, rpathly/*, rpathlyx/*,
+	rpath-2.README, rpathcfg.sh.
+	(TESTS_ENVIRONMENT): Also set CONFIG_SHELL.
+	(rpathcfg): New target.
+	(MOSTLYCLEANFILES): New variable.
+
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* lang-c: Include config.h, needed by xsetenv.h.
