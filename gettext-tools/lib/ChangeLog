@@ -1,3 +1,7 @@
+2003-11-17  Bruno Haible  <bruno@clisp.org>
+
+	* wait-process.c (wait_process): Disable the 2003-10-31 waitid() patch.
+
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
 	* xsize.h (xmax): New function.
