@@ -69,7 +69,7 @@ int gram_pos_column;
    These functions can access gram_pos and gram_pos_column.  */
 
 #if !(__STDC__ && \
-      ((defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L) \
+      ((defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L && !defined __DECC) \
        || (defined __GNUC__ && __GNUC__ >= 2 && !defined __APPLE_CC__)))
 
 /* CAUTION: If you change this function, you must also make identical

@@ -64,8 +64,9 @@ extern void po_lex_pass_comments (bool flag);
 extern void po_lex_pass_obsolete_entries (bool flag);
 
 
-/* ISO C 99 is smart enough to allow optimizations like this.  */
-#if __STDC__ && (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
+/* ISO C 99 is smart enough to allow optimizations like this.
+   Note: OpenVMS 7.3 cc pretends to support ISO C 99 but chokes on '...'.  */
+#if __STDC__ && (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L && !defined __DECC)
 
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */

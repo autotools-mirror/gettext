@@ -1,3 +1,8 @@
+2003-05-04  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.h (po_gram_error): Don't use ISO C 99 feature on DEC C.
+	* po-lex.c (po_gram_error): LIkewise.
+
 2003-05-03  Bruno Haible  <bruno@clisp.org>
 
 	* msgfilter.c: Include <sys/select.h> also on EMX.
