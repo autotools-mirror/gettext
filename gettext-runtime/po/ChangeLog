@@ -1,3 +1,7 @@
+2003-06-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in: Add a version number, to be used by intltools.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.

@@ -7,6 +7,8 @@
 # functionality.
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
+#
+# Origin: gettext-0.12.2
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
