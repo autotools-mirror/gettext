@@ -20,9 +20,9 @@
 # include <config.h>
 #endif
 
-#if !HAVE_ERROR_AT_LINE
-
 #include <stdio.h>
+
+#if !HAVE_ERROR_AT_LINE
 
 #ifdef _LIBC
 # include <libintl.h>

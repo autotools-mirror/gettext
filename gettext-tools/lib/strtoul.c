@@ -1,4 +1,4 @@
-/* Copyright (C) 1991, 1997, 2002 Free Software Foundation, Inc.
+/* Copyright (C) 1991, 1997, 2002-2003 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -27,5 +27,11 @@
 # define UNSIGNED	1
 
 # include <strtol.c>
+
+#else
+
+/* This declaration is solely to ensure that after preprocessing
+   this file is never empty.  */
+typedef int dummy;
 
 #endif

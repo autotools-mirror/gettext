@@ -307,4 +307,10 @@ __canonicalize_file_name (const char *name)
 }
 weak_alias (__canonicalize_file_name, canonicalize_file_name)
 
+#else
+
+/* This declaration is solely to ensure that after preprocessing
+   this file is never empty.  */
+typedef int dummy;
+
 #endif

@@ -43,4 +43,10 @@ strerror (int n)
     return sys_errlist[n];
 }
 
+#else
+
+/* This declaration is solely to ensure that after preprocessing
+   this file is never empty.  */
+typedef int dummy;
+
 #endif

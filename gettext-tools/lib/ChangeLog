@@ -1,3 +1,11 @@
+2003-06-23  Bruno Haible  <bruno@clisp.org>
+
+	Avoid compilation units that are empty after preprocessing.
+	* canonicalize.c: Add dummy declaration.
+	* strerror.c: Likewise.
+	* strtoul.c: Likewise.
+	* error.c: Include <stdio.h> even if there's nothing to be compiled.
+
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
 	Portability to mingw32.
