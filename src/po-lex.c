@@ -59,12 +59,13 @@
 static FILE *fp;
 lex_pos_ty gram_pos;
 unsigned int gram_max_allowed_errors = 20;
+static int po_lex_obsolete;
 const char *po_lex_charset;
 #if HAVE_ICONV
 iconv_t po_lex_iconv;
 #endif
 static int pass_comments = 0;
-static int pass_obsolete_entries = 0;
+int pass_obsolete_entries = 0;
 
 
 /* Prototypes for local functions.  */
@@ -85,6 +86,7 @@ lex_open (fname)
 	   _("error while opening \"%s\" for reading"), fname);
 
   gram_pos.line_number = 1;
+  po_lex_obsolete = 0;
   po_lex_charset = NULL;
 #if HAVE_ICONV
   po_lex_iconv = (iconv_t)(-1);
@@ -105,6 +107,7 @@ lex_close ()
   gram_pos.file_name = 0;
   gram_pos.line_number = 0;
   error_message_count = 0;
+  po_lex_obsolete = 0;
   po_lex_charset = NULL;
 #if HAVE_ICONV
   if (po_lex_iconv != (iconv_t)(-1))
@@ -374,7 +377,7 @@ control_sequence ()
 
 
 /* Return the next token in the PO file.  The return codes are defined
-   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval.  */
+   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval'.  */
 int
 po_gram_lex ()
 {
@@ -392,27 +395,32 @@ po_gram_lex ()
 	  /* Yacc want this for end of file.  */
 	  return 0;
 
+	case '\n':
+	  po_lex_obsolete = 0;
+	  break;
+
 	case ' ':
 	case '\t':
-	case '\n':
 	case '\r':
 	case '\f':
 	case '\v':
 	  break;
 
 	case '#':
+	  c = lex_getc ();
+	  if (c == '~')
+	    /* A pseudo-comment beginning with #~ is found.  This is
+	       not a comment.  It is the format for obsolete entries.
+	       We simply discard the "#~" prefix.  The following
+	       characters are expected to be well formed.  */
+	    {
+	      po_lex_obsolete = 1;
+	      break;
+	    }
+
 	  /* Accumulate comments into a buffer.  If we have been asked
  	     to pass comments, generate a COMMENT token, otherwise
  	     discard it.  */
-	  c = lex_getc ();
-	  if (c == '~' && pass_obsolete_entries)
-	    /* A special comment beginning with #~ is found.  This
-	       is the format for obsolete entries and if we are
-	       asked to return them is entries not as comments be
-	       simply stop processing the comment here.  The
-	       following characters are expected to be well formed.  */
-	    break;
-
 	  if (pass_comments)
 	    {
 	      bufpos = 0;
@@ -431,15 +439,21 @@ po_gram_lex ()
 		}
 	      buf[bufpos] = 0;
 
-	      po_gram_lval.string = buf;
+	      po_gram_lval.string.string = buf;
+	      po_gram_lval.string.pos = gram_pos;
+	      po_gram_lval.string.obsolete = po_lex_obsolete;
+	      po_lex_obsolete = 0;
 	      return COMMENT;
 	    }
 	  else
-	    /* We do this in separate loop because collecting large
-	       comments while they get not passed to the upper layers
-	       is not very effective.  */
-	    while (c != EOF && c != '\n')
-	      c = lex_getc ();
+	    {
+	      /* We do this in separate loop because collecting large
+		 comments while they get not passed to the upper layers
+		 is not very effective.  */
+	      while (c != EOF && c != '\n')
+		c = lex_getc ();
+	      po_lex_obsolete = 0;
+	    }
 	  break;
 
 	case '"':
@@ -519,7 +533,9 @@ po_gram_lex ()
 	    buf[bufpos] = 0;
 
 	    /* FIXME: Treatment of embedded \000 chars is incorrect.  */
-	    po_gram_lval.string = xstrdup (buf);
+	    po_gram_lval.string.string = xstrdup (buf);
+	    po_gram_lval.string.pos = gram_pos;
+	    po_gram_lval.string.obsolete = po_lex_obsolete;
 	    return STRING;
 	  }
 
@@ -576,12 +592,20 @@ po_gram_lex ()
 
 	  c = keyword_p (buf);
 	  if (c == NAME)
-	    po_gram_lval.string = xstrdup (buf);
+	    {
+	      po_gram_lval.string.string = xstrdup (buf);
+	      po_gram_lval.string.pos = gram_pos;
+	      po_gram_lval.string.obsolete = po_lex_obsolete;
+	    }
+	  else
+	    {
+	      po_gram_lval.pos.pos = gram_pos;
+	      po_gram_lval.pos.obsolete = po_lex_obsolete;
+	    }
 	  return c;
 
 	case '0': case '1': case '2': case '3': case '4':
 	case '5': case '6': case '7': case '8': case '9':
-	  /* I know, we don't need numbers, yet.  */
 	  bufpos = 0;
 	  for (;;)
 	    {
@@ -608,13 +632,19 @@ po_gram_lex ()
 
 	  buf[bufpos] = 0;
 
-	  po_gram_lval.number = atol (buf);
+	  po_gram_lval.number.number = atol (buf);
+	  po_gram_lval.number.pos = gram_pos;
+	  po_gram_lval.number.obsolete = po_lex_obsolete;
 	  return NUMBER;
 
 	case '[':
+	  po_gram_lval.pos.pos = gram_pos;
+	  po_gram_lval.pos.obsolete = po_lex_obsolete;
 	  return '[';
 
 	case ']':
+	  po_gram_lval.pos.pos = gram_pos;
+	  po_gram_lval.pos.obsolete = po_lex_obsolete;
 	  return ']';
 
 	default:

@@ -1,3 +1,28 @@
+2001-03-04  Bruno Haible  <haible@clisp.cons.org>
+
+	Check syntax of obsolete entries of PO files, not only in msgmerge.
+	* po-lex.h (pass_obsolete_entries): New declaration.
+	(msgstr_def): Remove pos field.
+	* po-lex.c (po_lex_obsolete): New variable.
+	(pass_obsolete_entries): Make non-static.
+	(lex_open): Initialize po_lex_obsolete.
+	(lex_close): Reset po_lex_obsolete.
+	(po_gram_lex): Don't look at pass_obsolete_entries. Instead, set
+	po_lex_obsolete to 1 when "#~" is seen. Reset po_lex_obsolete when
+	a newline is seen. Before returning, fill the 'pos' and 'obsolete'
+	fields of any token.
+	* po-gram.gen.y (check_obsolete): New macro.
+	(union): Add a 'pos' and 'obsolete' field for any symbol type.
+	(NAME): Assign to type <string>.
+	(DOMAIN, MSGID, MSGID_PLURAL, MSGSTR, '[', ']'): Assign to type <pos>.
+	(msgid, msgstr): Remove.
+	(message, msgid_pluralform, pluralform_list, pluralform, string_list):
+	Signal an error if the 'obsolete' field is not the same across the
+	entire token sequence of the rule.
+	(message): Deal with pass_obsolete_entries here.
+	(msgid_pluralform, pluralform_list, pluralform, string_list): Fill the
+	'pos' and 'obsolete' fields of $$.
+
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
 
 	Fix parsing of strings in CJK encodings.

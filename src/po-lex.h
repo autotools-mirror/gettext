@@ -47,6 +47,9 @@ extern const char *po_lex_charset;
 extern iconv_t po_lex_iconv;
 #endif
 
+/* Nonzero if obsolete entries shall be considered as valid.  */
+extern int pass_obsolete_entries;
+
 
 /* Open the PO file FNAME and prepare its lexical analysis.  */
 extern void lex_open PARAMS ((const char *__fname));
@@ -138,7 +141,6 @@ struct msgstr_def
 {
   char *msgstr;
   size_t msgstr_len;
-  lex_pos_ty pos;
 };
 
 #endif

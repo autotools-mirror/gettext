@@ -81,6 +81,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define yycheck  po_gram_yycheck
 
 static long plural_counter;
+
+#define check_obsolete(value1,value2) \
+  if ((value1).obsolete != (value2).obsolete) \
+    po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
+
 %}
 
 %token	COMMENT
@@ -96,15 +101,15 @@ static long plural_counter;
 
 %union
 {
-  char *string;
-  long number;
-  lex_pos_ty pos;
-  struct msgstr_def rhs;
+  struct { char *string; lex_pos_ty pos; int obsolete; } string;
+  struct { long number; lex_pos_ty pos; int obsolete; } number;
+  struct { lex_pos_ty pos; int obsolete; } pos;
+  struct { struct msgstr_def rhs; lex_pos_ty pos; int obsolete; } rhs;
 }
 
-%type <string> STRING COMMENT string_list msgid_pluralform
+%type <string> STRING COMMENT NAME string_list msgid_pluralform
 %type <number> NUMBER
-%type <pos> msgid msgstr
+%type <pos> DOMAIN MSGID MSGID_PLURAL MSGSTR '[' ']'
 %type <rhs> pluralform pluralform_list
 
 %right MSGSTR
@@ -122,45 +127,72 @@ msgfmt
 domain
 	: DOMAIN STRING
 		{
-		   po_callback_domain ($2);
+		   po_callback_domain ($2.string);
 		}
 	;
 
 message
-	: msgid string_list msgstr string_list
+	: MSGID string_list MSGSTR string_list
 		{
-		  po_callback_message ($2, &$1, NULL,
-				       $4, strlen ($4) + 1, &$3);
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  check_obsolete ($1, $4);
+		  if (!$1.obsolete || pass_obsolete_entries)
+		    po_callback_message ($2.string, &$1.pos, NULL,
+					 $4.string, strlen ($4.string) + 1, &$3.pos);
+		  else
+		    {
+		      free ($2.string);
+		      free ($4.string);
+		    }
 		}
-	| msgid string_list msgid_pluralform pluralform_list
+	| MSGID string_list msgid_pluralform pluralform_list
 		{
-		  po_callback_message ($2, &$1, $3,
-				       $4.msgstr, $4.msgstr_len, &$4.pos);
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  check_obsolete ($1, $4);
+		  if (!$1.obsolete || pass_obsolete_entries)
+		    po_callback_message ($2.string, &$1.pos, $3.string,
+					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos);
+		  else
+		    {
+		      free ($2.string);
+		      free ($3.string);
+		      free ($4.rhs.msgstr);
+		    }
 		}
-	| msgid string_list msgid_pluralform
+	| MSGID string_list msgid_pluralform
 		{
-		  po_gram_error_at_line (&$1, _("missing `msgstr[]' section"));
-		  free ($2);
-		  free ($3);
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  po_gram_error_at_line (&$1.pos, _("missing `msgstr[]' section"));
+		  free ($2.string);
+		  free ($3.string);
 		}
-	| msgid string_list pluralform_list
+	| MSGID string_list pluralform_list
 		{
-		  po_gram_error_at_line (&$1, _("missing `msgid_plural' section"));
-		  free ($2);
-		  free ($3.msgstr);
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  po_gram_error_at_line (&$1.pos, _("missing `msgid_plural' section"));
+		  free ($2.string);
+		  free ($3.rhs.msgstr);
 		}
-	| msgid string_list
+	| MSGID string_list
 		{
-		  po_gram_error_at_line (&$1, _("missing `msgstr' section"));
-		  free ($2);
+		  check_obsolete ($1, $2);
+		  po_gram_error_at_line (&$1.pos, _("missing `msgstr' section"));
+		  free ($2.string);
 		}
 	;
 
 msgid_pluralform
 	: MSGID_PLURAL string_list
 		{
+		  check_obsolete ($1, $2);
 		  plural_counter = 0;
-		  $$ = $2;
+		  $$.string = $2.string;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
 		}
 	;
 
@@ -171,44 +203,37 @@ pluralform_list
 		}
 	| pluralform_list pluralform
 		{
-		  $$.msgstr = (char *) xmalloc ($1.msgstr_len + $2.msgstr_len);
-		  memcpy ($$.msgstr, $1.msgstr, $1.msgstr_len);
-		  memcpy ($$.msgstr + $1.msgstr_len, $2.msgstr, $2.msgstr_len);
-		  $$.msgstr_len = $1.msgstr_len + $2.msgstr_len;
+		  check_obsolete ($1, $2);
+		  $$.rhs.msgstr = (char *) xmalloc ($1.rhs.msgstr_len + $2.rhs.msgstr_len);
+		  memcpy ($$.rhs.msgstr, $1.rhs.msgstr, $1.rhs.msgstr_len);
+		  memcpy ($$.rhs.msgstr + $1.rhs.msgstr_len, $2.rhs.msgstr, $2.rhs.msgstr_len);
+		  $$.rhs.msgstr_len = $1.rhs.msgstr_len + $2.rhs.msgstr_len;
+		  free ($1.rhs.msgstr);
+		  free ($2.rhs.msgstr);
 		  $$.pos = $1.pos;
-		  free ($1.msgstr);
-		  free ($2.msgstr);
+		  $$.obsolete = $1.obsolete;
 		}
 	;
 
 pluralform
-	: msgstr '[' NUMBER ']' string_list
+	: MSGSTR '[' NUMBER ']' string_list
 		{
-		  if ($3 != plural_counter)
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  check_obsolete ($1, $4);
+		  check_obsolete ($1, $5);
+		  if ($3.number != plural_counter)
 		    {
 		      if (plural_counter == 0)
-			po_gram_error_at_line (&$1, _("first plural form has nonzero index"));
+			po_gram_error_at_line (&$1.pos, _("first plural form has nonzero index"));
 		      else
-			po_gram_error_at_line (&$1, _("plural form has wrong index"));
+			po_gram_error_at_line (&$1.pos, _("plural form has wrong index"));
 		    }
 		  plural_counter++;
-		  $$.msgstr = $5;
-		  $$.msgstr_len = strlen ($5) + 1;
-		  $$.pos = $1;
-		}
-	;
-
-msgid
-	: MSGID
-		{
-		  $$ = gram_pos;
-		}
-	;
-
-msgstr
-	: MSGSTR
-		{
-		  $$ = gram_pos;
+		  $$.rhs.msgstr = $5.string;
+		  $$.rhs.msgstr_len = strlen ($5.string) + 1;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
 		}
 	;
 
@@ -222,18 +247,21 @@ string_list
 		  size_t len1;
 		  size_t len2;
 
-		  len1 = strlen ($1);
-		  len2 = strlen ($2);
-		  $$ = (char *) xmalloc (len1 + len2 + 1);
-		  stpcpy (stpcpy ($$, $1), $2);
-		  free ($1);
-		  free ($2);
+		  check_obsolete ($1, $2);
+		  len1 = strlen ($1.string);
+		  len2 = strlen ($2.string);
+		  $$.string = (char *) xmalloc (len1 + len2 + 1);
+		  stpcpy (stpcpy ($$.string, $1.string), $2.string);
+		  free ($1.string);
+		  free ($2.string);
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
 		}
 	;
 
 comment
 	: COMMENT
 		{
-		  po_callback_comment ($1);
+		  po_callback_comment ($1.string);
 		}
 	;
