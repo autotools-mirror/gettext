@@ -1,3 +1,14 @@
+2001-03-10  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-font-lock-keywords): Respect entry types
+	'msgid_plural' and 'msgstr[]'.
+	'%*s' is a valid sformat, too.
+	(po-font-lock-keywords): Fix regexp; '[]' part is optional.
+	(po-any-msgstr-regexp): Also match msgstr[] fields.
+	(po-msgstr-idx-keyword-regexp): New variable.
+	(po-set-msgstr): Respect indexed msgstr entries; use
+	`po-msgstr-idx-keyword-regexp'.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextize.in: Update copyright year. Add code to update

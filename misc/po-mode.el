@@ -652,8 +652,13 @@ into a Mule coding system.")
   "Regexp matching a whole msgid field, whether obsolete or not.")
 
 (defvar po-any-msgstr-regexp
-  "^\\(#~?[ \t]*\\)?msgstr.*\n\\(\\(#~?[ \t]*\\)?\".*\n\\)*"
-  "Regexp matching a whole msgstr field, whether obsolete or not.")
+  ;; "^\\(#~?[ \t]*\\)?msgstr.*\n\\(\\(#~?[ \t]*\\)?\".*\n\\)*"
+  "^\\(#~?[ \t]*\\)?msgstr\\(\\[[0-9]\\]\\)?.*\n\\(\\(#~?[ \t]*\\)?\".*\n\\)*"
+  "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
+
+(defvar po-msgstr-idx-keyword-regexp
+  "^\\(#~?[ \t]*\\)?msgstr\\[[0-9]\\]"
+  "Regexp matching an indexed msgstr keyword, whether obsolete or not.")
 
 (defvar po-msgfmt-program "msgfmt"
   "Path to msgfmt program from GNU gettext package.")
@@ -661,8 +666,12 @@ into a Mule coding system.")
 ;; Font lock based highlighting code.
 (defconst po-font-lock-keywords
   '(
-    ("^\\(msgid \\|msgstr \\)?\"\\|\"$" . font-lock-keyword-face)
-    ("\\\\.\\|%[-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
+    ;; ("^\\(msgid \\|msgstr \\)?\"\\|\"$" . font-lock-keyword-face)
+    ;; (regexp-opt
+    ;;  '("msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
+    ("^\\(\\(msg\\(id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)?\\) \\)?\"\\|\"$"
+     . font-lock-keyword-face)
+    ("\\\\.\\|%\\*?[-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
     ("^#:\\(.*\\)" 1 font-lock-reference-face)
     ;; The following line does not work, and I wonder why.
@@ -1548,16 +1557,21 @@ described by FORM is merely identical to the msgid already in place."
 	     t)))))
 
 (defun po-set-msgstr (form)
-  "Replace the current msgstr, using FORM to get a string.
+  "Replace the current msgstr or msgstr[], using FORM to get a string.
 Evaluating FORM should insert the wanted string in the current buffer.  If
 FORM is itself a string, then this string is used for insertion.  The string
 is properly requoted before the replacement occurs.
 
 Returns `nil' if the buffer has not been modified, for if the new msgstr
 described by FORM is merely identical to the msgstr already in place."
-  (let ((string (po-eval-requoted form "msgstr" (eq po-entry-type 'obsolete))))
+  (let ((string (po-eval-requoted form "msgstr" (eq po-entry-type 'obsolete)))
+        (msgstr-idx nil))
     (save-excursion
       (goto-char po-start-of-entry)
+      (save-excursion                   ; check for an indexed msgstr
+        (when (re-search-forward po-msgstr-idx-keyword-regexp po-end-of-entry t)
+          (setq msgstr-idx (buffer-substring-no-properties
+                     (match-beginning 0) (match-end 0)))))
       (re-search-forward po-any-msgstr-regexp po-end-of-entry)
       (and (not (string-equal (po-buffer-substring (match-beginning 0)
 						   (match-end 0))
@@ -1565,6 +1579,12 @@ described by FORM is merely identical to the msgstr already in place."
 	   (let ((buffer-read-only po-read-only))
 	     (po-decrease-type-counter)
 	     (replace-match string t t)
+             (goto-char (match-beginning 0))
+             (unless (eq msgstr-idx nil) ; hack: replace msgstr with msgstr[d]
+               (progn
+                 (insert msgstr-idx)
+                 (looking-at "\\(#~?[ \t]*\\)?msgstr")
+                 (replace-match "")))
 	     (goto-char po-start-of-msgid)
 	     (po-find-span-of-entry)
 	     (po-increase-type-counter)
