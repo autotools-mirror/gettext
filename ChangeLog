@@ -1,3 +1,13 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Support for relocatable installation.
+	* config/config.libpath: New file.
+	* config/install-reloc: New file.
+	* config/reloc-ldflags: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+	* config/compile: New file, from automake-1.7.2.
+	* INSTALL: Document --enable-relocatable and --with-libintl-prefix.
+
 2003-02-27  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Include AC_CANONICAL_HOST, AC_ARG_ENABLE, AC_ARG_WITH,

@@ -32,6 +32,7 @@
 #include "file-list.h"
 #include "error.h"
 #include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "message.h"
 #include "read-po.h"
@@ -112,7 +113,7 @@ main (int argc, char *argv[])
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   /* Set default values for variables.  */

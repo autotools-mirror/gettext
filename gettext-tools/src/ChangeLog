@@ -1,3 +1,67 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Support for relocatable installation.
+	* msgattrib.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgcat.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgcmp.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgcomm.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgconv.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgen.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgexec.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgfilter.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgfmt.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msggrep.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msginit.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	(project_id, project_id_version, get_user_email): Relocate LIBDIR
+	value.
+	(language_team_address): Relocate LIBDIR and PROJECTSDIR values.
+	* msgmerge.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msgunfmt.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* msguniq.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* xgettext.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value.
+	* read-java.c: Include relocatable.h.
+	(msgdomain_read_java): Relocate GETTEXTJEXEDIR value.
+	* read-tcl.c: Include relocatable.h.
+	(msgdomain_read_tcl): Relocate GETTEXTDATADIR value.
+	* hostname.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value. Update copyright year.
+	* urlget.c: Include relocatable.h.
+	(main): Relocate LOCALEDIR value. Update copyright year.
+	(fetch): Relocate GETTEXTJEXEDIR value.
+	* user-email.in: Relocate $libdir.
+	* Makefile.am (aliaspath): New variable.
+	(DEFS): Define LOCALE_ALIAS_PATH.
+	(msginit_SOURCES): Add .../localealias.c.
+	(msginit_LDADD): Remove .../localealias.lo.
+	(msgcmp_CFLAGS, msgfmt_CFLAGS, msgmerge_CFLAGS, msgunfmt_CFLAGS,
+	xgettext_CFLAGS, msgattrib_CFLAGS, msgcat_CFLAGS, msgcomm_CFLAGS,
+	msgconv_CFLAGS, msgen_CFLAGS, msgexec_CFLAGS, msgfilter_CFLAGS,
+	msggrep_CFLAGS, msginit_CFLAGS, msguniq_CFLAGS, hostname_CFLAGS,
+	urlget_CFLAGS): New variables.
+	(msgcmp_LDFLAGS, msgfmt_LDFLAGS, msgmerge_LDFLAGS, msgunfmt_LDFLAGS,
+	xgettext_LDFLAGS, msgattrib_LDFLAGS, msgcat_LDFLAGS, msgcomm_LDFLAGS,
+	msgconv_LDFLAGS, msgen_LDFLAGS, msgexec_LDFLAGS, msgfilter_LDFLAGS,
+	msggrep_LDFLAGS, msginit_LDFLAGS, msguniq_LDFLAGS, hostname_LDFLAGS,
+	urlget_LDFLAGS): New variables.
+	(install-exec-java-yes): Don't ignore INSTALL_PROGRAM_ENV.
+	(RELOCATABLE_LIBRARY_PATH, RELOCATABLE_SRC_DIR, RELOCATABLE_BUILD_DIR,
+	RELOCATABLE_CONFIG_H_DIR): New variables.
+
 2003-03-13  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.c (main): On Solaris, prefer /usr/xpg4/bin/grep to

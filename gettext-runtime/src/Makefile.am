@@ -37,3 +37,18 @@ ngettext_SOURCES = ngettext.c
 
 # Link dependencies.
 LDADD = ../lib/libgrt.a @LTLIBINTL@
+
+# Specify installation directory, for --enable-relocatable.
+gettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+ngettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+if RELOCATABLE_VIA_LD
+gettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+ngettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+endif
+
+# Support for relocatability.
+RELOCATABLE_LIBRARY_PATH = $(libdir)
+RELOCATABLE_SRC_DIR = $(top_srcdir)/../gettext-tools/lib
+RELOCATABLE_BUILD_DIR = ../lib
+RELOCATABLE_CONFIG_H_DIR = ..
+@SET_RELOCATABLE@

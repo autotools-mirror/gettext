@@ -1,5 +1,5 @@
 /* Program name management.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,6 +34,22 @@ extern const char *program_name;
 
 /* Set program_name, based on argv[0].  */
 extern void set_program_name (const char *argv0);
+
+#if ENABLE_RELOCATABLE
+
+/* Set program_name, based on argv[0], and original installation prefix and
+   directory, for relocatability.  */
+extern void set_program_name_and_installdir (const char *argv0,
+					     const char *orig_installprefix,
+					     const char *orig_installdir);
+#define set_program_name(ARG0) \
+  set_program_name_and_installdir (ARG0, INSTALLPREFIX, INSTALLDIR)
+
+/* Return the full pathname of the current executable, based on the earlier
+   call to set_program_name_and_installdir.  Return NULL if unknown.  */
+extern char *get_full_program_name (void);
+
+#endif
 
 /* Indicates whether errors and warnings get prefixed with program_name.
    Default is true.

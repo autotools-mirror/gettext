@@ -67,6 +67,7 @@
 
 #include "error.h"
 #include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "strpbrk.h"
 #include "strstr.h"
@@ -157,7 +158,7 @@ main (int argc, char **argv)
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   /* Set default values for variables.  */
@@ -850,7 +851,7 @@ englishname_of_language ()
 static const char *
 project_id ()
 {
-  char *gettextlibdir;
+  const char *gettextlibdir;
   char *prog;
   char *argv[3];
   pid_t child;
@@ -863,7 +864,7 @@ project_id ()
 
   gettextlibdir = getenv ("GETTEXTLIBDIR");
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-    gettextlibdir = concatenated_pathname (LIBDIR, "gettext", NULL);
+    gettextlibdir = relocate (LIBDIR "/gettext");
 
   prog = concatenated_pathname (gettextlibdir, "project-id", NULL);
 
@@ -901,7 +902,7 @@ project_id ()
 static const char *
 project_id_version ()
 {
-  char *gettextlibdir;
+  const char *gettextlibdir;
   char *prog;
   char *argv[4];
   pid_t child;
@@ -914,7 +915,7 @@ project_id_version ()
 
   gettextlibdir = getenv ("GETTEXTLIBDIR");
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-    gettextlibdir = concatenated_pathname (LIBDIR, "gettext", NULL);
+    gettextlibdir = relocate (LIBDIR "/gettext");
 
   prog = concatenated_pathname (gettextlibdir, "project-id", NULL);
 
@@ -1042,7 +1043,7 @@ get_user_fullname ()
 static const char *
 get_user_email ()
 {
-  char *prog = concatenated_pathname (LIBDIR, "gettext/user-email", NULL);
+  const char *prog = relocate (LIBDIR "/gettext/user-email");
   char *argv[4];
   pid_t child;
   int fd[1];
@@ -1054,7 +1055,7 @@ get_user_email ()
 
   /* Ask the user for his email address.  */
   argv[0] = "/bin/sh";
-  argv[1] = prog;
+  argv[1] = (char *) prog;
   argv[2] = _("\
 The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
@@ -1109,7 +1110,7 @@ last_translator ()
 static const char *
 language_team_address ()
 {
-  char *prog = concatenated_pathname (PROJECTSDIR, "team-address", NULL);
+  const char *prog = relocate (PROJECTSDIR "/team-address");
   char *argv[7];
   pid_t child;
   int fd[1];
@@ -1121,9 +1122,9 @@ language_team_address ()
 
   /* Call the team-address shell script.  */
   argv[0] = "/bin/sh";
-  argv[1] = prog;
-  argv[2] = PROJECTSDIR;
-  argv[3] = concatenated_pathname (LIBDIR, "gettext", NULL);
+  argv[1] = (char *) prog;
+  argv[2] = (char *) relocate (PROJECTSDIR);
+  argv[3] = (char *) relocate (LIBDIR "/gettext");
   argv[4] = (char *) catalogname;
   argv[5] = (char *) language;
   argv[6] = NULL;

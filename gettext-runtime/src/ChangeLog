@@ -1,3 +1,19 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Support for relocatable installation.
+	* gettext.c: Include progname.h, relocatable.h.
+	(program_name): Remove variable.
+	(main): Use set_program_name. Relocate LOCALEDIR value. Update
+	copyright year.
+	* ngettext.c: Include progname.h, relocatable.h.
+	(program_name): Remove variable.
+	(main): Use set_program_name. Relocate LOCALEDIR value. Update
+	copyright year.
+	* Makefile.am (gettext_CFLAGS, ngettext_CFLAGS): New variables.
+	(gettext_LDFLAGS, ngettext_LDFLAGS): New variables.
+	(RELOCATABLE_LIBRARY_PATH, RELOCATABLE_SRC_DIR, RELOCATABLE_BUILD_DIR,
+	RELOCATABLE_CONFIG_H_DIR): New variables.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Extracted from gettext package.

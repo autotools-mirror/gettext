@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-1997, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -287,6 +287,18 @@ extern char *bind_textdomain_codeset _INTL_PARAMS ((const char *__domainname,
 						    const char *__codeset))
        _INTL_ASM (libintl_bind_textdomain_codeset);
 #endif
+
+
+/* Support for relocatable packages.  */
+
+/* Sets the original and the current installation prefix of the package.
+   Relocation simply replaces a pathname starting with the original prefix
+   by the corresponding pathname with the current prefix instead.  Both
+   prefixes should be directory names without trailing slash (i.e. use ""
+   instead of "/").  */
+#define libintl_set_relocation_prefix libintl_set_relocation_prefix
+extern void libintl_set_relocation_prefix (const char *orig_prefix,
+					   const char *curr_prefix);
 
 
 #ifdef __cplusplus

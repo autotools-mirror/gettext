@@ -115,8 +115,10 @@ LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
 noinst_PROGRAMS = tstgettext tstngettext cake fc3 fc4
 tstgettext_SOURCES = tstgettext.c setlocale.c
+tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
+tstngettext_CFLAGS = -DINSTALLDIR=\".\"
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)

@@ -1,3 +1,9 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Support for relocatable installation.
+	* autopoint.in: Relocate $gettext_dir.
+	* gettextize.in: Relocate $gettext_dir.
+
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Create po/Makevars.template from installed

@@ -17,6 +17,36 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
+# Prerequisites for using @libdir@.
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+# Set variable @libdir@.
+libdir="@libdir@"
+
+# Support for relocatability.
+if test "@RELOCATABLE@" = yes; then
+  orig_installdir="$libdir"/gettext # see Makefile.am's install rule
+  # Determine curr_installdir without caring for symlinked callers.
+  curr_installdir=`echo "$0" | sed -e 's,/[^/]*$,,'`
+  curr_installdir=`cd "$curr_installdir" && pwd`
+  # Compute the original/current installation prefixes by stripping the
+  # trailing directories off the original/current installation directories.
+  while true; do
+    orig_last=`echo "$orig_installdir" | sed -n -e 's,^.*/\([^/]*\)$,\1,p'`
+    curr_last=`echo "$curr_installdir" | sed -n -e 's,^.*/\([^/]*\)$,\1,p'`
+    if test -z "$orig_last" || test -z "$curr_last"; then
+      break
+    fi
+    if test "$orig_last" != "$curr_last"; then
+      break
+    fi
+    orig_installdir=`echo "$orig_installdir" | sed -e 's,/[^/]*$,,'`
+    curr_installdir=`echo "$curr_installdir" | sed -e 's,/[^/]*$,,'`
+  done
+  # Now relocate the directory variables that we use.
+  libdir=`echo "$libdir/" | sed -e "s%^${orig_installdir}/%${curr_installdir}/%" | sed -e 's,/$,,'`
+fi
+
 # Redirect fileno 3 to interactive I/O.
 exec 3>/dev/tty
 
@@ -37,18 +67,14 @@ if test -z "$user"; then
   fi
 fi
 
-# Prerequisites for using @libdir@.
-prefix="@prefix@"
-exec_prefix="@exec_prefix@"
-
 # Find the hostname.
 # hostname on some systems (SVR3.2, old Linux) returns a bogus exit status,
 # so uname gets run too, so we keep only the first line of output.
 #host=`(hostname || uname -n) 2>/dev/null | sed 1q`
-host=`@libdir@/gettext/hostname --short 2>/dev/null | sed 1q`
+host=`"$libdir"/gettext/hostname --short 2>/dev/null | sed 1q`
 
 # Find the hostname.
-hostfqdn=`@libdir@/gettext/hostname --fqdn 2>/dev/null | sed 1q`
+hostfqdn=`"$libdir"/gettext/hostname --fqdn 2>/dev/null | sed 1q`
 
 # Find a list of email addresses from various mailer configuration files.
 # All mailers use configuration files under $HOME. We handle them in a

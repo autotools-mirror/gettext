@@ -1,5 +1,5 @@
 /* Handle aliases for locale names.
-   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2001, 2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -56,6 +56,12 @@ char *alloca ();
 #include <string.h>
 
 #include "gettextP.h"
+
+#if ENABLE_RELOCATABLE
+# include "relocatable.h"
+#else
+# define relocate(pathname) (pathname)
+#endif
 
 /* @@ end of prolog @@ */
 
@@ -222,7 +228,7 @@ read_alias_file (fname, fname_len)
   memcpy (&full_fname[fname_len], aliasfile, sizeof aliasfile);
 #endif
 
-  fp = fopen (full_fname, "r");
+  fp = fopen (relocate (full_fname), "r");
   freea (full_fname);
   if (fp == NULL)
     return 0;

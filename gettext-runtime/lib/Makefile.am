@@ -18,20 +18,67 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+EXTRA_DIST =
+MOSTLYCLEANFILES =
 
 noinst_LIBRARIES = libgrt.a
 
 # Sources that are compiled on all platforms.
 
 libgrt_a_SOURCES = \
-  basename.h basename.c \
-  error.h error.c \
-  exit.h \
-  getopt.h getopt.c getopt1.c \
-  xmalloc.h xmalloc.c
+  ../../gettext-tools/lib/basename.h ../../gettext-tools/lib/basename.c \
+  ../../gettext-tools/lib/error.h ../../gettext-tools/lib/error.c \
+  ../../gettext-tools/lib/exit.h \
+  ../../gettext-tools/lib/getopt.h ../../gettext-tools/lib/getopt.c ../../gettext-tools/lib/getopt1.c \
+  ../../gettext-tools/lib/pathmax.h \
+  ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c \
+  ../../gettext-tools/lib/xmalloc.h ../../gettext-tools/lib/xmalloc.c ../../gettext-tools/lib/xstrdup.c \
+  ../../gettext-tools/lib/xreadlink.h ../../gettext-tools/lib/xreadlink.c
+
+# Sources that are compiled only on platforms that lack the functions.
+
+LIBADD_SOURCE = \
+  alloca.c \
+  ../../gettext-tools/lib/canonicalize.h canonicalize.c \
+  memmove.c \
+  ../../gettext-tools/lib/relocatable.h relocatable.c \
+  ../../gettext-tools/lib/setenv.h setenv.c unsetenv.c \
+  strerror.c
+
+# How to build libgrt.a.
+
+libgrt_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
 INCLUDES = \
   -I. -I$(srcdir) \
   -I.. \
   -I../intl -I$(srcdir)/../intl \
   -I../../gettext-tools/lib -I$(srcdir)/../../gettext-tools/lib
+
+# List of files to be distributed.
+
+EXTRA_DIST += $(LIBADD_SOURCE)
+
+
+# >>> gnulib module stdbool.
+EXTRA_DIST += ../../gettext-tools/lib/stdbool.h.in
+
+# The following is needed in order to create an <stdbool.h> when the system
+# doesn't have one that works.
+all-local $(libgettextlib_la_OBJECTS): @STDBOOL_H@
+stdbool.h: ../../gettext-tools/lib/stdbool.h.in
+	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/../../gettext-tools/lib/stdbool.h.in > stdbool.h
+MOSTLYCLEANFILES += stdbool.h
+# <<< gnulib module stdbool.
+
+
+# >>> gnulib module alloca.
+EXTRA_DIST += ../../gettext-tools/lib/alloca_.h
+
+# The following is needed in order to create an <alloca.h> when the system
+# doesn't have one that works with the given compiler.
+all-local $(libgettextlib_la_OBJECTS): @ALLOCA_H@
+alloca.h: ../../gettext-tools/lib/alloca_.h
+	cp $(srcdir)/../../gettext-tools/lib/alloca_.h alloca.h
+MOSTLYCLEANFILES += alloca.h
+# <<< gnulib module alloca.

@@ -33,6 +33,7 @@
 #include "dir-list.h"
 #include "error.h"
 #include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "xerror.h"
 #include "format.h"
@@ -214,7 +215,7 @@ main (int argc, char *argv[])
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:o:r:vV", long_options,

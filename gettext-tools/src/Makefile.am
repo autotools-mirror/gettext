@@ -46,6 +46,7 @@ x-rst.h x-glade.h
 EXTRA_DIST += FILES project-id ChangeLog.0
 
 localedir = $(datadir)/locale
+aliaspath = $(localedir)
 jardir = $(datadir)/gettext
 pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
@@ -59,6 +60,7 @@ INCLUDES = \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
   -DLOCALEDIR=\"$(localedir)\" \
+  -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
   -DUSEJEXE=$(USEJEXE) \
   -DGETTEXTJEXEDIR=\"$(pkglibdir)\" \
   -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
@@ -125,7 +127,7 @@ msgen_SOURCES = msgen.c
 msgexec_SOURCES = msgexec.c
 msgfilter_SOURCES = msgfilter.c
 msggrep_SOURCES = msggrep.c
-msginit_SOURCES = msginit.c
+msginit_SOURCES = msginit.c ../../gettext-runtime/intl/localealias.c
 msguniq_SOURCES = msguniq.c
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
@@ -168,11 +170,47 @@ msgen_LDADD = libgettextsrc.la
 msgexec_LDADD = libgettextsrc.la
 msgfilter_LDADD = libgettextsrc.la
 msggrep_LDADD = libgettextsrc.la
-msginit_LDADD = ../intl/localealias.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
-                ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
+msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
                 libgettextsrc.la
 msguniq_LDADD = libgettextsrc.la
 
+# Specify installation directory, for --enable-relocatable.
+msgcmp_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgfmt_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgmerge_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgunfmt_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+xgettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgattrib_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgcat_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgcomm_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgconv_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgen_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgexec_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msgfilter_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msggrep_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msginit_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+msguniq_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+hostname_CFLAGS = -DINSTALLDIR=\"$(pkglibdir)\"
+urlget_CFLAGS = -DINSTALLDIR=\"$(pkglibdir)\"
+if RELOCATABLE_VIA_LD
+msgcmp_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgmerge_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgunfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+xgettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgattrib_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgcat_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgcomm_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgconv_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgen_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgexec_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgfilter_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msggrep_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msginit_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
+urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
+endif
 
 # Special rules for bison and flex generated files.
 
@@ -246,8 +284,8 @@ CLEANFILES += gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT) \
 install-exec-local: install-exec-java-@BUILDJAVAEXE@
 install-exec-java-yes: all-java-yes
 	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
-	$(INSTALL_PROGRAM) gnu.gettext.DumpResource$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.DumpResource$(EXEEXT)
-	$(INSTALL_PROGRAM) gnu.gettext.GetURL$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.GetURL$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) gnu.gettext.DumpResource$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.DumpResource$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) gnu.gettext.GetURL$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.GetURL$(EXEEXT)
 install-exec-java-no:
 
 install-data-local: install-data-java-@BUILDJAVAEXE@
@@ -291,3 +329,11 @@ installdirs-tcl:
 uninstall-local: uninstall-tcl
 uninstall-tcl:
 	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
+
+
+# Support for relocatability.
+RELOCATABLE_LIBRARY_PATH = $(libdir)
+RELOCATABLE_SRC_DIR = $(top_srcdir)/lib
+RELOCATABLE_BUILD_DIR = ../lib
+RELOCATABLE_CONFIG_H_DIR = ..
+@SET_RELOCATABLE@

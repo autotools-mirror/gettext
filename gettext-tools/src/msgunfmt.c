@@ -29,6 +29,7 @@
 
 #include "error.h"
 #include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "exit.h"
 #include "message.h"
@@ -109,7 +110,7 @@ main (int argc, char **argv)
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:r:svVw:",

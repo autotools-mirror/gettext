@@ -67,20 +67,25 @@ libgettextlib_la_SOURCES = \
   wait-process.h wait-process.c \
   xerror.h xerror.c \
   xmalloc.h xmalloc.c xstrdup.c \
+  xreadlink.h xreadlink.c \
   xsetenv.h xsetenv.c
 
 # Sources that are compiled only on platforms that lack the functions.
 
 LIBADD_SOURCE = \
   alloca.c \
+  canonicalize.h canonicalize.c \
   getline.h getline.c \
+  memmove.c \
   memset.c \
   mkdtemp.h mkdtemp.c \
   pfnmatch.h pfnmatch.c \
+  relocatable.h relocatable.c \
   setenv.h setenv.c unsetenv.c \
   stpcpy.h stpcpy.c \
   strcase.h strcasecmp.c strncasecmp.c \
   strcspn.c \
+  strerror.c \
   strpbrk.h strpbrk.c \
   strstr.h strstr.c \
   strtol.c \
@@ -89,7 +94,6 @@ LIBADD_SOURCE = \
 # Unused sources.
 
 UNUSED_SOURCE = \
-  memmove.c \
   xgetcwd.h xgetcwd.c
 
 # How to build libgettextlib.la.
@@ -117,7 +121,7 @@ gettextsrc_DATA = gettext.h
 noinst_HEADERS = gettext.h
 
 EXTRA_DIST += \
-  $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
+  $(LIBADD_SOURCE) $(UNUSED_SOURCE) relocwrapper.c \
   gen-lbrkprop.c 3level.h Combining.txt \
   ChangeLog.0
 

@@ -1,5 +1,22 @@
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
+	Support for relocatable installation.
+	* relocatable.h: New file.
+	* relocatable.c: New file.
+	* libgnuintl.h (libintl_set_relocation_prefix): New declaration.
+	* localealias.c: Include relocatable.h.
+	(read_alias_file): Relocate LOCALE_ALIAS_PATH element.
+	* localcharset.c: Include relocatable.h.
+	(get_charset_aliases): Relocate LIBDIR value.
+	* Makefile.in (DEFS): Define also ENABLE_RELOCATABLE, IN_LIBRARY,
+	INSTALLDIR, NO_XMALLOC, set_relocation_prefix, relocate.
+	(HEADERS): Add relocatable.h.
+	(SOURCES): Add relocatable.c.
+	(OBJECTS): Add relocatable.$lo.
+	(relocatable.$lo): New rule.
+
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in (mkinstalldirs): Simplify. Prepending "$(top_builddir)/"
 	in the case of a relative $srcdir is now handled in gettext.m4.
 

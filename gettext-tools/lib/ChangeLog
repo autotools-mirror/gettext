@@ -1,5 +1,38 @@
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
+	Support for relocatable installation.
+	* canonicalize.h: New file.
+	* canonicalize.c: New file, from glibc 2.3.1 with modifications.
+	* relocatable.h: New file.
+	* relocatable.c: New file.
+	* relocwrapper.c: New file.
+	* strerror.c: New file, from gnulib with modifications.
+	* xreadlink.h: New file, from gnulib with modifications.
+	* xreadlink.c: New file, from gnulib with modifications.
+	* progname.h (set_program_name_and_installdir): New declaration.
+	(set_program_name) [ENABLE_RELOCATABLE]: Define as macro.
+	(get_full_program_name): New declaration.
+	* progname.c: Include xreadlink.h, canonicalize.h, relocatable.h.
+	(executable_fd): New variable.
+	(maybe_executable): New function.
+	(find_executable): New function.
+	(executable_fullname): New variable.
+	(prepare_relocate): New function.
+	(set_program_name_and_installdir): New function.
+	(get_full_program_name): New function.
+	* localcharset.c: Include relocatable.h.
+	(get_charset_aliases): Relocate LIBDIR value.
+	* xmalloc.h (xalloc_die): New declaration.
+	* xmalloc.c (xalloc_die): New function.
+	(fixup_null_alloc): Use it.
+	* Makefile.am (libgettextlib_la_SOURCES): Add xreadlink.h, xreadlink.c.
+	(LIBADD_SOURCE): Add canonicalize.h, canonicalize.c, memmove.c,
+	relocatable.h, relocatable.c, strerror.c.
+	(UNUSED_SOURCE): Remove memmove.c.
+	(EXTRA_DIST): Add relocwrapper.c.
+
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
 	* localcharset.h: Change copyright to LGPL. Enclose declaration in
 	extern "C", for C++ compilers.
 	* localcharset.c: Drop C linkage declaration.

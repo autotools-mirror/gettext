@@ -1,5 +1,9 @@
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
+	* POTFILES.in: Use references to ../gettext-tools/lib.
+
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in.in (mkinstalldirs): Simplify. Prepending
 	"$(top_builddir)/" in the case of a relative $srcdir is now handled
 	in gettext.m4.

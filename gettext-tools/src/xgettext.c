@@ -37,6 +37,7 @@
 #include "str-list.h"
 #include "error.h"
 #include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "xerror.h"
 #include "xmalloc.h"
@@ -228,7 +229,7 @@ main (int argc, char *argv[])
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   /* Set initial value of variables.  */

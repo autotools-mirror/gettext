@@ -27,6 +27,7 @@ aclocal_DATA = \
 EXTRA_DIST = README ChangeLog.0 \
 alloca.m4 \
 backupfile.m4 \
+canonicalize.m4 \
 error.m4 \
 flex.m4 \
 fnmatch.m4 \
@@ -41,11 +42,14 @@ mbswidth.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
 pathmax.m4 \
+relocatable.m4 \
 setenv.m4 \
 setlocale.m4 \
 siginfo.m4 \
 signalblocking.m4 \
 ssize_t.m4 \
 stdbool.m4 \
+strerror.m4 \
 tmpdir.m4 \
-unionwait.m4
+unionwait.m4 \
+xreadlink.m4

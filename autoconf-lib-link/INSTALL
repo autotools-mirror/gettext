@@ -104,6 +104,39 @@ you can set and what kinds of files go in them.
 with an extra prefix or suffix on their names by giving `configure' the
 option `--program-prefix=PREFIX' or `--program-suffix=SUFFIX'.
 
+Relocatable Installation
+========================
+
+   By default, `make install' will install a package with hardwired
+file names, and the package will not work correctly when copied or
+moved to a different location in the filesystem.
+
+   Some packages pay attention to the `--enable-relocatable' option to
+`configure'.  This option makes the entire installed package
+relocatable.  This means, it can be moved or copied to a different
+location on the filesystem.  It is possible to make symlinks to the
+installed and moved programs, and invoke them through the symlink.  It
+is possible to do the same thing  with a hard link _only_ if the hard
+linked file is in the same directory as the real program.
+
+   For reliability it is best to give together with --enable-relocatable
+a `--prefix' option pointing to an otherwise unused (and never used
+again) directory, for example, `--prefix=/tmp/inst$$'.  This is
+recommended because on some OSes the executables remember the location
+of shared libraries (and prefer them over LD_LIBRARY_PATH !), therefore
+such an executable will look for its shared libraries first in the
+original installation directory and only then in the current
+installation directory.
+
+   Installation with `--enable-relocatable' will not work for setuid /
+setgid executables.  (This is because such an executable kills its
+LD_LIBRARY_PATH variable when it is launched.)
+
+   The runtime penalty and size penalty are nearly zero on Linux 2.2 or
+newer (just one system call more when an executable is launched), and
+small on other systems (the wrapper program just sets an environment
+variable and execs the real program).
+
 Optional Features
 =================
 
@@ -121,7 +154,13 @@ you can use the `configure' options `--x-includes=DIR' and
 
    For packages that use the GNU libiconv library, you can use the
 `configure' option `--with-libiconv-prefix' to specify the prefix you
-used while installing libiconv.
+used while installing GNU libiconv.  This option is not necessary if
+that other prefix is the same as the one now specified through --prefix.
+
+   For packages that use the GNU libintl library, you can use the
+`configure' option `--with-libintl-prefix' to specify the prefix you
+used while installing GNU gettext-runtime.  This option is not necessary if
+that other prefix is the same as the one now specified through --prefix.
 
 Particular Systems
 ==================

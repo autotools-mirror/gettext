@@ -67,6 +67,12 @@
 # include <os2.h>
 #endif
 
+#if ENABLE_RELOCATABLE
+# include "relocatable.h"
+#else
+# define relocate(pathname) (pathname)
+#endif
+
 #if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
   /* Win32, OS/2, DOS */
 # define ISSLASH(C) ((C) == '/' || (C) == '\\')
@@ -110,7 +116,7 @@ get_charset_aliases ()
     {
 #if !defined WIN32
       FILE *fp;
-      const char *dir = LIBDIR;
+      const char *dir = relocate (LIBDIR);
       const char *base = "charset.alias";
       char *file_name;
 

@@ -1,3 +1,32 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Cleanup and support for relocatable installation.
+	* basename.h: Remove file, replaced with the copy in
+	../../gettext-tools/lib.
+	* basename.c: Likewise.
+	* error.h: Likewise.
+	* error.c: Likewise.
+	* exit.h: Likewise.
+	* getopt.h: Likewise.
+	* getopt.c: Likewise.
+	* getopt1.c: Likewise.
+	* xmalloc.h: Likewise.
+	* xmalloc.c: Likewise.
+	* alloca.c: New file, trivial link to ../../gettext-tools/lib.
+	* canonicalize.c: New file, trivial link to ../../gettext-tools/lib.
+	* memmove.c: New file, trivial link to ../../gettext-tools/lib.
+	* relocatable.c: New file, trivial link to ../../gettext-tools/lib.
+	* setenv.c: New file, trivial link to ../../gettext-tools/lib.
+	* strerror.c: New file, trivial link to ../../gettext-tools/lib.
+	* unsetenv.c: New file, trivial link to ../../gettext-tools/lib.
+	* Makefile.am (libgrt_a_SOURCES): Add pathmax.h, progname.h,
+	progname.c, xstrdup.c, xreadlink.h, xreadlink.c. Use references to
+	../../gettext-tools/lib.
+	(LIBADD_SOURCE): New variable.
+	(EXTRA_DIST, MOSTLYCLEANFILES): New variable.
+	(stdbool.h): New rule.
+	(alloca.h): New rule.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Extracted from gettext package.

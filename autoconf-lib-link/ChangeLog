@@ -1,3 +1,8 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Support for relocatable installation.
+	* INSTALL: Document --enable-relocatable and --with-libintl-prefix.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (ps, pdf): Remove rules, redundant with automake 1.7.2.

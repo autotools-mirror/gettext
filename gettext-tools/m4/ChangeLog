@@ -1,5 +1,14 @@
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
+	Support for relocatable installation.
+	* canonicalize.m4: New file.
+	* relocatable.m4: New file.
+	* strerror.m4: New file.
+	* xreadlink.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
 	* pathmax.m4: New file, from gnulib.
 	* Makefile.am (EXTRA_DIST): Add it.
 

@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form string from message catalog and print it.
-   Copyright (C) 1995-1997, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,6 +27,8 @@
 #include <errno.h>
 
 #include "error.h"
+#include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -38,9 +40,6 @@
 /* If nonzero expand escape sequences in strings before looking in the
    message catalog.  */
 int do_expand;
-
-/* Name the program is called with.  */
-const char *program_name;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -76,9 +75,7 @@ main (int argc, char *argv[])
   do_expand = 0;
 
   /* Set program name for message texts.  */
-  program_name = argv[0];
-  if (strncmp (program_name, "lt-", 3) == 0)
-    program_name += 3;
+  set_program_name (argv[0]);
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -86,7 +83,7 @@ main (int argc, char *argv[])
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   /* Parse command line options.  */
@@ -124,7 +121,7 @@ main (int argc, char *argv[])
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "1995-1997, 2000-2002");
+	      "1995-1997, 2000-2003");
       printf (_("Written by %s.\n"), "Ulrich Drepper");
       exit (EXIT_SUCCESS);
     }

@@ -53,20 +53,30 @@ dnl Check for build configuration.
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
+AC_RELOCATABLE
+
 AC_DEFINE(_GNU_SOURCE, 1, [Make sure we see all GNU extensions.])
 
 dnl Checks for libraries.
 
 dnl Checks for header files.
 AC_CHECK_HEADERS(string.h)
+gt_STDBOOL_H
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
+gl_FUNC_ALLOCA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([setlocale strerror])
+AC_REPLACE_FUNCS([memmove])
+gt_FUNC_SETENV
+gl_FUNC_STRERROR
 gt_FUNC_ERROR_AT_LINE
+gl_PATHMAX
+gl_XREADLINK
+gl_CANONICALIZE
 
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)

@@ -1,5 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -35,6 +35,7 @@
 
 #include "error.h"
 #include "progname.h"
+#include "relocatable.h"
 #include "basename.h"
 #include "full-write.h"
 #include "execute.h"
@@ -96,7 +97,7 @@ main (int argc, char *argv[])
 #endif
 
   /* Set the text message domain.  */
-  bindtextdomain (PACKAGE, LOCALEDIR);
+  bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
 
   /* Set default values for variables.  */
@@ -129,7 +130,7 @@ main (int argc, char *argv[])
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-              "2001");
+              "2001-2003");
       printf (_("Written by %s.\n"), "Bruno Haible");
       exit (EXIT_SUCCESS);
     }
@@ -244,7 +245,7 @@ fetch (const char *url, const char *file)
        necessary for running the testsuite before "make install".  */
     gettextjexedir = getenv ("GETTEXTJEXEDIR");
     if (gettextjexedir == NULL || gettextjexedir[0] == '\0')
-      gettextjexedir = GETTEXTJEXEDIR;
+      gettextjexedir = relocate (GETTEXTJEXEDIR);
 #else
     gettextjexedir = NULL;
 #endif

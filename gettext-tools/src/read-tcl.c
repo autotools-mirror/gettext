@@ -29,6 +29,7 @@
 #include <stdlib.h>
 
 #include "msgunfmt.h"
+#include "relocatable.h"
 #include "pathname.h"
 #include "sh-quote.h"
 #include "pipe.h"
@@ -66,7 +67,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
      necessary for running the testsuite before "make install".  */
   gettextdatadir = getenv ("GETTEXTDATADIR");
   if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-    gettextdatadir = GETTEXTDATADIR;
+    gettextdatadir = relocate (GETTEXTDATADIR);
 
   tclscript = concatenated_pathname (gettextdatadir, "msgunfmt.tcl", NULL);
 

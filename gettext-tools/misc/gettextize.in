@@ -25,6 +25,90 @@ progname=$0
 package=@PACKAGE@
 version=@VERSION@
 
+# Set variables
+# - gettext_dir     directory where the sources are stored.
+prefix="@prefix@"
+gettext_dir="@datadir@/gettext"
+
+# Support for relocatability.
+func_find_curr_installdir ()
+{
+  # Determine curr_installdir, even taking into account symlinks.
+  curr_executable="$0"
+  case "$curr_executable" in
+    */* | *\\*) ;;
+    *) # Need to look in the PATH.
+      if test "${PATH_SEPARATOR+set}" != set; then
+        { echo "#! /bin/sh"; echo "exit 0"; } > /tmp/conf$$.sh
+        chmod +x /tmp/conf$$.sh
+        if (PATH="/nonexistent;/tmp"; conf$$.sh) >/dev/null 2>&1; then
+          PATH_SEPARATOR=';'
+        else
+          PATH_SEPARATOR=:
+        fi
+        rm -f /tmp/conf$$.sh
+      fi
+      save_IFS="$IFS"; IFS="$PATH_SEPARATOR"
+      for dir in $PATH; do
+        IFS="$save_IFS"
+        test -z "$dir" && dir=.
+        for exec_ext in ''; do
+          if test -f "$dir/$curr_executable$exec_ext"; then
+            curr_executable="$dir/$curr_executable$exec_ext"
+            break 2
+          fi
+        done
+      done
+      IFS="$save_IFS"
+      ;;
+  esac
+  # Make absolute.
+  case "$curr_executable" in
+    /* | ?:/* | ?:\\*) ;;
+    *) curr_executable=`pwd`/"$curr_executable" ;;
+  esac
+  # Resolve symlinks.
+  while : ; do
+    lsline=`LC_ALL=C ls -l "$curr_executable"`
+    case "$lsline" in
+      *" -> "*)
+        curr_executable=`echo "$curr_executable" | sed -e 's,/[^/]*$,,'`/`echo "$lsline" | sed -n -e 's,^.* -> \(.*\),\1,p'` ;;
+      *) break ;;
+    esac
+  done
+  curr_installdir=`echo "$curr_executable" | sed -e 's,/[^/]*$,,'`
+  # Canonicalize.
+  curr_installdir=`cd "$curr_installdir" && pwd`
+}
+func_find_prefixes ()
+{
+  # Compute the original/current installation prefixes by stripping the
+  # trailing directories off the original/current installation directories.
+  orig_installprefix="$orig_installdir"
+  curr_installprefix="$curr_installdir"
+  while true; do
+    orig_last=`echo "$orig_installprefix" | sed -n -e 's,^.*/\([^/]*\)$,\1,p'`
+    curr_last=`echo "$curr_installprefix" | sed -n -e 's,^.*/\([^/]*\)$,\1,p'`
+    if test -z "$orig_last" || test -z "$curr_last"; then
+      break
+    fi
+    if test "$orig_last" != "$curr_last"; then
+      break
+    fi
+    orig_installprefix=`echo "$orig_installprefix" | sed -e 's,/[^/]*$,,'`
+    curr_installprefix=`echo "$curr_installprefix" | sed -e 's,/[^/]*$,,'`
+  done
+}
+if test "@RELOCATABLE@" = yes; then
+  exec_prefix="@exec_prefix@"
+  bindir="@bindir@"
+  orig_installdir="$bindir" # see Makefile.am's *_SCRIPTS variables
+  func_find_curr_installdir # determine curr_installdir
+  func_find_prefixes
+  # Relocate the directory variables that we use.
+  gettext_dir=`echo "$gettext_dir/" | sed -e "s%^${orig_installprefix}/%${curr_installprefix}/%" | sed -e 's,/$,,'`
+fi
+
 # func_usage
 # outputs to stdout the --help usage message.
 func_usage ()
@@ -138,11 +222,6 @@ func_fatal_error ()
 }
 
 # The current directory is now $srcdir.
-
-# Set variable
-# - gettext_dir     directory where the sources are stored.
-prefix="@prefix@"
-gettext_dir="@datadir@/gettext"
 
 # Check integrity of package: A configure.in/ac must be present. Sets variable
 # - configure_in    name of configure.in/ac file.

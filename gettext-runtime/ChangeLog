@@ -1,3 +1,11 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Support for relocatable installation.
+	* configure.ac: Invoke AC_RELOCATABLE, gt_STDBOOL_H, gl_FUNC_ALLOCA,
+	AC_REPLACE_FUNCS([memmove]), gt_FUNC_SETENV, gl_FUNC_STRERROR,
+	gl_PATHMAX, gl_XREADLINK, gl_CANONICALIZE.
+	* INSTALL: Document --enable-relocatable and --with-libintl-prefix.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (ps, pdf): Remove rules, redundant with automake 1.7.2.

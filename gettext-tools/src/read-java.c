@@ -1,5 +1,5 @@
 /* Reading Java ResourceBundles.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #include <errno.h>
 
 #include "msgunfmt.h"
+#include "relocatable.h"
 #include "javaexec.h"
 #include "pipe.h"
 #include "wait-process.h"
@@ -98,7 +99,7 @@ msgdomain_read_java (const char *resource_name, const char *locale_name)
      necessary for running the testsuite before "make install".  */
   gettextjexedir = getenv ("GETTEXTJEXEDIR");
   if (gettextjexedir == NULL || gettextjexedir[0] == '\0')
-    gettextjexedir = GETTEXTJEXEDIR;
+    gettextjexedir = relocate (GETTEXTJEXEDIR);
 #else
   gettextjexedir = NULL;
 #endif
