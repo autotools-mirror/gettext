@@ -154,7 +154,7 @@
 	* msginit.texi: Likewise.
 	* msgmerge.texi: Likewise.
 	* msguniq.texi: Likewise.
-	* msgcmp.texI: Document option -P.
+	* msgcmp.texi: Document option -P.
 	* msgexec.texi: Likewise.
 	* msgfmt.texi: Likewise.
 	* msgunfmt.texi: Document option -p.
