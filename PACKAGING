@@ -77,12 +77,19 @@ following file list.
       $prefix/share/aclocal/gettext.m4
       $prefix/share/aclocal/glibc21.m4
       $prefix/share/aclocal/iconv.m4
+      $prefix/share/aclocal/intdiv0.m4
+      $prefix/share/aclocal/inttypes.m4
+      $prefix/share/aclocal/inttypes_h.m4
+      $prefix/share/aclocal/inttypes-pri.m4
       $prefix/share/aclocal/isc-posix.m4
       $prefix/share/aclocal/lcmessage.m4
       $prefix/share/aclocal/lib-ld.m4
       $prefix/share/aclocal/lib-link.m4
       $prefix/share/aclocal/lib-prefix.m4
       $prefix/share/aclocal/progtest.m4
+      $prefix/share/aclocal/stdint_h.m4
+      $prefix/share/aclocal/uintmax_t.m4
+      $prefix/share/aclocal/ulonglong.m4
       $prefix/share/emacs/site-lisp/po-compat.el
       $prefix/share/emacs/site-lisp/po-compat.elc
       $prefix/share/emacs/site-lisp/po-mode.el
