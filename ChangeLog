@@ -1,3 +1,9 @@
+2003-02-27  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Include AC_CANONICAL_HOST, AC_ARG_ENABLE, AC_ARG_WITH,
+	AC_ARG_VAR calls from the subdir configures.
+	* Makefile.am (configure): Depend on each subdir's configure.ac.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (ps, pdf): Remove rules, redundant with automake 1.7.2.

@@ -26,6 +26,9 @@ EXTRA_DIST = \
   config/m4/fixautomake.m4 \
   config/m4/libtool.m4
 
+# Additional dependencies for configure, due to the use of autoconf --trace.
+$(srcdir)/configure: $(srcdir)/autoconf-lib-link/configure.ac $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-tools/configure.ac 
+
 
 # DJGPP port.
 

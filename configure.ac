@@ -36,6 +36,18 @@ dnl Checks for library functions.
 
 AC_CONFIG_SUBDIRS(autoconf-lib-link gettext-runtime gettext-tools)
 
+dnl Ensure that "configure --help" lists all the command line options that
+dnl are usable with the subdir configures. Really AC_CONFIG_SUBDIRS should
+dnl do it by itself.
+dnl System types:
+AC_CANONICAL_HOST
+dnl Optional Features: AC_ARG_ENABLE calls
+dnl Optional Packages: AC_ARG_WITH calls
+dnl Some influential environment variables: AC_ARG_VAR calls
+esyscmd([cd autoconf-lib-link && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)'])
+esyscmd([cd gettext-runtime   && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)'])
+esyscmd([cd gettext-tools     && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)'])
+
 AC_CONFIG_FILES([Makefile])
 
 AC_OUTPUT
