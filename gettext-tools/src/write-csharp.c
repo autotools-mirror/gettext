@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -770,7 +770,6 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
       fclose (csharp_file);
       goto quit5;
     }
-  fclose (csharp_file);
 
   /* Make it possible to override the .dll location.  This is
      necessary for running the testsuite before "make install".  */

@@ -1,5 +1,13 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* fwriteerror.h (fwriteerror): Change specification to include fclose.
+	* fwriteerror.c: Include <stdbool.h>.
+	(fwriteerror): At the end, close the file stream. Record whether
+	stdout was already closed.
+	* closeout.c: Update comments.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* strerror.c: Update from gnulib, with HAVE_STRERROR modifications.
 
 2005-01-06  Bruno Haible  <bruno@clisp.org>

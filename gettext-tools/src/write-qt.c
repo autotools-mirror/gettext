@@ -1,5 +1,5 @@
 /* Writing Qt .qm files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -529,9 +529,6 @@ strings, not in the untranslated strings\n")));
 	  if (fwriteerror (output_file))
 	    error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 		   file_name);
-
-	  if (output_file != stdout)
-	    fclose (output_file);
 	}
     }
 

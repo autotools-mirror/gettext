@@ -1,5 +1,5 @@
 /* closeout.c - close standard output
-   Copyright (C) 1998-2003 Free Software Foundation, Inc.
+   Copyright (C) 1998-2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 #define _(msgid) gettext (msgid)
 
 /* Close standard output, exiting with status STATUS on failure.
-   If a program writes *anything* to stdout, that program should `fflush'
+   If a program writes *anything* to stdout, that program should close
    stdout and make sure that it succeeds before exiting.  Otherwise,
    suppose that you go to the extreme of checking the return status
    of every function that does an explicit write to stdout.  The last
@@ -45,11 +45,9 @@
    the fclose(stdout) could still fail (due e.g., to a disk full error)
    when it tries to write out that buffered data.  Thus, you would be
    left with an incomplete output file and the offending program would
-   exit successfully.
-
-   FIXME: note the fflush suggested above is implicit in the fclose
-   we actually do below.  Consider doing only the fflush and/or using
-   setvbuf to inhibit buffering.
+   exit successfully.  Even calling fflush is not always sufficient,
+   since some file systems (NFS and CODA) buffer written/flushed data
+   until an actual close call.
 
    Besides, it's wasteful to check the return value from every call
    that writes to stdout -- just let the internal stream state record
@@ -64,10 +62,6 @@ close_stdout_status (int status)
 {
   if (fwriteerror (stdout))
     error (status, errno, "%s", _("write error"));
-  /* We don't need to fclose (stdout).  fwriteerror (stdout) == 0 guarantees
-     that the implicit fclose (stdout) at program exit will succeed.
-     This avoids a useless close(1) system call in the frequent case
-     that no error occurred.  */
 }
 
 /* Close standard output, exiting with status EXIT_FAILURE on failure.  */

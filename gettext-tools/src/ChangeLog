@@ -1,3 +1,14 @@
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
+	* write-csharp.c (msgdomain_write_csharp): Don't call fclose after
+	fwriteerror.
+	* write-java.c (msgdomain_write_java): Likewise.
+	* write-mo.c (msgdomain_write_mo): Likewise.
+	* write-po.c (msgdomain_list_print): Likewise.
+	* write-qt.c (msgdomain_write_qt): Likewise.
+	* write-resources.c (execute_writing_input): Likewise.
+	* write-tcl.c (msgdomain_write_tcl): Likewise.
+
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.c (main): Update year in --version output.

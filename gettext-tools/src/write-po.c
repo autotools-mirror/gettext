@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -1125,9 +1125,6 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
   if (fwriteerror (fp))
     po_error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	      filename);
-
-  if (fp != stdout)
-    fclose (fp);
 }
 
 

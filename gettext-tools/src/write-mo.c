@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -725,9 +725,6 @@ msgdomain_write_mo (message_list_ty *mlp,
 	  if (fwriteerror (output_file))
 	    error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 		   file_name);
-
-	  if (output_file != stdout)
-	    fclose (output_file);
 	}
     }
 

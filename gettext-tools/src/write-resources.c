@@ -1,5 +1,5 @@
 /* Writing C# .resources files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -95,7 +95,6 @@ execute_writing_input (const char *progname,
   if (fwriteerror (fp))
     error (EXIT_FAILURE, 0, _("error while writing to %s subprocess"),
 	   progname);
-  fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
   /* He we can ignore SIGPIPE because WriteResource either writes to a file

@@ -1,5 +1,5 @@
 /* Writing tcl/msgcat .msg files.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -204,7 +204,6 @@ but the Tcl message catalog format doesn't support plural handling\n")));
       error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	     file_name);
 
-    fclose (output_file);
     freesa (frobbed_locale_name);
   }
 
