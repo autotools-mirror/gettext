@@ -95,20 +95,32 @@ else
   srcdir=$origdir
 fi
 
+# The current directory is now $srcdir.
+
 # Directory where the sources are stored.
 prefix=@prefix@
 gettext_dir=@datadir@/gettext
 
 modified_ChangeLog=
 added_directories=
+removed_directory=
 added_extradist=
 added_acoutput=
+removed_acoutput=" intl/intlh.inst"
 please=
 
 test -f configure.in || test -f configure.ac || {
   $echo "Missing configure.in or configure.ac, please cd to your package first."
   exit 1
 }
+configure_in=NONE
+if test -f configure.in; then
+  configure_in=configure.in
+else
+  if test -f configure.ac; then
+    configure_in=configure.ac
+  fi
+fi
 
 if test -d intl && test $force -eq 0; then
   $echo "\
@@ -130,6 +142,9 @@ fi
 if test ! -f intl/Makefile.in && test -n "$intldir"; then
   added_acoutput="$added_acoutput intl/Makefile"
 fi
+if test -f intl/Makefile.in && test -z "$intldir"; then
+  removed_acoutput="$removed_acoutput intl/Makefile"
+fi
 if test -d intl; then
   # Remove everything inside intl except for RCS and CVS subdirs and invisible
   # files.
@@ -140,6 +155,9 @@ if test -d intl; then
        rm -rf "$f"
      fi
    done)
+  if test -z "$intldir"; then
+    removed_directory=intl
+  fi
 else
   if test -n "$intldir"; then
     $echo "Creating intl/ subdirectory"
@@ -147,6 +165,7 @@ else
       $echo "failed to create intl/ subdirectory"
       exit 1;
     }
+    added_directories="$added_directories intl"
   fi
 fi
 
@@ -175,10 +194,7 @@ for file in *; do
       { $echo "Copying file $file"; cp $file $srcdir/$file; }
       ;;
     config.rpath)
-      auxdir=
-      if test -f $srcdir/configure.in || test -f $srcdir/configure.ac; then
-        auxdir=`(cat $srcdir/configure.in 2>/dev/null; cat $srcdir/configure.ac 2>/dev/null) | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | head -1`
-      fi
+      auxdir=`cat $srcdir/$configure_in | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | head -1`
       if test -n "$auxdir"; then
         auxdir="$auxdir/"
       fi
@@ -206,7 +222,7 @@ if test -n "$intldir"; then
       else
         # plural.c is a generated file; it must be copied and touched.
         $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file
-        sleep 2; touch $srcdir/intl/$file
+        (sleep 2; touch $srcdir/intl/$file) &
        fi
     fi
   done
@@ -450,7 +466,7 @@ Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
       ;;
   esac
   # Update the top-level Makefile.am.
-  if test -n "$added_directories" || test -z "$m4dir_is_next" || test -n "$added_extradist"; then
+  if test -n "$added_directories" || test -n "$removed_directory" || test -z "$m4dir_is_next" || test -n "$added_extradist"; then
     if $do_changelog; then
       echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
       echo >> $srcdir/ChangeLog.tmp
@@ -463,15 +479,39 @@ Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
     first="* Makefile.am "
     if test -n "$added_directories"; then
       if grep '^SUBDIRS[ 	]*=' $srcdir/Makefile.am~ > /dev/null; then
-        sed -e "s%^\(SUBDIRS[ 	]*=\)%\\1$added_directories %" < $srcdir/Makefile.am~ > $srcdir/Makefile.am~2
-        $do_changelog && echo "	$first(SUBDIRS): Add$added_directories." >> $srcdir/ChangeLog.tmp
+        sed -e "s%^\(SUBDIRS[ 	]*=\)%\\1$added_directories %" < $srcdir/Makefile.am~ > $srcdir/Makefile.am~1
+        $do_changelog && echo "	$first(SUBDIRS): Add "`echo $added_directories | sed -e 's/ /, /g'`'.' >> $srcdir/ChangeLog.tmp
       else
-        (cat $srcdir/Makefile.am~; echo; echo "SUBDIRS =$added_directories") > $srcdir/Makefile.am~2
+        (cat $srcdir/Makefile.am~; echo; echo "SUBDIRS =$added_directories") > $srcdir/Makefile.am~1
         $do_changelog && echo "	$first(SUBDIRS): New variable." >> $srcdir/ChangeLog.tmp
       fi
       first=
     else
-      cp $srcdir/Makefile.am~ $srcdir/Makefile.am~2
+      cp $srcdir/Makefile.am~ $srcdir/Makefile.am~1
+    fi
+    if test -n "$removed_directory"; then
+      sed -e '/^SUBDIRS[ 	]*=/ {
+          :a
+          s%\([ 	]\)'"$removed_directory"'[ 	]%\1%
+          s%[ 	]'"$removed_directory"'$%%
+          tb
+          :b
+          s%\\$%\\%
+          tc
+          bd
+          :c
+          n
+          ba
+        :d
+      }' < $srcdir/Makefile.am~1 > $srcdir/Makefile.am~2
+      if cmp -s $srcdir/Makefile.am~1 $srcdir/Makefile.am~2; then
+        :
+      else
+        $do_changelog && echo "	$first(SUBDIRS): Remove $removed_directory." >> $srcdir/ChangeLog.tmp
+      fi
+      first=
+    else
+      cp $srcdir/Makefile.am~1 $srcdir/Makefile.am~2
     fi
     if test -z "$m4dir_is_next"; then
       if grep '^ACLOCAL_AMFLAGS[ 	]*=' $srcdir/Makefile.am~ > /dev/null; then
@@ -508,7 +548,7 @@ Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
     else
       cp $srcdir/Makefile.am~3 $srcdir/Makefile.am
     fi
-    rm -f $srcdir/Makefile.am~2 $srcdir/Makefile.am~3
+    rm -f $srcdir/Makefile.am~1 $srcdir/Makefile.am~2 $srcdir/Makefile.am~3
   fi
   please="$please
 Please run 'aclocal -I $m4dir' to regenerate the aclocal.m4 file.
@@ -522,53 +562,162 @@ $m4filelist
 from the @datadir@/aclocal directory to your aclocal.m4 file.
 "
 fi
+modified_configure_in=
 if test -n "$added_acoutput"; then
-  configure_in=
-  if test -f $srcdir/configure.in; then
-    configure_in=configure.in
-  else
-    if test -f $srcdir/configure.ac; then
-      configure_in=configure.ac
+  if grep '^AC_CONFIG_FILES(' $srcdir/$configure_in > /dev/null; then
+    $echo "Updating $configure_in (backup is in $configure_in~)"
+    rm -f $srcdir/$configure_in~
+    cp -p $srcdir/$configure_in $srcdir/$configure_in~
+    rm -f $srcdir/$configure_in
+    sed -e "s%^\\(AC_CONFIG_FILES([^])\\,]*\\)%\\1$added_acoutput %" < $srcdir/$configure_in~ > $srcdir/$configure_in
+    if $do_changelog; then
+      if test -z "$modified_ChangeLog"; then
+        echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
+        echo >> $srcdir/ChangeLog.tmp
+        modified_ChangeLog=yes
+      fi
+      echo "	* $configure_in (AC_CONFIG_FILES): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.' >> $srcdir/ChangeLog.tmp
     fi
-  fi
-  if test -n "$configure_in"; then
-    if grep '^AC_CONFIG_FILES(' $srcdir/$configure_in > /dev/null; then
+    modified_configure_in=yes
+  else
+    if grep '^AC_OUTPUT(' $srcdir/$configure_in > /dev/null; then
       $echo "Updating $configure_in (backup is in $configure_in~)"
       rm -f $srcdir/$configure_in~
       cp -p $srcdir/$configure_in $srcdir/$configure_in~
       rm -f $srcdir/$configure_in
-      sed -e "s%^\\(AC_CONFIG_FILES([^])\\,]*\\)%\\1$added_acoutput %" < $srcdir/$configure_in~ > $srcdir/$configure_in
+      sed -e "s%^\\(AC_OUTPUT([^])\\,]*\\)%\\1$added_acoutput %" < $srcdir/$configure_in~ > $srcdir/$configure_in
       if $do_changelog; then
         if test -z "$modified_ChangeLog"; then
           echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
           echo >> $srcdir/ChangeLog.tmp
           modified_ChangeLog=yes
         fi
-        echo "	* $configure_in (AC_CONFIG_FILES): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.' >> $srcdir/ChangeLog.tmp
+        echo "	* $configure_in (AC_OUTPUT): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.' >> $srcdir/ChangeLog.tmp
       fi
+      modified_configure_in=yes
     else
-      if grep '^AC_OUTPUT(' $srcdir/$configure_in > /dev/null; then
-        $echo "Updating $configure_in (backup is in $configure_in~)"
-        rm -f $srcdir/$configure_in~
-        cp -p $srcdir/$configure_in $srcdir/$configure_in~
-        rm -f $srcdir/$configure_in
-        sed -e "s%^\\(AC_OUTPUT([^])\\,]*\\)%\\1$added_acoutput %" < $srcdir/$configure_in~ > $srcdir/$configure_in
-        if $do_changelog; then
-          if test -z "$modified_ChangeLog"; then
-            echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
-            echo >> $srcdir/ChangeLog.tmp
-            modified_ChangeLog=yes
-          fi
-          echo "	* $configure_in (AC_OUTPUT): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.' >> $srcdir/ChangeLog.tmp
-        fi
-      else
-        please="$please
+      please="$please
 Please add$added_acoutput to the AC_OUTPUT or AC_CONFIG_FILES invocation in the $configure_in file.
 "
-      fi
     fi
   fi
 fi
+if test -n "$removed_acoutput"; then
+  for file in $removed_acoutput; do
+    tag=
+    sedprog='{
+      s%\([[ 	]\)'"$file"'[ 	]%\1%
+      s%\([[ 	]\)'"$file"'\([]),]\)%\1\2%
+      s%[[ 	]'"$file"'$%%
+        :a
+        tb
+        :b
+        s%\\$%\\%
+        tc
+        bd
+        :c
+        n
+        s%\([ 	]\)'"$file"'[ 	]%\1%
+        s%\([ 	]\)'"$file"'\([]),]\)%\1\2%
+        s%[ 	]'"$file"'$%%
+        ba
+      :d
+    }'
+    sed -e '/^AC_CONFIG_FILES(/'"$sedprog" < $srcdir/$configure_in > $srcdir/$configure_in.tmp
+    if cmp -s $srcdir/$configure_in $srcdir/$configure_in.tmp; then
+      sed -e '/^AC_OUTPUT(/'"$sedprog" < $srcdir/$configure_in > $srcdir/$configure_in.tmp
+      if cmp -s $srcdir/$configure_in $srcdir/$configure_in.tmp; then
+        :
+      else
+        tag=AC_OUTPUT
+      fi
+    else
+      tag=AC_CONFIG_FILES
+    fi
+    if test -n "$tag"; then
+      if test -z "$modified_configure_in"; then
+        $echo "Updating $configure_in (backup is in $configure_in~)"
+        rm -f $srcdir/$configure_in~
+        cp -p $srcdir/$configure_in $srcdir/$configure_in~
+      fi
+      rm -f $srcdir/$configure_in
+      cp $srcdir/$configure_in.tmp $srcdir/$configure_in
+      if $do_changelog; then
+        if test -z "$modified_ChangeLog"; then
+          echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
+          echo >> $srcdir/ChangeLog.tmp
+          modified_ChangeLog=yes
+        fi
+        if test -z "$modified_configure_in"; then
+          echo "	* $configure_in ($tag): Remove $file." >> $srcdir/ChangeLog.tmp
+        else
+          echo "	($tag): Remove $file." >> $srcdir/ChangeLog.tmp
+        fi
+      fi
+      modified_configure_in=yes
+    else
+      if test "$file" != intl/intlh.inst; then
+        please="$please
+Please remove $file from the AC_OUTPUT or AC_CONFIG_FILES invocation
+in the $configure_in file.
+"
+      fi
+    fi
+    rm -f $srcdir/$configure_in.tmp
+  done
+fi
+sed -e 's%sed -e "/POTFILES =/r po/POTFILES" po/Makefile\.in > po/Makefile *;* *%%' < $srcdir/$configure_in > $srcdir/$configure_in.tmp
+if cmp -s $srcdir/$configure_in $srcdir/$configure_in.tmp; then
+  :
+else
+  if test -z "$modified_configure_in"; then
+    $echo "Updating $configure_in (backup is in $configure_in~)"
+    rm -f $srcdir/$configure_in~
+    cp -p $srcdir/$configure_in $srcdir/$configure_in~
+  fi
+  rm -f $srcdir/$configure_in
+  cp $srcdir/$configure_in.tmp $srcdir/$configure_in
+  if $do_changelog; then
+    if test -z "$modified_ChangeLog"; then
+      echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
+      echo >> $srcdir/ChangeLog.tmp
+      modified_ChangeLog=yes
+    fi
+    if test -z "$modified_configure_in"; then
+      echo "	* $configure_in (AC_OUTPUT): Remove command that created po/Makefile." >> $srcdir/ChangeLog.tmp
+    else
+      echo "	(AC_OUTPUT): Remove command that created po/Makefile." >> $srcdir/ChangeLog.tmp
+    fi
+  fi
+  modified_configure_in=yes
+fi
+rm -f $srcdir/$configure_in.tmp
+sed -e '/^\(dnl \|\)AC_LINK_FILES(\$nls_cv_header_libgt, \$nls_cv_header_intl)$/d' < $srcdir/$configure_in > $srcdir/$configure_in.tmp
+if cmp -s $srcdir/$configure_in $srcdir/$configure_in.tmp; then
+  :
+else
+  if test -z "$modified_configure_in"; then
+    $echo "Updating $configure_in (backup is in $configure_in~)"
+    rm -f $srcdir/$configure_in~
+    cp -p $srcdir/$configure_in $srcdir/$configure_in~
+  fi
+  rm -f $srcdir/$configure_in
+  cp $srcdir/$configure_in.tmp $srcdir/$configure_in
+  if $do_changelog; then
+    if test -z "$modified_ChangeLog"; then
+      echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
+      echo >> $srcdir/ChangeLog.tmp
+      modified_ChangeLog=yes
+    fi
+    if test -z "$modified_configure_in"; then
+      echo "	* $configure_in (AC_LINK_FILES): Remove invocation." >> $srcdir/ChangeLog.tmp
+    else
+      echo "	(AC_LINK_FILES): Remove invocation." >> $srcdir/ChangeLog.tmp
+    fi
+  fi
+  modified_configure_in=yes
+fi
+rm -f $srcdir/$configure_in.tmp
 if $do_changelog && test -n "$modified_ChangeLog"; then
   echo >> $srcdir/ChangeLog.tmp
   if test -f $srcdir/ChangeLog; then
@@ -582,13 +731,15 @@ if $do_changelog && test -n "$modified_ChangeLog"; then
   rm -f $srcdir/ChangeLog.tmp
 fi
 
-# Recommend replacement for INTLLIBS Makefile variable.
-use_libtool=`(cat $srcdir/configure.in 2>/dev/null; cat $srcdir/configure.ac 2>/dev/null) | grep '^A[CM]_PROG_LIBTOOL'`
+# Recommend replacement for deprecated Makefile variables.
+use_libtool=`cat $srcdir/$configure_in | grep '^A[CM]_PROG_LIBTOOL'`
 for file in `(cd $srcdir; find . -name Makefile.am -print; find . -name Makefile.in -print) | sed -e 's,^\./,,'`; do
   if test -f "$srcdir/$file"; then
     if test `echo "$file" | sed -e 's,^.*/,,'` = Makefile.in && grep automake "$srcdir/$file" >/dev/null 2>&1; then
       continue;
     fi
+    # INTLLIBS is deprecated because it doesn't distinguish the two
+    # cases: with libtool, without libtool.
     if grep '@''INTLLIBS''@' "$srcdir/$file" >/dev/null 2>&1; then
       if test -n "$use_libtool"; then
         please="$please
@@ -603,8 +754,47 @@ Please change $file to use @""LIBINTL""@ instead of @""INTLLIBS""@.
 "
       fi
     fi
+    # DATADIRNAME is deprecated because we install only .gmo files nowadays,
+    # which can be stored in the platform independent $prefix/share hierarchy.
+    if grep '@''DATADIRNAME''@' "$srcdir/$file" >/dev/null 2>&1; then
+      please="$please
+Please change $file to use the constant string \"share\" instead of
+@""DATADIRNAME""@. @""DATADIRNAME""@ will go away.
+"
+    fi
+    # INSTOBJEXT is deprecated because we install only .gmo files nowadays,
+    # no catgets .cat catalogs.
+    if grep '@''INSTOBJEXT''@' "$srcdir/$file" >/dev/null 2>&1; then
+      please="$please
+Please change $file to use the constant string \".mo\" instead of
+@""INSTOBJEXT""@. @""INSTOBJEXT""@ will go away.
+"
+    fi
+    # GENCAT is deprecated because we install no catgets catalogs anymore.
+    if grep '@''GENCAT''@' "$srcdir/$file" >/dev/null 2>&1; then
+      please="$please
+Please change $file to use the constant string \"gencat\" instead of
+@""GENCAT""@. @""GENCAT""@ will go away. Maybe you don't even need it any more?
+"
+    fi
+    # POSUB is deprecated because it causes "./configure --disable-nls", "make",
+    # "make dist" to create a buggy tarfile.
+    if grep '@''POSUB''@' "$srcdir/$file" >/dev/null 2>&1; then
+      please="$please
+Please change $file to use the constant string \"po\" instead of
+@""POSUB""@. @""POSUB""@ will go away.
+"
+    fi
   fi
 done
+
+# Recommend replacement for deprecated configure variables.
+if grep '\$nls_cv_header_' $srcdir/$configure_in >/dev/null 2>&1; then
+  please="$please
+Please stop using \$nls_cv_header_intl or \$nls_cv_header_libgt in the
+$configure_in file. Both will go away. Use <libintl.h> or \"gettext.h\" instead.
+"
+fi
 
 echo "$please"
 echo "You will also need config.guess and config.sub, which you can get from"

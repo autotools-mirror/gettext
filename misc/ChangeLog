@@ -1,3 +1,18 @@
+2002-01-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: If directory intl was removed, remove it from SUBDIRS
+	in Makefile.am.
+	If intl/Makefile.in was removed, remove intl/Makefile from
+	AC_OUTPUT/AC_CONFIG_FILES statement in configure.in.
+	Remove intl/intlh.inst from AC_OUTPUT/AC_CONFIG_FILES statement in
+	configure.in.
+	Remove old-style "sed ... > po/Makefile" statement from configure.in.
+	Remove old-style AC_LINK_FILES statement from configure.in.
+	Recommend replacement for Makefile variables DATADIRNAME, INSTOBJEXT,
+	GENCAT, POSUB.
+	Recommend replacement for shell variables nls_cv_header_intl,
+	nls_cv_header_libgt.
+
 2002-01-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: New option --no-changelog.
