@@ -1,3 +1,9 @@
+2002-05-28  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (LANG_SORBIAN): Provide a default value, for mingw32.
+	Reported by Michael Opdenacker <m-opdenacker@ti.com>
+	and Rob Leslie <rob@mars.org>.
+
 2002-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Update for newest glibc. Add canonical names

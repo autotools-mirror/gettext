@@ -143,6 +143,9 @@
 # ifndef LANG_SLOVAK
 # define LANG_SLOVAK 0x1b
 # endif
+# ifndef LANG_SORBIAN
+# define LANG_SORBIAN 0x2e
+# endif
 # ifndef LANG_SWAHILI
 # define LANG_SWAHILI 0x41
 # endif
