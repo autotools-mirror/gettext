@@ -1,5 +1,5 @@
 /* xgettext librep backend.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -440,7 +440,7 @@ read_token (tp, first)
 
 static char *buffer;
 static size_t bufmax;
-size_t buflen;
+static size_t buflen;
 
 static inline void
 comment_start ()

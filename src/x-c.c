@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -442,7 +442,7 @@ phase3_ungetc (c)
 
 static char *buffer;
 static size_t bufmax;
-size_t buflen;
+static size_t buflen;
 
 static inline void
 comment_start ()
