@@ -21,10 +21,11 @@ char buf[16];
 int main () {
   /* Check whether the given locale name is recognized by the system.  */
   if (setlocale (LC_ALL, "") == NULL) return 1;
-  /* Check whether the abbreviation of the second month is three bytes long.
-     This excludes the UTF-8 encoding.  */
+  /* Check whether in the abbreviation of the second month, the second
+     character (should be U+00E9: LATIN SMALL LETTER E WITH ACUTE) is only
+     one byte long. This excludes the UTF-8 encoding.  */
   t.tm_year = 1975 - 1900; t.tm_mon = 2 - 1; t.tm_mday = 4;
-  if (strftime (buf, sizeof (buf), "%b", &t) != 3) return 1;
+  if (strftime (buf, sizeof (buf), "%b", &t) < 3 || buf[2] != 'v') return 1;
   return 0;
 }
 EOF
