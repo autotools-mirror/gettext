@@ -1,5 +1,10 @@
 2003-06-23  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext-26: Fix expected test result for backslashed dollar in
+	single-quoted string.
+
+2003-06-23  Bruno Haible  <bruno@clisp.org>
+
 	* format-perl-bracket-2: Allow added arguments in msgstr.
 
 2003-06-21  Bruno Haible  <bruno@clisp.org>

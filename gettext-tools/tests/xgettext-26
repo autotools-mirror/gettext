@@ -215,16 +215,12 @@ msgstr ""
 msgid "abc$defg"
 msgstr ""
 
-#: xg-test26.pl:61
+#: xg-test26.pl:61 xg-test26.pl:62
 msgid "abc\\$defg"
 msgstr ""
 
-#: xg-test26.pl:62
-msgid "abc\\\\$defg"
-msgstr ""
-
 #: xg-test26.pl:63
-msgid "abc\\\\\\$defg"
+msgid "abc\\\\$defg"
 msgstr ""
 
 #: xg-test26.pl:66 xg-test26.pl:67 xg-test26.pl:71 xg-test26.pl:72
