@@ -7,9 +7,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11-pre5\n"
+"Project-Id-Version: gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-01-22 18:32+0200\n"
+"PO-Revision-Date: 2002-03-27 19:32+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -457,7 +457,8 @@ msgid ""
 msgstr ""
 "Placering af uddatafil:\n"
 "  -o, --output-file=FIL       uddata skrives til FIL\n"
-"Resultaterne udskrives til standard-uddata hvis ingen uddatafil er angivet.\n"
+"Resultaterne udskrives til standard-uddata hvis ingen uddatafil er angivet,\n"
+"eller hvis den er angivet som - .\n"
 
 #: src/msgattrib.c:359
 #, no-wrap
@@ -1047,9 +1048,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s kræver at \"-d katalog\" angives"
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s kræver at \"-d katalog\" angives"
+msgstr "%s kræver en \"-l lokale\"-angivelse"
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1058,9 +1059,9 @@ msgid "%s is only valid with %s"
 msgstr "%s er kun gyldig med %s"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s er kun gyldig med %s"
+msgstr "%s er kun gyldig med %s eller %s"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1106,7 +1107,7 @@ msgstr ""
 "Hvis inddatafilen er -, læses fra standard-input.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1116,6 +1117,7 @@ msgstr ""
 "Kørselstilstand:\n"
 "  -j, --java                  Javatilstand: generér en Java ResourceBundle-klasse\n"
 "      --java2                 som --java, og antag Java2 (JDK 1.2 eller højere)\n"
+"      --tcl                   Tcl-tilstand: generér en tcl/msgcat .msg-fil\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1127,7 +1129,7 @@ msgid ""
 msgstr ""
 "Placering af uddatafil:\n"
 "  -o, --output-file=FIL       uddata skrives til FIL\n"
-"Resultaterne udskrives til standard-uddata hvis ingen uddatafil er angivet.\n"
+"Hvis uddatafilen er -, skrives uddata til standard-ud.\n"
 
 #: src/msgfmt.c:572
 #, no-wrap
@@ -1149,7 +1151,7 @@ msgstr ""
 "i det opgivne katalog.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1157,12 +1159,10 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Placering af uddatafil i Javatilstand:\n"
-"  -r, --resource=RESSOURCE    ressourcenavn\n"
+"Placering af uddatafil i Tcl-tilstand:\n"
 "  -l, --locale=LOCALE         localenavn, enten sprog eller sprog_LAND\n"
-"  -d KATALOG                  startkatalog for klassers katalogtræ\n"
-"Klassenavnet bestemmes ved at tilføje localenavnet til ressourcenavnet\n"
-"adskilt med en understreg. Flaget -d er obligatorisk. Klassen skrives\n"
+"  -d KATALOG                  startkatalog for .msg-beskedskataloger\n"
+"Flagene -l og -d er obligatoriske. .msg-filen skrives\n"
 "i det opgivne katalog.\n"
 
 #: src/msgfmt.c:592
@@ -1284,7 +1284,7 @@ msgstr[1] "...men nogen tekster har %lu flertalsformer"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Prøv at bruge det følgende, gældende for %s:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1340,24 +1340,23 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr har for mange mærker \"%c\" for tastaturgenveje"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "feltet `%s' mangler i hovedet"
+msgstr "feltet `%s' mangler i hovedet\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "feltet `%s' bør starte ved linjens begyndelse"
+msgstr "feltet '%s' i hovedet bør starte ved linjens begyndelse\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "nogle felter i hovedet har stadig den oprindelige standardværdi"
+msgstr "nogle felter i hovedet har stadig den oprindelige standardværdi\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "feltet `%s' har stadig den oprindelige standardværdi"
+msgstr "feltet `%s' har stadig den oprindelige standardværdi\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1420,7 +1419,7 @@ msgstr ""
 "mønster eller hører til en given kildetekstfil.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1450,19 +1449,21 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Udvælgelse af besked:\n"
-"  [-N KILDETEKSTFIL]... [-M DOMÆNENAVN]... [-K MSGID-MØNSTER] [-T MSGSTR-MØNSTER]\n"
+"  [-N KILDETEKSTFIL]... [-M DOMÆNENAVN]...\n"
+"  [-K MSGID-MØNSTER] [-T MSGSTR-MØNSTER] [-C KOMMENTAR-MØNSTER]\n"
 "En besked vælges hvis den kommer fra en af de angivne kildetekstfiler\n"
-"eller hvis den kommer fra en af de angivne domæner\n"
-"eller hvis -K angives og nøglen (msgid eller msgid_plural) matcher MSGID-MØNSTER\n"
-"eller hvis -T angives og oversættelsen (msgstr) matcher MSGSTR-MØNSTER.\n"
+"eller hvis den kommer fra en af de angivne domæner,\n"
+"eller hvis -K angives og nøglen (msgid eller msgid_plural) matcher MSGID-MØNSTER,\n"
+"eller hvis -T angives og oversættelsen (msgstr) matcher MSGSTR-MØNSTER,\n"
+"eller hvis -C angives og oversætterens kommentar matcher KOMMENTAR-MØNSTER.\n"
 "\n"
 "Når mere end et udvælgelseskriterium angives er mængden af valgte beskeder\n"
 "foreningsmængden af udvalgte beskeder for hvert enkelt kriterium.\n"
 "\n"
 "Syntaks for MSGID-MØNSTER eller MSGSTR-MØNSTER:\n"
 "  [-E | -F] [-e MØNSTER | -f FIL]...\n"
-"MØNSTER er normale regulære udtryk\n"
-"eller udvidede regulære udtryk hvis -E angives\n"
+"MØNSTER er normale regulære udtryk,\n"
+"eller udvidede regulære udtryk hvis -E angives,\n"
 "eller almindelige strenge hvis -F angives.\n"
 "\n"
 "  -N, --location=KILDETEKSTFIL vælg beskeder udtrukket fra KILDETEKSTFIL\n"
@@ -1907,15 +1908,15 @@ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Konvertér et binær beskedskatalog til en .po-fil af Uniforum-type\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "Kørselstilstand:\n"
-"  -j, --java                  Javatilstand: generér en Java ResourceBundle-klasse\n"
-"      --java2                 som --java, og antag Java2 (JDK 1.2 eller højere)\n"
+"  -j, --java                  Javatilstand: inddata er en Java ResourceBundle-klasse\n"
+"      --tcl                   Tcl-tilstand: inddata er en tcl/msgcat .msg-fil\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1944,7 +1945,7 @@ msgstr ""
 "adskilt med en understreg. Klassen findes med hjælp af CLASSPATH.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -1952,12 +1953,10 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Placering af uddatafil i Javatilstand:\n"
-"  -r, --resource=RESSOURCE    ressourcenavn\n"
-"  -l, --locale=LOCALE         localenavn, enten sprog eller sprog_LAND\n"
-"  -d KATALOG                  startkatalog for klassers katalogtræ\n"
-"Klassenavnet bestemmes ved at tilføje localenavnet til ressourcenavnet\n"
-"adskilt med en understreg. Flaget -d er obligatorisk. Klassen skrives\n"
+"Placering af inddatafil i Tcl-tilstand:\n"
+"  -l, --locale=LOCALE      localenavn, enten sprog eller sprog_LAND\n"
+"  -d KATALOG               startkatalog for .msg-beskedskataloger\n"
+"Flagene -l og -d er obligatoriske. .msg-filen skrives\n"
 "i det opgivne katalog.\n"
 
 #: src/msgunfmt.c:361
@@ -2406,7 +2405,7 @@ msgstr ""
 "Hvis uddatafilen er -, skrives uddata til standard-ud.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2418,8 +2417,9 @@ msgid ""
 msgstr ""
 "Valg af sprog for indfil:\n"
 "  -L, --language=NAVN            genkend det angivne sprog\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                   librep, Java, YCP)\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                   RST, Glade)\n"
 "  -C, --c++                      kort skrivemåde for --language=C++\n"
 
 #: src/xgettext.c:575

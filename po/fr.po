@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-03-13 12:00-0500\n"
+"PO-Revision-Date: 2002-03-17 20:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr "le sous-processus %s a reçu le signal fatal %d"
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr ""
-"nombre de spécifications de format entre «msgid» et «%s» ne concorde pas"
+"nombre de spécifications de format entre « msgid » et « %s » ne concorde pas"
 
 #: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
 #: src/format-pascal.c:443 src/format-python.c:520
@@ -166,8 +166,8 @@ msgstr ""
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr ""
-"spécifications de format entre «msgid» et «%s» de l'argument %u ne sont pas "
-"identiques"
+"spécifications de format entre « msgid » et « %s » de l'argument %u ne sont "
+"pas identiques"
 
 #: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
 #: src/format-ycp.c:145
@@ -175,14 +175,14 @@ msgstr ""
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr ""
-"spécification de format de l'argument «%u», comme dans «%s», n'existe pas "
-"dans «msgid»"
+"spécification de format de l'argument « %u », comme dans « %s », n'existe "
+"pas dans « msgid »"
 
 #: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
 #: src/format-ycp.c:144
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
-msgstr "spécification de format de l'argument %u n'existe pas dans «%s»"
+msgstr "spécification de format de l'argument %u n'existe pas dans « %s »"
 
 #: src/format-java.c:660
 #, c-format
@@ -190,33 +190,34 @@ msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
 msgstr ""
-"spécification de format de l'argument {%u}, comme dans «%s», n'existe pas "
-"dans «msgid»"
+"spécification de format de l'argument {%u}, comme dans « %s », n'existe pas "
+"dans « msgid »"
 
 #: src/format-java.c:675
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
-msgstr "spécification de format de l'argument {%u} n'existe pas dans «%s»"
+msgstr "spécification de format de l'argument {%u} n'existe pas dans « %s »"
 
 #: src/format-java.c:700
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
 msgstr ""
-"spécifications de format de «msgid» et «%s» de l'argument {%u} ne sont pas "
-"les mêmes"
+"spécifications de format de « msgid » et « %s » de l'argument {%u} ne sont "
+"pas les mêmes"
 
 #: src/format-lisp.c:3381
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
-msgstr "spécifications de format de «msgid» et «%s» ne sont pas équivalentes"
+msgstr ""
+"spécifications de format de « msgid » et « %s » ne sont pas équivalentes"
 
 #: src/format-lisp.c:3402
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr ""
-"spécifications de format dans «%s» ne sont pas un sous-ensemble de celles de "
-"«msgid»"
+"spécifications de format dans « %s » ne sont pas un sous-ensemble de celles "
+"de « msgid »"
 
 #: src/format-python.c:397
 #, c-format
@@ -224,8 +225,8 @@ msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 "tuple"
 msgstr ""
-"spécifications de format de «msgid» requièrent un mapping, celles de «%s» "
-"requièrent un tuple"
+"spécifications de format de « msgid » requièrent un mapping, celles de « %s "
+"» requièrent un tuple"
 
 #: src/format-python.c:409
 #, c-format
@@ -233,7 +234,7 @@ msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr ""
-"spécifications de format de «msgid» requièrent un tuple, celles de «%s» "
+"spécifications de format de « msgid » requièrent un tuple, celles de « %s » "
 "requièrent un mapping"
 
 #: src/format-python.c:437
@@ -242,21 +243,21 @@ msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
 msgstr ""
-"spécification de format de l'argument «%s», comme dans «%s», n'existe pas "
-"dans «msgid»"
+"spécification de format de l'argument « %s », comme dans « %s », n'existe "
+"pas dans « msgid »"
 
 #: src/format-python.c:452
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
-msgstr "spécification de format de l'argument «%s» n'existe pas «%s»"
+msgstr "spécification de format de l'argument « %s » n'existe pas « %s »"
 
 #: src/format-python.c:478
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr ""
-"spécifications de format de «msgid» et de «%s» de l'argument «%s» ne sont "
-"pas les mêmes"
+"spécifications de format de « msgid » et de « %s » de l'argument « %s » ne "
+"sont pas les mêmes"
 
 #: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:264 src/msgcat.c:229
 #: src/msgcmp.c:133 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:170
@@ -298,7 +299,7 @@ msgstr "arguments manquants"
 #: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Pour plus d'information, essayer «%s --help».\n"
+msgstr "Pour plus d'information, essayer « %s --help ».\n"
 
 #: src/gettext.c:245
 #, c-format, no-wrap
@@ -350,7 +351,7 @@ msgstr ""
 "dans l'environnement.  Si le catalogue de messages n'est pas trouvé à l'endroit\n"
 "habituel, la variable d'environnement TEXTDOMAINDIR peut indiquer un autre\n"
 "répertoire.\n"
-"Avec l'option «-s», ce programme se comporte comme la commande « echo »; mais\n"
+"Avec l'option « -s », ce programme se comporte comme la commande « echo »; mais\n"
 "plutôt que de copier simplement ses arguments sur « stdout », ceux qui sont\n"
 "disponibles dans le catalogue choisi sont traduits.\n"
 "\n"
@@ -487,8 +488,8 @@ msgstr ""
 "      --translated            conserver les messages traduits, \n"
 "                               enlever ceux qui ne sont pas traduits\n"
 "      --untranslated          conserver les non traduits, enlever ceux traduits\n"
-"      --no-fuzzy              enlever les messages marqués «fuzzy»\n"
-"      --only-fuzzy            conserver les messages marqués «fuzzy»\n"
+"      --no-fuzzy              enlever les messages marqués « fuzzy »\n"
+"      --only-fuzzy            conserver les messages marqués « fuzzy »\n"
 "      --no-obsolete           enlever les messages obsolètes #~\n"
 "      --only-obsolete         conserver les messages obsolètes #~\n"
 
@@ -504,8 +505,8 @@ msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
 "Manipulation des attributs:\n"
-"      --set-fuzzy             marquer tous les messages comme «fuzzy»\n"
-"      --clear-fuzzy           marquer tous les messages comme non-«fuzzy»\n"
+"      --set-fuzzy             marquer tous les messages comme « fuzzy »\n"
+"      --clear-fuzzy           marquer tous les messages comme non-« fuzzy »\n"
 "      --set-obsolete          marquer tous les messages comme obsolètes\n"
 "      --clear-obsolete        marquer tous les messages comme non-obsolètes\n"
 "      --fuzzy                 identique à --only-fuzzy --clear-fuzzy\n"
@@ -927,7 +928,7 @@ msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
 "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
 msgstr ""
-"Une commande spéciale interne appelée sorties «0» de traduction, suivi par un\n"
+"Une commande spéciale interne appelée sorties « 0 » de traduction, suivi par un\n"
 "octet null.  La sortie de \"msgexec 0\" est acceptable comme entrée pour \"xargs -0\".\n"
 
 #: src/msgexec.c:253 src/msgfilter.c:366
@@ -988,7 +989,7 @@ msgid ""
 "                                to be executed\n"
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
-"Options utiles de FILTRE lorsque le filtre est «sed»:\n"
+"Options utiles de FILTRE lorsque le filtre est « sed »:\n"
 "  -e, --expression=SCRIPT     ajouter le SCRIPT aux commandes à exécuter\n"
 "  -f, --file=FICHIER-SCRIPT   ajouter le contenu du FICHIER-SCRIPT\n"
 "                                aux commandes à exécuter\n"
@@ -1341,17 +1342,18 @@ msgstr "le traitement des chaînes au pluriel est une extention de GNU gettext"
 #: src/msgfmt.c:1212
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'"
-msgstr "«%s» n'a pas une chaîne de format %s valide, contrairement à «msgid»"
+msgstr ""
+"« %s » n'a pas une chaîne de format %s valide, contrairement à « msgid »"
 
 #: src/msgfmt.c:1250
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr "« msgstr » n'a pas de raccourci clavier pour la marque «%c»"
+msgstr "« msgstr » n'a pas de raccourci clavier pour la marque « %c »"
 
 #: src/msgfmt.c:1258
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
-msgstr "« msgstr » a trop de raccourcis clavier pour la marque «%c»"
+msgstr "« msgstr » a trop de raccourcis clavier pour la marque « %c »"
 
 #: src/msgfmt.c:1293
 #, c-format
@@ -1422,7 +1424,8 @@ msgstr "%s: AVERTISSEMENT: certaines traductions sont approximatives"
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr ""
-"l'option «%c» ne peut être utilisée avant que «K» ou «T» ne soit spécifié"
+"l'option « %c » ne peut être utilisée avant que « K » ou « T » ne soit "
+"spécifié"
 
 #: src/msggrep.c:407
 #, no-wrap
@@ -1678,7 +1681,7 @@ msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
-"Le domaine « %s » dans le fichier d'entrée «%s» ne contient pas d'en-tête "
+"Le domaine « %s » dans le fichier d'entrée « %s » ne contient pas d'en-tête "
 "avec la spécification d'un charset"
 
 #: src/msgl-cat.c:360 src/msgl-iconv.c:390
@@ -1763,7 +1766,7 @@ msgid ""
 "Output of '%s' might be incorrect.\n"
 "A possible workaround is to set LC_ALL=C.\n"
 msgstr ""
-"Le charset locale «%s» n'a pas un nom d'encodage portable.\n"
+"Le charset locale « %s » n'a pas un nom d'encodage portable.\n"
 "La sortie de « %s » pourrait être incorrecte.\n"
 "Un ajustement nécessaire possible est de définir LC_ALL=C.\n"
 
@@ -2134,7 +2137,7 @@ msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
-"Le charset «%s» n'a pas un nom d'encodage portable.\n"
+"Le charset « %s » n'a pas un nom d'encodage portable.\n"
 "La conversion de messages vers le charset usager ne fonctionnera pas.\n"
 
 #: src/po-charset.c:276 src/po-charset.c:306
@@ -2151,8 +2154,8 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
-"Charset «%s» n'est pas supporté. %s utilise iconv(),\n"
-"et iconv() ne supporte pas «%s».\n"
+"Charset « %s » n'est pas supporté. %s utilise iconv(),\n"
+"et iconv() ne supporte pas « %s ».\n"
 
 #: src/po-charset.c:290 src/po-charset.c:316
 msgid ""
@@ -2173,7 +2176,7 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
-"Charset «%s» n'est pas supporté. %s utilise iconv(),\n"
+"Charset « %s » n'est pas supporté. %s utilise iconv(),\n"
 "Cette version a été générée sans iconv().\n"
 
 #: src/po-charset.c:335
@@ -2334,7 +2337,7 @@ msgstr "erreur lors de l'ouverture de « %s » en écriture"
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
-"un message à traduire ne doit pas contenir la séquence d'échappement «\\%c»"
+"un message à traduire ne doit pas contenir la séquence d'échappement « \\%c »"
 
 #: src/write-po.c:758 src/write-po.c:852
 #, c-format
@@ -2520,7 +2523,7 @@ msgstr ""
 "      --copyright-holder=CHAÎNE  identifier le champ des droits d'auteur dans la sortie\n"
 "      --foreign-user             inhiber la production d'un copyright FSF\n"
 "  -m, --msgstr-prefix[=CHAÎNE]   préfixer les msgstr's par CHAÎNE, sinon \\\"\\\"\n"
-"  -M, --msgstr-suffix[=CHAÎNE]   suffixer les msgstr's par CHAÎNE, sinon \\«\\»\n"
+"  -M, --msgstr-suffix[=CHAÎNE]   suffixer les msgstr's par CHAÎNE, sinon \\« \\ »\n"
 
 #: src/xgettext.c:814
 msgid "standard input"

@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 # Jan Djärv <Jan.Djarv@mbox200.swipnet.se>, 1998, 2001, 2002.
-# Revision: 1.41
+# Revision: 1.43
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11-pre5\n"
+"Project-Id-Version: gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-01-12 14:54+0100\n"
+"PO-Revision-Date: 2002-03-16 17:47+0100\n"
 "Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1058,9 +1058,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s kräver att \"-d katalog\" anges"
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s kräver att \"-d katalog\" anges"
+msgstr "%s kräver att \"-l lokal\" anges"
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1069,9 +1069,9 @@ msgid "%s is only valid with %s"
 msgstr "%s är endast giltig med %s"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s är endast giltig med %s"
+msgstr "%s är endast giltig med %s eller %s"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1118,7 +1118,7 @@ msgstr ""
 "Om infil är - läses standard in.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1128,6 +1128,7 @@ msgstr ""
 "Körläge:\n"
 "  -j, --java                  Javaläge: generera en Java ResourceBundle-klass\n"
 "      --java2                 som --java, och anta Java2 (JDK 1.2 eller högre)\n"
+"      --tcl                   Tcl-läge: generera en .msg-fil av tcl/msgcat-typ\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1162,7 +1163,7 @@ msgstr ""
 "till den givna katalogen.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1170,13 +1171,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Plats för utfil i Javaläge:\n"
-"  -r, --resource=RESURS       resursnamn\n"
+"Plats för utfil i Tcl-läge:\n"
 "  -l, --locale=LOKAL          lokalnamn, antingen språk eller språk_LAND\n"
-"  -d KATALOG                  startkatalog för klassers katalogträd\n"
-"Klassnamnet härleds genom att lägga till lokalnamnet till resursnamnet\n"
-"avskiljt med ett understreck.  Flaggan -d är obligatorisk.  Klassen skrivs\n"
-"till den givna katalogen.\n"
+"  -d KATALOG                  startkatalog för .msg-meddelandekataloger\n"
+"Flaggorna -l och -d är obligatoriska.  .msg-filen skrivs till den givna \n"
+"katalogen.\n"
 
 #: src/msgfmt.c:592
 #, no-wrap
@@ -1297,7 +1296,7 @@ msgstr[1] "...men några meddelanden har %lu pluralformer"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Försök använda den här, gäller för \"%s\":\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1354,24 +1353,23 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr har för många märken \"%c\" för tangentkortkommandon"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "huvudrad \"%s\" saknas i huvudet"
+msgstr "huvudrad \"%s\" saknas i huvudet\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "huvudrad \"%s\" bör ligga i början på raden"
+msgstr "huvudrad \"%s\" bör ligga i början på raden\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "vissa huvudrader har kvar initiala standardvärden"
+msgstr "vissa huvudrader har kvar initiala standardvärden\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "huvudrad \"%s\" har kvar initialt standardvärde"
+msgstr "huvudrad \"%s\" har kvar initialt standardvärde\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1434,7 +1432,7 @@ msgstr ""
 "mönster eller hör till någon given källkodsfil.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1464,11 +1462,13 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Meddelandeval:\n"
-"  [-N KÄLLKODSFIL]... [-M DOMÄNNAMN]... [-K MSGID-MÖNSTER] [-T MSGSTR-MÖNSTER]\n"
-"Ett meddelande väljs om det kommer från en av de angivna källkodsfilerna\n"
-"eller om det kommer från en av de angivna domänerna\n"
-"eller om -K ges och nyckeln (msgid eller msgid_plural) matchar MSGID-MÖNSTER\n"
-"eller om -T ges och översättningen (msgstr) matchar MSGSTR-MÖNSTER.\n"
+"  [-N KÄLLKODSFIL]... [-M DOMÄNNAMN]...\n"
+"   [-K MSGID-MÖNSTER] [-T MSGSTR-MÖNSTER] [-C KOMMENTARSMÖNSTER]\n"
+"Ett meddelande väljs om det kommer från en av de angivna källkodsfilerna,\n"
+"eller om det kommer från en av de angivna domänerna,\n"
+"eller om -K ges och nyckeln (msgid eller msgid_plural) matchar MSGID-MÖNSTER,\n"
+"eller om -T ges och översättningen (msgstr) matchar MSGSTR-MÖNSTER,\n"
+"eller om -C ges och översättarens kommentar matchar KOMMENTARSMÖNSTER.\n"
 "\n"
 "När fler än ett utvalskriteria anges är mängden valda meddelanden unionen\n"
 "av utvalda meddelanden för varje enskilt kriteria.\n"
@@ -1921,15 +1921,15 @@ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Konvertera en binär meddelandekatalog till en .po-fil av Uniforum-typ\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "Körläge:\n"
-"  -j, --java                  Javaläge: generera en Java ResourceBundle-klass\n"
-"      --java2                 som --java, och anta Java2 (JDK 1.2 eller högre)\n"
+"  -j, --java               Javaläge: indata är en Java ResourceBundle-klass\n"
+"      --tcl                Tcl-läge: indata är en .msg-fil av tcl/msgcat-typ\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1958,7 +1958,7 @@ msgstr ""
 "avskiljt med ett understreck.  Klassen söks med hjälp av CLASSPATH.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -1966,13 +1966,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Plats för utfil i Javaläge:\n"
-"  -r, --resource=RESURS       resursnamn\n"
-"  -l, --locale=LOKAL          lokalnamn, antingen språk eller språk_LAND\n"
-"  -d KATALOG                  startkatalog för klassers katalogträd\n"
-"Klassnamnet härleds genom att lägga till lokalnamnet till resursnamnet\n"
-"avskiljt med ett understreck.  Flaggan -d är obligatorisk.  Klassen skrivs\n"
-"till den givna katalogen.\n"
+"Plats för infil i Tcl-läge:\n"
+"  -l, --locale=LOKAL       lokalnamn, antingen språk eller språk_LAND\n"
+"  -d KATALOG               startkatalog för .msg-meddelandekataloger\n"
+"Flaggorna -l och -d är obligatoriska.  .msg-filen ligger i den givna\n"
+"katalogen.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -2419,7 +2417,7 @@ msgstr ""
 "Om utfilen är - skrivs resultatet till standard ut.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2430,9 +2428,10 @@ msgid ""
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
 "Språkval i infiler:\n"
-"  -L, --language=NAME            känn igen angivet SPRÅK\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                    librep, Java, YCP)\n"
+"  -L, --language=NAMN            känn igen angivet språk\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                    EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                    RST, Glade)\n"
 "  -C, --c++                      samma som --language=C++\n"
 "I normalläge gissas språket från filändelsen på infilen.\n"
 
@@ -2525,12 +2524,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"
-
-#~ msgid ""
-#~ "Operation mode:\n"
-#~ "  -j, --java               Java mode: generate a Java ResourceBundle "
-#~ "class\n"
-#~ msgstr ""
-#~ "Körläge:\n"
-#~ "  -j, --java               Javaläge: generera en Java ResourceBundle-"
-#~ "klass\n"

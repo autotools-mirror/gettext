@@ -4,13 +4,13 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11\n"
+"Project-Id-Version: gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-02-03 12:02+01:00\n"
+"PO-Revision-Date: 2002-03-18 01:43+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-15\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -1094,9 +1094,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "«%s» necessita una especificació «-d directori»"
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "«%s» necessita una especificació «-d directori»"
+msgstr "«%s» necessita una especificació «-l locale»"
 
 # ivb (2001/12/26)
 # ivb  Els «%s» es refereixen a opcions -> femení.
@@ -1109,9 +1109,9 @@ msgstr "«%s» només és vàlida amb «%s»"
 # ivb (2001/12/26)
 # ivb  Els «%s» es refereixen a opcions -> femení.
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "«%s» només és vàlida amb «%s»"
+msgstr "«%s» només és vàlida amb «%s» o «%s»"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1160,8 +1160,10 @@ msgstr ""
 "                              de fitxers d'entrada\n"
 "Si el fitxer d'entrada és «-» es llegirà l'entrada estàndard.\n"
 
+# ivb (2002/03/14)
+# ivb  Amb «tcl/msgcat» es refereix al paquet «msgcat» de Tcl.
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1173,6 +1175,8 @@ msgstr ""
 "                              «ResourceBundle»\n"
 "      --java2                 com «--java», però assumeix Java2\n"
 "                              (JDK 1.2 o superior)\n"
+"      --tcl                   mode Tcl: genera un fitxer «.msg»\n"
+"                              de «msgcat» de Tcl\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1208,7 +1212,7 @@ msgstr ""
 "La classe s'escriurà sota el directori especificat.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1216,14 +1220,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Ubicació del fitxer d'eixida en el mode Java:\n"
-"  -r, --resource=RECURS       nom del recurs\n"
+"Ubicació del fitxer d'eixida en el mode Tcl:\n"
 "  -l, --locale=LOCALE         nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
-"  -d DIRECTORI                directori base de la jeraquia de directoris\n"
-"                              de les classes\n"
-"El nom de la classe es construeix afegint el nom del locale al nom del\n"
-"recurs, separats per un caràcter de subratllat.  L'opció «-d» és obligatòria.\n"
-"La classe s'escriurà sota el directori especificat.\n"
+"  -d DIRECTORI                directori base dels catàlegs de missatges «.msg»\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» s'escriurà sota\n"
+"el directori especificat.\n"
 
 # ivb (2001/12/26)
 # ivb  Segons la documentació, quan ací diu «language» es refereix a un de
@@ -1356,10 +1357,13 @@ msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] "...però alguns missatges tenen una forma plural"
 msgstr[1] "...però alguns missatges tenen %lu formes plurals"
 
+# ivb (2002/03/14)
+# ivb  El «%s» es refereix a un idioma, i tot el missatge recomana usar una
+# ivb  entrada de capçalera «Plural-Forms:».
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "Proveu d'usar açò, vàlid per a l'idioma %s:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1417,25 +1421,24 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "sobren marques d'accelerador de teclat «%c» en «msgstr»"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "manca el camp de capçalera «%s» en la capçalera"
+msgstr "manca el camp de capçalera «%s» en la capçalera\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "cal que el camp de capçalera «%s» comence en l'inici de la línia"
+msgstr "cal que el camp de capçalera «%s» comence en l'inici de la línia\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
 msgstr ""
-"alguns camps de la capçalera encara tenen els valors inicials per defecte"
+"alguns camps de la capçalera encara tenen els valors inicials per defecte\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "el camp «%s» encara té el valor inicial per defecte"
+msgstr "el camp «%s» encara té el valor inicial per defecte\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1497,7 +1500,7 @@ msgstr ""
 "un patró especificat o que pertanyen a uns fitxers font indicats.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1527,12 +1530,15 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "Selecció de missatges:\n"
-"  [-N FITXERFONT]... [-M NOMDOMINI]... [-K PATRÓ-MSGID] [-T PATRÓ-MSGSTR]\n"
+"  [-N FITXERFONT]... [-M NOMDOMINI]...\n"
+"  [-K PATRÓ-MSGID] [-T PATRÓ-MSGSTR] [-C PATRÓ-COMENTARI]\n"
 "Es selecciona un missatge si prové d'un dels fitxers font especificats,\n"
 "o si prové d'un dels dominis especificats,\n"
 "o si s'indica «-K» i la seua clau («msgid» o «msgid_plural») concorda\n"
 "  amb PATRÓ-MSGID,\n"
-"o si s'indica «-T» i la seua traducció («msgstr») concorda amb PATRÓ-MSGSTR.\n"
+"o si s'indica «-T» i la seua traducció («msgstr») concorda amb PATRÓ-MSGSTR,\n"
+"o si s'indica «-C» i el comentari de la traductora o traductor concorda\n"
+"  amb PATRÓ-COMENTARI.\n"
 "\n"
 "Quan s'especifica més d'un criteri de selecció, el conjunt de missatges\n"
 "seleccionats és la unió dels missatges seleccionats per cada criteri.\n"
@@ -1991,8 +1997,8 @@ msgstr "no s'han de definir formes plurals d'aquest missatge"
 
 # ivb (2002/01/08)
 # ivb  Pense que «aprofitades» queda més clar que «mesclades»; es refereix
-# ivb  a les traduccions obteses directament de «def.po».  El primer «%s»
-# ivb  és (o no) una nova línia.
+# ivb  a les traduccions obteses directament de «def.po».  El primer «%s» és
+# ivb  (o no) una nova línia.
 #: src/msgmerge.c:1084
 #, c-format
 msgid ""
@@ -2023,18 +2029,20 @@ msgstr "Forma d'ús: %s [OPCIÓ] [FITXER]...\n"
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Converteix un catàleg binari de missatges en un fitxer PO d'estil Uniforum.\n"
 
+# ivb (2002/03/14)
+# ivb  Amb «tcl/msgcat» es refereix al paquet «msgcat» de Tcl.
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "Mode de funcionament:\n"
-"  -j, --java                  mode Java: genera una classe Java\n"
-"                              «ResourceBundle»\n"
-"      --java2                 com «--java», però assumeix Java2\n"
-"                              (JDK 1.2 o superior)\n"
+"  -j, --java               mode Java: l'entrada és una classe Java\n"
+"                           «ResourceBundle»\n"
+"      --tcl                mode Tcl: l'entrada és un fitxer «.msg»\n"
+"                           de «msgcat» de Tcl\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -2065,7 +2073,7 @@ msgstr ""
 "fent servir el camí a les classes, «CLASSPATH».\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -2073,14 +2081,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Ubicació del fitxer d'eixida en el mode Java:\n"
-"  -r, --resource=RECURS       nom del recurs\n"
-"  -l, --locale=LOCALE         nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
-"  -d DIRECTORI                directori base de la jeraquia de directoris\n"
-"                              de les classes\n"
-"El nom de la classe es construeix afegint el nom del locale al nom del\n"
-"recurs, separats per un caràcter de subratllat.  L'opció «-d» és obligatòria.\n"
-"La classe s'escriurà sota el directori especificat.\n"
+"Ubicació del fitxer d'entrada en el mode Tcl:\n"
+"  -l, --locale=LOCALE      nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
+"  -d DIRECTORI             directori base dels catàlegs de missatges «.msg»\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» es cercarà sota\n"
+"el directori especificat.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -2554,7 +2559,7 @@ msgstr ""
 "Si el fitxer d'eixida és «-» s'escriurà en l'eixida estàndard.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2567,7 +2572,7 @@ msgstr ""
 "Selecció del llenguatge del fitxer d'entrada:\n"
 "  -L, --language=NOM             reconeix el llenguatge especificat\n"
 "                                 (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                 librep, Java, YCP)\n"
+"                                 librep, Java, awk, YCP, Tcl, RST, Glade)\n"
 "  -C, -c++                       abreviatura de «--language=C++»\n"
 "Per defecte s'endevina el llenguatge fent servir l'extensió del nom\n"
 "del fitxer d'entrada.\n"
@@ -2675,12 +2680,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "el llenguatge «%s» no és conegut"
-
-#~ msgid ""
-#~ "Operation mode:\n"
-#~ "  -j, --java               Java mode: generate a Java ResourceBundle "
-#~ "class\n"
-#~ msgstr ""
-#~ "Mode de funcionament:\n"
-#~ "  -j, --java               mode Java: genera una classe Java "
-#~ "«ResourceBundle»\n"
