@@ -1,5 +1,10 @@
 2001-01-01  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.am (MAKEINFO): New macro. Unset LANG and LANGUAGE while
+	running makeinfo.
+
+2001-01-01  Bruno Haible  <haible@clisp.cons.org>
+
 	Implement plural form handling.
 	* gettext.texi: Fix menus.
 	(PO Files): Document entries for plural forms.

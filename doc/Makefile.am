@@ -1,5 +1,5 @@
 ## Makefile for the doc subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 AUTOMAKE_OPTIONS = 1.2 gnits
 
 SED = sed
+
+MAKEINFO = LANG= LANGUAGE= @MAKEINFO@
 
 info_TEXINFOS = gettext.texi
 gettext_TEXINFOS = iso-apdx.texi
