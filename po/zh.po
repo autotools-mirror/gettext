@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.38\n"
-"POT-Creation-Date: 2001-05-18 16:24+0200\n"
-"PO-Revision-Date: 2001-05-27 23:03 +0800\n"
+"POT-Creation-Date: 2001-05-30 23:23+0200\n"
+"PO-Revision-Date: 2001-06-03 16:03 +0800\n"
 "Last-Translator: Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -918,11 +918,11 @@ msgstr "找不到 `msgstr' 段落"
 
 #: po-gram-gen.y:238
 msgid "first plural form has nonzero index"
-msgstr "第一個復數格式的指標不是0"
+msgstr "第一個複數格式的指標不是0"
 
 #: po-gram-gen.y:240
 msgid "plural form has wrong index"
-msgstr "復數格式發現錯誤的指標"
+msgstr "複數格式發現錯誤的指標"
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
@@ -948,27 +948,27 @@ msgstr "在字串中間發現檔案結束字元 (EOF)"
 msgid "end-of-line within string"
 msgstr "在字串中間發現行結束字元 (end-of-line)"
 
-#: src/po-lex.c:524 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:524 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
 msgstr "非法的多字元序列 (multibyte sequence)"
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "要國際化的訊息不應含有 `\\%c' 這個溢出序列字元"
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "輸出檔 \"%s\" 無法建立"
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "標準輸出"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "當寫入 \"%s\" 這個檔案時發生錯誤"
