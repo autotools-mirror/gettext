@@ -109,7 +109,7 @@ msgen_OBJECTS = msgen.obj
 msgexec_OBJECTS = msgexec.obj
 msgfilter_OBJECTS = msgfilter.obj
 msggrep_OBJECTS = msggrep.obj
-msginit_OBJECTS = msginit.obj, localealias.obj
+msginit_OBJECTS = msginit.obj, plural-count.obj, localealias.obj
 msguniq_OBJECTS = msguniq.obj
 
 all : gettextsrc.olb,$(PROGRAMS),gettextpo.olb
