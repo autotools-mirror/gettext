@@ -1,4 +1,4 @@
-## Makefile for intl-java directory in GNU NLS utilities package.
+## Makefile for the gettext-runtime/intl-java subdirectory of GNU gettext
 ## Copyright (C) 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,7 @@ CLEANFILES =
 RM = rm -f
 
 jardir = $(datadir)/gettext
-docdir = $(prefix)/doc/@PACKAGE@
+docdir = $(prefix)/doc/gettext
 htmldir = $(docdir)
 
 JAR = @JAR@
@@ -141,7 +141,7 @@ JAVADOC2_FILES = \
   javadoc2/gnu/gettext/package-frame.html \
   javadoc2/gnu/gettext/GettextResource.html
 
-EXTRA_DIST += $(JAVADOC1_FILES)
+EXTRA_DIST += $(JAVADOC2_FILES)
 
 install-javadoc2: all-javadoc2
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2

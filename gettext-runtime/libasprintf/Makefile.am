@@ -1,4 +1,4 @@
-## Makefile for the libasprintf subdirectory of the GNU NLS Utilities
+## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
 ## Copyright (C) 2002-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
@@ -19,7 +19,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I ../m4
+ACLOCAL_AMFLAGS = -I ../../config/m4 -I ../m4
 EXTRA_DIST =
 MOSTLYCLEANFILES =
 
@@ -52,7 +52,7 @@ EXTRA_DIST += alloca_.h
 
 # The following is needed in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(lib_OBJECTS): @ALLOCA_H@
+all-local $(libasprintf_la_OBJECTS): @ALLOCA_H@
 alloca.h: alloca_.h
 	cp $(srcdir)/alloca_.h alloca.h
 MOSTLYCLEANFILES += alloca.h

@@ -1,3 +1,11 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Renamed from configure.in. Invoke AC_CONFIG_AUX_DIR.
+	Invoke AC_FUNC_ALLOCA instead of gl_FUNC_ALLOCA. Remove redundant
+	postprocessing of Makefile.
+	* Makefile.am (ACLOCAL_AMFLAGS): Add -I ../../config/m4.
+	($(libasprintf_la_OBJECTS)): Make alloca.h dependency effective.
+
 2003-01-03  Albert Chin  <libtool@thewrittenword.com>
 
 	* ltmain.sh: Don't pass -R flags found in a .la's dependency_libs
