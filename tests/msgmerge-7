@@ -48,6 +48,6 @@ EOF
 ${DIFF} mm-test7.ok mm-test7.out
 result=$?
 
-# rm -fr $tmpfiles
+rm -fr $tmpfiles
 
 exit $result
