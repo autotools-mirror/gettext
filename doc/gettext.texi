@@ -4837,7 +4837,7 @@ lib/getopt.c
 lib/xmalloc.c
 
 # Package source files
-src/gettextp.c
+src/gettext.c
 src/msgfmt.c
 src/xgettext.c
 @end group

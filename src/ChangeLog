@@ -1,5 +1,14 @@
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.c: Renamed from gettextp.c. Use included libintl if TESTS
+	is defined.
+	* setlocale.c: Move to ../tests.
+	* Makefile.am (EXTRA_PROGRAMS, all-local, CLEANFILES): Remove.
+	(tstgettext_SOURCES): Remove.
+	(gettext_SOURCES): Update.
+
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgcmp.c: Include libgettext.h instead of libintl.h, so that the
 	configure argument --disable-nls gets respected.
 	* msgfmt.c: Likewise.

@@ -28,7 +28,7 @@ EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 
 XGETTEXT = ../src/xgettext
 
-TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=../src:$$PATH \
+TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    GETTEXT=tstgettext \
 		    XGETTEXT=`echo xgettext|sed '$(transform)'` \
 		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
@@ -38,15 +38,18 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=../src:$$PATH \
 		    $(SHELL)
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
-		$(top_srcdir)/src/gettextp.c
+		$(top_srcdir)/src/gettext.c
 	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) -k_ --omit-header \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
-	  $(top_srcdir)/src/gettextp.c
+	  $(top_srcdir)/src/gettext.c
 
-# An auxiliary program used by the plural-1 test.
-INCLUDES = -I${top_srcdir}/intl
-EXTRA_PROGRAMS = cake
-cake_SOURCES = plural-1-prg.c
-cake_LDADD = ../src/setlocale.o ../intl/libintl.a
-all-local: cake
-CLEANFILES = cake
+# Two auxiliary programs used by the tests.
+INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+LDADD = ../intl/libintl.a
+EXTRA_PROGRAMS = tstgettext cake
+tstgettext_SOURCES = tstgettext.c setlocale.c
+tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
+cake_SOURCES = plural-1-prg.c setlocale.c
+all-local: $(EXTRA_PROGRAMS)
+CLEANFILES = $(EXTRA_PROGRAMS)

@@ -1,20 +1,23 @@
 # List of files which containing translatable strings.
-# Copyright (C) 1995, 1998 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1998, 2001 Free Software Foundation, Inc.
 
 # Files from the compatibility library
 lib/error.c
 lib/getopt.c
+lib/obstack.c
 lib/xmalloc.c
 
 # Package source files
-src/gettextp.c
+src/gettext.c
 src/message.c
 src/msgcmp.c
 src/msgcomm.c
 src/msgfmt.c
 src/msgmerge.c
 src/msgunfmt.c
+src/open-po.c
 src/po-gram-gen.c
+src/po-lex.h
 src/po-lex.c
 src/xget-lex.c
 src/xgettext.c

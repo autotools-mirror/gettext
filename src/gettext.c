@@ -28,7 +28,16 @@
 #include "error.h"
 #include "system.h"
 
-#include "libgettext.h"
+#ifdef TESTS
+/* Make sure we use the included libintl, not the system's one. */
+# define textdomain textdomain__
+# define bindtextdomain bindtextdomain__
+# define gettext gettext__
+# define dgettext dgettext__
+# include <libgnuintl.h>
+#else
+# include "libgettext.h"
+#endif
 
 #define _(str) gettext (str)
 

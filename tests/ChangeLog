@@ -1,5 +1,19 @@
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
+	* setlocale.c: New file, moved here from ../src.
+	* tstgettext.c: New file.
+	* Makefile.am (TESTS_ENVIRONMENT): Add "." to the PATH.
+	(xg-test1.ok.po): Use src/gettext.c instead of src/gettextp.c.
+	(INCLUDES): Add more dirs.
+	(DEFS): Add defines needed for gettext.c.
+	(LDADD): New variable.
+	(EXTRA_PROGRAMS, all-local, CLEANFILES): Add tstgettext.
+	(tstgettext_SOURCES, tstgettext_LDADD): New variable.
+	(cake_SOURCES): Update.
+	* xgettext-1: Use src/gettext.c instead of src/gettextp.c.
+
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
 	* plural-1-prg.c: Include libgnuintl.h instead of libgettext.h.
 
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>

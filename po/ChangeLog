@@ -1,3 +1,8 @@
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: src/gettext.c was renamed from src/gettextp.c.
+	Add lib/obstack.c, src/open-po.c, src/po-lex.h.
+
 2001-01-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (.po.gmo): Pass --statistics to msgfmt.
