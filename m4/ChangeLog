@@ -1,5 +1,10 @@
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Don't use AC_LIB_APPENDTOVAR
+	for LIB variables.
+
+2002-01-24  Bruno Haible  <bruno@clisp.org>
+
 	* lib-link.m4 (AC_LIB_LINKFLAGS): Also define LTLIB${NAME}.
 	(AC_LIB_HAVE_LINKFLAGS): Likewise.
 	(AC_LIB_LINKFLAGS_BODY): Also define LTLIB${NAME}.

@@ -1,5 +1,10 @@
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
+	* rpathlyx/configure.in: Don't use AC_LIB_APPENDTOVAR for LIB
+	variables.
+	* rpathy/Makefile.am (librpathy_la_LDFLAGS): Use @LTLIBRPATHX@
+	instead of @LIBRPATHX@.
+
 	* lang-c: Use $LTLIBINTL instead of $INTLLIBS.
 	* lang-c++: Likewise.
 	* lang-objc: Likewise.

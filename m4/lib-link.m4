@@ -178,9 +178,9 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
         if test -n "$value"; then
           if test "$value" = yes; then
             eval value=\"\$LIB$uppername\"
-            AC_LIB_APPENDTOVAR(LIB[]NAME, [$value])
+            test -z "$value" || LIB[]NAME="${LIB[]NAME}${LIB[]NAME:+ }$value"
             eval value=\"\$LTLIB$uppername\"
-            AC_LIB_APPENDTOVAR(LTLIB[]NAME, [$value])
+            test -z "$value" || LTLIB[]NAME="${LTLIB[]NAME}${LTLIB[]NAME:+ }$value"
           else
             dnl An earlier call to AC_LIB_HAVE_LINKFLAGS has determined
             dnl that this library doesn't exist. So just drop it.
@@ -501,6 +501,8 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
 
 dnl AC_LIB_APPENDTOVAR(VAR, CONTENTS) appends the elements of CONTENTS to VAR,
 dnl unless already present in VAR.
+dnl Works only for CPPFLAGS, not for LIB* variables because that sometimes
+dnl contains two or three consecutive elements that belong together.
 AC_DEFUN([AC_LIB_APPENDTOVAR],
 [
   for element in [$2]; do
