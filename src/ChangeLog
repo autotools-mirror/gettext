@@ -1,3 +1,14 @@
+2002-02-21  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep.c: Include liballoca.h.
+	(grep_args): Add a third one.
+	(grep_argv): Likewise.
+	(long_options): Add --comment option.
+	(main): Handle option --comment/-C.
+	(usage): Document option -C.
+	(is_message_selected): If option -C is given, concatenate the
+	translator comments and run a third grep pass on the result.
+
 2002-02-09  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (possible_format_p): Change return type to bool.

@@ -20,6 +20,7 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+#include "liballoca.h"
 
 #include <errno.h>
 #include <getopt.h>
@@ -54,6 +55,7 @@
 
 #define _(str) gettext (str)
 
+
 /* Force output of PO file even if empty.  */
 static int force_po;
 
@@ -64,18 +66,19 @@ static string_list_ty *location_files;
 static string_list_ty *domain_names;
 
 /* Arguments to be passed to the grep subprocesses.  */
-static string_list_ty *grep_args[2];
+static string_list_ty *grep_args[3];
 
 /* Pathname of the grep program.  */
 static const char *grep_path;
 
 /* Argument lists for the grep program.  */
-static char **grep_argv[2];
+static char **grep_argv[3];
 
 /* Long options.  */
 static const struct option long_options[] =
 {
   { "add-location", no_argument, &line_comment, 1 },
+  { "comment", no_argument, NULL, 'C' },
   { "directory", required_argument, NULL, 'D' },
   { "domain", required_argument, NULL, 'M' },
   { "escape", no_argument, NULL, CHAR_MAX + 1 },
@@ -158,13 +161,18 @@ main (argc, argv)
   domain_names = string_list_alloc ();
   grep_args[0] = string_list_alloc ();
   grep_args[1] = string_list_alloc ();
+  grep_args[2] = string_list_alloc ();
 
-  while ((opt = getopt_long (argc, argv, "D:e:Ef:FhiKM:N:o:TVw:",
+  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiKM:N:o:TVw:",
 			     long_options, NULL))
 	 != EOF)
     switch (opt)
       {
       case '\0':		/* Long option.  */
+	break;
+
+      case 'C':
+	grep_pass = 2;
 	break;
 
       case 'D':
@@ -311,7 +319,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Read input file.  */
   result = read_po_file (input_file);
 
-  if (grep_args[0]->nitems > 0 || grep_args[1]->nitems > 0)
+  if (grep_args[0]->nitems > 0
+      || grep_args[1]->nitems > 0
+      || grep_args[2]->nitems > 0)
     {
       /* Warn if the current locale is not suitable for this PO file.  */
       compare_po_locale_charsets (result);
@@ -323,7 +333,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Build argument lists for the 'grep' program.  */
-  for (grep_pass = 0; grep_pass < 2; grep_pass++)
+  for (grep_pass = 0; grep_pass < 3; grep_pass++)
     if (grep_args[grep_pass]->nitems > 0)
       {
 	string_list_ty *args = grep_args[grep_pass];
@@ -423,11 +433,13 @@ or if it is -.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Message selection:\n\
-  [-N SOURCEFILE]... [-M DOMAINNAME]... [-K MSGID-PATTERN] [-T MSGSTR-PATTERN]\n\
+  [-N SOURCEFILE]... [-M DOMAINNAME]...\n\
+  [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]\n\
 A message is selected if it comes from one of the specified source files,\n\
 or if it comes from one of the specified domains,\n\
 or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n\
-or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN.\n\
+or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN,\n\
+or if -C is given and the translator's comment matches COMMENT-PATTERN.\n\
 \n\
 When more than one selection criterion is specified, the set of selected\n\
 messages is the union of the selected messages of each criterion.\n\
@@ -590,6 +602,36 @@ is_message_selected (mp)
 	return true;
 
       p += length + 1;
+    }
+
+  /* Test translator comments using the --comment arguments.  */
+  if (grep_args[2]->nitems > 0
+      && mp->comment != NULL && mp->comment->nitems > 0)
+    {
+      size_t length;
+      char *total_comment;
+      char *q;
+      size_t j;
+
+      length = 0;
+      for (j = 0; j < mp->comment->nitems; j++)
+	length += strlen (mp->comment->item[j]) + 1;
+      total_comment = (char *) alloca (length);
+
+      q = total_comment;
+      for (j = 0; j < mp->comment->nitems; j++)
+	{
+	  size_t l = strlen (mp->comment->item[j]);
+
+	  memcpy (q, mp->comment->item[j], l);
+	  q += l;
+	  *q++ = '\n';
+	}
+      if (q != total_comment + length)
+	abort ();
+
+      if (is_string_selected (2, total_comment, length))
+	return true;
     }
 
   return false;

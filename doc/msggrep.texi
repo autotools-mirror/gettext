@@ -43,7 +43,8 @@ or if it is @samp{-}.
 @subsection Message selection
 
 @example
-  [-N @var{sourcefile}]... [-M @var{domainname}]... [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}]
+  [-N @var{sourcefile}]... [-M @var{domainname}]...
+  [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}] [-C @var{comment-pattern}]
 @end example
 
 A message is selected if
@@ -53,7 +54,9 @@ A message is selected if
 @item or if @samp{-K} is given and its key (msgid or msgid_plural) matches
       @var{msgid-pattern},
 @item or if @samp{-T} is given and its translation (msgstr) matches
-      @var{msgstr-pattern}.
+      @var{msgstr-pattern},
+@item or if @samp{-C} is given and the translator's comment matches
+      @var{comment-pattern}.
 @end itemize
 
 When more than one selection criterion is specified, the set of selected

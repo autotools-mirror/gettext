@@ -1,3 +1,8 @@
+2002-02-21  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep-5: New file.
+	* Makefile.am (TESTS): Add it.
+
 2002-01-28  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-19: New file.
