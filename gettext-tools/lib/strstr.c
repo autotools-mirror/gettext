@@ -1,21 +1,19 @@
-/* Return the offset of one string within another.
-   Copyright (C) 1994, 1996, 1997, 2000, 2002 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
+/* Copyright (C) 1994, 1999, 2002-2003 Free Software Foundation, Inc.
+This file is part of the GNU C Library.
 
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
 
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-   You should have received a copy of the GNU Library General Public
-   License along with the GNU C Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.  */
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /*
  * My personal strstr() implementation that beats most other algorithms.
@@ -30,9 +28,7 @@
 # include <config.h>
 #endif
 
-#if defined _LIBC || defined HAVE_STRING_H
-# include <string.h>
-#endif
+#include <string.h>
 
 typedef unsigned chartype;
 
@@ -110,7 +106,7 @@ jin:	  a = *++haystack;
 	      }
 	    while (*rhaystack == a);
 
-	  needle = rneedle;		/* took the register-poor approach */
+	  needle = rneedle;		   /* took the register-poor approach */
 
 	  if (a == '\0')
 	    break;
