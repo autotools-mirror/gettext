@@ -1,5 +1,5 @@
 /* Concatenates several translation catalogs.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -264,7 +264,7 @@ main (int argc, char **argv)
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "2001-2003");
+	      "2001-2004");
       printf (_("Written by %s.\n"), "Bruno Haible");
       exit (EXIT_SUCCESS);
     }

@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form strings from message catalog and print them.
-   Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2004 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -137,7 +137,7 @@ main (int argc, char *argv[])
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "1995-1997, 2000-2003");
+	      "1995-1997, 2000-2004");
       printf (_("Written by %s.\n"), "Ulrich Drepper");
       exit (EXIT_SUCCESS);
     }
