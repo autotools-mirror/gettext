@@ -23,21 +23,19 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "dir-list.h"
+#include "message.h"
+#include "x-c.h"
+#include "xgettext.h"
 #include "error.h"
 #include "progname.h"
 #include "system.h"
-#include "libgettext.h"
 #include "hash.h"
-#include "str-list.h"
-#include "xget-lex.h"
-
-#ifndef errno
-extern int errno;
-#endif
+#include "libgettext.h"
 
 #define _(s) gettext(s)
 
@@ -75,6 +73,37 @@ extern int errno;
    xgettext.c) with a stream of C tokens.  The comments are
    accumulated in a buffer, and given to xgettext when asked for.  */
 
+enum xgettext_token_type_ty
+{
+  xgettext_token_type_eof,
+  xgettext_token_type_keyword,
+  xgettext_token_type_lparen,
+  xgettext_token_type_rparen,
+  xgettext_token_type_comma,
+  xgettext_token_type_string_literal,
+  xgettext_token_type_symbol
+};
+typedef enum xgettext_token_type_ty xgettext_token_type_ty;
+
+typedef struct xgettext_token_ty xgettext_token_ty;
+struct xgettext_token_ty
+{
+  xgettext_token_type_ty type;
+
+  /* These fields are used only for xgettext_token_type_keyword.  */
+  int argnum1;
+  int argnum2;
+
+  /* This field is used only for xgettext_token_type_string_literal.  */
+  char *string;
+
+  /* These fields are only for
+       xgettext_token_type_keyword,
+       xgettext_token_type_string_literal.  */
+  lex_pos_ty pos;
+};
+
+
 enum token_type_ty
 {
   token_type_character_constant,
@@ -102,14 +131,18 @@ struct token_ty
 };
 
 
+/* If true extract all strings.  */
+static bool extract_all = false;
+
+static hash_table keywords;
+static bool default_keywords = true;
+
+static bool trigraphs = false;
+
 static const char *file_name;
 static char *logical_file_name;
 static int line_number;
 static FILE *fp;
-static bool trigraphs = false;
-static string_list_ty *comment;
-static hash_table keywords;
-static bool default_keywords = true;
 
 /* These are for tracking whether comments count as immediately before
    keyword.  */
@@ -136,79 +169,7 @@ static void phaseX_get PARAMS ((token_ty *tp));
 static void phase6_get PARAMS ((token_ty *tp));
 static void phase6_unget PARAMS ((token_ty *tp));
 static void phase8_get PARAMS ((token_ty *tp));
-
-
-
-void
-xgettext_lex_open (fn)
-     const char *fn;
-{
-  char *new_name;
-
-  if (strcmp (fn, "-") == 0)
-    {
-      new_name = xstrdup (_("standard input"));
-      logical_file_name = xstrdup (new_name);
-      fp = stdin;
-    }
-  else if (IS_ABSOLUTE_PATH (fn))
-    {
-      new_name = xstrdup (fn);
-      fp = fopen (fn, "r");
-      if (fp == NULL)
-	error (EXIT_FAILURE, errno, _("\
-error while opening \"%s\" for reading"), fn);
-      logical_file_name = xstrdup (new_name);
-    }
-  else
-    {
-      int j;
-
-      for (j = 0; ; ++j)
-	{
-	  const char *dir = dir_list_nth (j);
-
-	  if (dir == NULL)
-	    error (EXIT_FAILURE, ENOENT, _("\
-error while opening \"%s\" for reading"), fn);
-
-	  new_name = concatenated_pathname (dir, fn, NULL);
-
-	  fp = fopen (new_name, "r");
-	  if (fp != NULL)
-	    break;
-
-	  if (errno != ENOENT)
-	    error (EXIT_FAILURE, errno, _("\
-error while opening \"%s\" for reading"), new_name);
-	  free (new_name);
-	}
-
-      /* Note that the NEW_NAME variable contains the actual file name
-	 and the logical file name is what is reported by xgettext.  In
-	 this case NEW_NAME is set to the file which was found along the
-	 directory search path, and LOGICAL_FILE_NAME is is set to the
-	 file name which was searched for.  */
-      logical_file_name = xstrdup (fn);
-    }
-
-  file_name = new_name;
-  line_number = 1;
-}
-
-
-void
-xgettext_lex_close ()
-{
-  if (fp != stdin)
-    fclose (fp);
-  free ((char *) file_name);
-  free (logical_file_name);
-  fp = NULL;
-  file_name = NULL;
-  logical_file_name = NULL;
-  line_number = 0;
-}
+static void x_c_lex PARAMS ((xgettext_token_ty *tp));
 
 
 /* 1. Terminate line by \n, regardless of the external representation of
@@ -425,8 +386,6 @@ phase4_getc ()
       /* C comment.  */
       buflen = 0;
       state = 0;
-      if (comment == NULL)
-	comment = string_list_alloc ();
       while (1)
 	{
 	  c = phase3_getc ();
@@ -449,7 +408,7 @@ phase4_getc ()
 				     || buffer[buflen - 1] == '\t'))
 		--buflen;
 	      buffer[buflen] = 0;
-	      string_list_append (comment, buffer);
+	      xgettext_comment_add (buffer);
 	      buflen = 0;
 	      state = 0;
 	      continue;
@@ -466,7 +425,7 @@ phase4_getc ()
 					 || buffer[buflen - 1] == '\t'))
 		    --buflen;
 		  buffer[buflen] = 0;
-		  string_list_append (comment, buffer);
+		  xgettext_comment_add (buffer);
 		  break;
 		}
 	      /* FALLTHROUGH */
@@ -501,9 +460,7 @@ phase4_getc ()
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[buflen] = 0;
-      if (comment == NULL)
-	comment = string_list_alloc ();
-      string_list_append (comment, buffer);
+      xgettext_comment_add (buffer);
       last_comment_line = newline_count;
       return '\n';
     }
@@ -1075,14 +1032,12 @@ phase6_get (tp)
 	  && buf[1].type == token_type_number
 	  && buf[2].type == token_type_string_literal)
 	{
-	  free (logical_file_name);
 	  logical_file_name = xstrdup (buf[2].string);
 	  line_number = buf[1].number;
 	}
       if (bufpos >= 2 && buf[0].type == token_type_number
 	  && buf[1].type == token_type_string_literal)
 	{
-	  free (logical_file_name);
 	  logical_file_name = xstrdup (buf[1].string);
 	  line_number = buf[0].number;
 	}
@@ -1103,7 +1058,7 @@ phase6_get (tp)
 	}
 
       /* We must reset the selected comments.  */
-      xgettext_lex_comment_reset ();
+      xgettext_comment_reset ();
     }
 }
 
@@ -1154,8 +1109,8 @@ phase8_get (tp)
 /* 9. Convert the remaining preprocessing tokens to C tokens and
    discards any white space from the translation unit.  */
 
-void
-xgettext_lex (tp)
+static void
+x_c_lex (tp)
      xgettext_token_ty *tp;
 {
   while (1)
@@ -1187,7 +1142,7 @@ xgettext_lex (tp)
 	     with non-white space tokens.  */
 	  ++newline_count;
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_lex_comment_reset ();
+	    xgettext_comment_reset ();
 	  break;
 
 	case token_type_name:
@@ -1195,13 +1150,13 @@ xgettext_lex (tp)
 
 	  if (default_keywords)
 	    {
-	      xgettext_lex_keyword ("gettext");
-	      xgettext_lex_keyword ("dgettext:2");
-	      xgettext_lex_keyword ("dcgettext:2");
-	      xgettext_lex_keyword ("ngettext:1,2");
-	      xgettext_lex_keyword ("dngettext:2,3");
-	      xgettext_lex_keyword ("dcngettext:2,3");
-	      xgettext_lex_keyword ("gettext_noop");
+	      x_c_keyword ("gettext");
+	      x_c_keyword ("dgettext:2");
+	      x_c_keyword ("dcgettext:2");
+	      x_c_keyword ("ngettext:1,2");
+	      x_c_keyword ("dngettext:2,3");
+	      x_c_keyword ("dcngettext:2,3");
+	      x_c_keyword ("gettext_noop");
 	      default_keywords = false;
 	    }
 
@@ -1212,8 +1167,8 @@ xgettext_lex (tp)
 	      tp->type = xgettext_token_type_keyword;
 	      tp->argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
 	      tp->argnum2 = (int) (long) keyword_value >> 10;
-	      tp->line_number = token.line_number;
-	      tp->file_name = logical_file_name;
+	      tp->pos.file_name = logical_file_name;
+	      tp->pos.line_number = token.line_number;
 	    }
 	  else
 	    tp->type = xgettext_token_type_symbol;
@@ -1243,8 +1198,8 @@ xgettext_lex (tp)
 
 	  tp->type = xgettext_token_type_string_literal;
 	  tp->string = token.string;
-	  tp->line_number = token.line_number;
-	  tp->file_name = logical_file_name;
+	  tp->pos.file_name = logical_file_name;
+	  tp->pos.line_number = token.line_number;
 	  return;
 
 	default:
@@ -1258,7 +1213,179 @@ xgettext_lex (tp)
 
 
 void
-xgettext_lex_keyword (name)
+extract_c (f, real_filename, logical_filename, mdlp)
+     FILE *f;
+     const char *real_filename;
+     const char *logical_filename;
+     msgdomain_list_ty *mdlp;
+{
+  message_list_ty *mlp = mdlp->item[0]->messages;
+  int state;
+  int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
+  int plural_commas = 0;	/* defined only when in states 1 and 2 */
+  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
+  int paren_nesting = 0;	/* defined only when in state 2 */
+
+  /* The file is broken into tokens.  Scan the token stream, looking for
+     a keyword, followed by a left paren, followed by a string.  When we
+     see this sequence, we have something to remember.  We assume we are
+     looking at a valid C or C++ program, and leave the complaints about
+     the grammar to the compiler.
+
+     Normal handling: Look for
+       [A] keyword [B] ( ... [C] ... msgid ... ) [E]
+     Plural handling: Look for
+       [A] keyword [B] ( ... [C] ... msgid ... [D] ... msgid_plural ... ) [E]
+     At point [A]: state == 0.
+     At point [B]: state == 1, commas_to_skip set, plural_mp == NULL.
+     At point [C]: state == 2, commas_to_skip set, plural_mp == NULL.
+     At point [D]: state == 2, commas_to_skip set again, plural_mp != NULL.
+     At point [E]: state == 0.  */
+
+  fp = f;
+  file_name = real_filename;
+  logical_file_name = xstrdup (logical_filename);
+  line_number = 1;
+
+  /* Start state is 0.  */
+  state = 0;
+
+  while (1)
+   {
+     xgettext_token_ty token;
+
+     /* A state machine is used to do the recognising:
+        State 0 = waiting for something to happen
+        State 1 = seen one of our keywords
+        State 2 = waiting for part of an argument */
+     x_c_lex (&token);
+     switch (token.type)
+       {
+       case xgettext_token_type_keyword:
+	 if (!extract_all && state == 2)
+	   {
+	     if (commas_to_skip == 0)
+	       {
+		 error_with_progname = false;
+		 error (0, 0,
+			_("%s:%d: warning: keyword nested in keyword arg"),
+			token.pos.file_name, token.pos.line_number);
+		 error_with_progname = true;
+		 continue;
+	       }
+
+	     /* Here we should nest properly, but this would require a
+		potentially unbounded stack.  We haven't run across an
+		example that needs this functionality yet.  For now,
+		we punt and forget the outer keyword.  */
+	     error_with_progname = false;
+	     error (0, 0,
+		    _("%s:%d: warning: keyword between outer keyword and its arg"),
+		    token.pos.file_name, token.pos.line_number);
+	     error_with_progname = true;
+	   }
+	 commas_to_skip = token.argnum1 - 1;
+	 plural_commas = (token.argnum2 > token.argnum1
+			  ? token.argnum2 - token.argnum1 : 0);
+	 plural_mp = NULL;
+	 state = 1;
+	 continue;
+
+       case xgettext_token_type_lparen:
+	 switch (state)
+	   {
+	   case 1:
+	     paren_nesting = 0;
+	     state = 2;
+	     break;
+	   case 2:
+	     paren_nesting++;
+	     break;
+	   }
+	 continue;
+
+       case xgettext_token_type_rparen:
+	 if (state == 2 && paren_nesting != 0)
+	   paren_nesting--;
+	 else
+	   state = 0;
+	 continue;
+
+       case xgettext_token_type_comma:
+	 if (state == 2 && commas_to_skip != 0)
+	   {
+	     if (paren_nesting == 0)
+	       commas_to_skip--;
+	   }
+	 else
+	   state = 0;
+	 continue;
+
+       case xgettext_token_type_string_literal:
+	 if (extract_all)
+	   remember_a_message (mlp, token.string, &token.pos);
+	 else if (state == 2 && commas_to_skip == 0)
+	   {
+	     if (plural_mp == NULL)
+	       {
+		 /* Seen an msgid.  */
+		 if (plural_commas == 0)
+		   remember_a_message (mlp, token.string, &token.pos);
+		 else
+		   {
+		     plural_mp = remember_a_message (mlp, token.string,
+						     &token.pos);
+		     commas_to_skip = plural_commas;
+		     plural_commas = 0;
+		   }
+	       }
+	     else
+	       {
+		 /* Seen an msgid_plural.  */
+		 remember_a_message_plural (plural_mp, token.string,
+					    &token.pos);
+		 plural_mp = NULL;
+	       }
+	   }
+	 else
+	   {
+	     free (token.string);
+	     if (state == 1)
+	       state = 0;
+	   }
+	 continue;
+
+       case xgettext_token_type_symbol:
+	 if (state == 1)
+	   state = 0;
+	 continue;
+
+       case xgettext_token_type_eof:
+	 break;
+
+       default:
+	 abort ();
+       }
+     break;
+   }
+
+  /* Close scanner.  */
+  fp = NULL;
+  file_name = NULL;
+  logical_file_name = NULL;
+  line_number = 0;
+}
+
+
+void
+x_c_extract_all ()
+{
+  extract_all = true;
+}
+
+
+void
+x_c_keyword (name)
      const char *name;
 {
   if (name == NULL)
@@ -1309,37 +1436,15 @@ xgettext_lex_keyword (name)
     }
 }
 
-
 bool
-xgettext_any_keywords ()
+x_c_any_keywords ()
 {
   return (keywords.filled > 0) || default_keywords;
 }
 
 
-const char *
-xgettext_lex_comment (n)
-     size_t n;
-{
-  if (comment == NULL || n >= comment->nitems)
-    return NULL;
-  return comment->item[n];
-}
-
-
 void
-xgettext_lex_comment_reset ()
-{
-  if (comment != NULL)
-    {
-      string_list_free (comment);
-      comment = NULL;
-    }
-}
-
-
-void
-xgettext_lex_trigraphs ()
+x_c_trigraphs ()
 {
   trigraphs = true;
 }

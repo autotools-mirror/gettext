@@ -29,38 +29,35 @@
 #include <time.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <locale.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
 #endif
 
-#ifndef errno
-extern int errno;
-#endif
-
+#include "xgettext.h"
 #include "dir-list.h"
 #include "file-list.h"
 #include "error.h"
 #include "progname.h"
-#include "hash.h"
 #include "getline.h"
 #include "system.h"
 #include "po.h"
 #include "message.h"
 #include "write-po.h"
-#include "xget-lex.h"
 #include "printf-parse.h"
-
 #include "libgettext.h"
 
 #ifndef _POSIX_VERSION
 struct passwd *getpwuid ();
 #endif
 
-
 /* A convenience macro.  I don't like writing gettext() every time.  */
 #define _(str) gettext (str)
+
+
+#include "x-c.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -81,9 +78,6 @@ static int do_debug;
 
 /* Content of .po files with symbols to be excluded.  */
 static message_list_ty *exclude;
-
-/* If true extract all strings.  */
-static bool extract_all = false;
 
 /* Force output of PO file even if empty.  */
 static int force_po;
@@ -157,10 +151,8 @@ static void exclude_directive_message PARAMS ((po_ty *pop, char *msgid,
 					       lex_pos_ty *msgstr_pos,
 					       bool obsolete));
 static void read_exclusion_file PARAMS ((char *file_name));
-static message_ty *remember_a_message PARAMS ((message_list_ty *mlp,
-					       xgettext_token_ty *tp));
-static void remember_a_message_plural PARAMS ((message_ty *mp,
-					       xgettext_token_ty *tp));
+static FILE *xgettext_open PARAMS ((const char *fn, char **logical_file_name_p,
+				    char **real_file_name_p));
 static void scan_c_file PARAMS ((const char *file_name,
 				 msgdomain_list_ty *mdlp));
 static void extract_constructor PARAMS ((po_ty *that));
@@ -188,8 +180,8 @@ static enum is_c_format test_whether_c_format PARAMS ((const char *s));
    string argument and a message list argument.  */
 typedef void (*scanner_fp) PARAMS ((const char *, msgdomain_list_ty *));
 
-static const char *extension_to_language PARAMS ((const char *));
 static scanner_fp language_to_scanner PARAMS ((const char *));
+static const char *extension_to_language PARAMS ((const char *));
 
 
 int
@@ -236,7 +228,7 @@ main (argc, argv)
       case '\0':		/* Long option.  */
 	break;
       case 'a':
-	extract_all = true;
+	x_c_extract_all ();
 	break;
       case 'c':
 	if (optarg == NULL)
@@ -285,7 +277,7 @@ main (argc, argv)
 	break;
       case 'k':
 	if (optarg == NULL || *optarg != '\0')
-	  xgettext_lex_keyword (optarg);
+	  x_c_keyword (optarg);
 	break;
       case 'l':
 	/* Accepted for backward compatibility with 0.10.35.  */
@@ -333,7 +325,7 @@ main (argc, argv)
 	message_print_style_uniforum ();
 	break;
       case 'T':
-	xgettext_lex_trigraphs ();
+	x_c_trigraphs ();
 	break;
       case 'V':
 	do_version = true;
@@ -371,7 +363,7 @@ main (argc, argv)
     error (EXIT_FAILURE, 0, _("\
 --join-existing cannot be used when output is written to stdout"));
 
-  if (!xgettext_any_keywords ())
+  if (!x_c_any_keywords ())
     {
       error (0, 0, _("\
 xgettext cannot work without keywords to look for"));
@@ -686,10 +678,107 @@ read_exclusion_file (file_name)
 }
 
 
-static message_ty *
-remember_a_message (mlp, tp)
+static string_list_ty *comment;
+
+void
+xgettext_comment_add (str)
+     const char *str;
+{
+  if (comment == NULL)
+    comment = string_list_alloc ();
+  string_list_append (comment, str);
+}
+
+const char *
+xgettext_comment (n)
+     size_t n;
+{
+  if (comment == NULL || n >= comment->nitems)
+    return NULL;
+  return comment->item[n];
+}
+
+void
+xgettext_comment_reset ()
+{
+  if (comment != NULL)
+    {
+      string_list_free (comment);
+      comment = NULL;
+    }
+}
+
+
+
+static FILE *
+xgettext_open (fn, logical_file_name_p, real_file_name_p)
+     const char *fn;
+     char **logical_file_name_p;
+     char **real_file_name_p;
+{
+  FILE *fp;
+  char *new_name;
+  char *logical_file_name;
+
+  if (strcmp (fn, "-") == 0)
+    {
+      new_name = xstrdup (_("standard input"));
+      logical_file_name = xstrdup (new_name);
+      fp = stdin;
+    }
+  else if (IS_ABSOLUTE_PATH (fn))
+    {
+      new_name = xstrdup (fn);
+      fp = fopen (fn, "r");
+      if (fp == NULL)
+	error (EXIT_FAILURE, errno, _("\
+error while opening \"%s\" for reading"), fn);
+      logical_file_name = xstrdup (new_name);
+    }
+  else
+    {
+      int j;
+
+      for (j = 0; ; ++j)
+	{
+	  const char *dir = dir_list_nth (j);
+
+	  if (dir == NULL)
+	    error (EXIT_FAILURE, ENOENT, _("\
+error while opening \"%s\" for reading"), fn);
+
+	  new_name = concatenated_pathname (dir, fn, NULL);
+
+	  fp = fopen (new_name, "r");
+	  if (fp != NULL)
+	    break;
+
+	  if (errno != ENOENT)
+	    error (EXIT_FAILURE, errno, _("\
+error while opening \"%s\" for reading"), new_name);
+	  free (new_name);
+	}
+
+      /* Note that the NEW_NAME variable contains the actual file name
+	 and the logical file name is what is reported by xgettext.  In
+	 this case NEW_NAME is set to the file which was found along the
+	 directory search path, and LOGICAL_FILE_NAME is is set to the
+	 file name which was searched for.  */
+      logical_file_name = xstrdup (fn);
+    }
+
+  *logical_file_name_p = logical_file_name;
+  *real_file_name_p = new_name;
+  return fp;
+}
+
+
+
+message_ty *
+remember_a_message (mlp, string, pos)
      message_list_ty *mlp;
-     xgettext_token_ty *tp;
+     char *string;
+     lex_pos_ty *pos;
 {
   enum is_c_format is_c_format = undecided;
   enum is_wrap do_wrap = undecided;
@@ -697,14 +786,14 @@ remember_a_message (mlp, tp)
   message_ty *mp;
   char *msgstr;
 
-  msgid = tp->string;
+  msgid = string;
 
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgid) != NULL)
     {
       /* Tell the lexer to reset its comment buffer, so that the next
 	 message gets the correct comments.  */
-      xgettext_lex_comment_reset ();
+      xgettext_comment_reset ();
 
       return NULL;
     }
@@ -749,7 +838,7 @@ remember_a_message (mlp, tp)
 
       for (j = 0; ; ++j)
 	{
-	  const char *s = xgettext_lex_comment (j);
+	  const char *s = xgettext_comment (j);
 	  if (s == NULL)
 	    break;
 
@@ -781,27 +870,28 @@ remember_a_message (mlp, tp)
 
   /* Remember where we saw this msgid.  */
   if (line_comment)
-    message_comment_filepos (mp, tp->file_name, tp->line_number);
+    message_comment_filepos (mp, pos->file_name, pos->line_number);
 
   /* Tell the lexer to reset its comment buffer, so that the next
      message gets the correct comments.  */
-  xgettext_lex_comment_reset ();
+  xgettext_comment_reset ();
 
   return mp;
 }
 
 
-static void
-remember_a_message_plural (mp, tp)
+void
+remember_a_message_plural (mp, string, pos)
      message_ty *mp;
-     xgettext_token_ty *tp;
+     char *string;
+     lex_pos_ty *pos;
 {
   char *msgid_plural;
   char *msgstr1;
   size_t msgstr1_len;
   char *msgstr;
 
-  msgid_plural = tp->string;
+  msgid_plural = string;
 
   /* See if the message is already a plural message.  */
   if (mp->msgid_plural == NULL)
@@ -834,157 +924,20 @@ remember_a_message_plural (mp, tp)
 
 
 static void
-scan_c_file (filename, mdlp)
-     const char *filename;
+scan_c_file (file_name, mdlp)
+     const char *file_name;
      msgdomain_list_ty *mdlp;
 {
-  message_list_ty *mlp = mdlp->item[0]->messages;
-  int state;
-  int commas_to_skip = 0;	/* defined only when in states 1 and 2 */
-  int plural_commas = 0;	/* defined only when in states 1 and 2 */
-  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
-  int paren_nesting = 0;	/* defined only when in state 2 */
+  char *logical_file_name;
+  char *real_file_name;
+  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
 
-  /* The file is broken into tokens.  Scan the token stream, looking for
-     a keyword, followed by a left paren, followed by a string.  When we
-     see this sequence, we have something to remember.  We assume we are
-     looking at a valid C or C++ program, and leave the complaints about
-     the grammar to the compiler.
+  extract_c (fp, real_file_name, logical_file_name, mdlp);
 
-     Normal handling: Look for
-       [A] keyword [B] ( ... [C] ... msgid ... ) [E]
-     Plural handling: Look for
-       [A] keyword [B] ( ... [C] ... msgid ... [D] ... msgid_plural ... ) [E]
-     At point [A]: state == 0.
-     At point [B]: state == 1, commas_to_skip set, plural_mp == NULL.
-     At point [C]: state == 2, commas_to_skip set, plural_mp == NULL.
-     At point [D]: state == 2, commas_to_skip set again, plural_mp != NULL.
-     At point [E]: state == 0.  */
-
-  xgettext_lex_open (filename);
-
-  /* Start state is 0.  */
-  state = 0;
-
-  while (1)
-   {
-     xgettext_token_ty token;
-
-     /* A state machine is used to do the recognising:
-        State 0 = waiting for something to happen
-        State 1 = seen one of our keywords
-        State 2 = waiting for part of an argument */
-     xgettext_lex (&token);
-     switch (token.type)
-       {
-       case xgettext_token_type_keyword:
-	 if (!extract_all && state == 2)
-	   {
-	     if (commas_to_skip == 0)
-	       {
-		 error_with_progname = false;
-		 error (0, 0,
-			_("%s:%d: warning: keyword nested in keyword arg"),
-			token.file_name, token.line_number);
-		 error_with_progname = true;
-		 continue;
-	       }
-
-	     /* Here we should nest properly, but this would require a
-		potentially unbounded stack.  We haven't run across an
-		example that needs this functionality yet.  For now,
-		we punt and forget the outer keyword.  */
-	     error_with_progname = false;
-	     error (0, 0,
-		    _("%s:%d: warning: keyword between outer keyword and its arg"),
-		    token.file_name, token.line_number);
-	     error_with_progname = true;
-	   }
-	 commas_to_skip = token.argnum1 - 1;
-	 plural_commas = (token.argnum2 > token.argnum1
-			  ? token.argnum2 - token.argnum1 : 0);
-	 plural_mp = NULL;
-	 state = 1;
-	 continue;
-
-       case xgettext_token_type_lparen:
-	 switch (state)
-	   {
-	   case 1:
-	     paren_nesting = 0;
-	     state = 2;
-	     break;
-	   case 2:
-	     paren_nesting++;
-	     break;
-	   }
-	 continue;
-
-       case xgettext_token_type_rparen:
-	 if (state == 2 && paren_nesting != 0)
-	   paren_nesting--;
-	 else
-	   state = 0;
-	 continue;
-
-       case xgettext_token_type_comma:
-	 if (state == 2 && commas_to_skip != 0)
-	   {
-	     if (paren_nesting == 0)
-	       commas_to_skip--;
-	   }
-	 else
-	   state = 0;
-	 continue;
-
-       case xgettext_token_type_string_literal:
-	 if (extract_all)
-	   remember_a_message (mlp, &token);
-	 else if (state == 2 && commas_to_skip == 0)
-	   {
-	     if (plural_mp == NULL)
-	       {
-		 /* Seen an msgid.  */
-		 if (plural_commas == 0)
-		   remember_a_message (mlp, &token);
-		 else
-		   {
-		     plural_mp = remember_a_message (mlp, &token);
-		     commas_to_skip = plural_commas;
-		     plural_commas = 0;
-		   }
-	       }
-	     else
-	       {
-		 /* Seen an msgid_plural.  */
-		 remember_a_message_plural (plural_mp, &token);
-		 plural_mp = NULL;
-	       }
-	   }
-	 else
-	   {
-	     free (token.string);
-	     if (state == 1)
-	       state = 0;
-	   }
-	 continue;
-
-       case xgettext_token_type_symbol:
-	 if (state == 1)
-	   state = 0;
-	 continue;
-
-       case xgettext_token_type_eof:
-	 break;
-
-       default:
-	 abort ();
-       }
-     break;
-   }
-
-  /* Close scanner.  */
-  xgettext_lex_close ();
+  if (fp != stdin)
+    fclose (fp);
+  free (logical_file_name);
+  free (real_file_name);
 }
 
 
@@ -1375,9 +1328,7 @@ language_to_scanner (name)
 
   static table_ty table[] =
   {
-    { "C", scan_c_file, },
-    { "C++", scan_c_file, },
-    { "ObjectiveC", scan_c_file, },
+    SCANNERS_C
     { "PO", read_po_file, },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exlude-file option.  */
@@ -1407,16 +1358,7 @@ extension_to_language (extension)
 
   static table_ty table[] =
   {
-    { "c",      "C",    },
-    { "C",      "C++",  },
-    { "c++",    "C++",  },
-    { "cc",     "C++",  },
-    { "cxx",    "C++",  },
-    { "cpp",    "C++",  },
-    { "h",      "C",    },
-    { "hh",     "C++",  },
-    { "hpp",    "C++",  },
-    { "m",      "ObjectiveC" },
+    EXTENSIONS_C
     { "po",     "PO",   },
     { "pot",    "PO",   },
     { "pox",    "PO",   },

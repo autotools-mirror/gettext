@@ -1,3 +1,57 @@
+2001-07-27  Bruno Haible  <haible@clisp.cons.org>
+
+	* x-c.h: New file.
+	* x-c.c: New file.
+	(xgettext_token_type_ty, xgettext_token_ty): Moved here from
+	xget-lex.h. In xgettext_token_ty, unify line_number and file_name into
+	lex_pos_ty.
+	(token_type_ty, token_ty): Moved here from xget-lex.c.
+	(extract_all): Moved here from xgettext.c.
+	(keywords, default_keywords, trigraphs, file_name, logical_file_name,
+	line_number, fp, last_comment_line, last_non_comment_line,
+	newline_count): Moved here from xget-lex.c.
+	(phase1_pushback, phase1_pushback_length, phase1_getc, phase1_ungetc,
+	phase2_pushback, phase2_pushback_length, phase2_getc, phase2_ungetc,
+	phase3_pushback, phase3_pushback_length, phase3_getc, phase3_ungetc,
+	phase4_getc, phase4_ungetc, phase7_getc, phase7_ungetc,
+	phase5_pushback, phase5_pushback_length, phase5_get, phase5_unget,
+	phaseX_get, phase6_pushback, phase6_pushback_length, phase6_get,
+	phase6_unget, phase8_get): Moved here from xget-lex.c. Use
+	xgettext_comment_add instead of accessing 'comment'. Don't free
+	logical_file_name; it is still used as file_name of messages in mdlp.
+	(x_c_lex): Moved here from xget-lex.c, renamed from xgettext_lex.
+	(extract_c): Moved here from xgettext.c, renamed from scan_c_file.
+	Change arguments from filename to FILE * and two filenames. Don't call
+	xgettext_lex_open and xgettext_lex_close.
+	(x_c_extract_all): New function.
+	(x_c_keyword): Moved here from xget-lex.c, renamed from
+	xgettext_lex_keyword.
+	(x_c_any_keywords): Moved here from xget-lex.c, renamed from
+	xgettext_any_keywords.
+	(x_c_trigraphs): Moved here from xget-lex.c, renamed from
+	xgettext_lex_trigraphs.
+	* xgettext.h: New file.
+	* xgettext.c (extract_all): Move to x-c.c.
+	(comment): Moved here from xget-lex.c.
+	(xgettext_comment_add): New function.
+	(xgettext_comment): Moved here from xget-lex.c, renamed from
+	xgettext_lex_comment.
+	(xgettext_comment_reset): Moved here from xget-lex.c, renamed from
+	xgettext_lex_comment_reset.
+	(xgettext_open): New function, mostly taken from xgettext_lex_open
+	in xget-lex.c.
+	(remember_a_message): Make non-static. Replace xgettext_token_ty arg
+	with lex_pos_ty argument.
+	(remember_a_message_plural): Likewise.
+	(scan_c_file): Moved the body to x-c.c:extract_c.
+	(language_to_scanner): Use SCANNERS_C.
+	(extension_to_language): Use EXTENSIONS_C.
+	* xget-lex.h: Remove file.
+	* xget-lex.c: Remove file.
+	* Makefile.am (noinst_HEADERS): Remove xget-lex.h. Add xgettext.h and
+	x-c.h.
+	(xgettext_SOURCES): Remove xget-lex.c. Add x-c.c.
+
 2001-07-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* file-list.h: New file.
