@@ -17,6 +17,13 @@ automake
  automake
 )
 
+(cd gettext-runtime/libasprintf
+ aclocal -I ../../config/m4 -I ../m4
+ autoconf
+ autoheader
+ automake
+)
+
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools
