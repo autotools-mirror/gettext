@@ -1,3 +1,8 @@
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* javaexec.sh.in: Use HAVE_JAVA instead of HAVE_JAVA_JVM.
+	The problem seen with automake-1.4 is gone with automake-1.5.
+
 2001-11-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* argmatch.h (PARAMS): Also test for __SUNPRO_C, because 64-bit Solaris

@@ -46,9 +46,7 @@ else
     test -z "$JAVA_VERBOSE" || echo gij "$@"
     exec gij "$@"
   else
-    # We call this variable HAVE_JAVA_JVM, not HAVE_JAVA, because otherwise
-    # automake creates a dependency to "classHAVE.stamp" in every Makefile!!
-    if test -n "@HAVE_JAVA_JVM@"; then
+    if test -n "@HAVE_JAVA@"; then
       test -z "$JAVA_VERBOSE" || echo java "$@"
       exec java "$@"
     else

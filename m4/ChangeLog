@@ -1,3 +1,8 @@
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* javaexec.m4 (gt_JAVAEXEC): Use HAVE_JAVA instead of HAVE_JAVA_JVM.
+	The problem seen with automake-1.4 is gone with automake-1.5.
+
 2001-11-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* stdint_h.m4: New file.

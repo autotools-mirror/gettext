@@ -32,7 +32,7 @@ AC_DEFUN([gt_JAVAEXEC],
     else
       if test -n "$HAVE_JAVA_IN_PATH" \
          && java -version >/dev/null 2>/dev/null; then
-        HAVE_JAVA_JVM=1
+        HAVE_JAVA=1
         ac_result="java"
       else
         if test -n "$HAVE_JRE_IN_PATH" \
@@ -57,7 +57,7 @@ AC_DEFUN([gt_JAVAEXEC],
   AC_SUBST(CLASSPATH)
   AC_SUBST(CLASSPATH_SEPARATOR)
   AC_SUBST(HAVE_GIJ)
-  AC_SUBST(HAVE_JAVA_JVM)
+  AC_SUBST(HAVE_JAVA)
   AC_SUBST(HAVE_JRE)
   AC_SUBST(HAVE_JVIEW)
 ])
