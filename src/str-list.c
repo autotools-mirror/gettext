@@ -224,7 +224,7 @@ string_list_member (slp, s)
      const string_list_ty *slp;
      const char *s;
 {
- size_t j;
+  size_t j;
 
   for (j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
