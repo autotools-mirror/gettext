@@ -1,5 +1,12 @@
 2003-10-13  Bruno Haible  <bruno@clisp.org>
 
+	Support CR/LF line terminators in C sources even on Unix.
+	* x-c.c (phase0_getc, phase0_ungetc): New functions.
+	(phase1_getc): Use them instead of calling getc/ungetc directly.
+	Reported by Christoph Thielecke <u15119@hs-harz.de>.
+
+2003-10-13  Bruno Haible  <bruno@clisp.org>
+
 	Support and recognize Objective C specific format strings.
 	* message.h (enum format_type): New item format_objc.
 	(NFORMATS): Increment.

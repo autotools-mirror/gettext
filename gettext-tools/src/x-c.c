@@ -329,10 +329,58 @@ static int line_number;
 static FILE *fp;
 
 
-/* 1. Terminate line by \n, regardless of the external representation of
-   a text line.  Stdio does this for us, we just need to check that
-   there are no I/O errors, and cope with potentially 2 characters of
-   pushback, not just the one that ungetc can cope with.  */
+/* 0. Terminate line by \n, regardless whether the external representation of
+   a line terminator is LF (Unix), CR (Mac) or CR/LF (DOS/Windows).
+   It is debatable whether supporting CR/LF line terminators in C sources
+   on Unix is ISO C or POSIX compliant, but since GCC 3.3 now supports it
+   unconditionally, it must be OK.
+   The so-called "text mode" in stdio on DOS/Windows translates CR/LF to \n
+   automatically, but here we also need this conversion on Unix.  As a side
+   effect, on DOS/Windows we also parse CR/CR/LF into a single \n, but this
+   is not a problem.  */
+
+
+static int
+phase0_getc ()
+{
+  int c;
+
+  c = getc (fp);
+  if (c == EOF)
+    {
+      if (ferror (fp))
+	error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+	       real_file_name);
+      return EOF;
+    }
+
+  if (c == '\r')
+    {
+      int c1 = getc (fp);
+
+      if (c1 != EOF && c1 != '\n')
+	ungetc (c1, fp);
+
+      /* Seen line terminator CR or CR/LF.  */
+      return '\n';
+    }
+
+  return c;
+}
+
+
+/* Only one pushback character supported, and not '\n'.  */
+static inline void
+phase0_ungetc (int c)
+{
+  if (c != EOF)
+    ungetc (c, fp);
+}
+
+
+/* 1. line_number handling.  Combine backslash-newline to nothing.
+   Cope with potentially 2 characters of pushback, not just the one that
+   ungetc can cope with.  */
 
 /* Maximum used guaranteed to be < 4.  */
 static unsigned char phase1_pushback[4];
@@ -353,33 +401,18 @@ phase1_getc ()
     }
   for (;;)
     {
-      c = getc (fp);
+      c = phase0_getc ();
       switch (c)
 	{
-	case EOF:
-	  if (ferror (fp))
-	    {
-	    bomb:
-	      error (EXIT_FAILURE, errno, _("\
-error while reading \"%s\""), real_file_name);
-	    }
-	  return EOF;
-
 	case '\n':
 	  ++line_number;
 	  return '\n';
 
 	case '\\':
-	  c = getc (fp);
-	  if (c == EOF)
-	    {
-	      if (ferror (fp))
-		goto bomb;
-	      return '\\';
-	    }
+	  c = phase0_getc (fp);
 	  if (c != '\n')
 	    {
-	      ungetc (c, fp);
+	      phase0_ungetc (c);
 	      return '\\';
 	    }
 	  ++line_number;
