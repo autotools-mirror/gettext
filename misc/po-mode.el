@@ -1724,7 +1724,7 @@ If FORM is itself a string, then this string is used for insertion."
     (goto-char (point-min))
     (let ((multi-line (re-search-forward "[^\n]\n+[^\n]" nil t)))
       (goto-char (point-min))
-      (while (re-search-forward "[\"\a\b\f\n\t\\]" nil t)
+      (while (re-search-forward "[\"\a\b\f\n\r\t\\]" nil t)
 	(cond ((eq (preceding-char) ?\") (replace-match "\\\"" t t))
 	      ((eq (preceding-char) ?\a) (replace-match "\\a" t t))
 	      ((eq (preceding-char) ?\b) (replace-match "\\b" t t))
@@ -1734,6 +1734,7 @@ If FORM is itself a string, then this string is used for insertion."
 				  "\\n"
 				"\\n\"\n\"")
 			      t t))
+	      ((eq (preceding-char) ?\r) (replace-match "\\r" t t))
 	      ((eq (preceding-char) ?\t) (replace-match "\\t" t t))
 	      ((eq (preceding-char) ?\\) (replace-match "\\\\" t t))))
       (goto-char (point-min))
