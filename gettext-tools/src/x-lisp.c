@@ -1174,7 +1174,11 @@ read_object (struct object *op, flag_context_ty outer_context)
 		    if (c != ';')
 		      all_semicolons = false;
 		    if (!all_semicolons)
-		      comment_add (c);
+		      {
+			/* We skip all leading white space, but not EOLs.  */
+			if (!(buflen == 0 && (c == ' ' || c == '\t')))
+			  comment_add (c);
+		      }
 		  }
 		comment_line_end (0);
 		continue;

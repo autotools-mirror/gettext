@@ -864,7 +864,11 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 		if (c != ';')
 		  all_semicolons = false;
 		if (!all_semicolons)
-		  comment_add (c);
+		  {
+		    /* We skip all leading white space, but not EOLs.  */
+		    if (!(buflen == 0 && (c == ' ' || c == '\t')))
+		      comment_add (c);
+		  }
 	      }
 	    comment_line_end (0);
 	    continue;

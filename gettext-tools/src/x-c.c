@@ -662,7 +662,9 @@ phase4_getc ()
 	  c = phase3_getc ();
 	  if (c == '\n' || c == EOF)
 	    break;
-	  comment_add (c);
+	  /* We skip all leading white space, but not EOLs.  */
+	  if (!(buflen == 0 && (c == ' ' || c == '\t')))
+	    comment_add (c);
 	}
       comment_line_end (0);
       last_comment_line = newline_count;

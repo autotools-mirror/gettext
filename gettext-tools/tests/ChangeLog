@@ -1,3 +1,20 @@
+2003-11-22  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-c-9: New file.
+	* xgettext-sh-2: New file.
+	* xgettext-python-2: New file.
+	* xgettext-lisp-1: New file.
+	* xgettext-elisp-1: New file.
+	* xgettext-librep-1: New file.
+	* xgettext-smalltalk-1: New file.
+	* xgettext-java-5: New file.
+	* xgettext-awk-1: New file.
+	* xgettext-ycp-2: New file.
+	* xgettext-tcl-2: New file.
+	* xgettext-perl-5: New file.
+	* xgettext-php-1: New file.
+	* Makefile.am (TESTS): Add them.
+
 2003-11-15  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (AM_CPPFLAGS): Renamed from INCLUDES.

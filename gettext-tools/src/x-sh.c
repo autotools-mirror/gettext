@@ -714,7 +714,9 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 	      c = phase1_getc ();
 	      if (c == EOF || c == '\n')
 		break;
-	      comment_add (c);
+	      /* We skip all leading white space, but not EOLs.  */
+	      if (!(buflen == 0 && (c == ' ' || c == '\t')))
+		comment_add (c);
 	    }
 	  comment_line_end ();
 	}

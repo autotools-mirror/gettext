@@ -766,7 +766,9 @@ phase4_getc ()
 	  c = phase3_getc ();
 	  if (RED (c) == '\n' || c == P2_EOF)
 	    break;
-	  comment_add (c);
+	  /* We skip all leading white space, but not EOLs.  */
+	  if (!(comment_at_start () && (RED (c) == ' ' || RED (c) == '\t')))
+	    comment_add (c);
 	}
       phase3_ungetc (c); /* push back the newline, to decrement line_number */
       comment_line_end (0);

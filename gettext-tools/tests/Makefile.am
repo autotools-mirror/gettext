@@ -57,19 +57,27 @@ TESTS = gettext-1 gettext-2 \
 	msguniq-1 msguniq-2 msguniq-3 msguniq-4 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 \
+	xgettext-awk-1 \
 	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
-	xgettext-c-6 xgettext-c-7 xgettext-c-8 \
+	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 \
+	xgettext-elisp-1 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
+	xgettext-java-5 \
+	xgettext-librep-1 \
+	xgettext-lisp-1 \
 	xgettext-objc-1 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
+	xgettext-perl-5 \
+	xgettext-php-1 \
 	xgettext-po-1 \
 	xgettext-properties-1 \
-	xgettext-python-1 \
-	xgettext-sh-1 \
+	xgettext-python-1 xgettext-python-2 \
+	xgettext-sh-1 xgettext-sh-2 \
+	xgettext-smalltalk-1 \
 	xgettext-stringtable-1 \
-	xgettext-tcl-1 \
-	xgettext-ycp-1 \
+	xgettext-tcl-1 xgettext-tcl-2 \
+	xgettext-ycp-1 xgettext-ycp-2 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \

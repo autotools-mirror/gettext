@@ -159,12 +159,16 @@ phase2_getc ()
 	      c = phase1_getc ();
 	      if (c == '\n' || c == EOF)
 		break;
-	      if (buflen >= bufmax)
+	      /* We skip all leading white space, but not EOLs.  */
+	      if (!(buflen == 0 && (c == ' ' || c == '\t')))
 		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
+		  if (buflen >= bufmax)
+		    {
+		      bufmax = 2 * bufmax + 10;
+		      buffer = xrealloc (buffer, bufmax);
+		    }
+		  buffer[buflen++] = c;
 		}
-	      buffer[buflen++] = c;
 	    }
 	  if (buflen >= bufmax)
 	    {
@@ -201,7 +205,7 @@ phase2_getc ()
 	      if (c == EOF)
 		break;
 	      /* We skip all leading white space, but not EOLs.  */
-	      if (buflen == 0 && isspace (c) && c != '\n')
+	      if (buflen == 0 && (c == ' ' || c == '\t'))
 		continue;
 	      if (buflen >= bufmax)
 		{
@@ -260,12 +264,16 @@ phase2_getc ()
 	      c = phase1_getc ();
 	      if (c == '\n' || c == EOF)
 		break;
-	      if (buflen >= bufmax)
+	      /* We skip all leading white space, but not EOLs.  */
+	      if (!(buflen == 0 && (c == ' ' || c == '\t')))
 		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
+		  if (buflen >= bufmax)
+		    {
+		      bufmax = 2 * bufmax + 10;
+		      buffer = xrealloc (buffer, bufmax);
+		    }
+		  buffer[buflen++] = c;
 		}
-	      buffer[buflen++] = c;
 	    }
 	  if (buflen >= bufmax)
 	    {

@@ -830,7 +830,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 	      c = phase2_getc ();
 	      if (c == EOF || c == CL_BRACE || c == '\n')
 		break;
-	      comment_add (c);
+	      /* We skip all leading white space, but not EOLs.  */
+	      if (!(buflen == 0 && (c == ' ' || c == '\t')))
+		comment_add (c);
 	    }
 	  comment_line_end ();
 	  continue;
