@@ -344,7 +344,7 @@ typedef struct transmem_list
 } transmem_block_t;
 static struct transmem_list *transmem_list;
 #else
-typedef char transmem_block_t;
+typedef unsigned char transmem_block_t;
 #endif
 
 
@@ -804,7 +804,7 @@ _nl_find_msg (domain_file, msgid, lengthp)
 
 	  __libc_lock_lock (lock);
 
-	  inbuf = result;
+	  inbuf = (const unsigned char *) result;
 	  outbuf = freemem + sizeof (size_t);
 
 	  malloc_count = 0;
@@ -914,7 +914,7 @@ _nl_find_msg (domain_file, msgid, lengthp)
 	  /* We have now in our buffer a converted string.  Put this
 	     into the table of conversions.  */
 	  *(size_t *) freemem = outbuf - freemem - sizeof (size_t);
-	  domain->conv_tab[act] = freemem;
+	  domain->conv_tab[act] = (char *) freemem;
 	  /* Shrink freemem, but keep it aligned.  */
 	  freemem_size -= outbuf - freemem;
 	  freemem = outbuf;
