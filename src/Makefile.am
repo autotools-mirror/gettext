@@ -35,7 +35,7 @@ write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
 plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
 x-elisp.h x-librep.h x-java.h x-awk.h x-ycp.h x-tcl.h x-rst.h x-glade.h
 
-EXTRA_DIST = FILES project-id \
+EXTRA_DIST = FILES project-id msgunfmt.tcl \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
 
 localedir = $(datadir)/locale
@@ -199,6 +199,22 @@ uninstall-local: uninstall-java-@BUILDJAVA@
 uninstall-java-no:
 uninstall-java-yes:
 	$(RM) $(DESTDIR)$(jardir)/gettext.jar
+
+
+# Special rules for Tcl auxiliary program.
+
+install-data-local: install-tcl
+install-tcl:
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(INSTALL_DATA) $(srcdir)/msgunfmt.tcl $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
+
+installdirs-local: installdirs-tcl
+installdirs-tcl:
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+
+uninstall-local: uninstall-tcl
+uninstall-tcl:
+	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
 
 
 # One more automake bug.

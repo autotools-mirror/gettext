@@ -41,7 +41,9 @@
 	tcl_base_directory. More checks for contradicting options. Call
 	msgdomain_read_tcl.
 	(usage): Mention Tcl mode.
+	* msgunfmt.tcl: New file.
 	* Makefile.am (noinst_HEADERS): Add read-tcl.h, write-tcl.h, x-tcl.h.
+	(EXTRA_DIST): Add msgunfmt.tcl.
 	(DEFS): Add -DGETTEXTDATADIR.
 	(FORMAT_SOURCE): Add format-tcl.c.
 	(msgfmt_SOURCES): Add write-tcl.c.
