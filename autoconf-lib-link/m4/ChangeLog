@@ -1,3 +1,8 @@
+2003-06-17  Paul Eggert  <eggert@twinsun.com>
+
+	* lib-ld.m4 (AC_LIB_PROG_LD_GNU, AC_LIB_PROG_LD): Don't use egrep, for
+	portability to POSIX 1003.1-2001.  Backported from libtool-1.5.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.
