@@ -161,7 +161,8 @@ dist distdir:
 dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
 	for file in $$dists; do \
-	  cp -p $(srcdir)/$$file $(distdir); \
+	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
+	  cp -p $$dir/$$file $(distdir); \
 	done
 
 update-po: Makefile

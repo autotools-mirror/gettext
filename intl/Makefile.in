@@ -292,8 +292,9 @@ dist distdir: Makefile
 	fi; \
 	$(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
 	for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
-	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
-	    || cp -p $(srcdir)/$$file $(distdir); \
+	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
+	  ln $$dir/$$file $(distdir) 2> /dev/null \
+	    || cp -p $$dir/$$file $(distdir); \
 	done
 
 Makefile: Makefile.in ../config.status

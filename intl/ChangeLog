@@ -1,3 +1,8 @@
+2001-05-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in (dist): Don't assume $(srcdir) = ".". Distribute
+	file in either current directory or $(srcdir), whichever exists.
+
 2001-05-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (install-exec): Don't install charset.alias on glibc 2.1
