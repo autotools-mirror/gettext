@@ -1,3 +1,7 @@
+2003-09-21  Bruno Haible  <bruno@clisp.org>
+
+	* vasprintf.c (int_vasprintf): Assume ANSI C when copying a structure.
+
 2003-09-16  Bruno Haible  <bruno@clisp.org>
 
 	Portability to SunOS 4.

@@ -1,6 +1,6 @@
 /* Like vsprintf but provides a pointer to malloc'd storage, which must
    be freed by the caller.
-   Copyright (C) 1994, 1998, 1999, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1994, 1998, 1999, 2000-2003 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,9 +40,7 @@ int_vasprintf (char **result, const char *format, va_list *args)
   /* Add one to make sure that it is never zero, which might cause malloc
      to return NULL.  */
   size_t total_width = strlen (format) + 1;
-  va_list ap;
-
-  memcpy (&ap, args, sizeof (va_list));
+  va_list ap = *args;
 
   while (*p != '\0')
     {
