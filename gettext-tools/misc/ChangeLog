@@ -1,5 +1,11 @@
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: Update the instructions for fetching config.guess and
+	config.sub.
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
 	* autopoint.in (func_destfile): Also set a variable 'sharedowner'.
 	For files with shared ownership, treat local modification as a warning.
 	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.

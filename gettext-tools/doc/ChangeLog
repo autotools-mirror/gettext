@@ -1,5 +1,11 @@
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (config.guess): Update the instructions for fetching
+	these files.
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (po/Makevars): Change subsection title.
 	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
 

@@ -6605,7 +6605,13 @@ has platform dependent support for determining the locale's character
 encoding and therefore needs to identify the platform.
 
 You can obtain the newest version of @file{config.guess} and
-@file{config.sub} from @file{ftp://ftp.gnu.org/pub/gnu/config/}.
+@file{config.sub} from the CVS of the @samp{config} project at
+@file{http://savannah.gnu.org/}. The commands to fetch them are
+@smallexample
+$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/config/config/config.guess?rev=HEAD&content-type=text/plain'
+$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/config/config/config.sub?rev=HEAD&content-type=text/plain'
+@end smallexample
+@noindent
 Less recent versions are also contained in the GNU @code{automake} and
 GNU @code{libtool} packages.
 
