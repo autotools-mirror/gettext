@@ -1,5 +1,10 @@
 2002-01-13  Bruno Haible  <bruno@clisp.org>
 
+	* *.m4: Add copyright notice.
+	* hostname.m4: Quote first argument of AC_DEFUN.
+
+2002-01-13  Bruno Haible  <bruno@clisp.org>
+
 	* lib-link.m4 (AC_LIB_LINKFLAGS): Avoid macro interaction with
 	AC_LIB_LINKFLAGS_BODY. Undefine the macros after use.
 	(AC_LIB_HAVE_LINKFLAGS): New macro.
