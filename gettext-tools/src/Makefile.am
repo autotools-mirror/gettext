@@ -34,12 +34,12 @@ lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
 
 include_HEADERS = gettext-po.h
 
-noinst_HEADERS = pos.h message.h po-error.h po-gram.h po-hash.h po-charset.h \
+noinst_HEADERS = pos.h message.h po-error.h po-gram.h po-charset.h \
 po-lex.h open-po.h \
 read-po-abstract.h read-po.h read-properties.h read-stringtable.h \
 str-list.h \
 write-po.h write-properties.h write-stringtable.h \
-dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h po-hash-gen.h \
+dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h \
 msgl-english.h msgfmt.h msgunfmt.h plural-count.h \
 read-mo.h write-mo.h \
@@ -94,12 +94,12 @@ CSHARPCOMPFLAGS = -O -g
 # All programs must read PO files. (msgunfmt also, for read-java.c,
 # read-csharp.c and read-resources.c.)
 # message.c -> str-list.c.
-# (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> str-list.c.
-# (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> open-po.c -> dir-list.c -> str-list.c.
-# (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> po-charset.c.
-# (read-po-abstract.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
+# (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> str-list.c.
+# (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> open-po.c -> dir-list.c -> str-list.c.
+# (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> po-charset.c.
+# (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
 COMMON_SOURCE = message.c po-error.c \
-read-po-abstract.c po-lex.c po-gram-gen.y po-hash-gen.y po-charset.c \
+read-po-abstract.c po-lex.c po-gram-gen.y po-charset.c \
 read-properties.c read-stringtable.c open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
@@ -243,8 +243,7 @@ endif
 # Special rules for bison and flex generated files.
 
 BUILT_SOURCES = \
-  po-gram-gen.c po-gram-gen.h po-gram-gen2.h \
-  po-hash-gen.c po-hash-gen.h
+  po-gram-gen.c po-gram-gen.h po-gram-gen2.h
 
 po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h

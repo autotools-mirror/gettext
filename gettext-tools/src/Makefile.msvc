@@ -110,7 +110,6 @@ OBJECTS = \
   read-po-abstract.obj \
   po-lex.obj \
   po-gram-gen.obj \
-  po-hash-gen.obj \
   po-charset.obj \
   read-properties.obj \
   read-stringtable.obj \
@@ -188,9 +187,6 @@ po-lex.obj : po-lex.c
 
 po-gram-gen.obj : po-gram-gen.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-gram-gen.c
-
-po-hash-gen.obj : po-hash-gen.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-hash-gen.c
 
 po-charset.obj : po-charset.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c po-charset.c

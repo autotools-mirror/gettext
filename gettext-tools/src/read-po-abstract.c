@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -29,7 +29,6 @@
 #include <string.h>
 
 #include "po-gram.h"
-#include "po-hash.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "xalloc.h"
@@ -197,8 +196,7 @@ po_scan (abstract_po_reader_ty *pop, FILE *fp,
 
 
 /* ========================================================================= */
-/* Callbacks used by po-gram.y or po-hash.y or po-lex.c, indirectly
-   from po_scan.  */
+/* Callbacks used by po-gram.y or po-lex.c, indirectly from po_scan.  */
 
 
 /* This function is called by po_gram_lex() whenever a domain directive
@@ -356,6 +354,295 @@ po_parse_comment_special (const char *s,
 }
 
 
+/* Parse a GNU style file comment.
+   Syntax: an arbitrary number of
+             STRING COLON NUMBER
+           or
+             STRING
+   The latter style, without line number, occurs in PO files converted e.g.
+   from Pascal .rst files or from OpenOffice resource files.
+   Call po_callback_comment_filepos for each of them.  */
+static void
+po_parse_comment_filepos (const char *s)
+{
+  while (*s != '\0')
+    {
+      while (*s == ' ' || *s == '\t' || *s == '\n')
+	s++;
+      if (*s != '\0')
+	{
+	  const char *string_start = s;
+
+	  do
+	    s++;
+	  while (!(*s == '\0' || *s == ' ' || *s == '\t' || *s == '\n'));
+
+	  /* See if there is a COLON and NUMBER after the STRING, separated
+	     through optional spaces.  */
+	  {
+	    const char *p = s;
+
+	    while (*p == ' ' || *p == '\t' || *p == '\n')
+	      p++;
+
+	    if (*p == ':')
+	      {
+		p++;
+
+		while (*p == ' ' || *p == '\t' || *p == '\n')
+		  p++;
+
+		if (*p >= '0' && *p <= '9')
+		  {
+		    /* Accumulate a number.  */
+		    size_t n = 0;
+
+		    do
+		      {
+			n = n * 10 + (*p - '0');
+			p++;
+		      }
+		    while (*p >= '0' && *p <= '9');
+
+		    if (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n')
+		      {
+			/* Parsed a GNU style file comment with spaces.  */
+			const char *string_end = s;
+			size_t string_length = string_end - string_start;
+			char *string = (char *) xmalloc (string_length + 1);
+
+			memcpy (string, string_start, string_length);
+			string[string_length] = '\0';
+
+			po_callback_comment_filepos (string, n);
+
+			free (string);
+
+			s = p;
+			continue;
+		      }
+		  }
+	      }
+	  }
+
+	  /* See if there is a COLON at the end of STRING and a NUMBER after
+	     it, separated through optional spaces.  */
+	  if (s[-1] == ':')
+	    {
+	      const char *p = s;
+
+	      while (*p == ' ' || *p == '\t' || *p == '\n')
+		p++;
+
+	      if (*p >= '0' && *p <= '9')
+		{
+		  /* Accumulate a number.  */
+		  size_t n = 0;
+
+		  do
+		    {
+		      n = n * 10 + (*p - '0');
+		      p++;
+		    }
+		  while (*p >= '0' && *p <= '9');
+
+		  if (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n')
+		    {
+		      /* Parsed a GNU style file comment with spaces.  */
+		      const char *string_end = s - 1;
+		      size_t string_length = string_end - string_start;
+		      char *string = (char *) xmalloc (string_length + 1);
+
+		      memcpy (string, string_start, string_length);
+		      string[string_length] = '\0';
+
+		      po_callback_comment_filepos (string, n);
+
+		      free (string);
+
+		      s = p;
+		      continue;
+		    }
+		}
+	    }
+
+	  /* See if there is a COLON and NUMBER at the end of the STRING,
+	     without separating spaces.  */
+	  {
+	    const char *p = s;
+
+	    while (p > string_start)
+	      {
+		p--;
+		if (!(*p >= '0' && *p <= '9'))
+		  {
+		    p++;
+		    break;
+		  }
+	      }
+
+	    /* p now points to the beginning of the trailing digits segment
+	       at the end of STRING.  */
+
+	    if (p < s
+		&& p > string_start + 1
+		&& p[-1] == ':')
+	      {
+		/* Parsed a GNU style file comment without spaces.  */
+		const char *string_end = p - 1;
+
+		/* Accumulate a number.  */
+		{
+		  size_t n = 0;
+
+		  do
+		    {
+		      n = n * 10 + (*p - '0');
+		      p++;
+		    }
+		  while (p < s);
+
+		  {
+		    size_t string_length = string_end - string_start;
+		    char *string = (char *) xmalloc (string_length + 1);
+
+		    memcpy (string, string_start, string_length);
+		    string[string_length] = '\0';
+
+		    po_callback_comment_filepos (string, n);
+
+		    free (string);
+
+		    continue;
+		  }
+		}
+	      }
+	  }
+
+	  /* Parsed a file comment without line number.  */
+	  {
+	    const char *string_end = s;
+	    size_t string_length = string_end - string_start;
+	    char *string = (char *) xmalloc (string_length + 1);
+
+	    memcpy (string, string_start, string_length);
+	    string[string_length] = '\0';
+
+	    po_callback_comment_filepos (string, (size_t)(-1));
+
+	    free (string);
+	  }
+	}
+    }
+}
+
+
+/* Parse a SunOS or Solaris style file comment.
+   Syntax of SunOS style:
+     FILE_KEYWORD COLON STRING COMMA LINE_KEYWORD COLON NUMBER
+   Syntax of Solaris style:
+     FILE_KEYWORD COLON STRING COMMA LINE_KEYWORD NUMBER_KEYWORD COLON NUMBER
+   where
+     FILE_KEYWORD ::= "file" | "File"
+     COLON ::= ":"
+     COMMA ::= ","
+     LINE_KEYWORD ::= "line"
+     NUMBER_KEYWORD ::= "number"
+     NUMBER ::= [0-9]+
+   Return true if parsed, false if not a comment of this form. */
+static bool
+po_parse_comment_solaris_filepos (const char *s)
+{
+  if (s[0] == ' '
+      && (s[1] == 'F' || s[1] == 'f')
+      && s[2] == 'i' && s[3] == 'l' && s[4] == 'e'
+      && s[5] == ':')
+    {
+      const char *string_start;
+      const char *string_end;
+
+      {
+	const char *p = s + 6;
+
+	while (*p == ' ' || *p == '\t')
+	  p++;
+	string_start = p;
+      }
+
+      for (string_end = string_start; *string_end != '\0'; string_end++)
+	{
+	  const char *p = string_end;
+
+	  while (*p == ' ' || *p == '\t')
+	    p++;
+
+	  if (*p == ',')
+	    {
+	      p++;
+
+	      while (*p == ' ' || *p == '\t')
+		p++;
+
+	      if (p[0] == 'l' && p[1] == 'i' && p[2] == 'n' && p[3] == 'e')
+		{
+		  p += 4;
+
+		  while (*p == ' ' || *p == '\t')
+		    p++;
+
+		  if (p[0] == 'n' && p[1] == 'u' && p[2] == 'm'
+		      && p[3] == 'b' && p[4] == 'e' && p[5] == 'r')
+		    {
+		      p += 6;
+		      while (*p == ' ' || *p == '\t')
+			p++;
+		    }
+
+		  if (*p == ':')
+		    {
+		      p++;
+
+		      if (*p >= '0' && *p <= '9')
+			{
+			  /* Accumulate a number.  */
+			  size_t n = 0;
+
+			  do
+			    {
+			      n = n * 10 + (*p - '0');
+			      p++;
+			    }
+			  while (*p >= '0' && *p <= '9');
+
+			  while (*p == ' ' || *p == '\t' || *p == '\n')
+			    p++;
+
+			  if (*p == '\0')
+			    {
+			      /* Parsed a Sun style file comment.  */
+			      size_t string_length = string_end - string_start;
+			      char *string =
+				(char *) xmalloc (string_length + 1);
+
+			      memcpy (string, string_start, string_length);
+			      string[string_length] = '\0';
+
+			      po_callback_comment_filepos (string, n);
+
+			      free (string);
+			      return true;
+			    }
+			}
+		    }
+		}
+	    }
+	}
+    }
+
+  return false;
+}
+
+
 /* This function is called by po_gram_lex() whenever a comment is
    seen.  It analyzes the comment to see what sort it is, and then
    dispatches it to the appropriate method: call_comment, call_comment_dot,
@@ -368,14 +655,9 @@ po_callback_comment_dispatcher (const char *s)
     po_callback_comment_dot (s + 1);
   else if (*s == ':')
     {
-      /* Parse the file location string.  If the parse succeeds, the
-	 appropriate callback will be invoked.  If the parse fails,
-	 the po_parse_comment_filepos function will return non-zero - so
-	 pretend it was a normal comment.  */
-      if (po_parse_comment_filepos (s + 1) == 0)
-	/* Do nothing, it is a GNU-style file pos line.  */ ;
-      else
-	po_callback_comment (s + 1);
+      /* Parse the file location string.  The appropriate callback will be
+	 invoked.  */
+      po_parse_comment_filepos (s + 1);
     }
   else if (*s == ',' || *s == '!')
     {
@@ -385,13 +667,9 @@ po_callback_comment_dispatcher (const char *s)
   else
     {
       /* It looks like a plain vanilla comment, but Solaris-style file
-	 position lines do, too.  Rather than parse the lot, only look
-	 at lines that could start with "# File..." This minimizes
-	 memory leaks on failed parses.  If the parse succeeds, the
-	 appropriate callback will be invoked.  */
-      if (s[0] == ' ' && (s[1] == 'F' || s[1] == 'f') && s[2] == 'i'
-	  && s[3] == 'l' && s[4] == 'e' && s[5] == ':'
-	  && po_parse_comment_filepos (s) == 0)
+	 position lines do, too.  Try to parse the lot.  If the parse
+	 succeeds, the appropriate callback will be invoked.  */
+      if (po_parse_comment_solaris_filepos (s))
 	/* Do nothing, it is a Sun-style file pos line.  */ ;
       else
 	po_callback_comment (s);

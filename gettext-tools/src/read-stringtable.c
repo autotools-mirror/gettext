@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,7 +33,6 @@
 #include "error.h"
 #include "error-progname.h"
 #include "read-po-abstract.h"
-#include "po-hash.h"
 #include "xalloc.h"
 #include "exit.h"
 #include "utf8-ucs4.h"

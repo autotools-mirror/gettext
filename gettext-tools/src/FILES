@@ -61,8 +61,6 @@ write-stringtable.c
 |               Lexical analysis of PO files.
 |
 | read-po-abstract.h
-| po-hash.h
-| po-hash-gen.y
 | po-gram.h
 | po-gram-gen.y
 | read-properties.h
@@ -74,10 +72,6 @@ write-stringtable.c
 |              .strings files.
 |         read-po-abstract.h
 |                       General parser structure.
-|         po-hash.h
-|         po-hash-gen.y
-|                       Lexical analysis and parsing of pseudo-comments in
-|                       PO files, introduced by "#:" and "#".
 |         po-gram.h
 |         po-gram-gen.y
 |                       Parsing of PO files, based on po-lex.{h,c}.

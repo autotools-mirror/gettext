@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -151,8 +151,7 @@ extern void
        po_reader_free (abstract_po_reader_ty *pop);
 
 
-/* Callbacks used by po-gram.y or po-hash.y or po-lex.c, indirectly
-   from po_scan.  */
+/* Callbacks used by po-gram.y or po-lex.c, indirectly from po_scan.  */
 extern void po_callback_domain (char *name);
 extern void po_callback_message (char *msgid, lex_pos_ty *msgid_pos,
 				 char *msgid_plural,

@@ -26,7 +26,7 @@ TESTS = gettext-1 gettext-2 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
 	msgattrib-properties-1 \
 	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
-	msgcat-8 msgcat-9 msgcat-10 \
+	msgcat-8 msgcat-9 msgcat-10 msgcat-11 \
 	msgcat-properties-1 msgcat-properties-2 \
 	msgcat-stringtable-1 \
 	msgcmp-1 msgcmp-2 msgcmp-3 \

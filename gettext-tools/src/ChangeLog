@@ -1,3 +1,25 @@
+2005-02-06  Bruno Haible  <bruno@clisp.org>
+
+	Leave #: lines with unknown syntax alone instead of turning them into
+	plain comments.
+	* po-hash.h: Remove file.
+	* po-hash-gen.y: Remove file.
+	* read-po-abstract.c: Don't include po-hash.h.
+	(po_parse_comment_filepos, po_parse_comment_solaris_filepos): New
+	functions.
+	(po_callback_comment_dispatcher): Call them instead of the old
+	po_parse_comment_filepos.
+	* read-stringtable.c: Don't include po-hash.h.
+	* Makefile.am (noinst_HEADERS): Remove po-hash.h, po-hash-gen.h.
+	(COMMON_SOURCE): Remove po-hash-gen.y.
+	(BUILT_SOURCES): Remove po-hash-gen.c, po-hash-gen.h.
+	* Makefile.msvc (OBJECTS): Remove po-hash-gen.obj.
+	(po-hash-gen.obj): Remove rule.
+	* Makefile.vms (OBJECTS): Remove po-hash-gen.obj.
+	(po-hash-gen.obj): Remove rule.
+	* FILES: Update.
+	Reported by David Fraser <davidf@sjsoft.com>.
+
 2005-02-04  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Add an entry about Vietnamese.
