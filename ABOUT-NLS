@@ -106,16 +106,21 @@ shell prompt, merely execute `setenv LANG de' (in `csh'),
 `export LANG; LANG=de' (in `sh') or `export LANG=de' (in `bash').  This
 can be done from your `.login' or `.profile' file, once and for all.
 
-   An operating system might already offer message localization for
-many of its programs, while other programs have been installed locally
-with the full capabilities of GNU `gettext'.  Just using `gettext'
-extended syntax for `LANG' would break proper localization of already
-available operating system programs.  In this case, users should set
-both `LANGUAGE' and `LANG' variables in their environment, as programs
-using GNU `gettext' give preference to `LANGUAGE'.  For example, some
-Swedish users would rather read translations in German than English for
-when Swedish is not available.  This is easily accomplished by setting
-`LANGUAGE' to `sv:de' while leaving `LANG' to `sv'.
+   Some languages have dialects in different countries.  To specify
+such a dialect, the notation `LL_CC' can be used, which combines an
+ISO 639 language code `LL' and an ISO 3166 two-letter country code
+`CC'.  For example, `de_AT' is used for Austria, and `pt_BR' for Brazil.
+
+   Not all programs have translations for all languages.  By default, an
+English message is shown in place of a nonexistent translation.  If you
+understand other languages, you can set up a priority list of languages.
+This is done through a different environment variable, called
+`LANGUAGE'.  GNU `gettext' gives preference to `LANGUAGE' over `LANG'
+for the purpose of message handling, but you still need to have `LANG'
+set to the primary language; this is required by other parts of the
+system libraries.  For example, some Swedish users who would rather
+read translations in German than English for when Swedish is not
+available, set `LANGUAGE' to `sv:de' while leaving `LANG' to `sv'.
 
 Translating Teams
 =================

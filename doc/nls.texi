@@ -122,7 +122,7 @@ which languages are allowed.
 @section Using This Package
 
 @c --
-@c FIXME: rewrite to document LANGUAGE, the long names, and aliases.
+@c FIXME: rewrite to document the long names and aliases.
 @c --
 As a user, if your language has been installed for this package, you
 only have to set the @code{LANG} environment variable to the appropriate
@@ -136,18 +136,30 @@ the shell prompt, merely execute @w{@samp{setenv LANG de}} (in
 @c setting of this variable.
 @c FIXME: This last sentence is not true!! --drepper
 
-An operating system might already offer message localization for many of
-its programs, while other programs have been
-installed locally with the full capabilities of GNU @code{gettext}.
-Just using @code{gettext} extended syntax for @code{LANG} would break
-proper localization of already available operating system programs.  In
-this case, users should set both @code{LANGUAGE} and @code{LANG}
-variables in their environment, as programs using GNU @code{gettext}
-give preference to @code{LANGUAGE}.  For example, some Swedish users
-would rather read translations in German than English for when Swedish
-is not available.  This is easily accomplished by setting
-@code{LANGUAGE} to @samp{sv:de} while leaving @code{LANG} to @samp{sv}.
+Some languages have dialects in different countries.  To specify such a
+dialect, the notation @samp{@var{ll}_@var{CC}} can be used, which
+combines an @w{ISO 639} language code @samp{@var{ll}} and an
+@w{ISO 3166} two-letter country code @samp{@var{CC}}.  For example,
+@samp{de_AT} is used for Austria, and @samp{pt_BR} for Brazil.
 
+Not all programs have translations for all languages.  By default, an
+English message is shown in place of a nonexistent translation.  If you
+understand other languages, you can set up a priority list of languages.
+This is done through a different environment variable, called
+@code{LANGUAGE}.  GNU @code{gettext} gives preference to @code{LANGUAGE}
+over @code{LANG} for the purpose of message handling, but you still
+need to have @code{LANG} set to the primary language; this is required
+by other parts of the system libraries.
+For example, some Swedish users who would rather read translations in
+German than English for when Swedish is not available, set @code{LANGUAGE}
+to @samp{sv:de} while leaving @code{LANG} to @samp{sv}.
+
+@c An operating system might already offer message localization for many of
+@c its programs, while other programs have been
+@c installed locally with the full capabilities of GNU @code{gettext}.
+@c Just using @code{gettext} extended syntax for @code{LANG} would break
+@c proper localization of already available operating system programs.
+@c FIXME: The user doesn't care about design justifications. --bruno
 
 @node Translating Teams
 @section Translating Teams

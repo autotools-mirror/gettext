@@ -1,5 +1,9 @@
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
 
+	* nls.texi (Using This Package): Rewrite paragraph about LANGUAGE.
+
+2001-03-03  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.texi (Triggering): Mention that gettext() now needs the
 	LC_CTYPE locale. Explain the possible solutions.
 
