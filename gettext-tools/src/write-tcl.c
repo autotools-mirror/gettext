@@ -187,7 +187,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
 	}
 
     file_name = concatenated_pathname (directory, frobbed_locale_name, ".msg");
-      
+
     output_file = fopen (file_name, "w");
     if (output_file == NULL)
       {

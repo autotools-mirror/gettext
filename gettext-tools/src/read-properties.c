@@ -355,7 +355,7 @@ conv_from_java (char *string)
 static char *
 read_escaped_string (bool in_key)
 {
-  static unsigned short *buffer; 
+  static unsigned short *buffer;
   static size_t bufmax;
   static size_t buflen;
   int c;

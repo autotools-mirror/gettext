@@ -1095,7 +1095,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 			       _("message catalog has plural form translations, but the output format does not support them."));
 	      error_with_progname = true;
 	    }
-	}	    
+	}
     }
 
   /* Open the output file.  */

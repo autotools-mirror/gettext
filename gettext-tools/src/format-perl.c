@@ -393,7 +393,7 @@ format_parse (const char *format, char **invalid_reason)
 		size = FAT_SIZE_PTR;
 		format++;
 	      }
-	  }	
+	  }
 
 	switch (*format)
 	  {

@@ -323,7 +323,7 @@ compare (const char *fn1, const char *fn2)
 	for (j = 0; j < mlp->nitems; j++)
 	  if (mlp->item[j]->msgid[0] == '\0' /* && !mlp->item[j]->obsolete */)
 	    {
-	      const char *header = mlp->item[j]->msgstr; 
+	      const char *header = mlp->item[j]->msgstr;
 
 	      if (header != NULL)
 		{
