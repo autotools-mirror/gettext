@@ -31,6 +31,173 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: Organization,  Next: Information Flow,  Prev: Discussions,  Up: Translators
+
+Organization
+============
+
+   On a larger scale, the true solution would be to organize some kind
+of fairly precise set up in which volunteers could participate.  I gave
+some thought to this idea lately, and realize there will be some touchy
+points.  I thought of writing to Richard Stallman to launch such a
+project, but feel it might be good to shake out the ideas between
+ourselves first.  Most probably that Linux International has some
+experience in the field already, or would like to orchestrate the
+volunteer work, maybe.  Food for thought, in any case!
+
+   I guess we have to setup something early, somehow, that will help
+many possible contributors of the same language to interlock and avoid
+work duplication, and further be put in contact for solving together
+problems particular to their tongue (in most languages, there are many
+difficulties peculiar to translating technical English).  My Swedish
+contributor acknowledged these difficulties, and I'm well aware of them
+for French.
+
+   This is surely not a technical issue, but we should manage so the
+effort of locale contributors be maximally useful, despite the national
+team layer interface between contributors and maintainers.
+
+   The Translation Project needs some setup for coordinating language
+coordinators.  Localizing evolving programs will surely become a
+permanent and continuous activity in the free software community, once
+well started.  The setup should be minimally completed and tested
+before GNU `gettext' becomes an official reality.  The e-mail address
+`translation@iro.umontreal.ca' has been setup for receiving offers from
+volunteers and general e-mail on these topics.  This address reaches
+the Translation Project coordinator.
+
+* Menu:
+
+* Central Coordination::        Central Coordination
+* National Teams::              National Teams
+* Mailing Lists::               Mailing Lists
+
+
+File: gettext.info,  Node: Central Coordination,  Next: National Teams,  Prev: Organization,  Up: Organization
+
+Central Coordination
+--------------------
+
+   I also think GNU will need sooner than it thinks, that someone setup
+a way to organize and coordinate these groups.  Some kind of group of
+groups.  My opinion is that it would be good that GNU delegates this
+task to a small group of collaborating volunteers, shortly.  Perhaps in
+`gnu.announce' a list of this national committee's can be published.
+
+   My role as coordinator would simply be to refer to Ulrich any German
+speaking volunteer interested to localization of free software
+packages, and maybe helping national groups to initially organize,
+while maintaining national registries for until national groups are
+ready to take over.  In fact, the coordinator should ease volunteers to
+get in contact with one another for creating national teams, which
+should then select one coordinator per language, or country
+(regionalized language).  If well done, the coordination should be
+useful without being an overwhelming task, the time to put delegations
+in place.
+
+
+File: gettext.info,  Node: National Teams,  Next: Mailing Lists,  Prev: Central Coordination,  Up: Organization
+
+National Teams
+--------------
+
+   I suggest we look for volunteer coordinators/editors for individual
+languages.  These people will scan contributions of translation files
+for various programs, for their own languages, and will ensure high and
+uniform standards of diction.
+
+   From my current experience with other people in these days, those who
+provide localizations are very enthusiastic about the process, and are
+more interested in the localization process than in the program they
+localize, and want to do many programs, not just one.  This seems to
+confirm that having a coordinator/editor for each language is a good
+idea.
+
+   We need to choose someone who is good at writing clear and concise
+prose in the language in question.  That is hard--we can't check it
+ourselves.  So we need to ask a few people to judge each others'
+writing and select the one who is best.
+
+   I announce my prerelease to a few dozen people, and you would not
+believe all the discussions it generated already.  I shudder to think
+what will happen when this will be launched, for true, officially,
+world wide.  Who am I to arbitrate between two Czekolsovak users
+contradicting each other, for example?
+
+   I assume that your German is not much better than my French so that
+I would not be able to judge about these formulations.  What I would
+suggest is that for each language there is a group for people who
+maintain the PO files and judge about changes.  I suspect there will be
+cultural differences between how such groups of people will behave.
+Some will have relaxed ways, reach consensus easily, and have anyone of
+the group relate to the maintainers, while others will fight to death,
+organize heavy administrations up to national standards, and use strict
+channels.
+
+   The German team is putting out a good example.  Right now, they are
+maybe half a dozen people revising translations of each other and
+discussing the linguistic issues.  I do not even have all the names.
+Ulrich Drepper is taking care of coordinating the German team.  He
+subscribed to all my pretest lists, so I do not even have to warn him
+specifically of incoming releases.
+
+   I'm sure, that is a good idea to get teams for each language working
+on translations. That will make the translations better and more
+consistent.
+
+* Menu:
+
+* Sub-Cultures::                Sub-Cultures
+* Organizational Ideas::        Organizational Ideas
+
+
+File: gettext.info,  Node: Sub-Cultures,  Next: Organizational Ideas,  Prev: National Teams,  Up: National Teams
+
+Sub-Cultures
+............
+
+   Taking French for example, there are a few sub-cultures around
+computers which developed diverging vocabularies.  Picking volunteers
+here and there without addressing this problem in an organized way,
+soon in the project, might produce a distasteful mix of
+internationalized programs, and possibly trigger endless quarrels among
+those who really care.
+
+   Keeping some kind of unity in the way French localization of
+internationalized programs is achieved is a difficult (and delicate)
+job.  Knowing the latin character of French people (:-), if we take this
+the wrong way, we could end up nowhere, or spoil a lot of energies.
+Maybe we should begin to address this problem seriously _before_ GNU
+`gettext' become officially published.  And I suspect that this means
+soon!
+
+
+File: gettext.info,  Node: Organizational Ideas,  Prev: Sub-Cultures,  Up: National Teams
+
+Organizational Ideas
+....................
+
+   I expect the next big changes after the official release.  Please
+note that I use the German translation of the short GPL message.  We
+need to set a few good examples before the localization goes out for
+true in the free software community.  Here are a few points to discuss:
+
+   * Each group should have one FTP server (at least one master).
+
+   * The files on the server should reflect the latest version (of
+     course!) and it should also contain a RCS directory with the
+     corresponding archives (I don't have this now).
+
+   * There should also be a ChangeLog file (this is more useful than the
+     RCS archive but can be generated automatically from the later by
+     Emacs).
+
+   * A "core group" should judge about questionable changes (for now
+     this group consists solely by me but I ask some others
+     occasionally; this also seems to work).
+
+
+
 File: gettext.info,  Node: Mailing Lists,  Prev: National Teams,  Up: Organization
 
 Mailing Lists
@@ -164,23 +331,19 @@ functions meant to replace or complement C libraries, and a
 subdirectory `src/' for holding the proper sources for the package.
 These other distributions are said to be "non-flat".
 
-   For now, we cannot say much about flat distributions.  A flat
-directory structure has the disadvantage of increasing the difficulty
-of updating to a new version of GNU `gettext'.  Also, if you have many
-PO files, this could somewhat pollute your single directory.  In the
-GNU `gettext' distribution, the `misc/' directory contains a shell
-script named `combine-sh'.  That script may be used for combining all
-the C files of the `intl/' directory into a pair of C files (one `.c'
-and one `.h').  Those two generated files would fit more easily in a
-flat directory structure, and you will then have to add these two files
-to your project.
+   We cannot say much about flat distributions.  A flat directory
+structure has the disadvantage of increasing the difficulty of updating
+to a new version of GNU `gettext'.  Also, if you have many PO files,
+this could somewhat pollute your single directory.  Also, GNU
+`gettext''s libintl sources consist of C sources, shell scripts, `sed'
+scripts and complicated Makefile rules, which don't fit well into an
+existing flat structure.  For these reasons, we recommend to use
+non-flat approach in this case as well.
 
    Maybe because GNU `gettext' itself has a non-flat structure, we have
 more experience with this approach, and this is what will be described
 in the remaining of this chapter.  Some maintainers might use this as
-an opportunity to unflatten their package structure.  Only later, once
-gained more experience adapting GNU `gettext' to flat distributions, we
-might add some notes about how to proceed in flat situations.
+an opportunity to unflatten their package structure.
 
 
 File: gettext.info,  Node: Prerequisites,  Next: gettextize Invocation,  Prev: Flat and Non-Flat,  Up: Maintainers

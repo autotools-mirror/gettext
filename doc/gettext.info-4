@@ -31,6 +31,142 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: gettext,  Next: Comparison,  Prev: catgets,  Up: Programmers
+
+About `gettext'
+===============
+
+   The definition of the `gettext' interface comes from a Uniforum
+proposal and it is followed by at least one major Unix vendor (Sun) in
+its last developments.  It is not specified in any official standard,
+though.
+
+   The main points about this solution is that it does not follow the
+method of normal file handling (open-use-close) and that it does not
+burden the programmer so many task, especially the unique key handling.
+Of course here is also a unique key needed, but this key is the message
+itself (how long or short it is).  See *Note Comparison:: for a more
+detailed comparison of the two methods.
+
+   The following section contains a rather detailed description of the
+interface.  We make it that detailed because this is the interface we
+chose for the GNU `gettext' Library.  Programmers interested in using
+this library will be interested in this description.
+
+* Menu:
+
+* Interface to gettext::        The interface
+* Ambiguities::                 Solving ambiguities
+* Locating Catalogs::           Locating message catalog files
+* Charset conversion::          How to request conversion to Unicode
+* Plural forms::                Additional functions for handling plurals
+* GUI program problems::        Another technique for solving ambiguities
+* Optimized gettext::           Optimization of the *gettext functions
+
+
+File: gettext.info,  Node: Interface to gettext,  Next: Ambiguities,  Prev: gettext,  Up: gettext
+
+The Interface
+-------------
+
+   The minimal functionality an interface must have is a) to select a
+domain the strings are coming from (a single domain for all programs is
+not reasonable because its construction and maintenance is difficult,
+perhaps impossible) and b) to access a string in a selected domain.
+
+   This is principally the description of the `gettext' interface.  It
+has an global domain which unqualified usages reference.  Of course this
+domain is selectable by the user.
+
+     char *textdomain (const char *domain_name);
+
+   This provides the possibility to change or query the current status
+of the current global domain of the `LC_MESSAGE' category.  The
+argument is a null-terminated string, whose characters must be legal in
+the use in filenames.  If the DOMAIN_NAME argument is `NULL', the
+function return the current value.  If no value has been set before,
+the name of the default domain is returned: _messages_.  Please note
+that although the return value of `textdomain' is of type `char *' no
+changing is allowed.  It is also important to know that no checks of
+the availability are made.  If the name is not available you will see
+this by the fact that no translations are provided.
+
+To use a domain set by `textdomain' the function
+
+     char *gettext (const char *msgid);
+
+   is to be used.  This is the simplest reasonable form one can imagine.
+The translation of the string MSGID is returned if it is available in
+the current domain.  If not available the argument itself is returned.
+If the argument is `NULL' the result is undefined.
+
+   One things which should come into mind is that no explicit
+dependency to the used domain is given.  The current value of the
+domain for the `LC_MESSAGES' locale is used.  If this changes between
+two executions of the same `gettext' call in the program, both calls
+reference a different message catalog.
+
+   For the easiest case, which is normally used in internationalized
+packages, once at the beginning of execution a call to `textdomain' is
+issued, setting the domain to a unique name, normally the package name.
+In the following code all strings which have to be translated are
+filtered through the gettext function.  That's all, the package speaks
+your language.
+
+
+File: gettext.info,  Node: Ambiguities,  Next: Locating Catalogs,  Prev: Interface to gettext,  Up: gettext
+
+Solving Ambiguities
+-------------------
+
+   While this single name domain work good for most applications there
+might be the need to get translations from more than one domain.  Of
+course one could switch between different domains with calls to
+`textdomain', but this is really not convenient nor is it fast.  A
+possible situation could be one case discussing while this writing:  all
+error messages of functions in the set of common used functions should
+go into a separate domain `error'.  By this mean we would only need to
+translate them once.
+
+For this reasons there are two more functions to retrieve strings:
+
+     char *dgettext (const char *domain_name, const char *msgid);
+     char *dcgettext (const char *domain_name, const char *msgid,
+                      int category);
+
+   Both take an additional argument at the first place, which
+corresponds to the argument of `textdomain'.  The third argument of
+`dcgettext' allows to use another locale but `LC_MESSAGES'.  But I
+really don't know where this can be useful.  If the DOMAIN_NAME is
+`NULL' or CATEGORY has an value beside the known ones, the result is
+undefined.  It should also be noted that this function is not part of
+the second known implementation of this function family, the one found
+in Solaris.
+
+   A second ambiguity can arise by the fact, that perhaps more than one
+domain has the same name.  This can be solved by specifying where the
+needed message catalog files can be found.
+
+     char *bindtextdomain (const char *domain_name,
+                           const char *dir_name);
+
+   Calling this function binds the given domain to a file in the
+specified directory (how this file is determined follows below).
+Especially a file in the systems default place is not favored against
+the specified file anymore (as it would be by solely using
+`textdomain').  A `NULL' pointer for the DIR_NAME parameter returns the
+binding associated with DOMAIN_NAME.  If DOMAIN_NAME itself is `NULL'
+nothing happens and a `NULL' pointer is returned.  Here again as for
+all the other functions is true that none of the return value must be
+changed!
+
+   It is important to remember that relative path names for the
+DIR_NAME parameter can be trouble.  Since the path is always computed
+relative to the current directory different results will be achieved
+when the program executes a `chdir' command.  Relative paths should
+always be avoided to avoid dependencies and unreliabilities.
+
+
 File: gettext.info,  Node: Locating Catalogs,  Next: Charset conversion,  Prev: Ambiguities,  Up: gettext
 
 Locating Message Catalog Files
@@ -211,7 +347,7 @@ purpose.
 
      An example for the us of this function is:
 
-            printf (ngettext ("%d file removed", "%d files removed", n), n);
+          printf (ngettext ("%d file removed", "%d files removed", n), n);
 
      Please note that the numeric value N has to be passed to the
      `printf' function as well.  It is not sufficient to pass it only to
@@ -246,10 +382,10 @@ details are explained in the GNU `gettext' manual.  Here only a a bit
 of information is provided.
 
    The information about the plural form selection has to be stored in
-the header entry (the one with the empty `msgid' string).  There should
-be something like:
+the header entry of the PO file (the one with the empty `msgid' string).
+The plural form information looks like this:
 
-       nplurals=2; plural=n == 1 ? 0 : 1
+     Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;
 
    The `nplurals' value must be a decimal number which specifies how
 many different plural forms exist for this language.  The string
@@ -272,7 +408,7 @@ Only one form:
      distinction between the singular and plural form.  An appropriate
      header entry would look like this:
 
-          nplurals=1; plural=0
+          Plural-Forms: nplurals=1; plural=0;
 
      Languages with this property include:
 
@@ -289,7 +425,7 @@ Two forms, singular used for one only
      This is the form used in most existing programs since it is what
      English is using.  A header entry would look like this:
 
-          nplurals=2; plural=n != 1
+          Plural-Forms: nplurals=2; plural=n != 1;
 
      (Note: this uses the feature of C expressions that boolean
      expressions have to value zero or one.)
@@ -318,7 +454,7 @@ Two forms, singular used for zero and one
      Exceptional case in the language family.  The header entry would
      be:
 
-          nplurals=2; plural=n>1
+          Plural-Forms: nplurals=2; plural=n>1;
 
      Languages with this property include:
 
@@ -328,7 +464,7 @@ Two forms, singular used for zero and one
 Three forms, special cases for one and two
      The header entry would be:
 
-          nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2
+          Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
 
      Languages with this property include:
 
@@ -338,7 +474,8 @@ Three forms, special cases for one and two
 Three forms, special case for one and all numbers ending in 2, 3, or 4
      The header entry would look like this:
 
-          nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 ? 1 : 2
+          Plural-Forms: nplurals=3; \
+                        plural=n==1 ? 0 : n%10>=2 && n%10<=4 ? 1 : 2;
 
      Languages with this property include:
 
@@ -348,8 +485,9 @@ Three forms, special case for one and all numbers ending in 2, 3, or 4
 Three forms, special case for one and some numbers ending in 2, 3, or 4
      The header entry would look like this:
 
-          nplurals=3; plural=n==1 ? 0 : \
-            n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2
+          Plural-Forms: nplurals=3; \
+              plural=n==1 ? 0 : \
+                     n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
      (Continuation in the next line is possible.)
 
@@ -361,7 +499,9 @@ Three forms, special case for one and some numbers ending in 2, 3, or 4
 Four forms, special case for one and all numbers ending in 2, 3, or 4
      The header entry would look like this:
 
-          nplurals=4; plural=n==1 ? 0 : n%10==2 ? 1 : n%10==3 || n%10==4 ? 2 : 3
+          Plural-Forms: nplurals=4; \
+                        plural=n==1 ? 0 : \
+                               n%10==2 ? 1 : n%10==3 || n%10==4 ? 2 : 3;
 
      Languages with this property include:
 
@@ -635,11 +775,11 @@ self-contained.  I.e., you can use it in your own programs without
 providing additional functions.  The `Makefile' will put the header and
 the library in directories selected using the `$(prefix)'.
 
-   One exception of the above is found on HP-UX systems.  Here the C
-library does not contain the `alloca' function (and the HP compiler does
-not generate it inlined).  But it is not intended to rewrite the whole
-library just because of this dumb system.  Instead include the `alloca'
-function in all package you use the `libintl.a' in.
+   One exception of the above is found on HP-UX 10.01 systems.  Here
+the C library does not contain the `alloca' function (and the HP
+compiler does not generate it inlined).  But it is not intended to
+rewrite the whole library just because of this dumb system.  Instead
+include the `alloca' function in all package you use the `libintl.a' in.
 
 
 File: gettext.info,  Node: gettext grok,  Next: Temp Programmers,  Prev: Using libintl.a,  Up: Programmers
@@ -1011,172 +1151,5 @@ concerns.  Some of these doubts are presented and discussed, here.
      circumvented by letting to the end installers the burden of
      assembling a package prepared for localization, but not providing
      the localization routines themselves.
-
-
-
-File: gettext.info,  Node: Organization,  Next: Information Flow,  Prev: Discussions,  Up: Translators
-
-Organization
-============
-
-   On a larger scale, the true solution would be to organize some kind
-of fairly precise set up in which volunteers could participate.  I gave
-some thought to this idea lately, and realize there will be some touchy
-points.  I thought of writing to Richard Stallman to launch such a
-project, but feel it might be good to shake out the ideas between
-ourselves first.  Most probably that Linux International has some
-experience in the field already, or would like to orchestrate the
-volunteer work, maybe.  Food for thought, in any case!
-
-   I guess we have to setup something early, somehow, that will help
-many possible contributors of the same language to interlock and avoid
-work duplication, and further be put in contact for solving together
-problems particular to their tongue (in most languages, there are many
-difficulties peculiar to translating technical English).  My Swedish
-contributor acknowledged these difficulties, and I'm well aware of them
-for French.
-
-   This is surely not a technical issue, but we should manage so the
-effort of locale contributors be maximally useful, despite the national
-team layer interface between contributors and maintainers.
-
-   The Translation Project needs some setup for coordinating language
-coordinators.  Localizing evolving programs will surely become a
-permanent and continuous activity in the free software community, once
-well started.  The setup should be minimally completed and tested
-before GNU `gettext' becomes an official reality.  The e-mail address
-`translation@iro.umontreal.ca' has been setup for receiving offers from
-volunteers and general e-mail on these topics.  This address reaches
-the Translation Project coordinator.
-
-* Menu:
-
-* Central Coordination::        Central Coordination
-* National Teams::              National Teams
-* Mailing Lists::               Mailing Lists
-
-
-File: gettext.info,  Node: Central Coordination,  Next: National Teams,  Prev: Organization,  Up: Organization
-
-Central Coordination
---------------------
-
-   I also think GNU will need sooner than it thinks, that someone setup
-a way to organize and coordinate these groups.  Some kind of group of
-groups.  My opinion is that it would be good that GNU delegates this
-task to a small group of collaborating volunteers, shortly.  Perhaps in
-`gnu.announce' a list of this national committee's can be published.
-
-   My role as coordinator would simply be to refer to Ulrich any German
-speaking volunteer interested to localization of free software
-packages, and maybe helping national groups to initially organize,
-while maintaining national registries for until national groups are
-ready to take over.  In fact, the coordinator should ease volunteers to
-get in contact with one another for creating national teams, which
-should then select one coordinator per language, or country
-(regionalized language).  If well done, the coordination should be
-useful without being an overwhelming task, the time to put delegations
-in place.
-
-
-File: gettext.info,  Node: National Teams,  Next: Mailing Lists,  Prev: Central Coordination,  Up: Organization
-
-National Teams
---------------
-
-   I suggest we look for volunteer coordinators/editors for individual
-languages.  These people will scan contributions of translation files
-for various programs, for their own languages, and will ensure high and
-uniform standards of diction.
-
-   From my current experience with other people in these days, those who
-provide localizations are very enthusiastic about the process, and are
-more interested in the localization process than in the program they
-localize, and want to do many programs, not just one.  This seems to
-confirm that having a coordinator/editor for each language is a good
-idea.
-
-   We need to choose someone who is good at writing clear and concise
-prose in the language in question.  That is hard--we can't check it
-ourselves.  So we need to ask a few people to judge each others'
-writing and select the one who is best.
-
-   I announce my prerelease to a few dozen people, and you would not
-believe all the discussions it generated already.  I shudder to think
-what will happen when this will be launched, for true, officially,
-world wide.  Who am I to arbitrate between two Czekolsovak users
-contradicting each other, for example?
-
-   I assume that your German is not much better than my French so that
-I would not be able to judge about these formulations.  What I would
-suggest is that for each language there is a group for people who
-maintain the PO files and judge about changes.  I suspect there will be
-cultural differences between how such groups of people will behave.
-Some will have relaxed ways, reach consensus easily, and have anyone of
-the group relate to the maintainers, while others will fight to death,
-organize heavy administrations up to national standards, and use strict
-channels.
-
-   The German team is putting out a good example.  Right now, they are
-maybe half a dozen people revising translations of each other and
-discussing the linguistic issues.  I do not even have all the names.
-Ulrich Drepper is taking care of coordinating the German team.  He
-subscribed to all my pretest lists, so I do not even have to warn him
-specifically of incoming releases.
-
-   I'm sure, that is a good idea to get teams for each language working
-on translations. That will make the translations better and more
-consistent.
-
-* Menu:
-
-* Sub-Cultures::                Sub-Cultures
-* Organizational Ideas::        Organizational Ideas
-
-
-File: gettext.info,  Node: Sub-Cultures,  Next: Organizational Ideas,  Prev: National Teams,  Up: National Teams
-
-Sub-Cultures
-............
-
-   Taking French for example, there are a few sub-cultures around
-computers which developed diverging vocabularies.  Picking volunteers
-here and there without addressing this problem in an organized way,
-soon in the project, might produce a distasteful mix of
-internationalized programs, and possibly trigger endless quarrels among
-those who really care.
-
-   Keeping some kind of unity in the way French localization of
-internationalized programs is achieved is a difficult (and delicate)
-job.  Knowing the latin character of French people (:-), if we take this
-the wrong way, we could end up nowhere, or spoil a lot of energies.
-Maybe we should begin to address this problem seriously _before_ GNU
-`gettext' become officially published.  And I suspect that this means
-soon!
-
-
-File: gettext.info,  Node: Organizational Ideas,  Prev: Sub-Cultures,  Up: National Teams
-
-Organizational Ideas
-....................
-
-   I expect the next big changes after the official release.  Please
-note that I use the German translation of the short GPL message.  We
-need to set a few good examples before the localization goes out for
-true in the free software community.  Here are a few points to discuss:
-
-   * Each group should have one FTP server (at least one master).
-
-   * The files on the server should reflect the latest version (of
-     course!) and it should also contain a RCS directory with the
-     corresponding archives (I don't have this now).
-
-   * There should also be a ChangeLog file (this is more useful than the
-     RCS archive but can be generated automatically from the later by
-     Emacs).
-
-   * A "core group" should judge about questionable changes (for now
-     this group consists solely by me but I ask some others
-     occasionally; this also seems to work).
 
 

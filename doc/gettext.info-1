@@ -41,7 +41,8 @@ GNU `gettext' utilities
 * Introduction::                Introduction
 * Basics::                      PO Files and PO Mode Basics
 * Sources::                     Preparing Program Sources
-* Initial::                     Making the Initial PO File
+* Template::                    Making the PO Template File
+* Creating::                    Creating a New PO File
 * Updating::                    Updating Existing PO Files
 * Binaries::                    Producing Binary MO Files
 * Users::                       The User's View
@@ -78,11 +79,9 @@ Preparing Program Sources
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 
-Making the Initial PO File
+Making the PO Template File
 
 * xgettext Invocation::         Invoking the `xgettext' Program
-* C Sources Context::           C Sources Context
-* Compendium::                  Using Translation Compendiums
 
 Updating Existing PO Files
 
@@ -94,7 +93,9 @@ Updating Existing PO Files
 * Modifying Translations::      Modifying Translations
 * Modifying Comments::          Modifying Comments
 * Subedit::                     Mode for Editing Translations
+* C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
+* Compendium::                  Using Translation Compendiums
 
 Producing Binary MO Files
 
@@ -400,20 +401,18 @@ translate beyond output messages.
 
 
    As we already stressed, translation is only one aspect of locales.
-Other internationalization aspects are not currently handled by GNU
-`gettext', but perhaps may be handled in future versions.  There are
-many attributes that are needed to define a country's cultural
-conventions.  These attributes include beside the country's native
-language, the formatting of the date and time, the representation of
-numbers, the symbols for currency, etc.  These local "rules" are termed
-the country's locale.  The locale represents the knowledge needed to
-support the country's native attributes.
+Other internationalization aspects are system services and are handled
+in GNU `libc'.  There are many attributes that are needed to define a
+country's cultural conventions.  These attributes include beside the
+country's native language, the formatting of the date and time, the
+representation of numbers, the symbols for currency, etc.  These local
+"rules" are termed the country's locale.  The locale represents the
+knowledge needed to support the country's native attributes.
 
    There are a few major areas which may vary between countries and
 hence, define what a locale must describe.  The following list helps
 putting multi-lingual messages into the proper context of other tasks
-related to locales, and also presents some other areas which GNU
-`gettext' might eventually tackle, maybe, one of these days.
+related to locales.  See the GNU `libc' manual for details.
 
 _Characters and Codesets_
      The codeset most commonly used through out the USA and most English
@@ -460,13 +459,10 @@ _Messages_
      users to easily change the language that the software uses to
      communicate to the user.
 
-   In the near future we see no chance that components of locale
-outside of message handling will be made available for use in other
-packages.  The reason for this is that most modern systems provide a
-more or less reasonable support for at least some of the missing
-components.  Another point is that the GNU `libc' and Linux will get a
-new and complete implementation of the whole locale functionality which
-could be adopted by system lacking a reasonable locale support.
+   Components of locale outside of message handling are standardized in
+the ISO C standard and the SUSV2 specification.  GNU `libc' fully
+implements this, and most other modern systems provide a more or less
+reasonable support for at least some of the missing components.
 
 
 File: gettext.info,  Node: Files,  Next: Overview,  Prev: Aspects,  Up: Introduction
@@ -500,15 +496,10 @@ often temporary PO files.
 A few systems already offer tools for creating and handling MO files as
 part of the Native Language Support coming with the system, but the
 format of these MO files is often different from system to system, and
-non-portable.  They do not necessary use `.mo' for file extensions, but
-since system libraries are also used for accessing these files, it
-works as long as the system is self-consistent about it.  If GNU
-`gettext' is able to interface with the tools already provided with
-systems, it will consequently let these provided tools take care of
-generating the MO files.  Or else, if such tools are not found or do
-not seem usable, GNU `gettext' will use its own ways and its own format
-for MO files.  Files ending with `.gmo' are really MO files, when it is
-known that these files use the GNU format.
+non-portable.  The tools already provided with these systems don't
+support all the features of GNU `gettext'.  Therefore GNU `gettext'
+uses its own format for MO files.  Files ending with `.gmo' are really
+MO files, when it is known that these files use the GNU format.
 
 
 File: gettext.info,  Node: Overview,  Prev: Files,  Up: Introduction
@@ -590,8 +581,8 @@ library functions are already contained in GNU libc.  That is all you
 have to change.
 
    Once the C sources have been modified, the `xgettext' program is
-used to find and extract all translatable strings, and create an
-initial PO file out of all these.  This `PACKAGE.pot' file contains all
+used to find and extract all translatable strings, and create a PO
+template file out of all these.  This `PACKAGE.pot' file contains all
 original program strings.  It has sets of pointers to exactly where in
 C sources each string is used.  All translations are set to empty.  The
 letter `t' in `.pot' marks this as a Template PO file, not yet oriented
@@ -919,8 +910,8 @@ be replaced unexpectedly when the PO file is given to `msgmerge'.
 
    ---------- Footnotes ----------
 
-   (1) This limitation is not imposed by GNU `gettext', but comes from
-the `msgfmt' implementation on Solaris.
+   (1) This limitation is not imposed by GNU `gettext', but is for
+compatibility with the `msgfmt' implementation on Solaris.
 
 
 File: gettext.info,  Node: Main PO Commands,  Next: Entry Positioning,  Prev: PO Files,  Up: Basics

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-03-21 22:47+0100\n"
+"POT-Creation-Date: 2001-03-27 19:25+0200\n"
 "PO-Revision-Date: 1999-09-24 23:45+09:00\n"
 "Last-Translator: JUN SAWATAISHI <jsawa@attglobal.net>\n"
 "Language-Team: \n"
@@ -81,8 +81,8 @@ msgstr "%s: オプション -W %s は引数をとりません\n"
 msgid "memory exhausted"
 msgstr "メモリーが枯渇しました"
 
-#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
-#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:398
+#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:279 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:388
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,8 +93,8 @@ msgstr ""
 "これはフリーソフトウエアです。コピーの条件についてはソースを参照のこと\n"
 "このソフトウエアには全く保証がありません.\n"
 
-#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
-#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:403
+#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:284 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:393
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s によって書かれました。\n"
@@ -107,8 +107,8 @@ msgstr "引数が多すぎます"
 msgid "missing arguments"
 msgstr "引数が欠如"
 
-#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
-#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:525
+#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:377 src/msgfmt.c:387
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:515
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "%s --help でより多くの情報が表示されます\n"
@@ -159,8 +159,8 @@ msgstr ""
 "メッセージは翻訳されている\n"
 "検索ディレクトリ: %s\n"
 
-#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
-#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:577
+#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:424 src/msgfmt.c:414
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:565
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "バグレポートは <bug-gnu-utils@gnu.org> まで.\n"
 
@@ -225,11 +225,11 @@ msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "致命的なエラーの数は %d です"
 
-#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1169
+#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
 msgid "duplicate message definition"
 msgstr "メッセージの定義が重複しています"
 
-#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1170
+#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1158
 msgid "...this is the location of the first definition"
 msgstr "...これは最初に定義されたところです"
 
@@ -240,25 +240,25 @@ msgstr "このメッセージは \"%s\" domain の中で定義されてません"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:236 src/xgettext.c:337 src/xgettext.c:1365
+#: src/msgcomm.c:235 src/xgettext.c:327 src/xgettext.c:1353
 msgid "while preparing output"
 msgstr "出力の準備中に"
 
-#: src/msgcomm.c:271 src/msgcomm.c:275 src/xgettext.c:375 src/xgettext.c:379
+#: src/msgcomm.c:267 src/msgcomm.c:271 src/xgettext.c:365 src/xgettext.c:369
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s と %s は互いに排他的です"
 
-#: src/msgcomm.c:327
+#: src/msgcomm.c:323
 msgid "at least two files must be specified"
 msgstr "少なくとも二つのファイルを指定して下さい"
 
-#: src/msgcomm.c:346
+#: src/msgcomm.c:334
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "選択基準が不正です (%d < n < %d)"
 
-#: src/msgcomm.c:386
+#: src/msgcomm.c:382
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -284,7 +284,7 @@ msgstr ""
 "  -F, --sort-by-file             ファイルの位置によってソートする\n"
 "  -h, --help                     このヘルプメッセージを出力して終了\n"
 
-#: src/msgcomm.c:398
+#: src/msgcomm.c:394
 msgid ""
 "  -i, --indent                   write the .po file using indented style\n"
 "      --no-location              do not write '#: filename:line' lines\n"
@@ -317,7 +317,7 @@ msgstr ""
 "ジ\n"
 "                                  のみ出力される\n"
 
-#: src/msgcomm.c:411
+#: src/msgcomm.c:407
 msgid ""
 "  -V, --version                  output version information and exit\n"
 "  -w, --width=NUMBER             set output page width\n"
@@ -351,17 +351,17 @@ msgstr ""
 "出力されるように設定できます。(例: --less-than=2 でユニークなメッセー\n"
 "ジのみを出力します)\n"
 
-#: src/msgcomm.c:462 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
-#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:611
+#: src/msgcomm.c:458 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
+#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:599
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "\"%s\" のオープンでエラー"
 
-#: src/msgcomm.c:543 src/xgettext.c:653 src/xgettext.c:1071
+#: src/msgcomm.c:539 src/xgettext.c:641 src/xgettext.c:1059
 msgid "this file may not contain domain directives"
 msgstr "このファイルには domain 命令がありません"
 
-#: src/msgfmt.c:286 src/xgettext.c:414
+#: src/msgfmt.c:286 src/xgettext.c:404
 msgid "no input file given"
 msgstr "入力ファイルが指定されてません"
 
@@ -779,7 +779,7 @@ msgstr ""
 "%*s  警告: 文字セット変換はできないかも知れません"
 
 #. TRANS: sentence starts at trans_id_1 or trans_id_2
-#: src/po.c:290 src/po.c:321
+#: src/po.c:290 src/po.c:324
 msgid ", expect parse errors"
 msgstr ""
 
@@ -794,24 +794,24 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
-"gettext"
+"%*s  warning: consider installing GNU libiconv and then\n"
+"%*s           reinstalling GNU gettext"
 msgstr ""
 "%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
 "%*s  警告: 文字セット変換はできないかも知れません"
 
 #. TRANS: sentence trans_id_3 starts here
-#: src/po.c:316
+#: src/po.c:318
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
-"gettext"
+"%*s  warning: consider installing GNU libiconv and then\n"
+"%*s           reinstalling GNU gettext"
 msgstr ""
 "%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
 "%*s  警告: 文字セット変換はできないかも知れません"
 
-#: src/po.c:330
+#: src/po.c:334
 #, c-format
 msgid ""
 "%s: warning: charset missing in header\n"
@@ -856,20 +856,20 @@ msgstr "%s:%d: 警告: 文字列定数が完結していません"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 警告: 文字列が完結していません"
 
-#: src/xgettext.c:383
+#: src/xgettext.c:373
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "--join-existing は標準出力に出力する時に用いることはできません"
 
-#: src/xgettext.c:388
+#: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
 msgstr "検索すべきキーワードなしでは xgettext は機能しません"
 
-#: src/xgettext.c:494
+#: src/xgettext.c:484
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "警告: ファイル`%s'の拡張子`%s'を認識できません; C とみなします"
 
-#: src/xgettext.c:530
+#: src/xgettext.c:520
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -909,15 +909,14 @@ msgstr ""
 "      --foreign-user             FSF の著作権表示を出力しない\n"
 "  -F, --sort-by-file             ファイルの位置によってソートして出力する\n"
 
-#: src/xgettext.c:550
-#, c-format, no-wrap
+#: src/xgettext.c:540
+#, fuzzy, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
 "  -j, --join-existing            join messages with existing file\n"
 "  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
 "                                 WORD means not to use default keywords)\n"
-"  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n"
 "  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
 "                                 otherwise is guessed from file extension\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
@@ -936,7 +935,7 @@ msgstr ""
 "  -M, --msgstr-suffix[=STRING]   STRING ないし\"\"を msgstr の suffix とする\n"
 "      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
 
-#: src/xgettext.c:564
+#: src/xgettext.c:552
 #, no-wrap
 msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -965,17 +964,17 @@ msgstr ""
 "\n"
 "  入力ファイルが - の時は標準入力を読み込みます\n"
 
-#: src/xgettext.c:926
+#: src/xgettext.c:914
 #, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
 msgstr "%s:%d: 警告: キーワード引数でキーワードがネストしています"
 
-#: src/xgettext.c:936
+#: src/xgettext.c:924
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr "%s:%d: 警告: 外部キーワードとその引数の間にキーワードがあります"
 
-#: src/xgettext.c:1432
+#: src/xgettext.c:1420
 #, c-format
 msgid "language `%s' unknown"
 msgstr "言語 %s を認識できません"

@@ -141,7 +141,7 @@ LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 HEADERS =  $(noinst_HEADERS)
 
 DIST_COMMON =  ChangeLog Makefile.am Makefile.in alloca.c error.c \
-error.h getline.c memmove.c memset.c printf-prs.c stpcpy.c stpncpy.c \
+error.h memmove.c memset.c printf-prs.c stpcpy.c stpncpy.c strcasecmp.c \
 strcspn.c strncasecmp.c strstr.c strtoul.c vasprintf.c
 
 

@@ -71,6 +71,7 @@ EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
@@ -96,8 +97,7 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-EXTRA_DIST = combine-sh gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
-
+EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
 DISTCLEANFILES = gettextize
 lisp_LISP = po-mode.el
 

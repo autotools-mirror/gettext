@@ -240,7 +240,7 @@ normalization, to be documented in this manual, once these questions
 settle.
 
 
-File: gettext.info,  Node: Sources,  Next: Initial,  Prev: Basics,  Up: Top
+File: gettext.info,  Node: Sources,  Next: Template,  Prev: Basics,  Up: Top
 
 Preparing Program Sources
 *************************
@@ -718,19 +718,20 @@ generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
 
 
-File: gettext.info,  Node: Initial,  Next: Updating,  Prev: Sources,  Up: Top
+File: gettext.info,  Node: Template,  Next: Creating,  Prev: Sources,  Up: Top
 
-Making the Initial PO File
-**************************
+Making the PO Template File
+***************************
+
+   After preparing the sources, the programmer creates a PO template
+file.  This section explains how to use `xgettext' for this purpose.
 
 * Menu:
 
 * xgettext Invocation::         Invoking the `xgettext' Program
-* C Sources Context::           C Sources Context
-* Compendium::                  Using Translation Compendiums
 
 
-File: gettext.info,  Node: xgettext Invocation,  Next: C Sources Context,  Prev: Initial,  Up: Initial
+File: gettext.info,  Node: xgettext Invocation,  Prev: Template,  Up: Template
 
 Invoking the `xgettext' Program
 ===============================
@@ -863,123 +864,162 @@ cases, like strings in preprocessor macros, ANSI concatenation of
 adjacent strings, and escaped end of lines for continued strings.
 
 
-File: gettext.info,  Node: C Sources Context,  Next: Compendium,  Prev: xgettext Invocation,  Up: Initial
+File: gettext.info,  Node: Creating,  Next: Updating,  Prev: Template,  Up: Top
 
-C Sources Context
-=================
+Creating a New PO File
+**********************
 
-   PO mode is particularily powerful when used with PO files created
-through GNU `gettext' utilities, as those utilities insert special
-comments in the PO files they generate.  Some of these special comments
-relate the PO file entry to exactly where the untranslated string
-appears in the program sources.
+   When starting a new translation, the translator copies the
+`PACKAGE.pot' template file to a file called `LANG.po'.  Then she
+modifies the initial comments and the header entry of this file.
 
-   When the translator gets to an untranslated entry, she is fairly
-often faced with an original string which is not as informative as it
-normally should be, being succinct, cryptic, or otherwise ambiguous.
-Before chosing how to translate the string, she needs to understand
-better what the string really means and how tight the translation has
-to be.  Most of times, when problems arise, the only way left to make
-her judgment is looking at the true program sources from where this
-string originated, searching for surrounding comments the programmer
-might have put in there, and looking around for helping clues of _any_
-kind.
+   The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and "FIRST
+AUTHOR <EMAIL@ADDRESS>, YEAR" ought to be replaced by sensible
+information.  This can be done in any text editor; if Emacs is used and
+it switched to PO mode automatically (because it has recognized the
+file's suffix), you can disable it by typing `M-x fundamental-mode'.
 
-   Surely, when looking at program sources, the translator will receive
-more help if she is a fluent programmer.  However, even if she is not
-versed in programming and feels a little lost in C code, the translator
-should not be shy at taking a look, once in a while.  It is most
-probable that she will still be able to find some of the hints she
-needs.  She will learn quickly to not feel uncomfortable in program
-code, paying more attention to programmer's comments, variable and
-function names (if he dared chosing them well), and overall
-organization, than to programmation itself.
+   Modifying the header entry can already be done using PO mode: in
+Emacs, type `M-x po-mode RET' and then `RET' again to start editing the
+entry.  You should fill in the following fields.
 
-   The following commands are meant to help the translator at getting
-program source context for a PO file entry.
+Project-Id-Version
+     This is the name and version of the package.
 
-`s'
-     Resume the display of a program source context, or cycle through
-     them.
+POT-Creation-Date
+     This has already been filled in by `xgettext'.
 
-`M-s'
-     Display of a program source context selected by menu.
+PO-Revision-Date
+     You don't need to fill this in. It will be filled by the Emacs PO
+     mode when you save the file.
 
-`S'
-     Add a directory to the search path for source files.
+Last-Translator
+     Fill in your name and email address (without double quotes).
 
-`M-S'
-     Delete a directory from the search path for source files.
+Language-Team
+     Fill in the English name of the language, and the email address of
+     the language team you are part of.
 
-   The commands `s' (`po-cycle-reference') and `M-s'
-(`po-select-source-reference') both open another window displaying some
-source program file, and already positioned in such a way that it shows
-an actual use of the string to be translated.  By doing so, the command
-gives source program context for the string.  But if the entry has no
-source context references, or if all references are unresolved along
-the search path for program sources, then the command diagnoses this as
-an error.
+     Before starting a translation, it is a good idea to get in touch
+     with your translation team, not only to make sure you don't do
+     duplicated work, but also to coordinate difficult linguistic
+     issues.
 
-   Even if `s' (or `M-s') opens a new window, the cursor stays in the
-PO file window.  If the translator really wants to get into the program
-source window, she ought to do it explicitly, maybe by using command
-`O'.
+     In the Free Translation Project, each translation team has its own
+     mailing list.  The up-to-date list of teams can be found at the
+     Free Translation Project's homepage,
+     `http://www.iro.umontreal.ca/contrib/po/HTML/', in the "National
+     teams" area.
 
-   When `s' is typed for the first time, or for a PO file entry which
-is different of the last one used for getting source context, then the
-command reacts by giving the first context available for this entry, if
-any.  If some context has already been recently displayed for the
-current PO file entry, and the translator wandered off to do other
-things, typing `s' again will merely resume, in another window, the
-context last displayed.  In particular, if the translator moved the
-cursor away from the context in the source file, the command will bring
-the cursor back to the context.  By using `s' many times in a row, with
-no other commands intervening, PO mode will cycle to the next available
-contexts for this particular entry, getting back to the first context
-once the last has been shown.
+Content-Type
+     Replace `CHARSET' with the character encoding used for your
+     language, in your locale, or UTF-8.  This field is needed for
+     correct operation of the `msgmerge' and `msgfmt' programs, as well
+     as for users whose locale's character encoding differs from yours
+     (see *Note Charset conversion::).
 
-   The command `M-s' behaves differently.  Instead of cycling through
-references, it lets the translator choose of particular reference among
-many, and displays that reference.  It is best used with completion, if
-the translator types `<TAB>' immediately after `M-s', in response to
-the question, she will be offered a menu of all possible references, as
-a reminder of which are the acceptable answers.  This command is useful
-only where there are really many contexts available for a single string
-to translate.
+     You get the character encoding of your locale by running the shell
+     command `locale charmap'.  If the result is `C' or
+     `ANSI_X3.4-1968', which is equivalent to `ASCII' (= `US-ASCII'),
+     it means that your locale is not correctly configured.  In this
+     case, ask your translation team which charset to use.  `ASCII' is
+     not usable for any language except Latin.
 
-   Program source files are usually found relative to where the PO file
-stands.  As a special provision, when this fails, the file is also
-looked for, but relative to the directory immediately above it.  Those
-two cases take proper care of most PO files.  However, it might happen
-that a PO file has been moved, or is edited in a different place than
-its normal location.  When this happens, the translator should tell PO
-mode in which directory normally sits the genuine PO file.  Many such
-directories may be specified, and all together, they constitute what is
-called the "search path" for program sources.  The command `S'
-(`po-consider-source-path') is used to interactively enter a new
-directory at the front of the search path, and the command `M-S'
-(`po-ignore-source-path') is used to select, with completion, one of
-the directories she does not want anymore on the search path.
+     Because the PO files must be portable to operating systems with
+     less advanced internationalization facilities, the character
+     encodings that can be used are limited to those supported by both
+     GNU `libc' and GNU `libiconv'. These are: `ASCII', `ISO-8859-1',
+     `ISO-8859-2', `ISO-8859-3', `ISO-8859-4', `ISO-8859-5',
+     `ISO-8859-6', `ISO-8859-7', `ISO-8859-8', `ISO-8859-9',
+     `ISO-8859-13', `ISO-8859-15', `KOI8-R', `KOI8-U', `CP850',
+     `CP866', `CP874', `CP932', `CP949', `CP950', `CP1250', `CP1251',
+     `CP1252', `CP1253', `CP1254', `CP1255', `CP1256', `CP1257',
+     `GB2312', `EUC-JP', `EUC-KR', `EUC-TW', `BIG5', `BIG5HKSCS',
+     `GBK', `GB18030', `SJIS', `JOHAB', `TIS-620', `VISCII', `UTF-8'.
+
+     In the GNU system, the following encodings are frequently used for
+     the corresponding languages.
+
+        * `ISO-8859-1' for  Afrikaans, Albanian, Basque, Catalan,
+          Dutch, English, Estonian, Faroese,  Finnish, French,
+          Galician, German, Greenlandic, Icelandic, Indonesian,  Irish,
+          Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
+
+        * `ISO-8859-2' for  Croatian, Czech, Hungarian, Polish,
+          Romanian, Serbian, Slovak, Slovenian,
+
+        * `ISO-8859-3' for Maltese,
+
+        * `ISO-8859-5' for Macedonian, Serbian,
+
+        * `ISO-8859-6' for Arabic,
+
+        * `ISO-8859-7' for Greek,
+
+        * `ISO-8859-8' for Hebrew,
+
+        * `ISO-8859-9' for Turkish,
+
+        * `ISO-8859-13' for Latvian, Lithuanian,
+
+        * `ISO-8859-15' for  Basque, Catalan, Dutch, English, Finnish,
+          French, Galician, German, Irish,  Italian, Portuguese,
+          Spanish, Swedish,
+
+        * `KOI8-R' for Russian,
+
+        * `KOI8-U' for Ukrainian,
+
+        * `CP1251' for Bulgarian, Byelorussian,
+
+        * `GB2312', `GBK', `GB18030'  for simplified writing of Chinese,
+
+        * `BIG5', `BIG5HKSCS'  for traditional writing of Chinese,
+
+        * `EUC-JP' for Japanese,
+
+        * `EUC-KR' for Korean,
+
+        * `TIS-620' for Thai,
+
+        * `UTF-8' for any language, including those listed above.
+
+     When single quote characters or double quote characters are used in
+     translations for your language, and your locale's encoding is one
+     of the ISO-8859-* charsets, it is best if you create your PO files
+     in UTF-8 encoding, instead of your locale's encoding.  This is
+     because in UTF-8 the real quote characters can be represented
+     (single quote characters: U+2018, U+2019, double quote characters:
+     U+201C, U+201D), whereas none of ISO-8859-* charsets has them all.
+     Users in UTF-8 locales will see the real quote characters,
+     whereas users in ISO-8859-* locales will see the vertical
+     apostrophe and the vertical double quote instead (because that's
+     what the character set conversion will transliterate them to).
+
+     To enter such quote characters under X11, you can change your
+     keyboard mapping using the `xmodmap' program.  The X11 names of
+     the quote characters are "leftsinglequotemark",
+     "rightsinglequotemark", "leftdoublequotemark",
+     "rightdoublequotemark", "singlelowquotemark", "doublelowquotemark".
+
+     Note that only recent versions of GNU Emacs support the UTF-8
+     encoding: Emacs 20 with Mule-UCS, and Emacs 21.  As of January
+     2001, XEmacs doesn't support the UTF-8 encoding.
+
+     The character encoding name can be written in either upper or
+     lower case.  Usually upper case is preferred.
+
+Content-Transfer-Encoding
+     Set this to `8-bit'.
+
+Plural-Forms
+     This field is optional.  It is only needed if the PO file has
+     plural forms.  You can find them by searching for the
+     `msgid_plural' keyword.  The format of the plural forms field is
+     described in *Note Plural forms::.
 
 
-File: gettext.info,  Node: Compendium,  Prev: C Sources Context,  Up: Initial
-
-Using Translation Compendiums
-=============================
-
-   Compendiums are yet to be implemented.
-
-   An incoming PO mode feature will let the translator maintain a
-compendium of already achieved translations.  A "compendium" is a
-special PO file containing a set of translations recurring in many
-different packages.  The translator will be given commands for adding
-entries to her compendium, and later initializing untranslated entries,
-or updating already translated entries, from translations kept in the
-compendium.  For this to work, however, the compendium would have to be
-normalized.  *Note Normalizing::.
-
-
-File: gettext.info,  Node: Updating,  Next: Binaries,  Prev: Initial,  Up: Top
+File: gettext.info,  Node: Updating,  Next: Binaries,  Prev: Creating,  Up: Top
 
 Updating Existing PO Files
 **************************
@@ -994,7 +1034,9 @@ Updating Existing PO Files
 * Modifying Translations::      Modifying Translations
 * Modifying Comments::          Modifying Comments
 * Subedit::                     Mode for Editing Translations
+* C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
+* Compendium::                  Using Translation Compendiums
 
 
 File: gettext.info,  Node: msgmerge Invocation,  Next: Translated Entries,  Prev: Updating,  Up: Updating

@@ -333,7 +333,7 @@ Emacs commands `C-y' (`yank') and `M-y' (`yank-pop') to get the
 previous translation where she likes.
 
 
-File: gettext.info,  Node: Subedit,  Next: Auxiliary,  Prev: Modifying Comments,  Up: Updating
+File: gettext.info,  Node: Subedit,  Next: C Sources Context,  Prev: Modifying Comments,  Up: Updating
 
 Details of Sub Edition
 ======================
@@ -410,7 +410,106 @@ subedits are automatically resumed one at a time, so she may decide for
 each of them.
 
 
-File: gettext.info,  Node: Auxiliary,  Prev: Subedit,  Up: Updating
+File: gettext.info,  Node: C Sources Context,  Next: Auxiliary,  Prev: Subedit,  Up: Updating
+
+C Sources Context
+=================
+
+   PO mode is particularily powerful when used with PO files created
+through GNU `gettext' utilities, as those utilities insert special
+comments in the PO files they generate.  Some of these special comments
+relate the PO file entry to exactly where the untranslated string
+appears in the program sources.
+
+   When the translator gets to an untranslated entry, she is fairly
+often faced with an original string which is not as informative as it
+normally should be, being succinct, cryptic, or otherwise ambiguous.
+Before chosing how to translate the string, she needs to understand
+better what the string really means and how tight the translation has
+to be.  Most of times, when problems arise, the only way left to make
+her judgment is looking at the true program sources from where this
+string originated, searching for surrounding comments the programmer
+might have put in there, and looking around for helping clues of _any_
+kind.
+
+   Surely, when looking at program sources, the translator will receive
+more help if she is a fluent programmer.  However, even if she is not
+versed in programming and feels a little lost in C code, the translator
+should not be shy at taking a look, once in a while.  It is most
+probable that she will still be able to find some of the hints she
+needs.  She will learn quickly to not feel uncomfortable in program
+code, paying more attention to programmer's comments, variable and
+function names (if he dared chosing them well), and overall
+organization, than to programmation itself.
+
+   The following commands are meant to help the translator at getting
+program source context for a PO file entry.
+
+`s'
+     Resume the display of a program source context, or cycle through
+     them.
+
+`M-s'
+     Display of a program source context selected by menu.
+
+`S'
+     Add a directory to the search path for source files.
+
+`M-S'
+     Delete a directory from the search path for source files.
+
+   The commands `s' (`po-cycle-reference') and `M-s'
+(`po-select-source-reference') both open another window displaying some
+source program file, and already positioned in such a way that it shows
+an actual use of the string to be translated.  By doing so, the command
+gives source program context for the string.  But if the entry has no
+source context references, or if all references are unresolved along
+the search path for program sources, then the command diagnoses this as
+an error.
+
+   Even if `s' (or `M-s') opens a new window, the cursor stays in the
+PO file window.  If the translator really wants to get into the program
+source window, she ought to do it explicitly, maybe by using command
+`O'.
+
+   When `s' is typed for the first time, or for a PO file entry which
+is different of the last one used for getting source context, then the
+command reacts by giving the first context available for this entry, if
+any.  If some context has already been recently displayed for the
+current PO file entry, and the translator wandered off to do other
+things, typing `s' again will merely resume, in another window, the
+context last displayed.  In particular, if the translator moved the
+cursor away from the context in the source file, the command will bring
+the cursor back to the context.  By using `s' many times in a row, with
+no other commands intervening, PO mode will cycle to the next available
+contexts for this particular entry, getting back to the first context
+once the last has been shown.
+
+   The command `M-s' behaves differently.  Instead of cycling through
+references, it lets the translator choose of particular reference among
+many, and displays that reference.  It is best used with completion, if
+the translator types `<TAB>' immediately after `M-s', in response to
+the question, she will be offered a menu of all possible references, as
+a reminder of which are the acceptable answers.  This command is useful
+only where there are really many contexts available for a single string
+to translate.
+
+   Program source files are usually found relative to where the PO file
+stands.  As a special provision, when this fails, the file is also
+looked for, but relative to the directory immediately above it.  Those
+two cases take proper care of most PO files.  However, it might happen
+that a PO file has been moved, or is edited in a different place than
+its normal location.  When this happens, the translator should tell PO
+mode in which directory normally sits the genuine PO file.  Many such
+directories may be specified, and all together, they constitute what is
+called the "search path" for program sources.  The command `S'
+(`po-consider-source-path') is used to interactively enter a new
+directory at the front of the search path, and the command `M-S'
+(`po-ignore-source-path') is used to select, with completion, one of
+the directories she does not want anymore on the search path.
+
+
+File: gettext.info,  Node: Auxiliary,  Next: Compendium,  Prev: C Sources Context,  Up: Updating
 
 Consulting Auxiliary PO Files
 =============================
@@ -474,6 +573,23 @@ strings in source files, are normalised differently.  So are PO files
 resulting of the the `M-x normalize' command.  Until these
 discrepancies between PO mode and other GNU `gettext' tools get fully
 resolved, the translator should stay aware of normalisation issues.
+
+
+File: gettext.info,  Node: Compendium,  Prev: Auxiliary,  Up: Updating
+
+Using Translation Compendiums
+=============================
+
+   Compendiums are yet to be implemented.
+
+   An incoming PO mode feature will let the translator maintain a
+compendium of already achieved translations.  A "compendium" is a
+special PO file containing a set of translations recurring in many
+different packages.  The translator will be given commands for adding
+entries to her compendium, and later initializing untranslated entries,
+or updating already translated entries, from translations kept in the
+compendium.  For this to work, however, the compendium would have to be
+normalized.  *Note Normalizing::.
 
 
 File: gettext.info,  Node: Binaries,  Next: Users,  Prev: Updating,  Up: Top
@@ -915,140 +1031,4 @@ course there have been developed a lot of tools helping to organize this
 chaos but one as the other fails in one aspect or the other.  We don't
 want to say that the other approach has no problems but they are far
 more easily to manage.
-
-
-File: gettext.info,  Node: gettext,  Next: Comparison,  Prev: catgets,  Up: Programmers
-
-About `gettext'
-===============
-
-   The definition of the `gettext' interface comes from a Uniforum
-proposal and it is followed by at least one major Unix vendor (Sun) in
-its last developments.  It is not specified in any official standard,
-though.
-
-   The main points about this solution is that it does not follow the
-method of normal file handling (open-use-close) and that it does not
-burden the programmer so many task, especially the unique key handling.
-Of course here is also a unique key needed, but this key is the message
-itself (how long or short it is).  See *Note Comparison:: for a more
-detailed comparison of the two methods.
-
-   The following section contains a rather detailed description of the
-interface.  We make it that detailed because this is the interface we
-chose for the GNU `gettext' Library.  Programmers interested in using
-this library will be interested in this description.
-
-* Menu:
-
-* Interface to gettext::        The interface
-* Ambiguities::                 Solving ambiguities
-* Locating Catalogs::           Locating message catalog files
-* Charset conversion::          How to request conversion to Unicode
-* Plural forms::                Additional functions for handling plurals
-* GUI program problems::        Another technique for solving ambiguities
-* Optimized gettext::           Optimization of the *gettext functions
-
-
-File: gettext.info,  Node: Interface to gettext,  Next: Ambiguities,  Prev: gettext,  Up: gettext
-
-The Interface
--------------
-
-   The minimal functionality an interface must have is a) to select a
-domain the strings are coming from (a single domain for all programs is
-not reasonable because its construction and maintenance is difficult,
-perhaps impossible) and b) to access a string in a selected domain.
-
-   This is principally the description of the `gettext' interface.  It
-has an global domain which unqualified usages reference.  Of course this
-domain is selectable by the user.
-
-     char *textdomain (const char *domain_name);
-
-   This provides the possibility to change or query the current status
-of the current global domain of the `LC_MESSAGE' category.  The
-argument is a null-terminated string, whose characters must be legal in
-the use in filenames.  If the DOMAIN_NAME argument is `NULL', the
-function return the current value.  If no value has been set before,
-the name of the default domain is returned: _messages_.  Please note
-that although the return value of `textdomain' is of type `char *' no
-changing is allowed.  It is also important to know that no checks of
-the availability are made.  If the name is not available you will see
-this by the fact that no translations are provided.
-
-To use a domain set by `textdomain' the function
-
-     char *gettext (const char *msgid);
-
-   is to be used.  This is the simplest reasonable form one can imagine.
-The translation of the string MSGID is returned if it is available in
-the current domain.  If not available the argument itself is returned.
-If the argument is `NULL' the result is undefined.
-
-   One things which should come into mind is that no explicit
-dependency to the used domain is given.  The current value of the
-domain for the `LC_MESSAGES' locale is used.  If this changes between
-two executions of the same `gettext' call in the program, both calls
-reference a different message catalog.
-
-   For the easiest case, which is normally used in internationalized
-packages, once at the beginning of execution a call to `textdomain' is
-issued, setting the domain to a unique name, normally the package name.
-In the following code all strings which have to be translated are
-filtered through the gettext function.  That's all, the package speaks
-your language.
-
-
-File: gettext.info,  Node: Ambiguities,  Next: Locating Catalogs,  Prev: Interface to gettext,  Up: gettext
-
-Solving Ambiguities
--------------------
-
-   While this single name domain work good for most applications there
-might be the need to get translations from more than one domain.  Of
-course one could switch between different domains with calls to
-`textdomain', but this is really not convenient nor is it fast.  A
-possible situation could be one case discussing while this writing:  all
-error messages of functions in the set of common used functions should
-go into a separate domain `error'.  By this mean we would only need to
-translate them once.
-
-For this reasons there are two more functions to retrieve strings:
-
-     char *dgettext (const char *domain_name, const char *msgid);
-     char *dcgettext (const char *domain_name, const char *msgid,
-                      int category);
-
-   Both take an additional argument at the first place, which
-corresponds to the argument of `textdomain'.  The third argument of
-`dcgettext' allows to use another locale but `LC_MESSAGES'.  But I
-really don't know where this can be useful.  If the DOMAIN_NAME is
-`NULL' or CATEGORY has an value beside the known ones, the result is
-undefined.  It should also be noted that this function is not part of
-the second known implementation of this function family, the one found
-in Solaris.
-
-   A second ambiguity can arise by the fact, that perhaps more than one
-domain has the same name.  This can be solved by specifying where the
-needed message catalog files can be found.
-
-     char *bindtextdomain (const char *domain_name,
-                           const char *dir_name);
-
-   Calling this function binds the given domain to a file in the
-specified directory (how this file is determined follows below).
-Especially a file in the systems default place is not favored against
-the specified file anymore (as it would be by solely using
-`textdomain').  A `NULL' pointer for the DIR_NAME parameter returns the
-binding associated with DOMAIN_NAME.  If DOMAIN_NAME itself is `NULL'
-nothing happens and a `NULL' pointer is returned.  Here again as for
-all the other functions is true that none of the return value must be
-changed!
-
-   It is important to remember that relative path names for the
-DIR_NAME parameter can be trouble.  Since the path is always computed
-relative to the current directory different results will be achieved
-when the program executes a `chdir' command.  Relative paths should
-always be avoided to avoid dependencies and unreliabilities.
 

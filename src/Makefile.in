@@ -94,7 +94,7 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-bin_PROGRAMS = gettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
+bin_PROGRAMS = gettext ngettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
 
@@ -114,6 +114,7 @@ YACC = @YACC@ -d
 
 # Source dependencies.
 gettext_SOURCES = gettext.c
+ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c dir-list.c
 
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c message.c dir-list.c
@@ -142,8 +143,9 @@ DISTCLEANFILES = po-gram-gen2.h
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
-bin_PROGRAMS =  gettext$(EXEEXT) msgcmp$(EXEEXT) msgfmt$(EXEEXT) \
-msgmerge$(EXEEXT) msgunfmt$(EXEEXT) xgettext$(EXEEXT) msgcomm$(EXEEXT)
+bin_PROGRAMS =  gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
+msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) xgettext$(EXEEXT) \
+msgcomm$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
 CPPFLAGS = @CPPFLAGS@
@@ -153,6 +155,10 @@ gettext_OBJECTS =  gettext.$(OBJEXT)
 gettext_LDADD = $(LDADD)
 gettext_DEPENDENCIES =  ../lib/libnlsut.a
 gettext_LDFLAGS = 
+ngettext_OBJECTS =  ngettext.$(OBJEXT)
+ngettext_LDADD = $(LDADD)
+ngettext_DEPENDENCIES =  ../lib/libnlsut.a
+ngettext_LDFLAGS = 
 msgcmp_OBJECTS =  message.$(OBJEXT) msgcmp.$(OBJEXT) open-po.$(OBJEXT) \
 po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
 po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT)
@@ -201,8 +207,8 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-SOURCES = $(gettext_SOURCES) $(msgcmp_SOURCES) $(msgfmt_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(xgettext_SOURCES) $(msgcomm_SOURCES)
-OBJECTS = $(gettext_OBJECTS) $(msgcmp_OBJECTS) $(msgfmt_OBJECTS) $(msgmerge_OBJECTS) $(msgunfmt_OBJECTS) $(xgettext_OBJECTS) $(msgcomm_OBJECTS)
+SOURCES = $(gettext_SOURCES) $(ngettext_SOURCES) $(msgcmp_SOURCES) $(msgfmt_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(xgettext_SOURCES) $(msgcomm_SOURCES)
+OBJECTS = $(gettext_OBJECTS) $(ngettext_OBJECTS) $(msgcmp_OBJECTS) $(msgfmt_OBJECTS) $(msgmerge_OBJECTS) $(msgunfmt_OBJECTS) $(xgettext_OBJECTS) $(msgcomm_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
@@ -287,6 +293,10 @@ maintainer-clean-libtool:
 gettext$(EXEEXT): $(gettext_OBJECTS) $(gettext_DEPENDENCIES)
 	@rm -f gettext$(EXEEXT)
 	$(LINK) $(gettext_LDFLAGS) $(gettext_OBJECTS) $(gettext_LDADD) $(LIBS)
+
+ngettext$(EXEEXT): $(ngettext_OBJECTS) $(ngettext_DEPENDENCIES)
+	@rm -f ngettext$(EXEEXT)
+	$(LINK) $(ngettext_LDFLAGS) $(ngettext_OBJECTS) $(ngettext_LDADD) $(LIBS)
 
 msgcmp$(EXEEXT): $(msgcmp_OBJECTS) $(msgcmp_DEPENDENCIES)
 	@rm -f msgcmp$(EXEEXT)

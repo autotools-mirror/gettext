@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10\n"
-"POT-Creation-Date: 2001-03-21 22:47+0100\n"
+"POT-Creation-Date: 2001-03-27 19:25+0200\n"
 "PO-Revision-Date: 1996-03-21 08:46 EST\n"
 "Last-Translator: Karl Anders Øygard <karlo@ifi.uio.no>\n"
 "Language-Team: Norwegian-nynorsk <no@li.org>\n"
@@ -81,8 +81,8 @@ msgstr "%s: flagg «--%s» tek ikkje argument\n"
 msgid "memory exhausted"
 msgstr ""
 
-#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
-#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:398
+#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:279 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:388
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -90,8 +90,8 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 
-#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
-#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:403
+#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:284 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:393
 #, c-format
 msgid "Written by %s.\n"
 msgstr ""
@@ -105,8 +105,8 @@ msgstr "manglar argument"
 msgid "missing arguments"
 msgstr "manglar argument"
 
-#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
-#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:525
+#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:377 src/msgfmt.c:387
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:515
 #, fuzzy, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Prøv «%s --help» for meir informasjon\n"
@@ -157,8 +157,8 @@ msgstr ""
 "staden vert meldingar som er funne i den valgte katalogen oversatt.\n"
 "Standard søkekatalog er: %s\n"
 
-#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
-#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:577
+#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:424 src/msgfmt.c:414
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:565
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr ""
 
@@ -222,11 +222,11 @@ msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "%s: fann %d fatale feil"
 
-#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1169
+#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
 msgid "duplicate message definition"
 msgstr ""
 
-#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1170
+#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1158
 #, fuzzy
 msgid "...this is the location of the first definition"
 msgstr "den første definisjonen finst her"
@@ -238,26 +238,26 @@ msgstr "denne meldinga har ingen definisjon i \"%s\"-domenet"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:236 src/xgettext.c:337 src/xgettext.c:1365
+#: src/msgcomm.c:235 src/xgettext.c:327 src/xgettext.c:1353
 msgid "while preparing output"
 msgstr "under klargjering av utdata"
 
-#: src/msgcomm.c:271 src/msgcomm.c:275 src/xgettext.c:375 src/xgettext.c:379
+#: src/msgcomm.c:267 src/msgcomm.c:271 src/xgettext.c:365 src/xgettext.c:369
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s og %s utelukker kvarandre"
 
-#: src/msgcomm.c:327
+#: src/msgcomm.c:323
 #, fuzzy
 msgid "at least two files must be specified"
 msgstr "nøyaktig to filer må spesifiserast"
 
-#: src/msgcomm.c:346
+#: src/msgcomm.c:334
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr ""
 
-#: src/msgcomm.c:386
+#: src/msgcomm.c:382
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -289,7 +289,7 @@ msgstr ""
 "  -i, --indent                  lag indentert utdata\n"
 "  -j, --join-existing           flett saman meldingar med eksisterande fil\n"
 
-#: src/msgcomm.c:398
+#: src/msgcomm.c:394
 #, fuzzy
 msgid ""
 "  -i, --indent                   write the .po file using indented style\n"
@@ -318,7 +318,7 @@ msgstr ""
 "\n"
 "Dersom INNFIL er -, vil det verte lese frå standard inn.\n"
 
-#: src/msgcomm.c:411
+#: src/msgcomm.c:407
 msgid ""
 "  -V, --version                  output version information and exit\n"
 "  -w, --width=NUMBER             set output page width\n"
@@ -338,17 +338,17 @@ msgid ""
 "preserved.\n"
 msgstr ""
 
-#: src/msgcomm.c:462 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
-#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:611
+#: src/msgcomm.c:458 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
+#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:599
 #, fuzzy, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "feil under skriving av fila \"%s\""
 
-#: src/msgcomm.c:543 src/xgettext.c:653 src/xgettext.c:1071
+#: src/msgcomm.c:539 src/xgettext.c:641 src/xgettext.c:1059
 msgid "this file may not contain domain directives"
 msgstr "denne fila kan innehalde domene-nøkkelord"
 
-#: src/msgfmt.c:286 src/xgettext.c:414
+#: src/msgfmt.c:286 src/xgettext.c:404
 msgid "no input file given"
 msgstr "inga innfil spesifisert"
 
@@ -757,7 +757,7 @@ msgid ""
 msgstr "advarsel: denne meldinga er ikkje brukt"
 
 #. TRANS: sentence starts at trans_id_1 or trans_id_2
-#: src/po.c:290 src/po.c:321
+#: src/po.c:290 src/po.c:324
 msgid ", expect parse errors"
 msgstr ""
 
@@ -772,20 +772,20 @@ msgstr ""
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
-"gettext"
+"%*s  warning: consider installing GNU libiconv and then\n"
+"%*s           reinstalling GNU gettext"
 msgstr "advarsel: denne meldinga er ikkje brukt"
 
 #. TRANS: sentence trans_id_3 starts here
-#: src/po.c:316
+#: src/po.c:318
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
-"gettext"
+"%*s  warning: consider installing GNU libiconv and then\n"
+"%*s           reinstalling GNU gettext"
 msgstr "advarsel: denne meldinga er ikkje brukt"
 
-#: src/po.c:330
+#: src/po.c:334
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset missing in header\n"
@@ -828,20 +828,20 @@ msgstr ""
 msgid "%s:%d: warning: unterminated string literal"
 msgstr ""
 
-#: src/xgettext.c:383
+#: src/xgettext.c:373
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 
-#: src/xgettext.c:388
+#: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:494
+#: src/xgettext.c:484
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 
-#: src/xgettext.c:530
+#: src/xgettext.c:520
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -880,15 +880,14 @@ msgstr ""
 "  -i, --indent                  lag indentert utdata\n"
 "  -j, --join-existing           flett saman meldingar med eksisterande fil\n"
 
-#: src/xgettext.c:550
-#, fuzzy, c-format, no-wrap
+#: src/xgettext.c:540
+#, fuzzy, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
 "  -j, --join-existing            join messages with existing file\n"
 "  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
 "                                 WORD means not to use default keywords)\n"
-"  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n"
 "  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
 "                                 otherwise is guessed from file extension\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
@@ -907,7 +906,7 @@ msgstr ""
 "  -n, --add-location            lag «#: filenavn:linje»-linjer (forvalgt)\n"
 "      --omit-header             ikkje lag startseksjon med «msgid \"\"»\n"
 
-#: src/xgettext.c:564
+#: src/xgettext.c:552
 #, fuzzy, no-wrap
 msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -933,17 +932,17 @@ msgstr ""
 "\n"
 "Dersom INNFIL er -, vil det verte lese frå standard inn.\n"
 
-#: src/xgettext.c:926
+#: src/xgettext.c:914
 #, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
 msgstr ""
 
-#: src/xgettext.c:936
+#: src/xgettext.c:924
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
 
-#: src/xgettext.c:1432
+#: src/xgettext.c:1420
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""

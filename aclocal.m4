@@ -671,6 +671,49 @@ AC_DEFUN([jm_AC_HEADER_INTTYPES_H],
   fi
 ])
 
+#serial 4
+
+dnl See if there's a working, system-supplied version of the getline function.
+dnl We can't just do AC_REPLACE_FUNCS(getline) because some systems
+dnl have a function by that name in -linet that doesn't have anything
+dnl to do with the function we need.
+AC_DEFUN([AM_FUNC_GETLINE],
+[dnl
+  am_getline_needs_run_time_check=no
+  AC_CHECK_FUNC(getline,
+		dnl Found it in some library.  Verify that it works.
+		am_getline_needs_run_time_check=yes,
+		am_cv_func_working_getline=no)
+  if test $am_getline_needs_run_time_check = yes; then
+    AC_CACHE_CHECK([for working getline function], am_cv_func_working_getline,
+    [echo fooN |tr -d '\012'|tr N '\012' > conftest.data
+    AC_TRY_RUN([
+#    include <stdio.h>
+#    include <sys/types.h>
+#    include <string.h>
+    int main ()
+    { /* Based on a test program from Karl Heuer.  */
+      char *line = NULL;
+      size_t siz = 0;
+      int len;
+      FILE *in = fopen ("./conftest.data", "r");
+      if (!in)
+	return 1;
+      len = getline (&line, &siz, in);
+      exit ((len == 4 && line && strcmp (line, "foo\n") == 0) ? 0 : 1);
+    }
+    ], am_cv_func_working_getline=yes dnl The library version works.
+    , am_cv_func_working_getline=no dnl The library version does NOT work.
+    , am_cv_func_working_getline=no dnl We're cross compiling.
+    )])
+  fi
+
+  if test $am_cv_func_working_getline = no; then
+    LIBOBJS="$LIBOBJS getline.${ac_objext}"
+    AC_SUBST(LIBOBJS)
+  fi
+])
+
 dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
 dnl FIXME: Migrate into libit
 
@@ -871,19 +914,50 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	fi
       fi
 
-      # We need to process the po/ directory.
+      dnl We need to process the po/ directory.
       POSUB=po
     fi
     AC_OUTPUT_COMMANDS(
-     [case " $CONFIG_FILES " in *" po/Makefile.in "*)
+     [case " $CONFIG_FILES " in *" po/Makefile.in "* | *" po/Makefile.in:"*)
         sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
       esac])
 
 
-    # If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
-    # to 'yes' because some of the testsuite requires it.
+    dnl If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
+    dnl to 'yes' because some of the testsuite requires it.
     if test "$PACKAGE" = gettext; then
       BUILD_INCLUDED_LIBINTL=yes
+    fi
+
+    dnl intl/plural.c is generated from intl/plural.y. It requires bison,
+    dnl because plural.y uses bison specific features. It requires at least
+    dnl bison-1.26 because earlier versions generate a plural.c that doesn't
+    dnl compile.
+    dnl bison is only needed for the maintainer (who touches plural.y). But in
+    dnl order to avoid separate Makefiles or --enable-maintainer-mode, we put
+    dnl the rule in general Makefile. Now, some people carelessly touch the
+    dnl files or have a broken "make" program, hence the plural.c rule will
+    dnl sometimes fire. To avoid an error, defines BISON to ":" if it is not
+    dnl present or too old.
+    AC_CHECK_PROGS([INTLBISON], [bison])
+    if test -z "$INTLBISON"; then
+      ac_verc_fail=yes
+    else
+      dnl Found it, now check the version.
+      AC_MSG_CHECKING([version of bison])
+changequote(<<,>>)dnl
+      ac_prog_version=`$INTLBISON --version 2>&1 | sed -n 's/^.*GNU Bison .* \([0-9]*\.[0-9.]*\).*$/\1/p'`
+      case $ac_prog_version in
+        '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
+        1.2[6-9]* | 1.[3-9][0-9]* | [2-9].*)
+changequote([,])dnl
+           ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
+        *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
+      esac
+      AC_MSG_RESULT([$ac_prog_version])
+    fi
+    if test $ac_verc_fail = yes; then
+      INTLBISON=:
     fi
 
     dnl These rules are solely for the distribution goal.  While doing this
@@ -1063,9 +1137,9 @@ dnl From Bruno Haible.
 AC_DEFUN([AM_ICONV],
 [
   dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
-  dnl those with the standalone portable libiconv installed).
+  dnl those with the standalone portable GNU libiconv installed).
   AC_CACHE_CHECK(for iconv, am_cv_func_iconv, [
-    am_cv_func_iconv="no, consider installing libiconv"
+    am_cv_func_iconv="no, consider installing GNU libiconv"
     am_cv_lib_iconv=no
     AC_TRY_LINK([#include <stdlib.h>
 #include <iconv.h>],

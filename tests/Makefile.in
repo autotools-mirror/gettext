@@ -96,14 +96,14 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-TESTS = gettext-1 gettext-2 msgcmp-1 msgcmp-2 msgfmt-1 msgfmt-2 msgfmt-3 	msgfmt-4 msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 	msgunfmt-1 xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 	xgettext-6 xgettext-7 xgettext-8 xgettext-9 plural-1
+TESTS = gettext-1 gettext-2 msgcmp-1 msgcmp-2 msgfmt-1 msgfmt-2 msgfmt-3 	msgfmt-4 msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 	msgunfmt-1 xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 	xgettext-6 xgettext-7 xgettext-8 xgettext-9 plural-1 plural-2
 
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 
 XGETTEXT = ../src/xgettext
 
-TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=tstgettext 		    XGETTEXT=`echo xgettext|sed '$(transform)'` 		    MSGFMT=`echo msgfmt|sed '$(transform)'` 		    MSGCMP=`echo msgcmp|sed '$(transform)'` 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` 		    $(SHELL)
+TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=tstgettext 		    NGETTEXT=tstngettext 		    XGETTEXT=`echo xgettext|sed '$(transform)'` 		    MSGFMT=`echo msgfmt|sed '$(transform)'` 		    MSGCMP=`echo msgcmp|sed '$(transform)'` 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` 		    $(SHELL)
 
 
 # Two auxiliary programs used by the tests.
@@ -112,9 +112,11 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
-EXTRA_PROGRAMS = tstgettext cake
+EXTRA_PROGRAMS = tstgettext tstngettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
+tstngettext_SOURCES = tstngettext.c setlocale.c
+tstngettext_LDADD = ../lib/libnlsut.a $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 CLEANFILES = $(EXTRA_PROGRAMS)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -126,6 +128,9 @@ LIBS = @LIBS@
 tstgettext_OBJECTS =  tstgettext.$(OBJEXT) setlocale.$(OBJEXT)
 tstgettext_DEPENDENCIES =  ../lib/libnlsut.a
 tstgettext_LDFLAGS = 
+tstngettext_OBJECTS =  tstngettext.$(OBJEXT) setlocale.$(OBJEXT)
+tstngettext_DEPENDENCIES =  ../lib/libnlsut.a
+tstngettext_LDFLAGS = 
 cake_OBJECTS =  plural-1-prg.$(OBJEXT) setlocale.$(OBJEXT)
 cake_LDADD = $(LDADD)
 cake_DEPENDENCIES = 
@@ -142,8 +147,8 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-SOURCES = $(tstgettext_SOURCES) $(cake_SOURCES)
-OBJECTS = $(tstgettext_OBJECTS) $(cake_OBJECTS)
+SOURCES = $(tstgettext_SOURCES) $(tstngettext_SOURCES) $(cake_SOURCES)
+OBJECTS = $(tstgettext_OBJECTS) $(tstngettext_OBJECTS) $(cake_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
@@ -203,6 +208,10 @@ maintainer-clean-libtool:
 tstgettext$(EXEEXT): $(tstgettext_OBJECTS) $(tstgettext_DEPENDENCIES)
 	@rm -f tstgettext$(EXEEXT)
 	$(LINK) $(tstgettext_LDFLAGS) $(tstgettext_OBJECTS) $(tstgettext_LDADD) $(LIBS)
+
+tstngettext$(EXEEXT): $(tstngettext_OBJECTS) $(tstngettext_DEPENDENCIES)
+	@rm -f tstngettext$(EXEEXT)
+	$(LINK) $(tstngettext_LDFLAGS) $(tstngettext_OBJECTS) $(tstngettext_LDADD) $(LIBS)
 
 cake$(EXEEXT): $(cake_OBJECTS) $(cake_DEPENDENCIES)
 	@rm -f cake$(EXEEXT)
