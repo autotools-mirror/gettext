@@ -1,3 +1,8 @@
+2003-02-22  Bruno Haible  <bruno@clisp.org>
+
+	* flex.m4 (gt_PROG_LEX): Remove LEX_OUTPUT_ROOT setting, not needed
+	any more with automake-1.7.2.
+
 2003-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* stdbool.m4 (gt_STDBOOL_H): Also test for usability of 'bool' in
