@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -240,6 +240,7 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
   const char *envval;
   iconv_t conv;
 #endif
+  bool weird_cjk;
 
 #if HAVE_ICONV
   /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35 don't know
@@ -261,7 +262,12 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 # endif
     /* Use iconv() to parse multibyte characters.  */
     conv = iconv_open ("UTF-8", charset);
+
+  if (conv != (iconv_t)(-1))
+    weird_cjk = false;
+  else
 #endif
+    weird_cjk = po_is_charset_weird_cjk (po_charset_canonicalize (charset));
 
   /* Loop over the '\n' delimited portions of value.  */
   s = value;
@@ -341,7 +347,19 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 		}
 	      else
 #endif
-		portion_len += 1;
+		{
+		  if (weird_cjk
+		      /* Special handling of encodings with CJK structure.  */
+		      && ep + 2 <= es
+		      && (unsigned char) ep[0] >= 0x80
+		      && (unsigned char) ep[1] >= 0x30)
+		    {
+		      portion_len += 2;
+		      ep += 1;
+		    }
+		  else
+		    portion_len += 1;
+		}
 	    }
 	}
       portion = (char *) xmalloc (portion_len);
@@ -434,8 +452,22 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      else
 #endif
 		{
-		  *pp++ = c;
-		  op++;
+		  if (weird_cjk
+		      /* Special handling of encodings with CJK structure.  */
+		      && ep + 2 <= es
+		      && (unsigned char) c >= 0x80
+		      && (unsigned char) ep[1] >= 0x30)
+		    {
+		      *pp++ = c;
+		      ep += 1;
+		      *pp++ = *ep;
+		      op += 2;
+		    }
+		  else
+		    {
+		      *pp++ = c;
+		      op++;
+		    }
 		}
 	    }
 	}

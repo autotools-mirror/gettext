@@ -1,5 +1,25 @@
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
+	Make "msgmerge --update" work better on CJK files even if iconv() is
+	not available.
+	* po-charset.h (po_is_charset_weird): New declaration.
+	(po_is_charset_weird_cjk): Likewise..
+	(po_lex_weird_cjk): New variable declaration.
+	* po-charset.c (po_is_charset_weird): New function, extracted from
+	po_lex_charset_set.
+	(po_is_charset_weird_cjk): New function.
+	(po_lex_weird_cjk): New variable.
+	(po_lex_charset_init): Initialize po_lex_weird_cjk.
+	(po_lex_charset_set): Call po_is_charset_weird and
+	po_is_charset_weird_cjk. Set po_lex_weird_cjk.
+	(po_lex_charset_close): Reset po_lex_weird_cjk.
+	* po-lex.c (mbfile_getc): If po_lex_weird_cjk is set, possibly return
+	a double byte instead of single byte.
+	* write-po.c (wrap): Call po_is_charset_weird_cjk. If it returns true,
+	group double bytes where possible.
+
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.c: TESTS version is now separate.
 
 2002-01-05  Bruno Haible  <bruno@clisp.org>

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -611,8 +611,32 @@ incomplete multibyte sequence at end of line"));
   else
 #endif
     {
-      /* Return a single byte.  */
-      bytes = 1;
+      if (po_lex_weird_cjk
+	  /* Special handling of encodings with CJK structure.  */
+	  && (unsigned char) mbf->buf[0] >= 0x80)
+	{
+	  if (mbf->bufcount == 1)
+	    {
+	      /* Read one more byte.  */
+	      int c = getc (mbf->fp);
+	      if (c != EOF)
+		{
+		  mbf->buf[1] = (unsigned char) c;
+		  mbf->bufcount++;
+		}
+	    }
+	  if (mbf->bufcount >= 2 && (unsigned char) mbf->buf[1] >= 0x30)
+	    /* Return a double byte.  */
+	    bytes = 2;
+	  else
+	    /* Return a single byte.  */
+	    bytes = 1;
+	}
+      else
+	{
+	  /* Return a single byte.  */
+	  bytes = 1;
+	}
 #if HAVE_ICONV
       mbc->uc_valid = false;
 #endif

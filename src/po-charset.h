@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -36,6 +36,16 @@ extern const char *po_charset_ascii;
 /* Test for ASCII compatibility.  */
 extern bool po_charset_ascii_compatible PARAMS ((const char *canon_charset));
 
+/* Test for a weird encoding, i.e. an encoding which has double-byte
+   characters ending in 0x5C.  */
+extern bool po_is_charset_weird PARAMS ((const char *canon_charset));
+
+/* Test for a weird CJK encoding, i.e. a weird encoding with CJK structure.
+   An encoding has CJK structure if every valid character stream is composed
+   of single bytes in the range 0x{00..7F} and of byte pairs in the range
+   0x{80..FF}{30..FF}.  */
+extern bool po_is_charset_weird_cjk PARAMS ((const char *canon_charset));
+
 
 /* The PO file's encoding, as specified in the header entry.  */
 extern const char *po_lex_charset;
@@ -44,6 +54,9 @@ extern const char *po_lex_charset;
 /* Converter from the PO file's encoding to UTF-8.  */
 extern iconv_t po_lex_iconv;
 #endif
+/* If no converter is available, some information about the structure of the
+   PO file's encoding.  */
+extern bool po_lex_weird_cjk;
 
 /* Initialize the PO file's encoding.  */
 extern void po_lex_charset_init PARAMS ((void));

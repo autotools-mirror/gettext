@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -117,6 +117,52 @@ po_charset_ascii_compatible (canon_charset)
     return true;
 }
 
+/* Test for a weird encoding, i.e. an encoding which has double-byte
+   characters ending in 0x5C.  */
+bool po_is_charset_weird (canon_charset)
+     const char *canon_charset;
+{
+  static const char *weird_charsets[] =
+  {
+    "BIG5",
+    "BIG5-HKSCS",
+    "GBK",
+    "GB18030",
+    "SHIFT_JIS",
+    "JOHAB"
+  };
+  size_t i;
+
+  for (i = 0; i < SIZEOF (weird_charsets); i++)
+    if (strcmp (canon_charset, weird_charsets[i]) == 0)
+      return true;
+  return false;
+}
+
+/* Test for a weird CJK encoding, i.e. a weird encoding with CJK structure.
+   An encoding has CJK structure if every valid character stream is composed
+   of single bytes in the range 0x{00..7F} and of byte pairs in the range
+   0x{80..FF}{30..FF}.  */
+bool po_is_charset_weird_cjk (canon_charset)
+     const char *canon_charset;
+{
+  static const char *weird_cjk_charsets[] =
+  {			/* single bytes   double bytes       */
+    "BIG5",		/* 0x{00..7F},    0x{A1..F9}{40..FE} */
+    "BIG5-HKSCS",	/* 0x{00..7F},    0x{88..FE}{40..FE} */
+    "GBK",		/* 0x{00..7F},    0x{81..FE}{40..FE} */
+    "GB18030",		/* 0x{00..7F},    0x{81..FE}{30..FE} */
+    "SHIFT_JIS",	/* 0x{00..7F},    0x{81..F9}{40..FC} */
+    "JOHAB"		/* 0x{00..7F},    0x{84..F9}{31..FE} */
+  };
+  size_t i;
+
+  for (i = 0; i < SIZEOF (weird_cjk_charsets); i++)
+    if (strcmp (canon_charset, weird_cjk_charsets[i]) == 0)
+      return true;
+  return false;
+}
+
 
 /* The PO file's encoding, as specified in the header entry.  */
 const char *po_lex_charset;
@@ -125,6 +171,9 @@ const char *po_lex_charset;
 /* Converter from the PO file's encoding to UTF-8.  */
 iconv_t po_lex_iconv;
 #endif
+/* If no converter is available, some information about the structure of the
+   PO file's encoding.  */
+bool po_lex_weird_cjk;
 
 void
 po_lex_charset_init ()
@@ -133,6 +182,7 @@ po_lex_charset_init ()
 #if HAVE_ICONV
   po_lex_iconv = (iconv_t)(-1);
 #endif
+  po_lex_weird_cjk = false;
 }
 
 void
@@ -177,19 +227,6 @@ Message conversion to user's charset might not work.\n"),
 	}
       else
 	{
-	  /* The list of encodings in standard_charsets which have
-	     double-byte characters ending in 0x5C.  For these encodings,
-	     the string parser is likely to be confused if it can't see
-	     the character boundaries.  */
-	  static const char *weird_charsets[] =
-	  {
-	    "BIG5",
-	    "BIG5-HKSCS",
-	    "GBK",
-	    "GB18030",
-	    "SHIFT_JIS",
-	    "JOHAB"
-	  };
 	  const char *envval;
 
 	  po_lex_charset = canon_charset;
@@ -212,6 +249,7 @@ Message conversion to user's charset might not work.\n"),
 #if HAVE_ICONV
 	      po_lex_iconv = (iconv_t)(-1);
 #endif
+	      po_lex_weird_cjk = false;
 	    }
 	  else
 	    {
@@ -226,13 +264,15 @@ Message conversion to user's charset might not work.\n"),
 	      po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
 	      if (po_lex_iconv == (iconv_t)(-1))
 		{
-		  size_t i;
 		  const char *note;
 
-		  for (i = 0; i < SIZEOF (weird_charsets); i++)
-		    if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
-		      break;
-		  if (i < SIZEOF (weird_charsets))
+		  /* Test for a charset which has double-byte characters
+		     ending in 0x5C.  For these encodings, the string parser
+		     is likely to be confused if it can't see the character
+		     boundaries.  */
+		  po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
+		  if (po_is_charset_weird (po_lex_charset)
+		      && !po_lex_weird_cjk)
 		    note = _("Continuing anyway, expect parse errors.");
 		  else
 		    note = _("Continuing anyway.");
@@ -255,12 +295,12 @@ would fix this problem.\n")));
 		  multiline_warning (NULL, xasprintf (_("%s\n"), note));
 		}
 #else
-	      size_t i;
-
-	      for (i = 0; i < SIZEOF (weird_charsets); i++)
-		if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
-		  break;
-	      if (i < SIZEOF (weird_charsets))
+	      /* Test for a charset which has double-byte characters
+		 ending in 0x5C.  For these encodings, the string parser
+		 is likely to be confused if it can't see the character
+		 boundaries.  */
+	      po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
+	      if (po_is_charset_weird (po_lex_charset) && !po_lex_weird_cjk)
 		{
 		  const char *note =
 		    _("Continuing anyway, expect parse errors.");
@@ -309,4 +349,5 @@ po_lex_charset_close ()
       po_lex_iconv = (iconv_t)(-1);
     }
 #endif
+  po_lex_weird_cjk = false;
 }
