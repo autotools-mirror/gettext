@@ -1,5 +1,6 @@
 2002-11-19  Bruno Haible  <bruno@clisp.org>
 
+	* pathmax.h: Update from current gnulib version.
 	* obstack.h: Update from current gnulib version.
 	* obstack.c: Update from current gnulib version.
 
