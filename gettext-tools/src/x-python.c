@@ -36,8 +36,6 @@
 #include "xmalloc.h"
 #include "exit.h"
 #include "po-charset.h"
-#include "msgl-ascii.h"
-#include "msgl-iconv.h"
 #include "uniname.h"
 #include "utf16-ucs4.h"
 #include "ucs4-utf8.h"

@@ -45,8 +45,6 @@
 #include "exit.h"
 #include "hash.h"
 #include "po-charset.h"
-#include "msgl-ascii.h"
-#include "msgl-iconv.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

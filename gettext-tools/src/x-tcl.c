@@ -38,8 +38,6 @@
 #include "hash.h"
 #include "c-ctype.h"
 #include "po-charset.h"
-#include "msgl-ascii.h"
-#include "msgl-iconv.h"
 #include "ucs4-utf8.h"
 #include "gettext.h"
 
