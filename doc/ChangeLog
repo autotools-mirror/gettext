@@ -1,3 +1,8 @@
+2002-03-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2002-03-03  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Tcl): New node.
