@@ -1,3 +1,7 @@
+2001-03-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.36 released.
+
 2001-03-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Aspects): For full locale services, refer to glibc.

@@ -1,10 +1,12 @@
-Version 0.10.36 - XXX 2001, by Ulrich Drepper and Bruno Haible
+Version 0.10.36 - March 2001, by Ulrich Drepper and Bruno Haible
 
 * General plural handling. New functions ngettext, dngettext, dcngettext.
 
 * Locales which differ only in the character encoding, for example ja_JP and
   ja_JP.UTF-8, can now share the same message catalogs. gettext converts
   the messages to the appropriate character encoding on the fly.
+
+* The tools now correctly process PO files in CJK encodings.
 
 * Support for non-GNU gettext has been dropped.  Previously, on Solaris, the
   system's gettext was used (unless --with-included-gettext was specified),

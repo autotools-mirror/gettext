@@ -1,3 +1,7 @@
+2001-03-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.36 released.
+
 2001-03-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-2: Use cat, not echo, to create ll.po.
