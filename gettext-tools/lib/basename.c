@@ -1,5 +1,5 @@
 /* Return the name-within-directory of a file name.
-   Copyright (C) 1996-1999, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1996-1999, 2000-2002, 2004 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -31,8 +31,8 @@
 #include <stdio.h>
 #include <assert.h>
 
-#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
-  /* Win32, OS/2, DOS */
+#if defined _WIN32 || defined __WIN32__ || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, Cygwin, OS/2, DOS */
 # define HAS_DEVICE(P) \
     ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
      && (P)[1] == ':')
