@@ -685,12 +685,14 @@ phase3_getc ()
     return c;
 }
 
+#ifdef unused
 static void
 phase3_ungetc (int c)
 {
   if (c != EOF)
     phase3_pushback[phase3_pushback_length++] = c;
 }
+#endif
 
 
 /* ========================== Reading of tokens.  ========================== */
