@@ -1,3 +1,8 @@
+2001-06-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (extension_to_language): Recognize "*.hh" as being C++.
+	Reported by Felix Natter.
+
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcmp.c (main): Set gram_max_allowed_errors to UINT_MAX, as in

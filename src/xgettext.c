@@ -1469,6 +1469,7 @@ extension_to_language (extension)
     { "cxx",    "C++",  },
     { "cpp",    "C++",  },
     { "h",      "C",    },
+    { "hh",     "C++",  },
     { "hpp",    "C++",  },
     { "po",     "PO",   },
     { "pot",    "PO",   },
