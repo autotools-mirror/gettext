@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
 AC_INIT(src/msgfmt.c)
-AM_INIT_AUTOMAKE(gettext, 0.11.2)
+AM_INIT_AUTOMAKE(gettext, 0.11.3-pre2)
 RELEASE_DATE=2002-04-24      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
 
@@ -39,7 +39,8 @@ AC_OBJEXT
 AC_EXEEXT
 
 dnl Check for build configuration.
-AM_PROG_LIBTOOL
+AC_LIBTOOL_WIN32_DLL
+AC_PROG_LIBTOOL
 
 AC_DEFINE(_GNU_SOURCE, 1, [Make sure we see all GNU extensions.])
 
