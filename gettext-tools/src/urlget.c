@@ -1,5 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -58,7 +58,7 @@
    toolkits are Java (class java.net.URL), Qt (classes QUrl and QUrlOperator).
    We use the Java toolkit.
    Note that this program doesn't handle redirection pages; programs which
-   which to process HTML redirection tags need to include a HTML parser,
+   wish to process HTML redirection tags need to include a HTML parser,
    and only full-fledged browsers like w3m, lynx, links have have both
    an URL fetcher (which covers at least the protocols "http", "ftp", "file")
    and a HTML parser.  */
