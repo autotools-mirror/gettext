@@ -5131,7 +5131,7 @@ Languages with this property include:
 
 @table @asis
 @item Slavic family
-Croatian, Serbian, Czech, Russian, Ukrainian
+Croatian, Serbian, Russian, Ukrainian
 @end table
 
 @item Three forms, special cases for 1 and 2, 3, 4
@@ -5147,7 +5147,7 @@ Languages with this property include:
 
 @table @asis
 @item Slavic family
-Slovak
+Slovak, Czech
 @end table
 
 @item Three forms, special case for one and some numbers ending in 2, 3, or 4

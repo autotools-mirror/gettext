@@ -1,3 +1,8 @@
+2004-08-30  Bruno Haible  <bruno@clisp.org>
+
+	* plural-table.c (plural_table): Czech is now like Slovak.
+	Reported by Stepan Kasal <kasal@ucw.cz>.
+
 2004-06-23  Bruno Haible  <bruno@clisp.org>
 
 	* x-c.c (phase1_getc): Fix phase0_getc invocation.

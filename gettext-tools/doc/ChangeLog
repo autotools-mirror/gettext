@@ -1,3 +1,8 @@
+2004-08-30  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural forms): Czech is now like Slovak.
+	Reported by Stepan Kasal <kasal@ucw.cz>.
+
 2004-08-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Aspects): Fix typo in ISO standard number.
