@@ -1,3 +1,7 @@
+2004-09-03  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (msginit_LDADD): Use the INTL_MACOSX_LDFLAGS.
+
 2004-08-30  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Czech is now like Slovak.

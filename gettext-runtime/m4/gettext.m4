@@ -1,4 +1,4 @@
-# gettext.m4 serial 31 (gettext-0.15)
+# gettext.m4 serial 32 (gettext-0.15)
 dnl Copyright (C) 1995-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -430,6 +430,26 @@ __fsetlocking])
   if test $ac_cv_header_locale_h = yes; then
     gt_LC_MESSAGES
   fi
+
+  dnl Check for API introduced in MacOS X 10.3.
+  AC_CACHE_CHECK([for CFLocaleCopyCurrent], gt_cv_func_CFLocaleCopyCurrent,
+    [gt_save_CPPFLAGS="$CPPFLAGS"
+     CPPFLAGS="$CPPFLAGS -I/System/Library/Frameworks/CoreFoundation.framework/Headers"
+     gt_save_LIBS="$LIBS"
+     LIBS="$LIBS -framework CoreFoundation"
+     AC_TRY_LINK([#include <CFLocale.h>], [CFLocaleCopyCurrent();],
+       [gt_cv_func_CFLocaleCopyCurrent=yes], [gt_cv_func_CFLocaleCopyCurrent=no])
+     CPPFLAGS="$gt_save_CPPFLAGS"
+     LIBS="$gt_save_LIBS"])
+  if test $gt_cv_func_CFLocaleCopyCurrent = yes; then
+    AC_DEFINE([HAVE_CFLOCALECOPYCURRENT], 1,
+      [Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the CoreFoundation framework.])
+    CPPFLAGS="$CPPFLAGS -I/System/Library/Frameworks/CoreFoundation.framework/Headers"
+    INTL_MACOSX_LDFLAGS="-Wl,-framework -Wl,CoreFoundation"
+  else
+    INTL_MACOSX_LDFLAGS=
+  fi
+  AC_SUBST([INTL_MACOSX_LDFLAGS])
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least

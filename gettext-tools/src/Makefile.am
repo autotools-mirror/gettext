@@ -185,7 +185,7 @@ msgexec_LDADD = libgettextsrc.la
 msgfilter_LDADD = libgettextsrc.la
 msggrep_LDADD = libgettextsrc.la
 msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
-                libgettextsrc.la
+                @INTL_MACOSX_LDFLAGS@ libgettextsrc.la
 msguniq_LDADD = libgettextsrc.la
 
 # Specify installation directory, for --enable-relocatable.

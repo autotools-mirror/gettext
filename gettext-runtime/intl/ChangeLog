@@ -1,3 +1,9 @@
+2004-09-03  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (_nl_locale_name): Use a more intelligent fallback on
+	MacOS X versions that have the CFLocaleCopyCurrent() function.
+	* Makefile.in (libintl.la, libgnuintl.la): Use the INTL_MACOSX_LDFLAGS.
+
 2004-09-01  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Add support for Darwin 7.

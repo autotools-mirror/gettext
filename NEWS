@@ -1,3 +1,7 @@
+Version 0.15 - September 2004
+
+* Improved detection of the locale on MacOS X.
+
 Version 0.14 - January 2004
 
 * Programming languages support:
