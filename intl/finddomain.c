@@ -20,8 +20,6 @@
 # include <config.h>
 #endif
 
-#include <ctype.h>
-#include <errno.h>
 #include <stdio.h>
 #include <sys/types.h>
 

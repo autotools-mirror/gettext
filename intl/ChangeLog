@@ -1,5 +1,9 @@
 2000-10-12  Bruno Haible  <haible@clisp.cons.org>
 
+	* finddomain.c: Remove unneeded includes.
+
+2000-10-12  Bruno Haible  <haible@clisp.cons.org>
+
 	* localealias.c (memcpy): Return first argument, just like the real
 	memcpy function does.
 	* bindtextdom.c (memcpy): Likewise.
