@@ -2,7 +2,7 @@
 # Output a system dependent set of variables, describing how to set the
 # run time search path of shared libraries in an executable.
 #
-#   Copyright 1996-2004 Free Software Foundation, Inc.
+#   Copyright 1996-2005 Free Software Foundation, Inc.
 #   Taken from GNU libtool, 2001
 #   Originally by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 #
@@ -50,6 +50,8 @@ host_cpu=`echo "$host" | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\1/'`
 host_vendor=`echo "$host" | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\2/'`
 host_os=`echo "$host" | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
 
+cc_basename=`echo "$CC" | sed -e 's%^.*/%%'`
+
 # Code taken from libtool.m4's AC_LIBTOOL_PROG_COMPILER_PIC.
 
 wl=
@@ -59,6 +61,13 @@ else
   case "$host_os" in
     aix*)
       wl='-Wl,'
+      ;;
+    darwin*)
+      case "$cc_basename" in
+        xlc*)
+          wl='-Wl,'
+          ;;
+      esac
       ;;
     mingw* | pw32* | os2*)
       ;;
@@ -285,6 +294,20 @@ else
       # no search path for DLLs.
       hardcode_libdir_flag_spec=' '
       libext=lib
+      ;;
+    darwin* | rhapsody*)
+      hardcode_direct=no
+      if test "$GCC" = yes ; then
+        :
+      else
+        case "$cc_basename" in
+          xlc*)
+            ;;
+          *)
+            ld_shlibs=no
+            ;;
+        esac
+      fi
       ;;
     dgux*)
       hardcode_libdir_flag_spec='-L$libdir'
