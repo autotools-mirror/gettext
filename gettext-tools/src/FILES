@@ -97,6 +97,9 @@ msgcmp.c        Main source for the 'msgcmp' program.
 | msgl-equal.h
 | msgl-equal.c
 |               Comparing two lists-of-messages.
+| plural-count.h
+| plural-count.c
+|               Extracting the plural count of a header of a lists-of-messages.
 | msgmerge.c
 |               Main source for the 'msgmerge' program.
 |
@@ -159,6 +162,7 @@ plural-table.c
 |               Reading Java ResourceBundle files.
 | read-tcl.h
 | read-tcl.c
+| msgunfmt.tcl
 |               Reading Tcl .msg files.
 | msgunfmt.c
 |               Main source for the 'msgunfmt' program.
@@ -166,17 +170,22 @@ plural-table.c
 +-------------- The 'msgunfmt' program
 
 format.h        Declarations of the language dependent format string handlers.
-format-c.c      Format string handling for C.
-format-python.c Format string handling for Python.
-format-lisp.c   Format string handling for Common Lisp.
-format-elisp.c  Format string handling for Emacs Lisp.
-format-librep.c Format string handling for librep.
-format-java.c   Format string handling for Java.
-format-awk.c    Format string handling for awk.
-format-pascal.c Format string handling for Object Pascal.
-format-ycp.c    Format string handling for YCP.
-format-tcl.c    Format string handling for Tcl.
-format-php.c    Format string handling for PHP.
+format-invalid.h  Declarations of some error messages for invalid strings.
+format-c.c             Format string handling for C.
+format-sh.c            Format string handling for Shell.
+format-python.c        Format string handling for Python.
+format-lisp.c          Format string handling for Common Lisp.
+format-elisp.c         Format string handling for Emacs Lisp.
+format-librep.c        Format string handling for librep.
+format-java.c          Format string handling for Java.
+format-awk.c           Format string handling for awk.
+format-pascal.c        Format string handling for Object Pascal.
+format-ycp.c           Format string handling for YCP.
+format-tcl.c           Format string handling for Tcl.
+format-perl.c          Format string handling for Perl.
+format-perl-brace.c    Format string handling for Perl, braced syntax.
+format-php.c           Format string handling for PHP.
+format-gcc-internal.c  Format string handling GCC internal.
 format.c        Table of the language dependent format string handlers.
 
 +-------------- The 'msgfmt' program
@@ -207,8 +216,12 @@ format.c        Table of the language dependent format string handlers.
 | x-c.c
 |               String extractor for C.
 | x-po.h
+| x-properties.h
 | x-po.c
-|               String extractor from PO files.
+|               String extractor from PO files and Java .properties files.
+| x-sh.h
+| x-sh.c
+|               String extractor for Shell.
 | x-python.h
 | x-python.c
 |               String extractor for Python.
@@ -236,6 +249,9 @@ format.c        Table of the language dependent format string handlers.
 | x-tcl.h
 | x-tcl.c
 |               String extractor for Tcl.
+| x-perl.h
+| x-perl.c
+|               String extractor for Perl.
 | x-php.h
 | x-php.c
 |               String extractor for PHP.
@@ -249,3 +265,11 @@ format.c        Table of the language dependent format string handlers.
 |               Main source for the 'xgettext' program.
 |
 +-------------- The 'xgettext' program
+
++-------------- The 'gettextpo' library
+|
+| gettext-po.h
+| gettext-po.c
+|               Public API for reading PO files.
+|
++-------------- The 'gettextpo' library

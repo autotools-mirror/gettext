@@ -1,3 +1,7 @@
+2003-09-18  Bruno Haible  <bruno@clisp.org>
+
+	* FILES: Update.
+
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
 	More reliable checking for read errors.
