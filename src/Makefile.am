@@ -1,5 +1,5 @@
 ## Makefile for program src directory in GNU NLS utilities package.
-## Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,6 +18,9 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+EXTRA_DIST =
+CLEANFILES =
+DISTCLEANFILES =
 
 RM = rm -f
 
@@ -38,8 +41,7 @@ plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
 x-elisp.h x-librep.h x-smalltalk.h x-java.h x-awk.h x-ycp.h x-tcl.h x-php.h \
 x-rst.h x-glade.h
 
-EXTRA_DIST = FILES project-id msgunfmt.tcl \
-gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
+EXTRA_DIST += FILES project-id
 
 localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
@@ -159,7 +161,7 @@ x-java.c: x-java.l
 	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
 
-DISTCLEANFILES = po-gram-gen2.h user-email
+DISTCLEANFILES += po-gram-gen2.h
 
 
 # Special rules for installation of auxiliary programs.
@@ -179,6 +181,8 @@ uninstall-local:
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
+
+DISTCLEANFILES += user-email
 
 
 # Special rules for Java compilation.
@@ -208,8 +212,10 @@ gnu/gettext/GetURL.class: $(srcdir)/gnu/gettext/GetURL.java
 gettext.jar: gnu/gettext/DumpResource.class gnu/gettext/GetURL.class
 	$(JAR) cf $@ gnu/gettext/DumpResource*.class gnu/gettext/GetURL*.class
 
-CLEANFILES = gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT) \
-             gettext.jar gnu/gettext/*.class
+EXTRA_DIST += gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
+
+CLEANFILES += gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT) \
+              gettext.jar gnu/gettext/*.class
 
 install-exec-local: install-exec-java-@BUILDJAVAEXE@
 install-exec-java-yes: all-java-yes
@@ -244,6 +250,8 @@ uninstall-java-no-no:
 
 
 # Special rules for Tcl auxiliary program.
+
+EXTRA_DIST += msgunfmt.tcl
 
 install-data-local: install-tcl
 install-tcl:

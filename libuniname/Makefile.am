@@ -1,5 +1,5 @@
 ## Makefile for libuniname directory in GNU gettext package.
-## Copyright (C) 2002 Free Software Foundation, Inc.
+## Copyright (C) 2002-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+EXTRA_DIST =
+
 
 noinst_LIBRARIES = libuniname.a
 
@@ -25,10 +27,13 @@ libuniname_a_SOURCES = uniname.h uniname.c uninames.h
 
 INCLUDES = -I.. -I../lib -I$(top_srcdir)/lib
 
+EXTRA_DIST += gen-uninames
+
+
 TESTS = test-names.sh
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) $(SHELL)
 
 noinst_PROGRAMS = test-names
 test_names_LDADD = libuniname.a ../lib/libgettextlib.la
 
-EXTRA_DIST = $(TESTS) gen-uninames UnicodeDataNames.txt
+EXTRA_DIST += $(TESTS) UnicodeDataNames.txt

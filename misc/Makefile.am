@@ -18,15 +18,42 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
+DISTCLEANFILES =
 
-EXTRA_DIST = elisp-comp gettext.perl gettext-sh tcl_gettext.c README-Tcl add-to-archive cvsuser.c archive.tar.gz $(lisp_LISP)
-DISTCLEANFILES = gettextize autopoint
-lisp_LISP = po-mode.el po-compat.el
+
+# Scripts for maintainers.
 
 bin_SCRIPTS = gettextize autopoint
+
+DISTCLEANFILES += gettextize autopoint
+
+EXTRA_DIST += add-to-archive cvsuser.c archive.tar.gz
 
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = archive.tar.gz
 
 archive.tar.gz:
 	(cd autopoint-files && tar cf - --owner=root --group=root `find archive -type f | grep -v /CVS/`) | gzip -c -9 > $@
+
+
+# Emacs Lisp code.
+
+lisp_LISP = po-mode.el po-compat.el
+
+EXTRA_DIST += elisp-comp $(lisp_LISP)
+
+
+# Old sh interface.
+
+EXTRA_DIST += gettext-sh
+
+
+# Old Tcl interface.
+
+EXTRA_DIST += tcl_gettext.c README-Tcl
+
+
+# Old Perl interface.
+
+EXTRA_DIST += gettext.perl

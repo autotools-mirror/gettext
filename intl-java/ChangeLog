@@ -1,3 +1,7 @@
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Make use of += for variables.
+
 2002-08-06  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.5 released.

@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of the GNU NLS Utilities
-## Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -22,10 +22,6 @@ ACLOCAL_AMFLAGS = -I m4
 
 MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
-gettextsrcdir = $(datadir)/gettext
-gettextsrc_DATA = ABOUT-NLS
-gettextsrc_SCRIPTS = config.rpath mkinstalldirs
-
 SUBDIRS = \
   doc intl intl-java lib @SUBDIR_libasprintf@ libuniname \
   src po projects misc man m4 tests
@@ -33,19 +29,36 @@ DIST_SUBDIRS = \
   doc intl intl-java lib libasprintf libuniname \
   src po projects misc man m4 tests
 
-EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
-             djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
-             djgpp/README.in djgpp/README djgpp/config.bat djgpp/config.in \
-             djgpp/config.sed djgpp/config.site djgpp/djpwd.h \
-             djgpp/edtests.bat djgpp/fnchange.in djgpp/fnchange.lst \
-             djgpp/getpwnam.c djgpp/msginit.sed djgpp/tscript.sed \
-             djgpp/unsetenv.c \
-             os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
+EXTRA_DIST = BUGS DISCLAIM PACKAGING README.gemtext
+
+
+# Files installed for use by gettextize.
+
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = ABOUT-NLS
+gettextsrc_SCRIPTS = config.rpath mkinstalldirs
+
+EXTRA_DIST += config.rpath
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \
 	  && $(MAKEINFO) --output=$(srcdir)/ABOUT-NLS --no-header \
 	    -I $(srcdir)/doc --no-validate nls.texi
+
+
+# DJGPP port.
+
+EXTRA_DIST += djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
+              djgpp/README.in djgpp/README djgpp/config.bat djgpp/config.in \
+              djgpp/config.sed djgpp/config.site djgpp/djpwd.h \
+              djgpp/edtests.bat djgpp/fnchange.in djgpp/fnchange.lst \
+              djgpp/getpwnam.c djgpp/msginit.sed djgpp/tscript.sed \
+              djgpp/unsetenv.c
+
+
+# OS/2 port.
+
+EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 
 # Documentation tags not known to automake.

@@ -1,5 +1,5 @@
 ## Makefile for the libasprintf subdirectory of the GNU NLS Utilities
-## Copyright (C) 2002 Free Software Foundation, Inc.
+## Copyright (C) 2002-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -20,6 +20,8 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I ../m4
+EXTRA_DIST =
+MOSTLYCLEANFILES =
 
 
 # Library include file.
@@ -43,6 +45,7 @@ lib_asprintf_EXTRASOURCES = \
   vasprintf.h vasprintf.c asprintf.c \
   liballoca.h
 lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
+EXTRA_DIST += $(lib_asprintf_EXTRASOURCES)
 
 
 # Documentation.
@@ -84,7 +87,7 @@ uninstall-dvi:
 	$(RM) $(DESTDIR)$(dvidir)/autosprintf.dvi
 
 # Temporary index files. automake doesn't remove them reliably by itself.
-MOSTLYCLEANFILES = \
+MOSTLYCLEANFILES += \
   autosprintf.am autosprintf.ams \
   autosprintf.cp autosprintf.cps \
   autosprintf.ef autosprintf.efs \
@@ -160,8 +163,7 @@ installdirs-html:
 uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html
 
-
-EXTRA_DIST = $(lib_asprintf_EXTRASOURCES) texi2html autosprintf.html
+EXTRA_DIST += texi2html autosprintf.html
 
 
 # One more automake bug.

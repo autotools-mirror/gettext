@@ -1,5 +1,5 @@
 ## Makefile for the support lib subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,6 +18,11 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+EXTRA_DIST =
+MOSTLYCLEANFILES =
+CLEANFILES =
+DISTCLEANFILES =
+SUFFIXES =
 
 RM = rm -f
 
@@ -44,7 +49,6 @@ libgettextlib_la_SOURCES = \
   javacomp.h javacomp.c \
   javaexec.h javaexec.c \
   linebreak.h linebreak.c lbrkprop.h utf8-ucs4.h utf16-ucs4.h \
-  localcharset.c \
   mbswidth.h mbswidth.c \
   minmax.h \
   obstack.h obstack.c \
@@ -111,23 +115,33 @@ gettextsrc_DATA = gettext.h
 
 noinst_HEADERS = gettext.h
 
-EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
+EXTRA_DIST += classpath.c \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
-stdbool.h.in \
 gen-lbrkprop.c 3level.h Combining.txt
 
-DEFS = -DLIBDIR=\"$(libdir)\" -DEXEEXT=\"$(EXEEXT)\" @DEFS@
+DEFS = -DEXEEXT=\"$(EXEEXT)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
 
-DISTCLEANFILES = fnmatch.h
+DISTCLEANFILES += fnmatch.h
 
 
-all-local c-ctype.lo execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo tmpdir.lo wait-process.lo xerror.lo: @STDBOOL_H@
+# >>> gnulib module stdbool.
+EXTRA_DIST += stdbool.h.in
+
+# The following is needed in order to create an <stdbool.h> when the system
+# doesn't have one that works.
+all-local $(libgettextlib_la_OBJECTS): @STDBOOL_H@
 stdbool.h: stdbool.h.in
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool.h.in > stdbool.h
-MOSTLYCLEANFILES = stdbool.h
+MOSTLYCLEANFILES += stdbool.h
+# <<< gnulib module stdbool.
 
+
+# >>> gnulib module localcharset.
+libgettextlib_la_SOURCES += localcharset.c
+EXTRA_DIST += config.charset ref-add.sin ref-del.sin
+DEFS += -DLIBDIR=\"$(libdir)\"
 
 # The following is needed in order to install a simple file in $(libdir)
 # which is shared with other installed packages. We use a list of referencing
@@ -141,7 +155,7 @@ all-local: charset.alias ref-add.sed ref-del.sed
 charset_alias = $(DESTDIR)$(libdir)/charset.alias
 charset_tmp = $(DESTDIR)$(libdir)/charset.tmp
 install-exec-local: all-local
-	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	test @GLIBC21@ != no || $(mkinstalldirs) $(DESTDIR)$(libdir)
 	if test -f $(charset_alias); then \
 	  sed -f ref-add.sed $(charset_alias) > $(charset_tmp) ; \
 	  $(INSTALL_DATA) $(charset_tmp) $(charset_alias) ; \
@@ -170,9 +184,10 @@ charset.alias: config.charset
 	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
 	mv t-$@ $@
 
-SUFFIXES = .sed .sin
+SUFFIXES += .sed .sin
 .sin.sed:
 	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $< > t-$@
 	mv t-$@ $@
 
-CLEANFILES = charset.alias ref-add.sed ref-del.sed
+CLEANFILES += charset.alias ref-add.sed ref-del.sed
+# <<< gnulib module localcharset.

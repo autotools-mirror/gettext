@@ -1,5 +1,5 @@
 ## Makefile for intl-java directory in GNU NLS utilities package.
-## Copyright (C) 2001-2002 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+EXTRA_DIST =
+CLEANFILES =
 
 RM = rm -f
 
@@ -29,8 +31,6 @@ JAR = @JAR@
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
 JAVADOC1 = test ! -d /usr/lib/jdk1.1.8 || env PATH=/usr/lib/jdk1.1.8/bin:$$PATH javadoc
 JAVADOC2 = test ! -d /usr/lib/jdk1.3.1 || env PATH=/usr/lib/jdk1.3.1/bin:$$PATH javadoc
-
-EXTRA_DIST = gnu/gettext/GettextResource.java $(JAVADOC1_FILES) $(JAVADOC2_FILES)
 
 
 all-local: all-classes all-javadoc1 all-javadoc2
@@ -51,7 +51,9 @@ gnu/gettext/GettextResource.class: $(srcdir)/gnu/gettext/GettextResource.java
 libintl.jar: gnu/gettext/GettextResource.class
 	$(JAR) cf $@ gnu/gettext/GettextResource*.class
 
-CLEANFILES = libintl.jar gnu/gettext/*.class
+EXTRA_DIST += gnu/gettext/GettextResource.java
+
+CLEANFILES += libintl.jar gnu/gettext/*.class
 
 install-classes: install-classes-@BUILDJAVA@
 install-classes-no:
@@ -95,6 +97,8 @@ JAVADOC1_FILES = \
   javadoc1/images/variables.gif \
   javadoc1/images/yellow-ball-small.gif javadoc1/images/yellow-ball.gif
 
+EXTRA_DIST += $(JAVADOC1_FILES)
+
 install-javadoc1: all-javadoc1
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1/images
@@ -136,6 +140,8 @@ JAVADOC2_FILES = \
   javadoc2/gnu/gettext/package-tree.html \
   javadoc2/gnu/gettext/package-frame.html \
   javadoc2/gnu/gettext/GettextResource.html
+
+EXTRA_DIST += $(JAVADOC1_FILES)
 
 install-javadoc2: all-javadoc2
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2

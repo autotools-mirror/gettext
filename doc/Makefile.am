@@ -1,5 +1,5 @@
 ## Makefile for the doc subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1997, 2001-2002 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ pdfdir = $(docdir)
 htmldir = $(docdir)
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+MOSTLYCLEANFILES =
 
 SED = sed
 RM = rm -f
@@ -87,7 +88,7 @@ uninstall-dvi:
 	$(RM) $(DESTDIR)$(dvidir)/gettext.dvi
 
 # Temporary index files. automake doesn't remove them reliably by itself.
-MOSTLYCLEANFILES = \
+MOSTLYCLEANFILES += \
   gettext.am gettext.ams \
   gettext.cp gettext.cps \
   gettext.ef gettext.efs \
