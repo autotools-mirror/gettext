@@ -17,6 +17,8 @@ cat <<\EOF > prog.lisp
 (format t "~A~%" (gettext "'Your command, please?', asked the waiter."))
 
 (format t "~@?~%" (ngettext "a piece of cake" "~D pieces of cake" n) n)
+
+(format t "~A~%" (format nil (gettext "~A is replaced by ~A.") "FF" "EUR"))
 EOF
 
 tmpfiles="$tmpfiles prog.pot"
@@ -33,6 +35,10 @@ msgid "a piece of cake"
 msgid_plural "~D pieces of cake"
 msgstr[0] ""
 msgstr[1] ""
+
+#, lisp-format
+msgid "~A is replaced by ~A."
+msgstr ""
 EOF
 
 : ${DIFF=diff}
@@ -54,6 +60,11 @@ msgid "a piece of cake"
 msgid_plural "~D pieces of cake"
 msgstr[0] "un morceau de gateau"
 msgstr[1] "~D morceaux de gateau"
+
+# Reverse the arguments.
+#, lisp-format
+msgid "~A is replaced by ~A."
+msgstr "~1@*~A remplace ~0@*~A."
 EOF
 
 tmpfiles="$tmpfiles fr.po.new"
@@ -75,6 +86,7 @@ tmpfiles="$tmpfiles prog.ok prog.out"
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
+EUR remplace FF.
 EOF
 
 # Test for presence of clisp version 2.28 or newer.

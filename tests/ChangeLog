@@ -1,5 +1,9 @@
 2001-12-16  Bruno Haible  <bruno@clisp.org>
 
+	* lang-clisp: Also test reversal of arguments.
+
+2001-12-16  Bruno Haible  <bruno@clisp.org>
+
 	* format-librep-1: New file.
 	* format-librep-2: New file.
 	* lang-librep: New file.
