@@ -1,12 +1,6 @@
 Things we plan to do. Comments welcome.
 
-- Merge changes from glibc CVS, but keep the copyright as GPL.
-
-- Merge iconv support.
-
 - Replace bash specific INSTALL with the generic one.
-
-- Deal with the ACLOCAL_AMFLAGS in Makefile.am differently.
 
 - Update lib/ with some files from fetish utils.
 
@@ -17,18 +11,32 @@ Things we plan to do. Comments welcome.
 - Document bash-2.04's $"..." facility and the associated 2 environment
   variables.
 
-- Document that gettext requires the LC_MESSAGES and LC_CTYPE categories
-  to be set correctly via setlocale.
+- Document that gettext requires the LC_MESSAGES category (or LANGUAGE
+  override) and LC_CTYPE category to be set correctly via setlocale.
 
 - Make sure put-ABOUT file and Admin/ directories are not distributed.
-
-- Should gettext.alias be distributed?
 
 - Update documentation for plural features and bind_textdomain_codeset.
 
 - Treatment of plurals in pot-files: Use the following pattern:
     msgid "a piece of cake" | "%d pieces of cake"
     msgstr "un morceau de gateau" | "%d morceaux de gateau" [ | more strings ]
+  or the following:
+    msgid "a piece of cake"
+    msgstr0 "un morceau de gateau"
+    msgstr1 "%d morceaux de gateau"
 
 - Work towards integration with automake.
+
+- Stop documenting AM_WITH_NLS. AM_GNU_GETTEXT is the right macro to use.
+
+- Unify intlh.inst.in and libgettext.h.
+
+- Build also libintl.so, using libtool.
+
+- Check the *.m4 macros with bleeding-edge autoconf & automake.
+
+Future:
+
+- Remove support for catgets and Solaris gettext.
 
