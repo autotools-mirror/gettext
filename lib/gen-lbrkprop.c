@@ -1,6 +1,6 @@
 /* Generate a Unicode conforming Line Break Properties tables from a
    UnicodeData file.
-   Written by Bruno Haible <haible@clisp.cons.org>, 2000-2001.
+   Written by Bruno Haible <bruno@clisp.org>, 2000-2002.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,9 +18,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* Usage example:
      $ gen-lbrkprop /usr/local/share/Unidata/UnicodeData.txt \
-		    /usr/local/share/Unidata/PropList.txt \
+		    Combining.txt \
 		    /usr/local/share/Unidata/EastAsianWidth.txt \
-		    3.0
+		    /usr/local/share/Unidata/LineBreak.txt \
+		    3.1.0
  */
 
 #include <stdio.h>
@@ -54,7 +55,7 @@ struct unicode_attribute
 #define NONE (~(unsigned int)0)
 
 /* The entire contents of the UnicodeData.txt file.  */
-struct unicode_attribute unicode_attributes [0x10000];
+struct unicode_attribute unicode_attributes [0x110000];
 
 /* Stores in unicode_attributes[i] the values from the given fields.  */
 static void
@@ -69,7 +70,7 @@ fill_attribute (unsigned int i,
 {
   struct unicode_attribute * uni;
 
-  if (i >= 0x10000)
+  if (i >= 0x110000)
     {
       fprintf (stderr, "index too large\n");
       exit (1);
@@ -151,7 +152,7 @@ fill_attributes (const char *unicodedata_filename)
   char field14[FIELDLEN];
   int lineno = 0;
 
-  for (i = 0; i < 0x10000; i++)
+  for (i = 0; i < 0x110000; i++)
     unicode_attributes[i].name = NULL;
 
   stream = fopen (unicodedata_filename, "r");
@@ -248,10 +249,10 @@ fill_attributes (const char *unicodedata_filename)
 }
 
 /* The combining property from the PropList.txt file.  */
-char unicode_combining[0x10000];
+char unicode_combining[0x110000];
 
 /* Stores in unicode_combining[] the Combining property from the
-   PropList.txt file.  */
+   Unicode 3.0 PropList.txt file.  */
 static void
 fill_combining (const char *proplist_filename)
 {
@@ -259,7 +260,7 @@ fill_combining (const char *proplist_filename)
   FILE *stream;
   char buf[100+1];
 
-  for (i = 0; i < 0x10000; i++)
+  for (i = 0; i < 0x110000; i++)
     unicode_combining[i] = 0;
 
   stream = fopen (proplist_filename, "r");
@@ -330,9 +331,9 @@ fill_combining (const char *proplist_filename)
 
 /* The width property from the EastAsianWidth.txt file.
    Each is NULL (unassigned) or "N", "A", "H", "W", "F", "Na".  */
-const char * unicode_width[0x10000];
+const char * unicode_width[0x110000];
 
-/* Stores in unicode_width[] the width property from the PropList.txt
+/* Stores in unicode_width[] the width property from the EastAsianWidth.txt
    file.  */
 static void
 fill_width (const char *width_filename)
@@ -344,7 +345,7 @@ fill_width (const char *width_filename)
   char field2[FIELDLEN];
   int lineno = 0;
 
-  for (i = 0; i < 0x10000; i++)
+  for (i = 0; i < 0x110000; i++)
     unicode_width[i] = (unicode_attributes[i].name != NULL ? "N" : NULL);
 
   stream = fopen (width_filename, "r");
@@ -370,7 +371,7 @@ fill_width (const char *width_filename)
 	}
       ungetc (c, stream);
       n = getfield (stream, field0, ';');
-      n += getfield (stream, field1, ';');
+      n += getfield (stream, field1, ' ');
       n += getfield (stream, field2, '\n');
       if (n == 0)
 	break;
@@ -380,37 +381,16 @@ fill_width (const char *width_filename)
 	  exit (1);
 	}
       i = strtoul (field0, NULL, 16);
-      if (field2[0] == '<'
-	  && strlen (field2) >= 9
-	  && !strcmp (field2 + strlen(field2) - 8, ", First>"))
+      if (strstr (field0, "..") != NULL)
 	{
-	  /* Deal with a range. */
-	  lineno++;
-	  n = getfield (stream, field0, ';');
-	  n += getfield (stream, field1, ';');
-	  n += getfield (stream, field2, '\n');
-	  if (n != 3)
-	    {
-	      fprintf (stderr, "missing end range in '%s':%d\n",
-		       width_filename, lineno);
-	      exit (1);
-	    }
-	  if (!(field2[0] == '<'
-		&& strlen (field2) >= 8
-		&& !strcmp (field2 + strlen (field2) - 7, ", Last>")))
-	    {
-	      fprintf (stderr, "missing end range in '%s':%d\n",
-		       width_filename, lineno);
-	      exit (1);
-	    }
-	  field2[strlen (field2) - 7] = '\0';
-	  j = strtoul (field0, NULL, 16);
+	  /* Deal with a range.  */
+	  j = strtoul (strstr (field0, "..") + 2, NULL, 16);
 	  for (; i <= j; i++)
 	    unicode_width[i] = strdup (field1);
 	}
       else
 	{
-	  /* Single character line */
+	  /* Single character line.  */
 	  unicode_width[i] = strdup (field1);
 	}
     }
@@ -511,8 +491,10 @@ get_lbp (unsigned int ch)
 	  || ch == 0x2009 /* THIN SPACE */
 	  || ch == 0x200A /* HAIR SPACE */
 	  || ch == 0x0009 /* tab */
-	  || ch == 0x2010 /* HYPHEN */
 	  || ch == 0x058A /* ARMENIAN HYPHEN */
+	  || ch == 0x2010 /* HYPHEN */
+	  || ch == 0x2012 /* FIGURE DASH */
+	  || ch == 0x2013 /* EN DASH */
 	  || ch == 0x00AD /* SOFT HYPHEN */
 	  || ch == 0x0F0B /* TIBETAN MARK INTERSYLLABIC TSHEG */
 	  || ch == 0x1361 /* ETHIOPIC WORDSPACE */
@@ -554,10 +536,10 @@ get_lbp (unsigned int ch)
       /* closing punctuation */
       if (ch == 0x3001 /* IDEOGRAPHIC COMMA */
 	  || ch == 0x3002 /* IDEOGRAPHIC FULL STOP */
-	  || ch == 0xFF0C /* FULLWIDTH COMMA */
-	  || ch == 0xFF0E /* FULLWIDTH FULL STOP */
 	  || ch == 0xFE50 /* SMALL COMMA */
 	  || ch == 0xFE52 /* SMALL FULL STOP */
+	  || ch == 0xFF0C /* FULLWIDTH COMMA */
+	  || ch == 0xFF0E /* FULLWIDTH FULL STOP */
 	  || ch == 0xFF61 /* HALFWIDTH IDEOGRAPHIC FULL STOP */
 	  || ch == 0xFF64 /* HALFWIDTH IDEOGRAPHIC COMMA */
 	  || (unicode_attributes[ch].category[0] == 'P'
@@ -595,13 +577,13 @@ get_lbp (unsigned int ch)
 	  || ch == 0x17DA /* KHMER SIGN KOOMUUT */
 	  || ch == 0x203C /* DOUBLE EXCLAMATION MARK */
 	  || ch == 0x2044 /* FRACTION SLASH */
-	  || ch == 0x301C /* WAVE DASH */
-	  || ch == 0x30FB /* KATAKANA MIDDLE DOT */
 	  || ch == 0x3005 /* IDEOGRAPHIC ITERATION MARK */
+	  || ch == 0x301C /* WAVE DASH */
 	  || ch == 0x309B /* KATAKANA-HIRAGANA VOICED SOUND MARK */
 	  || ch == 0x309C /* KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK */
 	  || ch == 0x309D /* HIRAGANA ITERATION MARK */
 	  || ch == 0x309E /* HIRAGANA VOICED ITERATION MARK */
+	  || ch == 0x30FB /* KATAKANA MIDDLE DOT */
 	  || ch == 0x30FD /* KATAKANA ITERATION MARK */
 	  || ch == 0xFE54 /* SMALL SEMICOLON */
 	  || ch == 0xFE55 /* SMALL COLON */
@@ -609,6 +591,8 @@ get_lbp (unsigned int ch)
 	  || ch == 0xFF1B /* FULLWIDTH SEMICOLON */
 	  || ch == 0xFF65 /* HALFWIDTH KATAKANA MIDDLE DOT */
 	  || ch == 0xFF70 /* HALFWIDTH KATAKANA-HIRAGANA PROLONGED SOUND MARK */
+	  || ch == 0xFF9E /* HALFWIDTH KATAKANA VOICED SOUND MARK */
+	  || ch == 0xFF9F /* HALFWIDTH KATAKANA SEMI-VOICED SOUND MARK */
 	  || (unicode_attributes[ch].category[0] == 'L'
 	      && unicode_attributes[ch].category[1] == 'm'
 	      && (unicode_width[ch][0] == 'W'
@@ -648,6 +632,8 @@ get_lbp (unsigned int ch)
 	  || ch == 0x2033 /* DOUBLE PRIME */
 	  || ch == 0x2034 /* TRIPLE PRIME */
 	  || ch == 0x2035 /* REVERSED PRIME */
+	  || ch == 0x2036 /* REVERSED DOUBLE PRIME */
+	  || ch == 0x2037 /* REVERSED TRIPLE PRIME */
 	  || ch == 0x20A7 /* PESETA SIGN */
 	  || ch == 0x2103 /* DEGREE CELSIUS */
 	  || ch == 0x2109 /* DEGREE FAHRENHEIT */
@@ -661,8 +647,8 @@ get_lbp (unsigned int ch)
       if (ch == 0x002B /* PLUS SIGN */
 	  || ch == 0x005C /* REVERSE SOLIDUS */
 	  || ch == 0x00B1 /* PLUS-MINUS SIGN */
-	  || ch == 0x2212 /* MINUS SIGN */
 	  || ch == 0x2116 /* NUMERO SIGN */
+	  || ch == 0x2212 /* MINUS SIGN */
 	  || ch == 0x2213 /* MINUS-OR-PLUS SIGN */
 	  || (unicode_attributes[ch].category[0] == 'S'
 	      && unicode_attributes[ch].category[1] == 'c'))
@@ -670,32 +656,78 @@ get_lbp (unsigned int ch)
 	  attr |= 1 << LBP_PR;
 
       /* complex context (South East Asian) */
-      if ((ch >= 0x0E00 && ch <= 0x0EFF)
-	  || (ch >= 0x1000 && ch <= 0x109F)
-	  || (ch >= 0x1780 && ch <= 0x17FF))
+      if (((ch >= 0x0E00 && ch <= 0x0EFF)
+	   || (ch >= 0x1000 && ch <= 0x109F)
+	   || (ch >= 0x1780 && ch <= 0x17FF))
+	  && unicode_attributes[ch].category[0] == 'L'
+	  && (unicode_attributes[ch].category[1] == 'm'
+	      || unicode_attributes[ch].category[1] == 'o'))
 	if (!(attr & ((1 << LBP_CM) | (1 << LBP_NS) | (1 << LBP_NU) | (1 << LBP_BA) | (1 << LBP_PR))))
 	  attr |= 1 << LBP_SA;
 
       /* ideographic */
-      if ((ch >= 0x4E00 && ch <= 0x9FAF) /* CJK Ideograph */
-	  || (ch >= 0x3400 && ch <= 0x4DBF) /* CJK Ideograph Extension A */
-	  || (ch >= 0xF900 && ch <= 0xFAFF) /* CJK COMPATIBILITY IDEOGRAPH */
-	  || ch == 0x3000 /* IDEOGRAPHIC SPACE */
-	  || (ch >= 0xAC00 && ch <= 0xD7AF) /* HANGUL SYLLABLE */
-	  || (ch >= 0x3130 && ch <= 0x318F) /* HANGUL LETTER */
-	  || (ch >= 0x1100 && ch <= 0x115F) /* HANGUL CHOSEONG */
-	  || (ch >= 0xA000 && ch <= 0xA48C) /* YI SYLLABLE */
-	  || (ch >= 0xA490 && ch <= 0xACFF) /* YI RADICAL */
+      if ((ch >= 0x1100 && ch <= 0x115F) /* HANGUL CHOSEONG */
 	  || (ch >= 0x2E80 && ch <= 0x2FFF) /* CJK RADICAL, KANGXI RADICAL, IDEOGRAPHIC DESCRIPTION */
+	  || ch == 0x3000 /* IDEOGRAPHIC SPACE */
+	  || (ch >= 0x3130 && ch <= 0x318F) /* HANGUL LETTER */
+	  || (ch >= 0x3400 && ch <= 0x4DBF) /* CJK Ideograph Extension A */
+	  || (ch >= 0x4E00 && ch <= 0x9FAF) /* CJK Ideograph */
+	  || (ch >= 0xF900 && ch <= 0xFAFF) /* CJK COMPATIBILITY IDEOGRAPH */
+	  || (ch >= 0xAC00 && ch <= 0xD7AF) /* HANGUL SYLLABLE */
+	  || (ch >= 0xA000 && ch <= 0xA48C) /* YI SYLLABLE */
+	  || (ch >= 0xA490 && ch <= 0xA4C6) /* YI RADICAL */
 	  || ch == 0xFE62 /* SMALL PLUS SIGN */
 	  || ch == 0xFE63 /* SMALL HYPHEN-MINUS */
 	  || ch == 0xFE64 /* SMALL LESS-THAN SIGN */
 	  || ch == 0xFE65 /* SMALL GREATER-THAN SIGN */
 	  || ch == 0xFE66 /* SMALL EQUALS SIGN */
 	  || (ch >= 0xFF10 && ch <= 0xFF19) /* FULLWIDTH DIGIT */
+	  || (ch >= 0x20000 && ch <= 0x2A6D6) /* CJK Ideograph Extension B */
+	  || (ch >= 0x2F800 && ch <= 0x2FA1D) /* CJK COMPATIBILITY IDEOGRAPH */
 	  || strstr (unicode_attributes[ch].name, "FULLWIDTH LATIN ") != NULL
 	  || (ch >= 0x3000 && ch <= 0x33FF
-	      && !(attr & ((1 << LBP_CM) | (1 << LBP_NS) | (1 << LBP_OP) | (1 << LBP_CL)))))
+	      && !(attr & ((1 << LBP_CM) | (1 << LBP_NS) | (1 << LBP_OP) | (1 << LBP_CL))))
+	  /* Extra characters for compatibility with Unicode LineBreak.txt.  */
+	  || ch == 0xFE30 /* PRESENTATION FORM FOR VERTICAL TWO DOT LEADER */
+	  || ch == 0xFE31 /* PRESENTATION FORM FOR VERTICAL EM DASH */
+	  || ch == 0xFE32 /* PRESENTATION FORM FOR VERTICAL EN DASH */
+	  || ch == 0xFE33 /* PRESENTATION FORM FOR VERTICAL LOW LINE */
+	  || ch == 0xFE34 /* PRESENTATION FORM FOR VERTICAL WAVY LOW LINE */
+	  || ch == 0xFE49 /* DASHED OVERLINE */
+	  || ch == 0xFE4A /* CENTRELINE OVERLINE */
+	  || ch == 0xFE4B /* WAVY OVERLINE */
+	  || ch == 0xFE4C /* DOUBLE WAVY OVERLINE */
+	  || ch == 0xFE4D /* DASHED LOW LINE */
+	  || ch == 0xFE4E /* CENTRELINE LOW LINE */
+	  || ch == 0xFE4F /* WAVY LOW LINE */
+	  || ch == 0xFE51 /* SMALL IDEOGRAPHIC COMMA */
+	  || ch == 0xFE58 /* SMALL EM DASH */
+	  || ch == 0xFE5F /* SMALL NUMBER SIGN */
+	  || ch == 0xFE60 /* SMALL AMPERSAND */
+	  || ch == 0xFE61 /* SMALL ASTERISK */
+	  || ch == 0xFE68 /* SMALL REVERSE SOLIDUS */
+	  || ch == 0xFE6B /* SMALL COMMERCIAL AT */
+	  || ch == 0xFF02 /* FULLWIDTH QUOTATION MARK */
+	  || ch == 0xFF03 /* FULLWIDTH NUMBER SIGN */
+	  || ch == 0xFF06 /* FULLWIDTH AMPERSAND */
+	  || ch == 0xFF07 /* FULLWIDTH APOSTROPHE */
+	  || ch == 0xFF0A /* FULLWIDTH ASTERISK */
+	  || ch == 0xFF0B /* FULLWIDTH PLUS SIGN */
+	  || ch == 0xFF0D /* FULLWIDTH HYPHEN-MINUS */
+	  || ch == 0xFF0F /* FULLWIDTH SOLIDUS */
+	  || ch == 0xFF1C /* FULLWIDTH LESS-THAN SIGN */
+	  || ch == 0xFF1D /* FULLWIDTH EQUALS SIGN */
+	  || ch == 0xFF1E /* FULLWIDTH GREATER-THAN SIGN */
+	  || ch == 0xFF20 /* FULLWIDTH COMMERCIAL AT */
+	  || ch == 0xFF3C /* FULLWIDTH REVERSE SOLIDUS */
+	  || ch == 0xFF3E /* FULLWIDTH CIRCUMFLEX ACCENT */
+	  || ch == 0xFF3F /* FULLWIDTH LOW LINE */
+	  || ch == 0xFF40 /* FULLWIDTH GRAVE ACCENT */
+	  || ch == 0xFF5C /* FULLWIDTH VERTICAL LINE */
+	  || ch == 0xFF5E /* FULLWIDTH TILDE */
+	  || ch == 0xFFE2 /* FULLWIDTH NOT SIGN */
+	  || ch == 0xFFE3 /* FULLWIDTH MACRON */
+	  || ch == 0xFFE4) /* FULLWIDTH BROKEN BAR */
 	{
 	  /* ambiguous (ideograph) ? */
 	  if (unicode_width[ch] != NULL
@@ -716,7 +748,191 @@ get_lbp (unsigned int ch)
 	      && (unicode_attributes[ch].category[1] == 'm'
 		  || unicode_attributes[ch].category[1] == 'c'
 		  || unicode_attributes[ch].category[1] == 'k'
-		  || unicode_attributes[ch].category[1] == 'o')))
+		  || unicode_attributes[ch].category[1] == 'o'))
+	  /* Extra characters for compatibility with Unicode LineBreak.txt.  */
+	  || ch == 0x0023 /* NUMBER SIGN */
+	  || ch == 0x0026 /* AMPERSAND */
+	  || ch == 0x002A /* ASTERISK */
+	  || ch == 0x0040 /* COMMERCIAL AT */
+	  || ch == 0x005F /* LOW LINE */
+	  || ch == 0x00A1 /* INVERTED EXCLAMATION MARK */
+	  || ch == 0x00B2 /* SUPERSCRIPT TWO */
+	  || ch == 0x00B3 /* SUPERSCRIPT THREE */
+	  || ch == 0x00B7 /* MIDDLE DOT */
+	  || ch == 0x00B9 /* SUPERSCRIPT ONE */
+	  || ch == 0x00BC /* VULGAR FRACTION ONE QUARTER */
+	  || ch == 0x00BD /* VULGAR FRACTION ONE HALF */
+	  || ch == 0x00BE /* VULGAR FRACTION THREE QUARTERS */
+	  || ch == 0x00BF /* INVERTED QUESTION MARK */
+	  || ch == 0x037E /* GREEK QUESTION MARK */
+	  || ch == 0x0387 /* GREEK ANO TELEIA */
+	  || ch == 0x055A /* ARMENIAN APOSTROPHE */
+	  || ch == 0x055B /* ARMENIAN EMPHASIS MARK */
+	  || ch == 0x055C /* ARMENIAN EXCLAMATION MARK */
+	  || ch == 0x055D /* ARMENIAN COMMA */
+	  || ch == 0x055E /* ARMENIAN QUESTION MARK */
+	  || ch == 0x055F /* ARMENIAN ABBREVIATION MARK */
+	  || ch == 0x05BE /* HEBREW PUNCTUATION MAQAF */
+	  || ch == 0x05C0 /* HEBREW PUNCTUATION PASEQ */
+	  || ch == 0x05C3 /* HEBREW PUNCTUATION SOF PASUQ */
+	  || ch == 0x05F3 /* HEBREW PUNCTUATION GERESH */
+	  || ch == 0x05F4 /* HEBREW PUNCTUATION GERSHAYIM */
+	  || ch == 0x060C /* ARABIC COMMA */
+	  || ch == 0x061B /* ARABIC SEMICOLON */
+	  || ch == 0x061F /* ARABIC QUESTION MARK */
+	  || ch == 0x066A /* ARABIC PERCENT SIGN */
+	  || ch == 0x066B /* ARABIC DECIMAL SEPARATOR */
+	  || ch == 0x066C /* ARABIC THOUSANDS SEPARATOR */
+	  || ch == 0x066D /* ARABIC FIVE POINTED STAR */
+	  || ch == 0x06D4 /* ARABIC FULL STOP */
+	  || ch == 0x0700 /* SYRIAC END OF PARAGRAPH */
+	  || ch == 0x0701 /* SYRIAC SUPRALINEAR FULL STOP */
+	  || ch == 0x0702 /* SYRIAC SUBLINEAR FULL STOP */
+	  || ch == 0x0703 /* SYRIAC SUPRALINEAR COLON */
+	  || ch == 0x0704 /* SYRIAC SUBLINEAR COLON */
+	  || ch == 0x0705 /* SYRIAC HORIZONTAL COLON */
+	  || ch == 0x0706 /* SYRIAC COLON SKEWED LEFT */
+	  || ch == 0x0707 /* SYRIAC COLON SKEWED RIGHT */
+	  || ch == 0x0708 /* SYRIAC SUPRALINEAR COLON SKEWED LEFT */
+	  || ch == 0x0709 /* SYRIAC SUBLINEAR COLON SKEWED RIGHT */
+	  || ch == 0x070A /* SYRIAC CONTRACTION */
+	  || ch == 0x070B /* SYRIAC HARKLEAN OBELUS */
+	  || ch == 0x070C /* SYRIAC HARKLEAN METOBELUS */
+	  || ch == 0x070D /* SYRIAC HARKLEAN ASTERISCUS */
+	  || ch == 0x0964 /* DEVANAGARI DANDA */
+	  || ch == 0x0965 /* DEVANAGARI DOUBLE DANDA */
+	  || ch == 0x0970 /* DEVANAGARI ABBREVIATION SIGN */
+	  || ch == 0x09F4 /* BENGALI CURRENCY NUMERATOR ONE */
+	  || ch == 0x09F5 /* BENGALI CURRENCY NUMERATOR TWO */
+	  || ch == 0x09F6 /* BENGALI CURRENCY NUMERATOR THREE */
+	  || ch == 0x09F7 /* BENGALI CURRENCY NUMERATOR FOUR */
+	  || ch == 0x09F8 /* BENGALI CURRENCY NUMERATOR ONE LESS THAN THE DENOMINATOR */
+	  || ch == 0x09F9 /* BENGALI CURRENCY DENOMINATOR SIXTEEN */
+	  || ch == 0x0BF0 /* TAMIL NUMBER TEN */
+	  || ch == 0x0BF1 /* TAMIL NUMBER ONE HUNDRED */
+	  || ch == 0x0BF2 /* TAMIL NUMBER ONE THOUSAND */
+	  || ch == 0x0DF4 /* SINHALA PUNCTUATION KUNDDALIYA */
+	  || ch == 0x0E4F /* THAI CHARACTER FONGMAN */
+	  || ch == 0x0F04 /* TIBETAN MARK INITIAL YIG MGO MDUN MA */
+	  || ch == 0x0F05 /* TIBETAN MARK CLOSING YIG MGO SGAB MA */
+	  || ch == 0x0F06 /* TIBETAN MARK CARET YIG MGO PHUR SHAD MA */
+	  || ch == 0x0F07 /* TIBETAN MARK YIG MGO TSHEG SHAD MA */
+	  || ch == 0x0F08 /* TIBETAN MARK SBRUL SHAD */
+	  || ch == 0x0F09 /* TIBETAN MARK BSKUR YIG MGO */
+	  || ch == 0x0F0A /* TIBETAN MARK BKA- SHOG YIG MGO */
+	  || ch == 0x0F0D /* TIBETAN MARK SHAD */
+	  || ch == 0x0F0E /* TIBETAN MARK NYIS SHAD */
+	  || ch == 0x0F0F /* TIBETAN MARK TSHEG SHAD */
+	  || ch == 0x0F10 /* TIBETAN MARK NYIS TSHEG SHAD */
+	  || ch == 0x0F11 /* TIBETAN MARK RIN CHEN SPUNGS SHAD */
+	  || ch == 0x0F12 /* TIBETAN MARK RGYA GRAM SHAD */
+	  || ch == 0x0F2A /* TIBETAN DIGIT HALF ONE */
+	  || ch == 0x0F2B /* TIBETAN DIGIT HALF TWO */
+	  || ch == 0x0F2C /* TIBETAN DIGIT HALF THREE */
+	  || ch == 0x0F2D /* TIBETAN DIGIT HALF FOUR */
+	  || ch == 0x0F2E /* TIBETAN DIGIT HALF FIVE */
+	  || ch == 0x0F2F /* TIBETAN DIGIT HALF SIX */
+	  || ch == 0x0F30 /* TIBETAN DIGIT HALF SEVEN */
+	  || ch == 0x0F31 /* TIBETAN DIGIT HALF EIGHT */
+	  || ch == 0x0F32 /* TIBETAN DIGIT HALF NINE */
+	  || ch == 0x0F33 /* TIBETAN DIGIT HALF ZERO */
+	  || ch == 0x0F85 /* TIBETAN MARK PALUTA */
+	  || ch == 0x104A /* MYANMAR SIGN LITTLE SECTION */
+	  || ch == 0x104B /* MYANMAR SIGN SECTION */
+	  || ch == 0x104C /* MYANMAR SYMBOL LOCATIVE */
+	  || ch == 0x104D /* MYANMAR SYMBOL COMPLETED */
+	  || ch == 0x104E /* MYANMAR SYMBOL AFOREMENTIONED */
+	  || ch == 0x104F /* MYANMAR SYMBOL GENITIVE */
+	  || ch == 0x10FB /* GEORGIAN PARAGRAPH SEPARATOR */
+	  || ch == 0x1362 /* ETHIOPIC FULL STOP */
+	  || ch == 0x1363 /* ETHIOPIC COMMA */
+	  || ch == 0x1364 /* ETHIOPIC SEMICOLON */
+	  || ch == 0x1365 /* ETHIOPIC COLON */
+	  || ch == 0x1366 /* ETHIOPIC PREFACE COLON */
+	  || ch == 0x1367 /* ETHIOPIC QUESTION MARK */
+	  || ch == 0x1368 /* ETHIOPIC PARAGRAPH SEPARATOR */
+	  || ch == 0x1372 /* ETHIOPIC NUMBER TEN */
+	  || ch == 0x1373 /* ETHIOPIC NUMBER TWENTY */
+	  || ch == 0x1374 /* ETHIOPIC NUMBER THIRTY */
+	  || ch == 0x1375 /* ETHIOPIC NUMBER FORTY */
+	  || ch == 0x1376 /* ETHIOPIC NUMBER FIFTY */
+	  || ch == 0x1377 /* ETHIOPIC NUMBER SIXTY */
+	  || ch == 0x1378 /* ETHIOPIC NUMBER SEVENTY */
+	  || ch == 0x1379 /* ETHIOPIC NUMBER EIGHTY */
+	  || ch == 0x137A /* ETHIOPIC NUMBER NINETY */
+	  || ch == 0x137B /* ETHIOPIC NUMBER HUNDRED */
+	  || ch == 0x137C /* ETHIOPIC NUMBER TEN THOUSAND */
+	  || ch == 0x166D /* CANADIAN SYLLABICS CHI SIGN */
+	  || ch == 0x166E /* CANADIAN SYLLABICS FULL STOP */
+	  || ch == 0x16EB /* RUNIC SINGLE PUNCTUATION */
+	  || ch == 0x16EC /* RUNIC MULTIPLE PUNCTUATION */
+	  || ch == 0x16ED /* RUNIC CROSS PUNCTUATION */
+	  || ch == 0x16EE /* RUNIC ARLAUG SYMBOL */
+	  || ch == 0x16EF /* RUNIC TVIMADUR SYMBOL */
+	  || ch == 0x16F0 /* RUNIC BELGTHOR SYMBOL */
+	  || ch == 0x17DC /* KHMER SIGN AVAKRAHASANYA */
+	  || ch == 0x1800 /* MONGOLIAN BIRGA */
+	  || ch == 0x1801 /* MONGOLIAN ELLIPSIS */
+	  || ch == 0x1802 /* MONGOLIAN COMMA */
+	  || ch == 0x1803 /* MONGOLIAN FULL STOP */
+	  || ch == 0x1804 /* MONGOLIAN COLON */
+	  || ch == 0x1805 /* MONGOLIAN FOUR DOTS */
+	  || ch == 0x1807 /* MONGOLIAN SIBE SYLLABLE BOUNDARY MARKER */
+	  || ch == 0x1808 /* MONGOLIAN MANCHU COMMA */
+	  || ch == 0x1809 /* MONGOLIAN MANCHU FULL STOP */
+	  || ch == 0x180A /* MONGOLIAN NIRUGU */
+	  || ch == 0x2015 /* HORIZONTAL BAR */
+	  || ch == 0x2016 /* DOUBLE VERTICAL LINE */
+	  || ch == 0x2017 /* DOUBLE LOW LINE */
+	  || ch == 0x2020 /* DAGGER */
+	  || ch == 0x2021 /* DOUBLE DAGGER */
+	  || ch == 0x2022 /* BULLET */
+	  || ch == 0x2023 /* TRIANGULAR BULLET */
+	  || ch == 0x2038 /* CARET */
+	  || ch == 0x203B /* REFERENCE MARK */
+	  || ch == 0x203D /* INTERROBANG */
+	  || ch == 0x203E /* OVERLINE */
+	  || ch == 0x203F /* UNDERTIE */
+	  || ch == 0x2040 /* CHARACTER TIE */
+	  || ch == 0x2041 /* CARET INSERTION POINT */
+	  || ch == 0x2042 /* ASTERISM */
+	  || ch == 0x2043 /* HYPHEN BULLET */
+	  || ch == 0x2048 /* QUESTION EXCLAMATION MARK */
+	  || ch == 0x2049 /* EXCLAMATION QUESTION MARK */
+	  || ch == 0x204A /* TIRONIAN SIGN ET */
+	  || ch == 0x204B /* REVERSED PILCROW SIGN */
+	  || ch == 0x204C /* BLACK LEFTWARDS BULLET */
+	  || ch == 0x204D /* BLACK RIGHTWARDS BULLET */
+	  || ch == 0x2070 /* SUPERSCRIPT ZERO */
+	  || ch == 0x2074 /* SUPERSCRIPT FOUR */
+	  || ch == 0x2075 /* SUPERSCRIPT FIVE */
+	  || ch == 0x2076 /* SUPERSCRIPT SIX */
+	  || ch == 0x2077 /* SUPERSCRIPT SEVEN */
+	  || ch == 0x2078 /* SUPERSCRIPT EIGHT */
+	  || ch == 0x2079 /* SUPERSCRIPT NINE */
+	  || ch == 0x2080 /* SUBSCRIPT ZERO */
+	  || ch == 0x2081 /* SUBSCRIPT ONE */
+	  || ch == 0x2082 /* SUBSCRIPT TWO */
+	  || ch == 0x2083 /* SUBSCRIPT THREE */
+	  || ch == 0x2084 /* SUBSCRIPT FOUR */
+	  || ch == 0x2085 /* SUBSCRIPT FIVE */
+	  || ch == 0x2086 /* SUBSCRIPT SIX */
+	  || ch == 0x2087 /* SUBSCRIPT SEVEN */
+	  || ch == 0x2088 /* SUBSCRIPT EIGHT */
+	  || ch == 0x2089 /* SUBSCRIPT NINE */
+	  || (ch >= 0x2153 && ch <= 0x215E) /* VULGAR FRACTION */
+	  || ch == 0x215F /* FRACTION NUMERATOR ONE */
+	  || (ch >= 0x2160 && ch <= 0x2183) /* ROMAN NUMERAL */
+	  || (ch >= 0x2460 && ch <= 0x2473) /* CIRCLED NUMBER */
+	  || (ch >= 0x2474 && ch <= 0x2487) /* PARENTHESIZED NUMBER */
+	  || (ch >= 0x2488 && ch <= 0x249B) /* NUMBER FULL STOP */
+	  || ch == 0x24EA /* CIRCLED DIGIT ZERO */
+	  || (ch >= 0x2776 && ch <= 0x2793) /* DINGBAT CIRCLED DIGIT */
+	  || ch == 0x10320 /* OLD ITALIC NUMERAL ONE */
+	  || ch == 0x10321 /* OLD ITALIC NUMERAL FIVE */
+	  || ch == 0x10322 /* OLD ITALIC NUMERAL TEN */
+	  || ch == 0x10323 /* OLD ITALIC NUMERAL FIFTY */
+	  || ch == 0x1034A) /* GOTHIC LETTER NINE HUNDRED */
 	if (!(attr & ((1 << LBP_CM) | (1 << LBP_NS) | (1 << LBP_ID) | (1 << LBP_BA) | (1 << LBP_BB) | (1 << LBP_PO) | (1 << LBP_PR) | (1 << LBP_SA) | (1 << LBP_CB))))
 	  {
 	    /* ambiguous (alphabetic) ? */
@@ -741,14 +957,14 @@ debug_output_lbp (FILE *stream)
 {
   unsigned int i;
 
-  for (i = 0; i < 0x10000; i++)
+  for (i = 0; i < 0x110000; i++)
     {
       int attr = get_lbp (i);
       if (attr != 1 << LBP_XX)
 	{
 	  fprintf (stream, "0x%04X", i);
 #define PRINT_BIT(attr,bit) \
-  if (attr & (1 << bit)) fprintf (stream, " " ## #bit);
+  if (attr & (1 << bit)) fprintf (stream, " " #bit);
 	  PRINT_BIT(attr,LBP_BK);
 	  PRINT_BIT(attr,LBP_CM);
 	  PRINT_BIT(attr,LBP_ZW);
@@ -781,6 +997,205 @@ debug_output_lbp (FILE *stream)
     }
 }
 
+static void
+debug_output_tables (const char *filename)
+{
+  FILE *stream;
+
+  stream = fopen (filename, "w");
+  if (stream == NULL)
+    {
+      fprintf (stderr, "cannot open '%s' for writing\n", filename);
+      exit (1);
+    }
+
+  debug_output_lbp (stream);
+
+  if (ferror (stream) || fclose (stream))
+    {
+      fprintf (stderr, "error writing to '%s'\n", filename);
+      exit (1);
+    }
+}
+
+/* The line breaking property from the LineBreak.txt file.  */
+int unicode_org_lbp[0x110000];
+
+/* Stores in unicode_org_lbp[] the line breaking property from the
+   LineBreak.txt file.  */
+static void
+fill_org_lbp (const char *linebreak_filename)
+{
+  unsigned int i, j;
+  FILE *stream;
+  char field0[FIELDLEN];
+  char field1[FIELDLEN];
+  char field2[FIELDLEN];
+  int lineno = 0;
+
+  for (i = 0; i < 0x110000; i++)
+    unicode_org_lbp[i] = LBP_XX;
+
+  stream = fopen (linebreak_filename, "r");
+  if (stream == NULL)
+    {
+      fprintf (stderr, "error during fopen of '%s'\n", linebreak_filename);
+      exit (1);
+    }
+
+  for (;;)
+    {
+      int n;
+      int c;
+      int value;
+
+      lineno++;
+      c = getc (stream);
+      if (c == EOF)
+	break;
+      if (c == '#')
+	{
+	  do c = getc (stream); while (c != EOF && c != '\n');
+	  continue;
+	}
+      ungetc (c, stream);
+      n = getfield (stream, field0, ';');
+      n += getfield (stream, field1, ' ');
+      n += getfield (stream, field2, '\n');
+      if (n == 0)
+	break;
+      if (n != 3)
+	{
+	  fprintf (stderr, "short line in '%s':%d\n", linebreak_filename,
+		   lineno);
+	  exit (1);
+	}
+#define TRY(bit) else if (strcmp (field1, #bit + 4) == 0) value = bit;
+      if (false) {}
+      TRY(LBP_BK)
+      TRY(LBP_CM)
+      TRY(LBP_ZW)
+      TRY(LBP_IN)
+      TRY(LBP_GL)
+      TRY(LBP_CB)
+      TRY(LBP_SP)
+      TRY(LBP_BA)
+      TRY(LBP_BB)
+      TRY(LBP_B2)
+      TRY(LBP_HY)
+      TRY(LBP_NS)
+      TRY(LBP_OP)
+      TRY(LBP_CL)
+      TRY(LBP_QU)
+      TRY(LBP_EX)
+      TRY(LBP_ID)
+      TRY(LBP_NU)
+      TRY(LBP_IS)
+      TRY(LBP_SY)
+      TRY(LBP_AL)
+      TRY(LBP_PR)
+      TRY(LBP_PO)
+      TRY(LBP_SA)
+      TRY(LBP_XX)
+      TRY(LBP_AI)
+#undef TRY
+      else if (strcmp (field1, "LF") == 0) value = LBP_BK;
+      else if (strcmp (field1, "CR") == 0) value = LBP_BK;
+      else if (strcmp (field1, "SG") == 0) value = LBP_XX;
+      else
+	{
+	  fprintf (stderr, "unknown property value \"%s\" in '%s':%d\n",
+		   field1, linebreak_filename, lineno);
+	  exit (1);
+	}
+      i = strtoul (field0, NULL, 16);
+      if (strstr (field0, "..") != NULL)
+	{
+	  /* Deal with a range.  */
+	  j = strtoul (strstr (field0, "..") + 2, NULL, 16);
+	  for (; i <= j; i++)
+	    unicode_org_lbp[i] = value;
+	}
+      else
+	{
+	  /* Single character line.  */
+	  unicode_org_lbp[i] = value;
+	}
+    }
+  if (ferror (stream) || fclose (stream))
+    {
+      fprintf (stderr, "error reading from '%s'\n", linebreak_filename);
+      exit (1);
+    }
+}
+
+/* Output the line breaking properties in a human readable format.  */
+static void
+debug_output_org_lbp (FILE *stream)
+{
+  unsigned int i;
+
+  for (i = 0; i < 0x110000; i++)
+    {
+      int attr = unicode_org_lbp[i];
+      if (attr != LBP_XX)
+	{
+	  fprintf (stream, "0x%04X", i);
+#define PRINT_BIT(attr,bit) \
+  if (attr == bit) fprintf (stream, " " #bit);
+	  PRINT_BIT(attr,LBP_BK);
+	  PRINT_BIT(attr,LBP_CM);
+	  PRINT_BIT(attr,LBP_ZW);
+	  PRINT_BIT(attr,LBP_IN);
+	  PRINT_BIT(attr,LBP_GL);
+	  PRINT_BIT(attr,LBP_CB);
+	  PRINT_BIT(attr,LBP_SP);
+	  PRINT_BIT(attr,LBP_BA);
+	  PRINT_BIT(attr,LBP_BB);
+	  PRINT_BIT(attr,LBP_B2);
+	  PRINT_BIT(attr,LBP_HY);
+	  PRINT_BIT(attr,LBP_NS);
+	  PRINT_BIT(attr,LBP_OP);
+	  PRINT_BIT(attr,LBP_CL);
+	  PRINT_BIT(attr,LBP_QU);
+	  PRINT_BIT(attr,LBP_EX);
+	  PRINT_BIT(attr,LBP_ID);
+	  PRINT_BIT(attr,LBP_NU);
+	  PRINT_BIT(attr,LBP_IS);
+	  PRINT_BIT(attr,LBP_SY);
+	  PRINT_BIT(attr,LBP_AL);
+	  PRINT_BIT(attr,LBP_PR);
+	  PRINT_BIT(attr,LBP_PO);
+	  PRINT_BIT(attr,LBP_SA);
+	  PRINT_BIT(attr,LBP_XX);
+	  PRINT_BIT(attr,LBP_AI);
+#undef PRINT_BIT
+	  fprintf (stream, "\n");
+	}
+    }
+}
+
+static void
+debug_output_org_tables (const char *filename)
+{
+  FILE *stream;
+
+  stream = fopen (filename, "w");
+  if (stream == NULL)
+    {
+      fprintf (stderr, "cannot open '%s' for writing\n", filename);
+      exit (1);
+    }
+
+  debug_output_org_lbp (stream);
+
+  if (ferror (stream) || fclose (stream))
+    {
+      fprintf (stderr, "error writing to '%s'\n", filename);
+      exit (1);
+    }
+}
+
 /* Construction of sparse 3-level tables.  */
 #define TABLE lbp_table
 #define ELEMENT unsigned char
@@ -800,7 +1215,7 @@ output_lbp (FILE *stream)
   t.q = 9;
   lbp_table_init (&t);
 
-  for (i = 0; i < 0x10000; i++)
+  for (i = 0; i < 0x110000; i++)
     {
       int attr = get_lbp (i);
 
@@ -841,21 +1256,29 @@ output_lbp (FILE *stream)
   fprintf (stream, "  }\n");
   fprintf (stream, "lbrkprop =\n");
   fprintf (stream, "{\n");
-  fprintf (stream, "  { ");
+  fprintf (stream, "  {");
   for (i = 0; i < t.level1_size; i++)
-    fprintf (stream, "%d%s ",
-	     (((uint32_t *) (t.result + level1_offset))[i] - level2_offset) / sizeof (uint32_t),
-	     (i+1 < t.level1_size ? "," : ""));
-  fprintf (stream, "},\n");
+    {
+      uint32_t offset;
+      if (i > 0 && (i % 8) == 0)
+	fprintf (stream, "\n   ");
+      offset = ((uint32_t *) (t.result + level1_offset))[i];
+      fprintf (stream, " %5d%s",
+	       offset == 0 ? -1 : (offset - level2_offset) / sizeof (uint32_t),
+	       (i+1 < t.level1_size ? "," : ""));
+    }
+  fprintf (stream, " },\n");
   fprintf (stream, "  {");
   if (t.level2_size << t.q > 8)
     fprintf (stream, "\n   ");
   for (i = 0; i < t.level2_size << t.q; i++)
     {
+      uint32_t offset;
       if (i > 0 && (i % 8) == 0)
 	fprintf (stream, "\n   ");
+      offset = ((uint32_t *) (t.result + level2_offset))[i];
       fprintf (stream, " %5d%s",
-	       (((uint32_t *) (t.result + level2_offset))[i] - level3_offset) / sizeof (uint8_t),
+	       offset == 0 ? -1 : (offset - level3_offset) / sizeof (uint8_t),
 	       (i+1 < t.level2_size << t.q ? "," : ""));
     }
   if (t.level2_size << t.q > 8)
@@ -913,27 +1336,6 @@ output_lbp (FILE *stream)
 }
 
 static void
-debug_output_tables (const char *filename)
-{
-  FILE *stream;
-
-  stream = fopen (filename, "w");
-  if (stream == NULL)
-    {
-      fprintf (stderr, "cannot open '%s' for writing\n", filename);
-      exit (1);
-    }
-
-  debug_output_lbp (stream);
-
-  if (ferror (stream) || fclose (stream))
-    {
-      fprintf (stderr, "error writing to '%s'\n", filename);
-      exit (1);
-    }
-}
-
-static void
 output_tables (const char *filename, const char *version)
 {
   FILE *stream;
@@ -962,9 +1364,9 @@ output_tables (const char *filename, const char *version)
 int
 main (int argc, char * argv[])
 {
-  if (argc != 5)
+  if (argc != 6)
     {
-      fprintf (stderr, "Usage: %s UnicodeData.txt PropList.txt EastAsianWidth.txt version\n",
+      fprintf (stderr, "Usage: %s UnicodeData.txt Combining.txt EastAsianWidth.txt LineBreak.txt version\n",
 	       argv[0]);
       exit (1);
     }
@@ -972,10 +1374,12 @@ main (int argc, char * argv[])
   fill_attributes (argv[1]);
   fill_combining (argv[2]);
   fill_width (argv[3]);
+  fill_org_lbp (argv[4]);
 
   debug_output_tables ("lbrkprop.txt");
+  debug_output_org_tables ("lbrkprop_org.txt");
 
-  output_tables ("lbrkprop.h", argv[4]);
+  output_tables ("lbrkprop.h", argv[5]);
 
   return 0;
 }

@@ -107,7 +107,7 @@ noinst_HEADERS = gettext.h
 EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
 stdbool.h.in \
-gen-lbrkprop.c 3level.h
+gen-lbrkprop.c 3level.h Combining.txt
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl

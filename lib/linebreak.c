@@ -1,5 +1,5 @@
 /* linebreak.c - line breaking of Unicode strings
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
 This program is free software; you can redistribute it and/or modify
@@ -230,7 +230,7 @@ int uc_width PARAMS ((unsigned int uc, const char *encoding));
  * Control characters are also marked non-spacing here, because they are not
  * printable. Zero width characters are also marked non-spacing here.
  */
-static const unsigned char nonspacing_table_data[15*64] = {
+static const unsigned char nonspacing_table_data[16*64] = {
   /* 0x0000-0x01ff */
   0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, /* 0x0000-0x003f */
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, /* 0x0040-0x007f */
@@ -365,9 +365,18 @@ static const unsigned char nonspacing_table_data[15*64] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xff00-0xff3f */
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xff40-0xff7f */
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0xff80-0xffbf */
-  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0e  /* 0xffc0-0xffff */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0e, /* 0xffc0-0xffff */
+  /* 0x1d000-0x1d1ff */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x1d000-0x1d03f */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x1d040-0x1d07f */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x1d080-0x1d0bf */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x1d0c0-0x1d0ff */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, /* 0x1d100-0x1d13f */
+  0x00, 0x00, 0x00, 0x00, 0x80, 0x03, 0x00, 0xf8, /* 0x1d140-0x1d17f */
+  0xe7, 0x0f, 0x00, 0x00, 0x00, 0x3c, 0x00, 0x00, /* 0x1d180-0x1d1bf */
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  /* 0x1d1c0-0x1d1ff */
 };
-static const signed char nonspacing_table_ind[128] = {
+static const signed char nonspacing_table_ind[240] = {
    0,  1,  2,  3,  4,  5,  6,  7, /* 0x0000-0x0fff */
    8, -1, -1,  9, 10, -1, -1, -1, /* 0x1000-0x1fff */
   11, -1, -1, -1, -1, -1, -1, -1, /* 0x2000-0x2fff */
@@ -383,7 +392,21 @@ static const signed char nonspacing_table_ind[128] = {
   -1, -1, -1, -1, -1, -1, -1, -1, /* 0xc000-0xcfff */
   -1, -1, -1, -1, -1, -1, -1, -1, /* 0xd000-0xdfff */
   -1, -1, -1, -1, -1, -1, -1, -1, /* 0xe000-0xefff */
-  -1, -1, -1, -1, -1, 13, -1, 14  /* 0xf000-0xffff */
+  -1, -1, -1, -1, -1, 13, -1, 14, /* 0xf000-0xffff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x10000-0x10fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x11000-0x11fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x12000-0x12fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x13000-0x13fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x14000-0x14fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x15000-0x15fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x16000-0x16fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x17000-0x17fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x18000-0x18fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x19000-0x19fff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x1a000-0x1afff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x1b000-0x1bfff */
+  -1, -1, -1, -1, -1, -1, -1, -1, /* 0x1c000-0x1cfff */
+  15, -1, -1, -1, -1, -1, -1, -1  /* 0x1d000-0x1dfff */
 };
 
 /* Determine number of column positions required for UC. */
@@ -392,18 +415,18 @@ uc_width (uc, encoding)
      unsigned int uc;
      const char *encoding;
 {
-  /* Test for non-spacing or control character. */
-  if ((uc >> 9) < 128)
+  /* Test for non-spacing or control character.  */
+  if ((uc >> 9) < 240)
     {
       int ind = nonspacing_table_ind[uc >> 9];
       if (ind >= 0)
-        if ((nonspacing_table_data[64*ind + ((uc >> 3) & 63)] >> (uc & 7)) & 1)
-          {
-            if (uc > 0 && uc < 0x100)
-              return -1;
-            else
-              return 0;
-          }
+	if ((nonspacing_table_data[64*ind + ((uc >> 3) & 63)] >> (uc & 7)) & 1)
+	  {
+	    if (uc > 0 && uc < 0x100)
+	      return -1;
+	    else
+	      return 0;
+	  }
     }
   /* Test for double-width character.
    * Generated from "grep '^....;[WF]' EastAsianWidth.txt"
@@ -411,16 +434,18 @@ uc_width (uc, encoding)
    */
   if (uc >= 0x1100
       && ((uc < 0x1160) /* Hangul Jamo */
-          || (uc >= 0x2e80 && uc < 0xa4d0  /* CJK ... Yi */
-              && !((uc & ~0x0011) == 0x300a || uc == 0x303f))
-          || (uc >= 0xac00 && uc < 0xd7a4) /* Hangul Syllables */
-          || (uc >= 0xf900 && uc < 0xfb00) /* CJK Compatibility Ideographs */
-          || (uc >= 0xfe30 && uc < 0xfe70) /* CJK Compatibility Forms */
-          || (uc >= 0xff00 && uc < 0xff60) /* Fullwidth Forms */
-          || (uc >= 0xffe0 && uc < 0xffe7)))
+	  || (uc >= 0x2e80 && uc < 0xa4d0  /* CJK ... Yi */
+	      && !((uc & ~0x0013) == 0x3008
+		   || (uc & ~0x0001) == 0x3014
+		   || uc == 0x303f))
+	  || (uc >= 0xac00 && uc < 0xd7a4) /* Hangul Syllables */
+	  || (uc >= 0xf900 && uc < 0xfb00) /* CJK Compatibility Ideographs */
+	  || (uc >= 0xfe30 && uc < 0xfe70) /* CJK Compatibility Forms */
+	  || (uc >= 0xff00 && uc < 0xff60) /* Fullwidth Forms */
+	  || (uc >= 0xffe0 && uc < 0xffe7)))
     return 2;
   /* In ancient CJK encodings, Cyrillic and most other characters are
-     double-width as well. */
+     double-width as well.  */
   if (uc >= 0x00A1 && uc < 0xFF60 && uc != 0x20A9
       && is_cjk_encoding (encoding))
     return 2;
