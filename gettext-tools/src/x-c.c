@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -408,7 +408,7 @@ phase1_getc ()
 	  return '\n';
 
 	case '\\':
-	  c = phase0_getc (fp);
+	  c = phase0_getc ();
 	  if (c != '\n')
 	    {
 	      phase0_ungetc (c);

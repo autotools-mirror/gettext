@@ -1,3 +1,8 @@
+2004-06-23  Bruno Haible  <bruno@clisp.org>
+
+	* x-c.c (phase1_getc): Fix phase0_getc invocation.
+	Reported by Matt Dreezer <matthew.dreezer@edl.uk.eds.com>.
+
 2004-05-14  Bruno Haible  <bruno@clisp.org>
 
 	* format-java.c (message_format_parse): Fix argument of freesa() calls.
