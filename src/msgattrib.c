@@ -458,7 +458,8 @@ process_message_list (mlp)
 	    mp->is_fuzzy = true;
 	  if (to_change & RESET_FUZZY)
 	    mp->is_fuzzy = false;
-	  if (to_change & SET_OBSOLETE)
+	  /* Always keep the header entry non-obsolete.  */
+	  if ((to_change & SET_OBSOLETE) && (mp->msgid[0] != '\0'))
 	    mp->obsolete = true;
 	  if (to_change & RESET_OBSOLETE)
 	    mp->obsolete = false;

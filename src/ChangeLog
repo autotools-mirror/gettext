@@ -1,5 +1,10 @@
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
+	* msgattrib.c (process_message_list): Never make the header entry
+	obsolete.
+
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
 	* msgfilter.c (main): Fix getopt_long string: -i takes an argument.
 
 2001-12-08  Bruno Haible  <bruno@clisp.org>
