@@ -1,3 +1,8 @@
+2003-10-08  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge.c (main): Make option -N work.
+	Reported by Liu Garfield <jackliu9999@hotmail.com>.
+
 2003-10-04  Bruno Haible  <bruno@clisp.org>
 
 	New Java backend.

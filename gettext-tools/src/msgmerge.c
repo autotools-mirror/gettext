@@ -168,8 +168,8 @@ main (int argc, char **argv)
   do_version = false;
   output_file = NULL;
 
-  while ((opt = getopt_long (argc, argv, "C:D:eEFhimo:pPqsUvVw:", long_options,
-			     NULL))
+  while ((opt = getopt_long (argc, argv, "C:D:eEFhimNo:pPqsUvVw:",
+			     long_options, NULL))
 	 != EOF)
     switch (opt)
       {
