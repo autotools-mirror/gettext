@@ -59,7 +59,8 @@ open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCES = format.c \
-format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
+format-c.c format-java.c format-lisp.c format-python.c format-pascal.c \
+format-ycp.c
 
 # Source dependencies.
 gettext_SOURCES = gettext.c

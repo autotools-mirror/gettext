@@ -30,5 +30,6 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_python */	&formatstring_python,
   /* format_lisp */	&formatstring_lisp,
   /* format_java */	&formatstring_java,
+  /* format_pascal */	&formatstring_pascal,
   /* format_ycp */	&formatstring_ycp
 };

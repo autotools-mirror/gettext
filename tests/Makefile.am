@@ -38,6 +38,7 @@ TESTS = gettext-1 gettext-2 \
 	format-java-1 format-java-2 \
 	format-lisp-1 format-lisp-2 \
 	format-python-1 format-python-2 \
+	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2
 

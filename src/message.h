@@ -37,6 +37,7 @@ enum format_type
   format_python,
   format_lisp,
   format_java,
+  format_pascal,
   format_ycp,
   NFORMATS
 };
