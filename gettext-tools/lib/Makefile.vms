@@ -45,6 +45,7 @@ OBJECTS = \
   classpath.obj, \
   copy-file.obj, \
   error.obj, \
+  error-progname.obj, \
   execute.obj, \
   findprog.obj, \
   fstrcmp.obj, \
@@ -111,6 +112,9 @@ copy-file.obj : copy-file.c
 
 error.obj : error.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) error.c
+
+error-progname.obj : error-progname.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) error-progname.c
 
 execute.obj : execute.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) execute.c
