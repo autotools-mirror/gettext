@@ -1,5 +1,13 @@
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
+	* x-perl.c (DEBUG_MEMORY): Remove macro.
+	(remember_a_message_debug, remember_a_message_plural_debug,
+	xmalloc_debug, xrealloc_debug, xrealloc_static_debug, xstrdup_debug,
+	free_debug): Remove functions.
+	(xrealloc_static): Remove macro. Use xrealloc instead.
+
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
 	* x-awk.c (phase2_getc, x_awk_lex): Increase bufmax proportionally.
 	* x-c.c (comment_add, comment_line_end, phase5_get, phase6_get):
 	Likewise.

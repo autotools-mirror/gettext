@@ -44,7 +44,6 @@
    "man perlsyn" or "perldoc perlsyn".  */
 
 #define DEBUG_PERL 0
-#define DEBUG_MEMORY 0
 
 /* FIXME: All known Perl operators should be listed here.  It does not
    cost that much and it may improve the stability of the parser.  */
@@ -167,94 +166,6 @@ static char *extract_quotelike_pass1 (int delim);
 static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
 static bool extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state, token_type_ty delim);
-
-#if DEBUG_MEMORY
-
-static message_ty *
-remember_a_message_debug (message_list_ty *mlp, char *string, lex_pos_ty *pos)
-{
-  void *retval;
-
-  fprintf (stderr, "*** remember_a_message (%p): ", string);
-  retval = remember_a_message (mlp, string, pos);
-  fprintf (stderr, "%p\n", retval);
-  return retval;
-}
-
-static void
-remember_a_message_plural_debug (message_ty *mp, char *string, lex_pos_ty *pos)
-{
-  fprintf (stderr, "*** remember_a_message_plural (%p, %p): ", mp, string);
-  remember_a_message_plural (mp, string, pos);
-  fprintf (stderr, "done\n");
-}
-
-static void *
-xmalloc_debug (size_t bytes)
-{
-  void *retval;
-
-  fprintf (stderr, "*** xmalloc (%u): ", bytes);
-  retval = xmalloc (bytes);
-  fprintf (stderr, "%p\n", retval);
-  return retval;
-}
-
-static void *
-xrealloc_debug (void *buf, size_t bytes)
-{
-  void *retval;
-
-  fprintf (stderr, "*** xrealloc (%p, %u): ", buf, bytes);
-  retval = xrealloc (buf, bytes);
-  fprintf (stderr, "%p\n", retval);
-  return retval;
-}
-
-static void *
-xrealloc_static_debug (void *buf, size_t bytes)
-{
-  void *retval;
-
-  fprintf (stderr, "*** xrealloc_static (%p, %u): ", buf, bytes);
-  retval = xrealloc (buf, bytes);
-  fprintf (stderr, "%p\n", retval);
-  return retval;
-}
-
-static char *
-xstrdup_debug (const char *string)
-{
-  char *retval;
-
-  fprintf (stderr, "*** xstrdup (%p, %d): ", string, strlen (string));
-  retval = xstrdup (string);
-  fprintf (stderr, "%p\n", retval);
-  return retval;
-}
-
-static void
-free_debug (void *buf)
-{
-  fprintf (stderr, "*** free (%p): ", buf);
-  free (buf);
-  fprintf (stderr, "done\n");
-}
-
-# define xmalloc(b) xmalloc_debug (b)
-# define xrealloc(b, s) xrealloc_debug (b, s)
-# define xstrdup(s) xstrdup_debug (s)
-# define free(b) free_debug (b)
-
-# define xrealloc_static(b, s) xrealloc_static_debug (b, s)
-
-#define remember_a_message(m, s, p) remember_a_message_debug (m, s, p)
-#define remember_a_message_plural(m, s, p) \
-    remember_a_message_plural_debug (m, s, p)
-
-#else
-# define xrealloc_static(b, s) xrealloc (b, s)
-#endif
 
 #if DEBUG_PERL
 /* Dumps all resources allocated by stack STACK.  */
@@ -549,7 +460,7 @@ get_here_document (const char *delimiter)
   /* Allocate the initial buffer.  Later on, bufmax > 0.  */
   if (bufmax == 0)
     {
-      buffer = xrealloc_static (NULL, 1);
+      buffer = xrealloc (NULL, 1);
       buffer[0] = '\0';
       bufmax = 1;
     }
@@ -615,7 +526,7 @@ get_here_document (const char *delimiter)
 	  do
 	    bufmax = 2 * bufmax + 10;
 	  while (bufpos + read_bytes >= bufmax);
-	  buffer = xrealloc_static (buffer, bufmax);
+	  buffer = xrealloc (buffer, bufmax);
 	}
       /* Append this line to the accumulator.  */
       strcpy (buffer + bufpos, my_linebuf);
@@ -696,14 +607,14 @@ phase2_getc ()
 	  if (buflen >= bufmax)
 	    {
 	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc_static (buffer, bufmax);
+	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[buflen++] = c;
 	}
       if (buflen >= bufmax)
 	{
 	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc_static (buffer, bufmax);
+	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[buflen] = '\0';
       xgettext_comment_add (buffer);
@@ -1023,7 +934,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
       if (bufpos + 6 > bufmax)
 	{
 	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc_static (buffer, bufmax);
+	  buffer = xrealloc (buffer, bufmax);
 	}
 
       if (tp->string_type == string_type_q)
@@ -1298,7 +1209,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
   if (bufpos >= bufmax)
     {
       bufmax = 2 * bufmax + 10;
-      buffer = xrealloc_static (buffer, bufmax);
+      buffer = xrealloc (buffer, bufmax);
     }
 
   buffer[bufpos++] = '\0';
@@ -1345,7 +1256,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
       if (bufpos >= bufmax)
 	{
 	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc_static (buffer, bufmax);
+	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[bufpos++] = c;
       c = phase1_getc ();
@@ -1374,7 +1285,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      if (bufpos >= bufmax)
 		{
 		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc_static (buffer, bufmax);
+		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = '\0';
 	      tp->string = xstrdup (buffer);
@@ -1401,7 +1312,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
   if (bufpos >= bufmax)
     {
       bufmax = 2 * bufmax + 10;
-      buffer = xrealloc_static (buffer, bufmax);
+      buffer = xrealloc (buffer, bufmax);
     }
   if (c == '{')
     {
@@ -1428,7 +1339,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  if (bufpos >= bufmax)
 	    {
 	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc_static (buffer, bufmax);
+	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos++] = c;
 	  c = phase1_getc ();
@@ -1447,7 +1358,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  if (bufpos >= bufmax)
 	    {
 	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc_static (buffer, bufmax);
+	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos++] = c;
 	}
@@ -1456,7 +1367,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
   if (bufpos >= bufmax)
     {
       bufmax = 2 * bufmax + 10;
-      buffer = xrealloc_static (buffer, bufmax);
+      buffer = xrealloc (buffer, bufmax);
     }
   buffer[bufpos++] = '\0';
 
@@ -1705,7 +1616,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
       if (bufpos + 1 >= bufmax)
 	{
 	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc_static (buffer, bufmax);
+	  buffer = xrealloc (buffer, bufmax);
 	}
 
       switch (state)
@@ -2031,7 +1942,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	      if (bufpos >= bufmax)
 		{
 		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc_static (buffer, bufmax);
+		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
 	      c = phase1_getc ();
@@ -2061,7 +1972,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	  if (bufpos >= bufmax)
 	    {
 	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc_static (buffer, bufmax);
+	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos] = '\0';
 
@@ -2377,7 +2288,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		      if (bufpos >= bufmax)
 			{
 			  bufmax = 2 * bufmax + 10;
-			  buffer = xrealloc_static (buffer, bufmax);
+			  buffer = xrealloc (buffer, bufmax);
 			}
 		      buffer[bufpos++] = c;
 		      c = phase1_getc ();
@@ -2394,7 +2305,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		      if (bufpos >= bufmax)
 			{
 			  bufmax = 2 * bufmax + 10;
-			  buffer = xrealloc_static (buffer, bufmax);
+			  buffer = xrealloc (buffer, bufmax);
 			}
 		      buffer[bufpos++] = '\0';
 		      string = get_here_document (buffer);
