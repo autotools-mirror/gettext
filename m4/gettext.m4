@@ -294,8 +294,9 @@ AC_DEFUN([AM_PO_SUBDIRS],
        (if $GMSGFMT --statistics /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi); then
       : ;
     else
+      GMSGFMT=`echo "$GMSGFMT" | sed -e 's,^.*/,,'`
       AC_MSG_RESULT(
-        [found msgfmt program is not GNU msgfmt; ignore it])
+        [found $GMSGFMT program is not GNU msgfmt; ignore it])
       GMSGFMT=":"
     fi
   fi
