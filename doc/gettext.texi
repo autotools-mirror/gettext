@@ -6554,7 +6554,7 @@ adds to the @file{configure.in} or @file{configure.ac} a line of the
 form
 
 @example
-GETTEXT_VERSION=@value{VERSION}
+AM_GNU_GETTEXT_VERSION(@value{VERSION})
 @end example
 
 @noindent
