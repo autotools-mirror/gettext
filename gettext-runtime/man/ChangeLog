@@ -1,3 +1,7 @@
+2003-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.13.1 released.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc (install): Install also envsubst.1, envsubst.1.html.

@@ -1,3 +1,7 @@
+2003-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.13.1 released.
+
 2003-12-14  Bruno Haible  <bruno@clisp.org>
 
 	* x-sh.c (phase2_getc): Call phase1_ungetc instead of phase2_ungetc:
