@@ -11,8 +11,10 @@
 	* windows/gettextlib.rc: New file.
 	* windows/gettextsrc.def: New file.
 	* windows/gettextsrc.rc: New file.
+	* windows/alloca.h: New file.
+	* windows/fnmatch.h: New file.
 	* Makefile.am (EXTRA_DIST): Add them and config.h.msvc,
-	windows/alloca.h, windows/fnmatch.h, windows/stdbool.h.
+	windows/stdbool.h.
 	(config.h.msvc, intl/libgnuintl.h.msvc-shared, windows/stdbool.h): New
 	rules.
 	* configure.ac: Invoke AC_TYPE_MODE_T.
