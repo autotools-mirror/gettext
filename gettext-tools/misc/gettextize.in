@@ -150,6 +150,9 @@ func_fatal_error ()
   exit 1
 }
 
+# Nuisances.
+unset CDPATH
+
 # Command-line option processing.
 # Removes the OPTIONS from the arguments. Sets the variables:
 # - force           1 if --force was given, 0 otherwise
