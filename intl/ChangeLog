@@ -1,3 +1,9 @@
+2002-03-15  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h (LC_MESSAGES): Don't define on Solaris 2.5, to avoid
+	a warning.
+	Reported by Stephen Gildea <gildea@stop.mail-abuse.org>.
+
 2002-03-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.1 released.
