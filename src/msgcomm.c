@@ -24,7 +24,6 @@
 #include <errno.h>
 #include <getopt.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <stdlib.h>
 
 #ifdef HAVE_LIMITS_H
@@ -33,37 +32,28 @@
 
 #include <locale.h>
 
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
-
 #include "dir-list.h"
+#include "str-list.h"
 #include "error.h"
 #include "progname.h"
 #include "getline.h"
-#include "libgettext.h"
 #include "message.h"
+#include "read-po.h"
 #include "write-po.h"
-#include "po.h"
+#include "msgl-cat.h"
 #include "system.h"
+#include "libgettext.h"
 
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
 #define _(str) gettext (str)
 
 
-/* If nonzero add comments for file name and line number for each msgid.  */
-static int line_comment = 1;
-
 /* Force output of PO file even if empty.  */
 static int force_po;
 
-/* If nonzero omit header with information about this run.  */
-static int omit_header;
-
-/* These variables control which messages are selected.  */
-static int more_than = -1;
-static int less_than = -1;
+/* Target encoding.  */
+static const char *to_code;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -77,12 +67,13 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
-  { "omit-header", no_argument, &omit_header, 1 },
+  { "omit-header", no_argument, NULL, CHAR_MAX + 1 },
   { "output", required_argument, NULL, 'o' }, /* for backward compatibility */
   { "output-file", required_argument, NULL, 'o' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "to-code", required_argument, NULL, 't' },
   { "unique", no_argument, NULL, 'u' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -100,23 +91,6 @@ static void usage PARAMS ((int status))
 #endif
 ;
 static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
-static bool is_message_selected PARAMS ((const message_ty *mp));
-static void extract_constructor PARAMS ((po_ty *that));
-static void extract_directive_domain PARAMS ((po_ty *that, char *name));
-static void extract_directive_message PARAMS ((po_ty *that, char *msgid,
-					       lex_pos_ty *msgid_pos,
-					       char *msgid_plural,
-					       char *msgstr, size_t msgstr_len,
-					       lex_pos_ty *msgstr_pos,
-					       bool obsolete));
-static void extract_parse_brief PARAMS ((po_ty *that));
-static void extract_comment PARAMS ((po_ty *that, const char *s));
-static void extract_comment_dot PARAMS ((po_ty *that, const char *s));
-static void extract_comment_filepos PARAMS ((po_ty *that, const char *name,
-					     int line));
-static void extract_comment_special PARAMS ((po_ty *that, const char *s));
-static void read_po_file PARAMS ((const char *file_name,
-				  message_list_ty *mlp));
 
 
 int
@@ -128,7 +102,6 @@ main (argc, argv)
   int optchar;
   bool do_help = false;
   bool do_version = false;
-  message_list_ty *mlp;
   msgdomain_list_ty *result;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
@@ -149,12 +122,18 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((optchar = getopt_long (argc, argv, "<:>:D:eEf:Fhino:suVw:",
+  /* Set default values for variables.  */
+  more_than = -1;
+  less_than = -1;
+  use_first = false;
+
+  while ((optchar = getopt_long (argc, argv, "<:>:D:eEf:Fhino:st:uVw:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {
       case '\0':		/* Long option.  */
 	break;
+
       case '>':
 	{
 	  int value;
@@ -164,6 +143,7 @@ main (argc, argv)
 	    more_than = value;
 	}
 	break;
+
       case '<':
 	{
 	  int value;
@@ -173,45 +153,63 @@ main (argc, argv)
 	    less_than = value;
 	}
 	break;
+
       case 'D':
 	dir_list_append (optarg);
 	break;
+
       case 'e':
 	message_print_style_escape (false);
 	break;
+
       case 'E':
 	message_print_style_escape (true);
 	break;
+
       case 'f':
 	files_from = optarg;
 	break;
+
       case 'F':
 	sort_by_filepos = true;
         break;
+
       case 'h':
 	do_help = true;
 	break;
+
       case 'i':
 	message_print_style_indent ();
 	break;
+
       case 'n':
 	line_comment = 1;
 	break;
+
       case 'o':
 	output_file = optarg;
 	break;
+
       case 's':
 	sort_by_msgid = true;
 	break;
+
       case 'S':
 	message_print_style_uniforum ();
 	break;
+
+      case 't':
+	to_code = optarg;
+	break;
+
       case 'u':
         less_than = 2;
         break;
+
       case 'V':
 	do_version = true;
 	break;
+
       case 'w':
 	{
 	  int value;
@@ -221,6 +219,11 @@ main (argc, argv)
 	    message_page_width_set (value);
 	}
 	break;
+
+      case CHAR_MAX + 1:
+	omit_header = true;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -279,17 +282,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
            _("impossible selection criteria specified (%d < n < %d)"),
            more_than, less_than);
 
-  /* Allocate a message list to remember all the messages.  */
-  result = msgdomain_list_alloc ();
-  mlp = result->item[0]->messages;
+  /* Read input files, then filter, convert and merge messages.  */
+  allow_duplicates = true;
+  msgcomm_mode = true;
+  result = catenate_msgdomain_list (file_list, to_code);
 
-  /* Process all input files.  */
-  for (cnt = 0; cnt < file_list->nitems; ++cnt)
-    read_po_file (file_list->item[cnt], mlp);
   string_list_free (file_list);
-
-  /* Remove messages which do not fit the criteria.  */
-  message_list_remove_if_not (mlp, is_message_selected);
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
@@ -452,284 +450,4 @@ read_name_from_file (file_name)
     fclose (fp);
 
   return result;
-}
-
-
-static bool
-is_message_selected (mp)
-     const message_ty *mp;
-{
-  return (mp->msgid[0] == '\0') /* keep the header entry, see msgcomm-22 test */
-	 || (mp->used > more_than && mp->used < less_than);
-}
-
-
-typedef struct extract_class_ty extract_class_ty;
-struct extract_class_ty
-{
-  /* Inherited instance variables and methods.  */
-  PO_BASE_TY
-
-  /* Cumulative list of messages.  */
-  message_list_ty *mlp;
-
-  /* Cumulative comments for next message.  */
-  string_list_ty *comment;
-  string_list_ty *comment_dot;
-
-  bool is_fuzzy;
-  enum is_c_format is_c_format;
-  enum is_wrap do_wrap;
-
-  size_t filepos_count;
-  lex_pos_ty *filepos;
-};
-
-
-static void
-extract_constructor (that)
-     po_ty *that;
-{
-  extract_class_ty *this = (extract_class_ty *) that;
-
-  this->mlp = NULL; /* actually set in read_po_file, below */
-  this->comment = NULL;
-  this->comment_dot = NULL;
-  this->is_fuzzy = false;
-  this->is_c_format = undecided;
-  this->do_wrap = undecided;
-  this->filepos_count = 0;
-  this->filepos = NULL;
-}
-
-
-static void
-extract_directive_domain (that, name)
-     po_ty *that;
-     char *name;
-{
-  po_gram_error_at_line (&gram_pos,
-			 _("this file may not contain domain directives"));
-}
-
-
-static void
-extract_directive_message (that, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos, obsolete)
-     po_ty *that;
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
-{
-  extract_class_ty *this = (extract_class_ty *)that;
-  message_ty *mp;
-  size_t j;
-
-  /* If the msgid is the empty string, and we are omiting headers, throw
-     it away.  */
-  if (omit_header && *msgid == '\0')
-    {
-      free (msgid);
-      free (msgstr);
-      if (this->comment != NULL)
-	string_list_free (this->comment);
-      if (this->comment_dot != NULL)
-	string_list_free (this->comment_dot);
-      if (this->filepos != NULL)
-	free (this->filepos);
-      this->comment = NULL;
-      this->comment_dot = NULL;
-      this->filepos_count = 0;
-      this->filepos = NULL;
-      this->is_fuzzy = false;
-      this->is_c_format = undecided;
-      this->do_wrap = undecided;
-      return;
-    }
-
-  /* See if this message ID has been seen before.  */
-  mp = message_list_search (this->mlp, msgid);
-  if (mp)
-    {
-      free (msgid);
-      free (msgstr);
-    }
-  else
-    {
-      mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
-      message_list_append (this->mlp, mp);
-      mp->is_fuzzy = this->is_fuzzy;
-    }
-
-  /* The ``obsolete'' flag is cleared before reading each PO file.
-     If thisflag is clear, set it, and increment the ``used'' counter.
-     This allows us to count how many of the PO files use the message.  */
-  if (!mp->obsolete)
-    {
-      mp->obsolete = true;
-      mp->used++;
-    }
-
-  /* Add the accumulated comments to the message.  Clear the
-     accumulation in preparation for the next message. */
-  if (this->comment != NULL)
-    {
-      if (mp->comment == NULL)
-        for (j = 0; j < this->comment->nitems; ++j)
-	  message_comment_append (mp, this->comment->item[j]);
-      string_list_free (this->comment);
-      this->comment = NULL;
-    }
-  if (this->comment_dot != NULL)
-    {
-      if (mp->comment_dot == NULL)
-        for (j = 0; j < this->comment_dot->nitems; ++j)
-	  message_comment_dot_append (mp, this->comment_dot->item[j]);
-      string_list_free (this->comment_dot);
-      this->comment_dot = NULL;
-    }
-  if (mp->is_c_format == undecided)
-    mp->is_c_format = this->is_c_format;
-  if (mp->do_wrap == undecided)
-    mp->do_wrap = this->do_wrap;
-  for (j = 0; j < this->filepos_count; ++j)
-    {
-      lex_pos_ty *pp;
-
-      pp = &this->filepos[j];
-      message_comment_filepos (mp, pp->file_name, pp->line_number);
-      free (pp->file_name);
-    }
-  if (this->filepos != NULL)
-    free (this->filepos);
-  this->filepos_count = 0;
-  this->filepos = NULL;
-  this->is_fuzzy = false;
-  this->is_c_format = undecided;
-  this->do_wrap = undecided;
-}
-
-
-static void
-extract_parse_brief (that)
-     po_ty *that;
-{
-  po_lex_pass_comments (true);
-}
-
-
-static void
-extract_comment (that, s)
-     po_ty *that;
-     const char *s;
-{
-  extract_class_ty *this = (extract_class_ty *) that;
-
-  if (this->comment == NULL)
-    this->comment = string_list_alloc ();
-  string_list_append (this->comment, s);
-}
-
-
-static void
-extract_comment_dot (that, s)
-     po_ty *that;
-     const char *s;
-{
-  extract_class_ty *this = (extract_class_ty *) that;
-
-  if (this->comment_dot == NULL)
-    this->comment_dot = string_list_alloc ();
-  string_list_append (this->comment_dot, s);
-}
-
-
-static void
-extract_comment_filepos (that, name, line)
-     po_ty *that;
-     const char *name;
-     int line;
-{
-  extract_class_ty *this = (extract_class_ty *) that;
-  size_t nbytes;
-  lex_pos_ty *pp;
-
-  /* Write line numbers only if -n option is given.  */
-  if (line_comment != 0)
-    {
-      nbytes = (this->filepos_count + 1) * sizeof (this->filepos[0]);
-      this->filepos = xrealloc (this->filepos, nbytes);
-      pp = &this->filepos[this->filepos_count++];
-      pp->file_name = xstrdup (name);
-      pp->line_number = line;
-    }
-}
-
-
-static void
-extract_comment_special (that, s)
-     po_ty *that;
-     const char *s;
-{
-  extract_class_ty *this = (extract_class_ty *) that;
-
-  if (strstr (s, "fuzzy") != NULL)
-    this->is_fuzzy = true;
-  if (strstr (s, "c-format") != NULL)
-    this->is_c_format = yes;
-  if (strstr (s, "no-c-format") != NULL)
-    this->is_c_format = no;
-  if (strstr (s, "wrap") != NULL)
-    this->do_wrap = yes;
-  if (strstr (s, "no-wrap") != NULL)
-    this->do_wrap = no;
-}
-
-
-/* So that the one parser can be used for multiple programs, and also
-   use good data hiding and encapsulation practices, an object
-   oriented approach has been taken.  An object instance is allocated,
-   and all actions resulting from the parse will be through
-   invocations of method functions of that object.  */
-
-static po_method_ty extract_methods =
-{
-  sizeof (extract_class_ty),
-  extract_constructor,
-  NULL, /* destructor */
-  extract_directive_domain,
-  extract_directive_message,
-  extract_parse_brief,
-  NULL, /* parse_debrief */
-  extract_comment,
-  extract_comment_dot,
-  extract_comment_filepos,
-  extract_comment_special
-};
-
-
-/* Read the contents of the specified .po file into a message list.  */
-
-static void
-read_po_file (file_name, mlp)
-     const char *file_name;
-     message_list_ty *mlp;
-{
-  size_t j;
-
-  po_ty *pop = po_alloc (&extract_methods);
-  ((extract_class_ty *) pop)->mlp = mlp;
-  po_scan (pop, file_name);
-  po_free (pop);
-
-  /* The ``obsolete'' flag of each message is cleared before reading
-     each PO file.  As each message is read from a PO file, if this flag
-     is clear, it is set, and increment the ``used'' counter.  This
-     allows us to count how many of the PO files use each message.  */
-  for (j = 0; j < mlp->nitems; ++j)
-    mlp->item[j]->obsolete = false;
 }

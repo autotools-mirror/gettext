@@ -56,9 +56,9 @@ write-po.c msgl-ascii.c
 msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-cat.c
-msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c
+msgcomm_SOURCES = msgcomm.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
+po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
+msgl-ascii.c msgl-iconv.c msgl-cat.c
 msgconv_SOURCES = msgconv.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
 msgl-ascii.c msgl-iconv.c

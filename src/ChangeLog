@@ -1,5 +1,28 @@
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
+	Make msgcomm work with multidomain input and different encodings.
+	* msgl-cat.h (msgcomm_mode, omit_header): New declarations.
+	* msgl-cat.c (msgcomm_mode, omit_header): New variables.
+	(is_message_selected): Different behaviour if omit_header is true.
+	(is_message_needed): Different behaviour if msgcomm_mode is true.
+	(catenate_msgdomain_list): Likewise.
+	* msgcomm.c: Don't include <sys/types.h>, <unistd.h>, po.h. Include
+	read-po.h, msgl-cat.h instead.
+	(line_comment, omit_header, more_than, less_than): Remove variables.
+	(to_code): New variable.
+	(long_options): New option --to-code.
+	(main): New option -t/--to-code. Don't take the address of omit_header.
+	Call catenate_msgdomain_list instead of read_po_file and
+	is_message_selected.
+	(is_message_selected, extract_constructor, extract_directive_domain,
+	extract_directive_message, extract_parse_brief, extract_comment,
+	extract_comment_dot, extract_comment_filepos, extract_comment_special,
+	read_po_file): Remove functions.
+	* Makefile.am (msgcomm_SOURCES): Add read-po.c, msgl-iconv.c,
+	msgl-cat.c.
+
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgl-ascii.h: New file.
 	* msgl-ascii.c: New file.
 	* po-charset.h (po_charset_ascii, po_charset_ascii_compatible): New

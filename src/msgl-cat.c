@@ -45,6 +45,14 @@ int less_than;
    If false, merge all available translations into one and fuzzy it.  */
 bool use_first;
 
+/* If true, merge like msgcomm.
+   If false, merge like msgcat and msguniq.  */
+bool msgcomm_mode = false;
+
+/* If true, omit the header entry.
+   If false, keep the header entry present in the input.  */
+bool omit_header = false;
+
 
 /* Prototypes for local functions.  */
 static bool is_message_selected PARAMS ((const message_ty *tmp));
@@ -58,8 +66,9 @@ is_message_selected (tmp)
 {
   int used = (tmp->used >= 0 ? tmp->used : - tmp->used);
 
-  return (tmp->msgid[0] == '\0') /* keep the header entry */
-	 || (used > more_than && used < less_than);
+  return (tmp->msgid[0] == '\0'
+	  ? !omit_header	/* keep the header entry */
+	  : (used > more_than && used < less_than));
 }
 
 
@@ -67,7 +76,8 @@ static bool
 is_message_needed (mp)
      const message_ty *mp;
 {
-  if ((mp->msgid[0] != '\0' && mp->is_fuzzy) || mp->msgstr[0] == '\0')
+  if (!msgcomm_mode
+      && ((mp->msgid[0] != '\0' && mp->is_fuzzy) || mp->msgstr[0] == '\0'))
     /* Weak translation.  Needed if there are only weak translations.  */
     return mp->tmp->used < 0 && is_message_selected (mp->tmp);
   else
@@ -282,8 +292,9 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		  message_list_append (total_mlp, tmp);
 		}
 
-	      if ((mp->msgid[0] != '\0' && mp->is_fuzzy)
-		  || mp->msgstr[0] == '\0')
+	      if (!msgcomm_mode
+		  && ((mp->msgid[0] != '\0' && mp->is_fuzzy)
+		      || mp->msgstr[0] == '\0'))
 		/* Weak translation.  Counted as negative tmp->used.  */
 		{
 		  if (tmp->used <= 0)
@@ -464,6 +475,32 @@ To select a different output encoding, use the --to-code option.\n\
 		  tmp->is_c_format = mp->is_c_format;
 		  tmp->do_wrap = mp->do_wrap;
 		  tmp->obsolete = mp->obsolete;
+		}
+	      else if (msgcomm_mode)
+		{
+		  /* Copy mp, as only message, into tmp.  */
+		  if (tmp->msgstr == NULL)
+		    {
+		      tmp->msgstr = mp->msgstr;
+		      tmp->msgstr_len = mp->msgstr_len;
+		      tmp->pos = mp->pos;
+		      tmp->is_fuzzy = mp->is_fuzzy;
+		    }
+		  if (mp->comment && tmp->comment == NULL)
+		    for (i = 0; i < mp->comment->nitems; i++)
+		      message_comment_append (tmp, mp->comment->item[i]);
+		  if (mp->comment_dot && tmp->comment_dot == NULL)
+		    for (i = 0; i < mp->comment_dot->nitems; i++)
+		      message_comment_dot_append (tmp,
+						  mp->comment_dot->item[i]);
+		  for (i = 0; i < mp->filepos_count; i++)
+		    message_comment_filepos (tmp, mp->filepos[i].file_name,
+					     mp->filepos[i].line_number);
+		  if (tmp->is_c_format == undecided)
+		    tmp->is_c_format = mp->is_c_format;
+		  if (tmp->do_wrap == undecided)
+		    tmp->do_wrap = mp->do_wrap;
+		  tmp->obsolete = false;
 		}
 	      else
 		{

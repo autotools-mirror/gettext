@@ -32,6 +32,14 @@ extern int less_than;
    If false, merge all available translations into one and fuzzy it.  */
 extern bool use_first;
 
+/* If true, merge like msgcomm.
+   If false, merge like msgcat and msguniq.  */
+extern bool msgcomm_mode;
+
+/* If true, omit the header entry.
+   If false, keep the header entry present in the input.  */
+extern bool omit_header;
+
 extern msgdomain_list_ty *
        catenate_msgdomain_list PARAMS ((string_list_ty *file_list,
 					const char *to_code));
