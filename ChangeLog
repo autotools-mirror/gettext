@@ -1,3 +1,9 @@
+2002-02-15  Bruno Haible  <bruno@clisp.org>
+
+	* djgpp/*: Update DJGPP support.
+	From Juan Manuel Guerrero <st001906@hrz1.hrz.tu-darmstadt.de>.
+	* configure.in (CXX): Recognize 'gpp' as an alternative name for 'g++'.
+
 2002-02-14  Andrew Zabolotny  <zap@cobra.ru>
 
 	* os2/README.OS2: Update.

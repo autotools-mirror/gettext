@@ -129,7 +129,7 @@ CROSS_COMPILING=$cross_compiling
 AC_SUBST(CROSS_COMPILING)
 
 dnl Checks for optional programs for the tests/lang-* tests.
-AC_CHECK_PROGS(CXX, $CCC c++ g++ gcc CC cxx cc++ cl, :)
+AC_CHECK_PROGS(CXX, $CCC c++ g++ gpp gcc CC cxx cc++ cl, :)
 if test "$CXX" != ":"; then
   dnl Use a modified version of AC_PROG_CXX_WORKS that does not exit
   dnl upon failure.
