@@ -21,6 +21,12 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* A pattern matcher.  */
 typedef struct {
 
@@ -44,5 +50,11 @@ extern matcher_t matcher_grep;   /* POSIX Basic Regular Expressions */
 extern matcher_t matcher_egrep;  /* POSIX Extended Regular Expressions */
 extern matcher_t matcher_fgrep;  /* Fixed String search */
 extern matcher_t matcher_awk;    /* AWK Regular Expressions */
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _LIBGREP_H */
