@@ -1,5 +1,14 @@
 2003-12-02  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (all, install, installdirs, uninstall, check,
+	mostlyclean, clean, distclean, maintainer-clean): Create the intl
+	directory if it doesn't exist. Needed because a widespread archiving
+	tool on Windows doesn't extract empty directories that are present in
+	.tar.gz files.
+	Reported by Stefan Kowski <stefan.kowski@parks-informatik.de>.
+
+2003-12-02  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke FIX_MAKEFILE_DISTRIB for examples/Makefile.
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>

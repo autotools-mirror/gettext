@@ -86,6 +86,7 @@ INSTALL_DATA = copy
 SHELL = /bin/sh
 
 all : config.h force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc all
 	cd ..
@@ -125,6 +126,7 @@ config.h : config.h.msvc
 	$(LN) config.h.msvc config.h
 
 install : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc install
 	cd ..
@@ -160,6 +162,7 @@ install : force
 	cd ..
 
 installdirs : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc installdirs
 	cd ..
@@ -195,6 +198,7 @@ installdirs : force
 	cd ..
 
 uninstall : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc uninstall
 	cd ..
@@ -230,6 +234,7 @@ uninstall : force
 	cd ..
 
 check : all force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc check
 	cd ..
@@ -265,6 +270,7 @@ check : all force
 	cd ..
 
 mostlyclean : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc mostlyclean
 	cd ..
@@ -301,6 +307,7 @@ mostlyclean : force
 	$(RM) config.h
 
 clean : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc clean
 	cd ..
@@ -337,6 +344,7 @@ clean : force
 	$(RM) config.h
 
 distclean : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc distclean
 	cd ..
@@ -374,6 +382,7 @@ distclean : force
 	$(RM) config.status config.log config.cache Makefile
 
 maintainer-clean : force
+	-mkdir intl
 	cd doc
 	$(MAKE) -f Makefile.msvc maintainer-clean
 	cd ..
