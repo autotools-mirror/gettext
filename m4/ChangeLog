@@ -1,5 +1,12 @@
 2002-01-18  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.m4 (AM_PO_SUBDIRS): Split preprocessing of POTFILES.in into
+	two separate sed calls, otherwise the backslash that terminates the
+	last line doesn't get removed if the last line of POTFILES.in is a
+	comment line or a blank line.
+
+2002-01-18  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_PO_SUBDIRS): Improve "found msgfmt program" message.
 
 2002-01-13  Bruno Haible  <bruno@clisp.org>
