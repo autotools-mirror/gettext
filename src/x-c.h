@@ -18,21 +18,21 @@
 
 
 #define EXTENSIONS_C \
-  { "c",      "C",    },						\
-  { "h",      "C",    },						\
-  { "C",      "C++",  },						\
-  { "c++",    "C++",  },						\
-  { "cc",     "C++",  },						\
-  { "cxx",    "C++",  },						\
-  { "cpp",    "C++",  },						\
-  { "hh",     "C++",  },						\
-  { "hpp",    "C++",  },						\
+  { "c",      "C"     },						\
+  { "h",      "C"     },						\
+  { "C",      "C++"   },						\
+  { "c++",    "C++"   },						\
+  { "cc",     "C++"   },						\
+  { "cxx",    "C++"   },						\
+  { "cpp",    "C++"   },						\
+  { "hh",     "C++"   },						\
+  { "hpp",    "C++"   },						\
   { "m",      "ObjectiveC" },						\
 
 #define SCANNERS_C \
-  { "C",          scan_c_file, &formatstring_c, },			\
-  { "C++",        scan_c_file, &formatstring_c, },			\
-  { "ObjectiveC", scan_c_file, &formatstring_c, },			\
+  { "C",          scan_c_file, &formatstring_c },			\
+  { "C++",        scan_c_file, &formatstring_c },			\
+  { "ObjectiveC", scan_c_file, &formatstring_c },			\
 
 /* Scan a C/C++/ObjectiveC file and add its translatable strings to mdlp.  */
 extern void extract_c PARAMS ((FILE *fp, const char *real_filename,

@@ -1,3 +1,8 @@
+2001-09-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* x-c.h (EXTENSIONS_C, SCANNERS_C): Remove extraneous commas.
+	* x-po.h (EXTENSIONS_PO, SCANNERS_PO): Likewise.
+
 2001-09-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c: Set msgstr_prefix to "", not NULL.

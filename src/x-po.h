@@ -18,11 +18,11 @@
 
 
 #define EXTENSIONS_PO \
-  { "po",     "PO",   },						\
-  { "pot",    "PO",   },						\
+  { "po",     "PO"    },						\
+  { "pot",    "PO"    },						\
 
 #define SCANNERS_PO \
-  { "PO", scan_po_file, NULL, },					\
+  { "PO", scan_po_file, NULL },						\
 
 /* Scan a PO file and add its translatable strings to mdlp.  */
 extern void extract_po PARAMS ((FILE *fp, const char *real_filename,
