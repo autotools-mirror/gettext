@@ -1,3 +1,13 @@
+2001-11-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* stdint_h.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+	* uintmax_t.m4 (jm_AC_TYPE_UINTMAX_T): Require also
+	jm_AC_HEADER_STDINT_H.
+	* mkdtemp.m4 (gt_FUNC_MKDTEMP): Call jm_AC_HEADER_INTTYPES_H instead
+	of testing for inttypes.h. Call jm_AC_HEADER_STDINT_H instead of
+	testing for stdint.h.
+
 2001-11-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* javacomp.m4 (gt_JAVACOMP): Test for the existence of gcj, javac,

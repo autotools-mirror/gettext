@@ -6,6 +6,8 @@ AC_DEFUN([gt_FUNC_MKDTEMP],
 [
   AC_REPLACE_FUNCS(mkdtemp)
   AC_STAT_MACROS_BROKEN
-  AC_CHECK_HEADERS(fcntl.h inttypes.h stdint.h sys/time.h time.h unistd.h)
+  jm_AC_HEADER_INTTYPES_H
+  jm_AC_HEADER_STDINT_H
+  AC_CHECK_HEADERS(fcntl.h sys/time.h time.h unistd.h)
   AC_CHECK_FUNCS(gettimeofday)
 ])
