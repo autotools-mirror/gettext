@@ -1,3 +1,10 @@
+2002-05-30  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h (_INTL_REDIRECT_ASM, _INTL_REDIRECT_INLINE,
+	_INTL_REDIRECT_MACROS, _INTL_ASM, _INTL_ASMNAME, _INTL_STRINGIFY):
+	New macros. Use them instead of plain preprocessor level indirection
+	when appropriate.
+
 2002-05-28  Bruno Haible  <bruno@clisp.org>
 
 	* localename.c (LANG_SORBIAN): Provide a default value, for mingw32.
