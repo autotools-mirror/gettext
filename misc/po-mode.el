@@ -875,8 +875,8 @@ all reachable through `M-x customize', in group `Emacs.Editing.I18n.Po'."
 
   (add-hook 'write-contents-hooks 'po-replace-revision-date)
 
-  (message (_"You may type `h' or `?' for a short PO mode reminder."))
-  (run-hooks 'po-mode-hook))
+  (run-hooks 'po-mode-hook)
+  (message (_"You may type `h' or `?' for a short PO mode reminder.")))
 
 ;;; Window management.
 
