@@ -4,6 +4,7 @@ Tasks not to forget before release:
   Translation Project.
 
 - Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
+- Update misc/locale.alias from glibc's intl/locale.alias.
 
 - Bump version number in configure.in.
 
