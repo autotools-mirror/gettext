@@ -1,3 +1,7 @@
+2004-10-30  James Youngman <jay@gnu.org>
+
+	* config.rpath: Modify comment to be consistent with the code.
+
 2004-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath: Add support for Comeau C++ on Linux.
