@@ -110,7 +110,7 @@ if test $am_cv_func_working_getline != yes; then
 fi
 gl_FUNC_FNMATCH_POSIX
 gl_FUNC_EACCESS
-jm_PREREQ_MBSWIDTH
+gl_MBSWIDTH
 gt_PREREQ_BACKUPFILE
 AC_FUNC_VFORK
 gt_UNION_WAIT

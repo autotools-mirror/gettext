@@ -6,6 +6,7 @@
 
 	* configure.ac: Invoke AM_STDBOOL_H instead of gt_STDBOOL_H.
 	Invoke gl_FUNC_FNMATCH_POSIX instead of gt_FUNC_FNMATCH.
+	Invoke gl_MBSWIDTH instead of jm_PREREQ_MBSWIDTH.
 
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
