@@ -21,24 +21,20 @@ Things we plan to do. Comments welcome.
 
 - Read Francois Pinard's gettext folder.
 
-- Evaluate Francois Pinard's po-utils and xpot. Takeover? Merge? Refer to?
-
 - Change bug report address to bug-gettext instead of bug-gnu-utils@gnu.org
 
 - Split xgettext into a language dependent part and a language independent
   part.
 
 - Document what it means to add gettext support to a programming/scripting
-  language. Add support for Java.
+  language.
+
+- Add support for Java.
 
 - KDE wants a kind of gettext2("role","msg")  function whose key is the
   concatenation of "role" and "msg" but whose default value is only "msg".
 
-- Ask EMX, cygwin, mingw32, pw people for testing.
-
 - Add msvc Makefile.
-
-- Look at Christian Gafton's msghack.
 
 - Look at Christian Robottom Reis's manual:
   http://www.async.com.br/~kiko/gettext.html
@@ -46,33 +42,14 @@ Things we plan to do. Comments welcome.
 - Check whether ../lib/libsupport.a @@INTLLIBS@@ @@LIBS@@ is sufficient (see
   gettext.texi:5083) on HP-UX 10.01 and other systems lacking alloca.
 
-- Provide a way to merge two .po files, coming from different translators of
-  the same pot file.
-
 - KBabel:
   http://i18n.kde.org/translation-howto/gui-specialized-apps.html
   http://i18n.kde.org/tools/kbabel/
 
 - New programs:
 
-  msgconv [-t encoding] [-o file] [file]
-  converts a PO file to another encoding, default UTF-8
-
-  msgsed [-e expr ...] [-o file] [file]
-  applies a SED script to all msgstrs.
-
   msguniq [--unique] [--repeated]
   extract unique/repeated msgids
-
-  msggrep [-L] [-f filename ...] [-e expr ...] [-o file] [file]
-  extract those messages belonging to a given list of files or matching
-  one of the given regular expressions
-
-  msgcat [-o file] [file ...]
-  combines several PO files
-
-  msgen [-o file] [file]
-  fills all empty msgstrs with the msgid, marked fuzzy
 
 - Rewrite doc node "Compendium", discuss functionality, then check
   implementation and add Karl's new tests.
