@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -68,6 +68,7 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
+ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
@@ -92,6 +93,7 @@ PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+STRIP = @STRIP@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -158,22 +160,26 @@ uninstall-binSCRIPTS:
 
 install-lispLISP: $(lisp_LISP) $(ELCFILES)
 	@$(NORMAL_INSTALL)
-	$(mkinstalldirs) $(DESTDIR)$(lispdir)
-	@list='$(lisp_LISP)'; for p in $$list; do \
-	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
-	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
-	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
-	  if test -f $${p}c; then \
-	    echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
-	    $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
-	  else : ; fi; \
-	done
+	@if test -n "$(lispdir)"; then \
+	  $(mkinstalldirs) $(DESTDIR)$(lispdir); \
+	  @list='$(lisp_LISP)'; for p in $$list; do \
+	    if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	    echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
+	    $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
+	    if test -f $${p}c; then \
+	      echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
+	      $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
+	    else : ; fi; \
+	  done; \
+	else : ; fi
 
 uninstall-lispLISP:
 	@$(NORMAL_UNINSTALL)
-	list='$(lisp_LISP)'; for p in $$list; do \
-	  rm -f $(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
-	done
+	@if test -n "$(lispdir)"; then \
+	  list='$(lisp_LISP)'; for p in $$list; do \
+	    rm -f $(DESTDIR)$(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
+	  done; \
+	else : ; fi
 .el.elc:
 	@echo 'WARNING: Warnings can be ignored. :-)'
 	if test $(EMACS) != no; then \
@@ -200,7 +206,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \

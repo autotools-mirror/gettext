@@ -519,7 +519,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.10.38 distribution itself.  You may indeed refer to the
+`gettext' 0.10.39 distribution itself.  You may indeed refer to the
 source code of the GNU `gettext' package, as it is intended to be a
 good example and master implementation for using its own functionality.
 
@@ -572,16 +572,16 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/POTFILES
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.10.38
+          VERSION=0.10.39
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
           AC_SUBST(VERSION)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.10.38' by its version numbers, exactly as they should
+     and `0.10.39' by its version numbers, exactly as they should
      appear in the packaged `tar' file name of your distribution
-     (`gettext-0.10.38.tar.gz', here).
+     (`gettext-0.10.39.tar.gz', here).
 
   2. Declare the available translations.
 

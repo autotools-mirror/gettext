@@ -934,8 +934,9 @@ Content-Type
      `ISO-8859-13', `ISO-8859-15', `KOI8-R', `KOI8-U', `CP850',
      `CP866', `CP874', `CP932', `CP949', `CP950', `CP1250', `CP1251',
      `CP1252', `CP1253', `CP1254', `CP1255', `CP1256', `CP1257',
-     `GB2312', `EUC-JP', `EUC-KR', `EUC-TW', `BIG5', `BIG5HKSCS',
-     `GBK', `GB18030', `SJIS', `JOHAB', `TIS-620', `VISCII', `UTF-8'.
+     `GB2312', `EUC-JP', `EUC-KR', `EUC-TW', `BIG5', `BIG5-HKSCS',
+     `GBK', `GB18030', `SHIFT_JIS', `JOHAB', `TIS-620', `VISCII',
+     `UTF-8'.
 
      In the GNU system, the following encodings are frequently used for
      the corresponding languages.
@@ -974,7 +975,7 @@ Content-Type
 
         * `GB2312', `GBK', `GB18030'  for simplified writing of Chinese,
 
-        * `BIG5', `BIG5HKSCS'  for traditional writing of Chinese,
+        * `BIG5', `BIG5-HKSCS'  for traditional writing of Chinese,
 
         * `EUC-JP' for Japanese,
 

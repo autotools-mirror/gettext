@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.51
-     from gettext.texi on 23 May 2001 -->
+     from gettext.texi on 24 July 2001 -->
 
 <TITLE>GNU gettext utilities - 9  The Programmer's View</TITLE>
 </HEAD>
@@ -660,7 +660,7 @@ Languages with this property include:
 Hungarian
 <DT>Asian family
 <DD>
-Japanese
+Japanese, Korean
 <DT>Turkic/Altaic family
 <DD>
 Turkish
@@ -697,7 +697,7 @@ Greek
 Hebrew
 <DT>Romanic family
 <DD>
-Italian, Spanish
+Italian, Portuguese, Spanish
 <DT>Artificial
 <DD>
 Esperanto
@@ -718,7 +718,25 @@ Languages with this property include:
 
 <DT>Romanic family
 <DD>
-French
+French, Brazilian Portuguese
+</DL>
+
+<DT>Three forms, special case for zero
+<DD>
+The header entry would be:
+
+
+<PRE>
+Plural-Forms: nplurals=3; plural=n%10==1 &#38;&#38; n%100!=11 ? 0 : n != 0 ? 1 : 2;
+</PRE>
+
+Languages with this property include:
+
+<DL COMPACT>
+
+<DT>Baltic family
+<DD>
+Latvian
 </DL>
 
 <DT>Three forms, special cases for one and two
@@ -776,7 +794,7 @@ Languages with this property include:
 
 <DT>Slavic family
 <DD>
-Czech, Russian, Slovak, Ukrainian
+Croatian, Czech, Russian, Slovak, Ukrainian
 </DL>
 
 <DT>Three forms, special case for one and some numbers ending in 2, 3, or 4
@@ -789,8 +807,6 @@ Plural-Forms: nplurals=3; \
     plural=n==1 ? 0 : \
            n%10&#62;=2 &#38;&#38; n%10&#60;=4 &#38;&#38; (n%100&#60;10 || n%100&#62;=20) ? 1 : 2;
 </PRE>
-
-(Continuation in the next line is possible.)
 
 Languages with this property include:
 

@@ -416,7 +416,7 @@ Only one form:
           Hungarian
 
     Asian family
-          Japanese
+          Japanese, Korean
 
     Turkic/Altaic family
           Turkish
@@ -445,7 +445,7 @@ Two forms, singular used for one only
           Hebrew
 
     Romanic family
-          Italian, Spanish
+          Italian, Portuguese, Spanish
 
     Artificial
           Esperanto
@@ -459,7 +459,17 @@ Two forms, singular used for zero and one
      Languages with this property include:
 
     Romanic family
-          French
+          French, Brazilian Portuguese
+
+Three forms, special case for zero
+     The header entry would be:
+
+          Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;
+
+     Languages with this property include:
+
+    Baltic family
+          Latvian
 
 Three forms, special cases for one and two
      The header entry would be:
@@ -493,7 +503,7 @@ Three forms, special cases for numbers ending in 1 and 2, 3, 4, except those end
      Languages with this property include:
 
     Slavic family
-          Czech, Russian, Slovak, Ukrainian
+          Croatian, Czech, Russian, Slovak, Ukrainian
 
 Three forms, special case for one and some numbers ending in 2, 3, or 4
      The header entry would look like this:
@@ -501,8 +511,6 @@ Three forms, special case for one and some numbers ending in 2, 3, or 4
           Plural-Forms: nplurals=3; \
               plural=n==1 ? 0 : \
                      n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
-
-     (Continuation in the next line is possible.)
 
      Languages with this property include:
 
