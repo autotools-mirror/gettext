@@ -1,3 +1,9 @@
+2004-02-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Modify only the first occurrence of AC_CONFIG_FILES,
+	not all of them.
+	Reported by Dalibor Topic <robilad@kaffe.org>.
+
 2004-02-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Add po to SUBDIRS if it was created in this run.
