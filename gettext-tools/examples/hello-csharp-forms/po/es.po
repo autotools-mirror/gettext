@@ -4,9 +4,8 @@
 # 2001, 2002, 2003.
 msgid ""
 msgstr ""
-"Project-Id-Version: hello-java-0.13-pre1\n"
+"Project-Id-Version: hello-csharp-forms-0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-12-26 23:46+0100\n"
 "PO-Revision-Date: 2003-11-24 19:19-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"

@@ -4,9 +4,8 @@
 # 2001, 2002, 2003.
 msgid ""
 msgstr ""
-"Project-Id-Version: hello-java-0.13-pre1\n"
+"Project-Id-Version: hello-csharp-0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-12-26 21:14+0100\n"
 "PO-Revision-Date: 2003-11-24 19:19-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,11 +14,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello.cs:15
+#: hello.cs:29
 msgid "Hello, world!"
 msgstr "¡Hola, mundo!"
 
-#: hello.cs:18
+#: hello.cs:32
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Este programa está corriendo como el proceso número {0}."

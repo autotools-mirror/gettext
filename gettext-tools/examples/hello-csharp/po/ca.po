@@ -1,14 +1,13 @@
-# Catalan messages for GNU hello-java.
+# Catalan messages for GNU hello-csharp.
 # Copyright (C) 2003 Free Software Foundation, Inc.
-# This file is distributed under the same license as the hello-java package.
+# This file is distributed under the same license as the hello-csharp package.
 # Ivan Vilata i Balaguer <ivan@selidor.net>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hello-java 0.13-pre1\n"
+"Project-Id-Version: hello-csharp 0.13.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-12-26 21:14+0100\n"
-"PO-Revision-Date: 2003-11-22 17:41+0100\n"
+"PO-Revision-Date: 2003-12-18 10:41+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,11 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello.cs:15
+#: hello.cs:29
 msgid "Hello, world!"
 msgstr "Hola, món!"
 
-#: hello.cs:18
+#: hello.cs:32
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Aquest programa està corrent amb el número de procés {0}."
