@@ -1,14 +1,15 @@
 # GNU gettext의 한국어 메시지
 # Copyright (C) 1996, 1997, 2001, 2002 Free Software Foundation, Inc.
 # Bang Jun-Young <bangjy@geocities.com>, 1995-1997.
+# Changwoo Ryu <cwryu@debian.org>, 2001-2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11-pre5\n"
+"Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-01-12 11:04+0900\n"
+"PO-Revision-Date: 2002-03-14 12:04+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
-"Language-Team: Korean <ko@li.org>\n"
+"Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1039,9 +1040,9 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr "%s은(는) \"-d 디렉토리\" 지정이 필요합니다"
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s은(는) \"-d 디렉토리\" 지정이 필요합니다"
+msgstr "%s은(는) \"-d 로케일\" 지정이 필요합니다"
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
@@ -1050,9 +1051,9 @@ msgid "%s is only valid with %s"
 msgstr "%s은(는) %s과(와) 함께 써야만 효과가 있습니다"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s은(는) %s과(와) 함께 써야만 효과가 있습니다"
+msgstr "%s은(는) %s 혹은 %s과(와) 함께 써야만 효과가 있습니다"
 
 #: src/msgfmt.c:501
 #, c-format
@@ -1096,7 +1097,7 @@ msgstr ""
 "입력 파일이 \"-\"인 경우, 표준 입력을 읽습니다.\n"
 
 #: src/msgfmt.c:556
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
@@ -1106,6 +1107,7 @@ msgstr ""
 "동작 모드:\n"
 "  -j, --java                  자바 모드: 자바 ResourceBundle 클래스를 만듭니다\n"
 "      --java2                 --java와 같지만, Java2를 가정합니다(JDK 1.2 이상)\n"
+"      --tcl                   Tcl 모드: tcl/msgcat .msg 파일을 만듭니다\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1139,7 +1141,7 @@ msgstr ""
 "아래에 출력됩니다.\n"
 
 #: src/msgfmt.c:583
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output file location in Tcl mode:\n"
 "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
@@ -1148,11 +1150,9 @@ msgid ""
 "specified directory.\n"
 msgstr ""
 "자바 모드에서 출력 파일 지정:\n"
-"  -r, --resource=<리소스>     리소스 이름\n"
 "  -l, --locale=<로케일>       로케일 이름, 언어 혹은 언어_국가\n"
 "  -d <디렉토리>               클래스 디렉토리에서 베이스 디렉토리\n"
-"클래스 이름은 리소스 이름에 로케일 이름을, 사이에 밑줄로 구분해서 덧붙인 \n"
-"이름으로 결정됩니다.  -d 옵션은 꼭 필요합니다.  클래스는 지정한 디렉토리\n"
+"-l 옵션과 -d 옵션은 꼭 필요합니다.  클래스는 지정한 디렉토리\n"
 "아래에 출력됩니다.\n"
 
 #: src/msgfmt.c:592
@@ -1274,7 +1274,7 @@ msgstr[0] "...하지만 어떤 메세지는 %lu개의 복수 형이 있습니다"
 #: src/msgfmt.c:1023
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr ""
+msgstr "다음을 사용해 보십시오.  %s에 대해서 올바름:\n"
 
 #: src/msgfmt.c:1036
 msgid ""
@@ -1330,24 +1330,23 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr에 키보드 단축키 '%c' 표시가 너무 많습니다"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "헤더에 헤더필드 `%s'가 빠졌음"
+msgstr "헤더에 헤더 필드 `%s'이(가) 빠졌음\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "헤더 필드 `%s'는 행의 처음부터 시작해야 합니다"
+msgstr "헤더 필드 `%s'는 행의 처음부터 시작해야 합니다\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "몇몇 헤더 필드가 아직도 초기의 내정값을 가지고 있습니다"
+msgstr "몇몇 헤더 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "`%s' 필드가 아직도 초기의 내정값을 가지고 있습니다"
+msgstr "`%s' 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
 
 #: src/msgfmt.c:1362
 msgid "warning: PO file header missing or invalid\n"
@@ -1410,7 +1409,7 @@ msgstr ""
 "메세지만을 뽑아 냅니다.\n"
 
 #: src/msggrep.c:434
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1440,11 +1439,13 @@ msgid ""
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
 "메세지 선택:\n"
-"  [-N 소스파일]... [-M 도메인이름]... [-K MSGID-패턴] [-T MSGSTR-패턴]\n"
+"  [-N 소스파일]... [-M 도메인이름]...\n"
+"  [-K MSGID-패턴] [-T MSGSTR-패턴] [ -C 주석-패턴 ]\n"
 "메세지를 선택합니다: 지정한 소스 파일중 하나에서 나온 메세지,\n"
 "혹은 지정한 도메인중 하나에서 나온 메세지\n"
 "혹은 -K 옵션을 쓴다면 그 키(msgid나 msgid_plural)이 \"MSGID-패턴\"과 맞는 경우\n"
 "혹은 -T 옵션을 쓴다면 그 번역(msgstr)이 \"MSGSTR-패턴\"과 맞는 경우\n"
+"혹은 -C 옵션을 쓴다면 그 번역자 주석이 \"주석-패턴\"과 맞는 경우\n"
 "\n"
 "선택하는 방법이 여러 개 지정되는 경우, 선택되는 메세지는 각 선택하는\n"
 "방법으로 선택된 메세지들의 공집합니다.\n"
@@ -1897,15 +1898,15 @@ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "이진 메세지 목록을 Uniforum 스타일 .po 파일로 변환합니다.\n"
 
 #: src/msgunfmt.c:329
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "동작 모드:\n"
-"  -j, --java                  자바 모드: 자바 ResourceBundle 클래스를 만듭니다\n"
-"      --java2                 --java와 같지만, Java2를 가정합니다(JDK 1.2 이상)\n"
+"  -j, --java                  자바 모드: 입력은 자바 ResourceBundle 클래스입니다\n"
+"      --tcl                   Tcl 모드: 입력은 tcl/msgcat .msg 파일입니다\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1934,7 +1935,7 @@ msgstr ""
 "결정됩니다.  클래스는 CLASSPATH에 따른 위치에 놓이게 됩니다.\n"
 
 #: src/msgunfmt.c:352
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
 "  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
@@ -1943,11 +1944,9 @@ msgid ""
 "specified directory.\n"
 msgstr ""
 "자바 모드에서 출력 파일 지정:\n"
-"  -r, --resource=<리소스>     리소스 이름\n"
 "  -l, --locale=<로케일>       로케일 이름, 언어 혹은 언어_국가\n"
 "  -d <디렉토리>               클래스 디렉토리에서 베이스 디렉토리\n"
-"클래스 이름은 리소스 이름에 로케일 이름을, 사이에 밑줄로 구분해서 덧붙인 \n"
-"이름으로 결정됩니다.  -d 옵션은 꼭 필요합니다.  클래스는 지정한 디렉토리\n"
+"-l 옵션과 -d 옵션은 꼭 필요합니다.  클래스는 지정한 디렉토리\n"
 "아래에 출력됩니다.\n"
 
 #: src/msgunfmt.c:361
@@ -2393,7 +2392,7 @@ msgstr ""
 "출력파일이 \"-\"이면, 표준 출력으로 출력합니다.\n"
 
 #: src/xgettext.c:564
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
@@ -2405,8 +2404,9 @@ msgid ""
 msgstr ""
 "입력 파일 언어 선택:\n"
 "  -L, --language=<이름>          지정한 언어로 인식하도록 합니다\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                   librep, Java, YCP)\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp, \n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                   RST, Glade)\n"
 "  -C, --c++                      \"--language=C++\"을 짧게 쓴 것입니다\n"
 "기본적으로 입력 파일의 확장자에 따라 언어를 추측합니다\n"
 
@@ -2498,12 +2498,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "`%s' 언어를 알 수 없음"
-
-#~ msgid ""
-#~ "Operation mode:\n"
-#~ "  -j, --java               Java mode: generate a Java ResourceBundle "
-#~ "class\n"
-#~ msgstr ""
-#~ "동작 모드:\n"
-#~ "  -j, --java               자바 모드: 자바 ResourceBundle 클래스를 만듭니"
-#~ "다\n"
