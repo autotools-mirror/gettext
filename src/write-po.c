@@ -47,10 +47,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
-static const char *make_c_format_description_string PARAMS ((enum is_c_format,
-							     bool debug));
-static int significant_c_format_p PARAMS ((enum is_c_format is_c_format));
-static const char *make_c_width_description_string PARAMS ((enum is_c_format));
+static const char *make_format_description_string PARAMS ((enum is_format,
+							   const char *lang,
+							   bool debug));
+static bool significant_format_p PARAMS ((enum is_format is_format));
+static bool has_significant_format_p
+			   PARAMS ((const enum is_format is_format[NFORMATS]));
+static const char *make_c_width_description_string PARAMS ((enum is_wrap));
 static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
 			  const char *value, enum is_wrap do_wrap,
 			  const char *charset));
@@ -119,34 +122,30 @@ message_print_style_escape (flag)
 
 
 static const char *
-make_c_format_description_string (is_c_format, debug)
-     enum is_c_format is_c_format;
+make_format_description_string (is_format, lang, debug)
+     enum is_format is_format;
+     const char *lang;
      bool debug;
 {
-  const char *result = NULL;
+  static char result[100];
 
-  switch (is_c_format)
+  switch (is_format)
     {
     case possible:
       if (debug)
 	{
-	  result = " possible-c-format";
+	  sprintf (result, " possible-%s-format", lang);
 	  break;
 	}
       /* FALLTHROUGH */
     case yes:
-      result = " c-format";
-      break;
-    case impossible:
-      result = " impossible-c-format";
+      sprintf (result, " %s-format", lang);
       break;
     case no:
-      result = " no-c-format";
-      break;
-    case undecided:
-      result = " undecided";
+      sprintf (result, " no-%s-format", lang);
       break;
     default:
+      /* The others have already been filtered out by significant_format_p.  */
       abort ();
     }
 
@@ -154,11 +153,24 @@ make_c_format_description_string (is_c_format, debug)
 }
 
 
-static int
-significant_c_format_p (is_c_format)
-     enum is_c_format is_c_format;
+static bool
+significant_format_p (is_format)
+     enum is_format is_format;
 {
-  return is_c_format != undecided && is_c_format != impossible;
+  return is_format != undecided && is_format != impossible;
+}
+
+
+static bool
+has_significant_format_p (is_format)
+     const enum is_format is_format[NFORMATS];
+{
+  size_t i;
+
+  for (i = 0; i < NFORMATS; i++)
+    if (significant_format_p (is_format[i]))
+      return true;
+  return false;
 }
 
 
@@ -622,10 +634,11 @@ message_print (mp, fp, charset, blank_line, debug)
 
   /* Print flag information in special comment.  */
   if ((mp->is_fuzzy && mp->msgstr[0] != '\0')
-      || significant_c_format_p (mp->is_c_format)
+      || has_significant_format_p (mp->is_format)
       || mp->do_wrap == no)
     {
       bool first_flag = true;
+      size_t i;
 
       putc ('#', fp);
       putc (',', fp);
@@ -639,15 +652,17 @@ message_print (mp, fp, charset, blank_line, debug)
 	  first_flag = false;
 	}
 
-      if (significant_c_format_p (mp->is_c_format))
-	{
-	  if (!first_flag)
-	    putc (',', fp);
+      for (i = 0; i < NFORMATS; i++)
+	if (significant_format_p (mp->is_format[i]))
+	  {
+	    if (!first_flag)
+	      putc (',', fp);
 
-	  fputs (make_c_format_description_string (mp->is_c_format, debug),
-		 fp);
-	  first_flag = false;
-	}
+	    fputs (make_format_description_string (mp->is_format[i],
+						   format_language[i], debug),
+		   fp);
+	    first_flag = false;
+	  }
 
       if (mp->do_wrap == no)
 	{

@@ -277,6 +277,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	    {
 	      message_ty *mp = mlp->item[j];
 	      message_ty *tmp;
+	      size_t i;
 
 	      tmp = message_list_search (total_mlp, mp->msgid);
 	      if (tmp == NULL)
@@ -284,7 +285,8 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		  tmp = message_alloc (mp->msgid, mp->msgid_plural, NULL, 0,
 				       &mp->pos);
 		  tmp->is_fuzzy = true; /* may be set to false later */
-		  tmp->is_c_format = undecided; /* may be set to yes/no later */
+		  for (i = 0; i < NFORMATS; i++)
+		    tmp->is_format[i] = undecided; /* may be set to yes/no later */
 		  tmp->do_wrap = yes; /* may be set to no later */
 		  tmp->obsolete = true; /* may be set to false later */
 		  tmp->alternative_count = 0;
@@ -472,7 +474,8 @@ To select a different output encoding, use the --to-code option.\n\
 		    message_comment_filepos (tmp, mp->filepos[i].file_name,
 					     mp->filepos[i].line_number);
 		  tmp->is_fuzzy = mp->is_fuzzy;
-		  tmp->is_c_format = mp->is_c_format;
+		  for (i = 0; i < NFORMATS; i++)
+		    tmp->is_format[i] = mp->is_format[i];
 		  tmp->do_wrap = mp->do_wrap;
 		  tmp->obsolete = mp->obsolete;
 		}
@@ -496,8 +499,9 @@ To select a different output encoding, use the --to-code option.\n\
 		  for (i = 0; i < mp->filepos_count; i++)
 		    message_comment_filepos (tmp, mp->filepos[i].file_name,
 					     mp->filepos[i].line_number);
-		  if (tmp->is_c_format == undecided)
-		    tmp->is_c_format = mp->is_c_format;
+		  for (i = 0; i < NFORMATS; i++)
+		    if (tmp->is_format[i] == undecided)
+		      tmp->is_format[i] = mp->is_format[i];
 		  if (tmp->do_wrap == undecided)
 		    tmp->do_wrap = mp->do_wrap;
 		  tmp->obsolete = false;
@@ -540,11 +544,12 @@ To select a different output encoding, use the --to-code option.\n\
 					     mp->filepos[i].line_number);
 		  if (!mp->is_fuzzy)
 		    tmp->is_fuzzy = false;
-		  if (mp->is_c_format == yes)
-		    tmp->is_c_format = yes;
-		  else if (mp->is_c_format == no
-			   && tmp->is_c_format == undecided)
-		    tmp->is_c_format = no;
+		  for (i = 0; i < NFORMATS; i++)
+		    if (mp->is_format[i] == yes)
+		      tmp->is_format[i] = yes;
+		    else if (mp->is_format[i] == no
+			     && tmp->is_format[i] == undecided)
+		      tmp->is_format[i] = no;
 		  if (mp->do_wrap == no)
 		    tmp->do_wrap = no;
 		  if (!mp->obsolete)

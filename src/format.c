@@ -1,4 +1,4 @@
-/* xgettext PO backend.
+/* Format strings.
    Copyright (C) 2001 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -16,15 +16,18 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-#define EXTENSIONS_PO \
-  { "po",     "PO",   },						\
-  { "pot",    "PO",   },						\
+#include "format.h"
 
-#define SCANNERS_PO \
-  { "PO", scan_po_file, NULL, },					\
-
-/* Scan a PO file and add its translatable strings to mdlp.  */
-extern void extract_po PARAMS ((FILE *fp, const char *real_filename,
-				const char *logical_filename,
-				msgdomain_list_ty *mdlp));
+/* Table of all format string parsers.  */
+struct formatstring_parser *formatstring_parsers[NFORMATS] =
+{
+  /* format_c */	&formatstring_c,
+  /* format_python */	&formatstring_python,
+  /* format_lisp */	&formatstring_lisp,
+  /* format_java */	&formatstring_java,
+  /* format_ycp */	&formatstring_ycp
+};

@@ -35,39 +35,30 @@ static message_ty *message_list_search_fuzzy_inner PARAMS ((
        message_list_ty *mlp, const char *msgid, double *best_weight_p));
 
 
-enum is_c_format
-parse_c_format_description_string (s)
-     const char *s;
+const char *const format_language[NFORMATS] =
 {
-  if (strstr (s, "no-c-format") != NULL)
-    return no;
-  else if (strstr (s, "impossible-c-format") != NULL)
-    return impossible;
-  else if (strstr (s, "possible-c-format") != NULL)
-    return possible;
-  else if (strstr (s, "c-format") != NULL)
-    return yes;
-  return undecided;
-}
+  /* format_c */	"c",
+  /* format_python */	"python",
+  /* format_lisp */	"lisp",
+  /* format_java */	"java",
+  /* format_ycp */	"ycp"
+};
+
+const char *const format_language_pretty[NFORMATS] =
+{
+  /* format_c */	"C",
+  /* format_python */	"Python",
+  /* format_lisp */	"Lisp",
+  /* format_java */	"Java",
+  /* format_ycp */	"YCP"
+};
 
 
 int
-possible_c_format_p (is_c_format)
-     enum is_c_format is_c_format;
+possible_format_p (is_format)
+     enum is_format is_format;
 {
-  return is_c_format == possible || is_c_format == yes;
-}
-
-
-enum is_c_format
-parse_c_width_description_string (s)
-     const char *s;
-{
-  if (strstr (s, "no-wrap") != NULL)
-    return no;
-  else if (strstr (s, "wrap") != NULL)
-    return yes;
-  return undecided;
+  return is_format == possible || is_format == yes;
 }
 
 
@@ -80,6 +71,7 @@ message_alloc (msgid, msgid_plural, msgstr, msgstr_len, pp)
      const lex_pos_ty *pp;
 {
   message_ty *mp;
+  size_t i;
 
   mp = (message_ty *) xmalloc (sizeof (message_ty));
   mp->msgid = msgid;
@@ -92,7 +84,8 @@ message_alloc (msgid, msgid_plural, msgstr, msgstr_len, pp)
   mp->filepos_count = 0;
   mp->filepos = NULL;
   mp->is_fuzzy = false;
-  mp->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    mp->is_format[i] = undecided;
   mp->do_wrap = undecided;
   mp->used = 0;
   mp->obsolete = false;
@@ -178,7 +171,7 @@ message_copy (mp)
      message_ty *mp;
 {
   message_ty *result;
-  size_t j;
+  size_t j, i;
 
   result = message_alloc (xstrdup (mp->msgid), mp->msgid_plural,
 			  mp->msgstr, mp->msgstr_len, &mp->pos);
@@ -194,7 +187,8 @@ message_copy (mp)
 	message_comment_dot_append (result, mp->comment_dot->item[j]);
     }
   result->is_fuzzy = mp->is_fuzzy;
-  result->is_c_format = mp->is_c_format;
+  for (i = 0; i < NFORMATS; i++)
+    result->is_format[i] = mp->is_format[i];
   result->do_wrap = mp->do_wrap;
   for (j = 0; j < mp->filepos_count; ++j)
     {
@@ -213,7 +207,7 @@ message_merge (def, ref)
   const char *msgstr;
   size_t msgstr_len;
   message_ty *result;
-  size_t j;
+  size_t j, i;
 
   /* Take the msgid from the reference.  When fuzzy matches are made,
      the definition will not be unique, but the reference will be -
@@ -404,7 +398,8 @@ message_merge (def, ref)
      from the reference message (such as format/no-format), others
      come from the definition file (fuzzy or not).  */
   result->is_fuzzy = def->is_fuzzy;
-  result->is_c_format = ref->is_c_format;
+  for (i = 0; i < NFORMATS; i++)
+    result->is_format[i] = ref->is_format[i];
   result->do_wrap = ref->do_wrap;
 
   /* Take the file position comments from the reference file, as they

@@ -110,6 +110,18 @@ char *alloca ();
 # endif
 #endif
 
+#ifndef MIN
+# if __STDC__ && defined __GNUC__ && __GNUC__ >= 2
+#  define MIN(a,b) (__extension__					    \
+		     ({__typeof__ (a) _a = (a);				    \
+		       __typeof__ (b) _b = (b);				    \
+		       _a < _b ? _a : _b;				    \
+		      }))
+# else
+#  define MIN(a,b) ((a) < (b) ? (a) : (b))
+# endif
+#endif
+
 /* Some systems do not define EXIT_*, even with STDC_HEADERS.  */
 #ifndef EXIT_SUCCESS
 # define EXIT_SUCCESS 0

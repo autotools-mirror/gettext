@@ -46,7 +46,7 @@
 #include "po.h"
 #include "message.h"
 #include "write-po.h"
-#include "printf-parse.h"
+#include "format.h"
 #include "libgettext.h"
 
 #ifndef _POSIX_VERSION
@@ -160,7 +160,6 @@ static void scan_po_file PARAMS ((const char *file_name,
 				  msgdomain_list_ty *mdlp));
 static long difftm PARAMS ((const struct tm *a, const struct tm *b));
 static message_ty *construct_header PARAMS ((void));
-static enum is_c_format test_whether_c_format PARAMS ((const char *s));
 
 
 /* The scanners must all be functions returning void and taking one
@@ -761,17 +760,23 @@ error while opening \"%s\" for reading"), new_name);
 
 
 
+/* Language dependent format string parser.
+   NULL if the language has no notion of format strings.  */
+static struct formatstring_parser *current_formatstring_parser;
+
+
 message_ty *
 remember_a_message (mlp, string, pos)
      message_list_ty *mlp;
      char *string;
      lex_pos_ty *pos;
 {
-  enum is_c_format is_c_format = undecided;
-  enum is_wrap do_wrap = undecided;
+  enum is_format is_format[NFORMATS];
+  enum is_wrap do_wrap;
   char *msgid;
   message_ty *mp;
   char *msgstr;
+  size_t i;
 
   msgid = string;
 
@@ -785,12 +790,17 @@ remember_a_message (mlp, string, pos)
       return NULL;
     }
 
+  for (i = 0; i < NFORMATS; i++)
+    is_format[i] = undecided;
+  do_wrap = undecided;
+
   /* See if we have seen this message before.  */
   mp = message_list_search (mlp, msgid);
   if (mp != NULL)
     {
       free (msgid);
-      is_c_format = mp->is_c_format;
+      for (i = 0; i < NFORMATS; i++)
+	is_format[i] = mp->is_format[i];
       do_wrap = mp->do_wrap;
     }
   else
@@ -826,33 +836,82 @@ remember_a_message (mlp, string, pos)
       for (j = 0; ; ++j)
 	{
 	  const char *s = xgettext_comment (j);
+	  const char *t;
 	  if (s == NULL)
 	    break;
 
 	  /* To reduce the possibility of unwanted matches be do a two
 	     step match: the line must contain `xgettext:' and one of
 	     the possible format description strings.  */
-	  if (strstr (s, "xgettext:") != NULL)
+	  if ((t = strstr (s, "xgettext:")) != NULL)
 	    {
-	      is_c_format = parse_c_format_description_string (s);
-	      do_wrap = parse_c_width_description_string (s);
+	      bool tmp_fuzzy;
+	      enum is_format tmp_format[NFORMATS];
+	      enum is_wrap tmp_wrap;
+	      bool interesting;
 
-	      /* If we found a magic string we don't print it.  */
-	      if (is_c_format != undecided || do_wrap != undecided)
+	      t += strlen ("xgettext:");
+
+	      po_parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_wrap);
+
+	      interesting = false;
+	      for (i = 0; i < NFORMATS; i++)
+		if (tmp_format[i] != undecided)
+		  {
+		    is_format[i] = tmp_format[i];
+		    interesting = true;
+		  }
+	      if (tmp_wrap != undecided)
+		{
+		  do_wrap = tmp_wrap;
+		  interesting = true;
+		}
+
+	      /* If the "xgettext:" marker was followed by an interesting
+		 keyword, and we updated our is_format/do_wrap variables,
+		 we don't print the comment as a #. comment.  */
+	      if (interesting)
 		continue;
 	    }
 	  if (add_all_comments
-	      || (comment_tag != NULL && strncmp (s, comment_tag,
-						  strlen (comment_tag)) == 0))
+	      || (comment_tag != NULL
+		  && strncmp (s, comment_tag, strlen (comment_tag)) == 0))
 	    message_comment_dot_append (mp, s);
 	}
     }
 
-  /* If not already decided, examine the msgid.  */
-  if (is_c_format == undecided)
-    is_c_format = test_whether_c_format (mp->msgid);
+  /* If it is not already decided, through programmer comments, whether the
+     msgid is a format string, examine the msgid.  This is a heuristic.  */
+  for (i = 0; i < NFORMATS; i++)
+    {
+      if (is_format[i] == undecided
+	  && formatstring_parsers[i] == current_formatstring_parser)
+	{
+	  struct formatstring_parser *parser = formatstring_parsers[i];
+	  void *descr = parser->parse (mp->msgid);
 
-  mp->is_c_format = is_c_format;
+	  if (descr != NULL)
+	    {
+	      /* msgid is a valid format string.  We mark only those msgids
+		 as format strings which contain at least one format directive
+		 and thus are format strings with a high probability.  We
+		 don't mark strings without directives as format strings,
+		 because that would force the programmer to add
+		 "xgettext: no-c-format" anywhere where a translator wishes
+		 to use a percent sign.  So, the msgfmt checking will not be
+		 perfect.  Oh well.  */
+	      if (parser->get_number_of_directives (descr) > 0)
+		is_format[i] = possible;
+
+	      parser->free (descr);
+	    }
+	  else
+	    /* msgid is not a valid format string.  */
+	    is_format[i] = impossible;
+	}
+      mp->is_format[i] = is_format[i];
+    }
+
   mp->do_wrap = do_wrap == no ? no : yes;	/* By default we wrap.  */
 
   /* Remember where we saw this msgid.  */
@@ -1033,36 +1092,6 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
 }
 
 
-/* We make a pessimistic guess whether the given string is a format
-   string or not.  Pessimistic means here that with the first
-   occurence of an unknown format element we say `impossible'.  */
-static enum is_c_format
-test_whether_c_format (s)
-     const char *s;
-{
-  struct printf_spec spec;
-
-  if (s == NULL || *(s = find_spec (s)) == '\0')
-    /* We return `possible' here because sometimes strings are used
-       with printf even if they don't contain any format specifier.
-       If the translation in this case would contain a specifier, this
-       would result in an error.  */
-    return impossible;
-
-  for (s = find_spec (s); *s != '\0'; s = spec.next_fmt)
-    {
-      size_t dummy;
-
-      (void) parse_one_spec (s, 0, &spec, &dummy);
-      if (spec.info.spec == '\0'
-	  || strchr ("iduoxXeEfgGcspnm%", spec.info.spec) == NULL)
-	return impossible;
-    }
-
-  return possible;
-}
-
-
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 #define ENDOF(a) ((a) + SIZEOF(a))
 
@@ -1076,21 +1105,32 @@ language_to_scanner (name)
   {
     const char *name;
     scanner_fp func;
+    struct formatstring_parser *formatstring_parser;
   };
 
   static table_ty table[] =
   {
     SCANNERS_C
     SCANNERS_PO
+    { "Python", scan_c_file, &formatstring_python },
+    { "Lisp", scan_c_file, &formatstring_lisp },
+    { "Java", scan_c_file, &formatstring_java },
+    { "YCP", scan_c_file, &formatstring_ycp },
     /* Here will follow more languages and their scanners: awk, perl,
-       etc...  Make sure new scanners honor the --exlude-file option.  */
+       etc...  Make sure new scanners honor the --exclude-file option.  */
   };
 
   table_ty *tp;
 
   for (tp = table; tp < ENDOF(table); ++tp)
     if (strcasecmp (name, tp->name) == 0)
-      return tp->func;
+      {
+	/* XXX Ugly side effect.  */
+	current_formatstring_parser = tp->formatstring_parser;
+
+	return tp->func;
+      }
+
   error (EXIT_FAILURE, 0, _("language `%s' unknown"), name);
   /* NOTREACHED */
   return NULL;

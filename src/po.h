@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define _PO_H
 
 #include "po-lex.h"
+#include "message.h"
 
 #include <stdbool.h>
 
@@ -147,5 +148,10 @@ extern void po_callback_message PARAMS ((char *msgid, lex_pos_ty *msgid_pos,
 extern void po_callback_comment PARAMS ((const char *s));
 extern void po_callback_comment_dot PARAMS ((const char *s));
 extern void po_callback_comment_filepos PARAMS ((const char *s, int line));
+
+/* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
+extern void po_parse_comment_special PARAMS ((const char *s, bool *fuzzyp,
+					      enum is_format formatp[NFORMATS],
+					      enum is_wrap *wrapp));
 
 #endif /* _PO_H */

@@ -59,15 +59,6 @@ jm_PREREQ_MBSWIDTH
 AC_FUNC_VFORK
 gt_UNION_WAIT
 
-AC_CHECK_FUNC(parse_printf_format, gt_cv_func_parse_printf_format=yes,
-  gt_cv_func_parse_printf_format=no)
-if test $gt_cv_func_parse_printf_format = yes; then
-  AC_DEFINE(HAVE_PARSE_PRINTF_FORMAT, 1,
-    [Define if you have the parse_printf_format() function.])
-else
-  LIBOBJS="$LIBOBJS printf-prs.o"
-fi
-
 AM_FUNC_ERROR_AT_LINE
 
 gt_SETLOCALE

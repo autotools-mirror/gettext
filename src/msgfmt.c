@@ -35,7 +35,7 @@
 #include "progname.h"
 #include "xerror.h"
 #include "getline.h"
-#include "printf.h"
+#include "format.h"
 #include <system.h>
 
 #include "gettext.h"
@@ -82,7 +82,7 @@ struct msgfmt_class_ty
   PO_BASE_TY
 
   bool is_fuzzy;
-  enum is_c_format is_c_format;
+  enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
 
   bool has_header_entry;
@@ -187,7 +187,8 @@ static void write_table PARAMS ((FILE *output_file, hash_table *tab));
 static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
 				const char *msgid_plural,
 				const char *msgstr, size_t msgstr_len,
-				const lex_pos_ty *msgstr_pos, int is_format));
+				const lex_pos_ty *msgstr_pos,
+				enum is_format is_format[NFORMATS]));
 static const char *add_mo_suffix PARAMS ((const char *));
 
 
@@ -480,9 +481,11 @@ format_constructor (that)
      po_ty *that;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
+  size_t i;
 
   this->is_fuzzy = false;
-  this->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    this->is_format[i] = undecided;
   this->do_wrap = undecided;
   this->has_header_entry = false;
 }
@@ -569,6 +572,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   struct hashtable_entry *entry;
+  size_t i;
 
   /* Don't emit untranslated entries.  Also don't emit fuzzy entries, unless
      --use-fuzzy was specified.  But ignore fuzziness of the header entry.  */
@@ -674,7 +678,7 @@ some header fields still have the initial default value"));
       /* Do some more checks on both strings.  */
       check_pair (msgid_string, msgid_pos, msgid_plural,
 		  msgstr_string, msgstr_len, msgstr_pos,
-		  do_check && possible_c_format_p (this->is_c_format));
+		  this->is_format);
 
       /* Check whether already a domain is specified.  If not use default
 	 domain.  */
@@ -722,7 +726,8 @@ duplicate message definition"));
 
   /* Prepare for next message.  */
   this->is_fuzzy = false;
-  this->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    this->is_format[i] = undecided;
   this->do_wrap = undecided;
 }
 
@@ -734,8 +739,11 @@ format_comment_special (that, s)
      const char *s;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
+  bool fuzzy;
 
-  if (strstr (s, "fuzzy") != NULL)
+  po_parse_comment_special (s, &fuzzy, this->is_format, &this->do_wrap);
+
+  if (fuzzy)
     {
       static bool warned = false;
 
@@ -749,8 +757,6 @@ format_comment_special (that, s)
 
       this->is_fuzzy = true;
     }
-  this->is_c_format = parse_c_format_description_string (s);
-  this->do_wrap = parse_c_width_description_string (s);
 }
 
 
@@ -944,12 +950,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
      const char *msgstr;
      size_t msgstr_len;
      const lex_pos_ty *msgstr_pos;
-     int is_format;
+     enum is_format is_format[NFORMATS];
 {
   int has_newline;
-  unsigned int i;
+  size_t i;
   const char *p;
-  size_t nidfmts, nstrfmts;
 
   /* If the msgid string is empty we have the special entry reserved for
      information about the translation.  */
@@ -1034,43 +1039,58 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     }
 #undef TEST_NEWLINE
 
-  if (is_format != 0 && msgid_plural == NULL)
-    {
-      /* Test 3: check whether both formats strings contain the same
-	 number of format specifications.  */
-      nidfmts = parse_printf_format (msgid, 0, NULL);
-      nstrfmts = parse_printf_format (msgstr, 0, NULL);
-      if (nidfmts != nstrfmts)
+  if (do_check && msgid_plural == NULL)
+    /* Test 3: Check whether both formats strings contain the same number
+       of format specifications.
+       We check only those messages for which the msgid's is_format flag
+       is one of 'yes' or 'possible'.  We don't check msgids with is_format
+       'no' or 'impossible', to obey the programmer's order.  We don't check
+       msgids with is_format 'undecided' because that would introduce too
+       many checks, thus forcing the programmer to add "xgettext: no-c-format"
+       anywhere where a translator wishes to use a percent sign.  */
+    for (i = 0; i < NFORMATS; i++)
+      if (possible_format_p (is_format[i]))
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
-number of format specifications in `msgid' and `msgstr' does not match"));
-	  error_with_progname = true;
-	  exit_status = EXIT_FAILURE;
-	}
-      else
-	{
-	  int *id_args = (int *) alloca (nidfmts * sizeof (int));
-	  int *str_args = (int *) alloca (nstrfmts * sizeof (int));
-	  size_t cnt;
+	  /* At runtime, we can assume the program passes arguments that
+	     fit well for msgid.  We must signal an error if msgstr wants
+	     more arguments that msgid accepts.
+	     If msgstr wants fewer arguments than msgid, it wouldn't lead
+	     to a crash at runtime, but we nevertheless give an error because
+	     1) this situation occurs typically after the programmer has
+		added some arguments to msgid, so we must make the translator
+		specially aware of it (more than just "fuzzy"),
+	     2) it is generally wrong if a translation wants to ignore
+		arguments that are used by other translations.  */
 
-	  (void) parse_printf_format (msgid, nidfmts, id_args);
-	  (void) parse_printf_format (msgstr, nstrfmts, str_args);
+	  struct formatstring_parser *parser = formatstring_parsers[i];
+	  void *msgid_descr = parser->parse (msgid);
 
-	  for (cnt = 0; cnt < nidfmts; ++cnt)
-	    if (id_args[cnt] != str_args[cnt])
-	      {
-		error_with_progname = false;
-		error_at_line (0, 0, msgid_pos->file_name,
-			       msgid_pos->line_number, _("\
-format specifications for argument %lu are not the same"),
-			       (unsigned long) (cnt + 1));
-		error_with_progname = true;
-		exit_status = EXIT_FAILURE;
-	      }
+	  if (msgid_descr != NULL)
+	    {
+	      void *msgstr_descr = parser->parse (msgstr);
+
+	      if (msgstr_descr != NULL)
+		{
+		  if (parser->check (msgid_pos, msgid_descr, msgstr_descr))
+		    exit_status = EXIT_FAILURE;
+
+		  parser->free (msgstr_descr);
+		}
+	      else
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0, msgid_pos->file_name,
+				 msgid_pos->line_number,
+				 _("\
+'msgstr' is not a valid %s format string, unlike 'msgid'"),
+				 format_language_pretty[i]);
+		  error_with_progname = true;
+		  exit_status = EXIT_FAILURE;
+		}
+
+	      parser->free (msgid_descr);
+	    }
 	}
-    }
 }
 
 

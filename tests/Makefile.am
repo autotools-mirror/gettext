@@ -33,6 +33,11 @@ TESTS = gettext-1 gettext-2 \
 	msguniq-1 msguniq-2 msguniq-3 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 \
+	format-c-1 format-c-2 \
+	format-java-1 format-java-2 \
+	format-lisp-1 format-lisp-2 \
+	format-python-1 format-python-2 \
+	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po

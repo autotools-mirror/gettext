@@ -70,7 +70,7 @@ struct extract_class_ty
   string_list_ty *comment_dot;
 
   bool is_fuzzy;
-  enum is_c_format is_c_format;
+  enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
 
   size_t filepos_count;
@@ -83,12 +83,14 @@ extract_constructor (that)
      po_ty *that;
 {
   extract_class_ty *this = (extract_class_ty *) that;
+  size_t i;
 
   this->mlp = NULL; /* actually set in read_po_file, below */
   this->comment = NULL;
   this->comment_dot = NULL;
   this->is_fuzzy = false;
-  this->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    this->is_format[i] = undecided;
   this->do_wrap = undecided;
   this->filepos_count = 0;
   this->filepos = NULL;
@@ -119,7 +121,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
 {
   extract_class_ty *this = (extract_class_ty *)that;
   message_ty *mp;
-  size_t j;
+  size_t j, i;
 
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgid) != NULL)
@@ -143,7 +145,8 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
       this->filepos_count = 0;
       this->filepos = NULL;
       this->is_fuzzy = false;
-      this->is_c_format = undecided;
+      for (i = 0; i < NFORMATS; i++)
+	this->is_format[i] = undecided;
       this->do_wrap = undecided;
       return;
     }
@@ -185,7 +188,8 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
       this->comment_dot = NULL;
     }
   mp->is_fuzzy = this->is_fuzzy;
-  mp->is_c_format = this->is_c_format;
+  for (i = 0; i < NFORMATS; i++)
+    mp->is_format[i] = this->is_format[i];
   mp->do_wrap = this->do_wrap;
   for (j = 0; j < this->filepos_count; ++j)
     {
@@ -200,7 +204,8 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
   this->filepos_count = 0;
   this->filepos = NULL;
   this->is_fuzzy = false;
-  this->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    this->is_format[i] = undecided;
   this->do_wrap = undecided;
 }
 
@@ -268,10 +273,8 @@ extract_comment_special (that, s)
 {
   extract_class_ty *this = (extract_class_ty *) that;
 
-  if (strstr (s, "fuzzy") != NULL)
-    this->is_fuzzy = true;
-  this->is_c_format = parse_c_format_description_string (s);
-  this->do_wrap = parse_c_width_description_string (s);
+  po_parse_comment_special (s, &this->is_fuzzy, this->is_format,
+			    &this->do_wrap);
 }
 
 

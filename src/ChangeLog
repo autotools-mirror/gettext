@@ -1,3 +1,71 @@
+2001-08-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* format.h: New file.
+	* format-c.c: New file.
+	* format-java.c: New file.
+	* format-lisp.c: New file.
+	* format-python.c: New file.
+	* format-ycp.c: New file.
+	* format.c: New file.
+	* Makefile.am (msgfmt_SOURCES): Add format.c, format-c.c,
+	format-java.c, format-lisp.c, format-python.c, format-ycp.c.
+	(xgettext_SOURCES): Likewise.
+	* message.h (enum format_type): New type.
+	(format_language, format_language_pretty): New declarations.
+	(parse_c_format_description_string): Remove declaration.
+	(possible_format_p): Renamed from possible_c_format_p.
+	(struct message_ty): Change field 'is_c_format' to an array and
+	rename it to 'is_format'.
+	* message.c (parse_c_format_description_string): Remove function.
+	(format_language): New array.
+	(format_language_pretty): New array.
+	(possible_format_p): Renamed from possible_c_format_p.
+	(parse_c_width_description_string): Remove function.
+	(message_alloc): Update for is_format array.
+	(message_copy): Likewise.
+	(message_merge): Likewise.
+	* po.h (po_parse_comment_special): New declaration.
+	* po.c (po_parse_comment_special): New function.
+	* msgl-cat.c (catenate_msgdomain_list): Update for is_format array.
+	* read-po.c (struct readall_class_ty): Change field 'is_c_format' to
+	an array and rename it to 'is_format'.
+	(readall_constructor): Update for is_format array.
+	(readall_directive_message): Likewise.
+	(readall_comment_special): Call po_parse_comment_special instead of
+	parse_c_format_description_string and parse_c_width_description_string.
+	* write-po.c (make_format_description_string): Renamed from
+	make_c_format_description_string. Add a language argument. Remove the
+	impossible and undecided cases.
+	(significant_format_p): Renamed from significant_c_format_p.
+	(has_significant_format_p): New function.
+	(message_print): Update for is_format array.
+	* msgfmt.c: Include format.h instead of printf.h.
+	(struct msgfmt_class_ty): Change field 'is_c_format' to an array and
+	rename it to 'is_format'.
+	(format_constructor): Update for is_format array.
+	(format_directive_message): Likewise.
+	(format_comment_special): Call po_parse_comment_special instead of
+	parse_c_format_description_string and parse_c_width_description_string.
+	(check_pair): Change is_format argument to an array. Call language
+	dependent format string checking routines.
+	* x-po.c (struct extract_class_ty): Change field 'is_c_format' to
+	an array and rename it to 'is_format'.
+	(extract_constructor): Update for is_format array.
+	(extract_directive_message): Likewise.
+	(extract_comment_special): Call po_parse_comment_special instead of
+	parse_c_format_description_string and parse_c_width_description_string.
+	* x-c.h (SCANNERS_C): Refer to formatstring_c.
+	* x-po.h (SCANNERS_PO): Add NULL formatstring reference.
+	* xgettext.c: Include format.h instead of printf-parse.h.
+	(test_whether_c_format): Remove function.
+	(current_formatstring_parser): New variable.
+	(remember_a_message): Update for is_format array. Call
+	po_parse_comment_special instead of parse_c_format_description_string
+	and parse_c_width_description_string. Decide whether format string
+	depending on current_formatstring_parser.
+	(language_to_scanner): Also set current_formatstring_parser. Add
+	dummy table entries for Python, Lisp, Java, YCP.
+
 2001-08-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* pos.h: Include <stddef.h>.

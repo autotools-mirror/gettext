@@ -1,3 +1,7 @@
+2001-08-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Remove parse_printf_format check.
+
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Don't call AC_REVISION. It modifies configure.in

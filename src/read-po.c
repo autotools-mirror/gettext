@@ -64,7 +64,7 @@ struct readall_class_ty
 
   /* Flags transported in special comments.  */
   bool is_fuzzy;
-  enum is_c_format is_c_format;
+  enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
 
   /* Accumulate filepos comments for the next message directive.  */
@@ -97,6 +97,7 @@ readall_constructor (that)
      po_ty *that;
 {
   readall_class_ty *this = (readall_class_ty *) that;
+  size_t i;
 
   this->mdlp = msgdomain_list_alloc ();
   this->domain = MESSAGE_DOMAIN_DEFAULT;
@@ -106,7 +107,8 @@ readall_constructor (that)
   this->filepos_count = 0;
   this->filepos = NULL;
   this->is_fuzzy = false;
-  this->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    this->is_format[i] = undecided;
   this->do_wrap = undecided;
 }
 
@@ -177,7 +179,7 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
 {
   readall_class_ty *this = (readall_class_ty *) that;
   message_ty *mp;
-  size_t j;
+  size_t j, i;
 
   /* Select the appropriate sublist of this->mdlp.  */
   this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
@@ -229,7 +231,8 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
       free (pp->file_name);
     }
   mp->is_fuzzy = this->is_fuzzy;
-  mp->is_c_format = this->is_c_format;
+  for (i = 0; i < NFORMATS; i++)
+    mp->is_format[i] = this->is_format[i];
   mp->do_wrap = this->do_wrap;
 
   if (this->filepos != NULL)
@@ -237,7 +240,8 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
   this->filepos_count = 0;
   this->filepos = NULL;
   this->is_fuzzy = false;
-  this->is_c_format = undecided;
+  for (i = 0; i < NFORMATS; i++)
+    this->is_format[i] = undecided;
   this->do_wrap = undecided;
 }
 
@@ -283,11 +287,8 @@ readall_comment_special (that, s)
 {
   readall_class_ty *this = (readall_class_ty *) that;
 
-  if (strstr (s, "fuzzy") != NULL)
-    this->is_fuzzy = true;
-
-  this->is_c_format = parse_c_format_description_string (s);
-  this->do_wrap = parse_c_width_description_string (s);
+  po_parse_comment_special (s, &this->is_fuzzy, this->is_format,
+			    &this->do_wrap);
 }
 
 

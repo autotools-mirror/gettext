@@ -1,3 +1,17 @@
+2001-08-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* format-c-1: New file.
+	* format-c-2: New file.
+	* format-java-1: New file.
+	* format-java-2: New file.
+	* format-lisp-1: New file.
+	* format-lisp-2: New file.
+	* format-python-1: New file.
+	* format-python-2: New file.
+	* format-ycp-1: New file.
+	* format-ycp-2: New file.
+	* Makefile.am (TESTS): Add them all.
+
 2001-08-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgmerge-12: New file, from Karl Eichwalder.

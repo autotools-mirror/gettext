@@ -293,3 +293,102 @@ po_callback_comment_filepos (name, line)
   /* assert(callback_arg); */
   po_comment_filepos (callback_arg, name, line);
 }
+
+
+/* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
+void
+po_parse_comment_special (s, fuzzyp, formatp, wrapp)
+     const char *s;
+     bool *fuzzyp;
+     enum is_format formatp[NFORMATS];
+     enum is_wrap *wrapp;
+{
+  size_t i;
+
+  *fuzzyp = false;
+  for (i = 0; i < NFORMATS; i++)
+    formatp[i] = undecided;
+  *wrapp = undecided;
+
+  while (*s != '\0')
+    {
+      const char *t;
+
+      /* Skip whitespace.  */
+      while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
+	s++;
+
+      /* Collect a token.  */
+      t = s;
+      while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
+	s++;
+      if (s != t)
+	{
+	  size_t len = s - t;
+
+	  /* Accept fuzzy flag.  */
+	  if (len == 5 && memcmp (t, "fuzzy", 5) == 0)
+	    {
+	      *fuzzyp = true;
+	      continue;
+	    }
+
+	  /* Accept format description.  */
+	  if (len >= 7 && memcmp (t + len - 7, "-format", 7) == 0)
+	    {
+	      const char *p;
+	      size_t n;
+	      enum is_format value;
+
+	      p = t;
+	      n = len - 7;
+
+	      if (n >= 3 && memcmp (p, "no-", 3) == 0)
+		{
+		  p += 3;
+		  n -= 3;
+		  value = no;
+		}
+	      else if (n >= 9 && memcmp (p, "possible-", 9) == 0)
+		{
+		  p += 9;
+		  n -= 9;
+		  value = possible;
+		}
+	      else if (n >= 11 && memcmp (p, "impossible-", 11) == 0)
+		{
+		  p += 11;
+		  n -= 11;
+		  value = impossible;
+		}
+	      else
+		value = yes;
+
+	      for (i = 0; i < NFORMATS; i++)
+		if (strlen (format_language[i]) == n
+		    && memcmp (format_language[i], p, n) == 0)
+		  {
+		    formatp[i] = value;
+		    break;
+		  }
+	      if (i < NFORMATS)
+		continue;
+	    }
+
+	  /* Accept wrap description.  */
+	  if (len == 4 && memcmp (t, "wrap", 4) == 0)
+	    {
+	      *wrapp = yes;
+	      continue;
+	    }
+	  if (len == 7 && memcmp (t, "no-wrap", 7) == 0)
+	    {
+	      *wrapp = no;
+	      continue;
+	    }
+
+	  /* Unknown special comment marker.  It may have been generated
+	     from a future xgettext version.  Ignore it.  */
+	}
+    }
+}
