@@ -23,6 +23,7 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 
 #include "error.h"
@@ -90,6 +91,8 @@ main (argc, argv)
 
   /* Set program name for message texts.  */
   program_name = argv[0];
+  if (strncmp (program_name, "lt-", 3) == 0)
+    program_name += 3;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */

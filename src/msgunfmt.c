@@ -97,7 +97,7 @@ main (argc, argv)
   int sort_by_msgid = 0;
 
   /* Set program name for messages.  */
-  program_name = argv[0];
+  set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE

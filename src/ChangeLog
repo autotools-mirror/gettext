@@ -1,3 +1,15 @@
+2001-05-15  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcmp.c (main): Call set_program_name instead of assigning
+	program_name directly.
+	* msgcomm.c (main): Likewise.
+	* msgfmt.c (main): Likewise.
+	* msgmerge.c (main): Likewise.
+	* msgunfmt.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+	* gettext.c (main): Remove "lt-" prefix from program_name.
+	* ngettext.c (main): Likewise.
+
 2001-05-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.c (usage): Add description of what the program does.

@@ -22,6 +22,7 @@
 #endif
 
 #include <stdio.h>
+#include <string.h>
 
 #include "progname.h"
 
@@ -29,6 +30,18 @@
 /* String containing name the program is called with.
    To be initialized by main().  */
 const char *program_name;
+
+/* Set program_name, based on argv[0].  */
+void
+set_program_name (argv0)
+     const char *argv0;
+{
+  /* libtool creates a temporary executable whose name is prefixed with
+     "lt-".  Remove this prefix here.  */
+  if (strncmp (argv0, "lt-", 3) == 0)
+    argv0 += 3;
+  program_name = argv0;
+}
 
 /* Indicates whether errors and warnings get prefixed with program_name.
    Default is true.  */

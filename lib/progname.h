@@ -23,12 +23,15 @@
    with the program name.
 
    Programs using this file should do the following in main():
-     program_name = argv[0];
+     set_program_name (argv[0]);
      error_print_progname = maybe_print_progname;
  */
 
 /* String containing name the program is called with.  */
 extern const char *program_name;
+
+/* Set program_name, based on argv[0].  */
+extern void set_program_name PARAMS ((const char *argv0));
 
 /* Indicates whether errors and warnings get prefixed with program_name.
    Default is true.

@@ -202,7 +202,7 @@ main (argc, argv)
   alignment = DEFAULT_OUTPUT_ALIGNMENT;
 
   /* Set program name for messages.  */
-  program_name = argv[0];
+  set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
   error_one_per_line = 1;
   exit_status = EXIT_SUCCESS;

@@ -143,7 +143,7 @@ main (argc, argv)
   size_t j;
 
   /* Set program name for messages.  */
-  program_name = argv[0];
+  set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE
