@@ -1178,7 +1178,7 @@ get_user_email ()
   /* Ask the user for his email address.  */
   argv[0] = "/bin/sh";
   argv[1] = (char *) prog;
-  argv[2] = _("\
+  argv[2] = (char *) _("\
 The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
