@@ -127,7 +127,7 @@ ACLOCAL_AMFLAGS = -I m4
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
-SUBDIRS = doc intl intl-java lib src po man m4 misc tests
+SUBDIRS = doc intl intl-java lib src po man m4 projects misc tests
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
@@ -181,7 +181,7 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 $(srcdir)/configure:  $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
 
-$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/flex.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
+$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/flex.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 config.h: stamp-h
 	@if test ! -f $@; then \
@@ -332,7 +332,7 @@ GZIP_ENV = --best
 distdir: $(DISTFILES)
 	-chmod -R a+w $(distdir) >/dev/null 2>&1; rm -rf $(distdir)
 	mkdir $(distdir)
-	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/intl $(distdir)/lib $(distdir)/man $(distdir)/misc $(distdir)/os2 $(distdir)/po
+	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/intl $(distdir)/lib $(distdir)/man $(distdir)/misc $(distdir)/os2 $(distdir)/po $(distdir)/src
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \

@@ -125,26 +125,29 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msguniq
+msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msginit msguniq
 
+
+noinst_PROGRAMS = hostname urlget
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
-msgl-ascii.h msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h \
-x-java.h x-ycp.h x-rst.h
+msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h read-mo.h write-mo.h \
+po-time.h xgettext.h x-c.h x-po.h x-java.h x-ycp.h x-rst.h
 
 
 EXTRA_DIST = FILES
 
 localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
+projectsdir = $(pkgdatadir)/projects
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
-@DEFS@
+-DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 
 LDADD = ../lib/libnlsut.a @INTLLIBS@
 
@@ -176,15 +179,18 @@ msgcmp_SOURCES = msgcmp.c    $(COMMON_SOURCE)
 msgfmt_SOURCES = msgfmt.c    $(COMMON_SOURCE) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c plural-eval.c $(FORMAT_SOURCE)
 msgmerge_SOURCES = msgmerge.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-equal.c
 msgunfmt_SOURCES = msgunfmt.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c read-mo.c read-java.c
-xgettext_SOURCES = xgettext.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c file-list.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCE)
+xgettext_SOURCES = xgettext.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c file-list.c po-time.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCE)
 msgattrib_SOURCES = msgattrib.c $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c
 msgcat_SOURCES = msgcat.c    $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
 msgcomm_SOURCES = msgcomm.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
 msgconv_SOURCES = msgconv.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c
-msgen_SOURCES = msgen.c     $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c
+msgen_SOURCES = msgen.c     $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-english.c
 msgexec_SOURCES = msgexec.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
 msggrep_SOURCES = msggrep.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
+msginit_SOURCES = msginit.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-english.c po-time.c
 msguniq_SOURCES = msguniq.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c
+hostname_SOURCES = hostname.c
+urlget_SOURCES = urlget.c
 
 # Link dependencies.
 # po-lex.c and po.c may need -liconv.
@@ -201,31 +207,41 @@ msgconv_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgen_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgexec_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msggrep_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
+                ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+
 msguniq_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
 
 # Special rules for bison and flex generated files.
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
-DISTCLEANFILES = po-gram-gen2.h
+DISTCLEANFILES = po-gram-gen2.h user-email
 
 CLEANFILES = gettext.jar gnu/gettext/*.class
 subdir = src
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = user-email
 bin_PROGRAMS = gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
 	msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) \
 	xgettext$(EXEEXT) msgattrib$(EXEEXT) msgcat$(EXEEXT) \
 	msgcomm$(EXEEXT) msgconv$(EXEEXT) msgen$(EXEEXT) \
-	msgexec$(EXEEXT) msggrep$(EXEEXT) msguniq$(EXEEXT)
-PROGRAMS = $(bin_PROGRAMS)
+	msgexec$(EXEEXT) msggrep$(EXEEXT) msginit$(EXEEXT) \
+	msguniq$(EXEEXT)
+noinst_PROGRAMS = hostname$(EXEEXT) urlget$(EXEEXT)
+PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS)
 
 am_gettext_OBJECTS = gettext.$(OBJEXT)
 gettext_OBJECTS = $(am_gettext_OBJECTS)
 gettext_LDADD = $(LDADD)
 gettext_DEPENDENCIES = ../lib/libnlsut.a
 gettext_LDFLAGS =
+am_hostname_OBJECTS = hostname.$(OBJEXT)
+hostname_OBJECTS = $(am_hostname_OBJECTS)
+hostname_LDADD = $(LDADD)
+hostname_DEPENDENCIES = ../lib/libnlsut.a
+hostname_LDFLAGS =
 am_msgattrib_OBJECTS = msgattrib.$(OBJEXT) message.$(OBJEXT) \
 	po.$(OBJEXT) po-lex.$(OBJEXT) po-gram-gen.$(OBJEXT) \
 	po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) open-po.$(OBJEXT) \
@@ -271,7 +287,7 @@ am_msgen_OBJECTS = msgen.$(OBJEXT) message.$(OBJEXT) po.$(OBJEXT) \
 	po-lex.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
 	po-charset.$(OBJEXT) open-po.$(OBJEXT) dir-list.$(OBJEXT) \
 	str-list.$(OBJEXT) msgl-ascii.$(OBJEXT) write-po.$(OBJEXT) \
-	read-po.$(OBJEXT)
+	read-po.$(OBJEXT) msgl-english.$(OBJEXT)
 msgen_OBJECTS = $(am_msgen_OBJECTS)
 msgen_DEPENDENCIES = ../lib/libnlsut.a
 msgen_LDFLAGS =
@@ -303,6 +319,15 @@ am_msggrep_OBJECTS = msggrep.$(OBJEXT) message.$(OBJEXT) po.$(OBJEXT) \
 msggrep_OBJECTS = $(am_msggrep_OBJECTS)
 msggrep_DEPENDENCIES = ../lib/libnlsut.a
 msggrep_LDFLAGS =
+am_msginit_OBJECTS = msginit.$(OBJEXT) message.$(OBJEXT) po.$(OBJEXT) \
+	po-lex.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
+	po-charset.$(OBJEXT) open-po.$(OBJEXT) dir-list.$(OBJEXT) \
+	str-list.$(OBJEXT) msgl-ascii.$(OBJEXT) write-po.$(OBJEXT) \
+	read-po.$(OBJEXT) msgl-english.$(OBJEXT) po-time.$(OBJEXT)
+msginit_OBJECTS = $(am_msginit_OBJECTS)
+msginit_DEPENDENCIES = ../intl/localealias.$(OBJEXT) \
+	../intl/localename.$(OBJEXT) ../lib/libnlsut.a
+msginit_LDFLAGS =
 am_msgmerge_OBJECTS = msgmerge.$(OBJEXT) message.$(OBJEXT) po.$(OBJEXT) \
 	po-lex.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
 	po-charset.$(OBJEXT) open-po.$(OBJEXT) dir-list.$(OBJEXT) \
@@ -332,12 +357,17 @@ ngettext_OBJECTS = $(am_ngettext_OBJECTS)
 ngettext_LDADD = $(LDADD)
 ngettext_DEPENDENCIES = ../lib/libnlsut.a
 ngettext_LDFLAGS =
+am_urlget_OBJECTS = urlget.$(OBJEXT)
+urlget_OBJECTS = $(am_urlget_OBJECTS)
+urlget_LDADD = $(LDADD)
+urlget_DEPENDENCIES = ../lib/libnlsut.a
+urlget_LDFLAGS =
 am_xgettext_OBJECTS = xgettext.$(OBJEXT) message.$(OBJEXT) po.$(OBJEXT) \
 	po-lex.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
 	po-charset.$(OBJEXT) open-po.$(OBJEXT) dir-list.$(OBJEXT) \
 	str-list.$(OBJEXT) msgl-ascii.$(OBJEXT) write-po.$(OBJEXT) \
-	file-list.$(OBJEXT) x-c.$(OBJEXT) x-po.$(OBJEXT) \
-	x-java.$(OBJEXT) x-ycp.$(OBJEXT) x-rst.$(OBJEXT) \
+	file-list.$(OBJEXT) po-time.$(OBJEXT) x-c.$(OBJEXT) \
+	x-po.$(OBJEXT) x-java.$(OBJEXT) x-ycp.$(OBJEXT) x-rst.$(OBJEXT) \
 	format.$(OBJEXT) format-c.$(OBJEXT) format-java.$(OBJEXT) \
 	format-lisp.$(OBJEXT) format-python.$(OBJEXT) \
 	format-pascal.$(OBJEXT) format-ycp.$(OBJEXT)
@@ -362,16 +392,18 @@ LTLEXCOMPILE = $(LIBTOOL) --mode=compile $(LEX) $(LFLAGS) $(AM_LFLAGS)
 YACCCOMPILE = $(YACC) $(YFLAGS) $(AM_YFLAGS)
 LTYACCCOMPILE = $(LIBTOOL) --mode=compile $(YACC) $(YFLAGS) $(AM_YFLAGS)
 YLWRAP = $(top_srcdir)/ylwrap
-DIST_SOURCES = $(gettext_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) \
-	$(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) \
-	$(msgen_SOURCES) $(msgexec_SOURCES) $(msgfmt_SOURCES) \
-	$(msggrep_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) \
-	$(msguniq_SOURCES) $(ngettext_SOURCES) $(xgettext_SOURCES)
+DIST_SOURCES = $(gettext_SOURCES) $(hostname_SOURCES) \
+	$(msgattrib_SOURCES) $(msgcat_SOURCES) $(msgcmp_SOURCES) \
+	$(msgcomm_SOURCES) $(msgconv_SOURCES) $(msgen_SOURCES) \
+	$(msgexec_SOURCES) $(msgfmt_SOURCES) $(msggrep_SOURCES) \
+	$(msginit_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) \
+	$(msguniq_SOURCES) $(ngettext_SOURCES) $(urlget_SOURCES) \
+	$(xgettext_SOURCES)
 HEADERS = $(noinst_HEADERS)
 
 DIST_COMMON = $(noinst_HEADERS) ChangeLog Makefile.am Makefile.in \
-	po-gram-gen.c po-hash-gen.c x-java.c
-SOURCES = $(gettext_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) $(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) $(msgen_SOURCES) $(msgexec_SOURCES) $(msgfmt_SOURCES) $(msggrep_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) $(ngettext_SOURCES) $(xgettext_SOURCES)
+	po-gram-gen.c po-hash-gen.c user-email.in x-java.c
+SOURCES = $(gettext_SOURCES) $(hostname_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) $(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) $(msgen_SOURCES) $(msgexec_SOURCES) $(msgfmt_SOURCES) $(msggrep_SOURCES) $(msginit_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) $(ngettext_SOURCES) $(urlget_SOURCES) $(xgettext_SOURCES)
 
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -394,6 +426,8 @@ Makefile:  $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
+user-email: $(top_builddir)/config.status user-email.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
@@ -418,9 +452,15 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+clean-noinstPROGRAMS:
+	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
 gettext$(EXEEXT): $(gettext_OBJECTS) $(gettext_DEPENDENCIES) 
 	@rm -f gettext$(EXEEXT)
 	$(LINK) $(gettext_LDFLAGS) $(gettext_OBJECTS) $(gettext_LDADD) $(LIBS)
+hostname$(EXEEXT): $(hostname_OBJECTS) $(hostname_DEPENDENCIES) 
+	@rm -f hostname$(EXEEXT)
+	$(LINK) $(hostname_LDFLAGS) $(hostname_OBJECTS) $(hostname_LDADD) $(LIBS)
 msgattrib$(EXEEXT): $(msgattrib_OBJECTS) $(msgattrib_DEPENDENCIES) 
 	@rm -f msgattrib$(EXEEXT)
 	$(LINK) $(msgattrib_LDFLAGS) $(msgattrib_OBJECTS) $(msgattrib_LDADD) $(LIBS)
@@ -448,6 +488,9 @@ msgfmt$(EXEEXT): $(msgfmt_OBJECTS) $(msgfmt_DEPENDENCIES)
 msggrep$(EXEEXT): $(msggrep_OBJECTS) $(msggrep_DEPENDENCIES) 
 	@rm -f msggrep$(EXEEXT)
 	$(LINK) $(msggrep_LDFLAGS) $(msggrep_OBJECTS) $(msggrep_LDADD) $(LIBS)
+msginit$(EXEEXT): $(msginit_OBJECTS) $(msginit_DEPENDENCIES) 
+	@rm -f msginit$(EXEEXT)
+	$(LINK) $(msginit_LDFLAGS) $(msginit_OBJECTS) $(msginit_LDADD) $(LIBS)
 msgmerge$(EXEEXT): $(msgmerge_OBJECTS) $(msgmerge_DEPENDENCIES) 
 	@rm -f msgmerge$(EXEEXT)
 	$(LINK) $(msgmerge_LDFLAGS) $(msgmerge_OBJECTS) $(msgmerge_LDADD) $(LIBS)
@@ -460,6 +503,9 @@ msguniq$(EXEEXT): $(msguniq_OBJECTS) $(msguniq_DEPENDENCIES)
 ngettext$(EXEEXT): $(ngettext_OBJECTS) $(ngettext_DEPENDENCIES) 
 	@rm -f ngettext$(EXEEXT)
 	$(LINK) $(ngettext_LDFLAGS) $(ngettext_OBJECTS) $(ngettext_LDADD) $(LIBS)
+urlget$(EXEEXT): $(urlget_OBJECTS) $(urlget_DEPENDENCIES) 
+	@rm -f urlget$(EXEEXT)
+	$(LINK) $(urlget_LDFLAGS) $(urlget_OBJECTS) $(urlget_LDADD) $(LIBS)
 xgettext$(EXEEXT): $(xgettext_OBJECTS) $(xgettext_DEPENDENCIES) 
 	@rm -f xgettext$(EXEEXT)
 	$(LINK) $(xgettext_LDFLAGS) $(xgettext_OBJECTS) $(xgettext_LDADD) $(LIBS)
@@ -574,7 +620,8 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-libtool \
+	clean-noinstPROGRAMS mostlyclean-am
 
 distclean: distclean-am
 
@@ -591,7 +638,7 @@ info-am:
 
 install-data-am: install-data-local
 
-install-exec-am: install-binPROGRAMS
+install-exec-am: install-binPROGRAMS install-exec-local
 
 install-info: install-info-am
 
@@ -611,17 +658,17 @@ mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 uninstall-am: uninstall-binPROGRAMS uninstall-info-am uninstall-local
 
 .PHONY: GTAGS all all-am all-local check check-am clean \
-	clean-binPROGRAMS clean-generic clean-libtool distclean \
-	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am info info-am install \
-	install-am install-binPROGRAMS install-data install-data-am \
-	install-data-local install-exec install-exec-am install-info \
-	install-info-am install-man install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool tags uninstall \
-	uninstall-am uninstall-binPROGRAMS uninstall-info-am \
-	uninstall-local
+	clean-binPROGRAMS clean-generic clean-libtool \
+	clean-noinstPROGRAMS distclean distclean-compile \
+	distclean-generic distclean-libtool distclean-tags distdir dvi \
+	dvi-am info info-am install install-am install-binPROGRAMS \
+	install-data install-data-am install-data-local install-exec \
+	install-exec-am install-exec-local install-info install-info-am \
+	install-man install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool tags uninstall uninstall-am \
+	uninstall-binPROGRAMS uninstall-info-am uninstall-local
 
 
 po-lex.o: po-gram-gen2.h
@@ -633,6 +680,24 @@ x-java.c: x-java.l
 	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
 
+# Special rules for installation of auxiliary programs.
+
+install-exec-local:
+	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
+	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
+	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
+
+installdirs-local:
+	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+
+uninstall-local:
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/project-id
+
 # Special rules for Java compilation.
 
 all-local: all-java-@BUILDJAVA@
@@ -642,8 +707,11 @@ all-java-yes: gettext.jar
 gnu/gettext/DumpResource.class: $(srcdir)/gnu/gettext/DumpResource.java
 	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/DumpResource.java
 
-gettext.jar: gnu/gettext/DumpResource.class
-	$(JAR) cf $@ gnu/gettext/DumpResource*.class
+gnu/gettext/GetURL.class: $(srcdir)/gnu/gettext/GetURL.java
+	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/GetURL.java
+
+gettext.jar: gnu/gettext/DumpResource.class gnu/gettext/GetURL.class
+	$(JAR) cf $@ gnu/gettext/DumpResource*.class gnu/gettext/GetURL*.class
 
 install-data-local: install-java-@BUILDJAVA@
 install-java-no:

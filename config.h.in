@@ -115,6 +115,12 @@
 /* Define if you have the getgid function.  */
 #undef HAVE_GETGID
 
+/* Define if you have the gethostbyname function.  */
+#undef HAVE_GETHOSTBYNAME
+
+/* Define if you have the gethostname function.  */
+#undef HAVE_GETHOSTNAME
+
 /* Define if you have the getpagesize function.  */
 #undef HAVE_GETPAGESIZE
 
@@ -123,6 +129,9 @@
 
 /* Define if you have the getuid function.  */
 #undef HAVE_GETUID
+
+/* Define if you have the inet_ntop function.  */
+#undef HAVE_INET_NTOP
 
 /* Define if you have the isascii function.  */
 #undef HAVE_ISASCII
@@ -228,6 +237,9 @@
 
 /* Define if you have the <argz.h> header file.  */
 #undef HAVE_ARGZ_H
+
+/* Define if you have the <arpa/inet.h> header file.  */
+#undef HAVE_ARPA_INET_H
 
 /* Define if you have the <dirent.h> header file.  */
 #undef HAVE_DIRENT_H
@@ -357,6 +369,9 @@
 
 /* Define as const if the declaration of setlocale() needs const. */
 #undef SETLOCALE_CONST
+
+/* Define if <sys/socket.h> defines AF_INET6. */
+#undef HAVE_IPV6
 
 /* Define if you have the iconv() function. */
 #undef HAVE_ICONV
