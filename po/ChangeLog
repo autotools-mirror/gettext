@@ -1,3 +1,8 @@
+2002-06-27  Bruno Haible  <bruno@clisp.org>
+
+	* fi.po: New file, from Sami J. Laine <sami.laine@iki.fi>.
+	* LINGUAS: Add fi.
+
 2002-06-12  Bruno Haible  <bruno@clisp.org>
 
 	* es.po: Update from Max de Mendizábal <max@upn.mx>.
