@@ -55,3 +55,10 @@ Known failures:
   The last -rpath option overrides all previous ones. One would need to
   pass all directories, separated by colons, in a single -rpath option.
 
+* Solaris: the tests
+    rpath-3bae rpath-3bbe
+    rpath-3aaf rpath-3abf
+    rpath-3baf rpath-3bbf
+  fail, because code from static libraries not compiled with -fPIC cannot
+  be integrated into shared libraries: linker error "Text relocation remains".
+
