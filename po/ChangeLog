@@ -1,3 +1,8 @@
+2001-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add src/format-librep.c, src/urlget.c, src/x-librep.c,
+	src/x-lisp.c.
+
 2001-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (COPYRIGHT_HOLDER): New variable.

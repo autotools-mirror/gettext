@@ -24,6 +24,7 @@ lib/xmalloc.c
 src/file-list.c
 src/format-c.c
 src/format-java.c
+src/format-librep.c
 src/format-lisp.c
 src/format-pascal.c
 src/format-python.c
@@ -58,10 +59,13 @@ src/po.c
 src/read-java.c
 src/read-mo.c
 src/read-po.c
+src/urlget.c
 src/write-java.c
 src/write-mo.c
 src/write-po.c
 src/x-c.c
+src/x-librep.c
+src/x-lisp.c
 src/x-po.c
 src/x-rst.c
 src/x-ycp.c
