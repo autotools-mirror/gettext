@@ -1,5 +1,12 @@
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt.c (struct msg_domain): Remove symbol_tab field.
+	(main, new_domain): Update.
+	(format_directive_message): Use message_list_search instead of
+	explicit hash table calls.
+
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.h: Include hash.h.
 	(message_list_ty): Add use_hashtable, htable fields.
 	(message_list_alloc): Add 'use_hashtable' argument.

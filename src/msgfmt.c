@@ -33,7 +33,6 @@
 
 #include "dir-list.h"
 #include "error.h"
-#include "hash.h"
 #include "progname.h"
 #include "basename.h"
 #include "xerror.h"
@@ -93,8 +92,6 @@ struct msg_domain
 {
   /* List for mapping message IDs to message strings.  */
   message_list_ty *mlp;
-  /* Table for mapping message IDs to message strings.  */
-  hash_table symbol_tab;
   /* Name of domain these ID/String pairs are part of.  */
   const char *domain_name;
   /* Output file name.  */
@@ -438,8 +435,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
       /* List is not used anymore.  */
       message_list_free (domain->mlp);
-      /* Hashing table is not used anymore.  */
-      delete_hash (&domain->symbol_tab);
     }
 
   /* Print statistics if requested.  */
@@ -598,7 +593,6 @@ new_domain (name, file_name)
 
       domain = (struct msg_domain *) xmalloc (sizeof (struct msg_domain));
       domain->mlp = message_list_alloc (true);
-      init_hash (&domain->symbol_tab, 100);
       domain->domain_name = name;
       domain->file_name = file_name;
       domain->next = NULL;
@@ -1127,8 +1121,6 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 
 
 /* The rest of the file is similar to read-po.c.  The differences are:
-   - The result is both a message_list_ty and a hash table mapping
-     msgid -> message_ty.  This is useful to speed up the duplicate lookup.
    - Comments are not stored, they are discarded right away.
    - The header entry check is performed on-the-fly.
  */
@@ -1227,6 +1219,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
   message_ty *entry;
+  message_ty *other_entry;
   size_t i;
 
   /* Don't emit untranslated entries.  Also don't emit fuzzy entries, unless
@@ -1338,10 +1331,10 @@ some header fields still have the initial default value"));
 	current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
 				     add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
 
-      /* We insert the ID/string pair into the hashing table.  But we have
-	 to take care for duplicates.  */
-      if (insert_entry (&current_domain->symbol_tab, msgid_string,
-			strlen (msgid_string) + 1, entry))
+      /* We insert the ID/string pair into the list and hashing table.
+	 But we have to take care for duplicates.  */
+      other_entry = message_list_search (current_domain->mlp, msgid_string);
+      if (other_entry != NULL)
 	{
 	  /* We don't need the just constructed entry.  */
 	  free (entry);
@@ -1350,11 +1343,9 @@ some header fields still have the initial default value"));
 	     translations are equal or different.  This is for consistency
 	     with msgmerge, msgcat and others.  The user can use the
 	     msguniq program to get rid of duplicates.  */
-	  find_entry (&current_domain->symbol_tab, msgid_string,
-		      strlen (msgid_string) + 1, (void **) &entry);
 	  po_gram_error_at_line (msgid_pos, _("\
 duplicate message definition"));
-	  po_gram_error_at_line (&entry->pos, _("\
+	  po_gram_error_at_line (&other_entry->pos, _("\
 ...this is the location of the first definition"));
 
 	  /* We don't need the just constructed entries'
