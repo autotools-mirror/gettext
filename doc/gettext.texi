@@ -597,8 +597,7 @@ empty translations.  Program @code{msgmerge} takes care of adjusting
 PO files between releases of the corresponding sources, commenting
 obsolete entries, initializing new ones, and updating all source
 line references.  Files ending with @file{.pot} are kind of base
-translation files found in distributions, in PO file format, and
-@file{.pox} files are often temporary PO files.
+translation files found in distributions, in PO file format.
 
 MO files are meant to be read by programs, and are binary in nature.
 A few systems already offer tools for creating and handling MO files
@@ -632,11 +631,11 @@ Original C Sources ---> PO mode ---> Marked C Sources ---.
 |   |                                            |             ^
 |   |                                            `---.         |
 |   `---.                                            +---> PO mode ---.
-|       +----> msgmerge ------> LANG.pox --->--------'                |
+|       +----> msgmerge ------> LANG.po ---->--------'                |
 |   .---'                                                             |
 |   |                                                                 |
 |   `-------------<---------------.                                   |
-|                                 +--- LANG.po <--- New LANG.pox <----'
+|                                 +--- New LANG.po <------------------'
 |   .--- LANG.gmo <--- msgfmt <---'
 |   |
 |   `---> install ---> /.../LANG/PACKAGE.mo ---.
@@ -715,8 +714,8 @@ should now generate the proper things automatically for you!
 
 The first time through, there is no @file{@var{lang}.po} yet, so the
 @code{msgmerge} step may be skipped and replaced by a mere copy of
-@file{@var{package}.pot} to @file{@var{lang}.pox}, where @var{lang}
-represents the target language.
+@file{@var{package}.pot} to @file{@var{lang}.po}, where @var{lang}
+represents the target language.  See @ref{Creating} for details.
 
 Then comes the initial translation of messages.  Translation in
 itself is a whole matter, still exclusively meant for humans,
@@ -727,7 +726,7 @@ about how to contact translating teams, or becoming part of them,
 for sharing your translating concerns with others who target the same
 native language.
 
-While adding the translated messages into the @file{@var{lang}.pox}
+While adding the translated messages into the @file{@var{lang}.po}
 PO file, if you do not have Emacs handy, you are on your own
 for ensuring that your efforts fully respect the PO file format, and quoting
 conventions (@pxref{PO Files}).  This is surely not an impossible task,
@@ -778,7 +777,7 @@ existing @file{@var{lang}.po} file, by comparing it with a newer
 out of recent C sources.  The refreshing operation adjusts all
 references to C source locations for strings, since these strings
 move as programs are modified.  Also, @code{msgmerge} comments out as
-obsolete, in @file{@var{lang}.pox}, those already translated entries
+obsolete, in @file{@var{lang}.po}, those already translated entries
 which are no longer used in the program sources (@pxref{Obsolete
 Entries}).  It finally discovers new strings and inserts them in
 the resulting PO file as untranslated entries (@pxref{Untranslated
@@ -786,9 +785,7 @@ Entries}).  @xref{msgmerge Invocation}, for more information about what
 @code{msgmerge} really does.
 
 Whatever route or means taken, the goal is to obtain an updated
-@file{@var{lang}.pox} file offering translations for all strings.
-When this is properly achieved, this file @file{@var{lang}.pox} may
-take the place of the previous official @file{@var{lang}.po} file.
+@file{@var{lang}.po} file offering translations for all strings.
 
 The temporal mobility, or fluidity of PO files, is an integral part of
 the translation game, and should be well understood, and accepted.
@@ -861,7 +858,7 @@ like:
 (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 @end example
 
-Later, whenever you edit some @file{.po}, @file{.pot} or @file{.pox}
+Later, whenever you edit some @file{.po}
 file, or any file having the string @samp{.po.} within its name,
 Emacs loads @file{po-mode.elc} (or @file{po-mode.el}) as needed, and
 automatically activates PO mode commands for the associated buffer.

@@ -202,6 +202,10 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 	  [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
 
+	dnl Search for GNU msgmerge 0.11 or newer in the PATH.
+	AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
+	  [$ac_dir/$ac_word --update -q /dev/null /dev/null >/dev/null 2>&1], :)
+
 	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
 	dnl Test whether we really found GNU msgfmt.
 	if test "$GMSGFMT" != ":"; then

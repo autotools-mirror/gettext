@@ -1,3 +1,12 @@
+2001-09-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (MSGMERGE_UPDATE): New variable.
+	(.SUFFIXES): Remove .pox.
+	(.po.pox): Remove rule.
+	($(POFILES)): New rule.
+	(mostlyclean): Don't remove *.pox.
+	(force): New target.
+
 2001-10-20  Bruno Haible  <haible@clisp.cons.org>
 
 	* es.po: Update from Max de Mendizábal <max@upn.mx>.

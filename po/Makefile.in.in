@@ -37,6 +37,7 @@ GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = msgmerge
+MSGMERGE_UPDATE = @MSGMERGE@ --update
 
 POFILES = @POFILES@
 GMOFILES = @GMOFILES@
@@ -48,11 +49,7 @@ POTFILES = \
 CATALOGS = @CATALOGS@
 
 .SUFFIXES:
-.SUFFIXES: .po .pox .gmo .mo
-
-.po.pox:
-	$(MAKE) $(PACKAGE).pot
-	$(MSGMERGE) $< $(srcdir)/$(PACKAGE).pot -o $*.pox
+.SUFFIXES: .po .gmo .mo
 
 .po.mo:
 	$(MSGFMT) -c -o $@ $<
@@ -78,6 +75,9 @@ $(srcdir)/$(PACKAGE).pot: $(POTFILES) $(srcdir)/POTFILES.in
 	&& test ! -f $(PACKAGE).po \
 	   || ( rm -f $(srcdir)/$(PACKAGE).pot \
 		&& mv $(PACKAGE).po $(srcdir)/$(PACKAGE).pot )
+
+$(POFILES): force
+	$(MSGMERGE_UPDATE) $@ $(srcdir)/$(PACKAGE).pot
 
 
 install: install-exec install-data
@@ -134,7 +134,7 @@ check: all
 dvi info tags TAGS ID:
 
 mostlyclean:
-	rm -f core core.* *.pox $(PACKAGE).po *.new.po
+	rm -f core core.* $(PACKAGE).po *.new.po
 	rm -fr *.o
 
 clean: mostlyclean
@@ -184,6 +184,8 @@ Makefile: Makefile.in.in $(top_builddir)/config.status POTFILES.in
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$(subdir)/$@.in CONFIG_HEADERS= \
 	       $(SHELL) ./config.status
+
+force:
 
 # Tell versions [3.59,3.63) of GNU make not to export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
