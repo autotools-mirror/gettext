@@ -1,5 +1,12 @@
 2001-12-20  Bruno Haible  <bruno@clisp.org>
 
+	* execute.c (nonintr_open): Omit prototype. On some platforms mode_t
+	promotes to int, not mode_t.
+	* pipe-in.c (nonintr_open): Likewise.
+	* pipe-out.c (nonintr_open): Likewise.
+
+2001-12-20  Bruno Haible  <bruno@clisp.org>
+
 	* setenv.c (__add_to_environ): Don't call realloc(NULL,...), use
 	malloc instead. For SunOS4.
 

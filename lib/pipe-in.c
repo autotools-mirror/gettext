@@ -61,8 +61,10 @@
    function argument counts despite of K&R C function definition syntax.  */
 #ifdef EINTR
 static inline int nonintr_close PARAMS ((int fd));
+# ifdef __GNUC__
 static inline int nonintr_open PARAMS ((const char *pathname, int oflag,
 					mode_t mode));
+# endif
 #endif
 
 
