@@ -2,6 +2,11 @@
 
 	* quotearg.m4: Fix copyright date and/or serial number.
 
+2003-11-24  Bruno Haible  <bruno@clisp.org>
+
+	* allocsa.m4 (gl_ALLOCSA): Require also gl_AC_TYPE_LONG_LONG and
+	gt_TYPE_LONGDOUBLE.
+
 2004-04-26  Bruno Haible  <bruno@clisp.org>
 
 	* csharpcomp.m4 (gt_CSHARPCOMP): Avoid using !.
