@@ -91,16 +91,19 @@ struct parse_args
 #ifdef _LIBC
 # define FREE_EXPRESSION __gettext_free_exp
 # define PLURAL_PARSE __gettextparse
+# define GERMANIC_PLURAL __gettext_germanic_plural
 # define EXTRACT_PLURAL_EXPRESSION __gettext_extract_plural
 # define PLURAL_EVAL __gettext_plural_eval
 #elif defined (IN_LIBINTL)
 # define FREE_EXPRESSION gettext_free_exp__
 # define PLURAL_PARSE gettextparse__
+# define GERMANIC_PLURAL gettext_germanic_plural__
 # define EXTRACT_PLURAL_EXPRESSION gettext_extract_plural__
 # define PLURAL_EVAL gettext_plural_eval__
 #else
 # define FREE_EXPRESSION free_plural_expression
 # define PLURAL_PARSE parse_plural_expression
+# define GERMANIC_PLURAL germanic_plural
 # define EXTRACT_PLURAL_EXPRESSION extract_plural_expression
 # define PLURAL_EVAL plural_eval
 #endif
@@ -108,6 +111,7 @@ struct parse_args
 extern void FREE_EXPRESSION PARAMS ((struct expression *exp))
      internal_function;
 extern int PLURAL_PARSE PARAMS ((void *arg));
+extern struct expression GERMANIC_PLURAL;
 extern void EXTRACT_PLURAL_EXPRESSION PARAMS ((const char *nullentry,
 					       struct expression **pluralp,
 					       unsigned long int *npluralsp))

@@ -1,3 +1,9 @@
+2001-11-22  Bruno Haible  <bruno@clisp.org>
+
+	* plural-exp.h (GERMANIC_PLURAL): New declaration.
+	* plural-exp.c (GERMANIC_PLURAL): Renamed from germanic_plural.
+	* loadmsgcat.c (_nl_unload_domain): Update.
+
 2001-07-17  Ulrich Drepper  <drepper@redhat.com>
 
 	* localealias.c (read_alias_file): Disable implicit locking

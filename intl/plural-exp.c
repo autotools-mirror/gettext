@@ -46,7 +46,7 @@ static const struct expression plone =
     .num = 1
   }
 };
-static struct expression germanic_plural =
+struct expression GERMANIC_PLURAL =
 {
   .nargs = 2,
   .operation = not_equal,
@@ -69,7 +69,7 @@ static struct expression germanic_plural =
 
 static struct expression plvar;
 static struct expression plone;
-static struct expression germanic_plural;
+struct expression GERMANIC_PLURAL;
 
 static void
 init_germanic_plural ()
@@ -83,10 +83,10 @@ init_germanic_plural ()
       plone.operation = num;
       plone.val.num = 1;
 
-      germanic_plural.nargs = 2;
-      germanic_plural.operation = not_equal;
-      germanic_plural.val.args[0] = &plvar;
-      germanic_plural.val.args[1] = &plone;
+      GERMANIC_PLURAL.nargs = 2;
+      GERMANIC_PLURAL.operation = not_equal;
+      GERMANIC_PLURAL.val.args[0] = &plvar;
+      GERMANIC_PLURAL.val.args[1] = &plone;
     }
 }
 
@@ -150,7 +150,7 @@ EXTRACT_PLURAL_EXPRESSION (nullentry, pluralp, npluralsp)
          English is using since English is a Germanic language.  */
     no_plural:
       INIT_GERMANIC_PLURAL ();
-      *pluralp = &germanic_plural;
+      *pluralp = &GERMANIC_PLURAL;
       *npluralsp = 2;
     }
 }

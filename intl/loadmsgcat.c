@@ -426,7 +426,7 @@ internal_function
 _nl_unload_domain (domain)
      struct loaded_domain *domain;
 {
-  if (domain->plural != &germanic_plural)
+  if (domain->plural != &__gettext_germanic_plural)
     __gettext_free_exp (domain->plural);
 
   _nl_free_domain_conv (domain);
