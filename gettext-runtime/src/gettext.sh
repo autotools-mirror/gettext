@@ -1,6 +1,6 @@
-#! /bin/false
+#! /bin/sh
 #
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,6 +32,47 @@ EOT
     echo='echo_func'
   fi
 fi
+
+# This script is primarily a shell function library. In order for
+# ". gettext.sh" to find it, we install it in $PREFIX/bin (that is usually
+# contained in $PATH), rather than in some other location such as
+# $PREFIX/share/sh-scripts or $PREFIX/share/gettext. In order to not violate
+# the Filesystem Hierarchy Standard when doing so, this script is executable.
+# Therefore it needs to support the standard --help and --version.
+case "$0" in
+  gettext.sh | */gettext.sh | *\gettext.sh)
+    progname=$0
+    package=@PACKAGE@
+    version=@VERSION@
+    # func_usage
+    # outputs to stdout the --help usage message.
+    func_usage ()
+    {
+      echo "GNU gettext shell script function library version $version"
+      echo "Usage: . gettext.sh"
+    }
+    # func_version
+    # outputs to stdout the --version message.
+    func_version ()
+    {
+      echo "$progname (GNU $package) $version"
+      echo "Copyright (C) 2003-2005 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+      echo "Written by" "Bruno Haible"
+    }
+    if test $# = 1; then
+      case "$1" in
+        --help | --hel | --he | --h )
+          func_usage; exit 0 ;;
+        --version | --versio | --versi | --vers | --ver | --ve | --v )
+          func_version; exit 0 ;;
+      esac
+    fi
+    func_usage 1>&2
+    exit 1
+    ;;
+esac
 
 # eval_gettext MSGID
 # looks up the translation of MSGID and substitutes shell variables in the
