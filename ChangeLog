@@ -1,3 +1,7 @@
+2003-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* version.sh: Bump version number to 0.13.1.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13 released.
