@@ -1,14 +1,14 @@
-# Japanese translations for GNU gettext package.
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Jun Sawataishi <jsawa@attglobal.net>, 2001.
+# Translation of `gettext' messages to Japanese.
+# Copyright (C) 1999, 2002 Free Software Foundation, Inc.
+# Masahito Yamaga <ma@yama-ga.com>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
+"Project-Id-Version: GNU gettext 0.11.1\n"
 "POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 1999-09-24 23:45+09:00\n"
-"Last-Translator: JUN SAWATAISHI <jsawa@attglobal.net>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2002-04-15 00:15+0900\n"
+"Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
+"Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,222 +17,227 @@ msgstr ""
 #: lib/argmatch.c:134
 #, c-format
 msgid "invalid argument `%s' for `%s'"
-msgstr ""
+msgstr "`%2$s' に対する引数 `%1$s' が間違っています"
 
 #: lib/argmatch.c:135
 #, c-format
 msgid "ambiguous argument `%s' for `%s'"
-msgstr ""
+msgstr "`%2$s' に対する引数 `%1$s' が曖昧です"
 
 #: lib/argmatch.c:155
 msgid "Valid arguments are:"
-msgstr ""
+msgstr "正しい引数:"
 
 #: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:726 src/read-mo.c:171
 #: src/urlget.c:204 src/xgettext.c:823 src/xgettext.c:836 src/xgettext.c:846
 #, c-format
 msgid "error while opening \"%s\" for reading"
-msgstr "\"%s\" のオープンでエラー"
+msgstr "\"%s\" を読み込もうとしてエラーが発生しました"
 
 #: lib/copy-file.c:68
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open backup file \"%s\" for writing"
-msgstr "\"%s\" のオープンでエラー"
+msgstr "バックアップファイル \"%s\" を書き込み用に開くことができません"
 
 #: lib/copy-file.c:81 src/urlget.c:216
-#, fuzzy, c-format
+#, c-format
 msgid "error reading \"%s\""
-msgstr " \"%s\" を読み込む際にエラー"
+msgstr "\"%s\" を読み込み中にエラーが発生しました"
 
 #: lib/copy-file.c:87 lib/copy-file.c:91
-#, fuzzy, c-format
+#, c-format
 msgid "error writing \"%s\""
-msgstr "ファイル \"%s\" の書き込みエラー"
+msgstr "\"%s\" を書き込み中にエラーが発生しました"
 
 #: lib/copy-file.c:93 src/urlget.c:226
-#, fuzzy, c-format
+#, c-format
 msgid "error after reading \"%s\""
-msgstr " \"%s\" を読み込む際にエラー"
+msgstr "\"%s\" を読み込んだ後にエラーが発生しました"
 
 #: lib/error.c:116
 msgid "Unknown system error"
-msgstr "認識されないシステムエラー"
+msgstr "未知のシステムエラー"
 
 #: lib/execute.c:169 lib/execute.c:204 lib/pipe-bidi.c:153 lib/pipe-bidi.c:188
 #: lib/pipe-in.c:168 lib/pipe-in.c:204 lib/pipe-out.c:168 lib/pipe-out.c:204
 #: lib/wait-process.c:132
 #, c-format
 msgid "%s subprocess failed"
-msgstr ""
+msgstr "%s サブプロセスが失敗しました"
 
 #: lib/getopt.c:691
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: オプション %s は曖昧です\n"
+msgstr "%s: オプション `%s' は曖昧です\n"
 
 #: lib/getopt.c:716
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: オプション %s は引数をとりません\n"
+msgstr "%s: オプション `--%s' には引数はありません\n"
 
 #: lib/getopt.c:721
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: オプション %c%s は引数をとりません\n"
+msgstr "%s: オプション `%c%s' には引数はありません\n"
 
 #: lib/getopt.c:739 lib/getopt.c:912
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: オプション %s は引数を必要とします\n"
+msgstr "%s: オプション `%s' には引数が必要です\n"
 
 #: lib/getopt.c:768
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: 認識されないオプション -- %s\n"
+msgstr "%s: オプション `--%s' は認識されません\n"
 
 #: lib/getopt.c:772
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: 認識されないオプション -- %c%s\n"
+msgstr "%s: オプション `%c%s' は認識されません\n"
 
 #: lib/getopt.c:798
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s: 不正なオプション-- %c\n"
+msgstr "%s: 不正なオプション -- %c\n"
 
 #: lib/getopt.c:801
 #, c-format
 msgid "%s: invalid option -- %c\n"
-msgstr "%s: 不正なオプション -- %c\n"
+msgstr "%s: 無効なオプション -- %c\n"
 
 #: lib/getopt.c:831 lib/getopt.c:961
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: オプションは引数を必要とします -- %c\n"
+msgstr "%s: 引数が必要なオプション -- %c\n"
 
 #: lib/getopt.c:878
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: オプション -W %s は曖昧です\n"
+msgstr "%s: オプション `-W %s' は曖昧です\n"
 
 #: lib/getopt.c:896
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: オプション -W %s は引数をとりません\n"
+msgstr "%s: オプション `-W %s' には引数はありません\n"
 
 #: lib/javacomp.c:440
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
+"Jave コンパイラが見つかりません. gcj をインストールするか $JAVAC を設定してみ"
+"てください"
 
 #: lib/javaexec.c:379
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
+"Java 仮想マシンが見つかりません. gij をインストールするか $JAVA を設定してく"
+"ださい"
 
 #: lib/obstack.c:474 lib/xerror.c:53 lib/xmalloc.c:53 src/po-lex.c:97
 #: src/po-lex.c:130
 msgid "memory exhausted"
-msgstr "メモリーが枯渇しました"
+msgstr "メモリを使い果たしました"
 
 #: lib/pipe-bidi.c:116 lib/pipe-bidi.c:118 lib/pipe-in.c:135
 #: lib/pipe-out.c:135
-#, fuzzy
 msgid "cannot create pipe"
-msgstr "出力ファイル \"%s\"を作成できない"
+msgstr "パイプを作ることができません"
 
 #: lib/wait-process.c:110
 #, c-format
 msgid "%s subprocess"
-msgstr ""
+msgstr "%s サブプロセス"
 
 #: lib/wait-process.c:124
 #, c-format
 msgid "%s subprocess got fatal signal %d"
-msgstr ""
+msgstr "%s サブプロセスが致命的なシグナル %d を受け取りました"
 
 #: src/format-c.c:589 src/format-python.c:506
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
-msgstr "`msgid'と`msgstr'のフォーマット様式が合致しません"
+msgstr "`msgid' と `%s' で指定した形式の数が合っていません"
 
 #: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
 #: src/format-pascal.c:443 src/format-python.c:520
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr ""
+"引数 %2$u に対する 'msgid' と '%1$s' での形式の指定が同じではありません"
 
 #: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
 #: src/format-ycp.c:145
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "引数 %u に対する形式の指定が '%s' のように 'msgid' に存在しません"
 
 #: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
 #: src/format-ycp.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "引数 %u に対する形式の指定が '%s' に存在しません"
 
 #: src/format-java.c:660
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "引数 {%u} に対する形式の指定が '%s' のように 'msgid' に存在しません"
 
 #: src/format-java.c:675
-#, fuzzy, c-format
+#, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "引数 {%u} に対する形式の指定が '%s' に存在しません"
 
 #: src/format-java.c:700
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "'msgid' と '%s' での引数 {%u} に対する形式の指定が同じではありません"
 
 #: src/format-lisp.c:3381
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
-msgstr "`msgid'と`msgstr'のフォーマット様式が合致しません"
+msgstr "`msgid' と `%s' での形式の指定が等しくありません"
 
 #: src/format-lisp.c:3402
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "'%s' での形式の指定が 'msgid' でのサブセットではありません"
 
 #: src/format-python.c:397
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 "tuple"
-msgstr "`msgid'と`msgstr'のフォーマット様式が合致しません"
+msgstr "'msgid' での形式指定はマッピングですが, '%s' ではタプル (tuple) です"
 
 #: src/format-python.c:409
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
-msgstr "`msgid'と`msgstr'のフォーマット様式が合致しません"
+msgstr "'msgid' での形式指定はタプル (tuple) ですが, '%s' ではマッピングです"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "引数 '%s' に対する形式指定が '%s' のように 'msgid' に存在しません"
 
 #: src/format-python.c:452
-#, fuzzy, c-format
+#, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr "引数 '%s' に対する形式指定が '%s' に存在しません"
 
 #: src/format-python.c:478
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
-msgstr "引数 %u に対するフォーマット様式が異なります"
+msgstr ""
+"引数 '%2$s' に対する 'msgid' と '%1$s' での形式指定が同じではありません"
 
 #: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:264 src/msgcat.c:229
 #: src/msgcmp.c:133 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:170
@@ -246,8 +251,13 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"これはフリーソフトウエアです。コピーの条件についてはソースを参照のこと\n"
-"このソフトウエアには全く保証がありません.\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"\n"
+"[参考訳]\n"
+"これはフリー・ソフトウェアです. コピーの条件についてはソースをお読みください.\n"
+"市場性及び特定目的適合性の如何によらず, いかなる保証もありません.\n"
+"\n"
 
 #: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:138 src/msgcomm.c:237 src/msgconv.c:187 src/msgen.c:175
@@ -256,7 +266,7 @@ msgstr ""
 #: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:379
 #, c-format
 msgid "Written by %s.\n"
-msgstr "%s によって書かれました。\n"
+msgstr "作者 %s.\n"
 
 #: src/gettext.c:158 src/hostname.c:187 src/msginit.c:266 src/ngettext.c:143
 msgid "too many arguments"
@@ -264,7 +274,7 @@ msgstr "引数が多すぎます"
 
 #: src/gettext.c:168 src/ngettext.c:155
 msgid "missing arguments"
-msgstr "引数が欠如"
+msgstr "引数がありません"
 
 #: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:322 src/msgcat.c:290
 #: src/msgcmp.c:170 src/msgcomm.c:306 src/msgconv.c:241 src/msgen.c:226
@@ -273,7 +283,7 @@ msgstr "引数が欠如"
 #: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "%s --help でより多くの情報が表示されます\n"
+msgstr "より多くの情報を得るためには `%s --help' と入力してください.\n"
 
 #: src/gettext.c:245
 #, c-format, no-wrap
@@ -281,14 +291,16 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
+"使用法: %s [オプション] [[TEXTDOMAIN] MSGID]\n"
+"または: %s [オプション] -s [MSGID]...\n"
 
 #: src/gettext.c:251
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr ""
+msgstr "原文のメッセージの翻訳を表示.\n"
 
 #: src/gettext.c:255
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -299,18 +311,17 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"使用法: %s [オプション] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
-"  -d, --domain=TEXTDOMAIN  翻訳されたメッセージをTEXTDOMAINから得る\n"
-"  -e                     ある種のエスケープコードの展開を許す\n"
-"  -E                     (コンパチビリティを無視する)\n"
-"  -h, --help             このヘルプメッセージを表示して終了\n"
-"  -n                     連続する改行コードを１つにする\n"
-"  -V, --version          ヴァージョン情報を表示して終了\n"
-"  [TEXTDOMAIN] MSGID     MSGID に示される翻訳されたメッセージを\n"
-"                         TEXTDOMAIN から得る\n"
+"  -d, --domain=TEXTDOMAIN   TEXTDOMAIN から翻訳されたメッセージを取り出す\n"
+"  -e                        エスケープシーケンスを展開する\n"
+"  -E                        (互換性のために無視される)\n"
+"  -h, --help                このヘルプを表示して終了\n"
+"  -n                        末尾の改行を出力しない\n"
+"  -V, --version             バージョン情報を表示して終了\n"
+"  [TEXTDOMAIN] MSGID        MSGID に応じた翻訳メッセージを TEXTDOMAIN から\n"
+"                            取り出す\n"
 
 #: src/gettext.c:266
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
@@ -321,34 +332,32 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"\n"
-"パラメータ TEXTDOMAIN が与えられない時は、環境変数 TEXTDOMAIN により\n"
-"決定される。メッセージカタログが通常のディレクトリにない場合は\n"
-"環境変数 TEXTDOMAINDIR で設定できる.\n"
-"\n"
-"オプション -s によりプログラムは echo コマンドのように動作するが、\n"
-"単に引数を標準出力にコピーするのではなく、選択されたカタログ中の\n"
-"メッセージは翻訳されている\n"
-"検索ディレクトリ: %s\n"
+"もし TEXTDOMAIN パラメータが指定されなければ, 環境変数 TEXTDOMAIN から\n"
+"ドメインが決まります. もし標準のディレクトリにメッセージカタログが\n"
+"見つからなければ, 環境変数 TEXTDOMAINDIR で指定された場所から探します.\n"
+"-s オプションをつけて使うとプログラムは `echo' コマンドのように動作します.\n"
+"しかしその引数を単にそのまま標準出力にコピーするわけではありません.\n"
+"選択されたカタログ中に指定されたメッセージがあれば, そのメッセージの代わりに\n"
+"翻訳されたものを表示します.\n"
+"標準の検索ディレクトリ: %s\n"
 
 #: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:402 src/msgcat.c:371
 #: src/msgcmp.c:215 src/msgcomm.c:384 src/msgconv.c:305 src/msgen.c:286
 #: src/msgexec.c:267 src/msgfilter.c:419 src/msgfmt.c:622 src/msggrep.c:485
 #: src/msginit.c:393 src/msgmerge.c:478 src/msgunfmt.c:388 src/msguniq.c:343
 #: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:620
-#, fuzzy
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "バグレポートは <bug-gnu-utils@gnu.org> まで.\n"
+msgstr "バグレポートは <bug-gnu-gettext@gnu.org> まで.\n"
 
 #: src/hostname.c:206 src/msginit.c:347
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
-msgstr ""
+msgstr "使用法: %s [オプション]\n"
 
 #: src/hostname.c:211
 #, no-wrap
 msgid "Print the machine's hostname.\n"
-msgstr ""
+msgstr "マシンのホスト名を表示.\n"
 
 #: src/hostname.c:216
 #, no-wrap
@@ -359,6 +368,11 @@ msgid ""
 "                          and aliases\n"
 "  -i, --ip-address      addresses for the hostname\n"
 msgstr ""
+"出力形式:\n"
+"  -s, --short           短いホスト名\n"
+"  -f, --fqdn, --long    長いホスト名,  FQDN (Fully Qualified Domain Name) と\n"
+"                          別名 (エイリアス) を含む\n"
+"  -i, --ip-address      ホスト名に対するアドレス\n"
 
 #: src/hostname.c:225 src/msgattrib.c:396 src/msgcmp.c:209 src/msgconv.c:299
 #: src/msgen.c:280 src/msgexec.c:261 src/msgfilter.c:413 src/msggrep.c:479
@@ -369,15 +383,18 @@ msgid ""
 "  -h, --help                  display this help and exit\n"
 "  -V, --version               output version information and exit\n"
 msgstr ""
+"情報出力:\n"
+"  -h, --help                  このヘルプを表示して終了\n"
+"  -V, --version               バージョン情報を表示して終了\n"
 
 #: src/hostname.c:246 src/hostname.c:253
 msgid "could not get host name"
-msgstr ""
+msgstr "ホスト名を取得できませんでした"
 
 #: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:198
 #: src/msggrep.c:306 src/msginit.c:209 src/msguniq.c:227
 msgid "at most one input file allowed"
-msgstr ""
+msgstr "最大 1つの入力ファイルが許されます"
 
 #: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
 #: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
@@ -388,19 +405,19 @@ msgstr ""
 #: src/xgettext.c:393
 #, c-format
 msgid "%s and %s are mutually exclusive"
-msgstr "%s と %s は互いに排他的です"
+msgstr "%s と %s は背反です"
 
 #: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:402 src/msguniq.c:274
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
-msgstr ""
+msgstr "使用法: %s [オプション] [入力ファイル]\n"
 
 #: src/msgattrib.c:332
 #, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
 "and manipulates the attributes.\n"
-msgstr ""
+msgstr "属性に従って翻訳カタログのメッセージを選別し, 属性をうまく操作します.\n"
 
 #: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:190 src/msgcomm.c:328
 #: src/msgconv.c:256 src/msgen.c:244 src/msgexec.c:248 src/msgfilter.c:361
@@ -408,7 +425,7 @@ msgstr ""
 #: src/msgunfmt.c:324 src/msguniq.c:291
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
-msgstr ""
+msgstr "長いオプションに必須の引数は短いオプションにも必須です.\n"
 
 #: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:418 src/msguniq.c:296
 #, no-wrap
@@ -418,6 +435,10 @@ msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  INPUTFILE                   入力する PO ファイル\n"
+"  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
+"入力ファイルが指定されない, もしくは - の場合は標準入力が読み込まれます.\n"
 
 #: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:257 src/msgfilter.c:374
 #: src/msggrep.c:426 src/msgmerge.c:425
@@ -428,6 +449,9 @@ msgid ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 msgstr ""
+"出力ファイルの指定:\n"
+"  -o, --output-file=FILE      指定したファイルに出力\n"
+"出力ファイルが指定されない, もしくは - の場合は標準出力に結果が書き出されます.\n"
 
 #: src/msgattrib.c:359
 #, no-wrap
@@ -440,6 +464,13 @@ msgid ""
 "      --no-obsolete           remove obsolete #~ messages\n"
 "      --only-obsolete         keep obsolete #~ messages\n"
 msgstr ""
+"メッセージ選択:\n"
+"      --translated            翻訳されたメッセージを残し, 未翻訳を削除\n"
+"      --untranslated          未翻訳のメッセージを残し, 翻訳されたものを削除\n"
+"      --no-fuzzy              'fuzzy' 付きのメッセージを削除\n"
+"      --only-fuzzy            'fuzzy' 付きのメッセージを残す\n"
+"      --no-obsolete           廃れた #~ メッセージを削除\n"
+"      --only-obsolete         廃れた #~ メッセージを残す\n"
 
 #: src/msgattrib.c:370
 #, no-wrap
@@ -452,9 +483,14 @@ msgid ""
 "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
+"属性操作:\n"
+"      --set-fuzzy             全てのメッセージを 'fuzzy' に設定\n"
+"      --clear-fuzzy           全てのメッセージを '非 fuzzy' に設定\n"
+"      --set-obsolete          全てのメッセージを '廃れた' 状態に設定\n"
+"      --clear-obsolete        全てのメッセージを '廃れた' 状態でないものに設定\n"
 
 #: src/msgattrib.c:381
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -468,35 +504,31 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
+"出力の詳細:\n"
+"  -e, --no-escape             出力に C 言語のエスケープを使わない (標準)\n"
+"  -E, --escape                出力に C 言語のエスケープを使い,\n"
+"                              拡張文字を含めない\n"
+"      --force-po              空であっても PO ファイルを書き出す\n"
+"  -i, --indent                字下げ形式の出力\n"
+"      --no-location           '#: ファイル名:行番号' という行を書き出さない\n"
+"  -n, --add-location          '#: ファイル名:行番号' という行を書き出す (標準)\n"
+"      --strict                厳密な Uniforum 形式の .po ファイルを出力\n"
+"  -w, --width=NUMBER          出力ページの幅を設定\n"
+"  -s, --sort-output           ソートされた出力を生成\n"
+"  -F, --sort-by-file          ファイルで出力をソート\n"
 
 #: src/msgcat.c:254 src/msgcomm.c:277
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
-msgstr "選択基準が不正です (%d < n < %d)"
+msgstr "指定された選択基準 (%d < n < %d) は不可能です"
 
 #: src/msgcat.c:295 src/msgcomm.c:311 src/xgettext.c:530
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
-msgstr ""
+msgstr "使用法: %s [オプション] [入力ファイル]...\n"
 
 #: src/msgcat.c:300
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -508,19 +540,15 @@ msgid ""
 "is specified, they will be taken from the first PO file to define them.\n"
 "File positions from all PO files will be cumulated.\n"
 msgstr ""
-"  -V, --version                   ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER              ページ幅を NUMBER と設定する\n"
-"  -<, --less-than=NUMBER          NUMBER 個より少ないファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 無制限)\n"
-"  ->, --more-than=NUMBER          NUMBER 個より多いファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 1)\n"
-"\n"
-"  複数の PO ファイルに共通するメッセージを検索します。\n"
-"  --more-than オプションにより、共通するメッセージの数が一定以上の\n"
-"時にのみ出力するようにできます。\n"
-"  逆に、--less-than オプションにより共通性の程度が一定以下の時にのみ\n"
-"出力されるように設定できます。(例: --less-than=2 でユニークなメッセー\n"
-"ジのみを出力します)\n"
+"指定された PO ファイルを連結し、マージします.\n"
+"2つまたはそれ以上の指定された PO ファイルで共通なメッセージを見つけます.\n"
+"--more-than オプションを使うことで, 表示するメッセージの共通性を高いものに\n"
+"指定することができます. 逆に, --less-than オプションで表示するメッセージの\n"
+"共通性を低く指定することができます (つまり, --less-than=2 は 1つしかない\n"
+"メッセージのみを出力するということになります). 翻訳やコメント, 抽出された\n"
+"コメントはそのまま残されます. ただし --use-first が指定された場合には, それら\n"
+"が定義された最初の PO ファイルのものがそのまま残されます. またファイルの位置\n"
+"は全ての PO ファイルからそのまま残されます.\n"
 
 #: src/msgcat.c:318 src/msgcomm.c:333 src/xgettext.c:546
 #, no-wrap
@@ -531,6 +559,11 @@ msgid ""
 "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  INPUTFILE ...                  入力する PO ファイル\n"
+"  -f, --files-from=FILE          入力ファイルのリストを FILE から取得\n"
+"  -D, --directory=DIRECTORY      入力ファイルの検索リストに DIRECTORY を追加\n"
+"入力ファイルが - の場合は標準入力が読み込まれます.\n"
 
 #: src/msgcat.c:327 src/msgcomm.c:342 src/msguniq.c:304
 #, no-wrap
@@ -540,9 +573,12 @@ msgid ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 msgstr ""
+"出力ファイルの指定:\n"
+"  -o, --output-file=FILE         指定したファイルに出力\n"
+"出力ファイルが指定されない, もしくは - の場合は標準出力に結果が書き出されます.\n"
 
 #: src/msgcat.c:335
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  -<, --less-than=NUMBER         print messages with less than this many\n"
@@ -553,22 +589,16 @@ msgid ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 msgstr ""
-"  -V, --version                   ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER              ページ幅を NUMBER と設定する\n"
-"  -<, --less-than=NUMBER          NUMBER 個より少ないファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 無制限)\n"
-"  ->, --more-than=NUMBER          NUMBER 個より多いファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 1)\n"
-"\n"
-"  複数の PO ファイルに共通するメッセージを検索します。\n"
-"  --more-than オプションにより、共通するメッセージの数が一定以上の\n"
-"時にのみ出力するようにできます。\n"
-"  逆に、--less-than オプションにより共通性の程度が一定以下の時にのみ\n"
-"出力されるように設定できます。(例: --less-than=2 でユニークなメッセー\n"
-"ジのみを出力します)\n"
+"メッセージ選択:\n"
+"  -<, --less-than=NUMBER         NUMBER より少ない回数だけ定義されたメッセージ\n"
+"                                 を出力. 設定されない場合は標準で無限個\n"
+"  ->, --more-than=NUMBER         NUMBER より多く定義されたメッセージを出力\n"
+"                                 設定されない場合は標準で 1\n"
+"  -u, --unique                   --less-than=2 の短縮形. 1つしかないメッセージ\n"
+"                                 のみを表示\n"
 
 #: src/msgcat.c:347 src/msguniq.c:319
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -585,22 +615,21 @@ msgid ""
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
+"出力の詳細:\n"
+"  -t, --to-code=NAME             出力のエンコーディング\n"
+"      --use-first                各々のメッセージの最初に有効な翻訳を使う\n"
+"                                 複数の翻訳をマージしない\n"
+"  -e, --no-escape                出力に C 言語のエスケープを使わない (標準)\n"
+"  -E, --escape                   出力に C 言語のエスケープを使い,\n"
+"                                 拡張文字を含めない\n"
+"      --force-po                 空であっても PO ファイルを書き出す\n"
+"  -i, --indent                   字下げ形式の出力\n"
+"      --no-location              '#: filename:line' の行を出力しない\n"
+"  -n, --add-location             '#: filename:line' の行を生成 (標準)\n"
+"      --strict                   厳密に Uniforum に従った .po ファイルを出力\n"
+"  -w, --width=NUMBER             出力ページの幅を設定\n"
+"  -s, --sort-output              並び替えた出力を生成\n"
+"  -F, --sort-by-file             ファイルの場所で出力を並び替える\n"
 
 #: src/msgcat.c:365 src/msgcomm.c:378 src/msguniq.c:337 src/xgettext.c:614
 #, no-wrap
@@ -609,22 +638,25 @@ msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -V, --version                  output version information and exit\n"
 msgstr ""
+"情報出力:\n"
+"  -h, --help                     このヘルプを表示して終了\n"
+"  -V, --version                  バージョン情報を表示して終了\n"
 
 #: src/msgcmp.c:149 src/msgmerge.c:281
 msgid "no input files given"
-msgstr "入力ファイルが与えられていません"
+msgstr "入力ファイルが指定されていません"
 
 #: src/msgcmp.c:154 src/msgmerge.c:286
 msgid "exactly 2 input files required"
-msgstr "2つの入力ファイルが必要"
+msgstr "正確に 2つの入力ファイルが必要です"
 
 #: src/msgcmp.c:175 src/msgmerge.c:385
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
-msgstr ""
+msgstr "使用法: %s [オプション] def.po ref.pot\n"
 
 #: src/msgcmp.c:180
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
 "set of msgid strings.  The def.po file is an existing PO file with the\n"
@@ -633,19 +665,13 @@ msgid ""
 "you have translated each and every message in your program.  Where an exact\n"
 "match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po \n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"\n"
-"二つのUniform様式の .po ファイルを比較して双方が同じ msgid 文字列を含ん\n"
-"でいるかチェックします。def.po ファイルは古い PO ファイルで、\n"
-"ref.po ファイルは新たに生成された PO ファイル（通常xgettextによる）\n"
-"を示します。このプログラムはすべてのメッセージを翻訳したかの検証に\n"
-"有用です。正確にマッチしない場合はあいまいな一致法が用いられて、より\n"
-"詳しい診断結果が得られます。\n"
+"2つの Uniforum 形式の .po ファイルを比較して両方が同じ msgid の文字列の組を\n"
+"含んでいるかどうかを確認します. def.po ファイルは以前の翻訳が記述された\n"
+"PO ファイルです. ref.pot ファイルは最新の PO ファイル, もしくは PO のテンプ\n"
+"レートファイル (一般に xgettext により生成される) です. これはプログラム中の\n"
+"各々のメッセージまたは全てのメッセージを翻訳したかどうかを確認するのに便利です.\n"
+"正確に一致している個所が見つからない場合は, あいまい (fuzzy) 検索を使うと\n"
+"より良い診断メッセージが得られます.\n"
 
 #: src/msgcmp.c:195
 #, no-wrap
@@ -655,6 +681,10 @@ msgid ""
 "  ref.pot                     references to the sources\n"
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  def.po                      翻訳\n"
+"  ref.pot                     ソースへの参照\n"
+"  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
 
 #: src/msgcmp.c:203 src/msgmerge.c:449
 #, no-wrap
@@ -662,44 +692,47 @@ msgid ""
 "Operation modifiers:\n"
 "  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 msgstr ""
+"操作指定:\n"
+"  -m, --multi-domain          ref.pot を def.po 内のドメインの各々に適用\n"
 
 #: src/msgcmp.c:252 src/msgmerge.c:848
 msgid "this message is used but not defined..."
-msgstr "このメッセージは使用されてますが定義されません..."
+msgstr "このメッセージは使われますが定義されていません..."
 
 #: src/msgcmp.c:254 src/msgmerge.c:850
 msgid "...but this definition is similar"
-msgstr "...この定義は次のものと同じ.."
+msgstr "...しかしこの定義が似ています"
 
 #: src/msgcmp.c:259 src/msgmerge.c:877
 #, c-format
 msgid "this message is used but not defined in %s"
-msgstr "このメッセージは使用されてますが %s で定義されてません"
+msgstr "このメッセージは使われますが %s では定義されていません"
 
 #: src/msgcmp.c:331
 msgid "warning: this message is not used"
 msgstr "警告: このメッセージは使われません"
 
 #: src/msgcmp.c:338 src/po-lex.c:699
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
-msgstr[0] "致命的なエラーの数は %d です"
+msgstr[0] "%d 個の致命的エラーが見つかりました"
+msgstr[1] "%d 個の致命的エラーが見つかりました"
 
 #: src/msgcmp.c:419 src/msgfmt.c:1457 src/read-po.c:202 src/x-po.c:163
 msgid "duplicate message definition"
-msgstr "メッセージの定義が重複しています"
+msgstr "メッセージが二重に定義されています"
 
 #: src/msgcmp.c:420 src/msgfmt.c:1458 src/read-po.c:203 src/x-po.c:164
 msgid "...this is the location of the first definition"
-msgstr "...これは最初に定義されたところです"
+msgstr "...これは最初の定義にあります"
 
 #: src/msgcomm.c:266
 msgid "at least two files must be specified"
-msgstr "少なくとも二つのファイルを指定して下さい"
+msgstr "少なくとも 2つのファイルを指定しなければいけません"
 
 #: src/msgcomm.c:316
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
@@ -710,22 +743,16 @@ msgid ""
 "PO file to define them.  File positions from all PO files will be\n"
 "cumulated.\n"
 msgstr ""
-"  -V, --version                   ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER              ページ幅を NUMBER と設定する\n"
-"  -<, --less-than=NUMBER          NUMBER 個より少ないファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 無制限)\n"
-"  ->, --more-than=NUMBER          NUMBER 個より多いファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 1)\n"
-"\n"
-"  複数の PO ファイルに共通するメッセージを検索します。\n"
-"  --more-than オプションにより、共通するメッセージの数が一定以上の\n"
-"時にのみ出力するようにできます。\n"
-"  逆に、--less-than オプションにより共通性の程度が一定以下の時にのみ\n"
-"出力されるように設定できます。(例: --less-than=2 でユニークなメッセー\n"
-"ジのみを出力します)\n"
+"2つまたはそれ以上の指定された PO ファイルで共通なメッセージを見つけます.\n"
+"--more-than オプションを使うことで, 表示するメッセージの共通性を高いものに\n"
+"指定することができます. 逆に, --less-than オプションで表示するメッセージの\n"
+"共通性を低く指定することができます (つまり, --less-than=2 は 1つしかない\n"
+"メッセージのみを出力するということになります). 翻訳やコメント, 抽出された\n"
+"コメントは, それらが定義された最初の PO ファイルのもののみそのまま残されます.\n"
+"またファイルの位置は全ての PO ファイルからそのまま残されます.\n"
 
 #: src/msgcomm.c:350
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Message selection:\n"
 "  -<, --less-than=NUMBER         print messages with less than this many\n"
@@ -736,22 +763,15 @@ msgid ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 msgstr ""
-"  -V, --version                   ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER              ページ幅を NUMBER と設定する\n"
-"  -<, --less-than=NUMBER          NUMBER 個より少ないファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 無制限)\n"
-"  ->, --more-than=NUMBER          NUMBER 個より多いファイルで共通する\n"
-"                                  メッセージのみ出力する(デフォルト: 1)\n"
-"\n"
-"  複数の PO ファイルに共通するメッセージを検索します。\n"
-"  --more-than オプションにより、共通するメッセージの数が一定以上の\n"
-"時にのみ出力するようにできます。\n"
-"  逆に、--less-than オプションにより共通性の程度が一定以下の時にのみ\n"
-"出力されるように設定できます。(例: --less-than=2 でユニークなメッセー\n"
-"ジのみを出力します)\n"
+"  -<, --less-than=NUMBER        NUMBER より少ない回数だけ定義されたメッセージ\n"
+"                                を出力. 設定されない場合は標準で無限個\n"
+"  ->, --more-than=NUMBER        NUMBER より多く定義されたメッセージを出力\n"
+"                                設定されない場合は標準で 1\n"
+"  -u, --unique                  --less-than=2 の短縮形. 1つしかないメッセージ\n"
+"                                のみを表示\n"
 
 #: src/msgcomm.c:362
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -766,27 +786,24 @@ msgid ""
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
+"出力の詳細:\n"
+"  -e, --no-escape             出力に C 言語のエスケープを使わない (標準)\n"
+"  -E, --escape                出力に C 言語のエスケープを使い,\n"
+"                              拡張文字を含めない\n"
+"      --force-po              空であっても PO ファイルを書き出す\n"
+"  -i, --indent                字下げ形式の出力\n"
+"      --no-location           '#: filename:line' の行を出力しない\n"
+"  -n, --add-location          '#: filename:line' の行を保持 (標準)\n"
+"      --strict                厳密な Uniforum 出力形式\n"
+"  -w, --width=NUMBER          出力ページの幅を設定\n"
+"  -s, --sort-output           ソートされた出力を生成\n"
+"  -F, --sort-by-file          ファイルで出力をソート\n"
+"      --omit-header           `msgid \"\"' を含んだヘッダを出力しない\n"
 
 #: src/msgconv.c:251
 #, no-wrap
 msgid "Converts a translation catalog to a different character encoding.\n"
-msgstr ""
+msgstr "翻訳カタログを異なった文字エンコーディングに変換.\n"
 
 #: src/msgconv.c:277
 #, no-wrap
@@ -795,9 +812,12 @@ msgid ""
 "  -t, --to-code=NAME          encoding for output\n"
 "The default encoding is the current locale's encoding.\n"
 msgstr ""
+"変換対象:\n"
+"  -t, --to-code=NAME          出力のエンコーディング\n"
+"標準のエンコーディングは現在のローカルのエンコーディングです.\n"
 
 #: src/msgconv.c:284 src/msgen.c:265 src/msgmerge.c:455
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -811,36 +831,31 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
+"出力の詳細:\n"
+"  -e, --no-escape             出力に C 言語のエスケープを使わない (標準)\n"
+"  -E, --escape                出力に C 言語のエスケープを使い,\n"
+"                              拡張文字を含めない\n"
+"      --force-po              空であっても PO ファイルを書き出す\n"
+"  -i, --indent                字下げ形式の出力\n"
+"      --no-location           '#: filename:line' の行を出力しない\n"
+"      --add-location          '#: filename:line' の行を保持 (標準)\n"
+"      --strict                厳密な Uniforum 出力形式\n"
+"  -w, --width=NUMBER          出力ページの幅を設定\n"
+"  -s, --sort-output           ソートされた出力を生成\n"
+"  -F, --sort-by-file          ファイルで出力をソート\n"
 
 #: src/msgen.c:186 src/msgfmt.c:367 src/xgettext.c:410
 msgid "no input file given"
-msgstr "入力ファイルが指定されてません"
+msgstr "入力ファイルが指定されていません"
 
 #: src/msgen.c:191
-#, fuzzy
 msgid "exactly one input file required"
-msgstr "2つの入力ファイルが必要"
+msgstr "正確に 1つの入力ファイルが必要です"
 
 #: src/msgen.c:231
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] INPUTFILE\n"
-msgstr ""
+msgstr "使用法: %s [オプション] INPUTFILE\n"
 
 #: src/msgen.c:236
 #, no-wrap
@@ -850,6 +865,9 @@ msgid ""
 "xgettext).  Untranslated entries are assigned a translation that is\n"
 "identical to the msgid, and are marked fuzzy.\n"
 msgstr ""
+"英語の翻訳カタログを生成. 入力ファイルは最新の英語版 PO ファイル, もしくは\n"
+"PO テンプレートファイル (一般に xgettext によって生成) です. 未翻訳のエントリ\n"
+"は msgid と同じ翻訳に割り当てられ, fuzzy の印が付けられます.\n"
 
 #: src/msgen.c:249
 #, no-wrap
@@ -859,16 +877,19 @@ msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  INPUTFILE                   入力する PO または POT ファイル\n"
+"  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
+"入力ファイルが - の場合は標準入力が読み込まれます.\n"
 
 #: src/msgexec.c:180
-#, fuzzy
 msgid "missing command name"
-msgstr "引数が欠如"
+msgstr "コマンド名がありません"
 
 #: src/msgexec.c:228
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
-msgstr ""
+msgstr "使用法: %s [オプション] コマンド [コマンドオプション]\n"
 
 #: src/msgexec.c:233
 #, no-wrap
@@ -895,35 +916,37 @@ msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  -i, --input=INPUTFILE       入力する PO ファイル\n"
+"  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
+"入力ファイルが指定されない, もしくは - の場合は標準入力が読み込まれます.\n"
 
 #: src/msgexec.c:313
 msgid "write to stdout failed"
-msgstr ""
+msgstr "標準出力への書き出しが失敗しました"
 
 #: src/msgexec.c:337 src/msgfilter.c:603
 #, c-format
 msgid "write to %s subprocess failed"
-msgstr ""
+msgstr "%s へ書き出すサブプロセスが失敗しました"
 
 #: src/msgfilter.c:263
-#, fuzzy
 msgid "missing filter name"
-msgstr "引数が欠如"
+msgstr "フィルタ名がありません"
 
 #: src/msgfilter.c:287
-#, fuzzy
 msgid "at least one sed script must be specified"
-msgstr "少なくとも二つのファイルを指定して下さい"
+msgstr "少なくとも 1つの sed スクリプトを指定しなければいけません"
 
 #: src/msgfilter.c:351
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
-msgstr ""
+msgstr "使用法: %s [オプション] フィルタ [フィルタオプション]\n"
 
 #: src/msgfilter.c:356
 #, no-wrap
 msgid "Applies a filter to all translations of a translation catalog.\n"
-msgstr ""
+msgstr "翻訳カタログの全ての翻訳にフィルタを適用.\n"
 
 #: src/msgfilter.c:382
 #, no-wrap
@@ -931,6 +954,8 @@ msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
 "and writes a modified translation to standard output.\n"
 msgstr ""
+"FILTER としては, 標準入力から翻訳を読み取り, 修正した翻訳を標準出力へ書き出す\n"
+"任意のプログラムを指定することができます.\n"
 
 #: src/msgfilter.c:388
 #, no-wrap
@@ -941,9 +966,13 @@ msgid ""
 "                                to be executed\n"
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
+"FILTER が 'sed' の場合に便利な FILTER-OPTION:\n"
+"  -e, --expression=SCRIPT     実行されるコマンドに SCRIPT を追加\n"
+"  -f, --file=SCRIPTFILE       SCRIPTFILE の内容を実行されるコマンドに追加\n"
+"  -n, --quiet, --silent       パターンスペースの自動的な表示を抑制\n"
 
 #: src/msgfilter.c:397
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -958,96 +987,93 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
+"出力の詳細:\n"
+"      --no-escape             出力に C 言語のエスケープを使わない (標準)\n"
+"  -E, --escape                出力に C 言語のエスケープを使い,\n"
+"                              拡張文字を含めない\n"
+"      --force-po              空であっても PO ファイルを書き出す\n"
+"      --indent                字下げ形式の出力\n"
+"      --keep-header            ヘッダのエントリを修正せずに保持\n"
+"      --no-location           '#: filename:line' の行を出力しない\n"
+"      --add-location          '#: filename:line' の行を保持 (標準)\n"
+"      --strict                厳密な Uniforum 出力形式\n"
+"  -w, --width=NUMBER          出力ページの幅を設定\n"
+"  -s, --sort-output           ソートされた出力を生成\n"
+"  -F, --sort-by-file          ファイルで出力をソート\n"
 
 #: src/msgfilter.c:555
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr ""
+msgstr "%s サブプロセスにブロッキングしない入出力を設定できません"
 
 #: src/msgfilter.c:583
 #, c-format
 msgid "communication with %s subprocess failed"
-msgstr ""
+msgstr "%s サブプロセスとの通信に失敗"
 
 #: src/msgfilter.c:634
 #, c-format
 msgid "read from %s subprocess failed"
-msgstr ""
+msgstr "%s サブプロセスからの読み込みに失敗"
 
 #: src/msgfilter.c:650
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
-msgstr ""
+msgstr "%s サブプロセスが終了コード %d で終了"
 
 #: src/msgfmt.c:318
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
-msgstr ""
+msgstr "%s への引数は単一の区切り文字であるべきです"
 
 #: src/msgfmt.c:385 src/msgfmt.c:407 src/msgunfmt.c:243
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
-msgstr ""
+msgstr "%s には \"-d ディレクトリ\" の指定が必要です"
 
 #: src/msgfmt.c:400 src/msgunfmt.c:236
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr ""
+msgstr "%s には \"-l ロカール\" の指定が必要です"
 
 #: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
 #: src/msgunfmt.c:258
 #, c-format
 msgid "%s is only valid with %s"
-msgstr ""
+msgstr "%s は %s がある場合にのみ有効です"
 
 #: src/msgfmt.c:422 src/msgfmt.c:428
 #, c-format
 msgid "%s is only valid with %s or %s"
-msgstr ""
+msgstr "%s は %s または %s がある場合にのみ有効です"
 
 #: src/msgfmt.c:501
-#, fuzzy, c-format
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
-msgstr[0] "%d 個の翻訳されたメッセージ"
+msgstr[0] "%d 個の翻訳メッセージ"
 
 #: src/msgfmt.c:506
-#, fuzzy, c-format
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] ", %d 個の曖昧な翻訳"
+msgstr[0] ", %d 個の翻訳があいまいです"
 
 #: src/msgfmt.c:511
-#, fuzzy, c-format
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
-msgstr[0] ", %d 個の翻訳されないメッセージ"
+msgstr[0] ", %d 個の未訳のメッセージ"
 
 #: src/msgfmt.c:533
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] filename.po ...\n"
-msgstr ""
+msgstr "使用法: %s [オプション] filename.po ...\n"
 
 #: src/msgfmt.c:538
 #, no-wrap
 msgid "Generate binary message catalog from textual translation description.\n"
-msgstr ""
+msgstr "バイナリメッセージカタログを原文の翻訳の記述から生成.\n"
 
 #: src/msgfmt.c:548
 #, no-wrap
@@ -1057,6 +1083,10 @@ msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  filename.po ...             入力ファイル\n"
+"  -D, --directory=DIRECTORY   入力ファイルの検索リストに DIRECTORY を追加\n"
+"入力ファイルが - の場合は標準入力が読み込まれます.\n"
 
 #: src/msgfmt.c:556
 #, no-wrap
@@ -1066,6 +1096,10 @@ msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
+"操作モード:\n"
+"  -j, --java                  Java モード: Java ResourceBundle クラスの生成\n"
+"      --java2                 --java と同じで Java2 (JDK 1.2 以降) を仮定\n"
+"      --tcl                   Tcl モード: tcl/msgcat .msg ファイルの生成\n"
 
 #: src/msgfmt.c:564
 #, no-wrap
@@ -1075,6 +1109,10 @@ msgid ""
 "      --strict                enable strict Uniforum mode\n"
 "If output file is -, output is written to standard output.\n"
 msgstr ""
+"出力ファイルの指定:\n"
+"  -o, --output-file=FILE      指定したファイルに出力\n"
+"      --strict                厳密な Uniforum モードを有効に\n"
+"出力ファイルが - の場合は標準出力に結果が書き出されます.\n"
 
 #: src/msgfmt.c:572
 #, no-wrap
@@ -1087,6 +1125,12 @@ msgid ""
 "separated with an underscore.  The -d option is mandatory.  The class is\n"
 "written under the specified directory.\n"
 msgstr ""
+"Java モードにおける出力ファイルの指定:\n"
+"  -r, --resource=RESOURCE     リソース名\n"
+"  -l, --locale=LOCALE         ロカール名. 言語名もしくは '言語名_国名'\n"
+"  -d DIRECTORY                クラスディレクトリの階層の基本ディレクトリ\n"
+"クラス名は _ を挟んでリソース名にロカール名を追加して決まります. -d オプション\n"
+"は必須です. クラスは指定されたディレクトリ以下に書き出されます.\n"
 
 #: src/msgfmt.c:583
 #, no-wrap
@@ -1097,6 +1141,11 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
+"Tcl モードにおける出力ファイルの指定:\n"
+"  -l, --locale=LOCALE         ロカール名. 言語名もしくは '言語名_国名'\n"
+"  -d DIRECTORY                クラスディレクトリの階層の基本ディレクトリ\n"
+"-l と -d オプションは必須です. .msg ファイルは指定されたディレクトリに書き\n"
+"出されます.\n"
 
 #: src/msgfmt.c:592
 #, no-wrap
@@ -1121,6 +1170,9 @@ msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
+"出力の詳細:\n"
+"  -a, --alignment=NUMBER      文字列を NUMBER バイトに揃える (標準: %d)\n"
+"      --no-hash               バイナリファイルはハッシュテーブルを含まない\n"
 
 #: src/msgfmt.c:614
 #, no-wrap
@@ -1131,6 +1183,11 @@ msgid ""
 "      --statistics            print statistics about translations\n"
 "  -v, --verbose               increase verbosity level\n"
 msgstr ""
+"情報出力:\n"
+"  -h, --help                  このヘルプを表示して終了\n"
+"  -V, --version               バージョン情報を表示して終了\n"
+"      --statistics            翻訳に関する統計情報を表示\n"
+"  -v, --verbose               診断レベルを上げる\n"
 
 #: src/msgfmt.c:774
 msgid "plural expression can produce negative values"
@@ -1157,41 +1214,42 @@ msgstr ""
 
 #: src/msgfmt.c:902 src/msgfmt.c:914
 msgid "message catalog has plural form translations..."
-msgstr ""
+msgstr "メッセージカタログに複数形の翻訳があります..."
 
 #: src/msgfmt.c:905
 msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
-msgstr ""
+msgstr "...しかしヘッダエントリに \"plural=EXPRESSION\" 属性がありません"
 
 #: src/msgfmt.c:917
 msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
-msgstr ""
+msgstr "...しかしヘッダエントリに \"nplurals=INTEGER\" 属性がありません"
 
 #: src/msgfmt.c:942
-#, fuzzy
 msgid "invalid nplurals value"
-msgstr "不正なコントロールシーケンスが検出されました"
+msgstr "不正な nplurals の値"
 
 #: src/msgfmt.c:956
 msgid "invalid plural expression"
-msgstr ""
+msgstr "不正な plural の表現"
 
 #: src/msgfmt.c:975 src/msgfmt.c:990
 #, c-format
 msgid "nplurals = %lu..."
-msgstr ""
+msgstr "nplurals = %lu..."
 
 #: src/msgfmt.c:978
-#, fuzzy, c-format
+#, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
-msgstr[0] "このメッセージは使用されてますが %s で定義されてません"
+msgstr[0] "...しかしいくつかのメッセージには 1つだけ複数形があります"
+msgstr[1] "...しかしいくつかのメッセージには %lu 個だけ複数形があります"
 
 #: src/msgfmt.c:993
-#, fuzzy, c-format
+#, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
-msgstr[0] "このメッセージは使用されてますが %s で定義されてません"
+msgstr[0] "...しかしいくつかのメッセージには 1つの複数形があります"
+msgstr[1] "...しかしいくつかのメッセージには %lu 個の複数形があります"
 
 #: src/msgfmt.c:1023
 #, c-format
@@ -1203,130 +1261,126 @@ msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
+"メッセージカタログには複数形の翻訳があります. しかし \"Plural-Forms: "
+"nplurals=INTEGER; plural=EXPRESSION;\" というヘッダエントリがありません"
 
 #: src/msgfmt.c:1074
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr "`msgid' と `msgid_plural' の双方を \\n で始めて下さい"
+msgstr ""
+"`msgid' と `msgid_plural' のエントリがどちらも '\\n' で始まっていません"
 
 #: src/msgfmt.c:1084
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "`msgid' と `msgstr[%u]' の双方を \\n で始めて下さい"
+msgstr "`msgid' と `msgstr[%u]' のエントリがどちらも '\\n' で始まっていません"
 
 #: src/msgfmt.c:1096
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr "`msgid' と `msgstr' の双方を \\n で始めて下さい"
+msgstr "`msgid' と `msgstr' のエントリがどちらも '\\n' で始まっていません"
 
 #: src/msgfmt.c:1113
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "`msgid' と `msgid_plural' の双方を \\n で終了させて下さい"
+msgstr ""
+"`msgid' と `msgstr_plural' のエントリがどちらも '\\n' で終わっていません"
 
 #: src/msgfmt.c:1123
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "`msgid' と `msgstr[%u]' の双方を \\n で終了させて下さい"
+msgstr "`msgid' と `msgstr[%u]' のエントリがどちらも '\\n' で終わっていません"
 
 #: src/msgfmt.c:1135
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-msgstr "`msgid' と `msgstr' の双方を \\n で終了させて下さい"
+msgstr "`msgid' と `msgstr' のエントリがどちらも '\\n' で終わっていません"
 
 #: src/msgfmt.c:1147
 msgid "plural handling is a GNU gettext extension"
-msgstr ""
+msgstr "複数形の制御は GNU gettext の拡張です"
 
 #: src/msgfmt.c:1212
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'"
-msgstr ""
+msgstr "'%s' は 'msgid' と違って正しい %s 形式の文字列ではありません"
 
 #: src/msgfmt.c:1250
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr ""
+msgstr "msgstr にはキーボードアクセレレータの記号 '%c' がありません"
 
 #: src/msgfmt.c:1258
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr ""
+"msgstr にはあまりに多くのキーボードアクセレレータの記号 '%c' があります"
 
 #: src/msgfmt.c:1293
-#, fuzzy, c-format
+#, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "ヘッダーフィールド`%s'がありません"
+msgstr "ヘッダ情報 `%s' がヘッダの中にありません\n"
 
 #: src/msgfmt.c:1297
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "ヘッダーフィールド`%s'を行の先頭から始めてください"
+msgstr "ヘッダ情報 `%s' は行頭になければいけません\n"
 
 #: src/msgfmt.c:1308
-#, fuzzy
 msgid "some header fields still have the initial default value\n"
-msgstr "ヘッダフィールドの中に初期値のままのものがあります"
+msgstr "いくつかのヘッダ情報が初期標準値のままです\n"
 
 #: src/msgfmt.c:1320
-#, fuzzy, c-format
+#, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "フィールド %s は未だに初期値のままです"
+msgstr "情報 `%s' が初期標準値のままです\n"
 
 #: src/msgfmt.c:1362
-#, fuzzy
 msgid "warning: PO file header missing or invalid\n"
-msgstr ""
-"%s: 警告: PO ファイルのヘッダがないか、曖昧か、あるいは無効です\n"
-"%*s  警告: 文字セットの変換ができません"
+msgstr "警告: PO ファイルのヘッダがない, もしくは不正です\n"
 
 #: src/msgfmt.c:1365
-#, fuzzy
 msgid "warning: charset conversion will not work\n"
-msgstr ""
-"%s: 警告: ヘッダに文字セットの記述がありません\n"
-"%*s 警告: 文字セットの変換はできないでしょう"
+msgstr "警告: 文字セットの変換が機能しません\n"
 
 #: src/msgfmt.c:1375
-#, fuzzy
 msgid "warning: PO file header fuzzy\n"
-msgstr ""
-"%s: 警告: PO ファイルのヘッダがないか、曖昧か、あるいは無効です\n"
-"%*s  警告: 文字セットの変換ができません"
+msgstr "警告: PO ファイルヘッダがあいまいです\n"
 
 #: src/msgfmt.c:1377
 msgid "warning: older versions of msgfmt will give an error on this\n"
-msgstr ""
+msgstr "警告: msgfmt の以前のバージョンではここでエラーになります\n"
 
 #: src/msgfmt.c:1402
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
-msgstr "domain 名 \"%s\" はファイル名として適切でありません"
+msgstr "ドメイン名 \"%s\" はファイル名として適切ではありません"
 
 #: src/msgfmt.c:1407
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
-msgstr "domain 名 \"%s\" はファイル名として適切でありません: prefix を用います"
+msgstr ""
+"ドメイン名 \"%s\" はファイル名として適切ではありません:\n"
+"接頭辞を使います"
 
 #: src/msgfmt.c:1418
-#, fuzzy, c-format
+#, c-format
 msgid "`domain %s' directive ignored"
-msgstr "`domain %s'は無視されました"
+msgstr "`ドメイン %s' 命令は無視されます"
 
 #: src/msgfmt.c:1490
 msgid "empty `msgstr' entry ignored"
-msgstr "空の`msgstr'エントリは無視されました"
+msgstr "空の `msgstr' エントリは無視されます"
 
 #: src/msgfmt.c:1491
 msgid "fuzzy `msgstr' entry ignored"
-msgstr "曖昧な`msgstr'エントリは無視されました"
+msgstr "あいまい (fuzzy) な `msgstr' エントリは無視されます"
 
 #: src/msgfmt.c:1560
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr "%s: 警告: ソースファイルに曖昧な翻訳があります"
+msgstr "%s: 警告: ソースファイルにあいまい (fuzzy) な翻訳があります"
 
 #: src/msggrep.c:385
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
-msgstr ""
+msgstr "オプション '%c' は 'K' や 'T' が指定される前に使うことはできません"
 
 #: src/msggrep.c:407
 #, no-wrap
@@ -1367,7 +1421,7 @@ msgid ""
 msgstr ""
 
 #: src/msggrep.c:464
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1381,22 +1435,18 @@ msgid ""
 "      --sort-output           generate sorted output\n"
 "      --sort-by-file          sort output by file location\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
+"出力の詳細:\n"
+"      --no-escape             出力に C 言語のエスケープを使わない (標準)\n"
+"      --escape                出力に C 言語のエスケープを使い,\n"
+"                              拡張文字を含めない\n"
+"      --force-po              空であっても PO ファイルを書き出す\n"
+"      --indent                字下げ形式の出力\n"
+"      --no-location           '#: filename:line' の行を出力しない\n"
+"      --add-location          '#: filename:line' の行を保持 (標準)\n"
+"      --strict                厳密な Uniforum 出力形式\n"
+"  -w, --width=NUMBER          出力ページの幅を設定\n"
+"      --sort-output           ソートされた出力を生成\n"
+"      --sort-by-file          ファイルで出力をソート\n"
 
 #: src/msggrep.c:554
 msgid "write to grep subprocess failed"
@@ -1420,7 +1470,7 @@ msgstr ""
 #: src/msginit.c:330
 #, c-format
 msgid "Created %s.\n"
-msgstr ""
+msgstr "%s を生成.\n"
 
 #: src/msginit.c:352
 #, no-wrap
@@ -1619,7 +1669,7 @@ msgid "backup type"
 msgstr ""
 
 #: src/msgmerge.c:390
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
 "existing PO file with translations which will be taken over to the newly\n"
@@ -1631,14 +1681,14 @@ msgid ""
 "comments and file positions will be preserved.  Where an exact match\n"
 "cannot be found, fuzzy matching is used to produce better results.\n"
 msgstr ""
-"\n"
-"  二つの Uniform スタイルの PO ファイルを融合する。\n"
-"  既存のファイル def.po の翻訳箇所のうち新しいものと合致するところはそのまま\n"
-"継承され、コメントは生き続けるもののファイル中の位置は無視される\n"
-"  新しいファイル ref.po (通常 xgettextにより生成) のすべての翻訳およびコメント\n"
-"は無視されるが、ドットコメント(#,)とその位置は保たれる。\n"
-"  正確な一致がないところでは、より妥当な結果を得るために曖昧な一致方法が採用\n"
-"される。結果はファイル指定がない限り標準出力に書き出される。\n"
+"2つの Uniforum 形式の .po ファイルを 1つにマージします. def.po ファイルは\n"
+"以前の翻訳が記述された PO ファイルで, 一致する限り新しく作られたファイルに\n"
+"内容が引き継がれます. またコメントはそのまま残されますが, ソースから\n"
+"抜き出されたコメントとファイルの位置は破棄されます. ref.po ファイルは\n"
+"最新の PO ファイル (xgettext により生成) で, そのファイル中のいかなる翻訳や\n"
+"コメントも破棄されます. しかしドットコメントとファイルの位置はそのまま\n"
+"残されます. 正確に一致している個所が見つからない場合は, あいまい (fuzzy)\n"
+"検索を使うとより良い結果を生むでしょう. \n"
 
 #: src/msgmerge.c:408
 #, no-wrap
@@ -1685,42 +1735,47 @@ msgid ""
 "  -v, --verbose               increase verbosity level\n"
 "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr ""
+"情報出力:\n"
+"  -h, --help                  このヘルプを表示して終了\n"
+"  -V, --version               バージョン情報を表示して終了\n"
+"  -v, --verbose               診断レベルを上げる\n"
+"  -q, --quiet, --silent       進行状況を表示しない\n"
 
 #: src/msgmerge.c:930
-#, fuzzy
 msgid "this message should define plural forms"
-msgstr "このメッセージは使用されてますが %s で定義されてません"
+msgstr "このメッセージは複数形を定義すべきです"
 
 #: src/msgmerge.c:953
-#, fuzzy
 msgid "this message should not define plural forms"
-msgstr "このメッセージは使用されてますが %s で定義されてません"
+msgstr "このメッセージは複数形を定義すべきではありません"
 
 #: src/msgmerge.c:1084
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
-msgstr "%s:  既存 %d + 参照 %d, 融合 %d, 曖昧 %d, 欠如 %d, 非採用 %d.\n"
+msgstr ""
+"%s %ld(前の版) + %ld(新版) を読み込み (マージ %ld, あいまい %ld, 欠落 %ld, 破"
+"棄 %ld).\n"
 
 #: src/msgmerge.c:1092
 msgid " done.\n"
-msgstr " 完了しました\n"
+msgstr " 完了.\n"
 
 #: src/msgunfmt.c:221 src/msgunfmt.c:230
-#, fuzzy, c-format
+#, c-format
 msgid "%s and explicit file names are mutually exclusive"
-msgstr "%s と %s は互いに排他的です"
+msgstr "%s と明示的に指定されたファイル名は背反です"
 
 #: src/msgunfmt.c:314
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [FILE]...\n"
-msgstr ""
+msgstr "使用法: %s [オプション] [ファイル]...\n"
 
 #: src/msgunfmt.c:319
 #, no-wrap
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
-msgstr ""
+msgstr "バイナリメッセージカタログを Uniforum 形式の .po ファイルに変換.\n"
 
 #: src/msgunfmt.c:329
 #, no-wrap
@@ -1729,6 +1784,9 @@ msgid ""
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
+"操作モード:\n"
+"  -j, --java               Java モード: 入力は Java ResourceBundle クラス\n"
+"      --tcl                Tcl モード: 入力は tcl/msgcat .msg ファイル\n"
 
 #: src/msgunfmt.c:336
 #, no-wrap
@@ -1737,6 +1795,9 @@ msgid ""
 "  FILE ...                 input .mo files\n"
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
+"入力ファイルの指定:\n"
+"  FILE ...                 入力 .mo ファイル\n"
+"入力ファイルが指定されない, もしくは - の場合は標準入力が読み込まれます.\n"
 
 #: src/msgunfmt.c:343
 #, no-wrap
@@ -1757,6 +1818,10 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
+"Tcl モードにおける入力ファイルの指定:\n"
+"  -l, --locale=LOCALE      ロカール名. 言語名もしくは '言語名_国名'\n"
+"  -d DIRECTORY             クラスディレクトリの階層の基本ディレクトリ\n"
+"-l と -d オプションは必須です. .msg ファイルは指定されたディレクトリに置かれます.\n"
 
 #: src/msgunfmt.c:361
 #, no-wrap
@@ -1766,9 +1831,12 @@ msgid ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 msgstr ""
+"出力ファイルの指定:\n"
+"  -o, --output-file=FILE   指定したファイルに出力\n"
+"出力ファイルが指定されない, もしくは - の場合は標準出力に結果が書き出されます.\n"
 
 #: src/msgunfmt.c:369
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -1779,18 +1847,15 @@ msgid ""
 "  -w, --width=NUMBER       set output page width\n"
 "  -s, --sort-output        generate sorted output\n"
 msgstr ""
-"使用法: %s [オプション] [MO ファイル]... \n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"\n"
-"  -e, --no-escape           エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape              エスケープキャラクタはそのまま出力される\n"
-"      --force-po            PO ファイルが空でも出力する\n"
-"  -h, --help                このヘルプメッセージを出力して終了\n"
-"  -i, --indent              インデントして出力する\n"
-"  -o, --output-file=FILE    FILE に出力する\n"
-"      --strict              厳格な Uniform スタイルの PO ファイルを出力する\n"
-"  -V, --version             ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER        出力のページ幅を設定する\n"
+"出力の詳細:\n"
+"  -e, --no-escape          出力に C 言語のエスケープを使わない (標準)\n"
+"  -E, --escape             出力に C 言語のエスケープを使い,\n"
+"                           拡張文字を含めない\n"
+"      --force-po           空であっても PO ファイルを書き出す\n"
+"  -i, --indent             字下げ形式の出力\n"
+"      --strict             厳密な Uniforum 形式で出力\n"
+"  -w, --width=NUMBER       出力ページの幅を設定\n"
+"  -s, --sort-output        ソートされた出力を生成\n"
 
 #: src/msgunfmt.c:381
 #, no-wrap
@@ -1800,6 +1865,10 @@ msgid ""
 "  -V, --version            output version information and exit\n"
 "  -v, --verbose            increase verbosity level\n"
 msgstr ""
+"情報出力:\n"
+"  -h, --help               このヘルプを表示して終了\n"
+"  -V, --version            バージョン情報を表示して終了\n"
+"  -v, --verbose            診断レベルを上げる\n"
 
 #: src/msguniq.c:279
 #, no-wrap
@@ -1813,6 +1882,14 @@ msgid ""
 "specified, they will be taken from the first translation.  File positions\n"
 "will be cumulated.  When using the --unique option, duplicates are discarded.\n"
 msgstr ""
+"翻訳カタログ中の重複した翻訳を統合します.\n"
+"同じメッセージ ID で重複した翻訳を見つけます. そのような重複は, msgfmt,\n"
+"msgmerge や msgcat のような他のプログラムの入力としては不正です. 標準では,\n"
+"重複したものはともにマージされます. --repeated オプションを使うと, 重複した\n"
+"ものだけが出力され, それ以外の全てのメッセージは無視されます. コメントや\n"
+"取り出されたコメントはそのまま残りますが, --use-first が指定されると\n"
+"最初の翻訳から取り出されます. ファイルの位置はそのまま残ります. --unique\n"
+"オプションを使うと重複は無視されます.\n"
 
 #: src/msguniq.c:312
 #, no-wrap
@@ -1821,11 +1898,14 @@ msgid ""
 "  -d, --repeated                 print only duplicates\n"
 "  -u, --unique                   print only unique messages, discard duplicates\n"
 msgstr ""
+"メッセージ選択:\n"
+"  -d, --repeated                 重複しているもののみを表示\n"
+"  -u, --unique                   唯一のメッセージのみを表示し, 重複を無視\n"
 
 #: src/ngettext.c:215
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr ""
+msgstr "使用法: %s [オプション] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 
 #: src/ngettext.c:220
 #, no-wrap
@@ -1835,7 +1915,7 @@ msgid ""
 msgstr ""
 
 #: src/ngettext.c:225
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -1846,18 +1926,17 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"使用法: %s [オプション] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
-"  -d, --domain=TEXTDOMAIN  翻訳されたメッセージをTEXTDOMAINから得る\n"
-"  -e                     ある種のエスケープコードの展開を許す\n"
-"  -E                     (コンパチビリティを無視する)\n"
-"  -h, --help             このヘルプメッセージを表示して終了\n"
-"  -n                     連続する改行コードを１つにする\n"
-"  -V, --version          ヴァージョン情報を表示して終了\n"
-"  [TEXTDOMAIN] MSGID     MSGID に示される翻訳されたメッセージを\n"
-"                         TEXTDOMAIN から得る\n"
+"  -d, --domain=TEXTDOMAIN   TEXTDOMAIN から翻訳されたメッセージを取り出す\n"
+"  -e                        エスケープシーケンスを展開する\n"
+"  -E                        (互換性のために無視される)\n"
+"  -h, --help                このヘルプを表示して終了\n"
+"  -V, --version             バージョン情報を表示して終了\n"
+"  [TEXTDOMAIN]              翻訳メッセージを TEXTDOMAIN から取り出す\n"
+"  MSGID MSGID-PLURAL        MSGID (単数形) / MSGID-PLURAL (複数形) を翻訳\n"
+"  COUNT                     この値を基本にして単数/複数形を選択\n"
 
 #: src/ngettext.c:236
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
@@ -1865,42 +1944,37 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"\n"
-"パラメータ TEXTDOMAIN が与えられない時は、環境変数 TEXTDOMAIN により\n"
-"決定される。メッセージカタログが通常のディレクトリにない場合は\n"
-"環境変数 TEXTDOMAINDIR で設定できる.\n"
-"\n"
-"オプション -s によりプログラムは echo コマンドのように動作するが、\n"
-"単に引数を標準出力にコピーするのではなく、選択されたカタログ中の\n"
-"メッセージは翻訳されている\n"
-"検索ディレクトリ: %s\n"
+"もし TEXTDOMAIN パラメータが指定されなければ, 環境変数 TEXTDOMAIN から\n"
+"ドメインが決まります. もし標準のディレクトリにメッセージカタログが\n"
+"見つからなければ, 環境変数 TEXTDOMAINDIR で指定された場所から探します.\n"
+"標準の検索ディレクトリ: %s\n"
 
 #: src/open-po.c:60
 msgid "<stdin>"
-msgstr ""
+msgstr "<標準入力>"
 
 #: src/po-charset.c:222 src/po-charset.c:280 src/po-charset.c:308
 #: src/po-charset.c:334
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: 警告: "
 
 #: src/po-charset.c:223
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
-"%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
-"%*s  警告: 文字セット変換はできないかも知れません"
+"文字セット \"%s\" は汎用のエンコーディグ名ではありません.\n"
+"ユーザの文字セットへのメッセージの変換はうまく働かないかも知れません.\n"
 
 #: src/po-charset.c:276 src/po-charset.c:306
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "とにかく続けますが, 文法エラーを起こすでしょう."
 
 #: src/po-charset.c:278
 msgid "Continuing anyway."
-msgstr ""
+msgstr "とにかく続けます."
 
 #: src/po-charset.c:281
 #, c-format
@@ -1908,17 +1982,21 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"文字セット \"%s\" は実装されていません. %s は iconv() に依存しますが,\n"
+"iconv() は \"%s\" を実装していません.\n"
 
 #: src/po-charset.c:290 src/po-charset.c:316
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
+"GNU libiconv をインストールしてから GNU gettext を再インストールすれば\n"
+"この問題は解決するでしょう.\n"
 
 #: src/po-charset.c:295 src/po-charset.c:320
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po-charset.c:309
 #, c-format
@@ -1926,117 +2004,114 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"文字セット \"%s\" は実装されていません. %s は iconv() に依存します.\n"
+"このバージョンは iconv() 無しで作られました.\n"
 
 #: src/po-charset.c:335
-#, fuzzy
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
-"%s: 警告: ヘッダに文字セットの記述がありません\n"
-"%*s 警告: 文字セットの変換はできないでしょう"
+"文字セットがヘッダにありません.\n"
+"ユーザの文字セットへのメッセージ変換が機能しません.\n"
 
 #: po-gram-gen.y:92
 msgid "inconsistent use of #~"
-msgstr ""
+msgstr "一貫していない #~ の使用"
 
 #: po-gram-gen.y:182
 msgid "missing `msgstr[]' section"
-msgstr "`msgstr[]' の項目が欠如しています"
+msgstr "`msgstr[]' の項がありません"
 
 #: po-gram-gen.y:190
 msgid "missing `msgid_plural' section"
-msgstr " msgid_plural の項目が欠如しています"
+msgstr "`msgstr_plural' の項がありません"
 
 #: po-gram-gen.y:197
 msgid "missing `msgstr' section"
-msgstr " msgstr の項目が欠如しています"
+msgstr "`msgstr' の項がありません"
 
 #: po-gram-gen.y:242
 msgid "first plural form has nonzero index"
-msgstr ""
+msgstr "最初の複数形に非ゼロの索引があります"
 
 #: po-gram-gen.y:244
 msgid "plural form has wrong index"
-msgstr ""
+msgstr "複数形に間違った索引があります"
 
 #: src/po-lex.h:91 src/po-lex.h:106 src/po-lex.h:126 src/po-lex.h:141
 #: src/po-lex.c:111 src/po-lex.c:144
 msgid "too many errors, aborting"
-msgstr "エラーが多すぎるため実行を中止しました"
+msgstr "エラーが多過ぎるので, 処理を打ち切ります"
 
 #: src/po-lex.c:515 src/write-po.c:339 src/write-po.c:441
-#, fuzzy
 msgid "invalid multibyte sequence"
-msgstr "不正なコントロールシーケンスが検出されました"
+msgstr "不正な複数バイトのシーケンス"
 
 #: src/po-lex.c:541
-#, fuzzy
 msgid "incomplete multibyte sequence at end of file"
-msgstr "不正なコントロールシーケンスが検出されました"
+msgstr "ファイル終端に不完全な複数バイトのシーケンス"
 
 #: src/po-lex.c:551
-#, fuzzy
 msgid "incomplete multibyte sequence at end of line"
-msgstr "不正なコントロールシーケンスが検出されました"
+msgstr "行末に不完全な複数バイトのシーケンス"
 
 #: src/po-lex.c:559
 msgid "iconv failure"
-msgstr ""
+msgstr "iconv の失敗"
 
 #: src/po-lex.c:757 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
 #: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
 #: src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
-msgstr " \"%s\" を読み込む際にエラー"
+msgstr "\"%s\" を読み込み中にエラーが発生しました"
 
 #: src/po-lex.c:823
 #, c-format
 msgid "keyword \"%s\" unknown"
-msgstr "キーワード \"%s\" を認識できません"
+msgstr "キーワード \"%s\" は知りません"
 
 #: src/po-lex.c:933
 msgid "invalid control sequence"
-msgstr "不正なコントロールシーケンスが検出されました"
+msgstr "不正な制御シーケンス"
 
 #: src/po-lex.c:1041
 msgid "end-of-file within string"
-msgstr "文字列の中途でファイルが終了しました"
+msgstr "文字列中の end-of-file"
 
 #: src/po-lex.c:1047
 msgid "end-of-line within string"
-msgstr "文字列の中で改行しています"
+msgstr "文字列中の end-of-line"
 
 #: src/read-mo.c:72 src/read-mo.c:137
 #, c-format
 msgid "file \"%s\" truncated"
-msgstr "ファイル \"%s\" は切詰められました"
+msgstr "ファイル \"%s\" が短く切り捨てられました"
 
 #: src/read-mo.c:103
 #, c-format
 msgid "seek \"%s\" offset %ld failed"
-msgstr "\"%s\" のオフセット位置 %ld の読み込みに失敗しました"
+msgstr "\"%s\" をオフセット %ld で検索するのに失敗しました"
 
 #: src/read-mo.c:142
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "ファイル\"%s\" はヌル文字で終了しない文字列を含んでいます"
+msgstr "ファイル \"%s\" は終端が NUL でない文字列を含んでいます"
 
 #: src/read-mo.c:187
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
-msgstr "ファイル\"%s\" は GNU の MO 形式でありません"
+msgstr "ファイル \"%s\" は GNU の .mo 形式ではありません"
 
 #: src/urlget.c:150
-#, fuzzy
 msgid "expected two arguments"
-msgstr "引数が多すぎます"
+msgstr "引数は 2つです"
 
 #: src/urlget.c:169
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] URL FILE\n"
-msgstr ""
+msgstr "使用法: %s [オプション] URL ファイル\n"
 
 #: src/urlget.c:174
 #, no-wrap
@@ -2044,51 +2119,54 @@ msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
 "the locally accessible FILE is used instead.\n"
 msgstr ""
+"URL の内容を取得し出力します. もしその URL にアクセスできなければ,\n"
+"ローカルにアクセス可能な FILE が代わりに使われます.\n"
 
 #: src/urlget.c:222
-#, fuzzy
 msgid "error writing stdout"
-msgstr "ファイル \"%s\" の書き込みエラー"
+msgstr "標準出力に書き込み中にエラーが発生しました"
 
 #: src/write-java.c:1109
 msgid "cannot find a temporary directory, try setting $TMPDIR"
-msgstr ""
+msgstr "一時ディレクトリが見つからないので, $TMPDIR を設定してみてください"
 
 #: src/write-java.c:1119
-#, fuzzy, c-format
+#, c-format
 msgid "cannot create a temporary directory using template \"%s\""
-msgstr "出力ファイル \"%s\"を作成できない"
+msgstr "雛型 \"%s\" を使って一時ディレクトリを作ることができません"
 
 #: src/write-java.c:1132
 #, c-format
 msgid "not a valid Java class name: %s"
-msgstr ""
+msgstr "正しい Java クラス名ではありません: %s"
 
 #: src/write-java.c:1189 src/write-java.c:1202
 #, c-format
 msgid "failed to create \"%s\""
-msgstr ""
+msgstr "\"%s\" の生成に失敗しました"
 
 #: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1000
 #, c-format
 msgid "error while writing \"%s\" file"
-msgstr "ファイル \"%s\" の書き込みエラー"
+msgstr "\"%s\" ファイルを書き込み中にエラーが発生しました"
 
 #: src/write-java.c:1224
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
+"Java クラスのコンパイルに失敗. --verbose を試すか $JAVAC を設定してください"
 
 #: src/write-mo.c:277
 #, c-format
 msgid "error while opening \"%s\" for writing"
-msgstr "\"%s\" のオープンでエラー"
+msgstr "\"%s\" に書き込もうとしてエラーが発生しました"
 
 #: src/write-po.c:390
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
-"国際化されたメッセージはエスケープシーケンス`\\%c'をふくんではなりません "
+"国際化されたメッセージは `\\%c' というエスケープシーケンスを含んではいけませ"
+"ん"
 
 #: src/write-po.c:758 src/write-po.c:852
 #, c-format
@@ -2098,11 +2176,16 @@ msgid ""
 "different from yours. Consider using a pure ASCII msgid instead.\n"
 "%s\n"
 msgstr ""
+"次の msgid は ASCII 以外の文字を含んでいます.\n"
+"これは, あなたとは違う文字エンコーディングを使っている翻訳者にとって\n"
+"問題になります. 代わりに ASCII 文字だけからなる msgid を使うことを\n"
+"検討してください.\n"
+"%s\n"
 
 #: src/write-po.c:919
 #, c-format
 msgid "cannot create output file \"%s\""
-msgstr "出力ファイル \"%s\"を作成できない"
+msgstr "出力ファイル \"%s\" を作ることができません"
 
 #: src/write-po.c:926
 #, no-c-format
@@ -2112,49 +2195,49 @@ msgstr "標準出力"
 #: src/x-c.c:951
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
-msgstr "%s:%d: 警告: 文字列定数が完結していません"
+msgstr "%s:%d: 警告: 文字定数に終端がありません"
 
 #: src/x-c.c:975
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
-msgstr "%s:%d: 警告: 文字列が完結していません"
+msgstr "%s:%d: 警告: 文字列に終端がありません"
 
 #: src/x-po.c:106 src/xgettext.c:634
 msgid "this file may not contain domain directives"
-msgstr "このファイルには domain 命令がありません"
+msgstr "このファイルはドメイン命令を含んでいないようです"
 
 #: src/x-rst.c:108
 #, c-format
 msgid "%s:%d: invalid string definition"
-msgstr ""
+msgstr "%s:%d: 不正な文字列定義"
 
 #: src/x-rst.c:168
 #, c-format
 msgid "%s:%d: missing number after #"
-msgstr ""
+msgstr "%s:%d: # の後に数字がありません"
 
 #: src/x-rst.c:203
 #, c-format
 msgid "%s:%d: invalid string expression"
-msgstr ""
+msgstr "%s:%d: 不正な文字列表現"
 
 #: src/xgettext.c:397
 msgid "--join-existing cannot be used when output is written to stdout"
-msgstr "--join-existing は標準出力に出力する時に用いることはできません"
+msgstr "--join-existing は出力先が標準出力の場合には使えません"
 
 #: src/xgettext.c:402
 msgid "xgettext cannot work without keywords to look for"
-msgstr "検索すべきキーワードなしでは xgettext は機能しません"
+msgstr "xgettext は検索するキーワードがなければ動きません"
 
 #: src/xgettext.c:490
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
-msgstr "警告: ファイル`%s'の拡張子`%s'を認識できません; C とみなします"
+msgstr "警告: ファイル `%s' (拡張子 `%s') は未知の形式なので C 言語を試します"
 
 #: src/xgettext.c:535
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
-msgstr ""
+msgstr "与えられた入力ファイルから翻訳可能な文字列を取り出します.\n"
 
 #: src/xgettext.c:540
 #, no-wrap
@@ -2162,6 +2245,8 @@ msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 msgstr ""
+"長いオプションに必須の引数は短いオプションにも必須です.\n"
+"必須でない引数も同じです.\n"
 
 #: src/xgettext.c:555
 #, no-wrap
@@ -2172,6 +2257,11 @@ msgid ""
 "  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
 "If output file is -, output is written to standard output.\n"
 msgstr ""
+"出力ファイルの指定:\n"
+"  -d, --default-domain=NAME      出力に NAME.po を使用 (message.po の代わり)\n"
+"  -o, --output=FILE              指定されたファイルに出力\n"
+"  -p, --output-dir=DIR           ディレクトリ DIR にファイルを出力\n"
+"出力ファイルが - の場合は標準出力に結果が書き出されます.\n"
 
 #: src/xgettext.c:564
 #, no-wrap
@@ -2207,7 +2297,7 @@ msgid ""
 msgstr ""
 
 #: src/xgettext.c:594
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2226,22 +2316,6 @@ msgid ""
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 msgstr ""
-"使用法: %s [オプション] def.po ref.po\n"
-"長いオプションに必須の引数は短いオプションにも同様に必要です。\n"
-"  -C, --compendium=FILE         メッセージ抽出ライブラリの追加（複数指定可能）\n"
-"  -D, --directory=DIR           入力ファイルの検索パスに DIR を追加 \n"
-"  -e, --no-escape               エスケープキャラクタを出力しない（デフォルト）\n"
-"  -E, --escape                  エスケープキャラクタはそのまま出力される\n"
-"      --force-po                PO ファイルが空でも書き込む\n"
-"  -h, --help                    このヘルプメッセージを出力して終了\n"
-"  -i, --indent                  インデントして出力する\n"
-"  -o, --output-file=FILE        FILE に出力する\n"
-"      --no-location             '#:ファイル名:行番号'の行を出力しない\n"
-"      --add-location            '#:ファイル名:行番号'の行を出力する(デフォルト)\n"
-"      --strict                  いわゆる'Uniform出力様式'に厳格に従う\n"
-"  -v, --verbose                 冗長度をあげる\n"
-"  -V, --version                 ヴァージョン情報を表示して終了\n"
-"  -w, --width=NUMBER            ページ幅の設定\n"
 
 #: src/xgettext.c:814
 msgid "standard input"
@@ -2253,40 +2327,38 @@ msgid ""
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 msgstr ""
+"空の msgid. GNU gettext で予約されています:\n"
+"gettxt(\"\") はメタ情報の付いたヘッダエントリを返しますが\n"
+"空の文字列は返しません.\n"
 
 #: src/xgettext.c:1285
 #, c-format
 msgid "language `%s' unknown"
-msgstr "言語 %s を認識できません"
+msgstr "言語 `%s' は知りません"
 
-#, fuzzy
 #~ msgid "a format specification for argument {%u} doesn't exist in 'msgstr'"
-#~ msgstr "引数 %u に対するフォーマット様式が異なります"
+#~ msgstr "引数 {%u} に対する形式指定が 'msgstr' に存在しません"
 
-#, fuzzy
 #~ msgid "a format specification for argument '%s' doesn't exist in 'msgstr'"
-#~ msgstr "引数 %u に対するフォーマット様式が異なります"
+#~ msgstr "引数 '%s' に対する形式指定が 'msgstr' に存在しません"
 
-#, fuzzy
 #~ msgid "a format specification for argument %u doesn't exist in 'msgstr'"
-#~ msgstr "引数 %u に対するフォーマット様式が異なります"
+#~ msgstr "引数 %u に対する形式指定が 'msgstr' に存在しません"
 
 #~ msgid "while creating hash table"
 #~ msgstr "ハッシュテーブルを作成する際に"
 
-#, fuzzy
 #~ msgid "%s:%lu: warning: keyword nested in keyword arg"
-#~ msgstr "%s:%d: 警告: キーワード引数でキーワードがネストしています"
+#~ msgstr "%s:%lu: 警告: キーワードがキーワード引数でネストしています"
 
-#, fuzzy
 #~ msgid "%s:%lu: warning: keyword between outer keyword and its arg"
-#~ msgstr "%s:%d: 警告: 外部キーワードとその引数の間にキーワードがあります"
+#~ msgstr "%s:%lu: 警告: 外部キーワードとその引数の間にキーワードがあります"
 
 #~ msgid "while preparing output"
 #~ msgstr "出力の準備中に"
 
 #~ msgid "this message has no definition in the \"%s\" domain"
-#~ msgstr "このメッセージは \"%s\" domain の中で定義されてません"
+#~ msgstr "このメッセージには \"%s\" ドメインで定義されていません"
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -2404,11 +2476,9 @@ msgstr "言語 %s を認識できません"
 #~ "By default the output is written to standard output.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "  バイナリの MO ファイルを Uniform スタイルの PO ファイルに変換します。\n"
-#~ "  MO ファイルは little-endian ないし big-endian のどちらでもかまいませ"
-#~ "ん。\n"
-#~ "  対象ファイルが特定されないか、あるいはファイル名として`-' が指定される"
-#~ "と\n"
+#~ "バイナリの MO ファイルを Uniform スタイルの PO ファイルに変換します。\n"
+#~ "MO ファイルは little-endian ないし big-endian のどちらでもかまいません。\n"
+#~ "対象ファイルが特定されないか、あるいはファイル名として`-' が指定されると\n"
 #~ "標準入力から読み込みます。デフォルトで標準出力に書き出します。\n"
 #~ "\n"
 
@@ -2462,7 +2532,6 @@ msgstr "言語 %s を認識できません"
 #~ "  -F, --sort-by-file             ファイルの位置によってソートして出力す"
 #~ "る\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "  -h, --help                     display this help and exit\n"
 #~ "  -i, --indent                   write the .po file using indented style\n"
@@ -2489,7 +2558,6 @@ msgstr "言語 %s を認識できません"
 #~ "                                 (WORD を与えないとデフォルトのキーワード"
 #~ "は\n"
 #~ "                                  用いられない)\n"
-#~ "  -l, --string-limit=NUMBER      文字列長の制限を設定: デフォルトは %u\n"
 #~ "  -L, --language=NAME            指定された言語を認識する(C, C++, PO)\n"
 #~ "  -m, --msgstr-prefix[=STRING]   STRING ないし\"\"を msgstr の prefixとす"
 #~ "る\n"
@@ -2531,26 +2599,28 @@ msgstr "言語 %s を認識できません"
 #~ "\n"
 #~ "  入力ファイルが - の時は標準入力を読み込みます\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "%s: warning: charset \"%s\" is not supported by iconv%s\n"
 #~ "%*s  warning: consider installing GNU libiconv and then\n"
 #~ "%*s           reinstalling GNU gettext"
 #~ msgstr ""
-#~ "%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
-#~ "%*s  警告: 文字セット変換はできないかも知れません"
+#~ "%s: 警告: 文字セット \"%s\" は iconv%s で実装されていません\n"
+#~ "%*s  警告: GNU libiconv をインストール後, GNU gettext を再インストールす"
+#~ "る\n"
+#~ "%*s        ことを検討してください"
 
-#, fuzzy
 #~ msgid ""
 #~ "%s: warning: charset \"%s\" is not supported without iconv%s\n"
 #~ "%*s  warning: consider installing GNU libiconv and then\n"
 #~ "%*s           reinstalling GNU gettext"
 #~ msgstr ""
-#~ "%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
-#~ "%*s  警告: 文字セット変換はできないかも知れません"
+#~ "%s: 警告: 文字セット \"%s\" は iconv%s がなくては実装されません\n"
+#~ "%*s  警告: GNU libiconv をインストール後, GNU gettext を再インストールす"
+#~ "る\n"
+#~ "%*s        ことを検討してください"
 
 #~ msgid "Memory exhausted"
-#~ msgstr "メモリーが枯渇しました"
+#~ msgstr "メモリを使い果たしました"
 
 #~ msgid "%s: warning: no header entry found"
-#~ msgstr "%s: 警告: ヘッダーエントリーが見つかりません"
+#~ msgstr "%s: 警告: ヘッダーエントリが見つかりません"
