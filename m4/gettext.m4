@@ -1,4 +1,4 @@
-# gettext.m4 serial 15 (gettext-0.11.3)
+# gettext.m4 serial 16 (gettext-0.11.4)
 dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -555,3 +555,7 @@ AC_DEFUN([AM_MKINSTALLDIRS],
   fi
   AC_SUBST(MKINSTALLDIRS)
 ])
+
+
+dnl Usage: AM_GNU_GETTEXT_VERSION([gettext-version])
+AC_DEFUN([AM_GNU_GETTEXT_VERSION], [])
