@@ -74,6 +74,12 @@ SUFFIXES = .po .sed .sin .nop .po-create .po-update
 
 all-local: stamp-po
 
+# $(srcdir)/$(DOMAIN).pot is only created when needed. When xgettext finds no
+# internationalized messages, no $(srcdir)/$(DOMAIN).pot is created (because
+# we don't want to bother translators with empty POT files). We assume that
+# LINGUAS is empty in this case, i.e. $(POFILES) and $(PROPERTIESFILES) are
+# empty. In this case, stamp-po is a nop (i.e. a phony target).
+
 # stamp-po is a timestamp denoting the last time at which the CATALOGS have
 # been loosely updated. Its purpose is that when a developer or translator
 # checks out the package via CVS, and the $(DOMAIN).pot file is not in CVS,
@@ -83,10 +89,13 @@ all-local: stamp-po
 # $(POFILES) has been designed to not touch files that don't need to be
 # changed.
 stamp-po: $(srcdir)/$(DOMAIN).pot
-	$(MAKE) update-properties
-	@echo "touch stamp-po"
-	@echo timestamp > stamp-poT
-	@mv stamp-poT stamp-po
+	test ! -f $(srcdir)/$(DOMAIN).pot || \
+	  $(MAKE) update-properties
+	@test ! -f $(srcdir)/$(DOMAIN).pot || { \
+	  echo "touch stamp-po" && \
+	  echo timestamp > stamp-poT && \
+	  mv stamp-poT stamp-po; \
+	}
 
 # Note: Target 'all' must not depend on target '$(DOMAIN).pot-update',
 # otherwise packages like GCC can not be built if only parts of the source
@@ -148,12 +157,18 @@ MOSTLYCLEANFILES += core core.* $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.p
 
 MAINTAINERCLEANFILES = stamp-po
 
-EXTRA_DIST = remove-potcdate.sin LINGUAS $(DOMAIN).pot stamp-po $(POFILES)
+EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES)
 
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
 #distdir: distdir1
 distdir1:
 	$(MAKE) update-po
+	if test -f $(srcdir)/$(DOMAIN).pot; then
+	  for file in $(DOMAIN).pot stamp-po; do \
+	    if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	    cp -p $$d/$$file $(distdir)/$$file || exit 1; \
+	  done; \
+	fi
 
 update-po: Makefile
 	$(MAKE) $(DOMAIN).pot-update

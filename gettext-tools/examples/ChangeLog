@@ -1,3 +1,11 @@
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
+	* po/Makefile.am, hello-*/po/Makefile.am (stamp-po): Do nothing if
+	$(DOMAIN).pot does not exist.
+	(EXTRA_DIST): Remove $(DOMAIN).pot, stamp-po.
+	(distdir1): If $(DOMAIN).pot exists, distribute also $(DOMAIN).pot and
+	stamp-po.
+
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.2 released.
