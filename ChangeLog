@@ -1,3 +1,13 @@
+2001-03-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* INSTALL: New section "Particular Systems".
+
+	* configure.in: Postprocess Makefile to work around another
+	automake-1.4 bug: on FreeBSD, shell commands are run with "set -e".
+
+	* configure.in: Postprocess misc/Makefile to work around another
+	automake-1.4 bug: if @EMACS@ = no, $(lispdir) is empty.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* os2/*: EMX support.
