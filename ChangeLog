@@ -1,3 +1,8 @@
+2001-06-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* ltmain.sh: Upgrade to libtool-1.4.
+	* ltconfig: Remove file.
+
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.38 released.

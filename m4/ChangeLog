@@ -1,3 +1,7 @@
+2001-06-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* libtool.m4: Upgrade to libtool-1.4.
+
 2001-05-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Look only for GNU msgfmt and GNU xgettext.
