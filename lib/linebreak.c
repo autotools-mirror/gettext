@@ -1630,6 +1630,12 @@ iconv_string_keeping_offsets (cd, s, n, offtable, t, m)
   const char *inptr;
   char *outptr;
   size_t outsize;
+  /* Avoid glibc-2.1 bug.  */
+#if !defined _LIBICONV_VERSION && (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1)
+  const size_t extra = 1;
+#else
+  const size_t extra = 0;
+#endif
 
   for (i = 0; i < n; i++)
     offtable[i] = (size_t)(-1);
@@ -1637,7 +1643,7 @@ iconv_string_keeping_offsets (cd, s, n, offtable, t, m)
   s_end = s + n;
   inptr = s;
   outptr = t;
-  outsize = m;
+  outsize = m + extra;
   while (inptr < s_end)
     {
       size_t insize;
@@ -1664,7 +1670,7 @@ iconv_string_keeping_offsets (cd, s, n, offtable, t, m)
     abort ();
 #endif
   /* We should have produced exactly m output bytes.  */
-  if (outsize != 0)
+  if (outsize != extra)
     abort ();
 }
 
