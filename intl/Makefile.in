@@ -84,8 +84,8 @@ COPYING.LIB-2
 # according to the libtool documentation, section "Library interface versions".
 # Maintainers of other packages that include the intl directory must *not*
 # change these values.
-LTV_CURRENT=1
-LTV_REVISION=1
+LTV_CURRENT=2
+LTV_REVISION=0
 LTV_AGE=0
 
 .SUFFIXES:
