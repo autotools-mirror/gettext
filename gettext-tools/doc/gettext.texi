@@ -6608,8 +6608,8 @@ You can obtain the newest version of @file{config.guess} and
 @file{config.sub} from the CVS of the @samp{config} project at
 @file{http://savannah.gnu.org/}. The commands to fetch them are
 @smallexample
-$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/config/config/config.guess?rev=HEAD&content-type=text/plain'
-$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/config/config/config.sub?rev=HEAD&content-type=text/plain'
+$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.guess'
+$ wget 'http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.sub'
 @end smallexample
 @noindent
 Less recent versions are also contained in the GNU @code{automake} and
