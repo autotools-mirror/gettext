@@ -1,5 +1,15 @@
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.h (msgdomain_list_sublist): Change last argument to bool.
+	* message.c (msgdomain_list_sublist): Likewise.
+	* msgcmp.c (compare): Update msgdomain_list_sublist calls.
+	(compare_constructor, compare_directive_message): Likewise.
+	* msgl-cat.c (catenate_msgdomain_list): Likewise.
+	* msgmerge.c (merge): Likewise.
+	* read-po.c (readall_constructor, readall_directive_message): Likewise.
+
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgfmt.c (format_directive_message): Finish 2001-08-30 patch.
 
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>

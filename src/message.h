@@ -241,7 +241,7 @@ extern void
 					   msgdomain_list_ty *mdlp2));
 extern message_list_ty *
        msgdomain_list_sublist PARAMS ((msgdomain_list_ty *mdlp,
-				       const char *domain, int create));
+				       const char *domain, bool create));
 extern message_ty *
        msgdomain_list_search PARAMS ((msgdomain_list_ty *mdlp,
 				      const char *msgid));

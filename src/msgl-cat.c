@@ -24,6 +24,7 @@
 /* Specification.  */
 #include "msgl-cat.h"
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -279,7 +280,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	  message_list_ty *mlp = mdlp->item[k]->messages;
 	  message_list_ty *total_mlp;
 
-	  total_mlp = msgdomain_list_sublist (total_mdlp, domain, 1);
+	  total_mlp = msgdomain_list_sublist (total_mdlp, domain, true);
 
 	  for (j = 0; j < mlp->nitems; j++)
 	    {

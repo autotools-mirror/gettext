@@ -788,7 +788,7 @@ message_list_ty *
 msgdomain_list_sublist (mdlp, domain, create)
      msgdomain_list_ty *mdlp;
      const char *domain;
-     int create;
+     bool create;
 {
   size_t j;
 

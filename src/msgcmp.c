@@ -22,6 +22,7 @@
 
 #include <getopt.h>
 #include <limits.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -293,7 +294,7 @@ compare (fn1, fn2)
 	message_list_ty *refmlp = ref->item[k]->messages;
 	message_list_ty *defmlp;
 
-	defmlp = msgdomain_list_sublist (def, domain, 0);
+	defmlp = msgdomain_list_sublist (def, domain, false);
 	if (defmlp == NULL)
 	  defmlp = empty_list;
 
@@ -368,7 +369,7 @@ compare_constructor (that)
 
   this->mdlp = msgdomain_list_alloc ();
   this->domain = MESSAGE_DOMAIN_DEFAULT;
-  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
+  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
 }
 
 
@@ -410,7 +411,7 @@ compare_directive_message (that, msgid, msgid_pos, msgid_plural,
   message_ty *mp;
 
   /* Select the appropriate sublist of this->mdlp.  */
-  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
+  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
 
   /* See if this message ID has been seen before.  */
   mp = message_list_search (this->mlp, msgid);

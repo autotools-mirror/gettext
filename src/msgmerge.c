@@ -22,6 +22,7 @@
 
 #include <getopt.h>
 #include <limits.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -629,9 +630,10 @@ merge (fn1, fn2, defp)
       {
 	const char *domain = ref->item[k]->domain;
 	message_list_ty *refmlp = ref->item[k]->messages;
-	message_list_ty *resultmlp = msgdomain_list_sublist (result, domain, 1);
+	message_list_ty *resultmlp =
+	  msgdomain_list_sublist (result, domain, true);
 
-	definitions->item[0] = msgdomain_list_sublist (def, domain, 0);
+	definitions->item[0] = msgdomain_list_sublist (def, domain, false);
 	if (definitions->item[0] == NULL)
 	  definitions->item[0] = empty_list;
 
@@ -653,7 +655,7 @@ merge (fn1, fn2, defp)
 	  if (k > 0 || defmlp->nitems > 0)
 	    {
 	      message_list_ty *resultmlp =
-		msgdomain_list_sublist (result, domain, 1);
+		msgdomain_list_sublist (result, domain, true);
 
 	      definitions->item[0] = defmlp;
 
@@ -684,7 +686,7 @@ merge (fn1, fn2, defp)
 	      mp = message_copy (defmsg);
 	      mp->obsolete = true;
 
-	      message_list_append (msgdomain_list_sublist (result, domain, 1),
+	      message_list_append (msgdomain_list_sublist (result, domain, true),
 				   mp);
 	      stats.obsolete++;
 	    }

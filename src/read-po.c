@@ -23,6 +23,7 @@
 /* Specification.  */
 #include "read-po.h"
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -103,7 +104,7 @@ readall_constructor (that)
 
   this->mdlp = msgdomain_list_alloc ();
   this->domain = MESSAGE_DOMAIN_DEFAULT;
-  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
+  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
   this->comment = NULL;
   this->comment_dot = NULL;
   this->filepos_count = 0;
@@ -184,7 +185,7 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
   size_t j, i;
 
   /* Select the appropriate sublist of this->mdlp.  */
-  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
+  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
 
   if (allow_duplicates && msgid[0] != '\0')
     /* Doesn't matter if this message ID has been seen before.  */
