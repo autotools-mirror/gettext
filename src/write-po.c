@@ -62,6 +62,7 @@ static bool significant_format_p PARAMS ((enum is_format is_format));
 static bool has_significant_format_p
 			   PARAMS ((const enum is_format is_format[NFORMATS]));
 static const char *make_c_width_description_string PARAMS ((enum is_wrap));
+static inline void memcpy_small PARAMS ((void *dst, const void *src, size_t n));
 static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
 			  const char *value, enum is_wrap do_wrap,
 			  const char *charset));
@@ -204,6 +205,25 @@ make_c_width_description_string (do_wrap)
 }
 
 
+/* A version of memcpy optimized for the case n <= 1.  */
+static inline void
+memcpy_small (dst, src, n)
+     void *dst;
+     const void *src;
+     size_t n;
+{
+  if (n > 0)
+    {
+      char *q = (char *) dst;
+      const char *p = (const char *) src;
+
+      *q = *p;
+      if (--n > 0)
+        do *++q = *++p; while (--n > 0);
+    }
+}
+
+
 static void
 wrap (fp, line_prefix, name, value, do_wrap, charset)
      FILE *fp;
@@ -249,10 +269,10 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
     {
       /* The \a and \v escapes were added by the ANSI C Standard.
          Prior to the Standard, most compilers did not have them.
-         Because we need the same program on all platforms we don't
-         provide support for them here.  */
-      static const char escapes[] = "\b\f\n\r\t";
-      static const char escape_names[] = "bfnrt";
+         Because we need the same program on all platforms we don't provide
+         support for them here.  Thus we only support \b\f\n\r\t.  */
+#     define is_escape(c) \
+       ((c) == '\b' || (c) == '\f' || (c) == '\n' || (c) == '\r' || (c) == '\t')
 
       const char *es;
       const char *ep;
@@ -273,8 +293,7 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
       for (ep = s, portion_len = 0; ep < es; ep++)
 	{
 	  char c = *ep;
-	  const char *esc = strchr (escapes, c);
-	  if (esc != NULL)
+	  if (is_escape (c))
 	    portion_len += 2;
 	  else if (escape && !c_isprint ((unsigned char) c))
 	    portion_len += 4;
@@ -330,11 +349,19 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
       for (ep = s, pp = portion, op = overrides; ep < es; ep++)
 	{
 	  char c = *ep;
-	  const char *esc = strchr (escapes, c);
-	  if (esc != NULL)
+	  if (is_escape (c))
 	    {
+	      switch (c)
+		{
+		case '\b': c = 'b'; break;
+		case '\f': c = 'f'; break;
+		case '\n': c = 'n'; break;
+		case '\r': c = 'r'; break;
+		case '\t': c = 't'; break;
+		default: abort ();
+		}
 	      *pp++ = '\\';
-	      *pp++ = c = escape_names[esc - escapes];
+	      *pp++ = c;
 	      op++;
 	      *op++ = UC_BREAK_PROHIBITED;
 	      /* We warn about any use of escape sequences beside
@@ -398,7 +425,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 			abort ();
 		    }
 		  insize = inptr - ep;
-		  memcpy (pp, ep, insize);
+		  memcpy_small (pp, ep, insize);
 		  pp += insize;
 		  op += insize;
 		  ep += insize - 1;
@@ -515,6 +542,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       free (portion);
 
       s = es;
+#     undef is_escape
     }
   while (*s);
 
