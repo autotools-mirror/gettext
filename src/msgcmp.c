@@ -34,6 +34,7 @@
 #include "message.h"
 #include "exit.h"
 #include "gettext.h"
+#include "read-po.h"
 #include "po.h"
 
 #define _(str) gettext (str)
@@ -56,20 +57,12 @@ static const struct option long_options[] =
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status));
+static bool is_message_selected PARAMS ((const message_ty *mp));
+static msgdomain_list_ty * remove_obsoletes PARAMS ((msgdomain_list_ty *mdlp));
 static void match_domain PARAMS ((const char *fn1, const char *fn2,
 				  message_list_ty *defmlp,
 				  message_list_ty *refmlp, int *nerrors));
 static void compare PARAMS ((const char *, const char *));
-static msgdomain_list_ty *grammar PARAMS ((const char *filename));
-static void compare_constructor PARAMS ((po_ty *that));
-static void compare_destructor PARAMS ((po_ty *that));
-static void compare_directive_domain PARAMS ((po_ty *that, char *name));
-static void compare_directive_message PARAMS ((po_ty *that, char *msgid,
-					       lex_pos_ty *msgid_pos,
-					       char *msgid_plural,
-					       char *msgstr, size_t msgstr_len,
-					       lex_pos_ty *msgstr_pos,
-					       bool obsolete));
 
 
 int
@@ -219,6 +212,33 @@ Informative output:\n\
 }
 
 
+/* Return true if a message should be kept.  */
+static bool
+is_message_selected (mp)
+     const message_ty *mp;
+{
+  /* Always keep the header entry.  */
+  if (mp->msgid[0] == '\0')
+    return true;
+
+  return !mp->obsolete;
+}
+
+
+/* Remove obsolete messages from a message list.  Return the modified list.  */
+static msgdomain_list_ty *
+remove_obsoletes (mdlp)
+     msgdomain_list_ty *mdlp;
+{
+  size_t k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    message_list_remove_if_not (mdlp->item[k]->messages, is_message_selected);
+
+  return mdlp;
+}
+
+
 static void
 match_domain (fn1, fn2, defmlp, refmlp, nerrors)
      const char *fn1;
@@ -275,11 +295,11 @@ compare (fn1, fn2)
   message_list_ty *empty_list;
 
   /* This is the master file, created by a human.  */
-  def = grammar (fn1);
+  def = remove_obsoletes (read_po_file (fn1));
 
   /* This is the generated file, created by groping the sources with
      the xgettext program.  */
-  ref = grammar (fn2);
+  ref = remove_obsoletes (read_po_file (fn2));
 
   empty_list = message_list_alloc (false);
 
@@ -337,131 +357,4 @@ compare (fn1, fn2)
     error (EXIT_FAILURE, 0,
 	   ngettext ("found %d fatal error", "found %d fatal errors", nerrors),
 	   nerrors);
-}
-
-
-/* Local functions.  */
-
-/* This structure defines a derived class of the po_ty class.  (See
-   po.h for an explanation.)  */
-typedef struct compare_class_ty compare_class_ty;
-struct compare_class_ty
-{
-  /* inherited instance variables, etc */
-  PO_BASE_TY
-
-  /* List of messages already appeared in the current file.  */
-  msgdomain_list_ty *mdlp;
-
-  /* Name of domain we are currently examining.  */
-  char *domain;
-
-  /* List of messages belonging to the current domain.  */
-  message_list_ty *mlp;
-};
-
-static void
-compare_constructor (that)
-     po_ty *that;
-{
-  compare_class_ty *this = (compare_class_ty *) that;
-
-  this->mdlp = msgdomain_list_alloc (true);
-  this->domain = MESSAGE_DOMAIN_DEFAULT;
-  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
-}
-
-
-static void
-compare_destructor (that)
-     po_ty *that;
-{
-  compare_class_ty *this = (compare_class_ty *) that;
-
-  (void) this;
-  /* Do not free this->mdlp and this->mlp.  */
-}
-
-
-static void
-compare_directive_domain (that, name)
-     po_ty *that;
-     char *name;
-{
-  compare_class_ty *this = (compare_class_ty *)that;
-  /* Override current domain name.  Don't free memory.  */
-  this->domain = name;
-}
-
-
-static void
-compare_directive_message (that, msgid, msgid_pos, msgid_plural,
-			   msgstr, msgstr_len, msgstr_pos, obsolete)
-     po_ty *that;
-     char *msgid;
-     lex_pos_ty *msgid_pos;
-     char *msgid_plural;
-     char *msgstr;
-     size_t msgstr_len;
-     lex_pos_ty *msgstr_pos;
-     bool obsolete;
-{
-  compare_class_ty *this = (compare_class_ty *) that;
-  message_ty *mp;
-
-  /* Select the appropriate sublist of this->mdlp.  */
-  this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, true);
-
-  /* See if this message ID has been seen before.  */
-  mp = message_list_search (this->mlp, msgid);
-  if (mp)
-    {
-      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      po_gram_error_at_line (&mp->pos, _("\
-...this is the location of the first definition"));
-      free (msgstr);
-      free (msgid);
-    }
-  else
-    {
-      mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
-      message_list_append (this->mlp, mp);
-    }
-}
-
-
-/* So that the one parser can be used for multiple programs, and also
-   use good data hiding and encapsulation practices, an object
-   oriented approach has been taken.  An object instance is allocated,
-   and all actions resulting from the parse will be through
-   invocations of method functions of that object.  */
-
-static po_method_ty compare_methods =
-{
-  sizeof (compare_class_ty),
-  compare_constructor,
-  compare_destructor,
-  compare_directive_domain,
-  compare_directive_message,
-  NULL, /* parse_brief */
-  NULL, /* parse_debrief */
-  NULL, /* comment */
-  NULL, /* comment_dot */
-  NULL, /* comment_filepos */
-  NULL, /* comment_special */
-};
-
-
-static msgdomain_list_ty *
-grammar (filename)
-     const char *filename;
-{
-  po_ty *pop;
-  msgdomain_list_ty *mdlp;
-
-  pop = po_alloc (&compare_methods);
-  po_scan_file (pop, filename);
-  mdlp = ((compare_class_ty *)pop)->mdlp;
-  po_free (pop);
-  return mdlp;
 }

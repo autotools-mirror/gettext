@@ -1,3 +1,13 @@
+2002-11-01  Bruno Haible  <bruno@clisp.org>
+
+	* msgcmp.c: Include read-po.h.
+	(is_message_selected, remove_obsoletes): New functions.
+	(grammar, compare_constructor, compare_destructor,
+	compare_directive_domain, compare_directive_message): Remove functions.
+	(compare_class_ty): Remove type.
+	(compare_methods): Remove variable.
+	(compare): Use read_po_file instead.
+
 2002-10-14  Bruno Haible  <bruno@clisp.org>
 
 	* project-id: When testing for "GNU $package", ignore libtool, because
