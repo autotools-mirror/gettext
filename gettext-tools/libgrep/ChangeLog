@@ -1,5 +1,10 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (INCLUDES): Add -I., needed for <regex.h>, and
+	-I..\intl, needed for <libintl.h>.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* libgrep.h: Add extern "C" for C++.
 
 2003-07-08  David Kaelbling  <drk@sgi.com>
