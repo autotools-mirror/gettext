@@ -135,7 +135,10 @@ test -d po || mkdir po || {
 }
 
 # For simplicity we changed to the gettext source directory.
-cd $gettext_dir
+cd $gettext_dir || {
+   $echo "gettext source directory '${gettext_dir}' doesn't exist"
+   exit 1
+}
 
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
