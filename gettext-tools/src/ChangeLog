@@ -16,7 +16,7 @@
 	(message_merge, merge): Use c_strncasecmp.
 	* xgettext.c: Include c-strcase.h instead of strcase.h.
 	(language_to_extractor): Use c_strcasecmp.
-	Reported by Recai Oktas <roktas@omu.edu.tr>.
+	Reported by Recai Oktaş <roktas@omu.edu.tr>.
 
 2005-02-07  Bruno Haible  <bruno@clisp.org>
 
