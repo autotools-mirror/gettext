@@ -62,6 +62,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    MSGUNIQ=`echo msguniq|sed '$(transform)'` \
 		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
+		    LIBTOOL='@LIBTOOL@' \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \
 		    CXX='@CXX@' CXXFLAGS='@CXXFLAGS@' \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \

@@ -1,5 +1,12 @@
 2001-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* lang-c: Use $LIBTOOL.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+	* Makefile.am (TESTS_ENVIRONMENT): Pass LIBTOOL variable to the tests.
+
+2001-11-30  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge-17: New file.
 	* msgmerge-18: New file.
 	* msgmerge-19: New file.
