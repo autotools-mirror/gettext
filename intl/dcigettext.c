@@ -271,6 +271,13 @@ transcmp (p1, p2)
 }
 #endif
 
+#ifndef INTVARDEF
+# define INTVARDEF(name)
+#endif
+#ifndef INTUSE
+# define INTUSE(name) name
+#endif
+
 /* Name of the default domain used for gettext(3) prior any call to
    textdomain(3).  The default value for this is "messages".  */
 const char _nl_default_default_domain[] attribute_hidden = "messages";
@@ -284,6 +291,7 @@ const char *_nl_current_default_domain attribute_hidden
 extern const char _nl_default_dirname[];
 #else
 const char _nl_default_dirname[] = LOCALEDIR;
+INTVARDEF (_nl_default_dirname)
 #endif
 
 /* List with bindings of specific domains created by bindtextdomain()
@@ -296,10 +304,15 @@ static char *plural_lookup PARAMS ((struct loaded_l10nfile *domain,
 				    const char *translation,
 				    size_t translation_len))
      internal_function;
-static const char *category_to_name PARAMS ((int category)) internal_function;
 static const char *guess_category_value PARAMS ((int category,
 						 const char *categoryname))
      internal_function;
+#ifdef _LIBC
+# include "../locale/localeinfo.h"
+# define category_to_name(category)	_nl_category_names[category]
+#else
+static const char *category_to_name PARAMS ((int category)) internal_function;
+#endif
 
 
 /* For those loosing systems which don't have `alloca' we have to add
@@ -437,6 +450,15 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
   if (msgid1 == NULL)
     return NULL;
 
+#ifdef _LIBC
+  if (category < 0 || category >= __LC_LAST || category == LC_ALL)
+    /* Bogus.  */
+    return (plural == 0
+	    ? (char *) msgid1
+	    /* Use the Germanic plural rule.  */
+	    : n == 1 ? (char *) msgid1 : (char *) msgid2);
+#endif
+
   __libc_rwlock_rdlock (_nl_state_lock);
 
   /* If DOMAINNAME is NULL, we are interested in the default domain.  If
@@ -500,7 +522,7 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
     }
 
   if (binding == NULL)
-    dirname = (char *) _nl_default_dirname;
+    dirname = (char *) INTUSE(_nl_default_dirname);
   else if (IS_ABSOLUTE_PATH (binding->dirname))
     dirname = binding->dirname;
   else
@@ -636,7 +658,6 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 	      /* Found the translation of MSGID1 in domain DOMAIN:
 		 starting at RETVAL, RETLEN bytes.  */
 	      FREE_BLOCKS (block_list);
-	      __set_errno (saved_errno);
 #if defined HAVE_TSEARCH || defined _LIBC
 	      if (foundp == NULL)
 		{
@@ -675,6 +696,8 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 		  (*foundp)->translation_length = retlen;
 		}
 #endif
+	      __set_errno (saved_errno);
+
 	      /* Now deal with plural.  */
 	      if (plural)
 		retval = plural_lookup (domain, n, retval, retlen);
@@ -1038,7 +1061,7 @@ plural_lookup (domain, n, translation, translation_len)
   return (char *) p;
 }
 
-
+#ifndef _LIBC
 /* Return string representation of locale CATEGORY.  */
 static const char *
 internal_function
@@ -1098,6 +1121,7 @@ category_to_name (category)
 
   return retval;
 }
+#endif
 
 /* Guess value of current locale from value of the environment variables.  */
 static const char *
@@ -1120,7 +1144,7 @@ guess_category_value (category, categoryname)
      `LC_xxx', and `LANG'.  On some systems this can be done by the
      `setlocale' function itself.  */
 #ifdef _LIBC
-  retval = setlocale (category, NULL);
+  retval = __current_locale_name (category);
 #else
   retval = _nl_locale_name (category, categoryname);
 #endif
@@ -1170,8 +1194,7 @@ mempcpy (dest, src, n)
 #ifdef _LIBC
 /* If we want to free all resources we have to do some work at
    program's end.  */
-static void __attribute__ ((unused))
-free_mem (void)
+libc_freeres_fn (free_mem)
 {
   void *old;
 
@@ -1179,7 +1202,7 @@ free_mem (void)
     {
       struct binding *oldp = _nl_domain_bindings;
       _nl_domain_bindings = _nl_domain_bindings->next;
-      if (oldp->dirname != _nl_default_dirname)
+      if (oldp->dirname != INTUSE(_nl_default_dirname))
 	/* Yes, this is a pointer comparison.  */
 	free (oldp->dirname);
       free (oldp->codeset);
@@ -1201,6 +1224,4 @@ free_mem (void)
       free (old);
     }
 }
-
-text_set_element (__libc_subfreeres, free_mem);
 #endif

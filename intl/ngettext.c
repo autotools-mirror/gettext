@@ -44,7 +44,7 @@
    prefix.  So we have to make a difference here.  */
 #ifdef _LIBC
 # define NGETTEXT __ngettext
-# define DCNGETTEXT INTUSE(__dcngettext)
+# define DCNGETTEXT __dcngettext
 #else
 # define NGETTEXT libintl_ngettext
 # define DCNGETTEXT libintl_dcngettext

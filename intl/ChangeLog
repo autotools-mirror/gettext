@@ -1,3 +1,65 @@
+2002-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (INTVARDEF): Correct fallback definition.
+
+2002-11-19  Ulrich Drepper  <drepper@redhat.com>
+
+	* localealias.c (read_alias_file): Use only about 400 bytes of stack
+	space instead of 16k.
+
+2002-10-30  Jakub Jelinek  <jakub@redhat.com>
+
+	* finddomain.c (free_mem): Use libc_freeres_fn macro, remove
+	text_set_element.
+	* dcigettext.c (free_mem): Likewise.
+
+2002-10-25  Jakub Jelinek  <jakub@redhat.com>
+
+	* localealias.c (libc_freeres_ptr): Define if !_LIBC.
+	(string_space, map): Add libc_freeres_ptr.
+	(free_mem): Remove.
+
+2002-09-19  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (DCIGETTEXT): Restore errno only right before
+	returning.
+
+2002-09-01  Roland McGrath  <roland@redhat.com>
+
+	* localealias.c [__GNUC__]: #undef alloca before #define.
+
+2002-08-30  Roland McGrath  <roland@redhat.com>
+
+	* dcigettext.c (DCIGETTEXT) [_LIBC]: Check for bogus CATEGORY.
+	[_LIBC] (category_to_name): Don't define the function.  Instead define
+	a macro using _nl_category_names.
+
+2002-08-04  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c: Define _nl_default_dirname_internal as hidden alias
+	and use it.
+	* bindtextdom.c: Use _nl_default_dirname_internal.
+
+2002-08-03  Roland McGrath  <roland@redhat.com>
+
+	* dcigettext.c (guess_category_value): Use __current_locale_name
+	instead of calling setlocale.
+
+2002-08-02  Roland McGrath  <roland@redhat.com>
+
+	* loadmsgcat.c (_nl_init_domain_conv): Use _NL_CURRENT.
+
+2002-07-30  Roland McGrath  <roland@redhat.com>
+
+	* loadmsgcat.c [__GNUC__]: #undef alloca before defining it.
+
+2002-05-01  Ulrich Drepper  <drepper@redhat.com>
+
+	Revert 2002-04-09 change.
+	* dcngettext.c (__dcngettext_internal): Remove alias.
+	* dngettext.c: Use __dcngettext instead of __dcngettext_internal.
+	* ngettext.c: Likewise.
+
 2002-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (mostlyclean): Remove object files on OS/2 as well.
@@ -181,6 +243,7 @@
 	__argz_stringify.
 
 2002-04-08  Ulrich Drepper  <drepper@redhat.com>
+
 	* dcgettext.c (__dcgettext): Use INTDEF to define alias.
 	* dgettext.c: Call __dcgettext_internal instead of __dcgettext.
 	* gettext.c: Likewise.

@@ -37,7 +37,7 @@
    prefix.  So we have to make a difference here.  */
 #ifdef _LIBC
 # define DNGETTEXT __dngettext
-# define DCNGETTEXT INTUSE(__dcngettext)
+# define DCNGETTEXT __dcngettext
 #else
 # define DNGETTEXT libintl_dngettext
 # define DCNGETTEXT libintl_dcngettext
