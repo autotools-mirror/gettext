@@ -1,3 +1,24 @@
+2004-04-19  Bruno Haible  <bruno@clisp.org>
+
+	* error.m4: Change jm_ to gl_ in AC_DEFINE'd names. Update all uses.
+
+2004-04-19  Bruno Haible  <bruno@clisp.org>
+
+	* mbrtowc.m4: Change jm_ to gl_ in cache variables as well.
+
+2004-04-18  Jim Meyering  <jim@meyering.net>
+
+	* mbswidth.m4: Change jm_ to gl_ in AC_DEFINE'd names. Update all uses.
+	* mkdtemp.m4: Likewise.
+	* unlocked-io.m4: Likewise.
+	* quotearg.m4: Likewise.
+
+2004-03-18  Paul Eggert  <eggert@twinsun.com>
+            Bruno Haible  <bruno@clisp.org>
+
+	* mbswidth.m4 (gl_MBSWIDTH): Also test whether <wchar.h> declares
+	mbswidth.
+
 2004-03-08  Bruno Haible  <bruno@clisp.org>
 
 	* csharpcomp.m4 (gt_CSHARPCOMP): Test whether csc is not the chicken

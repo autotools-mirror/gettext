@@ -1,4 +1,4 @@
-# error.m4 serial 2 (gettext-0.12)
+# error.m4 serial 3 (gettext-0.15)
 dnl Copyright (C) 2002-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -18,12 +18,12 @@ AC_DEFUN([gt_FUNC_ERROR_AT_LINE],
     AC_DEFINE(HAVE_ERROR_AT_LINE, 1,
       [Define to 1 if you have the functions error() and error_at_line().])
   else
-    jm_PREREQ_ERROR
+    gl_PREREQ_ERROR
   fi
 ])
 
 # Prerequisites of lib/error.c.
-AC_DEFUN([jm_PREREQ_ERROR],
+AC_DEFUN([gl_PREREQ_ERROR],
 [
   AC_REQUIRE([AC_HEADER_STDC])
   AC_REQUIRE([AC_FUNC_VPRINTF])
