@@ -56,4 +56,5 @@ strerror.m4 \
 strerror_r.m4 \
 tmpdir.m4 \
 unionwait.m4 \
+unlocked-io.m4 \
 xreadlink.m4

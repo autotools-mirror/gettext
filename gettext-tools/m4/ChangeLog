@@ -1,7 +1,8 @@
 2003-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* strerror_r.m4: New file, from gnulib.
-	* Makefile.am (EXTRA_DIST): Add it.
+	* unlocked-io.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add them.
 
 2003-04-29  Bruno Haible  <bruno@clisp.org>
 
