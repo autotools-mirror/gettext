@@ -1,3 +1,8 @@
+2002-02-11  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-subedit-ediff): When variants are equal don't call
+	'po-ediff-buffers-exit-recursive'.
+
 2002-02-09  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-send-mail): Set coding-system-for-read and

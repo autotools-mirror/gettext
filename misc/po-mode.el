@@ -2093,8 +2093,10 @@ For more info cf. `po-subedit-ediff'."
 (defun po-subedit-ediff ()
   "Edit the subedit buffer using `ediff'.
 `po-subedit-ediff' calls `po-ediff-buffers-exit-recursive' to edit translation
-variants side by side.  `msgcat' is able to produce those variants;  every
-variant is marked with:
+variants side by side if they are actually different; if variants are equal just
+delete the first one.
+
+`msgcat' is able to produce those variants; every variant is marked with:
 
 #-#-#-#-#  file name reference  #-#-#-#-#
 
@@ -2139,7 +2141,12 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
 	  (erase-buffer)
 	  (insert-buffer-substring oldbuf start-2 end-2))
 
-	(po-ediff-buffers-exit-recursive buf1 buf2 oldbuf end-2)))))
+	(if (not (string-equal (buffer-substring-no-properties start-1 end-1)
+			       (buffer-substring-no-properties start-2 end-2)))
+	    (po-ediff-buffers-exit-recursive buf1 buf2 oldbuf end-2)
+	  (message "Variants are equal; delete %s" buf1)
+	  (forward-line -1)
+	  (delete-region (point-min) (point)))))))
 
 (defun po-subedit-abort ()
   "Exit the subedit buffer, merely discarding its contents."
