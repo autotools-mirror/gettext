@@ -2,13 +2,13 @@
 # Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001 Free Software Foundation, Inc.
 # Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999, 2000, 2001.
 #
-# $Id: gettext-0.11-pre3.sl.po,v 1.7 2001/12/18 12:52:39 peterlin Exp $
+# $Id: gettext-0.11-pre4.sl.po,v 1.2 2002/01/03 16:41:55 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11-pre3\n"
-"POT-Creation-Date: 2001-12-17 18:45+0100\n"
-"PO-Revision-Date: 2001-12-18 13:52+0100\n"
+"Project-Id-Version: GNU gettext 0.11-pre4\n"
+"POT-Creation-Date: 2001-12-20 22:14+0100\n"
+"PO-Revision-Date: 2002-01-03 17:41+0100\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,8 @@ msgstr "dvoumen argument %s za ,%s`"
 msgid "Valid arguments are:"
 msgstr "Veljavni argumenti so:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:732 src/read-mo.c:170
-#: src/xgettext.c:800 src/xgettext.c:813 src/xgettext.c:823
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:734 src/read-mo.c:170
+#: src/urlget.c:204 src/xgettext.c:808 src/xgettext.c:821 src/xgettext.c:831
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "datoteke \"%s\" ni moè odpreti za branje"
@@ -42,7 +42,7 @@ msgstr "datoteke \"%s\" ni moè odpreti za branje"
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "varnostnega izvoda \"%s\" ni mogoèe odpreti za pisanje"
 
-#: lib/copy-file.c:81
+#: lib/copy-file.c:81 src/urlget.c:216
 #, c-format
 msgid "error reading \"%s\""
 msgstr "napaka pri branju \"%s\""
@@ -52,7 +52,7 @@ msgstr "napaka pri branju \"%s\""
 msgid "error writing \"%s\""
 msgstr "napaka pri pisanju na \"%s\""
 
-#: lib/copy-file.c:93
+#: lib/copy-file.c:93 src/urlget.c:226
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "napaka po branju \"%s\""
@@ -153,96 +153,96 @@ msgid "%s subprocess got fatal signal"
 msgstr "%s podprocesov prejelo kritièni signal"
 
 #: src/format-c.c:587 src/format-python.c:506
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
-msgstr "¹tevili formatnih doloèil v ,msgid` in ,msgstr` se ne ujemata"
+msgstr "¹tevili formatnih doloèil v ,msgid` in ,%s` se ne ujemata"
 
 #: src/format-c.c:601 src/format-python.c:520
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
-msgstr "formatni doloèili v ,msgid` in ,msgstr` za argument %u nista enaki"
+msgstr "formatni doloèili v ,msgid` in ,%s` za argument %u nista enaki"
 
-#: src/format-java.c:659 src/format-pascal.c:403
-#, fuzzy, c-format
+#: src/format-java.c:660 src/format-librep.c:313 src/format-pascal.c:403
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "v ,msgid` ni formatnega doloèila za argument ,%s`"
+msgstr "v ,msgid` ni formatnega doloèila za argument {%u}, kot v ,%s`"
 
-#: src/format-java.c:674 src/format-pascal.c:418
-#, fuzzy, c-format
+#: src/format-java.c:675 src/format-librep.c:328 src/format-pascal.c:418
+#, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
-msgstr "v ,msgid` ni formatnega doloèila za argument {%u}"
+msgstr "v ,%2$s` ni formatnega doloèila za argument {%1$u}"
 
-#: src/format-java.c:699 src/format-pascal.c:443
-#, fuzzy, c-format
+#: src/format-java.c:700 src/format-librep.c:353 src/format-pascal.c:443
+#, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
-msgstr "formatni doloèili v ,msgid` in ,msgstr` za argument {%u} nista enaki"
+msgstr "formatni doloèili v ,msgid` in ,%s` za argument {%u} nista enaki"
 
-#: src/format-lisp.c:3380
-#, fuzzy, c-format
+#: src/format-lisp.c:3381
+#, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
-msgstr "formatni doloèili v ,msgid` in ,msgstr` nista enakovredni"
+msgstr "formatni doloèili v ,msgid` in ,%s` nista enakovredni"
 
-#: src/format-lisp.c:3401
-#, fuzzy, c-format
+#: src/format-lisp.c:3402
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
-msgstr "v ,msgid` ni formatnega doloèila za argument ,%s`"
+msgstr "formatna doloèila v ,%s` niso podmno¾ica tistih v ,msgid`"
 
 #: src/format-python.c:397
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 "tuple"
 msgstr ""
-"formatno doloèilo v ,msgid` zahteva preslikavo, tisto v ,msgstr` pa "
-"prièakuje n-terèek"
+"formatno doloèilo v ,msgid` zahteva preslikavo, tisto v ,%s` pa prièakuje n-"
+"terèek"
 
 #: src/format-python.c:409
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr ""
-"formatno doloèilo v ,msgid` zahteva n-terèek, tisto v ,msgstr` pa prièakuje "
+"formatno doloèilo v ,msgid` zahteva n-terèek, tisto v ,%s` pa prièakuje "
 "preslikavo"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "v ,msgid` ni formatnega doloèila za argument ,%s`"
+msgstr "v ,msgid` ni formatnega doloèila za argument ,%s`, kot v ,%s`"
 
 #: src/format-python.c:452
-#, fuzzy, c-format
+#, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
-msgstr "v ,msgid` ni formatnega doloèila za argument ,%s`"
+msgstr "v ,%2$s` ni formatnega doloèila za argument ,%1$s`"
 
 #: src/format-python.c:478
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
-msgstr "formatni doloèili v ,msgid` in ,msgstr` za argument %s nista enaki"
+msgstr "formatni doloèili v ,msgid` in ,%s` za argument ,%s` nista enaki"
 
 #: src/format-ycp.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
-msgstr "v ,msgstr` ni formatnega doloèila za argument %u"
+msgstr "v ,%2$s` ni formatnega doloèila za argument %1$u"
 
 #: src/format-ycp.c:145
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
-msgstr "v ,msgid` ni formatnega doloèila za argument ,%s`"
+msgstr "v ,msgid` ni formatnega doloèila za argument %u, kot v ,%s`"
 
 #: src/gettext.c:146 src/hostname.c:168 src/msgattrib.c:264 src/msgcat.c:229
 #: src/msgcmp.c:134 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:171
-#: src/msgexec.c:165 src/msgfilter.c:244 src/msgfmt.c:333 src/msggrep.c:276
+#: src/msgexec.c:165 src/msgfilter.c:249 src/msgfmt.c:333 src/msggrep.c:280
 #: src/msginit.c:247 src/msgmerge.c:252 src/msgunfmt.c:182 src/msguniq.c:207
-#: src/ngettext.c:126 src/xgettext.c:358
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:365
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -256,9 +256,9 @@ msgstr ""
 
 #: src/gettext.c:151 src/hostname.c:173 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:139 src/msgcomm.c:237 src/msgconv.c:187 src/msgen.c:176
-#: src/msgexec.c:170 src/msgfilter.c:249 src/msgfmt.c:338 src/msggrep.c:281
+#: src/msgexec.c:170 src/msgfilter.c:254 src/msgfmt.c:338 src/msggrep.c:285
 #: src/msginit.c:252 src/msgmerge.c:257 src/msgunfmt.c:187 src/msguniq.c:212
-#: src/ngettext.c:131 src/xgettext.c:363
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:370
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Avtor %s.\n"
@@ -273,9 +273,9 @@ msgstr "argumenti manjkajo"
 
 #: src/gettext.c:251 src/hostname.c:197 src/msgattrib.c:322 src/msgcat.c:290
 #: src/msgcmp.c:171 src/msgcomm.c:306 src/msgconv.c:241 src/msgen.c:227
-#: src/msgexec.c:223 src/msgfilter.c:342 src/msgfmt.c:479 src/msggrep.c:371
+#: src/msgexec.c:223 src/msgfilter.c:347 src/msgfmt.c:479 src/msggrep.c:375
 #: src/msginit.c:338 src/msgmerge.c:367 src/msgunfmt.c:262 src/msguniq.c:269
-#: src/ngettext.c:210 src/xgettext.c:505
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:512
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Poskusite ,%s --help` za izèrpnej¹a navodila\n"
@@ -336,9 +336,9 @@ msgstr ""
 
 #: src/gettext.c:288 src/hostname.c:227 src/msgattrib.c:402 src/msgcat.c:371
 #: src/msgcmp.c:216 src/msgcomm.c:384 src/msgconv.c:305 src/msgen.c:287
-#: src/msgexec.c:267 src/msgfilter.c:415 src/msgfmt.c:563 src/msggrep.c:457
+#: src/msgexec.c:267 src/msgfilter.c:420 src/msgfmt.c:563 src/msggrep.c:461
 #: src/msginit.c:389 src/msgmerge.c:465 src/msgunfmt.c:331 src/msguniq.c:343
-#: src/ngettext.c:244 src/xgettext.c:597
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:605
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Morebitne napake v programu sporoèite na <bug-gnu-gettext@gnu.org>.\n"
 
@@ -368,8 +368,8 @@ msgstr ""
 "  -i, --ip-address      internetni naslov za gostiteljsko ime\n"
 
 #: src/hostname.c:221 src/msgattrib.c:396 src/msgcmp.c:210 src/msgconv.c:299
-#: src/msgen.c:281 src/msgexec.c:261 src/msgfilter.c:409 src/msggrep.c:451
-#: src/msginit.c:383
+#: src/msgen.c:281 src/msgexec.c:261 src/msgfilter.c:414 src/msggrep.c:455
+#: src/msginit.c:383 src/urlget.c:180
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -384,22 +384,22 @@ msgstr ""
 msgid "could not get host name"
 msgstr "gostiteljskega imena ni moè ugotoviti"
 
-#: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:194
-#: src/msggrep.c:296 src/msginit.c:205 src/msguniq.c:227
+#: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:199
+#: src/msggrep.c:300 src/msginit.c:205 src/msguniq.c:227
 msgid "at most one input file allowed"
 msgstr "dovoljena je najveè ena vhodna datoteka"
 
 #: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
 #: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
-#: src/msgen.c:198 src/msgen.c:202 src/msgfilter.c:264 src/msgfilter.c:268
-#: src/msgfmt.c:358 src/msggrep.c:302 src/msggrep.c:306 src/msgmerge.c:282
+#: src/msgen.c:198 src/msgen.c:202 src/msgfilter.c:269 src/msgfilter.c:273
+#: src/msgfmt.c:358 src/msggrep.c:306 src/msggrep.c:310 src/msgmerge.c:282
 #: src/msgmerge.c:303 src/msgmerge.c:307 src/msguniq.c:233 src/msguniq.c:237
-#: src/xgettext.c:373 src/xgettext.c:377
+#: src/xgettext.c:380 src/xgettext.c:384
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s in %s se med seboj izkljuèujeta"
 
-#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:376 src/msguniq.c:274
+#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:380 src/msguniq.c:274
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Uporaba: %s [IZBIRA] [VHODNA_DATOTEKA]\n"
@@ -414,8 +414,8 @@ msgstr ""
 "in rokovanje z njimi.\n"
 
 #: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:191 src/msgcomm.c:328
-#: src/msgconv.c:256 src/msgen.c:245 src/msgexec.c:248 src/msgfilter.c:357
-#: src/msgfmt.c:494 src/msggrep.c:387 src/msginit.c:354 src/msgmerge.c:390
+#: src/msgconv.c:256 src/msgen.c:245 src/msgexec.c:248 src/msgfilter.c:362
+#: src/msgfmt.c:494 src/msggrep.c:391 src/msginit.c:354 src/msgmerge.c:390
 #: src/msgunfmt.c:277 src/msguniq.c:291
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -423,7 +423,7 @@ msgstr ""
 "Èe je pri dolgi obliki izbire naveden obvezen argument, je ta obvezen\n"
 "tudi za kratko obliko.\n"
 
-#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:392 src/msguniq.c:296
+#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:396 src/msguniq.c:296
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -436,8 +436,8 @@ msgstr ""
 "  -D, --directory=IMENIK      vhodne datoteke i¹èemo tudi v navedenem IMENIKU\n"
 "Èe vhodna datoteka ni podana ali je enaka -, se bere standardni vhod.\n"
 
-#: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:258 src/msgfilter.c:370
-#: src/msggrep.c:400 src/msgmerge.c:412
+#: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:258 src/msgfilter.c:375
+#: src/msggrep.c:404 src/msgmerge.c:412
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -521,7 +521,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "doloèeni kriteriji izbire niso mogoèi (%d < n < %d)"
 
-#: src/msgcat.c:295 src/msgcomm.c:311 src/xgettext.c:510
+#: src/msgcat.c:295 src/msgcomm.c:311 src/xgettext.c:517
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Uporaba: %s [IZBIRA] [VHODNA_DATOTEKA]...\n"
@@ -548,7 +548,7 @@ msgstr ""
 "zahtevamo, da se ohranijo samo iz prve datoteke PO, ki jih definira. Mesta\n"
 "v datotekah iz vseh datotek PO se ohranijo.\n"
 
-#: src/msgcat.c:318 src/msgcomm.c:333 src/xgettext.c:526
+#: src/msgcat.c:318 src/msgcomm.c:333 src/xgettext.c:533
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -629,7 +629,7 @@ msgstr ""
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msgcat.c:365 src/msgcomm.c:378 src/msguniq.c:337 src/xgettext.c:591
+#: src/msgcat.c:365 src/msgcomm.c:378 src/msguniq.c:337 src/xgettext.c:599
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -709,7 +709,7 @@ msgstr "to sporoèilo je uporabljeno, a ne definirano v %s"
 msgid "warning: this message is not used"
 msgstr "opozorilo: to sporoèilo ni uporabljeno"
 
-#: src/msgcmp.c:339 src/po-lex.c:705
+#: src/msgcmp.c:339 src/po-lex.c:707
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -843,7 +843,7 @@ msgstr ""
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msgen.c:187 src/msgfmt.c:349 src/xgettext.c:394
+#: src/msgen.c:187 src/msgfmt.c:349 src/xgettext.c:401
 msgid "no input file given"
 msgstr "vhodna datoteka ni podana"
 
@@ -914,7 +914,7 @@ msgstr ""
 "Poseben vgrajen ukaz ,0` izpi¹e prevod in izpis zakljuèi z znakom s kodo niè.\n"
 "Izhod ukaza \"msgexec 0\" je primeren kot vhod za ukaz \"xargs -0\".\n"
 
-#: src/msgexec.c:253 src/msgfilter.c:362
+#: src/msgexec.c:253 src/msgfilter.c:367
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -931,30 +931,30 @@ msgstr ""
 msgid "write to stdout failed"
 msgstr "izpis na standardni izhod neuspe¹en"
 
-#: src/msgexec.c:337 src/msgfilter.c:599
+#: src/msgexec.c:337 src/msgfilter.c:604
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "posredovanje podatkov podprocesu %s neuspe¹no"
 
-#: src/msgfilter.c:259
+#: src/msgfilter.c:264
 msgid "missing filter name"
 msgstr "manjka ime filtra"
 
-#: src/msgfilter.c:283
+#: src/msgfilter.c:288
 msgid "at least one sed script must be specified"
 msgstr "podan mora biti vsaj en skript v sed"
 
-#: src/msgfilter.c:347
+#: src/msgfilter.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Uporaba: %s [IZBIRA] FILTER [IZBIRA-FILTRA]\n"
 
-#: src/msgfilter.c:352
+#: src/msgfilter.c:357
 #, no-wrap
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Na vsakem prevodu iz kataloga uporabimo dani filter.\n"
 
-#: src/msgfilter.c:378
+#: src/msgfilter.c:383
 #, no-wrap
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -963,7 +963,7 @@ msgstr ""
 "FILTER je lahko ime kateregakoli programa, ki prebere prevod s standardnega\n"
 "vhoda in izpi¹e spremnjen prevod na standardni izhod.\n"
 
-#: src/msgfilter.c:384
+#: src/msgfilter.c:389
 #, no-wrap
 msgid ""
 "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
@@ -978,7 +978,7 @@ msgstr ""
 "                                ki se izvedejo\n"
 "  -n, --quiet, --silent       brez samodejnega izpisa prostora vzorcev\n"
 
-#: src/msgfilter.c:393
+#: src/msgfilter.c:398
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1007,22 +1007,22 @@ msgstr ""
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msgfilter.c:551
+#: src/msgfilter.c:556
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "s podprocesom %s ni mogoèe vzpostaviti nebloène V/I povezave"
 
-#: src/msgfilter.c:579
+#: src/msgfilter.c:584
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "povezava s podprocesom %s neuspe¹na"
 
-#: src/msgfilter.c:630
+#: src/msgfilter.c:635
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "branje izhoda podprocesa %s neuspe¹no"
 
-#: src/msgfilter.c:646
+#: src/msgfilter.c:651
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "podproces %s zakljuèil z izhodno kodo %d"
@@ -1247,13 +1247,13 @@ msgstr "nplurals = %lu..."
 # msgstr[2] "...nekatera sporoèila pa imajo samo %lu mno¾inski obliki"
 # msgstr[3] "...nekatera sporoèila pa imajo samo %lu mno¾inske oblike"
 #: src/msgfmt.c:902
-#, fuzzy, c-format
+#, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
 msgstr[0] "...nekatera sporoèila pa imajo samo %lu mno¾inskih oblik"
-msgstr[1] "...nekatera sporoèila pa imajo samo %lu mno¾inskih oblik"
-msgstr[2] "...nekatera sporoèila pa imajo samo %lu mno¾inskih oblik"
-msgstr[3] "...nekatera sporoèila pa imajo samo %lu mno¾inskih oblik"
+msgstr[1] "...nekatera sporoèila pa imajo samo %lu mno¾insko obliko"
+msgstr[2] "...nekatera sporoèila pa imajo samo %lu mno¾inski obliki"
+msgstr[3] "...nekatera sporoèila pa imajo samo %lu mno¾inske oblike"
 
 # This message needs msgid_plural form!
 # msgstr[0] "...nekatera sporoèila pa imajo %lu mno¾inskih oblik"
@@ -1261,13 +1261,13 @@ msgstr[3] "...nekatera sporoèila pa imajo samo %lu mno¾inskih oblik"
 # msgstr[2] "...nekatera sporoèila pa imajo %lu mno¾inski obliki"
 # msgstr[3] "...nekatera sporoèila pa imajo %lu mno¾inske oblike"
 #: src/msgfmt.c:917
-#, fuzzy, c-format
+#, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] "...nekatera sporoèila pa imajo %lu mno¾inskih oblik"
-msgstr[1] "...nekatera sporoèila pa imajo %lu mno¾inskih oblik"
-msgstr[2] "...nekatera sporoèila pa imajo %lu mno¾inskih oblik"
-msgstr[3] "...nekatera sporoèila pa imajo %lu mno¾inskih oblik"
+msgstr[1] "...nekatera sporoèila pa imajo %lu mno¾insko obliko"
+msgstr[2] "...nekatera sporoèila pa imajo %lu mno¾inski obliki"
+msgstr[3] "...nekatera sporoèila pa imajo %lu mno¾inske oblike"
 
 #: src/msgfmt.c:934
 msgid ""
@@ -1308,9 +1308,9 @@ msgid "plural handling is a GNU gettext extension"
 msgstr "rokovanje z mno¾inskimi oblikami je raz¹iritev GNU gettext"
 
 #: src/msgfmt.c:1110
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'"
-msgstr ",msgstr` za razliko od ,msgid` ni veljaven formatni niz %s"
+msgstr ",%s` za razliko od ,msgid` ni veljaven formatni niz %s"
 
 #: src/msgfmt.c:1145
 #, c-format
@@ -1385,12 +1385,12 @@ msgstr "ohlapni vnos za polje ,msgstr` zavr¾en"
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: opozorilo: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
 
-#: src/msggrep.c:359
+#: src/msggrep.c:363
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr "izbire ,%c` ni moè uporabiti, preden sta izbrana bodisi ,K` bodisi ,T`"
 
-#: src/msggrep.c:381
+#: src/msggrep.c:385
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1399,7 +1399,7 @@ msgstr ""
 "Izvleèemo vsa sporoèila iz kataloga prevodov, ki ustrezajo danemu vzorcu ali\n"
 "pripadajo dani izvorni datoteki.\n"
 
-#: src/msggrep.c:408
+#: src/msggrep.c:412
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1455,7 +1455,7 @@ msgstr ""
 "  -f, --file=DATOTEKA         VZOREC preberemo iz navedene datoteke\n"
 "  -i, --ignore-case           ne razlikujemo med velikimi in malimi èrkami\n"
 
-#: src/msggrep.c:436
+#: src/msggrep.c:440
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1483,7 +1483,7 @@ msgstr ""
 "      --sort-output        izhod abecedno urejen po sporoèilih\n"
 "      --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msggrep.c:510
+#: src/msggrep.c:530
 msgid "write to grep subprocess failed"
 msgstr "pisanje podprocesu grep neuspe¹no"
 
@@ -2151,42 +2151,42 @@ msgstr "mno¾inska oblika ima napaèen indeks"
 msgid "too many errors, aborting"
 msgstr "preveè napak, nadaljevanje ni mo¾no"
 
-#: src/po-lex.c:545 src/write-po.c:331 src/write-po.c:421
+#: src/po-lex.c:547 src/write-po.c:331 src/write-po.c:421
 msgid "invalid multibyte sequence"
 msgstr "neveljavno veèzlo¾no zaporedje"
 
-#: src/po-lex.c:571
+#: src/po-lex.c:573
 msgid "incomplete multibyte sequence at end of file"
 msgstr "nepopolno veèzlo¾no zaporedje na koncu datoteke"
 
-#: src/po-lex.c:581
+#: src/po-lex.c:583
 msgid "incomplete multibyte sequence at end of line"
 msgstr "nepopolno veèzlo¾no zaporedje na koncu vrstice"
 
-#: src/po-lex.c:589
+#: src/po-lex.c:591
 msgid "iconv failure"
 msgstr "iconv neuspe¹en"
 
-#: src/po-lex.c:763 src/read-mo.c:70 src/read-mo.c:135 src/x-c.c:287
-#: src/x-rst.c:227 src/x-ycp.c:103
+#: src/po-lex.c:765 src/read-mo.c:70 src/read-mo.c:135 src/x-c.c:287
+#: src/x-librep.c:170 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:103
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "napaka pri branju \"%s\""
 
-#: src/po-lex.c:829
+#: src/po-lex.c:831
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "kljuèna beseda \"%s\" neprepoznana"
 
-#: src/po-lex.c:939
+#: src/po-lex.c:941
 msgid "invalid control sequence"
 msgstr "neveljavno krmilno zaporedje"
 
-#: src/po-lex.c:1047
+#: src/po-lex.c:1049
 msgid "end-of-file within string"
 msgstr "znak za konec datoteke sredi niza"
 
-#: src/po-lex.c:1053
+#: src/po-lex.c:1055
 msgid "end-of-line within string"
 msgstr "znak za konec vrstice sredi niza"
 
@@ -2210,6 +2210,28 @@ msgstr "datoteka \"%s\" vsebuje niz, ki ni zakljuèen z NUL"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "datoteka \"%s\" ni v obliki GNU .mo"
 
+#: src/urlget.c:150
+#, fuzzy
+msgid "expected two arguments"
+msgstr "preveè argumentov"
+
+#: src/urlget.c:169
+#, fuzzy, c-format, no-wrap
+msgid "Usage: %s [OPTION] URL FILE\n"
+msgstr "Uporaba: %s [IZBIRA] VHODNA_DATOTEKA\n"
+
+#: src/urlget.c:174
+#, no-wrap
+msgid ""
+"Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
+"the locally accessible FILE is used instead.\n"
+msgstr ""
+
+#: src/urlget.c:222
+#, fuzzy
+msgid "error writing stdout"
+msgstr "napaka pri pisanju na \"%s\""
+
 #: src/write-java.c:1108
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "zaèasnega imenika ni mogoèe najti, poskusite nastaviti $TMPDIR"
@@ -2229,7 +2251,7 @@ msgstr "ni veljavno javansko ime razreda: %s"
 msgid "failed to create \"%s\""
 msgstr "ustvarjanje \"%s\" neuspe¹no"
 
-#: src/write-java.c:1209 src/write-mo.c:289 src/write-po.c:966
+#: src/write-java.c:1209 src/write-mo.c:294 src/write-po.c:966
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "napaka pri pisanju na datoteko \"%s\""
@@ -2240,7 +2262,7 @@ msgstr ""
 "prevajanje javanskega razreda neuspe¹no, uporabite --verbose ali nastavite "
 "$JAVAC"
 
-#: src/write-mo.c:277
+#: src/write-mo.c:282
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "napaka pri pisanju na \"%s\""
@@ -2287,7 +2309,7 @@ msgstr "%s:%d: opozorilo: nezakljuèena znakovna konstanta"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: opozorilo: nezakljuèen niz"
 
-#: src/x-po.c:106 src/xgettext.c:611
+#: src/x-po.c:106 src/xgettext.c:619
 msgid "this file may not contain domain directives"
 msgstr "ta datoteka morda ne vsebuje direktiv domene"
 
@@ -2306,26 +2328,26 @@ msgstr "%s:%d: za # manjka ¹tevilka"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: niz ni veljaven izraz"
 
-#: src/xgettext.c:381
+#: src/xgettext.c:388
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "pri izpisu na standardni izhod ne moremo uporabiti --join-existing"
 
-#: src/xgettext.c:386
+#: src/xgettext.c:393
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext ne deluje brez kljuènih besed, ki naj jih i¹èe"
 
-#: src/xgettext.c:474
+#: src/xgettext.c:481
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 "opozorilo: vrsta datoteka ,%s' s pripono ,%s' ni prepoznana; posku¹amo C"
 
-#: src/xgettext.c:515
+#: src/xgettext.c:522
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Iz vhodnih datotek izvleèemo prevedljive nize znakov.\n"
 
-#: src/xgettext.c:520
+#: src/xgettext.c:527
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2334,7 +2356,7 @@ msgstr ""
 "Èe je pri dolgi obliki izbire naveden obvezen argument, je ta obvezen\n"
 "tudi za kratko obliko. Enako za neobvezne argumente.\n"
 
-#: src/xgettext.c:535
+#: src/xgettext.c:542
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2350,7 +2372,7 @@ msgstr ""
 "Èe je kot izhodna datoteka navedeno -, se rezultat izpi¹e na standardni\n"
 "izhod.\n"
 
-#: src/xgettext.c:544
+#: src/xgettext.c:551
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
@@ -2365,7 +2387,7 @@ msgstr ""
 "  -C, --c++                      okraj¹ava za --language=C++\n"
 "Privzeto se jezik poskusi uganiti iz pripone vhodne datoteke.\n"
 
-#: src/xgettext.c:553
+#: src/xgettext.c:560
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2380,7 +2402,7 @@ msgstr ""
 "  -c, --add-comments[=ZNAÈKA]    v vhodno datoteko dodamo komentar z navedeno\n"
 "                                  ZNAÈKO\n"
 
-#: src/xgettext.c:562
+#: src/xgettext.c:569
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2398,8 +2420,8 @@ msgstr ""
 "      --debug                    bolj razèlenjen rezultat razpoznave\n"
 "                                   oblikovnega niza\n"
 
-#: src/xgettext.c:572
-#, no-wrap
+#: src/xgettext.c:579
+#, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2413,6 +2435,7 @@ msgid ""
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
+"      --copyright-holder=STRING  set copyright holder in output\n"
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
@@ -2434,11 +2457,11 @@ msgstr ""
 "  -m, --msgstr-prefix[=NIZ]  NIZ ali \"\" kot predpona za msgstr\n"
 "  -m, --msgstr-suffix[=NIZ]  NIZ ali \"\" kot pripona za msgstr\n"
 
-#: src/xgettext.c:791
+#: src/xgettext.c:799
 msgid "standard input"
 msgstr "standardni vhod"
 
-#: src/xgettext.c:906
+#: src/xgettext.c:914
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2448,7 +2471,7 @@ msgstr ""
 "gettext(\"\") vrne glavo z metapodatki, ne pa\n"
 "praznega niza.\n"
 
-#: src/xgettext.c:1200
+#: src/xgettext.c:1211
 #, c-format
 msgid "language `%s' unknown"
 msgstr "jezik ,%s` ni poznan"
