@@ -1,3 +1,7 @@
+2002-09-10  Bruno Haible  <bruno@clisp.org>
+
+	* da.po: Update from Keld Simonsen <keld@dkuug.dk>.
+
 2002-08-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (Makefile): Depend on @POMAKEFILEDEPS@ that includes
