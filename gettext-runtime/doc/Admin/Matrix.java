@@ -197,8 +197,11 @@ public class Matrix {
         stream.println("-+");
 
         for (int d = 0; d < ndomains; d++) {
-          stream.print(domains[d]);
-          spaces(stream,19 - domains[d].length());
+          String domain = domains[d];
+          if (domain.length() > 18)
+            domain = domain.substring(0, 18-3) + "...";
+          stream.print(domain);
+          spaces(stream,18 - domain.length() + 1);
           stream.print('|');
           for (int t = groups[group][0]; t < groups[group][1]; t++) {
             stream.print(' ');
