@@ -82,7 +82,7 @@ uninstall-dvi:
 
 # Documentation in Postscript format.
 
-DVIPS = dvips -D600
+DVIPS = @DVIPS@ -D600
 
 ps: gettext.ps
 
@@ -102,7 +102,7 @@ uninstall-ps:
 
 # Documentation in Portable Document Format.
 
-TEXI2PDF = texi2pdf
+TEXI2PDF = @TEXI2PDF@
 SUFFIXES = .pdf
 
 pdf: gettext.pdf
@@ -124,7 +124,7 @@ uninstall-pdf:
 
 # Documentation in HTML format.
 
-TEXI2HTML = texi2html
+TEXI2HTML = @TEXI2HTML@
 
 html-monolithic: gettext.html
 html-split: gettext_toc.html
@@ -133,8 +133,12 @@ gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	$(TEXI2HTML) -expandinfo -number -monolithic $<
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	$(RM) gettext_*.html
-	$(TEXI2HTML) -expandinfo -number -split_chapter $<
+	case "$(TEXI2HTML)" in \
+	  *"/missing texi2html") \
+	     $(TEXI2HTML) -expandinfo -number -split_chapter $< || exit 0 ;; \
+	  *) $(RM) gettext_*.html ; \
+	     $(TEXI2HTML) -expandinfo -number -split_chapter $< ;; \
+	esac
 
 install-html-monolithic: gettext.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)

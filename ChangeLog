@@ -1,5 +1,9 @@
 2001-04-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* configure.in: Check for dvips, texi2pdf, texi2html.
+
+2001-04-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* configure.in: Bump version number to 0.10.37.
 	(RELEASE_DATE): Bump.
 
