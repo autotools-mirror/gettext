@@ -307,6 +307,7 @@ Individual Programming Languages
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
 * YCP::                         YCP - YaST2 scripting language
+* Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
@@ -6371,6 +6372,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
 * YCP::                         YCP - YaST2 scripting language
+* Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
@@ -7087,7 +7089,7 @@ fully portable
 yes
 @end table
 
-@node YCP, Perl, wxWindows, List of Programming Languages
+@node YCP, Tcl, wxWindows, List of Programming Languages
 @subsection YCP - YaST2 scripting language
 @cindex YCP
 @cindex YaST2 scripting language
@@ -7136,7 +7138,68 @@ fully portable
 ---
 @end table
 
-@node Perl, PHP, YCP, List of Programming Languages
+@node Tcl, Perl, YCP, List of Programming Languages
+@subsection Tcl - Tk's scripting language
+@cindex Tcl
+@cindex Tk's scripting language
+
+@table @asis
+@item RPMs
+tcl
+
+@item File extension
+@code{tcl}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{[_ "abc"]}
+
+@item gettext/ngettext functions
+@code{::msgcat::mc}
+
+@item textdomain
+---
+
+@item bindtextdomain
+---, use @code{::msgcat::mcload} instead
+
+@item setlocale
+automatic, uses LANG, but ignores LC_MESSAGES and LC_ALL
+
+@item Prerequisite
+@code{package require msgcat}
+@*@code{proc _ @{s@} @{return [::msgcat::mc $s]@}}
+
+@item Use or emulate GNU gettext
+---, uses a Tcl specific message catalog format
+
+@item Extractor
+@code{xgettext -k_}
+
+@item Formatting with positions
+@code{format "%2\$d %1\$d"}
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+Before marking strings as internationalizable, substitutions of variables
+into the string need to be converted to @code{format} applications. For
+example, @code{"file $filename not found"} becomes
+@code{[format "file %s not found" $filename]}.
+Only after this is done, can the strings be marked and extracted.
+After marking, this example becomes
+@code{[format [_ "file %s not found"] $filename]} or
+@code{[msgcat::mc "file %s not found" $filename]}. Note that the
+@code{msgcat::mc} function implicitly calls @code{format} when more than one
+argument is given.
+
+@node Perl, PHP, Tcl, List of Programming Languages
 @subsection Perl
 @cindex Perl
 

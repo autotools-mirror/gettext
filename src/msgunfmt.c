@@ -21,6 +21,7 @@
 #endif
 
 #include <getopt.h>
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,6 +35,7 @@
 #include "msgunfmt.h"
 #include "read-mo.h"
 #include "read-java.h"
+#include "read-tcl.h"
 #include "write-po.h"
 #include "gettext.h"
 
@@ -47,6 +49,11 @@ bool verbose;
 static bool java_mode;
 static const char *java_resource_name;
 static const char *java_locale_name;
+
+/* Tcl mode input file specification.  */
+static bool tcl_mode;
+static const char *tcl_locale_name;
+static const char *tcl_base_directory;
 
 /* Force output of PO file even if empty.  */
 static int force_po;
@@ -65,6 +72,7 @@ static const struct option long_options[] =
   { "resource", required_argument, NULL, 'r' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "tcl", no_argument, NULL, CHAR_MAX + 1 },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -102,13 +110,17 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((optchar = getopt_long (argc, argv, "eEhijl:o:r:svVw:", long_options,
-				 NULL))
+  while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:r:svVw:",
+				 long_options, NULL))
 	 != EOF)
     switch (optchar)
       {
       case '\0':
 	/* long option */
+	break;
+
+      case 'd':
+	tcl_base_directory = optarg;
 	break;
 
       case 'e':
@@ -133,6 +145,7 @@ main (argc, argv)
 
       case 'l':
 	java_locale_name = optarg;
+	tcl_locale_name = optarg;
 	break;
 
       case 'o':
@@ -169,6 +182,10 @@ main (argc, argv)
 	}
 	break;
 
+      case CHAR_MAX + 1:
+	tcl_mode = true;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -193,13 +210,39 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     usage (EXIT_SUCCESS);
 
   /* Check for contradicting options.  */
+  if (java_mode && tcl_mode)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--java", "--tcl");
   if (java_mode)
     {
       if (optind < argc)
 	{
 	  error (EXIT_FAILURE, 0,
 		 _("%s and explicit file names are mutually exclusive"),
-		 "--java-mode");
+		 "--java");
+	}
+    }
+  else if (tcl_mode)
+    {
+      if (optind < argc)
+	{
+	  error (EXIT_FAILURE, 0,
+		 _("%s and explicit file names are mutually exclusive"),
+		 "--tcl");
+	}
+      if (tcl_locale_name == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-l locale\" specification"),
+		 "--tcl");
+	  usage (EXIT_FAILURE);
+	}
+      if (tcl_base_directory == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-d directory\" specification"),
+		 "--tcl");
+	  usage (EXIT_FAILURE);
 	}
     }
   else
@@ -207,13 +250,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       if (java_resource_name != NULL)
 	{
 	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--resource", "--java-mode");
+		 "--resource", "--java");
 	  usage (EXIT_FAILURE);
 	}
       if (java_locale_name != NULL)
 	{
 	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--locale", "--java-mode");
+		 "--locale", "--java");
 	  usage (EXIT_FAILURE);
 	}
     }
@@ -222,6 +265,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (java_mode)
     {
       result = msgdomain_read_java (java_resource_name, java_locale_name);
+    }
+  else if (tcl_mode)
+    {
+      result = msgdomain_read_tcl (tcl_locale_name, tcl_base_directory);
     }
   else
     {
@@ -281,7 +328,8 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Operation mode:\n\
-  -j, --java               Java mode: generate a Java ResourceBundle class\n\
+  -j, --java               Java mode: input is a Java ResourceBundle class\n\
+      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -298,6 +346,15 @@ Input file location in Java mode:\n\
   -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n\
 The class name is determined by appending the locale name to the resource name,\n\
 separated with an underscore.  The class is located using the CLASSPATH.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Input file location in Tcl mode:\n\
+  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n\
+  -d DIRECTORY             base directory of .msg message catalogs\n\
+The -l and -d options are mandatory.  The .msg file is located in the\n\
+specified directory.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */

@@ -149,6 +149,9 @@ po-time.c
 | read-java.h
 | read-java.c
 |               Reading Java ResourceBundle files.
+| read-tcl.h
+| read-tcl.c
+|               Reading Tcl .msg files.
 | msgunfmt.c
 |               Main source for the 'msgunfmt' program.
 |
@@ -163,6 +166,7 @@ format-librep.c Format string handling for librep.
 format-java.c   Format string handling for Java.
 format-pascal.c Format string handling for Object Pascal.
 format-ycp.c    Format string handling for YCP.
+format-tcl.c    Format string handling for Tcl.
 format.c        Table of the language dependent format string handlers.
 
 +-------------- The 'msgfmt' program
@@ -178,6 +182,9 @@ format.c        Table of the language dependent format string handlers.
 | write-java.h
 | write-java.c
 |               Generating Java ResourceBundle files.
+| write-tcl.h
+| write-tcl.c
+|               Generating Tcl .msg files.
 | msgfmt.c
 |               Main source for the 'msgfmt' program.
 |
@@ -207,6 +214,9 @@ format.c        Table of the language dependent format string handlers.
 | x-ycp.h
 | x-ycp.c
 |               String extractor for YCP.
+| x-tcl.h
+| x-tcl.c
+|               String extractor for Tcl.
 | x-rst.h
 | x-rst.c
 |               String extractor from .rst files, for Object Pascal.

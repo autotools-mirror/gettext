@@ -1,5 +1,12 @@
 2002-03-03  Bruno Haible  <bruno@clisp.org>
 
+	* format-tcl-1: New file.
+	* format-tcl-2: New file.
+	* lang-tcl: New file.
+	* Makefile.am (TESTS): Add them.
+
+2002-03-03  Bruno Haible  <bruno@clisp.org>
+
 	* lang-clisp: Create prog.ok only after testing presence of clisp.
 	* lang-gawk: Create prog.ok only after testing presence of gawk.
 	* lang-librep: Create prog.ok only after testing presence of rep.

@@ -31,9 +31,9 @@ noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
-write-mo.h read-java.h write-java.h po-time.h plural-table.h format.h \
-xgettext.h x-c.h x-po.h x-python.h x-lisp.h x-elisp.h x-librep.h x-java.h \
-x-awk.h x-ycp.h x-rst.h x-glade.h
+write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
+plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
+x-elisp.h x-librep.h x-java.h x-awk.h x-ycp.h x-tcl.h x-rst.h x-glade.h
 
 EXTRA_DIST = FILES project-id \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
@@ -45,7 +45,8 @@ projectsdir = $(pkgdatadir)/projects
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/libuniname \
 -I../lib -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
--DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
+-DLIBDIR=\"$(libdir)\" -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
+-DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 LDADD = ../lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
@@ -68,7 +69,7 @@ open-po.c dir-list.c str-list.c
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c \
 format-c.c format-python.c format-lisp.c format-elisp.c format-librep.c \
-format-java.c format-awk.c format-pascal.c format-ycp.c
+format-java.c format-awk.c format-pascal.c format-ycp.c format-tcl.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
@@ -83,12 +84,12 @@ LIBUNINAME = ../libuniname/libuniname.a
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
-msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
+msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
   x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-java.l x-awk.c \
-  x-ycp.c x-rst.c x-glade.c
+  x-ycp.c x-tcl.c x-rst.c x-glade.c
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c
@@ -198,6 +199,22 @@ uninstall-local: uninstall-java-@BUILDJAVA@
 uninstall-java-no:
 uninstall-java-yes:
 	$(RM) $(DESTDIR)$(jardir)/gettext.jar
+
+
+# Special rules for Tcl auxiliary program.
+
+install-data-local: install-tcl
+install-tcl:
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(INSTALL_DATA) $(srcdir)/msgunfmt.tcl $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
+
+installdirs-local: installdirs-tcl
+installdirs-tcl:
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+
+uninstall-local: uninstall-tcl
+uninstall-tcl:
+	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
 
 
 # One more automake bug.

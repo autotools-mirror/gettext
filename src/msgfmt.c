@@ -45,6 +45,7 @@
 #include "msgfmt.h"
 #include "write-mo.h"
 #include "write-java.h"
+#include "write-tcl.h"
 
 #include "gettext.h"
 #include "message.h"
@@ -91,6 +92,11 @@ static bool assume_java2;
 static const char *java_resource_name;
 static const char *java_locale_name;
 static const char *java_class_directory;
+
+/* Tcl mode output file specification.  */
+static bool tcl_mode;
+static const char *tcl_locale_name;
+static const char *tcl_base_directory;
 
 /* We may have more than one input file.  Domains with same names in
    different files have to merged.  So we need a list of tables for
@@ -163,6 +169,7 @@ static const struct option long_options[] =
   { "resource", required_argument, NULL, 'r' },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
+  { "tcl", no_argument, NULL, CHAR_MAX + 7 },
   { "use-fuzzy", no_argument, NULL, 'f' },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
@@ -266,6 +273,7 @@ main (argc, argv)
 	break;
       case 'd':
 	java_class_directory = optarg;
+	tcl_base_directory = optarg;
 	break;
       case 'D':
 	dir_list_append (optarg);
@@ -281,6 +289,7 @@ main (argc, argv)
 	break;
       case 'l':
 	java_locale_name = optarg;
+	tcl_locale_name = optarg;
 	break;
       case 'o':
 	output_file_name = optarg;
@@ -326,6 +335,9 @@ main (argc, argv)
       case CHAR_MAX + 6:
 	no_hash_table = true;
 	break;
+      case CHAR_MAX + 7:
+	tcl_mode = true;
+	break;
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -357,18 +369,43 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Check for contradicting options.  */
+  if (java_mode && tcl_mode)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--java", "--tcl");
   if (java_mode)
     {
       if (output_file_name != NULL)
 	{
 	  error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-		 "--java-mode", "--output-file");
+		 "--java", "--output-file");
 	}
       if (java_class_directory == NULL)
 	{
 	  error (EXIT_SUCCESS, 0,
 		 _("%s requires a \"-d directory\" specification"),
-		 "--java-mode");
+		 "--java");
+	  usage (EXIT_FAILURE);
+	}
+    }
+  else if (tcl_mode)
+    {
+      if (output_file_name != NULL)
+	{
+	  error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+		 "--tcl", "--output-file");
+	}
+      if (tcl_locale_name == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-l locale\" specification"),
+		 "--tcl");
+	  usage (EXIT_FAILURE);
+	}
+      if (tcl_base_directory == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-d directory\" specification"),
+		 "--tcl");
 	  usage (EXIT_FAILURE);
 	}
     }
@@ -377,19 +414,19 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       if (java_resource_name != NULL)
 	{
 	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--resource", "--java-mode");
+		 "--resource", "--java");
 	  usage (EXIT_FAILURE);
 	}
       if (java_locale_name != NULL)
 	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--locale", "--java-mode");
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
+		 "--locale", "--java", "--tcl");
 	  usage (EXIT_FAILURE);
 	}
       if (java_class_directory != NULL)
 	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "-d", "--java-mode");
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
+		 "-d", "--java", "--tcl");
 	  usage (EXIT_FAILURE);
 	}
     }
@@ -438,6 +475,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	  if (msgdomain_write_java (domain->mlp, java_resource_name,
 				    java_locale_name, java_class_directory,
 				    assume_java2))
+	    exit_status = EXIT_FAILURE;
+	}
+      else if (tcl_mode)
+	{
+	  if (msgdomain_write_tcl (domain->mlp,
+				   tcl_locale_name, tcl_base_directory))
 	    exit_status = EXIT_FAILURE;
 	}
       else
@@ -514,6 +557,7 @@ If input file is -, standard input is read.\n\
 Operation mode:\n\
   -j, --java                  Java mode: generate a Java ResourceBundle class\n\
       --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n\
+      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -533,6 +577,15 @@ Output file location in Java mode:\n\
 The class name is determined by appending the locale name to the resource name,\n\
 separated with an underscore.  The -d option is mandatory.  The class is\n\
 written under the specified directory.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location in Tcl mode:\n\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n\
+  -d DIRECTORY                base directory of .msg message catalogs\n\
+The -l and -d options are mandatory.  The .msg file is written in the\n\
+specified directory.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -1336,7 +1389,7 @@ format_directive_domain (pop, name)
 {
   /* If no output file was given, we change it with each `domain'
      directive.  */
-  if (!java_mode && output_file_name == NULL)
+  if (!java_mode && !tcl_mode && output_file_name == NULL)
     {
       size_t correct;
 

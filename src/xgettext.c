@@ -66,6 +66,7 @@
 #include "x-java.h"
 #include "x-awk.h"
 #include "x-ycp.h"
+#include "x-tcl.h"
 #include "x-rst.h"
 #include "x-glade.h"
 
@@ -232,6 +233,7 @@ main (argc, argv)
 	x_librep_extract_all ();
 	x_java_extract_all ();
 	x_awk_extract_all ();
+	x_tcl_extract_all ();
 	x_glade_extract_all ();
 	break;
       case 'c':
@@ -289,6 +291,7 @@ main (argc, argv)
 	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
 	    x_awk_keyword (optarg);
+	    x_tcl_keyword (optarg);
 	    x_glade_keyword (optarg);
 	  }
 	break;
@@ -1260,6 +1263,7 @@ language_to_extractor (name)
     SCANNERS_JAVA
     SCANNERS_AWK
     SCANNERS_YCP
+    SCANNERS_TCL
     SCANNERS_RST
     SCANNERS_GLADE
     /* Here will follow more languages and their scanners: perl, etc...
@@ -1305,9 +1309,10 @@ extension_to_language (extension)
     EXTENSIONS_JAVA
     EXTENSIONS_AWK
     EXTENSIONS_YCP
+    EXTENSIONS_TCL
     EXTENSIONS_RST
     EXTENSIONS_GLADE
-    /* Here will follow more file extensions: sh, pl, tcl ... */
+    /* Here will follow more file extensions: sh, pl ... */
   };
 
   table_ty *tp;

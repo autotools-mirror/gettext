@@ -64,6 +64,7 @@ extern struct formatstring_parser formatstring_java;
 extern struct formatstring_parser formatstring_awk;
 extern struct formatstring_parser formatstring_pascal;
 extern struct formatstring_parser formatstring_ycp;
+extern struct formatstring_parser formatstring_tcl;
 
 /* Table of all format string parsers.  */
 extern struct formatstring_parser *formatstring_parsers[NFORMATS];

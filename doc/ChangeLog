@@ -1,3 +1,7 @@
+2002-03-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Tcl): New node.
+
 2002-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.texi: Document option -C.
