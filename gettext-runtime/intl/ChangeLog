@@ -1,3 +1,7 @@
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 7:2:4.
+
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (dist, distdir): Fail if some of the files to be
