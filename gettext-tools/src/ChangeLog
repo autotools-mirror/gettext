@@ -1,3 +1,7 @@
+2004-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14 released.
+
 2004-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (catalogname_for_locale): Add entries for Akan, Avaric,

@@ -1,3 +1,7 @@
+2004-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14 released.
+
 2004-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h_vms): Set MALLOC_0_IS_NONNULL to 0.

@@ -1,3 +1,7 @@
+2004-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14 released.
+
 2004-01-11  Bruno Haible  <bruno@clisp.org>
 
 	* format-c-5: New file.

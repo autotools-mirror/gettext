@@ -1,5 +1,9 @@
 2004-01-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.14 released.
+
+2004-01-28  Bruno Haible  <bruno@clisp.org>
+
 	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
 	* de.po: Update from Karl Eichwalder <ke@suse.de>.
 	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
