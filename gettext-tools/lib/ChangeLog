@@ -1,3 +1,9 @@
+2004-03-19  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (install-exec-clean): Don't remove libgettextlib.a on
+	AIX.
+	Reported by Kouichi Hashikawa <z01a7ksy@cs.ecip.tohoku.ac.jp>.
+
 2004-03-08  Bruno Haible  <bruno@clisp.org>
 
 	* csharpcomp.c (compile_csharp_using_sscli): Test whether csc is not

@@ -119,10 +119,13 @@ libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
-# No need to install libgettextlib.a.
+# No need to install libgettextlib.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:
-	$(RM) $(DESTDIR)$(libdir)/libgettextlib.a
+	case "@host_os@" in \
+	  aix*) ;; \
+	  *) $(RM) $(DESTDIR)$(libdir)/libgettextlib.a ;; \
+	esac
 
 # Extra files to be installed.
 

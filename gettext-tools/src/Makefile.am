@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -152,10 +152,13 @@ libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
-# No need to install libgettextsrc.a.
+# No need to install libgettextsrc.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:
-	$(RM) $(DESTDIR)$(libdir)/libgettextsrc.a
+	case "@host_os@" in \
+	  aix*) ;; \
+	  *) $(RM) $(DESTDIR)$(libdir)/libgettextsrc.a ;; \
+	esac
 
 # How to build libgettextpo.la.
 # Need libgettextsrc.la.
