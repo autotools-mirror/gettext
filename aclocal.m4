@@ -581,7 +581,7 @@ AC_DEFUN([gt_PROG_LEX],
   AC_SUBST(LEX_OUTPUT_ROOT)
 ])
 
-# javacomp.m4 serial 3 (gettext-0.11.2)
+# javacomp.m4 serial 4 (gettext-0.11.3)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -615,7 +615,7 @@ AC_DEFUN([gt_JAVACOMP],
     popdef([AC_MSG_CHECKING])dnl
 changequote(,)dnl
     if test -n "$HAVE_GCJ_IN_PATH" \
-       && gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null \
+       && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^3\.[01]/d' | grep '^[3-9]' >/dev/null \
        && (
         # See if libgcj.jar is well installed.
         cat > conftest.java <<EOF
@@ -2792,6 +2792,18 @@ freebsd1*)
   dynamic_linker=no
   ;;
 
+freebsd*-gnu*)
+  version_type=linux
+  need_lib_prefix=no
+  need_version=no
+  library_names_spec='${libname}${release}.so$versuffix ${libname}${release}.so$major $libname.so'
+  soname_spec='${libname}${release}.so$major'
+  shlibpath_var=LD_LIBRARY_PATH
+  shlibpath_overrides_runpath=no
+  hardcode_into_libs=yes
+  dynamic_linker='GNU ld.so'
+  ;;
+
 freebsd*)
   objformat=`test -x /usr/bin/objformat && /usr/bin/objformat || echo aout`
   version_type=freebsd-$objformat
@@ -4280,7 +4292,7 @@ AC_DEFUN([AM_PROG_NM],        [AC_PROG_NM])
 # This is just to silence aclocal about the macro not being used
 ifelse([AC_DISABLE_FAST_INSTALL])
 
-# stdbool.m4 serial 1 (gettext-0.11)
+# stdbool.m4 serial 2 (gettext-0.11.3)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -4314,6 +4326,17 @@ if test $gt_cv_header_stdbool_h = yes; then
   STDBOOL_H=''
 else
   STDBOOL_H='stdbool.h'
+  AC_MSG_CHECKING([for _Bool type])
+  AC_CACHE_VAL(gt_cv_type_Bool, [
+    AC_TRY_COMPILE([_Bool x = sizeof (_Bool);], [],
+      gt_cv_type_Bool=yes, gt_cv_type_Bool=no)])
+  AC_MSG_RESULT([$gt_cv_type_Bool])
+  if test $gt_cv_type_Bool = yes; then
+    HAVE__BOOL=1
+  else
+    HAVE__BOOL=0
+  fi
+  AC_SUBST(HAVE__BOOL)
 fi
 AC_SUBST(STDBOOL_H)
 ])
@@ -4390,19 +4413,6 @@ AC_DEFUN([jm_AC_TYPE_UNSIGNED_LONG_LONG],
     AC_DEFINE(HAVE_UNSIGNED_LONG_LONG, 1,
       [Define if you have the unsigned long long type.])
   fi
-])
-
-# From Ulrich Drepper.
-
-# serial 1
-
-AC_DEFUN([AM_TYPE_PTRDIFF_T],
-  [AC_CACHE_CHECK([for ptrdiff_t], am_cv_type_ptrdiff_t,
-     [AC_TRY_COMPILE([#include <stddef.h>], [ptrdiff_t p],
-		     am_cv_type_ptrdiff_t=yes, am_cv_type_ptrdiff_t=no)])
-   if test $am_cv_type_ptrdiff_t = yes; then
-     AC_DEFINE(HAVE_PTRDIFF_T,1,[Define if system has ptrdiff_t type])
-   fi
 ])
 
 # uintmax_t.m4 serial 6 (gettext-0.11)
@@ -5029,7 +5039,7 @@ AC_DEFUN([gt_PREREQ_HOSTNAME],
   fi
 ])
 
-# gettext.m4 serial 14 (gettext-0.11.2)
+# gettext.m4 serial 15 (gettext-0.11.3)
 dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -5105,6 +5115,21 @@ AC_DEFUN([AM_GNU_GETTEXT],
   dnl Prerequisites of AC_LIB_LINKFLAGS_BODY.
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
   AC_REQUIRE([AC_LIB_RPATH])
+
+  dnl Sometimes libintl requires libiconv, so first search for libiconv.
+  dnl Ideally we would do this search only after the
+  dnl      if test "$USE_NLS" = "yes"; then
+  dnl        if test "$gt_cv_func_gnugettext_libc" != "yes"; then
+  dnl tests. But if configure.in invokes AM_ICONV after AM_GNU_GETTEXT
+  dnl the configure script would need to contain the same shell code
+  dnl again, outside any 'if'. There are two solutions:
+  dnl - Invoke AM_ICONV_LINKFLAGS_BODY here, outside any 'if'.
+  dnl - Control the expansions in more detail using AC_PROVIDE_IFELSE.
+  dnl Since AC_PROVIDE_IFELSE is only in autoconf >= 2.52 and not
+  dnl documented, we avoid it.
+  ifelse(gt_included_intl, yes, , [
+    AC_REQUIRE([AM_ICONV_LINKFLAGS_BODY])
+  ])
 
   AC_MSG_CHECKING([whether NLS is requested])
   dnl Default is enabled NLS
@@ -5510,6 +5535,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([AC_FUNC_ALLOCA])dnl
   AC_REQUIRE([AC_FUNC_MMAP])dnl
   AC_REQUIRE([jm_GLIBC21])dnl
+  AC_REQUIRE([gt_INTDIV0])dnl
 
   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
 stdlib.h string.h unistd.h sys/param.h])
@@ -5519,7 +5545,9 @@ strcasecmp strdup strtoul tsearch __argz_count __argz_stringify __argz_next])
 
   AM_ICONV
   AM_LANGINFO_CODESET
-  AM_LC_MESSAGES
+  if test $ac_cv_header_locale_h = yes; then
+    AM_LC_MESSAGES
+  fi
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least
@@ -5718,7 +5746,7 @@ AC_DEFUN([AC_LIB_WITH_FINAL_PREFIX],
   prefix="$acl_save_prefix"
 ])
 
-# lib-link.m4 serial 2 (gettext-0.11.2)
+# lib-link.m4 serial 3 (gettext-0.11.3)
 dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -5836,6 +5864,10 @@ AC_DEFUN([AC_LIB_RPATH],
   hardcode_minus_L="$acl_cv_hardcode_minus_L"
   sys_lib_search_path_spec="$acl_cv_sys_lib_search_path_spec"
   sys_lib_dlsearch_path_spec="$acl_cv_sys_lib_dlsearch_path_spec"
+  dnl Determine whether the user wants rpath handling at all.
+  AC_ARG_ENABLE(rpath,
+    [  --disable-rpath         do not use hardcode runtime library paths],
+    :, enable_rpath=yes)
 ])
 
 dnl AC_LIB_LINKFLAGS_BODY(name [, dependencies]) searches for libname and
@@ -5965,7 +5997,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
               dnl Linking with a shared library. We attempt to hardcode its
               dnl directory into the executable's runpath, unless it's the
               dnl standard /usr/lib.
-              if test "X$found_dir" = "X/usr/lib"; then
+              if test "$enable_rpath" = no || test "X$found_dir" = "X/usr/lib"; then
                 dnl No hardcoding is needed.
                 LIB[]NAME="${LIB[]NAME}${LIB[]NAME:+ }$found_so"
               else
@@ -6156,29 +6188,31 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                     ;;
                   -R*)
                     dir=`echo "X$dep" | sed -e 's/^X-R//'`
-                    dnl Potentially add DIR to rpathdirs.
-                    dnl The rpathdirs will be appended to $LIBNAME at the end.
-                    haveit=
-                    for x in $rpathdirs; do
-                      if test "X$x" = "X$dir"; then
-                        haveit=yes
-                        break
+                    if test "$enable_rpath" != no; then
+                      dnl Potentially add DIR to rpathdirs.
+                      dnl The rpathdirs will be appended to $LIBNAME at the end.
+                      haveit=
+                      for x in $rpathdirs; do
+                        if test "X$x" = "X$dir"; then
+                          haveit=yes
+                          break
+                        fi
+                      done
+                      if test -z "$haveit"; then
+                        rpathdirs="$rpathdirs $dir"
                       fi
-                    done
-                    if test -z "$haveit"; then
-                      rpathdirs="$rpathdirs $dir"
-                    fi
-                    dnl Potentially add DIR to ltrpathdirs.
-                    dnl The ltrpathdirs will be appended to $LTLIBNAME at the end.
-                    haveit=
-                    for x in $ltrpathdirs; do
-                      if test "X$x" = "X$dir"; then
-                        haveit=yes
-                        break
+                      dnl Potentially add DIR to ltrpathdirs.
+                      dnl The ltrpathdirs will be appended to $LTLIBNAME at the end.
+                      haveit=
+                      for x in $ltrpathdirs; do
+                        if test "X$x" = "X$dir"; then
+                          haveit=yes
+                          break
+                        fi
+                      done
+                      if test -z "$haveit"; then
+                        ltrpathdirs="$ltrpathdirs $dir"
                       fi
-                    done
-                    if test -z "$haveit"; then
-                      ltrpathdirs="$ltrpathdirs $dir"
                     fi
                     ;;
                   -l*)
@@ -6365,7 +6399,7 @@ test -z "$LD" && AC_MSG_ERROR([no acceptable ld found in \$PATH])
 AC_LIB_PROG_LD_GNU
 ])
 
-# iconv.m4 serial AM3 (gettext-0.11)
+# iconv.m4 serial AM4 (gettext-0.11.3)
 dnl Copyright (C) 2000-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -6375,11 +6409,8 @@ dnl the same distribution terms as the rest of that program.
 
 dnl From Bruno Haible.
 
-AC_DEFUN([AM_ICONV_LINK],
+AC_DEFUN([AM_ICONV_LINKFLAGS_BODY],
 [
-  dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
-  dnl those with the standalone portable GNU libiconv installed).
-
   dnl Prerequisites of AC_LIB_LINKFLAGS_BODY.
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
   AC_REQUIRE([AC_LIB_RPATH])
@@ -6387,6 +6418,16 @@ AC_DEFUN([AM_ICONV_LINK],
   dnl Search for libiconv and define LIBICONV, LTLIBICONV and INCICONV
   dnl accordingly.
   AC_LIB_LINKFLAGS_BODY([iconv])
+])
+
+AC_DEFUN([AM_ICONV_LINK],
+[
+  dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
+  dnl those with the standalone portable GNU libiconv installed).
+
+  dnl Search for libiconv and define LIBICONV, LTLIBICONV and INCICONV
+  dnl accordingly.
+  AC_REQUIRE([AM_ICONV_LINKFLAGS_BODY])
 
   dnl Add $INCICONV to CPPFLAGS before performing the following checks,
   dnl because if the user has installed libiconv and not disabled its use
@@ -6436,7 +6477,7 @@ AC_DEFUN([AM_ICONV_LINK],
 
 AC_DEFUN([AM_ICONV],
 [
-  AC_REQUIRE([AM_ICONV_LINK])
+  AM_ICONV_LINK
   if test "$am_cv_func_iconv" = yes; then
     AC_MSG_CHECKING([for iconv declaration])
     AC_CACHE_VAL(am_cv_proto_iconv, [
@@ -6555,6 +6596,79 @@ AC_DEFUN([jm_GLIBC21],
   ]
 )
 
+# intdiv0.m4 serial 1 (gettext-0.11.3)
+dnl Copyright (C) 2002 Free Software Foundation, Inc.
+dnl This file is free software, distributed under the terms of the GNU
+dnl General Public License.  As a special exception to the GNU General
+dnl Public License, this file may be distributed as part of a program
+dnl that contains a configuration script generated by Autoconf, under
+dnl the same distribution terms as the rest of that program.
+
+dnl From Bruno Haible.
+
+AC_DEFUN([gt_INTDIV0],
+[
+  AC_REQUIRE([AC_PROG_CC])dnl
+  AC_REQUIRE([AC_CANONICAL_HOST])dnl
+
+  AC_CACHE_CHECK([whether integer division by zero raises SIGFPE],
+    gt_cv_int_divbyzero_sigfpe,
+    [
+      AC_TRY_RUN([
+#include <stdlib.h>
+#include <signal.h>
+
+static void
+#ifdef __cplusplus
+sigfpe_handler (int sig)
+#else
+sigfpe_handler (sig) int sig;
+#endif
+{
+  /* Exit with code 0 if SIGFPE, with code 1 if any other signal.  */
+  exit (sig != SIGFPE);
+}
+
+int x = 1;
+int y = 0;
+int z;
+int nan;
+
+int main ()
+{
+  signal (SIGFPE, sigfpe_handler);
+/* IRIX and AIX (when "xlc -qcheck" is used) yield signal SIGTRAP.  */
+#if (defined (__sgi) || defined (_AIX)) && defined (SIGTRAP)
+  signal (SIGTRAP, sigfpe_handler);
+#endif
+/* Linux/SPARC yields signal SIGILL.  */
+#if defined (__sparc__) && defined (__linux__)
+  signal (SIGILL, sigfpe_handler);
+#endif
+
+  z = x / y;
+  nan = y / y;
+  exit (1);
+}
+], gt_cv_int_divbyzero_sigfpe=yes, gt_cv_int_divbyzero_sigfpe=no,
+        [
+          # Guess based on the CPU.
+          case "$host_cpu" in
+            alpha* | i[34567]86 | m68k | s390*)
+              gt_cv_int_divbyzero_sigfpe="guessing yes";;
+            *)
+              gt_cv_int_divbyzero_sigfpe="guessing no";;
+          esac
+        ])
+    ])
+  case "$gt_cv_int_divbyzero_sigfpe" in
+    *yes) value=1;;
+    *) value=0;;
+  esac
+  AC_DEFINE_UNQUOTED(INTDIV0_RAISES_SIGFPE, $value,
+    [Define if integer division by zero raises signal SIGFPE.])
+])
+
 # codeset.m4 serial AM1 (gettext-0.10.40)
 dnl Copyright (C) 2000-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
@@ -6579,7 +6693,7 @@ AC_DEFUN([AM_LANGINFO_CODESET],
   fi
 ])
 
-# lcmessage.m4 serial 2 (gettext-0.10.40)
+# lcmessage.m4 serial 3 (gettext-0.11.3)
 dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -6602,15 +6716,15 @@ dnl   Ulrich Drepper <drepper@cygnus.com>, 1995.
 # Check whether LC_MESSAGES is available in <locale.h>.
 
 AC_DEFUN([AM_LC_MESSAGES],
-  [if test $ac_cv_header_locale_h = yes; then
-    AC_CACHE_CHECK([for LC_MESSAGES], am_cv_val_LC_MESSAGES,
-      [AC_TRY_LINK([#include <locale.h>], [return LC_MESSAGES],
+[
+  AC_CACHE_CHECK([for LC_MESSAGES], am_cv_val_LC_MESSAGES,
+    [AC_TRY_LINK([#include <locale.h>], [return LC_MESSAGES],
        am_cv_val_LC_MESSAGES=yes, am_cv_val_LC_MESSAGES=no)])
-    if test $am_cv_val_LC_MESSAGES = yes; then
-      AC_DEFINE(HAVE_LC_MESSAGES, 1,
-        [Define if your <locale.h> file defines LC_MESSAGES.])
-    fi
-  fi])
+  if test $am_cv_val_LC_MESSAGES = yes; then
+    AC_DEFINE(HAVE_LC_MESSAGES, 1,
+      [Define if your <locale.h> file defines LC_MESSAGES.])
+  fi
+])
 
 
 # serial 3
