@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2003 Free Software Foundation, Inc.
+## Copyright (C) 2001-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -38,13 +38,16 @@ EXAMPLESFILES = \
   hello-c/po/Makevars \
   hello-c/po/POTFILES.in \
   hello-c/po/LINGUAS \
+  hello-c/po/af.po \
   hello-c/po/ca.po \
   hello-c/po/de.po \
   hello-c/po/es.po \
   hello-c/po/fr.po \
   hello-c/po/ja.po \
+  hello-c/po/nl.po \
   hello-c/po/pl.po \
   hello-c/po/ro.po \
+  hello-c/po/sk.po \
   hello-c/po/sr.po \
   hello-c/po/sv.po \
   hello-c/po/tr.po \
@@ -63,13 +66,16 @@ EXAMPLESFILES = \
   hello-c-gnome/po/Makevars \
   hello-c-gnome/po/POTFILES.in \
   hello-c-gnome/po/LINGUAS \
+  hello-c-gnome/po/af.po \
   hello-c-gnome/po/ca.po \
   hello-c-gnome/po/de.po \
   hello-c-gnome/po/es.po \
   hello-c-gnome/po/fr.po \
   hello-c-gnome/po/ja.po \
+  hello-c-gnome/po/nl.po \
   hello-c-gnome/po/pl.po \
   hello-c-gnome/po/ro.po \
+  hello-c-gnome/po/sk.po \
   hello-c-gnome/po/sr.po \
   hello-c-gnome/po/sv.po \
   hello-c-gnome/po/tr.po \
@@ -85,13 +91,16 @@ EXAMPLESFILES = \
   hello-c++/po/Makevars \
   hello-c++/po/POTFILES.in \
   hello-c++/po/LINGUAS \
+  hello-c++/po/af.po \
   hello-c++/po/ca.po \
   hello-c++/po/de.po \
   hello-c++/po/es.po \
   hello-c++/po/fr.po \
   hello-c++/po/ja.po \
+  hello-c++/po/nl.po \
   hello-c++/po/pl.po \
   hello-c++/po/ro.po \
+  hello-c++/po/sk.po \
   hello-c++/po/sr.po \
   hello-c++/po/sv.po \
   hello-c++/po/tr.po \
@@ -108,13 +117,16 @@ EXAMPLESFILES = \
   hello-c++-qt/m4/qt.m4 \
   hello-c++-qt/po/Makefile.am \
   hello-c++-qt/po/LINGUAS \
+  hello-c++-qt/po/af.po \
   hello-c++-qt/po/ca.po \
   hello-c++-qt/po/de.po \
   hello-c++-qt/po/es.po \
   hello-c++-qt/po/fr.po \
   hello-c++-qt/po/ja.po \
+  hello-c++-qt/po/nl.po \
   hello-c++-qt/po/pl.po \
   hello-c++-qt/po/ro.po \
+  hello-c++-qt/po/sk.po \
   hello-c++-qt/po/sr.po \
   hello-c++-qt/po/sv.po \
   hello-c++-qt/po/tr.po \
@@ -133,13 +145,16 @@ EXAMPLESFILES = \
   hello-c++-kde/po/Makevars \
   hello-c++-kde/po/POTFILES.in \
   hello-c++-kde/po/LINGUAS \
+  hello-c++-kde/po/af.po \
   hello-c++-kde/po/ca.po \
   hello-c++-kde/po/de.po \
   hello-c++-kde/po/es.po \
   hello-c++-kde/po/fr.po \
   hello-c++-kde/po/ja.po \
+  hello-c++-kde/po/nl.po \
   hello-c++-kde/po/pl.po \
   hello-c++-kde/po/ro.po \
+  hello-c++-kde/po/sk.po \
   hello-c++-kde/po/sr.po \
   hello-c++-kde/po/sv.po \
   hello-c++-kde/po/tr.po \
@@ -160,13 +175,16 @@ EXAMPLESFILES = \
   hello-c++-gnome/po/Makevars \
   hello-c++-gnome/po/POTFILES.in \
   hello-c++-gnome/po/LINGUAS \
+  hello-c++-gnome/po/af.po \
   hello-c++-gnome/po/ca.po \
   hello-c++-gnome/po/de.po \
   hello-c++-gnome/po/es.po \
   hello-c++-gnome/po/fr.po \
   hello-c++-gnome/po/ja.po \
+  hello-c++-gnome/po/nl.po \
   hello-c++-gnome/po/pl.po \
   hello-c++-gnome/po/ro.po \
+  hello-c++-gnome/po/sk.po \
   hello-c++-gnome/po/sr.po \
   hello-c++-gnome/po/sv.po \
   hello-c++-gnome/po/tr.po \
@@ -182,13 +200,16 @@ EXAMPLESFILES = \
   hello-objc/po/Makevars \
   hello-objc/po/POTFILES.in \
   hello-objc/po/LINGUAS \
+  hello-objc/po/af.po \
   hello-objc/po/ca.po \
   hello-objc/po/de.po \
   hello-objc/po/es.po \
   hello-objc/po/fr.po \
   hello-objc/po/ja.po \
+  hello-objc/po/nl.po \
   hello-objc/po/pl.po \
   hello-objc/po/ro.po \
+  hello-objc/po/sk.po \
   hello-objc/po/sr.po \
   hello-objc/po/sv.po \
   hello-objc/po/tr.po \
@@ -207,13 +228,16 @@ EXAMPLESFILES = \
   hello-objc-gnustep/po/GNUmakefile \
   hello-objc-gnustep/po/LocaleAliases \
   hello-objc-gnustep/po/LINGUAS \
+  hello-objc-gnustep/po/af.po \
   hello-objc-gnustep/po/ca.po \
   hello-objc-gnustep/po/de.po \
   hello-objc-gnustep/po/es.po \
   hello-objc-gnustep/po/fr.po \
   hello-objc-gnustep/po/ja.po \
+  hello-objc-gnustep/po/nl.po \
   hello-objc-gnustep/po/pl.po \
   hello-objc-gnustep/po/ro.po \
+  hello-objc-gnustep/po/sk.po \
   hello-objc-gnustep/po/sr.po \
   hello-objc-gnustep/po/sv.po \
   hello-objc-gnustep/po/tr.po \
@@ -232,13 +256,16 @@ EXAMPLESFILES = \
   hello-objc-gnome/po/Makevars \
   hello-objc-gnome/po/POTFILES.in \
   hello-objc-gnome/po/LINGUAS \
+  hello-objc-gnome/po/af.po \
   hello-objc-gnome/po/ca.po \
   hello-objc-gnome/po/de.po \
   hello-objc-gnome/po/es.po \
   hello-objc-gnome/po/fr.po \
   hello-objc-gnome/po/ja.po \
+  hello-objc-gnome/po/nl.po \
   hello-objc-gnome/po/pl.po \
   hello-objc-gnome/po/ro.po \
+  hello-objc-gnome/po/sk.po \
   hello-objc-gnome/po/sr.po \
   hello-objc-gnome/po/sv.po \
   hello-objc-gnome/po/tr.po \
@@ -253,13 +280,16 @@ EXAMPLESFILES = \
   hello-sh/m4/Makefile.am \
   hello-sh/po/Makefile.am \
   hello-sh/po/LINGUAS \
+  hello-sh/po/af.po \
   hello-sh/po/ca.po \
   hello-sh/po/de.po \
   hello-sh/po/es.po \
   hello-sh/po/fr.po \
   hello-sh/po/ja.po \
+  hello-sh/po/nl.po \
   hello-sh/po/pl.po \
   hello-sh/po/ro.po \
+  hello-sh/po/sk.po \
   hello-sh/po/sr.po \
   hello-sh/po/sv.po \
   hello-sh/po/tr.po \
@@ -274,13 +304,16 @@ EXAMPLESFILES = \
   hello-python/m4/Makefile.am \
   hello-python/po/Makefile.am \
   hello-python/po/LINGUAS \
+  hello-python/po/af.po \
   hello-python/po/ca.po \
   hello-python/po/de.po \
   hello-python/po/es.po \
   hello-python/po/fr.po \
   hello-python/po/ja.po \
+  hello-python/po/nl.po \
   hello-python/po/pl.po \
   hello-python/po/ro.po \
+  hello-python/po/sk.po \
   hello-python/po/sr.po \
   hello-python/po/sv.po \
   hello-python/po/tr.po \
@@ -295,13 +328,16 @@ EXAMPLESFILES = \
   hello-clisp/m4/Makefile.am \
   hello-clisp/po/Makefile.am \
   hello-clisp/po/LINGUAS \
+  hello-clisp/po/af.po \
   hello-clisp/po/ca.po \
   hello-clisp/po/de.po \
   hello-clisp/po/es.po \
   hello-clisp/po/fr.po \
   hello-clisp/po/ja.po \
+  hello-clisp/po/nl.po \
   hello-clisp/po/pl.po \
   hello-clisp/po/ro.po \
+  hello-clisp/po/sk.po \
   hello-clisp/po/sr.po \
   hello-clisp/po/sv.po \
   hello-clisp/po/tr.po \
@@ -316,13 +352,16 @@ EXAMPLESFILES = \
   hello-librep/m4/Makefile.am \
   hello-librep/po/Makefile.am \
   hello-librep/po/LINGUAS \
+  hello-librep/po/af.po \
   hello-librep/po/ca.po \
   hello-librep/po/de.po \
   hello-librep/po/es.po \
   hello-librep/po/fr.po \
   hello-librep/po/ja.po \
+  hello-librep/po/nl.po \
   hello-librep/po/pl.po \
   hello-librep/po/ro.po \
+  hello-librep/po/sk.po \
   hello-librep/po/sr.po \
   hello-librep/po/sv.po \
   hello-librep/po/tr.po \
@@ -337,13 +376,16 @@ EXAMPLESFILES = \
   hello-smalltalk/m4/Makefile.am \
   hello-smalltalk/po/Makefile.am \
   hello-smalltalk/po/LINGUAS \
+  hello-smalltalk/po/af.po \
   hello-smalltalk/po/ca.po \
   hello-smalltalk/po/de.po \
   hello-smalltalk/po/es.po \
   hello-smalltalk/po/fr.po \
   hello-smalltalk/po/ja.po \
+  hello-smalltalk/po/nl.po \
   hello-smalltalk/po/pl.po \
   hello-smalltalk/po/ro.po \
+  hello-smalltalk/po/sk.po \
   hello-smalltalk/po/sr.po \
   hello-smalltalk/po/sv.po \
   hello-smalltalk/po/tr.po \
@@ -358,13 +400,16 @@ EXAMPLESFILES = \
   hello-java/m4/Makefile.am \
   hello-java/po/Makefile.am \
   hello-java/po/LINGUAS \
+  hello-java/po/af.po \
   hello-java/po/ca.po \
   hello-java/po/de.po \
   hello-java/po/es.po \
   hello-java/po/fr.po \
   hello-java/po/ja.po \
+  hello-java/po/nl.po \
   hello-java/po/pl.po \
   hello-java/po/ro.po \
+  hello-java/po/sk.po \
   hello-java/po/sr.po \
   hello-java/po/sv.po \
   hello-java/po/tr.po \
@@ -382,13 +427,16 @@ EXAMPLESFILES = \
   hello-java-awt/m4/TestAWT.class \
   hello-java-awt/po/Makefile.am \
   hello-java-awt/po/LINGUAS \
+  hello-java-awt/po/af.po \
   hello-java-awt/po/ca.po \
   hello-java-awt/po/de.po \
   hello-java-awt/po/es.po \
   hello-java-awt/po/fr.po \
   hello-java-awt/po/ja.po \
+  hello-java-awt/po/nl.po \
   hello-java-awt/po/pl.po \
   hello-java-awt/po/ro.po \
+  hello-java-awt/po/sk.po \
   hello-java-awt/po/sr.po \
   hello-java-awt/po/sv.po \
   hello-java-awt/po/tr.po \
@@ -406,13 +454,16 @@ EXAMPLESFILES = \
   hello-java-swing/m4/TestAWT.class \
   hello-java-swing/po/Makefile.am \
   hello-java-swing/po/LINGUAS \
+  hello-java-swing/po/af.po \
   hello-java-swing/po/ca.po \
   hello-java-swing/po/de.po \
   hello-java-swing/po/es.po \
   hello-java-swing/po/fr.po \
   hello-java-swing/po/ja.po \
+  hello-java-swing/po/nl.po \
   hello-java-swing/po/pl.po \
   hello-java-swing/po/ro.po \
+  hello-java-swing/po/sk.po \
   hello-java-swing/po/sr.po \
   hello-java-swing/po/sv.po \
   hello-java-swing/po/tr.po \
@@ -427,13 +478,16 @@ EXAMPLESFILES = \
   hello-csharp/m4/Makefile.am \
   hello-csharp/po/Makefile.am \
   hello-csharp/po/LINGUAS \
+  hello-csharp/po/af.po \
   hello-csharp/po/ca.po \
   hello-csharp/po/de.po \
   hello-csharp/po/es.po \
   hello-csharp/po/fr.po \
   hello-csharp/po/ja.po \
+  hello-csharp/po/nl.po \
   hello-csharp/po/pl.po \
   hello-csharp/po/ro.po \
+  hello-csharp/po/sk.po \
   hello-csharp/po/sr.po \
   hello-csharp/po/zh_CN.po \
   \
@@ -447,13 +501,16 @@ EXAMPLESFILES = \
   hello-csharp-forms/m4/Makefile.am \
   hello-csharp-forms/po/Makefile.am \
   hello-csharp-forms/po/LINGUAS \
+  hello-csharp-forms/po/af.po \
   hello-csharp-forms/po/ca.po \
   hello-csharp-forms/po/de.po \
   hello-csharp-forms/po/es.po \
   hello-csharp-forms/po/fr.po \
   hello-csharp-forms/po/ja.po \
+  hello-csharp-forms/po/nl.po \
   hello-csharp-forms/po/pl.po \
   hello-csharp-forms/po/ro.po \
+  hello-csharp-forms/po/sk.po \
   hello-csharp-forms/po/sr.po \
   hello-csharp-forms/po/zh_CN.po \
   \
@@ -466,13 +523,16 @@ EXAMPLESFILES = \
   hello-gawk/m4/Makefile.am \
   hello-gawk/po/Makefile.am \
   hello-gawk/po/LINGUAS \
+  hello-gawk/po/af.po \
   hello-gawk/po/ca.po \
   hello-gawk/po/de.po \
   hello-gawk/po/es.po \
   hello-gawk/po/fr.po \
   hello-gawk/po/ja.po \
+  hello-gawk/po/nl.po \
   hello-gawk/po/pl.po \
   hello-gawk/po/ro.po \
+  hello-gawk/po/sk.po \
   hello-gawk/po/sr.po \
   hello-gawk/po/sv.po \
   hello-gawk/po/tr.po \
@@ -488,13 +548,16 @@ EXAMPLESFILES = \
   hello-pascal/m4/Makefile.am \
   hello-pascal/po/Makefile.am \
   hello-pascal/po/LINGUAS \
+  hello-pascal/po/af.po \
   hello-pascal/po/ca.po \
   hello-pascal/po/de.po \
   hello-pascal/po/es.po \
   hello-pascal/po/fr.po \
   hello-pascal/po/ja.po \
+  hello-pascal/po/nl.po \
   hello-pascal/po/pl.po \
   hello-pascal/po/ro.po \
+  hello-pascal/po/sk.po \
   hello-pascal/po/sr.po \
   hello-pascal/po/sv.po \
   hello-pascal/po/tr.po \
@@ -509,13 +572,16 @@ EXAMPLESFILES = \
   hello-ycp/m4/Makefile.am \
   hello-ycp/po/Makefile.am \
   hello-ycp/po/LINGUAS \
+  hello-ycp/po/af.po \
   hello-ycp/po/ca.po \
   hello-ycp/po/de.po \
   hello-ycp/po/es.po \
   hello-ycp/po/fr.po \
   hello-ycp/po/ja.po \
+  hello-ycp/po/nl.po \
   hello-ycp/po/pl.po \
   hello-ycp/po/ro.po \
+  hello-ycp/po/sk.po \
   hello-ycp/po/sr.po \
   hello-ycp/po/sv.po \
   hello-ycp/po/tr.po \
@@ -530,13 +596,16 @@ EXAMPLESFILES = \
   hello-tcl/m4/Makefile.am \
   hello-tcl/po/Makefile.am \
   hello-tcl/po/LINGUAS \
+  hello-tcl/po/af.po \
   hello-tcl/po/ca.po \
   hello-tcl/po/de.po \
   hello-tcl/po/es.po \
   hello-tcl/po/fr.po \
   hello-tcl/po/ja.po \
+  hello-tcl/po/nl.po \
   hello-tcl/po/pl.po \
   hello-tcl/po/ro.po \
+  hello-tcl/po/sk.po \
   hello-tcl/po/sr.po \
   hello-tcl/po/sv.po \
   hello-tcl/po/tr.po \
@@ -551,13 +620,16 @@ EXAMPLESFILES = \
   hello-tcl-tk/m4/Makefile.am \
   hello-tcl-tk/po/Makefile.am \
   hello-tcl-tk/po/LINGUAS \
+  hello-tcl-tk/po/af.po \
   hello-tcl-tk/po/ca.po \
   hello-tcl-tk/po/de.po \
   hello-tcl-tk/po/es.po \
   hello-tcl-tk/po/fr.po \
   hello-tcl-tk/po/ja.po \
+  hello-tcl-tk/po/nl.po \
   hello-tcl-tk/po/pl.po \
   hello-tcl-tk/po/ro.po \
+  hello-tcl-tk/po/sk.po \
   hello-tcl-tk/po/sr.po \
   hello-tcl-tk/po/sv.po \
   hello-tcl-tk/po/tr.po \
@@ -573,13 +645,16 @@ EXAMPLESFILES = \
   hello-perl/m4/Makefile.am \
   hello-perl/po/Makefile.am \
   hello-perl/po/LINGUAS \
+  hello-perl/po/af.po \
   hello-perl/po/ca.po \
   hello-perl/po/de.po \
   hello-perl/po/es.po \
   hello-perl/po/fr.po \
   hello-perl/po/ja.po \
+  hello-perl/po/nl.po \
   hello-perl/po/pl.po \
   hello-perl/po/ro.po \
+  hello-perl/po/sk.po \
   hello-perl/po/sr.po \
   hello-perl/po/sv.po \
   hello-perl/po/tr.po \
@@ -595,13 +670,16 @@ EXAMPLESFILES = \
   hello-php/m4/Makefile.am \
   hello-php/po/Makefile.am \
   hello-php/po/LINGUAS \
+  hello-php/po/af.po \
   hello-php/po/ca.po \
   hello-php/po/de.po \
   hello-php/po/es.po \
   hello-php/po/fr.po \
   hello-php/po/ja.po \
+  hello-php/po/nl.po \
   hello-php/po/pl.po \
   hello-php/po/ro.po \
+  hello-php/po/sk.po \
   hello-php/po/sr.po \
   hello-php/po/sv.po \
   hello-php/po/tr.po \

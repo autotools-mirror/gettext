@@ -1,3 +1,19 @@
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
+	* po/af.po: New file, from Ysbeer <ysbeer@af.org.za>.
+	* po/ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* po/de.po: Update from Karl Eichwalder <ke@gnu.franken.de>.
+	* po/fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* po/ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* po/nl.po: New file, from Elros Cyriatan <cyriatan@fastmail.fm>.
+	* po/pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* po/sk.po: New file, from Marcel Telka <marcel@telka.sk>.
+	* po/sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* po/zh_CN.po: Update from Funda Wang <fundawang@linux.net.cn>.
+	* po/LINGUAS: Add af, nl, sk.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2004-01-10  Bruno Haible  <bruno@clisp.org>
 
 	* hello-c++-kde/admin: New directory, from KDE 3.1.4.
