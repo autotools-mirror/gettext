@@ -1,3 +1,7 @@
+2000-09-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* libintl.glibc: Update from current glibc version.
+
 2000-09-18  Bruno Haible  <haible@clisp.cons.org>
 
 	* dcigettext.c: Outside libc, use local variable names that don't
