@@ -1,3 +1,10 @@
+2002-06-07  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (INTDIV0_RAISES_SIGFPE): Define a fallback.
+	Include <signal.h>.
+	* eval-plural.h (plural_eval): Let division by zero cause SIGFPE on
+	all platforms.
+
 2002-05-30  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h (_INTL_REDIRECT_ASM, _INTL_REDIRECT_INLINE,

@@ -1,3 +1,9 @@
+2002-06-07  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt.c (install_sigfpe_handler): Assume the signal is always
+	SIGFPE, regardless of the platform.
+	(uninstall_sigfpe_handler): Likewise.
+
 2002-05-29  Bruno Haible  <bruno@clisp.org>
 
 	* dir-list.h (dir_list_save_reset, dir_list_restore): New declarations.

@@ -720,10 +720,6 @@ install_sigfpe_handler ()
   sigaction (SIGFPE, &action, (struct sigaction *) NULL);
 #else
   signal (SIGFPE, sigfpe_handler);
-  /* Irix and AIX send SIGTRAP, not SIGFPE.  */
-# if (defined (__sgi) || defined (_AIX)) && defined (SIGTRAP)
-  signal (SIGTRAP, sigfpe_handler);
-# endif
 #endif
 }
 
@@ -738,10 +734,6 @@ uninstall_sigfpe_handler ()
   sigaction (SIGFPE, &action, (struct sigaction *) NULL);
 #else
   signal (SIGFPE, SIG_DFL);
-  /* Irix and AIX send SIGTRAP, not SIGFPE.  */
-# if (defined (__sgi) || defined (_AIX)) && defined (SIGTRAP)
-  signal (SIGTRAP, SIG_DFL);
-# endif
 #endif
 }
 
