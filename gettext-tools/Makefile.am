@@ -51,7 +51,9 @@ config.h_vms: config.h.in ../version.sh
 	 sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	     -e 's/#undef HAVE_ARPA_INET_H$$/#define HAVE_ARPA_INET_H 1/' \
+	     -e 's/#undef HAVE_BTOWC$$/#define HAVE_BTOWC 1/' \
 	     -e 's/#undef HAVE_CHOWN$$/#define HAVE_CHOWN 1/' \
+	     -e 's/#undef HAVE_DECL_GETENV$$/#define HAVE_DECL_GETENV 1/' \
 	     -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
@@ -81,6 +83,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_MALLOC_H$$/#define HAVE_MALLOC_H 1/' \
 	     -e 's/#undef HAVE_MBRTOWC$$/#define HAVE_MBRTOWC 1/' \
 	     -e 's/#undef HAVE_MBSINIT$$/#define HAVE_MBSINIT 1/' \
+	     -e 's/#undef HAVE_MBSTATE_T$$/#define HAVE_MBSTATE_T 1/' \
 	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
 	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
 	     -e 's/#undef HAVE_MEMSET$$/#define HAVE_MEMSET 1/' \
@@ -92,6 +95,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
 	     -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
 	     -e 's/#undef HAVE_RAISE$$/#define HAVE_RAISE 1/' \
+	     -e 's/#undef HAVE_READLINK$$/#define HAVE_READLINK 1/' \
 	     -e 's/#undef HAVE_SELECT$$/#define HAVE_SELECT 1/' \
 	     -e 's/#undef HAVE_SETENV$$/#define HAVE_SETENV 1/' \
 	     -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
@@ -124,9 +128,12 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	     -e 's/#undef HAVE_WAITPID$$/#define HAVE_WAITPID 1/' \
 	     -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
+	     -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	     -e 's/#undef HAVE_WCTYPE_H$$/#define HAVE_WCTYPE_H 1/' \
 	     -e 's/#undef HAVE_WCWIDTH$$/#define HAVE_WCWIDTH 1/' \
+	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	     -e 's/#undef HAVE_WORKING_VFORK$$/#define HAVE_WORKING_VFORK 1/' \
+	     -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
 	     -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
@@ -150,6 +157,8 @@ config.h.msvc: config.h.in ../version.sh
 	sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	    -e 's/#undef HAVE_BTOWC$$/#define HAVE_BTOWC 1/' \
+	    -e 's/#undef HAVE_DECL_GETENV$$/#define HAVE_DECL_GETENV 1/' \
 	    -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	    -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 0/' \
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
@@ -186,6 +195,9 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_TIME_H$$/#define HAVE_TIME_H 1/' \
 	    -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	    -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
+	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
+	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
