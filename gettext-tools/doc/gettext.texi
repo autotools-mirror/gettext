@@ -8383,14 +8383,14 @@ Use @code{setlocale (LC_ALL, "");}
 @item Prerequisite
 @code{use POSIX;}
 @*@code{use Locale::TextDomain;} (included in the package libintl-perl
-which is available on the Comprehensive Perl Authors Network CPAN,
+which is available on the Comprehensive Perl Archive Network CPAN,
 http://www.cpan.org/).
 
 @item Use or emulate GNU gettext
 emulate
 
 @item Extractor
-@code{xgettext -k__ -k\$__ -k%__ -k__x -k__n -k__nx -k__xn -kN__ -k}
+@code{xgettext -k__ -k\$__ -k%__ -k__x -k__n:1,2 -k__nx:1,2 -k__xn:1,2 -kN__ -k}
 
 @item Formatting with positions
 Both kinds of format strings support formatting with positions.
@@ -8770,7 +8770,7 @@ UTF-8 representation, regardless of the presence of the @code{use utf8} pragma.
 
 @item hex chars, like @code{\x1b}
 
-@item wide hex chars, like @code{\x263a}
+@item wide hex chars, like @code{\x@{263a@}}
 @*
 Note that this escape is translated into a UTF-8 representation,
 regardless of the presence of the @code{use utf8} pragma.
@@ -8803,8 +8803,9 @@ The following escapes are considered partially safe:
 
 These escapes are only considered safe if the string consists of
 ASCII characters only.  Translation of characters outside the range
-defined by ASCII is locale-dependent and can only be performed at
-runtime.
+defined by ASCII is locale-dependent and can actually only be performed 
+at runtime; @code{xgettext} doesn't do these locale-dependent translations
+at extraction time.
 
 Except for the modifier @code{\Q}, these translations, albeit valid,
 are generally useless and only obfuscate your sources.  If a

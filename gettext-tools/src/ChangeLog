@@ -1,3 +1,13 @@
+2003-09-09  Guido Flohr  <guido@imperia.net>
+
+	* x-perl.c (extract_quotelike_pass3): Change \l handling to no longer
+	eat up non-uppercase characters; likewise for \u. Also make \l and \u
+	work on characters written using hex or octal escape sequence. Fix \Q
+	handling. With option --extract-all, avoid "invalid variable
+	interpolation" warnings.
+	(x_perl_prelex): With option --extract-all, keep variables inside
+	double-quoted strings untouched.
+
 2003-09-03  Bruno Haible  <bruno@clisp.org>
 
 	* x-sh.h: New file.

@@ -1,3 +1,8 @@
+2003-09-09  Guido Flohr  <guido@imperia.net>
+
+	* xgettext-29: Add more tests.
+	* lang-perl-1: Use gettext instead of _.
+
 2003-09-08  Bruno Haible  <bruno@clisp.org>
 
 	* lang-sh: Avoid test failure with Solaris /bin/sh.

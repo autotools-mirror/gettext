@@ -439,8 +439,6 @@ is_whitespace (int c)
 /* ========================== Reading of tokens.  ========================== */
 
 
-/* FIXME: All known Perl operators should be listed here.  It does not
-   cost that much and it may improve the stability of the parser.  */
 enum token_type_ty
 {
   token_type_eof,
@@ -856,8 +854,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
     {
       bool backslashed;
 
-      /* Ensure room for 6 bytes.  */
-      if (bufpos + 6 > bufmax)
+      /* Ensure room for 7 bytes, 6 (multi-)bytes plus a leading backslash
+	 if \Q modifier is present.  */
+      if (bufpos + 7 > bufmax)
 	{
 	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
@@ -923,6 +922,22 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		int length;
 
 		crs = extract_oct (crs + 1, 3, &oct_number);
+
+		/* FIXME: If one of the variables UPPERCASE or LOWERCASE is
+		   true, the character should be converted to its uppercase
+		   resp. lowercase equivalent.  I don't know if the necessary
+		   facilities are already included in gettext.  For US-Ascii
+		   the conversion can be already be done, however.  */
+		if (uppercase && oct_number >= 'a' && oct_number <= 'z')
+		  {
+		    oct_number = oct_number - 'a' + 'A';
+		  }
+		else if (lowercase && oct_number >= 'A' && oct_number <= 'Z')
+		  {
+		    oct_number = oct_number - 'A' + 'a';
+		  }
+
+
 		/* Yes, octal escape sequences in the range 0x100..0x1ff are
 		   valid.  */
 		length = u8_uctomb ((unsigned char *) (buffer + bufpos),
@@ -961,8 +976,23 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		    crs = extract_hex (crs, 2, &hex_number);
 		  }
 
+		/* FIXME: If one of the variables UPPERCASE or LOWERCASE is
+		   true, the character should be converted to its uppercase
+		   resp. lowercase equivalent.  I don't know if the necessary
+		   facilities are already included in gettext.  For US-Ascii
+		   the conversion can be already be done, however.  */
+		if (uppercase && hex_number >= 'a' && hex_number <= 'z')
+		  {
+		    hex_number = hex_number - 'a' + 'A';
+		  }
+		else if (lowercase && hex_number >= 'A' && hex_number <= 'Z')
+		  {
+		    hex_number = hex_number - 'A' + 'a';
+		  }
+
 		length = u8_uctomb ((unsigned char *) (buffer + bufpos),
 				    hex_number, 6);
+
 		if (length > 0)
 		  bufpos += length;
 	      }
@@ -995,6 +1025,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		      unicode = unicode_name_character (name);
 		      if (unicode != UNINAME_INVALID)
 			{
+			  /* FIXME: Convert to upper/lowercase if the
+			     corresponding flag is set to true.  */
 			  int length =
 			    u8_uctomb ((unsigned char *) (buffer + bufpos),
 				       unicode, 6);
@@ -1026,18 +1058,14 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	    case 'L':
 	      uppercase = false;
 	      lowercase = true;
-	      quotemeta = false;
 	      ++crs;
 	      continue;
 	    case 'U':
 	      uppercase = true;
 	      lowercase = false;
-	      quotemeta = false;
 	      ++crs;
 	      continue;
 	    case 'Q':
-	      uppercase = false;
-	      lowercase = false;
 	      quotemeta = true;
 	      ++crs;
 	      continue;
@@ -1055,6 +1083,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 			 real_file_name, line_number, *crs);
 		  error_with_progname = true;
 		}
+	      else
+	        {
+		  buffer[bufpos++] = *crs;
+		}
 	      ++crs;
 	      continue;
 	    case 'u':
@@ -1071,6 +1103,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 			 real_file_name, line_number, *crs);
 		  error_with_progname = true;
 		}
+	      else
+	        {
+		  buffer[bufpos++] = *crs;
+		}
 	      ++crs;
 	      continue;
 	    case '\\':
@@ -1085,7 +1121,15 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
       else
 	backslashed = false;
 
-      if (!backslashed && (*crs == '$' || *crs == '@'))
+      if (quotemeta
+	  && !((*crs >= 'A' && *crs <= 'Z') || (*crs >= 'A' && *crs <= 'z')
+	       || (*crs >= '0' && *crs <= '9') || *crs == '_'))
+	{
+	  buffer[bufpos++] = '\\';
+	  backslashed = true;
+	}
+
+      if (!backslashed && !extract_all && (*crs == '$' || *crs == '@'))
 	{
 	  error_with_progname = false;
 	  error (error_level, 0, _("\
@@ -1127,10 +1171,6 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	  else
 	    buffer[bufpos++] = *crs;
 	  ++crs;
-	}
-      else if (quotemeta)
-	{
-	  buffer[bufpos++] = *crs++;
 	}
       else
 	{
@@ -1833,9 +1873,13 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	case '@':
 	case '*':
 	case '$':
-	  extract_variable (mlp, tp, c);
-	  prefer_division_over_regexp = true;
-	  return;
+	  if (!extract_all)
+	    {
+	      extract_variable (mlp, tp, c);
+	      prefer_division_over_regexp = true;
+	      return;
+	    }
+	  break;
 	}
 
       last_non_comment_line = tp->line_number;
