@@ -1,3 +1,8 @@
+2001-03-15  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Plural forms): Clarify the syntax of the plural form
+	information in the header entry. Always terminate it with a semicolon.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (MAKEINFO): Add 'env', to avoid shell syntax error in
