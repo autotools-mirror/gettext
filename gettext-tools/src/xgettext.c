@@ -117,6 +117,9 @@ static const char *msgstr_suffix;
 /* Directory in which output files are created.  */
 static char *output_dir;
 
+/* The output syntax: .pot or .properties.  */
+static input_syntax_ty output_syntax = syntax_po;
+
 /* If nonzero omit header with information about this run.  */
 int xgettext_omit_header;
 
@@ -397,6 +400,7 @@ main (int argc, char *argv[])
 	break;
       case CHAR_MAX + 6:	/* --properties-output */
 	message_print_syntax_properties ();
+	output_syntax = syntax_properties;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -1399,9 +1403,10 @@ finalize_header (msgdomain_list_ty *mdlp)
       }
   }
 
-  /* If not all the strings were plain ASCII, set the charset in the header
-     to UTF-8.  All messages have already been converted to UTF-8 in
-     remember_a_message and remember_a_message_plural.  */
+  /* If not all the strings were plain ASCII, or if the output syntax
+     requires a charset conversion, set the charset in the header to UTF-8.
+     All messages have already been converted to UTF-8 in remember_a_message
+     and remember_a_message_plural.  */
   {
     bool has_nonascii = false;
     size_t i;
@@ -1414,7 +1419,7 @@ finalize_header (msgdomain_list_ty *mdlp)
 	  has_nonascii = true;
       }
 
-    if (has_nonascii)
+    if (has_nonascii || output_syntax == syntax_properties)
       {
 	message_list_ty *mlp = mdlp->item[0]->messages;
 
