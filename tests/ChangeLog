@@ -1,3 +1,10 @@
+2001-11-30  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge-17: New file.
+	* msgmerge-18: New file.
+	* msgmerge-19: New file.
+	* Makefile.am (TESTS): Add them.
+
 2001-11-27  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (TESTS): Add msgmerge-14, msgmerge-15, msgmerge-16.

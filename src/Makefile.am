@@ -72,14 +72,14 @@ format-ycp.c
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
-msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c \
+msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
 $(FORMAT_SOURCE)
 
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural.c plural-eval.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
 xgettext_SOURCES = xgettext.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c

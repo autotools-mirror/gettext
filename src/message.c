@@ -420,6 +420,19 @@ message_merge (def, ref)
       message_comment_filepos (result, pp->file_name, pp->line_number);
     }
 
+  /* Special postprocessing is needed if the reference message is a
+     plural form and the definition message isn't, or vice versa.  */
+  if (ref->msgid_plural != NULL)
+    {
+      if (def->msgid_plural == NULL)
+	result->used = 1;
+    }
+  else
+    {
+      if (def->msgid_plural != NULL)
+	result->used = 2;
+    }
+
   /* All done, return the merged message to the caller.  */
   return result;
 }

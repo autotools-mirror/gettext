@@ -1,3 +1,11 @@
+2001-11-30  Bruno Haible  <bruno@clisp.org>
+
+	* message.c (message_merge): Determine whether postprocessing is
+	needed.
+	* msgmerge.c (match_domain): Postprocess some problematic cases.
+	* Makefile.am (libgettextsrc_la_SOURCES): Add plural.c.
+	(msgfmt_SOURCES): Remove plural.c.
+
 2001-11-29  Bruno Haible  <bruno@clisp.org>
 
 	* plural-eval.c: Include config.h and plural-exp.h.

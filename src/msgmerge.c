@@ -34,9 +34,11 @@
 #include "message.h"
 #include "read-po.h"
 #include "write-po.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "po.h"
 #include "msgl-equal.h"
+#include "plural-exp.h"
 #include "backupfile.h"
 #include "copy-file.h"
 #include "libgettext.h"
@@ -577,6 +579,85 @@ this message is used but not defined in %s"), fn1);
 	    }
 	}
     }
+
+  /* Now postprocess the problematic merges.  This is needed because we
+     want the result to pass the "msgfmt -c -v" check.  */
+  {
+    /* message_merge sets mp->used to 1 or 2, depending on the problem.
+       Compute the bitwise OR of all these.  */
+    int problematic = 0;
+
+    for (j = 0; j < resultmlp->nitems; j++)
+      problematic |= resultmlp->item[j]->used;
+
+    if (problematic)
+      {
+	unsigned long int nplurals = 0;
+
+	if (problematic & 1)
+	  {
+	    /* Need to know nplurals of the result domain.  */
+	    message_ty *header_entry;
+	    struct expression *plural;
+
+	    header_entry = message_list_search (resultmlp, "");
+	    extract_plural_expression (header_entry
+				       ? header_entry->msgstr
+				       : NULL,
+				       &plural, &nplurals);
+	  }
+
+	for (j = 0; j < resultmlp->nitems; j++)
+	  {
+	    message_ty *mp = resultmlp->item[j];
+
+	    if ((mp->used & 1) && (nplurals > 0))
+	      {
+		/* ref->msgid_plural != NULL but def->msgid_plural == NULL.
+		   Use a copy of def->msgstr for each possible plural form.  */
+		size_t new_msgstr_len;
+		char *new_msgstr;
+		char *p;
+		unsigned long i;
+
+		if (verbosity_level > 1)
+		  {
+		    po_gram_error_at_line (&mp->pos, _("\
+this message should define plural forms"));
+		  }
+
+		new_msgstr_len = nplurals * mp->msgstr_len;
+		new_msgstr = (char *) xmalloc (new_msgstr_len);
+		for (i = 0, p = new_msgstr; i < nplurals; i++)
+		  {
+		    memcpy (p, mp->msgstr, mp->msgstr_len);
+		    p += mp->msgstr_len;
+		  }
+		mp->msgstr = new_msgstr;
+		mp->msgstr_len = new_msgstr_len;
+		mp->is_fuzzy = true;
+	      }
+
+	    if ((mp->used & 2) && (mp->msgstr_len > strlen (mp->msgstr) + 1))
+	      {
+		/* ref->msgid_plural == NULL but def->msgid_plural != NULL.
+		   Use only the first among the plural forms.  */
+
+		if (verbosity_level > 1)
+		  {
+		    po_gram_error_at_line (&mp->pos, _("\
+this message should not define plural forms"));
+		  }
+
+		mp->msgstr_len = strlen (mp->msgstr) + 1;
+		mp->is_fuzzy = true;
+	      }
+
+	    /* Postprocessing of this message is done.  */
+	    mp->used = 0;
+	  }
+      }
+  }
 }
 
 static msgdomain_list_ty *
