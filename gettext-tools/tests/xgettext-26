@@ -150,7 +150,11 @@ EOF
 
 tmpfiles="$tmpfiles xg-test26.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -n -k_ -k%__ -k\$__ xg-test26.pl -d xg-test26
+${XGETTEXT} --omit-header -n \
+  -k_ --flag=_:1:pass-perl-format --flag=_:1:pass-perl-brace-format \
+  -k%__ --flag=%__:1:pass-perl-format --flag=%__:1:pass-perl-brace-format \
+  -k\$__ --flag=\$__:1:pass-perl-format --flag=\$__:1:pass-perl-brace-format \
+  xg-test26.pl -d xg-test26
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test26.ok"
@@ -179,6 +183,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: xg-test26.pl:22
+#, perl-format
 msgid "Singular\n"
 msgid_plural "Plural\n"
 msgstr[0] ""

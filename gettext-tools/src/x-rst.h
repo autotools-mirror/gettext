@@ -21,9 +21,11 @@
   { "rst",    "RST"   },						\
 
 #define SCANNERS_RST \
-  { "RST",        extract_rst, &formatstring_pascal, NULL },		\
+  { "RST",		extract_rst,					\
+			NULL, &formatstring_pascal, NULL },		\
 
 /* Scan an RST file and add its translatable strings to mdlp.  */
 extern void extract_rst (FILE *fp, const char *real_filename,
 			 const char *logical_filename,
+			 flag_context_list_table_ty *flag_table,
 			 msgdomain_list_ty *mdlp);

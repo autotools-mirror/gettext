@@ -21,11 +21,13 @@
   { "jl",        "librep"     },					\
 
 #define SCANNERS_LIBREP \
-  { "librep",     extract_librep, &formatstring_librep, NULL },		\
+  { "librep",		extract_librep,					  \
+			&flag_table_librep, &formatstring_librep, NULL }, \
 
 /* Scan a librep file and add its translatable strings to mdlp.  */
 extern void extract_librep (FILE *fp, const char *real_filename,
 			    const char *logical_filename,
+			    flag_context_list_table_ty *flag_table,
 			    msgdomain_list_ty *mdlp);
 
 
@@ -33,3 +35,5 @@ extern void extract_librep (FILE *fp, const char *real_filename,
 
 extern void x_librep_extract_all (void);
 extern void x_librep_keyword (const char *name);
+
+extern void init_flag_table_librep (void);

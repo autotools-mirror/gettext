@@ -22,12 +22,16 @@
   { "bash",  "Shell"   },						\
 
 #define SCANNERS_SH \
-  { "Shell",      extract_sh, &formatstring_sh, NULL },			\
+  { "Shell",		extract_sh,					\
+			&flag_table_sh, &formatstring_sh, NULL },	\
 
 /* Scan a shell script file and add its translatable strings to mdlp.  */
 extern void extract_sh (FILE *fp, const char *real_filename,
 			const char *logical_filename,
+			flag_context_list_table_ty *flag_table,
 			msgdomain_list_ty *mdlp);
 
 extern void x_sh_keyword (const char *keyword);
 extern void x_sh_extract_all (void);
+
+extern void init_flag_table_sh (void);

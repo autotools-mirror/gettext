@@ -67,6 +67,7 @@ enum is_format
   undecided,
   yes,
   no,
+  yes_according_to_context,
   possible,
   impossible
 };

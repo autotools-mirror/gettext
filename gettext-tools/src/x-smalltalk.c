@@ -26,8 +26,8 @@
 #include <stdlib.h>
 
 #include "message.h"
-#include "x-smalltalk.h"
 #include "xgettext.h"
+#include "x-smalltalk.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -481,6 +481,7 @@ x_smalltalk_lex (token_ty *tp)
 void
 extract_smalltalk (FILE *f,
 		   const char *real_filename, const char *logical_filename,
+		   flag_context_list_table_ty *flag_table,
 		   msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
@@ -532,7 +533,7 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		remember_a_message (mlp, token.string, &pos);
+		remember_a_message (mlp, token.string, null_context, &pos);
 		state = 0;
 		break;
 	      }
@@ -541,7 +542,8 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		plural_mp = remember_a_message (mlp, token.string, &pos);
+		plural_mp = remember_a_message (mlp, token.string,
+						null_context, &pos);
 		state = 4;
 		break;
 	      }
@@ -550,7 +552,8 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		remember_a_message_plural (plural_mp, token.string, &pos);
+		remember_a_message_plural (plural_mp, token.string,
+					   null_context, &pos);
 		state = 0;
 		break;
 	      }

@@ -44,9 +44,68 @@ extern int xgettext_omit_header;
 
 extern bool substring_match;
 
+
 /* Split keyword spec into keyword, argnum1, argnum2.  */
 extern void split_keywordspec (const char *spec, const char **endp,
 			       int *argnum1p, int *argnum2p);
+
+
+/* Context representing some flags.  */
+typedef struct flag_context_ty flag_context_ty;
+struct flag_context_ty
+{
+  /* Regarding the primary formatstring type.  */
+  enum is_format is_format1 : 3;
+  bool pass_format1         : 1;
+  /* Regarding the secondary formatstring type.  */
+  enum is_format is_format2 : 3;
+  bool pass_format2         : 1;
+};
+/* Null context.  */
+extern flag_context_ty null_context;
+/* Transparent context.  */
+extern flag_context_ty passthrough_context;
+/* Compute an inherited context.
+   The outer_context is assumed to have all pass_format* flags = false.
+   The result will then also have all pass_format* flags = false.  */
+extern flag_context_ty
+       inherited_context (flag_context_ty outer_context,
+			  flag_context_ty modifier_context);
+
+/* Context representing some flags, for each possible argument number.
+   This is a linked list, sorted according to the argument number.  */
+typedef struct flag_context_list_ty flag_context_list_ty;
+struct flag_context_list_ty
+{
+  int argnum;			/* current argument number, > 0 */
+  flag_context_ty flags;	/* flags for current argument */
+  flag_context_list_ty *next;
+};
+
+/* Iterator through a flag_context_list_ty.  */
+typedef struct flag_context_list_iterator_ty flag_context_list_iterator_ty;
+struct flag_context_list_iterator_ty
+{
+  int argnum;				/* current argument number, > 0 */
+  const flag_context_list_ty* head;	/* tail of list */
+};
+extern flag_context_list_iterator_ty null_context_list_iterator;
+extern flag_context_list_iterator_ty passthrough_context_list_iterator;
+extern flag_context_list_iterator_ty
+       flag_context_list_iterator (flag_context_list_ty *list);
+extern flag_context_ty
+       flag_context_list_iterator_advance (flag_context_list_iterator_ty *iter);
+
+/* For nearly each backend, we have a separate table mapping a keyword to
+   a flag_context_list_ty *.  */
+typedef hash_table /* char[] -> flag_context_list_ty * */
+        flag_context_list_table_ty;
+extern flag_context_list_ty *
+       flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
+				       const void *key, size_t keylen);
+/* Record a flag in the appropriate backend's table.  */
+extern void xgettext_record_flag (const char *optionstring);
+
 
 /* Canonicalized encoding name for all input files.  */
 extern const char *xgettext_global_source_encoding;
@@ -74,9 +133,11 @@ extern char *from_current_source_encoding (const char *string,
 					   const char *file_name,
 					   size_t line_number);
 
+
 /* List of messages whose msgids must not be extracted, or NULL.
    Used by remember_a_message().  */
 extern message_list_ty *exclude;
+
 
 /* Comment handling: There is a list of automatic comments that may be appended
    to the next message.  Used by remember_a_message().  */
@@ -84,17 +145,22 @@ extern void xgettext_comment_add (const char *str);
 extern const char *xgettext_comment (size_t n);
 extern void xgettext_comment_reset (void);
 
+
 /* Add a message to the list of extracted messages.
    string must be malloc()ed string; its ownership is passed to the callee.
    pos->file_name must be allocated with indefinite extent.  */
 extern message_ty *remember_a_message (message_list_ty *mlp,
-				       char *string, lex_pos_ty *pos);
+				       char *string,
+				       flag_context_ty context,
+				       lex_pos_ty *pos);
 /* Add an msgid_plural to a message previously returned by
    remember_a_message.
    string must be malloc()ed string; its ownership is passed to the callee.
    pos->file_name must be allocated with indefinite extent.  */
 extern void remember_a_message_plural (message_ty *mp,
-				       char *string, lex_pos_ty *pos);
+				       char *string,
+				       flag_context_ty context,
+				       lex_pos_ty *pos);
 
 
 #ifdef __cplusplus

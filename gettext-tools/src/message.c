@@ -76,7 +76,9 @@ const char *const format_language_pretty[NFORMATS] =
 bool
 possible_format_p (enum is_format is_format)
 {
-  return is_format == possible || is_format == yes;
+  return is_format == possible
+	 || is_format == yes_according_to_context
+	 || is_format == yes;
 }
 
 

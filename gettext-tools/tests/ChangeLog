@@ -1,3 +1,18 @@
+2003-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-4: Update expected test result.
+	* xgettext-5: Likewise.
+	* xgettext-6: Likewise.
+	* xgettext-8: Likewise.
+	* xgettext-24: Likewise.
+	* xgettext-26: Pass --flag options to xgettext. Update expected test
+	result.
+	* lang-perl-1: Pass --flag options to xgettext.
+	* lang-perl-2: Likewise.
+
+	* xgettext-31: New file.
+	* Makefile.am (TESTS): Add it.
+
 2003-10-04  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-11: Test details of the new Java backend, instead of the

@@ -21,9 +21,13 @@
   { "ycp",    "YCP"   },						\
 
 #define SCANNERS_YCP \
-  { "YCP",        extract_ycp, &formatstring_ycp, NULL },		\
+  { "YCP",		extract_ycp,					\
+			&flag_table_ycp, &formatstring_ycp, NULL },	\
 
 /* Scan an YCP file and add its translatable strings to mdlp.  */
 extern void extract_ycp (FILE *fp, const char *real_filename,
 			 const char *logical_filename,
+			 flag_context_list_table_ty *flag_table,
 			 msgdomain_list_ty *mdlp);
+
+extern void init_flag_table_ycp (void);

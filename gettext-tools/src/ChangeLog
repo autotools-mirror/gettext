@@ -1,3 +1,225 @@
+2003-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (enum is_format): New item yes_according_to_context.
+	* message.c (possible_format_p): Handle also yes_according_to_context.
+	* write-po.c (make_format_description_string): Likewise.
+
+	* xgettext.h (struct flag_context_ty): New type.
+	(null_context, passthrough_context): New declarations.
+	(inherited_context): New declaration.
+	(struct flag_context_list_ty): New type.
+	(struct flag_context_list_iterator_ty): New type.
+	(null_context_list_iterator, passthrough_context_list_iterator): New
+	declarations.
+	(flag_context_list_iterator): New declaration.
+	(flag_context_list_iterator_advance): New declaration.
+	(flag_context_list_table_ty): New type.
+	(flag_context_list_table_lookup): New declaration.
+	(xgettext_record_flag): New declaration.
+	(remember_a_message, remember_a_message_plural): Add context argument.
+	* xgettext.c: Include alloca.h.
+	(flag_table_c, flag_table_gcc_internal, flag_table_sh,
+	flag_table_python, flag_table_lisp, flag_table_elisp,
+	flag_table_librep, flag_table_java, flag_table_awk, flag_table_ycp,
+	flag_table_tcl, flag_table_perl, flag_table_php): New variables.
+	(long_options): Add option --flag.
+	(extractor_func): Add argument flag_table.
+	(struct extractor_ty): New type.
+	(main): Use type 'extractor_ty' instead of 'extractor_func'.
+	Invoke init_flag_table_c(), init_flag_table_gcc_internal(),
+	init_flag_table_sh(), init_flag_table_python(), init_flag_table_lisp(),
+	init_flag_table_elisp(), init_flag_table_librep(),
+	init_flag_table_java(), init_flag_table_awk(), init_flag_table_ycp(),
+	init_flag_table_tcl(), init_flag_table_perl(), init_flag_table_php().
+	Implement option --flag.
+	(usage): Rename a section to "Language specific options". Document
+	the languages to which --extract-all, --keyword, --trigraphs are
+	applicable. Document option --flag.
+	(null_context): New variable.
+	(passthrough_context): New variable.
+	(inherited_context): New function.
+	(null_context_list_iterator): New variable.
+	(passthrough_context_circular_list, passthrough_context_list_iterator):
+	New variables.
+	(flag_context_list_iterator): New function.
+	(flag_context_list_iterator_advance): New function.
+	(flag_context_list_table_lookup): New function.
+	(xgettext_record_flag): New function.
+	(extract_from_file): Change argument type to 'extractor_ty' instead of
+	'extractor_func'. Set current_formatstring_parser{1,2} before invoking
+	the extractor.
+	(set_format_flags_from_context): New function.
+	(remember_a_message): Add context argument. Set some *-format flag if
+	the context specifies it.
+	(remember_a_message_plural): Likewise.
+	(language_to_extractor): Change return type to 'extractor_ty' instead
+	of 'extractor_func'.
+
+	* x-awk.h (SCANNERS_AWK): Refer to flag_table_awk.
+	(extract_awk): Add argument flag_table.
+	(init_flag_table_awk): New declaration.
+	* x-awk.c (init_flag_table_awk): New function.
+	(enum token_type_ty): New enum item token_type_semicolon.
+	(x_awk_lex): Recognize semicolon.
+	(flag_context_list_table): New variable.
+	(extract_parenthesized): Add arguments outer_context, context_iter.
+	Implement context handling depending on symbol before '('. Also
+	recognize argument lists that start without '(', but only up to the
+	next semicolon.
+	(extract_awk): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-c.h (SCANNERS_C): Refer to flag_table_c, flag_table_gcc_internal.
+	(extract_c): Add argument flag_table.
+	(init_flag_table_c): New declaration.
+	(init_flag_table_gcc_internal): New declaration.
+	* x-c.c (init_flag_table_c): New function.
+	(init_flag_table_gcc_internal): New function.
+	(enum xgettext_token_type_ty): New item xgettext_token_type_other.
+	(x_c_lex): For token_type_name, put the string into the resulting
+	token instead of freeing it. Return token type
+	xgettext_token_type_other instead of xgettext_token_type_symbol in
+	some cases.
+	(flag_context_list_table): New variable.
+	(extract_parenthesized): Add arguments outer_context, context_iter.
+	Implement context handling depending on symbol before '('.
+	(extract_c): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-elisp.h (SCANNERS_ELISP): Refer to flag_table_elisp.
+	(extract_elisp): Add argument flag_table.
+	(init_flag_table_elisp): New declaration.
+	* x-elisp.c (init_flag_table_elisp): New function.
+	(flag_context_list_table): New variable.
+	(read_object): Add argument outer_context. Implement context handling
+	depending on first symbol after '('.
+	(extract_elisp): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-glade.h (SCANNERS_GLADE): Update.
+	(extract_glade): Add argument flag_table.
+	* x-glade.c (start_element_handler, end_element_handler): Pass null
+	context to remember_a_message.
+	(extract_glade): Add argument flag_table.
+
+	* x-java.h (SCANNERS_JAVA): Refer to flag_table_java.
+	(extract_java): Add argument flag_table.
+	(init_flag_table_java): New declaration.
+	* x-java.c (init_flag_table_java): New function.
+	(flag_context_list_table): New variable.
+	(extract_parenthesized): Add arguments outer_context, context_iter.
+	Implement context handling depending on symbol before '('.
+	(extract_java): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-librep.h (SCANNERS_ELISP): Refer to flag_table_librep.
+	(extract_librep): Add argument flag_table.
+	(init_flag_table_librep): New declaration.
+	* x-librep.c (init_flag_table_librep): New function.
+	(flag_context_list_table): New variable.
+	(read_object): Add argument outer_context. Implement context handling
+	depending on first symbol after '('.
+	(extract_librep): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-lisp.h (SCANNERS_LISP): Refer to flag_table_lisp.
+	(extract_lisp): Add argument flag_table.
+	(init_flag_table_lisp): New declaration.
+	* x-lisp.c (init_flag_table_lisp): New function.
+	(flag_context_list_table): New variable.
+	(read_object): Add argument outer_context. Implement context handling
+	depending on first symbol after '('.
+	(extract_lisp): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-perl.h (SCANNERS_PERL): Refer to flag_table_perl.
+	(extract_perl): Add argument flag_table.
+	(init_flag_table_perl): New declaration.
+	* x-perl.c (init_flag_table_java): New function.
+	(flag_context_list_table): New variable.
+	(extract_variable): Update. Implement context handling depending on
+	symbol before '{'...'}'.
+	(interpolate_keywords): Implement context handling depending on symbol
+	before '->' or '{'...'}'.
+	(extract_balanced): Add arguments outer_context, context_iter.
+	Implement context handling depending on symbol before '('. Also
+	recognize argument lists that start without '('.
+	(extract_perl): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-php.h (SCANNERS_PHP): Refer to flag_table_php.
+	(extract_php): Add argument flag_table.
+	(init_flag_table_php): New declaration.
+	* x-php.c (init_flag_table_php): New function.
+	(flag_context_list_table): New variable.
+	(extract_parenthesized): Add arguments outer_context, context_iter.
+	Implement context handling depending on symbol before '('.
+	(extract_php): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-po.h (SCANNERS_PO): Update.
+	(extract_po): Add argument flag_table.
+	* x-properties.h (SCANNERS_PROPERTIES): Update.
+	(extract_properties): Add argument flag_table.
+	* x-po.c (extract_po): Add argument flag_table.
+	(extract_properties): Add argument flag_table.
+
+	* x-python.h (SCANNERS_PYTHON): Refer to flag_table_python.
+	(extract_python): Add argument flag_table.
+	(init_flag_table_python): New declaration.
+	* x-python.c (init_flag_table_python): New function.
+	(flag_context_list_table): New variable.
+	(extract_parenthesized): Add arguments outer_context, context_iter.
+	Implement context handling depending on symbol before '('.
+	(extract_python): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-rst.h (SCANNERS_RST): Update.
+	(extract_rst): Add argument flag_table.
+	* x-rst.c (extract_rst): Add argument flag_table.
+
+	* x-sh.h (SCANNERS_SH): Refer to flag_table_sh.
+	(extract_sh): Add argument flag_table.
+	(init_flag_table_sh): New declaration.
+	* x-sh.c (init_flag_table_sh): New function.
+	(flag_context_list_table): New variable.
+	(read_word): Add context argument.
+	(read_command): Add outer_context argument. Implement context handling
+	depending on first symbol of command.
+	(read_command_list): Add outer_context argument.
+	(extract_sh): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-smalltalk.h (SCANNERS_SMALLTALK): Update.
+	(extract_smalltalk): Add argument flag_table.
+	* x-smalltalk.c (extract_smalltalk): Add argument flag_table.
+
+	* x-tcl.h (SCANNERS_TCL): Refer to flag_table_tcl.
+	(extract_tcl): Add argument flag_table.
+	(init_flag_table_tcl): New declaration.
+	* x-tcl.c (init_flag_table_tcl): New function.
+	(flag_context_list_table): New variable.
+	(accumulate_word): Add context argument.
+	(read_word): Add context argument.
+	(read_command): Add outer_context argument. Implement context handling
+	depending on first symbol of command.
+	(read_command_list): Add outer_context argument.
+	(extract_tcl): Add argument flag_table. Initialize
+	flag_context_list_table.
+
+	* x-ycp.h (SCANNERS_YCP): Refer to flag_table_ycp.
+	(extract_ycp): Add argument flag_table.
+	(init_flag_table_ycp): New declaration.
+	* x-ycp.c (init_flag_table_ycp): New function.
+	(flag_context_list_table): New variable.
+	(extract_parenthesized): New function, split off from extract_ycp.
+	Implement context handling depending on symbol before '('.
+	(extract_ycp): Add argument flag_table. Initialize
+	flag_context_list_table. Call extract_parenthesized to do the work.
+
+	* po-lex.c (mbfile_getc, control_sequence): Remove explicit marking of
+	strings as c-format, now done by xgettext.
+
 2003-09-23  Bruno Haible  <bruno@clisp.org>
 
 	* x-awk.c (extract_parenthesized): Remove optimization of the

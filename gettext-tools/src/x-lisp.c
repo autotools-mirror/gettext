@@ -28,8 +28,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-lisp.h"
 #include "xgettext.h"
+#include "x-lisp.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -176,6 +176,16 @@ init_keywords ()
       x_lisp_keyword ("gettext-noop");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_lisp ()
+{
+  xgettext_record_flag ("gettext:1:pass-lisp-format");
+  xgettext_record_flag ("ngettext:1:pass-lisp-format");
+  xgettext_record_flag ("ngettext:2:pass-lisp-format");
+  xgettext_record_flag ("gettext-noop:1:pass-lisp-format");
+  xgettext_record_flag ("format:2:lisp-format");
 }
 
 
@@ -919,9 +929,12 @@ string_of_object (const struct object *op)
   return str;
 }
 
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
 /* Read the next object.  */
 static void
-read_object (struct object *op)
+read_object (struct object *op, flag_context_ty outer_context)
 {
   for (;;)
     {
@@ -998,6 +1011,7 @@ read_object (struct object *op)
 	    case '(':
 	      {
 		int arg = 0;		/* Current argument number.  */
+		flag_context_list_iterator_ty context_iter;
 		int argnum1 = 0;	/* First string position.  */
 		int argnum2 = 0;	/* Plural string position.  */
 		message_ty *plural_mp = NULL;	/* Remember the msgid.  */
@@ -1005,8 +1019,17 @@ read_object (struct object *op)
 		for (;; arg++)
 		  {
 		    struct object inner;
+		    flag_context_ty inner_context;
 
-		    read_object (&inner);
+		    if (arg == 0)
+		      inner_context = null_context;
+		    else
+		      inner_context =
+			inherited_context (outer_context,
+					   flag_context_list_iterator_advance (
+					     &context_iter));
+
+		    read_object (&inner, inner_context);
 
 		    /* Recognize end of list.  */
 		    if (inner.type == t_close)
@@ -1052,8 +1075,16 @@ read_object (struct object *op)
 				argnum2 = (int) (long) keyword_value >> 10;
 			      }
 
+			    context_iter =
+			      flag_context_list_iterator (
+				flag_context_list_table_lookup (
+				  flag_context_list_table,
+				  symbol_name, strlen (symbol_name)));
+
 			    free (symbol_name);
 			  }
+			else
+			  context_iter = null_context_list_iterator;
 		      }
 		    else
 		      {
@@ -1069,7 +1100,8 @@ read_object (struct object *op)
 
 				pos.file_name = logical_file_name;
 				pos.line_number = inner.line_number_at_start;
-				mp = remember_a_message (mlp, string_of_object (&inner), &pos);
+				mp = remember_a_message (mlp, string_of_object (&inner),
+							 inner_context, &pos);
 				if (argnum2 > 0)
 				  plural_mp = mp;
 			      }
@@ -1082,7 +1114,8 @@ read_object (struct object *op)
 
 				pos.file_name = logical_file_name;
 				pos.line_number = inner.line_number_at_start;
-				remember_a_message_plural (plural_mp, string_of_object (&inner), &pos);
+				remember_a_message_plural (plural_mp, string_of_object (&inner),
+							   inner_context, &pos);
 			      }
 			  }
 		      }
@@ -1116,7 +1149,7 @@ read_object (struct object *op)
 	      {
 		struct object inner;
 
-		read_object (&inner);
+		read_object (&inner, null_context);
 
 		/* Dots and EOF are not allowed here.  But be tolerant.  */
 
@@ -1178,7 +1211,8 @@ read_object (struct object *op)
 
 		    pos.file_name = logical_file_name;
 		    pos.line_number = op->line_number_at_start;
-		    remember_a_message (mlp, string_of_object (op), &pos);
+		    remember_a_message (mlp, string_of_object (op),
+					null_context, &pos);
 		  }
 		last_non_comment_line = line_number;
 		return;
@@ -1218,7 +1252,7 @@ read_object (struct object *op)
 		  case 'S': case 's':
 		    {
 		      struct object inner;
-		      read_object (&inner);
+		      read_object (&inner, null_context);
 		      /* Dots and EOF are not allowed here.
 			 But be tolerant.  */
 		      free_object (&inner);
@@ -1336,7 +1370,7 @@ read_object (struct object *op)
 		    /* Simply assume every feature expression is true.  */
 		    {
 		      struct object inner;
-		      read_object (&inner);
+		      read_object (&inner, null_context);
 		      /* Dots and EOF are not allowed here.
 			 But be tolerant.  */
 		      free_object (&inner);
@@ -1368,6 +1402,7 @@ read_object (struct object *op)
 void
 extract_lisp (FILE *f,
 	      const char *real_filename, const char *logical_filename,
+	      flag_context_list_table_ty *flag_table,
 	      msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
@@ -1380,6 +1415,8 @@ extract_lisp (FILE *f,
   last_comment_line = -1;
   last_non_comment_line = -1;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When read_object returns
@@ -1388,7 +1425,7 @@ extract_lisp (FILE *f,
     {
       struct object toplevel_object;
 
-      read_object (&toplevel_object);
+      read_object (&toplevel_object, null_context);
 
       if (toplevel_object.type == t_eof)
 	break;

@@ -27,8 +27,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-java.h"
 #include "xgettext.h"
+#include "x-java.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -108,6 +108,20 @@ init_keywords ()
       x_java_keyword ("getString");	/* ResourceBundle.getString */
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_java ()
+{
+  xgettext_record_flag ("GettextResource.gettext:2:pass-java-format");
+  xgettext_record_flag ("GettextResource.ngettext:2:pass-java-format");
+  xgettext_record_flag ("GettextResource.ngettext:3:pass-java-format");
+  xgettext_record_flag ("gettext:1:pass-java-format");
+  xgettext_record_flag ("ngettext:1:pass-java-format");
+  xgettext_record_flag ("ngettext:2:pass-java-format");
+  xgettext_record_flag ("getString:1:pass-java-format");
+  xgettext_record_flag ("MessageFormat:1:java-format");
+  xgettext_record_flag ("MessageFormat.format:1:java-format");
 }
 
 
@@ -1202,6 +1216,11 @@ x_java_unlex (token_ty *tp)
 
 /* ========================= Extracting strings.  ========================== */
 
+
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
+
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
@@ -1227,6 +1246,8 @@ x_java_unlex (token_ty *tp)
    Return true upon eof, false upon closing parenthesis or brace.  */
 static bool
 extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
+		       flag_context_ty outer_context,
+		       flag_context_list_iterator_ty context_iter,
 		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
@@ -1237,6 +1258,13 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
   /* Parameters of the keyword just seen.  Defined only in state 1.  */
   int next_commas_to_skip = -1;
   int next_plural_commas = 0;
+  /* Context iterator that will be used if the next token is a '('.  */
+  flag_context_list_iterator_ty next_context_iter =
+    passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty inner_context =
+    inherited_context (outer_context,
+		       flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
   state = 0;
@@ -1258,6 +1286,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	    char *sum = token.string;
 	    size_t sum_len = strlen (sum);
 	    const char *dottedname;
+	    flag_context_list_ty *context_list;
 
 	    for (;;)
 	      {
@@ -1315,15 +1344,34 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 		  }
 		dottedname++;
 	      }
+
+	    for (dottedname = sum;;)
+	      {
+		context_list =
+		  flag_context_list_table_lookup (
+		    flag_context_list_table,
+		    dottedname, strlen (dottedname));
+		if (context_list != NULL)
+		  break;
+
+		dottedname = strchr (dottedname, '.');
+		if (dottedname == NULL)
+		  break;
+		dottedname++;
+	      }
+	    next_context_iter = flag_context_list_iterator (context_list);
+
 	    free (sum);
 	    continue;
 	  }
 
 	case token_type_lparen:
 	  if (extract_parenthesized (mlp, token_type_rparen,
+				     inner_context, next_context_iter,
 				     state ? next_commas_to_skip : -1,
 				     state ? next_plural_commas : 0))
 	    return true;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1338,12 +1386,16 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 		     logical_file_name, token.line_number);
 	      error_with_progname = true;
 	    }
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
 	case token_type_lbrace:
-	  if (extract_parenthesized (mlp, token_type_rbrace, -1, 0))
+	  if (extract_parenthesized (mlp, token_type_rbrace,
+				     null_context, null_context_list_iterator,
+				     -1, 0))
 	    return true;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1358,6 +1410,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 		     logical_file_name, token.line_number);
 	      error_with_progname = true;
 	    }
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1375,6 +1428,11 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 		else
 		  commas_to_skip = -1;
 	    }
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	  next_context_iter = passthrough_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1388,7 +1446,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	      {
 		xgettext_current_source_encoding = po_charset_utf8;
 		x_java_comment_to_xgettext_comment (token.comment);
-		remember_a_message (mlp, token.string, &pos);
+		remember_a_message (mlp, token.string, inner_context, &pos);
 		x_java_comment_reset ();
 		xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      }
@@ -1403,7 +1461,8 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
 			xgettext_current_source_encoding = po_charset_utf8;
 			x_java_comment_to_xgettext_comment (token.comment);
-			mp = remember_a_message (mlp, token.string, &pos);
+			mp = remember_a_message (mlp, token.string,
+						 inner_context, &pos);
 			x_java_comment_reset ();
 			xgettext_current_source_encoding = xgettext_global_source_encoding;
 			if (plural_commas > 0)
@@ -1414,7 +1473,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 			/* Seen an msgid_plural.  */
 			xgettext_current_source_encoding = po_charset_utf8;
 			remember_a_message_plural (plural_mp, token.string,
-						   &pos);
+						   inner_context, &pos);
 			xgettext_current_source_encoding = xgettext_global_source_encoding;
 			plural_mp = NULL;
 		      }
@@ -1424,6 +1483,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	      }
 	  }
 	  drop_reference (token.comment);
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1434,6 +1494,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	case token_type_number:
 	case token_type_plus:
 	case token_type_other:
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1447,6 +1508,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 void
 extract_java (FILE *f,
 	      const char *real_filename, const char *logical_filename,
+	      flag_context_list_table_ty *flag_table,
 	      msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
@@ -1461,11 +1523,15 @@ extract_java (FILE *f,
 
   phase6_last = token_type_eof;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, token_type_eof, -1, 0))
+  while (!extract_parenthesized (mlp, token_type_eof,
+				 null_context, null_context_list_iterator,
+				 -1, 0))
     ;
 
   fp = NULL;

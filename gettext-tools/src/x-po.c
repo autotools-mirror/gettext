@@ -27,9 +27,9 @@
 #include <string.h>
 
 #include "message.h"
+#include "xgettext.h"
 #include "x-po.h"
 #include "x-properties.h"
-#include "xgettext.h"
 #include "xmalloc.h"
 #include "read-po.h"
 #include "po-lex.h"
@@ -124,6 +124,7 @@ extract (FILE *fp,
 void
 extract_po (FILE *fp,
 	    const char *real_filename, const char *logical_filename,
+	    flag_context_list_table_ty *flag_table,
 	    msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, syntax_po, mdlp);
@@ -133,6 +134,7 @@ extract_po (FILE *fp,
 void
 extract_properties (FILE *fp,
 		    const char *real_filename, const char *logical_filename,
+		    flag_context_list_table_ty *flag_table,
 		    msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, syntax_properties, mdlp);

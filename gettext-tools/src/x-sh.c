@@ -28,8 +28,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-sh.h"
 #include "xgettext.h"
+#include "x-sh.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -117,6 +117,17 @@ init_keywords ()
       x_sh_keyword ("eval_ngettext:1,2");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_sh ()
+{
+  xgettext_record_flag ("gettext:1:pass-sh-format");
+  xgettext_record_flag ("ngettext:1:pass-sh-format");
+  xgettext_record_flag ("ngettext:2:pass-sh-format");
+  xgettext_record_flag ("eval_gettext:1:sh-format");
+  xgettext_record_flag ("eval_ngettext:1:sh-format");
+  xgettext_record_flag ("eval_ngettext:2:sh-format");
 }
 
 
@@ -671,8 +682,13 @@ phase2_ungetc (int c)
 }
 
 
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
+
 /* Forward declaration of local functions.  */
-static enum word_type read_command_list (int looking_for);
+static enum word_type read_command_list (int looking_for,
+					 flag_context_ty outer_context);
 
 
 
@@ -680,7 +696,7 @@ static enum word_type read_command_list (int looking_for);
    'looking_for' denotes a parse terminator, either CLOSING_BACKQUOTE, ')'
    or '\0'.  */
 static void
-read_word (struct word *wp, int looking_for)
+read_word (struct word *wp, int looking_for, flag_context_ty context)
 {
   int c;
   bool all_unquoted_digits;
@@ -827,7 +843,7 @@ read_word (struct word *wp, int looking_for)
 		{
 		  /* Command substitution.  */
 		  phase2_ungetc (c3);
-		  read_command_list (')');
+		  read_command_list (')', context);
 		}
 	    }
 	  else if (c2 == '\'' && !open_singlequote)
@@ -986,7 +1002,8 @@ read_word (struct word *wp, int looking_for)
 		  grow_token (&string);
 		  string.chars[string.charcount++] = (unsigned char) c;
 		}
-	      remember_a_message (mlp, string_of_token (&string), &pos);
+	      remember_a_message (mlp, string_of_token (&string),
+				  context, &pos);
 	      free_token (&string);
 
 	      error_with_progname = false;
@@ -1038,7 +1055,7 @@ read_word (struct word *wp, int looking_for)
 	  /* Handle an opening backquote.  */
 	  saw_opening_backquote ();
 
-	  read_command_list (CLOSING_BACKQUOTE);
+	  read_command_list (CLOSING_BACKQUOTE, context);
 
 	  wp->type = t_other;
 	  continue;
@@ -1073,7 +1090,7 @@ read_word (struct word *wp, int looking_for)
    or '\0'.
    Returns the type of the word that terminated the command.  */
 static enum word_type
-read_command (int looking_for)
+read_command (int looking_for, flag_context_ty outer_context)
 {
   /* Read the words that make up the command.
      Here we completely ignore field splitting at whitespace and wildcard
@@ -1087,6 +1104,7 @@ read_command (int looking_for)
      command.  */
   int arg = 0;			/* Current argument number.  */
   bool arg_of_redirect = false;	/* True right after a redirection operator.  */
+  flag_context_list_iterator_ty context_iter;
   int argnum1 = -1;		/* First string position.  */
   int argnum2 = -1;		/* Plural string position.  */
   message_ty *plural_mp = NULL;	/* Remember the msgid.  */
@@ -1094,8 +1112,17 @@ read_command (int looking_for)
   for (;;)
     {
       struct word inner;
+      flag_context_ty inner_context;
 
-      read_word (&inner, looking_for);
+      if (arg == 0)
+	inner_context = null_context;
+      else
+	inner_context =
+	  inherited_context (outer_context,
+			     flag_context_list_iterator_advance (
+			       &context_iter));
+
+      read_word (&inner, looking_for, inner_context);
 
       /* Recognize end of command.  */
       if (inner.type == t_separator
@@ -1111,7 +1138,8 @@ read_command (int looking_for)
 
 	      pos.file_name = logical_file_name;
 	      pos.line_number = inner.line_number_at_start;
-	      remember_a_message (mlp, string_of_word (&inner), &pos);
+	      remember_a_message (mlp, string_of_word (&inner),
+				  inner_context, &pos);
 	    }
 	}
 
@@ -1145,8 +1173,16 @@ read_command (int looking_for)
 		      argnum2 = (int) (long) keyword_value >> 10;
 		    }
 
+		  context_iter =
+		    flag_context_list_iterator (
+		      flag_context_list_table_lookup (
+			flag_context_list_table,
+			function_name, strlen (function_name)));
+
 		  free (function_name);
 		}
+	      else
+		context_iter = null_context_list_iterator;
 	    }
 	  else
 	    {
@@ -1162,7 +1198,8 @@ read_command (int looking_for)
 
 		      pos.file_name = logical_file_name;
 		      pos.line_number = inner.line_number_at_start;
-		      mp = remember_a_message (mlp, string_of_word (&inner), &pos);
+		      mp = remember_a_message (mlp, string_of_word (&inner),
+					       inner_context, &pos);
 		      if (argnum2 > 0)
 			plural_mp = mp;
 		    }
@@ -1175,13 +1212,15 @@ read_command (int looking_for)
 
 		      pos.file_name = logical_file_name;
 		      pos.line_number = inner.line_number_at_start;
-		      remember_a_message_plural (plural_mp, string_of_word (&inner), &pos);
+		      remember_a_message_plural (plural_mp, string_of_word (&inner),
+						 inner_context, &pos);
 		    }
 		}
 
 	      if (arg >= argnum1 && arg >= argnum2)
 		{
 		  /* Stop looking for arguments of the last function_name.  */
+		  /* FIXME: What about context_iter?  */
 		  argnum1 = -1;
 		  argnum2 = -1;
 		  plural_mp = NULL;
@@ -1201,13 +1240,13 @@ read_command (int looking_for)
    or '\0'.
    Returns the type of the word that terminated the command list.  */
 static enum word_type
-read_command_list (int looking_for)
+read_command_list (int looking_for, flag_context_ty outer_context)
 {
   for (;;)
     {
       enum word_type terminator;
 
-      terminator = read_command (looking_for);
+      terminator = read_command (looking_for, outer_context);
       if (terminator != t_separator)
 	return terminator;
     }
@@ -1217,6 +1256,7 @@ read_command_list (int looking_for)
 void
 extract_sh (FILE *f,
 	    const char *real_filename, const char *logical_filename,
+	    flag_context_list_table_ty *flag_table,
 	    msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
@@ -1234,10 +1274,12 @@ extract_sh (FILE *f,
   open_doublequote = false;
   open_singlequote = false;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  */
-  read_command_list ('\0');
+  read_command_list ('\0', null_context);
 
   fp = NULL;
   real_file_name = NULL;

@@ -19,6 +19,7 @@ tmpfiles="$tmpfiles xg-test6.ok"
 cat <<EOF > xg-test6.ok
 #. puke
 #. barf
+#, c-format
 msgid "Hello, World!\n"
 msgstr ""
 EOF

@@ -28,8 +28,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-elisp.h"
 #include "xgettext.h"
+#include "x-elisp.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -114,6 +114,13 @@ init_keywords ()
       x_elisp_keyword ("_");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_elisp ()
+{
+  xgettext_record_flag ("_:1:pass-elisp-format");
+  xgettext_record_flag ("format:1:elisp-format");
 }
 
 
@@ -424,6 +431,9 @@ string_of_object (const struct object *op)
   return str;
 }
 
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
 /* Returns the character represented by an escape sequence.  */
 #define IGNORABLE_ESCAPE (EOF - 1)
 static int
@@ -609,7 +619,8 @@ do_getc_escaped (int c, bool in_string)
    'first_in_list' and 'new_backquote_flag' are used for reading old
    backquote syntax and new backquote syntax.  */
 static void
-read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
+read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
+	     flag_context_ty outer_context)
 {
   for (;;)
     {
@@ -634,6 +645,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	case '(':
 	  {
 	    int arg = 0;		/* Current argument number.  */
+	    flag_context_list_iterator_ty context_iter;
 	    int argnum1 = 0;		/* First string position.  */
 	    int argnum2 = 0;		/* Plural string position.  */
 	    message_ty *plural_mp = NULL;	/* Remember the msgid.  */
@@ -641,8 +653,18 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	    for (;; arg++)
 	      {
 		struct object inner;
+		flag_context_ty inner_context;
 
-		read_object (&inner, arg == 0, new_backquote_flag);
+		if (arg == 0)
+		  inner_context = null_context;
+		else
+		  inner_context =
+		    inherited_context (outer_context,
+				       flag_context_list_iterator_advance (
+					 &context_iter));
+
+		read_object (&inner, arg == 0, new_backquote_flag,
+			     inner_context);
 
 		/* Recognize end of list.  */
 		if (inner.type == t_listclose)
@@ -677,8 +699,16 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 			    argnum2 = (int) (long) keyword_value >> 10;
 			  }
 
+			context_iter =
+			  flag_context_list_iterator (
+			    flag_context_list_table_lookup (
+			      flag_context_list_table,
+			      symbol_name, strlen (symbol_name)));
+
 			free (symbol_name);
 		      }
+		    else
+		      context_iter = null_context_list_iterator;
 		  }
 		else
 		  {
@@ -694,7 +724,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 
 			    pos.file_name = logical_file_name;
 			    pos.line_number = inner.line_number_at_start;
-			    mp = remember_a_message (mlp, string_of_object (&inner), &pos);
+			    mp = remember_a_message (mlp, string_of_object (&inner),
+						     inner_context, &pos);
 			    if (argnum2 > 0)
 			      plural_mp = mp;
 			  }
@@ -707,7 +738,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 
 			    pos.file_name = logical_file_name;
 			    pos.line_number = inner.line_number_at_start;
-			    remember_a_message_plural (plural_mp, string_of_object (&inner), &pos);
+			    remember_a_message_plural (plural_mp, string_of_object (&inner),
+						       inner_context, &pos);
 			  }
 		      }
 		  }
@@ -732,7 +764,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	      {
 		struct object inner;
 
-		read_object (&inner, false, new_backquote_flag);
+		read_object (&inner, false, new_backquote_flag, null_context);
 
 		/* Recognize end of vector.  */
 		if (inner.type == t_vectorclose)
@@ -766,7 +798,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	  {
 	    struct object inner;
 
-	    read_object (&inner, false, new_backquote_flag);
+	    read_object (&inner, false, new_backquote_flag, null_context);
 
 	    /* Dots and EOF are not allowed here.  But be tolerant.  */
 
@@ -783,7 +815,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	  {
 	    struct object inner;
 
-	    read_object (&inner, false, true);
+	    read_object (&inner, false, true, null_context);
 
 	    /* Dots and EOF are not allowed here.  But be tolerant.  */
 
@@ -807,7 +839,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	  {
 	    struct object inner;
 
-	    read_object (&inner, false, false);
+	    read_object (&inner, false, false, null_context);
 
 	    /* Dots and EOF are not allowed here.  But be tolerant.  */
 
@@ -884,7 +916,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 
 		pos.file_name = logical_file_name;
 		pos.line_number = op->line_number_at_start;
-		remember_a_message (mlp, string_of_object (op), &pos);
+		remember_a_message (mlp, string_of_object (op),
+				    null_context, &pos);
 	      }
 	    last_non_comment_line = line_number;
 	    return;
@@ -937,7 +970,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 		    {
 		      struct object inner;
 
-		      read_object (&inner, false, new_backquote_flag);
+		      read_object (&inner, false, new_backquote_flag,
+				   null_context);
 
 		      /* Recognize end of vector.  */
 		      if (inner.type == t_vectorclose)
@@ -972,7 +1006,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	      /* Read a bit vector.  */
 	      {
 		struct object length;
-		read_object (&length, first_in_list, new_backquote_flag);
+		read_object (&length, first_in_list, new_backquote_flag,
+			     null_context);
 		/* Dots and EOF are not allowed here.
 		   But be tolerant.  */
 		free_object (&length);
@@ -981,7 +1016,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	      if (c == '"')
 		{
 		  struct object string;
-		  read_object (&string, first_in_list, new_backquote_flag);
+		  read_object (&string, first_in_list, new_backquote_flag,
+			       null_context);
 		  free_object (&string);
 		}
 	      else
@@ -998,7 +1034,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	      {
 		struct object inner;
 		do_ungetc (c);
-		read_object (&inner, false, new_backquote_flag);
+		read_object (&inner, false, new_backquote_flag, null_context);
 		/* Dots and EOF are not allowed here.
 		   But be tolerant.  */
 		free_object (&inner);
@@ -1039,7 +1075,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	    case 'S': case 's': /* XEmacs only */
 	      {
 		struct object inner;
-		read_object (&inner, false, new_backquote_flag);
+		read_object (&inner, false, new_backquote_flag, null_context);
 		/* Dots and EOF are not allowed here.
 		   But be tolerant.  */
 		free_object (&inner);
@@ -1065,7 +1101,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 		}
 	      if (c == '=')
 		{
-		  read_object (op, false, new_backquote_flag);
+		  read_object (op, false, new_backquote_flag, outer_context);
 		  last_non_comment_line = line_number;
 		  return;
 		}
@@ -1133,7 +1169,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 	      /* Simply assume every feature expression is true.  */
 	      {
 		struct object inner;
-		read_object (&inner, false, new_backquote_flag);
+		read_object (&inner, false, new_backquote_flag, null_context);
 		/* Dots and EOF are not allowed here.
 		   But be tolerant.  */
 		free_object (&inner);
@@ -1198,6 +1234,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag)
 void
 extract_elisp (FILE *f,
 	       const char *real_filename, const char *logical_filename,
+	       flag_context_list_table_ty *flag_table,
 	       msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
@@ -1210,6 +1247,8 @@ extract_elisp (FILE *f,
   last_comment_line = -1;
   last_non_comment_line = -1;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When read_object returns
@@ -1218,7 +1257,7 @@ extract_elisp (FILE *f,
     {
       struct object toplevel_object;
 
-      read_object (&toplevel_object, false, false);
+      read_object (&toplevel_object, false, false, null_context);
 
       if (toplevel_object.type == t_eof)
 	break;

@@ -19,6 +19,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+#include <alloca.h>
 
 #include <ctype.h>
 #include <errno.h>
@@ -135,6 +136,21 @@ static input_syntax_ty output_syntax = syntax_po;
 /* If nonzero omit header with information about this run.  */
 int xgettext_omit_header;
 
+/* Table of flag_context_list_ty tables.  */
+static flag_context_list_table_ty flag_table_c;
+static flag_context_list_table_ty flag_table_gcc_internal;
+static flag_context_list_table_ty flag_table_sh;
+static flag_context_list_table_ty flag_table_python;
+static flag_context_list_table_ty flag_table_lisp;
+static flag_context_list_table_ty flag_table_elisp;
+static flag_context_list_table_ty flag_table_librep;
+static flag_context_list_table_ty flag_table_java;
+static flag_context_list_table_ty flag_table_awk;
+static flag_context_list_table_ty flag_table_ycp;
+static flag_context_list_table_ty flag_table_tcl;
+static flag_context_list_table_ty flag_table_perl;
+static flag_context_list_table_ty flag_table_php;
+
 /* Canonicalized encoding name for all input files.  */
 const char *xgettext_global_source_encoding;
 
@@ -167,6 +183,7 @@ static const struct option long_options[] =
   { "exclude-file", required_argument, NULL, 'x' },
   { "extract-all", no_argument, NULL, 'a' },
   { "files-from", required_argument, NULL, 'f' },
+  { "flag", required_argument, NULL, CHAR_MAX + 7 },
   { "force-po", no_argument, &force_po, 1 },
   { "foreign-user", no_argument, NULL, CHAR_MAX + 2 },
   { "from-code", required_argument, NULL, CHAR_MAX + 3 },
@@ -202,7 +219,17 @@ static const struct option long_options[] =
    in which to add the messages.  */
 typedef void (*extractor_func) (FILE *fp, const char *real_filename,
 				const char *logical_filename,
+				flag_context_list_table_ty *flag_table,
 				msgdomain_list_ty *mdlp);
+
+typedef struct extractor_ty extractor_ty;
+struct extractor_ty
+{
+  extractor_func func;
+  flag_context_list_table_ty *flag_table;
+  struct formatstring_parser *formatstring_parser1;
+  struct formatstring_parser *formatstring_parser2;
+};
 
 
 /* Forward declaration of local functions.  */
@@ -212,11 +239,11 @@ static void usage (int status)
 #endif
 ;
 static void read_exclusion_file (char *file_name);
-static void extract_from_file (const char *file_name, extractor_func extractor,
+static void extract_from_file (const char *file_name, extractor_ty extractor,
 			       msgdomain_list_ty *mdlp);
 static message_ty *construct_header (void);
 static void finalize_header (msgdomain_list_ty *mdlp);
-static extractor_func language_to_extractor (const char *name);
+static extractor_ty language_to_extractor (const char *name);
 static const char *extension_to_language (const char *extension);
 
 
@@ -235,7 +262,7 @@ main (int argc, char *argv[])
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;
-  extractor_func extractor = NULL;
+  extractor_ty extractor = { NULL, NULL, NULL, NULL };
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -256,6 +283,19 @@ main (int argc, char *argv[])
   /* Set initial value of variables.  */
   default_domain = MESSAGE_DOMAIN_DEFAULT;
   xgettext_global_source_encoding = po_charset_ascii;
+  init_flag_table_c ();
+  init_flag_table_gcc_internal ();
+  init_flag_table_sh ();
+  init_flag_table_python ();
+  init_flag_table_lisp ();
+  init_flag_table_elisp ();
+  init_flag_table_librep ();
+  init_flag_table_java ();
+  init_flag_table_awk ();
+  init_flag_table_ycp ();
+  init_flag_table_tcl ();
+  init_flag_table_perl ();
+  init_flag_table_php ();
 
   while ((optchar = getopt_long (argc, argv,
 				 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:x:",
@@ -421,6 +461,9 @@ main (int argc, char *argv[])
 	message_print_syntax_properties ();
 	output_syntax = syntax_properties;
 	break;
+      case CHAR_MAX + 7:	/* --flag */
+	xgettext_record_flag (optarg);
+	break;
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -550,8 +593,9 @@ This version was built without iconv()."),
       /* Temporarily reset the directory list to empty, because file_name
 	 is an output file and therefore should not be searched for.  */
       void *saved_directory_list = dir_list_save_reset ();
+      extractor_ty po_extractor = { extract_po, NULL, NULL, NULL };
 
-      extract_from_file (file_name, extract_po, mdlp);
+      extract_from_file (file_name, po_extractor, mdlp);
 
       dir_list_restore (saved_directory_list);
     }
@@ -560,11 +604,11 @@ This version was built without iconv()."),
   for (cnt = 0; cnt < file_list->nitems; ++cnt)
     {
       const char *fname;
-      extractor_func this_file_extractor;
+      extractor_ty this_file_extractor;
 
       fname = file_list->item[cnt];
 
-      if (extractor)
+      if (extractor.func)
 	this_file_extractor = extractor;
       else
 	{
@@ -699,14 +743,31 @@ Operation mode:\n"));
                               preceding keyword lines) in output file\n"));
       printf ("\n");
       printf (_("\
-Language=C/C++ specific options:\n"));
+Language specific options:\n"));
       printf (_("\
   -a, --extract-all           extract all strings\n"));
+      printf (_("\
+                                (only languages C, C++, ObjectiveC, Shell,\n\
+                                Python, Lisp, EmacsLisp, librep, Java, awk,\n\
+                                Tcl, Perl, PHP, GCC-source, Glade)\n"));
       printf (_("\
   -k, --keyword[=WORD]        additional keyword to be looked for (without\n\
                               WORD means not to use default keywords)\n"));
       printf (_("\
+                                (only languages C, C++, ObjectiveC, Shell,\n\
+                                Python, Lisp, EmacsLisp, librep, Java, awk,\n\
+                                Tcl, Perl, PHP, GCC-source, Glade)\n"));
+      printf (_("\
+      --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
+                              number ARG of keyword WORD\n"));
+      printf (_("\
+                                (only languages C, C++, ObjectiveC, Shell,\n\
+                                Python, Lisp, EmacsLisp, librep, Java, awk,\n\
+                                YCP, Tcl, Perl, PHP, GCC-source)\n"));
+      printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
+      printf (_("\
+                                (only languages C, C++, ObjectiveC)\n"));
       printf (_("\
       --debug                 more detailed formatstring recognition result\n"));
       printf ("\n");
@@ -903,6 +964,405 @@ split_keywordspec (const char *spec,
 }
 
 
+/* Null context.  */
+flag_context_ty null_context = { undecided, false, undecided, false };
+
+/* Transparent context.  */
+flag_context_ty passthrough_context = { undecided, true, undecided, true };
+
+
+flag_context_ty
+inherited_context (flag_context_ty outer_context,
+		   flag_context_ty modifier_context)
+{
+  flag_context_ty result = modifier_context;
+
+  if (result.pass_format1)
+    {
+      result.is_format1 = outer_context.is_format1;
+      result.pass_format1 = false;
+    }
+  if (result.pass_format2)
+    {
+      result.is_format2 = outer_context.is_format2;
+      result.pass_format2 = false;
+    }
+  return result;
+}
+
+
+/* Null context list iterator.  */
+flag_context_list_iterator_ty null_context_list_iterator = { 1, NULL };
+
+/* Transparent context list iterator.  */
+static flag_context_list_ty passthrough_context_circular_list =
+  {
+    1,
+    { undecided, true, undecided, true },
+    &passthrough_context_circular_list
+  };
+flag_context_list_iterator_ty passthrough_context_list_iterator =
+  {
+    1,
+    &passthrough_context_circular_list
+  };
+
+
+flag_context_list_iterator_ty
+flag_context_list_iterator (flag_context_list_ty *list)
+{
+  flag_context_list_iterator_ty result = { 1, list };
+
+  return result;
+}
+
+
+flag_context_ty
+flag_context_list_iterator_advance (flag_context_list_iterator_ty *iter)
+{
+  if (iter->head == NULL)
+    return null_context;
+  if (iter->argnum == iter->head->argnum)
+    {
+      flag_context_ty result = iter->head->flags;
+
+      /* Special casing of circular list.  */
+      if (iter->head != iter->head->next)
+	{
+	  iter->head = iter->head->next;
+	  iter->argnum++;
+	}
+
+      return result;
+    }
+  else
+    {
+      iter->argnum++;
+      return null_context;
+    }
+}
+
+
+flag_context_list_ty *
+flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
+				const void *key, size_t keylen)
+{
+  void *entry;
+
+  if (flag_table->table != NULL
+      && find_entry (flag_table, key, keylen, &entry) == 0)
+    return (flag_context_list_ty *) entry;
+  else
+    return NULL;
+}
+
+
+void
+xgettext_record_flag (const char *optionstring)
+{
+  /* Check the string has at least two colons.  (Colons in the name are
+     allowed, needed for the Lisp and the Tcl backends.)  */
+  const char *colon1;
+  const char *colon2;
+
+  for (colon2 = optionstring + strlen (optionstring); ; )
+    {
+      if (colon2 == optionstring)
+	goto err;
+      colon2--;
+      if (*colon2 == ':')
+	break;
+    }
+  for (colon1 = colon2; ; )
+    {
+      if (colon1 == optionstring)
+	goto err;
+      colon1--;
+      if (*colon1 == ':')
+	break;
+    }
+  {
+    const char *name_start = optionstring;
+    const char *name_end = colon1;
+    const char *argnum_start = colon1 + 1;
+    const char *argnum_end = colon2;
+    const char *flag = colon2 + 1;
+    int argnum;
+
+    /* Check the parts' syntax.  */
+    if (name_end == name_start)
+      goto err;
+    if (argnum_end == argnum_start)
+      goto err;
+    {
+      char *endp;
+      argnum = strtol (argnum_start, &endp, 10);
+      if (endp != argnum_end)
+	goto err;
+    }
+    if (argnum <= 0)
+      goto err;
+
+    /* Analyze the flag part.  */
+    {
+      bool pass;
+
+      pass = false;
+      if (strlen (flag) >= 5 && memcmp (flag, "pass-", 5) == 0)
+	{
+	  pass = true;
+	  flag += 5;
+	}
+
+      /* Unlike po_parse_comment_special(), we don't accept "fuzzy" or "wrap"
+	 here - it has no sense.  */
+      if (strlen (flag) >= 7
+	  && memcmp (flag + strlen (flag) - 7, "-format", 7) == 0)
+	{
+	  const char *p;
+	  size_t n;
+	  enum is_format value;
+	  size_t type;
+
+	  p = flag;
+	  n = strlen (flag) - 7;
+
+	  if (n >= 3 && memcmp (p, "no-", 3) == 0)
+	    {
+	      p += 3;
+	      n -= 3;
+	      value = no;
+	    }
+	  else if (n >= 9 && memcmp (p, "possible-", 9) == 0)
+	    {
+	      p += 9;
+	      n -= 9;
+	      value = possible;
+	    }
+	  else if (n >= 11 && memcmp (p, "impossible-", 11) == 0)
+	    {
+	      p += 11;
+	      n -= 11;
+	      value = impossible;
+	    }
+	  else
+	    value = yes_according_to_context;
+
+	  for (type = 0; type < NFORMATS; type++)
+	    if (strlen (format_language[type]) == n
+		&& memcmp (format_language[type], p, n) == 0)
+	      {
+		flag_context_list_table_ty *table;
+		unsigned int index;
+
+		index = 0;
+		switch (type)
+		  {
+		  case format_c:
+		    table = &flag_table_c;
+		    break;
+		  case format_sh:
+		    table = &flag_table_sh;
+		    break;
+		  case format_python:
+		    table = &flag_table_python;
+		    break;
+		  case format_lisp:
+		    table = &flag_table_lisp;
+		    break;
+		  case format_elisp:
+		    table = &flag_table_elisp;
+		    break;
+		  case format_librep:
+		    table = &flag_table_librep;
+		    break;
+		  case format_smalltalk:
+		    return;
+		  case format_java:
+		    table = &flag_table_java;
+		    break;
+		  case format_awk:
+		    table = &flag_table_awk;
+		    break;
+		  case format_pascal:
+		    return;
+		  case format_ycp:
+		    table = &flag_table_ycp;
+		    break;
+		  case format_tcl:
+		    table = &flag_table_tcl;
+		    break;
+		  case format_perl:
+		    table = &flag_table_perl;
+		    break;
+		  case format_perl_brace:
+		    index = 1;
+		    table = &flag_table_perl;
+		    break;
+		  case format_php:
+		    table = &flag_table_php;
+		    break;
+		  case format_gcc_internal:
+		    table = &flag_table_gcc_internal;
+		    break;
+		  default:
+		    abort ();
+		  }
+
+		if (table == &flag_table_lisp)
+		  {
+		    /* Convert NAME to upper case.  */
+		    size_t name_len = name_end - name_start;
+		    char *name = (char *) alloca (name_len);
+		    size_t i;
+
+		    for (i = 0; i < name_len; i++)
+		      name[i] = (name_start[i] >= 'a' && name_start[i] <= 'z'
+				 ? name_start[i] - 'a' + 'A'
+				 : name_start[i]);
+		    name_start = name;
+		    name_end = name + name_len;
+		  }
+		else if (table == &flag_table_tcl)
+		  {
+		    /* Remove redundant "::" prefix.  */
+		    if (name_end - name_start > 2
+			&& name_start[0] == ':' && name_start[1] == ':')
+		      name_start += 2;
+		  }
+
+		/* Insert the pair (VALUE, PASS) at INDEX in the element
+		   numbered ARGNUM of the list corresponding to NAME in the
+		   TABLE.  */
+		if (table->table == NULL)
+		  init_hash (table, 100);
+		{
+		  void *entry;
+
+		  if (find_entry (table, name_start, name_end - name_start,
+				  &entry) != 0)
+		    {
+		      /* Create new hash table entry.  */
+		      flag_context_list_ty *list =
+			(flag_context_list_ty *)
+			xmalloc (sizeof (flag_context_list_ty));
+		      list->argnum = argnum;
+		      memset (&list->flags, '\0', sizeof (list->flags));
+		      switch (index)
+			{
+			case 0:
+			  list->flags.is_format1 = value;
+			  list->flags.pass_format1 = pass;
+			  break;
+			case 1:
+			  list->flags.is_format2 = value;
+			  list->flags.pass_format2 = pass;
+			  break;
+			default:
+			  abort ();
+			}
+		      list->next = NULL;
+		      insert_entry (table, name_start, name_end - name_start,
+				    list);
+		    }
+		  else
+		    {
+		      flag_context_list_ty *list =
+			(flag_context_list_ty *)entry;
+		      flag_context_list_ty **lastp = NULL;
+
+		      while (list != NULL && list->argnum < argnum)
+			{
+			  lastp = &list->next;
+			  list = *lastp;
+			}
+		      if (list != NULL && list->argnum == argnum)
+			{
+			  /* Add this flag to the current argument number.  */
+			  switch (index)
+			    {
+			    case 0:
+			      list->flags.is_format1 = value;
+			      list->flags.pass_format1 = pass;
+			      break;
+			    case 1:
+			      list->flags.is_format2 = value;
+			      list->flags.pass_format2 = pass;
+			      break;
+			    default:
+			      abort ();
+			    }
+			}
+		      else if (lastp != NULL)
+			{
+			  /* Add a new list entry for this argument number.  */
+			  list =
+			    (flag_context_list_ty *)
+			    xmalloc (sizeof (flag_context_list_ty));
+			  list->argnum = argnum;
+			  memset (&list->flags, '\0', sizeof (list->flags));
+			  switch (index)
+			    {
+			    case 0:
+			      list->flags.is_format1 = value;
+			      list->flags.pass_format1 = pass;
+			      break;
+			    case 1:
+			      list->flags.is_format2 = value;
+			      list->flags.pass_format2 = pass;
+			      break;
+			    default:
+			      abort ();
+			    }
+			  list->next = *lastp;
+			  *lastp = list;
+			}
+		      else
+			{
+			  /* Add a new list entry for this argument number,
+			     at the beginning of the list.  Since we don't
+			     have an API for replacing the value of a key
+			     in the hash table, we have to copy the first
+			     list element.  */
+			  flag_context_list_ty *copy =
+			    (flag_context_list_ty *)
+			    xmalloc (sizeof (flag_context_list_ty));
+			  *copy = *list;
+
+			  list->argnum = argnum;
+			  memset (&list->flags, '\0', sizeof (list->flags));
+			  switch (index)
+			    {
+			    case 0:
+			      list->flags.is_format1 = value;
+			      list->flags.pass_format1 = pass;
+			      break;
+			    case 1:
+			      list->flags.is_format2 = value;
+			      list->flags.pass_format2 = pass;
+			      break;
+			    default:
+			      abort ();
+			    }
+			  list->next = copy;
+			}
+		    }
+		}
+		return;
+	      }
+	  /* If the flag is not among the valid values, the optionstring is
+	     invalid.  */
+	}
+    }
+  }
+
+err:
+  error (EXIT_FAILURE, 0, _("\
+A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %s"),
+	 optionstring);
+}
+
+
 static string_list_ty *comment;
 
 void
@@ -994,8 +1454,14 @@ error while opening \"%s\" for reading"), new_name);
 }
 
 
+/* Language dependent format string parser.
+   NULL if the language has no notion of format strings.  */
+static struct formatstring_parser *current_formatstring_parser1;
+static struct formatstring_parser *current_formatstring_parser2;
+
+
 static void
-extract_from_file (const char *file_name, extractor_func extractor,
+extract_from_file (const char *file_name, extractor_ty extractor,
 		   msgdomain_list_ty *mdlp)
 {
   char *logical_file_name;
@@ -1009,7 +1475,10 @@ extract_from_file (const char *file_name, extractor_func extractor,
   xgettext_current_source_iconv = xgettext_global_source_iconv;
 #endif
 
-  extractor (fp, real_file_name, logical_file_name, mdlp);
+  current_formatstring_parser1 = extractor.formatstring_parser1;
+  current_formatstring_parser2 = extractor.formatstring_parser2;
+  extractor.func (fp, real_file_name, logical_file_name, extractor.flag_table,
+		  mdlp);
 
   if (fp != stdin)
     fclose (fp);
@@ -1017,12 +1486,6 @@ extract_from_file (const char *file_name, extractor_func extractor,
   free (real_file_name);
 }
 
-
-
-/* Language dependent format string parser.
-   NULL if the language has no notion of format strings.  */
-static struct formatstring_parser *current_formatstring_parser1;
-static struct formatstring_parser *current_formatstring_parser2;
 
 
 #if !HAVE_ICONV
@@ -1070,8 +1533,67 @@ Please specify the source encoding through --from-code.\n"),
 					 pos->line_number);
 
 
+/* Update the is_format[] flags depending on the information given in the
+   context.  */
+static void
+set_format_flags_from_context (enum is_format is_format[NFORMATS],
+			       flag_context_ty context, const char *string,
+			       lex_pos_ty *pos, const char *pretty_msgstr)
+{
+  size_t i;
+
+  if (context.is_format1 != undecided || context.is_format2 != undecided)
+    for (i = 0; i < NFORMATS; i++)
+      {
+	if (is_format[i] == undecided)
+	  {
+	    if (formatstring_parsers[i] == current_formatstring_parser1
+		&& context.is_format1 != undecided)
+	      is_format[i] = context.is_format1;
+	    if (formatstring_parsers[i] == current_formatstring_parser2
+		&& context.is_format2 != undecided)
+	      is_format[i] = context.is_format2;
+	  }
+	if (possible_format_p (is_format[i]))
+	  {
+	    struct formatstring_parser *parser = formatstring_parsers[i];
+	    char *invalid_reason = NULL;
+	    void *descr = parser->parse (string, &invalid_reason);
+
+	    if (descr != NULL)
+	      parser->free (descr);
+	    else
+	      {
+		/* The string is not a valid format string.  */
+		if (is_format[i] != possible)
+		  {
+		    char buffer[21];
+
+		    error_with_progname = false;
+		    if (pos->line_number == (size_t)(-1))
+		      buffer[0] = '\0';
+		    else
+		      sprintf (buffer, ":%ld", (long) pos->line_number);
+		    multiline_warning (xasprintf (_("%s%s: warning: "),
+						  pos->file_name, buffer),
+				       xasprintf (is_format[i] == yes_according_to_context ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n") : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
+						  pretty_msgstr,
+						  format_language_pretty[i],
+						  invalid_reason));
+		    error_with_progname = true;
+		  }
+
+		is_format[i] = impossible;
+		free (invalid_reason);
+	      }
+	  }
+      }
+}
+
+
 message_ty *
-remember_a_message (message_list_ty *mlp, char *string, lex_pos_ty *pos)
+remember_a_message (message_list_ty *mlp, char *string,
+		    flag_context_ty context, lex_pos_ty *pos)
 {
   enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
@@ -1147,6 +1669,10 @@ meta information, not the empty string.\n")));
       /* Do not free msgid.  */
       message_list_append (mlp, mp);
     }
+
+  /* Determine whether the context specifies that the msgid is a format
+     string.  */
+  set_format_flags_from_context (is_format, context, mp->msgid, pos, "msgid");
 
   /* Ask the lexer for the comments it has seen.  Only do this for the
      first instance, otherwise there could be problems; especially if
@@ -1261,7 +1787,8 @@ meta information, not the empty string.\n")));
 
 
 void
-remember_a_message_plural (message_ty *mp, char *string, lex_pos_ty *pos)
+remember_a_message_plural (message_ty *mp, char *string,
+			   flag_context_ty context, lex_pos_ty *pos)
 {
   char *msgid_plural;
   char *msgstr1;
@@ -1297,6 +1824,11 @@ remember_a_message_plural (message_ty *mp, char *string, lex_pos_ty *pos)
       memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
       mp->msgstr = msgstr;
       mp->msgstr_len = mp->msgstr_len + msgstr1_len;
+
+      /* Determine whether the context specifies that the msgid_plural is a
+	 format string.  */
+      set_format_flags_from_context (mp->is_format, context, mp->msgid_plural,
+				     pos, "msgid_plural");
 
       /* If it is not already decided, through programmer comments or
 	 the msgid, whether the msgid is a format string, examine the
@@ -1471,7 +2003,7 @@ finalize_header (msgdomain_list_ty *mdlp)
 #define ENDOF(a) ((a) + SIZEOF(a))
 
 
-static extractor_func
+static extractor_ty
 language_to_extractor (const char *name)
 {
   typedef struct table_ty table_ty;
@@ -1479,6 +2011,7 @@ language_to_extractor (const char *name)
   {
     const char *name;
     extractor_func func;
+    flag_context_list_table_ty *flag_table;
     struct formatstring_parser *formatstring_parser1;
     struct formatstring_parser *formatstring_parser2;
   };
@@ -1511,16 +2044,22 @@ language_to_extractor (const char *name)
   for (tp = table; tp < ENDOF(table); ++tp)
     if (strcasecmp (name, tp->name) == 0)
       {
-	/* XXX Ugly side effect.  */
-	current_formatstring_parser1 = tp->formatstring_parser1;
-	current_formatstring_parser2 = tp->formatstring_parser2;
+	extractor_ty result =
+	  {
+	    tp->func,
+	    tp->flag_table,
+	    tp->formatstring_parser1, tp->formatstring_parser2
+	  };
 
-	return tp->func;
+	return result;
       }
 
   error (EXIT_FAILURE, 0, _("language `%s' unknown"), name);
   /* NOTREACHED */
-  return NULL;
+  {
+    extractor_ty result = { NULL, NULL, NULL, NULL };
+    return result;
+  }
 }
 
 

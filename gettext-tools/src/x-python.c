@@ -29,8 +29,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-python.h"
 #include "xgettext.h"
+#include "x-python.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xmalloc.h"
@@ -112,6 +112,22 @@ init_keywords ()
       x_python_keyword ("_");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_python ()
+{
+  xgettext_record_flag ("gettext:1:pass-python-format");
+  xgettext_record_flag ("ugettext:1:pass-python-format");
+  xgettext_record_flag ("dgettext:2:pass-python-format");
+  xgettext_record_flag ("ngettext:1:pass-python-format");
+  xgettext_record_flag ("ngettext:2:pass-python-format");
+  xgettext_record_flag ("ungettext:1:pass-python-format");
+  xgettext_record_flag ("ungettext:2:pass-python-format");
+  xgettext_record_flag ("dngettext:2:pass-python-format");
+  xgettext_record_flag ("dngettext:3:pass-python-format");
+  xgettext_record_flag ("_:1:pass-python-format");
+  /* xgettext_record_flag ("%:1:python-format"); // % is an infix operator! */
 }
 
 
@@ -968,6 +984,11 @@ x_python_lex (token_ty *tp)
 
 /* ========================= Extracting strings.  ========================== */
 
+
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
+
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
@@ -992,6 +1013,8 @@ x_python_lex (token_ty *tp)
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
+		       flag_context_ty outer_context,
+		       flag_context_list_iterator_ty context_iter,
 		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
@@ -1002,6 +1025,13 @@ extract_parenthesized (message_list_ty *mlp,
   /* Parameters of the keyword just seen.  Defined only in state 1.  */
   int next_commas_to_skip = -1;
   int next_plural_commas = 0;
+  /* Context iterator that will be used if the next token is a '('.  */
+  flag_context_list_iterator_ty next_context_iter =
+    passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty inner_context =
+    inherited_context (outer_context,
+		       flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
   state = 0;
@@ -1031,15 +1061,20 @@ extract_parenthesized (message_list_ty *mlp,
 	    else
 	      state = 0;
 	  }
+	  next_context_iter =
+	    flag_context_list_iterator (
+	      flag_context_list_table_lookup (
+		flag_context_list_table,
+		token.string, strlen (token.string)));
 	  free (token.string);
 	  continue;
 
 	case token_type_lparen:
-	  if (state
-	      ? extract_parenthesized (mlp, next_commas_to_skip,
-				       next_plural_commas)
-	      : extract_parenthesized (mlp, -1, 0))
+	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
+				     state ? next_commas_to_skip : -1,
+				     state ? next_plural_commas : 0))
 	    return true;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1060,6 +1095,11 @@ extract_parenthesized (message_list_ty *mlp,
 		else
 		  commas_to_skip = -1;
 	    }
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	  next_context_iter = passthrough_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1070,7 +1110,7 @@ extract_parenthesized (message_list_ty *mlp,
 	    pos.line_number = token.line_number;
 
 	    if (extract_all)
-	      remember_a_message (mlp, token.string, &pos);
+	      remember_a_message (mlp, token.string, inner_context, &pos);
 	    else
 	      {
 		if (commas_to_skip == 0)
@@ -1078,8 +1118,9 @@ extract_parenthesized (message_list_ty *mlp,
 		    if (plural_mp == NULL)
 		      {
 			/* Seen an msgid.  */
-			message_ty *mp = remember_a_message (mlp, token.string,
-							     &pos);
+			message_ty *mp =
+			  remember_a_message (mlp, token.string,
+					      inner_context, &pos);
 			if (plural_commas > 0)
 			  plural_mp = mp;
 		      }
@@ -1087,7 +1128,7 @@ extract_parenthesized (message_list_ty *mlp,
 		      {
 			/* Seen an msgid_plural.  */
 			remember_a_message_plural (plural_mp, token.string,
-						   &pos);
+						   inner_context, &pos);
 			plural_mp = NULL;
 		      }
 		  }
@@ -1095,6 +1136,7 @@ extract_parenthesized (message_list_ty *mlp,
 		  free (token.string);
 	      }
 	  }
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1102,6 +1144,7 @@ extract_parenthesized (message_list_ty *mlp,
 	  return true;
 
 	case token_type_other:
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1115,6 +1158,7 @@ extract_parenthesized (message_list_ty *mlp,
 void
 extract_python (FILE *f,
 		const char *real_filename, const char *logical_filename,
+		flag_context_list_table_ty *flag_table,
 		msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
@@ -1132,11 +1176,14 @@ extract_python (FILE *f,
 
   open_pbb = 0;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, -1, 0))
+  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
+				 -1, 0))
     ;
 
   fp = NULL;

@@ -21,11 +21,13 @@
   { "tcl",       "Tcl"           },					\
 
 #define SCANNERS_TCL \
-  { "Tcl",        extract_tcl, &formatstring_tcl, NULL },		\
+  { "Tcl",		extract_tcl,					\
+			&flag_table_tcl, &formatstring_tcl, NULL },	\
 
 /* Scan a Tcl file and add its translatable strings to mdlp.  */
 extern void extract_tcl (FILE *fp, const char *real_filename,
 			 const char *logical_filename,
+			 flag_context_list_table_ty *flag_table,
 			 msgdomain_list_ty *mdlp);
 
 
@@ -33,3 +35,5 @@ extern void extract_tcl (FILE *fp, const char *real_filename,
 
 extern void x_tcl_extract_all (void);
 extern void x_tcl_keyword (const char *name);
+
+extern void init_flag_table_tcl (void);

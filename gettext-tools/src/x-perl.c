@@ -28,8 +28,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-perl.h"
 #include "xgettext.h"
+#include "x-perl.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xmalloc.h"
@@ -112,8 +112,68 @@ init_keywords ()
       x_perl_keyword ("dngettext:2,3");
       x_perl_keyword ("dcngettext:2,3");
       x_perl_keyword ("gettext_noop");
+#if 0
+      x_perl_keyword ("__");
+      x_perl_keyword ("$__");
+      x_perl_keyword ("%__");
+      x_perl_keyword ("__x");
+      x_perl_keyword ("__n:1,2");
+      x_perl_keyword ("__nx:1,2");
+      x_perl_keyword ("__xn:1,2");
+      x_perl_keyword ("N__");
+#endif
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_perl ()
+{
+  xgettext_record_flag ("gettext:1:pass-perl-format");
+  xgettext_record_flag ("gettext:1:pass-perl-brace-format");
+  xgettext_record_flag ("%gettext:1:pass-perl-format");
+  xgettext_record_flag ("%gettext:1:pass-perl-brace-format");
+  xgettext_record_flag ("$gettext:1:pass-perl-format");
+  xgettext_record_flag ("$gettext:1:pass-perl-brace-format");
+  xgettext_record_flag ("dgettext:2:pass-perl-format");
+  xgettext_record_flag ("dgettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("dcgettext:2:pass-perl-format");
+  xgettext_record_flag ("dcgettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("ngettext:1:pass-perl-format");
+  xgettext_record_flag ("ngettext:2:pass-perl-format");
+  xgettext_record_flag ("ngettext:1:pass-perl-brace-format");
+  xgettext_record_flag ("ngettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("dngettext:2:pass-perl-format");
+  xgettext_record_flag ("dngettext:3:pass-perl-format");
+  xgettext_record_flag ("dngettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("dngettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("dcngettext:2:pass-perl-format");
+  xgettext_record_flag ("dcngettext:3:pass-perl-format");
+  xgettext_record_flag ("dcngettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("dcngettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("gettext_noop:1:pass-perl-format");
+  xgettext_record_flag ("gettext_noop:1:pass-perl-brace-format");
+  xgettext_record_flag ("printf:1:perl-format"); /* argument 1 or 2 ?? */
+  xgettext_record_flag ("sprintf:1:perl-format");
+#if 0 
+  xgettext_record_flag ("__:1:pass-perl-format");
+  xgettext_record_flag ("__:1:pass-perl-brace-format");
+  xgettext_record_flag ("%__:1:pass-perl-format");
+  xgettext_record_flag ("%__:1:pass-perl-brace-format");
+  xgettext_record_flag ("$__:1:pass-perl-format");
+  xgettext_record_flag ("$__:1:pass-perl-brace-format");
+  xgettext_record_flag ("__x:1:perl-brace-format");
+  xgettext_record_flag ("__n:1:pass-perl-format");
+  xgettext_record_flag ("__n:2:pass-perl-format");
+  xgettext_record_flag ("__n:1:pass-perl-brace-format");
+  xgettext_record_flag ("__n:2:pass-perl-brace-format");
+  xgettext_record_flag ("__nx:1:perl-brace-format");
+  xgettext_record_flag ("__nx:2:perl-brace-format");
+  xgettext_record_flag ("__xn:1:perl-brace-format");
+  xgettext_record_flag ("__xn:2:perl-brace-format");
+  xgettext_record_flag ("N__:1:pass-perl-format");
+  xgettext_record_flag ("N__:1:pass-perl-brace-format");
+#endif
 }
 
 
@@ -694,12 +754,20 @@ extract_quotelike_pass1_utf8 (int delim)
    of an expression, it's a regexp.  */
 static bool prefer_division_over_regexp;
 
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
 
 /* Forward declaration of local functions.  */
-static void interpolate_keywords (message_list_ty *mlp, const char *string, int lineno);
+static void interpolate_keywords (message_list_ty *mlp, const char *string,
+				  int lineno);
 static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
-static bool extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state, token_type_ty delim);
+static bool extract_balanced (message_list_ty *mlp, int state,
+			      token_type_ty delim,
+			      flag_context_ty outer_context,
+			      flag_context_list_iterator_ty context_iter,
+			      int arg_sg, int arg_pl);
 
 
 /* Extract an unsigned hexadecimal number from STRING, considering at
@@ -1305,7 +1373,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	       real_file_name, line_number);
 #endif
 
-      if (extract_balanced (mlp, -1, -1, 0, token_type_rbrace))
+      if (extract_balanced (mlp, 0, token_type_rbrace,
+			    null_context, null_context_list_iterator, -1, -1))
 	return;
       buffer[bufpos++] = c;
     }
@@ -1432,6 +1501,11 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      /* Extract a possible string from the key.  Before proceeding
 		 we check whether the open curly is followed by a symbol and
 		 then by a right curly.  */
+	      flag_context_list_iterator_ty context_iter =
+		flag_context_list_iterator (
+		  flag_context_list_table_lookup (
+		    flag_context_list_table,
+		    tp->string, strlen (tp->string)));
 	      token_ty *t1 = x_perl_lex (mlp);
 
 #if DEBUG_PERL
@@ -1445,11 +1519,19 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		  token_ty *t2 = x_perl_lex (mlp);
 		  if (t2->type == token_type_rbrace)
 		    {
+		      flag_context_ty context;
 		      lex_pos_ty pos;
+
+		      context =
+			inherited_context (null_context,
+					   flag_context_list_iterator_advance (
+					     &context_iter));
+
 		      pos.line_number = line_number;
 		      pos.file_name = logical_file_name;
+
 		      xgettext_current_source_encoding = po_charset_utf8;
-		      remember_a_message (mlp, xstrdup (t1->string), &pos);
+		      remember_a_message (mlp, xstrdup (t1->string), context, &pos);
 		      xgettext_current_source_encoding = xgettext_global_source_encoding;
 		      free_token (t2);
 		      free_token (t1);
@@ -1462,7 +1544,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      else
 		{
 		  x_perl_unlex (t1);
-		  if (extract_balanced (mlp, 1, -1, 1, token_type_rbrace))
+		  if (extract_balanced (mlp, 1, token_type_rbrace,
+					null_context, context_iter, 1, -1))
 		    return;
 		}
 	    }
@@ -1490,7 +1573,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  fprintf (stderr, "%s:%d: extracting balanced '{' after varname\n",
 		   real_file_name, line_number);
 #endif
-	  extract_balanced (mlp, -1, -1, 0, token_type_rbrace);
+	  extract_balanced (mlp, 0, token_type_rbrace,
+			    null_context, null_context_list_iterator, -1, -1);
 	  break;
 
 	case '[':
@@ -1498,7 +1582,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  fprintf (stderr, "%s:%d: extracting balanced '[' after varname\n",
 		   real_file_name, line_number);
 #endif
-	  extract_balanced (mlp, -1, -1, 0, token_type_rbracket);
+	  extract_balanced (mlp, 0, token_type_rbracket,
+			    null_context, null_context_list_iterator, -1, -1);
 	  break;
 
 	case '-':
@@ -1541,7 +1626,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
-  int c = (unsigned char) string[0];
+  flag_context_ty context;
+  int c;
   bool maybe_hash_deref = false;
   enum parser_state
     {
@@ -1576,8 +1662,13 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
    * squote:       a single-quote has been seen in state WAIT_QUOTE
    * barekey:      an bareword character has been seen in state WAIT_QUOTE
    * wait_rbrace:  closing quote has been seen in state DQUOTE or SQUOTE
+   *
+   * In the states initial...identifier the context is null_context; in the
+   * states minus...wait_rbrace the context is the one suitable for the first
+   * argument of the last seen identifier.
    */
   state = initial;
+  context = null_context;
 
   token.type = token_type_string;
   token.sub_type = string_type_qq;
@@ -1653,19 +1744,27 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	    {
 	      buffer[bufpos++] = c;
 	      state = identifier;
-	      break;
 	    }
 	  else
-	    {
-	      state = initial;
-	    }
+	    state = initial;
 	  break;
 	case identifier:
 	  switch (c)
 	    {
 	    case '-':
 	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
-		state = minus;
+		{
+		  flag_context_list_iterator_ty context_iter =
+		    flag_context_list_iterator (
+		      flag_context_list_table_lookup (
+			flag_context_list_table,
+			buffer, bufpos));
+		  context =
+		    inherited_context (null_context,
+				       flag_context_list_iterator_advance (
+					 &context_iter));
+		  state = minus;
+		}
 	      else
 		state = initial;
 	      break;
@@ -1673,7 +1772,18 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      if (!maybe_hash_deref)
 		buffer[0] = '%';
 	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
-		state = wait_quote;
+		{
+		  flag_context_list_iterator_ty context_iter =
+		    flag_context_list_iterator (
+		      flag_context_list_table_lookup (
+			flag_context_list_table,
+			buffer, bufpos));
+		  context =
+		    inherited_context (null_context,
+				       flag_context_list_iterator_advance (
+					 &context_iter));
+		  state = wait_quote;
+		}
 	      else
 		state = initial;
 	      break;
@@ -1697,6 +1807,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      state = wait_lbrace;
 	      break;
 	    default:
+	      context = null_context;
 	      state = initial;
 	      break;
 	    }
@@ -1708,6 +1819,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      state = wait_quote;
 	      break;
 	    default:
+	      context = null_context;
 	      state = initial;
 	      break;
 	    }
@@ -1731,13 +1843,16 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
 		  || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		{
-		  state = barekey;
 		  pos.line_number = lineno;
 		  bufpos = 0;
 		  buffer[bufpos++] = c;
+		  state = barekey;
 		}
 	      else
-		state = initial;
+		{
+		  context = null_context;
+		  state = initial;
+		}
 	      break;
 	    }
 	  break;
@@ -1768,7 +1883,10 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 		  buffer[bufpos++] = string++[0];
 		}
 	      else
-		state = initial;
+		{
+		  context = null_context;
+		  state = initial;
+		}
 	      break;
 	    default:
 	      buffer[bufpos++] = c;
@@ -1792,7 +1910,10 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 		  buffer[bufpos++] = string++[0];
 		}
 	      else
-		state = initial;
+		{
+		  context = null_context;
+		  state = initial;
+		}
 	      break;
 	    default:
 	      buffer[bufpos++] = c;
@@ -1800,25 +1921,24 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	    }
 	  break;
 	case barekey:
-	  {
-	    if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
-		|| (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-	      {
-		buffer[bufpos++] = c;
-		break;
-	      }
-	    else if (is_whitespace (c))
-	      {
-		state = wait_rbrace;
-		break;
-	      }
-	    else if (c != '}')
-	      {
-		state = initial;
-		break;
-	      }
-	    /* Must be right brace.  */
-	  }
+	  if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
+	      || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	    {
+	      buffer[bufpos++] = c;
+	      break;
+	    }
+	  else if (is_whitespace (c))
+	    {
+	      state = wait_rbrace;
+	      break;
+	    }
+	  else if (c != '}')
+	    {
+	      context = null_context;
+	      state = initial;
+	      break;
+	    }
+	  /* Must be right brace.  */
 	  /* FALLTHROUGH */
 	case wait_rbrace:
 	  switch (c)
@@ -1830,10 +1950,11 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      token.string = xstrdup (buffer);
 	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, token.string, &pos);
+	      remember_a_message (mlp, token.string, context, &pos);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      /* FALLTHROUGH */
 	    default:
+	      context = null_context;
 	      state = initial;
 	      break;
 	    }
@@ -2648,10 +2769,7 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
    When specific arguments shall be extracted, ARG_SG and ARG_PL are
    set to the corresponding argument number or -1 if not applicable.
 
-   Returns the number of requested arguments consumed or -1 for eof.
-   If - instead of consuming requested arguments - a complete message
-   has been extracted, the return value will be sufficiently high to
-   avoid any mis-interpretation.
+   Returns true for EOF, false otherwise.
 
    States are:
 
@@ -2673,8 +2791,10 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
    tokens will cause a warning.  */
 
 static bool
-extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
-		  token_type_ty delim)
+extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
+		  flag_context_ty outer_context,
+		  flag_context_list_iterator_ty context_iter,
+		  int arg_sg, int arg_pl)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
   message_ty *plural_mp = NULL;
@@ -2685,6 +2805,18 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 
   /* Number of left parentheses seen.  */
   int paren_seen = 0;
+
+  /* Whether to implicitly assume the next tokens are arguments even without
+     a '('.  */
+  bool next_is_argument = false;
+
+  /* Context iterator that will be used if the next token is a '('.  */
+  flag_context_list_iterator_ty next_context_iter =
+    passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty inner_context =
+    inherited_context (outer_context,
+		       flag_context_list_iterator_advance (&context_iter));
 
 #if DEBUG_PERL
   static int nesting_level = 0;
@@ -2715,6 +2847,17 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  return false;
 	}
 
+      if (next_is_argument && tp->type != token_type_lparen)
+	{
+	  /* An argument list starts, even though there is no '('.  */
+	  context_iter = next_context_iter;
+	  outer_context = inner_context;
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	}
+
       switch (tp->type)
 	{
 	case token_type_symbol:
@@ -2739,6 +2882,12 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		state = 2;
 	      }
 	  }
+	  next_is_argument = true;
+	  next_context_iter =
+	    flag_context_list_iterator (
+	      flag_context_list_table_lookup (
+		flag_context_list_table,
+		tp->string, strlen (tp->string)));
 	  break;
 
 	case token_type_variable:
@@ -2747,6 +2896,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		   logical_file_name, tp->line_number, nesting_level, tp->string);
 #endif
 	  prefer_division_over_regexp = true;
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_lparen:
@@ -2756,15 +2907,17 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 #endif
 	  ++paren_seen;
 
-	  if (extract_balanced (mlp, arg_sg - arg_count + 1,
-				arg_pl - arg_count + 1, state,
-				token_type_rparen))
+	  if (extract_balanced (mlp, state, token_type_rparen,
+				inner_context, next_context_iter,
+				arg_sg - arg_count + 1, arg_pl - arg_count + 1))
 	    {
 	      free_token (tp);
 	      return true;
 	    }
 	  if (my_last_token == token_type_keyword_symbol)
 	    arg_sg = arg_pl = -1;
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_rparen:
@@ -2773,6 +2926,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  --paren_seen;
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_comma:
@@ -2789,10 +2944,16 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	      arg_count = 0;
 	    }
 #if DEBUG_PERL
-	   fprintf (stderr, "%s:%d: arg_count: %d, arg_sg: %d, arg_pl: %d\n",
-		    real_file_name, tp->line_number,
-		    arg_count, arg_sg, arg_pl);
+	  fprintf (stderr, "%s:%d: arg_count: %d, arg_sg: %d, arg_pl: %d\n",
+		   real_file_name, tp->line_number,
+		   arg_count, arg_sg, arg_pl);
 #endif
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	  next_is_argument = false;
+	  next_context_iter = passthrough_context_list_iterator;
 	  break;
 
 	case token_type_string:
@@ -2811,7 +2972,7 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	      pos.line_number = tp->line_number;
 	      string = collect_message (mlp, tp, EXIT_SUCCESS);
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, string, &pos);
+	      remember_a_message (mlp, string, inner_context, &pos);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 	  else if (state)
@@ -2826,22 +2987,20 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		{
 		  string = collect_message (mlp, tp, EXIT_FAILURE);
 		  xgettext_current_source_encoding = po_charset_utf8;
-		  plural_mp = remember_a_message (mlp, string, &pos);
+		  plural_mp = remember_a_message (mlp, string, inner_context, &pos);
 		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		  arg_sg = -1;
 		}
-	      else if (arg_count == arg_pl && plural_mp == NULL)
+	      else if (arg_count == arg_pl)
 		{
 		  if (plural_mp == NULL)
 		    error (EXIT_FAILURE, 0, _("\
 %s:%d: fatal: plural message seen before singular message\n"),
 			   real_file_name, tp->line_number);
-		}
-	      else if (arg_count == arg_pl)
-		{
+
 		  string = collect_message (mlp, tp, EXIT_FAILURE);
 		  xgettext_current_source_encoding = po_charset_utf8;
-		  remember_a_message_plural (plural_mp, string, &pos);
+		  remember_a_message_plural (plural_mp, string, inner_context, &pos);
 		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		  arg_pl = -1;
 		}
@@ -2853,6 +3012,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	      plural_mp = NULL;
 	    }
 
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_eof:
@@ -2868,11 +3029,15 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type lbrace (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  if (extract_balanced (mlp, -1, -1, 0, token_type_rbrace))
+	  if (extract_balanced (mlp, 0, token_type_rbrace,
+				null_context, null_context_list_iterator,
+				-1, -1))
 	    {
 	      free_token (tp);
 	      return true;
 	    }
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_rbrace:
@@ -2880,6 +3045,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type rbrace (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  break;
 
@@ -2888,11 +3055,15 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type lbracket (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  if (extract_balanced (mlp, -1, -1, 0, token_type_rbracket))
+	  if (extract_balanced (mlp, 0, token_type_rbracket,
+				null_context, null_context_list_iterator,
+				-1, -1))
 	    {
 	      free_token (tp);
 	      return true;
 	    }
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_rbracket:
@@ -2900,6 +3071,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type rbracket (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  break;
 
@@ -2913,6 +3086,17 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  /* The ultimate sign.  */
 	  arg_sg = arg_pl = -1;
 
+	  /* FIXME: Instead of resetting outer_context here, it may be better
+	     to recurse in the next_is_argument handling above, waiting for
+	     the next semicolon or other statement terminator.  */
+	  outer_context = null_context;
+	  context_iter = null_context_list_iterator;
+	  next_is_argument = false;
+	  next_context_iter = passthrough_context_list_iterator;
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
 	  break;
 
 	case token_type_dereference:
@@ -2920,6 +3104,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type dereference (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_dot:
@@ -2927,6 +3113,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type dot (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  break;
 
@@ -2936,6 +3124,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		   logical_file_name, tp->line_number, nesting_level,
 		   tp->string);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  break;
 
@@ -2944,6 +3134,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type regex operator (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  break;
 
 	case token_type_other:
@@ -2951,6 +3143,8 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  fprintf (stderr, "%s:%d: type other (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  break;
 
@@ -2966,6 +3160,7 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 
 void
 extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
+	      flag_context_list_table_ty *flag_table,
 	      msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
@@ -2977,6 +3172,8 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  flag_context_list_table = flag_table;
 
   init_keywords ();
 
@@ -2990,7 +3187,9 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing brace, just restart it.  */
-  while (!extract_balanced (mlp, -1, -1, 0, token_type_rbrace))
+  while (!extract_balanced (mlp, 0, token_type_rbrace,
+			    null_context, null_context_list_iterator,
+			    -1, -1))
     ;
 
   fp = NULL;

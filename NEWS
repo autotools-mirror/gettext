@@ -30,6 +30,12 @@ Version 0.12.2 - September 2003
   - Glade:
     xgettext now also supports Glade version 2.
 
+* xgettext has a more reliable detection of format strings.  It now
+  recognizes format strings depending on their position, for example as the
+  second argument of fprintf(), regardless whether the literal string contains
+  format directives.  This behaviour can be customized through the --flag
+  option.
+
 * libgettextpo library:
 
   - New functions for testing the obsolete/fuzzy/*-format flags of a message.

@@ -20,11 +20,15 @@
   { "java",    "Java"  },						\
 
 #define SCANNERS_JAVA \
-  { "Java",        extract_java, &formatstring_java, NULL },		\
+  { "Java",		extract_java,					\
+			&flag_table_java, &formatstring_java, NULL },	\
 
 extern void extract_java (FILE *fp, const char *real_filename,
 			  const char *logical_filename,
+			  flag_context_list_table_ty *flag_table,
 			  msgdomain_list_ty *mdlp);
 
 extern void x_java_keyword (const char *keyword);
 extern void x_java_extract_all (void);
+
+extern void init_flag_table_java (void);

@@ -27,8 +27,8 @@
 #include <stddef.h>
 
 #include "message.h"
-#include "x-rst.h"
 #include "xgettext.h"
+#include "x-rst.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xmalloc.h"
@@ -57,6 +57,7 @@
 void
 extract_rst (FILE *f,
 	     const char *real_filename, const char *logical_filename,
+	     flag_context_list_table_ty *flag_table,
 	     msgdomain_list_ty *mdlp)
 {
   static char *buffer;
@@ -218,7 +219,7 @@ extract_rst (FILE *f,
       pos.file_name = location;
       pos.line_number = (size_t)(-1);
 
-      remember_a_message (mlp, msgid, &pos);
+      remember_a_message (mlp, msgid, null_context, &pos);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)

@@ -24,12 +24,16 @@
   { "cgi",   "perl"   },						\
 
 #define SCANNERS_PERL \
-  { "perl",  extract_perl, &formatstring_perl, &formatstring_perl_brace }, \
+  { "perl",		extract_perl,					\
+	    &flag_table_perl, &formatstring_perl, &formatstring_perl_brace }, \
 
 /* Scan a Perl file and add its translatable strings to mdlp.  */
 extern void extract_perl (FILE *fp, const char *real_filename,
 			  const char *logical_filename,
+			  flag_context_list_table_ty *flag_table,
 			  msgdomain_list_ty *mdlp);
 
 extern void x_perl_keyword (const char *keyword);
 extern void x_perl_extract_all (void);
+
+extern void init_flag_table_perl (void);

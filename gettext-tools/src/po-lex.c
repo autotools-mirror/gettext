@@ -455,7 +455,6 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
 		  /* An invalid multibyte sequence was encountered.  */
 		  /* Return a single byte.  */
 		  if (signal_eilseq)
-		    /* xgettext: c-format */
 		    po_gram_error (_("invalid multibyte sequence"));
 		  bytes = 1;
 		  mbc->uc_valid = false;
@@ -484,7 +483,6 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
 		      if (ferror (mbf->fp))
 			goto eof;
 		      if (signal_eilseq)
-			/* xgettext: c-format */
 			po_gram_error (_("\
 incomplete multibyte sequence at end of file"));
 		      bytes = mbf->bufcount;
@@ -495,7 +493,6 @@ incomplete multibyte sequence at end of file"));
 		  if (c == '\n')
 		    {
 		      if (signal_eilseq)
-			/* xgettext: c-format */
 			po_gram_error (_("\
 incomplete multibyte sequence at end of line"));
 		      bytes = mbf->bufcount - 1;
@@ -847,7 +844,6 @@ control_sequence ()
       /* FIXME: \u and \U are not handled.  */
       }
   lex_ungetc (mbc);
-  /* xgettext: c-format */
   po_gram_error (_("invalid control sequence"));
   return ' ';
 }

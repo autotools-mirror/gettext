@@ -23,12 +23,16 @@
   { "php4",   "PHP"   },						\
 
 #define SCANNERS_PHP \
-  { "PHP",        extract_php, &formatstring_php, NULL },		\
+  { "PHP",		extract_php,					\
+			&flag_table_php, &formatstring_php, NULL },	\
 
 /* Scan a PHP file and add its translatable strings to mdlp.  */
 extern void extract_php (FILE *fp, const char *real_filename,
 			 const char *logical_filename,
+			 flag_context_list_table_ty *flag_table,
 			 msgdomain_list_ty *mdlp);
 
 extern void x_php_keyword (const char *keyword);
 extern void x_php_extract_all (void);
+
+extern void init_flag_table_php (void);

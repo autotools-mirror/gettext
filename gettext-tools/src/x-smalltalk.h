@@ -21,9 +21,11 @@
   { "st",     "Smalltalk"   },						\
 
 #define SCANNERS_SMALLTALK \
-  { "Smalltalk",  extract_smalltalk, &formatstring_smalltalk, NULL },	\
+  { "Smalltalk",	extract_smalltalk,				\
+			NULL, &formatstring_smalltalk, NULL },		\
 
 /* Scan a Smalltalk file and add its translatable strings to mdlp.  */
 extern void extract_smalltalk (FILE *fp, const char *real_filename,
 			       const char *logical_filename,
+			       flag_context_list_table_ty *flag_table,
 			       msgdomain_list_ty *mdlp);

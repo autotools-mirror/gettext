@@ -22,11 +22,12 @@
   { "glade2",    "glade"    },						\
 
 #define SCANNERS_GLADE \
-  { "glade",      extract_glade, NULL, NULL },				\
+  { "glade",		extract_glade, NULL, NULL, NULL },		\
 
 /* Scan a glade XML file and add its translatable strings to mdlp.  */
 extern void extract_glade (FILE *fp, const char *real_filename,
 			   const char *logical_filename,
+			   flag_context_list_table_ty *flag_table,
 			   msgdomain_list_ty *mdlp);
 
 

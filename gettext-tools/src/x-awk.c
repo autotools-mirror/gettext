@@ -28,8 +28,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-awk.h"
 #include "xgettext.h"
+#include "x-awk.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xmalloc.h"
@@ -100,6 +100,15 @@ init_keywords ()
       x_awk_keyword ("dcngettext:1,2");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_awk ()
+{
+  xgettext_record_flag ("dcgettext:1:pass-awk-format");
+  xgettext_record_flag ("dcngettext:1:pass-awk-format");
+  xgettext_record_flag ("dcngettext:2:pass-awk-format");
+  xgettext_record_flag ("printf:1:awk-format");
 }
 
 
@@ -217,6 +226,7 @@ enum token_type_ty
   token_type_string,		/* "abc" */
   token_type_i18nstring,	/* _"abc" */
   token_type_symbol,		/* symbol, number */
+  token_type_semicolon,		/* ; */
   token_type_other		/* regexp, misc. operator */
 };
 typedef enum token_type_ty token_type_ty;
@@ -386,7 +396,9 @@ x_awk_lex (token_ty *tp)
 	  if (last_non_comment_line > last_comment_line)
 	    xgettext_comment_reset ();
 	  /* Newline is not allowed inside expressions.  It usually
-	     introduces a fresh statement.  */
+	     introduces a fresh statement.
+	     FIXME: Newlines after any of ',' '{' '?' ':' '||' '&&' 'do' 'else'
+	     does *not* introduce a fresh statement.  */
 	  prefer_division_over_regexp = false;
 	  /* FALLTHROUGH */
 	case '\t':
@@ -538,6 +550,11 @@ x_awk_lex (token_ty *tp)
 	  prefer_division_over_regexp = false;
 	  return;
 
+	case ';':
+	  tp->type = token_type_semicolon;
+	  prefer_division_over_regexp = false;
+	  return;
+
 	case ']':
 	  tp->type = token_type_other;
 	  prefer_division_over_regexp = true;
@@ -643,6 +660,11 @@ x_awk_lex (token_ty *tp)
 
 /* ========================= Extracting strings.  ========================== */
 
+
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
+
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
@@ -667,6 +689,8 @@ x_awk_lex (token_ty *tp)
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
+		       flag_context_ty outer_context,
+		       flag_context_list_iterator_ty context_iter,
 		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
@@ -677,6 +701,16 @@ extract_parenthesized (message_list_ty *mlp,
   /* Parameters of the keyword just seen.  Defined only in state 1.  */
   int next_commas_to_skip = -1;
   int next_plural_commas = 0;
+  /* Whether to implicitly assume the next tokens are arguments even without
+     a '('.  */
+  bool next_is_argument = false;
+  /* Context iterator that will be used if the next token is a '('.  */
+  flag_context_list_iterator_ty next_context_iter =
+    passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty inner_context =
+    inherited_context (outer_context,
+		       flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
   state = 0;
@@ -686,6 +720,18 @@ extract_parenthesized (message_list_ty *mlp,
       token_ty token;
 
       x_awk_lex (&token);
+
+      if (next_is_argument && token.type != token_type_lparen)
+	{
+	  /* An argument list starts, even though there is no '('.  */
+	  context_iter = next_context_iter;
+	  outer_context = inner_context;
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	}
+
       switch (token.type)
 	{
 	case token_type_symbol:
@@ -706,15 +752,24 @@ extract_parenthesized (message_list_ty *mlp,
 	    else
 	      state = 0;
 	  }
+	  next_is_argument =
+	    (strcmp (token.string, "print") == 0
+	     || strcmp (token.string, "printf") == 0);
+	  next_context_iter =
+	    flag_context_list_iterator (
+	      flag_context_list_table_lookup (
+		flag_context_list_table,
+		token.string, strlen (token.string)));
 	  free (token.string);
 	  continue;
 
 	case token_type_lparen:
-	  if (state
-	      ? extract_parenthesized (mlp, next_commas_to_skip,
-				       next_plural_commas)
-	      : extract_parenthesized (mlp, -1, 0))
+	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
+				     state ? next_commas_to_skip : -1,
+				     state ? next_plural_commas : 0))
 	    return true;
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -735,6 +790,12 @@ extract_parenthesized (message_list_ty *mlp,
 		else
 		  commas_to_skip = -1;
 	    }
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	  next_is_argument = false;
+	  next_context_iter = passthrough_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -745,7 +806,7 @@ extract_parenthesized (message_list_ty *mlp,
 	    pos.line_number = token.line_number;
 
 	    if (extract_all)
-	      remember_a_message (mlp, token.string, &pos);
+	      remember_a_message (mlp, token.string, inner_context, &pos);
 	    else
 	      {
 		if (commas_to_skip == 0)
@@ -753,8 +814,9 @@ extract_parenthesized (message_list_ty *mlp,
 		    if (plural_mp == NULL)
 		      {
 			/* Seen an msgid.  */
-			message_ty *mp = remember_a_message (mlp, token.string,
-							     &pos);
+			message_ty *mp =
+			  remember_a_message (mlp, token.string,
+					      inner_context, &pos);
 			if (plural_commas > 0)
 			  plural_mp = mp;
 		      }
@@ -762,7 +824,7 @@ extract_parenthesized (message_list_ty *mlp,
 		      {
 			/* Seen an msgid_plural.  */
 			remember_a_message_plural (plural_mp, token.string,
-						   &pos);
+						   inner_context, &pos);
 			plural_mp = NULL;
 		      }
 		  }
@@ -770,6 +832,8 @@ extract_parenthesized (message_list_ty *mlp,
 		  free (token.string);
 	      }
 	  }
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -779,8 +843,28 @@ extract_parenthesized (message_list_ty *mlp,
 	    pos.file_name = logical_file_name;
 	    pos.line_number = token.line_number;
 
-	    remember_a_message (mlp, token.string, &pos);
+	    remember_a_message (mlp, token.string, inner_context, &pos);
 	  }
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
+	  state = 0;
+	  continue;
+
+	case token_type_semicolon:
+	  /* An argument list ends, and a new statement begins.  */
+	  /* FIXME: Should handle newline that acts as statement separator
+	     in the same way.  */
+	  /* FIXME: Instead of resetting outer_context here, it may be better
+	     to recurse in the next_is_argument handling above, waiting for
+	     the next semicolon or other statement terminator.  */
+	  outer_context = null_context;
+	  context_iter = null_context_list_iterator;
+	  next_is_argument = false;
+	  next_context_iter = passthrough_context_list_iterator;
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
 	  state = 0;
 	  continue;
 
@@ -788,6 +872,8 @@ extract_parenthesized (message_list_ty *mlp,
 	  return true;
 
 	case token_type_other:
+	  next_is_argument = false;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -801,6 +887,7 @@ extract_parenthesized (message_list_ty *mlp,
 void
 extract_awk (FILE *f,
 	     const char *real_filename, const char *logical_filename,
+	     flag_context_list_table_ty *flag_table,
 	     msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
@@ -815,11 +902,14 @@ extract_awk (FILE *f,
 
   prefer_division_over_regexp = false;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, -1, 0))
+  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
+				 -1, 0))
     ;
 
   fp = NULL;

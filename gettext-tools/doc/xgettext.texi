@@ -124,7 +124,7 @@ in output file.
 
 @end table
 
-@subsection Language=C/C++ specific options
+@subsection Language specific options
 
 @table @samp
 @item -a
@@ -132,6 +132,9 @@ in output file.
 @opindex -a@r{, @code{xgettext} option}
 @opindex --extract-all@r{, @code{xgettext} option}
 Extract all strings.
+
+This option has an effect with most languages, namely C, C++, ObjectiveC, Shell,
+Python, Lisp, EmacsLisp, librep, Java, awk, Tcl, Perl, PHP, GCC-source, Glade.
 
 @item -k @var{keywordspec}
 @itemx --keyword[=@var{keywordspec}]
@@ -150,11 +153,58 @@ for strings in the first argument of each call to the function or macro
 strings in the @var{argnum1}st argument and in the @var{argnum2}nd argument
 of the call, and treats them as singular/plural variants for a message
 with plural handling.
-
+@*
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
 @code{dcngettext:2,3}, and @code{gettext_noop}.
+@*
+This option has an effect with most languages, namely C, C++, ObjectiveC, Shell,
+Python, Lisp, EmacsLisp, librep, Java, awk, Tcl, Perl, PHP, GCC-source, Glade.
+
+@item --flag=@var{word}:@var{arg}:@var{flag}
+@opindex --flag@r{, @code{xgettext} option}
+Specifies additional flags for strings occurring as part of the @var{arg}th
+argument of the function @var{word}.  The possible flags are the possible
+format string indicators, such as @samp{c-format}, and their negations,
+such as @samp{no-c-format}, possibly prefixed with @samp{pass-}.
+@*
+@cindex function attribute, __format__
+The meaning of @code{--flag=@var{function}:@var{arg}:@var{lang}-format}
+is that in language @var{lang}, the specified @var{function} expects as
+@var{arg}th argument a format string.  (For those of you familiar with
+GCC function attributes, @code{--flag=@var{function}:@var{arg}:c-format} is
+roughly equivalent to the declaration
+@samp{__attribute__ ((__format__ (__printf__, @var{arg}, ...)))} attached
+to @var{function} in a C source file.)
+For example, if you use the @samp{error} function from GNU libc, you can
+specify its behaviour through @code{--flag=error:3:c-format}.  The effect of
+this specification is that @code{xgettext} will mark as format strings all
+@code{gettext} invocations that occur as @var{arg}th argument of
+@var{function}.
+This is useful when such strings contain no format string directives:
+together with the checks done by @samp{msgfmt -c} it will ensure that
+translators cannot accidentally use format string directives that would
+lead to a crash at runtime.
+@*
+@cindex function attribute, __format_arg__
+The meaning of @code{--flag=@var{function}:@var{arg}:pass-@var{lang}-format}
+is that in language @var{lang}, if the @var{function} call occurs in a
+position that must yield a format string, then its @var{arg}th argument
+must yield a format string of the same type as well.  (If you know GCC
+function attributes, the @code{--flag=@var{function}:@var{arg}:pass-c-format}
+option is roughly equivalent to the declaration
+@samp{__attribute__ ((__format_arg__ (@var{arg})))} attached to @var{function}
+in a C source file.)
+For example, if you use the @samp{_} shortcut for the @code{gettext} function,
+you should use @code{--flag=_:1:pass-c-format}.  The effect of this
+specification is that @code{xgettext} will propagate a format string
+requirement for a @code{_("string")} call to its first argument, the literal
+@code{"string"}, and thus mark it as a format string.
+This is useful when such strings contain no format string directives:
+together with the checks done by @samp{msgfmt -c} it will ensure that
+translators cannot accidentally use format string directives that would
+lead to a crash at runtime.
 
 @item -T
 @itemx --trigraphs
@@ -162,6 +212,8 @@ explicitly disabled, are @code{gettext}, @code{dgettext:2},
 @opindex --trigraphs@r{, @code{xgettext} option}
 @cindex C trigraphs
 Understand ANSI C trigraphs for input.
+@*
+This option has an effect only with the languages C, C++, ObjectiveC.
 
 @itemx --debug
 @opindex --debug@r{, @code{xgettext} option}

@@ -21,11 +21,13 @@
   { "el",        "EmacsLisp"     },					\
 
 #define SCANNERS_ELISP \
-  { "EmacsLisp",  extract_elisp, &formatstring_elisp, NULL },		\
+  { "EmacsLisp",	extract_elisp,					\
+			&flag_table_elisp, &formatstring_elisp, NULL },	\
 
 /* Scan an Emacs Lisp file and add its translatable strings to mdlp.  */
 extern void extract_elisp (FILE *fp, const char *real_filename,
 			   const char *logical_filename,
+			   flag_context_list_table_ty *flag_table,
 			   msgdomain_list_ty *mdlp);
 
 
@@ -33,3 +35,5 @@ extern void extract_elisp (FILE *fp, const char *real_filename,
 
 extern void x_elisp_extract_all (void);
 extern void x_elisp_keyword (const char *name);
+
+extern void init_flag_table_elisp (void);

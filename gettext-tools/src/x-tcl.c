@@ -30,8 +30,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-tcl.h"
 #include "xgettext.h"
+#include "x-tcl.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -115,6 +115,13 @@ init_keywords ()
       x_tcl_keyword ("::msgcat::mc");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_tcl ()
+{
+  xgettext_record_flag ("::msgcat::mc:1:pass-tcl-format");
+  xgettext_record_flag ("format:1:tcl-format");
 }
 
 
@@ -446,6 +453,10 @@ string_of_word (const struct word *wp)
 }
 
 
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
+
 /* Read an escape sequence.  The value is an ISO-8859-1 character (in the
    range 0x00..0xff) or a Unicode character (in the range 0x0000..0xffff).  */
 static int
@@ -555,12 +566,14 @@ enum terminator
 };
 
 /* Forward declaration of local functions.  */
-static enum word_type read_command_list (int looking_for);
+static enum word_type read_command_list (int looking_for,
+					 flag_context_ty outer_context);
 
 /* Accumulate tokens into the given word.
    'looking_for' denotes a parse terminator combination.  */
 static int
-accumulate_word (struct word *wp, enum terminator looking_for)
+accumulate_word (struct word *wp, enum terminator looking_for,
+		 flag_context_ty context)
 {
   int c;
 
@@ -630,7 +643,7 @@ accumulate_word (struct word *wp, enum terminator looking_for)
 		  struct word index_word;
 
 		  index_word.type = t_other;
-		  c = accumulate_word (&index_word, te_paren);
+		  c = accumulate_word (&index_word, te_paren, null_context);
 		  if (c != EOF && c != ')')
 		    phase2_ungetc (c);
 		  wp->type = t_other;
@@ -657,7 +670,7 @@ accumulate_word (struct word *wp, enum terminator looking_for)
 	}
       else if (c == '[')
 	{
-	  read_command_list (']');
+	  read_command_list (']', context);
 	  wp->type = t_other;
 	}
       else if (c == '\\')
@@ -693,7 +706,7 @@ accumulate_word (struct word *wp, enum terminator looking_for)
 /* Read the next word.
    'looking_for' denotes a parse terminator, either ']' or '\0'.  */
 static void
-read_word (struct word *wp, int looking_for)
+read_word (struct word *wp, int looking_for, flag_context_ty context)
 {
   int c;
 
@@ -748,7 +761,7 @@ read_word (struct word *wp, int looking_for)
       previous_depth = phase2_push () - 1;
 
       /* Interpret it as a command list.  */
-      terminator = read_command_list ('\0');
+      terminator = read_command_list ('\0', null_context);
 
       if (terminator == t_brace)
 	phase2_pop (previous_depth);
@@ -765,7 +778,7 @@ read_word (struct word *wp, int looking_for)
 
   if (c == '"')
     {
-      c = accumulate_word (wp, te_quote);
+      c = accumulate_word (wp, te_quote, context);
       if (c != EOF && c != '"')
 	phase2_ungetc (c);
     }
@@ -775,7 +788,8 @@ read_word (struct word *wp, int looking_for)
       c = accumulate_word (wp,
 			   looking_for == ']'
 			   ? te_space_separator_bracket
-			   : te_space_separator);
+			   : te_space_separator,
+			   context);
       if (c != EOF)
 	phase2_ungetc (c);
     }
@@ -794,7 +808,7 @@ read_word (struct word *wp, int looking_for)
    Returns the type of the word that terminated the command: t_separator or
    t_bracket (only if looking_for is ']') or t_brace or t_eof.  */
 static enum word_type
-read_command (int looking_for)
+read_command (int looking_for, flag_context_ty outer_context)
 {
   int c;
 
@@ -828,6 +842,7 @@ read_command (int looking_for)
   /* Read the words that make up the command.  */
   {
     int arg = 0;		/* Current argument number.  */
+    flag_context_list_iterator_ty context_iter;
     int argnum1 = 0;		/* First string position.  */
     int argnum2 = 0;		/* Plural string position.  */
     message_ty *plural_mp = NULL;	/* Remember the msgid.  */
@@ -835,8 +850,17 @@ read_command (int looking_for)
     for (;; arg++)
       {
 	struct word inner;
+	flag_context_ty inner_context;
 
-	read_word (&inner, looking_for);
+	if (arg == 0)
+	  inner_context = null_context;
+	else
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+
+	read_word (&inner, looking_for, inner_context);
 
 	/* Recognize end of command.  */
 	if (inner.type == t_separator || inner.type == t_bracket
@@ -851,66 +875,75 @@ read_command (int looking_for)
 
 		pos.file_name = logical_file_name;
 		pos.line_number = inner.line_number_at_start;
-		remember_a_message (mlp, string_of_word (&inner), &pos);
+		remember_a_message (mlp, string_of_word (&inner),
+				    inner_context, &pos);
 	      }
+	  }
+
+	if (arg == 0)
+	  {
+	    /* This is the function position.  */
+	    if (inner.type == t_string)
+	      {
+		char *function_name = string_of_word (&inner);
+		char *stripped_name;
+		void *keyword_value;
+
+		/* A leading "::" is redundant.  */
+		stripped_name = function_name;
+		if (function_name[0] == ':' && function_name[1] == ':')
+		  stripped_name += 2;
+
+		if (find_entry (&keywords,
+				stripped_name, strlen (stripped_name),
+				&keyword_value)
+		    == 0)
+		  {
+		    argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
+		    argnum2 = (int) (long) keyword_value >> 10;
+		  }
+
+		context_iter =
+		  flag_context_list_iterator (
+		    flag_context_list_table_lookup (
+		      flag_context_list_table,
+		      stripped_name, strlen (stripped_name)));
+
+		free (function_name);
+	      }
+	    else
+	      context_iter = null_context_list_iterator;
 	  }
 	else
 	  {
-	    if (arg == 0)
+	    /* These are the argument positions.
+	       Extract a string if we have reached the right
+	       argument position.  */
+	    if (arg == argnum1)
 	      {
-		/* This is the function position.  */
 		if (inner.type == t_string)
 		  {
-		    char *function_name = string_of_word (&inner);
-		    char *stripped_name;
-		    void *keyword_value;
+		    lex_pos_ty pos;
+		    message_ty *mp;
 
-		    /* A leading "::" is redundant.  */
-		    stripped_name = function_name;
-		    if (function_name[0] == ':' && function_name[1] == ':')
-		      stripped_name += 2;
-
-		    if (find_entry (&keywords,
-				    stripped_name, strlen (stripped_name),
-				    &keyword_value)
-			== 0)
-		      {
-			argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-			argnum2 = (int) (long) keyword_value >> 10;
-		      }
-
-		    free (function_name);
+		    pos.file_name = logical_file_name;
+		    pos.line_number = inner.line_number_at_start;
+		    mp = remember_a_message (mlp, string_of_word (&inner),
+					     inner_context, &pos);
+		    if (argnum2 > 0)
+		      plural_mp = mp;
 		  }
 	      }
-	    else
+	    else if (arg == argnum2)
 	      {
-		/* These are the argument positions.
-		   Extract a string if we have reached the right
-		   argument position.  */
-		if (arg == argnum1)
+		if (inner.type == t_string && plural_mp != NULL)
 		  {
-		    if (inner.type == t_string)
-		      {
-			lex_pos_ty pos;
-			message_ty *mp;
+		    lex_pos_ty pos;
 
-			pos.file_name = logical_file_name;
-			pos.line_number = inner.line_number_at_start;
-			mp = remember_a_message (mlp, string_of_word (&inner), &pos);
-			if (argnum2 > 0)
-			  plural_mp = mp;
-		      }
-		  }
-		else if (arg == argnum2)
-		  {
-		    if (inner.type == t_string && plural_mp != NULL)
-		      {
-			lex_pos_ty pos;
-
-			pos.file_name = logical_file_name;
-			pos.line_number = inner.line_number_at_start;
-			remember_a_message_plural (plural_mp, string_of_word (&inner), &pos);
-		      }
+		    pos.file_name = logical_file_name;
+		    pos.line_number = inner.line_number_at_start;
+		    remember_a_message_plural (plural_mp, string_of_word (&inner),
+					       inner_context, &pos);
 		  }
 	      }
 	  }
@@ -926,13 +959,13 @@ read_command (int looking_for)
    Returns the type of the word that terminated the command list:
    t_bracket (only if looking_for is ']') or t_brace or t_eof.  */
 static enum word_type
-read_command_list (int looking_for)
+read_command_list (int looking_for, flag_context_ty outer_context)
 {
   for (;;)
     {
       enum word_type terminator;
 
-      terminator = read_command (looking_for);
+      terminator = read_command (looking_for, outer_context);
       if (terminator != t_separator)
 	return terminator;
     }
@@ -942,6 +975,7 @@ read_command_list (int looking_for)
 void
 extract_tcl (FILE *f,
 	     const char *real_filename, const char *logical_filename,
+	     flag_context_list_table_ty *flag_table,
 	     msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
@@ -960,10 +994,12 @@ extract_tcl (FILE *f,
   last_comment_line = -1;
   last_non_comment_line = -1;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  */
-  read_command_list ('\0');
+  read_command_list ('\0', null_context);
 
   fp = NULL;
   real_file_name = NULL;

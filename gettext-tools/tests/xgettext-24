@@ -65,6 +65,7 @@ msgid "hello"
 msgstr "Again some text for fuzzy"
 
 #: xg-test24.c:6
+#, c-format
 msgid "Hello, world."
 msgstr ""
 

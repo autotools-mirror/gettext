@@ -29,8 +29,8 @@
 #include <stdlib.h>
 
 #include "message.h"
-#include "x-ycp.h"
 #include "xgettext.h"
+#include "x-ycp.h"
 #include "error.h"
 #include "xmalloc.h"
 #include "exit.h"
@@ -41,6 +41,19 @@
 
 /* The YCP syntax is defined in libycp/doc/syntax.html.
    See also libycp/src/scanner.ll.  */
+
+
+void
+init_flag_table_ycp ()
+{
+  xgettext_record_flag ("sformat:1:ycp-format");
+  xgettext_record_flag ("y2debug:1:ycp-format");
+  xgettext_record_flag ("y2milestone:1:ycp-format");
+  xgettext_record_flag ("y2warning:1:ycp-format");
+  xgettext_record_flag ("y2error:1:ycp-format");
+  xgettext_record_flag ("y2security:1:ycp-format");
+  xgettext_record_flag ("y2internal:1:ycp-format");
+}
 
 
 /* ======================== Reading of characters.  ======================== */
@@ -520,16 +533,13 @@ x_ycp_lex (token_ty *tp)
 
 /* ========================= Extracting strings.  ========================== */
 
-void
-extract_ycp (FILE *f,
-	     const char *real_filename, const char *logical_filename,
-	     msgdomain_list_ty *mdlp)
-{
-  message_list_ty *mlp = mdlp->item[0]->messages;
-  int state;
-  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
 
-  /* The file is broken into tokens.
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
+
+/* The file is broken into tokens.
+
      Normal handling: Look for
        [A] _( [B] msgid ... )
      Plural handling: Look for
@@ -537,19 +547,33 @@ extract_ycp (FILE *f,
      At point [A]: state == 0.
      At point [B]: state == 1, plural_mp == NULL.
      At point [C]: state == 2, plural_mp != NULL.
-     At point [D]: state == 1, plural_mp != NULL.  */
+     At point [D]: state == 1, plural_mp != NULL.
 
-  fp = f;
-  real_file_name = real_filename;
-  logical_file_name = xstrdup (logical_filename);
-  line_number = 1;
-  char_in_line = 0;
+   We use recursion because we have to set the context according to the given
+   flags.  */
 
-  last_comment_line = -1;
-  last_non_comment_line = -1;
 
-  /* Start state is 0.  */
-  state = 0;
+/* Extract messages until the next balanced closing parenthesis.
+   Extracted messages are added to MLP.
+   Return true upon eof, false upon closing parenthesis.  */
+static bool
+extract_parenthesized (message_list_ty *mlp,
+		       flag_context_ty outer_context,
+		       flag_context_list_iterator_ty context_iter,
+		       bool in_i18n)
+{
+  int state; /* 1 or 2 inside _( ... ), otherwise 0 */
+  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
+  /* Context iterator that will be used if the next token is a '('.  */
+  flag_context_list_iterator_ty next_context_iter =
+    passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty inner_context =
+    inherited_context (outer_context,
+		       flag_context_list_iterator_advance (&context_iter));
+
+  /* Start state is 0 or 1.  */
+  state = (in_i18n ? 1 : 0);
 
   for (;;)
     {
@@ -559,8 +583,11 @@ extract_ycp (FILE *f,
       switch (token.type)
 	{
 	case token_type_i18n:
-	  state = 1;
-	  plural_mp = NULL;
+	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
+				     true))
+	    return true;
+	  next_context_iter = null_context_list_iterator;
+	  state = 0;
 	  continue;
 
 	case token_type_string_literal:
@@ -573,13 +600,15 @@ extract_ycp (FILE *f,
 	      if (plural_mp == NULL)
 		{
 		  /* Seen an msgid.  */
-		  plural_mp = remember_a_message (mlp, token.string, &pos);
+		  plural_mp = remember_a_message (mlp, token.string,
+						  inner_context, &pos);
 		  state = 2;
 		}
 	      else
 		{
 		  /* Seen an msgid_plural.  */
-		  remember_a_message_plural (plural_mp, token.string, &pos);
+		  remember_a_message_plural (plural_mp, token.string,
+					     inner_context, &pos);
 		  state = 0;
 		}
 	    }
@@ -588,27 +617,81 @@ extract_ycp (FILE *f,
 	      free (token.string);
 	      state = 0;
 	    }
+	  next_context_iter = null_context_list_iterator;
 	  continue;
+
+	case token_type_symbol:
+	  next_context_iter =
+	    flag_context_list_iterator (
+	      flag_context_list_table_lookup (
+		flag_context_list_table,
+		token.string, strlen (token.string)));
+	  free (token.string);
+	  state = 0;
+	  continue;
+
+	case token_type_lparen:
+	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
+				     false))
+	    return true;
+	  next_context_iter = null_context_list_iterator;
+	  state = 0;
+	  continue;
+
+	case token_type_rparen:
+	  return false;
 
 	case token_type_comma:
 	  if (state == 2)
 	    state = 1;
 	  else
 	    state = 0;
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	  next_context_iter = passthrough_context_list_iterator;
+	  continue;
+
+	case token_type_other:
+	  next_context_iter = null_context_list_iterator;
+	  state = 0;
 	  continue;
 
 	case token_type_eof:
-	  break;
+	  return true;
 
-	case token_type_symbol:
-	  free (token.string);
-	  /* FALLTHROUGH */
 	default:
-	  state = 0;
-	  continue;
+	  abort ();
 	}
-      break;
     }
+}
+
+
+void
+extract_ycp (FILE *f,
+	     const char *real_filename, const char *logical_filename,
+	     flag_context_list_table_ty *flag_table,
+	     msgdomain_list_ty *mdlp)
+{
+  message_list_ty *mlp = mdlp->item[0]->messages;
+
+  fp = f;
+  real_file_name = real_filename;
+  logical_file_name = xstrdup (logical_filename);
+  line_number = 1;
+  char_in_line = 0;
+
+  last_comment_line = -1;
+  last_non_comment_line = -1;
+
+  flag_context_list_table = flag_table;
+
+  /* Eat tokens until eof is seen.  When extract_parenthesized returns
+     due to an unbalanced closing parenthesis, just restart it.  */
+  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
+				 false))
+    ;
 
   fp = NULL;
   real_file_name = NULL;

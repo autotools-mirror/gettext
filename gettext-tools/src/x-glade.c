@@ -35,8 +35,8 @@
 #endif
 
 #include "message.h"
-#include "x-glade.h"
 #include "xgettext.h"
+#include "x-glade.h"
 #include "error.h"
 #include "xerror.h"
 #include "basename.h"
@@ -268,7 +268,8 @@ start_element_handler (void *userData, const char *name,
 		  pos.file_name = logical_file_name;
 		  pos.line_number = XML_GetCurrentLineNumber (parser);
 
-		  remember_a_message (mlp, xstrdup (attp[1]), &pos);
+		  remember_a_message (mlp, xstrdup (attp[1]),
+				      null_context, &pos);
 		}
 	      break;
 	    }
@@ -304,7 +305,7 @@ end_element_handler (void *userData, const char *name)
 	  pos.file_name = logical_file_name;
 	  pos.line_number = p->lineno;
 
-	  remember_a_message (mlp, p->buffer, &pos);
+	  remember_a_message (mlp, p->buffer, null_context, &pos);
 	  p->buffer = NULL;
 	}
     }
@@ -433,6 +434,7 @@ error while reading \"%s\""), real_filename);
 void
 extract_glade (FILE *fp,
 	       const char *real_filename, const char *logical_filename,
+	       flag_context_list_table_ty *flag_table,
 	       msgdomain_list_ty *mdlp)
 {
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT

@@ -28,8 +28,8 @@
 #include <string.h>
 
 #include "message.h"
-#include "x-c.h"
 #include "xgettext.h"
+#include "x-c.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xmalloc.h"
@@ -153,6 +153,120 @@ init_keywords ()
       x_c_keyword ("gettext_noop");
       default_keywords = false;
     }
+}
+
+void
+init_flag_table_c ()
+{
+  xgettext_record_flag ("gettext:1:pass-c-format");
+  xgettext_record_flag ("dgettext:2:pass-c-format");
+  xgettext_record_flag ("dcgettext:2:pass-c-format");
+  xgettext_record_flag ("ngettext:1:pass-c-format");
+  xgettext_record_flag ("ngettext:2:pass-c-format");
+  xgettext_record_flag ("dngettext:2:pass-c-format");
+  xgettext_record_flag ("dngettext:3:pass-c-format");
+  xgettext_record_flag ("dcngettext:2:pass-c-format");
+  xgettext_record_flag ("dcngettext:3:pass-c-format");
+  xgettext_record_flag ("gettext_noop:1:pass-c-format");
+  /* <stdio.h> */
+  xgettext_record_flag ("fprintf:2:c-format");
+  xgettext_record_flag ("vfprintf:2:c-format");
+  xgettext_record_flag ("printf:1:c-format");
+  xgettext_record_flag ("vprintf:1:c-format");
+  xgettext_record_flag ("sprintf:2:c-format");
+  xgettext_record_flag ("vsprintf:2:c-format");
+  xgettext_record_flag ("snprintf:3:c-format");
+  xgettext_record_flag ("vsnprintf:3:c-format");
+#if 0 /* These functions are not standard.  */
+  /* <stdio.h> */
+  xgettext_record_flag ("asprintf:2:c-format");
+  xgettext_record_flag ("vasprintf:2:c-format");
+  xgettext_record_flag ("dprintf:2:c-format");
+  xgettext_record_flag ("vdprintf:2:c-format");
+  xgettext_record_flag ("obstack_printf:2:c-format");
+  xgettext_record_flag ("obstack_vprintf:2:c-format");
+  /* <error.h> */
+  xgettext_record_flag ("error:3:c-format");
+  xgettext_record_flag ("error_at_line:5:c-format");
+  /* <argp.h> */
+  xgettext_record_flag ("argp_error:2:c-format");
+  xgettext_record_flag ("argp_failure:2:c-format");
+#endif
+}
+
+void
+init_flag_table_gcc_internal ()
+{
+  xgettext_record_flag ("gettext:1:pass-gcc-internal-format");
+  xgettext_record_flag ("dgettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("dcgettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("ngettext:1:pass-gcc-internal-format");
+  xgettext_record_flag ("ngettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("dngettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("dngettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("dcngettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("dcngettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("gettext_noop:1:pass-gcc-internal-format");
+#if 0 /* This should better be done inside GCC.  */
+  /* grepping for ATTRIBUTE_PRINTF in gcc-3.3/gcc/?*.h */
+  /* c-format.c */
+  xgettext_record_flag ("status_warning:2:gcc-internal-format");
+  /* c-tree.h */
+  xgettext_record_flag ("pedwarn_c99:1:pass-gcc-internal-format");
+  /* collect2.h */
+  //xgettext_record_flag ("error:1:c-format"); // 3 different versions
+  xgettext_record_flag ("notice:1:c-format");
+  //xgettext_record_flag ("fatal:1:c-format"); // 2 different versions
+  xgettext_record_flag ("fatal_perror:1:c-format");
+  /* cpplib.h */
+  xgettext_record_flag ("cpp_error:3:c-format");
+  xgettext_record_flag ("cpp_error_with_line:5:c-format");
+  /* diagnostic.h */
+  xgettext_record_flag ("diagnostic_set_info:2:pass-gcc-internal-format");
+  xgettext_record_flag ("output_printf:2:gcc-internal-format");
+  xgettext_record_flag ("output_verbatim:2:pass-gcc-internal-format");
+  xgettext_record_flag ("verbatim:1:gcc-internal-format");
+  xgettext_record_flag ("inform:1:pass-gcc-internal-format");
+  /* gcc.h */
+  //xgettext_record_flag ("fatal:1:c-format"); // 2 different versions
+  //xgettext_record_flag ("error:1:c-format"); // 3 different versions
+  /* genattrtab.h */
+  xgettext_record_flag ("attr_printf:2:pass-c-format");
+  /* gengtype.h */
+  xgettext_record_flag ("error_at_line:2:pass-c-format");
+  xgettext_record_flag ("xvasprintf:2:pass-c-format");
+  xgettext_record_flag ("xasprintf:1:pass-c-format");
+  xgettext_record_flag ("oprintf:2:pass-c-format");
+  /* gensupport.h */
+  xgettext_record_flag ("message_with_line:2:pass-c-format");
+  /* output.h */
+  xgettext_record_flag ("output_operand_lossage:1:c-format");
+  /* ra.h */
+   xgettext_record_flag ("ra_debug_msg:2:pass-c-format");
+  /* toplev.h */
+  xgettext_record_flag ("fnotice:2:c-format");
+  xgettext_record_flag ("fatal_io_error:2:gcc-internal-format");
+  xgettext_record_flag ("error_for_asm:2:pass-gcc-internal-format");
+  xgettext_record_flag ("warning_for_asm:2:pass-gcc-internal-format");
+  xgettext_record_flag ("error_with_file_and_line:3:pass-gcc-internal-format");
+  xgettext_record_flag ("error_with_decl:2:pass-gcc-internal-format");
+  xgettext_record_flag ("pedwarn:1:gcc-internal-format");
+  xgettext_record_flag ("pedwarn_with_file_and_line:3:gcc-internal-format");
+  xgettext_record_flag ("pedwarn_with_decl:2:gcc-internal-format");
+  xgettext_record_flag ("sorry:1:gcc-internal-format");
+  xgettext_record_flag ("error:1:pass-gcc-internal-format");
+  xgettext_record_flag ("fatal_error:1:pass-gcc-internal-format");
+  xgettext_record_flag ("internal_error:1:pass-gcc-internal-format");
+  xgettext_record_flag ("warning:1:pass-gcc-internal-format");
+  xgettext_record_flag ("warning_with_file_and_line:3:pass-gcc-internal-format");
+  xgettext_record_flag ("warning_with_decl:2:pass-gcc-internal-format");
+  /* f/com.h */
+  xgettext_record_flag ("ffecom_get_invented_identifier:1:pass-c-format");
+  /* f/sts.h */
+  xgettext_record_flag ("ffests_printf:2:pass-c-format");
+  /* java/java-tree.h */
+  xgettext_record_flag ("parse_error_context:2:pass-c-format");
+#endif
 }
 
 
@@ -1208,11 +1322,12 @@ enum xgettext_token_type_ty
 {
   xgettext_token_type_eof,
   xgettext_token_type_keyword,
+  xgettext_token_type_symbol,
   xgettext_token_type_lparen,
   xgettext_token_type_rparen,
   xgettext_token_type_comma,
   xgettext_token_type_string_literal,
-  xgettext_token_type_symbol
+  xgettext_token_type_other
 };
 typedef enum xgettext_token_type_ty xgettext_token_type_ty;
 
@@ -1225,7 +1340,8 @@ struct xgettext_token_ty
   int argnum1;
   int argnum2;
 
-  /* This field is used only for xgettext_token_type_string_literal.  */
+  /* This field is used only for xgettext_token_type_string_literal,
+     xgettext_token_type_keyword, xgettext_token_type_symbol.  */
   char *string;
 
   /* These fields are only for
@@ -1285,7 +1401,7 @@ x_c_lex (xgettext_token_ty *tp)
 	    }
 	  else
 	    tp->type = xgettext_token_type_symbol;
-	  free (token.string);
+	  tp->string = token.string;
 	  return;
 
 	case token_type_lparen:
@@ -1318,7 +1434,7 @@ x_c_lex (xgettext_token_ty *tp)
 	default:
 	  last_non_comment_line = newline_count;
 
-	  tp->type = xgettext_token_type_symbol;
+	  tp->type = xgettext_token_type_other;
 	  return;
 	}
     }
@@ -1326,6 +1442,11 @@ x_c_lex (xgettext_token_ty *tp)
 
 
 /* ========================= Extracting strings.  ========================== */
+
+
+/* Context lookup table.  */
+static flag_context_list_table_ty *flag_context_list_table;
+
 
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
@@ -1351,6 +1472,8 @@ x_c_lex (xgettext_token_ty *tp)
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
+		       flag_context_ty outer_context,
+		       flag_context_list_iterator_ty context_iter,
 		       int commas_to_skip, int plural_commas)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
@@ -1361,6 +1484,13 @@ extract_parenthesized (message_list_ty *mlp,
   /* Parameters of the keyword just seen.  Defined only in state 1.  */
   int next_commas_to_skip = -1;
   int next_plural_commas = 0;
+  /* Context iterator that will be used if the next token is a '('.  */
+  flag_context_list_iterator_ty next_context_iter =
+    passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty inner_context =
+    inherited_context (outer_context,
+		       flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
   state = 0;
@@ -1376,15 +1506,31 @@ extract_parenthesized (message_list_ty *mlp,
 	  next_commas_to_skip = token.argnum1 - 1;
 	  next_plural_commas = (token.argnum2 > token.argnum1
 				? token.argnum2 - token.argnum1 : 0);
+	  next_context_iter =
+	    flag_context_list_iterator (
+	      flag_context_list_table_lookup (
+		flag_context_list_table,
+		token.string, strlen (token.string)));
+	  free (token.string);
 	  state = 1;
 	  continue;
 
+	case xgettext_token_type_symbol:
+	  next_context_iter =
+	    flag_context_list_iterator (
+	      flag_context_list_table_lookup (
+		flag_context_list_table,
+		token.string, strlen (token.string)));
+	  free (token.string);
+	  state = 0;
+	  continue;
+
 	case xgettext_token_type_lparen:
-	  if (state
-	      ? extract_parenthesized (mlp, next_commas_to_skip,
-				       next_plural_commas)
-	      : extract_parenthesized (mlp, -1, 0))
+	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
+				     state ? next_commas_to_skip : -1,
+				     state ? next_plural_commas : 0))
 	    return true;
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1405,12 +1551,17 @@ extract_parenthesized (message_list_ty *mlp,
 		else
 		  commas_to_skip = -1;
 	    }
+	  inner_context =
+	    inherited_context (outer_context,
+			       flag_context_list_iterator_advance (
+				 &context_iter));
+	  next_context_iter = passthrough_context_list_iterator;
 	  state = 0;
 	  continue;
 
 	case xgettext_token_type_string_literal:
 	  if (extract_all)
-	    remember_a_message (mlp, token.string, &token.pos);
+	    remember_a_message (mlp, token.string, inner_context, &token.pos);
 	  else
 	    {
 	      if (commas_to_skip == 0)
@@ -1418,8 +1569,9 @@ extract_parenthesized (message_list_ty *mlp,
 		  if (plural_mp == NULL)
 		    {
 		      /* Seen an msgid.  */
-		      message_ty *mp = remember_a_message (mlp, token.string,
-							   &token.pos);
+		      message_ty *mp =
+			remember_a_message (mlp, token.string,
+					    inner_context, &token.pos);
 		      if (plural_commas > 0)
 			plural_mp = mp;
 		    }
@@ -1427,17 +1579,19 @@ extract_parenthesized (message_list_ty *mlp,
 		    {
 		      /* Seen an msgid_plural.  */
 		      remember_a_message_plural (plural_mp, token.string,
-						 &token.pos);
+						 inner_context, &token.pos);
 		      plural_mp = NULL;
 		    }
 		}
 	      else
 		free (token.string);
 	    }
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
-	case xgettext_token_type_symbol:
+	case xgettext_token_type_other:
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1454,6 +1608,7 @@ extract_parenthesized (message_list_ty *mlp,
 void
 extract_c (FILE *f,
 	   const char *real_filename, const char *logical_filename,
+	   flag_context_list_table_ty *flag_table,
 	   msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
@@ -1467,11 +1622,14 @@ extract_c (FILE *f,
   last_comment_line = -1;
   last_non_comment_line = -1;
 
+  flag_context_list_table = flag_table;
+
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, -1, 0))
+  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
+				 -1, 0))
     ;
 
   /* Close scanner.  */

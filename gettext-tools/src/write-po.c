@@ -79,6 +79,7 @@ make_format_description_string (enum is_format is_format, const char *lang,
 	  break;
 	}
       /* FALLTHROUGH */
+    case yes_according_to_context:
     case yes:
       sprintf (result, " %s-format", lang);
       break;

@@ -22,7 +22,12 @@ EOF
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -k__ -k__n:1,2 -k__x -o prog.pot --omit-header --no-location program.pl
+${XGETTEXT} \
+  -k__ --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format \
+  -k__n:1,2 --flag=__n:1:pass-perl-format --flag=__n:1:pass-perl-brace-format \
+            --flag=__n:2:pass-perl-format --flag=__n:2:pass-perl-brace-format \
+  -k__x --flag=__x:1:perl-brace-format \
+  -o prog.pot --omit-header --no-location program.pl
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok

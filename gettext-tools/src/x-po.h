@@ -22,9 +22,10 @@
   { "pot",    "PO"    },						\
 
 #define SCANNERS_PO \
-  { "PO", extract_po, NULL, NULL },					\
+  { "PO",		extract_po, NULL, NULL, NULL },			\
 
 /* Scan a PO file and add its translatable strings to mdlp.  */
 extern void extract_po (FILE *fp, const char *real_filename,
 			const char *logical_filename,
+			flag_context_list_table_ty *flag_table,
 			msgdomain_list_ty *mdlp);

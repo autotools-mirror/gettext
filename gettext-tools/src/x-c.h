@@ -31,14 +31,19 @@
   { "m",      "ObjectiveC" },						\
 
 #define SCANNERS_C \
-  { "C",          extract_c, &formatstring_c, NULL },			\
-  { "C++",        extract_c, &formatstring_c, NULL },			\
-  { "ObjectiveC", extract_c, &formatstring_c, NULL },			\
-  { "GCC-source", extract_c, &formatstring_gcc_internal, NULL },	\
+  { "C",		extract_c,					\
+			&flag_table_c, &formatstring_c, NULL },		\
+  { "C++",		extract_c,					\
+			&flag_table_c, &formatstring_c, NULL },		\
+  { "ObjectiveC",	extract_c,					\
+			&flag_table_c, &formatstring_c, NULL },		\
+  { "GCC-source",	extract_c,					\
+		&flag_table_gcc_internal, &formatstring_gcc_internal, NULL }, \
 
 /* Scan a C/C++/ObjectiveC file and add its translatable strings to mdlp.  */
 extern void extract_c (FILE *fp, const char *real_filename,
 		       const char *logical_filename,
+		       flag_context_list_table_ty *flag_table,
 		       msgdomain_list_ty *mdlp);
 
 
@@ -50,3 +55,6 @@ extern void x_c_keyword (const char *name);
 extern bool x_c_any_keywords (void);
 
 extern void x_c_trigraphs (void);
+
+extern void init_flag_table_c (void);
+extern void init_flag_table_gcc_internal (void);

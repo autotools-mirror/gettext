@@ -21,12 +21,16 @@
   { "awk",    "awk"   },						\
 
 #define SCANNERS_AWK \
-  { "awk",        extract_awk, &formatstring_awk, NULL },		\
+  { "awk",		extract_awk,					\
+			&flag_table_awk, &formatstring_awk, NULL },	\
 
 /* Scan an awk file and add its translatable strings to mdlp.  */
 extern void extract_awk (FILE *fp, const char *real_filename,
 			 const char *logical_filename,
+			 flag_context_list_table_ty *flag_table,
 			 msgdomain_list_ty *mdlp);
 
 extern void x_awk_keyword (const char *keyword);
 extern void x_awk_extract_all (void);
+
+extern void init_flag_table_awk (void);
