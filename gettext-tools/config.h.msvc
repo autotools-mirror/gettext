@@ -513,7 +513,7 @@
 #undef STRERROR_R_CHAR_P
 
 /* Version number of package */
-#define VERSION "0.12"
+#define VERSION "0.12.1"
 
 /* Enable GNU extensions on systems that have them.  */
 #ifndef _GNU_SOURCE

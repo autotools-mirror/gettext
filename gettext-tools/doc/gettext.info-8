@@ -147,7 +147,7 @@ repository all the files that `gettextize' mentions as "copy".
 Instead, he adds to the `configure.in' or `configure.ac' a line of the
 form
 
-     AM_GNU_GETTEXT_VERSION(0.12-pre4)
+     AM_GNU_GETTEXT_VERSION(0.12.1)
 
 and adds to the package's pre-build script an invocation of
 `autopoint'.  For everyone who checks out the CVS, this `autopoint'
@@ -192,9 +192,9 @@ Informative output
      Output version information and exit.
 
    `autopoint' supports the GNU `gettext' versions from 0.10.35 to the
-current one, 0.12-pre4.  In order to apply `autopoint' to a package
-using a `gettext' version newer than 0.12-pre4, you need to install
-this same version of GNU `gettext' at least.
+current one, 0.12.1.  In order to apply `autopoint' to a package using
+a `gettext' version newer than 0.12.1, you need to install this same
+version of GNU `gettext' at least.
 
    In packages using GNU `automake', an invocation of `autopoint'
 should be followed by invocations of `aclocal' and then `autoconf' and
