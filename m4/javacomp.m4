@@ -32,7 +32,7 @@ AC_DEFUN([gt_JAVACOMP],
     popdef([AC_MSG_CHECKING])dnl
 changequote(,)dnl
     if test -n "$HAVE_GCJ_IN_PATH" \
-       && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | grep '^[3-9]' >/dev/null \
+       && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^3\.[01]/d' | grep '^[3-9]' >/dev/null \
        && (
         # See if libgcj.jar is well installed.
         cat > conftest.java <<EOF

@@ -1,3 +1,10 @@
+2002-06-15  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.c (compile_java_class): Ignore gcj versions that start with
+	"3.0" or "3.1". (gcj 3.0.4 compiles GetURL.java to invalid bytecode,
+	that crashes with an IllegalAccessError when executed by gij 3.0.4 or
+	with a VerifyError when executed by Sun Java. Likewise for gcj 3.1.)
+
 2002-05-29  Bruno Haible  <bruno@clisp.org>
 
 	* linebreak.c (nonspacing_table_data, uc_width): Upgrade to

@@ -55,7 +55,7 @@
    Program  from        A  C               O  g  T
 
    $JAVAC   unknown     N  n/a            -O -g  true
-   gcj -C   GCC 3.0     Y  --classpath=P  -O -g  gcj --version | sed -e 's,^[^0-9]*,,' -e 1q | grep '^[3-9]' >/dev/null
+   gcj -C   GCC 3.2     Y  --classpath=P  -O -g  gcj --version | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^3\.[01]/d' | grep '^[3-9]' >/dev/null
    javac    JDK 1.1.8   Y  -classpath P   -O -g  javac 2>/dev/null; test $? = 1
    javac    JDK 1.3.0   Y  -classpath P   -O -g  javac 2>/dev/null; test $? -le 2
    jikes    Jikes 1.14  N  -classpath P   -O -g  jikes 2>/dev/null; test $? = 1
@@ -194,7 +194,8 @@ compile_java_class (java_sources, java_sources_count,
       {
 	/* Test for presence of gcj:
 	   "gcj --version 2> /dev/null | \
-	    sed -e 's,^[^0-9]*,,' -e 1q | grep '^[3-9]' > /dev/null"  */
+	    sed -e 's,^[^0-9]*,,' -e 1q | \
+	    sed -e '/^3\.[01]/d' | grep '^[3-9]' > /dev/null"  */
 	char *argv[3];
 	pid_t child;
 	int fd[1];
@@ -209,21 +210,32 @@ compile_java_class (java_sources, java_sources_count,
 	if (child != -1)
 	  {
 	    /* Read the subprocess output, drop all lines except the first,
-	       and test whether the first digit found in the first line is
-	       >= 3.  */
-	    char c;
+	       drop all characters before the first digit, and test whether
+	       the remaining string starts with a digit >= 3, but not with
+	       "3.0" or "3.1".  */
+	    char c[3];
+	    size_t count = 0;
 
-	    while (safe_read (fd[0], &c, 1) > 0)
+	    while (safe_read (fd[0], &c[count], 1) > 0)
 	      {
-		if (c >= '0' && c <= '9')
+		if (c[count] == '\n')
+		  break;
+		if (count == 0)
 		  {
-		    gcj_present = (c >= '3' && c <= '9');
+		    if (!(c[0] >= '0' && c[0] <= '9'))
+		      continue;
+		    gcj_present = (c[0] >= '3');
+		  }
+		count++;
+		if (count == 3)
+		  {
+		    if (c[0] == '3' && c[1] == '.'
+			&& (c[2] == '0' || c[2] == '1'))
+		      gcj_present = false;
 		    break;
 		  }
-		if (c == '\n')
-		  break;
 	      }
-	    while (safe_read (fd[0], &c, 1) > 0)
+	    while (safe_read (fd[0], &c[0], 1) > 0)
 	      ;
 
 	    close (fd[0]);
