@@ -1,5 +1,5 @@
 /* Copying of files.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -18,5 +18,7 @@
 
 /* Copy a regular file: from src_filename to dest_filename.
    The destination file is assumed to be a backup file.
+   Modification times, owner, group and access permissions are preserved as
+   far as possible.
    Exit upon failure.  */
-extern void copy_file (const char *src_filename, const char *dest_filename);
+extern void copy_file_preserving (const char *src_filename, const char *dest_filename);

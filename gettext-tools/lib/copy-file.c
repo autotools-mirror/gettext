@@ -50,7 +50,7 @@
 #define _(str) gettext (str)
 
 void
-copy_file (const char *src_filename, const char *dest_filename)
+copy_file_preserving (const char *src_filename, const char *dest_filename)
 {
   int src_fd;
   struct stat statbuf;
@@ -107,6 +107,9 @@ copy_file (const char *src_filename, const char *dest_filename)
     utimes (dest_filename, &ut);
   }
 #endif
+
+  /* Preserve the owner and group.  */
+  chown (dest_filename, statbuf.st_uid, statbuf.st_gid);
 
   /* Preserve the access permissions.  */
   chmod (dest_filename, mode);
