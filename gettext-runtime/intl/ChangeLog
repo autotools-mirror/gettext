@@ -1,3 +1,8 @@
+2003-04-04  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in (libintl_set_relocation_prefix): Convert extern
+	declaration to K&R syntax.
+
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New file.
