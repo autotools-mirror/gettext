@@ -1029,12 +1029,17 @@ lex (void)
 			  setbit_case_fold (c, ccl);
 		      } else {
 			/* POSIX locales are painful - leave the decision to libc */
-			char expr[6] = { '[', c, '-', c2, ']', '\0' };
 			regex_t re;
+			char expr[6]; /* = { '[', c, '-', c2, ']', '\0' }; */
+
+			expr[0] = '['; expr[1] = c; expr[2] = '-';
+			expr[3] = c2; expr[4] = ']'; expr[5] = '\0';
 			if (regcomp (&re, expr, case_fold ? REG_ICASE : 0) == REG_NOERROR) {
 			  for (c = 0; c < NOTCHAR; ++c) {
-			    char buf[2] = { c, '\0' };
 			    regmatch_t mat;
+			    char buf[2]; /* = { c, '\0' }; */
+
+			    buf[0] = c; buf[1] = '\0';
 			    if (regexec (&re, buf, 1, &mat, 0) == REG_NOERROR
                                && mat.rm_so == 0 && mat.rm_eo == 1)
                               setbit_case_fold (c, ccl);
