@@ -22,6 +22,12 @@ fi
 sedoutput=`echo $ac_n "abc$ac_c" | sed -e s/x/x/`
 test -n "$sedoutput" || { echo "SKIP: msgfilter-2"; rm -fr $tmpfiles; exit 77; }
 
+# Some sed programs (IRIX, OSF/1 etc.) add a newline to the last line if it
+# doesn't end with a newline.
+sedoutputcount=`echo $ac_n "abc$ac_c" | sed -e s/x/x/ | wc -c`
+sedoutputcount=`echo "$sedoutputcount" | sed -e 's/[ 	]//g'`
+test "$sedoutputcount" = 3 || { echo "SKIP: msgfilter-2"; rm -fr $tmpfiles; exit 77; }
+
 tmpfiles="$tmpfiles mfi-test2.po"
 cat <<EOF > mfi-test2.po
 # HEADER.

@@ -1,3 +1,7 @@
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter-2: Skip the test if 'sed' adds extraneous newlines.
+
 2002-01-04  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat-2: Avoid \" to " conversion in the here documents.
