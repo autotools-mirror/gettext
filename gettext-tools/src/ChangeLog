@@ -1,3 +1,8 @@
+2003-05-27  Bruno Haible  <bruno@clisp.org>
+
+	* plural-table.c (plural_table): Correct entry for Slovak.
+	Reported by Marcel Telka <marcel@telka.sk>.
+
 2003-05-24  Bruno Haible  <bruno@clisp.org>
 
 	* x-glade.h (EXTENSIONS_GLADE): Also recognize the .glade2 extension.

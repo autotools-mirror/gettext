@@ -1,3 +1,8 @@
+2003-05-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural forms): Correct formula for Slovak.
+	Reported by Marcel Telka <marcel@telka.sk>.
+
 2003-05-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Glade): Mention support og Glade 2.
