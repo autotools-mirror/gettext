@@ -4,6 +4,11 @@
 
 2005-03-12  Bruno Haible  <bruno@clisp.org>
 
+	* po.m4 (AM_PO_SUBDIRS, AM_POSTPROCESS_PO_MAKEFILE): In the LINGUAS
+	file, ignore also comments that don't start in column 0.
+
+2005-03-12  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Fix quoting bug. Fixes an endless loop
 	of 'aclocal' when a configure.ac contains two invocations of
 	AM_GNU_GETTEXT.
