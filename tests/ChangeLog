@@ -1,3 +1,7 @@
+2001-09-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* format-ycp-1: Use real YCP syntax.
+
 2001-09-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* tstngettext.c: Include basename.h.

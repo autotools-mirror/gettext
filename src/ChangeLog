@@ -1,3 +1,15 @@
+2001-09-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* x-ycp.h: New file.
+	* x-ycp.c: New file.
+	* xgettext.c: Include x-ycp.h.
+	(usage): Mention YCP.
+	(scan_ycp_file): New function.
+	(language_to_scanner): Add YCP rule. Remove preliminary YCP rule.
+	(extension_to_language): Add YCP rule.
+	* Makefile.am (noinst_HEADERS): Add x-ycp.h.
+	(xgettext_SOURCES): Add x-ycp.c.
+
 2001-09-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.c: Include basename.h.

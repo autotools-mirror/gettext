@@ -65,6 +65,7 @@ struct passwd *getpwuid ();
 #include "x-c.h"
 #include "x-po.h"
 #include "x-java.h"
+#include "x-ycp.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -171,6 +172,8 @@ static void scan_po_file PARAMS ((const char *file_name,
 				  msgdomain_list_ty *mdlp));
 static void scan_java_file PARAMS ((const char *file_name,
 				    msgdomain_list_ty *mdlp));
+static void scan_ycp_file PARAMS ((const char *file_name,
+				   msgdomain_list_ty *mdlp));
 static long difftm PARAMS ((const struct tm *a, const struct tm *b));
 static message_ty *construct_header PARAMS ((void));
 
@@ -545,7 +548,7 @@ If output file is -, output is written to standard output.\n\
       printf (_("\
 Choice of input file language:\n\
   -L, --language=NAME            recognise the specified language\n\
-                                   (C, C++, ObjectiveC, PO, Java)\n\
+                                   (C, C++, ObjectiveC, PO, Java, YCP)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
 "));
@@ -1053,6 +1056,24 @@ scan_java_file (file_name, mdlp)
 }
 
 
+static void
+scan_ycp_file (file_name, mdlp)
+     const char *file_name;
+     msgdomain_list_ty *mdlp;
+{
+  char *logical_file_name;
+  char *real_file_name;
+  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+
+  extract_ycp (fp, real_file_name, logical_file_name, mdlp);
+
+  if (fp != stdin)
+    fclose (fp);
+  free (logical_file_name);
+  free (real_file_name);
+}
+
+
 #define TM_YEAR_ORIGIN 1900
 
 /* Yield A - B, measured in seconds.  */
@@ -1156,9 +1177,9 @@ language_to_scanner (name)
     SCANNERS_C
     SCANNERS_PO
     SCANNERS_JAVA
+    SCANNERS_YCP
     { "Python", scan_c_file, &formatstring_python },
     { "Lisp", scan_c_file, &formatstring_lisp },
-    { "YCP", scan_c_file, &formatstring_ycp },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exclude-file option.  */
   };
@@ -1196,6 +1217,7 @@ extension_to_language (extension)
     EXTENSIONS_C
     EXTENSIONS_PO
     EXTENSIONS_JAVA
+    EXTENSIONS_YCP
     /* Here will follow more file extensions: sh, pl, tcl, lisp ... */
   };
 

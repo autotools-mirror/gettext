@@ -32,7 +32,7 @@ while read comment; do
   n=`expr $n + 1`
   tmpfiles="$tmpfiles f-y-1-$n.in f-y-1-$n.po"
   cat <<EOF > f-y-1-$n.in
-gettext(${string});
+_(${string});
 EOF
   ${XGETTEXT} -L YCP -o f-y-1-$n.po f-y-1-$n.in || exit 1
   test -f f-y-1-$n.po || exit 1
