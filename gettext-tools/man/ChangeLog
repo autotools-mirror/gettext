@@ -1,0 +1,13 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Big restructuring.
+	* gettext.x: Remove file.
+	* ngettext.x: Remove file.
+	* Makefile.am: Remove everything belonging to the programs gettext and
+	ngettext.
+	(docdir): Use 'gettext' instead of @PACKAGE@.
+	(*.3): Depend on version.sh instead of configure.in.
+	(EXTRA_DIST): Add ChangeLog.0.
+
+
+See ChangeLog.0 for earlier changes.

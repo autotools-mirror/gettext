@@ -1,5 +1,5 @@
-## Makefile for the man subdirectory of the GNU NLS Utilities
-## Copyright (C) 2001-2002 Free Software Foundation, Inc.
+## Makefile for the gettext-tools/man subdirectory of GNU gettext
+## Copyright (C) 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 VERSION = @VERSION@
 mandir = @mandir@
-docdir = $(prefix)/doc/@PACKAGE@
+docdir = $(prefix)/doc/gettext
 htmldir = $(docdir)
 
 localedir = $(datadir)/locale
@@ -29,20 +29,18 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am
 # and for each of the bin_SCRIPTS in misc/Makefile.am.
 
-man_aux  = gettext.x ngettext.x \
+man_aux = \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
 msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x msggrep.x msginit.x msguniq.x \
 gettextize.x autopoint.x
 
 # Likewise, plus additional manual pages for the libintl functions.
 
-man_MAN1GEN = gettext.1 ngettext.1
-man_MAN1IN = gettext.1.in ngettext.1.in
 man_MAN1OTHER = \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
 msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 msggrep.1 msginit.1 msguniq.1 \
 gettextize.1 autopoint.1
-man_MAN1 = $(man_MAN1GEN) $(man_MAN1OTHER)
+man_MAN1 = $(man_MAN1OTHER)
 man_MAN3 = gettext.3 ngettext.3 \
 textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
 man_MAN3IN = gettext.3.in ngettext.3.in \
@@ -50,19 +48,16 @@ textdomain.3.in bindtextdomain.3.in bind_textdomain_codeset.3.in
 man_MAN3LINK = dgettext.3 dcgettext.3 dngettext.3 dcngettext.3
 man_MANS = $(man_MAN1) $(man_MAN3) $(man_MAN3LINK)
 
-man_HTMLGEN = gettext.1.html ngettext.1.html
-man_HTMLIN = gettext.1.html.in ngettext.1.html.in
 man_HTMLOTHER = \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
 msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
 gettextize.1.html autopoint.1.html \
 gettext.3.html ngettext.3.html \
 textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
-man_HTML = $(man_HTMLGEN) $(man_HTMLOTHER)
+man_HTML = $(man_HTMLOTHER)
 
-EXTRA_DIST = help2man $(man_aux) $(man_MAN1IN) $(man_MAN1OTHER) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLIN) $(man_HTMLOTHER)
-CLEANFILES = $(man_MAN1GEN) $(man_HTMLGEN)
-MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_MAN1OTHER) $(man_MAN3) $(man_HTMLIN) $(man_HTMLOTHER)
+EXTRA_DIST = help2man $(man_aux) $(man_MAN1OTHER) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLOTHER) ChangeLog.0
+MAINTAINERCLEANFILES = $(man_MAN1OTHER) $(man_MAN3) $(man_HTMLOTHER)
 
 PERL = @PERL@
 RM = rm -f
@@ -89,18 +84,6 @@ uninstall-local: uninstall-html
 
 # The progname.x files contain some extra information not found in the
 # "progname --help" output.
-
-gettext.1: gettext.1.in Makefile
-	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f gettext.1.in; then echo .; else echo $(srcdir); fi`/gettext.1.in > t-$@
-	mv t-$@ $@
-ngettext.1: ngettext.1.in Makefile
-	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in > t-$@
-	mv t-$@ $@
-
-gettext.1.in: gettext.x
-	IN_HELP2MAN=1 $(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/gettext$(EXEEXT) $(srcdir)/gettext.x gettext.1.in
-ngettext.1.in: ngettext.x
-	IN_HELP2MAN=1 $(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/ngettext$(EXEEXT) $(srcdir)/ngettext.x ngettext.1.in
 
 msgcmp.1: msgcmp.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgcmp$(EXEEXT) $(srcdir)/msgcmp.x msgcmp.1
@@ -138,22 +121,22 @@ gettextize.1: gettextize.x
 autopoint.1: autopoint.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
 
-# Depend on configure.in to get version number changes.
-$(man_MAN1): help2man $(top_srcdir)/configure.in
+# Depend on version.sh to get version number changes.
+$(man_MAN1): help2man $(top_srcdir)/../version.sh
 
-gettext.3: gettext.3.in $(top_srcdir)/configure.in
+gettext.3: gettext.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@
 	mv t-$@ $@
-ngettext.3: ngettext.3.in $(top_srcdir)/configure.in
+ngettext.3: ngettext.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/ngettext.3.in > t-$@
 	mv t-$@ $@
-textdomain.3: textdomain.3.in $(top_srcdir)/configure.in
+textdomain.3: textdomain.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/textdomain.3.in > t-$@
 	mv t-$@ $@
-bindtextdomain.3: bindtextdomain.3.in $(top_srcdir)/configure.in
+bindtextdomain.3: bindtextdomain.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bindtextdomain.3.in > t-$@
 	mv t-$@ $@
-bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/configure.in
+bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bind_textdomain_codeset.3.in > t-$@
 	mv t-$@ $@
 
@@ -161,20 +144,6 @@ bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/configure.
 # Man pages in HTML format.
 
 html: $(man_HTML)
-
-gettext.1.html: gettext.1.html.in Makefile
-	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f gettext.1.html.in; then echo .; else echo $(srcdir); fi`/gettext.1.html.in > t-$@
-	mv t-$@ $@
-ngettext.1.html: ngettext.1.html.in Makefile
-	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f ngettext.1.html.in; then echo .; else echo $(srcdir); fi`/ngettext.1.html.in > t-$@
-	mv t-$@ $@
-
-gettext.1.html.in: gettext.1.in
-	$(MAN2HTML) `if test -f gettext.1.in; then echo .; else echo $(srcdir); fi`/gettext.1.in | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
-ngettext.1.html.in: ngettext.1.in
-	$(MAN2HTML) `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 
 msgcmp.1.html: msgcmp.1
 	$(MAN2HTML) `if test -f msgcmp.1; then echo .; else echo $(srcdir); fi`/msgcmp.1 | sed -e '/CreationDate:/d' > t-$@
