@@ -32,7 +32,7 @@ TESTS = gettext-1 gettext-2 \
 	msgunfmt-1 \
 	msguniq-1 msguniq-2 msguniq-3 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
-	xgettext-7 xgettext-8 xgettext-9 \
+	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 \
 	format-c-1 format-c-2 \
 	format-java-1 format-java-2 \
 	format-lisp-1 format-lisp-2 \

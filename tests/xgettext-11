@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# Some tests for java substring keyword support
+#
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles xg-test11.java"
+cat <<EOF > xg-test11.java
+class TestCase {
+    public TestCase() {
+          // test exception
+          throw new TestException("Test exception");
+          // empty exception text
+          throw new TestException("");
+    }
+}
+EOF
+
+tmpfiles="$tmpfiles xg-test11.po"
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header -c --keyword-substring --keyword=Exception -d xg-test11 xg-test11.java
+
+tmpfiles="$tmpfiles xg-test11.ok"
+cat <<EOF > xg-test11.ok
+#. test exception
+msgid "Test exception"
+msgstr ""
+
+#. empty exception text
+msgid ""
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-test11.ok xg-test11.po
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

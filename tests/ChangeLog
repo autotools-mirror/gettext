@@ -1,3 +1,12 @@
+2001-09-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (TESTS): Add xgettext-10, xgettext-11.
+
+2001-09-21  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* xgettext-10: New file.
+	* xgettext-11: New file.
+
 2001-08-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (TESTS_ENVIRONMENT): Define MSGCAT environment variable.
