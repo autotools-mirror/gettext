@@ -1,3 +1,8 @@
+2002-02-14  Andrew Zabolotny  <zap@cobra.ru>
+
+	* os2compat.c (_nl_default_dirname__): Renamed from
+	_nl_default_dirname.
+
 2002-02-10  Bruno Haible  <bruno@clisp.org>
 
 	* localename.c: Change copyright notice from GPL to LGPL.
