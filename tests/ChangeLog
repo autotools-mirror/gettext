@@ -1,3 +1,11 @@
+2001-07-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm-22: New file, based on a report by Karl Eichwalder.
+	* Makefile.am (TESTS): Add msgcomm-22.
+	* msgcomm-12: Add the first header entry to the expected output.
+	* msgcomm-13: Likewise.
+	* msgcomm-14: Likewise.
+
 2001-06-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcomm-18: New file, from Karl Eichwalder with modifications.

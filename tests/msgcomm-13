@@ -76,6 +76,17 @@ ${MSGCOMM} --less-than=2 --no-location --force-po -o mcomm-test13.out \
 
 tmpfiles="$tmpfiles mcomm-test13.ok"
 cat << EOF > mcomm-test13.ok
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU one 1.2.3\n"
+"POT-Creation-Date: 2000-12-11 20:49+0100\n"
+"PO-Revision-Date: 2000-03-18 15:25+01:00\n"
+"Last-Translator: Karl Eichwalder <ke@suse.de>\n"
+"Language-Team: German <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 # unique
 msgid "2"
 msgstr ""

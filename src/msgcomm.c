@@ -459,8 +459,8 @@ static bool
 is_message_selected (mp)
      const message_ty *mp;
 {
-  /* FIXME: Add mp->msgid[0] == '\0' || ... here? */
-  return (mp->used > more_than && mp->used < less_than);
+  return (mp->msgid[0] == '\0') /* keep the header entry, see msgcomm-17 test */
+	 || (mp->used > more_than && mp->used < less_than);
 }
 
 

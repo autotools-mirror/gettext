@@ -1,3 +1,7 @@
+2001-07-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm.c (is_message_selected): Keep the header entry.
+
 2001-07-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-charset.h (po_lex_charset): New declaration.
