@@ -107,6 +107,7 @@ LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIB = @LIB@
+LIBEXPAT = @LIBEXPAT@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
@@ -114,6 +115,7 @@ LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
 LTLIB = @LTLIB@
+LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
@@ -157,16 +159,18 @@ TESTS = gettext-1 gettext-2 \
 	msgfilter-1 msgfilter-2 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 msgfmt-10 \
-	msggrep-1 msggrep-2 msggrep-3 msggrep-4 \
+	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
 	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
 	msgmerge-18 msgmerge-19 msgmerge-20 \
-	msgunfmt-1 \
+	msgunfmt-1 msgunfmt-2 msgunfmt-3 \
 	msguniq-1 msguniq-2 msguniq-3 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
+	xgettext-18 xgettext-19 xgettext-20 xgettext-21 \
+	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 \
 	format-elisp-1 format-elisp-2 \
 	format-java-1 format-java-2 \
@@ -174,9 +178,10 @@ TESTS = gettext-1 gettext-2 \
 	format-lisp-1 format-lisp-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
+	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-clisp lang-elisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst \
+	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-java lang-gawk lang-pascal lang-ycp lang-tcl lang-po lang-rst \
 	rpath-1a rpath-1b \
 	rpath-2aaa rpath-2aab rpath-2aac rpath-2aad \
 	rpath-2aba rpath-2abb rpath-2abc rpath-2abd \
@@ -230,7 +235,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 
 
 # Three auxiliary programs used by the tests.
-INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
+INCLUDES = -I.. -I../lib -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la

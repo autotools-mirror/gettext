@@ -329,6 +329,7 @@ Individual Programming Languages
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
 * YCP::                         YCP - YaST2 scripting language
+* Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
@@ -524,7 +525,7 @@ Use or emulate GNU gettext
      emulate. Bug: uses only the first found .mo file, not all of them
 
 Extractor
-     pygettext.py
+     `xgettext'
 
 Formatting with positions
      `'...%(ident)d...' % { 'ident': value }'
@@ -893,7 +894,7 @@ gettext shorthand
      `_"abc"'
 
 gettext/ngettext functions
-     `dcgettext'
+     `dcgettext', missing `dcngettext' in gawk-3.1.0
 
 textdomain
      `TEXTDOMAIN' variable
@@ -911,14 +912,15 @@ Use or emulate GNU gettext
      use
 
 Extractor
-     `gawk --gen-po'
+     `xgettext'
 
 Formatting with positions
      `printf "%2$d %1$d"' (GNU awk only)
 
 Portability
      On platforms without gettext, no translation.  On non-GNU awks,
-     you must define `dcgettext' and `bindtextdomain' yourself.
+     you must define `dcgettext', `dcngettext' and `bindtextdomain'
+     yourself.
 
 po-mode marking
      --
@@ -1028,7 +1030,7 @@ po-mode marking
      yes
 
 
-File: gettext.info,  Node: YCP,  Next: Perl,  Prev: wxWindows,  Up: List of Programming Languages
+File: gettext.info,  Node: YCP,  Next: Tcl,  Prev: wxWindows,  Up: List of Programming Languages
 
 YCP - YaST2 scripting language
 ------------------------------
@@ -1076,7 +1078,65 @@ po-mode marking
      --
 
 
-File: gettext.info,  Node: Perl,  Next: PHP,  Prev: YCP,  Up: List of Programming Languages
+File: gettext.info,  Node: Tcl,  Next: Perl,  Prev: YCP,  Up: List of Programming Languages
+
+Tcl - Tk's scripting language
+-----------------------------
+
+RPMs
+     tcl
+
+File extension
+     `tcl'
+
+String syntax
+     `"abc"'
+
+gettext shorthand
+     `[_ "abc"]'
+
+gettext/ngettext functions
+     `::msgcat::mc'
+
+textdomain
+     --
+
+bindtextdomain
+     --, use `::msgcat::mcload' instead
+
+setlocale
+     automatic, uses LANG, but ignores LC_MESSAGES and LC_ALL
+
+Prerequisite
+     `package require msgcat'
+     `proc _ {s} {return [::msgcat::mc $s]}'
+
+Use or emulate GNU gettext
+     --, uses a Tcl specific message catalog format
+
+Extractor
+     `xgettext -k_'
+
+Formatting with positions
+     `format "%2\$d %1\$d"'
+
+Portability
+     fully portable
+
+po-mode marking
+     --
+
+   Before marking strings as internationalizable, substitutions of
+variables into the string need to be converted to `format'
+applications. For example, `"file $filename not found"' becomes
+`[format "file %s not found" $filename]'.  Only after this is done, can
+the strings be marked and extracted.  After marking, this example
+becomes `[format [_ "file %s not found"] $filename]' or `[msgcat::mc
+"file %s not found" $filename]'. Note that the `msgcat::mc' function
+implicitly calls `format' when more than one argument is given.
+
+
+File: gettext.info,  Node: Perl,  Next: PHP,  Prev: Tcl,  Up: List of Programming Languages
 
 Perl
 ----
@@ -1233,6 +1293,7 @@ using GNU gettext.
 
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
+* Glade::                       Glade - GNOME user interface description
 
 
 File: gettext.info,  Node: POT,  Next: RST,  Prev: List of Data Formats,  Up: List of Data Formats
@@ -1250,7 +1311,7 @@ Extractor
      `xgettext'
 
 
-File: gettext.info,  Node: RST,  Prev: POT,  Up: List of Data Formats
+File: gettext.info,  Node: RST,  Next: Glade,  Prev: POT,  Up: List of Data Formats
 
 Resource String Table
 ---------------------
@@ -1263,6 +1324,21 @@ File extension
 
 Extractor
      `xgettext', `rstconv'
+
+
+File: gettext.info,  Node: Glade,  Prev: RST,  Up: List of Data Formats
+
+Glade - GNOME user interface description
+----------------------------------------
+
+RPMs
+     glade, libglade, xml-i18n-tools
+
+File extension
+     `glade'
+
+Extractor
+     `xgettext', `libglade-xgettext'
 
 
 File: gettext.info,  Node: Conclusion,  Next: Language Codes,  Prev: Programming Languages,  Up: Top
@@ -1900,7 +1976,7 @@ come from this standard.
      Zulu.
 
 
-File: gettext.info,  Node: Country Codes,  Prev: Language Codes,  Up: Top
+File: gettext.info,  Node: Country Codes,  Next: Program Index,  Prev: Language Codes,  Up: Top
 
 Country Codes
 *************
@@ -2626,4 +2702,32 @@ Translation Project should come from this standard.
 `ZW'
      Zimbabwe.
 
+
+File: gettext.info,  Node: Program Index,  Next: Option Index,  Prev: Country Codes,  Up: Top
+
+Program Index
+*************
+
+* Menu:
+
+* gettext <1>:                           bash.
+* gettext:                               sh.
+* gettextize:                            gettextize Invocation.
+* msgattrib:                             msgattrib Invocation.
+* msgcat:                                msgcat Invocation.
+* msgcmp:                                msgcmp Invocation.
+* msgcomm:                               msgcomm Invocation.
+* msgconv:                               msgconv Invocation.
+* msgen:                                 msgen Invocation.
+* msgexec:                               msgexec Invocation.
+* msgfilter:                             msgfilter Invocation.
+* msgfmt:                                msgfmt Invocation.
+* msggrep:                               msggrep Invocation.
+* msginit:                               msginit Invocation.
+* msgmerge:                              msgmerge Invocation.
+* msgunfmt:                              msgunfmt Invocation.
+* msguniq:                               msguniq Invocation.
+* ngettext <1>:                          bash.
+* ngettext:                              sh.
+* xgettext:                              xgettext Invocation.
 

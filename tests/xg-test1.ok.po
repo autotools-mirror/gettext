@@ -66,8 +66,9 @@ msgstr ""
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
-"                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
-"                                   librep, Java, YCP)\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
+"                                   RST, Glade)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
@@ -150,7 +151,15 @@ msgid "%s requires a \"-d directory\" specification"
 msgstr ""
 
 #, c-format
+msgid "%s requires a \"-l locale\" specification"
+msgstr ""
+
+#, c-format
 msgid "%s is only valid with %s"
+msgstr ""
+
+#, c-format
+msgid "%s is only valid with %s or %s"
 msgstr ""
 
 #, c-format
@@ -196,6 +205,7 @@ msgid ""
 "Operation mode:\n"
 "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
+"      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
 
 #, no-wrap
@@ -215,6 +225,15 @@ msgid ""
 "The class name is determined by appending the locale name to the resource name,\n"
 "separated with an underscore.  The -d option is mandatory.  The class is\n"
 "written under the specified directory.\n"
+msgstr ""
+
+#, no-wrap
+msgid ""
+"Output file location in Tcl mode:\n"
+"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY                base directory of .msg message catalogs\n"
+"The -l and -d options are mandatory.  The .msg file is written in the\n"
+"specified directory.\n"
 msgstr ""
 
 #, no-wrap
@@ -297,6 +316,10 @@ msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] ""
 msgstr[1] ""
 
+#, c-format
+msgid "Try using the following, valid for %s:\n"
+msgstr ""
+
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
@@ -338,18 +361,18 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr ""
 
 #, c-format
-msgid "headerfield `%s' missing in header"
+msgid "headerfield `%s' missing in header\n"
 msgstr ""
 
 #, c-format
-msgid "header field `%s' should start at beginning of line"
+msgid "header field `%s' should start at beginning of line\n"
 msgstr ""
 
-msgid "some header fields still have the initial default value"
+msgid "some header fields still have the initial default value\n"
 msgstr ""
 
 #, c-format
-msgid "field `%s' still has initial default value"
+msgid "field `%s' still has initial default value\n"
 msgstr ""
 
 msgid "warning: PO file header missing or invalid\n"

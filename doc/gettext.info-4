@@ -59,8 +59,8 @@ way to do this is through `msggrep', another is to create a POT file for
 that source file and use `msgmerge'.
 
    When a translator wants to adjust some translation catalog for a
-special dialect or orthography - for example, German as written in
-Switzerland versus German as written in Germany -, she needs to apply
+special dialect or orthography -- for example, German as written in
+Switzerland versus German as written in Germany -- she needs to apply
 some text processing to every message in the catalog.  The tool for
 doing this is `msgfilter'.
 
@@ -358,7 +358,8 @@ specified or if it is `-'.
 Message selection
 -----------------
 
-       [-N SOURCEFILE]... [-M DOMAINNAME]... [-K MSGID-PATTERN] [-T MSGSTR-PATTERN]
+       [-N SOURCEFILE]... [-M DOMAINNAME]...
+       [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]
 
    A message is selected if
    * it comes from one of the specified source files,
@@ -369,7 +370,10 @@ Message selection
        MSGID-PATTERN,
 
    * or if `-T' is given and its translation (msgstr) matches
-     MSGSTR-PATTERN.
+     MSGSTR-PATTERN,
+
+   * or if `-C' is given and the translator's comment matches
+     COMMENT-PATTERN.
 
    When more than one selection criterion is specified, the set of
 selected messages is the union of the selected messages of each
@@ -1190,6 +1194,9 @@ Operation mode
 `--java2'
      Like -java, and assume Java2 (JDK 1.2 or higher).
 
+`--tcl'
+     Tcl mode: generate a tcl/msgcat `.msg' file.
+
 Output file location
 --------------------
 
@@ -1229,6 +1236,21 @@ Output file location in Java mode
    The class name is determined by appending the locale name to the
 resource name, separated with an underscore.  The `-d' option is
 mandatory.  The class is written under the specified directory.
+
+Output file location in Tcl mode
+--------------------------------
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory of `.msg' message catalogs.
+
+   The `-l' and `-d' options are mandatory.  The `.msg' file is written
+in the specified directory.
 
 Input file interpretation
 -------------------------
@@ -1338,7 +1360,10 @@ Operation mode
 
 `-j'
 `--java'
-     Java mode: generate a Java `ResourceBundle' class.
+     Java mode: input is a Java `ResourceBundle' class.
+
+`--tcl'
+     Tcl mode: input is a tcl/msgcat `.msg' file.
 
 Input file location
 -------------------
@@ -1364,6 +1389,21 @@ Input file location in Java mode
    The class name is determined by appending the locale name to the
 resource name, separated with an underscore.  The class is located
 using the `CLASSPATH'.
+
+Input file location in Tcl mode
+-------------------------------
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory of `.msg' message catalogs.
+
+   The `-l' and `-d' options are mandatory.  The `.msg' file is located
+in the specified directory.
 
 Output file location
 --------------------
@@ -1587,28 +1627,4 @@ installers and end users.
 * Matrix::                      The Current `ABOUT-NLS' Matrix
 * Installers::                  Magic for Installers
 * End Users::                   Magic for End Users
-
-
-File: gettext.info,  Node: Matrix,  Next: Installers,  Prev: Users,  Up: Users
-
-The Current `ABOUT-NLS' Matrix
-==============================
-
-   Languages are not equally supported in all packages using GNU
-`gettext'.  To know if some package uses GNU `gettext', one may check
-the distribution for the `ABOUT-NLS' information file, for some `LL.po'
-files, often kept together into some `po/' directory, or for an `intl/'
-directory.  Internationalized packages have usually many `LL.po' files,
-where LL represents the language.  *Note End Users:: for a complete
-description of the format for LL.
-
-   More generally, a matrix is available for showing the current state
-of the Translation Project, listing which packages are prepared for
-multi-lingual messages, and which languages are supported by each.
-Because this information changes often, this matrix is not kept within
-this GNU `gettext' manual.  This information is often found in file
-`ABOUT-NLS' from various distributions, but is also as old as the
-distribution itself.  A recent copy of this `ABOUT-NLS' file,
-containing up-to-date information, should generally be found on the
-Translation Project sites, and also on most GNU archive sites.
 

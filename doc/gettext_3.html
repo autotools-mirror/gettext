@@ -1,16 +1,20 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 31 January 2002 -->
+     from gettext.texi on 7 March 2002 -->
 
 <TITLE>GNU gettext utilities - 3  Preparing Program Sources</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_2.html">previous</A>, <A HREF="gettext_4.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_2.html">previous</A>, <A HREF="gettext_4.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
 <H1><A NAME="SEC13" HREF="gettext_toc.html#TOC13">3  Preparing Program Sources</A></H1>
+<P>
+<A NAME="IDX111"></A>
+
+</P>
 
 <P>
 For the programmer, changes to the C source code fall into three
@@ -25,10 +29,12 @@ needing translation.
 <P>
 Presuming that your set of programs, or package, has been adjusted
 so all needed GNU <CODE>gettext</CODE> files are available, and your
-<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_12.html#SEC169">12  The Maintainer's View</A>), each C module
+<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_12.html#SEC171">12  The Maintainer's View</A>), each C module
 having translated C strings should contain the line:
 
 </P>
+<P>
+<A NAME="IDX112"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -45,6 +51,7 @@ sections of this chapter.
 <H2><A NAME="SEC14" HREF="gettext_toc.html#TOC14">3.1  Triggering <CODE>gettext</CODE> Operations</A></H2>
 
 <P>
+<A NAME="IDX113"></A>
 The initialization of locale data should be done with more or less
 the same code in every program, as demonstrated below:
 
@@ -67,10 +74,12 @@ main (argc, argv)
 <P>
 <VAR>PACKAGE</VAR> and <VAR>LOCALEDIR</VAR> should be provided either by
 <TT>`config.h&acute;</TT> or by the Makefile.  For now consult the <CODE>gettext</CODE>
-sources for more information.
+or <CODE>hello</CODE> sources for more information.
 
 </P>
 <P>
+<A NAME="IDX114"></A>
+<A NAME="IDX115"></A>
 The use of <CODE>LC_ALL</CODE> might not be appropriate for you.
 <CODE>LC_ALL</CODE> includes all locale categories and especially
 <CODE>LC_CTYPE</CODE>.  This later category is responsible for determining
@@ -111,6 +120,13 @@ code above by a sequence of <CODE>setlocale</CODE> lines
 </PRE>
 
 <P>
+<A NAME="IDX116"></A>
+<A NAME="IDX117"></A>
+<A NAME="IDX118"></A>
+<A NAME="IDX119"></A>
+<A NAME="IDX120"></A>
+<A NAME="IDX121"></A>
+<A NAME="IDX122"></A>
 On all POSIX conformant systems the locale categories <CODE>LC_CTYPE</CODE>,
 <CODE>LC_COLLATE</CODE>, <CODE>LC_MONETARY</CODE>, <CODE>LC_NUMERIC</CODE>, and
 <CODE>LC_TIME</CODE> are available.  On some modern systems there is also a
@@ -139,7 +155,10 @@ is not multithread-safe.
 
 
 <H2><A NAME="SEC15" HREF="gettext_toc.html#TOC15">3.2  How Marks Appear in Sources</A></H2>
+<P>
+<A NAME="IDX123"></A>
 
+</P>
 <P>
 All strings requiring translation should be marked in the C sources.  Marking
 is done in such a way that each translatable string appears to be
@@ -188,6 +207,7 @@ sources for those trying to keep them within 79 or 80 columns.
 
 </P>
 <P>
+<A NAME="IDX124"></A>
 Many packages use <SAMP>`_&acute;</SAMP> (a simple underline) as a keyword,
 and write <SAMP>`_("Translatable string")&acute;</SAMP> instead of <SAMP>`gettext
 ("Translatable string")&acute;</SAMP>.  Further, the coding rule, from GNU standards,
@@ -222,7 +242,10 @@ an example of string <EM>not</EM> requiring translation!
 
 
 <H2><A NAME="SEC16" HREF="gettext_toc.html#TOC16">3.3  Marking Translatable Strings</A></H2>
+<P>
+<A NAME="IDX125"></A>
 
+</P>
 <P>
 In PO mode, one set of features is meant more for the programmer than
 for the translator, and allows him to interactively mark which strings,
@@ -237,6 +260,7 @@ translation in some language, for the package being internationalized.
 
 </P>
 <P>
+<A NAME="IDX126"></A>
 The set of program sources, targetted by the PO mode commands describe
 here, should have an Emacs tags table constructed for your project,
 prior to using these PO file commands.  This is easy to do.  In any
@@ -258,6 +282,7 @@ format Emacs can understand.
 
 </P>
 <P>
+<A NAME="IDX127"></A>
 For packages following the GNU coding standards, there is
 a make goal <CODE>tags</CODE> or <CODE>TAGS</CODE> which constructs the tag files in
 all directories and for all files containing source code.
@@ -277,15 +302,18 @@ fill in while you mark strings as translatable in your program sources.
 
 <DT><KBD>,</KBD>
 <DD>
+<A NAME="IDX128"></A>
 Search through program sources for a string which looks like a
 candidate for translation (<CODE>po-tags-search</CODE>).
 
 <DT><KBD>M-,</KBD>
 <DD>
+<A NAME="IDX129"></A>
 Mark the last string found with <SAMP>`_()&acute;</SAMP> (<CODE>po-mark-translatable</CODE>).
 
 <DT><KBD>M-.</KBD>
 <DD>
+<A NAME="IDX130"></A>
 Mark the last string found with a keyword taken from a set of possible
 keywords.  This command with a prefix allows some management of these
 keywords (<CODE>po-select-mark-and-mark</CODE>).
@@ -293,6 +321,7 @@ keywords (<CODE>po-select-mark-and-mark</CODE>).
 </DL>
 
 <P>
+<A NAME="IDX131"></A>
 The <KBD>,</KBD> (<CODE>po-tags-search</CODE>) command searches for the next
 occurrence of a string which looks like a possible candidate for
 translation, and displays the program source in another Emacs window,
@@ -344,6 +373,8 @@ first tags file, this reinitialization might be considered spurious.
 
 </P>
 <P>
+<A NAME="IDX132"></A>
+<A NAME="IDX133"></A>
 The <KBD>M-,</KBD> (<CODE>po-mark-translatable</CODE>) command will mark the
 recently found string with the <SAMP>`_&acute;</SAMP> keyword.  The <KBD>M-.</KBD>
 (<CODE>po-select-mark-and-mark</CODE>) command will request that you type
@@ -404,6 +435,7 @@ prefer <SAMP>`_&acute;</SAMP>, as this one is already built in the <KBD>M-,</KBD
 <H2><A NAME="SEC17" HREF="gettext_toc.html#TOC17">3.4  Special Comments preceding Keywords</A></H2>
 
 <P>
+<A NAME="IDX134"></A>
 In C programs strings are often used within calls of functions from the
 <CODE>printf</CODE> family.  The special thing about these format strings is
 that they can contain format specifiers introduced with <KBD>%</KBD>.  Assume
@@ -471,6 +503,8 @@ only a heuristic.  In the <TT>`.po&acute;</TT> file the entry is marked using th
 
 </P>
 <P>
+<A NAME="IDX135"></A>
+<A NAME="IDX136"></A>
 The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
 <CODE>xgettext</CODE> knows about special kind of comment which lets
@@ -516,6 +550,7 @@ used for solving this problem.
 <H2><A NAME="SEC18" HREF="gettext_toc.html#TOC18">3.5  Special Cases of Translatable Strings</A></H2>
 
 <P>
+<A NAME="IDX137"></A>
 The attentive reader might now point out that it is not always possible
 to mark translatable string with <CODE>gettext</CODE> or something like this.
 Consider the following case:
@@ -616,6 +651,6 @@ use this second method in this situation.
 
 </P>
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_2.html">previous</A>, <A HREF="gettext_4.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_2.html">previous</A>, <A HREF="gettext_4.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

@@ -832,7 +832,7 @@ YY_RULE_SETUP
   char *str;
 
   char_buf *charbuf = create_char_buf ();
-  while (1)
+  for (;;)
     {
       c = input ();
       last = input ();

@@ -1,21 +1,24 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 31 January 2002 -->
+     from gettext.texi on 7 March 2002 -->
 
 <TITLE>GNU gettext utilities - 12  The Maintainer's View</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_11.html">previous</A>, <A HREF="gettext_13.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_11.html">previous</A>, <A HREF="gettext_13.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
-<H1><A NAME="SEC169" HREF="gettext_toc.html#TOC169">12  The Maintainer's View</A></H1>
+<H1><A NAME="SEC171" HREF="gettext_toc.html#TOC171">12  The Maintainer's View</A></H1>
+<P>
+<A NAME="IDX841"></A>
 
+</P>
 <P>
 The maintainer of a package has many responsibilities.  One of them
 is ensuring that the package will install easily on many platforms,
-and that the magic we described earlier (see section <A HREF="gettext_9.html#SEC134">9  The User's View</A>) will work
+and that the magic we described earlier (see section <A HREF="gettext_9.html#SEC136">9  The User's View</A>) will work
 for installers and end users.
 
 </P>
@@ -49,7 +52,7 @@ for changes.
 
 
 
-<H2><A NAME="SEC170" HREF="gettext_toc.html#TOC170">12.1  Flat or Non-Flat Directory Structures</A></H2>
+<H2><A NAME="SEC172" HREF="gettext_toc.html#TOC172">12.1  Flat or Non-Flat Directory Structures</A></H2>
 
 <P>
 Some free software packages are distributed as <CODE>tar</CODE> files which unpack
@@ -82,8 +85,13 @@ use this as an opportunity to unflatten their package structure.
 </P>
 
 
-<H2><A NAME="SEC171" HREF="gettext_toc.html#TOC171">12.2  Prerequisite Works</A></H2>
+<H2><A NAME="SEC173" HREF="gettext_toc.html#TOC173">12.2  Prerequisite Works</A></H2>
+<P>
+<A NAME="IDX842"></A>
+<A NAME="IDX843"></A>
+<A NAME="IDX844"></A>
 
+</P>
 <P>
 There are some works which are required for using GNU <CODE>gettext</CODE>
 in one of your package.  These works have some kind of generality
@@ -99,7 +107,7 @@ Before attempting to use <CODE>gettextize</CODE> you should install some
 other packages first.
 Ensure that recent versions of GNU <CODE>m4</CODE>, GNU Autoconf and GNU
 <CODE>gettext</CODE> are already installed at your site, and if not, proceed
-to do this first.  If you got to install these things, beware that
+to do this first.  If you get to install these things, beware that
 GNU <CODE>m4</CODE> must be fully installed before GNU Autoconf is even
 <EM>configured</EM>.
 
@@ -109,7 +117,7 @@ tool and the <TT>`Makefile&acute;</TT>s in the <TT>`intl/&acute;</TT> and <TT>`p
 therefore know about all the goals necessary for using <CODE>automake</CODE>
 and <TT>`libintl&acute;</TT> in one project.
 
-Those four packages are only needed to you, as a maintainer; the
+Those four packages are only needed by you, as a maintainer; the
 installers of your own package and end users do not really need any of
 GNU <CODE>m4</CODE>, GNU Autoconf, GNU <CODE>gettext</CODE>, or GNU <CODE>automake</CODE>
 for successfully installing and running your package, with messages
@@ -146,7 +154,7 @@ translator teams get interested in your package, and submit PO files.
 <P>
 It is worth adding here a few words about how the maintainer should
 ideally behave with PO files submissions.  As a maintainer, your role is
-to authentify the origin of the submission as being the representative
+to authenticate the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
 the submission to <TT>`translation@iro.umontreal.ca&acute;</TT> in case of doubt),
 to ensure that the PO file format is not severely broken and does not
@@ -178,7 +186,7 @@ never try to <EM>solve</EM> a team's problem on your own.
 </P>
 
 
-<H2><A NAME="SEC172" HREF="gettext_toc.html#TOC172">12.3  Invoking the <CODE>gettextize</CODE> Program</A></H2>
+<H2><A NAME="SEC174" HREF="gettext_toc.html#TOC174">12.3  Invoking the <CODE>gettextize</CODE> Program</A></H2>
 
 <P>
 Some files are consistently and identically needed in every package
@@ -187,6 +195,9 @@ convenience, the <CODE>gettextize</CODE> program puts all these files right
 in your package.  This program has the following synopsis:
 
 </P>
+<P>
+<A NAME="IDX845"></A>
+<A NAME="IDX846"></A>
 
 <PRE>
 gettextize [ <VAR>option</VAR>... ] [ <VAR>directory</VAR> ]
@@ -202,6 +213,8 @@ and accepts the following options:
 <DD>
 <DT><SAMP>`--copy&acute;</SAMP>
 <DD>
+<A NAME="IDX847"></A>
+<A NAME="IDX848"></A>
 Copy the needed files instead of making symbolic links.  Using links
 would allow the package to always use the latest <CODE>gettext</CODE> code
 available on the system, but it might disturb some mechanism the
@@ -212,10 +225,13 @@ maintainer is used to apply to the sources.  Because running
 <DD>
 <DT><SAMP>`--force&acute;</SAMP>
 <DD>
+<A NAME="IDX849"></A>
+<A NAME="IDX850"></A>
 Force replacement of files which already exist.
 
 <DT><SAMP>`--intl&acute;</SAMP>
 <DD>
+<A NAME="IDX851"></A>
 Install the libintl sources in a subdirectory named <TT>`intl/&acute;</TT>.
 This libintl will be used to provide internationalization on systems
 that don't have GNU libintl installed. If this option is omitted,
@@ -225,16 +241,19 @@ be enabled on systems lacking GNU gettext.
 
 <DT><SAMP>`--no-changelog&acute;</SAMP>
 <DD>
+<A NAME="IDX852"></A>
 Don't update or create ChangeLog files.  By default, <CODE>gettextize</CODE>
 logs all changes (file additions, modifications ans removals) in a
 file called <SAMP>`ChangeLog&acute;</SAMP> in each affected directory.
 
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
+<A NAME="IDX853"></A>
 Display this help and exit.
 
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
+<A NAME="IDX854"></A>
 Output version information and exit.
 
 </DL>
@@ -277,7 +296,7 @@ the auxiliary files will be overwritten.
 
 <LI>
 
-Only of <SAMP>`--intl&acute;</SAMP> has been specified:
+Only if <SAMP>`--intl&acute;</SAMP> has been specified:
 A <TT>`intl/&acute;</TT> directory is created and filled with most of the files
 originally in the <TT>`intl/&acute;</TT> directory of the GNU <CODE>gettext</CODE>
 distribution.  Also, if option <CODE>--force</CODE> (<CODE>-f</CODE>) is given,
@@ -316,8 +335,11 @@ it can be identical in all packages.
 </P>
 
 
-<H2><A NAME="SEC173" HREF="gettext_toc.html#TOC173">12.4  Files You Must Create or Alter</A></H2>
+<H2><A NAME="SEC175" HREF="gettext_toc.html#TOC175">12.4  Files You Must Create or Alter</A></H2>
+<P>
+<A NAME="IDX855"></A>
 
+</P>
 <P>
 Besides files which are automatically added through <CODE>gettextize</CODE>,
 there are many files needing revision for properly interacting with
@@ -330,7 +352,7 @@ changes needed in each.
 <P>
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-<CODE>gettext</CODE> 0.11 distribution itself, or from the GNU
+<CODE>gettext</CODE> 0.11.1 distribution itself, or from the GNU
 <CODE>hello</CODE> distribution (<A HREF="http://www.franken.de/users/gnu/ke/hello">http://www.franken.de/users/gnu/ke/hello</A>
 or <A HREF="http://www.gnu.franken.de/ke/hello/">http://www.gnu.franken.de/ke/hello/</A>)  You may indeed
 refer to the source code of the GNU <CODE>gettext</CODE> and GNU <CODE>hello</CODE>
@@ -341,8 +363,11 @@ gettext functionality.
 
 
 
-<H3><A NAME="SEC174" HREF="gettext_toc.html#TOC174">12.4.1  <TT>`POTFILES.in&acute;</TT> in <TT>`po/&acute;</TT></A></H3>
+<H3><A NAME="SEC176" HREF="gettext_toc.html#TOC176">12.4.1  <TT>`POTFILES.in&acute;</TT> in <TT>`po/&acute;</TT></A></H3>
+<P>
+<A NAME="IDX856"></A>
 
+</P>
 <P>
 The <TT>`po/&acute;</TT> directory should receive a file named
 <TT>`POTFILES.in&acute;</TT>.  This file tells which files, among all program
@@ -376,8 +401,11 @@ of your whole distribution, rather than the location of the
 </P>
 
 
-<H3><A NAME="SEC175" HREF="gettext_toc.html#TOC175">12.4.2  <TT>`LINGUAS&acute;</TT> in <TT>`po/&acute;</TT></A></H3>
+<H3><A NAME="SEC177" HREF="gettext_toc.html#TOC177">12.4.2  <TT>`LINGUAS&acute;</TT> in <TT>`po/&acute;</TT></A></H3>
+<P>
+<A NAME="IDX857"></A>
 
+</P>
 <P>
 The <TT>`po/&acute;</TT> directory should also receive a file named
 <TT>`LINGUAS&acute;</TT>.  This file contains the list of available translations.
@@ -397,13 +425,16 @@ that these languages are currently supported by your package.  If you
 want to further restrict, at installation time, the set of installed
 languages, this should not be done by modifying the <TT>`LINGUAS&acute;</TT> file,
 but rather by using the <CODE>LINGUAS</CODE> environment variable
-(see section <A HREF="gettext_9.html#SEC136">9.2  Magic for Installers</A>).
+(see section <A HREF="gettext_9.html#SEC138">9.2  Magic for Installers</A>).
 
 </P>
 
 
-<H3><A NAME="SEC176" HREF="gettext_toc.html#TOC176">12.4.3  <TT>`Makefile&acute;</TT> pieces in <TT>`po/&acute;</TT></A></H3>
+<H3><A NAME="SEC178" HREF="gettext_toc.html#TOC178">12.4.3  <TT>`Makefile&acute;</TT> pieces in <TT>`po/&acute;</TT></A></H3>
+<P>
+<A NAME="IDX858"></A>
 
+</P>
 <P>
 The <TT>`po/&acute;</TT> directory also has a file named <TT>`Makevars&acute;</TT>.
 It can be left unmodified if your package has a single message domain
@@ -421,6 +452,8 @@ needing to mess with <TT>`po/Makefile.in.in&acute;</TT>.
 
 </P>
 <P>
+<A NAME="IDX859"></A>
+<A NAME="IDX860"></A>
 GNU gettext comes with a <TT>`Rules-quot&acute;</TT> file, containing rules for
 building catalogs <TT>`en@quot.po&acute;</TT> and <TT>`en@boldquot.po&acute;</TT>. The
 effect of <TT>`en@quot.po&acute;</TT> is that people who set their <CODE>LANGUAGE</CODE>
@@ -438,7 +471,7 @@ GUI programs. To enable it, similarly add <CODE>en@boldquot</CODE> to the
 </P>
 
 
-<H3><A NAME="SEC177" HREF="gettext_toc.html#TOC177">12.4.4  <TT>`configure.in&acute;</TT> at top level</A></H3>
+<H3><A NAME="SEC179" HREF="gettext_toc.html#TOC179">12.4.4  <TT>`configure.in&acute;</TT> at top level</A></H3>
 
 <P>
 <TT>`configure.in&acute;</TT> or <TT>`configure.ac&acute;</TT> - this is the source from which
@@ -449,22 +482,31 @@ GUI programs. To enable it, similarly add <CODE>en@boldquot</CODE> to the
 <OL>
 <LI>Declare the package and version.
 
+<A NAME="IDX861"></A>
+
 This is done by a set of lines like these:
 
 
 <PRE>
 PACKAGE=gettext
-VERSION=0.11
+VERSION=0.11.1
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 </PRE>
 
+or, if you are using GNU <CODE>automake</CODE>, by a line like this:
+
+
+<PRE>
+AM_INIT_AUTOMAKE(gettext, 0.11.1)
+</PRE>
+
 Of course, you replace <SAMP>`gettext&acute;</SAMP> with the name of your package,
-and <SAMP>`0.11&acute;</SAMP> by its version numbers, exactly as they
+and <SAMP>`0.11.1&acute;</SAMP> by its version numbers, exactly as they
 should appear in the packaged <CODE>tar</CODE> file name of your distribution
-(<TT>`gettext-0.11.tar.gz&acute;</TT>, here).
+(<TT>`gettext-0.11.1.tar.gz&acute;</TT>, here).
 
 <LI>Check for internationalization support.
 
@@ -511,10 +553,10 @@ add <CODE>intl/Makefile</CODE> to the <CODE>AC_OUTPUT</CODE> line.
 
 
 
-<H3><A NAME="SEC178" HREF="gettext_toc.html#TOC178">12.4.5  <TT>`config.guess&acute;</TT>, <TT>`config.sub&acute;</TT> at top level</A></H3>
+<H3><A NAME="SEC180" HREF="gettext_toc.html#TOC180">12.4.5  <TT>`config.guess&acute;</TT>, <TT>`config.sub&acute;</TT> at top level</A></H3>
 
 <P>
-If you don't have suppressed the <TT>`intl/&acute;</TT> subdirectory,
+If you haven't suppressed the <TT>`intl/&acute;</TT> subdirectory,
 you need to add the GNU <TT>`config.guess&acute;</TT> and <TT>`config.sub&acute;</TT> files
 to your distribution.  They are needed because the <TT>`intl/&acute;</TT> directory
 has platform dependent support for determining the locale's character
@@ -545,8 +587,11 @@ AC_CONFIG_AUX_DIR([<VAR>subdir</VAR>])
 
 
 
-<H3><A NAME="SEC179" HREF="gettext_toc.html#TOC179">12.4.6  <TT>`aclocal.m4&acute;</TT> at top level</A></H3>
+<H3><A NAME="SEC181" HREF="gettext_toc.html#TOC181">12.4.6  <TT>`aclocal.m4&acute;</TT> at top level</A></H3>
+<P>
+<A NAME="IDX862"></A>
 
+</P>
 <P>
 If you do not have an <TT>`aclocal.m4&acute;</TT> file in your distribution,
 the simplest is to concatenate the files <TT>`codeset.m4&acute;</TT>,
@@ -555,6 +600,7 @@ the simplest is to concatenate the files <TT>`codeset.m4&acute;</TT>,
 <TT>`lib-prefix.m4&acute;</TT>, <TT>`progtest.m4&acute;</TT> from GNU <CODE>gettext</CODE>'s
 <TT>`m4/&acute;</TT> directory into a single file.  If you have suppressed the
 <TT>`intl/&acute;</TT> directory, only <TT>`gettext.m4&acute;</TT>, <TT>`iconv.m4&acute;</TT>,
+<TT>`lib-ld.m4&acute;</TT>, <TT>`lib-link.m4&acute;</TT>, <TT>`lib-prefix.m4&acute;</TT>,
 <TT>`progtest.m4&acute;</TT> need to be concatenated.
 
 </P>
@@ -570,6 +616,20 @@ out there.
 
 </P>
 <P>
+If you are using GNU <CODE>automake</CODE> 1.5 or newer, it is enough to put
+these macro files into a subdirectory named <TT>`m4/&acute;</TT> and add the line
+
+</P>
+
+<PRE>
+ACLOCAL_AMFLAGS = -I m4
+</PRE>
+
+<P>
+to your top level <TT>`Makefile.am&acute;</TT>.
+
+</P>
+<P>
 These macros check for the internationalization support functions
 and related informations.  Hopefully, once stabilized, these macros
 might be integrated in the standard Autoconf set, because this
@@ -579,8 +639,11 @@ piece of <CODE>m4</CODE> code will be the same for all projects using GNU
 </P>
 
 
-<H3><A NAME="SEC180" HREF="gettext_toc.html#TOC180">12.4.7  <TT>`acconfig.h&acute;</TT> at top level</A></H3>
+<H3><A NAME="SEC182" HREF="gettext_toc.html#TOC182">12.4.7  <TT>`acconfig.h&acute;</TT> at top level</A></H3>
+<P>
+<A NAME="IDX863"></A>
 
+</P>
 <P>
 Earlier GNU <CODE>gettext</CODE> releases required to put definitions for
 <CODE>ENABLE_NLS</CODE>, <CODE>HAVE_GETTEXT</CODE> and <CODE>HAVE_LC_MESSAGES</CODE>,
@@ -592,7 +655,7 @@ independently from the <TT>`intl/&acute;</TT> directory.
 </P>
 
 
-<H3><A NAME="SEC181" HREF="gettext_toc.html#TOC181">12.4.8  <TT>`Makefile.in&acute;</TT> at top level</A></H3>
+<H3><A NAME="SEC183" HREF="gettext_toc.html#TOC183">12.4.8  <TT>`Makefile.in&acute;</TT> at top level</A></H3>
 
 <P>
 Here are a few modifications you need to make to your main, top-level
@@ -671,9 +734,15 @@ dist: Makefile
 
 </OL>
 
+<P>
+Note that if you are using GNU <CODE>automake</CODE>, <TT>`Makefile.in&acute;</TT> is
+automatically generated from <TT>`Makefile.am&acute;</TT>, and all needed changes
+to <TT>`Makefile.am&acute;</TT> are already made by running <SAMP>`gettextize&acute;</SAMP>.
+
+</P>
 
 
-<H3><A NAME="SEC182" HREF="gettext_toc.html#TOC182">12.4.9  <TT>`Makefile.in&acute;</TT> in <TT>`src/&acute;</TT></A></H3>
+<H3><A NAME="SEC184" HREF="gettext_toc.html#TOC184">12.4.9  <TT>`Makefile.in&acute;</TT> in <TT>`src/&acute;</TT></A></H3>
 
 <P>
 Some of the modifications made in the main <TT>`Makefile.in&acute;</TT> will
@@ -793,8 +862,13 @@ dist: Makefile $(DISTFILES)
 
 
 
-<H3><A NAME="SEC183" HREF="gettext_toc.html#TOC183">12.4.10  <TT>`gettext.h&acute;</TT> in <TT>`lib/&acute;</TT></A></H3>
+<H3><A NAME="SEC185" HREF="gettext_toc.html#TOC185">12.4.10  <TT>`gettext.h&acute;</TT> in <TT>`lib/&acute;</TT></A></H3>
+<P>
+<A NAME="IDX864"></A>
+<A NAME="IDX865"></A>
+<A NAME="IDX866"></A>
 
+</P>
 <P>
 Internationalization of packages, as provided by GNU <CODE>gettext</CODE>, is
 optional. It can be turned off in two situations:
@@ -829,6 +903,7 @@ to 0 in C preprocessor expressions.
 
 </P>
 <P>
+<A NAME="IDX867"></A>
 <TT>`gettext.h&acute;</TT> is a convenience header file for conditional use of
 <TT>`&#60;libintl.h&#62;&acute;</TT>, depending on the <CODE>ENABLE_NLS</CODE> macro. If
 <CODE>ENABLE_NLS</CODE> is set, it includes <TT>`&#60;libintl.h&#62;&acute;</TT>; otherwise it
@@ -867,8 +942,11 @@ package that needs it should contain a copy of it on its own.
 </P>
 
 
-<H2><A NAME="SEC184" HREF="gettext_toc.html#TOC184">12.5  Autoconf macros for use in <TT>`configure.in&acute;</TT></A></H2>
+<H2><A NAME="SEC186" HREF="gettext_toc.html#TOC186">12.5  Autoconf macros for use in <TT>`configure.in&acute;</TT></A></H2>
+<P>
+<A NAME="IDX868"></A>
 
+</P>
 <P>
 GNU <CODE>gettext</CODE> installs macros for use in a package's
 <TT>`configure.in&acute;</TT> or <TT>`configure.ac&acute;</TT>.
@@ -879,9 +957,10 @@ The primary macro is, of course, <CODE>AM_GNU_GETTEXT</CODE>.
 
 
 
-<H3><A NAME="SEC185" HREF="gettext_toc.html#TOC185">12.5.1  AM_GNU_GETTEXT in <TT>`gettext.m4&acute;</TT></A></H3>
+<H3><A NAME="SEC187" HREF="gettext_toc.html#TOC187">12.5.1  AM_GNU_GETTEXT in <TT>`gettext.m4&acute;</TT></A></H3>
 
 <P>
+<A NAME="IDX869"></A>
 The <CODE>AM_GNU_GETTEXT</CODE> macro tests for the presence of the GNU gettext
 function family in either the C library or a separate <CODE>libintl</CODE>
 library (shared or static libraries are both supported) or in the package's
@@ -944,6 +1023,7 @@ The complexities that <CODE>AM_GNU_GETTEXT</CODE> deals with are the following:
 <UL>
 <LI>
 
+<A NAME="IDX870"></A>
 Some operating systems have <CODE>gettext</CODE> in the C library, for example
 glibc. Some have it in a separate library <CODE>libintl</CODE>. GNU <CODE>libintl</CODE>
 might have been installed as part of the GNU <CODE>gettext</CODE> package.
@@ -979,9 +1059,10 @@ and <CODE>LTLIBINTL</CODE> variables.
 
 
 
-<H3><A NAME="SEC186" HREF="gettext_toc.html#TOC186">12.5.2  AM_ICONV in <TT>`iconv.m4&acute;</TT></A></H3>
+<H3><A NAME="SEC188" HREF="gettext_toc.html#TOC188">12.5.2  AM_ICONV in <TT>`iconv.m4&acute;</TT></A></H3>
 
 <P>
+<A NAME="IDX871"></A>
 The <CODE>AM_ICONV</CODE> macro tests for the presence of the POSIX
 <CODE>iconv</CODE> function family in either the C library or a separate
 <CODE>libiconv</CODE> library. If found, it sets the <CODE>am_cv_func_iconv</CODE>
@@ -1005,6 +1086,7 @@ The complexities that <CODE>AM_ICONV</CODE> deals with are the following:
 <UL>
 <LI>
 
+<A NAME="IDX872"></A>
 Some operating systems have <CODE>iconv</CODE> in the C library, for example
 glibc. Some have it in a separate library <CODE>libiconv</CODE>, for example
 OSF/1 or FreeBSD. Regardless of the operating system, GNU <CODE>libiconv</CODE>
@@ -1040,6 +1122,6 @@ library support, like SCO.
 
 </P>
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_11.html">previous</A>, <A HREF="gettext_13.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_11.html">previous</A>, <A HREF="gettext_13.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

@@ -56,6 +56,13 @@ GNU `gettext' utilities
 * Language Codes::              ISO 639 language codes
 * Country Codes::               ISO 3166 country codes
 
+* Program Index::               Index of Programs
+* Option Index::                Index of Command-Line Options
+* Variable Index::              Index of Environment Variables
+* PO Mode Index::               Index of Emacs PO Mode Commands
+* Autoconf Macro Index::        Index of Autoconf Macros
+* Index::                       General Index
+
  --- The Detailed Node Listing ---
 
 Introduction
@@ -236,6 +243,7 @@ Individual Programming Languages
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
 * YCP::                         YCP - YaST2 scripting language
+* Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
@@ -244,6 +252,7 @@ Internationalizable Data
 
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
+* Glade::                       Glade - GNOME user interface description
 
 Concluding Remarks
 
@@ -499,9 +508,10 @@ _Characters and Codesets_
      within this codeset.  The 8-bit ISO 8859-1 code set has most of
      the special characters needed to handle the major European
      languages.  However, in many cases, the ISO 8859-1 font is not
-     adequate.  Hence each locale will need to specify which codeset
-     they need to use and will need to have the appropriate character
-     handling routines to cope with the codeset.
+     adequate: it doesn't even handle the major European currency.
+     Hence each locale will need to specify which codeset they need to
+     use and will need to have the appropriate character handling
+     routines to cope with the codeset.
 
 _Currency_
      The symbols used vary from country to country as does the position
@@ -552,8 +562,8 @@ Files Conveying Translations
    The letters PO in `.po' files means Portable Object, to distinguish
 it from `.mo' files, where MO stands for Machine Object.  This
 paradigm, as well as the PO file format, is inspired by the NLS
-standard developed by Uniforum, and implemented by Sun in their Solaris
-system.
+standard developed by Uniforum, and first implemented by Sun in their
+Solaris system.
 
    PO files are meant to be read and edited by humans, and associate
 each original, translatable string of a given package with its

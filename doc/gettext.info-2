@@ -401,8 +401,8 @@ the same code in every program, as demonstrated below:
      }
 
    PACKAGE and LOCALEDIR should be provided either by `config.h' or by
-the Makefile.  For now consult the `gettext' sources for more
-information.
+the Makefile.  For now consult the `gettext' or `hello' sources for
+more information.
 
    The use of `LC_ALL' might not be appropriate for you.  `LC_ALL'
 includes all locale categories and especially `LC_CTYPE'.  This later
@@ -894,7 +894,8 @@ Choice of input file language
 `-L NAME'
 `--language=NAME'
      Specifies the language of the input files.  The supported languages
-     are `C', `C++', `ObjectiveC', `PO', `Java', `YCP'.
+     are `C', `C++', `ObjectiveC', `PO', `Python', `Lisp', `EmacsLisp',
+     `librep', `Java', `awk', `YCP', `Tcl', `RST', `Glade'.
 
 `-C'
 `--c++'

@@ -31,6 +31,30 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: Matrix,  Next: Installers,  Prev: Users,  Up: Users
+
+The Current `ABOUT-NLS' Matrix
+==============================
+
+   Languages are not equally supported in all packages using GNU
+`gettext'.  To know if some package uses GNU `gettext', one may check
+the distribution for the `ABOUT-NLS' information file, for some `LL.po'
+files, often kept together into some `po/' directory, or for an `intl/'
+directory.  Internationalized packages have usually many `LL.po' files,
+where LL represents the language.  *Note End Users:: for a complete
+description of the format for LL.
+
+   More generally, a matrix is available for showing the current state
+of the Translation Project, listing which packages are prepared for
+multi-lingual messages, and which languages are supported by each.
+Because this information changes often, this matrix is not kept within
+this GNU `gettext' manual.  This information is often found in file
+`ABOUT-NLS' from various distributions, but is also as old as the
+distribution itself.  A recent copy of this `ABOUT-NLS' file,
+containing up-to-date information, should generally be found on the
+Translation Project sites, and also on most GNU archive sites.
+
+
 File: gettext.info,  Node: Installers,  Next: End Users,  Prev: Matrix,  Up: Users
 
 Magic for Installers
@@ -184,7 +208,7 @@ Problems with the `catgets' Interface?!
 ---------------------------------------
 
    Now that this description seemed to be really easy -- where are the
-problem we speak of?  In fact the interface could be used in a
+problems we speak of?  In fact the interface could be used in a
 reasonable way, but constructing the message catalogs is a pain.  The
 reason for this lies in the third argument of `catgets': the unique
 message ID.  This has to be a numeric value for all messages in a single
@@ -260,7 +284,7 @@ To use a domain set by `textdomain' the function
 
      char *gettext (const char *msgid);
 
-   is to be used.  This is the simplest reasonable form one can imagine.
+is to be used.  This is the simplest reasonable form one can imagine.
 The translation of the string MSGID is returned if it is available in
 the current domain.  If not available the argument itself is returned.
 If the argument is `NULL' the result is undefined.
@@ -465,7 +489,7 @@ Maszkowski `<rzm@mat.uni.torun.pl>' reports:
    There are two things which can differ between languages (and even
 inside language families);
 
-   * The form how plural forms are build differs.  This is a problem
+   * The form how plural forms are built differs.  This is a problem
      with languages which have many irregularities.  German, for
      instance, is a drastic case.  Though English and German are part
      of the same language family (Germanic), the almost regular forming
@@ -1019,11 +1043,10 @@ is a list comments:
               ++_nl_msg_cat_cntr;
             }
 
-     The variable `_nl_msg_cat_cntr' is defined in `loadmsgcat.c'.  The
-     programmer will find himself in need for a construct like this only
-     when developing programs which do run longer and provide the user
-     to select the language at runtime.  Non-interactive programs (like
-     all these little Unix tools) should never need this.
+     The variable `_nl_msg_cat_cntr' is defined in `loadmsgcat.c'.  You
+     don't need to know what this is for. But it can be used to detect
+     whether a `gettext' implementation is GNU gettext and not non-GNU
+     system's native gettext implementation.
 
 
 

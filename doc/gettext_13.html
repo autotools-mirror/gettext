@@ -1,16 +1,16 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 31 January 2002 -->
+     from gettext.texi on 7 March 2002 -->
 
 <TITLE>GNU gettext utilities - 13  Other Programming Languages</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
-<H1><A NAME="SEC187" HREF="gettext_toc.html#TOC187">13  Other Programming Languages</A></H1>
+<H1><A NAME="SEC189" HREF="gettext_toc.html#TOC189">13  Other Programming Languages</A></H1>
 
 <P>
 While the presentation of <CODE>gettext</CODE> focuses mostly on C and
@@ -23,8 +23,12 @@ approach.
 
 
 
-<H2><A NAME="SEC188" HREF="gettext_toc.html#TOC188">13.1  The Language Implementor's View</A></H2>
+<H2><A NAME="SEC190" HREF="gettext_toc.html#TOC190">13.1  The Language Implementor's View</A></H2>
+<P>
+<A NAME="IDX873"></A>
+<A NAME="IDX874"></A>
 
+</P>
 <P>
 All programming and scripting languages that have the notion of strings
 are eligible to supporting <CODE>gettext</CODE>.  Supporting <CODE>gettext</CODE>
@@ -120,7 +124,7 @@ different effects on portability and copyright:
 <LI>
 
 You may integrate the GNU <CODE>gettext</CODE>'s <TT>`intl/&acute;</TT> directory in
-your package, as described in section <A HREF="gettext_12.html#SEC169">12  The Maintainer's View</A>.  This allows you to
+your package, as described in section <A HREF="gettext_12.html#SEC171">12  The Maintainer's View</A>.  This allows you to
 have internationalization on all kinds of platforms.  Note that when you
 then distribute your package, it legally falls under the GNU General
 Public License, and the GNU project will be glad about your contribution
@@ -146,7 +150,7 @@ and plural handling).
 
 
 
-<H2><A NAME="SEC189" HREF="gettext_toc.html#TOC189">13.2  The Programmer's View</A></H2>
+<H2><A NAME="SEC191" HREF="gettext_toc.html#TOC191">13.2  The Programmer's View</A></H2>
 
 <P>
 For the programmer, the general procedure is the same as for the C
@@ -159,7 +163,7 @@ underlying language runtime.
 </P>
 
 
-<H2><A NAME="SEC190" HREF="gettext_toc.html#TOC190">13.3  The Translator's View</A></H2>
+<H2><A NAME="SEC192" HREF="gettext_toc.html#TOC192">13.3  The Translator's View</A></H2>
 
 <P>
 The translator works exactly as in the C language case.  The only
@@ -170,7 +174,7 @@ strings.
 </P>
 
 
-<H2><A NAME="SEC191" HREF="gettext_toc.html#TOC191">13.4  The Maintainer's View</A></H2>
+<H2><A NAME="SEC193" HREF="gettext_toc.html#TOC193">13.4  The Maintainer's View</A></H2>
 
 <P>
 For the maintainer, the general procedure differs from the C language
@@ -190,7 +194,7 @@ invokes the <CODE>AM_GNU_GETTEXT</CODE> autoconf macro via
 <LI>
 
 If only a single programming language is used, the <CODE>XGETTEXT_OPTIONS</CODE>
-variable in <TT>`po/Makevars&acute;</TT> (see section <A HREF="gettext_12.html#SEC176">12.4.3  <TT>`Makefile&acute;</TT> pieces in <TT>`po/&acute;</TT></A>) should be adjusted to
+variable in <TT>`po/Makevars&acute;</TT> (see section <A HREF="gettext_12.html#SEC178">12.4.3  <TT>`Makefile&acute;</TT> pieces in <TT>`po/&acute;</TT></A>) should be adjusted to
 match the <CODE>xgettext</CODE> options for that particular programming language.
 If the package uses more than one programming language with <CODE>gettext</CODE>
 support, it becomes necessary to change the POT file construction rule
@@ -201,12 +205,15 @@ that language, and to combine the resulting files using <CODE>msgcat</CODE>.
 
 
 
-<H2><A NAME="SEC192" HREF="gettext_toc.html#TOC192">13.5  Individual Programming Languages</A></H2>
+<H2><A NAME="SEC194" HREF="gettext_toc.html#TOC194">13.5  Individual Programming Languages</A></H2>
 
 
 
-<H3><A NAME="SEC193" HREF="gettext_toc.html#TOC193">13.5.1  C, C++, Objective C</A></H3>
+<H3><A NAME="SEC195" HREF="gettext_toc.html#TOC195">13.5.1  C, C++, Objective C</A></H3>
+<P>
+<A NAME="IDX875"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -273,8 +280,11 @@ yes
 
 
 
-<H3><A NAME="SEC194" HREF="gettext_toc.html#TOC194">13.5.2  sh - Shell Script</A></H3>
+<H3><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13.5.2  sh - Shell Script</A></H3>
+<P>
+<A NAME="IDX876"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -295,14 +305,18 @@ bash, gettext
 
 <DT>gettext/ngettext functions
 <DD>
+<A NAME="IDX877"></A>
+<A NAME="IDX878"></A>
 <CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
 
 <DT>textdomain
 <DD>
+<A NAME="IDX879"></A>
 environment variable <CODE>TEXTDOMAIN</CODE>
 
 <DT>bindtextdomain
 <DD>
+<A NAME="IDX880"></A>
 environment variable <CODE>TEXTDOMAINDIR</CODE>
 
 <DT>setlocale
@@ -336,8 +350,11 @@ use
 
 
 
-<H3><A NAME="SEC195" HREF="gettext_toc.html#TOC195">13.5.3  bash - Bourne-Again Shell Script</A></H3>
+<H3><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.5.3  bash - Bourne-Again Shell Script</A></H3>
+<P>
+<A NAME="IDX881"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -358,14 +375,18 @@ bash 2.0 or newer, gettext
 
 <DT>gettext/ngettext functions
 <DD>
+<A NAME="IDX882"></A>
+<A NAME="IDX883"></A>
 <CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
 
 <DT>textdomain
 <DD>
+<A NAME="IDX884"></A>
 environment variable <CODE>TEXTDOMAIN</CODE>
 
 <DT>bindtextdomain
 <DD>
+<A NAME="IDX885"></A>
 environment variable <CODE>TEXTDOMAINDIR</CODE>
 
 <DT>setlocale
@@ -399,8 +420,11 @@ use
 
 
 
-<H3><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13.5.4  Python</A></H3>
+<H3><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.5.4  Python</A></H3>
+<P>
+<A NAME="IDX886"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -450,7 +474,7 @@ emulate. Bug: uses only the first found .mo file, not all of them
 
 <DT>Extractor
 <DD>
-pygettext.py
+<CODE>xgettext</CODE>
 
 <DT>Formatting with positions
 <DD>
@@ -467,8 +491,13 @@ fully portable
 
 
 
-<H3><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.5.5  GNU clisp - Common Lisp</A></H3>
+<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.5.5  GNU clisp - Common Lisp</A></H3>
+<P>
+<A NAME="IDX887"></A>
+<A NAME="IDX888"></A>
+<A NAME="IDX889"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -530,8 +559,11 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.5.6  GNU clisp C sources</A></H3>
+<H3><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.5.6  GNU clisp C sources</A></H3>
+<P>
+<A NAME="IDX890"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -595,8 +627,11 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.5.7  Emacs Lisp</A></H3>
+<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.5.7  Emacs Lisp</A></H3>
+<P>
+<A NAME="IDX891"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -658,8 +693,11 @@ Only XEmacs. Without <CODE>I18N3</CODE> defined at build time, no translation.
 
 
 
-<H3><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.5.8  librep</A></H3>
+<H3><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.5.8  librep</A></H3>
+<P>
+<A NAME="IDX892"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -721,8 +759,11 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.5.9  GNU Smalltalk</A></H3>
+<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.5.9  GNU Smalltalk</A></H3>
+<P>
+<A NAME="IDX893"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -790,8 +831,11 @@ fully portable
 
 
 
-<H3><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.5.10  Java</A></H3>
+<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.5.10  Java</A></H3>
+<P>
+<A NAME="IDX894"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -903,14 +947,19 @@ a translation is missing, the <VAR>msgid</VAR> argument is returned unchanged.
 This has the advantage of having the <CODE>ngettext</CODE> function for plural
 handling.
 
+<A NAME="IDX895"></A>
 To use this API, one needs the <CODE>libintl.jar</CODE> file which is part of
 the GNU gettext package and distributed under the LGPL.
 </OL>
 
 
 
-<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.5.11  GNU awk</A></H3>
+<H3><A NAME="SEC205" HREF="gettext_toc.html#TOC205">13.5.11  GNU awk</A></H3>
+<P>
+<A NAME="IDX896"></A>
+<A NAME="IDX897"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -931,7 +980,7 @@ gawk 3.1 or newer
 
 <DT>gettext/ngettext functions
 <DD>
-<CODE>dcgettext</CODE>
+<CODE>dcgettext</CODE>, missing <CODE>dcngettext</CODE> in gawk-3.1.0
 
 <DT>textdomain
 <DD>
@@ -955,7 +1004,7 @@ use
 
 <DT>Extractor
 <DD>
-<CODE>gawk --gen-po</CODE>
+<CODE>xgettext</CODE>
 
 <DT>Formatting with positions
 <DD>
@@ -964,7 +1013,8 @@ use
 <DT>Portability
 <DD>
 On platforms without gettext, no translation.  On non-GNU awks, you must
-define <CODE>dcgettext</CODE> and <CODE>bindtextdomain</CODE> yourself.
+define <CODE>dcgettext</CODE>, <CODE>dcngettext</CODE> and <CODE>bindtextdomain</CODE>
+yourself.
 
 <DT>po-mode marking
 <DD>
@@ -973,8 +1023,13 @@ define <CODE>dcgettext</CODE> and <CODE>bindtextdomain</CODE> yourself.
 
 
 
-<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.5.12  Pascal - Free Pascal Compiler</A></H3>
+<H3><A NAME="SEC206" HREF="gettext_toc.html#TOC206">13.5.12  Pascal - Free Pascal Compiler</A></H3>
+<P>
+<A NAME="IDX898"></A>
+<A NAME="IDX899"></A>
+<A NAME="IDX900"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1044,8 +1099,11 @@ using the <CODE>TranslateResourceStrings</CODE> function in the <CODE>gettext</C
 </P>
 
 
-<H3><A NAME="SEC205" HREF="gettext_toc.html#TOC205">13.5.13  wxWindows library</A></H3>
+<H3><A NAME="SEC207" HREF="gettext_toc.html#TOC207">13.5.13  wxWindows library</A></H3>
+<P>
+<A NAME="IDX901"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1107,8 +1165,12 @@ yes
 
 
 
-<H3><A NAME="SEC206" HREF="gettext_toc.html#TOC206">13.5.14  YCP - YaST2 scripting language</A></H3>
+<H3><A NAME="SEC208" HREF="gettext_toc.html#TOC208">13.5.14  YCP - YaST2 scripting language</A></H3>
+<P>
+<A NAME="IDX902"></A>
+<A NAME="IDX903"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1170,8 +1232,92 @@ fully portable
 
 
 
-<H3><A NAME="SEC207" HREF="gettext_toc.html#TOC207">13.5.15  Perl</A></H3>
+<H3><A NAME="SEC209" HREF="gettext_toc.html#TOC209">13.5.15  Tcl - Tk's scripting language</A></H3>
+<P>
+<A NAME="IDX904"></A>
+<A NAME="IDX905"></A>
 
+</P>
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+tcl
+
+<DT>File extension
+<DD>
+<CODE>tcl</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>[_ "abc"]</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>::msgcat::mc</CODE>
+
+<DT>textdomain
+<DD>
+---
+
+<DT>bindtextdomain
+<DD>
+---, use <CODE>::msgcat::mcload</CODE> instead
+
+<DT>setlocale
+<DD>
+automatic, uses LANG, but ignores LC_MESSAGES and LC_ALL
+
+<DT>Prerequisite
+<DD>
+<CODE>package require msgcat</CODE>
+<BR><CODE>proc _ {s} {return [::msgcat::mc $s]}</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+---, uses a Tcl specific message catalog format
+
+<DT>Extractor
+<DD>
+<CODE>xgettext -k_</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>format "%2\$d %1\$d"</CODE>
+
+<DT>Portability
+<DD>
+fully portable
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+<P>
+Before marking strings as internationalizable, substitutions of variables
+into the string need to be converted to <CODE>format</CODE> applications. For
+example, <CODE>"file $filename not found"</CODE> becomes
+<CODE>[format "file %s not found" $filename]</CODE>.
+Only after this is done, can the strings be marked and extracted.
+After marking, this example becomes
+<CODE>[format [_ "file %s not found"] $filename]</CODE> or
+<CODE>[msgcat::mc "file %s not found" $filename]</CODE>. Note that the
+<CODE>msgcat::mc</CODE> function implicitly calls <CODE>format</CODE> when more than one
+argument is given.
+
+</P>
+
+
+<H3><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13.5.16  Perl</A></H3>
+<P>
+<A NAME="IDX906"></A>
+
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1234,8 +1380,11 @@ use
 
 
 
-<H3><A NAME="SEC208" HREF="gettext_toc.html#TOC208">13.5.16  PHP Hypertext Preprocessor</A></H3>
+<H3><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.5.17  PHP Hypertext Preprocessor</A></H3>
+<P>
+<A NAME="IDX907"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1297,8 +1446,11 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H3><A NAME="SEC209" HREF="gettext_toc.html#TOC209">13.5.17  Pike</A></H3>
+<H3><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.5.18  Pike</A></H3>
+<P>
+<A NAME="IDX908"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1360,7 +1512,7 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H2><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13.6  Internationalizable Data</A></H2>
+<H2><A NAME="SEC213" HREF="gettext_toc.html#TOC213">13.6  Internationalizable Data</A></H2>
 
 <P>
 Here is a list of other data formats which can be internationalized
@@ -1370,7 +1522,7 @@ using GNU gettext.
 
 
 
-<H3><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.6.1  POT - Portable Object Template</A></H3>
+<H3><A NAME="SEC214" HREF="gettext_toc.html#TOC214">13.6.1  POT - Portable Object Template</A></H3>
 
 <DL COMPACT>
 
@@ -1389,8 +1541,11 @@ gettext
 
 
 
-<H3><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.6.2  Resource String Table</A></H3>
+<H3><A NAME="SEC215" HREF="gettext_toc.html#TOC215">13.6.2  Resource String Table</A></H3>
+<P>
+<A NAME="IDX909"></A>
 
+</P>
 <DL COMPACT>
 
 <DT>RPMs
@@ -1406,7 +1561,26 @@ fpk
 <CODE>xgettext</CODE>, <CODE>rstconv</CODE>
 </DL>
 
+
+
+<H3><A NAME="SEC216" HREF="gettext_toc.html#TOC216">13.6.3  Glade - GNOME user interface description</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+glade, libglade, xml-i18n-tools
+
+<DT>File extension
+<DD>
+<CODE>glade</CODE>
+
+<DT>Extractor
+<DD>
+<CODE>xgettext</CODE>, <CODE>libglade-xgettext</CODE>
+</DL>
+
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

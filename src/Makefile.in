@@ -106,6 +106,7 @@ LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIB = @LIB@
+LIBEXPAT = @LIBEXPAT@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
@@ -113,6 +114,7 @@ LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
 LTLIB = @LTLIB@
+LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
@@ -154,11 +156,12 @@ noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
-write-mo.h read-java.h write-java.h po-time.h format.h xgettext.h x-c.h \
-x-po.h x-lisp.h x-elisp.h x-librep.h x-java.h x-ycp.h x-rst.h
+write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
+plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
+x-elisp.h x-librep.h x-java.h x-awk.h x-ycp.h x-tcl.h x-rst.h x-glade.h
 
 
-EXTRA_DIST = FILES project-id \
+EXTRA_DIST = FILES project-id msgunfmt.tcl \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
 
 
@@ -166,11 +169,12 @@ localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
 
-INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
--I$(top_srcdir)/intl
+INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/libuniname \
+-I../lib -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
--DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
+-DLIBDIR=\"$(libdir)\" -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
+-DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 
 LDADD = ../lib/libgettextlib.la @LTLIBINTL@
 
@@ -191,26 +195,30 @@ open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c \
-format-c.c format-java.c format-lisp.c format-elisp.c format-librep.c \
-format-python.c format-pascal.c format-ycp.c
+format-c.c format-python.c format-lisp.c format-elisp.c format-librep.c \
+format-java.c format-awk.c format-pascal.c format-ycp.c format-tcl.c
 
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
 msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
-$(FORMAT_SOURCE)
+plural-table.c $(FORMAT_SOURCE)
 
+
+# x-python needs table of Unicode character names.
+LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
-msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
+msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
-  x-c.c x-po.c x-lisp.c x-elisp.c x-librep.c x-java.l x-ycp.c x-rst.c
+  x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-java.l x-awk.c \
+  x-ycp.c x-tcl.c x-rst.c x-glade.c
 
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
@@ -242,7 +250,7 @@ msgcmp_LDADD = libgettextsrc.la
 msgfmt_LDADD = libgettextsrc.la
 msgmerge_LDADD = libgettextsrc.la
 msgunfmt_LDADD = libgettextsrc.la
-xgettext_LDADD = libgettextsrc.la
+xgettext_LDADD = libgettextsrc.la $(LIBUNINAME) @LTLIBEXPAT@
 msgattrib_LDADD = libgettextsrc.la
 msgcat_LDADD = libgettextsrc.la
 msgcomm_LDADD = libgettextsrc.la
@@ -251,7 +259,8 @@ msgen_LDADD = libgettextsrc.la
 msgexec_LDADD = libgettextsrc.la
 msgfilter_LDADD = libgettextsrc.la
 msggrep_LDADD = libgettextsrc.la
-msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
+msginit_LDADD = ../intl/localealias.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
+                ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
                 libgettextsrc.la
 
 msguniq_LDADD = libgettextsrc.la
@@ -274,9 +283,10 @@ am_libgettextsrc_la_OBJECTS = message.lo po.lo po-lex.lo po-gram-gen.lo \
 	po-hash-gen.lo po-charset.lo open-po.lo dir-list.lo str-list.lo \
 	read-po.lo write-po.lo msgl-ascii.lo msgl-iconv.lo \
 	msgl-equal.lo msgl-cat.lo msgl-english.lo file-list.lo \
-	msgl-charset.lo po-time.lo plural.lo format.lo format-c.lo \
-	format-java.lo format-lisp.lo format-elisp.lo format-librep.lo \
-	format-python.lo format-pascal.lo format-ycp.lo
+	msgl-charset.lo po-time.lo plural.lo plural-table.lo format.lo \
+	format-c.lo format-python.lo format-lisp.lo format-elisp.lo \
+	format-librep.lo format-java.lo format-awk.lo format-pascal.lo \
+	format-ycp.lo format-tcl.lo
 libgettextsrc_la_OBJECTS = $(am_libgettextsrc_la_OBJECTS)
 bin_PROGRAMS = gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
 	msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) \
@@ -331,7 +341,7 @@ msgfilter_OBJECTS = $(am_msgfilter_OBJECTS)
 msgfilter_DEPENDENCIES = libgettextsrc.la
 msgfilter_LDFLAGS =
 am_msgfmt_OBJECTS = msgfmt.$(OBJEXT) write-mo.$(OBJEXT) \
-	write-java.$(OBJEXT) plural-eval.$(OBJEXT)
+	write-java.$(OBJEXT) write-tcl.$(OBJEXT) plural-eval.$(OBJEXT)
 msgfmt_OBJECTS = $(am_msgfmt_OBJECTS)
 msgfmt_DEPENDENCIES = libgettextsrc.la
 msgfmt_LDFLAGS =
@@ -341,15 +351,16 @@ msggrep_DEPENDENCIES = libgettextsrc.la
 msggrep_LDFLAGS =
 am_msginit_OBJECTS = msginit.$(OBJEXT)
 msginit_OBJECTS = $(am_msginit_OBJECTS)
-msginit_DEPENDENCIES = ../intl/localealias.$(OBJEXT) \
-	../intl/localename.$(OBJEXT) libgettextsrc.la
+msginit_DEPENDENCIES = ../intl/localealias.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
+	../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
+	libgettextsrc.la
 msginit_LDFLAGS =
 am_msgmerge_OBJECTS = msgmerge.$(OBJEXT)
 msgmerge_OBJECTS = $(am_msgmerge_OBJECTS)
 msgmerge_DEPENDENCIES = libgettextsrc.la
 msgmerge_LDFLAGS =
 am_msgunfmt_OBJECTS = msgunfmt.$(OBJEXT) read-mo.$(OBJEXT) \
-	read-java.$(OBJEXT)
+	read-java.$(OBJEXT) read-tcl.$(OBJEXT)
 msgunfmt_OBJECTS = $(am_msgunfmt_OBJECTS)
 msgunfmt_DEPENDENCIES = libgettextsrc.la
 msgunfmt_LDFLAGS =
@@ -369,10 +380,12 @@ urlget_LDADD = $(LDADD)
 urlget_DEPENDENCIES = ../lib/libgettextlib.la
 urlget_LDFLAGS =
 am_xgettext_OBJECTS = xgettext.$(OBJEXT) x-c.$(OBJEXT) x-po.$(OBJEXT) \
-	x-lisp.$(OBJEXT) x-elisp.$(OBJEXT) x-librep.$(OBJEXT) \
-	x-java.$(OBJEXT) x-ycp.$(OBJEXT) x-rst.$(OBJEXT)
+	x-python.$(OBJEXT) x-lisp.$(OBJEXT) x-elisp.$(OBJEXT) \
+	x-librep.$(OBJEXT) x-java.$(OBJEXT) x-awk.$(OBJEXT) \
+	x-ycp.$(OBJEXT) x-tcl.$(OBJEXT) x-rst.$(OBJEXT) \
+	x-glade.$(OBJEXT)
 xgettext_OBJECTS = $(am_xgettext_OBJECTS)
-xgettext_DEPENDENCIES = libgettextsrc.la
+xgettext_DEPENDENCIES = libgettextsrc.la ../libuniname/libuniname.a
 xgettext_LDFLAGS =
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@
@@ -757,6 +770,21 @@ uninstall-local: uninstall-java-@BUILDJAVA@
 uninstall-java-no:
 uninstall-java-yes:
 	$(RM) $(DESTDIR)$(jardir)/gettext.jar
+
+# Special rules for Tcl auxiliary program.
+
+install-data-local: install-tcl
+install-tcl:
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(INSTALL_DATA) $(srcdir)/msgunfmt.tcl $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
+
+installdirs-local: installdirs-tcl
+installdirs-tcl:
+	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+
+uninstall-local: uninstall-tcl
+uninstall-tcl:
+	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
 
 # One more automake bug.
 installdirs: installdirs-local

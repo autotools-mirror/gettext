@@ -365,9 +365,9 @@ Translated Entries
 
    Each PO file entry for which the `msgstr' field has been filled with
 a translation, and which is not marked as fuzzy (*note Fuzzy Entries::),
-is a said to be a "translated" entry.  Only translated entries will
-later be compiled by GNU `msgfmt' and become usable in programs.  Other
-entry types will be excluded; translation will not occur for them.
+is said to be a "translated" entry.  Only translated entries will later
+be compiled by GNU `msgfmt' and become usable in programs.  Other entry
+types will be excluded; translation will not occur for them.
 
    Some commands are more specifically related to translated entry
 processing.
@@ -379,7 +379,7 @@ processing.
      Find the previous translated entry
      (`po-previous-translated-entry').
 
-   The commands `t' (`po-next-translated-entry') and `M-t'
+   The commands `t' (`po-next-translated-entry') and `T'
 (`po-previous-translated-entry') move forwards or backwards, chasing
 for an translated entry.  If none is found, the search is extended and
 wraps around in the PO file buffer.
@@ -493,7 +493,7 @@ processing.
 `k'
      Turn the current entry into an untranslated one (`po-kill-msgstr').
 
-   The commands `u' (`po-next-untranslated-entry') and `M-u'
+   The commands `u' (`po-next-untranslated-entry') and `U'
 (`po-previous-untransted-entry') move forwards or backwards, chasing
 for an untranslated entry.  If none is found, the search is extended
 and wraps around in the PO file buffer.
@@ -541,7 +541,7 @@ entry processing.
      Make an active entry obsolete, or zap out an obsolete entry
      (`po-fade-out-entry').
 
-   The commands `o' (`po-next-obsolete-entry') and `M-o'
+   The commands `o' (`po-next-obsolete-entry') and `O'
 (`po-previous-obsolete-entry') move forwards or backwards, chasing for
 an obsolete entry.  If none is found, the search is extended and wraps
 around in the PO file buffer.
@@ -837,7 +837,7 @@ editing set of Emacs, which are described below.
 
    The window's contents represents a translation for a given message,
 or a translator comment.  The translator may modify this window to her
-heart's content.  Once this done, the command `C-c C-c'
+heart's content.  Once this is done, the command `C-c C-c'
 (`po-subedit-exit') may be used to return the edited translation into
 the PO file, replacing the original translation, even if it moved out of
 sight or if buffers were switched.
@@ -1089,7 +1089,7 @@ Creating Compendia
 ------------------
 
    Basically every PO file consisting of translated entries only can be
-declared as a valid compendium.  Often the translater wants to have
+declared as a valid compendium.  Often the translator wants to have
 special compendia; let's consider two cases: `concatenating PO files'
 and `extracting a message subset from a PO file'.
 
@@ -1140,11 +1140,9 @@ message is always the best translation she can make use to the
      msgcat --use-first -o compendium.po file1.po file2.po
 
    A good compendium file must not contain `fuzzy' or untranslated
-entries.  If input files are "dirty" you must use the
-`--translated-only' switch (FIXME: TBI) or a manual way to pre- or
-postprocess.  (FIXME: Handling of obsolete entries at this point?
-Proposal: By default, make them valid entries.
-`--no-obsolete-entries'.)
+entries.  If input files are "dirty" you must preprocess the input
+files or postprocess the result using `msgattrib --translated
+--no-fuzzy'.
 
 Extract a Message Subset from a PO File
 .......................................

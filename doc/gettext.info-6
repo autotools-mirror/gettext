@@ -532,7 +532,7 @@ chapter.  So, we describe them here.
    * Before attempting to use `gettextize' you should install some
      other packages first.  Ensure that recent versions of GNU `m4',
      GNU Autoconf and GNU `gettext' are already installed at your site,
-     and if not, proceed to do this first.  If you got to install these
+     and if not, proceed to do this first.  If you get to install these
      things, beware that GNU `m4' must be fully installed before GNU
      Autoconf is even _configured_.
 
@@ -542,7 +542,7 @@ chapter.  So, we describe them here.
      about all the goals necessary for using `automake' and `libintl'
      in one project.
 
-     Those four packages are only needed to you, as a maintainer; the
+     Those four packages are only needed by you, as a maintainer; the
      installers of your own package and end users do not really need
      any of GNU `m4', GNU Autoconf, GNU `gettext', or GNU `automake'
      for successfully installing and running your package, with messages
@@ -570,7 +570,7 @@ chapter.  So, we describe them here.
 
    It is worth adding here a few words about how the maintainer should
 ideally behave with PO files submissions.  As a maintainer, your role is
-to authentify the origin of the submission as being the representative
+to authenticate the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
 the submission to `translation@iro.umontreal.ca' in case of doubt), to
 ensure that the PO file format is not severely broken and does not
@@ -667,7 +667,7 @@ specified.
      with the files it contains, and only `Makefile.in.in' and the
      auxiliary files will be overwritten.
 
-  3. Only of `--intl' has been specified: A `intl/' directory is
+  3. Only if `--intl' has been specified: A `intl/' directory is
      created and filled with most of the files originally in the
      `intl/' directory of the GNU `gettext' distribution.  Also, if
      option `--force' (`-f') is given, the `intl/' directory is emptied
@@ -710,7 +710,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.11 distribution itself, or from the GNU `hello'
+`gettext' 0.11.1 distribution itself, or from the GNU `hello'
 distribution (`http://www.franken.de/users/gnu/ke/hello' or
 `http://www.gnu.franken.de/ke/hello/')  You may indeed refer to the
 source code of the GNU `gettext' and GNU `hello' packages, as they are
@@ -822,16 +822,20 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.11
+          VERSION=0.11.1
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
           AC_SUBST(VERSION)
 
+     or, if you are using GNU `automake', by a line like this:
+
+          AM_INIT_AUTOMAKE(gettext, 0.11.1)
+
      Of course, you replace `gettext' with the name of your package,
-     and `0.11' by its version numbers, exactly as they should appear
+     and `0.11.1' by its version numbers, exactly as they should appear
      in the packaged `tar' file name of your distribution
-     (`gettext-0.11.tar.gz', here).
+     (`gettext-0.11.1.tar.gz', here).
 
   2. Check for internationalization support.
 
@@ -872,8 +876,8 @@ File: gettext.info,  Node: config.guess,  Next: aclocal,  Prev: configure.in,  U
 `config.guess', `config.sub' at top level
 -----------------------------------------
 
-   If you don't have suppressed the `intl/' subdirectory, you need to
-add the GNU `config.guess' and `config.sub' files to your distribution.
+   If you haven't suppressed the `intl/' subdirectory, you need to add
+the GNU `config.guess' and `config.sub' files to your distribution.
 They are needed because the `intl/' directory has platform dependent
 support for determining the locale's character encoding and therefore
 needs to identify the platform.
@@ -902,8 +906,8 @@ simplest is to concatenate the files `codeset.m4', `gettext.m4',
 `glibc21.m4', `iconv.m4', `isc-posix.m4', `lcmessage.m4', `lib-ld.m4',
 `lib-link.m4', `lib-prefix.m4', `progtest.m4' from GNU `gettext''s
 `m4/' directory into a single file.  If you have suppressed the `intl/'
-directory, only `gettext.m4', `iconv.m4', `progtest.m4' need to be
-concatenated.
+directory, only `gettext.m4', `iconv.m4', `lib-ld.m4', `lib-link.m4',
+`lib-prefix.m4', `progtest.m4' need to be concatenated.
 
    If you already have an `aclocal.m4' file, then you will have to
 merge the said macro files into your `aclocal.m4'.  Note that if you
@@ -912,6 +916,13 @@ probably _replace_ the macros (`AM_GNU_GETTEXT', etc.), as they usually
 change a little from one release of GNU `gettext' to the next.  Their
 contents may vary as we get more experience with strange systems out
 there.
+
+   If you are using GNU `automake' 1.5 or newer, it is enough to put
+these macro files into a subdirectory named `m4/' and add the line
+
+     ACLOCAL_AMFLAGS = -I m4
+
+to your top level `Makefile.am'.
 
    These macros check for the internationalization support functions
 and related informations.  Hopefully, once stabilized, these macros
@@ -991,6 +1002,10 @@ File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: 
           	tar chozf $(distdir).tar.gz $(distdir)
           	rm -fr $(distdir)
 
+
+   Note that if you are using GNU `automake', `Makefile.in' is
+automatically generated from `Makefile.am', and all needed changes to
+`Makefile.am' are already made by running `gettextize'.
 
 
 File: gettext.info,  Node: src/Makefile,  Next: lib/gettext.h,  Prev: Makefile,  Up: Adjusting Files

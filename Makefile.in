@@ -107,6 +107,7 @@ LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIB = @LIB@
+LIBEXPAT = @LIBEXPAT@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
@@ -114,6 +115,7 @@ LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
 LTLIB = @LTLIB@
+LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
@@ -142,19 +144,20 @@ with_gnu_ld = @with_gnu_ld@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4
 
+MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 gettextsrc_SCRIPTS = config.rpath
 
-SUBDIRS = doc intl intl-java lib src po man m4 projects misc tests
+SUBDIRS = doc intl intl-java lib libuniname src po man m4 projects misc tests
 
 EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
              djgpp/config.bat djgpp/config.in djgpp/config.sed \
              djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in \
              djgpp/fnchange.lst djgpp/tscript.sed \
-             os2/README.OS2 os2/Makefile os2/backward.def \
-             os2/iconv/README os2/configure.awk
+             os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 
 
@@ -389,7 +392,7 @@ GZIP_ENV = --best
 distdir: $(DISTFILES)
 	-chmod -R a+w $(distdir) >/dev/null 2>&1; rm -rf $(distdir)
 	mkdir $(distdir)
-	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/intl $(distdir)/lib $(distdir)/man $(distdir)/misc $(distdir)/os2 $(distdir)/os2/iconv $(distdir)/po $(distdir)/src
+	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/intl $(distdir)/lib $(distdir)/man $(distdir)/misc $(distdir)/os2 $(distdir)/po $(distdir)/src
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \

@@ -106,6 +106,7 @@ LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIB = @LIB@
+LIBEXPAT = @LIBEXPAT@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
@@ -113,6 +114,7 @@ LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
 LTLIB = @LTLIB@
+LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
@@ -172,6 +174,22 @@ EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi texi
 CLEANFILES = gettext.pdf gettext.html
 # gettext.dvi and gettext.ps are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html
+
+# Temporary index files. automake doesn't remove them reliably by itself.
+MOSTLYCLEANFILES = \
+  gettext.am gettext.ams \
+  gettext.cp gettext.cps \
+  gettext.ef gettext.efs \
+  gettext.em gettext.ems \
+  gettext.ev gettext.evs \
+  gettext.fn gettext.fns \
+  gettext.kw gettext.kws \
+  gettext.ky gettext.kys \
+  gettext.op gettext.ops \
+  gettext.pg gettext.pgs \
+  gettext.tp gettext.tps \
+  gettext.vr gettext.vrs
+
 SUFFIXES = .pdf
 
 
@@ -281,9 +299,10 @@ dist-info: $(INFO_DEPS)
 	done
 
 mostlyclean-aminfo:
-	-rm -f gettext.aux gettext.cp gettext.cps gettext.dvi gettext.fn gettext.fns \
-	  gettext.ky gettext.log gettext.pg gettext.ps gettext.toc \
-	  gettext.tp gettext.vr
+	-rm -f gettext.am gettext.aux gettext.cp gettext.cps gettext.dvi gettext.ef \
+	  gettext.em gettext.ems gettext.ev gettext.fn gettext.kw \
+	  gettext.ky gettext.log gettext.op gettext.pg gettext.pgs \
+	  gettext.ps gettext.toc gettext.tp gettext.vr gettext.vrs
 
 maintainer-clean-aminfo:
 	cd $(srcdir) && \
@@ -339,6 +358,7 @@ install-strip:
 	  `test -z '$(STRIP)' || \
 	    echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
 mostlyclean-generic:
+	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
 	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)

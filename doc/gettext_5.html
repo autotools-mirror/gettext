@@ -1,17 +1,20 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 31 January 2002 -->
+     from gettext.texi on 7 March 2002 -->
 
 <TITLE>GNU gettext utilities - 5  Creating a New PO File</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_4.html">previous</A>, <A HREF="gettext_6.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_4.html">previous</A>, <A HREF="gettext_6.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
 <H1><A NAME="SEC28" HREF="gettext_toc.html#TOC28">5  Creating a New PO File</A></H1>
+<P>
+<A NAME="IDX199"></A>
 
+</P>
 <P>
 When starting a new translation, the translator creates a file called
 <TT>`<VAR>LANG</VAR>.po&acute;</TT>, as a copy of the <TT>`<VAR>package</VAR>.pot&acute;</TT> template
@@ -43,12 +46,17 @@ the header entry of this file.
 
 <H2><A NAME="SEC29" HREF="gettext_toc.html#TOC29">5.1  Invoking the <CODE>msginit</CODE> Program</A></H2>
 
+<P>
+<A NAME="IDX200"></A>
+<A NAME="IDX201"></A>
 
 <PRE>
 msginit [<VAR>option</VAR>]
 </PRE>
 
 <P>
+<A NAME="IDX202"></A>
+<A NAME="IDX203"></A>
 The <CODE>msginit</CODE> program creates a new PO file, initializing the meta
 information with values from the user's environment.
 
@@ -63,6 +71,8 @@ information with values from the user's environment.
 <DD>
 <DT><SAMP>`--input=<VAR>inputfile</VAR>&acute;</SAMP>
 <DD>
+<A NAME="IDX204"></A>
+<A NAME="IDX205"></A>
 Input POT file.
 
 </DL>
@@ -82,6 +92,8 @@ POT file.  If it is <SAMP>`-&acute;</SAMP>, standard input is read.
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
+<A NAME="IDX206"></A>
+<A NAME="IDX207"></A>
 Write output to specified PO file.
 
 </DL>
@@ -102,12 +114,15 @@ standard output.
 <DD>
 <DT><SAMP>`--locale=<VAR>ll_CC</VAR>&acute;</SAMP>
 <DD>
+<A NAME="IDX208"></A>
+<A NAME="IDX209"></A>
 Set target locale.  <VAR>ll</VAR> should be a language code, and <VAR>CC</VAR> should
 be a country code.  The command <SAMP>`locale -a&acute;</SAMP> can be used to output a list
 of all installed locales.  The default is the user's locale setting.
 
 <DT><SAMP>`--no-translator&acute;</SAMP>
 <DD>
+<A NAME="IDX210"></A>
 Declares that the PO file will not have a human translator and is instead
 automatically generated.
 
@@ -115,6 +130,8 @@ automatically generated.
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
+<A NAME="IDX211"></A>
+<A NAME="IDX212"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
@@ -131,12 +148,16 @@ split across multiple lines in order to ensure that each line's width
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
+<A NAME="IDX213"></A>
+<A NAME="IDX214"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
+<A NAME="IDX215"></A>
+<A NAME="IDX216"></A>
 Output version information and exit.
 
 </DL>
@@ -144,7 +165,10 @@ Output version information and exit.
 
 
 <H2><A NAME="SEC34" HREF="gettext_toc.html#TOC34">5.2  Filling in the Header Entry</A></H2>
+<P>
+<A NAME="IDX217"></A>
 
+</P>
 <P>
 The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and
 "FIRST AUTHOR &#60;EMAIL@ADDRESS&#62;, YEAR" ought to be replaced by sensible
@@ -187,18 +211,22 @@ Before starting a translation, it is a good idea to get in touch with
 your translation team, not only to make sure you don't do duplicated work,
 but also to coordinate difficult linguistic issues.
 
+<A NAME="IDX218"></A>
 In the Free Translation Project, each translation team has its own mailing
 list.  The up-to-date list of teams can be found at the Free Translation
-Project's homepage, <TT>`http://www.iro.umontreal.ca/contrib/po/HTML/&acute;</TT>,
+Project's homepage, <A HREF="http://www.iro.umontreal.ca/contrib/po/HTML/">http://www.iro.umontreal.ca/contrib/po/HTML/</A>,
 in the "National teams" area.
 
 <DT>Content-Type
 <DD>
+<A NAME="IDX219"></A>
+<A NAME="IDX220"></A>
 Replace <SAMP>`CHARSET&acute;</SAMP> with the character encoding used for your language,
 in your locale, or UTF-8.  This field is needed for correct operation of the
 <CODE>msgmerge</CODE> and <CODE>msgfmt</CODE> programs, as well as for users whose
-locale's character encoding differs from yours (see section <A HREF="gettext_10.html#SEC146">10.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A>).
+locale's character encoding differs from yours (see section <A HREF="gettext_10.html#SEC148">10.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A>).
 
+<A NAME="IDX221"></A>
 You get the character encoding of your locale by running the shell command
 <SAMP>`locale charmap&acute;</SAMP>.  If the result is <SAMP>`C&acute;</SAMP> or <SAMP>`ANSI_X3.4-1968&acute;</SAMP>,
 which is equivalent to <SAMP>`ASCII&acute;</SAMP> (= <SAMP>`US-ASCII&acute;</SAMP>), it means that your
@@ -206,6 +234,7 @@ locale is not correctly configured.  In this case, ask your translation
 team which charset to use.  <SAMP>`ASCII&acute;</SAMP> is not usable for any language
 except Latin.
 
+<A NAME="IDX222"></A>
 Because the PO files must be portable to operating systems with less advanced
 internationalization facilities, the character encodings that can be used
 are limited to those supported by both GNU <CODE>libc</CODE> and GNU
@@ -220,9 +249,11 @@ are limited to those supported by both GNU <CODE>libc</CODE> and GNU
 <CODE>BIG5</CODE>, <CODE>BIG5-HKSCS</CODE>, <CODE>GBK</CODE>, <CODE>GB18030</CODE>, <CODE>SHIFT_JIS</CODE>,
 <CODE>JOHAB</CODE>, <CODE>TIS-620</CODE>, <CODE>VISCII</CODE>, <CODE>UTF-8</CODE>.
 
+<A NAME="IDX223"></A>
 In the GNU system, the following encodings are frequently used for the
 corresponding languages.
 
+<A NAME="IDX224"></A>
 
 <UL>
 <LI><CODE>ISO-8859-1</CODE> for
@@ -273,6 +304,8 @@ corresponding languages.
 
 </UL>
 
+<A NAME="IDX225"></A>
+<A NAME="IDX226"></A>
 When single quote characters or double quote characters are used in
 translations for your language, and your locale's encoding is one of the
 ISO-8859-* charsets, it is best if you create your PO files in UTF-8
@@ -284,6 +317,7 @@ real quote characters, whereas users in ISO-8859-* locales will see the
 vertical apostrophe and the vertical double quote instead (because that's
 what the character set conversion will transliterate them to).
 
+<A NAME="IDX227"></A>
 To enter such quote characters under X11, you can change your keyboard
 mapping using the <CODE>xmodmap</CODE> program.  The X11 names of the quote
 characters are "leftsinglequotemark", "rightsinglequotemark",
@@ -305,10 +339,10 @@ Set this to <CODE>8bit</CODE>.
 <DD>
 This field is optional.  It is only needed if the PO file has plural forms.
 You can find them by searching for the <SAMP>`msgid_plural&acute;</SAMP> keyword.  The
-format of the plural forms field is described in section <A HREF="gettext_10.html#SEC147">10.2.5  Additional functions for plural forms</A>.
+format of the plural forms field is described in section <A HREF="gettext_10.html#SEC149">10.2.5  Additional functions for plural forms</A>.
 </DL>
 
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_4.html">previous</A>, <A HREF="gettext_6.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_4.html">previous</A>, <A HREF="gettext_6.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

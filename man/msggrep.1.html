@@ -124,7 +124,7 @@ is specified or if it is -.</td></table>
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
 [-N SOURCEFILE]... [-M DOMAINNAME]... [-K MSGID-PATTERN] [-T
-MSGSTR-PATTERN]</td></table>
+MSGSTR-PATTERN] [-C COMMENT-PATTERN]</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -134,8 +134,9 @@ A message is selected if it comes from one of the specified
 source files, or if it comes from one of the specified
 domains, or if <b>-K</b> is given and its key (msgid or
 msgid_plural) matches MSGID-PATTERN, or if <b>-T</b> is
-given and its translation (msgstr) matches
-MSGSTR-PATTERN.</td></table>
+given and its translation (msgstr) matches MSGSTR-PATTERN,
+or if <b>-C</b> is given and the translator's comment
+matches COMMENT-PATTERN.</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">

@@ -1,12 +1,12 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 31 January 2002 -->
+     from gettext.texi on 7 March 2002 -->
 
 <TITLE>GNU gettext utilities - 1  Introduction</TITLE>
 </HEAD>
 <BODY>
-Go to the first, previous, <A HREF="gettext_2.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the first, previous, <A HREF="gettext_2.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
@@ -22,6 +22,9 @@ material is delayed.
 </BLOCKQUOTE>
 
 <P>
+<A NAME="IDX1"></A>
+<A NAME="IDX2"></A>
+<A NAME="IDX3"></A>
 In this manual, we use <EM>he</EM> when speaking of the programmer or
 maintainer, <EM>she</EM> when speaking of the translator, and <EM>they</EM>
 when speaking of the installers or end users of the translated program.
@@ -45,6 +48,7 @@ cycle should usually operate.
 
 </P>
 <P>
+<A NAME="IDX4"></A>
 Please send suggestions and corrections to:
 
 </P>
@@ -77,6 +81,7 @@ a lot less of English, and far more of their own language.
 
 </P>
 <P>
+<A NAME="IDX5"></A>
 However, to many people, this dream might appear so far fetched that
 they may believe it is not even worth spending time thinking about
 it.  They have no confidence at all that the dream might ever
@@ -148,6 +153,8 @@ Project, and consequently, have a glimpse at the <EM>big picture</EM>.
 <H2><A NAME="SEC3" HREF="gettext_toc.html#TOC3">1.2  I18n, L10n, and Such</A></H2>
 
 <P>
+<A NAME="IDX6"></A>
+<A NAME="IDX7"></A>
 Two long words appear all the time when we discuss support of native
 language in programs, and these words have a precise meaning, worth
 being explained here, once and for all in this document.  The words are
@@ -161,6 +168,7 @@ the names in full, each time...
 
 </P>
 <P>
+<A NAME="IDX8"></A>
 By <EM>internationalization</EM>, one refers to the operation by which a
 program, or a set of programs turned into a package, is made aware of and
 able to support multiple languages.  This is a generalization process,
@@ -168,10 +176,11 @@ by which the programs are untied from calling only English strings or
 other English specific habits, and connected to generic ways of doing
 the same, instead.  Program developers may use various techniques to
 internationalize their programs.  Some of these have been standardized.
-GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_10.html#SEC138">10  The Programmer's View</A>.
+GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_10.html#SEC140">10  The Programmer's View</A>.
 
 </P>
 <P>
+<A NAME="IDX9"></A>
 By <EM>localization</EM>, one means the operation by which, in a set
 of programs already internationalized, one gives the program all
 needed information so that it can adapt itself to handle its input
@@ -201,6 +210,9 @@ complete suite of routines that access all of the locale's information.
 
 </P>
 <P>
+<A NAME="IDX10"></A>
+<A NAME="IDX11"></A>
+<A NAME="IDX12"></A>
 One uses the expression <EM>Native Language Support</EM>, or merely NLS,
 for speaking of the overall activity or feature encompassing both
 internationalization and localization, allowing for multi-lingual
@@ -220,6 +232,7 @@ localization is usually taken care of by translators.
 <H2><A NAME="SEC4" HREF="gettext_toc.html#TOC4">1.3  Aspects in Native Language Support</A></H2>
 
 <P>
+<A NAME="IDX13"></A>
 For a totally multi-lingual distribution, there are many things to
 translate beyond output messages.
 
@@ -295,6 +308,7 @@ needed to support the country's native attributes.
 
 </P>
 <P>
+<A NAME="IDX14"></A>
 There are a few major areas which may vary between countries and
 hence, define what a locale must describe.  The following list helps
 putting multi-lingual messages into the proper context of other tasks
@@ -305,24 +319,36 @@ related to locales.  See the GNU <CODE>libc</CODE> manual for details.
 
 <DT><EM>Characters and Codesets</EM>
 <DD>
+<A NAME="IDX15"></A>
+<A NAME="IDX16"></A>
+<A NAME="IDX17"></A>
+<A NAME="IDX18"></A>
+
 The codeset most commonly used through out the USA and most English
 speaking parts of the world is the ASCII codeset.  However, there are
 many characters needed by various locales that are not found within
 this codeset.  The 8-bit ISO 8859-1 code set has most of the special
 characters needed to handle the major European languages.  However, in
-many cases, the ISO 8859-1 font is not adequate.  Hence each locale
+many cases, the ISO 8859-1 font is not adequate: it doesn't even
+handle the major European currency.  Hence each locale
 will need to specify which codeset they need to use and will need
 to have the appropriate character handling routines to cope with
 the codeset.
 
 <DT><EM>Currency</EM>
 <DD>
+<A NAME="IDX19"></A>
+<A NAME="IDX20"></A>
+
 The symbols used vary from country to country as does the position
 used by the symbol.  Software needs to be able to transparently
 display currency figures in the native mode for each locale.
 
 <DT><EM>Dates</EM>
 <DD>
+<A NAME="IDX21"></A>
+<A NAME="IDX22"></A>
+
 The format of date varies between locales.  For example, Christmas day
 in 1994 is written as 12/25/94 in the USA and as 25/12/94 in Australia.
 Other countries might use ISO 8061 dates, etc.
@@ -334,6 +360,9 @@ of the Daylight Saving correction vary widely between countries.
 
 <DT><EM>Numbers</EM>
 <DD>
+<A NAME="IDX23"></A>
+<A NAME="IDX24"></A>
+
 Numbers can be represented differently in different locales.
 For example, the following numbers are all written correctly for
 their respective locales:
@@ -352,6 +381,9 @@ about how numbers are spelled in full.
 
 <DT><EM>Messages</EM>
 <DD>
+<A NAME="IDX25"></A>
+<A NAME="IDX26"></A>
+
 The most obvious area is the language support within a locale.  This is
 where GNU <CODE>gettext</CODE> provides the means for developers and users to
 easily change the language that the software uses to communicate to
@@ -360,6 +392,7 @@ the user.
 </DL>
 
 <P>
+<A NAME="IDX27"></A>
 Components of locale outside of message handling are standardized in
 the ISO C standard and the SUSV2 specification.  GNU <CODE>libc</CODE>
 fully implements this, and most other modern systems provide a more
@@ -371,11 +404,12 @@ or less reasonable support for at least some of the missing components.
 <H2><A NAME="SEC5" HREF="gettext_toc.html#TOC5">1.4  Files Conveying Translations</A></H2>
 
 <P>
+<A NAME="IDX28"></A>
 The letters PO in <TT>`.po&acute;</TT> files means Portable Object, to
 distinguish it from <TT>`.mo&acute;</TT> files, where MO stands for Machine
 Object.  This paradigm, as well as the PO file format, is inspired
-by the NLS standard developed by Uniforum, and implemented by Sun
-in their Solaris system.
+by the NLS standard developed by Uniforum, and first implemented by
+Sun in their Solaris system.
 
 </P>
 <P>
@@ -412,6 +446,9 @@ the GNU format.
 <H2><A NAME="SEC6" HREF="gettext_toc.html#TOC6">1.5  Overview of GNU <CODE>gettext</CODE></A></H2>
 
 <P>
+<A NAME="IDX29"></A>
+<A NAME="IDX30"></A>
+<A NAME="IDX31"></A>
 The following diagram summarizes the relation between the files
 handled by GNU <CODE>gettext</CODE> and the tools acting on these files.
 It is followed by somewhat detailed explanations, which you should
@@ -459,6 +496,7 @@ with easy repositioning to PO file lines showing errors.
 
 </P>
 <P>
+<A NAME="IDX32"></A>
 As a programmer, the first step to bringing GNU <CODE>gettext</CODE>
 into your package is identifying, right in the C sources, those strings
 which are meant to be translatable, and those which are untranslatable.
@@ -490,6 +528,8 @@ Later when you feel ready for the step to use the <CODE>gettext</CODE> library
 simply replace these definitions by the following:
 
 </P>
+<P>
+<A NAME="IDX33"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -499,6 +539,8 @@ simply replace these definitions by the following:
 </PRE>
 
 <P>
+<A NAME="IDX34"></A>
+<A NAME="IDX35"></A>
 and link against <TT>`libintl.a&acute;</TT> or <TT>`libintl.so&acute;</TT>.  Note that on
 GNU systems, you don't need to link with <CODE>libintl</CODE> because the
 <CODE>gettext</CODE> library functions are already contained in GNU libc.
@@ -506,6 +548,8 @@ That is all you have to change.
 
 </P>
 <P>
+<A NAME="IDX36"></A>
+<A NAME="IDX37"></A>
 Once the C sources have been modified, the <CODE>xgettext</CODE> program
 is used to find and extract all translatable strings, and create a
 PO template file out of all these.  This <TT>`<VAR>package</VAR>.pot&acute;</TT> file
@@ -516,7 +560,7 @@ a Template PO file, not yet oriented towards any particular language.
 See section <A HREF="gettext_4.html#SEC20">4.1  Invoking the <CODE>xgettext</CODE> Program</A>, for more details about how one calls the
 <CODE>xgettext</CODE> program.  If you are <EM>really</EM> lazy, you might
 be interested at working a lot more right away, and preparing the
-whole distribution setup (see section <A HREF="gettext_12.html#SEC169">12  The Maintainer's View</A>).  By doing so, you
+whole distribution setup (see section <A HREF="gettext_12.html#SEC171">12  The Maintainer's View</A>).  By doing so, you
 spare yourself typing the <CODE>xgettext</CODE> command, as <CODE>make</CODE>
 should now generate the proper things automatically for you!
 
@@ -533,7 +577,7 @@ Then comes the initial translation of messages.  Translation in
 itself is a whole matter, still exclusively meant for humans,
 and whose complexity far overwhelms the level of this manual.
 Nevertheless, a few hints are given in some other chapter of this
-manual (see section <A HREF="gettext_11.html#SEC158">11  The Translator's View</A>).  You will also find there indications
+manual (see section <A HREF="gettext_11.html#SEC160">11  The Translator's View</A>).  You will also find there indications
 about how to contact translating teams, or becoming part of them,
 for sharing your translating concerns with others who target the same
 native language.
@@ -585,6 +629,7 @@ are slowly fading out of date.
 
 </P>
 <P>
+<A NAME="IDX38"></A>
 It is important for translators (and even maintainers) to understand
 that package translation is a continuous process in the lifetime of a
 package, and not something which is done once and for all at the start.
@@ -633,7 +678,7 @@ distribution.
 Once the PO file is complete and dependable, the <CODE>msgfmt</CODE> program
 is used for turning the PO file into a machine-oriented format, which
 may yield efficient retrieval of translations by the programs of the
-package, whenever needed at runtime (see section <A HREF="gettext_8.html#SEC133">8.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_8.html#SEC118">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
+package, whenever needed at runtime (see section <A HREF="gettext_8.html#SEC135">8.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_8.html#SEC118">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
 for the <CODE>msgfmt</CODE> program.
 
 </P>
@@ -643,7 +688,7 @@ with the GNU <CODE>gettext</CODE> library, usually through the operation of
 <CODE>make</CODE>, given a suitable <TT>`Makefile&acute;</TT> exists for the project,
 and the resulting executable is installed somewhere users will find it.
 The MO files themselves should also be properly installed.  Given the
-appropriate environment variables are set (see section <A HREF="gettext_9.html#SEC137">9.3  Magic for End Users</A>), the
+appropriate environment variables are set (see section <A HREF="gettext_9.html#SEC139">9.3  Magic for End Users</A>), the
 program should localize itself automatically, whenever it executes.
 
 </P>
@@ -653,6 +698,6 @@ steps outlined above.
 
 </P>
 <P><HR><P>
-Go to the first, previous, <A HREF="gettext_2.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the first, previous, <A HREF="gettext_2.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

@@ -1,6 +1,6 @@
 /* config.h.in.  Generated automatically from configure.in by autoheader.  */
 /* Special definitions, processed by autoheader.
-   Copyright (C) 1995-1998, 2001 Free Software Foundation.
+   Copyright (C) 1995-1998, 2001-2002 Free Software Foundation.
    Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.  */
 
 /* Default value for alignment of strings in .mo file.  */
@@ -190,9 +190,6 @@
 /* Define if you have the stpcpy function.  */
 #undef HAVE_STPCPY
 
-/* Define if you have the stpncpy function.  */
-#undef HAVE_STPNCPY
-
 /* Define if you have the strcasecmp function.  */
 #undef HAVE_STRCASECMP
 
@@ -222,6 +219,9 @@
 
 /* Define if you have the uname function.  */
 #undef HAVE_UNAME
+
+/* Define if you have the unsetenv function.  */
+#undef HAVE_UNSETENV
 
 /* Define if you have the utime function.  */
 #undef HAVE_UTIME
@@ -419,11 +419,19 @@
 /* Define if the GNU dcgettext() function is already present or preinstalled. */
 #undef HAVE_DCGETTEXT
 
+/* Define to 1 if libexpat shall be dynamically loaded via dlopen(). */
+#undef DYNLOAD_LIBEXPAT
+
+/* Define if you have the expat library. */
+#undef HAVE_LIBEXPAT
+
 
 /* We don't test for the basename function but still want to use the
-   version in the libc when compiling for a system using glibc.  */
+   version in the libc when compiling for a system using glibc.  Likewise
+   for stpncpy.  */
 #ifdef __GNU_LIBRARY__
 # define HAVE_BASENAME	1
+# define HAVE_STPNCPY	1
 #endif
 
 
