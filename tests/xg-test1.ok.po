@@ -54,14 +54,13 @@ msgid ""
 "  -F, --sort-by-file             sort output by file location\n"
 msgstr ""
 
-#, c-format, no-wrap
+#, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
 "  -j, --join-existing            join messages with existing file\n"
 "  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
 "                                 WORD means not to use default keywords)\n"
-"  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n"
 "  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
 "                                 otherwise is guessed from file extension\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
