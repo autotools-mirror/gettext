@@ -1,3 +1,7 @@
+2003-09-12  Paul Eggert  <eggert@twinsun.com>
+
+	* progreloc.c (get_full_program_name): Define via prototype.
+
 2003-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* binary-io.h: Undefine O_BINARY before defining it. This avoids a
