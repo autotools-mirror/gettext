@@ -112,7 +112,7 @@ CHECKER =
 #CHECKER = valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
-		    PATH=.:../src:../../gettext-runtime/src:$$PATH \
+		    PATH=.:../src:../../gettext-runtime/src:$(top_srcdir)/../gettext-runtime/src:$$PATH \
 		    GETTEXT="$(CHECKER) tstgettext" \
 		    NGETTEXT="$(CHECKER) tstngettext" \
 		    XGETTEXT="$(CHECKER) xgettext" \

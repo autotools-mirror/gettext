@@ -1,3 +1,16 @@
+2003-12-03  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (TESTS_ENVIRONMENT): Add the gettext-runtime/src source
+	dir to PATH, so that gettext.sh is found.
+	Reported by Peter Breitenlohner <peb@mppmu.mpg.de>.
+
+2003-12-03  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-glade-2: Protect here document against backslash
+	interpretation.
+	* xgettext-glade-3: Likewise.
+	Reported by Paul Jarc <prj@po.cwru.edu>.
+
 2003-12-02  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-glade-3: Skip the test if expat is not available.
