@@ -1,4 +1,29 @@
-Version 0.10.36 - June 1998, by Ulrich Drepper
+Version 0.10.36 - XXX 2000, by Ulrich Drepper
+
+* General plural handling. New functions ngettext, dngettext, dcngettext.
+
+* Locales which differ only in the character encoding, for example ja_JP and
+  ja_JP.UTF-8, can now share the same message catalogs. gettext converts
+  the messages to the appropriate character encoding on the fly.
+
+* PO mode changes:
+
+** PO mode does not use recursive edit anymore, many edits may be worked on
+   simultaneously in a single PO file.
+
+** PO mode may handle many translation files at once while correlating related
+   entries, for helping multilingual or cultured translators.
+
+** On recent Emacses, PO mode automatically use proper fonts when available.
+
+** PO mode supports marking of C++ sources.
+
+** highlights original message while editing the translation
+
+** PO mode has commands to mail messages to teams or to the translation
+   coordinator, with automatic inclusion of the current PO file.
+
+Version 0.10.35 - April 1998, by Ulrich Drepper
 
 * by default the emulation of gettext using the catgets() functions of
   the C library is not selected anymore.  GNU gettext has so many nice
@@ -76,21 +101,6 @@ Version 0.10.36 - June 1998, by Ulrich Drepper
   files
 
 * many more translations.
-
-* PO mode does not use recursive edit anymore, many edits may be worked on
-  simultaneously in a single PO file.
-
-* PO mode may handle many translation files at once while correlating related
-  entries, for helping multilingual or cultured translators.
-
-* On recent Emacses, PO mode automatically use proper fonts when available.
-
-* PO mode supports marking of C++ sources.
-
-* highlights original message while editing the translation
-
-* PO mode has commands to mail messages to teams or to the translation
-coordinator, with automatic inclusion of the current PO file.
 
 Version 0.10 - December 1995, by Ulrich Drepper
 
