@@ -254,19 +254,19 @@ po_file_domain_header (po_file_t file, const char *domain)
 char *
 po_header_field (const char *header, const char *field)
 {
-  size_t len = strlen (field);
+  size_t field_len = strlen (field);
   const char *line;
 
   for (line = header;;)
     {
-      if (strncmp (line, field, len) == 0
-	  && line[len] == ':' && line[len + 1] == ' ')
+      if (strncmp (line, field, field_len) == 0
+	  && line[field_len] == ':' && line[field_len + 1] == ' ')
 	{
 	  const char *value_start;
 	  const char *value_end;
 	  char *value;
 
-	  value_start = line + len + 2;
+	  value_start = line + field_len + 2;
 	  value_end = strchr (value_start, '\n');
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);
@@ -286,6 +286,83 @@ po_header_field (const char *header, const char *field)
     }
 
   return NULL;
+}
+
+
+/* Return the header entry with a given field set to a given value.  The field
+   is added if necessary.
+   The return value is a freshly allocated string.  */
+
+char *
+po_header_set_field (const char *header, const char *field, const char *value)
+{
+  size_t header_len = strlen (header);
+  size_t field_len = strlen (field);
+  size_t value_len = strlen (value);
+
+  {
+    const char *line;
+
+    for (line = header;;)
+      {
+	if (strncmp (line, field, field_len) == 0
+	    && line[field_len] == ':' && line[field_len + 1] == ' ')
+	  {
+	    const char *oldvalue_start;
+	    const char *oldvalue_end;
+	    size_t oldvalue_len;
+	    size_t header_part1_len;
+	    size_t header_part3_len;
+	    size_t result_len;
+	    char *result;
+
+	    oldvalue_start = line + field_len + 2;
+	    oldvalue_end = strchr (oldvalue_start, '\n');
+	    if (oldvalue_end == NULL)
+	      oldvalue_end = oldvalue_start + strlen (oldvalue_start);
+	    oldvalue_len = oldvalue_end - oldvalue_start;
+
+	    header_part1_len = oldvalue_start - header;
+	    header_part3_len = header + header_len - oldvalue_end;
+	    result_len = header_part1_len + value_len + header_part3_len;
+		    /* = header_len - oldvalue_len + value_len */
+	    result = (char *) xmalloc (result_len + 1);
+	    memcpy (result, header, header_part1_len);
+	    memcpy (result + header_part1_len, value, value_len);
+	    memcpy (result + header_part1_len + value_len, oldvalue_end,
+		    header_part3_len);
+	    *(result + result_len) = '\0';
+
+	    return result;
+	  }
+
+	line = strchr (line, '\n');
+	if (line != NULL)
+	  line++;
+	else
+	  break;
+      }
+  }
+  {
+    size_t newline;
+    size_t result_len;
+    char *result;
+
+    newline = (header_len > 0 && header[header_len - 1] != '\n' ? 1 : 0);
+    result_len = header_len + newline + field_len + 2 + value_len + 1;
+    result = (char *) xmalloc (result_len + 1);
+    memcpy (result, header, header_len);
+    if (newline)
+      *(result + header_len) = '\n';
+    memcpy (result + header_len + newline, field, field_len);
+    *(result + header_len + newline + field_len) = ':';
+    *(result + header_len + newline + field_len + 1) = ' ';
+    memcpy (result + header_len + newline + field_len + 2, value, value_len);
+    *(result + header_len + newline + field_len + 2 + value_len) = '\n';
+    *(result + result_len) = '\0';
+
+    return result;
+  }
 }
 
 

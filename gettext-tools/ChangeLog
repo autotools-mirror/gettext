@@ -1,5 +1,9 @@
 2005-02-10  Bruno Haible  <bruno@clisp.org>
 
+	* windows/gettextpo.def: Add po_header_set_field.
+
+2005-02-10  Bruno Haible  <bruno@clisp.org>
+
 	* windows/gettextpo.def: Add libgettextpo_version.
 
 2005-02-10  Bruno Haible  <bruno@clisp.org>

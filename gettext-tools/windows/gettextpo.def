@@ -11,6 +11,7 @@ po_file_write
 po_filepos_file
 po_filepos_start_line
 po_header_field
+po_header_set_field
 po_message_add_filepos
 po_message_check_format
 po_message_comments

@@ -1,5 +1,11 @@
 2005-02-10  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-po.h (po_header_set_field): New declaration.
+	* gettext-po.c (po_header_set_field): New function.
+	Suggested by Ross Golder <ross@golder.org>.
+
+2005-02-10  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-po.h (LIBGETTEXTPO_VERSION): New macro.
 	(libgettextpo_version): New declaration.
 	* gettext-po.c (libgettextpo_version): New variable.

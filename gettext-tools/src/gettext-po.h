@@ -120,6 +120,11 @@ extern const char * po_file_domain_header (po_file_t file, const char *domain);
    caller, or NULL.  */
 extern char * po_header_field (const char *header, const char *field);
 
+/* Return the header entry with a given field set to a given value.  The field
+   is added if necessary.
+   The return value is a freshly allocated string.  */
+extern char * po_header_set_field (const char *header, const char *field, const char *value);
+
 
 /* ======================= po_message_iterator_t API ======================= */
 
