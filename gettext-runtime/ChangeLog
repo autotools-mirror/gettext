@@ -3,5 +3,5 @@
 	Extracted from gettext package.
 	* configure.ac: New file.
 	* Makefile.am: New file.
-	* BUGS, COPYING, INSTALL, NEWS, README: New files.
+	* AUTHORS, BUGS, COPYING, INSTALL, NEWS, README: New files.
 
