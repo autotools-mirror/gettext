@@ -203,7 +203,7 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
       if (ss_offset + ss_length > bfp->size)
 	abort ();
       if (!(ss_length > 0 && bfp->data[ss_offset + ss_length - 1] == '\0'))
-	abort();
+	abort ();
       n = strlen (bfp->data + ss_offset);
       *p++ = '<';
       memcpy (p, bfp->data + ss_offset, n);
