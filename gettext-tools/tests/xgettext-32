@@ -1,0 +1,65 @@
+#! /bin/sh
+
+# Test ObjectiveC extractor.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles xg-test32.m"
+cat <<\EOF > xg-test32.m
+id str = _(@
+"conca" /* comment */
+@
+// another comment
+ "tenated");
+
+_(@"foo") _ ( @"foo2" /* test */ )
+
+"_()"
+
+"  \" _(foo) \" /* comment "
+
+_ // test
+(@ /* comment " */ "test"
+@
+" test2"
+)
+
+NSLocalizedString(@"Information", @"")
+EOF
+
+tmpfiles="$tmpfiles xg-test32.po"
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header -k_ -kNSLocalizedString xg-test32.m -d xg-test32
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+tmpfiles="$tmpfiles xg-test32.ok"
+cat <<\EOF > xg-test32.ok
+#: xg-test32.m:2
+msgid "concatenated"
+msgstr ""
+
+#: xg-test32.m:7
+msgid "foo"
+msgstr ""
+
+#: xg-test32.m:7
+msgid "foo2"
+msgstr ""
+
+#: xg-test32.m:14
+msgid "test test2"
+msgstr ""
+
+#: xg-test32.m:19
+msgid "Information"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-test32.ok xg-test32.po
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

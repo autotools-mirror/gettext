@@ -602,19 +602,23 @@ phase4_ungetc (int c)
 /* ========================== Reading of tokens.  ========================== */
 
 
+/* True if ObjectiveC extensions are recognized.  */
+static bool objc_extensions;
+
 enum token_type_ty
 {
-  token_type_character_constant,
+  token_type_character_constant,	/* 'x' */
   token_type_eof,
   token_type_eoln,
-  token_type_hash,
-  token_type_lparen,
-  token_type_rparen,
-  token_type_comma,
-  token_type_name,
-  token_type_number,
-  token_type_string_literal,
-  token_type_symbol,
+  token_type_hash,			/* # */
+  token_type_lparen,			/* ( */
+  token_type_rparen,			/* ) */
+  token_type_comma,			/* , */
+  token_type_name,			/* abc */
+  token_type_number,			/* 2.7 */
+  token_type_string_literal,		/* "abc" */
+  token_type_symbol,			/* < > = etc. */
+  token_type_objc_special,		/* @ */
   token_type_white_space
 };
 typedef enum token_type_ty token_type_ty;
@@ -1057,6 +1061,14 @@ phase5_get (token_ty *tp)
       tp->type = token_type_hash;
       return;
 
+    case '@':
+      if (objc_extensions)
+	{
+	  tp->type = token_type_objc_special;
+	  return;
+	}
+      /* FALLTHROUGH */
+
     default:
       /* We could carefully recognize each of the 2 and 3 character
 	operators, but it is not necessary, as we only need to recognize
@@ -1275,10 +1287,73 @@ phase8a_get (token_ty *tp)
     }
 }
 
-static void
+static inline void
 phase8a_unget (token_ty *tp)
 {
   phase6_unget (tp);
+}
+
+
+/* 8b. Drop whitespace.  */
+static void
+phase8b_get (token_ty *tp)
+{
+  for (;;)
+    {
+      phase8a_get (tp);
+
+      if (tp->type == token_type_white_space)
+	continue;
+      if (tp->type == token_type_eoln)
+	{
+	  /* We have to track the last occurrence of a string.  One
+	     mode of xgettext allows to group an extracted message
+	     with a comment for documentation.  The rule which states
+	     which comment is assumed to be grouped with the message
+	     says it should immediately precede it.  Our
+	     interpretation: between the last line of the comment and
+	     the line in which the keyword is found must be no line
+	     with non-white space tokens.  */
+	  ++newline_count;
+	  if (last_non_comment_line > last_comment_line)
+	    xgettext_comment_reset ();
+	  continue;
+	}
+      break;
+    }
+}
+
+static inline void
+phase8b_unget (token_ty *tp)
+{
+  phase8a_unget (tp);
+}
+
+
+/* 8c. In ObjectiveC mode, drop '@' before a literal string.  We need to
+   do this before performing concatenation of adjacent string literals.  */
+static void
+phase8c_get (token_ty *tp)
+{
+  token_ty tmp;
+
+  phase8b_get (tp);
+  if (tp->type != token_type_objc_special)
+    return;
+  phase8b_get (&tmp);
+  if (tmp.type != token_type_string_literal)
+    {
+      phase8b_unget (&tmp);
+      return;
+    }
+  /* Drop the '@' token and return immediately the following string.  */
+  *tp = tmp;
+}
+
+static inline void
+phase8c_unget (token_ty *tp)
+{
+  phase8b_unget (tp);
 }
 
 
@@ -1289,7 +1364,7 @@ phase8a_unget (token_ty *tp)
 static void
 phase8_get (token_ty *tp)
 {
-  phase8a_get (tp);
+  phase8c_get (tp);
   if (tp->type != token_type_string_literal)
     return;
   for (;;)
@@ -1297,14 +1372,10 @@ phase8_get (token_ty *tp)
       token_ty tmp;
       size_t len;
 
-      phase8a_get (&tmp);
-      if (tmp.type == token_type_white_space)
-	continue;
-      if (tmp.type == token_type_eoln)
-	continue;
+      phase8c_get (&tmp);
       if (tmp.type != token_type_string_literal)
 	{
-	  phase8a_unget (&tmp);
+	  phase8c_unget (&tmp);
 	  return;
 	}
       len = strlen (tp->string);
@@ -1368,23 +1439,6 @@ x_c_lex (xgettext_token_ty *tp)
 	case token_type_eof:
 	  tp->type = xgettext_token_type_eof;
 	  return;
-
-	case token_type_white_space:
-	  break;
-
-	case token_type_eoln:
-	  /* We have to track the last occurrence of a string.  One
-	     mode of xgettext allows to group an extracted message
-	     with a comment for documentation.  The rule which states
-	     which comment is assumed to be grouped with the message
-	     says it should immediately precede it.  Our
-	     interpretation: between the last line of the comment and
-	     the line in which the keyword is found must be no line
-	     with non-white space tokens.  */
-	  ++newline_count;
-	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
-	  break;
 
 	case token_type_name:
 	  last_non_comment_line = newline_count;
@@ -1605,11 +1659,11 @@ extract_parenthesized (message_list_ty *mlp,
 }
 
 
-void
-extract_c (FILE *f,
-	   const char *real_filename, const char *logical_filename,
-	   flag_context_list_table_ty *flag_table,
-	   msgdomain_list_ty *mdlp)
+static void
+extract_whole_file (FILE *f,
+		    const char *real_filename, const char *logical_filename,
+		    flag_context_list_table_ty *flag_table,
+		    msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -1637,4 +1691,25 @@ extract_c (FILE *f,
   real_file_name = NULL;
   logical_file_name = NULL;
   line_number = 0;
+}
+
+
+void
+extract_c (FILE *f,
+	   const char *real_filename, const char *logical_filename,
+	   flag_context_list_table_ty *flag_table,
+	   msgdomain_list_ty *mdlp)
+{
+  objc_extensions = false;
+  extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
+}
+
+void
+extract_objc (FILE *f,
+	      const char *real_filename, const char *logical_filename,
+	      flag_context_list_table_ty *flag_table,
+	      msgdomain_list_ty *mdlp)
+{
+  objc_extensions = true;
+  extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
 }

@@ -1,3 +1,8 @@
+2003-10-12  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-32: New file.
+	* Makefile.am (TESTS): Add xgettext-32.
+
 2003-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* tstgettext.c: Include xalloc.h instead of xmalloc.h.

@@ -1,3 +1,20 @@
+2003-10-12  Bruno Haible  <bruno@clisp.org>
+
+	Improved ObjectiveC support.
+	* x-c.h (extract_objc): New declaration.
+	(SCANNERS_C): For ObjectiveC, use extract_objc.
+	* x-c.c (objc_extensions): New variable.
+	(enum token_type_ty): New item token_type_objc_special.
+	(phase5_get): Recognize '@' for ObjectiveC.
+	(phase8b_get, phase8b_unget): New functions. Handle
+	token_type_white_space and token_type_eoln here instead of in x_c_lex.
+	(phase8c_get, phase8c_unget): New functions.
+	(phase8_get): Rely on phase8c, not phase8a. No more need to care about
+	token_type_white_space and token_type_eoln.
+	(x_c_lex): Drop handling of token_type_white_space and token_type_eoln.
+	(extract_whole_file): Renamed from extract_c.
+	(extract_c, extract_objc): New functions.
+
 2003-10-20  Bruno Haible  <bruno@clisp.org>
 
 	* x-java.c (phase3_getc): Fix typo: Use phase2_ungetc, not phase2_getc.

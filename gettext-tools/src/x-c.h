@@ -35,16 +35,21 @@
 			&flag_table_c, &formatstring_c, NULL },		\
   { "C++",		extract_c,					\
 			&flag_table_c, &formatstring_c, NULL },		\
-  { "ObjectiveC",	extract_c,					\
+  { "ObjectiveC",	extract_objc,					\
 			&flag_table_c, &formatstring_c, NULL },		\
   { "GCC-source",	extract_c,					\
 		&flag_table_gcc_internal, &formatstring_gcc_internal, NULL }, \
 
-/* Scan a C/C++/ObjectiveC file and add its translatable strings to mdlp.  */
+/* Scan a C/C++ file and add its translatable strings to mdlp.  */
 extern void extract_c (FILE *fp, const char *real_filename,
 		       const char *logical_filename,
 		       flag_context_list_table_ty *flag_table,
 		       msgdomain_list_ty *mdlp);
+/* Scan an ObjectiveC file and add its translatable strings to mdlp.  */
+extern void extract_objc (FILE *fp, const char *real_filename,
+			  const char *logical_filename,
+			  flag_context_list_table_ty *flag_table,
+			  msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */
