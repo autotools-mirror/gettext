@@ -124,7 +124,7 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
         if test "$gt_cv_func_gnugettext_libc" != "yes"; then
           dnl Sometimes libintl requires libiconv, so first search for libiconv.
           ifelse(gt_included_intl, yes, , [
-            AM_ICONV
+            AM_ICONV_LINK
           ])
           dnl Search for libintl and define LIBINTL and INCINTL accordingly.
           dnl Don't use AC_LIB_LINKFLAGS_BODY([intl],[iconv]) because that would

@@ -1,5 +1,11 @@
 2002-01-19  Bruno Haible  <bruno@clisp.org>
 
+	* iconv.m4 (AM_ICONV_LINK): New macro, extracted from AM_ICONV.
+	(AM_ICONV): Call it.
+	* gettext.m4 (AM_GNU_GETTEXT): Call AM_ICONV_LINK instead of AM_ICONV.
+
+2002-01-19  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Don't consider that -liconv is
 	necessary for -lintl. Instead, use the $LIBICONV value determined by
 	the AM_ICONV macro.
