@@ -1,3 +1,8 @@
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* lang-clisp: Use only the first line of "clisp --version"'s output.
+	Needed to avoid /bin/sh limitations on HP-UX 10.
+
 2005-02-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (LDADD_yes): Remove INTL_MACOSX_LIBS.

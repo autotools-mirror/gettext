@@ -86,7 +86,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 # can deal with floating-point numbers.
 (clisp --version) >/dev/null 2>/dev/null \
   || { rm -fr $tmpfiles; exit 77; }
-version=`clisp --version | sed -e 's/^[^0-9]*//'`
+version=`clisp --version | sed -n -e 1p | sed -e 's/^[^0-9]*//'`
 case $version in
   19* | 20*) # older than 2.25
     rm -fr $tmpfiles; exit 77;;
