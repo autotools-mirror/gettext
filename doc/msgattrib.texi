@@ -74,7 +74,10 @@ Keep obsolete #~ messages, remove all other messages.
 
 @cindex modify message attrributes
 Attributes are modified after the message selection/removal has been
-performed.
+performed.  If the @samp{--only-file} or @samp{--ignore-file} option is
+specified, the attribute modification is applied only to those messages
+that are listed in the @var{only-file} and not listed in the
+@var{ignore-file}.
 
 @table @samp
 @item --set-fuzzy
@@ -92,6 +95,16 @@ Set all messages obsolete.
 @item --clear-obsolete
 @opindex --clear-obsolete@r{, @code{msgattrib} option}
 Set all messages non-obsolete.
+
+@item --only-file=@var{file}
+@opindex --only-file@r{, @code{msgattrib} option}
+Limit the attribute changes to entries that are listed in @var{file}.
+@var{file} should be a PO or POT file.
+
+@item --ignore-file=@var{file}
+@opindex --ignore-file@r{, @code{msgattrib} option}
+Limit the attribute changes to entries that are not listed in @var{file}.
+@var{file} should be a PO or POT file.
 
 @item --fuzzy
 @opindex --fuzzy@r{, @code{msgattrib} option}

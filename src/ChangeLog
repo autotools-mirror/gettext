@@ -1,3 +1,11 @@
+2003-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib.c (long_options): Add --only-file and --ignore-file.
+	(main): Handle options --only-file and --ignore-file.
+	(usage): Document options --only-file and --ignore-file.
+	(process_message_list): Add arguments only_mdlp, ignore_mdlp.
+	(process_msgdomain_list): Likewise.
+
 2003-01-23  Bruno Haible  <bruno@clisp.org>
 
 	* po-gram.h: Don't include <sys/types.h>.

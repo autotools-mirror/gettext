@@ -13,6 +13,9 @@ Version 0.11.6 - October 2002
 * msgmerge has a new option -N/--no-fuzzy-matching that inhibits the fuzzy
   search for untranslated messages.
 
+* msgattrib has new options --only-file and --ignore-file that cause the
+  specified attribute manipulation to apply to selected messages only.
+
 * Compatibility with automake-1.7.
 
 Version 0.11.5 - August 2002

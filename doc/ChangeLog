@@ -1,3 +1,7 @@
+2003-01-24  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib.texi: Document options --only-file and --ignore-file.
+
 2003-01-23  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge.texi: Document option -N/--no-fuzzy-matching.

@@ -1,5 +1,5 @@
 /* Manipulates attributes of messages in translation catalogs.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -76,6 +76,7 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "fuzzy", no_argument, NULL, CHAR_MAX + 11 },
   { "help", no_argument, NULL, 'h' },
+  { "ignore-file", required_argument, NULL, CHAR_MAX + 15 },
   { "indent", no_argument, NULL, 'i' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-fuzzy", no_argument, NULL, CHAR_MAX + 3 },
@@ -83,6 +84,7 @@ static const struct option long_options[] =
   { "no-obsolete", no_argument, NULL, CHAR_MAX + 5 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 13 },
   { "obsolete", no_argument, NULL, CHAR_MAX + 12 },
+  { "only-file", required_argument, NULL, CHAR_MAX + 14 },
   { "only-fuzzy", no_argument, NULL, CHAR_MAX + 4 },
   { "only-obsolete", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
@@ -105,7 +107,9 @@ static void usage (int status)
 	__attribute__ ((noreturn))
 #endif
 ;
-static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
+static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp,
+						  msgdomain_list_ty *only_mdlp,
+						msgdomain_list_ty *ignore_mdlp);
 
 
 int
@@ -116,6 +120,10 @@ main (int argc, char **argv)
   bool do_version;
   char *output_file;
   const char *input_file;
+  const char *only_file;
+  const char *ignore_file;
+  msgdomain_list_ty *only_mdlp;
+  msgdomain_list_ty *ignore_mdlp;
   msgdomain_list_ty *result;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
@@ -138,6 +146,8 @@ main (int argc, char **argv)
   do_version = false;
   output_file = NULL;
   input_file = NULL;
+  only_file = NULL;
+  ignore_file = NULL;
 
   while ((optchar = getopt_long (argc, argv, "D:eEFhino:sVw:", long_options,
 				 NULL)) != EOF)
@@ -254,6 +264,14 @@ main (int argc, char **argv)
 	message_page_width_ignore ();
 	break;
 
+      case CHAR_MAX + 14: /* --only-file */
+	only_file = optarg;
+	break;
+
+      case CHAR_MAX + 15: /* --ignore-file */
+	ignore_file = optarg;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -300,8 +318,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Read input file.  */
   result = read_po_file (input_file);
 
+  /* Read optional files that limit the extent of the attribute changes.  */
+  only_mdlp = (only_file != NULL ? read_po_file (only_file) : NULL);
+  ignore_mdlp = (ignore_file != NULL ? read_po_file (ignore_file) : NULL);
+
   /* Filter the messages and manipulate the attributes.  */
-  result = process_msgdomain_list (result);
+  result = process_msgdomain_list (result, only_mdlp, ignore_mdlp);
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
@@ -375,6 +397,8 @@ Attribute manipulation:\n\
       --clear-fuzzy           set all messages non-'fuzzy'\n\
       --set-obsolete          set all messages obsolete\n\
       --clear-obsolete        set all messages non-obsolete\n\
+      --only-file=FILE.po     manipulate only entries listed in FILE.po\n\
+      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n\
       --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n\
       --obsolete              synonym for --only-obsolete --clear-obsolete\n\
 "));
@@ -442,7 +466,8 @@ is_message_selected (const message_ty *mp)
 
 
 static void
-process_message_list (message_list_ty *mlp)
+process_message_list (message_list_ty *mlp,
+		      message_list_ty *only_mlp, message_list_ty *ignore_mlp)
 {
   /* Keep only the selected messages.  */
   message_list_remove_if_not (mlp, is_message_selected);
@@ -456,27 +481,49 @@ process_message_list (message_list_ty *mlp)
 	{
 	  message_ty *mp = mlp->item[j];
 
-	  if (to_change & SET_FUZZY)
-	    mp->is_fuzzy = true;
-	  if (to_change & RESET_FUZZY)
-	    mp->is_fuzzy = false;
-	  /* Always keep the header entry non-obsolete.  */
-	  if ((to_change & SET_OBSOLETE) && (mp->msgid[0] != '\0'))
-	    mp->obsolete = true;
-	  if (to_change & RESET_OBSOLETE)
-	    mp->obsolete = false;
+	  /* Attribute changes only affect messages listed in --only-file
+	     and not listed in --ignore-file.  */
+	  if ((only_mlp
+	       ? message_list_search (only_mlp, mp->msgid) != NULL
+	       : true)
+	      && (ignore_mlp
+		  ? message_list_search (ignore_mlp, mp->msgid) == NULL
+		  : true))
+	    {
+	      if (to_change & SET_FUZZY)
+		mp->is_fuzzy = true;
+	      if (to_change & RESET_FUZZY)
+		mp->is_fuzzy = false;
+	      /* Always keep the header entry non-obsolete.  */
+	      if ((to_change & SET_OBSOLETE) && (mp->msgid[0] != '\0'))
+		mp->obsolete = true;
+	      if (to_change & RESET_OBSOLETE)
+		mp->obsolete = false;
+	    }
 	}
     }
 }
 
 
 static msgdomain_list_ty *
-process_msgdomain_list (msgdomain_list_ty *mdlp)
+process_msgdomain_list (msgdomain_list_ty *mdlp,
+			msgdomain_list_ty *only_mdlp,
+			msgdomain_list_ty *ignore_mdlp)
 {
   size_t k;
 
   for (k = 0; k < mdlp->nitems; k++)
-    process_message_list (mdlp->item[k]->messages);
+    process_message_list (mdlp->item[k]->messages,
+			  only_mdlp
+			  ? msgdomain_list_sublist (only_mdlp,
+						    mdlp->item[k]->domain,
+						    true)
+			  : NULL,
+			  ignore_mdlp
+			  ? msgdomain_list_sublist (ignore_mdlp,
+						    mdlp->item[k]->domain,
+						    false)
+			  : NULL);
 
   return mdlp;
 }
