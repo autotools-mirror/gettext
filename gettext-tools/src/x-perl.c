@@ -1029,10 +1029,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	      ++crs;
 	      continue;
 	    case '\\':
-	      /* FIXME: This looks buggy.  */
-	      if (crs[1])
-		buffer[bufpos++] = crs[1];
-	      crs++;
+	      buffer[bufpos++] = *crs;
+	      ++crs;
 	      continue;
 	    }
 	}
