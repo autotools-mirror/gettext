@@ -1,3 +1,9 @@
+2003-06-24  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-27: New file.
+	* xgettext-28: New file.
+	* Makefile.am (TESTS): Add them.
+
 2003-06-23  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-26: Fix expected test result for backslashed dollar in
