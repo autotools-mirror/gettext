@@ -94,7 +94,6 @@ static inline void a_letter_to_digit PARAMS ((const struct token *tp,
 static inline bool has_a_digit PARAMS ((const struct token *tp));
 static inline bool has_adjacent_letters PARAMS ((const struct token *tp));
 static bool is_potential_number PARAMS ((const struct token *tp, int *basep));
-static enum number_type is_number PARAMS ((const struct token *tp, int *basep));
 static void upcase_token PARAMS ((struct token *tp));
 static void downcase_token PARAMS ((struct token *tp));
 static void case_convert_token  PARAMS ((struct token *tp));
@@ -272,7 +271,8 @@ enum syntax_code
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
-static enum syntax_code syntax_code_of PARAMS ((unsigned char c));
+static enum syntax_code
+       syntax_code_of PARAMS ((/*promote: unsigned char*/ int c));
 static void read_char_syntax PARAMS ((struct char_syntax *p));
 
 /* Returns the syntax code of a character.  */
@@ -344,7 +344,7 @@ enum attribute
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
-static enum attribute attribute_of PARAMS ((unsigned char c));
+static enum attribute attribute_of PARAMS ((/*promote: unsigned char*/ int c));
 
 /* Returns the attribute of a character, assuming base 10.  */
 static enum attribute
@@ -651,6 +651,8 @@ enum number_type
   n_ratio,
   n_float
 };
+
+static enum number_type is_number PARAMS ((const struct token *tp, int *basep));
 
 static enum number_type
 is_number (tp, basep)

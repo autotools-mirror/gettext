@@ -5,8 +5,10 @@
 	* po-lex.c (mb_iseq, mb_setascii): Likewise.
 	* po-hash-gen.y: alloca fix for AIX 3.
 	* write-mo.c: Likewise.
-	* x-lisp.c (syntax_code_of, read_char_syntax, attribute_of): Move
-	prototypes, to avoid compilation errors on AIX 3.
+	* x-lisp.c (syntax_code_of, read_char_syntax, attribute_of, is_number):
+	Move prototypes, to avoid compilation errors on AIX 3.
+	(syntax_code_of, attribute_of): Fix prototype. unsigned char promotes
+	to int.
 	* x-java.l (TOKEN_TYPE): Remove trailing comma in enum.
 	(PARSER_STATE): Likewise.
 	* msgfilter.c: Include <sys/select.h> on AIX.
