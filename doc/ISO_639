@@ -10,7 +10,7 @@ Inuktitut, Uighur, Zhuang added 1995-10-10 by Michael Everson
 Sinhalese corrected, 1995-10-10 by Michael Everson
 Faeroese corrected to Faroese, 1995-11-18 by Keld Simonsen
 Updated from http://lcweb.loc.gov/standards/iso639-2/codechanges.html,
-2001-04-17 by Bruno Haible
+2002-04-19 by Bruno Haible
 
 Two-letter lower-case symbols are used.
 The Registration Authority for ISO 639 is Infoterm, Osterreichisches
@@ -83,12 +83,13 @@ ia Interlingua
 id Indonesian (formerly in)
 ie Interlingue
 ik Inupiak
+io Ido
 is Icelandic
 it Italian
 iu Inuktitut
 
 ja Japanese
-jw Javanese
+jv Javanese
 
 ka Georgian
 ki Kikuyu
@@ -196,6 +197,7 @@ uz Uzbek
 vi Vietnamese
 vo Volap@"{u}k; Volapuk
 
+wa Walloon
 wo Wolof
 
 xh Xhosa
