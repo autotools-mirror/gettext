@@ -23,6 +23,13 @@
 # define _GETOPT_H 1
 #endif
 
+/* Ensure that DLL_VARIABLE is defined.  Since on OSF/1 4.0 <stdlib.h> includes
+   <getopt.h>, and <config.h> is not a prerequisite for using <stdlib.h>, this
+   file can be included without a prior "#include <config.h>.  */
+#if HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 /* If __GNU_LIBRARY__ is not already defined, either we are being used
    standalone, or this is the first header included in the source file.
    If we are being used with glibc, we need to include <features.h>, but

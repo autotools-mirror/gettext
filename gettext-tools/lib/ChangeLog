@@ -1,3 +1,7 @@
+2003-08-27  Bruno Haible  <bruno@clisp.org>
+
+	* getopt.h: Include config.h. Needed for DLL_VARIABLE on OSF/1 4.0.
+
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
 	* binary-io.h: Include <stdio.h>, to avoid a compilation error when
