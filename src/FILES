@@ -68,6 +68,11 @@ read-po.h
 read-po.c
                 Reading of a PO file, returning a list-of-messages.
 
+msgl-cat.h
+msgl-cat.c
+                Concatenate message lists from several files, with handling
+                of duplicate msgids.
+
 msgfmt.c        Main source for the 'msgfmt' program.
 msgcmp.c        Main source for the 'msgcmp' program.
 msgcomm.c       Main source for the 'msgcomm' program.

@@ -1,5 +1,26 @@
 2001-07-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgl-cat.h: New file.
+	* msgl-cat.c: New file, extracted from msgcat.c.
+	* msgcat.c (more_than, less_than): Move to msgl-cat.c.
+	(use_first): Likewise. Change type to bool.
+	(long_options): Don't take the address of use_first.
+	(main): Initialize more_than, less_than, use_first explicitly.
+	Add --use-first handling.
+	(is_message_selected, is_message_needed, is_message_first_needed,
+	catenate_msgdomain_list): Move to msgl-cat.c.
+	* read-po.h (allow_duplicates): New declaration.
+	* read-po.c (allow_duplicates): New variable.
+	(readall_directive_message): If allow_duplicates is true, don't search
+	for the message ID, just append the message.
+	* msguniq.c: New file.
+	* Makefile.am (bin_PROGRAMS): Add msguniq.
+	(noinst_HEADERS): Add msgl-cat.h.
+	(msgcat_SOURCES): Add msgl-cat.c.
+	(msguniq_SOURCES, msguniq_LDADD): New variables.
+
+2001-07-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgcat.c (usage): The default value for more-than is 0 here.
 	(is_message_selected): Always keep the header entry. Needed when
 	option --unique is used.

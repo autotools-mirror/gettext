@@ -25,6 +25,11 @@
    msgid, if present in the reference input.  Defaults to true.  */
 extern int line_comment;
 
+/* If false, duplicate msgids in the same domain and file generate an error.
+   If true, such msgids are allowed; the caller should treat them
+   appropriately.  Defaults to false.  */
+extern bool allow_duplicates;
+
 /* Read the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  Returns

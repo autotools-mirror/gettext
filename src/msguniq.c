@@ -1,4 +1,4 @@
-/* Concatenates several translation catalogs.
+/* Remove, select or merge duplicate translations.
    Copyright (C) 2001 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -21,7 +21,6 @@
 # include "config.h"
 #endif
 
-#include <errno.h>
 #include <getopt.h>
 #include <limits.h>
 #include <stdio.h>
@@ -54,13 +53,13 @@ static const struct option long_options[] =
   { "add-location", no_argument, &line_comment, 1 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
-  { "files-from", required_argument, NULL, 'f' },
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
   { "output-file", required_argument, NULL, 'o' },
+  { "repeated", no_argument, NULL, 'd' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -69,15 +68,12 @@ static const struct option long_options[] =
   { "use-first", no_argument, NULL, CHAR_MAX + 1 },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
-  { "more-than", required_argument, NULL, '>', },
-  { "less-than", required_argument, NULL, '<', },
   { NULL, 0, NULL, 0 }
 };
 
 
 /* Prototypes for local functions.  */
 static void usage PARAMS ((int status));
-static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
 
 
 int
@@ -85,12 +81,11 @@ main (argc, argv)
      int argc;
      char **argv;
 {
-  int cnt;
   int optchar;
   bool do_help;
   bool do_version;
   char *output_file;
-  const char *files_from;
+  const char *input_file;
   string_list_ty *file_list;
   msgdomain_list_ty *result;
   bool sort_by_msgid = false;
@@ -113,36 +108,21 @@ main (argc, argv)
   do_help = false;
   do_version = false;
   output_file = NULL;
-  files_from = NULL;
+  input_file = NULL;
   more_than = 0;
   less_than = INT_MAX;
   use_first = false;
 
-  while ((optchar = getopt_long (argc, argv, "<:>:D:eEf:Fhino:st:uVw:",
+  while ((optchar = getopt_long (argc, argv, "dD:eEFhino:st:uVw:",
 				 long_options, NULL)) != EOF)
     switch (optchar)
       {
       case '\0':		/* Long option.  */
 	break;
 
-      case '>':
-	{
-	  int value;
-	  char *endp;
-	  value = strtol (optarg, &endp, 10);
-	  if (endp != optarg)
-	    more_than = value;
-	}
-	break;
-
-      case '<':
-	{
-	  int value;
-	  char *endp;
-	  value = strtol (optarg, &endp, 10);
-	  if (endp != optarg)
-	    less_than = value;
-	}
+      case 'd':
+        more_than = 1;
+	less_than = INT_MAX;
 	break;
 
       case 'D':
@@ -155,10 +135,6 @@ main (argc, argv)
 
       case 'E':
 	message_print_style_escape (true);
-	break;
-
-      case 'f':
-	files_from = optarg;
 	break;
 
       case 'F':
@@ -194,7 +170,8 @@ main (argc, argv)
 	break;
 
       case 'u':
-        less_than = 2;
+        more_than = 0;
+	less_than = 2;
         break;
 
       case 'V':
@@ -247,22 +224,23 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
-  /* Determine list of files we have to process.  */
-  if (files_from != NULL)
-    file_list = read_name_from_file (files_from);
+  /* Test whether we have an .po file name as argument.  */
+  if (optind == argc)
+    input_file = "-";
+  else if (optind + 1 == argc)
+    input_file = argv[optind];
   else
-    file_list = string_list_alloc ();
-  /* Append names from command line.  */
-  for (cnt = optind; cnt < argc; ++cnt)
-    string_list_append_unique (file_list, argv[cnt]);
+    {
+      error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+      usage (EXIT_FAILURE);
+    }
 
-  /* Check the message selection criteria for sanity.  */
-  if (more_than >= less_than || less_than < 2)
-    error (EXIT_FAILURE, 0,
-           _("impossible selection criteria specified (%d < n < %d)"),
-           more_than, less_than);
+  /* Determine list of files we have to process: a single file.  */
+  file_list = string_list_alloc ();
+  string_list_append (file_list, input_file);
 
   /* Read input files, then filter, convert and merge messages.  */
+  allow_duplicates = true;
   result = catenate_msgdomain_list (file_list, to_code);
 
   string_list_free (file_list);
@@ -292,20 +270,19 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] [INPUTFILE]...\n\
+Usage: %s [OPTION] [INPUTFILE]\n\
 "), program_name);
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-Concatenates and merges the specified PO files.\n\
-Find messages which are common to two or more of the specified PO files.\n\
-By using the --more-than option, greater commonality may be requested\n\
-before messages are printed.  Conversely, the --less-than option may be\n\
-used to specify less commonality before messages are printed (i.e.\n\
---less-than=2 will only print the unique messages).  Translations,\n\
-comments and extract comments will be cumulated, except that if --use-first\n\
-is specified, they will be taken from the first PO file to define them.\n\
-File positions from all PO files will be cumulated.\n\
+Unifies duplicate translations in a translation catalog.\n\
+Finds duplicate translations of the same message ID.  Such duplicates are\n\
+invalid input for other programs like msgfmt, msgmerge or msgcat.  By\n\
+default, duplicates are merged together.  When using the --repeated option,\n\
+only duplicates are output, and all other messages are discarded.  Comments\n\
+and extracted comments will be cumulated, except that if --use-first is\n\
+specified, they will be taken from the first translation.  File positions\n\
+will be cumulated.  When using the --unique option, duplicates are discarded.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -316,10 +293,9 @@ Mandatory arguments to long options are mandatory for short options too.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
-  INPUTFILE ...                  input files\n\
-  -f, --files-from=FILE          get list of input files from FILE\n\
-  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
-If input file is -, standard input is read.\n\
+  INPUTFILE                   input PO file\n\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
+If no input file is given or if it is -, standard input is read.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -333,13 +309,8 @@ or if it is -.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Message selection:\n\
-  -<, --less-than=NUMBER         print messages with less than this many\n\
-                                 definitions, defaults to infinite if not\n\
-                                 set\n\
-  ->, --more-than=NUMBER         print messages with more than this many\n\
-                                 definitions, defaults to 0 if not set\n\
-  -u, --unique                   shorthand for --less-than=2, requests\n\
-                                 that only unique messages be printed\n\
+  -d, --repeated                 print only duplicates\n\
+  -u, --unique                   print only unique messages, discard duplicates\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -374,61 +345,3 @@ Informative output:\n\
   exit (status);
 }
 
-
-/* Read list of files to process from file.  */
-static string_list_ty *
-read_name_from_file (file_name)
-     const char *file_name;
-{
-  size_t line_len = 0;
-  char *line_buf = NULL;
-  FILE *fp;
-  string_list_ty *result;
-
-  if (strcmp (file_name, "-") == 0)
-    fp = stdin;
-  else
-    {
-      fp = fopen (file_name, "r");
-      if (fp == NULL)
-	error (EXIT_FAILURE, errno,
-	       _("error while opening \"%s\" for reading"), file_name);
-    }
-
-  result = string_list_alloc ();
-
-  while (!feof (fp))
-    {
-      /* Read next line from file.  */
-      int len = getline (&line_buf, &line_len, fp);
-
-      /* In case of an error leave loop.  */
-      if (len < 0)
-	break;
-
-      /* Remove trailing '\n' and trailing whitespace.  */
-      if (len > 0 && line_buf[len - 1] == '\n')
-	line_buf[--len] = '\0';
-      while (len > 0
-	     && (line_buf[len - 1] == ' '
-		 || line_buf[len - 1] == '\t'
-		 || line_buf[len - 1] == '\r'))
-	line_buf[--len] = '\0';
-
-      /* Test if we have to ignore the line.  */
-      if (*line_buf == '\0' || *line_buf == '#')
-	continue;
-
-      string_list_append_unique (result, line_buf);
-    }
-
-  /* Free buffer allocated through getline.  */
-  if (line_buf != NULL)
-    free (line_buf);
-
-  /* Close input stream.  */
-  if (fp != stdin)
-    fclose (fp);
-
-  return result;
-}

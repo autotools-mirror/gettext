@@ -1,3 +1,11 @@
+2001-07-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* msguniq.x: New file.
+	* Makefile.am (man_aux): Add it.
+	(man_MAN1): Add msguniq.1.
+	(man_HTML): Add msguniq.1.html.
+	(msguniq.1.html): New rule.
+
 2001-07-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgexec.x: New file.

@@ -35,6 +35,11 @@
    msgid, if present in the reference input.  Defaults to true.  */
 int line_comment = 1;
 
+/* If false, duplicate msgids in the same domain and file generate an error.
+   If true, such msgids are allowed; the caller should treat them
+   appropriately.  Defaults to false.  */
+bool allow_duplicates = false;
+
 
 /* This structure defines a derived class of the po_ty class.  (See
    po.h for an explanation.)  */
@@ -177,8 +182,13 @@ readall_directive_message (that, msgid, msgid_pos, msgid_plural,
   /* Select the appropriate sublist of this->mdlp.  */
   this->mlp = msgdomain_list_sublist (this->mdlp, this->domain, 1);
 
-  /* See if this message ID has been seen before.  */
-  mp = message_list_search (this->mlp, msgid);
+  if (allow_duplicates && msgid[0] != '\0')
+    /* Doesn't matter if this message ID has been seen before.  */
+    mp = NULL;
+  else
+    /* See if this message ID has been seen before.  */
+    mp = message_list_search (this->mlp, msgid);
+
   if (mp)
     {
       po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
