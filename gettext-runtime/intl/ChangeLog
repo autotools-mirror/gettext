@@ -1,3 +1,8 @@
+2004-03-02  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (_nl_locale_name): Add info about default territory for
+	Basque, Mongolian, Russian, Tamil. Map Norwegian to nb, not no.
+
 2004-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (install-exec, installdirs, uninstall): Install

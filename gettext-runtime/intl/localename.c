@@ -804,6 +804,10 @@ _nl_locale_name (int category, const char *categoryname)
 	}
       return "az";
     case LANG_BASQUE:
+      switch (sub)
+	{
+	case SUBLANG_DEFAULT: return "eu_ES";
+	}
       return "eu"; /* Ambiguous: could be "eu_ES" or "eu_FR".  */
     case LANG_BELARUSIAN: return "be_BY";
     case LANG_BENGALI:
@@ -986,6 +990,10 @@ _nl_locale_name (int category, const char *categoryname)
       return "mni_IN";
     case LANG_MARATHI: return "mr_IN";
     case LANG_MONGOLIAN:
+      switch (sub)
+	{
+	case SUBLANG_DEFAULT: return "mn_MN";
+	}
       return "mn"; /* Ambiguous: could be "mn_CN" or "mn_MN".  */
     case LANG_NEPALI:
       switch (sub)
@@ -997,7 +1005,7 @@ _nl_locale_name (int category, const char *categoryname)
     case LANG_NORWEGIAN:
       switch (sub)
 	{
-	case SUBLANG_NORWEGIAN_BOKMAL: return "no_NO";
+	case SUBLANG_NORWEGIAN_BOKMAL: return "nb_NO";
 	case SUBLANG_NORWEGIAN_NYNORSK: return "nn_NO";
 	}
       return "no";
@@ -1032,6 +1040,10 @@ _nl_locale_name (int category, const char *categoryname)
 	}
       return "ro";
     case LANG_RUSSIAN:
+      switch (sub)
+	{
+	case SUBLANG_DEFAULT: return "ru_RU";
+	}
       return "ru"; /* Ambiguous: could be "ru_RU" or "ru_UA" or "ru_MD".  */
     case LANG_SAAMI: /* actually Northern Sami */ return "se_NO";
     case LANG_SANSKRIT: return "sa_IN";
@@ -1096,6 +1108,10 @@ _nl_locale_name (int category, const char *categoryname)
 	}
       return "ber_MA";
     case LANG_TAMIL:
+	switch (sub)
+	{
+	case SUBLANG_DEFAULT: return "ta_IN";
+	}
       return "ta"; /* Ambiguous: could be "ta_IN" or "ta_LK" or "ta_SG".  */
     case LANG_TATAR: return "tt_RU";
     case LANG_TELUGU: return "te_IN";
