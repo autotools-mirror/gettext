@@ -1,5 +1,16 @@
 2003-10-05  Bruno Haible  <bruno@clisp.org>
 
+	* write-java.c: Include fatal-signal.h, not signal.h.
+	(uninstall_handlers): Remove function.
+	(cleanup): Remove signal argument. Don't execute the signal's default
+	action; leave that to the caller.
+	(install_handlers, init_signal_set, block, unblock): Remove functions.
+	(msgdomain_write_java): Invoke at_fatal_signal instead of
+	install_handlers/uninstall_handlers. Invoke [un]block_fatal_signals
+	instead of [un]block.
+
+2003-10-05  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (substring_match): Remove variable.
 	(long_options): Remove --keyword-substring option.
 	(main): Remove handling of --keyword-substring option.

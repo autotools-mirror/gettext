@@ -30,7 +30,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <signal.h>
 
 #include <sys/stat.h>
 #if STAT_MACROS_BROKEN
@@ -74,6 +73,7 @@
 #include "po-charset.h"
 #include "xmalloc.h"
 #include "pathname.h"
+#include "fatal-signal.h"
 #include "fwriteerror.h"
 #include "tmpdir.h"
 #include "utf8-ucs4.h"
@@ -894,26 +894,9 @@ static struct
   const char *file_name;
 } cleanup_list;
 
-static void
-uninstall_handlers ()
-{
-#ifdef SIGHUP
-  signal (SIGHUP, SIG_DFL);
-#endif
-#ifdef SIGINT
-  signal (SIGINT, SIG_DFL);
-#endif
-#ifdef SIGPIPE
-  signal (SIGPIPE, SIG_DFL);
-#endif
-#ifdef SIGTERM
-  signal (SIGTERM, SIG_DFL);
-#endif
-}
-
 /* The signal handler.  It gets called asynchronously.  */
 static void
-cleanup (int sig)
+cleanup ()
 {
   unsigned int i;
 
@@ -940,82 +923,7 @@ cleanup (int sig)
     if (filename != NULL)
       rmdir (filename);
   }
-
-  /* Now execute the signal's default action.  */
-  uninstall_handlers ();
-#if HAVE_RAISE
-  raise (sig);
-#else
-  kill (getpid (), sig);
-#endif
 }
-
-static void
-install_handlers ()
-{
-#ifdef SIGHUP
-  signal (SIGHUP, &cleanup);
-#endif
-#ifdef SIGINT
-  signal (SIGINT, &cleanup);
-#endif
-#ifdef SIGPIPE
-  signal (SIGPIPE, &cleanup);
-#endif
-#ifdef SIGTERM
-  signal (SIGTERM, &cleanup);
-#endif
-}
-
-#if HAVE_POSIX_SIGNALBLOCKING
-
-static sigset_t signal_set;
-
-static void
-init_signal_set ()
-{
-  static bool signal_set_initialized = false;
-  if (!signal_set_initialized)
-    {
-      sigemptyset (&signal_set);
-
-#ifdef SIGHUP
-      sigaddset (&signal_set, SIGHUP);
-#endif
-#ifdef SIGINT
-      sigaddset (&signal_set, SIGINT);
-#endif
-#ifdef SIGPIPE
-      sigaddset (&signal_set, SIGPIPE);
-#endif
-#ifdef SIGTERM
-      sigaddset (&signal_set, SIGTERM);
-#endif
-
-      signal_set_initialized = true;
-    }
-}
-
-static void
-block ()
-{
-  init_signal_set ();
-  sigprocmask (SIG_BLOCK, &signal_set, NULL);
-}
-
-static void
-unblock ()
-{
-  init_signal_set ();
-  sigprocmask (SIG_UNBLOCK, &signal_set, NULL);
-}
-
-#else
-
-#define block() /* nothing */
-#define unblock() /* nothing */
-
-#endif
 
 
 int
@@ -1046,7 +954,14 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
   cleanup_list.tmpdir = NULL;
   cleanup_list.subdir_count = 0;
   cleanup_list.file_name = NULL;
-  install_handlers ();
+  {
+    static bool cleanup_already_registered = false;
+    if (!cleanup_already_registered)
+      {
+	at_fatal_signal (&cleanup);
+	cleanup_already_registered = true;
+      }
+  }
 
   /* Create a temporary directory where we can put the Java file.  */
   template = (char *) alloca (PATH_MAX);
@@ -1056,10 +971,10 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
 	     _("cannot find a temporary directory, try setting $TMPDIR"));
       goto quit1;
     }
-  block ();
+  block_fatal_signals ();
   tmpdir = mkdtemp (template);
   cleanup_list.tmpdir = tmpdir;
-  unblock ();
+  unblock_fatal_signals ();
   if (tmpdir == NULL)
     {
       error (0, errno,
@@ -1197,6 +1112,6 @@ compilation of Java class failed, please try --verbose or set $JAVAC"));
   rmdir (tmpdir);
  quit1:
   cleanup_list.tmpdir = NULL;
-  uninstall_handlers ();
+  /* Here we could unregister the cleanup() handler.  */
   return retval;
 }
