@@ -17,6 +17,8 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/inttypes-pri.m4 \
   ../../gettext-runtime/m4/isc-posix.m4 \
   ../../gettext-runtime/m4/lcmessage.m4 \
+  ../../gettext-runtime/m4/nls.m4 \
+  ../../gettext-runtime/m4/po.m4 \
   ../../gettext-runtime/m4/progtest.m4 \
   ../../gettext-runtime/m4/stdint_h.m4 \
   ../../gettext-runtime/m4/uintmax_t.m4 \

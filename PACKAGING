@@ -119,6 +119,8 @@ following file list.
       $prefix/share/aclocal/lib-ld.m4
       $prefix/share/aclocal/lib-link.m4
       $prefix/share/aclocal/lib-prefix.m4
+      $prefix/share/aclocal/nls.m4
+      $prefix/share/aclocal/po.m4
       $prefix/share/aclocal/progtest.m4
       $prefix/share/aclocal/stdint_h.m4
       $prefix/share/aclocal/uintmax_t.m4

@@ -17,6 +17,8 @@ isc-posix.m4 \
 lcmessage.m4 \
 longdouble.m4 \
 longlong.m4 \
+nls.m4 \
+po.m4 \
 progtest.m4 \
 signed.m4 \
 stdint_h.m4 \

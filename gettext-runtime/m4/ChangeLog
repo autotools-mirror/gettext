@@ -1,3 +1,11 @@
+2003-04-29  Bruno Haible  <bruno@clisp.org>
+
+	* nls.m4: New file, extracted from gettext.m4.
+	* po.m4: New file, extracted from gettext.m4.
+	* gettext.m4 (AM_GNU_GETTEXT): Use AM_NLS.
+	(AM_PO_SUBDIRS, AM_MKINSTALLDIRS): Remove macros.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2003-03-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Also test for __fsetlocking.
