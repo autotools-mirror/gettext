@@ -1,3 +1,32 @@
+2001-09-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-hash-gen.y (number): Change type from 'int' to 'size_t'.
+	(filepos): Accept strings without line number.
+	(yylex): Change n from 'int' to 'size_t'.
+	* po.h (po_method_ty): In field comment_filepos, change line's type
+	from 'int' to 'size_t'.
+	(po_callback_comment_filepos): Change line's type from 'int' to
+	'size_t'.
+	* read-po.c (readall_comment_filepos): Likewise.
+	* x-po.c (extract_comment_filepos): Likewise.
+	* po.c (po_comment_filepos): Likewise.
+	(po_callback_comment_filepos): Likewise.
+	(po_callback_comment): Reduce the possibility that po_hash succeeds
+	if the comment is not a Sun file position comment.
+
+2001-09-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* x-rst.h: New file.
+	* x-rst.c: New file.
+	* xgettext.c: Include x-rst.h.
+	(scan_rst_file): New function.
+	(language_to_scanner): Add RST rule.
+	(extension_to_language): Add RST rule.
+	* write-po.c (message_print): Don't print the line number if it is
+	= (size_t)(-1).
+	* Makefile.am (noinst_HEADERS): Add x-rst.h.
+	(xgettext_SOURCES): Add x-rst.c.
+
 2001-09-20  Bruno Haible  <haible@clisp.cons.org>
 
 	* format-pascal.c: New file.

@@ -27,7 +27,7 @@ noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h msgl-ascii.h \
 msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h x-java.h \
-x-ycp.h
+x-ycp.h x-rst.h
 
 EXTRA_DIST = FILES
 
@@ -69,7 +69,7 @@ msgcmp_SOURCES    = msgcmp.c    $(COMMON_SOURCES)
 msgfmt_SOURCES    = msgfmt.c    $(COMMON_SOURCES) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c $(FORMAT_SOURCES)
 msgmerge_SOURCES  = msgmerge.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c
 msgunfmt_SOURCES  = msgunfmt.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c read-mo.c read-java.c
-xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c file-list.c x-c.c x-po.c x-java.l x-ycp.c $(FORMAT_SOURCES)
+xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c file-list.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCES)
 msgattrib_SOURCES = msgattrib.c $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c
 msgcat_SOURCES    = msgcat.c    $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
 msgcomm_SOURCES   = msgcomm.c   $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c

@@ -48,7 +48,7 @@ static void po_directive_message PARAMS ((po_ty *pop, char *msgid,
 static void po_comment PARAMS ((po_ty *pop, const char *s));
 static void po_comment_dot PARAMS ((po_ty *pop, const char *s));
 static void po_comment_filepos PARAMS ((po_ty *pop, const char *name,
-					int line));
+					size_t line));
 static void po_comment_special PARAMS ((po_ty *pop, const char *s));
 
 /* Local variables.  */
@@ -269,6 +269,7 @@ po_callback_comment (s)
 	 memory leaks on failed parses.  If the parse succeeds, the
 	 appropriate callback will be invoked.  */
       if (s[0] == ' ' && (s[1] == 'F' || s[1] == 'f') && s[2] == 'i'
+	  && s[3] == 'l' && s[4] == 'e' && s[5] == ':'
 	  && po_hash (s) == 0)
 	/* Do nothing, it is a Sun-style file pos line.  */ ;
       else
@@ -281,7 +282,7 @@ static void
 po_comment_filepos (pop, name, line)
      po_ty *pop;
      const char *name;
-     int line;
+     size_t line;
 {
   if (pop->method->comment_filepos)
     pop->method->comment_filepos (pop, name, line);
@@ -291,7 +292,7 @@ po_comment_filepos (pop, name, line)
 void
 po_callback_comment_filepos (name, line)
      const char *name;
-     int line;
+     size_t line;
 {
   /* assert(callback_arg); */
   po_comment_filepos (callback_arg, name, line);

@@ -91,7 +91,7 @@ static void readall_comment PARAMS ((po_ty *that, const char *s));
 static void readall_comment_dot PARAMS ((po_ty *that, const char *s));
 static void readall_comment_special PARAMS ((po_ty *that, const char *s));
 static void readall_comment_filepos PARAMS ((po_ty *that, const char *name,
-					     int line));
+					     size_t line));
 
 
 static void
@@ -298,7 +298,7 @@ static void
 readall_comment_filepos (that, name, line)
      po_ty *that;
      const char *name;
-     int line;
+     size_t line;
 {
   readall_class_ty *this = (readall_class_ty *) that;
   size_t nbytes;

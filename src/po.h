@@ -91,7 +91,7 @@ struct po_method_ty
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
   void (*comment_filepos) PARAMS ((struct po_ty *pop, const char *s,
-				   int line));
+				   size_t line));
 
   /* What to do with a comment that starts with a `!' - this is a
      special comment.  One of the possible uses is to indicate a
@@ -147,7 +147,7 @@ extern void po_callback_message PARAMS ((char *msgid, lex_pos_ty *msgid_pos,
 					 bool obsolete));
 extern void po_callback_comment PARAMS ((const char *s));
 extern void po_callback_comment_dot PARAMS ((const char *s));
-extern void po_callback_comment_filepos PARAMS ((const char *s, int line));
+extern void po_callback_comment_filepos PARAMS ((const char *s, size_t line));
 
 /* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
 extern void po_parse_comment_special PARAMS ((const char *s, bool *fuzzyp,

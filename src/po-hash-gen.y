@@ -92,7 +92,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 %union
 {
   char *string;
-  int number;
+  size_t number;
 }
 
 %type <number> NUMBER
@@ -140,6 +140,12 @@ filepos
 		  po_callback_comment_filepos ($1, $3);
 		  free ($1);
 		}
+	| STRING
+		{
+		  /* GNU style, without line number (e.g. from Pascal .rst) */
+		  po_callback_comment_filepos ($1, (size_t)(-1));
+		  free ($1);
+		}
 	| FILE_KEYWORD COLON STRING COMMA LINE_KEYWORD COLON NUMBER
 		{
 		  /* SunOS style */
@@ -169,7 +175,7 @@ yylex ()
   static char *buf;
   static size_t bufmax;
   size_t bufpos;
-  int n;
+  size_t n;
   int c;
 
   for (;;)

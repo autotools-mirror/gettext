@@ -614,7 +614,7 @@ message_print (mp, fp, charset, blank_line, debug)
 	  for (j = 0; j < mp->filepos_count; ++j)
 	    {
 	      lex_pos_ty *pp;
-	      char buffer[20];
+	      char buffer[21];
 	      char *cp;
 	      size_t len;
 
@@ -622,14 +622,18 @@ message_print (mp, fp, charset, blank_line, debug)
 	      cp = pp->file_name;
 	      while (cp[0] == '.' && cp[1] == '/')
 		cp += 2;
-	      sprintf (buffer, "%ld", (long) pp->line_number);
-	      len = strlen (cp) + strlen (buffer) + 2;
+	      /* Some xgettext input formats, like RST, lack line numbers.  */
+	      if (pp->line_number == (size_t)(-1))
+		buffer[0] = '\0';
+	      else
+		sprintf (buffer, ":%ld", (long) pp->line_number);
+	      len = strlen (cp) + strlen (buffer) + 1;
 	      if (column > 2 && column + len >= page_width)
 		{
 		  fputs ("\n#:", fp);
 		  column = 2;
 		}
-	      fprintf (fp, " %s:%s", cp, buffer);
+	      fprintf (fp, " %s%s", cp, buffer);
 	      column += len;
 	    }
 	  putc ('\n', fp);

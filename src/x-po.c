@@ -52,7 +52,7 @@ static void extract_parse_brief PARAMS ((po_ty *that));
 static void extract_comment PARAMS ((po_ty *that, const char *s));
 static void extract_comment_dot PARAMS ((po_ty *that, const char *s));
 static void extract_comment_filepos PARAMS ((po_ty *that, const char *name,
-					     int line));
+					     size_t line));
 static void extract_comment_special PARAMS ((po_ty *that, const char *s));
 
 
@@ -248,7 +248,7 @@ static void
 extract_comment_filepos (that, name, line)
      po_ty *that;
      const char *name;
-     int line;
+     size_t line;
 {
   extract_class_ty *this = (extract_class_ty *) that;
   size_t nbytes;
