@@ -1,3 +1,8 @@
+2003-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* project-id: Make it work with configure files that use
+	AM_INIT_AUTOMAKE from automake-1.7.2.
+
 2002-12-04  Bruno Haible  <bruno@clisp.org>
 
 	Fix handling of references to filenames starting with a digit.

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Prints a package's identification PACKAGE VERSION or PACKAGE.
 #
-# Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# Copyright (C) 2001-2003 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 want_version="$1"
 while true; do
   if test -f configure; then
-    package=`(grep '^PACKAGE_NAME=' configure; grep '^PACKAGE=' configure) | grep -v '=[ 	]*$' | sed -e '1q' | sed -e 's/^[^=]*=//' | sed -e "s/^'//" -e "s/'$//"`
+    package=`(grep '^PACKAGE_NAME=' configure; grep '^ *PACKAGE=' configure) | grep -v '=[ 	]*$' | sed -e '1q' | sed -e 's/^[^=]*=//' | sed -e "s/^'//" -e "s/'$//"`
     case "$package" in
       *[\"\$\`\{\}]*)
         # Some packages (gcal) retrieve the package name dynamically.
@@ -33,7 +33,7 @@ while true; do
         package="GNU $package"
       fi
       if test -n "$want_version"; then
-        version=`(grep '^PACKAGE_VERSION=' configure; grep '^VERSION=' configure) | grep -v '=[ 	]*$' | sed -e '1q' | sed -e 's/^[^=]*=//' | sed -e "s/^'//" -e "s/'$//"`
+        version=`(grep '^PACKAGE_VERSION=' configure; grep '^ *VERSION=' configure) | grep -v '=[ 	]*$' | sed -e '1q' | sed -e 's/^[^=]*=//' | sed -e "s/^'//" -e "s/'$//"`
         case "$version" in
           *[\"\$\`\{\}]*)
             # Some packages (gcal, gcc, clisp) retrieve the version dynamically.
