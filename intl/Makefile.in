@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling in GNU NLS Utilities.
-# Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -239,12 +239,18 @@ ID: $(HEADERS) $(SOURCES)
 
 
 mostlyclean:
-	rm -f *.a *.o *.lo core core.* plusral.h
+	rm -f *.a *.o *.lo core core.*
+	rm -f intlh.inst charset.alias ref-add.sed ref-del.sed
 
 clean: mostlyclean
 
 distclean: clean
 	rm -f Makefile ID TAGS po2msg.sed po2tbl.sed
+	if test "$(PACKAGE)" = gettext; then \
+	  rm -f $(DISTFILES.normal); \
+	else \
+	  : ; \
+	fi
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
