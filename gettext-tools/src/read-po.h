@@ -151,15 +151,15 @@ extern default_po_reader_ty *
 
 /* If nonzero, remember comments for file name and line number for each
    msgid, if present in the reference input.  Defaults to true.  */
-extern int line_comment;
+extern DLL_VARIABLE int line_comment;
 
 /* If false, duplicate msgids in the same domain and file generate an error.
    If true, such msgids are allowed; the caller should treat them
    appropriately.  Defaults to false.  */
-extern bool allow_duplicates;
+extern DLL_VARIABLE bool allow_duplicates;
 
 /* Expected syntax of the input files.  */
-extern input_syntax_ty input_syntax;
+extern DLL_VARIABLE input_syntax_ty input_syntax;
 
 /* Read the input file from a stream.  Returns a list of messages.  */
 extern msgdomain_list_ty *read_po (FILE *fp, const char *real_filename,

@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,10 +25,10 @@
 #include "message.h"
 
 /* Alignment of strings in resulting .mo file.  */
-extern size_t alignment;
+extern DLL_VARIABLE size_t alignment;
 
 /* True if no hash table in .mo is wanted.  */
-extern bool no_hash_table;
+extern DLL_VARIABLE bool no_hash_table;
 
 /* Write a GNU mo file.  mlp is a list containing the messages to be output.
    domain_name is the domain name, file_name is the desired file name.

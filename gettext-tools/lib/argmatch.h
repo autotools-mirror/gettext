@@ -1,5 +1,5 @@
 /* argmatch.h -- definitions and prototypes for argmatch.c
-   Copyright (C) 1990, 1998, 1999, 2001, 2002 Free Software Foundation, Inc.
+   Copyright (C) 1990, 1998, 1999, 2001-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ int argmatch (char const *arg, char const *const *arglist,
    return.  By default, this is a function that calls ARGMATCH_DIE which
    in turn defaults to `exit (EXIT_FAILURE)'.  */
 typedef void (*argmatch_exit_fn) (void);
-extern argmatch_exit_fn argmatch_die;
+extern DLL_VARIABLE argmatch_exit_fn argmatch_die;
 
 /* Report on stderr why argmatch failed.  Report correct values. */
 

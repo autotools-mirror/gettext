@@ -57,8 +57,8 @@ enum format_type
   format_gcc_internal
 };
 #define NFORMATS 15	/* Number of format_type enum values.  */
-extern const char *const format_language[NFORMATS];
-extern const char *const format_language_pretty[NFORMATS];
+extern DLL_VARIABLE const char *const format_language[NFORMATS];
+extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 
 /* Is current msgid a format string?  */
 enum is_format

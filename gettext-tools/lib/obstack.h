@@ -1,5 +1,5 @@
 /* obstack.h - object stack macros
-   Copyright (C) 1988,89,90,91,92,93,94,96,97,98,99 Free Software Foundation, Inc.
+   Copyright (C) 1988-1994, 1996-1999, 2003 Free Software Foundation, Inc.
 
    This file is part of the GNU C Library.  Its master source is NOT part of
    the C library, however.  The master source lives in /gd/gnu/lib.
@@ -261,13 +261,13 @@ int obstack_memory_used (struct obstack *obstack);
    should either abort gracefully or use longjump - but shouldn't
    return.  The default action is to print a message and abort.  */
 #if defined __STDC__ && __STDC__
-extern void (*obstack_alloc_failed_handler) (void);
+extern DLL_VARIABLE void (*obstack_alloc_failed_handler) (void);
 #else
-extern void (*obstack_alloc_failed_handler) ();
+extern DLL_VARIABLE void (*obstack_alloc_failed_handler) ();
 #endif
 
 /* Exit value used when `print_and_abort' is used.  */
-extern int obstack_exit_failure;
+extern DLL_VARIABLE int obstack_exit_failure;
 
 /* Pointer to beginning of object being allocated or to be allocated next.
    Note that this might not be the final address of the object

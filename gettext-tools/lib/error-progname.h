@@ -38,7 +38,7 @@ extern "C" {
    Default is true.
    A reason to omit the prefix is for better interoperability with Emacs'
    compile.el.  */
-extern bool error_with_progname;
+extern DLL_VARIABLE bool error_with_progname;
 
 /* Print program_name prefix on stderr if and only if error_with_progname
    is true.  */

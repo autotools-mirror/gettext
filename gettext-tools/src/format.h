@@ -61,24 +61,24 @@ struct formatstring_parser
 };
 
 /* Format string parsers, each defined in its own file.  */
-extern struct formatstring_parser formatstring_c;
-extern struct formatstring_parser formatstring_python;
-extern struct formatstring_parser formatstring_lisp;
-extern struct formatstring_parser formatstring_elisp;
-extern struct formatstring_parser formatstring_librep;
-extern struct formatstring_parser formatstring_smalltalk;
-extern struct formatstring_parser formatstring_java;
-extern struct formatstring_parser formatstring_awk;
-extern struct formatstring_parser formatstring_pascal;
-extern struct formatstring_parser formatstring_ycp;
-extern struct formatstring_parser formatstring_tcl;
-extern struct formatstring_parser formatstring_perl;
-extern struct formatstring_parser formatstring_perl_brace;
-extern struct formatstring_parser formatstring_php;
-extern struct formatstring_parser formatstring_gcc_internal;
+extern DLL_VARIABLE struct formatstring_parser formatstring_c;
+extern DLL_VARIABLE struct formatstring_parser formatstring_python;
+extern DLL_VARIABLE struct formatstring_parser formatstring_lisp;
+extern DLL_VARIABLE struct formatstring_parser formatstring_elisp;
+extern DLL_VARIABLE struct formatstring_parser formatstring_librep;
+extern DLL_VARIABLE struct formatstring_parser formatstring_smalltalk;
+extern DLL_VARIABLE struct formatstring_parser formatstring_java;
+extern DLL_VARIABLE struct formatstring_parser formatstring_awk;
+extern DLL_VARIABLE struct formatstring_parser formatstring_pascal;
+extern DLL_VARIABLE struct formatstring_parser formatstring_ycp;
+extern DLL_VARIABLE struct formatstring_parser formatstring_tcl;
+extern DLL_VARIABLE struct formatstring_parser formatstring_perl;
+extern DLL_VARIABLE struct formatstring_parser formatstring_perl_brace;
+extern DLL_VARIABLE struct formatstring_parser formatstring_php;
+extern DLL_VARIABLE struct formatstring_parser formatstring_gcc_internal;
 
 /* Table of all format string parsers.  */
-extern struct formatstring_parser *formatstring_parsers[NFORMATS];
+extern DLL_VARIABLE struct formatstring_parser *formatstring_parsers[NFORMATS];
 
 /* Returns an array of the ISO C 99 <inttypes.h> format directives
    contained in the argument string.  *intervalsp is assigned to a freshly

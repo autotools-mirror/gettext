@@ -221,7 +221,7 @@ BUILT_SOURCES = \
 
 po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
-	$(SED) 's/yy/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
+	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
 
 # We must add the '#include <vms_jackets.h>' here, not inside x-java.l,
