@@ -110,7 +110,7 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((optchar = getopt_long (argc, argv, "hio:Vw:", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "eEhio:Vw:", long_options, NULL))
 	 != EOF)
     switch (optchar)
       {

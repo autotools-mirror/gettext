@@ -1,3 +1,7 @@
+2001-02-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgunfmt.c (main): Accept -e and -E options.
+
 2001-02-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt.c (main): Open the output file in binary mode.
