@@ -41,7 +41,7 @@
 #include "xerror.h"
 #include "basename.h"
 #include "progname.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "hash.h"
 #include "po-charset.h"

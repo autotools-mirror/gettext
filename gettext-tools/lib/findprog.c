@@ -32,7 +32,7 @@
 # include <unistd.h>
 #endif
 
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "pathname.h"
 
 

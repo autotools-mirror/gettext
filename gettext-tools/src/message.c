@@ -29,7 +29,7 @@
 
 #include "fstrcmp.h"
 #include "hash.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 
 
 const char *const format_language[NFORMATS] =

@@ -43,7 +43,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "xerror.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "strstr.h"
 #include "xerror.h"
 #include "exit.h"

@@ -31,7 +31,7 @@
 #include "xgettext.h"
 #include "x-elisp.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "hash.h"
 #include "c-ctype.h"

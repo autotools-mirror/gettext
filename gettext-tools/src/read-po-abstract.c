@@ -31,7 +31,7 @@
 #include "po-gram.h"
 #include "po-hash.h"
 #include "read-properties.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "gettext.h"
 
 /* Local variables.  */

@@ -32,7 +32,7 @@
 #include "x-c.h"
 #include "error.h"
 #include "error-progname.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "hash.h"
 #include "gettext.h"

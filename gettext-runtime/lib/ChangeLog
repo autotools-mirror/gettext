@@ -1,3 +1,7 @@
+2003-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Use xalloc.h instead of xmalloc.h.
+
 2003-09-16  Bruno Haible  <bruno@clisp.org>
 
 	Portability to SunOS 4.

@@ -40,7 +40,7 @@
 #include "read-po.h"
 #include "write-po.h"
 #include "format.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "strstr.h"
 #include "exit.h"
 #include "strcase.h"

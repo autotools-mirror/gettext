@@ -31,7 +31,7 @@
 
 #include "dir-list.h"
 #include "pathname.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "error.h"
 #include "gettext.h"
 

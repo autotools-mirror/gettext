@@ -1,3 +1,28 @@
+2003-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* xalloc.h: Renamed from xmalloc.h.
+	* classpath.c: Include xalloc.h instead of xmalloc.h.
+	* concatpath.c: Likewise.
+	* fatal-signal.c: Likewise.
+	* findprog.c: Likewise.
+	* fstrcmp.c: Likewise.
+	* hash.c: Likewise.
+	* javacomp.c: Likewise.
+	* javaexec.c: Likewise.
+	* progreloc.c: Likewise.
+	* relocatable.c: Likewise.
+	* sh-quote.c: Likewise.
+	* w32spawn.h: Likewise.
+	* wait-process.c: Likewise.
+	* xgetcwd.c: Likewise.
+	* xmalloc.c: Likewise.
+	* xreadlink.c: Likewise.
+	* xstrdup.c: Likewise.
+	* Makefile.am (libgettextlib_la_SOURCES): Use xalloc.h instead of
+	xmalloc.h.
+	* Makefile.msvc: Reorder accordingly.
+	* Makefile.vms: Likewise.
+
 2003-10-07  Bruno Haible  <bruno@clisp.org>
 
 	More reliable subprocess cleanup.

@@ -27,7 +27,7 @@
 #include <stdlib.h>
 
 #include "message.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "read-po.h"
 
 

@@ -71,7 +71,7 @@
 #include "pathmax.h"
 #include "plural-exp.h"
 #include "po-charset.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "pathname.h"
 #include "fatal-signal.h"
 #include "fwriteerror.h"

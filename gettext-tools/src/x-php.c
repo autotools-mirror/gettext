@@ -30,7 +30,7 @@
 #include "xgettext.h"
 #include "x-php.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "gettext.h"
 

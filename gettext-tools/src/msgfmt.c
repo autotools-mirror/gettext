@@ -39,7 +39,7 @@
 #include "basename.h"
 #include "xerror.h"
 #include "format.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "plural-exp.h"
 #include "plural-table.h"
 #include "strstr.h"

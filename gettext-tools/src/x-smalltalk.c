@@ -29,7 +29,7 @@
 #include "xgettext.h"
 #include "x-smalltalk.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "gettext.h"
 

@@ -32,7 +32,7 @@
 #include "progname.h"
 #include "relocatable.h"
 #include "basename.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 
 #include "gettext.h"

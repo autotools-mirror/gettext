@@ -31,7 +31,7 @@
 #include "x-rst.h"
 #include "error.h"
 #include "error-progname.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "gettext.h"
 

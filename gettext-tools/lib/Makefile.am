@@ -70,8 +70,8 @@ libgettextlib_la_SOURCES = \
   ucs4-utf8.h ucs4-utf16.h \
   unlocked-io.h \
   wait-process.h wait-process.c \
+  xalloc.h xmalloc.c xstrdup.c \
   xerror.h xerror.c \
-  xmalloc.h xmalloc.c xstrdup.c \
   xreadlink.h xreadlink.c \
   xsetenv.h xsetenv.c
 

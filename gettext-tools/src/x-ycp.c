@@ -32,7 +32,7 @@
 #include "xgettext.h"
 #include "x-ycp.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "gettext.h"
 

@@ -42,7 +42,7 @@
 #include "hash.h"
 #include "message.h"
 #include "format.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "binary-io.h"
 #include "fwriteerror.h"
 #include "exit.h"

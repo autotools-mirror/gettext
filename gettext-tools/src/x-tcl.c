@@ -33,7 +33,7 @@
 #include "xgettext.h"
 #include "x-tcl.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "hash.h"
 #include "c-ctype.h"

@@ -34,7 +34,7 @@
 #include "message.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "pathname.h"
 #include "fwriteerror.h"
 #include "exit.h"

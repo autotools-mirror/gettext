@@ -26,7 +26,7 @@
 #include <string.h>
 
 #include "strpbrk.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 
 
 /* Must quote the program name and arguments since Unix shells interpret

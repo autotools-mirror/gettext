@@ -20,7 +20,7 @@
 #endif
 
 /* Specification.  */
-#include "xmalloc.h"
+#include "xalloc.h"
 
 #include <stdlib.h>
 

@@ -34,7 +34,7 @@
 #include "po-lex.h"
 #include "po-charset.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "gettext.h"
 #include "read-po-abstract.h"
 

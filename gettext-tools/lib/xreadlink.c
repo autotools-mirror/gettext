@@ -53,7 +53,7 @@ extern int errno;
 #ifdef NO_XMALLOC
 # define xmalloc malloc
 #else
-# include "xmalloc.h"
+# include "xalloc.h"
 #endif
 
 /* Call readlink to get the symbolic link value of FILENAME.

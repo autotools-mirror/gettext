@@ -36,7 +36,7 @@
 #include "po-charset.h"
 #include "utf8-ucs4.h"
 #include "write-po.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 
 /* The format of the Java .properties files is documented in the JDK
    documentation for class java.util.Properties.  In the case of .properties

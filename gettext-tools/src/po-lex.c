@@ -42,7 +42,7 @@
 #include "vasprintf.h"
 #include "gettext.h"
 #include "po-charset.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "error.h"
 #include "error-progname.h"

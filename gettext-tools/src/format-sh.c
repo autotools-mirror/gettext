@@ -26,7 +26,7 @@
 
 #include "format.h"
 #include "c-ctype.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "format-invalid.h"
 #include "error.h"
 #include "error-progname.h"

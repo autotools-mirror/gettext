@@ -27,7 +27,7 @@
 #include <errno.h>
 
 #include "strpbrk.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 
 /* Duplicates a file handle, making the copy uninheritable.  */
 static int

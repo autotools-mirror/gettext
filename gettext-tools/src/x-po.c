@@ -30,7 +30,7 @@
 #include "xgettext.h"
 #include "x-po.h"
 #include "x-properties.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "read-po.h"
 #include "po-lex.h"
 #include "gettext.h"

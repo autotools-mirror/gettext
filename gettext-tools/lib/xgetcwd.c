@@ -47,7 +47,7 @@ char *getwd ();
 # define getcwd(Buf, Max) getwd (Buf)
 #endif
 
-#include "xmalloc.h"
+#include "xalloc.h"
 
 /* Return the current directory, newly allocated, arbitrarily long.
    Return NULL and set errno on error. */

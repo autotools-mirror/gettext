@@ -39,7 +39,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "read-po-abstract.h"
 
 /* Remap normal yacc parser interface names (yyparse, yylex, yyerror, etc),

@@ -71,8 +71,8 @@ OBJECTS = \
   strtoul.obj, \
   tmpdir.obj, \
   wait-process.obj, \
-  xerror.obj, \
   xmalloc.obj, xstrdup.obj, \
+  xerror.obj, \
   xsetenv.obj, \
   \
   fnmatch.obj, \
@@ -206,14 +206,14 @@ tmpdir.obj : tmpdir.c
 wait-process.obj : wait-process.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) wait-process.c
 
-xerror.obj : xerror.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xerror.c
-
 xmalloc.obj : xmalloc.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xmalloc.c
 
 xstrdup.obj : xstrdup.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xstrdup.c
+
+xerror.obj : xerror.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xerror.c
 
 xsetenv.obj : xsetenv.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xsetenv.c

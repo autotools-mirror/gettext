@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "xmalloc.h"
+#include "xalloc.h"
 
 
 /* Initialize an empty list of strings.  */

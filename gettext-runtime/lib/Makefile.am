@@ -36,7 +36,7 @@ libgrt_a_SOURCES = \
   ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c ../../gettext-tools/lib/progreloc.c \
   ../../gettext-tools/lib/strtoul.c \
   ../../gettext-tools/lib/unlocked-io.h \
-  ../../gettext-tools/lib/xmalloc.h ../../gettext-tools/lib/xmalloc.c ../../gettext-tools/lib/xstrdup.c \
+  ../../gettext-tools/lib/xalloc.h ../../gettext-tools/lib/xmalloc.c ../../gettext-tools/lib/xstrdup.c \
   ../../gettext-tools/lib/xreadlink.h ../../gettext-tools/lib/xreadlink.c
 
 # Sources that are compiled only on platforms that lack the functions.

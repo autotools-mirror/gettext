@@ -28,7 +28,7 @@
 #include <string.h>
 
 #include "xsetenv.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 
 /* Separator in PATH like lists of pathnames.  */
 #if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__

@@ -40,7 +40,7 @@
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "strstr.h"
 #include "exit.h"
 #include "gettext.h"

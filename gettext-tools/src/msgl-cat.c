@@ -37,7 +37,7 @@
 #include "msgl-ascii.h"
 #include "msgl-equal.h"
 #include "msgl-iconv.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "strstr.h"
 #include "basename.h"
 #include "exit.h"

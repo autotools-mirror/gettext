@@ -34,7 +34,7 @@
 #include "error-progname.h"
 #include "message.h"
 #include "read-po-abstract.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "msgl-ascii.h"
 #include "utf16-ucs4.h"

@@ -42,7 +42,7 @@
 #ifdef NO_XMALLOC
 # define xmalloc malloc
 #else
-# include "xmalloc.h"
+# include "xalloc.h"
 #endif
 
 #if defined _WIN32 || defined __WIN32__

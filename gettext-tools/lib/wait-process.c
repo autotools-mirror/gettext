@@ -93,7 +93,7 @@
 #include "error.h"
 #include "exit.h"
 #include "fatal-signal.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

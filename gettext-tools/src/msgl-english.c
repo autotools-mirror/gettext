@@ -1,5 +1,5 @@
 /* Message translation initialization for English.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,7 @@
 
 #include <string.h>
 
-#include "xmalloc.h"
+#include "xalloc.h"
 
 
 msgdomain_list_ty *

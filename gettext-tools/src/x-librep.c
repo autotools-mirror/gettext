@@ -32,7 +32,7 @@
 #include "xgettext.h"
 #include "x-librep.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "hash.h"
 #include "gettext.h"

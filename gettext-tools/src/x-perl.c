@@ -32,7 +32,7 @@
 #include "x-perl.h"
 #include "error.h"
 #include "error-progname.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "po-charset.h"
 #include "ucs4-utf8.h"

@@ -26,7 +26,7 @@
 #include "format.h"
 #include "c-ctype.h"
 #include "gcd.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "xerror.h"
 #include "format-invalid.h"
 #include "minmax.h"

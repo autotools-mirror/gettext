@@ -1,3 +1,9 @@
+2003-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* envsubst.c: Include xalloc.h instead of xmalloc.h.
+	* gettext.c: Likewise.
+	* ngettext.c: Likewise.
+
 2003-09-16  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c: Include stdbool.h.

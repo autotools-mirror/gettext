@@ -30,7 +30,7 @@
 #include "xgettext.h"
 #include "x-java.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "hash.h"
 #include "po-charset.h"

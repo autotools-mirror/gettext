@@ -52,7 +52,7 @@
 #ifdef NO_XMALLOC
 # define xmalloc malloc
 #else
-# include "xmalloc.h"
+# include "xalloc.h"
 #endif
 
 /* Pathname support.

@@ -57,7 +57,7 @@
 #include "read-po.h"
 #include "write-po.h"
 #include "msgl-charset.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "findprog.h"
 #include "pipe.h"

@@ -35,7 +35,7 @@
 #include "xsetenv.h"
 #include "sh-quote.h"
 #include "safe-read.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "error.h"
 #include "gettext.h"
 

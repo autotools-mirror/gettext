@@ -50,7 +50,7 @@
 #include "write-po.h"
 #include "str-list.h"
 #include "msgl-charset.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "full-write.h"
 #include "findprog.h"

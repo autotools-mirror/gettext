@@ -46,7 +46,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include "xmalloc.h"
+#include "xalloc.h"
 
 
 /*

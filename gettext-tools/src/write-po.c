@@ -40,7 +40,7 @@
 #include "linebreak.h"
 #include "msgl-ascii.h"
 #include "write-properties.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "strstr.h"
 #include "fwriteerror.h"
 #include "exit.h"

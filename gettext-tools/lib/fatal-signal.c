@@ -32,7 +32,7 @@
 # include <unistd.h>
 #endif
 
-#include "xmalloc.h"
+#include "xalloc.h"
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 

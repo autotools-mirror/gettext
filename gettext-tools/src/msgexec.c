@@ -43,7 +43,7 @@
 #include "basename.h"
 #include "message.h"
 #include "read-po.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "exit.h"
 #include "full-write.h"
 #include "findprog.h"

@@ -29,7 +29,7 @@
 
 #include "open-po.h"
 #include "po-charset.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
