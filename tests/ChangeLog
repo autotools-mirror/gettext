@@ -1,3 +1,14 @@
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (TESTS); Add msgfmt-7, msgfmt-8, msgfmt-9, msgmerge-13.
+
+2001-11-12  Karl Eichwalder <ke@gnu.franken.de>
+
+	* msgfmt-7: New file.
+	* msgfmt-8: New file.
+	* msgfmt-9: New file.
+	* msgmerge-13: New file.
+
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
 	Avoid an implicit pattern rule ("%.out : %") in GNU make.
