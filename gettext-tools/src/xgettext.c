@@ -1748,66 +1748,97 @@ meta information, not the empty string.\n")));
      string.  */
   set_format_flags_from_context (is_format, context, mp->msgid, pos, "msgid");
 
-  /* Ask the lexer for the comments it has seen.  Only do this for the
-     first instance, otherwise there could be problems; especially if
-     the same comment appears before each.  */
-  if (!mp->comment_dot)
-    {
-      int j;
-      bool add_all_remaining_comments;
+  /* Ask the lexer for the comments it has seen.  */
+  {
+    size_t nitems_before;
+    size_t nitems_after;
+    int j;
+    bool add_all_remaining_comments;
 
-      add_all_remaining_comments = add_all_comments;
-      for (j = 0; ; ++j)
-	{
-	  const char *s = xgettext_comment (j);
-	  const char *t;
-	  if (s == NULL)
-	    break;
+    nitems_before = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
 
-	  CONVERT_STRING (s);
+    add_all_remaining_comments = add_all_comments;
+    for (j = 0; ; ++j)
+      {
+	const char *s = xgettext_comment (j);
+	const char *t;
+	if (s == NULL)
+	  break;
 
-	  /* To reduce the possibility of unwanted matches we do a two
-	     step match: the line must contain `xgettext:' and one of
-	     the possible format description strings.  */
-	  if ((t = strstr (s, "xgettext:")) != NULL)
-	    {
-	      bool tmp_fuzzy;
-	      enum is_format tmp_format[NFORMATS];
-	      enum is_wrap tmp_wrap;
-	      bool interesting;
+	CONVERT_STRING (s);
 
-	      t += strlen ("xgettext:");
+	/* To reduce the possibility of unwanted matches we do a two
+	   step match: the line must contain `xgettext:' and one of
+	   the possible format description strings.  */
+	if ((t = strstr (s, "xgettext:")) != NULL)
+	  {
+	    bool tmp_fuzzy;
+	    enum is_format tmp_format[NFORMATS];
+	    enum is_wrap tmp_wrap;
+	    bool interesting;
 
-	      po_parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_wrap);
+	    t += strlen ("xgettext:");
 
-	      interesting = false;
-	      for (i = 0; i < NFORMATS; i++)
-		if (tmp_format[i] != undecided)
-		  {
-		    is_format[i] = tmp_format[i];
-		    interesting = true;
-		  }
-	      if (tmp_wrap != undecided)
+	    po_parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_wrap);
+
+	    interesting = false;
+	    for (i = 0; i < NFORMATS; i++)
+	      if (tmp_format[i] != undecided)
 		{
-		  do_wrap = tmp_wrap;
+		  is_format[i] = tmp_format[i];
 		  interesting = true;
 		}
+	    if (tmp_wrap != undecided)
+	      {
+		do_wrap = tmp_wrap;
+		interesting = true;
+	      }
 
-	      /* If the "xgettext:" marker was followed by an interesting
-		 keyword, and we updated our is_format/do_wrap variables,
-		 we don't print the comment as a #. comment.  */
-	      if (interesting)
-		continue;
-	    }
-	  /* When the comment tag is seen, it drags in not only the line
-	     which it starts, but all remaining comment lines.  */
-	  if (add_all_remaining_comments
-	      || (add_all_remaining_comments =
-		    (comment_tag != NULL
-		     && strncmp (s, comment_tag, strlen (comment_tag)) == 0)))
-	    message_comment_dot_append (mp, s);
-	}
-    }
+	    /* If the "xgettext:" marker was followed by an interesting
+	       keyword, and we updated our is_format/do_wrap variables,
+	       we don't print the comment as a #. comment.  */
+	    if (interesting)
+	      continue;
+	  }
+	/* When the comment tag is seen, it drags in not only the line
+	   which it starts, but all remaining comment lines.  */
+	if (add_all_remaining_comments
+	    || (add_all_remaining_comments =
+		  (comment_tag != NULL
+		   && strncmp (s, comment_tag, strlen (comment_tag)) == 0)))
+	  message_comment_dot_append (mp, s);
+      }
+
+    nitems_after = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
+
+    /* Don't add the comments if they are a repetition of the tail of the
+       already present comments.  This avoids unneeded duplication if the
+       same message appears several times, each time with the same comment.  */
+    if (nitems_before < nitems_after)
+      {
+	size_t added = nitems_after - nitems_before;
+
+	if (added <= nitems_before)
+	  {
+	    bool repeated = true;
+
+	    for (i = 0; i < added; i++)
+	      if (strcmp (mp->comment_dot->item[nitems_before - added + i],
+			  mp->comment_dot->item[nitems_before + i]) != 0)
+		{
+		  repeated = false;
+		  break;
+		}
+
+	    if (repeated)
+	      {
+		for (i = 0; i < added; i++)
+		  free ((char *) mp->comment_dot->item[nitems_before + i]);
+		mp->comment_dot->nitems = nitems_before;
+	      }
+	  }
+      }
+  }
 
   /* If it is not already decided, through programmer comments, whether the
      msgid is a format string, examine the msgid.  This is a heuristic.  */

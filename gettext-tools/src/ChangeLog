@@ -1,3 +1,9 @@
+2003-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (remember_a_message): Omit the programmer comments of a
+	duplicated msgid only if they are redundant.
+	Reported by Christian Neumair <chris@gnome-de.org>.
+
 2003-11-05  Bruno Haible  <bruno@clisp.org>
 
 	* user-email.sh.in: Renamed from user-email.in. Internationalize, use

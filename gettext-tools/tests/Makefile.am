@@ -56,6 +56,7 @@ TESTS = gettext-1 gettext-2 \
 	msgunfmt-tcl-1 \
 	msguniq-1 msguniq-2 msguniq-3 msguniq-4 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
+	xgettext-7 \
 	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 \
