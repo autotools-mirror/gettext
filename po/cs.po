@@ -4,11 +4,16 @@
 #
 # Vladimir Michl <Vladimir.Michl@seznam.cz>, 1998.
 #
+# Note: Indexes for plurals (on file example):
+# 0 - 1,21,31,101,... soubor
+# 1 - 2-4,22-24,...,102-104,122-124,... soubory
+# 2 - 0,5-10,11-19,20,25-30,35-40,...,100,105-110,... souboru
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
+"Project-Id-Version: GNU gettext 0.10.38\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 2000-01-31 10:51+01:00\n"
+"PO-Revision-Date: 2001-08-18 15:22+0200\n"
 "Last-Translator: Vladimir Michl <Vladimir.Michl@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +100,8 @@ msgstr "%s: pøepínaè ` -W %s' musí být zadán bez argumentu\n"
 # lib/xmalloc.c:82
 #: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
 #: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
-#, fuzzy
 msgid "memory exhausted"
-msgstr "Pamì» vyèerpána"
+msgstr "pamì» vyèerpána"
 
 # src/gettextp.c:134 src/msgcmp.c:144 src/msgfmt.c:257 src/msgmerge.c:251
 # src/msgunfmt.c:175 src/xgettext.c:394
@@ -239,7 +243,7 @@ msgstr ""
 "pøekladem. Soubor ref.po je naposledy vytvoøený PO soubor (obvykle programem\n"
 "xgettext). To je u¾iteèné pro kontrolu, ¾e máte pøelo¾enu ka¾dou zprávu ve\n"
 "va¹em programu. Pokud pøi porovnávání nejsou zprávy pøesnì shodné, zkoumá se,\n"
-"zda si nejsou podobné (fuzzy).\n"
+"zda si nejsou podobné.\n"
 
 # src/msgcmp.c:259 src/msgmerge.c:711
 #: src/msgcmp.c:255 src/msgmerge.c:741
@@ -260,14 +264,16 @@ msgstr "tato zpráva je pou¾ita, ale nikoli definována v %s"
 # src/msgcmp.c:281
 #: src/msgcmp.c:277
 msgid "warning: this message is not used"
-msgstr "varování: tato zpráva není pou¾ita"
+msgstr "upozornìní: tato zpráva není pou¾ita"
 
 # src/po-lex.c:84
 #: src/msgcmp.c:283 src/po-lex.c:103
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
-msgstr[0] "záva¾ných chyb: %d"
+msgstr[0] "nalezena %d záva¾ná chyba"
+msgstr[1] "nalezeny %d záva¾né chyby"
+msgstr[2] "nalezeno %d záva¾ných chyb"
 
 # src/msgcmp.c:355 src/msgfmt.c:628 src/msgmerge.c:490 src/xgettext.c:1061
 #: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
@@ -404,13 +410,15 @@ msgstr ""
 "\n"
 "  Nalezne zprávy, které jsou spoleèné pro dva nebo více zadaných .po "
 "souborù.\n"
-"Pou¾itím pøepínaèe --more-than, lze dosáhnout zvìt¹ení indexu spoleènosti.\n"
-"Naopak pøepínaè --less-than mù¾e být pou¾it pro zmen¹ení indexu spoleènosti\n"
-"(--less-then=2 zpùsobí výpis pouze jedineèných, co do poèetnosti, zpráv.\n"
-"Pøeklady, komentáøe a vyta¾ené komentáøe budou ponechány, ale pouze z "
-"prvního\n"
-".po souboru, který je definuje. Oznaèení pozic v souborech bude ponecháno\n"
-"ze v¹ech .po souborù.\n"
+"Pou¾itím pøepínaèe --more-than, lze dosáhnout zvìt¹ení poètu souborù, "
+"kterým\n"
+"musí být zpráva spoleèná. Naproti tomu pøepínaè --less-than mù¾e být pou¾it\n"
+"k výpisu zpráv, které jsou spoleèné ménì ne¾ zadanému poètu souborù \n"
+"(--less-then=2 zpùsobí výpis zpráv, které jsou obsa¾eny pouze v jednom\n"
+"souboru). Pøeklady, komentáøe a komentáøe ze zdrojových souborù budou\n"
+"ponechány, ale pouze z prvního .po souboru, který je definuje. Oznaèení "
+"pozic\n"
+"v souborech bude ponecháno ze v¹ech .po souborù.\n"
 
 # src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:159 src/xget-lex.c:174
 # src/xget-lex.c:191 src/xgettext.c:616
@@ -438,24 +446,30 @@ msgstr "chyba pøi otevírání souboru \"%s\" pro zápis"
 
 # src/msgfmt.c:343
 #: src/msgfmt.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
-msgstr[0] "Pøelo¾ených zpráv: %d"
+msgstr[0] "%d pøelo¾ená zpráva"
+msgstr[1] "%d pøelo¾ené zprávy"
+msgstr[2] "%d pøelo¾ených zpráv"
 
 # src/msgfmt.c:345
 #: src/msgfmt.c:365
-#, fuzzy, c-format
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] ", fuzzy pøekladù: %d"
+msgstr[0] ", %d neúplný pøeklad"
+msgstr[1] ", %d neúplné pøeklady"
+msgstr[2] ", %d neúplných pøekladù"
 
 # src/msgfmt.c:347
 #: src/msgfmt.c:370
-#, fuzzy, c-format
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
-msgstr[0] ", nepøelo¾ených zpráv: %d"
+msgstr[0] ", %d nepøelo¾ená zpráva"
+msgstr[1] ", %d nepøelo¾ené zprávy"
+msgstr[2] ", %d nepøelo¾ených zpráv"
 
 # src/msgfmt.c:366
 #: src/msgfmt.c:392
@@ -490,7 +504,7 @@ msgstr ""
 "  -c, --check              vykoná jazykovì závislé kontroly øetìzcù\n"
 "  -D, --directory=ADRESÁØ  pøidá ADRESÁØ do seznamu adresáøù pro hledání\n"
 "                           vstupních souborù\n"
-"  -f, --use-fuzzy          ve výstupu pou¾ije i fuzzy polo¾ky\n"
+"  -f, --use-fuzzy          ve výstupu pou¾ije i neúplné pøeklady\n"
 "  -h, --help               vypí¹e tuto nápovìdu a ukonèí se\n"
 "      --no-hash            binární soubor nebude obsahovat ha¹ovací tabulku\n"
 "  -o, --output-file=SOUBOR zapí¹e výstup do souboru SOUBOR\n"
@@ -515,6 +529,8 @@ msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 msgstr ""
+"%s: upozornìní: chybí hlavièka PO souboru (neúplná nebo neplatná)\n"
+"%*s  upozornìní: pøevod znakové sady nebude fungovat"
 
 # src/msgfmt.c:471
 #: src/msgfmt.c:503
@@ -546,7 +562,7 @@ msgstr "prázdná polo¾ka `msgstr' ignorována"
 # src/msgfmt.c:518
 #: src/msgfmt.c:552
 msgid "fuzzy `msgstr' entry ignored"
-msgstr "fuzzy polo¾ka `msgstr' ignorována"
+msgstr "neúplná polo¾ka `msgstr' ignorována"
 
 # src/msgfmt.c:561
 #: src/msgfmt.c:594
@@ -575,19 +591,18 @@ msgstr "polo¾ka `%s' má stále poèáteèní implicitní hodnotu"
 #: src/msgfmt.c:708
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr "%s: varování: zdrojový soubor obsahuje fuzzy pøeklad"
+msgstr "%s: upozornìní: zdrojový soubor obsahuje neúplný pøeklad"
 
 # src/msgfmt.c:870
 #: src/msgfmt.c:930
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr "obì polo¾ky `msgid' a `msgstr' nezaèínají '\\n'"
+msgstr "obì polo¾ky `msgid' a `msgid_plural' nezaèínají '\\n'"
 
 # src/msgfmt.c:870
 #: src/msgfmt.c:938
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "obì polo¾ky `msgid' a `msgstr' nezaèínají '\\n'"
+msgstr "obì polo¾ky `msgid' a `msgstr[%u]' nezaèínají '\\n'"
 
 # src/msgfmt.c:870
 #: src/msgfmt.c:948
@@ -596,15 +611,14 @@ msgstr "obì polo¾ky `msgid' a `msgstr' nezaèínají '\\n'"
 
 # src/msgfmt.c:878
 #: src/msgfmt.c:963
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "obì polo¾ky `msgid' a `msgstr' nekonèí '\\n'"
+msgstr "obì polo¾ky `msgid' a `msgid_plural' nekonèí '\\n'"
 
 # src/msgfmt.c:878
 #: src/msgfmt.c:971
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "obì polo¾ky `msgid' a `msgstr' nekonèí '\\n'"
+msgstr "obì polo¾ky `msgid' a `msgstr[%u]' nekonèí '\\n'"
 
 # src/msgfmt.c:878
 #: src/msgfmt.c:981
@@ -618,13 +632,13 @@ msgstr "poèet formátovacích specifikátorù v `msgid' a `msgstr' není stejný"
 
 # src/msgfmt.c:909
 #: src/msgfmt.c:1014
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "formátovací specifikátory pro argument %u nejsou stejné"
+msgstr "formátovací specifikátory pro argument %lu nejsou stejné"
 
 # src/msgmerge.c:303
 #: src/msgmerge.c:320
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -648,6 +662,8 @@ msgstr ""
 "  Argumenty povinné pro dlouhé pøepínaèe, jsou té¾ povinné pro jejich krátké\n"
 "formy.\n"
 "\n"
+"  -C, --compendium=SOUBOR  pøídavná knihovna pøekladù zpráv. Mù¾e být zadána\n"
+"                           více ne¾ jednou.\n"
 "  -D, --directory=ADRESÁØ  pøidá ADRESÁØ do seznamu adresáøù pro hledání\n"
 "                           vstupních souborù\n"
 "  -e, --no-escape          zaká¾e C escape sekvence ve výstupu (implicitní)\n"
@@ -682,24 +698,24 @@ msgstr ""
 "\n"
 "  Slije dva .po soubory stylu Uniforum dohromady. Soubor def.po je existující\n"
 ".po soubor se starými pøeklady, které budou pøevzaty do novì vytvoøeného\n"
-"souboru, tak jak jsou, ale k odpovídajícím vzorùm. Komentáøe budou zachovány,\n"
-"ale vyjmuté komentáøe a pozice v souborech budou zahozeny.\n"
+"souboru, tak jak jsou, a k odpovídajícím vzorùm. Komentáøe budou zachovány,\n"
+"ale komentáøe ze zdrojových textù a pozice v souborech budou zahozeny.\n"
 "  Soubor ref.po je poslední vytvoøený PO soubor (obvykle programem xgettext).\n"
-"V¹echny pøeklady nebo komentáøe z tohoto souboru budou zahozeny, av¹ak vyjmuté\n"
-"komentáøe a pozice v souborech budou zachovány. Pøeklady, které se nepodaøí\n"
-"pøiøadit na základì pøesné shody vzorù, budou pøiøazeny na základì podobnosti\n"
-"vzorù. Tím je dosa¾eno lep¹ího slití obou katalogù.\n"
-"  Není-li výstupní soubor urèen, výsledek bude zapisován do stdout.\n"
+"V¹echny pøeklady nebo komentáøe z tohoto souboru budou zahozeny, av¹ak \n"
+"komentáøe ze zdrojových textù a pozice v souborech budou zachovány. Pøeklady,\n"
+"které se nepodaøí pøiøadit na základì pøesné shody vzorù, budou pøiøazeny na\n"
+"základì podobnosti vzorù. Tím je dosa¾eno lep¹ího slití obou katalogù.\n"
+"  Není-li výstupní soubor urèen, výsledek bude vypisován na standardní výstup.\n"
 
 # src/msgmerge.c:769
 #: src/msgmerge.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
-"%sPøeèteno starých + odkazù: %d + %d, slito: %d, podobných: %d, chybí: %d,\n"
-"zastaralých: %d.\n"
+"%sPøeèteno %ld pùvodních + %ld referenèních, slito %ld, podobných %ld,\n"
+"chybí %ld, zastaralých %ld.\n"
 
 # src/msgmerge.c:775
 #: src/msgmerge.c:806
@@ -773,19 +789,19 @@ msgstr "posun v souboru \"%s\" na pozici %ld selhal"
 
 # src/msgunfmt.c:373
 #: src/msgunfmt.c:332
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "soubor \"%s\" není v GNU formátu .mo"
+msgstr "soubor \"%s\" obsahuje øetìzec, který není ukonèen NUL"
 
 # src/msgunfmt.c:373
 #: src/msgunfmt.c:377
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
-msgstr "soubor \"%s\" není v GNU formátu .mo"
+msgstr "soubor \"%s\" není v GNU .mo formátu"
 
 # src/gettextp.c:233
 #: src/ngettext.c:209
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -797,19 +813,22 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"Pou¾ití: %s [PØEPÍNAÈ] [[[TEXTOVÁDOMÉNA] MSGID ] | [-s [MSGID]...]]\n"
-"  -d, --domain=TEXTOVÁDOMÉNA nastaví textovou doménu, ze které je MSGID\n"
+"Pou¾ití: %s [PØEPÍNAÈ] [[[TEXTOVÁDOMÉNA] MSGID MSGID-PLURAL POÈET\n"
+"  -d, --domain=TEXTOVÁDOMÉNA pøeklady získává z TEXTOVÉDOMÉNY\n"
 "  -e                         umo¾ní expanzi nìkterých escape sekvencí\n"
 "  -E                         (ignorován - kvùli kompatibilitì)\n"
 "  -h, --help                 vypí¹e tuto nápovìdu a ukonèí se\n"
 "  -n                         potlaèí nové øádky na konci zprávy\n"
 "  -V, --version              vypí¹e oznaèení verze a ukonèí se\n"
-"  [TEXTOVÁDOMÉNA] MSGID      vypí¹e pøelo¾enou zprávu odpovídající\n"
-"                             MSGID z TEXTOVÉDOMÉNY\n"
+"  [TEXTOVÁDOMÉNA]            pøeklady získává z TEXTOVÉDOMÉNY\n"
+"  MSGID MSGID-PLURAL         vypí¹e pøelo¾enou zprávu odpovídající\n"
+"                             MSGID / MSGID-PLURAL\n"
+"  POÈET                      na základì této hodnoty vybere odpovídající\n"
+"                             pøeklad\n"
 
 # src/gettextp.c:245
 #: src/ngettext.c:221
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -823,31 +842,25 @@ msgstr ""
 "prostøedí TEXTDOMAIN. Jestli¾e katalog se zprávami není nalezen\n"
 "v pøedpokládaném adresáøi, pak je tento katalog hledán v adresáøi, zadaném\n"
 "v promìnné prostøedí TEXTDOMAINDIR.\n"
-"  Je-li pou¾it argument -s, program se chová jako pøíkaz `echo'. Místo toto,\n"
-"aby pouze kopíroval svoje argumenty do stdout, vypí¹e pøeklad zpráv ze\n"
-"zvoleného katalogu. \n"
-"\n"
-"  Standardní prohledávaný adresáø: %s\n"
+"  Adresáø, ve kterém se hledá: %s\n"
 
 #: src/open-po.c:64
 msgid "<stdin>"
-msgstr ""
+msgstr "<standardní vstup>"
 
 #: po-gram-gen.y:87
 msgid "inconsistent use of #~"
-msgstr ""
+msgstr "nekonzistentní pou¾ití #~"
 
 # ../../src/po-gram.y:83
 #: po-gram-gen.y:168
-#, fuzzy
 msgid "missing `msgstr[]' section"
-msgstr "chybí sekce `msgstr'"
+msgstr "chybí sekce `msgstr[]'"
 
 # ../../src/po-gram.y:83
 #: po-gram-gen.y:176
-#, fuzzy
 msgid "missing `msgid_plural' section"
-msgstr "chybí sekce `msgstr'"
+msgstr "chybí sekce `msgid_plural'"
 
 # ../../src/po-gram.y:83
 #: po-gram-gen.y:183
@@ -856,11 +869,11 @@ msgstr "chybí sekce `msgstr'"
 
 #: po-gram-gen.y:228
 msgid "first plural form has nonzero index"
-msgstr ""
+msgstr "první mno¾né èíslo má nenulový index"
 
 #: po-gram-gen.y:230
 msgid "plural form has wrong index"
-msgstr ""
+msgstr "mno¾né èíslo má chybný index"
 
 # src/po-lex.c:129 src/po-lex.c:168
 #. CAUTION: If you change this macro, you must also make identical
@@ -878,9 +891,8 @@ msgstr "klíèové slovo \"%s\" není známo"
 
 # src/po-lex.c:332
 #: src/po-lex.c:377
-#, fuzzy
 msgid "invalid control sequence"
-msgstr "nepøípustná øídící sekvence"
+msgstr "neplatná øídící sekvence"
 
 # src/po-lex.c:420
 #: src/po-lex.c:480
@@ -894,12 +906,12 @@ msgstr "konec øádku uprostøed øetìzce"
 
 #: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
-msgstr ""
+msgstr "neplatná víceznaková sekvence"
 
 #: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: upozornìní: "
 
 #: src/po.c:303
 #, c-format
@@ -907,14 +919,16 @@ msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
+"Oznaèení znakové sady \"%s\" není portabilní název kódování. \n"
+"Pøevod znakù do u¾ivatelské znakové sady nebude fungovat.\n"
 
 #: src/po.c:370 src/po.c:405
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "Pokraèuji, pøedpokládána chyba parsingu."
 
 #: src/po.c:372
 msgid "Continuing anyway."
-msgstr ""
+msgstr "Pokraèuji."
 
 #: src/po.c:375
 #, c-format
@@ -922,17 +936,21 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"Znaková sada \"%s\" není podporována. %s spoléhá na iconv()\n"
+"a iconv() \"%s\" nepodporuje.\n"
 
 #: src/po.c:385 src/po.c:418
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
+"Instalace GNU libiconv a následná reinstalace GNU gettextu\n"
+"mù¾e napravit tento problém.\n"
 
 #: src/po.c:393 src/po.c:425
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po.c:410
 #, c-format
@@ -940,12 +958,16 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"Znaková sada \"%s\" není podporována. %s spoléhá na iconv().\n"
+"Tato verze byla kompilována bez iconv().\n"
 
 #: src/po.c:440
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
+"V hlavièce chybí definice znakové sady.\n"
+"Konverze zpráv do u¾ivatelovy znakové sady není mo¾ná.\n"
 
 # src/message.c:784
 #: src/write-po.c:322
@@ -981,13 +1003,13 @@ msgstr "standardní vstup"
 #: src/xget-lex.c:876
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
-msgstr "%s:%d: varování: neukonèená znaková konstanta"
+msgstr "%s:%d: upozornìní: neukonèená znaková konstanta"
 
 # src/xget-lex.c:914
 #: src/xget-lex.c:898
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
-msgstr "%s:%d: varování: neukonèený øetìzec literálù"
+msgstr "%s:%d: upozornìní: neukonèený øetìzec literálù"
 
 # src/xgettext.c:386
 #: src/xgettext.c:373
@@ -996,13 +1018,13 @@ msgstr "--join-existing nemù¾e být pou¾it, je-li výstup zapisován do stdout"
 
 #: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
+msgstr "xgettext nemù¾e pracovat bez toho, ani¾ by znal slova, která má hledat"
 
 # src/xgettext.c:501
 #: src/xgettext.c:484
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
-msgstr "varování: pøípona `%2$s' souboru `%1$s' není známa; zkusím C"
+msgstr "upozornìní: pøípona `%2$s' souboru `%1$s' není známa; zkusím C"
 
 # src/xgettext.c:537
 #: src/xgettext.c:520
@@ -1052,7 +1074,7 @@ msgstr ""
 
 # src/xgettext.c:555
 #: src/xgettext.c:540
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
@@ -1071,8 +1093,7 @@ msgstr ""
 "  -k, --keyword[=SLOVO]         dodateèné klíèové slovo, které bude hledáno\n"
 "                                (bez SLOVA, znamená nepou¾ití implicitních\n"
 "                                klíèových slov)\n"
-"  -l, --string-limit=ÈÍSLO      nastaví max. délku øetìzce na ÈÍSLO (impl. %u)\n"
-"  -L, --language=JMÉNO          zadání jazyka (C, C++)           \n"
+"  -L, --language=NÁZEV          zadání jazyka (C, C++)           \n"
 "  -m, --msgstr-prefix[=ØETÌZEC] pou¾ije ØETÌZEC nebo \"\" jako pøedponu pro\n"
 "                                polo¾ky msgstr\n"
 "  -M, --msgstr-suffix[=ØETÌZEC] pou¾ije ØETÌZEC nebo \"\" jako pøíponu pro\n"
@@ -1112,21 +1133,19 @@ msgstr ""
 
 # src/xget-lex.c:914
 #: src/xgettext.c:914
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: varování: neukonèený øetìzec literálù"
+msgstr "%s:%d: upozornìní: klíèové slovo uhnízdìno v argumentu klíèového slova"
 
 #: src/xgettext.c:924
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
+"%s:%d: upozornìní: klíèové slovo mezi krajním klíèovým slovem\n"
+"a jeho argumentem"
 
 # src/xgettext.c:1342
 #: src/xgettext.c:1420
 #, c-format
 msgid "language `%s' unknown"
 msgstr "jazyk `%s' není znám"
-
-# src/msgfmt.c:449
-#~ msgid "%s: warning: no header entry found"
-#~ msgstr "%s: varování: hlavièka nenalezena"
