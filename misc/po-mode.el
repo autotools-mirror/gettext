@@ -2214,7 +2214,7 @@ the file without moving its cursor."
 		  (setq po-reference-alist
 			(cons (list (concat current ":" line)
 				    current
-				    (string-to-int line))
+				    (string-to-number line))
 			      po-reference-alist)))))))
     (setq po-reference-alist (nreverse po-reference-alist)
 	  po-reference-cursor po-reference-alist
@@ -2875,11 +2875,11 @@ Leave point after marked string."
                  (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$")))
 
       ;; Make sure the version is recent enough.
-      (>= (string-to-int
+      (>= (string-to-number
 	   (format "%d%03d%03d"
-		   (string-to-int (match-string 1))
-		   (string-to-int (match-string 2))
-		   (string-to-int (or (match-string 3) "0"))))
+		   (string-to-number (match-string 1))
+		   (string-to-number (match-string 2))
+		   (string-to-number (or (match-string 3) "0"))))
 	  010036)
 
       ;; Remember the outcome.

@@ -1,3 +1,9 @@
+2001-08-18  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-ensure-source-references): Use 'string-to-number'
+	instead of 'string-to-int'.
+	(po-msgfmt-version-check): Likewise.
+
 2001-08-11  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-edit-string): Set indent-line-function to
