@@ -2060,7 +2060,7 @@ are limited to those supported by both GNU @code{libc} and GNU
 @code{CP932}, @code{CP949}, @code{CP950}, @code{CP1250}, @code{CP1251},
 @code{CP1252}, @code{CP1253}, @code{CP1254}, @code{CP1255}, @code{CP1256},
 @code{CP1257}, @code{GB2312}, @code{EUC-JP}, @code{EUC-KR}, @code{EUC-TW},
-@code{BIG5}, @code{BIG5HKSCS}, @code{GBK}, @code{GB18030}, @code{SJIS},
+@code{BIG5}, @code{BIG5-HKSCS}, @code{GBK}, @code{GB18030}, @code{SHIFT_JIS},
 @code{JOHAB}, @code{TIS-620}, @code{VISCII}, @code{UTF-8}.
 
 @c This data is taken from glibc/localedata/SUPPORTED.
@@ -2089,7 +2089,7 @@ corresponding languages.
 @item @code{CP1251} for Bulgarian, Byelorussian,
 @item @code{GB2312}, @code{GBK}, @code{GB18030}
  for simplified writing of Chinese,
-@item @code{BIG5}, @code{BIG5HKSCS}
+@item @code{BIG5}, @code{BIG5-HKSCS}
  for traditional writing of Chinese,
 @item @code{EUC-JP} for Japanese,
 @item @code{EUC-KR} for Korean,

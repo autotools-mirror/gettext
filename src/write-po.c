@@ -266,8 +266,8 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 		{
 		  /* Skip over a complete multi-byte character.  Don't
 		     interpret the second byte of a multi-byte character as
-		     ASCII.  This is needed for the BIG5, BIG5HKSCS, GBK,
-		     GB18030, SJIS, JOHAB encodings.  */
+		     ASCII.  This is needed for the BIG5, BIG5-HKSCS, GBK,
+		     GB18030, SHIFT_JIS, JOHAB encodings.  */
 		  char scratchbuf[64];
 		  const char *inptr = ep;
 		  size_t insize;
@@ -348,8 +348,8 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		{
 		  /* Copy a complete multi-byte character.  Don't
 		     interpret the second byte of a multi-byte character as
-		     ASCII.  This is needed for the BIG5, BIG5HKSCS, GBK,
-		     GB18030, SJIS, JOHAB encodings.  */
+		     ASCII.  This is needed for the BIG5, BIG5-HKSCS, GBK,
+		     GB18030, SHIFT_JIS, JOHAB encodings.  */
 		  char scratchbuf[64];
 		  const char *inptr = ep;
 		  size_t insize;

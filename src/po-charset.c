@@ -74,10 +74,10 @@ po_charset_canonicalize (charset)
     "EUC-KR",
     "EUC-TW",
     "BIG5",
-    "BIG5HKSCS",
+    "BIG5-HKSCS",
     "GBK",
     "GB18030",
-    "SJIS",
+    "SHIFT_JIS",
     "JOHAB",
     "TIS-620",
     "VISCII",
@@ -157,10 +157,10 @@ Message conversion to user's charset might not work.\n"),
 	  static const char *weird_charsets[] =
 	  {
 	    "BIG5",
-	    "BIG5HKSCS",
+	    "BIG5-HKSCS",
 	    "GBK",
 	    "GB18030",
-	    "SJIS",
+	    "SHIFT_JIS",
 	    "JOHAB"
 	  };
 	  const char *envval;
