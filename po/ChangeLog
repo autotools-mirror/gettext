@@ -1,3 +1,8 @@
+2001-10-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in ($(PACKAGE).pot): Don't extract all comments, only
+	those starting with "TRANSLATORS:".
+
 2001-09-27  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (install-strip, installdirs, installdirs-exec,
