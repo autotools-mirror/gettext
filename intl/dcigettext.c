@@ -821,7 +821,9 @@ _nl_find_msg (domain_file, msgid, lengthp)
 		goto resize_freemem;
 
 	      outleft = freemem_size - sizeof (size_t);
-	      if (iconv (domain->conv, &inptr, &inleft, &outptr, &outleft)
+	      if (iconv (domain->conv,
+			 (ICONV_CONST char **) &inptr, &inleft,
+			 &outptr, &outleft)
 		  != (size_t) (-1))
 		{
 		  outbuf = (unsigned char *) outptr;

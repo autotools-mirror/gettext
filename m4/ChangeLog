@@ -1,3 +1,13 @@
+2001-01-20  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Add a third argument to AC_DEFINE.
+	* lcmessage.m4 (AM_LC_MESSAGES): Likewise.
+
+2001-01-15  Bruno Haible  <haible@clisp.cons.org>
+
+	* iconv.m4 (AM_ICONV): Also check whether the iconv declaration
+	has const.
+
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Remove third argument. Don't call
