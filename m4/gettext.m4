@@ -6,11 +6,13 @@
 # but which still want to provide support for the GNU gettext functionality.
 # Please note that the actual code is *not* freely available.
 
-# serial 5
+# serial 6
 
 dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR], [INCDIR]).
-dnl If SYMBOL is specified and is `no-categets', then the catgets
-dnl    checks will be disabled.
+dnl If SYMBOL is specified and is `no-catgets', then the catgets checks
+dnl    will be disabled.  You must specify this if your program uses
+dnl    any of the ngettext/dngettext/dcngettext/bind_textdomain_codeset
+dnl    functions, which are not supported by the catgets backend.
 dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
 dnl INCDIR is used to find the include files.  If empty,
