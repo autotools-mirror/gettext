@@ -7,7 +7,7 @@
 1998-06-01 22:28  Ulrich Drepper  <drepper@cygnus.com>
 
 	* gettext.m4: Allow arguments for AM_GNU_GETTEXT to customize for
-	Gygnus trees.
+	Cygnus trees.
 
 1998-04-30  Ulrich Drepper  <drepper@cygnus.com>
 

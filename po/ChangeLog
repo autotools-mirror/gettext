@@ -1,6 +1,6 @@
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
-	* Makefile.in.in: Handle case where generation if $(PACKAGE).po fails.
+	* Makefile.in.in: Handle case where generation of $(PACKAGE).po fails.
 	(dist): Run update-po first.
 
 	* POTFILES.in: Replace po-gram.gen.c with po-gram-gen.c.
