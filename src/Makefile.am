@@ -21,7 +21,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgcat msgcomm msgconv msgen msgexec msggrep msguniq
+msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
@@ -57,6 +57,9 @@ xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xgettext.c dir-list.c write-po.c \
 msgl-ascii.c file-list.c x-c.c x-po.c x-java.l \
 format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
+msgattrib_SOURCES = msgattrib.c message.c open-po.c po-gram-gen.y \
+po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c \
+write-po.c msgl-ascii.c
 msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-cat.c file-list.c
@@ -87,6 +90,7 @@ msgfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgmerge_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgunfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 xgettext_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgattrib_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgcat_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgcomm_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgconv_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
