@@ -1,7 +1,7 @@
 @node Translation Intro
 @chapter Notes on the Free Translation Project
 
-@set STATUS August 1998
+@set STATUS July 2000
 
 Free software is going international!  The Free Translation Project is
 a way to get maintainers of free software, translators, and users all
@@ -178,13 +178,39 @@ the country codes given in @w{ISO 3166}.  The following translation
 teams exist, as of @value{STATUS}:
 
 @quotation
-Chinese @code{zh}, Czech @code{cs}, Danish @code{da}, Dutch @code{nl},
-English @code{en}, Esperanto @code{eo}, Finnish @code{fi}, French
-@code{fr}, German @code{de}, Hungarian @code{hu}, Irish @code{ga},
-Italian @code{it}, Indonesian @code{id}, Japanese @code{ja}, Korean
-@code{ko}, Latin @code{la}, Norwegian @code{no}, Persian @code{fa},
-Polish @code{pl}, Portuguese @code{pt}, Russian @code{ru}, Slovenian
-@code{sl}, Spanish @code{es}, Swedish @code{sv}, and Turkish @code{tr}.
+Breton @code{br},
+Bulgarian @code{bg} (email: @file{bg@@bulgaria.com}),
+Chinese @code{zh},
+Czech @code{cs},
+Danish @code{da},
+Dutch @code{nl},
+English @code{en},
+Esperanto @code{eo},
+Estonian @code{et},
+Finnish @code{fi},
+French @code{fr},
+Galician @code{gl} (email: @file{gpul-traduccion@@ceu.fi.udc.es}),
+German @code{de},
+Greek @code{el} (email: @file{nls@@tux.hellug.gr}),
+Hungarian @code{hu},
+Irish @code{ga},
+Italian @code{it},
+Indonesian @code{id},
+Japanese @code{ja},
+Korean @code{ko},
+Latin @code{la},
+Latvian @code{lv} (email: @file{translations@@lv.quite.net}),
+Norwegian @code{no},
+Persian @code{fa},
+Polish @code{pl},
+Portuguese @code{pt},
+Portuguese/Brazil @code{pt_BR} (email: @file{ldp-br@@bazar.conectiva.com.br}),
+Russian @code{ru},
+Slovak @code{sk} (email: @file{sk-i18n@@rak.isternet.sk}),
+Slovenian @code{sl},
+Spanish @code{es},
+Swedish @code{sv}, and
+Turkish @code{tr}.
 @end quotation
 
 @noindent
