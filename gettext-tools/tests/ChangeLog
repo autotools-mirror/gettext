@@ -1,3 +1,11 @@
+2003-09-03  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-30: New file.
+	* lang-sh: New file.
+	* lang-bash: New file.
+	* Makefile.am (TESTS): Add them.
+	(TESTS_ENVIRONMENT): Add ../../gettext-runtime/src to the PATH.
+
 2003-08-31  Bruno Haible  <bruno@clisp.org>
 
 	* format-sh-1: New file.

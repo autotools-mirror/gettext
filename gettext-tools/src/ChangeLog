@@ -1,3 +1,19 @@
+2003-09-03  Bruno Haible  <bruno@clisp.org>
+
+	* x-sh.h: New file.
+	* x-sh.c: New file.
+	* xgettext.c: Include x-sh.h.
+	(main): Call x_sh_extract_all, x_sh_keyword.
+	(usage): Mention Shell language.
+	(language_to_extractor): Add Shell rule.
+	(extension_to_language): Add Shell rule.
+	* Makefile.am (noinst_HEADERS): Add x-sh.h.
+	(xgettext_SOURCES): Add x-sh.c.
+	* Makefile.msvc (xgettext_OBJECTS): Add x-sh.obj.
+	(x-sh.obj): New rule.
+	* Makefile.vms (xgettext_OBJECTS): Add x-sh.obj.
+	(x-sh.obj): New rule.
+
 2003-08-31  Bruno Haible  <bruno@clisp.org>
 
 	* format-sh.c: New file.

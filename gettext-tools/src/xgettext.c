@@ -69,6 +69,7 @@ extern "C" {
 
 #include "x-c.h"
 #include "x-po.h"
+#include "x-sh.h"
 #include "x-python.h"
 #include "x-lisp.h"
 #include "x-elisp.h"
@@ -261,6 +262,7 @@ main (int argc, char *argv[])
 	break;
       case 'a':
 	x_c_extract_all ();
+	x_sh_extract_all ();
 	x_python_extract_all ();
 	x_lisp_extract_all ();
 	x_elisp_extract_all ();
@@ -321,6 +323,7 @@ main (int argc, char *argv[])
 	if (optarg == NULL || *optarg != '\0')
 	  {
 	    x_c_keyword (optarg);
+	    x_sh_keyword (optarg);
 	    x_python_keyword (optarg);
 	    x_lisp_keyword (optarg);
 	    x_elisp_keyword (optarg);
@@ -664,7 +667,7 @@ If output file is -, output is written to standard output.\n"));
 Choice of input file language:\n"));
       printf (_("\
   -L, --language=NAME         recognise the specified language\n\
-                                (C, C++, ObjectiveC, PO, Python, Lisp,\n\
+                                (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Smalltalk, Java,\n\
                                 JavaProperties, awk, YCP, Tcl, Perl, PHP,\n\
                                 GCC-source, RST, Glade)\n"));
@@ -1478,6 +1481,7 @@ language_to_extractor (const char *name)
   {
     SCANNERS_C
     SCANNERS_PO
+    SCANNERS_SH
     SCANNERS_PYTHON
     SCANNERS_LISP
     SCANNERS_ELISP
@@ -1528,6 +1532,7 @@ extension_to_language (const char *extension)
   {
     EXTENSIONS_C
     EXTENSIONS_PO
+    EXTENSIONS_SH
     EXTENSIONS_PYTHON
     EXTENSIONS_LISP
     EXTENSIONS_ELISP
