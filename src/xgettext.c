@@ -174,6 +174,7 @@ static void extract_from_file PARAMS ((const char *file_name,
 				       extractor_func extractor,
 				       msgdomain_list_ty *mdlp));
 static message_ty *construct_header PARAMS ((void));
+static void finalize_header PARAMS ((msgdomain_list_ty *mdlp));
 static extractor_func language_to_extractor PARAMS ((const char *name));
 static const char *extension_to_language PARAMS ((const char *extension));
 
@@ -485,6 +486,10 @@ warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
       extract_from_file (fname, this_file_extractor, mdlp);
     }
   string_list_free (file_list);
+
+  /* Finalize the constructed header.  */
+  if (!xgettext_omit_header)
+    finalize_header (mdlp);
 
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
@@ -1161,6 +1166,61 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
   mp->is_fuzzy = true;
 
   return mp;
+}
+
+static void
+finalize_header (mdlp)
+     msgdomain_list_ty *mdlp;
+{
+  /* If the generated PO file has plural forms, add a Plural-Forms template
+     to the constructed header.  */
+  bool has_plural;
+  size_t i, j;
+
+  has_plural = false;
+  for (i = 0; i < mdlp->nitems; i++)
+    {
+      message_list_ty *mlp = mdlp->item[i]->messages;
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+
+	  if (mp->msgid_plural != NULL)
+	    {
+	      has_plural = true;
+	      break;
+	    }
+	}
+      if (has_plural)
+	break;
+    }
+
+  if (has_plural)
+    {
+      message_ty *header = message_list_search (mdlp->item[0]->messages, "");
+      if (header != NULL
+	  && strstr (header->msgstr, "Plural-Forms:") == NULL)
+	{
+	  size_t insertpos = strlen (header->msgstr);
+	  const char *suffix;
+	  size_t suffix_len;
+	  char *new_msgstr;
+
+	  suffix = "\nPlural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n";
+	  if (insertpos == 0 || header->msgstr[insertpos-1] == '\n')
+	    suffix++;
+	  suffix_len = strlen (suffix);
+	  new_msgstr = (char *) xmalloc (header->msgstr_len + suffix_len);
+	  memcpy (new_msgstr, header->msgstr, insertpos);
+	  memcpy (new_msgstr + insertpos, suffix, suffix_len);
+	  memcpy (new_msgstr + insertpos + suffix_len,
+		  header->msgstr + insertpos,
+		  header->msgstr_len - insertpos);
+	  header->msgstr = new_msgstr;
+	  header->msgstr_len = header->msgstr_len + suffix_len;
+	}
+    }
 }
 
 
