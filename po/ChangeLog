@@ -1,6 +1,7 @@
 2002-03-11  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (.po.mo): Use a temporary .mo file, for robustness.
+	(.po.gmo): Likewise.
 	Reported by Jim Meyering <meyering@lucent.com>.
 
 2002-03-11  Bruno Haible  <bruno@clisp.org>
