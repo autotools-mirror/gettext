@@ -1,3 +1,9 @@
+2003-10-06  Guido Flohr  <guido@imperia.net>
+            Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-26: Add three tests for 'sub' handling.
+	Reported by Crispin Flowerday <cflowerday@zeus.com>.
+
 2003-09-16  Bruno Haible  <bruno@clisp.org>
 
 	* tstgettext.c (add_newline, do_expand): Change type to bool. Make

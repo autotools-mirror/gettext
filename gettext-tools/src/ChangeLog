@@ -1,3 +1,14 @@
+2003-10-06  Guido Flohr  <guido@imperia.net>
+            Bruno Haible  <bruno@clisp.org>
+
+	* x-perl.c (enum symbol_type_ty): New enum.
+	(struct token_ty): Rename field string_type to sub_type and change its
+	type to 'int'.
+	(extract_quotelike_pass3, interpolate_keywords): Update.
+	(x_perl_prelex): Set sub_type also for symbol tokens.
+	(x_perl_lex): Special handling of prototype argument lists.
+	Reported by Crispin Flowerday <cflowerday@zeus.com>.
+
 2003-09-22  Bruno Haible  <bruno@clisp.org>
 
 	* x-sh.c (read_word): Warn about $"...".

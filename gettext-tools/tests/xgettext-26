@@ -125,6 +125,25 @@ gettext "Left as an %exercise to {maintainer}.";
 gettext "Left as an %exercise to {maintainer}.";
 # No xgettext comment this time.
 gettext "Left as an %exercise to {maintainer}.";
+
+# Dollars inside sub argument lists have no effect.
+sub testFunc($) { }
+=item TestBug1
+If you have gettext()'d foo bar test1'...
+=cut
+
+# Dollars inside sub argument lists have no effect.
+testFunc = sub ($) { }
+=item TestBug2
+If you have gettext()'d foo bar test2'...
+=cut
+
+# Dollars inside sub argument lists have no effect.
+sub testFunc($\$;*@) { }
+=item TestBug3
+If you have gettext()'d foo bar test3'...
+=cut
+
 __END__
 gettext "Discarded!";
 EOF

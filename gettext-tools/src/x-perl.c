@@ -43,7 +43,9 @@
 #define _(s) gettext(s)
 
 /* The Perl syntax is defined in perlsyn.pod.  Try the command
-   "man perlsyn" or "perldoc perlsyn".  */
+   "man perlsyn" or "perldoc perlsyn".
+   Also, the syntax after the 'sub' keyword is specified in perlsub.pod.
+   Try the command "man perlsub" or "perldoc perlsub".  */
 
 #define DEBUG_PERL 0
 
@@ -475,13 +477,20 @@ enum string_type_ty
 			       "<file*glob>".  */
   string_type_qr            /* Not supported.  */
 };
-typedef enum string_type_ty string_type_ty;
+
+/* Subtypes for symbols, important for dollar interpretation.  */
+enum symbol_type_ty
+{
+  symbol_type_none,         /* Nothing special.  */
+  symbol_type_sub,          /* 'sub'.  */
+  symbol_type_function      /* Function name after 'sub'.  */
+};
 
 typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  string_type_ty string_type;	/* for token_type_string */
+  int sub_type;			/* for token_type_string, token_type_symbol */
   char *string;			/* for:			in encoding:
 				   token_type_named_op	ASCII
 				   token_type_string	UTF-8
@@ -820,7 +829,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
   bool quotemeta;
 
 #if DEBUG_PERL
-  switch (tp->string_type)
+  switch (tp->sub_type)
     {
     case string_type_verbatim:
       fprintf (stderr, "Interpolating string_type_verbatim:\n");
@@ -836,11 +845,11 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
       break;
     }
   fprintf (stderr, "%s\n", tp->string);
-  if (tp->string_type == string_type_verbatim)
+  if (tp->sub_type == string_type_verbatim)
     fprintf (stderr, "---> %s\n", tp->string);
 #endif
 
-  if (tp->string_type == string_type_verbatim)
+  if (tp->sub_type == string_type_verbatim)
     return;
 
   /* Loop over tp->string, accumulating the expansion in buffer.  */
@@ -860,7 +869,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	  buffer = xrealloc (buffer, bufmax);
 	}
 
-      if (tp->string_type == string_type_q)
+      if (tp->sub_type == string_type_q)
 	{
 	  switch (*crs)
 	    {
@@ -1571,7 +1580,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
   state = initial;
 
   token.type = token_type_string;
-  token.string_type = string_type_qq;
+  token.sub_type = string_type_qq;
   token.line_number = line_number;
   pos.file_name = logical_file_name;
   pos.line_number = lineno;
@@ -2009,6 +2018,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  /* False positive.  */
 		  phase2_ungetc (delim);
 		  tp->type = token_type_symbol;
+		  tp->sub_type = symbol_type_none;
 		  tp->string = xstrdup (buffer);
 		  prefer_division_over_regexp = true;
 		  return;
@@ -2043,6 +2053,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  /* False positive.  */
 		  phase2_ungetc (delim);
 		  tp->type = token_type_symbol;
+		  tp->sub_type = symbol_type_none;
 		  tp->string = xstrdup (buffer);
 		  prefer_division_over_regexp = true;
 		  return;
@@ -2091,6 +2102,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  /* False positive.  */
 		  phase2_ungetc (delim);
 		  tp->type = token_type_symbol;
+		  tp->sub_type = symbol_type_none;
 		  tp->string = xstrdup (buffer);
 		  prefer_division_over_regexp = true;
 		  return;
@@ -2103,7 +2115,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		case 'q':
 		case 'x':
 		  tp->type = token_type_string;
-		  tp->string_type = string_type_qq;
+		  tp->sub_type = string_type_qq;
 		  if (!extract_all)
 		    interpolate_keywords (mlp, tp->string, line_number);
 		  break;
@@ -2112,10 +2124,11 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  break;
 		case 'w':
 		  tp->type = token_type_symbol;
+		  tp->sub_type = symbol_type_none;
 		  break;
 		case '\0':
 		  tp->type = token_type_string;
-		  tp->string_type = string_type_q;
+		  tp->sub_type = string_type_q;
 		  break;
 		default:
 		  abort ();
@@ -2128,13 +2141,16 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	      prefer_division_over_regexp = false;
 	    }
 	  tp->type = token_type_symbol;
+	  tp->sub_type = (strcmp (buffer, "sub") == 0
+			  ? symbol_type_sub
+			  : symbol_type_none);
 	  tp->string = xstrdup (buffer);
 	  return;
 
 	case '"':
 	  prefer_division_over_regexp = true;
 	  extract_quotelike (tp, c);
-	  tp->string_type = string_type_qq;
+	  tp->sub_type = string_type_qq;
 	  if (!extract_all)
 	    interpolate_keywords (mlp, tp->string, line_number);
 	  return;
@@ -2142,7 +2158,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	case '`':
 	  prefer_division_over_regexp = true;
 	  extract_quotelike (tp, c);
-	  tp->string_type = string_type_qq;
+	  tp->sub_type = string_type_qq;
 	  if (!extract_all)
 	    interpolate_keywords (mlp, tp->string, line_number);
 	  return;
@@ -2150,7 +2166,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	case '\'':
 	  prefer_division_over_regexp = true;
 	  extract_quotelike (tp, c);
-	  tp->string_type = string_type_q;
+	  tp->sub_type = string_type_q;
 	  return;
 
 	case '(':
@@ -2244,7 +2260,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  free (tp->string);
 		  tp->string = string;
 		  tp->type = token_type_string;
-		  tp->string_type = string_type_verbatim;
+		  tp->sub_type = string_type_verbatim;
 		  tp->line_number = line_number + 1;
 		  return;
 		}
@@ -2256,7 +2272,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  free (tp->string);
 		  tp->string = string;
 		  tp->type = token_type_string;
-		  tp->string_type = string_type_qq;
+		  tp->sub_type = string_type_qq;
 		  tp->line_number = line_number + 1;
 		  if (!extract_all)
 		    interpolate_keywords (mlp, tp->string, line_number + 1);
@@ -2298,7 +2314,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		      string = get_here_document (buffer);
 		      tp->string = string;
 		      tp->type = token_type_string;
-		      tp->string_type = string_type_qq;
+		      tp->sub_type = string_type_qq;
 		      tp->line_number = line_number + 1;
 		      if (!extract_all)
 			interpolate_keywords (mlp, tp->string, line_number + 1);
@@ -2475,7 +2491,10 @@ x_perl_lex (message_list_ty *mlp)
     }
 #endif
 
-  /* A symbol followed by a fat comma is really a single-quoted string.  */
+  /* A symbol followed by a fat comma is really a single-quoted string.
+     Function definitions or forward declarations also need a special
+     handling because the dollars and at signs inside the parentheses
+     must not be interpreted as the beginning of a variable ')'.  */
   if (tp->type == token_type_symbol || tp->type == token_type_named_op)
     {
       token_ty *next = token_stack_peek (&token_stack);
@@ -2502,12 +2521,51 @@ x_perl_lex (message_list_ty *mlp)
       if (next->type == token_type_fat_comma)
 	{
 	  tp->type = token_type_string;
-	  tp->string_type = string_type_q;
+	  tp->sub_type = string_type_q;
 #if DEBUG_PERL
 	  fprintf (stderr,
 		   "%s:%d: token %s mutated to token_type_string\n",
 		   real_file_name, line_number, token2string (tp));
 #endif
+	}
+      else if (tp->type == token_type_symbol && tp->sub_type == symbol_type_sub
+	       && next->type == token_type_symbol)
+        {
+	  /* Start of a function declaration or definition.  Mark this
+	     symbol as a function name, so that we can later eat up
+	     possible prototype information.  */
+#if DEBUG_PERL
+	  fprintf (stderr, "%s:%d: subroutine declaration/definition '%s'\n",
+		   real_file_name, line_number, next->string);
+#endif
+	  next->sub_type = symbol_type_function;
+	}
+      else if (tp->type == token_type_symbol
+	       && (tp->sub_type == symbol_type_sub
+		   || tp->sub_type == symbol_type_function)
+	       && next->type == token_type_lparen)
+        {
+	  /* For simplicity we simply consume everything up to the
+	     closing parentheses.  Actually only a limited set of
+	     characters is allowed inside parentheses but we leave
+	     complaints to the interpreter and are prepared for
+	     future extensions to the Perl syntax.  */
+	  int c;
+
+#if DEBUG_PERL
+	  fprintf (stderr, "%s:%d: consuming prototype information\n",
+		   real_file_name, line_number);
+#endif
+
+	  do
+	    {
+	      c = phase1_getc ();
+#if DEBUG_PERL
+	      fprintf (stderr, "  consuming character '%c'\n", c);
+#endif
+	    }
+	  while (c != EOF && c != ')');
+	  phase1_ungetc (c);
 	}
     }
 
