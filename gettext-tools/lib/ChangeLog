@@ -1,3 +1,8 @@
+2005-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextlib_la_SOURCES): Remove strtoul.c.
+	(LIBADD_SOURCE): Add strtoul.c here.
+
 2005-01-28  Bruno Haible  <bruno@clisp.org>
 
 	* stpncpy.h (stpncpy): Define as a macro without arguments, so that

@@ -69,7 +69,6 @@ libgettextlib_la_SOURCES = \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \
-  strtoul.c \
   tmpdir.h tmpdir.c \
   ucs4-utf8.h ucs4-utf16.h \
   unlocked-io.h \
@@ -105,6 +104,7 @@ LIBADD_SOURCE = \
   strpbrk.h strpbrk.c \
   strstr.h strstr.c \
   strtol.c \
+  strtoul.c \
   vasprintf.h vasprintf.c
 
 # Unused sources.
