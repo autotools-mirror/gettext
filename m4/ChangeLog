@@ -1,3 +1,8 @@
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Also check for the getegid, geteuid,
+	getgid, getuid functions. Needed for mingw32.
+
 2001-04-27  H. J. Lu  <hjl@lucon.org>
             Bruno Haible  <haible@clisp.cons.org>
 
