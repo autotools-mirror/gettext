@@ -154,10 +154,12 @@ create_pipe_out (progname, prog_path, prog_argv, prog_stdout, null_stderr, exit_
 							  "/dev/null", O_RDWR,
 							  0))
 		 != 0)
-	  || (err = posix_spawn_file_actions_addopen (&actions,
-						      STDOUT_FILENO,
-						      prog_stdout, O_WRONLY,
-						      0)) != 0
+	  || (prog_stdout != NULL
+	      && (err = posix_spawn_file_actions_addopen (&actions,
+							  STDOUT_FILENO,
+							  prog_stdout, O_WRONLY,
+							  0))
+		 != 0)
 	  || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
 				  environ)) != 0))
     {
@@ -189,10 +191,11 @@ create_pipe_out (progname, prog_path, prog_argv, prog_stdout, null_stderr, exit_
 		  && (nulloutfd == STDERR_FILENO
 		      || (dup2 (nulloutfd, STDERR_FILENO) >= 0
 			  && close (nulloutfd) >= 0))))
-	  && (stdoutfd = open (prog_stdout, O_WRONLY, 0)) >= 0
-	  && (stdoutfd == STDOUT_FILENO
-	      || (dup2 (stdoutfd, STDOUT_FILENO) >= 0
-		  && close (stdoutfd) >= 0)))
+	  && (prog_stdout == NULL
+	      || ((stdoutfd = open (prog_stdout, O_WRONLY, 0)) >= 0
+		  && (stdoutfd == STDOUT_FILENO
+		      || (dup2 (stdoutfd, STDOUT_FILENO) >= 0
+			  && close (stdoutfd) >= 0)))))
 	execvp (prog_path, prog_argv);
       _exit (127);
     }

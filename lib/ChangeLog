@@ -1,3 +1,10 @@
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
+	* pipe-in.c (create_pipe_in): Don't redirect stdin if prog_stdin
+	is NULL.
+	* pipe-out.c (create_pipe_out): Don't redirect stdout if prog_stdout
+	is NULL.
+
 2001-11-24  Bruno Haible  <bruno@clisp.org>
 
 	* javaexec.h (execute_java_class): New argument 'quiet'.

@@ -106,7 +106,7 @@ nonintr_open (pathname, oflag, mode)
 
 
 /* Open a pipe for input from a child process.
- * The child's stdin comes to a file.
+ * The child's stdin comes from a file.
  *
  *           read        system                write
  *    parent  <-   fd[0]   <-   STDOUT_FILENO   <-   child
@@ -154,10 +154,12 @@ create_pipe_in (progname, prog_path, prog_argv, prog_stdin, null_stderr, exit_on
 							  "/dev/null", O_RDWR,
 							  0))
 		 != 0)
-	  || (err = posix_spawn_file_actions_addopen (&actions,
-						      STDIN_FILENO,
-						      prog_stdin, O_RDONLY,
-						      0)) != 0
+	  || (prog_stdin != NULL
+	      && (err = posix_spawn_file_actions_addopen (&actions,
+							  STDIN_FILENO,
+							  prog_stdin, O_RDONLY,
+							  0))
+		 != 0)
 	  || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
 				  environ)) != 0))
     {
@@ -189,10 +191,11 @@ create_pipe_in (progname, prog_path, prog_argv, prog_stdin, null_stderr, exit_on
 		  && (nulloutfd == STDERR_FILENO
 		      || (dup2 (nulloutfd, STDERR_FILENO) >= 0
 			  && close (nulloutfd) >= 0))))
-	  && (stdinfd = open (prog_stdin, O_RDONLY, 0)) >= 0
-	  && (stdinfd == STDIN_FILENO
-	      || (dup2 (stdinfd, STDIN_FILENO) >= 0
-		  && close (stdinfd) >= 0)))
+	  && (prog_stdin == NULL
+	      || ((stdinfd = open (prog_stdin, O_RDONLY, 0)) >= 0
+		  && (stdinfd == STDIN_FILENO
+		      || (dup2 (stdinfd, STDIN_FILENO) >= 0
+			  && close (stdinfd) >= 0)))))
 	execvp (prog_path, prog_argv);
       _exit (127);
     }

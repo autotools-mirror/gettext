@@ -60,7 +60,7 @@ extern pid_t create_pipe_out PARAMS ((const char *progname,
 				      int fd[1]));
 
 /* Open a pipe for input from a child process.
- * The child's stdin comes to a file.
+ * The child's stdin comes from a file.
  *
  *           read        system                write
  *    parent  <-   fd[0]   <-   STDOUT_FILENO   <-   child
