@@ -37,7 +37,7 @@ changequote([,])dnl
       else
         # Test for the locale name with explicit encoding suffix.
         if (LC_ALL=fr_FR.ISO-8859-1 ./conftest; exit) 2>/dev/null; then
-          gt_cv_locale_fr=fr_FR
+          gt_cv_locale_fr=fr_FR.ISO-8859-1
         else
           # Test for the AIX, OSF/1, FreeBSD, NetBSD locale name.
           if (LC_ALL=fr_FR.ISO8859-1 ./conftest; exit) 2>/dev/null; then
@@ -47,8 +47,13 @@ changequote([,])dnl
             if (LC_ALL=fr_FR.iso88591 ./conftest; exit) 2>/dev/null; then
               gt_cv_locale_fr=fr_FR.iso88591
             else
-              # None found.
-              gt_cv_locale_fr=fr_FR
+              # Special test for NetBSD 1.6.
+              if test -f /usr/share/locale/fr_FR.ISO8859-1/LC_CTYPE; then
+                gt_cv_locale_fr=fr_FR.ISO8859-1
+              else
+                # None found.
+                gt_cv_locale_fr=fr_FR
+              fi
             fi
           fi
         fi
