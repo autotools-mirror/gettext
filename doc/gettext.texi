@@ -817,7 +817,7 @@ like:
 
 @example
 (setq auto-mode-alist
-      (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode) auto-mode-alist))
+      (cons '("\\.po\\'\\|\\.po\\." . po-mode) auto-mode-alist))
 (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 @end example
 
@@ -837,7 +837,7 @@ and used for displaying the translations on your Emacs screen.  For this
 to happen, add the lines:
 
 @example
-(modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
+(modify-coding-system-alist 'file "\\.po\\'\\|\\.po\\."
                             'po-find-file-coding-system)
 (autoload 'po-find-file-coding-system "po-mode")
 @end example

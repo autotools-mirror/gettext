@@ -1,3 +1,8 @@
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Completing GNU gettext Installation): Don't recommend
+	to use po-mode for POT files. See 2001-07-08 po-mode.el change.
+
 2001-07-24  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.39 released.
