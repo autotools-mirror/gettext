@@ -153,8 +153,8 @@ the original string, disregarding any previous work.
    It is possible to arrange so, whenever editing an untranslated
 entry, the `<LFD>' command be automatically executed.  If you set
 `po-auto-edit-with-msgid' to `t', the translation gets initialised with
-the original string, in case none exist already.  The default value for
-`po-auto-edit-with-msgid' is `nil'.
+the original string, in case none exists already.  The default value
+for `po-auto-edit-with-msgid' is `nil'.
 
    In fact, whether it is best to start a translation with an empty
 string, or rather with a copy of the original string, is a matter of
@@ -186,8 +186,8 @@ translator is handling many such buffers at once, even between PO files.
 
    To facilitate exchanges with buffers which are not in PO mode, the
 translation string put on the kill ring by the `k' command is fully
-unquoted before being saved: external quotes are removed, multi-lines
-strings are concatenated, and backslashed escaped sequences are turned
+unquoted before being saved: external quotes are removed, multi-line
+strings are concatenated, and backslash escaped sequences are turned
 into their corresponding characters.  In the special case of obsolete
 entries, the translation is also uncommented prior to saving.
 
@@ -213,7 +213,7 @@ program using it.
 
    Note that `k' or `w' are not the only commands pushing strings on
 the kill ring, as almost any PO mode command replacing translation
-strings (or the translator comments) automatically save the old string
+strings (or the translator comments) automatically saves the old string
 on the kill ring.  The main exceptions to this general rule are the
 yanking commands themselves.
 
@@ -235,7 +235,7 @@ with `o', hoping to find some translation corresponding to the
 unmodified string.  Once found, she uses the `<DEL>' command for
 deleting the obsolete entry, knowing that `<DEL>' also _kills_ the
 translation, that is, pushes the translation on the kill ring.  Then,
-`r' returns to the initial untranslated entry, `y' then _yanks_ the
+`r' returns to the initial untranslated entry, and `y' then _yanks_ the
 saved translation right into the `msgstr' field.  The translator is
 then free to use `<RET>' for fine tuning the translation contents, and
 maybe to later use `u', then `m' again, for going on with the next
@@ -302,7 +302,7 @@ with editing the comment.  *Note Subedit::, for further details.
    Functions found on `po-subedit-mode-hook', if any, are executed after
 the string has been inserted in the edit buffer.
 
-   The command `K' (`po-kill-comment') get rid of all translator
+   The command `K' (`po-kill-comment') gets rid of all translator
 comments, while saving those comments on the kill ring.  The command
 `W' (`po-kill-ring-save-comment') takes a copy of the translator
 comments on the kill ring, but leaves them undisturbed in the current
@@ -351,7 +351,7 @@ editing set of Emacs, which are described below.
 `C-c C-a'
      Consult auxiliary PO files.
 
-   The windows contents represents a translation for a given message,
+   The window's contents represents a translation for a given message,
 or a translator comment.  The translator may modify this window to her
 heart's content.  Once this done, the command `C-c C-c'
 (`po-subedit-exit') may be used to return the edited translation into
@@ -376,21 +376,21 @@ auxiliary PO files are already available to her (*note Auxiliary::).
 the string has been inserted in the edit buffer.
 
    While editing her translation, the translator should pay attention
-to not inserting unwanted `<RET>' (carriage returns) characters at the
-end of the translated string if those are not meant to be there, or to
-removing such characters when they are required.  Since these
-characters are not visible in the editing buffer, they are easily
-introduced by mistake.  To help her, `<RET>' automatically puts the
-character `<' at the end of the string being edited, but this `<' is
-not really part of the string.  On exiting the editing window with
-`C-c C-c', PO mode automatically removes such `<' and all whitespace
-added after it.  If the translator adds characters after the
-terminating `<', it looses its delimiting property and integrally
-becomes part of the string.  If she removes the delimiting `<', then
-the edited string is taken _as is_, with all trailing newlines, even if
-invisible.  Also, if the translated string ought to end itself with a
-genuine `<', then the delimiting `<' may not be removed; so the string
-should appear, in the editing window, as ending with two `<' in a row.
+to not inserting unwanted `<RET>' (newline) characters at the end of
+the translated string if those are not meant to be there, or to removing
+such characters when they are required.  Since these characters are not
+visible in the editing buffer, they are easily introduced by mistake.
+To help her, `<RET>' automatically puts the character `<' at the end of
+the string being edited, but this `<' is not really part of the string.
+On exiting the editing window with `C-c C-c', PO mode automatically
+removes such `<' and all whitespace added after it.  If the translator
+adds characters after the terminating `<', it looses its delimiting
+property and integrally becomes part of the string.  If she removes the
+delimiting `<', then the edited string is taken _as is_, with all
+trailing newlines, even if invisible.  Also, if the translated string
+ought to end itself with a genuine `<', then the delimiting `<' may not
+be removed; so the string should appear, in the editing window, as
+ending with two `<' in a row.
 
    When a translation (or a comment) is being edited, the translator
 may move the cursor back into the PO file buffer and freely move to
@@ -400,7 +400,7 @@ modifying another entry.  Each entry being edited has its own subedit
 buffer.  It is possible to simultaneously edit the translation _and_
 the comment of a single entry, or to edit entries in different PO
 files, all at once.  Typing `<RET>' on a field already being edited
-merely resume that particular edit.  Yet, the translator should better
+merely resumes that particular edit.  Yet, the translator should better
 be comfortable at handling many Emacs windows!
 
    Pending subedits may be completed or aborted in any order, regardless
@@ -486,7 +486,7 @@ contexts for this particular entry, getting back to the first context
 once the last has been shown.
 
    The command `M-s' behaves differently.  Instead of cycling through
-references, it lets the translator choose of particular reference among
+references, it lets the translator choose a particular reference among
 many, and displays that reference.  It is best used with completion, if
 the translator types `<TAB>' immediately after `M-s', in response to
 the question, she will be offered a menu of all possible references, as
@@ -630,7 +630,7 @@ Invoking the `msgfmt' Program
      implementation.  Currently this only affects the naming of the
      output file.  If this option is not given the name of the output
      file is the same as the domain name.  If the strict Uniforum mode
-     is enable the suffix `.mo' is added to the file name if it is not
+     is enabled the suffix `.mo' is added to the file name if it is not
      already present.
 
      We find this behaviour of Sun's implementation rather silly and so
@@ -643,7 +643,7 @@ Invoking the `msgfmt' Program
      and compared.  It is considered abnormal that one string starts or
      ends with a newline while the other does not.
 
-     Also, if the string represents a format sring used in a
+     Also, if the string represents a format string used in a
      `printf'-like function both strings should have the same number of
      `%' format specifiers, with matching types.  If the flag
      `c-format' or `possible-c-format' appears in the special comment
@@ -746,12 +746,12 @@ length in the string descriptor includes all of them.
    Nothing prevents a MO file from having embedded <NUL>s in strings.
 However, the program interface currently used already presumes that
 strings are <NUL> terminated, so embedded <NUL>s are somewhat useless.
-But MO file format is general enough so other interfaces would be later
-possible, if for example, we ever want to implement wide characters
-right in MO files, where <NUL> bytes may accidently appear.  (No, we
-don't want to have wide characters in MO files.  They would make the
-file unnecessarily large, and the `wchar_t' type being platform
-dependent, MO files would be platform dependent as well.)
+But the MO file format is general enough so other interfaces would be
+later possible, if for example, we ever want to implement wide
+characters right in MO files, where <NUL> bytes may accidently appear.
+(No, we don't want to have wide characters in MO files.  They would
+make the file unnecessarily large, and the `wchar_t' type being
+platform dependent, MO files would be platform dependent as well.)
 
    This particular issue has been strongly debated in the GNU `gettext'
 development forum, and it is expectable that MO file format will evolve
@@ -815,7 +815,7 @@ File: gettext.info,  Node: Users,  Next: Programmers,  Prev: Binaries,  Up: Top
 The User's View
 ***************
 
-   When GNU `gettext' will truly have reached is goal, average users
+   When GNU `gettext' will truly have reached its goal, average users
 should feel some kind of astonished pleasure, seeing the effect of that
 strange kind of magic that just makes their own native language appear
 everywhere on their screens.  As for naive users, they would ideally
@@ -830,7 +830,7 @@ way that the magic becomes possible.  This is a long and progressive
 undertaking, and information is available about the progress of the
 Translation Project.
 
-   When a package is distributed, there are two kind of users:
+   When a package is distributed, there are two kinds of users:
 "installers" who fetch the distribution, unpack it, configure it,
 compile it and install it for themselves or others to use; and "end
 users" that call programs of the package, once these have been
@@ -859,7 +859,7 @@ description of the format for LL.
 
    More generally, a matrix is available for showing the current state
 of the Translation Project, listing which packages are prepared for
-multi-lingual messages, and which languages is supported by each.
+multi-lingual messages, and which languages are supported by each.
 Because this information changes often, this matrix is not kept within
 this GNU `gettext' manual.  This information is often found in file
 `ABOUT-NLS' from various distributions, but is also as old as the
@@ -900,11 +900,11 @@ Magic for End Users
    We consider here those packages using GNU `gettext' internally, and
 for which the installers did not disable translation at _configure_
 time.  Then, users only have to set the `LANG' environment variable to
-the appropriate `LL' prior to using the programs in the package.  *Note
-Matrix::.  For example, let's presume a German site.  At the shell
-prompt, users merely have to execute `setenv LANG de' (in `csh') or
-`export LANG; LANG=de' (in `sh').  They could even do this from their
-`.login' or `.profile' file.
+the appropriate `LL_CC' combination prior to using the programs in the
+package.  *Note Matrix::.  For example, let's presume a German site.
+At the shell prompt, users merely have to execute `setenv LANG de_DE'
+(in `csh') or `export LANG; LANG=de_DE' (in `sh').  They could even do
+this from their `.login' or `.profile' file.
 
 
 File: gettext.info,  Node: Programmers,  Next: Translators,  Prev: Users,  Up: Top
@@ -915,13 +915,13 @@ The Programmer's View
    One aim of the current message catalog implementation provided by
 GNU `gettext' was to use the systems message catalog handling, if the
 installer wishes to do so.  So we perhaps should first take a look at
-the solutions we know about.  The people in the POSIX committee does not
+the solutions we know about.  The people in the POSIX committee did not
 manage to agree on one of the semi-official standards which we'll
-describe below.  In fact they couldn't agree on anything, so nothing
-decide only to include an example of an interface.  The major Unix
+describe below.  In fact they couldn't agree on anything, so they
+decided only to include an example of an interface.  The major Unix
 vendors are split in the usage of the two most important
-specifications: X/Opens catgets vs. Uniforums gettext interface.  We'll
-describe them both and later explain our solution of this dilemma.
+specifications: X/Open's catgets vs. Uniforum's gettext interface.
+We'll describe them both and later explain our solution of this dilemma.
 
 * Menu:
 
@@ -954,7 +954,7 @@ it (at least me and some others do...)
 
    But we must not forget one point: after all the trouble with
 transfering the rights on Unix(tm) they at last came to X/Open, the
-very same who published this specifications.  This leads me to making
+very same who published this specification.  This leads me to making
 the prediction that this interface will be in future Unix standards
 (e.g. Spec1170) and therefore part of all Unix implementation
 (implementations, which are _allowed_ to wear this name).
@@ -1005,7 +1005,7 @@ three-stage addressing:
 given as a default value in case when one of the addressing stages
 fail.  One important thing to remember is that although the return type
 of catgets is `char *' the resulting string _must not_ be changed.  It
-should better `const char *', but the standard is published in 1988,
+should better be `const char *', but the standard is published in 1988,
 one year before ANSI C.
 
 The last of these function functions is used and behaves as expected:
@@ -1020,15 +1020,15 @@ File: gettext.info,  Node: Problems with catgets,  Prev: Interface to catgets,  
 Problems with the `catgets' Interface?!
 ---------------------------------------
 
-   Now that this descriptions seemed to be really easy where are the
-problem we speak of.  In fact the interface could be used in a
+   Now that this description seemed to be really easy -- where are the
+problem we speak of?  In fact the interface could be used in a
 reasonable way, but constructing the message catalogs is a pain.  The
 reason for this lies in the third argument of `catgets': the unique
 message ID.  This has to be a numeric value for all messages in a single
-set.  Perhaps you could imagine the problems keeping such list while
+set.  Perhaps you could imagine the problems keeping such a list while
 changing the source code.  Add a new message here, remove one there.  Of
 course there have been developed a lot of tools helping to organize this
 chaos but one as the other fails in one aspect or the other.  We don't
 want to say that the other approach has no problems but they are far
-more easily to manage.
+more easy to manage.
 

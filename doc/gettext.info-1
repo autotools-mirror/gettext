@@ -52,6 +52,7 @@ GNU `gettext' utilities
 * Conclusion::                  Concluding Remarks
 
 * Language Codes::              ISO 639 language codes
+* Country Codes::               ISO 3166 country codes
 
  --- The Detailed Node Listing ---
 
@@ -74,7 +75,7 @@ PO Files and PO Mode Basics
 Preparing Program Sources
 
 * Triggering::                  Triggering `gettext' Operations
-* Mark Keywords::               How Marks Appears in Sources
+* Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
@@ -169,6 +170,7 @@ Files You Must Create or Alter
 
 * po/POTFILES.in::              `POTFILES.in' in `po/'
 * configure.in::                `configure.in' at top level
+* config.guess::                `config.guess', `config.sub' at top level
 * aclocal::                     `aclocal.m4' at top level
 * acconfig::                    `acconfig.h' at top level
 * Makefile::                    `Makefile.in' at top level
@@ -255,14 +257,21 @@ offers to programmers, translators and even users, a well integrated
 set of tools and documentation.  Specifically, the GNU `gettext'
 utilities are a set of tools that provides a framework within which
 other free packages may produce multi-lingual messages.  These tools
-include a set of conventions about how programs should be written to
-support message catalogs, a directory and file naming organization for
-the message catalogs themselves, a runtime library supporting the
-retrieval of translated messages, and a few stand-alone programs to
-massage in various ways the sets of translatable strings, or already
-translated strings.  A special mode for Emacs(1) also helps ease
-interested parties into preparing these sets, or bringing them up to
-date.
+include
+
+   * A set of conventions about how programs should be written to
+     support message catalogs.
+
+   * A directory and file naming organization for the message catalogs
+     themselves.
+
+   * A runtime library supporting the retrieval of translated messages.
+
+   * A few stand-alone programs to massage in various ways the sets of
+     translatable strings, or already translated strings.
+
+   * A special mode for Emacs(1) which helps preparing these sets and
+     bringing them up to date.
 
    GNU `gettext' is designed to minimize the impact of
 internationalization on program sources, keeping this impact as small
@@ -557,9 +566,9 @@ initialize the translation library.  *Note Sources::, for more
 information about all this.
 
    For newly written software the strings of course can and should be
-marked while writing the it.  The `gettext' approach makes this very
-easy.  Simply put the following lines at the beginning of each file or
-in a central header file:
+marked while writing it.  The `gettext' approach makes this very easy.
+Simply put the following lines at the beginning of each file or in a
+central header file:
 
      #define _(String) (String)
      #define N_(String) (String)
@@ -734,7 +743,7 @@ their available message catalogs.  To top off a comfortable
 installation, you might also want to make the PO mode available to your
 Emacs users.
 
-   During the installation of the PO mode, you might want modify your
+   During the installation of the PO mode, you might want to modify your
 file `.emacs', once and for all, so it contains a few lines looking
 like:
 
@@ -798,14 +807,14 @@ non-white character just after the `#', which comments are created and
 maintained automatically by GNU `gettext' tools.  All comments, of
 either kind, are optional.
 
-   After white space and comments, entries show two strings, giving
+   After white space and comments, entries show two strings, namely
 first the untranslated string as it appears in the original program
 sources, and then, the translation of this string.  The original string
 is introduced by the keyword `msgid', and the translation, by `msgstr'.
 The two strings, untranslated and translated, are quoted in various
 ways in the PO file, using `"' delimiters and `\' escapes, but the
 translator does not really have to pay attention to the precise quoting
-format, as PO mode fully intend to take care of quoting for her.
+format, as PO mode fully takes care of quoting for her.
 
    The `msgid' strings, as well as automatic comments, are produced and
 managed by other GNU `gettext' tools, and PO mode does not provide
@@ -818,7 +827,7 @@ needs.
    The comment lines beginning with `#,' are special because they are
 not completely ignored by the programs as comments generally are.  The
 comma separated list of FLAGs is used by the `msgfmt' program to give
-the user some better disgnostic messages.  Currently there are two
+the user some better diagnostic messages.  Currently there are two
 forms of flags defined:
 
 `fuzzy'
@@ -828,7 +837,7 @@ forms of flags defined:
      translator can judge if the translation requires further
      modification, or is acceptable as is.  Once satisfied with the
      translation, she then removes this `fuzzy' attribute.  The
-     `msgmerge' programs inserts this when it combined the `msgid' and
+     `msgmerge' program inserts this when it combined the `msgid' and
      `msgstr' entries after fuzzy search only.  *Note Fuzzy Entries::.
 
 `c-format'

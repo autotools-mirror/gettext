@@ -356,12 +356,12 @@ one of your package.  These works have some kind of generality that
 escape the point by point descriptions used in the remainder of this
 chapter.  So, we describe them here.
 
-   * Before attempting to use you should install some other packages
-     first.  Ensure that recent versions of GNU `m4', GNU Autoconf and
-     GNU `gettext' are already installed at your site, and if not,
-     proceed to do this first.  If you got to install these things,
-     beware that GNU `m4' must be fully installed before GNU Autoconf
-     is even _configured_.
+   * Before attempting to use `gettextize' you should install some
+     other packages first.  Ensure that recent versions of GNU `m4',
+     GNU Autoconf and GNU `gettext' are already installed at your site,
+     and if not, proceed to do this first.  If you got to install these
+     things, beware that GNU `m4' must be fully installed before GNU
+     Autoconf is even _configured_.
 
      To further ease the task of a package maintainer the `automake'
      package was designed and implemented.  GNU `gettext' now uses this
@@ -519,7 +519,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.10.36 distribution itself.  You may indeed refer to the
+`gettext' 0.10.37 distribution itself.  You may indeed refer to the
 source code of the GNU `gettext' package, as it is intended to be a
 good example and master implementation for using its own functionality.
 
@@ -527,6 +527,7 @@ good example and master implementation for using its own functionality.
 
 * po/POTFILES.in::              `POTFILES.in' in `po/'
 * configure.in::                `configure.in' at top level
+* config.guess::                `config.guess', `config.sub' at top level
 * aclocal::                     `aclocal.m4' at top level
 * acconfig::                    `acconfig.h' at top level
 * Makefile::                    `Makefile.in' at top level
@@ -555,13 +556,13 @@ needing translation.  Here is an example of such a file:
      src/msgfmt.c
      src/xgettext.c
 
-Dashed comments and white lines are ignored.  All other lines list
+Hash-marked comments and white lines are ignored.  All other lines list
 those source files containing strings marked for translation (*note
 Mark Keywords::), in a notation relative to the top level of your whole
 distribution, rather than the location of the `POTFILES.in' file itself.
 
 
-File: gettext.info,  Node: configure.in,  Next: aclocal,  Prev: po/POTFILES.in,  Up: Adjusting Files
+File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/POTFILES.in,  Up: Adjusting Files
 
 `configure.in' at top level
 ---------------------------
@@ -571,16 +572,16 @@ File: gettext.info,  Node: configure.in,  Next: aclocal,  Prev: po/POTFILES.in, 
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.10.36
+          VERSION=0.10.37
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
           AC_SUBST(VERSION)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.10.36' by its version numbers, exactly as they should
+     and `0.10.37' by its version numbers, exactly as they should
      appear in the packaged `tar' file name of your distribution
-     (`gettext-0.10.36.tar.gz', here).
+     (`gettext-0.10.37.tar.gz', here).
 
   2. Declare the available translations.
 
@@ -621,24 +622,47 @@ File: gettext.info,  Node: configure.in,  Next: aclocal,  Prev: po/POTFILES.in, 
 
 
 
-File: gettext.info,  Node: aclocal,  Next: acconfig,  Prev: configure.in,  Up: Adjusting Files
+File: gettext.info,  Node: config.guess,  Next: aclocal,  Prev: configure.in,  Up: Adjusting Files
+
+`config.guess', `config.sub' at top level
+-----------------------------------------
+
+   You need to add the GNU `config.guess' and `config.sub' files to
+your distribution.  They are needed because the `intl/' directory has
+platform dependent support for determining the locale's character
+encoding and therefore needs to identify the platform.
+
+   You can obtain the newest version of `config.guess' and `config.sub'
+from `ftp://ftp.gnu.org/pub/gnu/config/'.  Less recent versions are
+also contained in the GNU `automake' and GNU `libtool' packages.
+
+   Normally, `config.guess' and `config.sub' are put at the top level
+of a distribution.  But it is also possible to put them in a
+subdirectory, altogether with other configuration support files like
+`install-sh', `ltconfig', `ltmain.sh', `mkinstalldirs' or `missing'.
+All you need to do, other than moving the files, is to add the
+following line to your `configure.in'.
+
+     AC_CONFIG_AUX_DIR([SUBDIR])
+
+
+File: gettext.info,  Node: aclocal,  Next: acconfig,  Prev: config.guess,  Up: Adjusting Files
 
 `aclocal.m4' at top level
 -------------------------
 
    If you do not have an `aclocal.m4' file in your distribution, the
-simplest is taking a copy of `aclocal.m4' from GNU `gettext'.  But to
-be precise, you only need macros `AM_LC_MESSAGES', `AM_WITH_NLS' and
-`AM_GNU_GETTEXT', and `AM_PATH_PROG_WITH_TEST', which is called by
-`AM_WITH_NLS', so you may use an editor and remove macros you do not
-need.
+simplest is to concatenate the files `codeset.m4', `gettext.m4',
+`iconv.m4', `isc-posix.m4', `lcmessage.m4', `progtest.m4' from GNU
+`gettext''s `m4/' directory into a single file.
 
    If you already have an `aclocal.m4' file, then you will have to
-merge the said macros into your `aclocal.m4'.  Note that if you are
-upgrading from a previous release of GNU `gettext', you should most
-probably _replace_ the said macros, as they usually change a little
-from one release of GNU `gettext' to the next.  Their contents may vary
-as we get more experience with strange systems out there.
+merge the said macro files into your `aclocal.m4'.  Note that if you
+are upgrading from a previous release of GNU `gettext', you should most
+probably _replace_ the macros (`AM_GNU_GETTEXT', `AM_WITH_NLS', etc.),
+as they usually change a little from one release of GNU `gettext' to
+the next.  Their contents may vary as we get more experience with
+strange systems out there.
 
    These macros check for the internationalization support functions
 and related informations.  Hopefully, once stabilized, these macros
@@ -651,13 +675,11 @@ File: gettext.info,  Node: acconfig,  Next: Makefile,  Prev: aclocal,  Up: Adjus
 `acconfig.h' at top level
 -------------------------
 
-   If you do not have an `acconfig.h' file in your distribution, the
-simplest is use take a copy of `acconfig.h' from GNU `gettext'.  But to
-be precise, you only need the lines and comments for `ENABLE_NLS',
-`HAVE_GETTEXT' and `HAVE_LC_MESSAGES', `HAVE_STPCPY', `PACKAGE' and
-`VERSION', so you may use an editor and remove everything else.  If you
-already have an `acconfig.h' file, then you should merge the said
-definitions into your `acconfig.h'.
+   Earlier GNU `gettext' releases required to put definitions for
+`ENABLE_NLS', `HAVE_GETTEXT' and `HAVE_LC_MESSAGES', `HAVE_STPCPY',
+`PACKAGE' and `VERSION' into an `acconfig.h' file.  This is not needed
+any more; you can remove them from your `acconfig.h' file unless your
+package uses them independently from the `intl/' directory.
 
 
 File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: Adjusting Files
@@ -692,7 +714,12 @@ File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: 
      example, we also define `SUBDIRS' in `Makefile.in' for it to be
      further used in the `dist:' goal.
 
-          SUBDIRS = doc lib @INTLSUB@ src @POSUB@
+          SUBDIRS = doc intl lib src @POSUB@
+
+     Note that you must arrange for `make' to descend into the `intl'
+     directory before descending into other directories containing code
+     which make use of the `libintl.h' header file.  For this reason,
+     here we mention `intl' before `lib' and `src'.
 
      that you will have to adapt to your own package.
 
@@ -747,7 +774,22 @@ modifications needed in `src/Makefile.in':
 
           subdir = src
 
-  4. You should ensure that the final linking will use `@INTLLIBS@' as
+  4. The `main' function of your program will normally call
+     `bindtextdomain' (see *note Triggering::), like this:
+
+          bindtextdomain (PACKAGE, LOCALEDIR);
+
+     To make LOCALEDIR known to the program, add the following lines to
+     Makefile.in:
+
+          datadir = @datadir@
+          localedir = $(datadir)/locale
+          DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+
+     Note that `@datadir@' defaults to `$(prefix)/share', thus
+     `$(localedir)' defaults to `$(prefix)/share/locale'.
+
+  5. You should ensure that the final linking will use `@INTLLIBS@' as
      a library.  An easy way to achieve this is to manage that it gets
      into `LIBS', like this:
 
@@ -765,12 +807,12 @@ modifications needed in `src/Makefile.in':
 
           LIBS = ../lib/libsupport.a @INTLLIBS@ ../lib/libsupport.a @LIBS@
 
-  5. You should also ensure that directory `intl/' will be searched for
+  6. You should also ensure that directory `intl/' will be searched for
      C preprocessor include files in all circumstances.  So, you have to
      manage so both `-I../intl' and `-I$(top_srcdir)/intl' will be
      given to the C compiler.
 
-  6. Your `dist:' goal has to conform with others.  Here is a
+  7. Your `dist:' goal has to conform with others.  Here is a
      reasonable definition for it:
 
           distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
@@ -897,7 +939,7 @@ This site is mirrored in:
 together with French translations of many Linux-related documents.
 
 
-File: gettext.info,  Node: Language Codes,  Prev: Conclusion,  Up: Top
+File: gettext.info,  Node: Language Codes,  Next: Country Codes,  Prev: Conclusion,  Up: Top
 
 Language Codes
 **************
@@ -911,6 +953,9 @@ come from this standard.
 
 `ab'
      Abkhazian.
+
+`ae'
+     Avestan.
 
 `af'
      Afrikaans.
@@ -934,7 +979,7 @@ come from this standard.
      Bashkir.
 
 `be'
-     Byelorussian.
+     Byelorussian; Belarusian.
 
 `bg'
      Bulgarian.
@@ -954,14 +999,29 @@ come from this standard.
 `br'
      Breton.
 
+`bs'
+     Bosnian.
+
 `ca'
      Catalan.
+
+`ce'
+     Chechen.
+
+`ch'
+     Chamorro.
 
 `co'
      Corsican.
 
 `cs'
      Czech.
+
+`cu'
+     Church Slavic.
+
+`cv'
+     Chuvash.
 
 `cy'
      Welsh.
@@ -973,7 +1033,7 @@ come from this standard.
      German.
 
 `dz'
-     Bhutani.
+     Dzongkha; Bhutani.
 
 `el'
      Greek.
@@ -1000,7 +1060,7 @@ come from this standard.
      Finnish.
 
 `fj'
-     Fiji.
+     Fijian; Fiji.
 
 `fo'
      Faroese.
@@ -1015,10 +1075,10 @@ come from this standard.
      Irish.
 
 `gd'
-     Scots Gaelic.
+     Scots; Gaelic.
 
 `gl'
-     Galician.
+     Gallegan; Galician.
 
 `gn'
      Guarani.
@@ -1026,14 +1086,20 @@ come from this standard.
 `gu'
      Gujarati.
 
+`gv'
+     Manx.
+
 `ha'
-     Hausa.
+     Hausa (?).
 
 `he'
      Hebrew (formerly iw).
 
 `hi'
      Hindi.
+
+`ho'
+     Hiri Motu.
 
 `hr'
      Croatian.
@@ -1043,6 +1109,9 @@ come from this standard.
 
 `hy'
      Armenian.
+
+`hz'
+     Herero.
 
 `ia'
      Interlingua.
@@ -1074,14 +1143,20 @@ come from this standard.
 `ka'
      Georgian.
 
+`ki'
+     Kikuyu.
+
+`kj'
+     Kuanyama.
+
 `kk'
      Kazakh.
 
 `kl'
-     Greenlandic.
+     Kalaallisut; Greenlandic.
 
 `km'
-     Cambodian.
+     Khmer; Cambodian.
 
 `kn'
      Kannada.
@@ -1095,26 +1170,38 @@ come from this standard.
 `ku'
      Kurdish.
 
+`kv'
+     Komi.
+
+`kw'
+     Cornish.
+
 `ky'
      Kirghiz.
 
 `la'
      Latin.
 
+`lb'
+     Letzeburgesch.
+
 `ln'
      Lingala.
 
 `lo'
-     Laothian.
+     Lao; Laotian.
 
 `lt'
      Lithuanian.
 
 `lv'
-     Latvian, Lettish.
+     Latvian; Lettish.
 
 `mg'
      Malagasy.
+
+`mh'
+     Marshall.
 
 `mi'
      Maori.
@@ -1146,17 +1233,38 @@ come from this standard.
 `na'
      Nauru.
 
+`nb'
+     Norwegian Bokmaal.
+
+`nd'
+     Ndebele, North.
+
 `ne'
      Nepali.
+
+`ng'
+     Ndonga.
 
 `nl'
      Dutch.
 
+`nn'
+     Norwegian Nynorsk.
+
 `no'
      Norwegian.
 
+`nr'
+     Ndebele, South.
+
+`nv'
+     Navajo.
+
+`ny'
+     Chichewa; Nyanja.
+
 `oc'
-     Occitan.
+     Occitan; Provenc,al.
 
 `om'
      (Afan) Oromo.
@@ -1164,8 +1272,14 @@ come from this standard.
 `or'
      Oriya.
 
+`os'
+     Ossetian; Ossetic.
+
 `pa'
-     Punjabi.
+     Panjabi; Punjabi.
+
+`pi'
+     Pali.
 
 `pl'
      Polish.
@@ -1183,7 +1297,7 @@ come from this standard.
      Rhaeto-Romance.
 
 `rn'
-     Kirundi.
+     Rundi; Kirundi.
 
 `ro'
      Romanian.
@@ -1197,14 +1311,17 @@ come from this standard.
 `sa'
      Sanskrit.
 
+`sc'
+     Sardinian.
+
 `sd'
      Sindhi.
 
-`sg'
-     Sangro.
+`se'
+     Northern Sami.
 
-`sh'
-     Serbo-Croatian.
+`sg'
+     Sango; Sangro.
 
 `si'
      Sinhalese.
@@ -1231,10 +1348,10 @@ come from this standard.
      Serbian.
 
 `ss'
-     Siswati.
+     Swati; Siswati.
 
 `st'
-     Sesotho.
+     Sesotho; Sotho, Southern.
 
 `su'
      Sundanese.
@@ -1267,10 +1384,10 @@ come from this standard.
      Tagalog.
 
 `tn'
-     Setswana.
+     Tswana; Setswana.
 
 `to'
-     Tonga.
+     Tonga (?).
 
 `tr'
      Turkish.
@@ -1283,6 +1400,9 @@ come from this standard.
 
 `tw'
      Twi.
+
+`ty'
+     Tahitian.
 
 `ug'
      Uighur.
@@ -1300,7 +1420,7 @@ come from this standard.
      Vietnamese.
 
 `vo'
-     Volapuk.
+     Volapu"k; Volapuk.
 
 `wo'
      Wolof.
@@ -1322,5 +1442,732 @@ come from this standard.
 
 `zu'
      Zulu.
+
+
+File: gettext.info,  Node: Country Codes,  Prev: Language Codes,  Up: Top
+
+Country Codes
+*************
+
+   The ISO 3166 standard defines two character codes for many countries
+and territories.  All abbreviations for countries used in the
+Translation Project should come from this standard.
+
+`AD'
+     Andorra.
+
+`AE'
+     United Arab Emirates.
+
+`AF'
+     Afghanistan.
+
+`AG'
+     Antigua and Barbuda.
+
+`AI'
+     Anguilla.
+
+`AL'
+     Albania.
+
+`AM'
+     Armenia.
+
+`AN'
+     Netherlands Antilles.
+
+`AO'
+     Angola.
+
+`AQ'
+     Antarctica.
+
+`AR'
+     Argentina.
+
+`AS'
+     Samoa (American).
+
+`AT'
+     Austria.
+
+`AU'
+     Australia.
+
+`AW'
+     Aruba.
+
+`AZ'
+     Azerbaijan.
+
+`BA'
+     Bosnia and Herzegovina.
+
+`BB'
+     Barbados.
+
+`BD'
+     Bangladesh.
+
+`BE'
+     Belgium.
+
+`BF'
+     Burkina Faso.
+
+`BG'
+     Bulgaria.
+
+`BH'
+     Bahrain.
+
+`BI'
+     Burundi.
+
+`BJ'
+     Benin.
+
+`BM'
+     Bermuda.
+
+`BN'
+     Brunei.
+
+`BO'
+     Bolivia.
+
+`BR'
+     Brazil.
+
+`BS'
+     Bahamas.
+
+`BT'
+     Bhutan.
+
+`BV'
+     Bouvet Island.
+
+`BW'
+     Botswana.
+
+`BY'
+     Belarus.
+
+`BZ'
+     Belize.
+
+`CA'
+     Canada.
+
+`CC'
+     Cocos (Keeling) Islands.
+
+`CD'
+     Congo (Dem. Rep.).
+
+`CF'
+     Central African Rep..
+
+`CG'
+     Congo (Rep.).
+
+`CH'
+     Switzerland.
+
+`CI'
+     Cote d'Ivoire.
+
+`CK'
+     Cook Islands.
+
+`CL'
+     Chile.
+
+`CM'
+     Cameroon.
+
+`CN'
+     China.
+
+`CO'
+     Colombia.
+
+`CR'
+     Costa Rica.
+
+`CU'
+     Cuba.
+
+`CV'
+     Cape Verde.
+
+`CX'
+     Christmas Island.
+
+`CY'
+     Cyprus.
+
+`CZ'
+     Czech Republic.
+
+`DE'
+     Germany.
+
+`DJ'
+     Djibouti.
+
+`DK'
+     Denmark.
+
+`DM'
+     Dominica.
+
+`DO'
+     Dominican Republic.
+
+`DZ'
+     Algeria.
+
+`EC'
+     Ecuador.
+
+`EE'
+     Estonia.
+
+`EG'
+     Egypt.
+
+`EH'
+     Western Sahara.
+
+`ER'
+     Eritrea.
+
+`ES'
+     Spain.
+
+`ET'
+     Ethiopia.
+
+`FI'
+     Finland.
+
+`FJ'
+     Fiji.
+
+`FK'
+     Falkland Islands.
+
+`FM'
+     Micronesia.
+
+`FO'
+     Faeroe Islands.
+
+`FR'
+     France.
+
+`GA'
+     Gabon.
+
+`GB'
+     Britain (UK).
+
+`GD'
+     Grenada.
+
+`GE'
+     Georgia.
+
+`GF'
+     French Guiana.
+
+`GH'
+     Ghana.
+
+`GI'
+     Gibraltar.
+
+`GL'
+     Greenland.
+
+`GM'
+     Gambia.
+
+`GN'
+     Guinea.
+
+`GP'
+     Guadeloupe.
+
+`GQ'
+     Equatorial Guinea.
+
+`GR'
+     Greece.
+
+`GS'
+     South Georgia and the South Sandwich Islands.
+
+`GT'
+     Guatemala.
+
+`GU'
+     Guam.
+
+`GW'
+     Guinea-Bissau.
+
+`GY'
+     Guyana.
+
+`HK'
+     Hong Kong.
+
+`HM'
+     Heard Island and McDonald Islands.
+
+`HN'
+     Honduras.
+
+`HR'
+     Croatia.
+
+`HT'
+     Haiti.
+
+`HU'
+     Hungary.
+
+`ID'
+     Indonesia.
+
+`IE'
+     Ireland.
+
+`IL'
+     Israel.
+
+`IN'
+     India.
+
+`IO'
+     British Indian Ocean Territory.
+
+`IQ'
+     Iraq.
+
+`IR'
+     Iran.
+
+`IS'
+     Iceland.
+
+`IT'
+     Italy.
+
+`JM'
+     Jamaica.
+
+`JO'
+     Jordan.
+
+`JP'
+     Japan.
+
+`KE'
+     Kenya.
+
+`KG'
+     Kyrgyzstan.
+
+`KH'
+     Cambodia.
+
+`KI'
+     Kiribati.
+
+`KM'
+     Comoros.
+
+`KN'
+     St Kitts and Nevis.
+
+`KP'
+     Korea (North).
+
+`KR'
+     Korea (South).
+
+`KW'
+     Kuwait.
+
+`KY'
+     Cayman Islands.
+
+`KZ'
+     Kazakhstan.
+
+`LA'
+     Laos.
+
+`LB'
+     Lebanon.
+
+`LC'
+     St Lucia.
+
+`LI'
+     Liechtenstein.
+
+`LK'
+     Sri Lanka.
+
+`LR'
+     Liberia.
+
+`LS'
+     Lesotho.
+
+`LT'
+     Lithuania.
+
+`LU'
+     Luxembourg.
+
+`LV'
+     Latvia.
+
+`LY'
+     Libya.
+
+`MA'
+     Morocco.
+
+`MC'
+     Monaco.
+
+`MD'
+     Moldova.
+
+`MG'
+     Madagascar.
+
+`MH'
+     Marshall Islands.
+
+`MK'
+     Macedonia.
+
+`ML'
+     Mali.
+
+`MM'
+     Myanmar (Burma).
+
+`MN'
+     Mongolia.
+
+`MO'
+     Macao.
+
+`MP'
+     Northern Mariana Islands.
+
+`MQ'
+     Martinique.
+
+`MR'
+     Mauritania.
+
+`MS'
+     Montserrat.
+
+`MT'
+     Malta.
+
+`MU'
+     Mauritius.
+
+`MV'
+     Maldives.
+
+`MW'
+     Malawi.
+
+`MX'
+     Mexico.
+
+`MY'
+     Malaysia.
+
+`MZ'
+     Mozambique.
+
+`NA'
+     Namibia.
+
+`NC'
+     New Caledonia.
+
+`NE'
+     Niger.
+
+`NF'
+     Norfolk Island.
+
+`NG'
+     Nigeria.
+
+`NI'
+     Nicaragua.
+
+`NL'
+     Netherlands.
+
+`NO'
+     Norway.
+
+`NP'
+     Nepal.
+
+`NR'
+     Nauru.
+
+`NU'
+     Niue.
+
+`NZ'
+     New Zealand.
+
+`OM'
+     Oman.
+
+`PA'
+     Panama.
+
+`PE'
+     Peru.
+
+`PF'
+     French Polynesia.
+
+`PG'
+     Papua New Guinea.
+
+`PH'
+     Philippines.
+
+`PK'
+     Pakistan.
+
+`PL'
+     Poland.
+
+`PM'
+     St Pierre and Miquelon.
+
+`PN'
+     Pitcairn.
+
+`PR'
+     Puerto Rico.
+
+`PS'
+     Palestine.
+
+`PT'
+     Portugal.
+
+`PW'
+     Palau.
+
+`PY'
+     Paraguay.
+
+`QA'
+     Qatar.
+
+`RE'
+     Reunion.
+
+`RO'
+     Romania.
+
+`RU'
+     Russia.
+
+`RW'
+     Rwanda.
+
+`SA'
+     Saudi Arabia.
+
+`SB'
+     Solomon Islands.
+
+`SC'
+     Seychelles.
+
+`SD'
+     Sudan.
+
+`SE'
+     Sweden.
+
+`SG'
+     Singapore.
+
+`SH'
+     St Helena.
+
+`SI'
+     Slovenia.
+
+`SJ'
+     Svalbard and Jan Mayen.
+
+`SK'
+     Slovakia.
+
+`SL'
+     Sierra Leone.
+
+`SM'
+     San Marino.
+
+`SN'
+     Senegal.
+
+`SO'
+     Somalia.
+
+`SR'
+     Suriname.
+
+`ST'
+     Sao Tome and Principe.
+
+`SV'
+     El Salvador.
+
+`SY'
+     Syria.
+
+`SZ'
+     Swaziland.
+
+`TC'
+     Turks and Caicos Is.
+
+`TD'
+     Chad.
+
+`TF'
+     French Southern and Antarctic Lands.
+
+`TG'
+     Togo.
+
+`TH'
+     Thailand.
+
+`TJ'
+     Tajikistan.
+
+`TK'
+     Tokelau.
+
+`TM'
+     Turkmenistan.
+
+`TN'
+     Tunisia.
+
+`TO'
+     Tonga.
+
+`TP'
+     East Timor.
+
+`TR'
+     Turkey.
+
+`TT'
+     Trinidad and Tobago.
+
+`TV'
+     Tuvalu.
+
+`TW'
+     Taiwan.
+
+`TZ'
+     Tanzania.
+
+`UA'
+     Ukraine.
+
+`UG'
+     Uganda.
+
+`UM'
+     US minor outlying islands.
+
+`US'
+     United States.
+
+`UY'
+     Uruguay.
+
+`UZ'
+     Uzbekistan.
+
+`VA'
+     Vatican City.
+
+`VC'
+     St Vincent.
+
+`VE'
+     Venezuela.
+
+`VG'
+     Virgin Islands (UK).
+
+`VI'
+     Virgin Islands (US).
+
+`VN'
+     Vietnam.
+
+`VU'
+     Vanuatu.
+
+`WF'
+     Wallis and Futuna.
+
+`WS'
+     Samoa (Western).
+
+`YE'
+     Yemen.
+
+`YT'
+     Mayotte.
+
+`YU'
+     Yugoslavia.
+
+`ZA'
+     South Africa.
+
+`ZM'
+     Zambia.
+
+`ZW'
+     Zimbabwe.
 
 

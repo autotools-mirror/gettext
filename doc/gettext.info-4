@@ -75,7 +75,7 @@ not reasonable because its construction and maintenance is difficult,
 perhaps impossible) and b) to access a string in a selected domain.
 
    This is principally the description of the `gettext' interface.  It
-has an global domain which unqualified usages reference.  Of course this
+has a global domain which unqualified usages reference.  Of course this
 domain is selectable by the user.
 
      char *textdomain (const char *domain_name);
@@ -119,14 +119,16 @@ File: gettext.info,  Node: Ambiguities,  Next: Locating Catalogs,  Prev: Interfa
 Solving Ambiguities
 -------------------
 
-   While this single name domain work good for most applications there
+   While this single name domain works well for most applications there
 might be the need to get translations from more than one domain.  Of
 course one could switch between different domains with calls to
 `textdomain', but this is really not convenient nor is it fast.  A
-possible situation could be one case discussing while this writing:  all
-error messages of functions in the set of common used functions should
-go into a separate domain `error'.  By this mean we would only need to
-translate them once.
+possible situation could be one case subject to discussion during this
+writing:  all error messages of functions in the set of common used
+functions should go into a separate domain `error'.  By this mean we
+would only need to translate them once.  Another case are messages from
+a library, as these _have_ to be independent of the current domain set
+by the application.
 
 For this reasons there are two more functions to retrieve strings:
 
@@ -299,7 +301,7 @@ Maszkowski `<rzm@mat.uni.torun.pl>' reports:
 inside language families);
 
    * The form how plural forms are build differs.  This is a problem
-     with language which have many irregularities.  German, for
+     with languages which have many irregularities.  German, for
      instance, is a drastic case.  Though English and German are part
      of the same language family (Germanic), the almost regular forming
      of plural noun forms (appending an `s') is hardly found in German.
@@ -317,7 +319,7 @@ only usable for certain, hardcoded language environments.  Instead the
 extended `gettext' interface should be used.
 
    These extra functions are taking instead of the one key string two
-strings and an numerical argument.  The idea behind this is that using
+strings and a numerical argument.  The idea behind this is that using
 the numerical argument and the first string as a key, the implementation
 can select using rules specified by the translator the right plural
 form.  The two string arguments then will be used to provide a return
@@ -345,7 +347,7 @@ purpose.
      message catalog is found MSGID1 is returned if `n == 1', otherwise
      `msgid2'.
 
-     An example for the us of this function is:
+     An example for the use of this function is:
 
           printf (ngettext ("%d file removed", "%d files removed", n), n);
 
@@ -377,9 +379,7 @@ every new supported language.
 specify the rules of how to select the plural form.  Since the formula
 varies with every language this is the only viable solution except for
 hardcoding the information in the code (which still would require the
-possibility of extensions to not prevent the use of new languages).  The
-details are explained in the GNU `gettext' manual.  Here only a a bit
-of information is provided.
+possibility of extensions to not prevent the use of new languages).
 
    The information about the plural form selection has to be stored in
 the header entry of the PO file (the one with the empty `msgid' string).
@@ -390,7 +390,7 @@ The plural form information looks like this:
    The `nplurals' value must be a decimal number which specifies how
 many different plural forms exist for this language.  The string
 following `plural' is an expression which is using the C language
-syntax.  Exceptions are that no negative number are allowed, numbers
+syntax.  Exceptions are that no negative numbers are allowed, numbers
 must be decimal, and the only variable allowed is `n'.  This expression
 will be evaluated whenever one of the functions `ngettext',
 `dngettext', or `dcngettext' is called.  The numeric value passed to
@@ -436,7 +436,7 @@ Two forms, singular used for one only
           Danish, Dutch, English, German, Norwegian, Swedish
 
     Finno-Ugric family
-          Finnish
+          Estonian, Finnish
 
     Latin/Greek family
           Greek
@@ -471,16 +471,29 @@ Three forms, special cases for one and two
     Celtic
           Gaeilge
 
-Three forms, special case for one and all numbers ending in 2, 3, or 4
+Three forms, special case for numbers ending in 1[2-9]
      The header entry would look like this:
 
           Plural-Forms: nplurals=3; \
-                        plural=n==1 ? 0 : n%10>=2 && n%10<=4 ? 1 : 2;
+              plural=n%10==1 && n%100!=11 ? 0 : \
+                     n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+     Languages with this property include:
+
+    Baltic family
+          Lithuanian
+
+Three forms, special cases for numbers ending in 1 and 2, 3, 4, except those ending in 1[1-4]
+     The header entry would look like this:
+
+          Plural-Forms: nplurals=3; \
+              plural=n%10==1 && n%100!=11 ? 0 : \
+                     n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
 
      Languages with this property include:
 
     Slavic family
-          Russian
+          Czech, Russian, Slovak, Ukrainian
 
 Three forms, special case for one and some numbers ending in 2, 3, or 4
      The header entry would look like this:
@@ -496,12 +509,11 @@ Three forms, special case for one and some numbers ending in 2, 3, or 4
     Slavic family
           Polish
 
-Four forms, special case for one and all numbers ending in 2, 3, or 4
+Four forms, special case for one and all numbers ending in 02, 03, or 04
      The header entry would look like this:
 
           Plural-Forms: nplurals=4; \
-                        plural=n==1 ? 0 : \
-                               n%10==2 ? 1 : n%10==3 || n%10==4 ? 2 : 3;
+              plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
 
      Languages with this property include:
 
@@ -615,14 +627,14 @@ question.
      this context and it also is a character not often used in message
      strings.
 
-     But what if the character is used in message strings.  Or if the
+     But what if the character is used in message strings?  Or if the
      chose character is not available in the character set on the
      machine one compiles (e.g., `|' is not required to exist for
      ISO C; this is why the `iso646.h' file exists in ISO C programming
      environments).
 
    There is only one more comment to be said.  The wrapper function
-above require that the translations strings are not enlengthened
+above requires that the translations strings are not enlengthened
 themselves.  This is only logical.  There is no need to disambiguate
 the strings (since they are never used as keys for a search) and one
 also saves quite some memory and disk space by doing this.

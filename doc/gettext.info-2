@@ -124,7 +124,7 @@ getting back, or else, use the location ring.
 saved onto a special stack.  The command `m' (`po-push-location')
 merely adds the location of current entry to the stack, pushing the
 already saved locations under the new one.  The command `r'
-(`po-pop-location') consumes the top stack element and reposition the
+(`po-pop-location') consumes the top stack element and repositions the
 cursor to the entry associated with that top element.  This position is
 then lost, for the next `r' will move the cursor to the previously
 saved location, and so on until no locations remain on the stack.
@@ -134,9 +134,9 @@ stack, maybe for taking a look at the entry associated with the top
 element, then go elsewhere with the intent of getting back later, she
 ought to use `m' immediately after `r'.
 
-   The command `x' (`po-exchange-location') simultaneously reposition
+   The command `x' (`po-exchange-location') simultaneously repositions
 the cursor to the entry associated with the top element of the stack of
-saved locations, and replace that top element with the location of the
+saved locations, and replaces that top element with the location of the
 current entry before the move.  Consequently, repeating the `x' command
 toggles alternatively between two entries.  For achieving this, the
 translator will position the cursor on the first entry, use `m', then
@@ -175,8 +175,8 @@ command is available:
 `M-x po-normalize'
      Tidy the whole PO file by making entries more uniform.
 
-   The special command `M-x po-normalize', which has no associate keys,
-revises all entries, ensuring that strings of both original and
+   The special command `M-x po-normalize', which has no associated
+keys, revises all entries, ensuring that strings of both original and
 translated entries use uniform internal quoting in the PO file.  It
 also removes any crumb after the last entry.  This command may be
 useful for PO files freshly imported from elsewhere, or if we ever
@@ -266,7 +266,7 @@ sections of this chapter.
 * Menu:
 
 * Triggering::                  Triggering `gettext' Operations
-* Mark Keywords::               How Marks Appears in Sources
+* Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
@@ -304,7 +304,7 @@ programs, which process some kind of input language, be wrong.  For
 example this would mean that a source code using the c, (c-cedilla
 character) is runnable in France but not in the U.S.
 
-   Some systems also have problems with parsing number using the
+   Some systems also have problems with parsing numbers using the
 `scanf' functions if an other but the `LC_ALL' locale is used.  The
 standards say that additional formats but the one known in the `"C"'
 locale might be recognized.  But some systems seem to reject numbers in
@@ -347,8 +347,8 @@ multithread-safe.
 
 File: gettext.info,  Node: Mark Keywords,  Next: Marking,  Prev: Triggering,  Up: Sources
 
-How Marks Appears in Sources
-============================
+How Marks Appear in Sources
+===========================
 
    All strings requiring translation should be marked in the C sources.
 Marking is done in such a way that each translatable string appears to
@@ -443,7 +443,7 @@ summarizing the contents using a special file format Emacs can
 understand.
 
    For packages following the GNU coding standards, there is a make
-goal `tags' or `TAGS' which construct the tag files in all directories
+goal `tags' or `TAGS' which constructs the tag files in all directories
 and for all files containing source code.
 
    Once your `TAGS' file is ready, the following commands assist the
@@ -466,8 +466,8 @@ you mark strings as translatable in your program sources.
      possible keywords.  This command with a prefix allows some
      management of these keywords.
 
-   The `,' (`po-tags-search') command search for the next occurrence of
-a string which looks like a possible candidate for translation, and
+   The `,' (`po-tags-search') command searches for the next occurrence
+of a string which looks like a possible candidate for translation, and
 displays the program source in another Emacs window, positioned in such
 a way that the string is near the top of this other window.  If the
 string is too big to fit whole in this window, it is positioned so only
@@ -621,7 +621,7 @@ function will try to access one of the parameter but none exists
 because the original code does not refer to any parameter.
 
    `xgettext' of course could make a wrong decision the other way
-round.  A string marked as a format string is not really a format
+round, i.e. a string marked as a format string actually is not a format
 string.  In this case the `msgfmt' might give too many warnings and
 would prevent translating the `.po' file.  The method to prevent this
 wrong decision is similar to the one used above, only the comment to
@@ -753,7 +753,7 @@ Invoking the `xgettext' Program
 
 `--debug'
      Use the flags `c-format' and `possible-c-format' to show who was
-     responsible for marking a message as a format string.  The later
+     responsible for marking a message as a format string.  The latter
      form is used if the `xgettext' program decided, the format form is
      used if the programmer prescribed it.
 
@@ -779,7 +779,7 @@ Invoking the `xgettext' Program
      them from the command line.
 
 `--force'
-     Always write output file even if no message is defined.
+     Always write an output file even if no message is defined.
 
 `-h'
 `--help'
@@ -844,7 +844,7 @@ Invoking the `xgettext' Program
      Generate sorted output and remove duplicates.
 
 `--strict'
-     Write out strict Uniforum conforming PO file.
+     Write out a strict Uniforum conforming PO file.
 
 `-v'
 `--version'
@@ -1084,10 +1084,10 @@ Fuzzy Entries
 =============
 
    Each PO file entry may have a set of "attributes", which are
-qualities given an name and explicitely associated with the entry
-translation, using a special system comment.  One of these attributes
-has the name `fuzzy', and entries having this attribute are said to
-have a fuzzy translation.  They are called fuzzy entries, for short.
+qualities given a name and explicitely associated with the translation,
+using a special system comment.  One of these attributes has the name
+`fuzzy', and entries having this attribute are said to have a fuzzy
+translation.  They are called fuzzy entries, for short.
 
    Fuzzy entries, even if they account for translated entries for most
 other purposes, usually call for revision by the translator.  Those may
@@ -1163,10 +1163,10 @@ entries on the same level as active entries.  Untranslated entries are
 easily recognizable by the fact they end with `msgstr ""'.
 
    The work of the translator might be (quite naively) seen as the
-process of seeking after an untranslated entry, editing a translation
-for it, and repeating these actions until no untranslated entries
-remain.  Some commands are more specifically related to untranslated
-entry processing.
+process of seeking for an untranslated entry, editing a translation for
+it, and repeating these actions until no untranslated entries remain.
+Some commands are more specifically related to untranslated entry
+processing.
 
 `u'
      Find the next untranslated entry.

@@ -33,104 +33,106 @@ translation approved by the Foundation.
 
 Indirect:
 gettext.info-1: 1411
-gettext.info-2: 48952
-gettext.info-3: 98371
-gettext.info-4: 147112
-gettext.info-5: 195688
+gettext.info-2: 49085
+gettext.info-3: 98511
+gettext.info-4: 147276
+gettext.info-5: 196307
 
 Tag Table:
 (Indirect)
 Node: Top1411
-Node: Introduction6944
-Node: Why8800
-Ref: Why-Footnote-111890
-Node: Concepts12046
-Node: Aspects15459
-Node: Files21208
-Node: Overview23150
-Node: Basics34076
-Node: Installation34906
-Node: PO Files36873
-Ref: PO Files-Footnote-143885
-Node: Main PO Commands44012
-Node: Entry Positioning48952
-Node: Normalizing54203
-Node: Sources58655
-Node: Triggering59926
-Node: Mark Keywords62941
-Node: Marking66491
-Node: c-format74132
-Node: Special cases77882
-Node: Template80744
-Node: xgettext Invocation81096
-Node: Creating84900
-Node: Updating91212
-Node: msgmerge Invocation91965
-Node: Translated Entries92139
-Node: Fuzzy Entries93430
-Node: Untranslated Entries96532
-Node: Obsolete Entries98371
-Node: Modifying Translations101503
-Node: Modifying Comments109321
-Node: Subedit113628
-Node: C Sources Context117413
-Node: Auxiliary122380
-Node: Compendium125479
-Node: Binaries126175
-Node: msgfmt Invocation126439
-Node: MO Files129065
-Node: Users137151
-Node: Matrix138632
-Node: Installers139835
-Node: End Users141005
-Node: Programmers141634
-Node: catgets142808
-Node: Interface to catgets144213
-Node: Problems with catgets146214
-Node: gettext147112
-Node: Interface to gettext148570
-Node: Ambiguities150912
-Node: Locating Catalogs153469
-Ref: Locating Catalogs-Footnote-1154616
-Ref: Locating Catalogs-Footnote-2154841
-Node: Charset conversion154990
-Node: Plural forms157432
-Ref: Plural forms-Footnote-1167461
-Node: GUI program problems167553
-Node: Optimized gettext172656
-Node: Comparison173989
-Node: Using libintl.a178261
-Node: gettext grok179038
-Node: Temp Programmers181670
-Node: Temp Implementations182110
-Node: Temp catgets183476
-Node: Temp WSI185163
-Node: Temp Notes187151
-Node: Translators187640
-Node: Trans Intro 0188019
-Node: Trans Intro 1190668
-Node: Discussions192532
-Node: Organization195688
-Node: Central Coordination197669
-Node: National Teams198797
-Node: Sub-Cultures201309
-Node: Organizational Ideas202228
-Node: Mailing Lists203231
-Node: Information Flow205034
-Node: Maintainers207167
-Node: Flat and Non-Flat208926
-Node: Prerequisites210409
-Node: gettextize Invocation214518
-Node: Adjusting Files218090
-Node: po/POTFILES.in219313
-Node: configure.in220252
-Node: aclocal222378
-Node: acconfig223557
-Node: Makefile224155
-Node: src/Makefile226343
-Node: Conclusion228740
-Node: History229230
-Node: References232690
-Node: Language Codes234245
+Node: Introduction7072
+Node: Why8928
+Ref: Why-Footnote-112035
+Node: Concepts12191
+Node: Aspects15604
+Node: Files21353
+Node: Overview23295
+Node: Basics34216
+Node: Installation35046
+Node: PO Files37016
+Ref: PO Files-Footnote-144018
+Node: Main PO Commands44145
+Node: Entry Positioning49085
+Node: Normalizing54339
+Node: Sources58792
+Node: Triggering60062
+Node: Mark Keywords63078
+Node: Marking66626
+Node: c-format74270
+Node: Special cases78026
+Node: Template80888
+Node: xgettext Invocation81240
+Node: Creating85050
+Node: Updating91362
+Node: msgmerge Invocation92115
+Node: Translated Entries92289
+Node: Fuzzy Entries93580
+Node: Untranslated Entries96675
+Node: Obsolete Entries98511
+Node: Modifying Translations101643
+Node: Modifying Comments109464
+Node: Subedit113772
+Node: C Sources Context117548
+Node: Auxiliary122514
+Node: Compendium125613
+Node: Binaries126309
+Node: msgfmt Invocation126573
+Node: MO Files129201
+Node: Users137290
+Node: Matrix138773
+Node: Installers139977
+Node: End Users141147
+Node: Programmers141796
+Node: catgets142968
+Node: Interface to catgets144372
+Node: Problems with catgets146376
+Node: gettext147276
+Node: Interface to gettext148734
+Node: Ambiguities151075
+Node: Locating Catalogs153768
+Ref: Locating Catalogs-Footnote-1154915
+Ref: Locating Catalogs-Footnote-2155140
+Node: Charset conversion155289
+Node: Plural forms157731
+Ref: Plural forms-Footnote-1168079
+Node: GUI program problems168171
+Node: Optimized gettext173275
+Node: Comparison174608
+Node: Using libintl.a178880
+Node: gettext grok179657
+Node: Temp Programmers182289
+Node: Temp Implementations182729
+Node: Temp catgets184095
+Node: Temp WSI185782
+Node: Temp Notes187770
+Node: Translators188259
+Node: Trans Intro 0188638
+Node: Trans Intro 1191287
+Node: Discussions193151
+Node: Organization196307
+Node: Central Coordination198288
+Node: National Teams199416
+Node: Sub-Cultures201928
+Node: Organizational Ideas202847
+Node: Mailing Lists203850
+Node: Information Flow205653
+Node: Maintainers207786
+Node: Flat and Non-Flat209545
+Node: Prerequisites211028
+Node: gettextize Invocation215150
+Node: Adjusting Files218722
+Node: po/POTFILES.in220019
+Node: configure.in220963
+Node: config.guess223094
+Node: aclocal224153
+Node: acconfig225271
+Node: Makefile225754
+Node: src/Makefile228202
+Node: Conclusion231104
+Node: History231594
+Node: References235054
+Node: Language Codes236609
+Node: Country Codes240512
 
 End Tag Table
