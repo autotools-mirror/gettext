@@ -1,5 +1,11 @@
 2001-01-20  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.m4 (AM_GNU_GETTEXT): Change computation of NEW_LINGUAS to
+	not include catalogs which are not present. Reported by Fredrik
+	Hallenberg. Also include catalogs of which a variant is requested.
+
+2001-01-20  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.m4 (AM_WITH_NLS): Add a third argument to AC_DEFINE.
 	* lcmessage.m4 (AM_LC_MESSAGES): Likewise.
 

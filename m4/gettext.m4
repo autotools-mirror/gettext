@@ -212,10 +212,21 @@ __argz_count __argz_stringify __argz_next])
      else
        AC_MSG_CHECKING(for catalogs to be installed)
        NEW_LINGUAS=
-       for lang in ${LINGUAS=$ALL_LINGUAS}; do
-         case "$ALL_LINGUAS" in
-          *$lang*) NEW_LINGUAS="$NEW_LINGUAS $lang" ;;
-         esac
+       for presentlang in $ALL_LINGUAS; do
+         useit=no
+         for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
+           # Use the presentlang catalog if desiredlang is
+           #   a. equal to presentlang, or
+           #   b. a variant of presentlang (because in this case,
+           #      presentlang can be used as a fallback for messages
+           #      which are not translated in the desiredlang catalog).
+           case "$desiredlang" in
+             "$presentlang"*) useit=yes;;
+           esac
+         done
+         if test $useit = yes; then
+           NEW_LINGUAS="$NEW_LINGUAS $presentlang"
+         fi
        done
        LINGUAS=$NEW_LINGUAS
        AC_MSG_RESULT($LINGUAS)
