@@ -1,3 +1,18 @@
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
+	* x-perl.c (case_whitespace): New macro.
+	(is_whitespace): New function.
+	(interpolate_keywords): Add lineno argument. Track newlines to update
+	lineno while processing the string. Use is_whitespace.
+	(extract_triple_quotelike): Update. Use is_whitespace.
+	(extract_variable): Simplify: add final NUL byte only when done. Use
+	is_whitespace.
+	(x_perl_prelex): Use is_whitespace. After reading a here document, use
+	line_number+1, not line_number. Fix buffer overrun in <<XYZ handling.
+	(collect_message): Use is_whitespace.
+	(extract_balanced): Call free_token at the end of the loop, not at the
+	beginning.
+
 2003-06-14  Bruno Haible  <bruno@clisp.org>
 
 	* x-perl.c (enum token_type_ty): Reorder, so as to simplify the
