@@ -1711,7 +1711,14 @@ mbs_possible_linebreaks (s, n, encoding, p)
   else
     {
 #if HAVE_ICONV
-      iconv_t to_utf8 = iconv_open (UTF8_NAME, encoding);
+      iconv_t to_utf8;
+      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+      if (STREQ (encoding, "EUC-KR", 'E', 'U', 'C', '-', 'K', 'R', 0, 0, 0))
+	to_utf8 = (iconv_t)(-1);
+      else
+# endif
+      to_utf8 = iconv_open (UTF8_NAME, encoding);
       if (to_utf8 != (iconv_t)(-1))
         {
           /* Determine the length of the resulting UTF-8 string.  */
@@ -1790,7 +1797,14 @@ mbs_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
   else
     {
 #if HAVE_ICONV
-      iconv_t to_utf8 = iconv_open (UTF8_NAME, encoding);
+      iconv_t to_utf8;
+      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+      if (STREQ (encoding, "EUC-KR", 'E', 'U', 'C', '-', 'K', 'R', 0, 0, 0))
+	to_utf8 = (iconv_t)(-1);
+      else
+# endif
+      to_utf8 = iconv_open (UTF8_NAME, encoding);
       if (to_utf8 != (iconv_t)(-1))
         {
           /* Determine the length of the resulting UTF-8 string.  */
