@@ -1,4 +1,4 @@
-#serial 3
+#serial 4
 
 dnl From Paul Eggert.
 
