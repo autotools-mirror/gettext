@@ -65,7 +65,7 @@ EXTRA_DIST += ../../gettext-tools/lib/stdbool.h.in
 
 # The following is needed in order to create an <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgettextlib_la_OBJECTS): @STDBOOL_H@
+all-local $(libgrt_a_OBJECTS): @STDBOOL_H@
 stdbool.h: ../../gettext-tools/lib/stdbool.h.in
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/../../gettext-tools/lib/stdbool.h.in > stdbool.h
 MOSTLYCLEANFILES += stdbool.h
@@ -77,7 +77,7 @@ EXTRA_DIST += ../../gettext-tools/lib/alloca_.h
 
 # The following is needed in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgettextlib_la_OBJECTS): @ALLOCA_H@
+all-local $(libgrt_a_OBJECTS): @ALLOCA_H@
 alloca.h: ../../gettext-tools/lib/alloca_.h
 	cp $(srcdir)/../../gettext-tools/lib/alloca_.h alloca.h
 MOSTLYCLEANFILES += alloca.h
