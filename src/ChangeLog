@@ -1,5 +1,15 @@
 2001-10-08  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgl-english.h: New file.
+	* msgl-english.c: New file, extracted from msgen.c.
+	* msgen.c: Include msgl-english.h.
+	(english): Move to msgl-english.c.
+	(main): Update accordingly.
+	* Makefile.am (noinst_HEADERS): Add msgl-english.h.
+	(msgen_SOURCES): Add msgl-english.c.
+
+2001-10-08  Bruno Haible  <haible@clisp.cons.org>
+
 	* po-time.h: New file.
 	* po-time.c: New file, extracted from xgettext.c.
 	* xgettext.c: Include po-time.h.

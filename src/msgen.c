@@ -32,6 +32,7 @@
 #include "basename.h"
 #include "message.h"
 #include "read-po.h"
+#include "msgl-english.h"
 #include "write-po.h"
 #include "xmalloc.h"
 #include "system.h"
@@ -67,7 +68,6 @@ static const struct option long_options[] =
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status));
-static msgdomain_list_ty *english PARAMS ((msgdomain_list_ty *mdlp));
 
 
 int
@@ -203,7 +203,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* Read input file and add English translations.  */
-  result = english (read_po_file (argv[optind]));
+  result = msgdomain_list_english (read_po_file (argv[optind]));
 
   /* Sort the results.  */
   if (sort_by_filepos)
@@ -289,47 +289,4 @@ Informative output:\n\
     }
 
   exit (status);
-}
-
-
-static msgdomain_list_ty *
-english (mdlp)
-     msgdomain_list_ty *mdlp;
-{
-  size_t j, k;
-
-  for (k = 0; k < mdlp->nitems; k++)
-    {
-      message_list_ty *mlp = mdlp->item[k]->messages;
-
-      for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
-
-	  if (mp->msgid_plural == NULL)
-	    {
-	      if (mp->msgstr_len == 1 && mp->msgstr[0] == '\0')
-		{
-		  mp->msgstr = mp->msgid; /* no need for xstrdup */
-		  mp->msgstr_len = strlen (mp->msgid) + 1;
-		}
-	    }
-	  else
-	    {
-	      if (mp->msgstr_len == 2
-		  && mp->msgstr[0] == '\0' && mp->msgstr[1] == '\0')
-		{
-		  size_t len0 = strlen (mp->msgid) + 1;
-		  size_t len1 = strlen (mp->msgid_plural) + 1;
-		  char *cp = (char *) xmalloc (len0 + len1);
-		  memcpy (cp, mp->msgid, len0);
-		  memcpy (cp + len0, mp->msgid_plural, len1);
-		  mp->msgstr = cp;
-		  mp->msgstr_len = len0 + len1;
-		}
-	    }
-	}
-    }
-
-  return mdlp;
 }
