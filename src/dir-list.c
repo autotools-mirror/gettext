@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "dir-list.h"
 
 #include <stddef.h>
+#include <stdlib.h>
 
 #include "str-list.h"
 
