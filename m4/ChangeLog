@@ -1,3 +1,8 @@
+2001-04-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Even if 'msgfmt' is not found in $PATH,
+	set CATOBJEXT=.gmo and use the gettext in libc or libintl.
+
 2001-04-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* mbswidth.m4: New file, from textutils-2.0.13 with modifications.
