@@ -1,3 +1,9 @@
+2004-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (_nl_locale_name): Add code for MacOS X versions that
+	don't have the CFLocaleCopyCurrent() function.
+	* langprefs.c (_nl_language_preferences): Make code more robust.
+
 2004-09-05  Bruno Haible  <bruno@clisp.org>
 
 	* langprefs.c: New file.

@@ -27,10 +27,14 @@
 #include <stdlib.h>
 #include <locale.h>
 
-#if HAVE_CFLOCALECOPYCURRENT
+#if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
 # include <string.h>
 # include <CFString.h>
-# include <CFLocale.h>
+# if HAVE_CFLOCALECOPYCURRENT
+#  include <CFLocale.h>
+# elif HAVE_CFPREFERENCESCOPYAPPVALUE
+#  include <CFPreferences.h>
+# endif
 #endif
 
 #if defined _WIN32 || defined __WIN32__
@@ -731,7 +735,7 @@ _nl_locale_name (int category, const char *categoryname)
 
   /* We use C as the default domain.  POSIX says this is
      implementation defined.  */
-# if !(HAVE_CFLOCALECOPYCURRENT || defined(WIN32))
+# if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32))
 
   return "C";
 
@@ -742,21 +746,33 @@ _nl_locale_name (int category, const char *categoryname)
      context, because message catalogs are not specific to a single
      codeset.  */
 
-#  if HAVE_CFLOCALECOPYCURRENT /* MacOS X 10.3 or newer */
-
+#  if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
+  /* MacOS X 10.2 or newer */
   {
     /* Cache the locale name, since CoreFoundation calls are expensive.  */
     static const char *cached_localename;
 
     if (cached_localename == NULL)
       {
+	char namebuf[256];
+#   if HAVE_CFLOCALECOPYCURRENT /* MacOS X 10.3 or newer */
 	CFLocaleRef locale = CFLocaleCopyCurrent ();
 	CFStringRef name = CFLocaleGetIdentifier (locale);
-	char namebuf[256];
 
-	if (CFStringGetCString (name, namebuf, sizeof(namebuf), kCFStringEncodingASCII))
+	if (CFStringGetCString (name, namebuf, sizeof(namebuf),
+				kCFStringEncodingASCII))
 	  cached_localename = strdup (namebuf);
 	CFRelease (locale);
+#   elif HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.2 or newer */
+	CFTypeRef value =
+	  CFPreferencesCopyAppValue (CFSTR ("AppleLocale"),
+				     kCFPreferencesCurrentApplication);
+	if (value != NULL
+	    && CFGetTypeID (value) == CFStringGetTypeID ()
+	    && CFStringGetCString ((CFStringRef)value, namebuf, sizeof(namebuf),
+				   kCFStringEncodingASCII))
+	  cached_localename = strdup (namebuf);
+#   endif
 	if (cached_localename == NULL)
 	  cached_localename = "C";
       }

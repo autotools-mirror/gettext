@@ -54,10 +54,11 @@ _nl_language_preferences (void)
 
     if (!cache_initialized)
       {
-	CFPropertyListRef preferences =
+	CFTypeRef preferences =
 	  CFPreferencesCopyAppValue (CFSTR ("AppleLanguages"),
 				     kCFPreferencesCurrentApplication);
-	if (CFGetTypeID (preferences) == CFArrayGetTypeID ())
+	if (preferences != NULL
+	    && CFGetTypeID (preferences) == CFArrayGetTypeID ())
 	  {
 	    CFArrayRef prefArray = (CFArrayRef)preferences;
 	    int n = CFArrayGetCount (prefArray);
@@ -68,7 +69,8 @@ _nl_language_preferences (void)
 	    for (i = 0; i < n; i++)
 	      {
 		CFTypeRef element = CFArrayGetValueAtIndex (prefArray, i);
-		if (CFGetTypeID (element) == CFStringGetTypeID ()
+		if (element != NULL
+		    && CFGetTypeID (element) == CFStringGetTypeID ()
 		    && CFStringGetCString ((CFStringRef)element,
 					   buf, sizeof (buf),
 					   kCFStringEncodingASCII))
@@ -97,7 +99,8 @@ _nl_language_preferences (void)
 		      {
 			CFTypeRef element =
 			  CFArrayGetValueAtIndex (prefArray, i);
-			if (CFGetTypeID (element) == CFStringGetTypeID ()
+			if (element != NULL
+		            && CFGetTypeID (element) == CFStringGetTypeID ()
 			    && CFStringGetCString ((CFStringRef)element,
 						   buf, sizeof (buf),
 						   kCFStringEncodingASCII))
