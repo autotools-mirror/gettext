@@ -25,9 +25,14 @@ $echo $"'Your command, please?', asked the waiter."
 $echo "`eval_ngettext "a piece of cake" "\\$n pieces of cake" $n`"
 EOF
 
-tmpfiles="$tmpfiles prog.pot"
+tmpfiles="$tmpfiles prog.pot prog.err"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o prog.pot --omit-header --no-location prog.sh
+LC_MESSAGES=C LC_ALL= \
+${XGETTEXT} -o prog.pot --omit-header --no-location prog.sh \
+  >prog.err 2>&1
+result=$?
+cat prog.err | grep -v 'warning: the syntax \$"\.\.\." is deprecated due to security reasons'
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<\EOF > prog.ok

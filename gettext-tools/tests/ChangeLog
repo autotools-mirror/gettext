@@ -1,5 +1,9 @@
 2003-10-21  Bruno Haible  <bruno@clisp.org>
 
+	* lang-bash: Hide the warning about deprecated syntax.
+
+2003-10-21  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge-25: New file.
 	* Makefile.am (TESTS): Add it.
 
