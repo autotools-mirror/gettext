@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -176,6 +176,7 @@ string_list_concat_destroy (string_list_ty *slp)
 }
 
 
+#if 0 /* unused */
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list, separated by spaces.  */
 char *
@@ -206,6 +207,7 @@ string_list_join (const string_list_ty *slp)
   result[pos] = '\0';
   return result;
 }
+#endif
 
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */
