@@ -4,6 +4,9 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: java.
 
+# Note: This test fails when using gcj from GCC 3.1 and GCC 3.2, due to a bug
+# (libgcj/6576). It is fixed in GCC 3.3.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
