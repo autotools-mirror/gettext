@@ -94,8 +94,13 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 		LIBS="$gt_save_LIBS"])
 	   fi
 
+	   dnl If an already present or preinstalled GNU gettext() is found,
+	   dnl use it.  But if this macro is used in GNU gettext, and GNU
+	   dnl gettext is already preinstalled in libintl, we update this
+	   dnl libintl.  (Cf. the install rule in intl/Makefile.in.)
 	   if test "$gt_cv_func_gnugettext_libc" = "yes" \
-	      || test "$gt_cv_func_gnugettext_libintl" = "yes"; then
+	      || { test "$gt_cv_func_gnugettext_libintl" = "yes" \
+		   && test "$PACKAGE" != gettext; }; then
 	     AC_DEFINE(HAVE_GETTEXT, 1,
                [Define if the GNU gettext() function is already present or preinstalled.])
 	     AC_CHECK_FUNCS(dcgettext)
