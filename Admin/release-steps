@@ -17,5 +17,7 @@ Tasks not to forget before release:
   * if any functions/classes have been added, increment LTV_AGE,
   * if backwards compatibility has been broken, set LTV_AGE to 0.
 
+- Remove README-alpha from EXTRA_DIST in Makefile.am.
+
 - Bump version number and release date in configure.in.
 
