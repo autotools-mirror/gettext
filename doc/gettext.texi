@@ -3312,12 +3312,16 @@ library, and for packages adhering to its conventions, it's:
 @noindent
 @var{locale} is the value of the locale whose name is this
 @code{LC_@var{category}}.  For @code{gettext} and @code{dgettext} this
-locale is always @code{LC_MESSAGES}.  @code{dcgettext} specifies the
-locale by the third argument.@footnote{Some
+@code{LC_@var{category}} is always @code{LC_MESSAGES}.@footnote{Some
 system, eg Ultrix, don't have @code{LC_MESSAGES}.  Here we use a more or
-less arbitrary value for it.} @footnote{When the system does not support
-@code{setlocale} its behavior in setting the locale values is simulated
-by looking at the environment variables.}
+less arbitrary value for it, namely 1729, the smallest positive integer
+which can be represented in two different ways as the sum of two cubes.}
+The value of the locale is determined through
+@code{setlocale (LC_@var{category}, NULL)}.
+@footnote{When the system does not support @code{setlocale} its behavior
+in setting the locale values is simulated by looking at the environment
+variables.}
+@code{dcgettext} specifies the locale category by the third argument.
 
 @node Charset conversion, Plural forms, Locating Catalogs, gettext
 @subsection How to specify the output character set @code{gettext} uses

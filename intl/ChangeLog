@@ -1,3 +1,7 @@
+2001-02-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* libgnuintl.h (LC_MESSAGES): Provide a default value.
+
 2001-01-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* config.charset: Update for FreeBSD 4.2.
