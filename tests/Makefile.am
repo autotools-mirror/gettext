@@ -25,11 +25,12 @@ TESTS = gettext-1 gettext-2 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 \
-	msgcomm-20 msgcomm-21 msgcomm-22 \
+	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 \
 	msgunfmt-1 \
+	msguniq-1 msguniq-2 msguniq-3 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 \
 	plural-1 plural-2
@@ -47,6 +48,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` \
 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
 		    MSGCAT=`echo msgcat|sed '$(transform)'` \
+		    MSGUNIQ=`echo msguniq|sed '$(transform)'` \
 		    $(SHELL)
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \

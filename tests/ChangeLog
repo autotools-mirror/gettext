@@ -1,3 +1,14 @@
+2001-07-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* msguniq-1.in: New file.
+	* msguniq-1.out: New file.
+	* msguniq-1: New file.
+	* msguniq-2: New file.
+	* msguniq-3: New file.
+	* msgcomm-23: New file.
+	* Makefile.am (TESTS): Add msguniq-1, msguniq-2, msguniq-3, msgcomm-23.
+	(TESTS_ENVIRONMENT): Set MSGUNIQ.
+
 2001-07-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcat-1: New file, from Karl Eichwalder with modifications.
