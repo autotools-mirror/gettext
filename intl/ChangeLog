@@ -1,3 +1,9 @@
+2001-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* libgettext.h [!ENABLE_NLS]: Cast all function results to
+	'const char *'.
+	Reported by Alexandre Duret-Lutz <duret_g@lrde.epita.fr>.
+
 2001-12-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (install-exec): Don't create an empty libdir.
