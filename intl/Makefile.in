@@ -275,12 +275,13 @@ maintainer-clean: distclean
 # GNU gettext needs not contain the file `VERSION' but contains some
 # other files which should not be distributed in other packages.
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
-dist distdir: Makefile $(DISTFILES)
+dist distdir: Makefile
 	if test "$(PACKAGE)" = gettext; then \
 	  additional="$(DISTFILES.gettext)"; \
 	else \
 	  additional="$(DISTFILES.normal)"; \
 	fi; \
+	$(MAKE) $(DISTFILES.common) $$additional; \
 	for file in ChangeLog $(DISTFILES.common) $$additional; do \
 	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
 	    || cp -p $(srcdir)/$$file $(distdir); \
