@@ -1,3 +1,10 @@
+2000-10-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (update-po): Don't move the old po file away until
+	the new one has been successfully generated.
+	(mostlyclean): Update.
+	Suggested by Pavel Roskin <proski@gnu.org>.
+
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	Simplification: In all cases where $(gnulocaledir) is used, it is

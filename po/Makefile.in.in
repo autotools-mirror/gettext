@@ -174,7 +174,7 @@ cat-id-tbl.o: $(top_srcdir)/intl/libgettext.h
 dvi info tags TAGS ID:
 
 mostlyclean:
-	rm -f core core.* *.pox $(PACKAGE).po *.old.po cat-id-tbl.tmp
+	rm -f core core.* *.pox $(PACKAGE).po *.new.po cat-id-tbl.tmp
 	rm -fr *.o
 
 clean: mostlyclean
@@ -204,14 +204,12 @@ update-po: Makefile
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
-	  mv $$lang.po $$lang.old.po; \
 	  echo "$$lang:"; \
-	  if $(MSGMERGE) $$lang.old.po $(PACKAGE).pot -o $$lang.po; then \
-	    rm -f $$lang.old.po; \
+	  if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$lang.new.po; then \
+	    mv -f $$lang.new.po $$lang.po; \
 	  else \
 	    echo "msgmerge for $$cat failed!"; \
-	    rm -f $$lang.po; \
-	    mv $$lang.old.po $$lang.po; \
+	    rm -f $$lang.new.po; \
 	  fi; \
 	done
 
