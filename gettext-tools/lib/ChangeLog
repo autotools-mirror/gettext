@@ -1,6 +1,14 @@
+2003-11-04  Bruno Haible  <bruno@clisp.org>
+
+	* xsize.h: New file.
+	* linebreak.c: Include xsize.h.
+	(mbs_possible_linebreaks, mbs_width_linebreaks): Check malloc()
+	argument for overflow.
+	* Makefile.am (libgettextlib_la_SOURCES): Add xsize.h.
+
 2003-10-31  Bruno Haible  <bruno@clisp.org>
 
-	* wait-process.h (wait_process): Use waitid with WNOWAIT if available,
+	* wait-process.c (wait_process): Use waitid with WNOWAIT if available,
 	to avoid (extremely rare) race condition.
 
 2003-10-27  Bruno Haible  <bruno@clisp.org>

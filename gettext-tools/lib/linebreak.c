@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdlib.h>
 #include <string.h>
 #include "c-ctype.h"
+#include "xsize.h"
 
 #include "utf8-ucs4.h"
 
@@ -1533,7 +1534,9 @@ mbs_possible_linebreaks (const char *s, size_t n, const char *encoding,
             {
               /* Convert the string to UTF-8 and build a translation table
                  from offsets into s to offsets into the translated string.  */
-              char *memory = malloc (n * sizeof (size_t) + m + m);
+	      size_t memory_size = xsum3 (xtimes (n, sizeof (size_t)), m, m);
+              char *memory =
+		(size_in_bounds_p (memory_size) ? malloc (memory_size) : NULL);
               if (memory != NULL)
                 {
                   size_t *offtable = (size_t *) memory;
@@ -1628,7 +1631,11 @@ mbs_width_linebreaks (const char *s, size_t n,
             {
               /* Convert the string to UTF-8 and build a translation table
                  from offsets into s to offsets into the translated string.  */
-              char *memory = malloc (n * sizeof (size_t) + m + m + (o != NULL ? m : 0));
+	      size_t memory_size =
+		xsum4 (xtimes (n, sizeof (size_t)), m, m,
+		       (o != NULL ? m : 0));
+	      char *memory =
+		(size_in_bounds_p (memory_size) ? malloc (memory_size) : NULL);
               if (memory != NULL)
                 {
                   size_t *offtable = (size_t *) memory;
