@@ -1,5 +1,13 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc (format.obj, msgmerge.obj, xgettext.obj, msgattrib.obj,
+	msgcat.obj, msgcomm.obj, msgconv.obj, msgen.obj, msgfilter.obj,
+	msggrep.obj, msguniq.obj): Compile these in C++ mode. This works around
+	the "non-constant initializer" error that we get for addresses of
+	variables in DLLs in C mode.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* msgfilter.c (process_message): Cast xrealloc() result.
 
 2003-08-24  Bruno Haible  <bruno@clisp.org>

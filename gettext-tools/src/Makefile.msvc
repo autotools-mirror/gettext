@@ -237,7 +237,7 @@ plural-table.obj : plural-table.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c plural-table.c
 
 format.obj : format.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c -Tp format.c
 
 format-c.obj : format-c.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-c.c
@@ -319,7 +319,7 @@ plural-eval.obj : plural-eval.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c plural-eval.c
 
 msgmerge.obj : msgmerge.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgmerge.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgmerge.c
 
 plural-count.obj : plural-count.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c plural-count.c
@@ -337,7 +337,7 @@ read-tcl.obj : read-tcl.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c read-tcl.c
 
 xgettext.obj : xgettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c xgettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp xgettext.c
 
 x-c.obj : x-c.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c x-c.c
@@ -385,28 +385,28 @@ x-glade.obj : x-glade.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c x-glade.c
 
 msgattrib.obj : msgattrib.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgattrib.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgattrib.c
 
 msgcat.obj : msgcat.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgcat.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgcat.c
 
 msgcomm.obj : msgcomm.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgcomm.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgcomm.c
 
 msgconv.obj : msgconv.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgconv.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgconv.c
 
 msgen.obj : msgen.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgen.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgen.c
 
 msgexec.obj : msgexec.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgexec.c
 
 msgfilter.obj : msgfilter.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgfilter.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msgfilter.c
 
 msggrep.obj : msggrep.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msggrep.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msggrep.c
 
 msginit.obj : msginit.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msginit.c
@@ -415,7 +415,7 @@ localealias.obj : ..\..\gettext-runtime\intl\localealias.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -c ..\..\gettext-runtime\intl\localealias.c
 
 msguniq.obj : msguniq.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msguniq.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msguniq.c
 
 msgcmp.exe : $(msgcmp_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcmp.exe
