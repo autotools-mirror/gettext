@@ -212,8 +212,8 @@ phase4_getuc ()
 		{
 		  phase3_ungetc (c1);
 		  error_with_progname = false;
-		  error (0, 0, _("%s:%d: warning: invalid \\uxxxx syntax for Unicode character"),
-			 real_file_name, gram_pos.line_number);
+		  error (0, 0, _("%s:%lu: warning: invalid \\uxxxx syntax for Unicode character"),
+			 real_file_name, (unsigned long) gram_pos.line_number);
 		  error_with_progname = true;
 		  return 'u';
 		}
