@@ -1,3 +1,14 @@
+2002-06-13  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c [WIN32] (LANG_DIVEHI, LANG_GALICIAN, LANG_KYRGYZ,
+	LANG_MONGOLIAN, LANG_SYRIAC): Provide fallback definitions.
+	(_nl_locale_name): Add Amharic, Burmese, Cambodian, Cherokee, Divehi,
+	Edo, Frisian, Fulfulde, Gaelic, Guarani, Hausa, Hawaiian, Ibibio,
+	Igbo, Inuktitut, Kanuri, Kyrgyz, Lao, Latin, Maltese, Mongolian,
+	Oromo, Papiamentu, Pashto, Rhaeto-Romance, Sami, Sinhalese, Somali,
+	Syriac, Tagalog, Tajik, Tomazight, Tibetan, Tigrinya, Tsonga, Turkmen,
+	Venda, Welsh, Xhosa, Yi, Yiddish, Yoruba, Zulu. Fix Swahili, Tatar.
+
 2002-06-07  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (INTDIV0_RAISES_SIGFPE): Define a fallback.
@@ -11,6 +22,7 @@
 	_INTL_REDIRECT_MACROS, _INTL_ASM, _INTL_ASMNAME, _INTL_STRINGIFY):
 	New macros. Use them instead of plain preprocessor level indirection
 	when appropriate.
+	* intl-compat.c: Define _INTL_REDIRECT_MACROS.
 
 2002-05-28  Bruno Haible  <bruno@clisp.org>
 
