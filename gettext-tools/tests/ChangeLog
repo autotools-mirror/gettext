@@ -1,3 +1,10 @@
+2004-01-30  Bruno Haible  <bruno@clisp.org>
+
+	* format-c-5-prg.c (main): Return with exit code 77 when the requested
+	locale doesn't exist.
+	* format-c-5: Skip the test when the fa_IR locale doesn't exist.
+	Reported by Paul Jarc <prj@po.cwru.edu>.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.

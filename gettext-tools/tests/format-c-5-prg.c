@@ -50,7 +50,7 @@ main (int argc, char *argv[])
   if (setlocale (LC_ALL, "") == NULL)
     {
       fprintf (stderr, "Couldn't set locale.\n");
-      exit (1);
+      exit (77);
     }
 
   textdomain ("fc5");

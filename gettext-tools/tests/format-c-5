@@ -45,8 +45,12 @@ sed 1d < fa.po > fa.po.strip
 ${DIFF} fa.po.strip fa.po.tmp || exit 1
 
 LANGUAGE= ./fc5 fa_IR
-result=$?
+case $? in
+  0) ;;
+  77) rm -fr $tmpfiles; exit 77;;
+  *) exit 1;;
+esac
 
 rm -fr $tmpfiles
 
-exit $result
+exit 0
