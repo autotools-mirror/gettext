@@ -629,10 +629,38 @@ language_of_locale (locale)
 static const char *
 canonical_locale_charset ()
 {
+  const char *tmp;
+  char *old_LC_ALL;
   const char *charset;
 
-  /* Get the current locale's charset and canonicalize it.  */
-  charset = locale_charset ();
+  /* Save LC_ALL environment variable.  */
+
+  tmp = getenv ("LC_ALL");
+  old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
+
+  setenv ("LC_ALL", locale, 1);
+
+#ifdef HAVE_SETLOCALE
+  if (setlocale (LC_ALL, "") == NULL)
+    /* Nonexistent locale.  Use anything.  */
+    charset = "";
+  else
+#endif
+    /* Get the locale's charset.  */
+    charset = locale_charset ();
+
+  /* Restore LC_ALL environment variable.  */
+
+  if (old_LC_ALL != NULL)
+    setenv ("LC_ALL", old_LC_ALL, 1), free (old_LC_ALL);
+  else
+    unsetenv ("LC_ALL");
+
+#ifdef HAVE_SETLOCALE
+  setlocale (LC_ALL, "");
+#endif
+
+  /* Canonicalize it.  */
   charset = po_charset_canonicalize (charset);
   if (charset == NULL)
     charset = po_charset_ascii;
@@ -1350,6 +1378,10 @@ get_title ()
 
   encoding = canonical_locale_charset ();
 
+  /* First, the English title.  */
+  english = xasprintf ("%s translations for %%s package",
+		       englishname_of_language ());
+
   /* Save LC_ALL, LANGUAGE, OUTPUT_CHARSET environment variables.  */
 
   tmp = getenv ("LC_ALL");
@@ -1366,25 +1398,25 @@ get_title ()
   setenv ("OUTPUT_CHARSET", encoding, 1);
 
 #ifdef HAVE_SETLOCALE
-  setlocale (LC_ALL, "");
-#endif
-
-  /* First, the English title.  */
-  english = xasprintf ("%s translations for %%s package",
-		       englishname_of_language ());
-
-  /* Fetch the translation.  */
-  /* TRANSLATORS: "English" needs to be replaced by your language.
-     For example in it.po write "Traduzioni italiani ...",
-     *not* "Traduzioni inglesi ...".  */
-  msgid = N_("English translations for %s package");
-  result = gettext (msgid);
-  if (result != msgid && strcmp (result, msgid) != 0)
-    /* Use the English and the foreign title.  */
-    result = xasprintf ("%s\n%s", english, result);
-  else
-    /* No translation found.  Use the English title.  */
+  if (setlocale (LC_ALL, "") == NULL)
+    /* Nonexistent locale.  Use the English title.  */
     result = english;
+  else
+#endif
+    {
+      /* Fetch the translation.  */
+      /* TRANSLATORS: "English" needs to be replaced by your language.
+	 For example in it.po write "Traduzioni italiani ...",
+	 *not* "Traduzioni inglesi ...".  */
+      msgid = N_("English translations for %s package");
+      result = gettext (msgid);
+      if (result != msgid && strcmp (result, msgid) != 0)
+	/* Use the English and the foreign title.  */
+	result = xasprintf ("%s\n%s", english, result);
+      else
+	/* No translation found.  Use the English title.  */
+	result = english;
+    }
 
   /* Restore LC_ALL, LANGUAGE, OUTPUT_CHARSET environment variables.  */
 
