@@ -2593,13 +2593,14 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
   /* Number of left parentheses seen.  */
   int paren_seen = 0;
 
-  token_type_ty last_token = token_type_eof;
-
 #if DEBUG_PERL
   static int nesting_level = 0;
 
   ++nesting_level;
 #endif
+
+  last_token = token_type_semicolon;  /* Safe assumption.  */
+  prefer_division_over_regexp = false;
 
   for (;;)
     {
@@ -2915,9 +2916,6 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
-
-  last_token = token_type_semicolon;  /* Safe assumption.  */
-  prefer_division_over_regexp = false;
 
   init_keywords ();
 
