@@ -1,3 +1,17 @@
+2001-05-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.c (usage): Add description of what the program does.
+	Separate blocks with blank lines.
+	* ngettext.c (usage): Likewise.
+
+	* msgcmp.c (usage): Add a blank line after the first usage line.
+	Hardwire the blank line output.
+	* msgcomm.c (usage): Likewise.
+	* msgfmt.c (usage): Likewise.
+	* msgmerge.c (usage): Likewise.
+	* msgunfmt.c (usage): Likewise.
+	* xgettext.c (usage): Likewise.
+
 2001-05-05  Karl Eichwalder  <ke@suse.de>
 
 	* xgettext.c (read_name_from_file): Remove trailing space from line.

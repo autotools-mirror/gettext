@@ -248,7 +248,16 @@ usage (status)
     {
       /* xgettext: no-wrap */
       printf (_("\
-Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n\
+Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n\
+or:    %s [OPTION] -s [MSGID]...\n\
+"), program_name, program_name);
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Display native language translation of a textual message.\n"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
   -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n\
   -e                        enable expansion of some escape sequences\n\
   -E                        (ignored for compatibility)\n\
@@ -256,11 +265,10 @@ Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n\
   -n                        suppress trailing newline\n\
   -V, --version             display version information and exit\n\
   [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n\
-                            to MSGID from TEXTDOMAIN\n"),
-	      program_name);
+                            to MSGID from TEXTDOMAIN\n"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-\n\
 If the TEXTDOMAIN parameter is not given, the domain is determined from the\n\
 environment variable TEXTDOMAIN.  If the message catalog is not found in the\n\
 regular directory, another location can be specified with the environment\n\
@@ -269,6 +277,7 @@ When used with the -s option the program behaves like the `echo' command.\n\
 But it does not simply copy its arguments to stdout.  Instead those messages\n\
 found in the selected catalog are translated.\n\
 Standard search directory: %s\n"), LOCALEDIR);
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
     }
 

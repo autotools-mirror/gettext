@@ -378,6 +378,7 @@ usage (status)
       printf (_("\
 Usage: %s [OPTION] [INPUTFILE]...\n\
 "), program_name);
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Find messages which are common to two or more of the specified PO files.\n\
@@ -388,11 +389,13 @@ used to specify less commonality before messages are printed (i.e.\n\
 comments and extract comments will be preserved, but only from the first\n\
 PO file to define them.  File positions from all PO files will be\n\
 cumulated.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
@@ -400,7 +403,8 @@ Input file location:\n\
   -f, --files-from=FILE          get list of input files from FILE\n\
   -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
 If input file is -, standard input is read.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output file location:\n\
@@ -408,7 +412,8 @@ Output file location:\n\
   -o, --output=FILE              write output to specified file\n\
   -p, --output-dir=DIR           output files will be placed in directory DIR\n\
 If output file is -, output is written to standard output.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Message selection:\n\
@@ -419,7 +424,8 @@ Message selection:\n\
                                  definitions, defaults to 1 if not set\n\
   -u, --unique                   shorthand for --less-than=2, requests\n\
                                  that only unique messages be printed\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output details:\n\
@@ -434,13 +440,15 @@ Output details:\n\
   -s, --sort-output              generate sorted output and remove duplicates\n\
   -F, --sort-by-file             sort output by file location\n\
       --omit-header              don't write header with `msgid \"\"' entry\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Informative output:\n\
   -h, --help                     display this help and exit\n\
   -V, --version                  output version information and exit\n\
-\n"));
+"));
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

@@ -519,15 +519,18 @@ usage (status)
       printf (_("\
 Usage: %s [OPTION] [INPUTFILE]...\n\
 "), program_name);
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-Extract translatable string from given input files.\n\
-\n"));
+Extract translatable strings from given input files.\n\
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
 Similarly for optional arguments.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
@@ -535,7 +538,8 @@ Input file location:\n\
   -f, --files-from=FILE          get list of input files from FILE\n\
   -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
 If input file is -, standard input is read.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output file location:\n\
@@ -543,14 +547,16 @@ Output file location:\n\
   -o, --output=FILE              write output to specified file\n\
   -p, --output-dir=DIR           output files will be placed in directory DIR\n\
 If output file is -, output is written to standard output.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Choice of input file language:\n\
   -L, --language=NAME            recognise the specified language (C, C++, PO)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Operation mode:\n\
@@ -558,7 +564,8 @@ Operation mode:\n\
   -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n\
   -c, --add-comments[=TAG]       place comment block with TAG (or those\n\
                                  preceding keyword lines) in output file\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Language=C/C++ specific options:\n\
@@ -567,7 +574,8 @@ Language=C/C++ specific options:\n\
                                  WORD means not to use default keywords)\n\
   -T, --trigraphs                understand ANSI C trigraphs for input\n\
       --debug                    more detailed formatstring recognition result\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output details:\n\
@@ -585,13 +593,15 @@ Output details:\n\
       --foreign-user             omit FSF copyright in output for foreign user\n\
   -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
   -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Informative output:\n\
   -h, --help                     display this help and exit\n\
   -V, --version                  output version information and exit\n\
-\n"));
+"));
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

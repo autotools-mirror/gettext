@@ -216,27 +216,32 @@ usage (status)
       printf (_("\
 Usage: %s [OPTION] [FILE]...\n\
 "), program_name);
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Convert binary message catalog to Uniforum style .po file.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
   FILE ...                 input .mo files\n\
 If no input file is given or if it is -, standard input is read.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output file location:\n\
   -o, --output-file=FILE   write output to specified file\n\
 The results are written to standard output if no output file is specified\n\
 or if it is -.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output details:\n\
@@ -247,13 +252,15 @@ Output details:\n\
       --strict             write strict uniforum style\n\
   -w, --width=NUMBER       set output page width\n\
   -s, --sort-output        generate sorted output and remove duplicates\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Informative output:\n\
   -h, --help               display this help and exit\n\
   -V, --version            output version information and exit\n\
-\n"));
+"));
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

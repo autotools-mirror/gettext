@@ -390,40 +390,47 @@ usage (status)
       printf (_("\
 Usage: %s [OPTION] filename.po ...\n\
 "), program_name);
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Generate binary message catalog from textual translation description.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
   filename.po ...             input files\n\
   -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
 If input file is -, standard input is read.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output file location:\n\
   -o, --output-file=FILE      write output to specified file\n\
       --strict                enable strict Uniforum mode\n\
 If output file is -, output is written to standard output.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Input file interpretation:\n\
   -c, --check                 perform language dependent checks on strings\n\
   -f, --use-fuzzy             use fuzzy entries in output\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output details:\n\
   -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n\
       --no-hash               binary file will not include the hash table\n\
-\n"), DEFAULT_OUTPUT_ALIGNMENT);
+"), DEFAULT_OUTPUT_ALIGNMENT);
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Informative output:\n\
@@ -432,7 +439,8 @@ Informative output:\n\
       --statistics            print statistics about translations\n\
   -v, --verbose               list input file anomalies\n\
 Giving the -v option more than once increases the verbosity level.\n\
-\n"));
+"));
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
     }
 

@@ -268,6 +268,7 @@ usage (status)
       printf (_("\
 Usage: %s [OPTION] def.po ref.pot\n\
 "), program_name);
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Merges two Uniforum style .po files together.  The def.po file is an\n\
@@ -279,11 +280,13 @@ old translations, or a PO Template file (generally created by xgettext);\n\
 any translations or comments in the file will be discarded, however dot\n\
 comments and file positions will be preserved.  Where an exact match\n\
 cannot be found, fuzzy matching is used to produce better results.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Input file location:\n\
@@ -292,14 +295,16 @@ Input file location:\n\
   -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
   -C, --compendium=FILE       additional library of message translations,\n\
                               may be specified more than once\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output file location:\n\
   -o, --output-file=FILE      write output to specified file\n\
 The results are written to standard output if no output file is specified\n\
 or if it is -.\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Output details:\n\
@@ -313,7 +318,8 @@ Output details:\n\
   -w, --width=NUMBER          set output page width\n\
   -s, --sort-output           generate sorted output and remove duplicates\n\
   -F, --sort-by-file          sort output by file location\n\
-\n"));
+"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
 Informative output:\n\
@@ -321,7 +327,8 @@ Informative output:\n\
   -V, --version               output version information and exit\n\
   -v, --verbose               increase verbosity level\n\
   -q, --quiet, --silent       suppress progress indicators\n\
-\n"));
+"));
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"),
 	     stdout);
     }

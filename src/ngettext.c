@@ -208,6 +208,15 @@ usage (status)
       /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n\
+"), program_name);
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Display native language translation of a textual message whose grammatical\n\
+form depends on a number.\n"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
   -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n\
   -e                        enable expansion of some escape sequences\n\
   -E                        (ignored for compatibility)\n\
@@ -215,16 +224,16 @@ Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n\
   -V, --version             display version information and exit\n\
   [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n\
   MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n\
-  COUNT                     choose singular/plural form based on this value\n"),
-	      program_name);
+  COUNT                     choose singular/plural form based on this value\n"));
+      printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-\n\
 If the TEXTDOMAIN parameter is not given, the domain is determined from the\n\
 environment variable TEXTDOMAIN.  If the message catalog is not found in the\n\
 regular directory, another location can be specified with the environment\n\
 variable TEXTDOMAINDIR.\n\
 Standard search directory: %s\n"), LOCALEDIR);
+      printf ("\n");
       fputs (_("Report bugs to <bug-gnu-utils@gnu.org>.\n"), stdout);
     }
 
