@@ -4,11 +4,11 @@ Tasks not to forget before release:
   Translation Project.
 
 - Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
-- Update intl/locale.alias from glibc's intl/locale.alias.
-- Update {lib,intl}/{localcharset.c,config.charset} from libcharset inside
-  libiconv.
+- Update gettext-runtime/intl/locale.alias from glibc's intl/locale.alias.
+- Update {gettext-tools/lib,gettext-runtime/intl}/{localcharset.h,localcharset.c,config.charset}
+  from libcharset inside libiconv.
 
-- Update -version-info arguments in intl/Makefile.in.
+- Update -version-info arguments in gettext-runtime/intl/Makefile.in.
   * increment LTV_REVISION,
   * if any functions/classes have been added, removed or changed, increment
     LTV_CURRENT and set LTV_REVISION to 0,
@@ -17,7 +17,7 @@ Tasks not to forget before release:
 
 - Remove README-alpha from EXTRA_DIST in Makefile.am.
 
-- Bump po-mode-version-string in misc/po-mode.el.
+- Bump po-mode-version-string in gettext-tools/misc/po-mode.el.
 
 - Bump version number and release date in configure.in.
 
