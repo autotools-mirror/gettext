@@ -109,6 +109,7 @@ OBJECTS = \
   concatpath.obj \
   pipe.obj \
   progname.obj progreloc.obj \
+  quote.obj \
   quotearg.obj \
   safe-read.obj \
   safe-write.obj \
@@ -229,6 +230,9 @@ progname.obj : progname.c
 
 progreloc.obj : progreloc.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c progreloc.c
+
+quote.obj : quote.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c quote.c
 
 quotearg.obj : quotearg.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c quotearg.c

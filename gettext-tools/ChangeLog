@@ -1,5 +1,9 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gl_QUOTE.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_EXITFAIL.
 
 2005-01-06  Bruno Haible  <bruno@clisp.org>

@@ -65,6 +65,7 @@ libgettextlib_la_SOURCES = \
   pathname.h concatpath.c \
   pipe.h pipe.c w32spawn.h \
   progname.h progname.c progreloc.c \
+  quote.h quote.c \
   quotearg.h quotearg.c \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \

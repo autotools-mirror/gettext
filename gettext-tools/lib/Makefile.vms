@@ -67,6 +67,7 @@ OBJECTS = \
   concatpath.obj, \
   pipe.obj, \
   progname.obj, progreloc.obj, \
+  quote.obj, \
   quotearg.obj, \
   safe-read.obj, \
   safe-write.obj, \
@@ -190,6 +191,9 @@ progname.obj : progname.c
 
 progreloc.obj : progreloc.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) progreloc.c
+
+quote.obj : quote.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) quote.c
 
 quotearg.obj : quotearg.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) quotearg.c
