@@ -1,5 +1,16 @@
 2000-06-16  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.in (COMSRCS): Add localcharset.c.
+	(OBJECTS): Add localcharset.$lo.
+	(DEFS): Add -DLIBDIR.
+	(all-yes): Add charset.alias, ref-{add,del}.sed.
+	(.SUFFIXES): Add .sin and .sed.
+	(.sin.sed, charset.alias): New rules.
+	(install-exec, uninstall): Install/deinstall charset.alias.
+	* localcharset.c: New file, from fileutils-4.0u.
+	* config.charset: New file, from fileutils-4.0u.
+	* red-add.sin, ref-del.sin: New files, from fileutils-4.0u.
+
 	* intlh.inst.in (bind_textdomain_codeset): New declaration.
 	* libgettext.h (bind_textdomain_codeset, bind_textdomain_codeset__):
 	New declarations.

@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling in GNU NLS Utilities.
-# Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ YACC = @YACC@ -d
 YFLAGS = --name-prefix=__gettext
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
--DLOCALE_ALIAS_PATH=\"$(aliaspath)\" @DEFS@
+-DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DLIBDIR=\"$(libdir)\" @DEFS@
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@
@@ -63,11 +63,12 @@ COMHDRS = gettext.h gettextP.h hash-string.h
 SOURCES = $(COMSRCS) intl-compat.c cat-compat.c
 COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
 finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
-explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y
+explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
+localcharset.c
 OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
 finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
-plural.$lo
+plural.$lo localcharset.$lo
 CATOBJS = cat-compat.$lo ../po/cat-id-tbl.$lo
 GETTOBJS = intl-compat.$lo
 DISTFILES.common = ChangeLog Makefile.in linux-msg.sed po2tbl.sed.in \
@@ -76,7 +77,7 @@ DISTFILES.normal = VERSION
 DISTFILES.gettext = libintl.glibc intlh.inst.in plural.c
 
 .SUFFIXES:
-.SUFFIXES: .y .c .o .lo
+.SUFFIXES: .y .c .o .lo .sin .sed
 .c.o:
 	$(COMPILE) $<
 .c.lo:
@@ -85,11 +86,15 @@ DISTFILES.gettext = libintl.glibc intlh.inst.in plural.c
 .y.c:
 	$(YACC) $(YFLAGS) --output $@ $^
 
+.sin.sed:
+	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $< > t-$@
+	mv t-$@ $@
+
 INCLUDES = -I.. -I. -I$(top_srcdir)/intl -I$(top_srcdir)/lib
 
 all: all-@USE_INCLUDED_LIBINTL@
 
-all-yes: libintl.$la intlh.inst
+all-yes: libintl.$la intlh.inst charset.alias ref-add.sed ref-del.sed
 all-no:
 
 libintl.a: $(OBJECTS)
@@ -103,6 +108,10 @@ libintl.la: $(OBJECTS)
 
 ../po/cat-id-tbl.$lo: ../po/cat-id-tbl.c $(top_srcdir)/po/$(PACKAGE).pot
 	cd ../po && $(MAKE) cat-id-tbl.$lo
+
+charset.alias: config.charset
+	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
+	mv t-$@ $@
 
 check: all
 
@@ -128,6 +137,20 @@ install-exec: all
 	  $(INSTALL_DATA) libintl.a $(libdir)/libintl.a; \
 	else \
 	  : ; \
+	fi; \
+	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
+	  if test -r $(MKINSTALLDIRS); then \
+	    $(MKINSTALLDIRS) $(libdir); \
+	  else \
+	    $(top_srcdir)/mkinstalldirs $(libdir); \
+	  fi; \
+	  test -f $(libdir)/charset.alias && orig=$(libdir)/charset.alias \
+					  || orig=charset.alias; \
+	  sed -f ref-add.sed $$orig > $(libdir)/t-charset.alias; \
+	  $(INSTALL_DATA) $(libdir)/t-charset.alias $(libdir)/charset.alias; \
+	  rm -f $(libdir)/t-charset.alias; \
+	else \
+	  : ; \
 	fi
 install-data: all
 	if test "$(PACKAGE)" = "gettext"; then \
@@ -141,6 +164,18 @@ install-data: all
 	  for file in $$dists; do \
 	    $(INSTALL_DATA) $(srcdir)/$$file $(gettextsrcdir)/$$file; \
 	  done; \
+	else \
+	  : ; \
+	fi; \
+	if test '@USE_INCLUDED_LIBINTL@' = yes \
+	  && test -f $(libdir)/charset.alias; then \
+	  sed -f ref-del.sed $(libdir)/charset.alias > $(libdir)/t-charset.alias; \
+	  if grep '^# Packages using this file: $$' $(libdir)/t-charset.alias > /dev/null; then \
+	    rm -f $(libdir)/t-charset.alias; \
+	  else \
+	    $(INSTALL_DATA) $(libdir)/t-charset.alias $(libdir)/charset.alias; \
+	  fi; \
+	  rm -f $(libdir)/t-charset.alias; \
 	else \
 	  : ; \
 	fi
