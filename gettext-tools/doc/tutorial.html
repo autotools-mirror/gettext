@@ -19,13 +19,16 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 <META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-1.4">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
+<!--
 <LINK REL="STYLESHEET" HREF="memo.css">
+-->
 
 </HEAD>
 
 <BODY >
 
-<DIV CLASS="navigation"><!--Navigation Panel-->
+<!--Navigation Panel
+<DIV CLASS="navigation">
 <IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
  SRC="file:/usr/share/latex2html/icons/nx_grp_g.png"> 
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
@@ -34,7 +37,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  SRC="file:/usr/share/latex2html/icons/prev_g.png">   
 <BR>
 <BR><BR></DIV>
-<!--End of Navigation Panel-->
+End of Navigation Panel-->
 
 <H1 ALIGN="CENTER">A tutorial on Native Language Support using GNU gettext</H1><DIV CLASS="author_info">
 
@@ -182,11 +185,11 @@ Extracting translatable strings</A>
   Now, it is time to extract the strings to be translated from the program
 source code. This is achieved with <TT>xgettext</TT>, which can be invoked as follows:
 <PRE><FONT color="red">
-  xgettext -d hello -s -o hello.pot hello.c
+  xgettext -d hello -o hello.pot hello.c
 </FONT></PRE>
 This processes the source code in hello.c, saving the output in hello.pot (the
-argument to the -o option). The -s option tells <TT>xgettext</TT> to produce sorted
-output. The message domain for the program should be specified as the argument
+argument to the -o option).
+The message domain for the program should be specified as the argument
 to the -d option, and should match the domain specified in the call to
 <TT>textdomain</TT> (on line 9 of the program source). Other details on how to use
 <TT>gettext</TT> can be found from ``man gettext.''
@@ -457,14 +460,14 @@ Merging old and new translations</A>
   As before, extract the translatable strings from hello.c to a new portable
 object template file, hello-new.pot, using <TT>xgettext</TT>,
 <PRE><FONT color="red">
-  xgettext -d hello -s -o hello-new.pot hello.c
+  xgettext -d hello -o hello-new.pot hello.c
 </FONT></PRE>
 Now, we use a new program, <TT>msgmerge</TT>, to merge the existing .po file with
 translations into the new template file, viz.,
 <PRE><FONT color="red">
-  msgmerge -s -U oriya.po hello-new.pot
+  msgmerge -U oriya.po hello-new.pot
 </FONT></PRE>
-The -s option produces sorted output, and the -U option updates the existing
+The -U option updates the existing
 .po file, oriya.po. We could have chosen to instead create a new .po file by
 using ``-o <SPAN CLASS="MATH">&lt;</SPAN>filename<SPAN CLASS="MATH">&gt;</SPAN>'' instead of -U. The updated .po file will still
 have the old translations embedded in it, and new entries with untranslated
@@ -713,7 +716,8 @@ The command line arguments were: <BR>
 <P>
 The translation was initiated by Gora Mohanty on 2004-07-24
 <DIV CLASS="navigation"><HR>
-<!--Navigation Panel-->
+
+<!--Navigation Panel
 <IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
  SRC="file:/usr/share/latex2html/icons/nx_grp_g.png"> 
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
@@ -721,7 +725,8 @@ The translation was initiated by Gora Mohanty on 2004-07-24
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
  SRC="file:/usr/share/latex2html/icons/prev_g.png">   
 <BR></DIV>
-<!--End of Navigation Panel-->
+End of Navigation Panel-->
+
 <ADDRESS>
 Gora Mohanty
 2004-07-24
