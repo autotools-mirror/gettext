@@ -1,3 +1,8 @@
+2004-03-23  Bruno Haible  <bruno@clisp.org>
+
+	* nls.texi: Small wording fixes,
+	from Wesley J. Landaker <wjl@icecavern.net>.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.

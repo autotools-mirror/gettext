@@ -5,8 +5,8 @@
 
 Free software is going international!  The Free Translation Project is
 a way to get maintainers of free software, translators, and users all
-together, so that will gradually become able to speak many languages.
-A few packages already provide translations for their messages.
+together, so that free software will gradually become able to speak many
+languages.  A few packages already provide translations for their messages.
 
 If you found this @file{ABOUT-NLS} file inside a distribution, you
 may assume that the distributed package does use GNU @code{gettext}
@@ -17,7 +17,7 @@ installing or using this package with messages translated.
 Installers will find here some useful hints.  These notes also explain
 how users should proceed for getting the programs to use the available
 translations.  They tell how people wanting to contribute and work
-at translations should contact the appropriate team.
+on translations can contact the appropriate team.
 
 When reporting bugs in the @file{intl/} directory or bugs which may
 be related to internationalization, you should tell about the version
@@ -71,8 +71,8 @@ own ways to internationalization, predating GNU @code{gettext}.
 
 By default, this package will be installed to allow translation of
 messages.  It will automatically detect whether the system already
-provides the GNU @code{gettext} functions.  If not, the GNU
-@code{gettext} own library will be used.  This library is wholly
+provides the GNU @code{gettext} functions.  If not, the included GNU
+@code{gettext} library will be used.  This library is wholly
 contained within this package, usually in the @file{intl/} subdirectory,
 so prior installation of the GNU @code{gettext} package is @emph{not}
 required.  Installers may use special options at configuration time for
@@ -84,14 +84,14 @@ changing the default behaviour.  The commands:
 @end example
 
 @noindent
-will respectively bypass any pre-existing @code{gettext} to use the
+will, respectively, bypass any pre-existing @code{gettext} to use the
 internationalizing routines provided within this package, or else,
 @emph{totally} disable translation of messages.
 
 When you already have GNU @code{gettext} installed on your system and
 run configure without an option for your new package, @code{configure}
 will probably detect the previously built and installed @file{libintl.a}
-file and will decide to use this.  This might be not what is desirable.
+file and will decide to use this.  This might not be desirable.
 You should use the more recent version of the GNU @code{gettext}
 library.  I.e. if the file @file{intl/VERSION} shows that the library
 which comes with this package is more recent, you should use
@@ -108,7 +108,7 @@ and therefore it will not be used.  The reason is that even an
 emulation of @code{gettext} on top of @code{catgets} could not provide
 all the extensions of the GNU @code{gettext} library.
 
-Internationalized packages have usually many @file{po/@var{ll}.po}
+Internationalized packages usually have many @file{po/@var{ll}.po}
 files, where @var{ll} gives an @w{ISO 639} two-letter code
 identifying the language.  Unless translations have been forbidden
 at @code{configure} time by using the @samp{--disable-nls} switch,
