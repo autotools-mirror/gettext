@@ -1,5 +1,12 @@
 2003-04-05  Bruno Haible  <bruno@clisp.org>
 
+	* canonicalize.m4 (gl_CANONICALIZE): Use AC_CHECK_FUNCS, so that
+	HAVE_CANONICALIZE_FILE_NAME gets defined.
+	* error.m4 (jm_PREREQ_ERROR): New macro.
+	(gt_FUNC_ERROR_AT_LINE): Invoke it.
+
+2003-04-05  Bruno Haible  <bruno@clisp.org>
+
 	* relocatable.m4 (AC_RELOCATABLE_LIBRARY): Use the final value of
 	${prefix}, not the current value.
 

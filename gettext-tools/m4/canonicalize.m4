@@ -10,12 +10,13 @@ AC_DEFUN([gl_CANONICALIZE],
 [
   dnl Do this replacement check manually because the file name is shorter
   dnl than the function name.
-  AC_CHECK_FUNC(canonicalize_file_name, , [
+  AC_CHECK_FUNCS(canonicalize_file_name)
+  if test $ac_cv_func_canonicalize_file_name = no; then
     AC_LIBOBJ(canonicalize)
     AC_DEFINE([realpath], [rpl_realpath],
       [Define to a replacement function name for realpath().])
     gl_PREREQ_CANONICALIZE
-  ])
+  fi
 ])
 
 # Prerequisites of lib/canonicalize.c.
