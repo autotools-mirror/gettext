@@ -1,0 +1,2746 @@
+# Catalan messages for gettext.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gettext 0.11.5\n"
+"POT-Creation-Date: 2003-01-29 13:56+0100\n"
+"PO-Revision-Date: 2002-08-08 22:00+0200\n"
+"Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
+"Language-Team: Catalan <ca@dodds.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/argmatch.c:120
+#, c-format
+msgid "invalid argument `%s' for `%s'"
+msgstr "l'argument «%s» no és vàlid per «%s»"
+
+#: lib/argmatch.c:121
+#, c-format
+msgid "ambiguous argument `%s' for `%s'"
+msgstr "l'argument «%s» és ambigu per «%s»"
+
+#: lib/argmatch.c:139
+msgid "Valid arguments are:"
+msgstr "Els arguments vàlids són:"
+
+#: lib/copy-file.c:63 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
+#: src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901 src/xgettext.c:911
+#, c-format
+msgid "error while opening \"%s\" for reading"
+msgstr "error en obrir «%s» per llegir"
+
+#: lib/copy-file.c:70
+#, c-format
+msgid "cannot open backup file \"%s\" for writing"
+msgstr "no s'ha pogut obrir el fitxer còpia de seguretat «%s» per escriure"
+
+#: lib/copy-file.c:83 src/urlget.c:207
+#, c-format
+msgid "error reading \"%s\""
+msgstr "error en llegir «%s»"
+
+#: lib/copy-file.c:89 lib/copy-file.c:93
+#, c-format
+msgid "error writing \"%s\""
+msgstr "error en escriure «%s»"
+
+#: lib/copy-file.c:95 src/urlget.c:217
+#, c-format
+msgid "error after reading \"%s\""
+msgstr "error després d'haver llegit «%s»"
+
+#: lib/error.c:112
+msgid "Unknown system error"
+msgstr "Error desconegut del sistema"
+
+#: lib/execute.c:150 lib/execute.c:185 lib/pipe-bidi.c:143 lib/pipe-bidi.c:178
+#: lib/pipe-in.c:150 lib/pipe-in.c:186 lib/pipe-out.c:150 lib/pipe-out.c:186
+#: lib/wait-process.c:129
+#, c-format
+msgid "%s subprocess failed"
+msgstr "el subprocés «%s» ha fallat"
+
+#: lib/getopt.c:689 lib/getopt.c:701
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: l'opció «%s» és ambígua\n"
+
+#: lib/getopt.c:734 lib/getopt.c:738
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: l'opció «--%s» no admet arguments\n"
+
+#: lib/getopt.c:747 lib/getopt.c:752
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: l'opció «%c%s» no admet arguments\n"
+
+#: lib/getopt.c:788 lib/getopt.c:801 lib/getopt.c:1090 lib/getopt.c:1103
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: l'opció «%s» necessita un argument\n"
+
+#: lib/getopt.c:839 lib/getopt.c:842
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: l'opció «--%s» no és reconeguda\n"
+
+#: lib/getopt.c:850 lib/getopt.c:853
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: l'opció «%c%s» no és reconeguda\n"
+
+#: lib/getopt.c:900 lib/getopt.c:903
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: no es permet l'opció «%c»\n"
+
+#: lib/getopt.c:909 lib/getopt.c:912
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: l'opció «%c» no és vàlida\n"
+
+#: lib/getopt.c:959 lib/getopt.c:970 lib/getopt.c:1156 lib/getopt.c:1169
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: l'opció «%c» necessita un argument\n"
+
+#: lib/getopt.c:1022 lib/getopt.c:1033
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: l'opció «-W %s» és ambígua\n"
+
+#: lib/getopt.c:1057 lib/getopt.c:1069
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: l'opció «-W %s» no admet arguments\n"
+
+#: lib/javacomp.c:456
+msgid "Java compiler not found, try installing gcj or set $JAVAC"
+msgstr ""
+"no s'ha trobat cap compil·lador de Java, instal·leu «gcj» o establiu «$JAVAC»"
+
+#: lib/javaexec.c:404
+msgid "Java virtual machine not found, try installing gij or set $JAVA"
+msgstr ""
+"no s'ha trobat cap màquina virtual Java, instal·leu «gij» o establiu «$JAVA»"
+
+#: lib/obstack.c:491 lib/obstack.c:494 lib/xerror.c:50 lib/xmalloc.c:47
+#: src/po-lex.c:88 src/po-lex.c:117
+msgid "memory exhausted"
+msgstr "la memòria s'ha exhaurit"
+
+#: lib/pipe-bidi.c:106 lib/pipe-bidi.c:108 lib/pipe-in.c:117
+#: lib/pipe-out.c:117
+msgid "cannot create pipe"
+msgstr "no s'ha pogut crear una canonada"
+
+#: lib/wait-process.c:107
+#, c-format
+msgid "%s subprocess"
+msgstr "subprocés «%s»"
+
+#: lib/wait-process.c:121
+#, c-format
+msgid "%s subprocess got fatal signal %d"
+msgstr "el subprocés «%s» ha rebut el senyal fatal %d"
+
+#: src/format-c.c:738 src/format-python.c:484
+#, c-format
+msgid "number of format specifications in 'msgid' and '%s' does not match"
+msgstr "el nombre d'especificacions de format en «msgid» i «%s» no coincideix"
+
+#: src/format-c.c:752 src/format-elisp.c:367 src/format-librep.c:331
+#: src/format-pascal.c:421 src/format-python.c:498
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument %u are not the same"
+msgstr ""
+"les especificacions de format en «msgid» i «%s» de l'argument %u no són les "
+"mateixes"
+
+#: src/format-elisp.c:327 src/format-librep.c:291 src/format-pascal.c:381
+#: src/format-ycp.c:126
+#, c-format
+msgid ""
+"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
+msgstr ""
+"no existeix una especificació de format, com en «%2$s», de l'argument %1$u "
+"en «msgid»"
+
+#: src/format-elisp.c:342 src/format-librep.c:306 src/format-pascal.c:396
+#: src/format-ycp.c:125
+#, c-format
+msgid "a format specification for argument %u doesn't exist in '%s'"
+msgstr "no existeix una especificació de format de l'argument %u en «%s»"
+
+#: src/format-java.c:632
+#, c-format
+msgid ""
+"a format specification for argument {%u}, as in '%s', doesn't exist in "
+"'msgid'"
+msgstr ""
+"no existeix una especificació de format, com en «%2$s», de l'argument {%1$u} "
+"en «msgid»"
+
+#: src/format-java.c:647
+#, c-format
+msgid "a format specification for argument {%u} doesn't exist in '%s'"
+msgstr "no existeix una especificació de format de l'argument {%u} en «%s»"
+
+#: src/format-java.c:672
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument {%u} are not the same"
+msgstr ""
+"les especificacions de format en «msgid» i «%s» de l'argument {%u} no són "
+"les mateixes"
+
+#: src/format-lisp.c:3212
+#, c-format
+msgid "format specifications in 'msgid' and '%s' are not equivalent"
+msgstr "les especificacions de format en «msgid» i «%s» no són equivalents"
+
+#: src/format-lisp.c:3233
+#, c-format
+msgid "format specifications in '%s' are not a subset of those in 'msgid'"
+msgstr ""
+"les especificacions de format de «%s» no són un subconjunt de les de «msgid»"
+
+#: src/format-python.c:375
+#, c-format
+msgid ""
+"format specifications in 'msgid' expect a mapping, those in '%s' expect a "
+"tuple"
+msgstr ""
+"les especificacions de format de «msgid» necessiten un mapa, les de «%s» una "
+"tupla"
+
+#: src/format-python.c:387
+#, c-format
+msgid ""
+"format specifications in 'msgid' expect a tuple, those in '%s' expect a "
+"mapping"
+msgstr ""
+"les especificacions de format de «msgid» necessiten una tupla, les de «%s» "
+"un mapa"
+
+#: src/format-python.c:415
+#, c-format
+msgid ""
+"a format specification for argument '%s', as in '%s', doesn't exist in "
+"'msgid'"
+msgstr ""
+"no existeix una especificació de format, com en «%2$s», de l'argument «%1$s» "
+"en «msgid»"
+
+#: src/format-python.c:430
+#, c-format
+msgid "a format specification for argument '%s' doesn't exist in '%s'"
+msgstr "no existeix una especificació de format de l'argument «%s» en «%s»"
+
+#: src/format-python.c:456
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument '%s' are not the same"
+msgstr ""
+"les especificacions de format en «msgid» i «%s» de l'argument «%s» no són "
+"les mateixes"
+
+#: src/gettext.c:132 src/hostname.c:171 src/msgattrib.c:267 src/msgcat.c:235
+#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177
+#: src/msgexec.c:159 src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285
+#: src/msginit.c:230 src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213
+#: src/ngettext.c:123 src/urlget.c:128 src/xgettext.c:397
+#, c-format, no-wrap
+msgid ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"Aquest és programari lliure; vegeu el codi font per les condicions\n"
+"de còpia.  No hi ha CAP garantia; ni tan sols de COMERCIABILITAT o\n"
+"ADEQUACIÓ A UN PROPÒSIT PARTICULAR.\n"
+
+#: src/gettext.c:137 src/hostname.c:176 src/msgattrib.c:272 src/msgcat.c:240
+#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182
+#: src/msgexec.c:164 src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290
+#: src/msginit.c:235 src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218
+#: src/ngettext.c:128 src/urlget.c:133 src/xgettext.c:402
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Escrit per %s.\n"
+
+#: src/gettext.c:155 src/hostname.c:186 src/msginit.c:245 src/ngettext.c:140
+msgid "too many arguments"
+msgstr "sobren arguments"
+
+#: src/gettext.c:165 src/ngettext.c:152
+msgid "missing arguments"
+msgstr "manquen arguments"
+
+#: src/gettext.c:236 src/hostname.c:199 src/msgattrib.c:324 src/msgcat.c:295
+#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232
+#: src/msgexec.c:216 src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394
+#: src/msginit.c:320 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
+#: src/ngettext.c:206 src/urlget.c:156 src/xgettext.c:593
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Proveu «%s --help» per obtenir més informació.\n"
+
+#: src/gettext.c:241
+#, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+"or:    %s [OPTION] -s [MSGID]...\n"
+msgstr ""
+"Forma d'ús: %s [OPCIÓ] [[DOMINITEXTUAL] IDMSG]\n"
+"         o: %s [OPCIÓ] -s [IDMSG]...\n"
+
+#: src/gettext.c:247
+#, no-wrap
+msgid "Display native language translation of a textual message.\n"
+msgstr "Mostra la traducció a llengua nativa d'un missatge textual.\n"
+
+#: src/gettext.c:251
+#, no-wrap
+msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -n                        suppress trailing newline\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+"                            to MSGID from TEXTDOMAIN\n"
+msgstr ""
+"  -d, --domain=DOMINITEXTUAL   obté els missatges traduïts del DOMINITEXTUAL\n"
+"  -e                           habilita l'expansió d'algunes seqüències\n"
+"                               d'escapada\n"
+"  -E                           (descartat, per compatibilitat)\n"
+"  -h, --help                   mostra aquesta ajuda i ix\n"
+"  -n                           elimina el caràcter de nova línia final\n"
+"  -V, --version                mostra informació sobre la versió i ix\n"
+"  [DOMINITEXTUAL] IDMSG        obté el missatge traduït corresponent\n"
+"                               a l'IDMSG del DOMINITEXTUAL\n"
+
+#: src/gettext.c:262
+#, c-format, no-wrap
+msgid ""
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
+"But it does not simply copy its arguments to stdout.  Instead those messages\n"
+"found in the selected catalog are translated.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"Si no s'especifica el paràmetre «DOMINITEXTUAL» es determinarà el domini\n"
+"amb la variable d'entorn «TEXTDOMAIN».  Si el catàleg de missatges no es\n"
+"troba en el directori habitual, es pot especificar una altra ubicació amb\n"
+"la variable d'entorn «TEXTDOMAINDIR».\n"
+"Quan s'usa l'opció «-s» el programa es comporta com l'ordre «echo».  Però,\n"
+"no només còpia els seus arguments en l'eixida estàndard, sinò que tradueix\n"
+"els missatges que troba en el catàleg seleccionat.\n"
+"Directori estàndard de recerca: %s\n"
+
+#: src/gettext.c:273 src/hostname.c:229 src/msgattrib.c:406 src/msgcat.c:378
+#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294
+#: src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484
+#: src/msginit.c:373 src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350
+#: src/ngettext.c:240 src/urlget.c:178 src/xgettext.c:698
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Informeu dels errors a <bug-gnu-gettext@gnu.org>.\n"
+
+#: src/hostname.c:204 src/msginit.c:325
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION]\n"
+msgstr "Forma d'ús: %s [OPCIÓ]\n"
+
+#: src/hostname.c:209
+#, no-wrap
+msgid "Print the machine's hostname.\n"
+msgstr "Mostra el nom d'estació de la màquina.\n"
+
+#: src/hostname.c:214
+#, no-wrap
+msgid ""
+"Output format:\n"
+"  -s, --short           short host name\n"
+"  -f, --fqdn, --long    long host name, includes fully qualified domain name,\n"
+"                          and aliases\n"
+"  -i, --ip-address      addresses for the hostname\n"
+msgstr ""
+"Format de l'eixida:\n"
+"  -s, --short          nom curt de l'estació\n"
+"  -f, --fqdn, --long   nom llarg de l'estació, inclou el nom de domini\n"
+"                       completament qualificat i els àlies\n"
+"  -i, --ip-address     adreces corresponents al nom d'estació\n"
+
+#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:307
+#: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
+#: src/msginit.c:367 src/urlget.c:172
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+msgstr ""
+"Eixida informativa:\n"
+"  -h, --help                  mostra aquesta ajuda i ix\n"
+"  -V, --version               mostra informació sobre la versió i ix\n"
+
+#: src/hostname.c:244 src/hostname.c:251
+msgid "could not get host name"
+msgstr "no s'ha pogut obtenir el nom d'estació"
+
+#: src/msgattrib.c:287 src/msgconv.c:208 src/msgexec.c:139 src/msgfilter.c:184
+#: src/msggrep.c:305 src/msginit.c:184 src/msguniq.c:233
+msgid "at most one input file allowed"
+msgstr "es permet com a molt un fitxer d'entrada"
+
+#: src/msgattrib.c:293 src/msgattrib.c:297 src/msgcat.c:250 src/msgcat.c:254
+#: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:214 src/msgconv.c:218
+#: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
+#: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
+#: src/msggrep.c:315 src/msgmerge.c:298 src/msgmerge.c:319 src/msgmerge.c:323
+#: src/msgunfmt.c:220 src/msguniq.c:239 src/msguniq.c:243 src/xgettext.c:412
+#: src/xgettext.c:416
+#, c-format
+msgid "%s and %s are mutually exclusive"
+msgstr "«%s» i «%s» són mútuament excloents"
+
+#: src/msgattrib.c:329 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [INPUTFILE]\n"
+msgstr "Forma d'ús: %s [OPCIÓ] [FITXERENTRADA]\n"
+
+#: src/msgattrib.c:334
+#, no-wrap
+msgid ""
+"Filters the messages of a translation catalog according to their attributes,\n"
+"and manipulates the attributes.\n"
+msgstr ""
+"Filtra els missatges d'un catàleg de traduccions segons els seus atributs,\n"
+"i manipula aquests atributs.\n"
+
+#: src/msgattrib.c:340 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
+#: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
+#: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:408
+#: src/msgunfmt.c:329 src/msguniq.c:296
+#, no-wrap
+msgid "Mandatory arguments to long options are mandatory for short options too.\n"
+msgstr ""
+"Els arguments obligatoris per les opcions llargues també ho són\n"
+"per les opcions curtes corresponents.\n"
+
+#: src/msgattrib.c:345 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE                   input PO file\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  FITXERENTRADA               fitxer PO d'entrada\n"
+"  -D, --directory=DIRECTORI   afig el DIRECTORI a la llista de recerca\n"
+"                              de fitxers d'entrada\n"
+"Si no s'especifica cap fitxer d'entrada, o si aquest és «-», es llegirà\n"
+"l'entrada estàndard.\n"
+
+#: src/msgattrib.c:353 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
+#: src/msggrep.c:423 src/msgmerge.c:430
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida:\n"
+"  -o, --output-file=FITXER    escriu l'eixida en el FITXER especificat\n"
+"Els resultats s'escriuran en l'eixida estàndard si no s'especifica cap\n"
+"fitxer d'eixida, o si aquest és «-».\n"
+
+#: src/msgattrib.c:361
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"      --translated            keep translated, remove untranslated messages\n"
+"      --untranslated          keep untranslated, remove translated messages\n"
+"      --no-fuzzy              remove 'fuzzy' marked messages\n"
+"      --only-fuzzy            keep 'fuzzy' marked messages\n"
+"      --no-obsolete           remove obsolete #~ messages\n"
+"      --only-obsolete         keep obsolete #~ messages\n"
+msgstr ""
+"Selecció de missatges:\n"
+"      --translated            manté els missatges traduïts,\n"
+"                              elimina els no traduïts\n"
+"      --untranslated          manté els missatges no traduïts,\n"
+"                              elimina els traduïts\n"
+"      --no-fuzzy              elimina els missatges marcats amb «fuzzy»\n"
+"      --only-fuzzy            manté els missatges marcats amb «fuzzy»\n"
+"      --no-obsolete           elimina els missatges obsolets (#~)\n"
+"      --only-obsolete         manté els missatges obsolets (#~)\n"
+
+#: src/msgattrib.c:372
+#, no-wrap
+msgid ""
+"Attribute manipulation:\n"
+"      --set-fuzzy             set all messages 'fuzzy'\n"
+"      --clear-fuzzy           set all messages non-'fuzzy'\n"
+"      --set-obsolete          set all messages obsolete\n"
+"      --clear-obsolete        set all messages non-obsolete\n"
+"      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
+"      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
+msgstr ""
+"Manipulació dels atributs:\n"
+"      --set-fuzzy             estableix «fuzzy» en tots els missatges\n"
+"      --clear-fuzzy           elimina «fuzzy» de tots els missatges\n"
+"      --set-obsolete          fa obsolets tots els missatges\n"
+"      --clear-obsolete        fa no obsolets tots els missatges\n"
+"      --fuzzy                 sinònim de «--only-fuzzy --clear-fuzzy»\n"
+"      --obsolete              sinònim de «--only-obsolete --clear-obsolete»\n"
+
+#: src/msgattrib.c:383
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -i, --indent                write the .po file using indented style\n"
+"      --no-location           do not write '#: filename:line' lines\n"
+"  -n, --add-location          generate '#: filename:line' lines (default)\n"
+"      --strict                write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"  -s, --sort-output           generate sorted output\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -e, --no-escape             no usa seqüències d'escapada de C en l'eixida\n"
+"                              (per defecte)\n"
+"  -E, --escape                usa seqüències d'escapada de C en l'eixida\n"
+"                              en comptes de caràcters estesos\n"
+"      --force-po              genera el fitxer PO encara que siga buit\n"
+"  -i, --indent                genera el fitxer PO usant l'estil indentat\n"
+"      --no-location           no escriu les línies «#: nomfitxer:línia»\n"
+"  -n, --add-location          escriu les línies «#: nomfitxer:línia»\n"
+"                              (per defecte)\n"
+"      --strict                genera un fitxer PO estrictament conforme\n"
+"                              amb Uniforum\n"
+"  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output           genera una eixida ordenada\n"
+"  -F, --sort-by-file          ordena l'eixida pels noms de fitxer\n"
+
+#: src/msgcat.c:260 src/msgcomm.c:279
+#, c-format
+msgid "impossible selection criteria specified (%d < n < %d)"
+msgstr "s'ha especificat un criteri de selecció impossible (%d < n < %d)"
+
+#: src/msgcat.c:300 src/msgcomm.c:312 src/xgettext.c:598
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
+msgstr "Forma d'ús: %s [OPCIÓ] [FITXERENTRADA]...\n"
+
+# ivb (2001/12/24)
+# ivb  Aquesta traducció no és completament literal però queda més clar.
+# ivb  Amb «commonality» vol dir «nombre de coincidències».
+#: src/msgcat.c:305
+#, no-wrap
+msgid ""
+"Concatenates and merges the specified PO files.\n"
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be cumulated, except that if --use-first\n"
+"is specified, they will be taken from the first PO file to define them.\n"
+"File positions from all PO files will be cumulated.\n"
+msgstr ""
+"Concatena i mescla els fitxers PO especificats.\n"
+"Troba els missatges comuns entre dos o més dels fitxers PO especificats.\n"
+"Amb l'opció «--more-than» podeu requerir un nombre mínim de coincidències\n"
+"per escriure els missatges.  Inversament, podeu usar l'opció «--less-than»\n"
+"per limitar el nombre màxim de coincidències per escriure un missatge (i.e.\n"
+"«--less-than=2» només mostrarà els missatges únics).  Les traduccions,\n"
+"comentaris i comentaris extrets s'acumularan, a no ser que especifiqueu\n"
+"«--use-first», en el qual cas es treuran del primer fitxer PO que els\n"
+"definesca.  Les posicions de fitxer de tots els fitxers PO s'acumularan.\n"
+
+#: src/msgcat.c:323 src/msgcomm.c:334 src/xgettext.c:614
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE ...                  input files\n"
+"  -f, --files-from=FILE          get list of input files from FILE\n"
+"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  FITXERENTRADA ...              fitxers d'entrada\n"
+"  -f, --files-from=FITXER        obté la llista de fitxers d'entrada\n"
+"                                 del FITXER\n"
+"  -D, --directory=DIRECTORI      afig el DIRECTORI a la llista de recerca\n"
+"                                 de fitxers d'entrada\n"
+"Si el fitxer d'entrada és «-» es llegirà l'entrada estàndard.\n"
+
+#: src/msgcat.c:332 src/msgcomm.c:343 src/msguniq.c:309
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE         write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida:\n"
+"  -o, --output-file=FITXER       escriu l'eixida en el FITXER especificat\n"
+"Els resultats s'escriuran en l'eixida estàndard si no s'especifica cap\n"
+"fitxer d'eixida, o si aquest és «-».\n"
+
+#: src/msgcat.c:340
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 0 if not set\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+"Selecció de missatges:\n"
+"  -<, --less-than=NOMBRE         escriu els missatges amb menys definicions\n"
+"                                 que les esmentades; per defecte és infinit\n"
+"  ->, --more-than=NOMBRE         escriu els missatges amb més definicions\n"
+"                                 que les esmentades; per defecte és 0\n"
+"  -u, --unique                   abreviatura de «--less-than=2», fa que\n"
+"                                 només s'escriguen els missatges únics\n"
+
+#: src/msgcat.c:352 src/msguniq.c:324
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -t, --to-code=NAME             encoding for output\n"
+"      --use-first                use first available translation for each\n"
+"                                 message, don't merge several translations\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
+"  -s, --sort-output              generate sorted output\n"
+"  -F, --sort-by-file             sort output by file location\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -t, --to-code=NOM              codificació de l'eixida\n"
+"      --use-first                només usa la primera traducció de cada\n"
+"                                 missatge, no mescla diverses traduccions\n"
+"  -e, --no-escape                no usa seqüències d'escapada de C en l'eixida\n"
+"                                 (per defecte)\n"
+"  -E, --escape                   usa seqüències d'escapada de C en l'eixida\n"
+"                                 en comptes de caràcters estesos\n"
+"      --force-po                 genera el fitxer PO encara que siga buit\n"
+"  -i, --indent                   genera el fitxer PO usant l'estil indentat\n"
+"      --no-location              no escriu les línies «#: nomfitxer:línia»\n"
+"  -n, --add-location             escriu les línies «#: nomfitxer:línia»\n"
+"                                 (per defecte)\n"
+"      --strict                   genera un fitxer PO estrictament conforme\n"
+"                                 amb Uniforum\n"
+"  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output              genera una eixida ordenada\n"
+"  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
+
+#: src/msgcat.c:372 src/msgcomm.c:381 src/msguniq.c:344 src/xgettext.c:692
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                     display this help and exit\n"
+"  -V, --version                  output version information and exit\n"
+msgstr ""
+"Eixida informativa:\n"
+"  -h, --help                     mostra aquesta ajuda i ix\n"
+"  -V, --version                  mostra informació sobre la versió i ix\n"
+
+#: src/msgcmp.c:141 src/msgmerge.c:284
+msgid "no input files given"
+msgstr "no s'ha especificat cap fitxer d'entrada"
+
+#: src/msgcmp.c:146 src/msgmerge.c:289
+msgid "exactly 2 input files required"
+msgstr "es necessiten exactament 2 fitxers d'entrada"
+
+#: src/msgcmp.c:166 src/msgmerge.c:390
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] def.po ref.pot\n"
+msgstr "Forma d'ús: %s [OPCIÓ] def.po ref.pot\n"
+
+#: src/msgcmp.c:171
+#, no-wrap
+msgid ""
+"Compare two Uniforum style .po files to check that both contain the same\n"
+"set of msgid strings.  The def.po file is an existing PO file with the\n"
+"translations.  The ref.pot file is the last created PO file, or a PO Template\n"
+"file (generally created by xgettext).  This is useful for checking that\n"
+"you have translated each and every message in your program.  Where an exact\n"
+"match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
+msgstr ""
+"Compara dos fitxers PO d'estil Uniforum per comprovar si contenen el\n"
+"mateix conjunt de cadenes «msgid».  El fitxer «def.po» és un fitxer PO\n"
+"existent amb les traduccions.  El fitxer «ref.pot» és el fitxer PO més\n"
+"recent, o un fitxer plantilla PO (generat normalment amb «xgettext»).\n"
+"Açò és útil per comprovar que heu traduït tots i cadascun dels missatges\n"
+"del vostre programa.  Quan no es puga trobar una coincidència exacta,\n"
+"s'usarà una comparació difusa per produir uns diagnòstics millors.\n"
+
+#: src/msgcmp.c:186
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  def.po                      translations\n"
+"  ref.pot                     references to the sources\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  def.po                      traduccions\n"
+"  ref.pot                     referències al codi font\n"
+"  -D, --directory=DIRECTORI   afig el DIRECTORI a la llista de recerca\n"
+"                              de fitxers d'entrada\n"
+
+#: src/msgcmp.c:194
+#, no-wrap
+msgid ""
+"Operation modifiers:\n"
+"  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
+msgstr ""
+"Modificadors del funcionament:\n"
+"  -m, --multi-domain          aplica «ref.pot» a cadascun dels dominis\n"
+"                              de «def.po»\n"
+
+#: src/msgcmp.c:265 src/msgmerge.c:848
+msgid "this message is used but not defined..."
+msgstr "aquest missatge s'usa però no s'ha definit..."
+
+#: src/msgcmp.c:267 src/msgmerge.c:850
+msgid "...but this definition is similar"
+msgstr "...però aquesta definició és similar"
+
+#: src/msgcmp.c:272 src/msgmerge.c:877
+#, c-format
+msgid "this message is used but not defined in %s"
+msgstr "aquest missatge s'usa però no s'ha definit en «%s»"
+
+#: src/msgcmp.c:376
+msgid "warning: this message is not used"
+msgstr "avís: aquest missatge no s'usa"
+
+#: src/msgcmp.c:383 src/po-lex.c:626
+#, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "s'ha trobat %d error fatal"
+msgstr[1] "s'han trobat %d errors fatals"
+
+#: src/msgcomm.c:268
+msgid "at least two files must be specified"
+msgstr "cal que especifiqueu almenys dos fitxers"
+
+# ivb (2001/12/24)
+# ivb  Aquesta traducció no és completament literal però queda més clar.
+# ivb  Amb «commonality» vol dir «nombre de coincidències».
+#: src/msgcomm.c:317
+#, no-wrap
+msgid ""
+"Find messages which are common to two or more of the specified PO files.\n"
+"By using the --more-than option, greater commonality may be requested\n"
+"before messages are printed.  Conversely, the --less-than option may be\n"
+"used to specify less commonality before messages are printed (i.e.\n"
+"--less-than=2 will only print the unique messages).  Translations,\n"
+"comments and extract comments will be preserved, but only from the first\n"
+"PO file to define them.  File positions from all PO files will be\n"
+"cumulated.\n"
+msgstr ""
+"Troba els missatges comuns entre dos o més dels fitxers PO especificats.\n"
+"Amb l'opció «--more-than» podeu requerir un nombre mínim de coincidències\n"
+"per escriure els missatges.  Inversament, podeu usar l'opció «--less-than»\n"
+"per limitar el nombre màxim de coincidències per escriure un missatge (i.e.\n"
+"«--less-than=2» només mostrarà els missatges únics).  Es preservaran les\n"
+"traduccions, comentaris i comentaris extrets que es troben en el primer\n"
+"fitxer PO que els definesca.  Les posicions de fitxer de tots els fitxers\n"
+"PO s'acumularan.\n"
+
+#: src/msgcomm.c:351
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  -<, --less-than=NUMBER         print messages with less than this many\n"
+"                                 definitions, defaults to infinite if not\n"
+"                                 set\n"
+"  ->, --more-than=NUMBER         print messages with more than this many\n"
+"                                 definitions, defaults to 1 if not set\n"
+"  -u, --unique                   shorthand for --less-than=2, requests\n"
+"                                 that only unique messages be printed\n"
+msgstr ""
+"Selecció de missatges:\n"
+"  -<, --less-than=NOMBRE         escriu els missatges amb menys definicions\n"
+"                                 que les esmentades; per defecte és infinit\n"
+"  ->, --more-than=NOMBRE         escriu els missatges amb més definicions\n"
+"                                 que les esmentades; per defecte és 1\n"
+"  -u, --unique                   abreviatura de «--less-than=2», fa que\n"
+"                                 només s'escriguen els missatges únics\n"
+
+#: src/msgcomm.c:363
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
+"  -s, --sort-output              generate sorted output\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -e, --no-escape                no usa seqüències d'escapada de C en l'eixida\n"
+"                                 (per defecte)\n"
+"  -E, --escape                   usa seqüències d'escapada de C en l'eixida\n"
+"                                 en comptes de caràcters estesos\n"
+"      --force-po                 genera el fitxer PO encara que siga buit\n"
+"  -i, --indent                   genera el fitxer PO usant l'estil indentat\n"
+"      --no-location              no escriu les línies «#: nomfitxer:línia»\n"
+"  -n, --add-location             escriu les línies «#: nomfitxer:línia»\n"
+"                                 (per defecte)\n"
+"      --strict                   genera un fitxer PO estrictament conforme\n"
+"                                 amb Uniforum\n"
+"  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output              genera una eixida ordenada\n"
+"  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
+"      --omit-header              no escriu la capçalera amb l'entrada\n"
+"                                 «msgid \"\"»\n"
+
+#: src/msgconv.c:257
+#, no-wrap
+msgid "Converts a translation catalog to a different character encoding.\n"
+msgstr "Converteix un catàleg de traduccions a una codificació de caràcters diferent.\n"
+
+#: src/msgconv.c:283
+#, no-wrap
+msgid ""
+"Conversion target:\n"
+"  -t, --to-code=NAME          encoding for output\n"
+"The default encoding is the current locale's encoding.\n"
+msgstr ""
+"Objectiu de la conversió:\n"
+"  -t, --to-code=NOM           codificació de l'eixida\n"
+"La codificació per defecte és la del locale actual.\n"
+
+#: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:461
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"  -i, --indent                indented output style\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"  -s, --sort-output           generate sorted output\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -e, --no-escape                no usa seqüències d'escapada de C en l'eixida\n"
+"                                 (per defecte)\n"
+"  -E, --escape                   usa seqüències d'escapada de C en l'eixida\n"
+"                                 en comptes de caràcters estesos\n"
+"      --force-po                 genera el fitxer PO encara que siga buit\n"
+"  -i, --indent                   genera el fitxer PO usant l'estil indentat\n"
+"      --no-location              no escriu les línies «#: nomfitxer:línia»\n"
+"      --add-location             escriu les línies «#: nomfitxer:línia»\n"
+"                                 (per defecte)\n"
+"      --strict                   genera un fitxer PO estrictament conforme\n"
+"                                 amb Uniforum\n"
+"  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output              genera una eixida ordenada\n"
+"  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
+
+#: src/msgen.c:193 src/msgfmt.c:337 src/xgettext.c:433
+msgid "no input file given"
+msgstr "no s'ha especificat cap fitxer d'entrada"
+
+#: src/msgen.c:198
+msgid "exactly one input file required"
+msgstr "es necessita exactament un fitxer d'entrada"
+
+#: src/msgen.c:237
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] INPUTFILE\n"
+msgstr "Forma d'ús: %s [OPCIÓ] FITXERENTRADA\n"
+
+#: src/msgen.c:242
+#, no-wrap
+msgid ""
+"Creates an English translation catalog.  The input file is the last\n"
+"created English PO file, or a PO Template file (generally created by\n"
+"xgettext).  Untranslated entries are assigned a translation that is\n"
+"identical to the msgid, and are marked fuzzy.\n"
+msgstr ""
+"Crea un catàleg de traducció en anglés.  El fitxer d'entrada és el fitxer\n"
+"PO més recent en anglés, o un fitxer plantilla PO (generat normalment amb\n"
+"«xgettext»).  S'assignarà a les entrades no traduïdes una traducció igual\n"
+"al «msgid» corresponent, i es marcaran amb «fuzzy».\n"
+
+#: src/msgen.c:255
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  INPUTFILE                   input PO or POT file\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  FITXERENTRADA               fitxer PO o POT d'entrada\n"
+"  -D, --directory=DIRECTORI   afig el DIRECTORI a la llista de recerca\n"
+"                              de fitxers d'entrada\n"
+"Si el fitxer d'entrada és «-» es llegirà l'entrada estàndard.\n"
+
+#: src/msgexec.c:174
+msgid "missing command name"
+msgstr "manca el nom d'una ordre"
+
+#: src/msgexec.c:221
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
+msgstr "Forma d'ús: %s [OPCIÓ] ORDRE [OPCIÓ-D'ORDRE]\n"
+
+#: src/msgexec.c:226
+#, no-wrap
+msgid ""
+"Applies a command to all translations of a translation catalog.\n"
+"The COMMAND can be any program that reads a translation from standard\n"
+"input.  It is invoked once for each translation.  Its output becomes\n"
+"msgexec's output.  msgexec's return code is the maximum return code\n"
+"across all invocations.\n"
+msgstr ""
+"Aplica una ordre a cadascuna de les traduccions d'un catàleg de traduccions.\n"
+"L'ORDRE pot ser qualsevol programa que llija una traducció de l'entrada\n"
+"estàndard.  El programa s'invoca una volta per cada traducció i la seua\n"
+"eixida esdevé l'eixida de «msgexec».  El codi de retorn de «msgexec» és el\n"
+"màxim de totes les invocacions del programa.\n"
+
+#: src/msgexec.c:235
+#, no-wrap
+msgid ""
+"A special builtin command called '0' outputs the translation, followed by a\n"
+"null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
+msgstr ""
+"L'ordre incorporada «0» genera la traducció seguida d'un octet nul.\n"
+"L'eixida de «msgexec 0» és adequada com a entrada per «xargs -0».\n"
+
+#: src/msgexec.c:246 src/msgfilter.c:355
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  -i, --input=INPUTFILE       input PO file\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  -i, --input=FITXERENTRADA   fitxer PO d'entrada\n"
+"  -D, --directory=DIRECTORI   afig el DIRECTORI a la llista de recerca\n"
+"                              de fitxers d'entrada\n"
+"Si no s'especifica cap fitxer d'entrada, o si aquest és «-», es llegirà\n"
+"l'entrada estàndard.\n"
+
+#: src/msgexec.c:299
+msgid "write to stdout failed"
+msgstr "no s'ha pogut escriure en l'eixida estàndard"
+
+#: src/msgexec.c:322 src/msgfilter.c:579
+#, c-format
+msgid "write to %s subprocess failed"
+msgstr "no s'ha pogut escriure al subprocés «%s»"
+
+#: src/msgfilter.c:253
+msgid "missing filter name"
+msgstr "manca el nom d'un filtre"
+
+#: src/msgfilter.c:277
+msgid "at least one sed script must be specified"
+msgstr "cal que especifiqueu almenys un guió de «sed»"
+
+#: src/msgfilter.c:340
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
+msgstr "Forma d'ús: %s [OPCIÓ] FILTRE [OPCIÓ-DE-FILTRE]\n"
+
+#: src/msgfilter.c:345
+#, no-wrap
+msgid "Applies a filter to all translations of a translation catalog.\n"
+msgstr "Aplica un filtre a cada traducció d'un catàleg de traduccions.\n"
+
+#: src/msgfilter.c:371
+#, no-wrap
+msgid ""
+"The FILTER can be any program that reads a translation from standard input\n"
+"and writes a modified translation to standard output.\n"
+msgstr ""
+"El FILTRE pot ser qualsevol programa que llija una traducció de l'entrada\n"
+"estàndard i n'escriga una de modificada en l'eixida estàndard.\n"
+
+#: src/msgfilter.c:377
+#, no-wrap
+msgid ""
+"Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
+"  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"
+"  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the commands\n"
+"                                to be executed\n"
+"  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
+msgstr ""
+"OPCIONS-DE-FILTRE útils quan el FILTRE és «sed»:\n"
+"  -e, --expression=GUIÓ       afig el GUIÓ a les ordres a executar\n"
+"  -f, --file=FITXERGUIÓ       afig els continguts del FITXERGUIÓ a les\n"
+"                              ordres a executar\n"
+"  -n, --quiet, --silent       evita la impressió automàtica de l'espai\n"
+"                              del patró\n"
+
+#: src/msgfilter.c:386
+#, no-wrap
+msgid ""
+"Output details:\n"
+"      --no-escape             do not use C escapes in output (default)\n"
+"  -E, --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"      --indent                indented output style\n"
+"      --keep-header           keep header entry unmodified, don't filter it\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"  -s, --sort-output           generate sorted output\n"
+"  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"      --no-escape             no usa seqüències d'escapada de C en l'eixida\n"
+"                              (per defecte)\n"
+"  -E, --escape                usa seqüències d'escapada de C en l'eixida\n"
+"                              en comptes de caràcters estesos\n"
+"      --force-po              genera el fitxer PO encara que siga buit\n"
+"      --indent                genera el fitxer PO usant l'estil indentat\n"
+"      --no-location           no escriu les línies «#: nomfitxer:línia»\n"
+"      --add-location          escriu les línies «#: nomfitxer:línia»\n"
+"                              (per defecte)\n"
+"      --strict                genera un fitxer PO estrictament conforme\n"
+"                              amb Uniforum\n"
+"  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output           genera una eixida ordenada\n"
+"  -F, --sort-by-file          ordena l'eixida pels noms de fitxer\n"
+
+#: src/msgfilter.c:531
+#, c-format
+msgid "cannot set up nonblocking I/O to %s subprocess"
+msgstr "no s'ha pogut establir una E/S no blocadora amb el subprocés «%s»"
+
+#: src/msgfilter.c:559
+#, c-format
+msgid "communication with %s subprocess failed"
+msgstr "la comunicació amb el subprocés «%s» ha fallat"
+
+#: src/msgfilter.c:610
+#, c-format
+msgid "read from %s subprocess failed"
+msgstr "no s'ha pogut llegir del subprocés «%s»"
+
+#: src/msgfilter.c:626
+#, c-format
+msgid "%s subprocess terminated with exit code %d"
+msgstr "el subprocés «%s» ha terminat amb codi d'eixida %d"
+
+#: src/msgfmt.c:288
+#, c-format
+msgid "the argument to %s should be a single punctuation character"
+msgstr "cal que l'argument de «%s» siga un sol caràcter de puntuació"
+
+#: src/msgfmt.c:355 src/msgfmt.c:377 src/msgunfmt.c:249
+#, c-format
+msgid "%s requires a \"-d directory\" specification"
+msgstr "«%s» necessita una especificació «-d directori»"
+
+#: src/msgfmt.c:370 src/msgunfmt.c:242
+#, c-format
+msgid "%s requires a \"-l locale\" specification"
+msgstr "«%s» necessita una especificació «-l locale»"
+
+# ivb (2001/12/26)
+# ivb  Els «%s» es refereixen a opcions -> femení.
+#: src/msgfmt.c:386 src/msgmerge.c:306 src/msgmerge.c:312 src/msgunfmt.c:258
+#: src/msgunfmt.c:264
+#, c-format
+msgid "%s is only valid with %s"
+msgstr "«%s» només és vàlida amb «%s»"
+
+# ivb (2001/12/26)
+# ivb  Els «%s» es refereixen a opcions -> femení.
+#: src/msgfmt.c:392 src/msgfmt.c:398
+#, c-format
+msgid "%s is only valid with %s or %s"
+msgstr "«%s» només és vàlida amb «%s» o «%s»"
+
+#: src/msgfmt.c:471
+#, c-format
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] "%d missatge traduït"
+msgstr[1] "%d missatges traduïts"
+
+#: src/msgfmt.c:476
+#, c-format
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ", %d traducció difusa"
+msgstr[1] ", %d traduccions difuses"
+
+#: src/msgfmt.c:481
+#, c-format
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ", %d missatge no traduït"
+msgstr[1] ", %d missatges no traduïts"
+
+#: src/msgfmt.c:502
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] filename.po ...\n"
+msgstr "Forma d'ús: %s [OPCIÓ] nomfitxer.po ...\n"
+
+#: src/msgfmt.c:507
+#, no-wrap
+msgid "Generate binary message catalog from textual translation description.\n"
+msgstr ""
+"Genera un catàleg binari de missatges partint d'una descripció textual\n"
+"de traduccions.\n"
+
+#: src/msgfmt.c:517
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  filename.po ...             input files\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"If input file is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  nomfitxer.po ...            fitxers d'entrada\n"
+"  -D, --directory=DIRECTORI   afig el DIRECTORI a la llista de recerca\n"
+"                              de fitxers d'entrada\n"
+"Si el fitxer d'entrada és «-» es llegirà l'entrada estàndard.\n"
+
+# ivb (2002/03/14)
+# ivb  Amb «tcl/msgcat» es refereix al paquet «msgcat» de Tcl.
+#: src/msgfmt.c:525
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
+"      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
+"      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
+msgstr ""
+"Mode de funcionament:\n"
+"  -j, --java                  mode Java: genera una classe Java\n"
+"                              «ResourceBundle»\n"
+"      --java2                 com «--java», però assumeix Java2\n"
+"                              (JDK 1.2 o superior)\n"
+"      --tcl                   mode Tcl: genera un fitxer «.msg»\n"
+"                              de «msgcat» de Tcl\n"
+
+#: src/msgfmt.c:533
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified file\n"
+"      --strict                enable strict Uniforum mode\n"
+"If output file is -, output is written to standard output.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida:\n"
+"  -o, --output-file=FITXER    escriu l'eixida en el FITXER especificat\n"
+"      --strict                habilita el mode Uniforum estricte\n"
+"Si el fitxer d'eixida és «-» s'escriurà en l'eixida estàndard.\n"
+
+#: src/msgfmt.c:541
+#, no-wrap
+msgid ""
+"Output file location in Java mode:\n"
+"  -r, --resource=RESOURCE     resource name\n"
+"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY                base directory of classes directory hierarchy\n"
+"The class name is determined by appending the locale name to the resource name,\n"
+"separated with an underscore.  The -d option is mandatory.  The class is\n"
+"written under the specified directory.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida en el mode Java:\n"
+"  -r, --resource=RECURS       nom del recurs\n"
+"  -l, --locale=LOCALE         nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
+"  -d DIRECTORI                directori base de la jeraquia de directoris\n"
+"                              de les classes\n"
+"El nom de la classe es construeix afegint el nom del locale al nom del\n"
+"recurs, separats per un caràcter de subratllat.  L'opció «-d» és obligatòria.\n"
+"La classe s'escriurà sota el directori especificat.\n"
+
+#: src/msgfmt.c:552
+#, no-wrap
+msgid ""
+"Output file location in Tcl mode:\n"
+"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY                base directory of .msg message catalogs\n"
+"The -l and -d options are mandatory.  The .msg file is written in the\n"
+"specified directory.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida en el mode Tcl:\n"
+"  -l, --locale=LOCALE         nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
+"  -d DIRECTORI                directori base dels catàlegs de missatges «.msg»\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» s'escriurà sota\n"
+"el directori especificat.\n"
+
+# ivb (2001/12/26)
+# ivb  Segons la documentació, quan ací diu «language» es refereix a un de
+# ivb  programació.
+#: src/msgfmt.c:561
+#, no-wrap
+msgid ""
+"Input file interpretation:\n"
+"  -c, --check                 perform all the checks implied by\n"
+"                                --check-format, --check-header, --check-domain\n"
+"      --check-format          check language dependent format strings\n"
+"      --check-header          verify presence and contents of the header entry\n"
+"      --check-domain          check for conflicts between domain directives\n"
+"                                and the --output-file option\n"
+"  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"
+"      --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n"
+"                                menu items\n"
+"  -f, --use-fuzzy             use fuzzy entries in output\n"
+msgstr ""
+"Interpretació del fitxer d'entrada:\n"
+"  -c, --check                 realitza totes les comprovacions implicades per\n"
+"                              les opcions «--check-format», «--check-header»\n"
+"                              i «--check-domain»\n"
+"      --check-format          comprova les cadenes de format depenents del\n"
+"                              llenguatge de programació\n"
+"      --check-header          verifica la presència i contingut de l'entrada\n"
+"                              de capçalera\n"
+"      --check-domain          comprova si hi ha conflictes entre les\n"
+"                              directives «domain» i l'opció «--output-file»\n"
+"  -C, --check-compatibility   comprova si el «msgfmt» GNU es comporta com el\n"
+"                              «msgfmt» X/Open\n"
+"      --check-accelerators[=CARÀCTER]  comprova la presència d'acceleradors\n"
+"                              de teclat per ítems de menú\n"
+"  -f, --use-fuzzy             usa en l'eixida les entrades «fuzzy»\n"
+
+#: src/msgfmt.c:576
+#, c-format, no-wrap
+msgid ""
+"Output details:\n"
+"  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+"      --no-hash               binary file will not include the hash table\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -a, --alignment=NÚMERO     alinea les cadenes a NÚMERO octets\n"
+"                             (%d per defecte)\n"
+"      --no-hash              fa que el fitxer binari no incloga\n"
+"                             la taula de dispersió\n"
+
+#: src/msgfmt.c:583
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"      --statistics            print statistics about translations\n"
+"  -v, --verbose               increase verbosity level\n"
+msgstr ""
+"Eixida informativa:\n"
+"  -h, --help                  mostra aquesta ajuda i ix\n"
+"  -V, --version               mostra informació sobre la versió i ix\n"
+"      --statistics            mostra estadístiques sobre les traduccions\n"
+"  -v, --verbose               augmenta el nivell de descripció\n"
+
+# ivb (2002/01/03)
+# ivb  En aquestes frases, tant «nplurals» com «plural» es refereixen a
+# ivb  variables del camp «Plural-Forms» de la capçalera.
+#: src/msgfmt.c:726
+msgid "plural expression can produce negative values"
+msgstr "l'expressió de «plural» pot produir valors negatius"
+
+#: src/msgfmt.c:739
+#, c-format
+msgid "nplurals = %lu but plural expression can produce values as large as %lu"
+msgstr ""
+"«nplurals» és %lu, però l'expressió de «plural» pot produir valors de fins %"
+"lu"
+
+#: src/msgfmt.c:765
+msgid "plural expression can produce division by zero"
+msgstr "l'expressió de «plural» pot produir una divisió entre zero"
+
+#: src/msgfmt.c:770
+msgid "plural expression can produce integer overflow"
+msgstr "l'expressió de «plural» pot produir un desbordament enter"
+
+#: src/msgfmt.c:775
+msgid ""
+"plural expression can produce arithmetic exceptions, possibly division by "
+"zero"
+msgstr ""
+"l'expressió de «plural» pot produir excepcions aritmètiques, possiblement "
+"divisions entre zero"
+
+#: src/msgfmt.c:853 src/msgfmt.c:865
+msgid "message catalog has plural form translations..."
+msgstr "el catàleg de missatges té traduccions amb forma plural..."
+
+#: src/msgfmt.c:856
+msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
+msgstr "...però l'atribut «plural=EXPRESSIÓ» manca en l'entrada de capçalera"
+
+#: src/msgfmt.c:868
+msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
+msgstr "...però l'atribut «nplurals=ENTER» manca en l'entrada de capçalera"
+
+#: src/msgfmt.c:893
+msgid "invalid nplurals value"
+msgstr "el valor d'«nplurals» no és vàlid"
+
+#: src/msgfmt.c:907
+msgid "invalid plural expression"
+msgstr "l'expressió de «plural» no és vàlida"
+
+#: src/msgfmt.c:926 src/msgfmt.c:941
+#, c-format
+msgid "nplurals = %lu..."
+msgstr "«nplurals» és %lu..."
+
+#: src/msgfmt.c:929
+#, c-format
+msgid "...but some messages have only one plural form"
+msgid_plural "...but some messages have only %lu plural forms"
+msgstr[0] "...però alguns missatges només tenen una forma plural"
+msgstr[1] "...però alguns missatges només tenen %lu formes plurals"
+
+#: src/msgfmt.c:944
+#, c-format
+msgid "...but some messages have one plural form"
+msgid_plural "...but some messages have %lu plural forms"
+msgstr[0] "...però alguns missatges tenen una forma plural"
+msgstr[1] "...però alguns missatges tenen %lu formes plurals"
+
+# ivb (2002/03/14)
+# ivb  El «%s» es refereix a un idioma, i tot el missatge recomana usar una
+# ivb  entrada de capçalera «Plural-Forms:».
+#: src/msgfmt.c:974
+#, c-format
+msgid "Try using the following, valid for %s:\n"
+msgstr "Proveu d'usar açò, vàlid per a l'idioma %s:\n"
+
+#: src/msgfmt.c:987
+msgid ""
+"message catalog has plural form translations, but lacks a header entry with "
+"\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
+msgstr ""
+"el catàleg de missatges té traduccions amb forma plural, però hi manca una "
+"entrada de capçalera amb «Plural-Forms: nplurals=ENTER; plural=EXPRESSIÓ;»"
+
+#: src/msgfmt.c:1021
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr "ambdues entrades «msgid» i «msgid_plural» no comencen per «\\n»"
+
+#: src/msgfmt.c:1031
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr "ambdues entrades «msgid» i «msgstr[%u]» no comencen per «\\n»"
+
+#: src/msgfmt.c:1043
+msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+msgstr "ambdues entrades «msgid» i «msgstr» no comencen per «\\n»"
+
+#: src/msgfmt.c:1060
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr "ambdues entrades «msgid» i «msgid_plural» no acaben en «\\n»"
+
+#: src/msgfmt.c:1070
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr "ambdues entrades «msgid» i «msgstr[%u]» no acaben en «\\n»"
+
+#: src/msgfmt.c:1082
+msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
+msgstr "ambdues entrades «msgid» i «msgstr» no acaben en «\\n»"
+
+#: src/msgfmt.c:1094
+msgid "plural handling is a GNU gettext extension"
+msgstr "el maneig de plurals és una extensió del «gettext» GNU"
+
+# ivb (2002/12/16)
+# ivb  Ací el segon «%s» és el nom d'un llenguatge de programació.
+#: src/msgfmt.c:1159
+#, c-format
+msgid "'%s' is not a valid %s format string, unlike 'msgid'"
+msgstr "la de «%s» no és una cadena de format vàlida en %s, la de «msgid» sí"
+
+#: src/msgfmt.c:1197
+#, c-format
+msgid "msgstr lacks the keyboard accelerator mark '%c'"
+msgstr "manca la marca d'accelerador de teclat «%c» en «msgstr»"
+
+#: src/msgfmt.c:1205
+#, c-format
+msgid "msgstr has too many keyboard accelerator marks '%c'"
+msgstr "sobren marques d'accelerador de teclat «%c» en «msgstr»"
+
+#: src/msgfmt.c:1239
+#, c-format
+msgid "headerfield `%s' missing in header\n"
+msgstr "manca el camp de capçalera «%s» en la capçalera\n"
+
+#: src/msgfmt.c:1243
+#, c-format
+msgid "header field `%s' should start at beginning of line\n"
+msgstr "cal que el camp de capçalera «%s» comence en l'inici de la línia\n"
+
+#: src/msgfmt.c:1254
+msgid "some header fields still have the initial default value\n"
+msgstr ""
+"alguns camps de la capçalera encara tenen els valors inicials per defecte\n"
+
+#: src/msgfmt.c:1266
+#, c-format
+msgid "field `%s' still has initial default value\n"
+msgstr "el camp «%s» encara té el valor inicial per defecte\n"
+
+#: src/msgfmt.c:1306
+msgid "warning: PO file header missing or invalid\n"
+msgstr "avís: la capçalera del fitxer PO manca o no és vàlida\n"
+
+#: src/msgfmt.c:1309
+msgid "warning: charset conversion will not work\n"
+msgstr "avís: la conversió del joc de caràcters no funcionarà\n"
+
+#: src/msgfmt.c:1319
+msgid "warning: PO file header fuzzy\n"
+msgstr "avís: la capçalera del fitxer PO està marcada amb «fuzzy»\n"
+
+#: src/msgfmt.c:1321
+msgid "warning: older versions of msgfmt will give an error on this\n"
+msgstr "avís: les versions antigues de «msgfmt» ho indicaran com un error\n"
+
+#: src/msgfmt.c:1344
+#, c-format
+msgid "domain name \"%s\" not suitable as file name"
+msgstr "el nom de domini «%s» no és adequat com a nom de fitxer"
+
+#: src/msgfmt.c:1349
+#, c-format
+msgid "domain name \"%s\" not suitable as file name: will use prefix"
+msgstr ""
+"el nom de domini «%s» no és adequat com a nom de fitxer: se n'usarà un prefix"
+
+#: src/msgfmt.c:1360
+#, c-format
+msgid "`domain %s' directive ignored"
+msgstr "es descarta la directiva «domain %s»"
+
+#: src/msgfmt.c:1396 src/read-po.c:176 src/x-po.c:139
+msgid "duplicate message definition"
+msgstr "la definició del missatge és duplicada"
+
+#: src/msgfmt.c:1397 src/read-po.c:177 src/x-po.c:140
+msgid "...this is the location of the first definition"
+msgstr "...aquesta és la ubicació de la primera definició"
+
+#: src/msgfmt.c:1431
+msgid "empty `msgstr' entry ignored"
+msgstr "es descarta l'entrada «msgstr» buida"
+
+#: src/msgfmt.c:1432
+msgid "fuzzy `msgstr' entry ignored"
+msgstr "es descarta l'entrada «msgstr» difusa"
+
+#: src/msgfmt.c:1499
+#, c-format
+msgid "%s: warning: source file contains fuzzy translation"
+msgstr "%s: avís: el fitxer font conté una traducció difusa"
+
+#: src/msggrep.c:383
+#, c-format
+msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
+msgstr "no es pot usar l'opció «%c» abans d'especificar «K» o «T»"
+
+#: src/msggrep.c:404
+#, no-wrap
+msgid ""
+"Extracts all messages of a translation catalog that match a given pattern\n"
+"or belong to some given source files.\n"
+msgstr ""
+"Extrau d'un catàleg de traduccions tots els missatges que concorden amb\n"
+"un patró especificat o que pertanyen a uns fitxers font indicats.\n"
+
+#: src/msggrep.c:431
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
+"  [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]\n"
+"A message is selected if it comes from one of the specified source files,\n"
+"or if it comes from one of the specified domains,\n"
+"or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n"
+"or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN,\n"
+"or if -C is given and the translator's comment matches COMMENT-PATTERN.\n"
+"\n"
+"When more than one selection criterion is specified, the set of selected\n"
+"messages is the union of the selected messages of each criterion.\n"
+"\n"
+"MSGID-PATTERN or MSGSTR-PATTERN syntax:\n"
+"  [-E | -F] [-e PATTERN | -f FILE]...\n"
+"PATTERNs are basic regular expressions by default, or extended regular\n"
+"expressions if -E is given, or fixed strings if -F is given.\n"
+"\n"
+"  -N, --location=SOURCEFILE   select messages extracted from SOURCEFILE\n"
+"  -M, --domain=DOMAINNAME     select messages belonging to domain DOMAINNAME\n"
+"  -K, --msgid                 start of patterns for the msgid\n"
+"  -T, --msgstr                start of patterns for the msgstr\n"
+"  -E, --extended-regexp       PATTERN is an extended regular expression\n"
+"  -F, --fixed-strings         PATTERN is a set of newline-separated strings\n"
+"  -e, --regexp=PATTERN        use PATTERN as a regular expression\n"
+"  -f, --file=FILE             obtain PATTERN from FILE\n"
+"  -i, --ignore-case           ignore case distinctions\n"
+msgstr ""
+"Selecció de missatges:\n"
+"  [-N FITXERFONT]... [-M NOMDOMINI]...\n"
+"  [-K PATRÓ-MSGID] [-T PATRÓ-MSGSTR] [-C PATRÓ-COMENTARI]\n"
+"Es selecciona un missatge si prové d'un dels fitxers font especificats,\n"
+"o si prové d'un dels dominis especificats,\n"
+"o si s'indica «-K» i la seua clau («msgid» o «msgid_plural») concorda\n"
+"  amb PATRÓ-MSGID,\n"
+"o si s'indica «-T» i la seua traducció («msgstr») concorda amb PATRÓ-MSGSTR,\n"
+"o si s'indica «-C» i el comentari de la traductora o traductor concorda\n"
+"  amb PATRÓ-COMENTARI.\n"
+"\n"
+"Quan s'especifica més d'un criteri de selecció, el conjunt de missatges\n"
+"seleccionats és la unió dels missatges seleccionats per cada criteri.\n"
+"\n"
+"Sintaxi de PATRÓ-MSGID o PATRÓ-MSGSTR:\n"
+"  [-E | -F] [-e PATRÓ | -f FITXER]...\n"
+"Els PATRONS són per defecte expressions regulars bàsiques, o expressions\n"
+"regulars esteses si s'especifica «-E», o cadenes fixes si s'especifica «-F».\n"
+"\n"
+"  -N, --location=FITXERFONT   selecciona els missatges extrets del FITXERFONT\n"
+"  -M, --domain=NOMDOMINI      selecciona els missatges pertanyents al\n"
+"                              domini NOMDOMINI\n"
+"  -K, --msgid                 inici dels patrons de «msgid»\n"
+"  -T, --msgstr                inici dels patrons de «msgstr»\n"
+"  -E, --extended-regexp       PATRÓ és una expressió regular estesa\n"
+"  -F, --fixed-strings         PATRÓ és un conjunt de cadenes separades\n"
+"                              per caràcters de nova línia\n"
+"  -e, --regexp=PATRÓ          usa el PATRÓ com a expressió regular\n"
+"  -f, --file=FITXER           obté el PATRÓ del FITXER\n"
+"  -i, --ignore-case           no diferencia entre majúscules i minúscules\n"
+
+#: src/msggrep.c:461
+#, no-wrap
+msgid ""
+"Output details:\n"
+"      --no-escape             do not use C escapes in output (default)\n"
+"      --escape                use C escapes in output, no extended chars\n"
+"      --force-po              write PO file even if empty\n"
+"      --indent                indented output style\n"
+"      --no-location           suppress '#: filename:line' lines\n"
+"      --add-location          preserve '#: filename:line' lines (default)\n"
+"      --strict                strict Uniforum output style\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+"      --sort-output           generate sorted output\n"
+"      --sort-by-file          sort output by file location\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"      --no-escape             no usa seqüències d'escapada de C en l'eixida\n"
+"                              (per defecte)\n"
+"      --escape                usa seqüències d'escapada de C en l'eixida\n"
+"                              en comptes de caràcters estesos\n"
+"      --force-po              genera el fitxer PO encara que siga buit\n"
+"      --indent                genera el fitxer PO usant l'estil indentat\n"
+"      --no-location           no escriu les línies «#: nomfitxer:línia»\n"
+"      --add-location          escriu les línies «#: nomfitxer:línia»\n"
+"                              (per defecte)\n"
+"      --strict                genera un fitxer PO estrictament conforme\n"
+"                              amb Uniforum\n"
+"  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
+"      --sort-output           genera una eixida ordenada\n"
+"      --sort-by-file          ordena l'eixida pels noms de fitxer\n"
+
+#: src/msggrep.c:545
+msgid "write to grep subprocess failed"
+msgstr "no s'ha pogut escriure al subprocés «grep»"
+
+#: src/msginit.c:258
+msgid ""
+"You are in a language indifferent environment.  Please set\n"
+"your LANG environment variable, as described in the ABOUT-NLS\n"
+"file.  This is necessary so you can test your translations.\n"
+msgstr ""
+"El vostre entorn és indiferent a la llengua.  Per favor, establiu el valor\n"
+"de la vostra variable d'entorn «LANG», tal i com es descriu en el fitxer\n"
+"«ABOUT-NLS».  Açò cal per a que pugueu comprovar les vostres traduccions.\n"
+
+#: src/msginit.c:286
+#, c-format
+msgid ""
+"Output file %s already exists.\n"
+"Please specify the locale through the --locale option or\n"
+"the output .po file through the --output-file option.\n"
+msgstr ""
+"El fitxer d'eixida «%s» ja existeix.\n"
+"Per favor, especifiqueu el locale amb l'opció «--locale»\n"
+"o el fitxer PO d'eixida amb l'opció «--output-file».\n"
+
+#: src/msginit.c:309
+#, c-format
+msgid "Created %s.\n"
+msgstr "S'ha creat «%s».\n"
+
+#: src/msginit.c:330
+#, no-wrap
+msgid ""
+"Creates a new PO file, initializing the meta information with values from the\n"
+"user's environment.\n"
+msgstr ""
+"Crea un fitxer PO nou, inicialitzant-ne la metainformació amb valors\n"
+"de l'entorn de la usuària/l'usuari.\n"
+
+#: src/msginit.c:341
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  -i, --input=INPUTFILE       input POT file\n"
+"If no input file is given, the current directory is searched for the POT file.\n"
+"If it is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  -i, --input=FITXERENRADA    fitxer POT d'entrada\n"
+"Si no s'especifica el fitxer d'entrada, es cercarà el fitxer POT en el\n"
+"directori actual.  Si el fitxer d'entrada és «-» es llegirà l'entrada\n"
+"estàndard.\n"
+
+#: src/msginit.c:349
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE      write output to specified PO file\n"
+"If no output file is given, it depends on the --locale option or the user's\n"
+"locale setting.  If it is -, the results are written to standard output.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida:\n"
+"  -o, --output-file=FITXER    escriu l'eixida en el fitxer PO especificat\n"
+"Si no s'especifica el fitxer d'eixida, aquest dependrà de l'opció\n"
+"«--locale» o de la configuració de locale de la usuària/l'usuari.\n"
+"Si és «-», els resultats s'escriuran en l'eixida estàndard.\n"
+
+#: src/msginit.c:357
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -l, --locale=LL_CC          set target locale\n"
+"      --no-translator         assume the PO file is automatically generated\n"
+"  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -l, --locale=LL_PP          estableix el locale destinació\n"
+"      --no-translator         assumeix que el fitxer PO ha estat generat\n"
+"                              automàticament\n"
+"  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
+
+#: src/msginit.c:410
+msgid ""
+"Found more than one .pot file.\n"
+"Please specify the input .pot file through the --input option.\n"
+msgstr ""
+"S'ha trobat més d'un fitxer «.pot».\n"
+"Per favor, especifiqueu el fitxer POT d'entrada amb l'opció «--input».\n"
+
+#: src/msginit.c:418 src/msginit.c:423
+msgid "error reading current directory"
+msgstr "error en llegir el directori actual"
+
+#: src/msginit.c:431
+msgid ""
+"Found no .pot file in the current directory.\n"
+"Please specify the input .pot file through the --input option.\n"
+msgstr ""
+"No s'ha trobat cap fitxer «.pot» en el directori actual.\n"
+"Per favor, especifiqueu el fitxer POT d'entrada amb l'opció «--input».\n"
+
+#: src/msginit.c:879 src/msginit.c:931 src/msginit.c:1068 src/msginit.c:1135
+#: src/read-java.c:70
+msgid "fdopen() failed"
+msgstr "ha fallat fdopen()"
+
+#: src/msginit.c:884 src/msginit.c:936 src/msginit.c:1073
+#, c-format
+msgid "%s subprocess I/O error"
+msgstr "error d'E/S amb el subprocés «%s»"
+
+#: src/msginit.c:893 src/msginit.c:945 src/msginit.c:1082 src/msginit.c:1149
+#: src/read-java.c:80
+#, c-format
+msgid "%s subprocess failed with exit code %d"
+msgstr "el subprocés «%s» ha fallat amb codi d'eixida %d"
+
+#: src/msginit.c:1058
+msgid ""
+"The new message catalog should contain your email address, so that users "
+"can\n"
+"give you feedback about the translations, and so that maintainers can "
+"contact\n"
+"you in case of unexpected technical problems.\n"
+msgstr ""
+"Cal que el nou catàleg de missatges continga la vostra adreça electrònica,\n"
+"de forma que els usuaris puguen aportar-vos realimentació sobre les\n"
+"traduccions, i de forma que els mantenidors puguen contactar amb vosaltres\n"
+"en cas que es produesquen problemes tècnics inesperats.\n"
+
+#. TRANSLATORS: "English" needs to be replaced by your language.
+#. For example in it.po write "Traduzioni italiani ...",
+#. *not* "Traduzioni inglesi ...".
+#: src/msginit.c:1417
+#, c-format
+msgid "English translations for %s package"
+msgstr "Traduccions al català del paquet «%s»"
+
+#: src/msgl-cat.c:175 src/msgl-charset.c:85 src/msgl-iconv.c:302
+#, c-format
+msgid "present charset \"%s\" is not a portable encoding name"
+msgstr "el joc de caràcters actual, «%s», no és un nom portable de codificació"
+
+#: src/msgl-cat.c:184 src/msgl-iconv.c:313
+#, c-format
+msgid "two different charsets \"%s\" and \"%s\" in input file"
+msgstr "el fitxer d'entrada conté dos jocs de caràcters distints, «%s» i «%s»"
+
+#: src/msgl-cat.c:197
+#, c-format
+msgid ""
+"input file `%s' doesn't contain a header entry with a charset specification"
+msgstr ""
+"el fitxer d'entrada «%s» no conté una entrada de capçalera amb una "
+"especificació de joc de caràcters"
+
+#: src/msgl-cat.c:201
+#, c-format
+msgid ""
+"domain \"%s\" in input file `%s' doesn't contain a header entry with a "
+"charset specification"
+msgstr ""
+"el domini «%s» del fitxer d'entrada «%s» no conté una entrada de capçalera "
+"amb una especificació de joc de caràcters"
+
+#: src/msgl-cat.c:362 src/msgl-iconv.c:390
+#, c-format
+msgid "target charset \"%s\" is not a portable encoding name."
+msgstr ""
+"el joc de caràcters destinació, «%s», no és un nom portable de codificació"
+
+#: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:90
+#: src/msgl-charset.c:125 src/write-po.c:757 src/write-po.c:849
+msgid "warning: "
+msgstr "avís: "
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-cat.c:413
+msgid ""
+"Input files contain messages in different encodings, UTF-8 among others.\n"
+"Converting the output to UTF-8.\n"
+msgstr ""
+"Els fitxers d'entrada contenen missatges amb codificacions diferents,\n"
+"«UTF-8» entre altres.\n"
+"Es convertirà l'eixida en «UTF-8».\n"
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-cat.c:419
+#, c-format
+msgid ""
+"Input files contain messages in different encodings, %s and %s among "
+"others.\n"
+"Converting the output to UTF-8.\n"
+"To select a different output encoding, use the --to-code option.\n"
+msgstr ""
+"Els fitxers d'entrada contenen missatges amb codificacions diferents,\n"
+"«%s» i «%s» entre altres.\n"
+"Es convertirà l'eixida en «UTF-8».\n"
+"Per a seleccionar altra codificació, useu l'opció «--to-code».\n"
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-charset.c:91
+#, c-format
+msgid ""
+"Locale charset \"%s\" is different from\n"
+"input file charset \"%s\".\n"
+"Output of '%s' might be incorrect.\n"
+"Possible workarounds are:\n"
+msgstr ""
+"El joc de caràcters «%s» del locale és diferent del\n"
+"joc de caràcters «%s» del fitxer d'entrada.\n"
+"L'eixida de «%s» pot ser incorrecta.\n"
+"Aquestes són unes solucions possibles:\n"
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-charset.c:98
+#, c-format
+msgid "- Set LC_ALL to a locale with encoding %s.\n"
+msgstr "- Establiu «LC_ALL» a un locale amb codificació «%s».\n"
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-charset.c:103
+#, c-format
+msgid ""
+"- Convert the translation catalog to %s using 'msgconv',\n"
+"  then apply '%s',\n"
+"  then convert back to %s using 'msgconv'.\n"
+msgstr ""
+"- Convertiu el catàleg de traduccions en «%s» amb «msgconv»,\n"
+"  després apliqueu «%s»,\n"
+"  i aleshores torneu-lo a convertir en «%s» amb «msgconv»\n"
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-charset.c:112
+#, c-format
+msgid ""
+"- Set LC_ALL to a locale with encoding %s,\n"
+"  convert the translation catalog to %s using 'msgconv',\n"
+"  then apply '%s',\n"
+"  then convert back to %s using 'msgconv'.\n"
+msgstr ""
+"- Establiu «LC_ALL» a un locale amb codificació «%s»,\n"
+"  convertiu el catàleg de traduccions en «%s» amb «msgconv»,\n"
+"  després apliqueu «%s»,\n"
+"  i aleshores torneu-lo a convertir en «%s» amb «msgconv»\n"
+
+# ivb (2002/01/07)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/msgl-charset.c:126
+#, c-format
+msgid ""
+"Locale charset \"%s\" is not a portable encoding name.\n"
+"Output of '%s' might be incorrect.\n"
+"A possible workaround is to set LC_ALL=C.\n"
+msgstr ""
+"El joc de caràcters «%s» del locale no és un nom portable de codificació.\n"
+"L'eixida de «%s» pot ser incorrecta.\n"
+"Una solució possible és establir «LC_ALL=C».\n"
+
+#: src/msgl-iconv.c:184 src/msgl-iconv.c:242
+msgid "conversion failure"
+msgstr "la conversió ha fallat"
+
+#: src/msgl-iconv.c:335
+msgid "input file doesn't contain a header entry with a charset specification"
+msgstr ""
+"el fitxer d'entrada no conté una entrada de capçalera amb una especificació "
+"de joc de caràcters"
+
+#: src/msgl-iconv.c:353 src/xgettext.c:487
+#, c-format
+msgid ""
+"Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
+"not support this conversion."
+msgstr ""
+"No es pot convertir de «%s» en «%s». «%s» es basa en iconv(), i iconv() no "
+"suporta aquesta conversió."
+
+#: src/msgl-iconv.c:370 src/xgettext.c:494
+#, c-format
+msgid ""
+"Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
+"built without iconv()."
+msgstr ""
+"No es pot convertir de «%s» en «%s». %s es basa en iconv(). Aquesta versió "
+"ha estat construïda sense iconv()."
+
+#: src/msgmerge.c:359
+msgid "backup type"
+msgstr "tipus de còpia de seguretat"
+
+#: src/msgmerge.c:395
+#, no-wrap
+msgid ""
+"Merges two Uniforum style .po files together.  The def.po file is an\n"
+"existing PO file with translations which will be taken over to the newly\n"
+"created file as long as they still match; comments will be preserved,\n"
+"but extracted comments and file positions will be discarded.  The ref.pot\n"
+"file is the last created PO file with up-to-date source references but\n"
+"old translations, or a PO Template file (generally created by xgettext);\n"
+"any translations or comments in the file will be discarded, however dot\n"
+"comments and file positions will be preserved.  Where an exact match\n"
+"cannot be found, fuzzy matching is used to produce better results.\n"
+msgstr ""
+"Mescla dos fitxers PO d'estil Uniforum.  El fitxer «def.po» és un fitxer\n"
+"PO existent amb les traduccions que seran posades en el fitxer recent\n"
+"creat sempre que encara concorden; els comentaris seran preservats, però\n"
+"es descartaran els comentaris extrets i les posicions de fitxer.  El\n"
+"fitxer «ref.pot» és l'últim fitxer PO creat amb referències actualitzades\n"
+"al codi font però amb traduccions antigues, o un fitxer plantilla PO\n"
+"(generat normalment amb «xgettext»); qualsevol traducció o comentari en\n"
+"aquest fitxer serà descartat, però els comentaris amb punt i les posicions\n"
+"de fitxer seran preservades.  Quan no es puga trobar una coincidència\n"
+"exacta s'usarà una comparació difusa per produir uns resultats millors.\n"
+
+#: src/msgmerge.c:413
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  def.po                      translations referring to old sources\n"
+"  ref.pot                     references to new sources\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+"  -C, --compendium=FILE       additional library of message translations,\n"
+"                              may be specified more than once\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  def.po                      traduccions referents al codi font antic\n"
+"  ref.pot                     referències al nou codi font\n"
+"  -D, --directory=DIRECTORI   afig el DIRECTORI a la llista de recerca\n"
+"                              de fitxers d'entrada\n"
+"  -C, --compendium=FITXER     biblioteca addicional de traduccions de\n"
+"                              missatges, es pot especificar diverses voltes\n"
+
+#: src/msgmerge.c:423
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -U, --update                update def.po,\n"
+"                              do nothing if def.po already up to date\n"
+msgstr ""
+"Mode de funcionament:\n"
+"  -U, --update                actualitza «def.po»,\n"
+"                              no fa res si «def.po» ja es troba actualitzat\n"
+
+#: src/msgmerge.c:438
+#, no-wrap
+msgid ""
+"Output file location in update mode:\n"
+"The result is written back to def.po.\n"
+"      --backup=CONTROL        make a backup of def.po\n"
+"      --suffix=SUFFIX         override the usual backup suffix\n"
+"The version control method may be selected via the --backup option or through\n"
+"the VERSION_CONTROL environment variable.  Here are the values:\n"
+"  none, off       never make backups (even if --backup is given)\n"
+"  numbered, t     make numbered backups\n"
+"  existing, nil   numbered if numbered backups exist, simple otherwise\n"
+"  simple, never   always make simple backups\n"
+"The backup suffix is `~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n"
+"environment variable.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida en el mode d'actualització:\n"
+"El resultat es torna a escriure en «def.po».\n"
+"      --backup=CONTROL        crea una còpia de seguretat de «def.po»\n"
+"      --suffix=SUFIX          substitueix el sufix habitual\n"
+"                              de còpia de seguretat\n"
+"Podeu escollir el mètode de control de versions amb l'opció «--backup»\n"
+"o mitjançant la variable d'entorn «VERSION_CONTROL».  Aquests en són\n"
+"els valors possibles:\n"
+"  none, off       mai fa còpies (encara que s'especifique «--backup»)\n"
+"  numbered, t     crea còpies de seguretat numerades\n"
+"  existing, nil   numera si ja hi ha còpies numerades, si no usa «simple»\n"
+"  simple, never   sempre crea còpies de seguretat simples\n"
+"El sufix de còpia de seguretat és «~», a no ser que s'establesca amb\n"
+"«--suffix» o amb la variable d'entorn «SIMPLE_BACKUP_SUFFIX».\n"
+
+#: src/msgmerge.c:454
+#, fuzzy, no-wrap
+msgid ""
+"Operation modifiers:\n"
+"  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
+"  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
+msgstr ""
+"Modificadors del funcionament:\n"
+"  -m, --multi-domain          aplica «ref.pot» a cadascun dels dominis\n"
+"                              de «def.po»\n"
+
+#: src/msgmerge.c:478
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help                  display this help and exit\n"
+"  -V, --version               output version information and exit\n"
+"  -v, --verbose               increase verbosity level\n"
+"  -q, --quiet, --silent       suppress progress indicators\n"
+msgstr ""
+"Eixida informativa:\n"
+"  -h, --help                  mostra aquesta ajuda i ix\n"
+"  -V, --version               mostra informació sobre la versió i ix\n"
+"  -v, --verbose               augmenta el nivell de descripció\n"
+"  -q, --quiet, --silent       no mostra els indicadors de progrés\n"
+
+#: src/msgmerge.c:930
+msgid "this message should define plural forms"
+msgstr "cal definir formes plurals d'aquest missatge"
+
+#: src/msgmerge.c:953
+msgid "this message should not define plural forms"
+msgstr "no s'han de definir formes plurals d'aquest missatge"
+
+# ivb (2002/01/08)
+# ivb  Pense que «aprofitades» queda més clar que «mesclades»; es refereix
+# ivb  a les traduccions obteses directament de «def.po».  El primer «%s» és
+# ivb  (o no) una nova línia.
+#: src/msgmerge.c:1115
+#, c-format
+msgid ""
+"%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
+msgstr ""
+"%sS'han llegit %ld traduccions antigues + %ld referències, %ld aprofitades, %"
+"ld difuses, %ld mancants, %ld obsoletes.\n"
+
+# ivb (2002/01/08)
+# ivb  Indica el final del processament, el gènere i nombre no són importants.
+#: src/msgmerge.c:1123
+msgid " done.\n"
+msgstr " fet.\n"
+
+#: src/msgunfmt.c:227 src/msgunfmt.c:236
+#, c-format
+msgid "%s and explicit file names are mutually exclusive"
+msgstr "«%s» i els noms explícits de fitxer són mútuament excloents"
+
+#: src/msgunfmt.c:319
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [FILE]...\n"
+msgstr "Forma d'ús: %s [OPCIÓ] [FITXER]...\n"
+
+#: src/msgunfmt.c:324
+#, no-wrap
+msgid "Convert binary message catalog to Uniforum style .po file.\n"
+msgstr "Converteix un catàleg binari de missatges en un fitxer PO d'estil Uniforum.\n"
+
+# ivb (2002/03/14)
+# ivb  Amb «tcl/msgcat» es refereix al paquet «msgcat» de Tcl.
+#: src/msgunfmt.c:334
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --java               Java mode: input is a Java ResourceBundle class\n"
+"      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
+msgstr ""
+"Mode de funcionament:\n"
+"  -j, --java               mode Java: l'entrada és una classe Java\n"
+"                           «ResourceBundle»\n"
+"      --tcl                mode Tcl: l'entrada és un fitxer «.msg»\n"
+"                           de «msgcat» de Tcl\n"
+
+#: src/msgunfmt.c:341
+#, no-wrap
+msgid ""
+"Input file location:\n"
+"  FILE ...                 input .mo files\n"
+"If no input file is given or if it is -, standard input is read.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada:\n"
+"  FITXER ...               fitxers MO d'entrada\n"
+"Si no s'especifica cap fitxer d'entrada, o si aquest és «-», es llegirà\n"
+"l'entrada estàndard.\n"
+
+#: src/msgunfmt.c:348
+#, no-wrap
+msgid ""
+"Input file location in Java mode:\n"
+"  -r, --resource=RESOURCE  resource name\n"
+"  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
+"The class name is determined by appending the locale name to the resource name,\n"
+"separated with an underscore.  The class is located using the CLASSPATH.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada en el mode Java:\n"
+"  -r, --resource=RECURS    nom del recurs\n"
+"  -l, --locale=LOCALE      nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
+"El nom de la classe es construeix afegint el nom del locale al nom del\n"
+"recurs, separats per un caràcter de subratllat.  La classe es trobarà\n"
+"fent servir el camí a les classes, «CLASSPATH».\n"
+
+#: src/msgunfmt.c:357
+#, no-wrap
+msgid ""
+"Input file location in Tcl mode:\n"
+"  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY             base directory of .msg message catalogs\n"
+"The -l and -d options are mandatory.  The .msg file is located in the\n"
+"specified directory.\n"
+msgstr ""
+"Ubicació del fitxer d'entrada en el mode Tcl:\n"
+"  -l, --locale=LOCALE      nom del locale, bé «llengua» o bé «llengua_PAÍS»\n"
+"  -d DIRECTORI             directori base dels catàlegs de missatges «.msg»\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» es cercarà sota\n"
+"el directori especificat.\n"
+
+#: src/msgunfmt.c:366
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -o, --output-file=FILE   write output to specified file\n"
+"The results are written to standard output if no output file is specified\n"
+"or if it is -.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida:\n"
+"  -o, --output-file=FITXER   escriu l'eixida en el fitxer PO especificat\n"
+"Els resultats s'escriuran en l'eixida estàndard si no s'especifica cap\n"
+"fitxer d'eixida, o si aquest és «-».\n"
+
+#: src/msgunfmt.c:374
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape          do not use C escapes in output (default)\n"
+"  -E, --escape             use C escapes in output, no extended chars\n"
+"      --force-po           write PO file even if empty\n"
+"  -i, --indent             write indented output style\n"
+"      --strict             write strict uniforum style\n"
+"  -w, --width=NUMBER       set output page width\n"
+"      --no-wrap            do not break long message lines, longer than\n"
+"                           the output page width, into several lines\n"
+"  -s, --sort-output        generate sorted output\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -e, --no-escape          no usa seqüències d'escapada de C en l'eixida\n"
+"                           (per defecte)\n"
+"  -E, --escape             usa seqüències d'escapada de C en l'eixida\n"
+"                           en comptes de caràcters estesos\n"
+"      --force-po           genera el fitxer PO encara que siga buit\n"
+"  -i, --indent             genera el fitxer PO usant l'estil indentat\n"
+"      --strict             genera un fitxer PO estrictament conforme\n"
+"                           amb Uniforum\n"
+"  -w, --width=NÚMERO       estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap            no parteix en diverses línies les línies\n"
+"                           de missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output        genera una eixida ordenada\n"
+
+#: src/msgunfmt.c:388
+#, no-wrap
+msgid ""
+"Informative output:\n"
+"  -h, --help               display this help and exit\n"
+"  -V, --version            output version information and exit\n"
+"  -v, --verbose            increase verbosity level\n"
+msgstr ""
+"Eixida informativa:\n"
+"  -h, --help               mostra aquesta ajuda i ix\n"
+"  -V, --version            mostra informació sobre la versió i ix\n"
+"  -v, --verbose            augmenta el nivell de descripció\n"
+
+#: src/msguniq.c:284
+#, no-wrap
+msgid ""
+"Unifies duplicate translations in a translation catalog.\n"
+"Finds duplicate translations of the same message ID.  Such duplicates are\n"
+"invalid input for other programs like msgfmt, msgmerge or msgcat.  By\n"
+"default, duplicates are merged together.  When using the --repeated option,\n"
+"only duplicates are output, and all other messages are discarded.  Comments\n"
+"and extracted comments will be cumulated, except that if --use-first is\n"
+"specified, they will be taken from the first translation.  File positions\n"
+"will be cumulated.  When using the --unique option, duplicates are discarded.\n"
+msgstr ""
+"Unifica les traduccions duplicades d'un catàleg de traduccions.\n"
+"Troba les traduccions duplicades del mateix identificador de missatge.\n"
+"Aquestes traduccions duplicades constitueixen una entrada no vàlida\n"
+"per programes com «msgfmt», «msgmerge» o «msgcat».  Per defecte els\n"
+"duplicats es mesclaran en una sola traducció.  Amb l'opció «--repeated»\n"
+"només es mostraran els duplicats, i es descartaran la resta de missatges.\n"
+"Els comentaris i comentaris extrets s'acumularan; però, si useu l'opció\n"
+"«--use-first», només es prendran de la primera traducció.  Les posicions\n"
+"de fitxer s'acumularan.  Quan useu l'opció «--unique» es descartaran\n"
+"els duplicats.\n"
+
+#: src/msguniq.c:317
+#, no-wrap
+msgid ""
+"Message selection:\n"
+"  -d, --repeated                 print only duplicates\n"
+"  -u, --unique                   print only unique messages, discard duplicates\n"
+msgstr ""
+"Selecció de missatges:\n"
+"  -d, --repeated                 només mostra els duplicats\n"
+"  -u, --unique                   només mostra els missatges únics,\n"
+"                                 descartant els duplicats\n"
+
+#: src/ngettext.c:211
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+msgstr "Forma d'ús: %s [OPCIÓ] [DOMINITEXTUAL] IDMSG IDMSG-PLURAL NOMBRE\n"
+
+#: src/ngettext.c:216
+#, no-wrap
+msgid ""
+"Display native language translation of a textual message whose grammatical\n"
+"form depends on a number.\n"
+msgstr ""
+"Mostra la traducció a llengua nativa d'un missatge textual la forma\n"
+"gramatical del qual depén del nombre.\n"
+
+#: src/ngettext.c:221
+#, no-wrap
+msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+"  -d, --domain=DOMINITEXTUAL   obté els missatges traduïts del DOMINITEXTUAL\n"
+"  -e                           habilita l'expansió d'algunes seqüències\n"
+"                               d'escapada\n"
+"  -E                           (descartat, per compatibilitat)\n"
+"  -h, --help                   mostra aquesta ajuda i ix\n"
+"  -V, --version                mostra informació sobre la versió i ix\n"
+"  [DOMINITEXTUAL]              obté el missatge traduït del DOMINITEXTUAL\n"
+"  IDMSG IDMSG-PLURAL           tradueix IDMSG (singular)\n"
+"                               / IDMSG-PLURAL (plural)\n"
+"  NOMBRE                       escull la forma singular o la plural\n"
+"                               basant-se en aquest valor\n"
+
+#: src/ngettext.c:232
+#, c-format, no-wrap
+msgid ""
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"Si no s'especifica el paràmetre «DOMINITEXTUAL», es determinarà el domini\n"
+"amb la variable d'entorn «TEXTDOMAIN».  Si el catàleg de missatges no es\n"
+"troba en el directori habitual, es pot especificar una altra ubicació amb\n"
+"la variable d'entorn «TEXTDOMAINDIR».\n"
+"Directori estàndard de recerca: %s\n"
+
+#: src/open-po.c:58
+msgid "<stdin>"
+msgstr "<entrada estàndard>"
+
+#: src/po-charset.c:224 src/po-charset.c:294 src/po-charset.c:322
+#: src/po-charset.c:348
+#, c-format
+msgid "%s: warning: "
+msgstr "%s: avís: "
+
+# ivb (2002/01/09)
+# ivb  Em sembla que açò és «no-wrap».
+# ivb  Es refereix a tots els missatges -> plural.
+#: src/po-charset.c:225
+#, c-format
+msgid ""
+"Charset \"%s\" is not a portable encoding name.\n"
+"Message conversion to user's charset might not work.\n"
+msgstr ""
+"El joc de caràcters «%s» no és un nom portable de codificació.\n"
+"És possible que la conversió dels missatges al joc de caràcters de\n"
+"la usuària/l'usuari no funcione.\n"
+
+#: src/po-charset.c:290 src/po-charset.c:320
+msgid "Continuing anyway, expect parse errors."
+msgstr "Es continua de totes formes, espereu errors d'interpretació."
+
+#: src/po-charset.c:292
+msgid "Continuing anyway."
+msgstr "Es continua de totes formes."
+
+# ivb (2002/01/09)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/po-charset.c:295
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv(),\n"
+"and iconv() does not support \"%s\".\n"
+msgstr ""
+"No es suporta el joc de caràcters «%s». «%s» es basa en iconv(),\n"
+"i iconv() no suporta «%s».\n"
+
+# ivb (2002/01/09)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/po-charset.c:304 src/po-charset.c:330
+msgid ""
+"Installing GNU libiconv and then reinstalling GNU gettext\n"
+"would fix this problem.\n"
+msgstr ""
+"Instal·lar «libiconv» GNU i reinstal·lar «gettext» GNU\n"
+"resoldria aquest problema.\n"
+
+#: src/po-charset.c:309 src/po-charset.c:334
+#, c-format
+msgid "%s\n"
+msgstr "%s\n"
+
+# ivb (2002/01/09)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/po-charset.c:323
+#, c-format
+msgid ""
+"Charset \"%s\" is not supported. %s relies on iconv().\n"
+"This version was built without iconv().\n"
+msgstr ""
+"No es suporta el joc de caràcters «%s». «%s» es basa en iconv().\n"
+"Aquesta versió ha estat construïda sense iconv().\n"
+
+# ivb (2002/01/09)
+# ivb  Em sembla que açò és «no-wrap».
+# ivb  Es refereix a tots els missatges -> plural.
+#: src/po-charset.c:349
+msgid ""
+"Charset missing in header.\n"
+"Message conversion to user's charset will not work.\n"
+msgstr ""
+"Manca el joc de caràcters en la capçalera.\n"
+"La conversió dels missatges al joc de caràcters de\n"
+"la usuària/l'usuari no funcionarà.\n"
+
+#: po-gram-gen.y:92
+msgid "inconsistent use of #~"
+msgstr "l'ús de «#~» no és consistent"
+
+#: po-gram-gen.y:182
+msgid "missing `msgstr[]' section"
+msgstr "manca la secció «msgstr[]»"
+
+#: po-gram-gen.y:190
+msgid "missing `msgid_plural' section"
+msgstr "manca la secció «msgid_plural»"
+
+#: po-gram-gen.y:197
+msgid "missing `msgstr' section"
+msgstr "manca la secció «msgstr»"
+
+#: po-gram-gen.y:242
+msgid "first plural form has nonzero index"
+msgstr "la primera forma plural no té índex zero"
+
+#: po-gram-gen.y:244
+msgid "plural form has wrong index"
+msgstr "la forma plural té un índex incorrecte"
+
+#: src/po-lex.h:91 src/po-lex.h:106 src/po-lex.h:126 src/po-lex.h:141
+#: src/po-lex.c:102 src/po-lex.c:131
+msgid "too many errors, aborting"
+msgstr "hi ha massa errors, avortant"
+
+#: src/po-lex.c:455 src/write-po.c:339 src/write-po.c:445
+msgid "invalid multibyte sequence"
+msgstr "la seqüència multioctet no és vàlida"
+
+#: src/po-lex.c:481
+msgid "incomplete multibyte sequence at end of file"
+msgstr "hi ha una seqüència multioctet incompleta al final del fitxer"
+
+#: src/po-lex.c:491
+msgid "incomplete multibyte sequence at end of line"
+msgstr "hi ha una seqüència multioctet incompleta al final de la línia"
+
+#: src/po-lex.c:499
+msgid "iconv failure"
+msgstr "ha fallat iconv()"
+
+#: src/po-lex.c:682 src/read-mo.c:79 src/x-c.c:260 src/x-elisp.c:142
+#: src/x-librep.c:144 src/x-lisp.c:204 src/x-rst.c:225 src/x-ycp.c:94
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "error en llegir «%s»"
+
+#: src/po-lex.c:746
+#, c-format
+msgid "keyword \"%s\" unknown"
+msgstr "la paraula clau «%s» no és coneguda"
+
+#: src/po-lex.c:856
+msgid "invalid control sequence"
+msgstr "la seqüència de control no és vàlida"
+
+#: src/po-lex.c:964
+msgid "end-of-file within string"
+msgstr "s'ha trobat el final de fitxer emmig d'una cadena"
+
+#: src/po-lex.c:970
+msgid "end-of-line within string"
+msgstr "s'ha trobat un final de línia emmig d'una cadena"
+
+#: src/read-mo.c:98 src/read-mo.c:119 src/read-mo.c:164 src/read-mo.c:190
+#, c-format
+msgid "file \"%s\" is truncated"
+msgstr "el fitxer «%s» és truncat"
+
+#: src/read-mo.c:122
+#, c-format
+msgid "file \"%s\" contains a not NUL terminated string"
+msgstr "el fitxer «%s» conté una cadena no terminada en nul"
+
+#: src/read-mo.c:157 src/read-mo.c:263
+#, c-format
+msgid "file \"%s\" is not in GNU .mo format"
+msgstr "el fitxer «%s» no és en el format MO de GNU"
+
+# ivb (2002/08/08)
+# ivb  «%s» és una cadena amb forma «sysdep_string[%u]»
+#: src/read-mo.c:170
+#, c-format
+msgid "file \"%s\" contains a not NUL terminated string, at %s"
+msgstr "el fitxer «%s» conté una cadena no terminada en nul, en %s"
+
+#: src/urlget.c:143
+msgid "expected two arguments"
+msgstr "calen dos arguments"
+
+#: src/urlget.c:161
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] URL FILE\n"
+msgstr "Forma d'ús: %s [OPCIÓ] URL FITXER\n"
+
+#: src/urlget.c:166
+#, no-wrap
+msgid ""
+"Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
+"the locally accessible FILE is used instead.\n"
+msgstr ""
+"Obté i mostra el contingut d'una URL.  Si no es pot accedir a la URL,\n"
+"s'usarà el FITXER accessible localment en comptes d'aquella.\n"
+
+#: src/urlget.c:213
+msgid "error writing stdout"
+msgstr "error en escriure en l'eixida estàndard"
+
+#: src/write-java.c:1055
+msgid "cannot find a temporary directory, try setting $TMPDIR"
+msgstr ""
+"no s'ha pogut trobar un directori temporal, proveu a establir «$TMPDIR»"
+
+#: src/write-java.c:1065
+#, c-format
+msgid "cannot create a temporary directory using template \"%s\""
+msgstr "no s'ha pogut crear un directori temporal amb la plantilla «%s»"
+
+#: src/write-java.c:1078
+#, c-format
+msgid "not a valid Java class name: %s"
+msgstr "«%s» no és un nom vàlid de classe Java"
+
+#: src/write-java.c:1135 src/write-java.c:1148
+#, c-format
+msgid "failed to create \"%s\""
+msgstr "no s'ha pogut crear «%s»"
+
+#: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:995
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "error en escriure el fitxer «%s»"
+
+#: src/write-java.c:1170
+msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
+msgstr ""
+"no s'ha pogut compil·lar la classe Java, per favor useu «--verbose» o "
+"establiu «$JAVAC»"
+
+#: src/write-mo.c:690
+#, c-format
+msgid "error while opening \"%s\" for writing"
+msgstr "error en obrir «%s» per escriure"
+
+#: src/write-po.c:390
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"els missatges internacionalitzats no han de contenir la seqüència d'escapada "
+"«%c»"
+
+#: src/write-po.c:758 src/write-po.c:850
+#, c-format
+msgid ""
+"The following msgid contains non-ASCII characters.\n"
+"This will cause problems to translators who use a character encoding\n"
+"different from yours. Consider using a pure ASCII msgid instead.\n"
+"%s\n"
+msgstr ""
+"El següent «msgid» conté caràcters no-ASCII.\n"
+"Açò causarà problemes a les traductores o traductors que usen una\n"
+"codificació de caràcters diferent a la vostra. Considereu usar un\n"
+"«msgid» purament ASCII en comptes d'aquest.\n"
+"%s\n"
+
+#: src/write-po.c:914
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "no s'ha pogut crear el fitxer d'eixida «%s»"
+
+#: src/write-po.c:921
+#, no-c-format
+msgid "standard output"
+msgstr "eixida estàndard"
+
+#: src/x-c.c:906
+#, c-format
+msgid "%s:%d: warning: unterminated character constant"
+msgstr "%s:%d: avís: el literal caràcter no és terminat"
+
+#: src/x-c.c:930
+#, c-format
+msgid "%s:%d: warning: unterminated string literal"
+msgstr "%s:%d: avís: el literal cadena no és terminat"
+
+#: src/x-po.c:85 src/xgettext.c:710
+msgid "this file may not contain domain directives"
+msgstr "aquest fitxer no ha de contenir directives «domain»"
+
+#: src/x-rst.c:106
+#, c-format
+msgid "%s:%d: invalid string definition"
+msgstr "%s:%d: la definició de cadena no és vàlida"
+
+#: src/x-rst.c:166
+#, c-format
+msgid "%s:%d: missing number after #"
+msgstr "%s:%d: manca un número després de «#»"
+
+#: src/x-rst.c:201
+#, c-format
+msgid "%s:%d: invalid string expression"
+msgstr "%s:%d: l'expressió de cadena no és vàlida"
+
+#: src/xgettext.c:420
+msgid "--join-existing cannot be used when output is written to stdout"
+msgstr "no es pot usar «--join-existing» quan s'escriu en l'eixida estàndard"
+
+#: src/xgettext.c:425
+msgid "xgettext cannot work without keywords to look for"
+msgstr "«xgettext» no funciona sense paraules clau que cercar"
+
+#: src/xgettext.c:552
+#, c-format
+msgid "warning: file `%s' extension `%s' is unknown; will try C"
+msgstr ""
+"avís: l'extensió «%2$s» del fitxer «%1$s» no és coneguda; es provarà amb «C»"
+
+#: src/xgettext.c:603
+#, no-wrap
+msgid "Extract translatable strings from given input files.\n"
+msgstr "Extreu les cadenes traduïbles dels fitxers d'entrada especificats.\n"
+
+#: src/xgettext.c:608
+#, no-wrap
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too.\n"
+"Similarly for optional arguments.\n"
+msgstr ""
+"Els arguments obligatoris per les opcions llargues també ho són per les\n"
+"opcions curtes corresponents.  El mateix ocorre amb els arguments opcionals.\n"
+
+#: src/xgettext.c:623
+#, no-wrap
+msgid ""
+"Output file location:\n"
+"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
+"  -o, --output=FILE              write output to specified file\n"
+"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
+"If output file is -, output is written to standard output.\n"
+msgstr ""
+"Ubicació del fitxer d'eixida:\n"
+"  -d, --default-domain=NOM       usa «NOM.po» com a eixida\n"
+"                                 (en comptes de «messages.po»)\n"
+"  -o, --output=FITXER            escriu l'eixida en el FITXER especificat\n"
+"  -p, --output-dir=DIRECTORI     els fitxers d'eixida es desaran en\n"
+"                                 el DIRECTORI\n"
+"Si el fitxer d'eixida és «-» s'escriurà en l'eixida estàndard.\n"
+
+#: src/xgettext.c:632
+#, fuzzy, no-wrap
+msgid ""
+"Choice of input file language:\n"
+"  -L, --language=NAME            recognise the specified language\n"
+"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                   EmacsLisp, librep, Smalltalk, Java, awk,\n"
+"                                   YCP, Tcl, PHP, RST, Glade)\n"
+"  -C, --c++                      shorthand for --language=C++\n"
+"By default the language is guessed depending on the input file name extension.\n"
+msgstr ""
+"Selecció del llenguatge del fitxer d'entrada:\n"
+"  -L, --language=NOM             reconeix el llenguatge especificat\n"
+"                                 (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n"
+"                                 librep, Java, awk, YCP, Tcl, RST, Glade)\n"
+"  -C, -c++                       abreviatura de «--language=C++»\n"
+"Per defecte s'endevina el llenguatge fent servir l'extensió del nom\n"
+"del fitxer d'entrada.\n"
+
+#: src/xgettext.c:643
+#, no-wrap
+msgid ""
+"Input file interpretation:\n"
+"      --from-code=NAME           encoding of input files\n"
+"                                   (except for Python, Tcl, Glade)\n"
+"By default the input files are assumed to be in ASCII.\n"
+msgstr ""
+
+#: src/xgettext.c:651
+#, no-wrap
+msgid ""
+"Operation mode:\n"
+"  -j, --join-existing            join messages with existing file\n"
+"  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n"
+"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
+"                                 preceding keyword lines) in output file\n"
+msgstr ""
+"Mode de funcionament:\n"
+"  -j, --join-existing            uneix els missatges extrets amb els del\n"
+"                                 fitxer existent\n"
+"  -x, --exclude-file=FITXER.po   no extreu les entrades que ja es troben\n"
+"                                 en el FITXER.po\n"
+"  -c, --add-comments[=ETIQUETA]  inclou els blocs de comentaris amb l'ETIQUETA\n"
+"                                 (o aquells que precedeixen les línies amb\n"
+"                                 una paraula clau) en el fitxer d'eixida\n"
+
+#: src/xgettext.c:660
+#, no-wrap
+msgid ""
+"Language=C/C++ specific options:\n"
+"  -a, --extract-all              extract all strings\n"
+"  -k, --keyword[=WORD]           additional keyword to be looked for (without\n"
+"                                 WORD means not to use default keywords)\n"
+"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
+"      --debug                    more detailed formatstring recognition result\n"
+msgstr ""
+"Opcions específiques pels llenguatges C i C++:\n"
+"  -a, --extract-all              extreu totes les cadenes\n"
+"  -k, --keyword[=PARAULA]        paraula clau addicional a cercar (si no\n"
+"                                 s'especifica la PARAULA no s'usaran les\n"
+"                                 paraules clau per defecte)\n"
+"  -T, --trigraphs                entén els trígrafs del C ANSI en l'entrada\n"
+"      --debug                    escriu unes marques més detallades\n"
+"                                 de reconeixement de cadenes de format\n"
+
+#: src/xgettext.c:670
+#, no-wrap
+msgid ""
+"Output details:\n"
+"  -e, --no-escape                do not use C escapes in output (default)\n"
+"  -E, --escape                   use C escapes in output, no extended chars\n"
+"      --force-po                 write PO file even if empty\n"
+"  -i, --indent                   write the .po file using indented style\n"
+"      --no-location              do not write '#: filename:line' lines\n"
+"  -n, --add-location             generate '#: filename:line' lines (default)\n"
+"      --strict                   write out strict Uniforum conforming .po file\n"
+"  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
+"  -s, --sort-output              generate sorted output\n"
+"  -F, --sort-by-file             sort output by file location\n"
+"      --omit-header              don't write header with `msgid \"\"' entry\n"
+"      --copyright-holder=STRING  set copyright holder in output\n"
+"      --foreign-user             omit FSF copyright in output for foreign user\n"
+"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
+"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+msgstr ""
+"Detalls de l'eixida:\n"
+"  -e, --no-escape                no usa seqüències d'escapada de C en l'eixida\n"
+"                                 (per defecte)\n"
+"  -E, --escape                   usa seqüències d'escapada de C en l'eixida\n"
+"                                 en comptes de caràcters estesos\n"
+"      --force-po                 genera el fitxer PO encara que siga buit\n"
+"  -i, --indent                   genera el fitxer PO usant l'estil indentat\n"
+"      --no-location              no escriu les línies «#: nomfitxer:línia»\n"
+"  -n, --add-location             escriu les línies «#: nomfitxer:línia»\n"
+"                                 (per defecte)\n"
+"      --strict                   genera un fitxer PO estrictament conforme\n"
+"                                 amb Uniforum\n"
+"  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
+"  -s, --sort-output              genera una eixida ordenada\n"
+"  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
+"      --omit-header              no escriu la capçalera amb l'entrada\n"
+"                                 «msgid \"\"»\n"
+"      --copyright-holder=CADENA  estableix el propietari/la propietària\n"
+"                                 del copyright en l'eixida\n"
+"      --foreign-user             omet el copyright de la FSF en l'eixida\n"
+"                                 per una altra usuària/un altre usuari\n"
+"  -m, --msgstr-prefix[=CADENA]   usa la CADENA o «» com a prefix de\n"
+"                                 les entrades «msgstr»\n"
+"  -M, --msgstr-suffix[=CADENA]   usa la CADENA o «» com a sufix de\n"
+"                                 les entrades «msgstr»\n"
+
+#: src/xgettext.c:879
+msgid "standard input"
+msgstr "entrada estàndard"
+
+#: src/xgettext.c:972
+#, c-format
+msgid ""
+"Non-ASCII string at %s%s.\n"
+"Please specify the source encoding through --from-code."
+msgstr ""
+
+# ivb (2002/01/09)
+# ivb  Em sembla que açò és «no-wrap».
+#: src/xgettext.c:1028
+msgid ""
+"Empty msgid.  It is reserved by GNU gettext:\n"
+"gettext(\"\") returns the header entry with\n"
+"meta information, not the empty string.\n"
+msgstr ""
+"El «msgid» és buit.  Açò es troba reservat pel «gettext» GNU:\n"
+"«gettext(\"\")» retorna l'entrada de capçalera amb metainformació,\n"
+"no la cadena buida.\n"
+
+#: src/xgettext.c:1410
+#, c-format
+msgid "language `%s' unknown"
+msgstr "el llenguatge «%s» no és conegut"
