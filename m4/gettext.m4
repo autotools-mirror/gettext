@@ -69,17 +69,19 @@ AC_DEFUN(AM_WITH_NLS,
 
 	AC_CHECK_HEADER(libintl.h,
 	  [AC_CACHE_CHECK([for gettext in libc], gt_cv_func_gettext_libc,
-	    [AC_TRY_LINK([#include <libintl.h>], [return (int) gettext ("")],
+	    [AC_TRY_LINK([#include <libintl.h>],
+	       [bindtextdomain ("", ""); return (int) gettext ("")],
 	       gt_cv_func_gettext_libc=yes, gt_cv_func_gettext_libc=no)])
 
 	   if test "$gt_cv_func_gettext_libc" != "yes"; then
-	     AC_CHECK_LIB(intl, bindtextdomain,
-	       [AC_CACHE_CHECK([for gettext in libintl],
-		 gt_cv_func_gettext_libintl,
-		 [AC_CHECK_LIB(intl, gettext,
-		  gt_cv_func_gettext_libintl=yes,
-		  gt_cv_func_gettext_libintl=no)],
-		 gt_cv_func_gettext_libintl=no)])
+	     AC_CACHE_CHECK([for gettext in libintl],
+	       gt_cv_func_gettext_libintl,
+	       [gt_save_LIBS="$LIBS"
+		LIBS="$LIBS -lintl"
+		AC_TRY_LINK([#include <libintl.h>],
+		  [bindtextdomain ("", ""); return (int) gettext ("")],
+		  gt_cv_func_gettext_libintl=yes, gt_cv_func_gettext_libintl=no)
+		LIBS="$gt_save_LIBS"])
 	   fi
 
 	   if test "$gt_cv_func_gettext_libc" = "yes" \
@@ -92,13 +94,21 @@ AC_DEFUN(AM_WITH_NLS,
 		AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 		AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 		  [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
+		gt_save_LIBS="$LIBS"
+		if test "$gt_cv_func_gettext_libintl" = "yes"; then
+		  LIBS="$LIBS -lintl"
+		fi
 		AC_TRY_LINK(, [extern int _nl_msg_cat_cntr;
 			       return _nl_msg_cat_cntr],
 		  [CATOBJEXT=.gmo
 		   DATADIRNAME=share],
 		  [CATOBJEXT=.mo
 		   DATADIRNAME=lib])
+		LIBS="$gt_save_LIBS"
 		INSTOBJEXT=.mo
+	      fi
+	      if test "$gt_cv_func_gettext_libintl" = "yes"; then
+		INTLLIBS="-lintl"
 	      fi
 	    fi
 	])
@@ -132,7 +142,7 @@ ifelse([$1], no-catgets, ,[
 		 DATADIRNAME=lib
 		 INTLDEPS='ifelse([$2],[],$(top_builddir)/intl/libintl.a,[$2])'
 		 INTLLIBS=$INTLDEPS
-		 LIBS=`echo $LIBS | sed -e 's/-lintl//'`
+		 LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
 		 nls_cv_header_intl=ifelse([$3],[],intl,[$3])/libintl.h
 		 nls_cv_header_libgt=ifelse([$3],[],intl,[$3])/libgettext.h
 	       fi])
@@ -162,7 +172,7 @@ ifelse([$1], no-catgets, ,[
         DATADIRNAME=share
 	INTLDEPS='ifelse([$2],[],$(top_builddir)/intl/libintl.a,[$2])'
 	INTLLIBS=$INTLDEPS
-	LIBS=`echo $LIBS | sed -e 's/-lintl//'`
+	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
 	nls_cv_header_intl=ifelse([$3],[],intl,[$3])/libintl.h
 	nls_cv_header_libgt=ifelse([$3],[],intl,[$3])/libgettext.h
       fi
