@@ -1,3 +1,8 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	* pathmax.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
 	* flex.m4 (gt_PROG_LEX): Remove LEX_OUTPUT_ROOT setting, not needed

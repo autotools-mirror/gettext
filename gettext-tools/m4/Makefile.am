@@ -40,6 +40,7 @@ mbstate_t.m4 \
 mbswidth.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
+pathmax.m4 \
 setenv.m4 \
 setlocale.m4 \
 siginfo.m4 \
