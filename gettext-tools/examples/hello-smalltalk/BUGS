@@ -1,0 +1,2 @@
+The program's output starts with a line "Loading package I18N". The
+PackageLoader class does not offer a way to turn this message off.
