@@ -1,3 +1,11 @@
+2003-02-18  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-13: Add Report-Msgid-Bugs-To line to expected result.
+	* xgettext-14: Likewise.
+	* xgettext-18: Likewise.
+	* xgettext-21: Likewise.
+	* xgettext-23: Likewise.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Big restructuring.
