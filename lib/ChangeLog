@@ -1,3 +1,8 @@
+2002-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* alloca.c: Update from current gnulib version.
+	* memset.c: Update from current gnulib version.
+
 2002-11-13  Bruno Haible  <bruno@clisp.org>
 
 	Assume ANSI C.
