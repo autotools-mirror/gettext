@@ -1,3 +1,7 @@
+2001-04-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add src/po-charset.c.
+
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.37 released.

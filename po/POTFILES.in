@@ -20,6 +20,7 @@ src/msgmerge.c
 src/msgunfmt.c
 src/ngettext.c
 src/open-po.c
+src/po-charset.c
 src/po-gram-gen.c
 src/po-lex.h
 src/po-lex.c
