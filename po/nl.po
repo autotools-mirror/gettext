@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.31\n"
-"POT-Creation-Date: 2000-07-28 22:51+0200\n"
+"POT-Creation-Date: 2001-03-09 19:56+0100\n"
 "PO-Revision-Date: 1997-03-11 22:38 \n"
 "Last-Translator: Erick Branderhorst <Erick.Branderhorst@asml.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -13,75 +13,80 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: lib/error.c:103
+#: lib/error.c:115
 msgid "Unknown system error"
 msgstr "Onbekende systeemfout"
 
-#: lib/getopt.c:680
+#: lib/getopt.c:691
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: optie `%s' is ambiguous\n"
 
-#: lib/getopt.c:704
+#: lib/getopt.c:716
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: optie `--%s' verwacht geen argument\n"
 
-#: lib/getopt.c:709
+#: lib/getopt.c:721
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: optie `%c%s' verwacht geen argument\n"
 
-#: lib/getopt.c:726 lib/getopt.c:899
+#: lib/getopt.c:739 lib/getopt.c:912
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: optie `%s' verwacht een argument\n"
 
 #. --option
-#: lib/getopt.c:755
+#: lib/getopt.c:768
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: onbekende optie `--%s'\n"
 
 #. +option or -option
-#: lib/getopt.c:759
+#: lib/getopt.c:772
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: onbekende optie `%c%s'\n"
 
 #. 1003.2 specifies the format of this message.
-#: lib/getopt.c:785
+#: lib/getopt.c:798
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: ongeldige optie -- %c\n"
 
-#: lib/getopt.c:788
+#: lib/getopt.c:801
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: ongeldige optie -- %c\n"
 
 #. 1003.2 specifies the format of this message.
-#: lib/getopt.c:818 lib/getopt.c:948
+#: lib/getopt.c:831 lib/getopt.c:961
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: optie verwacht een argument -- %c\n"
 
-#: lib/getopt.c:865
+#: lib/getopt.c:878
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: optie `-W %s' is dubbelzinnig\n"
 
-#: lib/getopt.c:883
+#: lib/getopt.c:896
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: optie `-W %s' staat geen argument toe\n"
 
-#: lib/xmalloc.c:82
+#: lib/obstack.c:474
+#, fuzzy
+msgid "memory exhausted"
+msgstr "Geen geheugen meer beschikbaar"
+
+#: lib/xmalloc.c:86
 msgid "Memory exhausted"
 msgstr "Geen geheugen meer beschikbaar"
 
-#: src/gettextp.c:134 src/msgcmp.c:144 src/msgcomm.c:285 src/msgfmt.c:257
-#: src/msgmerge.c:263 src/msgunfmt.c:175 src/xgettext.c:401
+#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,27 +98,27 @@ msgstr ""
 "garantie; zelfs niet voor VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN\n"
 "SPECIFIEK DOEL.\n"
 
-#: src/gettextp.c:139 src/msgcmp.c:149 src/msgcomm.c:290 src/msgfmt.c:262
-#: src/msgmerge.c:268 src/msgunfmt.c:180 src/xgettext.c:406
+#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Geschreven door %s.\n"
 
-#: src/gettextp.c:154
+#: src/gettext.c:158
 msgid "missing arguments"
 msgstr "ontbrekende argumenten"
 
-#: src/gettextp.c:164
+#: src/gettext.c:168
 msgid "too many arguments"
 msgstr "te veel argumenten"
 
-#: src/gettextp.c:228 src/msgcmp.c:181 src/msgcomm.c:395 src/msgfmt.c:361
-#: src/msgmerge.c:323 src/msgunfmt.c:210 src/xgettext.c:539
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:377
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Probeer `%s --help' voor meer informatie.\n"
 
-#: src/gettextp.c:233
+#: src/gettext.c:237
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -136,7 +141,7 @@ msgstr ""
 "  [TEXTDOMEIN] MSGID        ontvang vertaalde meldingen corresponderend aan\n"
 "                            MSGID vanuit TEKSTDOMEIN\n"
 
-#: src/gettextp.c:245
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -159,42 +164,20 @@ msgstr ""
 "worden de in de katalogus gevonden meldingen vertaald.\n"
 "Standaard zoek directory: %s\n"
 
-#: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
-#: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:404
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Meld fouten via <bug-gnu-utils@gnu.org>.\n"
 
-#: src/message.c:900
-#, c-format
-msgid ""
-"internationalized messages should not contain the `\\%c' escape sequence"
-msgstr ""
-"geonternationaliseerde meldingen mogen geen `\\%c' escape sequences bevatten"
-
-#: src/message.c:1231
-#, c-format
-msgid "cannot create output file \"%s\""
-msgstr "kan uitvoerbestand \"%s\" niet aanmaken"
-
-#: src/message.c:1238
-#, no-c-format
-msgid "standard output"
-msgstr "standaard uitvoer"
-
-#: src/message.c:1298
-#, c-format
-msgid "error while writing \"%s\" file"
-msgstr "fout bij schrijven bestand \"%s\""
-
-#: src/msgcmp.c:160 src/msgmerge.c:279
+#: src/msgcmp.c:156 src/msgmerge.c:271
 msgid "no input files given"
 msgstr "geen invoerbestanden gegeven"
 
-#: src/msgcmp.c:165 src/msgmerge.c:284
+#: src/msgcmp.c:161 src/msgmerge.c:276
 msgid "exactly 2 input files required"
 msgstr "precies 2 invoerbestanden zijn benodigd"
 
-#: src/msgcmp.c:186
+#: src/msgcmp.c:182
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -225,57 +208,62 @@ msgstr ""
 "overeenkomst niet gevonden kan wrden, zal fuzzy(vage) matching worden gebruikt,\n"
 "ter verkrijging van een betere diagnose.\n"
 
-#: src/msgcmp.c:259 src/msgmerge.c:746
+#: src/msgcmp.c:255 src/msgmerge.c:741
 msgid "this message is used but not defined..."
 msgstr "deze melding is gebruikt maar is niet gedefinieerd..."
 
-#: src/msgcmp.c:261 src/msgmerge.c:748
+#: src/msgcmp.c:257 src/msgmerge.c:743
 msgid "...but this definition is similar"
 msgstr "...maar de definitie is gelijksoortig"
 
-#: src/msgcmp.c:267 src/msgmerge.c:775
+#: src/msgcmp.c:263 src/msgmerge.c:770
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "deze melding is gebruikt maar niet gedefinieerd in %s"
 
-#: src/msgcmp.c:281
+#: src/msgcmp.c:277
 msgid "warning: this message is not used"
 msgstr "waarschuwing: deze melding is niet gebruikt"
 
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1093
+#: src/msgcmp.c:282 src/po-lex.c:102
+#, c-format
+msgid "found %d fatal errors"
+msgstr "%d fatale fouten gevonden"
+
+#: src/msgcmp.c:354 src/msgfmt.c:657 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
 msgstr "dubbele melding definitie"
 
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1094
+#: src/msgcmp.c:355 src/msgfmt.c:659 src/msgmerge.c:513 src/xgettext.c:1170
 msgid "...this is the location of the first definition"
 msgstr "...dit is de lokatie van de eerste definitie"
 
-#: src/msgcmp.c:396 src/msgmerge.c:566
+#: src/msgcmp.c:395 src/msgmerge.c:561
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "deze melding heeft geen definitie in het \"%s\" domein"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1288
+#: src/msgcomm.c:236 src/xgettext.c:337 src/xgettext.c:1365
 msgid "while preparing output"
 msgstr "bij voorbereiden uitvoer"
 
-#: src/msgcomm.c:273 src/msgcomm.c:277 src/xgettext.c:378 src/xgettext.c:382
+#: src/msgcomm.c:271 src/msgcomm.c:275 src/xgettext.c:375 src/xgettext.c:379
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s en %s zijn mutually exclusive"
 
-#: src/msgcomm.c:341
+#: src/msgcomm.c:327
 msgid "at least two files must be specified"
 msgstr ""
 
-#: src/msgcomm.c:360
+#: src/msgcomm.c:346
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr ""
 
-#: src/msgcomm.c:400
+#: src/msgcomm.c:386
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -307,7 +295,7 @@ msgstr ""
 "      --foreign-user             laat FSF kopierecht weg voor vreemde gebruiker\n"
 "  -F, --sort-by-file             sorteer uitvoer bij bestandslokatie\n"
 
-#: src/msgcomm.c:412
+#: src/msgcomm.c:398
 #, fuzzy
 msgid ""
 "  -i, --indent                   write the .po file using indented style\n"
@@ -342,7 +330,7 @@ msgstr ""
 "\n"
 "Als INVOERBESTAND - is, lees standaardinvoer.\n"
 
-#: src/msgcomm.c:425
+#: src/msgcomm.c:411
 msgid ""
 "  -V, --version                  output version information and exit\n"
 "  -w, --width=NUMBER             set output page width\n"
@@ -362,41 +350,41 @@ msgid ""
 "preserved.\n"
 msgstr ""
 
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:161
-#: src/xget-lex.c:176 src/xget-lex.c:193 src/xgettext.c:625
+#: src/msgcomm.c:462 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
+#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:611
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "fout tijdens openen om te lezen van \"%s\""
 
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:1000
+#: src/msgcomm.c:543 src/xgettext.c:653 src/xgettext.c:1071
 msgid "this file may not contain domain directives"
 msgstr "dit bestand mag geen domein directives bevatten"
 
-#: src/msgfmt.c:273 src/xgettext.c:417
+#: src/msgfmt.c:286 src/xgettext.c:414
 msgid "no input file given"
 msgstr "geen invoerbestand gegeven"
 
-#: src/msgfmt.c:321
+#: src/msgfmt.c:337
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "fout bij openen om te schrijven van \"%s\""
 
-#: src/msgfmt.c:343
+#: src/msgfmt.c:359
 #, c-format
 msgid "%d translated messages"
 msgstr "%d vertaalde meldingen"
 
-#: src/msgfmt.c:345
+#: src/msgfmt.c:361
 #, c-format
 msgid ", %d fuzzy translations"
 msgstr ", %d vage vertalingen"
 
-#: src/msgfmt.c:347
+#: src/msgfmt.c:363
 #, c-format
 msgid ", %d untranslated messages"
 msgstr ", %d onvertaalde meldingen"
 
-#: src/msgfmt.c:366
+#: src/msgfmt.c:382
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
@@ -440,21 +428,23 @@ msgstr ""
 "Als invoerbestand - is, lees standaardinvoer.  Als uitvoerbestand -\n"
 "is, schrijf uitvoer naar standaarduitvoer.\n"
 
-#: src/msgfmt.c:409
+#: src/msgfmt.c:425
 msgid "while creating hash table"
 msgstr "tijdens aanmaken hash tabel"
 
-#: src/msgfmt.c:451
+#: src/msgfmt.c:469
 #, fuzzy, c-format
-msgid "%s: warning: PO file header missing, fuzzy, or invalid"
+msgid ""
+"%s: warning: PO file header missing, fuzzy, or invalid\n"
+"%*s  warning: charset conversion will not work"
 msgstr "%s: let op: broncode bevat vage vertaling"
 
-#: src/msgfmt.c:474
+#: src/msgfmt.c:493
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "domeinnaam \"%s\" niet bruikbaar als bestandsnaam"
 
-#: src/msgfmt.c:479
+#: src/msgfmt.c:498
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
@@ -462,62 +452,82 @@ msgstr ""
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:492
+#: src/msgfmt.c:511
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "`domein %s' directive genegeerd"
 
-#: src/msgfmt.c:520
+#: src/msgfmt.c:541
 msgid "empty `msgstr' entry ignored"
 msgstr "lege `msgstr' entry genegeerd"
 
-#: src/msgfmt.c:521
+#: src/msgfmt.c:542
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "lege `msgstr' ingang genegeerd"
 
-#: src/msgfmt.c:564
+#: src/msgfmt.c:584
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "header(??)veld `%s' ontbreekt in header(??)"
 
-#: src/msgfmt.c:567
+#: src/msgfmt.c:587
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "header(??)veld `%s' moet starten aan het begin van de regel"
 
-#: src/msgfmt.c:577
+#: src/msgfmt.c:597
 msgid "some header fields still have the initial default value"
 msgstr ""
 "sommige header(??)velden hebben nog de oorspronkelijke standaard waarde"
 
-#: src/msgfmt.c:588
+#: src/msgfmt.c:608
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "veld `%s' heeft nog de oorspronkelijke standaard waarde"
 
-#: src/msgfmt.c:673
+#: src/msgfmt.c:698
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: let op: broncode bevat vage vertaling"
 
-#: src/msgfmt.c:875
+#: src/msgfmt.c:920
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr "`msgid' en `msgstr' ingangen beginnen niet allebei met '\\n'"
+
+#: src/msgfmt.c:928
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr "`msgid' en `msgstr' ingangen beginnen niet allebei met '\\n'"
+
+#: src/msgfmt.c:938
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid' en `msgstr' ingangen beginnen niet allebei met '\\n'"
 
-#: src/msgfmt.c:883
+#: src/msgfmt.c:953
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr "`msgid' en `msgstr' ingangen eindigen niet allebei met '\\n'"
+
+#: src/msgfmt.c:961
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr "`msgid' en `msgstr' ingangen eindigen niet allebei met '\\n'"
+
+#: src/msgfmt.c:971
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "`msgid' en `msgstr' ingangen eindigen niet allebei met '\\n'"
 
-#: src/msgfmt.c:897
+#: src/msgfmt.c:987
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr "aantal formaat specificaties in `msgid' en `msgstr' zijn niet gelijk"
 
-#: src/msgfmt.c:914
+#: src/msgfmt.c:1004
 #, c-format
 msgid "format specifications for argument %u are not the same"
 msgstr "formaat specificaties voor argument %u zijn niet dezelfde"
 
-#: src/msgmerge.c:328
+#: src/msgmerge.c:320
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -555,7 +565,7 @@ msgstr ""
 "  -V, --version               toon versie-informatie en bekindig programma\n"
 "  -W, --width=NUMBER          stel uitvoer pagina breedte in\n"
 
-#: src/msgmerge.c:348
+#: src/msgmerge.c:340
 #, no-wrap
 msgid ""
 "\n"
@@ -581,20 +591,20 @@ msgstr ""
 "worden om betere resultaten te verkrijgen.  De resultaten worden naar \n"
 "standaarduitvoer geschreven tenzij een uitvoerbestand is gespecificeerd.\n"
 
-#: src/msgmerge.c:804
+#: src/msgmerge.c:799
 #, c-format
 msgid ""
-"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
-"%d.\n"
+"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete %"
+"d.\n"
 msgstr ""
 "%sLees %d oud + %d referentie, samengevoegd %d, fuzzied(gevaagd) %d, "
 "ontbrekend %d, overbodig %d.\n"
 
-#: src/msgmerge.c:810
+#: src/msgmerge.c:805
 msgid " done.\n"
 msgstr " done.\n"
 
-#: src/msgunfmt.c:215
+#: src/msgunfmt.c:210
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [FILE]...\n"
@@ -623,7 +633,7 @@ msgstr ""
 "  -V, --version            toon versie-informatie en bekindig programma\n"
 "  -w, --width=NUMMER       stel uitvoer paginabreedte in\n"
 
-#: src/msgunfmt.c:229
+#: src/msgunfmt.c:224
 #, no-wrap
 msgid ""
 "\n"
@@ -638,88 +648,122 @@ msgstr ""
 "Als invoerbestand - is of leeg, lees standaardinvoer.\n"
 "Standaard wordt de uitvoer gescreven naar standaarduitvoer.\n"
 
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:256
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:213 src/xget-lex.c:243
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "fout tijdens lezen \"%s\""
 
-#: src/msgunfmt.c:267 src/msgunfmt.c:331
+#: src/msgunfmt.c:262 src/msgunfmt.c:327
 #, c-format
 msgid "file \"%s\" truncated"
 msgstr "bestand \"%s\" ingekort"
 
-#: src/msgunfmt.c:298
+#: src/msgunfmt.c:293
 #, c-format
 msgid "seek \"%s\" offset %ld failed"
 msgstr "zoek \"%s\" offset %ld gefaald"
 
-#: src/msgunfmt.c:373
+#: src/msgunfmt.c:332
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated string"
+msgstr "bestand \"%s\" is geen GNU .mo bestand"
+
+#: src/msgunfmt.c:377
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "bestand \"%s\" is geen GNU .mo bestand"
 
-#: /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y:129
+#: src/open-po.c:64
+msgid "<stdin>"
+msgstr ""
+
+#: po-gram-gen.y:87
+msgid "inconsistent use of #~"
+msgstr ""
+
+#: po-gram-gen.y:168
+#, fuzzy
+msgid "missing `msgstr[]' section"
+msgstr "ontbrekend `msgstr' gedeelte"
+
+#: po-gram-gen.y:176
+#, fuzzy
+msgid "missing `msgid_plural' section"
+msgstr "ontbrekend `msgstr' gedeelte"
+
+#: po-gram-gen.y:183
 msgid "missing `msgstr' section"
 msgstr "ontbrekend `msgstr' gedeelte"
 
-#: src/po-lex.c:84
-#, c-format
-msgid "found %d fatal errors"
-msgstr "%d fatale fouten gevonden"
+#: po-gram-gen.y:228
+msgid "first plural form has nonzero index"
+msgstr ""
 
-#: src/po-lex.c:129 src/po-lex.c:168
+#: po-gram-gen.y:230
+msgid "plural form has wrong index"
+msgstr ""
+
+#. CAUTION: If you change this macro, you must also make identical
+#. changes to the function of the same name in src/po-lex.c
+#: src/po-lex.c:156 src/po-lex.c:195 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.h:115 src/po-lex.h:129
 msgid "too many errors, aborting"
 msgstr "te veel fouten, afgebroken"
 
-#: src/po-lex.c:241
+#: src/po-lex.c:271
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "sleutelwoord \"%s\" onbekend"
 
-#: src/po-lex.c:335
+#: src/po-lex.c:374
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "illegale kontrol sequence"
 
-#: src/po-lex.c:419
-msgid "end-of-line within string"
-msgstr "einde-regel-teken in string"
-
-#: src/po-lex.c:424
+#: src/po-lex.c:477
 msgid "end-of-file within string"
 msgstr "einde-bestand-teken in string"
 
-#: src/xget-lex.c:152
+#: src/po-lex.c:482
+msgid "end-of-line within string"
+msgstr "einde-regel-teken in string"
+
+#: src/po-lex.c:525
+#, fuzzy
+msgid "invalid multibyte sequence"
+msgstr "illegale kontrol sequence"
+
+#: src/xget-lex.c:148
 msgid "standard input"
 msgstr "standaard invoer"
 
-#: src/xget-lex.c:894
+#: src/xget-lex.c:876
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: let op: niet getermineerde karakter konstante"
 
-#: src/xget-lex.c:916
+#: src/xget-lex.c:898
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: let op: niet getermineerde string literal"
 
-#: src/xgettext.c:386
+#: src/xgettext.c:383
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing kan niet gebruikt worden indien uitvoer naar "
 "standaarduitvoer\n"
 "wordt geschreven"
 
-#: src/xgettext.c:391
+#: src/xgettext.c:388
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:508
+#: src/xgettext.c:494
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "let op: bestand `%s' extensie `%s' is onbekend; ga C proberen"
 
-#: src/xgettext.c:544
+#: src/xgettext.c:530
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -758,7 +802,7 @@ msgstr ""
 "      --foreign-user             laat FSF kopierecht weg voor vreemde gebruiker\n"
 "  -F, --sort-by-file             sorteer uitvoer bij bestandslokatie\n"
 
-#: src/xgettext.c:564
+#: src/xgettext.c:550
 #, c-format, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
@@ -786,7 +830,7 @@ msgstr ""
 "                                 msgstr ingangen\n"
 "      --no-location              geen '#: filename:line' regels\n"
 
-#: src/xgettext.c:578
+#: src/xgettext.c:564
 #, no-wrap
 msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -815,20 +859,35 @@ msgstr ""
 "\n"
 "Als INVOERBESTAND - is, lees standaardinvoer.\n"
 
-#: src/xgettext.c:879
+#: src/xgettext.c:926
 #, fuzzy, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
 msgstr "%s:%d: let op: niet getermineerde string literal"
 
-#: src/xgettext.c:889
+#: src/xgettext.c:936
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
 
-#: src/xgettext.c:1374
+#: src/xgettext.c:1432
 #, c-format
 msgid "language `%s' unknown"
 msgstr "taal `%s' onbekend"
+
+#~ msgid ""
+#~ "internationalized messages should not contain the `\\%c' escape sequence"
+#~ msgstr ""
+#~ "geonternationaliseerde meldingen mogen geen `\\%c' escape sequences "
+#~ "bevatten"
+
+#~ msgid "cannot create output file \"%s\""
+#~ msgstr "kan uitvoerbestand \"%s\" niet aanmaken"
+
+#~ msgid "standard output"
+#~ msgstr "standaard uitvoer"
+
+#~ msgid "error while writing \"%s\" file"
+#~ msgstr "fout bij schrijven bestand \"%s\""
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: let op: geen header ingang gevonden"

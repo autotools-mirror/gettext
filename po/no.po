@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.12\n"
-"POT-Creation-Date: 2001-01-08 00:16+0100\n"
+"POT-Creation-Date: 2001-03-09 19:56+0100\n"
 "PO-Revision-Date: 1999-08-06 22:38+02:00\n"
 "Last-Translator: Trond Endrestøl <endrestol@hotmail.com>\n"
 "Language-Team: Norwegian-bokmål <no@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: lib/error.c:109
+#: lib/error.c:115
 msgid "Unknown system error"
 msgstr "Ukjent systemfeil"
 
@@ -87,8 +87,8 @@ msgstr "Minnet oppbrukt"
 
 # Hva skal MERCHANTABILITY og FITNESS FOR PARTICULAR PURPOSE oversettes med?
 # Er denne oversettelsen grei nok?
-#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:282 src/msgfmt.c:270
-#: src/msgmerge.c:254 src/msgunfmt.c:169 src/xgettext.c:397
+#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -99,8 +99,8 @@ msgstr ""
 "Dette er fri pogramvare; se kildekoden for kopieringsbetingelser.  Det finnes\n"
 "INGEN garanti; ikke engang for SALGBARHET eller SKIKKETHET FOR ET BESTEMT FORMÅL.\n"
 
-#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:287 src/msgfmt.c:275
-#: src/msgmerge.c:259 src/msgunfmt.c:174 src/xgettext.c:402
+#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrevet av %s.\n"
@@ -113,8 +113,8 @@ msgstr "mangler argumenter"
 msgid "too many arguments"
 msgstr "for mange argumenter"
 
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:392 src/msgfmt.c:374
-#: src/msgmerge.c:314 src/msgunfmt.c:204 src/xgettext.c:535
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:377
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Prøv «%s --help» for mer informasjon.\n"
@@ -164,38 +164,16 @@ msgstr ""
 "stedet blir meldinger i den valgte katalogen oversatt.\n"
 "Standard søkekatalog er: %s\n"
 
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:439 src/msgfmt.c:401
-#: src/msgmerge.c:349 src/msgunfmt.c:228 src/xgettext.c:587
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:404
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Rapporter feil til <bug-gnu-utils@gnu.org>.\n"
 
-#: src/message.c:1006
-#, c-format
-msgid ""
-"internationalized messages should not contain the `\\%c' escape sequence"
-msgstr ""
-"internasjonaliserte meldinger bør ikke inneholde escape-sekvensen «\\%c»"
-
-#: src/message.c:1385
-#, c-format
-msgid "cannot create output file \"%s\""
-msgstr "kan ikke opprette utfilen «%s»"
-
-#: src/message.c:1392
-#, no-c-format
-msgid "standard output"
-msgstr "standard ut"
-
-#: src/message.c:1452
-#, c-format
-msgid "error while writing \"%s\" file"
-msgstr "feil under skriving av filen «%s»"
-
-#: src/msgcmp.c:156 src/msgmerge.c:270
+#: src/msgcmp.c:156 src/msgmerge.c:271
 msgid "no input files given"
 msgstr "ingen innfiler angitt"
 
-#: src/msgcmp.c:161 src/msgmerge.c:275
+#: src/msgcmp.c:161 src/msgmerge.c:276
 msgid "exactly 2 input files required"
 msgstr "trenger nøyaktig to innfiler"
 
@@ -228,15 +206,15 @@ msgstr ""
 "alle meldingene i programmet ditt.  Når en eksakt overensstemmelse ikke\n"
 "finnes, blir «fuzzy»-sammenligning brukt for å få en bedre diagnostikk.\n"
 
-#: src/msgcmp.c:255 src/msgmerge.c:740
+#: src/msgcmp.c:255 src/msgmerge.c:741
 msgid "this message is used but not defined..."
 msgstr "denne meldingen er brukt, men ikke definert..."
 
-#: src/msgcmp.c:257 src/msgmerge.c:742
+#: src/msgcmp.c:257 src/msgmerge.c:743
 msgid "...but this definition is similar"
 msgstr "... men denne definisjonen ligner"
 
-#: src/msgcmp.c:263 src/msgmerge.c:769
+#: src/msgcmp.c:263 src/msgmerge.c:770
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "denne meldingen er brukt, men ikke definert i %s"
@@ -245,40 +223,45 @@ msgstr "denne meldingen er brukt, men ikke definert i %s"
 msgid "warning: this message is not used"
 msgstr "advarsel: denne meldingen er ikke brukt"
 
-#: src/msgcmp.c:354 src/msgfmt.c:735 src/msgmerge.c:511 src/xgettext.c:1179
+#: src/msgcmp.c:282 src/po-lex.c:102
+#, c-format
+msgid "found %d fatal errors"
+msgstr "fant %d fatale feil"
+
+#: src/msgcmp.c:354 src/msgfmt.c:657 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
 msgstr "duplisert definisjon av melding"
 
-#: src/msgcmp.c:355 src/msgfmt.c:737 src/msgmerge.c:512 src/xgettext.c:1180
+#: src/msgcmp.c:355 src/msgfmt.c:659 src/msgmerge.c:513 src/xgettext.c:1170
 msgid "...this is the location of the first definition"
 msgstr "... dette er lokasjonen til den første definisjonen"
 
-#: src/msgcmp.c:395 src/msgmerge.c:560
+#: src/msgcmp.c:395 src/msgmerge.c:561
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "denne meldingen har ingen definisjon i «%s»-domenet"
 
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:235 src/xgettext.c:336 src/xgettext.c:1375
+#: src/msgcomm.c:236 src/xgettext.c:337 src/xgettext.c:1365
 msgid "while preparing output"
 msgstr "under klargjøring av utdata"
 
-#: src/msgcomm.c:270 src/msgcomm.c:274 src/xgettext.c:374 src/xgettext.c:378
+#: src/msgcomm.c:271 src/msgcomm.c:275 src/xgettext.c:375 src/xgettext.c:379
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s og %s utelukker hverandre"
 
-#: src/msgcomm.c:338
+#: src/msgcomm.c:327
 msgid "at least two files must be specified"
 msgstr "minst to filer må angis"
 
-#: src/msgcomm.c:357
+#: src/msgcomm.c:346
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "umulig utvalgskriterie angitt (%d < n < %d)"
 
-#: src/msgcomm.c:397
+#: src/msgcomm.c:386
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -303,7 +286,7 @@ msgstr ""
 "  -F, --sort-by-file             sorter utdata etter fillokasjon\n"
 "  -h, --help                     vise denne hjelpen og avslutte\n"
 
-#: src/msgcomm.c:409
+#: src/msgcomm.c:398
 #, fuzzy
 msgid ""
 "  -i, --indent                   write the .po file using indented style\n"
@@ -335,7 +318,7 @@ msgstr ""
 "  -u, --unique                   kortform --less-than=2, krever\n"
 "                                 at bare unike meldinger blir skrevet ut\n"
 
-#: src/msgcomm.c:422
+#: src/msgcomm.c:411
 msgid ""
 "  -V, --version                  output version information and exit\n"
 "  -w, --width=NUMBER             set output page width\n"
@@ -372,41 +355,41 @@ msgstr ""
 "PO-filen som definerer dem.  Filposisjonene fra alle PO-filene vil\n"
 "bli bevart.\n"
 
-#: src/msgcomm.c:473 src/msgunfmt.c:357 src/po-lex.c:81 src/xget-lex.c:157
-#: src/xget-lex.c:172 src/xget-lex.c:189 src/xgettext.c:621
+#: src/msgcomm.c:462 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
+#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:611
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "feil under åpning av «%s» for lesing"
 
-#: src/msgcomm.c:554 src/xgettext.c:663 src/xgettext.c:1081
+#: src/msgcomm.c:543 src/xgettext.c:653 src/xgettext.c:1071
 msgid "this file may not contain domain directives"
 msgstr "denne filen kan ikke inneholde domene-direktiver"
 
-#: src/msgfmt.c:286 src/xgettext.c:413
+#: src/msgfmt.c:286 src/xgettext.c:414
 msgid "no input file given"
 msgstr "ingen innfil angitt"
 
-#: src/msgfmt.c:334
+#: src/msgfmt.c:337
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "feil under åpning av «%s» for skriving"
 
-#: src/msgfmt.c:356
+#: src/msgfmt.c:359
 #, c-format
 msgid "%d translated messages"
 msgstr "%d oversatte meldinger"
 
-#: src/msgfmt.c:358
+#: src/msgfmt.c:361
 #, c-format
 msgid ", %d fuzzy translations"
 msgstr ", %d antatte oversettelser"
 
-#: src/msgfmt.c:360
+#: src/msgfmt.c:363
 #, c-format
 msgid ", %d untranslated messages"
 msgstr ", %d uoversatte meldinger"
 
-#: src/msgfmt.c:379
+#: src/msgfmt.c:382
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
@@ -451,121 +434,107 @@ msgstr ""
 "Dersom innfil er -, vil inndata bli lest fra standard inn.  Dersom utfil er -,\n"
 "vil utdata bli skrevet til standard ut.\n"
 
-#: src/msgfmt.c:422
+#: src/msgfmt.c:425
 msgid "while creating hash table"
 msgstr "mens hash-tabellen ble laget"
 
-#: src/msgfmt.c:466
+#: src/msgfmt.c:469
 #, fuzzy, c-format
 msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 msgstr "%s: advarselL: kildefil har antatte oversettelser"
 
-#: src/msgfmt.c:490
+#: src/msgfmt.c:493
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "domenenavnet «%s» passer ikke som filnavn"
 
-#: src/msgfmt.c:495
+#: src/msgfmt.c:498
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "domenenavnet «%s» passer ikke som filnavn: bruker prefiks"
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:508
+#: src/msgfmt.c:511
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "nøkkelord «domain %s» ignorert"
 
-#: src/msgfmt.c:538
+#: src/msgfmt.c:541
 msgid "empty `msgstr' entry ignored"
 msgstr "tom «msgstr»-linje ignorert"
 
-#: src/msgfmt.c:539
+#: src/msgfmt.c:542
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "antatt «msgstr»-linje ignorert"
 
-#: src/msgfmt.c:581
+#: src/msgfmt.c:584
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "filhodefelt «%s» mangler i filhode"
 
-#: src/msgfmt.c:584
+#: src/msgfmt.c:587
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "filhodefelt «%s» skulle ha startet ved begynnelsen av linjen"
 
-#: src/msgfmt.c:594
+#: src/msgfmt.c:597
 msgid "some header fields still have the initial default value"
 msgstr "noen filhodefelt har fremdeles sin initielle verdi"
 
-#: src/msgfmt.c:605
+#: src/msgfmt.c:608
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "feltet «%s» har fremdeles sin forvalgte verdi"
 
-#: src/msgfmt.c:677
-#, c-format
-msgid ""
-"%s: warning: charset \"%s\" is not a portable encoding name\n"
-"%*s  warning: charset conversion might not work"
-msgstr ""
-
-#: src/msgfmt.c:684
-#, c-format
-msgid ""
-"%s: warning: charset missing in header\n"
-"%*s  warning: charset conversion will not work"
-msgstr ""
-
-#: src/msgfmt.c:776
+#: src/msgfmt.c:698
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: advarselL: kildefil har antatte oversettelser"
 
-#: src/msgfmt.c:998
+#: src/msgfmt.c:920
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med `\\n'"
 
-#: src/msgfmt.c:1006
+#: src/msgfmt.c:928
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med `\\n'"
 
-#: src/msgfmt.c:1016
+#: src/msgfmt.c:938
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiene begynner ikke begge med `\\n'"
 
-#: src/msgfmt.c:1031
+#: src/msgfmt.c:953
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med `\\n'"
 
-#: src/msgfmt.c:1039
+#: src/msgfmt.c:961
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med `\\n'"
 
-#: src/msgfmt.c:1049
+#: src/msgfmt.c:971
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "«msgid»- og «msgstr»-verdiene slutter ikke begge med `\\n'"
 
-#: src/msgfmt.c:1065
+#: src/msgfmt.c:987
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
 "antall format-spesifiseringer i «msgid» og «msgstr» stemmer ikke overens"
 
-#: src/msgfmt.c:1082
+#: src/msgfmt.c:1004
 #, c-format
 msgid "format specifications for argument %u are not the same"
 msgstr "format-spesifiseringene for argument %u er ulike"
 
-#: src/msgmerge.c:319
+#: src/msgmerge.c:320
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -602,7 +571,7 @@ msgstr ""
 "  -V, --version               skriv ut programversjon og avslutt\n"
 "  -w, --width=ANTALL          sett sidebredden i utdata\n"
 
-#: src/msgmerge.c:339
+#: src/msgmerge.c:340
 #, no-wrap
 msgid ""
 "\n"
@@ -628,20 +597,20 @@ msgstr ""
 "resultater.  Resultatet blir skrevet til standard ut, med mindre en utfil\n"
 "er spesifisert.\n"
 
-#: src/msgmerge.c:798
+#: src/msgmerge.c:799
 #, c-format
 msgid ""
-"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
-"%d.\n"
+"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete %"
+"d.\n"
 msgstr ""
 "%sLeste %d gamle + %d referanser, flettet %d, antok %d, mangler %d,foreldete "
 "%d.\n"
 
-#: src/msgmerge.c:804
+#: src/msgmerge.c:805
 msgid " done.\n"
 msgstr " ferdig.\n"
 
-#: src/msgunfmt.c:209
+#: src/msgunfmt.c:210
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [FILE]...\n"
@@ -668,7 +637,7 @@ msgstr ""
 "  -V, --version            skriv ut programversjon og avslutt\n"
 "  -w, --width=ANTALL       sett sidebredden i utdata\n"
 
-#: src/msgunfmt.c:223
+#: src/msgunfmt.c:224
 #, no-wrap
 msgid ""
 "\n"
@@ -683,116 +652,120 @@ msgstr ""
 "Dersom innfil er -, blir standard inn lest.\n"
 "Dersom intet annet er spesifisert, blir det skrevet til standard ut.\n"
 
-#: src/msgunfmt.c:260 src/msgunfmt.c:325 src/po-lex.c:194 src/xget-lex.c:252
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:213 src/xget-lex.c:243
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "feil under lesing av «%s»"
 
-#: src/msgunfmt.c:261 src/msgunfmt.c:326
+#: src/msgunfmt.c:262 src/msgunfmt.c:327
 #, c-format
 msgid "file \"%s\" truncated"
 msgstr "filen «%s» er avkuttet"
 
-#: src/msgunfmt.c:292
+#: src/msgunfmt.c:293
 #, c-format
 msgid "seek \"%s\" offset %ld failed"
 msgstr "«seek» «%s» posisjon %ld mislyktes"
 
-#: src/msgunfmt.c:331
+#: src/msgunfmt.c:332
 #, fuzzy, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "filen «%s» er ikke i GNU .mo-format"
 
-#: src/msgunfmt.c:373
+#: src/msgunfmt.c:377
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "filen «%s» er ikke i GNU .mo-format"
 
-#: src/open-po.c:65
+#: src/open-po.c:64
 msgid "<stdin>"
 msgstr ""
 
-#: po-gram-gen.y:142
+#: po-gram-gen.y:87
+msgid "inconsistent use of #~"
+msgstr ""
+
+#: po-gram-gen.y:168
 #, fuzzy
 msgid "missing `msgstr[]' section"
 msgstr "mangler «msgstr»-seksjon"
 
-#: po-gram-gen.y:148
+#: po-gram-gen.y:176
 #, fuzzy
 msgid "missing `msgid_plural' section"
 msgstr "mangler «msgstr»-seksjon"
 
-#: po-gram-gen.y:154
+#: po-gram-gen.y:183
 msgid "missing `msgstr' section"
 msgstr "mangler «msgstr»-seksjon"
 
-#: po-gram-gen.y:190
+#: po-gram-gen.y:228
 msgid "first plural form has nonzero index"
 msgstr ""
 
-#: po-gram-gen.y:192
+#: po-gram-gen.y:230
 msgid "plural form has wrong index"
 msgstr ""
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
-#: src/po-lex.c:137 src/po-lex.c:176 src/po-lex.h:71 src/po-lex.h:85
-#: src/po-lex.h:101 src/po-lex.h:115
+#: src/po-lex.c:156 src/po-lex.c:195 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.h:115 src/po-lex.h:129
 msgid "too many errors, aborting"
 msgstr "for mange feil, avbryter"
 
-#: src/po-lex.c:92
-#, c-format
-msgid "found %d fatal errors"
-msgstr "fant %d fatale feil"
-
-#: src/po-lex.c:252
+#: src/po-lex.c:271
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "nøkkelord «%s» ukjent"
 
-#: src/po-lex.c:355
+#: src/po-lex.c:374
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "ulovlig kontrollsekvens"
 
-#: src/po-lex.c:441
+#: src/po-lex.c:477
+msgid "end-of-file within string"
+msgstr "slutt-på-fil inne i streng"
+
+#: src/po-lex.c:482
 msgid "end-of-line within string"
 msgstr "slutt-på-linje inne i streng"
 
-#: src/po-lex.c:446
-msgid "end-of-file within string"
-msgstr "slutt-på-fil inne i streng"
+#: src/po-lex.c:525
+#, fuzzy
+msgid "invalid multibyte sequence"
+msgstr "ulovlig kontrollsekvens"
 
 #: src/xget-lex.c:148
 msgid "standard input"
 msgstr "standard inn"
 
-#: src/xget-lex.c:885
+#: src/xget-lex.c:876
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: advarsel: uavsluttet tegnkonstant"
 
-#: src/xget-lex.c:907
+#: src/xget-lex.c:898
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: advarsel: uavsluttet strengliteral"
 
-#: src/xgettext.c:382
+#: src/xgettext.c:383
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing kan ikke brukes når utdata blir skrevet til standard ut"
 
-#: src/xgettext.c:387
+#: src/xgettext.c:388
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
-#: src/xgettext.c:504
+#: src/xgettext.c:494
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "advarsel: typen til fil «%s» med utvidelsen «%s» er ukjent, forsøker C"
 
-#: src/xgettext.c:540
+#: src/xgettext.c:530
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -831,7 +804,7 @@ msgstr ""
 "      --foreign-user             utelat FSF-copyright i utdata for fremmede brukere\n"
 "  -F, --sort-by-file             sorter utdata etter fillokasjon\n"
 
-#: src/xgettext.c:560
+#: src/xgettext.c:550
 #, fuzzy, c-format, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
@@ -858,7 +831,7 @@ msgstr ""
 "  -M, --msgstr-suffix[=STRENG]   bruk STRENG eller «» som suffiks for msgstr-innslag\n"
 "      --no-location              ikke skriv ut «#: filnavn:linje»-linjer\n"
 
-#: src/xgettext.c:574
+#: src/xgettext.c:564
 #, fuzzy, no-wrap
 msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -887,20 +860,34 @@ msgstr ""
 "\n"
 "Dersom INNFIL er -, lese standard inn.\n"
 
-#: src/xgettext.c:936
+#: src/xgettext.c:926
 #, fuzzy, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
 msgstr "%s:%d: advarsel: uavsluttet strengliteral"
 
-#: src/xgettext.c:946
+#: src/xgettext.c:936
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
 
-#: src/xgettext.c:1444
+#: src/xgettext.c:1432
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket «%s» er ukjent"
+
+#~ msgid ""
+#~ "internationalized messages should not contain the `\\%c' escape sequence"
+#~ msgstr ""
+#~ "internasjonaliserte meldinger bør ikke inneholde escape-sekvensen «\\%c»"
+
+#~ msgid "cannot create output file \"%s\""
+#~ msgstr "kan ikke opprette utfilen «%s»"
+
+#~ msgid "standard output"
+#~ msgstr "standard ut"
+
+#~ msgid "error while writing \"%s\" file"
+#~ msgstr "feil under skriving av filen «%s»"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: advarsel: fant ikke filhode"

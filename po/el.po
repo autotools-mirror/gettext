@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
-"POT-Creation-Date: 2000-07-28 22:51+0200\n"
+"POT-Creation-Date: 2001-03-09 19:56+0100\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -14,110 +14,94 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #
-# File: lib/error.c, line: 103
-#: lib/error.c:103
+#: lib/error.c:115
 msgid "Unknown system error"
 msgstr "Άγνωστο σφάλμα συστήματος"
 
 #
-# File: lib/getopt.c, line: 680
-#: lib/getopt.c:680
+#: lib/getopt.c:691
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: η επιλογή `%s' είναι διφορούμενη\n"
 
 #
-# File: lib/getopt.c, line: 704
-#: lib/getopt.c:704
+#: lib/getopt.c:716
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: η επιλογή `--%s' δεν επιτρέπει παράμετρο\n"
 
 #
-# File: lib/getopt.c, line: 709
-#: lib/getopt.c:709
+#: lib/getopt.c:721
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: η επιλογή `%c%s' δεν επιτρέπει παράμετρο\n"
 
 #
-# File: lib/getopt.c, line: 726
-# File: lib/getopt.c, line: 899
-#: lib/getopt.c:726 lib/getopt.c:899
+#: lib/getopt.c:739 lib/getopt.c:912
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: η επιλογή `%s' απαιτεί παράμετρο\n"
 
 #
-# File: lib/getopt.c, line: 755
 #. --option
-#: lib/getopt.c:755
+#: lib/getopt.c:768
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: μη αναγνωρίσιμη επιλογή `--%s'\n"
 
 #
-# File: lib/getopt.c, line: 759
 #. +option or -option
-#: lib/getopt.c:759
+#: lib/getopt.c:772
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: μη αναγνωρίσιμη επιλογή `%c%s'\n"
 
 #
-# File: lib/getopt.c, line: 785
 #. 1003.2 specifies the format of this message.
-#: lib/getopt.c:785
+#: lib/getopt.c:798
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: μη αποδεκτή επιλογή -- %c\n"
 
 #
-# File: lib/getopt.c, line: 788
-#: lib/getopt.c:788
+#: lib/getopt.c:801
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: μη έγκυρη επιλογή -- %c\n"
 
 #
-# File: lib/getopt.c, line: 818
-# File: lib/getopt.c, line: 948
 #. 1003.2 specifies the format of this message.
-#: lib/getopt.c:818 lib/getopt.c:948
+#: lib/getopt.c:831 lib/getopt.c:961
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: η επιλογή απαιτεί παράμετρο -- %c\n"
 
 #
-# File: lib/getopt.c, line: 865
-#: lib/getopt.c:865
+#: lib/getopt.c:878
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: η επιλογή `-W %s' είναι διφορούμενη\n"
 
 #
-# File: lib/getopt.c, line: 883
-#: lib/getopt.c:883
+#: lib/getopt.c:896
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: η επιλογή `-W %s' δεν επιτρέπει παράμετρο\n"
 
 #
-# File: lib/xmalloc.c, line: 82
-#: lib/xmalloc.c:82
+#: lib/obstack.c:474
+#, fuzzy
+msgid "memory exhausted"
+msgstr "H μνήμη εξαντλήθηκε"
+
+#
+#: lib/xmalloc.c:86
 msgid "Memory exhausted"
 msgstr "H μνήμη εξαντλήθηκε"
 
 #
-# File: src/gettextp.c, line: 134
-# File: src/msgcmp.c, line: 144
-# File: src/msgcomm.c, line: 285
-# File: src/msgfmt.c, line: 257
-# File: src/msgmerge.c, line: 254
-# File: src/msgunfmt.c, line: 175
-# File: src/xgettext.c, line: 394
-#: src/gettextp.c:134 src/msgcmp.c:144 src/msgcomm.c:285 src/msgfmt.c:257
-#: src/msgmerge.c:263 src/msgunfmt.c:175 src/xgettext.c:401
+#: src/gettext.c:138 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -130,48 +114,31 @@ msgstr ""
 "ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑ ΓΙΑ ΕΝΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ.\n"
 
 #
-# File: src/gettextp.c, line: 139
-# File: src/msgcmp.c, line: 149
-# File: src/msgcomm.c, line: 290
-# File: src/msgfmt.c, line: 262
-# File: src/msgmerge.c, line: 259
-# File: src/msgunfmt.c, line: 180
-# File: src/xgettext.c, line: 399
-#: src/gettextp.c:139 src/msgcmp.c:149 src/msgcomm.c:290 src/msgfmt.c:262
-#: src/msgmerge.c:268 src/msgunfmt.c:180 src/xgettext.c:406
+#: src/gettext.c:143 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Γραμμένο από τον/την %s.\n"
 
 #
-# File: src/gettextp.c, line: 154
-#: src/gettextp.c:154
+#: src/gettext.c:158
 msgid "missing arguments"
 msgstr "υπολείπονται ορίσματα"
 
 #
-# File: src/gettextp.c, line: 164
-#: src/gettextp.c:164
+#: src/gettext.c:168
 msgid "too many arguments"
 msgstr "πάρα πολλά ορίσματα"
 
 #
-# File: src/gettextp.c, line: 228
-# File: src/msgcmp.c, line: 181
-# File: src/msgcomm.c, line: 395
-# File: src/msgfmt.c, line: 361
-# File: src/msgmerge.c, line: 301
-# File: src/msgunfmt.c, line: 210
-# File: src/xgettext.c, line: 532
-#: src/gettextp.c:228 src/msgcmp.c:181 src/msgcomm.c:395 src/msgfmt.c:361
-#: src/msgmerge.c:323 src/msgunfmt.c:210 src/xgettext.c:539
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:377
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Δοκιμάστε `%s --help' για περισσότερες πληροφορίες.\n"
 
 #
-# File: src/gettextp.c, line: 233
-#: src/gettextp.c:233
+#: src/gettext.c:237
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -196,8 +163,7 @@ msgstr ""
 "                            στο MSGID από το TEXTDOMAIN\n"
 
 #
-# File: src/gettextp.c, line: 245
-#: src/gettextp.c:245
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -220,66 +186,23 @@ msgstr ""
 "Καθιερωμένος κατάλογος αναζήτησης: %s\n"
 
 #
-# File: src/gettextp.c, line: 255
-# File: src/msgcmp.c, line: 200
-# File: src/msgcomm.c, line: 442
-# File: src/msgfmt.c, line: 388
-# File: src/msgmerge.c, line: 334
-# File: src/msgunfmt.c, line: 234
-# File: src/xgettext.c, line: 584
-#: src/gettextp.c:255 src/msgcmp.c:200 src/msgcomm.c:442 src/msgfmt.c:388
-#: src/msgmerge.c:358 src/msgunfmt.c:234 src/xgettext.c:591
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:404
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.org>.\n"
 
 #
-# File: src/message.c, line: 784
-#: src/message.c:900
-#, c-format
-msgid ""
-"internationalized messages should not contain the `\\%c' escape sequence"
-msgstr ""
-"τα μηνύματα προς μετάφραση δεν πρέπει να περιέχουν το χαρακτήρα διαφυγής "
-"`\\%c'"
-
-#
-# File: src/message.c, line: 1115
-#: src/message.c:1231
-#, c-format
-msgid "cannot create output file \"%s\""
-msgstr "αδυναμία δημιουργίας αρχείου εξόδου \"%s\""
-
-#
-# File: src/message.c, line: 1122
-#: src/message.c:1238
-#, no-c-format
-msgid "standard output"
-msgstr "κανονική έξοδος"
-
-#
-# File: src/message.c, line: 1182
-#: src/message.c:1298
-#, c-format
-msgid "error while writing \"%s\" file"
-msgstr "σφάλμα στην εγγραφή του αρχείου \"%s\""
-
-#
-# File: src/msgcmp.c, line: 160
-# File: src/msgmerge.c, line: 270
-#: src/msgcmp.c:160 src/msgmerge.c:279
+#: src/msgcmp.c:156 src/msgmerge.c:271
 msgid "no input files given"
 msgstr "δεν καθορίστηκαν αρχεία εισόδου"
 
 #
-# File: src/msgcmp.c, line: 165
-# File: src/msgmerge.c, line: 275
-#: src/msgcmp.c:165 src/msgmerge.c:284
+#: src/msgcmp.c:161 src/msgmerge.c:276
 msgid "exactly 2 input files required"
 msgstr "απαιτούνται ακριβώς δύο αρχεία εισόδου"
 
 #
-# File: src/msgcmp.c, line: 186
-#: src/msgcmp.c:186
+#: src/msgcmp.c:182
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -312,95 +235,74 @@ msgstr ""
 "γίνεται ελαστικό ταίριασμα για καλύτερα αποτελέσματα.\n"
 
 #
-# File: src/msgcmp.c, line: 259
-# File: src/msgmerge.c, line: 714
-#: src/msgcmp.c:259 src/msgmerge.c:746
+#: src/msgcmp.c:255 src/msgmerge.c:741
 msgid "this message is used but not defined..."
 msgstr "αυτό το μήνυμα χρησιμοποείται, αλλά δεν ορίζεται..."
 
 #
-# File: src/msgcmp.c, line: 261
-# File: src/msgmerge.c, line: 716
-#: src/msgcmp.c:261 src/msgmerge.c:748
+#: src/msgcmp.c:257 src/msgmerge.c:743
 msgid "...but this definition is similar"
 msgstr "...αλλά αυτός ο ορισμός είναι παρόμοιος"
 
 #
-# File: src/msgcmp.c, line: 267
-# File: src/msgmerge.c, line: 743
-#: src/msgcmp.c:267 src/msgmerge.c:775
+#: src/msgcmp.c:263 src/msgmerge.c:770
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "αυτό το μήνυμα χρησιμοποείται, αλλά δεν ορίζεται στο %s"
 
 #
-# File: src/msgcmp.c, line: 281
-#: src/msgcmp.c:281
+#: src/msgcmp.c:277
 msgid "warning: this message is not used"
 msgstr "προειδοποίηση: αυτό το μήνυμα δεν χρησιμοποείται"
 
 #
-# File: src/msgcmp.c, line: 355
-# File: src/msgfmt.c, line: 632
-# File: src/msgmerge.c, line: 493
-# File: src/xgettext.c, line: 1063
-#: src/msgcmp.c:355 src/msgfmt.c:633 src/msgmerge.c:517 src/xgettext.c:1093
+#: src/msgcmp.c:282 src/po-lex.c:102
+#, c-format
+msgid "found %d fatal errors"
+msgstr "βρέθηκαν %d σοβαρά σφάλματα"
+
+#
+#: src/msgcmp.c:354 src/msgfmt.c:657 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
 msgstr "επαναλαμβανόμενος ορισμός μηνύματος"
 
 #
-# File: src/msgcmp.c, line: 356
-# File: src/msgfmt.c, line: 633
-# File: src/msgmerge.c, line: 494
-# File: src/xgettext.c, line: 1064
-#: src/msgcmp.c:356 src/msgfmt.c:634 src/msgmerge.c:518 src/xgettext.c:1094
+#: src/msgcmp.c:355 src/msgfmt.c:659 src/msgmerge.c:513 src/xgettext.c:1170
 msgid "...this is the location of the first definition"
 msgstr "...αυτή είναι η θέση του πρώτου ορισμού"
 
 #
-# File: src/msgcmp.c, line: 396
-# File: src/msgmerge.c, line: 542
-#: src/msgcmp.c:396 src/msgmerge.c:566
+#: src/msgcmp.c:395 src/msgmerge.c:561
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "αυτό το μήνυμα δεν έχει ορισμό στη περιοχή \"%s\""
 
 #
-# File: src/msgcomm.c, line: 238
-# File: src/xgettext.c, line: 340
-# File: src/xgettext.c, line: 1258
 #. We are about to construct the absolute path to the
 #. directory for the output files but asprintf failed.
-#: src/msgcomm.c:238 src/xgettext.c:340 src/xgettext.c:1288
+#: src/msgcomm.c:236 src/xgettext.c:337 src/xgettext.c:1365
 msgid "while preparing output"
 msgstr "καθώς προετοιμαζόταν η έξοδος"
 
 #
-# File: src/msgcomm.c, line: 273
-# File: src/msgcomm.c, line: 277
-# File: src/xgettext.c, line: 378
-# File: src/xgettext.c, line: 382
-#: src/msgcomm.c:273 src/msgcomm.c:277 src/xgettext.c:378 src/xgettext.c:382
+#: src/msgcomm.c:271 src/msgcomm.c:275 src/xgettext.c:375 src/xgettext.c:379
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "τα %s και %s είναι αμοιβαία αποκλειώμενα"
 
 #
-# File: src/msgcomm.c, line: 341
-#: src/msgcomm.c:341
+#: src/msgcomm.c:327
 msgid "at least two files must be specified"
 msgstr "πρέπει να οριστούν τουλάχιστον δύο αρχεία"
 
 #
-# File: src/msgcomm.c, line: 360
-#: src/msgcomm.c:360
+#: src/msgcomm.c:346
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "έχει επιλεχθεί αδύνατο κριτήριο επιλογής (%d < n < %d)"
 
 #
-# File: src/msgcomm.c, line: 400
-#: src/msgcomm.c:400
+#: src/msgcomm.c:386
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -429,8 +331,7 @@ msgstr ""
 "  -h, --help                     εμφάνιση αυτής της βοήθειας και έξοδος\n"
 
 #
-# File: src/msgcomm.c, line: 412
-#: src/msgcomm.c:412
+#: src/msgcomm.c:398
 msgid ""
 "  -i, --indent                   write the .po file using indented style\n"
 "      --no-location              do not write '#: filename:line' lines\n"
@@ -450,8 +351,8 @@ msgid ""
 msgstr ""
 "  -i, --indent                   δημιουργία .po αρχείου με μορφοποιημένη "
 "έξοδο\n"
-"      --no-location              αποφυγή εμφάνισης γραμμών '#: "
-"filename:line'\n"
+"      --no-location              αποφυγή εμφάνισης γραμμών '#: filename:"
+"line'\n"
 "  -n, --add-location             δημιουργία γραμμών '#: filename:line' (εξ "
 "ορισμού)\n"
 "      --omit-header              να μη γραφτεί κεφαλίδα με εγγραφή `msgid "
@@ -469,8 +370,7 @@ msgstr ""
 "                                 εμφάνιση μόνο των μοναδικών μηνυμάτων\n"
 
 #
-# File: src/msgcomm.c, line: 425
-#: src/msgcomm.c:425
+#: src/msgcomm.c:411
 msgid ""
 "  -V, --version                  output version information and exit\n"
 "  -w, --width=NUMBER             set output page width\n"
@@ -501,8 +401,8 @@ msgstr ""
 "\n"
 "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία PO.\n"
 "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί μεγαλύτερη\n"
-"συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή "
-"--less-than\n"
+"συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή --less-"
+"than\n"
 "μπορεί να οριστεί μικρότερη συγγένεια πριν εμφανιστούν τα μηνύματα (π.χ.\n"
 "το --less-than=2 θα εμφανίσει μόνο τα μοναδικά μηνύματα).  Οι μεταφράσεις,\n"
 "τα σχόλια και τα μηνύματα σε μορφή σχολίων θα διατηρηθούν, αλλά μόνο από το\n"
@@ -510,65 +410,48 @@ msgstr ""
 "θα διατηρηθούν.\n"
 
 #
-# File: src/msgcomm.c, line: 476
-# File: src/msgunfmt.c, line: 357
-# File: src/po-lex.c, line: 74
-# File: src/xget-lex.c, line: 159
-# File: src/xget-lex.c, line: 174
-# File: src/xget-lex.c, line: 191
-# File: src/xgettext.c, line: 618
-#: src/msgcomm.c:476 src/msgunfmt.c:357 src/po-lex.c:74 src/xget-lex.c:161
-#: src/xget-lex.c:176 src/xget-lex.c:193 src/xgettext.c:625
+#: src/msgcomm.c:462 src/msgunfmt.c:361 src/po-lex.c:86 src/xget-lex.c:157
+#: src/xget-lex.c:170 src/xget-lex.c:180 src/xgettext.c:611
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "σφάλμα στο άνοιγμα του \"%s\" για ανάγνωση"
 
 #
-# File: src/msgcomm.c, line: 557
-# File: src/xgettext.c, line: 660
-# File: src/xgettext.c, line: 970
-#: src/msgcomm.c:557 src/xgettext.c:667 src/xgettext.c:1000
+#: src/msgcomm.c:543 src/xgettext.c:653 src/xgettext.c:1071
 msgid "this file may not contain domain directives"
 msgstr "αυτό το αρχείο δεν μπορεί να περιέχει οδηγίες για τη περιοχή"
 
 #
-# File: src/msgfmt.c, line: 273
-# File: src/xgettext.c, line: 410
-#: src/msgfmt.c:273 src/xgettext.c:417
+#: src/msgfmt.c:286 src/xgettext.c:414
 msgid "no input file given"
 msgstr "δεν δόθηκε αρχείο εισόδου"
 
 #
-# File: src/msgfmt.c, line: 321
-#: src/msgfmt.c:321
+#: src/msgfmt.c:337
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "σφάλμα κατά το άνοιγμα του αρχείου \"%s\" για εγγραφή"
 
 #
-# File: src/msgfmt.c, line: 343
-#: src/msgfmt.c:343
+#: src/msgfmt.c:359
 #, c-format
 msgid "%d translated messages"
 msgstr "%d μεταφρασμένα μυνήματα"
 
 #
-# File: src/msgfmt.c, line: 345
-#: src/msgfmt.c:345
+#: src/msgfmt.c:361
 #, c-format
 msgid ", %d fuzzy translations"
 msgstr ", %d προσεγγιστικές μεταφράσεις"
 
 #
-# File: src/msgfmt.c, line: 347
-#: src/msgfmt.c:347
+#: src/msgfmt.c:363
 #, c-format
 msgid ", %d untranslated messages"
 msgstr ", %d μη μεταφρασμένα μηνύματα"
 
 #
-# File: src/msgfmt.c, line: 366
-#: src/msgfmt.c:366
+#: src/msgfmt.c:382
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
@@ -620,29 +503,27 @@ msgstr ""
 "Αν το αρχείο εξόδου είναι -, τότε η έξοδος γράφεται στην κανονική έξοδο.\n"
 
 #
-# File: src/msgfmt.c, line: 409
-#: src/msgfmt.c:409
+#: src/msgfmt.c:425
 msgid "while creating hash table"
 msgstr "κατά τη δημιουργία του hash table"
 
 #
-# File: src/msgfmt.c, line: 672
-#: src/msgfmt.c:451
+#: src/msgfmt.c:469
 #, fuzzy, c-format
-msgid "%s: warning: PO file header missing, fuzzy, or invalid"
+msgid ""
+"%s: warning: PO file header missing, fuzzy, or invalid\n"
+"%*s  warning: charset conversion will not work"
 msgstr ""
 "%s: προειδοποίηση: το αρχείο εισόδου περιέχει προσεγγιστικές μεταφράσεις"
 
 #
-# File: src/msgfmt.c, line: 473
-#: src/msgfmt.c:474
+#: src/msgfmt.c:493
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "το όνομα για τη περιοχή \"%s\" δεν είναι κατάλληλο για όνομα αρχείου"
 
 #
-# File: src/msgfmt.c, line: 478
-#: src/msgfmt.c:479
+#: src/msgfmt.c:498
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
@@ -650,90 +531,101 @@ msgstr ""
 "γίνει χρήση προθέματος"
 
 #
-# File: src/msgfmt.c, line: 491
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:492
+#: src/msgfmt.c:511
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "η οδηγία `domain %s' αγνοείται"
 
 #
-# File: src/msgfmt.c, line: 519
-#: src/msgfmt.c:520
+#: src/msgfmt.c:541
 msgid "empty `msgstr' entry ignored"
 msgstr "η κενή εγγραφή `msgstr' αγνοείται"
 
 #
-# File: src/msgfmt.c, line: 520
-#: src/msgfmt.c:521
+#: src/msgfmt.c:542
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "η προσεγγιστική εγγραφή `msgstr' αγνοείται"
 
 #
-# File: src/msgfmt.c, line: 563
-#: src/msgfmt.c:564
+#: src/msgfmt.c:584
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "το πεδίο `%s' έχει παραληφθεί από τη κεφαλίδα"
 
 #
-# File: src/msgfmt.c, line: 566
-#: src/msgfmt.c:567
+#: src/msgfmt.c:587
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "το πεδία κεφαλίδας `%s' θα έπρεπε να ξεκινά στην αρχή της γραμμής"
 
 #
-# File: src/msgfmt.c, line: 576
-#: src/msgfmt.c:577
+#: src/msgfmt.c:597
 msgid "some header fields still have the initial default value"
 msgstr "μερικά πεδία της κεφαλίδας έχουν ακόμα την αρχική εξ ορισμού τιμή"
 
 #
-# File: src/msgfmt.c, line: 587
-#: src/msgfmt.c:588
+#: src/msgfmt.c:608
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "το πεδίο `%s' έχει ακόμα την αρχική εξ ορισμού τιμή"
 
 #
-# File: src/msgfmt.c, line: 672
-#: src/msgfmt.c:673
+#: src/msgfmt.c:698
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr ""
 "%s: προειδοποίηση: το αρχείο εισόδου περιέχει προσεγγιστικές μεταφράσεις"
 
 #
-# File: src/msgfmt.c, line: 874
-#: src/msgfmt.c:875
+#: src/msgfmt.c:920
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr "Οι εγγραφές `msgid' και `msgstr' δεν ξεκινούν και οι δύο με '\\n'"
+
+#
+#: src/msgfmt.c:928
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr "Οι εγγραφές `msgid' και `msgstr' δεν ξεκινούν και οι δύο με '\\n'"
+
+#
+#: src/msgfmt.c:938
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "Οι εγγραφές `msgid' και `msgstr' δεν ξεκινούν και οι δύο με '\\n'"
 
 #
-# File: src/msgfmt.c, line: 882
-#: src/msgfmt.c:883
+#: src/msgfmt.c:953
+#, fuzzy
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr "Οι εγγραφές `msgid' και `msgstr' δεν τελειώνουν και οι δύο με '\\n'"
+
+#
+#: src/msgfmt.c:961
+#, fuzzy, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr "Οι εγγραφές `msgid' και `msgstr' δεν τελειώνουν και οι δύο με '\\n'"
+
+#
+#: src/msgfmt.c:971
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "Οι εγγραφές `msgid' και `msgstr' δεν τελειώνουν και οι δύο με '\\n'"
 
 #
-# File: src/msgfmt.c, line: 896
-#: src/msgfmt.c:897
+#: src/msgfmt.c:987
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
 "ο αριθμός των αναφορών σε μορφοποιήσεις των `msgid' και `msgstr' δε συμπίπτει"
 
 #
-# File: src/msgfmt.c, line: 913
-#: src/msgfmt.c:914
+#: src/msgfmt.c:1004
 #, c-format
 msgid "format specifications for argument %u are not the same"
 msgstr "οι μορφοποιήσεις για τη παράμετρο %u δεν είναι ίδιες"
 
 #
-# File: src/msgmerge.c, line: 306
-#: src/msgmerge.c:328
+#: src/msgmerge.c:320
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
@@ -775,8 +667,7 @@ msgstr ""
 "  -w, --width=ΑΡΙΘΜΟΣ         ορισμός μεγέθους πλάτους σελίδας εξόδου\n"
 
 #
-# File: src/msgmerge.c, line: 324
-#: src/msgmerge.c:348
+#: src/msgmerge.c:340
 #, no-wrap
 msgid ""
 "\n"
@@ -804,25 +695,22 @@ msgstr ""
 "κάποιο αρχείο εξόδου.\n"
 
 #
-# File: src/msgmerge.c, line: 772
-#: src/msgmerge.c:804
+#: src/msgmerge.c:799
 #, c-format
 msgid ""
-"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
-"%d.\n"
+"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete %"
+"d.\n"
 msgstr ""
-"%sΑναγνώστηκαν %d παλαιά + %d αναφορές, συγχωνευμένα %d, προσεγγιστικά "
-"%d,έχουν παραληφθεί %d, αχρησιμοποίητα %d.\n"
+"%sΑναγνώστηκαν %d παλαιά + %d αναφορές, συγχωνευμένα %d, προσεγγιστικά %d,"
+"έχουν παραληφθεί %d, αχρησιμοποίητα %d.\n"
 
 #
-# File: src/msgmerge.c, line: 778
-#: src/msgmerge.c:810
+#: src/msgmerge.c:805
 msgid " done.\n"
 msgstr " έγινε.\n"
 
 #
-# File: src/msgunfmt.c, line: 215
-#: src/msgunfmt.c:215
+#: src/msgunfmt.c:210
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [FILE]...\n"
@@ -853,8 +741,7 @@ msgstr ""
 "  -w, --width=ΑΡΙΘΜΟΣ      ορισμός μεγέθους πλάτους σελίδας εξόδου\n"
 
 #
-# File: src/msgunfmt.c, line: 229
-#: src/msgunfmt.c:229
+#: src/msgunfmt.c:224
 #, no-wrap
 msgid ""
 "\n"
@@ -871,126 +758,141 @@ msgstr ""
 "γράφεται στην κανονική έξοδο.\n"
 
 #
-# File: src/msgunfmt.c, line: 266
-# File: src/msgunfmt.c, line: 330
-# File: src/po-lex.c, line: 185
-# File: src/xget-lex.c, line: 254
-#: src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:256
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:213 src/xget-lex.c:243
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "σφάλμα στην ανάγνωση του \"%s\""
 
 #
-# File: src/msgunfmt.c, line: 267
-# File: src/msgunfmt.c, line: 331
-#: src/msgunfmt.c:267 src/msgunfmt.c:331
+#: src/msgunfmt.c:262 src/msgunfmt.c:327
 #, c-format
 msgid "file \"%s\" truncated"
 msgstr "το αρχείο \"%s\" μηδενίστηκε και θα γραφούν δεδομένα σε αυτό"
 
 #
-# File: src/msgunfmt.c, line: 298
-#: src/msgunfmt.c:298
+#: src/msgunfmt.c:293
 #, c-format
 msgid "seek \"%s\" offset %ld failed"
 msgstr "η πρόσβαση στο αρχείο \"%s\", θέση %ld, απέτυχε"
 
 #
-# File: src/msgunfmt.c, line: 373
-#: src/msgunfmt.c:373
+#: src/msgunfmt.c:332
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated string"
+msgstr "το αρχείο \"%s\" δεν είναι στη μορφή GNU .mo"
+
+#
+#: src/msgunfmt.c:377
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "το αρχείο \"%s\" δεν είναι στη μορφή GNU .mo"
 
+#: src/open-po.c:64
+msgid "<stdin>"
+msgstr ""
+
+#: po-gram-gen.y:87
+msgid "inconsistent use of #~"
+msgstr ""
+
 #
-# File: ../../src/po-gram.y, line: 83
-#: /home/drepper/gnu/gettext/build/src/../../src/po-gram-gen.y:129
-msgid "missing `msgstr' section"
+#: po-gram-gen.y:168
+#, fuzzy
+msgid "missing `msgstr[]' section"
 msgstr "λείπει ενότητα `msgstr'"
 
 #
-# File: src/po-lex.c, line: 84
-#: src/po-lex.c:84
-#, c-format
-msgid "found %d fatal errors"
-msgstr "βρέθηκαν %d σοβαρά σφάλματα"
+#: po-gram-gen.y:176
+#, fuzzy
+msgid "missing `msgid_plural' section"
+msgstr "λείπει ενότητα `msgstr'"
 
 #
-# File: src/po-lex.c, line: 129
-# File: src/po-lex.c, line: 168
-#: src/po-lex.c:129 src/po-lex.c:168
+#: po-gram-gen.y:183
+msgid "missing `msgstr' section"
+msgstr "λείπει ενότητα `msgstr'"
+
+#: po-gram-gen.y:228
+msgid "first plural form has nonzero index"
+msgstr ""
+
+#: po-gram-gen.y:230
+msgid "plural form has wrong index"
+msgstr ""
+
+#
+#. CAUTION: If you change this macro, you must also make identical
+#. changes to the function of the same name in src/po-lex.c
+#: src/po-lex.c:156 src/po-lex.c:195 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.h:115 src/po-lex.h:129
 msgid "too many errors, aborting"
 msgstr "πάρα πολλά σφάλματα, εγκαταλείπω"
 
 #
-# File: src/po-lex.c, line: 241
-#: src/po-lex.c:241
+#: src/po-lex.c:271
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "άγνωστη εντολή \"%s\""
 
 #
-# File: src/po-lex.c, line: 332
-#: src/po-lex.c:335
+#: src/po-lex.c:374
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "μη αποδεκτή σειρά χαρακτήρων διαφυγής"
 
 #
-# File: src/po-lex.c, line: 415
-#: src/po-lex.c:419
-msgid "end-of-line within string"
-msgstr "τέρμα-γραμμής (eol) στο αλφαριθμητικό"
-
-#
-# File: src/po-lex.c, line: 420
-#: src/po-lex.c:424
+#: src/po-lex.c:477
 msgid "end-of-file within string"
 msgstr "τέλος αρχείου (EOF) στο αλφαριθμητικό"
 
 #
-# File: src/xget-lex.c, line: 150
-#: src/xget-lex.c:152
+#: src/po-lex.c:482
+msgid "end-of-line within string"
+msgstr "τέρμα-γραμμής (eol) στο αλφαριθμητικό"
+
+#
+#: src/po-lex.c:525
+#, fuzzy
+msgid "invalid multibyte sequence"
+msgstr "μη αποδεκτή σειρά χαρακτήρων διαφυγής"
+
+#
+#: src/xget-lex.c:148
 msgid "standard input"
 msgstr "κανονική είσοδος"
 
 #
-# File: src/xget-lex.c, line: 892
-#: src/xget-lex.c:894
+#: src/xget-lex.c:876
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: προειδοποίηση: μη τερματισμένη σταθερά χαρακτήρων"
 
 #
-# File: src/xget-lex.c, line: 914
-#: src/xget-lex.c:916
+#: src/xget-lex.c:898
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: προειδοποίηση: μη τερματισμένο αλφαριθμητικό"
 
 #
-# File: src/xgettext.c, line: 386
-#: src/xgettext.c:386
+#: src/xgettext.c:383
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "το --join-existing δε μπορεί να χρησιμοποιηθεί όταν η έξοδος γράφεται στην "
 "κανονική έξοδο"
 
-#: src/xgettext.c:391
+#: src/xgettext.c:388
 msgid "xgettext cannot work without keywords to look for"
 msgstr ""
 
 #
-# File: src/xgettext.c, line: 501
-#: src/xgettext.c:508
+#: src/xgettext.c:494
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 "προειδοποίηση: το αρχείο `%s' με κατάληξη `%s' είναι άγνωστο· θα δοκιμαστεί C"
 
 #
-# File: src/xgettext.c, line: 537
-#: src/xgettext.c:544
+#: src/xgettext.c:530
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -1034,8 +936,7 @@ msgstr ""
 "  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης αρχείου\n"
 
 #
-# File: src/xgettext.c, line: 557
-#: src/xgettext.c:564
+#: src/xgettext.c:550
 #, c-format, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
@@ -1063,8 +964,7 @@ msgstr ""
 "      --no-location              να μην γραφούν γραμμές '#: filename:line'\n"
 
 #
-# File: src/xgettext.c, line: 571
-#: src/xgettext.c:578
+#: src/xgettext.c:564
 #, no-wrap
 msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -1096,26 +996,42 @@ msgstr ""
 "Αν το ΑΡΧΕΙΟΕΙΣΟΔΟΥ είναι -, γίνεται ανάγνωση της κανονικής εισόδου.\n"
 
 #
-# File: src/xget-lex.c, line: 914
-#: src/xgettext.c:879
+#: src/xgettext.c:926
 #, fuzzy, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
 msgstr "%s:%d: προειδοποίηση: μη τερματισμένο αλφαριθμητικό"
 
-#: src/xgettext.c:889
+#: src/xgettext.c:936
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
 
 #
-# File: src/xgettext.c, line: 1344
-#: src/xgettext.c:1374
+#: src/xgettext.c:1432
 #, c-format
 msgid "language `%s' unknown"
 msgstr "η γλώσσα `%s' είναι άγνωστη"
 
 #
-# File: src/msgfmt.c, line: 451
+#~ msgid ""
+#~ "internationalized messages should not contain the `\\%c' escape sequence"
+#~ msgstr ""
+#~ "τα μηνύματα προς μετάφραση δεν πρέπει να περιέχουν το χαρακτήρα διαφυγής `"
+#~ "\\%c'"
+
+#
+#~ msgid "cannot create output file \"%s\""
+#~ msgstr "αδυναμία δημιουργίας αρχείου εξόδου \"%s\""
+
+#
+#~ msgid "standard output"
+#~ msgstr "κανονική έξοδος"
+
+#
+#~ msgid "error while writing \"%s\" file"
+#~ msgstr "σφάλμα στην εγγραφή του αρχείου \"%s\""
+
+#
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: προειδοποίηση: δε βρέθηκε αρχή κεφαλίδας"
 
@@ -1139,12 +1055,12 @@ msgstr "η γλώσσα `%s' είναι άγνωστη"
 #~ "  -V, --version            output version information and exit\n"
 #~ msgstr ""
 #~ "Χρήση: %s [ΕΠΙΛΟΓΗ] filename.mo filename.po\n"
-#~ "Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί και "
-#~ "για τα σύντομα ορίσματα.\n"
-#~ "  -e, --no-escape          αποφυγή χρήσης κωδικών διαφυγής αλά C στην έξοδο "
-#~ "(εξ ορισμού)\n"
-#~ "  -E, --escape             χρήση κωδικών διαφυγής αλά C στην έξοδο, όχι όμως "
-#~ "και εκτεταμένους χαρακτήρες.\n"
+#~ "Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί "
+#~ "και για τα σύντομα ορίσματα.\n"
+#~ "  -e, --no-escape          αποφυγή χρήσης κωδικών διαφυγής αλά C στην "
+#~ "έξοδο (εξ ορισμού)\n"
+#~ "  -E, --escape             χρήση κωδικών διαφυγής αλά C στην έξοδο, όχι "
+#~ "όμως και εκτεταμένους χαρακτήρες.\n"
 #~ "  -h, --help               εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent             μορφοποιημένη έξοδος\n"
 #~ "  -S, --strict             μορφή εξόδου το αυστηρό Uniforum\n"
