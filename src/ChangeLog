@@ -1,3 +1,13 @@
+2002-12-04  Bruno Haible  <bruno@clisp.org>
+
+	Fix handling of references to filenames starting with a digit.
+	* po-hash-gen.y (last_was_colon): New variable.
+	(yylex): Update it for each token. Recognize numbers only immediately
+	after a colon.
+	(po_hash): Move function. Initialize last_was_colon.
+	Reported by Yanko Kaneti <yaneti@declera.com> and
+	Jordi Mallach <jordi@sindominio.net>.
+
 2002-11-22  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c (process_string): Change test of full_write return value.
