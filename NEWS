@@ -10,6 +10,20 @@ Version 0.14.2 - January 2005
     xgettext now also supports Scheme. Best used with guile 1.7 or newer.
 
 * msggrep is much faster now.
+
+* libgettextpo library:
+  - New functions for constructing PO files in memory and writing them to
+    files.
+  - The error handling is now customizable.
+
+* Documentation:
+
+  - New FAQ document.
+  - New documentation sections: Scheme, Release Management.
+
+* Bug fixes for Turkish and Estonian locales.
+
+* Security fixes.
 
 Version 0.14 - January 2004
 
