@@ -1,4 +1,4 @@
-# gettext.m4 serial 17 (gettext-0.11.5)
+# gettext.m4 serial 18 (gettext-0.11.6)
 dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -416,6 +416,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
           rm -f "$ac_dir/POTFILES"
           test -n "$as_me" && echo "$as_me: creating $ac_dir/POTFILES" || echo "creating $ac_dir/POTFILES"
           cat "$ac_given_srcdir/$ac_dir/POTFILES.in" | sed -e "/^#/d" -e "/^[ 	]*\$/d" -e "s,.*,     $top_srcdir/& \\\\," | sed -e "\$s/\(.*\) \\\\/\1/" > "$ac_dir/POTFILES"
+          POMAKEFILEDEPS="POTFILES.in"
           # ALL_LINGUAS, POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES depend
           # on $ac_dir but don't depend on user-specified configuration
           # parameters.
@@ -427,6 +428,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
             ALL_LINGUAS_=`sed -e "/^#/d" "$ac_given_srcdir/$ac_dir/LINGUAS"`
             # Hide the ALL_LINGUAS assigment from automake.
             eval 'ALL_LINGUAS''=$ALL_LINGUAS_'
+            POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"
           fi
           case "$ac_given_srcdir" in
             .) srcdirpre= ;;
@@ -475,7 +477,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
             done
           fi
           test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-          sed -e "/^POTFILES =/r $ac_dir/POTFILES" -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" -e "s|@POFILES@|$POFILES|g" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@UPDATEPOFILES@|$UPDATEPOFILES|g" -e "s|@DUMMYPOFILES@|$DUMMYPOFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          sed -e "/^POTFILES =/r $ac_dir/POTFILES" -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" -e "s|@POFILES@|$POFILES|g" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@UPDATEPOFILES@|$UPDATEPOFILES|g" -e "s|@DUMMYPOFILES@|$DUMMYPOFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" -e "s|@POMAKEFILEDEPS@|$POMAKEFILEDEPS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
           for f in "$ac_given_srcdir/$ac_dir"/Rules-*; do
             if test -f "$f"; then
               case "$f" in
