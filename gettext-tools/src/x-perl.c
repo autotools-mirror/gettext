@@ -609,9 +609,7 @@ extract_quotelike_pass1 (int delim)
 
       if (c == counter_delim || c == EOF)
 	{
-	  /* Copying the EOF (actually 255) is not an error.  It will
-	     be stripped off later.  */
-	  buffer[bufpos++] = c;
+	  buffer[bufpos++] = counter_delim; /* will be stripped off later */
 	  buffer[bufpos++] = '\0';
 #if DEBUG_PERL
 	  fprintf (stderr, "PASS1: %s\n", buffer);

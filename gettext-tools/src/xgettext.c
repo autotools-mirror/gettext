@@ -1051,10 +1051,12 @@ from_current_source_encoding (const char *string,
 	    buffer[0] = '\0';
 	  else
 	    sprintf (buffer, ":%ld", (long) line_number);
-	  error (EXIT_FAILURE, 0, _("\
+	  multiline_error (xstrdup (""),
+			   xasprintf (_("\
 Non-ASCII string at %s%s.\n\
-Please specify the source encoding through --from-code."),
-		 file_name, buffer);
+Please specify the source encoding through --from-code.\n"),
+				      file_name, buffer));
+	  exit (EXIT_FAILURE);
 	}
     }
   else if (xgettext_current_source_encoding != po_charset_utf8)

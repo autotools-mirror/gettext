@@ -1,3 +1,12 @@
+2003-09-18  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (from_current_source_encoding): Use multiline_error,
+	for a prettier error message.
+
+	* x-perl.c (extract_quotelike_pass1): Store counter_delim instead of
+	EOF as delimiter, to avoid error during from_current_source_encoding.
+	Reported by Crispin Flowerday <cflowerday@zeus.com>.
+
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
 	* format-sh.c (INVALID_SHELL_SYNTAX,
