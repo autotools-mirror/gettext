@@ -85,6 +85,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # unique
+#: hunt.c:890
 msgid "5"
 msgstr "fünf"
 EOF
