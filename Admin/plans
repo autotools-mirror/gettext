@@ -52,3 +52,5 @@ Things we plan to do. Comments welcome.
   in XEmacs 20.4.
 
 - Refer also to the GNOME translation project http://www.klid.dk/gnome/ ?
+
+- Make sure "make dist" works even when configured with --disable-nls.
