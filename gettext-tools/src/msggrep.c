@@ -334,7 +334,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	 /usr/bin/grep, because /usr/bin/grep doesn't understand the options
 	 -q and -e.  */
 #if (defined (sun) || defined (__sun)) && defined (__SVR4)
-      if (strcmp (grep_path, "/usr/bin/grep") == 0
+      if ((strcmp (grep_path, "/usr/bin/grep") == 0
+	   || strcmp (grep_path, "/bin/grep") == 0))
 	  && access ("/usr/xpg4/bin/grep", X_OK) == 0)
 	grep_path = "/usr/xpg4/bin/grep";
 #endif
