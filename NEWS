@@ -1,6 +1,6 @@
 Version 0.11 - XXX 2001
 
-* New programs msgcat, msgconv, msgen, msggrep, msgsed.
+* New programs msgcat, msgconv, msgen, msgexec, msggrep, msguniq.
 
 * msgcomm now writes its results to standard output by default. The options
   -d/--default-domain and -p/--output-dir have been removed.

@@ -48,14 +48,8 @@ Things we plan to do. Comments welcome.
 
 - New programs:
 
-  msguniq [--unique] [--repeated]
-  extract unique/repeated msgids
-
   msginit
   create initial PO file from POT file.
-
-  msgexec
-  generalize msgsed
 
 - Rewrite doc node "Compendium", discuss functionality, then check
   implementation and add Karl's new tests.
@@ -66,3 +60,5 @@ Things we plan to do. Comments welcome.
 
 - Rewrite Hundhammer's check_po script in C using message.h.
 
+- Check portability of coding-system-list, apparently not defined
+  in XEmacs 20.4.
