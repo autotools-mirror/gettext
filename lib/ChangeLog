@@ -10,6 +10,8 @@
 	* wait-process.c (EXIT_FAILURE): Likewise.
 	* xerror.c (EXIT_FAILURE): Likewise.
 	(xasprintf): Use VA_START instead of va_start.
+	* javacomp.c: Include alloca() declaration stuff.
+	* javaexec.c: Likewise.
 
 2001-10-28  Bruno Haible  <haible@clisp.cons.org>
 
