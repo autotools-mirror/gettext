@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2004 Free Software Foundation, Inc.
+   Copyright (C) 2001-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@
 #include "basename.h"
 #include "progname.h"
 #include "strstr.h"
-#include "strcase.h"
+#include "c-strcase.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -107,7 +107,7 @@ po_charset_canonicalize (const char *charset)
   size_t i;
 
   for (i = 0; i < SIZEOF (standard_charsets); i++)
-    if (strcasecmp (charset, standard_charsets[i]) == 0)
+    if (c_strcasecmp (charset, standard_charsets[i]) == 0)
       return standard_charsets[i < 3 ? 0 : i < 27 ? ((i - 3) & ~1) + 3 : i];
   return NULL;
 }

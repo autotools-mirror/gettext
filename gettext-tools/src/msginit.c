@@ -77,7 +77,7 @@
 #include "basename.h"
 #include "strpbrk.h"
 #include "strstr.h"
-#include "strcase.h"
+#include "c-strcase.h"
 #include "message.h"
 #include "read-po.h"
 #include "write-po.h"
@@ -1350,7 +1350,7 @@ content_type (const char *header)
       if (charsetstr != NULL)
 	{
 	  charsetstr += strlen ("charset=");
-	  was_utf8 = (strcasecmp (charsetstr, "UTF-8") == 0);
+	  was_utf8 = (c_strcasecmp (charsetstr, "UTF-8") == 0);
 	}
     }
   return xasprintf ("text/plain; charset=%s",

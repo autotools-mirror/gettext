@@ -49,7 +49,7 @@
 #include "xerror.h"
 #include "exit.h"
 #include "pathname.h"
-#include "strcase.h"
+#include "c-strcase.h"
 #include "stpcpy.h"
 #include "open-po.h"
 #include "read-po-abstract.h"
@@ -2241,7 +2241,7 @@ language_to_extractor (const char *name)
   table_ty *tp;
 
   for (tp = table; tp < ENDOF(table); ++tp)
-    if (strcasecmp (name, tp->name) == 0)
+    if (c_strcasecmp (name, tp->name) == 0)
       {
 	extractor_ty result;
 

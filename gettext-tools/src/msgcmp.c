@@ -39,7 +39,7 @@
 #include "read-po.h"
 #include "msgl-iconv.h"
 #include "strstr.h"
-#include "strcase.h"
+#include "c-strcase.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -336,7 +336,7 @@ compare (const char *fn1, const char *fn2)
 		      charsetstr += strlen ("charset=");
 		      len = strcspn (charsetstr, " \t\n");
 		      if (len == strlen ("UTF-8")
-			  && strncasecmp (charsetstr, "UTF-8", len) == 0)
+			  && c_strncasecmp (charsetstr, "UTF-8", len) == 0)
 			was_utf8 = true;
 		    }
 		}

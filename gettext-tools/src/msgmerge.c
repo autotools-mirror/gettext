@@ -44,7 +44,7 @@
 #include "obstack.h"
 #include "strstr.h"
 #include "exit.h"
-#include "strcase.h"
+#include "c-strcase.h"
 #include "stpcpy.h"
 #include "stpncpy.h"
 #include "msgl-iconv.h"
@@ -704,7 +704,7 @@ message_merge (message_ty *def, message_ty *ref)
 	  for (cnt = 0;
 	       cnt < sizeof (known_fields) / sizeof (known_fields[0]);
 	       ++cnt)
-	    if (strncasecmp (cp, known_fields[cnt].name, known_fields[cnt].len)
+	    if (c_strncasecmp (cp, known_fields[cnt].name, known_fields[cnt].len)
 		== 0)
 	      break;
 
@@ -1165,7 +1165,7 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
 		      charsetstr += strlen ("charset=");
 		      len = strcspn (charsetstr, " \t\n");
 		      if (len == strlen ("UTF-8")
-			  && strncasecmp (charsetstr, "UTF-8", len) == 0)
+			  && c_strncasecmp (charsetstr, "UTF-8", len) == 0)
 			was_utf8 = true;
 		    }
 		}

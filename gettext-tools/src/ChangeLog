@@ -1,5 +1,20 @@
 2005-02-07  Bruno Haible  <bruno@clisp.org>
 
+	Make the tools work in the tr_TR locale.
+	* po-charset.c: Include c-strcase.h instead of strcase.h.
+	(po_charset_canonicalize): Use c_strcasecmp.
+	* msgcmp.c: Include c-strcase.h instead of strcase.h.
+	(compare): Use c_strncasecmp.
+	* msginit.c: Include c-strcase.h instead of strcase.h.
+	(content_type): Use c_strcasecmp.
+	* msgmerge.c: Include c-strcase.h instead of strcase.h.
+	(message_merge, merge): Use c_strncasecmp.
+	* xgettext.c: Include c-strcase.h instead of strcase.h.
+	(language_to_extractor): Use c_strcasecmp.
+	Reported by Recai Oktas <roktas@omu.edu.tr>.
+
+2005-02-07  Bruno Haible  <bruno@clisp.org>
+
 	* project-id: Use LC_ALL=C to protect range expression against
 	Estonian locale.
 

@@ -85,6 +85,8 @@ OBJECTS = \
   backupfile.obj addext.obj \
   basename.obj \
   c-ctype.obj \
+  c-strcasecmp.obj \
+  c-strncasecmp.obj \
   classpath.obj \
   closeout.obj \
   copy-file.obj \
@@ -155,6 +157,12 @@ basename.obj : basename.c
 
 c-ctype.obj : c-ctype.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c c-ctype.c
+
+c-strcasecmp.obj : c-strcasecmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c c-strcasecmp.c
+
+c-strncasecmp.obj : c-strncasecmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c c-strncasecmp.c
 
 classpath.obj : classpath.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c classpath.c
