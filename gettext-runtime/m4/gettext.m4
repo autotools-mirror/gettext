@@ -1,4 +1,4 @@
-# gettext.m4 serial 26 (gettext-0.12.2)
+# gettext.m4 serial 26 (gettext-0.13)
 dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
