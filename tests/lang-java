@@ -18,6 +18,9 @@ import gnu.gettext.*;
 
 public class Program {
   public static void main (String[] args) {
+    // Some systems (like Solaris) don't set Locale.getDefault()
+    // as specified by LC_ALL. So set it by hand.
+    Locale.setDefault(new Locale("fr","FR"));
     int n = Integer.parseInt(args[0]);
     ResourceBundle catalog = ResourceBundle.getBundle("prog");
     System.out.println(GettextResource.gettext(catalog,"'Your command, please?', asked the waiter."));

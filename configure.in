@@ -113,7 +113,17 @@ AC_SUBST(CROSS_COMPILING)
 dnl Checks for optional programs for the tests/lang-* tests.
 AC_CHECK_PROGS(CXX, $CCC c++ g++ gcc CC cxx cc++ cl, :)
 if test "$CXX" != ":"; then
-  AC_PROG_CXX_WORKS
+  dnl Use a modified version of AC_PROG_CXX_WORKS that does not exit
+  dnl upon failure.
+  AC_MSG_CHECKING([whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works])
+  AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+  AC_TRY_COMPILER([int main(){return(0);}], ac_cv_prog_cxx_works, ac_cv_prog_cxx_cross)
+  AC_LANG_RESTORE
+  AC_MSG_RESULT($ac_cv_prog_cxx_works)
+  if test $ac_cv_prog_cxx_works = no; then
+    CXX=:
+  fi
 fi
 
 dnl Generate the version information file in the intl/ directory.

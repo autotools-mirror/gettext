@@ -17,6 +17,7 @@ cat <<\EOF > prog.cc
 #include <iostream.h>
 #include <libintl.h>
 #include <locale.h>
+#include <stdio.h>
 #include <stdlib.h>
 #define _(string) gettext (string)
 
@@ -35,11 +36,11 @@ int main (int argc, char *argv[])
 
   cout << _("'Your command, please?', asked the waiter.") << endl;
 
-  cout.form (ngettext ("a piece of cake", "%d pieces of cake", n), n);
-  cout << endl;
+  printf (ngettext ("a piece of cake", "%d pieces of cake", n), n);
+  printf ("\n");
 
-  cout.form (_("%s is replaced by %s."), "FF", "EUR");
-  cout << endl;
+  printf (_("%s is replaced by %s."), "FF", "EUR");
+  printf ("\n");
 }
 EOF
 

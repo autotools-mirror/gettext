@@ -1,5 +1,15 @@
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
+	* lang-c++: Don't use ostream::form, it's a g++ 2.x extension not
+	present in ISO C++ or g++ 3.x.
+	* lang-objc: Drop error messages that can result from attempting to
+	compile an ObjectiveC program.
+	* lang-java: Set the default locale by hand. Some systems, like
+	Solaris, are not capable of setting the locale according to LC_ALL
+	by themselves.
+
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
 	* lang-objc: If the locale couldn't be set, exit with code 77, not 1.
 
 2001-12-09  Bruno Haible  <bruno@clisp.org>

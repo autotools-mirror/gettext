@@ -1,5 +1,9 @@
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
+	* javacomp.m4 (gt_JAVACOMP): Fix typo in jikes test.
+
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_PO_SUBDIRS): Don't insert obsolete Rules-* files into
 	the Makefile.
 

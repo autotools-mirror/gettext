@@ -46,10 +46,10 @@ public class conftest {
 }
 EOF
             unset JAVA_HOME
-            jikes conftest.java
+            jikes conftest.java 2>/dev/null
             error=$?
             rm -f conftest.java conftest.class
-            exit $?
+            exit $error
            ); then
           HAVE_JIKES=1
           ac_result="jikes"
