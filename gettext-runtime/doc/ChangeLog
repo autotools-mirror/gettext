@@ -1,3 +1,8 @@
+2005-02-11  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2004-07-10  Bruno Haible  <bruno@clisp.org>
 
 	* rt-gettext.texi: Document also \a.
