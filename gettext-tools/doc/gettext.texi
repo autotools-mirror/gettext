@@ -342,6 +342,7 @@ The Translator's View
 * perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
+* qt-format::                   Qt Format Strings
 
 Individual Programming Languages
 
@@ -1262,6 +1263,12 @@ Likewise for PHP, see @ref{php-format}.
 @itemx no-gcc-internal-format
 @kwindex no-gcc-internal-format@r{ flag}
 Likewise for the GCC sources, see @ref{gcc-internal-format}.
+
+@item qt-format
+@kwindex qt-format@r{ flag}
+@itemx no-qt-format
+@kwindex no-qt-format@r{ flag}
+Likewise for Qt, see @ref{qt-format}.
 
 @end table
 
@@ -7275,6 +7282,7 @@ strings.
 * perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
+* qt-format::                   Qt Format Strings
 @end menu
 
 @node c-format, objc-format, Translators for other Languages, Translators for other Languages
@@ -7437,7 +7445,7 @@ PHP format strings are described in the documentation of the PHP function
 @code{sprintf}, in @file{phpdoc/manual/function.sprintf.html} or
 @uref{http://www.php.net/manual/en/function.sprintf.php}.
 
-@node gcc-internal-format,  , php-format, Translators for other Languages
+@node gcc-internal-format, qt-format, php-format, Translators for other Languages
 @subsection GCC internal Format Strings
 
 These format strings are used inside the GCC sources.  In such a format
@@ -7454,6 +7462,14 @@ declaration, @samp{T} denotes a type, @samp{A} denotes a function argument,
 denotes a programming language, @samp{O} denotes a binary operator,
 @samp{P} denotes a function parameter, @samp{Q} denotes an assignment
 operator, @samp{V} denotes a const/volatile qualifier.
+
+@node qt-format,  , gcc-internal-format, Translators for other Languages
+@subsection Qt Format Strings
+
+Qt format strings are described in the documentation of the QString class
+@uref{file:/usr/lib/qt-3.0.5/doc/html/qstring.html}.
+In summary, a directive consists of a @samp{%} followed by a digit. The same
+directive cannot occur more than once in a format string.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View

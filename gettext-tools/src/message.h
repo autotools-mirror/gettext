@@ -56,9 +56,10 @@ enum format_type
   format_perl,
   format_perl_brace,
   format_php,
-  format_gcc_internal
+  format_gcc_internal,
+  format_qt
 };
-#define NFORMATS 17	/* Number of format_type enum values.  */
+#define NFORMATS 18	/* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

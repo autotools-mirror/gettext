@@ -44,6 +44,11 @@ Like --java, and assume Java2 (JDK 1.2 or higher).
 @cindex Tcl mode, and @code{msgfmt} program
 Tcl mode: generate a tcl/msgcat @file{.msg} file.
 
+@item --qt
+@opindex --qt@r{, @code{msgfmt} option}
+@cindex Qt mode, and @code{msgfmt} program
+Qt mode: generate a Qt @file{.qm} file.
+
 @end table
 
 @subsection Output file location

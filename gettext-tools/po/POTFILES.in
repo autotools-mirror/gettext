@@ -38,6 +38,7 @@ src/format-perl.c
 src/format-perl-brace.c
 src/format-php.c
 src/format-python.c
+src/format-qt.c
 src/format-sh.c
 src/format-tcl.c
 src/format-ycp.c
@@ -74,6 +75,7 @@ src/urlget.c
 src/write-java.c
 src/write-mo.c
 src/write-po.c
+src/write-qt.c
 src/write-tcl.c
 src/x-awk.c
 src/x-c.c

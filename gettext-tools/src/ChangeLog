@@ -1,3 +1,40 @@
+2003-10-19  Bruno Haible  <bruno@clisp.org>
+
+        * message.h (format_type): New enum value 'format_qt'.
+        (NFORMATS): Increment.
+        * message.c (format_language): Add format_qt entry.
+        (format_language_pretty): Likewise.
+	* format.h (formatstring_qt): New declaration.
+	* format-qt.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_qt.
+	* xgettext.c (recognize_format_qt): New variable.
+	(long_options): Add option "--qt".
+	(main): Handle --qt option. Determine the extractor only after option
+	processing is complete.
+	(usage): Document --qt option.
+	(xgettext_record_flag): Handle format_qt.
+	(language_to_extractor): For C++, return a different extractor when
+	--qt was specified.
+	* write-qt.h: New file.
+	* write-qt.c: New file.
+	* msgfmt.c: Include write-qt.h.
+	(qt_mode): New variable.
+	(long_options): Add option "--qt".
+	(main): Handle --qt option. More checks for contradicting options.
+	Call msgdomain_write_qt.
+	(usage): Mention Qt mode.
+        (format_directive_domain): Ignore domain directive if in Qt mode.
+	* Makefile.am (noinst_HEADERS): Add write-qt.h.
+	(FORMAT_SOURCE): Add format-qt.c.
+	(msgfmt_SOURCES): Add write-qt.c.
+	* Makefile.msvc (OBJECTS): Add format-qt.obj.
+	(msgfmt_OBJECTS): Add write-qt.obj.
+	(format-qt.obj, write-qt.obj): New rules.
+	* Makefile.vms (OBJECTS): Add format-qt.obj.
+	(msgfmt_OBJECTS): Add write-qt.obj.
+	(format-qt.obj, write-qt.obj): New rules.
+	* FILES: Update.
+
 2003-10-14  Bruno Haible  <bruno@clisp.org>
 
 	Fix compilation errors in C++ mode.

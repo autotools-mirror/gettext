@@ -215,7 +215,14 @@ Understand ANSI C trigraphs for input.
 @*
 This option has an effect only with the languages C, C++, ObjectiveC.
 
-@itemx --debug
+@item --qt
+@opindex --qt@r{, @code{xgettext} option}
+@cindex Qt format strings
+Recognize Qt format strings.
+@*
+This option has an effect only with the language C++.
+
+@item --debug
 @opindex --debug@r{, @code{xgettext} option}
 @cindex debugging messages marked as format strings
 Use the flags @code{c-format} and @code{possible-c-format} to show who was

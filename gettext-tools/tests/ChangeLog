@@ -1,3 +1,13 @@
+2003-10-19  Bruno Haible  <bruno@clisp.org>
+
+	* format-qt-1: New file.
+	* format-qt-2: New file.
+	* msgfmt-15: New file.
+	* qttest_pl.po: New file.
+	* qttest_pl.qm: New file.
+	* Makefile.am (TESTS): Add format-qt-1, format-qt-2, msgfmt-15.
+	(EXTRA_DIST): Add qttest_pl.po, qttest_pl.qm.
+
 2003-10-14  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-22: Update expected result.

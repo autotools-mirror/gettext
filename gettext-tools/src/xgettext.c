@@ -149,6 +149,9 @@ static flag_context_list_table_ty flag_table_tcl;
 static flag_context_list_table_ty flag_table_perl;
 static flag_context_list_table_ty flag_table_php;
 
+/* If true, recognize Qt format strings.  */
+static bool recognize_format_qt;
+
 /* Canonicalized encoding name for all input files.  */
 const char *xgettext_global_source_encoding;
 
@@ -200,6 +203,7 @@ static const struct option long_options[] =
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
   { "properties-output", no_argument, NULL, CHAR_MAX + 6 },
+  { "qt", no_argument, NULL, CHAR_MAX + 9 },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -262,6 +266,7 @@ main (int argc, char *argv[])
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;
+  const char *language = NULL;
   extractor_ty extractor = { NULL, NULL, NULL, NULL };
 
   /* Set program name for messages.  */
@@ -335,7 +340,7 @@ main (int argc, char *argv[])
 	  }
 	break;
       case 'C':
-	extractor = language_to_extractor ("C++");
+	language = "C++";
 	break;
       case 'd':
 	default_domain = optarg;
@@ -390,7 +395,7 @@ main (int argc, char *argv[])
 	/* Accepted for backward compatibility with 0.10.35.  */
 	break;
       case 'L':
-	extractor = language_to_extractor (optarg);
+	language = optarg;
 	break;
       case 'm':
 	/* -m takes an optional argument.  If none is given "" is assumed. */
@@ -471,6 +476,9 @@ main (int argc, char *argv[])
       case CHAR_MAX + 8:	/* --flag */
 	xgettext_record_flag (optarg);
 	break;
+      case CHAR_MAX + 9:	/* --qt */
+	recognize_format_qt = true;
+	break;
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -520,6 +528,10 @@ xgettext cannot work without keywords to look for"));
       error (EXIT_SUCCESS, 0, _("no input file given"));
       usage (EXIT_FAILURE);
     }
+
+  /* Determine extractor from language.  */
+  if (language != NULL)
+    extractor = language_to_extractor (language);
 
   /* Canonize msgstr prefix/suffix.  */
   if (msgstr_prefix != NULL && msgstr_suffix == NULL)
@@ -786,6 +798,10 @@ Language specific options:\n"));
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC)\n"));
+      printf (_("\
+      --qt                    recognize Qt format strings\n"));
+      printf (_("\
+                                (only language C++)\n"));
       printf (_("\
       --debug                 more detailed formatstring recognition result\n"));
       printf ("\n");
@@ -1395,6 +1411,11 @@ xgettext_record_flag (const char *optionstring)
 		    break;
 		  case format_gcc_internal:
 		    flag_context_list_table_insert (&flag_table_gcc_internal, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
+		  case format_qt:
+		    flag_context_list_table_insert (&flag_table_c, 0,
 						    name_start, name_end,
 						    argnum, value, pass);
 		    break;
@@ -2114,6 +2135,12 @@ language_to_extractor (const char *name)
 	result.flag_table = tp->flag_table;
 	result.formatstring_parser1 = tp->formatstring_parser1;
 	result.formatstring_parser2 = tp->formatstring_parser2;
+
+	/* Handle --qt.  It's preferrable to handle this facility here rather
+	   than through an option --language=C++/Qt because the latter would
+	   conflict with the language "C++" regarding the file extensions.  */
+	if (recognize_format_qt && strcmp (tp->name, "C++") == 0)
+	  result.formatstring_parser2 = &formatstring_qt;
 
 	return result;
       }

@@ -1,3 +1,10 @@
+2003-10-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention qt-format.
+	(qt-format): New subsection.
+	* msgfmt.texi: Document --qt option.
+	* xgettext.texi: Likewise.
+
 2003-10-13  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Mention objc-format, sh-format, perl-format,

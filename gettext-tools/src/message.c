@@ -50,7 +50,8 @@ const char *const format_language[NFORMATS] =
   /* format_perl */		"perl",
   /* format_perl_brace */	"perl-brace",
   /* format_php */		"php",
-  /* format_gcc_internal */	"gcc-internal"
+  /* format_gcc_internal */	"gcc-internal",
+  /* format_qt */		"qt"
 };
 
 const char *const format_language_pretty[NFORMATS] =
@@ -71,7 +72,8 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_perl */		"Perl",
   /* format_perl_brace */	"Perl brace",
   /* format_php */		"PHP",
-  /* format_gcc_internal */	"GCC internal"
+  /* format_gcc_internal */	"GCC internal",
+  /* format_qt */		"Qt"
 };
 
 

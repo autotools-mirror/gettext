@@ -1,0 +1,19 @@
+#! /bin/sh
+
+# Test output in Qt .qm format.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles mf-test15.qm"
+: ${MSGFMT=msgfmt}
+${MSGFMT} --qt ${top_srcdir}/tests/qttest_pl.po -o mf-test15.qm
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+: ${CMP=cmp}
+${CMP} ${top_srcdir}/tests/qttest_pl.qm mf-test15.qm >/dev/null 2>/dev/null
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

@@ -49,6 +49,7 @@
 #include "write-mo.h"
 #include "write-java.h"
 #include "write-tcl.h"
+#include "write-qt.h"
 
 #include "gettext.h"
 #include "message.h"
@@ -94,6 +95,9 @@ static const char *java_class_directory;
 static bool tcl_mode;
 static const char *tcl_locale_name;
 static const char *tcl_base_directory;
+
+/* Qt mode output file specification.  */
+static bool qt_mode;
 
 /* We may have more than one input file.  Domains with same names in
    different files have to merged.  So we need a list of tables for
@@ -164,6 +168,7 @@ static const struct option long_options[] =
   { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
   { "properties-input", no_argument, NULL, 'P' },
+  { "qt", no_argument, NULL, CHAR_MAX + 9 },
   { "resource", required_argument, NULL, 'r' },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
@@ -317,6 +322,9 @@ main (int argc, char *argv[])
       case CHAR_MAX + 8: /* --stringtable-input */
 	input_syntax = syntax_stringtable;
 	break;
+      case CHAR_MAX + 9: /* --qt */
+	qt_mode = true;
+	break;
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -351,6 +359,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (java_mode && tcl_mode)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--java", "--tcl");
+  if (java_mode && qt_mode)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--java", "--qt");
+  if (tcl_mode && qt_mode)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--tcl", "--qt");
   if (java_mode)
     {
       if (output_file_name != NULL)
@@ -415,8 +429,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (output_file_name != NULL)
     current_domain =
       new_domain (output_file_name,
-		  strict_uniforum ? add_mo_suffix (output_file_name)
-				  : output_file_name);
+		  !qt_mode && strict_uniforum ? add_mo_suffix (output_file_name)
+					      : output_file_name);
 
   /* Process all given .po files.  */
   while (argc > optind)
@@ -463,6 +477,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	{
 	  if (msgdomain_write_tcl (domain->mlp, canon_encoding,
 				   tcl_locale_name, tcl_base_directory))
+	    exit_status = EXIT_FAILURE;
+	}
+      else if (qt_mode)
+	{
+	  if (msgdomain_write_qt (domain->mlp, canon_encoding,
+				  domain->domain_name, domain->file_name))
 	    exit_status = EXIT_FAILURE;
 	}
       else
@@ -541,6 +561,8 @@ Operation mode:\n"));
       --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"));
       printf (_("\
       --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"));
+      printf (_("\
+      --qt                    Qt mode: generate a Qt .qm file\n"));
       printf ("\n");
       printf (_("\
 Output file location:\n"));
@@ -1391,7 +1413,7 @@ msgfmt_set_domain (default_po_reader_ty *this, char *name)
 {
   /* If no output file was given, we change it with each `domain'
      directive.  */
-  if (!java_mode && !tcl_mode && output_file_name == NULL)
+  if (!java_mode && !tcl_mode && !qt_mode && output_file_name == NULL)
     {
       size_t correct;
 

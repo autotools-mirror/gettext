@@ -39,6 +39,14 @@ Version 0.12.2 - September 2003
     special kind of format strings used in the GCC sources and marks them
     as 'gcc-internal-format'.
 
+  - C++ with Qt:
+
+    xgettext has a new option --qt that triggers the recognition and marking
+    of Qt format strings.
+
+    msgfmt has a new option --qt that generates binary message catalogs in
+    Qt's .qm format.
+
 * Data formats support:
 
   - Glade:

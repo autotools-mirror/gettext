@@ -37,6 +37,7 @@ TESTS = gettext-1 gettext-2 \
 	msgfilter-1 msgfilter-2 msgfilter-3 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
+	msgfmt-15 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
@@ -65,6 +66,7 @@ TESTS = gettext-1 gettext-2 \
 	format-perl-1 format-perl-2 \
 	format-perl-brace-1 format-perl-brace-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
+	format-qt-1 format-qt-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
@@ -76,7 +78,7 @@ TESTS = gettext-1 gettext-2 \
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \
-	msguniq-a.out ChangeLog.0
+	msguniq-a.out qttest_pl.po qttest_pl.qm ChangeLog.0
 
 XGETTEXT = ../src/xgettext
 

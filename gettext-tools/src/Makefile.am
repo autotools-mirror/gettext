@@ -40,10 +40,10 @@ str-list.h write-po.h write-properties.h write-stringtable.h dir-list.h \
 file-list.h po-gram-gen.h po-gram-gen2.h po-hash-gen.h msgl-charset.h \
 msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h \
 msgunfmt.h plural-count.h read-mo.h write-mo.h read-java.h write-java.h \
-read-tcl.h write-tcl.h po-time.h plural-table.h format.h xgettext.h x-c.h \
-x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h x-smalltalk.h x-java.h \
-x-properties.h x-awk.h x-ycp.h x-tcl.h x-perl.h x-php.h x-stringtable.h \
-x-rst.h x-glade.h
+read-tcl.h write-tcl.h write-qt.h po-time.h plural-table.h format.h \
+xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
+x-smalltalk.h x-java.h x-properties.h x-awk.h x-ycp.h x-tcl.h x-perl.h \
+x-php.h x-stringtable.h x-rst.h x-glade.h
 
 EXTRA_DIST += FILES project-id ChangeLog.0
 
@@ -95,7 +95,7 @@ FORMAT_SOURCE = format.c format-invalid.h \
 format-c.c format-sh.c format-python.c format-lisp.c format-elisp.c \
 format-librep.c format-java.c format-awk.c format-pascal.c format-ycp.c \
 format-tcl.c format-perl.c format-perl-brace.c format-php.c \
-format-gcc-internal.c
+format-gcc-internal.c format-qt.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
@@ -116,7 +116,8 @@ LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c plural-eval.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c write-qt.c \
+  plural-eval.c
 msgmerge_SOURCES = msgmerge.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-tcl.c
 xgettext_SOURCES = xgettext.c \

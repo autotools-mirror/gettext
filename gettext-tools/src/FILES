@@ -196,6 +196,7 @@ format-perl.c          Format string handling for Perl.
 format-perl-brace.c    Format string handling for Perl, braced syntax.
 format-php.c           Format string handling for PHP.
 format-gcc-internal.c  Format string handling GCC internal.
+format-qt.c            Format string handling for Qt.
 format.c        Table of the language dependent format string handlers.
 
 +-------------- The 'msgfmt' program
@@ -214,6 +215,9 @@ format.c        Table of the language dependent format string handlers.
 | write-tcl.h
 | write-tcl.c
 |               Generating Tcl .msg files.
+| write-qt.h
+| write-qt.c
+|               Generating Qt .qm files.
 | msgfmt.c
 |               Main source for the 'msgfmt' program.
 |
