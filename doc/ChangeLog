@@ -1,3 +1,8 @@
+2002-04-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Preparing Strings): New section.
+	(po/POTFILES.in): Mention how to handle generated files.
+
 2002-04-10  Bruno Haible  <bruno@clisp.org>
 
 	* ISO_639: Update. Add id, wa. Change jw to jv.

@@ -148,6 +148,7 @@ PO Files and PO Mode Basics
 Preparing Program Sources
 
 * Triggering::                  Triggering @code{gettext} Operations
+* Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
@@ -1574,13 +1575,14 @@ sections of this chapter.
 
 @menu
 * Triggering::                  Triggering @code{gettext} Operations
+* Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 @end menu
 
-@node Triggering, Mark Keywords, Sources, Sources
+@node Triggering, Preparing Strings, Sources, Sources
 @section Triggering @code{gettext} Operations
 
 @cindex initialization
@@ -1672,7 +1674,226 @@ because it is tedious to determine the places where a locale switch
 is needed in a large program's source, and because switching a locale
 is not multithread-safe.
 
-@node Mark Keywords, Marking, Triggering, Sources
+@node Preparing Strings, Mark Keywords, Triggering, Sources
+@section Preparing Translatable Strings
+
+@cindex marking strings, preparations
+Before strings can be marked for translations, they sometimes need to
+be adjusted. Usually preparing a string for translation is done right
+before marking it, during the marking phase which is described in the
+next sections. What you have to keep in mind while doing that is the
+following.
+
+@itemize @bullet
+@item
+Decent English style.
+
+@item
+Entire sentences.
+
+@item
+Split at paragraphs.
+
+@item
+Use format strings instead of string concatenation.
+@end itemize
+
+@noindent
+Let's look at some examples of these guidelines.
+
+@cindex style
+Translatable strings should be in good English style. If slang language
+with abbreviations and shortcuts is used, often translators will not
+understand the message and will produce very inappropriate translations.
+
+@example
+"%s: is parameter\n"
+@end example
+
+@noindent
+This is nearly untranslatable: Is the displayed item @emph{a} parameter or
+@emph{the} parameter?
+
+@example
+"No match"
+@end example
+
+@noindent
+The ambiguity in this message makes it ununderstandable: Is the program
+attempting to set something on fire? Does it mean "The given object does
+not match the template"? Does it mean "The template does not fit for any
+of the objects"?
+
+@cindex ambiguities
+In both cases, adding more words to the message will help both the
+translator and the English speaking user.
+
+@cindex sentences
+Translatable strings should be entire sentences. It is often not possible
+to translate single verbs or adjectives in a substitutable way.
+
+@example
+printf ("File %s is %s protected", filename, rw ? "write" : "read");
+@end example
+
+@noindent
+Most translators will not look at the source and will thus only see the
+string @code{"File %s is %s protected"}, which is unintelligible. Change
+this to
+
+@example
+printf (rw ? "File %s is write protected" : "File %s is read protected",
+        filename);
+@end example
+
+@noindent
+This way the translator will not only understand the message, she will
+also be able to find the appropriate grammatical construction. The French
+translator for example translates "write protected" like "protected
+against writing".
+
+Often sentences don't fit into a single line. If a sentence is output
+using two subsequent @code{printf} statements, like this
+
+@example
+printf ("Locale charset \"%s\" is different from\n", lcharset);
+printf ("input file charset \"%s\".\n", fcharset);
+@end example
+
+@noindent
+the translator would have to translate two half sentences, but nothing
+in the POT file would tell her that the two half sentences belong together.
+It is necessary to merge the two @code{printf} statements so that the
+translator can handle the entire sentence at once and decide at which
+place to insert a line break in the translation (if at all):
+
+@example
+printf ("Locale charset \"%s\" is different from\n\
+input file charset \"%s\".\n", lcharset, fcharset);
+@end example
+
+You may now ask: how about two or more adjacent sentences? Like in this case:
+
+@example
+puts ("Apollo 13 scenario: Stack overflow handling failed.");
+puts ("On the next stack overflow we will crash!!!");
+@end example
+
+@noindent
+Should these two statements merged into a single one? I would recommend to
+merge them if the two sentences are related to each other, because then it
+makes it easier for the translator to understand and translate both. On
+the other hand, if one of the two messages is a stereotypic one, occurring
+in other places as well, you will do a favour to the translator by not
+merging the two. (Identical messages occurring in several places are
+combined by xgettext, so the translator has to handle them once only.)
+
+@cindex paragraphs
+Translatable strings should be limited to one paragraph; don't let a
+single message be longer than ten lines. The reason is that when the
+translatable string changes, the translator is faced with the task of
+updating the entire translated string. Maybe only a single word will
+have changed in the English string, but the translator doesn't see that
+(with the current translation tools), therefore she has to proofread
+the entire message.
+
+@cindex help option
+Many GNU programs have a @samp{--help} output that extends over several
+screen pages. It is a courtesy towards the translators to split such a
+message into several ones of five to ten lines each. While doing that,
+you can also attempt to split the documented options into groups,
+such as the input options, the output options, and the informative
+output options. This will help every user to find the option he is
+looking for.
+
+@cindex string concatenation
+@cindex concatenation of strings
+Hardcoded string concatenation is sometimes used to construct English
+strings:
+
+@example
+strcpy (s, "Replace ");
+strcat (s, object1);
+strcat (s, " with ");
+strcat (s, object2);
+strcat (s, "?");
+@end example
+
+@noindent
+In order to present to the translator only entire sentences, and also
+because in some languages the translator might want to swap the order
+of @code{object1} and @code{object2}, it is necessary to change this
+to use a format string:
+
+@example
+sprintf (s, "Replace %s with %s?", object1, object2);
+@end example
+
+@cindex @code{inttypes.h}
+A similar case is compile time concatenation of strings. The ISO C 99
+include file @code{<inttypes.h>} contains a macro @code{PRId64} that
+can be used as a formatting directive for outputting an @samp{int64_t}
+integer through @code{printf}. It expands to a constant string, usually
+"d" or "ld" or "lld" or something like this, depending on the platform.
+Assume you have code like
+
+@example
+printf ("The amount is %0" PRId64 "\n"), number);
+@end example
+
+@noindent
+After marking, this cannot become
+
+@example
+printf (gettext ("The amount is %0") PRId64 "\n"), number);
+@end example
+
+@noindent
+because it would simply be invalid C syntax. It cannot become
+
+@example
+printf (gettext ("The amount is %0" PRId64 "\n")), number);
+@end example
+
+@noindent
+because the value of @code{PRId64} is not known to @code{xgettext}, and
+even if were, there would be three or more possibilities, and the
+translator would have to translate three or more strings that differ in
+a single letter.
+
+The solution for this problem is to change the code like this:
+
+@example
+char buf1[100];
+sprintf (buf1, "%0" PRId64, number);
+printf (gettext ("The amount is %s\n"), buf1);
+@end example
+
+This means, you put the platform dependent code in one statement, and the
+internationalization code in a different statement. Note that a buffer length
+of 100 is safe, because all available hardware integer types are limited to
+128 bits, and to print a 128 bit integer one needs at most 54 characters,
+regardless whether in decimal, octal or hexadecimal.
+
+@cindex Java, string concatenation
+All this applies to other programming languages as well. For example, in
+Java, string contenation is very frequently used, because it is a compiler
+built-in operator. Like in C, in Java, you would change
+
+@example
+System.out.println("Replace "+object1+" with "+object2+"?");
+@end example
+
+@noindent
+into a statement involving a format string:
+
+@example
+System.out.println(
+    MessageFormat.format("Replace @{0@} with @{1@}?",
+                         new Object[] @{ object1, object2 @}));
+@end example
+
+@node Mark Keywords, Marking, Preparing Strings, Sources
 @section How Marks Appear in Sources
 @cindex marking strings that require translation
 
@@ -5612,6 +5833,12 @@ list those source files containing strings marked for translation
 (@pxref{Mark Keywords}), in a notation relative to the top level
 of your whole distribution, rather than the location of the
 @file{POTFILES.in} file itself.
+
+When a C file is automatically generated by a tool, like @code{flex} or
+@code{bison}, that doesn't introduce translatable strings by itself,
+it is recommended to list in @file{po/POTFILES.in} the real source file
+(ending in @file{.l} in the case of @code{flex}, or in @file{.y} in the
+case of @code{bison}), not the generated C file.
 
 @node po/LINGUAS, po/Makevars, po/POTFILES.in, Adjusting Files
 @subsection @file{LINGUAS} in @file{po/}
