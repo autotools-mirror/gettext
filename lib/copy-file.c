@@ -33,7 +33,11 @@
 #endif
 
 #if HAVE_UTIME || HAVE_UTIMES
-# include <utime.h>
+# if HAVE_UTIME_H
+#  include <utime.h>
+# else
+#  include <sys/utime.h>
+# endif
 #endif
 
 #include "error.h"
