@@ -1,4 +1,4 @@
-This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
+This is a port of GNU Gettext 0.11.5 to MSDOS/DJGPP.
 
 
         TO USE THE GNU GETTEXT LIBRARY YOU **MUST** MODIFY YOUR C-LIBRARY.
@@ -34,7 +34,7 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         file the gettext keyword makes **ALWAYS** reference to the GNU gettext
         function and **NEVER** to the BORLAND-compatibility gettext function.
 
-     2) The binary package gtxt03b.zip contains all needed files to get NLS
+     2) The binary package gtxt05b.zip contains all needed files to get NLS
         support for the following DJGPP ports:
           bison-1.32 (bsn132s.zip)
           enscript-1.6.2 (ens162s.zip)
@@ -53,7 +53,7 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         See section #4 for further information about this issue.
         To implement NLS support for one of those packages you will also need
         to download the following packages:
-          gtxt03b.zip (binaries of GNU Gettext 0.11.3)
+          gtxt05b.zip (binaries of GNU Gettext 0.11.5)
           licv17b.zip (binaries of GNU libiconv 1.7)
           fil40b.zip  (binaries of GNU Fileutils 4.0)
           shl20jb.zip (binaries of GNU Sh-utils 2.0j)
@@ -89,14 +89,14 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
 2.2.:   Copy the binary distribution into the top DJGPP installation directory,
         just unzip it preserving the directory structure running *ONE* of the
         following commands:
-          unzip32 gtxt03b.zip      or
-          djtarx gtxt03b.zip       or
-          pkunzip -d gtxt03b.zip
+          unzip32 gtxt05b.zip      or
+          djtarx gtxt05b.zip       or
+          pkunzip -d gtxt05b.zip
 
 2.3.:   Changing libc.a and conio.h.
         Apart from the ussual directories, the binary package will create the
         following directory:
-          %DJDIR%/gnu/gtxt-011.3/djgpp/djdev-2.03
+          %DJDIR%/gnu/gtxt-011.5/djgpp/djdev-2.03
         where %DJDIR% stands for the root of your DJGPP installation tree.
         Cd into the djdev-2.03 directory. You will find the following files:
           conio.diffs
@@ -109,7 +109,7 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         conio.o contained in libc.a.
 
         For all commands that will follow now I will assume that you have
-        cd'ed into the %DJDIR%/gnu/gtxt-011.3/djgpp/djdev-2.03 directory,
+        cd'ed into the %DJDIR%/gnu/gtxt-011.5/djgpp/djdev-2.03 directory,
         where %DJDIR% represents the path to your DJGPP installation. First,
         you should backup your old header and library. For this task, run the
         following command sequence (cp is the copy program from fil40b.zip):
@@ -311,9 +311,9 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         directory. If you download the source distribution from one of the
         DJGPP archives, just unzip it preserving the directory structure
         running *ONE* of the following commands:
-          unzip32 gtxt03s.zip      or
-          djtarx gtxt03s.zip       or
-          pkunzip -d gtxt03s.zip
+          unzip32 gtxt05s.zip      or
+          djtarx gtxt05s.zip       or
+          pkunzip -d gtxt05s.zip
 
         Source distributions downloaded from one of the GNU FTP sites need
         some more work to unpack. First, you *MUST* use the `djtar' program
@@ -325,11 +325,11 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         to retrieve that file, and then invoke `djtar' to unpack the
         distribution. Here is how:
 
-          djtar -x -p -o gettext-0.11.3/djgpp/fnchange.lst gettext-0.11.3.tar.gz > lst
-          djtar -x -n lst gettext-0.11.3.tar.gz
+          djtar -x -p -o gettext-0.11.5/djgpp/fnchange.lst gettext-0.11.5.tar.gz > lst
+          djtar -x -n lst gettext-0.11.5.tar.gz
 
         (The name of the distribution archive and the top-level directory will
-        be different for versions other than 0.11.3.)
+        be different for versions other than 0.11.5.)
 
         It is always recommended to download the DJGPP packages from some
         Simtel.NET mirror and *NOT* the original GNU distribution because
@@ -354,7 +354,7 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
           no-NLS
 
         If for some reason you want no NLS support you will have to reconfigure
-        the package. For this purpose cd into the top srcdir (gtxt-011.3)
+        the package. For this purpose cd into the top srcdir (gtxt-011.5)
         and run the following commands:
           make distclean
           djgpp\config no-NLS
@@ -368,14 +368,14 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         To build the programs in a directory other than where the sources are,
         you must add a parameter that specifies the source directory,
         e.g:
-          x:\src\gnu\gtxt-011.3\djgpp\config x:/src/gnu/gtxt-011.3 no-NLS
+          x:\src\gnu\gtxt-011.5\djgpp\config x:/src/gnu/gtxt-011.5 no-NLS
 
         Lets assume you want to build the binaries in a directory placed on a 
         different drive (z:\build in this case) from where the sources are,
         then you will run the following commands:
           z:
           cd \build
-          x:\src\gnu\gtxt-011.3\djgpp\config x:/src/gnu/gtxt-011.3 no-NLS
+          x:\src\gnu\gtxt-011.5\djgpp\config x:/src/gnu/gtxt-011.5 no-NLS
 
         If you want NLS support you will omit "no-NLS" or replace it by
         "NLS" in the above examples.
@@ -441,12 +441,12 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         be replaced.
 
 4.1.:   To reconfigure and recompile a source package with NLS support you
-        *MUST* install the gtxt03b.zip and licv17b.zip packages
+        *MUST* install the gtxt05b.zip and licv17b.zip packages
         first. NLS support will **NOT** work with any prior version of the above
-        mentioned packages. Before installing gtxt03b.zip and licv17b.zip
+        mentioned packages. Before installing gtxt05b.zip and licv17b.zip
         you *MUST* deinstall the old packages if you ever have installed them.
         For this purpose use the provided manifest files from the old packages.
-        Old packages means previous beta releases of gtxt03b.zip and licv17b.zip
+        Old packages means previous beta releases of gtxt05b.zip and licv17b.zip
         *AND* also previous versions of gettext like gettext 0.10.32, etc.
 
 4.2.:   We will assume that the required sources will be unzipped into
@@ -457,8 +457,8 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         This will create the directory:
           /src/gnu/grep-2.4
 
-        The binary package gtxt03b.zip will create the directory:
-          %DJDIR%/gnu/gtxt-011.3/djgpp/NLS_for_djgpp_packages/grep-2.4
+        The binary package gtxt05b.zip will create the directory:
+          %DJDIR%/gnu/gtxt-011.5/djgpp/NLS_for_djgpp_packages/grep-2.4
         This directory contains all needed files.
         The files are:
           grep-2.4/djgpp/config.bat  (new .bat file that replaces the original one.)
@@ -468,7 +468,7 @@ This is a port of GNU Gettext 0.11.3 to MSDOS/DJGPP.
         Now we will xcopy the needed files into the original grep-2.4 directory.
         First we will cd into the grep-2.4 directory and then we will run the
         following command:
-          xcopy %DJDIR%\gnu\gtxt-011.3\djgpp\NLS_for_djgpp_packages\grep-2.4 /v/s/e
+          xcopy %DJDIR%\gnu\gtxt-011.5\djgpp\NLS_for_djgpp_packages\grep-2.4 /v/s/e
 
 4.3.:   Before the package can be reconfigured, the old configuration must be
         cleared. Run the command:
