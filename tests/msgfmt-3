@@ -21,7 +21,7 @@ tmpfiles="$tmpfiles mftest3.mo"
 : ${MSGFMT=msgfmt}
 LC_MESSAGES=C LC_ALL= \
 ${MSGFMT} mf-test3.po -o mftest3.mo 2>&1 \
-  | grep -v '\(warning: Charset\|^ \)'
+  | grep -v 'warning: Charset' | grep -v '^ '
 
 test ! -f mftest3.mo
 result=$?

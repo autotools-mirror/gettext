@@ -1,3 +1,10 @@
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgfmt-3: Use two grep invocations instead of a complex regexp that
+	only GNU grep understands.
+	* msgmerge-5: Likewise.
+	* xgettext-3: Likewise.
+
 2001-04-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-2: Change formula and result for sl. Add test for lt.
