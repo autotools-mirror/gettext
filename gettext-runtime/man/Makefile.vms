@@ -30,6 +30,7 @@ install : all
 	create /directory $(man1dir)]
 	$(INSTALL_DATA) gettext.1.in $(man1dir)]gettext.1
 	$(INSTALL_DATA) ngettext.1.in $(man1dir)]ngettext.1
+	$(INSTALL_DATA) envsubst.1 $(man1dir)]envsubst.1
 	create /directory $(man3dir)]
 	$(INSTALL_DATA) gettext.3 $(man3dir)]gettext.3
 	$(INSTALL_DATA) ngettext.3 $(man3dir)]ngettext.3
@@ -44,6 +45,7 @@ install : all
 	create /directory $(docdir)]
 	$(INSTALL_DATA) gettext.1.html.in $(docdir)]gettext.1.html
 	$(INSTALL_DATA) ngettext.1.html.in $(docdir)]ngettext.1.html
+	$(INSTALL_DATA) envsubst.1.html $(docdir)]envsubst.1.html
 	$(INSTALL_DATA) gettext.3.html $(docdir)]gettext.3.html
 	$(INSTALL_DATA) ngettext.3.html $(docdir)]ngettext.3.html
 	$(INSTALL_DATA) textdomain.3.html $(docdir)]textdomain.3.html
@@ -62,6 +64,7 @@ installdirs :
 uninstall :
 	$(RM) $(man1dir)]gettext.1;
 	$(RM) $(man1dir)]ngettext.1;
+	$(RM) $(man1dir)]envsubst.1;
 	$(RM) $(man3dir)]gettext.3;
 	$(RM) $(man3dir)]ngettext.3;
 	$(RM) $(man3dir)]textdomain.3;
@@ -73,6 +76,7 @@ uninstall :
 	$(RM) $(man3dir)]dcngettext.3;
 	$(RM) $(docdir)]gettext.1.html;
 	$(RM) $(docdir)]ngettext.1.html;
+	$(RM) $(docdir)]envsubst.1.html;
 	$(RM) $(docdir)]gettext.3.html;
 	$(RM) $(docdir)]ngettext.3.html;
 	$(RM) $(docdir)]textdomain.3.html;
