@@ -76,6 +76,11 @@ xopen-msg.sed config.charset ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.normal = VERSION
 DISTFILES.gettext = libintl.glibc intlh.inst.in plural.c
 
+# Libtool's library version information for libintl.
+LTV_CURRENT=1
+LTV_REVISION=0
+LTV_AGE=0
+
 .SUFFIXES:
 .SUFFIXES: .y .c .o .lo .sin .sed
 .c.o:
@@ -104,7 +109,8 @@ libintl.a: $(OBJECTS)
 
 libintl.la: $(OBJECTS)
 	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@ $(OBJECTS) \
-		   -version-info 1:0 -rpath $(libdir)
+		   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
+		   -rpath $(libdir)
 
 ../po/cat-id-tbl.$lo: ../po/cat-id-tbl.c $(top_srcdir)/po/$(PACKAGE).pot
 	cd ../po && $(MAKE) cat-id-tbl.$lo
