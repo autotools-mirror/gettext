@@ -74,16 +74,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.12-pre1\n"
+"Project-Id-Version: gettext-runtime 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
-"PO-Revision-Date: 2003-02-20 21:05+0100\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
+"PO-Revision-Date: 2003-11-19 16:35+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr "Fehler beim Schreiben"
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -147,10 +151,11 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: Option »-W %s« erwartet kein Argument\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
+#, c-format
 msgid "memory exhausted"
 msgstr "virtueller Speicher erschöpft"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -162,25 +167,105 @@ msgstr ""
 "Es gibt KEINERLEI Garantie; nicht einmal für die TAUGLICHKEIT oder\n"
 "die VERWENDBARKEIT ZU EINEN ANGEGEBENEN ZWECK.\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Geschrieben von %s.\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "zu viele Argumente"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "Argumente fehlen"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "»%s --help« gibt weitere Informationen.\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr "Aufruf: %s [OPTION] [SHELL-FORMAT]\n"
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr "Werte der Umgebungsvariablen substituieren.\n"
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr "Art der Verarbeitung:\n"
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr "  -v, --variables             Variablen ausgeben, die im SHELL-FORMAT vorkommen\n"
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr "Informative Ausgabe:\n"
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr "  -h, --help                   diese Hilfe anzeigen und beenden\n"
+
+#: src/envsubst.c:198
+#, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr "  -V, --version                Versionsnummer anzeigen und beenden\n"
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+"Im normalen Betriebsmodus wird die Standardeingabe zur Standardausgabe kopiert.\n"
+"Dabei werden Referenzen auf Umgebungsvariablen in der Formatform $VARIABLE oder\n"
+"${VARIABLE} durch die entsprechenden Werte ersetzt.  Wenn ein SHELL-FORMAT\n"
+"angegeben ist, werden nur die Umgebungsvariablen, die im SHELL-FORMAT\n"
+"referenziert, substituiert; andernfalls werden alle Referenzen auf\n"
+"Umgebungsvariablen bei der Standardausgabe substituiert.\n"
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+"Wenn --variables verwendet wird, wird die Standardeingabe ignoriert und die\n"
+"Standardausgabe wird aus allen Umgebungsvariablen bestehen, die im\n"
+"SHELL-FORMAT referenziert sind, immer eine pro Zeile.\n"
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr ""
+"Fehler bitte auf Englisch an <bug-gnu-gettext@gnu.org> melden.\n"
+"\n"
+"Für die deutsche Übersetzung ist die Mailingliste <de@li.org> zuständig.\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "Fehler beim Lesen von »%s«"
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr "Standardeingabe"
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -190,13 +275,13 @@ msgstr ""
 "oder:   %s [OPTION] -s [SCHLÜSSEL]...\n"
 
 # CHECKIT
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Übersetzung einer textuellen Meldung in einer nativen Sprache anzeigen.\n"
 
-#: src/gettext.c:248
-#, no-wrap
+#: src/gettext.c:254
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -216,7 +301,7 @@ msgstr ""
 "  [TEXTBEREICH] SCHLÜSSEL    die Übersetzung zu SCHLÜSSEL aus TEXTBEREICH\n"
 "                               anfordern\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -239,21 +324,14 @@ msgstr ""
 "\n"
 "Standardverzeichnis: %s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr ""
-"Fehler bitte auf Englisch an <bug-gnu-gettext@gnu.org> melden.\n"
-"\n"
-"Für die deutsche Übersetzung ist die Mailingliste <de@li.org> zuständig.\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Aufruf: %s [OPTION] [TEXTBEREICH] SCHLÜSSEL SCHLÜSSEL-PLURAL ZAHL\n"
 
 # CHECKIT
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
@@ -261,8 +339,8 @@ msgstr ""
 "Übersetzung einer textuellen Meldung, deren grammatische Form von einer Zahl\n"
 "abhängt, in einer nativen Sprache anzeigen.\n"
 
-#: src/ngettext.c:218
-#, no-wrap
+#: src/ngettext.c:223
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -284,7 +362,7 @@ msgstr ""
 "  ZAHL                         Singular-/Pluralform anhand des Wertes ZAHL\n"
 "                                 wählen\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

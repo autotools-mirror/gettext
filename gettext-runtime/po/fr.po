@@ -1,21 +1,25 @@
 # Messages français pour GNU gettext.
 # Copyright © 1996, 1997, 1998 Free Software Foundation, Inc.
-# François Pinard <pinard@iro.umontreal.ca>, 1996.
+# François   Pinard <pinard  @iro.umontreal.ca>, 1996.
 # Il a été le traducteur jusqu'en 2001.
 # Michel Robitaille <robitail@iro.umontreal.ca>, traducteur depuis/since 1996.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.5\n"
+"Project-Id-Version: GNU gettext-runtime 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
-"PO-Revision-Date: 2002-08-08 08:00-0500\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
+"PO-Revision-Date: 2003-11-19 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr "erreur d'écriture"
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -79,10 +83,11 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: l'option « -W %s » ne tolère pas d'argument\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
+#, c-format
 msgid "memory exhausted"
 msgstr "Mémoire épuisée"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -94,25 +99,101 @@ msgstr ""
 "les permissions de copie.  Il est distribué SANS AUCUNE GARANTIE\n"
 "de QUALITÉ LOYALE ET MARCHANDE ou d'ADÉQUATION POUR UN BUT PARTICULIER.\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Écrit par %s.\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "trop d'arguments"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "arguments manquants"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Pour plus d'information, essayer « %s --help ».\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr "Substituer les valeurs des variables d'environnement.\n"
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr "Mode d'opération:\n"
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr "  -v, --variables             afficher les variables apparaissant dans SHELL-FORMAT\n"
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr "Sortie informative:\n"
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr "  -h, --help                  afficher l'aide-mémoire\n"
+
+#: src/envsubst.c:198
+#, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr "  -V, --version               afficher le nom et la version du logiciel\n"
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+"Dans le mode normal d'opération, l'entrée standard est copiée vers la sortie standard,\n"
+"en utilisant les références aux variables d'environnement de la forme $VARIABLE ou ${VARIABLES}\n"
+"remplacées par les valeurs correspondantes. Si SHELL-FORMAT est spécifié\n"
+"seulement ces variables d'environnement qui sont définies dans SHELL-FORMAT sont\n"
+"subsitutées; autrement toutes les variables d'environnement apparaissant dans\n"
+"l'entrée standard sont substituées.\n"
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+"Lorsque --vairables est utilisé, l'entrée standard est ignorée et la sortie\n"
+"se résumé à celles des variables d'environnements référées par SHELL-FORMAT, une par ligne.\n"
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Rapportez tout problème fonctionnel à <bug-gnu-gettext@gnu.org>.\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "erreur lors de la lecture de « %s »"
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr "entrée standard"
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -121,13 +202,13 @@ msgstr ""
 "Usage: %s [OPTION] [[DOMAINE] MSGID]\n"
 "ou     %s [OPTION] -s [MSGID]...\n"
 
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Afficher en langage natif la traduction du message textuel.\n"
 
-#: src/gettext.c:248
-#, no-wrap
+#: src/gettext.c:254
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -146,7 +227,7 @@ msgstr ""
 "  -V, --version          identifier le programme, puis terminer\n"
 "  [DOMAINE] MSGID        trouver la traduction de MSGID, dans le DOMAINE donné\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -168,17 +249,13 @@ msgstr ""
 "\n"
 "Répertoire standard de recherche: %s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Rapportez tout problème fonctionnel à <bug-gnu-gettext@gnu.org>.\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Usage: %s [OPTION] [DOMAINE] MSGID MSGID-PLURIEL VALEUR\n"
 
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
@@ -186,8 +263,8 @@ msgstr ""
 "Afficher en langue native la traduction d'un message textuel dont\n"
 "la forme grammaticale dépend d'un nombre\n"
 
-#: src/ngettext.c:218
-#, no-wrap
+#: src/ngettext.c:223
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -208,7 +285,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL     traduire le champ MSGID (singulier) / MSGID-PLURAL (pluriel)\n"
 "  VALEUR                 choisir la forme singulier/pluriel selon la VALEUR\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -367,15 +444,6 @@ msgstr ""
 #~ "qualifié de domaine\n"
 #~ "                          et les aliases\n"
 #~ "  -i, --ip-address      addresses IP de la machine hôte\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ msgstr ""
-#~ "Sortie informative:\n"
-#~ "  -h, --help                  fournir ce message d'aide, puis terminer\n"
-#~ "  -V, --version               identifier le programme, puis terminer\n"
 
 #~ msgid "could not get host name"
 #~ msgstr "ne peut obtenir le nom de l'hôte"
@@ -711,6 +779,12 @@ msgstr ""
 #~ msgid_plural "found %d fatal errors"
 #~ msgstr[0] "%d erreur fatale trouvée"
 #~ msgstr[1] "%d erreurs fatales trouvées"
+
+#~ msgid "duplicate message definition"
+#~ msgstr "message doublement défini"
+
+#~ msgid "...this is the location of the first definition"
+#~ msgstr "...voici l'endroit de la première définition"
 
 #~ msgid "at least two files must be specified"
 #~ msgstr "Il faut indiquer au moins deux fichiers"
@@ -1348,12 +1422,6 @@ msgstr ""
 #~ msgid "`domain %s' directive ignored"
 #~ msgstr "la directive « domain %s » sera ignorée"
 
-#~ msgid "duplicate message definition"
-#~ msgstr "message doublement défini"
-
-#~ msgid "...this is the location of the first definition"
-#~ msgstr "...voici l'endroit de la première définition"
-
 #~ msgid "empty `msgstr' entry ignored"
 #~ msgstr "chaîne « msgstr » vide, entrée ignorée"
 
@@ -1848,9 +1916,6 @@ msgstr ""
 #~ msgid "%s and explicit file names are mutually exclusive"
 #~ msgstr "%s et les noms de fichiers explicites s'excluent mutuellement"
 
-#~ msgid "Usage: %s [OPTION] [FILE]...\n"
-#~ msgstr "Usage: %s [OPTION] [FICHIER]...\n"
-
 #~ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 #~ msgstr ""
 #~ "Convertir le catalogue binaire de messages au style Uniforum de fichiers ."
@@ -2092,9 +2157,6 @@ msgstr ""
 #~ msgid "iconv failure"
 #~ msgstr "échec de iconv()"
 
-#~ msgid "error while reading \"%s\""
-#~ msgstr "erreur lors de la lecture de « %s »"
-
 #~ msgid "keyword \"%s\" unknown"
 #~ msgstr "mot-clé « %s » inconnu"
 
@@ -2245,15 +2307,14 @@ msgstr ""
 #~ "RÉPERTOIRE\n"
 #~ "Si la sortie est -, la sortie est écrite sur la sortie standard.\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "Choice of input file language:\n"
 #~ "  -L, --language=NAME            recognise the specified language\n"
 #~ "                                   (C, C++, ObjectiveC, PO, Python, "
 #~ "Lisp,\n"
-#~ "                                   EmacsLisp, librep, Smalltalk, Java, "
-#~ "awk,\n"
-#~ "                                   YCP, Tcl, PHP, RST, Glade)\n"
+#~ "                                   EmacsLisp, librep, Java, awk, YCP, "
+#~ "Tcl,\n"
+#~ "                                   RST, Glade)\n"
 #~ "  -C, --c++                      shorthand for --language=C++\n"
 #~ "By default the language is guessed depending on the input file name "
 #~ "extension.\n"
@@ -2367,9 +2428,6 @@ msgstr ""
 #~ "\\\"\\\"\n"
 #~ "  -M, --msgstr-suffix[=CHAÎNE]   suffixer les msgstr's par CHAÎNE, sinon "
 #~ "\\« \\ »\n"
-
-#~ msgid "standard input"
-#~ msgstr "entrée standard"
 
 #~ msgid ""
 #~ "Empty msgid.  It is reserved by GNU gettext:\n"
