@@ -1,3 +1,9 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* getline.m4 (AM_FUNC_GETLINE): Include <stdlib.h>, not <sys/types.h>,
+	for declaring size_t and exit().  #define getline to a different
+	symbol at linkage level.
+
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* javacomp.m4 (gt_JAVACOMP): Fix typo in jikes test.

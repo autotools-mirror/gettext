@@ -1,4 +1,4 @@
-#serial 4
+#serial 5
 
 dnl See if there's a working, system-supplied version of the getline function.
 dnl We can't just do AC_REPLACE_FUNCS(getline) because some systems
@@ -16,7 +16,7 @@ AC_DEFUN([AM_FUNC_GETLINE],
     [echo fooN |tr -d '\012'|tr N '\012' > conftest.data
     AC_TRY_RUN([
 #    include <stdio.h>
-#    include <sys/types.h>
+#    include <stdlib.h>
 #    include <string.h>
     int main ()
     { /* Based on a test program from Karl Heuer.  */
@@ -36,6 +36,11 @@ AC_DEFUN([AM_FUNC_GETLINE],
   fi
 
   if test $am_cv_func_working_getline = no; then
+    dnl We must choose a different name for our function, since on ELF systems
+    dnl a broken getline() in libc.so would override our getline() in
+    dnl libgettextlib.so.
+    AC_DEFINE([getline], [gnu_getline],
+      [Define to a replacement function name for getline().])
     LIBOBJS="$LIBOBJS getline.${ac_objext}"
     AC_SUBST(LIBOBJS)
   fi
