@@ -1,3 +1,14 @@
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
+	* x-to-1.in: Support --update option.
+	* Makefile.am (UPDATEMODE): New variable.
+	(msgcmp.1, msgfmt.1, msgmerge.1, msgunfmt.1, xgettext.1, msgattrib.1,
+	msgcat.1, msgcomm.1, msgconv.1, msgen.1, msgexec.1, msgfilter.1,
+	msggrep.1, msginit.1, msguniq.1, gettextize.1, autopoint.1): Pass it to
+	x-to-1.
+	(update-man1): New rule.
+	(distdir): Depend on it.
+
 2003-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (docdir): Use the value from the configure script.

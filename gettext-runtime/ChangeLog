@@ -1,3 +1,7 @@
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (man/Makefile): Postprocess with FIX_MAKEFILE_DISTRIB.
+
 2003-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (docdir): New variable.

@@ -90,15 +90,24 @@ ngettext.1: ngettext.1.in Makefile
 	mv t-$@ $@
 
 gettext.1.in: gettext.x
-	IN_HELP2MAN=1 $(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/gettext$(EXEEXT) $(srcdir)/gettext.x gettext.1.in
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/gettext$(EXEEXT) $(srcdir)/gettext.x gettext.1.in
 ngettext.1.in: ngettext.x
-	IN_HELP2MAN=1 $(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/ngettext$(EXEEXT) $(srcdir)/ngettext.x ngettext.1.in
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/ngettext$(EXEEXT) $(srcdir)/ngettext.x ngettext.1.in
 
 envsubst.1: envsubst.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
 
 # Depend on version.sh to get version number changes.
 $(man_MAN1IN) $(man_MAN1OTHER): help2man $(top_srcdir)/../version.sh
+
+# Update them also during "make dist", in order to propagate added command
+# line options that were added, even if version.sh didn't change.
+UPDATEMODE =
+update-man1:
+	$(MAKE) $(man_MAN1IN) $(man_MAN1OTHER) UPDATEMODE=--update
+	$(MAKE)
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: update-man1
 
 gettext.3: gettext.3.in $(top_srcdir)/../version.sh
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@

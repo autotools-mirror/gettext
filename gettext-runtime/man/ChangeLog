@@ -1,5 +1,13 @@
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
+	* x-to-1.in: Support --update option.
+	* Makefile.am (UPDATEMODE): New variable.
+	(gettext.1.in, ngettext.1.in, envsubst.1): Pass it to x-to-1.
+	(update-man1): New rule.
+	(distdir): Depend on it.
+
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am: Let gettext.1.in and ngettext.1.in, not gettext.1 and
 	ngettext.1, depend on help2man and version.sh.
 

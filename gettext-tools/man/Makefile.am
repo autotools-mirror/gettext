@@ -80,43 +80,52 @@ uninstall-local: uninstall-html
 # "progname --help" output.
 
 msgcmp.1: msgcmp.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgcmp$(EXEEXT) $(srcdir)/msgcmp.x msgcmp.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcmp$(EXEEXT) $(srcdir)/msgcmp.x msgcmp.1
 msgfmt.1: msgfmt.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgfmt$(EXEEXT) $(srcdir)/msgfmt.x msgfmt.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfmt$(EXEEXT) $(srcdir)/msgfmt.x msgfmt.1
 msgmerge.1: msgmerge.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgmerge$(EXEEXT) $(srcdir)/msgmerge.x msgmerge.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgmerge$(EXEEXT) $(srcdir)/msgmerge.x msgmerge.1
 msgunfmt.1: msgunfmt.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgunfmt$(EXEEXT) $(srcdir)/msgunfmt.x msgunfmt.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgunfmt$(EXEEXT) $(srcdir)/msgunfmt.x msgunfmt.1
 xgettext.1: xgettext.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/xgettext$(EXEEXT) $(srcdir)/xgettext.x xgettext.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/xgettext$(EXEEXT) $(srcdir)/xgettext.x xgettext.1
 msgattrib.1: msgattrib.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgattrib$(EXEEXT) $(srcdir)/msgattrib.x msgattrib.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgattrib$(EXEEXT) $(srcdir)/msgattrib.x msgattrib.1
 msgcat.1: msgcat.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgcat$(EXEEXT) $(srcdir)/msgcat.x msgcat.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcat$(EXEEXT) $(srcdir)/msgcat.x msgcat.1
 msgcomm.1: msgcomm.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgcomm$(EXEEXT) $(srcdir)/msgcomm.x msgcomm.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcomm$(EXEEXT) $(srcdir)/msgcomm.x msgcomm.1
 msgconv.1: msgconv.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgconv$(EXEEXT) $(srcdir)/msgconv.x msgconv.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgconv$(EXEEXT) $(srcdir)/msgconv.x msgconv.1
 msgen.1: msgen.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgen$(EXEEXT) $(srcdir)/msgen.x msgen.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgen$(EXEEXT) $(srcdir)/msgen.x msgen.1
 msgexec.1: msgexec.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgexec$(EXEEXT) $(srcdir)/msgexec.x msgexec.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgexec$(EXEEXT) $(srcdir)/msgexec.x msgexec.1
 msgfilter.1: msgfilter.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgfilter$(EXEEXT) $(srcdir)/msgfilter.x msgfilter.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfilter$(EXEEXT) $(srcdir)/msgfilter.x msgfilter.1
 msggrep.1: msggrep.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msggrep$(EXEEXT) $(srcdir)/msggrep.x msggrep.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msggrep$(EXEEXT) $(srcdir)/msggrep.x msggrep.1
 msginit.1: msginit.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msginit$(EXEEXT) $(srcdir)/msginit.x msginit.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msginit$(EXEEXT) $(srcdir)/msginit.x msginit.1
 msguniq.1: msguniq.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msguniq$(EXEEXT) $(srcdir)/msguniq.x msguniq.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msguniq$(EXEEXT) $(srcdir)/msguniq.x msguniq.1
 
 gettextize.1: gettextize.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../misc/gettextize $(srcdir)/gettextize.x gettextize.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/gettextize $(srcdir)/gettextize.x gettextize.1
 autopoint.1: autopoint.x
-	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
+	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
 
 # Depend on version.sh to get version number changes.
 $(man_MAN1): help2man $(top_srcdir)/../version.sh
+
+# Update them also during "make dist", in order to propagate added command
+# line options that were added, even if version.sh didn't change.
+UPDATEMODE =
+update-man1:
+	$(MAKE) $(man_MAN1) UPDATEMODE=--update
+	$(MAKE)
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: update-man1
 
 
 # Man pages in HTML format.

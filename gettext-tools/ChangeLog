@@ -1,5 +1,9 @@
 2003-11-16  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac (man/Makefile): Postprocess with FIX_MAKEFILE_DISTRIB.
+
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
 	* windows/gettextpo.rc: Bump version number to 0.13.
 
 2003-11-15  Bruno Haible  <bruno@clisp.org>

@@ -150,7 +150,8 @@ AC_CONFIG_FILES([src/Makefile],
 
 AC_CONFIG_FILES([po/Makefile.in])
 
-AC_CONFIG_FILES([man/Makefile])
+AC_CONFIG_FILES([man/Makefile],
+                [FIX_MAKEFILE_DISTRIB])
 AC_CONFIG_FILES([man/x-to-1])
 
 AC_CONFIG_FILES([m4/Makefile])
