@@ -391,7 +391,7 @@ static void
 no_pass (int opt)
 {
   error (EXIT_SUCCESS, 0,
-	 _("option '%c' cannot be used before 'K' or 'T' has been specified"),
+	 _("option '%c' cannot be used before 'K' or 'T' or 'C' has been specified"),
 	 opt);
   usage (EXIT_FAILURE);
 }
@@ -461,6 +461,7 @@ expressions if -E is given, or fixed strings if -F is given.\n\
   -M, --domain=DOMAINNAME     select messages belonging to domain DOMAINNAME\n\
   -K, --msgid                 start of patterns for the msgid\n\
   -T, --msgstr                start of patterns for the msgstr\n\
+  -C, --comment               start of patterns for the translator's comment\n\
   -E, --extended-regexp       PATTERN is an extended regular expression\n\
   -F, --fixed-strings         PATTERN is a set of newline-separated strings\n\
   -e, --regexp=PATTERN        use PATTERN as a regular expression\n\

@@ -95,6 +95,12 @@ Start of patterns for the msgid.
 @opindex --msgstr@r{, @code{msggrep} option}
 Start of patterns for the msgstr.
 
+@item -C
+@itemx --comment
+@opindex -C@r{, @code{msggrep} option}
+@opindex --comment@r{, @code{msggrep} option}
+Start of patterns for the translator's comment.
+
 @item -E
 @itemx --extended-regexp
 @opindex -E@r{, @code{msggrep} option}

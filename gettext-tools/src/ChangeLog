@@ -1,3 +1,9 @@
+2003-03-10  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep.c (no_pass): Mention option -C.
+	(usage): Document option -C completely.
+	Reported by Martin Quinson <Martin.Quinson@tuxfamily.org>.
+
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
 	Support for relocatable installation.
