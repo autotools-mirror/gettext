@@ -68,7 +68,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 (python -V) >/dev/null 2>/dev/null \
   || { rm -fr $tmpfiles; exit 77; }
 case `python -c 'import sys; print sys.hexversion >= 0x20000F0'` in
-  1) ;;
+  1 | True) ;;
   *) rm -fr $tmpfiles; exit 77;;
 esac
 
