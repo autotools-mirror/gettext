@@ -32,6 +32,12 @@
 # include <unistd.h>
 #endif
 
+#include "error.h"
+#include "exit.h"
+#include "gettext.h"
+
+#define _(str) gettext (str)
+
 #if defined _MSC_VER || defined __MINGW32__
 
 /* Native Woe32 API.  */
@@ -51,10 +57,6 @@
 
 #endif
 
-#include "error.h"
-#include "exit.h"
-#include "gettext.h"
-
 #ifndef STDIN_FILENO
 # define STDIN_FILENO 0
 #endif
@@ -64,8 +66,6 @@
 #ifndef STDERR_FILENO
 # define STDERR_FILENO 2
 #endif
-
-#define _(str) gettext (str)
 
 
 #ifdef EINTR
