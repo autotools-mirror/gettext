@@ -1,5 +1,8 @@
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: Use functions for maintainability.
+	Remove undocumented option --run.
+
 	* gettextize.in: Use 'echo' instead of '$echo'.
 
 2002-04-29  Karl Eichwalder  <ke@suse.de>
