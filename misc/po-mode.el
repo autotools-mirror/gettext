@@ -2585,16 +2585,17 @@ keyword for subsequent commands, also added to possible completions."
 			nil t nil "--verbose" "--version")
 	(file-error nil))
 
-      ;; Make sure there's a version number in the output.
+      ;; Make sure there's a version number in the output: 0.11 or 0.10.36
       (progn (goto-char (point-min))
-	     (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$"))
+             (or (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)$")
+                 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$")))
 
       ;; Make sure the version is recent enough.
       (>= (string-to-int
 	   (format "%d%03d%03d"
 		   (string-to-int (match-string 1))
 		   (string-to-int (match-string 2))
-		   (string-to-int (match-string 3))))
+                   (string-to-int (or (match-string 3) "0"))))
 	  010036)
 
       ;; Remember the outcome.
