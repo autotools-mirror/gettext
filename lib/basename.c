@@ -42,6 +42,7 @@
 #ifndef _LIBC
 /* We cannot generally use the name `basename' since XPG defines an unusable
    variant of the function but we cannot use it.  */
+# undef basename
 # define basename gnu_basename
 #endif
 
