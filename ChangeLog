@@ -1,3 +1,14 @@
+2005-02-06  Bruno Haible  <bruno@clisp.org>
+
+	* config/compile: Upgrade to automake-1.9.4.
+	* config/elisp-comp: Upgrade to automake-1.9.4.
+	* config/install-sh: Upgrade to automake-1.9.4.
+	* config/mdate-sh: Upgrade to automake-1.9.4.
+	* config/missing: Upgrade to automake-1.9.4.
+	* config/mkinstalldirs: Upgrade to automake-1.9.4.
+	* config/ylwrap: Upgrade to automake-1.9.4.
+	Reported by Albert Chin-A-Young <china@thewrittenword.com>.
+
 2005-01-20  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Add some notes about Java and C#.
