@@ -58,7 +58,7 @@ OPTIMFLAGS = -Od -Z7
 OPTIMFLAGS = -D_NDEBUG -O1
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
 
 INCLUDES =
 
@@ -371,7 +371,7 @@ msgcmp.exe : $(msgcmp_OBJECTS)
 	$(CC) $(msgcmp_OBJECTS) -lgettextsrc -Femsgcmp.exe
 
 msgfmt.exe : $(msgfmt_OBJECTS)
-	$(CC) $(msgfmt_OBJECTS) -lgettextsrc -Fmsgfmte.exe
+	$(CC) $(msgfmt_OBJECTS) -lgettextsrc -Femsgfmt.exe
 
 msgmerge.exe : $(msgmerge_OBJECTS)
 	$(CC) $(msgmerge_OBJECTS) -lgettextsrc -Femsgmerge.exe
