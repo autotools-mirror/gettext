@@ -1,3 +1,7 @@
+2001-05-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (aclocal): Add glibc21.m4 to the list of needed files.
+
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.37 released.

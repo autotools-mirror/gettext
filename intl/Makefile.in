@@ -152,14 +152,21 @@ install-exec: all
 	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
-	  test -f $(DESTDIR)$(libdir)/charset.alias \
-	    && orig=$(DESTDIR)$(libdir)/charset.alias \
-	    || orig=charset.alias; \
 	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
 	  dest=$(DESTDIR)$(libdir)/charset.alias; \
-	  sed -f ref-add.sed $$orig > $$temp; \
-	  $(INSTALL_DATA) $$temp $$dest; \
-	  rm -f $$temp; \
+	  if test -f $(DESTDIR)$(libdir)/charset.alias; then \
+	    orig=$(DESTDIR)$(libdir)/charset.alias; \
+	    sed -f ref-add.sed $$orig > $$temp; \
+	    $(INSTALL_DATA) $$temp $$dest; \
+	    rm -f $$temp; \
+	  else \
+	    if test @GLIBC21@ = no; then \
+	      orig=charset.alias; \
+	      sed -f ref-add.sed $$orig > $$temp; \
+	      $(INSTALL_DATA) $$temp $$dest; \
+	      rm -f $$temp; \
+	    fi; \
+	  fi; \
 	  $(mkinstalldirs) $(DESTDIR)$(localedir); \
 	  test -f $(DESTDIR)$(localedir)/locale.alias \
 	    && orig=$(DESTDIR)$(localedir)/locale.alias \
