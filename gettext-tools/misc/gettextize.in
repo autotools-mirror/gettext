@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -151,7 +151,7 @@ func_fatal_error ()
 }
 
 # Nuisances.
-unset CDPATH
+(unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 # Command-line option processing.
 # Removes the OPTIONS from the arguments. Sets the variables:
