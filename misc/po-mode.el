@@ -1,5 +1,5 @@
 ;;; po-mode.el -- for helping GNU gettext lovers to edit PO files.
-;;; Copyright (C) 1995, 96, 97, 98, 99, 00, 01 Free Software Foundation, Inc.
+;;; Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
 ;;; François Pinard <pinard@iro.umontreal.ca>, 1995.
 ;;; Helped by Greg McGary <gkm@magilla.cichlid.com>.
 
