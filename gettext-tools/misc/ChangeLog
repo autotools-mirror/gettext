@@ -1,5 +1,11 @@
 2005-03-05  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: Emit brackets around the argument of
+	AM_GNU_GETTEXT_VERSION.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-05  Bruno Haible  <bruno@clisp.org>
+
 	* gettextize.in: Don't recommend to add AM_GNU_GETTEXT([external])
 	when it is already present.
 	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
