@@ -89,7 +89,7 @@ ${DIFF} fr.po fr.po.new || exit 1
 
 tmpfiles="$tmpfiles prog_fr.class"
 : ${MSGFMT=msgfmt}
-${MSGFMT} -j -d . -r prog -l fr fr.po
+${MSGFMT} -j -d . -r prog -l fr fr.po || exit 1
 
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}

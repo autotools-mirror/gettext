@@ -1,5 +1,10 @@
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
+	* lang-java: If msgfmt fails (for example, due to missing iconv()
+	support), let the test fail immediately.
+
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
 	Avoid setting LC_ALL for random shell and utility commands, including
 	libtool generated shell scripts. It generates extraneous output on
 	Solaris and HP-UX.
