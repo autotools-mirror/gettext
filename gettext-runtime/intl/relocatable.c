@@ -45,6 +45,11 @@
 # include "xmalloc.h"
 #endif
 
+#if defined _WIN32 || defined __WIN32__
+# define WIN32_LEAN_AND_MEAN
+# include <windows.h>
+#endif
+
 #if DEPENDS_ON_LIBCHARSET
 # include <libcharset.h>
 #endif

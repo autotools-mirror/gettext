@@ -1,5 +1,11 @@
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
+	Portability to mingw32.
+	* relocatable.c [WIN32]: Include <windows.h>.
+	Reported by Jeff Bonggren <jbon@cfl.rr.com>.
+
+2003-06-22  Bruno Haible  <bruno@clisp.org>
+
 	* relocatable.c (compute_curr_prefix): Comment out this function in
 	the case when it is not used.
 	Reported by Pavel Roskin <proski@gnu.org>.
