@@ -182,6 +182,7 @@ install-data: all
 	    $(INSTALL_DATA) $(srcdir)/$$file \
 			    $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
+	  chmod a+x $(DESTDIR)$(gettextsrcdir)/config.charset; \
 	  dists="$(DISTFILES.obsolete)"; \
 	  for file in $$dists; do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
