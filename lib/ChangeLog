@@ -1,3 +1,8 @@
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* linebreak.c (iconv_string_keeping_offsets): Add an assertion, to
+	protect against Solaris 2.9 iconv() bug.
+
 2003-01-10  Bruno Haible  <bruno@clisp.org>
 
 	* linebreak.c (mbs_possible_linebreaks, mbs_width_linebreaks):

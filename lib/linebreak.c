@@ -1394,7 +1394,7 @@ iconv_string_length (iconv_t cd, const char *s, size_t n)
     }
   /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
 #if defined _LIBICONV_VERSION \
-   || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
+    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
   {
     char *outptr = tmpbuf;
     size_t outsize = TMPBUFSIZE;
@@ -1435,17 +1435,22 @@ iconv_string_keeping_offsets (iconv_t cd, const char *s, size_t n,
   outsize = m + extra;
   while (inptr < s_end)
     {
+      const char *saved_inptr;
       size_t insize;
       size_t res;
 
       offtable[inptr - s] = outptr - t;
 
+      saved_inptr = inptr;
       res = (size_t)(-1);
       for (insize = 1; inptr + insize <= s_end; insize++)
         {
           res = iconv (cd, (ICONV_CONST char **) &inptr, &insize, &outptr, &outsize);
           if (!(res == (size_t)(-1) && errno == EINVAL))
             break;
+          /* We expect that no input bytes have been consumed so far.  */
+          if (inptr != saved_inptr)
+            abort ();
         }
       /* After we verified the convertibility and computed the translation's
          size m, there shouldn't be any conversion error here. */
@@ -1454,7 +1459,7 @@ iconv_string_keeping_offsets (iconv_t cd, const char *s, size_t n,
     }
   /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
 #if defined _LIBICONV_VERSION \
-   || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
+    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
   if (iconv (cd, NULL, NULL, &outptr, &outsize) == (size_t)(-1))
     abort ();
 #endif

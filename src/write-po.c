@@ -327,6 +327,10 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
 				   &outptr, &outsize);
 		      if (!(res == (size_t)(-1) && errno == EINVAL))
 			break;
+		      /* We expect that no input bytes have been consumed
+			 so far.  */
+		      if (inptr != ep)
+			abort ();
 		    }
 		  if (res == (size_t)(-1))
 		    {
@@ -429,6 +433,10 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 				   &outptr, &outsize);
 		      if (!(res == (size_t)(-1) && errno == EINVAL))
 			break;
+		      /* We expect that no input bytes have been consumed
+			 so far.  */
+		      if (inptr != ep)
+			abort ();
 		    }
 		  if (res == (size_t)(-1))
 		    {
