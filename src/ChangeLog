@@ -1,3 +1,7 @@
+2001-09-19  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.l (is_keyword): Swap arguments of do_compare.
+
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* write-java.h: New file.

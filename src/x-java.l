@@ -299,7 +299,7 @@ is_keyword (s)
   int i;
 
   for (i = 0; i < java_keywords->nitems; i++)
-    if (do_compare (java_keywords->item[i], s))
+    if (do_compare (s, java_keywords->item[i]))
       return true;
   return false;
 }
