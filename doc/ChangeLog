@@ -1,3 +1,8 @@
+2000-07-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* nls.texi: Rename section "One advise in advance" to "Quick
+	configuration advice".
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* nls.texi: Add section about "Using gettext in own code".
