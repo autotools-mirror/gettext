@@ -317,7 +317,7 @@ slightly different."
     ("Yiddish" . "yi")
     ("Yoruba" . "yo")
     ("Zhuang" . "za")
-    { "zu", "Zulu" }
+    ("Zulu" . "zu")
     )
   "*Association list giving team codes from team names.
 This is used for generating a submission file name for the 'M' command.
