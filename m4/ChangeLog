@@ -1,3 +1,7 @@
+2001-05-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* iconv.m4 (AM_ICONV): Accept --with-libiconv-prefix option.
+
 2001-05-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Fix dcgettext test. Always add $LIBICONV
