@@ -1,3 +1,9 @@
+2001-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
