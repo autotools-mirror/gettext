@@ -58,6 +58,9 @@ Version 0.12-pre1 - February 2003
 
 * In documentation section po/LINGUAS:
   - Document the optional "languages" en@quot and en@boldquot.
+
+* New configuration option --enable-relocatable.  See the INSTALL file for
+  details.
 
 Version 0.11.5 - August 2002
 
