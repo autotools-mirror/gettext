@@ -24,7 +24,7 @@ CLEANFILES =
 RM = rm -f
 
 jardir = $(datadir)/gettext
-docdir = $(datadir)/doc/gettext
+docdir = @docdir@
 htmldir = $(docdir)
 
 JAR = @JAR@

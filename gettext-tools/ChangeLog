@@ -1,3 +1,7 @@
+2003-11-13  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (docdir): New variable.
+
 2003-11-05  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (localedir): New variable.

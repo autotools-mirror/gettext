@@ -1,5 +1,9 @@
 2003-11-13  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (docdir): Use the value from the configure script.
+
+2003-11-13  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (About gettext): Mention OpenI18N (ex-Li18nux).
 	(History): Acknowledge Paul Eggert's role.
 

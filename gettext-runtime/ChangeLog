@@ -1,3 +1,7 @@
+2003-11-13  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (docdir): New variable.
+
 2003-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MAKEINFO): Set LC_MESSAGES and LC_ALL to empty as well.
