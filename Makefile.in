@@ -63,6 +63,7 @@ BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
@@ -88,6 +89,7 @@ MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
+PERL = @PERL@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
@@ -120,9 +122,9 @@ CONFIG_CLEAN_FILES =
 DATA =  $(gettextsrc_DATA)
 
 DIST_COMMON =  README ./stamp-h.in ABOUT-NLS AUTHORS COPYING ChangeLog \
-INSTALL Makefile.am Makefile.in NEWS README-alpha THANKS TODO \
-acconfig.h aclocal.m4 config.guess config.h.in config.sub configure \
-configure.in install-sh ltmain.sh missing mkinstalldirs
+INSTALL Makefile.am Makefile.in NEWS THANKS TODO acconfig.h aclocal.m4 \
+config.guess config.h.in config.sub configure configure.in install-sh \
+ltmain.sh missing mkinstalldirs
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -143,7 +145,8 @@ $(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/getline.m4 \
 		m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 \
 		m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 \
 		m4/mbswidth.m4 m4/progtest.m4 m4/setlocale.m4 \
-		m4/signed.m4 m4/uintmax_t.m4 m4/ulonglong.m4
+		m4/signed.m4 m4/ssize_t.m4 m4/uintmax_t.m4 \
+		m4/ulonglong.m4 m4/unionwait.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
