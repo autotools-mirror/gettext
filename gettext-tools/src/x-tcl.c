@@ -167,13 +167,12 @@ do_ungetc (int c)
 
 
 /* Combine backslash followed by newline and additional whitespace to
-   a single space.  Cope with potentially 2 characters of pushback.  */
+   a single space.  */
 
 /* An int that becomes a space when casted to 'unsigned char'.  */
 #define BS_NL (UCHAR_MAX + 1 + ' ')
 
-/* Maximum used guaranteed to be < 4.  */
-static int phase1_pushback[4];
+static int phase1_pushback[1];
 static int phase1_pushback_length;
 
 static int
@@ -209,6 +208,7 @@ phase1_getc ()
   return BS_NL;
 }
 
+/* Supports only one pushback character.  */
 static void
 phase1_ungetc (int c)
 {
@@ -239,8 +239,7 @@ phase1_ungetc (int c)
 /* An int that becomes a closing brace when casted to 'unsigned char'.  */
 #define CL_BRACE (UCHAR_MAX + 1 + '}')
 
-/* Maximum used guaranteed to be < 4.  */
-static int phase2_pushback[4];
+static int phase2_pushback[2];
 static int phase2_pushback_length;
 
 /* Brace nesting depth inside the current character group.  */
@@ -287,6 +286,7 @@ phase2_getc ()
   return c;
 }
 
+/* Supports 2 characters of pushback.  */
 static void
 phase2_ungetc (int c)
 {
@@ -570,7 +570,8 @@ static enum word_type read_command_list (int looking_for,
 					 flag_context_ty outer_context);
 
 /* Accumulate tokens into the given word.
-   'looking_for' denotes a parse terminator combination.  */
+   'looking_for' denotes a parse terminator combination.
+   Return the first character past the token.  */
 static int
 accumulate_word (struct word *wp, enum terminator looking_for,
 		 flag_context_ty context)

@@ -1,3 +1,24 @@
+2003-12-14  Bruno Haible  <bruno@clisp.org>
+
+	* x-c.c (phase1_pushback): Reduce size to 2.
+	(phase2_pushback): Reduce size to 1.
+	(phase3_pushback): Reduce size to 2.
+	(phase5_pushback): Reduce size to 1.
+	(phase6_pushback): Reduce size to 2.
+	* x-java.c (phase2_pushback): Reduce size to 1.
+	(phase3_pushback): Reduce size to 2.
+	(phase5_pushback): Reduce size to 3.
+	(phase6_pushback): Reduce size to 2.
+	* x-php.c (phase1_pushback): Reduce size to 2.
+	* x-python.c (max): New macro.
+	(phase1_pushback): Reduce size to UNINAME_MAX + 3.
+	(phase5_pushback): Reduce size to 1.
+	* x-sh.c (phase1_pushback): Reduce size to 1.
+	(phase2_pushback): Reduce size to 2.
+	* x-smalltalk.c (phase2_pushback): Reduce size to 1.
+	* x-tcl.c (phase1_pushback): Reduce size to 1.
+	(phase2_pushback): Reduce size to 2.
+
 2003-12-12  Bruno Haible  <bruno@clisp.org>
 
 	Assume automake-1.8.

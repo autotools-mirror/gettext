@@ -96,6 +96,7 @@ phase1_getc ()
   return c;
 }
 
+/* Supports only one pushback character.  */
 static void
 phase1_ungetc (int c)
 {
@@ -178,8 +179,7 @@ struct token_ty
 
 /* 2. Combine characters into tokens.  Discard comments and whitespace.  */
 
-/* Maximum used guaranteed to be < 2.  */
-static token_ty phase2_pushback[2];
+static token_ty phase2_pushback[1];
 static int phase2_pushback_length;
 
 static void
@@ -434,6 +434,7 @@ phase2_get (token_ty *tp)
     }
 }
 
+/* Supports only one pushback token.  */
 static void
 phase2_unget (token_ty *tp)
 {

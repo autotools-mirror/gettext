@@ -155,7 +155,7 @@ init_flag_table_perl ()
   xgettext_record_flag ("gettext_noop:1:pass-perl-brace-format");
   xgettext_record_flag ("printf:1:perl-format"); /* argument 1 or 2 ?? */
   xgettext_record_flag ("sprintf:1:perl-format");
-#if 0 
+#if 0
   xgettext_record_flag ("__:1:pass-perl-format");
   xgettext_record_flag ("__:1:pass-perl-brace-format");
   xgettext_record_flag ("%__:1:pass-perl-format");
@@ -253,6 +253,7 @@ phase1_getc ()
   return linebuf[linepos++];
 }
 
+/* Supports only one pushback character.  */
 static void
 phase1_ungetc (int c)
 {
@@ -479,6 +480,7 @@ phase2_getc ()
   return c;
 }
 
+/* Supports only one pushback character.  */
 static void
 phase2_ungetc (int c)
 {

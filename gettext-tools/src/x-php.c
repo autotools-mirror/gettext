@@ -140,8 +140,7 @@ static FILE *fp;
 
 /* 1. line_number handling.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static unsigned char phase1_pushback[4];
+static unsigned char phase1_pushback[2];
 static int phase1_pushback_length;
 
 static int
@@ -170,6 +169,7 @@ phase1_getc ()
   return c;
 }
 
+/* Supports 2 characters of pushback.  */
 static void
 phase1_ungetc (int c)
 {

@@ -178,6 +178,7 @@ error while reading \"%s\""), real_file_name);
   return c;
 }
 
+/* Supports any number of 'u' and up to 4 arbitrary characters of pushback.  */
 static void
 phase1_ungetc (int c)
 {
@@ -199,8 +200,7 @@ phase1_ungetc (int c)
 
 /* Fetch the next single-byte character or Unicode character from the file.
    (Here, as in the Java Language Specification, when we say "Unicode
-   character", we actually mean "UTF-16 encoding unit".)
-   Cope with potentially 2 pushback characters.  */
+   character", we actually mean "UTF-16 encoding unit".)  */
 
 /* Return value of phase 2, 3, 4 when EOF is reached.  */
 #define P2_EOF 0xffff
@@ -221,8 +221,7 @@ phase1_ungetc (int c)
    (RED (c) == 'x')  is equivalent to  (c == 'x' || c == UNICODE ('x')).  */
 #define RED(p2_result) ((p2_result) & 0xffff)
 
-/* Maximum used guaranteed to be < 2.  */
-static int phase2_pushback[2];
+static int phase2_pushback[1];
 static int phase2_pushback_length;
 
 static int
@@ -286,6 +285,7 @@ phase2_getc ()
   return c;
 }
 
+/* Supports only one pushback character.  */
 static void
 phase2_ungetc (int c)
 {
@@ -296,10 +296,8 @@ phase2_ungetc (int c)
 
 /* Fetch the next single-byte character or Unicode character from the file.
    With line number handling.
-   Convert line terminators to '\n' or UNICODE ('\n').
-   Cope with potentially 2 pushback characters.  */
+   Convert line terminators to '\n' or UNICODE ('\n').  */
 
-/* Maximum used guaranteed to be < 2.  */
 static int phase3_pushback[2];
 static int phase3_pushback_length;
 
@@ -350,6 +348,7 @@ phase3_getc ()
   return c;
 }
 
+/* Supports 2 characters of pushback.  */
 static void
 phase3_ungetc (int c)
 {
@@ -777,6 +776,7 @@ phase4_getc ()
     }
 }
 
+/* Supports only one pushback character.  */
 static void
 phase4_ungetc (int c)
 {
@@ -917,8 +917,7 @@ accumulate_escaped (struct string_buffer *literal, int delimiter)
 
 /* Combine characters into tokens.  Discard whitespace.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static token_ty phase5_pushback[4];
+static token_ty phase5_pushback[3];
 static int phase5_pushback_length;
 
 static void
@@ -1122,6 +1121,7 @@ phase5_get (token_ty *tp)
     }
 }
 
+/* Supports 3 tokens of pushback.  */
 static void
 phase5_unget (token_ty *tp)
 {
@@ -1137,8 +1137,7 @@ phase5_unget (token_ty *tp)
      - the token after this expression is not '.' (because then the last
        string could be part of a method call expression).  */
 
-/* Maximum used guaranteed to be < 4.  */
-static token_ty phase6_pushback[4];
+static token_ty phase6_pushback[2];
 static int phase6_pushback_length;
 
 static token_type_ty phase6_last;
@@ -1199,6 +1198,7 @@ phase6_get (token_ty *tp)
   phase6_last = tp->type;
 }
 
+/* Supports 2 tokens of pushback.  */
 static void
 phase6_unget (token_ty *tp)
 {
@@ -1213,6 +1213,7 @@ x_java_lex (token_ty *tp)
   phase6_get (tp);
 }
 
+/* Supports 2 tokens of pushback.  */
 static void
 x_java_unlex (token_ty *tp)
 {

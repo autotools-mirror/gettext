@@ -369,7 +369,7 @@ phase0_getc ()
 }
 
 
-/* Only one pushback character supported, and not '\n'.  */
+/* Supports only one pushback character, and not '\n'.  */
 static inline void
 phase0_ungetc (int c)
 {
@@ -378,12 +378,9 @@ phase0_ungetc (int c)
 }
 
 
-/* 1. line_number handling.  Combine backslash-newline to nothing.
-   Cope with potentially 2 characters of pushback, not just the one that
-   ungetc can cope with.  */
+/* 1. line_number handling.  Combine backslash-newline to nothing.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static unsigned char phase1_pushback[4];
+static unsigned char phase1_pushback[2];
 static int phase1_pushback_length;
 
 
@@ -425,6 +422,7 @@ phase1_getc ()
 }
 
 
+/* Supports 2 characters of pushback.  */
 static void
 phase1_ungetc (int c)
 {
@@ -448,8 +446,7 @@ phase1_ungetc (int c)
    sane human beings vomit copiously at the mention of trigraphs, which
    is why they are an option.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static unsigned char phase2_pushback[4];
+static unsigned char phase2_pushback[1];
 static int phase2_pushback_length;
 
 
@@ -500,6 +497,7 @@ phase2_getc ()
 }
 
 
+/* Supports only one pushback character.  */
 static void
 phase2_ungetc (int c)
 {
@@ -512,8 +510,7 @@ phase2_ungetc (int c)
    line.  Basically, all you need to do is elide "\\\n" sequences from
    the input.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static unsigned char phase3_pushback[4];
+static unsigned char phase3_pushback[2];
 static int phase3_pushback_length;
 
 
@@ -537,6 +534,7 @@ phase3_getc ()
 }
 
 
+/* Supports 2 characters of pushback.  */
 static void
 phase3_ungetc (int c)
 {
@@ -673,6 +671,7 @@ phase4_getc ()
 }
 
 
+/* Supports only one pushback character.  */
 static void
 phase4_ungetc (int c)
 {
@@ -878,8 +877,7 @@ free_token (token_ty *tp)
 /* 5. Parse each resulting logical line as preprocessing tokens and
    white space.  Preprocessing tokens and C tokens don't always match.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static token_ty phase5_pushback[4];
+static token_ty phase5_pushback[1];
 static int phase5_pushback_length;
 
 
@@ -1164,6 +1162,7 @@ phase5_get (token_ty *tp)
 }
 
 
+/* Supports only one pushback token.  */
 static void
 phase5_unget (token_ty *tp)
 {
@@ -1219,8 +1218,7 @@ phaseX_get (token_ty *tp)
    we care about are the #line and #define directive.  We throw all the
    others away.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static token_ty phase6_pushback[4];
+static token_ty phase6_pushback[2];
 static int phase6_pushback_length;
 
 
@@ -1303,6 +1301,7 @@ phase6_get (token_ty *tp)
 }
 
 
+/* Supports 2 tokens of pushback.  */
 static void
 phase6_unget (token_ty *tp)
 {
@@ -1372,6 +1371,7 @@ phase8a_get (token_ty *tp)
     }
 }
 
+/* Supports 2 tokens of pushback.  */
 static inline void
 phase8a_unget (token_ty *tp)
 {
@@ -1408,6 +1408,7 @@ phase8b_get (token_ty *tp)
     }
 }
 
+/* Supports 2 tokens of pushback.  */
 static inline void
 phase8b_unget (token_ty *tp)
 {
@@ -1435,6 +1436,7 @@ phase8c_get (token_ty *tp)
   *tp = tmp;
 }
 
+/* Supports only one pushback token.  */
 static inline void
 phase8c_unget (token_ty *tp)
 {

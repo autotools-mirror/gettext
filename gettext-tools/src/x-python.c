@@ -42,6 +42,7 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
+#define max(a,b) ((a) > (b) ? (a) : (b))
 
 
 /* The Python syntax is defined in the Python Reference Manual
@@ -144,10 +145,9 @@ static int line_number;
 static FILE *fp;
 
 
-/* 1. line_number handling.  Also allow a lookahead of 9 characters.  */
+/* 1. line_number handling.  Also allow a lookahead.  */
 
-/* Maximum used guaranteed to be < UNINAME_MAX + 4.  */
-static unsigned char phase1_pushback[UNINAME_MAX + 4];
+static unsigned char phase1_pushback[max (9, UNINAME_MAX + 3)];
 static int phase1_pushback_length;
 
 static int
@@ -176,6 +176,7 @@ phase1_getc ()
   return c;
 }
 
+/* Supports max (9, UNINAME_MAX + 3) characters of pushback.  */
 static void
 phase1_ungetc (int c)
 {
@@ -288,6 +289,7 @@ phase2_getc ()
     }
 }
 
+/* Supports only one pushback character.  */
 static void
 phase2_ungetc (int c)
 {
@@ -656,8 +658,7 @@ phase7_getuc (int quote_char,
 /* Number of pending open parentheses/braces/brackets.  */
 static int open_pbb;
 
-/* Maximum used guaranteed to be < 2.  */
-static token_ty phase5_pushback[2];
+static token_ty phase5_pushback[1];
 static int phase5_pushback_length;
 
 static void
@@ -945,6 +946,7 @@ phase5_get (token_ty *tp)
     }
 }
 
+/* Supports only one pushback token.  */
 static void
 phase5_unget (token_ty *tp)
 {

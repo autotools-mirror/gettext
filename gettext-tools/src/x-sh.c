@@ -172,11 +172,9 @@ do_ungetc (int c)
 }
 
 
-/* Remove backslash followed by newline from the input stream.
-   Cope with potentially 2 characters of pushback.  */
+/* Remove backslash followed by newline from the input stream.  */
 
-/* Maximum used guaranteed to be < 4.  */
-static int phase1_pushback[4];
+static int phase1_pushback[1];
 static int phase1_pushback_length;
 
 static int
@@ -206,6 +204,7 @@ phase1_getc ()
     }
 }
 
+/* Supports only one pushback character.  */
 static void
 phase1_ungetc (int c)
 {
@@ -498,12 +497,8 @@ is_operator_start (int c)
 #define OPENING_BACKQUOTE (2 * (UCHAR_MAX + 1) + '`')
 #define CLOSING_BACKQUOTE (3 * (UCHAR_MAX + 1) + '`')
 
-/* Maximum used guaranteed to be < 4.  */
-static int phase2_pushback[4];
+static int phase2_pushback[2];
 static int phase2_pushback_length;
-
-/* Forward declaration of local functions.  */
-static void phase2_ungetc (int c);
 
 /* Return the next character, with backslashes removed.
    The result is QUOTED(c) for some unsigned char c, if the next character
@@ -663,6 +658,7 @@ phase2_getc ()
   return (open_singlequote || open_doublequote ? QUOTED (c) : c);
 }
 
+/* Supports 2 characters of pushback.  */
 static void
 phase2_ungetc (int c)
 {

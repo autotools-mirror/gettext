@@ -102,6 +102,7 @@ phase1_getc ()
   return c;
 }
 
+/* Supports only one pushback character.  */
 static void
 phase1_ungetc (int c)
 {
@@ -290,6 +291,7 @@ phase2_getc ()
     return c;
 }
 
+/* Supports only one pushback character.  */
 static void
 phase2_ungetc (int c)
 {
