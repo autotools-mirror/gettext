@@ -5853,7 +5853,7 @@ fully portable
 
 @table @asis
 @item RPMs
-clisp
+clisp 2.28 or newer
 
 @item File extension
 @code{lisp}
@@ -5862,16 +5862,16 @@ clisp
 @code{"abc"}
 
 @item gettext shorthand
-@code{(ENGLISH "abc")}
+@code{(_ "abc")}, @code{(ENGLISH "abc")}
 
 @item gettext/ngettext functions
----
+@code{i18n:gettext}, @code{i18n:ngettext}
 
 @item textdomain
----
+@code{i18n:textdomain}
 
 @item bindtextdomain
----
+@code{i18n:textdomaindir}
 
 @item setlocale
 automatic
@@ -6169,6 +6169,11 @@ from a PO file with plural handling.
 
 @item
 The @code{gnu.gettext.GettextResource} API.
+
+Reference documentation in Javadoc 1.1 style format
+is in the @uref{javadoc1/tree.html,javadoc1 directory} and
+in Javadoc 2 style format
+in the @uref{javadoc2/index.html,javadoc2 directory}.
 
 Its @code{gettext} function returns a string translation. Note that when
 a translation is missing, the @var{msgid} argument is returned unchanged.
