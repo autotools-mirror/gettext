@@ -114,4 +114,9 @@ extern void EXTRACT_PLURAL_EXPRESSION PARAMS ((const char *nullentry,
 					       unsigned long int *npluralsp))
      internal_function;
 
+#if !defined (_LIBC) && !defined (IN_LIBINTL)
+extern unsigned long int plural_eval PARAMS ((struct expression *pexp,
+					      unsigned long int n));
+#endif
+
 #endif /* _PLURAL_EXP_H */
