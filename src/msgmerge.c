@@ -445,7 +445,7 @@ Output details:\n\
       --add-location          preserve '#: filename:line' lines (default)\n\
       --strict                strict Uniforum output style\n\
   -w, --width=NUMBER          set output page width\n\
-  -s, --sort-output           generate sorted output and remove duplicates\n\
+  -s, --sort-output           generate sorted output\n\
   -F, --sort-by-file          sort output by file location\n\
 "));
       printf ("\n");

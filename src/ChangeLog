@@ -1,3 +1,17 @@
+2001-10-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgattrib.c (usage): Fix: --sort-output doesn't deal with duplicates.
+	* msgcat.c (usage): Likewise.
+	* msgcomm.c (usage): Likewise.
+	* msgconv.c (usage): Likewise.
+	* msgen.c (usage): Likewise.
+	* msgexec.c (usage): Likewise.
+	* msggrep.c (usage): Likewise.
+	* msgmerge.c (usage): Likewise.
+	* msgunfmt.c (usage): Likewise.
+	* msguniq.c (usage): Likewise.
+	* xgettext.c (usage): Likewise.
+
 2001-10-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* write-po.c (memcpy_small): New function.

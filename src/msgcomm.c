@@ -369,7 +369,7 @@ Output details:\n\
   -n, --add-location             generate '#: filename:line' lines (default)\n\
       --strict                   write out strict Uniforum conforming .po file\n\
   -w, --width=NUMBER             set output page width\n\
-  -s, --sort-output              generate sorted output and remove duplicates\n\
+  -s, --sort-output              generate sorted output\n\
   -F, --sort-by-file             sort output by file location\n\
       --omit-header              don't write header with `msgid \"\"' entry\n\
 "));

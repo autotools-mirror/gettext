@@ -317,7 +317,7 @@ Output details:\n\
   -i, --indent             write indented output style\n\
       --strict             write strict uniforum style\n\
   -w, --width=NUMBER       set output page width\n\
-  -s, --sort-output        generate sorted output and remove duplicates\n\
+  -s, --sort-output        generate sorted output\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
