@@ -19,23 +19,47 @@ and msgunfmt programs.
 Thanks to all of the following for their valuable
 hints/fixes/discussions/contributions:
 
+Adrian Bunk		bunk@fs.tum.de
+Akim Demaille		akim@epita.fr
+Albert Chin-A-Young	china@thewrittenword.com
+Alexander V. Lukyanov	lav@yars.free.net
+Alexandre Duret-Lutz	aduret@enst.fr
 Andreas Schwab		schwab@issan.informatik.uni-dortmund.de
+Andrew Zabolotny	zap@cobra.ru
+Andries Brouwer		andries.brouwer@cwi.nl
 Bang Jun Young		bangjy@nownuri.nowcom.co.kr
+Barry A. Warsaw		barry@zope.com
+Ben Elliston		bje@redhat.com
 Bernhard Herzog		bernhard@users.sourceforge.net
 Bill Perry		wmperry@aventail.com
+Bram Moolenaar		bram@moolenaar.net
 Bruno Haible		haible@ma2s2.mathematik.uni-karlsruhe.de
+Charles Wilson		cwilson@ece.gatech.edu
 Christian von Roques	roques@pond.sub.org
+Daniel Burrows		dburrows@debian.org
+Daniel Schepler		schepler@math.berkeley.edu
+Dennis Bjorklund	db@zigo.dhs.org
 Derek Clegg		derek_clegg@next.com
+Edmund Grimley Evans	edmundo@rano.org
+Eli Zaretskii		eliz@is.elta.co.il
+Enrico Scholz		enrico.scholz@informatik.tu-chemnitz.de
 Enrique Melero Gómez	justine@iprolink.ch
 Eric Backus		ericb@lsid.hp.com
+Felix Natter		f.natter@ndh.net
 Francesco Potortì	pot@fly.cnuce.cnr.it
 Frank Donahoe		fdonahoe@wilkes1.wilkes.edu
+Glenn Popelka		gpp@mail.gpopelka.com
+Golubev I. N.		gin@mo.msk.ru
 Greg McGary		gkm@magilla.cichlid.com
 Göran Uddeborg		gvran@uddeborg.pp.se
+H. J. Lu		hjl@lucon.org
 Hrvoje Niksic		hniksic@srce.hr
 Jakub Jelinek		jj@sunsite.ms.mff.cuni.cz
+Jan Djärv		jan.djarv@mbox200.swipnet.se
 Jim Meyering		meyering@na-net.ornl.gov
 Joshua R. Poulson	jrp@plaza.ds.adp.com
+Juan Manuel Guerrero	st001906@hrz1.hrz.tu-darmstadt.de
+Jun Sawataishi		jsawa@attglobal.net
 Kalle Niemitalo		tosi@ees2.oulu.fi
 Karl Berry		kb@cs.umb.edu
 Karl Eichwalder		ke@suse.de
@@ -43,21 +67,40 @@ Kaveh R. Ghazi		ghazi@caip.rutgers.edu
 Kenichi Handa		handa@etl.go.jp
 Larry Schwimmer		rosebud@cyclone.stanford.edu
 Laurent Bourbeau	bourbeau@progiciels-bpi.ca
+Len Makin		len@hpc.csiro.au
 Marcus Daniels		marcus@sysc.pdx.edu
 Marin Purgar		pmc@asgard.hr
+Martin Quinson		martin.quinson@ens-lyon.fr
 Martin v. Löwis		martin@loewis.home.cs.tu-berlin.de
 Max de Mendizabal	max@acer.com.mx
-Michel Robitaille	robitail@IRO.UMontreal.CA
+Michel Robitaille	robitail@iro.umontreal.ca
+Nelson H. F. Beebe	beebe@math.utah.edu
 Nils Naumann		naumann@unileoben.ac.at
 Noah Friedman		friedman@splode.com
+Owen Taylor		otaylor@redhat.com
+Paolo Bonzini		bonzini@gnu.org
 Paul Eggert		eggert@twinsun.com
+Pavel Roskin		proski@gnu.org
+Perry			prapp@erols.com
+Philipp Thomas		pthomas@suse.de
+Richard Stallman	rms@gnu.org
 Rodrigo Stulzer Lopes	rodrigo@conectiva.com.br
+Roger Leigh		rl117@york.ac.uk
 Roland McGrath		roland@gnu.ai.mit.edu
 Sakai Kiyotaka		ksakai@netwk.ntt-at.co.jp
+Sam Steingold		sds@gnu.org
 Santiago Vila Doncel    sanvila@unex.es
+Sebastian Günther	sguenther@gmx.de
+Stefan Hundhammer	sh@suse.de
+Stephan Kulow		coolo@kde.org
 Thomas E. Dickey	dickey@clark.net
+Thorsten Kukuk		kukuk@suse.de
+Tim Van Holder		tim.van.holder@pandora.be
 Tom Tromey		tromey@cygnus.com
+Tommy Johansson		tommy@kanalen.org
+Tor Lillqvist		tml@iki.fi
 Uwe Ohse		uwe@tirka.gun.de
+Werner Koch		wk@gnupg.org
 
 
 Thanks to all members of the translation teams for the different
