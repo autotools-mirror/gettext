@@ -1,5 +1,9 @@
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (po/Makevars): New node.
+
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
 	* msginit.texi: Document option --no-translator.
 
 2001-11-18  Karl Eichwalder  <ke@gnu.franken.de>

@@ -1,3 +1,29 @@
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars: New file.
+	* quot.sed: New file.
+	* boldquot.sed: New file.
+	* en@quot.header: New file.
+	* en@boldquot.header: New file.
+	* insert-header.sin: Mew file.
+	* Rules-quot: New file.
+	* Makefile.in.in: Use $(DOMAIN) instead of $(PACKAGE) almost
+	everywhere.
+	(subdir, top_builddir): Move to Makevars.
+	(MSGINIT): New variable.
+	(MSGCONV): New variable.
+	(MSGEXEC): New variable.
+	(UPDATEPOFILES): New variable.
+	(DUMMYPOFILES): New variable.
+	(DISTFILES.common): New variable.
+	(DISTFILES): Use it.
+	(.SUFFIXES): Add .nop, .po-update.
+	(install-data): Install all of $(DISTFILES.common).
+	(uninstall-data): Uninstall all of $(DISTFILES.common).
+	(update-po): Split into a Makefile rule for each PO file update.
+	(.nop.po-update): New rule, extracted from update-po.
+	($(DUMMYPOFILES)): New trivial rules.
+
 2001-11-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* sv.po: Update from Jan Djärv <Jan.Djarv@mbox200.swipnet.se>.

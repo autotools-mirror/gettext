@@ -313,8 +313,9 @@ AC_DEFUN([AM_PO_SUBDIRS],
           rm -f "$ac_dir/POTFILES"
           test -n "$as_me" && echo "$as_me: creating $ac_dir/POTFILES" || echo "creating $ac_dir/POTFILES"
           sed -e "/^#/d" -e "/^[ 	]*\$/d" -e "s,.*,     $top_srcdir/& \\\\," -e "\$s/\(.*\) \\\\/\1/" < "$ac_given_srcdir/$ac_dir/POTFILES.in" > "$ac_dir/POTFILES"
-          # ALL_LINGUAS, GMOFILES, POFILES depend on $ac_dir but don't
-          # depend on user-specified configuration parameters.
+          # ALL_LINGUAS, POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES depend
+          # on $ac_dir but don't depend on user-specified configuration
+          # parameters.
           if test -f "$ac_given_srcdir/$ac_dir/LINGUAS"; then
             # The LINGUAS file contains the set of available languages.
             if test -n "$ALL_LINGUAS"; then
@@ -328,11 +329,15 @@ AC_DEFUN([AM_PO_SUBDIRS],
             .) srcdirpre= ;;
             *) srcdirpre='$(srcdir)/' ;;
           esac
-          GMOFILES=
           POFILES=
+          GMOFILES=
+          UPDATEPOFILES=
+          DUMMYPOFILES=
           for lang in $ALL_LINGUAS; do
-            GMOFILES="$GMOFILES $srcdirpre$lang.gmo"
             POFILES="$POFILES $srcdirpre$lang.po"
+            GMOFILES="$GMOFILES $srcdirpre$lang.gmo"
+            UPDATEPOFILES="$UPDATEPOFILES $lang.po-update"
+            DUMMYPOFILES="$DUMMYPOFILES $lang.nop"
           done
           # CATALOGS depends on both $ac_dir and the user's LINGUAS
           # environment variable.
@@ -367,13 +372,17 @@ AC_DEFUN([AM_PO_SUBDIRS],
             done
           fi
           test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-          sed -e "/POTFILES =/r $ac_dir/POTFILES" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@POFILES@|$POFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          sed -e "/^POTFILES =/r $ac_dir/POTFILES" -e "/^# Makevars/r $ac_dir/Makevars" -e "s|@POFILES@|$POFILES|g" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@UPDATEPOFILES@|$UPDATEPOFILES|g" -e "s|@DUMMYPOFILES@|$DUMMYPOFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          for f in "$ac_dir"/Rules-*; do
+            cat "$f" >> "$ac_dir/Makefile"
+          done
         fi
         ;;
       esac
     done],
-   [# Capture the value of obsolete $ALL_LINGUAS because we need it to
-    # compute GMOFILES, POFILES, CATALOGS. But hide it from automake.
+   [# Capture the value of obsolete $ALL_LINGUAS because we need it to compute
+    # POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES, CATALOGS. But hide it
+    # from automake.
     eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
     # Capture the value of LINGUAS because we need it to compute CATALOGS.
     LINGUAS="${LINGUAS-%UNSET%}"

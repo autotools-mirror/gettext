@@ -1,3 +1,9 @@
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_PO_SUBDIRS): Also substitute UPDATEPOFILES and
+	DUMMYPOFILES into Makefile. Also insert Makevars and Rules-* into
+	Makefile.
+
 2001-11-18  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4: Split into submacros.

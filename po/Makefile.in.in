@@ -1,4 +1,4 @@
-# Makefile for program source directory in GNU NLS utilities package.
+# Makefile for PO directory in any package using GNU gettext.
 # Copyright (C) 1995-1997, 2000, 2001 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
 #
 # This file can be copied and used freely without restrictions.  It can
@@ -10,10 +10,6 @@
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
-
-# These two variables depend on the location of this directory.
-subdir = po
-top_builddir = ..
 
 SHELL = /bin/sh
 @SET_MAKE@
@@ -38,18 +34,28 @@ MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
+MSGINIT = msginit
+MSGCONV = msgconv
+MSGEXEC = msgexec
 
 POFILES = @POFILES@
 GMOFILES = @GMOFILES@
-DISTFILES = Makefile.in.in POTFILES.in $(PACKAGE).pot \
-$(POFILES) $(GMOFILES)
+UPDATEPOFILES = @UPDATEPOFILES@
+DUMMYPOFILES = @DUMMYPOFILES@
+DISTFILES.common = Makefile.in.in Makevars \
+$(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
+DISTFILES = $(DISTFILES.common) POTFILES.in $(DOMAIN).pot \
+$(POFILES) $(GMOFILES) \
+$(DISTFILES.extra1) $(DISTFILES.extra2) $(DISTFILES.extra3)
 
 POTFILES = \
 
 CATALOGS = @CATALOGS@
 
+# Makevars gets inserted here. (Don't remove this line!)
+
 .SUFFIXES:
-.SUFFIXES: .po .gmo .mo
+.SUFFIXES: .po .gmo .mo .nop .po-update
 
 .po.mo:
 	$(MSGFMT) -c -o $@ $<
@@ -66,23 +72,23 @@ all: all-@USE_NLS@
 all-yes: $(CATALOGS)
 all-no:
 
-# Note: Target 'all' must not depend on target '$(srcdir)/$(PACKAGE).pot',
+# Note: Target 'all' must not depend on target '$(srcdir)/$(DOMAIN).pot',
 # otherwise packages like GCC can not be built if only parts of the source
 # have been downloaded.
 
-$(srcdir)/$(PACKAGE).pot: $(POTFILES) $(srcdir)/POTFILES.in
-	$(XGETTEXT) --default-domain=$(PACKAGE) --directory=$(top_srcdir) \
+$(srcdir)/$(DOMAIN).pot: $(POTFILES) $(srcdir)/POTFILES.in
+	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: --keyword=_ --keyword=N_ \
 	  --files-from=$(srcdir)/POTFILES.in \
-	&& test ! -f $(PACKAGE).po \
-	   || ( rm -f $(srcdir)/$(PACKAGE).pot \
-		&& mv $(PACKAGE).po $(srcdir)/$(PACKAGE).pot )
+	&& test ! -f $(DOMAIN).po \
+	   || ( rm -f $(srcdir)/$(DOMAIN).pot \
+		&& mv $(DOMAIN).po $(srcdir)/$(DOMAIN).pot )
 
 $(POFILES): force
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(PACKAGE).pot"; \
-	cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(PACKAGE).pot
+	echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
+	cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot
 
 
 install: install-exec install-data
@@ -90,8 +96,10 @@ install-exec:
 install-data: install-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
-	  $(INSTALL_DATA) $(srcdir)/Makefile.in.in \
-			  $(DESTDIR)$(gettextsrcdir)/Makefile.in.in; \
+	  for file in $(DISTFILES.common); do \
+	    $(INSTALL_DATA) $(srcdir)/$$file \
+			    $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
 	else \
 	  : ; \
 	fi
@@ -105,12 +113,12 @@ install-data-yes: all
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
 	  if test -r $$cat; then \
-	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE).mo; \
-	    echo "installing $$cat as $(DESTDIR)$$dir/$(PACKAGE).mo"; \
+	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(DOMAIN).mo; \
+	    echo "installing $$cat as $(DESTDIR)$$dir/$(DOMAIN).mo"; \
 	  else \
-	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE).mo; \
+	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(DOMAIN).mo; \
 	    echo "installing $(srcdir)/$$cat as" \
-		 "$(DESTDIR)$$dir/$(PACKAGE).mo"; \
+		 "$(DESTDIR)$$dir/$(DOMAIN).mo"; \
 	  fi; \
 	done
 
@@ -142,7 +150,9 @@ uninstall: uninstall-exec uninstall-data
 uninstall-exec:
 uninstall-data: uninstall-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext"; then \
-	  rm -f $(DESTDIR)$(gettextsrcdir)/Makefile.in.in; \
+	  for file in $(DISTFILES.common); do \
+	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
 	else \
 	  : ; \
 	fi
@@ -152,7 +162,7 @@ uninstall-data-yes:
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
-	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE).mo; \
+	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(DOMAIN).mo; \
 	done
 
 check: all
@@ -160,7 +170,7 @@ check: all
 dvi info tags TAGS ID:
 
 mostlyclean:
-	rm -f core core.* $(PACKAGE).po *.new.po
+	rm -f core core.* $(DOMAIN).po *.new.po
 	rm -fr *.o
 
 clean: mostlyclean
@@ -191,32 +201,37 @@ dist2: $(DISTFILES)
 	done
 
 update-po: Makefile
-	$(MAKE) $(PACKAGE).pot
+	$(MAKE) $(DOMAIN).pot
+	$(MAKE) $(UPDATEPOFILES)
+	$(MAKE) update-gmo
+
+# General rule for updating PO files.
+
+.nop.po-update:
+	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
 	if test "$(PACKAGE)" = "gettext"; then PATH=`pwd`/../src:$$PATH; fi; \
 	tmpdir=`pwd`; \
+	echo "$$lang:"; \
+	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
+	echo "$${cdcmd}$(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
 	cd $(srcdir); \
-	catalogs='$(GMOFILES)'; \
-	for cat in $$catalogs; do \
-	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
-	  echo "$$lang:"; \
-	  if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$tmpdir/$$lang.new.po; then \
-	    if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
-	      rm -f $$tmpdir/$$lang.new.po; \
-	    else
-	      if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
-	        :; \
-	      else \
-	        echo "msgmerge for $$cat failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
-	        exit 1; \
-	      fi; \
-	    fi; \
-	  else \
-	    echo "msgmerge for $$cat failed!" 1>&2; \
+	if $(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
+	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$tmpdir/$$lang.new.po; \
+	  else \
+	    if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
+	      :; \
+	    else \
+	      echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
+	      exit 1; \
+	    fi; \
 	  fi; \
-	done
-	$(MAKE) update-gmo
+	else \
+	  echo "msgmerge for $$lang.po failed!" 1>&2; \
+	  rm -f $$tmpdir/$$lang.new.po; \
+	fi
+
+$(DUMMYPOFILES):
 
 update-gmo: Makefile $(GMOFILES)
 	@:
