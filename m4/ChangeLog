@@ -1,5 +1,13 @@
 2001-04-12  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.m4: Workaround an automake-1.4 bug: Don't write
+	AM_DISABLE_SHARED, even in comments, because that causes 'aclocal'
+	to pull in the libtool.m4 macros, which causes 'automake' to use
+	@LIBTOOL@ in its rules, even for packages that haven't called
+	AM_PROG_LIBTOOL.
+
+2001-04-12  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.m4 (AM_WITH_NLS): Fix syntax error in 'case'. Change
 	whitespace in $CONFIG_FILES to spaces for matching with 'case'.
 	Reported by Thorsten Kukuk <kukuk@suse.de>.

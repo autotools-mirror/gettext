@@ -6,13 +6,13 @@
 # but which still want to provide support for the GNU gettext functionality.
 # Please note that the actual code is *not* freely available.
 
-# serial 8
+# serial 9
 
 dnl Usage: AM_WITH_NLS([TOOLSYMBOL], [NEEDSYMBOL], [LIBDIR]).
 dnl If TOOLSYMBOL is specified and is 'use-libtool', then a libtool library
 dnl    $(top_builddir)/intl/libintl.la will be created (shared and/or static,
 dnl    depending on --{enable,disable}-{shared,static} and on the presence of
-dnl    AM_DISABLE_SHARED). Otherwise, a static library
+dnl    AM-DISABLE-SHARED). Otherwise, a static library
 dnl    $(top_builddir)/intl/libintl.a will be created.
 dnl If NEEDSYMBOL is specified and is 'need-ngettext', then GNU gettext
 dnl    implementations (in libc or libintl) without the ngettext() function
