@@ -1,5 +1,20 @@
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
+	* ISO_3166: New file.
+	* iso-3166.sed: New file.
+	* iso-639.sed: Renamed from iso-apdx.sed.
+	* Makefile.am (gettext_TEXINFOS): Remove iso-apdx.sed, add iso-639.sed
+	and iso-3166.sed.
+	(EXTRA_DIST): Likewise. Add ISO_3166.
+	(iso-639.texi): Renamed rule from iso-apdx.texi.
+	(iso-3166.texi): New rule.
+	* nls.texi (Using This Package): Recommend to set LANG to 'll_CC'.
+	glibc doesn't have locales named 'll'.
+	* gettext.texi (End Users): Likewise.
+	(Country Codes): New node.
+
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.texi: Many tweaks by Philipp Thomas <pthomas@suse.de>.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>

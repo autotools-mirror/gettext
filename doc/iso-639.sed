@@ -14,6 +14,3 @@
 # delete the rest
 #
 d
-
-
-

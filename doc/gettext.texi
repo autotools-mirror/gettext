@@ -90,6 +90,7 @@ by the Foundation.
 * Conclusion::                  Concluding Remarks
 
 * Language Codes::              ISO 639 language codes
+* Country Codes::               ISO 3166 country codes
 
 @detailmenu
  --- The Detailed Node Listing ---
@@ -3194,12 +3195,12 @@ codes, stating which languages are allowed.
 We consider here those packages using GNU @code{gettext} internally,
 and for which the installers did not disable translation at
 @emph{configure} time.  Then, users only have to set the @code{LANG}
-environment variable to the appropriate @samp{@var{ll}} prior to
-using the programs in the package.  @xref{Matrix}.  For example,
-let's presume a German site.  At the shell prompt, users merely have to
-execute @w{@samp{setenv LANG de}} (in @code{csh}) or @w{@samp{export
-LANG; LANG=de}} (in @code{sh}).  They could even do this from their
-@file{.login} or @file{.profile} file.
+environment variable to the appropriate @samp{@var{ll}_@var{CC}}
+combination prior to using the programs in the package.  @xref{Matrix}.
+For example, let's presume a German site.  At the shell prompt, users
+merely have to execute @w{@samp{setenv LANG de_DE}} (in @code{csh}) or
+@w{@samp{export LANG; LANG=de_DE}} (in @code{sh}).  They could even do
+this from their @file{.login} or @file{.profile} file.
 
 @node Programmers, Translators, Users, Top
 @chapter The Programmer's View
@@ -5468,7 +5469,7 @@ ftp://ftp.ibp.fr/pub/linux/french/docs/
 @noindent
 together with French translations of many Linux-related documents.
 
-@node Language Codes,  , Conclusion, Top
+@node Language Codes, Country Codes, Conclusion, Top
 @appendix Language Codes
 
 The @w{ISO 639} standard defines two character codes for many languages.
@@ -5476,7 +5477,18 @@ All abbreviations for languages used in the Translation Project should
 come from this standard.
 
 @table @samp
-@include iso-apdx.texi
+@include iso-639.texi
+@end table
+
+@node Country Codes,  , Language Codes, Top
+@appendix Country Codes
+
+The @w{ISO 3166} standard defines two character codes for many countries
+and territories.  All abbreviations for countries used in the Translation
+Project should come from this standard.
+
+@table @samp
+@include iso-3166.texi
 @end table
 
 @contents

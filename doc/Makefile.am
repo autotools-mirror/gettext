@@ -30,14 +30,19 @@ SED = sed
 MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 
 info_TEXINFOS = gettext.texi
-gettext_TEXINFOS = iso-apdx.texi
+gettext_TEXINFOS = iso-639.texi iso-3166.texi
 
-EXTRA_DIST = iso-apdx.sed ISO_639 nls.texi matrix.texi $(EXTRA_DIST_html)
+EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi $(EXTRA_DIST_html)
 
-iso-apdx.texi: ISO_639 iso-apdx.sed
-	$(SED) -f $(srcdir)/iso-apdx.sed $(srcdir)/ISO_639 > iso-apdx.tmp
-	rm -f $(srcdir)/iso-apdx.texi
-	mv iso-apdx.tmp $(srcdir)/iso-apdx.texi
+iso-639.texi: ISO_639 iso-639.sed
+	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
+	rm -f $(srcdir)/iso-639.texi
+	mv iso-639.tmp $(srcdir)/iso-639.texi
+
+iso-3166.texi: ISO_3166 iso-3166.sed
+	$(SED) -f $(srcdir)/iso-3166.sed $(srcdir)/ISO_3166 > iso-3166.tmp
+	rm -f $(srcdir)/iso-3166.texi
+	mv iso-3166.tmp $(srcdir)/iso-3166.texi
 
 
 # We distribute only the split HTML documentation.
