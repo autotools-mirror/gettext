@@ -2,8 +2,6 @@
 # Copyright (C) 1996 Free Software Foundation, Inc.
 # Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996.
 #
-# $Header: /cvs/gettext/gettext/po/sl.po,v 1.5 2001/03/11 16:26:50 haible Exp $
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.24\n"

@@ -1,13 +1,12 @@
 # Swedish messages for gettext
 # Copyright © 1996 Free Software Foundation, Inc.
 # Jan Djärv <Jan.Djarv@mbox200.swipnet.se>, 1996.
-# $Revision: 1.8 $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.31\n"
 "POT-Creation-Date: 2001-03-11 17:25+0100\n"
-"PO-Revision-Date: $Date: 2001/03/11 16:33:07 $\n"
+"PO-Revision-Date: 1996-12-31 23:59\n"
 "Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
