@@ -23,12 +23,17 @@
 
 #include "pos.h"	/* Get lex_pos_ty.  */
 #include "message.h"	/* Get NFORMATS.  */
+#include "error.h"	/* Get fallback definition of __attribute__.  */
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+
+/* This type of callback is responsible for showing an error.  */
+typedef void (*formatstring_error_logger_t) (const char *format, ...)
+     __attribute__ ((__format__ (__printf__, 1, 2)));
 
 /* This structure describes a format string parser for a language.  */
 struct formatstring_parser
@@ -54,12 +59,9 @@ struct formatstring_parser
      msgstr_descr are the same (if equality=true), or (if equality=false)
      that those of msgid_descr extend those of msgstr_descr (i.e.
      msgstr_descr may omit some of the arguments of msgid_descr).
-     If not, signal an error using
-       error_with_progname = false;
-       error_at_line (0, 0, pos->file_name, pos->line_number, ...);
-       error_with_progname = true;
-     (but only if noisy=true) and return true.  Otherwise return false.  */
-  bool (*check) (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr, bool equality, bool noisy, const char *pretty_msgstr);
+     If not, signal an error using error_logger (only if error_logger != NULL)
+     and return true.  Otherwise return false.  */
+  bool (*check) (void *msgid_descr, void *msgstr_descr, bool equality, formatstring_error_logger_t error_logger, const char *pretty_msgstr);
 };
 
 /* Format string parsers, each defined in its own file.  */
@@ -99,6 +101,14 @@ struct interval
 extern void
        get_sysdep_c_format_directives (const char *string, bool translated,
 				 struct interval **intervalsp, size_t *lengthp);
+
+/* Check whether both formats strings contain compatible format
+   specifications.  Return true if there is an error.  */
+extern bool
+       check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
+				  const char *msgstr, size_t msgstr_len,
+				  enum is_format is_format[NFORMATS],
+				  formatstring_error_logger_t error_logger);
 
 
 #ifdef __cplusplus

@@ -1,3 +1,7 @@
+2004-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars (XGETTEXT_OPTIONS): Recognize error_logger calls.
+
 2004-09-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (XGETTEXT_OPTIONS): Recognize po_error and po_error_at_line.

@@ -1,3 +1,7 @@
+2004-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextpo.def: Add po_message_check_format.
+
 2004-09-05  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextsrc.def: Add the variables names from po-error.h.

@@ -1,3 +1,37 @@
+2004-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (formatstring_error_logger_t): New type.
+	(struct formatstring_parser): Change calling convention of 'check'
+	method.
+	(check_msgid_msgstr_format): New declaration.
+	* format-awk.c (format_check): Use error_logger argument instead of
+	noisy and error_at_line.
+	* format-c.c (format_check): Likewise.
+	* format-csharp.c (format_check): Likewise.
+	* format-elisp.c (format_check): Likewise.
+	* format-gcc-internal.c (format_check): Likewise.
+	* format-java.c (format_check): Likewise.
+	* format-librep.c (format_check): Likewise.
+	* format-lisp.c (format_check): Likewise.
+	* format-pascal.c (format_check): Likewise.
+	* format-perl.c (format_check): Likewise.
+	* format-perl-brace.c (format_check): Likewise.
+	* format-php.c (format_check): Likewise.
+	* format-python.c (format_check): Likewise.
+	* format-qt.c (format_check): Likewise.
+	* format-sh.c (format_check): Likewise.
+	* format-tcl.c (format_check): Likewise.
+	* format-ycp.c (format_check): Likewise.
+	* format.c (check_msgid_msgstr_format): New function, extracted from
+	msgfmt.c.
+	* msgfmt.c (curr_msgid_pos): New variable.
+	(formatstring_error_logger): New function.
+	(check_pair): Use check_msgid_msgstr_format, formatstring_error_logger.
+	* msgmerge.c (msgfmt_check_pair_fails): Update.
+	* gettext-po.h (po_message_check_format): New declaration.
+	* gettext-po.c (po_error_logger, po_message_check_format): New
+	functions.
+
 2004-09-05  Bruno Haible  <bruno@clisp.org>
 
 	* po-error.h: New file.

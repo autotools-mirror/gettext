@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 #include <locale.h>
 
 #include "closeout.h"
@@ -1142,6 +1143,24 @@ check_plural (message_list_ty *mlp)
 }
 
 
+/* Signal an error when checking format strings.  */
+static lex_pos_ty curr_msgid_pos;
+static void
+formatstring_error_logger (const char *format, ...)
+{
+  va_list args;
+
+  va_start (args, format);
+  fprintf (stderr, "%s:%d: ",
+	   curr_msgid_pos.file_name, curr_msgid_pos.line_number);
+  vfprintf (stderr, format, args);
+  putc ('\n', stderr);
+  fflush (stderr);
+  va_end (args);
+  ++error_message_count;
+}
+
+
 /* Perform miscellaneous checks on a message.  */
 static void
 check_pair (const char *msgid,
@@ -1151,7 +1170,6 @@ check_pair (const char *msgid,
 	    const lex_pos_ty *msgstr_pos, enum is_format is_format[NFORMATS])
 {
   int has_newline;
-  size_t i;
   unsigned int j;
   const char *p;
 
@@ -1249,81 +1267,13 @@ check_pair (const char *msgid,
 
   if (check_format_strings)
     /* Test 3: Check whether both formats strings contain the same number
-       of format specifications.
-       We check only those messages for which the msgid's is_format flag
-       is one of 'yes' or 'possible'.  We don't check msgids with is_format
-       'no' or 'impossible', to obey the programmer's order.  We don't check
-       msgids with is_format 'undecided' because that would introduce too
-       many checks, thus forcing the programmer to add "xgettext: no-c-format"
-       anywhere where a translator wishes to use a percent sign.  */
-    for (i = 0; i < NFORMATS; i++)
-      if (possible_format_p (is_format[i]))
-	{
-	  /* At runtime, we can assume the program passes arguments that
-	     fit well for msgid.  We must signal an error if msgstr wants
-	     more arguments that msgid accepts.
-	     If msgstr wants fewer arguments than msgid, it wouldn't lead
-	     to a crash at runtime, but we nevertheless give an error because
-	     1) this situation occurs typically after the programmer has
-		added some arguments to msgid, so we must make the translator
-		specially aware of it (more than just "fuzzy"),
-	     2) it is generally wrong if a translation wants to ignore
-		arguments that are used by other translations.  */
-
-	  struct formatstring_parser *parser = formatstring_parsers[i];
-	  char *invalid_reason = NULL;
-	  void *msgid_descr =
-	    parser->parse (msgid_plural != NULL ? msgid_plural : msgid,
-			   false, &invalid_reason);
-
-	  if (msgid_descr != NULL)
-	    {
-	      char buf[18+1];
-	      const char *pretty_msgstr = "msgstr";
-	      const char *p_end = msgstr + msgstr_len;
-	      const char *p;
-
-	      for (p = msgstr, j = 0; p < p_end; p += strlen (p) + 1, j++)
-		{
-		  void *msgstr_descr;
-
-		  if (msgid_plural != NULL)
-		    {
-		      sprintf (buf, "msgstr[%u]", j);
-		      pretty_msgstr = buf;
-		    }
-
-		  msgstr_descr = parser->parse (p, true, &invalid_reason);
-
-		  if (msgstr_descr != NULL)
-		    {
-		      if (parser->check (msgid_pos, msgid_descr, msgstr_descr,
-					 msgid_plural == NULL,
-					 true, pretty_msgstr))
-			exit_status = EXIT_FAILURE;
-
-		      parser->free (msgstr_descr);
-		    }
-		  else
-		    {
-		      error_with_progname = false;
-		      error_at_line (0, 0, msgid_pos->file_name,
-				     msgid_pos->line_number,
-				     _("\
-'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"),
-				     pretty_msgstr, format_language_pretty[i],
-				     invalid_reason);
-		      error_with_progname = true;
-		      exit_status = EXIT_FAILURE;
-		      free (invalid_reason);
-		    }
-		}
-
-	      parser->free (msgid_descr);
-	    }
-	  else
-	    free (invalid_reason);
-	}
+       of format specifications.  */
+    {
+      curr_msgid_pos = *msgid_pos;
+      if (check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
+				     is_format, formatstring_error_logger))
+	exit_status = EXIT_FAILURE;
+    }
 
   if (check_accelerators && msgid_plural == NULL)
     /* Test 4: Check that if msgid is a menu item with a keyboard accelerator,

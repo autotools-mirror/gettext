@@ -203,12 +203,10 @@ extern int po_message_is_format (po_message_t message, const char *format_type);
 /* Change the format string mark for a given type of a message.  */
 extern void po_message_set_format (po_message_t message, const char *format_type, /*bool*/int value);
 
-#if 0
 /* Test whether the message translation is a valid format string if the message
-   is marked as being a format string.  Return NULL if valid or not marked as
-   such, or an explanation string if invalid.  */
-extern char * po_message_check_format (po_message_t message, const char *format_type);
-#endif
+   is marked as being a format string.  If it is invalid, pass the reasons to
+   the handler.  */
+extern void po_message_check_format (po_message_t message, po_error_handler_t handler);
 
 
 /* =========================== po_filepos_t API ============================ */

@@ -591,8 +591,8 @@ msgfmt_check_pair_fails (const lex_pos_ty *pos,
 
 	  if (msgstr_descr != NULL)
 	    {
-	      failure = parser->check (pos, msgid_descr, msgstr_descr,
-				       msgid_plural == NULL, false, NULL);
+	      failure = parser->check (msgid_descr, msgstr_descr,
+				       msgid_plural == NULL, NULL, NULL);
 	      parser->free (msgstr_descr);
 	    }
 	  else

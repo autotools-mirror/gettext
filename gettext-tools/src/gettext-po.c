@@ -26,6 +26,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "message.h"
 #include "xalloc.h"
@@ -34,6 +35,8 @@
 #include "error.h"
 #include "xerror.h"
 #include "po-error.h"
+#include "vasprintf.h"
+#include "format.h"
 #include "gettext.h"
 
 #define _(str) gettext(str)
@@ -706,17 +709,39 @@ po_message_set_format (po_message_t message, const char *format_type, /*bool*/in
 }
 
 
-#if 0
-/* Test whether the message translation is a valid format string if the message
-   is marked as being a format string.  Return NULL if valid or not marked as
-   such, or an explanation string if invalid.  */
-
-char *
-po_message_check_format (po_message_t message, const char *format_type)
+/* An error logger based on the po_error function pointer.  */
+static void
+po_error_logger (const char *format, ...)
 {
-  ??
+  va_list args;
+  char *error_message;
+
+  va_start (args, format);
+  if (vasprintf (&error_message, format, args) < 0)
+    error (EXIT_FAILURE, 0, _("memory exhausted"));
+  va_end (args);
+  po_error (0, 0, "%s", error_message);
+  free (error_message);
 }
-#endif
+
+/* Test whether the message translation is a valid format string if the message
+   is marked as being a format string.  If it is invalid, pass the reasons to
+   the handler.  */
+void
+po_message_check_format (po_message_t message, po_error_handler_t handler)
+{
+  message_ty *mp = (message_ty *) message;
+
+  /* Establish error handler for po_error_logger().  */
+  po_error = handler->error;
+
+  check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
+			     mp->msgstr, mp->msgstr_len,
+			     mp->is_format, po_error_logger);
+
+  /* Restore error handler.  */
+  po_error = error;
+}
 
 
 /* Return the file name.  */

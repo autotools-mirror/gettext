@@ -28,8 +28,6 @@
 #include "xalloc.h"
 #include "xerror.h"
 #include "format-invalid.h"
-#include "error.h"
-#include "error-progname.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -362,8 +360,9 @@ format_get_number_of_directives (void *descr)
 }
 
 static bool
-format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
-	      bool equality, bool noisy, const char *pretty_msgstr)
+format_check (void *msgid_descr, void *msgstr_descr, bool equality,
+	      formatstring_error_logger_t error_logger,
+	      const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -387,14 +386,9 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 
 	  if (cmp > 0)
 	    {
-	      if (noisy)
-		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
-				 spec2->numbered[j].number, pretty_msgstr);
-		  error_with_progname = true;
-		}
+	      if (error_logger)
+		error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
+			      spec2->numbered[j].number, pretty_msgstr);
 	      err = true;
 	      break;
 	    }
@@ -402,14 +396,9 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 	    {
 	      if (equality)
 		{
-		  if (noisy)
-		    {
-		      error_with_progname = false;
-		      error_at_line (0, 0, pos->file_name, pos->line_number,
-				     _("a format specification for argument %u doesn't exist in '%s'"),
-				     spec1->numbered[i].number, pretty_msgstr);
-		      error_with_progname = true;
-		    }
+		  if (error_logger)
+		    error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
+				  spec1->numbered[i].number, pretty_msgstr);
 		  err = true;
 		  break;
 		}
@@ -427,15 +416,9 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 	      {
 		if (spec1->numbered[i].type != spec2->numbered[j].type)
 		  {
-		    if (noisy)
-		      {
-			error_with_progname = false;
-			error_at_line (0, 0, pos->file_name, pos->line_number,
-				       _("format specifications in 'msgid' and '%s' for argument %u are not the same"),
-				       pretty_msgstr,
-				       spec2->numbered[j].number);
-			error_with_progname = true;
-		      }
+		    if (error_logger)
+		      error_logger (_("format specifications in 'msgid' and '%s' for argument %u are not the same"),
+				    pretty_msgstr, spec2->numbered[j].number);
 		    err = true;
 		    break;
 		  }
