@@ -1,3 +1,9 @@
+2004-02-04  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Add po to SUBDIRS if it was created in this run.
+	Tell the user to create po/POTFILES.in if it is not yet there.
+	Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+
 2004-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in (m4filelist): Add glibc2.m4.

@@ -517,6 +517,7 @@ test -d "$srcdir/po" || {
   else
     echo "Create po/ subdirectory"
   fi
+  added_directories="$added_directories po"
 }
 
 # Now copy all files.  Take care for the destination directories.
@@ -637,6 +638,11 @@ if test -f "$srcdir/po/stamp-cat-id"; then
   $do_changelog && func_poChangeLog_add_entry "	* stamp-cat-id: Remove file."
 fi
 $do_changelog && func_poChangeLog_finish
+if test ! -f "$srcdir/po/POTFILES.in"; then
+  please="$please
+Please create po/POTFILES.in as described in the documentation.
+"
+fi
 
 m4filelist='  codeset.m4 gettext.m4 glibc2.m4 glibc21.m4 iconv.m4 intdiv0.m4
   intmax.m4 inttypes.m4 inttypes_h.m4 inttypes-pri.m4 isc-posix.m4 lcmessage.m4
