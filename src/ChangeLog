@@ -1,3 +1,7 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* format-lisp.c (gcd): Remove function. Include "gcd.h" instead.
+
 2001-09-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (usage): Mention ObjectiveC and Java.

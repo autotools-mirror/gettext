@@ -1,5 +1,12 @@
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
+	* gcd.h: New file.
+	* gcd.c: New file.
+	* Makefile.am (libnlsut_a_SOURCES): Add gcd.c.
+	(noinst_HEADERS): Add gcd.h.
+
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
 	* pipe.h: Ensure pid_t gets declared.
 	* pipe-bidi.c: Include pipe.h.
 	* pipe-in.c: Likewise.

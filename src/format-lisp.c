@@ -25,6 +25,7 @@
 
 #include "format.h"
 #include "c-ctype.h"
+#include "gcd.h"
 #include "system.h"
 #include "error.h"
 #include "progname.h"
@@ -127,7 +128,6 @@ struct param
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 #define union make_union
-static unsigned int gcd PARAMS ((unsigned int a, unsigned int b));
 static void verify_element PARAMS ((const struct format_arg * e));
 static void verify_list PARAMS ((const struct format_arg_list *list));
 static inline void free_element PARAMS ((struct format_arg *element));
@@ -230,69 +230,6 @@ static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
 				  void *msgid_descr, void *msgstr_descr));
-
-
-/* ============================== Arithmetic ============================== */
-
-/* Return the greatest common divisor of a > 0 and b > 0.  */
-static unsigned int
-gcd (a, b)
-     unsigned int a;
-     unsigned int b;
-{
-  /* Why no division, as in Euclid's algorithm? Because in Euclid's algorithm
-     the division result floor(a/b) or floor(b/a) is very often = 1 or = 2,
-     and nearly always < 8.  A sequence of a few subtractions and tests is
-     faster than a division.  */
-  /* Why not Euclid's algorithm? Because the two integers can be shifted by 1
-     bit in a single instruction, and the algorithm uses fewer variables than
-     Euclid's algorithm.  */
-
-  unsigned int c = a | b;
-  c = c ^ (c - 1);
-  /* c = largest power of 2 that divides a and b.  */
-
-  if (a & c)
-    {
-      if (b & c)
-	goto odd_odd;
-      else
-	goto odd_even;
-    }
-  else
-    {
-      if (b & c)
-	goto even_odd;
-      else
-	abort ();
-    }
-
-  for (;;)
-    {
-    odd_odd: /* a/c and b/c both odd */
-      if (a == b)
-	break;
-      if (a > b)
-	{
-	  a = a - b;
-	even_odd: /* a/c even, b/c odd */
-	  do
-	    a = a >> 1;
-	  while ((a & c) == 0);
-	}
-      else
-	{
-	  b = b - a;
-	odd_even: /* a/c odd, b/c even */
-	  do
-	    b = b >> 1;
-	  while ((b & c) == 0);
-	}
-    }
-
-  /* a = b */
-  return a;
-}
 
 
 /* ======================= Verify a format_arg_list ======================= */
