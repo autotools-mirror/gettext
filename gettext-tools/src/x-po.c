@@ -1,5 +1,5 @@
 /* xgettext PO and JavaProperties backends.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -40,6 +40,9 @@
 #define _(str) gettext (str)
 
 
+/* The charset found in the header entry.  */
+static char *header_charset;
+
 /* Define a subclass extract_po_reader_ty of default_po_reader_ty.  */
 
 static void
@@ -56,12 +59,30 @@ extract_add_message (default_po_reader_ty *this,
     goto discard;
 
   /* If the msgid is the empty string, it is the old header.  Throw it
-     away, we have constructed a new one.
+     away, we have constructed a new one.  Only remember its charset.
      But if no new one was constructed, keep the old header.  This is useful
      because the old header may contain a charset= directive.  */
   if (*msgid == '\0' && !xgettext_omit_header)
     {
-      discard:
+      const char *charsetstr = strstr (msgstr, "charset=");
+
+      if (charsetstr != NULL)
+	{
+	  size_t len;
+	  char *charset;
+
+	  charsetstr += strlen ("charset=");
+	  len = strcspn (charsetstr, " \t\n");
+	  charset = (char *) xmalloc (len + 1);
+	  memcpy (charset, charsetstr, len);
+	  charset[len] = '\0';
+
+	  if (header_charset != NULL)
+	    free (header_charset);
+	  header_charset = charset;
+	}
+
+     discard:
       free (msgid);
       free (msgstr);
       return;
@@ -108,6 +129,8 @@ extract (FILE *fp,
 {
   default_po_reader_ty *pop;
 
+  header_charset = NULL;
+
   pop = default_po_reader_alloc (&extract_methods);
   pop->handle_comments = true;
   pop->handle_filepos_comments = (line_comment != 0);
@@ -119,6 +142,46 @@ extract (FILE *fp,
   po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename,
 	   syntax);
   po_reader_free ((abstract_po_reader_ty *) pop);
+
+  if (header_charset != NULL)
+    {
+      if (!xgettext_omit_header)
+	{
+	  /* Put the old charset into the freshly constructed header entry.  */
+	  message_ty *mp = message_list_search (mdlp->item[0]->messages, "");
+
+	  if (mp != NULL && !mp->obsolete)
+	    {
+	      const char *header = mp->msgstr;
+
+	      if (header != NULL)
+		{
+		  const char *charsetstr = strstr (header, "charset=");
+
+		  if (charsetstr != NULL)
+		    {
+		      size_t len, len1, len2, len3;
+		      char *new_header;
+
+		      charsetstr += strlen ("charset=");
+		      len = strcspn (charsetstr, " \t\n");
+
+		      len1 = charsetstr - header;
+		      len2 = strlen (header_charset);
+		      len3 = (header + strlen (header)) - (charsetstr + len);
+		      new_header = (char *) xmalloc (len1 + len2 + len3 + 1);
+		      memcpy (new_header, header, len1);
+		      memcpy (new_header + len1, header_charset, len2);
+		      memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);
+		      mp->msgstr = new_header;
+		      mp->msgstr_len = len1 + len2 + len3 + 1;
+		    }
+		}
+	    }
+	}
+
+      free (header_charset);
+    }
 }
 
 

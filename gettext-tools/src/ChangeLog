@@ -1,3 +1,16 @@
+2005-01-09  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-ascii.h (is_ascii_msgdomain_list): New declaration.
+	* msgl-ascii.c (is_ascii_msgdomain_list): New function.
+	* x-po.c (header_charset): New variable.
+	(extract_add_message): When seeing the header entry, store the charset
+	in header_charset.
+	(extract): Store the value of header_charset in the new constructed
+	header entry.
+	* xgettext.c (main): Convert the existing PO file to UTF-8 if it was
+	not entirely ASCII.
+	Reported by Jörg Schilling <schilling@fokus.fraunhofer.de>.
+
 2005-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.c (usage): Explain COMMENT-PATTERN syntax as well.

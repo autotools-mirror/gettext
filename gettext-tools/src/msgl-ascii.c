@@ -1,5 +1,5 @@
 /* Message list test for ASCII character set.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -83,6 +83,18 @@ is_ascii_message_list (message_list_ty *mlp)
 
   for (j = 0; j < mlp->nitems; j++)
     if (!is_ascii_message (mlp->item[j]))
+      return false;
+
+  return true;
+}
+
+bool
+is_ascii_msgdomain_list (msgdomain_list_ty *mdlp)
+{
+  size_t k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    if (!is_ascii_message_list (mdlp->item[k]->messages))
       return false;
 
   return true;
