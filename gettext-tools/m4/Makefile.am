@@ -31,6 +31,12 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/wchar_t.m4 \
   ../../gettext-runtime/m4/wint_t.m4
 
+# Files installed for the examples.
+
+docdir = @docdir@
+examplesconfigdir = $(docdir)/examples/config
+examplesconfig_DATA = gcj.m4 javacomp.m4 javaexec.m4
+
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
 EXTRA_DIST = README ChangeLog.0 \

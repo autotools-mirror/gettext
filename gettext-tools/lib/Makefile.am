@@ -125,6 +125,12 @@ install-exec-clean:
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = gettext.h
 
+# Files installed for the examples.
+
+docdir = @docdir@
+examplesconfigdir = $(docdir)/examples/config
+examplesconfig_DATA = javacomp.sh.in javaexec.sh.in
+
 # List of files to be distributed.
 
 noinst_HEADERS = gettext.h

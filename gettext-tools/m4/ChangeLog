@@ -1,3 +1,8 @@
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (docdir, examplesconfigdir, examplesconfig_DATA): New
+	variables.
+
 2003-11-09  Bruno Haible  <bruno@clisp.org>
 
 	* javaexec.m4 (gt_JAVAEXEC): Accept two optional arguments, denoting
