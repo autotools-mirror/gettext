@@ -1,5 +1,16 @@
 2001-09-06  Bruno Haible  <haible@clisp.cons.org>
 
+	* javacomp.h: New file.
+	* javacomp.c: New file.
+	* javaexec.h: New file.
+	* javaexec.c: New file.
+	* classpath.c: New file.
+	* Makefile.am (EXTRA_DIST): Add classpath.c.
+	(libnlsut_a_SOURCES): Add javacomp.c, javaexec.c.
+	(noinst_HEADERS): Add javacomp.h, javaexec.h.
+
+2001-09-06  Bruno Haible  <haible@clisp.cons.org>
+
 	* sh-quote.h: New file.
 	* sh-quote.c: New file.
 	* Makefile.am (libnlsut_a_SOURCES): Add sh-quote.c.
