@@ -1,3 +1,7 @@
+2002-07-27  Andreas Schwab  <schwab@suse.de>
+
+	* gettext.m4: Avoid expanding ALL_LINGUAS in comment.
+
 2002-08-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Add ulonglong.m4.

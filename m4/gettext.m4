@@ -1,4 +1,4 @@
-# gettext.m4 serial 16 (gettext-0.11.4)
+# gettext.m4 serial 17 (gettext-0.11.5)
 dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -488,7 +488,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
         ;;
       esac
     done],
-   [# Capture the value of obsolete $ALL_LINGUAS because we need it to compute
+   [# Capture the value of obsolete ALL_LINGUAS because we need it to compute
     # POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES, CATALOGS. But hide it
     # from automake.
     eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
