@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -60,6 +60,7 @@
 #include "x-c.h"
 #include "x-po.h"
 #include "x-lisp.h"
+#include "x-elisp.h"
 #include "x-librep.h"
 #include "x-java.h"
 #include "x-ycp.h"
@@ -222,6 +223,7 @@ main (argc, argv)
       case 'a':
 	x_c_extract_all ();
 	x_lisp_extract_all ();
+	x_elisp_extract_all ();
 	x_librep_extract_all ();
 	x_java_extract_all ();
 	break;
@@ -275,6 +277,7 @@ main (argc, argv)
 	  {
 	    x_c_keyword (optarg);
 	    x_lisp_keyword (optarg);
+	    x_elisp_keyword (optarg);
 	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
 	  }
@@ -544,7 +547,8 @@ If output file is -, output is written to standard output.\n\
       printf (_("\
 Choice of input file language:\n\
   -L, --language=NAME            recognise the specified language\n\
-                                   (C, C++, ObjectiveC, PO, Java, YCP)\n\
+                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n\
+                                   librep, Java, YCP)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
 "));
@@ -1181,6 +1185,7 @@ language_to_extractor (name)
     SCANNERS_C
     SCANNERS_PO
     SCANNERS_LISP
+    SCANNERS_ELISP
     SCANNERS_LIBREP
     SCANNERS_JAVA
     SCANNERS_YCP
@@ -1223,6 +1228,7 @@ extension_to_language (extension)
     EXTENSIONS_C
     EXTENSIONS_PO
     EXTENSIONS_LISP
+    EXTENSIONS_ELISP
     EXTENSIONS_LIBREP
     EXTENSIONS_JAVA
     EXTENSIONS_YCP

@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_c */		&formatstring_c,
   /* format_python */		&formatstring_python,
   /* format_lisp */		&formatstring_lisp,
+  /* format_elisp */		&formatstring_elisp,
   /* format_librep */		&formatstring_librep,
   /* format_smalltalk */	&formatstring_smalltalk,
   /* format_java */		&formatstring_java,

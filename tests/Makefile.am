@@ -1,5 +1,5 @@
 ## Makefile for the check subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1997, 2001 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -46,6 +46,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	format-c-1 format-c-2 \
+	format-elisp-1 format-elisp-2 \
 	format-java-1 format-java-2 \
 	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
@@ -53,7 +54,7 @@ TESTS = gettext-1 gettext-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-clisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst
+	lang-c lang-c++ lang-objc lang-clisp lang-elisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.out
 

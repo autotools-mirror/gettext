@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -43,6 +43,7 @@ const char *const format_language[NFORMATS] =
   /* format_c */		"c",
   /* format_python */		"python",
   /* format_lisp */		"lisp",
+  /* format_elisp */		"elisp",
   /* format_librep */		"librep",
   /* format_smalltalk */	"smalltalk",
   /* format_java */		"java",
@@ -55,6 +56,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_c */		"C",
   /* format_python */		"Python",
   /* format_lisp */		"Lisp",
+  /* format_elisp */		"Emacs Lisp",
   /* format_librep */		"librep",
   /* format_smalltalk */	"Smalltalk",
   /* format_java */		"Java",

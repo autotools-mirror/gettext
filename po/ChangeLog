@@ -1,3 +1,7 @@
+2002-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add src/format-elisp.c, src/x-elisp.c.
+
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* Rules-quot (.insert-header.po-update-en): Set GETTEXTLIBDIR to an

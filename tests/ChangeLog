@@ -1,3 +1,11 @@
+2002-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* format-elisp-1: New file.
+	* format-elisp-2: New file.
+	* lang-elisp: New file.
+	* Makefile.am (TESTS): Add format-elisp-1, format-elisp-2,
+	lang-elisp.
+
 2002-01-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (TESTS): Add msgconv-3.

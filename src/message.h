@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -37,13 +37,14 @@ enum format_type
   format_c,
   format_python,
   format_lisp,
+  format_elisp,
   format_librep,
   format_smalltalk,
   format_java,
   format_pascal,
   format_ycp
 };
-#define NFORMATS 8	/* Number of format_type enum values.  */
+#define NFORMATS 9	/* Number of format_type enum values.  */
 extern const char *const format_language[NFORMATS];
 extern const char *const format_language_pretty[NFORMATS];
 

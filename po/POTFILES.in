@@ -1,5 +1,5 @@
 # List of files which containing translatable strings.
-# Copyright (C) 1995, 1998, 2001 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1998, 2001-2002 Free Software Foundation, Inc.
 
 # For updating this file, look at the result of:
 #   $ grep -l '[^A-Za-z_]_(' {lib,src}/*.[chly]
@@ -23,6 +23,7 @@ lib/xmalloc.c
 # Package source files
 src/file-list.c
 src/format-c.c
+src/format-elisp.c
 src/format-java.c
 src/format-librep.c
 src/format-lisp.c
@@ -64,6 +65,7 @@ src/write-java.c
 src/write-mo.c
 src/write-po.c
 src/x-c.c
+src/x-elisp.c
 src/x-librep.c
 src/x-lisp.c
 src/x-po.c

@@ -6272,7 +6272,7 @@ automatic
 use
 
 @item Extractor
-xpot
+@code{xgettext}
 
 @item Formatting with positions
 @code{format "%2$d %1$d"}

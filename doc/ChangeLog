@@ -1,3 +1,7 @@
+2002-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Emacs Lisp): Update.
+
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST_html): Remove variable.
