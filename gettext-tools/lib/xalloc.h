@@ -16,8 +16,8 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#ifndef _XMALLOC_H
-#define _XMALLOC_H
+#ifndef _XALLOC_H
+#define _XALLOC_H
 
 #include <stddef.h>
 
@@ -61,4 +61,4 @@ extern char *xstrdup (const char *string);
 #endif
 
 
-#endif /* _XMALLOC_H */
+#endif /* _XALLOC_H */
