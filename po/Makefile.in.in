@@ -164,7 +164,7 @@ update-po: Makefile
 	$(MAKE) $(PACKAGE).pot
 	if test "$(PACKAGE)" = "gettext"; then PATH=`pwd`/../src:$$PATH; fi; \
 	cd $(srcdir); \
-	catalogs='$(CATALOGS)'; \
+	catalogs='$(GMOFILES)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
