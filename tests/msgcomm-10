@@ -5,7 +5,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mcomm-test10.in1 mcomm-test10.in2"
+tmpfiles="$tmpfiles mcomm-test10.in1 mcomm-test10.in2"
 cat <<EOF > mcomm-test10.in1
 msgid ""
 msgstr ""

@@ -5,7 +5,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="foo.po"
+tmpfiles="$tmpfiles foo.po"
 cat <<EOF > foo.po
 domain "foo-de"
 msgid ""

@@ -5,7 +5,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # keep header file entry, otherwise the encoding is unknown
 
-tmpfiles="mcomm-test22.in1 mcomm-test22.in2"
+tmpfiles="$tmpfiles mcomm-test22.in1 mcomm-test22.in2"
 cat <<EOF > mcomm-test22.in1
 # German translations for GNU gettext package.
 # Copyright (C) 1995, 1996, 1997, 2001 Free Software Foundation, Inc.

@@ -6,7 +6,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mcomm-test20.in1 mcomm-test20.in2"
+tmpfiles="$tmpfiles mcomm-test20.in1 mcomm-test20.in2"
 cat <<EOF > mcomm-test20.in1
 # Sure.
 #: first.c:123

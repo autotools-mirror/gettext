@@ -8,7 +8,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # unique msg in in3
 
-tmpfiles="mcomm-test12.in1 mcomm-test12.in2 mcomm-test12.in3"
+tmpfiles="$tmpfiles mcomm-test12.in1 mcomm-test12.in2 mcomm-test12.in3"
 cat <<EOF > mcomm-test12.in1
 msgid ""
 msgstr ""

@@ -1,3 +1,10 @@
+2001-12-18  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-[12], msgcat-[1-7], msgcmp-[12], msgcomm-[1-9],
+	msgcomm-1[0-9], msgcomm-2[0-2], msgfmt-[1-9], msgfmt-10,
+	msgmerge-[1-9], msgmerge-1[0-3], msgunfmt-1, xgettext-[1-4]:
+	Unify tmpfiles handling.
+
 2001-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* lang-objc: If the locale couldn't be set, skip the test.

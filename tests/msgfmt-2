@@ -22,7 +22,7 @@ fi
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="LC_MESSAGES"
+tmpfiles="$tmpfiles LC_MESSAGES"
 test -d LC_MESSAGES || mkdir LC_MESSAGES
 
 tmpfiles="$tmpfiles module1.po module2.po"

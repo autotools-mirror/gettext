@@ -5,7 +5,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mm-test9.in1.po mm-test9.in2.po"
+tmpfiles="$tmpfiles mm-test9.in1.po mm-test9.in2.po"
 cat <<EOF > mm-test9.in1.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.

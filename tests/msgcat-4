@@ -6,7 +6,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 # input files with different charsets:
 # 1. UTF-8, 2. ISO-8859-1; plus --use-first
 
-tmpfiles="mcat-test4.in1 mcat-test4.in2"
+tmpfiles="$tmpfiles mcat-test4.in1 mcat-test4.in2"
 cat <<EOF > mcat-test4.in1
 # German message file for xyz.
 # Copyright (C) 1999, 2000, 2001 xyz.

@@ -5,7 +5,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mcat-test7.in1"
+tmpfiles="$tmpfiles mcat-test7.in1"
 cat <<EOF > mcat-test7.in1
 #: clients/inst_language.ycp:119
 msgid "two"

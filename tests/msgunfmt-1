@@ -3,7 +3,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mu-test1.in"
+tmpfiles="$tmpfiles mu-test1.in"
 cat <<EOF > mu-test1.in
 msgid "eight"
 msgstr "eighth"

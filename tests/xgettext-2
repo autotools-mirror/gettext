@@ -1,6 +1,9 @@
 #! /bin/sh
 
-tmpfiles="xg-test2.in.c"
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles xg-test2.in.c"
 cat <<EOF > xg-test2.in.c
 This is a test of the xgettext functionality.
 /* xgettext:no-c-format */

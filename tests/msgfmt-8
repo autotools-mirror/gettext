@@ -5,7 +5,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mf-test8.in1"
+tmpfiles="$tmpfiles mf-test8.in1"
 cat <<EOF > mf-test8.in1
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.

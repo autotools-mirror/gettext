@@ -284,12 +284,16 @@ msgid "nplurals = %lu..."
 msgstr ""
 
 #, c-format
-msgid "...but some messages have only %lu plural forms"
-msgstr ""
+msgid "...but some messages have only one plural form"
+msgid_plural "...but some messages have only %lu plural forms"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid "...but some messages have %lu plural forms"
-msgstr ""
+msgid "...but some messages have one plural form"
+msgid_plural "...but some messages have %lu plural forms"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
@@ -320,7 +324,7 @@ msgid "plural handling is a GNU gettext extension"
 msgstr ""
 
 #, c-format
-msgid "'msgstr' is not a valid %s format string, unlike 'msgid'"
+msgid "'%s' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
 #, c-format

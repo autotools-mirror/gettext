@@ -5,7 +5,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mf-test10.po1"
+tmpfiles="$tmpfiles mf-test10.po1"
 cat <<EOF > mf-test10.po1
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
@@ -41,7 +41,7 @@ EOF
 ${MSGFMT} --check mf-test10.po1 -o /dev/null || \
   { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="mf-test10.po2"
+tmpfiles="$tmpfiles mf-test10.po2"
 cat <<EOF > mf-test10.po2
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.

@@ -8,7 +8,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="zero-domain.po"
+tmpfiles="$tmpfiles zero-domain.po"
 rm -f zero-domain.po
 : ${XGETTEXT=xgettext}
 LC_MESSAGES=C LC_ALL= \

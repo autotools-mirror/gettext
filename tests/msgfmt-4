@@ -3,7 +3,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mf-test4.po"
+tmpfiles="$tmpfiles mf-test4.po"
 cat <<EOF >mf-test4.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.

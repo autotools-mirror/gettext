@@ -3,7 +3,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="xg-test4.in.c"
+tmpfiles="$tmpfiles xg-test4.in.c"
 cat <<EOF > xg-test4.in.c
 #line 42 "bozo"
 main(){printf(gettext("Hello, World!\n"));}

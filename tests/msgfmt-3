@@ -3,7 +3,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mf-test3.po"
+tmpfiles="$tmpfiles mf-test3.po"
 cat <<EOF >mf-test3.po
 #
 #       xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

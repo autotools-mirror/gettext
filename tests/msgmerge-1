@@ -3,7 +3,7 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="mm-test1.in1 mm-test1.in2"
+tmpfiles="$tmpfiles mm-test1.in1 mm-test1.in2"
 cat <<EOF > mm-test1.in1
 # first
 #. this should be discarded

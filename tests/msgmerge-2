@@ -9,7 +9,7 @@ LC_MESSAGES=
 LANG=
 export LANGUAGE LC_ALL LC_MESSAGES LANG
 
-tmpfiles="mm-test2.in1 mm-test2.in2"
+tmpfiles="$tmpfiles mm-test2.in1 mm-test2.in2"
 cat <<EOF > mm-test2.in1
 msgid "2" msgstr "2"
 msgid "3" msgstr "3"
