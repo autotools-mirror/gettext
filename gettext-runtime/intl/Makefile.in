@@ -145,9 +145,9 @@ libintl.la libgnuintl.la: $(OBJECTS)
 # according to the libtool documentation, section "Library interface versions".
 # Maintainers of other packages that include the intl directory must *not*
 # change these values.
-LTV_CURRENT=4
+LTV_CURRENT=5
 LTV_REVISION=0
-LTV_AGE=2
+LTV_AGE=3
 
 .SUFFIXES:
 .SUFFIXES: .c .y .o .lo .sin .sed
