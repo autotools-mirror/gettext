@@ -1,3 +1,13 @@
+2001-03-12  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextP.h (struct expression): Add operators less_than,
+	greater_than, less_or_equal, greater_or_equal.
+	* plural.y ('<', '>', LE, GE): New operators.
+	(exp): Add rules with these operators.
+	(FREE_EXPRESSION): Recognize these operators.
+	(yylex): Don't skip "\\n". Recognize '<', '>', LE, GE operators.
+	* dcigettext.c (plural_eval): Recognize these operators.
+
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (libintl.la): Pass -liconv and flag -no-undefined.

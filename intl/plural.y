@@ -60,12 +60,16 @@ static int yylex PARAMS ((YYSTYPE *lval, const char **pexp));
 static void yyerror PARAMS ((const char *str));
 %}
 
-%left '?'
-%left '|'
-%left '&'
-%left '=', '!'
-%left '+', '-'
-%left '*', '/', '%'
+/* This declares that all operators are left-associative, and that the
+   precedence order is the same as in C.  There is no unary minus.  */
+%left '?'			/*   ?		*/
+%left '|'			/*   ||		*/
+%left '&'			/*   &&		*/
+%left '=', '!'			/*   == !=	*/
+%nonassoc '<', '>', LE, GE	/*   < > <= >=	*/
+%left '+', '-'			/*   + -	*/
+%left '*', '/', '%'		/*   * / %	*/
+
 %token <num> NUMBER
 %type <exp> exp
 
@@ -100,6 +104,26 @@ exp:	  exp '?' exp ':' exp
 	| exp '!' exp
 	  {
 	    if (($$ = new_exp_2 (not_equal, $1, $3)) == NULL)
+	      YYABORT
+	  }
+	| exp '<' exp
+	  {
+	    if (($$ = new_exp_2 (less_than, $1, $3)) == NULL)
+	      YYABORT
+	  }
+	| exp '>' exp
+	  {
+	    if (($$ = new_exp_2 (greater_than, $1, $3)) == NULL)
+	      YYABORT
+	  }
+	| exp LE exp
+	  {
+	    if (($$ = new_exp_2 (less_or_equal, $1, $3)) == NULL)
+	      YYABORT
+	  }
+	| exp GE exp
+	  {
+	    if (($$ = new_exp_2 (greater_or_equal, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '+' exp
@@ -233,6 +257,10 @@ FREE_EXPRESSION (exp)
     case module:
     case plus:
     case minus:
+    case less_than:
+    case greater_than:
+    case less_or_equal:
+    case greater_or_equal:
     case equal:
     case not_equal:
     case land:
@@ -259,12 +287,6 @@ yylex (lval, pexp)
 
   while (1)
     {
-      if (exp[0] == '\\' && exp[1] == '\n')
-	{
-	  exp += 2;
-	  continue;
-	}
-
       if (exp[0] == '\0')
 	{
 	  *pexp = exp;
@@ -309,6 +331,22 @@ yylex (lval, pexp)
 	++exp;
       else
 	result = YYERRCODE;
+      break;
+
+    case '<':
+      if (exp[0] == '=')
+	{
+	  ++exp;
+	  result = LE;
+	}
+      break;
+
+    case '>':
+      if (exp[0] == '=')
+	{
+	  ++exp;
+	  result = GE;
+	}
       break;
 
     case 'n':

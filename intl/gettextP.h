@@ -84,8 +84,12 @@ struct expression
     module,			/* Module operation.  */
     plus,			/* Addition.  */
     minus,			/* Subtraction.  */
-    equal,			/* Comparision for equality.  */
-    not_equal,			/* Comparision for inequality.  */
+    less_than,			/* Comparison.  */
+    greater_than,		/* Comparison.  */
+    less_or_equal,		/* Comparison.  */
+    greater_or_equal,		/* Comparison.  */
+    equal,			/* Comparison for equality.  */
+    not_equal,			/* Comparison for inequality.  */
     land,			/* Logical AND.  */
     lor,			/* Logical OR.  */
     qmop			/* Question mark operator.  */

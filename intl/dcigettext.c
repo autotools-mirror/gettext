@@ -1009,6 +1009,18 @@ plural_eval (pexp, n)
     case minus:
       return (plural_eval (pexp->val.args2.left, n)
 	      - plural_eval (pexp->val.args2.right, n));
+    case less_than:
+      return (plural_eval (pexp->val.args2.left, n)
+	      < plural_eval (pexp->val.args2.right, n));
+    case greater_than:
+      return (plural_eval (pexp->val.args2.left, n)
+	      > plural_eval (pexp->val.args2.right, n));
+    case less_or_equal:
+      return (plural_eval (pexp->val.args2.left, n)
+	      <= plural_eval (pexp->val.args2.right, n));
+    case greater_or_equal:
+      return (plural_eval (pexp->val.args2.left, n)
+	      >= plural_eval (pexp->val.args2.right, n));
     case equal:
       return (plural_eval (pexp->val.args2.left, n)
 	      == plural_eval (pexp->val.args2.right, n));
