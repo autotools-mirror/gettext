@@ -1,3 +1,21 @@
+2001-10-28  Bruno Haible  <haible@clisp.cons.org>
+
+	Create a libgettextsrc shared library.
+	* Makefile.am (lib_LTLIBRARIES): New variable.
+	(libgettextsrc_la_SOURCES): New variable.
+	(msgcmp_SOURCES, msgfmt_SOURCES, msgmerge_SOURCES, msgunfmt_SOURCES,
+	xgettext_SOURCES, msgattrib_SOURCES, msgcat_SOURCES, msgcomm_SOURCES,
+	msgconv_SOURCES, msgen_SOURCES, msgexec_SOURCES, msggrep_SOURCES,
+	msginit_SOURCES, msguniq_SOURCES): Remove source files listed in
+	libgettextsrc_la_SOURCES.
+	(libgettextsrc_la_LDFLAGS): New variable.
+	(msgcmp_LDADD, msgfmt_LDADD, msgmerge_LDADD, msgunfmt_LDADD,
+	xgettext_LDADD, msgattrib_LDADD, msgcat_LDADD, msgcomm_LDADD,
+	msgconv_LDADD, msgen_LDADD, msgexec_LDADD, msggrep_LDADD,
+	msginit_LDADD, msguniq_LDADD): Add libgettextsrc.la. Remove all
+	dependencies already listed in libgettextsrc_la_LDFLAGS.
+	(po-lex.lo): Depend on po-gram-gen2.h.
+
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (LDADD): Replace libnlsut.a with libgettextlib.la.

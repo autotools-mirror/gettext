@@ -25,6 +25,8 @@ msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msginit msguniq
 
 noinst_PROGRAMS = hostname urlget
 
+lib_LTLIBRARIES = libgettextsrc.la
+
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
@@ -65,51 +67,64 @@ FORMAT_SOURCE = format.c \
 format-c.c format-java.c format-lisp.c format-python.c format-pascal.c \
 format-ycp.c
 
+# libgettextsrc contains all code that is needed by at least two programs.
+libgettextsrc_la_SOURCES = \
+$(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-cat.c \
+msgl-english.c file-list.c msgl-charset.c po-time.c \
+$(FORMAT_SOURCE)
+
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
-msgcmp_SOURCES    = msgcmp.c    $(COMMON_SOURCE)
-msgfmt_SOURCES    = msgfmt.c    $(COMMON_SOURCE) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c plural-eval.c $(FORMAT_SOURCE)
-msgmerge_SOURCES  = msgmerge.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-equal.c
-msgunfmt_SOURCES  = msgunfmt.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c read-mo.c read-java.c
-xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCE) msgl-ascii.c write-po.c file-list.c po-time.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCE)
-msgattrib_SOURCES = msgattrib.c $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c
-msgcat_SOURCES    = msgcat.c    $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
-msgcomm_SOURCES   = msgcomm.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
-msgconv_SOURCES   = msgconv.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c
-msgen_SOURCES     = msgen.c     $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-english.c
-msgexec_SOURCES   = msgexec.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
-msggrep_SOURCES   = msggrep.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
-msginit_SOURCES   = msginit.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-english.c po-time.c
-msguniq_SOURCES   = msguniq.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c
-hostname_SOURCES  = hostname.c
-urlget_SOURCES    = urlget.c
+msgcmp_SOURCES = msgcmp.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural.c plural-eval.c
+msgmerge_SOURCES = msgmerge.c msgl-equal.c
+msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
+xgettext_SOURCES = xgettext.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c
+msgattrib_SOURCES = msgattrib.c
+msgcat_SOURCES = msgcat.c
+msgcomm_SOURCES = msgcomm.c
+msgconv_SOURCES = msgconv.c
+msgen_SOURCES = msgen.c
+msgexec_SOURCES = msgexec.c
+msggrep_SOURCES = msggrep.c
+msginit_SOURCES = msginit.c
+msguniq_SOURCES = msguniq.c
+hostname_SOURCES = hostname.c
+urlget_SOURCES = urlget.c
+
+# How to build libgettextsrc.la.
+# Need ../lib/libgettextlib.la.
+# Need @INTLLIBS@ because many source files use gettext().
+# Need @LIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c use
+# iconv().
+libgettextsrc_la_LDFLAGS = \
+  -release @VERSION@ \
+  ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@ -no-undefined
 
 # Link dependencies.
-# po-lex.c and po.c may need -liconv.
-# write-po.c pulls in linebreak.c which may need -liconv.
-msgcmp_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgfmt_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgmerge_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgunfmt_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-xgettext_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgattrib_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgcat_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgcomm_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgconv_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgen_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msgexec_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msggrep_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgcmp_LDADD = libgettextsrc.la
+msgfmt_LDADD = libgettextsrc.la
+msgmerge_LDADD = libgettextsrc.la
+msgunfmt_LDADD = libgettextsrc.la
+xgettext_LDADD = libgettextsrc.la
+msgattrib_LDADD = libgettextsrc.la
+msgcat_LDADD = libgettextsrc.la
+msgcomm_LDADD = libgettextsrc.la
+msgconv_LDADD = libgettextsrc.la
+msgen_LDADD = libgettextsrc.la
+msgexec_LDADD = libgettextsrc.la
+msggrep_LDADD = libgettextsrc.la
 msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
-                ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
-msguniq_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+                libgettextsrc.la
+msguniq_LDADD = libgettextsrc.la
 
 
 # Special rules for bison and flex generated files.
 
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
-po-lex.o: po-gram-gen2.h
+po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
 	$(SED) 's/[yY][yY]/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
