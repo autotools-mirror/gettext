@@ -26,7 +26,7 @@ u16_uctomb_aux PARAMS ((unsigned short *s, unsigned int uc, int n));
 static inline int
 u16_uctomb PARAMS ((unsigned short *s, unsigned int uc, int n));
 
-/* Return the length (number of units) of the UTF-8 representation of uc,
+/* Return the length (number of units) of the UTF-16 representation of uc,
    after storing it at S.  Return -1 upon failure, -2 if the number of
    available units, N, is too small.  */
 static int
