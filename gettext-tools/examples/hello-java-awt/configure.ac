@@ -59,7 +59,6 @@ LIBINTL_JAR="$basedir"/share/gettext/libintl.jar
 AC_SUBST([LIBINTL_JAR])
 
 dnl Support for the po directory.
-AM_NLS
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([Makefile])

@@ -15,7 +15,7 @@ case $directory in
   hello-c++-kde)
     ./autogen.sh
     sed -e 's,tmp-,,' < configure.in > configure.ac
-    grep '^\(AC_INIT\|AC_CONFIG\|AM_INIT\|AM_CONDITIONAL\|AM_GNU_GETTEXT\|AM_NLS\|AM_PO_SUBDIRS\|AC_OUTPUT\)' configure.ac > configure.in
+    grep '^\(AC_INIT\|AC_CONFIG\|AM_INIT\|AM_CONDITIONAL\|AM_GNU_GETTEXT\|AM_PO_SUBDIRS\|AC_OUTPUT\)' configure.ac > configure.in
     rm -f configure.ac 
     autoconf
     ./configure
@@ -24,7 +24,7 @@ case $directory in
     ./autogen.sh
     ;;
   *)
-    grep '^\(AC_INIT\|AC_CONFIG\|AM_INIT\|AM_CONDITIONAL\|AM_GNU_GETTEXT\|AM_NLS\|AM_PO_SUBDIRS\|AC_OUTPUT\)' configure.ac > configure.in
+    grep '^\(AC_INIT\|AC_CONFIG\|AM_INIT\|AM_CONDITIONAL\|AM_GNU_GETTEXT\|AM_PO_SUBDIRS\|AC_OUTPUT\)' configure.ac > configure.in
     rm -f configure.ac 
     ./autogen.sh
     ./configure

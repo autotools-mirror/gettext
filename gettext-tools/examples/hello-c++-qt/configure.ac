@@ -16,7 +16,6 @@ FUN_CHECK_PTHREAD
 FUN_CHECK_QT(220)
 
 dnl Support for the po directory.
-AM_NLS
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([Makefile])

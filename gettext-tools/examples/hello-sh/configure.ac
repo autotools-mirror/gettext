@@ -22,7 +22,6 @@ prefix="$save_prefix"
 AC_SUBST(localedir)
 
 dnl Support for the po directory.
-AM_NLS
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([Makefile])

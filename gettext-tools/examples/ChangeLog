@@ -1,3 +1,8 @@
+2003-11-20  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/configure.ac: Remove AM_NLS invocation.
+	* po/xsmallpot.sh: Don't keep AM_NLS lines.
+
 2003-11-19  Bruno Haible  <bruno@clisp.org>
 
 	* po/de.po: Update from Karl Eichwalder <ke@suse.de>.
