@@ -28,7 +28,7 @@ while true; do
         ;;
     esac
     if test -n "$package"; then
-      is_gnu=`LC_ALL=C grep "GNU $package" * 2>/dev/null`
+      is_gnu=`LC_ALL=C grep "GNU $package" * 2>/dev/null | grep -v '^libtool:'`
       if test -n "$is_gnu"; then
         package="GNU $package"
       fi

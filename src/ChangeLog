@@ -1,3 +1,9 @@
+2002-10-14  Bruno Haible  <bruno@clisp.org>
+
+	* project-id: When testing for "GNU $package", ignore libtool, because
+	libtool.m4 calls a package "GNU $package" even if it is not GNU.
+	Reported by Andrew Suffield <asuffield@debian.org>.
+
 2002-10-03  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-equal.h (message_equal, message_list_equal,
