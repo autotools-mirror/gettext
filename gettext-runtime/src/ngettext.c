@@ -253,16 +253,19 @@ expand_escape (const char *str)
   char *retval, *rp;
   const char *cp = str;
 
-  do
+  for (;;)
     {
       while (cp[0] != '\0' && cp[0] != '\\')
 	++cp;
+      if (cp[0] == '\0')
+	return str;
+      /* Found a backslash.  */
+      if (cp[1] == '\0')
+	return str;
+      if (strchr ("abcfnrtv\\01234567", cp[1]) != NULL)
+	break;
+      ++cp;
     }
-  while (cp[0] != '\0' && cp[1] != '\0'
-	 && strchr ("abfnrtv\\01234567", cp[1]) == NULL);
-
-  if (cp[0] == '\0')
-    return str;
 
   retval = (char *) xmalloc (strlen (str));
 
@@ -271,6 +274,7 @@ expand_escape (const char *str)
 
   do
     {
+      /* Here cp[0] == '\\'.  */
       switch (*++cp)
 	{
 	case 'a':		/* alert */

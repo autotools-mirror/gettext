@@ -1,5 +1,11 @@
 2004-07-10  Bruno Haible  <bruno@clisp.org>
 
+	* tstgettext.c (expand_escape): Don't go into an endless loop when the
+	first backslash is not followed by one of the expected characters.
+	Reported by Arkadiusz Miśkiewicz <arekm@pld-linux.org>.
+
+2004-07-10  Bruno Haible  <bruno@clisp.org>
+
 	* tstgettext.c (expand_escape): Support also \a and \v.
 
 2004-03-14  Bruno Haible  <bruno@clisp.org>
