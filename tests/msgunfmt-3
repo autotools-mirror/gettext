@@ -39,7 +39,7 @@ ${MSGFMT} --tcl -d msgs -l fr fr.po || exit 1
 
 tmpfiles="$tmpfiles prog.out"
 : ${MSGUNFMT=msgunfmt}
-GETTEXTDATADIR=../src \
+GETTEXTDATADIR=${top_srcdir}/src \
 ${MSGUNFMT} --tcl -d msgs -l fr -o prog.out || exit 1
 
 tmpfiles="$tmpfiles prog.ok"
