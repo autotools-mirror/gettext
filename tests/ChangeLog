@@ -1,3 +1,8 @@
+2002-10-27  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge-16: Change expected result to match msgmerge behaviour
+	modified on 2002-10-03.
+
 2002-09-09  Bruno Haible  <bruno@clisp.org>
 
 	* lang-smalltalk: New file.

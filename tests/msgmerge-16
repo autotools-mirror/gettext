@@ -1,7 +1,8 @@
 #! /bin/sh
 
-# Test --update: POT-Creation-Date changed. This change must be reflected
-# in the resulting PO file.
+# Test --update: POT-Creation-Date changed. This change must not be reflected
+# in the resulting PO file; this is needed for projects which don't put the
+# .pot file under CVS.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -64,7 +65,7 @@ cat <<\EOF > mm-test16.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: cog_training 1.0\n"
-"POT-Creation-Date: 2001-04-30 18:51+0200\n"
+"POT-Creation-Date: 2001-04-29 22:40+0200\n"
 "PO-Revision-Date: 2001-04-29 21:19+02:00\n"
 "Last-Translator: Felix N. <xyz@zyx.uucp>\n"
 "Language-Team: German <de@li.org>\n"
