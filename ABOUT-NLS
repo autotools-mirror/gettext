@@ -133,26 +133,10 @@ Translating Teams
    For the Free Translation Project to be a success, we need interested
 people who like their own language and write it well, and who are also
 able to synergize with other translators speaking the same language.
-Each translation team has its own mailing list, courtesy of Linux
-International.  You may reach your translation team at the address
-`LL@li.org', replacing LL by the two-letter ISO 639 code for your
-language.  Language codes are _not_ the same as the country codes given
-in ISO 3166.  The following translation teams exist, as of July 2000:
-
-     Breton `br', Bulgarian `bg' (email: `bg@bulgaria.com'), Chinese
-     `zh', Czech `cs', Danish `da', Dutch `nl', English `en', Esperanto
-     `eo', Estonian `et', Finnish `fi', French `fr', Galician `gl'
-     (email: `gpul-traduccion@ceu.fi.udc.es'), German `de', Greek `el'
-     (email: `nls@tux.hellug.gr'), Hungarian `hu', Irish `ga', Italian
-     `it', Indonesian `id', Japanese `ja', Korean `ko', Latin `la',
-     Latvian `lv' (email: `translations@lv.quite.net'), Norwegian `no',
-     Persian `fa', Polish `pl', Portuguese `pt', Portuguese/Brazil
-     `pt_BR' (email: `ldp-br@bazar.conectiva.com.br'), Russian `ru',
-     Slovak `sk' (email: `sk-i18n@rak.isternet.sk'), Slovenian `sl',
-     Spanish `es', Swedish `sv', and Turkish `tr'.
-
-For example, you may reach the Chinese translation team by writing to
-`zh@li.org'.
+Each translation team has its own mailing list.  The up-to-date list of
+teams can be found at the Free Translation Project's homepage,
+`http://www.iro.umontreal.ca/contrib/po/HTML/', in the "National teams"
+area.
 
    If you'd like to volunteer to _work_ at translating messages, you
 should become a member of the translating team for your own language.
@@ -179,77 +163,96 @@ Available Packages
    Languages are not equally supported in all packages.  The following
 matrix shows the current state of internationalization, as of July
 2000.  The matrix shows, in regard of each package, for which languages
-PO files have been submitted to translation coordination.
+PO files have been submitted to translation coordination, with a
+translation percentage of at least 50%.
 
-     Ready PO files    cs da de el en es fi fr it
-                     .----------------------------.
-     bash            |       []             []    |
-     bison           |       []             []    |
-     clisp           |       []    [] []    []    |
-     cpio            |       []       []    []    |
-     diffutils       |       []       []    []    |
-     enscript        |       []       [] [] []    |
-     fileutils       | []    []       []    []    |
-     findutils       |       []       []    [] [] |
-     flex            |                []    []    |
-     gcal            |       []             []    |
-     gettext         |    [] [] []    []    []    |
-     grep            |       [] []    []    []    |
-     hello           |    [] []       []    [] [] |
-     id-utils        |       []             []    |
-     indent          |    [] []                   |
-     libc            |       []       []    []    |
-     m4              |       []             []    |
-     make            |       []       []    []    |
-     music           |                      []    |
-     ptx             |       []       []    []    |
-     recode          |    [] []       []    []    |
-     sed             |                            |
-     sh-utils        |       []       []    []    |
-     sharutils       | []    [] []    []    []    |
-     tar             | []    []             [] [] |
-     texinfo         | []    []             []    |
-     textutils       | []    []       []    []    |
-     wdiff           | []    []       []    []    |
-     wget            | []    [] []             [] |
-                     `----------------------------'
-                       cs da de el en es fi fr it
-                        7  4 26  4  1 18  1 26  4
+     Ready PO files    bg cs da de el en eo es et fi fr gl hr id it
+                     .----------------------------------------------.
+     a2ps            |          []             []                   |
+     bash            |          []       []          []             |
+     bison           |          []          [] []    []             |
+     clisp           |          []    []    []       []             |
+     cpio            |          []          []       []             |
+     diffutils       |       [] []          []       [] []          |
+     enscript        |          []                   []             |
+     error           |                               []             |
+     fileutils       |    [] [] [] []       []       [] []       [] |
+     findutils       |          []          [] []    [] []       [] |
+     flex            |                      []       []             |
+     gcal            |                                              |
+     gcc             |                                              |
+     gettext         |    [] [] [] []       []       [] []    [] [] |
+     gnupg           |          []       []          []          [] |
+     grep            | [] [] [] [] []    [] [] []    []          [] |
+     hello           |          []          [] [] [] []       [] [] |
+     id-utils        |                               []             |
+     indent          |       [] []             []    [] []          |
+     libc            |    [] [] [] []       []       [] []       [] |
+     lilypond        |                                              |
+     lynx            |    [] [] []                                  |
+     m4              |    [] [] [] []                [] []          |
+     make            |          []          []       [] []          |
+     music           |                               []             |
+     parted          |          []                      []          |
+     ptx             |       [] []          [] []    [] []    []    |
+     python          |                                              |
+     recode          |       [] [] []       []       [] []       [] |
+     sed             |    []    [] []          []    [] []       [] |
+     sh-utils        |    [] [] [] []       [] []    [] []       [] |
+     sharutils       |    []    [] []       []       [] []          |
+     tar             |    [] [] []          [] []    []          [] |
+     texinfo         |    []    []       []          []             |
+     textutils       |    [] [] [] []       []       [] []          |
+     util-linux      |                                              |
+     wdiff           |    [] []             [] []    []             |
+     wget            |    [] [] [] []          []    [] []       [] |
+                     `----------------------------------------------'
+                       bg cs da de el en eo es et fi fr gl hr id it
+                        1 14 15 28 11  1  4 19 12  1 30 16  0  3 12
      
-                       ja ko nl no pl pt ru sl sv
-                     .----------------------------.
-     bash            |       []                   |  3
-     bison           |       []                   |  3
-     clisp           |                            |  4
-     cpio            |    [] []    []             |  6
-     diffutils       |             []          [] |  5
-     enscript        |       []             []    |  6
-     fileutils       |    [] []    [] [] [] [] [] | 11
-     findutils       |    [] []    []    []    [] |  9
-     flex            |    []                   [] |  4
-     gcal            |       []    []          [] |  5
-     gettext         |    [] [] [] [] []    [] [] | 13
-     grep            |    [] [] [] []    [] [] [] | 11
-     hello           |    [] [] [] [] []    [] [] | 12
-     id-utils        |             []             |  3
-     indent          |    []       []    []       |  5
-     libc            |    [] [] [] []          [] |  8
-     m4              | []    []          []    [] |  6
-     make            |    [] []    []             |  6
-     music           |             []             |  2
-     ptx             |       [] [] [] []       [] |  8
-     recode          |       []    [] []    [] [] |  9
-     sed             |                            |  0
-     sh-utils        |       [] [] [] []       [] |  8
-     sharutils       |       []                [] |  7
-     tar             |    [] [] [] [] []    [] [] | 11
-     texinfo         |       []                   |  4
-     textutils       |    [] [] [] []          [] |  9
-     wdiff           |       [] [] []          [] |  8
-     wget            |          []                |  5
-                     `----------------------------'
-       18 teams        ja ko nl no pl pt ru sl sv
-       29 domains       1 12 21 11 19  7  5  7 17  191
+                       ja ko lv nl no pl pt pt_BR ru sk sl sv zh
+                     .-------------------------------------------.
+     a2ps            |          []                []    []       |  5
+     bash            |                                           |  3
+     bison           | []       []                []             |  7
+     clisp           |          []                               |  5
+     cpio            |    []    []    []     []   []             |  8
+     diffutils       |                []          []       []    |  8
+     enscript        |          []                []             |  4
+     error           |                                           |  1
+     fileutils       | [] []    []    []     []   [] [] [] []    | 17
+     findutils       |    []    []    []     []   []       []    | 12
+     flex            |    []                      []       []    |  5
+     gcal            |                                           |  0
+     gcc             | []                                        |  1
+     gettext         | [] []    []    []     []   []    [] [] [] | 18
+     gnupg           | []             []                   []    |  7
+     grep            | []       []    []     []   []    [] []    | 17
+     hello           | [] []    []    []     []   [] []    []    | 15
+     id-utils        |          []                []       []    |  4
+     indent          |    []          []          [] []    []    | 10
+     libc            | [] []    [] [] []     []      []    []    | 16
+     lilypond        | []       []                               |  2
+     lynx            | []       []           []   []             |  7
+     m4              | []       []    []          []       []    | 11
+     make            | []       []    []     []   []             |  9
+     music           |                []                         |  2
+     parted          | []       []           []   []             |  6
+     ptx             |          [] [] [] []       []       []    | 13
+     python          |                                           |  0
+     recode          |                            []    [] []    | 10
+     sed             | []       []           []   [] [] [] []    | 14
+     sh-utils        | []       [] [] []     []   [] [] [] [] [] | 19
+     sharutils       | []       []                []       []    | 10
+     tar             | []       [] [] []     []   []    [] []    | 15
+     texinfo         | []                         []             |  6
+     textutils       | []       [] [] []     []   [] [] []       | 15
+     util-linux      |                       []                  |  1
+     wdiff           |          []    []          [] []    []    | 10
+     wget            | []       [] []        []   [] [] [] [] [] | 17
+                     `-------------------------------------------'
+       28 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv zh
+       38 domains      20  8  0 25  6 18  1  16   27  9 10 20  3  330
 
    Some counters in the preceding matrix are higher than the number of
 visible blocks let us expect.  This is because a few extra PO files are
@@ -263,7 +266,9 @@ lag between the mere existence a PO file and its wide availability in a
 distribution.
 
    If July 2000 seems to be old, you may fetch a more recent copy of
-this `ABOUT-NLS' file on most GNU archive sites.
+this `ABOUT-NLS' file on most GNU archive sites.  The most up-to-date
+matrix with full percentage details can be found at
+`http://www.iro.umontreal.ca/contrib/po/HTML/matrix.html'.
 
 Using `gettext' in new packages
 ===============================
