@@ -28,11 +28,11 @@ VPATH = @srcdir@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 transform = @program_transform_name@
-libdir = $(exec_prefix)/lib
-includedir = $(prefix)/include
-datadir = $(prefix)/share
+libdir = @libdir@
+includedir = @includedir@
+datadir = @datadir@
 localedir = $(datadir)/locale
-gettextsrcdir = @datadir@/gettext/intl
+gettextsrcdir = $(datadir)/gettext/intl
 aliaspath = $(localedir)
 subdir = intl
 
