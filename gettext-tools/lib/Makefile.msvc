@@ -99,7 +99,7 @@ OBJECTS = \
   obstack.obj \
   concatpath.obj \
   pipe-bidi.obj pipe-in.obj pipe-out.obj \
-  progname.obj \
+  progname.obj progreloc.obj \
   safe-read.obj \
   safe-write.obj \
   sh-quote.obj \
@@ -202,6 +202,9 @@ pipe-out.obj : pipe-out.c
 
 progname.obj : progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c progname.c
+
+progreloc.obj : progreloc.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c progreloc.c
 
 safe-read.obj : safe-read.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c safe-read.c

@@ -56,7 +56,7 @@ libgettextlib_la_SOURCES = \
   pathmax.h \
   pathname.h concatpath.c \
   pipe.h pipe-bidi.c pipe-in.c pipe-out.c w32spawn.h \
-  progname.h progname.c \
+  progname.h progname.c progreloc.c \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \

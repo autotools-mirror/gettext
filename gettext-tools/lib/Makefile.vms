@@ -54,7 +54,7 @@ OBJECTS = \
   obstack.obj, \
   concatpath.obj, \
   pipe-bidi.obj, pipe-in.obj, pipe-out.obj, \
-  progname.obj, \
+  progname.obj, progreloc.obj, \
   relocatable.obj, \
   safe-read.obj, \
   safe-write.obj, \
@@ -153,6 +153,9 @@ pipe-out.obj : pipe-out.c
 
 progname.obj : progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) progname.c
+
+progreloc.obj : progreloc.c
+	$(CC) $(INCLUDES) $(CFLAGS) progreloc.c
 
 relocatable.obj : relocatable.c
 	$(CC) $(INCLUDES) $(CFLAGS) relocatable.c

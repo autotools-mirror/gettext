@@ -1,3 +1,13 @@
+2003-04-06  Bruno Haible  <bruno@clisp.org>
+
+	* progname.c: Move out all methods depending on ENABLE_RELOCATABLE...
+	* progreloc.c: ... to here. New file.
+	* Makefile.am (libgettextlib_la_SOURCES): Add progreloc.c.
+	* Makefile.msvc (OBJECTS): Add progreloc.obj.
+	(progreloc.obj): New rule.
+	* Makefile.vms (OBJECTS): Add progreloc.obj.
+	(progreloc.obj): New rule.
+
 2003-04-05  Bruno Haible  <bruno@clisp.org>
 
 	* relocatable.c: Rely on DEPENDS_ON_LIBCHARSET, DEPENDS_ON_LIBICONV,

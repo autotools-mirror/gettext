@@ -19,6 +19,7 @@
 /* Dependencies:
    relocwrapper
     -> progname
+    -> progreloc
         -> xreadlink
         -> canonicalize
     -> relocatable
