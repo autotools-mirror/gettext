@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
 # Jan Djärv <Jan.Djarv@mbox200.swipnet.se>, 1998, 2001.
-# Revision: 1.32
+# Revision: 1.35
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11-pre1\n"
+"Project-Id-Version: gettext 0.11-pre2\n"
 "POT-Creation-Date: 2001-11-30 14:18+0100\n"
-"PO-Revision-Date: 2001-11-13 18:51+0100\n"
+"PO-Revision-Date: 2001-12-03 20:32+0100\n"
 "Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -990,7 +990,7 @@ msgstr "%s-barnprocess avslutade med slutstatus %d"
 #: src/msgfmt.c:303
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
-msgstr ""
+msgstr "argumentet till %s ska vara ett enskilt skiljetecken"
 
 #: src/msgfmt.c:364
 #, c-format
@@ -1091,7 +1091,7 @@ msgstr ""
 "till den givna katalogen.\n"
 
 #: src/msgfmt.c:533
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file interpretation:\n"
 "  -c, --check                 perform all the checks implied by\n"
@@ -1114,6 +1114,8 @@ msgstr ""
 "                                domändirektiv och flaggan --output-file\n"
 "  -C, --check-compatibility   kontrollera att GNU msgfmt uppför sig som\n"
 "                                X/Open msgfmt\n"
+"      --check-accelerators[=TKN]   kontrollera närvaron av tangentkortkommandon\n"
+"                                för menyer\n"
 "  -f, --use-fuzzy             använd luddiga poster i resultatet\n"
 
 #: src/msgfmt.c:548
@@ -1246,12 +1248,12 @@ msgstr "'msgstr' är inte en giltig %s-formatsträng, till skillnad från 'msgid'"
 #: src/msgfmt.c:1122
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr ""
+msgstr "msgstr saknar märket \"%c\" för tangentkortkommandon"
 
 #: src/msgfmt.c:1130
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
-msgstr ""
+msgstr "msgstr har för många märken \"%c\" för tangentkortkommandon"
 
 #: src/msgfmt.c:1164
 #, c-format
@@ -1273,9 +1275,8 @@ msgid "field `%s' still has initial default value"
 msgstr "huvudrad \"%s\" har kvar initialt standardvärde"
 
 #: src/msgfmt.c:1228
-#, fuzzy
 msgid "warning: PO file header missing or invalid\n"
-msgstr "varning: PO-filens huvudrader saknas, är luddiga eller ogiltiga\n"
+msgstr "varning: PO-filens huvudrader saknas eller är ogiltiga\n"
 
 #: src/msgfmt.c:1231
 msgid "warning: charset conversion will not work\n"
@@ -1284,13 +1285,12 @@ msgstr ""
 "misslyckas.\n"
 
 #: src/msgfmt.c:1241
-#, fuzzy
 msgid "warning: PO file header fuzzy\n"
-msgstr "varning: PO-filens huvudrader saknas, är luddiga eller ogiltiga\n"
+msgstr "varning: PO-filens huvudrader är luddiga\n"
 
 #: src/msgfmt.c:1243
 msgid "warning: older versions of msgfmt will give an error on this\n"
-msgstr ""
+msgstr "varning: äldre versioner av msgfmt ger ett fel för detta\n"
 
 #: src/msgfmt.c:1268
 #, c-format
@@ -1445,7 +1445,7 @@ msgstr ""
 #: src/msginit.c:326
 #, c-format
 msgid "Created %s.\n"
-msgstr ""
+msgstr "Skapade %s.\n"
 
 #: src/msginit.c:348
 #, no-wrap
@@ -1483,7 +1483,7 @@ msgstr ""
 "lokalinställning.  Om den är - skrivs resultatet till standard ut.\n"
 
 #: src/msginit.c:375
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1492,6 +1492,7 @@ msgid ""
 msgstr ""
 "Utdatadetaljer:\n"
 "  -l, --locale=LL_CC          sätt mållokal\n"
+"      --no-translator         antag att PO-filen är automatgenererad\n"
 "  -w, --width=ANTAL           sätt antal kolumner i resultatet\n"
 
 #: src/msginit.c:426
@@ -1783,14 +1784,12 @@ msgstr ""
 "  -q, --quiet, --silent       visa inte framstegsindikatorer\n"
 
 #: src/msgmerge.c:625
-#, fuzzy
 msgid "this message should define plural forms"
-msgstr "...men några meddelanden har bara %lu pluralformer"
+msgstr "detta meddelande ska definiera pluralformer"
 
 #: src/msgmerge.c:648
-#, fuzzy
 msgid "this message should not define plural forms"
-msgstr "detta meddelande används men är inte definierat i %s"
+msgstr "detta meddelande ska inte definiera pluralformer"
 
 #: src/msgmerge.c:779
 #, c-format
@@ -2378,24 +2377,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"
-
-#~ msgid "while creating hash table"
-#~ msgstr "när hashtabellen skapades"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ "  -v, --verbose               increase verbosity level\n"
-#~ msgstr ""
-#~ "Informativ utskrift:\n"
-#~ "  -h, --help                  visa denna hjälptext och avsluta\n"
-#~ "  -V, --version               visa versionsinformation och avsluta\n"
-#~ "  -v, --verbose               öka mängden information i meddelanden\n"
-
-#~ msgid "%s:%lu: warning: keyword nested in keyword arg"
-#~ msgstr ""
-#~ "%s:%lu: varning: nyckelord förekommer i argument till annat nyckelord"
-
-#~ msgid "%s:%lu: warning: keyword between outer keyword and its arg"
-#~ msgstr "%s:%lu: varning: nyckelord mellan yttre nyckelord och dess argument"
