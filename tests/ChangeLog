@@ -1,5 +1,13 @@
 2001-06-23  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgcomm-18: New file, from Karl Eichwalder with modifications.
+	* msgcomm-19: New file, from Karl Eichwalder with modifications.
+	* msgcomm-20: New file, from Karl Eichwalder with modifications.
+	* msgcomm-21: New file, from Karl Eichwalder with modifications.
+	* Makefile.am (TESTS): Add them.
+
+2001-06-23  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgcomm-17: New file, from Karl Eichwalder.
 	* Makefile.am (TESTS): Add it.
 
