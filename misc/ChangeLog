@@ -1,3 +1,8 @@
+2002-01-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Always recommend the full set of m4 files. Many
+	improvements for packages that use automake. Modify configure.in.
+
 2002-01-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Handle po/Makevars specially, don't overwrite the

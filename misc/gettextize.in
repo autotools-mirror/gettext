@@ -94,6 +94,12 @@ fi
 prefix=@prefix@
 gettext_dir=@datadir@/gettext
 
+modified_ChangeLog=
+added_directories=
+added_extradist=
+added_acoutput=
+please=
+
 test -f configure.in || test -f configure.ac || {
   $echo "Missing configure.in or configure.ac, please cd to your package first."
   exit 1
@@ -116,6 +122,9 @@ if test -f ABOUT-NLS && test $force -eq 0; then
   exit 1
 fi
 
+if test ! -f intl/Makefile.in && test -n "$intldir"; then
+  added_acoutput="$added_acoutput intl/Makefile"
+fi
 if test -d intl; then
   # Remove everything inside intl except for RCS and CVS subdirs and invisible
   # files.
@@ -166,6 +175,11 @@ for file in *; do
       if test -n "$auxdir"; then
         auxdir="$auxdir/"
       fi
+      if test -f $srcdir/$auxdir$file; then
+        :
+      else
+        added_extradist="$added_extradist $auxdir$file"
+      fi
       rm -f $srcdir/$auxdir$file
       ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$auxdir$file && $echo "Symlinking file $auxdir$file") 2>/dev/null ||
       { $echo "Copying file $auxdir$file"; cp $file $srcdir/$auxdir$file; }
@@ -191,12 +205,21 @@ if test -n "$intldir"; then
   done
   cd ..
 else
-  echo "Not copying intl/ directory. Please use AM_GNU_GETTEXT([external])"
-  echo "in order to cause autoconfiguration to look for an external libintl."
+  echo "Not copying intl/ directory."
+  please="$please
+Please use AM_GNU_GETTEXT([external]) in order to cause autoconfiguration
+to look for an external libintl.
+"
 fi
 
 # Copy files to po/ subdirectory.
 cd po
+DATE=`date +%Y-%m-%d`
+cat > $srcdir/po/ChangeLog.tmp <<EOF
+$DATE  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* Makefile.in.in: Upgrade to gettext-${version}.
+EOF
 for file in *; do
   case $file in
     Makevars)
@@ -204,28 +227,42 @@ for file in *; do
       ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file.template && $echo "Symlinking file po/$file.template") 2>/dev/null ||
       { $echo "Copying file po/$file.template"; cp $file $srcdir/po/$file.template; }
       if test -f $srcdir/po/$file; then
-        echo "Please update po/$file so that it defines all the variables mentioned"
-        echo "in po/$file.template."
+        please="$please
+Please update po/$file so that it defines all the variables mentioned
+in po/$file.template.
+You can then remove po/$file.template.
+"
       else
-        echo "Please create po/$file from the template in po/$file.template."
+        please="$please
+Please create po/$file from the template in po/$file.template.
+You can then remove po/$file.template.
+"
       fi
-      echo "You can then remove po/$file.template."
       ;;
     *)
-      rm -f $srcdir/po/$file~
-      cp -p $srcdir/po/$file $srcdir/po/$file~
+      if test "$file" = Makefile.in.in; then
+        if test -f $srcdir/po/$file; then
+          :
+        else
+          added_acoutput="$added_acoutput po/Makefile.in"
+        fi
+      else
+        if test -f $srcdir/po/$file; then
+          echo "	* $file: Upgrade to gettext-${version}." >> $srcdir/po/ChangeLog.tmp
+        else
+          echo "	* $file: New file, from gettext-${version}." >> $srcdir/po/ChangeLog.tmp
+        fi
+      fi
+      if test -f $srcdir/po/$file; then
+        rm -f $srcdir/po/$file~
+        cp -p $srcdir/po/$file $srcdir/po/$file~
+      fi
       rm -f $srcdir/po/$file
       ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && $echo "Symlinking file po/$file") 2>/dev/null ||
       { $echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
       ;;
   esac
 done
-DATE=`date +%Y-%m-%d`
-cat > $srcdir/po/ChangeLog.tmp <<EOF
-$DATE  gettextize  <bug-gnu-gettext@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-${version}.
-EOF
 if test -f $srcdir/po/cat-id-tbl.c; then
   $echo "Removing po/cat-id-tbl.c"
   rm -f $srcdir/po/cat-id-tbl.c
@@ -247,27 +284,214 @@ fi
 cp $srcdir/po/ChangeLog.tmp $srcdir/po/ChangeLog
 rm -f $srcdir/po/ChangeLog.tmp
 
-echo
-echo "Please add the files"
-if test -n "$intldir"; then
-  echo "  codeset.m4 gettext.m4 glibc21.m4 iconv.m4 isc-posix.m4 lcmessage.m4"
-  echo "  lib-ld.m4 lib-link.m4 lib-prefix.m4 progtest.m4"
-else
-  echo "  gettext.m4 iconv.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 progtest.m4"
-fi
-echo "from the @datadir@/aclocal directory to your autoconf macro directory"
+m4filelist='  codeset.m4 gettext.m4 glibc21.m4 iconv.m4 isc-posix.m4 lcmessage.m4
+  lib-ld.m4 lib-link.m4 lib-prefix.m4 progtest.m4'
+# We cannot omit codeset.m4, glibc21.m4, isc-posix.m4, lcmessage.m4 if
+# test -z "$intldir", otherwise "aclocal -I m4" might give an error.
+# (aclocal doesn't know which macros are really needed, it looks which macros
+# are potentially needed.)
+
+# All sorts of bugs could occur if the configure file was remade with the wrong
+# version of gettext.m4 et al. (because then the configure and the po/Makefile.in.in
+# don't fit together). It is therefore important that the package carries the
+# right versions of gettext.m4 et al. with it.
 if test -f $srcdir/Makefile.am; then
-  echo "and run 'aclocal' to regenerate the aclocal.m4 file."
+  # A package using automake.
+  # Extract the macro directory name from Makefile.am.
+  aclocal_amflags=`grep '^ACLOCAL_AMFLAGS[ 	]*=' $srcdir/Makefile.am | sed -e 's/^ACLOCAL_AMFLAGS[ 	]*=\(.*\)$/\1/'`
+  m4dir=m4
+  m4dir_is_next=
+  for arg in $aclocal_amflags; do
+    if test -n "$m4dir_is_next"; then
+      m4dir="$arg"
+      break
+    else
+      if test "X$arg" = "X-I"; then
+        m4dir_is_next=yes
+      else
+        m4dir_is_next=
+      fi
+    fi
+  done
+  # Update the *.m4 files and the corresponding Makefile.am.
+  added_m4files=
+  if test -d "$srcdir/$m4dir"; then
+    :
+  else
+    $echo "Creating directory $m4dir"
+    mkdir "$srcdir/$m4dir"
+    added_directories="$added_directories $m4dir"
+  fi
+  echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/$m4dir/ChangeLog.tmp
+  echo >> $srcdir/$m4dir/ChangeLog.tmp
+  for file in $m4filelist; do
+    if test -f "$srcdir/$m4dir/$file"; then
+      rm -f $srcdir/$m4dir/$file~
+      cp -p $srcdir/$m4dir/$file $srcdir/$m4dir/$file~
+      rm -f $srcdir/$m4dir/$file
+      echo "	* $file: Upgrade to gettext-${version}." >> $srcdir/$m4dir/ChangeLog.tmp
+    else
+      added_m4files="$added_m4files $file"
+      echo "	* $file: New file, from gettext-${version}." >> $srcdir/$m4dir/ChangeLog.tmp
+    fi
+    ($try_ln_s && ln -s @datadir@/aclocal/$file $srcdir/$m4dir/$file && $echo "Symlinking file $m4dir/$file") 2>/dev/null ||
+    { $echo "Copying file $m4dir/$file"; cp @datadir@/aclocal/$file $srcdir/$m4dir/$file; }
+  done
+  if test -n "$added_m4files"; then
+    if test -f $srcdir/$m4dir/Makefile.am; then
+      $echo "Updating EXTRA_DIST in $m4dir/Makefile.am (backup is in $m4dir/Makefile.am~)"
+      rm -f $srcdir/$m4dir/Makefile.am~
+      cp -p $srcdir/$m4dir/Makefile.am $srcdir/$m4dir/Makefile.am~
+      rm -f $srcdir/$m4dir/Makefile.am
+      if grep '^EXTRA_DIST[ 	]*=' $srcdir/$m4dir/Makefile.am~ > /dev/null; then
+        sed -e "s%^\(EXTRA_DIST[ 	]*=\)%\\1$added_m4files %" < $srcdir/$m4dir/Makefile.am~ > $srcdir/$m4dir/Makefile.am
+        echo "	* Makefile.am (EXTRA_DIST): Add the new files." >> $srcdir/$m4dir/ChangeLog.tmp
+      else
+        (cat $srcdir/$m4dir/Makefile.am~; echo; echo "EXTRA_DIST =$added_m4files") > $srcdir/$m4dir/Makefile.am
+        echo "	* Makefile.am (EXTRA_DIST): New variable." >> $srcdir/$m4dir/ChangeLog.tmp
+      fi
+    else
+      $echo "Creating $m4dir/Makefile.am"
+      echo "EXTRA_DIST =$added_m4files" > $srcdir/$m4dir/Makefile.am
+      echo "	* Makefile.am: New file." >> $srcdir/$m4dir/ChangeLog.tmp
+      added_acoutput="$added_acoutput $m4dir/Makefile"
+    fi
+  fi
+  echo >> $srcdir/$m4dir/ChangeLog.tmp
+  if test -f $srcdir/$m4dir/ChangeLog; then
+    $echo "Adding an entry to $m4dir/ChangeLog (backup is in $m4dir/ChangeLog~)"
+    cat $srcdir/$m4dir/ChangeLog >> $srcdir/$m4dir/ChangeLog.tmp
+    cp -p $srcdir/$m4dir/ChangeLog $srcdir/$m4dir/ChangeLog~
+  else
+    $echo "Creating $m4dir/ChangeLog"
+  fi
+  cp $srcdir/$m4dir/ChangeLog.tmp $srcdir/$m4dir/ChangeLog
+  rm -f $srcdir/$m4dir/ChangeLog.tmp
+  # Also create $m4dir/Makefile.in from $m4dir/Makefile.am, because automake
+  # doesn't do it by itself.
+  case "$added_acoutput" in
+    *" $m4dir/Makefile")
+      (cd $srcdir && automake $m4dir/Makefile) 2>/dev/null ||
+      please="$please
+Please run 'automake $m4dir/Makefile' to create $m4dir/Makefile.in
+"
+      ;;
+  esac
+  # Update the top-level Makefile.am.
+  if test -n "$added_directories" || test -z "$m4dir_is_next" || test -n "$added_extradist"; then
+    echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
+    echo >> $srcdir/ChangeLog.tmp
+    modified_ChangeLog=yes
+    $echo "Updating Makefile.am (backup is in Makefile.am~)"
+    rm -f $srcdir/Makefile.am~
+    cp -p $srcdir/Makefile.am $srcdir/Makefile.am~
+    rm -f $srcdir/Makefile.am
+    first="* Makefile.am "
+    if test -n "$added_directories"; then
+      if grep '^SUBDIRS[ 	]*=' $srcdir/Makefile.am~ > /dev/null; then
+        sed -e "s%^\(SUBDIRS[ 	]*=\)%\\1$added_directories %" < $srcdir/Makefile.am~ > $srcdir/Makefile.am~2
+        echo "	$first(SUBDIRS): Add$added_directories." >> $srcdir/ChangeLog.tmp
+      else
+        (cat $srcdir/Makefile.am~; echo; echo "SUBDIRS =$added_directories") > $srcdir/Makefile.am~2
+        echo "	$first(SUBDIRS): New variable." >> $srcdir/ChangeLog.tmp
+      fi
+      first=
+    else
+      cp $srcdir/Makefile.am~ $srcdir/Makefile.am~2
+    fi
+    if test -z "$m4dir_is_next"; then
+      if grep '^ACLOCAL_AMFLAGS[ 	]*=' $srcdir/Makefile.am~ > /dev/null; then
+        sed -e "s%^\(ACLOCAL_AMFLAGS[ 	]*=\)%\\1 -I $m4dir %" < $srcdir/Makefile.am~2 > $srcdir/Makefile.am~3
+        echo "	$first(ACLOCAL_AMFLAGS): Add -I $m4dir." >> $srcdir/ChangeLog.tmp
+      else
+        (cat $srcdir/Makefile.am~2; echo; echo "ACLOCAL_AMFLAGS = -I $m4dir") > $srcdir/Makefile.am~3
+        echo "	$first(ACLOCAL_AMFLAGS): New variable." >> $srcdir/ChangeLog.tmp
+      fi
+      # Also update Makefile.in and, if existent, Makefile. Otherwise they
+      # would take into account the new flags only after a few rounds of
+      # "./configure", "make", "touch configure.in", "make distclean".
+      for file in $srcdir/Makefile.in $srcdir/Makefile; do
+        if test -f $file; then
+          rm -f $file~
+          cp -p $file $file~
+          rm -f $file
+          sed -e "s%(ACLOCAL)%(ACLOCAL) -I $m4dir%" < $file~ > $file
+        fi
+      done
+      first=
+    else
+      cp $srcdir/Makefile.am~2 $srcdir/Makefile.am~3
+    fi
+    if test -n "$added_extradist"; then
+      if grep '^EXTRA_DIST[ 	]*=' $srcdir/Makefile.am~ > /dev/null; then
+        sed -e "s%^\(EXTRA_DIST[ 	]*=\)%\\1$added_extradist %" < $srcdir/Makefile.am~3 > $srcdir/Makefile.am
+        echo "	$first(EXTRA_DIST): Add$added_extradist." >> $srcdir/ChangeLog.tmp
+      else
+        (cat $srcdir/Makefile.am~3; echo; echo "EXTRA_DIST =$added_extradist") > $srcdir/Makefile.am
+        echo "	$first(EXTRA_DIST): New variable." >> $srcdir/ChangeLog.tmp
+      fi
+      first=
+    else
+      cp $srcdir/Makefile.am~3 $srcdir/Makefile.am
+    fi
+    rm -f $srcdir/Makefile.am~2 $srcdir/Makefile.am~3
+  fi
+  please="$please
+Please run 'aclocal -I $m4dir' to regenerate the aclocal.m4 file.
+You need aclocal from GNU automake 1.5 (or newer) to do this.
+Then run 'autoconf' to regenerate the configure file.
+"
 else
-  echo "or directly to your aclocal.m4 file."
+  please="$please
+Please add the files
+$m4filelist
+from the @datadir@/aclocal directory to your aclocal.m4 file.
+"
 fi
-echo
+if test -n "$added_acoutput"; then
+  configure_in=
+  if test -f $srcdir/configure.in; then
+    configure_in=configure.in
+  else
+    if test -f $srcdir/configure.ac; then
+      configure_in=configure.ac
+    fi
+  fi
+  if test -n "$configure_in"; then
+    $echo "Updating $configure_in (backup is in $configure_in~)"
+    rm -f $srcdir/$configure_in~
+    cp -p $srcdir/$configure_in $srcdir/$configure_in~
+    rm -f $srcdir/$configure_in
+    sed -e "s%^\\(AC_OUTPUT([^])\\,]*\\)%\\1$added_acoutput %" < $srcdir/$configure_in~ > $srcdir/$configure_in
+    if test -z "$modified_ChangeLog"; then
+      echo "$DATE  gettextize  <bug-gnu-gettext@gnu.org>" > $srcdir/ChangeLog.tmp
+      echo >> $srcdir/ChangeLog.tmp
+      modified_ChangeLog=yes
+    fi
+    echo "	* $configure_in (AC_OUTPUT): Add "`echo $added_acoutput | sed -e 's/ /, /g'`'.' >> $srcdir/ChangeLog.tmp
+  fi
+fi
+if test -n "$modified_ChangeLog"; then
+  echo >> $srcdir/ChangeLog.tmp
+  if test -f $srcdir/ChangeLog; then
+    $echo "Adding an entry to ChangeLog (backup is in ChangeLog~)"
+    cat $srcdir/ChangeLog >> $srcdir/ChangeLog.tmp
+    cp -p $srcdir/ChangeLog $srcdir/ChangeLog~
+  else
+    $echo "Creating ChangeLog"
+  fi
+  cp $srcdir/ChangeLog.tmp $srcdir/ChangeLog
+  rm -f $srcdir/ChangeLog.tmp
+fi
+
+echo "$please"
 echo "You will also need config.guess and config.sub, which you can get from"
 echo "ftp://ftp.gnu.org/pub/gnu/config/."
 echo
 echo "You might also want to copy the convenience header file gettext.h"
-echo "from the $gettext_dir directory into your package.  It is a wrapper"
-echo "around <libintl.h> that implements the configure --disable-nls option."
+echo "from the $gettext_dir directory into your package."
+echo "It is a wrapper around <libintl.h> that implements the configure --disable-nls"
+echo "option."
 echo
 
 exit 0
