@@ -1,3 +1,9 @@
+2002-10-30  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (C): Refer to node Top of autosprintf.info. Needed to
+	work around a stupid error message from makeinfo-4.2.
+	Reported by Pavel Roskin <proski@gnu.org>.
+
 2002-10-28  Bruno Haible  <bruno@clisp.org>
 
 	* matrix.texi: Update.
