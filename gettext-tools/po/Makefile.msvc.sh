@@ -83,7 +83,6 @@ check : all
 mostlyclean : clean
 
 clean : force
-	$(RM) core
 
 distclean : clean
 
