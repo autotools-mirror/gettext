@@ -132,7 +132,7 @@ install : all
 	$(INSTALL_DATA) libintl.h $(includedir)]libintl.h
 	create /directory $(exec_prefix)]
 	create /directory $(libdir)]
-	$(INSTALL_DATA) intl.lib $(libdir)]intl.lib
+	$(INSTALL_DATA) intl.olb $(libdir)]intl.olb
 
 installdirs :
 	create /directory $(prefix)]

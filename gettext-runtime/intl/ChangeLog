@@ -1,3 +1,7 @@
+2003-05-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms (install): Fix mistake.
+
 2003-05-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (LIBS): New variable.
