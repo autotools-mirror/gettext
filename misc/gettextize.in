@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -243,8 +243,13 @@ if test -f $srcdir/Makefile.am; then
 else
   echo "or directly to your aclocal.m4 file."
 fi
+echo
 echo "You will also need config.guess and config.sub, which you can get from"
 echo "ftp://ftp.gnu.org/pub/gnu/config/."
+echo
+echo "You might also want to copy the convenience header file gettext.h"
+echo "from the $gettext_dir directory into your package.  It is a wrapper"
+echo "around <libintl.h> that implements the configure --disable-nls option."
 echo
 
 exit 0
