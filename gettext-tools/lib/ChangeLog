@@ -1,3 +1,7 @@
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
+	* xgetcwd.c: Include <unistd.h>.
+
 2003-04-03  Bruno Haible  <bruno@clisp.org>
 
 	* w32spawn.h (dup_noinherit): Signal an error instead of returning -1.
