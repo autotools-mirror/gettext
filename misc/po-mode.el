@@ -3275,7 +3275,9 @@ Write to your team?  ('n' if writing to the Translation Project robot) ")))
 			    po-obsolete-counter))))
 	  (let ((buffer (current-buffer))
 		(name (po-guess-archive-name))
-		(transient-mark-mode nil))
+		(transient-mark-mode nil)
+		(coding-system-for-read buffer-file-coding-system)
+		(coding-system-for-write buffer-file-coding-system))
 	    (apply po-compose-mail-function address
 		   (if team-flag
 		       (read-string (_"Subject? "))

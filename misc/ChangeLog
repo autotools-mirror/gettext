@@ -1,5 +1,14 @@
 2002-02-09  Karl Eichwalder  <ke@suse.de>
 
+	* po-mode.el (po-send-mail): Set coding-system-for-read and
+	coding-system-for-write to the coding system of the po buffer;
+	otherwise Emacs will fall back to mule-utf-8 when the default coding
+	system is different from the po buffer and thus the following
+	'shell-command-on-region' will prepare an wrongly encoded file (e.g.,
+	mule-utf-8 instead of UTF-8).
+
+2002-02-09  Karl Eichwalder  <ke@suse.de>
+
 	* po-mode.el (po-translation-project-address): Convert it to a
 	customizable variable.
 	(po-translation-project-mail-label): New variable.
