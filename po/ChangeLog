@@ -8,6 +8,30 @@
 	* POTFILES.in: Add lib/pipe-bidi.c, lib/pipe-in.c, lib/pipe-out.c,
 	lib/wait-process.c.
 
+2001-05-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* de.po: Update from Karl Eichwalder.
+
+2001-05-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add lib/xerror.c.
+
+2001-04-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add src/read-po.c.
+
+2001-04-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* POTFILES.in: Add src/po-charset.c.
+
+2001-07-24  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.39 released.
+
+2001-06-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* no.po: Update from Trond Endrestøl <endrestol@hotmail.com>.
+
 2001-06-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
@@ -25,22 +49,6 @@
 2001-05-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* tr.po: Update from Nilgün Belma Bugüner <nilgun@technologist.com>.
-
-2001-05-18  Bruno Haible  <haible@clisp.cons.org>
-
-	* de.po: Update from Karl Eichwalder.
-
-2001-05-02  Bruno Haible  <haible@clisp.cons.org>
-
-	* POTFILES.in: Add lib/xerror.c.
-
-2001-04-29  Bruno Haible  <haible@clisp.cons.org>
-
-	* POTFILES.in: Add src/read-po.c.
-
-2001-04-28  Bruno Haible  <haible@clisp.cons.org>
-
-	* POTFILES.in: Add src/po-charset.c.
 
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 

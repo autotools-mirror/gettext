@@ -598,6 +598,10 @@
 	* msgfmt.c (format_directive_message): Ignore fuzziness of the header
 	entry. Count fuzzy untranslated entries as untranslated.
 
+2001-07-24  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.39 released.
+
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.38 released.

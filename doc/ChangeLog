@@ -1,3 +1,7 @@
+2001-07-24  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.39 released.
+
 2001-06-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* nls.texi (Using gettext in own code): Clarify copyright wording.

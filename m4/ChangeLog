@@ -3,6 +3,16 @@
 	* stdbool.m4: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
 
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* ssize_t.m4: New file.
+	* unionwait.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+2001-07-24  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.39 released.
+
 2001-06-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* mbswidth.m4: Also check for mbsinit. Needed for SCO 3.2v5.0.2.
@@ -10,12 +20,6 @@
 2001-06-14  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Add support for autoconf-2.50.
-
-2001-06-10  Bruno Haible  <haible@clisp.cons.org>
-
-	* ssize_t.m4: New file.
-	* unionwait.m4: New file.
-	* Makefile.am (EXTRA_DIST): Add them.
 
 2001-06-08  Bruno Haible  <haible@clisp.cons.org>
 

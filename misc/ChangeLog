@@ -133,10 +133,6 @@
 
 	* po-mode.el: Merge make-local-variable within set whenever possible.
 
-2001-07-11  Bruno Haible  <haible@clisp.cons.org>
-
-	* po-mode.el (po-default-file-header): Replace 8-bit with 8bit.
-
 2001-07-06  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-msgfmt-version-check): Check for version strings with
@@ -154,11 +150,6 @@
 	* po-mode.el (po-compute-counters): Don't count the header entry.
 	Reported by Bernd Schandl.
 
-2001-07-01  Bruno Haible  <haible@clisp.cons.org>
-
-	* po-mode.el (po-content-type-charset-alist): Add entries for
-	ISO-8859-15, GB2312, EUC-JP, EUC-KR, BIG5, SHIFT_JIS, TIS-620, VISCII.
-
 2001-07-02  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-validate): Use private 'compile-command' and buffer
@@ -175,12 +166,6 @@
 	(po-auto-replace-revision-date): Change default to 't'; otherwise the
 	user will be asked too often.
 
-2001-06-25  Bruno Haible  <haible@clisp.cons.org>
-
-	* po-mode.el (po-find-file-coding-system): Make it work in XEmacs 20
-	as well. Based on a patch by Enrico Scholz
-	<enrico.scholz@informatik.tu-chemnitz.de>.
-
 2001-06-04  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-edit-string): Set 'buffer-file-coding-system'
@@ -193,6 +178,25 @@
 	(po-validate): Use 'po-msgfmt-version-check'.
 	(po-validate): Use 'null-device' instead of literal "/dev/null".
 	Reported by Eli Zaretskii.
+
+2001-07-24  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.39 released.
+
+2001-07-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el (po-default-file-header): Replace 8-bit with 8bit.
+
+2001-07-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el (po-content-type-charset-alist): Add entries for
+	ISO-8859-15, GB2312, EUC-JP, EUC-KR, BIG5, SHIFT_JIS, TIS-620, VISCII.
+
+2001-06-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el (po-find-file-coding-system): Make it work in XEmacs 20
+	as well. Based on a patch by Enrico Scholz
+	<enrico.scholz@informatik.tu-chemnitz.de>.
 
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
