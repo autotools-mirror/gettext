@@ -1,0 +1,689 @@
+head	1.1;
+branch	1.1.1;
+access;
+symbols
+	gettext-0_11_2:1.1.1.7
+	gettext-0_11_1:1.1.1.6
+	gettext-0_11:1.1.1.6
+	gettext-0_10_40:1.1.1.5
+	gettext-0_10_39:1.1.1.4
+	gettext-0_10_38:1.1.1.4
+	gettext-0_10_37:1.1.1.3
+	gettext-0_10_36:1.1.1.2
+	gettext-0_10_35:1.1.1.1
+	release:1.1.1;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2002.05.01.17.43.22;	author bruno;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2002.05.01.17.43.22;	author bruno;	state Exp;
+branches;
+next	1.1.1.2;
+
+1.1.1.2
+date	2002.05.01.17.46.37;	author bruno;	state Exp;
+branches;
+next	1.1.1.3;
+
+1.1.1.3
+date	2002.05.01.17.48.24;	author bruno;	state Exp;
+branches;
+next	1.1.1.4;
+
+1.1.1.4
+date	2002.05.01.17.49.50;	author bruno;	state Exp;
+branches;
+next	1.1.1.5;
+
+1.1.1.5
+date	2002.05.01.17.52.40;	author bruno;	state Exp;
+branches;
+next	1.1.1.6;
+
+1.1.1.6
+date	2002.05.01.17.56.22;	author bruno;	state Exp;
+branches;
+next	1.1.1.7;
+
+1.1.1.7
+date	2002.05.01.18.06.29;	author bruno;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@# Makefile for directory with message catalog handling in GNU NLS Utilities.
+# Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+PACKAGE = @@PACKAGE@@
+VERSION = @@VERSION@@
+
+SHELL = /bin/sh
+
+srcdir = @@srcdir@@
+top_srcdir = @@top_srcdir@@
+top_builddir = ..
+VPATH = @@srcdir@@
+
+prefix = @@prefix@@
+exec_prefix = @@exec_prefix@@
+transform = @@program_transform_name@@
+libdir = $(exec_prefix)/lib
+includedir = $(prefix)/include
+datadir = $(prefix)/@@DATADIRNAME@@
+localedir = $(datadir)/locale
+gnulocaledir = $(prefix)/share/locale
+gettextsrcdir = @@datadir@@/gettext/intl
+aliaspath = $(localedir):.
+subdir = intl
+
+INSTALL = @@INSTALL@@
+INSTALL_DATA = @@INSTALL_DATA@@
+MKINSTALLDIRS = @@MKINSTALLDIRS@@
+
+l = @@l@@
+
+AR = ar
+CC = @@CC@@
+LIBTOOL = @@LIBTOOL@@
+RANLIB = @@RANLIB@@
+
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
+-DLOCALE_ALIAS_PATH=\"$(aliaspath)\" @@DEFS@@
+CPPFLAGS = @@CPPFLAGS@@
+CFLAGS = @@CFLAGS@@
+LDFLAGS = @@LDFLAGS@@
+
+COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
+
+HEADERS = $(COMHDRS) libgettext.h loadinfo.h
+COMHDRS = gettext.h gettextP.h hash-string.h
+SOURCES = $(COMSRCS) intl-compat.c cat-compat.c
+COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
+finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
+explodename.c
+OBJECTS = @@INTLOBJS@@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
+finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
+explodename.$lo
+CATOBJS = cat-compat.$lo ../po/cat-id-tbl.$lo
+GETTOBJS = intl-compat.$lo
+DISTFILES.common = ChangeLog Makefile.in linux-msg.sed po2tbl.sed.in \
+xopen-msg.sed $(HEADERS) $(SOURCES)
+DISTFILES.normal = VERSION
+DISTFILES.gettext = libintl.glibc intlh.inst.in
+
+.SUFFIXES:
+.SUFFIXES: .c .o .lo
+.c.o:
+	$(COMPILE) $<
+.c.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) $<
+
+INCLUDES = -I.. -I. -I$(top_srcdir)/intl -I$(top_srcdir)/lib
+
+all: all-@@USE_INCLUDED_LIBINTL@@
+
+all-yes: libintl.$la intlh.inst
+all-no:
+
+libintl.a: $(OBJECTS)
+	rm -f $@@
+	$(AR) cru $@@ $(OBJECTS)
+	$(RANLIB) $@@
+
+libintl.la: $(OBJECTS)
+	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@@ $(OBJECTS) \
+		   -version-info 1:0 -rpath $(libdir)
+
+../po/cat-id-tbl.$lo: ../po/cat-id-tbl.c $(top_srcdir)/po/$(PACKAGE).pot
+	cd ../po && $(MAKE) cat-id-tbl.$lo
+
+check: all
+
+# This installation goal is only used in GNU gettext.  Packages which
+# only use the library should use install instead.
+
+# We must not install the libintl.h/libintl.a files if we are on a
+# system which has the gettext() function in its C library or in a
+# separate library or use the catgets interface.  A special case is
+# where configure found a previously installed GNU gettext library.
+# If you want to use the one which comes with this version of the
+# package, you have to use `configure --with-included-gettext'.
+install: install-exec install-data
+install-exec: all
+	if test "$(PACKAGE)" = "gettext" \
+	   && test '@@INTLOBJS@@' = '$(GETTOBJS)'; then \
+	  if test -r $(MKINSTALLDIRS); then \
+	    $(MKINSTALLDIRS) $(libdir) $(includedir); \
+	  else \
+	    $(top_srcdir)/mkinstalldirs $(libdir) $(includedir); \
+	  fi; \
+	  $(INSTALL_DATA) intlh.inst $(includedir)/libintl.h; \
+	  $(INSTALL_DATA) libintl.a $(libdir)/libintl.a; \
+	else \
+	  : ; \
+	fi
+install-data: all
+	if test "$(PACKAGE)" = "gettext"; then \
+	  if test -r $(MKINSTALLDIRS); then \
+	    $(MKINSTALLDIRS) $(gettextsrcdir); \
+	  else \
+	    $(top_srcdir)/mkinstalldirs $(gettextsrcdir); \
+	  fi; \
+	  $(INSTALL_DATA) VERSION $(gettextsrcdir)/VERSION; \
+	  dists="$(DISTFILES.common)"; \
+	  for file in $$dists; do \
+	    $(INSTALL_DATA) $(srcdir)/$$file $(gettextsrcdir)/$$file; \
+	  done; \
+	else \
+	  : ; \
+	fi
+
+# Define this as empty until I found a useful application.
+installcheck:
+
+uninstall:
+	dists="$(DISTFILES.common)"; \
+	for file in $$dists; do \
+	  rm -f $(gettextsrcdir)/$$file; \
+	done
+
+info dvi:
+
+$(OBJECTS): ../config.h libgettext.h
+bindtextdom.$lo finddomain.$lo loadmsgcat.$lo: gettextP.h gettext.h loadinfo.h
+dcgettext.$lo: gettextP.h gettext.h hash-string.h loadinfo.h
+
+tags: TAGS
+
+TAGS: $(HEADERS) $(SOURCES)
+	here=`pwd`; cd $(srcdir) && etags -o $$here/TAGS $(HEADERS) $(SOURCES)
+
+id: ID
+
+ID: $(HEADERS) $(SOURCES)
+	here=`pwd`; cd $(srcdir) && mkid -f$$here/ID $(HEADERS) $(SOURCES)
+
+
+mostlyclean:
+	rm -f *.a *.o *.lo core core.*
+
+clean: mostlyclean
+
+distclean: clean
+	rm -f Makefile ID TAGS po2msg.sed po2tbl.sed
+
+maintainer-clean: distclean
+	@@echo "This command is intended for maintainers to use;"
+	@@echo "it deletes files that may require special tools to rebuild."
+
+
+# GNU gettext needs not contain the file `VERSION' but contains some
+# other files which should not be distributed in other packages.
+distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
+dist distdir: Makefile $(DISTFILES)
+	if test "$(PACKAGE)" = gettext; then \
+	  additional="$(DISTFILES.gettext)"; \
+	else \
+	  additional="$(DISTFILES.normal)"; \
+	fi; \
+	for file in $(DISTFILES.common) $$additional; do \
+	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
+	    || cp -p $(srcdir)/$$file $(distdir); \
+	done
+
+dist-libc:
+	tar zcvf intl-glibc.tar.gz $(COMSRCS) $(COMHDRS) libintl.h.glibc
+
+Makefile: Makefile.in ../config.status
+	cd .. \
+	  && CONFIG_FILES=$(subdir)/$@@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+# The dependency for intlh.inst is different in gettext and all other
+# packages.  Because we cannot you GNU make features we have to solve
+# the problem while rewriting Makefile.in.
+@@GT_YES@@intlh.inst: intlh.inst.in ../config.status
+@@GT_YES@@	cd .. \
+@@GT_YES@@	&& CONFIG_FILES=$(subdir)/$@@ CONFIG_HEADERS= \
+@@GT_YES@@	  $(SHELL) ./config.status
+@@GT_NO@@.PHONY: intlh.inst
+@@GT_NO@@intlh.inst:
+
+# Tell versions [3.59,3.63) of GNU make not to export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:
+@
+
+
+1.1.1.1
+log
+@Import gettext-0.10.35
+@
+text
+@@
+
+
+1.1.1.2
+log
+@Import gettext-0.10.36
+@
+text
+@d2 1
+a2 1
+# Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+d33 1
+a33 1
+datadir = $(prefix)/share
+d35 1
+d37 1
+a37 1
+aliaspath = $(localedir)
+a42 1
+mkinstalldirs = $(SHELL) `case "$(MKINSTALLDIRS)" in /*) echo "$(MKINSTALLDIRS)" ;; *) echo "$(top_builddir)/$(MKINSTALLDIRS)" ;; esac`
+d44 1
+a44 1
+l = @@INTL_LIBTOOL_SUFFIX_PREFIX@@
+a49 2
+YACC = @@INTLBISON@@ -y -d
+YFLAGS = --name-prefix=__gettext
+d51 2
+a52 2
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
+-DLIBDIR=\"$(libdir)\" @@DEFS@@
+d59 1
+a59 1
+HEADERS = $(COMHDRS) libgnuintl.h libgettext.h loadinfo.h
+d61 1
+a61 1
+SOURCES = $(COMSRCS) intl-compat.c
+d64 1
+a64 2
+explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
+localcharset.c
+d67 2
+a68 2
+explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
+plural.$lo localcharset.$lo
+d70 2
+a71 3
+DISTFILES.common = Makefile.in \
+config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
+DISTFILES.generated = plural.c
+d73 1
+a73 11
+DISTFILES.gettext = libintl.glibc
+DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c
+
+# Libtool's library version information for libintl.
+# Before making a gettext release, the gettext maintainer must change this
+# according to the libtool documentation, section "Library interface versions".
+# Maintainers of other packages that include the intl directory must *not*
+# change these values.
+LTV_CURRENT=1
+LTV_REVISION=0
+LTV_AGE=0
+d76 1
+a76 1
+.SUFFIXES: .c .y .o .lo .sin .sed
+d82 1
+a82 7
+.y.c:
+	$(YACC) $(YFLAGS) --output $@@ $<
+	rm -f $*.h
+
+.sin.sed:
+	sed -e '/^#/d' -e 's/@@''PACKAGE''@@/@@PACKAGE@@/g' $< > t-$@@
+	mv t-$@@ $@@
+d84 1
+a84 1
+INCLUDES = -I.. -I. -I$(top_srcdir)/intl
+d86 2
+a87 5
+all: all-@@USE_INCLUDED_LIBINTL@@
+all-yes: libintl.$la libintl.h charset.alias ref-add.sed ref-del.sed
+all-no: all-no-@@BUILD_INCLUDED_LIBINTL@@
+all-no-yes: libgnuintl.$la
+all-no-no:
+d89 1
+a89 1
+libintl.a libgnuintl.a: $(OBJECTS)
+d94 6
+a99 14
+libintl.la libgnuintl.la: $(OBJECTS)
+	$(LIBTOOL) --mode=link \
+	  $(CC) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS) $(LDFLAGS) -o $@@ \
+	  $(OBJECTS) @@LIBICONV@@ \
+	  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
+	  -rpath $(libdir) \
+	  -no-undefined
+
+libintl.h: libgnuintl.h
+	cp $(srcdir)/libgnuintl.h libintl.h
+
+charset.alias: config.charset
+	$(SHELL) $(srcdir)/config.charset '@@host@@' > t-$@@
+	mv t-$@@ $@@
+d107 3
+a109 2
+# system which has the GNU gettext() function in its C library or in a
+# separate library.
+d116 7
+a122 26
+	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
+	  $(INSTALL_DATA) libintl.h $(DESTDIR)$(includedir)/libintl.h; \
+	  $(LIBTOOL) --mode=install \
+	    $(INSTALL_DATA) libintl.$la $(DESTDIR)$(libdir)/libintl.$la; \
+	else \
+	  : ; \
+	fi
+	if test '@@USE_INCLUDED_LIBINTL@@' = yes; then \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
+	  test -f $(DESTDIR)$(libdir)/charset.alias \
+	    && orig=$(DESTDIR)$(libdir)/charset.alias \
+	    || orig=charset.alias; \
+	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
+	  dest=$(DESTDIR)$(libdir)/charset.alias; \
+	  sed -f ref-add.sed $$orig > $$temp; \
+	  $(INSTALL_DATA) $$temp $$dest; \
+	  rm -f $$temp; \
+	  $(mkinstalldirs) $(DESTDIR)$(localedir); \
+	  test -f $(DESTDIR)$(localedir)/locale.alias \
+	    && orig=$(DESTDIR)$(localedir)/locale.alias \
+	    || orig=$(srcdir)/locale.alias; \
+	  temp=$(DESTDIR)$(localedir)/t-locale.alias; \
+	  dest=$(DESTDIR)$(localedir)/locale.alias; \
+	  sed -f ref-add.sed $$orig > $$temp; \
+	  $(INSTALL_DATA) $$temp $$dest; \
+	  rm -f $$temp; \
+d128 6
+a133 3
+	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
+	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
+	  $(INSTALL_DATA) ChangeLog.inst $(DESTDIR)$(gettextsrcdir)/ChangeLog; \
+d136 1
+a136 7
+	    $(INSTALL_DATA) $(srcdir)/$$file \
+			    $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
+	  chmod a+x $(DESTDIR)$(gettextsrcdir)/config.charset; \
+	  dists="$(DISTFILES.obsolete)"; \
+	  for file in $$dists; do \
+	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
+d146 4
+a149 41
+	if test "$(PACKAGE)" = "gettext" \
+	   && test '@@INTLOBJS@@' = '$(GETTOBJS)'; then \
+	  rm -f $(DESTDIR)$(includedir)/libintl.h; \
+	  $(LIBTOOL) --mode=uninstall \
+	    rm -f $(DESTDIR)$(libdir)/libintl.$la; \
+	else \
+	  : ; \
+	fi
+	if test '@@USE_INCLUDED_LIBINTL@@' = yes; then \
+	  if test -f $(DESTDIR)$(libdir)/charset.alias; then \
+	    temp=$(DESTDIR)$(libdir)/t-charset.alias; \
+	    dest=$(DESTDIR)$(libdir)/charset.alias; \
+	    sed -f ref-del.sed $$dest > $$temp; \
+	    if grep '^# Packages using this file: $$' $$temp > /dev/null; then \
+	      rm -f $$dest; \
+	    else \
+	      $(INSTALL_DATA) $$temp $$dest; \
+	    fi; \
+	    rm -f $$temp; \
+	  fi; \
+	  if test -f $(DESTDIR)$(localedir)/locale.alias; then \
+	    temp=$(DESTDIR)$(localedir)/t-locale.alias; \
+	    dest=$(DESTDIR)$(localedir)/locale.alias; \
+	    sed -f ref-del.sed $$dest > $$temp; \
+	    if grep '^# Packages using this file: $$' $$temp > /dev/null; then \
+	      rm -f $$dest; \
+	    else \
+	      $(INSTALL_DATA) $$temp $$dest; \
+	    fi; \
+	    rm -f $$temp; \
+	  fi; \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext"; then \
+	  for file in VERSION ChangeLog $(DISTFILES.common); do \
+	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
+	else \
+	  : ; \
+	fi
+d153 1
+a153 1
+$(OBJECTS): ../config.h libgnuintl.h
+d169 1
+a169 3
+	rm -f *.a *.la *.o *.lo core core.*
+	rm -f libintl.h charset.alias ref-add.sed ref-del.sed
+	rm -f -r .libs _libs
+d174 1
+a174 6
+	rm -f Makefile ID TAGS
+	if test "$(PACKAGE)" = gettext; then \
+	  rm -f ChangeLog.inst $(DISTFILES.normal); \
+	else \
+	  : ; \
+	fi
+d184 1
+a184 1
+dist distdir: Makefile
+d190 1
+a190 2
+	$(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
+	for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
+d195 3
+d201 10
+@
+
+
+1.1.1.3
+log
+@Import gettext-0.10.37
+@
+text
+@d31 3
+a33 3
+libdir = @@libdir@@
+includedir = @@includedir@@
+datadir = @@datadir@@
+d35 1
+a35 1
+gettextsrcdir = $(datadir)/gettext/intl
+d86 1
+a86 1
+LTV_REVISION=1
+@
+
+
+1.1.1.4
+log
+@Import gettext-0.10.38
+@
+text
+@d155 3
+d160 3
+a162 13
+	  if test -f $(DESTDIR)$(libdir)/charset.alias; then \
+	    orig=$(DESTDIR)$(libdir)/charset.alias; \
+	    sed -f ref-add.sed $$orig > $$temp; \
+	    $(INSTALL_DATA) $$temp $$dest; \
+	    rm -f $$temp; \
+	  else \
+	    if test @@GLIBC21@@ = no; then \
+	      orig=charset.alias; \
+	      sed -f ref-add.sed $$orig > $$temp; \
+	      $(INSTALL_DATA) $$temp $$dest; \
+	      rm -f $$temp; \
+	    fi; \
+	  fi; \
+a185 6
+	  dists="$(DISTFILES.generated)"; \
+	  for file in $$dists; do \
+	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
+	    $(INSTALL_DATA) $$dir/$$file \
+			    $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
+d233 1
+a233 1
+	  for file in VERSION ChangeLog $(DISTFILES.common) $(DISTFILES.generated); do \
+d288 2
+a289 3
+	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
+	  ln $$dir/$$file $(distdir) 2> /dev/null \
+	    || cp -p $$dir/$$file $(distdir); \
+@
+
+
+1.1.1.5
+log
+@Import gettext-0.10.40
+@
+text
+@d4 3
+a6 3
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Library General Public License as published
+# by the Free Software Foundation; either version 2, or (at your option)
+d11 2
+a12 2
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+d14 3
+a16 4
+# You should have received a copy of the GNU Library General Public
+# License along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+# USA.
+d77 1
+a77 1
+DISTFILES.gettext = COPYING.LIB-2 COPYING.LIB-2.1 libintl.glibc
+d187 1
+a187 1
+	  dists="COPYING.LIB-2 COPYING.LIB-2.1 $(DISTFILES.common)"; \
+d246 1
+a246 1
+	  for file in VERSION ChangeLog COPYING.LIB-2 COPYING.LIB-2.1 $(DISTFILES.common) $(DISTFILES.generated); do \
+@
+
+
+1.1.1.6
+log
+@Import gettext-0.11
+@
+text
+@d2 1
+a2 1
+# Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+d55 1
+a55 1
+-DLIBDIR=\"$(libdir)\" -DIN_LIBINTL @@DEFS@@
+d62 2
+a63 2
+HEADERS = $(COMHDRS) libgnuintl.h loadinfo.h
+COMHDRS = gmo.h gettextP.h hash-string.h plural-exp.h eval-plural.h os2compat.h
+d68 1
+a68 1
+plural-exp.c localcharset.c localename.c osdep.c os2compat.c
+d72 1
+a72 1
+plural.$lo plural-exp.$lo localcharset.$lo localename.$lo osdep.$lo
+d78 2
+a79 3
+DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc
+DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
+COPYING.LIB-2 gettext.h libgettext.h plural-eval.c
+d86 2
+a87 2
+LTV_CURRENT=2
+LTV_REVISION=0
+d121 1
+a121 1
+	  $(OBJECTS) @@LTLIBICONV@@ -lc \
+d155 1
+a155 1
+	  test @@GLIBC21@@ != no || $(mkinstalldirs) $(DESTDIR)$(libdir); \
+d188 1
+a188 1
+	  dists="COPYING.LIB-2.0 COPYING.LIB-2.1 $(DISTFILES.common)"; \
+a207 21
+install-strip: install
+
+installdirs:
+	if test "$(PACKAGE)" = "gettext" \
+	   && test '@@INTLOBJS@@' = '$(GETTOBJS)'; then \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
+	else \
+	  : ; \
+	fi
+	if test '@@USE_INCLUDED_LIBINTL@@' = yes; then \
+	  test @@GLIBC21@@ != no || $(mkinstalldirs) $(DESTDIR)$(libdir); \
+	  $(mkinstalldirs) $(DESTDIR)$(localedir); \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext"; then \
+	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
+	else \
+	  : ; \
+	fi
+
+d247 1
+a247 1
+	  for file in VERSION ChangeLog COPYING.LIB-2.0 COPYING.LIB-2.1 $(DISTFILES.common) $(DISTFILES.generated); do \
+d257 2
+a258 5
+bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: gettextP.h gmo.h loadinfo.h
+dcigettext.$lo: hash-string.h
+explodename.$lo l10nflist.$lo: loadinfo.h
+dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: plural-exp.h
+dcigettext.$lo: eval-plural.h
+d303 2
+a304 1
+	  cp -p $$dir/$$file $(distdir); \
+@
+
+
+1.1.1.7
+log
+@Import gettext-0.11.2
+@
+text
+@d88 1
+a88 1
+LTV_REVISION=1
+@
+
+

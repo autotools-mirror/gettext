@@ -1,0 +1,65 @@
+head	1.1;
+branch	1.1.1;
+access;
+symbols
+	gettext-0_11_2:1.1.1.1
+	gettext-0_11_1:1.1.1.1
+	gettext-0_11:1.1.1.1
+	release:1.1.1;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2002.05.01.17.56.22;	author bruno;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2002.05.01.17.56.22;	author bruno;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@# Sed script that inserts the file called HEADER before the header entry.
+#
+# At each occurrence of a line starting with "msgid ", we execute the following
+# commands. At the first occurrence, insert the file. At the following
+# occurrences, do nothing. The distinction between the first and the following
+# occurrences is achieved by looking at the hold space.
+/^msgid /{
+x
+# Test if the hold space is empty.
+s/m/m/
+ta
+# Yes it was empty. First occurrence. Read the file.
+r HEADER
+# Output the file's contents by reading the next line. But don't lose the
+# current line while doing this.
+g
+N
+bb
+:a
+# The hold space was nonempty. Following occurrences. Do nothing.
+x
+:b
+}
+@
+
+
+1.1.1.1
+log
+@Import gettext-0.11
+@
+text
+@@
