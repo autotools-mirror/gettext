@@ -1,3 +1,7 @@
+1998-10-20  Paul Eggert  <eggert@twinsun.com>
+
+	* po2tbl.sin: Escape trigraphs.
+
 2000-10-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* finddomain.c: Remove unneeded includes.

@@ -52,6 +52,8 @@ const struct _msg_ent _msg_tbl[] = {
 # We found a continuation line.  But before printing insert '\'.
   :a
   s/\(.*\)\(\n.*\)/\1\\\2/
+# Escape trigraphs.
+  s/[?][?]\([-=(/)'<!>]\)/?\\?\1/g
   P
 # We cannot use D here.
   s/.*\n\(.*\)/\1/
@@ -87,6 +89,8 @@ const struct _msg_ent _msg_tbl[] = {
   G
   s/\(.*\)\n\([0-9]*\)/\1, \2},/
   s/\(.*\)"$/\1/
+# Escape trigraphs.
+  s/[?][?]\([-=(/)'<!>]\)/?\\?\1/g
   p
 }
 #
