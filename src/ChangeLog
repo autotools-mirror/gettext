@@ -38,7 +38,7 @@
 	* write-po.c: Likewise.
 	* msgmerge.c: Include liballoca.h, exit.h, strcase.h, stpcpy.h,
 	stpncpy.h instead of system.h.
-	* format-java.c: Include liballoca.h.
+	* format-java.c: Include liballoca.h instead of system.h.
 	* format-lisp.c: Don't include system.h.
 	* open-po.c: Include pathname.h, xmalloc.h instead of system.h.
 	Don't include <sys/types.h>, error.h.
