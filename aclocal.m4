@@ -1,4 +1,4 @@
-dnl aclocal.m4 generated automatically by aclocal 1.4
+dnl aclocal.m4 generated automatically by aclocal 1.4-p2
 
 dnl Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
@@ -3585,6 +3585,27 @@ AC_DEFUN([jm_AC_HEADER_INTTYPES_H],
   fi
 ])
 
+# serial 1
+
+dnl From Bruno Haible.
+dnl Test whether ssize_t is defined.
+dnl Prerequisite: AC_CHECK_HEADERS(unistd.h)
+
+AC_DEFUN([gt_TYPE_SSIZE_T],
+[
+  AC_CACHE_CHECK([for ssize_t], gt_cv_ssize_t,
+    [AC_TRY_COMPILE([
+#include <sys/types.h>
+#if HAVE_UNISTD_H
+#include <unistd.h>
+#endif], [int x = sizeof (ssize_t *) + sizeof (ssize_t);],
+       gt_cv_ssize_t=yes, gt_cv_ssize_t=no)])
+  if test $gt_cv_ssize_t = no; then
+    AC_DEFINE(ssize_t, int,
+              [Define as a signed type of the same size as size_t.])
+  fi
+])
+
 #serial 4
 
 dnl See if there's a working, system-supplied version of the getline function.
@@ -3713,6 +3734,39 @@ AC_DEFUN(AC_MBSTATE_T,
      AC_DEFINE(mbstate_t, int,
 	       [Define to a type if <wchar.h> does not define.])
    fi])
+
+dnl Taken from GNU make 3.79.1.
+
+AC_DEFUN([gt_UNION_WAIT],
+[
+AC_CHECK_FUNCS(waitpid)
+AC_MSG_CHECKING(for union wait)
+AC_CACHE_VAL(gt_cv_union_wait, [dnl
+AC_TRY_LINK([#include <sys/types.h>
+#include <sys/wait.h>],
+	    [union wait status; int pid; pid = wait (&status);
+#ifdef WEXITSTATUS
+/* Some POSIXoid systems have both the new-style macros and the old
+   union wait type, and they do not work together.  If union wait
+   conflicts with WEXITSTATUS et al, we don't want to use it at all.  */
+if (WEXITSTATUS (status) != 0) pid = -1;
+#ifdef WTERMSIG
+/* If we have WEXITSTATUS and WTERMSIG, just use them on ints.  */
+-- blow chunks here --
+#endif
+#endif
+#ifdef HAVE_WAITPID
+/* Make sure union wait works with waitpid.  */
+pid = waitpid (-1, &status, 0);
+#endif
+],
+	    [gt_cv_union_wait=yes], [gt_cv_union_wait=no])])
+if test "$gt_cv_union_wait" = yes; then
+  AC_DEFINE(HAVE_UNION_WAIT, 1,
+            [Define if <sys/wait.h> defines the 'union wait' type.])
+fi
+AC_MSG_RESULT($gt_cv_union_wait)
+])
 
 dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
 dnl FIXME: Migrate into libit

@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
 
 # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
@@ -65,6 +65,7 @@ BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
@@ -90,6 +91,7 @@ MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
+PERL = @PERL@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
@@ -104,9 +106,10 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-bin_PROGRAMS = gettext ngettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
+bin_PROGRAMS = gettext ngettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcat msgcomm msgconv msgen msggrep msgsed
 
-noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h po.h open-po.h read-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
+
+noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h po.h open-po.h read-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h
 
 
 EXTRA_DIST = FILES
@@ -133,7 +136,17 @@ msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y po
 msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c write-po.c
 
+msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c msgl-iconv.c
+
 msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c
+
+msgconv_SOURCES = msgconv.c message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c msgl-iconv.c
+
+msgen_SOURCES = msgen.c message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c
+
+msggrep_SOURCES = msggrep.c message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c msgl-charset.c
+
+msgsed_SOURCES = msgsed.c message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c msgl-charset.c
 
 
 # Link dependencies.
@@ -144,7 +157,12 @@ msgfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgmerge_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgunfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 xgettext_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgcat_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msgcomm_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgconv_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgen_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msggrep_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgsed_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
@@ -154,7 +172,8 @@ CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
 bin_PROGRAMS =  gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
 msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) xgettext$(EXEEXT) \
-msgcomm$(EXEEXT)
+msgcat$(EXEEXT) msgcomm$(EXEEXT) msgconv$(EXEEXT) msgen$(EXEEXT) \
+msggrep$(EXEEXT) msgsed$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
 CPPFLAGS = @CPPFLAGS@
@@ -195,12 +214,42 @@ po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) xget-lex.$(OBJEXT) \
 xgettext.$(OBJEXT) dir-list.$(OBJEXT) write-po.$(OBJEXT)
 xgettext_DEPENDENCIES =  ../lib/libnlsut.a
 xgettext_LDFLAGS = 
+msgcat_OBJECTS =  msgcat.$(OBJEXT) message.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) str-list.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT) msgl-iconv.$(OBJEXT)
+msgcat_DEPENDENCIES =  ../lib/libnlsut.a
+msgcat_LDFLAGS = 
 msgcomm_OBJECTS =  msgcomm.$(OBJEXT) message.$(OBJEXT) \
 po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
 po-lex.$(OBJEXT) open-po.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) \
 dir-list.$(OBJEXT) write-po.$(OBJEXT)
 msgcomm_DEPENDENCIES =  ../lib/libnlsut.a
 msgcomm_LDFLAGS = 
+msgconv_OBJECTS =  msgconv.$(OBJEXT) message.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) str-list.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT) msgl-iconv.$(OBJEXT)
+msgconv_DEPENDENCIES =  ../lib/libnlsut.a
+msgconv_LDFLAGS = 
+msgen_OBJECTS =  msgen.$(OBJEXT) message.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) str-list.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT)
+msgen_DEPENDENCIES =  ../lib/libnlsut.a
+msgen_LDFLAGS = 
+msggrep_OBJECTS =  msggrep.$(OBJEXT) message.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) str-list.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT) msgl-charset.$(OBJEXT)
+msggrep_DEPENDENCIES =  ../lib/libnlsut.a
+msggrep_LDFLAGS = 
+msgsed_OBJECTS =  msgsed.$(OBJEXT) message.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) str-list.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT) msgl-charset.$(OBJEXT)
+msgsed_DEPENDENCIES =  ../lib/libnlsut.a
+msgsed_LDFLAGS = 
 YLWRAP = $(srcdir)/ylwrap
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -217,8 +266,8 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-SOURCES = $(gettext_SOURCES) $(ngettext_SOURCES) $(msgcmp_SOURCES) $(msgfmt_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(xgettext_SOURCES) $(msgcomm_SOURCES)
-OBJECTS = $(gettext_OBJECTS) $(ngettext_OBJECTS) $(msgcmp_OBJECTS) $(msgfmt_OBJECTS) $(msgmerge_OBJECTS) $(msgunfmt_OBJECTS) $(xgettext_OBJECTS) $(msgcomm_OBJECTS)
+SOURCES = $(gettext_SOURCES) $(ngettext_SOURCES) $(msgcmp_SOURCES) $(msgfmt_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(xgettext_SOURCES) $(msgcat_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) $(msgen_SOURCES) $(msggrep_SOURCES) $(msgsed_SOURCES)
+OBJECTS = $(gettext_OBJECTS) $(ngettext_OBJECTS) $(msgcmp_OBJECTS) $(msgfmt_OBJECTS) $(msgmerge_OBJECTS) $(msgunfmt_OBJECTS) $(xgettext_OBJECTS) $(msgcat_OBJECTS) $(msgcomm_OBJECTS) $(msgconv_OBJECTS) $(msgen_OBJECTS) $(msggrep_OBJECTS) $(msgsed_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
@@ -328,9 +377,29 @@ xgettext$(EXEEXT): $(xgettext_OBJECTS) $(xgettext_DEPENDENCIES)
 	@rm -f xgettext$(EXEEXT)
 	$(LINK) $(xgettext_LDFLAGS) $(xgettext_OBJECTS) $(xgettext_LDADD) $(LIBS)
 
+msgcat$(EXEEXT): $(msgcat_OBJECTS) $(msgcat_DEPENDENCIES)
+	@rm -f msgcat$(EXEEXT)
+	$(LINK) $(msgcat_LDFLAGS) $(msgcat_OBJECTS) $(msgcat_LDADD) $(LIBS)
+
 msgcomm$(EXEEXT): $(msgcomm_OBJECTS) $(msgcomm_DEPENDENCIES)
 	@rm -f msgcomm$(EXEEXT)
 	$(LINK) $(msgcomm_LDFLAGS) $(msgcomm_OBJECTS) $(msgcomm_LDADD) $(LIBS)
+
+msgconv$(EXEEXT): $(msgconv_OBJECTS) $(msgconv_DEPENDENCIES)
+	@rm -f msgconv$(EXEEXT)
+	$(LINK) $(msgconv_LDFLAGS) $(msgconv_OBJECTS) $(msgconv_LDADD) $(LIBS)
+
+msgen$(EXEEXT): $(msgen_OBJECTS) $(msgen_DEPENDENCIES)
+	@rm -f msgen$(EXEEXT)
+	$(LINK) $(msgen_LDFLAGS) $(msgen_OBJECTS) $(msgen_LDADD) $(LIBS)
+
+msggrep$(EXEEXT): $(msggrep_OBJECTS) $(msggrep_DEPENDENCIES)
+	@rm -f msggrep$(EXEEXT)
+	$(LINK) $(msggrep_LDFLAGS) $(msggrep_OBJECTS) $(msggrep_LDADD) $(LIBS)
+
+msgsed$(EXEEXT): $(msgsed_OBJECTS) $(msgsed_DEPENDENCIES)
+	@rm -f msgsed$(EXEEXT)
+	$(LINK) $(msgsed_LDFLAGS) $(msgsed_OBJECTS) $(msgsed_LDADD) $(LIBS)
 .y.c:
 	$(SHELL) $(YLWRAP) "$(YACC)" $< y.tab.c $*.c y.tab.h $*.h -- $(AM_YFLAGS) $(YFLAGS)
 po-gram-gen.h: po-gram-gen.c
@@ -374,7 +443,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \

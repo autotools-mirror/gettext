@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
 
 # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
@@ -65,9 +65,11 @@ BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 DVIPS = @DVIPS@
+ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
@@ -89,9 +91,11 @@ MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
+PERL = @PERL@
 POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
+STRIP = @STRIP@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -106,7 +110,7 @@ aclocal_DATA = codeset.m4 gettext.m4 glibc21.m4 iconv.m4 isc-posix.m4 lcmessage.
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n'|sort |fmt |tr '\012' @ \
 #   |sed 's/@$/%/;s/@/ \\@/g' |tr @% '\012\012'
-EXTRA_DIST = README c-bs-a.m4 codeset.m4 getline.m4 gettext.m4 glibc21.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 lcmessage.m4 libtool.m4 mbrtowc.m4 mbstate_t.m4 mbswidth.m4 progtest.m4 setlocale.m4 signed.m4 uintmax_t.m4 ulonglong.m4
+EXTRA_DIST = README c-bs-a.m4 codeset.m4 getline.m4 gettext.m4 glibc21.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 lcmessage.m4 libtool.m4 mbrtowc.m4 mbstate_t.m4 mbswidth.m4 progtest.m4 setlocale.m4 signed.m4 ssize_t.m4 uintmax_t.m4 ulonglong.m4 unionwait.m4
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
@@ -160,7 +164,7 @@ distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
-	    cp -pr $$/$$file $(distdir)/$$file; \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
 	  else \
 	    test -f $(distdir)/$$file \
 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
