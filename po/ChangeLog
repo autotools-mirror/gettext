@@ -1,3 +1,11 @@
+2001-03-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (update-gmo): New target.
+	(update-po): After updating the po files, also update the gmo files.
+	(dist2): New target.
+	(dist): Depend on dist2, not directly on $(DISTFILES). Only after
+	'update-po' has been executed, it is useful to regenerate $(GMOFILES).
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in ($(PACKAGE).pot): Depend on POTFILES.in.

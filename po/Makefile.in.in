@@ -153,8 +153,11 @@ maintainer-clean: distclean
 	rm -f $(GMOFILES)
 
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
-dist distdir: $(DISTFILES)
+dist distdir:
 	$(MAKE) update-po
+	@$(MAKE) dist2
+# This is a separate target because 'update-po' must be executed before.
+dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
 	for file in $$dists; do \
 	  cp -p $(srcdir)/$$file $(distdir); \
@@ -176,6 +179,10 @@ update-po: Makefile
 	    rm -f $$lang.new.po; \
 	  fi; \
 	done
+	$(MAKE) update-gmo
+
+update-gmo: Makefile $(GMOFILES)
+	@:
 
 POTFILES: POTFILES.in
 	( if test 'x$(srcdir)' != 'x.'; then \
