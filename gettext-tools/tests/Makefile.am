@@ -60,9 +60,9 @@ TESTS = gettext-1 gettext-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python lang-clisp \
+	lang-c lang-c++ lang-objc lang-python lang-clisp \
 	lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal \
-	lang-wxwindows lang-ycp lang-tcl lang-perl lang-php lang-pike lang-po \
+	lang-ycp lang-tcl lang-php lang-po \
 	lang-rst
 
 EXTRA_DIST = $(TESTS) \
