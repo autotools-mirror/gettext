@@ -164,7 +164,7 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
         INTLOBJS="\$(GETTOBJS)"
 	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
-	INTLLIBS="ifelse([$3],[],\$(top_builddir)/intl,[$3])/libintl.ifelse([$1], use-libtool, [l], [])a $LIBICONV"
+	INTLLIBS="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.ifelse([$1], use-libtool, [l], [])a $LIBICONV"
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 

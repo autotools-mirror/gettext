@@ -1,3 +1,10 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): In INTLLIBS, use ${top_builddir}
+	instead of $(top_builddir), so that the value can also be used in
+	shell scripts. Note that in Makefiles both ${top_builddir} and
+	$(top_builddir) are equivalent.
+
 2001-10-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): Add check for getc_unlocked.
