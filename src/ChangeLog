@@ -1,5 +1,32 @@
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgl-ascii.h: New file.
+	* msgl-ascii.c: New file.
+	* po-charset.h (po_charset_ascii, po_charset_ascii_compatible): New
+	declarations.
+	* po-charset.c (po_charset_ascii): New variable.
+	(po_charset_ascii_compatible): New function.
+	* write-po.c (has_nonascii): Remove function.
+	(message_print, message_print_obsolete): Use is_ascii_string instead.
+	* msgl-iconv.c (iconv_message_list): Don't complain about missing
+	header entry with charset if all messages are ASCII.
+	* msgl-cat.c (catenate_msgdomain_list): Don't complain about missing
+	header entry with charset if all messages are ASCII. Better choice of
+	canon_to_code: when combining ASCII and an ASCII compatible encoding,
+	choose the latter, not UTF-8. Avoid performing trivial conversions.
+	* Makefile.am (noinst_HEADERS): Add msgl-ascii.h.
+	(msgmerge_SOURCES): Add msgl-ascii.c.
+	(msgunfmt_SOURCES): Likewise.
+	(msgcat_SOURCES): Likewise.
+	(msgcomm_SOURCES): Likewise.
+	(msgconv_SOURCES): Likewise.
+	(msgen_SOURCES): Likewise.
+	(msgexec_SOURCES): Likewise.
+	(msggrep_SOURCES): Likewise.
+	(msguniq_SOURCES): Likewise.
+
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgl-cat.h: Include <stdbool.h>.
 	* po.h: Likewise.
 	* read-po.h: Likewise.

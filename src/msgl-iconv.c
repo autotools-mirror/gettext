@@ -33,6 +33,7 @@
 #include "progname.h"
 #include "message.h"
 #include "po-charset.h"
+#include "msgl-ascii.h"
 #include "system.h"
 #include "libgettext.h"
 
@@ -314,8 +315,13 @@ two different charsets \"%s\" and \"%s\" in input file"),
 	  }
       }
   if (canon_from_code == NULL)
-    error (EXIT_FAILURE, 0, _("\
+    {
+      if (is_ascii_message_list (mlp))
+	canon_from_code = po_charset_ascii;
+      else
+	error (EXIT_FAILURE, 0, _("\
 input file doesn't contain a header entry with a charset specification"));
+    }
 
   /* If the two encodings are the same, nothing to do.  */
   if (canon_from_code != canon_to_code)

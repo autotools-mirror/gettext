@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "write-po.h"
 #include "c-ctype.h"
 #include "linebreak.h"
+#include "msgl-ascii.h"
 #include "system.h"
 #include "error.h"
 #include "xerror.h"
@@ -57,7 +58,6 @@ static void wrap PARAMS ((FILE *fp, const char *line_prefix, const char *name,
 			  const char *value, enum is_wrap do_wrap,
 			  const char *charset));
 static void print_blank_line PARAMS ((FILE *fp));
-static bool has_nonascii PARAMS ((const char *str));
 static void message_print PARAMS ((const message_ty *mp, FILE *fp,
 				   const char *charset, bool blank_line,
 				   bool debug));
@@ -518,16 +518,6 @@ print_blank_line (fp)
     putc ('\n', fp);
 }
 
-static bool
-has_nonascii (str)
-     const char *str;
-{
-  for (; *str; str++)
-    if (!c_isascii ((unsigned char) *str))
-      return true;
-  return false;
-}
-
 static void
 message_print (mp, fp, charset, blank_line, debug)
      const message_ty *mp;
@@ -677,7 +667,7 @@ message_print (mp, fp, charset, blank_line, debug)
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
      this domain, emit an empty string.  */
-  if (has_nonascii (mp->msgid))
+  if (!is_ascii_string (mp->msgid))
     multiline_warning (xasprintf (_("warning: ")),
 		       xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\
@@ -771,7 +761,7 @@ message_print_obsolete (mp, fp, charset, blank_line)
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
-  if (has_nonascii (mp->msgid))
+  if (!is_ascii_string (mp->msgid))
     multiline_warning (xasprintf (_("warning: ")),
 		       xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\

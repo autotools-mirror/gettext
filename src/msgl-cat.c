@@ -29,6 +29,7 @@
 #include "message.h"
 #include "read-po.h"
 #include "po-charset.h"
+#include "msgl-ascii.h"
 #include "msgl-iconv.h"
 #include "system.h"
 #include "libgettext.h"
@@ -166,14 +167,19 @@ two different charsets \"%s\" and \"%s\" in input file"),
 		  }
 	      if (canon_from_code == NULL)
 		{
-		  if (k == 0)
-		    error (EXIT_FAILURE, 0, _("\
-input file `%s' doesn't contain a header entry with a charset specification"),
-			   files[n]);
+		  if (is_ascii_message_list (mlp))
+		    canon_from_code = po_charset_ascii;
 		  else
-		    error (EXIT_FAILURE, 0, _("\
+		    {
+		      if (k == 0)
+			error (EXIT_FAILURE, 0, _("\
+input file `%s' doesn't contain a header entry with a charset specification"),
+			       files[n]);
+		      else
+			error (EXIT_FAILURE, 0, _("\
 domain \"%s\" in input file `%s' doesn't contain a header entry with a charset specification"),
-			   mdlp->item[k]->domain, files[n]);
+			       mdlp->item[k]->domain, files[n]);
+		    }
 		}
 	    }
 	  canon_charsets[n][k] = canon_from_code;
@@ -337,7 +343,9 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	 all in a single encoding.  If so, conversion is not needed.  */
       const char *first = NULL;
       const char *second = NULL;
+      bool with_ASCII = false;
       bool with_UTF8 = false;
+      bool all_ASCII_compatible = true;
 
       for (n = 0; n < nfiles; n++)
 	{
@@ -346,14 +354,29 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	  for (k = 0; k < mdlp->nitems; k++)
 	    if (canon_charsets[n][k] != NULL)
 	      {
-		if (first == NULL)
-		  first = canon_charsets[n][k];
-		else if (canon_charsets[n][k] != first && second == NULL)
-		  second = canon_charsets[n][k];
+		if (canon_charsets[n][k] == po_charset_ascii)
+		  with_ASCII = true;
+		else
+		  {
+		    if (first == NULL)
+		      first = canon_charsets[n][k];
+		    else if (canon_charsets[n][k] != first && second == NULL)
+		      second = canon_charsets[n][k];
 
-		if (strcmp (canon_charsets[n][k], "UTF-8") == 0)
-		  with_UTF8 = true;
+		    if (strcmp (canon_charsets[n][k], "UTF-8") == 0)
+		      with_UTF8 = true;
+
+		    if (!po_charset_ascii_compatible (canon_charsets[n][k]))
+		      all_ASCII_compatible = false;
+		  }
 	      }
+	}
+
+      if (with_ASCII && !all_ASCII_compatible)
+	{
+	  /* assert (first != NULL); */
+	  if (second == NULL)
+	    second = po_charset_ascii;
 	}
 
       if (second != NULL)
@@ -375,6 +398,13 @@ To select a different output encoding, use the --to-code option.\n\
 "), first, second));
 	  canon_to_code = po_charset_canonicalize ("UTF-8");
 	}
+      else if (first != NULL && with_ASCII && all_ASCII_compatible)
+	{
+	  /* The conversion is a no-op conversion.  Don't warn the user,
+	     but still perform the conversion, in order to check that the
+	     input was really ASCII.  */
+	  canon_to_code = first;
+	}
       else
 	{
 	  /* No conversion needed.  */
@@ -390,7 +420,11 @@ To select a different output encoding, use the --to-code option.\n\
 
 	for (k = 0; k < mdlp->nitems; k++)
 	  if (canon_charsets[n][k] != NULL)
-	    iconv_message_list (mdlp->item[k]->messages, canon_to_code);
+	    /* If the user hasn't given a to_code, don't bother doing a noop
+	       conversion that would only replace the charset name in the
+	       header entry with its canonical equivalent.  */
+	    if (!(to_code == NULL && canon_charsets[n][k] == canon_to_code))
+	      iconv_message_list (mdlp->item[k]->messages, canon_to_code);
       }
 
   /* Fill the resulting messages.  */

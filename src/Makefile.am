@@ -25,7 +25,7 @@ msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h xget-lex.h dir-list.h \
-po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h msgl-cat.h
+po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h msgl-ascii.h msgl-cat.h
 
 EXTRA_DIST = FILES
 
@@ -47,30 +47,33 @@ po-charset.c po-lex.c po.c str-list.c dir-list.c
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c \
 po-lex.c po.c str-list.c message.c dir-list.c
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c
-msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c
+po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
+msgl-ascii.c
+msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c \
-write-po.c
+write-po.c msgl-ascii.c
 msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-iconv.c msgl-cat.c
+msgl-ascii.c msgl-iconv.c msgl-cat.c
 msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c
+po-charset.c po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c \
+msgl-ascii.c
 msgconv_SOURCES = msgconv.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-iconv.c
+msgl-ascii.c msgl-iconv.c
 msgen_SOURCES = msgen.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c
+po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
+msgl-ascii.c
 msgexec_SOURCES = msgexec.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-charset.c
+msgl-ascii.c msgl-charset.c
 msggrep_SOURCES = msggrep.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-charset.c
+msgl-ascii.c msgl-charset.c
 msguniq_SOURCES = msguniq.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-iconv.c msgl-cat.c
+msgl-ascii.c msgl-iconv.c msgl-cat.c
 
 # Link dependencies.
 # po-lex.c and po.c may need -liconv.

@@ -33,6 +33,12 @@ extern const char *program_name;
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
+static const char ascii[] = "ASCII";
+
+/* The canonicalized encoding name for ASCII.  */
+const char *po_charset_ascii = ascii;
+
+/* Canonicalize an encoding name.  */
 const char *
 po_charset_canonicalize (charset)
      const char *charset;
@@ -41,7 +47,7 @@ po_charset_canonicalize (charset)
      iconv() across platforms.  Taken from intl/config.charset.  */
   static const char *standard_charsets[] =
   {
-    "ASCII", "ANSI_X3.4-1968", "US-ASCII",	/* i = 0..2 */
+    ascii, "ANSI_X3.4-1968", "US-ASCII",	/* i = 0..2 */
     "ISO-8859-1", "ISO_8859-1",			/* i = 3, 4 */
     "ISO-8859-2", "ISO_8859-2",
     "ISO-8859-3", "ISO_8859-3",
@@ -90,6 +96,21 @@ po_charset_canonicalize (charset)
       return standard_charsets[i < 3 ? 0 : i < 25 ? ((i - 3) & ~1) + 3 : i];
   return NULL;
 }
+
+/* Test for ASCII compatibility.  */
+bool
+po_charset_ascii_compatible (canon_charset)
+     const char *canon_charset;
+{
+  /* There are only a few exceptions to ASCII compatibility.  */
+  if (strcmp (canon_charset, "SHIFT_JIS") == 0
+      || strcmp (canon_charset, "JOHAB") == 0
+      || strcmp (canon_charset, "VISCII") == 0)
+    return false;
+  else
+    return true;
+}
+
 
 /* The PO file's encoding, as specified in the header entry.  */
 const char *po_lex_charset;

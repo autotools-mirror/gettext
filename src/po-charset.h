@@ -19,6 +19,8 @@
 #ifndef _PO_CHARSET_H
 #define _PO_CHARSET_H
 
+#include <stdbool.h>
+
 #if HAVE_ICONV
 #include <iconv.h>
 #endif
@@ -27,6 +29,13 @@
    The results of this function are statically allocated and can be
    compared using ==.  */
 extern const char *po_charset_canonicalize PARAMS ((const char *charset));
+
+/* The canonicalized encoding name for ASCII.  */
+extern const char *po_charset_ascii;
+
+/* Test for ASCII compatibility.  */
+extern bool po_charset_ascii_compatible PARAMS ((const char *canon_charset));
+
 
 /* The PO file's encoding, as specified in the header entry.  */
 extern const char *po_lex_charset;
