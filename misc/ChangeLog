@@ -1,3 +1,7 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextize.in: Copy only ABOUT-NLS, intl/, po/.
+
 2001-09-25  Bruno Haible  <haible@clisp.cons.org>
 
 	Upgrade to automake-1.5.

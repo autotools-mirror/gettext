@@ -146,9 +146,7 @@ cd $gettext_dir || {
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
   case $file in
-    intl | po | *.jar)
-      ;;
-    *)
+    ABOUT-NLS)
       rm -f $srcdir/$file
       ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && $echo "Symlinking file $file") 2>/dev/null ||
       { $echo "Copying file $file"; cp $file $srcdir/$file; }
