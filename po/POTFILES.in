@@ -8,6 +8,10 @@
 lib/error.c
 lib/getopt.c
 lib/obstack.c
+lib/pipe-bidi.c
+lib/pipe-in.c
+lib/pipe-out.c
+lib/wait-process.c
 lib/xerror.c
 lib/xmalloc.c
 

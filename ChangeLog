@@ -1,3 +1,8 @@
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Check for ssize_t, pid_t, posix_spawn, select.
+	Call AC_FUNC_VFORK, gt_UNION_WAIT.
+
 2001-06-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* ltmain.sh: Upgrade to libtool-1.4.

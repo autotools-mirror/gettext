@@ -26,15 +26,17 @@ printf-prs.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c \
 strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c \
 gen-lbrkprop.c 3level.h
 
-libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c fstrcmp.c \
-getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c obstack.c \
-progname.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
+libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c findprog.c fstrcmp.c \
+full-write.c getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c \
+obstack.c pipe-bidi.c pipe-in.c pipe-out.c progname.c safe-read.c \
+wait-process.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
-noinst_HEADERS = c-ctype.h error.h fstrcmp.h getline.h getopt.h hash.h \
-lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h printf-parse.h printf.h \
-progname.h system.h xerror.h
+noinst_HEADERS = c-ctype.h error.h findprog.h fstrcmp.h full-write.h \
+getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h obstack.h \
+pathmax.h pipe.h printf-parse.h printf.h progname.h safe-read.h system.h \
+wait-process.h xerror.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl

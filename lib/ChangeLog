@@ -1,3 +1,22 @@
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* findprog.h: New file.
+	* findprog.c: New file.
+	* full-write.h: New file.
+	* full-write.c: New file.
+	* pipe.h: New file.
+	* pipe-bidi.c: New file.
+	* pipe-in.c: New file.
+	* pipe-out.c: New file.
+	* safe-read.h: New file.
+	* safe-read.c: New file.
+	* wait-process.h: New file.
+	* wait-process.c: New file.
+	* Makefile.am (libnlsut_a_SOURCES): Add findprog.c, full-write.c,
+	pipe-bidi.c, pipe-in.c, pipe-out.c, safe-read.c, wait-process.c.
+	(noinst_HEADERS): Add findprog.h, full-write.h, pipe.h, safe-read.h,
+	wait-process.h.
+
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* progname.h (set_program_name): New declaration.
