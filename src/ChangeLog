@@ -1,3 +1,14 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* gnu/gettext/GetURL.java: New file.
+	* urlget.c: New file.
+	* Makefile.am (noinst_PROGRAMS): Add urlget.
+	(urlget_SOURCES): New variable.
+	(install-exec-local): Also install urlget.
+	(uninstall-local): Also uninstall urlget.
+	(gnu/gettext/GetURL.class): New rule.
+	(gettext.jar): Also include gnu/gettext/GetURL*.class.
+
 2001-10-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgl-english.h: New file.

@@ -23,7 +23,7 @@ bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
 msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 
-noinst_PROGRAMS = hostname
+noinst_PROGRAMS = hostname urlget
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
@@ -81,6 +81,7 @@ msgexec_SOURCES   = msgexec.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po
 msggrep_SOURCES   = msggrep.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
 msguniq_SOURCES   = msguniq.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c
 hostname_SOURCES  = hostname.c
+urlget_SOURCES    = urlget.c
 
 # Link dependencies.
 # po-lex.c and po.c may need -liconv.
@@ -121,6 +122,7 @@ DISTCLEANFILES = po-gram-gen2.h user-email
 install-exec-local:
 	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
 	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
 
 installdirs-local:
@@ -128,6 +130,7 @@ installdirs-local:
 
 uninstall-local:
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/urlget$(EXEEXT)
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
 
 
@@ -140,8 +143,11 @@ all-java-yes: gettext.jar
 gnu/gettext/DumpResource.class: $(srcdir)/gnu/gettext/DumpResource.java
 	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/DumpResource.java
 
-gettext.jar: gnu/gettext/DumpResource.class
-	$(JAR) cf $@ gnu/gettext/DumpResource*.class
+gnu/gettext/GetURL.class: $(srcdir)/gnu/gettext/GetURL.java
+	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/GetURL.java
+
+gettext.jar: gnu/gettext/DumpResource.class gnu/gettext/GetURL.class
+	$(JAR) cf $@ gnu/gettext/DumpResource*.class gnu/gettext/GetURL*.class
 
 CLEANFILES = gettext.jar gnu/gettext/*.class
 
