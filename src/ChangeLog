@@ -1,3 +1,8 @@
+2002-03-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (msginit_LDADD): Use @INTL_LIBTOOL_SUFFIX_PREFIX@o
+	instead of $(OBJEXT).
+
 2002-03-05  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (s6_addr16): Define if not defined by the system.

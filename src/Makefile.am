@@ -128,7 +128,8 @@ msgen_LDADD = libgettextsrc.la
 msgexec_LDADD = libgettextsrc.la
 msgfilter_LDADD = libgettextsrc.la
 msggrep_LDADD = libgettextsrc.la
-msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
+msginit_LDADD = ../intl/localealias.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
+                ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
                 libgettextsrc.la
 msguniq_LDADD = libgettextsrc.la
 
