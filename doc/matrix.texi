@@ -9,11 +9,11 @@ binutils        |                                  []                   |
 bison           |                            []    []                   |
 clisp           |             []    []    []       []                   |
 cpio            |          [] []          []       [] []                |
-diffutils       |          [] []       [] []       [] []          []    |
+diffutils       |          [] []       [] []       [] [] []       []    |
 enscript        |             []                   []                   |
 error           |                         []       []          []       |
 fetchmail       |       () []                      ()                   |
-fileutils       |             []          [] []    []                   |
+fileutils       |             []          [] []    []                [] |
 findutils       |          [] []          [] []    [] []          [] [] |
 flex            |          []             []       []                   |
 freetype        |       ()    ()                   ()                   |
@@ -59,7 +59,7 @@ wdiff           |          [] []          [] []    []                   |
 wget            |       [] [] []          [] []    [] [] []    []       |
                 +-------------------------------------------------------+
                   bg ca cs da de el en eo es et fi fr gl he hr hu id it
-                   0  4 11 28 34  7  1  8 30 14  1 45 20  4  0  3  7  8
+                   0  4 11 28 34  7  1  8 30 14  1 45 20  5  0  3  7  9
 @end group
 
 @group
@@ -68,15 +68,15 @@ wget            |       [] [] []          [] []    [] [] []    []       |
 a2ps            |    ()       []    () () ()       []    [] [] ()       |  8
 bash            |                                                       |  4
 bfd             |                                              []       |  2
-binutils        |                                              []       |  2
+binutils        | []                                           []       |  3
 bison           | []                               []       [] []       |  6
 clisp           |             []                                        |  5
 cpio            |    []       []       []     []   []       []          | 11
-diffutils       |                      []          []       [] []       | 11
+diffutils       |                      []          []       [] []       | 12
 enscript        |             []              []   []                   |  5
 error           |                                     []       []       |  5
 fetchmail       |                      ()     ()                        |  1
-fileutils       |                                        [] [] []       |  7
+fileutils       |                                        [] [] []       |  8
 findutils       | [] []       []       []     []   []    [] [] []       | 17
 flex            |    []                            []       []          |  6
 freetype        |             ()                                        |  0
@@ -84,17 +84,17 @@ gas             |                                                       |  1
 gawk            |                                              []       |  4
 gcal            |                                           []          |  2
 gcc             | []                                                    |  3
-gettext         |    []                               []    [] []       |  6
+gettext         |    []                               [] [] [] []       |  7
 gnupg           | []                   []                   [] []       | 11
 gprof           |                                              []       |  2
 grep            |                      []                [] [] []       | 12
-hello           | [] [] [] [] []    [] []          [] []    [] [] []    | 23
+hello           | [] [] [] [] [] [] [] []          [] []    [] [] []    | 24
 id-utils        |             []                   []       []          |  6
 indent          |    []       []       []          [] []    [] []       | 12
 jpilot          | ()          ()    ()                      ()          |  3
 jwhois          |                                  ()       ()          |  1
 kbd             |                                           [] []       |  2
-ld              |                                           []          |  2
+ld              |                                           [] []       |  3
 libc            | [] []    []       [] []     []      []    [] []       | 17
 lilypond        | []          []                            []          |  5
 lynx            | []          []              []   []       []          |  8
@@ -122,6 +122,6 @@ wdiff           |                                  [] []    [] []       |  9
 wget            | []          []                   [] [] [] [] [] []    | 17
                 +-------------------------------------------------------+
   35 teams        ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
-  55 domains      18 10  1  6 17  0  5 14  2  11   22  9 10 35 25  3  1  414
+  55 domains      19 10  1  6 17  1  5 14  2  11   22  9 11 35 26  3  1  420
 @end group
 @end example
