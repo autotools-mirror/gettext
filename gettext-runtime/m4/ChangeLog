@@ -1,3 +1,12 @@
+2003-06-27  Bruno Haible  <bruno@clisp.org>
+
+	Avoid use of *_unlocked functions on Solaris 2.5.1.
+	* gettext.m4 (AM_INTL_SUBDIR): Don't test for the functions
+	feof_unlocked, fgets_unlocked, getc_unlocked. Test for their
+	declaration instead.
+	(gt_CHECK_DECL): New macro.
+	Reported by Eric Botcazou <ebotcazou@libertysurf.fr>.
+
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* printf-posix.m4: New file.

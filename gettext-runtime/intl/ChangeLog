@@ -1,3 +1,10 @@
+2003-06-27  Bruno Haible  <bruno@clisp.org>
+
+	Avoid use of *_unlocked functions on Solaris 2.5.1.
+	* localcharset.c: Test HAVE_DECL_GETC_UNLOCKED, not HAVE_GETC_UNLOCKED.
+	* localealias.c: Test HAVE_DECL_*_UNLOCKED, not HAVE_*_UNLOCKED.
+	Reported by Eric Botcazou <ebotcazou@libertysurf.fr>.
+
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
 	Portability to mingw32.

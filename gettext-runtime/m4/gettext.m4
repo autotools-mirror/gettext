@@ -1,4 +1,4 @@
-# gettext.m4 serial 21 (gettext-0.12.2)
+# gettext.m4 serial 22 (gettext-0.12.2)
 dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -377,10 +377,18 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_CHECK_TYPES([ptrdiff_t])
   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
 stdlib.h string.h unistd.h sys/param.h])
-  AC_CHECK_FUNCS([asprintf feof_unlocked fgets_unlocked getc_unlocked getcwd \
-getegid geteuid getgid getuid mempcpy munmap putenv setenv setlocale snprintf \
-stpcpy strcasecmp strdup strtoul tsearch wprintf __argz_count \
-__argz_stringify __argz_next __fsetlocking])
+  AC_CHECK_FUNCS([asprintf getcwd getegid geteuid getgid getuid mempcpy \
+munmap putenv setenv setlocale snprintf stpcpy strcasecmp strdup strtoul \
+tsearch wprintf __argz_count __argz_stringify __argz_next __fsetlocking])
+
+  dnl Use the *_unlocked functions only if they are declared.
+  dnl (because some of them were declared in Solaris 2.5.1 but were removed
+  dnl in Solaris 2.6, whereas we want binaries built on Solaris 2.5.1 to run
+  dnl on Solaris 2.6).
+  dnl Don't use AC_CHECK_DECLS because it isn't supported in autoconf-2.13.
+  gt_CHECK_DECL(feof_unlocked, [#include <stdio.h>])
+  gt_CHECK_DECL(fgets_unlocked, [#include <stdio.h>])
+  gt_CHECK_DECL(getc_unlocked, [#include <stdio.h>])
 
   case $gt_cv_func_printf_posix in
     *yes) HAVE_POSIX_PRINTF=1 ;;
@@ -442,6 +450,26 @@ changequote([,])dnl
   if test $ac_verc_fail = yes; then
     INTLBISON=:
   fi
+])
+
+
+dnl gt_CHECK_DECL(FUNC, INCLUDES)
+dnl Check whether a function is declared.
+AC_DEFUN([gt_CHECK_DECL],
+[
+  AC_CACHE_CHECK([whether $1 is declared], ac_cv_have_decl_$1,
+    [AC_TRY_COMPILE([$2], [
+#ifndef $1
+  char *p = (char *) $1;
+#endif
+], ac_cv_have_decl_$1=yes, ac_cv_have_decl_$1=no)])
+  if test $ac_cv_have_decl_$1 = yes; then
+    gt_value=1
+  else
+    gt_value=0
+  fi
+  AC_DEFINE_UNQUOTED([HAVE_DECL_]translit($1, [a-z], [A-Z]), [$gt_value],
+    [Define to 1 if you have the declaration of `$1', and to 0 if you don't.])
 ])
 
 
