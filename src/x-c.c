@@ -377,7 +377,7 @@ phase4_getc ()
   static size_t bufmax;
   size_t buflen;
   int c;
-  int state;
+  bool last_was_star;
 
   c = phase3_getc ();
   if (c != '/')
@@ -392,7 +392,7 @@ phase4_getc ()
     case '*':
       /* C comment.  */
       buflen = 0;
-      state = 0;
+      last_was_star = false;
       while (1)
 	{
 	  c = phase3_getc ();
@@ -417,15 +417,15 @@ phase4_getc ()
 	      buffer[buflen] = 0;
 	      xgettext_comment_add (buffer);
 	      buflen = 0;
-	      state = 0;
+	      last_was_star = false;
 	      continue;
 
 	    case '*':
-	      state = 1;
+	      last_was_star = true;
 	      continue;
 
 	    case '/':
-	      if (state == 1)
+	      if (last_was_star)
 		{
 		  buflen -= 2;
 		  while (buflen >= 1 && (buffer[buflen - 1] == ' '
@@ -438,7 +438,7 @@ phase4_getc ()
 	      /* FALLTHROUGH */
 
 	    default:
-	      state = 0;
+	      last_was_star = false;
 	      continue;
 	    }
 	  break;
@@ -502,7 +502,7 @@ phase7_getc ()
 
   /* Return a magic newline indicator, so that we can distinguish
      between the user requesting a newline in the string (e.g. using
-     "\n" or "\15") from the user failing to terminate the string or
+     "\n" or "\012") from the user failing to terminate the string or
      character constant.  The ANSI C standard says: 3.1.3.4 Character
      Constants contain ``any character except single quote, backslash or
      newline; or an escape sequence'' and 3.1.4 String Literals contain
