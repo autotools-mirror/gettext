@@ -19,7 +19,7 @@ Tasks not to forget before release:
 
 - Bump po-mode-version-string in gettext-tools/misc/po-mode.el.
 
-- Bump version number and release date in configure.in.
+- Bump version number and release date in version.sh.
 
 - Update djgpp/*.
 
