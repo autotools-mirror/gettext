@@ -1,5 +1,11 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* po2tbl.sed.in: Renamed to ...
+	* po2tbl.sin: ... here.
+	* Makefile.in (DISTFILES.common): Update.
+
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in (uninstall): Synchronize with the install target.
 	Really remove charset.alias when its reference count drops to 0.
 

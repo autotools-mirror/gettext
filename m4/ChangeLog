@@ -1,5 +1,9 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.m4 (AM_GNU_GETTEXT): Renamed po2tbl.sed.in to po2tbl.sin.
+
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): The sed scripts are in $srcdir/intl,
 	and po2msg.sed, po2tbl.sed must be created in the intl subdir.
 
