@@ -1,3 +1,8 @@
+2003-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset: Treat the new country name CS like the old country
+	name YU.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13 released.

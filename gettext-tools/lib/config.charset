@@ -149,7 +149,7 @@ case "$os" in
 	  echo "$l.utf-8@euro UTF-8"
 	done
 	for l in cs cs_CZ hr hr_HR hu hu_HU pl pl_PL ro ro_RO sk sk_SK sl \
-	         sl_SI sr sr_YU; do
+	         sl_SI sr sr_CS sr_YU; do
 	  echo "$l ISO-8859-2"
 	  echo "$l.iso-8859-2 ISO-8859-2"
 	  echo "$l.cp-852 CP852"
@@ -509,6 +509,7 @@ case "$os" in
 	echo "sq CP852"
 	echo "sq_AL CP852"
 	echo "sr CP852"    # CP852 or CP866 or CP855 ??
+	echo "sr_CS CP852" # CP852 or CP866 or CP855 ??
 	echo "sr_YU CP852" # CP852 or CP866 or CP855 ??
 	# ISO-8859-3 languages
 	echo "mt CP850"
