@@ -75,6 +75,7 @@ DVIPS = @DVIPS@
 ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GCC = @GCC@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
@@ -92,6 +93,7 @@ HAVE_JRE = @HAVE_JRE@
 HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
+HAVE_LIB = @HAVE_LIB@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -101,13 +103,19 @@ INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIB = @LIB@
 LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
+LTLIB = @LTLIB@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
@@ -129,6 +137,7 @@ am__include = @am__include@
 am__quote = @am__quote@
 install_sh = @install_sh@
 lispdir = @lispdir@
+with_gnu_ld = @with_gnu_ld@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
@@ -136,50 +145,88 @@ lib_LTLIBRARIES = libgettextlib.la
 
 
 # Sources that are compiled on all platforms.
-libgettextlib_la_SOURCES = addext.c argmatch.c backupfile.c basename.c \
-c-ctype.c concatpath.c copy-file.c execute.c findprog.c fstrcmp.c \
-full-write.c gcd.c getopt.c getopt1.c hash.c javacomp.c javaexec.c \
-linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c \
-pipe-out.c progname.c safe-read.c sh-quote.c tmpdir.c wait-process.c xerror.c \
-xgetcwd.c xmalloc.c xstrdup.c
-
-
-libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h c-ctype.h \
-copy-file.h execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h \
-javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h \
-pipe.h progname.h safe-read.h sh-quote.h system.h tmpdir.h utf8-ucs4.h \
-utf16-ucs4.h wait-process.h xerror.h xmalloc.h
+libgettextlib_la_SOURCES = \
+  argmatch.h argmatch.c \
+  backupfile.h backupfile.c addext.c \
+  basename.h basename.c \
+  binary-io.h \
+  c-ctype.h c-ctype.c \
+  copy-file.h copy-file.c \
+  error.h error.c \
+  execute.h execute.c \
+  exit.h \
+  findprog.h findprog.c \
+  fstrcmp.h fstrcmp.c \
+  full-write.h full-write.c \
+  gcd.h gcd.c \
+  getopt.h getopt.c getopt1.c \
+  hash.h hash.c \
+  javacomp.h javacomp.c \
+  javaexec.h javaexec.c \
+  linebreak.h linebreak.c lbrkprop.h utf8-ucs4.h utf16-ucs4.h \
+  localcharset.c \
+  mbswidth.h mbswidth.c \
+  minmax.h \
+  obstack.h obstack.c \
+  pathmax.h \
+  pathname.h concatpath.c \
+  pipe.h pipe-bidi.c pipe-in.c pipe-out.c \
+  progname.h progname.c \
+  safe-read.h safe-read.c \
+  sh-quote.h sh-quote.c \
+  strtoul.c \
+  tmpdir.h tmpdir.c \
+  wait-process.h wait-process.c \
+  xerror.h xerror.c \
+  xmalloc.h xmalloc.c xstrdup.c \
+  xsetenv.h xsetenv.c
 
 
 
 # Sources that are compiled only on platforms that lack the functions.
-LIBADD_SOURCE = alloca.c error.c getline.c memset.c mkdtemp.c setenv.c \
-stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strpbrk.c strstr.c \
-strtol.c strtoul.c vasprintf.c
+LIBADD_SOURCE = \
+  liballoca.h alloca.c \
+  getline.h getline.c \
+  memset.c \
+  mkdtemp.h mkdtemp.c \
+  pfnmatch.h pfnmatch.c \
+  setenv.h setenv.c \
+  stpcpy.h stpcpy.c \
+  stpncpy.h stpncpy.c \
+  strcase.h strcasecmp.c strncasecmp.c \
+  strcspn.c \
+  strpbrk.h strpbrk.c \
+  strstr.h strstr.c \
+  strtol.c \
+  vasprintf.c
 
-
-LIBADD_HEADER = error.h getline.h mkdtemp.h setenv.h strpbrk.h strstr.h
 
 
 # Unused sources.
-UNUSED_SOURCE = memmove.c
+UNUSED_SOURCE = \
+  memmove.c \
+  xgetcwd.h xgetcwd.c
 
-UNUSED_HEADER = 
 
 
 # How to build libgettextlib.la.
 libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
 
-# Need @INTLLIBS@ because many source files use gettext().
-# Need @LIBICONV@ because linebreak.c uses iconv().
+# Need @LTLIBINTL@ because many source files use gettext().
+# Need @LTLIBICONV@ because linebreak.c uses iconv().
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
-  @INTLLIBS@ @LIBICONV@ -no-undefined
+  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
+
+
+# Extra files to be installed.
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = gettext.h
 
 
 # List of files to be distributed.
-noinst_HEADERS = $(libgettextlib_la_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER)
+noinst_HEADERS = gettext.h
 
 EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
@@ -189,6 +236,8 @@ gen-lbrkprop.c 3level.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
+
+DISTCLEANFILES = fnmatch.h
 MOSTLYCLEANFILES = @STDBOOL_H@
 
 charset_alias = $(DESTDIR)$(libdir)/charset.alias
@@ -204,13 +253,14 @@ CONFIG_CLEAN_FILES = javacomp.sh javaexec.sh
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
 libgettextlib_la_DEPENDENCIES = @LTALLOCA@ @LTLIBOBJS@
-am_libgettextlib_la_OBJECTS = addext.lo argmatch.lo backupfile.lo \
-	basename.lo c-ctype.lo concatpath.lo copy-file.lo execute.lo \
+am_libgettextlib_la_OBJECTS = argmatch.lo backupfile.lo addext.lo \
+	basename.lo c-ctype.lo copy-file.lo error.lo execute.lo \
 	findprog.lo fstrcmp.lo full-write.lo gcd.lo getopt.lo \
 	getopt1.lo hash.lo javacomp.lo javaexec.lo linebreak.lo \
-	localcharset.lo mbswidth.lo obstack.lo pipe-bidi.lo pipe-in.lo \
-	pipe-out.lo progname.lo safe-read.lo sh-quote.lo tmpdir.lo \
-	wait-process.lo xerror.lo xgetcwd.lo xmalloc.lo xstrdup.lo
+	localcharset.lo mbswidth.lo obstack.lo concatpath.lo \
+	pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo safe-read.lo \
+	sh-quote.lo strtoul.lo tmpdir.lo wait-process.lo xerror.lo \
+	xmalloc.lo xstrdup.lo xsetenv.lo
 libgettextlib_la_OBJECTS = $(am_libgettextlib_la_OBJECTS)
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@
@@ -226,13 +276,14 @@ LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 CFLAGS = @CFLAGS@
 DIST_SOURCES = $(libgettextlib_la_SOURCES)
+DATA = $(gettextsrc_DATA)
+
 HEADERS = $(noinst_HEADERS)
 
 DIST_COMMON = $(noinst_HEADERS) ChangeLog Makefile.am Makefile.in \
-	alloca.c error.c error.h getline.c javacomp.sh.in \
-	javaexec.sh.in memset.c mkdtemp.c setenv.c stpcpy.c stpncpy.c \
-	strcasecmp.c strcspn.c strncasecmp.c strpbrk.c strstr.c \
-	strtoul.c vasprintf.c
+	alloca.c getline.c javacomp.sh.in javaexec.sh.in memset.c \
+	mkdtemp.c pfnmatch.c setenv.c stpcpy.c stpncpy.c strcasecmp.c \
+	strcspn.c strncasecmp.c strpbrk.c strstr.c vasprintf.c
 SOURCES = $(libgettextlib_la_SOURCES)
 
 all: all-am
@@ -296,6 +347,23 @@ distclean-compile:
 .c.lo:
 	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 uninstall-info-am:
+install-gettextsrcDATA: $(gettextsrc_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir)
+	@list='$(gettextsrc_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
+
+uninstall-gettextsrcDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(gettextsrc_DATA)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  rm -f $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
 
 tags: TAGS
 
@@ -352,10 +420,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES) $(HEADERS) all-local
+all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 
 installdirs:
-	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	$(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(gettextsrcdir)
 
 install: install-am
 install-exec: install-exec-am
@@ -378,6 +446,7 @@ clean-generic:
 
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES) stamp-h stamp-h[0-9]*
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -400,7 +469,7 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-gettextsrcDATA
 
 install-exec-am: install-exec-local install-libLTLIBRARIES
 
@@ -419,18 +488,20 @@ mostlyclean: mostlyclean-am
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES uninstall-local
+uninstall-am: uninstall-gettextsrcDATA uninstall-info-am \
+	uninstall-libLTLIBRARIES uninstall-local
 
 .PHONY: GTAGS all all-am all-local check check-am clean clean-generic \
 	clean-libLTLIBRARIES clean-libtool distclean distclean-compile \
 	distclean-generic distclean-libtool distclean-tags distdir dvi \
 	dvi-am info info-am install install-am install-data \
 	install-data-am install-exec install-exec-am install-exec-local \
-	install-info install-info-am install-libLTLIBRARIES install-man \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	tags uninstall uninstall-am uninstall-info-am \
+	install-gettextsrcDATA install-info install-info-am \
+	install-libLTLIBRARIES install-man install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool tags uninstall \
+	uninstall-am uninstall-gettextsrcDATA uninstall-info-am \
 	uninstall-libLTLIBRARIES uninstall-local
 
 

@@ -1384,8 +1384,10 @@ if test "${with_librpathx_prefix+set}" = set; then
 fi
 
       LIBRPATHX=
+  LTLIBRPATHX=
   INCRPATHX=
   rpathdirs=
+  ltrpathdirs=
   names_already_handled=
   names_next_round='rpathx '
   while test -n "$names_next_round"; do
@@ -1406,29 +1408,9 @@ fi
         if test -n "$value"; then
           if test "$value" = yes; then
             eval value=\"\$LIB$uppername\"
-            
-  for element in $value; do
-    haveit=
-    for x in $LIBRPATHX; do
-      
-  acl_save_prefix="$prefix"
-  prefix="$acl_final_prefix"
-  acl_save_exec_prefix="$exec_prefix"
-  exec_prefix="$acl_final_exec_prefix"
-  eval x=\"$x\"
-  exec_prefix="$acl_save_exec_prefix"
-  prefix="$acl_save_prefix"
-
-      if test "X$x" = "X$element"; then
-        haveit=yes
-        break
-      fi
-    done
-    if test -z "$haveit"; then
-      LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$element"
-    fi
-  done
-
+            test -z "$value" || LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$value"
+            eval value=\"\$LTLIB$uppername\"
+            test -z "$value" || LTLIBRPATHX="${LTLIBRPATHX}${LTLIBRPATHX:+ }$value"
           else
                                     :
           fi
@@ -1455,7 +1437,7 @@ fi
             fi
           fi
           if test "X$found_dir" = "X"; then
-            for x in $LDFLAGS $LIBRPATHX; do
+            for x in $LDFLAGS $LTLIBRPATHX; do
               
   acl_save_prefix="$prefix"
   prefix="$acl_final_prefix"
@@ -1491,30 +1473,40 @@ fi
             done
           fi
           if test "X$found_dir" != "X"; then
-                                                
-              if test "X$found_so" != "X"; then
-                                                                if test "X$found_dir" = "X/usr/lib"; then
-                                    LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
+                        LTLIBRPATHX="${LTLIBRPATHX}${LTLIBRPATHX:+ }-L$found_dir -l$name"
+            if test "X$found_so" != "X"; then
+                                                        if test "X$found_dir" = "X/usr/lib"; then
+                                LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
+              else
+                                                                                haveit=
+                for x in $ltrpathdirs; do
+                  if test "X$x" = "X$found_dir"; then
+                    haveit=yes
+                    break
+                  fi
+                done
+                if test -z "$haveit"; then
+                  ltrpathdirs="$ltrpathdirs $found_dir"
+                fi
+                                if test "$hardcode_direct" = yes; then
+                                                      LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
                 else
-                  if test "$hardcode_direct" = yes; then
+                  if test -n "$hardcode_libdir_flag_spec" && test "$hardcode_minus_L" = no; then
                                                             LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
-                  else
-                    if test -n "$hardcode_libdir_flag_spec" && test "$hardcode_minus_L" = no; then
-                                                                  LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
-                                                                  haveit=
-                      for x in $rpathdirs; do
-                        if test "X$x" = "X$found_dir"; then
-                          haveit=yes
-                          break
-                        fi
-                      done
-                      if test -z "$haveit"; then
-                        rpathdirs="$rpathdirs $found_dir"
+                                                            haveit=
+                    for x in $rpathdirs; do
+                      if test "X$x" = "X$found_dir"; then
+                        haveit=yes
+                        break
                       fi
-                    else
-                                                                                        haveit=
-                      for x in $LDFLAGS $LIBRPATHX; do
-                        
+                    done
+                    if test -z "$haveit"; then
+                      rpathdirs="$rpathdirs $found_dir"
+                    fi
+                  else
+                                                                                haveit=
+                    for x in $LDFLAGS $LIBRPATHX; do
+                      
   acl_save_prefix="$prefix"
   prefix="$acl_final_prefix"
   acl_save_exec_prefix="$exec_prefix"
@@ -1523,32 +1515,29 @@ fi
   exec_prefix="$acl_save_exec_prefix"
   prefix="$acl_save_prefix"
 
-                        if test "X$x" = "X-L$found_dir"; then
-                          haveit=yes
-                          break
-                        fi
-                      done
-                      if test -z "$haveit"; then
-                        LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-L$found_dir"
+                      if test "X$x" = "X-L$found_dir"; then
+                        haveit=yes
+                        break
                       fi
-                      if test "$hardcode_minus_L" != no; then
-                                                                                                LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
-                      else
-                                                                                                                                                                                                LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-l$name"
-                      fi
+                    done
+                    if test -z "$haveit"; then
+                      LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-L$found_dir"
+                    fi
+                    if test "$hardcode_minus_L" != no; then
+                                                                                        LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_so"
+                    else
+                                                                                                                                                                                LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-l$name"
                     fi
                   fi
                 fi
-              else
-                if test "X$found_a" != "X"; then
-                                    LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_a"
-                else
-                                                
-                  LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-L$found_dir -l$name"
-            
-                fi
               fi
-            
+            else
+              if test "X$found_a" != "X"; then
+                                LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$found_a"
+              else
+                                                LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-L$found_dir -l$name"
+              fi
+            fi
                         additional_includedir=
             case "$found_dir" in
               */lib | */lib/)
@@ -1559,8 +1548,16 @@ fi
             if test "X$additional_includedir" != "X"; then
                                                                                                                 if test "X$additional_includedir" != "X/usr/include"; then
                 haveit=
-                for x in $CPPFLAGS $INCRPATHX; do
-                  
+                if test "X$additional_includedir" = "X/usr/local/include"; then
+                  if test -n "$GCC"; then
+                    case $host_os in
+                      linux*) haveit=yes;;
+                    esac
+                  fi
+                fi
+                if test -z "$haveit"; then
+                  for x in $CPPFLAGS $INCRPATHX; do
+                    
   acl_save_prefix="$prefix"
   prefix="$acl_final_prefix"
   acl_save_exec_prefix="$exec_prefix"
@@ -1569,19 +1566,11 @@ fi
   exec_prefix="$acl_save_exec_prefix"
   prefix="$acl_save_prefix"
 
-                  if test "X$x" = "X-I$additional_includedir"; then
-                    haveit=yes
-                    break
-                  fi
-                done
-                if test -z "$haveit"; then
-                  if test "X$additional_includedir" = "X/usr/local/include"; then
-                    if test -n "$GCC"; then
-                      case $host_os in
-                        linux*) haveit=yes;;
-                      esac
+                    if test "X$x" = "X-I$additional_includedir"; then
+                      haveit=yes
+                      break
                     fi
-                  fi
+                  done
                   if test -z "$haveit"; then
                     if test -d "$additional_includedir"; then
                                             INCRPATHX="${INCRPATHX}${INCRPATHX:+ }-I$additional_includedir"
@@ -1603,8 +1592,17 @@ fi
                     additional_libdir=`echo "X$dep" | sed -e 's/^X-L//'`
                                                                                                                                                                 if test "X$additional_libdir" != "X/usr/lib"; then
                       haveit=
-                      for x in $LDFLAGS $LIBRPATHX; do
-                        
+                      if test "X$additional_libdir" = "X/usr/local/lib"; then
+                        if test -n "$GCC"; then
+                          case $host_os in
+                            linux*) haveit=yes;;
+                          esac
+                        fi
+                      fi
+                      if test -z "$haveit"; then
+                        haveit=
+                        for x in $LDFLAGS $LIBRPATHX; do
+                          
   acl_save_prefix="$prefix"
   prefix="$acl_final_prefix"
   acl_save_exec_prefix="$exec_prefix"
@@ -1613,22 +1611,35 @@ fi
   exec_prefix="$acl_save_exec_prefix"
   prefix="$acl_save_prefix"
 
-                        if test "X$x" = "X-L$additional_libdir"; then
-                          haveit=yes
-                          break
-                        fi
-                      done
-                      if test -z "$haveit"; then
-                        if test "X$additional_libdir" = "X/usr/local/lib"; then
-                          if test -n "$GCC"; then
-                            case $host_os in
-                              linux*) haveit=yes;;
-                            esac
+                          if test "X$x" = "X-L$additional_libdir"; then
+                            haveit=yes
+                            break
                           fi
-                        fi
+                        done
                         if test -z "$haveit"; then
                           if test -d "$additional_libdir"; then
                                                         LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-L$additional_libdir"
+                          fi
+                        fi
+                        haveit=
+                        for x in $LDFLAGS $LTLIBRPATHX; do
+                          
+  acl_save_prefix="$prefix"
+  prefix="$acl_final_prefix"
+  acl_save_exec_prefix="$exec_prefix"
+  exec_prefix="$acl_final_exec_prefix"
+  eval x=\"$x\"
+  exec_prefix="$acl_save_exec_prefix"
+  prefix="$acl_save_prefix"
+
+                          if test "X$x" = "X-L$additional_libdir"; then
+                            haveit=yes
+                            break
+                          fi
+                        done
+                        if test -z "$haveit"; then
+                          if test -d "$additional_libdir"; then
+                                                        LTLIBRPATHX="${LTLIBRPATHX}${LTLIBRPATHX:+ }-L$additional_libdir"
                           fi
                         fi
                       fi
@@ -1642,12 +1653,14 @@ fi
                     ;;
                   *)
                                         LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }$dep"
+                    LTLIBRPATHX="${LTLIBRPATHX}${LTLIBRPATHX:+ }$dep"
                     ;;
                 esac
               done
             fi
           else
                                                             LIBRPATHX="${LIBRPATHX}${LIBRPATHX:+ }-l$name"
+            LTLIBRPATHX="${LTLIBRPATHX}${LTLIBRPATHX:+ }-l$name"
           fi
         fi
       fi
@@ -1674,14 +1687,21 @@ fi
       done
     fi
   fi
+  if test "X$ltrpathdirs" != "X"; then
+            for found_dir in $ltrpathdirs; do
+      LTLIBRPATHX="${LTLIBRPATHX}${LTLIBRPATHX:+ }-R$found_dir"
+    done
+  fi
 
     ac_cv_librpathx_libs="$LIBRPATHX"
+    ac_cv_librpathx_ltlibs="$LTLIBRPATHX"
     ac_cv_librpathx_cppflags="$INCRPATHX"
   
 fi
 
 echo "$ac_t""$ac_cv_librpathx_libs" 1>&6
   LIBRPATHX="$ac_cv_librpathx_libs"
+  LTLIBRPATHX="$ac_cv_librpathx_ltlibs"
   INCRPATHX="$ac_cv_librpathx_cppflags"
   
   for element in $INCRPATHX; do
@@ -1706,6 +1726,7 @@ echo "$ac_t""$ac_cv_librpathx_libs" 1>&6
     fi
   done
 
+  
   
       HAVE_LIBRPATHX=yes
   
@@ -1888,6 +1909,7 @@ s%@host_cpu@%$host_cpu%g
 s%@host_vendor@%$host_vendor%g
 s%@host_os@%$host_os%g
 s%@LIBRPATHX@%$LIBRPATHX%g
+s%@LTLIBRPATHX@%$LTLIBRPATHX%g
 s%@global_top_srcdir@%$global_top_srcdir%g
 
 CEOF

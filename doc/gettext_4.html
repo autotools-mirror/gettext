@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 4  Making the PO Template File</TITLE>
 </HEAD>
@@ -270,10 +270,26 @@ of variance for generated <CODE>.gmo</CODE> files.  With <CODE>--omit-header</CO
 two invocations of <CODE>xgettext</CODE> on the same files with the same
 options at different times are guaranteed to produce the same results.
 
+<DT><SAMP>`--copyright-holder=<VAR>string</VAR>&acute;</SAMP>
+<DD>
+Set the copyright holder in the output.  <VAR>string</VAR> should be the
+copyright holder of the surrounding package.  (Note that the msgstr
+strings, extracted from the package's sources, belong to the copyright
+holder of the package.)  Translators are expected to transfer or disclaim
+the copyright for their translations, so that package maintainers can
+distribute them without legal risk.  If <VAR>string</VAR> is empty, the output
+files are marked as being in the public domain; in this case, the translators
+are expected to disclaim their copyright, again so that package maintainers
+can distribute them without legal risk.
+
+The default value for <VAR>string</VAR> is the Free Software Foundation, Inc.,
+simply because <CODE>xgettext</CODE> was first used in the GNU project.
+
 <DT><SAMP>`--foreign-user&acute;</SAMP>
 <DD>
-Omit FSF copyright in output.  This can be useful for translators
-outside the GNU project.
+Omit FSF copyright in output.  This option is equivalent to
+<SAMP>`--copyright-holder="&acute;</SAMP>.  It can be useful for packages outside the GNU
+project that want their translations to be in the public domain.
 
 <DT><SAMP>`-m [<VAR>string</VAR>]&acute;</SAMP>
 <DD>

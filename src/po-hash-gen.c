@@ -15,6 +15,14 @@
 #line 20 "po-hash-gen.y"
 
 
+/* The bison generated parser uses alloca.  AIX 3 forces us to put this
+   declaration at the beginning of the file.  The declaration in bison's
+   skeleton file comes too late.  This must come before <config.h>
+   because <config.h> may include arbitrary system headers.  */
+#if defined _AIX && !defined __GNUC__
+ #pragma alloca
+#endif
+
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
@@ -24,6 +32,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "xmalloc.h"
 #include "po.h"
@@ -76,13 +85,13 @@
 #define yycheck  po_hash_yycheck
 
 
-#line 92 "po-hash-gen.y"
+#line 101 "po-hash-gen.y"
 typedef union
 {
   char *string;
   size_t number;
 } YYSTYPE;
-#line 101 "po-hash-gen.y"
+#line 110 "po-hash-gen.y"
 
 
 static const char *cur;
@@ -170,7 +179,7 @@ static const short yyrhs[] = {    -1,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   132,   133,   137,   143,   149,   155,   161
+   141,   142,   146,   152,   158,   164,   170
 };
 #endif
 
@@ -223,7 +232,7 @@ static const short yycheck[] = {     0,
      8,     4,     0,     5,     4
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
+#line 3 "/usr/local/share/bison.simple"
 /* This file comes from bison-1.28.  */
 
 /* Skeleton output parser for bison,
@@ -437,7 +446,7 @@ __yy_memcpy (char *to, char *from, unsigned int count)
 #endif
 #endif
 
-#line 217 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
+#line 217 "/usr/local/share/bison.simple"
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
    into yyparse.  The argument should have type void *.
@@ -766,7 +775,7 @@ yyreduce:
   switch (yyn) {
 
 case 3:
-#line 138 "po-hash-gen.y"
+#line 147 "po-hash-gen.y"
 {
 		  /* GNU style */
 		  po_callback_comment_filepos (yyvsp[-2].string, yyvsp[0].number);
@@ -774,7 +783,7 @@ case 3:
 		;
     break;}
 case 4:
-#line 144 "po-hash-gen.y"
+#line 153 "po-hash-gen.y"
 {
 		  /* GNU style, without line number (e.g. from Pascal .rst) */
 		  po_callback_comment_filepos (yyvsp[0].string, (size_t)(-1));
@@ -782,7 +791,7 @@ case 4:
 		;
     break;}
 case 5:
-#line 150 "po-hash-gen.y"
+#line 159 "po-hash-gen.y"
 {
 		  /* SunOS style */
 		  po_callback_comment_filepos (yyvsp[-4].string, yyvsp[0].number);
@@ -790,7 +799,7 @@ case 5:
 		;
     break;}
 case 6:
-#line 156 "po-hash-gen.y"
+#line 165 "po-hash-gen.y"
 {
 		  /* Solaris style */
 		  po_callback_comment_filepos (yyvsp[-5].string, yyvsp[0].number);
@@ -798,7 +807,7 @@ case 6:
 		;
     break;}
 case 7:
-#line 162 "po-hash-gen.y"
+#line 171 "po-hash-gen.y"
 {
 		  /* GNU style, but STRING is `file'.  Esoteric, but it
 		     happened.  */
@@ -807,7 +816,7 @@ case 7:
     break;}
 }
    /* the action file gets copied in in place of this dollarsign */
-#line 543 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
+#line 543 "/usr/local/share/bison.simple"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -1027,7 +1036,7 @@ yyerrhandle:
     }
   return 1;
 }
-#line 169 "po-hash-gen.y"
+#line 178 "po-hash-gen.y"
 
 
 

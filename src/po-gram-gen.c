@@ -25,12 +25,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "str-list.h"
 #include "po-lex.h"
 #include "error.h"
 #include "xmalloc.h"
-#include "libgettext.h"
+#include "gettext.h"
 #include "po.h"
 
 #define _(str) gettext (str)
@@ -89,7 +90,7 @@ static long plural_counter;
     po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
 
 
-#line 106 "po-gram-gen.y"
+#line 107 "po-gram-gen.y"
 typedef union
 {
   struct { char *string; lex_pos_ty pos; bool obsolete; } string;
@@ -163,8 +164,8 @@ static const short yyrhs[] = {    -1,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-   126,   127,   128,   129,   130,   134,   141,   159,   177,   185,
-   193,   202,   213,   217,   232,   254,   261,   272
+   127,   128,   129,   130,   131,   135,   142,   160,   178,   186,
+   194,   203,   214,   218,   233,   255,   262,   273
 };
 #endif
 
@@ -224,7 +225,7 @@ static const short yycheck[] = {    12,
      0,    11,    15
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
+#line 3 "/usr/local/share/bison.simple"
 /* This file comes from bison-1.28.  */
 
 /* Skeleton output parser for bison,
@@ -438,7 +439,7 @@ __yy_memcpy (char *to, char *from, unsigned int count)
 #endif
 #endif
 
-#line 217 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
+#line 217 "/usr/local/share/bison.simple"
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
    into yyparse.  The argument should have type void *.
@@ -767,13 +768,13 @@ yyreduce:
   switch (yyn) {
 
 case 6:
-#line 135 "po-gram-gen.y"
+#line 136 "po-gram-gen.y"
 {
 		   po_callback_domain (yyvsp[0].string.string);
 		;
     break;}
 case 7:
-#line 142 "po-gram-gen.y"
+#line 143 "po-gram-gen.y"
 {
 		  char *string2 = string_list_concat_destroy (&yyvsp[-2].stringlist.stringlist);
 		  char *string4 = string_list_concat_destroy (&yyvsp[0].stringlist.stringlist);
@@ -793,7 +794,7 @@ case 7:
 		;
     break;}
 case 8:
-#line 160 "po-gram-gen.y"
+#line 161 "po-gram-gen.y"
 {
 		  char *string2 = string_list_concat_destroy (&yyvsp[-2].stringlist.stringlist);
 
@@ -813,7 +814,7 @@ case 8:
 		;
     break;}
 case 9:
-#line 178 "po-gram-gen.y"
+#line 179 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-2].pos, yyvsp[-1].stringlist);
 		  check_obsolete (yyvsp[-2].pos, yyvsp[0].string);
@@ -823,7 +824,7 @@ case 9:
 		;
     break;}
 case 10:
-#line 186 "po-gram-gen.y"
+#line 187 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-2].pos, yyvsp[-1].stringlist);
 		  check_obsolete (yyvsp[-2].pos, yyvsp[0].rhs);
@@ -833,7 +834,7 @@ case 10:
 		;
     break;}
 case 11:
-#line 194 "po-gram-gen.y"
+#line 195 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].pos, yyvsp[0].stringlist);
 		  po_gram_error_at_line (&yyvsp[-1].pos.pos, _("missing `msgstr' section"));
@@ -841,7 +842,7 @@ case 11:
 		;
     break;}
 case 12:
-#line 203 "po-gram-gen.y"
+#line 204 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].pos, yyvsp[0].stringlist);
 		  plural_counter = 0;
@@ -851,13 +852,13 @@ case 12:
 		;
     break;}
 case 13:
-#line 214 "po-gram-gen.y"
+#line 215 "po-gram-gen.y"
 {
 		  yyval.rhs = yyvsp[0].rhs;
 		;
     break;}
 case 14:
-#line 218 "po-gram-gen.y"
+#line 219 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].rhs, yyvsp[0].rhs);
 		  yyval.rhs.rhs.msgstr = (char *) xmalloc (yyvsp[-1].rhs.rhs.msgstr_len + yyvsp[0].rhs.rhs.msgstr_len);
@@ -871,7 +872,7 @@ case 14:
 		;
     break;}
 case 15:
-#line 233 "po-gram-gen.y"
+#line 234 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-4].pos, yyvsp[-3].pos);
 		  check_obsolete (yyvsp[-4].pos, yyvsp[-2].number);
@@ -892,7 +893,7 @@ case 15:
 		;
     break;}
 case 16:
-#line 255 "po-gram-gen.y"
+#line 256 "po-gram-gen.y"
 {
 		  string_list_init (&yyval.stringlist.stringlist);
 		  string_list_append (&yyval.stringlist.stringlist, yyvsp[0].string.string);
@@ -901,7 +902,7 @@ case 16:
 		;
     break;}
 case 17:
-#line 262 "po-gram-gen.y"
+#line 263 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].stringlist, yyvsp[0].string);
 		  yyval.stringlist.stringlist = yyvsp[-1].stringlist.stringlist;
@@ -911,14 +912,14 @@ case 17:
 		;
     break;}
 case 18:
-#line 273 "po-gram-gen.y"
+#line 274 "po-gram-gen.y"
 {
 		  po_callback_comment (yyvsp[0].string.string);
 		;
     break;}
 }
    /* the action file gets copied in in place of this dollarsign */
-#line 543 "/home/haible/gnu/arch/linuxlibc6/share/bison.simple"
+#line 543 "/usr/local/share/bison.simple"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -1138,4 +1139,4 @@ yyerrhandle:
     }
   return 1;
 }
-#line 277 "po-gram-gen.y"
+#line 278 "po-gram-gen.y"

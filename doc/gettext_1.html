@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 1  Introduction</TITLE>
 </HEAD>
@@ -168,7 +168,7 @@ by which the programs are untied from calling only English strings or
 other English specific habits, and connected to generic ways of doing
 the same, instead.  Program developers may use various techniques to
 internationalize their programs.  Some of these have been standardized.
-GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_10.html#SEC135">10  The Programmer's View</A>.
+GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_10.html#SEC138">10  The Programmer's View</A>.
 
 </P>
 <P>
@@ -414,9 +414,9 @@ the GNU format.
 <P>
 The following diagram summarizes the relation between the files
 handled by GNU <CODE>gettext</CODE> and the tools acting on these files.
-It is followed by a somewhat detailed explanations, which you should
+It is followed by somewhat detailed explanations, which you should
 read while keeping an eye on the diagram.  Having a clear understanding
-of these interrelations would surely help programmers, translators
+of these interrelations will surely help programmers, translators
 and maintainers.
 
 </P>
@@ -479,7 +479,7 @@ or in a central header file:
 
 <PRE>
 #define _(String) (String)
-#define N_(String) (String)
+#define N_(String) String
 #define textdomain(Domain)
 #define bindtextdomain(Package, Directory)
 </PRE>
@@ -494,7 +494,7 @@ simply replace these definitions by the following:
 <PRE>
 #include &#60;libintl.h&#62;
 #define _(String) gettext (String)
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 </PRE>
 
@@ -516,7 +516,7 @@ a Template PO file, not yet oriented towards any particular language.
 See section <A HREF="gettext_4.html#SEC20">4.1  Invoking the <CODE>xgettext</CODE> Program</A>, for more details about how one calls the
 <CODE>xgettext</CODE> program.  If you are <EM>really</EM> lazy, you might
 be interested at working a lot more right away, and preparing the
-whole distribution setup (see section <A HREF="gettext_12.html#SEC166">12  The Maintainer's View</A>).  By doing so, you
+whole distribution setup (see section <A HREF="gettext_12.html#SEC169">12  The Maintainer's View</A>).  By doing so, you
 spare yourself typing the <CODE>xgettext</CODE> command, as <CODE>make</CODE>
 should now generate the proper things automatically for you!
 
@@ -533,7 +533,7 @@ Then comes the initial translation of messages.  Translation in
 itself is a whole matter, still exclusively meant for humans,
 and whose complexity far overwhelms the level of this manual.
 Nevertheless, a few hints are given in some other chapter of this
-manual (see section <A HREF="gettext_11.html#SEC155">11  The Translator's View</A>).  You will also find there indications
+manual (see section <A HREF="gettext_11.html#SEC158">11  The Translator's View</A>).  You will also find there indications
 about how to contact translating teams, or becoming part of them,
 for sharing your translating concerns with others who target the same
 native language.
@@ -570,7 +570,7 @@ of adding new strings, or modifying strings already translated.
 They just do their job the best they can.  For the Translation
 Project to work smoothly, it is important that maintainers do not
 carry translation concerns on their already loaded shoulders, and that
-translators be kept as free as possible of programmatic concerns.
+translators be kept as free as possible of programming concerns.
 
 </P>
 <P>
@@ -619,8 +619,8 @@ People resisting it will have a hard time participating in the
 Translation Project, or will give a hard time to other participants!  In
 particular, maintainers should relax and include all available official
 PO files in their distributions, even if these have not recently been
-updated, without banging or otherwise trying to exert pressure on the
-translator teams to get the job done.  The pressure should rather come
+updated, without exerting pressure on the translator teams to get the
+job done.  The pressure should rather come
 from the community of users speaking a particular language, and
 maintainers should consider themselves fairly relieved of any concern
 about the adequacy of translation files.  On the other hand, translators
@@ -633,7 +633,7 @@ distribution.
 Once the PO file is complete and dependable, the <CODE>msgfmt</CODE> program
 is used for turning the PO file into a machine-oriented format, which
 may yield efficient retrieval of translations by the programs of the
-package, whenever needed at runtime (see section <A HREF="gettext_8.html#SEC130">8.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_8.html#SEC115">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modalities of execution
+package, whenever needed at runtime (see section <A HREF="gettext_8.html#SEC133">8.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_8.html#SEC118">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
 for the <CODE>msgfmt</CODE> program.
 
 </P>
@@ -643,7 +643,7 @@ with the GNU <CODE>gettext</CODE> library, usually through the operation of
 <CODE>make</CODE>, given a suitable <TT>`Makefile&acute;</TT> exists for the project,
 and the resulting executable is installed somewhere users will find it.
 The MO files themselves should also be properly installed.  Given the
-appropriate environment variables are set (see section <A HREF="gettext_9.html#SEC134">9.3  Magic for End Users</A>), the
+appropriate environment variables are set (see section <A HREF="gettext_9.html#SEC137">9.3  Magic for End Users</A>), the
 program should localize itself automatically, whenever it executes.
 
 </P>

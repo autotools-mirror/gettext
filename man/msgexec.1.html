@@ -23,7 +23,7 @@
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-msgexec - edit translations of message catalog</td></table>
+msgexec - process translations of message catalog</td></table>
 <a name="SYNOPSIS"></a>
 <h2>SYNOPSIS</h2>
 
@@ -31,8 +31,8 @@ msgexec - edit translations of message catalog</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-<b>msgexec</b> [<i>OPTION</i>] <i>FILTER</i>
-[<i>FILTER-OPTION</i>]</td></table>
+<b>msgexec</b> [<i>OPTION</i>] <i>COMMAND</i>
+[<i>COMMAND-OPTION</i>]</td></table>
 <a name="DESCRIPTION"></a>
 <h2>DESCRIPTION</h2>
 
@@ -40,8 +40,21 @@ msgexec - edit translations of message catalog</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-Applies a filter to all translations of a translation
-catalog.</td></table>
+Applies a command to all translations of a translation
+catalog. The COMMAND can be any program that reads a
+translation from standard input. It is invoked once for each
+translation. Its output becomes msgexec's output. msgexec's
+return code is the maximum return code across all
+invocations.</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+A special builtin command called '0' outputs the
+translation, followed by a null byte. The output of
+&quot;msgexec 0&quot; is suitable as input for &quot;xargs
+<b>-0</b>&quot;.</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -86,209 +99,6 @@ add DIRECTORY to list for input files search</td></table>
 <td width="10%"></td><td width="90%">
 If no input file is given or if it is -, standard input is
 read.</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="4%"></td><td width="96%">
-<b>Output file location:</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-o</b>, <b>--output-file</b>=<i>FILE</i></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-write output to specified file</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-The results are written to standard output if no output file
-is specified or if it is -.</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-The FILTER can be any program that reads a translation from
-standard input and writes a modified translation to standard
-output.</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="4%"></td><td width="96%">
-<b>Useful FILTER-OPTIONs when the FILTER is
-'sed':</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-e</b>, <b>--expression</b>=<i>SCRIPT</i></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-add SCRIPT to the commands to be executed</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-f</b>, <b>--file</b>=<i>SCRIPTFILE</i></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-add the contents of SCRIPTFILE to the commands to be
-executed</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-n</b>, <b>--quiet</b>, <b>--silent</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-suppress automatic printing of pattern space</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="4%"></td><td width="96%">
-<b>Output details:</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>--no-escape</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-do not use C escapes in output (default)</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-E</b>, <b>--escape</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-use C escapes in output, no extended chars</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>--force-po</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-write PO file even if empty</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>--indent</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-indented output style</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>--no-location</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-suppress '#: filename:line' lines</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>--add-location</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-preserve '#: filename:line' lines (default)</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>--strict</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-strict Uniforum output style</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-w</b>, <b>--width</b>=<i>NUMBER</i></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-set output page width</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-s</b>, <b>--sort-output</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-generate sorted output</td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td><td width="90%">
-<b>-F</b>, <b>--sort-by-file</b></td></table>
-
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td><td width="79%">
-sort output by file location</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -342,7 +152,7 @@ Report bugs to &lt;bug-gnu-gettext@gnu.org&gt;.</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-Copyright 2001 Free Software Foundation, Inc.<br>
+Copyright 2001-2002 Free Software Foundation, Inc.<br>
 This is free software; see the source for copying
 conditions. There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR

@@ -1,4 +1,4 @@
-@set UPDATED 30 November 2001
-@set UPDATED-MONTH November 2001
-@set EDITION 0.11-pre2
-@set VERSION 0.11-pre2
+@set UPDATED 30 January 2002
+@set UPDATED-MONTH January 2002
+@set EDITION 0.11
+@set VERSION 0.11

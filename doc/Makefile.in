@@ -74,6 +74,7 @@ DLLTOOL = @DLLTOOL@
 ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GCC = @GCC@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
@@ -91,6 +92,7 @@ HAVE_JRE = @HAVE_JRE@
 HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
+HAVE_LIB = @HAVE_LIB@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -100,13 +102,19 @@ INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIB = @LIB@
 LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
+LTLIB = @LTLIB@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
@@ -127,6 +135,7 @@ am__include = @am__include@
 am__quote = @am__quote@
 install_sh = @install_sh@
 lispdir = @lispdir@
+with_gnu_ld = @with_gnu_ld@
 
 
 # Documentation in Postscript format.
@@ -153,16 +162,13 @@ info_TEXINFOS = gettext.texi
 # List of texinfo sources @included by gettext.texi, excluding version.texi.
 gettext_TEXINFOS = \
   xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
-  msggrep.texi msgexec.texi msguniq.texi msgcomm.texi msgcmp.texi \
-  msgattrib.texi msgen.texi msgfmt.texi msgunfmt.texi \
+  msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
+  msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
   iso-639.texi iso-3166.texi
 
 
-EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi $(EXTRA_DIST_html) texi2html
+EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi texi2html
 
-# This strange way of taking wildcards is a workaround to an automake-1.5 bug
-# which would occur if we wrote $(wildcard $(srcdir)/gettext_*.html).
-EXTRA_DIST_html = $(notdir $(wildcard gettext_*.html) $(wildcard $(addprefix $(srcdir), $(addprefix /, gettext_*.html))))
 CLEANFILES = gettext.pdf gettext.html
 # gettext.dvi and gettext.ps are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html
@@ -297,7 +303,6 @@ top_distdir = ..
 distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
-	$(mkinstalldirs) $(distdir)/
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
@@ -438,10 +443,13 @@ all-local: html
 install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: dist-html
 
 html: html-split
 install-html: install-html-split
 uninstall-html: uninstall-html-split
+dist-html: dist-html-split
 
 # Documentation in DVI format.
 
@@ -518,6 +526,21 @@ uninstall-html-monolithic:
 
 uninstall-html-split:
 	$(RM) $(DESTDIR)$(htmldir)/gettext_*.html
+
+dist-html-monolithic:
+	$(mkinstalldirs) $(distdir)/
+	file=gettext.html; \
+	if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	cp -p $$d/$$file $(distdir)/$$file || exit 1
+
+# We would like to put gettext_*.html into EXTRA_DIST, but it doesn't work.
+dist-html-split:
+	$(mkinstalldirs) $(distdir)/
+	file=gettext_toc.html; \
+	if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	for file in `cd $$d && echo gettext_*.html`; do \
+	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
+	done
 
 # One more automake bug.
 installdirs: installdirs-local

@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 7  Manipulating PO Files</TITLE>
 </HEAD>
@@ -47,22 +47,28 @@ When a translator wants to adjust some translation catalog for a special
 dialect or orthography - for example, German as written in Switzerland
 versus German as written in Germany -, she needs to apply some text
 processing to every message in the catalog.  The tool for doing this is
-<SAMP>`msgexec&acute;</SAMP>.
+<SAMP>`msgfilter&acute;</SAMP>.
 
 </P>
 <P>
-Another use of <CODE>msgexec</CODE> is to produce approximately the POT file for
+Another use of <CODE>msgfilter</CODE> is to produce approximately the POT file for
 which a given PO file was made.  This can be done through a filter command
-like <SAMP>`msgexec sed -e d | sed -e '/^# /d'&acute;</SAMP>.  Note that the original
+like <SAMP>`msgfilter sed -e d | sed -e '/^# /d'&acute;</SAMP>.  Note that the original
 POT file may have had different comments and different plural message counts,
 that's why it's better to use the original POT file if available.
+
+</P>
+<P>
+When a translator wants to check her translations, for example according
+to orthography rules or using a non-interactive spell checker, she can do
+so using the <SAMP>`msgexec&acute;</SAMP> program.
 
 </P>
 <P>
 When third party tools create PO or POT files, sometimes duplicates cannot
 be avoided.  But the GNU <CODE>gettext</CODE> tools give an error when they
 encounter duplicate msgids in the same file and in the same domain.
-To merge duplicates, the <CODE>msguniq</CODE> program can be used.
+To merge duplicates, the <SAMP>`msguniq&acute;</SAMP> program can be used.
 
 </P>
 <P>
@@ -525,7 +531,8 @@ expressions if -E is given, or fixed strings if -F is given.
 <DD>
 <DT><SAMP>`--location=<VAR>sourcefile</VAR>&acute;</SAMP>
 <DD>
-Select messages extracted from <VAR>sourcefile</VAR>.
+Select messages extracted from <VAR>sourcefile</VAR>.  <VAR>sourcefile</VAR> can be
+either a literal file name or a wildcard pattern.
 
 <DT><SAMP>`-M <VAR>domainname</VAR>&acute;</SAMP>
 <DD>
@@ -646,15 +653,15 @@ Output version information and exit.
 
 
 
-<H2><A NAME="SEC79" HREF="gettext_toc.html#TOC79">7.4  Invoking the <CODE>msgexec</CODE> Program</A></H2>
+<H2><A NAME="SEC79" HREF="gettext_toc.html#TOC79">7.4  Invoking the <CODE>msgfilter</CODE> Program</A></H2>
 
 
 <PRE>
-msgexec [<VAR>option</VAR>] <VAR>filter</VAR> [<VAR>filter-option</VAR>]
+msgfilter [<VAR>option</VAR>] <VAR>filter</VAR> [<VAR>filter-option</VAR>]
 </PRE>
 
 <P>
-The <CODE>msgexec</CODE> program applies a filter to all translations of a
+The <CODE>msgfilter</CODE> program applies a filter to all translations of a
 translation catalog.
 
 </P>
@@ -713,6 +720,28 @@ input and writes a modified translation to standard output.  A frequently
 used filter is <SAMP>`sed&acute;</SAMP>.
 
 </P>
+<P>
+Note: It is your responsibility to ensure that the <VAR>filter</VAR> can cope
+with input encoded in the translation catalog's encoding.  If the
+<VAR>filter</VAR> wants input in a particular encoding, you can in a first step
+convert the translation catalog to that encoding using the <SAMP>`msgconv&acute;</SAMP>
+program, before invoking <SAMP>`msgfilter&acute;</SAMP>.  If the <VAR>filter</VAR> wants input
+in the locale's encoding, but you want to avoid the locale's encoding, then
+you can first convert the translation catalog to UTF-8 using the
+<SAMP>`msgconv&acute;</SAMP> program and then make <SAMP>`msgfilter&acute;</SAMP> work in an UTF-8
+locale, by using the <CODE>LC_ALL</CODE> environment variable.
+
+</P>
+<P>
+Note: Most translations in a translation catalog don't end with a newline
+character. For this reason, it is important that the <VAR>filter</VAR>
+recognizes its last input line even if it ends without a newline, and that
+it doesn't add an undesired trailing newline at the end. The <SAMP>`sed&acute;</SAMP>
+program on some platforms is known to ignore the last line of input if it
+is not terminated with a newline. You can use GNU <CODE>sed</CODE> instead; it
+does not have this limitation.
+
+</P>
 
 
 <H3><A NAME="SEC83" HREF="gettext_toc.html#TOC83">7.4.4  Useful <VAR>filter-option</VAR>s when the <VAR>filter</VAR> is <SAMP>`sed&acute;</SAMP></A></H3>
@@ -754,6 +783,12 @@ Always write an output file even if it contains no message.
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
 Write the .po file using indented style.
+
+<DT><SAMP>`--keep-header&acute;</SAMP>
+<DD>
+Keep the header entry, i.e. the message with <SAMP>`msgid ""&acute;</SAMP>, unmodified,
+instead of filtering it.  By default, the header entry is subject to
+filtering like any other message.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
@@ -1457,6 +1492,12 @@ input file is the last created English PO file, or a PO Template file
 translation that is identical to the msgid, and are marked fuzzy.
 
 </P>
+<P>
+Note: <SAMP>`msginit --no-translator --locale=en&acute;</SAMP> performs a very similar
+task. The main difference is that <CODE>msginit</CODE> cares specially about
+the header entry, whereas <CODE>msgen</CODE> doesn't.
+
+</P>
 
 
 <H3><A NAME="SEC110" HREF="gettext_toc.html#TOC110">7.9.1  Input file location</A></H3>
@@ -1556,6 +1597,95 @@ Sort output by file location.
 
 
 <H3><A NAME="SEC113" HREF="gettext_toc.html#TOC113">7.9.4  Informative output</A></H3>
+
+<DL COMPACT>
+
+<DT><SAMP>`-h&acute;</SAMP>
+<DD>
+<DT><SAMP>`--help&acute;</SAMP>
+<DD>
+Display this help and exit.
+
+<DT><SAMP>`-V&acute;</SAMP>
+<DD>
+<DT><SAMP>`--version&acute;</SAMP>
+<DD>
+Output version information and exit.
+
+</DL>
+
+
+
+<H2><A NAME="SEC114" HREF="gettext_toc.html#TOC114">7.10  Invoking the <CODE>msgexec</CODE> Program</A></H2>
+
+
+<PRE>
+msgexec [<VAR>option</VAR>] <VAR>command</VAR> [<VAR>command-option</VAR>]
+</PRE>
+
+<P>
+The <CODE>msgexec</CODE> program applies a command to all translations of a
+translation catalog.
+The <VAR>command</VAR> can be any program that reads a translation from standard
+input.  It is invoked once for each translation.  Its output becomes
+msgexec's output.  <CODE>msgexec</CODE>'s return code is the maximum return code
+across all invocations.
+
+</P>
+<P>
+A special builtin command called <SAMP>`0&acute;</SAMP> outputs the translation, followed
+by a null byte.  The output of <SAMP>`msgexec 0&acute;</SAMP> is suitable as input for
+<SAMP>`xargs -0&acute;</SAMP>.
+
+</P>
+<P>
+During each <VAR>command</VAR> invocation, the environment variable
+<CODE>MSGEXEC_MSGID</CODE> is bound to the message's msgid, and the environment
+variable <CODE>MSGEXEC_LOCATION</CODE> is bound to the location in the PO file
+of the message.
+
+</P>
+<P>
+Note: It is your responsibility to ensure that the <VAR>command</VAR> can cope
+with input encoded in the translation catalog's encoding.  If the
+<VAR>command</VAR> wants input in a particular encoding, you can in a first step
+convert the translation catalog to that encoding using the <SAMP>`msgconv&acute;</SAMP>
+program, before invoking <SAMP>`msgexec&acute;</SAMP>.  If the <VAR>command</VAR> wants input
+in the locale's encoding, but you want to avoid the locale's encoding, then
+you can first convert the translation catalog to UTF-8 using the
+<SAMP>`msgconv&acute;</SAMP> program and then make <SAMP>`msgexec&acute;</SAMP> work in an UTF-8
+locale, by using the <CODE>LC_ALL</CODE> environment variable.
+
+</P>
+
+
+<H3><A NAME="SEC115" HREF="gettext_toc.html#TOC115">7.10.1  Input file location</A></H3>
+
+<DL COMPACT>
+
+<DT><SAMP>`-i <VAR>inputfile</VAR>&acute;</SAMP>
+<DD>
+<DT><SAMP>`--input=<VAR>inputfile</VAR>&acute;</SAMP>
+<DD>
+Input PO file.
+
+<DT><SAMP>`-D <VAR>directory</VAR>&acute;</SAMP>
+<DD>
+<DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
+<DD>
+Add <VAR>directory</VAR> to the list of directories.  Source files are
+searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
+file will be written relative to the current directory, though.
+
+</DL>
+
+<P>
+If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard input is read.
+
+</P>
+
+
+<H3><A NAME="SEC116" HREF="gettext_toc.html#TOC116">7.10.2  Informative output</A></H3>
 
 <DL COMPACT>
 

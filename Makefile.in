@@ -75,6 +75,7 @@ DVIPS = @DVIPS@
 ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GCC = @GCC@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
@@ -92,6 +93,7 @@ HAVE_JRE = @HAVE_JRE@
 HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
+HAVE_LIB = @HAVE_LIB@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -101,13 +103,19 @@ INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIB = @LIB@
 LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
+LTLIB = @LTLIB@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
@@ -129,27 +137,46 @@ am__include = @am__include@
 am__quote = @am__quote@
 install_sh = @install_sh@
 lispdir = @lispdir@
+with_gnu_ld = @with_gnu_ld@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4
 
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
+gettextsrc_SCRIPTS = config.rpath
 
 SUBDIRS = doc intl intl-java lib src po man m4 projects misc tests
 
-EXTRA_DIST = BUGS DISCLAIM README.gemtext README-alpha \
+EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
              djgpp/config.bat djgpp/config.in djgpp/config.sed \
              djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in \
              djgpp/fnchange.lst djgpp/tscript.sed \
-             os2/README.os2 os2/os2.diff
+             os2/README.OS2 os2/Makefile os2/backward.def \
+             os2/iconv/README os2/configure.awk
 
+
+
+# Subdirectories with separate autoconfiguration.
+CONFIGURES_RPATHX = $(srcdir)/tests/rpathx/Makefile.in $(srcdir)/tests/rpathx/aclocal.m4 $(srcdir)/tests/rpathx/configure
+
+CONFIGURES_RPATHY = $(srcdir)/tests/rpathy/Makefile.in $(srcdir)/tests/rpathy/aclocal.m4 $(srcdir)/tests/rpathy/configure
+
+CONFIGURES_RPATHLX = $(srcdir)/tests/rpathlx/Makefile.in $(srcdir)/tests/rpathlx/aclocal.m4 $(srcdir)/tests/rpathlx/configure
+
+CONFIGURES_RPATHLY = $(srcdir)/tests/rpathly/Makefile.in $(srcdir)/tests/rpathly/aclocal.m4 $(srcdir)/tests/rpathly/configure
+
+CONFIGURES_RPATHLYX = $(srcdir)/tests/rpathlyx/Makefile.in $(srcdir)/tests/rpathlyx/aclocal.m4 $(srcdir)/tests/rpathlyx/configure
+
+SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = intl/Makefile
+SCRIPTS = $(gettextsrc_SCRIPTS)
+
 depcomp =
 DIST_SOURCES =
 DATA = $(gettextsrc_DATA)
@@ -190,7 +217,7 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 $(srcdir)/configure:  $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
 
-$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/flex.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/stdint_h.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
+$(ACLOCAL_M4):  configure.in m4/backupfile.m4 m4/c-bs-a.m4 m4/codeset.m4 m4/error.m4 m4/flex.m4 m4/fnmatch.m4 m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/hostname.m4 m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 m4/javaexec.m4 m4/lcmessage.m4 m4/lib-ld.m4 m4/lib-link.m4 m4/lib-prefix.m4 m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 m4/setlocale.m4 m4/siginfo.m4 m4/signalblocking.m4 m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 m4/stdint_h.m4 m4/tmpdir.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 config.h: stamp-h
 	@if test ! -f $@; then \
@@ -219,6 +246,27 @@ distclean-hdr:
 	-rm -f config.h
 intl/Makefile: $(top_builddir)/config.status $(top_srcdir)/intl/Makefile.in
 	cd $(top_builddir) && CONFIG_FILES=$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
+install-gettextsrcSCRIPTS: $(gettextsrc_SCRIPTS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir)
+	@list='$(gettextsrc_SCRIPTS)'; for p in $$list; do \
+	  f="`echo $$p|sed '$(transform)'`"; \
+	  if test -f $$p; then \
+	    echo " $(INSTALL_SCRIPT) $$p $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	    $(INSTALL_SCRIPT) $$p $(DESTDIR)$(gettextsrcdir)/$$f; \
+	  elif test -f $(srcdir)/$$p; then \
+	    echo " $(INSTALL_SCRIPT) $(srcdir)/$$p $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	    $(INSTALL_SCRIPT) $(srcdir)/$$p $(DESTDIR)$(gettextsrcdir)/$$f; \
+	  else :; fi; \
+	done
+
+uninstall-gettextsrcSCRIPTS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(gettextsrc_SCRIPTS)'; for p in $$list; do \
+	  f="`echo $$p|sed '$(transform)'`"; \
+	  echo " rm -f $(DESTDIR)$(gettextsrcdir)/$$f"; \
+	  rm -f $(DESTDIR)$(gettextsrcdir)/$$f; \
+	done
 uninstall-info-am:
 install-gettextsrcDATA: $(gettextsrc_DATA)
 	@$(NORMAL_INSTALL)
@@ -341,7 +389,7 @@ GZIP_ENV = --best
 distdir: $(DISTFILES)
 	-chmod -R a+w $(distdir) >/dev/null 2>&1; rm -rf $(distdir)
 	mkdir $(distdir)
-	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/intl $(distdir)/lib $(distdir)/man $(distdir)/misc $(distdir)/os2 $(distdir)/po $(distdir)/src
+	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/intl $(distdir)/lib $(distdir)/man $(distdir)/misc $(distdir)/os2 $(distdir)/os2/iconv $(distdir)/po $(distdir)/src
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
@@ -413,10 +461,10 @@ distcheck: dist
 	  sed 'h;s/./=/g;p;x;p;x'
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(DATA) config.h
+all-am: Makefile $(SCRIPTS) $(DATA) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir)
+	$(mkinstalldirs) $(DESTDIR)$(gettextsrcdir) $(DESTDIR)$(gettextsrcdir)
 
 install: install-recursive
 install-exec: install-exec-recursive
@@ -461,7 +509,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-gettextsrcDATA
+install-data-am: install-gettextsrcDATA install-gettextsrcSCRIPTS
 
 install-exec-am:
 
@@ -479,7 +527,8 @@ mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-generic mostlyclean-libtool
 
-uninstall-am: uninstall-gettextsrcDATA uninstall-info-am
+uninstall-am: uninstall-gettextsrcDATA uninstall-gettextsrcSCRIPTS \
+	uninstall-info-am
 
 uninstall-info: uninstall-info-recursive
 
@@ -490,14 +539,15 @@ uninstall-info: uninstall-info-recursive
 	dvi dvi-am dvi-recursive info info-am info-recursive install \
 	install-am install-data install-data-am install-data-recursive \
 	install-exec install-exec-am install-exec-recursive \
-	install-gettextsrcDATA install-info install-info-am \
-	install-info-recursive install-man install-recursive \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am installdirs-recursive maintainer-clean \
-	maintainer-clean-generic maintainer-clean-recursive mostlyclean \
-	mostlyclean-generic mostlyclean-libtool mostlyclean-recursive \
-	tags tags-recursive uninstall uninstall-am \
-	uninstall-gettextsrcDATA uninstall-info-am \
+	install-gettextsrcDATA install-gettextsrcSCRIPTS install-info \
+	install-info-am install-info-recursive install-man \
+	install-recursive install-strip installcheck installcheck-am \
+	installdirs installdirs-am installdirs-recursive \
+	maintainer-clean maintainer-clean-generic \
+	maintainer-clean-recursive mostlyclean mostlyclean-generic \
+	mostlyclean-libtool mostlyclean-recursive tags tags-recursive \
+	uninstall uninstall-am uninstall-gettextsrcDATA \
+	uninstall-gettextsrcSCRIPTS uninstall-info-am \
 	uninstall-info-recursive uninstall-recursive
 
 
@@ -516,6 +566,41 @@ pdf:
 
 html:
 	cd doc && $(MAKE) html
+$(srcdir)/tests/rpathx/Makefile.in: $(srcdir)/tests/rpathx/Makefile.am $(srcdir)/tests/rpathx/configure.in
+	cd $(srcdir)/tests/rpathx && automake Makefile
+$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.in
+	cd $(srcdir)/tests/rpathx && aclocal -I ../../m4
+$(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.in $(srcdir)/tests/rpathx/aclocal.m4
+	cd $(srcdir)/tests/rpathx && autoconf
+$(srcdir)/tests/rpathy/Makefile.in: $(srcdir)/tests/rpathy/Makefile.am $(srcdir)/tests/rpathy/configure.in
+	cd $(srcdir)/tests/rpathy && automake Makefile
+$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathy && aclocal -I ../../m4
+$(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/tests/rpathy/aclocal.m4
+	cd $(srcdir)/tests/rpathy && autoconf
+$(srcdir)/tests/rpathlx/Makefile.in: $(srcdir)/tests/rpathlx/Makefile.am $(srcdir)/tests/rpathlx/configure.in
+	cd $(srcdir)/tests/rpathlx && automake Makefile
+$(srcdir)/tests/rpathlx/aclocal.m4: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlx && aclocal -I ../../m4
+$(srcdir)/tests/rpathlx/configure: $(srcdir)/tests/rpathlx/configure.in $(srcdir)/tests/rpathlx/aclocal.m4
+	cd $(srcdir)/tests/rpathlx && autoconf
+$(srcdir)/tests/rpathly/Makefile.in: $(srcdir)/tests/rpathly/Makefile.am $(srcdir)/tests/rpathly/configure.in
+	cd $(srcdir)/tests/rpathly && automake Makefile
+$(srcdir)/tests/rpathly/aclocal.m4: $(srcdir)/tests/rpathly/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathly && aclocal -I ../../m4
+$(srcdir)/tests/rpathly/configure: $(srcdir)/tests/rpathly/configure.in $(srcdir)/tests/rpathly/aclocal.m4
+	cd $(srcdir)/tests/rpathly && autoconf
+$(srcdir)/tests/rpathlyx/Makefile.in: $(srcdir)/tests/rpathlyx/Makefile.am $(srcdir)/tests/rpathlyx/configure.in
+	cd $(srcdir)/tests/rpathlyx && automake Makefile
+$(srcdir)/tests/rpathlyx/aclocal.m4: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlyx && aclocal -I ../../m4
+$(srcdir)/tests/rpathlyx/configure: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/tests/rpathlyx/aclocal.m4
+	cd $(srcdir)/tests/rpathlyx && autoconf
+
+subconfigures: $(SUBCONFIGURES)
+
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: subconfigures
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

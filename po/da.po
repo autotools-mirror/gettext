@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11-pre5\n"
-"POT-Creation-Date: 2002-01-22 12:48+0100\n"
+"POT-Creation-Date: 2002-01-31 15:34+0100\n"
 "PO-Revision-Date: 2002-01-22 18:32+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -57,7 +57,7 @@ msgstr "fejl ved skrivning til filen '%s'"
 msgid "error after reading \"%s\""
 msgstr "fejl efter læsning af '%s'"
 
-#: lib/error.c:115
+#: lib/error.c:116
 msgid "Unknown system error"
 msgstr "Ukendt systemfejl"
 
@@ -156,14 +156,29 @@ msgstr "%s underproces fik et dødeligt signal %d"
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "antal af formatangivelser i 'msgid' og '%s' er ikke overensstemmende"
 
-#: src/format-c.c:601 src/format-python.c:520
+#: src/format-c.c:601 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-pascal.c:443 src/format-python.c:520
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr "formatangivelser i 'msgid' og '%s' for argument %u er ikke ens"
 
-#: src/format-elisp.c:349 src/format-java.c:660 src/format-librep.c:313
-#: src/format-pascal.c:403
+#: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
+#: src/format-ycp.c:145
+#, c-format
+msgid ""
+"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
+msgstr ""
+"formateringsdirektiv for argument \"%u\", som i \"%s\", findes ikke i \"msgid"
+"\""
+
+#: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
+#: src/format-ycp.c:144
+#, c-format
+msgid "a format specification for argument %u doesn't exist in '%s'"
+msgstr "formateringsdirektiv for argument %u findes ikke i \"%s\""
+
+#: src/format-java.c:660
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
@@ -171,14 +186,12 @@ msgid ""
 msgstr ""
 "formateringsdirektiv for argument {%u}, som i \"%s\", findes ikke i \"msgid\""
 
-#: src/format-elisp.c:364 src/format-java.c:675 src/format-librep.c:328
-#: src/format-pascal.c:418
+#: src/format-java.c:675
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "formateringsdirektiv for argument {%u} findes ikke i \"%s\""
 
-#: src/format-elisp.c:389 src/format-java.c:700 src/format-librep.c:353
-#: src/format-pascal.c:443
+#: src/format-java.c:700
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
@@ -233,22 +246,9 @@ msgid ""
 msgstr ""
 "formateringsdirektiv i \"msgid\" og \"%s\" for argument \"%s\" er ikke ens"
 
-#: src/format-ycp.c:144
-#, c-format
-msgid "a format specification for argument %u doesn't exist in '%s'"
-msgstr "formateringsdirektiv for argument %u findes ikke i \"%s\""
-
-#: src/format-ycp.c:145
-#, c-format
-msgid ""
-"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
-msgstr ""
-"formateringsdirektiv for argument \"%u\", som i \"%s\", findes ikke i \"msgid"
-"\""
-
 #: src/gettext.c:135 src/hostname.c:168 src/msgattrib.c:264 src/msgcat.c:229
 #: src/msgcmp.c:133 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:170
-#: src/msgexec.c:165 src/msgfilter.c:248 src/msgfmt.c:338 src/msggrep.c:279
+#: src/msgexec.c:165 src/msgfilter.c:248 src/msgfmt.c:338 src/msggrep.c:278
 #: src/msginit.c:250 src/msgmerge.c:265 src/msgunfmt.c:182 src/msguniq.c:207
 #: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:361
 #, c-format, no-wrap
@@ -264,7 +264,7 @@ msgstr ""
 
 #: src/gettext.c:140 src/hostname.c:173 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:138 src/msgcomm.c:237 src/msgconv.c:187 src/msgen.c:175
-#: src/msgexec.c:170 src/msgfilter.c:253 src/msgfmt.c:343 src/msggrep.c:284
+#: src/msgexec.c:170 src/msgfilter.c:253 src/msgfmt.c:343 src/msggrep.c:283
 #: src/msginit.c:255 src/msgmerge.c:270 src/msgunfmt.c:187 src/msguniq.c:212
 #: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:366
 #, c-format
@@ -281,7 +281,7 @@ msgstr "argumenter mangler"
 
 #: src/gettext.c:240 src/hostname.c:197 src/msgattrib.c:322 src/msgcat.c:290
 #: src/msgcmp.c:170 src/msgcomm.c:306 src/msgconv.c:241 src/msgen.c:226
-#: src/msgexec.c:223 src/msgfilter.c:346 src/msgfmt.c:484 src/msggrep.c:374
+#: src/msgexec.c:223 src/msgfilter.c:346 src/msgfmt.c:484 src/msggrep.c:387
 #: src/msginit.c:341 src/msgmerge.c:380 src/msgunfmt.c:262 src/msguniq.c:269
 #: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:508
 #, c-format
@@ -345,7 +345,7 @@ msgstr ""
 
 #: src/gettext.c:277 src/hostname.c:227 src/msgattrib.c:402 src/msgcat.c:371
 #: src/msgcmp.c:215 src/msgcomm.c:384 src/msgconv.c:305 src/msgen.c:286
-#: src/msgexec.c:267 src/msgfilter.c:419 src/msgfmt.c:568 src/msggrep.c:460
+#: src/msgexec.c:267 src/msgfilter.c:419 src/msgfmt.c:568 src/msggrep.c:473
 #: src/msginit.c:392 src/msgmerge.c:478 src/msgunfmt.c:331 src/msguniq.c:343
 #: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:602
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
@@ -376,7 +376,7 @@ msgstr ""
 "  -i, --ip-address      adresser for værtsnavnet\n"
 
 #: src/hostname.c:221 src/msgattrib.c:396 src/msgcmp.c:209 src/msgconv.c:299
-#: src/msgen.c:280 src/msgexec.c:261 src/msgfilter.c:413 src/msggrep.c:454
+#: src/msgen.c:280 src/msgexec.c:261 src/msgfilter.c:413 src/msggrep.c:467
 #: src/msginit.c:386 src/urlget.c:180
 #, no-wrap
 msgid ""
@@ -393,21 +393,21 @@ msgid "could not get host name"
 msgstr "kunne ikke hente værtsnavn"
 
 #: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:198
-#: src/msggrep.c:299 src/msginit.c:208 src/msguniq.c:227
+#: src/msggrep.c:298 src/msginit.c:208 src/msguniq.c:227
 msgid "at most one input file allowed"
 msgstr "Højst én inddatalinje tilladt"
 
 #: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
 #: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
 #: src/msgen.c:197 src/msgen.c:201 src/msgfilter.c:268 src/msgfilter.c:272
-#: src/msgfmt.c:363 src/msggrep.c:305 src/msggrep.c:309 src/msgmerge.c:295
+#: src/msgfmt.c:363 src/msggrep.c:304 src/msggrep.c:308 src/msgmerge.c:295
 #: src/msgmerge.c:316 src/msgmerge.c:320 src/msguniq.c:233 src/msguniq.c:237
 #: src/xgettext.c:376 src/xgettext.c:380
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s og %s udelukker hinanden"
 
-#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:379 src/msguniq.c:274
+#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:392 src/msguniq.c:274
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Brug: %s [TILVALG] [INDDATAFIL]\n"
@@ -423,7 +423,7 @@ msgstr ""
 
 #: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:190 src/msgcomm.c:328
 #: src/msgconv.c:256 src/msgen.c:244 src/msgexec.c:248 src/msgfilter.c:361
-#: src/msgfmt.c:499 src/msggrep.c:390 src/msginit.c:357 src/msgmerge.c:403
+#: src/msgfmt.c:499 src/msggrep.c:403 src/msginit.c:357 src/msgmerge.c:403
 #: src/msgunfmt.c:277 src/msguniq.c:291
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -431,7 +431,7 @@ msgstr ""
 "Hvis et langt tilvalg kræver et argument, gælder det også for det tilsvarende\n"
 "korte tilvalg.\n"
 
-#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:395 src/msguniq.c:296
+#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:408 src/msguniq.c:296
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -445,7 +445,7 @@ msgstr ""
 "Hvis ingen inddatafil er angivet eller den er -, læses fra standard-inddata.\n"
 
 #: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:257 src/msgfilter.c:374
-#: src/msggrep.c:403 src/msgmerge.c:425
+#: src/msggrep.c:416 src/msgmerge.c:425
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1368,13 +1368,13 @@ msgid "%s: warning: source file contains fuzzy translation"
 msgstr ""
 "%s: advarsel: kildetekstfilen indeholder uafklarede oversættelser (fuzzy)"
 
-#: src/msggrep.c:362
+#: src/msggrep.c:375
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr ""
 "flaget \"%c\" kan ikke bruges førend \"K\" eller \"T\" er blevet angivet"
 
-#: src/msggrep.c:384
+#: src/msggrep.c:397
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1383,7 +1383,7 @@ msgstr ""
 "Udtrækker alle beskeder i et beskedskatalog som matcher et vist\n"
 "mønster eller hører til en given kildetekstfil.\n"
 
-#: src/msggrep.c:411
+#: src/msggrep.c:424
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1437,7 +1437,7 @@ msgstr ""
 "  -f, --file=FIL              hent MØNSTER fra FIL\n"
 "  -i, --ignore-case           versalufølsomt\n"
 
-#: src/msggrep.c:439
+#: src/msggrep.c:452
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1464,7 +1464,7 @@ msgstr ""
 "      --sort-output           generér sorteret uddata\n"
 "      --sort-by-file          sortér uddata efter filplacering\n"
 
-#: src/msggrep.c:529
+#: src/msggrep.c:542
 msgid "write to grep subprocess failed"
 msgstr "skrivning til grep-underproces mislykkedes"
 
@@ -2144,9 +2144,9 @@ msgstr "Ugyldig multibytesekvens ved slutning på linje"
 msgid "iconv failure"
 msgstr "iconv-fejl"
 
-#: src/po-lex.c:789 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:286
+#: src/po-lex.c:789 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
 #: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
-#: src/x-ycp.c:103
+#: src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "fejl ved læsning af '%s'"
@@ -2274,12 +2274,12 @@ msgstr "kan ikke oprette uddatafil '%s'"
 msgid "standard output"
 msgstr "standard-uddata"
 
-#: src/x-c.c:935
+#: src/x-c.c:951
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: advarsel:  tegnkonstant ikke afsluttet korrekt"
 
-#: src/x-c.c:959
+#: src/x-c.c:975
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: advarsel: strengkonstant ikke afsluttet"

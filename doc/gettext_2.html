@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 2  PO Files and PO Mode Basics</TITLE>
 </HEAD>
@@ -170,13 +170,13 @@ search only.  See section <A HREF="gettext_6.html#SEC45">6.3  Fuzzy Entries</A>.
 <DT><KBD>no-c-format</KBD>
 <DD>
 These flags should not be added by a human.  Instead only the
-<CODE>xgettext</CODE> program adds them.  In an automatized PO file processing
+<CODE>xgettext</CODE> program adds them.  In an automated PO file processing
 system as proposed here the user changes would be thrown away again as
 soon as the <CODE>xgettext</CODE> program generates a new template file.
 
 In case the <KBD>c-format</KBD> flag is given for a string the <CODE>msgfmt</CODE>
 does some more tests to check to validity of the translation.
-See section <A HREF="gettext_8.html#SEC115">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>.
+See section <A HREF="gettext_8.html#SEC118">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>.
 
 </DL>
 
@@ -217,7 +217,7 @@ not having Emacs handy should carefully continue reading on.
 <P>
 Each of <VAR>untranslated-string</VAR> and <VAR>translated-string</VAR> respects
 the C syntax for a character string, including the surrounding quotes
-and imbedded backslashed escape sequences.  When the time comes
+and embedded backslashed escape sequences.  When the time comes
 to write multi-line strings, one should not use escaped newlines.
 Instead, a closing quote should follow the last character on the
 line to be continued, and an opening quote should resume the string
@@ -348,8 +348,8 @@ The commands <KBD>Q</KBD> (<CODE>po-quit</CODE>) and <KBD>q</KBD>
 (<CODE>po-confirm-and-quit</CODE>) are used when the translator is done with the
 PO file.  The former is a bit less verbose than the latter.  If the file
 has been modified, it is saved to disk first.  In both cases, and prior to
-all this, the commands check if some untranslated message remains in the
-PO file and, if yes, the translator is asked if she really wants to leave
+all this, the commands check if any untranslated messages remain in the
+PO file and, if so, the translator is asked if she really wants to leave
 off working with this PO file.  This is the preferred way of getting rid
 of an Emacs PO file buffer.  Merely killing it through the usual command
 <KBD>C-x k</KBD> (<CODE>kill-buffer</CODE>) is not the tidiest way to proceed.
@@ -558,7 +558,7 @@ merely use <KBD>x</KBD> for making the switch.
 There are many different ways for encoding a particular string into a
 PO file entry, because there are so many different ways to split and
 quote multi-line strings, and even, to represent special characters
-by backslahsed escaped sequences.  Some features of PO mode rely on
+by backslashed escaped sequences.  Some features of PO mode rely on
 the ability for PO mode to scan an already existing PO file for a
 particular string encoded into the <CODE>msgid</CODE> field of some entry.
 Even if PO mode has internally all the built-in machinery for

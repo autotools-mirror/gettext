@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 3  Preparing Program Sources</TITLE>
 </HEAD>
@@ -25,7 +25,7 @@ needing translation.
 <P>
 Presuming that your set of programs, or package, has been adjusted
 so all needed GNU <CODE>gettext</CODE> files are available, and your
-<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_12.html#SEC166">12  The Maintainer's View</A>), each C module
+<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_12.html#SEC169">12  The Maintainer's View</A>), each C module
 having translated C strings should contain the line:
 
 </P>
@@ -435,8 +435,11 @@ string is regarded as the address.
 <P>
 To prevent errors at runtime caused by translations the <CODE>msgfmt</CODE>
 tool can check statically whether the arguments in the original and the
-translation string match in type and number.  If this is not the case a
-warning will be given and the error cannot causes problems at runtime.
+translation string match in type and number.  If this is not the case
+and the <SAMP>`-c&acute;</SAMP> option has been passed to <CODE>msgfmt</CODE>, <CODE>msgfmt</CODE>
+will give an error and refuse to produce a MO file.  Thus consequent
+use of <SAMP>`msgfmt -c&acute;</SAMP> will catch the error, so that it cannot cause
+cause problems at runtime.
 
 </P>
 <P>
@@ -552,7 +555,7 @@ from the array.  So one solution can look like this:
 </P>
 
 <PRE>
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 
 {
   static const char *messages[] = {
@@ -582,7 +585,7 @@ with the following one:
 </P>
 
 <PRE>
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 
 {
   static const char *messages[] = {
@@ -600,11 +603,9 @@ with the following one:
 </PRE>
 
 <P>
-But this has some drawbacks.  First the programmer has to take care that
+But this has a drawback.  The programmer has to take care that
 he uses <CODE>gettext_noop</CODE> for the string <CODE>"a default message"</CODE>.
 A use of <CODE>gettext</CODE> could have in rare cases unpredictable results.
-The second reason is found in the internals of the GNU <CODE>gettext</CODE>
-Library which will make this solution less efficient.
 
 </P>
 <P>

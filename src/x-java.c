@@ -410,7 +410,7 @@ char *yytext;
 #line 1 "./x-java.l"
 #define INITIAL 0
 /* xgettext Java backend.					-*- C -*-
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Tommy Johansson <tommy.johansson@kanalen.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -448,7 +448,7 @@ typedef enum
   JAVA_STRING,
   JAVA_OPERATOR,
   JAVA_FLOW,
-  JAVA_COMMENT,
+  JAVA_COMMENT
 } TOKEN_TYPE;
 
 typedef struct
@@ -472,7 +472,7 @@ typedef enum
   STATE_WORD,
   STATE_APPEND,
   STATE_INVOCATION,
-  STATE_KEYWORD,
+  STATE_KEYWORD
 } PARSER_STATE;
 
 typedef struct
@@ -508,10 +508,19 @@ static void append_char_buf PARAMS ((char_buf *b, int c));
 static char *get_string PARAMS ((char_buf *b));
 static void destroy_charbuf PARAMS ((char_buf *b));
 static void update_line_no PARAMS ((int c));
+static void strip_ending_spaces PARAMS ((char *str));
 static char *append_strings PARAMS ((char *a, char *b));
 static inline bool isplus PARAMS ((char *s));
 static inline bool isdot PARAMS ((char *s));
 static char *translate_esc PARAMS ((char *s));
+static object_list * object_list_alloc PARAMS ((void));
+static void object_list_destroy PARAMS ((object_list *list));
+static int get_num_objects PARAMS ((const object_list *list));
+static void * get_object PARAMS ((const object_list *list, int i));
+static void add_object PARAMS ((object_list *list, void *object));
+static java_keyword * alloc_keyword PARAMS ((const char *keyword,
+					     int arg1, int arg2));
+static bool tailcmp PARAMS ((const char *s1, const char *s2));
 static bool do_compare PARAMS ((const char *s1, const char *s2));
 static java_keyword *is_keyword PARAMS ((const char *s));
 static void free_global PARAMS ((void));
@@ -573,11 +582,11 @@ strip_ending_spaces (str)
 {
   int len = strlen (str);
 
-  while (isspace (str[len--]))
-    ;
+  while (len > 0 && isspace ((unsigned char) str[len - 1]))
+    len--;
   str[len] = '\0';
 }
-#line 581 "x-java.c-tmp"
+#line 590 "x-java.c-tmp"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -728,10 +737,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 177 "./x-java.l"
+#line 186 "./x-java.l"
 
 
-#line 735 "x-java.c-tmp"
+#line 744 "x-java.c-tmp"
 
 	if ( yy_init )
 		{
@@ -816,7 +825,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 179 "./x-java.l"
+#line 188 "./x-java.l"
 {
   int c;
   int last;
@@ -842,17 +851,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 202 "./x-java.l"
+#line 211 "./x-java.l"
 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 203 "./x-java.l"
+#line 212 "./x-java.l"
 {
   int c;
   char *str;
   char_buf *charbuf = create_char_buf ();
-  while ((c = input ()) != '"')
+  while ((c = input ()) != EOF && c != '"')
     {
       update_line_no (c);
       append_char_buf (charbuf, c);
@@ -865,7 +874,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 218 "./x-java.l"
+#line 227 "./x-java.l"
 {
   parser_global->word = yytext;
   return JAVA_WORD;
@@ -873,7 +882,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 223 "./x-java.l"
+#line 232 "./x-java.l"
 {
   parser_global->flow = yytext;
   return JAVA_FLOW;
@@ -881,7 +890,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 228 "./x-java.l"
+#line 237 "./x-java.l"
 {
   parser_global->operator = yytext;
   return JAVA_OPERATOR;
@@ -889,12 +898,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 233 "./x-java.l"
+#line 242 "./x-java.l"
 /* ignore whitespace */
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 235 "./x-java.l"
+#line 244 "./x-java.l"
 {
   parser_global->comment = xstrdup (yytext + 2);
   return JAVA_COMMENT;
@@ -902,29 +911,29 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 239 "./x-java.l"
+#line 248 "./x-java.l"
 parser_global->line_no++;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 240 "./x-java.l"
+#line 249 "./x-java.l"
 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 241 "./x-java.l"
+#line 250 "./x-java.l"
 
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 242 "./x-java.l"
+#line 251 "./x-java.l"
 return -1;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 243 "./x-java.l"
+#line 252 "./x-java.l"
 ECHO;
 	YY_BREAK
-#line 928 "x-java.c-tmp"
+#line 937 "x-java.c-tmp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1808,7 +1817,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 243 "./x-java.l"
+#line 252 "./x-java.l"
 
 
 static char *
@@ -1843,8 +1852,8 @@ translate_esc (s)
      char *s;
 {
   char *n = (char *) xmalloc (strlen (s) + 1);
-  int i;
-  int j = 0;
+  size_t i;
+  size_t j = 0;
 
   for (i = 0; i < strlen (s); i++)
     switch (s[i])
@@ -1921,7 +1930,6 @@ x_java_extract_all ()
 }
 
 
-
 static java_keyword *
 alloc_keyword (keyword, arg1, arg2)
      const char *keyword;
@@ -1939,65 +1947,20 @@ static object_list *java_keywords = NULL;
 
 
 /**
- * Extract the keyword from a keyword indata string.
+ * Backwards substring match.
  */
-static char *
-extract_keyword (key)
-     const char *key;
+static bool
+tailcmp (s1, s2)
+     const char *s1;
+     const char *s2;
 {
-  char *s = strchr (key, ':');
-  char *new_string;
-
-  new_string = xstrdup (key);
-  if (s != NULL)
-    new_string[s - key] = '\0';
-  return new_string;
+  int len1 = strlen (s1);
+  int len2 = strlen (s2);
+  int start = len1 - len2;
+  if (start < 0)
+    return false;
+  return (start == 0 || s1[start-1] == '.') && (strcmp (s1 + start, s2) == 0);
 }
-
-/**
- * Extract the msgid arg number from a keyword indata string.
- */
-static int
-extract_msgid_arg (key)
-     const char *key;
-{
-  char *s = strchr (key, ':');
-  int arg;
-
-  if (s != NULL)
-    {
-      s ++;
-      arg = strtol (s, &s, 10);
-    }
-  else
-    {
-      arg = 1;
-    }
-  return arg;
-}
-
-/**
- * Extract the msgid plural arg number from a keyword indata string,
- * if any.
- */
-static int
-extract_msgid_plural_arg (key)
-     const char *key;
-{
-  char *s = strchr (key, ',');
-  int arg;
-  if (s != NULL)
-    {
-      s ++;
-      arg = strtol (s, &s, 10);
-    }
-  else
-    {
-      arg = 0;
-    }
-  return arg;
-}
-
 
 /**
  * Try to match a string against the keyword. If substring_match is
@@ -2011,7 +1974,7 @@ do_compare (s1, s2)
   if (substring_match)
     return strstr (s1, s2) != NULL;
   else
-    return strcmp (s1, s2) == 0;
+    return tailcmp (s1, s2);
 }
 
 /**
@@ -2042,8 +2005,10 @@ void
 x_java_keyword (keyword)
      const char *keyword;
 {
+  const char *keyword_end;
   int arg1;
   int arg2;
+  size_t len;
   char *kw;
 
   if (keyword == NULL)
@@ -2057,14 +2022,22 @@ x_java_keyword (keyword)
     }
 
   if (java_keywords == NULL)
-    {
-      java_keywords = object_list_alloc ();
-    }
+    java_keywords = object_list_alloc ();
 
-  kw = extract_keyword (keyword);
-  arg1 = extract_msgid_arg (keyword);
-  arg2 = extract_msgid_plural_arg (keyword);
-  add_object (java_keywords, alloc_keyword (kw, arg1, arg2));
+  split_keywordspec (keyword, &keyword_end, &arg1, &arg2);
+  len = keyword_end - keyword;
+  kw = (char *) xmalloc (len + 1);
+  memcpy (kw, keyword, len);
+  kw[len] = '\0';
+
+  /* kw should be a valid Java identifier sequence with dots.
+     A colon means an invalid parse in split_keywordspec().  */
+  if (strchr (kw, ':') == NULL)
+    {
+      if (arg1 == 0)
+	arg1 = 1;
+      add_object (java_keywords, alloc_keyword (kw, arg1, arg2));
+    }
 }
 
 
@@ -2105,9 +2078,11 @@ extract_java (f, real_filename, logical_filename, mdlp)
   int token;
   PARSER_STATE state = STATE_NONE;
   PARSER_STATE last_state = STATE_NONE;
-  char *str;
-  char *key;
-  message_ty *plural;
+  char *str = NULL;		/* used only if state == STATE_STRING
+						|| state == STATE_APPEND */
+  char *key = NULL;		/* used only if state == STATE_WORD
+						|| state == STATE_INVOCATION */
+  message_ty *plural = NULL;	/* used only after state was STATE_KEYWORD */
   message_list_ty *mlp = mdlp->item[0]->messages;
   java_keyword *current_keyword = NULL;
   java_keyword *keyword;
@@ -2116,8 +2091,10 @@ extract_java (f, real_filename, logical_filename, mdlp)
   if (java_keywords == NULL)
     {
       /* ops, no standard keywords */
-      x_java_keyword ("gettext");	/* GettextResource.gettext */
-      x_java_keyword ("ngettext:1,2");	/* GettextResource.ngettext */
+      x_java_keyword ("GettextResource.gettext:2");	/* static method */
+      x_java_keyword ("GettextResource.ngettext:2,3");	/* static method */
+      x_java_keyword ("gettext");
+      x_java_keyword ("ngettext:1,2");
       x_java_keyword ("getString");	/* ResourceBundle.getString */
     }
 
@@ -2144,10 +2121,15 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	      k2 = append_strings (key, ".");
 	      free (key);
 	      key = append_strings (k2, parser_global->word);
-	      state = STATE_NONE;
+	      free (k2);
 	    }
 	  else
 	    {
+	      if (str != NULL)
+		{
+		  free (str);
+		  str = NULL;
+		}
 	      state = STATE_WORD;
 	      key = xstrdup (parser_global->word);
 	    }
@@ -2160,36 +2142,35 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	      free (key);
 	      state = STATE_KEYWORD;
 	      argument_counter = 1;
+	      plural = NULL;
 	    }
 	  break;
 
 	case JAVA_STRING:
 	  if (state == STATE_KEYWORD)
-	    {
-	      last_state = STATE_KEYWORD;
-	    }
+	    last_state = STATE_KEYWORD;
 	  if (state == STATE_APPEND)
 	    {
 	      char *s2;
 	      s2 = append_strings (str, translate_esc (parser_global->string));
 	      free (str);
 	      str = s2;
-	      state = STATE_STRING;
 	    }
 	  else
-	    {
-	      state = STATE_STRING;
-	      str = translate_esc (parser_global->string);
-	    }
+	    str = translate_esc (parser_global->string);
+	  state = STATE_STRING;
 	  break;
 
 	case JAVA_OPERATOR:
 	  if (state == STATE_STRING && isplus (parser_global->operator))
-	    {
-	      state = STATE_APPEND;
-	    }
+	    state = STATE_APPEND;
 	  else
 	    {
+	      if (str != NULL)
+		{
+		  free (str);
+		  str = NULL;
+		}
 	      state = STATE_NONE;
 	    }
 	  break;
@@ -2206,8 +2187,7 @@ extract_java (f, real_filename, logical_filename, mdlp)
 		{
 		  remember_a_message (mlp, str, &pos);
 		}
-	      else if (!extract_all_strings
-		       && argument_counter == current_keyword->msgid_arg)
+	      else if (argument_counter == current_keyword->msgid_arg)
 		{
 		  plural = remember_a_message (mlp, str, &pos);
 		  if (current_keyword->msgid_plural_arg == 0)
@@ -2225,20 +2205,31 @@ extract_java (f, real_filename, logical_filename, mdlp)
 		    }
 
 		}
-	      else if (!extract_all_strings &&
-		       argument_counter == current_keyword->msgid_plural_arg)
+	      else if (argument_counter == current_keyword->msgid_plural_arg
+		       && str != NULL)
 		{
 		  remember_a_message_plural (plural, str, &pos);
 		  state = STATE_NONE;
 		  last_state = STATE_NONE;
 		  argument_counter = 0;
 		}
+	      else
+		{
+		  if (str != NULL)
+		    free (str);
+		}
+	      str = NULL;
 	    }
 
 	  if (extract_all_strings)
 	    {
-		state = STATE_NONE;
-		last_state = STATE_NONE;
+	      if (str != NULL)
+		{
+		  free (str);
+		  str = NULL;
+		}
+	      state = STATE_NONE;
+	      last_state = STATE_NONE;
 	    }
 
 	  if (state == STATE_WORD && isdot (parser_global->flow))
@@ -2249,15 +2240,28 @@ extract_java (f, real_filename, logical_filename, mdlp)
 	  break;
 
 	case JAVA_COMMENT:
+	  if (str != NULL)
+	    {
+	      free (str);
+	      str = NULL;
+	    }
 	  state = STATE_NONE;
 	  last_state = STATE_NONE;
 	  xgettext_comment_add (parser_global->comment);
 	  break;
 
 	default:
+	  if (str != NULL)
+	    {
+	      free (str);
+	      str = NULL;
+	    }
 	  state = STATE_NONE;
 	}
       free_global ();
     }
   while (token != -1);
+
+  if (str != NULL)
+    free (str);
 }

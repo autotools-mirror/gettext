@@ -13,8 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
-Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software
+Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -95,10 +95,10 @@ the editing window, one can undo the edition work quite parsimoniously.
 used when the translator is done with the PO file.  The former is a bit
 less verbose than the latter.  If the file has been modified, it is
 saved to disk first.  In both cases, and prior to all this, the
-commands check if some untranslated message remains in the PO file and,
-if yes, the translator is asked if she really wants to leave off
-working with this PO file.  This is the preferred way of getting rid of
-an Emacs PO file buffer.  Merely killing it through the usual command
+commands check if any untranslated messages remain in the PO file and,
+if so, the translator is asked if she really wants to leave off working
+with this PO file.  This is the preferred way of getting rid of an
+Emacs PO file buffer.  Merely killing it through the usual command
 `C-x k' (`kill-buffer') is not the tidiest way to proceed.
 
    The command `0' (`po-other-window') is another, softer way, to leave
@@ -259,7 +259,7 @@ Normalizing Strings in Entries
    There are many different ways for encoding a particular string into a
 PO file entry, because there are so many different ways to split and
 quote multi-line strings, and even, to represent special characters by
-backslahsed escaped sequences.  Some features of PO mode rely on the
+backslashed escaped sequences.  Some features of PO mode rely on the
 ability for PO mode to scan an already existing PO file for a
 particular string encoded into the `msgid' field of some entry.  Even
 if PO mode has internally all the built-in machinery for implementing
@@ -688,8 +688,11 @@ string is regarded as the address.
 
    To prevent errors at runtime caused by translations the `msgfmt'
 tool can check statically whether the arguments in the original and the
-translation string match in type and number.  If this is not the case a
-warning will be given and the error cannot causes problems at runtime.
+translation string match in type and number.  If this is not the case
+and the `-c' option has been passed to `msgfmt', `msgfmt' will give an
+error and refuse to produce a MO file.  Thus consequent use of `msgfmt
+-c' will catch the error, so that it cannot cause cause problems at
+runtime.
 
 If the word order in the above German translation would be correct one
 would have to write
@@ -775,7 +778,7 @@ before printing them.
 names a no-op.  For the second we have to mark all access points to a
 string from the array.  So one solution can look like this:
 
-     #define gettext_noop(String) (String)
+     #define gettext_noop(String) String
      
      {
        static const char *messages[] = {
@@ -798,7 +801,7 @@ keyword `gettext_noop' is explained in *Note xgettext Invocation::.
    The above is of course not the only solution.  You could also come
 along with the following one:
 
-     #define gettext_noop(String) (String)
+     #define gettext_noop(String) String
      
      {
        static const char *messages[] = {
@@ -814,11 +817,9 @@ along with the following one:
        ...
      }
 
-   But this has some drawbacks.  First the programmer has to take care
-that he uses `gettext_noop' for the string `"a default message"'.  A
-use of `gettext' could have in rare cases unpredictable results.  The
-second reason is found in the internals of the GNU `gettext' Library
-which will make this solution less efficient.
+   But this has a drawback.  The programmer has to take care that he
+uses `gettext_noop' for the string `"a default message"'.  A use of
+`gettext' could have in rare cases unpredictable results.
 
    One advantage is that you need not make control flow analysis to make
 sure the output is really translated in any case.  But this analysis is
@@ -1008,9 +1009,26 @@ Output details
      invocations of `xgettext' on the same files with the same options
      at different times are guaranteed to produce the same results.
 
+`--copyright-holder=STRING'
+     Set the copyright holder in the output.  STRING should be the
+     copyright holder of the surrounding package.  (Note that the msgstr
+     strings, extracted from the package's sources, belong to the
+     copyright holder of the package.)  Translators are expected to
+     transfer or disclaim the copyright for their translations, so that
+     package maintainers can distribute them without legal risk.  If
+     STRING is empty, the output files are marked as being in the
+     public domain; in this case, the translators are expected to
+     disclaim their copyright, again so that package maintainers can
+     distribute them without legal risk.
+
+     The default value for STRING is the Free Software Foundation, Inc.,
+     simply because `xgettext' was first used in the GNU project.
+
 `--foreign-user'
-     Omit FSF copyright in output.  This can be useful for translators
-     outside the GNU project.
+     Omit FSF copyright in output.  This option is equivalent to
+     `--copyright-holder='''.  It can be useful for packages outside
+     the GNU project that want their translations to be in the public
+     domain.
 
 `-m [STRING]'
 `--msgstr-prefix[=STRING]'

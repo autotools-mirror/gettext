@@ -346,6 +346,15 @@
 /* Define as a signed type of the same size as size_t. */
 #undef ssize_t
 
+/* Define to a replacement function name for getline(). */
+#undef getline
+
+/* Define if you have <fnmatch.h> and a working fnmatch() function. */
+#undef HAVE_FNMATCH
+
+/* Define to a replacement function name for fnmatch(). */
+#undef fnmatch
+
 /* Define to 1 if mbrtowc and mbstate_t are properly declared. */
 #undef HAVE_MBRTOWC
 
@@ -378,6 +387,9 @@
 
 /* Define if you have the declaration of environ. */
 #undef HAVE_ENVIRON_DECL
+
+/* Define to 1 if you have the functions error() and error_at_line(). */
+#undef HAVE_ERROR_AT_LINE
 
 /* Define as const if the declaration of setlocale() needs const. */
 #undef SETLOCALE_CONST
@@ -429,3 +441,8 @@
    it).  It is used to wrap the msgid and msgstr strings, and also to
    wrap the file position (#:) comments.  */
 #define PAGE_WIDTH 79
+
+/* Extra OS/2 (emx+gcc) defines.  */
+#ifdef __EMX__
+# include "intl/os2compat.h"
+#endif

@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 10  The Programmer's View</TITLE>
 </HEAD>
@@ -10,11 +10,11 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_9.html">previous<
 <P><HR><P>
 
 
-<H1><A NAME="SEC135" HREF="gettext_toc.html#TOC135">10  The Programmer's View</A></H1>
+<H1><A NAME="SEC138" HREF="gettext_toc.html#TOC138">10  The Programmer's View</A></H1>
 
 <P>
 One aim of the current message catalog implementation provided by
-GNU <CODE>gettext</CODE> was to use the systems message catalog handling, if the
+GNU <CODE>gettext</CODE> was to use the system's message catalog handling, if the
 installer wishes to do so.  So we perhaps should first take a look at
 the solutions we know about.  The people in the POSIX committee did not
 manage to agree on one of the semi-official standards which we'll
@@ -28,7 +28,7 @@ later explain our solution of this dilemma.
 
 
 
-<H2><A NAME="SEC136" HREF="gettext_toc.html#TOC136">10.1  About <CODE>catgets</CODE></A></H2>
+<H2><A NAME="SEC139" HREF="gettext_toc.html#TOC139">10.1  About <CODE>catgets</CODE></A></H2>
 
 <P>
 The <CODE>catgets</CODE> implementation is defined in the X/Open Portability
@@ -44,7 +44,7 @@ does not guarantee a unique interface.
 Another, personal comment on this that only a bunch of committee members
 could have made this interface.  They never really tried to program
 using this interface.  It is a fast, memory-saving implementation, an
-user can happily live with it.  But programmers hate it (at least me and
+user can happily live with it.  But programmers hate it (at least I and
 some others do...)
 
 </P>
@@ -60,7 +60,7 @@ therefore part of all Unix implementation (implementations, which are
 
 
 
-<H3><A NAME="SEC137" HREF="gettext_toc.html#TOC137">10.1.1  The Interface</A></H3>
+<H3><A NAME="SEC140" HREF="gettext_toc.html#TOC140">10.1.1  The Interface</A></H3>
 
 <P>
 The interface to the <CODE>catgets</CODE> implementation consists of three
@@ -135,7 +135,7 @@ After this no <CODE>catgets</CODE> call using the descriptor is legal anymore.
 </P>
 
 
-<H3><A NAME="SEC138" HREF="gettext_toc.html#TOC138">10.1.2  Problems with the <CODE>catgets</CODE> Interface?!</A></H3>
+<H3><A NAME="SEC141" HREF="gettext_toc.html#TOC141">10.1.2  Problems with the <CODE>catgets</CODE> Interface?!</A></H3>
 
 <P>
 Now that this description seemed to be really easy -- where are the
@@ -153,7 +153,7 @@ more easy to manage.
 </P>
 
 
-<H2><A NAME="SEC139" HREF="gettext_toc.html#TOC139">10.2  About <CODE>gettext</CODE></A></H2>
+<H2><A NAME="SEC142" HREF="gettext_toc.html#TOC142">10.2  About <CODE>gettext</CODE></A></H2>
 
 <P>
 The definition of the <CODE>gettext</CODE> interface comes from a Uniforum
@@ -166,8 +166,8 @@ standard, though.
 The main points about this solution is that it does not follow the
 method of normal file handling (open-use-close) and that it does not
 burden the programmer so many task, especially the unique key handling.
-Of course here is also a unique key needed, but this key is the message
-itself (how long or short it is).  See section <A HREF="gettext_10.html#SEC147">10.3  Comparing the Two Interfaces</A> for a more
+Of course here also a unique key is needed, but this key is the message
+itself (how long or short it is).  See section <A HREF="gettext_10.html#SEC150">10.3  Comparing the Two Interfaces</A> for a more
 detailed comparison of the two methods.
 
 </P>
@@ -181,7 +181,7 @@ in using this library will be interested in this description.
 
 
 
-<H3><A NAME="SEC140" HREF="gettext_toc.html#TOC140">10.2.1  The Interface</A></H3>
+<H3><A NAME="SEC143" HREF="gettext_toc.html#TOC143">10.2.1  The Interface</A></H3>
 
 <P>
 The minimal functionality an interface must have is a) to select a
@@ -206,7 +206,7 @@ This provides the possibility to change or query the current status of
 the current global domain of the <CODE>LC_MESSAGE</CODE> category.  The
 argument is a null-terminated string, whose characters must be legal in
 the use in filenames.  If the <VAR>domain_name</VAR> argument is <CODE>NULL</CODE>,
-the function return the current value.  If no value has been set
+the function returns the current value.  If no value has been set
 before, the name of the default domain is returned: <EM>messages</EM>.
 Please note that although the return value of <CODE>textdomain</CODE> is of
 type <CODE>char *</CODE> no changing is allowed.  It is also important to know
@@ -249,7 +249,7 @@ your language.
 </P>
 
 
-<H3><A NAME="SEC141" HREF="gettext_toc.html#TOC141">10.2.2  Solving Ambiguities</A></H3>
+<H3><A NAME="SEC144" HREF="gettext_toc.html#TOC144">10.2.2  Solving Ambiguities</A></H3>
 
 <P>
 While this single name domain works well for most applications there
@@ -322,7 +322,7 @@ unreliabilities.
 </P>
 
 
-<H3><A NAME="SEC142" HREF="gettext_toc.html#TOC142">10.2.3  Locating Message Catalog Files</A></H3>
+<H3><A NAME="SEC145" HREF="gettext_toc.html#TOC145">10.2.3  Locating Message Catalog Files</A></H3>
 
 <P>
 Because many different languages for many different packages have to be
@@ -359,7 +359,7 @@ The value of the locale is determined through
 </P>
 
 
-<H3><A NAME="SEC143" HREF="gettext_toc.html#TOC143">10.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A></H3>
+<H3><A NAME="SEC146" HREF="gettext_toc.html#TOC146">10.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A></H3>
 
 <P>
 <CODE>gettext</CODE> not only looks up a translation in a message catalog.  It
@@ -422,7 +422,7 @@ global variable <VAR>errno</VAR> is set accordingly.
 </P>
 
 
-<H3><A NAME="SEC144" HREF="gettext_toc.html#TOC144">10.2.5  Additional functions for plural forms</A></H3>
+<H3><A NAME="SEC147" HREF="gettext_toc.html#TOC147">10.2.5  Additional functions for plural forms</A></H3>
 
 <P>
 The functions of the <CODE>gettext</CODE> family described so far (and all the
@@ -839,7 +839,7 @@ Slovenian
 
 
 
-<H3><A NAME="SEC145" HREF="gettext_toc.html#TOC145">10.2.6  How to use <CODE>gettext</CODE> in GUI programs</A></H3>
+<H3><A NAME="SEC148" HREF="gettext_toc.html#TOC148">10.2.6  How to use <CODE>gettext</CODE> in GUI programs</A></H3>
 
 <P>
 One place where the <CODE>gettext</CODE> functions, if used normally, have big
@@ -990,7 +990,7 @@ quite some memory and disk space by doing this.
 </P>
 
 
-<H3><A NAME="SEC146" HREF="gettext_toc.html#TOC146">10.2.7  Optimization of the *gettext functions</A></H3>
+<H3><A NAME="SEC149" HREF="gettext_toc.html#TOC149">10.2.7  Optimization of the *gettext functions</A></H3>
 
 <P>
 At this point of the discussion we should talk about an advantage of the
@@ -1042,7 +1042,7 @@ find the result through a single cache lookup.
 </P>
 
 
-<H2><A NAME="SEC147" HREF="gettext_toc.html#TOC147">10.3  Comparing the Two Interfaces</A></H2>
+<H2><A NAME="SEC150" HREF="gettext_toc.html#TOC150">10.3  Comparing the Two Interfaces</A></H2>
 
 <P>
 The following discussion is perhaps a little bit colored.  As said
@@ -1110,7 +1110,7 @@ no-op macro.  So you should consider the following code for your project:
 </P>
 
 <PRE>
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 </PRE>
 
@@ -1181,12 +1181,12 @@ little bit.  But it is not impossible to overcome.
 <P>
 <CODE>catgets</CODE> allows same original entry to have different translations,
 but <CODE>gettext</CODE> has another, scalable approach for solving ambiguities
-of this kind: See section <A HREF="gettext_10.html#SEC141">10.2.2  Solving Ambiguities</A>.
+of this kind: See section <A HREF="gettext_10.html#SEC144">10.2.2  Solving Ambiguities</A>.
 
 </P>
 
 
-<H2><A NAME="SEC148" HREF="gettext_toc.html#TOC148">10.4  Using libintl.a in own programs</A></H2>
+<H2><A NAME="SEC151" HREF="gettext_toc.html#TOC151">10.4  Using libintl.a in own programs</A></H2>
 
 <P>
 Starting with version 0.9.4 the library <CODE>libintl.h</CODE> should be
@@ -1195,17 +1195,9 @@ providing additional functions.  The <TT>`Makefile&acute;</TT> will put the head
 and the library in directories selected using the <CODE>$(prefix)</CODE>.
 
 </P>
-<P>
-One exception of the above is found on HP-UX 10.01 systems.  Here the C
-library does not contain the <CODE>alloca</CODE> function (and the HP compiler
-does not generate it inlined).  But it is not intended to rewrite the whole
-library just because of this dumb system.  Instead include the
-<CODE>alloca</CODE> function in all package you use the <CODE>libintl.a</CODE> in.
-
-</P>
 
 
-<H2><A NAME="SEC149" HREF="gettext_toc.html#TOC149">10.5  Being a <CODE>gettext</CODE> grok</A></H2>
+<H2><A NAME="SEC152" HREF="gettext_toc.html#TOC152">10.5  Being a <CODE>gettext</CODE> grok</A></H2>
 
 <P>
 To fully exploit the functionality of the GNU <CODE>gettext</CODE> library it
@@ -1254,7 +1246,7 @@ But there is one little hook.  The code for gcc-2.7.0 and up provides
 some optimization.  This optimization normally prevents the calling of
 the <CODE>dcgettext</CODE> function as long as no new catalog is loaded.  But
 if <CODE>dcgettext</CODE> is not called the program also cannot find the
-<CODE>LANGUAGE</CODE> variable be changed (see section <A HREF="gettext_10.html#SEC146">10.2.7  Optimization of the *gettext functions</A>).  A
+<CODE>LANGUAGE</CODE> variable be changed (see section <A HREF="gettext_10.html#SEC149">10.2.7  Optimization of the *gettext functions</A>).  A
 solution for this is very easy.  Include the following code in the
 language switching function.
 
@@ -1280,11 +1272,11 @@ these little Unix tools) should never need this.
 
 
 
-<H2><A NAME="SEC150" HREF="gettext_toc.html#TOC150">10.6  Temporary Notes for the Programmers Chapter</A></H2>
+<H2><A NAME="SEC153" HREF="gettext_toc.html#TOC153">10.6  Temporary Notes for the Programmers Chapter</A></H2>
 
 
 
-<H3><A NAME="SEC151" HREF="gettext_toc.html#TOC151">10.6.1  Temporary - Two Possible Implementations</A></H3>
+<H3><A NAME="SEC154" HREF="gettext_toc.html#TOC154">10.6.1  Temporary - Two Possible Implementations</A></H3>
 
 <P>
 There are two competing methods for language independent messages:
@@ -1316,7 +1308,7 @@ see the Programming for Internationalization FAQ.
 </P>
 
 
-<H3><A NAME="SEC152" HREF="gettext_toc.html#TOC152">10.6.2  Temporary - About <CODE>catgets</CODE></A></H3>
+<H3><A NAME="SEC155" HREF="gettext_toc.html#TOC155">10.6.2  Temporary - About <CODE>catgets</CODE></A></H3>
 
 <P>
 There have been a few discussions of late on the use of
@@ -1361,7 +1353,7 @@ of all Unix systems.
 </P>
 
 
-<H3><A NAME="SEC153" HREF="gettext_toc.html#TOC153">10.6.3  Temporary - Why a single implementation</A></H3>
+<H3><A NAME="SEC156" HREF="gettext_toc.html#TOC156">10.6.3  Temporary - Why a single implementation</A></H3>
 
 <P>
 Now it seems kind of wasteful to me to have two different systems
@@ -1406,7 +1398,7 @@ the future.
 </P>
 
 
-<H3><A NAME="SEC154" HREF="gettext_toc.html#TOC154">10.6.4  Temporary - Notes</A></H3>
+<H3><A NAME="SEC157" HREF="gettext_toc.html#TOC157">10.6.4  Temporary - Notes</A></H3>
 
 <P>
 X/Open agreed very late on the standard form so that many

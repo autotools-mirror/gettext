@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 30 November 2001 -->
+     from gettext.texi on 31 January 2002 -->
 
 <TITLE>GNU gettext utilities - 13  Other Programming Languages</TITLE>
 </HEAD>
@@ -10,7 +10,7 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous
 <P><HR><P>
 
 
-<H1><A NAME="SEC180" HREF="gettext_toc.html#TOC180">13  Other Programming Languages</A></H1>
+<H1><A NAME="SEC187" HREF="gettext_toc.html#TOC187">13  Other Programming Languages</A></H1>
 
 <P>
 While the presentation of <CODE>gettext</CODE> focuses mostly on C and
@@ -23,7 +23,7 @@ approach.
 
 
 
-<H2><A NAME="SEC181" HREF="gettext_toc.html#TOC181">13.1  The Language Implementor's View</A></H2>
+<H2><A NAME="SEC188" HREF="gettext_toc.html#TOC188">13.1  The Language Implementor's View</A></H2>
 
 <P>
 All programming and scripting languages that have the notion of strings
@@ -120,7 +120,7 @@ different effects on portability and copyright:
 <LI>
 
 You may integrate the GNU <CODE>gettext</CODE>'s <TT>`intl/&acute;</TT> directory in
-your package, as described in section <A HREF="gettext_12.html#SEC166">12  The Maintainer's View</A>.  This allows you to
+your package, as described in section <A HREF="gettext_12.html#SEC169">12  The Maintainer's View</A>.  This allows you to
 have internationalization on all kinds of platforms.  Note that when you
 then distribute your package, it legally falls under the GNU General
 Public License, and the GNU project will be glad about your contribution
@@ -146,7 +146,7 @@ and plural handling).
 
 
 
-<H2><A NAME="SEC182" HREF="gettext_toc.html#TOC182">13.2  The Programmer's View</A></H2>
+<H2><A NAME="SEC189" HREF="gettext_toc.html#TOC189">13.2  The Programmer's View</A></H2>
 
 <P>
 For the programmer, the general procedure is the same as for the C
@@ -159,7 +159,7 @@ underlying language runtime.
 </P>
 
 
-<H2><A NAME="SEC183" HREF="gettext_toc.html#TOC183">13.3  The Translator's View</A></H2>
+<H2><A NAME="SEC190" HREF="gettext_toc.html#TOC190">13.3  The Translator's View</A></H2>
 
 <P>
 The translator works exactly as in the C language case.  The only
@@ -170,11 +170,42 @@ strings.
 </P>
 
 
-<H2><A NAME="SEC184" HREF="gettext_toc.html#TOC184">13.4  Individual Programming Languages</A></H2>
+<H2><A NAME="SEC191" HREF="gettext_toc.html#TOC191">13.4  The Maintainer's View</A></H2>
+
+<P>
+For the maintainer, the general procedure differs from the C language
+case in two ways.
+
+</P>
+
+<UL>
+<LI>
+
+For those languages that don't use GNU gettext, the <TT>`intl/&acute;</TT> directory
+is not needed and can be omitted.  This means that the maintainer calls the
+<CODE>gettextize</CODE> program without the <SAMP>`--intl&acute;</SAMP> option, and that he
+invokes the <CODE>AM_GNU_GETTEXT</CODE> autoconf macro via
+<SAMP>`AM_GNU_GETTEXT([external])&acute;</SAMP>.
+
+<LI>
+
+If only a single programming language is used, the <CODE>XGETTEXT_OPTIONS</CODE>
+variable in <TT>`po/Makevars&acute;</TT> (see section <A HREF="gettext_12.html#SEC176">12.4.3  <TT>`Makefile&acute;</TT> pieces in <TT>`po/&acute;</TT></A>) should be adjusted to
+match the <CODE>xgettext</CODE> options for that particular programming language.
+If the package uses more than one programming language with <CODE>gettext</CODE>
+support, it becomes necessary to change the POT file construction rule
+in <TT>`po/Makefile.in.in&acute;</TT>. It is recommended to make one <CODE>xgettext</CODE>
+invocation per programming language, each with the options appropriate for
+that language, and to combine the resulting files using <CODE>msgcat</CODE>.
+</UL>
 
 
 
-<H3><A NAME="SEC185" HREF="gettext_toc.html#TOC185">13.4.1  C, C++, Objective C</A></H3>
+<H2><A NAME="SEC192" HREF="gettext_toc.html#TOC192">13.5  Individual Programming Languages</A></H2>
+
+
+
+<H3><A NAME="SEC193" HREF="gettext_toc.html#TOC193">13.5.1  C, C++, Objective C</A></H3>
 
 <DL COMPACT>
 
@@ -242,7 +273,7 @@ yes
 
 
 
-<H3><A NAME="SEC186" HREF="gettext_toc.html#TOC186">13.4.2  sh - Shell Script</A></H3>
+<H3><A NAME="SEC194" HREF="gettext_toc.html#TOC194">13.5.2  sh - Shell Script</A></H3>
 
 <DL COMPACT>
 
@@ -305,7 +336,7 @@ use
 
 
 
-<H3><A NAME="SEC187" HREF="gettext_toc.html#TOC187">13.4.3  bash - Bourne-Again Shell Script</A></H3>
+<H3><A NAME="SEC195" HREF="gettext_toc.html#TOC195">13.5.3  bash - Bourne-Again Shell Script</A></H3>
 
 <DL COMPACT>
 
@@ -368,7 +399,7 @@ use
 
 
 
-<H3><A NAME="SEC188" HREF="gettext_toc.html#TOC188">13.4.4  Python</A></H3>
+<H3><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13.5.4  Python</A></H3>
 
 <DL COMPACT>
 
@@ -436,7 +467,7 @@ fully portable
 
 
 
-<H3><A NAME="SEC189" HREF="gettext_toc.html#TOC189">13.4.5  GNU clisp - Common Lisp</A></H3>
+<H3><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.5.5  GNU clisp - Common Lisp</A></H3>
 
 <DL COMPACT>
 
@@ -482,7 +513,7 @@ use
 
 <DT>Extractor
 <DD>
-<CODE>clisp-xgettext</CODE>
+<CODE>xgettext -k_ -kENGLISH</CODE>
 
 <DT>Formatting with positions
 <DD>
@@ -499,7 +530,7 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC190" HREF="gettext_toc.html#TOC190">13.4.6  GNU clisp C sources</A></H3>
+<H3><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.5.6  GNU clisp C sources</A></H3>
 
 <DL COMPACT>
 
@@ -564,7 +595,7 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC191" HREF="gettext_toc.html#TOC191">13.4.7  Emacs Lisp</A></H3>
+<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.5.7  Emacs Lisp</A></H3>
 
 <DL COMPACT>
 
@@ -610,7 +641,7 @@ use
 
 <DT>Extractor
 <DD>
-xpot
+<CODE>xgettext</CODE>
 
 <DT>Formatting with positions
 <DD>
@@ -627,13 +658,13 @@ Only XEmacs. Without <CODE>I18N3</CODE> defined at build time, no translation.
 
 
 
-<H3><A NAME="SEC192" HREF="gettext_toc.html#TOC192">13.4.8  librep</A></H3>
+<H3><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.5.8  librep</A></H3>
 
 <DL COMPACT>
 
 <DT>RPMs
 <DD>
-librep
+librep 0.15.3 or newer
 
 <DT>File extension
 <DD>
@@ -673,7 +704,7 @@ use
 
 <DT>Extractor
 <DD>
-<CODE>rep-xgettext</CODE>
+<CODE>xgettext</CODE>
 
 <DT>Formatting with positions
 <DD>
@@ -690,7 +721,7 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC193" HREF="gettext_toc.html#TOC193">13.4.9  GNU Smalltalk</A></H3>
+<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.5.9  GNU Smalltalk</A></H3>
 
 <DL COMPACT>
 
@@ -759,7 +790,7 @@ fully portable
 
 
 
-<H3><A NAME="SEC194" HREF="gettext_toc.html#TOC194">13.4.10  Java</A></H3>
+<H3><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.5.10  Java</A></H3>
 
 <DL COMPACT>
 
@@ -878,7 +909,7 @@ the GNU gettext package and distributed under the LGPL.
 
 
 
-<H3><A NAME="SEC195" HREF="gettext_toc.html#TOC195">13.4.11  GNU awk</A></H3>
+<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.5.11  GNU awk</A></H3>
 
 <DL COMPACT>
 
@@ -942,7 +973,7 @@ define <CODE>dcgettext</CODE> and <CODE>bindtextdomain</CODE> yourself.
 
 
 
-<H3><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13.4.12  Pascal - Free Pascal Compiler</A></H3>
+<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.5.12  Pascal - Free Pascal Compiler</A></H3>
 
 <DL COMPACT>
 
@@ -1013,7 +1044,7 @@ using the <CODE>TranslateResourceStrings</CODE> function in the <CODE>gettext</C
 </P>
 
 
-<H3><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.4.13  wxWindows library</A></H3>
+<H3><A NAME="SEC205" HREF="gettext_toc.html#TOC205">13.5.13  wxWindows library</A></H3>
 
 <DL COMPACT>
 
@@ -1076,7 +1107,7 @@ yes
 
 
 
-<H3><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.4.14  YCP - YaST2 scripting language</A></H3>
+<H3><A NAME="SEC206" HREF="gettext_toc.html#TOC206">13.5.14  YCP - YaST2 scripting language</A></H3>
 
 <DL COMPACT>
 
@@ -1139,7 +1170,7 @@ fully portable
 
 
 
-<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.4.15  Perl</A></H3>
+<H3><A NAME="SEC207" HREF="gettext_toc.html#TOC207">13.5.15  Perl</A></H3>
 
 <DL COMPACT>
 
@@ -1203,7 +1234,7 @@ use
 
 
 
-<H3><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.4.16  PHP Hypertext Preprocessor</A></H3>
+<H3><A NAME="SEC208" HREF="gettext_toc.html#TOC208">13.5.16  PHP Hypertext Preprocessor</A></H3>
 
 <DL COMPACT>
 
@@ -1266,7 +1297,7 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.4.17  Pike</A></H3>
+<H3><A NAME="SEC209" HREF="gettext_toc.html#TOC209">13.5.17  Pike</A></H3>
 
 <DL COMPACT>
 
@@ -1329,7 +1360,7 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H2><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.5  Internationalizable Data</A></H2>
+<H2><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13.6  Internationalizable Data</A></H2>
 
 <P>
 Here is a list of other data formats which can be internationalized
@@ -1339,7 +1370,7 @@ using GNU gettext.
 
 
 
-<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.5.1  POT - Portable Object Template</A></H3>
+<H3><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.6.1  POT - Portable Object Template</A></H3>
 
 <DL COMPACT>
 
@@ -1358,7 +1389,7 @@ gettext
 
 
 
-<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.5.2  Resource String Table</A></H3>
+<H3><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.6.2  Resource String Table</A></H3>
 
 <DL COMPACT>
 

@@ -13,8 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
-Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software
+Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -29,6 +29,63 @@ permission notice identical to this one.
 manual into another language, under the above conditions for modified
 versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
+
+
+File: gettext.info,  Node: Trans Intro 0,  Next: Trans Intro 1,  Prev: Translators,  Up: Translators
+
+Introduction 0
+==============
+
+   Free software is going international!  The Translation Project is a
+way to get maintainers, translators and users all together, so free
+software will gradually become able to speak many native languages.
+
+   The GNU `gettext' tool set contains _everything_ maintainers need
+for internationalizing their packages for messages.  It also contains
+quite useful tools for helping translators at localizing messages to
+their native language, once a package has already been
+internationalized.
+
+   To achieve the Translation Project, we need many interested people
+who like their own language and write it well, and who are also able to
+synergize with other translators speaking the same language.  If you'd
+like to volunteer to _work_ at translating messages, please send mail
+to your translating team.
+
+   Each team has its own mailing list, courtesy of Linux International.
+You may reach your translating team at the address `LL@li.org',
+replacing LL by the two-letter ISO 639 code for your language.
+Language codes are _not_ the same as country codes given in ISO 3166.
+The following translating teams exist:
+
+     Chinese `zh', Czech `cs', Danish `da', Dutch `nl', Esperanto `eo',
+     Finnish `fi', French `fr', Irish `ga', German `de', Greek `el',
+     Italian `it', Japanese `ja', Indonesian `in', Norwegian `no',
+     Polish `pl', Portuguese `pt', Russian `ru', Spanish `es', Swedish
+     `sv' and Turkish `tr'.
+
+For example, you may reach the Chinese translating team by writing to
+`zh@li.org'.  When you become a member of the translating team for your
+own language, you may subscribe to its list.  For example, Swedish
+people can send a message to `sv-request@li.org', having this message
+body:
+
+     subscribe
+
+   Keep in mind that team members should be interested in _working_ at
+translations, or at solving translational difficulties, rather than
+merely lurking around.  If your team does not exist yet and you want to
+start one, please write to `translation@iro.umontreal.ca'; you will
+then reach the coordinator for all translator teams.
+
+   A handful of GNU packages have already been adapted and provided
+with message translations for several languages.  Translation teams
+have begun to organize, using these packages as a starting point.  But
+there are many more packages and many languages for which we have no
+volunteer translators.  If you would like to volunteer to work at
+translating messages, please send mail to
+`translation@iro.umontreal.ca' indicating what language(s) you can work
+on.
 
 
 File: gettext.info,  Node: Trans Intro 1,  Next: Discussions,  Prev: Trans Intro 0,  Up: Translators
@@ -430,6 +487,7 @@ ideally revise this chapter in subsequent releases, looking for changes.
 * Prerequisites::               Prerequisite Works
 * gettextize Invocation::       Invoking the `gettextize' Program
 * Adjusting Files::             Files You Must Create or Alter
+* autoconf macros::             Autoconf macros for use in `configure.in'
 
 
 File: gettext.info,  Node: Flat and Non-Flat,  Next: Prerequisites,  Prev: Maintainers,  Up: Maintainers
@@ -516,8 +574,8 @@ to authentify the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
 the submission to `translation@iro.umontreal.ca' in case of doubt), to
 ensure that the PO file format is not severely broken and does not
-prevent successful installation, and for the rest, to merely to put
-these PO files in `po/' for distribution.
+prevent successful installation, and for the rest, to merely put these
+PO files in `po/' for distribution.
 
    As a maintainer, you do not have to take on your shoulders the
 responsibility of checking if the translations are adequate or
@@ -533,7 +591,7 @@ reach or join their team.  The simplest might be to send them the
    Maintainers should _never ever_ apply PO file bug reports
 themselves, short-cutting translation teams.  If some translator has
 difficulty to get some of her points through her team, it should not be
-an issue for her to directly negotiate translations with maintainers.
+an option for her to directly negotiate translations with maintainers.
 Teams ought to settle their problems themselves, if any.  If you, as a
 maintainer, ever think there is a real problem with a team, please
 never try to _solve_ a team's problem on your own.
@@ -573,7 +631,11 @@ and accepts the following options:
      `AM_GNU_GETTEXT([external])', and internationalization will not be
      enabled on systems lacking GNU gettext.
 
-`-h'
+`--no-changelog'
+     Don't update or create ChangeLog files.  By default, `gettextize'
+     logs all changes (file additions, modifications ans removals) in a
+     file called `ChangeLog' in each affected directory.
+
 `--help'
      Display this help and exit.
 
@@ -611,6 +673,10 @@ specified.
      option `--force' (`-f') is given, the `intl/' directory is emptied
      first.
 
+  4. The `config.rpath' file is copied into the directory containing
+     configuration support files. It is needed by the `AM_GNU_GETTEXT'
+     autoconf macro.
+
 
    If your site support symbolic links, `gettextize' will not actually
 copy the files into your package, but establish symbolic links instead.
@@ -630,7 +696,7 @@ the `po/' directory needs its own `Makefile', and it has been designed
 so it can be identical in all packages.
 
 
-File: gettext.info,  Node: Adjusting Files,  Prev: gettextize Invocation,  Up: Maintainers
+File: gettext.info,  Node: Adjusting Files,  Next: autoconf macros,  Prev: gettextize Invocation,  Up: Maintainers
 
 Files You Must Create or Alter
 ==============================
@@ -644,9 +710,11 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.11-pre2 distribution itself.  You may indeed refer to the
-source code of the GNU `gettext' package, as it is intended to be a
-good example and master implementation for using its own functionality.
+`gettext' 0.11 distribution itself, or from the GNU `hello'
+distribution (`http://www.franken.de/users/gnu/ke/hello' or
+`http://www.gnu.franken.de/ke/hello/')  You may indeed refer to the
+source code of the GNU `gettext' and GNU `hello' packages, as they are
+intended to be good examples for using GNU gettext functionality.
 
 * Menu:
 
@@ -659,6 +727,7 @@ good example and master implementation for using its own functionality.
 * acconfig::                    `acconfig.h' at top level
 * Makefile::                    `Makefile.in' at top level
 * src/Makefile::                `Makefile.in' in `src/'
+* lib/gettext.h::               `gettext.h' in `lib/'
 
 
 File: gettext.info,  Node: po/POTFILES.in,  Next: po/LINGUAS,  Prev: Adjusting Files,  Up: Adjusting Files
@@ -753,16 +822,16 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.11-pre2
+          VERSION=0.11
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
           AC_SUBST(VERSION)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.11-pre2' by its version numbers, exactly as they should
-     appear in the packaged `tar' file name of your distribution
-     (`gettext-0.11-pre2.tar.gz', here).
+     and `0.11' by its version numbers, exactly as they should appear
+     in the packaged `tar' file name of your distribution
+     (`gettext-0.11.tar.gz', here).
 
   2. Check for internationalization support.
 
@@ -830,10 +899,11 @@ File: gettext.info,  Node: aclocal,  Next: acconfig,  Prev: config.guess,  Up: A
 
    If you do not have an `aclocal.m4' file in your distribution, the
 simplest is to concatenate the files `codeset.m4', `gettext.m4',
-`glibc21.m4', `iconv.m4', `isc-posix.m4', `lcmessage.m4', `progtest.m4'
-from GNU `gettext''s `m4/' directory into a single file.  If you have
-suppressed the `intl/' directory, only `gettext.m4', `iconv.m4',
-`progtest.m4' need to be concatenated.
+`glibc21.m4', `iconv.m4', `isc-posix.m4', `lcmessage.m4', `lib-ld.m4',
+`lib-link.m4', `lib-prefix.m4', `progtest.m4' from GNU `gettext''s
+`m4/' directory into a single file.  If you have suppressed the `intl/'
+directory, only `gettext.m4', `iconv.m4', `progtest.m4' need to be
+concatenated.
 
    If you already have an `aclocal.m4' file, then you will have to
 merge the said macro files into your `aclocal.m4'.  Note that if you
@@ -893,7 +963,7 @@ File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: 
      example, we also define `SUBDIRS' in `Makefile.in' for it to be
      further used in the `dist:' goal.
 
-          SUBDIRS = doc intl lib src @POSUB@
+          SUBDIRS = doc intl lib src po
 
      Note that you must arrange for `make' to descend into the `intl'
      directory before descending into other directories containing code
@@ -923,7 +993,7 @@ File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: 
 
 
 
-File: gettext.info,  Node: src/Makefile,  Prev: Makefile,  Up: Adjusting Files
+File: gettext.info,  Node: src/Makefile,  Next: lib/gettext.h,  Prev: Makefile,  Up: Adjusting Files
 
 `Makefile.in' in `src/'
 -----------------------
@@ -966,11 +1036,12 @@ modifications needed in `src/Makefile.in':
      Note that `@datadir@' defaults to `$(prefix)/share', thus
      `$(localedir)' defaults to `$(prefix)/share/locale'.
 
-  5. You should ensure that the final linking will use `@INTLLIBS@' as
-     a library.  An easy way to achieve this is to manage that it gets
-     into `LIBS', like this:
+  5. You should ensure that the final linking will use `@LIBINTL@' or
+     `@LTLIBINTL@' as a library.  `@LIBINTL@' is for use without
+     `libtool', `@LTLIBINTL@' is for use with `libtool'. An easy way to
+     achieve this is to manage that it gets into `LIBS', like this:
 
-          LIBS = @INTLLIBS@ @LIBS@
+          LIBS = @LIBINTL@ @LIBS@
 
      In most packages internationalized with GNU `gettext', one will
      find a directory `lib/' in which a library containing some helper
@@ -979,10 +1050,10 @@ modifications needed in `src/Makefile.in':
      the functions in the `lib/' also give messages to the user which
      of course should be translated, too.  Taking care of this, the
      support library (say `libsupport.a') should be placed before
-     `@INTLLIBS@' and `@LIBS@' in the above example.  So one has to
+     `@LIBINTL@' and `@LIBS@' in the above example.  So one has to
      write this:
 
-          LIBS = ../lib/libsupport.a @INTLLIBS@ @LIBS@
+          LIBS = ../lib/libsupport.a @LIBINTL@ @LIBS@
 
   6. You should also ensure that directory `intl/' will be searched for
      C preprocessor include files in all circumstances.  So, you have to
@@ -1000,138 +1071,68 @@ modifications needed in `src/Makefile.in':
 
 
 
-File: gettext.info,  Node: Programming Languages,  Next: Conclusion,  Prev: Maintainers,  Up: Top
+File: gettext.info,  Node: lib/gettext.h,  Prev: src/Makefile,  Up: Adjusting Files
 
-Other Programming Languages
-***************************
+`gettext.h' in `lib/'
+---------------------
 
-   While the presentation of `gettext' focuses mostly on C and
-implicitly applies to C++ as well, its scope is far broader than that:
-Many programming languages, scripting languages and other textual data
-like GUI resources or package descriptions can make use of the gettext
-approach.
+   Internationalization of packages, as provided by GNU `gettext', is
+optional. It can be turned off in two situations:
+
+   * When the installer has specified `./configure --disable-nls'. This
+     can be useful when small binaries are more important than
+     features, for example when building utilities for boot diskettes.
+     It can also be useful in order to get some specific C compiler
+     warnings about code quality with some older versions of GCC (older
+     than 3.0).
+
+   * When the package does not include the `intl/' subdirectory, and the
+     libintl.h header (with its associated libintl library, if any) is
+     not already installed on the system, it is preferrable that the
+     package builds without internationalization support, rather than
+     to give a compilation error.
+
+   A C preprocessor macro can be used to detect these two cases.
+Usually, when `libintl.h' was found and not explicitly disabled, the
+`ENABLE_NLS' macro will be defined to 1 in the autoconf generated
+configuration file (usually called `config.h'). In the two negative
+situations, however, this macro will not be defined, thus it will
+evaluate to 0 in C preprocessor expressions.
+
+   `gettext.h' is a convenience header file for conditional use of
+`<libintl.h>', depending on the `ENABLE_NLS' macro. If `ENABLE_NLS' is
+set, it includes `<libintl.h>'; otherwise it defines no-op substitutes
+for the libintl.h functions. We recommend the use of `"gettext.h"' over
+direct use of `<libintl.h>', so that portability to older systems is
+guaranteed and installers can turn off internationalization if they
+want to. In the C code, you will then write
+
+     #include "gettext.h"
+
+instead of
+
+     #include <libintl.h>
+
+   The location of `gettext.h' is usually in a directory containing
+auxiliary include files. In many GNU packages, there is a directory
+`lib/' containing helper functions; `gettext.h' fits there.  In other
+packages, it can go into the `src' directory.
+
+   Do not install the `gettext.h' file in public locations. Every
+package that needs it should contain a copy of it on its own.
+
+
+File: gettext.info,  Node: autoconf macros,  Prev: Adjusting Files,  Up: Maintainers
+
+Autoconf macros for use in `configure.in'
+=========================================
+
+   GNU `gettext' installs macros for use in a package's `configure.in'
+or `configure.ac'.  *Note Introduction: (autoconf)Top.  The primary
+macro is, of course, `AM_GNU_GETTEXT'.
 
 * Menu:
 
-* Language Implementors::       The Language Implementor's View
-* Programmers for other Languages::  The Programmer's View
-* Translators for other Languages::  The Translator's View
-* List of Programming Languages::  Individual Programming Languages
-* List of Data Formats::        Internationalizable Data
-
-
-File: gettext.info,  Node: Language Implementors,  Next: Programmers for other Languages,  Prev: Programming Languages,  Up: Programming Languages
-
-The Language Implementor's View
-===============================
-
-   All programming and scripting languages that have the notion of
-strings are eligible to supporting `gettext'.  Supporting `gettext'
-means the following:
-
-  1. You should add to the language a syntax for translatable strings.
-     In principle, a function call of `gettext' would do, but a
-     shorthand syntax helps keeping the legibility of internationalized
-     programs.  For example, in C we use the syntax `_("string")', in
-     bash we use the syntax `$"string"', and in GNU awk we use the
-     shorthand `_"string"'.
-
-  2. You should arrange that evaluation of such a translatable string at
-     runtime calls the `gettext' function, or performs equivalent
-     processing.
-
-  3. Similarly, you should make the functions `ngettext', `dcgettext',
-     `dcngettext' available from within the language.  These functions
-     are less often used, but are nevertheless necessary for particular
-     purposes: `ngettext' for correct plural handling, and `dcgettext'
-     and `dcngettext' for obeying other locale environment variables
-     than `LC_MESSAGES', such as `LC_TIME' or `LC_MONETARY'.  For these
-     latter functions, you need to make the `LC_*' constants, available
-     in the C header `<locale.h>', referenceable from within the
-     language, usually either as enumeration values or as strings.
-
-  4. You should allow the programmer to designate a message domain,
-     either by making the `textdomain' function available from within
-     the language, or by introducing a magic variable called
-     `TEXTDOMAIN'.  Similarly, you should allow the programmer to
-     designate where to search for message catalogs, by providing
-     access to the `bindtextdomain' function.
-
-  5. You should either perform a `setlocale (LC_ALL, "")' call during
-     the startup of your language runtime, or allow the programmer to
-     do so.  Remember that gettext will act as a no-op if the
-     `LC_MESSAGES' and `LC_CTYPE' locale facets are not both set.
-
-  6. A programmer should have a way to extract translatable strings
-     from a program into a PO file.  The GNU `xgettext' program is being
-     extended to support very different programming languages.  Please
-     contact the GNU `gettext' maintainers to help them doing this.  If
-     the string extractor is best integrated into your language's
-     parser, GNU `xgettext' can function as a front end to your string
-     extractor.
-
-  7. The language's library should have a string formatting facility
-     where the arguments of a format string are denoted by a positional
-     number or a name.  This is needed because for some languages and
-     some messages with more than one substitutable argument, the
-     translation will need to output the substituted arguments in
-     different order.  *Note c-format::.
-
-  8. If the language has more than one implementation, and not all of
-     the implementations use `gettext', but the programs should be
-     portable across implementations, you should provide a no-i18n
-     emulation, that makes the other implementations accept programs
-     written for yours, without actually translating the strings.
-
-  9. To help the programmer in the task of marking translatable strings,
-     which is usually performed using the Emacs PO mode, you are
-     welcome to contact the GNU `gettext' maintainers, so they can add
-     support for your language to `po-mode.el'.
-
-   On the implementation side, three approaches are possible, with
-different effects on portability and copyright:
-
-   * You may integrate the GNU `gettext''s `intl/' directory in your
-     package, as described in *Note Maintainers::.  This allows you to
-     have internationalization on all kinds of platforms.  Note that
-     when you then distribute your package, it legally falls under the
-     GNU General Public License, and the GNU project will be glad about
-     your contribution to the Free Software pool.
-
-   * You may link against GNU `gettext' functions if they are found in
-     the C library.  For example, an autoconf test for `gettext()' and
-     `ngettext()' will detect this situation.  For the moment, this test
-     will succeed on GNU systems and not on other platforms.  No severe
-     copyright restrictions apply.
-
-   * You may emulate or reimplement the GNU `gettext' functionality.
-     This has the advantage of full portability and no copyright
-     restrictions, but also the drawback that you have to reimplement
-     the GNU `gettext' features (such as the `LANGUAGE' environment
-     variable, the locale aliases database, the automatic charset
-     conversion, and plural handling).
-
-
-File: gettext.info,  Node: Programmers for other Languages,  Next: Translators for other Languages,  Prev: Language Implementors,  Up: Programming Languages
-
-The Programmer's View
-=====================
-
-   For the programmer, the general procedure is the same as for the C
-language.  The Emacs PO mode supports other languages, and the GNU
-`xgettext' string extractor recognizes other languages based on the
-file extension or a command-line option.  In some languages,
-`setlocale' is not needed because it is already performed by the
-underlying language runtime.
-
-
-File: gettext.info,  Node: Translators for other Languages,  Next: List of Programming Languages,  Prev: Programmers for other Languages,  Up: Programming Languages
-
-The Translator's View
-=====================
-
-   The translator works exactly as in the C language case.  The only
-difference is that when translating format strings, she has to be aware
-of the language's particular syntax for positional arguments in format
-strings.
+* AM_GNU_GETTEXT::              AM_GNU_GETTEXT in `gettext.m4'
+* AM_ICONV::                    AM_ICONV in `iconv.m4'
 

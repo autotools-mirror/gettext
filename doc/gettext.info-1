@@ -13,8 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
-Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software
+Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -89,7 +89,7 @@ Making the PO Template File
 Creating a New PO File
 
 * msginit Invocation::          Invoking the `msginit' Program
-* Header Entry::                Fields in the Header Entry
+* Header Entry::                Filling in the Header Entry
 
 Updating Existing PO Files
 
@@ -115,12 +115,13 @@ Manipulating PO Files
 * msgcat Invocation::           Invoking the `msgcat' Program
 * msgconv Invocation::          Invoking the `msgconv' Program
 * msggrep Invocation::          Invoking the `msggrep' Program
-* msgexec Invocation::          Invoking the `msgexec' Program
+* msgfilter Invocation::        Invoking the `msgfilter' Program
 * msguniq Invocation::          Invoking the `msguniq' Program
 * msgcomm Invocation::          Invoking the `msgcomm' Program
 * msgcmp Invocation::           Invoking the `msgcmp' Program
 * msgattrib Invocation::        Invoking the `msgattrib' Program
 * msgen Invocation::            Invoking the `msgen' Program
+* msgexec Invocation::          Invoking the `msgexec' Program
 
 Producing Binary MO Files
 
@@ -190,6 +191,7 @@ The Maintainer's View
 * Prerequisites::               Prerequisite Works
 * gettextize Invocation::       Invoking the `gettextize' Program
 * Adjusting Files::             Files You Must Create or Alter
+* autoconf macros::             Autoconf macros for use in `configure.in'
 
 Files You Must Create or Alter
 
@@ -202,12 +204,19 @@ Files You Must Create or Alter
 * acconfig::                    `acconfig.h' at top level
 * Makefile::                    `Makefile.in' at top level
 * src/Makefile::                `Makefile.in' in `src/'
+* lib/gettext.h::               `gettext.h' in `lib/'
+
+Autoconf macros for use in `configure.in'
+
+* AM_GNU_GETTEXT::              AM_GNU_GETTEXT in `gettext.m4'
+* AM_ICONV::                    AM_ICONV in `iconv.m4'
 
 Other Programming Languages
 
 * Language Implementors::       The Language Implementor's View
 * Programmers for other Languages::  The Programmer's View
 * Translators for other Languages::  The Translator's View
+* Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
 * List of Data Formats::        Internationalizable Data
 
@@ -578,9 +587,9 @@ Overview of GNU `gettext'
 
    The following diagram summarizes the relation between the files
 handled by GNU `gettext' and the tools acting on these files.  It is
-followed by a somewhat detailed explanations, which you should read
-while keeping an eye on the diagram.  Having a clear understanding of
-these interrelations would surely help programmers, translators and
+followed by somewhat detailed explanations, which you should read while
+keeping an eye on the diagram.  Having a clear understanding of these
+interrelations will surely help programmers, translators and
 maintainers.
 
      Original C Sources ---> PO mode ---> Marked C Sources ---.
@@ -631,7 +640,7 @@ Simply put the following lines at the beginning of each file or in a
 central header file:
 
      #define _(String) (String)
-     #define N_(String) (String)
+     #define N_(String) String
      #define textdomain(Domain)
      #define bindtextdomain(Package, Directory)
 
@@ -641,10 +650,10 @@ simply replace these definitions by the following:
 
      #include <libintl.h>
      #define _(String) gettext (String)
-     #define gettext_noop(String) (String)
+     #define gettext_noop(String) String
      #define N_(String) gettext_noop (String)
 
-   and link against `libintl.a' or `libintl.so'.  Note that on GNU
+and link against `libintl.a' or `libintl.so'.  Note that on GNU
 systems, you don't need to link with `libintl' because the `gettext'
 library functions are already contained in GNU libc.  That is all you
 have to change.
@@ -701,7 +710,7 @@ adding new strings, or modifying strings already translated.  They just
 do their job the best they can.  For the Translation Project to work
 smoothly, it is important that maintainers do not carry translation
 concerns on their already loaded shoulders, and that translators be
-kept as free as possible of programmatic concerns.
+kept as free as possible of programming concerns.
 
    The only concern maintainers should have is carefully marking new
 strings as translatable, when they should be, and do not otherwise
@@ -741,21 +750,20 @@ People resisting it will have a hard time participating in the
 Translation Project, or will give a hard time to other participants!  In
 particular, maintainers should relax and include all available official
 PO files in their distributions, even if these have not recently been
-updated, without banging or otherwise trying to exert pressure on the
-translator teams to get the job done.  The pressure should rather come
-from the community of users speaking a particular language, and
-maintainers should consider themselves fairly relieved of any concern
-about the adequacy of translation files.  On the other hand, translators
-should reasonably try updating the PO files they are responsible for,
-while the package is undergoing pretest, prior to an official
-distribution.
+updated, without exerting pressure on the translator teams to get the
+job done.  The pressure should rather come from the community of users
+speaking a particular language, and maintainers should consider
+themselves fairly relieved of any concern about the adequacy of
+translation files.  On the other hand, translators should reasonably
+try updating the PO files they are responsible for, while the package
+is undergoing pretest, prior to an official distribution.
 
    Once the PO file is complete and dependable, the `msgfmt' program is
 used for turning the PO file into a machine-oriented format, which may
 yield efficient retrieval of translations by the programs of the
 package, whenever needed at runtime (*note MO Files::).  *Note msgfmt
-Invocation::, for more information about all modalities of execution
-for the `msgfmt' program.
+Invocation::, for more information about all modes of execution for the
+`msgfmt' program.
 
    Finally, the modified and marked C sources are compiled and linked
 with the GNU `gettext' library, usually through the operation of
@@ -902,7 +910,7 @@ forms of flags defined:
 `c-format'
 `no-c-format'
      These flags should not be added by a human.  Instead only the
-     `xgettext' program adds them.  In an automatized PO file processing
+     `xgettext' program adds them.  In an automated PO file processing
      system as proposed here the user changes would be thrown away
      again as soon as the `xgettext' program generates a new template
      file.
@@ -938,7 +946,7 @@ having Emacs handy should carefully continue reading on.
 
    Each of UNTRANSLATED-STRING and TRANSLATED-STRING respects the C
 syntax for a character string, including the surrounding quotes and
-imbedded backslashed escape sequences.  When the time comes to write
+embedded backslashed escape sequences.  When the time comes to write
 multi-line strings, one should not use escaped newlines.  Instead, a
 closing quote should follow the last character on the line to be
 continued, and an opening quote should resume the string at the

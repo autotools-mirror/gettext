@@ -13,8 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
-Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software
+Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -62,14 +62,18 @@ that source file and use `msgmerge'.
 special dialect or orthography - for example, German as written in
 Switzerland versus German as written in Germany -, she needs to apply
 some text processing to every message in the catalog.  The tool for
-doing this is `msgexec'.
+doing this is `msgfilter'.
 
-   Another use of `msgexec' is to produce approximately the POT file for
-which a given PO file was made.  This can be done through a filter
-command like `msgexec sed -e d | sed -e '/^# /d''.  Note that the
+   Another use of `msgfilter' is to produce approximately the POT file
+for which a given PO file was made.  This can be done through a filter
+command like `msgfilter sed -e d | sed -e '/^# /d''.  Note that the
 original POT file may have had different comments and different plural
 message counts, that's why it's better to use the original POT file if
 available.
+
+   When a translator wants to check her translations, for example
+according to orthography rules or using a non-interactive spell
+checker, she can do so using the `msgexec' program.
 
    When third party tools create PO or POT files, sometimes duplicates
 cannot be avoided.  But the GNU `gettext' tools give an error when they
@@ -93,12 +97,13 @@ catalogs.  It copies each message's msgid to its msgstr.
 * msgcat Invocation::           Invoking the `msgcat' Program
 * msgconv Invocation::          Invoking the `msgconv' Program
 * msggrep Invocation::          Invoking the `msggrep' Program
-* msgexec Invocation::          Invoking the `msgexec' Program
+* msgfilter Invocation::        Invoking the `msgfilter' Program
 * msguniq Invocation::          Invoking the `msguniq' Program
 * msgcomm Invocation::          Invoking the `msgcomm' Program
 * msgcmp Invocation::           Invoking the `msgcmp' Program
 * msgattrib Invocation::        Invoking the `msgattrib' Program
 * msgen Invocation::            Invoking the `msgen' Program
+* msgexec Invocation::          Invoking the `msgexec' Program
 
 
 File: gettext.info,  Node: msgcat Invocation,  Next: msgconv Invocation,  Prev: Manipulating,  Up: Manipulating
@@ -316,7 +321,7 @@ Informative output
      Output version information and exit.
 
 
-File: gettext.info,  Node: msggrep Invocation,  Next: msgexec Invocation,  Prev: msgconv Invocation,  Up: Manipulating
+File: gettext.info,  Node: msggrep Invocation,  Next: msgfilter Invocation,  Prev: msgconv Invocation,  Up: Manipulating
 
 Invoking the `msggrep' Program
 ==============================
@@ -377,7 +382,8 @@ regular expressions if -E is given, or fixed strings if -F is given.
 
 `-N SOURCEFILE'
 `--location=SOURCEFILE'
-     Select messages extracted from SOURCEFILE.
+     Select messages extracted from SOURCEFILE.  SOURCEFILE can be
+     either a literal file name or a wildcard pattern.
 
 `-M DOMAINNAME'
 `--domain=DOMAINNAME'
@@ -457,14 +463,14 @@ Informative output
      Output version information and exit.
 
 
-File: gettext.info,  Node: msgexec Invocation,  Next: msguniq Invocation,  Prev: msggrep Invocation,  Up: Manipulating
+File: gettext.info,  Node: msgfilter Invocation,  Next: msguniq Invocation,  Prev: msggrep Invocation,  Up: Manipulating
 
-Invoking the `msgexec' Program
-==============================
+Invoking the `msgfilter' Program
+================================
 
-     msgexec [OPTION] FILTER [FILTER-OPTION]
+     msgfilter [OPTION] FILTER [FILTER-OPTION]
 
-   The `msgexec' program applies a filter to all translations of a
+   The `msgfilter' program applies a filter to all translations of a
 translation catalog.
 
 Input file location
@@ -499,6 +505,24 @@ The filter
 input and writes a modified translation to standard output.  A
 frequently used filter is `sed'.
 
+   Note: It is your responsibility to ensure that the FILTER can cope
+with input encoded in the translation catalog's encoding.  If the
+FILTER wants input in a particular encoding, you can in a first step
+convert the translation catalog to that encoding using the `msgconv'
+program, before invoking `msgfilter'.  If the FILTER wants input in the
+locale's encoding, but you want to avoid the locale's encoding, then
+you can first convert the translation catalog to UTF-8 using the
+`msgconv' program and then make `msgfilter' work in an UTF-8 locale, by
+using the `LC_ALL' environment variable.
+
+   Note: Most translations in a translation catalog don't end with a
+newline character. For this reason, it is important that the FILTER
+recognizes its last input line even if it ends without a newline, and
+that it doesn't add an undesired trailing newline at the end. The `sed'
+program on some platforms is known to ignore the last line of input if
+it is not terminated with a newline. You can use GNU `sed' instead; it
+does not have this limitation.
+
 Useful FILTER-OPTIONs when the FILTER is `sed'
 ----------------------------------------------
 
@@ -523,6 +547,11 @@ Output details
 
 `--indent'
      Write the .po file using indented style.
+
+`--keep-header'
+     Keep the header entry, i.e. the message with `msgid ""',
+     unmodified, instead of filtering it.  By default, the header entry
+     is subject to filtering like any other message.
 
 `--no-location'
      Do not write `#: FILENAME:LINE' lines.
@@ -563,7 +592,7 @@ Informative output
      Output version information and exit.
 
 
-File: gettext.info,  Node: msguniq Invocation,  Next: msgcomm Invocation,  Prev: msgexec Invocation,  Up: Manipulating
+File: gettext.info,  Node: msguniq Invocation,  Next: msgcomm Invocation,  Prev: msgfilter Invocation,  Up: Manipulating
 
 Invoking the `msguniq' Program
 ==============================
@@ -968,7 +997,7 @@ Informative output
      Output version information and exit.
 
 
-File: gettext.info,  Node: msgen Invocation,  Prev: msgattrib Invocation,  Up: Manipulating
+File: gettext.info,  Node: msgen Invocation,  Next: msgexec Invocation,  Prev: msgattrib Invocation,  Up: Manipulating
 
 Invoking the `msgen' Program
 ============================
@@ -979,6 +1008,10 @@ Invoking the `msgen' Program
 input file is the last created English PO file, or a PO Template file
 (generally created by xgettext).  Untranslated entries are assigned a
 translation that is identical to the msgid, and are marked fuzzy.
+
+   Note: `msginit --no-translator --locale=en' performs a very similar
+task. The main difference is that `msginit' cares specially about the
+header entry, whereas `msgen' doesn't.
 
 Input file location
 -------------------
@@ -1040,6 +1073,65 @@ Output details
 `-F'
 `--sort-by-file'
      Sort output by file location.
+
+Informative output
+------------------
+
+`-h'
+`--help'
+     Display this help and exit.
+
+`-V'
+`--version'
+     Output version information and exit.
+
+
+File: gettext.info,  Node: msgexec Invocation,  Prev: msgen Invocation,  Up: Manipulating
+
+Invoking the `msgexec' Program
+==============================
+
+     msgexec [OPTION] COMMAND [COMMAND-OPTION]
+
+   The `msgexec' program applies a command to all translations of a
+translation catalog.  The COMMAND can be any program that reads a
+translation from standard input.  It is invoked once for each
+translation.  Its output becomes msgexec's output.  `msgexec''s return
+code is the maximum return code across all invocations.
+
+   A special builtin command called `0' outputs the translation,
+followed by a null byte.  The output of `msgexec 0' is suitable as
+input for `xargs -0'.
+
+   During each COMMAND invocation, the environment variable
+`MSGEXEC_MSGID' is bound to the message's msgid, and the environment
+variable `MSGEXEC_LOCATION' is bound to the location in the PO file of
+the message.
+
+   Note: It is your responsibility to ensure that the COMMAND can cope
+with input encoded in the translation catalog's encoding.  If the
+COMMAND wants input in a particular encoding, you can in a first step
+convert the translation catalog to that encoding using the `msgconv'
+program, before invoking `msgexec'.  If the COMMAND wants input in the
+locale's encoding, but you want to avoid the locale's encoding, then
+you can first convert the translation catalog to UTF-8 using the
+`msgconv' program and then make `msgexec' work in an UTF-8 locale, by
+using the `LC_ALL' environment variable.
+
+Input file location
+-------------------
+
+`-i INPUTFILE'
+`--input=INPUTFILE'
+     Input PO file.
+
+`-D DIRECTORY'
+`--directory=DIRECTORY'
+     Add DIRECTORY to the list of directories.  Source files are
+     searched relative to this list of directories.  The resulting `.po'
+     file will be written relative to the current directory, though.
+
+   If no INPUTFILE is given or if it is `-', standard input is read.
 
 Informative output
 ------------------
@@ -1377,7 +1469,7 @@ table itself is not contained in the MO file.  Some people might prefer
 this because a precomputed hashing table takes disk space, and does not
 win _that_ much speed.  The hash table contains indices to the sorted
 array of strings in the MO file.  Conflict resolution is done by double
-hashing.  The precise hashing algorithm used is fairly dependent of GNU
+hashing.  The precise hashing algorithm used is fairly dependent on GNU
 `gettext' code, and is not documented here.
 
    As for the strings themselves, they follow the hash file, and each
@@ -1519,69 +1611,4 @@ this GNU `gettext' manual.  This information is often found in file
 distribution itself.  A recent copy of this `ABOUT-NLS' file,
 containing up-to-date information, should generally be found on the
 Translation Project sites, and also on most GNU archive sites.
-
-
-File: gettext.info,  Node: Installers,  Next: End Users,  Prev: Matrix,  Up: Users
-
-Magic for Installers
-====================
-
-   By default, packages fully using GNU `gettext', internally, are
-installed in such a way that they to allow translation of messages.  At
-_configuration_ time, those packages should automatically detect
-whether the underlying host system already provides the GNU `gettext'
-functions.  If not, the GNU `gettext' library should be automatically
-prepared and used.  Installers may use special options at configuration
-time for changing this behavior.  The command `./configure
---with-included-gettext' bypasses system `gettext' to use the included
-GNU `gettext' instead, while `./configure --disable-nls' produces
-programs totally unable to translate messages.
-
-   Internationalized packages have usually many `LL.po' files.  Unless
-translations are disabled, all those available are installed together
-with the package.  However, the environment variable `LINGUAS' may be
-set, prior to configuration, to limit the installed set.  `LINGUAS'
-should then contain a space separated list of two-letter codes, stating
-which languages are allowed.
-
-
-File: gettext.info,  Node: End Users,  Prev: Installers,  Up: Users
-
-Magic for End Users
-===================
-
-   We consider here those packages using GNU `gettext' internally, and
-for which the installers did not disable translation at _configure_
-time.  Then, users only have to set the `LANG' environment variable to
-the appropriate `LL_CC' combination prior to using the programs in the
-package.  *Note Matrix::.  For example, let's presume a German site.
-At the shell prompt, users merely have to execute `setenv LANG de_DE'
-(in `csh') or `export LANG; LANG=de_DE' (in `sh').  They could even do
-this from their `.login' or `.profile' file.
-
-
-File: gettext.info,  Node: Programmers,  Next: Translators,  Prev: Users,  Up: Top
-
-The Programmer's View
-*********************
-
-   One aim of the current message catalog implementation provided by
-GNU `gettext' was to use the systems message catalog handling, if the
-installer wishes to do so.  So we perhaps should first take a look at
-the solutions we know about.  The people in the POSIX committee did not
-manage to agree on one of the semi-official standards which we'll
-describe below.  In fact they couldn't agree on anything, so they
-decided only to include an example of an interface.  The major Unix
-vendors are split in the usage of the two most important
-specifications: X/Open's catgets vs. Uniforum's gettext interface.
-We'll describe them both and later explain our solution of this dilemma.
-
-* Menu:
-
-* catgets::                     About `catgets'
-* gettext::                     About `gettext'
-* Comparison::                  Comparing the two interfaces
-* Using libintl.a::             Using libintl.a in own programs
-* gettext grok::                Being a `gettext' grok
-* Temp Programmers::            Temporary Notes for the Programmers Chapter
 

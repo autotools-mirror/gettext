@@ -13,8 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
-Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software
+Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -581,16 +581,16 @@ File: gettext.info,  Node: Modifying Translations,  Next: Modifying Comments,  P
 Modifying Translations
 ======================
 
-   PO mode prevents direct edition of the PO file, by the usual means
-Emacs give for altering a buffer's contents.  By doing so, it pretends
-helping the translator to avoid little clerical errors about the
-overall file format, or the proper quoting of strings, as those errors
-would be easily made.  Other kinds of errors are still possible, but
-some may be caught and diagnosed by the batch validation process, which
-the translator may always trigger by the `V' command.  For all other
-errors, the translator has to rely on her own judgment, and also on the
-linguistic reports submitted to her by the users of the translated
-package, having the same mother tongue.
+   PO mode prevents direct modification of the PO file, by the usual
+means Emacs gives for altering a buffer's contents.  By doing so, it
+pretends helping the translator to avoid little clerical errors about
+the overall file format, or the proper quoting of strings, as those
+errors would be easily made.  Other kinds of errors are still possible,
+but some may be caught and diagnosed by the batch validation process,
+which the translator may always trigger by the `V' command.  For all
+other errors, the translator has to rely on her own judgment, and also
+on the linguistic reports submitted to her by the users of the
+translated package, having the same mother tongue.
 
    When the time comes to create a translation, correct an error
 diagnosed mechanically or reported by a user, the translators have to

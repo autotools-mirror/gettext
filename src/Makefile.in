@@ -75,6 +75,7 @@ DVIPS = @DVIPS@
 ECHO = @ECHO@
 EMACS = @EMACS@
 EXEEXT = @EXEEXT@
+GCC = @GCC@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
@@ -92,6 +93,7 @@ HAVE_JRE = @HAVE_JRE@
 HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
 HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
+HAVE_LIB = @HAVE_LIB@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -100,13 +102,19 @@ INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+LD = @LD@
 LEX = @LEX@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIB = @LIB@
 LIBICONV = @LIBICONV@
+LIBINTL = @LIBINTL@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTALLOCA = @LTALLOCA@
+LTLIB = @LTLIB@
+LTLIBICONV = @LTLIBICONV@
+LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
@@ -127,6 +135,7 @@ am__include = @am__include@
 am__quote = @am__quote@
 install_sh = @install_sh@
 lispdir = @lispdir@
+with_gnu_ld = @with_gnu_ld@
 JAR = @JAR@
 YACC = @YACC@ -d
 
@@ -134,7 +143,7 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msginit msguniq
+msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq
 
 
 noinst_PROGRAMS = hostname urlget
@@ -146,7 +155,7 @@ po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
 write-mo.h read-java.h write-java.h po-time.h format.h xgettext.h x-c.h \
-x-po.h x-java.h x-ycp.h x-rst.h
+x-po.h x-lisp.h x-elisp.h x-librep.h x-java.h x-ycp.h x-rst.h
 
 
 EXTRA_DIST = FILES project-id \
@@ -163,7 +172,7 @@ INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
 -DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 
-LDADD = ../lib/libgettextlib.la @INTLLIBS@
+LDADD = ../lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
@@ -182,8 +191,8 @@ open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c \
-format-c.c format-java.c format-lisp.c format-python.c format-pascal.c \
-format-ycp.c
+format-c.c format-java.c format-lisp.c format-elisp.c format-librep.c \
+format-python.c format-pascal.c format-ycp.c
 
 
 # libgettextsrc contains all code that is needed by at least two programs.
@@ -200,13 +209,16 @@ msgcmp_SOURCES = msgcmp.c
 msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
-xgettext_SOURCES = xgettext.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c
+xgettext_SOURCES = xgettext.c \
+  x-c.c x-po.c x-lisp.c x-elisp.c x-librep.c x-java.l x-ycp.c x-rst.c
+
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c
 msgconv_SOURCES = msgconv.c
 msgen_SOURCES = msgen.c
 msgexec_SOURCES = msgexec.c
+msgfilter_SOURCES = msgfilter.c
 msggrep_SOURCES = msggrep.c
 msginit_SOURCES = msginit.c
 msguniq_SOURCES = msguniq.c
@@ -215,15 +227,17 @@ urlget_SOURCES = urlget.c
 
 # How to build libgettextsrc.la.
 # Need ../lib/libgettextlib.la.
-# Need @INTLLIBS@ because many source files use gettext().
-# Need @LIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c use
-# iconv().
+# Need @LTLIBINTL@ because many source files use gettext().
+# Need @LTLIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c
+# use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@ -no-undefined
+  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 
 # Link dependencies.
+gettext_LDADD = ../lib/basename.lo ../lib/error.lo ../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo ../lib/xmalloc.lo @LTLIBINTL@
+ngettext_LDADD = ../lib/basename.lo ../lib/error.lo ../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo ../lib/xmalloc.lo @LTLIBINTL@
 msgcmp_LDADD = libgettextsrc.la
 msgfmt_LDADD = libgettextsrc.la
 msgmerge_LDADD = libgettextsrc.la
@@ -235,6 +249,7 @@ msgcomm_LDADD = libgettextsrc.la
 msgconv_LDADD = libgettextsrc.la
 msgen_LDADD = libgettextsrc.la
 msgexec_LDADD = libgettextsrc.la
+msgfilter_LDADD = libgettextsrc.la
 msggrep_LDADD = libgettextsrc.la
 msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
                 libgettextsrc.la
@@ -260,22 +275,23 @@ am_libgettextsrc_la_OBJECTS = message.lo po.lo po-lex.lo po-gram-gen.lo \
 	read-po.lo write-po.lo msgl-ascii.lo msgl-iconv.lo \
 	msgl-equal.lo msgl-cat.lo msgl-english.lo file-list.lo \
 	msgl-charset.lo po-time.lo plural.lo format.lo format-c.lo \
-	format-java.lo format-lisp.lo format-python.lo format-pascal.lo \
-	format-ycp.lo
+	format-java.lo format-lisp.lo format-elisp.lo format-librep.lo \
+	format-python.lo format-pascal.lo format-ycp.lo
 libgettextsrc_la_OBJECTS = $(am_libgettextsrc_la_OBJECTS)
 bin_PROGRAMS = gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
 	msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) \
 	xgettext$(EXEEXT) msgattrib$(EXEEXT) msgcat$(EXEEXT) \
 	msgcomm$(EXEEXT) msgconv$(EXEEXT) msgen$(EXEEXT) \
-	msgexec$(EXEEXT) msggrep$(EXEEXT) msginit$(EXEEXT) \
-	msguniq$(EXEEXT)
+	msgexec$(EXEEXT) msgfilter$(EXEEXT) msggrep$(EXEEXT) \
+	msginit$(EXEEXT) msguniq$(EXEEXT)
 noinst_PROGRAMS = hostname$(EXEEXT) urlget$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS)
 
 am_gettext_OBJECTS = gettext.$(OBJEXT)
 gettext_OBJECTS = $(am_gettext_OBJECTS)
-gettext_LDADD = $(LDADD)
-gettext_DEPENDENCIES = ../lib/libgettextlib.la
+gettext_DEPENDENCIES = ../lib/basename.lo ../lib/error.lo \
+	../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo \
+	../lib/xmalloc.lo
 gettext_LDFLAGS =
 am_hostname_OBJECTS = hostname.$(OBJEXT)
 hostname_OBJECTS = $(am_hostname_OBJECTS)
@@ -310,6 +326,10 @@ am_msgexec_OBJECTS = msgexec.$(OBJEXT)
 msgexec_OBJECTS = $(am_msgexec_OBJECTS)
 msgexec_DEPENDENCIES = libgettextsrc.la
 msgexec_LDFLAGS =
+am_msgfilter_OBJECTS = msgfilter.$(OBJEXT)
+msgfilter_OBJECTS = $(am_msgfilter_OBJECTS)
+msgfilter_DEPENDENCIES = libgettextsrc.la
+msgfilter_LDFLAGS =
 am_msgfmt_OBJECTS = msgfmt.$(OBJEXT) write-mo.$(OBJEXT) \
 	write-java.$(OBJEXT) plural-eval.$(OBJEXT)
 msgfmt_OBJECTS = $(am_msgfmt_OBJECTS)
@@ -339,8 +359,9 @@ msguniq_DEPENDENCIES = libgettextsrc.la
 msguniq_LDFLAGS =
 am_ngettext_OBJECTS = ngettext.$(OBJEXT)
 ngettext_OBJECTS = $(am_ngettext_OBJECTS)
-ngettext_LDADD = $(LDADD)
-ngettext_DEPENDENCIES = ../lib/libgettextlib.la
+ngettext_DEPENDENCIES = ../lib/basename.lo ../lib/error.lo \
+	../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo \
+	../lib/xmalloc.lo
 ngettext_LDFLAGS =
 am_urlget_OBJECTS = urlget.$(OBJEXT)
 urlget_OBJECTS = $(am_urlget_OBJECTS)
@@ -348,6 +369,7 @@ urlget_LDADD = $(LDADD)
 urlget_DEPENDENCIES = ../lib/libgettextlib.la
 urlget_LDFLAGS =
 am_xgettext_OBJECTS = xgettext.$(OBJEXT) x-c.$(OBJEXT) x-po.$(OBJEXT) \
+	x-lisp.$(OBJEXT) x-elisp.$(OBJEXT) x-librep.$(OBJEXT) \
 	x-java.$(OBJEXT) x-ycp.$(OBJEXT) x-rst.$(OBJEXT)
 xgettext_OBJECTS = $(am_xgettext_OBJECTS)
 xgettext_DEPENDENCIES = libgettextsrc.la
@@ -373,15 +395,15 @@ YLWRAP = $(top_srcdir)/ylwrap
 DIST_SOURCES = $(libgettextsrc_la_SOURCES) $(gettext_SOURCES) \
 	$(hostname_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) \
 	$(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) \
-	$(msgen_SOURCES) $(msgexec_SOURCES) $(msgfmt_SOURCES) \
-	$(msggrep_SOURCES) $(msginit_SOURCES) $(msgmerge_SOURCES) \
-	$(msgunfmt_SOURCES) $(msguniq_SOURCES) $(ngettext_SOURCES) \
-	$(urlget_SOURCES) $(xgettext_SOURCES)
+	$(msgen_SOURCES) $(msgexec_SOURCES) $(msgfilter_SOURCES) \
+	$(msgfmt_SOURCES) $(msggrep_SOURCES) $(msginit_SOURCES) \
+	$(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) \
+	$(ngettext_SOURCES) $(urlget_SOURCES) $(xgettext_SOURCES)
 HEADERS = $(noinst_HEADERS)
 
 DIST_COMMON = $(noinst_HEADERS) ChangeLog Makefile.am Makefile.in \
 	po-gram-gen.c po-hash-gen.c user-email.in x-java.c
-SOURCES = $(libgettextsrc_la_SOURCES) $(gettext_SOURCES) $(hostname_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) $(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) $(msgen_SOURCES) $(msgexec_SOURCES) $(msgfmt_SOURCES) $(msggrep_SOURCES) $(msginit_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) $(ngettext_SOURCES) $(urlget_SOURCES) $(xgettext_SOURCES)
+SOURCES = $(libgettextsrc_la_SOURCES) $(gettext_SOURCES) $(hostname_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) $(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) $(msgen_SOURCES) $(msgexec_SOURCES) $(msgfilter_SOURCES) $(msgfmt_SOURCES) $(msggrep_SOURCES) $(msginit_SOURCES) $(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) $(ngettext_SOURCES) $(urlget_SOURCES) $(xgettext_SOURCES)
 
 all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -481,6 +503,9 @@ msgen$(EXEEXT): $(msgen_OBJECTS) $(msgen_DEPENDENCIES)
 msgexec$(EXEEXT): $(msgexec_OBJECTS) $(msgexec_DEPENDENCIES) 
 	@rm -f msgexec$(EXEEXT)
 	$(LINK) $(msgexec_LDFLAGS) $(msgexec_OBJECTS) $(msgexec_LDADD) $(LIBS)
+msgfilter$(EXEEXT): $(msgfilter_OBJECTS) $(msgfilter_DEPENDENCIES) 
+	@rm -f msgfilter$(EXEEXT)
+	$(LINK) $(msgfilter_LDFLAGS) $(msgfilter_OBJECTS) $(msgfilter_LDADD) $(LIBS)
 msgfmt$(EXEEXT): $(msgfmt_OBJECTS) $(msgfmt_DEPENDENCIES) 
 	@rm -f msgfmt$(EXEEXT)
 	$(LINK) $(msgfmt_LDFLAGS) $(msgfmt_OBJECTS) $(msgfmt_LDADD) $(LIBS)

@@ -13,8 +13,8 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995, 1996, 1997, 1998, 2001 Free Software Foundation,
-Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2001, 2002 Free Software
+Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -31,7 +31,284 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
-File: gettext.info,  Node: List of Programming Languages,  Next: List of Data Formats,  Prev: Translators for other Languages,  Up: Programming Languages
+File: gettext.info,  Node: AM_GNU_GETTEXT,  Next: AM_ICONV,  Prev: autoconf macros,  Up: autoconf macros
+
+AM_GNU_GETTEXT in `gettext.m4'
+------------------------------
+
+   The `AM_GNU_GETTEXT' macro tests for the presence of the GNU gettext
+function family in either the C library or a separate `libintl' library
+(shared or static libraries are both supported) or in the package's
+`intl/' directory.
+
+   `AM_GNU_GETTEXT' accepts up to three optional arguments. The general
+syntax is
+
+     AM_GNU_GETTEXT([INTLSYMBOL], [NEEDSYMBOL], [INTLDIR])
+
+   INTLSYMBOL can be one of `external', `no-libtool', `use-libtool'.
+The default (if it is not specified or empty) is `no-libtool'.
+INTLSYMBOL should be `external' for packages with no `intl/' directory,
+and `no-libtool' or `use-libtool' for packages with an `intl/'
+directory. If INTLSYMBOL is `use-libtool', then a libtool library
+`$(top_builddir)/intl/libintl.la' will be created (shared and/or static,
+depending on `--{enable,disable}-{shared,static}' and on the presence
+of `AM_DISABLE_SHARED'). If INTLSYMBOL is `no-libtool', a static library
+`$(top_builddir)/intl/libintl.a' will be created.
+
+   If NEEDSYMBOL is specified and is `need-ngettext', then GNU gettext
+implementations (in libc or libintl) without the `ngettext()' function
+will be ignored.
+
+   INTLDIR is used to find the intl libraries.  If empty, the value
+`$(top_builddir)/intl/' is used.
+
+   The `AM_GNU_GETTEXT' macro determines whether GNU gettext is
+available and should be used. If so, it sets the `USE_NLS' variable to
+`yes'; it defines `ENABLE_NLS' to 1 in the autoconf generated
+configuration file (usually called `config.h'); it sets the variables
+`LIBINTL' and `LTLIBINTL' to the linker options for use in a Makefile
+(`LIBINTL' for use without libtool, `LTLIBINTL' for use with libtool);
+it adds an `-I' option to `CPPFLAGS' if necessary. In the negative
+case, it sets `USE_NLS' to `no'; it sets `LIBINTL' and `LTLIBINTL' to
+empty and doesn't change `CPPFLAGS'.
+
+   The complexities that `AM_GNU_GETTEXT' deals with are the following:
+
+   * Some operating systems have `gettext' in the C library, for example
+     glibc. Some have it in a separate library `libintl'. GNU `libintl'
+     might have been installed as part of the GNU `gettext' package.
+
+   * GNU `libintl', if installed, is not necessarily already in the
+     search path (`CPPFLAGS' for the include file search path,
+     `LDFLAGS' for the library search path).
+
+   * Except for glibc, the operating system's native `gettext' cannot
+     exploit the GNU mo files, doesn't have the necessary locale
+     dependency features, and cannot convert messages from the
+     catalog's text encoding to the user's locale encoding.
+
+   * GNU `libintl', if installed, is not necessarily already in the run
+     time library search path. To avoid the need for setting an
+     environment variable like `LD_LIBRARY_PATH', the macro adds the
+     appropriate run time search path options to the `LIBINTL' and
+     `LTLIBINTL' variables. This works on most systems, but not on some
+     operating systems with limited shared library support, like SCO.
+
+   * GNU `libintl' relies on POSIX `iconv'. The macro checks for linker
+     options needed to use iconv and appends them to the `LIBINTL' and
+     `LTLIBINTL' variables.
+
+
+File: gettext.info,  Node: AM_ICONV,  Prev: AM_GNU_GETTEXT,  Up: autoconf macros
+
+AM_ICONV in `iconv.m4'
+----------------------
+
+   The `AM_ICONV' macro tests for the presence of the POSIX `iconv'
+function family in either the C library or a separate `libiconv'
+library. If found, it sets the `am_cv_func_iconv' variable to `yes'; it
+defines `HAVE_ICONV' to 1 in the autoconf generated configuration file
+(usually called `config.h'); it defines `ICONV_CONST' to `const' or to
+empty, depending on whether the second argument of `iconv()' is of type
+`const char **' or `char **'; it sets the variables `LIBICONV' and
+`LTLIBICONV' to the linker options for use in a Makefile (`LIBICONV'
+for use without libtool, `LTLIBICONV' for use with libtool); it adds an
+`-I' option to `CPPFLAGS' if necessary. If not found, it sets
+`LIBICONV' and `LTLIBICONV' to empty and doesn't change `CPPFLAGS'.
+
+   The complexities that `AM_ICONV' deals with are the following:
+
+   * Some operating systems have `iconv' in the C library, for example
+     glibc. Some have it in a separate library `libiconv', for example
+     OSF/1 or FreeBSD. Regardless of the operating system, GNU
+     `libiconv' might have been installed. In that case, it should be
+     used instead of the operating system's native `iconv'.
+
+   * GNU `libiconv', if installed, is not necessarily already in the
+     search path (`CPPFLAGS' for the include file search path,
+     `LDFLAGS' for the library search path).
+
+   * GNU `libiconv' is binary incompatible with some operating system's
+     native `iconv', for example on FreeBSD.  Use of an `iconv.h' and
+     `libiconv.so' that don't fit together would produce program
+     crashes.
+
+   * GNU `libiconv', if installed, is not necessarily already in the
+     run time library search path. To avoid the need for setting an
+     environment variable like `LD_LIBRARY_PATH', the macro adds the
+     appropriate run time search path options to the `LIBICONV'
+     variable. This works on most systems, but not on some operating
+     systems with limited shared library support, like SCO.
+
+   `iconv.m4' is distributed with the GNU gettext package because
+`gettext.m4' relies on it.
+
+
+File: gettext.info,  Node: Programming Languages,  Next: Conclusion,  Prev: Maintainers,  Up: Top
+
+Other Programming Languages
+***************************
+
+   While the presentation of `gettext' focuses mostly on C and
+implicitly applies to C++ as well, its scope is far broader than that:
+Many programming languages, scripting languages and other textual data
+like GUI resources or package descriptions can make use of the gettext
+approach.
+
+* Menu:
+
+* Language Implementors::       The Language Implementor's View
+* Programmers for other Languages::  The Programmer's View
+* Translators for other Languages::  The Translator's View
+* Maintainers for other Languages::  The Maintainer's View
+* List of Programming Languages::  Individual Programming Languages
+* List of Data Formats::        Internationalizable Data
+
+
+File: gettext.info,  Node: Language Implementors,  Next: Programmers for other Languages,  Prev: Programming Languages,  Up: Programming Languages
+
+The Language Implementor's View
+===============================
+
+   All programming and scripting languages that have the notion of
+strings are eligible to supporting `gettext'.  Supporting `gettext'
+means the following:
+
+  1. You should add to the language a syntax for translatable strings.
+     In principle, a function call of `gettext' would do, but a
+     shorthand syntax helps keeping the legibility of internationalized
+     programs.  For example, in C we use the syntax `_("string")', in
+     bash we use the syntax `$"string"', and in GNU awk we use the
+     shorthand `_"string"'.
+
+  2. You should arrange that evaluation of such a translatable string at
+     runtime calls the `gettext' function, or performs equivalent
+     processing.
+
+  3. Similarly, you should make the functions `ngettext', `dcgettext',
+     `dcngettext' available from within the language.  These functions
+     are less often used, but are nevertheless necessary for particular
+     purposes: `ngettext' for correct plural handling, and `dcgettext'
+     and `dcngettext' for obeying other locale environment variables
+     than `LC_MESSAGES', such as `LC_TIME' or `LC_MONETARY'.  For these
+     latter functions, you need to make the `LC_*' constants, available
+     in the C header `<locale.h>', referenceable from within the
+     language, usually either as enumeration values or as strings.
+
+  4. You should allow the programmer to designate a message domain,
+     either by making the `textdomain' function available from within
+     the language, or by introducing a magic variable called
+     `TEXTDOMAIN'.  Similarly, you should allow the programmer to
+     designate where to search for message catalogs, by providing
+     access to the `bindtextdomain' function.
+
+  5. You should either perform a `setlocale (LC_ALL, "")' call during
+     the startup of your language runtime, or allow the programmer to
+     do so.  Remember that gettext will act as a no-op if the
+     `LC_MESSAGES' and `LC_CTYPE' locale facets are not both set.
+
+  6. A programmer should have a way to extract translatable strings
+     from a program into a PO file.  The GNU `xgettext' program is being
+     extended to support very different programming languages.  Please
+     contact the GNU `gettext' maintainers to help them doing this.  If
+     the string extractor is best integrated into your language's
+     parser, GNU `xgettext' can function as a front end to your string
+     extractor.
+
+  7. The language's library should have a string formatting facility
+     where the arguments of a format string are denoted by a positional
+     number or a name.  This is needed because for some languages and
+     some messages with more than one substitutable argument, the
+     translation will need to output the substituted arguments in
+     different order.  *Note c-format::.
+
+  8. If the language has more than one implementation, and not all of
+     the implementations use `gettext', but the programs should be
+     portable across implementations, you should provide a no-i18n
+     emulation, that makes the other implementations accept programs
+     written for yours, without actually translating the strings.
+
+  9. To help the programmer in the task of marking translatable strings,
+     which is usually performed using the Emacs PO mode, you are
+     welcome to contact the GNU `gettext' maintainers, so they can add
+     support for your language to `po-mode.el'.
+
+   On the implementation side, three approaches are possible, with
+different effects on portability and copyright:
+
+   * You may integrate the GNU `gettext''s `intl/' directory in your
+     package, as described in *Note Maintainers::.  This allows you to
+     have internationalization on all kinds of platforms.  Note that
+     when you then distribute your package, it legally falls under the
+     GNU General Public License, and the GNU project will be glad about
+     your contribution to the Free Software pool.
+
+   * You may link against GNU `gettext' functions if they are found in
+     the C library.  For example, an autoconf test for `gettext()' and
+     `ngettext()' will detect this situation.  For the moment, this test
+     will succeed on GNU systems and not on other platforms.  No severe
+     copyright restrictions apply.
+
+   * You may emulate or reimplement the GNU `gettext' functionality.
+     This has the advantage of full portability and no copyright
+     restrictions, but also the drawback that you have to reimplement
+     the GNU `gettext' features (such as the `LANGUAGE' environment
+     variable, the locale aliases database, the automatic charset
+     conversion, and plural handling).
+
+
+File: gettext.info,  Node: Programmers for other Languages,  Next: Translators for other Languages,  Prev: Language Implementors,  Up: Programming Languages
+
+The Programmer's View
+=====================
+
+   For the programmer, the general procedure is the same as for the C
+language.  The Emacs PO mode supports other languages, and the GNU
+`xgettext' string extractor recognizes other languages based on the
+file extension or a command-line option.  In some languages,
+`setlocale' is not needed because it is already performed by the
+underlying language runtime.
+
+
+File: gettext.info,  Node: Translators for other Languages,  Next: Maintainers for other Languages,  Prev: Programmers for other Languages,  Up: Programming Languages
+
+The Translator's View
+=====================
+
+   The translator works exactly as in the C language case.  The only
+difference is that when translating format strings, she has to be aware
+of the language's particular syntax for positional arguments in format
+strings.
+
+
+File: gettext.info,  Node: Maintainers for other Languages,  Next: List of Programming Languages,  Prev: Translators for other Languages,  Up: Programming Languages
+
+The Maintainer's View
+=====================
+
+   For the maintainer, the general procedure differs from the C language
+case in two ways.
+
+   * For those languages that don't use GNU gettext, the `intl/'
+     directory is not needed and can be omitted.  This means that the
+     maintainer calls the `gettextize' program without the `--intl'
+     option, and that he invokes the `AM_GNU_GETTEXT' autoconf macro via
+     `AM_GNU_GETTEXT([external])'.
+
+   * If only a single programming language is used, the
+     `XGETTEXT_OPTIONS' variable in `po/Makevars' (*note po/Makevars::)
+     should be adjusted to match the `xgettext' options for that
+     particular programming language.  If the package uses more than
+     one programming language with `gettext' support, it becomes
+     necessary to change the POT file construction rule in
+     `po/Makefile.in.in'. It is recommended to make one `xgettext'
+     invocation per programming language, each with the options
+     appropriate for that language, and to combine the resulting files
+     using `msgcat'.
+
+
+File: gettext.info,  Node: List of Programming Languages,  Next: List of Data Formats,  Prev: Maintainers for other Languages,  Up: Programming Languages
 
 Individual Programming Languages
 ================================
@@ -295,7 +572,7 @@ Use or emulate GNU gettext
      use
 
 Extractor
-     `clisp-xgettext'
+     `xgettext -k_ -kENGLISH'
 
 Formatting with positions
      `format "~1@*~D ~0@*~D"'
@@ -393,7 +670,7 @@ Use or emulate GNU gettext
      use
 
 Extractor
-     xpot
+     `xgettext'
 
 Formatting with positions
      `format "%2$d %1$d"'
@@ -411,7 +688,7 @@ librep
 ------
 
 RPMs
-     librep
+     librep 0.15.3 or newer
 
 File extension
      `jl'
@@ -441,7 +718,7 @@ Use or emulate GNU gettext
      use
 
 Extractor
-     `rep-xgettext'
+     `xgettext'
 
 Formatting with positions
      `format "%2$d %1$d"'

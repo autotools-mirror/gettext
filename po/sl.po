@@ -7,13 +7,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11-pre5\n"
-"POT-Creation-Date: 2002-01-11 15:48+0100\n"
+"POT-Creation-Date: 2002-01-31 15:34+0100\n"
 "PO-Revision-Date: 2002-01-14 10:29+0100\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 
@@ -57,7 +57,7 @@ msgstr "napaka pri pisanju na \"%s\""
 msgid "error after reading \"%s\""
 msgstr "napaka po branju \"%s\""
 
-#: lib/error.c:115
+#: lib/error.c:116
 msgid "Unknown system error"
 msgstr "Neznana sistemska napaka"
 
@@ -157,28 +157,39 @@ msgstr "%s podprocesov prejelo kritièni signal %d"
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "¹tevili formatnih doloèil v ,msgid` in ,%s` se ne ujemata"
 
-#: src/format-c.c:601 src/format-python.c:520
+#: src/format-c.c:601 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-pascal.c:443 src/format-python.c:520
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr "formatni doloèili v ,msgid` in ,%s` za argument %u nista enaki"
 
-#: src/format-elisp.c:349 src/format-java.c:660 src/format-librep.c:313
-#: src/format-pascal.c:403
+#: src/format-elisp.c:349 src/format-librep.c:313 src/format-pascal.c:403
+#: src/format-ycp.c:145
+#, c-format
+msgid ""
+"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
+msgstr "v ,msgid` ni formatnega doloèila za argument %u, kot v ,%s`"
+
+#: src/format-elisp.c:364 src/format-librep.c:328 src/format-pascal.c:418
+#: src/format-ycp.c:144
+#, c-format
+msgid "a format specification for argument %u doesn't exist in '%s'"
+msgstr "v ,%2$s` ni formatnega doloèila za argument %1$u"
+
+#: src/format-java.c:660
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "v ,msgid` ni formatnega doloèila za argument {%u}, kot v ,%s`"
 
-#: src/format-elisp.c:364 src/format-java.c:675 src/format-librep.c:328
-#: src/format-pascal.c:418
+#: src/format-java.c:675
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "v ,%2$s` ni formatnega doloèila za argument {%1$u}"
 
-#: src/format-elisp.c:389 src/format-java.c:700 src/format-librep.c:353
-#: src/format-pascal.c:443
+#: src/format-java.c:700
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
@@ -230,20 +241,9 @@ msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "formatni doloèili v ,msgid` in ,%s` za argument ,%s` nista enaki"
 
-#: src/format-ycp.c:144
-#, c-format
-msgid "a format specification for argument %u doesn't exist in '%s'"
-msgstr "v ,%2$s` ni formatnega doloèila za argument %1$u"
-
-#: src/format-ycp.c:145
-#, c-format
-msgid ""
-"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
-msgstr "v ,msgid` ni formatnega doloèila za argument %u, kot v ,%s`"
-
 #: src/gettext.c:135 src/hostname.c:168 src/msgattrib.c:264 src/msgcat.c:229
 #: src/msgcmp.c:133 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:170
-#: src/msgexec.c:165 src/msgfilter.c:248 src/msgfmt.c:338 src/msggrep.c:279
+#: src/msgexec.c:165 src/msgfilter.c:248 src/msgfmt.c:338 src/msggrep.c:278
 #: src/msginit.c:250 src/msgmerge.c:265 src/msgunfmt.c:182 src/msguniq.c:207
 #: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:361
 #, c-format, no-wrap
@@ -259,7 +259,7 @@ msgstr ""
 
 #: src/gettext.c:140 src/hostname.c:173 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:138 src/msgcomm.c:237 src/msgconv.c:187 src/msgen.c:175
-#: src/msgexec.c:170 src/msgfilter.c:253 src/msgfmt.c:343 src/msggrep.c:284
+#: src/msgexec.c:170 src/msgfilter.c:253 src/msgfmt.c:343 src/msggrep.c:283
 #: src/msginit.c:255 src/msgmerge.c:270 src/msgunfmt.c:187 src/msguniq.c:212
 #: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:366
 #, c-format
@@ -276,7 +276,7 @@ msgstr "argumenti manjkajo"
 
 #: src/gettext.c:240 src/hostname.c:197 src/msgattrib.c:322 src/msgcat.c:290
 #: src/msgcmp.c:170 src/msgcomm.c:306 src/msgconv.c:241 src/msgen.c:226
-#: src/msgexec.c:223 src/msgfilter.c:346 src/msgfmt.c:484 src/msggrep.c:374
+#: src/msgexec.c:223 src/msgfilter.c:346 src/msgfmt.c:484 src/msggrep.c:387
 #: src/msginit.c:341 src/msgmerge.c:380 src/msgunfmt.c:262 src/msguniq.c:269
 #: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:508
 #, c-format
@@ -339,7 +339,7 @@ msgstr ""
 
 #: src/gettext.c:277 src/hostname.c:227 src/msgattrib.c:402 src/msgcat.c:371
 #: src/msgcmp.c:215 src/msgcomm.c:384 src/msgconv.c:305 src/msgen.c:286
-#: src/msgexec.c:267 src/msgfilter.c:419 src/msgfmt.c:568 src/msggrep.c:460
+#: src/msgexec.c:267 src/msgfilter.c:419 src/msgfmt.c:568 src/msggrep.c:473
 #: src/msginit.c:392 src/msgmerge.c:478 src/msgunfmt.c:331 src/msguniq.c:343
 #: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:602
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
@@ -371,7 +371,7 @@ msgstr ""
 "  -i, --ip-address      internetni naslov za gostiteljsko ime\n"
 
 #: src/hostname.c:221 src/msgattrib.c:396 src/msgcmp.c:209 src/msgconv.c:299
-#: src/msgen.c:280 src/msgexec.c:261 src/msgfilter.c:413 src/msggrep.c:454
+#: src/msgen.c:280 src/msgexec.c:261 src/msgfilter.c:413 src/msggrep.c:467
 #: src/msginit.c:386 src/urlget.c:180
 #, no-wrap
 msgid ""
@@ -388,21 +388,21 @@ msgid "could not get host name"
 msgstr "gostiteljskega imena ni moè ugotoviti"
 
 #: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:198
-#: src/msggrep.c:299 src/msginit.c:208 src/msguniq.c:227
+#: src/msggrep.c:298 src/msginit.c:208 src/msguniq.c:227
 msgid "at most one input file allowed"
 msgstr "dovoljena je najveè ena vhodna datoteka"
 
 #: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
 #: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
 #: src/msgen.c:197 src/msgen.c:201 src/msgfilter.c:268 src/msgfilter.c:272
-#: src/msgfmt.c:363 src/msggrep.c:305 src/msggrep.c:309 src/msgmerge.c:295
+#: src/msgfmt.c:363 src/msggrep.c:304 src/msggrep.c:308 src/msgmerge.c:295
 #: src/msgmerge.c:316 src/msgmerge.c:320 src/msguniq.c:233 src/msguniq.c:237
 #: src/xgettext.c:376 src/xgettext.c:380
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s in %s se med seboj izkljuèujeta"
 
-#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:379 src/msguniq.c:274
+#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:392 src/msguniq.c:274
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Uporaba: %s [IZBIRA] [VHODNA_DATOTEKA]\n"
@@ -418,7 +418,7 @@ msgstr ""
 
 #: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:190 src/msgcomm.c:328
 #: src/msgconv.c:256 src/msgen.c:244 src/msgexec.c:248 src/msgfilter.c:361
-#: src/msgfmt.c:499 src/msggrep.c:390 src/msginit.c:357 src/msgmerge.c:403
+#: src/msgfmt.c:499 src/msggrep.c:403 src/msginit.c:357 src/msgmerge.c:403
 #: src/msgunfmt.c:277 src/msguniq.c:291
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -426,7 +426,7 @@ msgstr ""
 "Èe je pri dolgi obliki izbire naveden obvezen argument, je ta obvezen\n"
 "tudi za kratko obliko.\n"
 
-#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:395 src/msguniq.c:296
+#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:408 src/msguniq.c:296
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -440,7 +440,7 @@ msgstr ""
 "Èe vhodna datoteka ni podana ali je enaka -, se bere standardni vhod.\n"
 
 #: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:257 src/msgfilter.c:374
-#: src/msggrep.c:403 src/msgmerge.c:425
+#: src/msggrep.c:416 src/msgmerge.c:425
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -721,11 +721,11 @@ msgstr[1] "%d kritièna napaka"
 msgstr[2] "%d kritièni napaki"
 msgstr[3] "%d kritiène napake"
 
-#: src/msgcmp.c:419 src/msgfmt.c:1359 src/read-po.c:202 src/x-po.c:163
+#: src/msgcmp.c:419 src/msgfmt.c:1364 src/read-po.c:202 src/x-po.c:163
 msgid "duplicate message definition"
 msgstr "podvojena definicija sporoèila"
 
-#: src/msgcmp.c:420 src/msgfmt.c:1360 src/read-po.c:203 src/x-po.c:164
+#: src/msgcmp.c:420 src/msgfmt.c:1365 src/read-po.c:203 src/x-po.c:164
 msgid "...this is the location of the first definition"
 msgstr "...to je kraj prve definicije"
 
@@ -1325,75 +1325,75 @@ msgstr "v msgstr manjka oznaka bli¾njice ,%c`"
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "v msgstr je preveè oznak bli¾njic ,%c`"
 
-#: src/msgfmt.c:1200
+#: src/msgfmt.c:1201
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "v glavi manjka polje ,%s`"
 
-#: src/msgfmt.c:1203
+#: src/msgfmt.c:1205
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "polje ,%s` v glavi se mora zaèeti na zaèetku vrstice"
 
-#: src/msgfmt.c:1212
+#: src/msgfmt.c:1216
 msgid "some header fields still have the initial default value"
 msgstr "nekatera polja v glavi imajo ¹e vedno zaèetne privzete vrednosti"
 
-#: src/msgfmt.c:1223
+#: src/msgfmt.c:1228
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "polje ,%s' ima ¹e vedno zaèetno privzeto vrednost"
 
-#: src/msgfmt.c:1264
+#: src/msgfmt.c:1269
 msgid "warning: PO file header missing or invalid\n"
 msgstr "opozorilo: glava datoteke PO ni veljavna ali pa manjka\n"
 
-#: src/msgfmt.c:1267
+#: src/msgfmt.c:1272
 msgid "warning: charset conversion will not work\n"
 msgstr "opozorilo: pretvorba v navedeni nabor znakov ne bo delovala\n"
 
-#: src/msgfmt.c:1277
+#: src/msgfmt.c:1282
 msgid "warning: PO file header fuzzy\n"
 msgstr "opozorilo: glava datoteke PO ni razberljiva\n"
 
-#: src/msgfmt.c:1279
+#: src/msgfmt.c:1284
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "opozorilo: starej¹e izdaje msgfmt bodo pri tem javile napako\n"
 
-#: src/msgfmt.c:1304
+#: src/msgfmt.c:1309
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "ime domene \"%s\" ni primerno kot ime datoteke"
 
-#: src/msgfmt.c:1309
+#: src/msgfmt.c:1314
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "ime domene \"%s\" ni primerno kot ime datoteke: uporabimo predpono"
 
-#: src/msgfmt.c:1320
+#: src/msgfmt.c:1325
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktiva ,domain %s` ni bila upo¹tevana"
 
-#: src/msgfmt.c:1392
+#: src/msgfmt.c:1397
 msgid "empty `msgstr' entry ignored"
 msgstr "prazno polje ,msgstr` zavr¾eno"
 
-#: src/msgfmt.c:1393
+#: src/msgfmt.c:1398
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "ohlapni vnos za polje ,msgstr` zavr¾en"
 
-#: src/msgfmt.c:1462
+#: src/msgfmt.c:1467
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: opozorilo: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
 
-#: src/msggrep.c:362
+#: src/msggrep.c:375
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr "izbire ,%c` ni moè uporabiti, preden sta izbrana bodisi ,K` bodisi ,T`"
 
-#: src/msggrep.c:384
+#: src/msggrep.c:397
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1402,7 +1402,7 @@ msgstr ""
 "Izvleèemo vsa sporoèila iz kataloga prevodov, ki ustrezajo danemu vzorcu ali\n"
 "pripadajo dani izvorni datoteki.\n"
 
-#: src/msggrep.c:411
+#: src/msggrep.c:424
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1458,7 +1458,7 @@ msgstr ""
 "  -f, --file=DATOTEKA         VZOREC preberemo iz navedene datoteke\n"
 "  -i, --ignore-case           ne razlikujemo med velikimi in malimi èrkami\n"
 
-#: src/msggrep.c:439
+#: src/msggrep.c:452
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1486,7 +1486,7 @@ msgstr ""
 "      --sort-output        izhod abecedno urejen po sporoèilih\n"
 "      --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msggrep.c:529
+#: src/msggrep.c:542
 msgid "write to grep subprocess failed"
 msgstr "pisanje podprocesu grep neuspe¹no"
 
@@ -1621,12 +1621,12 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Slovenski prevodi paketa %s"
 
-#: src/msgl-cat.c:174 src/msgl-charset.c:87 src/msgl-iconv.c:300
+#: src/msgl-cat.c:174 src/msgl-charset.c:87 src/msgl-iconv.c:304
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "trenutno izbrani nabor \"%s\" ni prenosljivo ime kodnega nabora"
 
-#: src/msgl-cat.c:182 src/msgl-iconv.c:308
+#: src/msgl-cat.c:182 src/msgl-iconv.c:314
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "v vhodni datoteki sta dva razlièna nabora znakov, \"%s\" in \"%s\""
@@ -1646,7 +1646,7 @@ msgstr ""
 "domena \"%s\" v vhodni datoteki ,%s` ne vsebuje glave z doloèitvijo nabora "
 "znakov<"
 
-#: src/msgl-cat.c:360 src/msgl-iconv.c:383
+#: src/msgl-cat.c:360 src/msgl-iconv.c:390
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "ciljni nabor \"%s\" ni prenosljivo ime kodnega nabora."
@@ -1731,15 +1731,15 @@ msgstr ""
 "Izhod ,%s` bo morda napaèen.\n"
 "Mogoèa re¹itev za to te¾avo je, da nastavite LC_ALL=C.\n"
 
-#: src/msgl-iconv.c:201 src/msgl-iconv.c:255
+#: src/msgl-iconv.c:202 src/msgl-iconv.c:256
 msgid "conversion failure"
 msgstr "pretvorba neuspe¹na"
 
-#: src/msgl-iconv.c:329
+#: src/msgl-iconv.c:336
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "v vhodni datoteki manjka glava z doloèilom kodnega nabora"
 
-#: src/msgl-iconv.c:347
+#: src/msgl-iconv.c:354
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -1748,7 +1748,7 @@ msgstr ""
 "Pretvorba iz \"%s\" v \"%s\" ni mogoèa. %s klièe iconv(), ta pa ne podpira "
 "te pretvorbe."
 
-#: src/msgl-iconv.c:363
+#: src/msgl-iconv.c:370
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -2059,7 +2059,7 @@ msgstr ""
 "doloèimo alternativno lokacijo s spremenljivko TEXTDOMAINDIR.\n"
 "Privzet imenik s katalogom sporoèil: %s\n"
 
-#: src/open-po.c:59
+#: src/open-po.c:60
 msgid "<stdin>"
 msgstr "<st. vhod>"
 
@@ -2170,9 +2170,9 @@ msgstr "nepopolno veèzlo¾no zaporedje na koncu vrstice"
 msgid "iconv failure"
 msgstr "iconv neuspe¹en"
 
-#: src/po-lex.c:789 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:286
+#: src/po-lex.c:789 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
 #: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
-#: src/x-ycp.c:103
+#: src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "napaka pri branju \"%s\""
@@ -2303,12 +2303,12 @@ msgstr "izhodne datoteke \"%s\" ni mogoèe ustvariti"
 msgid "standard output"
 msgstr "standardni izhod"
 
-#: src/x-c.c:935
+#: src/x-c.c:951
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: opozorilo: nezakljuèena znakovna konstanta"
 
-#: src/x-c.c:959
+#: src/x-c.c:975
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: opozorilo: nezakljuèen niz"
