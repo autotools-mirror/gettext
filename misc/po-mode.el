@@ -987,8 +987,11 @@ Then, update the mode line counters."
 	po-fuzzy-counter 0
 	po-untranslated-counter 0
 	po-obsolete-counter 0)
-  (let ((position 0) (total 0) here)
+  (let ((position 0) (total 0) current here)
+    ;; FIXME `here' looks obsolete / 2001-08-23 03:54:26 CEST -ke-
     (save-excursion
+      (po-find-span-of-entry)
+      (setq current po-start-of-msgstr)
       (goto-char (point-min))
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
@@ -1004,7 +1007,7 @@ Then, update the mode line counters."
 		  (setq here (point))
 		  (goto-char (match-beginning 0))
 		  (setq total (1+ total))
-		  (and flag (eq (point) po-start-of-msgstr) (setq position total))
+		  (and flag (eq (point) current) (setq position total))
 		  (cond ((eq (following-char) ?#)
 			 (setq po-obsolete-counter (1+ po-obsolete-counter)))
 			((looking-at po-untranslated-regexp)
