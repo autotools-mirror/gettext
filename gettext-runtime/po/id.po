@@ -1,17 +1,19 @@
-# GNU gettext-0_10_35 (Indonesian)
-# Copyright (C) 1999 Free Software Foundation, Inc.
-# Tedi Heriyanto <tedi-h@usa.net>, 1999.
+# GNU gettext-runtime-0.12-pre1 (Indonesian)
+# Copyright (C) 1999, 2003 Free Software Foundation, Inc.
+# Tedi Heriyanto <tedi_h@gmx.net>, 1999, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2003-02-12 13:32+0100\n"
-"PO-Revision-Date: 1999-09-19 10:24+07:00\n"
-"Last-Translator: Tedi Heriyanto <tedi-h@usa.net>\n"
-"Language-Team: Indonesian <id@li.org>\n"
+"Project-Id-Version: gettext-runtime 0.12-pre1\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2003-02-18 18:55+0100\n"
+"PO-Revision-Date: 2003-03-03 10:29GMT+0700\n"
+"Last-Translator: Tedi Heriyanto <tedi_h@gmx.net>\n"
+"Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: lib/error.c:112
 msgid "Unknown system error"
@@ -73,7 +75,6 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: pilihan `-W %s' tidak membolehkan sebuah argumen\n"
 
 #: lib/xmalloc.c:47
-#, fuzzy
 msgid "memory exhausted"
 msgstr "Memori habis"
 
@@ -113,14 +114,16 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
+"Pemakaian: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+"atau:    %s [OPTION] -s [MSGID]...\n"
 
 #: src/gettext.c:247
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr ""
+msgstr "Tampilkan terjemahan bahasa asli pesan tekstual.\n"
 
 #: src/gettext.c:251
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -131,7 +134,6 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"Pemakaian: %s [PILIHAN] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
 "  -d, --domain=TEXTDOMAIN   mengambil pesan terjemahan dari TEXTDOMAIN\n"
 "  -e                        memungkinkan ekspansi beberapa escape sequence\n"
 "  -E                        (abaikan kompatibilitas)\n"
@@ -142,7 +144,7 @@ msgstr ""
 "                            untuk MSGID dari TEXTDOMAIN\n"
 
 #: src/gettext.c:262
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
@@ -153,7 +155,6 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"\n"
 "Jika parameter TEXTDOMAIN tidak diberikan, domain ditentukan dari\n"
 "variabel lingkungan TEXTDOMAIN. Jika katalog pesan tidak ditemukan dalam\n"
 "direktori reguler, lokasi lain dapat dispesifikasikan dengan variabel \n"
@@ -164,14 +165,13 @@ msgstr ""
 "Direktori pencarian standar: %s\n"
 
 #: src/gettext.c:273 src/ngettext.c:240
-#, fuzzy
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Laporkan kesalahan ke <bug-gnu-utils@gnu.org>.\n"
+msgstr "Laporkan kesalahan ke <bug-gnu-gettext@gnu.org>.\n"
 
 #: src/ngettext.c:211
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr ""
+msgstr "Pemakaian: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 
 #: src/ngettext.c:216
 #, no-wrap
@@ -179,9 +179,11 @@ msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
+"Tampilkan terjemahan bahasa asli pesan tekstual yang bentuk gramatikalnya\n"
+"tergantung pada suatu angka.\n"
 
 #: src/ngettext.c:221
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -192,18 +194,18 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"Pemakaian: %s [PILIHAN] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
 "  -d, --domain=TEXTDOMAIN   mengambil pesan terjemahan dari TEXTDOMAIN\n"
 "  -e                        memungkinkan ekspansi beberapa escape sequence\n"
 "  -E                        (abaikan kompatibilitas)\n"
 "  -h, --help                tampilkan bantuan ini dan keluar\n"
 "  -n                        hilangkan newline yang mengekor\n"
 "  -V, --version             tampilkan informasi versi dan keluar\n"
-"  [TEXTDOMAIN] MSGID        mengambil pesan terjemahan yang sesuai\n"
-"                            untuk MSGID dari TEXTDOMAIN\n"
+"  [TEXTDOMAIN]        mengambil pesan terjemahan dari TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL       terjemahkan MSGID (tunggal) / MSGID-PLURAL (plural)\n"
+"  COUNT                    pilih bentuk tunggal/plural berdasarkan nilai ini\n"
 
 #: src/ngettext.c:232
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
@@ -211,258 +213,25 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"\n"
 "Jika parameter TEXTDOMAIN tidak diberikan, domain ditentukan dari\n"
 "variabel lingkungan TEXTDOMAIN. Jika katalog pesan tidak ditemukan dalam\n"
 "direktori reguler, lokasi lain dapat dispesifikasikan dengan variabel \n"
 "lingkungan TEXTDOMAINDIR.\n"
-"Bila digunakan dengan pilihan -s program berlaku seperti perintah `echo'.\n"
-"Tetapi ia tidak hanya menyalin argumennya ke stdout. Namun pesan tersebut\n"
-"diterjemahkan.\n"
 "Direktori pencarian standar: %s\n"
 
-#~ msgid "error while opening \"%s\" for reading"
-#~ msgstr "kesalahan saat membuka \"%s\" untuk dibaca"
+#~ msgid ""
+#~ "internationalized messages should not contain the `\\%c' escape sequence"
+#~ msgstr ""
+#~ "Pesan internasionalisasi tidak boleh mengandung escape sequence `\\%c'"
 
-#, fuzzy
-#~ msgid "cannot open backup file \"%s\" for writing"
-#~ msgstr "kesalahan ketika membuka \"%s\" untuk ditulis"
-
-#, fuzzy
-#~ msgid "error reading \"%s\""
-#~ msgstr "kesalahan ketika membaca \"%s\""
-
-#, fuzzy
-#~ msgid "error writing \"%s\""
-#~ msgstr "kesalahan saat menulis file \"%s\""
-
-#, fuzzy
-#~ msgid "error after reading \"%s\""
-#~ msgstr "kesalahan ketika membaca \"%s\""
-
-#, fuzzy
-#~ msgid "cannot create pipe"
+#~ msgid "cannot create output file \"%s\""
 #~ msgstr "tidak dapat membuat file output \"%s\""
 
-#, fuzzy
-#~ msgid "number of format specifications in 'msgid' and '%s' does not match"
-#~ msgstr "jumlah spesifikasi format dalam `msgid' dan `msgstr' tidak sesuai"
+#~ msgid "standard output"
+#~ msgstr "standard output"
 
-#, fuzzy
-#~ msgid ""
-#~ "format specifications in 'msgid' and '%s' for argument %u are not the same"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid ""
-#~ "a format specification for argument %u, as in '%s', doesn't exist in "
-#~ "'msgid'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid "a format specification for argument %u doesn't exist in '%s'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid ""
-#~ "a format specification for argument {%u}, as in '%s', doesn't exist in "
-#~ "'msgid'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid "a format specification for argument {%u} doesn't exist in '%s'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid ""
-#~ "format specifications in 'msgid' and '%s' for argument {%u} are not the "
-#~ "same"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid "format specifications in 'msgid' and '%s' are not equivalent"
-#~ msgstr "jumlah spesifikasi format dalam `msgid' dan `msgstr' tidak sesuai"
-
-#, fuzzy
-#~ msgid "format specifications in '%s' are not a subset of those in 'msgid'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid ""
-#~ "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
-#~ "tuple"
-#~ msgstr "jumlah spesifikasi format dalam `msgid' dan `msgstr' tidak sesuai"
-
-#, fuzzy
-#~ msgid ""
-#~ "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
-#~ "mapping"
-#~ msgstr "jumlah spesifikasi format dalam `msgid' dan `msgstr' tidak sesuai"
-
-#, fuzzy
-#~ msgid ""
-#~ "a format specification for argument '%s', as in '%s', doesn't exist in "
-#~ "'msgid'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid "a format specification for argument '%s' doesn't exist in '%s'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid ""
-#~ "format specifications in 'msgid' and '%s' for argument '%s' are not the "
-#~ "same"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#~ msgid "%s and %s are mutually exclusive"
-#~ msgstr "%s dan %s adalah mutually exclusive"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape             do not use C escapes in output (default)\n"
-#~ "  -E, --escape                use C escapes in output, no extended chars\n"
-#~ "      --force-po              write PO file even if empty\n"
-#~ "  -i, --indent                write the .po file using indented style\n"
-#~ "      --no-location           do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location          generate '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                write out strict Uniforum conforming .po "
-#~ "file\n"
-#~ "  -w, --width=NUMBER          set output page width\n"
-#~ "      --no-wrap               do not break long message lines, longer "
-#~ "than\n"
-#~ "                              the output page width, into several lines\n"
-#~ "  -s, --sort-output           generate sorted output\n"
-#~ "  -F, --sort-by-file          sort output by file location\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
-
-#~ msgid "impossible selection criteria specified (%d < n < %d)"
-#~ msgstr "digunakan kriteria pemilihan yang tidak mungkin (%d < n < %d)"
-
-#, fuzzy
-#~ msgid ""
-#~ "Concatenates and merges the specified PO files.\n"
-#~ "Find messages which are common to two or more of the specified PO files.\n"
-#~ "By using the --more-than option, greater commonality may be requested\n"
-#~ "before messages are printed.  Conversely, the --less-than option may be\n"
-#~ "used to specify less commonality before messages are printed (i.e.\n"
-#~ "--less-than=2 will only print the unique messages).  Translations,\n"
-#~ "comments and extract comments will be cumulated, except that if --use-"
-#~ "first\n"
-#~ "is specified, they will be taken from the first PO file to define them.\n"
-#~ "File positions from all PO files will be cumulated.\n"
-#~ msgstr ""
-#~ "  -V, --version            tampilkan versi informasi dan keluar\n"
-#~ "  -w, --width=NUMBER       set lebar halaman output\n"
-#~ "  -<, --less-than=NUMBER   cetak pesan dengan definisi kurang dari ini,\n"
-#~ "                           baku adalah infinit jika tidak diset\n"
-#~ "  ->, --more-than=NUMBER   cetak pesan dengan definisi lebih dari ini,\n"
-#~ "                           baku adalah 1 jika tidak diset\n"
-#~ "\n"
-#~ "Temukan pesan yang umum di antara dua/lebih file PO yang "
-#~ "dispesifikasikan.\n"
-#~ "Dengan menggunakan pilihan --more-than, kesamaan umum dapat diminta "
-#~ "sebelum\n"
-#~ "pesan dicetak. Sebaliknya, pilihan --less-than dapat digunakan untuk \n"
-#~ "menspesifikasikan kesamaan yang kurang sebelum pesan dicetak (misal \n"
-#~ "--less-than=2 akan mencetak pesan-pesan unik). Terjemahan, komentar dan\n"
-#~ "komentar ekstraksi akan dijaga, tetapi hanya dari file PO pertama yang\n"
-#~ "mendefinisikan mereka. Posisi file dari seluruh file PO akan dijaga.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Message selection:\n"
-#~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
-#~ "                                 set\n"
-#~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
-#~ "                                 definitions, defaults to 0 if not set\n"
-#~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
-#~ "                                 that only unique messages be printed\n"
-#~ msgstr ""
-#~ "  -V, --version            tampilkan versi informasi dan keluar\n"
-#~ "  -w, --width=NUMBER       set lebar halaman output\n"
-#~ "  -<, --less-than=NUMBER   cetak pesan dengan definisi kurang dari ini,\n"
-#~ "                           baku adalah infinit jika tidak diset\n"
-#~ "  ->, --more-than=NUMBER   cetak pesan dengan definisi lebih dari ini,\n"
-#~ "                           baku adalah 1 jika tidak diset\n"
-#~ "\n"
-#~ "Temukan pesan yang umum di antara dua/lebih file PO yang "
-#~ "dispesifikasikan.\n"
-#~ "Dengan menggunakan pilihan --more-than, kesamaan umum dapat diminta "
-#~ "sebelum\n"
-#~ "pesan dicetak. Sebaliknya, pilihan --less-than dapat digunakan untuk \n"
-#~ "menspesifikasikan kesamaan yang kurang sebelum pesan dicetak (misal \n"
-#~ "--less-than=2 akan mencetak pesan-pesan unik). Terjemahan, komentar dan\n"
-#~ "komentar ekstraksi akan dijaga, tetapi hanya dari file PO pertama yang\n"
-#~ "mendefinisikan mereka. Posisi file dari seluruh file PO akan dijaga.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -t, --to-code=NAME             encoding for output\n"
-#~ "      --use-first                use first available translation for "
-#~ "each\n"
-#~ "                                 message, don't merge several "
-#~ "translations\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
-#~ "  -E, --escape                   use C escapes in output, no extended "
-#~ "chars\n"
-#~ "      --force-po                 write PO file even if empty\n"
-#~ "  -i, --indent                   write the .po file using indented style\n"
-#~ "      --no-location              do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location             generate '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                   write out strict Uniforum conforming .po "
-#~ "file\n"
-#~ "  -w, --width=NUMBER             set output page width\n"
-#~ "      --no-wrap                  do not break long message lines, longer "
-#~ "than\n"
-#~ "                                 the output page width, into several "
-#~ "lines\n"
-#~ "  -s, --sort-output              generate sorted output\n"
-#~ "  -F, --sort-by-file             sort output by file location\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
+#~ msgid "error while writing \"%s\" file"
+#~ msgstr "kesalahan saat menulis file \"%s\""
 
 #~ msgid "no input files given"
 #~ msgstr "tidak diberikan file input"
@@ -470,17 +239,20 @@ msgstr ""
 #~ msgid "exactly 2 input files required"
 #~ msgstr "dibutuhkan tepat 2 file input"
 
-#, fuzzy
 #~ msgid ""
+#~ "Usage: %s [OPTION] def.po ref.po\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
+#~ "search\n"
+#~ "  -h, --help                  display this help and exit\n"
+#~ "  -V, --version               output version information and exit\n"
+#~ "\n"
 #~ "Compare two Uniforum style .po files to check that both contain the same\n"
 #~ "set of msgid strings.  The def.po file is an existing PO file with the\n"
-#~ "translations.  The ref.pot file is the last created PO file, or a PO "
-#~ "Template\n"
-#~ "file (generally created by xgettext).  This is useful for checking that\n"
-#~ "you have translated each and every message in your program.  Where an "
-#~ "exact\n"
-#~ "match cannot be found, fuzzy matching is used to produce better "
-#~ "diagnostics.\n"
+#~ "old translations.  The ref.po file is the last created PO file\n"
+#~ "(generally by xgettext).  This is useful for checking that you have\n"
+#~ "translated each and every message in your program.  Where an exact match\n"
+#~ "cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 #~ msgstr ""
 #~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
 #~ "Argumen yang perlu untuk pilihan yang panjang juga diperlukan untuk "
@@ -514,599 +286,26 @@ msgstr ""
 #~ msgid "warning: this message is not used"
 #~ msgstr "peringatan: pesan ini tidak digunakan"
 
-#, fuzzy
-#~ msgid "found %d fatal error"
-#~ msgid_plural "found %d fatal errors"
-#~ msgstr[0] "ditemukan %d kesalahan fatal"
-
-#~ msgid "at least two files must be specified"
-#~ msgstr "paling tidak dua file harus dispesifikasikan"
-
-#, fuzzy
-#~ msgid ""
-#~ "Find messages which are common to two or more of the specified PO files.\n"
-#~ "By using the --more-than option, greater commonality may be requested\n"
-#~ "before messages are printed.  Conversely, the --less-than option may be\n"
-#~ "used to specify less commonality before messages are printed (i.e.\n"
-#~ "--less-than=2 will only print the unique messages).  Translations,\n"
-#~ "comments and extract comments will be preserved, but only from the first\n"
-#~ "PO file to define them.  File positions from all PO files will be\n"
-#~ "cumulated.\n"
-#~ msgstr ""
-#~ "  -V, --version            tampilkan versi informasi dan keluar\n"
-#~ "  -w, --width=NUMBER       set lebar halaman output\n"
-#~ "  -<, --less-than=NUMBER   cetak pesan dengan definisi kurang dari ini,\n"
-#~ "                           baku adalah infinit jika tidak diset\n"
-#~ "  ->, --more-than=NUMBER   cetak pesan dengan definisi lebih dari ini,\n"
-#~ "                           baku adalah 1 jika tidak diset\n"
-#~ "\n"
-#~ "Temukan pesan yang umum di antara dua/lebih file PO yang "
-#~ "dispesifikasikan.\n"
-#~ "Dengan menggunakan pilihan --more-than, kesamaan umum dapat diminta "
-#~ "sebelum\n"
-#~ "pesan dicetak. Sebaliknya, pilihan --less-than dapat digunakan untuk \n"
-#~ "menspesifikasikan kesamaan yang kurang sebelum pesan dicetak (misal \n"
-#~ "--less-than=2 akan mencetak pesan-pesan unik). Terjemahan, komentar dan\n"
-#~ "komentar ekstraksi akan dijaga, tetapi hanya dari file PO pertama yang\n"
-#~ "mendefinisikan mereka. Posisi file dari seluruh file PO akan dijaga.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Message selection:\n"
-#~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
-#~ "                                 set\n"
-#~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
-#~ "                                 definitions, defaults to 1 if not set\n"
-#~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
-#~ "                                 that only unique messages be printed\n"
-#~ msgstr ""
-#~ "  -V, --version            tampilkan versi informasi dan keluar\n"
-#~ "  -w, --width=NUMBER       set lebar halaman output\n"
-#~ "  -<, --less-than=NUMBER   cetak pesan dengan definisi kurang dari ini,\n"
-#~ "                           baku adalah infinit jika tidak diset\n"
-#~ "  ->, --more-than=NUMBER   cetak pesan dengan definisi lebih dari ini,\n"
-#~ "                           baku adalah 1 jika tidak diset\n"
-#~ "\n"
-#~ "Temukan pesan yang umum di antara dua/lebih file PO yang "
-#~ "dispesifikasikan.\n"
-#~ "Dengan menggunakan pilihan --more-than, kesamaan umum dapat diminta "
-#~ "sebelum\n"
-#~ "pesan dicetak. Sebaliknya, pilihan --less-than dapat digunakan untuk \n"
-#~ "menspesifikasikan kesamaan yang kurang sebelum pesan dicetak (misal \n"
-#~ "--less-than=2 akan mencetak pesan-pesan unik). Terjemahan, komentar dan\n"
-#~ "komentar ekstraksi akan dijaga, tetapi hanya dari file PO pertama yang\n"
-#~ "mendefinisikan mereka. Posisi file dari seluruh file PO akan dijaga.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
-#~ "  -E, --escape                   use C escapes in output, no extended "
-#~ "chars\n"
-#~ "      --force-po                 write PO file even if empty\n"
-#~ "  -i, --indent                   write the .po file using indented style\n"
-#~ "      --no-location              do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location             generate '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                   write out strict Uniforum conforming .po "
-#~ "file\n"
-#~ "  -w, --width=NUMBER             set output page width\n"
-#~ "      --no-wrap                  do not break long message lines, longer "
-#~ "than\n"
-#~ "                                 the output page width, into several "
-#~ "lines\n"
-#~ "  -s, --sort-output              generate sorted output\n"
-#~ "  -F, --sort-by-file             sort output by file location\n"
-#~ "      --omit-header              don't write header with `msgid \"\"' "
-#~ "entry\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape             do not use C escapes in output (default)\n"
-#~ "  -E, --escape                use C escapes in output, no extended chars\n"
-#~ "      --force-po              write PO file even if empty\n"
-#~ "  -i, --indent                indented output style\n"
-#~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                strict Uniforum output style\n"
-#~ "  -w, --width=NUMBER          set output page width\n"
-#~ "      --no-wrap               do not break long message lines, longer "
-#~ "than\n"
-#~ "                              the output page width, into several lines\n"
-#~ "  -s, --sort-output           generate sorted output\n"
-#~ "  -F, --sort-by-file          sort output by file location\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
-
-#~ msgid "no input file given"
-#~ msgstr "tidak diberikan file input"
-
-#, fuzzy
-#~ msgid "exactly one input file required"
-#~ msgstr "dibutuhkan tepat 2 file input"
-
-#, fuzzy
-#~ msgid "missing command name"
-#~ msgstr "Argumen hilang"
-
-#, fuzzy
-#~ msgid "missing filter name"
-#~ msgstr "Argumen hilang"
-
-#, fuzzy
-#~ msgid "at least one sed script must be specified"
-#~ msgstr "paling tidak dua file harus dispesifikasikan"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "      --no-escape             do not use C escapes in output (default)\n"
-#~ "  -E, --escape                use C escapes in output, no extended chars\n"
-#~ "      --force-po              write PO file even if empty\n"
-#~ "      --indent                indented output style\n"
-#~ "      --keep-header           keep header entry unmodified, don't filter "
-#~ "it\n"
-#~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                strict Uniforum output style\n"
-#~ "  -w, --width=NUMBER          set output page width\n"
-#~ "      --no-wrap               do not break long message lines, longer "
-#~ "than\n"
-#~ "                              the output page width, into several lines\n"
-#~ "  -s, --sort-output           generate sorted output\n"
-#~ "  -F, --sort-by-file          sort output by file location\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
-
-#, fuzzy
-#~ msgid "%d translated message"
-#~ msgid_plural "%d translated messages"
-#~ msgstr[0] "%d pesan diterjemahkan"
-
-#, fuzzy
-#~ msgid ", %d fuzzy translation"
-#~ msgid_plural ", %d fuzzy translations"
-#~ msgstr[0] ", %d terjemahan fuzzy"
-
-#, fuzzy
-#~ msgid ", %d untranslated message"
-#~ msgid_plural ", %d untranslated messages"
-#~ msgstr[0] ", %d pesan belum diterjemahkan"
-
-#, fuzzy
-#~ msgid "invalid nplurals value"
-#~ msgstr "urutan kendali ilegal"
-
-#, fuzzy
-#~ msgid "...but some messages have only one plural form"
-#~ msgid_plural "...but some messages have only %lu plural forms"
-#~ msgstr[0] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
-#~ msgstr[1] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
-
-#, fuzzy
-#~ msgid "...but some messages have one plural form"
-#~ msgid_plural "...but some messages have %lu plural forms"
-#~ msgstr[0] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
-#~ msgstr[1] "pesan ini digunakan tapi tidak didefinisikan dalam %s"
-
-#, fuzzy
-#~ msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-#~ msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
-
-#, fuzzy
-#~ msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-#~ msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
-
-#~ msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-#~ msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
-
-#, fuzzy
-#~ msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-#~ msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
-
-#, fuzzy
-#~ msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-#~ msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
-
-#~ msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-#~ msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
-
-#, fuzzy
-#~ msgid "headerfield `%s' missing in header\n"
-#~ msgstr "headerfield `%s' tidak ada dalam header"
-
-#, fuzzy
-#~ msgid "header field `%s' should start at beginning of line\n"
-#~ msgstr "header field `%s' harus dimulai di awal baris"
-
-#, fuzzy
-#~ msgid "some header fields still have the initial default value\n"
-#~ msgstr "beberapa field header masih memiliki nilai baku awal"
-
-#, fuzzy
-#~ msgid "field `%s' still has initial default value\n"
-#~ msgstr "field `%s' masih memiliki nilai baku awal"
-
-#~ msgid "domain name \"%s\" not suitable as file name"
-#~ msgstr "nama domain \"%s\" tidak sesuai dengan nama file"
-
-#~ msgid "domain name \"%s\" not suitable as file name: will use prefix"
-#~ msgstr ""
-#~ "nama domain \"%s\" tidak sesuai dengan nama file: akan menggunakan prefix"
-
-#~ msgid "`domain %s' directive ignored"
-#~ msgstr "direktiv `domain %s' diabaikan"
-
 #~ msgid "duplicate message definition"
 #~ msgstr "definisi pesan ganda"
 
 #~ msgid "...this is the location of the first definition"
 #~ msgstr "...ini adalah lokasi definisi pertama"
 
-#~ msgid "empty `msgstr' entry ignored"
-#~ msgstr "masukan `msgstr' kosong diabaikan"
-
-#~ msgid "fuzzy `msgstr' entry ignored"
-#~ msgstr "masukan fuzzy `msgstr' diabaikan"
-
-#~ msgid "%s: warning: source file contains fuzzy translation"
-#~ msgstr "%s: peringatan: file source mengandung terjemahan fuzzy"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "      --no-escape             do not use C escapes in output (default)\n"
-#~ "      --escape                use C escapes in output, no extended chars\n"
-#~ "      --force-po              write PO file even if empty\n"
-#~ "      --indent                indented output style\n"
-#~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                strict Uniforum output style\n"
-#~ "  -w, --width=NUMBER          set output page width\n"
-#~ "      --no-wrap               do not break long message lines, longer "
-#~ "than\n"
-#~ "                              the output page width, into several lines\n"
-#~ "      --sort-output           generate sorted output\n"
-#~ "      --sort-by-file          sort output by file location\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
-#~ "existing PO file with translations which will be taken over to the newly\n"
-#~ "created file as long as they still match; comments will be preserved,\n"
-#~ "but extracted comments and file positions will be discarded.  The ref."
-#~ "pot\n"
-#~ "file is the last created PO file with up-to-date source references but\n"
-#~ "old translations, or a PO Template file (generally created by xgettext);\n"
-#~ "any translations or comments in the file will be discarded, however dot\n"
-#~ "comments and file positions will be preserved.  Where an exact match\n"
-#~ "cannot be found, fuzzy matching is used to produce better results.\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Gabungkan dua file .po bergaya Uniforum. File def.po adalah file PO "
-#~ "dengan\n"
-#~ "terjemahan terdahulu yang akan digantikan oleh file yang baru tercipta "
-#~ "selama\n"
-#~ "mereka masih sesuai; komentar akan disimpan, tetapi komentar ekstrak dan "
-#~ "posisi\n"
-#~ "file akan dihapus. File ref.po adalah file PO terakhir (biasa dibuat "
-#~ "oleh\n"
-#~ "xgettext), terjemahan atau komentar dalam file akan dihapus, namun "
-#~ "komentar\n"
-#~ "titik dan posisi file akan disimpan. Ketika tidak ditemukan kecocokan, \n"
-#~ "digunakan fuzzy matching untuk memberi hasil yang lebih baik. Hasilnya "
-#~ "ditulis\n"
-#~ "ke stdout kecuali diberikan sebuah output file.\n"
-
-#, fuzzy
-#~ msgid "this message should define plural forms"
-#~ msgstr "pesan ini digunakan tapi tidak didefinisikan dalam %s"
-
-#, fuzzy
-#~ msgid "this message should not define plural forms"
-#~ msgstr "pesan ini digunakan tapi tidak didefinisikan dalam %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
-#~ "obsolete %ld.\n"
-#~ msgstr ""
-#~ "%sMembaca %d lama + %d referensi, digabung %d, fuzzy %d, hilang %d, kuno %"
-#~ "d.\n"
-
-#~ msgid " done.\n"
-#~ msgstr " selesai.\n"
-
-#, fuzzy
-#~ msgid "%s and explicit file names are mutually exclusive"
-#~ msgstr "%s dan %s adalah mutually exclusive"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
-#~ "  -E, --escape             use C escapes in output, no extended chars\n"
-#~ "      --force-po           write PO file even if empty\n"
-#~ "  -i, --indent             write indented output style\n"
-#~ "      --strict             write strict uniforum style\n"
-#~ "  -w, --width=NUMBER       set output page width\n"
-#~ "      --no-wrap            do not break long message lines, longer than\n"
-#~ "                           the output page width, into several lines\n"
-#~ "  -s, --sort-output        generate sorted output\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] [FILE]...\n"
-#~ "Argumen wajib untuk pilihan panjang juga wajib untuk pilihan pendek.\n"
-#~ "  -e, --no-escape         jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape            gunakan escape C dalam output, tanpa ekst. "
-#~ "karakter\n"
-#~ "      --force-po          tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help              tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent            tulis output bergaya indentasi\n"
-#~ "  -o, --output-file=FILE  tulis output ke FILE\n"
-#~ "      --strict            tulis dalam gaya strict uniforum\n"
-#~ "  -V, --version           tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER      set lebar halaman output\n"
-
-#, fuzzy
-#~ msgid "missing `msgstr[]' section"
-#~ msgstr "bagian `msgstr' hilang"
-
-#, fuzzy
-#~ msgid "missing `msgid_plural' section"
-#~ msgstr "bagian `msgstr' hilang"
-
-#~ msgid "missing `msgstr' section"
-#~ msgstr "bagian `msgstr' hilang"
-
-#~ msgid "too many errors, aborting"
-#~ msgstr "terlalu banyak kesalahan, dibatalkan"
-
-#~ msgid "error while reading \"%s\""
-#~ msgstr "kesalahan ketika membaca \"%s\""
-
-#~ msgid "keyword \"%s\" unknown"
-#~ msgstr "kata kunci \"%s\" tidak dikenal"
-
-#, fuzzy
-#~ msgid "invalid control sequence"
-#~ msgstr "urutan kendali ilegal"
-
-#~ msgid "end-of-file within string"
-#~ msgstr "end-of-file dalam string"
-
-#~ msgid "end-of-line within string"
-#~ msgstr "end-of-line dalam string"
-
-#, fuzzy
-#~ msgid "file \"%s\" is truncated"
-#~ msgstr "file \"%s\" terpotong"
-
-#, fuzzy
-#~ msgid "file \"%s\" contains a not NUL terminated string"
-#~ msgstr "file \"%s\" bukan dalam format GNU .mo"
-
-#~ msgid "file \"%s\" is not in GNU .mo format"
-#~ msgstr "file \"%s\" bukan dalam format GNU .mo"
-
-#, fuzzy
-#~ msgid "file \"%s\" contains a not NUL terminated string, at %s"
-#~ msgstr "file \"%s\" bukan dalam format GNU .mo"
-
-#, fuzzy
-#~ msgid "expected two arguments"
-#~ msgstr "terlalu banyak argumen"
-
-#, fuzzy
-#~ msgid "error writing stdout"
-#~ msgstr "kesalahan saat menulis file \"%s\""
-
-#, fuzzy
-#~ msgid "cannot create a temporary directory using template \"%s\""
-#~ msgstr "tidak dapat membuat file output \"%s\""
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "kesalahan saat menulis file \"%s\""
-
-#~ msgid "error while opening \"%s\" for writing"
-#~ msgstr "kesalahan ketika membuka \"%s\" untuk ditulis"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "Pesan internasionalisasi tidak boleh mengandung escape sequence `\\%c'"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "tidak dapat membuat file output \"%s\""
-
-#~ msgid "standard output"
-#~ msgstr "standard output"
-
-#~ msgid "%s:%d: warning: unterminated character constant"
-#~ msgstr "%s:%d: peringatan: karakter konstan yang unterminated"
-
-#~ msgid "%s:%d: warning: unterminated string literal"
-#~ msgstr "%s:%d: peringatan: string literal yang unterminated"
-
-#~ msgid "this file may not contain domain directives"
-#~ msgstr "file ini tidak boleh mengandung direktiv domain"
-
-#~ msgid "--join-existing cannot be used when output is written to stdout"
-#~ msgstr ""
-#~ "--join-existing tidak dapat digunakan ketika output ditulis ke stdout"
-
-#~ msgid "warning: file `%s' extension `%s' is unknown; will try C"
-#~ msgstr "peringatan: file `%s' ekstensi `%s' tidak dikenal; dicoba C"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
-#~ "  -E, --escape                   use C escapes in output, no extended "
-#~ "chars\n"
-#~ "      --force-po                 write PO file even if empty\n"
-#~ "  -i, --indent                   write the .po file using indented style\n"
-#~ "      --no-location              do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location             generate '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                   write out strict Uniforum conforming .po "
-#~ "file\n"
-#~ "  -w, --width=NUMBER             set output page width\n"
-#~ "      --no-wrap                  do not break long message lines, longer "
-#~ "than\n"
-#~ "                                 the output page width, into several "
-#~ "lines\n"
-#~ "  -s, --sort-output              generate sorted output\n"
-#~ "  -F, --sort-by-file             sort output by file location\n"
-#~ "      --omit-header              don't write header with `msgid \"\"' "
-#~ "entry\n"
-#~ "      --copyright-holder=STRING  set copyright holder in output\n"
-#~ "      --foreign-user             omit FSF copyright in output for foreign "
-#~ "user\n"
-#~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr "
-#~ "entries\n"
-#~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr "
-#~ "entries\n"
-#~ msgstr ""
-#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
-#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
-#~ "pendek.\n"
-#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
-#~ "file\n"
-#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
-#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
-#~ "kar.\n"
-#~ "      --force-po             tulis file PO bahkan bila kosong\n"
-#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
-#~ "  -i, --indent               gaya output terindentasi\n"
-#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
-#~ "      --no-location          hapus baris '#: filename:line'\n"
-#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
-#~ "      --strict               gaya output strict Uniforum\n"
-#~ "  -v, --verbose              tingkatkan level verbositas\n"
-#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
-#~ "  -w, --width=NUMBER         set lebar halaman output\n"
-
-#~ msgid "standard input"
-#~ msgstr "standard input"
-
-#~ msgid "language `%s' unknown"
-#~ msgstr "bahasa `%s' tidak dikenal"
-
-#, fuzzy
-#~ msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-#~ msgstr "file \"%s\" bukan dalam format GNU .mo"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "gagal mencari \"%s\" offset %ld"
-
-#, fuzzy
-#~ msgid "a format specification for argument {%u} doesn't exist in 'msgstr'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid "a format specification for argument '%s' doesn't exist in 'msgstr'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#, fuzzy
-#~ msgid "a format specification for argument %u doesn't exist in 'msgstr'"
-#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
-
-#~ msgid "while creating hash table"
-#~ msgstr "sementara membuat tabel hash"
-
-#, fuzzy
-#~ msgid "%s:%lu: warning: keyword nested in keyword arg"
-#~ msgstr "%s:%d: peringatan: string literal yang unterminated"
-
-#, fuzzy
-#~ msgid "%s:%lu: warning: keyword between outer keyword and its arg"
-#~ msgstr "%s:%d: peringatan: string literal yang unterminated"
+#~ msgid "this message has no definition in the \"%s\" domain"
+#~ msgstr "pesan ini tidak memiliki definisi dalam domain \"%s\""
 
 #~ msgid "while preparing output"
 #~ msgstr "ketika mempersiapkan output"
 
-#~ msgid "this message has no definition in the \"%s\" domain"
-#~ msgstr "pesan ini tidak memiliki definisi dalam domain \"%s\""
+#~ msgid "%s and %s are mutually exclusive"
+#~ msgstr "%s dan %s adalah mutually exclusive"
+
+#~ msgid "at least two files must be specified"
+#~ msgstr "paling tidak dua file harus dispesifikasikan"
+
+#~ msgid "impossible selection criteria specified (%d < n < %d)"
+#~ msgstr "digunakan kriteria pemilihan yang tidak mungkin (%d < n < %d)"
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -1172,6 +371,63 @@ msgstr ""
 #~ "                         hanya pesan yang unik yang dicetak\n"
 
 #~ msgid ""
+#~ "  -V, --version                  output version information and exit\n"
+#~ "  -w, --width=NUMBER             set output page width\n"
+#~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
+#~ "                                 definitions, defaults to infinite if "
+#~ "not\n"
+#~ "                                 set\n"
+#~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
+#~ "                                 definitions, defaults to 1 if not set\n"
+#~ "\n"
+#~ "Find messages which are common to two or more of the specified PO files.\n"
+#~ "By using the --more-than option, greater commonality may be requested\n"
+#~ "before messages are printed.  Conversely, the --less-than option may be\n"
+#~ "used to specify less commonality before messages are printed (i.e.\n"
+#~ "--less-than=2 will only print the unique messages).  Translations,\n"
+#~ "comments and extract comments will be preserved, but only from the first\n"
+#~ "PO file to define them.  File positions from all PO files will be\n"
+#~ "preserved.\n"
+#~ msgstr ""
+#~ "  -V, --version            tampilkan versi informasi dan keluar\n"
+#~ "  -w, --width=NUMBER       set lebar halaman output\n"
+#~ "  -<, --less-than=NUMBER   cetak pesan dengan definisi kurang dari ini,\n"
+#~ "                           baku adalah infinit jika tidak diset\n"
+#~ "  ->, --more-than=NUMBER   cetak pesan dengan definisi lebih dari ini,\n"
+#~ "                           baku adalah 1 jika tidak diset\n"
+#~ "\n"
+#~ "Temukan pesan yang umum di antara dua/lebih file PO yang "
+#~ "dispesifikasikan.\n"
+#~ "Dengan menggunakan pilihan --more-than, kesamaan umum dapat diminta "
+#~ "sebelum\n"
+#~ "pesan dicetak. Sebaliknya, pilihan --less-than dapat digunakan untuk \n"
+#~ "menspesifikasikan kesamaan yang kurang sebelum pesan dicetak (misal \n"
+#~ "--less-than=2 akan mencetak pesan-pesan unik). Terjemahan, komentar dan\n"
+#~ "komentar ekstraksi akan dijaga, tetapi hanya dari file PO pertama yang\n"
+#~ "mendefinisikan mereka. Posisi file dari seluruh file PO akan dijaga.\n"
+
+#~ msgid "error while opening \"%s\" for reading"
+#~ msgstr "kesalahan saat membuka \"%s\" untuk dibaca"
+
+#~ msgid "this file may not contain domain directives"
+#~ msgstr "file ini tidak boleh mengandung direktiv domain"
+
+#~ msgid "no input file given"
+#~ msgstr "tidak diberikan file input"
+
+#~ msgid "error while opening \"%s\" for writing"
+#~ msgstr "kesalahan ketika membuka \"%s\" untuk ditulis"
+
+#~ msgid "%d translated messages"
+#~ msgstr "%d pesan diterjemahkan"
+
+#~ msgid ", %d fuzzy translations"
+#~ msgstr ", %d terjemahan fuzzy"
+
+#~ msgid ", %d untranslated messages"
+#~ msgstr ", %d pesan belum diterjemahkan"
+
+#~ msgid ""
 #~ "Usage: %s [OPTION] filename.po ...\n"
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
@@ -1221,6 +477,159 @@ msgstr ""
 #~ "Jika file input adalah -, dibaca dari stdin. Jika file output adalah -,\n"
 #~ "output ditulis ke stdout.\n"
 
+#~ msgid "while creating hash table"
+#~ msgstr "sementara membuat tabel hash"
+
+#~ msgid "%s: warning: no header entry found"
+#~ msgstr "%s: peringatan: tidak ditemukan masukan header"
+
+#~ msgid "domain name \"%s\" not suitable as file name"
+#~ msgstr "nama domain \"%s\" tidak sesuai dengan nama file"
+
+#~ msgid "domain name \"%s\" not suitable as file name: will use prefix"
+#~ msgstr ""
+#~ "nama domain \"%s\" tidak sesuai dengan nama file: akan menggunakan prefix"
+
+#~ msgid "`domain %s' directive ignored"
+#~ msgstr "direktiv `domain %s' diabaikan"
+
+#~ msgid "empty `msgstr' entry ignored"
+#~ msgstr "masukan `msgstr' kosong diabaikan"
+
+#~ msgid "fuzzy `msgstr' entry ignored"
+#~ msgstr "masukan fuzzy `msgstr' diabaikan"
+
+#~ msgid "headerfield `%s' missing in header"
+#~ msgstr "headerfield `%s' tidak ada dalam header"
+
+#~ msgid "header field `%s' should start at beginning of line"
+#~ msgstr "header field `%s' harus dimulai di awal baris"
+
+#~ msgid "some header fields still have the initial default value"
+#~ msgstr "beberapa field header masih memiliki nilai baku awal"
+
+#~ msgid "field `%s' still has initial default value"
+#~ msgstr "field `%s' masih memiliki nilai baku awal"
+
+#~ msgid "%s: warning: source file contains fuzzy translation"
+#~ msgstr "%s: peringatan: file source mengandung terjemahan fuzzy"
+
+#~ msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+#~ msgstr "masukan `msgid' dan `msgstr' tidak dimulai dengan '\\n'"
+
+#~ msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
+#~ msgstr "masukan `msgid' dan `msgstr' tidak diakhiri dengan '\\n'"
+
+#~ msgid ""
+#~ "number of format specifications in `msgid' and `msgstr' does not match"
+#~ msgstr "jumlah spesifikasi format dalam `msgid' dan `msgstr' tidak sesuai"
+
+#~ msgid "format specifications for argument %u are not the same"
+#~ msgstr "spesifikasi format untuk argumen %u tidak sama"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] def.po ref.po\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
+#~ "search\n"
+#~ "  -e, --no-escape             do not use C escapes in output (default)\n"
+#~ "  -E, --escape                use C escapes in output, no extended chars\n"
+#~ "      --force-po              write PO file even if empty\n"
+#~ "  -h, --help                  display this help and exit\n"
+#~ "  -i, --indent                indented output style\n"
+#~ "  -o, --output-file=FILE      result will be written to FILE\n"
+#~ "      --no-location           suppress '#: filename:line' lines\n"
+#~ "      --add-location          preserve '#: filename:line' lines "
+#~ "(default)\n"
+#~ "      --strict                strict Uniforum output style\n"
+#~ "  -v, --verbose               increase verbosity level\n"
+#~ "  -V, --version               output version information and exit\n"
+#~ "  -w, --width=NUMBER          set output page width\n"
+#~ msgstr ""
+#~ "Pemakaian: %s [PILIHAN] def.po ref.po\n"
+#~ "Argumen yang perlu untuk pilihan panjang juga diperlukan untuk pilihan "
+#~ "pendek.\n"
+#~ "  -D, --directory=DIRECTORY  tambah DIRECTORY ke daftar untuk cari input "
+#~ "file\n"
+#~ "  -e, --no-escape            jangan gunakan escape C dalam output (baku)\n"
+#~ "  -E, --escape               gunakan escape C dalam output, tanpa ekst. "
+#~ "kar.\n"
+#~ "      --force-po             tulis file PO bahkan bila kosong\n"
+#~ "  -h, --help                 tampilkan bantuan ini dan keluar\n"
+#~ "  -i, --indent               gaya output terindentasi\n"
+#~ "  -o, --output-file=FILE     hasil ditulis ke FILE\n"
+#~ "      --no-location          hapus baris '#: filename:line'\n"
+#~ "      --add-location         simpan baris '#: filename:line' (baku)\n"
+#~ "      --strict               gaya output strict Uniforum\n"
+#~ "  -v, --verbose              tingkatkan level verbositas\n"
+#~ "  -V, --version              tampilkan informasi versi dan keluar\n"
+#~ "  -w, --width=NUMBER         set lebar halaman output\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
+#~ "existing PO file with the old translations which will be taken over to\n"
+#~ "the newly created file as long as they still match; comments will be\n"
+#~ "preserved, but extract comments and file positions will be discarded.\n"
+#~ "The ref.po file is the last created PO file (generally by xgettext), any\n"
+#~ "translations or comments in the file will be discarded, however dot\n"
+#~ "comments and file positions will be preserved.  Where an exact match\n"
+#~ "cannot be found, fuzzy matching is used to produce better results.  The\n"
+#~ "results are written to stdout unless an output file is specified.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Gabungkan dua file .po bergaya Uniforum. File def.po adalah file PO "
+#~ "dengan\n"
+#~ "terjemahan terdahulu yang akan digantikan oleh file yang baru tercipta "
+#~ "selama\n"
+#~ "mereka masih sesuai; komentar akan disimpan, tetapi komentar ekstrak dan "
+#~ "posisi\n"
+#~ "file akan dihapus. File ref.po adalah file PO terakhir (biasa dibuat "
+#~ "oleh\n"
+#~ "xgettext), terjemahan atau komentar dalam file akan dihapus, namun "
+#~ "komentar\n"
+#~ "titik dan posisi file akan disimpan. Ketika tidak ditemukan kecocokan, \n"
+#~ "digunakan fuzzy matching untuk memberi hasil yang lebih baik. Hasilnya "
+#~ "ditulis\n"
+#~ "ke stdout kecuali diberikan sebuah output file.\n"
+
+#~ msgid ""
+#~ "%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
+#~ "%d.\n"
+#~ msgstr ""
+#~ "%sMembaca %d lama + %d referensi, digabung %d, fuzzy %d, hilang %d, kuno %"
+#~ "d.\n"
+
+#~ msgid " done.\n"
+#~ msgstr " selesai.\n"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] [FILE]...\n"
+#~ "Mandatory arguments to long options are mandatory for short options too.\n"
+#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
+#~ "  -E, --escape             use C escapes in output, no extended chars\n"
+#~ "      --force-po           write PO file even if empty\n"
+#~ "  -h, --help               display this help and exit\n"
+#~ "  -i, --indent             write indented output style\n"
+#~ "  -o, --output-file=FILE   write output into FILE instead of standard "
+#~ "output\n"
+#~ "      --strict             write strict uniforum style\n"
+#~ "  -V, --version            output version information and exit\n"
+#~ "  -w, --width=NUMBER       set output page width\n"
+#~ msgstr ""
+#~ "Pemakaian: %s [PILIHAN] [FILE]...\n"
+#~ "Argumen wajib untuk pilihan panjang juga wajib untuk pilihan pendek.\n"
+#~ "  -e, --no-escape         jangan gunakan escape C dalam output (baku)\n"
+#~ "  -E, --escape            gunakan escape C dalam output, tanpa ekst. "
+#~ "karakter\n"
+#~ "      --force-po          tulis file PO bahkan bila kosong\n"
+#~ "  -h, --help              tampilkan bantuan ini dan keluar\n"
+#~ "  -i, --indent            tulis output bergaya indentasi\n"
+#~ "  -o, --output-file=FILE  tulis output ke FILE\n"
+#~ "      --strict            tulis dalam gaya strict uniforum\n"
+#~ "  -V, --version           tampilkan informasi versi dan keluar\n"
+#~ "  -w, --width=NUMBER      set lebar halaman output\n"
+
 #~ msgid ""
 #~ "\n"
 #~ "Convert binary .mo files to Uniforum style .po files.\n"
@@ -1233,6 +642,55 @@ msgstr ""
 #~ "File .mo little-endian dan big-endian ditangani.\n"
 #~ "Jika tidak ada file input atau -, dibaca dari stdin.\n"
 #~ "Secara baku output ditulis ke stdout.\n"
+
+#~ msgid "error while reading \"%s\""
+#~ msgstr "kesalahan ketika membaca \"%s\""
+
+#~ msgid "file \"%s\" truncated"
+#~ msgstr "file \"%s\" terpotong"
+
+#~ msgid "seek \"%s\" offset %ld failed"
+#~ msgstr "gagal mencari \"%s\" offset %ld"
+
+#~ msgid "file \"%s\" is not in GNU .mo format"
+#~ msgstr "file \"%s\" bukan dalam format GNU .mo"
+
+#~ msgid "missing `msgstr' section"
+#~ msgstr "bagian `msgstr' hilang"
+
+#~ msgid "found %d fatal errors"
+#~ msgstr "ditemukan %d kesalahan fatal"
+
+#~ msgid "too many errors, aborting"
+#~ msgstr "terlalu banyak kesalahan, dibatalkan"
+
+#~ msgid "keyword \"%s\" unknown"
+#~ msgstr "kata kunci \"%s\" tidak dikenal"
+
+#~ msgid "illegal control sequence"
+#~ msgstr "urutan kendali ilegal"
+
+#~ msgid "end-of-line within string"
+#~ msgstr "end-of-line dalam string"
+
+#~ msgid "end-of-file within string"
+#~ msgstr "end-of-file dalam string"
+
+#~ msgid "standard input"
+#~ msgstr "standard input"
+
+#~ msgid "%s:%d: warning: unterminated character constant"
+#~ msgstr "%s:%d: peringatan: karakter konstan yang unterminated"
+
+#~ msgid "%s:%d: warning: unterminated string literal"
+#~ msgstr "%s:%d: peringatan: string literal yang unterminated"
+
+#~ msgid "--join-existing cannot be used when output is written to stdout"
+#~ msgstr ""
+#~ "--join-existing tidak dapat digunakan ketika output ditulis ke stdout"
+
+#~ msgid "warning: file `%s' extension `%s' is unknown; will try C"
+#~ msgstr "peringatan: file `%s' ekstensi `%s' tidak dikenal; dicoba C"
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -1282,7 +740,6 @@ msgstr ""
 #~ "user asing\n"
 #~ "  -F, --sort-by-file         urutkan output berdasar lokasi file\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "  -h, --help                     display this help and exit\n"
 #~ "  -i, --indent                   write the .po file using indented style\n"
@@ -1290,6 +747,8 @@ msgstr ""
 #~ "  -k, --keyword[=WORD]           additonal keyword to be looked for "
 #~ "(without\n"
 #~ "                                 WORD means not to use default keywords)\n"
+#~ "  -l, --string-limit=NUMBER      set string length limit to NUMBER "
+#~ "instead %u\n"
 #~ "  -L, --language=NAME            recognise the specified language (C, C+"
 #~ "+, PO),\n"
 #~ "                                 otherwise is guessed from file "
@@ -1350,5 +809,5 @@ msgstr ""
 #~ "\n"
 #~ "Jika INPUTFILE adalah -, dibaca standar input.\n"
 
-#~ msgid "%s: warning: no header entry found"
-#~ msgstr "%s: peringatan: tidak ditemukan masukan header"
+#~ msgid "language `%s' unknown"
+#~ msgstr "bahasa `%s' tidak dikenal"
