@@ -28,6 +28,8 @@ c_ispunct
 c_isspace
 c_isupper
 c_isxdigit
+c_strcasecmp
+c_strncasecmp
 c_tolower
 c_toupper
 close_stdout
