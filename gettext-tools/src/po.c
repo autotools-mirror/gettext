@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -76,8 +76,7 @@ po_parse_debrief (po_ty *pop)
 
 
 void
-po_scan (po_ty *pop, FILE *fp,
-	 const char *real_filename, const char *logical_filename)
+po_scan_start (po_ty *pop)
 {
   /* The parse will call the po_callback_... functions (see below)
      when the various directive are recognised.  The callback_arg
@@ -85,32 +84,39 @@ po_scan (po_ty *pop, FILE *fp,
      have the relevant method invoked.  */
   callback_arg = pop;
 
+  po_parse_brief (pop);
+}
+
+void
+po_scan_end (po_ty *pop)
+{
+  po_parse_debrief (pop);
+  callback_arg = NULL;
+}
+
+
+void
+po_scan (po_ty *pop, FILE *fp,
+	 const char *real_filename, const char *logical_filename)
+{
   /* Parse the stream's content.  */
   lex_start (fp, real_filename, logical_filename);
-  po_parse_brief (pop);
+  po_scan_start (pop);
   po_gram_parse ();
-  po_parse_debrief (pop);
+  po_scan_end (pop);
   lex_end ();
-  callback_arg = NULL;
 }
 
 
 void
 po_scan_file (po_ty *pop, const char *filename)
 {
-  /* The parse will call the po_callback_... functions (see below)
-     when the various directive are recognised.  The callback_arg
-     variable is used to tell these functions which instance is to
-     have the relevant method invoked.  */
-  callback_arg = pop;
-
   /* Open the file and parse it.  */
   lex_open (filename);
-  po_parse_brief (pop);
+  po_scan_start (pop);
   po_gram_parse ();
-  po_parse_debrief (pop);
+  po_scan_end (pop);
   lex_close ();
-  callback_arg = NULL;
 }
 
 
@@ -122,6 +128,8 @@ po_directive_domain (po_ty *pop, char *name)
 }
 
 
+/* This function is called by po_gram_lex() whenever a domain directive
+   has been seen.  */
 void
 po_callback_domain (char *name)
 {
@@ -145,6 +153,8 @@ po_directive_message (po_ty *pop,
 }
 
 
+/* This function is called by po_gram_lex() whenever a message has been
+   seen.  */
 void
 po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
@@ -158,14 +168,6 @@ po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 
   po_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
 			msgstr, msgstr_len, msgstr_pos, obsolete);
-}
-
-
-static void
-po_comment_special (po_ty *pop, const char *s)
-{
-  if (pop->method->comment_special != NULL)
-    pop->method->comment_special (pop, s);
 }
 
 
@@ -185,48 +187,6 @@ po_comment_dot (po_ty *pop, const char *s)
 }
 
 
-/* This function is called by po_gram_lex() whenever a comment is
-   seen.  It analyzes the comment to see what sort it is, and then
-   dispatces it to the appropriate method.  */
-void
-po_callback_comment (const char *s)
-{
-  /* assert(callback_arg); */
-  if (*s == '.')
-    po_comment_dot (callback_arg, s + 1);
-  else if (*s == ':')
-    {
-      /* Parse the file location string.  If the parse succeeds, the
-	 appropriate callback will be invoked.  If the parse fails,
-	 the po_hash function will return non-zero - so pretend it was
-	 a normal comment.  */
-      if (po_hash (s + 1) == 0)
-	/* Do nothing, it is a GNU-style file pos line.  */ ;
-      else
-	po_comment (callback_arg, s + 1);
-    }
-  else if (*s == ',' || *s == '!')
-    {
-      /* Get all entries in the special comment line.  */
-      po_comment_special (callback_arg, s + 1);
-    }
-  else
-    {
-      /* It looks like a plain vanilla comment, but Solaris-style file
-	 position lines do, too.  Rather than parse the lot, only look
-	 at lines that could start with "# File..." This minimizes
-	 memory leaks on failed parses.  If the parse succeeds, the
-	 appropriate callback will be invoked.  */
-      if (s[0] == ' ' && (s[1] == 'F' || s[1] == 'f') && s[2] == 'i'
-	  && s[3] == 'l' && s[4] == 'e' && s[5] == ':'
-	  && po_hash (s) == 0)
-	/* Do nothing, it is a Sun-style file pos line.  */ ;
-      else
-	po_comment (callback_arg, s);
-    }
-}
-
-
 static void
 po_comment_filepos (po_ty *pop, const char *name, size_t line)
 {
@@ -235,11 +195,20 @@ po_comment_filepos (po_ty *pop, const char *name, size_t line)
 }
 
 
+/* This function is called by po_hash(), once for each filename.  */
 void
 po_callback_comment_filepos (const char *name, size_t line)
 {
   /* assert(callback_arg); */
   po_comment_filepos (callback_arg, name, line);
+}
+
+
+static void
+po_comment_special (po_ty *pop, const char *s)
+{
+  if (pop->method->comment_special != NULL)
+    pop->method->comment_special (pop, s);
 }
 
 
@@ -336,5 +305,48 @@ po_parse_comment_special (const char *s,
 	  /* Unknown special comment marker.  It may have been generated
 	     from a future xgettext version.  Ignore it.  */
 	}
+    }
+}
+
+
+/* This function is called by po_gram_lex() whenever a comment is
+   seen.  It analyzes the comment to see what sort it is, and then
+   dispatches it to the appropriate method: po_comment, po_comment_dot,
+   po_comment_filepos (via po_hash), or po_comment_special.  */
+void
+po_callback_comment (const char *s)
+{
+  /* assert(callback_arg); */
+  if (*s == '.')
+    po_comment_dot (callback_arg, s + 1);
+  else if (*s == ':')
+    {
+      /* Parse the file location string.  If the parse succeeds, the
+	 appropriate callback will be invoked.  If the parse fails,
+	 the po_hash function will return non-zero - so pretend it was
+	 a normal comment.  */
+      if (po_hash (s + 1) == 0)
+	/* Do nothing, it is a GNU-style file pos line.  */ ;
+      else
+	po_comment (callback_arg, s + 1);
+    }
+  else if (*s == ',' || *s == '!')
+    {
+      /* Get all entries in the special comment line.  */
+      po_comment_special (callback_arg, s + 1);
+    }
+  else
+    {
+      /* It looks like a plain vanilla comment, but Solaris-style file
+	 position lines do, too.  Rather than parse the lot, only look
+	 at lines that could start with "# File..." This minimizes
+	 memory leaks on failed parses.  If the parse succeeds, the
+	 appropriate callback will be invoked.  */
+      if (s[0] == ' ' && (s[1] == 'F' || s[1] == 'f') && s[2] == 'i'
+	  && s[3] == 'l' && s[4] == 'e' && s[5] == ':'
+	  && po_hash (s) == 0)
+	/* Do nothing, it is a Sun-style file pos line.  */ ;
+      else
+	po_comment (callback_arg, s);
     }
 }

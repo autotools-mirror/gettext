@@ -1,3 +1,10 @@
+2003-04-13  Bruno Haible  <bruno@clisp.org>
+
+	* po.h (po_scan_start, po_scan_end): New declarations.
+	* po.c: Reorder functions.
+	(po_scan_start, po_scan_end): New functions.
+	(po_scan, po_scan_file): Use them.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -121,6 +121,12 @@ struct po_ty
 /* Allocate a fresh po_ty (or derived class) instance and call its
    constructor.  */
 extern po_ty *po_alloc (po_method_ty *jtable);
+
+/* Prepare for use of po_method_ty methods.  */
+extern void po_scan_start (po_ty *pop);
+
+/* Terminate the use of po_method_ty methods.  */
+extern void po_scan_end (po_ty *pop);
 
 /* Read a PO file from a stream, and dispatch to the various po_method_ty
    methods.  */
