@@ -1,3 +1,8 @@
+2004-09-08  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Signal EOVERFLOW if the resulting length
+	is > INT_MAX.
+
 2005-01-01  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (guess_category_value): Let the environment variables

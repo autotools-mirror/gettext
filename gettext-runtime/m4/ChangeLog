@@ -1,3 +1,7 @@
+2004-06-01  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* longlong.m4, ulonglong.m4: Fix copyright date and/or serial number.
+
 2004-09-05  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Test for CFPreferencesCopyAppValue.

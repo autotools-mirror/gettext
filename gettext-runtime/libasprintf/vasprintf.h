@@ -1,5 +1,5 @@
 /* vsprintf with automatic memory allocation.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -39,6 +39,10 @@
 extern "C" {
 #endif
 
+/* Write formatted output to a string dynamically allocated with malloc().
+   If the memory allocation succeeds, store the address of the string in
+   *RESULT and return the number of resulting bytes, excluding the trailing
+   NUL.  Upon memory allocation error, or some other error, return -1.  */
 extern int asprintf (char **result, const char *format, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
 extern int vasprintf (char **result, const char *format, va_list args)
