@@ -55,7 +55,7 @@ else
     hpux9* | hpux10* | hpux11*)
       wl='-Wl,'
       ;;
-    irix5* | irix6*)
+    irix5* | irix6* | nonstopux*)
       wl='-Wl,'
       ;;
     linux*)
@@ -78,11 +78,7 @@ else
       wl='-Qoption ld '
       ;;
     sysv4 | sysv4.2uw2* | sysv4.3* | sysv5*)
-      if test "x$host_vendor" = xsni; then
-        wl='-LD'
-      else
-        wl='-Wl,'
-      fi
+      wl='-Wl,'
       ;;
   esac
 fi
@@ -183,10 +179,12 @@ else
         # need to do runtime linking.
         case $host_os in aix4.[23]|aix4.[23].*|aix5*)
           for ld_flag in $LDFLAGS; do
-            if (test $ld_flag = "-brtl" || test $ld_flag = "-Wl,-brtl"); then
-              aix_use_runtimelinking=yes
-              break
-            fi
+            case $ld_flag in
+              *-brtl*)
+                aix_use_runtimelinking=yes
+                break
+                ;;
+            esac
           done
         esac
       fi
@@ -258,8 +256,12 @@ else
       hardcode_minus_L=yes # Not in the search PATH, but as the default
                            # location of the library.
       ;;
-    irix5* | irix6*)
-      hardcode_libdir_flag_spec='${wl}-rpath ${wl}$libdir'
+    irix5* | irix6* | nonstopux*)
+      if test "$GCC" = yes; then
+        hardcode_libdir_flag_spec='${wl}-rpath ${wl}$libdir'
+      else
+        hardcode_libdir_flag_spec='-rpath $libdir'
+      fi
       hardcode_libdir_separator=:
       ;;
     netbsd*)
@@ -314,11 +316,17 @@ else
       hardcode_minus_L=yes
       ;;
     sysv4)
-      if test "x$host_vendor" = xsno; then
-        hardcode_direct=yes # is this really true???
-      else
-        hardcode_direct=no # Motorola manual says yes, but my tests say they lie
-      fi
+      case $host_vendor in
+        sni)
+          hardcode_direct=yes # is this really true???
+          ;;
+        siemens)
+          hardcode_direct=no
+          ;;
+        motorola)
+          hardcode_direct=no #Motorola manual says yes, but my tests say they lie
+          ;;
+      esac
       ;;
     sysv4.3*)
       ;;
@@ -377,7 +385,7 @@ case "$host_os" in
         ;;
       yes,mingw*)
         shlibext=dll
-        sys_lib_search_path_spec=`$CC -print-search-dirs | grep "^libraries:" | sed -e "s/^libraries://" -e "s/;/ /g"`
+        sys_lib_search_path_spec=`$CC -print-search-dirs | grep "^libraries:" | sed -e "s/^libraries://" -e "s/;/ /g" -e "s,=/,/,g"`
         ;;
       yes,pw32*)
         shlibext=dll
@@ -401,10 +409,10 @@ case "$host_os" in
   hpux9* | hpux10* | hpux11*)
     shlibext=sl
     ;;
-  irix5* | irix6*)
+  irix5* | irix6* | nonstopux*)
     shlibext=so
     case "$host_os" in
-      irix5*)
+      irix5* | nonstopux*)
         libsuff= shlibsuff=
         ;;
       *)

@@ -1,3 +1,7 @@
+2002-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* libtool.m4: Upgrade to libtool-1.4.3.
+
 2002-10-27  Bruno Haible  <bruno@clisp.org>
 
 	* intmax.m4: New file.
