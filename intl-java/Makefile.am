@@ -41,7 +41,9 @@ CLEANFILES = libintl.jar gnu/gettext/*.class
 
 install-data-local: install-java-@BUILDJAVA@
 install-java-no:
+	$(mkinstalldirs) $(DESTDIR)$(jardir)
 install-java-yes: all-java-yes
+	$(mkinstalldirs) $(DESTDIR)$(jardir)
 	$(INSTALL_DATA) libintl.jar $(DESTDIR)$(jardir)/libintl.jar
 
 installdirs-local:

@@ -1,3 +1,8 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (install-java-no, install-java-yes): Create $(jardir),
+	for consistency with the installdirs rule.
+
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* gnu/gettext/GettextResource.java: New file.
