@@ -4481,9 +4481,9 @@ more easy to manage.
 @cindex @code{gettext}, a programmer's view
 
 The definition of the @code{gettext} interface comes from a Uniforum
-proposal and it is followed by at least one major Unix vendor
-(Sun) in its last developments.  It is not specified in any official
-standard, though.
+proposal.  It was submitted there by Sun, who had implemented the
+@code{gettext} function in SunOS 4, around 1990.  Nowadays, the
+@code{gettext} interface is specified by the OpenI18N standard.
 
 The main point about this solution is that it does not follow the
 method of normal file handling (open-use-close) and that it does not
@@ -9620,6 +9620,9 @@ from Patrick and Richard, of course, but also from Mitchum DSouza
 MacKenzie, Fran@,{c}ois Pinard, and Paul Eggert, all pushing and
 pulling in various directions, not always compatible, to the extent
 that after a couple of test releases, @code{glocale} was torn apart.
+In particular, Paul Eggert -- always keeping an eye on developments
+in Solaris -- advocated the use of the @code{gettext} API over
+@code{glocale}'s @code{catgets}-based API.
 
 While Jim took some distance and time and became dad for a second
 time, Roland wanted to get GNU @code{libc} internationalized, and
