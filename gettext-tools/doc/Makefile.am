@@ -26,11 +26,13 @@ htmldir = $(docdir)
 AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST =
 MOSTLYCLEANFILES =
+TEXINCLUDES = -I $(top_srcdir)/../gettext-runtime/doc
 
 SED = sed
 RM = rm -f
 
 MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+MAKEINFOFLAGS = $(TEXINCLUDES)
 
 info_TEXINFOS = gettext.texi
 # List of texinfo sources @included by gettext.texi, excluding version.texi.
@@ -38,7 +40,10 @@ gettext_TEXINFOS = \
   xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
   msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
-  gettextize.texi autopoint.texi iso-639.texi iso-3166.texi
+  gettextize.texi autopoint.texi iso-639.texi iso-3166.texi \
+  $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
+  $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
+  $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi
 
 EXTRA_DIST += \
   iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de texi2html \
@@ -95,6 +100,8 @@ MAINTAINERCLEANFILES = gettext_*.html
 
 # Documentation in DVI format.
 
+TEXI2DVI = texi2dvi $(TEXINCLUDES)
+
 install-dvi: gettext.dvi
 	$(mkinstalldirs) $(DESTDIR)$(dvidir)
 	$(INSTALL_DATA) `if test -f gettext.dvi; then echo .; else echo $(srcdir); fi`/gettext.dvi $(DESTDIR)$(dvidir)/gettext.dvi
@@ -141,7 +148,7 @@ uninstall-ps:
 
 # Documentation in Portable Document Format.
 
-TEXI2PDF = @TEXI2PDF@
+TEXI2PDF = @TEXI2PDF@ $(TEXINCLUDES)
 SUFFIXES = .pdf
 
 pdf: gettext.pdf
@@ -169,14 +176,14 @@ html-monolithic: gettext.html
 html-split: gettext_toc.html
 
 gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
+	$(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	case "@PERL@" in \
 	  *"/missing perl") \
-	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
 	  *) $(RM) gettext_*.html ; \
-	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
 	esac
 
 install-html-monolithic: gettext.html

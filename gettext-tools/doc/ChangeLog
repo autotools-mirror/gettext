@@ -1,5 +1,18 @@
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi: Update menus.
+	(sh): Update.
+	(Preparing Shell Scripts, gettext.sh, gettext Invocation,
+	ngettext Invocation, envsubst Invocation, eval_gettext Invocation,
+	eval_ngettext Invocation): New subsubsections.
+	* Makefile.am (TEXINCLUDES): New variable.
+	(gettext_TEXINFOS): Add the files from gettext-runtime/doc/.
+	(MAKEINFOFLAGS, TEXI2DVI): New variables, needed for TEXINCLUDES.
+	(TEXI2PDF): Add TEXINCLUDES.
+	(gettext.html, gettext_toc.html): Use TEXINCLUDES.
+
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (sh-format): New subsection.
 
 2003-09-09  Guido Flohr <guido@imperia.net>
