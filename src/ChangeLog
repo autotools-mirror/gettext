@@ -1,3 +1,8 @@
+2001-09-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c: Set msgstr_prefix to "", not NULL.
+	Reported by Martin Quinson <Martin.Quinson@ens-lyon.fr>.
+
 2001-09-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgattrib.c (main): Call set_program_name instead of assigning

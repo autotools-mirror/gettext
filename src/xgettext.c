@@ -397,7 +397,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (msgstr_prefix != NULL && msgstr_suffix == NULL)
     msgstr_suffix = "";
   else if (msgstr_prefix == NULL && msgstr_suffix != NULL)
-    msgstr_prefix = NULL;
+    msgstr_prefix = "";
 
   /* Default output directory is the current directory.  */
   if (output_dir == NULL)
