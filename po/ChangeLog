@@ -1,3 +1,7 @@
+2001-11-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* de.po: Update from Karl Eichwalder.
+
 2001-10-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (dist2): Distribute LINGUAS if it exists.
