@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.30\n"
-"POT-Creation-Date: 2001-03-11 21:31+0100\n"
+"POT-Creation-Date: 2001-03-21 22:47+0100\n"
 "PO-Revision-Date: 1997-09-03 12:52+0900\n"
 "Last-Translator: Bang Jun-Young <bangjy@geocities.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -81,8 +81,8 @@ msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
 msgid "memory exhausted"
 msgstr "메모리가 바닥남"
 
-#: src/gettext.c:139 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
-#: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
+#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,27 +93,27 @@ msgstr ""
 "이 프로그램은 공개 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상품성\n"
 "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
 
-#: src/gettext.c:144 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
-#: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
+#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s가 만들었습니다.\n"
 
-#: src/gettext.c:159
-msgid "missing arguments"
-msgstr "인수가 빠졌음"
-
-#: src/gettext.c:169
+#: src/gettext.c:163 src/ngettext.c:137
 msgid "too many arguments"
 msgstr "인수가 너무 많음"
 
-#: src/gettext.c:233 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
-#: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
+#: src/gettext.c:173 src/ngettext.c:149
+msgid "missing arguments"
+msgstr "인수가 빠졌음"
+
+#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "더 많은 정보를 보려면 `%s --help' 하십시오\n"
 
-#: src/gettext.c:238
+#: src/gettext.c:250
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -136,7 +136,7 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        MSGID에 대응하는 번역된 메시지를 TEXTDOMAIN에서\n"
 "                            불러옵니다\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -158,8 +158,8 @@ msgstr ""
 "출력됩니다.\n"
 "기본 탐색 디렉토리: %s\n"
 
-#: src/gettext.c:260 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
-#: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
+#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "<bug-gnu-utils@gnu.org>로 문제점을 보고하십시오.\n"
 
@@ -665,6 +665,48 @@ msgstr "\"%s\" 파일은 GNU .mo 형식이 아닙니다"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "\"%s\" 파일은 GNU .mo 형식이 아닙니다"
 
+#: src/ngettext.c:209
+#, fuzzy, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+"사용법: %s [옵션] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   번역된 메시지를 TEXTDOMAIN에서 불러옵니다\n"
+"  -e                        몇몇 이스케이프 문자열의 확장을 가능케 합니다\n"
+"  -E                        (호환성을 위해 무시됨)\n"
+"  -h, --help                이 도움말을 보여주고 종료합니다\n"
+"  -n                        따라붙는 줄바꿈 문자를 제거합니다\n"
+"  -V, --version             버전 정보를 표시하고 종료합니다\n"
+"  [TEXTDOMAIN] MSGID        MSGID에 대응하는 번역된 메시지를 TEXTDOMAIN에서\n"
+"                            불러옵니다\n"
+
+#: src/ngettext.c:221
+#, fuzzy, c-format, no-wrap
+msgid ""
+"\n"
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"\n"
+"TEXTDOMAIN 매개변수가 주어지지 않으면 영역은 환경 변수 TEXTDOMAIN으로부터\n"
+"결정됩니다.  메시지 목록이 일반적인 디렉토리에 있지 않으면 환경 변수\n"
+"TEXTDOMAINDIR로 다른 위치를 지정할 수 있습니다.\n"
+"-s 옵션이 쓰이면 프로그램은 `echo' 명령처럼 동작합니다. 그러나 단순히 인수를\n"
+"표준출력에 복사하지는 않습니다.  대신 선택된 목록에 있는 번역된 메시지가\n"
+"출력됩니다.\n"
+"기본 탐색 디렉토리: %s\n"
+
 #: src/open-po.c:64
 msgid "<stdin>"
 msgstr ""
@@ -745,18 +787,20 @@ msgstr ""
 
 #. TRANS: sentence trans_id_2 starts here
 #: src/po.c:301
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
-msgstr ""
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
+"gettext"
+msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
 
 #. TRANS: sentence trans_id_3 starts here
 #: src/po.c:316
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
+"gettext"
 msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
 
 #: src/po.c:330

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.31\n"
-"POT-Creation-Date: 2001-03-11 21:31+0100\n"
+"POT-Creation-Date: 2001-03-21 22:47+0100\n"
 "PO-Revision-Date: 1996-12-31 23:59\n"
 "Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -82,8 +82,8 @@ msgstr "%s: flaggan \"-W %s\" tar inget argument\n"
 msgid "memory exhausted"
 msgstr "Minnet slut"
 
-#: src/gettext.c:139 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
-#: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
+#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -95,27 +95,27 @@ msgstr ""
 "INGEN garanti; inte ens för SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT\n"
 "ÄNDAMÅL.\n"
 
-#: src/gettext.c:144 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
-#: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
+#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skriven av %s.\n"
 
-#: src/gettext.c:159
-msgid "missing arguments"
-msgstr "argument saknas"
-
-#: src/gettext.c:169
+#: src/gettext.c:163 src/ngettext.c:137
 msgid "too many arguments"
 msgstr "för många argument"
 
-#: src/gettext.c:233 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
-#: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
+#: src/gettext.c:173 src/ngettext.c:149
+msgid "missing arguments"
+msgstr "argument saknas"
+
+#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Försök med \"%s --help\" för mer information.\n"
 
-#: src/gettext.c:238
+#: src/gettext.c:250
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -138,7 +138,7 @@ msgstr ""
 "  [TEXTDOMÄN] MDLID         hämta översatt meddelande som motsvarar\n"
 "                            MDLID från TEXTDOMÄN\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -160,8 +160,8 @@ msgstr ""
 "översätts de argument som hittas i den valda meddelandekatalogen.\n"
 "Normal katalog för meddelandekataloger: %s\n"
 
-#: src/gettext.c:260 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
-#: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
+#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr ""
 "Rapportera fel till <bug-gnu-utils@gnu.org>.\n"
@@ -672,6 +672,48 @@ msgstr "filen \"%s\" är inte på GNUs .mo-format"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "filen \"%s\" är inte på GNUs .mo-format"
 
+#: src/ngettext.c:209
+#, fuzzy, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+"Användning: %s [FLAGGA] [[[TEXTDOMÄN] MDLID] | [-s [MDLID]...]]\n"
+"  -d, --domain=TEXTDOMÄN    hämta översatta meddelanden från TEXTDOMÄN\n"
+"  -e                        expandera några kontrollsekvenser\n"
+"  -E                        (ignorerad för bakåtkompatibilitet)\n"
+"  -h, --help                visa denna hjälptext och avsluta\n"
+"  -n                        skriv inte ut avslutande radframmatning\n"
+"  -V, --version             visa versionsinformation och avsluta\n"
+"  [TEXTDOMÄN] MDLID         hämta översatt meddelande som motsvarar\n"
+"                            MDLID från TEXTDOMÄN\n"
+
+#: src/ngettext.c:221
+#, fuzzy, c-format, no-wrap
+msgid ""
+"\n"
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"\n"
+"Om parametern TEXTDOMÄN utelämnas så bestäms domänen av miljövariabeln\n"
+"TEXTDOMAIN. Om meddelandekatalogen inte hittas i den normala katalogen så\n"
+"kan en annan katalog anges med miljövariabeln TEXTDOMAINDIR.\n"
+"När flaggan -s ges så uppträder programmet som kommandot \"echo\".\n"
+"Men det kopierar inte enbart sina argument till standard ut. Istället\n"
+"översätts de argument som hittas i den valda meddelandekatalogen.\n"
+"Normal katalog för meddelandekataloger: %s\n"
+
 #: src/open-po.c:64
 msgid "<stdin>"
 msgstr ""
@@ -752,18 +794,20 @@ msgstr ""
 
 #. TRANS: sentence trans_id_2 starts here
 #: src/po.c:301
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
-msgstr ""
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
+"gettext"
+msgstr "%s: varning: källfilen innehåller luddiga översättningar"
 
 #. TRANS: sentence trans_id_3 starts here
 #: src/po.c:316
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
+"gettext"
 msgstr "%s: varning: källfilen innehåller luddiga översättningar"
 
 #: src/po.c:330

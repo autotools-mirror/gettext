@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-03-11 21:31+0100\n"
+"POT-Creation-Date: 2001-03-21 22:47+0100\n"
 "PO-Revision-Date: 1998-08-05 15:00+0200\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@pdi.net>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -84,8 +84,8 @@ msgstr "%s: opcja `-W %s' nie mo¿e mieæ argumentu\n"
 msgid "memory exhausted"
 msgstr "pamiêæ wyczerpana"
 
-#: src/gettext.c:139 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
-#: src/msgmerge.c:255 src/msgunfmt.c:170 src/xgettext.c:398
+#: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:283 src/msgfmt.c:270
+#: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:398
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -97,27 +97,27 @@ msgstr ""
 "Autorzy nie daj± ¯ADNYCH gwarancji, w tym nawet gwarancji SPRZEDAWALNO¦CI\n"
 "lub PRZYDATNO¦CI DO KONKRETNYCH CELÓW.\n"
 
-#: src/gettext.c:144 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
-#: src/msgmerge.c:260 src/msgunfmt.c:175 src/xgettext.c:403
+#: src/gettext.c:145 src/msgcmp.c:145 src/msgcomm.c:288 src/msgfmt.c:275
+#: src/msgmerge.c:260 src/msgunfmt.c:175 src/ngettext.c:125 src/xgettext.c:403
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Zapisane przez %s.\n"
 
-#: src/gettext.c:159
-msgid "missing arguments"
-msgstr "brakuj±ce argumenty"
-
-#: src/gettext.c:169
+#: src/gettext.c:163 src/ngettext.c:137
 msgid "too many arguments"
 msgstr "za du¿o argumentów"
 
-#: src/gettext.c:233 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
-#: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
+#: src/gettext.c:173 src/ngettext.c:149
+msgid "missing arguments"
+msgstr "brakuj±ce argumenty"
+
+#: src/gettext.c:245 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
+#: src/msgmerge.c:315 src/msgunfmt.c:205 src/ngettext.c:204 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Spróbuj `%s --help' ¿eby otrzymaæ wiêcej informacji.\n"
 
-#: src/gettext.c:238
+#: src/gettext.c:250
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
@@ -140,7 +140,7 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        wydob±d¼ przet³umaczony komunikat odpowiadaj±cy\n"
 "                            MSGID z TEXTDOMAIN\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid ""
 "\n"
@@ -163,8 +163,8 @@ msgstr ""
 "wybranym katalogu.\n"
 "Domy¶lnie przeszukiwany katalog: %s\n"
 
-#: src/gettext.c:260 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
-#: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
+#: src/gettext.c:272 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
+#: src/msgmerge.c:350 src/msgunfmt.c:229 src/ngettext.c:228 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Raporty o b³êdach wysy³aj do bug-gnu-utils@gnu.org\n"
 
@@ -676,6 +676,49 @@ msgstr "plik \"%s\" nie jest w formacie .mo GNU"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "plik \"%s\" nie jest w formacie .mo GNU"
 
+#: src/ngettext.c:209
+#, fuzzy, c-format, no-wrap
+msgid ""
+"Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+"U¿ycie: %s [OPCJA] [[TEXTDOMAIN] MSGID | [-s [MSGID]...]]\n"
+"  -d, --domain=TEXTDOMAIN   wydob±d¼ przet³umaczone komunikaty z TEXTDOMAIN\n"
+"  -e                        w³±cz rozwijanie niektórych sekwencji escape\n"
+"  -E                        (ignorowane, dla kompatybilno¶ci)\n"
+"  -h, --help                wy¶wietl ten opis i zakoñcz\n"
+"  -n                        wy³±cz koñcowy znak nowej linii\n"
+"  -V, --version             wy¶wietl informacjê o wersji i zakoñcz\n"
+"  [TEXTDOMAIN] MSGID        wydob±d¼ przet³umaczony komunikat odpowiadaj±cy\n"
+"                            MSGID z TEXTDOMAIN\n"
+
+#: src/ngettext.c:221
+#, fuzzy, c-format, no-wrap
+msgid ""
+"\n"
+"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+"regular directory, another location can be specified with the environment\n"
+"variable TEXTDOMAINDIR.\n"
+"Standard search directory: %s\n"
+msgstr ""
+"\n"
+"Je¿eli parametr TEXTDOMAIN nie jest podany, domena jest wyznaczana ze zmiennej\n"
+"¶rodowiska TEXTDOMAIN.  Je¿eli katalog komunikatów nie zostanie znaleziony w\n"
+"zwyk³ym katalogu, inna lokalizacja mo¿e byæ podana przez zmienn± ¶rodowiska\n"
+"TEXTDOMAINDIR.\n"
+"Je¿eli u¿yty z opcj± -s, program zachowuje siê jak komenda `echo', ale zamiast\n"
+"kopiowaæ argumenty na standardowe wyj¶cie t³umaczy komunikaty znalezione w\n"
+"wybranym katalogu.\n"
+"Domy¶lnie przeszukiwany katalog: %s\n"
+
 #: src/open-po.c:64
 msgid "<stdin>"
 msgstr ""
@@ -756,18 +799,20 @@ msgstr ""
 
 #. TRANS: sentence trans_id_2 starts here
 #: src/po.c:301
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
-msgstr ""
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
+"gettext"
+msgstr "%s: uwaga: plik ¼ród³owy zawiera t³umaczenie budz±ce w±tpliwo¶ci"
 
 #. TRANS: sentence trans_id_3 starts here
 #: src/po.c:316
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU "
+"gettext"
 msgstr "%s: uwaga: plik ¼ród³owy zawiera t³umaczenie budz±ce w±tpliwo¶ci"
 
 #: src/po.c:330
