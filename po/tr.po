@@ -1,12 +1,12 @@
 # Turkish translations for Gnu Gettext Package.
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# Nilgün Belma Bugüner <nilgun@technologist.com>, 2001.
+# Nilgün Belma Bugüner <nilgun@fide.org>, 2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.37\n"
+"Project-Id-Version: GNU gettext 0.10.38\n"
 "POT-Creation-Date: 2001-05-18 16:24+0200\n"
-"PO-Revision-Date: 2001-05-20 02:20+0300\n"
+"PO-Revision-Date: 2001-05-25 21:06+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -609,7 +609,7 @@ msgstr ""
 #: src/msgfmt.c:1062
 #, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "%s argümanýnýn biçim deðiþkenleri ayný deðil"
+msgstr "%lu argümanýnýn biçim deðiþkenleri ayný deðil"
 
 #: src/msgmerge.c:273
 #, fuzzy, no-wrap
@@ -913,7 +913,7 @@ msgstr ""
 
 #: po-gram-gen.y:88
 msgid "inconsistent use of #~"
-msgstr ""
+msgstr "#~ kullanýmý aykýrý"
 
 #: po-gram-gen.y:178
 msgid "missing `msgstr[]' section"
@@ -1074,19 +1074,19 @@ msgid ""
 msgstr ""
 
 #: src/xgettext.c:952
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: uyarý: sonlandýrýlmamýþ dizge harfi"
+msgstr "%s:%d: uyarý: anahtar sözcük diðerinin argümaný içinde yuvalanmýþ"
 
 #: src/xgettext.c:964
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
-msgstr ""
+msgstr "%s:%d: uyarý: anahtar sözcük dýþ anahtar sözcük ile argümaný arasýnda"
 
 #: src/xgettext.c:1462
 #, c-format
 msgid "language `%s' unknown"
-msgstr ""
+msgstr "dil `%s' bilinmiyor"
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
