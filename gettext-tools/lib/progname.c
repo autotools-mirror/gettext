@@ -38,14 +38,16 @@ const char *program_name;
 void
 set_program_name (const char *argv0)
 {
-  /* libtool creates a temporary executable whose name is prefixed with
-     "lt-".  It also makes argv[0] absolute.  Remove this "<dirname>/lt-"
-     prefix here.  */
+  /* libtool creates a temporary executable whose name is sometimes prefixed
+     with "lt-" (depends on the platform).  It also makes argv[0] absolute.
+     Remove this "<dirname>/.libs/" or "<dirname>/.libs/lt-" prefix here.  */
   const char *slash;
   const char *base;
 
   slash = strrchr (argv0, '/');
   base = (slash != NULL ? slash + 1 : argv0);
+  if (base - argv0 >= 7 && memcmp (base - 7, "/.libs/", 7) == 0)
+    argv0 = base;
   if (strncmp (base, "lt-", 3) == 0)
     argv0 = base + 3;
   program_name = argv0;
