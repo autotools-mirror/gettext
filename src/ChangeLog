@@ -1,5 +1,9 @@
 2003-01-23  Bruno Haible  <bruno@clisp.org>
 
+	* po-gram.h: Don't include <sys/types.h>.
+
+2003-01-23  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge.c (use_fuzzy_matching): New variable.
 	(long_options): Add option -N/--no-fuzzy-matching.
 	(main, match_domain): Implement it.
