@@ -1,3 +1,18 @@
+2001-04-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* read-po.h: New file.
+	* read-po.c: New file, extracted from msgmerge.c.
+	* msgmerge.c: Don't include string.h. Include read-po.h instead.
+	(merge_class_ty, line_comment, merge_constructor, merge_destructor,
+	merge_directive_domain, merge_directive_message, merge_parse_brief,
+	merge_parse_debrief, merge_comment, merge_comment_dot,
+	merge_comment_special, merge_comment_filepos, grammar): Move out to
+	read-po.c.
+	(compendium, merge): Call read_po_file() instead of grammar().
+	* Makefile.am (noinst_HEADERS): Add read-po.h.
+	(msgmerge_SOURCES): Add read-po.c.
+	* FILES: Update.
+
 2001-04-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcmp.c (usage): Restructure usage message. Talk about ref.pot, not

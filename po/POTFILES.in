@@ -25,6 +25,7 @@ src/po-gram-gen.c
 src/po-lex.h
 src/po-lex.c
 src/po.c
+src/read-po.c
 src/write-po.c
 src/xget-lex.c
 src/xgettext.c

@@ -63,6 +63,10 @@ po.c
         po.c
                         Top-level parser functions and callbacks.
 
+read-po.h
+read-po.c
+                Reading of a PO file, returning a list-of-messages.
+
 msgfmt.c        Main source for the 'msgfmt' program.
 msgcmp.c        Main source for the 'msgcmp' program.
 msgcomm.c       Main source for the 'msgcomm' program.

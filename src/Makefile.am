@@ -22,8 +22,8 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 bin_PROGRAMS = gettext ngettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
-po.h open-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h \
-po-hash-gen.h
+po.h open-po.h read-po.h str-list.h write-po.h xget-lex.h dir-list.h \
+po-gram-gen.h po-hash-gen.h
 
 EXTRA_DIST = FILES
 
@@ -46,7 +46,7 @@ po-charset.c po-lex.c po.c str-list.c dir-list.c
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c \
 po-lex.c po.c str-list.c message.c dir-list.c
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c str-list.c dir-list.c write-po.c
+po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c
 msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c \

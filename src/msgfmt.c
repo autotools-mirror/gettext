@@ -1051,7 +1051,7 @@ format specifications for argument %lu are not the same"),
    use good data hiding and encapsulation practices, an object
    oriented approach has been taken.  An object instance is allocated,
    and all actions resulting from the parse will be through
-   invokations of method functions of that object.  */
+   invocations of method functions of that object.  */
 
 static po_method_ty format_methods =
 {
