@@ -1,3 +1,9 @@
+2004-12-10  Bruno Haible  <bruno@clisp.org>
+
+	* obstack.h: Update from current gnulib version.
+	* obstack.c: Update from current gnulib version.
+	Reported by Raphaël Zhou <xzhou@tlmcom.fr>.
+
 2004-11-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.h [!ENABLE_NLS]: When using GNU libstdc++, include

@@ -7,7 +7,6 @@ program_name
 simple_backup_suffix
 __xargmatch_internal
 _obstack_begin
-_obstack_free
 _obstack_newchunk
 addext
 argmatch
@@ -73,6 +72,7 @@ multiline_error
 multiline_warning
 new_classpath
 next_prime
+obstack_free
 optarg
 optind
 path_search
