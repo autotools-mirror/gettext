@@ -36,14 +36,31 @@ fi
 #   /somepath/aclocal ...
 # or
 #   /somepath/missing aclocal ...
+# or
+#   /bin/sh /somepath/missing aclocal ...
+# or
+#   /bin/sh /somepath/missing aclocal --run ...
 # Extract the first part.
 ACLOCAL="$1"
 shift
 ACLOCAL2=
+ACLOCAL3=
+case "$ACLOCAL" in
+  *sh)
+    ACLOCAL="$1"
+    shift
+    ;;
+esac
 case "$ACLOCAL" in
   *missing)
     ACLOCAL2="$1"
     shift
+    case "$1" in
+      --run)
+        ACLOCAL3="$1"
+        shift
+        ;;
+    esac
     ;;
 esac
 
@@ -52,7 +69,7 @@ mkdir aclocal.tmp
 trap "rm -rf aclocal.tmp; exit 1" 1 2 15
 
 # First, copy the standard m4 files.
-for f in `"$ACLOCAL" $ACLOCAL2 --print-ac-dir`/*.m4; do
+for f in `"$ACLOCAL" $ACLOCAL2 $ACLOCAL3 --print-ac-dir`/*.m4; do
   cp $f aclocal.tmp
 done
 
@@ -76,7 +93,7 @@ do
 done
 
 # Now call `aclocal' for real.
-"$ACLOCAL" $ACLOCAL2 --acdir=aclocal.tmp $options
+"$ACLOCAL" $ACLOCAL2 $ACLOCAL3 --acdir=aclocal.tmp $options
 
 # Clean up temporary directory.
 rm -rf aclocal.tmp
