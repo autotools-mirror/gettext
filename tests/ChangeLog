@@ -1,3 +1,8 @@
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcmp-2: Add program name prefix to expected output.
+	* msgmerge-2: Likewise.
+
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcomm-15: Use "test -f", not "test -e". For Solaris.
