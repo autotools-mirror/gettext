@@ -935,7 +935,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		unsigned int hex_number = 0;
 		int length;
 
-		++crs;
+		crs += 2;
 		if (*crs == '{')
 		  {
 		    const char *end = strchr (crs, '}');
