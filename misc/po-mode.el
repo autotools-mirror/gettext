@@ -2173,20 +2173,23 @@ the file without moving its cursor."
     (save-excursion
       (goto-char po-start-of-entry)
       (if (re-search-forward "^#:" po-start-of-msgid t)
-	  (while (looking-at "\\(\n#:\\)? *\\([^: ]+\\):\\([0-9]+\\)")
-	    (goto-char (match-end 0))
-	    (let* ((name (po-match-string 2))
-		   (line (po-match-string 3))
-		   (path po-search-path)
-		   file)
-	      (while (and (progn (setq file (concat (car (car path)) name))
-				 (not (file-exists-p file)))
-			  path)
-		(setq path (cdr path)))
-	      (if path
+	  (let (current name line path file)
+	    (while (looking-at "\\(\n#:\\)? *\\([^: ]*\\):\\([0-9]+\\)")
+	      (goto-char (match-end 0))
+	      (setq name (po-match-string 2)
+		    line (po-match-string 3)
+		    path po-search-path)
+	      (if (string-equal name "")
+		  nil
+		(while (and (not (file-exists-p
+				  (setq file (concat (car (car path)) name))))
+			    path)
+		  (setq path (cdr path)))
+		(setq current (and path file)))
+	      (if current
 		  (setq po-reference-alist
-			(cons (list (concat file ":" line)
-				    file
+			(cons (list (concat current ":" line)
+				    current
 				    (string-to-int line))
 			      po-reference-alist)))))))
     (setq po-reference-alist (nreverse po-reference-alist)
