@@ -18,6 +18,9 @@
 #ifndef _POS_H
 #define _POS_H
 
+/* Get size_t.  */
+#include <stddef.h>
+
 /* Position of a message within a source file.
    Used for error reporting purposes.  */
 typedef struct lex_pos_ty lex_pos_ty;
