@@ -1,3 +1,8 @@
+2003-11-19  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Better test for ptrdiff_t. Invoke gt_TYPE_SSIZE_T and
+	gl_XSIZE.
+
 2003-11-17  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (alloca): Remove fallback definition.

@@ -52,8 +52,13 @@ jm_AC_TYPE_LONG_LONG
 gt_TYPE_LONGDOUBLE
 gt_TYPE_WCHAR_T
 gt_TYPE_WINT_T
-AC_CHECK_TYPES(ptrdiff_t)
+AC_CHECK_TYPE([ptrdiff_t], ,
+  [AC_DEFINE([ptrdiff_t], [long],
+     [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
+  ])
 gt_TYPE_INTMAX_T
+gt_TYPE_SSIZE_T
+gl_XSIZE
 
 dnl Checks for library functions.
 
