@@ -1,5 +1,9 @@
 2001-04-04  Bruno Haible  <haible@clisp.cons.org>
 
+	* dcigettext.c (HAVE_LOCALE_NULL): Define also if __GNU_LIBRARY__.
+
+2001-04-04  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in (libdir, includedir, datadir): Use the autoconf
 	determined value, in order to respect the configure arguments.
 	(gettextsrcdir): Use $(datadir), not @datadir@.
