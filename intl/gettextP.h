@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -46,6 +46,10 @@
 
 #ifndef internal_function
 # define internal_function
+#endif
+
+#ifndef attribute_hidden
+# define attribute_hidden
 #endif
 
 /* Tell the compiler when a conditional or integer expression is

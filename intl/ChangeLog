@@ -1,3 +1,34 @@
+2002-04-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettextP.h (attribute_hidden): Define as empty macro if not
+	already defined.
+
+2002-04-09  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcngettext.c [_LIBC]: Use INTUSE for __dcngettext.
+	* dngettext.c [_LIBC] (DCNGETTEXT): Use INTUSE.
+	* ngettext.c: Likewise.
+	* l10nflist.c [_LIBC]: Use INTUSE for __argz_count and
+	__argz_stringify.
+
+2002-04-08  Ulrich Drepper  <drepper@redhat.com>
+	* dcgettext.c (__dcgettext): Use INTDEF to define alias.
+	* dgettext.c: Call __dcgettext_internal instead of __dcgettext.
+	* gettext.c: Likewise.
+
+2002-03-12  Ulrich Drepper  <drepper@redhat.com>
+
+	* plural-exp.h (attribute_hidden): Define as empty macro if not
+	already defined.
+	(GERMANIC_PLURAL): Declare as hidden.
+	* dcigettext.c (_nl_default_default_domain): Define as hidden.
+	(_nl_current_default_domain): Likewise
+	(_nl_state_lock): Likewise.
+	* textdomain.c (_nl_default_default_domain): Declare as hidden.
+	(_nl_current_default_domain): Likewise
+	(_nl_state_lock): Likewise.
+	* bindtextdom.c (_nl_state_lock): Likewise.
+
 2002-03-15  Andrew Zabolotny  <zap@cobra.ru>
 
 	* os2compat.h: Use prefix _nlos2 instead of _os2, to avoid any
