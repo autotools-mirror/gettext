@@ -1,5 +1,16 @@
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
+	* read-mo.h: New file.
+	* read-mo.c: New file, extracted from msgunfmt.c.
+	(read_mo_file): Require non-null message list argument. Return void.
+	* msgunfmt.c (endian, read32, seek32, string32, read_mo_file): Move to
+	read-mo.c.
+	(main): Pass a fresh list, not NULL, to read_mo_file.
+	* Makefile.am (noinst_HEADERS): Add read-mo.h.
+	(msgunfmt_SOURCES): Add read-mo.c.
+
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgfmt.h (struct hashtable_entry): Remove type.
 	(verbose): New declaration.
 	* msgfmt.c (msg_domain): Add a message list field.

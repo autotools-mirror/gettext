@@ -26,7 +26,7 @@ msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h msgl-ascii.h \
-msgl-cat.h msgfmt.h write-mo.h xgettext.h x-c.h x-po.h
+msgl-cat.h msgfmt.h read-mo.h write-mo.h xgettext.h x-c.h x-po.h
 
 EXTRA_DIST = FILES
 
@@ -51,7 +51,8 @@ format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
 msgl-ascii.c
-msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c
+msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c \
+read-mo.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xgettext.c dir-list.c write-po.c \
 msgl-ascii.c file-list.c x-c.c x-po.c \
