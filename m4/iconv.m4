@@ -2,7 +2,7 @@
 
 dnl From Bruno Haible.
 
-AC_DEFUN(AM_ICONV,
+AC_DEFUN([AM_ICONV],
 [
   dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
   dnl those with the standalone portable libiconv installed).

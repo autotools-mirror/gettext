@@ -9,7 +9,7 @@
 
 undefine([AC_ISC_POSIX])
 
-AC_DEFUN(AC_ISC_POSIX,
+AC_DEFUN([AC_ISC_POSIX],
   [
     dnl This test replaces the obsolescent AC_ISC_POSIX kludge.
     AC_CHECK_LIB(cposix, strerror, [LIBS="$LIBS -lcposix"])

@@ -2,7 +2,7 @@
 
 dnl From Paul Eggert.
 
-AC_DEFUN(AC_C_BACKSLASH_A,
+AC_DEFUN([AC_C_BACKSLASH_A],
 [
   AC_CACHE_CHECK([whether backslash-a works in strings], ac_cv_c_backslash_a,
    [AC_TRY_COMPILE([],

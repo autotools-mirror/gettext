@@ -2,7 +2,7 @@
 
 dnl From Bruno Haible.
 
-AC_DEFUN(AM_LANGINFO_CODESET,
+AC_DEFUN([AM_LANGINFO_CODESET],
 [
   AC_CACHE_CHECK([for nl_langinfo and CODESET], am_cv_langinfo_codeset,
     [AC_TRY_LINK([#include <langinfo.h>],

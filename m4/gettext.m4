@@ -33,7 +33,7 @@ dnl GNU format catalogs when building on a platform with an X/Open gettext),
 dnl but we keep it in order not to force irrelevant filename changes on the
 dnl maintainers.
 dnl
-AC_DEFUN(AM_WITH_NLS,
+AC_DEFUN([AM_WITH_NLS],
   [AC_MSG_CHECKING([whether NLS is requested])
     dnl Default is enabled NLS
     AC_ARG_ENABLE(nls,
@@ -186,7 +186,7 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
   ])
 
 dnl Usage: Just like AM_WITH_NLS, which see.
-AC_DEFUN(AM_GNU_GETTEXT,
+AC_DEFUN([AM_GNU_GETTEXT],
   [AC_REQUIRE([AC_PROG_MAKE_SET])dnl
    AC_REQUIRE([AC_PROG_CC])dnl
    AC_REQUIRE([AC_CANONICAL_HOST])dnl

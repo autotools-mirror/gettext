@@ -2,7 +2,7 @@
 
 # Check for setlocale declaration.
 
-AC_DEFUN(gt_SETLOCALE,[
+AC_DEFUN([gt_SETLOCALE],[
 AC_CHECK_HEADERS([locale.h])
 AC_MSG_CHECKING([for setlocale declaration])
 AC_CACHE_VAL(gt_cv_proto_setlocale, [
