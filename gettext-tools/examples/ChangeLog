@@ -1,3 +1,8 @@
+2003-11-22  Bruno Haible  <bruno@clisp.org>
+
+	* po/ja.po: New file, from Masahito Yamaga <ma@yama-ga.com>.
+	* po/LINGUAS: Add ja.
+
 2003-11-20  Bruno Haible  <bruno@clisp.org>
 
 	* hello-*/configure.ac: Remove AM_NLS invocation.
