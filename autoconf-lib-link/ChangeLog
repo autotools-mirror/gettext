@@ -1,5 +1,10 @@
 2005-02-07  Bruno Haible  <bruno@clisp.org>
 
+	* config.rpath: Upgrade to libtool-1.5.12: support for Portland Group
+	compiler, support for DragonFly BSD, relaxed copyright permissions.
+
+2005-02-07  Bruno Haible  <bruno@clisp.org>
+
 	* config.rpath: Use 'sed' with ranges only in C locale. Needed because
 	in the et_EE locale, the letters T U V W C Y come after Z.
 	Reported by Mike Frysinger <vapier@gentoo.org>.

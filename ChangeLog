@@ -1,3 +1,22 @@
+2005-02-07  Bruno Haible  <bruno@clisp.org>
+
+	* config/ltmain.sh: Upgrade to libtool-1.5.12.
+	2003-11-27  Bruno Haible  <bruno@clisp.org>
+		* config/ltmain.sh: In the trampoline code, include string.h,
+		ctype.h, and return 127. Fixes warnings on cygwin.
+	2003-02-18  Bruno Haible  <bruno@clisp.org>
+		* config/ltmain.sh (install): Use "ln -s -f" instead of
+		"rm -f && ln -s" to make a symlink for a shared library. Take
+		care of Solaris /bin/ln.
+		Reported by Nelson H. F. Beebe <beebe@math.utah.edu>.
+	2001-11-03  Bruno Haible  <bruno@clisp.org>
+		* config/ltmain.sh: chmod 777 the .libs directory, so that
+		"make install" succeeds.
+	* config/m4/libtool.m4: Upgrade to libtool-1.5.12.
+	2004-02-22  Bruno Haible  <bruno@clisp.org>
+		* config/m4/libtool.m4: Add support for Comeau C++ on Linux.
+		Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+
 2005-02-06  Bruno Haible  <bruno@clisp.org>
 
 	* config/compile: Upgrade to automake-1.9.4.
