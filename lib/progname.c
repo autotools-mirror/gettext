@@ -39,8 +39,19 @@ set_program_name (argv0)
 {
   /* libtool creates a temporary executable whose name is prefixed with
      "lt-".  Remove this prefix here.  */
+#ifdef __BEOS__
+  /* BeOS also makes argv[0] absolute.  Remove a leading "<dirname>/lt-".  */
+  const char *slash;
+  const char *base;
+
+  slash = strrchr (argv0, '/');
+  base = (slash != NULL ? slash + 1 : argv0);
+  if (strncmp (base, "lt-", 3) == 0)
+    argv0 = base + 3;
+#else
   if (strncmp (argv0, "lt-", 3) == 0)
     argv0 += 3;
+#endif
   program_name = argv0;
 }
 

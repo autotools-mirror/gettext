@@ -1,5 +1,11 @@
 2001-10-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* hostname.c: Include "progname.h".
+	(program_name): Remove variable.
+	(main): Call set_program_name instead of setting program_name.
+
+2001-10-28  Bruno Haible  <haible@clisp.cons.org>
+
 	Create a libgettextsrc shared library.
 	* Makefile.am (lib_LTLIBRARIES): New variable.
 	(libgettextsrc_la_SOURCES): New variable.

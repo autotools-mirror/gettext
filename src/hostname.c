@@ -71,6 +71,7 @@
 #include <stdbool.h>
 
 #include "error.h"
+#include "progname.h"
 #include "basename.h"
 #include "xmalloc.h"
 #include "system.h"
@@ -81,9 +82,6 @@
 
 /* Output format.  */
 static enum { default_format, short_format, long_format, ip_format } format;
-
-/* Name the program is called with.  */
-const char *program_name;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -118,9 +116,8 @@ main (argc, argv)
   bool do_version;
 
   /* Set program name for messages.  */
-  program_name = argv[0];
-  if (strncmp (program_name, "lt-", 3) == 0)
-    program_name += 3;
+  set_program_name (argv[0]);
+  error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
