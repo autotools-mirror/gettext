@@ -1,3 +1,8 @@
+2001-09-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgfmt-6: New file.
+	* Makefile.am (TESTS): Add it.
+
 2001-10-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (TESTS): Add xgettext-15, xgettext-16.

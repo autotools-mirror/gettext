@@ -65,11 +65,11 @@ SOURCES = $(COMSRCS) intl-compat.c
 COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
 finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
 explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
-plural-exp.c localcharset.c
+plural-exp.c plural-eval.c localcharset.c
 OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
 finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
-plural.$lo plural-exp.$lo localcharset.$lo
+plural.$lo plural-exp.$lo plural-eval.$lo localcharset.$lo
 GETTOBJS = intl-compat.$lo
 DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
@@ -257,7 +257,7 @@ $(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: gettextP.h gettext.h loadinfo.h
 dcigettext.$lo: hash-string.h
 explodename.$lo l10nflist.$lo: loadinfo.h
-dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: plural-exp.h
+dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo plural-eval.$lo: plural-exp.h
 
 tags: TAGS
 

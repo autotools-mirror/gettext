@@ -20,9 +20,12 @@
 # include <config.h>
 #endif
 
+#include <ctype.h>
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
+#include <setjmp.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -36,6 +39,7 @@
 #include "getline.h"
 #include "format.h"
 #include "xmalloc.h"
+#include "plural-exp.h"
 #include "strstr.h"
 #include "system.h"
 #include "msgfmt.h"
@@ -164,6 +168,17 @@ static void usage PARAMS ((int status))
 static const char *add_mo_suffix PARAMS ((const char *));
 static struct msg_domain *new_domain PARAMS ((const char *name,
 					      const char *file_name));
+#if HAVE_SIGINFO
+static void sigfpe_handler PARAMS ((int sig, siginfo_t *sip, void *scp));
+#else
+static void sigfpe_handler PARAMS ((int sig));
+#endif
+static void install_sigfpe_handler PARAMS ((void));
+static void uninstall_sigfpe_handler PARAMS ((void));
+static void check_plural_eval PARAMS ((struct expression *plural_expr,
+				       unsigned long nplurals_value,
+				       const lex_pos_ty *header_pos));
+static void check_plural PARAMS ((message_list_ty *mlp));
 static void check_pair PARAMS ((const char *msgid, const lex_pos_ty *msgid_pos,
 				const char *msgid_plural,
 				const char *msgstr, size_t msgstr_len,
@@ -364,7 +379,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
      translations must be reported.  */
   po_lex_pass_comments (true);
 
-  /* Now write out all domains.  */
   /* Process all given .po files.  */
   while (argc > optind)
     {
@@ -379,6 +393,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       ++optind;
     }
 
+  /* Check the plural expression is present if needed and has valid syntax.  */
+  if (check_header)
+    for (domain = domain_list; domain != NULL; domain = domain->next)
+      check_plural (domain->mlp);
+
+  /* Now write out all domains.  */
   for (domain = domain_list; domain != NULL; domain = domain->next)
     {
       if (java_mode)
@@ -564,6 +584,321 @@ new_domain (name, file_name)
     }
 
   return *p_dom;
+}
+
+
+static sigjmp_buf sigfpe_exit;
+
+#if HAVE_SIGINFO
+
+static int sigfpe_code;
+
+/* Signal handler called in case of arithmetic exception (e.g. division
+   by zero) during plural_eval.  */
+static void
+sigfpe_handler (sig, sip, scp)
+     int sig;
+     siginfo_t *sip;
+     void *scp;
+{
+  sigfpe_code = sip->si_code;
+  siglongjmp (sigfpe_exit, 1);
+}
+
+#else
+
+/* Signal handler called in case of arithmetic exception (e.g. division
+   by zero) during plural_eval.  */
+static void
+sigfpe_handler (sig)
+     int sig;
+{
+  siglongjmp (sigfpe_exit, 1);
+}
+
+#endif
+
+static void
+install_sigfpe_handler ()
+{
+#if HAVE_SIGINFO
+  struct sigaction action;
+  action.sa_sigaction = sigfpe_handler;
+  action.sa_flags = SA_SIGINFO;
+  sigemptyset (&action.sa_mask);
+  sigaction (SIGFPE, &action, (struct sigaction *) NULL);
+#else
+  signal (SIGFPE, sigfpe_handler);
+#endif
+}
+
+static void
+uninstall_sigfpe_handler ()
+{
+#if HAVE_SIGINFO
+  struct sigaction action;
+  action.sa_handler = SIG_DFL;
+  action.sa_flags = 0;
+  sigemptyset (&action.sa_mask);
+  sigaction (SIGFPE, &action, (struct sigaction *) NULL);
+#else
+  signal (SIGFPE, SIG_DFL);
+#endif
+}
+
+/* Check the values returned by plural_eval.  */
+static void
+check_plural_eval (plural_expr, nplurals_value, header_pos)
+     struct expression *plural_expr;
+     unsigned long nplurals_value;
+     const lex_pos_ty *header_pos;
+{
+  if (sigsetjmp (sigfpe_exit, 1) == 0)
+    {
+      unsigned long n;
+
+      /* Protect against arithmetic exceptions.  */
+      install_sigfpe_handler ();
+
+      for (n = 0; n <= 1000; n++)
+	{
+	  unsigned long val = plural_eval (plural_expr, n);
+
+	  if ((long) val < 0)
+	    {
+	      /* End of protection against arithmetic exceptions.  */
+	      uninstall_sigfpe_handler ();
+
+	      error_with_progname = false;
+	      error_at_line (0, 0,
+			     header_pos->file_name, header_pos->line_number,
+			     _("plural expression can produce negative values"));
+	      error_with_progname = true;
+	      exit_status = EXIT_FAILURE;
+	      return;
+	    }
+	  else if (val >= nplurals_value)
+	    {
+	      /* End of protection against arithmetic exceptions.  */
+	      uninstall_sigfpe_handler ();
+
+	      error_with_progname = false;
+	      error_at_line (0, 0,
+			     header_pos->file_name, header_pos->line_number,
+			     _("nplurals = %lu but plural expression can produce values as large as %lu"),
+			     nplurals_value, val);
+	      error_with_progname = true;
+	      exit_status = EXIT_FAILURE;
+	      return;
+	    }
+	}
+
+      /* End of protection against arithmetic exceptions.  */
+      uninstall_sigfpe_handler ();
+    }
+  else
+    {
+      /* Caught an arithmetic exception.  */
+      const char *msg;
+
+      /* End of protection against arithmetic exceptions.  */
+      uninstall_sigfpe_handler ();
+
+#if HAVE_SIGINFO
+      switch (sigfpe_code)
+#endif
+	{
+#if HAVE_SIGINFO
+# ifdef FPE_INTDIV
+	case FPE_INTDIV:
+	  msg = _("plural expression can produce division by zero");
+	  break;
+# endif
+# ifdef FPE_INTOVF
+	case FPE_INTOVF:
+	  msg = _("plural expression can produce integer overflow");
+	  break;
+# endif
+	default:
+	  msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
+#endif
+	}
+
+      error_with_progname = false;
+      error_at_line (0, 0, header_pos->file_name, header_pos->line_number, msg);
+      error_with_progname = true;
+      exit_status = EXIT_FAILURE;
+    }
+}
+
+
+/* Perform plural expression checking.  */
+static void
+check_plural (mlp)
+     message_list_ty *mlp;
+{
+  const lex_pos_ty *has_plural;
+  unsigned long min_nplurals;
+  const lex_pos_ty *min_pos;
+  unsigned long max_nplurals;
+  const lex_pos_ty *max_pos;
+  size_t j;
+  message_ty *header;
+
+  /* Determine whether mlp has plural entries.  */
+  has_plural = NULL;
+  min_nplurals = ULONG_MAX;
+  min_pos = NULL;
+  max_nplurals = 0;
+  max_pos = NULL;
+  for (j = 0; j < mlp->nitems; j++) {
+    message_ty *mp = mlp->item[j];
+
+    if (mp->msgid_plural != NULL) {
+      const char *p;
+      const char *p_end;
+      unsigned long n;
+
+      if (has_plural == NULL)
+	has_plural = &mp->pos;
+
+      n = 0;
+      for (p = mp->msgstr, p_end = p + mp->msgstr_len;
+	   p < p_end;
+	   p += strlen (p) + 1)
+	n++;
+      if (min_nplurals > n) {
+	min_nplurals = n;
+	min_pos = &mp->pos;
+      }
+      if (max_nplurals > n) {
+	max_nplurals = n;
+	min_pos = &mp->pos;
+      }
+    }
+  }
+
+  /* Look at the plural entry for this domain.
+     Cf, function extract_plural_expression.  */
+  header = message_list_search (mlp, "");
+  if (header != NULL)
+    {
+      const char *nullentry;
+      const char *plural;
+      const char *nplurals;
+
+      nullentry = header->msgstr;
+
+      plural = strstr (nullentry, "plural=");
+      nplurals = strstr (nullentry, "nplurals=");
+      if (plural == NULL && has_plural != NULL)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, has_plural->file_name, has_plural->line_number,
+			 _("message catalog has plural form translations..."));
+	  --error_message_count;
+	  error_at_line (0, 0, header->pos.file_name, header->pos.line_number,
+			 _("...but header entry lacks a \"plural=EXPRESSION\" attribute"));
+	  error_with_progname = true;
+	  exit_status = EXIT_FAILURE;
+	}
+      if (nplurals == NULL && has_plural != NULL)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, has_plural->file_name, has_plural->line_number,
+			 _("message catalog has plural form translations..."));
+	  --error_message_count;
+	  error_at_line (0, 0, header->pos.file_name, header->pos.line_number,
+			 _("...but header entry lacks a \"nplurals=INTEGER\" attribute"));
+	  error_with_progname = true;
+	  exit_status = EXIT_FAILURE;
+	}
+      if (plural != NULL && nplurals != NULL)
+	{
+	  const char *endp;
+	  unsigned long int nplurals_value;
+	  struct parse_args args;
+	  struct expression *plural_expr;
+
+	  /* First check the number.  */
+	  nplurals += 9;
+	  while (*nplurals != '\0' && isspace ((unsigned char) *nplurals))
+	    ++nplurals;
+	  endp = nplurals;
+	  nplurals_value = 0;
+	  if (*nplurals >= '0' && *nplurals <= '9')
+	    nplurals_value = strtoul (nplurals, (char **) &endp, 10);
+	  if (nplurals == endp)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0,
+			     header->pos.file_name, header->pos.line_number,
+			     _("invalid nplurals value"));
+	      error_with_progname = true;
+	      exit_status = EXIT_FAILURE;
+	    }
+
+	  /* Then check the expression.  */
+	  plural += 7;
+	  args.cp = plural;
+	  if (parse_plural_expression (&args) != 0)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0,
+			     header->pos.file_name, header->pos.line_number,
+			     _("invalid plural expression"));
+	      error_with_progname = true;
+	      exit_status = EXIT_FAILURE;
+	    }
+	  plural_expr = args.res;
+
+	  /* See whether nplurals and plural fit together.  */
+	  if (exit_status != EXIT_FAILURE)
+	    check_plural_eval (plural_expr, nplurals_value, &header->pos);
+
+	  /* Check the number of plurals of the translations.  */
+	  if (exit_status != EXIT_FAILURE)
+	    {
+	      if (min_nplurals < nplurals_value)
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0,
+				 header->pos.file_name, header->pos.line_number,
+				 _("nplurals = %lu..."), nplurals_value);
+		  --error_message_count;
+		  error_at_line (0, 0, min_pos->file_name, min_pos->line_number,
+				 _("...but some messages have only %lu plural forms"),
+				 min_nplurals);
+		  error_with_progname = true;
+		  exit_status = EXIT_FAILURE;
+		}
+	      else if (max_nplurals > nplurals_value)
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0,
+				 header->pos.file_name, header->pos.line_number,
+				 _("nplurals = %lu..."), nplurals_value);
+		  --error_message_count;
+		  error_at_line (0, 0, max_pos->file_name, max_pos->line_number,
+				 _("...but some messages have %lu plural forms"),
+				 max_nplurals);
+		  error_with_progname = true;
+		  exit_status = EXIT_FAILURE;
+		}
+	      /* The only valid case is max_nplurals <= n <= min_nplurals,
+		 which means either has_plural == NULL or
+		 max_nplurals = n = min_nplurals.  */
+	    }
+	}
+    }
+  else if (has_plural != NULL)
+    {
+      error_with_progname = false;
+      error_at_line (0, 0, has_plural->file_name, has_plural->line_number,
+		     _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
+      error_with_progname = true;
+      exit_status = EXIT_FAILURE;
+    }
 }
 
 

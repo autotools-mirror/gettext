@@ -1,3 +1,13 @@
+2001-09-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-eval.c: New file.
+	* msgfmt.c: Include plural-exp.h.
+	(sigfpe_exit, sigfpe_code): New variables.
+	(sigfpe_handler, install_sigfpe_handler, uninstall_sigfpe_handler,
+	check_plural_eval, check_plural): New functions.
+	(main): Call it if --check-header is enabled.
+	* Makefile.am (msgfmt_SOURCES): Add plural-eval.c.
+
 2001-10-04  Tommy Johansson  <tommy.johansson@kanalen.org>
 
 	* x-java.l (object_list): New type.

@@ -1,4 +1,4 @@
-/* Expression parsing for plural form selection.
+/* Expression parsing and evaluation for plural form selection.
    Copyright (C) 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
@@ -92,21 +92,30 @@ struct parse_args
 # define FREE_EXPRESSION __gettext_free_exp
 # define PLURAL_PARSE __gettextparse
 # define EXTRACT_PLURAL_EXPRESSION __gettext_extract_plural
+# define PLURAL_EVAL __gettext_plural_eval
 #elif defined (IN_LIBINTL)
 # define FREE_EXPRESSION gettext_free_exp__
 # define PLURAL_PARSE gettextparse__
 # define EXTRACT_PLURAL_EXPRESSION gettext_extract_plural__
+# define PLURAL_EVAL gettext_plural_eval__
 #else
 # define FREE_EXPRESSION free_plural_expression
 # define PLURAL_PARSE parse_plural_expression
 # define EXTRACT_PLURAL_EXPRESSION extract_plural_expression
+# define PLURAL_EVAL plural_eval
 #endif
+
 extern void FREE_EXPRESSION PARAMS ((struct expression *exp))
      internal_function;
 extern int PLURAL_PARSE PARAMS ((void *arg));
 extern void EXTRACT_PLURAL_EXPRESSION PARAMS ((const char *nullentry,
 					       struct expression **pluralp,
 					       unsigned long int *npluralsp))
+     internal_function;
+
+/* Evaluate the plural expression and return an index value.  */
+extern unsigned long int PLURAL_EVAL PARAMS ((struct expression *pexp,
+					      unsigned long int n))
      internal_function;
 
 #endif /* _PLURAL_EXP_H */

@@ -66,7 +66,7 @@ format-ycp.c
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES    = msgcmp.c    $(COMMON_SOURCES)
-msgfmt_SOURCES    = msgfmt.c    $(COMMON_SOURCES) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c $(FORMAT_SOURCES)
+msgfmt_SOURCES    = msgfmt.c    $(COMMON_SOURCES) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c plural-eval.c $(FORMAT_SOURCES)
 msgmerge_SOURCES  = msgmerge.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-equal.c
 msgunfmt_SOURCES  = msgunfmt.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c read-mo.c read-java.c
 xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c file-list.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c $(FORMAT_SOURCES)

@@ -1,5 +1,14 @@
 2001-09-22  Bruno Haible  <haible@clisp.cons.org>
 
+	* plural-eval.c: New file, extracted from dcigettext.c.
+	* plural-exp.h (PLURAL_EVAL): New declaration.
+	* dcigettext.c (plural_eval): Remove function, moved to plural-eval.c.
+	(plural_lookup): Call PLURAL_EVAL instead of plural_eval.
+	* Makefile.in (COMSRCS): Add plural-eval.c.
+	(OBJECTS): Add plural-eval.$lo.
+
+2001-09-22  Bruno Haible  <haible@clisp.cons.org>
+
 	* plural-exp.c (EXTRACT_PLURAL_EXPRESSION): Reject numbers that don't
 	start with a digit; nplurals must be positive.
 
