@@ -1,3 +1,7 @@
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h (LIBGETTEXTPO_VERSION): Bump version number.
+
 2005-02-26  Bruno Haible  <bruno@clisp.org>
 
 	* format-scheme.c (format_arg_type): Add FAT_COMPLEX. Remove
