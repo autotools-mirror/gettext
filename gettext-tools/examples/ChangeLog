@@ -1,3 +1,9 @@
+2003-11-24  Bruno Haible  <bruno@clisp.org>
+
+	* po/ca.po: New file, from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* po/ro.po: New file, from Eugen Hoanca <eugenh@urban-grafx.ro>.
+	* po/LINGUAS: Add ca, ro.
+
 2003-11-22  Bruno Haible  <bruno@clisp.org>
 
 	* po/ja.po: New file, from Masahito Yamaga <ma@yama-ga.com>.
