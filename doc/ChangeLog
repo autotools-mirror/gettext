@@ -1,5 +1,11 @@
 2002-09-09  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Creating): Remove --verbose argument of msginit
+	invocation.
+	Reported by Simon Josefsson <jas@extundo.com>.
+
+2002-09-09  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Smalltalk): Update.
 	* xgettext.texi: Mention language Smalltalk.
 

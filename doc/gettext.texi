@@ -2390,7 +2390,7 @@ For example:
 @example
 $ cd @var{PACKAGE}-@var{VERSION}
 $ cd po
-$ msginit --verbose
+$ msginit
 @end example
 
 The alternative way is to do the copy and modifications by hand.
