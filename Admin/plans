@@ -6,7 +6,10 @@ Things we plan to do. Comments welcome.
 
 - Restore lib/vasprintf.c.
 
-- Remove the distinction between localedir and gnulocaledir.
+- For gcc: Making the .pot files is maintainer mode; otherwise building
+  breaks for normal users which don't have all the source.
+
+- Respect the GNU standard targets in intl/Makefile.in and po/Makefile.in.in.
 
 - gettextize needs not copy intl/ChangeLog.
 
@@ -16,14 +19,7 @@ Things we plan to do. Comments welcome.
 - Document that gettext requires the LC_MESSAGES category (or LANGUAGE
   override) and LC_CTYPE category to be set correctly via setlocale.
 
-- Marc Espie's wishlist:
-  Makefile.in.in that ships with the most recent release
-  of gettext suffers from various defects:
-  - it does not work with separate compilation, as it creates files 
-    in $(srcdir) and not in $(buildir). Reading this file, somebody must
-    be confused about what's maintainer-dependent, and what's build-dependent.
-  - it has needless dependencies on gnu-makes, which are trivial to fix.
-  - it has bogus file readability tests, which should be executability tests.
+- Merge clisp specific changes.
 
 - Make sure Admin/ directory is not distributed.
 
@@ -46,6 +42,18 @@ Things we plan to do. Comments welcome.
 
 - Unify intlh.inst.in and libgettext.h.
 
+- What about gettext_noop? Kill it or maybe apply this:
+
+   2000-03-06  Paul Eggert  <eggert@twinsun.com>
+     * libgettext.h (gettext_noop): Do not parenthesize Str in the
+     definiens, as that breaks string literal concatenation.
+
+   /* For automatical extraction of messages sometimes no real
+      translation is needed.  Instead the string itself is the result.
+      Do not parenthesize Str in the definiens,
+      as that breaks string literal concatenation.  */
+  #define gettext_noop(Str) Str
+
 - Build also libintl.so, using libtool.
 
 - Check the *.m4 macros with bleeding-edge autoconf & automake.
@@ -58,6 +66,12 @@ Things we plan to do. Comments welcome.
 - Evaluate Francois Pinard's po-utils and xpot. Takeover? Merge? Refer to?
 
 - Change bug report address to bug-gettext instead of bug-gnu-utils@gnu.org
+
+- install locale.alias from intl/, using a refcount mechanism like for
+  charset.alias
+
+- Split xgettext into a language dependent part and a language independent
+  part.
 
 Future:
 
