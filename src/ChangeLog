@@ -1,3 +1,10 @@
+2001-11-03  Bruno Haible  <haible@clisp.cons.org>
+
+	Add YCP plural form support.
+	* x-ycp.c (enum token_type_ty): New value token_type_comma.
+	(x_ycp_lex): Recognize comma.
+	(extract_ycp): Also recognize the _("singular","plural" pattern.
+
 2001-11-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt.c (check_plural_eval): Fix #if mistake.

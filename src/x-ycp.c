@@ -47,6 +47,7 @@ enum token_type_ty
   token_type_eof,
   token_type_lparen,		/* ( */
   token_type_rparen,		/* ) */
+  token_type_comma,		/* , */
   token_type_i18n,		/* _( */
   token_type_string_literal,	/* "abc" */
   token_type_other		/* number, symbol, misc. operator */
@@ -508,6 +509,10 @@ x_ycp_lex (tp)
 	  tp->type = token_type_rparen;
 	  return;
 
+	case ',':
+	  tp->type = token_type_comma;
+	  return;
+
 	default:
 	  /* We could carefully recognize each of the 2 and 3 character
 	     operators, but it is not necessary, as we only need to recognize
@@ -528,11 +533,17 @@ extract_ycp (f, real_filename, logical_filename, mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
   int state;
+  message_ty *plural_mp = NULL;	/* defined only when in states 1 and 2 */
 
-  /* The file is broken into tokens.  Look for
+  /* The file is broken into tokens.
+     Normal handling: Look for
        [A] _( [B] msgid ... )
+     Plural handling: Look for
+       [A] _( [B] msgid [C] , [D] msgid_plural ... )
      At point [A]: state == 0.
-     At point [B]: state == 1.  */
+     At point [B]: state == 1, plural_mp == NULL.
+     At point [C]: state == 2, plural_mp != NULL.
+     At point [D]: state == 1, plural_mp != NULL.  */
 
   fp = f;
   real_file_name = real_filename;
@@ -555,6 +566,7 @@ extract_ycp (f, real_filename, logical_filename, mdlp)
 	{
 	case token_type_i18n:
 	  state = 1;
+	  plural_mp = NULL;
 	  continue;
 
 	case token_type_string_literal:
@@ -564,11 +576,31 @@ extract_ycp (f, real_filename, logical_filename, mdlp)
 	      pos.file_name = logical_file_name;
 	      pos.line_number = token.line_number;
 
-	      remember_a_message (mlp, token.string, &pos);
+	      if (plural_mp == NULL)
+		{
+		  /* Seen an msgid.  */
+		  plural_mp = remember_a_message (mlp, token.string, &pos);
+		  state = 2;
+		}
+	      else
+		{
+		  /* Seen an msgid_plural.  */
+		  remember_a_message_plural (plural_mp, token.string, &pos);
+		  state = 0;
+		}
 	    }
 	  else
-	    free (token.string);
-	  state = 0;
+	    {
+	      free (token.string);
+	      state = 0;
+	    }
+	  continue;
+
+	case token_type_comma:
+	  if (state == 2)
+	    state = 1;
+	  else
+	    state = 0;
 	  continue;
 
 	case token_type_eof:
