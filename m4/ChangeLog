@@ -1,3 +1,8 @@
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_PO_SUBDIRS): Look for Rules-* files in the source dir,
+	not in the build dir.
+
 2002-01-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): If no intl directory exists and GNU

@@ -1,5 +1,10 @@
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
+	* Rules-quot (.insert-header.po-update-en): Set GETTEXTLIBDIR to an
+	absolute path, not a relative path.
+
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in.in ($(DOMAIN).pot-update): Renamed from target
 	$(srcdir)/$(DOMAIN).pot.
 	($(srcdir)/$(DOMAIN).pot): New rule, which normally does nothing.
