@@ -1,3 +1,8 @@
+2002-02-14  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (configure.in): Mention the alternative for automake
+	users. Reported by Karl Berry.
+
 2002-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Glade): New node.

@@ -5690,6 +5690,13 @@ AC_SUBST(VERSION)
 @end example
 
 @noindent
+or, if you are using GNU @code{automake}, by a line like this:
+
+@example
+AM_INIT_AUTOMAKE(gettext, @value{VERSION})
+@end example
+
+@noindent
 Of course, you replace @samp{gettext} with the name of your package,
 and @samp{@value{VERSION}} by its version numbers, exactly as they
 should appear in the packaged @code{tar} file name of your distribution
