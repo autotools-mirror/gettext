@@ -31,7 +31,7 @@
 #include "po-lex.h"
 #include "po-charset.h"
 #include "error.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "gettext.h"
 #include "read-po-abstract.h"
 
@@ -1115,7 +1115,7 @@ case 17:
 case 18:
 #line 290 "po-gram-gen.y"
 {
-		  po_callback_comment (yyvsp[0].string.string);
+		  po_callback_comment_dispatcher (yyvsp[0].string.string);
 		}
     break;
 }
