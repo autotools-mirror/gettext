@@ -504,16 +504,18 @@ AC_PREREQ([2.12])
 
 AC_DEFUN([AM_CONFIG_HEADER],
 [ifdef([AC_FOREACH],dnl
-	 [
+	 [dnl init our file count if it isn't already
+	 m4_ifndef([_AM_Config_Header_Index], m4_define([_AM_Config_Header_Index], [0]))
 	 dnl prepare to store our destination file list for use in config.status
 	 AC_FOREACH([_AM_File], [$1],
 		    [m4_pushdef([_AM_Dest], m4_patsubst(_AM_File, [:.*]))
+		    m4_define([_AM_Config_Header_Index], m4_incr(_AM_Config_Header_Index))
 		    dnl and add it to the list of files AC keeps track of, along
 		    dnl with our hook
 		    AC_CONFIG_HEADERS(_AM_File,
 dnl COMMANDS, [, INIT-CMDS]
 [# update the timestamp
-echo timestamp >"AS_ESCAPE(_AM_DIRNAME(]_AM_Dest[))/stamp-h"
+echo timestamp >"AS_ESCAPE(_AM_DIRNAME(]_AM_Dest[))/stamp-h]_AM_Config_Header_Index["
 ][$2]m4_ifval([$3], [, [$3]]))dnl AC_CONFIG_HEADERS
 		    m4_popdef([_AM_Dest])])],dnl
 [AC_CONFIG_HEADER([$1])
@@ -5121,7 +5123,7 @@ AC_DEFUN([gt_PREREQ_HOSTNAME],
   fi
 ])
 
-# gettext.m4 serial 16 (gettext-0.11.4)
+# gettext.m4 serial 18 (gettext-0.11.6)
 dnl Copyright (C) 1995-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -5539,6 +5541,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
           rm -f "$ac_dir/POTFILES"
           test -n "$as_me" && echo "$as_me: creating $ac_dir/POTFILES" || echo "creating $ac_dir/POTFILES"
           cat "$ac_given_srcdir/$ac_dir/POTFILES.in" | sed -e "/^#/d" -e "/^[ 	]*\$/d" -e "s,.*,     $top_srcdir/& \\\\," | sed -e "\$s/\(.*\) \\\\/\1/" > "$ac_dir/POTFILES"
+          POMAKEFILEDEPS="POTFILES.in"
           # ALL_LINGUAS, POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES depend
           # on $ac_dir but don't depend on user-specified configuration
           # parameters.
@@ -5550,6 +5553,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
             ALL_LINGUAS_=`sed -e "/^#/d" "$ac_given_srcdir/$ac_dir/LINGUAS"`
             # Hide the ALL_LINGUAS assigment from automake.
             eval 'ALL_LINGUAS''=$ALL_LINGUAS_'
+            POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"
           fi
           case "$ac_given_srcdir" in
             .) srcdirpre= ;;
@@ -5598,7 +5602,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
             done
           fi
           test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-          sed -e "/^POTFILES =/r $ac_dir/POTFILES" -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" -e "s|@POFILES@|$POFILES|g" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@UPDATEPOFILES@|$UPDATEPOFILES|g" -e "s|@DUMMYPOFILES@|$DUMMYPOFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          sed -e "/^POTFILES =/r $ac_dir/POTFILES" -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" -e "s|@POFILES@|$POFILES|g" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@UPDATEPOFILES@|$UPDATEPOFILES|g" -e "s|@DUMMYPOFILES@|$DUMMYPOFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" -e "s|@POMAKEFILEDEPS@|$POMAKEFILEDEPS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
           for f in "$ac_given_srcdir/$ac_dir"/Rules-*; do
             if test -f "$f"; then
               case "$f" in
@@ -5611,7 +5615,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
         ;;
       esac
     done],
-   [# Capture the value of obsolete $ALL_LINGUAS because we need it to compute
+   [# Capture the value of obsolete ALL_LINGUAS because we need it to compute
     # POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES, CATALOGS. But hide it
     # from automake.
     eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
