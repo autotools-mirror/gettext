@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.1
+# Revision: 1.2
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.12-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-02-18 19:40+0100\n"
-"PO-Revision-Date: 2003-02-22 20:04+0100\n"
+"POT-Creation-Date: 2003-03-13 13:29+0100\n"
+"PO-Revision-Date: 2003-02-26 19:42+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -152,9 +152,9 @@ msgstr "%s-barnprocess"
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s-barnprocess fick ödesdiger signal %d"
 
-#: src/format-awk.c:450 src/format-elisp.c:327 src/format-librep.c:291
-#: src/format-pascal.c:381 src/format-php.c:321 src/format-tcl.c:357
-#: src/format-ycp.c:126
+#: src/format-awk.c:493 src/format-elisp.c:341 src/format-librep.c:305
+#: src/format-pascal.c:394 src/format-php.c:341 src/format-tcl.c:380
+#: src/format-ycp.c:137
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
@@ -162,16 +162,16 @@ msgstr ""
 "formateringsdirektiv för argument \"%u\", som i \"%s\", finns inte i \"msgid"
 "\""
 
-#: src/format-awk.c:465 src/format-elisp.c:342 src/format-librep.c:306
-#: src/format-pascal.c:396 src/format-php.c:336 src/format-tcl.c:372
-#: src/format-ycp.c:125
+#: src/format-awk.c:508 src/format-elisp.c:356 src/format-librep.c:320
+#: src/format-pascal.c:409 src/format-php.c:356 src/format-tcl.c:395
+#: src/format-ycp.c:136
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "formateringsdirektiv för argument %u finns inte i \"%s\""
 
-#: src/format-awk.c:490 src/format-c.c:752 src/format-elisp.c:367
-#: src/format-librep.c:331 src/format-pascal.c:421 src/format-php.c:361
-#: src/format-python.c:498 src/format-tcl.c:397
+#: src/format-awk.c:533 src/format-c.c:825 src/format-elisp.c:381
+#: src/format-librep.c:345 src/format-pascal.c:434 src/format-php.c:381
+#: src/format-python.c:530 src/format-tcl.c:420
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
@@ -179,12 +179,131 @@ msgstr ""
 "formateringsdirektivet i \"msgid\" och \"%s\" för argument %u är inte "
 "likadana"
 
-#: src/format-c.c:738 src/format-python.c:484
+#: src/format-c.c:176
+#, c-format
+msgid ""
+"In the directive number %u, the token after '<' is not the name of a format "
+"specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."
+msgstr ""
+
+#: src/format-c.c:545
+#, c-format
+msgid "In the directive number %u, the token after '<' is not followed by '>'."
+msgstr ""
+
+#: src/format-c.c:744
+#, c-format
+msgid "The string refers to argument number %u but ignores argument number %u."
+msgstr ""
+
+#: src/format-c.c:811 src/format-python.c:516
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "antalet formateringsdirektiv i \"msgid\" och \"%s\" är olika"
 
-#: src/format-java.c:632
+#: src/format-invalid.h:23
+msgid "The string ends in the middle of a directive."
+msgstr ""
+
+#: src/format-invalid.h:26
+msgid ""
+"The string refers to arguments both through absolute argument numbers and "
+"through unnumbered argument specifications."
+msgstr ""
+
+#: src/format-invalid.h:29
+#, c-format
+msgid ""
+"In the directive number %u, the argument number 0 is not a positive integer."
+msgstr ""
+
+#: src/format-invalid.h:31
+#, c-format
+msgid ""
+"In the directive number %u, the width's argument number 0 is not a positive "
+"integer."
+msgstr ""
+
+#: src/format-invalid.h:33
+#, c-format
+msgid ""
+"In the directive number %u, the precision's argument number 0 is not a "
+"positive integer."
+msgstr ""
+
+#: src/format-invalid.h:37
+#, c-format
+msgid ""
+"In the directive number %u, the character '%c' is not a valid conversion "
+"specifier."
+msgstr ""
+
+#: src/format-invalid.h:38
+#, c-format
+msgid ""
+"The character that terminates the directive number %u is not a valid "
+"conversion specifier."
+msgstr ""
+
+#: src/format-invalid.h:41
+#, c-format
+msgid "The string refers to argument number %u in incompatible ways."
+msgstr ""
+
+#: src/format-java.c:190
+msgid ""
+"The string ends in the middle of a directive: found '{' without matching '}'."
+msgstr ""
+
+#: src/format-java.c:203
+#, c-format
+msgid "In the directive number %u, '{' is not followed by an argument number."
+msgstr ""
+
+#: src/format-java.c:236
+#, c-format
+msgid ""
+"In the directive number %u, the substring \"%s\" is not a valid date/time "
+"style."
+msgstr ""
+
+#: src/format-java.c:245 src/format-java.c:275 src/format-java.c:298
+#, c-format
+msgid "In the directive number %u, \"%s\" is not followed by a comma."
+msgstr ""
+
+#: src/format-java.c:266
+#, c-format
+msgid ""
+"In the directive number %u, the substring \"%s\" is not a valid number style."
+msgstr ""
+
+#: src/format-java.c:305
+#, c-format
+msgid ""
+"In the directive number %u, the argument number is not followed by a comma "
+"and one of \"%s\", \"%s\", \"%s\", \"%s\"."
+msgstr ""
+
+#: src/format-java.c:322
+msgid ""
+"The string starts in the middle of a directive: found '}' without matching "
+"'{'."
+msgstr ""
+
+#: src/format-java.c:546
+#, c-format
+msgid "In the directive number %u, a choice contains no number."
+msgstr ""
+
+#: src/format-java.c:557
+#, c-format
+msgid ""
+"In the directive number %u, a choice contains a number that is not followed "
+"by '<', '#' or '%s'."
+msgstr ""
+
+#: src/format-java.c:715
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
@@ -192,12 +311,12 @@ msgid ""
 msgstr ""
 "formateringsdirektiv för argument {%u}, som i \"%s\", finns inte i \"msgid\""
 
-#: src/format-java.c:647
+#: src/format-java.c:730
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "formateringsdirektiv för argument {%u} finns inte i \"%s\""
 
-#: src/format-java.c:672
+#: src/format-java.c:755
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
@@ -205,17 +324,83 @@ msgstr ""
 "formateringsdirektiv i \"msgid\" och \"%s\" för argument {%u} är inte "
 "likadana"
 
-#: src/format-lisp.c:3212
+#: src/format-lisp.c:2354 src/format-lisp.c:2366
+#, c-format
+msgid ""
+"In the directive number %u, parameter %u is of type '%s' but a parameter of "
+"type '%s' is expected."
+msgstr ""
+
+#: src/format-lisp.c:2389
+#, c-format
+msgid ""
+"In the directive number %u, too many parameters are given; expected at most %"
+"u parameters."
+msgstr ""
+
+#: src/format-lisp.c:2501
+#, c-format
+msgid "In the directive number %u, '%c' is not followed by a digit."
+msgstr ""
+
+#: src/format-lisp.c:2699
+#, c-format
+msgid "In the directive number %u, the argument %d is negative."
+msgstr ""
+
+#: src/format-lisp.c:2761
+msgid "The string ends in the middle of a ~/.../ directive."
+msgstr ""
+
+#: src/format-lisp.c:2791 src/format-lisp.c:3014 src/format-lisp.c:3120
+#: src/format-lisp.c:3169 src/format-lisp.c:3255
+#, c-format
+msgid "Found '~%c' without matching '~%c'."
+msgstr ""
+
+#: src/format-lisp.c:2807
+#, c-format
+msgid "In the directive number %u, both the @ and the : modifiers are given."
+msgstr ""
+
+#: src/format-lisp.c:2905
+#, c-format
+msgid ""
+"In the directive number %u, '~:[' is not followed by two clauses, separated "
+"by '~;'."
+msgstr ""
+
+#: src/format-lisp.c:3203
+#, c-format
+msgid "In the directive number %u, '~;' is used in an invalid position."
+msgstr ""
+
+#: src/format-lisp.c:3289
+msgid "The string refers to some argument in incompatible ways."
+msgstr ""
+
+#: src/format-lisp.c:3333
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "formateringsdirektiv i \"msgid\" och \"%s\" är inte ekvivalenta"
 
-#: src/format-lisp.c:3233
+#: src/format-lisp.c:3354
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr "formateringsdirektiv i \"%s\" är inte en delmängd av de i \"msgid\""
 
-#: src/format-python.c:375
+#: src/format-python.c:115
+msgid ""
+"The string refers to arguments both through argument names and through "
+"unnamed argument specifications."
+msgstr ""
+
+#: src/format-python.c:329
+#, c-format
+msgid "The string refers to the argument named '%s' in incompatible ways."
+msgstr ""
+
+#: src/format-python.c:407
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
@@ -223,7 +408,7 @@ msgid ""
 msgstr ""
 "formateringsdirektiv i \"msgid\" tar en avbildning, de i \"%s\" tar en tupel"
 
-#: src/format-python.c:387
+#: src/format-python.c:419
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
@@ -231,7 +416,7 @@ msgid ""
 msgstr ""
 "formateringsdirektiv i \"msgid\" tar en tupel, de i \"%s\" tar en avbildning"
 
-#: src/format-python.c:415
+#: src/format-python.c:447
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
@@ -240,18 +425,32 @@ msgstr ""
 "formateringsdirektiv för argument \"%s\", som i \"%s\", finns inte i \"msgid"
 "\""
 
-#: src/format-python.c:430
+#: src/format-python.c:462
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "formateringsdirektiv för argument \"%s\" finns inte i \"%s\""
 
-#: src/format-python.c:456
+#: src/format-python.c:488
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr ""
 "formateringsdirektiv i \"msgid\" och \"%s\" för argument \"%s\" är inte "
 "likadana"
+
+#: src/format-ycp.c:85
+#, c-format
+msgid ""
+"In the directive number %u, the character '%c' is not a digit between 1 and "
+"9."
+msgstr ""
+
+#: src/format-ycp.c:86
+#, c-format
+msgid ""
+"The character that terminates the directive number %u is not a digit between "
+"1 and 9."
+msgstr ""
 
 #: src/hostname.c:171 src/msgattrib.c:285 src/msgcat.c:235 src/msgcmp.c:125
 #: src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177 src/msgexec.c:159
@@ -284,7 +483,7 @@ msgstr "för många argument"
 
 #: src/hostname.c:199 src/msgattrib.c:346 src/msgcat.c:295 src/msgcmp.c:161
 #: src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232 src/msgexec.c:216
-#: src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394 src/msginit.c:320
+#: src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:403 src/msginit.c:320
 #: src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274 src/urlget.c:156
 #: src/xgettext.c:600
 #, c-format
@@ -316,7 +515,7 @@ msgstr ""
 "  -i, --ip-address      adresser för värdnamnet\n"
 
 #: src/hostname.c:223 src/msgattrib.c:424 src/msgcmp.c:200 src/msgconv.c:307
-#: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
+#: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:487
 #: src/msginit.c:367 src/urlget.c:172
 #, no-wrap
 msgid ""
@@ -330,7 +529,7 @@ msgstr ""
 
 #: src/hostname.c:229 src/msgattrib.c:430 src/msgcat.c:378 src/msgcmp.c:206
 #: src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294 src/msgexec.c:260
-#: src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484 src/msginit.c:373
+#: src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:493 src/msginit.c:373
 #: src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350 src/urlget.c:178
 #: src/xgettext.c:706
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
@@ -358,7 +557,7 @@ msgstr "högst en infil tillåten"
 msgid "%s and %s are mutually exclusive"
 msgstr "%s och %s är ömsesidigt uteslutande"
 
-#: src/msgattrib.c:351 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
+#: src/msgattrib.c:351 src/msgconv.c:252 src/msggrep.c:408 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Användning: %s [FLAGGA] [INFIL]\n"
@@ -374,13 +573,13 @@ msgstr ""
 
 #: src/msgattrib.c:362 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
 #: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
-#: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:408
+#: src/msgfmt.c:512 src/msggrep.c:419 src/msginit.c:336 src/msgmerge.c:408
 #: src/msgunfmt.c:329 src/msguniq.c:296
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Obligatoriska argument för långa flaggor är obligatoriska även för korta.\n"
 
-#: src/msgattrib.c:367 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
+#: src/msgattrib.c:367 src/msgconv.c:267 src/msggrep.c:424 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -394,7 +593,7 @@ msgstr ""
 "Om ingen infil är given eller om den är - läses standard in.\n"
 
 #: src/msgattrib.c:375 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
-#: src/msggrep.c:423 src/msgmerge.c:430
+#: src/msggrep.c:432 src/msgmerge.c:430
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -664,15 +863,15 @@ msgstr ""
 "Bearbetningsvarianter:\n"
 "  -m, --multi-domain          tillämpa ref.pot till alla domäner i def.po\n"
 
-#: src/msgcmp.c:265 src/msgmerge.c:881
+#: src/msgcmp.c:265 src/msgmerge.c:888
 msgid "this message is used but not defined..."
 msgstr "detta meddelande används men är inte definierat..."
 
-#: src/msgcmp.c:267 src/msgmerge.c:883
+#: src/msgcmp.c:267 src/msgmerge.c:890
 msgid "...but this definition is similar"
 msgstr "...men denna definition är likartad"
 
-#: src/msgcmp.c:272 src/msgmerge.c:910
+#: src/msgcmp.c:272 src/msgmerge.c:917
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "detta meddelande används men är inte definierat i %s"
@@ -831,12 +1030,12 @@ msgid "Usage: %s [OPTION] INPUTFILE\n"
 msgstr "Användning: %s [FLAGGA] INFIL\n"
 
 #: src/msgen.c:242
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
 "created English PO file, or a PO Template file (generally created by\n"
 "xgettext).  Untranslated entries are assigned a translation that is\n"
-"identical to the msgid, and are marked fuzzy.\n"
+"identical to the msgid.\n"
 msgstr ""
 "Skapar en engelsk meddelandekatalog.  Infilen är den senast skapade\n"
 "engelska PO-filen eller en PO-mönsterfil (ofta skapad med xgettext).\n"
@@ -1298,101 +1497,101 @@ msgstr "\"msgid\"- och \"msgstr\"-raderna slutar inte båda med \"\\n\""
 msgid "plural handling is a GNU gettext extension"
 msgstr "hantering av plural är en utökning i GNU gettext"
 
-#: src/msgfmt.c:1159
-#, c-format
-msgid "'%s' is not a valid %s format string, unlike 'msgid'"
+#: src/msgfmt.c:1161
+#, fuzzy, c-format
+msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr ""
 "\"%s\" är inte en giltig formatsträng i %s, till skillnad från \"msgid\""
 
-#: src/msgfmt.c:1197
+#: src/msgfmt.c:1203
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "msgstr saknar märket \"%c\" för tangentkortkommandon"
 
-#: src/msgfmt.c:1205
+#: src/msgfmt.c:1211
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr har för många märken \"%c\" för tangentkortkommandon"
 
-#: src/msgfmt.c:1239
+#: src/msgfmt.c:1245
 #, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "huvudrad \"%s\" saknas i huvudet\n"
 
-#: src/msgfmt.c:1243
+#: src/msgfmt.c:1249
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "huvudrad \"%s\" bör ligga i början på raden\n"
 
-#: src/msgfmt.c:1254
+#: src/msgfmt.c:1260
 msgid "some header fields still have the initial default value\n"
 msgstr "vissa huvudrader har kvar initiala standardvärden\n"
 
-#: src/msgfmt.c:1266
+#: src/msgfmt.c:1272
 #, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "huvudrad \"%s\" har kvar initialt standardvärde\n"
 
-#: src/msgfmt.c:1306
+#: src/msgfmt.c:1312
 msgid "warning: PO file header missing or invalid\n"
 msgstr "varning: PO-filens huvudrader saknas eller är ogiltiga\n"
 
-#: src/msgfmt.c:1309
+#: src/msgfmt.c:1315
 msgid "warning: charset conversion will not work\n"
 msgstr ""
 "varning: konvertering till användarens teckenuppsättning kommer att "
 "misslyckas.\n"
 
-#: src/msgfmt.c:1319
+#: src/msgfmt.c:1325
 msgid "warning: PO file header fuzzy\n"
 msgstr "varning: PO-filens huvudrader är luddiga\n"
 
-#: src/msgfmt.c:1321
+#: src/msgfmt.c:1327
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "varning: äldre versioner av msgfmt ger ett fel för detta\n"
 
-#: src/msgfmt.c:1344
+#: src/msgfmt.c:1350
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "domännamnet \"%s\" är inte lämpligt som filnamn"
 
-#: src/msgfmt.c:1349
+#: src/msgfmt.c:1355
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "domännamnet \"%s\" är inte lämpligt som filnamn: använder ett prefix"
 
-#: src/msgfmt.c:1360
+#: src/msgfmt.c:1366
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktivet \"domain %s\" ignoreras"
 
-#: src/msgfmt.c:1396 src/read-po.c:176 src/x-po.c:139
+#: src/msgfmt.c:1402 src/read-po.c:176 src/x-po.c:139
 msgid "duplicate message definition"
 msgstr "meddelandedefinitionen är dubblerad"
 
-#: src/msgfmt.c:1397 src/read-po.c:177 src/x-po.c:140
+#: src/msgfmt.c:1403 src/read-po.c:177 src/x-po.c:140
 msgid "...this is the location of the first definition"
 msgstr "...detta är platsen för den första definitionen"
 
-#: src/msgfmt.c:1431
+#: src/msgfmt.c:1437
 msgid "empty `msgstr' entry ignored"
 msgstr "tom \"msgstr\"-rad ignorerad"
 
-#: src/msgfmt.c:1432
+#: src/msgfmt.c:1438
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "luddig \"msgstr\"-rad ignorerad"
 
-#: src/msgfmt.c:1499
+#: src/msgfmt.c:1505
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: varning: källfilen innehåller luddiga översättningar"
 
-#: src/msggrep.c:383
+#: src/msggrep.c:392
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr "flagga \"%c\" kan inte användas förrän \"K\" eller \"T\" angivits"
 
-#: src/msggrep.c:404
+#: src/msggrep.c:413
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1401,7 +1600,7 @@ msgstr ""
 "Extraherar alla meddelanden i en meddelandekatalog som matchar ett visst\n"
 "mönster eller hör till någon given källkodsfil.\n"
 
-#: src/msggrep.c:431
+#: src/msggrep.c:440
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1459,7 +1658,7 @@ msgstr ""
 "  -f, --file=FIL              hämta MÖNSTER från FIL\n"
 "  -i, --ignore-case           versaler och gemener jämförs lika\n"
 
-#: src/msggrep.c:461
+#: src/msggrep.c:470
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1492,7 +1691,7 @@ msgstr ""
 "      --sort-output           sortera resultatet\n"
 "      --sort-by-file          sortera resultatet efter filposition\n"
 
-#: src/msggrep.c:545
+#: src/msggrep.c:554
 msgid "write to grep subprocess failed"
 msgstr "skrivning till grep barnprocess misslyckades"
 
@@ -1661,7 +1860,7 @@ msgstr "målteckenuppsättning \"%s\" är inte ett portabelt kodningsnamn"
 
 #: src/msgl-cat.c:412 src/msgl-cat.c:418 src/msgl-charset.c:90
 #: src/msgl-charset.c:125 src/write-po.c:757 src/write-po.c:849
-#: src/xgettext.c:1259
+#: src/xgettext.c:1267
 msgid "warning: "
 msgstr "varning: "
 
@@ -1874,15 +2073,15 @@ msgstr ""
 "  -v, --verbose               öka mängden information i meddelanden\n"
 "  -q, --quiet, --silent       visa inte framstegsindikatorer\n"
 
-#: src/msgmerge.c:963
+#: src/msgmerge.c:970
 msgid "this message should define plural forms"
 msgstr "detta meddelande ska definiera pluralformer"
 
-#: src/msgmerge.c:986
+#: src/msgmerge.c:993
 msgid "this message should not define plural forms"
 msgstr "detta meddelande ska inte definiera pluralformer"
 
-#: src/msgmerge.c:1148
+#: src/msgmerge.c:1155
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -1891,7 +2090,7 @@ msgstr ""
 "%sLäste %ld gamla + %ld referenser, %ld sammanslagna, %ld luddiga, %ld "
 "saknade, %ld föråldrade.\n"
 
-#: src/msgmerge.c:1156
+#: src/msgmerge.c:1163
 msgid " done.\n"
 msgstr " klar.\n"
 
@@ -2114,27 +2313,27 @@ msgstr ""
 "Meddelandekonvertering till användarens teckenuppsättning kommer att "
 "misslyckas.\n"
 
-#: po-gram-gen.y:92
+#: src/po-gram-gen.y:92
 msgid "inconsistent use of #~"
 msgstr "inkonsekvent användning av #~"
 
-#: po-gram-gen.y:182
+#: src/po-gram-gen.y:182
 msgid "missing `msgstr[]' section"
 msgstr "\"msgstr[]\"-delen saknas"
 
-#: po-gram-gen.y:190
+#: src/po-gram-gen.y:190
 msgid "missing `msgid_plural' section"
 msgstr "\"msgid_plural\"-delen saknas"
 
-#: po-gram-gen.y:197
+#: src/po-gram-gen.y:197
 msgid "missing `msgstr' section"
 msgstr "\"msgstr\"-delen saknas"
 
-#: po-gram-gen.y:242
+#: src/po-gram-gen.y:242
 msgid "first plural form has nonzero index"
 msgstr "första pluralformen har index som inte är noll"
 
-#: po-gram-gen.y:244
+#: src/po-gram-gen.y:244
 msgid "plural form has wrong index"
 msgstr "pluralform har fel index"
 
@@ -2161,7 +2360,7 @@ msgstr "iconv misslyckades"
 
 #: src/po-lex.c:682 src/read-mo.c:79 src/x-awk.c:155 src/x-c.c:260
 #: src/x-elisp.c:142 src/x-glade.c:362 src/x-librep.c:144 src/x-lisp.c:204
-#: src/x-php.c:160 src/x-python.c:174 src/x-rst.c:225 src/x-smalltalk.c:106
+#: src/x-php.c:160 src/x-python.c:178 src/x-rst.c:225 src/x-smalltalk.c:106
 #: src/x-tcl.c:145 src/x-ycp.c:94
 #, c-format
 msgid "error while reading \"%s\""
@@ -2297,10 +2496,10 @@ msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
 msgstr ""
-"meddelandekatalog har översättningar med pluralformer, men formatet för Tcl\n"
-"meddelandekataloger stöder inte pluralhantering\n"
+"meddelandekatalog har översättningar med pluralformer, men formatet för\n"
+"Tcl-meddelandekataloger stöder inte pluralhantering\n"
 
-#: src/x-awk.c:325 src/x-python.c:365
+#: src/x-awk.c:325 src/x-python.c:369
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: varning: oavslutad sträng"
@@ -2338,7 +2537,7 @@ msgstr ""
 msgid "this file may not contain domain directives"
 msgstr "denna fil kan inte innehålla domändirektiv"
 
-#: src/x-python.c:565
+#: src/x-python.c:569
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: varning: ogiltigt Unicodetecken"
@@ -2538,7 +2737,7 @@ msgstr ""
 "gettext(\"\") returnerar huvudet med metainformation,\n"
 "inte den tomma strängen.\n"
 
-#: src/xgettext.c:1260
+#: src/xgettext.c:1268
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a `Makevars' file, please specify\n"
@@ -2550,7 +2749,7 @@ msgstr ""
 "på variabeln MSGID_BUGS_ADDRESS där, annars ange\n"
 "flaggan --msgid-bugs-address på kommandoraden.\n"
 
-#: src/xgettext.c:1430
+#: src/xgettext.c:1438
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"
