@@ -81,7 +81,7 @@ msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.12-pre4\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-05-06 14:06+0200\n"
-"PO-Revision-Date: 2003-05-06 22:37+0200\n"
+"PO-Revision-Date: 2003-05-07 22:38+0200\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -862,17 +862,10 @@ msgstr ""
 #: src/msgattrib.c:447 src/msgcat.c:394 src/msgcomm.c:395 src/msgconv.c:326
 #: src/msgen.c:302 src/msgfilter.c:422 src/msggrep.c:503 src/msginit.c:381
 #: src/msgmerge.c:499 src/msgunfmt.c:392 src/msguniq.c:360 src/xgettext.c:707
-#, fuzzy
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
-"Details zur Ausgabe:\n"
-"  -l, --locale=LL_CC          Lokale für die Ausgabe setzen\n"
-"      --no-translator         automatische Erstellung der PO-Datei annehmen\n"
 "  -w, --width=ANZAHL          Breite der Ausgabe auf ANZAHL Spalten "
 "festlegen\n"
-"      --no-wrap               lange Zeilen in Meldungen, die länger als die\n"
-"                                Breite der Ausgabe sind, nicht auf mehrere\n"
-"                                Zeilen umbrechen\n"
 
 #: src/msgattrib.c:449 src/msgcat.c:396 src/msgcomm.c:397 src/msgconv.c:328
 #: src/msgen.c:304 src/msgfilter.c:424 src/msggrep.c:505 src/msginit.c:383
@@ -971,7 +964,7 @@ msgstr ""
 
 #: src/msgcat.c:373 src/msgconv.c:298 src/msguniq.c:339
 msgid "  -t, --to-code=NAME          encoding for output\n"
-msgstr ""
+msgstr "  -t, --to-code=NAME          Kodierung für die Ausgabe\n"
 
 #: src/msgcat.c:375 src/msguniq.c:341
 msgid ""
@@ -1099,16 +1092,12 @@ msgstr ""
 "konvertieren.\n"
 
 #: src/msgconv.c:296
-#, fuzzy
 msgid "Conversion target:\n"
-msgstr "Fehler bei der Konvertierung"
+msgstr "Zielformat der Konvertierung:\n"
 
 #: src/msgconv.c:300
-#, fuzzy
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr ""
-"Zielformat der Konvertierung:\n"
-"  -t, --to-code=NAME          Kodierung für die Ausgabe\n"
 "Die Vorgabe für die Kodierung ist die Kodierung der aktuellen Lokale.\n"
 
 #: src/msgconv.c:316 src/msgen.c:292 src/msgmerge.c:489
@@ -1498,24 +1487,17 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr ""
 
 #: src/msgfmt.c:592
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 msgstr ""
-"Details zur Ausgabe:\n"
 "  -a, --alignment=ZAHL          Ausgaben an ZAHL (Vorgabe: %d) Bytegrenze\n"
 "                                  ausrichten\n"
-"      --no-hash                 Binärdatei soll keine Hash-Tabelle "
-"enthalten\n"
 
 #: src/msgfmt.c:594
-#, fuzzy
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
-"Details zur Ausgabe:\n"
-"  -a, --alignment=ZAHL          Ausgaben an ZAHL (Vorgabe: %d) Bytegrenze\n"
-"                                  ausrichten\n"
 "      --no-hash                 Binärdatei soll keine Hash-Tabelle "
 "enthalten\n"
 
@@ -1637,9 +1619,10 @@ msgid "plural handling is a GNU gettext extension"
 msgstr "Die Plural-Behandlung ist eine Erweiterung von GNU gettext"
 
 #: src/msgfmt.c:1178
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
-msgstr "»%s« ist ein ungültiges Formatelement %s, im Vergleich zu »msgid«"
+msgstr ""
+"»%s« ist ein ungültiges Formatelement %s, im Vergleich zu »msgid«. Grund: %s"
 
 #: src/msgfmt.c:1220
 #, c-format
@@ -1858,17 +1841,14 @@ msgstr ""
 
 #: src/msginit.c:354
 msgid "  -i, --input=INPUTFILE       input POT file\n"
-msgstr ""
+msgstr "  -i, --input=EINGABEDATEI    POT-Eingabedatei\n"
 
 #: src/msginit.c:356
-#, fuzzy
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
 "file.\n"
 "If it is -, standard input is read.\n"
 msgstr ""
-"Angaben zu Eingabedateien:\n"
-"  -i, --input=EINGABEDATEI    POT-Eingabedatei\n"
 "Wenn keine Eingabedatei angegeben ist, wird im akutellen Verzeichnis nach "
 "der\n"
 "POT-Datei gesucht.  Wenn die Eingabedatei »-« ist, wird die Standardeingabe\n"
@@ -1879,13 +1859,10 @@ msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr ""
 
 #: src/msginit.c:364
-#, fuzzy
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
 "locale setting.  If it is -, the results are written to standard output.\n"
 msgstr ""
-"Angaben zu Ausgabedateien:\n"
-"  -o, --output-file=DATEI      Ausgabe in die angegebene PO-DATEI schreiben\n"
 "Wenn keine Ausgabedatei angegeben ist, hängt das Ergebnis von der Option\n"
 "»--locale« oder von den Lokale-Einstellungen des Benutzers ab.\n"
 "Ergebnisse werden nach der Standardausgabe geschrieben, wenn »-« angegeben "
@@ -1893,7 +1870,7 @@ msgstr ""
 
 #: src/msginit.c:375
 msgid "  -l, --locale=LL_CC          set target locale\n"
-msgstr ""
+msgstr "  -l, --locale=LL_CC          Lokale für die Ausgabe setzen\n"
 
 #: src/msginit.c:377
 msgid ""
@@ -2141,12 +2118,10 @@ msgid ""
 msgstr ""
 
 #: src/msgmerge.c:437
-#, fuzzy
 msgid ""
 "  -U, --update                update def.po,\n"
 "                              do nothing if def.po already up to date\n"
 msgstr ""
-"Art der Verarbeitung:\n"
 "  -U, --update                Def.po aktualisieren; nichts unternehmen,\n"
 "                                wenn Def.po bereits aktuell ist\n"
 
@@ -2249,27 +2224,18 @@ msgstr ""
 "umwandeln.\n"
 
 #: src/msgunfmt.c:337
-#, fuzzy
 msgid ""
 "  -j, --java                  Java mode: input is a Java ResourceBundle "
 "class\n"
 msgstr ""
-"Art der Verarbeitung:\n"
 "  -j, --java               Java-Modus: Eingabe ist eine ResourceBundle-"
 "Klasse\n"
 "                             für Java erstellen\n"
-"      --tcl                Tcl-Modus: Eingabe ist eine tcl/msgcat .msg-"
-"Datei\n"
 
 #: src/msgunfmt.c:339
-#, fuzzy
 msgid ""
 "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
-"Art der Verarbeitung:\n"
-"  -j, --java               Java-Modus: Eingabe ist eine ResourceBundle-"
-"Klasse\n"
-"                             für Java erstellen\n"
 "      --tcl                Tcl-Modus: Eingabe ist eine tcl/msgcat .msg-"
 "Datei\n"
 
@@ -2341,8 +2307,14 @@ msgstr ""
 "der Option --unique werden doppelte Einträge verworfen.\n"
 
 #: src/msguniq.c:327
+#, fuzzy
 msgid "  -d, --repeated              print only duplicates\n"
 msgstr ""
+"Auswahl der Meldungen:\n"
+"  -d, --repeated                 nur doppelte Einträge ausgeben\n"
+"  -u, --unique                   nur nicht-doppelte Einträge ausgeben, "
+"doppelte\n"
+"                                   verwerfen\n"
 
 #: src/msguniq.c:329
 #, fuzzy
@@ -2732,12 +2704,10 @@ msgid ""
 msgstr ""
 
 #: src/xgettext.c:647
-#, fuzzy
 msgid "Choice of input file language:\n"
-msgstr "Eingabedatei fehlt"
+msgstr "Wahl der Sprache für die Eingabedatei:\n"
 
 #: src/xgettext.c:649
-#, fuzzy
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Python, Lisp,\n"
@@ -2745,25 +2715,23 @@ msgid ""
 "                                JavaProperties, awk, YCP, Tcl, PHP, RST, "
 "Glade)\n"
 msgstr ""
-"Wahl der Sprache für die Eingabedatei:\n"
 "  -L, --language=NAME            angegebene Programmiersprache erkennen\n"
 "                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
 "                                   EmacsLisp, librep, Smalltalk, Java, awk,\n"
 "                                   YCP, Tcl, PHP, RST, Glade)\n"
-"  -C, --c++                      Abkürzung für --language=C++\n"
-"Gemäß Vorgabe wird die Sprache anhand des Suffixes des Namens der "
-"Eingabedatei\n"
-"geraten.\n"
 
 #: src/xgettext.c:654
 msgid "  -C, --c++                   shorthand for --language=C++\n"
-msgstr ""
+msgstr "  -C, --c++                      Abkürzung für --language=C++\n"
 
 #: src/xgettext.c:656
 msgid ""
 "By default the language is guessed depending on the input file name "
 "extension.\n"
 msgstr ""
+"Gemäß Vorgabe wird die Sprache anhand des Suffixes des Namens der "
+"Eingabedatei\n"
+"geraten.\n"
 
 #: src/xgettext.c:661
 #, fuzzy
