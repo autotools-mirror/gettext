@@ -1,5 +1,11 @@
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.vms: Avoid rules with no lines. Don't use the force target.
+	Correct wildcard syntax.
+	Suggested by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (docdir): Use datadir instead of prefix.
 	* Makefile.msvc (datadir): New variable.
 	(mandir, docdir): Use it instead of prefix.

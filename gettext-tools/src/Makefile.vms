@@ -19,11 +19,16 @@ projectsdir = $(pkgdatadir).projects
 
 CC = cc
 
+# These flags affect binary compatibility. GNU gettext does not need them,
+# but other packages do, and we need to be binary compatible with them.
+ABIFLAGS = /name=(as_is,short) /float=ieee
+
 WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","GETTEXTJAR=""$(jardir)]gettext.jar""","LIBDIR=""$(libdir)]""","GETTEXTDATADIR=""$(pkgdatadir)]""","PROJECTSDIR=""$(projectsdir)""")
+CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+DEFS = "VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","GETTEXTJAR=""$(jardir)]gettext.jar""","LIBDIR=""$(libdir)]""","GETTEXTDATADIR=""$(pkgdatadir)]""","PROJECTSDIR=""$(projectsdir)"""
 
 INCLUDES = /include=([],[-],[-.libuniname],[-.lib],[-.intl],[-.-.gettext-runtime.intl])
 
@@ -97,271 +102,271 @@ msginit_OBJECTS = msginit.obj, localealias.obj
 msguniq_OBJECTS = msguniq.obj
 
 all : gettextsrc.olb,$(PROGRAMS)
+	write sys$output "Nothing else to be done for 'all'."
 
 # Compilation rules for $(OBJECTS).
 
 message.obj : message.c
-	$(CC) $(INCLUDES) $(CFLAGS) message.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) message.c
 
 po.obj : po.c
-	$(CC) $(INCLUDES) $(CFLAGS) po.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po.c
 
 po-lex.obj : po-lex.c
-	$(CC) $(INCLUDES) $(CFLAGS) po-lex.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po-lex.c
 
 po-gram-gen.obj : po-gram-gen.c
-	$(CC) $(INCLUDES) $(CFLAGS) po-gram-gen.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po-gram-gen.c
 
 po-hash-gen.obj : po-hash-gen.c
-	$(CC) $(INCLUDES) $(CFLAGS) po-hash-gen.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po-hash-gen.c
 
 po-charset.obj : po-charset.c
-	$(CC) $(INCLUDES) $(CFLAGS) po-charset.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po-charset.c
 
 open-po.obj : open-po.c
-	$(CC) $(INCLUDES) $(CFLAGS) open-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) open-po.c
 
 dir-list.obj : dir-list.c
-	$(CC) $(INCLUDES) $(CFLAGS) dir-list.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) dir-list.c
 
 str-list.obj : str-list.c
-	$(CC) $(INCLUDES) $(CFLAGS) str-list.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) str-list.c
 
 read-po.obj : read-po.c
-	$(CC) $(INCLUDES) $(CFLAGS) read-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-po.c
 
 write-po.obj : write-po.c
-	$(CC) $(INCLUDES) $(CFLAGS) write-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-po.c
 
 msgl-ascii.obj : msgl-ascii.c
-	$(CC) $(INCLUDES) $(CFLAGS) msgl-ascii.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) msgl-ascii.c
 
 msgl-iconv.obj : msgl-iconv.c
-	$(CC) $(INCLUDES) $(CFLAGS) msgl-iconv.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) msgl-iconv.c
 
 msgl-equal.obj : msgl-equal.c
-	$(CC) $(INCLUDES) $(CFLAGS) msgl-equal.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) msgl-equal.c
 
 msgl-cat.obj : msgl-cat.c
-	$(CC) $(INCLUDES) $(CFLAGS) msgl-cat.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) msgl-cat.c
 
 msgl-english.obj : msgl-english.c
-	$(CC) $(INCLUDES) $(CFLAGS) msgl-english.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) msgl-english.c
 
 file-list.obj : file-list.c
-	$(CC) $(INCLUDES) $(CFLAGS) file-list.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) file-list.c
 
 msgl-charset.obj : msgl-charset.c
-	$(CC) $(INCLUDES) $(CFLAGS) msgl-charset.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) msgl-charset.c
 
 po-time.obj : po-time.c
-	$(CC) $(INCLUDES) $(CFLAGS) po-time.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po-time.c
 
 plural.obj : plural.c
-	$(CC) $(INCLUDES) $(CFLAGS) plural.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) plural.c
 
 plural-table.obj : plural-table.c
-	$(CC) $(INCLUDES) $(CFLAGS) plural-table.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) plural-table.c
 
 format.obj : format.c
-	$(CC) $(INCLUDES) $(CFLAGS) format.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format.c
 
 format-c.obj : format-c.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-c.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-c.c
 
 format-python.obj : format-python.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-python.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-python.c
 
 format-lisp.obj : format-lisp.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-lisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-lisp.c
 
 format-elisp.obj : format-elisp.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-elisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-elisp.c
 
 format-librep.obj : format-librep.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-librep.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-librep.c
 
 format-java.obj : format-java.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-java.c
 
 format-awk.obj : format-awk.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-awk.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-awk.c
 
 format-pascal.obj : format-pascal.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-pascal.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-pascal.c
 
 format-ycp.obj : format-ycp.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-ycp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-ycp.c
 
 format-tcl.obj : format-tcl.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-tcl.c
 
 format-php.obj : format-php.c
-	$(CC) $(INCLUDES) $(CFLAGS) format-php.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) format-php.c
 
 gettextsrc.olb : $(OBJECTS)
-	$(RM) gettextsrc.olb
 	$(AR) $(AR_FLAGS) gettextsrc.olb $(OBJECTS)
 
 # Compilation rules for $(program_OBJECTS).
 
 msgcmp.obj : msgcmp.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgcmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgcmp.c
 
 msgfmt.obj : msgfmt.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgfmt.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgfmt.c
 
 write-mo.obj : write-mo.c
-	$(CC) $(INCLUDES) $(CFLAGS) write-mo.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-mo.c
 
 write-java.obj : write-java.c
-	$(CC) $(INCLUDES) $(CFLAGS) write-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-java.c
 
 write-tcl.obj : write-tcl.c
-	$(CC) $(INCLUDES) $(CFLAGS) write-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) write-tcl.c
 
 plural-eval.obj : plural-eval.c
-	$(CC) $(INCLUDES) $(CFLAGS) plural-eval.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) plural-eval.c
 
 msgmerge.obj : msgmerge.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgmerge.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgmerge.c
 
 msgunfmt.obj : msgunfmt.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgunfmt.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgunfmt.c
 
 read-mo.obj : read-mo.c
-	$(CC) $(INCLUDES) $(CFLAGS) read-mo.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-mo.c
 
 read-java.obj : read-java.c
-	$(CC) $(INCLUDES) $(CFLAGS) read-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-java.c
 
 read-tcl.obj : read-tcl.c
-	$(CC) $(INCLUDES) $(CFLAGS) read-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-tcl.c
 
 xgettext.obj : xgettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") xgettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") xgettext.c
 
 x-c.obj : x-c.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-c.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-c.c
 
 x-po.obj : x-po.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-po.c
 
 x-python.obj : x-python.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-python.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-python.c
 
 x-lisp.obj : x-lisp.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-lisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-lisp.c
 
 x-elisp.obj : x-elisp.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-elisp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-elisp.c
 
 x-librep.obj : x-librep.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-librep.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-librep.c
 
 x-smalltalk.obj : x-smalltalk.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-smalltalk.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-smalltalk.c
 
 x-java.obj : x-java.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-java.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-java.c
 
 x-awk.obj : x-awk.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-awk.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-awk.c
 
 x-ycp.obj : x-ycp.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-ycp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-ycp.c
 
 x-tcl.obj : x-tcl.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-tcl.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-tcl.c
 
 x-php.obj : x-php.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-php.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-php.c
 
 x-rst.obj : x-rst.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-rst.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-rst.c
 
 x-glade.obj : x-glade.c
-	$(CC) $(INCLUDES) $(CFLAGS) x-glade.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) x-glade.c
 
 msgattrib.obj : msgattrib.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgattrib.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgattrib.c
 
 msgcat.obj : msgcat.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgcat.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgcat.c
 
 msgcomm.obj : msgcomm.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgcomm.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgcomm.c
 
 msgconv.obj : msgconv.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgconv.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgconv.c
 
 msgen.obj : msgen.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgen.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgen.c
 
 msgexec.obj : msgexec.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgexec.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgexec.c
 
 msgfilter.obj : msgfilter.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgfilter.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msgfilter.c
 
 msggrep.obj : msggrep.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msggrep.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msggrep.c
 
 msginit.obj : msginit.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msginit.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msginit.c
 
 localealias.obj : [-.-.gettext-runtime.intl]localealias.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("LOCALE_ALIAS_PATH=""$(aliaspath)]""") [-.-.gettext-runtime.intl]localealias.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"LOCALE_ALIAS_PATH=""$(aliaspath)]""") [-.-.gettext-runtime.intl]localealias.c
 
 msguniq.obj : msguniq.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msguniq.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msguniq.c
 
 msgcmp.exe : $(msgcmp_OBJECTS)
-	link /executable=msgcmp.exe $(msgcmp_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgcmp.exe $(msgcmp_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgfmt.exe : $(msgfmt_OBJECTS)
-	link /executable=msgfmt.exe $(msgfmt_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgfmt.exe $(msgfmt_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgmerge.exe : $(msgmerge_OBJECTS)
-	link /executable=msgmerge.exe $(msgmerge_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgmerge.exe $(msgmerge_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgunfmt.exe : $(msgunfmt_OBJECTS)
-	link /executable=msgunfmt.exe $(msgunfmt_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgunfmt.exe $(msgunfmt_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 xgettext.exe : $(xgettext_OBJECTS)
-	link /executable=xgettext.exe $(xgettext_OBJECTS) [-.libuniname]uniname.olb gettextsrc.olb $(LDADD_EXPAT) $(LDADD)
+	link /executable=xgettext.exe $(xgettext_OBJECTS),[-.libuniname]uniname.olb/lib,gettextsrc.olb/lib,$(LDADD_EXPAT),$(LDADD)
 
 msgattrib.exe : $(msgattrib_OBJECTS)
-	link /executable=msgattrib.exe $(msgattrib_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgattrib.exe $(msgattrib_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgcat.exe : $(msgcat_OBJECTS)
-	link /executable=msgcat.exe $(msgcat_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgcat.exe $(msgcat_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgcomm.exe : $(msgcomm_OBJECTS)
-	link /executable=msgcomm.exe $(msgcomm_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgcomm.exe $(msgcomm_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgconv.exe : $(msgconv_OBJECTS)
-	link /executable=msgconv.exe $(msgconv_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgconv.exe $(msgconv_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgen.exe : $(msgen_OBJECTS)
-	link /executable=msgen.exe $(msgen_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgen.exe $(msgen_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgexec.exe : $(msgexec_OBJECTS)
-	link /executable=msgexec.exe $(msgexec_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgexec.exe $(msgexec_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msgfilter.exe : $(msgfilter_OBJECTS)
-	link /executable=msgfilter.exe $(msgfilter_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msgfilter.exe $(msgfilter_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msggrep.exe : $(msggrep_OBJECTS)
-	link /executable=msggrep.exe $(msggrep_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msggrep.exe $(msggrep_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
 msginit.exe : $(msginit_OBJECTS)
-	link /executable=msginit.exe $(msginit_OBJECTS) [-.intl]localename.obj gettextsrc.olb $(LDADD)
+	link /executable=msginit.exe $(msginit_OBJECTS),[-.intl]localename.obj,gettextsrc.olb/lib,$(LDADD)
 
 msguniq.exe : $(msguniq_OBJECTS)
-	link /executable=msguniq.exe $(msguniq_OBJECTS) gettextsrc.olb $(LDADD)
+	link /executable=msguniq.exe $(msguniq_OBJECTS),gettextsrc.olb/lib,$(LDADD)
 
-install : all,force
+install : all
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
 	$(INSTALL_PROGRAM) msgcmp.exe $(bindir)]msgcmp.exe
@@ -383,41 +388,43 @@ install : all,force
 	create /directory $(pkgdatadir)]
 	$(INSTALL_DATA) msgunfmt.tcl $(pkgdatadir)]msgunfmt.tcl
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
 	create /directory $(datadir)]
 	create /directory $(pkgdatadir)]
 
-uninstall : force
-	$(RM) $(bindir)]msgcmp.exe
-	$(RM) $(bindir)]msgfmt.exe
-	$(RM) $(bindir)]msgmerge.exe
-	$(RM) $(bindir)]msgunfmt.exe
-	$(RM) $(bindir)]xgettext.exe
-	$(RM) $(bindir)]msgattrib.exe
-	$(RM) $(bindir)]msgcat.exe
-	$(RM) $(bindir)]msgcomm.exe
-	$(RM) $(bindir)]msgconv.exe
-	$(RM) $(bindir)]msgen.exe
-	$(RM) $(bindir)]msgexec.exe
-	$(RM) $(bindir)]msgfilter.exe
-	$(RM) $(bindir)]msggrep.exe
-	$(RM) $(bindir)]msginit.exe
-	$(RM) $(bindir)]msguniq.exe
-	$(RM) $(pkgdatadir)]msgunfmt.tcl
+uninstall :
+	$(RM) $(bindir)]msgcmp.exe;
+	$(RM) $(bindir)]msgfmt.exe;
+	$(RM) $(bindir)]msgmerge.exe;
+	$(RM) $(bindir)]msgunfmt.exe;
+	$(RM) $(bindir)]xgettext.exe;
+	$(RM) $(bindir)]msgattrib.exe;
+	$(RM) $(bindir)]msgcat.exe;
+	$(RM) $(bindir)]msgcomm.exe;
+	$(RM) $(bindir)]msgconv.exe;
+	$(RM) $(bindir)]msgen.exe;
+	$(RM) $(bindir)]msgexec.exe;
+	$(RM) $(bindir)]msgfilter.exe;
+	$(RM) $(bindir)]msggrep.exe;
+	$(RM) $(bindir)]msginit.exe;
+	$(RM) $(bindir)]msguniq.exe;
+	$(RM) $(pkgdatadir)]msgunfmt.tcl;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
-	$(RM) *.obj
-	$(RM) *.olb
-	$(RM) $(PROGRAMS)
+clean :
+	$(RM) *.obj;*
+	$(RM) *.olb;*
+	$(RM) *.exe;*
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

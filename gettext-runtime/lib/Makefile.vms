@@ -6,11 +6,16 @@
 
 CC = cc
 
+# These flags affect binary compatibility. GNU gettext does not need them,
+# but other packages do, and we need to be binary compatible with them.
+ABIFLAGS = /name=(as_is,short) /float=ieee
+
 WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1")
+CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+DEFS = "VMS=1","HAVE_CONFIG_H=1"
 
 INCLUDES = /include=([],[-],[-.intl],[-.-.gettext-tools.lib])
 
@@ -25,51 +30,56 @@ RM = delete
 OBJECTS = basename.obj,error.obj,getopt.obj,getopt1.obj,progname.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
 
 all : grt.olb
+	write sys$output "Nothing else to be done for 'all'."
 
 basename.obj : [-.-.gettext-tools.lib]basename.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]basename.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]basename.c
 
 error.obj : [-.-.gettext-tools.lib]error.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]error.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]error.c
 
 getopt.obj : [-.-.gettext-tools.lib]getopt.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]getopt.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]getopt.c
 
 getopt1.obj : [-.-.gettext-tools.lib]getopt1.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]getopt1.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]getopt1.c
 
 progname.obj : [-.-.gettext-tools.lib]progname.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]progname.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]progname.c
 
 relocatable.obj : [-.-.gettext-tools.lib]relocatable.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]relocatable.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]relocatable.c
 
 xmalloc.obj : [-.-.gettext-tools.lib]xmalloc.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]xmalloc.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]xmalloc.c
 
 xstrdup.obj : [-.-.gettext-tools.lib]xstrdup.c
-	$(CC) $(INCLUDES) $(CFLAGS) [-.-.gettext-tools.lib]xstrdup.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]xstrdup.c
 
 grt.olb : $(OBJECTS)
-	$(RM) grt.olb
 	$(AR) $(AR_FLAGS) grt.olb $(OBJECTS)
 
 install : all
+	write sys$output "Nothing else to be done for 'install'."
 
 installdirs :
+	write sys$output "Nothing to be done for 'installdirs'."
 
 uninstall :
+	write sys$output "Nothing to be done for 'uninstall'."
 
 check :
+	write sys$output "Nothing to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
-	$(RM) *.obj
-	$(RM) *.olb
+clean :
+	$(RM) *.obj;*
+	$(RM) *.olb;*
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

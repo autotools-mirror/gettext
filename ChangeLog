@@ -1,5 +1,10 @@
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.vms: Don't use the force target.
+	Suggested by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.msvc (mandir, docdir): Use datadir instead of prefix.
 
 2003-04-06  Bruno Haible  <bruno@clisp.org>

@@ -21,9 +21,11 @@ INSTALL_DATA = copy
 #### End of system configuration section. ####
 
 all :
+	write sys$output "Nothing to be done for 'all'."
 
-install : all,force
+install : all
 	create /directory $(prefix)]
+	create /directory $(datadir)]
 	create /directory $(mandir)]
 	create /directory $(man1dir)]
 	$(INSTALL_DATA) gettext.1.in $(man1dir)]gettext.1
@@ -38,7 +40,7 @@ install : all,force
 	$(INSTALL_DATA) dcgettext.3 $(man3dir)]dcgettext.3
 	$(INSTALL_DATA) dngettext.3 $(man3dir)]dngettext.3
 	$(INSTALL_DATA) dcngettext.3 $(man3dir)]dcngettext.3
-	create /directory $(prefix).doc]
+	create /directory $(datadir).doc]
 	create /directory $(docdir)]
 	$(INSTALL_DATA) gettext.1.html.in $(docdir)]gettext.1.html
 	$(INSTALL_DATA) ngettext.1.html.in $(docdir)]ngettext.1.html
@@ -48,42 +50,46 @@ install : all,force
 	$(INSTALL_DATA) bindtextdomain.3.html $(docdir)]bindtextdomain.3.html
 	$(INSTALL_DATA) bind_textdomain_codeset.3.html $(docdir)]bind_textdomain_codeset.3.html
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
+	create /directory $(datadir)]
 	create /directory $(mandir)]
 	create /directory $(man1dir)]
 	create /directory $(man3dir)]
-	create /directory $(prefix).doc]
+	create /directory $(datadir).doc]
 	create /directory $(docdir)]
 
-uninstall : force
-	$(RM) $(man1dir)]gettext.1
-	$(RM) $(man1dir)]ngettext.1
-	$(RM) $(man3dir)]gettext.3
-	$(RM) $(man3dir)]ngettext.3
-	$(RM) $(man3dir)]textdomain.3
-	$(RM) $(man3dir)]bindtextdomain.3
-	$(RM) $(man3dir)]bind_textdomain_codeset.3
-	$(RM) $(man3dir)]dgettext.3
-	$(RM) $(man3dir)]dcgettext.3
-	$(RM) $(man3dir)]dngettext.3
-	$(RM) $(man3dir)]dcngettext.3
-	$(RM) $(docdir)]gettext.1.html
-	$(RM) $(docdir)]ngettext.1.html
-	$(RM) $(docdir)]gettext.3.html
-	$(RM) $(docdir)]ngettext.3.html
-	$(RM) $(docdir)]textdomain.3.html
-	$(RM) $(docdir)]bindtextdomain.3.html
-	$(RM) $(docdir)]bind_textdomain_codeset.3.html
+uninstall :
+	$(RM) $(man1dir)]gettext.1;
+	$(RM) $(man1dir)]ngettext.1;
+	$(RM) $(man3dir)]gettext.3;
+	$(RM) $(man3dir)]ngettext.3;
+	$(RM) $(man3dir)]textdomain.3;
+	$(RM) $(man3dir)]bindtextdomain.3;
+	$(RM) $(man3dir)]bind_textdomain_codeset.3;
+	$(RM) $(man3dir)]dgettext.3;
+	$(RM) $(man3dir)]dcgettext.3;
+	$(RM) $(man3dir)]dngettext.3;
+	$(RM) $(man3dir)]dcngettext.3;
+	$(RM) $(docdir)]gettext.1.html;
+	$(RM) $(docdir)]ngettext.1.html;
+	$(RM) $(docdir)]gettext.3.html;
+	$(RM) $(docdir)]ngettext.3.html;
+	$(RM) $(docdir)]textdomain.3.html;
+	$(RM) $(docdir)]bindtextdomain.3.html;
+	$(RM) $(docdir)]bind_textdomain_codeset.3.html;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
+clean :
+	write sys$output "Nothing to be done for 'clean'."
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

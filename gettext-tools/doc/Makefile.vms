@@ -18,29 +18,35 @@ INSTALL_DATA = copy
 #### End of system configuration section. ####
 
 all :
+	write sys$output "Nothing to be done for 'all'."
 
-install : all,force
+install : all
 	create /directory $(prefix)]
-	create /directory $(prefix).doc]
+	create /directory $(datadir)]
+	create /directory $(datadir).doc]
 	create /directory $(docdir)]
 	$(INSTALL_DATA) gettext_*.html $(docdir)
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
-	create /directory $(prefix).doc]
+	create /directory $(datadir)]
+	create /directory $(datadir).doc]
 	create /directory $(docdir)]
 
-uninstall : force
-	$(RM) $(docdir)]gettext_*.html
+uninstall :
+	$(RM) $(docdir)]gettext_*.html;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
+clean :
+	write sys$output "Nothing to be done for 'clean'."
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

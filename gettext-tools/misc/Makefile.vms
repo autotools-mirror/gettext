@@ -20,8 +20,9 @@ INSTALL_DATA = copy
 #### End of system configuration section. ####
 
 all :
+	write sys$output "Nothing to be done for 'all'."
 
-install : all,force
+install : all
 	create /directory $(prefix)]
 	create /directory $(datadir)]
 	create /directory $(emacsdir)]
@@ -29,24 +30,27 @@ install : all,force
 	$(INSTALL_DATA) po-mode.el $(lispdir)]po-mode.el
 	$(INSTALL_DATA) po-compat.el $(lispdir)]po-compat.el
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
 	create /directory $(datadir)]
 	create /directory $(emacsdir)]
 	create /directory $(lispdir)]
 
-uninstall : force
-	$(RM) $(lispdir)]po-mode.el
-	$(RM) $(lispdir)]po-compat.el
+uninstall :
+	$(RM) $(lispdir)]po-mode.el;
+	$(RM) $(lispdir)]po-compat.el;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
+clean :
+	write sys$output "Nothing to be done for 'clean'."
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

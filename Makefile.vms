@@ -5,7 +5,7 @@
 
 #### End of system configuration section. ####
 
-all : force
+all :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
@@ -13,7 +13,7 @@ all : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
 
-install : force
+install :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
@@ -21,7 +21,7 @@ install : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
 
-installdirs : force
+installdirs :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
@@ -29,7 +29,7 @@ installdirs : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
 
-uninstall : force
+uninstall :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
@@ -37,7 +37,7 @@ uninstall : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
 
-check : all,force
+check : all
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
@@ -45,7 +45,7 @@ check : all,force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
 
-mostlyclean : force
+mostlyclean :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
@@ -53,7 +53,7 @@ mostlyclean : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
 
-clean : force
+clean :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
@@ -61,7 +61,7 @@ clean : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
 
-distclean : force
+distclean :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
@@ -69,12 +69,10 @@ distclean : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
 
-maintainer-clean : force
+maintainer-clean :
 	set default [.gettext-runtime]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
 	set default [.gettext-tools]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
-
-force :

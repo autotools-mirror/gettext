@@ -46,10 +46,12 @@ html:
 
 # VMS support.
 
-config.h.vms: config.h.in ../version.sh
-	(sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
+config.h_vms: config.h.in ../version.sh
+	(echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>'; echo '#undef realpath'; \
+	 sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	     -e 's/#undef HAVE_ARPA_INET_H$$/#define HAVE_ARPA_INET_H 1/' \
+	     -e 's/#undef HAVE_CHOWN$$/#define HAVE_CHOWN 1/' \
 	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
@@ -67,7 +69,6 @@ config.h.vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_GETUID$$/#define HAVE_GETUID 1/' \
 	     -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
 	     -e 's/#undef HAVE_INTTYPES_H$$/#define HAVE_INTTYPES_H 1/' \
-	     -e 's/#undef HAVE_INTTYPES_H_WITH_UINTMAX$$/#define HAVE_INTTYPES_H_WITH_UINTMAX 1/' \
 	     -e 's/#undef HAVE_ISASCII$$/#define HAVE_ISASCII 1/' \
 	     -e 's/#undef HAVE_ISWCNTRL$$/#define HAVE_ISWCNTRL 1/' \
 	     -e 's/#undef HAVE_ISWPRINT$$/#define HAVE_ISWPRINT 1/' \
@@ -112,7 +113,6 @@ config.h.vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_SYS_TIME_H$$/#define HAVE_SYS_TIME_H 1/' \
 	     -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
 	     -e 's/#undef HAVE_TIME_H$$/#define HAVE_TIME_H 1/' \
-	     -e 's/#undef HAVE_UINTMAX_T$$/#define HAVE_UINTMAX_T 1/' \
 	     -e 's/#undef HAVE_UNAME$$/#define HAVE_UNAME 1/' \
 	     -e 's/#undef HAVE_UNISTD_H$$/#define HAVE_UNISTD_H 1/' \
 	     -e 's/#undef HAVE_UNSETENV$$/#define HAVE_UNSETENV 1/' \
@@ -133,13 +133,14 @@ config.h.vms: config.h.in ../version.sh
 	     -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	     -e 's/#undef getline$$/#define getline rpl_getline/' \
 	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
+	     -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long long/' \
 	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \
 	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
-	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#define pw_gecos pw_name'; echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>') > $@
+	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#define pw_gecos pw_name') > $@
 # vms_jackets.h is a header that comes with Compaq's "porting library".
 # KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
 
-EXTRA_DIST += Makefile.vms config.h.vms
+EXTRA_DIST += Makefile.vms config.h_vms
 
 
 # Woe32 support.

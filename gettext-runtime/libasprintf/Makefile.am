@@ -181,12 +181,11 @@ EXTRA_DIST += texi2html autosprintf.html
 
 # VMS support.
 
-config.h.vms: config.h.in
-	(sed -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+config.h_vms: config.h.in
+	(echo '#include <vms_jackets.h>'; \
+	 sed -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
-	     -e 's/#undef HAVE_INTMAX_T$$/#define HAVE_INTMAX_T 1/' \
 	     -e 's/#undef HAVE_INTTYPES_H$$/#define HAVE_INTTYPES_H 1/' \
-	     -e 's/#undef HAVE_INTTYPES_H_WITH_UINTMAX$$/#define HAVE_INTTYPES_H_WITH_UINTMAX 1/' \
 	     -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
 	     -e 's/#undef HAVE_LONG_LONG$$/#define HAVE_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
@@ -200,9 +199,9 @@ config.h.vms: config.h.in
 	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
 	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
-	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#include <vms_jackets.h>') > $@
+	   < $<; echo; echo '#define alloca __ALLOCA') > $@
 
-EXTRA_DIST += Makefile.vms config.h.vms
+EXTRA_DIST += Makefile.vms config.h_vms
 
 
 # Woe32 support.

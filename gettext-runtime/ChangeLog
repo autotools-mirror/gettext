@@ -1,5 +1,13 @@
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h_vms): Renamed from config.h.vms.
+	* Makefile.vms: Don't use the force target. Don't recurse into
+	libasprintf. Use config.h_vms, not config.h.vms. Correct wildcard
+	syntax.
+	Suggested by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac (mandir): Change default value.
 	* Makefile.msvc (mandir, docdir): Use datadir instead of prefix.
 

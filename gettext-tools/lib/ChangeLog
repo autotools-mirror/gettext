@@ -1,5 +1,12 @@
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no
+	lines. Update library creation rule. Don't use the force target.
+	Correct wildcard syntax. Create fnmatch.h.
+	Suggested by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
 	* localcharset.c (get_charset_aliases): Add special case for VMS.
 
 2003-04-10  Bruno Haible  <bruno@clisp.org>

@@ -13,11 +13,16 @@ localedir = $(datadir).locale
 
 CC = cc
 
+# These flags affect binary compatibility. GNU gettext does not need them,
+# but other packages do, and we need to be binary compatible with them.
+ABIFLAGS = /name=(as_is,short) /float=ieee
+
 WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""")
+CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+DEFS = "VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]"""
 
 INCLUDES = /include=([],[-],[-.intl],[-.lib],[-.-.gettext-tools.lib])
 
@@ -39,45 +44,48 @@ gettext_OBJECTS = gettext.obj
 ngettext_OBJECTS = ngettext.obj
 
 all : $(PROGRAMS)
+	write sys$output "Nothing else to be done for 'all'."
 
 gettext.obj : gettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") gettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") gettext.c
 
 ngettext.obj : ngettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=("INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") ngettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") ngettext.c
 
 gettext.exe : $(gettext_OBJECTS)
-	link /executable=gettext.exe $(gettext_OBJECTS) [-.lib]grt.olb $(LDADD)
+	link /executable=gettext.exe $(gettext_OBJECTS),[-.lib]grt.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
 ngettext.exe : $(ngettext_OBJECTS)
-	link /executable=ngettext.exe $(ngettext_OBJECTS) [-.lib]grt.olb $(LDADD)
+	link /executable=ngettext.exe $(ngettext_OBJECTS),[-.lib]grt.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-install : all,force
+install : all
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
 	create /directory $(bindir)]
 	$(INSTALL_PROGRAM) gettext.exe $(bindir)]gettext.exe
 	$(INSTALL_PROGRAM) ngettext.exe $(bindir)]ngettext.exe
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
 	create /directory $(bindir)]
 
-uninstall : force
-	$(RM) $(bindir)]gettext.exe
-	$(RM) $(bindir)]ngettext.exe
+uninstall :
+	$(RM) $(bindir)]gettext.exe;
+	$(RM) $(bindir)]ngettext.exe;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
-	$(RM) *.obj
-	$(RM) $(PROGRAMS)
+clean :
+	$(RM) *.obj;*
+	$(RM) *.exe;*
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

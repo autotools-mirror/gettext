@@ -17,12 +17,17 @@ sub_docdir = $(datadir).doc.libasprintf
 CC = cc
 CXX = cxx
 
+# These flags affect binary compatibility. GNU gettext does not need them,
+# but other packages do, and we need to be binary compatible with them.
+ABIFLAGS = /name=(as_is,short) /float=ieee
+
 WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1")
-CXXFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1")
+CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+CXXFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+DEFS = "VMS=1","HAVE_CONFIG_H=1"
 
 INCLUDES = /include=([])
 
@@ -42,65 +47,67 @@ INSTALL_DATA = copy
 OBJECTS = lib-asprintf.obj,autosprintf.obj
 
 all : autosprintf.h,asprintf.olb
+	write sys$output "Nothing else to be done for 'all'."
 
 autosprintf.h :
-	$(LN) autosprintf.h.in autosprintf.h
+	$(LN) autosprintf.h_in autosprintf.h
 
-config.h : config.h.vms
-	$(RM) config.h
-	$(LN) config.h.vms config.h
+config.h : config.h_vms
+	$(LN) config.h_vms config.h
 
 alloca.h : alloca_.h
-	$(RM) alloca.h
 	$(LN) alloca_.h alloca.h
 
 lib-asprintf.obj : lib-asprintf.c,config.h,printf-args.h,printf-args.c,printf-parse.h,printf-parse.c,alloca.h,vasnprintf.h,vasnprintf.c,asnprintf.c,vasprintf.h,vasprintf.c,asprintf.c
-	$(CC) $(INCLUDES) $(CFLAGS) lib-asprintf.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) lib-asprintf.c
 
 autosprintf.obj : autosprintf.cc,autosprintf.h,config.h,lib-asprintf.h
-	$(CXX) $(INCLUDES) $(CXXFLAGS) autosprintf.cc
+	$(CXX) $(INCLUDES) $(CXXFLAGS) /define=($(DEFS)) autosprintf.cc
 
 asprintf.olb : $(OBJECTS)
-	$(RM) asprintf.olb
 	$(AR) $(AR_FLAGS) asprintf.olb $(OBJECTS)
 
-install : all,force
+install : all
 	create /directory $(prefix)]
 	create /directory $(includedir)]
 	$(INSTALL_DATA) autosprintf.h $(includedir)]autosprintf.h
 	create /directory $(exec_prefix)]
 	create /directory $(libdir)]
 	$(INSTALL_DATA) asprintf.olb $(libdir)]asprintf.olb
-	create /directory $(prefix).doc]
+	create /directory $(datadir)]
+	create /directory $(datadir).doc]
 	create /directory $(sub_docdir)]
 	$(INSTALL_DATA) [.doc]autosprintf.html $(sub_docdir)]autosprintf.html
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
 	create /directory $(includedir)]
 	create /directory $(exec_prefix)]
 	create /directory $(libdir)]
-	create /directory $(prefix).doc]
+	create /directory $(datadir)]
+	create /directory $(datadir).doc]
 	create /directory $(sub_docdir)]
 
-uninstall : force
-	$(RM) $(includedir)]autosprintf.h
-	$(RM) $(libdir)]asprintf.olb
-	$(RM) $(sub_docdir)]autosprintf.html
+uninstall :
+	$(RM) $(includedir)]autosprintf.h;
+	$(RM) $(libdir)]asprintf.olb;
+	$(RM) $(sub_docdir)]autosprintf.html;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
-	$(RM) autosprintf.h
-	$(RM) config.h
-	$(RM) alloca.h
-	$(RM) *.obj
-	$(RM) *.olb
+clean :
+	$(RM) autosprintf.h;*
+	$(RM) config.h;*
+	$(RM) alloca.h;*
+	$(RM) *.obj;*
+	$(RM) *.olb;*
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

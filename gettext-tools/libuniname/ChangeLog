@@ -1,3 +1,10 @@
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no
+	lines. Update library creation rule. Don't use the force target.
+	Correct wildcard syntax.
+	Suggested by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New file.

@@ -9,10 +9,11 @@ RM = delete
 
 #### End of system configuration section. ####
 
-all : config.h,force
+all : config.h
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
+	create /directory [.intl]
 	set default [.intl]
 	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] all
 	set default [-]
@@ -41,11 +42,10 @@ all : config.h,force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
 
-config.h : config.h.vms
-	$(RM) config.h
-	$(LN) config.h.vms config.h
+config.h : config.h_vms
+	$(LN) config.h_vms config.h
 
-install : force
+install :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
@@ -77,7 +77,7 @@ install : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
 
-installdirs : force
+installdirs :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
@@ -109,7 +109,7 @@ installdirs : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
 
-uninstall : force
+uninstall :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
@@ -141,7 +141,7 @@ uninstall : force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
 
-check : all,force
+check : all
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
@@ -173,7 +173,7 @@ check : all,force
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
 
-mostlyclean : force
+mostlyclean :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
@@ -204,9 +204,9 @@ mostlyclean : force
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
-	$(RM) config.h
+	$(RM) config.h;*
 
-clean : force
+clean :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
@@ -237,9 +237,9 @@ clean : force
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
-	$(RM) config.h
+	$(RM) config.h;*
 
-distclean : force
+distclean :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
@@ -270,9 +270,9 @@ distclean : force
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
-	$(RM) config.h
+	$(RM) config.h;*
 
-maintainer-clean : force
+maintainer-clean :
 	set default [.doc]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
@@ -303,6 +303,4 @@ maintainer-clean : force
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
-	$(RM) config.h
-
-force :
+	$(RM) config.h;*

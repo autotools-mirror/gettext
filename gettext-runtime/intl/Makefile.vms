@@ -19,11 +19,16 @@ aliaspath = $(localedir)]
 
 CC = cc
 
+# These flags affect binary compatibility. GNU gettext does not need them,
+# but other packages do, and we need to be binary compatible with them.
+ABIFLAGS = /name=(as_is,short) /float=ieee
+
 WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","LOCALE_ALIAS_PATH=""$(aliaspath)""","LIBDIR=""$(libdir)]""","IN_LIBINTL=1")
+CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
+DEFS = "VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","LOCALE_ALIAS_PATH=""$(aliaspath)""","LIBDIR=""$(libdir)]""","IN_LIBINTL=1"
 
 INCLUDES = /include=([],[-])
 
@@ -43,84 +48,84 @@ INSTALL_DATA = copy
 OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,relocatable.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
 
 all : intl.olb,libintl.h
+	write sys$output "Nothing else to be done for 'all'."
 
 libgnuintl.h :
-	$(LN) $(srcdir)libgnuintl.h.in libgnuintl.h
+	$(LN) $(srcdir)libgnuintl.h_in libgnuintl.h
 
 bindtextdom.obj : $(srcdir)bindtextdom.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)bindtextdom.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)bindtextdom.c
 
 dcgettext.obj : $(srcdir)dcgettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)dcgettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)dcgettext.c
 
 dgettext.obj : $(srcdir)dgettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)dgettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)dgettext.c
 
 gettext.obj : $(srcdir)gettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)gettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)gettext.c
 
 finddomain.obj : $(srcdir)finddomain.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)finddomain.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)finddomain.c
 
 loadmsgcat.obj : $(srcdir)loadmsgcat.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)loadmsgcat.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)loadmsgcat.c
 
 localealias.obj : $(srcdir)localealias.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)relocatable.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)localealias.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localealias.c
 
 textdomain.obj : $(srcdir)textdomain.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)textdomain.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)textdomain.c
 
 l10nflist.obj : $(srcdir)l10nflist.c,libgnuintl.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)l10nflist.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)l10nflist.c
 
 explodename.obj : $(srcdir)explodename.c,libgnuintl.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)explodename.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)explodename.c
 
 dcigettext.obj : $(srcdir)dcigettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h,$(srcdir)eval-plural.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)dcigettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)dcigettext.c
 
 dcngettext.obj : $(srcdir)dcngettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)dcngettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)dcngettext.c
 
 dngettext.obj : $(srcdir)dngettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)dngettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)dngettext.c
 
 ngettext.obj : $(srcdir)ngettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)ngettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)ngettext.c
 
 plural-parse.obj : $(srcdir)plural.c,libgnuintl.h,$(srcdir)plural-exp.h
-	$(CC) $(INCLUDES) $(CFLAGS) /obj=plural-parse.obj $(srcdir)plural.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) /obj=plural-parse.obj $(srcdir)plural.c
 
 plural-exp.obj : $(srcdir)plural-exp.c,libgnuintl.h,$(srcdir)plural-exp.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)plural-exp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)plural-exp.c
 
 localcharset.obj : $(srcdir)localcharset.c,libgnuintl.h,$(srcdir)localcharset.h,$(srcdir)relocatable.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)localcharset.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localcharset.c
 
 relocatable.obj : $(srcdir)relocatable.c,libgnuintl.h,$(srcdir)relocatable.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)relocatable.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)relocatable.c
 
 localename.obj : $(srcdir)localename.c,libgnuintl.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)localename.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localename.c
 
 log.obj : $(srcdir)log.c,libgnuintl.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)log.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)log.c
 
 osdep.obj : $(srcdir)osdep.c,libgnuintl.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)osdep.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)osdep.c
 
 intl-compat.obj : $(srcdir)intl-compat.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
-	$(CC) $(INCLUDES) $(CFLAGS) $(srcdir)intl-compat.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)intl-compat.c
 
 intl.olb : $(OBJECTS)
-	$(RM) intl.olb
 	$(AR) $(AR_FLAGS) intl.olb $(OBJECTS)
 
 libintl.h : libgnuintl.h
 	$(LN) libgnuintl.h libintl.h
 
-install : all,force
+install : all
 	create /directory $(prefix)]
 	create /directory $(includedir)]
 	$(INSTALL_DATA) libintl.h $(includedir)]libintl.h
@@ -128,29 +133,30 @@ install : all,force
 	create /directory $(libdir)]
 	$(INSTALL_DATA) intl.lib $(libdir)]intl.lib
 
-installdirs : force
+installdirs :
 	create /directory $(prefix)]
 	create /directory $(includedir)]
 	create /directory $(exec_prefix)]
 	create /directory $(libdir)]
 
-uninstall : force
-	$(RM) $(includedir)]libintl.h
-	$(RM) $(libdir)]intl.lib
+uninstall :
+	$(RM) $(includedir)]libintl.h;
+	$(RM) $(libdir)]intl.lib;
 
 check : all
+	write sys$output "Nothing else to be done for 'check'."
 
 mostlyclean : clean
+	write sys$output "Nothing else to be done for 'mostlyclean'."
 
-clean : force
-	$(RM) libgnuintl.h
-	$(RM) libintl.h
-	$(RM) *.obj
-	$(RM) *.olb
+clean :
+	$(RM) libgnuintl.h;*
+	$(RM) libintl.h;*
+	$(RM) *.obj;*
+	$(RM) *.olb;*
 
 distclean : clean
+	write sys$output "Nothing else to be done for 'distclean'."
 
 maintainer-clean : distclean
-
-force :
-
+	write sys$output "Nothing else to be done for 'maintainer-clean'."

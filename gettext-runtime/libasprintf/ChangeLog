@@ -1,5 +1,13 @@
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h_vms): Renamed from config.h.vms.
+	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no
+	lines. Update library creation rule. Don't use the force target.
+	Correct wildcard syntax.
+	Suggested by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
+2003-04-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (docdir): Use datadir instead of prefix.
 	* Makefile.msvc (datadir): New variable.
 	(sub_docdir): Use it instead of prefix.
