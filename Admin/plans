@@ -43,7 +43,8 @@ Things we plan to do. Comments welcome.
 
 - Look at Christian Gafton's msghack.
 
-- Look at Ben Bullock's manual: http://www.hayamasa.demon.co.uk/doc/gettext.texi
+- Look at Christian Robottom Reis's manual:
+  http://www.async.com.br/~kiko/gettext.html
 
 - Check whether ../lib/libsupport.a @@INTLLIBS@@ @@LIBS@@ is sufficient (see
   gettext.texi:5083) on HP-UX 10.01 and other systems lacking alloca.
