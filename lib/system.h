@@ -19,7 +19,7 @@
 #define _SYSTEM_H 1
 
 #ifndef PARAMS
-# if defined (__GNUC__) || __STDC__
+# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
 #  define PARAMS(args) args
 # else
 #  define PARAMS(args) ()

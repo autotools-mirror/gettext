@@ -6,7 +6,7 @@
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 
 #ifndef PARAMS
-# if __STDC__
+# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
 #  define PARAMS(args) args
 # else
 #  define PARAMS(args) ()

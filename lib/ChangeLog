@@ -1,3 +1,22 @@
+2001-11-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* argmatch.h (PARAMS): Also test for __SUNPRO_C, because 64-bit Solaris
+	cc needs prototypes although it defines __STDC__ to 0 by default.
+	Also test for __cplusplus and __PROTOTYPES, just for consistency with
+	libgnuintl.h.
+	* c-ctype.h (PARAMS): Likewise.
+	* gcd.h (PARAMS): Likewise.
+	* getline.h (PARAMS): Likewise.
+	* hash.h (PARAMS): Likewise.
+	* linebreak.h (PARAMS): Likewise.
+	* mbswidth.h (PARAMS): Likewise.
+	* mkdtemp.h (PARAMS): Likewise.
+	* setenv.h (PARAMS): Likewise.
+	* strpbrk.h (PARAMS): Likewise.
+	* strstr.h (PARAMS): Likewise.
+	* system.h (PARAMS): Likewise.
+	* tmpdir.h (PARAMS): Likewise.
+
 2001-11-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* tmpdir.c: Include string.h.

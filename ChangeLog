@@ -1,3 +1,11 @@
+2001-11-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* acconfig.h (PARAMS): Also test for __GNUC__, __SUNPRO_C, __cplusplus
+	and __PROTOTYPES because on 64-bit Solaris, we need prototypes
+	although __STDC__ is often defined to 0. __GNUC__ covers GCC,
+	__SUNPRO_C covers Sun cc, regardless of compilation flags.
+	__PROTOTYPES, __cplusplus are just for consistency with libgnuintl.h.
+
 2001-11-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* ltmain.sh: chmod 777 the .libs directory, so that "make install"

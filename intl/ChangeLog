@@ -1,3 +1,20 @@
+2001-11-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* libgnuintl.h (_INTL_PARAMS): Renamed from PARAMS, to avoid polluting
+	the user's namespace.
+	Also test for __GNUC__, __SUNPRO_C and __PROTOTYPES because on
+	64-bit Solaris, we need prototypes although __STDC__ is often defined
+	to 0. __GNUC__ covers GCC, __SUNPRO_C covers Sun cc, regardless of
+	compilation flags. __PROTOTYPES covers other compilers when compiling
+	programs using autoconf's AC_C_PROTOTYPES.
+	* gettextP.h (PARAMS): Also test for __SUNPRO_C, because 64-bit Solaris
+	cc needs prototypes although it defines __STDC__ to 0 by default.
+	Also test for __cplusplus and __PROTOTYPES, just for consistency with
+	libgnuintl.h.
+	* hash-string.h (PARAMS): Likewise.
+	* loadinfo.h (PARAMS): Likewise.
+	* plural-exp.h (PARAMS): Likewise.
+
 2001-10-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural.y: Include <stddef.h>, needed for NULL with SunOS 4 cc.

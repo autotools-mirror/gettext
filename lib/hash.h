@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 2000 Free Software Foundation, Inc.
+/* Copyright (C) 1995, 2000, 2001 Free Software Foundation, Inc.
 
    The GNU C Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -31,7 +31,7 @@ typedef struct hash_table
 hash_table;
 
 # ifndef PARAMS
-#  if defined (__GNUC__) || __STDC__
+#  if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
 #   define PARAMS(Args) Args
 #  else
 #   define PARAMS(Args) ()

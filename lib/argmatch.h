@@ -28,11 +28,11 @@
 # include <sys/types.h>
 
 # ifndef PARAMS
-#  if PROTOTYPES || (defined (__STDC__) && __STDC__)
+#  if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
 #   define PARAMS(args) args
 #  else
 #   define PARAMS(args) ()
-#  endif  /* GCC.  */
+#  endif  /* ANSI C.  */
 # endif  /* Not PARAMS.  */
 
 /* Assert there are as many real arguments as there are values
