@@ -1,5 +1,12 @@
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
+	Fix the "configure --help" output.
+	* config/ac-help.sed: New file.
+	* configure.ac: Use it.
+	* Makefile.am (EXTRA_DIST): Add config/ac-help.sed.
+
+2005-01-05  Bruno Haible  <bruno@clisp.org>
+
 	* version.sh: Bump version number to 0.14.2-pre1.
 
 2005-01-05  Bruno Haible  <bruno@clisp.org>

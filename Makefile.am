@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ SUBDIRS = autoconf-lib-link gettext-runtime gettext-tools
 EXTRA_DIST = \
   version.sh PACKAGING ChangeLog.0 autogen.sh \
   config/config.libpath config/reloc-ldflags config/install-reloc \
+  config/ac-help.sed \
   config/m4/fixautomake.m4 \
   config/m4/libtool.m4
 
