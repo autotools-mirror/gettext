@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,9 +34,9 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_smalltalk */	&formatstring_smalltalk,
   /* format_java */		&formatstring_java,
   /* format_awk */		&formatstring_awk,
-  /* format_perl */		&formatstring_perl,
   /* format_pascal */		&formatstring_pascal,
   /* format_ycp */		&formatstring_ycp,
   /* format_tcl */		&formatstring_tcl,
+  /* format_perl */		&formatstring_perl,
   /* format_php */		&formatstring_php
 };

@@ -72,9 +72,9 @@
 #include "x-java.h"
 #include "x-properties.h"
 #include "x-awk.h"
-#include "x-perl.h"
 #include "x-ycp.h"
 #include "x-tcl.h"
+#include "x-perl.h"
 #include "x-php.h"
 #include "x-rst.h"
 #include "x-glade.h"
@@ -258,8 +258,8 @@ main (int argc, char *argv[])
 	x_librep_extract_all ();
 	x_java_extract_all ();
 	x_awk_extract_all ();
-	x_perl_extract_all ();
 	x_tcl_extract_all ();
+	x_perl_extract_all ();
 	x_php_extract_all ();
 	x_glade_extract_all ();
 	break;
@@ -318,8 +318,8 @@ main (int argc, char *argv[])
 	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
 	    x_awk_keyword (optarg);
-	    x_perl_keyword (optarg);
 	    x_tcl_keyword (optarg);
+	    x_perl_keyword (optarg);
 	    x_php_keyword (optarg);
 	    x_glade_keyword (optarg);
 	  }
@@ -657,8 +657,8 @@ Choice of input file language:\n"));
   -L, --language=NAME         recognise the specified language\n\
                                 (C, C++, ObjectiveC, PO, Python, Lisp,\n\
                                 EmacsLisp, librep, Smalltalk, Java,\n\
-                                JavaProperties, awk, YCP, Tcl, PHP, RST,\n\
-                                Glade, Perl)\n"));
+                                JavaProperties, awk, YCP, Tcl, Perl, PHP,\n\
+                                RST, Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -1460,13 +1460,13 @@ language_to_extractor (const char *name)
     SCANNERS_JAVA
     SCANNERS_PROPERTIES
     SCANNERS_AWK
-    SCANNERS_PERL
     SCANNERS_YCP
     SCANNERS_TCL
+    SCANNERS_PERL
     SCANNERS_PHP
     SCANNERS_RST
     SCANNERS_GLADE
-    /* Here will follow more languages and their scanners: VisualBasic, etc...
+    /* Here will follow more languages and their scanners: pike, C#, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
 
@@ -1509,13 +1509,13 @@ extension_to_language (const char *extension)
     EXTENSIONS_JAVA
     EXTENSIONS_PROPERTIES
     EXTENSIONS_AWK
-    EXTENSIONS_PERL
     EXTENSIONS_YCP
     EXTENSIONS_TCL
+    EXTENSIONS_PERL
     EXTENSIONS_PHP
     EXTENSIONS_RST
     EXTENSIONS_GLADE
-    /* Here will follow more file extensions: sh, pl ... */
+    /* Here will follow more file extensions: sh, cs ... */
   };
 
   table_ty *tp;

@@ -1,3 +1,20 @@
+2003-06-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (noinst_HEADERS): Add x-perl.h.
+	(FORMAT_SOURCE): Add format-perl.c.
+	(xgettext_SOURCES): Add x-perl.c.
+	* message.h (enum format_type): Mention perl between tcl and php.
+	* message.c (format_language, format_language_pretty): Likewise.
+	* format.h (formatstring_perl): Likewise.
+	* format.c (formatstring_parsers): Likewise.
+	* format-perl.c: Use GNU coding style. Prefer xmalloc over xcalloc.
+	* x-perl.h: Assume ANSI C.
+	* x-perl.c: Assume ANSI C. Use GNU coding style. Prefer xmalloc over
+	xcalloc.
+	(token_buf): Remove unused variable.
+	(xcalloc_debug, stack_push, stack_pop): Remove unused functions.
+	* xgettext.c: Mention perl between tcl and php.
+
 2003-06-11  Guido Flohr  <guido@imperia.net>
 
 	* message.h (enum format_type): New enum value 'format_perl'.

@@ -63,10 +63,10 @@ extern struct formatstring_parser formatstring_librep;
 extern struct formatstring_parser formatstring_smalltalk;
 extern struct formatstring_parser formatstring_java;
 extern struct formatstring_parser formatstring_awk;
-extern struct formatstring_parser formatstring_perl;
 extern struct formatstring_parser formatstring_pascal;
 extern struct formatstring_parser formatstring_ycp;
 extern struct formatstring_parser formatstring_tcl;
+extern struct formatstring_parser formatstring_perl;
 extern struct formatstring_parser formatstring_php;
 
 /* Table of all format string parsers.  */

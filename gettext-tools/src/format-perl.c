@@ -29,152 +29,157 @@
 #include "xmalloc.h"
 #include "error.h"
 #include "progname.h"
-#include "gettext.h"
 #include "hash.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 
-/* Perl format strings are currently quite simple.  They consist of 
+/* Perl format strings are currently quite simple.  They consist of
    place-holders embedded in the string.
 
    messageFormatPattern := string ("[" messageFormatElement "]" string)*
-   
+
    messageFormatElement := [_A-Za-z][_0-9A-Za-z]+
 
    However, C format strings are also allowed and used.  The following
    functions are therefore decorators for the C format checker, and
    will only fall back to Perl format if the C check is negative.  */
+
 struct spec
 {
   unsigned int directives;
   hash_table hash;
-  void* c_format;
+  void *c_format;
 };
 
-static void*
-format_parse (const char* string, char** invalid_reason)
+static void *
+format_parse (const char *string, char **invalid_reason)
 {
-  char* last_pos = (char*) string;
-  char* pos;
-   struct spec* spec;
-  void* c_format = formatstring_c.parse (string, invalid_reason);
+  char *last_pos = (char *) string;
+  char *pos;
+  struct spec *spec;
+  void *c_format = formatstring_c.parse (string, invalid_reason);
 
   if (c_format == NULL)
     return NULL;
 
-  spec = xcalloc (1, sizeof (struct spec));
+  spec = (struct spec *) xmalloc (sizeof (struct spec));
 
   spec->c_format = c_format;
 
   init_hash (&spec->hash, 13);
-  while ((pos = strchr (last_pos, '['))) {
-    char* start = pos + 1;
-    last_pos = start;
+  while ((pos = strchr (last_pos, '[')) != NULL)
+    {
+      char *start = pos + 1;
 
-    if (!(*last_pos == '_' 
-	  || (*last_pos >= 'A' && *last_pos <= 'Z') 
-	  || (*last_pos >= 'a' && *last_pos <= 'z')))
-      continue;
-    
-    ++last_pos;
-    
-    while (*last_pos == '_' 
-	   || (*last_pos >= '0' && *last_pos <= '9') 
-	   || (*last_pos >= 'A' && *last_pos <= 'Z') 
-	   || (*last_pos >= 'a' && *last_pos <= 'z'))
-      ++last_pos;
+      last_pos = start;
 
-    if (*last_pos == ']') 
-      {
-	size_t len = last_pos - start;
-	int* hits;
+      if (*last_pos == '_'
+	  || (*last_pos >= 'A' && *last_pos <= 'Z')
+	  || (*last_pos >= 'a' && *last_pos <= 'z'))
+	{
+	  ++last_pos;
 
-	if (0 == find_entry (&spec->hash, start, len, (void**) &hits))
-	  {
-	    ++(*hits);
-	  }
-	else
-	  {
-	    hits = xmalloc (sizeof *hits);
-	    *hits = 1;
-	    insert_entry (&spec->hash, start, len, hits);
-	  }
-	++last_pos;
-	++spec->directives;
-      }
-  }
+	  while (*last_pos == '_'
+		 || (*last_pos >= '0' && *last_pos <= '9')
+		 || (*last_pos >= 'A' && *last_pos <= 'Z')
+		 || (*last_pos >= 'a' && *last_pos <= 'z'))
+	    ++last_pos;
+
+	  if (*last_pos == ']')
+	    {
+	      size_t len = last_pos - start;
+	      int *hits;
+
+	      if (find_entry (&spec->hash, start, len, (void **) &hits) == 0)
+		{
+		  ++(*hits);
+		}
+	      else
+		{
+		  hits = (int *) xmalloc (sizeof (int));
+		  *hits = 1;
+		  insert_entry (&spec->hash, start, len, hits);
+		}
+	      ++last_pos;
+	      ++spec->directives;
+	    }
+	}
+    }
 
   return spec;
 }
 
 static void
-format_free (void* description)
+format_free (void *description)
 {
-  void* ptr = NULL;
-  const void* key;
-  size_t keylen;
-  void* data;
-
-  struct spec* spec = (struct spec*) description;
+  struct spec *spec = (struct spec *) description;
 
   if (spec != NULL)
     {
-      while (0 == iterate_table (&spec->hash, &ptr, &key, &keylen, &data))
+      void *ptr = NULL;
+      const void *key;
+      size_t keylen;
+      void *data;
+
+      while (iterate_table (&spec->hash, &ptr, &key, &keylen, &data) == 0)
 	free (data);
 
       delete_hash (&spec->hash);
-      
+
       if (spec->c_format)
 	formatstring_c.free (spec->c_format);
-      
+
       free (spec);
     }
 }
 
 static int
-format_get_number_of_directives (void* description)
+format_get_number_of_directives (void *description)
 {
-  int c_directives = 0;
+  struct spec *spec = (struct spec *) description;
+  int c_directives;
 
-  struct spec* spec = (struct spec*) description;
   if (spec->c_format)
     c_directives = formatstring_c.get_number_of_directives (spec->c_format);
+  else
+    c_directives = 0;
 
   return c_directives + spec->directives;
 }
 
-static bool 
-format_check (const lex_pos_ty* pos, void* msgid_descr, void* msgstr_descr, 
-	      bool equality, bool noisy, const char* pretty_msgstr) 
+static bool
+format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
+	      bool equality, bool noisy, const char *pretty_msgstr)
 {
-  struct spec* spec1 = (struct spec *) msgid_descr;
-  struct spec* spec2 = (struct spec *) msgstr_descr;
+  struct spec *spec1 = (struct spec *) msgid_descr;
+  struct spec *spec2 = (struct spec *) msgstr_descr;
   bool result = false;
-  void* ptr = NULL;
-  const void* key;
+  void *ptr = NULL;
+  const void *key;
   size_t keylen;
-  int* hits1;
-  int* hits2;
+  int *hits1;
+  int *hits2;
 
   /* First check the perl arguments.  We are probably faster than format-c.  */
   if (equality)
     {
       /* Pass 1: Check that every format specification in msgid has its
 	 counterpart in msgstr.  This is only necessary for equality.  */
-      while (0 == iterate_table (&spec1->hash, &ptr, &key, 
-				 &keylen, (void**) &hits1))
+      while (iterate_table (&spec1->hash, &ptr, &key, &keylen,
+			    (void **) &hits1) == 0)
 	{
-	  if (0 == find_entry (&spec2->hash, key, keylen, (void**) &hits2))
+	  if (find_entry (&spec2->hash, key, keylen, (void **) &hits2) == 0)
 	    {
 	      if (*hits1 != *hits2)
 		{
 		  result = true;
 		  if (noisy)
 		    {
-		      char* argname = alloca (keylen + 1);
+		      char *argname = (char *) alloca (keylen + 1);
 		      memcpy (argname, key, keylen);
-		      argname[keylen] = 0;
-		      
+		      argname[keylen] = '\0';
+
 		      /* The next message shows the limitations of ngettext.
 			 It is not smart enough to say "once", "twice",
 			 "thrice/%d times", "%d times", ..., and it cannot
@@ -197,10 +202,10 @@ appearances of named argument '[%s]' do not match \
 	      result = true;
 	      if (noisy)
 		{
-		  char* argname = alloca (keylen + 1);
+		  char *argname = (char *) alloca (keylen + 1);
 		  memcpy (argname, key, keylen);
-		  argname[keylen] = 0;
-		  
+		  argname[keylen] = '\0';
+
 		  error_with_progname = false;
 		  error_at_line (0, 0, pos->file_name, pos->line_number,
 				 _("\
@@ -217,18 +222,18 @@ named argument '[%s]' appears in original string but not in '%s'"),
   /* Pass 2: Check that the number of format specifications in msgstr
      does not exceed the number of appearances in msgid.  */
   ptr = NULL;
-  while (0 == iterate_table (&spec2->hash, &ptr, &key, &keylen, 
-			     (void**) &hits2))
+  while (iterate_table (&spec2->hash, &ptr, &key, &keylen, (void**) &hits2)
+	 == 0)
     {
-      if (0 != find_entry (&spec1->hash, key, keylen, (void**) &hits1))
+      if (find_entry (&spec1->hash, key, keylen, (void**) &hits1) != 0)
 	{
 	  result = true;
 	  if (noisy)
 	    {
-	      char* argname = alloca (keylen + 1);
+	      char *argname = (char *) alloca (keylen + 1);
 	      memcpy (argname, key, keylen);
-	      argname[keylen] = 0;
-	      
+	      argname[keylen] = '\0';
+
 	      error_with_progname = false;
 	      error_at_line (0, 0, pos->file_name, pos->line_number,
 			     _("\
@@ -251,12 +256,13 @@ named argument '[%s]' appears only in '%s' but not in the original string"),
 }
 
 struct formatstring_parser formatstring_perl =
-  {
-    format_parse,
-    format_free,
-    format_get_number_of_directives,
-    format_check
-  };
+{
+  format_parse,
+  format_free,
+  format_get_number_of_directives,
+  format_check
+};
+
 
 #ifdef TEST
 
@@ -267,53 +273,62 @@ struct formatstring_parser formatstring_perl =
 #include "getline.h"
 
 static void
-format_print (descr, line)
-     void* descr;
-     const char* line;
+format_print (void *descr, const char *line)
 {
   struct spec *spec = (struct spec *) descr;
-  char* ptr = NULL;
-  char* key = NULL;
+  void *ptr = NULL;
+  const void *key;
   size_t keylen;
-  int data;
-  
+  int *data;
+
   printf ("%s=> ", line);
-  
+
   if (spec == NULL)
     {
-      printf ("INVALID\n");
+      printf ("INVALID");
       return;
     }
-  
-  while (iterate_table (&spec->hash, (void**) &ptr, (const void**) &key, 
-			&keylen, (void**) &data) == 0) 
+
+  while (iterate_table (&spec->hash, &ptr, &key, &keylen, (void**) &data) == 0)
     {
-      key[keylen - 1] = '\0';
-      printf (">>>[%s]<<< ", key);
+      char *argname = (char *) alloca (keylen + 1);
+      memcpy (argname, key, keylen);
+      argname[keylen] = '\0';
+
+      printf (">>>[%s]<<< ", argname);
     }
-  
-  printf ("\n");
 }
 
 int
 main ()
 {
-  char *line = NULL;
-  size_t line_len = 0;
-  void *descr;
-  
   for (;;)
-    {      
-      if (getline (&line, &line_len, stdin) < 0)
+    {
+      char *line = NULL;
+      size_t line_size = 0;
+      int line_len;
+      char *invalid_reason;
+      void *descr;
+
+      line_len = getline (&line, &line_size, stdin);
+      if (line_len < 0)
 	break;
-      
-      descr = format_parse (line);
-      
+      if (line_len > 0 && line[line_len - 1] == '\n')
+	line[--line_len] = '\0';
+
+      invalid_reason = NULL;
+      descr = format_parse (line, &invalid_reason);
+
       format_print (descr, line);
-      
+      printf ("\n");
+      if (descr == NULL)
+	printf ("%s\n", invalid_reason);
+
       format_free (descr);
+      free (invalid_reason);
+      free (line);
     }
-  
+
   return 0;
 }
 

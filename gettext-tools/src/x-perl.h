@@ -19,17 +19,17 @@
 
 #define EXTENSIONS_PERL \
   { "pl",    "perl"   },						\
-  { "pm",    "perl"   },						\
   { "PL",    "perl"   },						\
+  { "pm",    "perl"   },						\
   { "cgi",   "perl"   },						\
 
 #define SCANNERS_PERL \
   { "perl",        extract_perl, &formatstring_perl },			\
 
 /* Scan a Perl file and add its translatable strings to mdlp.  */
-extern void extract_perl PARAMS ((FILE *fp, const char *real_filename,
-				  const char *logical_filename,
-				  msgdomain_list_ty *mdlp));
+extern void extract_perl (FILE *fp, const char *real_filename,
+			  const char *logical_filename,
+			  msgdomain_list_ty *mdlp);
 
-extern void x_perl_keyword PARAMS ((const char *keyword));
-extern void x_perl_extract_all PARAMS ((void));
+extern void x_perl_keyword (const char *keyword);
+extern void x_perl_extract_all (void);

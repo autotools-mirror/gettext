@@ -34,19 +34,11 @@
 #include "progname.h"
 #include "xmalloc.h"
 #include "exit.h"
-#include "gettext.h"
 #include "ucs4-utf8.h"
 #include "uniname.h"
+#include "gettext.h"
 
 #define _(s) gettext(s)
-
-#if HAVE_C_BACKSLASH_A
-# define ALERT_CHAR '\a'
-#else
-# define ALERT_CHAR '\7'
-#endif
-
-#define ever (;;)
 
 /* The Perl syntax is defined in perlsyn.pod.  Try the command
    "perldoc perlsyn".  */
@@ -54,7 +46,7 @@
 #define DEBUG_PERL 0
 #define DEBUG_MEMORY 0
 
-/* FIXME: All known Perl operators should be listed here.  It does not 
+/* FIXME: All known Perl operators should be listed here.  It does not
    cost that much and it may improve the stability of the parser.  */
 enum token_type_ty
 {
@@ -83,12 +75,12 @@ typedef enum token_type_ty token_type_ty;
 /* Subtypes for strings, important for interpolation.  */
 enum string_type_ty
 {
-    string_type_verbatim,     /* "<<'EOF'", "m'...'", "s'...''...'", 
-				 "tr/.../.../", "y/.../.../".  */
-    string_type_q,            /* "'..'", "q/.../".  */
-    string_type_qq,           /* '"..."', "`...`", "qq/.../", "qx/.../",
-				 "<file*glob>".  */
-    string_type_qr,           /* Not supported.  */
+  string_type_verbatim,     /* "<<'EOF'", "m'...'", "s'...''...'",
+			       "tr/.../.../", "y/.../.../".  */
+  string_type_q,            /* "'..'", "q/.../".  */
+  string_type_qq,           /* '"..."', "`...`", "qq/.../", "qx/.../",
+			       "<file*glob>".  */
+  string_type_qr,           /* Not supported.  */
 };
 typedef enum string_type_ty string_type_ty;
 
@@ -101,12 +93,9 @@ struct token_ty
   int line_number;
 };
 
-static token_ty token_buf[2];
-
 #if DEBUG_PERL
-static const char*
-token2string (token)
-     token_ty* token;
+static const char *
+token2string (token_ty *token)
 {
   switch (token->type)
     {
@@ -156,84 +145,35 @@ token2string (token)
 
 struct stack_entry
 {
-  struct stack_entry* next;
-  struct stack_entry* prev;
-  void* data;
-  void (*destroy) PARAMS ((token_ty* data));
+  struct stack_entry *next;
+  struct stack_entry *prev;
+  void *data;
+  void (*destroy) (token_ty *data);
 };
 
 struct stack
 {
-  struct stack_entry* first;
-  struct stack_entry* last;
+  struct stack_entry *first;
+  struct stack_entry *last;
 };
 
-struct stack* token_stack;
+struct stack *token_stack;
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
-static void init_keywords PARAMS ((void));
-static int phase1_getc PARAMS ((void));
-static void phase1_ungetc PARAMS ((int c));
-static char* get_here_document PARAMS ((const char* delimiter));
-static void skip_pod PARAMS ((void));
-static int phase2_getc PARAMS ((void));
-static void phase2_ungetc PARAMS ((int c));
-static inline void free_token PARAMS ((token_ty *tp));
-static void extract_variable PARAMS ((message_list_ty* mlp, 
-				      token_ty *tp, int c));
-static void interpolate_keywords PARAMS ((message_list_ty* mlp, 
-					  const char* string));
-static void extract_quotelike PARAMS ((token_ty *tp, int delim));
-static void extract_triple_quotelike PARAMS ((message_list_ty* mlp,
-					      token_ty *tp, int delim,
-					      bool interpolate));
-static char* extract_quotelike_pass1 PARAMS ((int delim));
-static void extract_quotelike_pass3 PARAMS ((token_ty* tp, int error_level));
-static char* extract_hex PARAMS ((char* string, size_t len, 
-				  unsigned int* result));
-static char* extract_oct PARAMS ((char* string, size_t len, 
-				  unsigned int* result));
-static token_ty* x_perl_lex PARAMS ((message_list_ty* mlp));
-static void x_perl_prelex PARAMS ((message_list_ty* mlp, token_ty* tp));
-static void x_perl_unlex PARAMS ((token_ty* tp));
-static char* collect_message PARAMS ((message_list_ty* mlp, token_ty* tp, 
-				      int error_level));
-static bool extract_balanced PARAMS ((message_list_ty *mlp,
-				      int arg_sg, int arg_pl,
-				      int state, token_type_ty delim));
-static void stack_push PARAMS ((struct stack* stack, void* data, 
-				void (*destroy) PARAMS ((token_ty* data))));
-static void stack_unshift PARAMS ((struct stack* stack, void* data, 
-				   void (*destroy) PARAMS ((token_ty* data))));
-static void* stack_pop PARAMS ((struct stack* stack));
-static void* stack_shift PARAMS ((struct stack* stack));
-static void* stack_head PARAMS ((struct stack* stack));
-static void stack_free PARAMS ((struct stack* stack));
+static void interpolate_keywords (message_list_ty *mlp, const char *string);
+static char *extract_quotelike_pass1 (int delim);
+static token_ty *x_perl_lex (message_list_ty *mlp);
+static void x_perl_unlex (token_ty *tp);
+static bool extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state, token_type_ty delim);
 
 #if DEBUG_MEMORY
-static void* xmalloc_debug PARAMS ((size_t bytes));
-static void* xrealloc_debug PARAMS ((void* buf, size_t bytes));
-static void* xrealloc_static_debug PARAMS ((void* buf, size_t bytes));
-static void* xcalloc_debug PARAMS ((size_t nitems, size_t bytes));
-static char* xstrdup_debug PARAMS ((const char* string));
-static void free_debug PARAMS ((void* buf));
-static message_ty *remember_a_message_debug PARAMS ((message_list_ty *mlp,
-						     char *string, 
-						     lex_pos_ty *pos));
-static void remember_a_message_plural_debug PARAMS ((message_ty *mp,
-						     char *string, 
-						     lex_pos_ty *pos));
 
-
-static message_ty*
-remember_a_message_debug (mlp, string, pos)
-     message_list_ty* mlp;
-     char* string;
-     lex_pos_ty* pos;
+static message_ty *
+remember_a_message_debug (message_list_ty *mlp, char *string, lex_pos_ty *pos)
 {
-  void* retval;
-  
+  void *retval;
+
   fprintf (stderr, "*** remember_a_message (%p): ", string); fflush (stderr);
   retval = remember_a_message (mlp, string, pos);
   fprintf (stderr, "%p\n", retval); fflush (stderr);
@@ -241,22 +181,18 @@ remember_a_message_debug (mlp, string, pos)
 }
 
 static void
-remember_a_message_plural_debug (mp, string, pos)
-     message_ty* mp;
-     char* string;
-     lex_pos_ty* pos;
+remember_a_message_plural_debug (message_ty *mp, char *string, lex_pos_ty *pos)
 {
-  fprintf (stderr, "*** remember_a_message_plural (%p, %p): ", mp, string); 
+  fprintf (stderr, "*** remember_a_message_plural (%p, %p): ", mp, string);
   fflush (stderr);
   remember_a_message_plural (mp, string, pos);
-  fprintf (stderr, "done\n"); fflush (stderr);  
+  fprintf (stderr, "done\n"); fflush (stderr);
 }
 
-static void*
-xmalloc_debug (bytes)
-     size_t bytes;
+static void *
+xmalloc_debug (size_t bytes)
 {
-  void* retval;
+  void *retval;
 
   fprintf (stderr, "*** xmalloc (%u): ", bytes); fflush (stderr);
   retval = xmalloc (bytes);
@@ -264,12 +200,10 @@ xmalloc_debug (bytes)
   return retval;
 }
 
-static void*
-xrealloc_debug (buf, bytes)
-     void* buf;
-     size_t bytes;
+static void *
+xrealloc_debug (void *buf, size_t bytes)
 {
-  void* retval;
+  void *retval;
 
   fprintf (stderr, "*** xrealloc (%p, %u): ", buf, bytes); fflush (stderr);
   retval = xrealloc (buf, bytes);
@@ -277,40 +211,24 @@ xrealloc_debug (buf, bytes)
   return retval;
 }
 
-static void*
-xrealloc_static_debug (buf, bytes)
-     void* buf;
-     size_t bytes;
+static void *
+xrealloc_static_debug (void *buf, size_t bytes)
 {
-  void* retval;
+  void *retval;
 
-  fprintf (stderr, "*** xrealloc_static (%p, %u): ", buf, bytes); 
+  fprintf (stderr, "*** xrealloc_static (%p, %u): ", buf, bytes);
   fflush (stderr);
   retval = xrealloc (buf, bytes);
   fprintf (stderr, "%p\n", retval); fflush (stderr);
   return retval;
 }
 
-static void*
-xcalloc_debug (nitems, bytes)
-     size_t nitems;
-     size_t bytes;
+static char *
+xstrdup_debug (const char *string)
 {
-  void* retval;
+  char *retval;
 
-  fprintf (stderr, "*** xcalloc (%u, %u): ", nitems, bytes); fflush (stderr);
-  retval = xcalloc (nitems, bytes);
-  fprintf (stderr, "%p\n", retval); fflush (stderr);
-  return retval;
-}
-
-static char*
-xstrdup_debug (string)
-     const char* string;
-{
-  char* retval;
-
-  fprintf (stderr, "*** xstrdup (%p, %d): ", string, strlen (string)); 
+  fprintf (stderr, "*** xstrdup (%p, %d): ", string, strlen (string));
   fflush (stderr);
   retval = xstrdup (string);
   fprintf (stderr, "%p\n", retval); fflush (stderr);
@@ -318,8 +236,7 @@ xstrdup_debug (string)
 }
 
 static void
-free_debug (buf)
-     void* buf;
+free_debug (void *buf)
 {
   fprintf (stderr, "*** free (%p): ", buf); fflush (stderr);
   free (buf);
@@ -328,7 +245,6 @@ free_debug (buf)
 
 # define xmalloc(b) xmalloc_debug (b)
 # define xrealloc(b, s) xrealloc_debug (b, s)
-# define xcalloc(n, b) xcalloc_debug (n, b)
 # define xstrdup(s) xstrdup_debug (s)
 # define free(b) free_debug (b)
 
@@ -345,19 +261,18 @@ free_debug (buf)
 #if DEBUG_PERL
 /* Dumps all resources allocated by stack STACK.  */
 static int
-stack_dump (stack)
-     struct stack* stack;
+stack_dump (struct stack *stack)
 {
-  struct stack_entry* last = stack->last;
+  struct stack_entry *last = stack->last;
 
   fprintf (stderr, "BEGIN STACK DUMP\n");
-  while (last) 
+  while (last)
     {
-      struct stack_entry* next = last->prev;
+      struct stack_entry *next = last->prev;
 
-      if (last->data) 
+      if (last->data)
 	{
-	  token_ty* token = (token_ty*) last->data;
+	  token_ty *token = (token_ty *) last->data;
 	  fprintf (stderr, "  [%s]\n", token2string (token));
 	  fflush (stderr);
 	  switch (token->type)
@@ -379,146 +294,82 @@ stack_dump (stack)
 }
 #endif
 
-/* Pushes the pointer DATA onto the stack STACK.  The argument DESTROY
- * is a pointer to a function that frees the resources associated with 
- * DATA or NULL (no destructor).
- */
-static void
-stack_push (stack, data, destroy)
-     struct stack* stack;
-     void* data;
-     void (*destroy) PARAMS ((token_ty* data));
-{
-    struct stack_entry* entry = xmalloc (sizeof (struct stack_entry));
-
-    if (stack->last == NULL) {
-	stack->first = entry;
-    } else {
-	stack->last->next = entry;
-    }
-
-    entry->prev = stack->last;
-    entry->next = NULL;
-    entry->data = data;
-    entry->destroy = destroy;
-    stack->last = entry;
-}
-
 /* Unshifts the pointer DATA onto the stack STACK.  The argument DESTROY
- * is a pointer to a function that frees the resources associated with 
+ * is a pointer to a function that frees the resources associated with
  * DATA or NULL (no destructor).
  */
 static void
-stack_unshift (stack, data, destroy)
-     struct stack* stack;
-     void* data;
-     void (*destroy) PARAMS ((token_ty* data));
+stack_unshift (struct stack *stack, void *data, void (*destroy) (token_ty *data))
 {
-    struct stack_entry* entry = xmalloc (sizeof (struct stack_entry));
+  struct stack_entry *entry =
+    (struct stack_entry *) xmalloc (sizeof (struct stack_entry));
 
-    if (stack->first == NULL) 
-      {
-	stack->last = entry;
-      } 
-    else 
-      {
-	stack->first->prev = entry;
-      }
-    
-    entry->next = stack->first;
-    entry->prev = NULL;
-    entry->data = data;
-    entry->destroy = destroy;
+  if (stack->first == NULL)
+    stack->last = entry;
+  else
+    stack->first->prev = entry;
 
-    stack->first = entry;
-}
-
-/* Pops the last element from the stack STACK and returns its contents or
- * NULL if the stack is empty.
- */
-static void*
-stack_pop (stack)
-    struct stack* stack;
-{
-    struct stack_entry* entry = stack->last;
-    struct stack_entry* last;
-    void* data;
-
-    if (!entry)
-	return NULL;
-
-    last = entry->prev;
-    if (last) {
-	stack->last = last;
-	last->next = NULL;
-    } else {
-	stack->first = stack->last = NULL;
-    }
-
-    data = entry->data;
-    free (entry);
-
-    return data;
+  entry->next = stack->first;
+  entry->prev = NULL;
+  entry->data = data;
+  entry->destroy = destroy;
+  stack->first = entry;
 }
 
 /* Shifts the first element from the stack STACK and returns its contents or
  * NULL if the stack is empty.
  */
-static void*
-stack_shift (stack)
-    struct stack* stack;
+static void *
+stack_shift (struct stack *stack)
 {
-    struct stack_entry* entry = stack->first;
-    void* data;
+  struct stack_entry *entry = stack->first;
+  void *data;
 
-    if (!entry)
-	return NULL;
+  if (!entry)
+    return NULL;
 
-    stack->first = entry->next;
-    if (!stack->first)
-	stack->last = NULL;
-    else 
-	stack->first->prev = NULL;
+  stack->first = entry->next;
+  if (!stack->first)
+    stack->last = NULL;
+  else
+    stack->first->prev = NULL;
 
-    data = entry->data;
-    free (entry);
+  data = entry->data;
+  free (entry);
 
-    return data;
+  return data;
 }
 
 /* Return the bottom of the stack without removing it from the stack or
  * NULL if the stack is empty.
  */
-static void*
-stack_head (stack)
-    struct stack* stack;
+static void *
+stack_head (struct stack *stack)
 {
-    struct stack_entry* entry = stack->first;
-    struct stack_entry* last;
-    void* data;
+  struct stack_entry *entry = stack->first;
+  void *data;
 
-    if (!entry)
-	return NULL;
+  if (!entry)
+    return NULL;
 
-    data = entry->data;
+  data = entry->data;
 
-    return data;
+  return data;
 }
 
 /* Frees all resources allocated by stack STACK.  */
 static void
-stack_free (stack)
-     struct stack* stack;
+stack_free (struct stack *stack)
 {
-    struct stack_entry* last = stack->last;
+  struct stack_entry *last = stack->last;
 
-    while (last) {
-	struct stack_entry* next = last->prev;
-	if (last->data && last->destroy) {
-	    last->destroy (last->data);
-	}
-	free (last);
-	last = next;
+  while (last)
+    {
+      struct stack_entry *next = last->prev;
+      if (last->data && last->destroy)
+	last->destroy (last->data);
+      free (last);
+      last = next;
     }
 }
 
@@ -539,8 +390,7 @@ x_perl_extract_all ()
 
 
 void
-x_perl_keyword (name)
-     const char *name;
+x_perl_keyword (const char *name)
 {
   if (name == NULL)
     default_keywords = false;
@@ -608,7 +458,7 @@ static int last_comment_line;
 static int last_non_comment_line;
 
 /* The current line buffer.  */
-char* linebuf;
+char *linebuf;
 
 /* The size of the current line.  */
 int linesize;
@@ -646,10 +496,10 @@ phase1_getc ()
   if (end_of_file)
     return EOF;
 
-  if (linepos >= linesize) 
+  if (linepos >= linesize)
     {
       linesize = getline (&linebuf, &linebuf_size, fp);
-      
+
       if (linesize == EOF)
 	{
 	  if (ferror (fp))
@@ -658,17 +508,17 @@ phase1_getc ()
 	  end_of_file = true;
 	  return EOF;
 	}
-      
+
       linepos = 0;
       ++line_number;
-      
+
       /* Undosify.  This is important for catching the end of <<EOF and
 	 <<'EOF'.  We could rely on stdio doing this for us but you
 	 it is not uncommon to to come across Perl scripts with CRLF
-	 newline conventions on systems that do not follow this 
+	 newline conventions on systems that do not follow this
 	 convention.  */
       if (linesize >= 2 && linebuf[linesize - 1] == '\n'
-	  && linebuf[linesize - 2] == '\r') 
+	  && linebuf[linesize - 2] == '\r')
 	{
 	  linebuf[linesize - 2] = '\n';
 	  linebuf[linesize - 1] = '\0';
@@ -680,28 +530,26 @@ phase1_getc ()
 }
 
 static void
-phase1_ungetc (c)
-     int c;
+phase1_ungetc (int c)
 {
   if (c != EOF)
     {
       if (linepos == 0)
 	error (EXIT_FAILURE, 0, _("\
-%s:%d: internal error: attempt to ungetc across line boundary"), 
+%s:%d: internal error: attempt to ungetc across line boundary"),
 	       real_file_name, line_number);
 
       --linepos;
     }
 }
 
-static char*
-get_here_document (delimiter)
-     const char* delimiter;
+static char *
+get_here_document (const char *delimiter)
 {
-  static char* buffer;
+  static char *buffer;
   static size_t bufmax = 0;
   size_t bufpos = 0;
-  static char* my_linebuf = NULL;
+  static char *my_linebuf = NULL;
   static size_t my_linebuf_size = 0;
   bool chomp = false;
 
@@ -712,10 +560,10 @@ get_here_document (delimiter)
       bufmax = 1;
     }
 
-  for ever
+  for (;;)
     {
       int read_bytes = getline (&my_linebuf, &my_linebuf_size, fp);
-  
+
       if (read_bytes == EOF)
 	{
 	  if (ferror (fp))
@@ -741,10 +589,10 @@ get_here_document (delimiter)
       /* Undosify.  This is important for catching the end of <<EOF and
 	 <<'EOF'.  We could rely on stdio doing this for us but you
 	 it is not uncommon to to come across Perl scripts with CRLF
-	 newline conventions on systems that do not follow this 
+	 newline conventions on systems that do not follow this
 	 convention.  */
       if (read_bytes >= 2 && my_linebuf[read_bytes - 1] == '\n'
-	  && my_linebuf[read_bytes - 2] == '\r') 
+	  && my_linebuf[read_bytes - 2] == '\r')
 	{
 	  my_linebuf[read_bytes - 2] = '\n';
 	  my_linebuf[read_bytes - 1] = '\0';
@@ -756,7 +604,7 @@ get_here_document (delimiter)
 	  chomp = true;
 	  my_linebuf[read_bytes - 1] = '\0';
 	}
-      if (0 == strcmp (my_linebuf, delimiter))
+      if (strcmp (my_linebuf, delimiter) == 0)
 	{
 	  return xstrdup (buffer);
 	}
@@ -783,10 +631,10 @@ skip_pod ()
   here_eaten = 0;
   linepos = 0;
 
-  for ever
+  for (;;)
     {
       linesize = getline (&linebuf, &linebuf_size, fp);
-      
+
       if (linesize == EOF)
 	{
 	  if (ferror (fp))
@@ -794,9 +642,9 @@ skip_pod ()
 		   real_file_name);
 	  return;
 	}
-      
+
       ++line_number;
-      
+
       if (strncmp ("=cut", linebuf, 4) == 0)
 	{
 	  /* Force reading of a new line on next call to phase1_getc().  */
@@ -825,7 +673,7 @@ phase2_getc ()
       buflen = 0;
       lineno = line_number;
       /* Skip leading whitespace.  */
-      for ever
+      for (;;)
 	{
 	  c = phase1_getc ();
 	  if (c == EOF)
@@ -836,7 +684,7 @@ phase2_getc ()
 	      break;
 	    }
 	}
-      for ever
+      for (;;)
 	{
 	  c = phase1_getc ();
 	  if (c == '\n' || c == EOF)
@@ -861,8 +709,7 @@ phase2_getc ()
 }
 
 static void
-phase2_ungetc (c)
-     int c;
+phase2_ungetc (int c)
 {
   if (c != EOF)
     phase1_ungetc (c);
@@ -881,8 +728,7 @@ static bool prefer_division_over_regexp;
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
 static inline void
-free_token (tp)
-     token_ty *tp;
+free_token (token_ty *tp)
 {
   switch (tp->type)
     {
@@ -902,17 +748,14 @@ free_token (tp)
 /* Extract an unsigned hexadecimal number from STRING, considering at
    most LEN bytes and place the result in RESULT.  Returns a pointer
    to the first character past the hexadecimal number.  */
-static char* 
-extract_hex (string, len, result)
-     char* string;
-     size_t len;
-     unsigned int* result;
+static char *
+extract_hex (char *string, size_t len, unsigned int *result)
 {
   size_t i;
 
   *result = 0;
-  
-  for (i = 0; i < len; ++i)
+
+  for (i = 0; i < len; i++)
     {
       int number;
 
@@ -935,17 +778,14 @@ extract_hex (string, len, result)
 /* Extract an unsigned octal number from STRING, considering at
    most LEN bytes and place the result in RESULT.  Returns a pointer
    to the first character past the hexadecimal number.  */
-static char* 
-extract_oct (string, len, result)
-     char* string;
-     size_t len;
-     unsigned int* result;
+static char *
+extract_oct (char *string, size_t len, unsigned int *result)
 {
   size_t i;
 
   *result = 0;
-  
-  for (i = 0; i < len; ++i)
+
+  for (i = 0; i < len; i++)
     {
       int number;
 
@@ -964,13 +804,11 @@ extract_oct (string, len, result)
 /* Extract the various quotelike constructs except for <<EOF.  See the
    section "Gory details of parsing quoted constructs" in perlop.pod.  */
 static void
-extract_quotelike (tp, delim)
-     token_ty* tp;
-     int delim;
+extract_quotelike (token_ty *tp, int delim)
 {
-  char* string = extract_quotelike_pass1 (delim);
+  char *string = extract_quotelike_pass1 (delim);
   tp->type = token_type_string;
-  
+
   string[strlen (string) - 1] = '\0';
   tp->string = xstrdup (string + 1);
   free (string);
@@ -981,13 +819,10 @@ extract_quotelike (tp, delim)
    s/[SEARCH]/[REPLACE]/.  This function does not eat up trailing
    modifiers (left to the caller).  */
 static void
-extract_triple_quotelike (mlp, tp, delim, interpolate)
-     message_list_ty* mlp;
-     token_ty* tp;
-     int delim;
-     bool interpolate;
+extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
+			  bool interpolate)
 {
-  char* string = extract_quotelike_pass1 (delim);
+  char *string = extract_quotelike_pass1 (delim);
 
   tp->type = token_type_regex_op;
   if (interpolate && !extract_all && delim != '\'')
@@ -999,7 +834,7 @@ extract_triple_quotelike (mlp, tp, delim, interpolate)
     {
       /* Things can change.  */
       delim = phase1_getc ();
-      while (delim == ' ' || delim == '\t' || delim == '\r' 
+      while (delim == ' ' || delim == '\t' || delim == '\r'
 	     || delim == '\n' || delim  == '\f')
 	{
 	  /* The hash-sign is not a valid delimiter after whitespace, ergo
@@ -1017,13 +852,12 @@ extract_triple_quotelike (mlp, tp, delim, interpolate)
 
 /* Pass 1 of extracting quotes: Find the end of the string, regardless
    of the semantics of the construct.  */
-static char*
-extract_quotelike_pass1 (delim)
-     int delim;
+static char *
+extract_quotelike_pass1 (int delim)
 {
   /* This function is called recursively.  No way to allocate stuff
      statically.  Consider using alloca() instead.  */
-  char *buffer = xmalloc (100);
+  char *buffer = (char *) xmalloc (100);
   int bufmax = 100;
   int bufpos = 0;
   bool nested = true;
@@ -1032,7 +866,7 @@ extract_quotelike_pass1 (delim)
   buffer[bufpos++] = delim;
 
   /* Find the closing delimiter.  */
-  switch (delim) 
+  switch (delim)
     {
     case '(':
       counter_delim = ')';
@@ -1052,7 +886,7 @@ extract_quotelike_pass1 (delim)
       break;
     }
 
-  for ever
+  for (;;)
     {
       int c = phase1_getc ();
 
@@ -1073,10 +907,10 @@ extract_quotelike_pass1 (delim)
 #endif
 	  return buffer;
 	}
-     
+
       if (nested && c == delim)
 	{
-	  char* inner = extract_quotelike_pass1 (delim);
+	  char *inner = extract_quotelike_pass1 (delim);
 	  size_t len = strlen (inner);
 
 	  if (bufpos + len >= bufmax)
@@ -1119,16 +953,13 @@ extract_quotelike_pass1 (delim)
 /* Perform pass 3 of quotelike extraction (interpolation).  */
 /* FIXME: Currently may writes null-bytes into the string.  */
 static void
-extract_quotelike_pass3 (tp, error_level)
-     token_ty* tp;
-     int error_level;
+extract_quotelike_pass3 (token_ty *tp, int error_level)
 {
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
-  int delim = tp->string[0];
-  char* string = tp->string;
-  unsigned char* crs = string;
+  char *string = tp->string;
+  unsigned char *crs = string;
 
   bool uppercase = false;
   bool lowercase = false;
@@ -1158,20 +989,20 @@ extract_quotelike_pass3 (tp, error_level)
   if (tp->string_type == string_type_verbatim)
     return;
 
-  while (*crs) 
+  while (*crs)
     {
       if (bufpos >= bufmax - 6)
 	{
 	  bufmax += 100;
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
-      
-      if (tp->string_type == string_type_q) 
+
+      if (tp->string_type == string_type_q)
 	{
 	  switch (*crs)
 	    {
 	    case '\\':
-	      if (crs[1] == '\\') 
+	      if (crs[1] == '\\')
 		{
 		  ++crs;
 		  buffer[bufpos++] = '\\';
@@ -1184,7 +1015,7 @@ extract_quotelike_pass3 (tp, error_level)
 	    }
 	  continue;
 	}
-      
+
       /* We only get here for double-quoted strings or regular expressions.
 	 Unescape escape sequences.  */
       if (*crs == '\\')
@@ -1213,7 +1044,7 @@ extract_quotelike_pass3 (tp, error_level)
 	      continue;
 	    case 'a':
 	      crs += 2;
-	      buffer[bufpos++] = ALERT_CHAR;
+	      buffer[bufpos++] = '\a';
 	      continue;
 	    case 'e':
 	      crs += 2;
@@ -1224,7 +1055,7 @@ extract_quotelike_pass3 (tp, error_level)
 	      {
 		unsigned int oct_number;
 		int length;
-		
+
 		crs = extract_oct (crs + 1, 3, &oct_number);
 		length = u8_uctomb (buffer + bufpos, oct_number, 3);
 		if (length > 0)
@@ -1235,12 +1066,12 @@ extract_quotelike_pass3 (tp, error_level)
 	      {
 		unsigned int hex_number = 0;
 		int length;
-		
+
 		++crs;
-		
-		if (*crs == '{') 
+
+		if (*crs == '{')
 		  {
-		    char* end = strchr (crs, '}');
+		    char *end = strchr (crs, '}');
 		    if (end == NULL)
 		      {
 			error_with_progname = false;
@@ -1260,7 +1091,7 @@ extract_quotelike_pass3 (tp, error_level)
 		  {
 		    crs = extract_hex (crs, 2, &hex_number);
 		  }
-		
+
 		length = u8_uctomb (buffer + bufpos, hex_number, 6);
 		if (length > 0)
 		  bufpos += length;
@@ -1274,22 +1105,22 @@ extract_quotelike_pass3 (tp, error_level)
 		  int the_char = *crs;
 		  if (the_char >= 'a' || the_char <= 'z')
 		    the_char -= 0x20;
-		  buffer[bufpos++] = the_char + (the_char & 0x40 ? -64 : 64); 
+		  buffer[bufpos++] = the_char + (the_char & 0x40 ? -64 : 64);
 		}
 	      continue;
 	    case 'N':
 	      crs += 2;
 	      if (*crs == '{')
 		{
-		  char* name = xstrdup (crs + 1);
-		  char* end = strchr (name, '}');
+		  char *name = xstrdup (crs + 1);
+		  char *end = strchr (name, '}');
 		  if (end != NULL)
 		    {
 		      unsigned int unicode;
 		      int length;
-		      
+
 		      *end = '\0';
-		      
+
 		      crs += 2 + strlen (name);
 		      unicode = unicode_name_character (name);
 		      if (unicode != UNINAME_INVALID)
@@ -1341,7 +1172,7 @@ extract_quotelike_pass3 (tp, error_level)
 		{
 		  error_with_progname = false;
 		  error (error_level, 0, _("\
-%s:%d: illegal interpolation (\"\\l\") of 8bit character \"%c\""), 
+%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""),
 			 real_file_name, line_number, *crs);
 		  error_with_progname = true;
 		  ++crs;
@@ -1360,7 +1191,7 @@ extract_quotelike_pass3 (tp, error_level)
 		{
 		  error_with_progname = false;
 		  error (error_level, 0, _("\
-%s:%d: illegal interpolation (\"\\u\") of 8bit character \"%c\""), 
+%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""),
 			 real_file_name, line_number, *crs);
 		  error_with_progname = true;
 		  ++crs;
@@ -1376,25 +1207,25 @@ extract_quotelike_pass3 (tp, error_level)
 	    }
 	}
 
-      
+
       if (*crs == '$' || *crs == '@')
 	{
 	  ++crs;
 	  error_with_progname = false;
 	  error (error_level, 0, _("\
-%s:%d: illegal variable interpolation"), 
-		 real_file_name, line_number, *crs); 
+%s:%d: invalid variable interpolation at \"%c\""),
+		 real_file_name, line_number, *crs);
 	  error_with_progname = true;
 	}
       else if (lowercase)
-	{ 
+	{
 	  if (*crs >= 'A' && *crs <= 'Z')
 	    buffer[bufpos++] = 0x20 + *crs++;
 	  else if (*crs >= 0x80)
 	    {
 	      error_with_progname = false;
 	      error (error_level, 0, _("\
-%s:%d:illegal interpolation (\"\\L\") of 8bit character \"%c\""), 
+%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""),
 		     real_file_name, line_number, *crs);
 	      error_with_progname = true;
 	      buffer[bufpos++] = *crs++;
@@ -1410,7 +1241,7 @@ extract_quotelike_pass3 (tp, error_level)
 	    {
 	      error_with_progname = false;
 	      error (error_level, 0, _("\
-%s:%d: illegal interpolation (\"\\U\") of 8bit character \"%c\""), 
+%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""),
 		     real_file_name, line_number, *crs);
 	      error_with_progname = true;
 	      buffer[bufpos++] = *crs++;
@@ -1451,12 +1282,9 @@ extract_quotelike_pass3 (tp, error_level)
  * 3) Parse possible following hash keys or array indexes.
  */
 static void
-extract_variable (mlp, tp, first)
-     message_list_ty* mlp;
-     token_ty* tp;
-     int first;
+extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 {
-  static char* buffer;
+  static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
   int c = first;
@@ -1471,8 +1299,8 @@ extract_variable (mlp, tp, first)
 	   real_file_name, line_number, first);
 #endif
 
-  /* 
-   * 1) Consume dollars and so on (not euros ...).  Unconditionally 
+  /*
+   * 1) Consume dollars and so on (not euros ...).  Unconditionally
    *    accepting the hash sign (#) will maybe lead to inaccurate
    *    results.  FIXME!
    */
@@ -1487,12 +1315,12 @@ extract_variable (mlp, tp, first)
       c = phase1_getc ();
     }
 
-  if (c == EOF) 
+  if (c == EOF)
     {
       tp->type = token_type_eof;
       return;
     }
-  
+
   /* Hash references are treated in a special way, when looking for
      our keywords.  */
   if (buffer[0] == '$')
@@ -1504,7 +1332,7 @@ extract_variable (mlp, tp, first)
 	  if (c != '{' && c != '_' && (!((c >= '0' && c <= '9')
 					 || (c >= 'A' && c <= 'Z')
 					 || (c >= 'a' && c <= 'z')
-					 || c == ':' || c == '\'' 
+					 || c == ':' || c == '\''
 					 || c >= 0x80)))
 	    {
 	      /* Special variable $$ for pid.  */
@@ -1529,11 +1357,11 @@ extract_variable (mlp, tp, first)
 	}
     }
 
-  /* 
+  /*
    * 2) Get the name of the variable.  The first character is practically
    *    arbitrary.  Punctuation and numbers automagically put a variable
    *    in the global namespace but that subtle difference is not interesting
-   *    for us.  
+   *    for us.
    */
   if (bufpos >= bufmax)
     {
@@ -1585,7 +1413,7 @@ extract_variable (mlp, tp, first)
   if (varbody_length == 0)
     {
       c = phase1_getc ();
-      if (c == EOF || c == ' ' || c == '\n' || c == '\r' 
+      if (c == EOF || c == ' ' || c == '\n' || c == '\r'
 	  || c == '\f' || c == '\t')
 	phase1_ungetc (c);  /* Loser.  */
       else
@@ -1602,7 +1430,7 @@ extract_variable (mlp, tp, first)
 #endif
   prefer_division_over_regexp = true;
 
-  /* 
+  /*
    * 3) If the following looks strange to you, this is valid Perl syntax:
    *
    *      $var = $$hashref    # We can place a
@@ -1630,13 +1458,13 @@ extract_variable (mlp, tp, first)
 	    {
 	      is_dereference = true;
 	      c = phase2_getc ();
-	      while (c == ' ' || c == '\t' || c == '\r' 
+	      while (c == ' ' || c == '\t' || c == '\r'
 		     || c == '\n' || c == '\f')
 		  c = phase2_getc ();
 	    }
 	  else if (c2 != '\n')
 	    {
-	      /* Discarding the newline is harmless here.  The only 
+	      /* Discarding the newline is harmless here.  The only
 		 special character recognized after a minus is greater-than
 		 for dereference.  However, the sequence "-\n>" that we
 	         treat incorrectly here, is a syntax error.  */
@@ -1667,23 +1495,23 @@ extract_variable (mlp, tp, first)
 		   real_file_name, line_number);
 #endif
 
-	  if (0 == find_entry (&keywords, tp->string, strlen (tp->string),
-			       &keyword_value))
+	  if (find_entry (&keywords, tp->string, strlen (tp->string),
+			  &keyword_value) == 0)
 	    {
 	      /* Extract a possible string from the key.  Before proceeding
 		 we check whether the open curly is followed by a symbol and
 		 then by a right curly.  */
-	      token_ty* t1 = x_perl_lex (mlp);
+	      token_ty *t1 = x_perl_lex (mlp);
 
 #if DEBUG_PERL
 	      fprintf (stderr, "%s:%d: extracting string key\n",
 		       real_file_name, line_number);
 #endif
 
-	      if (t1->type == token_type_symbol 
-		  || t1->type == token_type_named_op) 
+	      if (t1->type == token_type_symbol
+		  || t1->type == token_type_named_op)
 		{
-		  token_ty* t2 = x_perl_lex (mlp);
+		  token_ty *t2 = x_perl_lex (mlp);
 		  if (t2->type == token_type_rbrace)
 		    {
 		      lex_pos_ty pos;
@@ -1717,7 +1545,7 @@ extract_variable (mlp, tp, first)
     }
 
   /* Now consume "->", "[...]", and "{...}".  */
-  for ever
+  for (;;)
     {
       int c = phase2_getc ();
       int c2;
@@ -1731,6 +1559,7 @@ extract_variable (mlp, tp, first)
 #endif
 	  extract_balanced (mlp, -1, -1, 0, token_type_rbrace);
 	  break;
+
 	case '[':
 #if DEBUG_PERL
 	  fprintf (stderr, "%s:%d: extracting balanced '[' after varname\n",
@@ -1738,6 +1567,7 @@ extract_variable (mlp, tp, first)
 #endif
 	  extract_balanced (mlp, -1, -1, 0, token_type_rbracket);
 	  break;
+
 	case '-':
 	  c2 = phase1_getc ();
 	  if (c2 == '>')
@@ -1747,10 +1577,10 @@ extract_variable (mlp, tp, first)
 		       real_file_name, line_number);
 #endif
 	      break;
-	    }	  
+	    }
 	  else if (c2 != '\n')
 	    {
-	      /* Discarding the newline is harmless here.  The only 
+	      /* Discarding the newline is harmless here.  The only
 		 special character recognized after a minus is greater-than
 		 for dereference.  However, the sequence "-\n>" that we
 	         treat incorrectly here, is a syntax error.  */
@@ -1774,11 +1604,9 @@ extract_variable (mlp, tp, first)
  * some keyword hash (reference).
  */
 static void
-interpolate_keywords (mlp, string)
-     message_list_ty* mlp;
-     const char* string;
+interpolate_keywords (message_list_ty *mlp, const char *string)
 {
-  static char* buffer;
+  static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
   int c = string[0];
@@ -1800,13 +1628,13 @@ interpolate_keywords (mlp, string)
   token_ty token;
 
   lex_pos_ty pos;
-	      
+
   /* States are:
-   * 
+   *
    * initial:      initial
    * one_dollar:   dollar sign seen in state INITIAL
    * two_dollars:  another dollar-sign has been seen in state ONE_DOLLAR
-   * identifier:   a valid identifier character has been seen in state 
+   * identifier:   a valid identifier character has been seen in state
    *               ONE_DOLLAR or TWO_DOLLARS
    * minus:        a minus-sign has been seen in state IDENTIFIER
    * wait_lbrace:  a greater-than has been seen in state MINUS
@@ -1818,14 +1646,14 @@ interpolate_keywords (mlp, string)
    * wait_rbrace:  closing quote has been seen in state DQUOTE or SQUOTE
    */
   state = initial;
-  
+
   token.type = token_type_string;
   token.string_type = string_type_qq;
   token.line_number = line_number;
   pos.file_name = logical_file_name;
   pos.line_number = line_number;
 
-  while (c = *string++)
+  while ((c = *string++) != '\0')
     {
       void *keyword_value;
 
@@ -1837,7 +1665,7 @@ interpolate_keywords (mlp, string)
 	  bufmax += 100;
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
-      
+
       switch (state)
 	{
 	case initial:
@@ -1860,7 +1688,7 @@ interpolate_keywords (mlp, string)
 	  switch (c)
 	    {
 	    case '$':
-	      /* 
+	      /*
 	       * This is enough to make us believe later that we dereference
 	       * a hash reference.
 	       */
@@ -1900,8 +1728,7 @@ interpolate_keywords (mlp, string)
 	  switch (c)
 	    {
 	    case '-':
-	      if (0 == find_entry (&keywords, buffer, bufpos,
-				   &keyword_value))
+	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
 		{
 		  state = minus;
 		}
@@ -1913,15 +1740,14 @@ interpolate_keywords (mlp, string)
 		{
 		  buffer[0] = '%';
 		}
-	      if (0 == find_entry (&keywords, buffer, bufpos,
-				   &keyword_value))
+	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
 		{
 		  state = wait_quote;
 		}
 	      else
 		state = initial;
 	      break;
-	    default: 
+	    default:
 	      if (c == '_' || c == ':' || c == '\'' || c >= 0x80
 		  || (c >= 'A' && c <= 'Z')
 		  || (c >= 'a' && c <= 'z')
@@ -2056,7 +1882,7 @@ interpolate_keywords (mlp, string)
 		buffer[bufpos++] = c;
 		break;
 	      }
-	    else if (c == ' ' || c == '\n' || c == '\t' 
+	    else if (c == ' ' || c == '\n' || c == '\t'
 		     || c == '\r' || c == '\f')
 	      {
 		state = wait_rbrace;
@@ -2098,16 +1924,14 @@ interpolate_keywords (mlp, string)
 /* Combine characters into tokens.  Discard whitespace.  */
 
 static void
-x_perl_prelex (mlp, tp)
-     message_list_ty* mlp;
-     token_ty *tp;
+x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
   int bufpos;
   int c;
 
-  for ever
+  for (;;)
     {
       c = phase2_getc ();
       tp->line_number = line_number;
@@ -2178,10 +2002,8 @@ x_perl_prelex (mlp, tp)
 	  /* Symbol, or part of a number.  */
 	  prefer_division_over_regexp = true;
 	  bufpos = 0;
-	  for ever
+	  for (;;)
 	    {
-	      int c2;
-
 	      if (bufpos >= bufmax)
 		{
 		  bufmax += 100;
@@ -2328,7 +2150,7 @@ x_perl_prelex (mlp, tp)
 		   || strcmp (buffer, "qr") == 0)
 	    {
 	      /* The qw (...) construct is not really a string but we
-		 can treat in the same manner and then pretend it is 
+		 can treat in the same manner and then pretend it is
 		 a symbol.  Rationale: Saying "qw (foo bar)" is the
 		 same as "my @list = ('foo', 'bar'); @list;".  */
 
@@ -2464,7 +2286,7 @@ x_perl_prelex (mlp, tp)
 	case '=':
 	  /* Check for fat comma.  */
 	  c = phase1_getc ();
-	  if (c == '>') 
+	  if (c == '>')
 	    {
 	      tp->type = token_type_fat_comma;
 	      return;
@@ -2472,7 +2294,7 @@ x_perl_prelex (mlp, tp)
 	  else if (linepos == 2
 		   && (last_token == token_type_semicolon
 		       || last_token == token_type_rbrace)
-		   && ((c >= 'A' && c <='Z') 
+		   && ((c >= 'A' && c <='Z')
 		       || (c >= 'a' && c <= 'z')))
 	    {
 #if DEBUG_PERL
@@ -2495,12 +2317,12 @@ x_perl_prelex (mlp, tp)
 	  /* Check for <<EOF and friends.  */
 	  prefer_division_over_regexp = false;
 	  c = phase1_getc ();
-	  if (c == '<') 
+	  if (c == '<')
 	    {
 	      c = phase1_getc ();
 	      if (c == '\'')
 		{
-		  char* string;
+		  char *string;
 		  extract_quotelike (tp, c);
 		  string = get_here_document (tp->string);
 		  free (tp->string);
@@ -2511,7 +2333,7 @@ x_perl_prelex (mlp, tp)
 		}
 	      else if (c == '"')
 		{
-		  char* string;
+		  char *string;
 		  extract_quotelike (tp, c);
 		  string = get_here_document (tp->string);
 		  free (tp->string);
@@ -2547,7 +2369,7 @@ x_perl_prelex (mlp, tp)
 		    }
 		  else
 		    {
-		      char* string;
+		      char *string;
 
 		      phase1_ungetc (c);
 		      buffer[bufpos++] = '\0';
@@ -2576,10 +2398,11 @@ x_perl_prelex (mlp, tp)
 	case '-':
 	  /* Check for dereferencing operator.  */
 	  c = phase1_getc ();
-	  if (c == '>') {
-	    tp->type = token_type_dereference;
-	    return;
-	  }
+	  if (c == '>')
+	    {
+	      tp->type = token_type_dereference;
+	      return;
+	    }
 	  phase1_ungetc (c);
 	  tp->type = token_type_other;
 	  prefer_division_over_regexp = false;
@@ -2615,18 +2438,17 @@ x_perl_prelex (mlp, tp)
     }
 }
 
-static token_ty*
-x_perl_lex (mlp)
-     message_list_ty* mlp;
+static token_ty *
+x_perl_lex (message_list_ty *mlp)
 {
 #if DEBUG_PERL
   int dummy = stack_dump (token_stack);
 #endif
-  token_ty* tp = stack_shift (token_stack);
+  token_ty *tp = stack_shift (token_stack);
 
   if (!tp)
     {
-      tp = xmalloc (sizeof *tp);
+      tp = (token_ty *) xmalloc (sizeof (token_ty));
       x_perl_prelex (mlp, tp);
 #if DEBUG_PERL
       fprintf (stderr, "%s:%d: x_perl_prelex returned %s\n",
@@ -2644,7 +2466,7 @@ x_perl_lex (mlp)
   /* A symbol followed by a fat comma is really a single-quoted string.  */
   if (tp->type == token_type_symbol || tp->type == token_type_named_op)
     {
-      token_ty* next = stack_head (token_stack);
+      token_ty *next = stack_head (token_stack);
 
       if (!next)
 	{
@@ -2652,7 +2474,7 @@ x_perl_lex (mlp)
 	  fprintf (stderr, "%s:%d: pre-fetching next token\n",
 		   real_file_name, line_number);
 	  fflush (stderr);
-#endif      
+#endif
 	  next = x_perl_lex (mlp);
 	  x_perl_unlex (next);
 #if DEBUG_PERL
@@ -2665,13 +2487,13 @@ x_perl_lex (mlp)
       fprintf (stderr, "%s:%d: next token is %s\n",
 	       real_file_name, line_number, token2string (next));
 #endif
-      
+
       if (next->type == token_type_fat_comma)
 	{
 	  tp->type = token_type_string;
 	  tp->string_type = string_type_q;
 #if DEBUG_PERL
-	  fprintf (stderr, 
+	  fprintf (stderr,
 		   "%s:%d: token %s mutated to token_type_string\n",
 		   real_file_name, line_number, token2string (tp));
 #endif
@@ -2682,28 +2504,24 @@ x_perl_lex (mlp)
 }
 
 static void
-x_perl_unlex (tp)
-     token_ty* tp;
+x_perl_unlex (token_ty *tp)
 {
   stack_unshift (token_stack, tp, free_token);
 }
 
 /* ========================= Extracting strings.  ========================== */
 
-static char*
-collect_message (mlp, tp, error_level)
-     message_list_ty* mlp;
-     token_ty* tp;
-     int error_level;
+static char *
+collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
 {
-  char* string;
+  char *string;
   size_t len;
 
   extract_quotelike_pass3 (tp, error_level);
   string = xstrdup (tp->string);
   len = strlen (tp->string) + 1;
 
-  for ever
+  for (;;)
     {
       int c = phase2_getc ();
       while (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f')
@@ -2723,14 +2541,14 @@ collect_message (mlp, tp, error_level)
 	  || (!prefer_division_over_regexp && (c == '/' || c == '?'))
 	  || c == 'q')
 	{
-	  token_ty* qstring = x_perl_lex (mlp);
+	  token_ty *qstring = x_perl_lex (mlp);
 	  if (qstring->type != token_type_string)
 	    {
 	      /* assert (qstring->type == token_type_symbol) */
 	      x_perl_unlex (qstring);
 	      return string;
 	    }
-	  
+
 	  extract_quotelike_pass3 (qstring, error_level);
 	  len += strlen (qstring->string);
 	  string = xrealloc (string, len);
@@ -2764,20 +2582,20 @@ collect_message (mlp, tp, error_level)
    Returns the number of requested arguments consumed or -1 for eof.
    If - instead of consuming requested arguments - a complete message
    has been extracted, the return value will be sufficiently high to
-   avoid any mis-interpretation.  
+   avoid any mis-interpretation.
 
    States are:
-   
+
    0 - initial state
    1 - keyword has been seen
    2 - extractable string has been seen
    3 - a dot operator after an extractable string has been seen
 
    States 2 and 3 are "fragile", the parser will remain in state 2
-   as long as only opening parentheses are seen, a transition to 
+   as long as only opening parentheses are seen, a transition to
    state 3 is done on appearance of a dot operator, all other tokens
    will cause the parser to fall back to state 1 or 0, eventually
-   with an error message about illegal intermixing of constant and
+   with an error message about invalid intermixing of constant and
    non-constant strings.
 
    Likewise, state 3 is fragile.  The parser will remain in state 3
@@ -2785,24 +2603,21 @@ collect_message (mlp, tp, error_level)
    2 is done on appearance of another (literal!) string, all other
    tokens will cause a warning.  */
 static bool
-extract_balanced (mlp, arg_sg, arg_pl, state, delim)
-     message_list_ty *mlp;
-     int arg_sg, arg_pl;
-     int state;
-     token_type_ty delim;
+extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
+		  token_type_ty delim)
 {
   /* Remember the message containing the msgid, for msgid_plural.  */
   message_ty *plural_mp = NULL;
-  
+
   /* The current argument for a possibly extracted keyword.  Counting
      starts with 1.  */
   int arg_count = 1;
-  
+
   /* Number of left parentheses seen.  */
   int paren_seen = 0;
 
   /* The current token.  */
-  token_ty* tp = NULL;
+  token_ty *tp = NULL;
 
   token_type_ty last_token = token_type_eof;
 
@@ -2812,13 +2627,13 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
   ++nesting_level;
 #endif
 
-  for ever
+  for (;;)
     {
       int my_last_token = last_token;
 
       if (tp)
 	free_token (tp);
-      
+
       tp = x_perl_lex (mlp);
 
       last_token = tp->type;
@@ -2837,8 +2652,9 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 	{
 	case token_type_symbol:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type symbol (%d) \"%s\"\n", 
-		   logical_file_name, tp->line_number, nesting_level, tp->string);
+	  fprintf (stderr, "%s:%d: type symbol (%d) \"%s\"\n",
+		   logical_file_name, tp->line_number, nesting_level,
+		   tp->string);
 #endif
 
 	  /* No need to bother if we extract all strings anyway.  */
@@ -2846,15 +2662,15 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 	    {
 	      void *keyword_value;
 
-	      if (0 == find_entry (&keywords, tp->string, strlen (tp->string),
-				   &keyword_value))
+	      if (find_entry (&keywords, tp->string, strlen (tp->string),
+			      &keyword_value) == 0)
 		{
 		  last_token = token_type_keyword_symbol;
 
 		  arg_sg = (int) (long) keyword_value & ((1 << 10) - 1);
 		  arg_pl = (int) (long) keyword_value >> 10;
 		  arg_count = 1;
-		  
+
 		  state = 2;
 		}
 	    }
@@ -2862,7 +2678,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_variable:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type variable (%d) \"%s\"\n", 
+	  fprintf (stderr, "%s:%d: type variable (%d) \"%s\"\n",
 		   logical_file_name, tp->line_number, nesting_level, tp->string);
 #endif
 	  prefer_division_over_regexp = true;
@@ -2870,7 +2686,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_lparen:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type left parentheses (%d)\n", 
+	  fprintf (stderr, "%s:%d: type left parentheses (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  ++paren_seen;
@@ -2880,8 +2696,8 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 	    continue;
 	  else
 	    {
-	      if (extract_balanced (mlp, arg_sg - arg_count + 1, 
-				    arg_pl - arg_count + 1, state, 
+	      if (extract_balanced (mlp, arg_sg - arg_count + 1,
+				    arg_pl - arg_count + 1, state,
 				    token_type_rparen))
 		{
 		  free_token (tp);
@@ -2894,7 +2710,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_rparen:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type right parentheses(%d)\n", 
+	  fprintf (stderr, "%s:%d: type right parentheses(%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  --paren_seen;
@@ -2902,13 +2718,13 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 	  /* No need to return if we extract all strings anyway.  */
 	  if (extract_all)
 	    continue;
-	  
+
 	  continue;
 
 	case token_type_comma:
 	case token_type_fat_comma:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type comma (%d)\n", 
+	  fprintf (stderr, "%s:%d: type comma (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  /* No need to bother if we extract all strings anyway.  */
@@ -2924,38 +2740,39 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 	    }
 #if DEBUG_PERL
 	  fprintf (stderr, "%s:%d: arg_count: %d, arg_sg: %d, arg_pl: %d\n",
-		   real_file_name, tp->line_number, 
+		   real_file_name, tp->line_number,
 		   arg_count, arg_sg, arg_pl);
 #endif
 	  continue;
 
 	case token_type_string:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n", 
-		   logical_file_name, tp->line_number, nesting_level, tp->string);
+	  fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n",
+		   logical_file_name, tp->line_number, nesting_level,
+		   tp->string);
 #endif
 
 	  if (extract_all)
 	    {
 	      lex_pos_ty pos;
-	      
+
 	      pos.file_name = logical_file_name;
 	      pos.line_number = tp->line_number;
-	      remember_a_message (mlp, collect_message (mlp, tp, 
-							EXIT_SUCCESS), 
+	      remember_a_message (mlp, collect_message (mlp, tp,
+							EXIT_SUCCESS),
 				  &pos);
 	    }
 	  else if (state)
 	    {
 	      lex_pos_ty pos;
-	      
+
 	      pos.file_name = logical_file_name;
 	      pos.line_number = tp->line_number;
-	      
+
 	      if (arg_count == arg_sg)
 		{
-		  plural_mp = 
-		    remember_a_message (mlp, collect_message (mlp, tp, 
+		  plural_mp =
+		    remember_a_message (mlp, collect_message (mlp, tp,
 							      EXIT_FAILURE),
 					&pos);
 		  arg_sg = -1;
@@ -2969,8 +2786,8 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 		}
 	      else if (arg_count == arg_pl)
 		{
-		  remember_a_message_plural (plural_mp, 
-					     collect_message (mlp, tp, 
+		  remember_a_message_plural (plural_mp,
+					     collect_message (mlp, tp,
 							      EXIT_FAILURE),
 					     &pos);
 		  arg_pl = -1;
@@ -2987,7 +2804,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_eof:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type EOF (%d)\n", 
+	  fprintf (stderr, "%s:%d: type EOF (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  free_token (tp);
@@ -2995,7 +2812,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_lbrace:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type lbrace (%d)\n", 
+	  fprintf (stderr, "%s:%d: type lbrace (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  /* No need to recurse if we extract all strings anyway.  */
@@ -3013,7 +2830,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_rbrace:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type rbrace (%d)\n", 
+	  fprintf (stderr, "%s:%d: type rbrace (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  state = 0;
@@ -3021,7 +2838,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_lbracket:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type lbracket (%d)\n", 
+	  fprintf (stderr, "%s:%d: type lbracket (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  /* No need to recurse if we extract all strings anyway.  */
@@ -3039,7 +2856,7 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_rbracket:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type rbracket (%d)\n", 
+	  fprintf (stderr, "%s:%d: type rbracket (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  state = 0;
@@ -3047,27 +2864,27 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_semicolon:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type semicolon (%d)\n", 
+	  fprintf (stderr, "%s:%d: type semicolon (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  state = 0;
 
 	  /* The ultimate sign.  */
 	  arg_sg = arg_pl = -1;
-	  
+
 	  continue;
 
 	case token_type_dereference:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type dereference (%d)\n", 
+	  fprintf (stderr, "%s:%d: type dereference (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  
+
 	  continue;
 
 	case token_type_dot:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type dot (%d)\n", 
+	  fprintf (stderr, "%s:%d: type dot (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  state = 0;
@@ -3075,22 +2892,23 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 
 	case token_type_named_op:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type named operator (%d): %s\n", 
-		   logical_file_name, tp->line_number, nesting_level, tp->string);
+	  fprintf (stderr, "%s:%d: type named operator (%d): %s\n",
+		   logical_file_name, tp->line_number, nesting_level,
+		   tp->string);
 #endif
 	  state = 0;
 	  continue;
 
 	case token_type_regex_op:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type regex operator (%d)\n", 
+	  fprintf (stderr, "%s:%d: type regex operator (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  continue;
 
 	case token_type_other:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type other (%d)\n", 
+	  fprintf (stderr, "%s:%d: type other (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  state = 0;
@@ -3105,11 +2923,8 @@ extract_balanced (mlp, arg_sg, arg_pl, state, delim)
 }
 
 void
-extract_perl (f, real_filename, logical_filename, mdlp)
-     FILE *f;
-     const char *real_filename;
-     const char *logical_filename;
-     msgdomain_list_ty *mdlp;
+extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
+	      msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -3128,7 +2943,7 @@ extract_perl (f, real_filename, logical_filename, mdlp)
 
   init_keywords ();
 
-  token_stack = xcalloc (1, sizeof *token_stack);
+  token_stack = (struct stack *) xmalloc (sizeof (struct stack));
   here_eaten = 0;
   end_of_file = false;
 

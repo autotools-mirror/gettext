@@ -42,10 +42,10 @@ const char *const format_language[NFORMATS] =
   /* format_smalltalk */	"smalltalk",
   /* format_java */		"java",
   /* format_awk */		"awk",
-  /* format_perl */		"perl",
   /* format_pascal */		"object-pascal",
   /* format_ycp */		"ycp",
   /* format_tcl */		"tcl",
+  /* format_perl */		"perl",
   /* format_php */		"php"
 };
 
@@ -59,10 +59,10 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_smalltalk */	"Smalltalk",
   /* format_java */		"Java",
   /* format_awk */		"awk",
-  /* format_perl */		"Perl",
   /* format_pascal */		"Object Pascal",
   /* format_ycp */		"YCP",
   /* format_tcl */		"Tcl",
+  /* format_perl */		"Perl",
   /* format_php */		"PHP"
 };
 
