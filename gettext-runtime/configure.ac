@@ -108,9 +108,15 @@ dnl Checks for optional programs for the tests/lang-* tests.
 gt_PROG_ANSI_CXX
 
 dnl Determine whether to build libasprintf.
-if test "$CXX" != ":"; then
-  SUBDIR_libasprintf=libasprintf
-else
+AC_ARG_ENABLE(libasprintf,
+  [  --disable-libasprintf   do not build libasprintf],
+  [if test "$enableval" != no; then
+     SUBDIR_libasprintf=libasprintf
+   else
+     SUBDIR_libasprintf=
+   fi
+  ], SUBDIR_libasprintf=libasprintf)
+if test "$CXX" = ":"; then
   SUBDIR_libasprintf=
 fi
 AC_SUBST(SUBDIR_libasprintf)
