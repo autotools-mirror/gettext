@@ -224,8 +224,7 @@ static bool parse_upto PARAMS ((const char **formatp, int *positionp,
 				struct format_arg_list **listp,
 				struct format_arg_list **escapep,
 				int *separatorp, struct spec *spec,
-				unsigned int base, char terminator,
-				bool separator));
+				char terminator, bool separator));
 static void *format_parse PARAMS ((const char *format));
 static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
@@ -2577,20 +2576,18 @@ nocheck_params (listp, paramcount, params)
    *separatorp is set to true if the parse terminated due to a ~; separator,
    more precisely to 2 if with colon, or to 1 if without colon.
    spec is the global struct spec.
-   base is the starting position for FORMAT-GOTO, if known, or -1 if unknown.
    terminator is the directive that terminates this parse.
    separator specifies if ~; separators are allowed.
    If the format string is invalid, false is returned.  */
 static bool
 parse_upto (formatp, positionp, listp, escapep,
-	    separatorp, spec, base, terminator, separator)
+	    separatorp, spec, terminator, separator)
      const char **formatp;
      int *positionp;
      struct format_arg_list **listp;
      struct format_arg_list **escapep;
      int *separatorp;
      struct spec *spec;
-     unsigned int base;
      char terminator;
      bool separator;
 {
@@ -2606,9 +2603,6 @@ parse_upto (formatp, positionp, listp, escapep,
 	bool atsign_p = false;
 	unsigned int paramcount = 0;
 	struct param *params = NULL;
-
-	/* Verify position is either >= base or unknown.  */
-	ASSERT (position < 0 || (base >= 0 && position >= base));
 
         /* Count number of directives.  */
 	spec->directives++;
@@ -2739,13 +2733,8 @@ parse_upto (formatp, positionp, listp, escapep,
 	    if (colon_p)
 	      {
 		/* Go back by 1 argument.  */
-		if (base >= 0)
-		  {
-		    if (position > base)
-		      position--;
-		  }
-		else
-		  position = -1;
+		if (position > 0)
+		  position--;
 	      }
 	    if (position >= 0)
 	      add_req_type_constraint (&list, position++, FAT_OBJECT);
@@ -2821,22 +2810,19 @@ parse_upto (formatp, positionp, listp, escapep,
 	      if (atsign_p)
 		{
 		  /* Absolute goto.  */
-		  if (base >= 0)
-		    position = base + n;
-		  else
-		    position = -1;
+		  position = n;
 		}
 	      else if (colon_p)
 		{
 		  /* Backward goto.  */
 		  if (n > 0)
 		    {
-		      if (base >= 0 && position >= 0)
+		      if (position >= 0)
 			{
-			  if (position >= base + n)
+			  if (position >= n)
 			    position -= n;
 			  else
-			    position = base;
+			    position = 0;
 			}
 		      else
 			position = -1;
@@ -2889,7 +2875,7 @@ parse_upto (formatp, positionp, listp, escapep,
 	    *escapep = escape;
 	    {
 	      if (!parse_upto (formatp, positionp, listp, escapep,
-			       NULL, spec, base, ')', false))
+			       NULL, spec, ')', false))
 		return false;
 	    }
 	    format = *formatp;
@@ -2939,7 +2925,7 @@ parse_upto (formatp, positionp, listp, escapep,
 		  struct format_arg_list *sub_list =
 		    (list != NULL ? copy_list (list) : NULL);
 		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   NULL, spec, base, ']', false))
+				   NULL, spec, ']', false))
 		    return false;
 		  if (sub_list != NULL)
 		    {
@@ -2998,7 +2984,7 @@ parse_upto (formatp, positionp, listp, escapep,
 		      free_list (empty_list);
 		    }
 		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   &sub_separator, spec, base, ']', true))
+				   &sub_separator, spec, ']', true))
 		    return false;
 		  if (!sub_separator)
 		    return false;
@@ -3013,7 +2999,7 @@ parse_upto (formatp, positionp, listp, escapep,
 		  struct format_arg_list *sub_list =
 		    (list != NULL ? copy_list (list) : NULL);
 		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   NULL, spec, base, ']', false))
+				   NULL, spec, ']', false))
 		    return false;
 		  if (sub_list != NULL)
 		    {
@@ -3063,7 +3049,7 @@ parse_upto (formatp, positionp, listp, escapep,
 		      (list != NULL ? copy_list (list) : NULL);
 		    int sub_separator = 0;
 		    if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				     &sub_separator, spec, base, ']', !last_alternative))
+				     &sub_separator, spec, ']', !last_alternative))
 		      return false;
 		    if (sub_list != NULL)
 		      {
@@ -3124,7 +3110,7 @@ parse_upto (formatp, positionp, listp, escapep,
 	      sub_spec.directives = 0;
 	      sub_spec.list = sub_list;
 	      if (!parse_upto (formatp, &sub_position, &sub_list, &sub_escape,
-			       NULL, &sub_spec, 0, '}', false))
+			       NULL, &sub_spec, '}', false))
 		return false;
 	      spec->directives += sub_spec.directives;
 
@@ -3225,7 +3211,7 @@ parse_upto (formatp, positionp, listp, escapep,
 		{
 		  int sub_separator = 0;
 		  if (!parse_upto (formatp, positionp, listp, &sub_escape,
-				   &sub_separator, spec, base, '>', true))
+				   &sub_separator, spec, '>', true))
 		    return false;
 		  if (!sub_separator)
 		    break;
@@ -3331,7 +3317,7 @@ format_parse (format)
   escape = NULL;
 
   if (!parse_upto (&format, &position, &spec.list, &escape,
-		   NULL, &spec, 0, '\0', false))
+		   NULL, &spec, '\0', false))
     /* Invalid format string.  */
     return NULL;
 

@@ -1,3 +1,11 @@
+2001-11-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* format-lisp.c (parse_upto): Remove 'base' argument. It is always 0.
+	(format_parse): Update.
+
+	* msgl-equal.c: Include string.h.
+	* str-list.c: Likewise.
+
 2001-11-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (line_comment): Remove variable, so default value is
