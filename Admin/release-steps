@@ -18,6 +18,12 @@ Tasks not to forget before release:
   * if any functions/classes have been added, increment LTV_AGE,
   * if backwards compatibility has been broken, set LTV_AGE to 0.
 
+- Update the version numbers in
+    gettext-runtime/windows/intl.rc
+    gettext-tools/windows/gettextlib.rc
+    gettext-tools/windows/gettextsrc.rc
+    gettext-tools/windows/gettextpo.rc
+
 - Update Origin version in
     gettext-runtime/po/Makefile.in.in and
     gettext-tools/po/Makefile.in.in
