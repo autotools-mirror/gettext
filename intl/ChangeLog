@@ -9,6 +9,8 @@
 	* Makefile.in (OBJECTS): Remove plural-eval.$lo.
 	(COMSRCS): Remove plural-eval.c.
 	(COMHDRS): Add plural-eval.c.
+	(plural-eval.$lo): Remove dependency.
+	(dcigettext.$lo): Depend on plural-eval.c.
 
 2001-11-29  Bruno Haible  <bruno@clisp.org>
 

@@ -279,7 +279,8 @@ $(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: gettextP.h gettext.h loadinfo.h
 dcigettext.$lo: hash-string.h
 explodename.$lo l10nflist.$lo: loadinfo.h
-dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo plural-eval.$lo: plural-exp.h
+dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: plural-exp.h
+dcigettext.$lo: plural-eval.c
 
 tags: TAGS
 
