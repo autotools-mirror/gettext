@@ -209,16 +209,17 @@ EXTRA_DIST += Makefile.vms config.h_vms
 # Woe32 support.
 
 config.h.msvc: config.h.in
-	(sed -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
-	     -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
-	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
-	     -e 's/#undef HAVE_SNPRINTF$$/#define HAVE_SNPRINTF 1/' \
-	     -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
-	     -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
-	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
-	     -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
-	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
-	   < $(srcdir)/config.h.in; echo; echo '#define snprintf _snprintf') > $@
+	sed -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	    -e 's/#undef HAVE_DECL__SNPRINTF$$/#define HAVE_DECL__SNPRINTF 1/' \
+	    -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
+	    -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
+	    -e 's/#undef HAVE_SNPRINTF$$/#define HAVE_SNPRINTF 1/' \
+	    -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
+	    -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	    -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
+	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
+	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	  < $(srcdir)/config.h.in > $@
 
 autosprintf.h.msvc-shared: autosprintf.h.in windows/dllexport.h
 	sed -e 's/extern \([^"]\)/extern LIBASPRINTF_DLL_EXPORTED \1/' \

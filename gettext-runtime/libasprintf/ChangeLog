@@ -4,6 +4,8 @@
 	as a function.
 	* vasnprintf.c: Test HAVE_DECL__SNPRINTF instead of HAVE__SNPRINTF.
 	Test HAVE_DECL__SNWPRINTF instead of HAVE__SNWPRINTF.
+	* Makefile.am (config.h.msvc): Define HAVE_DECL__SNPRINTF instead of
+	defining snprintf as a macro.
 
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
