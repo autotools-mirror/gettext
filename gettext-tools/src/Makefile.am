@@ -50,8 +50,8 @@ read-tcl.h write-tcl.h \
 write-qt.h \
 po-time.h plural-table.h format.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
-x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h x-tcl.h \
-x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h
+x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
+x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h
 
 EXTRA_DIST += FILES project-id ChangeLog.0
 
@@ -105,9 +105,9 @@ read-properties.c read-stringtable.c open-po.c dir-list.c str-list.c
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c format-invalid.h \
 format-c.c format-sh.c format-python.c format-lisp.c format-elisp.c \
-format-librep.c format-java.c format-csharp.c format-awk.c format-pascal.c \
-format-ycp.c format-tcl.c format-perl.c format-perl-brace.c format-php.c \
-format-gcc-internal.c format-qt.c
+format-librep.c format-scheme.c format-java.c format-csharp.c format-awk.c \
+format-pascal.c format-ycp.c format-tcl.c format-perl.c format-perl-brace.c \
+format-php.c format-gcc-internal.c format-qt.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
@@ -138,9 +138,9 @@ msgmerge_SOURCES = msgmerge.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
-  x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-smalltalk.c \
-  x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c x-rst.c \
-  x-glade.c
+  x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
+  x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
+  x-rst.c x-glade.c
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
 msgcomm_SOURCES = msgcomm.c

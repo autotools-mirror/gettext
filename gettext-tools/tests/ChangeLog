@@ -1,3 +1,12 @@
+2005-01-16  Bruno Haible  <bruno@clisp.org>
+
+	Support for Scheme.
+	* format-scheme-1: New file.
+	* format-scheme-2: New file.
+	* xgettext-scheme-1: New file.
+	* lang-guile: New file.
+	* Makefile.am (TESTS): Add them.
+
 2005-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep-4: Remove unportability notes.

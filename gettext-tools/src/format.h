@@ -75,6 +75,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_python;
 extern DLL_VARIABLE struct formatstring_parser formatstring_lisp;
 extern DLL_VARIABLE struct formatstring_parser formatstring_elisp;
 extern DLL_VARIABLE struct formatstring_parser formatstring_librep;
+extern DLL_VARIABLE struct formatstring_parser formatstring_scheme;
 extern DLL_VARIABLE struct formatstring_parser formatstring_smalltalk;
 extern DLL_VARIABLE struct formatstring_parser formatstring_java;
 extern DLL_VARIABLE struct formatstring_parser formatstring_csharp;

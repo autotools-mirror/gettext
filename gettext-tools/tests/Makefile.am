@@ -77,6 +77,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-po-1 \
 	xgettext-properties-1 \
 	xgettext-python-1 xgettext-python-2 \
+	xgettext-scheme-1 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 \
 	xgettext-smalltalk-1 \
 	xgettext-stringtable-1 \
@@ -97,14 +98,15 @@ TESTS = gettext-1 gettext-2 \
 	format-perl-brace-1 format-perl-brace-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
 	format-qt-1 format-qt-2 \
+	format-scheme-1 format-scheme-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
 	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python-1 \
-	lang-python-2 lang-clisp lang-elisp lang-librep lang-smalltalk \
-	lang-java lang-csharp lang-gawk lang-pascal lang-ycp lang-tcl \
-	lang-perl-1 lang-perl-2 lang-php lang-po lang-rst
+	lang-python-2 lang-clisp lang-elisp lang-librep lang-guile \
+	lang-smalltalk lang-java lang-csharp lang-gawk lang-pascal \
+	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po lang-rst
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-c-1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \

@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ POTFILES = \
   examples/hello-python/hello.py.in \
   examples/hello-clisp/hello.lisp.in \
   examples/hello-librep/hello.jl.in \
+  examples/hello-guile/hello.scm \
   examples/hello-smalltalk/hello.st.in \
   examples/hello-java/Hello.java \
   examples/hello-java-awt/Hello.java \
@@ -70,6 +71,7 @@ SMALLPOTS = \
   hello-python.pot \
   hello-clisp.pot \
   hello-librep.pot \
+  hello-guile.pot \
   hello-smalltalk.pot \
   hello-java.pot \
   hello-java-awt.pot \
@@ -227,6 +229,9 @@ hello-clisp.pot : $(POTFILES_DEPS)
 hello-librep.pot : $(POTFILES_DEPS)
 	$(SHELL) xsmallpot.sh hello-librep
 
+hello-guile.pot : $(POTFILES_DEPS)
+	$(SHELL) xsmallpot.sh hello-guile
+
 hello-smalltalk.pot : $(POTFILES_DEPS)
 	$(SHELL) xsmallpot.sh hello-smalltalk
 
@@ -352,6 +357,7 @@ SMALLPOFILES_FOR_lang = \
   ../hello-python/po/$$lang.po \
   ../hello-clisp/po/$$lang.po \
   ../hello-librep/po/$$lang.po \
+  ../hello-guile/po/$$lang.po \
   ../hello-smalltalk/po/$$lang.po \
   ../hello-java/po/$$lang.po \
   ../hello-java-awt/po/$$lang.po \
@@ -404,6 +410,9 @@ SMALLPOFILES_FOR_lang = \
 
 ../hello-librep/po/$(LL).po: hello-librep.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-librep $(LL)
+
+../hello-guile/po/$(LL).po: hello-guile.pot $(LL).po
+	$(SHELL) mmsmallpo.sh hello-guile $(LL)
 
 ../hello-smalltalk/po/$(LL).po: hello-smalltalk.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-smalltalk $(LL)

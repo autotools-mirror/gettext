@@ -1,3 +1,34 @@
+2005-01-16  Bruno Haible  <bruno@clisp.org>
+
+	Support for Scheme.
+	* message.h (format_type): New enum value 'format_scheme'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_scheme entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_scheme): New declaration.
+	* format-scheme.c: New file, based on format-lisp.c.
+	* format.c (formatstring_parsers): Add formatstring_scheme.
+	* x-scheme.h: New file.
+	* x-scheme.c: New file.
+	* xgettext.c: Include x-scheme.h.
+	(flag_table_scheme): New variable.
+	(main): Invoke init_flag_table_scheme, x_scheme_extract_all,
+	x_scheme_keyword.
+	(usage): Mention Scheme source language.
+	(xgettext_record_flag): Handle format_scheme.
+	(language_to_extractor): Add Scheme rule.
+	(extension_to_language): Add Scheme rule.
+	* Makefile.am (noinst_HEADERS): Add x-scheme.h.
+	(FORMAT_SOURCE): Add format-scheme.c.
+	(xgettext_SOURCES): Add x-scheme.c.
+	* Makefile.msvc (OBJECTS): Add format-scheme.obj.
+	(xgettext_OBJECTS): Add x-scheme.obj.
+	(format-scheme.obj, x-scheme.obj): New rules.
+	* Makefile.vms (OBJECTS): Add format-scheme.obj.
+	(xgettext_OBJECTS): Add x-scheme.obj.
+	(format-scheme.obj, x-scheme.obj): New rules.
+	* FILES: Update.
+
 2005-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.c (grep_args, grep_path, grep_argv): Remove variables.

@@ -430,6 +430,33 @@ EXAMPLESFILES = \
   hello-librep/po/uk.po \
   hello-librep/po/zh_CN.po \
   \
+  hello-guile/INSTALL \
+  hello-guile/autogen.sh \
+  hello-guile/autoclean.sh \
+  hello-guile/hello.scm \
+  hello-guile/Makefile.am \
+  hello-guile/configure.ac \
+  hello-guile/m4/Makefile.am \
+  hello-guile/po/Makefile.am \
+  hello-guile/po/LINGUAS \
+  hello-guile/po/af.po \
+  hello-guile/po/ca.po \
+  hello-guile/po/de.po \
+  hello-guile/po/el.po \
+  hello-guile/po/es.po \
+  hello-guile/po/fr.po \
+  hello-guile/po/ja.po \
+  hello-guile/po/nl.po \
+  hello-guile/po/pl.po \
+  hello-guile/po/ro.po \
+  hello-guile/po/ru.po \
+  hello-guile/po/sk.po \
+  hello-guile/po/sr.po \
+  hello-guile/po/sv.po \
+  hello-guile/po/tr.po \
+  hello-guile/po/uk.po \
+  hello-guile/po/zh_CN.po \
+  \
   hello-smalltalk/INSTALL \
   hello-smalltalk/autogen.sh \
   hello-smalltalk/autoclean.sh \

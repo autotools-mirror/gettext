@@ -61,7 +61,7 @@
 This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
-Copyright (C) 1995-1998, 2001-2004 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2005 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
@@ -339,6 +339,7 @@ The Translator's View
 * lisp-format::                 Lisp Format Strings
 * elisp-format::                Emacs Lisp Format Strings
 * librep-format::               librep Format Strings
+* scheme-format::               Scheme Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * java-format::                 Java Format Strings
 * csharp-format::               C# Format Strings
@@ -361,6 +362,7 @@ Individual Programming Languages
 * clisp C::                     GNU clisp C sources
 * Emacs Lisp::                  Emacs Lisp
 * librep::                      librep
+* Scheme::                      GNU guile - Scheme
 * Smalltalk::                   GNU Smalltalk
 * Java::                        Java
 * C#::                          C#
@@ -1211,6 +1213,12 @@ Likewise for Emacs Lisp, see @ref{elisp-format}.
 @itemx no-librep-format
 @kwindex no-librep-format@r{ flag}
 Likewise for librep, see @ref{librep-format}.
+
+@item scheme-format
+@kwindex scheme-format@r{ flag}
+@itemx no-scheme-format
+@kwindex no-scheme-format@r{ flag}
+Likewise for Scheme, see @ref{scheme-format}.
 
 @item smalltalk-format
 @kwindex smalltalk-format@r{ flag}
@@ -7403,6 +7411,7 @@ strings.
 * lisp-format::                 Lisp Format Strings
 * elisp-format::                Emacs Lisp Format Strings
 * librep-format::               librep Format Strings
+* scheme-format::               Scheme Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * java-format::                 Java Format Strings
 * csharp-format::               C# Format Strings
@@ -7514,7 +7523,7 @@ section @w{Formatting Strings},
 Note that as of version 21, XEmacs supports numbered argument specifications
 in format strings while FSF Emacs doesn't.
 
-@node librep-format, smalltalk-format, elisp-format, Translators for other Languages
+@node librep-format, scheme-format, elisp-format, Translators for other Languages
 @subsection librep Format Strings
 
 librep format strings are documented in the librep manual, section
@@ -7522,7 +7531,13 @@ librep format strings are documented in the librep manual, section
 @url{http://librep.sourceforge.net/librep-manual.html#Formatted%20Output},
 @url{http://www.gwinnup.org/research/docs/librep.html#SEC122}.
 
-@node smalltalk-format, java-format, librep-format, Translators for other Languages
+@node scheme-format, smalltalk-format, librep-format, Translators for other Languages
+@subsection Scheme Format Strings
+
+Scheme format strings are documented in the SLIB manual, section
+@w{Format Specification}.
+
+@node smalltalk-format, java-format, scheme-format, Translators for other Languages
 @subsection Smalltalk Format Strings
 
 Smalltalk format strings are described in the GNU Smalltalk documentation,
@@ -7714,6 +7729,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * clisp C::                     GNU clisp C sources
 * Emacs Lisp::                  Emacs Lisp
 * librep::                      librep
+* Scheme::                      GNU guile - Scheme
 * Smalltalk::                   GNU Smalltalk
 * Java::                        Java
 * C#::                          C#
@@ -8276,7 +8292,7 @@ Only XEmacs.  Without @code{I18N3} defined at build time, no translation.
 ---
 @end table
 
-@node librep, Smalltalk, Emacs Lisp, List of Programming Languages
+@node librep, Scheme, Emacs Lisp, List of Programming Languages
 @subsection librep
 @cindex @code{librep} Lisp
 
@@ -8326,7 +8342,60 @@ On platforms without gettext, no translation.
 
 An example is available in the @file{examples} directory: @code{hello-librep}.
 
-@node Smalltalk, Java, librep, List of Programming Languages
+@node Scheme, Smalltalk, librep, List of Programming Languages
+@subsection GNU guile - Scheme
+@cindex Scheme
+@cindex guile
+
+@table @asis
+@item RPMs
+guile
+
+@item File extension
+@code{scm}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{(_ "abc")}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{ngettext}
+
+@item textdomain
+@code{textdomain}
+
+@item bindtextdomain
+@code{bindtextdomain}
+
+@item setlocale
+automatic
+
+@item Prerequisite
+@code{(use-modules (ice-9 format))}
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{xgettext -k_}
+
+@item Formatting with positions
+@c @code{format "~1@@*~D ~0@@*~D~2@@*"}, requires @code{(use-modules (ice-9 format))}
+@c not yet supported
+---
+
+@item Portability
+On platforms without gettext, no translation.
+
+@item po-mode marking
+---
+@end table
+
+An example is available in the @file{examples} directory: @code{hello-guile}.
+
+@node Smalltalk, Java, Scheme, List of Programming Languages
 @subsection GNU Smalltalk
 @cindex Smalltalk
 

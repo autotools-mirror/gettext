@@ -70,10 +70,10 @@ is written to standard output.
 @cindex supported languages, @code{xgettext}
 Specifies the language of the input files.  The supported languages
 are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Python},
-@code{Lisp}, @code{EmacsLisp}, @code{librep}, @code{Smalltalk}, @code{Java},
-@code{JavaProperties}, @code{C#}, @code{awk}, @code{YCP}, @code{Tcl},
-@code{Perl}, @code{PHP}, @code{GCC-source}, @code{NXStringTable}, @code{RST},
-@code{Glade}.
+@code{Lisp}, @code{EmacsLisp}, @code{librep}, @code{Scheme}, @code{Smalltalk},
+@code{Java}, @code{JavaProperties}, @code{C#}, @code{awk}, @code{YCP},
+@code{Tcl}, @code{Perl}, @code{PHP}, @code{GCC-source}, @code{NXStringTable},
+@code{RST}, @code{Glade}.
 
 @item -C
 @itemx --c++
@@ -210,7 +210,7 @@ translators cannot accidentally use format string directives that would
 lead to a crash at runtime.
 @*
 This option has an effect with most languages, namely C, C++, ObjectiveC,
-Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, YCP, Tcl, Perl, PHP,
+Shell, Python, Lisp, EmacsLisp, librep, Scheme, Java, C#, awk, YCP, Tcl, Perl, PHP,
 GCC-source.
 
 @item -T

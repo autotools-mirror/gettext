@@ -1,7 +1,14 @@
 Version 0.14.2 - January 2005
 
 * Improved detection of the locale on MacOS X.
+
 * The gettext autoconf macros now require autoconf 2.50 or newer.
+
+* Programming languages support:
+
+  - Scheme:
+    xgettext now also supports Scheme. Best used with guile 1.7 or newer.
+
 * msggrep is much faster now.
 
 Version 0.14 - January 2004

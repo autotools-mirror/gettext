@@ -18,6 +18,7 @@ environment.
     hello-python               Python
     hello-clisp                Lisp
     hello-librep               librep
+    hello-guile                Scheme
     hello-smalltalk            Smalltalk
     hello-java                 Java
     hello-java-awt             Java              AWT

@@ -1,3 +1,12 @@
+2005-01-16  Bruno Haible  <bruno@clisp.org>
+
+	Support for Scheme.
+	* gettext.texi (PO Files): Mention scheme-format.
+	(scheme-format): New subsection.
+	(Scheme): New subsection.
+	* xgettext.texi: Document Scheme source language. Document that it is
+	applicable to --flag.
+
 2005-01-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi: Put the table of contents at the beginning, after the

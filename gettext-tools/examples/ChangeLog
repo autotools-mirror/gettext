@@ -1,3 +1,15 @@
+2005-01-16  Bruno Haible  <bruno@clisp.org>
+
+	Support for Scheme.
+	* hello-guile: New subdirectory.
+	* README: Mention it.
+	* Makefile.am (EXAMPLESFILES): Add the files in hello-guile.
+	* po/Makefile.am (POTFILES): Add hello-guile source.
+	(SMALLPOTS): Add hello-guile.pot.
+	(hello-guile.pot): New rule.
+	(SMALLPOFILES_FOR_lang): Add hello-guile elements.
+	(../hello-guile/po/$(LL).po): New rule.
+
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
 	* po/el.po: New file, from Simos Xenitellis <simos74@gmx.net>.
