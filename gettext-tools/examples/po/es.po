@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples-0.14\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2004-01-17 17:57+0100\n"
+"POT-Creation-Date: 2005-01-29 17:39+0100\n"
 "PO-Revision-Date: 2004-01-29 13:59-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -21,11 +21,12 @@ msgstr ""
 #: hello-objc-gnustep/Hello.m:50 hello-objc-gnome/hello.m:48
 #: hello-sh/hello.sh:15 hello-python/hello.py.in:13
 #: hello-clisp/hello.lisp.in:12 hello-librep/hello.jl.in:13
-#: hello-smalltalk/hello.st.in:32 hello-java/Hello.java:15
-#: hello-java-awt/Hello.java:24 hello-java-swing/Hello.java:21
-#: hello-csharp/hello.cs:29 hello-csharp-forms/hello.cs:30
-#: hello-gawk/hello.awk:12 hello-pascal/hello.hello_world
-#: hello-ycp/hello.ycp:16 hello-tcl/hello.tcl:12 hello-tcl-tk/hello.tcl:14
+#: hello-guile/hello.scm:16 hello-smalltalk/hello.st.in:32
+#: hello-java/Hello.java:15 hello-java-awt/Hello.java:24
+#: hello-java-swing/Hello.java:21 hello-csharp/hello.cs:15
+#: hello-csharp-forms/hello.cs:30 hello-gawk/hello.awk:12
+#: hello-pascal/hello.hello_world hello-ycp/hello.ycp:16
+#: hello-tcl/hello.tcl:12 hello-tcl-tk/hello.tcl:14
 #: hello-perl/hello-1.pl.in:18 hello-perl/hello-2.pl.in:13
 #: hello-php/hello.php:13
 msgid "Hello, world!"
@@ -66,13 +67,13 @@ msgstr "Este programa está corriendo como el proceso número $pid."
 msgid "This program is running as process number %(pid)d."
 msgstr "Este programa está corriendo como el proceso número %(pid)d."
 
-#: hello-clisp/hello.lisp.in:14
-#, lisp-format
+#: hello-clisp/hello.lisp.in:14 hello-guile/hello.scm:18
+#, scheme-format
 msgid "This program is running as process number ~D."
 msgstr "Este programa está corriendo como el proceso número ~D."
 
 #: hello-java/Hello.java:19 hello-java-awt/Hello.java:29
-#: hello-java-swing/Hello.java:26 hello-csharp/hello.cs:32
+#: hello-java-swing/Hello.java:26 hello-csharp/hello.cs:18
 #: hello-csharp-forms/hello.cs:37
 #, csharp-format
 msgid "This program is running as process number {0}."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.14\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-10-16 21:36+0200\n"
+"POT-Creation-Date: 2005-01-14 13:07+0100\n"
 "PO-Revision-Date: 2004-01-29 13:59-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -15,71 +15,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../gettext-tools/lib/closeout.c:66
+#: ../gettext-tools/lib/closeout.c:64
 msgid "write error"
 msgstr "error de escritura"
 
 # Nota: El error es del sistema, pero no se sabe cuál es el error,
 # por eso es (además) desconocido.
-#: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
+#: ../gettext-tools/lib/error.c:121
 msgid "Unknown system error"
 msgstr "Error del sistema desconocido"
 
-#: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
+#: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: la opción `%s' es ambigua\n"
 
-#: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
+#: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: la opción `--%s' no admite ningún argumento\n"
 
-#: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
+#: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: la opción `%c%s' no admite ningún argumento\n"
 
-#: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
-#: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
+#: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
+#: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: la opción `%s' requiere un argumento\n"
 
-#: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
+#: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: opción no reconocida `--%s'\n"
 
-#: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
+#: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: opción no reconocida `%c%s'\n"
 
 # acepto la sugerencia de em en cuanto a que inválida parece cárcel
 # o inútil pero mejor puse inválida
-#: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
+#: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: opción inválida -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
+#: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: opción inválida -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
-#: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
+#: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
+#: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: la opción requiere un argumento -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
+#: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: la opción `-W %s' es ambigua\n"
 
-#: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
+#: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: la opción `-W %s' no admite ningún argumento\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.13.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-10-16 21:36+0200\n"
+"POT-Creation-Date: 2005-01-14 13:07+0100\n"
 "PO-Revision-Date: 2004-01-04 21:26+0100\n"
 "Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -16,67 +16,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../gettext-tools/lib/closeout.c:66
+#: ../gettext-tools/lib/closeout.c:64
 msgid "write error"
 msgstr "schijffout"
 
-#: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
+#: ../gettext-tools/lib/error.c:121
 msgid "Unknown system error"
 msgstr "Onbekende systeemfout"
 
-#: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
+#: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: optie `%s' is dubbelzinnig\n"
 
-#: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
+#: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: optie `--%s' staat geen argument toe\n"
 
-#: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
+#: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: optie `%c%s' staat geen argument toe\n"
 
-#: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
-#: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
+#: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
+#: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: optie `%s' vereist een argument\n"
 
-#: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
+#: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: niet-herkende optie `--%s'\n"
 
-#: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
+#: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: niet-herkende optie `%c%s'\n"
 
-#: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
+#: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: niet-toegestane optie -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
+#: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: ongeldige optie -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
-#: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
+#: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
+#: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: optie vereist een argument -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
+#: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: optie `-W %s' is dubbelzinnig\n"
 
-#: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
+#: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: optie `-W %s' staat geen argument toe\n"

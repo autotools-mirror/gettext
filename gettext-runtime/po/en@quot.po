@@ -1,7 +1,7 @@
 # English translations for GNU gettext-runtime package.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the GNU gettext-runtime package.
-# Automatically generated, 2004.
+# Automatically generated, 2005.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation
@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-10-16 21:36+0200\n"
-"PO-Revision-Date: 2003-10-16 21:36+0200\n"
+"POT-Creation-Date: 2005-01-14 13:07+0100\n"
+"PO-Revision-Date: 2005-01-14 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -38,67 +38,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../gettext-tools/lib/closeout.c:66
+#: ../gettext-tools/lib/closeout.c:64
 msgid "write error"
 msgstr "write error"
 
-#: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
+#: ../gettext-tools/lib/error.c:121
 msgid "Unknown system error"
 msgstr "Unknown system error"
 
-#: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
+#: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: option ‘%s’ is ambiguous\n"
 
-#: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
+#: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: option ‘--%s’ doesn't allow an argument\n"
 
-#: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
+#: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: option ‘%c%s’ doesn't allow an argument\n"
 
-#: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
-#: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
+#: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
+#: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: option ‘%s’ requires an argument\n"
 
-#: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
+#: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: unrecognized option ‘--%s’\n"
 
-#: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
+#: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: unrecognized option ‘%c%s’\n"
 
-#: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
+#: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: illegal option -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
+#: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: invalid option -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
-#: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
+#: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
+#: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: option requires an argument -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
+#: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: option ‘-W %s’ is ambiguous\n"
 
-#: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
+#: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: option ‘-W %s’ doesn't allow an argument\n"
