@@ -1,5 +1,12 @@
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.in (libintl.la): Pass -liconv and flag -no-undefined.
+	Needed on platforms like BeOS.
+
+	* Makefile.in (all-no-yes): Depend on libgnuintl.$la, not libintl.$la.
+	(libgnuintl.a, libgnuintl.la): New targets. Needed for linking
+	../tests/tstgettext on systems which have gettext() in libintl.so.
+
 	* localcharset.c (locale_charset): Allow wildcard syntax. Resolve
 	alias also if codeset is empty.
 	* config.charset (BeOS): Use wildcard syntax.
