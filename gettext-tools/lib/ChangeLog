@@ -1,5 +1,9 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* strpbrk.c: Update from gnulib.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* strcspn.c: Update from gnulib.
 
 2005-01-06  Bruno Haible  <bruno@clisp.org>
