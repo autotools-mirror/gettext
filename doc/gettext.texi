@@ -245,6 +245,7 @@ Individual Programming Languages
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
+* YCP::                         YCP - YaST2 scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
@@ -5672,6 +5673,7 @@ strings.
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
+* YCP::                         YCP - YaST2 scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
@@ -6255,7 +6257,7 @@ emulate partially
 ---
 @end table
 
-@node wxWindows, Perl, Pascal, List of Programming Languages
+@node wxWindows, YCP, Pascal, List of Programming Languages
 @subsection wxWindows library
 
 @table @asis
@@ -6302,7 +6304,54 @@ fully portable
 yes
 @end table
 
-@node Perl, PHP, wxWindows, List of Programming Languages
+@node YCP, Perl, wxWindows, List of Programming Languages
+@subsection YCP - YaST2 scripting language
+
+@table @asis
+@item RPMs
+libycp, libycp-devel
+
+@item File extension
+@code{ycp}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{_("abc")}
+
+@item gettext/ngettext functions
+---
+
+@item textdomain
+@code{textdomain} statement
+
+@item bindtextdomain
+---
+
+@item setlocale
+---
+
+@item Prerequisite
+---
+
+@item Use or emulate GNU gettext
+use maps instead
+
+@item Extractor
+---
+
+@item Formatting with positions
+@code{sformat "%2 %1"}
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+@node Perl, PHP, YCP, List of Programming Languages
 @subsection Perl
 
 @table @asis
@@ -6501,7 +6550,7 @@ using GNU gettext.
 gettext
 
 @item File extension
-@code{pot}, @code{po}, @code{pox}
+@code{pot}, @code{po}
 
 @item Extractor
 @code{xgettext}

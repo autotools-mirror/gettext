@@ -1,3 +1,7 @@
+2001-08-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (YCP): New node.
+
 2001-08-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Compendium): Entirely rewritten by Karl Eichwalder.
