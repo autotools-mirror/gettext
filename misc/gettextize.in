@@ -968,7 +968,7 @@ if $doit; then
   echo "Press Return to acknowledge the previous $count."
   # Read from /dev/tty, not stdin, so that gettextize cannot be abused by
   # non-interactive tools.
-  read < /dev/tty
+  read dummy < /dev/tty
 fi
 
 exit 0

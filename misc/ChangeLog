@@ -1,3 +1,8 @@
+2002-08-03  Paul Eggert  <eggert@twinsun.com>
+
+	* gettextize.in: Use "read dummy" to avoid an error with Solaris
+	/bin/sh.
+
 2002-08-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Add ulonglong.m4 to m4filelist.
