@@ -129,6 +129,7 @@ static bool check_compatibility = false;
    the '&' designates a keyboard accelerator, and verify that the translations
    also have a keyboard accelerator.  */
 static bool check_accelerators = false;
+static char accelerator_char = '&';
 
 /* Counters for statistics on translations for the processed files.  */
 static int msgs_translated;
@@ -143,7 +144,7 @@ static const struct option long_options[] =
 {
   { "alignment", required_argument, NULL, 'a' },
   { "check", no_argument, NULL, 'c' },
-  { "check-accelerators", no_argument, NULL, CHAR_MAX + 1 },
+  { "check-accelerators", optional_argument, NULL, CHAR_MAX + 1 },
   { "check-compatibility", no_argument, NULL, 'C' },
   { "check-domain", no_argument, NULL, CHAR_MAX + 2 },
   { "check-format", no_argument, NULL, CHAR_MAX + 3 },
@@ -292,6 +293,16 @@ main (argc, argv)
 	break;
       case CHAR_MAX + 1:
 	check_accelerators = true;
+	if (optarg != NULL)
+	  {
+	    if (optarg[0] != '\0' && ispunct ((unsigned char) optarg[0])
+		&& optarg[1] == '\0')
+	      accelerator_char = optarg[0];
+	    else
+	      error (EXIT_FAILURE, 0,
+		     _("the argument to %s should be a single punctuation character"),
+		     "--check-accelerators");
+	  }
 	break;
       case CHAR_MAX + 2:
 	check_domain = true;
@@ -525,7 +536,7 @@ Input file interpretation:\n\
       --check-domain          check for conflicts between domain directives\n\
                                 and the --output-file option\n\
   -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n\
-      --check-accelerators    check presence of keyboard accelerators for\n\
+      --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n\
                                 menu items\n\
   -f, --use-fuzzy             use fuzzy entries in output\n\
 "));
@@ -1086,27 +1097,29 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
       const char *p;
 
       /* We are only interested in msgids that contain exactly one '&'.  */
-      p = strchr (msgid, '&');
-      if (p != NULL && strchr (p + 1, '&') == NULL)
+      p = strchr (msgid, accelerator_char);
+      if (p != NULL && strchr (p + 1, accelerator_char) == NULL)
 	{
 	  /* Count the number of '&' in msgstr.  */
 	  unsigned int count = 0;
 
-	  for (p = msgstr; (p = strchr (p, '&')) != NULL; p++)
+	  for (p = msgstr; (p = strchr (p, accelerator_char)) != NULL; p++)
 	    count++;
 
 	  if (count == 0)
 	    {
 	      error_with_progname = false;
 	      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			     _("msgstr lacks the keyboard accelerator mark '&'"));
+			     _("msgstr lacks the keyboard accelerator mark '%c'"),
+			     accelerator_char);
 	      error_with_progname = true;
 	    }
 	  else if (count > 1)
 	    {
 	      error_with_progname = false;
 	      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			     _("msgstr has too many keyboard accelerator marks '&'"));
+			     _("msgstr has too many keyboard accelerator marks '%c'"),
+			     accelerator_char);
 	      error_with_progname = true;
 	    }
 	}
