@@ -1,3 +1,12 @@
+2005-01-09  Bruno Haible  <bruno@clisp.org>
+
+	Adaptation to automake-1.9.
+	* Makefile.am (tests/rpath*/aclocal.m4): Turn the m4 directories
+	into absolute pathnames, so that aclocal-1.9 includes the files
+	literally into the created aclocal.m4 file, instead of putting
+	m4_include(...) statements that don't work after the directory has
+	been copied to a different location.
+
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath: Upgrade to libtool-1.5.10.
