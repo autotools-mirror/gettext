@@ -1,5 +1,9 @@
 2001-05-18  Bruno Haible  <haible@clisp.cons.org>
 
+	* de.po: Update from Karl Eichwalder.
+
+2001-05-18  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in.in (dist2): Don't assume $(srcdir) = ".". Distribute
 	file in either current directory or $(srcdir), whichever exists.
 
