@@ -1,3 +1,25 @@
+2003-04-24  Bruno Haible  <bruno@clisp.org>
+
+	Support for libtool-1.5.
+	* configure.ac: Postprocess the esyscmd output by replacing
+	]AC_ENABLE_SHARED_DEFAULT[ -> yes
+	]AC_ENABLE_STATIC_DEFAULT[ -> yes
+	]AC_ENABLE_FAST_INSTALL_DEFAULT[ -> yes
+
+	* config/ltmain.sh: Upgrade to libtool-1.5.
+	2003-02-18  Bruno Haible  <bruno@clisp.org>
+		* config/ltmain.sh (install): Use "ln -s -f" instead of
+		"rm -f && ln -s" to make a symlink for a shared library. Take
+		care of Solaris /bin/ln.
+		Reported by Nelson H. F. Beebe <beebe@math.utah.edu>.
+	2001-11-03  Bruno Haible  <bruno@clisp.org>
+		* config/m4/ltmain.sh: chmod 777 the .libs directory, so that
+		"make install" succeeds.
+	* config/m4/libtool.m4: Upgrade to libtool-1.5.
+	2002-07-14  Bruno Haible  <bruno@clisp.org>
+		* config/m4/libtool.m4 (AC_LIBTOOL_SYS_DYNAMIC_LINKER): Add
+		support for GNU/FreeBSD.
+
 2003-04-13  Bruno Haible  <bruno@clisp.org>
 
 	* read-po.c (readall_directive_message): Separate accumulation and
