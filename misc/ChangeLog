@@ -1,3 +1,39 @@
+2000-01-03  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-preset-string-functions): New function.
+	(po-find-unknown-string, po-mark-unknown-string): New functions.
+	(po-find-c-string): Return a 3-element list.
+	(po-find-emacs-lisp-string): Likewise.
+	(po-mark-found-string): Simplify consequently.
+	(po-tags-loop-scan): Use po-preset-string-functions.
+
+	* po-mode.el (po-mark-c-string, po-mark-emacs-lisp-string): Have
+	marking functions to leave cursor after marked string.  Do not return
+	updated end anymore.
+
+	* po-mode.el (po-mark-found-string, po-mark-translatable,
+	po-select-mark-and-mark): Other changes.
+
+2000-01-02  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-tags-search): Better use the Emacs tags interface,
+	and simplified.  Nested tags tables should be handled now.
+	(po-tags-loop-scan, po-tags-loop-operate): New functions.
+	(po-string-contents, po-string-buffer): New buffer local variables.
+	(po-next-file-list): Deleted.  All usages adjusted.
+
+2001-01-04  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-extract-part-unquoted): New function.
+	(po-extract-unquoted, po-skip-over-python-string): Use it.
+
+	* po-mode.el (po-skip-over-python-string): Missing parentheses.
+	Reported by Andreas Schwab.
+
+	* po-mode.el (po-find-python-string, po-mark-python-string,
+	po-skip-over-python-string): New functions.
+	(po-tags-search, po-mark-found-string): Use them in Python mode.
+
 2001-08-13  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-mode): Issue message after running hooks rather than

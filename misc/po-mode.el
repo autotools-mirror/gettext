@@ -408,16 +408,14 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 ;; The following variables are for marking translatable strings in program
 ;; sources.  KEYWORDS is the list of keywords for marking translatable
 ;; strings, kept in a format suitable for reading with completion.
-;; NEXT-FILE-LIST is the list of source files to visit, gotten from the tags
-;; table.  STRING-START is the position for the beginning of the last found
-;; string, or nil if the string is invalidated.  STRING-END is the position
-;; for the end of the string and indicates where the search should be
-;; resumed, or nil for the beginning of the current file.  MARKING-OVERLAY,
-;; if not `nil', holds the overlay which highlight the last found string;
-;; for older Emacses, it holds the cons of two markers around the
-;; highlighted region.
+;; STRING-CONTENTS holds the value of the most recent string found in sources,
+;; and when it is not nil, then STRING-BUFFER, STRING-START and STRING-END
+;; describe where it is.  MARKING-OVERLAY, if not `nil', holds the overlay
+;; which highlight the last found string; for older Emacses, it holds the cons
+;; of two markers around the highlighted region.
 (defvar po-keywords)
-(defvar po-next-file-list)
+(defvar po-string-contents)
+(defvar po-string-buffer)
 (defvar po-string-start)
 (defvar po-string-end)
 (defvar po-marking-overlay)
@@ -869,9 +867,6 @@ all reachable through `M-x customize', in group `Emacs.Editing.I18n.Po'."
   (set (make-local-variable 'po-string-start) nil)
   (set (make-local-variable 'po-string-end) nil)
   (set (make-local-variable 'po-marking-overlay) (po-create-overlay))
-
-  (make-local-variable 'po-next-file-list)
-  (setq po-next-file-list nil)
 
   (add-hook 'write-contents-hooks 'po-replace-revision-date)
 
@@ -1445,41 +1440,45 @@ no entries of the other types."
 (defun po-extract-unquoted (buffer start end)
   "Extract and return the unquoted string in BUFFER going from START to END.
 Crumb preceding or following the quoted string is ignored."
-  (po-with-temp-buffer
-    (insert-buffer-substring buffer start end)
-    ;; Remove preceding crumb.
-    (goto-char (point-min))
+  (save-excursion
+    (goto-char start)
     (search-forward "\"")
-    (delete-region (point-min) (point))
-    ;; Remove following crumb.
-    (goto-char (point-max))
+    (setq start (point))
+    (goto-char end)
     (search-backward "\"")
-    (delete-region (point) (point-max))
-    ;; Glue concatenated strings.
-    (goto-char (point-min))
-    (while (re-search-forward "\"[ \t]*\\\\?\n\\(#~?\\)?[ \t]*\"" nil t)
-      (replace-match "" t t))
-    ;; Remove escaped newlines.
-    (goto-char (point-min))
-    (while (re-search-forward "\\\\[ \t]*\n" nil t)
-      (replace-match "" t t))
-    ;; Unquote individual characters.
-    (goto-char (point-min))
-    (while (re-search-forward "\\\\[\"abfnt\\0-7]" nil t)
-      (cond ((eq (preceding-char) ?\") (replace-match "\"" t t))
-	    ((eq (preceding-char) ?a) (replace-match "\a" t t))
-	    ((eq (preceding-char) ?b) (replace-match "\b" t t))
-	    ((eq (preceding-char) ?f) (replace-match "\f" t t))
-	    ((eq (preceding-char) ?n) (replace-match "\n" t t))
-	    ((eq (preceding-char) ?t) (replace-match "\t" t t))
-	    ((eq (preceding-char) ?\\) (replace-match "\\" t t))
-	    (t (let ((value (- (preceding-char) ?0)))
-		 (replace-match "" t t)
-		 (while (looking-at "[0-7]")
-		   (setq value (+ (* 8 value) (- (following-char) ?0)))
-		   (replace-match "" t t))
-		 (insert value)))))
-    (buffer-string)))
+    (setq end (point)))
+  (po-extract-part-unquoted buffer start end))
+
+(defun po-extract-part-unquoted (buffer start end)
+  "Extract and return the unquoted string in BUFFER going from START to END.
+Surrounding quotes are already excluded by the position of START and END."
+  (po-with-temp-buffer
+   (insert-buffer-substring buffer start end)
+   ;; Glue concatenated strings.
+   (goto-char (point-min))
+   (while (re-search-forward "\"[ \t]*\\\\?\n\\(#~\\)?[ \t]*\"" nil t)
+     (replace-match "" t t))
+   ;; Remove escaped newlines.
+   (goto-char (point-min))
+   (while (re-search-forward "\\\\[ \t]*\n" nil t)
+     (replace-match "" t t))
+   ;; Unquote individual characters.
+   (goto-char (point-min))
+   (while (re-search-forward "\\\\[\"abfnt\\0-7]" nil t)
+     (cond ((eq (preceding-char) ?\") (replace-match "\"" t t))
+	   ((eq (preceding-char) ?a) (replace-match "\a" t t))
+	   ((eq (preceding-char) ?b) (replace-match "\b" t t))
+	   ((eq (preceding-char) ?f) (replace-match "\f" t t))
+	   ((eq (preceding-char) ?n) (replace-match "\n" t t))
+	   ((eq (preceding-char) ?t) (replace-match "\t" t t))
+	   ((eq (preceding-char) ?\\) (replace-match "\\" t t))
+	   (t (let ((value (- (preceding-char) ?0)))
+		(replace-match "" t t)
+		(while (looking-at "[0-7]")
+		  (setq value (+ (* 8 value) (- (following-char) ?0)))
+		  (replace-match "" t t))
+		(insert value)))))
+   (buffer-string)))
 
 (defun po-eval-requoted (form prefix obsolete)
   "Eval FORM, which inserts a string, and return the string fully requoted.
@@ -2187,131 +2186,142 @@ If the command is repeated many times in a row, cycle through contexts."
 	po-reference-alist))
     (error (_"No resolved source references"))))
 
-;;; Program sources strings though tags table.
+;;; String marking in program sources, through TAGS table.
 
-;;; Processing generic to all programming modes.
+;; Globally defined within tags.el.
+(defvar tags-loop-operate)
+(defvar tags-loop-scan)
 
-(eval-and-compile
-  (autoload 'visit-tags-table-buffer "etags"))
+;; Locally set in each program source buffer.
+(defvar po-find-string-function)
+(defvar po-mark-string-function)
+
+;; Dynamically set within po-tags-search for po-tags-loop-operate.
+(defvar po-current-po-buffer)
+(defvar po-current-po-keywords)
 
 (defun po-tags-search (restart)
   "Find an unmarked translatable string through all files in tags table.
 Disregard some simple strings which are most probably non-translatable.
 With prefix argument, restart search at first file."
   (interactive "P")
+  (require 'etags)
+  ;; Ensure there is no highlighting, in case the search fails.
+  (if po-highlighting
+      (po-dehighlight po-marking-overlay))
+  (setq po-string-contents nil)
+  ;; Search for a string which might later be marked for translation.
+  (let ((po-current-po-buffer (current-buffer))
+	(po-current-po-keywords po-keywords))
+    (pop-to-buffer po-string-buffer)
+    (if (and (not restart)
+	     (eq (car tags-loop-operate) 'po-tags-loop-operate))
+	;; Continue last po-tags-search.
+	(tags-loop-continue nil)
+      ;; Start or restart po-tags-search all over.
+      (setq tags-loop-scan '(po-tags-loop-scan)
+	    tags-loop-operate '(po-tags-loop-operate))
+      (tags-loop-continue t))
+    (select-window (get-buffer-window po-current-po-buffer)))
+  (if po-string-contents
+      (let ((window (selected-window))
+	    (buffer po-string-buffer)
+	    (start po-string-start)
+	    (end po-string-end))
+	;; Try to fit the string in the displayed part of its window.
+	(select-window (get-buffer-window buffer))
+	(goto-char start)
+	(or (pos-visible-in-window-p start)
+	    (recenter '(nil)))
+	(if (pos-visible-in-window-p end)
+	    (goto-char end)
+	  (goto-char end)
+	  (recenter -1))
+	(select-window window)
+	;; Highlight the string as found.
+	(and po-highlighting
+	     (po-highlight po-marking-overlay start end buffer)))))
 
-  ;; Take care of restarting the search if necessary.
-  (if restart (setq po-next-file-list nil))
-  ;; Loop doing things until an interesting string is found.
-  (let ((keywords po-keywords)
-	found buffer start
-	(end po-string-end))
-    (while (not found)
-      ;; Reinitialize the source file list if necessary.
-      (if (not po-next-file-list)
-	  (progn
-	    (setq po-next-file-list
-		  (save-excursion
-		    (visit-tags-table-buffer)
-		    (copy-sequence (tags-table-files))))
-	    (or po-next-file-list (error (_"No files to process")))
-	    (setq end nil)))
-      ;; Try finding a string after resuming the search position.
-      (message (_"Scanning %s...") (car po-next-file-list))
-      (save-excursion
-	(setq buffer (find-file-noselect (car po-next-file-list)))
-	(set-buffer buffer)
-	(goto-char (or end (point-min)))
-	(cond ((member mode-name '("C" "C++"))
-	       (let ((pair (po-find-c-string keywords)))
-		 (setq start (car pair)
-		       end (cdr pair))))
-	      ((string-equal mode-name "Emacs-Lisp")
-	       (let ((pair (po-find-emacs-lisp-string keywords)))
-		 (setq start (car pair)
-		       end (cdr pair))))
-	      (t (message (_"Unknown source mode for PO mode, skipping..."))
-		 (setq start nil
-		       end nil))))
-      ;; Advance to next file if no string was found.
-      (if (not start)
-	  (progn
-	    (setq po-next-file-list (cdr po-next-file-list))
-	    (if po-next-file-list
-		(setq end nil)
-	      (setq po-string-end nil)
-	      (and po-highlighting (po-dehighlight po-marking-overlay))
-	      (error (_"All files processed"))))
-	;; Push the string just found string into a work buffer for study.
-	(po-with-temp-buffer
-	 (insert (po-extract-unquoted buffer start end))
-	 (goto-char (point-min))
-	 ;; Do not disregard if at least three letters in a row.
-	 (if (re-search-forward "[A-Za-z][A-Za-z][A-Za-z]" nil t)
-	     (setq found t)
-	   ;; Disregard if two letters, and more punctuations than letters.
-	   (if (re-search-forward "[A-Za-z][A-Za-z]" nil t)
-	       (let ((total (buffer-size)))
-		 (goto-char (point-min))
-		 (while (re-search-forward "[A-Za-z]+" nil t)
-		   (replace-match "" t t))
-		 (if (< (* 2 (buffer-size)) total)
-		     (setq found t))))
-	   ;; Disregard if single letters or no letters at all.
-	   ))))
-    ;; Ensure the string is being displayed.
-    (if (one-window-p t) (split-window) (other-window 1))
-    (switch-to-buffer buffer)
-    (goto-char start)
-    (or (pos-visible-in-window-p start) (recenter '(nil)))
-    (if (pos-visible-in-window-p end)
-	(goto-char end)
-      (goto-char end)
-      (recenter -1))
-    (other-window 1)
-    (and po-highlighting (po-highlight po-marking-overlay start end buffer))
-    ;; Save the string for later commands.
-    (message (_"Scanning %s...done") (car po-next-file-list))
-    (setq po-string-start start
-	  po-string-end end)))
+(defun po-tags-loop-scan ()
+  "Decide if the current buffer is still interesting for PO mode strings."
+  ;; We have little choice, here.  The major mode is needed to dispatch to the
+  ;; proper scanner, so we declare all files as interesting, to force Emacs
+  ;; tags module to revisit files fully.  po-tags-loop-operate sets point at
+  ;; end of buffer when it is done with a file.
+  (not (eobp)))
+
+(defun po-tags-loop-operate ()
+  "Find an acceptable tag in the current buffer, according to mode.
+Disregard some simple strings which are most probably non-translatable."
+  (po-preset-string-functions)
+  (let ((continue t)
+	data)
+    (while continue
+      (setq data (apply po-find-string-function po-current-po-keywords nil))
+      (if data
+	  ;; Push the string just found into a work buffer for study.
+	  (po-with-temp-buffer
+	   (insert (nth 0 data))
+	   (goto-char (point-min))
+	   ;; Accept if at least three letters in a row.
+	   (if (re-search-forward "[A-Za-z][A-Za-z][A-Za-z]" nil t)
+	       (setq continue nil)
+	     ;; Disregard if single letters or no letters at all.
+	     (if (re-search-forward "[A-Za-z][A-Za-z]" nil t)
+		 ;; Here, we have two letters in a row, but never more.
+		 ;; Accept only if more letters than punctuations.
+		 (let ((total (buffer-size)))
+		   (goto-char (point-min))
+		   (while (re-search-forward "[A-Za-z]+" nil t)
+		     (replace-match "" t t))
+		   (if (< (* 2 (buffer-size)) total)
+		       (setq continue nil))))))
+	;; No string left in this buffer.
+	(setq continue nil)))
+    (if data
+	;; Save information for marking functions.
+	(let ((buffer (current-buffer)))
+	  (save-excursion
+	    (set-buffer po-current-po-buffer)
+	    (setq po-string-contents (nth 0 data)
+		  po-string-buffer buffer
+		  po-string-start (nth 1 data)
+		  po-string-end (nth 2 data))))
+      (goto-char (point-max)))
+    ;; If nothing was found, trigger scanning of next file.
+    (not data)))
 
 (defun po-mark-found-string (keyword)
   "Mark last found string in program sources as translatable, using KEYWORD."
+  (if (not po-string-contents)
+    (error (_"No such string")))
   (and po-highlighting (po-dehighlight po-marking-overlay))
-  (let ((buffer (find-file-noselect (car po-next-file-list)))
+  (let ((contents po-string-contents)
+	(buffer po-string-buffer)
 	(start po-string-start)
 	(end po-string-end)
 	line string)
-
     ;; Mark string in program sources.
-    (setq string (po-extract-unquoted buffer start end))
     (save-excursion
       (set-buffer buffer)
-      (setq line (count-lines (point-min) start)
-	    end (cond ((member mode-name '("C" "C++"))
-		       (po-mark-c-string start end keyword))
-		      ((string-equal mode-name "Emacs-Lisp")
-		       (po-mark-emacs-lisp-string start end keyword))
-		      (t (error (_"Cannot mark in unknown source mode"))))))
-    (setq po-string-end end)
-
+      (setq line (count-lines (point-min) start))
+      (apply po-mark-string-function start end keyword nil))
     ;; Add PO file entry.
     (let ((buffer-read-only po-read-only))
       (goto-char (point-max))
-      (insert "\n" (format "#: %s:%d\n" (car po-next-file-list) line))
+      (insert "\n" (format "#: %s:%d\n"
+			   (buffer-file-name po-string-buffer)
+			   line))
       (save-excursion
-	(insert (po-eval-requoted string "msgid" nil) "msgstr \"\"\n"))
+	(insert (po-eval-requoted contents "msgid" nil) "msgstr \"\"\n"))
       (setq po-untranslated-counter (1+ po-untranslated-counter))
-      (po-update-mode-line-string))))
+      (po-update-mode-line-string))
+    (setq po-string-contents nil)))
 
 (defun po-mark-translatable ()
   "Mark last found string in program sources as translatable, using `_'."
   (interactive)
-  (if (and po-string-start po-string-end)
-      (progn
-	(po-mark-found-string "_")
-	(setq po-string-start nil))
-    (error (_"No such string"))))
+  (po-mark-found-string "_"))
 
 (defun po-select-mark-and-mark (arg)
   "Mark last found string in program sources as translatable, ask for keywoard,
@@ -2321,17 +2331,40 @@ keyword for subsequent commands, also added to possible completions."
   (if arg
       (let ((keyword (list (read-from-minibuffer (_"Keyword: ")))))
 	(setq po-keywords (cons keyword (delete keyword po-keywords))))
-    (if (and po-string-start po-string-end)
-	(let* ((default (car (car po-keywords)))
-	       (keyword (completing-read (format (_"Mark with keywoard? [%s] ")
-						 default)
-					 po-keywords nil t )))
-	  (if (string-equal keyword "") (setq keyword default))
-	  (po-mark-found-string keyword)
-	  (setq po-string-start nil))
-      (error (_"No such string")))))
+    (or po-string-contents (error (_"No such string")))
+    (let* ((default (car (car po-keywords)))
+	   (keyword (completing-read (format (_"Mark with keywoard? [%s] ")
+					     default)
+				     po-keywords nil t )))
+      (if (string-equal keyword "") (setq keyword default))
+      (po-mark-found-string keyword))))
+
+;;; Unknown mode specifics.
 
-;;; C mode.
+(defun po-preset-string-functions ()
+  "Preset FIND-STRING-FUNCTION and MARK-STRING-FUNCTION according to mode.
+These variables are locally set in source buffer only when not already bound."
+  (let ((pair (cond ((member mode-name '("C" "C++"))
+		     '(po-find-c-string . po-mark-c-string))
+		    ((string-equal mode-name "Emacs-Lisp")
+		     '(po-find-emacs-lisp-string . po-mark-emacs-lisp-string))
+		    ((string-equal mode-name "Python")
+		     '(po-find-python-string . po-mark-python-string))
+		    (t '(po-find-unknown-string . po-mark-unknown-string)))))
+    (or (boundp 'po-find-string-function)
+	(set (make-local-variable 'po-find-string-function) (car pair)))
+    (or (boundp 'po-mark-string-function)
+	(set (make-local-variable 'po-mark-string-function) (cdr pair)))))
+
+(defun po-find-unknown-string (keywords)
+  "Dummy function to skip over a file, finding no string in it."
+  nil)
+
+(defun po-mark-unknown-string (start end keyword)
+  "Dummy function to mark a given string.  May not be called."
+  (error (_"Dummy function called")))
+
+;;; C or C++ mode specifics.
 
 ;;; A few long string cases (submitted by Ben Pfaff).
 
@@ -2353,7 +2386,7 @@ keyword for subsequent commands, also added to possible completions."
 
 (defun po-find-c-string (keywords)
   "Find the next C string, excluding those marked by any of KEYWORDS.
-Returns (START . END) for the found string, or (nil . nil) if none found."
+Returns (CONTENTS START END) for the found string, or nil if none found."
   (let (start end)
     (while (and (not start)
 		(re-search-forward "\\([\"']\\|/\\*\\|//\\)" nil t))
@@ -2383,7 +2416,6 @@ Returns (START . END) for the found string, or (nil . nil) if none found."
 			  (setq end (point))))
 		       ((= (following-char) ?\\) (forward-char 2))
 		       (t (skip-chars-forward "^\"\\\\"))))
-
 	       ;; Check before string for keyword and opening parenthesis.
 	       (goto-char start)
 	       (skip-chars-backward " \n\t")
@@ -2400,27 +2432,31 @@ Returns (START . END) for the found string, or (nil . nil) if none found."
 			   (progn
 			     (goto-char end)
 			     (setq start nil
-				   end nil)))))))))
+				   end nil))
+			 ;; String found.  Prepare to resume search.
+			 (goto-char end))))
+		 ;; String found.  Prepare to resume search.
+		 (goto-char end)))))
     ;; Return the found string, if any.
-    (cons start end)))
+    (and start end
+	 (list (po-extract-unquoted (current-buffer) start end) start end))))
 
 (defun po-mark-c-string (start end keyword)
   "Mark the C string, from START to END, with KEYWORD.
-Return the adjusted value for END."
+Leave point after marked string."
   (goto-char end)
   (insert ")")
-  (goto-char start)
-  (insert keyword)
-  (if (not (string-equal keyword "_"))
-      (progn (insert " ") (setq end (1+ end))))
-  (insert "(")
-  (+ end 2 (length keyword)))
-
-;;; Emacs LISP mode.
+  (save-excursion
+    (goto-char start)
+    (insert keyword)
+    (or (string-equal keyword "_") (insert " "))
+    (insert "(")))
+
+;;; Emacs LISP mode specifics.
 
 (defun po-find-emacs-lisp-string (keywords)
   "Find the next Emacs LISP string, excluding those marked by any of KEYWORDS.
-Returns (START . END) for the found string, or (nil . nil) if none found."
+Returns (CONTENTS START END) for the found string, or nil if none found."
   (let (start end)
     (while (and (not start)
 		(re-search-forward "[;\"?]" nil t))
@@ -2446,25 +2482,153 @@ Returns (START . END) for the found string, or (nil . nil) if none found."
 			  (member (list (po-buffer-substring (point)
 							     end-keyword))
 				  keywords))
-
 		     ;; Disregard already marked strings.
 		     (progn
 		       (goto-char end)
 		       (setq start nil
 			     end nil)))))))
     ;; Return the found string, if any.
-    (cons start end)))
+    (and start end
+	 (list (po-extract-unquoted (current-buffer) start end) start end))))
 
 (defun po-mark-emacs-lisp-string (start end keyword)
   "Mark the Emacs LISP string, from START to END, with KEYWORD.
-Return the adjusted value for END."
+Leave point after marked string."
   (goto-char end)
   (insert ")")
-  (goto-char start)
-  (insert "(" keyword)
-  (if (not (string-equal keyword "_"))
-      (progn (insert " ") (setq end (1+ end))))
-  (+ end 2 (length keyword)))
+  (save-excursion
+    (goto-char start)
+    (insert "(" keyword)
+    (or (string-equal keyword "_") (insert " "))))
+
+;;; Python mode specifics.
+
+(defun po-find-python-string (keywords)
+  "Find the next Python string, excluding those marked by any of KEYWORDS.
+Also disregard strings when preceded by an empty string of the other type.
+Returns (CONTENTS START END) for the found string, or nil if none found."
+  (let (contents start end)
+    (while (and (not contents)
+		(re-search-forward "[#\"']" nil t))
+      (forward-char -1)
+      (cond ((= (following-char) ?\#)
+	     ;; Disregard comments.
+	     (search-forward "\n"))
+	    ((looking-at "\"\"'")
+	     ;; Quintuple-quoted string
+	     (po-skip-over-python-string))
+	    ((looking-at "''\"")
+	     ;; Quadruple-quoted string
+	     (po-skip-over-python-string))
+	    (t
+	     ;; Simple-, double-, triple- or sextuple-quoted string.
+	     (if (memq (preceding-char) '(?r ?R))
+		 (forward-char -1))
+	     (setq start (point)
+		   contents (po-skip-over-python-string)
+		   end (point))
+	     (goto-char start)
+	     (skip-chars-backward " \n\t")
+	     (cond ((= (preceding-char) ?\[)
+		    ;; Disregard a string used as a dictionary index.
+		    (setq contents nil))
+		   ((= (preceding-char) ?\()
+		    ;; Isolate the keyword which precedes string.
+		    (backward-char 1)
+		    (skip-chars-backward " \n\t")
+		    (let ((end-keyword (point)))
+		      (skip-chars-backward "_A-Za-z0-9")
+		      (if (member (list (po-buffer-substring (point)
+							     end-keyword))
+				  keywords)
+			  ;; Disregard already marked strings.
+			  (setq contents nil)))))
+	     (goto-char end))))
+    ;; Return the found string, if any.
+    (and contents (list contents start end))))
+
+(defun po-skip-over-python-string ()
+  "Skip over a Python string, possibly made up of many concatenated parts.
+Leave point after string.  Return unquoted overall string contents."
+  (let ((continue t)
+	(contents "")
+	raw start end resume)
+    (while continue
+      (skip-chars-forward " \t\n")	; whitespace
+      (cond ((= (following-char) ?#)	; comment
+	     (setq start nil)
+	     (search-forward "\n"))
+	    ((looking-at "\\\n")	; escaped newline
+	     (setq start nil)
+	     (forward-char 2))
+	    ((looking-at "[rR]?\"\"\"")	; sextuple-quoted string
+	     (setq raw (memq (following-char) '(?r ?R))
+		   start (match-end 0))
+	     (goto-char start)
+	     (search-forward "\"\"\"")
+	     (setq resume (point)
+		   end (- resume 3)))
+	    ((looking-at "[rr]?'''")	; triple-quoted string
+	     (setq raw (memq (following-char) '(?r ?R))
+		   start (match-end 0))
+	     (goto-char start)
+	     (search-forward "'''")
+	     (setq resume (point)
+		   end (- resume 3)))
+	    ((looking-at "[rR]?\"")	; double-quoted string
+	     (setq raw (memq (following-char) '(?r ?R))
+		   start (match-end 0))
+	     (goto-char start)
+	     (while (not (memq (following-char) '(0 ?\")))
+	       (skip-chars-forward "^\"\\\\")
+	       (if (= (following-char) ?\\) (forward-char 2)))
+	     (if (eobp)
+		 (setq contents nil
+		       start nil)
+	       (setq end (point))
+	       (forward-char 1))
+	     (setq resume (point)))
+	    ((looking-at "[rR]?'")	; single-quoted string
+	     (setq raw (memq (following-char) '(?r ?R))
+		   start (match-end 0))
+	     (goto-char start)
+	     (while (not (memq (following-char) '(0 ?\')))
+	       (skip-chars-forward "^'\\\\")
+	       (if (= (following-char) ?\\) (forward-char 2)))
+	     (if (eobp)
+		 (setq contents nil
+		       start nil)
+	       (setq end (point))
+	       (forward-char 1))
+	     (setq resume (point)))
+	    (t				; no string anymore
+	     (setq start nil
+		   continue nil)))
+      (if start
+	  (setq contents (concat contents
+				 (if raw
+				     (buffer-substring start end)
+				   (po-extract-part-unquoted (current-buffer)
+							     start end))))))
+    (goto-char resume)
+    contents))
+
+(defun po-mark-python-string (start end keyword)
+  "Mark the Python string, from START to END, with KEYWORD.
+If KEYWORD is '.', prefix the string with an empty string of the other type.
+Leave point after marked string."
+  (cond ((string-equal keyword ".")
+	 (goto-char end)
+	 (save-excursion
+	   (goto-char start)
+	   (insert (cond ((= (following-char) ?\') "\"\"")
+			 ((= (following-char) ?\") "''")
+			 (t "??")))))
+	(t (goto-char end)
+	   (insert ")")
+	   (save-excursion
+	     (goto-char start)
+	     (insert keyword "(")))))
 
 ;;; Miscellaneous features.
 
