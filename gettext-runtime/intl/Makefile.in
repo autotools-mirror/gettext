@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling library of GNU gettext
-# Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Library General Public License as published
@@ -271,7 +271,8 @@ install-exec: all
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext-tools" \
-	   && test '@USE_INCLUDED_LIBINTL@' = no; then \
+	   && test '@USE_INCLUDED_LIBINTL@' = no \
+	   && test @GLIBC2@ != no; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
 	  $(LIBTOOL) --mode=install \
 	    $(INSTALL_DATA) libgnuintl.$la $(DESTDIR)$(libdir)/libgnuintl.$la; \
@@ -346,7 +347,8 @@ installdirs:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext-tools" \
-	   && test '@USE_INCLUDED_LIBINTL@' = no; then \
+	   && test '@USE_INCLUDED_LIBINTL@' = no \
+	   && test @GLIBC2@ != no; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
 	else \
 	  : ; \
@@ -376,7 +378,8 @@ uninstall:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext-tools" \
-	   && test '@USE_INCLUDED_LIBINTL@' = no; then \
+	   && test '@USE_INCLUDED_LIBINTL@' = no \
+	   && test @GLIBC2@ != no; then \
 	  rm -f $(DESTDIR)$(libdir)/preloadable_libintl.so; \
 	else \
 	  : ; \

@@ -1,3 +1,9 @@
+2004-02-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (install-exec, installdirs, uninstall): Install
+	preloaded_libintl.so only on glibc systems, not on OpenBSD.
+	Reported by Han Boetes <han@mijncomputer.nl>.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.
