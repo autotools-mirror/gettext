@@ -13,6 +13,12 @@ msgstr "xyz"
 # Invalid: invalid msgstr
 msgid  "abc~~def"
 msgstr "xyz~"
+# Valid: ~! doesn't count
+msgid  "abc~!def"
+msgstr "xyz"
+# Valid: ~Q doesn't count
+msgid  "abc~Qdef"
+msgstr "xyz"
 # Valid: same argument
 msgid  "abc~Ddef"
 msgstr "xyz~D"
@@ -42,7 +48,7 @@ msgid  "abc~4Sdef"
 msgstr "xyz~7S"
 # Valid: type compatibility
 msgid  "abc~Sdef"
-msgstr "xyz~W"
+msgstr "xyz~Y"
 # Valid: type compatibility
 msgid  "abc~Ddef"
 msgstr "xyz~B"
@@ -85,12 +91,30 @@ msgstr "xyz~F"
 # Invalid: type incompatibility
 msgid  "abc~Sdef"
 msgstr "xyz~C"
+# Invalid: type incompatibility
+msgid  "abc~Fdef"
+msgstr "xyz~I"
+# Invalid: type incompatibility
+msgid  "abc~Ddef"
+msgstr "xyz~I"
+# Invalid: type incompatibility
+msgid  "abc~Sdef"
+msgstr "xyz~I"
+# Invalid: type incompatibility
+msgid  "abc~Cdef"
+msgstr "xyz~I"
 # Valid: extra formatting
 msgid  "abc~Ddef~S"
-msgstr "xyz~D~_def~%~S"
+msgstr "xyz~D~_d~/ef~%~S"
+# Valid: extra force-output
+msgid  "abc~Ddef~S"
+msgstr "xyz~Ddef~S~!"
 # Valid: FORMAT-GOTO doesn't consume an argument by itself
 msgid  "abc~5@*~Ddef~C"
 msgstr "xyz~6@*~C~2@*uvw~5@*~R"
+# Valid: ~? and ~K are equivalent
+msgid  "abc~?"
+msgstr "xyz~K"
 # Invalid: @ matters
 msgid  "abc~?"
 msgstr "xyz~@?"
@@ -157,15 +181,6 @@ msgstr "xyz~{~1@*~C~2:*~D~^~1*~}"
 # Invalid: ~^ inside iteration depends on position
 msgid  "abc~{~D ~^~C~}"
 msgstr "xyz~{~1@*~C~2:*~D~1*~^~}"
-# Valid: justification is optional
-msgid  "abc~<~D~;~C~>"
-msgstr "xyz~D~C"
-# Valid: justification with different segmentation
-msgid  "abc~<~D ~D~;~C~;~S~S~>"
-msgstr "xyz~<~D~;~D~C~S~;~S~>"
-# Invalid: justification catches ~^
-msgid  "abc~<~D~;~^~D~>~C"
-msgstr "abc~D~^~D~C"
 EOF
 
 : ${MSGFMT=msgfmt}

@@ -1,5 +1,12 @@
 2005-02-26  Bruno Haible  <bruno@clisp.org>
 
+	* format-scheme-1: Remove tests for ~W, ~_, ~T, ~/, ~<. Update or add
+	tests for ~Y, ~C, ~I, ~_, ~/, ~!, ~Q, ~T, ~K.
+	* format-scheme-2: Remove tests for ~W, ~<. Add tests for
+	~!, ~Q, ~Y, ~I, ~/, ~K.
+
+2005-02-26  Bruno Haible  <bruno@clisp.org>
+
 	* format-scheme-1: Remove test for #!.
 
 2005-02-24  Bruno Haible  <bruno@clisp.org>

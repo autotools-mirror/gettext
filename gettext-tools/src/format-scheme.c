@@ -42,9 +42,9 @@
 #define VERIFY_LIST(list) verify_list (list)
 
 
-/* Scheme format strings are described in the SLIB documentation,
-   section "Format Specification".  They are implemented in SLIB's
-   format.scm and in guile-1.6.4/ice-9/format.scm.  */
+/* Scheme format strings are described in the GNU guile documentation,
+   section "Formatted Output".  They are implemented in
+   guile-1.6.4/ice-9/format.scm.  */
 
 /* Data structure describing format string derived constraints for an
    argument list.  It is a recursive list structure.  Structure sharing
@@ -65,9 +65,9 @@ enum format_arg_type
   FAT_INTEGER_NULL,		/* Type (OR INTEGER NULL).  */
   FAT_INTEGER,			/* Meant for objects of type INTEGER.  */
   FAT_REAL,			/* Meant for objects of type REAL.  */
+  FAT_COMPLEX,			/* Meant for objects of type COMPLEX.  */
   FAT_LIST,			/* Meant for proper lists.  */
-  FAT_FORMATSTRING,		/* Format strings.  */
-  FAT_FUNCTION			/* Function.  */
+  FAT_FORMATSTRING		/* Format strings.  */
 };
 
 struct format_arg
@@ -1028,6 +1028,16 @@ make_intersected_element (struct format_arg *re,
     {
       re->type = e1->type;
     }
+  else if (e1->type == FAT_COMPLEX
+	   && (e2->type == FAT_REAL || e2->type == FAT_INTEGER))
+    {
+      re->type = e2->type;
+    }
+  else if (e2->type == FAT_COMPLEX
+	   && (e1->type == FAT_REAL || e1->type == FAT_INTEGER))
+    {
+      re->type = e1->type;
+    }
   else if (e1->type == e2->type)
     {
       re->type = e1->type;
@@ -1040,8 +1050,8 @@ make_intersected_element (struct format_arg *re,
 	}
     }
   else
-    /* Each of FAT_CHARACTER, FAT_INTEGER, FAT_LIST, FAT_FORMATSTRING,
-       FAT_FUNCTION matches only itself.  Contradiction.  */
+    /* Each of FAT_CHARACTER, FAT_INTEGER, FAT_LIST, FAT_FORMATSTRING
+       matches only itself.  Contradiction.  */
     return false;
 
   return true;
@@ -1432,6 +1442,16 @@ make_union_element (struct format_arg *re,
       re->type = e1->type;
     }
   else if (e2->type == FAT_REAL && e1->type == FAT_INTEGER)
+    {
+      re->type = e2->type;
+    }
+  else if (e1->type == FAT_COMPLEX
+	   && (e2->type == FAT_REAL || e2->type == FAT_INTEGER))
+    {
+      re->type = e1->type;
+    }
+  else if (e2->type == FAT_COMPLEX
+	   && (e1->type == FAT_REAL || e1->type == FAT_INTEGER))
     {
       re->type = e2->type;
     }
@@ -2301,6 +2321,9 @@ static const enum format_arg_type I [1] = { FAT_INTEGER_NULL };
 static const enum format_arg_type II [2] = {
   FAT_INTEGER_NULL, FAT_INTEGER_NULL
 };
+static const enum format_arg_type IIC [3] = {
+  FAT_INTEGER_NULL, FAT_INTEGER_NULL, FAT_CHARACTER_NULL
+};
 static const enum format_arg_type ICCI [4] = {
   FAT_INTEGER_NULL, FAT_CHARACTER_NULL, FAT_CHARACTER_NULL, FAT_INTEGER_NULL
 };
@@ -2405,29 +2428,6 @@ check_params (struct format_arg_list **listp,
 	    }
 	}
 	break;
-      }
-
-  return true;
-}
-
-
-/* Handle the parameters, without a priori type information.
-   For V params, add the constraint to the argument list.
-   Return false and fill in *invalid_reason if the format string is
-   invalid.  */
-static bool
-nocheck_params (struct format_arg_list **listp,
-		unsigned int paramcount, struct param *params,
-		unsigned int directives, char **invalid_reason)
-{
-  (void) directives;
-  (void) invalid_reason;
-
-  for (; paramcount > 0; params++, paramcount--)
-    if (params->type == PT_V)
-      {
-	int position = params->value;
-	add_req_type_constraint (listp, position, FAT_CHARACTER_INTEGER_NULL);
       }
 
   return true;
@@ -2582,12 +2582,14 @@ parse_upto (const char **formatp,
 	      add_req_type_constraint (&list, position++, FAT_OBJECT);
 	    break;
 
-	  case 'W': case 'w': /* 22.3.4.3 FORMAT-WRITE */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
+	  case 'C': case 'c': /* FORMAT-CHARACTER */
+	    if (!check_params (&list, paramcount, params, 1, I,
 			       spec->directives, invalid_reason))
 	      return false;
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_OBJECT);
+	    if (paramcount == 0
+		|| (paramcount == 1 && params[0].type == PT_NIL))
+	      if (position >= 0)
+		add_req_type_constraint (&list, position++, FAT_CHARACTER);
 	    break;
 
 	  case 'D': case 'd': /* 22.3.2.2 FORMAT-DECIMAL */
@@ -2623,14 +2625,6 @@ parse_upto (const char **formatp,
 	      add_req_type_constraint (&list, position++, FAT_OBJECT);
 	    break;
 
-	  case 'C': case 'c': /* 22.3.1.1 FORMAT-CHARACTER */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      return false;
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_CHARACTER);
-	    break;
-
 	  case 'F': case 'f': /* 22.3.3.1 FORMAT-FIXED-FLOAT */
 	    if (!check_params (&list, paramcount, params, 5, IIICC,
 			       spec->directives, invalid_reason))
@@ -2656,25 +2650,43 @@ parse_upto (const char **formatp,
 	      add_req_type_constraint (&list, position++, FAT_REAL);
 	    break;
 
+	  case 'I': case 'i': /* FORMAT-FIXED-FLOAT-COMPLEX */
+	    if (!check_params (&list, paramcount, params, 5, IIICC,
+			       spec->directives, invalid_reason))
+	      return false;
+	    if (position >= 0)
+	      add_req_type_constraint (&list, position++, FAT_COMPLEX);
+	    break;
+
+	  case 'Y': case 'y': /* FORMAT-PRETTY */
+	    if (!check_params (&list, paramcount, params, 0, NULL,
+			       spec->directives, invalid_reason))
+	      return false;
+	    if (position >= 0)
+	      add_req_type_constraint (&list, position++, FAT_OBJECT);
+	    break;
+
 	  case '%': /* 22.3.1.2 FORMAT-TERPRI */
 	  case '&': /* 22.3.1.3 FORMAT-FRESH-LINE */
+	  case '_': /* FORMAT-SPACE */
+	  case '/': /* FORMAT-TAB */
 	  case '|': /* 22.3.1.4 FORMAT-PAGE */
 	  case '~': /* 22.3.1.5 FORMAT-TILDE */
-	  case 'I': case 'i': /* 22.3.5.3 */
 	    if (!check_params (&list, paramcount, params, 1, I,
 			       spec->directives, invalid_reason))
 	      return false;
 	    break;
 
+	  case '!': /* FORMAT-FORCE-OUTPUT */
 	  case '\n': /* 22.3.9.3 #\Newline */
-	  case '_': /* 22.3.5.1 */
+	  case 'Q': case 'q': /* FORMAT-IMPLEMENTATION */
 	    if (!check_params (&list, paramcount, params, 0, NULL,
 			       spec->directives, invalid_reason))
 	      return false;
 	    break;
 
-	  case 'T': case 't': /* 22.3.6.1 FORMAT-TABULATE */
-	    if (!check_params (&list, paramcount, params, 2, II,
+	  case 'T': case 't': /* FORMAT-TABULATE */
+	    if (!check_params (&list, paramcount, params, 3, IIC,
 			       spec->directives, invalid_reason))
 	      return false;
 	    break;
@@ -2733,7 +2745,7 @@ parse_upto (const char **formatp,
 	    }
 	    break;
 
-	  case '?': /* 22.3.7.6 FORMAT-INDIRECTION */
+	  case '?': case 'K': case 'k': /* 22.3.7.6 FORMAT-INDIRECTION */
 	    if (!check_params (&list, paramcount, params, 0, NULL,
 			       spec->directives, invalid_reason))
 	      return false;
@@ -2749,23 +2761,6 @@ parse_upto (const char **formatp,
 					       FAT_LIST, sublist);
 		  free_list (sublist);
 		}
-	    break;
-
-	  case '/': /* 22.3.5.4 FORMAT-CALL-USER-FUNCTION */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      return false;
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_OBJECT);
-	    while (*format != '\0' && *format != '/')
-	      format++;
-	    if (*format == '\0')
-	      {
-		*invalid_reason =
-		  xstrdup (_("The string ends in the middle of a ~/.../ directive."));
-		return false;
-	      }
-	    format++;
 	    break;
 
 	  case '(': /* 22.3.8.1 FORMAT-CASE-CONVERSION */
@@ -3143,55 +3138,6 @@ parse_upto (const char **formatp,
 	    *escapep = escape;
 	    return true;
 
-	  case '<': /* 22.3.6.2, 22.3.5.2 FORMAT-JUSTIFICATION */
-	    if (!check_params (&list, paramcount, params, 4, IIIC,
-			       spec->directives, invalid_reason))
-	      return false;
-	    {
-	      struct format_arg_list *sub_escape = NULL;
-
-	      *formatp = format;
-	      *positionp = position;
-	      *listp = list;
-
-	      for (;;)
-		{
-		  int sub_separator = 0;
-		  if (!parse_upto (formatp, positionp, listp, &sub_escape,
-				   &sub_separator, spec, '>', true,
-				   invalid_reason))
-		    return false;
-		  if (!sub_separator)
-		    break;
-		}
-
-	      format = *formatp;
-	      position = *positionp;
-	      list = *listp;
-
-	      /* ~< catches ~^.  */
-	      if (sub_escape != NULL)
-		position = -1;
-	      list = union (list, sub_escape);
-	    }
-	    break;
-
-	  case '>': /* 22.3.6.3 FORMAT-JUSTIFICATION-END */
-	    if (terminator != '>')
-	      {
-		*invalid_reason =
-		  xasprintf (_("Found '~%c' without matching '~%c'."), '>', '<');
-		return false;
-	      }
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      return false;
-	    *formatp = format;
-	    *positionp = position;
-	    *listp = list;
-	    *escapep = escape;
-	    return true;
-
 	  case '^': /* 22.3.9.2 FORMAT-UP-AND-OUT */
 	    if (!check_params (&list, paramcount, params, 3, THREE,
 			       spec->directives, invalid_reason))
@@ -3417,14 +3363,14 @@ print_element (struct format_arg *element)
     case FAT_REAL:
       printf ("r");
       break;
+    case FAT_COMPLEX:
+      printf ("C");
+      break;
     case FAT_LIST:
       print_list (element->list);
       break;
     case FAT_FORMATSTRING:
       printf ("~");
-      break;
-    case FAT_FUNCTION:
-      printf ("f");
       break;
     default:
       abort ();

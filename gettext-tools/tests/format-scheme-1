@@ -49,10 +49,10 @@ cat <<\EOF > f-sc-1.data
 "abc~v,v,v,vS"
 # Invalid: too many params
 "abc~v,v,v,v,5S"
-# Valid: FORMAT-WRITE, (* | . *)
-"abc~W"
+# Valid: FORMAT-PRETTY, (* | . *)
+"abc~Y"
 # Invalid: too many params
-"abc~3W"
+"abc~3Y"
 # Valid: FORMAT-DECIMAL, (i() c() c() i() i | . *)
 "abc~v,v,v,vD"
 # Invalid: too many params
@@ -81,8 +81,10 @@ cat <<\EOF > f-sc-1.data
 "abc~2P"
 # Valid: FORMAT-CHARACTER, (c | . *)
 "abc~C"
-# Invalid: too many params
+# Valid: FORMAT-CHARACTER, ( | . *)
 "abc~4C"
+# Invalid: too many params
+"abc~4,4C"
 # Valid: FORMAT-FIXED-FLOAT, (i() i() i() c() c() r | . *)
 "abc~v,v,v,v,vF"
 # Invalid: too many params
@@ -99,6 +101,8 @@ cat <<\EOF > f-sc-1.data
 "abc~v,v,v,v$"
 # Invalid: too many params
 "abc~v,v,v,v,5$"
+# Valid: FORMAT-FIXED-FLOAT-COMPLEX, (C | .*)
+"abc~I"
 # Valid: FORMAT-TERPRI, (i() | . *)
 "abc~v%"
 # Invalid: too many params
@@ -107,6 +111,14 @@ cat <<\EOF > f-sc-1.data
 "abc~v&"
 # Invalid: too many params
 "abc~v,5&"
+# Valid: FORMAT-SPACE, (i() | . *)
+"abc~v_"
+# Invalid: too many params
+"abc~v,5_"
+# Valid: FORMAT-TAB, (i() | . *)
+"abc~v/"
+# Invalid: too many params
+"abc~v,5/"
 # Valid: FORMAT-PAGE, (i() | . *)
 "abc~v|"
 # Invalid: too many params
@@ -115,14 +127,18 @@ cat <<\EOF > f-sc-1.data
 "abc~v~"
 # Invalid: too many params
 "abc~v,5~"
-# Valid: underscore, ( | . *)
-"abc~_"
+# Valid: FORMAT-FORCE-OUTPUT, ( | . *)
+"abc~!"
 # Invalid: too many params
-"abc~5_"
-# Valid: FORMAT-TABULATE, (i() i() | . *)
-"abc~v,vT"
+"abc~5!"
+# Valid: FORMAT-IMPLEMENTATION, ( | . *)
+"abc~Q"
 # Invalid: too many params
-"abc~v,v,5T"
+"abc~5Q"
+# Valid: FORMAT-TABULATE, (i() i() c() | . *)
+"abc~v,v,vT"
+# Invalid: too many params
+"abc~v,v,v,5T"
 # Valid: FORMAT-GOTO absolute, (* r c | . *)
 "abc~S~F~S~2@*~C"
 # Invalid: type incompatibility
@@ -141,14 +157,12 @@ cat <<\EOF > f-sc-1.data
 "abc~@?"
 # Invalid: too many params
 "abc~4?"
-# Valid: FORMAT-CALL-USER-FUNCTION, (* | . *)
-"abc~/FOOBAR/"
+# Valid: FORMAT-INDIRECTION, (~ ( | . *) | . *)
+"abc~K"
+# Valid: FORMAT-INDIRECTION, (~ | . *)
+"abc~@K"
 # Invalid: too many params
-"abc~4/FOOBAR/"
-# Invalid: unterminated
-"abc~/FOOB"
-# Invalid: nesting mismatch
-"abc~(~/FOOB~)/"
+"abc~4K"
 # Valid: FORMAT-CASE-CONVERSION, (* | . *)
 "abc~(~S~)"
 # Invalid: too many params
@@ -229,18 +243,8 @@ cat <<\EOF > f-sc-1.data
 "abc~:@{~[~D~]~}"
 # Invalid: separator
 "abc~{~D~;~C~}"
-# Valid: FORMAT-JUSTIFICATION, (i() i() i() c() i | . *)
-"abc~v,v,v,v<~D~>"
-# Invalid: too many params
-"abc~v,v,v,v,4<~D~>"
-# Valid: separators
-"abc~<~D~;~X~;def~>"
-# Invalid: wrongly nested
-"abc~<~(~>~)"
 # Invalid: wrongly nested
 "abc~{~(~}~)"
-# Invalid: wrongly nested
-"abc~{~<~}~>"
 # Valid: any number of arguments
 "abc~v,v,v,v,v!"
 # Invalid: type incompatibility between integer and list

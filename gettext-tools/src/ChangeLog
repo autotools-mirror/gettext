@@ -1,5 +1,18 @@
 2005-02-26  Bruno Haible  <bruno@clisp.org>
 
+	* format-scheme.c (format_arg_type): Add FAT_COMPLEX. Remove
+	FAT_FUNCTION.
+	(make_intersected_element): Simplify also the intersection with
+	FAT_COMPLEX.
+	(make_union_element): Simplify also the union with FAT_COMPLEX.
+	(IIC): New array.
+	(nocheck_params): Remove function.
+	(parse_upto): Remove handling of ~W, ~<, ~>.
+	Implement non-CL handling of ~C, ~I, ~_, ~/, ~T.
+	Implement handling of ~Y, ~!, ~Q, ~K.
+
+2005-02-26  Bruno Haible  <bruno@clisp.org>
+
 	* format-scheme.c (parse_upto): Remove support for ~!.
 	Reported by Kevin Ryde <user42@zip.com.au>.
 
