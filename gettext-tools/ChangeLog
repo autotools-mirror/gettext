@@ -1,6 +1,7 @@
-2003-08-24  Bruno Haible  <bruno@clisp.org>
+2003-08-29  Bruno Haible  <bruno@clisp.org>
 
-	* Makefile.am (config.h.msvc): Define HAVE__SNPRINTF, HAVE__SNWPRINTF.
+	* Makefile.am (config.h.msvc): Define HAVE_DECL__SNPRINTF,
+	HAVE_DECL__SNWPRINTF.
 
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
