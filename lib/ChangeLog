@@ -1,3 +1,9 @@
+2002-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (RM): New variable.
+	(install-exec-am): Depend on install-exec-clean.
+	(install-exec-clean): New rule.
+
 2002-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Update for newest glibc. Add canonical names

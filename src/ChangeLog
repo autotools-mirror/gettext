@@ -1,3 +1,9 @@
+2002-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (RM): New variable.
+	(install-exec-am): Depend on install-exec-clean.
+	(install-exec-clean): New rule.
+
 2002-05-14  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (wrap): Canonicalize the charset. Handle the case when

@@ -1,3 +1,7 @@
+2002-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Remove note about libgettextlib.a and libgettextsrc.a.
+
 2002-05-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (SUBDIRS): Move man and m4 after projects and misc.

@@ -19,6 +19,8 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
+RM = rm -f
+
 lib_LTLIBRARIES = libgettextlib.la
 
 # Sources that are compiled on all platforms.
@@ -94,6 +96,11 @@ libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+
+# No need to install libgettextlib.a.
+install-exec-am: install-exec-clean
+install-exec-clean:
+	$(RM) $(DESTDIR)$(libdir)/libgettextlib.a
 
 # Extra files to be installed.
 

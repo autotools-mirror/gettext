@@ -19,6 +19,8 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
+RM = rm -f
+
 bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
 msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq
@@ -111,6 +113,11 @@ urlget_SOURCES = urlget.c
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+
+# No need to install libgettextsrc.a.
+install-exec-am: install-exec-clean
+install-exec-clean:
+	$(RM) $(DESTDIR)$(libdir)/libgettextsrc.a
 
 # Link dependencies.
 gettext_LDADD = ../lib/basename.lo ../lib/error.lo ../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo ../lib/xmalloc.lo @LTLIBINTL@
