@@ -331,12 +331,12 @@ message_list_search (message_list_ty *mlp, const char *msgid)
 {
   if (mlp->use_hashtable)
     {
-      message_ty *mp;
+      void *htable_value;
 
-      if (find_entry (&mlp->htable, msgid, strlen (msgid) + 1, (void **) &mp))
+      if (find_entry (&mlp->htable, msgid, strlen (msgid) + 1, &htable_value))
 	return NULL;
       else
-	return mp;
+	return (message_ty *) htable_value;
     }
   else
     {
