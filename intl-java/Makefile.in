@@ -98,6 +98,8 @@ LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
+LTALLOCA = @LTALLOCA@
+LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
@@ -125,6 +127,8 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 jardir = $(datadir)/gettext
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
+
+EXTRA_DIST = gnu/gettext/GettextResource.java
 
 CLEANFILES = libintl.jar gnu/gettext/*.class
 subdir = intl-java
@@ -163,6 +167,7 @@ top_distdir = ..
 distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
+	$(mkinstalldirs) $(distdir)/gnu/gettext
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \

@@ -592,15 +592,28 @@ AC_DEFUN([gt_JAVACOMP],
   if test -n "$JAVAC"; then
     ac_result="$JAVAC"
   else
-    if gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null; then
+    pushdef([AC_MSG_CHECKING],[:])dnl
+    pushdef([AC_CHECKING],[:])dnl
+    pushdef([AC_MSG_RESULT],[:])dnl
+    AC_CHECK_PROG(HAVE_GCJ_IN_PATH, gcj, yes)
+    AC_CHECK_PROG(HAVE_JAVAC_IN_PATH, javac, yes)
+    AC_CHECK_PROG(HAVE_JIKES_IN_PATH, jikes, yes)
+    popdef([AC_MSG_RESULT])dnl
+    popdef([AC_CHECKING])dnl
+    popdef([AC_MSG_CHECKING])dnl
+    if test -n "$HAVE_GCJ_IN_PATH" \
+       && gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null; then
       HAVE_GCJ=1
       ac_result="gcj -C"
     else
-      if (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
+      if test -n "$HAVE_JAVAC_IN_PATH" \
+         && (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
         HAVE_JAVAC=1
         ac_result="javac"
       else
-        if (jikes >/dev/null 2>/dev/null || test $? = 1) && (
+        if test -n "$HAVE_JIKES_IN_PATH" \
+           && (jikes >/dev/null 2>/dev/null || test $? = 1) \
+           && (
             # See if the existing CLASSPATH is sufficient to make jikes work.
             cat > conftest.java <<EOF
 public class conftest {
@@ -649,19 +662,33 @@ AC_DEFUN([gt_JAVAEXEC],
   if test -n "$JAVA"; then
     ac_result="$JAVA"
   else
-    if gij --version >/dev/null 2>/dev/null; then
+    pushdef([AC_MSG_CHECKING],[:])dnl
+    pushdef([AC_CHECKING],[:])dnl
+    pushdef([AC_MSG_RESULT],[:])dnl
+    AC_CHECK_PROG(HAVE_GIJ_IN_PATH, gij, yes)
+    AC_CHECK_PROG(HAVE_JAVA_IN_PATH, java, yes)
+    AC_CHECK_PROG(HAVE_JRE_IN_PATH, jre, yes)
+    AC_CHECK_PROG(HAVE_JVIEW_IN_PATH, jview, yes)
+    popdef([AC_MSG_RESULT])dnl
+    popdef([AC_CHECKING])dnl
+    popdef([AC_MSG_CHECKING])dnl
+    if test -n "$HAVE_GIJ_IN_PATH" \
+       && gij --version >/dev/null 2>/dev/null; then
       HAVE_GIJ=1
       ac_result="gij"
     else
-      if java -version >/dev/null 2>/dev/null; then
+      if test -n "$HAVE_JAVA_IN_PATH" \
+         && java -version >/dev/null 2>/dev/null; then
         HAVE_JAVA_JVM=1
         ac_result="java"
       else
-        if (jre >/dev/null 2>/dev/null || test $? = 1); then
+        if test -n "$HAVE_JRE_IN_PATH" \
+           && (jre >/dev/null 2>/dev/null || test $? = 1); then
           HAVE_JRE=1
           ac_result="jre"
         else
-          if (jview -? >/dev/null 2>/dev/null || test $? = 1); then
+          if test -n "$HAVE_JVIEW_IN_PATH" \
+             && (jview -? >/dev/null 2>/dev/null || test $? = 1); then
             HAVE_JVIEW=1
             ac_result="jview"
           else
@@ -4391,7 +4418,7 @@ AC_DEFUN([gt_FUNC_MKDTEMP],
 [
   AC_REPLACE_FUNCS(mkdtemp)
   AC_STAT_MACROS_BROKEN
-  AC_CHECK_HEADERS(fcntl.h stdint.h sys/time.h time.h unistd.h)
+  AC_CHECK_HEADERS(fcntl.h inttypes.h stdint.h sys/time.h time.h unistd.h)
   AC_CHECK_FUNCS(gettimeofday)
 ])
 
@@ -4732,52 +4759,56 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	 || test "$nls_cv_use_gnu_gettext" = "yes"; then
 	dnl Mark actions to use GNU gettext tools.
         CATOBJEXT=.gmo
-
-	dnl Search for GNU msgfmt in the PATH.
-	AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-	  [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
-	AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
-
-	dnl Search for GNU xgettext in the PATH.
-	AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-	  [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
-
-	dnl Search for GNU msgmerge 0.11 or newer in the PATH.
-	AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
-	  [$ac_dir/$ac_word --update -q /dev/null /dev/null >/dev/null 2>&1], :)
-
-	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
-	dnl Test whether we really found GNU msgfmt.
-	if test "$GMSGFMT" != ":"; then
-	  dnl If it is no GNU msgfmt we define it as : so that the
-	  dnl Makefiles still can work.
-	  if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
-	    : ;
-	  else
-	    AC_MSG_RESULT(
-	      [found msgfmt program is not GNU msgfmt; ignore it])
-	    GMSGFMT=":"
-	  fi
-	fi
-
-	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
-	dnl Test whether we really found GNU xgettext.
-	if test "$XGETTEXT" != ":"; then
-	  dnl If it is no GNU xgettext we define it as : so that the
-	  dnl Makefiles still can work.
-	  if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
-	    : ;
-	  else
-	    AC_MSG_RESULT(
-	      [found xgettext program is not GNU xgettext; ignore it])
-	    XGETTEXT=":"
-	  fi
-	fi
       fi
 
       dnl We need to process the po/ directory.
       POSUB=po
     fi
+
+    dnl Perform the following tests also if --disable-nls has been given,
+    dnl because they are needed for "make dist" to work.
+
+    dnl Search for GNU msgfmt in the PATH.
+    AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
+      [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
+    AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
+
+    dnl Search for GNU xgettext in the PATH.
+    AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
+      [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
+
+    dnl Search for GNU msgmerge 0.11 or newer in the PATH.
+    AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
+      [$ac_dir/$ac_word --update -q /dev/null /dev/null >/dev/null 2>&1], :)
+
+    dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
+    dnl Test whether we really found GNU msgfmt.
+    if test "$GMSGFMT" != ":"; then
+      dnl If it is no GNU msgfmt we define it as : so that the
+      dnl Makefiles still can work.
+      if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
+	: ;
+      else
+	AC_MSG_RESULT(
+	  [found msgfmt program is not GNU msgfmt; ignore it])
+	GMSGFMT=":"
+      fi
+    fi
+
+    dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
+    dnl Test whether we really found GNU xgettext.
+    if test "$XGETTEXT" != ":"; then
+      dnl If it is no GNU xgettext we define it as : so that the
+      dnl Makefiles still can work.
+      if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
+	: ;
+      else
+	AC_MSG_RESULT(
+	  [found xgettext program is not GNU xgettext; ignore it])
+	XGETTEXT=":"
+      fi
+    fi
+
     AC_OUTPUT_COMMANDS(
      [for ac_file in $CONFIG_FILES; do
         # Support "outfile[:infile[:infile...]]"

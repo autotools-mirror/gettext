@@ -99,6 +99,8 @@ LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
+LTALLOCA = @LTALLOCA@
+LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
@@ -122,22 +124,23 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
-noinst_LIBRARIES = libnlsut.a
+lib_LTLIBRARIES = libgettextlib.la
 
 
 # Sources that are compiled on all platforms.
-libnlsut_a_SOURCES = addext.c argmatch.c backupfile.c basename.c c-ctype.c \
-concatpath.c copy-file.c execute.c findprog.c fstrcmp.c full-write.c gcd.c \
-getopt.c getopt1.c hash.c javacomp.c javaexec.c linebreak.c localcharset.c \
-mbswidth.c obstack.c pipe-bidi.c pipe-in.c pipe-out.c progname.c safe-read.c \
-sh-quote.c tmpdir.c wait-process.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
+libgettextlib_la_SOURCES = addext.c argmatch.c backupfile.c basename.c \
+c-ctype.c concatpath.c copy-file.c execute.c findprog.c fstrcmp.c \
+full-write.c gcd.c getopt.c getopt1.c hash.c javacomp.c javaexec.c \
+linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c \
+pipe-out.c progname.c safe-read.c sh-quote.c tmpdir.c wait-process.c xerror.c \
+xgetcwd.c xmalloc.c xstrdup.c
 
 
-libnlsut_a_HEADER = argmatch.h backupfile.h basename.h c-ctype.h copy-file.h \
-execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h javacomp.h \
-javaexec.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h pipe.h \
-progname.h safe-read.h sh-quote.h system.h tmpdir.h utf8-ucs4.h utf16-ucs4.h \
-wait-process.h xerror.h xmalloc.h
+libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h c-ctype.h \
+copy-file.h execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h \
+javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h \
+pipe.h progname.h safe-read.h sh-quote.h system.h tmpdir.h utf8-ucs4.h \
+utf16-ucs4.h wait-process.h xerror.h xmalloc.h
 
 
 
@@ -155,11 +158,20 @@ UNUSED_SOURCE = memmove.c
 
 UNUSED_HEADER = 
 
-libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
+
+# How to build libgettextlib.la.
+libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
+
+# Need @INTLLIBS@ because many source files use gettext().
+# Need @LIBICONV@ because linebreak.c uses iconv().
+libgettextlib_la_LDFLAGS = \
+  -release @VERSION@ \
+  @INTLLIBS@ @LIBICONV@ -no-undefined
+
 
 
 # List of files to be distributed.
-noinst_HEADERS = $(libnlsut_a_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER)
+noinst_HEADERS = $(libgettextlib_la_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER)
 
 EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
@@ -181,22 +193,17 @@ subdir = lib
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = javacomp.sh javaexec.sh
-LIBRARIES = $(noinst_LIBRARIES)
+LTLIBRARIES = $(lib_LTLIBRARIES)
 
-libnlsut_a_AR = $(AR) cru
-libnlsut_a_DEPENDENCIES = @ALLOCA@ @LIBOBJS@
-am_libnlsut_a_OBJECTS = addext.$(OBJEXT) argmatch.$(OBJEXT) \
-	backupfile.$(OBJEXT) basename.$(OBJEXT) c-ctype.$(OBJEXT) \
-	concatpath.$(OBJEXT) copy-file.$(OBJEXT) execute.$(OBJEXT) \
-	findprog.$(OBJEXT) fstrcmp.$(OBJEXT) full-write.$(OBJEXT) \
-	gcd.$(OBJEXT) getopt.$(OBJEXT) getopt1.$(OBJEXT) hash.$(OBJEXT) \
-	javacomp.$(OBJEXT) javaexec.$(OBJEXT) linebreak.$(OBJEXT) \
-	localcharset.$(OBJEXT) mbswidth.$(OBJEXT) obstack.$(OBJEXT) \
-	pipe-bidi.$(OBJEXT) pipe-in.$(OBJEXT) pipe-out.$(OBJEXT) \
-	progname.$(OBJEXT) safe-read.$(OBJEXT) sh-quote.$(OBJEXT) \
-	tmpdir.$(OBJEXT) wait-process.$(OBJEXT) xerror.$(OBJEXT) \
-	xgetcwd.$(OBJEXT) xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
-libnlsut_a_OBJECTS = $(am_libnlsut_a_OBJECTS)
+libgettextlib_la_DEPENDENCIES = @LTALLOCA@ @LTLIBOBJS@
+am_libgettextlib_la_OBJECTS = addext.lo argmatch.lo backupfile.lo \
+	basename.lo c-ctype.lo concatpath.lo copy-file.lo execute.lo \
+	findprog.lo fstrcmp.lo full-write.lo gcd.lo getopt.lo \
+	getopt1.lo hash.lo javacomp.lo javaexec.lo linebreak.lo \
+	localcharset.lo mbswidth.lo obstack.lo pipe-bidi.lo pipe-in.lo \
+	pipe-out.lo progname.lo safe-read.lo sh-quote.lo tmpdir.lo \
+	wait-process.lo xerror.lo xgetcwd.lo xmalloc.lo xstrdup.lo
+libgettextlib_la_OBJECTS = $(am_libgettextlib_la_OBJECTS)
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
@@ -210,7 +217,7 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 CFLAGS = @CFLAGS@
-DIST_SOURCES = $(libnlsut_a_SOURCES)
+DIST_SOURCES = $(libgettextlib_la_SOURCES)
 HEADERS = $(noinst_HEADERS)
 
 DIST_COMMON = $(noinst_HEADERS) ChangeLog Makefile.am Makefile.in \
@@ -218,7 +225,7 @@ DIST_COMMON = $(noinst_HEADERS) ChangeLog Makefile.am Makefile.in \
 	javaexec.sh.in memset.c mkdtemp.c setenv.c stpcpy.c stpncpy.c \
 	strcasecmp.c strcspn.c strncasecmp.c strpbrk.c strstr.c \
 	strtoul.c vasprintf.c
-SOURCES = $(libnlsut_a_SOURCES)
+SOURCES = $(libgettextlib_la_SOURCES)
 
 all: all-am
 
@@ -244,15 +251,27 @@ javacomp.sh: $(top_builddir)/config.status javacomp.sh.in
 	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 javaexec.sh: $(top_builddir)/config.status javaexec.sh.in
 	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo " $(LIBTOOL) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(LIBTOOL) --mode=install $(INSTALL) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
 
-AR = ar
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  echo " $(LIBTOOL) --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p"; \
+	  $(LIBTOOL) --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
-libnlsut.a: $(libnlsut_a_OBJECTS) $(libnlsut_a_DEPENDENCIES) 
-	-rm -f libnlsut.a
-	$(libnlsut_a_AR) libnlsut.a $(libnlsut_a_OBJECTS) $(libnlsut_a_LIBADD)
-	$(RANLIB) libnlsut.a
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+libgettextlib.la: $(libgettextlib_la_OBJECTS) $(libgettextlib_la_DEPENDENCIES) 
+	$(LINK) -rpath $(libdir) $(libgettextlib_la_LDFLAGS) $(libgettextlib_la_OBJECTS) $(libgettextlib_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core
@@ -325,9 +344,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LIBRARIES) $(HEADERS) all-local
+all-am: Makefile $(LTLIBRARIES) $(HEADERS) all-local
 
 installdirs:
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
 
 install: install-am
 install-exec: install-exec-am
@@ -356,7 +376,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
+clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -374,7 +394,7 @@ info-am:
 
 install-data-am:
 
-install-exec-am: install-exec-local
+install-exec-am: install-exec-local install-libLTLIBRARIES
 
 install-info: install-info-am
 
@@ -391,21 +411,22 @@ mostlyclean: mostlyclean-am
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-uninstall-am: uninstall-info-am uninstall-local
+uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES uninstall-local
 
 .PHONY: GTAGS all all-am all-local check check-am clean clean-generic \
-	clean-libtool clean-noinstLIBRARIES distclean distclean-compile \
+	clean-libLTLIBRARIES clean-libtool distclean distclean-compile \
 	distclean-generic distclean-libtool distclean-tags distdir dvi \
 	dvi-am info info-am install install-am install-data \
 	install-data-am install-exec install-exec-am install-exec-local \
-	install-info install-info-am install-man install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool tags uninstall \
-	uninstall-am uninstall-info-am uninstall-local
+	install-info install-info-am install-libLTLIBRARIES install-man \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	tags uninstall uninstall-am uninstall-info-am \
+	uninstall-libLTLIBRARIES uninstall-local
 
 
-all-local: @STDBOOL_H@
+all-local execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo wait-process.lo xerror.lo: @STDBOOL_H@
 stdbool.h: stdbool.h.in
 	cp $(srcdir)/stdbool.h.in stdbool.h
 

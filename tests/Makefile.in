@@ -99,6 +99,8 @@ LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
+LTALLOCA = @LTALLOCA@
+LTLIBOBJS = @LTLIBOBJS@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
@@ -123,7 +125,7 @@ lispdir = @lispdir@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 TESTS = gettext-1 gettext-2 \
-	msgcat-1 \
+	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 \
 	msgcmp-1 msgcmp-2 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
@@ -146,7 +148,7 @@ TESTS = gettext-1 gettext-2 \
 	plural-1 plural-2
 
 
-EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
+EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-1.in msguniq-1.out
 
 XGETTEXT = ../src/xgettext
 
@@ -172,9 +174,9 @@ LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
 noinst_PROGRAMS = tstgettext tstngettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
-tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
+tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
-tstngettext_LDADD = ../lib/libnlsut.a $(LDADD)
+tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 subdir = tests
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -190,11 +192,11 @@ cake_DEPENDENCIES =
 cake_LDFLAGS =
 am_tstgettext_OBJECTS = tstgettext.$(OBJEXT) setlocale.$(OBJEXT)
 tstgettext_OBJECTS = $(am_tstgettext_OBJECTS)
-tstgettext_DEPENDENCIES = ../lib/libnlsut.a
+tstgettext_DEPENDENCIES = ../lib/libgettextlib.la
 tstgettext_LDFLAGS =
 am_tstngettext_OBJECTS = tstngettext.$(OBJEXT) setlocale.$(OBJEXT)
 tstngettext_OBJECTS = $(am_tstngettext_OBJECTS)
-tstngettext_DEPENDENCIES = ../lib/libnlsut.a
+tstngettext_DEPENDENCIES = ../lib/libgettextlib.la
 tstngettext_LDFLAGS =
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@

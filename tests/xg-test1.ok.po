@@ -1,4 +1,12 @@
-msgid "while preparing output"
+#, c-format, no-wrap
+msgid ""
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+
+#, c-format
+msgid "Written by %s.\n"
 msgstr ""
 
 #, c-format
@@ -9,17 +17,6 @@ msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
-
-#, c-format, no-wrap
-msgid ""
-"Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-msgstr ""
-
-#, c-format
-msgid "Written by %s.\n"
 msgstr ""
 
 msgid "no input file given"
@@ -68,7 +65,8 @@ msgstr ""
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
-"  -L, --language=NAME            recognise the specified language (C, C++, PO)\n"
+"  -L, --language=NAME            recognise the specified language\n"
+"                                   (C, C++, ObjectiveC, PO, Java, YCP)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
@@ -103,7 +101,7 @@ msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
-"  -s, --sort-output              generate sorted output and remove duplicates\n"
+"  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
@@ -118,7 +116,7 @@ msgid ""
 "  -V, --version                  output version information and exit\n"
 msgstr ""
 
-msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 
 msgid "this file may not contain domain directives"
@@ -131,12 +129,22 @@ msgstr ""
 msgid "error while opening \"%s\" for reading"
 msgstr ""
 
+msgid ""
+"Empty msgid.  It is reserved by GNU gettext:\n"
+"gettext(\"\") returns the header entry with\n"
+"meta information, not the empty string.\n"
+msgstr ""
+
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""
 
 #, c-format
-msgid "error while opening \"%s\" for writing"
+msgid "%s requires a \"-d directory\" specification"
+msgstr ""
+
+#, c-format
+msgid "%s is only valid with %s"
 msgstr ""
 
 #, c-format
@@ -179,10 +187,28 @@ msgstr ""
 
 #, no-wrap
 msgid ""
+"Operation mode:\n"
+"  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
+"      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
+msgstr ""
+
+#, no-wrap
+msgid ""
 "Output file location:\n"
 "  -o, --output-file=FILE      write output to specified file\n"
 "      --strict                enable strict Uniforum mode\n"
 "If output file is -, output is written to standard output.\n"
+msgstr ""
+
+#, no-wrap
+msgid ""
+"Output file location in Java mode:\n"
+"  -r, --resource=RESOURCE     resource name\n"
+"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -d DIRECTORY                base directory of classes directory hierarchy\n"
+"The class name is determined by appending the locale name to the resource name,\n"
+"separated with an underscore.  The -d option is mandatory.  The class is\n"
+"written under the specified directory.\n"
 msgstr ""
 
 #, no-wrap
@@ -215,6 +241,83 @@ msgid ""
 msgstr ""
 
 msgid "while creating hash table"
+msgstr ""
+
+msgid "plural expression can produce negative values"
+msgstr ""
+
+#, c-format
+msgid "nplurals = %lu but plural expression can produce values as large as %lu"
+msgstr ""
+
+msgid "plural expression can produce division by zero"
+msgstr ""
+
+msgid "plural expression can produce integer overflow"
+msgstr ""
+
+msgid ""
+"plural expression can produce arithmetic exceptions, possibly division by "
+"zero"
+msgstr ""
+
+msgid "message catalog has plural form translations..."
+msgstr ""
+
+msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
+msgstr ""
+
+msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
+msgstr ""
+
+msgid "invalid nplurals value"
+msgstr ""
+
+msgid "invalid plural expression"
+msgstr ""
+
+#, c-format
+msgid "nplurals = %lu..."
+msgstr ""
+
+#, c-format
+msgid "...but some messages have only %lu plural forms"
+msgstr ""
+
+#, c-format
+msgid "...but some messages have %lu plural forms"
+msgstr ""
+
+msgid ""
+"message catalog has plural form translations, but lacks a header entry with "
+"\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
+msgstr ""
+
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr ""
+
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr ""
+
+msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+msgstr ""
+
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr ""
+
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
+msgstr ""
+
+msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
+msgstr ""
+
+msgid "plural handling is a GNU gettext extension"
+msgstr ""
+
+#, c-format
+msgid "'msgstr' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
 msgid "warning: PO file header missing, fuzzy, or invalid\n"
@@ -264,33 +367,6 @@ msgstr ""
 
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr ""
-
-msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr ""
-
-#, c-format
-msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr ""
-
-msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr ""
-
-msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr ""
-
-#, c-format
-msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr ""
-
-msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-msgstr ""
-
-msgid "plural handling is a GNU gettext extension"
-msgstr ""
-
-#, c-format
-msgid "'msgstr' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
 msgid "too many arguments"
