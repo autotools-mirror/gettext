@@ -696,6 +696,8 @@ process_message (mp)
       result[length] = '\0';
       substrings[k] = result;
       total_len += length + 1;
+
+      p += strlen (p) + 1;
     }
 
   /* Concatenate the results, including the NUL after each.  */
