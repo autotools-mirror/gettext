@@ -5,8 +5,25 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null; then
+  # Stardent Vistra SVR4 grep lacks -e, says ghazi@caip.rutgers.edu.
+  if (echo -n testing; echo 1,2,3) | sed s/-n/xn/ | grep xn >/dev/null; then
+    ac_n= ac_c='
+' ac_t='        '
+  else
+    ac_n=-n ac_c= ac_t=
+  fi
+else
+  ac_n= ac_c='\c' ac_t=
+fi
+
 # Some fold programs (like SunOS4) don't have an option to wrap at spaces.
 echo abc | fold -b -s -w 20 >/dev/null 2>&1 || { echo "SKIP: msgfilter-1"; rm -fr $tmpfiles; exit 77; }
+
+# Some fold programs (like HP-UX) insert a newline at the end, if the last
+# line was not terminated with a newline and the -s option was given.
+foldoutputcount=`echo $ac_n "abc$ac_c" | fold -b -s -w 20 | wc -c`
+test "$foldoutputcount" = 3 || { echo "SKIP: msgfilter-1"; rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles mfi-test1.po"
 cat <<EOF > mfi-test1.po
