@@ -196,6 +196,9 @@ typedef bool message_predicate_ty (const message_ty *mp);
 extern void
        message_list_remove_if_not (message_list_ty *mlp,
 				   message_predicate_ty *predicate);
+/* Recompute the hash table of a message list after the msgids changed.  */
+extern bool
+       message_list_msgids_changed (message_list_ty *mlp);
 extern message_ty *
        message_list_search (message_list_ty *mlp, const char *msgid);
 extern message_ty *

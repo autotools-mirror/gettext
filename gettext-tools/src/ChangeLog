@@ -1,3 +1,10 @@
+2003-10-21  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (message_list_msgids_changed): New declaration.
+	* message.c (message_list_msgids_changed): New function.
+	* msgl-iconv.c (iconv_message_list): Update the message list's hash
+	table if it happens to contain non-ASCII msgids.
+
 2003-10-19  Bruno Haible  <bruno@clisp.org>
 
         * message.h (format_type): New enum value 'format_qt'.

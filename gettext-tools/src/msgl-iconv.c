@@ -343,6 +343,7 @@ input file doesn't contain a header entry with a charset specification"));
     {
 #if HAVE_ICONV
       iconv_t cd;
+      bool msgids_changed;
 
       /* Avoid glibc-2.1 bug with EUC-KR.  */
 # if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
@@ -357,10 +358,13 @@ Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
 and iconv() does not support this conversion."),
 	       canon_from_code, canon_to_code, basename (program_name));
 
+      msgids_changed = false;
       for (j = 0; j < mlp->nitems; j++)
 	{
 	  message_ty *mp = mlp->item[j];
 
+	  if (!is_ascii_string (mp->msgid))
+	    msgids_changed = true;
 	  convert_string_list (cd, mp->comment);
 	  convert_string_list (cd, mp->comment_dot);
 	  convert_msgid (cd, mp);
@@ -368,6 +372,13 @@ and iconv() does not support this conversion."),
 	}
 
       iconv_close (cd);
+
+      if (msgids_changed)
+	if (message_list_msgids_changed (mlp))
+	  error (EXIT_FAILURE, 0, _("\
+Conversion from \"%s\" to \"%s\" introduces duplicates: \
+some different msgids become equal."),
+		 canon_from_code, canon_to_code);
 #else
 	  error (EXIT_FAILURE, 0, _("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \

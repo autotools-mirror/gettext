@@ -330,6 +330,37 @@ message_list_remove_if_not (message_list_ty *mlp,
 }
 
 
+bool
+message_list_msgids_changed (message_list_ty *mlp)
+{
+  if (mlp->use_hashtable)
+    {
+      unsigned long int size = mlp->htable.size;
+      size_t j;
+
+      delete_hash (&mlp->htable);
+      init_hash (&mlp->htable, size);
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+
+	  if (insert_entry (&mlp->htable, mp->msgid, strlen (mp->msgid) + 1,
+			    mp))
+	    /* A message list has duplicates, although it was allocated with
+	       the assertion that it wouldn't have duplicates, and before the
+	       msgids changed it indeed didn't have duplicates.  */
+	    {
+	      delete_hash (&mlp->htable);
+	      mlp->use_hashtable = false;
+	      return true;
+	    }
+	}
+    }
+  return false;
+}
+
+
 message_ty *
 message_list_search (message_list_ty *mlp, const char *msgid)
 {
