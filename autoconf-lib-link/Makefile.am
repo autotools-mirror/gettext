@@ -47,32 +47,28 @@ $(srcdir)/../config/config.rpath: $(srcdir)/config.rpath
 
 all-local: config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath
 
-config/config.guess: $(srcdir)/../config/config.guess
+config-dir:
 	test -d config || mkdir config
+
+config/config.guess: $(srcdir)/../config/config.guess config-dir
 	cp $(srcdir)/../config/config.guess config/config.guess
 
-config/config.sub: $(srcdir)/../config/config.sub
-	test -d config || mkdir config
+config/config.sub: $(srcdir)/../config/config.sub config-dir
 	cp $(srcdir)/../config/config.sub config/config.sub
 
-config/install-sh: $(srcdir)/../config/install-sh
-	test -d config || mkdir config
+config/install-sh: $(srcdir)/../config/install-sh config-dir
 	cp $(srcdir)/../config/install-sh config/install-sh
 
-config/ltmain.sh: $(srcdir)/../config/ltmain.sh
-	test -d config || mkdir config
+config/ltmain.sh: $(srcdir)/../config/ltmain.sh config-dir
 	cp $(srcdir)/../config/ltmain.sh config/ltmain.sh
 
-config/mkinstalldirs: $(srcdir)/../config/mkinstalldirs
-	test -d config || mkdir config
+config/mkinstalldirs: $(srcdir)/../config/mkinstalldirs config-dir
 	cp $(srcdir)/../config/mkinstalldirs config/mkinstalldirs
 
-config/missing: $(srcdir)/../config/missing
-	test -d config || mkdir config
+config/missing: $(srcdir)/../config/missing config-dir
 	cp $(srcdir)/../config/missing config/missing
 
-config/config.rpath: $(srcdir)/config.rpath
-	test -d config || mkdir config
+config/config.rpath: $(srcdir)/config.rpath config-dir
 	cp $(srcdir)/config.rpath config/config.rpath
 
 DISTCLEANFILES += config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath

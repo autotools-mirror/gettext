@@ -1,3 +1,11 @@
+2003-05-20  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config-dir): New target.
+	(config/config.guess, config/config.sub, config/install-sh,
+	config/ltmain.sh, config/mkinstalldirs, config/missing,
+	config/config.rpath): Depend on it.
+	Reported by Frédéric L. W. Meunier <0@pervalidus.tk>.
+
 2003-05-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12 released.
