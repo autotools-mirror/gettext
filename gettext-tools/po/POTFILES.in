@@ -41,7 +41,6 @@ src/msgattrib.c
 src/msgcat.c
 src/msgcmp.c
 src/msgcomm.c
-src/format-perl.c
 src/msgconv.c
 src/msgen.c
 src/msgexec.c
