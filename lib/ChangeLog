@@ -1,5 +1,11 @@
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* minmax.h: New file, extracted from system.h.
+	* system.h (MIN, MAX): Remove macros.
+	* Makefile.am (libgettextlib_la_HEADER): Add minmax.h.
+
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.h: Moved here from ../intl/libgettext.h.
 	* Makefile.am (noinst_HEADERS): Add it.
 	(gettextsrcdir, gettextsrc_DATA): New variables.

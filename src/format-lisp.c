@@ -27,6 +27,7 @@
 #include "c-ctype.h"
 #include "gcd.h"
 #include "xmalloc.h"
+#include "minmax.h"
 #include "system.h"
 #include "error.h"
 #include "progname.h"

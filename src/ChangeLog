@@ -1,5 +1,9 @@
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* format-lisp.c: Include minmax.h.
+
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* file-list.c: Include gettext.h instead of libgettext.h.
 	* format-c.c: Likewise.
 	* format-java.c: Likewise.

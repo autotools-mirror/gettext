@@ -32,9 +32,9 @@ xgetcwd.c xmalloc.c xstrdup.c
 
 libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h c-ctype.h \
 copy-file.h execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h \
-javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h \
-pipe.h progname.h safe-read.h sh-quote.h system.h tmpdir.h utf8-ucs4.h \
-utf16-ucs4.h wait-process.h xerror.h xmalloc.h
+javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h minmax.h obstack.h \
+pathmax.h pipe.h progname.h safe-read.h sh-quote.h system.h tmpdir.h \
+utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h xmalloc.h
 
 # Sources that are compiled only on platforms that lack the functions.
 
