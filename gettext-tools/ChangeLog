@@ -1,3 +1,9 @@
+2003-05-19  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.rc: Include <winver.h>.
+	* windows/gettextsrc.rc: Likewise.
+	Reported by Perry Rapp.
+
 2003-05-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12 released.

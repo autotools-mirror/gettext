@@ -1,6 +1,8 @@
 /* Resources for asprintf.dll */
 /* There are 4 occurrences of the version number in this file. */
 
+#include <winver.h>
+
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 1,0,0,0
  PRODUCTVERSION 1,0,0,0

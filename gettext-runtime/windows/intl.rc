@@ -1,6 +1,8 @@
 /* Resources for intl.dll */
 /* There are 4 occurrences of the version number in this file. */
 
+#include <winver.h>
+
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 0,12,0,0
  PRODUCTVERSION 0,12,0,0
