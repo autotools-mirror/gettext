@@ -670,7 +670,7 @@ To select a different output encoding, use the --to-code option.\n\
 
 			message_comment_append (tmp, tmp->alternative[i].id);
 			for (l = 0; l < slp->nitems; l++)
-			  message_comment_append (tmp, slp->item[i]);
+			  message_comment_append (tmp, slp->item[l]);
 		      }
 		  }
 
@@ -698,7 +698,7 @@ To select a different output encoding, use the --to-code option.\n\
 			message_comment_dot_append (tmp,
 						    tmp->alternative[i].id);
 			for (l = 0; l < slp->nitems; l++)
-			  message_comment_dot_append (tmp, slp->item[i]);
+			  message_comment_dot_append (tmp, slp->item[l]);
 		      }
 		  }
 	    }

@@ -1,5 +1,10 @@
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgl-cat.c (catenate_msgdomain_list): Fix a typo in 2001-11-01 patch.
+	Reported by Karl Eichwalder.
+
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
 	* msginit.c (verbose): Remove variable.
 	(long_options): Remove --verbose.
 	(main): Remove --verbose option handling.
