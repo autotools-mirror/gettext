@@ -47,6 +47,7 @@ libgettextlib_la_SOURCES = \
   error-progname.h error-progname.c \
   execute.h execute.c w32spawn.h \
   exit.h \
+  exitfail.h exitfail.c \
   fatal-signal.h fatal-signal.c \
   findprog.h findprog.c \
   fstrcmp.h fstrcmp.c \

@@ -51,6 +51,7 @@ OBJECTS = \
   error.obj, \
   error-progname.obj, \
   execute.obj, \
+  exitfail.obj, \
   fatal-signal.obj, \
   findprog.obj, \
   fstrcmp.obj, \
@@ -138,6 +139,9 @@ error-progname.obj : error-progname.c
 
 execute.obj : execute.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) execute.c
+
+exitfail.obj : exitfail.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) exitfail.c
 
 fatal-signal.obj : fatal-signal.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) fatal-signal.c

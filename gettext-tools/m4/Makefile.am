@@ -55,6 +55,7 @@ csharpexec.m4 \
 eaccess.m4 \
 eealloc.m4 \
 error.m4 \
+exitfail.m4 \
 extensions.m4 \
 fnmatch.m4 \
 gcj.m4 \
