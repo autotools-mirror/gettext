@@ -82,7 +82,8 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
-LANGUAGE= LC_ALL=fr_FR rep --no-rc --batch prog.jl > prog.out || exit 1
+: ${LOCALE_FR=fr_FR}
+LANGUAGE= LC_ALL=$LOCALE_FR rep --no-rc --batch prog.jl > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

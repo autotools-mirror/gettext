@@ -102,6 +102,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
 		    LTLIBINTL='@LTLIBINTL@' \
 		    TESTJAVA='@TESTJAVA@' \
+		    LOCALE_FR='@LOCALE_FR@' \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 

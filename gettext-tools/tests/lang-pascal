@@ -83,7 +83,8 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
-LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=fr_FR ./prog > prog.out || exit 1
+: ${LOCALE_FR=fr_FR}
+LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=$LOCALE_FR ./prog > prog.out || exit 1
 : ${DIFF=diff}
 ${DIFF} prog.ok prog.out || exit 1
 

@@ -1,7 +1,25 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (TESTS_ENVIRONMENT): Also set LOCALE_FR.
+	* lang-c: Use system dependent locale name $LOCALE_FR, not just fr_FR.
+	* lang-c++: Likewise.
+	* lang-clisp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-java: Likewise.
+	* lang-librep: Likewise.
+	* lang-objc: Likewise.
+	* lang-pascal: Likewise.
+	* lang-perl: Likewise.
+	* lang-php: Likewise.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-tcl: Likewise.
+
 2003-06-17  Paul Eggert  <eggert@twinsun.com>
 
-	* gettext-tools/tests/msgcat-7: Put msgcat options before file name, so
-	that the test doesn't fail if POSIXLY_CORRECT is set.
+	* msgcat-7: Put msgcat options before file name, so that the test
+	doesn't fail if POSIXLY_CORRECT is set.
 
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 

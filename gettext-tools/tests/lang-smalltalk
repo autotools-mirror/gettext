@@ -110,7 +110,8 @@ Loading package I18N
 EUR remplace FF.
 EOF
 
-LANGUAGE= LC_ALL=fr_FR gst -Q prog.st > prog.out || exit 1
+: ${LOCALE_FR=fr_FR}
+LANGUAGE= LC_ALL=$LOCALE_FR gst -Q prog.st > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

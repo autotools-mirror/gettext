@@ -103,7 +103,8 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
-CLISP_LANGUAGE= LANGUAGE= LC_ALL=fr_FR clisp prog.lisp 2 > prog.out || exit 1
+: ${LOCALE_FR=fr_FR}
+CLISP_LANGUAGE= LANGUAGE= LC_ALL=$LOCALE_FR clisp prog.lisp 2 > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

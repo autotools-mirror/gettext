@@ -102,8 +102,9 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
+: ${LOCALE_FR=fr_FR}
 : ${JAVAEXEC="/bin/sh ../lib/javaexec.sh"}
-LANGUAGE= LC_ALL=fr_FR CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
+LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

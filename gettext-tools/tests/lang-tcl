@@ -81,7 +81,8 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
-LANGUAGE= LANG=fr_FR LC_MESSAGES= LC_ALL= tclsh program.tcl > prog.out || exit 1
+: ${LOCALE_FR=fr_FR}
+LANGUAGE= LANG=$LOCALE_FR LC_MESSAGES= LC_ALL= tclsh program.tcl > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

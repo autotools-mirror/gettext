@@ -90,7 +90,8 @@ EOF
 perl -e 'use Locale::Messages;' 2>/dev/null \
   || { rm -fr $tmpfiles; exit 77; }
 
-LANGUAGE= LANG=fr_FR LC_MESSAGES= LC_ALL= perl program.pl > prog.out || exit 1
+: ${LOCALE_FR=fr_FR}
+LANGUAGE= LANG=$LOCALE_FR LC_MESSAGES= LC_ALL= perl program.pl > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

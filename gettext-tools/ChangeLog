@@ -1,4 +1,8 @@
-2003-05-08  Bruno Haible  <bruno@clisp.org>
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gt_LOCALE_FR.
+
+2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h_vms): Don't define HAVE_ENVIRON_DECL. Define
 	eaccess.

@@ -211,6 +211,7 @@ AC_SUBST(CROSS_COMPILING)
 
 dnl Checks for optional programs for the tests/lang-* tests.
 gt_PROG_ANSI_CXX
+gt_LOCALE_FR
 
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl

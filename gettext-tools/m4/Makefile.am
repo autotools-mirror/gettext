@@ -39,6 +39,7 @@ getline.m4 \
 hostname.m4 \
 javacomp.m4 \
 javaexec.m4 \
+locale-fr.m4 \
 mbrtowc.m4 \
 mbstate_t.m4 \
 mbswidth.m4 \

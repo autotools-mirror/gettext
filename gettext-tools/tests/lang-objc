@@ -135,7 +135,8 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
-LANGUAGE= ./prog fr_FR 2 > prog.out
+: ${LOCALE_FR=fr_FR}
+LANGUAGE= ./prog $LOCALE_FR 2 > prog.out
 case $? in
   0) ;;
   77) rm -fr $tmpfiles; exit 77;;
