@@ -130,6 +130,7 @@ POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+SUBDIR_libasprintf = @SUBDIR_libasprintf@
 TESTJAVA = @TESTJAVA@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -165,7 +166,8 @@ po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
 write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
 plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
-x-elisp.h x-librep.h x-java.h x-awk.h x-ycp.h x-tcl.h x-rst.h x-glade.h
+x-elisp.h x-librep.h x-smalltalk.h x-java.h x-awk.h x-ycp.h x-tcl.h x-php.h \
+x-rst.h x-glade.h
 
 
 EXTRA_DIST = FILES project-id msgunfmt.tcl \
@@ -204,7 +206,8 @@ open-po.c dir-list.c str-list.c
 # xgettext and msgfmt deal with format strings.
 FORMAT_SOURCE = format.c \
 format-c.c format-python.c format-lisp.c format-elisp.c format-librep.c \
-format-java.c format-awk.c format-pascal.c format-ycp.c format-tcl.c
+format-java.c format-awk.c format-pascal.c format-ycp.c format-tcl.c \
+format-php.c
 
 
 # libgettextsrc contains all code that is needed by at least two programs.
@@ -225,8 +228,8 @@ msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-tcl.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-tcl.c
 xgettext_SOURCES = xgettext.c \
-  x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-java.l x-awk.c \
-  x-ycp.c x-tcl.c x-rst.c x-glade.c
+  x-c.c x-po.c x-python.c x-lisp.c x-elisp.c x-librep.c x-smalltalk.c \
+  x-java.l x-awk.c x-ycp.c x-tcl.c x-php.c x-rst.c x-glade.c
 
 msgattrib_SOURCES = msgattrib.c
 msgcat_SOURCES = msgcat.c
@@ -302,7 +305,7 @@ am_libgettextsrc_la_OBJECTS = message.lo po.lo po-lex.lo po-gram-gen.lo \
 	msgl-charset.lo po-time.lo plural.lo plural-table.lo format.lo \
 	format-c.lo format-python.lo format-lisp.lo format-elisp.lo \
 	format-librep.lo format-java.lo format-awk.lo format-pascal.lo \
-	format-ycp.lo format-tcl.lo
+	format-ycp.lo format-tcl.lo format-php.lo
 libgettextsrc_la_OBJECTS = $(am_libgettextsrc_la_OBJECTS)
 bin_PROGRAMS = gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
 	msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) \
@@ -397,9 +400,9 @@ urlget_DEPENDENCIES = ../lib/libgettextlib.la
 urlget_LDFLAGS =
 am_xgettext_OBJECTS = xgettext.$(OBJEXT) x-c.$(OBJEXT) x-po.$(OBJEXT) \
 	x-python.$(OBJEXT) x-lisp.$(OBJEXT) x-elisp.$(OBJEXT) \
-	x-librep.$(OBJEXT) x-java.$(OBJEXT) x-awk.$(OBJEXT) \
-	x-ycp.$(OBJEXT) x-tcl.$(OBJEXT) x-rst.$(OBJEXT) \
-	x-glade.$(OBJEXT)
+	x-librep.$(OBJEXT) x-smalltalk.$(OBJEXT) x-java.$(OBJEXT) \
+	x-awk.$(OBJEXT) x-ycp.$(OBJEXT) x-tcl.$(OBJEXT) x-php.$(OBJEXT) \
+	x-rst.$(OBJEXT) x-glade.$(OBJEXT)
 xgettext_OBJECTS = $(am_xgettext_OBJECTS)
 xgettext_DEPENDENCIES = libgettextsrc.la ../libuniname/libuniname.a
 xgettext_LDFLAGS =
