@@ -23,6 +23,10 @@
 
 #include <stdbool.h>
 
+extern bool
+       string_list_equal PARAMS ((const string_list_ty *slp1,
+				  const string_list_ty *slp2));
+
 /* Test whether the written representation of two messages / message lists
    would be the same.  */
 

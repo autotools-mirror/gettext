@@ -125,6 +125,8 @@ struct message_ty
       const char *msgstr;
       size_t msgstr_len;
       const char *msgstr_end;
+      string_list_ty *comment;
+      string_list_ty *comment_dot;
       char *id;
     }
     *alternative;

@@ -1,3 +1,15 @@
+2001-11-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgl-equal.h (string_list_equal): New declaration.
+	* msgl-equal.c (string_list_equal): Export function.
+	* message.h (struct altstr): New fields 'comment', 'comment_dot'.
+	* msgl-cat.c: Include msgl-equal.h.
+	(catenate_msgdomain_list): If all alternative comments are equal,
+	use one copy of them, instead of concatenating them. Likewise for dot
+	comments.
+	* Makefile.am (libgettextsrc_la_SOURCES): Add msgl-equal.c.
+	(msgmerge_SOURCES): Remove msgl-equal.c.
+
 2001-10-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (noinst_HEADERS): Add read-java.h, write-java.h,

@@ -29,8 +29,6 @@
    function argument counts despite of K&R C function definition syntax.  */
 static inline bool pos_equal PARAMS ((const lex_pos_ty *pos1,
 				      const lex_pos_ty *pos2));
-static inline bool string_list_equal PARAMS ((const string_list_ty *slp1,
-					      const string_list_ty *slp2));
 static inline bool msgdomain_equal PARAMS ((const msgdomain_ty *mdp1,
 					    const msgdomain_ty *mdp2));
 
@@ -45,7 +43,7 @@ pos_equal (pos1, pos2)
 	  && pos1->line_number == pos2->line_number);
 }
 
-static inline bool
+bool
 string_list_equal (slp1, slp2)
      const string_list_ty *slp1;
      const string_list_ty *slp2;

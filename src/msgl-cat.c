@@ -33,6 +33,7 @@
 #include "read-po.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"
+#include "msgl-equal.h"
 #include "msgl-iconv.h"
 #include "xmalloc.h"
 #include "strstr.h"
@@ -530,22 +531,11 @@ To select a different output encoding, use the --to-code option.\n\
 		  tmp->alternative[i].msgstr_len = mp->msgstr_len;
 		  tmp->alternative[i].msgstr_end =
 		    tmp->alternative[i].msgstr + tmp->alternative[i].msgstr_len;
+		  tmp->alternative[i].comment = mp->comment;
+		  tmp->alternative[i].comment_dot = mp->comment_dot;
 		  tmp->alternative[i].id = id;
 		  tmp->alternative_count = i + 1;
 
-		  if (mp->comment)
-		    {
-		      message_comment_append (tmp, id);
-		      for (i = 0; i < mp->comment->nitems; i++)
-			message_comment_append (tmp, mp->comment->item[i]);
-		    }
-		  if (mp->comment_dot)
-		    {
-		      message_comment_dot_append (tmp, id);
-		      for (i = 0; i < mp->comment_dot->nitems; i++)
-			message_comment_dot_append (tmp,
-						    mp->comment_dot->item[i]);
-		    }
 		  for (i = 0; i < mp->filepos_count; i++)
 		    message_comment_filepos (tmp, mp->filepos[i].file_name,
 					     mp->filepos[i].line_number);
@@ -655,6 +645,61 @@ To select a different output encoding, use the --to-code option.\n\
 
 		  tmp->is_fuzzy = true;
 		}
+
+	      /* Test whether all alternative comments are equal.  */
+	      for (i = 0; i < tmp->alternative_count; i++)
+		if (tmp->alternative[i].comment == NULL
+		    || !string_list_equal (tmp->alternative[i].comment,
+					   first->comment))
+		  break;
+
+	      if (i == tmp->alternative_count)
+		/* All alternatives are equal.  */
+		tmp->comment = first->comment;
+	      else
+		/* Concatenate the alternative comments into a single one,
+		   separated by markers.  */
+		for (i = 0; i < tmp->alternative_count; i++)
+		  {
+		    string_list_ty *slp = tmp->alternative[i].comment;
+
+		    if (slp != NULL)
+		      {
+			size_t l;
+
+			message_comment_append (tmp, tmp->alternative[i].id);
+			for (l = 0; l < slp->nitems; l++)
+			  message_comment_append (tmp, slp->item[i]);
+		      }
+		  }
+
+	      /* Test whether all alternative dot comments are equal.  */
+	      for (i = 0; i < tmp->alternative_count; i++)
+		if (tmp->alternative[i].comment_dot == NULL
+		    || !string_list_equal (tmp->alternative[i].comment_dot,
+					   first->comment_dot))
+		  break;
+
+	      if (i == tmp->alternative_count)
+		/* All alternatives are equal.  */
+		tmp->comment_dot = first->comment_dot;
+	      else
+		/* Concatenate the alternative dot comments into a single one,
+		   separated by markers.  */
+		for (i = 0; i < tmp->alternative_count; i++)
+		  {
+		    string_list_ty *slp = tmp->alternative[i].comment_dot;
+
+		    if (slp != NULL)
+		      {
+			size_t l;
+
+			message_comment_dot_append (tmp,
+						    tmp->alternative[i].id);
+			for (l = 0; l < slp->nitems; l++)
+			  message_comment_dot_append (tmp, slp->item[i]);
+		      }
+		  }
 	    }
 	}
     }
