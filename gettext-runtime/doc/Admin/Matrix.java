@@ -96,14 +96,14 @@ public class Matrix {
     }
 
     // Special treatment of clisp. The percentages are incorrect.
-    data.domains.add("clisp");
     if (!data.teams.contains("en"))
       data.teams.add("en");
     data.po_files.add(new PoFile("clisp","en",100));
-    data.po_files.add(new PoFile("clisp","de",99));
-    data.po_files.add(new PoFile("clisp","fr",99));
-    data.po_files.add(new PoFile("clisp","es",90));
-    data.po_files.add(new PoFile("clisp","nl",90));
+    data.po_files.add(new PoFile("clisp","de",83));
+    data.po_files.add(new PoFile("clisp","fr",58));
+    data.po_files.add(new PoFile("clisp","es",54));
+    data.po_files.add(new PoFile("clisp","nl",57));
+    data.po_files.add(new PoFile("clisp","ru",74));
 
     try {
       FileWriter f = new FileWriter("matrix.texi");
