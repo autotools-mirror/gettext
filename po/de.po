@@ -3,15 +3,11 @@
 # Karl Eichwalder <ke@suse.de>, 2001.
 # Ulrich Drepper <drepper@gnu.org>, 1995-1997.
 #
-# Kopfeintrag vs. Kopfteil?
-# fuzzy: ungenau / ungefähr
-# obsolete: veraltet / obsolet / unbrauchbar / überflüssig
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.39\n"
+"Project-Id-Version: GNU gettext 0.10.40\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 2001-08-16 07:08+0200\n"
+"PO-Revision-Date: 2001-11-03 06:39+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -611,7 +607,7 @@ msgstr ""
 "                                  (Vorgabe)\n"
 "      --strict                  .po-Datei streng nach Uniforum-Format erzeugen\n"
 "  -v, --verbose                 Unregelmäßigkeiten in Eingabe aufzeigen\n"
-"  -V, --version                 Versionsnummer anzeige und beenden\n"
+"  -V, --version                 Versionsnummer anzeigen und beenden\n"
 "  -w, --width=ANZAHL            Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
 #: src/msgmerge.c:340
