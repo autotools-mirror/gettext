@@ -1,3 +1,13 @@
+2001-12-23  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextlib_la_SOURCES): Add the contents of
+	libgettextlib_la_HEADER, except liballoca.h.
+	(LIBADD_SOURCE): Add the contents of LIBADD_HEADER, plus liballoca.h.
+	(UNUSED_SOURCE): Add the contents of UNUSED_HEADER.
+	(libgettextlib_la_HEADER, LIBADD_HEADER, UNUSED_HEADER): Remove
+	variables.
+	(noinst_HEADERS): Update.
+
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.c (ISSLASH): Provide definition for DOS-like systems.

@@ -23,34 +23,63 @@ lib_LTLIBRARIES = libgettextlib.la
 
 # Sources that are compiled on all platforms.
 
-libgettextlib_la_SOURCES = addext.c argmatch.c backupfile.c basename.c \
-c-ctype.c concatpath.c copy-file.c execute.c findprog.c fstrcmp.c \
-full-write.c gcd.c getopt.c getopt1.c hash.c javacomp.c javaexec.c \
-linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c \
-pipe-out.c progname.c safe-read.c sh-quote.c tmpdir.c wait-process.c xerror.c \
-xmalloc.c xstrdup.c
-
-libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h binary-io.h \
-c-ctype.h copy-file.h execute.h exit.h findprog.h fstrcmp.h full-write.h \
-gcd.h getopt.h hash.h javacomp.h javaexec.h lbrkprop.h liballoca.h \
-linebreak.h mbswidth.h minmax.h obstack.h pathmax.h pathname.h pipe.h \
-progname.h safe-read.h sh-quote.h tmpdir.h utf8-ucs4.h utf16-ucs4.h \
-wait-process.h xerror.h xmalloc.h
+libgettextlib_la_SOURCES = \
+  argmatch.h argmatch.c \
+  backupfile.h backupfile.c addext.c \
+  basename.h basename.c \
+  binary-io.h \
+  c-ctype.h c-ctype.c \
+  copy-file.h copy-file.c \
+  execute.h execute.c \
+  exit.h \
+  findprog.h findprog.c \
+  fstrcmp.h fstrcmp.c \
+  full-write.h full-write.c \
+  gcd.h gcd.c \
+  getopt.h getopt.c getopt1.c \
+  hash.h hash.c \
+  javacomp.h javacomp.c \
+  javaexec.h javaexec.c \
+  linebreak.h linebreak.c lbrkprop.h utf8-ucs4.h utf16-ucs4.h \
+  localcharset.c \
+  mbswidth.h mbswidth.c \
+  minmax.h \
+  obstack.h obstack.c \
+  pathmax.h \
+  pathname.h concatpath.c \
+  pipe.h pipe-bidi.c pipe-in.c pipe-out.c \
+  progname.h progname.c \
+  safe-read.h safe-read.c \
+  sh-quote.h sh-quote.c \
+  tmpdir.h tmpdir.c \
+  wait-process.h wait-process.c \
+  xerror.h xerror.c \
+  xmalloc.h xmalloc.c xstrdup.c
 
 # Sources that are compiled only on platforms that lack the functions.
 
-LIBADD_SOURCE = alloca.c error.c getline.c memset.c mkdtemp.c pfnmatch.c \
-setenv.c stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strpbrk.c \
-strstr.c strtol.c strtoul.c vasprintf.c
-
-LIBADD_HEADER = error.h getline.h mkdtemp.h pfnmatch.h setenv.h stpcpy.h \
-stpncpy.h strcase.h strpbrk.h strstr.h
+LIBADD_SOURCE = \
+  liballoca.h alloca.c \
+  error.h error.c \
+  getline.h getline.c \
+  memset.c \
+  mkdtemp.h mkdtemp.c \
+  pfnmatch.h pfnmatch.c \
+  setenv.h setenv.c \
+  stpcpy.h stpcpy.c \
+  stpncpy.h stpncpy.c \
+  strcase.h strcasecmp.c strncasecmp.c \
+  strcspn.c \
+  strpbrk.h strpbrk.c \
+  strstr.h strstr.c \
+  strtol.c strtoul.c \
+  vasprintf.c
 
 # Unused sources.
 
-UNUSED_SOURCE = memmove.c xgetcwd.c
-
-UNUSED_HEADER = xgetcwd.h
+UNUSED_SOURCE = \
+  memmove.c \
+  xgetcwd.h xgetcwd.c
 
 # How to build libgettextlib.la.
 
@@ -69,8 +98,7 @@ gettextsrc_DATA = gettext.h
 
 # List of files to be distributed.
 
-noinst_HEADERS = $(libgettextlib_la_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER) \
-gettext.h
+noinst_HEADERS = gettext.h
 
 EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
