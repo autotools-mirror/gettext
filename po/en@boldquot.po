@@ -246,10 +246,11 @@ msgid "warning: this message is not used"
 msgstr "warning: this message is not used"
 
 #: src/msgcmp.c:283 src/po-lex.c:103
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
-msgstr[0] "found %d fatal errors"
+msgstr[0] "found %d fatal error"
+msgstr[1] "found %d fatal errors"
 
 #: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
@@ -401,22 +402,25 @@ msgid "error while opening \"%s\" for writing"
 msgstr "error while opening “[1m%s[0m” for writing"
 
 #: src/msgfmt.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
-msgstr[0] "%d translated messages"
+msgstr[0] "%d translated message"
+msgstr[1] "%d translated messages"
 
 #: src/msgfmt.c:365
-#, fuzzy, c-format
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] ", %d fuzzy translations"
+msgstr[0] ", %d fuzzy translation"
+msgstr[1] ", %d fuzzy translations"
 
 #: src/msgfmt.c:370
-#, fuzzy, c-format
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
-msgstr[0] ", %d untranslated messages"
+msgstr[0] ", %d untranslated message"
+msgstr[1] ", %d untranslated messages"
 
 #: src/msgfmt.c:392
 #, c-format, no-wrap
