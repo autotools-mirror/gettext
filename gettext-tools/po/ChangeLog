@@ -1,0 +1,11 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Bring up to date.
+
+	* Makefile.in.in (install-data, installdirs-data, uninstall-data):
+	Special case package 'gettext-tools'.
+	(.nop.po-update): Likewise.
+	(dist2): Distribute also ChangeLog.[0-9] if present.
+
+
+See ChangeLog.0 for earlier changes.
