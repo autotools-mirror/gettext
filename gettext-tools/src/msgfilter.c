@@ -39,8 +39,8 @@
 # include <unistd.h>
 #endif
 
-/* Get fd_set.  */
-#ifdef _AIX
+/* Get fd_set (on AIX) or select() declaration (on EMX).  */
+#if defined (_AIX) || defined (__EMX__)
 # include <sys/select.h>
 #endif
 

@@ -1,3 +1,8 @@
+2003-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter.c: Include <sys/select.h> also on EMX.
+	Reported by Andreas Buening <andreas.buening@nexgo.de>.
+
 2003-04-26  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (msgdomain_list_ty): Add field 'encoding'.
