@@ -1,3 +1,9 @@
+2004-05-14  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Correctly handle the case of a precision
+	that consists of a '.' followed by an empty digit string.
+	Patch by Tor Lillqvist <tml@iki.fi>.
+
 2004-04-28  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (ISSLASH, IS_ABSOLUTE_PATH, IS_PATH_WITH_DIR): Treat
