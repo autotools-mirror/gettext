@@ -65,7 +65,7 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-# Test for presence of gawk version 4.0 or newer.
+# Test for presence of php version 4.0 or newer.
 case `(php -v) 2>/dev/null` in
   [4-9].*) ;;
   *) rm -fr $tmpfiles; exit 77;;
