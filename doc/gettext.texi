@@ -208,6 +208,7 @@ Files You Must Create or Alter
 
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * configure.in::                @file{configure.in} at top level
+* config.guess::                @file{config.guess}, @file{config.sub} at top level
 * aclocal::                     @file{aclocal.m4} at top level
 * acconfig::                    @file{acconfig.h} at top level
 * Makefile::                    @file{Makefile.in} at top level
@@ -4974,6 +4975,7 @@ its own functionality.
 @menu
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * configure.in::                @file{configure.in} at top level
+* config.guess::                @file{config.guess}, @file{config.sub} at top level
 * aclocal::                     @file{aclocal.m4} at top level
 * acconfig::                    @file{acconfig.h} at top level
 * Makefile::                    @file{Makefile.in} at top level
@@ -5006,13 +5008,13 @@ src/xgettext.c
 @end example
 
 @noindent
-Dashed comments and white lines are ignored.  All other lines
+Hash-marked comments and white lines are ignored.  All other lines
 list those source files containing strings marked for translation
 (@pxref{Mark Keywords}), in a notation relative to the top level
 of your whole distribution, rather than the location of the
 @file{POTFILES.in} file itself.
 
-@node configure.in, aclocal, po/POTFILES.in, Adjusting Files
+@node configure.in, config.guess, po/POTFILES.in, Adjusting Files
 @subsection @file{configure.in} at top level
 
 @enumerate
@@ -5082,20 +5084,45 @@ the distributed file is really @file{po/Makefile.in.in}.
 
 @end enumerate
 
-@node aclocal, acconfig, configure.in, Adjusting Files
+@node config.guess, aclocal, configure.in, Adjusting Files
+@subsection @file{config.guess}, @file{config.sub} at top level
+
+You need to add the GNU @file{config.guess} and @file{config.sub} files
+to your distribution.  They are needed because the @file{intl/} directory
+has platform dependent support for determining the locale's character
+encoding and therefore needs to identify the platform.
+
+You can obtain the newest version of @file{config.guess} and
+@file{config.sub} from @file{ftp://ftp.gnu.org/pub/gnu/config/}.
+Less recent versions are also contained in the GNU @code{automake} and
+GNU @code{libtool} packages.
+
+Normally, @file{config.guess} and @file{config.sub} are put at the
+top level of a distribution.  But it is also possible to put them in a
+subdirectory, altogether with other configuration support files like
+@file{install-sh}, @file{ltconfig}, @file{ltmain.sh},
+@file{mkinstalldirs} or @file{missing}.  All you need to do, other than
+moving the files, is to add the following line to your
+@file{configure.in}.
+
+@example
+AC_CONFIG_AUX_DIR([@var{subdir}])
+@end example
+
+@node aclocal, acconfig, config.guess, Adjusting Files
 @subsection @file{aclocal.m4} at top level
 
 If you do not have an @file{aclocal.m4} file in your distribution,
-the simplest is taking a copy of @file{aclocal.m4} from
-GNU @code{gettext}.  But to be precise, you only need macros
-@code{AM_LC_MESSAGES}, @code{AM_WITH_NLS} and @code{AM_GNU_GETTEXT},
-and @code{AM_PATH_PROG_WITH_TEST}, which is called by @code{AM_WITH_NLS},
-so you may use an editor and remove macros you do not need.
+the simplest is to concatenate the files @file{codeset.m4},
+@file{gettext.m4}, @file{iconv.m4}, @file{isc-posix.m4},
+@file{lcmessage.m4}, @file{progtest.m4} from GNU @code{gettext}'s
+@file{m4/} directory into a single file.
 
 If you already have an @file{aclocal.m4} file, then you will have
-to merge the said macros into your @file{aclocal.m4}.  Note that if
+to merge the said macro files into your @file{aclocal.m4}.  Note that if
 you are upgrading from a previous release of GNU @code{gettext}, you
-should most probably @emph{replace} the said macros, as they usually
+should most probably @emph{replace} the macros (@code{AM_GNU_GETTEXT},
+@code{AM_WITH_NLS}, etc.), as they usually
 change a little from one release of GNU @code{gettext} to the next.
 Their contents may vary as we get more experience with strange systems
 out there.
@@ -5109,14 +5136,12 @@ piece of @code{m4} code will be the same for all projects using GNU
 @node acconfig, Makefile, aclocal, Adjusting Files
 @subsection @file{acconfig.h} at top level
 
-If you do not have an @file{acconfig.h} file in your distribution, the
-simplest is use take a copy of @file{acconfig.h} from GNU
-@code{gettext}.  But to be precise, you only need the lines and comments
-for @code{ENABLE_NLS}, @code{HAVE_GETTEXT} and @code{HAVE_LC_MESSAGES},
-@code{HAVE_STPCPY}, @code{PACKAGE} and @code{VERSION}, so you may use an
-editor and remove everything else.  If you already have an
-@file{acconfig.h} file, then you should merge the said definitions into
-your @file{acconfig.h}.
+Earlier GNU @code{gettext} releases required to put definitions for
+@code{ENABLE_NLS}, @code{HAVE_GETTEXT} and @code{HAVE_LC_MESSAGES},
+@code{HAVE_STPCPY}, @code{PACKAGE} and @code{VERSION} into an
+@file{acconfig.h} file.  This is not needed any more; you can remove
+them from your @file{acconfig.h} file unless your package uses them
+independently from the @file{intl/} directory.
 
 @node Makefile, src/Makefile, acconfig, Adjusting Files
 @subsection @file{Makefile.in} at top level
@@ -5154,8 +5179,13 @@ example, we also define @code{SUBDIRS} in @code{Makefile.in} for it
 to be further used in the @samp{dist:} goal.
 
 @example
-SUBDIRS = doc lib @@INTLSUB@@ src @@POSUB@@
+SUBDIRS = doc intl lib src @@POSUB@@
 @end example
+
+Note that you must arrange for @samp{make} to descend into the
+@code{intl} directory before descending into other directories containing
+code which make use of the @code{libintl.h} header file.  For this
+reason, here we mention @code{intl} before @code{lib} and @code{src}.
 
 @noindent
 that you will have to adapt to your own package.
@@ -5222,6 +5252,26 @@ you used:
 @example
 subdir = src
 @end example
+
+@item
+The @code{main} function of your program will normally call
+@code{bindtextdomain} (see @pxref{Triggering}), like this:
+
+@example
+bindtextdomain (@var{PACKAGE}, LOCALEDIR);
+@end example
+
+To make LOCALEDIR known to the program, add the following lines to
+Makefile.in:
+
+@example
+datadir = @@datadir@@
+localedir = $(datadir)/locale
+DEFS = -DLOCALEDIR=\"$(localedir)\" @@DEFS@@
+@end example
+
+Note that @code{@@datadir@@} defaults to @samp{$(prefix)/share}, thus
+@code{$(localedir)} defaults to @samp{$(prefix)/share/locale}.
 
 @item
 You should ensure that the final linking will use @code{@@INTLLIBS@@} as

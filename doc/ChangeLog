@@ -1,5 +1,13 @@
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.texi (config.guess): New node.
+	(aclocal): Update list of macros to include.
+	(acconfig): Update: not needed any more.
+	(Makefile): Add reminder to put intl in front of other directories.
+	(src/Makefile): Add reminder to define LOCALEDIR.
+
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
 	* ISO_639: Add Avestan, Bosnian, Chechen, Chamorro, Church Slavic,
 	Chuvash, Manx, Hiri Motu, Herero, Kikuyu, Kuanyama, Komi, Cornish,
 	Letzeburgesch, Marshall, Norwegian Bokmal, Ndebele, Ndonga, Norwegian
