@@ -1,3 +1,13 @@
+2002-11-19  Bruno Haible  <bruno@clisp.org>
+
+	Switch to autoconf-2.56.
+	* fnmatch.m4 (gt_FUNC_FNMATCH): Use AC_LIBOBJ instead of assigning
+	LIBOBJS.
+	* getline.m4 (AM_FUNC_GETLINE): Likewise.
+
+	* lib-ld.m4 (AC_LIB_PROG_LD_GNU): Define PATH_SEPARATOR before using
+	it.
+
 2002-11-13  Bruno Haible  <bruno@clisp.org>
 
 	Assume ANSI C.

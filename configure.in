@@ -254,10 +254,6 @@ EOF
 
 dnl These ought to go away some day.
 changequote(,)dnl
-LTLIBOBJS=`echo "$LIBOBJS" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
-changequote([, ])dnl
-AC_SUBST(LTLIBOBJS)
-changequote(,)dnl
 LTALLOCA=`echo "$ALLOCA" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
 changequote([, ])dnl
 AC_SUBST(LTALLOCA)
