@@ -278,7 +278,7 @@ Mon Jun 17 02:29:15 1996  Ulrich Drepper  <drepper@myware.rz.uni-karlsruhe.de>
 
 Sat Jun 15 16:55:00 1996  Ulrich Drepper  <drepper@myware.rz.uni-karlsruhe.de>
 
-	* nls.texi, gettext.texi: Some better words by FranÁois Pinard.
+	* nls.texi, gettext.texi: Some better words by Fran√ßois Pinard.
 
 Fri Jun 14 18:47:23 1996  Santiago Vila Doncel  <sanvila@unex.es>
 
@@ -323,9 +323,9 @@ Sun May 19 15:08:24 1996  Ulrich Drepper  <drepper@cygnus.com>
 
 Sat May  4 00:41:17 1996  Ulrich Drepper  <drepper@cygnus.com>
 
-	* nls.texi: Rewording by FranÁois Pinard.
+	* nls.texi: Rewording by Fran√ßois Pinard.
 
-	* nls.texi: Change explicitely' to `explicitly'.  By FranÁois Pinard.
+	* nls.texi: Change explicitely' to `explicitly'.  By Fran√ßois Pinard.
 
 Fri May  3 17:21:48 1996  Ulrich Drepper  <drepper@cygnus.com>
 
@@ -337,20 +337,20 @@ Wed Apr 10 22:04:29 1996  Ulrich Drepper  <drepper@myware>
 
 	* matrix.texi: Update for 960410.
 
-Wed Apr 10 21:58:17 1996  FranÁois Pinard  <pinard@iro.umontreal.ca>
+Wed Apr 10 21:58:17 1996  Fran√ßois Pinard  <pinard@iro.umontreal.ca>
 
 	* nls.texi: Add Korean to list of languages.
 
-Tue Apr  9 23:28:08 1996  FranÁois Pinard  <pinard@iro.umontreal.ca>
+Tue Apr  9 23:28:08 1996  Fran√ßois Pinard  <pinard@iro.umontreal.ca>
 
 	* nls.texi: Some better words.
 
 Sat Apr  6 11:13:18 1996  Ulrich Drepper  <drepper@myware>
 
-	* Makefile.in (DISTFILES): Add matrix.texi.  Reported by FranÁois
+	* Makefile.in (DISTFILES): Add matrix.texi.  Reported by Fran√ßois
         Pinard.
 
-Wed Apr  3 23:40:29 1996  FranÁois Pinard  <pinard@iro.umontreal.ca>
+Wed Apr  3 23:40:29 1996  Fran√ßois Pinard  <pinard@iro.umontreal.ca>
 
 	* nls.texi: Correct typo: ones -> one.
 
@@ -370,11 +370,11 @@ Mon Mar 25 23:21:49 1996  Ulrich Drepper  <drepper@myware>
 	(gettext.info, gettext.dvi): Depend on iso-apdx.texi.
 	(iso-apdx.texi): New rules.  Create file from ISO_639.
 
-Mon Mar 25 02:55:23 1996  FranÁois Pinard  <pinard@iro.umontreal.ca>
+Mon Mar 25 02:55:23 1996  Fran√ßois Pinard  <pinard@iro.umontreal.ca>
 
 	* gettext.texi: Latest update of PO mode documentation.
 
-Sat Mar 23 14:07:57 1996  FranÁois Pinard  <pinard@iro.umontreal.ca>
+Sat Mar 23 14:07:57 1996  Fran√ßois Pinard  <pinard@iro.umontreal.ca>
 
 	* gettext.texi:	Added changes concerning PO mode changes.
 
@@ -646,4 +646,4 @@ Sun Jul  2 01:47:02 1995  Ulrich Drepper  <drepper@myware>
 
 	* First official release.  This directory now contains a very
 	preliminary version of the gettext manual with a quite complete
-	chapter for todays Emacs PO mode by Franc,ois Pinard.
+	chapter for todays Emacs PO mode by Fran√ßois Pinard.

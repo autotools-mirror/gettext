@@ -458,7 +458,7 @@ Tue Apr  2 12:57:44 1996  Ulrich Drepper  <drepper@myware>
 
 Tue Mar 26 12:35:56 1996  Ulrich Drepper  <drepper@myware>
 
-	* error.c, error.h: Applied François' patches for more
+	* error.c, error.h: Applied FranÃ§ois' patches for more
 	portability.
 
 Mon Mar 25 01:21:31 1996  Ulrich Drepper  <drepper@myware>
@@ -468,7 +468,7 @@ Mon Mar 25 01:21:31 1996  Ulrich Drepper  <drepper@myware>
 Sun Mar 24 18:41:42 1996  Ulrich Drepper  <drepper@myware>
 
 	* error.c (error_with_loc): In `one error per line' mode check for
-	old_file_name to be NULL first.  Reported by François Pinard.
+	old_file_name to be NULL first.  Reported by FranÃ§ois Pinard.
 
 Fri Mar  1 13:38:26 1996  Ulrich Drepper  <drepper@myware>
 

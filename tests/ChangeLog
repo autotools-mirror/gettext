@@ -408,7 +408,7 @@ Tue Apr  2 10:42:09 1996  Ulrich Drepper  <drepper@myware>
 	xg-test8.ok, xg-test9.ok: Adapt for recent xgettext.  No more
 	`possible' comments anymore.
 
-Sun Mar 31 23:49:14 1996  François Pinard  <pinard@iro.umontreal.ca>
+Sun Mar 31 23:49:14 1996  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* Makefile.in (xgettext-3): Add echo command.
 

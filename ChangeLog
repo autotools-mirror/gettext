@@ -426,7 +426,7 @@ Fri Jul 19 12:18:55 1996  Ulrich Drepper  <drepper@cygnus.com>
 Tue Jul 16 01:51:47 1996  Ulrich Drepper  <drepper@cygnus.com>
 
 	* aclocal.m4: Correct text for --with-included-gettext option.
-	Patch by François Pinard.
+	Patch by FranÃ§ois Pinard.
 
 Sun Jul 14 01:16:19 1996  Ulrich Drepper  <drepper@cygnus.com>
 
@@ -490,7 +490,7 @@ Tue Jun 11 15:02:49 1996  Ulrich Drepper  <drepper@cygnus.com>
 	* configure.in (ALL_LINGUAS): Add `sl' for Slowenian.
 
 	* Makefile.am (EXTRA_DIST): Add DISCLAIM.
-	Reported by François Pinard.
+	Reported by FranÃ§ois Pinard.
 
 Sun Jun  9 12:46:31 1996  Ulrich Drepper  <drepper@cygnus.com>
 
@@ -1140,7 +1140,7 @@ Sat Jul 22 01:13:06 1995  Ulrich Drepper  <drepper@myware>
 
 	* aclocal.m4 (ud_EMACS_TRY_PREFIX): Remove rule.
 	(ud_PATH_SITELISP): Rename to ud_PATH_LISPDIR and simplify it it.
-	By François Pinard.
+	By FranÃ§ois Pinard.
 
 Wed Jul 19 02:22:18 1995  Ulrich Drepper  <drepper@myware>
 

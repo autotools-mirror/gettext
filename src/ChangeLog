@@ -1041,7 +1041,7 @@
 	Look into #define bodies.
 	* xget-lex.c (phaseX_get): Simplify.
 	(phase6_get): Stop the loop when recognizing a #define directive.
-	Based on a patch by Martin v. Löwis.
+	Based on a patch by Martin v. LÃ¶wis.
 
 	Accept ISO C 99 comment syntax.
 	* xget-lex.c (cplusplus_comments: Remove variable.
@@ -1377,7 +1377,7 @@ Fri Jul  5 17:27:11 1996  Ulrich Drepper  <drepper@cygnus.com>
 
 	* msgfmt.c: and change message checking so that tests for leading
 	and trailing \n are always performed.
-	Suggested by François Pinard.
+	Suggested by FranÃ§ois Pinard.
 
 Wed Jun 19 02:42:52 1996  Ulrich Drepper  <drepper@cygnus.com>
 
@@ -1551,7 +1551,7 @@ Fri Apr  5 03:05:07 1996  Ulrich Drepper  <drepper@myware>
 	(merge): Print `.' to signal ongoing work.
 	Unless verbosity level > 1 don't print information about fuzzy and
 	missing matches.  Instead print statistics at the end.
-	Suggested by François Pinard and Santiago Vila Doncel.
+	Suggested by FranÃ§ois Pinard and Santiago Vila Doncel.
 
 Thu Apr  4 11:59:20 1996  Ulrich Drepper  <drepper@myware>
 
@@ -1572,7 +1572,7 @@ Thu Apr  4 01:57:37 1996  Ulrich Drepper  <drepper@myware>
 
 	* msgfmt.c (format_directive_message): When testing header entry
 	also check whether they still contain the initial values.
-	Suggested by François Pinard.
+	Suggested by FranÃ§ois Pinard.
 
 Tue Apr  2 16:19:42 1996  Ulrich Drepper  <drepper@myware>
 
@@ -1614,7 +1614,7 @@ Tue Apr  2 03:27:34 1996  Ulrich Drepper  <drepper@myware>
 	* msgunfmt.c (main): Removed -S option.  People should think twice
 	before using this and so are forced to use the long version.
 
-Tue Apr  2 03:25:56 1996  François Pinard  <pinard@iro.umontreal.ca>
+Tue Apr  2 03:25:56 1996  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* msgunfmt.c (usage): Remove Tab character from message.
 
@@ -1655,7 +1655,7 @@ Mon Apr  1 02:37:45 1996  Ulrich Drepper  <drepper@myware>
 
 Sun Mar 31 23:23:40 1996  Ulrich Drepper  <drepper@myware>
 
-	* xget-lex.c (xgettext_lex): Fix typo.  Reported by François
+	* xget-lex.c (xgettext_lex): Fix typo.  Reported by FranÃ§ois
         Pinard.
 
 Thu Mar 28 19:01:22 1996  Ulrich Drepper  <drepper@myware>

@@ -826,7 +826,7 @@ Fri Nov 22 04:01:58 1996  Ulrich Drepper  <drepper@cygnus.com>
 Tue Oct 29 11:10:27 1996  Ulrich Drepper  <drepper@cygnus.com>
 
 	* Makefile.in (libdir): Change to use exec_prefix instead of
- 	prefix.  Reported by Knut-HåvardAksnes <etokna@eto.ericsson.se>.
+ 	prefix.  Reported by Knut-HÃ¥vardAksnes <etokna@eto.ericsson.se>.
 
 Sat Aug 31 03:07:09 1996  Ulrich Drepper  <drepper@cygnus.com>
 

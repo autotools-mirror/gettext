@@ -1,11 +1,11 @@
-1998-05-15  François Pinard  <pinard@iro.umontreal.ca>
+1998-05-15  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-any-msgid-regexp, po-any-msgstr-regexp,
 	po-msgstr-idx-keyword-regexp, po-obsolete-msgstr-regexp,
 	po-set-msgstr, po-obsolete-comment-regexp, po-get-comment): Enforce
 	#~ for obsolete entries.  The tilde is not optional anymore.
 
-1998-05-09  François Pinard  <pinard@iro.umontreal.ca>
+1998-05-09  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-after-entry-regexp): Check if at end of line, rather
 	than for any character not being quoted.  Else, M-u skips over
@@ -279,19 +279,19 @@
 
 	* gettextize.in: Remove code to test for version of the m4 files.
 
-	* po-mode.el: A few more changes by Fran^Áçois Pinard.
+	* po-mode.el: A few more changes by FranÃ§ois Pinard.
 
-1998-05-03  Fran^Áçois Pinard  <pinard@iro.umontreal.ca>
+1998-05-03  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-create-overlay) [po-XEMACS]: No argument.
 	Reported by Ulrich Drepper.
 
-1997-10-18  Fran^Áçois Pinard  <pinard@iro.umontreal.ca>
+1997-10-18  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-tags-search, po-mark-found-string): C++ as C.
 	(po-find-c-string): Skip C++ comments as well.
 
-1998-05-10  Fran^Áçois Pinard  <pinard@iro.umontreal.ca>
+1998-05-10  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-mode) [po-XEMACS]: Explicitely add menus.
 	Reported by Hrvoje Niksic.
@@ -307,7 +307,7 @@
 
 	* gettext-0.10.35 released.
 
-1998-03-30  François Pinard  <pinard@iro.umontreal.ca>
+1998-03-30  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-tags-search, po-mark-translatable,
 	po-select-mark-and-mark): Call interactive after the doc string,
@@ -320,7 +320,7 @@
 
 	* gettextize.in: Use aclocaldir from configuration.
 
-1997-09-04  François Pinard  <pinard@iro.umontreal.ca>
+1997-09-04  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Rename po-middle-of-entry to po-start-of-msgstr, add
 	variable po-start-of-msgid.  Use it whenever appropriate.
@@ -333,7 +333,7 @@
 	* po-mode.el (po-send-mail): Allow for mailing to the team.
 	(po-guess-team-address): New function.
 
-1997-09-02  François Pinard  <pinard@iro.umontreal.ca>
+1997-09-02  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-set-comment): Unused variable buffer.
 	(po-edit-string): Unused variables start, middle, end and obsolete.
@@ -355,7 +355,7 @@
 	Translator comments were duplicated, when contents were unchanged.
 	Reported by Enrique Melero.
 
-1997-09-01  François Pinard  <pinard@iro.umontreal.ca>
+1997-09-01  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-highlight, po-dehighlight): New functions.
 	New globals: po-highlight-p, po-highlight-face and po-overlay.
@@ -372,17 +372,17 @@
 	(po-guess-archive-name, po-send-mail): New functions.
 	Reported by Karl Eichwalder.
 
-1997-08-31  François Pinard  <pinard@iro.umontreal.ca>
+1997-08-31  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-replace-revision-date): Enforce ISO 8601 zones.
-	Reported by Enrique Melero Gómez, Karl Eichwalder, Max de
+	Reported by Enrique Melero GÃ³mez, Karl Eichwalder, Max de
 	Mendizabal and Santiago Vila Doncel.
 
 	* po-mode.el (po-edit-string): Expand tabs while editing
-	translations.  Reported by Göran Uddeborg.
+	translations.  Reported by GÃ¶ran Uddeborg.
 
 	* po-mode.el: Accept C-c C-k to abort recursive edits.
-	Reported by Göran Uddeborg and Hrvoje Niksic.
+	Reported by GÃ¶ran Uddeborg and Hrvoje Niksic.
 
 1997-06-02  Ben Pfaff  <pfaffben@pilot.msu.edu>
 
@@ -394,7 +394,7 @@
 	* po-mode.el (po-help): To continue, also accept things like a
 	mouse press or an arrow key.
 
-1996-11-12  François Pinard  <pinard@iro.umontreal.ca>
+1996-11-12  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Alter po-font-lock-keywords to properly highlight C
 	formats, when using an upper case letter as formatting functor.
@@ -449,18 +449,18 @@
 
 	* locale.alias: Language for czech entry must be cs.
 
-1996-09-18 00:29  François Pinard  <pinard@progiciels-bpi.ca>
+1996-09-18 00:29  FranÃ§ois Pinard  <pinard@progiciels-bpi.ca>
 
 	* po-mode.el (po-font-lock-keywords): Correct highlighting of
 	formats like %3d.
 
-1996-08-19  François Pinard  <pinard@iro.umontreal.ca>
+1996-08-19  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Restructured to avoid all byte-compilation warnings.
 	Highlighting using `hilit19' is being deprecated, font lock code
 	should now automatically be activated whenever available.
 
-1996-07-15  François Pinard  <pinard@iro.umontreal.ca>
+1996-07-15  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: po-mode.el (po-kill-msgstr): Ensure po-entry-type is
 	always defined before decreasing counter.
@@ -469,11 +469,11 @@
 
 	* gettextize.in (gettext_dir): Remove warning that files will be
 	removed.  It's not really necessary since the -f option is
-	necessary.  Suggested by François Pinard.
+	necessary.  Suggested by FranÃ§ois Pinard.
 
 1996-06-26 18:40  Ulrich Drepper  <drepper@cygnus.com>
 
-	* po-mode.el: Added ELisp support.  Patch by François Pinard.
+	* po-mode.el: Added ELisp support.  Patch by FranÃ§ois Pinard.
 
 1996-06-18 15:12  Ulrich Drepper  <drepper@cygnus.com>
 
@@ -515,14 +515,14 @@
 
 1996-04-06 02:40  Ulrich Drepper  <drepper@myware>
 
-	* po-mode.el: Apply François' patch for new default values of
+	* po-mode.el: Apply FranÃ§ois' patch for new default values of
 	configuration variables and new header entry format.
 
 1996-04-02 18:56  Ulrich Drepper  <drepper@myware>
 
 	* Makefile.in (all-gettext): New goal.  Same as all.
 
-1996-04-02 03:18  François Pinard  <pinard@iro.umontreal.ca>
+1996-04-02 03:18  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: * Let po-show-source-context update
 	po-reference-cursor itself, and display to the minibuffer the
@@ -537,7 +537,7 @@
 	. Limit the search for source references to the msgstr line.  This
 	does not correct any bug, but is more consistent.
 
-1996-03-31 23:32  François Pinard  <pinard@iro.umontreal.ca>
+1996-03-31 23:32  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: * Small corrections to the help page.  Reported by
 	Karl Eichwalder.
@@ -564,7 +564,7 @@
 	* Makefile.in (datadir): Initialize from @datadir@.  Reported by
 	Karl Eichwalder.
 
-1996-03-25 09:52  François Pinard  <pinard@iro.umontreal.ca>
+1996-03-25 09:52  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: * Correct documentation mistakes in short help.
 
@@ -576,7 +576,7 @@
 
 1996-03-25 03:51  Ulrich Drepper  <drepper@myware>
 
-	* po-mode.el: Some last minute changes by François Pinard.
+	* po-mode.el: Some last minute changes by FranÃ§ois Pinard.
 
 1996-03-24 18:51  Ulrich Drepper  <drepper@myware>
 
@@ -586,7 +586,7 @@
 	* Rephrase messages about location stack contents
 	* Clear out message when user refuses quitting.
 
-1996-03-23 14:34  François Pinard  <pinard@iro.umontreal.ca>
+1996-03-23 14:34  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* Implement po-default-file-header.
 	Reported by Karl Eichwalder.
@@ -654,12 +654,12 @@
 	* po-offer-validation disappears, as (buffer-modified-p) may
 	be used instead.
 
-1996-03-14 16:55  François Pinard  <pinard@iro.umontreal.ca>
+1996-03-14 16:55  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Inexact entries are now called fuzzy.  Change
 	regular expression and function names.
 
-1996-03-14 11:38  François Pinard  <pinard@iro.umontreal.ca>
+1996-03-14 11:38  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el: Rename po-mode-hooks to po-mode-edit-hooks.
 
@@ -700,7 +700,7 @@
 
 	* po-mode.el (po-keywords): Add N_.
 
-1996-01-15 02:58  François Pinard  <pinard@iro.umontreal.ca>
+1996-01-15 02:58  FranÃ§ois Pinard  <pinard@iro.umontreal.ca>
 
 	* gettextize.in: Better message about aclocal.m4 change.
 
