@@ -31,8 +31,8 @@ noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
 msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
-write-mo.h read-java.h write-java.h po-time.h format.h xgettext.h x-c.h \
-x-po.h x-lisp.h x-elisp.h x-librep.h x-java.h x-ycp.h x-rst.h
+write-mo.h read-java.h write-java.h po-time.h plural-table.h format.h \
+xgettext.h x-c.h x-po.h x-lisp.h x-elisp.h x-librep.h x-java.h x-ycp.h x-rst.h
 
 EXTRA_DIST = FILES project-id \
 gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
@@ -73,7 +73,7 @@ format-python.c format-pascal.c format-ycp.c
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
 msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
-$(FORMAT_SOURCE)
+plural-table.c $(FORMAT_SOURCE)
 
 # Source dependencies.
 gettext_SOURCES = gettext.c

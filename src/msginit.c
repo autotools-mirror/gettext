@@ -74,6 +74,7 @@
 #include "write-po.h"
 #include "po-charset.h"
 #include "po-time.h"
+#include "plural-table.h"
 #include "xmalloc.h"
 #include "exit.h"
 #include "pathname.h"
@@ -1219,53 +1220,17 @@ content_transfer_encoding ()
 static const char *
 plural_forms ()
 {
-  /* Formulas taken from the documentation, node "Plural forms".  */
-  static struct { const char *lang; const char *value; } table[] =
-    {
-      { "hu", "nplurals=1; plural=0;" },
-      { "ja", "nplurals=1; plural=0;" },
-      { "ko", "nplurals=1; plural=0;" },
-      { "tr", "nplurals=1; plural=0;" },
-      { "da", "nplurals=2; plural=(n != 1);" },
-      { "nl", "nplurals=2; plural=(n != 1);" },
-      { "en", "nplurals=2; plural=(n != 1);" },
-      { "de", "nplurals=2; plural=(n != 1);" },
-      { "nb", "nplurals=2; plural=(n != 1);" },
-      { "no", "nplurals=2; plural=(n != 1);" },
-      { "nn", "nplurals=2; plural=(n != 1);" },
-      { "sv", "nplurals=2; plural=(n != 1);" },
-      { "et", "nplurals=2; plural=(n != 1);" },
-      { "fi", "nplurals=2; plural=(n != 1);" },
-      { "el", "nplurals=2; plural=(n != 1);" },
-      { "he", "nplurals=2; plural=(n != 1);" },
-      { "it", "nplurals=2; plural=(n != 1);" },
-      { "pt", "nplurals=2; plural=(n != 1);" },
-      { "es", "nplurals=2; plural=(n != 1);" },
-      { "eo", "nplurals=2; plural=(n != 1);" },
-      { "fr", "nplurals=2; plural=(n > 1);" },
-      { "pt_BR", "nplurals=2; plural=(n > 1);" },
-      { "lv", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);" },
-      { "ga", "nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;" },
-      { "lt", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "hr", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "cs", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "ru", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "sk", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "uk", "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "pl", "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);" },
-      { "sl", "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);" }
-    };
   size_t i;
 
   /* Search for a formula depending on the catalogname.  */
-  for (i = 0; i < SIZEOF (table); i++)
-    if (strcmp (table[i].lang, catalogname) == 0)
-      return table[i].value;
+  for (i = 0; i < plural_table_size; i++)
+    if (strcmp (plural_table[i].lang, catalogname) == 0)
+      return plural_table[i].value;
 
   /* Search for a formula depending on the language only.  */
-  for (i = 0; i < SIZEOF (table); i++)
-    if (strcmp (table[i].lang, language) == 0)
-      return table[i].value;
+  for (i = 0; i < plural_table_size; i++)
+    if (strcmp (plural_table[i].lang, language) == 0)
+      return plural_table[i].value;
 
   return NULL;
 }

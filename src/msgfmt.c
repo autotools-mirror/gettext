@@ -38,6 +38,7 @@
 #include "format.h"
 #include "xmalloc.h"
 #include "plural-exp.h"
+#include "plural-table.h"
 #include "strstr.h"
 #include "stpcpy.h"
 #include "exit.h"
@@ -831,6 +832,7 @@ check_plural (mlp)
       const char *nullentry;
       const char *plural;
       const char *nplurals;
+      bool try_to_help = false;
 
       nullentry = header->msgstr;
 
@@ -845,6 +847,7 @@ check_plural (mlp)
 	  error_at_line (0, 0, header->pos.file_name, header->pos.line_number,
 			 _("...but header entry lacks a \"plural=EXPRESSION\" attribute"));
 	  error_with_progname = true;
+	  try_to_help = true;
 	  exit_status = EXIT_FAILURE;
 	}
       if (nplurals == NULL && has_plural != NULL)
@@ -856,6 +859,7 @@ check_plural (mlp)
 	  error_at_line (0, 0, header->pos.file_name, header->pos.line_number,
 			 _("...but header entry lacks a \"nplurals=INTEGER\" attribute"));
 	  error_with_progname = true;
+	  try_to_help = true;
 	  exit_status = EXIT_FAILURE;
 	}
       if (plural != NULL && nplurals != NULL)
@@ -880,6 +884,7 @@ check_plural (mlp)
 			     header->pos.file_name, header->pos.line_number,
 			     _("invalid nplurals value"));
 	      error_with_progname = true;
+	      try_to_help = true;
 	      exit_status = EXIT_FAILURE;
 	    }
 
@@ -893,6 +898,7 @@ check_plural (mlp)
 			     header->pos.file_name, header->pos.line_number,
 			     _("invalid plural expression"));
 	      error_with_progname = true;
+	      try_to_help = true;
 	      exit_status = EXIT_FAILURE;
 	    }
 	  plural_expr = args.res;
@@ -937,6 +943,32 @@ check_plural (mlp)
 	      /* The only valid case is max_nplurals <= n <= min_nplurals,
 		 which means either has_plural == NULL or
 		 max_nplurals = n = min_nplurals.  */
+	    }
+	}
+      /* Try to help the translator by looking up the right plural formula
+	 for her.  */
+      if (try_to_help)
+	{
+	  const char *language;
+
+	  language = strstr (nullentry, "Language-Team: ");
+	  if (language != NULL)
+	    {
+	      language += 15;
+	      for (j = 0; j < plural_table_size; j++)
+		if (strncmp (language,
+			     plural_table[j].language,
+			     strlen (plural_table[j].language)) == 0)
+		  {
+		    char *recommended =
+		      xasprintf ("Plural-Forms: %s\\n", plural_table[j].value);
+		    fprintf (stderr,
+			     _("Try using the following, valid for %s:\n"),
+			     plural_table[j].language);
+		    fprintf (stderr, "\"%s\"\n", recommended);
+		    free (recommended);
+		    break;
+		  }
 	    }
 	}
     }

@@ -1,5 +1,16 @@
 2002-02-03  Bruno Haible  <bruno@clisp.org>
 
+	* plural-table.h: New file.
+	* plural-table.c: New file.
+	* msginit.c: Include plural-table.h.
+	(plural_forms): Use plural_table.
+	* msgfmt.c: Include plural-table.h.
+	(check_plural): Print a recommendation about the right plural formula.
+	* Makefile.am (noinst_HEADERS): Add plural-table.h.
+	(libgettextsrc_la_SOURCES): Add plural-table.c.
+
+2002-02-03  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (finalize_header): New function.
 	(main): Call it.
 
