@@ -346,7 +346,7 @@ format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
 		{
 		  error_with_progname = false;
 		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument {%u}, as in '%s', doesn't exist in 'msgid'"),
+				 _("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
 				 spec2->numbered[j].number, pretty_msgstr);
 		  error_with_progname = true;
 		}
@@ -361,7 +361,7 @@ format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
 		    {
 		      error_with_progname = false;
 		      error_at_line (0, 0, pos->file_name, pos->line_number,
-				     _("a format specification for argument {%u} doesn't exist in '%s'"),
+				     _("a format specification for argument %u doesn't exist in '%s'"),
 				     spec1->numbered[i].number, pretty_msgstr);
 		      error_with_progname = true;
 		    }
@@ -386,7 +386,7 @@ format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
 		      {
 			error_with_progname = false;
 			error_at_line (0, 0, pos->file_name, pos->line_number,
-				       _("format specifications in 'msgid' and '%s' for argument {%u} are not the same"),
+				       _("format specifications in 'msgid' and '%s' for argument %u are not the same"),
 				       pretty_msgstr,
 				       spec2->numbered[j].number);
 			error_with_progname = true;

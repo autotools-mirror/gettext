@@ -1,3 +1,10 @@
+2002-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* format-elisp.c (format_check): Don't use Java syntax for format
+	argument number in error message.
+	* format-librep.c (format_check): Likewise.
+	* format-pascal.c (format_check): Likewise.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (LDADD): Use @LTLIBINTL@ instead of @INTLLIBS@.
