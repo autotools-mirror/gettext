@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -60,10 +60,12 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AS = @AS@
+BUILDJAVA = @BUILDJAVA@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
-CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CLASSPATH = @CLASSPATH@
+CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
@@ -73,29 +75,39 @@ EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
-GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+HAVE_GCJ = @HAVE_GCJ@
+HAVE_GIJ = @HAVE_GIJ@
+HAVE_JAVAC = @HAVE_JAVAC@
+HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JIKES = @HAVE_JIKES@
+HAVE_JRE = @HAVE_JRE@
+HAVE_JVIEW = @HAVE_JVIEW@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+JAR = @JAR@
+JAVA = @JAVA@
+JAVAC = @JAVAC@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
-POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+TESTJAVA = @TESTJAVA@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -109,15 +121,15 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 noinst_LIBRARIES = libnlsut.a
 
-EXTRA_DIST = alloca.c config.charset error.c getline.c memset.c memmove.c printf-prs.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c stdbool.h.in gen-lbrkprop.c 3level.h
+EXTRA_DIST = alloca.c classpath.c config.charset error.c getline.c memset.c memmove.c mkdtemp.c ref-add.sin ref-del.sin setenv.c stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strpbrk.c strstr.c strtol.c strtoul.c vasprintf.c stdbool.h.in gen-lbrkprop.c 3level.h
 
 
-libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c findprog.c fstrcmp.c full-write.c getopt.c getopt1.c hash.c linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c pipe-out.c progname.c safe-read.c wait-process.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
+libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c execute.c findprog.c fstrcmp.c full-write.c gcd.c getopt.c getopt1.c hash.c javacomp.c javaexec.c linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c pipe-out.c progname.c safe-read.c sh-quote.c tmpdir.c wait-process.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
 
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
-noinst_HEADERS = c-ctype.h error.h findprog.h fstrcmp.h full-write.h getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h pipe.h printf-parse.h printf.h progname.h safe-read.h system.h utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h
+noinst_HEADERS = c-ctype.h error.h execute.h findprog.h fstrcmp.h full-write.h gcd.h getline.h getopt.h hash.h javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h mkdtemp.h obstack.h pathmax.h pipe.h progname.h safe-read.h setenv.h sh-quote.h strpbrk.h system.h tmpdir.h utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h
 
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
@@ -132,7 +144,7 @@ SUFFIXES = .sed .sin
 CLEANFILES = charset.alias ref-add.sed ref-del.sed
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =  javacomp.sh javaexec.sh
 LIBRARIES =  $(noinst_LIBRARIES)
 
 CPPFLAGS = @CPPFLAGS@
@@ -140,13 +152,14 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 libnlsut_a_DEPENDENCIES =  @ALLOCA@ @LIBOBJS@
 libnlsut_a_OBJECTS =  basename.$(OBJEXT) c-ctype.$(OBJEXT) \
-concatpath.$(OBJEXT) findprog.$(OBJEXT) fstrcmp.$(OBJEXT) \
-full-write.$(OBJEXT) getopt.$(OBJEXT) getopt1.$(OBJEXT) hash.$(OBJEXT) \
+concatpath.$(OBJEXT) execute.$(OBJEXT) findprog.$(OBJEXT) \
+fstrcmp.$(OBJEXT) full-write.$(OBJEXT) gcd.$(OBJEXT) getopt.$(OBJEXT) \
+getopt1.$(OBJEXT) hash.$(OBJEXT) javacomp.$(OBJEXT) javaexec.$(OBJEXT) \
 linebreak.$(OBJEXT) localcharset.$(OBJEXT) mbswidth.$(OBJEXT) \
 obstack.$(OBJEXT) pipe-bidi.$(OBJEXT) pipe-in.$(OBJEXT) \
 pipe-out.$(OBJEXT) progname.$(OBJEXT) safe-read.$(OBJEXT) \
-wait-process.$(OBJEXT) xerror.$(OBJEXT) xgetcwd.$(OBJEXT) \
-xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
+sh-quote.$(OBJEXT) tmpdir.$(OBJEXT) wait-process.$(OBJEXT) \
+xerror.$(OBJEXT) xgetcwd.$(OBJEXT) xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
 AR = ar
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -156,8 +169,9 @@ LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 HEADERS =  $(noinst_HEADERS)
 
 DIST_COMMON =  ChangeLog Makefile.am Makefile.in alloca.c error.c \
-error.h memmove.c memset.c printf-prs.c stpcpy.c stpncpy.c strcasecmp.c \
-strcspn.c strncasecmp.c strstr.c strtoul.c vasprintf.c
+error.h javacomp.sh.in javaexec.sh.in memmove.c memset.c mkdtemp.c \
+setenv.c stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c \
+strpbrk.c strstr.c strtoul.c vasprintf.c
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -177,6 +191,10 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
+javacomp.sh: $(top_builddir)/config.status javacomp.sh.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+javaexec.sh: $(top_builddir)/config.status javaexec.sh.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 mostlyclean-noinstLIBRARIES:
 

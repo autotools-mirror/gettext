@@ -1,6 +1,6 @@
-dnl aclocal.m4 generated automatically by aclocal 1.4-p2
+dnl aclocal.m4 generated automatically by aclocal 1.4-p5
 
-dnl Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+dnl Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -19,7 +19,7 @@ dnl PARTICULAR PURPOSE.
 dnl Usage:
 dnl AM_INIT_AUTOMAKE(package,version, [no-define])
 
-AC_DEFUN(AM_INIT_AUTOMAKE,
+AC_DEFUN([AM_INIT_AUTOMAKE],
 [AC_REQUIRE([AC_PROG_INSTALL])
 PACKAGE=[$1]
 AC_SUBST(PACKAGE)
@@ -47,7 +47,7 @@ AC_REQUIRE([AC_PROG_MAKE_SET])])
 # Check to make sure that the build environment is sane.
 #
 
-AC_DEFUN(AM_SANITY_CHECK,
+AC_DEFUN([AM_SANITY_CHECK],
 [AC_MSG_CHECKING([whether build environment is sane])
 # Just in case
 sleep 1
@@ -88,7 +88,7 @@ AC_MSG_RESULT(yes)])
 
 dnl AM_MISSING_PROG(NAME, PROGRAM, DIRECTORY)
 dnl The program must properly implement --version.
-AC_DEFUN(AM_MISSING_PROG,
+AC_DEFUN([AM_MISSING_PROG],
 [AC_MSG_CHECKING(for working $2)
 # Run test in a subshell; some versions of sh will print an error if
 # an executable is not found, even if stderr is redirected.
@@ -104,7 +104,7 @@ AC_SUBST($1)])
 
 # Like AC_CONFIG_HEADER, but automatically create stamp file.
 
-AC_DEFUN(AM_CONFIG_HEADER,
+AC_DEFUN([AM_CONFIG_HEADER],
 [AC_PREREQ([2.12])
 AC_CONFIG_HEADER([$1])
 dnl When config.status generates a header, we must update the stamp-h file.
@@ -124,6 +124,139 @@ for am_file in <<$1>>; do
   am_indx=`expr "<<$>>am_indx" + 1`
 done<<>>dnl>>)
 changequote([,]))])
+
+#serial 1
+
+# Check for flex.
+
+AC_DEFUN([gt_PROG_LEX],
+[
+  dnl Don't use AC_PROG_LEX or AM_PROG_LEX; we insist on flex.
+  dnl Thus we don't need LEXLIB.
+  AC_CHECK_PROG(LEX, flex, flex, :)
+
+  dnl The next line is a workaround against an automake warning.
+  undefine([AC_DECL_YYTEXT])
+  dnl Replacement for AC_DECL_YYTEXT.
+  LEX_OUTPUT_ROOT=lex.yy
+  AC_SUBST(LEX_OUTPUT_ROOT)
+])
+
+
+dnl AM_PROG_LEX
+dnl Look for flex, lex or missing, then run AC_PROG_LEX and AC_DECL_YYTEXT
+AC_DEFUN([AM_PROG_LEX],
+[missing_dir=ifelse([$1],,`cd $ac_aux_dir && pwd`,$1)
+AC_CHECK_PROGS(LEX, flex lex, "$missing_dir/missing flex")
+AC_PROG_LEX
+AC_DECL_YYTEXT])
+
+#serial 1
+
+# Prerequisites of javacomp.sh.
+# Sets HAVE_JAVACOMP to nonempty if javacomp.sh will work.
+
+AC_DEFUN([gt_JAVACOMP],
+[
+  AC_MSG_CHECKING([for Java compiler])
+  AC_EGREP_CPP(yes, [
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  yes
+#endif
+], CLASSPATH_SEPARATOR=';', CLASSPATH_SEPARATOR=':')
+  HAVE_JAVACOMP=1
+  if test -n "$JAVAC"; then
+    ac_result="$JAVAC"
+  else
+    if gcj --version >/dev/null 2>/dev/null; then
+      HAVE_GCJ=1
+      ac_result="gcj -C"
+    else
+      if (javac -version >/dev/null 2>/dev/null || test $? = 1); then
+        HAVE_JAVAC=1
+        ac_result="javac"
+      else
+        if (jikes >/dev/null 2>/dev/null || test $? = 1) && (
+            # See if the existing CLASSPATH is sufficient to make jikes work.
+            cat > conftest.java <<EOF
+public class conftest {
+  public static void main (String[] args) {
+  }
+}
+EOF
+            unset JAVA_HOME
+            jikes conftest.java
+            error=$?
+            rm -f conftest.java conftest.class
+            exit $?
+           ); then
+          HAVE_JIKES=1
+          ac_result="jikes"
+        else
+          HAVE_JAVACOMP=
+          ac_result="no"
+        fi
+      fi
+    fi
+  fi
+  AC_MSG_RESULT([$ac_result])
+  AC_SUBST(JAVAC)
+  AC_SUBST(CLASSPATH)
+  AC_SUBST(CLASSPATH_SEPARATOR)
+  AC_SUBST(HAVE_GCJ)
+  AC_SUBST(HAVE_JAVAC)
+  AC_SUBST(HAVE_JIKES)
+])
+
+#serial 1
+
+# Prerequisites of javaexec.sh.
+# Sets HAVE_JAVAEXEC to nonempty if javaexec.sh will work.
+
+AC_DEFUN([gt_JAVAEXEC],
+[
+  AC_MSG_CHECKING([for Java virtual machine])
+  AC_EGREP_CPP(yes, [
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  yes
+#endif
+], CLASSPATH_SEPARATOR=';', CLASSPATH_SEPARATOR=':')
+  HAVE_JAVAEXEC=1
+  if test -n "$JAVA"; then
+    ac_result="$JAVA"
+  else
+    if gij --version >/dev/null 2>/dev/null; then
+      HAVE_GIJ=1
+      ac_result="gij"
+    else
+      if java -version >/dev/null 2>/dev/null; then
+        HAVE_JAVA_JVM=1
+        ac_result="java"
+      else
+        if (jre >/dev/null 2>/dev/null || test $? = 1); then
+          HAVE_JRE=1
+          ac_result="jre"
+        else
+          if (jview -? >/dev/null 2>/dev/null || test $? = 1); then
+            HAVE_JVIEW=1
+            ac_result="jview"
+          else
+            HAVE_JAVAEXEC=
+            ac_result="no"
+          fi
+        fi
+      fi
+    fi
+  fi
+  AC_MSG_RESULT([$ac_result])
+  AC_SUBST(JAVA)
+  AC_SUBST(CLASSPATH)
+  AC_SUBST(CLASSPATH_SEPARATOR)
+  AC_SUBST(HAVE_GIJ)
+  AC_SUBST(HAVE_JAVA_JVM)
+  AC_SUBST(HAVE_JRE)
+  AC_SUBST(HAVE_JVIEW)
+])
 
 #serial 1
 # This test replaces the one in autoconf.
@@ -3562,7 +3695,7 @@ AC_DEFUN([jm_AC_TYPE_UNSIGNED_LONG_LONG],
 
 # serial 1
 
-AC_DEFUN(AM_TYPE_PTRDIFF_T,
+AC_DEFUN([AM_TYPE_PTRDIFF_T],
   [AC_CACHE_CHECK([for ptrdiff_t], am_cv_type_ptrdiff_t,
      [AC_TRY_COMPILE([#include <stddef.h>], [ptrdiff_t p],
 		     am_cv_type_ptrdiff_t=yes, am_cv_type_ptrdiff_t=no)])
@@ -3800,10 +3933,64 @@ fi
 AC_MSG_RESULT($gt_cv_union_wait)
 ])
 
+#serial 1
+
+# Prerequisites for lib/tmpdir.c
+
+AC_DEFUN([gt_TMPDIR],
+[
+  AC_STAT_MACROS_BROKEN
+  AC_CHECK_FUNCS(__secure_getenv)
+])
+
+#serial 1
+
+# Prerequisites of lib/mkdtemp.c
+
+AC_DEFUN([gt_FUNC_MKDTEMP],
+[
+  AC_REPLACE_FUNCS(mkdtemp)
+  AC_STAT_MACROS_BROKEN
+  AC_CHECK_HEADERS(fcntl.h stdint.h sys/time.h time.h unistd.h)
+  AC_CHECK_FUNCS(gettimeofday)
+])
+
+#serial 1
+
+# Check if a variable is properly declared.
+# gt_CHECK_VAR_DECL(includes,variable)
+AC_DEFUN([gt_CHECK_VAR_DECL],
+[
+  define(gt_cv_var, [gt_cv_var_]$2[_declaration])
+  AC_MSG_CHECKING([if $2 is properly declared])
+  AC_CACHE_VAL(gt_cv_var, [
+    AC_TRY_COMPILE([$1
+      extern struct { int foo; } $2;],
+      [$2.foo = 1;],
+      gt_cv_var=no,
+      gt_cv_var=yes)])
+  AC_MSG_RESULT($gt_cv_var)
+  if test $gt_cv_var = yes; then
+    AC_DEFINE([HAVE_]translit($2, [a-z], [A-Z])[_DECL], 1,
+              [Define if you have the declaration of $2.])
+  fi
+])
+
+# Prerequisites of lib/setenv.c
+
+AC_DEFUN([gt_FUNC_SETENV],
+[
+  AC_REPLACE_FUNCS(setenv)
+  AC_CHECK_HEADERS(search.h stdlib.h string.h unistd.h)
+  AC_CHECK_FUNCS(tsearch)
+  gt_CHECK_VAR_DECL([#include <errno.h>], errno)
+  gt_CHECK_VAR_DECL([#include <unistd.h>], environ)
+])
+
 dnl From Jim Meyering.  Use this if you use the GNU error.[ch].
 dnl FIXME: Migrate into libit
 
-AC_DEFUN(AM_FUNC_ERROR_AT_LINE,
+AC_DEFUN([AM_FUNC_ERROR_AT_LINE],
 [AC_CACHE_CHECK([for error_at_line], am_cv_lib_error_at_line,
  [AC_TRY_LINK([],[error_at_line(0, 0, "", 0, "");],
               am_cv_lib_error_at_line=yes,
@@ -3848,10 +4035,12 @@ AC_DEFINE_UNQUOTED(SETLOCALE_CONST,$gt_cv_proto_setlocale_arg1,
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
-# License but which still want to provide support for the GNU gettext
-# functionality.
-# Please note that the actual code of GNU gettext is covered by the GNU
-# General Public License and is *not* in the public domain.
+# License or the GNU Library General Public License but which still want
+# to provide support for the GNU gettext functionality.
+# Please note that the actual code of the GNU gettext library is covered
+# by the GNU Library General Public License, and the rest of the GNU
+# gettext package package is covered by the GNU General Public License.
+# They are *not* in the public domain.
 
 # serial 10
 
@@ -3909,38 +4098,6 @@ strdup strtoul tsearch __argz_count __argz_stringify __argz_next])
    AM_LC_MESSAGES
    AM_WITH_NLS([$1],[$2],[$3])
 
-   if test "x$CATOBJEXT" != "x"; then
-     if test "x$ALL_LINGUAS" = "x"; then
-       LINGUAS=
-     else
-       AC_MSG_CHECKING(for catalogs to be installed)
-       NEW_LINGUAS=
-       for presentlang in $ALL_LINGUAS; do
-         useit=no
-         for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
-           # Use the presentlang catalog if desiredlang is
-           #   a. equal to presentlang, or
-           #   b. a variant of presentlang (because in this case,
-           #      presentlang can be used as a fallback for messages
-           #      which are not translated in the desiredlang catalog).
-           case "$desiredlang" in
-             "$presentlang"*) useit=yes;;
-           esac
-         done
-         if test $useit = yes; then
-           NEW_LINGUAS="$NEW_LINGUAS $presentlang"
-         fi
-       done
-       LINGUAS=$NEW_LINGUAS
-       AC_MSG_RESULT($LINGUAS)
-     fi
-
-     dnl Construct list of names of catalog files to be constructed.
-     if test -n "$LINGUAS"; then
-       for lang in $LINGUAS; do CATALOGS="$CATALOGS $lang$CATOBJEXT"; done
-     fi
-   fi
-
    dnl If the AC_CONFIG_AUX_DIR macro for autoconf is used we possibly
    dnl find the mkinstalldirs script in another subdir but $(top_srcdir).
    dnl Try to locate is.
@@ -3984,12 +4141,12 @@ AC_DEFUN([AM_WITH_NLS],
         nls_cv_force_use_gnu_gettext=no)
       AC_MSG_RESULT($nls_cv_force_use_gnu_gettext)
 
+      gt_use_preinstalled_gnugettext=no
       nls_cv_use_gnu_gettext="$nls_cv_force_use_gnu_gettext"
       if test "$nls_cv_force_use_gnu_gettext" != "yes"; then
         dnl User does not insist on using GNU NLS library.  Figure out what
         dnl to use.  If GNU gettext is available we use this.  Else we have
         dnl to fall back to GNU NLS library.
-	CATOBJEXT=NONE
 
         dnl Add a version number to the cache macros.
         define(gt_cv_func_gnugettext_libc, [gt_cv_func_gnugettext]ifelse([$2], need-ngettext, 2, 1)[_libc])
@@ -4025,82 +4182,84 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	   if test "$gt_cv_func_gnugettext_libc" = "yes" \
 	      || { test "$gt_cv_func_gnugettext_libintl" = "yes" \
 		   && test "$PACKAGE" != gettext; }; then
-	     AC_DEFINE(HAVE_GETTEXT, 1,
-               [Define if the GNU gettext() function is already present or preinstalled.])
-
-	     if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
-	       dnl If iconv() is in a separate libiconv library, then anyone
-	       dnl linking with libintl{.a,.so} also needs to link with
-	       dnl libiconv.
-	       INTLLIBS="-lintl $LIBICONV"
-	     fi
-
-	     gt_save_LIBS="$LIBS"
-	     LIBS="$LIBS $INTLLIBS"
-	     AC_CHECK_FUNCS(dcgettext)
-	     LIBS="$gt_save_LIBS"
-
-	     dnl Search for GNU msgfmt in the PATH.
-	     AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-	       [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
-	     AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
-
-	     dnl Search for GNU xgettext in the PATH.
-	     AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-	       [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
-
-	     CATOBJEXT=.gmo
+	     gt_use_preinstalled_gnugettext=yes
 	   fi
 	])
 
-        if test "$CATOBJEXT" = "NONE"; then
+        if test "$gt_use_preinstalled_gnugettext" != "yes"; then
 	  dnl GNU gettext is not found in the C library.
-	  dnl Fall back on GNU gettext library.
+	  dnl Fall back on included GNU gettext library.
 	  nls_cv_use_gnu_gettext=yes
         fi
+      fi
+
+      if test "$gt_use_preinstalled_gnugettext" = "yes"; then
+	if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
+	  dnl If iconv() is in a separate libiconv library, then anyone
+	  dnl linking with libintl{.a,.so} also needs to link with libiconv.
+	  INTLLIBS="-lintl $LIBICONV"
+	fi
+
+	dnl For backward compatibility. Some packages may be using this.
+	AC_DEFINE(HAVE_GETTEXT, 1,
+	  [Define if the GNU gettext() function is already present or preinstalled.])
+
+	gt_save_LIBS="$LIBS"
+	LIBS="$LIBS $INTLLIBS"
+	AC_CHECK_FUNCS(dcgettext)
+	LIBS="$gt_save_LIBS"
+
       fi
 
       if test "$nls_cv_use_gnu_gettext" = "yes"; then
         dnl Mark actions used to generate GNU NLS library.
         INTLOBJS="\$(GETTOBJS)"
-        AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-	  [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
-        AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
-        AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-	  [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
-        AC_SUBST(MSGFMT)
 	BUILD_INCLUDED_LIBINTL=yes
 	USE_INCLUDED_LIBINTL=yes
-        CATOBJEXT=.gmo
 	INTLLIBS="ifelse([$3],[],\$(top_builddir)/intl,[$3])/libintl.ifelse([$1], use-libtool, [l], [])a $LIBICONV"
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
-      dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
-      dnl Test whether we really found GNU msgfmt.
-      if test "$GMSGFMT" != ":"; then
-	dnl If it is no GNU msgfmt we define it as : so that the
-	dnl Makefiles still can work.
-	if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
-	  : ;
-	else
-	  AC_MSG_RESULT(
-	    [found msgfmt program is not GNU msgfmt; ignore it])
-	  GMSGFMT=":"
-	fi
-      fi
+      if test "$gt_use_preinstalled_gnugettext" = "yes" \
+	 || test "$nls_cv_use_gnu_gettext" = "yes"; then
+	dnl Mark actions to use GNU gettext tools.
+        CATOBJEXT=.gmo
 
-      dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
-      dnl Test whether we really found GNU xgettext.
-      if test "$XGETTEXT" != ":"; then
-	dnl If it is no GNU xgettext we define it as : so that the
-	dnl Makefiles still can work.
-	if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
-	  : ;
-	else
-	  AC_MSG_RESULT(
-	    [found xgettext program is not GNU xgettext; ignore it])
-	  XGETTEXT=":"
+	dnl Search for GNU msgfmt in the PATH.
+	AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
+	  [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
+	AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
+
+	dnl Search for GNU xgettext in the PATH.
+	AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
+	  [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
+
+	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
+	dnl Test whether we really found GNU msgfmt.
+	if test "$GMSGFMT" != ":"; then
+	  dnl If it is no GNU msgfmt we define it as : so that the
+	  dnl Makefiles still can work.
+	  if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
+	    : ;
+	  else
+	    AC_MSG_RESULT(
+	      [found msgfmt program is not GNU msgfmt; ignore it])
+	    GMSGFMT=":"
+	  fi
+	fi
+
+	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
+	dnl Test whether we really found GNU xgettext.
+	if test "$XGETTEXT" != ":"; then
+	  dnl If it is no GNU xgettext we define it as : so that the
+	  dnl Makefiles still can work.
+	  if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
+	    : ;
+	  else
+	    AC_MSG_RESULT(
+	      [found xgettext program is not GNU xgettext; ignore it])
+	    XGETTEXT=":"
+	  fi
 	fi
       fi
 
@@ -4131,12 +4290,62 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
             rm -f "$ac_dir/POTFILES"
             test -n "$as_me" && echo "$as_me: creating $ac_dir/POTFILES" || echo "creating $ac_dir/POTFILES"
             sed -e "/^#/d" -e "/^[ 	]*\$/d" -e "s,.*,     $top_srcdir/& \\\\," -e "\$s/\(.*\) \\\\/\1/" < "$ac_given_srcdir/$ac_dir/POTFILES.in" > "$ac_dir/POTFILES"
+            # ALL_LINGUAS, GMOFILES, POFILES depend on $ac_dir but don't
+            # depend on user-specified configuration parameters.
+            if test -f "$ac_given_srcdir/$ac_dir/LINGUAS"; then
+              # The LINGUAS file contains the set of available languages.
+              if test -n "$ALL_LINGUAS"; then
+                test -n "$as_me" && echo "$as_me: setting ALL_LINGUAS in configure.in is obsolete" || echo "setting ALL_LINGUAS in configure.in is obsolete"
+              fi
+              ALL_LINGUAS_=`sed -e "/^#/d" "$ac_given_srcdir/$ac_dir/LINGUAS"`
+              # Hide the ALL_LINGUAS assigment from automake.
+              eval 'ALL_LINGUAS''=$ALL_LINGUAS_'
+            fi
+            GMOFILES=
+            POFILES=
+            for lang in $ALL_LINGUAS; do
+              GMOFILES="$GMOFILES $lang.gmo"
+              POFILES="$POFILES $lang.po"
+            done
+            # CATALOGS depends on both $ac_dir and the user's LINGUAS
+            # environment variable.
+            INST_LINGUAS=
+            if test -n "$ALL_LINGUAS"; then
+              for presentlang in $ALL_LINGUAS; do
+                useit=no
+                for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
+                  # Use the presentlang catalog if desiredlang is
+                  #   a. equal to presentlang, or
+                  #   b. a variant of presentlang (because in this case,
+                  #      presentlang can be used as a fallback for messages
+                  #      which are not translated in the desiredlang catalog).
+                  case "$desiredlang" in
+                    "$presentlang"*) useit=yes;;
+                  esac
+                done
+                if test $useit = yes; then
+                  INST_LINGUAS="$INST_LINGUAS $presentlang"
+                fi
+              done
+            fi
+            CATALOGS=
+            if test -n "$INST_LINGUAS"; then
+              for lang in $INST_LINGUAS; do
+                CATALOGS="$CATALOGS $lang.gmo"
+              done
+            fi
             test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-            sed -e "/POTFILES =/r $ac_dir/POTFILES" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+            sed -e "/POTFILES =/r $ac_dir/POTFILES" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@POFILES@|$POFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
           fi
           ;;
         esac
-      done])
+      done],
+     [# Capture the value of obsolete $ALL_LINGUAS because we need it to
+      # compute GMOFILES, POFILES, CATALOGS. But hide it from automake.
+      eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
+      # Capture the value of $LINGUAS because we need it to compute CATALOGS.
+      LINGUAS="$LINGUAS"
+     ])
 
 
     dnl If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
@@ -4162,7 +4371,7 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       dnl Found it, now check the version.
       AC_MSG_CHECKING([version of bison])
 changequote(<<,>>)dnl
-      ac_prog_version=`$INTLBISON --version 2>&1 | sed -n 's/^.*GNU Bison .* \([0-9]*\.[0-9.]*\).*$/\1/p'`
+      ac_prog_version=`$INTLBISON --version 2>&1 | sed -n 's/^.*GNU Bison.* \([0-9]*\.[0-9.]*\).*$/\1/p'`
       case $ac_prog_version in
         '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
         1.2[6-9]* | 1.[3-9][0-9]* | [2-9].*)
@@ -4176,23 +4385,12 @@ changequote([,])dnl
       INTLBISON=:
     fi
 
-    dnl These rules are solely for the distribution goal.  While doing this
-    dnl we only have to keep exactly one list of the available catalogs
-    dnl in configure.in.
-    for lang in $ALL_LINGUAS; do
-      GMOFILES="$GMOFILES $lang.gmo"
-      POFILES="$POFILES $lang.po"
-    done
-
     dnl Make all variables we use known to autoconf.
     AC_SUBST(BUILD_INCLUDED_LIBINTL)
     AC_SUBST(USE_INCLUDED_LIBINTL)
-    AC_SUBST(CATALOGS)
     AC_SUBST(CATOBJEXT)
-    AC_SUBST(GMOFILES)
     AC_SUBST(INTLLIBS)
     AC_SUBST(INTLOBJS)
-    AC_SUBST(POFILES)
     AC_SUBST(POSUB)
 
     dnl For backward compatibility. Some configure.ins may be using this.
@@ -4332,10 +4530,12 @@ AC_DEFUN([AM_LANGINFO_CODESET],
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
-# License but which still want to provide support for the GNU gettext
-# functionality.
-# Please note that the actual code of GNU gettext is covered by the GNU
-# General Public License and is *not* in the public domain.
+# License or the GNU Library General Public License but which still want
+# to provide support for the GNU gettext functionality.
+# Please note that the actual code of the GNU gettext library is covered
+# by the GNU Library General Public License, and the rest of the GNU
+# gettext package package is covered by the GNU General Public License.
+# They are *not* in the public domain.
 
 # serial 2
 
@@ -4355,10 +4555,12 @@ AC_DEFUN([AM_LC_MESSAGES],
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
-# License but which still want to provide support for the GNU gettext
-# functionality.
-# Please note that the actual code of GNU gettext is covered by the GNU
-# General Public License and is *not* in the public domain.
+# License or the GNU Library General Public License but which still want
+# to provide support for the GNU gettext functionality.
+# Please note that the actual code of the GNU gettext library is covered
+# by the GNU Library General Public License, and the rest of the GNU
+# gettext package package is covered by the GNU General Public License.
+# They are *not* in the public domain.
 
 # serial 2
 
@@ -4403,7 +4605,7 @@ AC_SUBST($1)dnl
 
 # serial 1
 
-AC_DEFUN(AM_PATH_LISPDIR,
+AC_DEFUN([AM_PATH_LISPDIR],
  [# If set to t, that means we are running in a shell under Emacs.
   # If you have an Emacs named "t", then use the full path.
   test "$EMACS" = t && EMACS=

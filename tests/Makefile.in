@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -60,10 +60,12 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AS = @AS@
+BUILDJAVA = @BUILDJAVA@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
-CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CLASSPATH = @CLASSPATH@
+CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
@@ -73,29 +75,39 @@ EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
-GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+HAVE_GCJ = @HAVE_GCJ@
+HAVE_GIJ = @HAVE_GIJ@
+HAVE_JAVAC = @HAVE_JAVAC@
+HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JIKES = @HAVE_JIKES@
+HAVE_JRE = @HAVE_JRE@
+HAVE_JVIEW = @HAVE_JVIEW@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+JAR = @JAR@
+JAVA = @JAVA@
+JAVAC = @JAVAC@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
-POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+TESTJAVA = @TESTJAVA@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -107,14 +119,14 @@ lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-TESTS = gettext-1 gettext-2 	msgcmp-1 msgcmp-2 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 	msgcomm-20 msgcomm-21 msgcomm-22 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 	msgunfmt-1 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 	xgettext-7 xgettext-8 xgettext-9 	plural-1 plural-2
+TESTS = gettext-1 gettext-2 	msgcat-1 	msgcmp-1 msgcmp-2 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 	msgunfmt-1 	msguniq-1 msguniq-2 msguniq-3 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 	xgettext-7 xgettext-8 xgettext-9 	format-c-1 format-c-2 	format-java-1 format-java-2 	format-lisp-1 format-lisp-2 	format-python-1 format-python-2 	format-ycp-1 format-ycp-2 	plural-1 plural-2
 
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 
 XGETTEXT = ../src/xgettext
 
-TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=tstgettext 		    NGETTEXT=tstngettext 		    XGETTEXT=`echo xgettext|sed '$(transform)'` 		    MSGFMT=`echo msgfmt|sed '$(transform)'` 		    MSGCMP=`echo msgcmp|sed '$(transform)'` 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` 		    $(SHELL)
+TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=tstgettext 		    NGETTEXT=tstngettext 		    XGETTEXT=`echo xgettext|sed '$(transform)'` 		    MSGCAT=`echo msgcat|sed '$(transform)'` 		    MSGCMP=`echo msgcmp|sed '$(transform)'` 		    MSGFMT=`echo msgfmt|sed '$(transform)'` 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` 		    MSGCAT=`echo msgcat|sed '$(transform)'` 		    MSGUNIQ=`echo msguniq|sed '$(transform)'` 		    $(SHELL)
 
 
 # Two auxiliary programs used by the tests.

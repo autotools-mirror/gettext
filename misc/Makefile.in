@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -60,10 +60,12 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AS = @AS@
+BUILDJAVA = @BUILDJAVA@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
-CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CLASSPATH = @CLASSPATH@
+CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
@@ -73,29 +75,39 @@ EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
-GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+HAVE_GCJ = @HAVE_GCJ@
+HAVE_GIJ = @HAVE_GIJ@
+HAVE_JAVAC = @HAVE_JAVAC@
+HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JIKES = @HAVE_JIKES@
+HAVE_JRE = @HAVE_JRE@
+HAVE_JVIEW = @HAVE_JVIEW@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+JAR = @JAR@
+JAVA = @JAVA@
+JAVAC = @JAVAC@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
-POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+TESTJAVA = @TESTJAVA@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -162,22 +174,26 @@ uninstall-binSCRIPTS:
 
 install-lispLISP: $(lisp_LISP) $(ELCFILES)
 	@$(NORMAL_INSTALL)
-	$(mkinstalldirs) $(DESTDIR)$(lispdir)
-	@list='$(lisp_LISP)'; for p in $$list; do \
-	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
-	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
-	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
-	  if test -f $${p}c; then \
-	    echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
-	    $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
-	  else : ; fi; \
-	done
+	@if test -n "$(lispdir)"; then \
+	  $(mkinstalldirs) $(DESTDIR)$(lispdir); \
+	  list='$(lisp_LISP)'; for p in $$list; do \
+	    if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	    echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
+	    $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
+	    if test -f $${p}c; then \
+	      echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
+	      $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
+	    else : ; fi; \
+	  done; \
+	else : ; fi
 
 uninstall-lispLISP:
 	@$(NORMAL_UNINSTALL)
-	list='$(lisp_LISP)'; for p in $$list; do \
-	  rm -f $(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
-	done
+	@if test -n "$(lispdir)"; then \
+	  list='$(lisp_LISP)'; for p in $$list; do \
+	    rm -f $(DESTDIR)$(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
+	  done; \
+	else : ; fi
 .el.elc:
 	@echo 'WARNING: Warnings can be ignored. :-)'
 	if test $(EMACS) != no; then \

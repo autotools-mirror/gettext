@@ -1,6 +1,6 @@
-# Makefile.in generated automatically by automake 1.4-p2 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
 
-# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -58,10 +58,12 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AS = @AS@
+BUILDJAVA = @BUILDJAVA@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
-CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
+CLASSPATH = @CLASSPATH@
+CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
@@ -71,29 +73,39 @@ EMACS = @EMACS@
 EXEEXT = @EXEEXT@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
-GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
+HAVE_GCJ = @HAVE_GCJ@
+HAVE_GIJ = @HAVE_GIJ@
+HAVE_JAVAC = @HAVE_JAVAC@
+HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JIKES = @HAVE_JIKES@
+HAVE_JRE = @HAVE_JRE@
+HAVE_JVIEW = @HAVE_JVIEW@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
+JAR = @JAR@
+JAVA = @JAVA@
+JAVAC = @JAVAC@
+LEX = @LEX@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
-MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
-POFILES = @POFILES@
 POSUB = @POSUB@
 RANLIB = @RANLIB@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
+TESTJAVA = @TESTJAVA@
 TEXI2HTML = @TEXI2HTML@
 TEXI2PDF = @TEXI2PDF@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
@@ -103,8 +115,7 @@ YACC = @YACC@
 aclocaldir = @aclocaldir@
 lispdir = @lispdir@
 
-AUTOMAKE_OPTIONS = 1.3 gnits
-MAINT_CHARSET = latin1
+AUTOMAKE_OPTIONS = 1.4 gnu
 ACLOCAL = ./aclocal.sh @ACLOCAL@
 ACLOCAL_AMFLAGS = -I m4
 
@@ -134,19 +145,21 @@ GZIP_ENV = --best
 all: all-redirect
 .SUFFIXES:
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --gnits --include-deps Makefile
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
-$(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/getline.m4 \
-		m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 \
-		m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 \
-		m4/libtool.m4 m4/mbrtowc.m4 m4/mbstate_t.m4 \
-		m4/mbswidth.m4 m4/progtest.m4 m4/setlocale.m4 \
-		m4/signed.m4 m4/ssize_t.m4 m4/stdbool.m4 \
-		m4/uintmax_t.m4 m4/ulonglong.m4 m4/unionwait.m4
+$(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/flex.m4 \
+		m4/getline.m4 m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 \
+		m4/inttypes_h.m4 m4/isc-posix.m4 m4/javacomp.m4 \
+		m4/javaexec.m4 m4/lcmessage.m4 m4/libtool.m4 \
+		m4/mbrtowc.m4 m4/mbstate_t.m4 m4/mbswidth.m4 \
+		m4/mkdtemp.m4 m4/progtest.m4 m4/setenv.m4 \
+		m4/setlocale.m4 m4/signed.m4 m4/ssize_t.m4 \
+		m4/stdbool.m4 m4/tmpdir.m4 m4/uintmax_t.m4 \
+		m4/ulonglong.m4 m4/unionwait.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
@@ -237,7 +250,7 @@ maintainer-clean-recursive:
 	dot_seen=no; \
 	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
 	  rev="$$subdir $$rev"; \
-	  test "$$subdir" = "." && dot_seen=yes; \
+	  test "$$subdir" != "." || dot_seen=yes; \
 	done; \
 	test "$$dot_seen" = "no" && rev=". $$rev"; \
 	target=`echo $@ | sed s/-recursive//`; \
@@ -325,10 +338,6 @@ dist-all: distdir
 	GZIP=$(GZIP_ENV) $(TAR) chozf $(distdir).tar.gz $(distdir)
 	-rm -rf $(distdir)
 distdir: $(DISTFILES)
-	@if sed 15q $(srcdir)/NEWS | fgrep -e "$(VERSION)" > /dev/null; then :; else \
-	  echo "NEWS not updated; not releasing" 1>&2; \
-	  exit 1; \
-	fi
 	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
