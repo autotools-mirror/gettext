@@ -49,6 +49,8 @@
 %{
 /* Prototypes for local functions.  */
 static struct expression *new_exp_0 PARAMS ((enum operator op));
+static struct expression *new_exp_1 PARAMS ((enum operator op,
+					     struct expression *right));
 static struct expression *new_exp_2 PARAMS ((enum operator op,
 					     struct expression *left,
 					     struct expression *right));
@@ -60,15 +62,17 @@ static int yylex PARAMS ((YYSTYPE *lval, const char **pexp));
 static void yyerror PARAMS ((const char *str));
 %}
 
-/* This declares that all operators are left-associative, and that the
-   precedence order is the same as in C.  There is no unary minus.  */
-%left '?'			/*   ?		*/
+/* This declares that all operators have the same associativity and the
+   precedence order as in C.  See [Harbison, Steele: C, A Reference Manual].
+   There is no unary minus and no bitwise operators.  */
+%right '?'			/*   ?		*/
 %left '|'			/*   ||		*/
 %left '&'			/*   &&		*/
-%left '=', '!'			/*   == !=	*/
-%nonassoc '<', '>', LE, GE	/*   < > <= >=	*/
+%left EQ, NE			/*   == !=	*/
+%left '<', '>', LE, GE		/*   < > <= >=	*/
 %left '+', '-'			/*   + -	*/
 %left '*', '/', '%'		/*   * / %	*/
+%right '!'			/*   !		*/
 
 %token <num> NUMBER
 %type <exp> exp
@@ -96,12 +100,12 @@ exp:	  exp '?' exp ':' exp
 	    if (($$ = new_exp_2 (land, $1, $3)) == NULL)
 	      YYABORT
 	  }
-	| exp '=' exp
+	| exp EQ exp
 	  {
 	    if (($$ = new_exp_2 (equal, $1, $3)) == NULL)
 	      YYABORT
 	  }
-	| exp '!' exp
+	| exp NE exp
 	  {
 	    if (($$ = new_exp_2 (not_equal, $1, $3)) == NULL)
 	      YYABORT
@@ -151,6 +155,11 @@ exp:	  exp '?' exp ':' exp
 	    if (($$ = new_exp_2 (module, $1, $3)) == NULL)
 	      YYABORT
 	  }
+	| '!' exp
+	  {
+	    if (($$ = new_exp_1 (lnot, $2)) == NULL)
+	      YYABORT
+	  }
 	| 'n'
 	  {
 	    if (($$ = new_exp_0 (var)) == NULL)
@@ -178,6 +187,29 @@ new_exp_0 (op)
 
   if (newp != NULL)
     newp->operation = op;
+
+  return newp;
+}
+
+static struct expression *
+new_exp_1 (op, right)
+     enum operator op;
+     struct expression *right;
+{
+  struct expression *newp = NULL;
+
+  if (right != NULL)
+    newp = (struct expression *) malloc (sizeof (*newp));
+
+  if (newp != NULL)
+    {
+      newp->operation = op;
+      newp->val.args1.right = right;
+    }
+  else
+    {
+      FREE_EXPRESSION (right);
+    }
 
   return newp;
 }
@@ -250,7 +282,10 @@ FREE_EXPRESSION (exp)
     {
     case qmop:
       FREE_EXPRESSION (exp->val.args3.fbranch);
-      /* FALLTHROUGH */
+      /* FREE_EXPRESSION (exp->val.args3.tbranch); */
+      /* FREE_EXPRESSION (exp->val.args3.bexp); */
+      /* break; */
+      /* instead: FALLTHROUGH */
 
     case mult:
     case divide:
@@ -266,7 +301,12 @@ FREE_EXPRESSION (exp)
     case land:
     case lor:
       FREE_EXPRESSION (exp->val.args2.right);
-      FREE_EXPRESSION (exp->val.args2.left);
+      /* FREE_EXPRESSION (exp->val.args2.left); */
+      /* break; */
+      /* instead: FALLTHROUGH */
+
+    case lnot:
+      FREE_EXPRESSION (exp->val.args1.right);
       break;
 
     default:
@@ -318,11 +358,21 @@ yylex (lval, pexp)
       break;
 
     case '=':
-    case '!':
       if (exp[0] == '=')
-	++exp;
+	{
+	  ++exp;
+	  result = EQ;
+	}
       else
 	result = YYERRCODE;
+      break;
+
+    case '!':
+      if (exp[0] == '=')
+	{
+	  ++exp;
+	  result = NE;
+	}
       break;
 
     case '&':

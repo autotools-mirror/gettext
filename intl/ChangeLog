@@ -1,11 +1,15 @@
-2001-03-12  Bruno Haible  <haible@clisp.cons.org>
+2001-03-16  Bruno Haible  <haible@clisp.cons.org>
 
-	* gettextP.h (struct expression): Add operators less_than,
-	greater_than, less_or_equal, greater_or_equal.
-	* plural.y ('<', '>', LE, GE): New operators.
+	* gettextP.h (struct expression): Add operators lnot, less_than,
+	greater_than, less_or_equal, greater_or_equal. Add args1 to union.
+	* plural.y ('?' ':'): Make right-associative.
+	('<', '>', LE, GE, '!'): New operators.
+	(EQ): Renamed from '='.
+	(NE): Renamed from '!'.
 	(exp): Add rules with these operators.
+	(new_exp_1): New function.
 	(FREE_EXPRESSION): Recognize these operators.
-	(yylex): Don't skip "\\n". Recognize '<', '>', LE, GE operators.
+	(yylex): Don't skip "\\n". Recognize '<', '>', LE, GE, '!' operators.
 	* dcigettext.c (plural_eval): Recognize these operators.
 
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>

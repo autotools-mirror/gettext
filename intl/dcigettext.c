@@ -994,6 +994,8 @@ plural_eval (pexp, n)
       return n;
     case num:
       return pexp->val.num;
+    case lnot:
+      return ! plural_eval (pexp->val.args1.right, n);
     case mult:
       return (plural_eval (pexp->val.args2.left, n)
 	      * plural_eval (pexp->val.args2.right, n));

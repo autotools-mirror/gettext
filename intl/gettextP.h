@@ -79,6 +79,7 @@ struct expression
   {
     var,			/* The variable "n".  */
     num,			/* Decimal number.  */
+    lnot,			/* Logical NOT.  */
     mult,			/* Multiplication.  */
     divide,			/* Division.  */
     module,			/* Module operation.  */
@@ -97,6 +98,10 @@ struct expression
   union
   {
     unsigned long int num;	/* Number value for `num'.  */
+    struct
+    {
+      struct expression *right;	/* Subexpression in unary operation.  */
+    } args1;
     struct
     {
       struct expression *left;	/* Left expression in binary operation.  */
