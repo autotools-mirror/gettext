@@ -1,5 +1,10 @@
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in (mkinstalldirs): Simplify. Prepending "$(top_builddir)/"
+	in the case of a relative $srcdir is now handled in gettext.m4.
+
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
 	* localcharset.h: Change copyright to LGPL. Enclose declaration in
 	extern "C", for C++ compilers.
 	* localcharset.c: Drop C linkage declaration.

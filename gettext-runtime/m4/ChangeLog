@@ -1,3 +1,8 @@
+2003-02-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_MKINSTALLDIRS): Fix MKINSTALLDIRS for when AC_AUX_DIR
+	is given and $srcdir is a relative directory.
+
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_PO_SUBDIRS): Require an xgettext that supports the
