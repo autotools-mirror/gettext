@@ -1,3 +1,8 @@
+2001-01-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (remember_a_message): When the comment tag is seen,
+	remember all remaining comment lines, not just one.
+
 2001-09-25  Bruno Haible  <haible@clisp.cons.org>
 
 	Upgrade to automake-1.5.

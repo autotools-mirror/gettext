@@ -880,7 +880,9 @@ meta information, not the empty string.\n")));
   if (!mp->comment_dot)
     {
       int j;
+      bool add_all_remaining_comments;
 
+      add_all_remaining_comments = add_all_comments;
       for (j = 0; ; ++j)
 	{
 	  const char *s = xgettext_comment (j);
@@ -921,9 +923,12 @@ meta information, not the empty string.\n")));
 	      if (interesting)
 		continue;
 	    }
-	  if (add_all_comments
-	      || (comment_tag != NULL
-		  && strncmp (s, comment_tag, strlen (comment_tag)) == 0))
+	  /* When the comment tag is seen, it drags in not only the line
+	     which it starts, but all remaining comment lines.  */
+	  if (add_all_remaining_comments
+	      || (add_all_remaining_comments =
+		    (comment_tag != NULL
+		     && strncmp (s, comment_tag, strlen (comment_tag)) == 0)))
 	    message_comment_dot_append (mp, s);
 	}
     }
