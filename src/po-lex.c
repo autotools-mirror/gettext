@@ -330,6 +330,7 @@ control_sequence ()
 	    }
 	  break;
 	}
+      lex_ungetc (c);
       return val;
     }
   po_gram_error (_("invalid control sequence"));
