@@ -504,16 +504,18 @@ AC_PREREQ([2.12])
 
 AC_DEFUN([AM_CONFIG_HEADER],
 [ifdef([AC_FOREACH],dnl
-	 [
+	 [dnl init our file count if it isn't already
+	 m4_ifndef([_AM_Config_Header_Index], m4_define([_AM_Config_Header_Index], [0]))
 	 dnl prepare to store our destination file list for use in config.status
 	 AC_FOREACH([_AM_File], [$1],
 		    [m4_pushdef([_AM_Dest], m4_patsubst(_AM_File, [:.*]))
+		    m4_define([_AM_Config_Header_Index], m4_incr(_AM_Config_Header_Index))
 		    dnl and add it to the list of files AC keeps track of, along
 		    dnl with our hook
 		    AC_CONFIG_HEADERS(_AM_File,
 dnl COMMANDS, [, INIT-CMDS]
 [# update the timestamp
-echo timestamp >"AS_ESCAPE(_AM_DIRNAME(]_AM_Dest[))/stamp-h"
+echo timestamp >"AS_ESCAPE(_AM_DIRNAME(]_AM_Dest[))/stamp-h]_AM_Config_Header_Index["
 ][$2]m4_ifval([$3], [, [$3]]))dnl AC_CONFIG_HEADERS
 		    m4_popdef([_AM_Dest])])],dnl
 [AC_CONFIG_HEADER([$1])
