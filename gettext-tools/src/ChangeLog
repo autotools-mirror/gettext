@@ -1,3 +1,12 @@
+2003-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.msvc (DEBUGFLAGS): New variable.
+	(gettextsrc.lib): Use it.
+	(msgcmp.exe, msgfmt.exe, msgmerge.exe, msgunfmt.exe, xgettext.exe,
+	msgattrib.exe, msgcat.exe, msgcomm.exe, msgconv.exe, msgen.exe,
+	msgexec.exe, msgfilter.exe, msggrep.exe, msginit.exe, msguniq.exe):
+	Use it, and MFLAGS too.
+
 2003-05-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12 released.

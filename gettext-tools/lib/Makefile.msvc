@@ -53,9 +53,11 @@ PICFLAGS = -GD
 
 !if $(DEBUG)
 OPTIMFLAGS = -Od -Z7
+DEBUGFLAGS = -Z7
 !else
 # Some people prefer -O2 -G6 instead of -O1, but -O2 is not reliable in MSVC5.
 OPTIMFLAGS = -D_NDEBUG -O1
+DEBUGFLAGS =
 !endif
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DEXEEXT=\".exe\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1
@@ -278,7 +280,7 @@ gettextlib.lib : $(OBJECTS)
 
 # gettextlib.dll and gettextlib.lib are created together.
 gettextlib.lib : ..\windows\gettextlib.def $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD ..\windows\gettextlib.def $(OBJECTS) ..\intl\intl.lib $(libdir)\iconv.lib $(RESOURCES) -Fegettextlib.dll
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD ..\windows\gettextlib.def $(OBJECTS) ..\intl\intl.lib $(libdir)\iconv.lib $(RESOURCES) -Fegettextlib.dll
 
 gettextlib.res : ../windows/gettextlib.rc
 	rc -Fo gettextlib.res ../windows/gettextlib.rc

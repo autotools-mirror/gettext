@@ -60,9 +60,11 @@ PICFLAGS = -GD
 
 !if $(DEBUG)
 OPTIMFLAGS = -Od -Z7
+DEBUGFLAGS = -Z7
 !else
 # Some people prefer -O2 -G6 instead of -O1, but -O2 is not reliable in MSVC5.
 OPTIMFLAGS = -D_NDEBUG -O1
+DEBUGFLAGS =
 !endif
 
 # -DBUILDING_LIBASPRINTF: Change expansion of LIBASPRINTF_DLL_EXPORTED macro.
@@ -123,7 +125,7 @@ asprintf.lib : $(OBJECTS)
 
 # asprintf.dll and asprintf.lib are created together.
 asprintf.lib : $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD $(OBJECTS) $(RESOURCES) -Feasprintf.dll
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD $(OBJECTS) $(RESOURCES) -Feasprintf.dll
 
 asprintf.res : windows/asprintf.rc
 	rc -Fo asprintf.res windows/asprintf.rc

@@ -74,9 +74,11 @@ PICFLAGS = -GD
 
 !if $(DEBUG)
 OPTIMFLAGS = -Od -Z7
+DEBUGFLAGS = -Z7
 !else
 # Some people prefer -O2 -G6 instead of -O1, but -O2 is not reliable in MSVC5.
 OPTIMFLAGS = -D_NDEBUG -O1
+DEBUGFLAGS =
 !endif
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(IIlocaledir)\" -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -DGETTEXTJAR=\"$(IIjardir)\\gettext.jar\" -DLIBDIR=\"$(IIlibdir)\" -DGETTEXTDATADIR=\"$(IIpkgdatadir)\" -DPROJECTSDIR=\"$(IIprojectsdir)\"
@@ -277,7 +279,7 @@ gettextsrc.lib : $(OBJECTS)
 
 # gettextsrc.dll and gettextsrc.lib are created together.
 gettextsrc.lib : ..\windows\gettextsrc.def $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD ..\windows\gettextsrc.def $(OBJECTS) ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(RESOURCES) -Fegettextsrc.dll
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD ..\windows\gettextsrc.def $(OBJECTS) ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(RESOURCES) -Fegettextsrc.dll
 
 gettextsrc.res : ../windows/gettextsrc.rc
 	rc -Fo gettextsrc.res ../windows/gettextsrc.rc
@@ -398,49 +400,49 @@ msguniq.obj : msguniq.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msguniq.c
 
 msgcmp.exe : $(msgcmp_OBJECTS)
-	$(CC) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcmp.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcmp.exe
 
 msgfmt.exe : $(msgfmt_OBJECTS)
-	$(CC) $(msgfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfmt.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfmt.exe
 
 msgmerge.exe : $(msgmerge_OBJECTS)
-	$(CC) $(msgmerge_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgmerge.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgmerge_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgmerge.exe
 
 msgunfmt.exe : $(msgunfmt_OBJECTS)
-	$(CC) $(msgunfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgunfmt.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgunfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgunfmt.exe
 
 xgettext.exe : $(xgettext_OBJECTS)
-	$(CC) $(xgettext_OBJECTS) ..\libuniname\uniname.lib gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fexgettext.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(xgettext_OBJECTS) ..\libuniname\uniname.lib gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fexgettext.exe
 
 msgattrib.exe : $(msgattrib_OBJECTS)
-	$(CC) $(msgattrib_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgattrib.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgattrib_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgattrib.exe
 
 msgcat.exe : $(msgcat_OBJECTS)
-	$(CC) $(msgcat_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcat.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgcat_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcat.exe
 
 msgcomm.exe : $(msgcomm_OBJECTS)
-	$(CC) $(msgcomm_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcomm.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgcomm_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcomm.exe
 
 msgconv.exe : $(msgconv_OBJECTS)
-	$(CC) $(msgconv_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgconv.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgconv_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgconv.exe
 
 msgen.exe : $(msgen_OBJECTS)
-	$(CC) $(msgen_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgen.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgen_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgen.exe
 
 msgexec.exe : $(msgexec_OBJECTS)
-	$(CC) $(msgexec_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgexec.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgexec_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgexec.exe
 
 msgfilter.exe : $(msgfilter_OBJECTS)
-	$(CC) $(msgfilter_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfilter.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgfilter_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfilter.exe
 
 msggrep.exe : $(msggrep_OBJECTS)
-	$(CC) $(msggrep_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsggrep.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msggrep_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsggrep.exe
 
 msginit.exe : $(msginit_OBJECTS)
-	$(CC) $(msginit_OBJECTS) ..\intl\localename.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsginit.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msginit_OBJECTS) ..\intl\localename.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsginit.exe
 
 msguniq.exe : $(msguniq_OBJECTS)
-	$(CC) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsguniq.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsguniq.exe
 
 install : all force
 	-mkdir $(prefix)

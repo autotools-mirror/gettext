@@ -73,9 +73,11 @@ PICFLAGS = -GD -DBUILDING_LIBINTL -DBUILDING_DLL
 
 !if $(DEBUG)
 OPTIMFLAGS = -Od -Z7
+DEBUGFLAGS = -Z7
 !else
 # Some people prefer -O2 -G6 instead of -O1, but -O2 is not reliable in MSVC5.
 OPTIMFLAGS = -D_NDEBUG -O1
+DEBUGFLAGS =
 !endif
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(IIlocaledir)\" -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -DIN_LIBINTL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(IIbindir)\" -DNO_XMALLOC -Dset_relocation_prefix=libintl_set_relocation_prefix -Drelocate=libintl_relocate -DDEPENDS_ON_LIBICONV=1
@@ -186,7 +188,7 @@ intl.lib : $(OBJECTS)
 
 # intl.dll and intl.lib are created together.
 intl.lib : $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD $(OBJECTS) $(libdir)\iconv.lib $(RESOURCES) -Feintl.dll
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD $(OBJECTS) $(libdir)\iconv.lib $(RESOURCES) -Feintl.dll
 
 intl.res : $(srcdir)\..\windows\intl.rc
 	rc -Fo intl.res $(srcdir)\..\windows\intl.rc

@@ -64,9 +64,11 @@ PICFLAGS = -GD
 
 !if $(DEBUG)
 OPTIMFLAGS = -Od -Z7
+DEBUGFLAGS = -Z7
 !else
 # Some people prefer -O2 -G6 instead of -O1, but -O2 is not reliable in MSVC5.
 OPTIMFLAGS = -D_NDEBUG -O1
+DEBUGFLAGS =
 !endif
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(IIlocaledir)\"
@@ -100,10 +102,10 @@ ngettext.obj : ngettext.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c ngettext.c
 
 gettext.exe : $(gettext_OBJECTS)
-	$(CC) $(gettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fegettext.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(gettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fegettext.exe
 
 ngettext.exe : $(ngettext_OBJECTS)
-	$(CC) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fengettext.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fengettext.exe
 
 install : all force
 	-mkdir $(prefix)
