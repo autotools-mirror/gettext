@@ -2996,6 +2996,7 @@ with_gnu_ld=$acl_cv_prog_gnu_ld
 
 
 
+
                                                 echo "$as_me:$LINENO: checking for shared library run path origin" >&5
 echo $ECHO_N "checking for shared library run path origin... $ECHO_C" >&6
 if test "${acl_cv_rpath+set}" = set; then
