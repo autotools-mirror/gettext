@@ -1,3 +1,8 @@
+2003-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* uk.po: New file, from Volodymyr M. Lisivka <lvm@mystery.lviv.net>.
+	* LINGUAS: Add uk.
+
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in: Add a version number, to be used by intltools.
