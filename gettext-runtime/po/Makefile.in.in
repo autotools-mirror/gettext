@@ -138,6 +138,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	  $(MAKE) $${lang}.po-create; \
 	fi
 
+
 install: install-exec install-data
 install-exec:
 install-data: install-data-@USE_NLS@
@@ -318,7 +319,7 @@ update-po: Makefile
 # General rule for creating PO files.
 
 .nop.po-create:
-	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
+	@lang=`echo $@ | sed -e 's/\.po-create$$//'`; \
 	echo "File $$lang.po does not exist. If you are a translator, you can create it through 'msginit'." 1>&2; \
 	exit 1
 
