@@ -52,5 +52,5 @@ Things we plan to do. Comments welcome.
 
 Future:
 
-- Remove support for catgets and Solaris gettext.
+- Remove support for catgets.
 

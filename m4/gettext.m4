@@ -6,7 +6,7 @@
 # but which still want to provide support for the GNU gettext functionality.
 # Please note that the actual code is *not* freely available.
 
-# serial 7
+# serial 8
 
 dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR], [INCDIR]).
 dnl If SYMBOL is specified and is `no-catgets', then the catgets checks
@@ -18,7 +18,7 @@ dnl    the value `$(top_builddir)/intl/' is used.
 dnl INCDIR is used to find the include files.  If empty,
 dnl    the value `intl' is used.
 dnl
-dnl The result of the configuration is one of five cases:
+dnl The result of the configuration is one of four cases:
 dnl 1) GNU gettext, as included in the intl subdirectory, will be compiled
 dnl    and used.
 dnl    Catalog format: GNU --> DATADIRNAME = share
@@ -26,15 +26,16 @@ dnl    Catalog extension: .mo after installation, .gmo in source tree
 dnl 2) GNU gettext has been found in the system's C library.
 dnl    Catalog format: GNU --> DATADIRNAME = share
 dnl    Catalog extension: .mo after installation, .gmo in source tree
-dnl 3) An X/Open gettext has been found in the system's C library.
-dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
-dnl    Catalog extension: .mo
-dnl 4) A catgets has been found in the system's C library.
+dnl 3) A catgets has been found in the system's C library.
 dnl    Catalog format: Platform dependent --> DATADIRNAME = lib
 dnl    Catalog extension: .cat
-dnl 5) No internationalization, always use English msgid.
+dnl 4) No internationalization, always use English msgid.
 dnl    Catalog format: none
 dnl    Catalog extension: none
+dnl The use of .gmo is historical (it was needed to avoid overwriting the
+dnl GNU format catalogs when building on a platform with an X/Open gettext),
+dnl but we keep it in order not to force irrelevant filename changes on the
+dnl maintainers.
 dnl
 AC_DEFUN(AM_WITH_NLS,
   [AC_MSG_CHECKING([whether NLS is requested])
@@ -60,32 +61,38 @@ AC_DEFUN(AM_WITH_NLS,
       nls_cv_use_gnu_gettext="$nls_cv_force_use_gnu_gettext"
       if test "$nls_cv_force_use_gnu_gettext" != "yes"; then
         dnl User does not insist on using GNU NLS library.  Figure out what
-        dnl to use.  If gettext or catgets are available (in this order) we
-        dnl use this.  Else we have to fall back to GNU NLS library.
+        dnl to use.  If GNU gettext or catgets are available (in this order)
+        dnl we use this.  Else we have to fall back to GNU NLS library.
 	dnl catgets is only used if permitted by option --with-catgets.
 	nls_cv_header_intl=
 	nls_cv_header_libgt=
 	CATOBJEXT=NONE
 
 	AC_CHECK_HEADER(libintl.h,
-	  [AC_CACHE_CHECK([for gettext in libc], gt_cv_func_gettext_libc,
-	    [AC_TRY_LINK([#include <libintl.h>],
-	       [bindtextdomain ("", ""); return (int) gettext ("")],
-	       gt_cv_func_gettext_libc=yes, gt_cv_func_gettext_libc=no)])
+	  [AC_CACHE_CHECK([for GNU gettext in libc], gt_cv_func_gnugettext_libc,
+	    [AC_TRY_LINK([#include <libintl.h>
+extern int _nl_msg_cat_cntr;],
+	       [bindtextdomain ("", "");
+return (int) gettext ("") + _nl_msg_cat_cntr],
+	       gt_cv_func_gnugettext_libc=yes,
+	       gt_cv_func_gnugettext_libc=no)])
 
-	   if test "$gt_cv_func_gettext_libc" != "yes"; then
-	     AC_CACHE_CHECK([for gettext in libintl],
-	       gt_cv_func_gettext_libintl,
+	   if test "$gt_cv_func_gnugettext_libc" != "yes"; then
+	     AC_CACHE_CHECK([for GNU gettext in libintl],
+	       gt_cv_func_gnugettext_libintl,
 	       [gt_save_LIBS="$LIBS"
 		LIBS="$LIBS -lintl"
-		AC_TRY_LINK([#include <libintl.h>],
-		  [bindtextdomain ("", ""); return (int) gettext ("")],
-		  gt_cv_func_gettext_libintl=yes, gt_cv_func_gettext_libintl=no)
+		AC_TRY_LINK([#include <libintl.h>
+extern int _nl_msg_cat_cntr;],
+		  [bindtextdomain ("", "");
+return (int) gettext ("") + _nl_msg_cat_cntr],
+		  gt_cv_func_gnugettext_libintl=yes,
+		  gt_cv_func_gnugettext_libintl=no)
 		LIBS="$gt_save_LIBS"])
 	   fi
 
-	   if test "$gt_cv_func_gettext_libc" = "yes" \
-	      || test "$gt_cv_func_gettext_libintl" = "yes"; then
+	   if test "$gt_cv_func_gnugettext_libc" = "yes" \
+	      || test "$gt_cv_func_gnugettext_libintl" = "yes"; then
 	      AC_DEFINE(HAVE_GETTEXT)
 	      AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
 		[test -z "`$ac_dir/$ac_word -h 2>&1 | grep 'dv '`"], no)dnl
@@ -94,20 +101,11 @@ AC_DEFUN(AM_WITH_NLS,
 		AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 		AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
 		  [test -z "`$ac_dir/$ac_word -h 2>&1 | grep '(HELP)'`"], :)
-		gt_save_LIBS="$LIBS"
-		if test "$gt_cv_func_gettext_libintl" = "yes"; then
-		  LIBS="$LIBS -lintl"
-		fi
-		AC_TRY_LINK(, [extern int _nl_msg_cat_cntr;
-			       return _nl_msg_cat_cntr],
-		  [CATOBJEXT=.gmo
-		   DATADIRNAME=share],
-		  [CATOBJEXT=.mo
-		   DATADIRNAME=lib])
-		LIBS="$gt_save_LIBS"
+		CATOBJEXT=.gmo
+		DATADIRNAME=share
 		INSTOBJEXT=.mo
 	      fi
-	      if test "$gt_cv_func_gettext_libintl" = "yes"; then
+	      if test "$gt_cv_func_gnugettext_libintl" = "yes"; then
 		INTLLIBS="-lintl"
 	      fi
 	    fi
