@@ -286,15 +286,18 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 		    if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
 		      break;
 		  if (i < SIZEOF (weird_charsets))
+		    /* TRANS: sentence starts at trans_id_1 or trans_id_2 */
 		    note = _(", expect parse errors");
 		  else
 		    note = "";
 
 # if _LIBICONV_VERSION
+		  /* TRANS: sentence trans_id_1 starts here */
 		  error (0, 0, _("\
 %s: warning: charset \"%s\" is not supported by iconv%s"),
 			 gram_pos.file_name, po_lex_charset, note);
 # else
+		  /* TRANS: sentence trans_id_2 starts here */
 		  error (0, 0, _("\
 %s: warning: charset \"%s\" is not supported by iconv%s\n\
 %*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
@@ -309,10 +312,12 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 		  break;
 	      if (i < SIZEOF (weird_charsets))
 		{
+		  /* TRANS: sentence trans_id_3 starts here */
 		  error (0, 0, _("\
 %s: warning: charset \"%s\" is not supported without iconv%s\n\
 %*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
 			 gram_pos.file_name, po_lex_charset,
+			 /* TRANS: sentence starts at trans_id_3 */
 			 _(", expect parse errors"),
 			 (int) strlen (gram_pos.file_name), "");
 		  --error_message_count;

@@ -1,4 +1,9 @@
 2001-03-11  Bruno Haible  <haible@clisp.cons.org>
+            Karl Eichwalder  <ke@suse.de>
+
+	* po.c (po_callback_message): Add comments to support translators.
+
+2001-03-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-lex.c (lex_close): Use ngettext and plural-form message.
 	* msgcmp.c (compare): Likewise.
