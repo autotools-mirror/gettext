@@ -550,17 +550,9 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 	}
 
       if (ret == NULL)
-	{
-	  /* We cannot get the current working directory.  Don't signal an
-	     error but simply return the default string.  */
-	  FREE_BLOCKS (block_list);
-	  __libc_rwlock_unlock (_nl_state_lock);
-	  __set_errno (saved_errno);
-	  return (plural == 0
-		  ? (char *) msgid1
-		  /* Use the Germanic plural rule.  */
-		  : n == 1 ? (char *) msgid1 : (char *) msgid2);
-	}
+	/* We cannot get the current working directory.  Don't signal an
+	   error but simply return the default string.  */
+	goto return_untranslated;
 
       stpcpy (stpcpy (strchr (dirname, '\0'), "/"), binding->dirname);
     }
@@ -617,16 +609,7 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 	 domain.  Return the MSGID.  */
       if (strcmp (single_locale, "C") == 0
 	  || strcmp (single_locale, "POSIX") == 0)
-	{
-	  FREE_BLOCKS (block_list);
-	  __libc_rwlock_unlock (_nl_state_lock);
-	  __set_errno (saved_errno);
-	  return (plural == 0
-		  ? (char *) msgid1
-		  /* Use the Germanic plural rule.  */
-		  : n == 1 ? (char *) msgid1 : (char *) msgid2);
-	}
-
+	break;
 
       /* Find structure describing the message catalog matching the
 	 DOMAINNAME and CATEGORY.  */
@@ -707,7 +690,30 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 	    }
 	}
     }
-  /* NOTREACHED */
+
+ return_untranslated:
+  /* Return the untranslated MSGID.  */
+  FREE_BLOCKS (block_list);
+  __libc_rwlock_unlock (_nl_state_lock);
+#ifndef _LIBC
+  if (!ENABLE_SECURE)
+    {
+      extern void _nl_log_untranslated PARAMS ((const char *logfilename,
+						const char *domainname,
+						const char *msgid1,
+						const char *msgid2,
+						int plural));
+      const char *logfilename = getenv ("GETTEXT_LOG_UNTRANSLATED");
+
+      if (logfilename != NULL && logfilename[0] != '\0')
+	_nl_log_untranslated (logfilename, domainname, msgid1, msgid2, plural);
+    }
+#endif
+  __set_errno (saved_errno);
+  return (plural == 0
+	  ? (char *) msgid1
+	  /* Use the Germanic plural rule.  */
+	  : n == 1 ? (char *) msgid1 : (char *) msgid2);
 }
 
 

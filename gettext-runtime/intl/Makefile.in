@@ -87,10 +87,11 @@ SOURCES = \
   plural-exp.c \
   localcharset.c \
   localename.c \
+  log.c \
   osdep.c \
   os2compat.c \
   intl-compat.c
-OBJECTS = @INTLOBJS@ \
+OBJECTS = \
   bindtextdom.$lo \
   dcgettext.$lo \
   dgettext.$lo \
@@ -109,8 +110,9 @@ OBJECTS = @INTLOBJS@ \
   plural-exp.$lo \
   localcharset.$lo \
   localename.$lo \
-  osdep.$lo
-GETTOBJS = intl-compat.$lo
+  log.$lo \
+  osdep.$lo \
+  intl-compat.$lo
 DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
@@ -193,6 +195,8 @@ localcharset.lo: $(srcdir)/localcharset.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localcharset.c
 localename.lo: $(srcdir)/localename.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localename.c
+log.lo: $(srcdir)/log.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/log.c
 osdep.lo: $(srcdir)/osdep.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
@@ -227,11 +231,23 @@ check: all
 install: install-exec install-data
 install-exec: all
 	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
-	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
+	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	  $(INSTALL_DATA) libintl.h $(DESTDIR)$(includedir)/libintl.h; \
 	  $(LIBTOOL) --mode=install \
 	    $(INSTALL_DATA) libintl.$la $(DESTDIR)$(libdir)/libintl.$la; \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext-tools" \
+	   && test '@USE_INCLUDED_LIBINTL@' = no; then \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
+	  $(LIBTOOL) --mode=install \
+	    $(INSTALL_DATA) libgnuintl.$la $(DESTDIR)$(libdir)/libgnuintl.$la; \
+	  rm -f $(DESTDIR)$(libdir)/preloadable_libintl.so; \
+	  $(INSTALL_DATA) $(DESTDIR)$(libdir)/libgnuintl.so $(DESTDIR)$(libdir)/preloadable_libintl.so; \
+	  $(LIBTOOL) --mode=uninstall \
+	    rm -f $(DESTDIR)$(libdir)/libgnuintl.$la; \
 	else \
 	  : ; \
 	fi
@@ -293,8 +309,14 @@ install-strip: install
 
 installdirs:
 	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
-	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
+	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext-tools" \
+	   && test '@USE_INCLUDED_LIBINTL@' = no; then \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
 	else \
 	  : ; \
 	fi
@@ -315,10 +337,16 @@ installcheck:
 
 uninstall:
 	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
-	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
+	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  rm -f $(DESTDIR)$(includedir)/libintl.h; \
 	  $(LIBTOOL) --mode=uninstall \
 	    rm -f $(DESTDIR)$(libdir)/libintl.$la; \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext-tools" \
+	   && test '@USE_INCLUDED_LIBINTL@' = no; then \
+	  rm -f $(DESTDIR)$(libdir)/preloadable_libintl.so; \
 	else \
 	  : ; \
 	fi

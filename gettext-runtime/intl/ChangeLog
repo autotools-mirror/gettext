@@ -1,5 +1,17 @@
 2003-02-16  Bruno Haible  <bruno@clisp.org>
 
+	* log.c: New file.
+	* dcigettext.c (DCIGETTEXT) [!_LIBC]: Before returning the
+	untranslated string, call _nl_log_untranslated.
+	* intl-compat.c: Comments.
+	* Makefile.in (SOURCES): Add log.c.
+	(OBJECTS): Add intl-compat.$lo unconditionally. Add log.$lo.
+	(log.lo): New rule.
+	(install-exec): Stop using @INTLOBJS@. Install preloadable_libintl.so.
+	(installdirs, uninstall): Update accordingly.
+
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in (.sin.sed): Remove rule.
 	(ref-add.sed, ref-del.sed): New rules.
 

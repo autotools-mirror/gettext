@@ -19,6 +19,9 @@ Version 0.11.6 - October 2002
   New documentation section:
   - Writing your own programs that process PO files.
 
+* New documentation section:
+  - Prioritizing messages: How to determine which messages to translate first.
+
 * xgettext now supports msgid strings in other encodings than ASCII.
   xgettext has a new option --from-code that specifies the encoding of the
   source files. The resulting POT files are UTF-8 encoded.

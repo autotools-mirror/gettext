@@ -1,6 +1,6 @@
 /* intl-compat.c - Stub functions to call gettext functions from GNU gettext
    Library.
-   Copyright (C) 1995, 2000-2002 Software Foundation, Inc.
+   Copyright (C) 1995, 2000-2003 Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -31,7 +31,10 @@
    defined in the included GNU libintl library (with "libintl_" prefix).
    It is compiled into libintl in order to make the AM_GNU_GETTEXT test
    of gettext <= 0.11.2 work with the libintl library >= 0.11.3 which
-   has the redirections primarily in the <libintl.h> include file.  */
+   has the redirections primarily in the <libintl.h> include file.
+   It is also compiled into libgnuintl so that libgnuintl.so can be used
+   as LD_PRELOADable library on glibc systems, to provide the extra
+   features that the functions in the libc don't have (namely, logging).  */
 
 
 #undef gettext

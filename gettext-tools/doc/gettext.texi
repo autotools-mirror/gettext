@@ -115,7 +115,7 @@ by the Foundation.
 @node Top, Introduction, (dir), (dir)
 @top GNU @code{gettext} utilities
 
-This manual document the GNU gettext tools and the GNU libintl library,
+This manual documents the GNU gettext tools and the GNU libintl library,
 version @value{VERSION}.
 
 @menu
@@ -264,6 +264,7 @@ The Translator's View
 * Discussions::                 Discussions
 * Organization::                Organization
 * Information Flow::            Information Flow
+* Prioritizing messages::       How to find which messages to translate first
 
 Organization
 
@@ -5369,6 +5370,7 @@ Solaris is not the only system having @code{gettext}.
 * Discussions::                 Discussions
 * Organization::                Organization
 * Information Flow::            Information Flow
+* Prioritizing messages::       How to find which messages to translate first
 @end menu
 
 @node Trans Intro 0, Trans Intro 1, Translators, Translators
@@ -5524,10 +5526,11 @@ the GNU Library General Public License, when they do not want to make
 their program free, or want other kinds of freedom.  The simplest
 answer is ``normally not''.
 
-The GNU @code{gettext} library, i.e. the contents of @code{libintl},
-is covered by the GNU Library General Public License.  The rest of
-the GNU @code{gettext} package is covered by the GNU General Public
-License.
+The @code{gettext-runtime} part of GNU @code{gettext}, i.e. the
+contents of @code{libintl}, is covered by the GNU Library General Public
+License.  The @code{gettext-tools} part of GNU @code{gettext}, i.e. the
+rest of the GNU @code{gettext} package, is covered by the GNU General
+Public License.
 
 The mere marking of localizable strings in a package, or conditional
 inclusion of a few lines for initialization, is not really including
@@ -5740,7 +5743,7 @@ run, each team should run its own list, from within their country.
 There also should be some central list to which all teams could
 subscribe as they see fit, as long as each team is represented in it.
 
-@node Information Flow,  , Organization, Translators
+@node Information Flow, Prioritizing messages, Organization, Translators
 @section Information Flow
 
 There will surely be some discussion about this messages after the
@@ -5777,6 +5780,116 @@ those who want to submit comments or gripes, or otherwise contribute.
 I sent a proposal for a fast and flexible format, but it is not
 receiving acceptance yet by the GNU deciders.  I'll tell you when I
 have more information about this.
+
+@node Prioritizing messages,  , Information Flow, Translators
+@section Prioritizing messages: How to determine which messages to translate first
+
+A translator sometimes has only a limited amount of time per week to
+spend on a package, and some packages have quite large message catalogs
+(over 1000 messages).  Therefore she wishes to translate the messages
+first that are the most visible to the user, or that occur most frequently.
+This section describes how to determine these "most urgent" messages.
+It also applies to determine the "next most urgent" messages after the
+message catalog has already been partially translated.
+
+In a first step, she uses the programs like a user would do.  While she
+does this, the GNU @code{gettext} library logs into a file the not yet
+translated messages for which a translation was requested from the program.
+
+In a second step, she uses the PO mode to translate precisely this set
+of messages.
+
+@vindex GETTEXT_LOG_UNTRANSLATED@r{, environment variable}
+Here a more details.  The GNU @code{libintl} library (but not the
+corresponding functions in GNU @code{libc}) supports an environment variable
+@code{GETTEXT_LOG_UNTRANSLATED}.  The GNU @code{libintl} library will
+log into this file the messages for which @code{gettext()} and related
+functions couldn't find the translation.  If the file doesn't exist, it
+will be created as needed.  On systems with GNU @code{libc} a shared library
+@samp{preloadable_libintl.so} is provided that can be used with the ELF
+@samp{LD_PRELOAD} mechanism.
+
+So, in the first step, the translator uses these commands on systems with
+GNU @code{libc}:
+
+@smallexample
+$ LD_PRELOAD=/usr/local/lib/preloadable_libintl.so
+$ export LD_PRELOAD
+$ GETTEXT_LOG_UNTRANSLATED=$HOME/gettextlogused
+$ export GETTEXT_LOG_UNTRANSLATED
+@end smallexample
+
+@noindent
+and these commands on other systems:
+
+@smallexample
+$ GETTEXT_LOG_UNTRANSLATED=$HOME/gettextlogused
+$ export GETTEXT_LOG_UNTRANSLATED
+@end smallexample
+
+Then she uses and peruses the programs.  (It is a good and recommended
+practice to use the programs for which you provide translations: it
+gives you the needed context.)  When done, she removes the environment
+variables:
+
+@smallexample
+$ unset LD_PRELOAD
+$ unset GETTEXT_LOG_UNTRANSLATED
+@end smallexample
+
+The second step starts with removing duplicates:
+
+@smallexample
+$ msguniq $HOME/gettextlogused > missing.po
+@end smallexample
+
+The result is a PO file, but needs some preprocessing before the Emacs PO
+mode can be used with it.  First, it is a multi-domain PO file, containing
+messages from many translation domains.  Second, it lacks all translator
+comments and source references.  Here is how to get a list of the affected
+translation domains:
+
+@smallexample
+$ sed -n -e 's,^domain "\(.*\)"$,\1,p' < missing.po | sort | uniq
+@end smallexample
+
+Then the translator can handle the domains one by one.  For simplicity,
+let's use environment variables to denote the language, domain and source
+package.
+
+@smallexample
+$ lang=nl             # your language
+$ domain=coreutils    # the name of the domain to be handled
+$ package=/usr/src/gnu/coreutils-4.5.4   # the package where it comes from
+@end smallexample
+
+She takes the latest copy of @file{$lang.po} from the Translation Project,
+or from the package (in most cases, @file{$package/po/$lang.po}), or
+creates a fresh one if she's the first translator (see @ref{Creating}).
+She then uses the following commands to mark the not urgent messages as
+"obsolete".  (This doesn't mean that these messages - translated and
+untranslated ones - will go away.  It simply means that Emacs PO mode
+will ignore them in the following editing session.)
+
+@smallexample
+$ msggrep --domain=$domain missing.po | grep -v '^domain' \
+  > $domain-missing.po
+$ msgattrib --set-obsolete --ignore-file $domain-missing.po $domain.$lang.po \
+  > $domain.$lang-urgent.po
+@end smallexample
+
+The she translates @file{$domain.$lang-urgent.po} by use of Emacs PO mode.
+(FIXME: I don't know whether @code{KBabel} and @code{gtranslator} also
+preserve obsolete messages, as they should.)
+Finally she restores the not urgent messages (with their earlier
+translations, for those which were already translated) through this command:
+
+@smallexample
+$ msgmerge --no-fuzzy-matching $domain.$lang-urgent.po $package/po/$domain.pot \
+  > $domain.$lang.po
+@end smallexample
+
+Then she can submit @file{$domain.$lang.po} and proceed to the next domain.
 
 @node Maintainers, Programming Languages, Translators, Top
 @chapter The Maintainer's View
