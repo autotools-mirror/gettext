@@ -11,7 +11,7 @@ Installation on Woe32 (WinNT/2000/XP, Win95/98/ME):
    can be achieved by running
         C:\Program Files\Microsoft Visual Studio\VC98\bin\vcvars32.bat
    In a typical MSVC7.0 installation, it can be achieved by running
-        C:\Program Files\Microsoft Visual Studio .NET\VC7\bin\vcvars32.bat
+        C:\Program Files\Microsoft Visual Studio .NET\Common7\Tools\vsvars32.bat
 
    Decide which compilation model you will use:
      MFLAGS=-ML (the default)  Single-threaded, statically linked - libc.lib
@@ -28,7 +28,7 @@ Installation on Woe32 (WinNT/2000/XP, Win95/98/ME):
 
    For static library:
 
-        nmake -f Makefile.msvc
+        nmake -f Makefile.msvc MFLAGS=-MD
 
    If you want to build both the shared and static library, you have to
    unpack the gettext sources twice in different directories. Don't mix
@@ -49,4 +49,4 @@ Installation on Woe32 (WinNT/2000/XP, Win95/98/ME):
 
         nmake -f Makefile.msvc DLL=1 MFLAGS=-MD install PREFIX=InstallBaseDirectory
    or
-        nmake -f Makefile.msvc install PREFIX=InstallBaseDirectory
+        nmake -f Makefile.msvc MFLAGS=-MD install PREFIX=InstallBaseDirectory
