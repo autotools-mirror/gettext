@@ -36,7 +36,7 @@
 #include "execute.h"
 #include "javaexec.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

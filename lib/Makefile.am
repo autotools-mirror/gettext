@@ -61,9 +61,15 @@ libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
   @INTLLIBS@ @LIBICONV@ -no-undefined
 
+# Extra files to be installed.
+
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = gettext.h
+
 # List of files to be distributed.
 
-noinst_HEADERS = $(libgettextlib_la_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER)
+noinst_HEADERS = $(libgettextlib_la_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER) \
+gettext.h
 
 EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \

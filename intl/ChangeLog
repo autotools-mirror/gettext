@@ -1,5 +1,11 @@
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* libgettext.h: Moved to ../lib/gettext.h.
+	* Makefile.in (HEADERS): Remove libgettext.h.
+	(DISTFILES.obsolete): Add libgettext.h.
+
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* gmo.h: Renamed from gettext.h.
 	* gettext.h: Remove file.
 	* gettextP.h: Update accordingly.

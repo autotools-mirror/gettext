@@ -35,7 +35,7 @@
 #include "read-po.h"
 #include "error.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

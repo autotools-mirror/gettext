@@ -81,7 +81,7 @@
 #include "getline.h"
 #include "setenv.h"
 #include "str-list.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 #define N_(str) (str)

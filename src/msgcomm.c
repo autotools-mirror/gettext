@@ -38,7 +38,7 @@
 #include "write-po.h"
 #include "msgl-cat.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 
 /* A convenience macro.  I don't like writing gettext() every time.  */

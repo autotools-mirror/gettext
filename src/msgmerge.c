@@ -44,7 +44,7 @@
 #include "plural-exp.h"
 #include "backupfile.h"
 #include "copy-file.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

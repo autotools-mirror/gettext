@@ -59,7 +59,7 @@ LDFLAGS = @LDFLAGS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-HEADERS = $(COMHDRS) libgnuintl.h libgettext.h loadinfo.h
+HEADERS = $(COMHDRS) libgnuintl.h loadinfo.h
 COMHDRS = gmo.h gettextP.h hash-string.h plural-exp.h plural-eval.c
 SOURCES = $(COMSRCS) intl-compat.c
 COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
@@ -77,7 +77,7 @@ DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
 DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
-COPYING.LIB-2 gettext.h
+COPYING.LIB-2 gettext.h libgettext.h
 
 # Libtool's library version information for libintl.
 # Before making a gettext release, the gettext maintainer must change this

@@ -32,7 +32,7 @@
 #include "xmalloc.h"
 #include "po.h"
 #include "po-lex.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
 #define _(str) gettext (str)

@@ -46,7 +46,7 @@
 #include "write-mo.h"
 #include "write-java.h"
 
-#include "libgettext.h"
+#include "gettext.h"
 #include "message.h"
 #include "po.h"
 

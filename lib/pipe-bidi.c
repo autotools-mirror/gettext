@@ -41,7 +41,7 @@
 #endif
 
 #include "error.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #ifndef EXIT_FAILURE
 # define EXIT_FAILURE 1

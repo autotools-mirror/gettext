@@ -31,7 +31,7 @@
 #include "error.h"
 #include "progname.h"
 #include "mbswidth.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #ifndef EXIT_FAILURE
 # define EXIT_FAILURE 1

@@ -47,7 +47,7 @@
 #include "pipe.h"
 #include "wait-process.h"
 #include "setenv.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

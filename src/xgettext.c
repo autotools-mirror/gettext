@@ -54,7 +54,7 @@
 #include "po-time.h"
 #include "write-po.h"
 #include "format.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #ifndef _POSIX_VERSION
 struct passwd *getpwuid ();

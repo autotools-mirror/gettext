@@ -248,21 +248,21 @@ $(OUT)dir-list.o: ../lib/system.h ../src/dir-list.h \
 $(OUT)message.o: ../lib/fstrcmp.h ../src/message.h ../src/str-list.h \
   ../src/pos.h ../lib/system.h
 $(OUT)open-po.o: ../src/open-po.h ../src/dir-list.h ../lib/error.h \
-  ../lib/system.h ../intl/libgettext.h
+  ../lib/system.h ../lib/gettext.h
 $(OUT)po-gram-gen.o: ../src/po-lex.h ../lib/error.h ../src/pos.h \
-  ../src/po-gram.h ../lib/system.h ../intl/libgettext.h \
+  ../src/po-gram.h ../lib/system.h ../lib/gettext.h \
   ../src/po.h
 $(OUT)po-hash-gen.o: ../src/po-hash.h ../src/po.h ../src/po-lex.h \
   ../lib/error.h ../src/pos.h
-$(OUT)po-lex.o: ../intl/libgettext.h ../src/po-lex.h ../lib/error.h \
+$(OUT)po-lex.o: ../lib/gettext.h ../src/po-lex.h ../lib/error.h \
   ../src/pos.h ../src/open-po.h ../src/po-gram-gen2.h
 $(OUT)po.o: ../src/po.h ../src/po-lex.h ../lib/error.h \
   ../src/pos.h ../src/po-hash.h ../lib/mbswidth.h \
-  ../intl/libgettext.h
+  ../lib/gettext.h
 $(OUT)str-list.o: ../src/str-list.h
 $(OUT)write-po.o: ../src/write-po.h ../src/message.h \
   ../src/str-list.h ../src/pos.h ../lib/c-ctype.h \
-  ../lib/linebreak.h ../lib/error.h ../intl/libgettext.h
+  ../lib/linebreak.h ../lib/error.h ../lib/gettext.h
 $(OUT)xget-lex.o: ../src/dir-list.h ../lib/error.h \
-  ../intl/libgettext.h ../lib/hash.h ../src/str-list.h \
+  ../lib/gettext.h ../lib/hash.h ../src/str-list.h \
   ../src/xget-lex.h

@@ -55,7 +55,7 @@
 #include "findprog.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

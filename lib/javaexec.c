@@ -32,7 +32,7 @@
 #include "sh-quote.h"
 #include "xmalloc.h"
 #include "error.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #ifdef __GNUC__
 # ifndef alloca

@@ -33,7 +33,7 @@
 #include "basename.h"
 #include "message.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 #include "po.h"
 #include "str-list.h"
 

@@ -35,7 +35,7 @@
 #include "error.h"
 #include "full-write.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

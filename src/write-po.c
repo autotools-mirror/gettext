@@ -42,7 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "system.h"
 #include "error.h"
 #include "xerror.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 /* Our regular abbreviation.  */
 #define _(str) gettext (str)

@@ -36,7 +36,7 @@
 #include "write-po.h"
 #include "xmalloc.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

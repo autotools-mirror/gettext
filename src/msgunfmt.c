@@ -35,7 +35,7 @@
 #include "read-mo.h"
 #include "read-java.h"
 #include "write-po.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

@@ -39,7 +39,7 @@
 
 #include "c-ctype.h"
 #include "linebreak.h"
-#include "libgettext.h"
+#include "gettext.h"
 #define _(str) gettext(str)
 
 #if HAVE_VPRINTF || HAVE_DOPRNT

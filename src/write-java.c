@@ -75,7 +75,7 @@
 #include "system.h"
 #include "tmpdir.h"
 #include "utf8-ucs4.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

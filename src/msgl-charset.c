@@ -35,7 +35,7 @@
 #include "message.h"
 #include "strstr.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

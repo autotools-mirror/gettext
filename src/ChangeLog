@@ -1,5 +1,54 @@
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* file-list.c: Include gettext.h instead of libgettext.h.
+	* format-c.c: Likewise.
+	* format-java.c: Likewise.
+	* format-librep.c: Likewise.
+	* format-lisp.c: Likewise.
+	* format-pascal.c: Likewise.
+	* format-python.c: Likewise.
+	* format-ycp.c: Likewise.
+	* gettext.c: Likewise.
+	* hostname.c: Likewise.
+	* msgattrib.c: Likewise.
+	* msgcat.c: Likewise.
+	* msgcmp.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgconv.c: Likewise.
+	* msgen.c: Likewise.
+	* msgexec.c: Likewise.
+	* msgfilter.c: Likewise.
+	* msgfmt.c: Likewise.
+	* msggrep.c: Likewise.
+	* msginit.c: Likewise.
+	* msgl-cat.c: Likewise.
+	* msgl-charset.c: Likewise.
+	* msgl-iconv.c: Likewise.
+	* msgmerge.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* msguniq.c: Likewise.
+	* ngettext.c: Likewise.
+	* open-po.c: Likewise.
+	* po-charset.c: Likewise.
+	* po-gram-gen.y: Likewise.
+	* po-lex.c: Likewise.
+	* read-java.c: Likewise.
+	* read-mo.c: Likewise.
+	* read-po.c: Likewise.
+	* urlget.c: Likewise.
+	* write-java.c: Likewise.
+	* write-mo.c: Likewise.
+	* write-po.c: Likewise.
+	* x-c.c: Likewise.
+	* x-librep.c: Likewise.
+	* x-lisp.c: Likewise.
+	* x-po.c: Likewise.
+	* x-rst.c: Likewise.
+	* x-ycp.c: Likewise.
+	* xgettext.c: Likewise.
+
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* message.h (message_merge): Remove declaration.
 	* message.c (msgfmt_check_pair_fails, message_merge): Move to
 	msgmerge.c.

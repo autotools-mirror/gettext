@@ -1,3 +1,19 @@
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.h: Moved here from ../intl/libgettext.h.
+	* Makefile.am (noinst_HEADERS): Add it.
+	(gettextsrcdir, gettextsrc_DATA): New variables.
+	* copy-file.c: Include gettext.h instead of libgettext.h.
+	* execute.c: Likewise.
+	* javacomp.c: Likewise.
+	* javaexec.c: Likewise.
+	* pipe-bidi.c: Likewise.
+	* pipe-in.c: Likewise.
+	* pipe-out.c: Likewise.
+	* wait-process.c: Likewise.
+	* xerror.c: Likewise.
+	* xmalloc.c: Likewise.
+
 2001-12-20  Bruno Haible  <bruno@clisp.org>
 
 	* execute.c (nonintr_open): Omit prototype. On some platforms mode_t

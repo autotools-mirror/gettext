@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po-lex.h"
 #include "error.h"
 #include "xmalloc.h"
-#include "libgettext.h"
+#include "gettext.h"
 #include "po.h"
 
 #define _(str) gettext (str)

@@ -41,7 +41,7 @@
 # undef _LIBINTL_H
 # include "libgnuintl.h"
 #else
-# include "libgettext.h"
+# include "gettext.h"
 #endif
 
 #define _(str) gettext (str)

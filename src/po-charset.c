@@ -31,7 +31,7 @@
 #include "basename.h"
 #include "strstr.h"
 #include "system.h"
-#include "libgettext.h"
+#include "gettext.h"
 
 extern const char *program_name;
 
