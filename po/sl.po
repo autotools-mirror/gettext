@@ -2,13 +2,13 @@
 # Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002 Free Software Foundation, Inc.
 # Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2002.
 #
-# $Id: gettext-0.11.1.sl.po,v 1.3 2002/03/13 18:21:16 peterlin Exp $
+# $Id: gettext-0.11.2.sl.po,v 1.2 2002/04/25 08:43:12 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.1\n"
+"Project-Id-Version: GNU gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-03-13 19:21+0100\n"
+"PO-Revision-Date: 2002-04-25 10:43+0200\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -494,7 +494,7 @@ msgstr ""
 "      --obsolete              isto kot --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -515,11 +515,12 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"  -i, --indent             izpis z zamiki\n"
+"  -i, --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "  -n, --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
@@ -603,7 +604,7 @@ msgstr ""
 "                                 enolièno definirana sporoèila\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -630,11 +631,12 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"  -i, --indent             izpis z zamiki\n"
+"  -i, --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "  -n, --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
@@ -779,7 +781,7 @@ msgstr ""
 "                                 enolièno definirana sporoèila\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -801,11 +803,12 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"  -i, --indent             izpis z zamiki\n"
+"  -i, --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "  -n, --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 "      --omit-header        brez glave z vnosom \"msgid\"\n"
@@ -827,7 +830,7 @@ msgstr ""
 "Privzeta vrednost je kodni nabor izbrane krajevne nastavitve.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -848,11 +851,12 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"  -i, --indent             izpis z zamiki\n"
+"  -i, --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "      --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
@@ -992,7 +996,7 @@ msgstr ""
 "  -n, --quiet, --silent       brez samodejnega izpisa prostora vzorcev\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1014,11 +1018,12 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"      --indent             izpis z zamiki\n"
+"      --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "      --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
@@ -1508,7 +1513,7 @@ msgstr ""
 "  -i, --ignore-case           ne razlikujemo med velikimi in malimi èrkami\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1529,11 +1534,12 @@ msgstr ""
 "      --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"      --indent             izpis z zamiki\n"
+"      --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "      --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "      --sort-output        izhod abecedno urejen po sporoèilih\n"
 "      --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
@@ -1604,7 +1610,7 @@ msgstr ""
 "podan -, se rezultat izpi¹e na standardni izhod.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1617,6 +1623,7 @@ msgstr ""
 "  -l, --locale=JJ_DD          doloèitev ciljnega jezikovnega okolja\n"
 "      --no-translator         privzamemo, da je datoteka PO samodejno ustvarjena\n"
 "  -w, --width=©TEVILO         ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap               brez deljenja dolgih sporoèil v veè vrstic\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -2012,7 +2019,7 @@ msgstr ""
 "izhod.\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -2030,9 +2037,10 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami C, brez raz¹irjenega\n"
 "                           nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"  -i, --indent             izpis z zamiki\n"
+"  -i, --indent             izpis datoteke PO z zamiki\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        abecedno urejen izpis\n"
 
 #: src/msgunfmt.c:388
@@ -2499,7 +2507,7 @@ msgstr ""
 "                                   oblikovnega niza\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2525,11 +2533,12 @@ msgstr ""
 "  -E, --escape             z ube¾nimi sekvencami v skladnji C, brez \n"
 "                             raz¹irjenega nabora znakov\n"
 "      --force-po           vedno izpi¹emo datoteko PO, èetudi prazno\n"
-"  -i, --indent             izpis z zamiki\n"
+"  -i, --indent             izpis datoteke PO z zamiki\n"
 "      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
 "  -n, --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu (privzeto)\n"
 "      --strict             izpis v strogi obliki Uniforum, brez raz¹iritev GNU\n"
 "  -w, --width=©TEVILO      ¹irina strani pri izpisu, v znakih\n"
+"      --no-wrap            brez deljenja dolgih sporoèil v veè vrstic\n"
 "  -s, --sort-output        izhod abecedno urejen po sporoèilih\n"
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 "      --omit-header        brez glave z vnosom \"msgid\"\n"

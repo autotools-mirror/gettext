@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.1\n"
+"Project-Id-Version: GNU gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-03-13 20:02+0100\n"
+"PO-Revision-Date: 2002-04-25 00:01+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -498,7 +498,7 @@ msgstr ""
 "      --obsolete              synonymum pre --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -526,7 +526,9 @@ msgstr ""
 "                              (predvolené)\n"
 "      --strict                zapísa» .po súbor presne dor¾iavajúci ¹týl\n"
 "                              Uniforum\n"
-"  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej stránky\n"
+"  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap               nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                              ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-output           generova» utriedený výstup\n"
 "  -F, --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
@@ -614,7 +616,7 @@ msgstr ""
 "                                 len unikátnych správ\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -648,7 +650,9 @@ msgstr ""
 "                                 (predvolené)\n"
 "      --strict                   zapísa» .po súbor presne dor¾iavajúci ¹týlu\n"
 "                                 Uniforum\n"
-"  -w, --width=ÈÍSLO              nastavi» ¹írku výstupnej stránky\n"
+"  -w, --width=ÈÍSLO              nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap                  nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                                 ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-output              generova» utriedený výstup\n"
 "  -F, --sort-by-file             utriedi» výstup podµa umiestnenia v súboroch\n"
 
@@ -795,7 +799,7 @@ msgstr ""
 "                                 len unikátnych správ\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -824,7 +828,9 @@ msgstr ""
 "                                 (predvolené)\n"
 "      --strict                   zapísa» .po súbor presne dor¾iavajúci ¹týl\n"
 "                                 Uniforum\n"
-"  -w, --width=ÈÍSLO              nastavi» ¹írku výstupnej stránky\n"
+"  -w, --width=ÈÍSLO              nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap                  nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                                 ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-output              generova» utriedený výstup\n"
 "  -F, --sort-by-file             utriedi» výstup podµa umiestnenia v súboroch\n"
 "      --omit-header              nezapisova» hlavièku s polo¾kou `msgid \"\"'\n"
@@ -846,7 +852,7 @@ msgstr ""
 "Predvolené kódovanie je kódovanie aktuálneho národného prostreda.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -873,7 +879,9 @@ msgstr ""
 "      --add-location          zachova» riadky '#: meno_súboru:riadok'\n"
 "                              (predvolené)\n"
 "      --strict                presné dor¾iavanie ¹týlu Uniforum\n"
-"  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej stránky\n"
+"  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap               nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                              ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-output           generova» utriedený výstup\n"
 "  -F, --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
@@ -1016,7 +1024,7 @@ msgstr ""
 "  -n, --quiet, --silent       potlaèi» automatickú tlaè priestoru vzorov\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1047,6 +1055,8 @@ msgstr ""
 "                              (predvolené)\n"
 "      --strict                presné dor¾iavanie ¹týlu Uniforum\n"
 "  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap               nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                              ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-output           generova» utriedený výstup\n"
 "  -F, --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
@@ -1525,7 +1535,7 @@ msgstr ""
 "  -i, --ignore-case            ignorova» rozlí¹enie veµkých a malých písmen\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1552,7 +1562,9 @@ msgstr ""
 "      --add-location          zachova» riadky '#: meno_súboru:riadok'\n"
 "                              (predvolené)\n"
 "      --strict                zapísa» súbor s presne dodr¾aným ¹týlom Uniforum\n"
-"  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej stránky\n"
+"  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap               nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                              ¹írka výstupnej strany, do viacerých riadkov\n"
 "      --sort-outout           generova» utriedený výstup\n"
 "      --sort-by-file          utriedi» výstup podµa umiestnenia v súboroch\n"
 
@@ -1624,7 +1636,7 @@ msgstr ""
 "¹tandardný výstup.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1637,6 +1649,8 @@ msgstr ""
 "  -l, --locale=LL_CC          nastavi» cieµové národné prostredie\n"
 "      --no-translator         oznaèi», ¾e PO súbor je generovaný automaticky\n"
 "  -w, --width=ÈÍSLO           nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap               nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                              ¹írka výstupnej strany, do viacerých riadkov\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -2037,7 +2051,7 @@ msgstr ""
 "alebo ak je  -.\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -2058,7 +2072,9 @@ msgstr ""
 "      --force-po           zapísa» súbor PO, aj keï bude prázdny\n"
 "  -i, --indent             zapísa» výstupný súbor s pou¾itím odsadzovania\n"
 "      --strict             zapísa» súbor s presne dor¾aným ¹týlom uniforum\n"
-"  -w, --width=©ÍRKA        nastavi» ¹írku výstupnej stránky\n"
+"  -w, --width=©ÍRKA        nastavi» ¹írku výstupnej strany\n"
+"      --no-wrap            nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                           ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-outout        generova» utriedený výstup\n"
 
 #: src/msgunfmt.c:388
@@ -2525,7 +2541,7 @@ msgstr ""
 "                                 re»azcov\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2559,6 +2575,8 @@ msgstr ""
 "      --strict                   zapísa» .po súbor presne dor¾iavajúci ¹týl\n"
 "                                 Uniforum\n"
 "  -w, --width=ÈÍSLO              nastavi» ¹írku strany výstupu\n"
+"      --no-wrap                  nezalamova» dlhé riadky sráv, dlh¹ie ako\n"
+"                                 ¹írka výstupnej strany, do viacerých riadkov\n"
 "  -s, --sort-output              generova» utriedený výstup\n"
 "  -F, --sort-by-file             utriedi» výstup podµa umiestnenia v súboroch\n"
 "      --omit-header              nezapisova» hlavièku s polo¾kou 'msgid \"\"'\n"

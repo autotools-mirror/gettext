@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.1\n"
+"Project-Id-Version: GNU gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-03-14 12:04+0900\n"
+"PO-Revision-Date: 2002-04-25 13:56+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -490,7 +490,7 @@ msgstr ""
 "      --obsolete              \"--only-obsolete --clear-obsolete\"와 동일합니다\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -515,6 +515,8 @@ msgstr ""
 "  -n, --add-location          '#: filename:line' 줄을 씁니다 (기본값)\n"
 "      --strict                엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>          출력 페이지 폭을 설정합니다\n"
+"      --no-wrap               출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                              자르지 않습니다.\n"
 "  -s, --sort-output           정렬된 출력을 만듭니다\n"
 "  -F, --sort-by-file          파일의 위치에 따라 출력을 정렬합니다\n"
 
@@ -600,7 +602,7 @@ msgstr ""
 "                                 나오는 메세지만을 출력합니다\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -631,6 +633,8 @@ msgstr ""
 "  -n, --add-location            '#: filename:line' 줄을 씁니다 (기본값)\n"
 "      --strict                  엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>            출력 페이지 폭을 설정합니다\n"
+"      --no-wrap                 출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                                자르지 않습니다.\n"
 "  -s, --sort-output             정렬된 출력을 만듭니다\n"
 "  -F, --sort-by-file            파일의 위치에 따라 출력을 정렬합니다\n"
 
@@ -776,7 +780,7 @@ msgstr ""
 "                                 나오는 메세지만을 출력합니다\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -802,6 +806,8 @@ msgstr ""
 "  -n, --add-location             '#: filename:line' 줄을 씁니다 (기본값)\n"
 "      --strict                   엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>             출력 페이지 폭을 지정합니다\n"
+"      --no-wrap                  출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                                 자르지 않습니다.\n"
 "  -s, --sort-output              정렬된 출력을 만듭니다\n"
 "  -F, --sort-by-file             파일의 위치에 따라 출력을 정렬합니다\n"
 "      --omit-header              헤더에 `msgid \"\"' 항목을 쓰지 않습니다\n"
@@ -823,7 +829,7 @@ msgstr ""
 "기본 인코딩은 현재 로케일의 인코딩입니다.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -848,6 +854,8 @@ msgstr ""
 "      --add-location          '#: filename:line' 줄을 씁니다 (기본값)\n"
 "      --strict                엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>          출력 페이지 폭을 설정합니다\n"
+"      --no-wrap               출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                              자르지 않습니다.\n"
 "  -s, --sort-output           정렬된 출력을 만듭니다\n"
 "  -F, --sort-by-file          파일의 위치에 따라 출력을 정렬합니다\n"
 
@@ -989,7 +997,7 @@ msgstr ""
 "  -n, --quiet, --silent       패턴 공백을 자동으로 출력하지 않도록 합니다\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1016,6 +1024,8 @@ msgstr ""
 "      --add-location          '#: filename:line' 줄을 만듭니다 (기본값)\n"
 "      --strict                엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>          출력 페이지 폭을 지정합니다\n"
+"      --no-wrap               출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                              자르지 않습니다.\n"
 "  -s, --sort-output           정렬된 출력을 만듭니다\n"
 "  -F, --sort-by-file          파일의 위치에 따라 출력을 정렬합니다\n"
 
@@ -1476,7 +1486,7 @@ msgstr ""
 "  -i, --ignore-case           대소문자 구별을 하지 않습니다\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1501,6 +1511,8 @@ msgstr ""
 "      --add-location          '#: filename:line' 줄을 만듭니다 (기본값)\n"
 "      --strict                엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>          출력 페이지 폭을 지정합니다\n"
+"      --no-wrap               출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                              자르지 않습니다.\n"
 "      --sort-output           정렬된 출력을 만듭니다\n"
 "      --sort-by-file          파일의 위치에 따라 출력을 정렬합니다\n"
 
@@ -1570,7 +1582,7 @@ msgstr ""
 "따라 결정됩니다.  출력 파일이 \"-\"이면, 표준 출력에 씁니다.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1583,6 +1595,8 @@ msgstr ""
 "  -l, --locale=LL_CC          목표 로케일을 지정합니다\n"
 "      --no-translator         PO 파일이 자동으로 만들어 진다고 가정합니다\n"
 "  -w, --width=<크기>          출력 페이지 폭을 설정합니다\n"
+"      --no-wrap               출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                              자르지 않습니다.\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -1977,7 +1991,7 @@ msgstr ""
 "씁니다.\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -1997,6 +2011,8 @@ msgstr ""
 "  -i, --indent             들여쓰기된 출력 형태로 .po 파일을 씁니다\n"
 "      --strict             엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>       출력 페이지 폭을 설정합니다\n"
+"      --no-wrap            출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                           자르지 않습니다.\n"
 "  -s, --sort-output        정렬된 출력을 만듭니다\n"
 
 #: src/msgunfmt.c:388
@@ -2460,7 +2476,7 @@ msgstr ""
 "      --debug                    더 자세한 형식문자열 인식 결과\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2490,6 +2506,8 @@ msgstr ""
 "  -n, --add-location             '#: filename:line' 줄을 씁니다 (기본값)\n"
 "      --strict                   엄격한 Uniforum 출력 형태로 씁니다\n"
 "  -w, --width=<크기>             출력 페이지 폭을 설정합니다\n"
+"      --no-wrap                  출력 페이지 폭보다 긴 메세지 라인을 여러 줄로\n"
+"                                 자르지 않습니다.\n"
 "  -s, --sort-output              정렬된 출력을 만듭니다\n"
 "  -F, --sort-by-file             파일의 위치에 따라 출력을 정렬합니다\n"
 "      --omit-header              헤더에 `msgid \\\"\\\"' 항목을 쓰지 않습니다\n"

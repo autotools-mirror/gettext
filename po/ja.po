@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.1\n"
+"Project-Id-Version: GNU gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-04-22 22:25+0900\n"
+"PO-Revision-Date: 2002-04-25 23:47+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -490,7 +490,7 @@ msgstr ""
 "      --clear-obsolete        全てのメッセージを '廃れた' 状態でないものに設定\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -516,6 +516,7 @@ msgstr ""
 "  -n, --add-location          '#: ファイル名:行番号' という行を書き出す (標準)\n"
 "      --strict                厳密な Uniforum 形式の .po ファイルを出力\n"
 "  -w, --width=NUMBER          出力ページの幅を設定\n"
+"      --no-wrap               出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output           ソートされた出力を生成\n"
 "  -F, --sort-by-file          ファイルで出力をソート\n"
 
@@ -600,7 +601,7 @@ msgstr ""
 "                                 のみを表示\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -632,6 +633,7 @@ msgstr ""
 "  -n, --add-location             '#: filename:line' の行を生成 (標準)\n"
 "      --strict                   厳密に Uniforum に従った .po ファイルを出力\n"
 "  -w, --width=NUMBER             出力ページの幅を設定\n"
+"      --no-wrap                  出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output              並び替えた出力を生成\n"
 "  -F, --sort-by-file             ファイルの場所で出力を並び替える\n"
 
@@ -775,7 +777,7 @@ msgstr ""
 "                                 のみを表示\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -802,6 +804,7 @@ msgstr ""
 "  -n, --add-location             '#: filename:line' の行を保持 (標準)\n"
 "      --strict                   厳密な Uniforum 出力形式\n"
 "  -w, --width=NUMBER             出力ページの幅を設定\n"
+"      --no-wrap                  出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output              ソートされた出力を生成\n"
 "  -F, --sort-by-file             ファイルで出力をソート\n"
 "      --omit-header              `msgid \"\"' を含んだヘッダを出力しない\n"
@@ -823,7 +826,7 @@ msgstr ""
 "標準のエンコーディングは現在のローカルのエンコーディングです.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -849,6 +852,7 @@ msgstr ""
 "      --add-location          '#: filename:line' の行を保持 (標準)\n"
 "      --strict                厳密な Uniforum 出力形式\n"
 "  -w, --width=NUMBER          出力ページの幅を設定\n"
+"      --no-wrap               出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output           ソートされた出力を生成\n"
 "  -F, --sort-by-file          ファイルで出力をソート\n"
 
@@ -987,7 +991,7 @@ msgstr ""
 "  -n, --quiet, --silent       パターンスペースの自動的な表示を抑制\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1015,6 +1019,7 @@ msgstr ""
 "      --add-location          '#: filename:line' の行を保持 (標準)\n"
 "      --strict                厳密な Uniforum 出力形式\n"
 "  -w, --width=NUMBER          出力ページの幅を設定\n"
+"      --no-wrap               出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output           ソートされた出力を生成\n"
 "  -F, --sort-by-file          ファイルで出力をソート\n"
 
@@ -1481,7 +1486,7 @@ msgstr ""
 "  -i, --ignore-case           大文字小文字を区別しない\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1507,6 +1512,7 @@ msgstr ""
 "      --add-location          '#: filename:line' の行を保持 (標準)\n"
 "      --strict                厳密な Uniforum 出力形式\n"
 "  -w, --width=NUMBER          出力ページの幅を設定\n"
+"      --no-wrap               出力ページの幅より長いメッセージ行を改行しない\n"
 "      --sort-output           ソートされた出力を生成\n"
 "      --sort-by-file          ファイルで出力をソート\n"
 
@@ -1573,7 +1579,7 @@ msgstr ""
 "ロカール設定に依存します. もし - ならば結果は標準出力に出力されます.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1586,6 +1592,7 @@ msgstr ""
 "  -l, --locale=LL_CC          対象となるロカールを設定\n"
 "      --no-translator         PO ファイルが自動生成されると仮定\n"
 "  -w, --width=NUMBER          出力ページの幅を設定\n"
+"      --no-wrap               出力ページの幅より長いメッセージ行を改行しない\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -1980,7 +1987,7 @@ msgstr ""
 "出力ファイルが指定されない, もしくは - の場合は標準出力に結果が書き出されます.\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -2001,6 +2008,7 @@ msgstr ""
 "  -i, --indent             字下げ形式の出力\n"
 "      --strict             厳密な Uniforum 形式で出力\n"
 "  -w, --width=NUMBER       出力ページの幅を設定\n"
+"      --no-wrap            出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output        ソートされた出力を生成\n"
 
 #: src/msgunfmt.c:388
@@ -2461,7 +2469,7 @@ msgstr ""
 "      --debug                    より詳細なフォーマット文字列の認識結果\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2492,6 +2500,7 @@ msgstr ""
 "  -n, --add-location             '#: ファイル名:行番号' の行を書き出す (標準)\n"
 "      --strict                   厳密な Uniforum 形式の .po ファイルを出力\n"
 "  -w, --width=NUMBER             出力ページの幅を設定\n"
+"      --no-wrap                  出力ページの幅より長いメッセージ行を改行しない\n"
 "  -s, --sort-output              ソートされた出力を生成\n"
 "  -F, --sort-by-file             ファイルで出力をソート\n"
 "      --omit-header              `msgid \"\"' を含んだヘッダを出力しない\n"
