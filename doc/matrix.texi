@@ -23,16 +23,19 @@ gcc             |       []                                        |
 gettext         |    [] [] [] []       []       [] []       [] [] |
 gnupg           |          []       []    []    []             [] |
 gprof           |                                                 |
-grep            |          []       [] [] []    []             [] |
+grep            |          []       [] [] []    [] []          [] |
 hello           |       [] [] []    [] [] [] [] [] []          [] |
 id-utils        |       [] []                   []                |
 indent          |       [] []             []    [] []             |
+jpilot          |                                                 |
+kbd             |                                                 |
 ld              |                                                 |
 libc            |    [] [] [] []       []       [] []          [] |
 lilypond        |                                                 |
 lynx            |    [] [] []                                     |
 m4              |    [] [] [] []                [] []       []    |
 make            |       [] []          []       [] []             |
+nano            |                                           []    |
 opcodes         |                                                 |
 parted          |          []                      []             |
 ptx             |       [] []          [] []    [] []       []    |
@@ -47,11 +50,11 @@ tar             |    [] [] []          [] []    []          [] [] |
 texinfo         |    [] [] []       []          []                |
 textutils       |    [] [] [] []       []       [] []             |
 util-linux      |    [] []                                        |
-wdiff           |                                                 |
+wdiff           |          []             []                      |
 wget            |    [] [] [] []       [] []    [] []             |
                 +-------------------------------------------------+
                   bg cs da de el en eo es et fi fr gl he hr id it
-                   0 13 24 29 11  1  8 21 12  1 28 17  2  0  7 10
+                   0 13 24 30 11  1  8 21 13  1 28 18  2  0  8 10
 @end group
 
 @group
@@ -78,16 +81,19 @@ gcc             | []                                              |  2
 gettext         | [] []          []     []   []    [] [] []    [] | 18
 gnupg           | []             []                   [] []       |  9
 gprof           |                                                 |  0
-grep            |                []                []    []       |  9
+grep            |                []                []    []       | 10
 hello           | [] [] [] [] [] []          [] []    [] [] []    | 21
 id-utils        |          []                []       []          |  6
 indent          |    []    []    []          [] []    [] []       | 12
+jpilot          |                                                 |  0
+kbd             |                                        []       |  1
 ld              |                                                 |  0
-libc            | [] []       [] []     []      []    [] []       | 16
+libc            | [] []    [] [] []     []      []    [] []       | 17
 lilypond        |          []                                     |  1
 lynx            | []       []           []   []       []          |  8
 m4              | []       []    []          []       []          | 12
 make            | [] []    []    []     []   []          []       | 12
+nano            |                                                 |  1
 opcodes         |                                                 |  0
 parted          | []       []                []                   |  5
 ptx             |          [] [] [] []       []       [] []       | 14
@@ -102,10 +108,10 @@ tar             | []       [] [] []     []   []    [] [] []       | 17
 texinfo         | []                         []                   |  7
 textutils       | []       [] [] []     []   [] [] []             | 15
 util-linux      |                       []                        |  3
-wdiff           |                                                 |  0
+wdiff           |                            []                   |  3
 wget            |          []                [] [] [] [] []       | 14
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  47 domains      17  9  1 22  6 17  1  13   25  8 11 19 14  1  2  350
+  50 domains      17  9  1 23  6 17  1  13   26  8 11 19 15  1  2  357
 @end group
 @end example
