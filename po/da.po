@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.39\n"
 "POT-Creation-Date: 2001-06-12 15:05+0200\n"
-"PO-Revision-Date: 2001-08-31 17:32+0200\n"
+"PO-Revision-Date: 2001-09-04 17:32+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -776,7 +776,7 @@ msgstr ""
 #, fuzzy
 msgid "warning: charset conversion will not work\n"
 msgstr ""
-"Tehnsæt manngler i hoved.\n"
+"Tegnsæt mangler i hoved.\n"
 "Tekstkonvertering til brugers tegnsæt vil ikke virke.\n"
 
 #: src/msgfmt.c:531
@@ -1333,7 +1333,7 @@ msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
-"Tehnsæt manngler i hoved.\n"
+"Tegnsæt mangler i hoved.\n"
 "Tekstkonvertering til brugers tegnsæt vil ikke virke.\n"
 
 #: po-gram-gen.y:88
