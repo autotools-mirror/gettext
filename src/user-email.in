@@ -225,6 +225,14 @@ if test -r /etc/mailname; then
   fi
 fi
 
+# SuSE Linux >= 8.0 systems have a file /etc/sysconfig/mail.
+if test -r /etc/sysconfig/mail; then
+  hostmailname=`. /etc/sysconfig/mail && echo "$FROM_HEADER"`
+  if test -n "$hostmailname"; then
+    addresses="$addresses ${user}@$hostmailname"
+  fi
+fi
+
 # elm has no user-defined addresses.
 # mailx has no user-defined addresses.
 # mh has no user-defined addresses.
