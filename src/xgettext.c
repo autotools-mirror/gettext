@@ -824,9 +824,14 @@ remember_a_message (mlp, string, pos)
 
   if (msgid[0] == '\0' && !omit_header)
     {
+      char buffer[21];
+
       error_with_progname = false;
-      multiline_warning (xasprintf ("%s:%d: warning: ", pos->file_name,
-				    pos->line_number),
+      if (pos->line_number == (size_t)(-1))
+	buffer[0] = '\0';
+      else
+	sprintf (buffer, ":%ld", (long) pos->line_number);
+      multiline_warning (xasprintf ("%s%s: warning: ", pos->file_name, buffer),
 			 xstrdup (_("\
 Empty msgid.  It is reserved by GNU gettext:\n\
 gettext(\"\") returns the header entry with\n\

@@ -1,5 +1,10 @@
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (remember_a_message): Don't print the line number if it
+	is = (size_t)(-1).
+
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
 	* msgfilter.c: Renamed from msgexec.c.
 	* msgexec.c: New file.
 	* Makefile.am (bin_PROGRAMS): Add msgfilter.
