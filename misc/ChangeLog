@@ -1,3 +1,9 @@
+2001-06-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el (po-find-file-coding-system): Make it work in XEmacs 20
+	as well. Based on a patch by Enrico Scholz
+	<enrico.scholz@informatik.tu-chemnitz.de>.
+
 2001-06-04  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-edit-string): Set 'buffer-file-coding-system'

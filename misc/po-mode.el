@@ -697,16 +697,15 @@ Content-Type into a Mule coding system.")
 ;;; Mode activation.
 
 (eval-and-compile
-  (if po-EMACS20
-
-      (defun po-find-file-coding-system (arg-list)
+  (if (or po-EMACS20 po-XEMACS)
+      (defun po-find-file-coding-system-guts (operation filename)
 	"Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-	(and (eq (car arg-list) 'insert-file-contents)
+	(and (eq operation 'insert-file-contents)
 	     (with-temp-buffer
 	       (let ((coding-system-for-read 'no-conversion))
 		 ;; Is 4096 enough?  FIXME: Retry as needed!
-		 (insert-file-contents (nth 1 arg-list) nil 0 4096)
+		 (insert-file-contents filename nil 0 4096)
 		 (if (re-search-forward
 		      "^\"Content-Type: text/plain;[ \t]*charset=\\([^\\]+\\)"
 		      nil t)
@@ -719,9 +718,21 @@ Called through file-coding-system-alist, before the file is visited for real."
 				 (if (memq charset-lower (coding-system-list))
 				     charset-lower
 				   'no-conversion))))
-		   '(no-conversion))))))
+		   '(no-conversion)))))))
 
-    ))
+  (if po-EMACS20
+      (defun po-find-file-coding-system (arg-list)
+	"Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
+Called through file-coding-system-alist, before the file is visited for real."
+	(po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list)))))
+
+  (if po-XEMACS
+      (defun po-find-file-coding-system (operation filename)
+	"Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
+Called through file-coding-system-alist, before the file is visited for real."
+	(po-find-file-coding-system-guts operation filename)))
+
+ )
 
 (defvar po-mode-map nil
   "Keymap for PO mode.")
