@@ -938,11 +938,23 @@ read_object (op)
 		}
 	      /*FALLTHROUGH*/
 	    case '\'':
-	    case '[':
-	    case '(':
 	    case ':':
 	      {
 		struct object inner;
+		read_object (&inner);
+		/* Dots and EOF are not allowed here.
+		   But be tolerant.  */
+		free_object (&inner);
+		op->type = t_other;
+		last_non_comment_line = line_number;
+		return;
+	      }
+
+	    case '[':
+	    case '(':
+	      {
+		struct object inner;
+		do_ungetc (c);
 		read_object (&inner);
 		/* Dots and EOF are not allowed here.
 		   But be tolerant.  */
