@@ -2,6 +2,7 @@
 
 	* execute.c (environ): Declare if needed.
 	* pipe.c (environ): Likewise.
+	Reported by Michael Schloh von Bennewitz <michael.schloh@cw.com>.
 
 2004-04-28  Bruno Haible  <bruno@clisp.org>
 
