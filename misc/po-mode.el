@@ -675,89 +675,122 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
   "Help page for PO mode.")
 
 (defconst po-mode-menu-layout
-  '("PO"
+  `("PO"
     ("Moving around"
      ["Auto select" po-auto-select-entry
-      :help "Jump to next interesting entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to next interesting entry"))]
      "---"
      "Forward"
      ["Any next" po-next-entry
-      :help "Jump to next entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to next entry"))]
      ["Next translated" po-next-translated-entry
-      :help "Jump to next translated entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to next translated entry"))]
      ["Next fuzzy" po-next-fuzzy-entry
-      :help "Jump to next fuzzy entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to next fuzzy entry"))]
      ["Next obsolete" po-next-obsolete-entry
-      :help "Jump to next obsolete entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to next obsolete entry"))]
      ["Next untranslated" po-next-untranslated-entry
-      :help "Jump to next untranslated entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to next untranslated entry"))]
      ["Last file entry" po-last-entry
-      :help "Jump to last entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to last entry"))]
      "---"
      "Backward"
      ["Any previous" po-previous-entry
-      :help "Jump to previous entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to previous entry"))]
      ["Previous translated" po-previous-translated-entry
-      :help "Jump to previous translated entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to previous translated entry"))]
      ["Previous fuzzy" po-previous-fuzzy-entry
-      :help "Jump to previous fuzzy entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to previous fuzzy entry"))]
      ["Previous obsolete" po-previous-obsolete-entry
-      :help "Jump to previous obsolete entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to previous obsolete entry"))]
      ["Previous untranslated" po-previous-untranslated-entry
-      :help "Jump to previous untranslated entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to previous untranslated entry"))]
      ["First file entry" po-first-entry
-      :help "Jump to first entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to first entry"))]
      "---"
      "Position stack"
      ["Mark and push current" po-push-location
-      :help "Remember current location"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Remember current location"))]
      ["Pop and return" po-pop-location
-      :help "Jump to last remembered location and forget about it"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to last remembered location and forget about it"))]
      ["Exchange current/top" po-exchange-location
-      :help "Jump to last remembered location and remember current location"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Jump to last remembered location and remember current location"))]
      "---"
      ["Redisplay" po-current-entry
-      :help "Make current entry properly visible"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Make current entry properly visible"))]
      ["Current index" po-statistics
-      :help "Statistical info on current translation file"])
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Statistical info on current translation file"))])
     ("Modifying entries"
      ["Undo" po-undo
-      :help "Revoke last changed entry"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Revoke last changed entry"))]
      "---"
      "Msgstr"
      ["Edit msgstr" po-edit-msgstr
-      :help "Edit current translation"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Edit current translation"))]
      ["Ediff and merge msgstr" po-edit-msgstr-and-ediff
-      :help "Call `ediff' on current translation for merging"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Call `ediff' on current translation for merging"))]
      ["Cut msgstr" po-kill-msgstr
-      :help "Cut (kill) current translation"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Cut (kill) current translation"))]
      ["Copy msgstr" po-kill-ring-save-msgstr
-      :help "Copy current translation"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Copy current translation"))]
      ["Paste msgstr" po-yank-msgstr
-      :help "Paste (yank) text most recently cut/copied translation"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Paste (yank) text most recently cut/copied translation"))]
      "---"
      "Comments"
      ["Edit comment" po-edit-comment
-      :help "Edit current comment"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Edit current comment"))]
      ["Ediff and merge comment" po-edit-comment-and-ediff
-      :help "Call `ediff' on current comment for merging"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Call `ediff' on current comment for merging"))]
      ["Cut comment" po-kill-comment
-      :help "Cut (kill) current comment"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Cut (kill) current comment"))]
      ["Copy comment" po-kill-ring-save-comment
-      :help "Copy current translation"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Copy current translation"))]
      ["Paste comment" po-yank-comment
-      :help "Paste (yank) text most recently cut/copied"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Paste (yank) text most recently cut/copied"))]
      "---"
      ["Remove fuzzy mark" po-unfuzzy
-      :help "Remove \"#, fuzzy\""]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Remove \"#, fuzzy\""))]
      ["Fuzzy or fade out" po-fade-out-entry
-      :help "Set current entry fuzzy, or if already fuzzy delete it"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Set current entry fuzzy, or if already fuzzy delete it"))]
      ["Init with msgid" po-msgid-to-msgstr
-      :help "\
-Initialize or replace current translation with the original message"])
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "\
+Initialize or replace current translation with the original message"))])
     ("Other files"
      ["Other window" po-other-window
-      :help "Select other window; if necessay split current frame"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Select other window; if necessay split current frame"))]
      "---"
      "Program sources"
      ["Cycle reference" po-cycle-source-reference t]
@@ -789,32 +822,42 @@ Initialize or replace current translation with the original message"])
     ["Mark with keyword" po-select-mark-and-mark t]
     "---"
     ["Version info" po-mode-version
-     :help "Display version number of PO mode"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Display version number of PO mode"))]
     ["Help page" po-help
-     :help "Show the PO mode help screen"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Show the PO mode help screen"))]
     ["Validate" po-validate
-     :help "Check validity of current translation file using `msgfmt'"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Check validity of current translation file using `msgfmt'"))]
     ["Mail officially" po-send-mail
-     :help "Send current translation file to the Translation Robot by mail"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Send current translation file to the Translation Robot by mail"))]
     ["Edit out full" po-edit-out-full
-     :help "Leave PO mode to edit translation file using fundamental mode"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Leave PO mode to edit translation file using fundamental mode"))]
     "---"
     ["Forceful quit" po-quit
-     :help "Close (kill) current translation file without saving"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Close (kill) current translation file without saving"))]
     ["Soft quit" po-confirm-and-quit
-     :help "Save current translation file, than close (kill) it"])
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Save current translation file, than close (kill) it"))])
   "Menu layout for PO mode.")
 
 (defconst po-subedit-mode-menu-layout
-  '("PO-Edit"
+  `("PO-Edit"
     ["Ediff and merge translation variants" po-subedit-ediff
-      :help "Call `ediff' for merging variants"]
+      ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Call `ediff' for merging variants"))]
     ["Cycle through auxiliary files" po-subedit-cycle-auxiliary t]
     "---"
     ["Abort edit" po-subedit-abort
-     :help "Don't change the translation"]
+     ,@(if (featurep 'xemacs) '(t)
+	  '(:help "Don't change the translation"))]
     ["Exit edit" po-subedit-exit
-     :help "Use this text as the translation and close current edit buffer"])
+     ,@(if (featurep 'xemacs) '(t)
+	 '(:help "Use this text as the translation and close current edit buffer"))])
   "Menu layout for PO subedit mode.")
 
 (defconst po-subedit-message

@@ -1,3 +1,9 @@
+2002-04-29  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-mode-menu-layout): Don't try to display tooltips
+	for XEmacs.
+	(po-subedit-mode-menu-layout): Likewise.
+
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Treat mkinstalldirs like config.rpath.
