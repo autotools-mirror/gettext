@@ -43,6 +43,7 @@
 # define va_dcl char *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8;
 #endif
 
+#include "str-list.h"
 #include "po-charset.h"
 #include "po-lex.h"
 #include "system.h"

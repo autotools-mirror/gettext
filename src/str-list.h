@@ -33,6 +33,9 @@ struct string_list_ty
   size_t nitems_max;
 };
 
+/* Initialize an empty list of strings.  */
+extern void string_list_init PARAMS ((string_list_ty *__slp));
+
 /* Return a fresh, empty list of strings.  */
 extern string_list_ty *string_list_alloc PARAMS ((void));
 
@@ -45,8 +48,19 @@ extern void string_list_append PARAMS ((string_list_ty *__slp,
 extern void string_list_append_unique PARAMS ((string_list_ty *__slp,
 					       const char *__s));
 
+/* Destroy a list of strings.  */
+extern void string_list_destroy PARAMS ((string_list_ty *__slp));
+
 /* Free a list of strings.  */
 extern void string_list_free PARAMS ((string_list_ty *__slp));
+
+/* Return a freshly allocated string obtained by concatenating all the
+   strings in the list.  */
+extern char *string_list_concat PARAMS ((const string_list_ty *__slp));
+
+/* Return a freshly allocated string obtained by concatenating all the
+   strings in the list, and destroy the list.  */
+extern char *string_list_concat_destroy PARAMS ((string_list_ty *__slp));
 
 /* Return a freshly allocated string obtained by concatenating all the
    strings in the list, separated by spaces.  */

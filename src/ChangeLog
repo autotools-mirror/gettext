@@ -1,3 +1,22 @@
+2001-05-01  Bruno Haible  <haible@clisp.cons.org>
+
+	Reduce running time for very long msgstrs from O(n^2) to O(n) where
+	n is the number of string pieces.
+	* str-list.h (string_list_init, string_list_destroy,
+	string_list_concat, string_list_concat_destroy): New declarations.
+	* str-list.c (string_list_init, string_list_destroy,
+	string_list_concat, string_list_concat_destroy): New functions.
+	* po-gram-gen.y Include str-list.h.
+	(%union): Add new alternative of type string_list_ty.
+	(string_list): Change type to stringlist.
+	(message): Use string_list_concat_destroy to convert a stringlist to
+	a single string. Use string_list_destroy instead of free.
+	(msgid_pluralform): Likewise.
+	(pluralform): Likewise.
+	(string_list): Return a stringlist. Don't concatenate the strings one
+	by one.
+	* po-lex.c: Include str-list.h.
+
 2001-04-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* message.h (message_alloc): Add const to prototype.

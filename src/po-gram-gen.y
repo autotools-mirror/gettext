@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <stdio.h>
 
+#include "str-list.h"
 #include "po-lex.h"
 #include "po-gram.h"
 #include "error.h"
@@ -102,12 +103,14 @@ static long plural_counter;
 %union
 {
   struct { char *string; lex_pos_ty pos; int obsolete; } string;
+  struct { string_list_ty stringlist; lex_pos_ty pos; int obsolete; } stringlist;
   struct { long number; lex_pos_ty pos; int obsolete; } number;
   struct { lex_pos_ty pos; int obsolete; } pos;
   struct { struct msgstr_def rhs; lex_pos_ty pos; int obsolete; } rhs;
 }
 
-%type <string> STRING COMMENT NAME string_list msgid_pluralform
+%type <string> STRING COMMENT NAME msgid_pluralform
+%type <stringlist> string_list
 %type <number> NUMBER
 %type <pos> DOMAIN MSGID MSGID_PLURAL MSGSTR '[' ']'
 %type <rhs> pluralform pluralform_list
@@ -134,29 +137,34 @@ domain
 message
 	: MSGID string_list MSGSTR string_list
 		{
+		  char *string2 = string_list_concat_destroy (&$2.stringlist);
+		  char *string4 = string_list_concat_destroy (&$4.stringlist);
+
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    po_callback_message ($2.string, &$1.pos, NULL,
-					 $4.string, strlen ($4.string) + 1, &$3.pos);
+		    po_callback_message (string2, &$1.pos, NULL,
+					 string4, strlen (string4) + 1, &$3.pos);
 		  else
 		    {
-		      free ($2.string);
-		      free ($4.string);
+		      free (string2);
+		      free (string4);
 		    }
 		}
 	| MSGID string_list msgid_pluralform pluralform_list
 		{
+		  char *string2 = string_list_concat_destroy (&$2.stringlist);
+
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    po_callback_message ($2.string, &$1.pos, $3.string,
+		    po_callback_message (string2, &$1.pos, $3.string,
 					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos);
 		  else
 		    {
-		      free ($2.string);
+		      free (string2);
 		      free ($3.string);
 		      free ($4.rhs.msgstr);
 		    }
@@ -166,7 +174,7 @@ message
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgstr[]' section"));
-		  free ($2.string);
+		  string_list_destroy (&$2.stringlist);
 		  free ($3.string);
 		}
 	| MSGID string_list pluralform_list
@@ -174,14 +182,14 @@ message
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgid_plural' section"));
-		  free ($2.string);
+		  string_list_destroy (&$2.stringlist);
 		  free ($3.rhs.msgstr);
 		}
 	| MSGID string_list
 		{
 		  check_obsolete ($1, $2);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgstr' section"));
-		  free ($2.string);
+		  string_list_destroy (&$2.stringlist);
 		}
 	;
 
@@ -190,7 +198,7 @@ msgid_pluralform
 		{
 		  check_obsolete ($1, $2);
 		  plural_counter = 0;
-		  $$.string = $2.string;
+		  $$.string = string_list_concat_destroy (&$2.stringlist);
 		  $$.pos = $1.pos;
 		  $$.obsolete = $1.obsolete;
 		}
@@ -230,8 +238,8 @@ pluralform
 			po_gram_error_at_line (&$1.pos, _("plural form has wrong index"));
 		    }
 		  plural_counter++;
-		  $$.rhs.msgstr = $5.string;
-		  $$.rhs.msgstr_len = strlen ($5.string) + 1;
+		  $$.rhs.msgstr = string_list_concat_destroy (&$5.stringlist);
+		  $$.rhs.msgstr_len = strlen ($$.rhs.msgstr) + 1;
 		  $$.pos = $1.pos;
 		  $$.obsolete = $1.obsolete;
 		}
@@ -240,20 +248,16 @@ pluralform
 string_list
 	: STRING
 		{
-		  $$ = $1;
+		  string_list_init (&$$.stringlist);
+		  string_list_append (&$$.stringlist, $1.string);
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
 		}
 	| string_list STRING
 		{
-		  size_t len1;
-		  size_t len2;
-
 		  check_obsolete ($1, $2);
-		  len1 = strlen ($1.string);
-		  len2 = strlen ($2.string);
-		  $$.string = (char *) xmalloc (len1 + len2 + 1);
-		  stpcpy (stpcpy ($$.string, $1.string), $2.string);
-		  free ($1.string);
-		  free ($2.string);
+		  $$.stringlist = $1.stringlist;
+		  string_list_append (&$$.stringlist, $2.string);
 		  $$.pos = $1.pos;
 		  $$.obsolete = $1.obsolete;
 		}
