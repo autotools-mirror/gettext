@@ -50,6 +50,9 @@ Tasks not to forget before release:
     gettext-runtime/libasprintf/NEWS
     gettext-runtime/NEWS
 
+- Add an entry to all the ChangeLogs
+  except gettext-tools/examples/hello-c++-kde/admin/ChangeLog.
+
 - "make"; "make dist"; "make distcheck"
 - cd gettext-tools/misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
   Then update the table in autopoint.in.
