@@ -19,6 +19,7 @@ ${XGETTEXT} --output - --foreign-user --no-location -k_ xg-test14.in.c \
 tmpfiles="$tmpfiles xg-test14.ok"
 cat <<EOF > xg-test14.ok
 # SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy

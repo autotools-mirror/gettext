@@ -79,7 +79,8 @@ all-no:
 $(srcdir)/$(DOMAIN).pot: $(POTFILES) $(srcdir)/POTFILES.in
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --files-from=$(srcdir)/POTFILES.in \
+	  --files-from=$(srcdir)/POTFILES.in
+	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	&& test ! -f $(DOMAIN).po \
 	   || ( rm -f $(srcdir)/$(DOMAIN).pot \
 		&& mv $(DOMAIN).po $(srcdir)/$(DOMAIN).pot )

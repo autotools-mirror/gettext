@@ -1,3 +1,14 @@
+2001-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c: Include <limits.h>.
+	(copyright_holder): New variable.
+	(foreign_user): Remove variable.
+	(long_options): Add --copyright-holder option.
+	(main): Implement --copyright-holder option.
+	(usage): Document --copyright-holder option.
+	(construct_header): Use the copyright_holder variable. If it is
+	empty, add a "public domain" comment.
+
 2001-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep.c: Include <fnmatch.h>.

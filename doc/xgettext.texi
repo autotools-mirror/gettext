@@ -177,9 +177,22 @@ of variance for generated @code{.gmo} files.  With @code{--omit-header},
 two invocations of @code{xgettext} on the same files with the same
 options at different times are guaranteed to produce the same results.
 
+@item --copyright-holder=@var{string}
+Set the copyright holder in the output.  Translators are expected to transfer
+the copyright for their translations, so that package maintainers can
+distribute them without legal risk.  If @var{string} is empty, the output
+files are marked as being in the public domain; in this case, the translators
+are expected to disclaim their copyright, again so that package maintainers
+can distribute them without legal risk.
+
+The default value for @var{string} is the Free Software Foundation, Inc.
+This is recommended also for packages outside the GNU project, because the
+FSF is a well trusted organization.
+
 @item --foreign-user
-Omit FSF copyright in output.  This can be useful for translators
-outside the GNU project.
+Omit FSF copyright in output.  This option is equivalent to
+@samp{--copyright-holder=''}.  It can be useful for packages outside the GNU
+project that want their translations to be in the public domain.
 
 @item -m [@var{string}]
 @itemx --msgstr-prefix[=@var{string}]

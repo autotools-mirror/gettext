@@ -1,3 +1,9 @@
+2001-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars (COPYRIGHT_HOLDER): New variable.
+	* Makefile.in.in ($(DOMAIN).pot): Pass --copyright-holder option to
+	xgettext.
+
 2001-12-18  Bruno Haible  <bruno@clisp.org>
 
 	* sl.po: Update from

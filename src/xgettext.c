@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <locale.h>
+#include <limits.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
@@ -95,9 +96,8 @@ message_list_ty *exclude;
 /* Force output of PO file even if empty.  */
 static int force_po;
 
-/* If nonzero a non GNU related user wants to use this.  Omit the FSF
-   copyright in the output.  */
-static int foreign_user;
+/* Copyright holder of the output file and the translations.  */
+static const char *copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER";
 
 /* String used as prefix for msgstr.  */
 static const char *msgstr_prefix;
@@ -117,6 +117,7 @@ static const struct option long_options[] =
   { "add-comments", optional_argument, NULL, 'c' },
   { "add-location", no_argument, &line_comment, 1 },
   { "c++", no_argument, NULL, 'C' },
+  { "copyright-holder", required_argument, NULL, CHAR_MAX + 1 },
   { "debug", no_argument, &do_debug, 1 },
   { "default-domain", required_argument, NULL, 'd' },
   { "directory", required_argument, NULL, 'D' },
@@ -125,7 +126,7 @@ static const struct option long_options[] =
   { "extract-all", no_argument, NULL, 'a' },
   { "files-from", required_argument, NULL, 'f' },
   { "force-po", no_argument, &force_po, 1 },
-  { "foreign-user", no_argument, &foreign_user, 1 },
+  { "foreign-user", no_argument, NULL, CHAR_MAX + 2 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
   { "join-existing", no_argument, NULL, 'j' },
@@ -344,6 +345,12 @@ main (argc, argv)
 	break;
       case 'x':
 	read_exclusion_file (optarg);
+	break;
+      case CHAR_MAX + 1:	/* --copyright-holder */
+	copyright_holder = optarg;
+	break;
+      case CHAR_MAX + 2:	/* --foreign-user */
+	copyright_holder = "";
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -582,6 +589,7 @@ Output details:\n\
   -s, --sort-output              generate sorted output\n\
   -F, --sort-by-file             sort output by file location\n\
       --omit-header              don't write header with `msgid \"\"' entry\n\
+      --copyright-holder=STRING  set copyright holder in output\n\
       --foreign-user             omit FSF copyright in output for foreign user\n\
   -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
   -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
@@ -1140,14 +1148,17 @@ Content-Transfer-Encoding: 8bit\n",
 
   mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);
 
-  if (foreign_user)
-    message_comment_append (mp, "\
+  message_comment_append (mp,
+			  copyright_holder[0] != '\0'
+			  ? xasprintf ("\
 SOME DESCRIPTIVE TITLE.\n\
-FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
-  else
-    message_comment_append (mp, "\
+Copyright (C) YEAR %s\n\
+This file is distributed under the same license as the PACKAGE package.
+FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
+				       copyright_holder)
+			  : "\
 SOME DESCRIPTIVE TITLE.\n\
-Copyright (C) YEAR Free Software Foundation, Inc.\n\
+This file is put in the public domain.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
 
   mp->is_fuzzy = true;

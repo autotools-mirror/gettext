@@ -251,9 +251,9 @@ AC_DEFUN([AM_PO_SUBDIRS],
     [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
   AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 
-  dnl Search for GNU xgettext in the PATH.
+  dnl Search for GNU xgettext 0.11 or newer in the PATH.
   AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-    [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
+    [$ac_dir/$ac_word --omit-header --copyright-holder= /dev/null >/dev/null 2>&1], :)
 
   dnl Search for GNU msgmerge 0.11 or newer in the PATH.
   AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
@@ -278,7 +278,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
   if test "$XGETTEXT" != ":"; then
     dnl If it is no GNU xgettext we define it as : so that the
     dnl Makefiles still can work.
-    if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
+    if $XGETTEXT --omit-header --copyright-holder= /dev/null >/dev/null 2>&1; then
       : ;
     else
       AC_MSG_RESULT(
