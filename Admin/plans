@@ -56,3 +56,23 @@ Things we plan to do. Comments welcome.
 - lib/ needs patches for building on systems without <libintl.h>.
 - Protect all uses of LC_MESSAGES by HAVE_LC_MESSAGES.
 
+- New programs:
+
+  msgconv [-t encoding] [-o file] [file]
+  converts a PO file to another encoding, default UTF-8
+
+  msgsed [-e expr ...] [-o file] [file]
+  applies a SED script to all msgstrs.
+
+  msguniq [--unique] [--repeated]
+  extract unique/repeated msgids
+
+  msggrep [-L] [-f filename ...] [-o file] [file]
+  extract those messages belonging to a given list of files
+
+  msgcat [-o file] [file ...]
+  combines several PO files
+
+  msgen [-o file] [file]
+  fills all empty msgstrs with the msgid, marked fuzzy
+
