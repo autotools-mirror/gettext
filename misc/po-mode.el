@@ -677,53 +677,87 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
 (defconst po-mode-menu-layout
   '("PO"
     ("Moving around"
-     ["Auto select" po-auto-select-entry t]
+     ["Auto select" po-auto-select-entry
+      :help "Jump to next interesting entry"]
      "---"
      "Forward"
-     ["Any next" po-next-entry t]
-     ["Next translated" po-next-translated-entry t]
-     ["Next fuzzy" po-next-fuzzy-entry t]
-     ["Next obsolete" po-next-obsolete-entry t]
-     ["Next untranslated" po-next-untranslated-entry t]
-     ["Last file entry" po-last-entry t]
+     ["Any next" po-next-entry
+      :help "Jump to next entry"]
+     ["Next translated" po-next-translated-entry
+      :help "Jump to next translated entry"]
+     ["Next fuzzy" po-next-fuzzy-entry
+      :help "Jump to next fuzzy entry"]
+     ["Next obsolete" po-next-obsolete-entry
+      :help "Jump to next obsolete entry"]
+     ["Next untranslated" po-next-untranslated-entry
+      :help "Jump to next untranslated entry"]
+     ["Last file entry" po-last-entry
+      :help "Jump to last entry"]
      "---"
      "Backward"
-     ["Any previous" po-previous-entry t]
-     ["Previous translated" po-previous-translated-entry t]
-     ["Previous fuzzy" po-previous-fuzzy-entry t]
-     ["Previous obsolete" po-previous-obsolete-entry t]
-     ["Previous untranslated" po-previous-untranslated-entry t]
-     ["First file entry" po-first-entry t]
+     ["Any previous" po-previous-entry
+      :help "Jump to previous entry"]
+     ["Previous translated" po-previous-translated-entry
+      :help "Jump to previous translated entry"]
+     ["Previous fuzzy" po-previous-fuzzy-entry
+      :help "Jump to previous fuzzy entry"]
+     ["Previous obsolete" po-previous-obsolete-entry
+      :help "Jump to previous obsolete entry"]
+     ["Previous untranslated" po-previous-untranslated-entry
+      :help "Jump to previous untranslated entry"]
+     ["First file entry" po-first-entry
+      :help "Jump to first entry"]
      "---"
      "Position stack"
-     ["Mark and push current" po-push-location t]
-     ["Pop and return" po-pop-location t]
-     ["Exchange current/top" po-exchange-location t]
+     ["Mark and push current" po-push-location
+      :help "Remember current location"]
+     ["Pop and return" po-pop-location
+      :help "Jump to last remembered location and forget about it"]
+     ["Exchange current/top" po-exchange-location
+      :help "Jump to last remembered location and remember current location"]
      "---"
-     ["Redisplay" po-current-entry t]
-     ["Current index" po-statistics t])
+     ["Redisplay" po-current-entry
+      :help "Make current entry properly visible"]
+     ["Current index" po-statistics
+      :help "Statistical info on current translation file"])
     ("Modifying entries"
-     ["Undo" po-undo t]
+     ["Undo" po-undo
+      :help "Revoke last changed entry"]
      "---"
      "Msgstr"
-     ["Edit msgstr" po-edit-msgstr t]
-     ["Ediff and merge msgstr" po-edit-msgstr-and-ediff t]
-     ["Kill msgstr" po-kill-msgstr t]
-     ["Save msgstr" po-kill-ring-save-msgstr t]
-     ["Yank msgstr" po-yank-msgstr t]
+     ["Edit msgstr" po-edit-msgstr
+      :help "Edit current translation"]
+     ["Ediff and merge msgstr" po-edit-msgstr-and-ediff
+      :help "Call `ediff' on current translation for merging"]
+     ["Cut msgstr" po-kill-msgstr
+      :help "Cut (kill) current translation"]
+     ["Copy msgstr" po-kill-ring-save-msgstr
+      :help "Copy current translation"]
+     ["Paste msgstr" po-yank-msgstr
+      :help "Paste (yank) text most recently cut/copied translation"]
      "---"
      "Comments"
-     ["Edit comment" po-edit-comment t]
-     ["Ediff and merge comment" po-edit-comment-and-ediff t]
-     ["Kill comment" po-kill-comment t]
-     ["Save comment" po-kill-ring-save-comment t]
-     ["Yank comment" po-yank-comment t]
+     ["Edit comment" po-edit-comment
+      :help "Edit current comment"]
+     ["Ediff and merge comment" po-edit-comment-and-ediff
+      :help "Call `ediff' on current comment for merging"]
+     ["Cut comment" po-kill-comment
+      :help "Cut (kill) current comment"]
+     ["Copy comment" po-kill-ring-save-comment
+      :help "Copy current translation"]
+     ["Paste comment" po-yank-comment
+      :help "Paste (yank) text most recently cut/copied"]
      "---"
-     ["Remove fuzzy mark" po-unfuzzy t]
-     ["Fuzzy or fade out" po-fade-out-entry t]
-     ["Init with msgid" po-msgid-to-msgstr t])
+     ["Remove fuzzy mark" po-unfuzzy
+      :help "Remove \"#, fuzzy\""]
+     ["Fuzzy or fade out" po-fade-out-entry
+      :help "Set current entry fuzzy, or if already fuzzy delete it"]
+     ["Init with msgid" po-msgid-to-msgstr
+      :help "\
+Initialize or replace current translation with the original message"])
     ("Other files"
-     ["Other window" po-other-window t]
+     ["Other window" po-other-window
+      :help "Select other window; if necessay split current frame"]
      "---"
      "Program sources"
      ["Cycle reference" po-cycle-source-reference t]
@@ -754,23 +788,33 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     ["Mark preferred" po-mark-translatable t]
     ["Mark with keyword" po-select-mark-and-mark t]
     "---"
-    ["Version info" po-mode-version t]
-    ["Help page" po-help t]
-    ["Validate" po-validate t]
-    ["Mail officially" po-send-mail t]
-    ["Edit out full" po-edit-out-full t]
+    ["Version info" po-mode-version
+     :help "Display version number of PO mode"]
+    ["Help page" po-help
+     :help "Show the PO mode help screen"]
+    ["Validate" po-validate
+     :help "Check validity of current translation file using `msgfmt'"]
+    ["Mail officially" po-send-mail
+     :help "Send current translation file to the Translation Robot by mail"]
+    ["Edit out full" po-edit-out-full
+     :help "Leave PO mode to edit translation file using fundamental mode"]
     "---"
-    ["Forceful quit" po-quit t]
-    ["Soft quit" po-confirm-and-quit t])
+    ["Forceful quit" po-quit
+     :help "Close (kill) current translation file without saving"]
+    ["Soft quit" po-confirm-and-quit
+     :help "Save current translation file, than close (kill) it"])
   "Menu layout for PO mode.")
 
 (defconst po-subedit-mode-menu-layout
   '("PO-Edit"
-    ["Ediff and merge translation variants" po-subedit-ediff t]
+    ["Ediff and merge translation variants" po-subedit-ediff
+      :help "Call `ediff' for merging variants"]
     ["Cycle through auxiliary files" po-subedit-cycle-auxiliary t]
     "---"
-    ["Abort edit" po-subedit-abort t]
-    ["Exit edit" po-subedit-exit t])
+    ["Abort edit" po-subedit-abort
+     :help "Don't change the translation"]
+    ["Exit edit" po-subedit-exit
+     :help "Use this text as the translation and close current edit buffer"])
   "Menu layout for PO subedit mode.")
 
 (defconst po-subedit-message

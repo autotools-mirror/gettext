@@ -1,3 +1,11 @@
+2002-04-27  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-mode-menu-layout): Add tooltips.
+	(po-subedit-mode-menu-layout): Likewise.
+
+	* po-mode.el (po-mode-menu-layout): Adopt terminology for editing
+	from Emacs (cut/copy/paste).
+
 2002-04-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.2 released.
@@ -5,6 +13,7 @@
 2002-04-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (lisp_LISP): Add po-compat.el.
+	(EXTRA_DIST): Use it.
 
 2002-03-17  Karl Eichwalder  <ke@suse.de>
 
