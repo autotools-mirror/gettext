@@ -1,3 +1,10 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* sl.po: Update from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* sv.po: Update from Jan Djärv <Jan.Djarv@mbox200.swipnet.se>.
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@fide.org>.
+
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
 	* ja.po: Converted to EUC-JP. Reported by Iida Yosiaki <iida@gnu.org>.
