@@ -149,6 +149,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    TESTCSHARP='@TESTCSHARP@' \
 		    TESTLIBASPRINTF='@TESTLIBASPRINTF@' \
 		    LOCALE_FR='@LOCALE_FR@' \
+		    LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
 		    host_os='@host_os@' \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)

@@ -113,22 +113,40 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-tmpfiles="$tmpfiles prog.ok prog.out"
+tmpfiles="$tmpfiles prog.ok prog.oku prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
 EUR remplace FF.
 EOF
+cat <<\EOF > prog.oku
+Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
+2 morceaux de gateau
+EUR remplace FF.
+EOF
 
 : ${LOCALE_FR=fr_FR}
-LANGUAGE= ./prog $LOCALE_FR 2 > prog.out
-case $? in
-  0) ;;
-  77) rm -fr $tmpfiles; exit 77;;
-  *) exit 1;;
-esac
-${DIFF} prog.ok prog.out || exit 1
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+if test $LOCALE_FR != none; then
+  LANGUAGE= ./prog $LOCALE_FR 2 > prog.out
+  case $? in
+    0) ${DIFF} prog.ok prog.out || exit 1;;
+    77) LOCALE_FR=none;;
+    *) exit 1;;
+  esac
+fi
+if test $LOCALE_FR_UTF8 != none; then
+  LANGUAGE= ./prog $LOCALE_FR_UTF8 2 > prog.out
+  case $? in
+    0) ${DIFF} prog.oku prog.out || exit 1;;
+    77) LOCALE_FR_UTF8=none;;
+    *) exit 1;;
+  esac
+fi
+if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  rm -fr $tmpfiles; exit 77
+fi
 
 rm -fr $tmpfiles
 

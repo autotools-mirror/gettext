@@ -240,6 +240,7 @@ AC_SUBST(CROSS_COMPILING)
 dnl Checks for optional programs for the tests/lang-* tests.
 gt_PROG_ANSI_CXX
 gt_LOCALE_FR
+gt_LOCALE_FR_UTF8
 
 dnl Check whether to execute tests that rely on libasprintf.
 dnl This test must be consistent with gettext-runtime/configure.ac.

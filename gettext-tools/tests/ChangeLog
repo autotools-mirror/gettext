@@ -1,3 +1,29 @@
+2005-02-13  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (TESTS_ENVIRONMENT): Define also the environment variable
+	LOCALE_FR_UTF8.
+	* lang-bash: Don't test using the traditional french locale if it does
+	exist. Try not only the traditional french locale, but also the UTF-8
+	locale, if it exists.
+	* lang-c: Likewise.
+	* lang-c++: Likewise.
+	* lang-clisp: Likewise.
+	* lang-csharp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-guile: Likewise.
+	* lang-java: Likewise.
+	* lang-librep: Likewise.
+	* lang-objc: Likewise.
+	* lang-perl-1: Likewise.
+	* lang-perl-2: Likewise.
+	* lang-php: Likewise.
+	* lang-sh: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-tcl: Likewise.
+	* lang-pascal: Likewise, but disable the test of the UTF-8 locale.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* lang-clisp: Use only the first line of "clisp --version"'s output.

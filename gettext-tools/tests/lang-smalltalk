@@ -101,7 +101,7 @@ case `gst --version | sed -n -e 1p | sed -e 's/^[^0-9]*//'` in
     rm -fr $tmpfiles; exit 77;;
 esac
 
-tmpfiles="$tmpfiles prog.ok prog.out"
+tmpfiles="$tmpfiles prog.ok prog.oku prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 Loading package I18N
@@ -109,10 +109,26 @@ Loading package I18N
 2 morceaux de gateau
 EUR remplace FF.
 EOF
+cat <<\EOF > prog.oku
+Loading package I18N
+«Votre commande, s'il vous plait», dit le garçon.
+2 morceaux de gateau
+EUR remplace FF.
+EOF
 
 : ${LOCALE_FR=fr_FR}
-LANGUAGE= LC_ALL=$LOCALE_FR gst -Q prog.st > prog.out || exit 1
-${DIFF} prog.ok prog.out || exit 1
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+if test $LOCALE_FR != none; then
+  LANGUAGE= LC_ALL=$LOCALE_FR gst -Q prog.st > prog.out || exit 1
+  ${DIFF} prog.ok prog.out || exit 1
+fi
+if test $LOCALE_FR_UTF8 != none; then
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 gst -Q prog.st > prog.out || exit 1
+  ${DIFF} prog.oku prog.out || exit 1
+fi
+if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  rm -fr $tmpfiles; exit 77
+fi
 
 rm -fr $tmpfiles
 

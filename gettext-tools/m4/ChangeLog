@@ -1,5 +1,11 @@
 2005-02-13  Bruno Haible  <bruno@clisp.org>
 
+	* locale-fr.m4 (gt_LOCALE_FR): If no locale was found or if the OS is
+	Darwin7, use 'none' instead of 'fr_FR'.
+	(gt_LOCALE_FR_UTF8): New macro.
+
+2005-02-13  Bruno Haible  <bruno@clisp.org>
+
 	* strtoul.m4: New file, from gnulib.
 	* strtol.m4: New file, from gnulib.
 	* Makefile.am (EXTRA_DIST): Add strtol.m4, strtoul.m4.

@@ -3,6 +3,11 @@
 # Test of gettext facilities in the Object Pascal language.
 # Assumes the following packages are installed: fpk.
 
+# Note: This test fails with fpk 1.0.10 when an UTF-8 locale is present,
+# because fpk ignores the locale's encoding. It supports only unibyte locales.
+# This here is a quick workaround:
+LOCALE_FR_UTF8=none
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
@@ -76,17 +81,32 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-tmpfiles="$tmpfiles prog.ok prog.out"
+tmpfiles="$tmpfiles prog.ok prog.oku prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 EUR remplace FF.
 EOF
+cat <<\EOF > prog.oku
+Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
+EUR remplace FF.
+EOF
 
 : ${LOCALE_FR=fr_FR}
-LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=$LOCALE_FR ./prog > prog.out || exit 1
-: ${DIFF=diff}
-${DIFF} prog.ok prog.out || exit 1
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+if test $LOCALE_FR != none; then
+  LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=$LOCALE_FR ./prog > prog.out || exit 1
+  : ${DIFF=diff}
+  ${DIFF} prog.ok prog.out || exit 1
+fi
+if test $LOCALE_FR_UTF8 != none; then
+  LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=$LOCALE_FR_UTF8 ./prog > prog.out || exit 1
+  : ${DIFF=diff}
+  ${DIFF} prog.oku prog.out || exit 1
+fi
+if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  rm -fr $tmpfiles; exit 77
+fi
 
 rm -fr $tmpfiles
 

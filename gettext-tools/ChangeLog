@@ -1,5 +1,9 @@
 2005-02-13  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gt_LOCALE_FR_UTF8.
+
+2005-02-13  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_FUNC_STRTOUL. Keep AC_CHECK_FUNCS(strtoul)
 	because plural-exp.c needs it.
 

@@ -71,25 +71,50 @@ case `(php -v) 2>/dev/null` in
   *) rm -fr $tmpfiles; exit 77;;
 esac
 
-# Test whether the fr_FR locale is installed.
+# Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
-LC_ALL=$LOCALE_FR ./testlocale
-case $? in
-  0) ;;
-  77) rm -fr $tmpfiles; exit 77;;
-  *) exit 1;;
-esac
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+if test $LOCALE_FR != none; then
+  LC_ALL=$LOCALE_FR ./testlocale
+  case $? in
+    0) ;;
+    77) LOCALE_FR=none;;
+    *) exit 1;;
+  esac
+fi
+if test $LOCALE_FR_UTF8 != none; then
+  LC_ALL=$LOCALE_FR_UTF8 ./testlocale
+  case $? in
+    0) ;;
+    77) LOCALE_FR_UTF8=none;;
+    *) exit 1;;
+  esac
+fi
+if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  rm -fr $tmpfiles; exit 77
+fi
 
-tmpfiles="$tmpfiles prog.ok prog.out"
+tmpfiles="$tmpfiles prog.ok prog.oku prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 EUR remplace FF.
 EOF
+cat <<\EOF > prog.oku
+Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
+EUR remplace FF.
+EOF
 
 : ${LOCALE_FR=fr_FR}
-LANGUAGE= LC_ALL=$LOCALE_FR php -q prog.php > prog.out || exit 1
-${DIFF} prog.ok prog.out || exit 1
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+if test $LOCALE_FR != none; then
+  LANGUAGE= LC_ALL=$LOCALE_FR php -q prog.php > prog.out || exit 1
+  ${DIFF} prog.ok prog.out || exit 1
+fi
+if test $LOCALE_FR_UTF8 != none; then
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 php -q prog.php > prog.out || exit 1
+  ${DIFF} prog.oku prog.out || exit 1
+fi
 
 rm -fr $tmpfiles
 

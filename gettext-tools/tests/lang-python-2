@@ -3,6 +3,10 @@
 # Test of gettext facilities (including plural handling) in the Python
 # language.
 
+# Note: This test fails with Python 2.3, 2.4 when an UTF-8 locale is present.
+# It looks like a bug in Python's gettext.py. This here is a quick workaround:
+LOCALE_FR_UTF8=none
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
@@ -91,17 +95,32 @@ case `python -c 'import sys; print sys.hexversion >= 0x20300F0'` in
   *) rm -fr $tmpfiles; exit 77;;
 esac
 
-tmpfiles="$tmpfiles prog.ok prog.out"
+tmpfiles="$tmpfiles prog.ok prog.oku prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
 EUR remplace FF.
 EOF
+cat <<\EOF > prog.oku
+Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
+2 morceaux de gateau
+EUR remplace FF.
+EOF
 
 : ${LOCALE_FR=fr_FR}
-LANGUAGE= LC_ALL=$LOCALE_FR python prog.py 2 > prog.out || exit 1
-${DIFF} prog.ok prog.out || exit 1
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+if test $LOCALE_FR != none; then
+  LANGUAGE= LC_ALL=$LOCALE_FR python prog.py 2 > prog.out || exit 1
+  ${DIFF} prog.ok prog.out || exit 1
+fi
+if test $LOCALE_FR_UTF8 != none; then
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 python prog.py 2 > prog.out || exit 1
+  ${DIFF} prog.oku prog.out || exit 1
+fi
+if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  rm -fr $tmpfiles; exit 77
+fi
 
 rm -fr $tmpfiles
 
