@@ -9,6 +9,7 @@ LC_MESSAGES=
 LANG=
 export TEXTDOMAINDIR LANGUAGE LC_ALL LC_MESSAGES LANG
 
+tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Create binary test file in correct position.

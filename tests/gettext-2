@@ -21,6 +21,7 @@ else
   ac_n= ac_c='\c' ac_t=
 fi
 
+tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Create binary test file in correct position.
