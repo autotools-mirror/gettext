@@ -16,7 +16,12 @@ Uniforum style .po file.
 @opindex -j@r{, @code{msgunfmt} option}
 @opindex --java@r{, @code{msgunfmt} option}
 @cindex Java mode, and @code{msgunfmt} program
-Java mode: generate a Java @code{ResourceBundle} class.
+Java mode: input is a Java @code{ResourceBundle} class.
+
+@item --tcl
+@opindex --tcl@r{, @code{msgunfmt} option}
+@cindex Tcl mode, and @code{msgunfmt} program
+Tcl mode: input is a tcl/msgcat @file{.msg} file.
 
 @end table
 
@@ -50,6 +55,25 @@ or a combined language and country specification of the form @var{ll_CC}.
 
 The class name is determined by appending the locale name to the resource name,
 separated with an underscore.  The class is located using the @code{CLASSPATH}.
+
+@subsection Input file location in Tcl mode
+
+@table @samp
+@item -l @var{locale}
+@itemx --locale=@var{locale}
+@opindex -l@r{, @code{msgunfmt} option}
+@opindex --locale@r{, @code{msgunfmt} option}
+Specify the locale name, either a language specification of the form @var{ll}
+or a combined language and country specification of the form @var{ll_CC}.
+
+@item -d @var{directory}
+@opindex -d@r{, @code{msgunfmt} option}
+Specify the base directory of @file{.msg} message catalogs.
+
+@end table
+
+The @samp{-l} and @samp{-d} options are mandatory.  The @file{.msg} file is
+located in the specified directory.
 
 @subsection Output file location
 

@@ -1,3 +1,10 @@
+2002-03-07  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.texi: Mention languages Python, Lisp, EmacsLisp, librep,
+	awk, Tcl, RST, Glade.
+	* msgfmt.texi: Mention Tcl mode.
+	* msgunfmt.texi: Likewise.
+
 2002-03-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Files You Must Create or Alter): Mention how things
