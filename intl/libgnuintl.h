@@ -86,20 +86,19 @@ extern char *bind_textdomain_codeset PARAMS ((const char *__domainname,
 
 /* Optimized version of the functions above.  */
 #if defined __OPTIMIZED
-/* These must be a macro.  Inlined functions are useless because the
-   `__builtin_constant_p' predicate in dcgettext would always return
-   false.  */
+/* These are macros, but could also be inline functions.  */
 
-# define gettext(msgid) dgettext ((char *) 0, msgid)
+# define gettext(msgid)							      \
+  dgettext (NULL, msgid)
 
 # define dgettext(domainname, msgid)					      \
   dcgettext (domainname, msgid, LC_MESSAGES)
 
-# define ngettext(msgid1, Msgid2, N)					      \
-    dngettext (NULL, msgid1, Msgid2, N)
+# define ngettext(msgid1, msgid2, n)					      \
+  dngettext (NULL, msgid1, msgid2, n)
 
-# define dngettext(domainname, msgid1, Msgid2, n)			      \
-    dcngettext (domainname, msgid1, Msgid2, n, LC_MESSAGES)
+# define dngettext(domainname, msgid1, msgid2, n)			      \
+  dcngettext (domainname, msgid1, msgid2, n, LC_MESSAGES)
 
 #endif /* Optimizing. */
 

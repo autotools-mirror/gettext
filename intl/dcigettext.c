@@ -73,12 +73,11 @@ extern int errno;
 # include <sys/param.h>
 #endif
 
-#include "gettext.h"
 #include "gettextP.h"
 #ifdef _LIBC
 # include <libintl.h>
 #else
-# include "libgettext.h"
+# include "libgnuintl.h"
 #endif
 #include "hash-string.h"
 

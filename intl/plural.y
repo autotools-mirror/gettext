@@ -22,7 +22,6 @@
 #endif
 
 #include <stdlib.h>
-#include "gettext.h"
 #include "gettextP.h"
 
 #define YYLEX_PARAM	&((struct parse_args *) arg)->cp

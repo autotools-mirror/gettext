@@ -49,8 +49,7 @@ extern int errno;
 #include "xget-lex.h"
 #include "printf-parse.h"
 
-#include "gettext.h"
-#include <libintl.h>
+#include "libgettext.h"
 
 #ifndef _POSIX_VERSION
 struct passwd *getpwuid ();

@@ -28,7 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po-gram.h"
 #include "error.h"
 #include "system.h"
-#include <libintl.h>
+#include "libgettext.h"
 #include "po.h"
 
 #define _(str) gettext (str)

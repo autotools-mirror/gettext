@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of the GNU NLS Utilities
-## Copyright (C) 1995, 1996, 1997, 1999 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -27,8 +27,6 @@ gettextsrc_DATA = ABOUT-NLS
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh
 SUBDIRS = doc lib intl src po m4 misc tests
-
-DISTCLEANFILES = intl/libintl.h
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	rm -f $(srcdir)/ABOUT-NLS \

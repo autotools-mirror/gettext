@@ -56,7 +56,6 @@ char *alloca ();
 # endif
 #endif
 
-#include "gettext.h"
 #include "gettextP.h"
 
 /* @@ end of prolog @@ */

@@ -26,13 +26,12 @@
 # include <stdlib.h>		/* Just for NULL.  */
 #endif
 
+#include "gettextP.h"
 #ifdef _LIBC
 # include <libintl.h>
 #else
-# include "libgettext.h"
+# include "libgnuintl.h"
 #endif
-
-#include <locale.h>
 
 /* @@ end of prolog @@ */
 

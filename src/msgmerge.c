@@ -31,7 +31,7 @@
 #include "error.h"
 #include "message.h"
 #include <system.h>
-#include <libintl.h>
+#include "libgettext.h"
 #include "po.h"
 
 #define _(str) gettext (str)

@@ -8,11 +8,9 @@
 
 # serial 8
 
-dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR], [INCDIR]).
+dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR]).
 dnl LIBDIR is used to find the intl libraries.  If empty,
 dnl    the value `$(top_builddir)/intl/' is used.
-dnl INCDIR is used to find the include files.  If empty,
-dnl    the value `intl' is used.
 dnl
 dnl The result of the configuration is one of three cases:
 dnl 1) GNU gettext, as included in the intl subdirectory, will be compiled
@@ -56,8 +54,6 @@ AC_DEFUN(AM_WITH_NLS,
         dnl User does not insist on using GNU NLS library.  Figure out what
         dnl to use.  If GNU gettext is available we use this.  Else we have
         dnl to fall back to GNU NLS library.
-	nls_cv_header_intl=
-	nls_cv_header_libgt=
 	CATOBJEXT=NONE
 
 	AC_CHECK_HEADER(libintl.h,
@@ -122,8 +118,6 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 	INTLDEPS='ifelse([$2],[],$(top_builddir)/intl/libintl.a,[$2])'
 	INTLLIBS=$INTLDEPS
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
-	nls_cv_header_intl=ifelse([$3],[],intl,[$3])/libintl.h
-	nls_cv_header_libgt=ifelse([$3],[],intl,[$3])/libgettext.h
       fi
 
       dnl Test whether we really found GNU xgettext.
@@ -141,11 +135,7 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 
       # We need to process the po/ directory.
       POSUB=po
-    else
-      nls_cv_header_intl=ifelse([$3],[],intl,[$3])/libintl.h
-      nls_cv_header_libgt=ifelse([$3],[],intl,[$3])/libgettext.h
     fi
-    AC_LINK_FILES($nls_cv_header_libgt, $nls_cv_header_intl)
     AC_OUTPUT_COMMANDS(
      [case "$CONFIG_FILES" in *po/Makefile.in*)
         sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
@@ -177,6 +167,10 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
     AC_SUBST(INTLOBJS)
     AC_SUBST(POFILES)
     AC_SUBST(POSUB)
+
+    dnl For backward compatibility. Some configure.ins may be using this.
+    nls_cv_header_intl=
+    nls_cv_header_libgt=
 
     dnl For backward compatibility. Some Makefiles may be using this.
     DATADIRNAME=share
@@ -229,19 +223,6 @@ __argz_count __argz_stringify __argz_next])
        for lang in $LINGUAS; do CATALOGS="$CATALOGS $lang$CATOBJEXT"; done
      fi
    fi
-
-   dnl In the intl/Makefile.in we have a special dependency which makes
-   dnl only sense for gettext.  We comment this out for non-gettext
-   dnl packages.
-   if test "$PACKAGE" = "gettext"; then
-     GT_NO="#NO#"
-     GT_YES=
-   else
-     GT_NO=
-     GT_YES="#YES#"
-   fi
-   AC_SUBST(GT_NO)
-   AC_SUBST(GT_YES)
 
    dnl If the AC_CONFIG_AUX_DIR macro for autoconf is used we possibly
    dnl find the mkinstalldirs script in another subdir but $(top_srcdir).

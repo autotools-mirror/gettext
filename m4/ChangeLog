@@ -1,5 +1,11 @@
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.m4 (AM_WITH_NLS): Remove third argument. Don't call
+	AC_LINK_FILES. Now done through simple file copy in intl/Makefile.in.
+	(AM_GNU_GETTEXT): Remove GT_NO and GT_YES macros.
+
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Assume <locale.h> exists.
 	* setlocale.m4 (gt_SETLOCALE): Likewise.
 

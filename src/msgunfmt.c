@@ -38,7 +38,7 @@
 
 #include "gettext.h"
 #include "hash-string.h"
-#include <libintl.h>
+#include "libgettext.h"
 #include "message.h"
 
 #define _(str) gettext (str)

@@ -26,12 +26,11 @@
 # include <stdlib.h>		/* Just for NULL.  */
 #endif
 
-#include "gettext.h"
 #include "gettextP.h"
 #ifdef _LIBC
 # include <libintl.h>
 #else
-# include "libgettext.h"
+# include "libgnuintl.h"
 #endif
 
 #include <locale.h>

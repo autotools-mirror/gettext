@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-#include <libintl.h>
+#include "libgettext.h"
 #define _(str) gettext(str)
 
 #if HAVE_VPRINTF || HAVE_DOPRNT

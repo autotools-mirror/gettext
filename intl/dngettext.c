@@ -21,12 +21,11 @@
 
 #include <locale.h>
 
-#include "gettext.h"
 #include "gettextP.h"
 #ifdef _LIBC
 # include <libintl.h>
 #else
-# include "libgettext.h"
+# include "libgnuintl.h"
 #endif
 
 /* @@ end of prolog @@ */

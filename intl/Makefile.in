@@ -58,7 +58,7 @@ LDFLAGS = @LDFLAGS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-HEADERS = $(COMHDRS) libgettext.h loadinfo.h
+HEADERS = $(COMHDRS) libgnuintl.h libgettext.h loadinfo.h
 COMHDRS = gettext.h gettextP.h hash-string.h
 SOURCES = $(COMSRCS) intl-compat.c
 COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
@@ -73,7 +73,7 @@ GETTOBJS = intl-compat.$lo
 DISTFILES.common = ChangeLog Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.normal = VERSION
-DISTFILES.gettext = libintl.glibc intlh.inst.in plural.c
+DISTFILES.gettext = libintl.glibc plural.c
 
 # Libtool's library version information for libintl.
 LTV_CURRENT=1
@@ -99,7 +99,7 @@ INCLUDES = -I.. -I. -I$(top_srcdir)/intl
 
 all: all-@USE_INCLUDED_LIBINTL@
 
-all-yes: libintl.$la intlh.inst charset.alias ref-add.sed ref-del.sed
+all-yes: libintl.$la libintl.h charset.alias ref-add.sed ref-del.sed
 all-no:
 
 libintl.a: $(OBJECTS)
@@ -111,6 +111,9 @@ libintl.la: $(OBJECTS)
 	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@ $(OBJECTS) \
 		   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
 		   -rpath $(libdir)
+
+libintl.h: libgnuintl.h
+	cp $(srcdir)/libgnuintl.h libintl.h
 
 charset.alias: config.charset
 	$(SHELL) $(srcdir)/config.charset '@host@' > t-$@
@@ -131,7 +134,7 @@ install-exec: all
 	if test "$(PACKAGE)" = "gettext" \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
-	  $(INSTALL_DATA) intlh.inst $(DESTDIR)$(includedir)/libintl.h; \
+	  $(INSTALL_DATA) libintl.h $(DESTDIR)$(includedir)/libintl.h; \
 	  $(INSTALL_DATA) libintl.a $(DESTDIR)$(libdir)/libintl.a; \
 	else \
 	  : ; \
@@ -219,7 +222,7 @@ uninstall:
 
 info dvi:
 
-$(OBJECTS): ../config.h libgettext.h
+$(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo finddomain.$lo loadmsgcat.$lo: gettextP.h gettext.h loadinfo.h
 dcgettext.$lo: gettextP.h gettext.h hash-string.h loadinfo.h
 
@@ -236,7 +239,7 @@ ID: $(HEADERS) $(SOURCES)
 
 mostlyclean:
 	rm -f *.a *.o *.lo core core.*
-	rm -f intlh.inst charset.alias ref-add.sed ref-del.sed
+	rm -f libintl.h charset.alias ref-add.sed ref-del.sed
 
 clean: mostlyclean
 
@@ -267,22 +270,9 @@ dist distdir: Makefile $(DISTFILES)
 	    || cp -p $(srcdir)/$$file $(distdir); \
 	done
 
-dist-libc:
-	tar zcvf intl-glibc.tar.gz $(COMSRCS) $(COMHDRS) libintl.h.glibc
-
 Makefile: Makefile.in ../config.status
 	cd .. \
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
-
-# The dependency for intlh.inst is different in gettext and all other
-# packages.  Because we cannot you GNU make features we have to solve
-# the problem while rewriting Makefile.in.
-@GT_YES@intlh.inst: intlh.inst.in ../config.status
-@GT_YES@	cd .. \
-@GT_YES@	&& CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= \
-@GT_YES@	  $(SHELL) ./config.status
-@GT_NO@.PHONY: intlh.inst
-@GT_NO@intlh.inst:
 
 # Tell versions [3.59,3.63) of GNU make not to export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

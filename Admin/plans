@@ -19,21 +19,6 @@ Things we plan to do. Comments welcome.
 
 - Stop documenting AM_WITH_NLS. AM_GNU_GETTEXT is the right macro to use.
 
-- Unify intlh.inst.in and libgettext.h. libgettext.h depends on
-  HAVE_LC_MESSAGES and on <locale.h> being already included.
-
-- What about gettext_noop? Kill it or maybe apply this:
-
-   2000-03-06  Paul Eggert  <eggert@twinsun.com>
-     * libgettext.h (gettext_noop): Do not parenthesize Str in the
-     definiens, as that breaks string literal concatenation.
-
-   /* For automatical extraction of messages sometimes no real
-      translation is needed.  Instead the string itself is the result.
-      Do not parenthesize Str in the definiens,
-      as that breaks string literal concatenation.  */
-  #define gettext_noop(Str) Str
-
 - Build also libintl.so, using libtool.
 
 - Check the *.m4 macros with bleeding-edge autoconf & automake.

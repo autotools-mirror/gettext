@@ -1,5 +1,42 @@
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
+	* libgnuintl.h: Renamed from intlh.inst.in.
+	Remove comment about __builtin_constant_p.
+	(gettext): Use NULL.
+	* libgettext.h: Completely rewritten. Now a conditional wrapper around
+	<libintl.h>. Keep the handling of ENABLE_NLS and gettext_noop, remove
+	everything else.
+	* gettextP.h: Include gettext.h, for nls_uint32.
+	(gettext__, dgettext__, dcgettext__, textdomain__, bindtextdomain__,
+	bind_textdomain_codeset__): New declarations, from old libgettext.h.
+	* gettext.h: Don't include <stdio.h>.
+	* Makefile.in (HEADERS): Add libgnuintl.h.
+	(DISTFILES.gettext): Remove intlh.inst.in.
+	(all-yes): Depend on libintl.h instead of intlh.inst.
+	(libintl.h): New target. Create as a copy of libgnuintl.h.
+	(intlh.inst): Remove target.
+	(install-exec): Update.
+	($(OBJECTS): Depend on libgnuintl.h, not libgettext.h.
+	(mostlyclean): Remove libintl.h instead of intlh.inst.
+	(dist-libc): Remove target.
+	* bindtextdom.c: Include libgnuintl.h instead of libgettext.h. Don't
+	include gettext.h.
+	* dcgettext.c: Likewise.
+	* dcigettext.c: Likewise.
+	* dcngettext.c: Likewise.
+	* dngettext.c: Likewise.
+	* finddomain.c: Likewise.
+	* ngettext.c: Likewise.
+	* textdomain.c: Likewise.
+	* dgettext.c: Include libgnuintl.h instead of libgettext.h. Include
+	gettextP.h.
+	* gettext.c: Likewise.
+	* intl-compat.c: Likewise.
+	* localealias.c: Don't include gettext.h.
+	* plural.y: Likewise.
+
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
 	Assume <stddef.h>, <stdlib.h>, <string.h>, <locale.h> exist.
 	* intlh.inst.in: Likewise.
 	* libgettext.h: Likewise.

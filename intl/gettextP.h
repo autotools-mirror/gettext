@@ -1,4 +1,4 @@
-/* Header describing internals of gettext library
+/* Header describing internals of libintl library.
    Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
@@ -30,6 +30,8 @@
 #endif
 
 #include "loadinfo.h"
+
+#include "gettext.h"		/* Get nls_uint32.  */
 
 /* @@ end of prolog @@ */
 
@@ -116,6 +118,7 @@ struct parse_args
 };
 
 
+/* The representation of an opened message catalog.  */
 struct loaded_domain
 {
   const char *data;
@@ -148,6 +151,8 @@ struct loaded_domain
 # define ZERO 1
 #endif
 
+/* A set of settings bound to a message domain.  Used to store settings
+   from bindtextdomain() and bind_textdomain_codeset().  */
 struct binding
 {
   struct binding *next;
@@ -156,6 +161,9 @@ struct binding
   char domainname[ZERO];
 };
 
+/* A counter which is incremented each time some previous translations
+   become invalid.
+   This variable is part of the external ABI of the GNU libintl.  */
 extern int _nl_msg_cat_cntr;
 
 struct loaded_l10nfile *_nl_find_domain PARAMS ((const char *__dirname,
@@ -169,27 +177,51 @@ void _nl_unload_domain PARAMS ((struct loaded_domain *__domain))
      internal_function;
 
 #ifdef _LIBC
-extern char *__ngettext PARAMS ((const char *msgid1, const char *msgid2,
-				 unsigned long int n));
-extern char *__dngettext PARAMS ((const char *domainname, const char *msgid1,
-				  const char *msgid2, unsigned long int n));
-extern char *__dcngettext PARAMS ((const char *domainname, const char *msgid1,
-				   const char *msgid2, unsigned long int n,
-				   int category));
-extern char *__dcigettext PARAMS ((const char *domainname, const char *msgid1,
-				   const char *msgid2, int plural,
-				   unsigned long int n, int category));
+extern char *__gettext PARAMS ((const char *__msgid));
+extern char *__dgettext PARAMS ((const char *__domainname,
+				 const char *__msgid));
+extern char *__dcgettext PARAMS ((const char *__domainname,
+				  const char *__msgid, int __category));
+extern char *__ngettext PARAMS ((const char *__msgid1, const char *__msgid2,
+				 unsigned long int __n));
+extern char *__dngettext PARAMS ((const char *__domainname,
+				  const char *__msgid1, const char *__msgid2,
+				  unsigned long int n));
+extern char *__dcngettext PARAMS ((const char *__domainname,
+				   const char *__msgid1, const char *__msgid2,
+				   unsigned long int __n, int __category));
+extern char *__dcigettext PARAMS ((const char *__domainname,
+				   const char *__msgid1, const char *__msgid2,
+				   int __plural, unsigned long int __n,
+				   int __category));
+extern char *__textdomain PARAMS ((const char *__domainname));
+extern char *__bindtextdomain PARAMS ((const char *__domainname,
+				       const char *__dirname));
+extern char *__bind_textdomain_codeset PARAMS ((const char *__domainname,
+						const char *__codeset));
 #else
-extern char *ngettext__ PARAMS ((const char *msgid1, const char *msgid2,
-				 unsigned long int n));
-extern char *dngettext__ PARAMS ((const char *domainname, const char *msgid1,
-				  const char *msgid2, unsigned long int n));
-extern char *dcngettext__ PARAMS ((const char *domainname, const char *msgid1,
-				   const char *msgid2, unsigned long int n,
-				   int category));
-extern char *dcigettext__ PARAMS ((const char *domainname, const char *msgid1,
-				   const char *msgid2, int plural,
-				   unsigned long int n, int category));
+extern char *gettext__ PARAMS ((const char *__msgid));
+extern char *dgettext__ PARAMS ((const char *__domainname,
+				 const char *__msgid));
+extern char *dcgettext__ PARAMS ((const char *__domainname,
+				  const char *__msgid, int __category));
+extern char *ngettext__ PARAMS ((const char *__msgid1, const char *__msgid2,
+				 unsigned long int __n));
+extern char *dngettext__ PARAMS ((const char *__domainname,
+				  const char *__msgid1, const char *__msgid2,
+				  unsigned long int __n));
+extern char *dcngettext__ PARAMS ((const char *__domainname,
+				   const char *__msgid1, const char *__msgid2,
+				   unsigned long int __n, int __category));
+extern char *dcigettext__ PARAMS ((const char *__domainname,
+				   const char *__msgid1, const char *__msgid2,
+				   int __plural, unsigned long int __n,
+				   int __category));
+extern char *textdomain__ PARAMS ((const char *__domainname));
+extern char *bindtextdomain__ PARAMS ((const char *__domainname,
+				       const char *__dirname));
+extern char *bind_textdomain_codeset__ PARAMS ((const char *__domainname,
+						const char *__codeset));
 #endif
 
 extern int __gettextdebug;

@@ -9,18 +9,10 @@
 #include <locale.h>
 
 /* Make sure we use the included libintl, not the system's one. */
-#if 0
-#include <libintl.h>
-#else
-#define ENABLE_NLS 1
-#include "libgettext.h"
-#undef textdomain
 #define textdomain textdomain__
-#undef bindtextdomain
 #define bindtextdomain bindtextdomain__
-#undef ngettext
 #define ngettext ngettext__
-#endif
+#include <libgnuintl.h>
 
 int main (argc, argv)
   int argc;
