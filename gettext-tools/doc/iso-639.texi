@@ -6,6 +6,8 @@ Abkhazian.
 Avestan.
 @item af
 Afrikaans.
+@item ak
+Akan.
 @item am
 Amharic.
 @item an
@@ -14,6 +16,8 @@ Aragonese.
 Arabic.
 @item as
 Assamese.
+@item av
+Avaric.
 @item ay
 Aymara.
 @item az
@@ -28,6 +32,8 @@ Bulgarian.
 Bihari.
 @item bi
 Bislama.
+@item bm
+Bambara.
 @item bn
 Bengali; Bangla.
 @item bo
@@ -44,6 +50,8 @@ Chechen.
 Chamorro.
 @item co
 Corsican.
+@item cr
+Cree.
 @item cs
 Czech.
 @item cu
@@ -56,8 +64,12 @@ Welsh.
 Danish.
 @item de
 German.
+@item dv
+Divehi.
 @item dz
 Dzongkha; Bhutani.
+@item ee
+@'Ew@'e.
 @item el
 Greek.
 @item en
@@ -72,6 +84,8 @@ Estonian.
 Basque.
 @item fa
 Persian.
+@item ff
+Fulah.
 @item fi
 Finnish.
 @item fj
@@ -118,6 +132,8 @@ Interlingua.
 Indonesian (formerly in).
 @item ie
 Interlingue.
+@item ig
+Igbo.
 @item ii
 Sichuan Yi.
 @item ik
@@ -136,6 +152,8 @@ Japanese.
 Javanese.
 @item ka
 Georgian.
+@item kg
+Kongo.
 @item ki
 Kikuyu.
 @item kj
@@ -150,6 +168,8 @@ Khmer; Cambodian.
 Kannada.
 @item ko
 Korean.
+@item kr
+Kanuri.
 @item ks
 Kashmiri.
 @item ku
@@ -164,6 +184,8 @@ Kirghiz.
 Latin.
 @item lb
 Letzeburgesch.
+@item lg
+Ganda.
 @item li
 Limburgish; Limburger; Limburgan.
 @item ln
@@ -172,6 +194,8 @@ Lingala.
 Lao; Laotian.
 @item lt
 Lithuanian.
+@item lu
+Luba-Katanga.
 @item lv
 Latvian; Lettish.
 @item mg
@@ -220,6 +244,8 @@ Navajo.
 Chichewa; Nyanja.
 @item oc
 Occitan; Proven@,{c}al.
+@item oj
+Ojibwa.
 @item om
 (Afan) Oromo.
 @item or
@@ -320,6 +346,8 @@ Ukrainian.
 Urdu.
 @item uz
 Uzbek.
+@item ve
+Venda.
 @item vi
 Vietnamese.
 @item vo

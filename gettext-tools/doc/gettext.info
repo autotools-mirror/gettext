@@ -5,6 +5,7 @@ INFO-DIR-SECTION GNU Gettext Utilities
 START-INFO-DIR-ENTRY
 * gettext: (gettext).                          GNU gettext utilities.
 * autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* envsubst: (gettext)envsubst Invocation.      Expand environment variables.
 * gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
 * msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
 * msgcat: (gettext)msgcat Invocation.          Combine several PO files.
@@ -20,6 +21,7 @@ START-INFO-DIR-ENTRY
 * msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
 * msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
 * msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* ngettext: (gettext)ngettext Invocation.      Translate a message with plural.
 * xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
 * ISO639: (gettext)Language Codes.             ISO 639 language codes.
 * ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
@@ -28,7 +30,7 @@ END-INFO-DIR-ENTRY
    This file provides documentation for GNU `gettext' utilities.  It
 also serves as a reference for the free Translation Project.
 
-   Copyright (C) 1995-1998, 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2001-2004 Free Software Foundation, Inc.
 
    Permission is granted to make and distribute verbatim copies of this
 manual provided the copyright notice and this permission notice are
@@ -51,7 +53,7 @@ GNU `gettext' utilities
 ***********************
 
 This manual documents the GNU gettext tools and the GNU libintl library,
-version 0.13.1.
+version 0.14.
 
 * Menu:
 
@@ -107,6 +109,7 @@ Preparing Program Sources
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 * Names::                       Marking Proper Names for Translation
+* Libraries::                   Preparing Library Sources
 
 Making the PO Template File
 
@@ -270,6 +273,7 @@ The Translator's View
 * librep-format::               librep Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * java-format::                 Java Format Strings
+* csharp-format::               C# Format Strings
 * awk-format::                  awk Format Strings
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
@@ -291,6 +295,7 @@ Individual Programming Languages
 * librep::                      librep
 * Smalltalk::                   GNU Smalltalk
 * Java::                        Java
+* C#::                          C#
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
@@ -1050,6 +1055,10 @@ forms of flags defined:
 `no-java-format'
      Likewise for Java, see *Note java-format::.
 
+`csharp-format'
+`no-csharp-format'
+     Likewise for C#, see *Note csharp-format::.
+
 `awk-format'
 `no-awk-format'
      Likewise for awk, see *Note awk-format::.
@@ -1525,6 +1534,7 @@ sections of this chapter.
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 * Names::                       Marking Proper Names for Translation
+* Libraries::                   Preparing Library Sources
 
 
 File: gettext.info,  Node: Triggering,  Next: Preparing Strings,  Prev: Sources,  Up: Sources
@@ -1765,9 +1775,9 @@ at most 54 characters, regardless whether in decimal, octal or
 hexadecimal.
 
    All this applies to other programming languages as well.  For
-example, in Java, string contenation is very frequently used, because
-it is a compiler built-in operator.  Like in C, in Java, you would
-change
+example, in Java and C#, string contenation is very frequently used,
+because it is a compiler built-in operator.  Like in C, in Java, you
+would change
 
      System.out.println("Replace "+object1+" with "+object2+"?");
 
@@ -1776,6 +1786,15 @@ into a statement involving a format string:
      System.out.println(
          MessageFormat.format("Replace {0} with {1}?",
                               new Object[] { object1, object2 }));
+
+Similarly, in C#, you would change
+
+     Console.WriteLine("Replace "+object1+" with "+object2+"?");
+
+into a statement involving a format string:
+
+     Console.WriteLine(
+         String.Format("Replace {0} with {1}?", object1, object2));
 
 
 File: gettext.info,  Node: Mark Keywords,  Next: Marking,  Prev: Preparing Strings,  Up: Sources
@@ -2153,7 +2172,7 @@ generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
 
 
-File: gettext.info,  Node: Names,  Prev: Special cases,  Up: Sources
+File: gettext.info,  Node: Names,  Next: Libraries,  Prev: Special cases,  Up: Sources
 
 Marking Proper Names for Translation
 ====================================
@@ -2219,6 +2238,89 @@ pronounciation is denoted using the International Phonetic Alphabet (see
 packages, because this would force translators to use PO files in UTF-8
 encoding, which is - in the current state of software (as of 2003) - a
 major hassle for translators using GNU Emacs or XEmacs with po-mode.
+
+
+File: gettext.info,  Node: Libraries,  Prev: Names,  Up: Sources
+
+Preparing Library Sources
+=========================
+
+When you are preparing a library, not a program, for the use of
+`gettext', only a few details are different.  Here we assume that the
+library has a translation domain and a POT file of its own.  (If it
+uses the translation domain and POT file of the main program, then the
+previous sections apply without changes.)
+
+  1. The library code doesn't call `setlocale (LC_ALL, "")'.  It's the
+     responsibility of the main program to set the locale.  The
+     library's documentation should mention this fact, so that
+     developers of programs using the library are aware of it.
+
+  2. The library code doesn't call `textdomain (PACKAGE)', because it
+     would interfere with the text domain set by the main program.
+
+  3. The initialization code for a program was
+
+            setlocale (LC_ALL, "");
+            bindtextdomain (PACKAGE, LOCALEDIR);
+            textdomain (PACKAGE);
+
+     For a library it is reduced to
+
+            bindtextdomain (PACKAGE, LOCALEDIR);
+
+     If your library's API doesn't already have an initialization
+     function, you need to create one, containing at least the
+     `bindtextdomain' invocation.  However, you usually don't need to
+     export and document this initialization function: It is sufficient
+     that all entry points of the library call the initialization
+     function if it hasn't been called before.  The typical idiom used
+     to achieve this is a static boolean variable that indicates
+     whether the initialization function has been called. Like this:
+
+          static bool libfoo_initialized;
+          
+          static void
+          libfoo_initialize (void)
+          {
+            bindtextdomain (PACKAGE, LOCALEDIR);
+            libfoo_initialized = true;
+          }
+          
+          /* This function is part of the exported API.  */
+          struct foo *
+          create_foo (...)
+          {
+            /* Must ensure the initialization is performed.  */
+            if (!libfoo_initialized)
+              libfoo_initialize ();
+            ...
+          }
+          
+          /* This function is part of the exported API.  The argument must be
+             non-NULL and have been created through create_foo().  */
+          int
+          foo_refcount (struct foo *argument)
+          {
+            /* No need to invoke the initialization function here, because
+               create_foo() must already have been called before.  */
+            ...
+          }
+
+  4. The usual declaration of the `_' macro in each source file was
+
+          #include <libintl.h>
+          #define _(String) gettext (String)
+
+     for a program.  For a library, which has its own translation
+     domain, it reads like this:
+
+          #include <libintl.h>
+          #define _(String) dgettext (PACKAGE, String)
+
+     In other words, `dgettext' is used instead of `gettext'.
+     Similary, the `dngettext' function should be used in place of the
+     `ngettext' function.
 
 
 File: gettext.info,  Node: Template,  Next: Creating,  Prev: Sources,  Up: Top
@@ -2298,8 +2400,8 @@ Choice of input file language
 `--language=NAME'
      Specifies the language of the input files.  The supported languages
      are `C', `C++', `ObjectiveC', `PO', `Python', `Lisp', `EmacsLisp',
-     `librep', `Smalltalk', `Java', `JavaProperties', `awk', `YCP',
-     `Tcl', `Perl', `PHP', `GCC-source', `NXStringTable', `RST',
+     `librep', `Smalltalk', `Java', `JavaProperties', `C#', `awk',
+     `YCP', `Tcl', `Perl', `PHP', `GCC-source', `NXStringTable', `RST',
      `Glade'.
 
 `-C'
@@ -2349,7 +2451,7 @@ Language specific options
      Extract all strings.
 
      This option has an effect with most languages, namely C, C++,
-     ObjectiveC, Shell, Python, Lisp, EmacsLisp, librep, Java, awk,
+     ObjectiveC, Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk,
      Tcl, Perl, PHP, GCC-source, Glade.
 
 `-k KEYWORDSPEC'
@@ -2370,7 +2472,7 @@ Language specific options
      `dcgettext:2', `ngettext:1,2', `dngettext:2,3', `dcngettext:2,3',
      and `gettext_noop'.
      This option has an effect with most languages, namely C, C++,
-     ObjectiveC, Shell, Python, Lisp, EmacsLisp, librep, Java, awk,
+     ObjectiveC, Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk,
      Tcl, Perl, PHP, GCC-source, Glade.
 
 `--flag=WORD:ARG:FLAG'
@@ -2408,6 +2510,9 @@ Language specific options
      together with the checks done by `msgfmt -c' it will ensure that
      translators cannot accidentally use format string directives that
      would lead to a crash at runtime.
+     This option has an effect with most languages, namely C, C++,
+     ObjectiveC, Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk,
+     YCP, Tcl, Perl, PHP, GCC-source.
 
 `-T'
 `--trigraphs'
@@ -5527,6 +5632,13 @@ Operation mode
 `--java2'
      Like -java, and assume Java2 (JDK 1.2 or higher).
 
+`--csharp'
+     C# mode: generate a .NET .dll file containing a subclass of
+     `GettextResourceSet'.
+
+`--csharp-resources'
+     C# resources mode: generate a .NET `.resources' file.
+
 `--tcl'
      Tcl mode: generate a tcl/msgcat `.msg' file.
 
@@ -5575,6 +5687,27 @@ Output file location in Java mode
    The class name is determined by appending the locale name to the
 resource name, separated with an underscore.  The `-d' option is
 mandatory.  The class is written under the specified directory.
+
+Output file location in C# mode
+-------------------------------
+
+`-r RESOURCE'
+`--resource=RESOURCE'
+     Specify the resource name.
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory for locale dependent `.dll' files.
+
+
+   The `-l' and `-d' options are mandatory.  The `.dll' file is written
+in a subdirectory of the specified directory whose name depends on the
+locale.
 
 Output file location in Tcl mode
 --------------------------------
@@ -5718,6 +5851,13 @@ Operation mode
 `--java'
      Java mode: input is a Java `ResourceBundle' class.
 
+`--csharp'
+     C# mode: input is a .NET .dll file containing a subclass of
+     `GettextResourceSet'.
+
+`--csharp-resources'
+     C# resources mode: input is a .NET `.resources' file.
+
 `--tcl'
      Tcl mode: input is a tcl/msgcat `.msg' file.
 
@@ -5748,6 +5888,27 @@ Input file location in Java mode
    The class name is determined by appending the locale name to the
 resource name, separated with an underscore.  The class is located
 using the `CLASSPATH'.
+
+Input file location in C# mode
+------------------------------
+
+`-r RESOURCE'
+`--resource=RESOURCE'
+     Specify the resource name.
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory for locale dependent `.dll' files.
+
+
+   The `-l' and `-d' options are mandatory.  The `.msg' file is located
+in a subdirectory of the specified directory whose name depends on the
+locale.
 
 Input file location in Tcl mode
 -------------------------------
@@ -8012,7 +8173,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.13.1 distribution itself, or from the GNU `hello'
+`gettext' 0.14 distribution itself, or from the GNU `hello'
 distribution (`http://www.franken.de/users/gnu/ke/hello' or
 `http://www.gnu.franken.de/ke/hello/')  You may indeed refer to the
 source code of the GNU `gettext' and GNU `hello' packages, as they are
@@ -8148,7 +8309,7 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.13.1
+          VERSION=0.14
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
@@ -8156,12 +8317,12 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
 
      or, if you are using GNU `automake', by a line like this:
 
-          AM_INIT_AUTOMAKE(gettext, 0.13.1)
+          AM_INIT_AUTOMAKE(gettext, 0.14)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.13.1' by its version numbers, exactly as they should appear
+     and `0.14' by its version numbers, exactly as they should appear
      in the packaged `tar' file name of your distribution
-     (`gettext-0.13.1.tar.gz', here).
+     (`gettext-0.14.tar.gz', here).
 
   2. Check for internationalization support.
 
@@ -8785,7 +8946,7 @@ repository all the files that `gettextize' mentions as "copy".
 Instead, he adds to the `configure.in' or `configure.ac' a line of the
 form
 
-     AM_GNU_GETTEXT_VERSION(0.13.1)
+     AM_GNU_GETTEXT_VERSION(0.14)
 
 and adds to the package's pre-build script an invocation of
 `autopoint'.  For everyone who checks out the CVS, this `autopoint'
@@ -8832,8 +8993,8 @@ Informative output
 
 
    `autopoint' supports the GNU `gettext' versions from 0.10.35 to the
-current one, 0.13.1.  In order to apply `autopoint' to a package using
-a `gettext' version newer than 0.13.1, you need to install this same
+current one, 0.14.  In order to apply `autopoint' to a package using a
+`gettext' version newer than 0.14, you need to install this same
 version of GNU `gettext' at least.
 
    In packages using GNU `automake', an invocation of `autopoint'
@@ -8995,6 +9156,7 @@ strings.
 * librep-format::               librep Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * java-format::                 Java Format Strings
+* csharp-format::               C# Format Strings
 * awk-format::                  awk Format Strings
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
@@ -9031,6 +9193,19 @@ rely on this reordering ability: On the few platforms where `printf()',
 `fprintf()' etc. don't support this feature natively, `libintl.a' or
 `libintl.so' provides replacement functions, and GNU `<libintl.h>'
 activates these replacement functions automatically.
+
+   As a special feature for Farsi (Persian) and maybe Arabic,
+translators can insert an `I' flag into numeric format directives.  For
+example, the translation of `"%d"' can be `"%Id"'.  The effect of this
+flag, on systems with GNU `libc', is that in the output, the ASCII
+digits are replaced with the `outdigits' defined in the `LC_CTYPE'
+locale facet.  On other systems, the `gettext' function removes this
+flag, so that it has no effect.
+
+   Note that the programmer should _not_ put this flag into the
+untranslated string.  (Putting the `I' format directive flag into an
+MSGID string would lead to undefined behaviour on platforms without
+glibc when NLS is disabled.)
 
 
 File: gettext.info,  Node: objc-format,  Next: sh-format,  Prev: c-format,  Up: Translators for other Languages
@@ -9117,7 +9292,7 @@ In summary, a directive starts with `%' and is followed by `%' or a
 nonzero digit (`1' to `9').
 
 
-File: gettext.info,  Node: java-format,  Next: awk-format,  Prev: smalltalk-format,  Up: Translators for other Languages
+File: gettext.info,  Node: java-format,  Next: csharp-format,  Prev: smalltalk-format,  Up: Translators for other Languages
 
 Java Format Strings
 -------------------
@@ -9129,7 +9304,17 @@ See also the ICU documentation
 `http://oss.software.ibm.com/icu/apiref/classMessageFormat.html'.
 
 
-File: gettext.info,  Node: awk-format,  Next: object-pascal-format,  Prev: java-format,  Up: Translators for other Languages
+File: gettext.info,  Node: csharp-format,  Next: awk-format,  Prev: java-format,  Up: Translators for other Languages
+
+C# Format Strings
+-----------------
+
+C# format strings are described in the .NET documentation for class
+`System.String' and in
+`http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpguide/html/cpConFormattingOverview.asp'.
+
+
+File: gettext.info,  Node: awk-format,  Next: object-pascal-format,  Prev: csharp-format,  Up: Translators for other Languages
 
 awk Format Strings
 ------------------
@@ -9269,6 +9454,7 @@ Individual Programming Languages
 * librep::                      librep
 * Smalltalk::                   GNU Smalltalk
 * Java::                        Java
+* C#::                          C#
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
 * wxWindows::                   wxWindows library
@@ -10014,7 +10200,7 @@ po-mode marking
 `hello-smalltalk'.
 
 
-File: gettext.info,  Node: Java,  Next: gawk,  Prev: Smalltalk,  Up: List of Programming Languages
+File: gettext.info,  Node: Java,  Next: C#,  Prev: Smalltalk,  Up: List of Programming Languages
 
 Java
 ----
@@ -10123,8 +10309,257 @@ ResourceBundles, whether GNU gettext generated classes, or other
    Three examples, using the second API, are available in the `examples'
 directory: `hello-java', `hello-java-awt', `hello-java-swing'.
 
+   Now, to make use of the API and define a shorthand for `getString',
+there are two idioms that you can choose from:
+
+   * In a unique class of your project, say `Util', define a static
+     variable holding the `ResourceBundle' instance:
+
+          public static ResourceBundle myResources =
+            ResourceBundle.getBundle("domain-name");
+
+     All classes containing internationalized strings then contain
+
+          private static ResourceBundle res = Util.myResources;
+          private static String _(String s) { return res.getString(s); }
+
+     and the shorthand is used like this:
+
+          System.out.println(_("Operation completed."));
+
+   * You add a class with a very short name, say `S', containing just
+     the definition of the resource bundle and of the shorthand:
+
+          public class S {
+            public static ResourceBundle myResources =
+              ResourceBundle.getBundle("domain-name");
+            public static String _(String s) {
+              return myResources.getString(s);
+            }
+          }
+
+     and the shorthand is used like this:
+
+          System.out.println(S._("Operation completed."));
+
+   Which of the two idioms you choose, will depend on whether copying
+two lines of codes into every class is more acceptable in your project
+than a class with a single-letter name.
+
 
-File: gettext.info,  Node: gawk,  Next: Pascal,  Prev: Java,  Up: List of Programming Languages
+File: gettext.info,  Node: C#,  Next: gawk,  Prev: Java,  Up: List of Programming Languages
+
+C#
+--
+
+RPMs
+     pnet, pnetlib 0.6.2 or newer, or mono 0.29 or newer
+
+File extension
+     `cs'
+
+String syntax
+     `"abc"', `@"abc"'
+
+gettext shorthand
+     _("abc")
+
+gettext/ngettext functions
+     `GettextResourceManager.GetString',
+     `GettextResourceManager.GetPluralString'
+
+textdomain
+     `new GettextResourceManager(domain)'
+
+bindtextdomain
+     --, compiled message catalogs are located in subdirectories of the
+     directory containing the executable
+
+setlocale
+     automatic
+
+Prerequisite
+     --
+
+Use or emulate GNU gettext
+     --, uses a C# specific message catalog format
+
+Extractor
+     `xgettext -k_'
+
+Formatting with positions
+     `String.Format "{1} {0}"'
+
+Portability
+     fully portable
+
+po-mode marking
+     --
+
+   Before marking strings as internationalizable, uses of the string
+concatenation operator need to be converted to `String.Format'
+invocations.  For example, `"file "+filename+" not found"' becomes
+`String.Format("file {0} not found", filename)'.  Only after this is
+done, can the strings be marked and extracted.
+
+   GNU gettext uses the native C#/.NET internationalization mechanism,
+namely the classes `ResourceManager' and `ResourceSet'.  Applications
+use the `ResourceManager' methods to retrieve the native language
+translation of strings.  An instance of `ResourceSet' is the in-memory
+representation of a message catalog file.  The `ResourceManager' loads
+and accesses `ResourceSet' instances as needed to look up the
+translations.
+
+   There are two formats of `ResourceSet's that can be directly loaded
+by the C# runtime: `.resources' files and `.dll' files.
+
+   * The `.resources' format is a binary file usually generated through
+     the `resgen' or `monoresgen' utility, but which doesn't support
+     plural forms.  `.resources' files can also be embedded in .NET
+     `.exe' files.  This only affects whether a file system access is
+     performed to load the message catalog; it doesn't affect the
+     contents of the message catalog.
+
+   * On the other hand, the `.dll' format is a binary file that is
+     compiled from `.cs' source code and can support plural forms
+     (provided it is accessed through the GNU gettext API, see below).
+
+   Note that these .NET `.dll' and `.exe' files are not tied to a
+particular platform; their file format and GNU gettext for C# can be
+used on any platform.
+
+   To convert a PO file to a `.resources' file, the `msgfmt' program
+can be used with the option `--csharp-resources'.  To convert a
+`.resources' file back to a PO file, the `msgunfmt' program can be used
+with the option `--csharp-resources'.  You can also, in some cases, use
+the `resgen' program (from the `pnet' package) or the `monoresgen'
+program (from the `mono'/`mcs' package).  These programs can also
+convert a `.resources' file back to a PO file.  But beware: as of this
+writing (January 2004), the `monoresgen' converter is quite buggy and
+the `resgen' converter ignores the encoding of the PO files.
+
+   To convert a PO file to a `.dll' file, the `msgfmt' program can be
+used with the option `--csharp'.  The result will be a `.dll' file
+containing a subclass of `GettextResourceSet', which itself is a
+subclass of `ResourceSet'.  To convert a `.dll' file containing a
+`GettextResourceSet' subclass back to a PO file, the `msgunfmt' program
+can be used with the option `--csharp'.
+
+   The advantages of the `.dll' format over the `.resources' format are:
+
+  1. Freedom to localize: Users can add their own translations to an
+     application after it has been built and distributed.  Whereas when
+     the programmer uses a `ResourceManager' constructor provided by
+     the system, the set of `.resources' files for an application must
+     be specified when the application is built and cannot be extended
+     afterwards.
+
+  2. Plural handling: A message catalog in `.dll' format supports the
+     plural handling function `GetPluralString'.  Whereas `.resources'
+     files can only contain data and only support lookups that depend
+     on a single string.
+
+  3. The `GettextResourceManager' that loads the message catalogs in
+     `.dll' format also provides for inheritance on a per-message basis.
+     For example, in Austrian (`de_AT') locale, translations from the
+     German (`de') message catalog will be used for messages not found
+     in the Austrian message catalog.  This has the consequence that
+     the Austrian translators need only translate those few messages
+     for which the translation into Austrian differs from the German
+     one.  Whereas when working with `.resources' files, each message
+     catalog must provide the translations of all messages by itself.
+
+  4. The `GettextResourceManager' that loads the message catalogs in
+     `.dll' format also provides for a fallback: The English MSGID is
+     returned when no translation can be found.  Whereas when working
+     with `.resources' files, a language-neutral `.resources' file must
+     explicitly be provided as a fallback.
+
+   On the side of the programmatic APIs, the programmer can use either
+the standard `ResourceManager' API and the GNU `GettextResourceManager'
+API.  The latter is an extension of the former, because
+`GettextResourceManager' is a subclass of `ResourceManager'.
+
+  1. The `System.Resources.ResourceManager' API.
+
+     This API works with resources in `.resources' format.
+
+     The creation of the `ResourceManager' is done through
+            new ResourceManager(domainname, Assembly.GetExecutingAssembly())
+
+     The `GetString' function returns a string's translation.  Note
+     that this function returns null when a translation is missing
+     (i.e. not even found in the fallback resource file).
+
+  2. The `GNU.Gettext.GettextResourceManager' API.
+
+     This API works with resources in `.dll' format.
+
+     Reference documentation is in the csharpdoc directory
+     (csharpdoc/index.html).
+
+     The creation of the `ResourceManager' is done through
+            new GettextResourceManager(domainname)
+
+     The `GetString' function returns a string's translation.  Note
+     that when a translation is missing, the MSGID argument is returned
+     unchanged.
+
+     The `GetPluralString' function returns a string translation with
+     plural handling, like the `ngettext' function in C.
+
+     To use this API, one needs the `GNU.Gettext.dll' file which is
+     part of the GNU gettext package and distributed under the LGPL.
+
+   You can also mix both approaches: use the
+`GNU.Gettext.GettextResourceManager' constructor, but otherwise use
+only the `ResourceManager' type and only the `GetString' method.  This
+is appropriate when you want to profit from the tools for PO files, but
+don't want to change an existing source code that uses
+`ResourceManager' and don't (yet) need the `GetPluralString' method.
+
+   Two examples, using the second API, are available in the `examples'
+directory: `hello-csharp', `hello-csharp-forms'.
+
+   Now, to make use of the API and define a shorthand for `GetString',
+there are two idioms that you can choose from:
+
+   * In a unique class of your project, say `Util', define a static
+     variable holding the `ResourceManager' instance:
+
+          public static GettextResourceManager MyResourceManager =
+            new GettextResourceManager("domain-name");
+
+     All classes containing internationalized strings then contain
+
+          private static GettextResourceManager Res = Util.MyResourceManager;
+          private static String _(String s) { return Res.GetString(s); }
+
+     and the shorthand is used like this:
+
+          Console.WriteLine(_("Operation completed."));
+
+   * You add a class with a very short name, say `S', containing just
+     the definition of the resource manager and of the shorthand:
+
+          public class S {
+            public static GettextResourceManager MyResourceManager =
+              new GettextResourceManager("domain-name");
+            public static String _(String s) {
+               return MyResourceManager.GetString(s);
+            }
+          }
+
+     and the shorthand is used like this:
+
+          Console.WriteLine(S._("Operation completed."));
+
+   Which of the two idioms you choose, will depend on whether copying
+two lines of codes into every class is more acceptable in your project
+than a class with a single-letter name.
+
+
+File: gettext.info,  Node: gawk,  Next: Pascal,  Prev: C#,  Up: List of Programming Languages
 
 GNU awk
 -------
@@ -11448,6 +11883,9 @@ come from this standard.
 `af'
      Afrikaans.
 
+`ak'
+     Akan.
+
 `am'
      Amharic.
 
@@ -11459,6 +11897,9 @@ come from this standard.
 
 `as'
      Assamese.
+
+`av'
+     Avaric.
 
 `ay'
      Aymara.
@@ -11480,6 +11921,9 @@ come from this standard.
 
 `bi'
      Bislama.
+
+`bm'
+     Bambara.
 
 `bn'
      Bengali; Bangla.
@@ -11505,6 +11949,9 @@ come from this standard.
 `co'
      Corsican.
 
+`cr'
+     Cree.
+
 `cs'
      Czech.
 
@@ -11523,8 +11970,14 @@ come from this standard.
 `de'
      German.
 
+`dv'
+     Divehi.
+
 `dz'
      Dzongkha; Bhutani.
+
+`ee'
+     E'we'.
 
 `el'
      Greek.
@@ -11546,6 +11999,9 @@ come from this standard.
 
 `fa'
      Persian.
+
+`ff'
+     Fulah.
 
 `fi'
      Finnish.
@@ -11616,6 +12072,9 @@ come from this standard.
 `ie'
      Interlingue.
 
+`ig'
+     Igbo.
+
 `ii'
      Sichuan Yi.
 
@@ -11643,6 +12102,9 @@ come from this standard.
 `ka'
      Georgian.
 
+`kg'
+     Kongo.
+
 `ki'
      Kikuyu.
 
@@ -11663,6 +12125,9 @@ come from this standard.
 
 `ko'
      Korean.
+
+`kr'
+     Kanuri.
 
 `ks'
      Kashmiri.
@@ -11685,6 +12150,9 @@ come from this standard.
 `lb'
      Letzeburgesch.
 
+`lg'
+     Ganda.
+
 `li'
      Limburgish; Limburger; Limburgan.
 
@@ -11696,6 +12164,9 @@ come from this standard.
 
 `lt'
      Lithuanian.
+
+`lu'
+     Luba-Katanga.
 
 `lv'
      Latvian; Lettish.
@@ -11768,6 +12239,9 @@ come from this standard.
 
 `oc'
      Occitan; Provenc,al.
+
+`oj'
+     Ojibwa.
 
 `om'
      (Afan) Oromo.
@@ -11918,6 +12392,9 @@ come from this standard.
 
 `uz'
      Uzbek.
+
+`ve'
+     Venda.
 
 `vi'
      Vietnamese.
@@ -12741,6 +13218,10 @@ Option Index
 * --compendium, msgmerge option:         msgmerge Invocation.
 * --copy, gettextize option:             gettextize Invocation.
 * --copyright-holder, xgettext option:   xgettext Invocation.
+* --csharp, msgfmt option:               msgfmt Invocation.
+* --csharp, msgunfmt option:             msgunfmt Invocation.
+* --csharp-resources, msgfmt option:     msgfmt Invocation.
+* --csharp-resources, msgunfmt option:   msgunfmt Invocation.
 * --debug, xgettext option:              xgettext Invocation.
 * --default-domain, xgettext option:     xgettext Invocation.
 * --directory, msgattrib option:         msgattrib Invocation.
@@ -13474,6 +13955,7 @@ General Index
 * ambiguities:                           Preparing Strings.
 * apply a filter to translations:        msgfilter Invocation.
 * apply command to all translations in a catalog: msgexec Invocation.
+* Arabic digits:                         c-format.
 * attribute manipulation:                msgattrib Invocation.
 * attribute, fuzzy:                      Fuzzy Entries.
 * attributes of a PO file entry:         Fuzzy Entries.
@@ -13492,6 +13974,12 @@ General Index
 * bug report address:                    Introduction.
 * C and C-like languages:                C.
 * C trigraphs:                           xgettext Invocation.
+* C#:                                    C#.
+* C# mode, and msgfmt program:           msgfmt Invocation.
+* C# mode, and msgunfmt program:         msgunfmt Invocation.
+* C# resources mode, and msgfmt program: msgfmt Invocation.
+* C# resources mode, and msgunfmt program: msgunfmt Invocation.
+* C#, string concatenation:              Preparing Strings.
 * c-format flag:                         PO Files.
 * c-format, and xgettext:                c-format Flag.
 * catalog encoding and msgexec output:   msgexec Invocation.
@@ -13525,6 +14013,7 @@ General Index
 * create new PO file:                    msginit Invocation.
 * creating a new PO file:                Creating.
 * creating compendia:                    Creating Compendia.
+* csharp-format flag:                    PO Files.
 * currency symbols:                      Aspects.
 * date format:                           Aspects.
 * dcngettext:                            Plural forms.
@@ -13611,6 +14100,7 @@ General Index
 * language selection at runtime:         gettext grok.
 * large package:                         Ambiguities.
 * libiconv library:                      AM_ICONV.
+* libintl for C#:                        C#.
 * libintl for Java:                      Java.
 * libintl library:                       AM_GNU_GETTEXT.
 * librep Lisp:                           librep.
@@ -13691,6 +14181,7 @@ General Index
 * no-awk-format flag:                    PO Files.
 * no-c-format flag:                      PO Files.
 * no-c-format, and xgettext:             c-format Flag.
+* no-csharp-format flag:                 PO Files.
 * no-elisp-format flag:                  PO Files.
 * no-gcc-internal-format flag:           PO Files.
 * no-java-format flag:                   PO Files.
@@ -13715,6 +14206,7 @@ General Index
 * obsolete entries:                      Obsolete Entries.
 * optimization of gettext functions:     Optimized gettext.
 * orthography:                           Manipulating.
+* outdigits:                             c-format.
 * output to stdout, xgettext:            xgettext Invocation.
 * overview of gettext:                   Overview.
 * package and version declaration in configure.in: configure.in.
@@ -13826,201 +14318,204 @@ General Index
 
 
 Tag Table:
-Node: Top2506
-Node: Introduction14598
-Node: Why16456
-Ref: Why-Footnote-119560
-Node: Concepts19716
-Node: Aspects23126
-Node: Files28962
-Node: Overview30860
-Node: Basics41649
-Node: Installation42476
-Node: PO Files44415
-Ref: PO Files-Footnote-153659
-Node: Main PO Commands53786
-Node: Entry Positioning58854
-Node: Normalizing64307
-Node: Sources68758
-Node: Triggering70394
-Node: Preparing Strings73421
-Node: Mark Keywords80871
-Node: Marking84423
-Node: c-format Flag92142
-Node: Special cases96050
-Node: Names98793
-Node: Template102368
-Node: xgettext Invocation103085
-Node: Creating114368
-Node: msginit Invocation115246
-Node: Header Entry117804
-Node: Updating124801
-Node: msgmerge Invocation125556
-Node: Translated Entries130493
-Node: Fuzzy Entries131845
-Node: Untranslated Entries135011
-Node: Obsolete Entries136929
-Node: Modifying Translations140140
-Node: Modifying Comments148095
-Node: Subedit152506
-Node: C Sources Context156386
-Node: Auxiliary161494
-Node: Compendium164717
-Node: Creating Compendia165324
-Node: Using Compendia167754
-Node: Manipulating168633
-Node: msgcat Invocation172392
-Node: msgconv Invocation176562
-Node: msggrep Invocation179661
-Node: msgfilter Invocation184352
-Node: msguniq Invocation189139
-Node: msgcomm Invocation192948
-Node: msgcmp Invocation196913
-Node: msgattrib Invocation198469
-Node: msgen Invocation202972
-Node: msgexec Invocation206239
-Node: libgettextpo208634
-Node: Binaries213748
-Node: msgfmt Invocation214080
-Node: msgunfmt Invocation220191
-Node: MO Files223492
-Node: Users231580
-Node: Matrix233060
-Node: Installers234261
-Node: End Users235428
-Node: Programmers236073
-Node: catgets237243
-Node: Interface to catgets238643
-Node: Problems with catgets240635
-Node: gettext241533
-Node: Interface to gettext243029
-Node: Ambiguities245372
-Node: Locating Catalogs248062
-Ref: Locating Catalogs-Footnote-1249206
-Ref: Locating Catalogs-Footnote-2249431
-Node: Charset conversion249580
-Node: Plural forms252020
-Ref: Plural forms-Footnote-1262878
-Node: GUI program problems262970
-Node: Optimized gettext268071
-Node: Comparison269401
-Node: Using libintl.a273668
-Node: gettext grok274098
-Node: Temp Programmers276645
-Node: Temp Implementations277085
-Node: Temp catgets278448
-Node: Temp WSI280132
-Node: Temp Notes282117
-Node: Translators282603
-Node: Trans Intro 0283060
-Node: Trans Intro 1285706
-Node: Discussions287567
-Node: Organization291134
-Node: Central Coordination293112
-Node: National Teams294237
-Node: Sub-Cultures296747
-Node: Organizational Ideas297663
-Node: Mailing Lists298663
-Node: Information Flow300463
-Node: Prioritizing messages302623
-Node: Maintainers306884
-Node: Flat and Non-Flat308778
-Node: Prerequisites310258
-Node: gettextize Invocation314395
-Node: Adjusting Files321099
-Node: po/POTFILES.in322820
-Node: po/LINGUAS324062
-Node: po/Makevars325737
-Node: configure.in327328
-Node: config.guess329415
-Node: mkinstalldirs330529
-Node: aclocal331287
-Node: acconfig333053
-Node: config.h.in333536
-Node: Makefile334690
-Node: src/Makefile337268
-Node: lib/gettext.h340281
-Node: autoconf macros342511
-Node: AM_GNU_GETTEXT343135
-Node: AM_GNU_GETTEXT_VERSION346715
-Node: AM_PO_SUBDIRS347147
-Node: AM_ICONV347911
-Node: CVS Issues350104
-Node: Distributed CVS350655
-Node: Files under CVS352566
-Node: autopoint Invocation355118
-Node: Programming Languages356912
-Node: Language Implementors357730
-Node: Programmers for other Languages362509
-Node: Translators for other Languages363072
-Node: c-format364431
-Node: objc-format365459
-Node: sh-format365797
-Node: python-format366585
-Node: lisp-format367009
-Node: elisp-format367321
-Node: librep-format367797
-Node: smalltalk-format368186
-Node: java-format368672
-Node: awk-format369101
-Node: object-pascal-format369408
-Node: ycp-format369621
-Node: tcl-format370004
-Node: perl-format370283
-Node: php-format371012
-Node: gcc-internal-format371361
-Node: qt-format372387
-Node: Maintainers for other Languages372784
-Node: List of Programming Languages374009
-Node: C375196
-Node: sh376459
-Node: Preparing Shell Scripts377719
-Node: gettext.sh380117
-Node: gettext Invocation380646
-Node: ngettext Invocation382369
-Node: envsubst Invocation383925
-Node: eval_gettext Invocation385328
-Node: eval_ngettext Invocation385771
-Node: bash386267
-Node: Python388229
-Node: Common Lisp389424
-Node: clisp C390210
-Node: Emacs Lisp390911
-Node: librep391623
-Node: Smalltalk392347
-Node: Java393365
-Node: gawk397036
-Node: Pascal397934
-Node: wxWindows399226
-Node: YCP399960
-Node: Tcl400683
-Node: Perl402077
-Node: General Problems405069
-Node: Default Keywords408727
-Node: Special Keywords409659
-Node: Quote-like Expressions411153
-Node: Interpolation I413418
-Node: Interpolation II417188
-Node: Parentheses419533
-Node: Long Lines421045
-Node: Perl Pitfalls422872
-Node: PHP427094
-Node: Pike428009
-Node: GCC-source428654
-Node: List of Data Formats429385
-Node: POT429841
-Node: RST430085
-Node: Glade430297
-Node: Conclusion430643
-Node: History431140
-Node: References435396
-Node: Language Codes436948
-Node: Country Codes441010
-Node: Program Index446745
-Node: Option Index448200
-Node: Variable Index481231
-Node: PO Mode Index482310
-Node: Autoconf Macro Index491668
-Node: Index492047
+Node: Top2663
+Node: Introduction14896
+Node: Why16754
+Ref: Why-Footnote-119858
+Node: Concepts20014
+Node: Aspects23424
+Node: Files29260
+Node: Overview31158
+Node: Basics41947
+Node: Installation42774
+Node: PO Files44713
+Ref: PO Files-Footnote-154042
+Node: Main PO Commands54169
+Node: Entry Positioning59237
+Node: Normalizing64690
+Node: Sources69141
+Node: Triggering70835
+Node: Preparing Strings73862
+Node: Mark Keywords81559
+Node: Marking85111
+Node: c-format Flag92830
+Node: Special cases96738
+Node: Names99481
+Node: Libraries103074
+Node: Template106127
+Node: xgettext Invocation106844
+Node: Creating118318
+Node: msginit Invocation119196
+Node: Header Entry121754
+Node: Updating128751
+Node: msgmerge Invocation129506
+Node: Translated Entries134443
+Node: Fuzzy Entries135795
+Node: Untranslated Entries138961
+Node: Obsolete Entries140879
+Node: Modifying Translations144090
+Node: Modifying Comments152045
+Node: Subedit156456
+Node: C Sources Context160336
+Node: Auxiliary165444
+Node: Compendium168667
+Node: Creating Compendia169274
+Node: Using Compendia171704
+Node: Manipulating172583
+Node: msgcat Invocation176342
+Node: msgconv Invocation180512
+Node: msggrep Invocation183611
+Node: msgfilter Invocation188302
+Node: msguniq Invocation193089
+Node: msgcomm Invocation196898
+Node: msgcmp Invocation200863
+Node: msgattrib Invocation202419
+Node: msgen Invocation206922
+Node: msgexec Invocation210189
+Node: libgettextpo212584
+Node: Binaries217698
+Node: msgfmt Invocation218030
+Node: msgunfmt Invocation224882
+Node: MO Files228922
+Node: Users237010
+Node: Matrix238490
+Node: Installers239691
+Node: End Users240858
+Node: Programmers241503
+Node: catgets242673
+Node: Interface to catgets244073
+Node: Problems with catgets246065
+Node: gettext246963
+Node: Interface to gettext248459
+Node: Ambiguities250802
+Node: Locating Catalogs253492
+Ref: Locating Catalogs-Footnote-1254636
+Ref: Locating Catalogs-Footnote-2254861
+Node: Charset conversion255010
+Node: Plural forms257450
+Ref: Plural forms-Footnote-1268308
+Node: GUI program problems268400
+Node: Optimized gettext273501
+Node: Comparison274831
+Node: Using libintl.a279098
+Node: gettext grok279528
+Node: Temp Programmers282075
+Node: Temp Implementations282515
+Node: Temp catgets283878
+Node: Temp WSI285562
+Node: Temp Notes287547
+Node: Translators288033
+Node: Trans Intro 0288490
+Node: Trans Intro 1291136
+Node: Discussions292997
+Node: Organization296564
+Node: Central Coordination298542
+Node: National Teams299667
+Node: Sub-Cultures302177
+Node: Organizational Ideas303093
+Node: Mailing Lists304093
+Node: Information Flow305893
+Node: Prioritizing messages308053
+Node: Maintainers312314
+Node: Flat and Non-Flat314208
+Node: Prerequisites315688
+Node: gettextize Invocation319825
+Node: Adjusting Files326529
+Node: po/POTFILES.in328248
+Node: po/LINGUAS329490
+Node: po/Makevars331165
+Node: configure.in332756
+Node: config.guess334835
+Node: mkinstalldirs335949
+Node: aclocal336707
+Node: acconfig338473
+Node: config.h.in338956
+Node: Makefile340110
+Node: src/Makefile342688
+Node: lib/gettext.h345701
+Node: autoconf macros347931
+Node: AM_GNU_GETTEXT348555
+Node: AM_GNU_GETTEXT_VERSION352135
+Node: AM_PO_SUBDIRS352567
+Node: AM_ICONV353331
+Node: CVS Issues355524
+Node: Distributed CVS356075
+Node: Files under CVS357986
+Node: autopoint Invocation360536
+Node: Programming Languages362326
+Node: Language Implementors363144
+Node: Programmers for other Languages367923
+Node: Translators for other Languages368486
+Node: c-format369895
+Node: objc-format371595
+Node: sh-format371933
+Node: python-format372721
+Node: lisp-format373145
+Node: elisp-format373457
+Node: librep-format373933
+Node: smalltalk-format374322
+Node: java-format374808
+Node: csharp-format375240
+Node: awk-format375599
+Node: object-pascal-format375908
+Node: ycp-format376121
+Node: tcl-format376504
+Node: perl-format376783
+Node: php-format377512
+Node: gcc-internal-format377861
+Node: qt-format378887
+Node: Maintainers for other Languages379284
+Node: List of Programming Languages380509
+Node: C381731
+Node: sh382994
+Node: Preparing Shell Scripts384254
+Node: gettext.sh386652
+Node: gettext Invocation387181
+Node: ngettext Invocation388904
+Node: envsubst Invocation390460
+Node: eval_gettext Invocation391863
+Node: eval_ngettext Invocation392306
+Node: bash392802
+Node: Python394764
+Node: Common Lisp395959
+Node: clisp C396745
+Node: Emacs Lisp397446
+Node: librep398158
+Node: Smalltalk398882
+Node: Java399900
+Node: C#404903
+Node: gawk413305
+Node: Pascal414201
+Node: wxWindows415493
+Node: YCP416227
+Node: Tcl416950
+Node: Perl418344
+Node: General Problems421336
+Node: Default Keywords424994
+Node: Special Keywords425926
+Node: Quote-like Expressions427420
+Node: Interpolation I429685
+Node: Interpolation II433455
+Node: Parentheses435800
+Node: Long Lines437312
+Node: Perl Pitfalls439139
+Node: PHP443361
+Node: Pike444276
+Node: GCC-source444921
+Node: List of Data Formats445652
+Node: POT446108
+Node: RST446352
+Node: Glade446564
+Node: Conclusion446910
+Node: History447407
+Node: References451663
+Node: Language Codes453215
+Node: Country Codes457539
+Node: Program Index463274
+Node: Option Index464729
+Node: Variable Index498004
+Node: PO Mode Index499083
+Node: Autoconf Macro Index508441
+Node: Index508820
 
 End Tag Table

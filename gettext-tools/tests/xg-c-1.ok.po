@@ -110,7 +110,8 @@ msgid ""
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
 "                                EmacsLisp, librep, Smalltalk, Java,\n"
-"                                JavaProperties, awk, YCP, Tcl, Perl, PHP,\n"
+"                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
+"PHP,\n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
 msgstr ""
 
@@ -167,7 +168,8 @@ msgstr ""
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, awk,\n"
+"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
+"awk,\n"
 "                                Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
 
@@ -187,7 +189,8 @@ msgstr ""
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, awk,\n"
+"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
+"awk,\n"
 "                                YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
 
@@ -392,11 +395,11 @@ msgid "%s requires a \"-l locale\" specification"
 msgstr ""
 
 #, c-format
-msgid "%s is only valid with %s"
+msgid "%s is only valid with %s or %s"
 msgstr ""
 
 #, c-format
-msgid "%s is only valid with %s or %s"
+msgid "%s is only valid with %s, %s or %s"
 msgstr ""
 
 #, c-format
@@ -442,6 +445,16 @@ msgid ""
 msgstr ""
 
 #, c-format
+msgid "      --csharp                C# mode: generate a .NET .dll file\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"      --csharp-resources      C# resources mode: generate a .NET .resources "
+"file\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
@@ -483,6 +496,22 @@ msgid ""
 "name,\n"
 "separated with an underscore.  The -d option is mandatory.  The class is\n"
 "written under the specified directory.\n"
+msgstr ""
+
+#, c-format
+msgid "Output file location in C# mode:\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"  -d DIRECTORY                base directory for locale dependent .dll "
+"files\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"The -l and -d options are mandatory.  The .dll file is written in a\n"
+"subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
 
 #, c-format
