@@ -1,3 +1,7 @@
+2004-11-11  Bruno Haible  <bruno@clisp.org>
+
+	* config.rpath: Upgrade to libtool-1.5.6.
+
 2004-10-30  James Youngman  <jay@gnu.org>
 
 	* config.rpath: Modify comment to be consistent with the code.
