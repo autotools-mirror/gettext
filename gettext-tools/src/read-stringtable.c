@@ -801,8 +801,8 @@ read_string (lex_pos_ty *pos)
       if (c == UEOF)
 	{
 	  error_with_progname = false;
-	  error (0, 0, _("%s:%d: warning: unterminated string"),
-		 real_file_name, gram_pos.line_number);
+	  error (0, 0, _("%s:%lu: warning: unterminated string"),
+		 real_file_name, (unsigned long) gram_pos.line_number);
 	  error_with_progname = true;
 	}
     }
@@ -812,8 +812,8 @@ read_string (lex_pos_ty *pos)
       if (is_quotable (c))
 	{
 	  error_with_progname = false;
-	  error (0, 0, _("%s:%d: warning: syntax error"),
-		 real_file_name, gram_pos.line_number);
+	  error (0, 0, _("%s:%lu: warning: syntax error"),
+		 real_file_name, (unsigned long) gram_pos.line_number);
 	  error_with_progname = true;
 	}
       for (; c != UEOF && !is_quotable (c); c = phase4_getc ())
@@ -875,8 +875,8 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
       if (c == UEOF)
 	{
 	  error_with_progname = false;
-	  error (0, 0, _("%s:%d: warning: unterminated key/value pair"),
-		 real_file_name, gram_pos.line_number);
+	  error (0, 0, _("%s:%lu: warning: unterminated key/value pair"),
+		 real_file_name, (unsigned long) gram_pos.line_number);
 	  error_with_progname = true;
 	  break;
 	}
@@ -897,8 +897,8 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 	  if (msgstr == NULL)
 	    {
 	      error_with_progname = false;
-	      error (0, 0, _("%s:%d: warning: unterminated key/value pair"),
-		     real_file_name, gram_pos.line_number);
+	      error (0, 0, _("%s:%lu: warning: unterminated key/value pair"),
+		     real_file_name, (unsigned long) gram_pos.line_number);
 	      error_with_progname = true;
 	      break;
 	    }
@@ -944,8 +944,8 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 	    {
 	      error_with_progname = false;
 	      error (0, 0, _("\
-%s:%d: warning: syntax error, expected ';' after string"),
-		     real_file_name, gram_pos.line_number);
+%s:%lu: warning: syntax error, expected ';' after string"),
+		     real_file_name, (unsigned long) gram_pos.line_number);
 	      error_with_progname = true;
 	      break;
 	    }
@@ -954,8 +954,8 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 	{
 	  error_with_progname = false;
 	  error (0, 0, _("\
-%s:%d: warning: syntax error, expected '=' or ';' after string"),
-		 real_file_name, gram_pos.line_number);
+%s:%lu: warning: syntax error, expected '=' or ';' after string"),
+		 real_file_name, (unsigned long) gram_pos.line_number);
 	  error_with_progname = true;
 	  break;
 	}

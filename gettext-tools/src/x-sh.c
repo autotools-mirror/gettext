@@ -1007,8 +1007,8 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 	      free_token (&string);
 
 	      error_with_progname = false;
-	      error (0, 0, _("%s:%d: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"),
-		     pos.file_name, pos.line_number);
+	      error (0, 0, _("%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"),
+		     pos.file_name, (unsigned long) pos.line_number);
 	      error_with_progname = true;
 
 	      /* The result at runtime is not constant. Therefore we
