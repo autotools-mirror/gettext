@@ -1,3 +1,8 @@
+2002-04-08  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.m4 (gt_JAVACOMP): Test whether "gcj -C" really works, to
+	protect against systems where libgcj.jar is missing or misinstalled.
+
 2002-03-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.1 released.
