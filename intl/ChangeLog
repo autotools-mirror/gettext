@@ -1,3 +1,60 @@
+2000-10-30  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (guess_category_value): For libc always use the
+	setlocale() method.
+
+2000-10-20  Ulrich Drepper  <drepper@redhat.com>
+
+	* libintl.glibc (ngettext macro): Add missing parameter.
+	(dngettext macro): Likewise.
+
+2000-10-14  Ulrich Drepper  <drepper@redhat.com>
+
+	* localealias.c (read_alias_file): Update string pointers in map[]
+	if realloc() changed the values.
+	Patch by Jakub Jelinek <jakub@redhat.com>.
+
+2000-08-31  Ulrich Drepper  <drepper@redhat.com>
+
+	* loadmsgcat.c: Use *stat64 instead of *stat internally.
+
+	* dcigettext.c (free_mem): Correct freeing of _nl_domain_bindings
+	list.
+
+2000-08-27  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (DCIGETTEXT): Remove _nl_find_language in code to
+	determine invalid locale name.
+
+2000-08-20  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c: Unify use of function aliases to make more compact
+	PLT.
+
+	* loadmsgcat.c (_nl_unload_domain): Also free conv_tab element.
+	Pretty printing.
+	* plural.y (new_exp): Take number of optional parameters in second
+	parameter.  Test for correct number of parameters and free correctly
+	in case of failure.  Adjust all callers.
+	(yylex): Fix handling of '\0'.  Allow ';' as terminator character.
+
+2000-07-14  Bruno Haible  <haible@clisp.cons.org>
+
+	* dcigettext.c (dcigettext): Call plural_eval on all platforms, not
+	only those having tsearch.
+
+2000-06-30  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (_nl_find_msg): Correct reallocation of buffers in
+	case the translation is too large.  Remember allocated memory blocks
+	in a list.
+	(free_mem): Free memory for translations.
+
+2000-06-16  Ulrich Drepper  <drepper@redhat.com>
+
+	* loadmsgcat.c (_nl_load_domain): Call norm_add_slashes with new
+	parameter to always enable transliteration.
+
 1998-10-20  Paul Eggert  <eggert@twinsun.com>
 
 	* po2tbl.sin: Escape trigraphs.

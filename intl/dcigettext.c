@@ -54,6 +54,7 @@ extern int errno;
 #endif
 
 #if defined STDC_HEADERS || defined _LIBC
+# include <stddef.h>
 # include <stdlib.h>
 #else
 char *getenv ();
@@ -137,6 +138,7 @@ void free ();
 # ifndef stpcpy
 #  define stpcpy __stpcpy
 # endif
+# define tfind __tfind
 #else
 # if !defined HAVE_GETCWD
 char *getwd ();
@@ -320,6 +322,19 @@ struct block_list
 # undef alloca
 # define alloca(size) (malloc (size))
 #endif	/* have alloca */
+
+
+#ifdef _LIBC
+/* List of blocks allocated for translations.  */
+typedef struct transmem_list
+{
+  struct transmem_list *next;
+  char data[0];
+} transmem_block_t;
+static struct transmem_list *transmem_list;
+#else
+typedef char transmem_block_t;
+#endif
 
 
 /* Names for the libintl functions are a problem.  They must not clash
@@ -523,10 +538,7 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 
 	  /* When this is a SUID binary we must not allow accessing files
 	     outside the dedicated directories.  */
-	  if (ENABLE_SECURE
-	      && (memchr (single_locale, '/',
-			  _nl_find_language (single_locale) - single_locale)
-		  != NULL))
+	  if (ENABLE_SECURE && strchr (single_locale, '/') != NULL)
 	    /* Ingore this entry.  */
 	    continue;
 	}
@@ -553,24 +565,25 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
       if (domain != NULL)
 	{
 	  unsigned long int index = 0;
-#if defined HAVE_TSEARCH || defined _LIBC
-	  struct loaded_domain *domaindata =
-	    (struct loaded_domain *) domain->data;
 
 	  if (plural != 0)
 	    {
+	      struct loaded_domain *domaindata =
+		(struct loaded_domain *) domain->data;
+	      index = plural_eval (domaindata->plural, n);
+	      if (index >= domaindata->nplurals)
+		/* This should never happen.  It means the plural expression
+		   and the given maximum value do not match.  */
+		index = 0;
+
+#if defined HAVE_TSEARCH || defined _LIBC
 	      /* Try to find the translation among those which we
 		 found at some time.  */
 	      search = (struct known_translation_t *) alloca (sizeof (*search)
 							      + msgid_len);
 	      memcpy (search->msgid, msgid1, msgid_len);
 	      search->domain = (char *) domainname;
-	      search->plindex = plural_eval (domaindata->plural, n);
-	      if (search->plindex >= domaindata->nplurals)
-		/* This should never happen.  It means the plural expression
-		   and the given maximum value do not match.  */
-		search->plindex = 0;
-	      index = search->plindex;
+	      search->plindex = index;
 	      search->category = category;
 
 	      foundp = (struct known_translation_t **) tfind (search, &root,
@@ -580,8 +593,8 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 		  __libc_rwlock_unlock (_nl_state_lock);
 		  return (char *) (*foundp)->translation;
 		}
-	    }
 #endif
+	    }
 
 	  retval = _nl_find_msg (domain, msgid1, index);
 
@@ -784,12 +797,17 @@ _nl_find_msg (domain_file, msgid, index)
 	     We allocate always larger blocks which get used over
 	     time.  This is faster than many small allocations.   */
 	  __libc_lock_define_initialized (static, lock)
+# define INITIAL_BLOCK_SIZE	4080
 	  static unsigned char *freemem;
 	  static size_t freemem_size;
 
 	  size_t resultlen;
 	  const unsigned char *inbuf;
 	  unsigned char *outbuf;
+	  int malloc_count;
+# ifndef _LIBC
+	  transmem_block_t *transmem_list = NULL;
+# endif
 
 	  /* Note that we translate (index + 1) consecutive strings at
 	     once, including the final NUL byte.  */
@@ -807,13 +825,15 @@ _nl_find_msg (domain_file, msgid, index)
 	  inbuf = result;
 	  outbuf = freemem + sizeof (nls_uint32);
 
+	  malloc_count = 0;
 	  while (1)
 	    {
+	      transmem_block_t *newmem;
 # ifdef _LIBC
 	      size_t non_reversible;
 	      int res;
 
-	      if (freemem_size < 4)
+	      if (freemem_size < sizeof (nls_uint32))
 		goto resize_freemem;
 
 	      res = __gconv (domain->conv,
@@ -839,10 +859,10 @@ _nl_find_msg (domain_file, msgid, index)
 	      char *outptr = (char *) outbuf;
 	      size_t outleft;
 
-	      if (freemem_size < 4)
+	      if (freemem_size < sizeof (nls_uint32))
 		goto resize_freemem;
 
-	      outleft = freemem_size - 4;
+	      outleft = freemem_size - sizeof (nls_uint32);
 	      if (iconv (domain->conv, &inptr, &inleft, &outptr, &outleft)
 		  != (size_t) (-1))
 		{
@@ -858,17 +878,51 @@ _nl_find_msg (domain_file, msgid, index)
 # endif
 
 	    resize_freemem:
-	      /* We must resize the buffer.  */
-	      freemem_size = 2 * freemem_size;
-	      if (freemem_size < 4064)
-		freemem_size = 4064;
-	      freemem = (char *) malloc (freemem_size);
-	      if (__builtin_expect (freemem == NULL, 0))
+	      /* We must allocate a new buffer or resize the old one.  */
+	      if (malloc_count > 0)
 		{
+		  ++malloc_count;
+		  freemem_size = malloc_count * INITIAL_BLOCK_SIZE;
+		  newmem = (transmem_block_t *) realloc (transmem_list,
+							 freemem_size);
+# ifdef _LIBC
+		  if (newmem != NULL)
+		    transmem_list = transmem_list->next;
+		  else
+		    {
+		      struct transmem_list *old = transmem_list;
+
+		      transmem_list = transmem_list->next;
+		      free (old);
+		    }
+# endif
+		}
+	      else
+		{
+		  malloc_count = 1;
+		  freemem_size = INITIAL_BLOCK_SIZE;
+		  newmem = (transmem_block_t *) malloc (freemem_size);
+		}
+	      if (__builtin_expect (newmem == NULL, 0))
+		{
+		  freemem = NULL;
 		  freemem_size = 0;
 		  __libc_lock_unlock (lock);
 		  goto converted;
 		}
+
+# ifdef _LIBC
+	      /* Add the block to the list of blocks we have to free
+                 at some point.  */
+	      newmem->next = transmem_list;
+	      transmem_list = newmem;
+
+	      freemem = newmem->data;
+	      freemem_size -= offsetof (struct transmem_list, data);
+# else
+	      transmem_list = newmem;
+	      freemem = newmem;
+# endif
 
 	      outbuf = freemem + sizeof (nls_uint32);
 	    }
@@ -1038,7 +1092,7 @@ guess_category_value (category, categoryname)
   /* `LANGUAGE' is not set.  So we have to proceed with the POSIX
      methods of looking to `LC_ALL', `LC_xxx', and `LANG'.  On some
      systems this can be done by the `setlocale' function itself.  */
-#if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
+#if defined _LIBC || (defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL)
   return setlocale (category, NULL);
 #else
   /* Setting of LC_ALL overwrites all other.  */
@@ -1098,15 +1152,17 @@ mempcpy (dest, src, n)
 static void __attribute__ ((unused))
 free_mem (void)
 {
-  struct binding *runp;
+  void *old;
 
-  for (runp = _nl_domain_bindings; runp != NULL; runp = runp->next)
+  while (_nl_domain_bindings != NULL)
     {
-      if (runp->dirname != _nl_default_dirname)
+      struct binding *oldp = _nl_domain_bindings;
+      _nl_domain_bindings = _nl_domain_bindings->next;
+      if (oldp->dirname != _nl_default_dirname)
 	/* Yes, this is a pointer comparison.  */
-	free (runp->dirname);
-      if (runp->codeset != NULL)
-	free (runp->codeset);
+	free (oldp->dirname);
+      free (oldp->codeset);
+      free (oldp);
     }
 
   if (_nl_current_default_domain != _nl_default_default_domain)
@@ -1115,6 +1171,14 @@ free_mem (void)
 
   /* Remove the search tree with the known translations.  */
   __tdestroy (root, free);
+  root = NULL;
+
+  while (transmem_list != NULL)
+    {
+      old = transmem_list;
+      transmem_list = transmem_list->next;
+      free (old);
+    }
 }
 
 text_set_element (__libc_subfreeres, free_mem);

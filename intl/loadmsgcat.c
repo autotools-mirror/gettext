@@ -154,7 +154,11 @@ _nl_load_domain (domain_file)
 {
   int fd;
   size_t size;
+#ifdef _LIBC
+  struct stat64 st;
+#else
   struct stat st;
+#endif
   struct mo_file_header *data = (struct mo_file_header *) -1;
   int use_mmap = 0;
   struct loaded_domain *domain;
@@ -176,7 +180,12 @@ _nl_load_domain (domain_file)
     return;
 
   /* We must know about the size of the file.  */
-  if (__builtin_expect (fstat (fd, &st) != 0, 0)
+  if (
+#ifdef _LIBC
+      __builtin_expect (fstat64 (fd, &st) != 0, 0)
+#else
+      __builtin_expect (fstat (fd, &st) != 0, 0)
+#endif
       || __builtin_expect ((size = (size_t) st.st_size) != st.st_size, 0)
       || __builtin_expect (size < sizeof (struct mo_file_header), 0))
     {
@@ -348,8 +357,9 @@ _nl_load_domain (domain_file)
 	    }
 
 # ifdef _LIBC
-	  outcharset = norm_add_slashes (outcharset);
-	  charset = norm_add_slashes (charset);
+	  /* We always want to use transliteration.  */
+	  outcharset = norm_add_slashes (outcharset, "TRANSLIT");
+	  charset = norm_add_slashes (charset, NULL);
 	  if (__gconv_open (outcharset, charset, &domain->conv,
 			    GCONV_AVOID_NOCONV)
 	      != __GCONV_OK)
@@ -419,21 +429,17 @@ _nl_unload_domain (domain)
   if (domain->plural != &germanic_plural)
     __gettext_free_exp (domain->plural);
 
-#ifdef _LIBC
+  if (domain->conv_tab != NULL && domain->conv_tab != (char **) -1)
+    free (domain->conv_tab);
+
   if (domain->conv != (__gconv_t) -1)
     __gconv_close (domain->conv);
-#else
-# if HAVE_ICONV
-  if (domain->conv != (iconv_t) -1)
-    iconv_close (domain->conv);
-# endif
-#endif
 
-#ifdef _POSIX_MAPPED_FILES
+# ifdef _POSIX_MAPPED_FILES
   if (domain->use_mmap)
     munmap ((caddr_t) domain->data, domain->mmap_size);
   else
-#endif	/* _POSIX_MAPPED_FILES */
+# endif	/* _POSIX_MAPPED_FILES */
     free ((void *) domain->data);
 
   free (domain);
