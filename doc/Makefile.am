@@ -17,6 +17,12 @@
 
 ## Process this file with automake to produce Makefile.in.
 
+docdir = $(prefix)/doc/@PACKAGE@
+dvidir = $(docdir)
+psdir = $(docdir)
+pdfdir = $(docdir)
+htmldir = $(docdir)
+
 AUTOMAKE_OPTIONS = 1.2 gnits
 
 SED = sed
@@ -26,9 +32,120 @@ MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 info_TEXINFOS = gettext.texi
 gettext_TEXINFOS = iso-apdx.texi
 
-EXTRA_DIST = iso-apdx.sed ISO_639 nls.texi matrix.texi
+EXTRA_DIST = iso-apdx.sed ISO_639 nls.texi matrix.texi $(EXTRA_DIST_html)
 
 iso-apdx.texi: ISO_639 iso-apdx.sed
 	$(SED) -f $(srcdir)/iso-apdx.sed $(srcdir)/ISO_639 > iso-apdx.tmp
 	rm -f $(srcdir)/iso-apdx.texi
 	mv iso-apdx.tmp $(srcdir)/iso-apdx.texi
+
+
+# We distribute only the split HTML documentation.
+# The user can generate the others, via
+#   make gettext.ps
+#   make gettext.pdf
+#   make gettext.html
+
+all-local: html
+install-data-local: install-html
+installdirs-local: installdirs-html
+uninstall-local: uninstall-html
+
+html: html-split
+install-html: install-html-split
+uninstall-html: uninstall-html-split
+
+EXTRA_DIST_html = $(wildcard gettext_*.html)
+CLEANFILES = gettext.pdf gettext.html
+# gettext.dvi and gettext.ps are already known to automake.
+MAINTAINERCLEANFILES = gettext_*.html
+
+
+# Documentation in DVI format.
+
+install-dvi: gettext.dvi
+	$(mkinstalldirs) $(DESTDIR)$(dvidir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(dvidir)/gettext.dvi
+
+installdirs-dvi:
+	$(mkinstalldirs) $(DESTDIR)$(dvidir)
+
+uninstall-dvi:
+	$(RM) $(DESTDIR)$(dvidir)/gettext.dvi
+
+
+# Documentation in Postscript format.
+
+DVIPS = dvips -D600
+
+ps: gettext.ps
+
+gettext.ps: gettext.dvi
+	$(DVIPS) -o $@ $<
+
+install-ps: gettext.ps
+	$(mkinstalldirs) $(DESTDIR)$(psdir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(psdir)/gettext.ps
+
+installdirs-ps:
+	$(mkinstalldirs) $(DESTDIR)$(psdir)
+
+uninstall-ps:
+	$(RM) $(DESTDIR)$(psdir)/gettext.ps
+
+
+# Documentation in Portable Document Format.
+
+TEXI2PDF = texi2pdf
+SUFFIXES = .pdf
+
+pdf: gettext.pdf
+
+.texi.pdf:
+	TEXINPUTS=.:$$TEXINPUTS \
+	  MAKEINFO='$(MAKEINFO) -I $(srcdir)' $(TEXI2PDF) $<
+
+install-pdf: gettext.pdf
+	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(pdfdir)/gettext.pdf
+
+installdirs-pdf:
+	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+
+uninstall-pdf:
+	$(RM) $(DESTDIR)$(pdfdir)/gettext.pdf
+
+
+# Documentation in HTML format.
+
+TEXI2HTML = texi2html
+
+html-monolithic: gettext.html
+html-split: gettext_toc.html
+
+gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
+	$(TEXI2HTML) -expandinfo -number -monolithic $<
+
+gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
+	$(RM) gettext_*.html
+	$(TEXI2HTML) -expandinfo -number -split_chapter $<
+
+install-html-monolithic: gettext.html
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+	$(INSTALL_DATA) $< $(DESTDIR)$(htmldir)/gettext.html
+
+install-html-split: gettext_toc.html
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+	for file in `dirname $<`/gettext_*.html; do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(htmldir)/$$file; \
+	done
+
+installdirs-html:
+	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+
+uninstall-html-monolithic:
+	$(RM) $(DESTDIR)$(htmldir)/gettext.html
+
+uninstall-html-split:
+	$(RM) $(DESTDIR)$(htmldir)/gettext_*.html
+

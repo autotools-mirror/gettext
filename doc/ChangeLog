@@ -1,3 +1,23 @@
+2001-04-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (docdir, dvidir, psdir, pdfdir, htmldir): New variables.
+	(EXTRA_DIST): Add EXTRA_DIST_html.
+	(all-local, install-data-local, installdirs-local, uninstall-local):
+	New targets.
+	(html, install-html, uninstall-html): New targets.
+	(EXTRA_DIST_html, CLEANFILES, MAINTAINERCLEANFILES): New variables.
+	(install-dvi, installdirs-dvi, uninstall-dvi): New targets.
+	(DVIPS): New variable.
+	(ps, gettext.ps, install-ps, installdirs-ps, uninstall-ps): New
+	targets.
+	(TEXI2PDF, SUFFIXES): New variables.
+	(.texi.pdf): New rule.
+	(pdf, install-pdf, installdirs-pdf, uninstall-pdf): New targets.
+	(TEXI2HTML): New variable.
+	(html-monolithic, html-split, gettext.html, gettext_toc.html,
+	install-html-monolithic, install-html-split, installdirs-html,
+	uninstall-html-monolithic, uninstall-html-split): New targets.
+
 2001-04-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Plural forms): Add Estonian. Fix the formula for
