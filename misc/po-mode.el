@@ -581,8 +581,8 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     (ISO_8859-9 . iso-8859-9)
     ;(ISO-8859-13 . ??)
     ;(ISO_8859-13 . ??)
-    ;(ISO-8859-15 . ??)
-    ;(ISO_8859-15 . ??)
+    (ISO-8859-15 . iso-8859-15) ; requires Emacs 21
+    (ISO_8859-15 . iso-8859-15) ; requires Emacs 21
     (KOI8-R . koi8-r)
     ;(KOI8-U . ??)
     ;(CP850 . ??)
@@ -599,18 +599,19 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     ;(CP1255 . ??)
     ;(CP1256 . ??)
     ;(CP1257 . ??)
-    ;(GB2312 . euc-cn)
-    ;(EUC-JP . euc-jp)
-    ;(EUC-KR . euc-kr)
+    (GB2312 . cn-gb-2312)  ; also named 'gb2312' in XEmacs 21 or Emacs 21
+                           ; also named 'euc-cn' in Emacs 20 or Emacs 21
+    (EUC-JP . euc-jp)
+    (EUC-KR . euc-kr)
     ;(EUC-TW . ??)
-    ;(BIG5 . big5)
-    ;(BIG5HKSCS . ??)
+    (BIG5 . big5)
+    ;(BIG5-HKSCS . ??)
     ;(GBK . ??)
     ;(GB18030 . ??)
-    ;(SJIS . shift_jis)
+    (SHIFT_JIS . shift_jis)
     ;(JOHAB . ??)
-    ;(TIS-620 . th-tis620)
-    ;(VISCII . viscii)
+    (TIS-620 . tis-620)    ; requires Emacs 20 or Emacs 21
+    (VISCII . viscii)      ; requires Emacs 20 or Emacs 21
     (UTF-8 . utf-8)        ; requires Mule-UCS in Emacs 20, or Emacs 21
     )
   "How to convert a GNU libc/libiconv canonical charset name as seen in

@@ -1,3 +1,8 @@
+2001-07-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-mode.el (po-content-type-charset-alist): Add entries for
+	ISO-8859-15, GB2312, EUC-JP, EUC-KR, BIG5, SHIFT_JIS, TIS-620, VISCII.
+
 2001-07-02  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-validate): Use private 'compile-command' and buffer
