@@ -1,3 +1,12 @@
+2002-03-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.1 released.
+
+2002-03-12  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Bump version number to 0.11.1.
+	(RELEASE_DATE): Bump.
+
 2002-03-09  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Don't check for stpncpy; AIX 4.3.3 has an incompatible

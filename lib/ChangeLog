@@ -1,3 +1,36 @@
+2002-03-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.1 released.
+
+2002-03-10  Bruno Haible  <bruno@clisp.org>
+
+	Upgrade to Unicode-3.1.
+	* Combining.txt: New file, extracted from Unicode-3.0 PropList.txt.
+	* gen-lbrkprop.c: Replace 0x10000 with 0x110000 everywhere.
+	(fill_width): Adapt to changed format of EastAsianWidth.txt in
+	Unicode-3.1.
+	(get_lbp): Make more compatible to Unicode-3.1 LineBreak.txt.
+	(debug_output_lbp): Avoid gcc-3.0 warning.
+	(unicode_org_lbp): New variable.
+	(fill_org_lbp): New function.
+	(debug_output_org_lbp): New function.
+	(debug_output_org_tables): New function.
+	(output_lbp): Handle new negative entries in level1[] correctly.
+	Pretty-print level1 contents.
+	(main): Expect one more argument.
+	* lbrkprop.h: Regenerated with Unicode-3.1 tables.
+	* linebreak.c (nonspacing_table_data): Add one more block.
+	(nonspacing_table_ind): Extend up to 0x1dfff.
+	(uc_width): Update for Unicode-3.1.
+	* Makefile.am (EXTRA_DIST): Add Combining.txt.
+
+2001-08-07  Andreas Jaeger  <aj@suse.de>
+	    Andreas Schwab  <schwab@suse.de>
+	    Bruno Haible  <bruno@clisp.org>
+
+	* 3level.h (EMPTY): New macro.
+	(*_get, *_add, *_iterate, *_finalize): Use it instead of ~(uint32_t) 0.
+
 2002-03-09  Bruno Haible  <bruno@clisp.org>
 
 	Portability to AIX 4.3.3.
