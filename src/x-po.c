@@ -131,7 +131,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
      away, we have constructed a new one.
      But if no new one was constructed, keep the old header.  This is useful
      because the old header may contain a charset= directive.  */
-  if (*msgid == '\0' && !omit_header)
+  if (*msgid == '\0' && !xgettext_omit_header)
     {
       discard:
       free (msgid);

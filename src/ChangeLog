@@ -2,6 +2,11 @@
 
 	* x-java.l (strip_ending_spaces): Fix isspace call.
 
+	* xgettext.h (xgettext_omit_header): Renamed from omit_header.
+	* xgettext.c (xgettext_omit_header): Likewise.
+	(long_options, main, remember_a_message): Update.
+	* x-po.c (extract_directive_message): Update.
+
 2001-12-09  Bruno Haible  <bruno@clisp.org>
 
 	* x-lisp.h: New file.

@@ -108,7 +108,7 @@ static const char *msgstr_suffix;
 static char *output_dir;
 
 /* If nonzero omit header with information about this run.  */
-int omit_header;
+int xgettext_omit_header;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -135,7 +135,7 @@ static const struct option long_options[] =
   { "msgstr-suffix", optional_argument, NULL, 'M' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
-  { "omit-header", no_argument, &omit_header, 1 },
+  { "omit-header", no_argument, &xgettext_omit_header, 1 },
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
   { "sort-by-file", no_argument, NULL, 'F' },
@@ -431,7 +431,7 @@ xgettext cannot work without keywords to look for"));
 
   /* Generate a header, so that we know how and when this PO file was
      created.  */
-  if (!omit_header)
+  if (!xgettext_omit_header)
     message_list_append (mdlp->item[0]->messages, construct_header ());
 
   /* Read in the old messages, so that we can add to them.  */
@@ -890,7 +890,7 @@ remember_a_message (mlp, string, pos)
     is_format[i] = undecided;
   do_wrap = undecided;
 
-  if (msgid[0] == '\0' && !omit_header)
+  if (msgid[0] == '\0' && !xgettext_omit_header)
     {
       char buffer[21];
 

@@ -27,7 +27,9 @@
 /* Borrowed from read-po.h.  */
 extern int line_comment;
 
-extern int omit_header;
+/* If true, omit the header entry.
+   If false, keep the header entry present in the input.  */
+extern int xgettext_omit_header;
 
 extern bool substring_match;
 
