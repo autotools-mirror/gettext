@@ -52,6 +52,7 @@ PROGRAMS = msgcmp.exe, msgfmt.exe, msgmerge.exe, msgunfmt.exe, xgettext.exe, msg
 
 OBJECTS = \
   message.obj, \
+  po-error.obj, \
   read-po-abstract.obj, \
   po-lex.obj, \
   po-gram-gen.obj, \
@@ -118,6 +119,9 @@ all : gettextsrc.olb,$(PROGRAMS),gettextpo.olb
 
 message.obj : message.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) message.c
+
+po-error.obj : po-error.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) po-error.c
 
 read-po-abstract.obj : read-po-abstract.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) read-po-abstract.c

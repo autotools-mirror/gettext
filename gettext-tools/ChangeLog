@@ -1,3 +1,8 @@
+2004-09-05  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextsrc.def: Add the variables names from po-error.h.
+	* windows/gettextpo.def: Add many new function names.
+
 2004-04-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4: Change jm_ to gl_ in all uses of AC_DEFINE'd names.

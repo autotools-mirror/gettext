@@ -1,3 +1,62 @@
+2004-09-05  Bruno Haible  <bruno@clisp.org>
+
+	* po-error.h: New file.
+	* po-error.c: New file.
+	* po-charset.c: Include po-error.h.
+	(po_lex_charset_set): Use po_multiline_warning instead of
+	multiline_warning.
+	* po-lex.h: Include po-error.h.
+	(po_gram_error): Use po_error instead of error.
+	(po_gram_error_at_line): Use po_error_at_line instead of error_at_line.
+	* po-lex.c (po_gram_error): Use po_error instead of error.
+	(po_gram_error_at_line): Use po_error_at_line instead of error_at_line.
+	(mbfile_getc, lex_getc): Use po_error instead of error.
+	* read-po-abstract.c (po_scan): Likewise.
+	* write-po.c: Include po-error.h instead of error.h.
+	(wrap): Use po_error instead of error.
+	(message_print, message_print_obsolete): Use po_multiline_warning
+	instead of multiline_warning.
+	(msgdomain_list_print): Use po_error instead of error, po_error_at_line
+	instead of error_at_line.
+	* str-list.h (string_list_join): New declaration.
+	* str-list.c (string_list_join): New function.
+	* message.h (message_list_insert_at): New declaration.
+	* message.c (message_list_insert_at): New function.
+	* gettext-po.h (po_filepos_t): New type.
+	(struct po_error_handler, po_error_handler_t): New types.
+	(po_file_create): New declaration.
+	(po_file_read): Add handler argument.
+	(po_file_write, po_message_insert, po_message_create,
+	po_message_set_msgid, po_message_set_msgid_plural,
+	po_message_set_msgstr, po_message_set_msgstr_plural,
+	po_message_comments, po_message_set_comments,
+	po_message_extracted_comments, po_message_filepos,
+	po_message_set_obsolete, po_message_set_fuzzy, po_message_set_format,
+	po_filepos_file, po_filepos_start_line): New declarations.
+	* gettext-po.c (po_file_create): New function.
+	(po_file_read): Add handler argument. Keep an old version for backward
+	compatibility.
+	(po_file_write): New function.
+	(po_message_iterator): Store more information, to make
+	po_message_insert possible.
+	(po_message_iterator_free): Update.
+	(po_next_message): Don't crash if iterator->mlp is NULL.
+	(po_message_insert): New function.
+	(po_message_create): New function.
+	(po_message_set_msgid, po_message_set_msgid_plural,
+	po_message_set_msgstr, po_message_set_msgstr_plural,
+	po_message_comments, po_message_set_comments,
+	po_message_extracted_comments, po_message_filepos,
+	po_message_set_obsolete, po_message_set_fuzzy, po_message_set_format,
+	po_filepos_file, po_filepos_start_line): New functions.
+	* Makefile.am (noinst_HEADERS): Add po-error.h.
+	(COMMON_SOURCE): Add po-error.c.
+	* Makefile.msvc (OBJECTS): Add po-error.obj.
+	(po-error.obj): New rule.
+	* Makefile.vms (OBJECTS): Add po-error.obj.
+	(po-error.obj): New rule.
+	* FILES: Update.
+
 2004-09-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msginit_LDADD): Use the INTL_MACOSX_LDFLAGS.

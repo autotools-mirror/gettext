@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -280,6 +280,32 @@ message_list_prepend (message_list_ty *mlp, message_ty *mp)
   for (j = mlp->nitems; j > 0; j--)
     mlp->item[j] = mlp->item[j - 1];
   mlp->item[0] = mp;
+  mlp->nitems++;
+
+  if (mlp->use_hashtable)
+    if (insert_entry (&mlp->htable, mp->msgid, strlen (mp->msgid) + 1, mp))
+      /* A message list has duplicates, although it was allocated with the
+	 assertion that it wouldn't have duplicates.  It is a bug.  */
+      abort ();
+}
+
+
+void
+message_list_insert_at (message_list_ty *mlp, size_t n, message_ty *mp)
+{
+  size_t j;
+
+  if (mlp->nitems >= mlp->nitems_max)
+    {
+      size_t nbytes;
+
+      mlp->nitems_max = mlp->nitems_max * 2 + 4;
+      nbytes = mlp->nitems_max * sizeof (message_ty *);
+      mlp->item = xrealloc (mlp->item, nbytes);
+    }
+  for (j = mlp->nitems; j > n; j--)
+    mlp->item[j] = mlp->item[j - 1];
+  mlp->item[j] = mp;
   mlp->nitems++;
 
   if (mlp->use_hashtable)

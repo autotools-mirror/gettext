@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -25,8 +25,9 @@
 #include <stdbool.h>
 #include "error.h"
 #include "error-progname.h"
-#include "pos.h"
 #include "xerror.h"
+#include "po-error.h"
+#include "pos.h"
 
 
 #ifdef __cplusplus
@@ -81,15 +82,15 @@ extern void po_lex_pass_obsolete_entries (bool flag);
   do {									    \
     char *totalfmt = xasprintf ("%s%s", "%s:%lu:%d: ", fmt);		    \
     error_with_progname = false;					    \
-    error (0, 0, totalfmt, gram_pos.file_name,				    \
-	   (unsigned long) gram_pos.line_number, gram_pos_column + 1,	    \
-	   __VA_ARGS__ + 0);						    \
+    po_error (0, 0, totalfmt, gram_pos.file_name,			    \
+	      (unsigned long) gram_pos.line_number, gram_pos_column + 1,    \
+	      __VA_ARGS__ + 0);						    \
     error_with_progname = true;						    \
     free (totalfmt);							    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
-      error (1, 0, _("too many errors, aborting"));			    \
+      po_error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
 
 /* CAUTION: If you change this macro, you must also make identical
@@ -98,13 +99,13 @@ extern void po_lex_pass_obsolete_entries (bool flag);
 # define po_gram_error_at_line(pos, fmt, ...)				    \
   do {									    \
     error_with_progname = false;					    \
-    error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
-		   fmt, __VA_ARGS__ + 0);				    \
+    po_error_at_line (0, 0, (pos)->file_name, (pos)->line_number,	    \
+		      fmt, __VA_ARGS__ + 0);				    \
     error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
-      error (1, 0, _("too many errors, aborting"));			    \
+      po_error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
 
 /* GCC is also smart enough to allow optimizations like this.  */
@@ -117,14 +118,14 @@ extern void po_lex_pass_obsolete_entries (bool flag);
   do {									    \
     char *totalfmt = xasprintf ("%s%s", "%s:%d:%d: ", fmt);		    \
     error_with_progname = false;					    \
-    error (0, 0, totalfmt, gram_pos.file_name, gram_pos.line_number,	    \
-	   gram_pos_column + 1 , ## args);				    \
+    po_error (0, 0, totalfmt, gram_pos.file_name, gram_pos.line_number,	    \
+	      gram_pos_column + 1 , ## args);				    \
     error_with_progname = true;						    \
     free (totalfmt);							    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
-      error (1, 0, _("too many errors, aborting"));			    \
+      po_error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
 
 /* CAUTION: If you change this macro, you must also make identical
@@ -133,13 +134,13 @@ extern void po_lex_pass_obsolete_entries (bool flag);
 # define po_gram_error_at_line(pos, fmt, args...)			    \
   do {									    \
     error_with_progname = false;					    \
-    error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
-		    fmt , ## args);					    \
+    po_error_at_line (0, 0, (pos)->file_name, (pos)->line_number,	    \
+		      fmt , ## args);					    \
     error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
-      error (1, 0, _("too many errors, aborting"));			    \
+      po_error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
 
 #else

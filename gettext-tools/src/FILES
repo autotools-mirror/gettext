@@ -32,6 +32,10 @@ msgl-ascii.h
 msgl-ascii.c
                 Message list test for ASCII character set.
 
+po-error.h
+po-error.c
+                Error handling during writing and reading of PO files.
+
 write-po.h
 write-po.c
                 Output of a list-of-messages to a PO file.

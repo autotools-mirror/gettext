@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -191,6 +191,8 @@ extern void
        message_list_append (message_list_ty *mlp, message_ty *mp);
 extern void
        message_list_prepend (message_list_ty *mlp, message_ty *mp);
+extern void
+       message_list_insert_at (message_list_ty *mlp, size_t n, message_ty *mp);
 extern void
        message_list_delete_nth (message_list_ty *mlp, size_t n);
 typedef bool message_predicate_ty (const message_ty *mp);

@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -30,6 +30,7 @@
 
 #include "xallocsa.h"
 #include "xerror.h"
+#include "po-error.h"
 #include "basename.h"
 #include "progname.h"
 #include "strstr.h"
@@ -222,11 +223,11 @@ po_lex_charset_set (const char *header_entry, const char *filename)
 	  if (!(filenamelen >= 4
 		&& memcmp (filename + filenamelen - 4, ".pot", 4) == 0
 		&& strcmp (charset, "CHARSET") == 0))
-	    multiline_warning (xasprintf (_("%s: warning: "), filename),
-			       xasprintf (_("\
+	    po_multiline_warning (xasprintf (_("%s: warning: "), filename),
+				  xasprintf (_("\
 Charset \"%s\" is not a portable encoding name.\n\
 Message conversion to user's charset might not work.\n"),
-					  charset));
+					     charset));
 	}
       else
 	{
@@ -292,22 +293,22 @@ Message conversion to user's charset might not work.\n"),
 		  else
 		    note = _("Continuing anyway.");
 
-		  multiline_warning (xasprintf (_("%s: warning: "), filename),
-				     xasprintf (_("\
+		  po_multiline_warning (xasprintf (_("%s: warning: "), filename),
+					xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv(),\n\
 and iconv() does not support \"%s\".\n"),
-						po_lex_charset,
-						basename (program_name),
-						po_lex_charset));
+						   po_lex_charset,
+						   basename (program_name),
+						   po_lex_charset));
 
 # if !defined _LIBICONV_VERSION
-		  multiline_warning (NULL,
-				     xasprintf (_("\
+		  po_multiline_warning (NULL,
+					xasprintf (_("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
 would fix this problem.\n")));
 # endif
 
-		  multiline_warning (NULL, xasprintf (_("%s\n"), note));
+		  po_multiline_warning (NULL, xasprintf (_("%s\n"), note));
 		}
 #else
 	      /* Test for a charset which has double-byte characters
@@ -320,19 +321,19 @@ would fix this problem.\n")));
 		  const char *note =
 		    _("Continuing anyway, expect parse errors.");
 
-		  multiline_warning (xasprintf (_("%s: warning: "), filename),
-				     xasprintf (_("\
+		  po_multiline_warning (xasprintf (_("%s: warning: "), filename),
+					xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
-						po_lex_charset,
-						basename (program_name)));
+						   po_lex_charset,
+						   basename (program_name)));
 
-		  multiline_warning (NULL,
-				     xasprintf (_("\
+		  po_multiline_warning (NULL,
+					xasprintf (_("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
 would fix this problem.\n")));
 
-		  multiline_warning (NULL, xasprintf (_("%s\n"), note));
+		  po_multiline_warning (NULL, xasprintf (_("%s\n"), note));
 		}
 #endif
 	    }
@@ -347,8 +348,8 @@ would fix this problem.\n")));
 
       if (!(filenamelen >= 4
 	    && memcmp (filename + filenamelen - 4, ".pot", 4) == 0))
-	multiline_warning (xasprintf (_("%s: warning: "), filename),
-			   xasprintf (_("\
+	po_multiline_warning (xasprintf (_("%s: warning: "), filename),
+			      xasprintf (_("\
 Charset missing in header.\n\
 Message conversion to user's charset will not work.\n")));
     }

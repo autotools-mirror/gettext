@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -176,11 +176,14 @@ string_list_concat_destroy (string_list_ty *slp)
 }
 
 
-#if 0 /* unused */
 /* Return a freshly allocated string obtained by concatenating all the
-   strings in the list, separated by spaces.  */
+   strings in the list, separated by the separator character, terminated
+   by the terminator character.  The terminator character is not added if
+   drop_redundant_terminator is true and the last string already ends with
+   the terminator. */
 char *
-string_list_join (const string_list_ty *slp)
+string_list_join (const string_list_ty *slp, char separator,
+		  char terminator, bool drop_redundant_terminator)
 {
   size_t len;
   size_t j;
@@ -190,24 +193,31 @@ string_list_join (const string_list_ty *slp)
   len = 1;
   for (j = 0; j < slp->nitems; ++j)
     {
-      if (j)
+      if (separator && j > 0)
 	++len;
       len += strlen (slp->item[j]);
     }
+  if (terminator)
+    ++len;
   result = (char *) xmalloc (len);
   pos = 0;
   for (j = 0; j < slp->nitems; ++j)
     {
-      if (j)
-	result[pos++] = ' ';
+      if (separator && j > 0)
+	result[pos++] = separator;
       len = strlen (slp->item[j]);
       memcpy (result + pos, slp->item[j], len);
       pos += len;
     }
+  if (terminator
+      && !(drop_redundant_terminator
+	   && slp->nitems > 0
+	   && (len = strlen (slp->item[slp->nitems - 1])) > 0
+	   && slp->item[slp->nitems - 1][len - 1] == terminator))
+    result[pos++] = terminator;
   result[pos] = '\0';
   return result;
 }
-#endif
 
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */

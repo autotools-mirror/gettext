@@ -35,10 +35,14 @@ plural_table
 plural_table_size
 po_charset_ascii
 po_charset_utf8
+po_error
+po_error_at_line
 po_gram_lval
 po_lex_charset
 po_lex_iconv
 po_lex_weird_cjk
+po_multiline_error
+po_multiline_warning
 use_first
 catenate_msgdomain_list
 compare_po_locale_charsets

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -47,8 +47,8 @@
 #include "fwriteerror.h"
 #include "exit.h"
 #include "error-progname.h"
-#include "error.h"
 #include "xerror.h"
+#include "po-error.h"
 #include "gettext.h"
 
 /* Our regular abbreviation.  */
@@ -552,7 +552,7 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
 		    {
 		      if (errno == EILSEQ)
 			{
-			  error (0, 0, _("invalid multibyte sequence"));
+			  po_error (0, 0, _("invalid multibyte sequence"));
 			  continue;
 			}
 		      else
@@ -603,9 +603,9 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
 	      /* We warn about any use of escape sequences beside
 		 '\n' and '\t'.  */
 	      if (c != 'n' && c != 't')
-		error (0, 0, _("\
+		po_error (0, 0, _("\
 internationalized messages should not contain the `\\%c' escape sequence"),
-		       c);
+			  c);
 	    }
 	  else if (escape && !c_isprint ((unsigned char) c))
 	    {
@@ -658,7 +658,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		    {
 		      if (errno == EILSEQ)
 			{
-			  error (0, 0, _("invalid multibyte sequence"));
+			  po_error (0, 0, _("invalid multibyte sequence"));
 			  continue;
 			}
 		      else
@@ -848,8 +848,8 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
      this domain, emit an empty string.  */
   if (!is_ascii_string (mp->msgid)
       && po_charset_canonicalize (charset) != po_charset_utf8)
-    multiline_warning (xasprintf (_("warning: ")),
-		       xasprintf (_("\
+    po_multiline_warning (xasprintf (_("warning: ")),
+			  xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgid instead.\n\
@@ -914,8 +914,8 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
      are as readable as possible.  */
   if (!is_ascii_string (mp->msgid)
       && po_charset_canonicalize (charset) != po_charset_utf8)
-    multiline_warning (xasprintf (_("warning: ")),
-		       xasprintf (_("\
+    po_multiline_warning (xasprintf (_("warning: ")),
+			  xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgid instead.\n\
@@ -1060,9 +1060,9 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
       if (mdlp->nitems > 1)
 	{
 	  if (use_syntax_properties)
-	    error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
+	    po_error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
 	  if (use_syntax_stringtable)
-	    error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with NeXTstep/GNUstep .strings syntax."));
+	    po_error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with NeXTstep/GNUstep .strings syntax."));
 	}
       if (mdlp->nitems == 1)
 	{
@@ -1086,13 +1086,13 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 	    {
 	      error_with_progname = false;
 	      if (use_syntax_properties)
-		error_at_line (EXIT_FAILURE, 0,
-			       has_plural->file_name, has_plural->line_number,
-			       _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+		po_error_at_line (EXIT_FAILURE, 0,
+				  has_plural->file_name, has_plural->line_number,
+				  _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
 	      if (use_syntax_stringtable)
-		error_at_line (EXIT_FAILURE, 0,
-			       has_plural->file_name, has_plural->line_number,
-			       _("message catalog has plural form translations, but the output format does not support them."));
+		po_error_at_line (EXIT_FAILURE, 0,
+				  has_plural->file_name, has_plural->line_number,
+				  _("message catalog has plural form translations, but the output format does not support them."));
 	      error_with_progname = true;
 	    }
 	}
@@ -1104,8 +1104,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
     {
       fp = fopen (filename, "w");
       if (fp == NULL)
-	error (EXIT_FAILURE, errno, _("cannot create output file \"%s\""),
-	       filename);
+	po_error (EXIT_FAILURE, errno, _("cannot create output file \"%s\""),
+		  filename);
     }
   else
     {
@@ -1123,8 +1123,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 
   /* Make sure nothing went wrong.  */
   if (fwriteerror (fp))
-    error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-	   filename);
+    po_error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
+	      filename);
 
   if (fp != stdout)
     fclose (fp);

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -89,8 +89,8 @@ po_gram_error (const char *fmt, ...)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
   error_with_progname = false;
-  error (0, 0, "%s:%lu:%d: %s", gram_pos.file_name,
-	 (unsigned long) gram_pos.line_number, gram_pos_column + 1, buffer);
+  po_error (0, 0, "%s:%lu:%d: %s", gram_pos.file_name,
+	    (unsigned long) gram_pos.line_number, gram_pos_column + 1, buffer);
   error_with_progname = true;
   free (buffer);
 
@@ -100,7 +100,7 @@ po_gram_error (const char *fmt, ...)
   if (*fmt == '.')
     --error_message_count;
   else if (error_message_count >= gram_max_allowed_errors)
-    error (EXIT_FAILURE, 0, _("too many errors, aborting"));
+    po_error (EXIT_FAILURE, 0, _("too many errors, aborting"));
 }
 
 /* CAUTION: If you change this function, you must also make identical
@@ -118,7 +118,7 @@ po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
   error_with_progname = false;
-  error_at_line (0, 0, pp->file_name, pp->line_number, "%s", buffer);
+  po_error_at_line (0, 0, pp->file_name, pp->line_number, "%s", buffer);
   error_with_progname = true;
   free (buffer);
 
@@ -129,7 +129,7 @@ po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
   if (*fmt == '.')
     --error_message_count;
   else if (error_message_count >= gram_max_allowed_errors)
-    error (EXIT_FAILURE, 0, _("too many errors, aborting"));
+    po_error (EXIT_FAILURE, 0, _("too many errors, aborting"));
 }
 
 #endif
@@ -501,7 +501,7 @@ incomplete multibyte sequence at end of line"));
 		    }
 		}
 	      else
-		error (EXIT_FAILURE, errno, _("iconv failure"));
+		po_error (EXIT_FAILURE, errno, _("iconv failure"));
 	    }
 	  else
 	    {
@@ -663,8 +663,8 @@ lex_getc (mbchar_t mbc)
 	  if (ferror (mbf->fp))
 	    {
 	    bomb:
-	      error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-		     gram_pos.file_name);
+	      po_error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+			gram_pos.file_name);
 	    }
 	  break;
 	}

@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2004 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -188,10 +188,10 @@ po_scan (abstract_po_reader_ty *pop, FILE *fp,
     }
 
   if (error_message_count > 0)
-    error (EXIT_FAILURE, 0,
-	   ngettext ("found %d fatal error", "found %d fatal errors",
-		     error_message_count),
-	   error_message_count);
+    po_error (EXIT_FAILURE, 0,
+	      ngettext ("found %d fatal error", "found %d fatal errors",
+			error_message_count),
+	      error_message_count);
   error_message_count = 0;
 }
 

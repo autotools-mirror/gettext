@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,12 +23,20 @@
 /* Specification.  */
 #include "gettext-po.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "message.h"
 #include "xalloc.h"
 #include "read-po.h"
+#include "write-po.h"
+#include "error.h"
+#include "xerror.h"
+#include "po-error.h"
+#include "gettext.h"
+
+#define _(str) gettext(str)
 
 
 struct po_file
@@ -41,16 +49,70 @@ struct po_file
 
 struct po_message_iterator
 {
+  po_file_t file;
+  char *domain;
   message_list_ty *mlp;
   size_t index;
 };
 
 /* A po_message_t is actually a 'struct message_ty *'.  */
 
+/* A po_filepos_t is actually a 'lex_pos_ty *'.  */
+
+
+/* Create an empty PO file representation in memory.  */
+
+po_file_t
+po_file_create (void)
+{
+  po_file_t file;
+
+  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file->mdlp = msgdomain_list_alloc (false);
+  file->real_filename = _("<unnamed>");
+  file->logical_filename = file->real_filename;
+  file->domains = NULL;
+  return file;
+}
+
 
 /* Read a PO file into memory.
    Return its contents.  Upon failure, return NULL and set errno.  */
 
+po_file_t
+po_file_read (const char *filename, po_error_handler_t handler)
+{
+  FILE *fp;
+  po_file_t file;
+
+  fp = fopen (filename, "r");
+  if (fp == NULL)
+    return NULL;
+
+  /* Establish error handler around read_po().  */
+  po_error             = handler->error;
+  po_error_at_line     = handler->error_at_line;
+  po_multiline_warning = handler->multiline_warning;
+  po_multiline_error   = handler->multiline_error;
+
+  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file->real_filename = filename;
+  file->logical_filename = filename;
+  file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
+  file->domains = NULL;
+
+  /* Restore error handler.  */
+  po_error             = error;
+  po_error_at_line     = error_at_line;
+  po_multiline_warning = multiline_warning;
+  po_multiline_error   = multiline_error;
+
+  fclose (fp);
+  return file;
+}
+#undef po_file_read
+
+/* Older version for binary backward compatibility.  */
 po_file_t
 po_file_read (const char *filename)
 {
@@ -60,12 +122,38 @@ po_file_read (const char *filename)
   fp = fopen (filename, "r");
   if (fp == NULL)
     return NULL;
+
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
   file->domains = NULL;
+
   fclose (fp);
+  return file;
+}
+
+
+/* Write an in-memory PO file to a file.
+   Upon failure, return NULL and set errno.  */
+
+po_file_t
+po_file_write (po_file_t file, const char *filename, po_error_handler_t handler)
+{
+  /* Establish error handler around msgdomain_list_print().  */
+  po_error             = handler->error;
+  po_error_at_line     = handler->error_at_line;
+  po_multiline_warning = handler->multiline_warning;
+  po_multiline_error   = handler->multiline_error;
+
+  msgdomain_list_print (file->mdlp, filename, true, false);
+
+  /* Restore error handler.  */
+  po_error             = error;
+  po_error_at_line     = error_at_line;
+  po_multiline_warning = multiline_warning;
+  po_multiline_error   = multiline_error;
+
   return file;
 }
 
@@ -189,6 +277,8 @@ po_message_iterator (po_file_t file, const char *domain)
   iterator =
     (struct po_message_iterator *)
     xmalloc (sizeof (struct po_message_iterator));
+  iterator->file = file;
+  iterator->domain = xstrdup (domain);
   iterator->mlp = msgdomain_list_sublist (file->mdlp, domain, false);
   iterator->index = 0;
 
@@ -201,6 +291,7 @@ po_message_iterator (po_file_t file, const char *domain)
 void
 po_message_iterator_free (po_message_iterator_t iterator)
 {
+  free (iterator->domain);
   free (iterator);
 }
 
@@ -211,10 +302,42 @@ po_message_iterator_free (po_message_iterator_t iterator)
 po_message_t
 po_next_message (po_message_iterator_t iterator)
 {
-  if (iterator->index < iterator->mlp->nitems)
+  if (iterator->mlp != NULL && iterator->index < iterator->mlp->nitems)
     return (po_message_t) iterator->mlp->item[iterator->index++];
   else
     return NULL;
+}
+
+
+/* Insert a message in a PO file in memory, in the domain and at the position
+   indicated by the iterator.  The iterator thereby advances past the freshly
+   inserted message.  */
+
+void
+po_message_insert (po_message_iterator_t iterator, po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (iterator->mlp == NULL)
+    /* Now we need to allocate a sublist corresponding to the iterator.  */
+    iterator->mlp =
+      msgdomain_list_sublist (iterator->file->mdlp, iterator->domain, true);
+  /* Insert the message.  */
+  message_list_insert_at (iterator->mlp, iterator->index, mp);
+  /* Advance the iterator.  */
+  iterator->index++;
+}
+
+
+/* Return a freshly constructed message.
+   To finish initializing the message, you must set the msgid and msgstr.  */
+
+po_message_t
+po_message_create (void)
+{
+  lex_pos_ty pos = { NULL, 0 };
+
+  return (po_message_t) message_alloc (NULL, NULL, NULL, 0, &pos);
 }
 
 
@@ -226,6 +349,24 @@ po_message_msgid (po_message_t message)
   message_ty *mp = (message_ty *) message;
 
   return mp->msgid;
+}
+
+
+/* Change the msgid (untranslated English string) of a message.  */
+
+void
+po_message_set_msgid (po_message_t message, const char *msgid)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (msgid != mp->msgid)
+    {
+      char *old_msgid = (char *) mp->msgid;
+
+      mp->msgid = xstrdup (msgid);
+      if (old_msgid != NULL)
+	free (old_msgid);
+    }
 }
 
 
@@ -241,6 +382,25 @@ po_message_msgid_plural (po_message_t message)
 }
 
 
+/* Change the msgid_plural (untranslated English plural string) of a message.
+   NULL means a message without plural.  */
+
+void
+po_message_set_msgid_plural (po_message_t message, const char *msgid_plural)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (msgid_plural != mp->msgid_plural)
+    {
+      char *old_msgid_plural = (char *) mp->msgid_plural;
+
+      mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
+      if (old_msgid_plural != NULL)
+	free (old_msgid_plural);
+    }
+}
+
+
 /* Return the msgstr (translation) of a message.
    Return the empty string for an untranslated message.  */
 
@@ -250,6 +410,26 @@ po_message_msgstr (po_message_t message)
   message_ty *mp = (message_ty *) message;
 
   return mp->msgstr;
+}
+
+
+/* Change the msgstr (translation) of a message.
+   Use an empty string to denote an untranslated message.  */
+
+void
+po_message_set_msgstr (po_message_t message, const char *msgstr)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (msgstr != mp->msgstr)
+    {
+      char *old_msgstr = (char *) mp->msgstr;
+
+      mp->msgstr = xstrdup (msgstr);
+      mp->msgstr_len = strlen (mp->msgstr) + 1;
+      if (old_msgstr != NULL)
+	free (old_msgstr);
+    }
 }
 
 
@@ -280,6 +460,170 @@ po_message_msgstr_plural (po_message_t message, int index)
 }
 
 
+/* Change the msgstr[index] for a message with plural handling.
+   Use a NULL value at the end to reduce the number of plural forms.  */
+
+void
+po_message_set_msgstr_plural (po_message_t message, int index, const char *msgstr)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (mp->msgid_plural != NULL && index >= 0)
+    {
+      char *p = (char *) mp->msgstr;
+      char *p_end = (char *) mp->msgstr + mp->msgstr_len;
+      char *copied_msgstr;
+
+      /* Special care must be taken of the case that msgstr points into the
+	 mp->msgstr string list, because mp->msgstr may be relocated before we
+	 are done with msgstr.  */
+      if (msgstr >= p && msgstr < p_end)
+	msgstr = copied_msgstr = xstrdup (msgstr);
+      else
+	copied_msgstr = NULL;
+
+      for (; ; p += strlen (p) + 1, index--)
+	{
+	  if (p >= p_end)
+	    {
+	      /* Append at the end.  */
+	      if (msgstr != NULL)
+		{
+		  size_t new_msgstr_len = mp->msgstr_len + index + strlen (msgstr) + 1;
+
+		  mp->msgstr =
+		    (char *) xrealloc ((char *) mp->msgstr, new_msgstr_len);
+		  p = (char *) mp->msgstr + mp->msgstr_len;
+		  for (; index > 0; index--)
+		    *p++ = '\0';
+		  memcpy (p, msgstr, strlen (msgstr) + 1);
+		  mp->msgstr_len = new_msgstr_len;
+		}
+	      if (copied_msgstr != NULL)
+		free (copied_msgstr);
+	      return;
+	    }
+	  if (index == 0)
+	    break;
+	}
+      if (msgstr == NULL)
+	{
+	  if (p + strlen (p) + 1 >= p_end)
+	    {
+	      /* Remove the string that starts at p.  */
+	      mp->msgstr_len = p - mp->msgstr;
+	      return;
+	    }
+	  /* It is not possible to remove an element of the string list
+	     except the last one.  So just replace it with the empty string.
+	     That's the best we can do here.  */
+	  msgstr = "";
+	}
+      {
+	/* Replace the string that starts at p.  */
+	size_t i1 = p - mp->msgstr;
+	size_t i2before = i1 + strlen (p);
+	size_t i2after = i1 + strlen (msgstr);
+	size_t new_msgstr_len = mp->msgstr_len - i2before + i2after;
+
+	if (i2after > i2before)
+	  mp->msgstr = (char *) xrealloc ((char *) mp->msgstr, new_msgstr_len);
+	memmove ((char *) mp->msgstr + i2after, mp->msgstr + i2before,
+		 mp->msgstr_len - i2before);
+	memcpy ((char *) mp->msgstr + i1, msgstr, i2after - i1);
+	mp->msgstr_len = new_msgstr_len;
+      }
+      if (copied_msgstr != NULL)
+	free (copied_msgstr);
+    }
+}
+
+
+/* Return the comments for a message.  */
+
+const char *
+po_message_comments (po_message_t message)
+{
+  /* FIXME: memory leak.  */
+  message_ty *mp = (message_ty *) message;
+
+  if (mp->comment == NULL || mp->comment->nitems == 0)
+    return "";
+  else
+    return string_list_join (mp->comment, '\n', '\n', true);
+}
+
+
+/* Change the comments for a message.
+   comments should be a multiline string, ending in a newline, or empty.  */
+
+void
+po_message_set_comments (po_message_t message, const char *comments)
+{
+  message_ty *mp = (message_ty *) message;
+  string_list_ty *slp = string_list_alloc ();
+
+  {
+    char *copy = xstrdup (comments);
+    char *rest;
+
+    rest = copy;
+    while (*rest != '\0')
+      {
+	char *newline = strchr (rest, '\n');
+
+	if (newline != NULL)
+	  {
+	    *newline = '\0';
+	    string_list_append (slp, rest);
+	    rest = newline + 1;
+	  }
+	else
+	  {
+	    string_list_append (slp, rest);
+	    break;
+	  }
+      }
+    free (copy);
+  }
+
+  if (mp->comment != NULL)
+    string_list_free (mp->comment);
+
+  mp->comment = slp;
+}
+
+
+/* Return the extracted comments for a message.  */
+
+const char *
+po_message_extracted_comments (po_message_t message)
+{
+  /* FIXME: memory leak.  */
+  message_ty *mp = (message_ty *) message;
+
+  if (mp->comment_dot == NULL || mp->comment_dot->nitems == 0)
+    return "";
+  else
+    return string_list_join (mp->comment_dot, '\n', '\n', true);
+}
+
+
+/* Return the i-th file position for a message, or NULL if i is out of
+   range.  */
+
+po_filepos_t
+po_message_filepos (po_message_t message, int i)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (i >= 0 && (size_t)i < mp->filepos_count)
+    return (po_filepos_t) &mp->filepos[i];
+  else
+    return NULL;
+}
+
+
 /* Return true if the message is marked obsolete.  */
 
 int
@@ -291,6 +635,17 @@ po_message_is_obsolete (po_message_t message)
 }
 
 
+/* Change the obsolete mark of a message.  */
+
+void
+po_message_set_obsolete (po_message_t message, int obsolete)
+{
+  message_ty *mp = (message_ty *) message;
+
+  mp->obsolete = obsolete;
+}
+
+
 /* Return true if the message is marked fuzzy.  */
 
 int
@@ -299,6 +654,17 @@ po_message_is_fuzzy (po_message_t message)
   message_ty *mp = (message_ty *) message;
 
   return (mp->is_fuzzy ? 1 : 0);
+}
+
+
+/* Change the fuzzy mark of a message.  */
+
+void
+po_message_set_fuzzy (po_message_t message, int fuzzy)
+{
+  message_ty *mp = (message_ty *) message;
+
+  mp->is_fuzzy = fuzzy;
 }
 
 
@@ -319,4 +685,58 @@ po_message_is_format (po_message_t message, const char *format_type)
 	/* The given format_type corresponds to (enum format_type) i.  */
 	return (possible_format_p (mp->is_format[i]) ? 1 : 0);
   return 0;
+}
+
+
+/* Change the format string mark for a given type of a message.  */
+
+void
+po_message_set_format (po_message_t message, const char *format_type, /*bool*/int value)
+{
+  message_ty *mp = (message_ty *) message;
+  size_t len = strlen (format_type);
+  size_t i;
+
+  if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
+    for (i = 0; i < NFORMATS; i++)
+      if (strlen (format_language[i]) == len - 7
+	  && memcmp (format_language[i], format_type, len - 7) == 0)
+	/* The given format_type corresponds to (enum format_type) i.  */
+	mp->is_format[i] = (value ? yes : no);
+}
+
+
+#if 0
+/* Test whether the message translation is a valid format string if the message
+   is marked as being a format string.  Return NULL if valid or not marked as
+   such, or an explanation string if invalid.  */
+
+char *
+po_message_check_format (po_message_t message, const char *format_type)
+{
+  ??
+}
+#endif
+
+
+/* Return the file name.  */
+
+const char *
+po_filepos_file (po_filepos_t filepos)
+{
+  lex_pos_ty *pp = (lex_pos_ty *) filepos;
+
+  return pp->file_name;
+}
+
+
+/* Return the line number where the string starts, or (size_t)(-1) if no line
+   number is available.  */
+
+size_t
+po_filepos_start_line (po_filepos_t filepos)
+{
+  lex_pos_ty *pp = (lex_pos_ty *) filepos;
+
+  return pp->line_number;
 }
