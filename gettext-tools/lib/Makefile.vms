@@ -15,7 +15,7 @@ WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("HAVE_CONFIG_H=1","EXEEXT="".exe""","LIBDIR=""$(libdir)]""")
+CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1","EXEEXT="".exe""","LIBDIR=""$(libdir)]""")
 
 INCLUDES = /include=([],[-],[-.intl])
 

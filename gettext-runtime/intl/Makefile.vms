@@ -23,7 +23,7 @@ WARN_CFLAGS = /warning
 
 OPTIMFLAGS = /optimize
 
-CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","LOCALE_ALIAS_PATH=""$(aliaspath)""","LIBDIR=""$(libdir)]""","IN_LIBINTL=1")
+CFLAGS = $(WARN_CFLAGS) $(OPTIMFLAGS) /define=("VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","LOCALE_ALIAS_PATH=""$(aliaspath)""","LIBDIR=""$(libdir)]""","IN_LIBINTL=1")
 
 INCLUDES = /include=([],[-])
 
