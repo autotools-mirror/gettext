@@ -1,3 +1,8 @@
+2001-05-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (install-dvi, gettext.ps, install-ps, install-pdf,
