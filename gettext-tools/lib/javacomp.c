@@ -235,7 +235,7 @@ compile_java_class (const char * const *java_sources,
 
 	    /* Remove zombie process from process list, and retrieve exit
 	       status.  */
-	    exitstatus = wait_subprocess (child, "gcj", false);
+	    exitstatus = wait_subprocess (child, "gcj", true, false);
 	    if (exitstatus != 0)
 	      gcj_present = false;
 	  }

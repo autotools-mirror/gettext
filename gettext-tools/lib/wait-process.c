@@ -96,7 +96,8 @@
 
 
 int
-wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
+wait_subprocess (pid_t child, const char *progname,
+		 bool null_stderr, bool exit_on_error)
 {
   /* waitpid() is just as portable as wait() nowadays.  */
   WAIT_T status;
@@ -121,10 +122,10 @@ wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
 	      break;
 	    }
 #endif
-	  if (exit_on_error)
-	    error (EXIT_FAILURE, errno, _("%s subprocess"), progname);
-	  else
-	    return 127;
+	  if (exit_on_error || !null_stderr)
+	    error (exit_on_error ? EXIT_FAILURE : 0, errno,
+		   _("%s subprocess"), progname);
+	  return 127;
 	}
 
       /* One of WIFSIGNALED (status), WIFEXITED (status), WIFSTOPPED (status)
@@ -135,18 +136,18 @@ wait_subprocess (pid_t child, const char *progname, bool exit_on_error)
 
   if (WIFSIGNALED (status))
     {
-      if (exit_on_error)
-	error (EXIT_FAILURE, 0, _("%s subprocess got fatal signal %d"),
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, 0,
+	       _("%s subprocess got fatal signal %d"),
 	       progname, (int) WTERMSIG (status));
-      else
-	return 127;
+      return 127;
     }
   if (WEXITSTATUS (status) == 127)
     {
-      if (exit_on_error)
-	error (EXIT_FAILURE, 0, _("%s subprocess failed"), progname);
-      else
-	return 127;
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, 0,
+	       _("%s subprocess failed"), progname);
+      return 127;
     }
   return WEXITSTATUS (status);
 }

@@ -1,4 +1,18 @@
-2003-05-08  Bruno Haible  <bruno@clisp.org>
+2003-06-13  Bruno Haible  <bruno@clisp.org>
+
+	* wait-process.h (wait_subprocess): Add null_stderr argument.
+	* wait-process.c (wait_subprocess): Add null_stderr argument.
+	When !exit_on_error && !null_stderr, still emit error messages, but
+	don't exit.
+	* execute.c (execute): When !exit_on_error && !null_stderr, still
+	emit error messages, but don't exit. Update wait_subprocess call.
+	* pipe-in.c (create_pipe_in): When !exit_on_error && !null_stderr,
+	still emit error messages, but don't exit.
+	* pipe-out.c (create_pipe_out): Likewise.
+	* pipe-bidi.c (create_pipe_bidi): Likewise.
+	* javacomp.c (compile_java_class): Update wait_subprocess call.
+
+2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms (alloca.h): New rule.
 	(all, javacomp.obj, javaexec.obj): Depend on it.

@@ -1,5 +1,5 @@
 /* Waiting for a subprocess to finish.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,6 +32,6 @@
    If it didn't terminate correctly, exit if exit_on_error is true, otherwise
    return 127.  */
 extern int wait_subprocess (pid_t child, const char *progname,
-			    bool exit_on_error);
+			    bool null_stderr, bool exit_on_error);
 
 #endif /* _WAIT_PROCESS_H */

@@ -186,13 +186,11 @@ create_pipe_out (const char *progname,
   close (ofd[0]);
   if (child == -1)
     {
-      if (exit_on_error)
-	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
-      else
-	{
-	  close (ofd[1]);
-	  return -1;
-	}
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, errno,
+	       _("%s subprocess failed"), progname);
+      close (ofd[1]);
+      return -1;
     }
 
   fd[0] = ofd[1];
@@ -244,14 +242,12 @@ create_pipe_out (const char *progname,
     {
       if (actions_allocated)
 	posix_spawn_file_actions_destroy (&actions);
-      if (exit_on_error)
-	error (EXIT_FAILURE, err, _("%s subprocess failed"), progname);
-      else
-	{
-	  close (ofd[0]);
-	  close (ofd[1]);
-	  return -1;
-	}
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, err,
+	       _("%s subprocess failed"), progname);
+      close (ofd[0]);
+      close (ofd[1]);
+      return -1;
     }
   posix_spawn_file_actions_destroy (&actions);
 #else
@@ -280,14 +276,12 @@ create_pipe_out (const char *progname,
     }
   if (child == -1)
     {
-      if (exit_on_error)
-	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
-      else
-	{
-	  close (ofd[0]);
-	  close (ofd[1]);
-	  return -1;
-	}
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, errno,
+	       _("%s subprocess failed"), progname);
+      close (ofd[0]);
+      close (ofd[1]);
+      return -1;
     }
 #endif
   close (ofd[0]);

@@ -172,10 +172,10 @@ execute (const char *progname,
 
   if (exitcode == -1)
     {
-      if (exit_on_error)
-	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
-      else
-	return 127;
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, errno,
+	       _("%s subprocess failed"), progname);
+      return 127;
     }
 
   return exitcode;
@@ -225,10 +225,10 @@ execute (const char *progname,
     {
       if (actions_allocated)
 	posix_spawn_file_actions_destroy (&actions);
-      if (exit_on_error)
-	error (EXIT_FAILURE, err, _("%s subprocess failed"), progname);
-      else
-	return 127;
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, err,
+	       _("%s subprocess failed"), progname);
+      return 127;
     }
   posix_spawn_file_actions_destroy (&actions);
 #else
@@ -260,14 +260,14 @@ execute (const char *progname,
     }
   if (child == -1)
     {
-      if (exit_on_error)
-	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
-      else
-	return 127;
+      if (exit_on_error || !null_stderr)
+	error (exit_on_error ? EXIT_FAILURE : 0, errno,
+	       _("%s subprocess failed"), progname);
+      return 127;
     }
 #endif
 
-  return wait_subprocess (child, progname, exit_on_error);
+  return wait_subprocess (child, progname, null_stderr, exit_on_error);
 
 #endif
 }
