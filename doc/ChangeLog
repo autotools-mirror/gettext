@@ -52,6 +52,10 @@
 
 	* gettext.texi: Fix use of @xref.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1997-09-06 02:13  Ulrich Drepper  <drepper@cygnus.com>
 
 	* gettext.texi: Fix names of autoconf macros now that they are in

@@ -110,6 +110,10 @@
 
 	* printf-parse.h: Change back from using `unsigned char' to `char'.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1998-04-29  Ulrich Drepper  <drepper@cygnus.com>
 
 	* printf-parse.h: Use unsigned char for parameters to read_int and

@@ -123,6 +123,10 @@
 	* Makefile.in.in: Allow parallel `make dist' by splitting dependencies
 	for `dist'.  Reported by Alexander V. Lukyanov <lav@yars.free.net>.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1998-04-28 18:07  Ulrich Drepper  <drepper@cygnus.com>
 
 	* po/Makefile.in.in: Only try to put newly generated .pot in place

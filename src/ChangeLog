@@ -329,6 +329,10 @@
 
 	* po-lex.c (control_sequence): Replace illegal with invalid.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1998-04-30  Ulrich Drepper  <drepper@cygnus.com>
 
 	* dir-list.c: Update Peter Miller's mail address.

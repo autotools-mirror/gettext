@@ -54,6 +54,10 @@
 	(all-local): New target.
 	* xg-test1.ok.po: Regenerated.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1997-08-01 15:46  Ulrich Drepper  <drepper@cygnus.com>
 
 	* Makefile.am (AUTOMAKE_OPTIONS): Require version 1.2.

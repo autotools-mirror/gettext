@@ -126,6 +126,10 @@
 	* gettext.m4: Allow arguments for AM_GNU_GETTEXT to customize for
 	Cygnus trees.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1998-04-30  Ulrich Drepper  <drepper@cygnus.com>
 
 	* gettext.m4: Add AC_OUTPUT_COMMANDS in AM_GNU_GETTEXT to rewrite

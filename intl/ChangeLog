@@ -440,6 +440,10 @@
 
 	* dcgettext.c: Don't use any alloca hack when C_ALLOCA is defined.
 
+1998-05-01 08:47  Ulrich Drepper  <drepper@cygnus.com>
+
+	* gettext-0.10.35 released.
+
 1998-04-29  Ulrich Drepper  <drepper@cygnus.com>
 
 	* intl/localealias.c (read_alias_file): Use unsigned char for
