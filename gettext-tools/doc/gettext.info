@@ -1,0 +1,234 @@
+This is gettext.info, produced by makeinfo version 4.3 from
+gettext.texi.
+
+INFO-DIR-SECTION GNU Gettext Utilities
+START-INFO-DIR-ENTRY
+* gettext: (gettext).                          GNU gettext utilities.
+* autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
+* msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
+* msgcat: (gettext)msgcat Invocation.          Combine several PO files.
+* msgcmp: (gettext)msgcmp Invocation.          Compare a PO file and template.
+* msgcomm: (gettext)msgcomm Invocation.        Match two PO files.
+* msgconv: (gettext)msgconv Invocation.        Convert PO file to encoding.
+* msgen: (gettext)msgen Invocation.            Create an English PO file.
+* msgexec: (gettext)msgexec Invocation.        Process a PO file.
+* msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
+* msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
+* msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
+* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
+* msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
+* msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
+* ISO639: (gettext)Language Codes.             ISO 639 language codes.
+* ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
+END-INFO-DIR-ENTRY
+
+   This file provides documentation for GNU `gettext' utilities.  It
+also serves as a reference for the free Translation Project.
+
+   Copyright (C) 1995-1998, 2001-2003 Free Software Foundation, Inc.
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy and distribute modified versions of
+this manual under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+   Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be stated in a
+translation approved by the Foundation.
+
+
+Indirect:
+gettext.info-1: 2506
+gettext.info-2: 50352
+gettext.info-3: 95211
+gettext.info-4: 142322
+gettext.info-5: 188354
+gettext.info-6: 230991
+gettext.info-7: 279072
+gettext.info-8: 327529
+gettext.info-9: 377153
+gettext.info-10: 416019
+
+Tag Table:
+(Indirect)
+Node: Top2506
+Node: Introduction12982
+Node: Why14840
+Ref: Why-Footnote-117947
+Node: Concepts18103
+Node: Aspects21516
+Node: Files27354
+Node: Overview29255
+Node: Basics40047
+Node: Installation40877
+Node: PO Files42819
+Ref: PO Files-Footnote-150225
+Node: Main PO Commands50352
+Node: Entry Positioning55422
+Node: Normalizing60876
+Node: Sources65329
+Node: Triggering66662
+Node: Preparing Strings69692
+Node: Mark Keywords76570
+Node: Marking80125
+Node: c-format Flag87846
+Node: Special cases91757
+Node: Template94490
+Node: xgettext Invocation95211
+Node: Creating102263
+Node: msginit Invocation103144
+Node: Header Entry105010
+Node: Updating111416
+Node: msgmerge Invocation112171
+Node: Translated Entries116414
+Node: Fuzzy Entries117768
+Node: Untranslated Entries120937
+Node: Obsolete Entries122857
+Node: Modifying Translations126070
+Node: Modifying Comments134027
+Node: Subedit138440
+Node: C Sources Context142322
+Node: Auxiliary147432
+Node: Compendium150657
+Node: Creating Compendia151267
+Node: Using Compendia153706
+Node: Manipulating154594
+Node: msgcat Invocation158356
+Node: msgconv Invocation161831
+Node: msggrep Invocation164237
+Node: msgfilter Invocation168164
+Node: msguniq Invocation172258
+Node: msgcomm Invocation175374
+Node: msgcmp Invocation178644
+Node: msgattrib Invocation179874
+Node: msgen Invocation183686
+Node: msgexec Invocation186282
+Node: libgettextpo188354
+Node: Binaries193469
+Node: msgfmt Invocation193801
+Node: msgunfmt Invocation199533
+Node: MO Files202460
+Node: Users210551
+Node: Matrix212034
+Node: Installers213238
+Node: End Users214408
+Node: Programmers215057
+Node: catgets216230
+Node: Interface to catgets217633
+Node: Problems with catgets219637
+Node: gettext220538
+Node: Interface to gettext221996
+Node: Ambiguities224335
+Node: Locating Catalogs227028
+Ref: Locating Catalogs-Footnote-1228175
+Ref: Locating Catalogs-Footnote-2228400
+Node: Charset conversion228549
+Node: Plural forms230991
+Ref: Plural forms-Footnote-1241584
+Node: GUI program problems241676
+Node: Optimized gettext246780
+Node: Comparison248113
+Node: Using libintl.a252383
+Node: gettext grok252816
+Node: Temp Programmers255365
+Node: Temp Implementations255805
+Node: Temp catgets257171
+Node: Temp WSI258858
+Node: Temp Notes260846
+Node: Translators261335
+Node: Trans Intro 0261714
+Node: Trans Intro 1264363
+Node: Discussions266227
+Node: Organization269726
+Node: Central Coordination271707
+Node: National Teams272835
+Node: Sub-Cultures275347
+Node: Organizational Ideas276266
+Node: Mailing Lists277269
+Node: Information Flow279072
+Node: Maintainers281205
+Node: Flat and Non-Flat283102
+Node: Prerequisites284585
+Node: gettextize Invocation288726
+Node: Adjusting Files295429
+Node: po/POTFILES.in297156
+Node: po/LINGUAS298401
+Node: po/Makevars299183
+Node: configure.in300769
+Node: config.guess302871
+Node: mkinstalldirs303987
+Node: aclocal304748
+Node: acconfig306386
+Node: config.h.in306872
+Node: Makefile308029
+Node: src/Makefile310610
+Node: lib/gettext.h313625
+Node: autoconf macros315850
+Node: AM_GNU_GETTEXT316420
+Node: AM_GNU_GETTEXT_VERSION319881
+Node: AM_ICONV320311
+Node: CVS Issues322505
+Node: Distributed CVS323059
+Node: Files under CVS324973
+Node: autopoint Invocation327529
+Node: Programming Languages329327
+Node: Language Implementors330148
+Node: Programmers for other Languages334974
+Node: Translators for other Languages335540
+Node: c-format336628
+Node: python-format337139
+Node: lisp-format337565
+Node: elisp-format337880
+Node: librep-format338359
+Node: smalltalk-format338751
+Node: java-format339240
+Node: awk-format339672
+Node: object-pascal-format339982
+Node: ycp-format340198
+Node: tcl-format340584
+Node: php-format340865
+Node: Maintainers for other Languages341188
+Node: List of Programming Languages342415
+Node: C343538
+Node: sh344603
+Node: bash345229
+Node: Python345914
+Node: Common Lisp346976
+Node: clisp C347690
+Node: Emacs Lisp348412
+Node: librep349118
+Node: Smalltalk349769
+Node: Java350711
+Node: gawk353381
+Node: Pascal354208
+Node: wxWindows355424
+Node: YCP356158
+Node: Tcl356817
+Node: Perl358120
+Node: PHP358738
+Node: Pike359518
+Node: List of Data Formats360144
+Node: POT360603
+Node: RST360847
+Node: Glade361059
+Node: Conclusion361337
+Node: History361837
+Node: References365939
+Node: Language Codes367494
+Node: Country Codes371433
+Node: Program Index377153
+Node: Option Index378517
+Node: Variable Index405236
+Node: PO Mode Index406338
+Node: Autoconf Macro Index415696
+Node: Index416019
+
+End Tag Table
