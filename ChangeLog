@@ -1,3 +1,7 @@
+2002-09-27  Bruno Haible  <bruno@clisp.org>
+
+	* mkinstalldirs: Update from automake-1.7+.
+
 2002-09-16  Bruno Haible  <bruno@clisp.org>
 
 	* ltmain.sh (install): Use "ln -s -f" instead of "rm -f && ln -s"
