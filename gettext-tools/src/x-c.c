@@ -73,63 +73,6 @@
    xgettext.c) with a stream of C tokens.  The comments are
    accumulated in a buffer, and given to xgettext when asked for.  */
 
-enum xgettext_token_type_ty
-{
-  xgettext_token_type_eof,
-  xgettext_token_type_keyword,
-  xgettext_token_type_lparen,
-  xgettext_token_type_rparen,
-  xgettext_token_type_comma,
-  xgettext_token_type_string_literal,
-  xgettext_token_type_symbol
-};
-typedef enum xgettext_token_type_ty xgettext_token_type_ty;
-
-typedef struct xgettext_token_ty xgettext_token_ty;
-struct xgettext_token_ty
-{
-  xgettext_token_type_ty type;
-
-  /* These fields are used only for xgettext_token_type_keyword.  */
-  int argnum1;
-  int argnum2;
-
-  /* This field is used only for xgettext_token_type_string_literal.  */
-  char *string;
-
-  /* These fields are only for
-       xgettext_token_type_keyword,
-       xgettext_token_type_string_literal.  */
-  lex_pos_ty pos;
-};
-
-
-enum token_type_ty
-{
-  token_type_character_constant,
-  token_type_eof,
-  token_type_eoln,
-  token_type_hash,
-  token_type_lparen,
-  token_type_rparen,
-  token_type_comma,
-  token_type_name,
-  token_type_number,
-  token_type_string_literal,
-  token_type_symbol,
-  token_type_white_space
-};
-typedef enum token_type_ty token_type_ty;
-
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  char *string;		/* for token_type_name, token_type_string_literal */
-  long number;
-  int line_number;
-};
-
 
 /* ========================= Lexer customization.  ========================= */
 
@@ -213,7 +156,7 @@ init_keywords ()
 }
 
 
-/* ================== Reading of characters and tokens.  =================== */
+/* ======================== Reading of characters.  ======================== */
 
 /* Real filename, used in error messages about the input file.  */
 static const char *real_file_name;
@@ -540,6 +483,36 @@ phase4_ungetc (int c)
 {
   phase3_ungetc (c);
 }
+
+
+/* ========================== Reading of tokens.  ========================== */
+
+
+enum token_type_ty
+{
+  token_type_character_constant,
+  token_type_eof,
+  token_type_eoln,
+  token_type_hash,
+  token_type_lparen,
+  token_type_rparen,
+  token_type_comma,
+  token_type_name,
+  token_type_number,
+  token_type_string_literal,
+  token_type_symbol,
+  token_type_white_space
+};
+typedef enum token_type_ty token_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  char *string;		/* for token_type_name, token_type_string_literal */
+  long number;
+  int line_number;
+};
 
 
 /* 7. Replace escape sequences within character strings with their
@@ -1226,6 +1199,40 @@ phase8_get (token_ty *tp)
       free (tmp.string);
     }
 }
+
+
+/* ===================== Reading of high-level tokens.  ==================== */
+
+
+enum xgettext_token_type_ty
+{
+  xgettext_token_type_eof,
+  xgettext_token_type_keyword,
+  xgettext_token_type_lparen,
+  xgettext_token_type_rparen,
+  xgettext_token_type_comma,
+  xgettext_token_type_string_literal,
+  xgettext_token_type_symbol
+};
+typedef enum xgettext_token_type_ty xgettext_token_type_ty;
+
+typedef struct xgettext_token_ty xgettext_token_ty;
+struct xgettext_token_ty
+{
+  xgettext_token_type_ty type;
+
+  /* These fields are used only for xgettext_token_type_keyword.  */
+  int argnum1;
+  int argnum2;
+
+  /* This field is used only for xgettext_token_type_string_literal.  */
+  char *string;
+
+  /* These fields are only for
+       xgettext_token_type_keyword,
+       xgettext_token_type_string_literal.  */
+  lex_pos_ty pos;
+};
 
 
 /* 9. Convert the remaining preprocessing tokens to C tokens and

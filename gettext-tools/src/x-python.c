@@ -51,26 +51,6 @@
    See also Python-2.0/Parser/tokenizer.c, Python-2.0/Python/compile.c,
    Python-2.0/Objects/unicodeobject.c.  */
 
-enum token_type_ty
-{
-  token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_string,		/* "abc", 'abc', """abc""", '''abc''' */
-  token_type_symbol,		/* symbol, number */
-  token_type_other		/* misc. operator */
-};
-typedef enum token_type_ty token_type_ty;
-
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  char *string;		/* for token_type_string, token_type_symbol */
-  int line_number;
-};
-
 
 /* ====================== Keyword set customization.  ====================== */
 
@@ -137,7 +117,7 @@ init_keywords ()
 }
 
 
-/* ================== Reading of characters and tokens.  =================== */
+/* ======================== Reading of characters.  ======================== */
 
 /* Real filename, used in error messages about the input file.  */
 static const char *real_file_name;
@@ -148,11 +128,6 @@ static int line_number;
 
 /* The input file stream.  */
 static FILE *fp;
-
-/* These are for tracking whether comments count as immediately before
-   keyword.  */
-static int last_comment_line;
-static int last_non_comment_line;
 
 
 /* 1. line_number handling.  Also allow a lookahead of 9 characters.  */
@@ -248,6 +223,11 @@ comment_line_end ()
   xgettext_comment_add (buffer);
 }
 
+/* These are for tracking whether comments count as immediately before
+   keyword.  */
+static int last_comment_line;
+static int last_non_comment_line;
+
 
 /* 2. Outside strings, replace backslash-newline with nothing and a comment
       with nothing.  */
@@ -298,6 +278,30 @@ phase2_ungetc (int c)
 {
   phase1_ungetc (c);
 }
+
+
+/* ========================== Reading of tokens.  ========================== */
+
+
+enum token_type_ty
+{
+  token_type_eof,
+  token_type_lparen,		/* ( */
+  token_type_rparen,		/* ) */
+  token_type_comma,		/* , */
+  token_type_string,		/* "abc", 'abc', """abc""", '''abc''' */
+  token_type_symbol,		/* symbol, number */
+  token_type_other		/* misc. operator */
+};
+typedef enum token_type_ty token_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  char *string;		/* for token_type_string, token_type_symbol */
+  int line_number;
+};
 
 
 /* There are two different input syntaxes for strings, "abc" and r"abc",

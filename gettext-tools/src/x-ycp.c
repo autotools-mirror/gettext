@@ -42,26 +42,8 @@
 /* The YCP syntax is defined in libycp/doc/syntax.html.
    See also libycp/src/scanner.ll.  */
 
-enum token_type_ty
-{
-  token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_i18n,		/* _( */
-  token_type_string_literal,	/* "abc" */
-  token_type_symbol,		/* symbol, number */
-  token_type_other		/* misc. operator */
-};
-typedef enum token_type_ty token_type_ty;
 
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  char *string;		/* for token_type_string_literal, token_type_symbol */
-  int line_number;
-};
+/* ======================== Reading of characters.  ======================== */
 
 
 /* Real filename, used in error messages about the input file.  */
@@ -295,6 +277,31 @@ phase2_ungetc (int c)
 }
 
 
+/* ========================== Reading of tokens.  ========================== */
+
+
+enum token_type_ty
+{
+  token_type_eof,
+  token_type_lparen,		/* ( */
+  token_type_rparen,		/* ) */
+  token_type_comma,		/* , */
+  token_type_i18n,		/* _( */
+  token_type_string_literal,	/* "abc" */
+  token_type_symbol,		/* symbol, number */
+  token_type_other		/* misc. operator */
+};
+typedef enum token_type_ty token_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  char *string;		/* for token_type_string_literal, token_type_symbol */
+  int line_number;
+};
+
+
 /* 7. Replace escape sequences within character strings with their
    single character equivalents.  */
 
@@ -510,6 +517,8 @@ x_ycp_lex (token_ty *tp)
     }
 }
 
+
+/* ========================= Extracting strings.  ========================== */
 
 void
 extract_ycp (FILE *f,

@@ -45,198 +45,6 @@
 
 #define DEBUG_PERL 0
 
-/* FIXME: All known Perl operators should be listed here.  It does not
-   cost that much and it may improve the stability of the parser.  */
-enum token_type_ty
-{
-  token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_fat_comma,		/* => */
-  token_type_dereference,	/* , */
-  token_type_semicolon,         /* ; */
-  token_type_lbrace,            /* { */
-  token_type_rbrace,            /* } */
-  token_type_lbracket,          /* [ */
-  token_type_rbracket,          /* ] */
-  token_type_string,		/* quote-like */
-  token_type_named_op,          /* if, unless, while, ... */
-  token_type_variable,          /* $... */
-  token_type_symbol,		/* symbol, number */
-  token_type_keyword_symbol,    /* keyword symbol (used by parser) */
-  token_type_regex_op,		/* s, tr, y, m.  */
-  token_type_dot,               /* . */
-  token_type_other		/* regexp, misc. operator */
-};
-typedef enum token_type_ty token_type_ty;
-
-/* Subtypes for strings, important for interpolation.  */
-enum string_type_ty
-{
-  string_type_verbatim,     /* "<<'EOF'", "m'...'", "s'...''...'",
-			       "tr/.../.../", "y/.../.../".  */
-  string_type_q,            /* "'..'", "q/.../".  */
-  string_type_qq,           /* '"..."', "`...`", "qq/.../", "qx/.../",
-			       "<file*glob>".  */
-  string_type_qr,           /* Not supported.  */
-};
-typedef enum string_type_ty string_type_ty;
-
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  string_type_ty string_type;	/* for token_type_string */
-  char *string;			/* for token_type_named_op, token_type_string,
-				   token_type_symbol, token_type_keyword_symbol,
-				   token_type_variable */
-  int line_number;
-};
-
-#if DEBUG_PERL
-static const char *
-token2string (const token_ty *token)
-{
-  switch (token->type)
-    {
-    case token_type_eof:
-      return "token_type_eof";
-    case token_type_lparen:
-      return "token_type_lparen";
-    case token_type_rparen:
-      return "token_type_rparen";
-    case token_type_comma:
-      return "token_type_comma";
-    case token_type_fat_comma:
-      return "token_type_fat_comma";
-    case token_type_dereference:
-      return "token_type_dereference";
-    case token_type_semicolon:
-      return "token_type_semicolon";
-    case token_type_lbrace:
-      return "token_type_lbrace";
-    case token_type_rbrace:
-      return "token_type_rbrace";
-    case token_type_lbracket:
-      return "token_type_lbracket";
-    case token_type_rbracket:
-      return "token_type_rbracket";
-    case token_type_string:
-      return "token_type_string";
-    case token_type_named_op:
-      return "token_type_named_op";
-    case token_type_variable:
-      return "token_type_variable";
-    case token_type_symbol:
-      return "token_type_symbol";
-    case token_type_keyword_symbol:
-      return "token_type_keyword_symbol";
-    case token_type_regex_op:
-      return "token_type_regex_op";
-    case token_type_dot:
-      return "token_type_dot";
-    case token_type_other:
-      return "token_type_other";
-    default:
-      return "unknown";
-    }
-}
-#endif
-
-typedef struct token_stack_ty token_stack_ty;
-struct token_stack_ty
-{
-  token_ty **items;
-  size_t nitems;
-  size_t nitems_max;
-};
-
-static struct token_stack_ty token_stack;
-
-/* Forward declaration of local functions.  */
-static inline void free_token (token_ty *tp);
-static void interpolate_keywords (message_list_ty *mlp, const char *string, int lineno);
-static char *extract_quotelike_pass1 (int delim);
-static token_ty *x_perl_lex (message_list_ty *mlp);
-static void x_perl_unlex (token_ty *tp);
-static bool extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state, token_type_ty delim);
-
-#if DEBUG_PERL
-/* Dumps all resources allocated by stack STACK.  */
-static int
-token_stack_dump (token_stack_ty *stack)
-{
-  size_t i;
-
-  fprintf (stderr, "BEGIN STACK DUMP\n");
-  for (i = 0; i < stack->nitems; i++)
-    {
-      token_ty *token = stack->items[i];
-      fprintf (stderr, "  [%s]\n", token2string (token));
-      switch (token->type)
-	{
-	case token_type_named_op:
-	case token_type_string:
-	case token_type_symbol:
-	case token_type_keyword_symbol:
-	case token_type_variable:
-	  fprintf (stderr, "    string: %s\n", token->string);
-	  break;
-	}
-    }
-  fprintf (stderr, "END STACK DUMP\n");
-  return 0;
-}
-#endif
-
-/* Pushes the token TOKEN onto the stack STACK.  */
-static void
-token_stack_push (token_stack_ty *stack, token_ty *token)
-{
-  if (stack->nitems >= stack->nitems_max)
-    {
-      size_t nbytes;
-
-      stack->nitems_max = 2 * stack->nitems_max + 4;
-      nbytes = stack->nitems_max * sizeof (token_ty *);
-      stack->items = xrealloc (stack->items, nbytes);
-    }
-  stack->items[stack->nitems++] = token;
-}
-
-/* Pops the most recently pushed token from the stack STACK and returns it.
-   Returns NULL if the stack is empty.  */
-static token_ty *
-token_stack_pop (token_stack_ty *stack)
-{
-  if (stack->nitems > 0)
-    return stack->items[--(stack->nitems)];
-  else
-    return NULL;
-}
-
-/* Return the top of the stack without removing it from the stack, or
-   NULL if the stack is empty.  */
-static token_ty *
-token_stack_peek (const token_stack_ty *stack)
-{
-  if (stack->nitems > 0)
-    return stack->items[stack->nitems - 1];
-  else
-    return NULL;
-}
-
-/* Frees all resources allocated by stack STACK.  */
-static void
-token_stack_free (token_stack_ty *stack)
-{
-  size_t i;
-
-  for (i = 0; i < stack->nitems; i++)
-    free_token (stack->items[i]);
-  free (stack->items);
-}
 
 /* ====================== Keyword set customization.  ====================== */
 
@@ -305,7 +113,7 @@ init_keywords ()
 }
 
 
-/* ================== Reading of characters and tokens.  =================== */
+/* ======================== Reading of characters.  ======================== */
 
 /* Real filename, used in error messages about the input file.  */
 static const char *real_file_name;
@@ -316,11 +124,6 @@ static int line_number;
 
 /* The input file stream.  */
 static FILE *fp;
-
-/* These are for tracking whether comments count as immediately before
-   keyword.  */
-static int last_comment_line;
-static int last_non_comment_line;
 
 /* The current line buffer.  */
 static char *linebuf;
@@ -333,10 +136,6 @@ static int linepos;
 
 /* The size of the input buffer.  */
 static size_t linebuf_size;
-
-/* The last token seen in the token stream.  This is important for the
-   interpretation of '?' and '/'.  */
-static token_type_ty last_token;
 
 /* Number of lines eaten for here documents.  */
 static int here_eaten;
@@ -530,6 +329,12 @@ skip_pod ()
 }
 
 
+/* These are for tracking whether comments count as immediately before
+   keyword.  */
+static int last_comment_line;
+static int last_non_comment_line;
+
+
 /* 2. Replace each comment that is not inside a string literal or regular
    expression with a newline character.  We need to remember the comment
    for later, because it may be attached to a keyword string.  */
@@ -602,13 +407,108 @@ is_whitespace (int c)
   return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f');
 }
 
-/* There is an ambiguity about '/': It can start a division operator ('/' or
-   '/=') or it can start a regular expression.  The distinction is important
-   because inside regular expressions, '#' loses its special meaning.
-   The distinction is possible depending on the parsing state: After a
-   variable or simple expression, it's a division operator; at the beginning
-   of an expression, it's a regexp.  */
-static bool prefer_division_over_regexp;
+
+/* ========================== Reading of tokens.  ========================== */
+
+
+/* FIXME: All known Perl operators should be listed here.  It does not
+   cost that much and it may improve the stability of the parser.  */
+enum token_type_ty
+{
+  token_type_eof,
+  token_type_lparen,		/* ( */
+  token_type_rparen,		/* ) */
+  token_type_comma,		/* , */
+  token_type_fat_comma,		/* => */
+  token_type_dereference,	/* , */
+  token_type_semicolon,         /* ; */
+  token_type_lbrace,            /* { */
+  token_type_rbrace,            /* } */
+  token_type_lbracket,          /* [ */
+  token_type_rbracket,          /* ] */
+  token_type_string,		/* quote-like */
+  token_type_named_op,          /* if, unless, while, ... */
+  token_type_variable,          /* $... */
+  token_type_symbol,		/* symbol, number */
+  token_type_keyword_symbol,    /* keyword symbol (used by parser) */
+  token_type_regex_op,		/* s, tr, y, m.  */
+  token_type_dot,               /* . */
+  token_type_other		/* regexp, misc. operator */
+};
+typedef enum token_type_ty token_type_ty;
+
+/* Subtypes for strings, important for interpolation.  */
+enum string_type_ty
+{
+  string_type_verbatim,     /* "<<'EOF'", "m'...'", "s'...''...'",
+			       "tr/.../.../", "y/.../.../".  */
+  string_type_q,            /* "'..'", "q/.../".  */
+  string_type_qq,           /* '"..."', "`...`", "qq/.../", "qx/.../",
+			       "<file*glob>".  */
+  string_type_qr,           /* Not supported.  */
+};
+typedef enum string_type_ty string_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  string_type_ty string_type;	/* for token_type_string */
+  char *string;			/* for token_type_named_op, token_type_string,
+				   token_type_symbol, token_type_keyword_symbol,
+				   token_type_variable */
+  int line_number;
+};
+
+#if DEBUG_PERL
+static const char *
+token2string (const token_ty *token)
+{
+  switch (token->type)
+    {
+    case token_type_eof:
+      return "token_type_eof";
+    case token_type_lparen:
+      return "token_type_lparen";
+    case token_type_rparen:
+      return "token_type_rparen";
+    case token_type_comma:
+      return "token_type_comma";
+    case token_type_fat_comma:
+      return "token_type_fat_comma";
+    case token_type_dereference:
+      return "token_type_dereference";
+    case token_type_semicolon:
+      return "token_type_semicolon";
+    case token_type_lbrace:
+      return "token_type_lbrace";
+    case token_type_rbrace:
+      return "token_type_rbrace";
+    case token_type_lbracket:
+      return "token_type_lbracket";
+    case token_type_rbracket:
+      return "token_type_rbracket";
+    case token_type_string:
+      return "token_type_string";
+    case token_type_named_op:
+      return "token_type_named_op";
+    case token_type_variable:
+      return "token_type_variable";
+    case token_type_symbol:
+      return "token_type_symbol";
+    case token_type_keyword_symbol:
+      return "token_type_keyword_symbol";
+    case token_type_regex_op:
+      return "token_type_regex_op";
+    case token_type_dot:
+      return "token_type_dot";
+    case token_type_other:
+      return "token_type_other";
+    default:
+      return "unknown";
+    }
+}
+#endif
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
 static inline void
@@ -628,6 +528,131 @@ free_token (token_ty *tp)
     }
   free (tp);
 }
+
+/* Pass 1 of extracting quotes: Find the end of the string, regardless
+   of the semantics of the construct.  Return the complete string,
+   including the starting and the trailing delimiter, with backslashes
+   removed where appropriate.  */
+static char *
+extract_quotelike_pass1 (int delim)
+{
+  /* This function is called recursively.  No way to allocate stuff
+     statically.  Also alloca() is inappropriate due to limited stack
+     size on some platforms.  So we use malloc().  */
+  int bufmax = 10;
+  char *buffer = (char *) xmalloc (bufmax);
+  int bufpos = 0;
+  bool nested = true;
+  int counter_delim;
+
+  buffer[bufpos++] = delim;
+
+  /* Find the closing delimiter.  */
+  switch (delim)
+    {
+    case '(':
+      counter_delim = ')';
+      break;
+    case '{':
+      counter_delim = '}';
+      break;
+    case '[':
+      counter_delim = ']';
+      break;
+    case '<':
+      counter_delim = '>';
+      break;
+    default: /* "..." or '...' or |...| etc. */
+      nested = false;
+      counter_delim = delim;
+      break;
+    }
+
+  for (;;)
+    {
+      int c = phase1_getc ();
+
+      /* This round can produce 1 or 2 bytes.  Ensure room for 2 bytes.  */
+      if (bufpos + 2 > bufmax)
+	{
+	  bufmax = 2 * bufmax + 10;
+	  buffer = xrealloc (buffer, bufmax);
+	}
+
+      if (c == counter_delim || c == EOF)
+	{
+	  /* Copying the EOF (actually 255) is not an error.  It will
+	     be stripped off later.  */
+	  buffer[bufpos++] = c;
+	  buffer[bufpos++] = '\0';
+#if DEBUG_PERL
+	  fprintf (stderr, "PASS1: %s\n", buffer);
+#endif
+	  return buffer;
+	}
+
+      if (nested && c == delim)
+	{
+	  char *inner = extract_quotelike_pass1 (delim);
+	  size_t len = strlen (inner);
+
+	  /* Ensure room for len + 1 bytes.  */
+	  if (bufpos + len >= bufmax)
+	    {
+	      do
+		bufmax = 2 * bufmax + 10;
+	      while (bufpos + len >= bufmax);
+	      buffer = xrealloc (buffer, bufmax);
+	    }
+	  strcpy (buffer + bufpos, inner);
+	  free (inner);
+	  bufpos += len;
+	}
+      else if (c == '\\')
+	{
+	  c = phase1_getc ();
+	  if (c == '\\')
+	    {
+	      buffer[bufpos++] = '\\';
+	      buffer[bufpos++] = '\\';
+	    }
+	  else if (c == delim || c == counter_delim)
+	    {
+	      /* This is pass2 in Perl.  */
+	      buffer[bufpos++] = c;
+	    }
+	  else
+	    {
+	      buffer[bufpos++] = '\\';
+	      phase1_ungetc (c);
+	    }
+	}
+      else
+	{
+	  buffer[bufpos++] = c;
+	}
+    }
+}
+
+
+/* ========= Reading of tokens and commands.  Extracting strings.  ========= */
+
+
+/* There is an ambiguity about '/': It can start a division operator ('/' or
+   '/=') or it can start a regular expression.  The distinction is important
+   because inside regular expressions, '#' loses its special meaning.
+   The distinction is possible depending on the parsing state: After a
+   variable or simple expression, it's a division operator; at the beginning
+   of an expression, it's a regexp.  */
+static bool prefer_division_over_regexp;
+
+
+/* Forward declaration of local functions.  */
+static void interpolate_keywords (message_list_ty *mlp, const char *string, int lineno);
+static token_ty *x_perl_lex (message_list_ty *mlp);
+static void x_perl_unlex (token_ty *tp);
+static bool extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state, token_type_ty delim);
+
 
 /* Extract an unsigned hexadecimal number from STRING, considering at
    most LEN bytes and place the result in *RESULT.  Returns a pointer
@@ -738,111 +763,6 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
   if (interpolate)
     interpolate_keywords (mlp, string, line_number);
   free (string);
-}
-
-/* Pass 1 of extracting quotes: Find the end of the string, regardless
-   of the semantics of the construct.  Return the complete string,
-   including the starting and the trailing delimiter, with backslashes
-   removed where appropriate.  */
-static char *
-extract_quotelike_pass1 (int delim)
-{
-  /* This function is called recursively.  No way to allocate stuff
-     statically.  Also alloca() is inappropriate due to limited stack
-     size on some platforms.  So we use malloc().  */
-  int bufmax = 10;
-  char *buffer = (char *) xmalloc (bufmax);
-  int bufpos = 0;
-  bool nested = true;
-  int counter_delim;
-
-  buffer[bufpos++] = delim;
-
-  /* Find the closing delimiter.  */
-  switch (delim)
-    {
-    case '(':
-      counter_delim = ')';
-      break;
-    case '{':
-      counter_delim = '}';
-      break;
-    case '[':
-      counter_delim = ']';
-      break;
-    case '<':
-      counter_delim = '>';
-      break;
-    default: /* "..." or '...' or |...| etc. */
-      nested = false;
-      counter_delim = delim;
-      break;
-    }
-
-  for (;;)
-    {
-      int c = phase1_getc ();
-
-      /* This round can produce 1 or 2 bytes.  Ensure room for 2 bytes.  */
-      if (bufpos + 2 > bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
-
-      if (c == counter_delim || c == EOF)
-	{
-	  /* Copying the EOF (actually 255) is not an error.  It will
-	     be stripped off later.  */
-	  buffer[bufpos++] = c;
-	  buffer[bufpos++] = '\0';
-#if DEBUG_PERL
-	  fprintf (stderr, "PASS1: %s\n", buffer);
-#endif
-	  return buffer;
-	}
-
-      if (nested && c == delim)
-	{
-	  char *inner = extract_quotelike_pass1 (delim);
-	  size_t len = strlen (inner);
-
-	  /* Ensure room for len + 1 bytes.  */
-	  if (bufpos + len >= bufmax)
-	    {
-	      do
-		bufmax = 2 * bufmax + 10;
-	      while (bufpos + len >= bufmax);
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  strcpy (buffer + bufpos, inner);
-	  free (inner);
-	  bufpos += len;
-	}
-      else if (c == '\\')
-	{
-	  c = phase1_getc ();
-	  if (c == '\\')
-	    {
-	      buffer[bufpos++] = '\\';
-	      buffer[bufpos++] = '\\';
-	    }
-	  else if (c == delim || c == counter_delim)
-	    {
-	      /* This is pass2 in Perl.  */
-	      buffer[bufpos++] = c;
-	    }
-	  else
-	    {
-	      buffer[bufpos++] = '\\';
-	      phase1_ungetc (c);
-	    }
-	}
-      else
-	{
-	  buffer[bufpos++] = c;
-	}
-    }
 }
 
 /* Perform pass 3 of quotelike extraction (interpolation).
@@ -1817,6 +1737,10 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
     }
 }
 
+/* The last token seen in the token stream.  This is important for the
+   interpretation of '?' and '/'.  */
+static token_type_ty last_token;
+
 /* Combine characters into tokens.  Discard whitespace.  */
 
 static void
@@ -2335,6 +2259,96 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
     }
 }
 
+
+/* A token stack used as a lookahead buffer.  */
+
+typedef struct token_stack_ty token_stack_ty;
+struct token_stack_ty
+{
+  token_ty **items;
+  size_t nitems;
+  size_t nitems_max;
+};
+
+static struct token_stack_ty token_stack;
+
+#if DEBUG_PERL
+/* Dumps all resources allocated by stack STACK.  */
+static int
+token_stack_dump (token_stack_ty *stack)
+{
+  size_t i;
+
+  fprintf (stderr, "BEGIN STACK DUMP\n");
+  for (i = 0; i < stack->nitems; i++)
+    {
+      token_ty *token = stack->items[i];
+      fprintf (stderr, "  [%s]\n", token2string (token));
+      switch (token->type)
+	{
+	case token_type_named_op:
+	case token_type_string:
+	case token_type_symbol:
+	case token_type_keyword_symbol:
+	case token_type_variable:
+	  fprintf (stderr, "    string: %s\n", token->string);
+	  break;
+	}
+    }
+  fprintf (stderr, "END STACK DUMP\n");
+  return 0;
+}
+#endif
+
+/* Pushes the token TOKEN onto the stack STACK.  */
+static inline void
+token_stack_push (token_stack_ty *stack, token_ty *token)
+{
+  if (stack->nitems >= stack->nitems_max)
+    {
+      size_t nbytes;
+
+      stack->nitems_max = 2 * stack->nitems_max + 4;
+      nbytes = stack->nitems_max * sizeof (token_ty *);
+      stack->items = xrealloc (stack->items, nbytes);
+    }
+  stack->items[stack->nitems++] = token;
+}
+
+/* Pops the most recently pushed token from the stack STACK and returns it.
+   Returns NULL if the stack is empty.  */
+static inline token_ty *
+token_stack_pop (token_stack_ty *stack)
+{
+  if (stack->nitems > 0)
+    return stack->items[--(stack->nitems)];
+  else
+    return NULL;
+}
+
+/* Return the top of the stack without removing it from the stack, or
+   NULL if the stack is empty.  */
+static inline token_ty *
+token_stack_peek (const token_stack_ty *stack)
+{
+  if (stack->nitems > 0)
+    return stack->items[stack->nitems - 1];
+  else
+    return NULL;
+}
+
+/* Frees all resources allocated by stack STACK.  */
+static inline void
+token_stack_free (token_stack_ty *stack)
+{
+  size_t i;
+
+  for (i = 0; i < stack->nitems; i++)
+    free_token (stack->items[i]);
+  free (stack->items);
+}
+
+
 static token_ty *
 x_perl_lex (message_list_ty *mlp)
 {
@@ -2405,7 +2419,11 @@ x_perl_unlex (token_ty *tp)
   token_stack_push (&token_stack, tp);
 }
 
+
 /* ========================= Extracting strings.  ========================== */
+
+/* Assuming TP is a string token, this function accumulates all subsequent
+   . string2 . string3 ... to the string.  (String concatenation.)  */
 
 static char *
 collect_message (message_list_ty *mlp, token_ty *tp, int error_level)

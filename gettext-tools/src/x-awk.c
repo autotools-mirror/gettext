@@ -42,27 +42,6 @@
 /* The awk syntax is defined in the gawk manual page and documentation.
    See also gawk/awkgram.y.  */
 
-enum token_type_ty
-{
-  token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_string,		/* "abc" */
-  token_type_i18nstring,	/* _"abc" */
-  token_type_symbol,		/* symbol, number */
-  token_type_other		/* regexp, misc. operator */
-};
-typedef enum token_type_ty token_type_ty;
-
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  char *string;		/* for token_type_{symbol,string,i18nstring} */
-  int line_number;
-};
-
 
 /* ====================== Keyword set customization.  ====================== */
 
@@ -124,7 +103,7 @@ init_keywords ()
 }
 
 
-/* ================== Reading of characters and tokens.  =================== */
+/* ======================== Reading of characters.  ======================== */
 
 /* Real filename, used in error messages about the input file.  */
 static const char *real_file_name;
@@ -224,6 +203,31 @@ phase2_ungetc (int c)
   if (c != EOF)
     phase1_ungetc (c);
 }
+
+
+/* ========================== Reading of tokens.  ========================== */
+
+
+enum token_type_ty
+{
+  token_type_eof,
+  token_type_lparen,		/* ( */
+  token_type_rparen,		/* ) */
+  token_type_comma,		/* , */
+  token_type_string,		/* "abc" */
+  token_type_i18nstring,	/* _"abc" */
+  token_type_symbol,		/* symbol, number */
+  token_type_other		/* regexp, misc. operator */
+};
+typedef enum token_type_ty token_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  char *string;		/* for token_type_{symbol,string,i18nstring} */
+  int line_number;
+};
 
 
 /* 7. Replace escape sequences within character strings with their

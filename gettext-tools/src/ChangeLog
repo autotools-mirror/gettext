@@ -1,5 +1,15 @@
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
+	* x-awk.c: Reorder definitions.
+	* x-c.c: Reorder definitions.
+	* x-perl.c: Reorder definitions.
+	* x-php.c: Reorder definitions.
+	* x-python.c: Reorder definitions.
+	* x-smalltalk.c: Reorder definitions.
+	* x-ycp.c: Reorder definitions.
+
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
 	* x-perl.c (struct stack_entry): Remove type.
 	(struct stack): Remove type.
 	(struct token_stack_ty): New type.

@@ -60,24 +60,6 @@
    In well-formed expressions, {} and [] and () are balanced.
  */
 
-enum token_type_ty
-{
-  token_type_eof,
-  token_type_uniq,		/* # */
-  token_type_symbol,		/* symbol */
-  token_type_string_literal,	/* string, stringconst, symbolconst */
-  token_type_other		/* misc. operator */
-};
-typedef enum token_type_ty token_type_ty;
-
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  char *string;		/* for token_type_string_literal, token_type_symbol */
-  int line_number;
-};
-
 
 /* ======================== Reading of characters.  ======================== */
 
@@ -170,6 +152,28 @@ comment_line_end ()
    keyword.  */
 static int last_comment_line;
 static int last_non_comment_line;
+
+
+/* ========================== Reading of tokens.  ========================== */
+
+
+enum token_type_ty
+{
+  token_type_eof,
+  token_type_uniq,		/* # */
+  token_type_symbol,		/* symbol */
+  token_type_string_literal,	/* string, stringconst, symbolconst */
+  token_type_other		/* misc. operator */
+};
+typedef enum token_type_ty token_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  char *string;		/* for token_type_string_literal, token_type_symbol */
+  int line_number;
+};
 
 
 /* 2. Combine characters into tokens.  Discard comments and whitespace.  */

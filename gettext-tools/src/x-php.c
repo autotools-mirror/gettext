@@ -40,26 +40,6 @@
 /* The PHP syntax is defined in phpdoc/manual/langref.html.
    See also php-4.1.0/Zend/zend_language_scanner.l.  */
 
-enum token_type_ty
-{
-  token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_string_literal,	/* "abc" */
-  token_type_symbol,		/* symbol, number */
-  token_type_other		/* misc. operator */
-};
-typedef enum token_type_ty token_type_ty;
-
-typedef struct token_ty token_ty;
-struct token_ty
-{
-  token_type_ty type;
-  char *string;		/* for token_type_string_literal, token_type_symbol */
-  int line_number;
-};
-
 
 /* ====================== Keyword set customization.  ====================== */
 
@@ -713,6 +693,30 @@ phase3_ungetc (int c)
 }
 
 
+/* ========================== Reading of tokens.  ========================== */
+
+
+enum token_type_ty
+{
+  token_type_eof,
+  token_type_lparen,		/* ( */
+  token_type_rparen,		/* ) */
+  token_type_comma,		/* , */
+  token_type_string_literal,	/* "abc" */
+  token_type_symbol,		/* symbol, number */
+  token_type_other		/* misc. operator */
+};
+typedef enum token_type_ty token_type_ty;
+
+typedef struct token_ty token_ty;
+struct token_ty
+{
+  token_type_ty type;
+  char *string;		/* for token_type_string_literal, token_type_symbol */
+  int line_number;
+};
+
+
 /* Free the memory pointed to by a 'struct token_ty'.  */
 static inline void
 free_token (token_ty *tp)
@@ -1151,6 +1155,7 @@ x_php_lex (token_ty *tp)
 	}
     }
 }
+
 
 /* ========================= Extracting strings.  ========================== */
 
