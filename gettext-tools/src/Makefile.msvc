@@ -162,7 +162,7 @@ LDADD =
 
 RESOURCES = gettextsrc.res
 
-all : gettextsrc.lib $(PROGRAMS)
+all : gettextsrc.lib $(PROGRAMS) gettextpo.lib
 
 # Compilation rules for $(OBJECTS), with $(PICFLAGS).
 
@@ -455,6 +455,28 @@ msginit.exe : $(msginit_OBJECTS)
 msguniq.exe : $(msguniq_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsguniq.exe
 
+# Compilation rules for gettextpo.lib objects, with $(PICFLAGS).
+
+gettext-po.obj : gettext-po.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c gettext-po.c
+
+!if !$(DLL)
+
+gettextpo.lib : gettext-po.obj
+	-$(RM) gettextpo.lib
+	$(AR) $(AR_FLAGS)gettextpo.lib gettext-po.obj
+
+!else
+
+# gettextpo.dll and gettextpo.lib are created together.
+gettextpo.lib : ..\windows\gettextpo.def gettext-po.obj gettextpo.res gettextsrc.lib
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) -LD ..\windows\gettextpo.def gettext-po.obj gettextsrc.lib ..\lib\gettextlib.lib gettextpo.res -Fegettextpo.dll
+
+gettextpo.res : ../windows/gettextpo.rc
+	rc -Fo gettextpo.res ../windows/gettextpo.rc
+
+!endif
+
 install : all force
 	-mkdir $(prefix)
 	-mkdir $(exec_prefix)
@@ -480,6 +502,13 @@ install : all force
 	-mkdir $(datadir)
 	-mkdir $(pkgdatadir)
 	$(INSTALL_DATA) msgunfmt.tcl $(pkgdatadir)\msgunfmt.tcl
+	-mkdir $(includedir)
+	$(INSTALL_DATA) gettext-po.h $(includedir)\gettext-po.h
+!if $(DLL)
+	$(INSTALL_DATA) gettextpo.dll $(bindir)\gettextpo.dll
+!endif
+	-mkdir $(libdir)
+	$(INSTALL_DATA) gettextpo.lib $(libdir)\gettextpo.lib
 
 installdirs : force
 	-mkdir $(prefix)
@@ -489,6 +518,8 @@ installdirs : force
 !endif
 	-mkdir $(datadir)
 	-mkdir $(pkgdatadir)
+	-mkdir $(includedir)
+	-mkdir $(libdir)
 
 uninstall : force
 !if $(DLL)
@@ -510,6 +541,11 @@ uninstall : force
 	$(RM) $(bindir)\msginit.exe
 	$(RM) $(bindir)\msguniq.exe
 	$(RM) $(pkgdatadir)\msgunfmt.tcl
+	$(RM) $(includedir)\gettext-po.h
+!if $(DLL)
+	$(RM) $(bindir)\gettextpo.dll
+!endif
+	$(RM) $(libdir)\gettextpo.lib
 
 check : all
 
