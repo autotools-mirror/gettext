@@ -162,7 +162,7 @@ install-lispLISP: $(lisp_LISP) $(ELCFILES)
 	@$(NORMAL_INSTALL)
 	@if test -n "$(lispdir)"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(lispdir); \
-	  @list='$(lisp_LISP)'; for p in $$list; do \
+	  list='$(lisp_LISP)'; for p in $$list; do \
 	    if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
 	    echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
 	    $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
