@@ -205,6 +205,26 @@ install-data: all
 	  : ; \
 	fi
 
+install-strip: install
+
+installdirs:
+	if test "$(PACKAGE)" = "gettext" \
+	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
+	else \
+	  : ; \
+	fi
+	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir); $(DESTDIR)$(localedir); \
+	else \
+	  : ; \
+	fi
+	if test "$(PACKAGE)" = "gettext"; then \
+	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
+	else \
+	  : ; \
+	fi
+
 # Define this as empty until I found a useful application.
 installcheck:
 

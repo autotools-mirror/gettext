@@ -1,3 +1,7 @@
+2001-09-27  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in (install-strip, installdirs): New rules.
+
 2001-09-24  Bruno Haible  <haible@clisp.cons.org>
 
 	* localename.c: New file, integrating a function from
