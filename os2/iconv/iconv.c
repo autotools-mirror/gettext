@@ -1,5 +1,5 @@
 /* OS/2 iconv() implementation through OS/2 Unicode API
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -24,14 +24,15 @@
 
 typedef struct _iconv_t
 {
-  UconvObject from;
-  UconvObject to;
+  UconvObject from;		/* "From" conversion handle */
+  UconvObject to;		/* "To" conversion handle */
 } *iconv_t;
 
 /* Tell "iconv.h" to not define iconv_t by itself.  */
 #define _ICONV_T
 #include "iconv.h"
 
+#include <errno.h>
 #include <alloca.h>
 
 /* Convert an encoding name to te form understood by UniCreateUconvObject.  */
@@ -40,19 +41,30 @@ cp_convert (const char *cp, UniChar *ucp)
 {
   size_t sl = 0;
 
-  /* Transform CPXXX naming style to IBM-XXX style */
-  if ((cp[0] == 'C' || cp[0] == 'c') && (cp[1] == 'P' || cp[1] == 'p'))
+  if (!strcasecmp (cp, "EUC-JP"))
+    memcpy (ucp, L"IBM-954", 8*2);
+  else if (!strcasecmp (cp, "EUC-KR"))
+    memcpy (ucp, L"IBM-970", 8*2);
+  else if (!strcasecmp (cp, "EUC-TW"))
+    memcpy (ucp, L"IBM-964", 8*2);
+  else if (!strcasecmp (cp, "EUC-CN"))
+    memcpy (ucp, L"IBM-1383", 9*2);
+  else
     {
-      ucp[sl++] = 'I';
-      ucp[sl++] = 'B';
-      ucp[sl++] = 'M';
-      ucp[sl++] = '-';
-      cp += 2;
-    }
+      /* Transform CPXXX naming style to IBM-XXX style */
+      if ((cp[0] == 'C' || cp[0] == 'c') && (cp[1] == 'P' || cp[1] == 'p'))
+        {
+          ucp[sl++] = 'I';
+          ucp[sl++] = 'B';
+          ucp[sl++] = 'M';
+          ucp[sl++] = '-';
+          cp += 2;
+        }
 
-  while (*cp != '\0')
-    ucp[sl++] = *cp++;
-  ucp[sl] = 0;
+      while (*cp != '\0')
+        ucp[sl++] = *cp++;
+      ucp[sl] = 0;
+    }
 }
 
 iconv_t
@@ -60,6 +72,7 @@ iconv_open (const char *cp_to, const char *cp_from)
 {
   UniChar *ucp;
   iconv_t conv;
+  uconv_attribute_t attr;
 
   conv = (iconv_t) malloc (sizeof (struct _iconv_t));
   if (conv == NULL)
@@ -87,6 +100,16 @@ iconv_open (const char *cp_to, const char *cp_from)
       return (iconv_t)(-1);
     }
 
+  UniQueryUconvObject (conv->from, &attr, sizeof (attr), NULL, NULL, NULL);
+  /* Do not treat 0x7f as a control character
+     (don't understand what it exactly means but without it MBCS prefix
+     character detection sometimes could fail (when 0x7f is a prefix)).
+     And don't treat the string as a path (the docs also don't explain
+     what it exactly means, but I'm pretty sure converted texts will
+     mostly not be paths).  */
+  attr.converttype &= ~(CVTTYPE_CTRL7F | CVTTYPE_PATH);
+  UniSetUconvObject (conv->from, &attr);
+
   return conv;
 }
 
@@ -95,23 +118,24 @@ iconv (iconv_t conv,
        const char **in, size_t *in_left,
        char **out, size_t *out_left)
 {
-  size_t bytes_converted = 0;
   int rc;
   size_t sl = *in_left, nonid;
   UniChar *ucs = (UniChar *) alloca (sl * sizeof (UniChar));
   UniChar *orig_ucs = ucs;
+  size_t retval = 0;
 
-  rc = UniUconvToUcs (conv->from, (void **)in, in_left, &ucs, &sl, &nonid);
+  rc = UniUconvToUcs (conv->from, (void **)in, in_left, &ucs, &sl, &retval);
   if (rc)
     goto error;
   sl = ucs - orig_ucs;
   ucs = orig_ucs;
-  /* Uh-oh, seems like a bug in UniUconvFromUcs, at least when
-     translating from KOI8-R to KOI8-R (null translation) */
-#if 0
+  /* UniUconvFromUcs will stop at first NULL byte
+     while we want ALL the bytes converted.  */
+#if 1
   rc = UniUconvFromUcs (conv->to, &ucs, &sl, (void **)out, out_left, &nonid);
   if (rc)
     goto error;
+  retval += nonid;
 #else
   while (sl)
     {
@@ -121,6 +145,7 @@ iconv (iconv_t conv,
       rc = UniUconvFromUcs (conv->to, &ucs, &usl, (void **)out, out_left, &nonid);
       if (rc)
         goto error;
+      retval += nonid;
       if (sl && *out_left)
         {
           *(*out)++ = 0;
@@ -130,8 +155,24 @@ iconv (iconv_t conv,
     }
 #endif
   return 0;
- error:
-  errno = EILSEQ;
+
+error:
+  /* Convert OS/2 error code to errno.  */
+  switch (rc)
+  {
+    case ULS_ILLEGALSEQUENCE:
+      errno = EILSEQ;
+      break;
+    case ULS_INVALID:
+      errno = EINVAL;
+      break;
+    case ULS_BUFFERFULL:
+      errno = E2BIG;
+      break;
+    default:
+      errno = EBADF;
+      break;
+  }
   return (size_t)(-1);
 }
 

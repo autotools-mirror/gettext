@@ -1,6 +1,6 @@
 /* Determine a canonical name for the current locale's character encoding.
 
-   Copyright (C) 2000-2001 Free Software Foundation, Inc.
+   Copyright (C) 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -47,7 +47,7 @@
 # define OS2
 #endif
 
-#if !(defined WIN32 || defined OS2)
+#if !defined WIN32
 # if HAVE_LANGINFO_CODESET
 #  include <langinfo.h>
 # else
@@ -58,7 +58,8 @@
 #elif defined WIN32
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
-#elif defined OS2
+#endif
+#if defined OS2
 # define INCL_DOS
 # include <os2.h>
 #endif
@@ -104,7 +105,7 @@ get_charset_aliases ()
   cp = charset_aliases;
   if (cp == NULL)
     {
-#if !(defined WIN32 || defined OS2)
+#if !defined WIN32
       FILE *fp;
       const char *dir = LIBDIR;
       const char *base = "charset.alias";
@@ -201,10 +202,6 @@ get_charset_aliases ()
 # if defined WIN32
       cp = "CP936" "\0" "GBK" "\0"
 	   "CP1361" "\0" "JOHAB" "\0";
-
-# elif defined OS2
-      cp = "";
-
 # endif
 #endif
 
@@ -266,7 +263,7 @@ locale_charset ()
 
 # endif
 
-#elif WIN32
+#elif defined WIN32
 
   static char buf[2 + 10 + 1];
 
@@ -274,19 +271,57 @@ locale_charset ()
   sprintf (buf, "CP%u", GetACP ());
   codeset = buf;
 
-#elif OS2
+#elif defined OS2
 
+  const char *locale;
   static char buf[2 + 10 + 1];
   ULONG cp[3];
   ULONG cplen;
 
-  /* OS/2 has a function returning the locale's codepage as a number.  */
-  if (DosQueryCp (sizeof (cp), cp, &cplen))
-    codeset = "";
+  /* Allow user to override the codeset, as set in the operating system,
+     with standard language environment variables.  */
+  locale = getenv ("LC_ALL");
+  if (locale == NULL || locale[0] == '\0')
+    {
+      locale = getenv ("LC_CTYPE");
+      if (locale == NULL || locale[0] == '\0')
+	locale = getenv ("LANG");
+    }
+  if (locale != NULL && locale[0] != '\0')
+    {
+      /* If the locale name contains an encoding after the dot, return it.  */
+      const char *dot = strchr (locale, '.');
+
+      if (dot != NULL)
+	{
+	  const char *modifier;
+
+	  dot++;
+	  /* Look for the possible @... trailer and remove it, if any.  */
+	  modifier = strchr (dot, '@');
+	  if (modifier == NULL)
+	    return dot;
+	  if (modifier - dot < sizeof (buf))
+	    {
+	      memcpy (buf, dot, modifier - dot);
+	      buf [modifier - dot] = '\0';
+	      return buf;
+	    }
+	}
+
+      /* Resolve through the charset.alias file.  */
+      codeset = locale;
+    }
   else
     {
-      sprintf (buf, "CP%u", cp[0]);
-      codeset = buf;
+      /* OS/2 has a function returning the locale's codepage as a number.  */
+      if (DosQueryCp (sizeof (cp), cp, &cplen))
+	codeset = "";
+      else
+	{
+	  sprintf (buf, "CP%u", cp[0]);
+	  codeset = buf;
+	}
     }
 
 #endif

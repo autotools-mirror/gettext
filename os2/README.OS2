@@ -12,8 +12,9 @@ The library has been compiled with -Zmt flag, but it doesn't matter as soon
 as you use the EMX single-threaded runtime fix (emx-strt-fix-0.0.2.zip).
 
 The library is fully compatible with the previous port of gettext library
-which is largely used especialy by XFree86 programs. All the old programs
-that I have with gettext support run fine with the new version of the DLL.
+(0.10.35) which is largely used especialy by XFree86/2 programs. All the
+old programs that I have with gettext support run fine with the new version
+of the DLL.
 
 
 Installation
@@ -28,8 +29,14 @@ If you use the UNIXROOT environment variable, the default catalogue search
 paths will be like on Unices, e.g. $(UNIXROOT)/usr/lib and
 $(UNIXROOT)/usr/share/locale. GNULOCALEDIR always overrides this.
 
-Also this port supports character set conversions. This means that if your
-.mo files were written using new gettext guidelines, e.g. they contain a
+Now if you haven't did it earlier, set the language identifier that you use.
+This is done by adding a "SET LANG=xxx" environment setting to your CONFIG.SYS,
+where xxx is the identifier of your language (example: en_UK for English in UK,
+ru_RU for Russian in Russia. Also you can use names like "russian", "italian"
+and so on - see the share/locale/locale.alias file).
+
+This port of gettext supports character set conversions. This means that if
+your .mo files were written using new gettext guidelines, e.g. they contain a
 message like this:
 
 msgid ""
@@ -43,21 +50,22 @@ performs the translation from CP878 -> CP866 for every message.
 
 If you want to override the character set used to output messages (for example
 in XFree86 for Russian the KOI8-R encoding (codepage 878) is used) you can
-set the OUTPUT_CHARSET environment variable like this:
+set the output character set by adding a postfix to the LANG environment
+variable, this way:
 
-set OUTPUT_CHARSET=KOI8-R
+set LANG=ru_RU.KOI8-R
 
 or (equivalent):
 
-set OUTPUT_CHARSET=CP878
+set LANG=ru_RU.CP878
 
 or (same effect):
 
-set OUTPUT_CHARSET=IBM-878
+set LANG=ru_RU.IBM-878
 
-Note that you don't need to set the OUTPUT_CHARSET initially; you may want to
-set it just if you want to override the OS/2 active codepage (for example,
-you can put it into your XFree86 startup script).
+If the output character set is ommited from the LANG variable, the default
+codepage is queried by using the OS/2 API; you may want to set it just if you
+want to override the OS/2 active codepage.
 
 
 XFree86 setup
@@ -68,7 +76,7 @@ XFree86 default character set (e.g. for Russain CP866 vs KOI8-R), you can add
 the following (or similar) statement to your startx.cmd file (after the
 commands dealing with HOME and X11SHELL):
 
-call VALUE 'OUTPUT_CHARSET', 'KOI8-R', env
+call VALUE 'LANG', 'ru_RU.KOI8-R', env
 
 Otherwise you can get incorrect (wrong codepage) output from programs that
 previously worked (e.g. GIMP 1.22). This is because earlier versions of gettext
@@ -80,12 +88,17 @@ Implementation remarks
 
 The codepage conversion code uses OS/2 Unicode API, thus it falls under the
 limits that OS/2 Unicode API has. For example, OS/2 Unicode API does not
-support the BIG5 Chinese character set nor ISO-8859-X where X > 9 (at least
-with Warp4 with fixpack 14 that I have). Also libintl relies on a feature of
-the GNU iconv which works differently in OS/2 Unicode API (well, someone may
-call it even a bug in OS/2 API); as a results it is impossible to msgfmt any
-.po files written in the UTF-8 character set; if someone is interested I can
-explain the bug more detailed.
+support the BIG5 East Asian character set nor ISO-8859-X where X > 9 (at
+least with Warp4 with fixpack 14 that I have). If someone knows the
+OS/2 API identifiers for BIG5 or ISO8859-10,... encodings, please tell me!
+
+Since gettext 0.11 iconv emulation layer supports correctly UTF-8. Also
+I have added theoretical support for the following East Asian encodings:
+EUC-JP, EUC-KR, EUC-TW, EUC-CN. However, these encodings are (I believe)
+supported only on East Asian editions of OS/2. The code pages for them are
+listed in the \language\codepage\ucstbl.lst file but the codepage files
+themselves are missing; I believe they are ommited from European OS/2's
+due to their large size.
 
 
 Additional API
@@ -97,48 +110,50 @@ to convert text between various codepages. The intl.h header file contains
 the prototypes and definitions needed for iconv(); if you configure software
 with autoconf it possibly will find intl.h and set up the software accordingly.
 
-Also it provides an limited implementation of the nl_langinfo function which
-is used for querying the active system codepage. Other software may find it
-useful as well.
-
-All these functions are exported from INTL.DLL, thus if you use either iconv
-or nl_langinfo you should link with it (-lintl).
+All these functions are exported from INTL.DLL. The iconv.a import library
+imports all the iconv* functions from INTL.DLL. So, like on Unix, now you can
+#include <iconv.h>, then link with -liconv and you will get a fully functional
+iconv implementation.
 
 
 Rebuilding the library
 ======================
 
-The library is quite easy to rebuild. First of all, get and install the
-original source code package, as of today it is gettext-0.10.40. Now copy
-the contents of the src/gettext-$(VERSION)/ directory on top of the source
-tree, e.g. intl/os2compat.c goes into the respective intl/ directory of the
-original source package. As of today the support/ directory is missing from
-the gettext source tree, thus you should just copy it recursively into the
-root directory of the source code.
+The library is quite easy to rebuild. Since the OS/2 support is provided now
+out-of-the-box in gettext, you just have to download and unpack the source
+archive. Now there are two ways to rebuild the gettext library:
 
-Now apply the diff file, and resolve any conflicts (if you happen to compile
-a newer version than the one the diff is supplied for).
+1. If you're a masochist you can go the clumsy configure/make Unix way. This
+is not recommended however as I found no way to tell libtool to generate a
+slightly non-standard DLL which will be backward compatible with gettext
+0.10.35. The compatibility is achieved by prepending backward.def to the
+export definition file generated with emximp or somehow else. Thus it is
+highly recommended you build using the second way, if it is possible.
 
-Now if you're a masochist you can go the clumsy configure/make Unix way, but
-it is highly recommended to use an alternate way: go to support/os2 and just
-run `make'. If you have all the required tools, it should painlessly compile.
-Now if you want a binary distribution archive, do `make distr'.
+2. Go to os2 and just run `make'. If you have all the required tools,
+it should painlessly compile. Finally, if you want a binary distribution
+archive, do `make distr'. The weak side of building this way is that makefile
+is somewhat fragile. This means that if the makefile is left unmodified and
+a new version of gettext is rolled out, it *may* not work. But every possible
+attempt was made to ensure that the makefile takes most important build
+parameters from their autoconf counterparts.
 
-WARNING: Due to a bug in GNU Make 3.76.1 (at least in its OS/2 port) you will
-have to do sometimes "make distr" twice to get a complete distribution archive;
-if you see warnings from zip like these:
+WARNING: Due to bugs in GNU Make 3.76.1 (at least in its OS/2 port) you can
+get sometimes (depending on make version and makefile modification :) funny
+messages like these:
 
 zip warning: name not matched: emx/src/gettext-0.10.40/support/os2/iconv.h
-zip warning: name not matched: emx/src/gettext-0.10.40/support/os2/langinfo.h
 
-it is best to interrupt zip and re-run make distr once more time. This happens
-because make fails to execute two different rules that tells him to make two
-different destination files from the same source file (e.g. iconv.h is copied
-both to emx/src/gettext/support/os2 and to emx/include).
+or even:
 
-If you want a debug version of library, you can do `make install DEBUG=1'.
+*** No rule to make target `out/release/intl.a', needed by `all'.  Stop.
 
-If you have no LxLite tool installed, do `make LXLITE=0'
+Such messages are a bad joke. Ignore it, and re-run make. This is a
+long-standing bug in GNU make, alas.
+
+If you want a debug version of library, you can do `make DEBUG=1'.
+
+If you don't have the LxLite tool installed, do `make LXLITE=0'
 
 NB: For best results, it is highly recommended that you use at least emxbind.exe
 and ld.exe from gcc 3.0.2 or later, since they contain a number of fixes that

@@ -1,3 +1,16 @@
+2002-01-10  Andrew Zabolotny  <zap@cobra.ru>
+	    Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (_nl_default_dirname): On OS/2, declare, not define.
+	* localcharset.c: Rework OS/2 support.
+	* config.charset: Add OS/2 support.
+	* os2compat.c: Renamed from os2.c.
+	(_nl_default_dirname): Define here.
+	* os2compat.h: Moved here from ../os2/.
+	* osdep.c: Update.
+	* Makefile.in (COMHDRS): Add os2compat.h.
+	(COMSRCS): Add os2compat.c, remove os2.c.
+
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (libintl.la): Add -lc. Needed on AIX.

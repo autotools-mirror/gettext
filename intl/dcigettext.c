@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -265,7 +265,11 @@ const char _nl_default_default_domain[] = "messages";
 const char *_nl_current_default_domain = _nl_default_default_domain;
 
 /* Contains the default location of the message catalogs.  */
+#if defined __EMX__
+extern const char _nl_default_dirname[];
+#else
 const char _nl_default_dirname[] = LOCALEDIR;
+#endif
 
 /* List with bindings of specific domains created by bindtextdomain()
    calls.  */

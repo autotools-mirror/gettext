@@ -47,5 +47,5 @@
 
 /* Extra OS/2 (emx+gcc) defines.  */
 #ifdef __EMX__
-# include "os2/os2compat.h"
+# include "intl/os2compat.h"
 #endif

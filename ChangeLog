@@ -1,3 +1,14 @@
+2002-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* acconfig.h [OS/2]: Include intl/os2compat.h, not os2/os2compat.h.
+	* Makefile.am (EXTRA_DIST): Remove os2/os2compat.h.
+
+2002-01-10  Andrew Zabolotny  <zap@cobra.ru>
+
+	* os2/README.OS2: Update.
+	* os2/Makefile: Heavily reworked.
+	* os2/iconv/iconv.c: Bug fixes.
+
 2002-01-07  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath [IRIX]: Fix typo.
