@@ -1,5 +1,10 @@
 2001-03-11  Bruno Haible  <haible@clisp.cons.org>
 
+	* configure.in: Use AM_FUNC_GETLINE instead of
+	AC_REPLACE_FUNCS(getline). Needed for HP-UX 10.
+
+2001-03-11  Bruno Haible  <haible@clisp.cons.org>
+
 	* configure.in: Pass 'need-ngettext' to AM_GNU_GETTEXT.
 
 2001-03-11  Bruno Haible  <haible@clisp.cons.org>

@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
-AC_REVISION($Revision: 1.17 $)
+AC_REVISION($Revision: 1.18 $)
 AC_INIT(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.10.36)
 RELEASE_DATE=2001-03-09      dnl in "date +%Y-%m-%d" format
@@ -50,9 +50,10 @@ dnl Checks for library functions.
 AC_FUNC_ALLOCA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([getcwd mblen memcpy strchr strerror uname])
-AC_REPLACE_FUNCS([getline memmove memset stpcpy stpncpy strcspn \
+AC_REPLACE_FUNCS([memmove memset stpcpy stpncpy strcspn \
 strncasecmp strstr strtoul vasprintf])
-if test $ac_cv_func_getline != yes; then
+AM_FUNC_GETLINE
+if test $am_cv_func_working_getline != yes; then
   AC_CHECK_FUNCS(getdelim)
 fi
 
