@@ -1,3 +1,10 @@
+2004-09-07  Bruno Haible  <bruno@clisp.org>
+
+	* po/xsmallpot.sh: Keep AC_PROG_* and OBJC lines in configure.in.
+	* hello-objc/configure.ac: Assign OBJC through AC_SUBST.
+	* hello-objc-gnome/configure.ac: Likewise.
+	Needed to avoid error with automake-1.9.
+
 2004-03-21  Bruno Haible  <bruno@clisp.org>
 
 	* po/es.po: Update from Max de Mendizábal <max@upn.mx>.
