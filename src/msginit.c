@@ -452,6 +452,8 @@ Please specify the input .pot file through the --input option.\n")));
 Found no .pot file in the current directory.\n\
 Please specify the input .pot file through the --input option.\n")));
   usage (EXIT_FAILURE);
+  /* NOTREACHED */
+  return NULL;
 }
 
 
