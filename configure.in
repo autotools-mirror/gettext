@@ -1,6 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.13)
-AC_INIT(src/msgfmt.c)
+AC_PREREQ(2.52)
+AC_INIT
+AC_CONFIG_SRCDIR(src/msgfmt.c)
 AM_INIT_AUTOMAKE(gettext, 0.11.3-pre2)
 RELEASE_DATE=2002-04-24      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
@@ -59,7 +60,7 @@ AC_C_BACKSLASH_A
 jm_AC_TYPE_UNSIGNED_LONG_LONG
 AC_TYPE_OFF_T
 AC_TYPE_SIZE_T
-AM_TYPE_PTRDIFF_T
+AC_CHECK_TYPES(ptrdiff_t)
 jm_AC_TYPE_UINTMAX_T
 gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
@@ -93,6 +94,49 @@ gt_PREREQ_HOSTNAME
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_OUTPUT has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)
+
+dnl Put some default definitions into config.h.
+AH_TOP([
+/* Default value for alignment of strings in .mo file.  */
+#define DEFAULT_OUTPUT_ALIGNMENT 1
+
+#ifndef PARAMS
+# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
+#  define PARAMS(args) args
+# else
+#  define PARAMS(args) ()
+# endif
+#endif
+])
+AH_BOTTOM([
+/* We don't test for the basename function but still want to use the
+   version in the libc when compiling for a system using glibc.  Likewise
+   for stpncpy.  */
+#ifdef __GNU_LIBRARY__
+# define HAVE_BASENAME	1
+# define HAVE_STPNCPY	1
+#endif
+
+/* A file name cannot consist of any character possible.  INVALID_PATH_CHAR
+   contains the characters not allowed.  */
+#ifndef MSDOS
+# define	INVALID_PATH_CHAR "\1\2\3\4\5\6\7\10\11\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37 \177/"
+#else
+/* Something like this for MSDOG.  */
+# define	INVALID_PATH_CHAR "\1\2\3\4\5\6\7\10\11\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37 \177\\:."
+#endif
+
+/* This is the page width for the message_print function.  It should
+   not be set to more than 79 characters (Emacs users will appreciate
+   it).  It is used to wrap the msgid and msgstr strings, and also to
+   wrap the file position (#:) comments.  */
+#define PAGE_WIDTH 79
+
+/* Extra OS/2 (emx+gcc) defines.  */
+#ifdef __EMX__
+# include "intl/os2compat.h"
+#endif
+])
 
 dnl Check for the expat XML parser.
 dnl On operating systems where binary distribution vendors are likely to
@@ -135,10 +179,22 @@ if test "$CXX" != ":"; then
   dnl Use a modified version of AC_PROG_CXX_WORKS that does not exit
   dnl upon failure.
   AC_MSG_CHECKING([whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works])
-  AC_LANG_SAVE
-  AC_LANG_CPLUSPLUS
-  AC_TRY_COMPILER([int main(){return(0);}], ac_cv_prog_cxx_works, ac_cv_prog_cxx_cross)
-  AC_LANG_RESTORE
+  AC_LANG_PUSH(C++)
+  AC_ARG_VAR([CXX], [C++ compiler command])
+  AC_ARG_VAR([CXXFLAGS], [C++ compiler flags])
+  echo 'int main () { return 0; }' > conftest.$ac_ext
+  if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
+    ac_cv_prog_cxx_works=yes
+    if (./conftest; exit) 2>/dev/null; then
+      ac_cv_prog_cxx_cross=no
+    else
+      ac_cv_prog_cxx_cross=yes
+    fi
+  else
+    ac_cv_prog_cxx_works=no
+  fi
+  rm -fr conftest*
+  AC_LANG_POP(C++)
   AC_MSG_RESULT($ac_cv_prog_cxx_works)
   if test $ac_cv_prog_cxx_works = no; then
     CXX=:
@@ -160,8 +216,7 @@ $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
 EOF
 
-dnl These can be removed when we drop support for autoconf-2.13 and switch
-dnl to autoconf-2.52.
+dnl These ought to go away some day.
 changequote(,)dnl
 LTLIBOBJS=`echo "$LIBOBJS" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
 changequote([, ])dnl

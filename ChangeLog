@@ -1,3 +1,12 @@
+2002-07-14  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Switch to autoconf-2.52. Split AC_INIT into AC_INIT
+	and AC_CONFIG_SRCDIR. Replace AM_TYPE_PTRDIFF_T with AC_CHECK_TYPES.
+	Call AH_TOP and AH_BOTTOM with earlier contents of acconfig.h. Use
+	AC_LANG_PUSH/AC_LANG_POP instead of AC_LANG_CPLUSPLUS/AC_LANG_RESTORE.
+	Use AC_TRY_EVAL instead of AC_TRY_COMPILER.
+	* acconfig.h: Remove file.
+
 2002-06-15  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Call AC_LIBTOOL_WIN32_DLL.
