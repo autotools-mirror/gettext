@@ -1,5 +1,10 @@
 2003-02-15  Bruno Haible  <bruno@clisp.org>
 
+	* user-email.in: Add support for GNOME evolution, OpenOffice and
+	StarOffice with nonstandard installation directory.
+
+2003-02-15  Bruno Haible  <bruno@clisp.org>
+
 	* msgattrib.c (main): Update year in --version output.
 	* msgcat.c (main): Likewise.
 	* msgcmp.c (main): Likewise.

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Prints the user's email address, with confirmation from the user.
 #
-# Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# Copyright (C) 2001-2003 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -77,11 +77,18 @@ files="$files .kde2/share/config/emaildefaults"
 # KDE kmail addresses
 files="$files .kde2/share/config/kmailrc"
 
+# GNOME evolution addresses
+files="$files evolution/config.xmldb"
+
 # GNOME balsa addresses
 files="$files .gnome/balsa"
 
-# StarOffice addresses
-files="$files Office51/sofficerc Office52/user/sofficerc"
+# StarOffice and OpenOffice addresses
+sed_dos2unix='s/\r$//'
+sed_soffice51='s,StarOffice 5\.1=\(.*\)$,\1/sofficerc,p'
+sed_soffice52='s,StarOffice 5\.2=\(.*\)$,\1/user/sofficerc,p'
+sed_ooffice='s,^OpenOffice[^=]*=\(.*\)$,\1/user/config/registry/instance/org/openoffice/UserProfile.xml,p'
+files="$files Office51/sofficerc Office52/user/sofficerc "`sed -n -e "$sed_dos2unix" -e "$sed_soffice51" -e "$sed_soffice52" -e "$sed_ooffice" .sversionrc 2>/dev/null | sed -e 's,^file://*,/,'`
 
 # mutt addresses
 files="$files .muttrc"
@@ -153,15 +160,28 @@ if test -n "$files"; then
         addresses="$addresses "`grep -h '^Email Address=' $file 2>/dev/null | sed -e 's/^Email Address=//'`
         ;;
 
+      # GNOME evolution addresses
+      evolution/config.xmldb)
+        sedexpr0='s/^.*<entry name="identity_address_[0-9]*" type="string" value="\([^"]*\)".*$/\1/p'
+        sedexpr1='s/\(..\)/\\x\1/g'
+        sedexpr2='s,$,\\n,'
+        addresses="$addresses "`sed -n -e "$sedexpr0" < $file | while read hexstring; do printf \`echo "$hexstring" | sed -e "$sedexpr1" -e "$sedexpr2"\`; done`
+        ;;
+
       # GNOME balsa addresses
       .gnome/balsa)
         addresses="$addresses "`grep -h '^Address=' $file 2>/dev/null | sed -e 's/^Address=//'`
         ;;
 
+      # OpenOffice addresses
+      */UserProfile.xml)
+        addresses="$addresses "`sed -n -e 's,^.*<mail cfg:type="string">\(.*\)</mail>.*$,\1,p' $file 2>/dev/null`
+        ;;
+
       # StarOffice addresses
       # Not a typo. They really write "Adress" with a single d.
       # German orthography...
-      Office51/sofficerc | Office52/user/sofficerc)
+      */sofficerc)
         addresses="$addresses "`grep -h '^User-Adress=' $file 2>/dev/null | sed -e 's/#[^#]*$//' -e 's/^.*#//'`
         ;;
 
