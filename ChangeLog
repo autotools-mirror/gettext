@@ -1,3 +1,7 @@
+2001-02-27  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (ALL_LINGUAS): Replace no@nynorsk with nn.
+
 2001-02-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (ALL_LINGUAS): Add ja.
