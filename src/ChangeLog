@@ -1,5 +1,10 @@
 2002-06-07  Bruno Haible  <bruno@clisp.org>
 
+	* user-email.in: Look at /etc/mailname, found on Debian systems.
+	Suggested by Mark W. Eichin <eichin@thok.org>.
+
+2002-06-07  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt.c (install_sigfpe_handler): Assume the signal is always
 	SIGFPE, regardless of the platform.
 	(uninstall_sigfpe_handler): Likewise.

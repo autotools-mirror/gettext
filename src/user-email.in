@@ -217,6 +217,14 @@ if test -n "$files"; then
 
 fi
 
+# Some Debian systems have a file /etc/mailname.
+if test -r /etc/mailname; then
+  hostmailname=`cat /etc/mailname`
+  if test -n "$hostmailname"; then
+    addresses="$addresses ${user}@$hostmailname"
+  fi
+fi
+
 # elm has no user-defined addresses.
 # mailx has no user-defined addresses.
 # mh has no user-defined addresses.
