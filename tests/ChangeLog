@@ -1,5 +1,10 @@
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt-1: Remove temporary files in case of error.
+	* msgfmt-2: Likewise.
+
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt-10: New file.
 	* Makefile.am (TESTS): Add it.
 

@@ -49,6 +49,7 @@ EOF
 # Without use of msgcat, expect a "duplicate message definition" error.
 : ${MSGFMT=msgfmt}
 if ${MSGFMT} module1.po module2.po -o LC_MESSAGES/gen.mo 2> /dev/null; then
+  rm -fr $tmpfiles
   exit 1
 fi
 
