@@ -1,5 +1,5 @@
 /* Binary mode I/O.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001, 2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 # undef O_TEXT
 #endif
 #if O_BINARY
-# if !(defined(__EMX__) || defined(__DJGPP__))
+# if !(defined __EMX__ || defined __DJGPP__)
 #  define setmode _setmode
 #  define fileno _fileno
 # endif
@@ -42,9 +42,9 @@
 #  /* Avoid putting stdin/stdout in binary mode if it is connected to the
 #     console, because that would make it impossible for the user to
 #     interrupt the program through Ctrl-C or Ctrl-Break.  */
-#  define SET_BINARY(fd) (!isatty(fd) ? (setmode(fd,O_BINARY), 0) : 0)
+#  define SET_BINARY(fd) (!isatty (fd) ? (setmode (fd, O_BINARY), 0) : 0)
 # else
-#  define SET_BINARY(fd) setmode(fd,O_BINARY)
+#  define SET_BINARY(fd) setmode (fd, O_BINARY)
 # endif
 #else
   /* On reasonable systems, binary I/O is the default.  */

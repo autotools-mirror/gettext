@@ -1,3 +1,7 @@
+2003-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* binary-io.h: Cosmetics. Suggested by Jim Meyering.
+
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New file.
