@@ -103,7 +103,7 @@ static int force_po;
 static const char *copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER";
 
 /* Email address or URL for reports of bugs in msgids.  */
-static const char *msgid_bugs_address = "";
+static const char *msgid_bugs_address = NULL;
 
 /* String used as prefix for msgstr.  */
 static const char *msgstr_prefix;
@@ -1255,7 +1255,7 @@ construct_header ()
   char *msgstr;
   static lex_pos_ty pos = { __FILE__, __LINE__, };
 
-  if (msgid_bugs_address[0] == '\0')
+  if (msgid_bugs_address != NULL && msgid_bugs_address[0] == '\0')
     multiline_warning (xasprintf (_("warning: ")),
                        xstrdup (_("\
 The option --msgid-bugs-address was not specified.\n\
@@ -1277,7 +1277,8 @@ Language-Team: LANGUAGE <LL@li.org>\n\
 MIME-Version: 1.0\n\
 Content-Type: text/plain; charset=CHARSET\n\
 Content-Transfer-Encoding: 8bit\n",
-		      msgid_bugs_address, timestring);
+		      msgid_bugs_address != NULL ? msgid_bugs_address : "",
+		      timestring);
   free (timestring);
 
   mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);
