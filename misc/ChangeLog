@@ -1,3 +1,8 @@
+2002-04-19  Bruno Haible  <bruno@clisp.org>
+
+	* po-model.el (po-team-name-to-code): Add Ido and Walloon. Change
+	Javanese from jw to jv.
+
 2002-03-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Use "sed -e 1q" instead of "head -1", for compliance

@@ -509,7 +509,7 @@ catalogname_for_locale (locale)
     "is_IS",	/* Icelandic	Iceland */
     "it_IT",	/* Italian	Italy */
     "ja_JP",	/* Japanese	Japan */
-    "jw_ID",	/* Javanese	Indonesia */
+    "jv_ID",	/* Javanese	Indonesia */
     "ka_GE",	/* Georgian	Georgia */
     "kk_KZ",	/* Kazakh	Kazakhstan */
     "kl_GL",	/* Kalaallisut	Greenland */
@@ -566,6 +566,7 @@ catalogname_for_locale (locale)
     "ur_PK",	/* Urdu		Pakistan */
     "uz_UZ",	/* Uzbek	Uzbekistan */
     "vi_VN",	/* Vietnamese	Vietnam */
+    "wa_BE",	/* Walloon	Belgium */
     "wen_DE"	/* Sorbian	Germany */
   };
   const char *dot;

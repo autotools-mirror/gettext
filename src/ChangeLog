@@ -1,3 +1,8 @@
+2002-04-19  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (catalogname_for_locale): Add wa_BE. Change Javanese from
+	jw to jv.
+
 2002-04-15  Bruno Haible  <bruno@clisp.org>
 
 	* po-lex.h (po_gram_error): Treat Apple's version of GCC like non-GCC.
