@@ -6357,6 +6357,59 @@ that language, and to combine the resulting files using @code{msgcat}.
 @node List of Programming Languages, List of Data Formats, Maintainers for other Languages, Programming Languages
 @section Individual Programming Languages
 
+@c Here is a list of programming languages, as used for Free Software projects
+@c on SourceForge/Freshmeat, as of February 2002. Those supported by gettext
+@c are marked with a star.
+@c   C                       3580     *
+@c   Perl                    1911
+@c   C++                     1379     *
+@c   Java                    1200     *
+@c   PHP                     1051
+@c   Python                   613     *
+@c   Unix Shell               357
+@c   Tcl                      266     *
+@c   SQL                      174
+@c   JavaScript               118
+@c   Assembly                 108
+@c   Scheme                    51
+@c   Ruby                      47
+@c   Lisp                      45     *
+@c   Objective C               39     *
+@c   PL/SQL                    29
+@c   Fortran                   25
+@c   Ada                       24
+@c   Delphi                    22
+@c   Awk                       19     *
+@c   Pascal                    19
+@c   ML                        19
+@c   Eiffel                    17
+@c   Emacs-Lisp                14     *
+@c   Zope                      14
+@c   ASP                       12
+@c   Forth                     12
+@c   Cold Fusion               10
+@c   Haskell                    9
+@c   Visual Basic               9
+@c   C#                         6
+@c   Smalltalk                  6
+@c   Basic                      5
+@c   Erlang                     5
+@c   Modula                     5
+@c   Object Pascal              5     *
+@c   Rexx                       5
+@c   Dylan                      4
+@c   Prolog                     4
+@c   APL                        3
+@c   PROGRESS                   2
+@c   Euler                      1
+@c   Euphoria                   1
+@c   Pliant                     1
+@c   Simula                     1
+@c   XBasic                     1
+@c   Logo                       0
+@c   Other Scripting Engines   49
+@c   Other                    116
+
 @menu
 * C::                           C, C++, Objective C
 * sh::                          sh - Shell Script
