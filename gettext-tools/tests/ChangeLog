@@ -1,3 +1,8 @@
+2003-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt-14: New file.
+	* Makefile.am (TESTS): Add it.
+
 2003-09-09  Guido Flohr  <guido@imperia.net>
 
 	* xgettext-29: Add more tests.
