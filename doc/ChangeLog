@@ -1,3 +1,9 @@
+2001-10-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* texi2html: New file, from texi2html-1.52 with modifications.
+	* Makefile.am (TEXI2HTML): Use @PERL@, not @TEXI2HTML@.
+	(gettext_toc.html): Update accordingly.
+
 2001-10-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgattrib.texi: New file.

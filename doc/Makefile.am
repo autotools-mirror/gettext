@@ -129,7 +129,7 @@ uninstall-pdf:
 
 # Documentation in HTML format.
 
-TEXI2HTML = @TEXI2HTML@
+TEXI2HTML = @PERL@ $(srcdir)/texi2html
 
 html-monolithic: gettext.html
 html-split: gettext_toc.html
@@ -138,8 +138,8 @@ gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	case "$(TEXI2HTML)" in \
-	  *"/missing texi2html") \
+	case "@PERL@" in \
+	  *"/missing perl") \
 	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
 	  *) $(RM) gettext_*.html ; \
 	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \

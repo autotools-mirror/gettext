@@ -1,3 +1,7 @@
+2001-10-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Remove check for texi2html.
+
 2001-10-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Also check for putc_unlocked.
