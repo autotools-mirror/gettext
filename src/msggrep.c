@@ -407,8 +407,15 @@ A message is selected if it comes from one of the specified source files,\n\
 or if it comes from one of the specified domains,\n\
 or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n\
 or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN.\n\
+\n\
+When more than one selection criterion is specified, the set of selected\n\
+messages is the union of the selected messages of each criterion.\n\
+\n\
+MSGID-PATTERN or MSGSTR-PATTERN syntax:\n\
+  [-E | -F] [-e PATTERN | -f FILE]...\n\
 PATTERNs are basic regular expressions by default, or extended regular\n\
 expressions if -E is given, or fixed strings if -F is given.\n\
+\n\
   -N, --location=SOURCEFILE   select messages extracted from SOURCEFILE\n\
   -M, --domain=DOMAINNAME     select messages belonging to domain DOMAINNAME\n\
   -K, --msgid                 start of patterns for the msgid\n\
