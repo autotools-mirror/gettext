@@ -30,7 +30,7 @@
 #include "x-rst.h"
 #include "xgettext.h"
 #include "error.h"
-#include "progname.h"
+#include "error-progname.h"
 #include "xmalloc.h"
 #include "exit.h"
 #include "gettext.h"

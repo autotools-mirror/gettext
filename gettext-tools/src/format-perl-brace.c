@@ -27,7 +27,7 @@
 #include "format.h"
 #include "xmalloc.h"
 #include "error.h"
-#include "progname.h"
+#include "error-progname.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

@@ -36,6 +36,7 @@
 #include "dir-list.h"
 #include "error.h"
 #include "xerror.h"
+#include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"
 #include "basename.h"

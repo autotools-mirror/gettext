@@ -21,12 +21,8 @@
 
 #include <stdbool.h>
 
-/* This file supports selectively prefixing or nor prefixing error messages
-   with the program name.
-
-   Programs using this file should do the following in main():
+/* Programs using this file should do the following in main():
      set_program_name (argv[0]);
-     error_print_progname = maybe_print_progname;
  */
 
 /* String containing name the program is called with.  */
@@ -50,15 +46,5 @@ extern void set_program_name_and_installdir (const char *argv0,
 extern char *get_full_program_name (void);
 
 #endif
-
-/* Indicates whether errors and warnings get prefixed with program_name.
-   Default is true.
-   A reason to omit the prefix is for better interoperability with Emacs'
-   compile.el.  */
-extern bool error_with_progname;
-
-/* Print program_name prefix on stderr if and only if error_with_progname
-   is true.  */
-extern void maybe_print_progname (void);
 
 #endif /* _PROGNAME_H */

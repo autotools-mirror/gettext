@@ -31,7 +31,7 @@
 #include <string.h>
 
 #include "error.h"
-#include "progname.h"
+#include "error-progname.h"
 #include "message.h"
 #include "read-po-abstract.h"
 #include "xmalloc.h"

@@ -39,6 +39,7 @@ libgettextlib_la_SOURCES = \
   classpath.h classpath.c \
   copy-file.h copy-file.c \
   error.h error.c \
+  error-progname.h error-progname.c \
   execute.h execute.c w32spawn.h \
   exit.h \
   findprog.h findprog.c \

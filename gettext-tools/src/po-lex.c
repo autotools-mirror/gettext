@@ -45,6 +45,8 @@
 #include "xmalloc.h"
 #include "exit.h"
 #include "error.h"
+#include "error-progname.h"
+#include "pos.h"
 #include "str-list.h"
 #include "po-gram-gen2.h"
 

@@ -43,7 +43,7 @@
 #include "xmalloc.h"
 #include "strstr.h"
 #include "exit.h"
-#include "progname.h"
+#include "error-progname.h"
 #include "error.h"
 #include "xerror.h"
 #include "gettext.h"

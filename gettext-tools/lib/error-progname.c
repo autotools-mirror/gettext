@@ -1,4 +1,4 @@
-/* Program name management.
+/* Use of program name in error-reporting functions.
    Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -22,32 +22,22 @@
 #endif
 
 /* Specification.  */
+#include "error-progname.h"
+
+#include <stdio.h>
+
 #include "progname.h"
 
-#include <string.h>
 
-#undef set_program_name
+/* Indicates whether errors and warnings get prefixed with program_name.
+   Default is true.  */
+bool error_with_progname = true;
 
-
-/* String containing name the program is called with.
-   To be initialized by main().  */
-const char *program_name;
-
-/* Set program_name, based on argv[0].  */
+/* Print program_name prefix on stderr if and only if error_with_progname
+   is true.  */
 void
-set_program_name (const char *argv0)
+maybe_print_progname ()
 {
-  /* libtool creates a temporary executable whose name is sometimes prefixed
-     with "lt-" (depends on the platform).  It also makes argv[0] absolute.
-     Remove this "<dirname>/.libs/" or "<dirname>/.libs/lt-" prefix here.  */
-  const char *slash;
-  const char *base;
-
-  slash = strrchr (argv0, '/');
-  base = (slash != NULL ? slash + 1 : argv0);
-  if (base - argv0 >= 7 && memcmp (base - 7, "/.libs/", 7) == 0)
-    argv0 = base;
-  if (strncmp (base, "lt-", 3) == 0)
-    argv0 = base + 3;
-  program_name = argv0;
+  if (error_with_progname)
+    fprintf (stderr, "%s: ", program_name);
 }

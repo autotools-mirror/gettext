@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "error.h"
-#include "progname.h"
+#include "error-progname.h"
 #include "pos.h"
 #include "xerror.h"
 

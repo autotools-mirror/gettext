@@ -32,7 +32,7 @@
 #include "x-python.h"
 #include "xgettext.h"
 #include "error.h"
-#include "progname.h"
+#include "error-progname.h"
 #include "xmalloc.h"
 #include "exit.h"
 #include "po-charset.h"

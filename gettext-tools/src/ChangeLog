@@ -1,3 +1,46 @@
+2003-08-22  Bruno Haible  <bruno@clisp.org>
+
+	* format-awk.c: Include error-progname.h instead of progname.h.
+	* format-c.c: Likewise.
+	* format-elisp.c: Likewise.
+	* format-gcc-internal.c: Likewise.
+	* format-java.c: Likewise.
+	* format-librep.c: Likewise.
+	* format-lisp.c: Likewise.
+	* format-pascal.c: Likewise.
+	* format-perl.c: Likewise.
+	* format-perl-brace.c: Likewise.
+	* format-php.c: Likewise.
+	* format-python.c: Likewise.
+	* format-tcl.c: Likewise.
+	* format-ycp.c: Likewise.
+	* po-lex.h: Likewise.
+	* read-properties.c: Likewise.
+	* write-po.c: Likewise.
+	* x-awk.c: Likewise.
+	* x-c.c: Likewise.
+	* x-perl.c: Likewise.
+	* x-python.c: Likewise.
+	* x-rst.c: Likewise.
+	* hostname.c: Include error-progname.h.
+	* msgattrib.c: Likewise.
+	* msgcat.c: Likewise.
+	* msgcmp.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgconv.c: Likewise.
+	* msgen.c: Likewise.
+	* msgexec.c: Likewise.
+	* msgfilter.c: Likewise.
+	* msgfmt.c: Likewise.
+	* msggrep.c: Likewise.
+	* msginit.c: Likewise.
+	* msgmerge.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* msguniq.c: Likewise.
+	* urlget.c: Likewise.
+	* xgettext.c: Likewise.
+	* po-lex.c: Include error-progname.h and pos.h.
+
 2003-08-15  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (catalogname_for_locale): Add entries for Aragonese,
