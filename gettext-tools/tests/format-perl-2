@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles f-a-2.data"
-cat <<\EOF > f-a-2.data
+tmpfiles="$tmpfiles f-pl-2.data"
+cat <<\EOF > f-pl-2.data
 # Valid: %% doesn't count
 msgid  "abc%%def"
 msgstr "xyz"
@@ -126,21 +126,21 @@ while read comment; do
   read msgid_line
   read msgstr_line
   n=`expr $n + 1`
-  tmpfiles="$tmpfiles f-a-2-$n.po f-a-2-$n.mo"
-  cat <<EOF > f-a-2-$n.po
+  tmpfiles="$tmpfiles f-pl-2-$n.po f-pl-2-$n.mo"
+  cat <<EOF > f-pl-2-$n.po
 #, perl-format
 ${msgid_line}
 ${msgstr_line}
 EOF
   fail=
   if echo "$comment" | grep 'Valid:' > /dev/null; then
-    if ${MSGFMT} --check-format -o f-a-2-$n.mo f-a-2-$n.po; then
+    if ${MSGFMT} --check-format -o f-pl-2-$n.mo f-pl-2-$n.po; then
       :
     else
       fail=yes
     fi
   else
-    ${MSGFMT} --check-format -o f-a-2-$n.mo f-a-2-$n.po 2> /dev/null
+    ${MSGFMT} --check-format -o f-pl-2-$n.mo f-pl-2-$n.po 2> /dev/null
     if test $? = 1; then
       :
     else
@@ -149,10 +149,10 @@ EOF
   fi
   if test -n "$fail"; then
     echo "Format string checking error:" 1>&2
-    cat f-a-2-$n.po 1>&2
+    cat f-pl-2-$n.po 1>&2
     exit 1
   fi
-done < f-a-2.data
+done < f-pl-2.data
 
 rm -fr $tmpfiles
 

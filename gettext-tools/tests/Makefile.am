@@ -65,8 +65,8 @@ TESTS = gettext-1 gettext-2 \
 	plural-1 plural-2 \
 	lang-c lang-c++ lang-objc lang-python-1 lang-python-2 lang-clisp \
 	lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal \
-	lang-ycp lang-tcl lang-php lang-po \
-	lang-rst lang-perl
+	lang-ycp lang-tcl lang-perl lang-php lang-po \
+	lang-rst
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \

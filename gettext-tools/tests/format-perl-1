@@ -5,8 +5,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles f-a-1.data"
-cat <<\EOF > f-a-1.data
+tmpfiles="$tmpfiles f-pl-1.data"
+cat <<\EOF > f-pl-1.data
 # Valid: no argument
 'abc%%'
 # Valid: one character argument
@@ -132,21 +132,21 @@ n=0
 while read comment; do
   read string
   n=`expr $n + 1`
-  tmpfiles="$tmpfiles f-a-1-$n.in f-a-1-$n.po"
-  cat <<EOF > f-a-1-$n.in
+  tmpfiles="$tmpfiles f-pl-1-$n.in f-pl-1-$n.po"
+  cat <<EOF > f-pl-1-$n.in
 gettext(${string});
 EOF
-  ${XGETTEXT} -L perl -o f-a-1-$n.po f-a-1-$n.in || exit 1
-  test -f f-a-1-$n.po || exit 1
+  ${XGETTEXT} -L perl -o f-pl-1-$n.po f-pl-1-$n.in || exit 1
+  test -f f-pl-1-$n.po || exit 1
   fail=
   if echo "$comment" | grep 'Valid:' > /dev/null; then
-    if grep perl-format f-a-1-$n.po > /dev/null; then
+    if grep perl-format f-pl-1-$n.po > /dev/null; then
       :
     else
       fail=yes
     fi
   else
-    if grep perl-format f-a-1-$n.po > /dev/null; then
+    if grep perl-format f-pl-1-$n.po > /dev/null; then
       fail=yes
     else
       :
@@ -154,12 +154,12 @@ EOF
   fi
   if test -n "$fail"; then
     echo "Format string recognition error:" 1>&2
-    cat f-a-1-$n.in 1>&2
+    cat f-pl-1-$n.in 1>&2
     echo "Got:" 1>&2
-    cat f-a-1-$n.po 1>&2
+    cat f-pl-1-$n.po 1>&2
     exit 1
   fi
-done < f-a-1.data
+done < f-pl-1.data
 
 rm -fr $tmpfiles
 
