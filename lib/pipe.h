@@ -26,6 +26,26 @@
 #endif
 #include <sys/types.h>
 
+#include <stdbool.h>
+
+/* All these functions create a subprocess and don't wait for its termination.
+   They return the process id of the subprocess.  They also return in fd[]
+   one or two file descriptors for communication with the subprocess.
+   If the subprocess creation fails: if exit_on_error is true, the main
+   process exits with an error message; otherwise, -1 is returned and fd[]
+   remain uninitialized.
+
+   After finishing communication, the caller should call wait_subprocess()
+   to get rid of the subprocess in the process table.
+
+   If exit_on_error is false, a child process id of -1 should be treated the
+   same way as a subprocess which accepts no input, produces no output and
+   terminates with exit code 127.  Why?  Some errors during posix_spawnp()
+   cause the function posix_spawnp() to return an error code; some other
+   errors cause the subprocess to exit with return code 127.  It is
+   implementation dependent which error is reported which way.  The caller
+   must treat both cases as equivalent.  */
+
 /* Open a pipe for output to a child process.
  * The child's stdout goes to a file.
  *
@@ -35,7 +55,8 @@
  */
 extern pid_t create_pipe_out PARAMS ((const char *progname,
 				      const char *prog_path, char **prog_argv,
-				      const char *prog_stdout,
+				      const char *prog_stdout, bool null_stderr,
+				      bool exit_on_error,
 				      int fd[1]));
 
 /* Open a pipe for input from a child process.
@@ -47,7 +68,8 @@ extern pid_t create_pipe_out PARAMS ((const char *progname,
  */
 extern pid_t create_pipe_in PARAMS ((const char *progname,
 				     const char *prog_path, char **prog_argv,
-				     const char *prog_stdin,
+				     const char *prog_stdin, bool null_stderr,
+				     bool exit_on_error,
 				     int fd[1]));
 
 /* Open a bidirectional pipe.
@@ -60,6 +82,8 @@ extern pid_t create_pipe_in PARAMS ((const char *progname,
  */
 extern pid_t create_pipe_bidi PARAMS ((const char *progname,
 				       const char *prog_path, char **prog_argv,
+				       bool null_stderr,
+				       bool exit_on_error,
 				       int fd[2]));
 
 #endif /* _PIPE_H */

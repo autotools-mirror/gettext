@@ -1,3 +1,25 @@
+2001-10-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* wait-process.h (wait_subprocess): New argument 'exit_on_error'.
+	* wait-process.c (wait_subprocess): Implement 'exit_on_error' handling.
+	Treat exitcode 127 like a failure to create the subprocess.
+	* execute.h (execute): New argument 'exit_on_error'.
+	* execute.c (execute): Implement 'exit_on_error' handling.
+	* pipe.h (create_pipe_out, create_pipe_in, create_pipe_bidi): New
+	arguments 'null_stderr' and 'exit_on_error'.
+	* pipe-in.c (create_pipe_in): Implement 'null_stderr' and
+	'exit_on_error' handling.
+	* pipe-out.c (create_pipe_out): Likewise.
+	* pipe-bidi.c (create_pipe_bidi): Likewise.
+	* javacomp.c: Include pipe.h, wait-process.h, safe-read.h.
+	(compile_java_class): Update for changed execute(). When testing for
+	gcj, ignore gcj version 2.xx, require at least gcj 3.0.
+	* javaexec.c (execute_java_class): Update for changed execute().
+	* Makefile.am (libnlsut_a_SOURCES): Add safe-read.c.
+	(libnlsut_a_HEADER): Add safe-read.h.
+	(UNUSED_SOURCE): Remove safe-read.c.
+	(UNUSED_HEADER): Remove safe-read.h.
+
 2001-09-25  Bruno Haible  <haible@clisp.cons.org>
 
 	Upgrade to automake-1.5.

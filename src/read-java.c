@@ -72,7 +72,8 @@ execute_and_read_po_output (progname, prog_path, prog_argv, private_data)
   int exitstatus;
 
   /* Open a pipe to the JVM.  */
-  child = create_pipe_in (progname, prog_path, prog_argv, "/dev/null", fd);
+  child = create_pipe_in (progname, prog_path, prog_argv, "/dev/null", false,
+			  true, fd);
 
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
@@ -84,7 +85,7 @@ execute_and_read_po_output (progname, prog_path, prog_argv, private_data)
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, progname);
+  exitstatus = wait_subprocess (child, progname, true);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
 	   progname, exitstatus);

@@ -22,11 +22,13 @@
 #include <stdbool.h>
 
 /* Execute a command, optionally redirecting any of the three standard file
-   descriptors to /dev/null.  Exit if it didn't terminate correctly.
-   Otherwise return its exit code.  */
+   descriptors to /dev/null.  Return its exit code.
+   If it didn't terminate correctly, exit if exit_on_error is true, otherwise
+   return 127.  */
 extern int execute PARAMS ((const char *progname,
 			    const char *prog_path, char **prog_argv,
 			    bool null_stdin,
-			    bool null_stdout, bool null_stderr));
+			    bool null_stdout, bool null_stderr,
+			    bool exit_on_error));
 
 #endif /* _EXECUTE_H */

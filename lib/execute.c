@@ -107,19 +107,27 @@ nonintr_open (pathname, oflag, mode)
 
 
 /* Execute a command, optionally redirecting any of the three standard file
-   descriptors to /dev/null.  Exit if it didn't terminate correctly.
-   Otherwise return its exit code.  */
+   descriptors to /dev/null.  Return its exit code.
+   If it didn't terminate correctly, exit if exit_on_error is true, otherwise
+   return 127.  */
 int
-execute (progname, prog_path, prog_argv, null_stdin, null_stdout, null_stderr)
+execute (progname, prog_path, prog_argv, null_stdin, null_stdout, null_stderr, exit_on_error)
      const char *progname;
      const char *prog_path;
      char **prog_argv;
      bool null_stdin;
      bool null_stdout;
      bool null_stderr;
+     bool exit_on_error;
 {
+  /* Note about 127: Some errors during posix_spawnp() cause the function
+     posix_spawnp() to return an error code; some other errors cause the
+     subprocess to exit with return code 127.  It is implementation
+     dependent which error is reported which way.  We treat both cases as
+     equivalent.  */
 #if HAVE_POSIX_SPAWN
   posix_spawn_file_actions_t actions;
+  bool actions_allocated;
   int err;
   pid_t child;
 #else
@@ -127,22 +135,38 @@ execute (progname, prog_path, prog_argv, null_stdin, null_stdout, null_stderr)
 #endif
 
 #if HAVE_POSIX_SPAWN
+  actions_allocated = false;
   if ((err = posix_spawn_file_actions_init (&actions)) != 0
-      || (null_stdin
-	  && (err = posix_spawn_file_actions_addopen (&actions, STDIN_FILENO,
-						      "/dev/null", O_RDONLY, 0))
-	     != 0)
-      || (null_stdout
-	  && (err = posix_spawn_file_actions_addopen (&actions, STDOUT_FILENO,
-						      "/dev/null", O_RDWR, 0))
-	     != 0)
-      || (null_stderr
-	  && (err = posix_spawn_file_actions_addopen (&actions, STDERR_FILENO,
-						      "/dev/null", O_RDWR, 0))
-	     != 0)
-      || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
-			      environ)) != 0)
-    error (EXIT_FAILURE, err, _("%s subprocess failed"), progname);
+      || (actions_allocated = true,
+	  (null_stdin
+	    && (err = posix_spawn_file_actions_addopen (&actions,
+							STDIN_FILENO,
+							"/dev/null", O_RDONLY,
+							0))
+	       != 0)
+	  || (null_stdout
+	      && (err = posix_spawn_file_actions_addopen (&actions,
+							  STDOUT_FILENO,
+							  "/dev/null", O_RDWR,
+							  0))
+		 != 0)
+	  || (null_stderr
+	      && (err = posix_spawn_file_actions_addopen (&actions,
+							  STDERR_FILENO,
+							  "/dev/null", O_RDWR,
+							  0))
+		 != 0)
+	  || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
+				  environ))
+	     != 0))
+    {
+      if (actions_allocated)
+	posix_spawn_file_actions_destroy (&actions);
+      if (exit_on_error)
+	error (EXIT_FAILURE, err, _("%s subprocess failed"), progname);
+      else
+	return 127;
+    }
   posix_spawn_file_actions_destroy (&actions);
 #else
   /* Use vfork() instead of fork() for efficiency.  */
@@ -172,8 +196,13 @@ execute (progname, prog_path, prog_argv, null_stdin, null_stdout, null_stderr)
       _exit (-1);
     }
   if (child == -1)
-    error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
+    {
+      if (exit_on_error)
+	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
+      else
+	return 127;
+    }
 #endif
 
-  return wait_subprocess (child, progname);
+  return wait_subprocess (child, progname, exit_on_error);
 }

@@ -28,8 +28,11 @@
 #include <string.h>
 
 #include "execute.h"
+#include "pipe.h"
+#include "wait-process.h"
 #include "setenv.h"
 #include "sh-quote.h"
+#include "safe-read.h"
 #include "xmalloc.h"
 #include "error.h"
 #include "libgettext.h"
@@ -51,7 +54,7 @@
    Program  from        A  C               O  g  T
 
    $JAVAC   unknown     N  n/a            -O -g  true
-   gcj -C   GCC 3.0     Y  --classpath=P  -O -g  gcj --version >/dev/null
+   gcj -C   GCC 3.0     Y  --classpath=P  -O -g  gcj --version | grep '^[3-9]' >/dev/null
    javac    JDK 1.1.8   Y  -classpath P   -O -g  javac 2>/dev/null; test $? = 1
    javac    JDK 1.3.0   Y  -classpath P   -O -g  javac 2>/dev/null; test $? -le 2
    jikes    Jikes 1.14  N  -classpath P   -O -g  jikes 2>/dev/null; test $? = 1
@@ -163,7 +166,8 @@ compile_java_class (java_sources, java_sources_count,
 	argv[1] = "-c";
 	argv[2] = command;
 	argv[3] = NULL;
-	exitstatus = execute (javac, "/bin/sh", argv, false, false, false);
+	exitstatus = execute (javac, "/bin/sh", argv, false, false, false,
+			      true);
 	err = (exitstatus != 0);
 
 	/* Reset CLASSPATH.  */
@@ -187,15 +191,38 @@ compile_java_class (java_sources, java_sources_count,
 
     if (!gcj_tested)
       {
-	/* Test for presence of gcj: "gcj --version > /dev/null"  */
+	/* Test for presence of gcj:
+	   "gcj --version 2> /dev/null | grep '^[3-9]' > /dev/null"  */
 	char *argv[3];
+	pid_t child;
+	int fd[1];
 	int exitstatus;
 
 	argv[0] = "gcj";
 	argv[1] = "--version";
 	argv[2] = NULL;
-	exitstatus = execute ("gcj", "gcj", argv, false, true, true);
-	gcj_present = (exitstatus == 0);
+	child = create_pipe_in ("gcj", "gcj", argv, "/dev/null", true, false,
+				fd);
+	gcj_present = false;
+	if (child != -1)
+	  {
+	    /* Read the subprocess output, a single line, and test whether
+	       it starts with a digit >= 3.  */
+	    char c;
+
+	    if (safe_read (fd[0], &c, 1) > 0)
+	      gcj_present = (c >= '3' && c <= '9');
+	    while (safe_read (fd[0], &c, 1) > 0)
+	      ;
+
+	    close (fd[0]);
+
+	    /* Remove zombie process from process list, and retrieve exit
+	       status.  */
+	    exitstatus = wait_subprocess (child, "gcj", false);
+	    if (exitstatus != 0)
+	      gcj_present = false;
+	  }
 	gcj_tested = true;
       }
 
@@ -247,7 +274,7 @@ compile_java_class (java_sources, java_sources_count,
 	    free (command);
 	  }
 
-	exitstatus = execute ("gcj", "gcj", argv, false, false, false);
+	exitstatus = execute ("gcj", "gcj", argv, false, false, false, true);
 	err = (exitstatus != 0);
 
 	/* Reset CLASSPATH.  */
@@ -269,7 +296,8 @@ compile_java_class (java_sources, java_sources_count,
 
 	argv[0] = "javac";
 	argv[1] = NULL;
-	exitstatus = execute ("javac", "javac", argv, false, true, true);
+	exitstatus = execute ("javac", "javac", argv, false, true, true,
+			      false);
 	javac_present = (exitstatus == 0 || exitstatus == 1 || exitstatus == 2);
 	javac_tested = true;
       }
@@ -320,7 +348,8 @@ compile_java_class (java_sources, java_sources_count,
 	    free (command);
 	  }
 
-	exitstatus = execute ("javac", "javac", argv, false, false, false);
+	exitstatus = execute ("javac", "javac", argv, false, false, false,
+			      true);
 	err = (exitstatus != 0);
 
 	/* Reset CLASSPATH.  */
@@ -342,7 +371,8 @@ compile_java_class (java_sources, java_sources_count,
 
 	argv[0] = "jikes";
 	argv[1] = NULL;
-	exitstatus = execute ("jikes", "jikes", argv, false, true, true);
+	exitstatus = execute ("jikes", "jikes", argv, false, true, true,
+			      false);
 	jikes_present = (exitstatus == 0 || exitstatus == 1);
 	jikes_tested = true;
       }
@@ -395,7 +425,8 @@ compile_java_class (java_sources, java_sources_count,
 	    free (command);
 	  }
 
-	exitstatus = execute ("jikes", "jikes", argv, false, false, false);
+	exitstatus = execute ("jikes", "jikes", argv, false, false, false,
+			      true);
 	err = (exitstatus != 0);
 
 	/* Reset CLASSPATH.  */

@@ -502,7 +502,7 @@ is_string_selected (grep_pass, str, len)
 
       /* Open a pipe to a grep subprocess.  */
       child = create_pipe_out ("grep", grep_path, grep_argv[grep_pass],
-			       "/dev/null", fd);
+			       "/dev/null", false, true, fd);
 
       nwritten = full_write (fd[0], str, len);
       if (nwritten != (ssize_t) len)
@@ -512,7 +512,7 @@ is_string_selected (grep_pass, str, len)
       close (fd[0]);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, "grep");
+      exitstatus = wait_subprocess (child, "grep", true);
       return (exitstatus == 0);
     }
   else

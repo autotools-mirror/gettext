@@ -81,9 +81,10 @@
 
 
 int
-wait_subprocess (child, progname)
+wait_subprocess (child, progname, exit_on_error)
      pid_t child;
      const char *progname;
+     bool exit_on_error;
 {
   /* waitpid() is just as portable as wait() nowadays.  */
   WAIT_T status;
@@ -108,7 +109,10 @@ wait_subprocess (child, progname)
 	      break;
 	    }
 #endif
-	  error (EXIT_FAILURE, errno, _("%s subprocess"), progname);
+	  if (exit_on_error)
+	    error (EXIT_FAILURE, errno, _("%s subprocess"), progname);
+	  else
+	    return 127;
 	}
 
       if (!WIFSTOPPED (status))
@@ -116,6 +120,18 @@ wait_subprocess (child, progname)
     }
 
   if (WCOREDUMP (status) || WTERMSIG (status) != 0)
-    error (EXIT_FAILURE, 0, _("%s subprocess got fatal signal"), progname);
+    {
+      if (exit_on_error)
+	error (EXIT_FAILURE, 0, _("%s subprocess got fatal signal"), progname);
+      else
+	return 127;
+    }
+  if (WEXITSTATUS (status) == 127)
+    {
+      if (exit_on_error)
+	error (EXIT_FAILURE, 0, _("%s subprocess failed"), progname);
+      else
+	return 127;
+    }
   return WEXITSTATUS (status);
 }

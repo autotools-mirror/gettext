@@ -25,6 +25,7 @@
 #include "pipe.h"
 
 #include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
 
 #ifdef HAVE_UNISTD_H
@@ -91,16 +92,19 @@ nonintr_close (fd)
  *
  */
 pid_t
-create_pipe_bidi (progname, prog_path, prog_argv, fd)
+create_pipe_bidi (progname, prog_path, prog_argv, null_stderr, exit_on_error, fd)
      const char *progname;
      const char *prog_path;
      char **prog_argv;
+     bool null_stderr;
+     bool exit_on_error;
      int fd[2];
 {
   int ifd[2];
   int ofd[2];
 #if HAVE_POSIX_SPAWN
   posix_spawn_file_actions_t actions;
+  bool actions_allocated;
   int err;
   pid_t child;
 #else
@@ -121,18 +125,40 @@ create_pipe_bidi (progname, prog_path, prog_argv, fd)
  */
 
 #if HAVE_POSIX_SPAWN
+  actions_allocated = false;
   if ((err = posix_spawn_file_actions_init (&actions)) != 0
-      || (err = posix_spawn_file_actions_adddup2 (&actions,
-						  ofd[0], STDIN_FILENO)) != 0
-      || (err = posix_spawn_file_actions_adddup2 (&actions,
-						  ifd[1], STDOUT_FILENO)) != 0
-      || (err = posix_spawn_file_actions_addclose (&actions, ofd[0])) != 0
-      || (err = posix_spawn_file_actions_addclose (&actions, ifd[1])) != 0
-      || (err = posix_spawn_file_actions_addclose (&actions, ofd[1])) != 0
-      || (err = posix_spawn_file_actions_addclose (&actions, ifd[0])) != 0
-      || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
-			      environ)) != 0)
-    error (EXIT_FAILURE, err, _("%s subprocess failed"), progname);
+      || (actions_allocated = true,
+	  (err = posix_spawn_file_actions_adddup2 (&actions,
+						   ofd[0], STDIN_FILENO)) != 0
+	  || (err = posix_spawn_file_actions_adddup2 (&actions,
+						      ifd[1], STDOUT_FILENO))
+	     != 0
+	  || (err = posix_spawn_file_actions_addclose (&actions, ofd[0])) != 0
+	  || (err = posix_spawn_file_actions_addclose (&actions, ifd[1])) != 0
+	  || (err = posix_spawn_file_actions_addclose (&actions, ofd[1])) != 0
+	  || (err = posix_spawn_file_actions_addclose (&actions, ifd[0])) != 0
+	  || (null_stderr
+	      && (err = posix_spawn_file_actions_addopen (&actions,
+							  STDERR_FILENO,
+							  "/dev/null", O_RDWR,
+							  0))
+		 != 0)
+	  || (err = posix_spawnp (&child, prog_path, &actions, NULL, prog_argv,
+				  environ)) != 0))
+    {
+      if (actions_allocated)
+	posix_spawn_file_actions_destroy (&actions);
+      if (exit_on_error)
+	error (EXIT_FAILURE, err, _("%s subprocess failed"), progname);
+      else
+	{
+	  close (ifd[0]);
+	  close (ifd[1]);
+	  close (ofd[0]);
+	  close (ofd[1]);
+	  return -1;
+	}
+    }
   posix_spawn_file_actions_destroy (&actions);
 #else
   /* Use vfork() instead of fork() for efficiency.  */
@@ -144,12 +170,28 @@ create_pipe_bidi (progname, prog_path, prog_argv, fd)
 	  && close (ofd[0]) >= 0
 	  && close (ifd[1]) >= 0
 	  && close (ofd[1]) >= 0
-	  && close (ifd[0]) >= 0)
+	  && close (ifd[0]) >= 0
+	  && (!null_stderr
+	      || ((nulloutfd = open ("/dev/null", O_RDWR, 0)) >= 0
+		  && (nulloutfd == STDERR_FILENO
+		      || (dup2 (nulloutfd, STDERR_FILENO) >= 0
+			  && close (nulloutfd) >= 0)))))
 	execvp (prog_path, prog_argv);
       _exit (-1);
     }
   if (child == -1)
-    error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
+    {
+      if (exit_on_error)
+	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
+      else
+	{
+	  close (ifd[0]);
+	  close (ifd[1]);
+	  close (ofd[0]);
+	  close (ofd[1]);
+	  return -1;
+	}
+    }
 #endif
   close (ofd[0]);
   close (ifd[1]);

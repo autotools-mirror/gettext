@@ -15,7 +15,7 @@ AC_DEFUN([gt_JAVACOMP],
   if test -n "$JAVAC"; then
     ac_result="$JAVAC"
   else
-    if gcj --version >/dev/null 2>/dev/null; then
+    if gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null; then
       HAVE_GCJ=1
       ac_result="gcj -C"
     else
