@@ -132,8 +132,9 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
-$(ACLOCAL_M4):  configure.in  m4/codeset.m4 m4/gettext.m4 m4/iconv.m4 \
-		m4/isc-posix.m4 m4/lcmessage.m4 m4/progtest.m4
+$(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/gettext.m4 \
+		m4/iconv.m4 m4/isc-posix.m4 m4/lcmessage.m4 \
+		m4/progtest.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)

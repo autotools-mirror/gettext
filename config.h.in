@@ -217,6 +217,9 @@
 /* Version number of package */
 #undef VERSION
 
+/* Define if backslash-a works in C strings. */
+#undef HAVE_C_BACKSLASH_A
+
 /* Define if system has ptrdiff_t type */
 #undef HAVE_PTRDIFF_T
 
