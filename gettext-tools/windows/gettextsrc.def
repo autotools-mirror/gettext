@@ -46,6 +46,7 @@ po_multiline_warning
 use_first
 catenate_msgdomain_list
 compare_po_locale_charsets
+check_msgid_msgstr_format
 convert_string
 default_constructor
 default_destructor
@@ -70,6 +71,7 @@ iconv_message_list
 iconv_msgdomain_list
 is_ascii_message
 is_ascii_message_list
+is_ascii_msgdomain_list
 is_ascii_string
 is_ascii_string_list
 lex_end
@@ -85,6 +87,7 @@ message_list_alloc
 message_list_append
 message_list_equal
 message_list_free
+message_list_insert_at
 message_list_list_alloc
 message_list_list_append
 message_list_list_append_list
@@ -134,7 +137,6 @@ po_lex_charset_init
 po_lex_charset_set
 po_lex_pass_comments
 po_lex_pass_obsolete_entries
-po_parse_comment_filepos
 po_parse_comment_special
 po_reader_alloc
 po_reader_free
@@ -153,4 +155,5 @@ string_list_destroy
 string_list_equal
 string_list_free
 string_list_init
+string_list_join
 string_list_member

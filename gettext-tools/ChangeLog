@@ -1,5 +1,11 @@
 2005-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* windows/gettextsrc.def: Remove po_parse_comment_filepos. Add
+	check_msgid_msgstr_format, is_ascii_msgdomain_list,
+	message_list_insert_at, string_list_join.
+
+2005-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* windows/getopt.h: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
 
