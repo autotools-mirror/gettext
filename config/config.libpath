@@ -2,7 +2,7 @@
 # Output a system dependent set of variables, describing how to set the
 # run time search path of shared libraries in an executable at run time.
 #
-#   Copyright 1996-2003 Free Software Foundation, Inc.
+#   Copyright 1996-2004 Free Software Foundation, Inc.
 #   Taken from GNU libtool, 2003
 #   Originally by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 #
@@ -66,7 +66,7 @@ case $host_os in
     ;;
   freebsd1*)
     ;;
-  freebsd*-gnu*)
+  kfreebsd*-gnu)
     shlibpath_var=LD_LIBRARY_PATH
     ;;
   freebsd*)
@@ -95,6 +95,9 @@ case $host_os in
     shlibpath_var=LD_LIBRARY${shlibsuff}_PATH
     ;;
   linux-gnu*)
+    shlibpath_var=LD_LIBRARY_PATH
+    ;;
+  knetbsd*-gnu)
     shlibpath_var=LD_LIBRARY_PATH
     ;;
   netbsd*)
