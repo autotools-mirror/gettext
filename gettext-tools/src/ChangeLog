@@ -1,3 +1,15 @@
+2003-04-20  Bruno Haible  <bruno@clisp.org>
+
+	* open-po.h (open_po_file): Add argument 'exit_on_error'.
+	* open-po.c (try_open_po_file): Renamed from open_po_file.
+	(open_po_file): New function.
+	* po-lex.h (lex_end): Change return type to void.
+	(lex_open, lex_close): Remove declarations.
+	* po-lex.c (lex_end): Change return type to void.
+	(lex_open, lex_close): Remove functions.
+	* read-po-abstract.c (po_scan_file): Inline lex_open and lex_close.
+	Reuse po_scan code.
+
 2003-04-14  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (usage): Split strings: use one string per option

@@ -50,13 +50,7 @@ extern void lex_start (FILE *fp, const char *real_filename,
 		       const char *logical_filename);
 
 /* Terminate lexical analysis.  */
-extern FILE *lex_end (void);
-
-/* Open the PO file FNAME and prepare its lexical analysis.  */
-extern void lex_open (const char *fname);
-
-/* Terminate lexical analysis and close the current PO file.  */
-extern void lex_close (void);
+extern void lex_end (void);
 
 /* Return the next token in the PO file.  The return codes are defined
    in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval.  */

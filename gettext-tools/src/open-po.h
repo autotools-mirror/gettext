@@ -1,5 +1,5 @@
 /* Opening PO files.
-   Copyright (C) 1995-1997, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 #ifndef _OPEN_PO_H
 #define _OPEN_PO_H
 
+#include <stdbool.h>
 #include <stdio.h>
 
 /* Open the input file with the name INPUT_NAME.  The ending .po is added
@@ -25,6 +26,7 @@
    not found, the list of directories in "dir-list.h" is searched.  The
    file's pathname is returned in *REAL_FILE_NAME_P, for error message
    purposes.  */
-extern FILE *open_po_file (const char *input_name, char **real_file_name_p);
+extern FILE *open_po_file (const char *input_name, char **real_file_name_p,
+			   bool exit_on_error);
 
 #endif /* _OPEN_PO_H */

@@ -31,6 +31,7 @@
 #include "po-charset.h"
 #include "po-gram.h"
 #include "po-hash.h"
+#include "open-po.h"
 #include "xmalloc.h"
 
 /* Local variables.  */
@@ -172,11 +173,13 @@ void
 po_scan_file (abstract_po_reader_ty *pop, const char *filename)
 {
   /* Open the file and parse it.  */
-  lex_open (filename);
-  po_scan_start (pop);
-  po_gram_parse ();
-  po_scan_end (pop);
-  lex_close ();
+  char *real_filename;
+  FILE *fp = open_po_file (filename, &real_filename, true);
+
+  po_scan (pop, fp, real_filename, filename);
+
+  if (fp != stdin)
+    fclose (fp);
 }
 
 

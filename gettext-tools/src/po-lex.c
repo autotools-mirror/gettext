@@ -45,7 +45,6 @@
 #include "xmalloc.h"
 #include "exit.h"
 #include "error.h"
-#include "open-po.h"
 #include "str-list.h"
 #include "po-gram-gen2.h"
 
@@ -616,18 +615,15 @@ lex_start (FILE *fp, const char *real_filename, const char *logical_filename)
 }
 
 /* Terminate lexical analysis.  */
-FILE *
+void
 lex_end ()
 {
-  FILE *fp;
-
   if (error_message_count > 0)
     error (EXIT_FAILURE, 0,
 	   ngettext ("found %d fatal error", "found %d fatal errors",
 		     error_message_count),
 	   error_message_count);
 
-  fp = mbf->fp;
   mbf->fp = NULL;
   gram_pos.file_name = NULL;
   gram_pos.line_number = 0;
@@ -636,34 +632,6 @@ lex_end ()
   error_message_count = 0;
   po_lex_obsolete = false;
   po_lex_charset_close ();
-
-  return fp;
-}
-
-
-/* Open the PO file FNAME and prepare its lexical analysis.  */
-void
-lex_open (const char *fname)
-{
-  char *real_filename;
-  FILE *fp = open_po_file (fname, &real_filename);
-  if (!fp)
-    error (EXIT_FAILURE, errno,
-	   _("error while opening \"%s\" for reading"), fname);
-
-  lex_start (fp, real_filename, fname);
-}
-
-/* Terminate lexical analysis and close the current PO file.  */
-void
-lex_close ()
-{
-  FILE *fp;
-
-  fp = lex_end ();
-
-  if (fp != stdin)
-    fclose (fp);
 }
 
 
