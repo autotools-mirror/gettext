@@ -1,3 +1,7 @@
+2003-12-09  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (MAKEINFOFLAGS): Add --no-split.
+
 2003-12-06  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Triggering): Use ANSI C function declaration.

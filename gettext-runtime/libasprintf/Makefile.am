@@ -83,6 +83,7 @@ pdfdir = $(docdir)
 htmldir = $(docdir)
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
+MAKEINFOFLAGS = --no-split
 
 info_TEXINFOS = autosprintf.texi
 

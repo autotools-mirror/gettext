@@ -32,7 +32,7 @@ SED = sed
 RM = rm -f
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
-MAKEINFOFLAGS = $(TEXINCLUDES)
+MAKEINFOFLAGS = $(TEXINCLUDES) --no-split
 
 info_TEXINFOS = gettext.texi
 # List of texinfo sources @included by gettext.texi, excluding version.texi.
