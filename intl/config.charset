@@ -410,8 +410,8 @@ case "$os" in
 	echo "bg_BG CP866" # not CP855 ??
 	echo "mk CP866"    # not CP855 ??
 	echo "mk_MK CP866" # not CP855 ??
-	echo "ru KOI8-R"    # not CP866 ??
-	echo "ru_RU KOI8-R" # not CP866 ??
+	echo "ru CP866"
+	echo "ru_RU CP866"
 	# ISO-8859-6 languages
 	echo "ar CP864"
 	echo "ar_AE CP864"

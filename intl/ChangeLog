@@ -1,3 +1,7 @@
+2002-02-15  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset [msdosdjgpp]: For Russian, use CP866.
+
 2002-02-14  Andrew Zabolotny  <zap@cobra.ru>
 
 	* os2compat.c (_nl_default_dirname__): Renamed from

@@ -1,3 +1,7 @@
+2002-02-15  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset [msdosdjgpp]: For Russian, use CP866.
+
 2002-02-09  Bruno Haible  <bruno@clisp.org>
 
 	* c-ctype.h (c_is*): Change return type to bool.
