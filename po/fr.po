@@ -1,17 +1,19 @@
 # Messages français pour GNU gettext.
 # Copyright © 1996, 1997, 1998 Free Software Foundation, Inc.
 # François Pinard <pinard@iro.umontreal.ca>, 1996.
+# Il a été le traducteur jusqu'en 2001, 1996.
+# Michel Robitaille <robitail@iro.umontreal.ca>, 1996.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
+"Project-Id-Version: GNU gettext 0.10.40\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 1998-05-04 10:03-04:00\n"
-"Last-Translator: François Pinard <pinard@iro.umontreal.ca>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2001-11-29 12:00-05:00\n"
+"Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
+"Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: lib/error.c:115
@@ -79,9 +81,8 @@ msgstr "%s: l'option « -W %s » ne tolère pas d'argument\n"
 
 #: lib/obstack.c:474 lib/xmalloc.c:86 src/po.c:308 src/po.c:381 src/po.c:389
 #: src/po.c:395 src/po.c:415 src/po.c:422 src/po.c:427 src/po.c:444
-#, fuzzy
 msgid "memory exhausted"
-msgstr "Mémoire entièrement consommée"
+msgstr "Mémoire épuisée"
 
 #: src/gettext.c:140 src/msgcmp.c:140 src/msgcomm.c:279 src/msgfmt.c:270
 #: src/msgmerge.c:255 src/msgunfmt.c:170 src/ngettext.c:120 src/xgettext.c:388
@@ -226,10 +227,11 @@ msgid "warning: this message is not used"
 msgstr "attention: ce message n'est pas utilisé"
 
 #: src/msgcmp.c:283 src/po-lex.c:103
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
-msgstr[0] "%d erreurs terminales"
+msgstr[0] "%d erreur fatale trouvée"
+msgstr[1] "%d erreurs fatales trouvées"
 
 #: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1157
 msgid "duplicate message definition"
@@ -384,18 +386,21 @@ msgstr "erreur lors de l'ouverture de « %s » en écriture"
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d messages traduits"
+msgstr[1] "%d messages traduits"
 
 #: src/msgfmt.c:365
 #, fuzzy, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] ", %d traductions approximées"
+msgstr[0] ", %d traductions approximatives"
+msgstr[1] ", %d traductions approximatives"
 
 #: src/msgfmt.c:370
 #, fuzzy, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d messages non-traduits"
+msgstr[1] ", %d messages non-traduits"
 
 #: src/msgfmt.c:392
 #, c-format, no-wrap
@@ -448,11 +453,14 @@ msgid "while creating hash table"
 msgstr "pendant la création de la table de dispersion"
 
 #: src/msgfmt.c:479
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
-msgstr "%s: attention: certaines traductions sont approximatives"
+msgstr ""
+"%s: AVERTISSEMENT: en-tête du fichier PO manquante, approximative ou "
+"invalide\n"
+"%*s  AVERTISSEMENT: la conversion du charset ne fonctionnera pas"
 
 #: src/msgfmt.c:503
 #, c-format
@@ -504,33 +512,28 @@ msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: attention: certaines traductions sont approximatives"
 
 #: src/msgfmt.c:930
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr ""
-"l'une des chaînes « msgid » ou « msgstr » débute par « \\n », l'autre pas"
+msgstr "les chaînes « msgid » et « msgid_plural » ne débutent pas par « \\n »"
 
 #: src/msgfmt.c:938
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr ""
-"l'une des chaînes « msgid » ou « msgstr » débute par « \\n », l'autre pas"
+msgstr "les chaînes « msgid » et « msgstr[%u] » ne débutent pas par « \\n »"
 
 #: src/msgfmt.c:948
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr ""
-"l'une des chaînes « msgid » ou « msgstr » débute par « \\n », l'autre pas"
+msgstr "les chaînes « msgid » et « msgstr » ne débutent pas par « \\n »"
 
 #: src/msgfmt.c:963
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr ""
-"l'une des chaînes « msgid » ou « msgstr » se termine par « \\n », l'autre pas"
+"les chaînes « msgid » et « msgid_plural » ne se terminent pas par « \\n »"
 
 #: src/msgfmt.c:971
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr ""
-"l'une des chaînes « msgid » ou « msgstr » se termine par « \\n », l'autre pas"
+"les chaînes « msgid » et « msgstr[%u] » ne se terminent pas par « \\n »"
 
 #: src/msgfmt.c:981
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
@@ -543,12 +546,13 @@ msgstr ""
 "nombre différent de spécifications de format entre « msgid » et « msgstr »"
 
 #: src/msgfmt.c:1014
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "les spécifications de format pour l'argument %u ne sont pas identiques"
+msgstr ""
+"les spécifications de format pour l'argument %lu ne sont pas identiques"
 
 #: src/msgmerge.c:320
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] def.po ref.po\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -572,6 +576,8 @@ msgstr ""
 "Les arguments obligatoires pour la forme longue des options sont aussi\n"
 "obligatoires pour les formes courtes qui leur correspondent.\n"
 "\n"
+"  -C, --compendium=FICHIER    librairie additionnelle de messages traduits,\n"
+"                              peut être spécifiée plus d'une fois\n"
 "  -D, --directory=RÉPERT      fouiller RÉPERT aussi pour trouver les fichiers\n"
 "  -e, --no-escape             éviter les échappement C en sortie (implicite)\n"
 "  -E, --escape                échappements C en sortie, éviter les 8-bits\n"
@@ -614,12 +620,13 @@ msgstr ""
 "À moins qu'un fichier de sortie soit explicitement spécifié.\n"
 
 #: src/msgmerge.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
-"%s%d et %d lus, %d fusionnés, %d approximés, %d manquants, %d périmés.\n"
+"%s lus %ld anciens + %ld références, %ld fusionnés, %ld approximatives, %ld "
+"manquants, %ld périmés.\n"
 
 #: src/msgmerge.c:806
 msgid " done.\n"
@@ -645,7 +652,7 @@ msgstr ""
 "obligatoires pour les formes courtes qui leur correspondent.\n"
 "\n"
 "  -e, --no-escape             éviter les échappement C en sortie (implicite)\n"
-"  -E, --escape                échappements C en sorite, éviter les 8-bits\n"
+"  -E, --escape                échappements C en sortie, éviter les 8-bits\n"
 "      --force-po              produire un fichier PO, même vide\n"
 "  -h, --help                  fournir ce message d'aide, puis terminer\n"
 "  -i, --indent                sortie en style indenté\n"
@@ -686,9 +693,9 @@ msgid "seek \"%s\" offset %ld failed"
 msgstr "le repositionnement de « %s » à l'endroit %ld a échoué"
 
 #: src/msgunfmt.c:332
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "le fichier « %s » n'est pas en format .mo pour GNU"
+msgstr "le fichier « %s » contient une chaîne qui se termine par un non NUL"
 
 #: src/msgunfmt.c:377
 #, c-format
@@ -696,7 +703,7 @@ msgid "file \"%s\" is not in GNU .mo format"
 msgstr "le fichier « %s » n'est pas en format .mo pour GNU"
 
 #: src/ngettext.c:209
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -715,10 +722,12 @@ msgstr ""
 "  -h, --help             fournir ce message d'aide, puis terminer\n"
 "  -n                     inhiber la production d'une fin de ligne\n"
 "  -V, --version          identifier le programme, puis terminer\n"
-"  [DOMAINE] MSGID        trouver la traduction de MSGID, dans le DOMAINE donné\n"
+"  [DOMAINE] MSGID        repérer le message traduit à partir du DOMAINE\n"
+"  MSGID MSGID-PLURAL     traduire MSGID (au singulier) / MSGID-PLURAL (au pluriel)\n"
+"  VALEUR                 choisir le singulier/pluriel selon la VALEUR\n"
 
 #: src/ngettext.c:221
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "\n"
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -728,33 +737,27 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "\n"
-"Si DOMAINE n'est pas founi, le domaine est obtenu de la variable TEXTDOMAIN\n"
+"Si le DOMAINE n'est pas founi, le domaine est obtenu de la variable TEXTDOMAIN\n"
 "dans l'environnement.  En l'absence du catalogue de messages à l'endroit\n"
 "habituel, la variable d'environnement TEXTDOMAINDIR peut indiquer un autre\n"
 "répertoire.\n"
-"Avec l'option « -s », ce programme se comporte comme la commande « echo »; mais\n"
-"plutôt que de copier simplement ses arguments sur « stdout », ceux qui sont\n"
-"disponibles dans le catalogue choisi sont traduits.\n"
-"\n"
 "Ensemble des répertoires fouillés: %s\n"
 
 #: src/open-po.c:64
 msgid "<stdin>"
-msgstr ""
+msgstr "<stdin>"
 
 #: po-gram-gen.y:87
 msgid "inconsistent use of #~"
-msgstr ""
+msgstr "utilisation inconsistente de #~"
 
 #: po-gram-gen.y:168
-#, fuzzy
 msgid "missing `msgstr[]' section"
-msgstr "section « msgstr » absente"
+msgstr "section « msgstr[] » absente"
 
 #: po-gram-gen.y:176
-#, fuzzy
 msgid "missing `msgid_plural' section"
-msgstr "section « msgstr » absente"
+msgstr "section « msgstr_plural » absente"
 
 #: po-gram-gen.y:183
 msgid "missing `msgstr' section"
@@ -762,11 +765,11 @@ msgstr "section « msgstr » absente"
 
 #: po-gram-gen.y:228
 msgid "first plural form has nonzero index"
-msgstr ""
+msgstr "première forme au pluriel a un index qui n,est pas à zéro"
 
 #: po-gram-gen.y:230
 msgid "plural form has wrong index"
-msgstr ""
+msgstr "forme plurielle a un index erronée"
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
@@ -781,9 +784,8 @@ msgid "keyword \"%s\" unknown"
 msgstr "mot-clé « %s » inconnu"
 
 #: src/po-lex.c:377
-#, fuzzy
 msgid "invalid control sequence"
-msgstr "séquence d'échappement illégale"
+msgstr "séquence de contrôle invalide"
 
 #: src/po-lex.c:480
 msgid "end-of-file within string"
@@ -794,29 +796,30 @@ msgid "end-of-line within string"
 msgstr "fin de ligne intempestive"
 
 #: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
-#, fuzzy
 msgid "invalid multibyte sequence"
-msgstr "séquence d'échappement illégale"
+msgstr "séquence multi-octets invalide"
 
 #: src/po.c:302 src/po.c:374 src/po.c:409 src/po.c:439
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: AVERTISSEMENT: "
 
 #: src/po.c:303
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
-msgstr "%s: attention: certaines traductions sont approximatives"
+msgstr ""
+"Le charset \"%s\" n'a pas un nom d'encodage portable.\n"
+"La conversion de messages vers le charset usager ne fonctionnera pas.\n"
 
 #: src/po.c:370 src/po.c:405
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "Poursuite du traitement, attendez-vous à des erreurs d'analyses."
 
 #: src/po.c:372
 msgid "Continuing anyway."
-msgstr ""
+msgstr "Poursuite malgré tout."
 
 #: src/po.c:375
 #, c-format
@@ -824,17 +827,21 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"Charset \"%s\" n'est pas supporté. %s utilise iconv(),\n"
+"et iconv() ne supporte pas \"%s\".\n"
 
 #: src/po.c:385 src/po.c:418
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
+"L'installation de GNU libiconv suivi de la réinstallation de GNU gettext\n"
+"devrait corriger ce problème.\n"
 
 #: src/po.c:393 src/po.c:425
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po.c:410
 #, c-format
@@ -842,13 +849,16 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"Charset \"%s\" n'est pas supporté. %s utilise iconv(),\n"
+"Cette version a été générée sans iconv().\n"
 
 #: src/po.c:440
-#, fuzzy
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
-msgstr "%s: attention: certaines traductions sont approximatives"
+msgstr ""
+"Charset est manquant dans l'en-tête.\n"
+"La conversion de message dans le charset de l'usager ne fonctionnera pas.\n"
 
 #: src/write-po.c:322
 #, c-format
@@ -892,7 +902,7 @@ msgstr "--join-existing interdit si production sur sortie standard"
 
 #: src/xgettext.c:378
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
+msgstr "xgettext ne peut fonctionner sans mots clés à rechercher"
 
 #: src/xgettext.c:484
 #, c-format
@@ -942,7 +952,7 @@ msgstr ""
 "  -F, --sort-by-file             trier selon la position dans chaque fichier\n"
 
 #: src/xgettext.c:540
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -i, --indent                   write the .po file using indented style\n"
@@ -962,8 +972,8 @@ msgstr ""
 "  -l, --string-limit=LONGUEUR    indiquer si LONGUEUR (%u) octets dépassés\n"
 "  -L, --language=NOM             analyser le langage indiqué (C, C++, PO),\n"
 "                                 sinon, le deviner de l'extension du fichier\n"
-"  -m, --msgstr-prefix[=CHAÎNE]   préfixer les msgstr's par CHAÎNE, sinon \\\"\\\"\n"
-"  -M, --msgstr-suffix[=CHAÎNE]   suffixer les msgstr's par CHAÎNE, sinon \\\"\\\"\n"
+"  -m, --msgstr-prefix[=CHAÎNE]   préfixer les msgstr's par CHAÎNE, sinon \"\"\n"
+"  -M, --msgstr-suffix[=CHAÎNE]   suffixer les msgstr's par CHAÎNE, sinon \"\"\n"
 "      --no-location              ne pas produire les « #: FICHIER:LIGNE »\n"
 
 #: src/xgettext.c:552
@@ -996,36 +1006,20 @@ msgstr ""
 "Si le FICHIER est « - », lit l'entrée standard.\n"
 
 #: src/xgettext.c:914
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: attention: constante chaîne sans terminateur"
+msgstr "%s:%d: AVERTISSEMENT: mot clé imbriqué dans un argument de mots clés"
 
 #: src/xgettext.c:924
 #, c-format
 msgid "%s:%d: warning: keyword between outer keyword and its arg"
 msgstr ""
+"%s:%d: AVERTISSEMENT: mot clé entre un mot clé extérieur et son argument"
 
 #: src/xgettext.c:1420
 #, c-format
 msgid "language `%s' unknown"
 msgstr "langage « %s » inconnu"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-#~ "%*s  warning: consider installing GNU libiconv and then\n"
-#~ "%*s           reinstalling GNU gettext"
-#~ msgstr "%s: attention: certaines traductions sont approximatives"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-#~ "%*s  warning: consider installing GNU libiconv and then\n"
-#~ "%*s           reinstalling GNU gettext"
-#~ msgstr "%s: attention: certaines traductions sont approximatives"
-
-#~ msgid "Memory exhausted"
-#~ msgstr "Mémoire entièrement consommée"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: attention: l'en-tête n'a pas été trouvé"
