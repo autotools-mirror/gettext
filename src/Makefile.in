@@ -88,7 +88,6 @@ INTLBISON = @INTLBISON@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
 INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
-JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
 LEX = @LEX@
@@ -127,25 +126,29 @@ noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h po.h 
 EXTRA_DIST = FILES
 
 localedir = $(datadir)/locale
+jardir = $(datadir)/gettext
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
 
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" @DEFS@
+
 LDADD = ../lib/libnlsut.a @INTLLIBS@
 
 SED = sed
 YACC = @YACC@ -d
+JAR = @JAR@
+JAVACOMP = $(SHELL) ../lib/javacomp.sh
 
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c dir-list.c
 
-msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c message.c dir-list.c write-mo.c format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
+msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c message.c dir-list.c write-mo.c write-java.c msgl-ascii.c msgl-iconv.c plural.c format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
 
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c msgl-ascii.c
 
-msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c read-mo.c
+msgunfmt_SOURCES = message.c msgunfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c msgl-ascii.c read-mo.c read-java.c
 
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c po-lex.c po.c str-list.c xgettext.c dir-list.c write-po.c msgl-ascii.c file-list.c x-c.c x-po.c x-java.l format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
 
@@ -183,9 +186,13 @@ msgexec_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msggrep_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 msguniq_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
+# Special rules for bison and flex generated files.
+
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
 DISTCLEANFILES = po-gram-gen2.h
+
+CLEANFILES = gettext.jar gnu/gettext/*.class
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
@@ -214,9 +221,10 @@ msgcmp_LDFLAGS =
 msgfmt_OBJECTS =  msgfmt.$(OBJEXT) open-po.$(OBJEXT) \
 po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-charset.$(OBJEXT) \
 po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) message.$(OBJEXT) \
-dir-list.$(OBJEXT) write-mo.$(OBJEXT) format.$(OBJEXT) \
-format-c.$(OBJEXT) format-java.$(OBJEXT) format-lisp.$(OBJEXT) \
-format-python.$(OBJEXT) format-ycp.$(OBJEXT)
+dir-list.$(OBJEXT) write-mo.$(OBJEXT) write-java.$(OBJEXT) \
+msgl-ascii.$(OBJEXT) msgl-iconv.$(OBJEXT) plural.$(OBJEXT) \
+format.$(OBJEXT) format-c.$(OBJEXT) format-java.$(OBJEXT) \
+format-lisp.$(OBJEXT) format-python.$(OBJEXT) format-ycp.$(OBJEXT)
 msgfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgfmt_LDFLAGS = 
 msgmerge_OBJECTS =  message.$(OBJEXT) msgmerge.$(OBJEXT) \
@@ -227,8 +235,10 @@ msgl-ascii.$(OBJEXT)
 msgmerge_DEPENDENCIES =  ../lib/libnlsut.a
 msgmerge_LDFLAGS = 
 msgunfmt_OBJECTS =  message.$(OBJEXT) msgunfmt.$(OBJEXT) \
-str-list.$(OBJEXT) write-po.$(OBJEXT) msgl-ascii.$(OBJEXT) \
-read-mo.$(OBJEXT)
+open-po.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
+po-charset.$(OBJEXT) po-lex.$(OBJEXT) po.$(OBJEXT) read-po.$(OBJEXT) \
+str-list.$(OBJEXT) dir-list.$(OBJEXT) write-po.$(OBJEXT) \
+msgl-ascii.$(OBJEXT) read-mo.$(OBJEXT) read-java.$(OBJEXT)
 msgunfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgunfmt_LDFLAGS = 
 xgettext_OBJECTS =  message.$(OBJEXT) open-po.$(OBJEXT) \
@@ -517,15 +527,15 @@ installcheck: installcheck-am
 install-exec-am: install-binPROGRAMS
 install-exec: install-exec-am
 
-install-data-am:
+install-data-am: install-data-local
 install-data: install-data-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 install: install-am
-uninstall-am: uninstall-binPROGRAMS
+uninstall-am: uninstall-binPROGRAMS uninstall-local
 uninstall: uninstall-am
-all-am: Makefile $(PROGRAMS) $(HEADERS)
+all-am: Makefile $(PROGRAMS) $(HEADERS) all-local
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
@@ -536,6 +546,7 @@ installdirs:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES)
@@ -577,10 +588,11 @@ maintainer-clean-compile mostlyclean-libtool distclean-libtool \
 clean-libtool maintainer-clean-libtool tags mostlyclean-tags \
 distclean-tags clean-tags maintainer-clean-tags distdir info-am info \
 dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
-install-exec install-data-am install-data install-am install \
-uninstall-am uninstall all-redirect all-am all installdirs \
-mostlyclean-generic distclean-generic clean-generic \
-maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+install-exec install-data-local install-data-am install-data install-am \
+install uninstall-local uninstall-am uninstall all-local all-redirect \
+all-am all installdirs mostlyclean-generic distclean-generic \
+clean-generic maintainer-clean-generic clean mostlyclean distclean \
+maintainer-clean
 
 
 po-lex.o: po-gram-gen2.h
@@ -591,6 +603,36 @@ po-gram-gen2.h: po-gram-gen.h
 x-java.c: x-java.l
 	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
+
+# Special rules for Java compilation.
+
+all-local: all-java-@BUILDJAVA@
+all-java-no:
+all-java-yes: gettext.jar
+
+gnu/gettext/DumpResource.class: $(srcdir)/gnu/gettext/DumpResource.java
+	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/DumpResource.java
+
+gettext.jar: gnu/gettext/DumpResource.class
+	$(JAR) cf $@ gnu/gettext/DumpResource*.class
+
+install-data-local: install-java-@BUILDJAVA@
+install-java-no:
+install-java-yes: all-java-yes
+	$(INSTALL_DATA) gettext.jar $(DESTDIR)$(jardir)/gettext.jar
+
+installdirs-local: installdirs-java-@BUILDJAVA@
+installdirs-java-no:
+installdirs-java-yes:
+	$(mkinstalldirs) $(DESTDIR)$(jardir)
+
+uninstall-local: uninstall-java-@BUILDJAVA@
+uninstall-java-no:
+uninstall-java-yes:
+	$(RM) $(DESTDIR)$(jardir)/gettext.jar
+
+# One more automake bug.
+installdirs: installdirs-local
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -172,7 +172,7 @@ AC_DEFUN([gt_JAVACOMP],
       HAVE_GCJ=1
       ac_result="gcj -C"
     else
-      if (javac -version >/dev/null 2>/dev/null || test $? = 1); then
+      if (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
         HAVE_JAVAC=1
         ac_result="javac"
       else
@@ -3649,7 +3649,7 @@ AC_DEFUN([bh_C_SIGNED],
   fi
 ])
 
-#serial 3
+#serial 4
 
 dnl From Paul Eggert.
 
@@ -3814,12 +3814,12 @@ AC_DEFUN([AM_FUNC_GETLINE],
   fi
 ])
 
-#serial 5
+#serial 6
 
 dnl autoconf tests required for use of mbswidth.c
 dnl From Bruno Haible.
 
-AC_DEFUN(jm_PREREQ_MBSWIDTH,
+AC_DEFUN([jm_PREREQ_MBSWIDTH],
 [
   AC_REQUIRE([AC_HEADER_STDC])
   AC_CHECK_HEADERS(limits.h stdlib.h string.h wchar.h wctype.h)
@@ -3851,11 +3851,11 @@ AC_DEFUN(jm_PREREQ_MBSWIDTH,
   AC_MBSTATE_T
 ])
 
-#serial 2
+#serial 4
 
 dnl From Paul Eggert
 
-AC_DEFUN(jm_FUNC_MBRTOWC,
+AC_DEFUN([jm_FUNC_MBRTOWC],
 [
   AC_CACHE_CHECK([whether mbrtowc and mbstate_t are properly declared],
     jm_cv_func_mbrtowc,
@@ -3870,7 +3870,7 @@ AC_DEFUN(jm_FUNC_MBRTOWC,
   fi
 ])
 
-# serial 8
+# serial 9
 
 # From Paul Eggert.
 
@@ -3882,7 +3882,7 @@ AC_DEFUN(jm_FUNC_MBRTOWC,
 # (at least glibc-2.1.3) because the "_XOPEN_SOURCE 500" definition elicits
 # a syntax error in wchar.h due to the use of undefined __int32_t.
 
-AC_DEFUN(AC_MBSTATE_T,
+AC_DEFUN([AC_MBSTATE_T],
   [
    AC_CHECK_HEADERS(stdlib.h)
 
@@ -3953,6 +3953,24 @@ AC_DEFUN([gt_FUNC_MKDTEMP],
   AC_STAT_MACROS_BROKEN
   AC_CHECK_HEADERS(fcntl.h stdint.h sys/time.h time.h unistd.h)
   AC_CHECK_FUNCS(gettimeofday)
+])
+
+#serial 1
+
+# Determine available signal blocking primitives. Three different APIs exist:
+# 1) POSIX: sigemptyset, sigaddset, sigprocmask
+# 2) SYSV: sighold, sigrelse
+# 3) BSD: sigblock, sigsetmask
+# For simplicity, here we check only for the POSIX signal blocking.
+AC_DEFUN([gt_SIGNALBLOCKING],
+[
+  signals_not_posix=
+  AC_EGREP_HEADER(sigset_t, signal.h, , signals_not_posix=1)
+  if test -z "$signals_not_posix"; then
+    AC_CHECK_FUNC(sigprocmask,
+      AC_DEFINE(HAVE_POSIX_SIGNALBLOCKING, 1,
+       [Define to 1 if you have the sigset_t type and the sigprocmask function.]))
+  fi
 ])
 
 #serial 1
@@ -4313,7 +4331,12 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
             if test -n "$ALL_LINGUAS"; then
               for presentlang in $ALL_LINGUAS; do
                 useit=no
-                for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
+                if test "%UNSET%" != "$LINGUAS"; then
+                  desiredlanguages="$LINGUAS"
+                else
+                  desiredlanguages="$ALL_LINGUAS"
+                fi
+                for desiredlang in $desiredlanguages; do
                   # Use the presentlang catalog if desiredlang is
                   #   a. equal to presentlang, or
                   #   b. a variant of presentlang (because in this case,
@@ -4343,8 +4366,8 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
      [# Capture the value of obsolete $ALL_LINGUAS because we need it to
       # compute GMOFILES, POFILES, CATALOGS. But hide it from automake.
       eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
-      # Capture the value of $LINGUAS because we need it to compute CATALOGS.
-      LINGUAS="$LINGUAS"
+      # Capture the value of LINGUAS because we need it to compute CATALOGS.
+      LINGUAS="${LINGUAS-%UNSET%}"
      ])
 
 
