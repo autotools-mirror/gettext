@@ -187,9 +187,13 @@ get_sysdep_string (bfp, offset, header, lengthp)
       if (ss_offset + ss_length > bfp->size)
 	error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
       if (!(ss_length > 0 && bfp->data[ss_offset + ss_length - 1] == '\0'))
-	error (EXIT_FAILURE, 0,
-	       _("file \"%s\" contains a not NUL terminated sysdep segment"),
-	       bfp->filename);
+	{
+	  char location[30];
+	  sprintf (location, "sysdep_segment[%u]", (unsigned int) sysdepref);
+	  error (EXIT_FAILURE, 0,
+		 _("file \"%s\" contains a not NUL terminated string, at %s"),
+		 bfp->filename, location);
+	}
       length += 1 + strlen (bfp->data + ss_offset) + 1;
     }
 
