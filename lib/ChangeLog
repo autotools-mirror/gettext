@@ -1,3 +1,8 @@
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.h (gettext_noop): Remove the parentheses around the
+	expansion.
+
 2002-01-10  Bruno Haible  <bruno@clisp.org>
 
 	* liballoca.h: Fix typo.

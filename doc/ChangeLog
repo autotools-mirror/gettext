@@ -1,3 +1,8 @@
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi: Remove the parentheses around the expansions of N_ and
+	gettext_noop.
+
 2002-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (c-format): Slight reformulation.

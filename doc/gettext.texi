@@ -704,7 +704,7 @@ or in a central header file:
 @example
 @group
 #define _(String) (String)
-#define N_(String) (String)
+#define N_(String) String
 #define textdomain(Domain)
 #define bindtextdomain(Package, Directory)
 @end group
@@ -719,7 +719,7 @@ simply replace these definitions by the following:
 @group
 #include <libintl.h>
 #define _(String) gettext (String)
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 @end group
 @end example
@@ -1858,7 +1858,7 @@ from the array.  So one solution can look like this:
 
 @example
 @group
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 
 @{
   static const char *messages[] = @{
@@ -1886,7 +1886,7 @@ with the following one:
 
 @example
 @group
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 
 @{
   static const char *messages[] = @{
@@ -1904,11 +1904,9 @@ with the following one:
 @end group
 @end example
 
-But this has some drawbacks.  First the programmer has to take care that
+But this has a drawback.  The programmer has to take care that
 he uses @code{gettext_noop} for the string @code{"a default message"}.
 A use of @code{gettext} could have in rare cases unpredictable results.
-The second reason is found in the internals of the GNU @code{gettext}
-Library which will make this solution less efficient.
 
 One advantage is that you need not make control flow analysis to make
 sure the output is really translated in any case.  But this analysis is
@@ -4230,7 +4228,7 @@ The same procedure can be done for the @code{gettext_noop} invocations
 no-op macro.  So you should consider the following code for your project:
 
 @example
-#define gettext_noop(String) (String)
+#define gettext_noop(String) String
 #define N_(String) gettext_noop (String)
 @end example
 

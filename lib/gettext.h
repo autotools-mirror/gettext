@@ -1,5 +1,5 @@
 /* Convenience header for conditional use of GNU <libintl.h>.
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -47,8 +47,13 @@
 
 #endif
 
-/* For automatical extraction of messages sometimes no real
-   translation is needed.  Instead the string itself is the result.  */
-#define gettext_noop(Str) (Str)
+/* A pseudo function call that serves as a marker for the automated
+   extraction of messages, but does not call gettext().  The run-time
+   translation is done at a different place in the code.
+   The argument, String, should be a literal string.  Concatenated strings
+   and other string expressions won't work.
+   The macro's expansion is not parenthesized, so that it is suitable as
+   initializer for static 'char[]' or 'const char[]' variables.  */
+#define gettext_noop(String) String
 
 #endif /* _LIBGETTEXT_H */
