@@ -23,6 +23,7 @@
 	* hello-c++-kde/admin: New directory, from KDE 3.1.4.
 	* hello-c++-kde/auto*.sh: Don't create/remove the contents of the
 	admin subdirectory.
+	* Makefile.am (EXAMPLESFILES): Add hello-c++-kde/admin/*.
 
 2004-01-10  Bruno Haible  <bruno@clisp.org>
 

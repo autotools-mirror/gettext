@@ -142,6 +142,30 @@ EXAMPLESFILES = \
   hello-c++-kde/Makefile.am \
   hello-c++-kde/configure.in.in \
   hello-c++-kde/m4/Makefile.am \
+  hello-c++-kde/admin/acinclude.m4.in \
+  hello-c++-kde/admin/am_edit \
+  hello-c++-kde/admin/ChangeLog \
+  hello-c++-kde/admin/compile \
+  hello-c++-kde/admin/conf.change.pl \
+  hello-c++-kde/admin/config.guess \
+  hello-c++-kde/admin/config.pl \
+  hello-c++-kde/admin/config.sub \
+  hello-c++-kde/admin/configure.in.bot.end \
+  hello-c++-kde/admin/configure.in.min \
+  hello-c++-kde/admin/cvs-clean.pl \
+  hello-c++-kde/admin/cvs.sh \
+  hello-c++-kde/admin/debianrules \
+  hello-c++-kde/admin/depcomp \
+  hello-c++-kde/admin/detect-autoconf.sh \
+  hello-c++-kde/admin/Doxyfile.am \
+  hello-c++-kde/admin/Doxyfile.global \
+  hello-c++-kde/admin/install-sh \
+  hello-c++-kde/admin/libtool.m4.in \
+  hello-c++-kde/admin/ltmain.sh \
+  hello-c++-kde/admin/Makefile.common \
+  hello-c++-kde/admin/missing \
+  hello-c++-kde/admin/mkinstalldirs \
+  hello-c++-kde/admin/ylwrap \
   hello-c++-kde/po/Makevars \
   hello-c++-kde/po/POTFILES.in \
   hello-c++-kde/po/LINGUAS \
