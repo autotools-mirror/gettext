@@ -18,6 +18,10 @@
 # The makefile is designed to be more or less gettext version independent,
 # so it is likely to work with future versions of gettext as well.
 #
+# If you get unresolved dependencies (e.g. "don't know how to make somefile.h
+# which is required for zzz.o) remove (or rebuild, if you have the makedep tool)
+# the depend.mak file which contains all the dependencies.
+#
 
 # Use CMD.EXE as shell since its way faster
 SHELL = $(COMSPEC)
@@ -52,7 +56,7 @@ DEFS = -DHAVE_CONFIG_H -DLIBDIR=\"/usr/lib\" \
 LD = gcc
 LDFLAGS = -Zmt -Zcrtdll
 LDFLAGS.SHARED = -Zmt -Zcrtdll -Zdll
-LIBS = -liberty -lgcc
+LIBS = -liconv -liberty -lgcc
 
 AR = ar
 ARFLAGS = crs
@@ -104,17 +108,17 @@ SRC.OBJECTS = $(addprefix $(OUT),$(subst $(ROOT),,$(SRC.SOURCES:.c=.o)))
 LIB.SOURCES = $(addprefix $(ROOT)lib/, error.c stpcpy.c stpncpy.c mkdtemp.c getline.c \
   $(subst libgettextlib_la_SOURCES = ,,\
   $(subst \,,\
+  $(patsubst %.h,,\
   $(patsubst getopt%.c,,\
-  $(shell sed $(ROOT)lib/Makefile.am -ne "/^libgettextlib_la_SOURCES =/,/[^\]$$/p")))))
+  $(shell sed $(ROOT)lib/Makefile.am -ne "/^libgettextlib_la_SOURCES =/,/[^\]$$/p"))))))
 LIB.OBJECTS = $(addprefix $(OUT),$(subst $(ROOT),,$(LIB.SOURCES:.c=.o)))
 
 OUTDIRS = $(OUT) $(sort $(dir $(INTL.OBJECTS) $(SRC.OBJECTS) $(LIB.OBJECTS) $(INSTALL.FILES)))
 
 INSTALL.FILES = $(addprefix $(INST)bin/,$(PROGRAMS)) \
-  $(INST)lib/intl.a $(INST)lib/intl_s.a $(INST)lib/iconv.a \
-  $(INST)include/libintl.h $(INST)include/iconv.h $(INST)dll/intl.dll \
-  $(INST)share/locale/charset.alias $(INST)share/locale/locale.alias \
-  $(INST)doc/gettext-$(VERSION)/README.OS2 \
+  $(INST)lib/intl.a $(INST)lib/intl_s.a $(INST)include/libintl.h \
+  $(INST)dll/intl.dll $(INST)share/locale/charset.alias \
+  $(INST)share/locale/locale.alias $(INST)doc/gettext-$(VERSION)/README.OS2 \
   $(INST)doc/gettext-$(VERSION)/COPYING $(INST)doc/gettext-$(VERSION)/README \
   $(addsuffix /LC_MESSAGES/gettext.mo,$(addprefix $(INST)share/locale/,$(LINGUAS))) \
   $(INSTALL.DIFF)
@@ -138,24 +142,24 @@ ifeq ($(LXLITE),1)
 	lxlite /b- $@
 endif
 
-all: config.h $(OUTDIRS) $(ROOT)src/po-gram-gen2.h $(ROOT)intl/libintl.h \
-  $(OUT)intl.a $(OUT)intl_s.a $(OUT)intl$(INTLDLLVER).dll $(PROGRAMS.EXE)
+all: config.h $(OUTDIRS) $(ROOT)src/po-gram-gen2.h $(ROOT)lib/stdbool.h \
+  $(ROOT)intl/libintl.h $(OUT)intl.a $(OUT)intl_s.a $(OUT)intl$(INTLDLLVER).dll \
+  $(PROGRAMS.EXE)
 
 define MAKEDEP
 	echo $(OUT)PATH = FILENAME
-	makedep $(INCLUDE) $(DEFS) -p $$(OUT)PATH -r -a FILENAME
+	makedep $(INCLUDE) $(DEFS) -p $$(OUT)PATH -r -a FILENAME -c -f depend.mak
 
 endef
 
 depend: $(INTL.SOURCES) $(SRC.SOURCES)
 # Remove all dependencies
-	@makedep os2compat.h
+	rm -f depend.mak
 # Build dependencies, by one file (to avoid 1024 chars command line length limit)
 	@$(foreach fn,$^,$(subst PATH,$(subst ../,,$(dir $(fn))),$(subst FILENAME,$(fn),$(MAKEDEP))))
-	@rm -f __tmp__
 
 clean:
-	rm -rf out emx
+	rm -rf out emx config.h
 
 distr: all rmzip gettext-os2-$(VERSION)-bin.zip
 
@@ -193,14 +197,6 @@ endif
 $(OUT)%.a: $(OUT)%.def
 	emximp -o $@ $<
 
-# iconv.a is just a subset of intl.a (imports from INTL.DLL)
-$(OUT)iconv.def:
-	@echo LIBRARY INTL$(INTLDLLVER) INITINSTANCE TERMINSTANCE>$@
-	@echo EXPORTS>>$@
-	@echo iconv_open>>$@
-	@echo iconv>>$@
-	@echo iconv_close>>$@
-
 $(OUT)util.a: $(SRC.OBJECTS) $(LIB.OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
@@ -208,6 +204,9 @@ $(ROOT)src/po-gram-gen2.h: $(ROOT)src/po-gram-gen.h
 	sed -e "s/[yY][yY]/po_gram_/g" $< > $@
 
 $(ROOT)intl/libintl.h: $(ROOT)intl/libgnuintl.h 
+	$(COPY) $< $@
+
+$(ROOT)lib/stdbool.h: $(ROOT)lib/stdbool.h.in
 	$(COPY) $< $@
 
 gettext-os2-$(VERSION)-bin.zip: $(INSTALL.FILES)
@@ -233,235 +232,4 @@ $(INST)share/locale/%/LC_MESSAGES/gettext.mo: $(ROOT)po/%.po
 	$(COMSPEC) /c "$(subst /,\\,set BEGINLIBPATH=$(OUT:/=) && \
 	  $(OUT)msgfmt.exe) --statistics --verbose -o $@ $<"
 
-# DO NOT DELETE this line -- makedep depends on it!
-
-$(OUT)intl/intl-compat.o: ../intl/libgnuintl.h ../intl/gettextP.h \
-  ../intl/loadinfo.h ../intl/gettext.h
-
-$(OUT)intl/bindtextdom.o: ../intl/libgnuintl.h ../intl/gettextP.h \
-  ../intl/loadinfo.h ../intl/gettext.h
-
-$(OUT)intl/dcgettext.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/libgnuintl.h
-
-$(OUT)intl/dgettext.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/libgnuintl.h
-
-$(OUT)intl/gettext.o: ../intl/gettextP.h ../intl/loadinfo.h ../intl/gettext.h \
-  ../intl/libgnuintl.h
-
-$(OUT)intl/finddomain.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/libgnuintl.h
-
-$(OUT)intl/loadmsgcat.o: ../intl/gettext.h ../intl/gettextP.h \
-  ../intl/loadinfo.h ../intl/plural-exp.h
-
-$(OUT)intl/localealias.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h
-
-$(OUT)intl/textdomain.o: ../intl/libgnuintl.h ../intl/gettextP.h \
-  ../intl/loadinfo.h ../intl/gettext.h
-
-$(OUT)intl/l10nflist.o: ../intl/loadinfo.h
-
-$(OUT)intl/explodename.o: ../intl/loadinfo.h
-
-$(OUT)intl/dcigettext.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/plural-exp.h ../intl/libgnuintl.h \
-  ../intl/hash-string.h ../intl/plural-eval.c
-
-$(OUT)intl/dcngettext.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/libgnuintl.h
-
-$(OUT)intl/dngettext.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/libgnuintl.h
-
-$(OUT)intl/ngettext.o: ../intl/gettextP.h ../intl/loadinfo.h \
-  ../intl/gettext.h ../intl/libgnuintl.h
-
-$(OUT)intl/plural.o: ../intl/plural-exp.h
-
-$(OUT)intl/plural-exp.o: ../intl/plural-exp.h
-
-$(OUT)intl/osdep.o: os2compat.c iconv.c iconv.h
-
-$(OUT)src/dir-list.o: config.h ../os2/os2compat.h ../src/dir-list.h \
-  ../lib/system.h ../src/str-list.h
-
-$(OUT)src/file-list.o: config.h ../os2/os2compat.h ../src/file-list.h \
-  ../src/str-list.h ../lib/error.h ../lib/system.h ../lib/getline.h \
-  ../intl/libgettext.h
-
-$(OUT)src/format-c.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/xmalloc.h ../lib/error.h \
-  ../lib/progname.h ../intl/libgettext.h
-
-$(OUT)src/format-java.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/c-ctype.h ../lib/xmalloc.h \
-  ../lib/error.h ../lib/progname.h ../intl/libgettext.h
-
-$(OUT)src/format-librep.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/xmalloc.h ../lib/error.h \
-  ../lib/progname.h ../intl/libgettext.h
-
-$(OUT)src/format-lisp.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/c-ctype.h ../lib/gcd.h \
-  ../lib/xmalloc.h ../lib/system.h ../lib/error.h ../lib/progname.h \
-  ../intl/libgettext.h
-
-$(OUT)src/format-pascal.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/c-ctype.h ../lib/xmalloc.h \
-  ../lib/error.h ../lib/progname.h ../intl/libgettext.h
-
-$(OUT)src/format-python.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/xmalloc.h ../lib/error.h \
-  ../lib/progname.h ../intl/libgettext.h
-
-$(OUT)src/format-ycp.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h ../lib/xmalloc.h ../lib/error.h \
-  ../lib/progname.h ../intl/libgettext.h
-
-$(OUT)src/format.o: ../src/format.h ../src/pos.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h
-
-$(OUT)src/hostname.o: config.h ../os2/os2compat.h ../lib/error.h \
-  ../lib/progname.h ../lib/basename.h ../lib/xmalloc.h ../lib/system.h \
-  ../intl/libgettext.h
-
-$(OUT)src/message.o: ../src/message.h ../src/str-list.h ../src/pos.h \
-  ../lib/hash.h ../lib/fstrcmp.h ../src/format.h ../lib/xmalloc.h \
-  ../lib/strstr.h ../lib/system.h
-
-$(OUT)src/msgl-ascii.o: config.h ../os2/os2compat.h ../src/msgl-ascii.h \
-  ../src/message.h ../src/str-list.h ../src/pos.h ../lib/hash.h \
-  ../lib/c-ctype.h
-
-$(OUT)src/msgl-cat.o: config.h ../os2/os2compat.h ../src/msgl-cat.h \
-  ../src/message.h ../src/str-list.h ../src/pos.h ../lib/hash.h \
-  ../lib/error.h ../lib/xerror.h ../src/read-po.h ../src/po-charset.h \
-  ../src/msgl-ascii.h ../src/msgl-equal.h ../src/msgl-iconv.h \
-  ../lib/xmalloc.h ../lib/strstr.h ../lib/basename.h ../lib/system.h \
-  ../intl/libgettext.h
-
-$(OUT)src/msgl-charset.o: config.h ../os2/os2compat.h ../src/msgl-charset.h \
-  ../src/message.h ../src/str-list.h ../src/pos.h ../lib/hash.h \
-  ../src/po-charset.h ../lib/error.h ../lib/progname.h ../lib/basename.h \
-  ../lib/xerror.h ../lib/strstr.h ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/msgl-english.o: config.h ../os2/os2compat.h ../src/msgl-english.h \
-  ../src/message.h ../src/str-list.h ../src/pos.h ../lib/hash.h \
-  ../lib/xmalloc.h
-
-$(OUT)src/msgl-equal.o: config.h ../os2/os2compat.h ../src/msgl-equal.h \
-  ../src/message.h ../src/str-list.h ../src/pos.h ../lib/hash.h
-
-$(OUT)src/msgl-iconv.o: config.h ../os2/os2compat.h ../src/msgl-iconv.h \
-  ../src/message.h ../src/str-list.h ../src/pos.h ../lib/hash.h \
-  ../lib/error.h ../lib/progname.h ../lib/basename.h ../src/po-charset.h \
-  ../src/msgl-ascii.h ../lib/xmalloc.h ../lib/strstr.h ../lib/system.h \
-  ../intl/libgettext.h
-
-$(OUT)src/open-po.o: ../src/open-po.h ../src/dir-list.h ../lib/error.h \
-  ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/plural-eval.o: ../intl/plural-exp.h ../intl/plural-eval.c
-
-$(OUT)src/plural.o: ../intl/plural.c ../intl/plural-exp.h \
-  ../intl/plural-exp.c
-
-$(OUT)src/po-charset.o: config.h ../os2/os2compat.h ../src/po-charset.h \
-  ../lib/error.h ../lib/xerror.h ../lib/basename.h ../lib/strstr.h \
-  ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/po-gram-gen.o: config.h ../os2/os2compat.h ../src/po-gram.h \
-  ../src/str-list.h ../src/po-lex.h ../lib/error.h ../lib/progname.h \
-  ../src/pos.h ../lib/xerror.h ../lib/xmalloc.h ../intl/libgettext.h \
-  ../src/po.h ../src/message.h ../lib/hash.h
-
-$(OUT)src/po-hash-gen.o: config.h ../os2/os2compat.h ../src/po-hash.h \
-  ../lib/xmalloc.h ../src/po.h ../src/po-lex.h ../lib/error.h \
-  ../lib/progname.h ../src/pos.h ../lib/xerror.h ../src/message.h \
-  ../src/str-list.h ../lib/hash.h
-
-$(OUT)src/po-lex.o: config.h ../os2/os2compat.h ../src/po-lex.h \
-  ../lib/error.h ../lib/progname.h ../src/pos.h ../lib/xerror.h \
-  ../lib/c-ctype.h ../lib/linebreak.h ../intl/libgettext.h \
-  ../src/str-list.h ../src/po-charset.h ../lib/xmalloc.h ../lib/system.h \
-  ../src/open-po.h ../src/po-gram-gen2.h ../lib/utf8-ucs4.h
-
-$(OUT)src/po-time.o: ../src/po-time.h ../lib/xerror.h ../lib/error.h
-
-$(OUT)src/po.o: config.h ../os2/os2compat.h ../src/po.h ../src/po-lex.h \
-  ../lib/error.h ../lib/progname.h ../src/pos.h ../lib/xerror.h \
-  ../src/message.h ../src/str-list.h ../lib/hash.h ../src/po-charset.h \
-  ../src/po-hash.h ../lib/xmalloc.h
-
-$(OUT)src/read-java.o: ../src/read-java.h ../src/message.h ../src/str-list.h \
-  ../src/pos.h ../lib/hash.h ../src/msgunfmt.h ../lib/javaexec.h \
-  ../lib/pipe.h ../lib/wait-process.h ../src/read-po.h ../lib/error.h \
-  ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/read-mo.o: ../src/read-mo.h ../src/message.h ../src/str-list.h \
-  ../src/pos.h ../lib/hash.h ../intl/gettext.h ../lib/error.h \
-  ../lib/xmalloc.h ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/read-po.o: ../src/read-po.h ../src/message.h ../src/str-list.h \
-  ../src/pos.h ../lib/hash.h ../src/po.h ../src/po-lex.h ../lib/error.h \
-  ../lib/progname.h ../lib/xerror.h ../lib/xmalloc.h ../intl/libgettext.h
-
-$(OUT)src/str-list.o: config.h ../os2/os2compat.h ../src/str-list.h \
-  ../lib/xmalloc.h
-
-$(OUT)src/urlget.o: config.h ../os2/os2compat.h ../lib/error.h \
-  ../lib/progname.h ../lib/basename.h ../lib/full-write.h ../lib/execute.h \
-  ../lib/javaexec.h ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/write-java.o: ../src/write-java.h ../src/message.h \
-  ../src/str-list.h ../src/pos.h ../lib/hash.h ../lib/c-ctype.h \
-  ../lib/error.h ../lib/javacomp.h ../lib/mkdtemp.h ../src/msgfmt.h \
-  ../src/msgl-iconv.h ../lib/pathmax.h ../intl/plural-exp.h \
-  ../src/po-charset.h ../lib/xmalloc.h ../lib/system.h ../lib/tmpdir.h \
-  ../lib/utf8-ucs4.h ../intl/libgettext.h
-
-$(OUT)src/write-mo.o: ../src/write-mo.h ../src/message.h ../src/str-list.h \
-  ../src/pos.h ../lib/hash.h ../src/msgfmt.h ../intl/gettext.h \
-  ../intl/hash-string.h ../lib/error.h ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/write-po.o: ../src/write-po.h ../src/message.h ../src/str-list.h \
-  ../src/pos.h ../lib/hash.h ../lib/c-ctype.h ../lib/linebreak.h \
-  ../src/msgl-ascii.h ../lib/xmalloc.h ../lib/strstr.h ../lib/system.h \
-  ../lib/error.h ../lib/xerror.h ../intl/libgettext.h
-
-$(OUT)src/x-c.o: config.h ../os2/os2compat.h ../src/message.h \
-  ../src/str-list.h ../src/pos.h ../lib/hash.h ../src/x-c.h \
-  ../src/xgettext.h ../lib/error.h ../lib/progname.h ../lib/xmalloc.h \
-  ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/x-java.o: ../src/message.h ../src/str-list.h ../src/pos.h \
-  ../lib/hash.h ../src/x-java.h ../src/xgettext.h ../lib/xmalloc.h \
-  ../lib/strstr.h
-
-$(OUT)src/x-librep.o: config.h ../os2/os2compat.h ../src/message.h \
-  ../src/str-list.h ../src/pos.h ../lib/hash.h ../src/x-librep.h \
-  ../src/xgettext.h ../lib/error.h ../lib/xmalloc.h ../lib/system.h \
-  ../intl/libgettext.h
-
-$(OUT)src/x-lisp.o: config.h ../os2/os2compat.h ../src/message.h \
-  ../src/str-list.h ../src/pos.h ../lib/hash.h ../src/x-lisp.h \
-  ../src/xgettext.h ../lib/error.h ../lib/xmalloc.h ../lib/system.h \
-  ../intl/libgettext.h
-
-$(OUT)src/x-po.o: ../src/message.h ../src/str-list.h ../src/pos.h \
-  ../lib/hash.h ../src/x-po.h ../src/xgettext.h ../lib/xmalloc.h \
-  ../src/po.h ../src/po-lex.h ../lib/error.h ../lib/progname.h \
-  ../lib/xerror.h ../intl/libgettext.h
-
-$(OUT)src/x-rst.o: config.h ../os2/os2compat.h ../src/message.h \
-  ../src/str-list.h ../src/pos.h ../lib/hash.h ../src/x-rst.h \
-  ../src/xgettext.h ../lib/error.h ../lib/progname.h ../lib/xmalloc.h \
-  ../lib/system.h ../intl/libgettext.h
-
-$(OUT)src/x-ycp.o: config.h ../os2/os2compat.h ../src/message.h \
-  ../src/str-list.h ../src/pos.h ../lib/hash.h ../src/x-ycp.h \
-  ../src/xgettext.h ../lib/error.h ../lib/xmalloc.h ../lib/system.h \
-  ../intl/libgettext.h
+-include depend.mak

@@ -1,3 +1,8 @@
+2002-02-14  Andrew Zabolotny  <zap@cobra.ru>
+
+	* os2/README.OS2: Update.
+	* os2/Makefile: Update.
+
 2002-02-10  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Remove os2/iconv/README.

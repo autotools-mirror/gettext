@@ -2,7 +2,7 @@
 Welcome!
 ========
 
-This is the OS/2 port of GNU gettext 0.10.40 and possibly later versions.
+This is the OS/2 port of GNU gettext internationalization library.
 
 
 Compatibility
@@ -64,8 +64,10 @@ or (same effect):
 set LANG=ru_RU.IBM-878
 
 If the output character set is ommited from the LANG variable, the default
-codepage is queried by using the OS/2 API; you may want to set it just if you
-want to override the OS/2 active codepage.
+codepage is ALWAYS taken from the operating system (e.g. the codepage setting
+from locale.alias is always ignored, so "russian" stays just for "ru_RU" and
+not for "ru_RU.ISO-8859-5"); you may want to set it just if you want to
+override the active OS/2 codepage.
 
 
 XFree86 setup
