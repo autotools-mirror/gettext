@@ -1,3 +1,12 @@
+2002-04-24  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.2 released.
+
+2002-04-24  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Bump version number to 0.11.2.
+	(RELEASE_DATE): Bump.
+
 2002-03-15  Andrew Zabolotny  <zap@cobra.ru>
 
 	* os2/README.OS2: Update.
