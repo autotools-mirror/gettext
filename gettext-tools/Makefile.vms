@@ -20,6 +20,9 @@ all : config.h
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
+	set default [.libgrep]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
 	set default [.libuniname]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
@@ -58,6 +61,9 @@ install :
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
+	set default [.libgrep]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
 	set default [.libuniname]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
@@ -91,6 +97,9 @@ installdirs :
 	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") installdirs
 	set default [-]
 	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.libgrep]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
 	set default [.libuniname]
@@ -128,6 +137,9 @@ uninstall :
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
+	set default [.libgrep]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
 	set default [.libuniname]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
@@ -163,6 +175,9 @@ check : all
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
+	set default [.libgrep]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
 	set default [.libuniname]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
@@ -196,6 +211,9 @@ mostlyclean :
 	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") mostlyclean
 	set default [-]
 	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.libgrep]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
 	set default [.libuniname]
@@ -234,6 +252,9 @@ clean :
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
+	set default [.libgrep]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
 	set default [.libuniname]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
@@ -270,6 +291,9 @@ distclean :
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
+	set default [.libgrep]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
 	set default [.libuniname]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
@@ -304,6 +328,9 @@ maintainer-clean :
 	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") maintainer-clean
 	set default [-]
 	set default [.lib]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.libgrep]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
 	set default [.libuniname]

@@ -62,6 +62,7 @@ gcj.m4 \
 getline.m4 \
 getndelim2.m4 \
 getopt.m4 \
+hard-locale.m4 \
 hostname.m4 \
 javacomp.m4 \
 javaexec.m4 \
@@ -69,13 +70,16 @@ locale-fr.m4 \
 mbrtowc.m4 \
 mbstate_t.m4 \
 mbswidth.m4 \
+memchr.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
 pathmax.m4 \
 quote.m4 \
 quotearg.m4 \
 readlink.m4 \
+regex.m4 \
 relocatable.m4 \
+restrict.m4 \
 setenv.m4 \
 setlocale.m4 \
 sig_atomic_t.m4 \
@@ -85,6 +89,7 @@ ssize_t.m4 \
 stdbool.m4 \
 stpncpy.m4 \
 strcase.m4 \
+strdup.m4 \
 strerror.m4 \
 strerror_r.m4 \
 tmpdir.m4 \

@@ -1,3 +1,12 @@
+2005-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* libgrep.m4: New file.
+	* hard-locale.m4: New file, from gnulib.
+	* memchr.m4: New file, from gnulib.
+	* regex.m4: New file, from gnulib.
+	* restrict.m4: New file, from gnulib.
+	* strdup.m4: New file, from gnulib.
+
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
 	* strcase.m4: New file, from gnulib.

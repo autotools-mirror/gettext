@@ -153,6 +153,7 @@ gl_XREADLINK
 gl_CANONICALIZE
 gt_SETLOCALE
 gl_XSIZE
+gt_LIBGREP
 
 gt_PREREQ_HOSTNAME
 
@@ -283,6 +284,9 @@ AC_CONFIG_FILES([lib/Makefile],
                 [FIX_MAKEFILE_COMPILE])
 AC_CONFIG_FILES([lib/javacomp.sh lib/javaexec.sh])
 AC_CONFIG_FILES([lib/csharpcomp.sh lib/csharpexec.sh])
+
+AC_CONFIG_FILES([libgrep/Makefile],
+                [FIX_MAKEFILE_COMPILE])
 
 AC_CONFIG_FILES([libuniname/Makefile],
                 [FIX_MAKEFILE_COMPILE])

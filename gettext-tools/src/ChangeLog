@@ -1,3 +1,22 @@
+2005-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep.c (grep_args, grep_path, grep_argv): Remove variables.
+	(struct grep_task): New type.
+	(grep_task): New variable.
+	(main): Initialize grep_task instead of grep_args. Change processing
+	of options 'E', 'F' to set a matcher, of 'e', 'f' to append to the
+	pattern string, and of 'i' to set a boolean. Compile the patterns.
+	(is_string_selected): Execute a compiled pattern instead of calling
+	the grep program.
+	(is_message_selected): Update.
+	* Makefile.am (AM_CPPFLAGS): Add -I option for libgrep.
+	(LIBGREP): New variable.
+	(msggrep_LDADD): Add $(LIBGREP).
+	* Makefile.msvc (INCLUDES): Add libgrep directory.
+	(msggrep.exe): Link with libgrep.
+	* Makefile.vms (INCLUDES): Add libgrep directory.
+	(msggrep.exe): Link with libgrep.
+
 2005-01-09  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-ascii.h (is_ascii_msgdomain_list): New declaration.

@@ -20,7 +20,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../config/m4
 
-SUBDIRS = doc intl lib libuniname src po projects misc man m4 tests examples
+SUBDIRS = doc intl lib libgrep libuniname src po projects misc man m4 tests examples
 
 EXTRA_DIST = misc/DISCLAIM
 
@@ -48,6 +48,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_BTOWC$$/#define HAVE_BTOWC 1/' \
 	     -e 's/#undef HAVE_CHOWN$$/#define HAVE_CHOWN 1/' \
 	     -e 's/#undef HAVE_DECL_GETENV$$/#define HAVE_DECL_GETENV 1/' \
+	     -e 's/#undef HAVE_DECL_STRDUP$$/#define HAVE_DECL_STRDUP 1/' \
 	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
@@ -77,6 +78,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_MBRTOWC$$/#define HAVE_MBRTOWC 1/' \
 	     -e 's/#undef HAVE_MBSINIT$$/#define HAVE_MBSINIT 1/' \
 	     -e 's/#undef HAVE_MBSTATE_T$$/#define HAVE_MBSTATE_T 1/' \
+	     -e 's/#undef HAVE_MEMCHR$$/#define HAVE_MEMCHR 1/' \
 	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
 	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
 	     -e 's/#undef HAVE_MEMSET$$/#define HAVE_MEMSET 1/' \
@@ -140,6 +142,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	     -e 's/#undef getline$$/#define getline rpl_getline/' \
 	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
+	     -e 's/#undef restrict$$/#define restrict/' \
 	     -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long long/' \
 	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \
 	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
@@ -158,6 +161,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	    -e 's/#undef HAVE_BTOWC$$/#define HAVE_BTOWC 1/' \
 	    -e 's/#undef HAVE_DECL_GETENV$$/#define HAVE_DECL_GETENV 1/' \
+	    -e 's/#undef HAVE_DECL_STRDUP$$/#define HAVE_DECL_STRDUP 1/' \
 	    -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	    -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 0/' \
 	    -e 's/#undef HAVE_DECL__SNPRINTF$$/#define HAVE_DECL__SNPRINTF 1/' \
@@ -175,6 +179,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
 	    -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
 	    -e 's/#undef HAVE_LONG_FILE_NAMES$$/#define HAVE_LONG_FILE_NAMES 1/' \
+	    -e 's/#undef HAVE_MEMCHR$$/#define HAVE_MEMCHR 1/' \
 	    -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
 	    -e 's/#undef HAVE_MEMSET$$/#define HAVE_MEMSET 1/' \
 	    -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
@@ -215,6 +220,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef inline$$/#define inline __inline/' \
 	    -e 's/#undef mode_t$$/#define mode_t int/' \
 	    -e 's/#undef pid_t$$/#define pid_t int/' \
+	    -e 's/#undef restrict$$/#define restrict/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
 	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
 	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \

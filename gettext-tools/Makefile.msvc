@@ -96,6 +96,9 @@ all : config.h force
 	cd lib
 	$(MAKE) -f Makefile.msvc all
 	cd ..
+	cd libgrep
+	$(MAKE) -f Makefile.msvc all
+	cd ..
 	cd libuniname
 	$(MAKE) -f Makefile.msvc all
 	cd ..
@@ -136,6 +139,9 @@ install : force
 	cd lib
 	$(MAKE) -f Makefile.msvc install
 	cd ..
+	cd libgrep
+	$(MAKE) -f Makefile.msvc install
+	cd ..
 	cd libuniname
 	$(MAKE) -f Makefile.msvc install
 	cd ..
@@ -170,6 +176,9 @@ installdirs : force
 	$(MAKE) -f ..\..\gettext-runtime\intl\Makefile.msvc srcdir=..\..\gettext-runtime\intl installdirs
 	cd ..
 	cd lib
+	$(MAKE) -f Makefile.msvc installdirs
+	cd ..
+	cd libgrep
 	$(MAKE) -f Makefile.msvc installdirs
 	cd ..
 	cd libuniname
@@ -208,6 +217,9 @@ uninstall : force
 	cd lib
 	$(MAKE) -f Makefile.msvc uninstall
 	cd ..
+	cd libgrep
+	$(MAKE) -f Makefile.msvc uninstall
+	cd ..
 	cd libuniname
 	$(MAKE) -f Makefile.msvc uninstall
 	cd ..
@@ -244,6 +256,9 @@ check : all force
 	cd lib
 	$(MAKE) -f Makefile.msvc check
 	cd ..
+	cd libgrep
+	$(MAKE) -f Makefile.msvc check
+	cd ..
 	cd libuniname
 	$(MAKE) -f Makefile.msvc check
 	cd ..
@@ -278,6 +293,9 @@ mostlyclean : force
 	$(MAKE) -f ..\..\gettext-runtime\intl\Makefile.msvc srcdir=..\..\gettext-runtime\intl mostlyclean
 	cd ..
 	cd lib
+	$(MAKE) -f Makefile.msvc mostlyclean
+	cd ..
+	cd libgrep
 	$(MAKE) -f Makefile.msvc mostlyclean
 	cd ..
 	cd libuniname
@@ -317,6 +335,9 @@ clean : force
 	cd lib
 	$(MAKE) -f Makefile.msvc clean
 	cd ..
+	cd libgrep
+	$(MAKE) -f Makefile.msvc clean
+	cd ..
 	cd libuniname
 	$(MAKE) -f Makefile.msvc clean
 	cd ..
@@ -352,6 +373,9 @@ distclean : force
 	$(MAKE) -f ..\..\gettext-runtime\intl\Makefile.msvc srcdir=..\..\gettext-runtime\intl distclean
 	cd ..
 	cd lib
+	$(MAKE) -f Makefile.msvc distclean
+	cd ..
+	cd libgrep
 	$(MAKE) -f Makefile.msvc distclean
 	cd ..
 	cd libuniname
@@ -390,6 +414,9 @@ maintainer-clean : force
 	$(MAKE) -f ..\..\gettext-runtime\intl\Makefile.msvc srcdir=..\..\gettext-runtime\intl maintainer-clean
 	cd ..
 	cd lib
+	$(MAKE) -f Makefile.msvc maintainer-clean
+	cd ..
+	cd libgrep
 	$(MAKE) -f Makefile.msvc maintainer-clean
 	cd ..
 	cd libuniname

@@ -22,6 +22,7 @@
 #endif
 #include <alloca.h>
 
+#include <assert.h>
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
@@ -53,10 +54,7 @@
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "exit.h"
-#include "full-write.h"
-#include "findprog.h"
-#include "pipe.h"
-#include "wait-process.h"
+#include "libgrep.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -71,14 +69,16 @@ static string_list_ty *location_files;
 /* Selected domain names.  */
 static string_list_ty *domain_names;
 
-/* Arguments to be passed to the grep subprocesses.  */
-static string_list_ty *grep_args[3];
-
-/* Pathname of the grep program.  */
-static const char *grep_path;
-
-/* Argument lists for the grep program.  */
-static char **grep_argv[3];
+/* Task for each grep pass.  */
+struct grep_task {
+  matcher_t *matcher;
+  size_t pattern_count;
+  char *patterns;
+  size_t patterns_size;
+  bool case_insensitive;
+  void *compiled_patterns;
+};
+static struct grep_task grep_task[3];
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -142,6 +142,7 @@ main (int argc, char **argv)
   msgdomain_list_ty *result;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
+  size_t i;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -167,9 +168,17 @@ main (int argc, char **argv)
   grep_pass = -1;
   location_files = string_list_alloc ();
   domain_names = string_list_alloc ();
-  grep_args[0] = string_list_alloc ();
-  grep_args[1] = string_list_alloc ();
-  grep_args[2] = string_list_alloc ();
+
+  for (i = 0; i < 3; i++)
+    {
+      struct grep_task *gt = &grep_task[i];
+
+      gt->matcher = &matcher_grep;
+      gt->pattern_count = 0;
+      gt->patterns = NULL;
+      gt->patterns_size = 0;
+      gt->case_insensitive = false;
+    }
 
   while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiKM:N:o:pPTVw:",
 			     long_options, NULL))
@@ -190,27 +199,77 @@ main (int argc, char **argv)
       case 'e':
 	if (grep_pass < 0)
 	  no_pass (opt);
-	string_list_append (grep_args[grep_pass], "-e");
-	string_list_append (grep_args[grep_pass], optarg);
+	{
+	  struct grep_task *gt = &grep_task[grep_pass];
+	  /* Append optarg and a newline to gt->patterns.  */
+	  size_t len = strlen (optarg);
+	  gt->patterns =
+	    (char *) xrealloc (gt->patterns, gt->patterns_size + len + 1);
+	  memcpy (gt->patterns + gt->patterns_size, optarg, len);
+	  gt->patterns_size += len;
+	  *(gt->patterns + gt->patterns_size) = '\n';
+	  gt->patterns_size += 1;
+	  gt->pattern_count++;
+	}
 	break;
 
       case 'E':
 	if (grep_pass < 0)
 	  no_pass (opt);
-	string_list_append (grep_args[grep_pass], "-E");
+	grep_task[grep_pass].matcher = &matcher_egrep;
 	break;
 
       case 'f':
 	if (grep_pass < 0)
 	  no_pass (opt);
-	string_list_append (grep_args[grep_pass], "-f");
-	string_list_append (grep_args[grep_pass], optarg);
+	{
+	  struct grep_task *gt = &grep_task[grep_pass];
+	  /* Append the contents of the specified file to gt->patterns.  */
+	  FILE *fp = fopen (optarg, "r");
+
+	  if (fp == NULL)
+	    error (EXIT_FAILURE, errno, _("\
+error while opening \"%s\" for reading"), optarg);
+
+	  while (!feof (fp))
+	    {
+	      char buf[4096];
+	      size_t count = fread (buf, 1, sizeof buf, fp);
+
+	      if (count == 0)
+		{
+		  if (ferror (fp))
+		    error (EXIT_FAILURE, errno, _("\
+error while reading \"%s\""), optarg);
+		  /* EOF reached.  */
+		  break;
+		}
+
+	      gt->patterns =
+		(char *) xrealloc (gt->patterns, gt->patterns_size + count);
+	      memcpy (gt->patterns + gt->patterns_size, buf, count);
+	      gt->patterns_size += count;
+	    }
+
+	  /* Append a final newline if file ended in a non-newline.  */
+	  if (gt->patterns_size > 0
+	      && *(gt->patterns + gt->patterns_size - 1) != '\n')
+	    {
+	      gt->patterns =
+		(char *) xrealloc (gt->patterns, gt->patterns_size + 1);
+	      *(gt->patterns + gt->patterns_size) = '\n';
+	      gt->patterns_size += 1;
+	    }
+
+	  fclose (fp);
+	  gt->pattern_count++;
+	}
 	break;
 
       case 'F':
 	if (grep_pass < 0)
 	  no_pass (opt);
-	string_list_append (grep_args[grep_pass], "-F");
+	grep_task[grep_pass].matcher = &matcher_fgrep;
 	break;
 
       case 'h':
@@ -220,7 +279,7 @@ main (int argc, char **argv)
       case 'i':
 	if (grep_pass < 0)
 	  no_pass (opt);
-	string_list_append (grep_args[grep_pass], "-i");
+	grep_task[grep_pass].case_insensitive = true;
 	break;
 
       case 'K':
@@ -344,60 +403,35 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
 
+  /* Compile the patterns.  */
+  for (grep_pass = 0; grep_pass < 3; grep_pass++)
+    {
+      struct grep_task *gt = &grep_task[grep_pass];
+
+      if (gt->pattern_count > 0)
+	{
+	  if (gt->patterns_size > 0)
+	    {
+	      /* Strip trailing newline.  */
+	      assert (gt->patterns[gt->patterns_size - 1] == '\n');
+	      gt->patterns_size--;
+	    }
+	  gt->compiled_patterns =
+	    gt->matcher->compile (gt->patterns, gt->patterns_size,
+				  gt->case_insensitive, false, false, '\n');
+	}
+    }
+
   /* Read input file.  */
   result = read_po_file (input_file);
 
-  if (grep_args[0]->nitems > 0
-      || grep_args[1]->nitems > 0
-      || grep_args[2]->nitems > 0)
+  if (grep_task[0].pattern_count > 0
+      || grep_task[1].pattern_count > 0
+      || grep_task[2].pattern_count > 0)
     {
       /* Warn if the current locale is not suitable for this PO file.  */
       compare_po_locale_charsets (result);
-
-      /* Attempt to locate the 'grep' program.
-	 This is an optimization, to avoid that spawn/exec searches the PATH
-	 on every call.  */
-      grep_path = find_in_path ("grep");
-
-      /* On Solaris, we need to use /usr/xpg4/bin/grep instead of
-	 /usr/bin/grep, because /usr/bin/grep doesn't understand the options
-	 -q and -e.  */
-#if (defined (sun) || defined (__sun)) && defined (__SVR4)
-      if ((strcmp (grep_path, "/usr/bin/grep") == 0
-	   || strcmp (grep_path, "/bin/grep") == 0)
-	  && access ("/usr/xpg4/bin/grep", X_OK) == 0)
-	grep_path = "/usr/xpg4/bin/grep";
-#endif
     }
-
-  /* Build argument lists for the 'grep' program.  */
-  for (grep_pass = 0; grep_pass < 3; grep_pass++)
-    if (grep_args[grep_pass]->nitems > 0)
-      {
-	string_list_ty *args = grep_args[grep_pass];
-	size_t option_q;
-	size_t i, j;
-
-	/* We use "grep -q" because it is slightly more efficient than
-	   "grep".  We pipe grep's output to /dev/null anyway.  But
-	   SunOS4's grep program doesn't understand the -q option.  */
-#if (defined (sun) || defined (__sun)) && !defined (__SVR4)
-	option_q = 0;
-#else
-	option_q = 1;
-#endif
-
-	grep_argv[grep_pass] =
-	  (char **) xmalloc ((1 + option_q + args->nitems + 1)
-			     * sizeof (char *));
-	grep_argv[grep_pass][0] = (char *) grep_path;
-	j = 1;
-	if (option_q)
-	  grep_argv[grep_pass][j++] = "-q";
-	for (i = 0; i < args->nitems; i++)
-	  grep_argv[grep_pass][j++] = (char *) args->item[i];
-	grep_argv[grep_pass][j] = NULL;
-      }
 
   /* Select the messages.  */
   result = process_msgdomain_list (result);
@@ -588,25 +622,17 @@ nonintr_close (int fd)
 static bool
 is_string_selected (int grep_pass, const char *str, size_t len)
 {
-  if (grep_args[grep_pass]->nitems > 0)
+  const struct grep_task *gt = &grep_task[grep_pass];
+
+  if (gt->pattern_count > 0)
     {
-      pid_t child;
-      int fd[1];
-      int exitstatus;
+      size_t match_size;
+      size_t match_offset;
 
-      /* Open a pipe to a grep subprocess.  */
-      child = create_pipe_out ("grep", grep_path, grep_argv[grep_pass],
-			       DEV_NULL, false, true, true, fd);
-
-      if (full_write (fd[0], str, len) < len)
-	error (EXIT_FAILURE, errno,
-	       _("write to grep subprocess failed"));
-
-      close (fd[0]);
-
-      /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, "grep", false, false, true, true);
-      return (exitstatus == 0);
+      match_offset =
+	gt->matcher->execute (gt->compiled_patterns, str, len,
+			      &match_size, false);
+      return (match_offset != (size_t) -1);
     }
   else
     return 0;
@@ -653,7 +679,7 @@ is_message_selected (const message_ty *mp)
     }
 
   /* Test translator comments using the --comment arguments.  */
-  if (grep_args[2]->nitems > 0
+  if (grep_task[2].pattern_count > 0
       && mp->comment != NULL && mp->comment->nitems > 0)
     {
       size_t length;

@@ -30,7 +30,7 @@ OPTIMFLAGS = /optimize
 CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
 DEFS = "VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","GETTEXTJAR=""$(jardir)]gettext.jar""","LIBDIR=""$(libdir)]""","GETTEXTDATADIR=""$(pkgdatadir)]""","PROJECTSDIR=""$(projectsdir)"""
 
-INCLUDES = /include=([],[-],[-.libuniname],[-.lib],[-.intl],[-.-.gettext-runtime.intl])
+INCLUDES = /include=([],[-],[-.libgrep],[-.libuniname],[-.lib],[-.intl],[-.-.gettext-runtime.intl])
 
 LDADD = libiconv.opt/opt,[-.-.vms]link_options.opt
 LDADD_EXPAT = sys$library:expat/lib
@@ -433,7 +433,7 @@ msgfilter.exe : $(msgfilter_OBJECTS),libiconv.opt
 	link /executable=msgfilter.exe $(msgfilter_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
 msggrep.exe : $(msggrep_OBJECTS),libiconv.opt
-	link /executable=msggrep.exe $(msggrep_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
+	link /executable=msggrep.exe $(msggrep_OBJECTS),[-.libgrep]grep.olb/lib,gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
 msginit.exe : $(msginit_OBJECTS),libiconv.opt
 	link /executable=msginit.exe $(msginit_OBJECTS),[-.intl]localename.obj,gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)

@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -65,6 +65,7 @@ pkglibdir = $(libdir)/gettext
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. \
+  -I$(top_srcdir)/libgrep \
   -I$(top_srcdir)/libuniname \
   -I../lib -I$(top_srcdir)/lib \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
@@ -121,6 +122,9 @@ libgettextpo_la_SOURCES = gettext-po.c
 LTV_CURRENT=1
 LTV_REVISION=0
 LTV_AGE=1
+
+# msggrep needs pattern matching.
+LIBGREP = ../libgrep/libgrep.a
 
 # x-python needs table of Unicode character names.
 LIBUNINAME = ../libuniname/libuniname.a
@@ -190,7 +194,7 @@ msgconv_LDADD = libgettextsrc.la
 msgen_LDADD = libgettextsrc.la
 msgexec_LDADD = libgettextsrc.la
 msgfilter_LDADD = libgettextsrc.la
-msggrep_LDADD = libgettextsrc.la
+msggrep_LDADD = $(LIBGREP) libgettextsrc.la
 msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
                 @INTL_MACOSX_LDFLAGS@ libgettextsrc.la
 msguniq_LDADD = libgettextsrc.la

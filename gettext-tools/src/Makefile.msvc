@@ -83,7 +83,7 @@ DEBUGFLAGS =
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(IIlocaledir)\" -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -DGETTEXTJAR=\"$(IIjardir)\\gettext.jar\" -DLIBDIR=\"$(IIlibdir)\" -DGETTEXTDATADIR=\"$(IIpkgdatadir)\" -DPROJECTSDIR=\"$(IIprojectsdir)\"
 
-INCLUDES = -I. -I.. -I..\libuniname -I..\lib -I..\intl -I..\..\gettext-runtime\intl -I..\windows -I$(includedir)
+INCLUDES = -I. -I.. -I..\libgrep -I..\libuniname -I..\lib -I..\intl -I..\..\gettext-runtime\intl -I..\windows -I$(includedir)
 
 AR = lib
 AR_FLAGS = /out:
@@ -499,7 +499,7 @@ msgfilter.exe : $(msgfilter_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgfilter_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgfilter.exe
 
 msggrep.exe : $(msggrep_OBJECTS)
-	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msggrep_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsggrep.exe
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msggrep_OBJECTS) ..\libgrep\grep.lib gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsggrep.exe
 
 msginit.exe : $(msginit_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msginit_OBJECTS) ..\intl\localename.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsginit.exe

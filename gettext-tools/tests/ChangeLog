@@ -1,3 +1,7 @@
+2005-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep-4: Remove unportability notes.
+
 2005-01-09  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-8: New file.
