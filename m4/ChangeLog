@@ -1,3 +1,7 @@
+2002-02-06  Bruno Haible  <bruno@clisp.org>
+
+	* libtool.m4: Upgrade from libtool-1.4 to libtool-1.4.2.
+
 2002-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* fnmatch.m4 (gt_FUNC_FNMATCH): Ensure directory lib exists.
