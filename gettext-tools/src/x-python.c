@@ -240,7 +240,7 @@ comment_line_end ()
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
-  xgettext_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 /* These are for tracking whether comments count as immediately before
@@ -322,6 +322,7 @@ struct token_ty
 {
   token_type_ty type;
   char *string;		/* for token_type_string, token_type_symbol */
+  refcounted_string_list_ty *comment;	/* for token_type_string */
   int line_number;
 };
 
@@ -696,7 +697,7 @@ phase5_get (token_ty *tp)
 
 	case '\n':
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  /* Ignore newline if and only if it is used for implicit line
 	     joining.  */
 	  if (open_pbb > 0)
@@ -911,6 +912,7 @@ phase5_get (token_ty *tp)
 		assert (q - utf8_string <= 3 * bufpos);
 		tp->string = (char *) utf8_string;
 	      }
+	      tp->comment = add_reference (savable_comment);
 	      tp->type = token_type_string;
 	      return;
 	  }
@@ -1121,7 +1123,11 @@ extract_parenthesized (message_list_ty *mlp,
 	    pos.line_number = token.line_number;
 
 	    if (extract_all)
-	      remember_a_message (mlp, token.string, inner_context, &pos);
+	      {
+		savable_comment_to_xgettext_comment (token.comment);
+		remember_a_message (mlp, token.string, inner_context, &pos);
+		savable_comment_reset ();
+	      }
 	    else
 	      {
 		if (commas_to_skip == 0)
@@ -1129,9 +1135,12 @@ extract_parenthesized (message_list_ty *mlp,
 		    if (plural_mp == NULL)
 		      {
 			/* Seen an msgid.  */
-			message_ty *mp =
-			  remember_a_message (mlp, token.string,
-					      inner_context, &pos);
+			message_ty *mp;
+
+			savable_comment_to_xgettext_comment (token.comment);
+			mp = remember_a_message (mlp, token.string,
+						inner_context, &pos);
+			savable_comment_reset ();
 			if (plural_commas > 0)
 			  plural_mp = mp;
 		      }
@@ -1147,6 +1156,7 @@ extract_parenthesized (message_list_ty *mlp,
 		  free (token.string);
 	      }
 	  }
+	  drop_reference (token.comment);
 	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;

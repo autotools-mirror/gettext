@@ -21,6 +21,7 @@
 #define _XGETTEXT_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
 #if HAVE_ICONV
 #include <iconv.h>
@@ -28,6 +29,7 @@
 
 #include "message.h"
 #include "pos.h"
+#include "str-list.h"
 
 /* Declare 'line_comment' and 'input_syntax'.  */
 #include "read-po.h"
@@ -144,6 +146,57 @@ extern message_list_ty *exclude;
 extern void xgettext_comment_add (const char *str);
 extern const char *xgettext_comment (size_t n);
 extern void xgettext_comment_reset (void);
+
+
+/* Comment handling for backends which support combining adjacent strings
+   even across lines.
+   In these backends we cannot use the xgettext_comment* functions directly,
+   because in multiline string expressions like
+           "string1" +
+           "string2"
+   the newline between "string1" and "string2" would cause a call to
+   xgettext_comment_reset(), thus destroying the accumulated comments
+   that we need a little later, when we have concatenated the two strings
+   and pass them to remember_a_message().
+   Instead, we do the bookkeeping of the accumulated comments directly,
+   and save a pointer to the accumulated comments when we read "string1".
+   In order to avoid excessive copying of strings, we use reference
+   counting.  */
+
+typedef struct refcounted_string_list_ty refcounted_string_list_ty;
+struct refcounted_string_list_ty
+{
+  unsigned int refcount;
+  struct string_list_ty contents;
+};
+
+static inline refcounted_string_list_ty *
+add_reference (refcounted_string_list_ty *rslp)
+{
+  if (rslp != NULL)
+    rslp->refcount++;
+  return rslp;
+}
+
+static inline void
+drop_reference (refcounted_string_list_ty *rslp)
+{
+  if (rslp != NULL)
+    {
+      if (rslp->refcount > 1)
+	rslp->refcount--;
+      else
+	{
+	  string_list_destroy (&rslp->contents);
+	  free (rslp);
+	}
+    }
+}
+
+extern refcounted_string_list_ty *savable_comment;
+extern void savable_comment_add (const char *str);
+extern void savable_comment_reset (void);
+extern void savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp);
 
 
 /* Add a message to the list of extracted messages.

@@ -580,99 +580,6 @@ free_string_buffer (struct string_buffer *bp)
 /* ======================== Accumulating comments.  ======================== */
 
 
-/* In this backend we cannot use the xgettext_comment* functions directly,
-   because in multiline string expressions like
-           "string1" +
-           "string2"
-   the newline between "string1" and "string2" would cause a call to
-   xgettext_comment_reset(), thus destroying the accumulated comments
-   that we need a little later, when we have concatenated the two strings
-   and pass them to remember_a_message().
-   Instead, we do the bookkeeping of the accumulated comments directly,
-   and save a pointer to the accumulated comments when we read "string1".
-   In order to avoid excessive copying of strings, we use reference
-   counting.  */
-
-typedef struct refcounted_string_list_ty refcounted_string_list_ty;
-struct refcounted_string_list_ty
-{
-  unsigned int refcount;
-  struct string_list_ty contents;
-};
-
-static refcounted_string_list_ty *comment;
-
-static inline refcounted_string_list_ty *
-add_reference (refcounted_string_list_ty *rslp)
-{
-  if (rslp != NULL)
-    rslp->refcount++;
-  return rslp;
-}
-
-static inline void
-drop_reference (refcounted_string_list_ty *rslp)
-{
-  if (rslp != NULL)
-    {
-      if (rslp->refcount > 1)
-	rslp->refcount--;
-      else
-	{
-	  string_list_destroy (&rslp->contents);
-	  free (rslp);
-	}
-    }
-}
-
-static void
-x_csharp_comment_add (const char *str)
-{
-  if (comment == NULL)
-    {
-      comment = (refcounted_string_list_ty *) xmalloc (sizeof (*comment));
-      comment->refcount = 1;
-      string_list_init (&comment->contents);
-    }
-  else if (comment->refcount > 1)
-    {
-      /* Unshare the list by making copies.  */
-      struct string_list_ty *oldcontents;
-      size_t i;
-
-      comment->refcount--;
-      oldcontents = &comment->contents;
-
-      comment = (refcounted_string_list_ty *) xmalloc (sizeof (*comment));
-      comment->refcount = 1;
-      string_list_init (&comment->contents);
-      for (i = 0; i < oldcontents->nitems; i++)
-	string_list_append (&comment->contents, oldcontents->item[i]);
-    }
-  string_list_append (&comment->contents, str);
-}
-
-static void
-x_csharp_comment_reset ()
-{
-  drop_reference (comment);
-  comment = NULL;
-}
-
-static void
-x_csharp_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
-{
-  xgettext_comment_reset ();
-  if (rslp != NULL)
-    {
-      size_t i;
-
-      for (i = 0; i < rslp->contents.nitems; i++)
-	xgettext_comment_add (rslp->contents.item[i]);
-    }
-}
-
-
 /* Accumulating a single comment line.  */
 
 static struct string_buffer comment_buffer;
@@ -706,7 +613,7 @@ comment_line_end (size_t chars_to_remove)
 	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
   buffer[buflen] = '\0';
-  x_csharp_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 
@@ -1637,7 +1544,7 @@ phase6_get (token_ty *tp)
 	{
 	case UNL:
 	  if (last_non_comment_line > last_comment_line)
-	    x_csharp_comment_reset ();
+	    savable_comment_reset ();
 	  /* FALLTHROUGH */
 	case ' ':
 	case '\t':
@@ -1725,7 +1632,7 @@ phase6_get (token_ty *tp)
 	    accumulate_escaped (&literal, '"');
 	    tp->string = xstrdup (string_buffer_result (&literal));
 	    free_string_buffer (&literal);
-	    tp->comment = add_reference (comment);
+	    tp->comment = add_reference (savable_comment);
 	    tp->type = token_type_string_literal;
 	    return;
 	  }
@@ -1787,7 +1694,7 @@ phase6_get (token_ty *tp)
 		}
 	      tp->string = xstrdup (string_buffer_result (&literal));
 	      free_string_buffer (&literal);
-	      tp->comment = add_reference (comment);
+	      tp->comment = add_reference (savable_comment);
 	      tp->type = token_type_string_literal;
 	      return;
 	    }
@@ -2158,9 +2065,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	    if (extract_all)
 	      {
 		xgettext_current_source_encoding = po_charset_utf8;
-		x_csharp_comment_to_xgettext_comment (token.comment);
+		savable_comment_to_xgettext_comment (token.comment);
 		remember_a_message (mlp, token.string, inner_context, &pos);
-		x_csharp_comment_reset ();
+		savable_comment_reset ();
 		xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      }
 	    else
@@ -2173,10 +2080,10 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 			message_ty *mp;
 
 			xgettext_current_source_encoding = po_charset_utf8;
-			x_csharp_comment_to_xgettext_comment (token.comment);
+			savable_comment_to_xgettext_comment (token.comment);
 			mp = remember_a_message (mlp, token.string,
 						 inner_context, &pos);
-			x_csharp_comment_reset ();
+			savable_comment_reset ();
 			xgettext_current_source_encoding = xgettext_global_source_encoding;
 			if (plural_commas > 0)
 			  plural_mp = mp;

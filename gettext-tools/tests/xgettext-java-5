@@ -17,6 +17,10 @@ System.out.println(gettext("Hey Jude"));
      Nickname of the Beatles
 */
 System.out.println(gettext("The Fabulous Four"));
+/* TRANSLATORS: The strings get concatenated.  */
+System.out.println(gettext("there is not enough" +
+" room on a single line for this entire long, " // confusing, eh?
++ "verbose string"));
 EOF
 
 tmpfiles="$tmpfiles xg-j-5.po"
@@ -41,6 +45,12 @@ msgstr ""
 #. Nickname of the Beatles
 #.
 msgid "The Fabulous Four"
+msgstr ""
+
+#. TRANSLATORS: The strings get concatenated.
+msgid ""
+"there is not enough room on a single line for this entire long, verbose "
+"string"
 msgstr ""
 EOF
 

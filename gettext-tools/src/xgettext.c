@@ -1482,6 +1482,58 @@ xgettext_comment_reset ()
 }
 
 
+refcounted_string_list_ty *savable_comment;
+
+void
+savable_comment_add (const char *str)
+{
+  if (savable_comment == NULL)
+    {
+      savable_comment =
+	(refcounted_string_list_ty *) xmalloc (sizeof (*savable_comment));
+      savable_comment->refcount = 1;
+      string_list_init (&savable_comment->contents);
+    }
+  else if (savable_comment->refcount > 1)
+    {
+      /* Unshare the list by making copies.  */
+      struct string_list_ty *oldcontents;
+      size_t i;
+
+      savable_comment->refcount--;
+      oldcontents = &savable_comment->contents;
+
+      savable_comment =
+	(refcounted_string_list_ty *) xmalloc (sizeof (*savable_comment));
+      savable_comment->refcount = 1;
+      string_list_init (&savable_comment->contents);
+      for (i = 0; i < oldcontents->nitems; i++)
+	string_list_append (&savable_comment->contents, oldcontents->item[i]);
+    }
+  string_list_append (&savable_comment->contents, str);
+}
+
+void
+savable_comment_reset ()
+{
+  drop_reference (savable_comment);
+  savable_comment = NULL;
+}
+
+void
+savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
+{
+  xgettext_comment_reset ();
+  if (rslp != NULL)
+    {
+      size_t i;
+
+      for (i = 0; i < rslp->contents.nitems; i++)
+	xgettext_comment_add (rslp->contents.item[i]);
+    }
+}
+
+
 
 static FILE *
 xgettext_open (const char *fn,

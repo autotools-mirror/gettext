@@ -16,6 +16,10 @@ print gettext.gettext("Hey Jude")
 # TRANSLATORS:
 #    Nickname of the Beatles
 print gettext.gettext("The Fabulous Four")
+# TRANSLATORS: The strings get concatenated.
+print gettext.gettext("there is not enough"
+" room on a single line for this entire long, " # confusing, eh?
+"verbose string")
 EOF
 
 tmpfiles="$tmpfiles xg-py-2.po"
@@ -39,6 +43,12 @@ msgstr ""
 #. TRANSLATORS:
 #. Nickname of the Beatles
 msgid "The Fabulous Four"
+msgstr ""
+
+#. TRANSLATORS: The strings get concatenated.
+msgid ""
+"there is not enough room on a single line for this entire long, verbose "
+"string"
 msgstr ""
 EOF
 

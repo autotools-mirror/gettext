@@ -1,3 +1,13 @@
+2003-12-29  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-c-9: Add a test with a multi-part string with newlines and
+	comments between the parts.
+	* xgettext-java-5: Likewise.
+	* xgettext-csharp-5: Likewise.
+	* xgettext-python-2: Likewise.
+	* xgettext-objc-2: New file.
+	* Makefile.am (TESTS): Add it.
+
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
 	Support for C#.

@@ -1,3 +1,45 @@
+2003-12-29  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.h: Include stdlib.h, str-list.h.
+	(struct refcounted_string_list_ty): New type.
+	(add_reference, drop_reference): New functions.
+	(savable_comment, savable_comment_add, savable_comment_reset,
+	savable_comment_to_xgettext_comment): New declarations.
+	* xgettext.c (savable_comment): New variable.
+	(savable_comment_add, savable_comment_reset,
+	savable_comment_to_xgettext_comment): New functions.
+	* x-java.c (struct refcounted_string_list_ty, comment, add_reference,
+	drop_reference, x_java_comment_add, x_java_comment_reset,
+	x_java_comment_to_xgettext_comment): Remove. Use replacement from
+	xgettext.{h,c} instead.
+	* x-csharp.c (struct refcounted_string_list_ty, comment, add_reference,
+	drop_reference, x_csharp_comment_add, x_csharp_comment_reset,
+	x_csharp_comment_to_xgettext_comment): Remove. Use replacement from
+	xgettext.{h,c} instead.
+	* x-c.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(struct token_ty): Add 'comment' field.
+	(free_token): Free it.
+	(phase5_get): Initialize token's 'comment' field.
+	(phase6_get): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(phase8a_get): Initialize token's 'comment' field.
+	(phase8b_get): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(phase8c_get): In @"...", use the comment of the first token, not of
+	the second.
+	(struct xgettext_token_ty): Add 'comment' field.
+	(x_c_lex): Deal with the token's comment.
+	(extract_parenthesized): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset. Free the token's comment field.
+	* x-python.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(struct token_ty): Add 'comment' field.
+	(phase5_get): Call savable_comment_reset instead of
+	xgettext_comment_reset. Initialize token's 'comment' field.
+	(extract_parenthesized): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset. Free the token's comment field.
+
 2003-12-28  Bruno Haible  <bruno@clisp.org>
 
 	* read-mo.h (read_mo_file): Change 'fn' into 'filename'.

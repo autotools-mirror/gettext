@@ -69,7 +69,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-java-5 \
 	xgettext-librep-1 \
 	xgettext-lisp-1 \
-	xgettext-objc-1 \
+	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
 	xgettext-perl-5 \
 	xgettext-php-1 \

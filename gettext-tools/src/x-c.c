@@ -591,7 +591,7 @@ comment_line_end (size_t chars_to_remove)
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
-  xgettext_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 
@@ -721,6 +721,8 @@ struct token_ty
 {
   token_type_ty type;
   char *string;		/* for token_type_name, token_type_string_literal */
+  refcounted_string_list_ty *comment;	/* for token_type_string_literal,
+					   token_type_objc_special */
   long number;
   int line_number;
 };
@@ -883,6 +885,9 @@ free_token (token_ty *tp)
 {
   if (tp->type == token_type_name || tp->type == token_type_string_literal)
     free (tp->string);
+  if (tp->type == token_type_string_literal
+      || tp->type == token_type_objc_special)
+    drop_reference (tp->comment);
 }
 
 
@@ -1134,6 +1139,7 @@ phase5_get (token_ty *tp)
       buffer[bufpos] = 0;
       tp->type = token_type_string_literal;
       tp->string = xstrdup (buffer);
+      tp->comment = add_reference (savable_comment);
       return;
 
     case '(':
@@ -1160,6 +1166,7 @@ phase5_get (token_ty *tp)
       if (objc_extensions)
 	{
 	  tp->type = token_type_objc_special;
+	  tp->comment = add_reference (savable_comment);
 	  return;
 	}
       /* FALLTHROUGH */
@@ -1312,7 +1319,7 @@ phase6_get (token_ty *tp)
 	free_token (&buf[j]);
 
       /* We must reset the selected comments.  */
-      xgettext_comment_reset ();
+      savable_comment_reset ();
     }
 }
 
@@ -1387,6 +1394,7 @@ phase8a_get (token_ty *tp)
       new_string[len + 2] = '\0';
       free (tp->string);
       tp->string = new_string;
+      tp->comment = add_reference (savable_comment);
       tp->type = token_type_string_literal;
     }
 }
@@ -1421,7 +1429,7 @@ phase8b_get (token_ty *tp)
 	     with non-white space tokens.  */
 	  ++newline_count;
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  continue;
 	}
       break;
@@ -1453,6 +1461,8 @@ phase8c_get (token_ty *tp)
       return;
     }
   /* Drop the '@' token and return immediately the following string.  */
+  drop_reference (tmp.comment);
+  tmp.comment = tp->comment;
   *tp = tmp;
 }
 
@@ -1522,6 +1532,9 @@ struct xgettext_token_ty
   /* This field is used only for xgettext_token_type_string_literal,
      xgettext_token_type_keyword, xgettext_token_type_symbol.  */
   char *string;
+
+  /* This field is used only for xgettext_token_type_string_literal.  */
+  refcounted_string_list_ty *comment;
 
   /* These fields are only for
        xgettext_token_type_keyword,
@@ -1595,9 +1608,14 @@ x_c_lex (xgettext_token_ty *tp)
 
 	  tp->type = xgettext_token_type_string_literal;
 	  tp->string = token.string;
+	  tp->comment = token.comment;
 	  tp->pos.file_name = logical_file_name;
 	  tp->pos.line_number = token.line_number;
 	  return;
+
+	case token_type_objc_special:
+	  drop_reference (token.comment);
+	  /* FALLTHROUGH */
 
 	default:
 	  last_non_comment_line = newline_count;
@@ -1761,7 +1779,11 @@ extract_parenthesized (message_list_ty *mlp,
 
 	case xgettext_token_type_string_literal:
 	  if (extract_all)
-	    remember_a_message (mlp, token.string, inner_context, &token.pos);
+	    {
+	      savable_comment_to_xgettext_comment (token.comment);
+	      remember_a_message (mlp, token.string, inner_context, &token.pos);
+	      savable_comment_reset ();
+	    }
 	  else
 	    {
 	      if (commas_to_skip == 0)
@@ -1769,9 +1791,12 @@ extract_parenthesized (message_list_ty *mlp,
 		  if (plural_mp == NULL)
 		    {
 		      /* Seen an msgid.  */
-		      message_ty *mp =
-			remember_a_message (mlp, token.string,
-					    inner_context, &token.pos);
+		      message_ty *mp;
+
+		      savable_comment_to_xgettext_comment (token.comment);
+		      mp = remember_a_message (mlp, token.string,
+					       inner_context, &token.pos);
+		      savable_comment_reset ();
 		      if (plural_commas > 0)
 			plural_mp = mp;
 		    }
@@ -1786,6 +1811,7 @@ extract_parenthesized (message_list_ty *mlp,
 	      else
 		free (token.string);
 	    }
+	  drop_reference (token.comment);
 	  next_context_iter = null_context_list_iterator;
 	  selectorcall_context_iter = null_context_list_iterator;
 	  state = 0;
