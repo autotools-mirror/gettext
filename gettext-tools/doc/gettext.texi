@@ -8280,7 +8280,7 @@ perl
 
 @item @code{$tied_hash_reference->@{"message"@}}
 
-@item etc., issue the command @samp{perldoc perlsyn} for details
+@item etc., issue the command @samp{man perlsyn} for details
 
 @end itemize
 
@@ -8668,7 +8668,7 @@ variable interpolation will be accepted.  Rationale: You will
 generally use this option in order to prepare your sources for
 internationalization.
 
-Please see the manual page @samp{perldoc perlop} for details of strings and
+Please see the manual page @samp{man perlop} for details of strings and
 quote-like expressions that are subject to interpolation and those
 that are not.  Safe interpolations (that will not lead to a fatal
 error) are:
@@ -8771,7 +8771,7 @@ readability.
 
 You can interpolate hash lookups in all strings or quote-like
 expressions that are subject to interpolation (see the manual page
-@samp{perldoc perlop} for details).  Double interpolation is invalid, however:
+@samp{man perlop} for details).  Double interpolation is invalid, however:
 
 @example
 # TRANSLATORS: Replace "the earth" with the name of your planet.
