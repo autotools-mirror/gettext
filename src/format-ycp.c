@@ -53,7 +53,8 @@ static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
 				  void *msgid_descr, void *msgstr_descr,
-				  bool noisy));
+				  bool equality,
+				  bool noisy, const char *pretty_msgstr));
 
 
 static void *
@@ -115,11 +116,13 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, noisy)
+format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool equality;
      bool noisy;
+     const char *pretty_msgstr;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -131,16 +134,16 @@ format_check (pos, msgid_descr, msgstr_descr, noisy)
       bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
       bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
 
-      if (arg_used1 != arg_used2)
+      if (equality ? (arg_used1 != arg_used2) : (!arg_used1 && arg_used2))
 	{
 	  if (noisy)
 	    {
 	      error_with_progname = false;
 	      error_at_line (0, 0, pos->file_name, pos->line_number,
 			     arg_used1
-			     ? _("a format specification for argument %u doesn't exist in 'msgstr'")
-			     : _("a format specification for argument %u doesn't exist in 'msgid'"),
-			     i + 1);
+			     ? _("a format specification for argument %u doesn't exist in '%s'")
+			     : _("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
+			     i + 1, pretty_msgstr);
 	      error_with_progname = true;
 	    }
 	  err = true;

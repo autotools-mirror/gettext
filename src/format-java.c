@@ -27,7 +27,6 @@
 #include "format.h"
 #include "c-ctype.h"
 #include "xmalloc.h"
-#include "system.h"
 #include "error.h"
 #include "progname.h"
 #include "libgettext.h"
@@ -140,7 +139,8 @@ static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
 				  void *msgid_descr, void *msgstr_descr,
-				  bool noisy));
+				  bool equality,
+				  bool noisy, const char *pretty_msgstr));
 
 
 /* Quote handling:
@@ -622,11 +622,13 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, noisy)
+format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool equality;
      bool noisy;
+     const char *pretty_msgstr;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -634,17 +636,18 @@ format_check (pos, msgid_descr, msgstr_descr, noisy)
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      unsigned int i;
-      unsigned int n = MAX (spec1->numbered_arg_count, spec2->numbered_arg_count);
+      unsigned int i, j;
+      unsigned int n1 = spec1->numbered_arg_count;
+      unsigned int n2 = spec2->numbered_arg_count;
 
       /* Check the argument names are the same.
 	 Both arrays are sorted.  We search for the first difference.  */
-      for (i = 0; i < n; i++)
+      for (i = 0, j = 0; i < n1 || j < n2; )
 	{
-	  int cmp = (i >= spec1->numbered_arg_count ? 1 :
-		     i >= spec2->numbered_arg_count ? -1 :
-		     spec1->numbered[i].number > spec2->numbered[i].number ? 1 :
-		     spec1->numbered[i].number < spec2->numbered[i].number ? -1 :
+	  int cmp = (i >= n1 ? 1 :
+		     j >= n2 ? -1 :
+		     spec1->numbered[i].number > spec2->numbered[j].number ? 1 :
+		     spec1->numbered[i].number < spec2->numbered[j].number ? -1 :
 		     0);
 
 	  if (cmp > 0)
@@ -653,8 +656,8 @@ format_check (pos, msgid_descr, msgstr_descr, noisy)
 		{
 		  error_with_progname = false;
 		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument {%u} doesn't exist in 'msgid'"),
-				 spec2->numbered[i].number);
+				 _("a format specification for argument {%u}, as in '%s', doesn't exist in 'msgid'"),
+				 spec2->numbered[j].number, pretty_msgstr);
 		  error_with_progname = true;
 		}
 	      err = true;
@@ -662,34 +665,50 @@ format_check (pos, msgid_descr, msgstr_descr, noisy)
 	    }
 	  else if (cmp < 0)
 	    {
-	      if (noisy)
+	      if (equality)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument {%u} doesn't exist in 'msgstr'"),
-				 spec1->numbered[i].number);
-		  error_with_progname = true;
+		  if (noisy)
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, pos->file_name, pos->line_number,
+				     _("a format specification for argument {%u} doesn't exist in '%s'"),
+				     spec1->numbered[i].number, pretty_msgstr);
+		      error_with_progname = true;
+		    }
+		  err = true;
+		  break;
 		}
-	      err = true;
-	      break;
+	      else
+		i++;
 	    }
+	  else
+	    j++, i++;
 	}
       /* Check the argument types are the same.  */
       if (!err)
-	for (i = 0; i < spec2->numbered_arg_count; i++)
-	  if (spec1->numbered[i].type != spec2->numbered[i].type)
-	    {
-	      if (noisy)
-		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("format specifications in 'msgid' and 'msgstr' for argument {%u} are not the same"),
-				 spec2->numbered[i].number);
-		  error_with_progname = true;
-		}
-	      err = true;
-	      break;
-	    }
+	for (i = 0, j = 0; j < n2; )
+	  {
+	    if (spec1->numbered[i].number == spec2->numbered[j].number)
+	      {
+		if (spec1->numbered[i].type != spec2->numbered[j].type)
+		  {
+		    if (noisy)
+		      {
+			error_with_progname = false;
+			error_at_line (0, 0, pos->file_name, pos->line_number,
+				       _("format specifications in 'msgid' and '%s' for argument {%u} are not the same"),
+				       pretty_msgstr,
+				       spec2->numbered[j].number);
+			error_with_progname = true;
+		      }
+		    err = true;
+		    break;
+		  }
+		j++, i++;
+	      }
+	    else
+	      i++;
+	  }
     }
 
   return err;

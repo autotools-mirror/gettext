@@ -42,12 +42,15 @@ struct formatstring_parser
   int (*get_number_of_directives) PARAMS ((void *descr));
 
   /* Verify that the argument types/names in msgid_descr and those in
-     msgstr_descr are the same.  If not, signal an error using
+     msgstr_descr are the same (if equality=true), or (if equality=false)
+     that those of msgid_descr extend those of msgstr_descr (i.e.
+     msgstr_descr may omit some of the arguments of msgid_descr).
+     If not, signal an error using
        error_with_progname = false;
        error_at_line (0, 0, pos->file_name, pos->line_number, ...);
        error_with_progname = true;
      (but only if noisy=true) and return true.  Otherwise return false.  */
-  bool (*check) PARAMS ((const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr, bool noisy));
+  bool (*check) PARAMS ((const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr, bool equality, bool noisy, const char *pretty_msgstr));
 };
 
 /* Format string parsers, each defined in its own file.  */

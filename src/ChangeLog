@@ -1,3 +1,19 @@
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (struct formatstring_parser): Add 'equality' and
+	'pretty_msgstr' arguments to 'check' field.
+	* format-c.c (format_check): Add 'equality' and 'pretty_msgstr'
+	arguments.
+	* format-java.c (format_check): Likewise.
+	* format-lisp.c (format_check): Likewise.
+	* format-pascal.c (format_check): Likewise.
+	* format-python.c (format_check): Likewise.
+	* format-ycp.c (format_check): Likewise.
+	* msgfmt.c (check_pair): Check messages with plural forms as well.
+	* message.c (msgfmt_check_pair_fails): Add msgid_plural, msgstr_len
+	arguments. Check messages with plural forms as well.
+	(message_merge): Check messages with plural forms as well.
+
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* x-java.l (strip_ending_spaces): Fix isspace call.

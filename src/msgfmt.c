@@ -1043,7 +1043,7 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
       exit_status = EXIT_FAILURE;
     }
 
-  if (check_format_strings && msgid_plural == NULL)
+  if (check_format_strings)
     /* Test 3: Check whether both formats strings contain the same number
        of format specifications.
        We check only those messages for which the msgid's is_format flag
@@ -1067,30 +1067,48 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 		arguments that are used by other translations.  */
 
 	  struct formatstring_parser *parser = formatstring_parsers[i];
-	  void *msgid_descr = parser->parse (msgid);
+	  void *msgid_descr =
+	    parser->parse (msgid_plural != NULL ? msgid_plural : msgid);
 
 	  if (msgid_descr != NULL)
 	    {
-	      void *msgstr_descr = parser->parse (msgstr);
+	      char buf[18+1];
+	      const char *pretty_msgstr = "msgstr";
+	      const char *p_end = msgstr + msgstr_len;
+	      const char *p;
 
-	      if (msgstr_descr != NULL)
+	      for (p = msgstr, j = 0; p < p_end; p += strlen (p) + 1, j++)
 		{
-		  if (parser->check (msgid_pos, msgid_descr, msgstr_descr,
-				     true))
-		    exit_status = EXIT_FAILURE;
+		  void *msgstr_descr;
 
-		  parser->free (msgstr_descr);
-		}
-	      else
-		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, msgid_pos->file_name,
-				 msgid_pos->line_number,
-				 _("\
-'msgstr' is not a valid %s format string, unlike 'msgid'"),
-				 format_language_pretty[i]);
-		  error_with_progname = true;
-		  exit_status = EXIT_FAILURE;
+		  if (msgid_plural != NULL)
+		    {
+		      sprintf (buf, "msgstr[%u]", j);
+		      pretty_msgstr = buf;
+		    }
+
+		  msgstr_descr = parser->parse (p);
+
+		  if (msgstr_descr != NULL)
+		    {
+		      if (parser->check (msgid_pos, msgid_descr, msgstr_descr,
+					 msgid_plural == NULL,
+					 true, pretty_msgstr))
+			exit_status = EXIT_FAILURE;
+
+		      parser->free (msgstr_descr);
+		    }
+		  else
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, msgid_pos->file_name,
+				     msgid_pos->line_number,
+				     _("\
+'%s' is not a valid %s format string, unlike 'msgid'"),
+				     pretty_msgstr, format_language_pretty[i]);
+		      error_with_progname = true;
+		      exit_status = EXIT_FAILURE;
+		    }
 		}
 
 	      parser->free (msgid_descr);

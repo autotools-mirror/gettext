@@ -39,7 +39,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
    function argument counts despite of K&R C function definition syntax.  */
 static bool msgfmt_check_pair_fails PARAMS ((const lex_pos_ty *pos,
 					     const char *msgid,
-					     const char *msgstr, size_t i));
+					     const char *msgid_plural,
+					     const char *msgstr,
+					     size_t msgstr_len, size_t fmt));
 static message_ty *message_list_search_fuzzy_inner PARAMS ((
        message_list_ty *mlp, const char *msgid, double *best_weight_p));
 
@@ -213,32 +215,44 @@ message_copy (mp)
 
 
 static bool
-msgfmt_check_pair_fails (pos, msgid, msgstr, i)
+msgfmt_check_pair_fails (pos, msgid, msgid_plural, msgstr, msgstr_len, fmt)
      const lex_pos_ty *pos;
      const char *msgid;
+     const char *msgid_plural;
      const char *msgstr;
-     size_t i;
+     size_t msgstr_len;
+     size_t fmt;
 {
   bool failure;
-  struct formatstring_parser *parser = formatstring_parsers[i];
-  void *msgid_descr = parser->parse (msgid);
+  struct formatstring_parser *parser = formatstring_parsers[fmt];
+  void *msgid_descr =
+    parser->parse (msgid_plural != NULL ? msgid_plural : msgid);
 
+  failure = false;
   if (msgid_descr != NULL)
     {
-      void *msgstr_descr = parser->parse (msgstr);
+      const char *p_end = msgstr + msgstr_len;
+      const char *p;
 
-      if (msgstr_descr != NULL)
+      for (p = msgstr; p < p_end; p += strlen (p) + 1)
 	{
-	  failure = parser->check (pos, msgid_descr, msgstr_descr, false);
-	  parser->free (msgstr_descr);
+	  void *msgstr_descr = parser->parse (msgstr);
+
+	  if (msgstr_descr != NULL)
+	    {
+	      failure = parser->check (pos, msgid_descr, msgstr_descr,
+				       msgid_plural == NULL, false, NULL);
+	      parser->free (msgstr_descr);
+	    }
+	  else
+	    failure = true;
+
+	  if (failure)
+	    break;
 	}
-      else
-	failure = true;
 
       parser->free (msgid_descr);
     }
-  else
-    failure = false;
 
   return failure;
 }
@@ -455,10 +469,10 @@ message_merge (def, ref)
 	 2. msgmerge must not transform a PO file which passes "msgfmt -c"
 	    into a PO file which doesn't.  */
       if (!result->is_fuzzy
-	  && ref->msgid_plural == NULL
 	  && possible_format_p (ref->is_format[i])
 	  && !possible_format_p (def->is_format[i])
-	  && msgfmt_check_pair_fails (&def->pos, ref->msgid, msgstr, i))
+	  && msgfmt_check_pair_fails (&def->pos, ref->msgid, ref->msgid_plural,
+				      msgstr, msgstr_len, i))
 	result->is_fuzzy = true;
     }
 

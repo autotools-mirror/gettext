@@ -230,7 +230,8 @@ static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
 				  void *msgid_descr, void *msgstr_descr,
-				  bool noisy));
+				  bool equality,
+				  bool noisy, const char *pretty_msgstr));
 
 
 /* ======================= Verify a format_arg_list ======================= */
@@ -3356,26 +3357,53 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, noisy)
+format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool equality;
      bool noisy;
+     const char *pretty_msgstr;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
   bool err = false;
 
-  if (!equal_list (spec1->list, spec2->list))
+  if (equality)
     {
-      if (noisy)
+      if (!equal_list (spec1->list, spec2->list))
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, pos->file_name, pos->line_number,
-			 _("format specifications in 'msgid' and 'msgstr' are not equivalent"));
-	  error_with_progname = true;
+	  if (noisy)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0, pos->file_name, pos->line_number,
+			     _("format specifications in 'msgid' and '%s' are not equivalent"),
+			     pretty_msgstr);
+	      error_with_progname = true;
+	    }
+	  err = true;
 	}
-      err = true;
+    }
+  else
+    {
+      struct format_arg_list *intersection =
+	make_intersected_list (copy_list (spec1->list),
+			       copy_list (spec2->list));
+
+      if (!(intersection != NULL
+	    && (normalize_list (intersection),
+		equal_list (intersection, spec2->list))))
+	{
+	  if (noisy)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0, pos->file_name, pos->line_number,
+			     _("format specifications in '%s' are not a subset of those in 'msgid'"),
+			     pretty_msgstr);
+	      error_with_progname = true;
+	    }
+	  err = true;
+	}
     }
 
   return err;

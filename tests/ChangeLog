@@ -1,3 +1,8 @@
+2001-12-15  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt-10: New file.
+	* Makefile.am (TESTS): Add it.
+
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* lang-c++: Don't use ostream::form, it's a g++ 2.x extension not

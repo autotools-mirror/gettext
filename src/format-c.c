@@ -142,7 +142,8 @@ static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
 				  void *msgid_descr, void *msgstr_descr,
-				  bool noisy));
+				  bool equality,
+				  bool noisy, const char *pretty_msgstr));
 
 
 static int
@@ -561,11 +562,13 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr, noisy)
+format_check (pos, msgid_descr, msgstr_descr, equality, noisy, pretty_msgstr)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool equality;
      bool noisy;
+     const char *pretty_msgstr;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -573,27 +576,30 @@ format_check (pos, msgid_descr, msgstr_descr, noisy)
   unsigned int i;
 
   /* Check the argument types are the same.  */
-  if (spec1->unnumbered_arg_count != spec2->unnumbered_arg_count)
+  if (equality
+      ? spec1->unnumbered_arg_count != spec2->unnumbered_arg_count
+      : spec1->unnumbered_arg_count < spec2->unnumbered_arg_count)
     {
       if (noisy)
 	{
 	  error_with_progname = false;
 	  error_at_line (0, 0, pos->file_name, pos->line_number,
-			 _("number of format specifications in 'msgid' and 'msgstr' does not match"));
+			 _("number of format specifications in 'msgid' and '%s' does not match"),
+			 pretty_msgstr);
 	  error_with_progname = true;
 	}
       err = true;
     }
   else
-    for (i = 0; i < spec1->unnumbered_arg_count; i++)
+    for (i = 0; i < spec2->unnumbered_arg_count; i++)
       if (spec1->unnumbered[i].type != spec2->unnumbered[i].type)
 	{
 	  if (noisy)
 	    {
 	      error_with_progname = false;
 	      error_at_line (0, 0, pos->file_name, pos->line_number,
-			     _("format specifications in 'msgid' and 'msgstr' for argument %u are not the same"),
-			     i + 1);
+			     _("format specifications in 'msgid' and '%s' for argument %u are not the same"),
+			     pretty_msgstr, i + 1);
 	      error_with_progname = true;
 	    }
 	  err = true;
