@@ -631,6 +631,46 @@ po_message_extracted_comments (po_message_t message)
 }
 
 
+/* Change the extracted comments for a message.
+   comments should be a multiline string, ending in a newline, or empty.  */
+
+void
+po_message_set_extracted_comments (po_message_t message, const char *comments)
+{
+  message_ty *mp = (message_ty *) message;
+  string_list_ty *slp = string_list_alloc ();
+
+  {
+    char *copy = xstrdup (comments);
+    char *rest;
+
+    rest = copy;
+    while (*rest != '\0')
+      {
+	char *newline = strchr (rest, '\n');
+
+	if (newline != NULL)
+	  {
+	    *newline = '\0';
+	    string_list_append (slp, rest);
+	    rest = newline + 1;
+	  }
+	else
+	  {
+	    string_list_append (slp, rest);
+	    break;
+	  }
+      }
+    free (copy);
+  }
+
+  if (mp->comment_dot != NULL)
+    string_list_free (mp->comment_dot);
+
+  mp->comment_dot = slp;
+}
+
+
 /* Return the i-th file position for a message, or NULL if i is out of
    range.  */
 

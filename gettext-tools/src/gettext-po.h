@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files - contained in libgettextpo.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -179,6 +179,10 @@ extern void po_message_set_comments (po_message_t message, const char *comments)
 
 /* Return the extracted comments for a message.  */
 extern const char * po_message_extracted_comments (po_message_t message);
+
+/* Change the extracted comments for a message.
+   comments should be a multiline string, ending in a newline, or empty.  */
+extern void po_message_set_extracted_comments (po_message_t message, const char *comments);
 
 /* Return the i-th file position for a message, or NULL if i is out of
    range.  */

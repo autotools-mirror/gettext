@@ -26,6 +26,7 @@ po_message_msgid_plural
 po_message_msgstr
 po_message_msgstr_plural
 po_message_set_comments
+po_message_set_extracted_comments
 po_message_set_format
 po_message_set_fuzzy
 po_message_set_msgid
