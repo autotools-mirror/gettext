@@ -1,3 +1,9 @@
+2003-08-11  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: When local files have been modified, create a .diff
+	file for the user's convenience.
+	Suggested by Denis Barbier <barbier@debian.org>.
+
 2003-08-07  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in: Fix the regular expression used to parse intl/VERSION.

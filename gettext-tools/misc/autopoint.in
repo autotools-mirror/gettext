@@ -375,6 +375,8 @@ func_destfile ()
 # original - too great risk of version mismatch.
 if test -z "$force"; then
   mismatch=
+  mismatchfile="${TMPDIR-/tmp}"/autopoint$$.diff
+  rm -f "$mismatchfile"
   for file in `find "$work_dir/archive" -type f -print | sed -e "s,^$work_dir/archive/,," | LC_ALL=C sort`; do
     func_destfile "$file"
     if test -n "$destfile"; then
@@ -382,15 +384,16 @@ if test -z "$force"; then
         if cmp -s "$work_dir/archive/$file" "$destfile"; then
           :
         else
-          echo "autopoint: File $destfile has been locally modified."
+          echo "autopoint: File $destfile has been locally modified." 1>&2
           mismatch=yes
+          diff -c "$work_dir/archive/$file" "$destfile" | sed -e "1s,$work_dir/archive/,," >> "$mismatchfile"
         fi
       fi
     fi
   done
   if test -n "$mismatch"; then
     rm -rf "$cvs_dir" "$work_dir"
-    func_fatal_error "Some files have been locally modified. Not overwriting them because --force has not been specified."
+    func_fatal_error "Some files have been locally modified. Not overwriting them because --force has not been specified. For your convenience, you find the local modifications in the file '$mismatchfile'."
   fi
 fi
 
