@@ -119,6 +119,29 @@ find the X include and library files automatically, but if it doesn't,
 you can use the `configure' options `--x-includes=DIR' and
 `--x-libraries=DIR' to specify their locations.
 
+Particular Systems
+==================
+
+   On FreeBSD, NetBSD, and OpenBSD, the compiler doesn't search include
+files in /usr/local/include, and the linker doesn't search libraries in
+/usr/local/lib.  Therefore some packages won't find other packages
+installed earlier.  To overcome this problem, it is recommended to use
+the following options:
+
+     env CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure
+
+   On HP-UX, the default C compiler is not ANSI C compatible.  If GNU CC
+is not installed, it is recommended to use the following options in order
+to use an ANSI C compiler:
+
+     env CC="cc -Ae" ./configure
+
+   On BeOS, user installed software goes in /boot/home/config, not
+/usr/local.  It is recommended to use the following options:
+
+     CPPFLAGS=-I/boot/home/config/include LDFLAGS=-L/boot/home/config/lib \
+     ./configure --prefix=/boot/home/config
+
 Specifying the System Type
 ==========================
 
