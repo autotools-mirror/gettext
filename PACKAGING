@@ -5,7 +5,7 @@ Although the source of the gettext package comes as a single package,
 I recommend that in distributions of binary packages the installed files
 be split into two packages:
 
-   gettext
+   gettext-runtime
         Contents: Runtime libraries and programs.
         Audience: Anyone who wants to run internationalized programs.
 
@@ -13,17 +13,38 @@ be split into two packages:
         Contents: Tools and documentation for developers and translators.
         Audience: Anyone who wants to develop or localize internationalized
                   programs, i.e. developers and translators.
-        Dependencies: requires gettext.
+        Dependencies: requires gettext-runtime.
 
-The 'gettext' binary package is much smaller than the 'gettext-tools' binary
-package (90 KB versus 4 MB). I recommend to include it in the default
+The 'gettext-runtime' binary package is much smaller than the 'gettext-tools'
+binary package (90 KB versus 4 MB). I recommend to include it in the default
 installation list, like GNU 'sh-utils'; in fact, the runtime programs are
 utilities for sh programs.
+
+The 'gettext-runtime' binary package can be installed by doing
+
+      cd gettext-runtime
+      ./configure
+      make
+      make install
+
+The 'gettext-tools' binary package can be installed by doing
+
+      cd gettext-tools
+      ./configure
+      make
+      make install
+
+If you want to install both at the same time, you simple do at the toplevel
+directory:
+
+      ./configure
+      make
+      make install
 
 The precise split between gettext and gettext-tools is according to the
 following file list.
 
-   gettext
+   gettext-runtime
 
       $prefix/bin/gettext
       $prefix/bin/ngettext
