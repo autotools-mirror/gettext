@@ -4,6 +4,8 @@
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
+	* mmsmallpo.sh: Remove the POT-Creation-Date line from the generated PO
+	file.
 	* Makefile.am (EXAMPLESFILES): Add hello-pascal/hello.rst.
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>

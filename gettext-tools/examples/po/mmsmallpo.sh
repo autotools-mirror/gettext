@@ -9,5 +9,16 @@ language=$2
 
 msgmerge $language.po $directory.pot -o - | \
 msgattrib --no-obsolete | \
-sed -e "s, $directory/, ,g" | sed -e "s,gettext-examples,$directory," \
+sed -e "s, $directory/, ,g" | sed -e "s,gettext-examples,$directory," | \
+sed -e '/^"POT-Creation-Date: .*"$/{
+x
+s/P/P/
+ta
+g
+d
+bb
+:a
+x
+:b
+}' \
   > ../$directory/po/$language.po
