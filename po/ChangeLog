@@ -1,3 +1,7 @@
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (MSGEXEC): Remove variable.
