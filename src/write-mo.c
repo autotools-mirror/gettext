@@ -38,7 +38,7 @@
 #include "msgfmt.h"
 
 /* These two include files describe the binary .mo format.  */
-#include "gettext.h"
+#include "gmo.h"
 #include "hash-string.h"
 
 #include "error.h"

@@ -32,7 +32,7 @@
 
 #include "loadinfo.h"
 
-#include "gettext.h"		/* Get nls_uint32.  */
+#include "gmo.h"		/* Get nls_uint32.  */
 
 /* @@ end of prolog @@ */
 

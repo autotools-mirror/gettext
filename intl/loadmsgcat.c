@@ -71,7 +71,7 @@ char *alloca ();
 # undef HAVE_MMAP
 #endif
 
-#include "gettext.h"
+#include "gmo.h"
 #include "gettextP.h"
 #include "plural-exp.h"
 

@@ -29,7 +29,7 @@
 #include <string.h>
 
 /* This include file describes the main part of binary .mo format.  */
-#include "gettext.h"
+#include "gmo.h"
 
 #include "error.h"
 #include "xmalloc.h"
