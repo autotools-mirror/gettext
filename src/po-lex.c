@@ -267,9 +267,13 @@ mb_iseq (mbc, sc)
      const mbchar_t mbc;
      char sc;
 {
-#if HAVE_ICONV
+  /* Note: It is wrong to compare only mbc->uc, because when the encoding is
+     SHIFT_JIS, mbc->buf[0] == '\\' corresponds to mbc->uc == 0x00A5, but we
+     want to treat it as an escape character, although it looks like a Yen
+     sign.  */
+#if HAVE_ICONV && 0
   if (mbc->uc_valid)
-    return (mbc->uc == sc);
+    return (mbc->uc == sc); /* wrong! */
   else
 #endif
     return (mbc->bytes == 1 && mbc->buf[0] == sc);
