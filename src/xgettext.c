@@ -564,8 +564,9 @@ If output file is -, output is written to standard output.\n\
       printf (_("\
 Choice of input file language:\n\
   -L, --language=NAME            recognise the specified language\n\
-                                   (C, C++, ObjectiveC, PO, Lisp, EmacsLisp,\n\
-                                   librep, Java, YCP)\n\
+                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n\
+                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n\
+                                   RST, Glade)\n\
   -C, --c++                      shorthand for --language=C++\n\
 By default the language is guessed depending on the input file name extension.\n\
 "));

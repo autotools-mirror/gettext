@@ -1,3 +1,7 @@
+2002-03-05  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (usage): Mention languages Python, awk, Tcl, RST, Glade.
+
 2002-03-03  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_tcl'.
