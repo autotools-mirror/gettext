@@ -1,3 +1,7 @@
+2001-03-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* acconfig.h (WARN_ID_LEN): Remove macro.
+
 2001-03-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* INSTALL (Particular Systems): Add recommendations for AIX 3.

@@ -105,10 +105,6 @@ static int omit_header;
 /* String containing name the program is called with.  */
 const char *program_name;
 
-/* String length from with on warning are given for possible problem
-   while exceeding tools limits.  */
-static size_t warn_id_len;
-
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -220,7 +216,6 @@ main (argc, argv)
   /* Set program name for messages.  */
   program_name = argv[0];
   error_print_progname = error_print;
-  warn_id_len = WARN_ID_LEN;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -295,12 +290,7 @@ main (argc, argv)
 	  xgettext_lex_keyword (optarg);
 	break;
       case 'l':
-	{
-	  char *endp;
-	  size_t tmp_val = strtoul (optarg, &endp, 0);
-	  if (endp[0] == '\0')
-	    warn_id_len = tmp_val;
-	}
+	/* Accepted for backward compatibility with 0.10.35.  */
 	break;
       case 'L':
 	scanner = language_to_scanner (optarg);
@@ -553,13 +543,11 @@ Mandatory arguments to long options are mandatory for short options too.\n\
   -j, --join-existing            join messages with existing file\n\
   -k, --keyword[=WORD]           additonal keyword to be looked for (without\n\
                                  WORD means not to use default keywords)\n\
-  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n\
   -L, --language=NAME            recognise the specified language (C, C++, PO),\n\
                                  otherwise is guessed from file extension\n\
   -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
   -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
-      --no-location              do not write '#: filename:line' lines\n"),
-	      WARN_ID_LEN);
+      --no-location              do not write '#: filename:line' lines\n"));
       /* xgettext: no-wrap */
       fputs (_("\
   -n, --add-location             generate '#: filename:line' lines (default)\n\

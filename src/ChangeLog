@@ -1,3 +1,9 @@
+2001-03-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (warn_id_len): Remove unused variable.
+	(main): Don't set it. 'l' option becomes a nop.
+	(usage): Remove mention of --string-limits/-l.
+
 2001-03-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcomm.c (main): Don't give an error message if there are "too few"

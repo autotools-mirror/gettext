@@ -1,5 +1,5 @@
 /* Special definitions, processed by autoheader.
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation.
+   Copyright (C) 1995-1998, 2001 Free Software Foundation.
    Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.  */
 
 /* Default value for alignment of strings in .mo file.  */
@@ -38,13 +38,6 @@
 /* Something like this for MSDOG.  */
 # define	INVALID_PATH_CHAR "\1\2\3\4\5\6\7\10\11\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37 \177\\:."
 #endif
-
-/* Length from which starting on warnings about too long strings are given.
-   Several systems have limits for strings itself, more have problems with
-   strings in their tools (important here: gencat).  1024 bytes is a
-   conservative limit.  Because many translation let the message size grow
-   (German translations are always bigger) choose a length < 1024.  */
-#define WARN_ID_LEN 900
 
 /* This is the page width for the message_print function.  It should
    not be set to more than 79 characters (Emacs users will appreciate
