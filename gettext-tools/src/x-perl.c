@@ -2546,7 +2546,7 @@ x_perl_lex (message_list_ty *mlp)
 	       && next->type == token_type_lparen)
         {
 	  /* For simplicity we simply consume everything up to the
-	     closing parentheses.  Actually only a limited set of
+	     closing parenthesis.  Actually only a limited set of
 	     characters is allowed inside parentheses but we leave
 	     complaints to the interpreter and are prepared for
 	     future extensions to the Perl syntax.  */
