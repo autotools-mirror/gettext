@@ -79,7 +79,8 @@ by the Foundation.
 * Introduction::                Introduction
 * Basics::                      PO Files and PO Mode Basics
 * Sources::                     Preparing Program Sources
-* Initial::                     Making the Initial PO File
+* Template::                    Making the PO Template File
+* Creating::                    Creating a New PO File
 * Updating::                    Updating Existing PO Files
 * Binaries::                    Producing Binary MO Files
 * Users::                       The User's View
@@ -117,11 +118,9 @@ Preparing Program Sources
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 
-Making the Initial PO File
+Making the PO Template File
 
 * xgettext Invocation::         Invoking the @code{xgettext} Program
-* C Sources Context::           C Sources Context
-* Compendium::                  Using Translation Compendiums
 
 Updating Existing PO Files
 
@@ -133,7 +132,9 @@ Updating Existing PO Files
 * Modifying Translations::      Modifying Translations
 * Modifying Comments::          Modifying Comments
 * Subedit::                     Mode for Editing Translations
+* C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
+* Compendium::                  Using Translation Compendiums
 
 Producing Binary MO Files
 
@@ -442,8 +443,8 @@ undertaking in itself, generally.
 @end itemize
 
 As we already stressed, translation is only one aspect of locales.
-Other internationalization aspects are not currently handled by GNU
-@code{gettext}, but perhaps may be handled in future versions.  There
+Other internationalization aspects are system services and are handled
+in GNU @code{libc}.  There
 are many attributes that are needed to define a country's cultural
 conventions.  These attributes include beside the country's native
 language, the formatting of the date and time, the representation of
@@ -454,8 +455,7 @@ needed to support the country's native attributes.
 There are a few major areas which may vary between countries and
 hence, define what a locale must describe.  The following list helps
 putting multi-lingual messages into the proper context of other tasks
-related to locales, and also presents some other areas which GNU
-@code{gettext} might eventually tackle, maybe, one of these days.
+related to locales.  See the GNU @code{libc} manual for details.
 
 @table @emph
 
@@ -513,13 +513,10 @@ the user.
 
 @end table
 
-In the near future we see no chance that components of locale outside of
-message handling will be made available for use in other
-packages.  The reason for this is that most modern systems provide
-a more or less reasonable support for at least some of the missing
-components.  Another point is that the GNU @code{libc} and Linux will get
-a new and complete implementation of the whole locale functionality
-which could be adopted by system lacking a reasonable locale support.
+Components of locale outside of message handling are standardized in
+the ISO C standard and the SUSV2 specification.  GNU @code{libc}
+fully implements this, and most other modern systems provide a more
+or less reasonable support for at least some of the missing components.
 
 @node Files, Overview, Aspects, Introduction
 @section Files Conveying Translations
@@ -550,15 +547,11 @@ MO files are meant to be read by programs, and are binary in nature.
 A few systems already offer tools for creating and handling MO files
 as part of the Native Language Support coming with the system, but the
 format of these MO files is often different from system to system,
-and non-portable.  They do not necessary use @file{.mo} for file
-extensions, but since system libraries are also used for accessing
-these files, it works as long as the system is self-consistent about
-it.  If GNU @code{gettext} is able to interface with the tools already
-provided with systems, it will consequently let these provided tools
-take care of generating the MO files.  Or else, if such tools are not
-found or do not seem usable, GNU @code{gettext} will use its own ways
-and its own format for MO files.  Files ending with @file{.gmo} are
-really MO files, when it is known that these files use the GNU format.
+and non-portable.  The tools already provided with these systems don't
+support all the features of GNU @code{gettext}.  Therefore GNU
+@code{gettext} uses its own format for MO files.  Files ending with
+@file{.gmo} are really MO files, when it is known that these files use
+the GNU format.
 
 @node Overview,  , Files, Introduction
 @section Overview of GNU @code{gettext}
@@ -650,8 +643,8 @@ GNU systems, you don't need to link with @code{libintl} because the
 That is all you have to change.
 
 Once the C sources have been modified, the @code{xgettext} program
-is used to find and extract all translatable strings, and create an
-initial PO file out of all these.  This @file{@var{package}.pot} file
+is used to find and extract all translatable strings, and create a
+PO template file out of all these.  This @file{@var{package}.pot} file
 contains all original program strings.  It has sets of pointers to
 exactly where in C sources each string is used.  All translations
 are set to empty.  The letter @kbd{t} in @file{.pot} marks this as
@@ -972,8 +965,8 @@ line, while keeping the multi-line presentation left-justified, as
 we find this to be a cleaner disposition.  The empty string could have
 been omitted, but only if the string starting with @samp{Here} was
 promoted on the first line, right after @code{msgid}.@footnote{This
-limitation is not imposed by GNU @code{gettext}, but comes from the
-@code{msgfmt} implementation on Solaris.} It was not really necessary
+limitation is not imposed by GNU @code{gettext}, but is for compatibility
+with the @code{msgfmt} implementation on Solaris.} It was not really necessary
 either to switch between the two last quoted strings immediately after
 the newline @samp{\n}, the switch could have occurred after @emph{any}
 other character, we just did it this way because it is neater.
@@ -1320,7 +1313,7 @@ msgstr "\n\n"
 There are a few yet undecided little points about string normalization,
 to be documented in this manual, once these questions settle.
 
-@node Sources, Initial, Basics, Top
+@node Sources, Template, Basics, Top
 @chapter Preparing Program Sources
 
 @c FIXME: Rewrite (the whole chapter).
@@ -1831,18 +1824,19 @@ sure the output is really translated in any case.  But this analysis is
 generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
 
-@node Initial, Updating, Sources, Top
-@chapter Making the Initial PO File
+@node Template, Creating, Sources, Top
+@chapter Making the PO Template File
+
+After preparing the sources, the programmer creates a PO template file.
+This section explains how to use @code{xgettext} for this purpose.
 
 @c FIXME: Rewrite.
 
 @menu
 * xgettext Invocation::         Invoking the @code{xgettext} Program
-* C Sources Context::           C Sources Context
-* Compendium::                  Using Translation Compendiums
 @end menu
 
-@node xgettext Invocation, C Sources Context, Initial, Initial
+@node xgettext Invocation,  , Template, Template
 @section Invoking the @code{xgettext} Program
 
 @c FIXME: Rewrite.
@@ -1980,126 +1974,146 @@ This implementation of @code{xgettext} is able to process a few awkward
 cases, like strings in preprocessor macros, ANSI concatenation of
 adjacent strings, and escaped end of lines for continued strings.
 
-@node C Sources Context, Compendium, xgettext Invocation, Initial
-@section C Sources Context
+@node Creating, Updating, Template, Top
+@chapter Creating a New PO File
 
-PO mode is particularily powerful when used with PO files
-created through GNU @code{gettext} utilities, as those utilities
-insert special comments in the PO files they generate.
-Some of these special comments relate the PO file entry to
-exactly where the untranslated string appears in the program sources.
+When starting a new translation, the translator copies the
+@file{@var{package}.pot} template file to a file called
+@file{@var{LANG}.po}.  Then she modifies the initial comments and
+the header entry of this file.
 
-When the translator gets to an untranslated entry, she is fairly
-often faced with an original string which is not as informative as
-it normally should be, being succinct, cryptic, or otherwise ambiguous.
-Before chosing how to translate the string, she needs to understand
-better what the string really means and how tight the translation has
-to be.  Most of times, when problems arise, the only way left to make
-her judgment is looking at the true program sources from where this
-string originated, searching for surrounding comments the programmer
-might have put in there, and looking around for helping clues of
-@emph{any} kind.
+The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and
+"FIRST AUTHOR <EMAIL@@ADDRESS>, YEAR" ought to be replaced by sensible
+information.  This can be done in any text editor; if Emacs is used
+and it switched to PO mode automatically (because it has recognized
+the file's suffix), you can disable it by typing @kbd{M-x fundamental-mode}.
 
-Surely, when looking at program sources, the translator will receive
-more help if she is a fluent programmer.  However, even if she is
-not versed in programming and feels a little lost in C code, the
-translator should not be shy at taking a look, once in a while.
-It is most probable that she will still be able to find some of the
-hints she needs.  She will learn quickly to not feel uncomfortable
-in program code, paying more attention to programmer's comments,
-variable and function names (if he dared chosing them well), and
-overall organization, than to programmation itself.
+Modifying the header entry can already be done using PO mode: in Emacs,
+type @kbd{M-x po-mode RET} and then @kbd{RET} again to start editing the
+entry.  You should fill in the following fields.
 
-The following commands are meant to help the translator at getting
-program source context for a PO file entry.
+@table @asis
+@item Project-Id-Version
+This is the name and version of the package.
 
-@table @kbd
-@item s
-Resume the display of a program source context, or cycle through them.
+@item POT-Creation-Date
+This has already been filled in by @code{xgettext}.
 
-@item M-s
-Display of a program source context selected by menu.
+@item PO-Revision-Date
+You don't need to fill this in. It will be filled by the Emacs PO mode
+when you save the file.
 
-@item S
-Add a directory to the search path for source files.
+@item Last-Translator
+Fill in your name and email address (without double quotes).
 
-@item M-S
-Delete a directory from the search path for source files.
+@item Language-Team
+Fill in the English name of the language, and the email address of the
+language team you are part of.
 
+Before starting a translation, it is a good idea to get in touch with
+your translation team, not only to make sure you don't do duplicated work,
+but also to coordinate difficult linguistic issues.
+
+In the Free Translation Project, each translation team has its own mailing
+list.  The up-to-date list of teams can be found at the Free Translation
+Project's homepage, @file{http://www.iro.umontreal.ca/contrib/po/HTML/},
+in the "National teams" area.
+
+@item Content-Type
+Replace @samp{CHARSET} with the character encoding used for your language,
+in your locale, or UTF-8.  This field is needed for correct operation of the
+@code{msgmerge} and @code{msgfmt} programs, as well as for users whose
+locale's character encoding differs from yours (see @ref{Charset conversion}).
+
+You get the character encoding of your locale by running the shell command
+@samp{locale charmap}.  If the result is @samp{C} or @samp{ANSI_X3.4-1968},
+which is equivalent to @samp{ASCII} (= @samp{US-ASCII}), it means that your
+locale is not correctly configured.  In this case, ask your translation
+team which charset to use.  @samp{ASCII} is not usable for any language
+except Latin.
+
+Because the PO files must be portable to operating systems with less advanced
+internationalization facilities, the character encodings that can be used
+are limited to those supported by both GNU @code{libc} and GNU
+@code{libiconv}. These are:
+@code{ASCII}, @code{ISO-8859-1}, @code{ISO-8859-2}, @code{ISO-8859-3},
+@code{ISO-8859-4}, @code{ISO-8859-5}, @code{ISO-8859-6}, @code{ISO-8859-7},
+@code{ISO-8859-8}, @code{ISO-8859-9}, @code{ISO-8859-13}, @code{ISO-8859-15},
+@code{KOI8-R}, @code{KOI8-U}, @code{CP850}, @code{CP866}, @code{CP874},
+@code{CP932}, @code{CP949}, @code{CP950}, @code{CP1250}, @code{CP1251},
+@code{CP1252}, @code{CP1253}, @code{CP1254}, @code{CP1255}, @code{CP1256},
+@code{CP1257}, @code{GB2312}, @code{EUC-JP}, @code{EUC-KR}, @code{EUC-TW},
+@code{BIG5}, @code{BIG5HKSCS}, @code{GBK}, @code{GB18030}, @code{SJIS},
+@code{JOHAB}, @code{TIS-620}, @code{VISCII}, @code{UTF-8}.
+
+@c This data is taken from glibc/localedata/SUPPORTED.
+In the GNU system, the following encodings are frequently used for the
+corresponding languages.
+
+@itemize
+@item @code{ISO-8859-1} for
+ Afrikaans, Albanian, Basque, Catalan, Dutch, English, Estonian, Faroese,
+ Finnish, French, Galician, German, Greenlandic, Icelandic, Indonesian,
+ Irish, Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
+@item @code{ISO-8859-2} for
+ Croatian, Czech, Hungarian, Polish, Romanian, Serbian, Slovak, Slovenian,
+@item @code{ISO-8859-3} for Maltese,
+@item @code{ISO-8859-5} for Macedonian, Serbian,
+@item @code{ISO-8859-6} for Arabic,
+@item @code{ISO-8859-7} for Greek,
+@item @code{ISO-8859-8} for Hebrew,
+@item @code{ISO-8859-9} for Turkish,
+@item @code{ISO-8859-13} for Latvian, Lithuanian,
+@item @code{ISO-8859-15} for
+ Basque, Catalan, Dutch, English, Finnish, French, Galician, German, Irish,
+ Italian, Portuguese, Spanish, Swedish,
+@item @code{KOI8-R} for Russian,
+@item @code{KOI8-U} for Ukrainian,
+@item @code{CP1251} for Bulgarian, Byelorussian,
+@item @code{GB2312}, @code{GBK}, @code{GB18030}
+ for simplified writing of Chinese,
+@item @code{BIG5}, @code{BIG5HKSCS}
+ for traditional writing of Chinese,
+@item @code{EUC-JP} for Japanese,
+@item @code{EUC-KR} for Korean,
+@item @code{TIS-620} for Thai,
+@item @code{UTF-8} for any language, including those listed above.
+@end itemize
+
+When single quote characters or double quote characters are used in
+translations for your language, and your locale's encoding is one of the
+ISO-8859-* charsets, it is best if you create your PO files in UTF-8
+encoding, instead of your locale's encoding.  This is because in UTF-8
+the real quote characters can be represented (single quote characters:
+U+2018, U+2019, double quote characters: U+201C, U+201D), whereas none of
+ISO-8859-* charsets has them all.  Users in UTF-8 locales will see the
+real quote characters, whereas users in ISO-8859-* locales will see the
+vertical apostrophe and the vertical double quote instead (because that's
+what the character set conversion will transliterate them to).
+
+To enter such quote characters under X11, you can change your keyboard
+mapping using the @code{xmodmap} program.  The X11 names of the quote
+characters are "leftsinglequotemark", "rightsinglequotemark",
+"leftdoublequotemark", "rightdoublequotemark", "singlelowquotemark",
+"doublelowquotemark".
+
+Note that only recent versions of GNU Emacs support the UTF-8 encoding:
+Emacs 20 with Mule-UCS, and Emacs 21.  As of January 2001, XEmacs doesn't
+support the UTF-8 encoding.
+
+The character encoding name can be written in either upper or lower case.
+Usually upper case is preferred.
+
+@item Content-Transfer-Encoding
+Set this to @code{8-bit}.
+
+@item Plural-Forms
+This field is optional.  It is only needed if the PO file has plural forms.
+You can find them by searching for the @samp{msgid_plural} keyword.  The
+format of the plural forms field is described in @ref{Plural forms}.
 @end table
 
-The commands @kbd{s} (@code{po-cycle-reference}) and @kbd{M-s}
-(@code{po-select-source-reference}) both open another window displaying
-some source program file, and already positioned in such a way that
-it shows an actual use of the string to be translated.  By doing
-so, the command gives source program context for the string.  But if
-the entry has no source context references, or if all references
-are unresolved along the search path for program sources, then the
-command diagnoses this as an error.
-
-Even if @kbd{s} (or @kbd{M-s}) opens a new window, the cursor stays
-in the PO file window.  If the translator really wants to
-get into the program source window, she ought to do it explicitly,
-maybe by using command @kbd{O}.
-
-When @kbd{s} is typed for the first time, or for a PO file entry which
-is different of the last one used for getting source context, then the
-command reacts by giving the first context available for this entry,
-if any.  If some context has already been recently displayed for the
-current PO file entry, and the translator wandered off to do other
-things, typing @kbd{s} again will merely resume, in another window,
-the context last displayed.  In particular, if the translator moved
-the cursor away from the context in the source file, the command will
-bring the cursor back to the context.  By using @kbd{s} many times
-in a row, with no other commands intervening, PO mode will cycle to
-the next available contexts for this particular entry, getting back
-to the first context once the last has been shown.
-
-The command @kbd{M-s} behaves differently.  Instead of cycling through
-references, it lets the translator choose of particular reference among
-many, and displays that reference.  It is best used with completion,
-if the translator types @kbd{@key{TAB}} immediately after @kbd{M-s}, in
-response to the question, she will be offered a menu of all possible
-references, as a reminder of which are the acceptable answers.
-This command is useful only where there are really many contexts
-available for a single string to translate.
-
-Program source files are usually found relative to where the PO
-file stands.  As a special provision, when this fails, the file is
-also looked for, but relative to the directory immediately above it.
-Those two cases take proper care of most PO files.  However, it might
-happen that a PO file has been moved, or is edited in a different
-place than its normal location.  When this happens, the translator
-should tell PO mode in which directory normally sits the genuine PO
-file.  Many such directories may be specified, and all together, they
-constitute what is called the @dfn{search path} for program sources.
-The command @kbd{S} (@code{po-consider-source-path}) is used to interactively
-enter a new directory at the front of the search path, and the command
-@kbd{M-S} (@code{po-ignore-source-path}) is used to select, with completion,
-one of the directories she does not want anymore on the search path.
-
-@node Compendium,  , C Sources Context, Initial
-@section Using Translation Compendiums
-
-@c FIXME: Rewrite.
-
-Compendiums are yet to be implemented.
-
-An incoming PO mode feature will let the translator maintain a
-compendium of already achieved translations.  A @dfn{compendium}
-is a special PO file containing a set of translations recurring in
-many different packages.  The translator will be given commands for
-adding entries to her compendium, and later initializing untranslated
-entries, or updating already translated entries, from translations
-kept in the compendium.  For this to work, however, the compendium
-would have to be normalized.  @xref{Normalizing}.
-
-@c It is not useful that I modify the @file{lib/} routines if not done in
-@c the true sources.  How do you/I/they proceed for getting this job done?
-@c I presume that @file{lib/} routines will all use @code{gettext} for
-@c the time being.
-
-@node Updating, Binaries, Initial, Top
+@node Updating, Binaries, Creating, Top
 @chapter Updating Existing PO Files
 
 @c FIXME: Rewrite.
@@ -2113,7 +2127,9 @@ would have to be normalized.  @xref{Normalizing}.
 * Modifying Translations::      Modifying Translations
 * Modifying Comments::          Modifying Comments
 * Subedit::                     Mode for Editing Translations
+* C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
+* Compendium::                  Using Translation Compendiums
 @end menu
 
 @node msgmerge Invocation, Translated Entries, Updating, Updating
@@ -2592,7 +2608,7 @@ away with @kbd{#}.  Once inside the editing window, she can use the
 regular Emacs commands @kbd{C-y} (@code{yank}) and @kbd{M-y}
 (@code{yank-pop}) to get the previous translation where she likes.
 
-@node Subedit, Auxiliary, Modifying Comments, Updating
+@node Subedit, C Sources Context, Modifying Comments, Updating
 @section Details of Sub Edition
 
 The PO subedit minor mode has a few peculiarities worth being described
@@ -2667,7 +2683,105 @@ of how or when they were started.  When many subedits are pending and the
 translator asks for quitting the PO file (with the @kbd{q} command), subedits
 are automatically resumed one at a time, so she may decide for each of them.
 
-@node Auxiliary,  , Subedit, Updating
+@node C Sources Context, Auxiliary, Subedit, Updating
+@section C Sources Context
+
+PO mode is particularily powerful when used with PO files
+created through GNU @code{gettext} utilities, as those utilities
+insert special comments in the PO files they generate.
+Some of these special comments relate the PO file entry to
+exactly where the untranslated string appears in the program sources.
+
+When the translator gets to an untranslated entry, she is fairly
+often faced with an original string which is not as informative as
+it normally should be, being succinct, cryptic, or otherwise ambiguous.
+Before chosing how to translate the string, she needs to understand
+better what the string really means and how tight the translation has
+to be.  Most of times, when problems arise, the only way left to make
+her judgment is looking at the true program sources from where this
+string originated, searching for surrounding comments the programmer
+might have put in there, and looking around for helping clues of
+@emph{any} kind.
+
+Surely, when looking at program sources, the translator will receive
+more help if she is a fluent programmer.  However, even if she is
+not versed in programming and feels a little lost in C code, the
+translator should not be shy at taking a look, once in a while.
+It is most probable that she will still be able to find some of the
+hints she needs.  She will learn quickly to not feel uncomfortable
+in program code, paying more attention to programmer's comments,
+variable and function names (if he dared chosing them well), and
+overall organization, than to programmation itself.
+
+The following commands are meant to help the translator at getting
+program source context for a PO file entry.
+
+@table @kbd
+@item s
+Resume the display of a program source context, or cycle through them.
+
+@item M-s
+Display of a program source context selected by menu.
+
+@item S
+Add a directory to the search path for source files.
+
+@item M-S
+Delete a directory from the search path for source files.
+
+@end table
+
+The commands @kbd{s} (@code{po-cycle-reference}) and @kbd{M-s}
+(@code{po-select-source-reference}) both open another window displaying
+some source program file, and already positioned in such a way that
+it shows an actual use of the string to be translated.  By doing
+so, the command gives source program context for the string.  But if
+the entry has no source context references, or if all references
+are unresolved along the search path for program sources, then the
+command diagnoses this as an error.
+
+Even if @kbd{s} (or @kbd{M-s}) opens a new window, the cursor stays
+in the PO file window.  If the translator really wants to
+get into the program source window, she ought to do it explicitly,
+maybe by using command @kbd{O}.
+
+When @kbd{s} is typed for the first time, or for a PO file entry which
+is different of the last one used for getting source context, then the
+command reacts by giving the first context available for this entry,
+if any.  If some context has already been recently displayed for the
+current PO file entry, and the translator wandered off to do other
+things, typing @kbd{s} again will merely resume, in another window,
+the context last displayed.  In particular, if the translator moved
+the cursor away from the context in the source file, the command will
+bring the cursor back to the context.  By using @kbd{s} many times
+in a row, with no other commands intervening, PO mode will cycle to
+the next available contexts for this particular entry, getting back
+to the first context once the last has been shown.
+
+The command @kbd{M-s} behaves differently.  Instead of cycling through
+references, it lets the translator choose of particular reference among
+many, and displays that reference.  It is best used with completion,
+if the translator types @kbd{@key{TAB}} immediately after @kbd{M-s}, in
+response to the question, she will be offered a menu of all possible
+references, as a reminder of which are the acceptable answers.
+This command is useful only where there are really many contexts
+available for a single string to translate.
+
+Program source files are usually found relative to where the PO
+file stands.  As a special provision, when this fails, the file is
+also looked for, but relative to the directory immediately above it.
+Those two cases take proper care of most PO files.  However, it might
+happen that a PO file has been moved, or is edited in a different
+place than its normal location.  When this happens, the translator
+should tell PO mode in which directory normally sits the genuine PO
+file.  Many such directories may be specified, and all together, they
+constitute what is called the @dfn{search path} for program sources.
+The command @kbd{S} (@code{po-consider-source-path}) is used to interactively
+enter a new directory at the front of the search path, and the command
+@kbd{M-S} (@code{po-ignore-source-path}) is used to select, with completion,
+one of the directories she does not want anymore on the search path.
+
+@node Auxiliary, Compendium, C Sources Context, Updating
 @section Consulting Auxiliary PO Files
 
 PO mode is able to help the knowledgeable translator, being fluent in
@@ -2732,6 +2846,27 @@ strings in source files, are normalised differently.  So are PO
 files resulting of the the @samp{M-x normalize} command.  Until these
 discrepancies between PO mode and other GNU @code{gettext} tools get
 fully resolved, the translator should stay aware of normalisation issues.
+
+@node Compendium,  , Auxiliary, Updating
+@section Using Translation Compendiums
+
+@c FIXME: Rewrite.
+
+Compendiums are yet to be implemented.
+
+An incoming PO mode feature will let the translator maintain a
+compendium of already achieved translations.  A @dfn{compendium}
+is a special PO file containing a set of translations recurring in
+many different packages.  The translator will be given commands for
+adding entries to her compendium, and later initializing untranslated
+entries, or updating already translated entries, from translations
+kept in the compendium.  For this to work, however, the compendium
+would have to be normalized.  @xref{Normalizing}.
+
+@c It is not useful that I modify the @file{lib/} routines if not done in
+@c the true sources.  How do you/I/they proceed for getting this job done?
+@c I presume that @file{lib/} routines will all use @code{gettext} for
+@c the time being.
 
 @node Binaries, Users, Updating, Top
 @chapter Producing Binary MO Files
@@ -3500,7 +3635,7 @@ otherwise @code{msgid2}.
 An example for the us of this function is:
 
 @smallexample
-  printf (ngettext ("%d file removed", "%d files removed", n), n);
+printf (ngettext ("%d file removed", "%d files removed", n), n);
 @end smallexample
 
 Please note that the numeric value @var{n} has to be passed to the
@@ -3541,7 +3676,7 @@ header entry of the PO file (the one with the empty @code{msgid} string).
 The plural form information looks like this:
 
 @smallexample
-  Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;
+Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;
 @end smallexample
 
 The @code{nplurals} value must be a decimal number which specifies how
@@ -3986,9 +4121,9 @@ self-contained.  I.e., you can use it in your own programs without
 providing additional functions.  The @file{Makefile} will put the header
 and the library in directories selected using the @code{$(prefix)}.
 
-One exception of the above is found on HP-UX systems.  Here the C library
-does not contain the @code{alloca} function (and the HP compiler does
-not generate it inlined).  But it is not intended to rewrite the whole
+One exception of the above is found on HP-UX 10.01 systems.  Here the C
+library does not contain the @code{alloca} function (and the HP compiler
+does not generate it inlined).  But it is not intended to rewrite the whole
 library just because of this dumb system.  Instead include the
 @code{alloca} function in all package you use the @code{libintl.a} in.
 
@@ -4633,24 +4768,19 @@ replace or complement C libraries, and a subdirectory @file{src/} for
 holding the proper sources for the package.  These other distributions
 are said to be @dfn{non-flat}.
 
-For now, we cannot say much about flat distributions.  A flat
+We cannot say much about flat distributions.  A flat
 directory structure has the disadvantage of increasing the difficulty
 of updating to a new version of GNU @code{gettext}.  Also, if you have
 many PO files, this could somewhat pollute your single directory.
-In the GNU @code{gettext} distribution, the @file{misc/} directory
-contains a shell script named @file{combine-sh}.  That script may
-be used for combining all the C files of the @file{intl/} directory
-into a pair of C files (one @file{.c} and one @file{.h}).  Those two
-generated files would fit more easily in a flat directory structure,
-and you will then have to add these two files to your project.
+Also, GNU @code{gettext}'s libintl sources consist of C sources, shell
+scripts, @code{sed} scripts and complicated Makefile rules, which don't
+fit well into an existing flat structure.  For these reasons, we
+recommend to use non-flat approach in this case as well.
 
 Maybe because GNU @code{gettext} itself has a non-flat structure,
 we have more experience with this approach, and this is what will be
 described in the remaining of this chapter.  Some maintainers might
 use this as an opportunity to unflatten their package structure.
-Only later, once gained more experience adapting GNU @code{gettext}
-to flat distributions, we might add some notes about how to proceed
-in flat situations.
 
 @node Prerequisites, gettextize Invocation, Flat and Non-Flat, Maintainers
 @section Prerequisite Works

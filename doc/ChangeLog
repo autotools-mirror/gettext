@@ -1,3 +1,17 @@
+2001-03-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Aspects): For full locale services, refer to glibc.
+	(Files): Explain why gettext doesn't interface with system tools.
+	(Template): Renamed chapter from "Initial".
+	Move the sections "C Sources Context" and "Compendium" away.
+	(Creating): New chapter.
+	(Updating): Move the sections "C Sources Context" and "Compendium" to
+	here.
+	(Using libintl.a): Only HP-UX 10.01 lacks alloca. Newer versions have
+	it.
+	(Flat and Non-Flat): Don't mention combine-sh. Recommend the usual
+	approach instead.
+
 2001-03-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Plural forms): Clarify the syntax of the plural form
