@@ -1182,7 +1182,7 @@ read_object (op)
 		int c = do_getc ();
 		/* The ,@ handling inside lists is wrong anyway, because
 		   ,@form expands to an unknown number of elements.  */
-		if (c != EOF && c != '@')
+		if (c != EOF && c != '@' && c != '.')
 		  do_ungetc (c);
 	      }
 	      /*FALLTHROUGH*/

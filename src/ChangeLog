@@ -1,3 +1,7 @@
+2002-01-06  Bruno Haible  <bruno@clisp.org>
+
+	* x-lisp.c (read_object): Treat ',.' like ',@'.
+
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
 	Make "msgmerge --update" work better on CJK files even if iconv() is
