@@ -1,5 +1,9 @@
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
+	* write-properties.c: Don't include exit.h and gettext.h.
+
+2003-06-22  Bruno Haible  <bruno@clisp.org>
+
 	* x-php.c (phase3_ungetc): Comment out unused function.
 
 2003-06-21  Bruno Haible  <bruno@clisp.org>

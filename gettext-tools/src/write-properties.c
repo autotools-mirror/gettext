@@ -37,10 +37,6 @@
 #include "utf8-ucs4.h"
 #include "write-po.h"
 #include "xmalloc.h"
-#include "exit.h"
-#include "gettext.h"
-
-#define _(str) gettext (str)
 
 /* The format of the Java .properties files is documented in the JDK
    documentation for class java.util.Properties.  In the case of .properties
