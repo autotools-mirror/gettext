@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11-pre1\n"
 "POT-Creation-Date: 2001-11-01 13:09+0100\n"
-"PO-Revision-Date: 2001-11-01 20:50+0100\n"
+"PO-Revision-Date: 2001-11-02 19:40+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,16 +22,16 @@ msgstr ""
 #: lib/argmatch.c:141
 #, c-format
 msgid "invalid argument `%s' for `%s'"
-msgstr ""
+msgstr "ungültiges Argument »%s« für »%s«"
 
 #: lib/argmatch.c:142
 #, c-format
 msgid "ambiguous argument `%s' for `%s'"
-msgstr ""
+msgstr "mehrdeutiges Argument »%s« für »%s«"
 
 #: lib/argmatch.c:162
 msgid "Valid arguments are:"
-msgstr ""
+msgstr "Gültige Argumente sind:"
 
 #: lib/copy-file.c:60 src/file-list.c:57 src/po-lex.c:732 src/read-mo.c:170
 #: src/xgettext.c:737 src/xgettext.c:750 src/xgettext.c:760
@@ -68,7 +68,7 @@ msgstr "Unbekannter Systemfehler"
 #: lib/wait-process.c:136
 #, c-format
 msgid "%s subprocess failed"
-msgstr ""
+msgstr "Subprozess %s fehlgeschlagen"
 
 #: lib/getopt.c:691
 #, c-format
@@ -128,6 +128,7 @@ msgstr "%s: Option »-W %s« erwartet kein Argument\n"
 #: lib/javacomp.c:465
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
+"Java-Compiler nicht gefunden; bitte »gcj« installieren oder $JAVAC setzen"
 
 #: lib/javaexec.c:402
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
@@ -145,12 +146,12 @@ msgstr "Es ist nicht möglich, eine Pipe zu erzeugen"
 #: lib/wait-process.c:117
 #, c-format
 msgid "%s subprocess"
-msgstr ""
+msgstr "Subprozess %s"
 
 #: lib/wait-process.c:129
 #, c-format
 msgid "%s subprocess got fatal signal"
-msgstr ""
+msgstr "Subprozess %s hat ein fatales Signal erhalten"
 
 #: src/format-c.c:578 src/format-python.c:463
 msgid "number of format specifications in 'msgid' and 'msgstr' does not match"
@@ -275,10 +276,11 @@ msgid ""
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr "Aufruf: %s [OPTION] [[[TEXTBEREICH] SCHLÜSSEL] | [-s [MSGID]...]]\n"
 
+# CHECKIT
 #: src/gettext.c:262
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr ""
+msgstr "Übersetzung einer textuellen Meldung in einer nativen Sprache anzeigen.\n"
 
 #: src/gettext.c:266
 #, no-wrap
@@ -344,7 +346,7 @@ msgstr "Aufruf: %s [OPTION]\n"
 #: src/hostname.c:207
 #, no-wrap
 msgid "Print the machine's hostname.\n"
-msgstr ""
+msgstr "Rechnernamen (Hostname) ausgeben.\n"
 
 #: src/hostname.c:212
 #, no-wrap
@@ -355,6 +357,11 @@ msgid ""
 "                          and aliases\n"
 "  -i, --ip-address      addresses for the hostname\n"
 msgstr ""
+"Format der Ausgabe:\n"
+"  -s, --short           kurzer Rechnername\n"
+"  -f, --fqdn, --long    langer Rechnername, einschließlich des\n"
+"                          vollqualifizierten Domainnamen (FQDN) und Aliasse\n"
+"  -i, --ip-address      Adressen für den Rechnernamen\n"
 
 #: src/hostname.c:221 src/msgattrib.c:396 src/msgcmp.c:209 src/msgconv.c:299
 #: src/msgen.c:281 src/msgexec.c:404 src/msggrep.c:451
@@ -364,15 +371,18 @@ msgid ""
 "  -h, --help                  display this help and exit\n"
 "  -V, --version               output version information and exit\n"
 msgstr ""
+"Informative Ausgabe:\n"
+"  -h, --help                   diese Hilfe anzeigen und beenden\n"
+"  -V, --version                Versionsnummer anzeigen und beenden\n"
 
 #: src/hostname.c:242 src/hostname.c:249
 msgid "could not get host name"
-msgstr ""
+msgstr "es ist nicht möglich, den Rechnernamen (Hostname) herauszufinden"
 
 #: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:190 src/msggrep.c:296
 #: src/msginit.c:207 src/msguniq.c:227
 msgid "at most one input file allowed"
-msgstr ""
+msgstr "höchstens eine Eingabedatei erlaubt"
 
 #: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
 #: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
@@ -387,7 +397,7 @@ msgstr "%s und %s schließen sich gegenseitig aus"
 #: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:376 src/msguniq.c:274
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
-msgstr ""
+msgstr "Aufruf: %s [OPTION] [EINGABEDATEI]\n"
 
 #: src/msgattrib.c:332
 #, no-wrap
@@ -395,6 +405,8 @@ msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
 "and manipulates the attributes.\n"
 msgstr ""
+"Meldungen eines Katalogs mit Übersetzungen gemäß deren Attribute filtern und\n"
+"die Attribute verändern.\n"
 
 #: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:190 src/msgcomm.c:328
 #: src/msgconv.c:256 src/msgen.c:245 src/msgexec.c:353 src/msgfmt.c:470
@@ -403,6 +415,8 @@ msgstr ""
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
+"Notwendige Argumente für Optionen in Langform sind auch für die Kurzform\n"
+"notwendig.\n"
 
 #: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:392 src/msguniq.c:296
 #, no-wrap
@@ -412,6 +426,10 @@ msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
+"Angaben zu Eingabedateien:\n"
+"  EINGABEDATEI                PO-Eingabedatei\n"
+"  -D, --directory=VERZ        VERZ der Liste der Eingabedateien hinzufügen\n"
+"Wenn die Eingabedatei »-« ist, wird die Standardeingabe gelesen.\n"
 
 #: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:258 src/msgexec.c:366
 #: src/msggrep.c:400 src/msgmerge.c:409
@@ -422,6 +440,10 @@ msgid ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 msgstr ""
+"Angaben zu Ausgabedateien:\n"
+"  -o, --output-file=DATEI      Ausgabe in die angegebene DATEI schreiben\n"
+"Ergebnisse werden nach der Standardausgabe geschrieben, wenn keine Datei oder\n"
+"»-« angegeben ist.\n"
 
 #: src/msgattrib.c:359
 #, no-wrap
@@ -515,6 +537,11 @@ msgid ""
 "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
 msgstr ""
+"Angaben zu Eingabedateien:\n"
+"  EINGABEDATEI...             Eingabedateien\n"
+"  -f, --files-from=DATEI      Namen der Eingabedateien aus DATEI holen\n"
+"  -D, --directory=VERZ        VERZ der Liste der Eingabedateien hinzufügen\n"
+"Wenn die Eingabedatei »-« ist, wird die Standardeingabe gelesen.\n"
 
 #: src/msgcat.c:327 src/msgcomm.c:342 src/msguniq.c:304
 #, no-wrap
@@ -575,7 +602,6 @@ msgstr ""
 "      --add-location            Zeilen mit »#: Datei:Zeilennr.« erhalten\n"
 "                                  (Vorgabe)\n"
 "      --strict                  .po-Datei streng nach Uniforum-Format erzeugen\n"
-"  -v, --verbose                 Unregelmäßigkeiten in Eingabe aufzeigen\n"
 "  -V, --version                 Versionsnummer anzeige und beenden\n"
 "  -w, --width=ANZAHL            Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
@@ -586,6 +612,9 @@ msgid ""
 "  -h, --help                     display this help and exit\n"
 "  -V, --version                  output version information and exit\n"
 msgstr ""
+"Informative Ausgabe:\n"
+"  -h, --help                   diese Hilfe anzeigen und beenden\n"
+"  -V, --version                Versionsnummer anzeigen und beenden\n"
 
 #: src/msgcmp.c:149 src/msgmerge.c:265
 msgid "no input files given"
@@ -748,7 +777,6 @@ msgstr ""
 "      --add-location            Zeilen mit »#: Datei:Zeilennr.« erhalten\n"
 "                                  (Vorgabe)\n"
 "      --strict                  .po-Datei streng nach Uniforum-Format erzeugen\n"
-"  -v, --verbose                 Unregelmäßigkeiten in Eingabe aufzeigen\n"
 "  -V, --version                 Versionsnummer anzeige und beenden\n"
 "  -w, --width=ANZAHL            Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
@@ -796,7 +824,6 @@ msgstr ""
 "      --add-location            Zeilen mit »#: Datei:Zeilennr.« erhalten\n"
 "                                  (Vorgabe)\n"
 "      --strict                  .po-Datei streng nach Uniforum-Format erzeugen\n"
-"  -v, --verbose                 Unregelmäßigkeiten in Eingabe aufzeigen\n"
 "  -V, --version                 Versionsnummer anzeige und beenden\n"
 "  -w, --width=ANZAHL            Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
@@ -903,7 +930,6 @@ msgstr ""
 "      --add-location            Zeilen mit »#: Datei:Zeilennr.« erhalten\n"
 "                                  (Vorgabe)\n"
 "      --strict                  .po-Datei streng nach Uniforum-Format erzeugen\n"
-"  -v, --verbose                 Unregelmäßigkeiten in Eingabe aufzeigen\n"
 "  -V, --version                 Versionsnummer anzeige und beenden\n"
 "  -w, --width=ANZAHL            Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
@@ -915,33 +941,33 @@ msgstr ""
 #: src/msgexec.c:574
 #, c-format
 msgid "communication with %s subprocess failed"
-msgstr ""
+msgstr "Kommunikation mit dem Subprozess %s fehlgeschlagen"
 
 #: src/msgexec.c:594
 #, c-format
 msgid "write to %s subprocess failed"
-msgstr ""
+msgstr "Schreiben zum Subprozess %s fehlgeschlagen"
 
 #: src/msgexec.c:625
 #, c-format
 msgid "read from %s subprocess failed"
-msgstr ""
+msgstr "Lesen vorm Subprozess %s fehlgeschlagen"
 
 #: src/msgexec.c:641
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
-msgstr ""
+msgstr "Subprozess %s wurde mit dem Exitcode %d beendet"
 
 #: src/msgfmt.c:343
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
-msgstr ""
+msgstr "%s erfordert eine Angabe in der Art »-d Verzeichnis«"
 
 #: src/msgfmt.c:352 src/msgfmt.c:358 src/msgfmt.c:364 src/msgmerge.c:287
 #: src/msgmerge.c:293 src/msgunfmt.c:209 src/msgunfmt.c:215
 #, c-format
 msgid "%s is only valid with %s"
-msgstr ""
+msgstr "%s ist nur mit %s gültig"
 
 #: src/msgfmt.c:428
 #, c-format
@@ -1043,6 +1069,11 @@ msgid ""
 "      --statistics            print statistics about translations\n"
 "  -v, --verbose               increase verbosity level\n"
 msgstr ""
+"Informative Ausgabe:\n"
+"  -h, --help                   diese Hilfe anzeigen und beenden\n"
+"  -V, --version                Versionsnummer anzeigen und beenden\n"
+"      --statistics             Statistik zu den Übersetzungen anzeigen\n"
+"  -v, --verbose                mehr Hinweise während der Verarbeitung geben\n"
 
 #: src/msgfmt.c:579
 msgid "while creating hash table"
@@ -1276,7 +1307,6 @@ msgstr ""
 "      --add-location            Zeilen mit »#: Datei:Zeilennr.« erhalten\n"
 "                                  (Vorgabe)\n"
 "      --strict                  .po-Datei streng nach Uniforum-Format erzeugen\n"
-"  -v, --verbose                 Unregelmäßigkeiten in Eingabe aufzeigen\n"
 "  -V, --version                 Versionsnummer anzeige und beenden\n"
 "  -w, --width=ANZAHL            Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
@@ -1340,6 +1370,10 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 "  -v, --verbose               increase verbosity level\n"
 msgstr ""
+"Informative Ausgabe:\n"
+"  -h, --help                   diese Hilfe anzeigen und beenden\n"
+"  -V, --version                Versionsnummer anzeigen und beenden\n"
+"  -v, --verbose                mehr Hinweise während der Verarbeitung geben\n"
 
 #: src/msginit.c:428
 msgid ""
@@ -1349,7 +1383,7 @@ msgstr ""
 
 #: src/msginit.c:436 src/msginit.c:441
 msgid "error reading current directory"
-msgstr ""
+msgstr "Fehler beim Lesen des aktuellen Verzeichnisses"
 
 #: src/msginit.c:449
 msgid ""
@@ -1360,7 +1394,7 @@ msgstr ""
 #: src/msginit.c:861 src/msginit.c:906 src/msginit.c:1035 src/msginit.c:1098
 #: src/read-java.c:80
 msgid "fdopen() failed"
-msgstr ""
+msgstr "fdopen() fehlgeschlagen"
 
 #: src/msginit.c:866 src/msginit.c:911 src/msginit.c:1040
 #, c-format
@@ -1550,6 +1584,9 @@ msgid ""
 "  -U, --update                update def.po,\n"
 "                              do nothing if def.po already up to date\n"
 msgstr ""
+"Art der Verarbeitung:\n"
+"  -U, --update                Def.po aktualisieren; nichts unternehmen,\n"
+"                                wenn Def.po bereits aktuell ist\n"
 
 #: src/msgmerge.c:417
 #, no-wrap
@@ -1577,6 +1614,11 @@ msgid ""
 "  -v, --verbose               increase verbosity level\n"
 "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr ""
+"Informative Ausgabe:\n"
+"  -h, --help                   diese Hilfe anzeigen und beenden\n"
+"  -V, --version                Versionsnummer anzeigen und beenden\n"
+"  -v, --verbose                mehr Hinweise während der Verarbeitung geben\n"
+"  -q, --quiet, --silent        Fortschrittsanzeige unterdrücken\n"
 
 #: src/msgmerge.c:696
 #, c-format
@@ -1612,6 +1654,9 @@ msgid ""
 "Operation mode:\n"
 "  -j, --java               Java mode: generate a Java ResourceBundle class\n"
 msgstr ""
+"Art der Verarbeitung:\n"
+"  -j, --java               Java-Modus: eine ResourceBundle-Klasse für Java\n"
+"                             erzeugen\n"
 
 #: src/msgunfmt.c:288
 #, no-wrap
@@ -1672,6 +1717,10 @@ msgid ""
 "  -V, --version            output version information and exit\n"
 "  -v, --verbose            increase verbosity level\n"
 msgstr ""
+"Informative Ausgabe:\n"
+"  -h, --help                   diese Hilfe anzeigen und beenden\n"
+"  -V, --version                Versionsnummer anzeigen und beenden\n"
+"  -v, --verbose                mehr Hinweise während der Verarbeitung geben\n"
 
 #: src/msguniq.c:279
 #, no-wrap
@@ -2026,7 +2075,7 @@ msgstr ""
 #: src/xgettext.c:517
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
-msgstr ""
+msgstr "Aus den Eingabedateien die zu übersetzenden Meldungen herausschreiben.\n"
 
 #: src/xgettext.c:522
 #, no-wrap
@@ -2034,8 +2083,8 @@ msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 msgstr ""
-"Notwendige Argumente für Optionen in Langform sind auch für die\n"
-"Kurzform notwendig.  Dies gilt auch für optionale Argumente.\n"
+"Notwendige Argumente für Optionen in Langform sind auch für die Kurzform\n"
+"notwendig.  Dies gilt in gleicher Weise für optionale Argumente.\n"
 
 #: src/xgettext.c:537
 #, fuzzy, no-wrap
@@ -2069,6 +2118,11 @@ msgid ""
 "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
 "                                 preceding keyword lines) in output file\n"
 msgstr ""
+"Art der Verarbeitung:\n"
+"  -j, --join-existing            Meldungen an existierende Datei anhängen\n"
+"  -x, --exclude-file=DATEI.po    Einträge aus DATEI.po nicht herausholen\n"
+"  -c, --add-comments[=KENNUNG]   Kommentare mit KENNUNG (oder die aus Zeilen\n"
+"                                   vor einem Schlüsselwort) herausschreiben\n"
 
 #: src/xgettext.c:564
 #, no-wrap
@@ -2111,6 +2165,9 @@ msgid ""
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 msgstr ""
+"»msgid« ist leer.  Dies ist für GNU gettext reserviert:\n"
+"gettext(\"\") gibt den Kopfeintrag mit Meta-Informationen\n"
+"zurück, keine leere Zeichenkette.\n"
 
 #: src/xgettext.c:1107
 #, c-format
