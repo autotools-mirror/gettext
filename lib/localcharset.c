@@ -63,6 +63,11 @@
 # include <os2.h>
 #endif
 
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, OS/2, DOS */
+# define ISSLASH(C) ((C) == '/' || (C) == '\\')
+#endif
+
 #ifndef DIRECTORY_SEPARATOR
 # define DIRECTORY_SEPARATOR '/'
 #endif

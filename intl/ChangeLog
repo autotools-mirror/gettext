@@ -1,5 +1,9 @@
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* localcharset.c (ISSLASH): Provide definition for DOS-like systems.
+
+2001-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* libgettext.h: Moved to ../lib/gettext.h.
 	* Makefile.in (HEADERS): Remove libgettext.h.
 	(DISTFILES.obsolete): Add libgettext.h.

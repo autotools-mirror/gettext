@@ -31,6 +31,15 @@
 #include <stdio.h>
 #include <assert.h>
 
+#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, OS/2, DOS */
+# define HAS_DEVICE(P) \
+    ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
+     && (P)[1] == ':')
+# define FILESYSTEM_PREFIX_LEN(P) (HAS_DEVICE (P) ? 2 : 0)
+# define ISSLASH(C) ((C) == '/' || (C) == '\\')
+#endif
+
 #ifndef FILESYSTEM_PREFIX_LEN
 # define FILESYSTEM_PREFIX_LEN(Filename) 0
 #endif
