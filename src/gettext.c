@@ -67,7 +67,7 @@ static void usage PARAMS ((int __status))
      __attribute__ ((noreturn))
 #endif
 ;
-static const char *expand_escape PARAMS((const char *__str));
+static const char *expand_escape PARAMS ((const char *__str));
 
 int
 main (argc, argv)

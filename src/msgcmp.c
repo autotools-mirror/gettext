@@ -428,9 +428,9 @@ grammar (filename)
   po_ty *pop;
   message_list_ty *mlp;
 
-  pop = po_alloc(&compare_methods);
-  po_scan(pop, filename);
+  pop = po_alloc (&compare_methods);
+  po_scan (pop, filename);
   mlp = ((compare_class_ty *)pop)->mlp;
-  po_free(pop);
+  po_free (pop);
   return mlp;
 }
