@@ -1,3 +1,11 @@
+2003-05-28  Paul Eggert  <eggert@twinsun.com>
+
+	* safe-read.c (CHAR_BIT): Don't define, since <limits.h> is guaranteed
+	to do that.
+	* safe-read.c (INT_MAX): Don't define, since <limits.h> does that.
+	* safe-read.c (TYPE_MINIMUM, TYPE_MAXIMUM): Remove; no longer needed.
+	* safe-read.c: Remove TYPE_SIGNED; no longer needed.
+
 2003-04-25  Bruno Haible  <bruno@clisp.org>
 
 	* copy-file.c: Include <stddef.h>, for size_t.
