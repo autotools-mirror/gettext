@@ -114,9 +114,6 @@ lib_asprintf_EXTRASOURCES = \
   libstdarg.h
 
 
-# How to build libasprintf.la.
-libasprintf_la_LDFLAGS = -lc -no-undefined
-
 
 # Documentation.
 docdir = $(prefix)/doc/@PACKAGE@
@@ -160,6 +157,7 @@ CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
+libasprintf_la_LDFLAGS =
 libasprintf_la_LIBADD =
 am_libasprintf_la_OBJECTS = lib-asprintf.lo autosprintf.lo
 libasprintf_la_OBJECTS = $(am_libasprintf_la_OBJECTS)
