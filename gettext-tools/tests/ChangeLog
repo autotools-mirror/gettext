@@ -1,5 +1,9 @@
 2003-02-18  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (clean-am): New rule. For Solaris cc.
+
+2003-02-18  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext-13: Add Report-Msgid-Bugs-To line to expected result.
 	* xgettext-14: Likewise.
 	* xgettext-18: Likewise.

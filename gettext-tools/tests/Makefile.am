@@ -123,3 +123,7 @@ fc3_SOURCES = format-c-3-prg.c setlocale.c
 fc3_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc4_SOURCES = format-c-4-prg.c setlocale.c
 fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
+
+# Clean up after Solaris cc.
+clean-am:
+	rm -rf SunWS_cache

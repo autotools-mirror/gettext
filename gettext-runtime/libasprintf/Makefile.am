@@ -59,6 +59,11 @@ MOSTLYCLEANFILES += alloca.h
 # <<< gnulib module alloca.
 
 
+# Clean up after Solaris cc.
+clean-am:
+	rm -rf SunWS_cache
+
+
 # Documentation.
 
 docdir = $(prefix)/doc/@PACKAGE@

@@ -1,3 +1,7 @@
+2003-02-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (clean-am): New rule. For Solaris cc.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Renamed from configure.in. Invoke AC_CONFIG_AUX_DIR.
