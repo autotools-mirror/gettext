@@ -115,6 +115,7 @@ OBJECTS = \
   \
   fnmatch.obj \
   getline.obj \
+  getndelim2.obj \
   mkdtemp.obj \
   relocatable.obj \
   setenv.obj unsetenv.obj \
@@ -245,6 +246,9 @@ fnmatch.obj : fnmatch.c
 
 getline.obj : getline.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getline.c
+
+getndelim2.obj : getndelim2.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getndelim2.c
 
 mkdtemp.obj : mkdtemp.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c mkdtemp.c

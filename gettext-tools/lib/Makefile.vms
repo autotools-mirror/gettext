@@ -73,6 +73,7 @@ OBJECTS = \
   \
   fnmatch.obj, \
   getline.obj, \
+  getndelim2.obj, \
   mkdtemp.obj, \
   relocatable.obj, \
   stpcpy.obj, \
@@ -206,6 +207,9 @@ fnmatch.obj : fnmatch.c fnmatch.h
 
 getline.obj : getline.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getline.c
+
+getndelim2.obj : getndelim2.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getndelim2.c
 
 mkdtemp.obj : mkdtemp.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) mkdtemp.c

@@ -36,6 +36,10 @@
 	* getndelim2.h: New file, from gnulib.
 	* getndelim2.c: New file, from gnulib.
 	* Makefile.am (LIBADD_SOURCE): Add getndelim2.h, getndelim2.c.
+	* Makefile.msvc (OBJECTS): Add getndelim2.obj.
+	(getndelim2.obj): New rule.
+	* Makefile.vms (OBJECTS): Add getndelim2.obj.
+	(getndelim2.obj): New rule.
 
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
