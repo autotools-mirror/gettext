@@ -1818,9 +1818,9 @@ is not multithread-safe.
 
 @cindex marking strings, preparations
 Before strings can be marked for translations, they sometimes need to
-be adjusted. Usually preparing a string for translation is done right
+be adjusted.  Usually preparing a string for translation is done right
 before marking it, during the marking phase which is described in the
-next sections. What you have to keep in mind while doing that is the
+next sections.  What you have to keep in mind while doing that is the
 following.
 
 @itemize @bullet
@@ -1841,7 +1841,7 @@ Use format strings instead of string concatenation.
 Let's look at some examples of these guidelines.
 
 @cindex style
-Translatable strings should be in good English style. If slang language
+Translatable strings should be in good English style.  If slang language
 with abbreviations and shortcuts is used, often translators will not
 understand the message and will produce very inappropriate translations.
 
@@ -1868,7 +1868,7 @@ In both cases, adding more words to the message will help both the
 translator and the English speaking user.
 
 @cindex sentences
-Translatable strings should be entire sentences. It is often not possible
+Translatable strings should be entire sentences.  It is often not possible
 to translate single verbs or adjectives in a substitutable way.
 
 @example
@@ -1877,7 +1877,7 @@ printf ("File %s is %s protected", filename, rw ? "write" : "read");
 
 @noindent
 Most translators will not look at the source and will thus only see the
-string @code{"File %s is %s protected"}, which is unintelligible. Change
+string @code{"File %s is %s protected"}, which is unintelligible.  Change
 this to
 
 @example
@@ -1887,11 +1887,11 @@ printf (rw ? "File %s is write protected" : "File %s is read protected",
 
 @noindent
 This way the translator will not only understand the message, she will
-also be able to find the appropriate grammatical construction. The French
+also be able to find the appropriate grammatical construction.  The French
 translator for example translates "write protected" like "protected
 against writing".
 
-Often sentences don't fit into a single line. If a sentence is output
+Often sentences don't fit into a single line.  If a sentence is output
 using two subsequent @code{printf} statements, like this
 
 @example
@@ -1921,28 +1921,28 @@ puts ("On the next stack overflow we will crash!!!");
 @noindent
 Should these two statements merged into a single one? I would recommend to
 merge them if the two sentences are related to each other, because then it
-makes it easier for the translator to understand and translate both. On
+makes it easier for the translator to understand and translate both.  On
 the other hand, if one of the two messages is a stereotypic one, occurring
 in other places as well, you will do a favour to the translator by not
-merging the two. (Identical messages occurring in several places are
+merging the two.  (Identical messages occurring in several places are
 combined by xgettext, so the translator has to handle them once only.)
 
 @cindex paragraphs
 Translatable strings should be limited to one paragraph; don't let a
-single message be longer than ten lines. The reason is that when the
+single message be longer than ten lines.  The reason is that when the
 translatable string changes, the translator is faced with the task of
-updating the entire translated string. Maybe only a single word will
+updating the entire translated string.  Maybe only a single word will
 have changed in the English string, but the translator doesn't see that
 (with the current translation tools), therefore she has to proofread
 the entire message.
 
 @cindex help option
 Many GNU programs have a @samp{--help} output that extends over several
-screen pages. It is a courtesy towards the translators to split such a
-message into several ones of five to ten lines each. While doing that,
+screen pages.  It is a courtesy towards the translators to split such a
+message into several ones of five to ten lines each.  While doing that,
 you can also attempt to split the documented options into groups,
 such as the input options, the output options, and the informative
-output options. This will help every user to find the option he is
+output options.  This will help every user to find the option he is
 looking for.
 
 @cindex string concatenation
@@ -1969,10 +1969,10 @@ sprintf (s, "Replace %s with %s?", object1, object2);
 @end example
 
 @cindex @code{inttypes.h}
-A similar case is compile time concatenation of strings. The ISO C 99
+A similar case is compile time concatenation of strings.  The ISO C 99
 include file @code{<inttypes.h>} contains a macro @code{PRId64} that
 can be used as a formatting directive for outputting an @samp{int64_t}
-integer through @code{printf}. It expands to a constant string, usually
+integer through @code{printf}.  It expands to a constant string, usually
 "d" or "ld" or "lld" or something like this, depending on the platform.
 Assume you have code like
 
@@ -2006,15 +2006,15 @@ printf (gettext ("The amount is %s\n"), buf1);
 @end example
 
 This means, you put the platform dependent code in one statement, and the
-internationalization code in a different statement. Note that a buffer length
+internationalization code in a different statement.  Note that a buffer length
 of 100 is safe, because all available hardware integer types are limited to
 128 bits, and to print a 128 bit integer one needs at most 54 characters,
 regardless whether in decimal, octal or hexadecimal.
 
 @cindex Java, string concatenation
-All this applies to other programming languages as well. For example, in
+All this applies to other programming languages as well.  For example, in
 Java, string contenation is very frequently used, because it is a compiler
-built-in operator. Like in C, in Java, you would change
+built-in operator.  Like in C, in Java, you would change
 
 @example
 System.out.println("Replace "+object1+" with "+object2+"?");
@@ -2608,7 +2608,7 @@ money.
 This has already been filled in by @code{xgettext}.
 
 @item PO-Revision-Date
-You don't need to fill this in. It will be filled by the Emacs PO mode
+You don't need to fill this in.  It will be filled by the Emacs PO mode
 when you save the file.
 
 @item Last-Translator
@@ -2648,7 +2648,7 @@ except Latin.
 Because the PO files must be portable to operating systems with less advanced
 internationalization facilities, the character encodings that can be used
 are limited to those supported by both GNU @code{libc} and GNU
-@code{libiconv}. These are:
+@code{libiconv}.  These are:
 @code{ASCII}, @code{ISO-8859-1}, @code{ISO-8859-2}, @code{ISO-8859-3},
 @code{ISO-8859-4}, @code{ISO-8859-5}, @code{ISO-8859-6}, @code{ISO-8859-7},
 @code{ISO-8859-8}, @code{ISO-8859-9}, @code{ISO-8859-13}, @code{ISO-8859-14},
@@ -3875,7 +3875,7 @@ For the tasks for which a combination of @samp{msgattrib}, @samp{msgcat} etc.
 is not sufficient, a set of C functions is provided in a library, to make it
 possible to process PO files in your own programs.  When you use this library,
 you don't need to write routines to parse the PO file; instead, you retreive
-a pointer in memory to each of messages contained in the PO file. Functions
+a pointer in memory to each of messages contained in the PO file.  Functions
 for writing PO files are not provided at this time.
 
 The functions are declared in the header file @samp{<gettext-po.h>}, and are
@@ -4611,7 +4611,7 @@ for the @code{iconv_open} function, or a null pointer.
 
 If the @var{codeset} parameter is the null pointer,
 @code{bind_textdomain_codeset} returns the currently selected codeset
-for the domain with the name @var{domainname}. It returns @code{NULL} if
+for the domain with the name @var{domainname}.  It returns @code{NULL} if
 no codeset has yet been selected.
 
 The @code{bind_textdomain_codeset} function can be used several times. 
@@ -5327,7 +5327,7 @@ language switching function.
 
 @cindex @code{_nl_msg_cat_cntr}
 The variable @code{_nl_msg_cat_cntr} is defined in @file{loadmsgcat.c}.
-You don't need to know what this is for. But it can be used to detect
+You don't need to know what this is for.  But it can be used to detect
 whether a @code{gettext} implementation is GNU gettext and not non-GNU
 system's native gettext implementation.
 
@@ -5739,7 +5739,7 @@ He subscribed to all my pretest lists, so I do not even have to warn
 him specifically of incoming releases.
 
 I'm sure, that is a good idea to get teams for each language working
-on translations. That will make the translations better and more
+on translations.  That will make the translations better and more
 consistent.
 
 @menu
@@ -6256,30 +6256,30 @@ directory; they are also installed by running @code{gettextize}.
 
 The @file{po/} directory also has a file named @file{Makevars}.
 It can be left unmodified if your package has a single message domain
-and, accordingly, a single @file{po/} directory. Only packages which
+and, accordingly, a single @file{po/} directory.  Only packages which
 have multiple @file{po/} directories at different locations need to
 adjust the three variables defined in @file{Makevars}.
 
 @file{po/Makevars} gets inserted into the @file{po/Makefile} when the
-latter is created. At the same time, all files called @file{Rules-*} in the
-@file{po/} directory get appended to the @file{po/Makefile}. They present
+latter is created.  At the same time, all files called @file{Rules-*} in the
+@file{po/} directory get appended to the @file{po/Makefile}.  They present
 an opportunity to add rules for special PO files to the Makefile, without
 needing to mess with @file{po/Makefile.in.in}.
 
 @cindex quotation marks
 @vindex LANGUAGE@r{, environment variable}
 GNU gettext comes with a @file{Rules-quot} file, containing rules for
-building catalogs @file{en@@quot.po} and @file{en@@boldquot.po}. The
+building catalogs @file{en@@quot.po} and @file{en@@boldquot.po}.  The
 effect of @file{en@@quot.po} is that people who set their @code{LANGUAGE}
 environment variable to @samp{en@@quot} will get messages with proper
 looking symmetric Unicode quotation marks instead of abusing the ASCII
-grave accent and the ASCII apostrophe for indicating quotations. To
+grave accent and the ASCII apostrophe for indicating quotations.  To
 enable this catalog, simply add @code{en@@quot} to the @file{po/LINGUAS}
-file. The effect of @file{en@@boldquot.po} is that people who set
+file.  The effect of @file{en@@boldquot.po} is that people who set
 @code{LANGUAGE} to @samp{en@@boldquot} will get not only proper quotation
 marks, but also the quoted text will be shown in a bold font on terminals
-and consoles. This catalog is useful only for command-line programs, not
-GUI programs. To enable it, similarly add @code{en@@boldquot} to the
+and consoles.  This catalog is useful only for command-line programs, not
+GUI programs.  To enable it, similarly add @code{en@@boldquot} to the
 @file{po/LINGUAS} file.
 
 @node configure.in, config.guess, po/Makevars, Adjusting Files
@@ -6619,7 +6619,7 @@ Note that @code{@@datadir@@} defaults to @samp{$(prefix)/share}, thus
 @item
 You should ensure that the final linking will use @code{@@LIBINTL@@} or
 @code{@@LTLIBINTL@@} as a library.  @code{@@LIBINTL@@} is for use without
-@code{libtool}, @code{@@LTLIBINTL@@} is for use with @code{libtool}. An
+@code{libtool}, @code{@@LTLIBINTL@@} is for use with @code{libtool}.  An
 easy way to achieve this is to manage that it gets into @code{LIBS}, like
 this:
 
@@ -6667,13 +6667,13 @@ dist: Makefile $(DISTFILES)
 @cindex disabling NLS
 
 Internationalization of packages, as provided by GNU @code{gettext}, is
-optional. It can be turned off in two situations:
+optional.  It can be turned off in two situations:
 
 @itemize @bullet
 @item
-When the installer has specified @samp{./configure --disable-nls}. This
+When the installer has specified @samp{./configure --disable-nls}.  This
 can be useful when small binaries are more important than features, for
-example when building utilities for boot diskettes. It can also be useful
+example when building utilities for boot diskettes.  It can also be useful
 in order to get some specific C compiler warnings about code quality with
 some older versions of GCC (older than 3.0).
 
@@ -6685,21 +6685,21 @@ without internationalization support, rather than to give a compilation
 error.
 @end itemize
 
-A C preprocessor macro can be used to detect these two cases. Usually,
+A C preprocessor macro can be used to detect these two cases.  Usually,
 when @code{libintl.h} was found and not explicitly disabled, the
 @code{ENABLE_NLS} macro will be defined to 1 in the autoconf generated
-configuration file (usually called @file{config.h}). In the two negative
+configuration file (usually called @file{config.h}).  In the two negative
 situations, however, this macro will not be defined, thus it will evaluate
 to 0 in C preprocessor expressions.
 
 @cindex include file @file{libintl.h}
 @file{gettext.h} is a convenience header file for conditional use of
-@file{<libintl.h>}, depending on the @code{ENABLE_NLS} macro. If
+@file{<libintl.h>}, depending on the @code{ENABLE_NLS} macro.  If
 @code{ENABLE_NLS} is set, it includes @file{<libintl.h>}; otherwise it
-defines no-op substitutes for the libintl.h functions. We recommend
+defines no-op substitutes for the libintl.h functions.  We recommend
 the use of @code{"gettext.h"} over direct use of @file{<libintl.h>},
 so that portability to older systems is guaranteed and installers can
-turn off internationalization if they want to. In the C code, you will
+turn off internationalization if they want to.  In the C code, you will
 then write
 
 @example
@@ -6714,11 +6714,11 @@ instead of
 @end example
 
 The location of @code{gettext.h} is usually in a directory containing
-auxiliary include files. In many GNU packages, there is a directory
+auxiliary include files.  In many GNU packages, there is a directory
 @file{lib/} containing helper functions; @file{gettext.h} fits there.
 In other packages, it can go into the @file{src} directory.
 
-Do not install the @code{gettext.h} file in public locations. Every
+Do not install the @code{gettext.h} file in public locations.  Every
 package that needs it should contain a copy of it on its own.
 
 @node autoconf macros, CVS Issues, Adjusting Files, Maintainers
@@ -6747,7 +6747,7 @@ library (shared or static libraries are both supported) or in the package's
 @file{intl/} directory.  It also invokes @code{AM_PO_SUBDIRS}, thus preparing
 the @file{po/} directories of the package for building.
 
-@code{AM_GNU_GETTEXT} accepts up to three optional arguments. The general
+@code{AM_GNU_GETTEXT} accepts up to three optional arguments.  The general
 syntax is
 
 @example
@@ -6755,8 +6755,8 @@ AM_GNU_GETTEXT([@var{intlsymbol}], [@var{needsymbol}], [@var{intldir}])
 @end example
 
 @c We don't document @var{intlsymbol} = @samp{use-libtool} here, because
-@c it is of no use for packages other than GNU gettext itself. (Such packages
-@c are not allowed to install the shared libintl. But if they use libtool,
+@c it is of no use for packages other than GNU gettext itself.  (Such packages
+@c are not allowed to install the shared libintl.  But if they use libtool,
 @c then it is in order to install shared libraries that depend on libintl.)
 @var{intlsymbol} can be @samp{external} or @samp{no-libtool}.  The default
 (if it is not specified or empty) is @samp{no-libtool}.  @var{intlsymbol}
@@ -6779,13 +6779,13 @@ implies @samp{need-ngettext}.
 @samp{$(top_builddir)/intl/} is used.
 
 The @code{AM_GNU_GETTEXT} macro determines whether GNU gettext is
-available and should be used. If so, it sets the @code{USE_NLS} variable
+available and should be used.  If so, it sets the @code{USE_NLS} variable
 to @samp{yes}; it defines @code{ENABLE_NLS} to 1 in the autoconf
 generated configuration file (usually called @file{config.h}); it sets
 the variables @code{LIBINTL} and @code{LTLIBINTL} to the linker options
 for use in a Makefile (@code{LIBINTL} for use without libtool,
 @code{LTLIBINTL} for use with libtool); it adds an @samp{-I} option to
-@code{CPPFLAGS} if necessary. In the negative case, it sets
+@code{CPPFLAGS} if necessary.  In the negative case, it sets
 @code{USE_NLS} to @samp{no}; it sets @code{LIBINTL} and @code{LTLIBINTL}
 to empty and doesn't change @code{CPPFLAGS}.
 
@@ -6795,7 +6795,7 @@ The complexities that @code{AM_GNU_GETTEXT} deals with are the following:
 @item
 @cindex @code{libintl} library
 Some operating systems have @code{gettext} in the C library, for example
-glibc. Some have it in a separate library @code{libintl}. GNU @code{libintl}
+glibc.  Some have it in a separate library @code{libintl}.  GNU @code{libintl}
 might have been installed as part of the GNU @code{gettext} package.
 
 @item
@@ -6811,14 +6811,14 @@ to the user's locale encoding.
 
 @item
 GNU @code{libintl}, if installed, is not necessarily already in the
-run time library search path. To avoid the need for setting an environment
+run time library search path.  To avoid the need for setting an environment
 variable like @code{LD_LIBRARY_PATH}, the macro adds the appropriate
 run time search path options to the @code{LIBINTL} and @code{LTLIBINTL}
-variables. This works on most systems, but not on some operating systems
+variables.  This works on most systems, but not on some operating systems
 with limited shared library support, like SCO.
 
 @item
-GNU @code{libintl} relies on POSIX/XSI @code{iconv}. The macro checks for
+GNU @code{libintl} relies on POSIX/XSI @code{iconv}.  The macro checks for
 linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
@@ -6845,8 +6845,8 @@ Languages} for a list of programming languages that support localization
 through PO files.
 
 The @code{AM_PO_SUBDIRS} macro determines whether internationalization
-should be used. If so, it sets the @code{USE_NLS} variable to @samp{yes},
-otherwise to @samp{no}. It also determines the right values for Makefile
+should be used.  If so, it sets the @code{USE_NLS} variable to @samp{yes},
+otherwise to @samp{no}.  It also determines the right values for Makefile
 variables in each @file{po/} directory.
 
 @node AM_ICONV,  , AM_PO_SUBDIRS, autoconf macros
@@ -6855,7 +6855,7 @@ variables in each @file{po/} directory.
 @amindex AM_ICONV
 The @code{AM_ICONV} macro tests for the presence of the POSIX/XSI
 @code{iconv} function family in either the C library or a separate
-@code{libiconv} library. If found, it sets the @code{am_cv_func_iconv}
+@code{libiconv} library.  If found, it sets the @code{am_cv_func_iconv}
 variable to @samp{yes}; it defines @code{HAVE_ICONV} to 1 in the autoconf
 generated configuration file (usually called @file{config.h}); it defines
 @code{ICONV_CONST} to @samp{const} or to empty, depending on whether the
@@ -6864,7 +6864,7 @@ second argument of @code{iconv()} is of type @samp{const char **} or
 @code{LTLIBICONV} to the linker options for use in a Makefile
 (@code{LIBICONV} for use without libtool, @code{LTLIBICONV} for use with
 libtool); it adds an @samp{-I} option to @code{CPPFLAGS} if
-necessary. If not found, it sets @code{LIBICONV} and @code{LTLIBICONV} to
+necessary.  If not found, it sets @code{LIBICONV} and @code{LTLIBICONV} to
 empty and doesn't change @code{CPPFLAGS}.
 
 The complexities that @code{AM_ICONV} deals with are the following:
@@ -6873,9 +6873,9 @@ The complexities that @code{AM_ICONV} deals with are the following:
 @item
 @cindex @code{libiconv} library
 Some operating systems have @code{iconv} in the C library, for example
-glibc. Some have it in a separate library @code{libiconv}, for example
-OSF/1 or FreeBSD. Regardless of the operating system, GNU @code{libiconv}
-might have been installed. In that case, it should be used instead of the
+glibc.  Some have it in a separate library @code{libiconv}, for example
+OSF/1 or FreeBSD.  Regardless of the operating system, GNU @code{libiconv}
+might have been installed.  In that case, it should be used instead of the
 operating system's native @code{iconv}.
 
 @item
@@ -6891,9 +6891,9 @@ crashes.
 
 @item
 GNU @code{libiconv}, if installed, is not necessarily already in the
-run time library search path. To avoid the need for setting an environment
+run time library search path.  To avoid the need for setting an environment
 variable like @code{LD_LIBRARY_PATH}, the macro adds the appropriate
-run time search path options to the @code{LIBICONV} variable. This works
+run time search path options to the @code{LIBICONV} variable.  This works
 on most systems, but not on some operating systems with limited shared
 library support, like SCO.
 @end itemize
@@ -7299,7 +7299,7 @@ variable in @file{po/Makevars} (@pxref{po/Makevars}) should be adjusted to
 match the @code{xgettext} options for that particular programming language.
 If the package uses more than one programming language with @code{gettext}
 support, it becomes necessary to change the POT file construction rule
-in @file{po/Makefile.in.in}. It is recommended to make one @code{xgettext}
+in @file{po/Makefile.in.in}.  It is recommended to make one @code{xgettext}
 invocation per programming language, each with the options appropriate for
 that language, and to combine the resulting files using @code{msgcat}.
 @end itemize
@@ -7308,7 +7308,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @section Individual Programming Languages
 
 @c Here is a list of programming languages, as used for Free Software projects
-@c on SourceForge/Freshmeat, as of February 2002. Those supported by gettext
+@c on SourceForge/Freshmeat, as of February 2002.  Those supported by gettext
 @c are marked with a star.
 @c   C                       3580     *
 @c   Perl                    1911
@@ -7580,7 +7580,7 @@ not used by the gettext emulation
 @code{import gettext}
 
 @item Use or emulate GNU gettext
-emulate. Bug: uses only the first found .mo file, not all of them
+emulate.  Bug: uses only the first found .mo file, not all of them
 
 @item Extractor
 @code{xgettext}
@@ -7737,7 +7737,7 @@ use
 @code{format "%2$d %1$d"}
 
 @item Portability
-Only XEmacs. Without @code{I18N3} defined at build time, no translation.
+Only XEmacs.  Without @code{I18N3} defined at build time, no translation.
 
 @item po-mode marking
 ---
@@ -7891,28 +7891,28 @@ fully portable
 
 Before marking strings as internationalizable, uses of the string
 concatenation operator need to be converted to @code{MessageFormat}
-applications. For example, @code{"file "+filename+" not found"} becomes
+applications.  For example, @code{"file "+filename+" not found"} becomes
 @code{MessageFormat.format("file @{0@} not found", new Object[] @{ filename @})}.
 Only after this is done, can the strings be marked and extracted.
 
 GNU gettext uses the native Java internationalization mechanism, namely
-@code{ResourceBundle}s. There are two formats of @code{ResourceBundle}s:
-@code{.properties} files and @code{.class} files. The @code{.properties}
+@code{ResourceBundle}s.  There are two formats of @code{ResourceBundle}s:
+@code{.properties} files and @code{.class} files.  The @code{.properties}
 format is a text file which the translators can directly edit, like PO
-files, but which doesn't support plural forms. Whereas the @code{.class}
+files, but which doesn't support plural forms.  Whereas the @code{.class}
 format is compiled from @code{.java} source code and can support plural
 forms (provided it is accessed through an appropriate API, see below).
 
 To convert a PO file to a @code{.properties} file, the @code{msgcat}
-program can be used with the option @code{--properties-output}. To convert
+program can be used with the option @code{--properties-output}.  To convert
 a @code{.properties} file back to a PO file, the @code{msgcat} program
-can be used with the option @code{--properties-input}. All the tools
+can be used with the option @code{--properties-input}.  All the tools
 that manipulate PO files can work with @code{.properties} files as well,
 if given the @code{--properties-input} and/or @code{--properties-output}
 option.
 
 To convert a PO file to a ResourceBundle class, the @code{msgfmt} program
-can be used with the option @code{--java} or @code{--java2}. To convert a
+can be used with the option @code{--java} or @code{--java2}.  To convert a
 ResourceBundle back to a PO file, the @code{msgunfmt} program can be used
 with the option @code{--java}.
 
@@ -7928,9 +7928,9 @@ The @code{java.util.ResourceBundle} API.
 In particular, its @code{getString} function returns a string translation.
 Note that a missing translation yields a @code{MissingResourceException}.
 
-This has the advantage of being the standard API. And it does not require
+This has the advantage of being the standard API.  And it does not require
 any additional libraries, only the @code{msgcat} generated @code{.properties}
-files or the @code{msgfmt} generated @code{.class} files. But it cannot do
+files or the @code{msgfmt} generated @code{.class} files.  But it cannot do
 plural handling, even if the resource was generated by @code{msgfmt} from
 a PO file with plural handling.
 
@@ -7942,7 +7942,7 @@ is in the @uref{javadoc1/tree.html,javadoc1 directory} and
 in Javadoc 2 style format
 in the @uref{javadoc2/index.html,javadoc2 directory}.
 
-Its @code{gettext} function returns a string translation. Note that when
+Its @code{gettext} function returns a string translation.  Note that when
 a translation is missing, the @var{msgid} argument is returned unchanged.
 
 This has the advantage of having the @code{ngettext} function for plural
@@ -8055,10 +8055,11 @@ emulate partially
 @end table
 
 The Pascal compiler has special support for the @code{ResourceString} data
-type. It generates a @code{.rst} file. This is then converted to a @code{.pot}
-file by use of @code{xgettext} or @code{rstconv}. At runtime, a @code{.mo}
-file corresponding to translations of this @code{.pot} file can be loaded
-using the @code{TranslateResourceStrings} function in the @code{gettext} unit.
+type.  It generates a @code{.rst} file.  This is then converted to a
+@code{.pot} file by use of @code{xgettext} or @code{rstconv}.  At runtime,
+a @code{.mo} file corresponding to translations of this @code{.pot} file
+can be loaded using the @code{TranslateResourceStrings} function in the
+@code{gettext} unit.
 
 @node wxWindows, YCP, Pascal, List of Programming Languages
 @subsection wxWindows library
@@ -8208,13 +8209,13 @@ fully portable
 @end table
 
 Before marking strings as internationalizable, substitutions of variables
-into the string need to be converted to @code{format} applications. For
+into the string need to be converted to @code{format} applications.  For
 example, @code{"file $filename not found"} becomes
 @code{[format "file %s not found" $filename]}.
 Only after this is done, can the strings be marked and extracted.
 After marking, this example becomes
 @code{[format [_ "file %s not found"] $filename]} or
-@code{[msgcat::mc "file %s not found" $filename]}. Note that the
+@code{[msgcat::mc "file %s not found" $filename]}.  Note that the
 @code{msgcat::mc} function implicitly calls @code{format} when more than one
 argument is given.
 

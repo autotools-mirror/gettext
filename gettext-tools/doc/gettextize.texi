@@ -63,7 +63,7 @@ Force replacement of files which already exist.
 @opindex --intl@r{, @code{gettextize} option}
 Install the libintl sources in a subdirectory named @file{intl/}.
 This libintl will be used to provide internationalization on systems
-that don't have GNU libintl installed. If this option is omitted,
+that don't have GNU libintl installed.  If this option is omitted,
 the call to @code{AM_GNU_GETTEXT} in @file{configure.in} should read:
 @samp{AM_GNU_GETTEXT([external])}, and internationalization will not
 be enabled on systems lacking GNU gettext.
@@ -117,7 +117,7 @@ A @file{po/} directory is created for eventually holding
 all translation files, but initially only containing the file
 @file{po/Makefile.in.in} from the GNU @code{gettext} distribution
 (beware the double @samp{.in} in the file name) and a few auxiliary
-files. If the @file{po/} directory already exists, it will be preserved
+files.  If the @file{po/} directory already exists, it will be preserved
 along with the files it contains, and only @file{Makefile.in.in} and
 the auxiliary files will be overwritten.
 
@@ -130,7 +130,7 @@ the @file{intl/} directory is emptied first.
 
 @item
 The files @file{config.rpath} and @file{mkinstalldirs} are copied into
-the directory containing configuration support files. It is needed by
+the directory containing configuration support files.  It is needed by
 the @code{AM_GNU_GETTEXT} autoconf macro.
 
 @item

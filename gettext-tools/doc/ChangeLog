@@ -1,5 +1,13 @@
 2003-05-03  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi: Use two spaces as sentence separator, as recommended
+	by the texinfo manual.
+	* gettextize.texi: Likewise.
+	* msgen.texi: Likewise.
+	* msgfilter.texi: Likewise.
+
+2003-05-03  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi: Distinguish between POSIX and POSIX+XSI.
 	Suggested by Paul Eggert.
 
