@@ -1,3 +1,10 @@
+2001-05-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_WITH_NLS): Look only for GNU msgfmt and GNU xgettext.
+	Set the variables to ":" if not found.
+	* progtest.m4 (AM_PATH_PROG_WITH_TEST): If not found, print "no", not
+	the default value.
+
 2001-05-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.38 released.
