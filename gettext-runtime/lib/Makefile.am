@@ -42,6 +42,7 @@ LIBADD_SOURCE = \
   alloca.c \
   ../../gettext-tools/lib/canonicalize.h canonicalize.c \
   memmove.c \
+  readlink.c \
   ../../gettext-tools/lib/relocatable.h relocatable.c \
   ../../gettext-tools/lib/setenv.h setenv.c unsetenv.c \
   strerror.c

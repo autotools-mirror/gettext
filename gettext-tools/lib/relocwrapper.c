@@ -21,6 +21,7 @@
     -> progname
     -> progreloc
         -> xreadlink
+           -> readlink
         -> canonicalize
     -> relocatable
     -> setenv

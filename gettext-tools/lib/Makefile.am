@@ -81,6 +81,7 @@ LIBADD_SOURCE = \
   memset.c \
   mkdtemp.h mkdtemp.c \
   pfnmatch.h pfnmatch.c \
+  readlink.c \
   relocatable.h relocatable.c \
   setenv.h setenv.c unsetenv.c \
   stpcpy.h stpcpy.c \

@@ -1,5 +1,9 @@
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gl_FUNC_READLINK.
+
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (windows/stdbool.h): Use stdbool_.h instead of
 	stdbool.h.in.
 

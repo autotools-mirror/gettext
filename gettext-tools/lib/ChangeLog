@@ -1,5 +1,10 @@
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
+	* readlink.c: New file, from gnulib.
+	* Makefile.am (LIBADD_SOURCE): Add it.
+
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (EXTRA_DIST, stdbool.h): Use stdbool_.h instead of
 	stdbool.h.in.
 

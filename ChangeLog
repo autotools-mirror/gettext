@@ -1,3 +1,7 @@
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* config/install-reloc: Also compile readlink.c.
+
 2003-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Add intmax.m4, longdouble.m4, longlong.m4,

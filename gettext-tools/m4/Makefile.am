@@ -53,6 +53,7 @@ mbswidth.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
 pathmax.m4 \
+readlink.m4 \
 relocatable.m4 \
 setenv.m4 \
 setlocale.m4 \
