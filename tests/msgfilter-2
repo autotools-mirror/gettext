@@ -5,6 +5,24 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
+# Some sed programs (Solaris etc.) omit the last line if it ended without
+# a newline. We must skip this test when we encounter such a broken sed.
+
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null; then
+  # Stardent Vistra SVR4 grep lacks -e, says ghazi@caip.rutgers.edu.
+  if (echo -n testing; echo 1,2,3) | sed s/-n/xn/ | grep xn >/dev/null; then
+    ac_n= ac_c='
+' ac_t='        '
+  else
+    ac_n=-n ac_c= ac_t=
+  fi
+else
+  ac_n= ac_c='\c' ac_t=
+fi
+
+sedoutput=`echo $ac_n "abc$ac_c" | sed -e s/x/x/`
+test -n "$sedoutput" || { echo "SKIP: msgfilter-2"; rm -fr $tmpfiles; exit 77; }
+
 tmpfiles="$tmpfiles mfi-test2.po"
 cat <<EOF > mfi-test2.po
 # HEADER.

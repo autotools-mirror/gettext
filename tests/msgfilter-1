@@ -5,6 +5,9 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
+# Some fold programs (like SunOS4) don't have an option to wrap at spaces.
+echo abc | fold -b -s -w 20 >/dev/null 2>&1 || { echo "SKIP: msgfilter-1"; rm -fr $tmpfiles; exit 77; }
+
 tmpfiles="$tmpfiles mfi-test1.po"
 cat <<EOF > mfi-test1.po
 # HEADER.

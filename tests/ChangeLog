@@ -1,5 +1,14 @@
 2001-12-18  Bruno Haible  <bruno@clisp.org>
 
+	* msgfilter-1: Avoid failure on Solaris, due to broken 'fold' program.
+	* msgfilter-2: Avoid failure on Solaris, due to inferior 'sed' program.
+	* lang-clisp: Avoid spurious stderr output on SunOS4.
+	* lang-librep: Likewise.
+	* lang-pascal: Likewise.
+	* lang-rst: Likewise.
+
+2001-12-18  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-[12], msgcat-[1-7], msgcmp-[12], msgcomm-[1-9],
 	msgcomm-1[0-9], msgcomm-2[0-2], msgfmt-[1-9], msgfmt-10,
 	msgmerge-[1-9], msgmerge-1[0-3], msgunfmt-1, xgettext-[1-4]:

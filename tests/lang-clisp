@@ -92,7 +92,7 @@ EOF
 # Test for presence of clisp version 2.28 or newer.
 # Use clisp for the comparison of the version numbers; neither 'expr' nor 'bc'
 # can deal with floating-point numbers.
-clisp --version >/dev/null 2>/dev/null \
+(clisp --version) >/dev/null 2>/dev/null \
   || { echo "SKIP: lang-clisp"; rm -fr $tmpfiles; exit 77; }
 version=`clisp --version | sed -e 's/^[^0-9]*//'`
 case $version in

@@ -25,7 +25,7 @@ end.
 EOF
 
 tmpfiles="$tmpfiles prog.o prog.rst prog"
-ppc386 prog.pp >/dev/null 2>&1 || { echo "SKIP: lang-pascal"; rm -fr $tmpfiles; exit 77; }
+(ppc386 prog.pp) >/dev/null 2>&1 || { echo "SKIP: lang-pascal"; rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}

@@ -75,7 +75,7 @@ EUR remplace FF.
 EOF
 
 # Test for presence of rep.
-rep --version >/dev/null 2>/dev/null \
+(rep --version) >/dev/null 2>/dev/null \
   || { echo "SKIP: lang-librep"; rm -fr $tmpfiles; exit 77; }
 
 LANGUAGE= LC_ALL=fr_FR rep --no-rc --batch prog.jl > prog.out || exit 1
