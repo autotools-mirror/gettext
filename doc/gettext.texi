@@ -777,7 +777,7 @@ While editing a PO file, PO mode allows for the easy browsing of
 auxiliary and compendium PO files, as well as for following references into
 the set of C program sources from which PO files have been derived.
 It has a few special features, among which are the interactive marking
-of program strings as translatable, and the validatation of PO files
+of program strings as translatable, and the validation of PO files
 with easy repositioning to PO file lines showing errors.
 
 @cindex marking translatable strings
@@ -1675,7 +1675,7 @@ numbers in the @code{"C"} locale format.  In some situation, it might
 also be a problem with the notation itself which makes it impossible to
 recognize whether the number is in the @code{"C"} locale or the local
 format.  This can happen if thousands separator characters are used.
-Some locales define this character accordfing to the national
+Some locales define this character according to the national
 conventions to @code{'.'} which is the same character used in the
 @code{"C"} locale to denote the decimal point.
 
@@ -2227,15 +2227,15 @@ only a heuristic.  In the @file{.po} file the entry is marked using the
 @kwindex no-c-format@r{, and @code{xgettext}}
 The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
-@code{xgettext} knows about special kind of comment which lets
-the programmer take over the decision.  If in the same line or
-the immediately preceding line of the @code{gettext} keyword
-the @code{xgettext} program find a comment containing the words
-@kbd{xgettext:c-format} it will mark the string in any case with
+@code{xgettext} knows about a special kind of comment which lets
+the programmer take over the decision.  If in the same line as or
+the immediately preceding line to the @code{gettext} keyword
+the @code{xgettext} program finds a comment containing the words
+@kbd{xgettext:c-format}, it will mark the string in any case with
 the @kbd{c-format} flag.  This kind of comment should be used when
 @code{xgettext} does not recognize the string as a format string but
-is really is one and it should be tested.  Please note that when the
-comment is in the same line of the @code{gettext} keyword, it must be
+it really is one and it should be tested.  Please note that when the
+comment is in the same line as the @code{gettext} keyword, it must be
 before the string to be translated.
 
 This situation happens quite often.  The @code{printf} function is often
@@ -2243,8 +2243,8 @@ called with strings which do not contain a format specifier.  Of course
 one would normally use @code{fputs} but it does happen.  In this case
 @code{xgettext} does not recognize this as a format string but what
 happens if the translation introduces a valid format specifier?  The
-@code{printf} function will try to access one of the parameter but none
-exists because the original code does not refer to any parameter.
+@code{printf} function will try to access one of the parameters but none
+exists because the original code does not pass any parameters.
 
 @code{xgettext} of course could make a wrong decision the other way
 round, i.e. a string marked as a format string actually is not a format
@@ -2635,7 +2635,7 @@ be later unfuzzied before becoming an official, genuine translated entry.
 @cindex attributes of a PO file entry
 @cindex attribute, fuzzy
 Each PO file entry may have a set of @dfn{attributes}, which are
-qualities given a name and explicitely associated with the translation,
+qualities given a name and explicitly associated with the translation,
 using a special system comment.  One of these attributes
 has the name @code{fuzzy}, and entries having this attribute are said
 to have a fuzzy translation.  They are called fuzzy entries, for short.
@@ -3230,7 +3230,7 @@ are automatically resumed one at a time, so she may decide for each of them.
 @emindex looking at the source to aid translation
 @emindex use the source, Luke
 
-PO mode is particularily powerful when used with PO files
+PO mode is particularly powerful when used with PO files
 created through GNU @code{gettext} utilities, as those utilities
 insert special comments in the PO files they generate.
 Some of these special comments relate the PO file entry to
@@ -3239,9 +3239,9 @@ exactly where the untranslated string appears in the program sources.
 When the translator gets to an untranslated entry, she is fairly
 often faced with an original string which is not as informative as
 it normally should be, being succinct, cryptic, or otherwise ambiguous.
-Before chosing how to translate the string, she needs to understand
+Before choosing how to translate the string, she needs to understand
 better what the string really means and how tight the translation has
-to be.  Most of times, when problems arise, the only way left to make
+to be.  Most of the time, when problems arise, the only way left to make
 her judgment is looking at the true program sources from where this
 string originated, searching for surrounding comments the programmer
 might have put in there, and looking around for helping clues of
@@ -3254,8 +3254,8 @@ translator should not be shy at taking a look, once in a while.
 It is most probable that she will still be able to find some of the
 hints she needs.  She will learn quickly to not feel uncomfortable
 in program code, paying more attention to programmer's comments,
-variable and function names (if he dared chosing them well), and
-overall organization, than to programmation itself.
+variable and function names (if he dared choosing them well), and
+overall organization, than to the program code itself.
 
 @emindex find source fragment for a PO file entry
 The following commands are meant to help the translator at getting
@@ -5270,7 +5270,7 @@ On the other end, people might enjoy their own language a lot, and be
 very motivated at providing to themselves the pleasure of having their
 beloved free software speaking their mother tongue.  They do themselves
 a personal favor, and do not pay that much attention to the number of
-people beneficiating of their work.
+people benefiting of their work.
 
 @item Misinterpretation
 
