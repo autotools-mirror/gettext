@@ -1,3 +1,7 @@
+2001-12-11  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Change version number to 0.11-pre3.
+
 2001-12-02  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath: New file.
