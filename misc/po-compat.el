@@ -69,10 +69,6 @@
 	     (and (buffer-name ,temp-buffer)
 		  (kill-buffer ,temp-buffer))))))))
 
-; Make the cpnnn codesets available.
-(if po-EMACS20
-  (mapcar #'codepage-setup (mapcar #'car (cp-supported-codepages))))
-
 (defconst po-content-type-charset-alist
   '(; Note: Emacs 21 doesn't support all encodings, thus the missing entries.
     ("ASCII" . undecided)
@@ -199,22 +195,18 @@ Called through file-coding-system-alist, before the file is visited for real."
 		     (charset-lower (downcase charset))
 		     (candidate
 		      (cdr (assoc charset-upper po-content-type-charset-alist)))
-		     (try (or candidate (intern-soft charset-lower))))
-		(list (cond ((and try (coding-system-p try))
-			     try)
-			    ((and try
+		     (try-symbol (or candidate (intern-soft charset-lower)))
+		     (try-string
+		      (if try-symbol (symbol-name try-symbol) charset-lower)))
+		(list (cond ((and try-symbol (coding-system-p try-symbol))
+			     try-symbol)
+			    ((and po-EMACS20
 				  (string-match "\\`cp[1-9][0-9][0-9]?\\'"
-						(symbol-name try))
-				  (assoc (substring (symbol-name try) 2)
+						try-string)
+				  (assoc (substring try-string 2)
 					 (cp-supported-codepages)))
-			     (codepage-setup (substring (symbol-name try) 2))
-			     try)
-			    ((and (string-match "\\`cp[1-9][0-9][0-9]?\\'"
-						charset-lower)
-				  (assoc (substring charset-lower 2)
-					 (cp-supported-codepages)))
-			     (codepage-setup (substring charset-lower 2))
-			     (intern charset-lower))
+			     (codepage-setup (substring try-string 2))
+			     (intern try-string))
 			    (t
 			     'no-conversion))))))))
 

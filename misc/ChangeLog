@@ -1,3 +1,8 @@
+2002-10-16  Bruno Haible  <bruno@clisp.org>
+
+	* po-compat.el: Remove call of codepage-setup of all support codepages.
+	(po-find-file-coding-system-guts): Avoid code duplication.
+
 2002-09-27  Karl Eichwalder  <ke@suse.de>
 
 	* po-compat.el (po-content-type-charset-alist): Convert the
