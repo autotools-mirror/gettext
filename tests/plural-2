@@ -34,18 +34,27 @@ EOF
 while read lang; do
   read formula
   read dataok
-  (echo "msgid \"\""
-   echo "msgstr \"\""
-   echo "\"MIME-Version: 1.0\\n\""
-   echo "\"Content-Type: text/plain; charset=ASCII\\n\""
-   echo "\"Content-Transfer-Encoding: 8-bit\\n\""
-   echo "\"Plural-Forms: nplurals=10; plural=${formula};\\n\""
-   echo
-   echo "msgid \"X\""
-   echo "msgid_plural \"Y\""
-   for i in 0 1 2 3 4 5 6 7 8 9 ; do
-     echo "msgstr[${i}] \"${i}\""
-   done) > ll.po
+  cat > ll.po <<EOF
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=10; plural=${formula};\n"
+
+msgid "X"
+msgid_plural "Y"
+msgstr[0] "0"
+msgstr[1] "1"
+msgstr[2] "2"
+msgstr[3] "3"
+msgstr[4] "4"
+msgstr[5] "5"
+msgstr[6] "6"
+msgstr[7] "7"
+msgstr[8] "8"
+msgstr[9] "9"
+EOF
   ${MSGFMT} -o ll/LC_MESSAGES/plural.mo ll.po || exit 1
   (for i in '' 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19; do
      LANGUAGE= LC_ALL=ll TEXTDOMAIN=plural TEXTDOMAINDIR=. \
