@@ -1,3 +1,9 @@
+2003-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* lang-perl-1: Set LC_CTYPE to empty in while setting LANG.
+	* lang-perl-2: Likewise.
+	* lang-tcl: Likewise.
+
 2003-10-06  Guido Flohr  <guido@imperia.net>
             Bruno Haible  <bruno@clisp.org>
 

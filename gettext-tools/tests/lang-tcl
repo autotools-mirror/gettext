@@ -82,7 +82,7 @@ EUR remplace FF.
 EOF
 
 : ${LOCALE_FR=fr_FR}
-LANGUAGE= LANG=$LOCALE_FR LC_MESSAGES= LC_ALL= tclsh program.tcl > prog.out || exit 1
+LANGUAGE= LANG=$LOCALE_FR LC_MESSAGES= LC_CTYPE= LC_ALL= tclsh program.tcl > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles
