@@ -1,5 +1,5 @@
 /* xgettext Lisp backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -590,7 +590,7 @@ is_potential_number (const struct token *tp, int *basep)
   return true;
 }
 
-/* A number is one integer, ratio, float.  Each has a particular syntax.
+/* A number is one of integer, ratio, float.  Each has a particular syntax.
    See CLHS 2.3.1 "Numbers as Tokens".
    But note a mistake: The exponent rule should read:
        exponent ::= exponent-marker [sign] {decimal-digit}+
