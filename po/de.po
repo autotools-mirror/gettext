@@ -74,9 +74,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.2\n"
+"Project-Id-Version: GNU gettext 0.11.3\n"
 "POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-05-14 10:02+0200\n"
+"PO-Revision-Date: 2002-07-26 00:08+0200\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -362,7 +362,7 @@ msgid ""
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 "Aufruf: %s [OPTION] [[TEXTBEREICH] SCHLÜSSEL]\n"
-"oder:   %s {OPTION] -s [SCHLÜSSEL]...\n"
+"oder:   %s [OPTION] -s [SCHLÜSSEL]...\n"
 
 # CHECKIT
 #: src/gettext.c:251
