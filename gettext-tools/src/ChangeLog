@@ -1,5 +1,26 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	Support for building DLLs on Windows.
+	* format.h (formatstring_c, formatstring_python, formatstring_lisp,
+	formatstring_elisp, formatstring_librep, formatstring_smalltalk,
+	formatstring_java, formatstring_awk, formatstring_pascal,
+	formatstring_ycp, formatstring_tcl, formatstring_perl,
+	formatstring_perl_brace, formatstring_php, formatstring_gcc_internal,
+	formatstring_parsers): Add DLL_VARIABLE attribute.
+	* message.h (format_language, format_language_pretty): Likewise.
+	* msgl-cat.h (more_than, less_than, use_first, msgcomm_mode,
+	omit_header): Likewise.
+	* plural-table.h (plural_table, plural_table_size): Likewise.
+	* po-charset.h (po_charset_ascii, po_charset_utf8, po_lex_charset,
+	po_lex_iconv, po_lex_weird_cjk): Likewise.
+	* po-lex.h (gram_pos, gram_pos_column, gram_max_allowed_errors,
+	pass_obsolete_entries): Likewise.
+	* read-po.h (line_comment, allow_duplicates, input_syntax): Likewise.
+	* write-mo.h (alignment, no_hash_table): Likewise.
+	* Makefile.am (po-gram-gen2.h): Likewise.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.msvc (gettext-po.obj, gettextpo.lib, gettextpo.res): New
 	rules.
 	(all): Depend on gettextpo.lib.
@@ -87,6 +108,10 @@
 	* x-c.h (SCANNERS_C): Add an entry for GCC-source.
 	* xgettext.c (usage): Mention GCC-source language.
 	* Makefile.am (FORMAT_SOURCE): Add format-gcc-internal.c.
+	* Makefile.msvc (OBJECTS): Add format-gcc-internal.obj.
+	(format-gcc-internal.obj): New rule.
+	* Makefile.vms (OBJECTS): Add format-gcc-internal.obj.
+	(format-gcc-internal.obj): New rule.
 
 2003-08-04  Bruno Haible  <bruno@clisp.org>
 

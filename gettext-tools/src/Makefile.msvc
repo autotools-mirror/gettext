@@ -141,7 +141,8 @@ OBJECTS = \
   format-tcl.obj \
   format-perl.obj \
   format-perl-brace.obj \
-  format-php.obj
+  format-php.obj \
+  format-gcc-internal.obj
 
 msgcmp_OBJECTS = msgcmp.obj
 msgfmt_OBJECTS = msgfmt.obj write-mo.obj write-java.obj write-tcl.obj plural-eval.obj
@@ -276,6 +277,9 @@ format-perl-brace.obj : format-perl-brace.c
 
 format-php.obj : format-php.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-php.c
+
+format-gcc-internal.obj : format-gcc-internal.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-gcc-internal.c
 
 !if !$(DLL)
 
