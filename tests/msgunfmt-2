@@ -40,6 +40,10 @@ tmpfiles="$tmpfiles prog.out"
 GETTEXTJAR=../src/gettext.jar \
 ${MSGUNFMT} --java -d . -r prog -l fr -o prog.out || exit 1
 
+tmpfiles="$tmpfiles prog.sort"
+: ${MSGCAT=msgcat}
+${MSGCAT} -s prog.out -o prog.sort || exit 1
+
 tmpfiles="$tmpfiles prog.ok"
 cat <<\EOF > prog.ok
 msgid ""
@@ -47,19 +51,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "'Your command, please?', asked the waiter."
+msgstr "«Votre commande, s'il vous plait», dit le garçon."
+
 msgid "a piece of cake"
 msgid_plural "{0,number} pieces of cake"
 msgstr[0] "un morceau de gateau"
 msgstr[1] "{0,number} morceaux de gateau"
 
-msgid "'Your command, please?', asked the waiter."
-msgstr "«Votre commande, s'il vous plait», dit le garçon."
-
 msgid "{0} is replaced by {1}."
 msgstr "{1} remplace {0}."
 EOF
 : ${DIFF=diff}
-${DIFF} prog.ok prog.out || exit 1
+${DIFF} prog.ok prog.sort || exit 1
 
 rm -fr $tmpfiles
 
