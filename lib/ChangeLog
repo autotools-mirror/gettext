@@ -1,3 +1,7 @@
+2002-02-21  Bruno Haible  <bruno@clisp.org>
+
+	* strncasecmp.c (__strncasecmp): Trivial simplification.
+
 2002-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* libstdarg.h: New file.

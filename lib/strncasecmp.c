@@ -70,7 +70,7 @@ __strncasecmp (s1, s2, n LOCALE_PARAM)
       c1 = TOLOWER (*p1++);
       c2 = TOLOWER (*p2++);
       if (c1 == '\0' || c1 != c2)
-	return c1 - c2;
+	break;
     } while (--n > 0);
 
   return c1 - c2;
