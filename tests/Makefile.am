@@ -29,7 +29,7 @@ TESTS = gettext-1 gettext-2 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 \
 	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 \
-	msgconv-1 msgconv-2 \
+	msgconv-1 msgconv-2 msgconv-3 \
 	msgen-1 \
 	msgexec-1 msgexec-2 \
 	msgfilter-1 msgfilter-2 \
