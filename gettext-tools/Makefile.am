@@ -155,7 +155,6 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	    -e 's/#undef HAVE_GETHOSTBYNAME$$/#define HAVE_GETHOSTBYNAME 1/' \
 	    -e 's/#undef HAVE_GETHOSTNAME$$/#define HAVE_GETHOSTNAME 1/' \
-	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	    -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
 	    -e 's/#undef HAVE_ISASCII$$/#define HAVE_ISASCII 1/' \
 	    -e 's/#undef HAVE_ISWCNTRL$$/#define HAVE_ISWCNTRL 1/' \
