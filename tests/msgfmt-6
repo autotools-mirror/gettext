@@ -23,7 +23,7 @@ tmpfiles="$tmpfiles mf-6.mo core *.core"
 : ${MSGFMT=msgfmt}
 ${MSGFMT} --check -o mf-6.mo mf-6.po 2>/dev/null
 # Exit code must be 1.
-# If the division by zero didn't get unnoticed, it would be 0.
+# If the division by zero didn't get noticed, it would be 0.
 # If it produced a core dump, it would be 136 (= 128 + SIGFPE).
 test $? = 1
 result=$?
