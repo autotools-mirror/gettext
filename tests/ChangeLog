@@ -1,3 +1,7 @@
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm-17: Fix expected output.
+
 2001-07-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* msguniq-1.in: New file.
