@@ -243,7 +243,7 @@ Usage: %s [OPTION] INPUTFILE\n\
 Creates an English translation catalog.  The input file is the last\n\
 created English PO file, or a PO Template file (generally created by\n\
 xgettext).  Untranslated entries are assigned a translation that is\n\
-identical to the msgid, and are marked fuzzy.\n\
+identical to the msgid.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */

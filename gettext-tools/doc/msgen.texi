@@ -8,7 +8,7 @@ msgen [@var{option}] @var{inputfile}
 The @code{msgen} program creates an English translation catalog.  The
 input file is the last created English PO file, or a PO Template file
 (generally created by xgettext).  Untranslated entries are assigned a
-translation that is identical to the msgid, and are marked fuzzy.
+translation that is identical to the msgid.
 
 Note: @samp{msginit --no-translator --locale=en} performs a very similar
 task. The main difference is that @code{msginit} cares specially about
