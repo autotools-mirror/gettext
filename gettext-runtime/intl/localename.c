@@ -1121,8 +1121,7 @@ _nl_locale_name (int category, const char *categoryname)
     case LANG_UZBEK:
       switch (sub)
 	{
-	/* FIXME: Adjust this when Uzbek locales appear on Unix.  */
-	case SUBLANG_UZBEK_LATIN: return "uz_UZ@latin";
+	case SUBLANG_UZBEK_LATIN: return "uz_UZ";
 	case SUBLANG_UZBEK_CYRILLIC: return "uz_UZ@cyrillic";
 	}
       return "uz";
