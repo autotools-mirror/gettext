@@ -8,6 +8,7 @@
 
 	Switch to autoconf-2.57 and automake-1.7.2.
 	* fixautomake.m4: New file, extracted from configure.in.
+	* Makefile.am (EXTRA_DIST): Add it.
 
 2002-11-19  Bruno Haible  <bruno@clisp.org>
 
