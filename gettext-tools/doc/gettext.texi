@@ -7629,6 +7629,11 @@ autoconf (gettext.m4) and #if ENABLE_NLS
 yes
 @end table
 
+The following examples are available in the @file{examples} directory:
+@code{hello-c}, @code{hello-c-gnome}, @code{hello-c++}, @code{hello-c++-qt}, 
+@code{hello-c++-kde}, @code{hello-c++-gnome}, @code{hello-objc}, 
+@code{hello-objc-gnustep}, @code{hello-objc-gnome}.
+
 @node sh, bash, C, List of Programming Languages
 @subsection sh - Shell Script
 @cindex shell scripts
@@ -7681,6 +7686,8 @@ fully portable
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-sh}.
 
 @menu
 * Preparing Shell Scripts::     Preparing Shell Scripts for Internationalization
@@ -7926,6 +7933,8 @@ fully portable
 ---
 @end table
 
+An example is available in the @file{examples} directory: @code{hello-python}.
+
 @node Common Lisp, clisp C, Python, List of Programming Languages
 @subsection GNU clisp - Common Lisp
 @cindex Common Lisp
@@ -7975,6 +7984,8 @@ On platforms without gettext, no translation.
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-clisp}.
 
 @node clisp C, Emacs Lisp, Common Lisp, List of Programming Languages
 @subsection GNU clisp C sources
@@ -8122,6 +8133,8 @@ On platforms without gettext, no translation.
 ---
 @end table
 
+An example is available in the @file{examples} directory: @code{hello-librep}.
+
 @node Smalltalk, Java, librep, List of Programming Languages
 @subsection GNU Smalltalk
 @cindex Smalltalk
@@ -8171,6 +8184,9 @@ fully portable
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory:
+@code{hello-smalltalk}.
 
 @node Java, gawk, Smalltalk, List of Programming Languages
 @subsection Java
@@ -8284,6 +8300,9 @@ To use this API, one needs the @code{libintl.jar} file which is part of
 the GNU gettext package and distributed under the LGPL.
 @end enumerate
 
+Three examples, using the second API, are available in the @file{examples}
+directory: @code{hello-java}, @code{hello-java-awt}, @code{hello-java-swing}.
+
 @node gawk, Pascal, Java, List of Programming Languages
 @subsection GNU awk
 @cindex awk
@@ -8334,6 +8353,8 @@ yourself.
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-gawk}.
 
 @node Pascal, wxWindows, gawk, List of Programming Languages
 @subsection Pascal - Free Pascal Compiler
@@ -8392,6 +8413,8 @@ a @code{.mo} file corresponding to translations of this @code{.pot} file
 can be loaded using the @code{TranslateResourceStrings} function in the
 @code{gettext} unit.
 
+An example is available in the @file{examples} directory: @code{hello-pascal}.
+
 @node wxWindows, YCP, Pascal, List of Programming Languages
 @subsection wxWindows library
 @cindex @code{wxWindows} library
@@ -8447,7 +8470,7 @@ yes
 
 @table @asis
 @item RPMs
-libycp, libycp-devel, yast2-core-translator
+libycp, libycp-devel, yast2-core, yast2-core-devel
 
 @item File extension
 @code{ycp}
@@ -8474,7 +8497,7 @@ libycp, libycp-devel, yast2-core-translator
 ---
 
 @item Use or emulate GNU gettext
-use maps instead
+use
 
 @item Extractor
 @code{xgettext}
@@ -8488,6 +8511,8 @@ fully portable
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-ycp}.
 
 @node Tcl, Perl, YCP, List of Programming Languages
 @subsection Tcl - Tk's scripting language
@@ -8538,6 +8563,9 @@ fully portable
 @item po-mode marking
 ---
 @end table
+
+Two examples are available in the @file{examples} directory:
+@code{hello-tcl}, @code{hello-tcl-tk}.
 
 Before marking strings as internationalizable, substitutions of variables
 into the string need to be converted to @code{format} applications.  For
@@ -8640,6 +8668,8 @@ Included in @code{libintl-perl}, available on CPAN
 (http://www.cpan.org/).
 
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-perl}.
 
 @cindex marking Perl sources
 
@@ -9373,6 +9403,8 @@ On platforms without gettext, the functions are not available.
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-php}.
 
 @node Pike, GCC-source, PHP, List of Programming Languages
 @subsection Pike

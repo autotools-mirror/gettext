@@ -1,3 +1,8 @@
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (C, sh, Python, Common Lisp, librep, Smalltalk, Java,
+	gawk, Pascal, YCP, Tcl, Perl, PHP): Mention the examples.
+
 2003-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (docdir): Use the value from the configure script.
