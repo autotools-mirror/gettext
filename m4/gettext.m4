@@ -265,19 +265,17 @@ __argz_count __argz_stringify __argz_next])
    dnl Determine which catalog format we have (if any is needed)
    dnl For now we know about two different formats:
    dnl   Linux libc-5 and the normal X/Open format
-   if test -f $srcdir/po2tbl.sed.in; then
-      test -d intl || mkdir intl
-      if test "$CATOBJEXT" = ".cat"; then
-	AC_CHECK_HEADER(linux/version.h, msgformat=linux, msgformat=xopen)
+   test -d intl || mkdir intl
+   if test "$CATOBJEXT" = ".cat"; then
+     AC_CHECK_HEADER(linux/version.h, msgformat=linux, msgformat=xopen)
 
-	dnl Transform the SED scripts while copying because some dumb SEDs
-	dnl cannot handle comments.
-	sed -e '/^#/d' $srcdir/$msgformat-msg.sed > po2msg.sed
-      fi
-      dnl po2tbl.sed is always needed.
-      sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
-        $srcdir/po2tbl.sed.in > po2tbl.sed
+     dnl Transform the SED scripts while copying because some dumb SEDs
+     dnl cannot handle comments.
+     sed -e '/^#/d' $srcdir/intl/$msgformat-msg.sed > intl/po2msg.sed
    fi
+   dnl po2tbl.sed is always needed.
+   sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
+     $srcdir/intl/po2tbl.sed.in > intl/po2tbl.sed
 
    dnl In the intl/Makefile.in we have a special dependency which makes
    dnl only sense for gettext.  We comment this out for non-gettext
