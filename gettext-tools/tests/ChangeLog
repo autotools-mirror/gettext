@@ -1,3 +1,8 @@
+2003-12-05  Bruno Haible  <bruno@clisp.org>
+
+	* lang-c: Use ANSI C function declaration syntax.
+	* lang-objc: Likewise.
+
 2003-12-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (TESTS_ENVIRONMENT): Add the gettext-runtime/src source

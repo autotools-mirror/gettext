@@ -31,9 +31,7 @@ cat <<\EOF > prog.m
 #include "xsetenv.h"
 #define _(string) gettext (string)
 
-int main (argc, argv)
-  int argc;
-  char *argv[];
+int main (int argc, char *argv[])
 {
   int n = atoi (argv[2]);
 
