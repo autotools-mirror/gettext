@@ -56,7 +56,6 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_DIRENT_H$$/#define HAVE_DIRENT_H 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
-	     -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	     -e 's/#undef HAVE_FCNTL_H$$/#define HAVE_FCNTL_H 1/' \
 	     -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
@@ -131,6 +130,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
 	     -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	     -e 's/#undef eaccess$$/#define eaccess access/' \
 	     -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	     -e 's/#undef getline$$/#define getline rpl_getline/' \
 	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \

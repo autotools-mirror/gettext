@@ -32,7 +32,7 @@ DEFS = "VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]""","GETTEXTJAR=""$(j
 
 INCLUDES = /include=([],[-],[-.libuniname],[-.lib],[-.intl],[-.-.gettext-runtime.intl])
 
-LDADD = sys$share:vms_jackets/share
+LDADD = libiconv.opt/opt,[-.-.vms]link_options.opt
 LDADD_EXPAT = sys$library:expat/lib
 
 AR = library
@@ -329,50 +329,54 @@ localealias.obj : [-.-.gettext-runtime.intl]localealias.c
 msguniq.obj : msguniq.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msguniq.c
 
-msgcmp.exe : $(msgcmp_OBJECTS)
-	link /executable=msgcmp.exe $(msgcmp_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+libiconv.opt :
+	if f$search("sys$library:libiconv.olb") .nes. "" then $(LN) [-.-.vms]with-libiconv.opt libiconv.opt
+	if f$search("sys$library:libiconv.olb") .eqs. "" then $(LN) [-.-.vms]without-libiconv.opt libiconv.opt
 
-msgfmt.exe : $(msgfmt_OBJECTS)
-	link /executable=msgfmt.exe $(msgfmt_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgcmp.exe : $(msgcmp_OBJECTS),libiconv.opt
+	link /executable=msgcmp.exe $(msgcmp_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgmerge.exe : $(msgmerge_OBJECTS)
-	link /executable=msgmerge.exe $(msgmerge_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgfmt.exe : $(msgfmt_OBJECTS),libiconv.opt
+	link /executable=msgfmt.exe $(msgfmt_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgunfmt.exe : $(msgunfmt_OBJECTS)
-	link /executable=msgunfmt.exe $(msgunfmt_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgmerge.exe : $(msgmerge_OBJECTS),libiconv.opt
+	link /executable=msgmerge.exe $(msgmerge_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-xgettext.exe : $(xgettext_OBJECTS)
-	link /executable=xgettext.exe $(xgettext_OBJECTS),[-.libuniname]uniname.olb/lib,gettextsrc.olb/lib,$(LDADD_EXPAT),$(LDADD)
+msgunfmt.exe : $(msgunfmt_OBJECTS),libiconv.opt
+	link /executable=msgunfmt.exe $(msgunfmt_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgattrib.exe : $(msgattrib_OBJECTS)
-	link /executable=msgattrib.exe $(msgattrib_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+xgettext.exe : $(xgettext_OBJECTS),libiconv.opt
+	link /executable=xgettext.exe $(xgettext_OBJECTS),[-.libuniname]uniname.olb/lib,gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD_EXPAT),$(LDADD)
 
-msgcat.exe : $(msgcat_OBJECTS)
-	link /executable=msgcat.exe $(msgcat_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgattrib.exe : $(msgattrib_OBJECTS),libiconv.opt
+	link /executable=msgattrib.exe $(msgattrib_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgcomm.exe : $(msgcomm_OBJECTS)
-	link /executable=msgcomm.exe $(msgcomm_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgcat.exe : $(msgcat_OBJECTS),libiconv.opt
+	link /executable=msgcat.exe $(msgcat_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgconv.exe : $(msgconv_OBJECTS)
-	link /executable=msgconv.exe $(msgconv_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgcomm.exe : $(msgcomm_OBJECTS),libiconv.opt
+	link /executable=msgcomm.exe $(msgcomm_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgen.exe : $(msgen_OBJECTS)
-	link /executable=msgen.exe $(msgen_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgconv.exe : $(msgconv_OBJECTS),libiconv.opt
+	link /executable=msgconv.exe $(msgconv_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgexec.exe : $(msgexec_OBJECTS)
-	link /executable=msgexec.exe $(msgexec_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgen.exe : $(msgen_OBJECTS),libiconv.opt
+	link /executable=msgen.exe $(msgen_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msgfilter.exe : $(msgfilter_OBJECTS)
-	link /executable=msgfilter.exe $(msgfilter_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgexec.exe : $(msgexec_OBJECTS),libiconv.opt
+	link /executable=msgexec.exe $(msgexec_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msggrep.exe : $(msggrep_OBJECTS)
-	link /executable=msggrep.exe $(msggrep_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msgfilter.exe : $(msgfilter_OBJECTS),libiconv.opt
+	link /executable=msgfilter.exe $(msgfilter_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msginit.exe : $(msginit_OBJECTS)
-	link /executable=msginit.exe $(msginit_OBJECTS),[-.intl]localename.obj,gettextsrc.olb/lib,$(LDADD)
+msggrep.exe : $(msggrep_OBJECTS),libiconv.opt
+	link /executable=msggrep.exe $(msggrep_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-msguniq.exe : $(msguniq_OBJECTS)
-	link /executable=msguniq.exe $(msguniq_OBJECTS),gettextsrc.olb/lib,$(LDADD)
+msginit.exe : $(msginit_OBJECTS),libiconv.opt
+	link /executable=msginit.exe $(msginit_OBJECTS),[-.intl]localename.obj,gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
+
+msguniq.exe : $(msguniq_OBJECTS),libiconv.opt
+	link /executable=msguniq.exe $(msguniq_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
 install : all
 	create /directory $(prefix)]

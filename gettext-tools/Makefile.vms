@@ -15,7 +15,7 @@ all : config.h
 	set default [-]
 	create /directory [.intl]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] all
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") all
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
@@ -50,7 +50,7 @@ install :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] install
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") install
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
@@ -82,7 +82,7 @@ installdirs :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] installdirs
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") installdirs
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
@@ -114,7 +114,7 @@ uninstall :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] uninstall
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") uninstall
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
@@ -146,7 +146,7 @@ check : all
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] check
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") check
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
@@ -178,7 +178,7 @@ mostlyclean :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] mostlyclean
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") mostlyclean
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
@@ -211,7 +211,7 @@ clean :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] clean
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") clean
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
@@ -244,7 +244,7 @@ distclean :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] distclean
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") distclean
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
@@ -277,7 +277,7 @@ maintainer-clean :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
 	set default [.intl]
-	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms srcdir=[-.-.gettext-runtime.intl] maintainer-clean
+	$(MMS) $(MMSQUALIFIERS) /description=[-.-.gettext-runtime.intl]Makefile.vms /macro=("srcdir=[-.-.gettext-runtime.intl]") maintainer-clean
 	set default [-]
 	set default [.lib]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean

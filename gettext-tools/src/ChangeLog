@@ -1,3 +1,17 @@
+2003-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms (LDADD): Take options from .opt files.
+	(libiconv.opt): New rule.
+	(msgcmp.exe, msgfmt.exe, msgmerge.exe, msgunfmt.exe, xgettext.exe,
+	msgattrib.exe, msgcat.exe, msgcomm.exe, msgconv.exe, msgen.exe,
+	msgexec.exe, msgfilter.exe, msggrep.exe, msginit.exe, msguniq.exe):
+	Depend on it.
+	* plural-eval.c: Include "eval-plural.h" without a path, rely on the
+	Makefile's -I options instead.
+	* read-properties.c (conv_from_java): Change type of q to
+	'unsigned char *'.
+	Reported by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
 2003-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Correct entry for Slovak.

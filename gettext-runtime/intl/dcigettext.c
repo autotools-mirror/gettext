@@ -148,7 +148,11 @@ extern int errno;
 char *getwd ();
 #  define getcwd(buf, max) getwd (buf)
 # else
+#  if VMS
+#   define getcwd(buf, max) (getcwd) (buf, max, 0)
+#  else
 char *getcwd ();
+#  endif
 # endif
 # ifndef HAVE_STPCPY
 static char *stpcpy PARAMS ((char *dest, const char *src));

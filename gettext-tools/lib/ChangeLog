@@ -1,3 +1,12 @@
+2003-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms (alloca.h): New rule.
+	(all, javacomp.obj, javaexec.obj): Depend on it.
+	(getopt.obj): Compile with ELIDE_CODE.
+	* canonicalize.c (__getcwd) [VMS]: Pass 3 arguments to getcwd.
+	* xgetcwd.c (getcwd) [VMS]: Pass 3 arguments.
+	Reported by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.

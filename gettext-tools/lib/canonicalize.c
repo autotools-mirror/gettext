@@ -67,7 +67,12 @@
 # include "pathmax.h"
 # define __alloca alloca
 # if HAVE_GETCWD
-#  define __getcwd getcwd
+#  ifdef VMS
+    /* We want the directory in Unix syntax, not in VMS syntax.  */
+#   define __getcwd(buf, max) getcwd (buf, max, 0)
+#  else
+#   define __getcwd getcwd
+#  endif
 # else
 #  define __getcwd(buf, max) getwd (buf)
 # endif

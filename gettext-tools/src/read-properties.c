@@ -266,7 +266,7 @@ conv_from_java (char *string)
   /* This conversion can only shrink the string, never increase its size.
      So there is no need to xmalloc the result freshly.  */
   const char *p = string;
-  char *q = string;
+  unsigned char *q = (unsigned char *) string;
 
   while (*p != '\0')
     {
@@ -336,7 +336,7 @@ conv_from_java (char *string)
 	    }
 	}
       just_one_byte:
-	*q++ = *p++;
+	*q++ = (unsigned char) *p++;
     }
   *q = '\0';
   return string;

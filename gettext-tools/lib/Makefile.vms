@@ -78,8 +78,11 @@ OBJECTS = \
   stpcpy.obj, \
   vasprintf.obj
 
-all : fnmatch.h gettextlib.olb
+all : alloca.h,fnmatch.h,gettextlib.olb
 	write sys$output "Nothing else to be done for 'all'."
+
+alloca.h : alloca_.h
+	$(LN) alloca_.h alloca.h
 
 fnmatch.h : pfnmatch.h
 	$(LN) pfnmatch.h fnmatch.h
@@ -124,7 +127,7 @@ gcd.obj : gcd.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) gcd.c
 
 getopt.obj : getopt.c
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getopt.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"ELIDE_CODE=1") getopt.c
 
 getopt1.obj : getopt1.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getopt1.c
@@ -132,10 +135,10 @@ getopt1.obj : getopt1.c
 hash.obj : hash.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) hash.c
 
-javacomp.obj : javacomp.c
+javacomp.obj : javacomp.c,alloca.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) javacomp.c
 
-javaexec.obj : javaexec.c
+javaexec.obj : javaexec.c,alloca.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) javaexec.c
 
 linebreak.obj : linebreak.c

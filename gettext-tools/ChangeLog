@@ -1,3 +1,12 @@
+2003-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config.h_vms): Don't define HAVE_ENVIRON_DECL. Define
+	eaccess.
+	* Makefile.vms (all, install, installdirs, uninstall, check,
+	mostlyclean, clean, distclean, maintainer-clean): Fix passing of srcdir
+	to sub-Makefile.
+	Reported by Jouk Jansen <joukj@hrem.stm.tudelft.nl>.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.

@@ -1,5 +1,5 @@
 /* Expression evaluation for plural form selection.
-   Copyright (C) 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 2000-2003 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software; you can redistribute it and/or modify
@@ -30,4 +30,4 @@
 
 /* Include the expression evaluation code from libintl, this time with
    'extern' linkage.  */
-#include "../intl/eval-plural.h"
+#include "eval-plural.h"

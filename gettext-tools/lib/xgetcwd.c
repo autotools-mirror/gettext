@@ -36,7 +36,12 @@ extern int errno;
 #include "pathmax.h"
 
 #if HAVE_GETCWD
+# ifdef VMS
+   /* We want the directory in Unix syntax, not in VMS syntax.  */
+#  define getcwd(Buf, Max) (getcwd) (Buf, Max, 0)
+# else
 char *getcwd ();
+# endif
 #else
 char *getwd ();
 # define getcwd(Buf, Max) getwd (Buf)

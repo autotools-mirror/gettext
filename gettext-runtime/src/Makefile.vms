@@ -26,7 +26,7 @@ DEFS = "VMS=1","HAVE_CONFIG_H=1","LOCALEDIR=""$(localedir)]"""
 
 INCLUDES = /include=([],[-],[-.intl],[-.lib],[-.-.gettext-tools.lib])
 
-LDADD = sys$share:vms_jackets/share
+LDADD = libiconv.opt/opt,[-.-.vms]link_options.opt
 
 LN = copy
 RM = delete
@@ -52,10 +52,14 @@ gettext.obj : gettext.c
 ngettext.obj : ngettext.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") ngettext.c
 
-gettext.exe : $(gettext_OBJECTS)
+libiconv.opt :
+	if f$search("sys$library:libiconv.olb") .nes. "" then $(LN) [-.-.vms]with-libiconv.opt libiconv.opt
+	if f$search("sys$library:libiconv.olb") .eqs. "" then $(LN) [-.-.vms]without-libiconv.opt libiconv.opt
+
+gettext.exe : $(gettext_OBJECTS),libiconv.opt
 	link /executable=gettext.exe $(gettext_OBJECTS),[-.lib]grt.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
-ngettext.exe : $(ngettext_OBJECTS)
+ngettext.exe : $(ngettext_OBJECTS),libiconv.opt
 	link /executable=ngettext.exe $(ngettext_OBJECTS),[-.lib]grt.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
 install : all
