@@ -30,3 +30,5 @@ Known failures:
   in the second search it not only ignores the success in the first search
   but also the rpath given in the executable).
 
+* OSF/1 4.0: rpath-2bbd fails.
+
