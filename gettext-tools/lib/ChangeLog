@@ -1,5 +1,9 @@
 2003-10-21  Bruno Haible  <bruno@clisp.org>
 
+	* wait-process.c (kill): Define appropriately for native Woe32 API.
+
+2003-10-21  Bruno Haible  <bruno@clisp.org>
+
 	* mkdtemp.c (mkdir): Redefine on mingw.
 
 2003-10-17  Bruno Haible  <bruno@clisp.org>
