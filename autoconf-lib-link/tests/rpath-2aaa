@@ -9,4 +9,4 @@ build2_configure_flags=--disable-shared
 build3_package=rpathly
 remove_la=no
 
-. $top_srcdir/tests/rpath-2_a
+. $srcdir/rpath-2_a

@@ -1,0 +1,24 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Extracted from gettext package.
+	* configure.ac: New file.
+	* Makefile.am: New file.
+	* AUTHORS, COPYING, INSTALL, NEWS, README: New files.
+	* m4/Makefile.am: New file.
+	* tests/Makefile.am: New file.
+	* tests/rpath-1: Move temporary directories down under tstdir.
+	Rename global_top_srcdir to global_top_auxdir.
+	* tests/rpath-2_a: Likewise.
+	* tests/rpath-2_b: Likewise.
+	* tests/rpath-3_a: Likewise.
+	* tests/rpath-3_b: Likewise.
+	* tests/rpath-2???: Use $srcdir instead of $top_srcdir/tests.
+	* tests/rpath-3???: Likewise.
+	* tests/rpathcfg.sh: Move temporary directories down under tstdir.
+	Use $srcdir instead of $top_srcdir/tests.
+	* tests/rpath*/Makefile.am: Use global_top_auxdir instead of
+	global_top_srcdir.
+	* tests/rpath*/configure.ac: Use AC_CONFIG_AUX_DIR instead of
+	AC_CONFIG_AUX_DIRS; the latter is undocumented and doesn't work
+	with automake-1.7.2.
+

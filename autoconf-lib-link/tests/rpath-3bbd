@@ -14,4 +14,4 @@ build3_configure_flags=--disable-shared
 build4_package=rpathlzyx
 remove_la=yes
 
-. $top_srcdir/tests/rpath-3_b
+. $srcdir/rpath-3_b

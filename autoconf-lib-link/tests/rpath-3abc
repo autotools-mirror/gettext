@@ -12,4 +12,4 @@ build3_configure_flags=--disable-shared
 build4_package=rpathlz
 remove_la=no
 
-. $top_srcdir/tests/rpath-3_b
+. $srcdir/rpath-3_b

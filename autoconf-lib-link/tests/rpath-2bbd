@@ -12,4 +12,4 @@ build2_configure_flags=
 build3_package=rpathlyx
 remove_la=yes
 
-. $top_srcdir/tests/rpath-2_b
+. $srcdir/rpath-2_b
