@@ -44,54 +44,54 @@ wdiff           |    [] []             [] []    [] []    []    |
 wget            |    [] [] [] []       [] []    [] []       [] |
                 +----------------------------------------------+
                   bg cs da de el en eo es et fi fr gl hr id it
-                   0 14 21 27 10  1  7 20 13  1 28 17  0  9 11  335
+                   0 14 21 27 10  1  7 20 13  1 28 17  0  9 11
 @end group
 
 @group
-                  ja ko lv nl no pl pt pt_BR ru sk sl sv zh
-                +-------------------------------------------+
-a2ps            |          []                []    []       |  5
-bash            |                                           |  4
-bison           | []       []                []             |  7
-clisp           |          []                               |  5
-cpio            |    []    []    []     []   []             |  9
-diffutils       |                []          []       []    | 10
-enscript        |          []           []   []             |  5
-error           |                                           |  1
-fileutils       | [] []    []    []     []   [] [] [] []    | 16
-findutils       |    []    []    []     []   []       []    | 14
-flex            |    []                      []       []    |  6
-gawk            |                                           |  0
-gcal            |                                           |  0
-gcc             | []                                        |  2
-gettext         | [] []    []    []     []   []    [] [] [] | 18
-gnupg           | []             []                   []    |  8
-grep            |                                           |  3
-hello           | [] []    []    []     []   [] []    []    | 17
-id-utils        |          []                []       []    |  5
-indent          |    []    []    []          [] []    []    | 11
-libc            | [] []    [] [] []     []      []    []    | 16
-lilypond        | []       []                               |  2
-lynx            | []       []           []   []       []    |  8
-m4              | []       []    []          []       []    | 12
-make            | []       []    []     []   []             |  9
-parted          | []       []                []             |  5
-ptx             |          [] [] [] []       []       []    | 13
-python          |                                           |  0
-recode          |                            []    [] []    | 10
-sed             | []       []           []   [] [] [] []    | 16
-sh-utils        | []       [] [] []     []   [] [] [] [] [] | 19
-sharutils       | []       []                []       []    | 11
-soundtracker    |                                           |  0
-sp              |                                           |  0
-tar             | []       [] [] []     []   []    [] []    | 16
-texinfo         | []                         []             |  6
-textutils       | []       [] [] []     []   [] [] []       | 15
-util-linux      |                       []                  |  2
-wdiff           |          []    []          [] []    []    | 12
-wget            | []          []        []   [] [] [] [] [] | 17
-                +-------------------------------------------+
-  28 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv zh
-  40 domains      19  8  0 24  6 16  1  15   26  9  9 20  3  335
+                  ja ko lv nl no pl pt pt_BR ru sk sl sv tr zh
+                +----------------------------------------------+
+a2ps            |          []                []    []          |  5
+bash            |                                              |  4
+bison           | []       []                []                |  7
+clisp           |          []                                  |  5
+cpio            |    []    []    []     []   []                |  9
+diffutils       |                []          []       []       | 10
+enscript        |          []           []   []                |  5
+error           |                                              |  1
+fileutils       | [] []    []    []     []   [] [] [] []       | 16
+findutils       |    []    []    []     []   []       []       | 14
+flex            |    []                      []       []       |  6
+gawk            |                                              |  0
+gcal            |                                              |  0
+gcc             | []                                           |  2
+gettext         | [] []    []    []     []   []    [] []    [] | 18
+gnupg           | []             []                   []       |  8
+grep            |                                              |  3
+hello           | [] []    []    []     []   [] []    []       | 17
+id-utils        |          []                []       []       |  5
+indent          |    []    []    []          [] []    [] []    | 12
+libc            | [] []       [] []     []      []    []       | 15
+lilypond        |          []                                  |  1
+lynx            | []       []           []   []       []       |  8
+m4              | []       []    []          []       []       | 12
+make            | []       []    []     []   []                |  9
+parted          | []       []                []                |  5
+ptx             |          [] [] [] []       []       []       | 13
+python          |                                              |  0
+recode          |                            []    [] []       | 10
+sed             | []       []           []   [] [] [] []       | 16
+sh-utils        | []       [] [] []     []   [] [] [] []    [] | 19
+sharutils       | []       []                []       []       | 11
+soundtracker    |                                              |  0
+sp              |                                              |  0
+tar             | []       [] [] []     []   []    [] []       | 16
+texinfo         | []                         []                |  6
+textutils       | []       [] [] []     []   [] [] []          | 15
+util-linux      |                       []                     |  2
+wdiff           |          []    []          [] []    []       | 12
+wget            | []          []        []   [] [] [] []    [] | 17
+                +----------------------------------------------+
+  29 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr zh
+  40 domains      18  8  0 23  6 16  1  15   26  9  9 20  1  3  334
 @end group
 @end example
