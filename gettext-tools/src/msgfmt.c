@@ -1151,8 +1151,9 @@ formatstring_error_logger (const char *format, ...)
   va_list args;
 
   va_start (args, format);
-  fprintf (stderr, "%s:%d: ",
-	   curr_msgid_pos.file_name, curr_msgid_pos.line_number);
+  fprintf (stderr, "%s:%lu: ",
+	   curr_msgid_pos.file_name,
+	   (unsigned long) curr_msgid_pos.line_number);
   vfprintf (stderr, format, args);
   putc ('\n', stderr);
   fflush (stderr);
