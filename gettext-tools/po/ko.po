@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
-"POT-Creation-Date: 2003-01-29 13:56+0100\n"
+"POT-Creation-Date: 2003-02-12 19:49+0100\n"
 "PO-Revision-Date: 2002-08-08 12:26+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
@@ -30,7 +30,8 @@ msgid "Valid arguments are:"
 msgstr "올바른 인자는 다음과 같습니다:"
 
 #: lib/copy-file.c:63 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
-#: src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901 src/xgettext.c:911
+#: src/read-tcl.c:121 src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901
+#: src/xgettext.c:911
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "읽기 위해 \"%s\"을(를) 여는 동안 오류 발생"
@@ -132,7 +133,7 @@ msgstr ""
 "자바 가상기계가 없습니다.  gij를 설치하거나 $JAVAC 환경변수를 세팅하십시오"
 
 #: lib/obstack.c:491 lib/obstack.c:494 lib/xerror.c:50 lib/xmalloc.c:47
-#: src/po-lex.c:88 src/po-lex.c:117
+#: lib/xsetenv.c:40 src/po-lex.c:88 src/po-lex.c:117 src/x-glade.c:348
 msgid "memory exhausted"
 msgstr "메모리가 바닥났습니다"
 
@@ -152,30 +153,33 @@ msgstr "%s 서브프로세스"
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s 서브프로세스가 치명적인 시그널 %d을(를) 받았습니다"
 
-#: src/format-c.c:738 src/format-python.c:484
-#, c-format
-msgid "number of format specifications in 'msgid' and '%s' does not match"
-msgstr "'msgid'와 '%s'에 쓰인 서식 지정자의 개수가 일치하지 않습니다"
-
-#: src/format-c.c:752 src/format-elisp.c:367 src/format-librep.c:331
-#: src/format-pascal.c:421 src/format-python.c:498
-#, c-format
-msgid ""
-"format specifications in 'msgid' and '%s' for argument %u are not the same"
-msgstr "'msgid'와 '%s'에 쓰인 인자 %u에 대한 서식 지정이 같지 않습니다"
-
-#: src/format-elisp.c:327 src/format-librep.c:291 src/format-pascal.c:381
+#: src/format-awk.c:450 src/format-elisp.c:327 src/format-librep.c:291
+#: src/format-pascal.c:381 src/format-php.c:321 src/format-tcl.c:357
 #: src/format-ycp.c:126
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "'%2$s' 안에 있는, 인자 %1$u에 대한 서식 지정이 'msgid'에 없습니다"
 
-#: src/format-elisp.c:342 src/format-librep.c:306 src/format-pascal.c:396
+#: src/format-awk.c:465 src/format-elisp.c:342 src/format-librep.c:306
+#: src/format-pascal.c:396 src/format-php.c:336 src/format-tcl.c:372
 #: src/format-ycp.c:125
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "인자 %u에 대한 서식 지정이 '%s'에 없습니다"
+
+#: src/format-awk.c:490 src/format-c.c:752 src/format-elisp.c:367
+#: src/format-librep.c:331 src/format-pascal.c:421 src/format-php.c:361
+#: src/format-python.c:498 src/format-tcl.c:397
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument %u are not the same"
+msgstr "'msgid'와 '%s'에 쓰인 인자 %u에 대한 서식 지정이 같지 않습니다"
+
+#: src/format-c.c:738 src/format-python.c:484
+#, c-format
+msgid "number of format specifications in 'msgid' and '%s' does not match"
+msgstr "'msgid'와 '%s'에 쓰인 서식 지정자의 개수가 일치하지 않습니다"
 
 #: src/format-java.c:632
 #, c-format
@@ -239,11 +243,11 @@ msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "인자 '%s'에 대한 'msgid'와 '%s'의 서식 지정이 같지 않습니다"
 
-#: src/gettext.c:132 src/hostname.c:171 src/msgattrib.c:267 src/msgcat.c:235
-#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177
-#: src/msgexec.c:159 src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285
-#: src/msginit.c:230 src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213
-#: src/ngettext.c:123 src/urlget.c:128 src/xgettext.c:397
+#: src/hostname.c:171 src/msgattrib.c:285 src/msgcat.c:235 src/msgcmp.c:125
+#: src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177 src/msgexec.c:159
+#: src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285 src/msginit.c:230
+#: src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213 src/urlget.c:128
+#: src/xgettext.c:397
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -254,95 +258,27 @@ msgstr ""
 "이 프로그램은 자유 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상품성\n"
 "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
 
-#: src/gettext.c:137 src/hostname.c:176 src/msgattrib.c:272 src/msgcat.c:240
-#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182
-#: src/msgexec.c:164 src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290
-#: src/msginit.c:235 src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218
-#: src/ngettext.c:128 src/urlget.c:133 src/xgettext.c:402
+#: src/hostname.c:176 src/msgattrib.c:290 src/msgcat.c:240 src/msgcmp.c:130
+#: src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182 src/msgexec.c:164
+#: src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290 src/msginit.c:235
+#: src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218 src/urlget.c:133
+#: src/xgettext.c:402
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s이(가) 만들었습니다.\n"
 
-#: src/gettext.c:155 src/hostname.c:186 src/msginit.c:245 src/ngettext.c:140
+#: src/hostname.c:186 src/msginit.c:245
 msgid "too many arguments"
 msgstr "인수가 너무 많음"
 
-#: src/gettext.c:165 src/ngettext.c:152
-msgid "missing arguments"
-msgstr "인수가 빠졌음"
-
-#: src/gettext.c:236 src/hostname.c:199 src/msgattrib.c:324 src/msgcat.c:295
-#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232
-#: src/msgexec.c:216 src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394
-#: src/msginit.c:320 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:206 src/urlget.c:156 src/xgettext.c:593
+#: src/hostname.c:199 src/msgattrib.c:346 src/msgcat.c:295 src/msgcmp.c:161
+#: src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232 src/msgexec.c:216
+#: src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394 src/msginit.c:320
+#: src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274 src/urlget.c:156
+#: src/xgettext.c:593
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "더 많은 정보를 보려면 `%s --help' 하십시오\n"
-
-#: src/gettext.c:241
-#, c-format, no-wrap
-msgid ""
-"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
-"or:    %s [OPTION] -s [MSGID]...\n"
-msgstr ""
-"사용법: %s [<옵션>] [[<TEXTDOMAIN>] <MSGID>]\n"
-"혹은:   %s [<옵션>] -s [<MSGID>]...\n"
-
-#: src/gettext.c:247
-#, no-wrap
-msgid "Display native language translation of a textual message.\n"
-msgstr "주어진 메세지에 대한 고유어 번역문을 표시합니다.\n"
-
-#: src/gettext.c:251
-#, no-wrap
-msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -n                        suppress trailing newline\n"
-"  -V, --version             display version information and exit\n"
-"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-"                            to MSGID from TEXTDOMAIN\n"
-msgstr ""
-"  -d, --domain=<TEXTDOMAIN> 번역된 메시지를 <TEXTDOMAIN>에서 불러옵니다\n"
-"  -e                        몇몇 이스케이프 문자열의 확장을 가능케 합니다\n"
-"  -E                        (호환성을 위해 무시됨)\n"
-"  -h, --help                이 도움말을 보여주고 종료합니다\n"
-"  -n                        따라붙는 줄바꿈 문자를 제거합니다\n"
-"  -V, --version             버전 정보를 표시하고 종료합니다\n"
-"  [<TEXTDOMAIN>] <MSGID>    <MSGID>에 대응하는 번역된 메시지를 <TEXTDOMAIN>에서\n"
-"                            불러옵니다\n"
-
-#: src/gettext.c:262
-#, c-format, no-wrap
-msgid ""
-"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
-"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
-"regular directory, another location can be specified with the environment\n"
-"variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the `echo' command.\n"
-"But it does not simply copy its arguments to stdout.  Instead those messages\n"
-"found in the selected catalog are translated.\n"
-"Standard search directory: %s\n"
-msgstr ""
-"<TEXTDOMAIN> 인자가 주어지지 않으면, 도메인은 TEXTDOMAIN \n"
-"환경 변수로 결정됩니다.  메시지 목록이 일반적인 디렉토리에 \n"
-"없다면, 환경 변수 TEXTDOMAINDIR로 다른 위치를 지정할 수 \n"
-"있습니다.\n"
-"-s 옵션이 쓰이면 프로그램은 `echo' 명령처럼 동작합니다. 그러나 \n"
-"단순히 인수를 표준출력에 복사하지는 않습니다.  대신에 지정한 \n"
-"목록에서 번역되어 있는 메시지만이 출력됩니다.\n"
-"기본 탐색 디렉토리: %s\n"
-
-#: src/gettext.c:273 src/hostname.c:229 src/msgattrib.c:406 src/msgcat.c:378
-#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294
-#: src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484
-#: src/msginit.c:373 src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:240 src/urlget.c:178 src/xgettext.c:698
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
 
 #: src/hostname.c:204 src/msginit.c:325
 #, c-format, no-wrap
@@ -369,7 +305,7 @@ msgstr ""
 "                          Domain Name) 및 별명(alias)들을 모두 포함\n"
 "  -i, --ip-address      호스트이름에 대한 주소\n"
 
-#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:307
+#: src/hostname.c:223 src/msgattrib.c:424 src/msgcmp.c:200 src/msgconv.c:307
 #: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
 #: src/msginit.c:367 src/urlget.c:172
 #, no-wrap
@@ -382,16 +318,24 @@ msgstr ""
 "  -h, --help                  이 도움말을 표시하고 끝납니다\n"
 "  -V, --version               버전 정보를 표시하고 끝납니다\n"
 
+#: src/hostname.c:229 src/msgattrib.c:430 src/msgcat.c:378 src/msgcmp.c:206
+#: src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294 src/msgexec.c:260
+#: src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484 src/msginit.c:373
+#: src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350 src/urlget.c:178
+#: src/xgettext.c:698
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
+
 #: src/hostname.c:244 src/hostname.c:251
 msgid "could not get host name"
 msgstr "호스트이름을 알아낼 수 없습니다"
 
-#: src/msgattrib.c:287 src/msgconv.c:208 src/msgexec.c:139 src/msgfilter.c:184
+#: src/msgattrib.c:305 src/msgconv.c:208 src/msgexec.c:139 src/msgfilter.c:184
 #: src/msggrep.c:305 src/msginit.c:184 src/msguniq.c:233
 msgid "at most one input file allowed"
 msgstr "최대 한 개의 입력파일만이 허용됩니다"
 
-#: src/msgattrib.c:293 src/msgattrib.c:297 src/msgcat.c:250 src/msgcat.c:254
+#: src/msgattrib.c:311 src/msgattrib.c:315 src/msgcat.c:250 src/msgcat.c:254
 #: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:214 src/msgconv.c:218
 #: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
 #: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
@@ -402,12 +346,12 @@ msgstr "최대 한 개의 입력파일만이 허용됩니다"
 msgid "%s and %s are mutually exclusive"
 msgstr "%s과(와) %s은(는) 서로 배타적입니다"
 
-#: src/msgattrib.c:329 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
+#: src/msgattrib.c:351 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "사용법: %s [옵션] [입력파일]\n"
 
-#: src/msgattrib.c:334
+#: src/msgattrib.c:356
 #, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -416,7 +360,7 @@ msgstr ""
 "번역 메세지들을 그 속성에 따라 걸러내고, 그 속성을 조작합니다.\n"
 "\n"
 
-#: src/msgattrib.c:340 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
+#: src/msgattrib.c:362 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
 #: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
 #: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:408
 #: src/msgunfmt.c:329 src/msguniq.c:296
@@ -424,7 +368,7 @@ msgstr ""
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "긴 옵션에서 꼭 필요한 인수는 짧은 옵션에도 꼭 필요합니다.\n"
 
-#: src/msgattrib.c:345 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
+#: src/msgattrib.c:367 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -437,7 +381,7 @@ msgstr ""
 "  -D, --directory=<디렉토리>     입력 파일 탐색 명단에 <디렉토리>를 추가합니다\n"
 "만약 입력 파일이 주어지지 않았거나 \"-\"인 경우, 표준 입력을 읽습니다.\n"
 
-#: src/msgattrib.c:353 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
+#: src/msgattrib.c:375 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
 #: src/msggrep.c:423 src/msgmerge.c:430
 #, no-wrap
 msgid ""
@@ -451,7 +395,7 @@ msgstr ""
 "만약 출력 파일이 지정되지 않았거나 \"-\"인 경우, 결과물을 표준 출력으로 \n"
 "출력합니다.\n"
 
-#: src/msgattrib.c:361
+#: src/msgattrib.c:383
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -470,14 +414,16 @@ msgstr ""
 "      --no-obsolete           없어진 #~ 메세지를 지웁니다\n"
 "      --only-obsolete         없어진 #~ 메세지를 놔 둡니다\n"
 
-#: src/msgattrib.c:372
-#, no-wrap
+#: src/msgattrib.c:394
+#, fuzzy, no-wrap
 msgid ""
 "Attribute manipulation:\n"
 "      --set-fuzzy             set all messages 'fuzzy'\n"
 "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 "      --set-obsolete          set all messages obsolete\n"
 "      --clear-obsolete        set all messages non-obsolete\n"
+"      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
+"      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
 "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
@@ -489,7 +435,7 @@ msgstr ""
 "      --fuzzy                 \"--only-fuzzy --clear-fuzzy\"와 동일합니다\n"
 "      --obsolete              \"--only-obsolete --clear-obsolete\"와 동일합니다\n"
 
-#: src/msgattrib.c:383
+#: src/msgattrib.c:407
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1619,7 +1565,7 @@ msgstr ""
 "--input 옵션으로 입력 .pot 파일을 지정하십시오.\n"
 
 #: src/msginit.c:879 src/msginit.c:931 src/msginit.c:1068 src/msginit.c:1135
-#: src/read-java.c:70
+#: src/read-java.c:70 src/read-tcl.c:107
 msgid "fdopen() failed"
 msgstr "fdopen()이 실패했습니다"
 
@@ -1629,7 +1575,7 @@ msgid "%s subprocess I/O error"
 msgstr "%s 서브프로세스 입출력 오류"
 
 #: src/msginit.c:893 src/msginit.c:945 src/msginit.c:1082 src/msginit.c:1149
-#: src/read-java.c:80
+#: src/read-java.c:80 src/read-tcl.c:123
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s 서브프로세스가 종료코드 %d로(으로) 실패했습니다"
@@ -2070,57 +2016,6 @@ msgstr ""
 "  -d, --repeated                 중복된 메세지만을 출력합니다\n"
 "  -u, --unique                   유일한 메세지만을 출력하고, 중복된 것은 버립니다\n"
 
-#: src/ngettext.c:211
-#, c-format, no-wrap
-msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "사용법: %s [<옵션>] [<TEXTDOMAIN>] <MSGID> <MSGID-PLURAL> <개수>\n"
-
-#: src/ngettext.c:216
-#, no-wrap
-msgid ""
-"Display native language translation of a textual message whose grammatical\n"
-"form depends on a number.\n"
-msgstr ""
-"숫자에 따라 문법이 달라지는, 주어진 메세지에 대한 고유어 번역문을\n"
-"표시합니다.\n"
-
-#: src/ngettext.c:221
-#, no-wrap
-msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -V, --version             display version information and exit\n"
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-"  COUNT                     choose singular/plural form based on this value\n"
-msgstr ""
-"사용법: %s [옵션] [TEXTDOMAIN] MSGID MSGID-복수형 개수\n"
-"  -d, --domain=TEXTDOMAIN   번역된 메시지를 TEXTDOMAIN에서 불러옵니다\n"
-"  -e                        몇몇 이스케이프 문자열의 확장을 가능케 합니다\n"
-"  -E                        (호환성을 위해 무시됨)\n"
-"  -h, --help                이 도움말을 보여주고 끝납니다\n"
-"  -V, --version             버전 정보를 표시하고 끝납니다\n"
-"  [TEXTDOMAIN]              번역된 메시지를 TEXTDOMAIN에서 불러옵니다\n"
-"  MSGID MSGID-복수형        MSGID(단수) / MSGID-복수형(복수)을 번역합니다\n"
-"  개수                      이 값에 따라 단수/복수를 결정합니다\n"
-
-#: src/ngettext.c:232
-#, c-format, no-wrap
-msgid ""
-"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
-"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
-"regular directory, another location can be specified with the environment\n"
-"variable TEXTDOMAINDIR.\n"
-"Standard search directory: %s\n"
-msgstr ""
-"TEXTDOMAIN 매개변수가 주어지지 않으면 도메인은 TEXTDOMAIN 환경 변수로부터\n"
-"결정됩니다.  메시지 목록이 일반적인 디렉토리에 있지 않으면 환경 변수\n"
-"TEXTDOMAINDIR로 다른 위치를 지정할 수 있습니다.\n"
-"\n"
-"표준 탐색 디렉토리: %s\n"
-
 #: src/open-po.c:58
 msgid "<stdin>"
 msgstr "<표준입력>"
@@ -2232,8 +2127,10 @@ msgstr "줄의 끝에서 불완전한 다중바이트 문자열"
 msgid "iconv failure"
 msgstr "iconv 실패"
 
-#: src/po-lex.c:682 src/read-mo.c:79 src/x-c.c:260 src/x-elisp.c:142
-#: src/x-librep.c:144 src/x-lisp.c:204 src/x-rst.c:225 src/x-ycp.c:94
+#: src/po-lex.c:682 src/read-mo.c:79 src/x-awk.c:155 src/x-c.c:260
+#: src/x-elisp.c:142 src/x-glade.c:362 src/x-librep.c:144 src/x-lisp.c:204
+#: src/x-php.c:160 src/x-python.c:174 src/x-rst.c:225 src/x-smalltalk.c:106
+#: src/x-tcl.c:145 src/x-ycp.c:94
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\"을(를) 읽는 동안 오류 발생"
@@ -2317,6 +2214,7 @@ msgid "failed to create \"%s\""
 msgstr "\"%s\"을(를) 만드는 데 실패했습니다"
 
 #: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:995
+#: src/write-tcl.c:201
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" 파일을 쓰는 동안 오류 발생"
@@ -2327,7 +2225,7 @@ msgstr ""
 "자바 클래스 컴파일에 실패했습니다.  --verbose로 시도해 보거나 $JAVAC 환경변수"
 "를 세팅하십시오"
 
-#: src/write-mo.c:690
+#: src/write-mo.c:690 src/write-tcl.c:192
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "쓰기 위해 \"%s\"을(를) 여는 동안 오류 발생"
@@ -2361,6 +2259,25 @@ msgstr "출력 파일 \"%s\"을(를) 만들 수 없습니다"
 msgid "standard output"
 msgstr "표준 출력"
 
+#: src/write-tcl.c:156
+#, fuzzy
+msgid ""
+"message catalog has plural form translations\n"
+"but the Tcl message catalog format doesn't support plural handling\n"
+msgstr ""
+"메세지 목록에 복수형 번역이 들어 있지만, 헤더 항목에 \"Plural-Forms: "
+"nplurals=정수; plural=표현식;\"이 없습니다"
+
+#: src/x-awk.c:325 src/x-python.c:365
+#, fuzzy, c-format
+msgid "%s:%d: warning: unterminated string"
+msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
+
+#: src/x-awk.c:569
+#, fuzzy, c-format
+msgid "%s:%d: warning: unterminated regular expression"
+msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
+
 #: src/x-c.c:906
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
@@ -2371,9 +2288,28 @@ msgstr "%s:%d: 경고: 완결되지 않은 문자 상수"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
 
+#: src/x-glade.c:369 src/x-glade.c:376
+#, c-format
+msgid "%s:%d:%d: %s"
+msgstr ""
+
+#: src/x-glade.c:402
+#, fuzzy, c-format
+msgid ""
+"Language \"glade\" is not supported. %s relies on expat.\n"
+"This version was built without expat.\n"
+msgstr ""
+"문자셋 \"%s\"은(는) 지원되지 않습니다. %s은(는) iconv()에 의존하지만,\n"
+"이 버전은 iconv()를 지원되지 않는 상태로 빌드되었습니다.\n"
+
 #: src/x-po.c:85 src/xgettext.c:710
 msgid "this file may not contain domain directives"
 msgstr "이 파일은 도메인 지시자를 포함하고 있지 않을 수도 있습니다"
+
+#: src/x-python.c:565
+#, fuzzy, c-format
+msgid "%s:%d: warning: invalid Unicode character"
+msgstr "%s:%d: 경고: 완결되지 않은 문자 상수"
 
 #: src/x-rst.c:106
 #, c-format
@@ -2559,3 +2495,113 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "\"%s\" 파일에 NUL로 끝나지 않는 sysdep 세그먼트가 있습니다"
+
+#~ msgid "missing arguments"
+#~ msgstr "인수가 빠졌음"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+#~ "or:    %s [OPTION] -s [MSGID]...\n"
+#~ msgstr ""
+#~ "사용법: %s [<옵션>] [[<TEXTDOMAIN>] <MSGID>]\n"
+#~ "혹은:   %s [<옵션>] -s [<MSGID>]...\n"
+
+#~ msgid "Display native language translation of a textual message.\n"
+#~ msgstr "주어진 메세지에 대한 고유어 번역문을 표시합니다.\n"
+
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -n                        suppress trailing newline\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+#~ "                            to MSGID from TEXTDOMAIN\n"
+#~ msgstr ""
+#~ "  -d, --domain=<TEXTDOMAIN> 번역된 메시지를 <TEXTDOMAIN>에서 불러옵니다\n"
+#~ "  -e                        몇몇 이스케이프 문자열의 확장을 가능케 합니"
+#~ "다\n"
+#~ "  -E                        (호환성을 위해 무시됨)\n"
+#~ "  -h, --help                이 도움말을 보여주고 종료합니다\n"
+#~ "  -n                        따라붙는 줄바꿈 문자를 제거합니다\n"
+#~ "  -V, --version             버전 정보를 표시하고 종료합니다\n"
+#~ "  [<TEXTDOMAIN>] <MSGID>    <MSGID>에 대응하는 번역된 메시지를 "
+#~ "<TEXTDOMAIN>에서\n"
+#~ "                            불러옵니다\n"
+
+#~ msgid ""
+#~ "If the TEXTDOMAIN parameter is not given, the domain is determined from "
+#~ "the\n"
+#~ "environment variable TEXTDOMAIN.  If the message catalog is not found in "
+#~ "the\n"
+#~ "regular directory, another location can be specified with the "
+#~ "environment\n"
+#~ "variable TEXTDOMAINDIR.\n"
+#~ "When used with the -s option the program behaves like the `echo' "
+#~ "command.\n"
+#~ "But it does not simply copy its arguments to stdout.  Instead those "
+#~ "messages\n"
+#~ "found in the selected catalog are translated.\n"
+#~ "Standard search directory: %s\n"
+#~ msgstr ""
+#~ "<TEXTDOMAIN> 인자가 주어지지 않으면, 도메인은 TEXTDOMAIN \n"
+#~ "환경 변수로 결정됩니다.  메시지 목록이 일반적인 디렉토리에 \n"
+#~ "없다면, 환경 변수 TEXTDOMAINDIR로 다른 위치를 지정할 수 \n"
+#~ "있습니다.\n"
+#~ "-s 옵션이 쓰이면 프로그램은 `echo' 명령처럼 동작합니다. 그러나 \n"
+#~ "단순히 인수를 표준출력에 복사하지는 않습니다.  대신에 지정한 \n"
+#~ "목록에서 번역되어 있는 메시지만이 출력됩니다.\n"
+#~ "기본 탐색 디렉토리: %s\n"
+
+#~ msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+#~ msgstr "사용법: %s [<옵션>] [<TEXTDOMAIN>] <MSGID> <MSGID-PLURAL> <개수>\n"
+
+#~ msgid ""
+#~ "Display native language translation of a textual message whose "
+#~ "grammatical\n"
+#~ "form depends on a number.\n"
+#~ msgstr ""
+#~ "숫자에 따라 문법이 달라지는, 주어진 메세지에 대한 고유어 번역문을\n"
+#~ "표시합니다.\n"
+
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+#~ "(plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this "
+#~ "value\n"
+#~ msgstr ""
+#~ "사용법: %s [옵션] [TEXTDOMAIN] MSGID MSGID-복수형 개수\n"
+#~ "  -d, --domain=TEXTDOMAIN   번역된 메시지를 TEXTDOMAIN에서 불러옵니다\n"
+#~ "  -e                        몇몇 이스케이프 문자열의 확장을 가능케 합니"
+#~ "다\n"
+#~ "  -E                        (호환성을 위해 무시됨)\n"
+#~ "  -h, --help                이 도움말을 보여주고 끝납니다\n"
+#~ "  -V, --version             버전 정보를 표시하고 끝납니다\n"
+#~ "  [TEXTDOMAIN]              번역된 메시지를 TEXTDOMAIN에서 불러옵니다\n"
+#~ "  MSGID MSGID-복수형        MSGID(단수) / MSGID-복수형(복수)을 번역합니"
+#~ "다\n"
+#~ "  개수                      이 값에 따라 단수/복수를 결정합니다\n"
+
+#~ msgid ""
+#~ "If the TEXTDOMAIN parameter is not given, the domain is determined from "
+#~ "the\n"
+#~ "environment variable TEXTDOMAIN.  If the message catalog is not found in "
+#~ "the\n"
+#~ "regular directory, another location can be specified with the "
+#~ "environment\n"
+#~ "variable TEXTDOMAINDIR.\n"
+#~ "Standard search directory: %s\n"
+#~ msgstr ""
+#~ "TEXTDOMAIN 매개변수가 주어지지 않으면 도메인은 TEXTDOMAIN 환경 변수로부"
+#~ "터\n"
+#~ "결정됩니다.  메시지 목록이 일반적인 디렉토리에 있지 않으면 환경 변수\n"
+#~ "TEXTDOMAINDIR로 다른 위치를 지정할 수 있습니다.\n"
+#~ "\n"
+#~ "표준 탐색 디렉토리: %s\n"

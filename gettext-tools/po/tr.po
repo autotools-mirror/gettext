@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
-"POT-Creation-Date: 2003-01-29 13:56+0100\n"
+"POT-Creation-Date: 2003-02-12 19:49+0100\n"
 "PO-Revision-Date: 2002-09-11 17:27+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -30,7 +30,8 @@ msgid "Valid arguments are:"
 msgstr "Geçerli argümanlar:"
 
 #: lib/copy-file.c:63 src/file-list.c:56 src/po-lex.c:652 src/read-mo.c:241
-#: src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901 src/xgettext.c:911
+#: src/read-tcl.c:121 src/urlget.c:195 src/xgettext.c:888 src/xgettext.c:901
+#: src/xgettext.c:911
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "\"%s\" okunmak için açılırken hata"
@@ -133,7 +134,7 @@ msgstr ""
 "ya gij kurun ya da $JAVA değişkenini belirleyin"
 
 #: lib/obstack.c:491 lib/obstack.c:494 lib/xerror.c:50 lib/xmalloc.c:47
-#: src/po-lex.c:88 src/po-lex.c:117
+#: lib/xsetenv.c:40 src/po-lex.c:88 src/po-lex.c:117 src/x-glade.c:348
 msgid "memory exhausted"
 msgstr "bellek tükendi"
 
@@ -152,19 +153,8 @@ msgstr "%s alt süreci"
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s alt süreci ölümcül sinyal %d aldı"
 
-#: src/format-c.c:738 src/format-python.c:484
-#, c-format
-msgid "number of format specifications in 'msgid' and '%s' does not match"
-msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri farklı sayıda"
-
-#: src/format-c.c:752 src/format-elisp.c:367 src/format-librep.c:331
-#: src/format-pascal.c:421 src/format-python.c:498
-#, c-format
-msgid ""
-"format specifications in 'msgid' and '%s' for argument %u are not the same"
-msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri %u için aynı değil"
-
-#: src/format-elisp.c:327 src/format-librep.c:291 src/format-pascal.c:381
+#: src/format-awk.c:450 src/format-elisp.c:327 src/format-librep.c:291
+#: src/format-pascal.c:381 src/format-php.c:321 src/format-tcl.c:357
 #: src/format-ycp.c:126
 #, c-format
 msgid ""
@@ -172,11 +162,25 @@ msgid ""
 msgstr ""
 "'%2$s' içindeki %1$u.argüman için bir biçem belirteci 'msgid' içinde yok"
 
-#: src/format-elisp.c:342 src/format-librep.c:306 src/format-pascal.c:396
+#: src/format-awk.c:465 src/format-elisp.c:342 src/format-librep.c:306
+#: src/format-pascal.c:396 src/format-php.c:336 src/format-tcl.c:372
 #: src/format-ycp.c:125
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "%u. argüman için '%s' içinde bir biçem belirteci yok"
+
+#: src/format-awk.c:490 src/format-c.c:752 src/format-elisp.c:367
+#: src/format-librep.c:331 src/format-pascal.c:421 src/format-php.c:361
+#: src/format-python.c:498 src/format-tcl.c:397
+#, c-format
+msgid ""
+"format specifications in 'msgid' and '%s' for argument %u are not the same"
+msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri %u için aynı değil"
+
+#: src/format-c.c:738 src/format-python.c:484
+#, c-format
+msgid "number of format specifications in 'msgid' and '%s' does not match"
+msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri farklı sayıda"
 
 #: src/format-java.c:632
 #, c-format
@@ -244,11 +248,11 @@ msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "'%2$s' için biçem belirteci 'msgid' ve '%1$s' içinde aynı değil"
 
-#: src/gettext.c:132 src/hostname.c:171 src/msgattrib.c:267 src/msgcat.c:235
-#: src/msgcmp.c:125 src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177
-#: src/msgexec.c:159 src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285
-#: src/msginit.c:230 src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213
-#: src/ngettext.c:123 src/urlget.c:128 src/xgettext.c:397
+#: src/hostname.c:171 src/msgattrib.c:285 src/msgcat.c:235 src/msgcmp.c:125
+#: src/msgcomm.c:234 src/msgconv.c:188 src/msgen.c:177 src/msgexec.c:159
+#: src/msgfilter.c:238 src/msgfmt.c:321 src/msggrep.c:285 src/msginit.c:230
+#: src/msgmerge.c:268 src/msgunfmt.c:205 src/msguniq.c:213 src/urlget.c:128
+#: src/xgettext.c:397
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -260,94 +264,27 @@ msgstr ""
 "Hiçbir garantisi yoktur; hatta SATILABİLİRLİĞİ veya ŞAHSİ KULLANIMINIZA\n"
 "UYGUNLUĞU için bile garanti verilmez.\n"
 
-#: src/gettext.c:137 src/hostname.c:176 src/msgattrib.c:272 src/msgcat.c:240
-#: src/msgcmp.c:130 src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182
-#: src/msgexec.c:164 src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290
-#: src/msginit.c:235 src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218
-#: src/ngettext.c:128 src/urlget.c:133 src/xgettext.c:402
+#: src/hostname.c:176 src/msgattrib.c:290 src/msgcat.c:240 src/msgcmp.c:130
+#: src/msgcomm.c:239 src/msgconv.c:193 src/msgen.c:182 src/msgexec.c:164
+#: src/msgfilter.c:243 src/msgfmt.c:326 src/msggrep.c:290 src/msginit.c:235
+#: src/msgmerge.c:273 src/msgunfmt.c:210 src/msguniq.c:218 src/urlget.c:133
+#: src/xgettext.c:402
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
 
-#: src/gettext.c:155 src/hostname.c:186 src/msginit.c:245 src/ngettext.c:140
+#: src/hostname.c:186 src/msginit.c:245
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/gettext.c:165 src/ngettext.c:152
-msgid "missing arguments"
-msgstr "argümanlar eksik"
-
-#: src/gettext.c:236 src/hostname.c:199 src/msgattrib.c:324 src/msgcat.c:295
-#: src/msgcmp.c:161 src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232
-#: src/msgexec.c:216 src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394
-#: src/msginit.c:320 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:206 src/urlget.c:156 src/xgettext.c:593
+#: src/hostname.c:199 src/msgattrib.c:346 src/msgcat.c:295 src/msgcmp.c:161
+#: src/msgcomm.c:307 src/msgconv.c:247 src/msgen.c:232 src/msgexec.c:216
+#: src/msgfilter.c:335 src/msgfmt.c:497 src/msggrep.c:394 src/msginit.c:320
+#: src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274 src/urlget.c:156
+#: src/xgettext.c:593
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Daha fazla bilgilendirilmek için `%s --help' yazınız.\n"
-
-#: src/gettext.c:241
-#, c-format, no-wrap
-msgid ""
-"Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
-"or:    %s [OPTION] -s [MSGID]...\n"
-msgstr ""
-"Kullanımı: %s [SEÇENEK] [[PAKET] MSGID]\n"
-"ya da:     %s [SEÇENEK] -s [MSGID]...\n"
-
-#: src/gettext.c:247
-#, no-wrap
-msgid "Display native language translation of a textual message.\n"
-msgstr "Bir iletinin anadile çevirisini gösterir.\n"
-
-#: src/gettext.c:251
-#, no-wrap
-msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -n                        suppress trailing newline\n"
-"  -V, --version             display version information and exit\n"
-"  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-"                            to MSGID from TEXTDOMAIN\n"
-msgstr ""
-"  -d, --domain=PAKET    ileti çevirisini PAKET.mo dosyasından alır.\n"
-"  -e                    önceleme dizilerinin kullanımını etkinleştirir\n"
-"  -E                    (uyumluluk için yoksayıldı)\n"
-"  -h, --help            bu yardım iletisini gösterir ve çıkar\n"
-"  -n                    izleyen satır sonu karakterini yoksayar\n"
-"  -V, --version         sürüm bilgilerini gösterir ve çıkar\n"
-"  [PAKET] MSGID         PAKET.mo dosyasından MSGID ile ilişkili çeviriyi alır\n"
-
-#: src/gettext.c:262
-#, c-format, no-wrap
-msgid ""
-"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
-"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
-"regular directory, another location can be specified with the environment\n"
-"variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the `echo' command.\n"
-"But it does not simply copy its arguments to stdout.  Instead those messages\n"
-"found in the selected catalog are translated.\n"
-"Standard search directory: %s\n"
-msgstr ""
-"PAKET parametresi verilmemişse .mo dosyasının adı TEXTDOMAIN çevre\n"
-"değişkeninden saptanır. İleti kataloğu olması gereken dizinde değilse\n"
-"bulunduğu dizin TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
-"Program -s seçeneği ile kullanıldığında `echo' komutu verilmiş gibi davranır.\n"
-"Ancak iletiyi standart çıktıya basitçe kopyalamak yerine çevirisini verir.\n"
-"Standart arama dizini: %s\n"
-
-#: src/gettext.c:273 src/hostname.c:229 src/msgattrib.c:406 src/msgcat.c:378
-#: src/msgcmp.c:206 src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294
-#: src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484
-#: src/msginit.c:373 src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:240 src/urlget.c:178 src/xgettext.c:698
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr ""
-"Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
-"Çeviri hatalarını <gnu-tr-u12a@lists.sourceforge.net> adresine bildiriniz.\n"
 
 #: src/hostname.c:204 src/msginit.c:325
 #, c-format, no-wrap
@@ -374,7 +311,7 @@ msgstr ""
 "                              içerir\n"
 "  -i, --ip-address            makinanın IP adresi\n"
 
-#: src/hostname.c:223 src/msgattrib.c:400 src/msgcmp.c:200 src/msgconv.c:307
+#: src/hostname.c:223 src/msgattrib.c:424 src/msgcmp.c:200 src/msgconv.c:307
 #: src/msgen.c:288 src/msgexec.c:254 src/msgfilter.c:404 src/msggrep.c:478
 #: src/msginit.c:367 src/urlget.c:172
 #, no-wrap
@@ -387,16 +324,26 @@ msgstr ""
 "  -h, --help                  Bu yardımı gösterir ve çıkar\n"
 "  -V, --version               Sürüm bilgilerini gösterir ve çıkar\n"
 
+#: src/hostname.c:229 src/msgattrib.c:430 src/msgcat.c:378 src/msgcmp.c:206
+#: src/msgcomm.c:387 src/msgconv.c:313 src/msgen.c:294 src/msgexec.c:260
+#: src/msgfilter.c:410 src/msgfmt.c:591 src/msggrep.c:484 src/msginit.c:373
+#: src/msgmerge.c:486 src/msgunfmt.c:395 src/msguniq.c:350 src/urlget.c:178
+#: src/xgettext.c:698
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr ""
+"Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
+"Çeviri hatalarını <gnu-tr-u12a@lists.sourceforge.net> adresine bildiriniz.\n"
+
 #: src/hostname.c:244 src/hostname.c:251
 msgid "could not get host name"
 msgstr "makina ismi alınamadı"
 
-#: src/msgattrib.c:287 src/msgconv.c:208 src/msgexec.c:139 src/msgfilter.c:184
+#: src/msgattrib.c:305 src/msgconv.c:208 src/msgexec.c:139 src/msgfilter.c:184
 #: src/msggrep.c:305 src/msginit.c:184 src/msguniq.c:233
 msgid "at most one input file allowed"
 msgstr "en fazla bir girdi dosyasına izin var"
 
-#: src/msgattrib.c:293 src/msgattrib.c:297 src/msgcat.c:250 src/msgcat.c:254
+#: src/msgattrib.c:311 src/msgattrib.c:315 src/msgcat.c:250 src/msgcat.c:254
 #: src/msgcomm.c:249 src/msgcomm.c:253 src/msgconv.c:214 src/msgconv.c:218
 #: src/msgen.c:204 src/msgen.c:208 src/msgfilter.c:258 src/msgfilter.c:262
 #: src/msgfmt.c:343 src/msgfmt.c:349 src/msgfmt.c:364 src/msggrep.c:311
@@ -407,12 +354,12 @@ msgstr "en fazla bir girdi dosyasına izin var"
 msgid "%s and %s are mutually exclusive"
 msgstr "%s ile %s bağdaşmıyor"
 
-#: src/msgattrib.c:329 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
+#: src/msgattrib.c:351 src/msgconv.c:252 src/msggrep.c:399 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Kullanımı: %s [SEÇENEK] [GİRDİDOSYASI]\n"
 
-#: src/msgattrib.c:334
+#: src/msgattrib.c:356
 #, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -421,7 +368,7 @@ msgstr ""
 "Çeviri kataloğundaki iletileri belirtilen özelliklere göre süzer,\n"
 "ve özellikleri uygular.\n"
 
-#: src/msgattrib.c:340 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
+#: src/msgattrib.c:362 src/msgcat.c:318 src/msgcmp.c:181 src/msgcomm.c:329
 #: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:241 src/msgfilter.c:350
 #: src/msgfmt.c:512 src/msggrep.c:410 src/msginit.c:336 src/msgmerge.c:408
 #: src/msgunfmt.c:329 src/msguniq.c:296
@@ -429,7 +376,7 @@ msgstr ""
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Uzun seçeneklerdeki zorunlu argümanlar kısa seçenekler için de zorunludur.\n"
 
-#: src/msgattrib.c:345 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
+#: src/msgattrib.c:367 src/msgconv.c:267 src/msggrep.c:415 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -442,7 +389,7 @@ msgstr ""
 "  -D, --directory=DİZİN       Girdi dosyalarının arama yoluna DİZİNi ekler\n"
 "Girdi dosyası verilmemişse ya da yerine - verilmişse standart girdi okunur.\n"
 
-#: src/msgattrib.c:353 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
+#: src/msgattrib.c:375 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:363
 #: src/msggrep.c:423 src/msgmerge.c:430
 #, no-wrap
 msgid ""
@@ -456,7 +403,7 @@ msgstr ""
 "Çıktı dosyası verilmemişse ya da yerine - verilmişse sonuçlar standart\n"
 "çıktıya yazılır.\n"
 
-#: src/msgattrib.c:361
+#: src/msgattrib.c:383
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -475,14 +422,16 @@ msgstr ""
 "      --no-obsolete           eski #~ iletileri silinir.\n"
 "      --only-obsolete         eski #~ iletileri tutulur.\n"
 
-#: src/msgattrib.c:372
-#, no-wrap
+#: src/msgattrib.c:394
+#, fuzzy, no-wrap
 msgid ""
 "Attribute manipulation:\n"
 "      --set-fuzzy             set all messages 'fuzzy'\n"
 "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 "      --set-obsolete          set all messages obsolete\n"
 "      --clear-obsolete        set all messages non-obsolete\n"
+"      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
+"      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
 "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
@@ -494,7 +443,7 @@ msgstr ""
 "      --fuzzy                 --only-fuzzy --clear-fuzzy için kısaltma\n"
 "      --obsolete              --only-obsolete --clear-obsolete için kısaltma\n"
 
-#: src/msgattrib.c:383
+#: src/msgattrib.c:407
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1636,7 +1585,7 @@ msgstr ""
 "belirtin.\n"
 
 #: src/msginit.c:879 src/msginit.c:931 src/msginit.c:1068 src/msginit.c:1135
-#: src/read-java.c:70
+#: src/read-java.c:70 src/read-tcl.c:107
 msgid "fdopen() failed"
 msgstr "fdopen() başarısız"
 
@@ -1646,7 +1595,7 @@ msgid "%s subprocess I/O error"
 msgstr "%s alt süreci G/Ç hatası"
 
 #: src/msginit.c:893 src/msginit.c:945 src/msginit.c:1082 src/msginit.c:1149
-#: src/read-java.c:80
+#: src/read-java.c:80 src/read-tcl.c:123
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s alt süreci çıkış kodu %d ile başarısız"
@@ -2085,53 +2034,6 @@ msgstr ""
 "  -u, --unique                sadece tek iletiler gösterilir,\n"
 "                              tekrarlananlar iptal edilir\n"
 
-#: src/ngettext.c:211
-#, c-format, no-wrap
-msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "Kullanımı: %s [SEÇENEK] [PAKET] MSGID MSGID-PLURAL SAYI\n"
-
-#: src/ngettext.c:216
-#, no-wrap
-msgid ""
-"Display native language translation of a textual message whose grammatical\n"
-"form depends on a number.\n"
-msgstr "Bir sayıya bağlı olarak ilgili tekil/çoğul ileti çevirisini gösterir.\n"
-
-#: src/ngettext.c:221
-#, no-wrap
-msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -V, --version             display version information and exit\n"
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-"  COUNT                     choose singular/plural form based on this value\n"
-msgstr ""
-"  -d, --domain=PAKET   ileti çevirileri yazılım PAKETinden alınır.\n"
-"  -e                   öncelem dizilerinin kullanımı etkinleştirilir\n"
-"  -E                   (uyumluluk için yoksayıldı)\n"
-"  -h, --help           bu yardım iletisini gösterir ve çıkar\n"
-"  -V, --version        sürüm bilgilerini gösterir ve çıkar\n"
-"  [PAKET]              ileti çevirileri yazılım PAKETinden alınır.\n"
-"  MSGID MSGID-PLURAL   MSGID (tekil) / MSGID-PLURAL (çoğul) çevrilir\n"
-"  SAYI               SAYIya bağlı olarak tekil/çoğul iletilerden biri seçilir\n"
-
-#: src/ngettext.c:232
-#, c-format, no-wrap
-msgid ""
-"If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
-"environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
-"regular directory, another location can be specified with the environment\n"
-"variable TEXTDOMAINDIR.\n"
-"Standard search directory: %s\n"
-msgstr ""
-"PAKET parametresi verilmemişse paket ismi TEXTDOMAIN çevre değişkeninden\n"
-"saptanır. İleti kataloğu olması gereken dizinde değilse bulunduğu dizin\n"
-"TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
-"Standart arama dizini: %s\n"
-
 #: src/open-po.c:58
 msgid "<stdin>"
 msgstr "<stdÇ>"
@@ -2243,8 +2145,10 @@ msgstr "satır sonunda çoklu bayt dizisi tamamlanmadı"
 msgid "iconv failure"
 msgstr "iconv başarısızlığı"
 
-#: src/po-lex.c:682 src/read-mo.c:79 src/x-c.c:260 src/x-elisp.c:142
-#: src/x-librep.c:144 src/x-lisp.c:204 src/x-rst.c:225 src/x-ycp.c:94
+#: src/po-lex.c:682 src/read-mo.c:79 src/x-awk.c:155 src/x-c.c:260
+#: src/x-elisp.c:142 src/x-glade.c:362 src/x-librep.c:144 src/x-lisp.c:204
+#: src/x-php.c:160 src/x-python.c:174 src/x-rst.c:225 src/x-smalltalk.c:106
+#: src/x-tcl.c:145 src/x-ycp.c:94
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" okunurken hata"
@@ -2329,6 +2233,7 @@ msgid "failed to create \"%s\""
 msgstr "\"%s\" oluşturulamadı"
 
 #: src/write-java.c:1156 src/write-mo.c:702 src/write-po.c:995
+#: src/write-tcl.c:201
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" dosyasına yazarken hata"
@@ -2339,7 +2244,7 @@ msgstr ""
 "Java sınıfı derlenemedi, lütfen --verbose seçeneğini kullanın ya da\n"
 "$JAVAC ortam değişkenine uygun değeri atayın."
 
-#: src/write-mo.c:690
+#: src/write-mo.c:690 src/write-tcl.c:192
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "\"%s\" yazılmak için açılırken hata"
@@ -2373,6 +2278,25 @@ msgstr "\"%s\" çıktı dosyası oluşturulamıyor"
 msgid "standard output"
 msgstr "standart çıktı"
 
+#: src/write-tcl.c:156
+#, fuzzy
+msgid ""
+"message catalog has plural form translations\n"
+"but the Tcl message catalog format doesn't support plural handling\n"
+msgstr ""
+"ileti kataloğu çoğul çeviriler içermesine rağmen başlıkta\n"
+"\"Plural-Forms: nplurals=TAMSAYI; plural=İFADE;\" gibi bir şey yok."
+
+#: src/x-awk.c:325 src/x-python.c:365
+#, fuzzy, c-format
+msgid "%s:%d: warning: unterminated string"
+msgstr "%s:%d: uyarı: sonlandırılmamış dizge sabiti"
+
+#: src/x-awk.c:569
+#, fuzzy, c-format
+msgid "%s:%d: warning: unterminated regular expression"
+msgstr "%s:%d: uyarı: sonlandırılmamış dizge sabiti"
+
 #: src/x-c.c:906
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
@@ -2383,9 +2307,28 @@ msgstr "%s:%d: uyarı: sonlandırılmamış karakter sabiti"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: uyarı: sonlandırılmamış dizge sabiti"
 
+#: src/x-glade.c:369 src/x-glade.c:376
+#, c-format
+msgid "%s:%d:%d: %s"
+msgstr ""
+
+#: src/x-glade.c:402
+#, fuzzy, c-format
+msgid ""
+"Language \"glade\" is not supported. %s relies on expat.\n"
+"This version was built without expat.\n"
+msgstr ""
+"\"%s\" karakter kümesi desteklenmiyor. %s iconv()ye bağlı.\n"
+"Bu sürüm iconv() olmaksızın kurgulanmış.\n"
+
 #: src/x-po.c:85 src/xgettext.c:710
 msgid "this file may not contain domain directives"
 msgstr "bu dosya paket yönergelerini içermeyebilir"
+
+#: src/x-python.c:565
+#, fuzzy, c-format
+msgid "%s:%d: warning: invalid Unicode character"
+msgstr "%s:%d: uyarı: sonlandırılmamış karakter sabiti"
 
 #: src/x-rst.c:106
 #, c-format
@@ -2575,6 +2518,109 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "dil `%s' bilinmiyor"
+
+#~ msgid "missing arguments"
+#~ msgstr "argümanlar eksik"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
+#~ "or:    %s [OPTION] -s [MSGID]...\n"
+#~ msgstr ""
+#~ "Kullanımı: %s [SEÇENEK] [[PAKET] MSGID]\n"
+#~ "ya da:     %s [SEÇENEK] -s [MSGID]...\n"
+
+#~ msgid "Display native language translation of a textual message.\n"
+#~ msgstr "Bir iletinin anadile çevirisini gösterir.\n"
+
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -n                        suppress trailing newline\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+#~ "                            to MSGID from TEXTDOMAIN\n"
+#~ msgstr ""
+#~ "  -d, --domain=PAKET    ileti çevirisini PAKET.mo dosyasından alır.\n"
+#~ "  -e                    önceleme dizilerinin kullanımını etkinleştirir\n"
+#~ "  -E                    (uyumluluk için yoksayıldı)\n"
+#~ "  -h, --help            bu yardım iletisini gösterir ve çıkar\n"
+#~ "  -n                    izleyen satır sonu karakterini yoksayar\n"
+#~ "  -V, --version         sürüm bilgilerini gösterir ve çıkar\n"
+#~ "  [PAKET] MSGID         PAKET.mo dosyasından MSGID ile ilişkili çeviriyi "
+#~ "alır\n"
+
+#~ msgid ""
+#~ "If the TEXTDOMAIN parameter is not given, the domain is determined from "
+#~ "the\n"
+#~ "environment variable TEXTDOMAIN.  If the message catalog is not found in "
+#~ "the\n"
+#~ "regular directory, another location can be specified with the "
+#~ "environment\n"
+#~ "variable TEXTDOMAINDIR.\n"
+#~ "When used with the -s option the program behaves like the `echo' "
+#~ "command.\n"
+#~ "But it does not simply copy its arguments to stdout.  Instead those "
+#~ "messages\n"
+#~ "found in the selected catalog are translated.\n"
+#~ "Standard search directory: %s\n"
+#~ msgstr ""
+#~ "PAKET parametresi verilmemişse .mo dosyasının adı TEXTDOMAIN çevre\n"
+#~ "değişkeninden saptanır. İleti kataloğu olması gereken dizinde değilse\n"
+#~ "bulunduğu dizin TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
+#~ "Program -s seçeneği ile kullanıldığında `echo' komutu verilmiş gibi "
+#~ "davranır.\n"
+#~ "Ancak iletiyi standart çıktıya basitçe kopyalamak yerine çevirisini "
+#~ "verir.\n"
+#~ "Standart arama dizini: %s\n"
+
+#~ msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+#~ msgstr "Kullanımı: %s [SEÇENEK] [PAKET] MSGID MSGID-PLURAL SAYI\n"
+
+#~ msgid ""
+#~ "Display native language translation of a textual message whose "
+#~ "grammatical\n"
+#~ "form depends on a number.\n"
+#~ msgstr ""
+#~ "Bir sayıya bağlı olarak ilgili tekil/çoğul ileti çevirisini gösterir.\n"
+
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+#~ "(plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this "
+#~ "value\n"
+#~ msgstr ""
+#~ "  -d, --domain=PAKET   ileti çevirileri yazılım PAKETinden alınır.\n"
+#~ "  -e                   öncelem dizilerinin kullanımı etkinleştirilir\n"
+#~ "  -E                   (uyumluluk için yoksayıldı)\n"
+#~ "  -h, --help           bu yardım iletisini gösterir ve çıkar\n"
+#~ "  -V, --version        sürüm bilgilerini gösterir ve çıkar\n"
+#~ "  [PAKET]              ileti çevirileri yazılım PAKETinden alınır.\n"
+#~ "  MSGID MSGID-PLURAL   MSGID (tekil) / MSGID-PLURAL (çoğul) çevrilir\n"
+#~ "  SAYI               SAYIya bağlı olarak tekil/çoğul iletilerden biri "
+#~ "seçilir\n"
+
+#~ msgid ""
+#~ "If the TEXTDOMAIN parameter is not given, the domain is determined from "
+#~ "the\n"
+#~ "environment variable TEXTDOMAIN.  If the message catalog is not found in "
+#~ "the\n"
+#~ "regular directory, another location can be specified with the "
+#~ "environment\n"
+#~ "variable TEXTDOMAINDIR.\n"
+#~ "Standard search directory: %s\n"
+#~ msgstr ""
+#~ "PAKET parametresi verilmemişse paket ismi TEXTDOMAIN çevre değişkeninden\n"
+#~ "saptanır. İleti kataloğu olması gereken dizinde değilse bulunduğu dizin\n"
+#~ "TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
+#~ "Standart arama dizini: %s\n"
 
 #~ msgid "file \"%s\" contains a not NUL terminated sysdep segment"
 #~ msgstr ""
