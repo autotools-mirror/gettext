@@ -50,7 +50,7 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 
 # Woe32 support.
 
-config.h.msvc: config.h.in
+config.h.msvc: config.h.in ../version.sh
 	sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
@@ -75,11 +75,16 @@ config.h.msvc: config.h.in
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	    -e 's/#undef inline$$/#define inline/' \
 	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
+	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
+	    -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
 	    -e '/#undef INSTALLPREFIX$$/d' \
 	  < $< > $@
 
 intl/libgnuintl.h.msvc-shared: intl/libgnuintl.h.in windows/dllexport.h
 	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' -e '/#define _LIBINTL_H/r windows/dllexport.h' < $< > $@
+
+all-local: intl/libgnuintl.h.msvc-shared
 
 EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/dllexport.h windows/intl.rc
