@@ -21,13 +21,13 @@ gawk            |                                     []          |
 gcal            |                                                 |
 gcc             |                                                 |
 gettext         |    [] [] [] []       []       [] []       [] [] |
-gnupg           |          []       []    []    []             [] |
+gnupg           |          []       []    []    [] []          [] |
 gprof           |                                                 |
 grep            |          []       [] [] []    [] []          [] |
 hello           |       [] [] []    [] [] [] [] [] []          [] |
 id-utils        |       [] []                   []                |
 indent          |       [] []             []    [] []             |
-jpilot          |                                                 |
+jpilot          |                               []                |
 kbd             |                                                 |
 ld              |                                                 |
 libc            |    [] [] [] []       []       [] []          [] |
@@ -54,7 +54,7 @@ wdiff           |          []             []                      |
 wget            |    [] [] [] []       [] []    [] [] []          |
                 +-------------------------------------------------+
                   bg cs da de el en eo es et fi fr gl he hr id it
-                   0 13 23 30 11  1  8 21 13  1 28 21  3  0  8 10
+                   0 13 23 30 11  1  8 21 13  1 29 22  3  0  8 10
 @end group
 
 @group
@@ -79,13 +79,13 @@ gawk            |                                                 |  1
 gcal            |                                                 |  0
 gcc             |                                                 |  0
 gettext         | [] []          []     []   []    [] [] []    [] | 18
-gnupg           | []             []                   [] []       |  9
+gnupg           | []             []                   [] []       | 10
 gprof           |                                                 |  0
 grep            |                []                []    []       | 10
 hello           | [] [] [] [] [] []          [] []    [] [] []    | 21
 id-utils        |          []                []       []          |  6
 indent          |    []    []    []          [] []    [] []       | 12
-jpilot          |                                                 |  0
+jpilot          |                                                 |  1
 kbd             |                                        []       |  1
 ld              |                                                 |  0
 libc            | [] []    [] [] []     []      []    [] []       | 17
@@ -112,6 +112,6 @@ wdiff           |                            [] []       []       |  5
 wget            |          []                [] [] [] [] []       | 15
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  9 11 20 18  1  2  365
+  50 domains      17  9  1 23  6 17  1  13   26  9 11 20 18  1  2  367
 @end group
 @end example
