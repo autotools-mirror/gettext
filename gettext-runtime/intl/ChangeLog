@@ -1,3 +1,9 @@
+2003-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (LIBS): New variable.
+	(libintl.la, libgnuintl.la): Use it.
+	Reported by Andreas Buening <andreas.buening@nexgo.de>.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New variables ABIFLAGS, DEFS. Avoid rules with no
