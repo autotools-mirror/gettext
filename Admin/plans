@@ -1,12 +1,14 @@
 Things we plan to do. Comments welcome.
 
-- Replace bash specific INSTALL with the generic one.
-
 - Update lib/ with some files from fetish utils.
 
 - Update other files from libtool-1.3.5 and autoconf-2.13.
 
 - Restore lib/vasprintf.c.
+
+- Remove the distinction between localedir and gnulocaledir.
+
+- gettextize needs not copy intl/ChangeLog.
 
 - Document bash-2.04's $"..." facility and the associated 2 environment
   variables.
@@ -14,7 +16,16 @@ Things we plan to do. Comments welcome.
 - Document that gettext requires the LC_MESSAGES category (or LANGUAGE
   override) and LC_CTYPE category to be set correctly via setlocale.
 
-- Make sure put-ABOUT file and Admin/ directories are not distributed.
+- Marc Espie's wishlist:
+  Makefile.in.in that ships with the most recent release
+  of gettext suffers from various defects:
+  - it does not work with separate compilation, as it creates files 
+    in $(srcdir) and not in $(buildir). Reading this file, somebody must
+    be confused about what's maintainer-dependent, and what's build-dependent.
+  - it has needless dependencies on gnu-makes, which are trivial to fix.
+  - it has bogus file readability tests, which should be executability tests.
+
+- Make sure Admin/ directory is not distributed.
 
 - Update documentation for plural features and bind_textdomain_codeset.
 
@@ -45,6 +56,8 @@ Things we plan to do. Comments welcome.
 - Read Francois Pinard's gettext folder.
 
 - Evaluate Francois Pinard's po-utils and xpot. Takeover? Merge? Refer to?
+
+- Change bug report address to bug-gettext instead of bug-gnu-utils@gnu.org
 
 Future:
 
