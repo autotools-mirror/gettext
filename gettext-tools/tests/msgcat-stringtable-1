@@ -55,7 +55,7 @@ msgstr "Well how about a "
 msgid "actualSize"
 msgstr "0.000250 0.000250"
 
-# a key with no value assumes the value is the same as the key
+# a key with no value assumes the value is the empty string
 msgid "hoe322070.element"
 msgstr ""
 EOF
