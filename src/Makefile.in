@@ -67,6 +67,7 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
+EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 INTLLIBS = @INTLLIBS@
@@ -80,6 +81,7 @@ MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
@@ -94,7 +96,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 bin_PROGRAMS = gettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
-noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h str-list.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
+noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h str-list.h write-po.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
 
 
 EXTRA_DIST = FILES
@@ -116,13 +118,23 @@ msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y po-lex
 
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c message.c dir-list.c
 
-msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c dir-list.c
+msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c dir-list.c write-po.c
 
-msgunfmt_SOURCES = message.c msgunfmt.c str-list.c
-xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c
+msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c
+xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c write-po.c
 
-msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-lex.c open-po.c po.c str-list.c dir-list.c
+msgcomm_SOURCES = msgcomm.c message.c po-gram-gen.y po-hash-gen.y po-lex.c open-po.c po.c str-list.c dir-list.c write-po.c
 
+
+# Link dependencies.
+# po-lex.c and po.c may need -liconv.
+# write-po.c pulls in linebreak.c which may need -liconv.
+msgcmp_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgmerge_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgunfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+xgettext_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgcomm_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
 
 BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
@@ -130,42 +142,47 @@ DISTCLEANFILES = po-gram-gen2.h
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
+bin_PROGRAMS =  gettext$(EXEEXT) msgcmp$(EXEEXT) msgfmt$(EXEEXT) \
+msgmerge$(EXEEXT) msgunfmt$(EXEEXT) xgettext$(EXEEXT) msgcomm$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-gettext_OBJECTS =  gettext.o
+gettext_OBJECTS =  gettext.$(OBJEXT)
 gettext_LDADD = $(LDADD)
 gettext_DEPENDENCIES =  ../lib/libnlsut.a
 gettext_LDFLAGS = 
-msgcmp_OBJECTS =  message.o msgcmp.o open-po.o po-gram-gen.o \
-po-hash-gen.o po-lex.o po.o str-list.o dir-list.o
-msgcmp_LDADD = $(LDADD)
+msgcmp_OBJECTS =  message.$(OBJEXT) msgcmp.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
+po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT)
 msgcmp_DEPENDENCIES =  ../lib/libnlsut.a
 msgcmp_LDFLAGS = 
-msgfmt_OBJECTS =  msgfmt.o open-po.o po-gram-gen.o po-hash-gen.o \
-po-lex.o po.o str-list.o message.o dir-list.o
-msgfmt_LDADD = $(LDADD)
+msgfmt_OBJECTS =  msgfmt.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
+po.$(OBJEXT) str-list.$(OBJEXT) message.$(OBJEXT) dir-list.$(OBJEXT)
 msgfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgfmt_LDFLAGS = 
-msgmerge_OBJECTS =  message.o msgmerge.o open-po.o po-gram-gen.o \
-po-hash-gen.o po-lex.o po.o str-list.o dir-list.o
-msgmerge_LDADD = $(LDADD)
+msgmerge_OBJECTS =  message.$(OBJEXT) msgmerge.$(OBJEXT) \
+open-po.$(OBJEXT) po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) \
+po-lex.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT) \
+write-po.$(OBJEXT)
 msgmerge_DEPENDENCIES =  ../lib/libnlsut.a
 msgmerge_LDFLAGS = 
-msgunfmt_OBJECTS =  message.o msgunfmt.o str-list.o
-msgunfmt_LDADD = $(LDADD)
+msgunfmt_OBJECTS =  message.$(OBJEXT) msgunfmt.$(OBJEXT) \
+str-list.$(OBJEXT) write-po.$(OBJEXT)
 msgunfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgunfmt_LDFLAGS = 
-xgettext_OBJECTS =  message.o open-po.o po-gram-gen.o po-hash-gen.o \
-po-lex.o po.o str-list.o xget-lex.o xgettext.o dir-list.o
-xgettext_LDADD = $(LDADD)
+xgettext_OBJECTS =  message.$(OBJEXT) open-po.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
+po.$(OBJEXT) str-list.$(OBJEXT) xget-lex.$(OBJEXT) xgettext.$(OBJEXT) \
+dir-list.$(OBJEXT) write-po.$(OBJEXT)
 xgettext_DEPENDENCIES =  ../lib/libnlsut.a
 xgettext_LDFLAGS = 
-msgcomm_OBJECTS =  msgcomm.o message.o po-gram-gen.o po-hash-gen.o \
-po-lex.o open-po.o po.o str-list.o dir-list.o
-msgcomm_LDADD = $(LDADD)
+msgcomm_OBJECTS =  msgcomm.$(OBJEXT) message.$(OBJEXT) \
+po-gram-gen.$(OBJEXT) po-hash-gen.$(OBJEXT) po-lex.$(OBJEXT) \
+open-po.$(OBJEXT) po.$(OBJEXT) str-list.$(OBJEXT) dir-list.$(OBJEXT) \
+write-po.$(OBJEXT)
 msgcomm_DEPENDENCIES =  ../lib/libnlsut.a
 msgcomm_LDFLAGS = 
 YLWRAP = $(srcdir)/ylwrap
@@ -189,7 +206,7 @@ OBJECTS = $(gettext_OBJECTS) $(msgcmp_OBJECTS) $(msgfmt_OBJECTS) $(msgmerge_OBJE
 
 all: all-redirect
 .SUFFIXES:
-.SUFFIXES: .S .c .lo .o .s .y
+.SUFFIXES: .S .c .lo .o .obj .s .y
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnits --include-deps src/Makefile
 
@@ -226,6 +243,11 @@ uninstall-binPROGRAMS:
 .c.o:
 	$(COMPILE) -c $<
 
+# FIXME: We should only use cygpath when building on Windows,
+# and only if it is available.
+.c.obj:
+	$(COMPILE) -c `cygpath -w $<`
+
 .s.o:
 	$(COMPILE) -c $<
 
@@ -234,6 +256,7 @@ uninstall-binPROGRAMS:
 
 mostlyclean-compile:
 	-rm -f *.o core *.core
+	-rm -f *.$(OBJEXT)
 
 clean-compile:
 
@@ -261,32 +284,32 @@ distclean-libtool:
 
 maintainer-clean-libtool:
 
-gettext: $(gettext_OBJECTS) $(gettext_DEPENDENCIES)
-	@rm -f gettext
+gettext$(EXEEXT): $(gettext_OBJECTS) $(gettext_DEPENDENCIES)
+	@rm -f gettext$(EXEEXT)
 	$(LINK) $(gettext_LDFLAGS) $(gettext_OBJECTS) $(gettext_LDADD) $(LIBS)
 
-msgcmp: $(msgcmp_OBJECTS) $(msgcmp_DEPENDENCIES)
-	@rm -f msgcmp
+msgcmp$(EXEEXT): $(msgcmp_OBJECTS) $(msgcmp_DEPENDENCIES)
+	@rm -f msgcmp$(EXEEXT)
 	$(LINK) $(msgcmp_LDFLAGS) $(msgcmp_OBJECTS) $(msgcmp_LDADD) $(LIBS)
 
-msgfmt: $(msgfmt_OBJECTS) $(msgfmt_DEPENDENCIES)
-	@rm -f msgfmt
+msgfmt$(EXEEXT): $(msgfmt_OBJECTS) $(msgfmt_DEPENDENCIES)
+	@rm -f msgfmt$(EXEEXT)
 	$(LINK) $(msgfmt_LDFLAGS) $(msgfmt_OBJECTS) $(msgfmt_LDADD) $(LIBS)
 
-msgmerge: $(msgmerge_OBJECTS) $(msgmerge_DEPENDENCIES)
-	@rm -f msgmerge
+msgmerge$(EXEEXT): $(msgmerge_OBJECTS) $(msgmerge_DEPENDENCIES)
+	@rm -f msgmerge$(EXEEXT)
 	$(LINK) $(msgmerge_LDFLAGS) $(msgmerge_OBJECTS) $(msgmerge_LDADD) $(LIBS)
 
-msgunfmt: $(msgunfmt_OBJECTS) $(msgunfmt_DEPENDENCIES)
-	@rm -f msgunfmt
+msgunfmt$(EXEEXT): $(msgunfmt_OBJECTS) $(msgunfmt_DEPENDENCIES)
+	@rm -f msgunfmt$(EXEEXT)
 	$(LINK) $(msgunfmt_LDFLAGS) $(msgunfmt_OBJECTS) $(msgunfmt_LDADD) $(LIBS)
 
-xgettext: $(xgettext_OBJECTS) $(xgettext_DEPENDENCIES)
-	@rm -f xgettext
+xgettext$(EXEEXT): $(xgettext_OBJECTS) $(xgettext_DEPENDENCIES)
+	@rm -f xgettext$(EXEEXT)
 	$(LINK) $(xgettext_LDFLAGS) $(xgettext_OBJECTS) $(xgettext_LDADD) $(LIBS)
 
-msgcomm: $(msgcomm_OBJECTS) $(msgcomm_DEPENDENCIES)
-	@rm -f msgcomm
+msgcomm$(EXEEXT): $(msgcomm_OBJECTS) $(msgcomm_DEPENDENCIES)
+	@rm -f msgcomm$(EXEEXT)
 	$(LINK) $(msgcomm_LDFLAGS) $(msgcomm_OBJECTS) $(msgcomm_LDADD) $(LIBS)
 .y.c:
 	$(SHELL) $(YLWRAP) "$(YACC)" $< y.tab.c $*.c y.tab.h $*.h -- $(AM_YFLAGS) $(YFLAGS)

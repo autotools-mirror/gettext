@@ -125,9 +125,27 @@ for am_file in <<$1>>; do
 done<<>>dnl>>)
 changequote([,]))])
 
+#serial 1
+# This test replaces the one in autoconf.
+# Currently this macro should have the same name as the autoconf macro
+# because gettext's gettext.m4 (distributed in the automake package)
+# still uses it.  Otherwise, the use in gettext.m4 makes autoheader
+# give these diagnostics:
+#   configure.in:556: AC_TRY_COMPILE was called before AC_ISC_POSIX
+#   configure.in:556: AC_TRY_RUN was called before AC_ISC_POSIX
+
+undefine([AC_ISC_POSIX])
+
+AC_DEFUN([AC_ISC_POSIX],
+  [
+    dnl This test replaces the obsolescent AC_ISC_POSIX kludge.
+    AC_CHECK_LIB(cposix, strerror, [LIBS="$LIBS -lcposix"])
+  ]
+)
+
 
 # serial 40 AC_PROG_LIBTOOL
-AC_DEFUN(AC_PROG_LIBTOOL,
+AC_DEFUN([AC_PROG_LIBTOOL],
 [AC_REQUIRE([AC_LIBTOOL_SETUP])dnl
 
 # Save cache, so that ltconfig can load it
@@ -157,7 +175,7 @@ AC_SUBST(LIBTOOL)dnl
 exec 5>>./config.log
 ])
 
-AC_DEFUN(AC_LIBTOOL_SETUP,
+AC_DEFUN([AC_LIBTOOL_SETUP],
 [AC_PREREQ(2.13)dnl
 AC_REQUIRE([AC_ENABLE_SHARED])dnl
 AC_REQUIRE([AC_ENABLE_STATIC])dnl
@@ -237,16 +255,16 @@ esac
 ])
 
 # AC_LIBTOOL_DLOPEN - enable checks for dlopen support
-AC_DEFUN(AC_LIBTOOL_DLOPEN, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])])
+AC_DEFUN([AC_LIBTOOL_DLOPEN], [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])])
 
 # AC_LIBTOOL_WIN32_DLL - declare package support for building win32 dll's
-AC_DEFUN(AC_LIBTOOL_WIN32_DLL, [AC_BEFORE([$0], [AC_LIBTOOL_SETUP])])
+AC_DEFUN([AC_LIBTOOL_WIN32_DLL], [AC_BEFORE([$0], [AC_LIBTOOL_SETUP])])
 
 # AC_ENABLE_SHARED - implement the --enable-shared flag
 # Usage: AC_ENABLE_SHARED[(DEFAULT)]
 #   Where DEFAULT is either `yes' or `no'.  If omitted, it defaults to
 #   `yes'.
-AC_DEFUN(AC_ENABLE_SHARED, [dnl
+AC_DEFUN([AC_ENABLE_SHARED], [dnl
 define([AC_ENABLE_SHARED_DEFAULT], ifelse($1, no, no, yes))dnl
 AC_ARG_ENABLE(shared,
 changequote(<<, >>)dnl
@@ -272,14 +290,14 @@ enable_shared=AC_ENABLE_SHARED_DEFAULT)dnl
 ])
 
 # AC_DISABLE_SHARED - set the default shared flag to --disable-shared
-AC_DEFUN(AC_DISABLE_SHARED, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
+AC_DEFUN([AC_DISABLE_SHARED], [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
 AC_ENABLE_SHARED(no)])
 
 # AC_ENABLE_STATIC - implement the --enable-static flag
 # Usage: AC_ENABLE_STATIC[(DEFAULT)]
 #   Where DEFAULT is either `yes' or `no'.  If omitted, it defaults to
 #   `yes'.
-AC_DEFUN(AC_ENABLE_STATIC, [dnl
+AC_DEFUN([AC_ENABLE_STATIC], [dnl
 define([AC_ENABLE_STATIC_DEFAULT], ifelse($1, no, no, yes))dnl
 AC_ARG_ENABLE(static,
 changequote(<<, >>)dnl
@@ -305,7 +323,7 @@ enable_static=AC_ENABLE_STATIC_DEFAULT)dnl
 ])
 
 # AC_DISABLE_STATIC - set the default static flag to --disable-static
-AC_DEFUN(AC_DISABLE_STATIC, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
+AC_DEFUN([AC_DISABLE_STATIC], [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
 AC_ENABLE_STATIC(no)])
 
 
@@ -313,7 +331,7 @@ AC_ENABLE_STATIC(no)])
 # Usage: AC_ENABLE_FAST_INSTALL[(DEFAULT)]
 #   Where DEFAULT is either `yes' or `no'.  If omitted, it defaults to
 #   `yes'.
-AC_DEFUN(AC_ENABLE_FAST_INSTALL, [dnl
+AC_DEFUN([AC_ENABLE_FAST_INSTALL], [dnl
 define([AC_ENABLE_FAST_INSTALL_DEFAULT], ifelse($1, no, no, yes))dnl
 AC_ARG_ENABLE(fast-install,
 changequote(<<, >>)dnl
@@ -339,11 +357,11 @@ enable_fast_install=AC_ENABLE_FAST_INSTALL_DEFAULT)dnl
 ])
 
 # AC_ENABLE_FAST_INSTALL - set the default to --disable-fast-install
-AC_DEFUN(AC_DISABLE_FAST_INSTALL, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
+AC_DEFUN([AC_DISABLE_FAST_INSTALL], [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
 AC_ENABLE_FAST_INSTALL(no)])
 
 # AC_PROG_LD - find the path to the GNU or non-GNU linker
-AC_DEFUN(AC_PROG_LD,
+AC_DEFUN([AC_PROG_LD],
 [AC_ARG_WITH(gnu-ld,
 [  --with-gnu-ld           assume the C compiler uses GNU ld [default=no]],
 test "$withval" = no || with_gnu_ld=yes, with_gnu_ld=no)
@@ -413,7 +431,7 @@ test -z "$LD" && AC_MSG_ERROR([no acceptable ld found in \$PATH])
 AC_PROG_LD_GNU
 ])
 
-AC_DEFUN(AC_PROG_LD_GNU,
+AC_DEFUN([AC_PROG_LD_GNU],
 [AC_CACHE_CHECK([if the linker ($LD) is GNU ld], ac_cv_prog_gnu_ld,
 [# I'd rather use --version here, but apparently some GNU ld's only accept -v.
 if $LD -v 2>&1 </dev/null | egrep '(GNU|with BFD)' 1>&5; then
@@ -424,7 +442,7 @@ fi])
 ])
 
 # AC_PROG_NM - find the path to a BSD-compatible name lister
-AC_DEFUN(AC_PROG_NM,
+AC_DEFUN([AC_PROG_NM],
 [AC_MSG_CHECKING([for BSD-compatible nm])
 AC_CACHE_VAL(ac_cv_path_NM,
 [if test -n "$NM"; then
@@ -458,7 +476,7 @@ AC_MSG_RESULT([$NM])
 ])
 
 # AC_CHECK_LIBM - check for math library
-AC_DEFUN(AC_CHECK_LIBM,
+AC_DEFUN([AC_CHECK_LIBM],
 [AC_REQUIRE([AC_CANONICAL_HOST])dnl
 LIBM=
 case "$lt_target" in
@@ -485,7 +503,7 @@ esac
 # '${top_srcdir}/' (note the single quotes!).  If your package is not
 # flat and you're not using automake, define top_builddir and
 # top_srcdir appropriately in the Makefiles.
-AC_DEFUN(AC_LIBLTDL_CONVENIENCE, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
+AC_DEFUN([AC_LIBLTDL_CONVENIENCE], [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
   case "$enable_ltdl_convenience" in
   no) AC_MSG_ERROR([this package needs a convenience libltdl]) ;;
   "") enable_ltdl_convenience=yes
@@ -506,7 +524,7 @@ AC_DEFUN(AC_LIBLTDL_CONVENIENCE, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
 # not flat and you're not using automake, define top_builddir and
 # top_srcdir appropriately in the Makefiles.
 # In the future, this macro may have to be called after AC_PROG_LIBTOOL.
-AC_DEFUN(AC_LIBLTDL_INSTALLABLE, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
+AC_DEFUN([AC_LIBLTDL_INSTALLABLE], [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
   AC_CHECK_LIB(ltdl, main,
   [test x"$enable_ltdl_install" != xyes && enable_ltdl_install=no],
   [if test x"$enable_ltdl_install" = xno; then
@@ -527,40 +545,36 @@ AC_DEFUN(AC_LIBLTDL_INSTALLABLE, [AC_BEFORE([$0],[AC_LIBTOOL_SETUP])dnl
 ])
 
 dnl old names
-AC_DEFUN(AM_PROG_LIBTOOL, [indir([AC_PROG_LIBTOOL])])dnl
-AC_DEFUN(AM_ENABLE_SHARED, [indir([AC_ENABLE_SHARED], $@)])dnl
-AC_DEFUN(AM_ENABLE_STATIC, [indir([AC_ENABLE_STATIC], $@)])dnl
-AC_DEFUN(AM_DISABLE_SHARED, [indir([AC_DISABLE_SHARED], $@)])dnl
-AC_DEFUN(AM_DISABLE_STATIC, [indir([AC_DISABLE_STATIC], $@)])dnl
-AC_DEFUN(AM_PROG_LD, [indir([AC_PROG_LD])])dnl
-AC_DEFUN(AM_PROG_NM, [indir([AC_PROG_NM])])dnl
+AC_DEFUN([AM_PROG_LIBTOOL], [indir([AC_PROG_LIBTOOL])])dnl
+AC_DEFUN([AM_ENABLE_SHARED], [indir([AC_ENABLE_SHARED], $@)])dnl
+AC_DEFUN([AM_ENABLE_STATIC], [indir([AC_ENABLE_STATIC], $@)])dnl
+AC_DEFUN([AM_DISABLE_SHARED], [indir([AC_DISABLE_SHARED], $@)])dnl
+AC_DEFUN([AM_DISABLE_STATIC], [indir([AC_DISABLE_STATIC], $@)])dnl
+AC_DEFUN([AM_PROG_LD], [indir([AC_PROG_LD])])dnl
+AC_DEFUN([AM_PROG_NM], [indir([AC_PROG_NM])])dnl
 
 dnl This is just to silence aclocal about the macro not being used
 ifelse([AC_DISABLE_FAST_INSTALL])dnl
 
 #serial 1
-# This test replaces the one in autoconf.
-# Currently this macro should have the same name as the autoconf macro
-# because gettext's gettext.m4 (distributed in the automake package)
-# still uses it.  Otherwise, the use in gettext.m4 makes autoheader
-# give these diagnostics:
-#   configure.in:556: AC_TRY_COMPILE was called before AC_ISC_POSIX
-#   configure.in:556: AC_TRY_RUN was called before AC_ISC_POSIX
 
-undefine([AC_ISC_POSIX])
+dnl From Bruno Haible.
 
-AC_DEFUN(AC_ISC_POSIX,
-  [
-    dnl This test replaces the obsolescent AC_ISC_POSIX kludge.
-    AC_CHECK_LIB(cposix, strerror, [LIBS="$LIBS -lcposix"])
-  ]
-)
+AC_DEFUN(bh_C_SIGNED,
+[
+  AC_CACHE_CHECK([for signed], bh_cv_c_signed,
+   [AC_TRY_COMPILE(, [signed char x;], bh_cv_c_signed=yes, bh_cv_c_signed=no)])
+  if test $bh_cv_c_signed = no; then
+    AC_DEFINE(signed, ,
+              [Define to empty if the C compiler doesn't support this keyword.])
+  fi
+])
 
 #serial 3
 
 dnl From Paul Eggert.
 
-AC_DEFUN(AC_C_BACKSLASH_A,
+AC_DEFUN([AC_C_BACKSLASH_A],
 [
   AC_CACHE_CHECK([whether backslash-a works in strings], ac_cv_c_backslash_a,
    [AC_TRY_COMPILE([],
@@ -584,7 +598,7 @@ AC_DEFUN(AC_C_BACKSLASH_A,
 
 dnl From Paul Eggert.
 
-AC_DEFUN(jm_AC_TYPE_UNSIGNED_LONG_LONG,
+AC_DEFUN([jm_AC_TYPE_UNSIGNED_LONG_LONG],
 [
   AC_CACHE_CHECK([for unsigned long long], ac_cv_type_unsigned_long_long,
   [AC_TRY_LINK([unsigned long long ull = 1; int i = 63;],
@@ -620,7 +634,7 @@ AC_PREREQ(2.13)
 # Define uintmax_t to `unsigned long' or `unsigned long long'
 # if <inttypes.h> does not exist.
 
-AC_DEFUN(jm_AC_TYPE_UINTMAX_T,
+AC_DEFUN([jm_AC_TYPE_UINTMAX_T],
 [
   AC_REQUIRE([jm_AC_HEADER_INTTYPES_H])
   if test $jm_ac_cv_header_inttypes_h = no; then
@@ -641,7 +655,7 @@ dnl From Paul Eggert.
 # Define HAVE_INTTYPES_H if <inttypes.h> exists,
 # doesn't clash with <sys/types.h>, and declares uintmax_t.
 
-AC_DEFUN(jm_AC_HEADER_INTTYPES_H,
+AC_DEFUN([jm_AC_HEADER_INTTYPES_H],
 [
   AC_CACHE_CHECK([for inttypes.h], jm_ac_cv_header_inttypes_h,
   [AC_TRY_COMPILE(
@@ -675,20 +689,24 @@ AC_DEFUN(AM_FUNC_ERROR_AT_LINE,
 
 # Check for setlocale declaration.
 
-AC_DEFUN(gt_SETLOCALE,[
+AC_DEFUN([gt_SETLOCALE],[
 AC_CHECK_HEADERS([locale.h])
 AC_MSG_CHECKING([for setlocale declaration])
 AC_CACHE_VAL(gt_cv_proto_setlocale, [
 AC_TRY_COMPILE([
 #include <stdlib.h>
 #include <locale.h>
+extern
+#ifdef __cplusplus
+"C"
+#endif
 #if defined(__STDC__) || defined(__cplusplus)
-char* setlocale (int category, char* locale);
+char *setlocale (int category, char *locale);
 #else
-char* setlocale();
+char *setlocale();
 #endif
 ], [], gt_cv_proto_setlocale_arg1="", gt_cv_proto_setlocale_arg1="const")
-gt_cv_proto_setlocale="extern char* setlocale (int, $gt_cv_proto_setlocale_arg1 char*);"])
+gt_cv_proto_setlocale="extern char *setlocale (int category, $gt_cv_proto_setlocale_arg1 char *locale);"])
 gt_cv_proto_setlocale=`echo "[$]gt_cv_proto_setlocale" | tr -s ' ' | sed -e 's/( /(/'`
 AC_MSG_RESULT([$]{ac_t:-
          }[$]gt_cv_proto_setlocale)
@@ -731,7 +749,7 @@ dnl GNU format catalogs when building on a platform with an X/Open gettext),
 dnl but we keep it in order not to force irrelevant filename changes on the
 dnl maintainers.
 dnl
-AC_DEFUN(AM_WITH_NLS,
+AC_DEFUN([AM_WITH_NLS],
   [AC_MSG_CHECKING([whether NLS is requested])
     dnl Default is enabled NLS
     AC_ARG_ENABLE(nls,
@@ -827,6 +845,12 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 	LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
+      dnl If iconv() is in a separate libiconv library, then anyone linking
+      dnl with libintl{.a,.so} also needs to link with libiconv.
+      if test -n "$LIBICONV" && test -n "$INTLLIBS"; then
+        INTLLIBS="$INTLLIBS $LIBICONV"
+      fi
+
       dnl Test whether we really found GNU xgettext.
       if test "$XGETTEXT" != ":"; then
 	dnl If it is no GNU xgettext we define it as : so that the
@@ -884,7 +908,7 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
   ])
 
 dnl Usage: Just like AM_WITH_NLS, which see.
-AC_DEFUN(AM_GNU_GETTEXT,
+AC_DEFUN([AM_GNU_GETTEXT],
   [AC_REQUIRE([AC_PROG_MAKE_SET])dnl
    AC_REQUIRE([AC_PROG_CC])dnl
    AC_REQUIRE([AC_CANONICAL_HOST])dnl
@@ -989,7 +1013,7 @@ __argz_count __argz_stringify __argz_next])
 
 dnl AM_PATH_PROG_WITH_TEST(VARIABLE, PROG-TO-CHECK-FOR,
 dnl   TEST-PERFORMED-ON-FOUND_PROGRAM [, VALUE-IF-NOT-FOUND [, PATH]])
-AC_DEFUN(AM_PATH_PROG_WITH_TEST,
+AC_DEFUN([AM_PATH_PROG_WITH_TEST],
 [# Extract the first word of "$2", so it can be a program name with args.
 set dummy $2; ac_word=[$]2
 AC_MSG_CHECKING([for $ac_word])
@@ -1029,7 +1053,7 @@ AC_SUBST($1)dnl
 
 dnl From Bruno Haible.
 
-AC_DEFUN(AM_ICONV,
+AC_DEFUN([AM_ICONV],
 [
   dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
   dnl those with the standalone portable libiconv installed).
@@ -1067,12 +1091,12 @@ extern
 "C"
 #endif
 #if defined(__STDC__) || defined(__cplusplus)
-size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t* outbytesleft);
+size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);
 #else
 size_t iconv();
 #endif
 ], [], am_cv_proto_iconv_arg1="", am_cv_proto_iconv_arg1="const")
-      am_cv_proto_iconv="extern size_t iconv (iconv_t cd, $am_cv_proto_iconv_arg1 char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t* outbytesleft);"])
+      am_cv_proto_iconv="extern size_t iconv (iconv_t cd, $am_cv_proto_iconv_arg1 char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);"])
     am_cv_proto_iconv=`echo "[$]am_cv_proto_iconv" | tr -s ' ' | sed -e 's/( /(/'`
     AC_MSG_RESULT([$]{ac_t:-
          }[$]am_cv_proto_iconv)
@@ -1090,7 +1114,7 @@ size_t iconv();
 
 dnl From Bruno Haible.
 
-AC_DEFUN(AM_LANGINFO_CODESET,
+AC_DEFUN([AM_LANGINFO_CODESET],
 [
   AC_CACHE_CHECK([for nl_langinfo and CODESET], am_cv_langinfo_codeset,
     [AC_TRY_LINK([#include <langinfo.h>],
@@ -1114,7 +1138,7 @@ AC_DEFUN(AM_LANGINFO_CODESET,
 
 # serial 2
 
-AC_DEFUN(AM_LC_MESSAGES,
+AC_DEFUN([AM_LC_MESSAGES],
   [if test $ac_cv_header_locale_h = yes; then
     AC_CACHE_CHECK([for LC_MESSAGES], am_cv_val_LC_MESSAGES,
       [AC_TRY_LINK([#include <locale.h>], [return LC_MESSAGES],

@@ -68,6 +68,7 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
+EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 INTLLIBS = @INTLLIBS@
@@ -81,6 +82,7 @@ MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
@@ -92,12 +94,12 @@ YACC = @YACC@
 lispdir = @lispdir@
 
 aclocaldir = @aclocaldir@
-aclocal_DATA = gettext.m4 isc-posix.m4 lcmessage.m4 progtest.m4
+aclocal_DATA = codeset.m4 gettext.m4 iconv.m4 isc-posix.m4 lcmessage.m4 progtest.m4
 
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n'|sort |fmt |tr '\012' @ \
 #   |sed 's/@$/%/;s/@/ \\@/g' |tr @% '\012\012'
-EXTRA_DIST = README c-bs-a.m4 codeset.m4 gettext.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 lcmessage.m4 libtool.m4 progtest.m4 setlocale.m4 uintmax_t.m4 ulonglong.m4
+EXTRA_DIST = README c-bs-a.m4 codeset.m4 gettext.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 lcmessage.m4 libtool.m4 progtest.m4 setlocale.m4 signed.m4 uintmax_t.m4 ulonglong.m4
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h

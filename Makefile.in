@@ -66,6 +66,7 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
+EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 INTLLIBS = @INTLLIBS@
@@ -79,6 +80,7 @@ MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
@@ -98,8 +100,11 @@ ACLOCAL_AMFLAGS = -I m4
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
-EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh
-SUBDIRS = doc lib intl src po m4 misc tests
+SUBDIRS = doc intl lib src po m4 misc tests
+
+MAINTAINERCLEANFILES = djgpp/README djgpp/config.sed djgpp/fnchange.lst
+EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh              djgpp/Makefile.maint djgpp/README.in djgpp/config.bat              djgpp/config.in djgpp/config.site djgpp/edtests.bat              djgpp/fnchange.in djgpp/tscript.sed              $(MAINTAINERCLEANFILES)
+
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
@@ -128,7 +133,8 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 $(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/gettext.m4 \
 		m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 \
 		m4/lcmessage.m4 m4/libtool.m4 m4/progtest.m4 \
-		m4/setlocale.m4 m4/uintmax_t.m4 m4/ulonglong.m4
+		m4/setlocale.m4 m4/signed.m4 m4/uintmax_t.m4 \
+		m4/ulonglong.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
@@ -314,6 +320,7 @@ distdir: $(DISTFILES)
 	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
+	$(mkinstalldirs) $(distdir)/djgpp
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
@@ -374,6 +381,7 @@ distclean-generic:
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 mostlyclean-am:  mostlyclean-hdr mostlyclean-tags mostlyclean-generic
 
 mostlyclean: mostlyclean-recursive

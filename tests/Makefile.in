@@ -68,6 +68,7 @@ CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
+EXEEXT = @EXEEXT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 INTLLIBS = @INTLLIBS@
@@ -81,6 +82,7 @@ MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 POFILES = @POFILES@
 POSUB = @POSUB@
@@ -107,7 +109,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=
 # Two auxiliary programs used by the tests.
 INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-LDADD = ../intl/libintl.la
+LDADD = ../intl/libintl.la @LIBICONV@
 EXTRA_PROGRAMS = tstgettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
@@ -119,10 +121,10 @@ CONFIG_CLEAN_FILES =
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-tstgettext_OBJECTS =  tstgettext.o setlocale.o
+tstgettext_OBJECTS =  tstgettext.$(OBJEXT) setlocale.$(OBJEXT)
 tstgettext_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.la
 tstgettext_LDFLAGS = 
-cake_OBJECTS =  plural-1-prg.o setlocale.o
+cake_OBJECTS =  plural-1-prg.$(OBJEXT) setlocale.$(OBJEXT)
 cake_LDADD = $(LDADD)
 cake_DEPENDENCIES =  ../intl/libintl.la
 cake_LDFLAGS = 
@@ -143,7 +145,7 @@ OBJECTS = $(tstgettext_OBJECTS) $(cake_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
-.SUFFIXES: .S .c .lo .o .s
+.SUFFIXES: .S .c .lo .o .obj .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnits --include-deps tests/Makefile
 
@@ -155,6 +157,11 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 .c.o:
 	$(COMPILE) -c $<
 
+# FIXME: We should only use cygpath when building on Windows,
+# and only if it is available.
+.c.obj:
+	$(COMPILE) -c `cygpath -w $<`
+
 .s.o:
 	$(COMPILE) -c $<
 
@@ -163,6 +170,7 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 
 mostlyclean-compile:
 	-rm -f *.o core *.core
+	-rm -f *.$(OBJEXT)
 
 clean-compile:
 
@@ -190,12 +198,12 @@ distclean-libtool:
 
 maintainer-clean-libtool:
 
-tstgettext: $(tstgettext_OBJECTS) $(tstgettext_DEPENDENCIES)
-	@rm -f tstgettext
+tstgettext$(EXEEXT): $(tstgettext_OBJECTS) $(tstgettext_DEPENDENCIES)
+	@rm -f tstgettext$(EXEEXT)
 	$(LINK) $(tstgettext_LDFLAGS) $(tstgettext_OBJECTS) $(tstgettext_LDADD) $(LIBS)
 
-cake: $(cake_OBJECTS) $(cake_DEPENDENCIES)
-	@rm -f cake
+cake$(EXEEXT): $(cake_OBJECTS) $(cake_DEPENDENCIES)
+	@rm -f cake$(EXEEXT)
 	$(LINK) $(cake_LDFLAGS) $(cake_OBJECTS) $(cake_LDADD) $(LIBS)
 
 tags: TAGS

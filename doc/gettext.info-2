@@ -320,16 +320,29 @@ code above by a sequence of `setlocale' lines
 
      {
        ...
-       setlocale (LC_TIME, "");
+       setlocale (LC_CTYPE, "");
        setlocale (LC_MESSAGES, "");
        ...
      }
 
-or to switch for and back to the character class in question.  On all
-POSIX conformant systems the locale categories `LC_CTYPE',
+On all POSIX conformant systems the locale categories `LC_CTYPE',
 `LC_COLLATE', `LC_MONETARY', `LC_NUMERIC', and `LC_TIME' are available.
 On some modern systems there is also a locale `LC_MESSAGES' which is
 called on some old, XPG2 compliant systems `LC_RESPONSES'.
+
+   Note that changing the `LC_CTYPE' also affects the functions
+declared in the `<ctype.h>' standard header.  If this is not desirable
+in your application (for example in a compiler's parser), you can use a
+set of substitute functions which hardwire the C locale, such as found
+in the `<c-ctype.h>' and `<c-ctype.c>' files in the gettext source
+distribution.
+
+   It is also possible to switch the locale forth and back between the
+environment dependent locale and the C locale, but this approach is
+normally avoided because a `setlocale' call is expensive, because it is
+tedious to determine the places where a locale switch is needed in a
+large program's source, and because switching a locale is not
+multithread-safe.
 
 
 File: gettext.info,  Node: Mark Keywords,  Next: Marking,  Prev: Triggering,  Up: Sources

@@ -51,13 +51,17 @@ library, and for packages adhering to its conventions, it's:
      /usr/local/share/locale
 
 LOCALE is the value of the locale whose name is this `LC_CATEGORY'.
-For `gettext' and `dgettext' this locale is always `LC_MESSAGES'.
-`dcgettext' specifies the locale by the third argument.(1) (2)
+For `gettext' and `dgettext' this `LC_CATEGORY' is always
+`LC_MESSAGES'.(1) The value of the locale is determined through
+`setlocale (LC_CATEGORY, NULL)'.  (2) `dcgettext' specifies the locale
+category by the third argument.
 
    ---------- Footnotes ----------
 
    (1) Some system, eg Ultrix, don't have `LC_MESSAGES'.  Here we use a
-more or less arbitrary value for it.
+more or less arbitrary value for it, namely 1729, the smallest positive
+integer which can be represented in two different ways as the sum of
+two cubes.
 
    (2) When the system does not support `setlocale' its behavior in
 setting the locale values is simulated by looking at the environment
@@ -565,16 +569,11 @@ program which does not depend on translations to be available, but which
 can use any that becomes available.
 
    The same procedure can be done for the `gettext_noop' invocations
-(*note Special cases::).  First you can define `gettext_noop' to a
-no-op macro and later use the definition from `libintl.h'.  Because
-this name is not used in Suns implementation of `libintl.h', you should
-consider the following code for your project:
+(*note Special cases::).  One usually defines `gettext_noop' as a no-op
+macro.  So you should consider the following code for your project:
 
-     #ifdef gettext_noop
-     # define N_(String) gettext_noop (String)
-     #else
-     # define N_(String) (String)
-     #endif
+     #define gettext_noop(String) (String)
+     #define N_(String) gettext_noop (String)
 
    `N_' is a short form similar to `_'.  The `Makefile' in the `po/'
 directory of GNU `gettext' knows by default both of the mentioned short

@@ -1,9 +1,9 @@
 typedef union
 {
-  char *string;
-  long number;
-  lex_pos_ty pos;
-  struct msgstr_def rhs;
+  struct { char *string; lex_pos_ty pos; int obsolete; } string;
+  struct { long number; lex_pos_ty pos; int obsolete; } number;
+  struct { lex_pos_ty pos; int obsolete; } pos;
+  struct { struct msgstr_def rhs; lex_pos_ty pos; int obsolete; } rhs;
 } YYSTYPE;
 #define	COMMENT	257
 #define	DOMAIN	258

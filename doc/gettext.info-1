@@ -50,7 +50,7 @@ GNU `gettext' utilities
 * Maintainers::                 The Maintainer's View
 * Conclusion::                  Concluding Remarks
 
-* Country Codes::               ISO 639 country codes
+* Language Codes::              ISO 639 language codes
 
  --- The Detailed Node Listing ---
 
@@ -577,8 +577,17 @@ in a central header file:
 
 Doing this allows you to prepare the sources for internationalization.
 Later when you feel ready for the step to use the `gettext' library
-simply remove these definitions, include `libintl.h' and link against
-`libintl.a'.  That is all you have to change.
+simply replace these definitions by the following:
+
+     #include <libintl.h>
+     #define _(String) gettext (String)
+     #define gettext_noop(String) (String)
+     #define N_(String) gettext_noop (String)
+
+   and link against `libintl.a' or `libintl.so'.  Note that on GNU
+systems, you don't need to link with `libintl' because the `gettext'
+library functions are already contained in GNU libc.  That is all you
+have to change.
 
    Once the C sources have been modified, the `xgettext' program is
 used to find and extract all translatable strings, and create an

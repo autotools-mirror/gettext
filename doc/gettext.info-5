@@ -618,7 +618,7 @@ modifications needed in `src/Makefile.in':
 
 
 
-File: gettext.info,  Node: Conclusion,  Next: Country Codes,  Prev: Maintainers,  Up: Top
+File: gettext.info,  Node: Conclusion,  Next: Language Codes,  Prev: Maintainers,  Up: Top
 
 Concluding Remarks
 ******************
@@ -734,14 +734,14 @@ This site is mirrored in:
 together with French translations of many Linux-related documents.
 
 
-File: gettext.info,  Node: Country Codes,  Prev: Conclusion,  Up: Top
+File: gettext.info,  Node: Language Codes,  Prev: Conclusion,  Up: Top
 
-Country Codes
-*************
+Language Codes
+**************
 
-   The ISO 639 standard defines two character codes for many countries.
-All abreviations for countries or languages used in the Translation
-Project should come from this standard.
+   The ISO 639 standard defines two character codes for many languages.
+All abbreviations for languages used in the Translation Project should
+come from this standard.
 
 `aa'
      Afar.

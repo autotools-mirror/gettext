@@ -199,6 +199,9 @@
 /* Make sure we see all GNU extensions. */
 #undef _GNU_SOURCE
 
+/* Define to empty if the C compiler doesn't support this keyword. */
+#undef signed
+
 /* Define if backslash-a works in C strings. */
 #undef HAVE_C_BACKSLASH_A
 
