@@ -1,5 +1,5 @@
 /* Return the name-within-directory of a file name.
-   Copyright (C) 1996-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1996-1999, 2000-2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -26,7 +26,7 @@
 /* Specification.  */
 #include "basename.h"
 
-#ifndef __GNU_LIBRARY__
+#ifndef __GLIBC__
 
 #include <stdio.h>
 #include <assert.h>
