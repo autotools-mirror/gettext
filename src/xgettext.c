@@ -41,6 +41,7 @@
 #include "file-list.h"
 #include "error.h"
 #include "progname.h"
+#include "xerror.h"
 #include "getline.h"
 #include "system.h"
 #include "po.h"
@@ -809,6 +810,18 @@ remember_a_message (mlp, string, pos)
     is_format[i] = undecided;
   do_wrap = undecided;
 
+  if (msgid[0] == '\0' && !omit_header)
+    {
+      error_with_progname = false;
+      multiline_warning (xasprintf ("%s:%d: warning: ", pos->file_name,
+				    pos->line_number),
+			 xstrdup (_("\
+Empty msgid.  It is reserved by GNU gettext:\n\
+gettext(\"\") returns the header entry with\n\
+meta information, not the empty string.\n")));
+      error_with_progname = true;
+    }
+
   /* See if we have seen this message before.  */
   mp = message_list_search (mlp, msgid);
   if (mp != NULL)
@@ -820,7 +833,7 @@ remember_a_message (mlp, string, pos)
     }
   else
     {
-      static lex_pos_ty pos = { __FILE__, __LINE__ };
+      static lex_pos_ty dummypos = { __FILE__, __LINE__ };
 
       /* Construct the msgstr from the prefix and suffix, otherwise use the
 	 empty string.  */
@@ -836,7 +849,7 @@ remember_a_message (mlp, string, pos)
 	msgstr = "";
 
       /* Allocate a new message and append the message to the list.  */
-      mp = message_alloc (msgid, NULL, msgstr, strlen (msgstr) + 1, &pos);
+      mp = message_alloc (msgid, NULL, msgstr, strlen (msgstr) + 1, &dummypos);
       /* Do not free msgid.  */
       message_list_append (mlp, mp);
     }

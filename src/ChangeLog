@@ -1,3 +1,8 @@
+2001-09-23  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (remember_a_message): Warn about empty msgid if it
+	conflicts with construct_header().
+
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcat.c (main): Move the option checking after the handling of
