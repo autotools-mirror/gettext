@@ -8335,6 +8335,59 @@ the GNU gettext package and distributed under the LGPL.
 Three examples, using the second API, are available in the @file{examples}
 directory: @code{hello-java}, @code{hello-java-awt}, @code{hello-java-swing}.
 
+Now, to make use of the API and define a shorthand for @samp{getString},
+there are two idioms that you can choose from:
+
+@itemize @bullet
+@item
+In a unique class of your project, say @samp{Util}, define a static variable
+holding the @code{ResourceBundle} instance:
+
+@smallexample
+public static ResourceBundle myResources =
+  ResourceBundle.getBundle("domain-name");
+@end smallexample
+
+All classes containing internationalized strings then contain
+
+@smallexample
+private static ResourceBundle res = Util.myResources;
+private static String _(String s) @{ return res.getString(s); @}
+@end smallexample
+
+@noindent
+and the shorthand is used like this:
+
+@smallexample
+System.out.println(_("Operation completed."));
+@end smallexample
+
+@item
+You add a class with a very short name, say @samp{S}, containing just the
+definition of the resource bundle and of the shorthand:
+
+@smallexample
+public class S @{
+  public static ResourceBundle myResources =
+    ResourceBundle.getBundle("domain-name");
+  public static String _(String s) @{
+    return myResources.getString(s);
+  @}
+@}
+@end smallexample
+
+@noindent
+and the shorthand is used like this:
+
+@smallexample
+System.out.println(S._("Operation completed."));
+@end smallexample
+@end itemize
+
+Which of the two idioms you choose, will depend on whether copying two lines
+of codes into every class is more acceptable in your project than a class
+with a single-letter name.
+
 @node C#, gawk, Java, List of Programming Languages
 @subsection C#
 @cindex C#
@@ -8529,6 +8582,59 @@ but don't want to change an existing source code that uses
 
 Two examples, using the second API, are available in the @file{examples}
 directory: @code{hello-csharp}, @code{hello-csharp-forms}.
+
+Now, to make use of the API and define a shorthand for @samp{GetString},
+there are two idioms that you can choose from:
+
+@itemize @bullet
+@item
+In a unique class of your project, say @samp{Util}, define a static variable
+holding the @code{ResourceManager} instance:
+
+@smallexample
+public static GettextResourceManager MyResourceManager =
+  new GettextResourceManager("domain-name");
+@end smallexample
+
+All classes containing internationalized strings then contain
+
+@smallexample
+private static GettextResourceManager Res = Util.MyResourceManager;
+private static String _(String s) @{ return Res.GetString(s); @}
+@end smallexample
+
+@noindent
+and the shorthand is used like this:
+
+@smallexample
+Console.WriteLine(_("Operation completed."));
+@end smallexample
+
+@item
+You add a class with a very short name, say @samp{S}, containing just the
+definition of the resource manager and of the shorthand:
+
+@smallexample
+public class S @{
+  public static GettextResourceManager MyResourceManager =
+    new GettextResourceManager("domain-name");
+  public static String _(String s) @{
+     return MyResourceManager.GetString(s);
+  @}
+@}
+@end smallexample
+
+@noindent
+and the shorthand is used like this:
+
+@smallexample
+Console.WriteLine(S._("Operation completed."));
+@end smallexample
+@end itemize
+
+Which of the two idioms you choose, will depend on whether copying two lines
+of codes into every class is more acceptable in your project than a class
+with a single-letter name.
 
 @node gawk, Pascal, C#, List of Programming Languages
 @subsection GNU awk
