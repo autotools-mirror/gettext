@@ -1,3 +1,8 @@
+2005-02-03  Bruno Haible  <bruno@clisp.org>
+
+	* dfa.c (dfaexec): Avoid continuing the loop past the end of the
+	string.
+
 2005-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* dfa.c (parse_bracket_exp_mb): Don't confuse wctype_t with wchar_t.

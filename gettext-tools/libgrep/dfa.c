@@ -2802,6 +2802,12 @@ dfaexec (struct dfa *d, char const *begin, size_t size, int *backref)
       if (MB_CUR_MAX > 1)
 	while ((t = trans[s]))
 	  {
+	    if (p == end)
+	      {
+		free(mblen_buf);
+		free(inputwcs);
+		return (size_t) -1;
+	      }
 	    if (d->states[s].mbps.nelem != 0)
 	      {
 		/* Can match with a multibyte character( and multi character
@@ -2826,7 +2832,11 @@ dfaexec (struct dfa *d, char const *begin, size_t size, int *backref)
       else
 #endif /* MBS_SUPPORT */
         while ((t = trans[s]))
-	  s = t[*p++];
+	  {
+	    if (p == end)
+	      return (size_t) -1;
+	    s = t[*p++];
+	  }
 
       if (s < 0)
 	{
