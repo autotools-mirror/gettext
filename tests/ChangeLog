@@ -1,5 +1,18 @@
 2001-10-31  Bruno Haible  <haible@clisp.cons.org>
 
+	* Makefile.am (TESTS): Add msgcat-2, msgcat-3, msgcat-4, msgcat-5,
+	msgcat-6.
+
+2001-07-31  Karl Eichwalder  <keichwa@gmx.net>
+
+	* msgcat-2: New file.
+	* msgcat-3: New file.
+	* msgcat-4: New file.
+	* msgcat-5: New file.
+	* msgcat-6: New file.
+
+2001-10-31  Bruno Haible  <haible@clisp.cons.org>
+
 	* xgettext-13: Hide warning.
 
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
