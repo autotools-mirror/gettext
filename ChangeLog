@@ -1,3 +1,11 @@
+2002-12-07  Bruno Haible  <bruno@clisp.org>
+
+	Switch to autoconf-2.57 and automake-1.7.2.
+	* configure.in: Use AC_CONFIG_FILES, because the AC_OUTPUT commands
+	and not run any more when config.status is called to create a single
+	file.
+	* elisp-comp: New file, from automake-1.7.2.
+
 2002-11-19  Bruno Haible  <bruno@clisp.org>
 
 	Switch to autoconf-2.56.
