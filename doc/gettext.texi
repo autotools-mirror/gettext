@@ -315,6 +315,7 @@ Internationalizable Data
 
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
+* Glade::                       Glade - GNOME user interface description
 
 Concluding Remarks
 
@@ -7320,6 +7321,7 @@ using GNU gettext.
 @menu
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
+* Glade::                       Glade - GNOME user interface description
 @end menu
 
 @node POT, RST, List of Data Formats, List of Data Formats
@@ -7336,7 +7338,7 @@ gettext
 @code{xgettext}
 @end table
 
-@node RST,  , POT, List of Data Formats
+@node RST, Glade, POT, List of Data Formats
 @subsection Resource String Table
 @cindex RST
 
@@ -7349,6 +7351,20 @@ fpk
 
 @item Extractor
 @code{xgettext}, @code{rstconv}
+@end table
+
+@node Glade,  , RST, List of Data Formats
+@subsection Glade - GNOME user interface description
+
+@table @asis
+@item RPMs
+glade, libglade, xml-i18n-tools
+
+@item File extension
+@code{glade}
+
+@item Extractor
+@code{xgettext}, @code{libglade-xgettext}
 @end table
 
 @c This is the template for new data formats.

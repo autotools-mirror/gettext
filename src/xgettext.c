@@ -67,6 +67,7 @@
 #include "x-awk.h"
 #include "x-ycp.h"
 #include "x-rst.h"
+#include "x-glade.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -231,6 +232,7 @@ main (argc, argv)
 	x_librep_extract_all ();
 	x_java_extract_all ();
 	x_awk_extract_all ();
+	x_glade_extract_all ();
 	break;
       case 'c':
 	if (optarg == NULL)
@@ -287,6 +289,7 @@ main (argc, argv)
 	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
 	    x_awk_keyword (optarg);
+	    x_glade_keyword (optarg);
 	  }
 	break;
       case 'K':
@@ -1258,6 +1261,7 @@ language_to_extractor (name)
     SCANNERS_AWK
     SCANNERS_YCP
     SCANNERS_RST
+    SCANNERS_GLADE
     /* Here will follow more languages and their scanners: perl, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
@@ -1302,6 +1306,7 @@ extension_to_language (extension)
     EXTENSIONS_AWK
     EXTENSIONS_YCP
     EXTENSIONS_RST
+    EXTENSIONS_GLADE
     /* Here will follow more file extensions: sh, pl, tcl ... */
   };
 

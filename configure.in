@@ -93,6 +93,25 @@ dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_OUTPUT has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
+dnl Check for the expat XML parser.
+dnl On operating systems where binary distribution vendors are likely to
+dnl ship both gettext and expat, we use dynamic loading to avoid a hard
+dnl dependency from gettext to expat.
+case "$host_os" in
+  linux*)
+    AC_DEFINE([DYNLOAD_LIBEXPAT], 1,
+      [Define to 1 if libexpat shall be dynamically loaded via dlopen().])
+    LIBEXPAT="-ldl"
+    LTLIBEXPAT="-ldl"
+    AC_SUBST(LIBEXPAT)
+    AC_SUBST(LTLIBEXPAT)
+    ;;
+  *)
+    AC_LIB_HAVE_LINKFLAGS([expat], [],
+      [#include <expat.h>], [XML_ExpatVersion();])
+    ;;
+esac
+
 dnl Check for Emacs and where to install .elc files.
 AM_PATH_LISPDIR
 

@@ -1,3 +1,15 @@
+2002-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* x-glade.h: New file.
+	* x-glade.c: New file.
+	* xgettext.c: Include x-glade.h.
+	(main): Call x_glade_extract_all, x_glade_keyword.
+	(language_to_scanner): Add glade rule.
+	(extension_to_language): Add glade rule.
+	* Makefile.am (noinst_HEADERS): Add x-glade.h.
+	(xgettext_SOURCES): Add x-glade.c.
+	(xgettext_LDADD): Add @LTLIBEXPAT@.
+
 2002-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_awk'.
