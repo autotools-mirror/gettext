@@ -1,3 +1,7 @@
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (libintl.la): Add -lc. Needed on AIX.
+
 2002-01-02  Bruno Haible  <bruno@clisp.org>
 
 	* loadmsgcat.c (_nl_init_domain_conv): Convert extern declaration to

@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling in GNU NLS Utilities.
-# Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Library General Public License as published
@@ -119,7 +119,7 @@ libintl.a libgnuintl.a: $(OBJECTS)
 libintl.la libgnuintl.la: $(OBJECTS)
 	$(LIBTOOL) --mode=link \
 	  $(CC) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS) $(LDFLAGS) -o $@ \
-	  $(OBJECTS) @LIBICONV@ \
+	  $(OBJECTS) @LIBICONV@ -lc \
 	  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
 	  -rpath $(libdir) \
 	  -no-undefined

@@ -1,5 +1,5 @@
 ## Makefile for program src directory in GNU NLS utilities package.
-## Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -104,7 +104,7 @@ urlget_SOURCES = urlget.c
 # iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@ -no-undefined
+  ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@ -lc -no-undefined
 
 # Link dependencies.
 msgcmp_LDADD = libgettextsrc.la

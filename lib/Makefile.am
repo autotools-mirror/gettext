@@ -1,5 +1,5 @@
 ## Makefile for the support lib subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
 # Need @LIBICONV@ because linebreak.c uses iconv().
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
-  @INTLLIBS@ @LIBICONV@ -no-undefined
+  @INTLLIBS@ @LIBICONV@ -lc -no-undefined
 
 # Extra files to be installed.
 
