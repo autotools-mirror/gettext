@@ -107,11 +107,11 @@ sp              |                                                 |  0
 tar             | []       [] [] []     []   []    [] [] []       | 17
 texinfo         | []                         []                   |  7
 textutils       | []       [] [] []     []   [] [] []             | 15
-util-linux      |                       []                        |  3
+util-linux      |                       []               []       |  4
 wdiff           |                            [] []                |  4
 wget            |          []                [] [] [] [] []       | 15
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 16  1  2  360
+  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 17  1  2  361
 @end group
 @end example
