@@ -1,5 +1,15 @@
 2004-01-10  Bruno Haible  <bruno@clisp.org>
 
+	* csharpcomp.c (compile_csharp_using_pnet, compile_csharp_using_mono,
+	compile_csharp_using_sscli): New functions.
+	(compile_csharp_class): Call them. Respect the CSHARP_CHOICE_* macros.
+	* csharpexec.c (execute_csharp_using_pnet, execute_csharp_using_mono):
+	New functions.
+	(execute_csharp_program): Call them. Respect the CSHARP_CHOICE_*
+	macros.
+
+2004-01-10  Bruno Haible  <bruno@clisp.org>
+
 	* csharpcomp.sh.in: Copy the mcs output to stderr, dropping the
 	"Compilation succeeded" message.
 	* csharpcomp.c: Include errno.h, pipe.h, wait-process.h, getline.h.

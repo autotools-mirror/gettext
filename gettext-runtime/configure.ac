@@ -45,7 +45,7 @@ fi
 AC_SUBST(BUILDJAVA)
 
 gt_CSHARPCOMP
-if test -n "$HAVE_CSHARPCOMP"; then
+if test -n "$HAVE_CSHARPCOMP" && test "$CSHARP_CHOICE" != no; then
   BUILDCSHARP=yes
 else
   BUILDCSHARP=no

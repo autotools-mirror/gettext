@@ -48,6 +48,7 @@ alloca.m4 \
 allocsa.m4 \
 backupfile.m4 \
 canonicalize.m4 \
+csharp.m4 \
 csharpcomp.m4 \
 csharpexec.m4 \
 eaccess.m4 \

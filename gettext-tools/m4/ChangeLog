@@ -1,3 +1,12 @@
+2004-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* csharp.m4: New file.
+	* csharpcomp.m4 (gt_CSHARPCOMP): Require gt_CSHARP_CHOICE. Respect the
+	CSHARP_CHOICE given by the --enable-csharp option.
+	* csharpexec.m4 (gt_CSHARPEXEC): Require gt_CSHARP_CHOICE. Respect the
+	CSHARP_CHOICE given by the --enable-csharp option.
+	* Makefile.am (EXTRA_DIST): Add csharp.m4.
+
 2003-12-26  Bruno Haible  <bruno@clisp.org>
 
 	Support for C#.
