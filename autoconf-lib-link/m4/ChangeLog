@@ -1,3 +1,7 @@
+2005-03-05  Bruno Haible  <bruno@clisp.org>
+
+	* lib-link.m4 (AC_LIB_RPATH): Use AC_REQUIRE_AUX_FILE conditionally.
+
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.2 released.
