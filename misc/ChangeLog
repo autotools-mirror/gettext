@@ -1,3 +1,8 @@
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextize.in: Don't copy intl/COPYING*; these files may confuse
+	the user of the enclosing package.
+
 2001-08-23  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-compute-counters): First save `current'

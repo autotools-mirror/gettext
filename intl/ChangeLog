@@ -23,13 +23,15 @@
 	(OBJECTS): Add plural-exp.$lo.
 	Update dependencies.
 
-2001-09-01  Bruno Haible  <haible@clisp.cons.org>
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
 
 	* *.h, *.c, *.y, Makefile.in: Change copyright notice from GPL to LGPL.
 	This is a reaction to a blackmail from the GNOME project which
 	threatened to distribute an LGPLed clone of libintl.
 	* COPYING.LIB-2, COPYING.LIB-2.1: New files.
-	* Makefile.in (DISTFILES.common): Add them.
+	* Makefile.in (DISTFILES.gettext): Add them.
+	(install-data): Install them.
+	(uninstall): Uninstall them.
 
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 

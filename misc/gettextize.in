@@ -159,14 +159,16 @@ done
 # Copy files to intl/ subdirectory.
 cd intl
 for file in *; do
-  rm -f $srcdir/intl/$file
-  if test $file != plural.c; then
-    ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file && $echo "Symlinking file intl/$file") 2>/dev/null ||
-    { $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file; }
-  else
-    # plural.c is a generated file; it must be copied and touched.
-    $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file
-    sleep 2; touch $srcdir/intl/$file
+  if test $file != COPYING.LIB-2 && test $file != COPYING.LIB-2.1; then
+    rm -f $srcdir/intl/$file
+    if test $file != plural.c; then
+      ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file && $echo "Symlinking file intl/$file") 2>/dev/null ||
+      { $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file; }
+    else
+      # plural.c is a generated file; it must be copied and touched.
+      $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file
+      sleep 2; touch $srcdir/intl/$file
+    fi
   fi
 done
 

@@ -71,11 +71,11 @@ finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
 plural.$lo plural-exp.$lo localcharset.$lo
 GETTOBJS = intl-compat.$lo
-DISTFILES.common = COPYING.LIB-2 COPYING.LIB-2.1 Makefile.in \
+DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
-DISTFILES.gettext = libintl.glibc
+DISTFILES.gettext = COPYING.LIB-2 COPYING.LIB-2.1 libintl.glibc
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c
 
 # Libtool's library version information for libintl.
@@ -185,7 +185,7 @@ install-data: all
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
 	  $(INSTALL_DATA) ChangeLog.inst $(DESTDIR)$(gettextsrcdir)/ChangeLog; \
-	  dists="$(DISTFILES.common)"; \
+	  dists="COPYING.LIB-2 COPYING.LIB-2.1 $(DISTFILES.common)"; \
 	  for file in $$dists; do \
 	    $(INSTALL_DATA) $(srcdir)/$$file \
 			    $(DESTDIR)$(gettextsrcdir)/$$file; \
@@ -244,7 +244,7 @@ uninstall:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext"; then \
-	  for file in VERSION ChangeLog $(DISTFILES.common) $(DISTFILES.generated); do \
+	  for file in VERSION ChangeLog COPYING.LIB-2 COPYING.LIB-2.1 $(DISTFILES.common) $(DISTFILES.generated); do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
