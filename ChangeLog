@@ -1,3 +1,7 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in: Change version number to 0.11-pre4.
+
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Use a variant of AC_PROG_CXX_WORKS that doesn't abort
