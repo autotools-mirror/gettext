@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.12-pre1\n"
+"Project-Id-Version: GNU gettext-runtime 0.12.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-05-12 19:47+0200\n"
-"PO-Revision-Date: 2003-04-07 09:07+0200\n"
+"PO-Revision-Date: 2003-09-04 22:38+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
