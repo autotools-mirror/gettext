@@ -1,4 +1,4 @@
-## Makefile for the misc subdirectory of the GNU NLS Utilities
+## Makefile for the gettext-tools/misc subdirectory of GNU gettext
 ## Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -41,7 +41,7 @@ archive.tar.gz:
 
 lisp_LISP = po-mode.el po-compat.el
 
-EXTRA_DIST += elisp-comp $(lisp_LISP)
+EXTRA_DIST += $(lisp_LISP)
 
 
 # Old sh interface.

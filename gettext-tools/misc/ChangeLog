@@ -1,3 +1,8 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* elisp-comp: Move to ../../config/elisp-comp.
+	* Makefile.am (EXTRA_DIST): Remove elisp-comp.
+
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Make use of += for variables.
