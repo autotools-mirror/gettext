@@ -1,3 +1,16 @@
+2002-12-24  Bruno Haible  <bruno@clisp.org>
+
+	* setenv.m4 (gt_FUNC_SETENV): New macro.
+	(gt_CHECK_VAR_DECL): Fix quoting error that led to infinite loop in m4
+	when invoked twice.
+	(gt_PREREQ_SETENV, gt_PREREQ_UNSETENV): New macros, replacing old
+	gt_FUNC_SETENV.
+
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* stdbool.m4: Replace with the version from gnulib, without
+	AC_HEADER_STDBOOL.
+
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add extensions.m4.
