@@ -6943,7 +6943,7 @@ gawk 3.1 or newer
 @code{_"abc"}
 
 @item gettext/ngettext functions
-@code{dcgettext}
+@code{dcgettext}, missing @code{dcngettext} in gawk-3.1.0
 
 @item textdomain
 @code{TEXTDOMAIN} variable
@@ -6961,14 +6961,15 @@ automatic, but missing @code{setlocale (LC_MESSAGES, "")} in gawk-3.1.0
 use
 
 @item Extractor
-@code{gawk --gen-po}
+@code{xgettext}
 
 @item Formatting with positions
 @code{printf "%2$d %1$d"} (GNU awk only)
 
 @item Portability
 On platforms without gettext, no translation.  On non-GNU awks, you must
-define @code{dcgettext} and @code{bindtextdomain} yourself.
+define @code{dcgettext}, @code{dcngettext} and @code{bindtextdomain}
+yourself.
 
 @item po-mode marking
 ---

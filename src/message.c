@@ -47,6 +47,7 @@ const char *const format_language[NFORMATS] =
   /* format_librep */		"librep",
   /* format_smalltalk */	"smalltalk",
   /* format_java */		"java",
+  /* format_awk */		"awk",
   /* format_pascal */		"object-pascal",
   /* format_ycp */		"ycp"
 };
@@ -60,6 +61,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_librep */		"librep",
   /* format_smalltalk */	"Smalltalk",
   /* format_java */		"Java",
+  /* format_awk */		"awk",
   /* format_pascal */		"Object Pascal",
   /* format_ycp */		"YCP"
 };

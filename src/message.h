@@ -41,10 +41,11 @@ enum format_type
   format_librep,
   format_smalltalk,
   format_java,
+  format_awk,
   format_pascal,
   format_ycp
 };
-#define NFORMATS 9	/* Number of format_type enum values.  */
+#define NFORMATS 10	/* Number of format_type enum values.  */
 extern const char *const format_language[NFORMATS];
 extern const char *const format_language_pretty[NFORMATS];
 

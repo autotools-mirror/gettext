@@ -61,6 +61,7 @@ extern struct formatstring_parser formatstring_elisp;
 extern struct formatstring_parser formatstring_librep;
 extern struct formatstring_parser formatstring_smalltalk;
 extern struct formatstring_parser formatstring_java;
+extern struct formatstring_parser formatstring_awk;
 extern struct formatstring_parser formatstring_pascal;
 extern struct formatstring_parser formatstring_ycp;
 

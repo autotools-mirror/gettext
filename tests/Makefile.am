@@ -46,6 +46,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	xgettext-18 \
+	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 \
 	format-elisp-1 format-elisp-2 \
 	format-java-1 format-java-2 \
@@ -55,7 +56,7 @@ TESTS = gettext-1 gettext-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-java lang-pascal lang-ycp lang-po lang-rst \
+	lang-c lang-c++ lang-objc lang-python lang-clisp lang-elisp lang-librep lang-java lang-gawk lang-pascal lang-ycp lang-po lang-rst \
 	rpath-1a rpath-1b \
 	rpath-2aaa rpath-2aab rpath-2aac rpath-2aad \
 	rpath-2aba rpath-2abb rpath-2abc rpath-2abd \

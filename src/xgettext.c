@@ -64,6 +64,7 @@
 #include "x-elisp.h"
 #include "x-librep.h"
 #include "x-java.h"
+#include "x-awk.h"
 #include "x-ycp.h"
 #include "x-rst.h"
 
@@ -229,6 +230,7 @@ main (argc, argv)
 	x_elisp_extract_all ();
 	x_librep_extract_all ();
 	x_java_extract_all ();
+	x_awk_extract_all ();
 	break;
       case 'c':
 	if (optarg == NULL)
@@ -284,6 +286,7 @@ main (argc, argv)
 	    x_elisp_keyword (optarg);
 	    x_librep_keyword (optarg);
 	    x_java_keyword (optarg);
+	    x_awk_keyword (optarg);
 	  }
 	break;
       case 'K':
@@ -1252,10 +1255,11 @@ language_to_extractor (name)
     SCANNERS_ELISP
     SCANNERS_LIBREP
     SCANNERS_JAVA
+    SCANNERS_AWK
     SCANNERS_YCP
     SCANNERS_RST
-    /* Here will follow more languages and their scanners: awk, perl,
-       etc...  Make sure new scanners honor the --exclude-file option.  */
+    /* Here will follow more languages and their scanners: perl, etc...
+       Make sure new scanners honor the --exclude-file option.  */
   };
 
   table_ty *tp;
@@ -1295,6 +1299,7 @@ extension_to_language (extension)
     EXTENSIONS_ELISP
     EXTENSIONS_LIBREP
     EXTENSIONS_JAVA
+    EXTENSIONS_AWK
     EXTENSIONS_YCP
     EXTENSIONS_RST
     /* Here will follow more file extensions: sh, pl, tcl ... */

@@ -1,3 +1,22 @@
+2002-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (format_type): New enum value 'format_awk'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_awk entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_awk): New declaration.
+	* format-awk.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_awk.
+	* x-awk.h: New file.
+	* x-awk.c: New file.
+	* xgettext.c: Include x-awk.h.
+	(main): Call x_awk_extract_all, x_awk_keyword.
+	(language_to_scanner): Add awk rule.
+	(extension_to_language): Add awk rule.
+	* Makefile.am (noinst_HEADERS): Add x-awk.h.
+	(FORMAT_SOURCE): Add format-awk.c.
+	(xgettext_SOURCES): Add x-awk.c.
+
 2002-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* x-python.h: New file.

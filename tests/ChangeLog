@@ -1,3 +1,10 @@
+2002-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* format-awk-1: New file.
+	* format-awk-2: New file.
+	* lang-gawk: New file.
+	* Makefile.am (TESTS): Add format-awk-1, format-awk-2, lang-gawk.
+
 2002-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-18: New file.
