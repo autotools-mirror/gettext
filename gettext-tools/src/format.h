@@ -32,9 +32,11 @@ extern "C" {
 
 
 /* This type of callback is responsible for showing an error.  */
-typedef void formatstring_error_logger_fn (const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 1, 2)));
-typedef formatstring_error_logger_fn *formatstring_error_logger_t;
+typedef void (*formatstring_error_logger_t) (const char *format, ...)
+#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
+     __attribute__ ((__format__ (__printf__, 1, 2)))
+#endif
+;
 
 /* This structure describes a format string parser for a language.  */
 struct formatstring_parser

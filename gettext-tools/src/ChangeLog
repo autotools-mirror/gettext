@@ -1,3 +1,8 @@
+2004-09-16  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (formatstring_error_logger_t): Modify decl for GCC <= 3.0.
+	Reported by Jens A. Tkotz <jens@peino.de>.
+
 2004-09-11  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msginit_SOURCES): Add plural-count.c.
