@@ -445,7 +445,8 @@ To select a different output encoding, use the --to-code option.\n\
 	       conversion that would only replace the charset name in the
 	       header entry with its canonical equivalent.  */
 	    if (!(to_code == NULL && canon_charsets[n][k] == canon_to_code))
-	      iconv_message_list (mdlp->item[k]->messages, canon_to_code);
+	      iconv_message_list (mdlp->item[k]->messages, canon_charsets[n][k],
+				  canon_to_code);
       }
 
   /* Fill the resulting messages.  */

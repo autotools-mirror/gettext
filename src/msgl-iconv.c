@@ -258,11 +258,11 @@ convert_msgstr (cd, mp)
 
 
 void
-iconv_message_list (mlp, canon_to_code)
+iconv_message_list (mlp, canon_from_code, canon_to_code)
      message_list_ty *mlp;
+     const char *canon_from_code;
      const char *canon_to_code;
 {
-  const char *canon_from_code;
   size_t j;
 
   /* If the list is empty, nothing to do.  */
@@ -270,7 +270,6 @@ iconv_message_list (mlp, canon_to_code)
     return;
 
   /* Search the header entry, and extract and replace the charset name.  */
-  canon_from_code = NULL;
   for (j = 0; j < mlp->nitems; j++)
     if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
       {
@@ -384,7 +383,7 @@ iconv_msgdomain_list (mdlp, to_code)
 	   to_code);
 
   for (k = 0; k < mdlp->nitems; k++)
-    iconv_message_list (mdlp->item[k]->messages, canon_to_code);
+    iconv_message_list (mdlp->item[k]->messages, NULL, canon_to_code);
 
   return mdlp;
 }

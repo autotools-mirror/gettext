@@ -1,5 +1,15 @@
 2001-11-01  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgl-iconv.h (iconv_message_list): Add argument 'canon_from_code'.
+	* msgl-iconv.c (iconv_message_list): Add argument 'canon_from_code'.
+	(iconv_msgdomain_list): Update.
+	* write-java.c (msgdomain_write_java): Update.
+	* msgl-cat.c (catenate_msgdomain_list): Pass the canon_charsets[n][k]
+	to iconv_message_list; the header entry that contained the charset
+	specification may already have been removed from the message list.
+
+2001-11-01  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgl-equal.h (string_list_equal): New declaration.
 	* msgl-equal.c (string_list_equal): Export function.
 	* message.h (struct altstr): New fields 'comment', 'comment_dot'.

@@ -1093,7 +1093,7 @@ msgdomain_write_java (mlp, resource_name, locale_name, directory, assume_java2)
   retval = 1;
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, po_charset_canonicalize ("UTF-8"));
+  iconv_message_list (mlp, NULL, po_charset_canonicalize ("UTF-8"));
 
   cleanup_list.tmpdir = NULL;
   cleanup_list.subdir_count = 0;
