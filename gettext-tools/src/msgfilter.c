@@ -37,6 +37,8 @@
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
+#elif defined _MSC_VER || defined __MINGW32__
+# include <io.h>
 #endif
 
 /* Get fd_set (on AIX) or select() declaration (on EMX).  */

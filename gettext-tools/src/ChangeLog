@@ -1,5 +1,10 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* msgfilter.c: On Windows, include <io.h> instead of <unistd.h>.
+	* msggrep.c: Likewise.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* plural-count.h: New file.
 	* plural-count.c: New file, extracted from msgmerge.c.
 	* msgmerge.c: Include plural-count.h instead of plural-exp.h.
