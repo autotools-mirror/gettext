@@ -1,3 +1,7 @@
+2001-08-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* da.po: Update from <olau@hardworking.dk>
+
 2001-08-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (.po.mo, .po.gmo): Add msgfmt option -c, to guarantee
