@@ -1,3 +1,9 @@
+2003-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* x-perl.c (enum string_type_ty): Remove trailing comma.
+	(interpolate_keywords::enum parser_state): Likewise.
+	(extract_quotelike_pass3): Cast first argument of u8_uctomb().
+
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
 	* x-awk.c: Reorder definitions.

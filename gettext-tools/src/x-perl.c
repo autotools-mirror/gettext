@@ -445,7 +445,7 @@ enum string_type_ty
   string_type_q,            /* "'..'", "q/.../".  */
   string_type_qq,           /* '"..."', "`...`", "qq/.../", "qx/.../",
 			       "<file*glob>".  */
-  string_type_qr,           /* Not supported.  */
+  string_type_qr            /* Not supported.  */
 };
 typedef enum string_type_ty string_type_ty;
 
@@ -880,7 +880,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		crs = extract_oct (crs + 1, 3, &oct_number);
 		/* Yes, octal escape sequences in the range 0x100..0x1ff are
 		   valid.  */
-		length = u8_uctomb (buffer + bufpos, oct_number, 2);
+		length = u8_uctomb ((unsigned char *) (buffer + bufpos),
+				    oct_number, 2);
 		if (length > 0)
 		  bufpos += length;
 	      }
@@ -915,7 +916,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		    crs = extract_hex (crs, 2, &hex_number);
 		  }
 
-		length = u8_uctomb (buffer + bufpos, hex_number, 6);
+		length = u8_uctomb ((unsigned char *) (buffer + bufpos),
+				    hex_number, 6);
 		if (length > 0)
 		  bufpos += length;
 	      }
@@ -948,7 +950,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		      unicode = unicode_name_character (name);
 		      if (unicode != UNINAME_INVALID)
 			{
-			  int length = u8_uctomb (buffer + bufpos, unicode, 6);
+			  int length =
+			    u8_uctomb ((unsigned char *) (buffer + bufpos),
+				       unicode, 6);
 			  if (length > 0)
 			    bufpos += length;
 			}
@@ -1454,7 +1458,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
       dquote,
       squote,
       barekey,
-      wait_rbrace,
+      wait_rbrace
     } state;
   token_ty token;
 
