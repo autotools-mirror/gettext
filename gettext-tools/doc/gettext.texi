@@ -337,8 +337,8 @@ The Translator's View
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
 * tcl-format::                  Tcl Format Strings
+* perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
-* perl-format::			Perl Format Strings
 
 Individual Programming Languages
 
@@ -7196,8 +7196,8 @@ strings.
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
 * tcl-format::                  Tcl Format Strings
+* perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
-* perl-format::			Perl Format Strings
 @end menu
 
 @node c-format, python-format, Translators for other Languages, Translators for other Languages
@@ -7284,25 +7284,25 @@ YCP sformat strings are described in the libycp documentation
 In summary, a directive starts with @samp{%} and is followed by @samp{%}
 or a nonzero digit (@samp{1} to @samp{9}).
 
-@node tcl-format, php-format, ycp-format, Translators for other Languages
+@node tcl-format, perl-format, ycp-format, Translators for other Languages
 @subsection Tcl Format Strings
 
 Tcl format strings are described in the @file{format.n} manual page,
 @uref{http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm}.
 
-@node php-format, perl-format, tcl-format, Translators for other Languages
-@subsection PHP Format Strings
-
-PHP format strings are described in the documentation of the PHP function
-@code{sprintf}, in @file{phpdoc/manual/function.sprintf.html} or
-@uref{http://www.php.net/manual/en/function.sprintf.php}.
-
-@node perl-format,  , php-format, Translators for other Languages
+@node perl-format, php-format, tcl-format, Translators for other Languages
 @subsection Perl Format Strings
 
 Perl format strings are described in the @file{Locale::TextDomain}
 manual page, or in
 @uref{http://let.imperia.org/howto/en/perl-i18n/}.
+
+@node php-format,  , perl-format, Translators for other Languages
+@subsection PHP Format Strings
+
+PHP format strings are described in the documentation of the PHP function
+@code{sprintf}, in @file{phpdoc/manual/function.sprintf.html} or
+@uref{http://www.php.net/manual/en/function.sprintf.php}.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View
@@ -8250,7 +8250,7 @@ argument is given.
 
 @table @asis
 @item RPMs
----
+perl
 
 @item File extension
 @code{pl}, @code{PL}, @code{pm}, @code{cgi}
@@ -8280,7 +8280,7 @@ argument is given.
 
 @item @code{$tied_hash_reference->@{"message"@}}
 
-@item etc., issue the command @code{perldoc perlsyn} for details
+@item etc., issue the command @samp{perldoc perlsyn} for details
 
 @end itemize
 
@@ -8321,11 +8321,11 @@ emulate
 @item Portability
 The @code{libintl-perl} package is platform-independent but does
 not belong to the Perl core.  The programmer is responsible for
-providing a dummy implementation of the require functions if the 
+providing a dummy implementation of the required functions if the 
 package is not installed on the target system.
 
 @item po-mode marking
-yes
+---
 
 @item Documentation
 In-depth documentation can be found at
@@ -8345,10 +8345,10 @@ worst probably being its imperfectness.
 @menu
 * General Problems::         General Problems Parsing Perl Code
 * Default Keywords::         Which Keywords Will xgettext Look For?
-* Special Keywords::         How to Extract Hash Keys?
+* Special Keywords::         How to Extract Hash Keys
 * Quote-like Expressions::   What are Strings And Quote-like Expressions?
-* Interpolation I::          Illegal String Interpolation
-* Interpolation II::         Legal String Interpolation
+* Interpolation I::          Invalid String Interpolation
+* Interpolation II::         Valid String Interpolation
 * Parentheses::              When To Use Parentheses
 * Long Lines::               How To Grok with Long Lines
 * Perl Pitfalls::            Bugs, Pitfalls, and Things That Do Not Work
@@ -8440,9 +8440,9 @@ print $x ? "foo" : "bar";
 
 The slash may either act as the division operator or introduce a
 pattern match, whereas the question mark may act as the ternary
-question mark operator or as a pattern match, too.  Other programming
-languages like awk arise similar problems, but the consequences of a
-misinterpretation are particularly nasty with Perl sources.  In awk
+conditional operator or as a pattern match, too.  Other programming
+languages like @code{awk} present similar problems, but the consequences of a
+misinterpretation are particularly nasty with Perl sources.  In @code{awk}
 for instance, a statement can never exceed one line and the parser
 can recover from a parsing error at the next newline and interpret
 the rest of the input stream correctly.  Perl is different, as a
@@ -8455,7 +8455,8 @@ probably parsed incorrectly.
 If you find that @code{xgettext} fails to extract strings from
 portions of your sources, you should therefore look out for slashes
 and/or question marks preceding these sections.  You may have come
-across a bug in the Perl parser (and of course you should report that bug).
+across a bug in the @code{xgettext}'s Perl parser (and of course you
+should report that bug).
 
 @node Default Keywords, Special Keywords, General Problems, Perl
 @subsubsection Which keywords will xgettext look for?
@@ -8501,7 +8502,7 @@ The keys of lookups into the hash reference @code{$gettext} will be extracted.
 @end itemize
 
 @node Special Keywords, Quote-like Expressions, Default Keywords, Perl
-@subsubsection How to Extract Hash Keys?
+@subsubsection How to Extract Hash Keys
 @cindex Perl special keywords for hash-lookups
 
 Translating messages at runtime is normally performed by looking up the
@@ -8536,8 +8537,8 @@ print $gettext@{Error@};
 
 The exact rule is: You can omit the surrounding quotes, when the hash
 key is a valid C (!) identifier, i. e. when it starts with an
-underscore or a US-ASCII letter and is followed by an arbitrary number
-of underscores, US-ASCII letters or digits.  Other Unicode characters
+underscore or a ASCII letter and is followed by an arbitrary number
+of underscores, ASCII letters or digits.  Other Unicode characters
 are @emph{not} allowed, regardless of the @code{use utf8} pragma.
 
 @node Quote-like Expressions, Interpolation I, Special Keywords, Perl
@@ -8601,14 +8602,14 @@ external code executed from within your Perl script to your translator!
 @group
 @*
 @example
+print gettext <<'EOF';
+program not found in $PATH
+EOF
+
 print ngettext <<EOF, <<"EOF";
 one file deleted
 EOF
 several files deleted
-EOF
-
-print gettext <<'EOF';
-program not found in $PATH
 EOF
 @end example
 @end group
@@ -8622,8 +8623,8 @@ Delimiters that start with a digit are not supported!
 @end itemize
 
 @node Interpolation I, Interpolation II, Quote-like Expressions, Perl
-@subsubsection Illegal Uses Of String Interpolation
-@cindex Perl illegal string interpolation
+@subsubsection Invalid Uses Of String Interpolation
+@cindex Perl invalid string interpolation
 
 Perl is capable of interpolating variables into strings.  This offers
 some nice features in localized programs but can also lead to
@@ -8646,8 +8647,8 @@ Consequently, it is almost impossible that a translation can be looked
 up at runtime (except if by accident the interpolated string is found
 in the message catalog).
 
-The Perl backend will therefore terminate parsing with a fatal error
-if it encounters a variable inside of an extracted string.  In
+The @code{xgettext} program will therefore terminate parsing with a fatal
+error if it encounters a variable inside of an extracted string.  In
 general, this will happen for all kinds of string interpolations that
 cannot be safely performed at compile time.  If you absolutely know
 what you are doing, you can always circumvent this behavior:
@@ -8667,7 +8668,7 @@ variable interpolation will be accepted.  Rationale: You will
 generally use this option in order to prepare your sources for
 internationalization.
 
-Please see the manual page @code{perlop} for details of strings and
+Please see the manual page @samp{perldoc perlop} for details of strings and
 quote-like expressions that are subject to interpolation and those
 that are not.  Safe interpolations (that will not lead to a fatal
 error) are:
@@ -8679,21 +8680,21 @@ error) are:
 @code{\b} (backspace, BS), @code{\a} (alarm, bell, BEL), and @code{\e}
 (escape, ESC).
 
-@item octal chars @code{\033}
+@item octal chars, like @code{\033}
 @*
 Note that octal escapes in the range of 400-777 are translated into a 
 UTF-8 representation, regardless of the presence of the @code{use utf8} pragma.
 
-@item hex chars @code{\x1b}
+@item hex chars, like @code{\x1b}
 
-@item wide hex chars @code{\x263a}
+@item wide hex chars, like @code{\x263a}
 @*
 Note that this escape is translated into a UTF-8 representation,
 regardless of the presence of the @code{use utf8} pragma.
 
-@item @code{\c[} (CTRL-[)
+@item control chars, like @code{\c[} (CTRL-[)
 
-@item @code{\N@{LATIN CAPITAL LETTER C WITH CEDILLA@}}
+@item named Unicode chars, like @code{\N@{LATIN CAPITAL LETTER C WITH CEDILLA@}}
 @*
 Note that this escape is translated into a UTF-8 representation,
 regardless of the presence of the @code{use utf8} pragma.
@@ -8718,19 +8719,18 @@ The following escapes are considered partially safe:
 @end itemize
 
 These escapes are only considered safe if the string consists of
-US-ASCII characters only.  Translation of characters outside the range
-defined by US-ASCII is locale-dependent and can only be performed at
-runtime.  Even ASCII characters are not safe in some more exotic
-environment like EBCDIC.
+ASCII characters only.  Translation of characters outside the range
+defined by ASCII is locale-dependent and can only be performed at
+runtime.
 
-Except for the modifier @code{\Q}, these translations, albeit legal,
+Except for the modifier @code{\Q}, these translations, albeit valid,
 are generally useless and only obfuscate your sources.  If a
 translation can be safely performed at compile time you can just as
 well write what you mean.
 
 @node Interpolation II, Parentheses, Interpolation I, Perl
-@subsubsection Legal Uses Of String Interpolation
-@cindex Perl legal string interpolation
+@subsubsection Valid Uses Of String Interpolation
+@cindex Perl valid string interpolation
 
 Perl is often used to generate sources for other programming languages
 or arbitrary file formats.  Web applications that output HTML code
@@ -8771,7 +8771,7 @@ readability.
 
 You can interpolate hash lookups in all strings or quote-like
 expressions that are subject to interpolation (see the manual page
-@code{perlop} for details).  Double interpolation is illegal, however:
+@samp{perldoc perlop} for details).  Double interpolation is invalid, however:
 
 @example
 # TRANSLATORS: Replace "the earth" with the name of your planet.
@@ -8779,11 +8779,11 @@ print gettext qq@{Welcome to $gettext->@{"the earth"@}@};
 @end example
 
 The quoted string is recognized as an argument to @code{xgettext} in
-the first place, and checked for illegal variable interpolation.  The
-dollar sign will therefore terminate the parser with an illegal
-interpolation error.
+the first place, and checked for invalid variable interpolation.  The
+dollar sign will therefore terminate the parser with an ``invalid
+interpolation'' error.
 
-It is legal to interpolate hash lookups in regular expressions:
+It is valid to interpolate hash lookups in regular expressions:
 
 @example
 if ($var =~ /$gettext@{"the earth"@}/) @{
@@ -8797,7 +8797,7 @@ s/$gettext@{"U. S. A."@}/$gettext@{"U. S. A."@} $gettext@{"(dial +0)"@}/g;
 @cindex Perl parentheses
 
 In Perl, parentheses around function arguments are mostly optional.
-The Perl backend for @code{xgettext} will always assume that all
+@code{xgettext} will always assume that all
 recognized keywords (except for hashs and hash references) are names
 of properly prototyped functions, and will (hopefully) only require
 parentheses where Perl itself requires them.  All constructs in the
@@ -8819,10 +8819,10 @@ print dgettext smellovision => "Hello World!\n";
 # eat up all following arguments.
 my $anonymous_hash = @{
    planet => gettext "earth",
-   cakes  => ngettext "one cake", "several cakes", $n,
+   cakes => ngettext "one cake", "several cakes", $n,
    still => $works,
 @};
-# The same w/o fat comma:
+# The same without fat comma:
 my $other_hash = @{
    'planet', gettext "earth",
    'cakes', ngettext "one cake", "several cakes", $n,
@@ -8840,7 +8840,7 @@ print dngettext 'package', ("one cake", "several cakes", $n), $discarded;
 
 The necessity of long messages can often lead to a cumbersome or
 unreadable coding style.  Perl has several options that may prevent
-you from writing unreadable code, and the Perl backend for
+you from writing unreadable code, and
 @code{xgettext} does its best to do likewise.  This is where the dot
 operator (the string concatenation operator) may come in handy:
 
@@ -8855,9 +8855,9 @@ print gettext ("This is a very long"
 @end example
 
 Perl is smart enough to concatenate these constant string fragments
-into one long string at compile time, and so is the Perl backend to
+into one long string at compile time, and so is
 @code{xgettext}.  You will only find one long message in the resulting
-PO file.
+POT file.
 
 If embedded newline characters are not an issue, or even desired, you
 may also insert newline characters inside quoted strings wherever you
@@ -8887,15 +8887,15 @@ EOF
 @end group
 @end example
 
-Please do not forget, that the line-breaks are real, i. e. they
+Please do not forget, that the line breaks are real, i. e. they
 translate into newline characters that will consequently show up in
-the resulting PO file.
+the resulting POT file.
 
 @node Perl Pitfalls,  , Long Lines, Perl
 @subsubsection Bugs, Pitfalls, And Things That Do Not Work
 @cindex Perl pitfalls
 
-The foregoing sections should have proven that the Perl backend for
+The foregoing sections should have proven that
 @code{xgettext} is quite smart in extracting translatable strings from
 Perl sources.  Yet, some more or less exotic constructs that could be
 expected to work, actually do not work.  
@@ -8944,11 +8944,11 @@ my @@weekdays = @@gettext@{'Sunday', 'Monday', 'Tuesday', 'Wednesday',
                          Friday Saturday) @};
 @end example
 
-This is perfectly legal usage of the tied hash @code{%gettext} but the
+This is perfectly valid usage of the tied hash @code{%gettext} but the
 strings are not recognized and therefore will not be extracted.
 
 Another caveat of the current version is its rudimentary support for
-non-US-ASCII characters in identifiers.  You may encounter seriouos
+non-ASCII characters in identifiers.  You may encounter serious
 problems if you use identifiers with characters outside the range of
 'A'-'Z', 'a'-'z', '0'-'9' and the underscore '_'.
 
