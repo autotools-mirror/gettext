@@ -1,8 +1,5 @@
 autogen.sh
 Makefile
 config.cache
-config.h
 config.log
 config.status
-libtool
-stamp-h
