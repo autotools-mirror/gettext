@@ -7259,6 +7259,18 @@ and adds to the package's pre-build script an invocation of
 @code{autopoint} invocation will copy into the right place the
 @code{gettext} infrastructure files that have been omitted from the CVS.
 
+The version number used as argument to @code{AM_GNU_GETTEXT_VERSION} is
+the version of the @code{gettext} infrastructure that the package wants
+to use.  It is also the minimum version number of the @samp{autopoint}
+program.  So, if you write @code{AM_GNU_GETTEXT_VERSION(0.11.5)} then the
+developers can have any version >= 0.11.5 installed; the package will work
+with the 0.11.5 infrastructure in all developers' builds.  When the
+maintainer then runs gettextize from, say, version 0.12.1 on the package,
+the occurrence of @code{AM_GNU_GETTEXT_VERSION(0.11.5)} will be changed
+into @code{AM_GNU_GETTEXT_VERSION(0.12.1)}, and all other developers that
+use the CVS will henceforth need to have GNU code{gettext} 0.12.1 or newer
+installed.
+
 @node autopoint Invocation,  , Files under CVS, CVS Issues
 @subsection Invoking the @code{autopoint} Program
 
