@@ -81,7 +81,7 @@ psdir = $(docdir)
 pdfdir = $(docdir)
 htmldir = $(docdir)
 
-MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 
 info_TEXINFOS = autosprintf.texi
 

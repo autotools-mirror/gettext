@@ -20,7 +20,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../config/m4
 
-MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 
 SUBDIRS =      doc intl intl-java lib @SUBDIR_libasprintf@ src po man m4
 DIST_SUBDIRS = doc intl intl-java lib libasprintf          src po man m4

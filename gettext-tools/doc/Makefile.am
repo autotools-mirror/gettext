@@ -31,7 +31,7 @@ TEXINCLUDES = -I $(top_srcdir)/../gettext-runtime/doc
 SED = sed
 RM = rm -f
 
-MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 MAKEINFOFLAGS = $(TEXINCLUDES)
 
 info_TEXINFOS = gettext.texi
