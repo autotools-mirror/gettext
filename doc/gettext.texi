@@ -4958,7 +4958,8 @@ internationalized shell scripts within your own package: GNU
 want to see the translation of shell script messages.
 
 @item
-Your package should use Autoconf and have a @file{configure.in} file.
+Your package should use Autoconf and have a @file{configure.in} or
+@file{configure.ac} file.
 If it does not, you have to learn how.  The Autoconf documentation
 is quite well written, it is a good idea that you print it and get
 familiar with it.
@@ -5032,6 +5033,14 @@ maintainer is used to apply to the sources.  Because running
 @item -f
 @itemx --force
 Force replacement of files which already exist.
+
+@item --intl
+Install the libintl sources in a subdirectory named @file{intl/}.
+This libintl will be used to provide internationalization on systems
+that don't have GNU libintl installed. If this option is omitted,
+the call to @code{AM_GNU_GETTEXT} in @file{configure.in} should read:
+@samp{AM_GNU_GETTEXT([external])}, and internationalization will not
+be enabled on systems lacking GNU gettext.
 
 @item -h
 @itemx --help
@@ -5184,6 +5193,9 @@ but rather by using the @code{LINGUAS} environment variable
 @node configure.in, config.guess, po/LINGUAS, Adjusting Files
 @subsection @file{configure.in} at top level
 
+@file{configure.in} or @file{configure.ac} - this is the source from which
+@code{autoconf} generates the @file{configure} script.
+
 @enumerate
 @item Declare the package and version.
 
@@ -5217,6 +5229,13 @@ AM_GNU_GETTEXT
 This call is purposely simple, even if it generates a lot of configure
 time checking and actions.
 
+If you have suppressed the @file{intl/} subdirectory by calling
+@code{gettextize} without @samp{--intl} option, this call should read
+
+@example
+AM_GNU_GETTEXT([external])
+@end example
+
 @item Have output files created.
 
 The @code{AC_OUTPUT} directive, at the end of your @file{configure.in}
@@ -5224,7 +5243,7 @@ file, needs to be modified in two ways:
 
 @example
 AC_OUTPUT([@var{existing configuration files} intl/Makefile po/Makefile.in],
-@var{existing additional actions}])
+[@var{existing additional actions}])
 @end example
 
 The modification to the first argument to @code{AC_OUTPUT} asks
@@ -5232,12 +5251,17 @@ for substitution in the @file{intl/} and @file{po/} directories.
 Note the @samp{.in} suffix used for @file{po/} only.  This is because
 the distributed file is really @file{po/Makefile.in.in}.
 
+If you have suppressed the @file{intl/} subdirectory by calling
+@code{gettextize} without @samp{--intl} option, then you don't need to
+add @code{intl/Makefile} to the @code{AC_OUTPUT} line.
+
 @end enumerate
 
 @node config.guess, aclocal, configure.in, Adjusting Files
 @subsection @file{config.guess}, @file{config.sub} at top level
 
-You need to add the GNU @file{config.guess} and @file{config.sub} files
+If you don't have suppressed the @file{intl/} subdirectory,
+you need to add the GNU @file{config.guess} and @file{config.sub} files
 to your distribution.  They are needed because the @file{intl/} directory
 has platform dependent support for determining the locale's character
 encoding and therefore needs to identify the platform.
@@ -5266,13 +5290,15 @@ If you do not have an @file{aclocal.m4} file in your distribution,
 the simplest is to concatenate the files @file{codeset.m4},
 @file{gettext.m4}, @file{glibc21.m4}, @file{iconv.m4}, @file{isc-posix.m4},
 @file{lcmessage.m4}, @file{progtest.m4} from GNU @code{gettext}'s
-@file{m4/} directory into a single file.
+@file{m4/} directory into a single file.  If you have suppressed the
+@file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
+@file{progtest.m4} need to be concatenated.
 
 If you already have an @file{aclocal.m4} file, then you will have
 to merge the said macro files into your @file{aclocal.m4}.  Note that if
 you are upgrading from a previous release of GNU @code{gettext}, you
 should most probably @emph{replace} the macros (@code{AM_GNU_GETTEXT},
-@code{AM_WITH_NLS}, etc.), as they usually
+etc.), as they usually
 change a little from one release of GNU @code{gettext} to the next.
 Their contents may vary as we get more experience with strange systems
 out there.

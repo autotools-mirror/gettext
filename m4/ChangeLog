@@ -1,3 +1,10 @@
+2001-11-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4: Split into submacros.
+	(AM_GNU_GETTEXT): Allow the first argument to be 'external'. Verify
+	the first two arguments. Add --with-libintl-prefix option.
+	(AM_WITH_LIBINTL, AM_PO_SUBDIRS, AM_INTL_SUBDIR): New macros.
+
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): For builds with $builddir != $srcdir,

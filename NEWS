@@ -41,6 +41,9 @@ Version 0.11 - XXX 2001
 
 * A fuzzy attribute of the header entry of a message catalog is now ignored
   by the tools, i.e. it is used even if marked fuzzy.
+
+* gettextize has a new option --intl which determines whether a copy of the
+  intl directory is included in the package.
 
 Version 0.10.40 - September 2001
 

@@ -1,3 +1,11 @@
+2001-11-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Prerequisites): Update for autoconf-2.50 users.
+	(gettextize Invocation): Document option --intl.
+	(configure.in): Update for autoconf-2.50 users. Document possibility
+	to work without intl directory.
+	(aclocal): Likewise.
+
 2001-11-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt.texi: --check-accelerators has optional argument.
