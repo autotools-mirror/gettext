@@ -197,7 +197,7 @@ dist distdir: $(DISTFILES)
 
 update-po: Makefile
 	$(MAKE) $(PACKAGE).pot
-	PATH=`pwd`/../src:$$PATH; \
+	if test "$(PACKAGE)" = "gettext"; then PATH=`pwd`/../src:$$PATH; fi; \
 	cd $(srcdir); \
 	catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
