@@ -21,8 +21,6 @@ Things we plan to do. Comments welcome.
 
 - Merge clisp specific changes.
 
-- Make sure Admin/ directory is not distributed.
-
 - Update documentation for plural features and bind_textdomain_codeset.
 
 - Treatment of plurals in pot-files: Use the following pattern:
