@@ -4,6 +4,10 @@
 
 2005-03-08  Bruno Haible  <bruno@clisp.org>
 
+	* autopoint.in: Update for 0.14.3.
+
+2005-03-08  Bruno Haible  <bruno@clisp.org>
+
 	* gettextize.in: Compute comma separated lists for ChangeLog entries
 	correctly. Also comma-separate the EXTRA_DIST ChangeLog entry.
 
