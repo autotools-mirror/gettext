@@ -1,5 +1,15 @@
 2002-02-24  Bruno Haible  <bruno@clisp.org>
 
+	* libstdarg.h: New file.
+	* vasprintf.c: Include it.
+	(asprintf): Modernize varargs handling.
+	(checkit): Likewise.
+	* xerror.c: Include libstdarg.h.
+	(xasprintf): Modernize varargs handling.
+	* Makefile.am (LIBADD_SOURCE): Add libstdarg.h.
+
+2002-02-24  Bruno Haible  <bruno@clisp.org>
+
 	* vasprintf.h: New file.
 	* vasprintf.c: Include it.
 	* xerror.c: Likewise.

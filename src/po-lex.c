@@ -38,30 +38,18 @@
 
 #include "c-ctype.h"
 #include "linebreak.h"
+#include "vasprintf.h"
+#include "libstdarg.h"
 #include "gettext.h"
-#define _(str) gettext(str)
-
-#if HAVE_VPRINTF || HAVE_DOPRNT
-# if __STDC__
-#  include <stdarg.h>
-#  define VA_START(args, lastarg) va_start(args, lastarg)
-# else
-#  include <varargs.h>
-#  define VA_START(args, lastarg) va_start(args)
-# endif
-#else
-# define va_alist a1, a2, a3, a4, a5, a6, a7, a8
-# define va_dcl char *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8;
-#endif
-
 #include "po-charset.h"
 #include "xmalloc.h"
 #include "exit.h"
 #include "error.h"
 #include "open-po.h"
-
 #include "str-list.h"
 #include "po-gram-gen2.h"
+
+#define _(str) gettext(str)
 
 #if HAVE_ICONV
 # include "utf8-ucs4.h"
@@ -96,35 +84,23 @@ int gram_pos_column;
 
 /* VARARGS1 */
 void
-# if defined VA_START && __STDC__
-po_gram_error (const char *fmt, ...)
-# else
-po_gram_error (fmt, va_alist)
+po_gram_error VA_PARAMS ((const char *fmt, ...),
+			 (fmt, va_alist)
      const char *fmt;
-     va_dcl
-# endif
+     va_dcl)
 {
-# ifdef VA_START
   va_list ap;
   char *buffer;
 
   VA_START (ap, fmt);
-  vasprintf (&buffer, fmt, ap);
+  if (vasprintf (&buffer, fmt, ap) < 0)
+    error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
   error_with_progname = false;
   error (0, 0, "%s:%lu:%d: %s", gram_pos.file_name,
 	 (unsigned long) gram_pos.line_number, gram_pos_column + 1, buffer);
   error_with_progname = true;
-# else
-  char *totalfmt = xasprintf ("%s%s", "%s:%lu:%d: ", fmt);
-
-  error_with_progname = false;
-  error (0, 0, totalfmt, gram_pos.file_name,
-	 (unsigned long) gram_pos.line_number, gram_pos_column + 1,
-	 a1, a2, a3, a4, a5, a6, a7, a8);
-  error_with_progname = true;
-  free (totalfmt);
-# endif
+  free (buffer);
 
   /* Some messages need more than one line.  Continuation lines are
      indicated by using "..." at the start of the string.  We don't
@@ -140,31 +116,23 @@ po_gram_error (fmt, va_alist)
 
 /* VARARGS2 */
 void
-# if defined VA_START && __STDC__
-po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
-# else
-po_gram_error_at_line (pp, fmt, va_alist)
+po_gram_error_at_line VA_PARAMS ((const lex_pos_ty *pp, const char *fmt, ...),
+				 (pp, fmt, va_alist)
      const lex_pos_ty *pp;
      const char *fmt;
-     va_dcl
-# endif
+     va_dcl)
 {
-# ifdef VA_START
   va_list ap;
   char *buffer;
 
   VA_START (ap, fmt);
-  vasprintf (&buffer, fmt, ap);
+  if (vasprintf (&buffer, fmt, ap) < 0)
+    error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
   error_with_progname = false;
   error_at_line (0, 0, pp->file_name, pp->line_number, "%s", buffer);
   error_with_progname = true;
-# else
-  error_with_progname = false;
-  error_at_line (0, 0, pp->file_name, pp->line_number, fmt,
-		 a1, a2, a3, a4, a5, a6, a7, a8);
-  error_with_progname = true;
-# endif
+  free (buffer);
 
   /* Some messages need more than one line, or more than one location.
      Continuation lines are indicated by using "..." at the start of the

@@ -33,42 +33,22 @@
 #include "exit.h"
 #include "mbswidth.h"
 #include "vasprintf.h"
+#include "libstdarg.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
 
-#if __STDC__
-# include <stdarg.h>
-# define VA_START(args, lastarg) va_start(args, lastarg)
-#else
-# include <varargs.h>
-# define VA_START(args, lastarg) va_start(args)
-# define NEW_VARARGS 1 /* or 0 if it doesn't work */
-#endif
-
 /* Format a message and return the freshly allocated resulting string.  */
 char *
-#if __STDC__
-xasprintf (const char *format, ...)
-#elif NEW_VARARGS
-xasprintf (format, va_alist)
+xasprintf VA_PARAMS ((const char *format, ...),
+		     (format, va_alist)
      const char *format;
-     va_dcl
-#else
-xasprintf (va_alist)
-     va_dcl
-#endif
+     va_dcl)
 {
-#if !__STDC__ && !NEW_VARARGS
-  const char *format;
-#endif
   va_list args;
   char *result;
 
   VA_START (args, format);
-#if !__STDC__ && !NEW_VARARGS
-  format = va_arg (args, const char *);
-#endif
   if (vasprintf (&result, format, args) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (args);

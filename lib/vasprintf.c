@@ -26,14 +26,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#if __STDC__
-# include <stdarg.h>
-#else
-# include <varargs.h>
-#endif
-
 #include <math.h>
+
+#include "libstdarg.h"
 
 #ifdef TEST
 size_t global_total_width;
@@ -139,25 +134,16 @@ vasprintf (result, format, args)
 }
 
 int
-asprintf
-#if __STDC__
-     (char **result, const char *format, ...)
-#else
-     (result, va_alist)
+asprintf VA_PARAMS ((char **result, const char *format, ...),
+		    (result, format, va_alist)
      char **result;
-     va_dcl
-#endif
+     const char *format;
+     va_dcl)
 {
   va_list args;
   int done;
 
-#if __STDC__
-  va_start (args, format);
-#else
-  char *format;
-  va_start (args);
-  format = va_arg (args, char *);
-#endif
+  VA_START (args, format);
   done = vasprintf (result, format, args);
   va_end (args);
 
@@ -171,24 +157,15 @@ asprintf
 #include <float.h>
 
 void
-checkit
-#if __STDC__
-     (const char* format, ...)
-#else
-     (va_alist)
-     va_dcl
-#endif
+checkit VA_PARAMS ((const char* format, ...),
+		   (format, va_alist)
+     const char *format;
+     va_dcl)
 {
   va_list args;
   char *result;
 
-#if __STDC__
-  va_start (args, format);
-#else
-  char *format;
-  va_start (args);
-  format = va_arg (args, char *);
-#endif
+  VA_START (args, format);
   vasprintf (&result, format, args);
   if (strlen (result) < global_total_width)
     printf ("PASS: ");

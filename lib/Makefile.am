@@ -69,6 +69,7 @@ LIBADD_SOURCE = \
   mkdtemp.h mkdtemp.c \
   pfnmatch.h pfnmatch.c \
   setenv.h setenv.c \
+  libstdarg.h \
   stpcpy.h stpcpy.c \
   stpncpy.h stpncpy.c \
   strcase.h strcasecmp.c strncasecmp.c \
