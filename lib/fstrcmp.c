@@ -1,5 +1,5 @@
 /* Functions to make fuzzy comparisons between strings
-   Copyright (C) 1988-1989, 1992-1993, 1995, 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 1988-1989, 1992-1993, 1995, 2001-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,6 +26,11 @@
    The basic algorithm was independently discovered as described in:
    "Algorithms for Approximate String Matching", E. Ukkonen,
    Information and Control Vol. 64, 1985, pp. 100-118.
+
+   Unless the 'minimal' flag is set, this code uses the TOO_EXPENSIVE
+   heuristic, by Paul Eggert, to limit the cost to O(N**1.5 log N)
+   at the price of producing suboptimal output for large inputs with
+   many differences.
 
    Modified to work on strings rather than files
    by Peter Miller <pmiller@agso.gov.au>, October 1995 */
