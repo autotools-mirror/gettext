@@ -7,4 +7,4 @@ aclocal_DATA = gettext.m4 isc-posix.m4 lcmessage.m4 progtest.m4
 # find . -type f -name '*.m4' -printf '%f\n'|sort |fmt |tr '\012' @ \
 #   |sed 's/@$/%/;s/@/ \\@/g' |tr @% '\012\012'
 EXTRA_DIST = README \
-gettext.m4 isc-posix.m4 lcmessage.m4 progtest.m4
+codeset.m4 gettext.m4 iconv.m4 isc-posix.m4 lcmessage.m4 progtest.m4

@@ -1,3 +1,7 @@
+2000-07-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (EXTRA_DIST): Add codeset.m4, iconv.m4.
+
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	Drop support for old Linux specific .msg catalog format.
