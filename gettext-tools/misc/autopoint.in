@@ -277,6 +277,21 @@ else
   fi
 fi
 
+# Check whether the version number is supported.
+case "$ver" in
+  0.10.35 | 0.10.36 | 0.10.37 | 0.10.38 | 0.10.39 | 0.10.40 | \
+  0.11 | 0.11.1 | 0.11.2 | 0.11.3 | 0.11.4 | 0.11.5 | \
+  0.12 | 0.12.1 | \
+  0.13 | 0.13.1 | \
+  0.14 | 0.14.1 )
+    ;;
+  *)
+    func_fatal_error "The AM_GNU_GETTEXT_VERSION declaration in your $configure_in\
+               file requires the infrastructure from gettext-$ver but this version\
+               is older. Please upgrade to gettext-$ver or newer."
+    ;;
+esac
+
 # We distribute the many different versions of the files in a CVS repository.
 # This guarantees a good compression rate:
 #

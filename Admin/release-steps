@@ -55,6 +55,6 @@ Tasks not to forget before release:
 
 - "make"; "make dist"; "make distcheck"
 - cd gettext-tools/misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
-  Then update the table in autopoint.in.
+  Then update the case statement and the table in autopoint.in.
 - again: "make dist"
 

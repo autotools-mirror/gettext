@@ -1,3 +1,9 @@
+2005-02-05  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Check the version number, instead of relying on cvs
+	for doing so.
+	Reported by Paul Eggert.
+
 2005-01-10  Bruno Haible  <bruno@clisp.org>
 
 	Security fixes.
