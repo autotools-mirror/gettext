@@ -1,3 +1,8 @@
+2003-11-08  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Allow configure.in.in to be used instead of
+	configure.in.
+
 2003-08-11  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in: When local files have been modified, create a .diff

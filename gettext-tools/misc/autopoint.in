@@ -216,7 +216,12 @@ else
   if test -f configure.ac; then
     configure_in=configure.ac
   else
-    func_fatal_error "Missing configure.in or configure.ac, please cd to your package first."
+    # KDE specific convention: configure.in.in
+    if test -f configure.in.in; then
+      configure_in=configure.in.in
+    else
+      func_fatal_error "Missing configure.in or configure.ac, please cd to your package first."
+    fi
   fi
 fi
 
