@@ -1900,6 +1900,15 @@ also be able to find the appropriate grammatical construction.  The French
 translator for example translates "write protected" like "protected
 against writing".
 
+Entire sentences are also important because in many languages, the
+declination of some word in a sentence depends on the gender or the
+number (singular/plural) of another part of the sentence.  There are
+usually more interdependencies between words than in English.  The
+consequence is that asking a translator to translate two half-sentences
+and then combining these two half-sentences through dumb string concatenation
+will not work, for many languages, even though it would work for English.
+That's why translators need to handle entire sentences.
+
 Often sentences don't fit into a single line.  If a sentence is output
 using two subsequent @code{printf} statements, like this
 
