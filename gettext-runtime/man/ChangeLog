@@ -1,3 +1,14 @@
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
+	* envsubst.x: New file.
+	* Makefile.am (man_aux): Add envsubst.x.
+	(man_MAN1OTHER): New variable.
+	(man_MAN1): Add $(man_MAN1OTHER).
+	(man_HTMLOTHER): Add envsubst.1.html.
+	(EXTRA_DIST, MAINTAINERCLEANFILES): Add $(man_MAN1OTHER).
+	(envsubst.1): New rule.
+	(envsubst.1.html): New rule.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.

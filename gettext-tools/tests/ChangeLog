@@ -1,5 +1,12 @@
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
+	* lang-sh: Source gettext.sh.
+	(echo, eval_gettext, eval_ngettext): Remove definitions.
+	* lang-bash: Source gettext.sh.
+	(echo, eval_ngettext): Remove definitions.
+
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
 	* format-sh-1: Update to match stricter format string definition.
 	* format-sh-2: Likewise.
 

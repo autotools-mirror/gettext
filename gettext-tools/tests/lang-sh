@@ -11,40 +11,14 @@ tmpfiles="$tmpfiles prog.sh"
 cat <<\EOF > prog.sh
 #! /bin/sh
 
-# Find a way to echo strings without interpreting backslash.
-if test "X`(echo '\t') 2>/dev/null`" = 'X\t'; then
-  echo='echo'
-else
-  if test "X`(printf '%s\n' '\t') 2>/dev/null`" = 'X\t'; then
-    echo='printf %s\n'
-  else
-    echo_func () {
-      cat <<EOT
-$*
-EOT
-    }
-    echo='echo_func'
-  fi
-fi
-
 n=$1
+
+. gettext.sh
 
 TEXTDOMAIN=prog
 export TEXTDOMAIN
 TEXTDOMAINDIR=.
 export TEXTDOMAINDIR
-
-eval_gettext () {
-  _string=`gettext "$1"`
-  eval _string="\"$_string\""
-  $echo "$_string"
-}
-
-eval_ngettext () {
-  _string=`ngettext "$1" "$2" "$3"`
-  eval _string="\"$_string\""
-  $echo "$_string"
-}
 
 $echo "`gettext \"'Your command, please?', asked the waiter.\"`"
 
@@ -78,7 +52,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "'Your command, please?', asked the waiter."
-msgstr "«Votre commande, s'il vous plait», dit le garçon."
+msgstr "Votre commande, s'il vous plait, dit le garï¿½n."
 
 # Les gateaux allemands sont les meilleurs du monde.
 #, sh-format
@@ -105,7 +79,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
-«Votre commande, s'il vous plait», dit le garçon.
+Votre commande, s'il vous plait, dit le garï¿½n.
 2 morceaux de gateau
 EOF
 

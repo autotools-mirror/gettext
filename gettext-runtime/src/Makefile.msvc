@@ -87,10 +87,11 @@ INSTALL_DATA = copy
 
 SHELL = /bin/sh
 
-PROGRAMS = gettext.exe ngettext.exe
+PROGRAMS = gettext.exe ngettext.exe envsubst.exe
 
 gettext_OBJECTS = gettext.obj
 ngettext_OBJECTS = ngettext.obj
+envsubst_OBJECTS = envsubst.obj
 LDADD =
 
 all : $(PROGRAMS)
@@ -101,11 +102,17 @@ gettext.obj : gettext.c
 ngettext.obj : ngettext.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c ngettext.c
 
+envsubst.obj : envsubst.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c envsubst.c
+
 gettext.exe : $(gettext_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(gettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fegettext.exe
 
 ngettext.exe : $(ngettext_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fengettext.exe
+
+envsubst.exe : $(envsubst_OBJECTS)
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Feenvsubst.exe
 
 install : all force
 	-mkdir $(prefix)
@@ -113,6 +120,8 @@ install : all force
 	-mkdir $(bindir)
 	$(INSTALL_PROGRAM) gettext.exe $(bindir)\gettext.exe
 	$(INSTALL_PROGRAM) ngettext.exe $(bindir)\ngettext.exe
+	$(INSTALL_PROGRAM) envsubst.exe $(bindir)\envsubst.exe
+	$(INSTALL_DATA) gettext.sh $(bindir)\gettext.sh
 
 installdirs : force
 	-mkdir $(prefix)
@@ -122,6 +131,8 @@ installdirs : force
 uninstall : force
 	$(RM) $(bindir)\gettext.exe
 	$(RM) $(bindir)\ngettext.exe
+	$(RM) $(bindir)\envsubst.exe
+	$(RM) $(bindir)\gettext.sh
 
 check : all
 

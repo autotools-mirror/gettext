@@ -38,10 +38,11 @@ INSTALL_DATA = copy
 
 #### End of system configuration section. ####
 
-PROGRAMS = gettext.exe, ngettext.exe
+PROGRAMS = gettext.exe, ngettext.exe, envsubst.exe
 
 gettext_OBJECTS = gettext.obj
 ngettext_OBJECTS = ngettext.obj
+envsubst_OBJECTS = envsubst.obj
 
 all : $(PROGRAMS)
 	write sys$output "Nothing else to be done for 'all'."
@@ -51,6 +52,9 @@ gettext.obj : gettext.c
 
 ngettext.obj : ngettext.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") ngettext.c
+
+envsubst.obj : envsubst.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") envsubst.c
 
 libiconv.opt :
 	if f$search("sys$library:libiconv.olb") .nes. "" then $(LN) [-.-.vms]with-libiconv.opt libiconv.opt
@@ -62,12 +66,17 @@ gettext.exe : $(gettext_OBJECTS),libiconv.opt
 ngettext.exe : $(ngettext_OBJECTS),libiconv.opt
 	link /executable=ngettext.exe $(ngettext_OBJECTS),[-.lib]grt.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
+envsubst.exe : $(envsubst_OBJECTS),libiconv.opt
+	link /executable=envsubst.exe $(envsubst_OBJECTS),[-.lib]grt.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
+
 install : all
 	create /directory $(prefix)]
 	create /directory $(exec_prefix)]
 	create /directory $(bindir)]
 	$(INSTALL_PROGRAM) gettext.exe $(bindir)]gettext.exe
 	$(INSTALL_PROGRAM) ngettext.exe $(bindir)]ngettext.exe
+	$(INSTALL_PROGRAM) envsubst.exe $(bindir)]envsubst.exe
+	$(INSTALL_DATA) gettext.sh $(bindir)]gettext.sh
 
 installdirs :
 	create /directory $(prefix)]
@@ -77,6 +86,8 @@ installdirs :
 uninstall :
 	$(RM) $(bindir)]gettext.exe;
 	$(RM) $(bindir)]ngettext.exe;
+	$(RM) $(bindir)]envsubst.exe;
+	$(RM) $(bindir)]gettext.sh;
 
 check : all
 	write sys$output "Nothing else to be done for 'check'."

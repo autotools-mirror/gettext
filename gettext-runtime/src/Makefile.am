@@ -20,7 +20,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
 
-bin_PROGRAMS = gettext ngettext
+bin_PROGRAMS = gettext ngettext envsubst
 
 localedir = $(datadir)/locale
 
@@ -35,6 +35,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
+envsubst_SOURCES = envsubst.c
 
 # Link dependencies.
 LDADD = ../lib/libgrt.a @LTLIBINTL@
@@ -42,10 +43,21 @@ LDADD = ../lib/libgrt.a @LTLIBINTL@
 # Specify installation directory, for --enable-relocatable.
 gettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
 ngettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+envsubst_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
 if RELOCATABLE_VIA_LD
 gettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 ngettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+envsubst_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 endif
+
+# Special rule for installing gettext.sh in $(bindir).
+# automake doesn't handle "bin_DATA = gettext.sh".
+all-local: gettext.sh
+install-data-local: all-local
+	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	$(INSTALL_DATA) $(srcdir)/gettext.sh $(DESTDIR)$(bindir)/gettext.sh
+uninstall-local: all-local
+	$(RM) $(DESTDIR)$(bindir)/gettext.sh
 
 # Support for relocatability.
 RELOCATABLE_LIBRARY_PATH = $(libdir)

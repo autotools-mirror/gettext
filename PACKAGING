@@ -50,10 +50,14 @@ following file list.
 
       $prefix/bin/gettext
       $prefix/bin/ngettext
+      $prefix/bin/envsubst
+      $prefix/bin/gettext.sh
       $prefix/share/man/man1/gettext.1
       $prefix/share/man/man1/ngettext.1
+      $prefix/share/man/man1/envsubst.1
       $prefix/share/doc/gettext/gettext.1.html
       $prefix/share/doc/gettext/ngettext.1.html
+      $prefix/share/doc/gettext/envsubst.1.html
       $prefix/share/locale/*/LC_MESSAGES/gettext-runtime.mo
 
       $prefix/lib/libintl.*               (not installed on glibc systems)

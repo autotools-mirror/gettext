@@ -1,11 +1,15 @@
-Version 0.12.2 - August 2003
+Version 0.12.2 - September 2003
 
 * Programming languages support:
 
   - Shell:
     xgettext now also supports shell scripts. It recognizes invocations of
-    the programs 'gettext' and 'ngettext' as well as the GNU bash builtin
-    syntax $"...".
+    the programs 'gettext', 'ngettext', the functions 'eval_gettext',
+    'eval_ngettext', as well as the deprecated GNU bash builtin syntax $"...".
+    New function library:
+      gettext.sh - shell functions for internationalized shell scripts.
+    New program:
+      envsubst - substitutes environment variables in shell format strings.
 
   - Perl:
     xgettext now also supports Perl.

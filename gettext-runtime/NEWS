@@ -1,8 +1,13 @@
-Version 0.12.2 - August 2003
+Version 0.12.2 - September 2003
 
 * On those few platforms (NetBSD and Woe32) for which the native
   printf()/fprintf()/... functions don't support POSIX/XSI format strings
   with positions, replacements are provided through <libintl.h>.
+
+* New function library:
+    gettext.sh - shell functions for internationalized shell scripts
+* New program:
+    envsubst - substitutes environment variables in shell format strings
 
 Version 0.12 - May 2003
 

@@ -11,34 +11,14 @@ tmpfiles="$tmpfiles prog.sh"
 cat <<\EOF > prog.sh
 #! /bin/bash
 
-# Find a way to echo strings without interpreting backslash.
-if test "X`(echo '\t') 2>/dev/null`" = 'X\t'; then
-  echo='echo'
-else
-  if test "X`(printf '%s\n' '\t') 2>/dev/null`" = 'X\t'; then
-    echo='printf %s\n'
-  else
-    echo_func () {
-      cat <<EOT
-$*
-EOT
-    }
-    echo='echo_func'
-  fi
-fi
-
 n=$1
+
+. gettext.sh
 
 TEXTDOMAIN=prog
 export TEXTDOMAIN
 TEXTDOMAINDIR=.
 export TEXTDOMAINDIR
-
-eval_ngettext () {
-  _string=`ngettext "$1" "$2" "$3"`
-  eval _string="\"$_string\""
-  $echo "$_string"
-}
 
 $echo $"'Your command, please?', asked the waiter."
 

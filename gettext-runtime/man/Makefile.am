@@ -29,13 +29,14 @@ EXTRA_DIST =
 
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am.
 
-man_aux = gettext.x ngettext.x
+man_aux = gettext.x ngettext.x envsubst.x
 
 # Likewise, plus additional manual pages for the libintl functions.
 
 man_MAN1GEN = gettext.1 ngettext.1
 man_MAN1IN = gettext.1.in ngettext.1.in
-man_MAN1 = $(man_MAN1GEN)
+man_MAN1OTHER = envsubst.1
+man_MAN1 = $(man_MAN1GEN) $(man_MAN1OTHER)
 man_MAN3 = gettext.3 ngettext.3 \
 textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
 man_MAN3IN = gettext.3.in ngettext.3.in \
@@ -46,13 +47,14 @@ man_MANS = $(man_MAN1) $(man_MAN3) $(man_MAN3LINK)
 man_HTMLGEN = gettext.1.html ngettext.1.html
 man_HTMLIN = gettext.1.html.in ngettext.1.html.in
 man_HTMLOTHER = \
+envsubst.1.html \
 gettext.3.html ngettext.3.html \
 textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
 man_HTML = $(man_HTMLGEN) $(man_HTMLOTHER)
 
-EXTRA_DIST += help2man $(man_aux) $(man_MAN1IN) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLIN) $(man_HTMLOTHER)
+EXTRA_DIST += help2man $(man_aux) $(man_MAN1IN) $(man_MAN1OTHER) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLIN) $(man_HTMLOTHER)
 CLEANFILES = $(man_MAN1GEN) $(man_HTMLGEN)
-MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_MAN3) $(man_HTMLIN) $(man_HTMLOTHER)
+MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_MAN1OTHER) $(man_MAN3) $(man_HTMLIN) $(man_HTMLOTHER)
 
 PERL = @PERL@
 RM = rm -f
@@ -92,6 +94,9 @@ gettext.1.in: gettext.x
 ngettext.1.in: ngettext.x
 	IN_HELP2MAN=1 $(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/ngettext$(EXEEXT) $(srcdir)/ngettext.x ngettext.1.in
 
+envsubst.1: envsubst.x
+	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
+
 # Depend on version.sh to get version number changes.
 $(man_MAN1): help2man $(top_srcdir)/../version.sh
 
@@ -128,6 +133,10 @@ gettext.1.html.in: gettext.1.in
 	mv t-$@ $@
 ngettext.1.html.in: ngettext.1.in
 	$(MAN2HTML) `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+
+envsubst.1.html: envsubst.1
+	$(MAN2HTML) `if test -f envsubst.1; then echo .; else echo $(srcdir); fi`/envsubst.1 | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 
 gettext.3.html: gettext.3.in
