@@ -1,3 +1,8 @@
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (C): Mention that formatting with positions doesn't work
+	on NetBSD and on Woe32.
+
 2003-06-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (perl-format): Move subsection.

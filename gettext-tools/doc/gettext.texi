@@ -7450,7 +7450,7 @@ Use
 @code{xgettext -k_}
 
 @item Formatting with positions
-@code{fprintf "%2$d %1$d"} (POSIX/XSI but not C 99)
+@code{fprintf "%2$d %1$d"} (POSIX/XSI but not C 99 - in practice, not NetBSD and not Windows)
 @*In C++: @code{autosprintf "%2$d %1$d"}
 (@pxref{Top, , Introduction, autosprintf, GNU autosprintf})
 
