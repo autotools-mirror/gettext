@@ -582,6 +582,7 @@ catalogname_for_locale (const char *locale)
     "sl_SI",	/* Slovenian	Slovenia */
     "so_SO",	/* Somali	Somalia */
     "sq_AL",	/* Albanian	Albania */
+    "sr_CS",	/* Serbian	Serbia & Montenegro */
     "sr_YU",	/* Serbian	Yugoslavia */
     "sv_SE",	/* Swedish	Sweden */
     "te_IN",	/* Telugu	India */
