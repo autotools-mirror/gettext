@@ -1,3 +1,8 @@
+2003-08-22  Bruno Haible  <bruno@clisp.org>
+
+	* zh_CN.po: New file, from Funda Wang <fundawang@linux.net.cn>.
+	* LINGUAS: Add zh_CN.
+
 2003-07-05  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: Add format-perl-brace.c, remove format-perl-bracket.c.
