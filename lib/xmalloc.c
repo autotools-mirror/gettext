@@ -1,5 +1,5 @@
 /* xmalloc.c -- malloc with out of memory checking
-   Copyright (C) 1990, 91, 92, 93, 94, 95, 96 Free Software Foundation, Inc.
+   Copyright (C) 1990-1996, 2000 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 #include <sys/types.h>
 
-#if STDC_HEADERS
+#if HAVE_STDLIB_H
 # include <stdlib.h>
 #else
 VOID *calloc ();
@@ -50,8 +50,12 @@ void free ();
 # define EXIT_FAILURE 1
 #endif
 
+#ifndef NULL
+# define NULL ((VOID *) 0)
+#endif
+
 /* Prototypes for functions defined here.  */
-#if defined (__STDC__) && __STDC__
+#if defined (__GNUC__) || (defined (__STDC__) && __STDC__)
 static VOID *fixup_null_alloc (size_t n);
 VOID *xmalloc (size_t n);
 VOID *xcalloc (size_t n, size_t s);
@@ -64,9 +68,9 @@ VOID *xrealloc (VOID *p, size_t n);
 int xmalloc_exit_failure = EXIT_FAILURE;
 
 #if __STDC__ && (HAVE_VPRINTF || HAVE_DOPRNT)
-void error (int, int, const char *, ...);
+extern void error (int, int, const char *, ...);
 #else
-void error ();
+extern void error ();
 #endif
 
 static VOID *
@@ -78,7 +82,7 @@ fixup_null_alloc (n)
   p = 0;
   if (n == 0)
     p = malloc ((size_t) 1);
-  if (p == 0)
+  if (p == NULL)
     error (xmalloc_exit_failure, 0, _("Memory exhausted"));
   return p;
 }
@@ -92,7 +96,7 @@ xmalloc (n)
   VOID *p;
 
   p = malloc (n);
-  if (p == 0)
+  if (p == NULL)
     p = fixup_null_alloc (n);
   return p;
 }
@@ -106,7 +110,7 @@ xcalloc (n, s)
   VOID *p;
 
   p = calloc (n, s);
-  if (p == 0)
+  if (p == NULL)
     p = fixup_null_alloc (n);
   return p;
 }
@@ -120,10 +124,10 @@ xrealloc (p, n)
      VOID *p;
      size_t n;
 {
-  if (p == 0)
+  if (p == NULL)
     return xmalloc (n);
   p = realloc (p, n);
-  if (p == 0)
+  if (p == NULL)
     p = fixup_null_alloc (n);
   return p;
 }

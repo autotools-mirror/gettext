@@ -1,4 +1,4 @@
-/* Copyright (C) 1995 Free Software Foundation, Inc.
+/* Copyright (C) 1995, 2000 Free Software Foundation, Inc.
 
    The GNU C Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -22,8 +22,8 @@
 
 typedef struct hash_table
 {
-  unsigned long size;
-  unsigned long filled;
+  unsigned long int size;
+  unsigned long int filled;
   void *first;
   void *table;
   struct obstack mem_pool;
@@ -38,16 +38,19 @@ hash_table;
 #  endif
 # endif
 
-int init_hash PARAMS ((hash_table *htab, unsigned long init_size));
-int delete_hash PARAMS ((hash_table *htab));
-int insert_entry PARAMS ((hash_table *htab, const char *key, size_t keylen,
-			  void *data));
-int find_entry PARAMS ((hash_table *htab, const char *key, size_t keylen,
-			void **result));
+extern int init_hash PARAMS ((hash_table *htab, unsigned long int init_size));
+extern int delete_hash PARAMS ((hash_table *htab));
+extern int insert_entry PARAMS ((hash_table *htab,
+				 const void *key, size_t keylen,
+				 void *data));
+extern int find_entry PARAMS ((hash_table *htab,
+			       const void *key, size_t keylen,
+			       void **result));
 
-int iterate_table PARAMS ((hash_table *htab, void **ptr,
-			   const void **key, void **data));
+extern int iterate_table PARAMS ((hash_table *htab, void **ptr,
+				  const void **key, size_t *keylen,
+				  void **data));
 
-unsigned long next_prime PARAMS ((unsigned long seed));
+extern unsigned long int next_prime PARAMS ((unsigned long int seed));
 
 #endif /* not _HASH_H */

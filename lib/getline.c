@@ -24,7 +24,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 
 /* The `getdelim' function is only declared if the following symbol
    is defined.  */
-#define _GNU_SOURCE	1
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE	1
+#endif
 #include <stdio.h>
 #include <sys/types.h>
 
@@ -39,16 +41,16 @@ getline (lineptr, n, stream)
   return getdelim (lineptr, n, '\n', stream);
 }
 
-
 #else /* ! have getdelim */
 
 # define NDEBUG
 # include <assert.h>
 
-# if STDC_HEADERS
+# if HAVE_STDLIB_H
 #  include <stdlib.h>
 # else
-char *malloc (), *realloc ();
+extern char *malloc ();
+extern char *realloc ();
 # endif
 
 /* Always add at least this many bytes when extending the buffer.  */
@@ -58,9 +60,10 @@ char *malloc (), *realloc ();
    + OFFSET (and null-terminate it). *LINEPTR is a pointer returned from
    malloc (or NULL), pointing to *N characters of space.  It is realloc'd
    as necessary.  Return the number of characters read (not including the
-   null terminator), or -1 on error or EOF.  */
+   null terminator), or -1 on error or EOF.
+   NOTE: There is another getstr() function declared in <curses.h>.  */
 
-int
+static int
 getstr (lineptr, n, stream, terminator, offset)
      char **lineptr;
      size_t *n;

@@ -1,5 +1,5 @@
 /* Convert string representation of a number into an integer value.
-   Copyright (C) 1991, 92, 94, 95, 96, 97, 98 Free Software Foundation, Inc.
+   Copyright (C) 1991,92,94,95,96,97,98,99,2000 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@prep.ai.mit.edu.
@@ -130,27 +130,27 @@ extern int errno;
    operating on `long long int's.  */
 #ifdef QUAD
 # define LONG long long
-# undef LONG_MIN
-# define LONG_MIN LONG_LONG_MIN
-# undef LONG_MAX
-# define LONG_MAX LONG_LONG_MAX
-# undef ULONG_MAX
-# define ULONG_MAX ULONG_LONG_MAX
+# define STRTOL_LONG_MIN LONG_LONG_MIN
+# define STRTOL_LONG_MAX LONG_LONG_MAX
+# define STRTOL_ULONG_MAX ULONG_LONG_MAX
 # if __GNUC__ == 2 && __GNUC_MINOR__ < 7
    /* Work around gcc bug with using this constant.  */
    static const unsigned long long int maxquad = ULONG_LONG_MAX;
-#  undef ULONG_MAX
-#  define ULONG_MAX maxquad
+#  undef STRTOL_ULONG_MAX
+#  define STRTOL_ULONG_MAX maxquad
 # endif
 #else
 # define LONG long
 
-#ifndef ULONG_MAX
-# define ULONG_MAX ((unsigned long) ~(unsigned long) 0)
-#endif
-#ifndef LONG_MAX
-# define LONG_MAX ((long int) (ULONG_MAX >> 1))
-#endif
+# ifndef ULONG_MAX
+#  define ULONG_MAX ((unsigned long) ~(unsigned long) 0)
+# endif
+# ifndef LONG_MAX
+#  define LONG_MAX ((long int) (ULONG_MAX >> 1))
+# endif
+# define STRTOL_LONG_MIN LONG_MIN
+# define STRTOL_LONG_MAX LONG_MAX
+# define STRTOL_ULONG_MAX ULONG_MAX
 #endif
 
 
@@ -245,13 +245,21 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
   register UCHAR_TYPE c;
   const STRING_TYPE *save, *end;
   int overflow;
+#if defined USE_NUMBER_GROUPING && !defined USE_WIDE_CHAR
+  int cnt;
+#endif
 
 #ifdef USE_NUMBER_GROUPING
 # ifdef USE_IN_EXTENDED_LOCALE_MODEL
   struct locale_data *current = loc->__locales[LC_NUMERIC];
 # endif
   /* The thousands character of the current locale.  */
+# ifdef USE_WIDE_CHAR
   wchar_t thousands = L'\0';
+# else
+  const char *thousands = NULL;
+  size_t thousands_len = 0;
+# endif
   /* The numeric grouping specification of the current locale,
      in the format described in <locale.h>.  */
   const char *grouping;
@@ -264,13 +272,23 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
       else
 	{
 	  /* Figure out the thousands separator character.  */
-# if defined _LIBC || defined _HAVE_BTOWC
-	  thousands = __btowc (*_NL_CURRENT (LC_NUMERIC, THOUSANDS_SEP));
-	  if (thousands == WEOF)
-	    thousands = L'\0';
-# endif
+# ifdef USE_WIDE_CHAR
+#  ifdef _LIBC
+	  thousands = _NL_CURRENT_WORD (LC_NUMERIC,
+					_NL_NUMERIC_THOUSANDS_SEP_WC);
+#  endif
 	  if (thousands == L'\0')
 	    grouping = NULL;
+# else
+#  ifdef _LIBC
+	  thousands = _NL_CURRENT (LC_NUMERIC, THOUSANDS_SEP);
+#  endif
+	  if (*thousands == '\0')
+	    {
+	      thousands = NULL;
+	      grouping = NULL;
+	    }
+# endif
 	}
     }
   else
@@ -308,7 +326,7 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
   /* Recognize number prefix and if BASE is zero, figure it out ourselves.  */
   if (*s == L_('0'))
     {
-      if (TOUPPER (s[1]) == L_('X'))
+      if ((base == 0 || base == 16) && TOUPPER (s[1]) == L_('X'))
 	{
 	  s += 2;
 	  base = 16;
@@ -323,50 +341,152 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
   save = s;
 
 #ifdef USE_NUMBER_GROUPING
-  if (group)
+  if (base != 10)
+    grouping = NULL;
+
+  if (grouping)
     {
+# ifndef USE_WIDE_CHAR
+      thousands_len = strlen (thousands);
+# endif
+
       /* Find the end of the digit string and check its grouping.  */
       end = s;
-      for (c = *end; c != L_('\0'); c = *++end)
-	if ((wchar_t) c != thousands
-	    && ((wchar_t) c < L_('0') || (wchar_t) c > L_('9'))
-	    && (!ISALPHA (c) || (int) (TOUPPER (c) - L_('A') + 10) >= base))
-	  break;
-      if (*s == thousands)
-	end = s;
-      else
-	end = correctly_grouped_prefix (s, end, thousands, grouping);
+      if (
+# ifdef USE_WIDE_CHAR
+	  *s != thousands
+# else
+	  ({ for (cnt = 0; cnt < thousands_len; ++cnt)
+	       if (thousands[cnt] != end[cnt])
+		 break;
+	     cnt < thousands_len; })
+# endif
+	  )
+	{
+	  for (c = *end; c != L_('\0'); c = *++end)
+	    if (((wchar_t) c < L_('0') || (wchar_t) c > L_('9'))
+# ifdef USE_WIDE_CHAR
+		&& c != thousands
+# else
+		&& ({ for (cnt = 0; cnt < thousands_len; ++cnt)
+		      if (thousands[cnt] != end[cnt])
+			break;
+		      cnt < thousands_len; })
+# endif
+		&& (!ISALPHA (c)
+		    || (int) (TOUPPER (c) - L_('A') + 10) >= base))
+	      break;
+
+	  end = correctly_grouped_prefix (s, end, thousands, grouping);
+	}
     }
   else
 #endif
     end = NULL;
 
-  cutoff = ULONG_MAX / (unsigned LONG int) base;
-  cutlim = ULONG_MAX % (unsigned LONG int) base;
+  cutoff = STRTOL_ULONG_MAX / (unsigned LONG int) base;
+  cutlim = STRTOL_ULONG_MAX % (unsigned LONG int) base;
 
   overflow = 0;
   i = 0;
-  for (c = *s; c != L_('\0'); c = *++s)
+  c = *s;
+  if (sizeof (long int) != sizeof (LONG int))
     {
-      if (s == end)
-	break;
-      if (c >= L_('0') && c <= L_('9'))
-	c -= L_('0');
-      else if (ISALPHA (c))
-	c = TOUPPER (c) - L_('A') + 10;
-      else
-	break;
-      if ((int) c >= base)
-	break;
-      /* Check for overflow.  */
-      if (i > cutoff || (i == cutoff && c > cutlim))
-	overflow = 1;
-      else
+      unsigned long int j = 0;
+      unsigned long int jmax = ULONG_MAX / base;
+
+      for (;c != L_('\0'); c = *++s)
 	{
-	  i *= (unsigned LONG int) base;
-	  i += c;
+	  if (s == end)
+	    break;
+	  if (c >= L_('0') && c <= L_('9'))
+	    c -= L_('0');
+#ifdef USE_NUMBER_GROUPING
+# ifdef USE_WIDE_CHAR
+	  else if (grouping && c == thousands)
+	    continue;
+# else
+	  else if (thousands_len)
+	    {
+	      for (cnt = 0; cnt < thousands_len; ++cnt)
+		if (thousands[cnt] != s[cnt])
+		  break;
+	      if (cnt == thousands_len)
+		{
+		  s += thousands_len - 1;
+		  continue;
+		}
+	      if (ISALPHA (c))
+		c = TOUPPER (c) - L_('A') + 10;
+	      else
+		break;
+	    }
+# endif
+#endif
+	  else if (ISALPHA (c))
+	    c = TOUPPER (c) - L_('A') + 10;
+	  else
+	    break;
+	  if ((int) c >= base)
+	    break;
+	  /* Note that we never can have an overflow.  */
+	  else if (j >= jmax)
+	    {
+	      /* We have an overflow.  Now use the long representation.  */
+	      i = (unsigned LONG int) j;
+	      goto use_long;
+	    }
+	  else
+	    j = j * (unsigned long int) base + c;
 	}
+
+      i = (unsigned LONG int) j;
     }
+  else
+    for (;c != L_('\0'); c = *++s)
+      {
+	if (s == end)
+	  break;
+	if (c >= L_('0') && c <= L_('9'))
+	  c -= L_('0');
+#ifdef USE_NUMBER_GROUPING
+# ifdef USE_WIDE_CHAR
+	else if (grouping && c == thousands)
+	  continue;
+# else
+	else if (thousands_len)
+	  {
+	    for (cnt = 0; cnt < thousands_len; ++cnt)
+	      if (thousands[cnt] != s[cnt])
+		break;
+	    if (cnt == thousands_len)
+	      {
+		s += thousands_len - 1;
+		continue;
+	      }
+	    if (ISALPHA (c))
+	      c = TOUPPER (c) - L_('A') + 10;
+	    else
+	      break;
+	  }
+# endif
+#endif
+	else if (ISALPHA (c))
+	  c = TOUPPER (c) - L_('A') + 10;
+	else
+	  break;
+	if ((int) c >= base)
+	  break;
+	/* Check for overflow.  */
+	if (i > cutoff || (i == cutoff && c > cutlim))
+	  overflow = 1;
+	else
+	  {
+	  use_long:
+	    i *= (unsigned LONG int) base;
+	    i += c;
+	  }
+      }
 
   /* Check if anything actually happened.  */
   if (s == save)
@@ -382,8 +502,8 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
      `unsigned LONG int', but outside the range of `LONG int'.  */
   if (overflow == 0
       && i > (negative
-	      ? -((unsigned LONG int) (LONG_MIN + 1)) + 1
-	      : (unsigned LONG int) LONG_MAX))
+	      ? -((unsigned LONG int) (STRTOL_LONG_MIN + 1)) + 1
+	      : (unsigned LONG int) STRTOL_LONG_MAX))
     overflow = 1;
 #endif
 
@@ -391,9 +511,9 @@ INTERNAL (strtol) (nptr, endptr, base, group LOCALE_PARAM)
     {
       __set_errno (ERANGE);
 #if UNSIGNED
-      return ULONG_MAX;
+      return STRTOL_ULONG_MAX;
 #else
-      return negative ? LONG_MIN : LONG_MAX;
+      return negative ? STRTOL_LONG_MIN : STRTOL_LONG_MAX;
 #endif
     }
 
@@ -406,12 +526,14 @@ noconv:
      hexadecimal digits.  This is no error case.  We return 0 and
      ENDPTR points to the `x`.  */
   if (endptr != NULL)
-    if (save - nptr >= 2 && TOUPPER (save[-1]) == L_('X')
-	&& save[-2] == L_('0'))
-      *endptr = (STRING_TYPE *) &save[-1];
-    else
-      /*  There was no number to convert.  */
-      *endptr = (STRING_TYPE *) nptr;
+    {
+      if (save - nptr >= 2 && TOUPPER (save[-1]) == L_('X')
+	  && save[-2] == L_('0'))
+	*endptr = (STRING_TYPE *) &save[-1];
+      else
+	/*  There was no number to convert.  */
+	*endptr = (STRING_TYPE *) nptr;
+    }
 
   return 0L;
 }

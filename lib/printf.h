@@ -1,4 +1,4 @@
-/*  Copyright (C) 1991, 1992, 1993, 1995 Free Software Foundation, Inc.
+/*  Copyright (C) 1991, 1992, 1993, 1995, 2000 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <stdio.h>
 #include <sys/types.h>
 
-#ifdef STDC_HEADERS
+#if HAVE_STDDEF_H
 # include <stddef.h>
 #endif
 

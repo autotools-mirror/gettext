@@ -1,5 +1,5 @@
 /* obstack.h - object stack macros
-   Copyright (C) 1988,89,90,91,92,93,94,96,97,98 Free Software Foundation, Inc.
+   Copyright (C) 1988-1999, 2000 Free Software Foundation, Inc.
 
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
@@ -218,18 +218,18 @@ void obstack_init (struct obstack *obstack);
 
 void * obstack_alloc (struct obstack *obstack, int size);
 
-void * obstack_copy (struct obstack *obstack, void *address, int size);
-void * obstack_copy0 (struct obstack *obstack, void *address, int size);
+void * obstack_copy (struct obstack *obstack, const void *address, int size);
+void * obstack_copy0 (struct obstack *obstack, const void *address, int size);
 
 void obstack_free (struct obstack *obstack, void *block);
 
 void obstack_blank (struct obstack *obstack, int size);
 
-void obstack_grow (struct obstack *obstack, void *data, int size);
-void obstack_grow0 (struct obstack *obstack, void *data, int size);
+void obstack_grow (struct obstack *obstack, const void *data, int size);
+void obstack_grow0 (struct obstack *obstack, const void *data, int size);
 
 void obstack_1grow (struct obstack *obstack, int data_char);
-void obstack_ptr_grow (struct obstack *obstack, void *data);
+void obstack_ptr_grow (struct obstack *obstack, const void *data);
 void obstack_int_grow (struct obstack *obstack, int data);
 
 void * obstack_finish (struct obstack *obstack);
@@ -239,7 +239,7 @@ int obstack_object_size (struct obstack *obstack);
 int obstack_room (struct obstack *obstack);
 void obstack_make_room (struct obstack *obstack, int size);
 void obstack_1grow_fast (struct obstack *obstack, int data_char);
-void obstack_ptr_grow_fast (struct obstack *obstack, void *data);
+void obstack_ptr_grow_fast (struct obstack *obstack, const void *data);
 void obstack_int_grow_fast (struct obstack *obstack, int data);
 void obstack_blank_fast (struct obstack *obstack, int size);
 
@@ -255,8 +255,9 @@ int obstack_memory_used (struct obstack *obstack);
    so we do not declare them.  */
 
 /* Error handler called when `obstack_chunk_alloc' failed to allocate
-   more memory.  This can be set to a user defined function.  The
-   default action is to print a message and abort.  */
+   more memory.  This can be set to a user defined function which
+   should either abort gracefully or use longjump - but shouldn't
+   return.  The default action is to print a message and abort.  */
 #if defined __STDC__ && __STDC__
 extern void (*obstack_alloc_failed_handler) (void);
 #else
@@ -385,7 +386,7 @@ __extension__								\
    int __len = (length);						\
    if (__o->next_free + __len > __o->chunk_limit)			\
      _obstack_newchunk (__o, __len);					\
-   _obstack_memcpy (__o->next_free, (char *) (where), __len);		\
+   _obstack_memcpy (__o->next_free, (const char *) (where), __len);	\
    __o->next_free += __len;						\
    (void) 0; })
 
@@ -395,7 +396,7 @@ __extension__								\
    int __len = (length);						\
    if (__o->next_free + __len + 1 > __o->chunk_limit)			\
      _obstack_newchunk (__o, __len + 1);				\
-   _obstack_memcpy (__o->next_free, (char *) (where), __len);		\
+   _obstack_memcpy (__o->next_free, (const char *) (where), __len);	\
    __o->next_free += __len;						\
    *(__o->next_free)++ = 0;						\
    (void) 0; })
@@ -417,7 +418,7 @@ __extension__								\
 ({ struct obstack *__o = (OBSTACK);					\
    if (__o->next_free + sizeof (void *) > __o->chunk_limit)		\
      _obstack_newchunk (__o, sizeof (void *));				\
-   *((void **)__o->next_free)++ = ((void *)datum);			\
+   *((void **)__o->next_free)++ = ((const void *)datum);		\
    (void) 0; })
 
 # define obstack_int_grow(OBSTACK,datum)				\
@@ -481,7 +482,7 @@ __extension__								\
 ({ struct obstack *__o = (OBSTACK);					\
    void *__obj = (OBJ);							\
    if (__obj > (void *)__o->chunk && __obj < (void *)__o->chunk_limit)  \
-     __o->next_free = __o->object_base = __obj;				\
+     __o->next_free = __o->object_base = (char *)__obj;			\
    else (obstack_free) (__o, __obj); })
 
 #else /* not __GNUC__ or not __STDC__ */

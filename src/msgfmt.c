@@ -728,7 +728,8 @@ write_table (output_file, tab)
   struct id_str_pair *msg_arr;
   void *ptr;
   size_t cnt;
-  char *id;
+  const void *id;
+  size_t id_len;
   struct msgstr_def *entry;
   struct string_desc sd;
 
@@ -755,10 +756,10 @@ write_table (output_file, tab)
 
   /* Read values from hashing table into array.  */
   for (cnt = 0, ptr = NULL;
-       iterate_table (tab, &ptr, (const void **) &id, (void **) &entry) >= 0;
+       iterate_table (tab, &ptr, &id, &id_len, (void **) &entry) >= 0;
        ++cnt)
     {
-      msg_arr[cnt].id = id;
+      msg_arr[cnt].id = (char *) id;
       msg_arr[cnt].str = entry->msgstr;
     }
 

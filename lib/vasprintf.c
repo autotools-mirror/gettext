@@ -80,7 +80,7 @@ int_vasprintf (result, format, args)
 	      else
 		total_width += strtoul (p, &p, 10);
 	    }
-	  while (strchr ("hlL", *p))
+	  while (strchr ("hlLjtz", *p))
 	    ++p;
 	  /* Should be big enough for any format specifier except %s
 	     and floats.  */

@@ -20,11 +20,11 @@
 
 #include <ctype.h>
 #include <printf.h>
-#if STDC_HEADERS
+#if HAVE_STDDEF_H
 # include <stddef.h>
 #endif
 
-#if STDC_HEADERS || HAVE_STRING_H
+#if HAVE_STRING_H
 # include <string.h>
 #else
 # include <strings.h>
@@ -36,10 +36,6 @@
 #else
 # define long_long_int long
 # define long_double double
-#endif
-
-#ifndef MB_CUR_MAX
-# define MB_CUR_MAX (sizeof (long))
 #endif
 
 #define NDEBUG 1
@@ -137,18 +133,7 @@ find_spec (format)
      const char *format;
 {
   while (*format != '\0' && *format != '%')
-    {
-      int len;
-
-#ifdef HAVE_MBLEN
-      if (isascii (*format) || (len = mblen (format, MB_CUR_MAX)) <= 0)
-	++format;
-      else
-	format += len;
-#else
-      ++format;
-#endif
-    }
+    ++format;
   return format;
 }
 

@@ -1,9 +1,65 @@
 2000-12-30  Bruno Haible  <haible@clisp.cons.org>
 
+	* basename.c: Update from current fileutils version, keeping the
+	function name as `basename' or `gnu_basename'.
+
+	* error.c: Update from glibc-2.2 version.
+
+	* fstrcmp.h: extern declaration.
+
+	* getline.h: Comment out declarations on glibc2 systems.
+	* getline.c: Make getstr() static, to avoid conflict with libncurses.
+
+	* getopt.h: Update from glibc-2.2 version.
+	* getopt.c: Likewise.
+
+	* hash.h: Update from glibc-2.2 version. Don't assume keys are NUL
+	terminated.
+	(insert_entry, find_entry): Change argument type from 'const char*' to
+	'const void*'.
+	(iterate_table): Add keylen argument.
+	* hash.c: Update from glibc-2.2 version. Don't assume keys are NUL
+	terminated.
+	(xcalloc): New declaration.
+	(struct hash_entry): Add keylen field.
+	(init_hash): Use xcalloc instead of xmalloc.
+	(insert_entry_2): Add keylen argument. Use xcalloc instead of xmalloc.
+	(iterate_table): Add keylen argument.
+	(lookup): Compare using memcmp, not strncmp.
+	(lookup_2): Add keylen argument. Compare using memcmp, not strcmp.
+
+	* memmove.c: Revert to gettext-0.10.35 version, independent of glibc.
+	* memset.c: Likewise.
+
+	* obstack.h: Update from glibc-2.2 version. Add a few consts.
+	* obstack.c: Update from glibc-2.2 version.
+
+	* pathmax.h: Update from current fileutils version.
+
+	* printf-prs.c: Revert to old, not multibyte aware version. Since the
+	messages in the catalog can be in any encoding, use of the current
+	locale's encoding is wrong here.
+	* printf-parse.h (find_spec): Likewise.
+
+	* strtol.c: Update from glibc-2.2 version.
+
+	* strstr.c (strstr): Add an empty statement after 'shloop' label.
+
 	* vasprintf.c: Include stdlib.h if it exists.
 	(int_vasprintf): Increase buffer size for float/double values with
-	positive exponent only.
+	positive exponent only. Recognize new ISO C99 length modifiers 'j',
+	't', 'z'.
 	(main): Add more tests.
+
+	* xgetcwd.c (xgetcwd): If the required pathname length is smaller
+	than 1024, return a memory chunk of least possible size, instead
+	of size PATH_MAX + 2. In the loop, increment the size proportionally.
+	Use free/xmalloc instead of xrealloc to avoid copying for very long
+	paths.
+
+	* xmalloc.c: Use NULL where appropriate.
+
+	* xstrdup.c (xstrdup): Change argument type to 'const char *'.
 
 1999-12-27  Geoff Keating  <geoffk@cygnus.com>
 

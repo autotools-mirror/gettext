@@ -1,3 +1,8 @@
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgfmt.c (write_table): Pass additional argument &id_len to
+	iterate_table.
+
 2000-09-13  Bruno Haible  <haible@clisp.cons.org>
 
 	Look into #define bodies.
