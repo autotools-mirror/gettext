@@ -1,5 +1,10 @@
 2004-02-24  Bruno Haible  <bruno@clisp.org>
 
+	* hello-csharp*/hello.cs (Hello.Main): Remove workaround for mono bug,
+	fixed in mono-0.30.1.
+
+2004-02-24  Bruno Haible  <bruno@clisp.org>
+
 	* hello-csharp*/autogen.sh: Copy also the csharp.m4 file.
 
 2004-02-02  Bruno Haible  <bruno@clisp.org>

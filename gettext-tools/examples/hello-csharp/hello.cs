@@ -10,20 +10,6 @@ using System.Diagnostics; /* Process */
 
 public class Hello {
   public static void Main (String[] args) {
-    #if __MonoCS__
-    // Some systems don't set CurrentCulture and CurrentUICulture as specified
-    // by LC_ALL. So set it by hand.
-    String locale = System.Environment.GetEnvironmentVariable("LC_ALL");
-    if (locale == null || locale == "")
-      locale = System.Environment.GetEnvironmentVariable("LANG");
-    if (!(locale == null || locale == "")) {
-      if (locale.IndexOf('.') >= 0)
-        locale = locale.Substring(0,locale.IndexOf('.'));
-      System.Threading.Thread.CurrentThread.CurrentCulture =
-      System.Threading.Thread.CurrentThread.CurrentUICulture =
-        new System.Globalization.CultureInfo(locale.Replace('_','-'));
-    }
-    #endif
     GettextResourceManager catalog =
       new GettextResourceManager("hello-csharp");
     Console.WriteLine(catalog.GetString("Hello, world!"));
