@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,10 +19,16 @@
 #ifndef _MSGL_CAT_H
 #define _MSGL_CAT_H
 
+#include <stdbool.h>
+
 #include "message.h"
 #include "str-list.h"
 
-#include <stdbool.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /* These variables control which messages are selected.  */
 extern int more_than;
@@ -43,5 +49,11 @@ extern bool omit_header;
 extern msgdomain_list_ty *
        catenate_msgdomain_list (string_list_ty *file_list,
 				const char *to_code);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _MSGL_CAT_H */

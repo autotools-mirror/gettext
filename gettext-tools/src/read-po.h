@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,6 +24,17 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+
+
+/* For including this file in C++ mode.  */
+#ifdef __cplusplus
+# define this thiss
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /* The following pair of structures cooperate to create a derived class from
    class abstract_po_reader_ty.  (See read-po-abstract.h for an explanation.)
@@ -159,5 +170,11 @@ extern msgdomain_list_ty *read_po (FILE *fp, const char *real_filename,
    not found, the list of directories in "dir-list.h" is searched.  Returns
    a list of messages.  */
 extern msgdomain_list_ty *read_po_file (const char *input_name);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _READ_PO_H */

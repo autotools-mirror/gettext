@@ -28,6 +28,12 @@
 #include "pos.h"
 #include "xerror.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Lexical analyzer for reading PO files.  */
 
 
@@ -148,5 +154,11 @@ struct msgstr_def
   char *msgstr;
   size_t msgstr_len;
 };
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

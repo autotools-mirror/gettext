@@ -1,5 +1,5 @@
 /* Message list test for equality.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,9 +19,15 @@
 #ifndef _MSGL_EQUAL_H
 #define _MSGL_EQUAL_H
 
+#include <stdbool.h>
+
 #include "message.h"
 
-#include <stdbool.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 extern bool
        string_list_equal (const string_list_ty *slp1,
@@ -41,5 +47,11 @@ extern bool
        msgdomain_list_equal (const msgdomain_list_ty *mdlp1,
 			     const msgdomain_list_ty *mdlp2,
 			     bool ignore_potcdate);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _MSGL_EQUAL_H */

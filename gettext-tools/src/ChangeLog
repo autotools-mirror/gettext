@@ -38,14 +38,21 @@
 	* format.h: Likewise.
 	* message.h: Likewise.
 	* msgl-ascii.h: Likewise.
+	* msgl-cat.h: Likewise.
+	* msgl-charset.h: Likewise.
+	* msgl-english.h: Likewise.
+	* msgl-equal.h: Likewise.
 	* msgl-iconv.h: Likewise.
 	* open-po.h: Likewise.
 	* po-charset.h: Likewise.
+	* po-lex.h: Likewise.
 	* po-time.h: Likewise.
 	* read-po-abstract.h: Likewise.
 	* str-list.h: Likewise.
 	* write-po.h: Likewise.
 	* xgettext.h: Likewise.
+	* read-po.h: Likewise.
+	(this): Redefine to a different symbol.
 	* xgettext.c: Add extern "C" around all "x-*.h" includes.
 
 2003-08-22  Bruno Haible  <bruno@clisp.org>
