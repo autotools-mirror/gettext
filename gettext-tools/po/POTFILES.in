@@ -78,6 +78,7 @@ src/x-awk.c
 src/x-c.c
 src/x-elisp.c
 src/x-glade.c
+src/x-java.c
 src/x-librep.c
 src/x-lisp.c
 src/x-perl.c
