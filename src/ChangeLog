@@ -1,3 +1,7 @@
+2001-11-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* message.h (NFORMATS): Fix misapplied patch.
+
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt.c (check_accelerators): New variable.
