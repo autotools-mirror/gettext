@@ -6057,7 +6057,7 @@ Only XEmacs. Without @code{I18N3} defined at build time, no translation.
 
 @table @asis
 @item RPMs
-librep
+librep 0.15.3 or newer
 
 @item File extension
 @code{jl}
