@@ -129,53 +129,47 @@ install-exec: all
 	if test "$(PACKAGE)" = "gettext" \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
 	  if test -r $(MKINSTALLDIRS); then \
-	    $(MKINSTALLDIRS) $(libdir) $(includedir); \
+	    $(MKINSTALLDIRS) $(DESTDIR)$(libdir); \
+	    $(MKINSTALLDIRS) $(DESTDIR)$(includedir); \
 	  else \
-	    $(top_srcdir)/mkinstalldirs $(libdir) $(includedir); \
+	    $(top_srcdir)/mkinstalldirs $(DESTDIR)$(libdir); \
+	    $(top_srcdir)/mkinstalldirs $(DESTDIR)$(includedir); \
 	  fi; \
-	  $(INSTALL_DATA) intlh.inst $(includedir)/libintl.h; \
-	  $(INSTALL_DATA) libintl.a $(libdir)/libintl.a; \
+	  $(INSTALL_DATA) intlh.inst $(DESTDIR)$(includedir)/libintl.h; \
+	  $(INSTALL_DATA) libintl.a $(DESTDIR)$(libdir)/libintl.a; \
 	else \
 	  : ; \
 	fi; \
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  if test -r $(MKINSTALLDIRS); then \
-	    $(MKINSTALLDIRS) $(libdir); \
+	    $(MKINSTALLDIRS) $(DESTDIR)$(libdir); \
 	  else \
-	    $(top_srcdir)/mkinstalldirs $(libdir); \
+	    $(top_srcdir)/mkinstalldirs $(DESTDIR)$(libdir); \
 	  fi; \
-	  test -f $(libdir)/charset.alias && orig=$(libdir)/charset.alias \
-					  || orig=charset.alias; \
-	  sed -f ref-add.sed $$orig > $(libdir)/t-charset.alias; \
-	  $(INSTALL_DATA) $(libdir)/t-charset.alias $(libdir)/charset.alias; \
-	  rm -f $(libdir)/t-charset.alias; \
+	  test -f $(DESTDIR)$(libdir)/charset.alias \
+	    && orig=$(DESTDIR)$(libdir)/charset.alias \
+	    || orig=charset.alias; \
+	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
+	  dest=$(DESTDIR)$(libdir)/charset.alias; \
+	  sed -f ref-add.sed $$orig > $$temp; \
+	  $(INSTALL_DATA) $$temp $$dest; \
+	  rm -f $$temp; \
 	else \
 	  : ; \
 	fi
 install-data: all
 	if test "$(PACKAGE)" = "gettext"; then \
 	  if test -r $(MKINSTALLDIRS); then \
-	    $(MKINSTALLDIRS) $(gettextsrcdir); \
+	    $(MKINSTALLDIRS) $(DESTDIR)$(gettextsrcdir); \
 	  else \
-	    $(top_srcdir)/mkinstalldirs $(gettextsrcdir); \
+	    $(top_srcdir)/mkinstalldirs $(DESTDIR)$(gettextsrcdir); \
 	  fi; \
-	  $(INSTALL_DATA) VERSION $(gettextsrcdir)/VERSION; \
+	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
 	  dists="$(DISTFILES.common)"; \
 	  for file in $$dists; do \
-	    $(INSTALL_DATA) $(srcdir)/$$file $(gettextsrcdir)/$$file; \
+	    $(INSTALL_DATA) $(srcdir)/$$file \
+			    $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
-	else \
-	  : ; \
-	fi; \
-	if test '@USE_INCLUDED_LIBINTL@' = yes \
-	  && test -f $(libdir)/charset.alias; then \
-	  sed -f ref-del.sed $(libdir)/charset.alias > $(libdir)/t-charset.alias; \
-	  if grep '^# Packages using this file: $$' $(libdir)/t-charset.alias > /dev/null; then \
-	    rm -f $(libdir)/t-charset.alias; \
-	  else \
-	    $(INSTALL_DATA) $(libdir)/t-charset.alias $(libdir)/charset.alias; \
-	  fi; \
-	  rm -f $(libdir)/t-charset.alias; \
 	else \
 	  : ; \
 	fi
@@ -186,8 +180,22 @@ installcheck:
 uninstall:
 	dists="$(DISTFILES.common)"; \
 	for file in $$dists; do \
-	  rm -f $(gettextsrcdir)/$$file; \
-	done
+	  rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
+	done; \
+	if test '@USE_INCLUDED_LIBINTL@' = yes \
+	  && test -f $(DESTDIR)$(libdir)/charset.alias; then \
+	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
+	  dest=$(DESTDIR)$(libdir)/charset.alias; \
+	  sed -f ref-del.sed $$dest > $$temp; \
+	  if grep '^# Packages using this file: $$' $$temp > /dev/null; then \
+	    rm -f $$temp; \
+	  else \
+	    $(INSTALL_DATA) $$temp $$dest; \
+	  fi; \
+	  rm -f $$temp; \
+	else \
+	  : ; \
+	fi
 
 info dvi:
 
