@@ -538,6 +538,8 @@ compiler."
 	  if test $status -ne 0 && test ! -d $dir; then
 	    exit $status
 	  fi
+	  $show "chmod 777 $dir"
+	  $run chmod 777 $dir
 	fi
       fi
       if test "$compiler_o_lo" = yes; then
@@ -1287,6 +1289,8 @@ compiler."
       if test $status -ne 0 && test ! -d $output_objdir; then
 	exit $status
       fi
+      $show "chmod 777 $output_objdir"
+      $run chmod 777 $output_objdir
     fi
 
     # Determine the type of output
