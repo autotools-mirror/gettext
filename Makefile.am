@@ -24,7 +24,7 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 gettextsrc_SCRIPTS = config.rpath
 
-SUBDIRS = doc intl intl-java lib src po man m4 projects misc tests
+SUBDIRS = doc intl intl-java lib libuniname src po man m4 projects misc tests
 
 EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
