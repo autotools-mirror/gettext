@@ -53,9 +53,6 @@ Things we plan to do. Comments welcome.
   http://i18n.kde.org/translation-howto/gui-specialized-apps.html
   http://i18n.kde.org/tools/kbabel/
 
-- lib/ needs patches for building on systems without <libintl.h>.
-- Protect all uses of LC_MESSAGES by HAVE_LC_MESSAGES.
-
 - New programs:
 
   msgconv [-t encoding] [-o file] [file]
