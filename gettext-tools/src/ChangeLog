@@ -1,3 +1,7 @@
+2005-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* msggrep.c (usage): Explain COMMENT-PATTERN syntax as well.
+
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
 	* x-tcl.c (read_word): Ignore non-space whitespace at the beginning.

@@ -478,7 +478,7 @@ or if -C is given and the translator's comment matches COMMENT-PATTERN.\n\
 When more than one selection criterion is specified, the set of selected\n\
 messages is the union of the selected messages of each criterion.\n\
 \n\
-MSGID-PATTERN or MSGSTR-PATTERN syntax:\n\
+MSGID-PATTERN or MSGSTR-PATTERN or COMMENT-PATTERN syntax:\n\
   [-E | -F] [-e PATTERN | -f FILE]...\n\
 PATTERNs are basic regular expressions by default, or extended regular\n\
 expressions if -E is given, or fixed strings if -F is given.\n\
