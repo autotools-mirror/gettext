@@ -1,3 +1,30 @@
+2001-10-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgattrib.texi: New file.
+	* msgcat.texi: New file.
+	* msgcmp.texi: New file.
+	* msgcomm.texi: New file.
+	* msgconv.texi: New file.
+	* msgen.texi: New file.
+	* msgexec.texi: New file.
+	* msgfmt.texi: New file, partially from node "msgfmt Invocation".
+	* msggrep.texi: New file.
+	* msginit.texi: New file.
+	* msgmerge.texi: New file.
+	* msgunfmt.texi: New file.
+	* msguniq.texi: New file.
+	* xgettext.texi: New file, partially from node "xgettext Invocation".
+	* gettext.texi (Top): Add a fourth author.
+	(xgettext Invocation): Reorganize and move to xgettext.texi.
+	(Creating): Move most of contents to node "Header Entry".
+	(msginit Invocation): New node.
+	(msgmerge Invocation): Include msgmerge.texi.
+	(Manipulating): New chapter.
+	(msgfmt invocation): Reorganize and move to msgfmt.texi.
+	(msgunfmt invocation): New node.
+	(History): Update.
+	* Makefile.am (gettext_TEXINFOS): Add the new files.
+
 2001-09-18  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi: Use file suffix .po instead of .pox.

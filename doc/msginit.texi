@@ -1,0 +1,64 @@
+@example
+msginit [@var{option}]
+@end example
+
+The @code{msginit} program creates a new PO file, initializing the meta
+information with values from the user's environment.
+
+@subsection Input file location
+
+@table @samp
+@item -i @var{inputfile}
+@itemx --input=@var{inputfile}
+Input POT file.
+
+@end table
+
+If no @var{inputfile} is given, the current directory is searched for the
+POT file.  If it is @samp{-}, standard input is read.
+
+@subsection Output file location
+
+@table @samp
+@item -o @var{file}
+@itemx --output-file=@var{file}
+Write output to specified PO file.
+
+@end table
+
+If no output file is given, it depends on the @samp{--locale} option or the
+user's locale setting.  If it is @samp{-}, the results are written to
+standard output.
+
+@subsection Output details
+
+@table @samp
+@item -l @var{ll_CC}
+@itemx --locale=@var{ll_CC}
+Set target locale.  @var{ll} should be a language code, and @var{CC} should
+be a country code.  The default is the user's locale setting.
+
+@item -w @var{number}
+@itemx --width=@var{number}
+Set the output page width.  Long strings in the output files will be
+split across multiple lines in order to ensure that each line's width
+(= number of screen columns) is less or equal to the given @var{number}.
+
+@end table
+
+@subsection Informative output
+
+@table @samp
+@item -h
+@itemx --help
+Display this help and exit.
+
+@item -V
+@itemx --version
+Output version information and exit.
+
+@item -v
+@itemx --verbose
+Increase verbosity level.
+
+@end table

@@ -1,0 +1,205 @@
+@example
+xgettext [@var{option}] [@var{inputfile}] @dots{}
+@end example
+
+The @code{xgettext} program extracts translatable strings from given
+input files.
+
+@subsection Input file location
+
+@table @samp
+@item @var{inputfile} @dots{}
+Input files.
+
+@item -f @var{file}
+@itemx --files-from=@var{file}
+Read the names of the input files from @var{file} instead of getting
+them from the command line.
+
+@item -D @var{directory}
+@itemx --directory=@var{directory}
+Add @var{directory} to the list of directories.  Source files are
+searched relative to this list of directories.  The resulting @file{.po}
+file will be written relative to the current directory, though.
+
+@end table
+
+If @var{inputfile} is @samp{-}, standard input is read.
+
+@subsection Output file location
+
+@table @samp
+@item -d @var{name}
+@itemx --default-domain=@var{name}
+Use @file{@var{name}.po} for output (instead of @file{messages.po}).
+
+@item -o @var{file}
+@itemx --output=@var{file}
+Write output to specified file (instead of @file{@var{name}.po} or
+@file{messages.po}).
+
+@item -p @var{dir}
+@itemx --output-dir=@var{dir}
+Output files will be placed in directory @var{dir}.
+
+@end table
+
+If the output @var{file} is @samp{-} or @samp{/dev/stdout}, the output
+is written to standard output.
+
+@subsection Choice of input file language
+
+@table @samp
+@item -L @var{name}
+@itemx --language=@var{name}
+Specifies the language of the input files.  The supported languages
+are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Java},
+@code{YCP}.
+
+@item -C
+@itemx --c++
+This is a shorthand for @code{--language=C++}.
+
+@end table
+
+By default the language is guessed depending on the input file name
+extension.
+
+@subsection Operation mode
+
+@table @samp
+@item -j
+@itemx --join-existing
+Join messages with existing file.
+
+@item -x @var{file}
+@itemx --exclude-file=@var{file}
+Entries from @var{file} are not extracted.  @var{file} should be a PO or
+POT file.
+
+@item -c [@var{tag}]
+@itemx --add-comments[=@var{tag}]
+Place comment block with @var{tag} (or those preceding keyword lines)
+in output file.
+
+@end table
+
+@subsection Language=C/C++ specific options
+
+@table @samp
+@item -a
+@itemx --extract-all
+Extract all strings.
+
+@item -k @var{keywordspec}
+@itemx --keyword[=@var{keywordspec}]
+Additional keyword to be looked for (without @var{keywordspec} means not to
+use default keywords).
+
+If @var{keywordspec} is a C identifer @var{id}, @code{xgettext} looks
+for strings in the first argument of each call to the function or macro
+@var{id}.  If @var{keywordspec} is of the form
+@samp{@var{id}:@var{argnum}}, @code{xgettext} looks for strings in the
+@var{argnum}th argument of the call.  If @var{keywordspec} is of the form
+@samp{@var{id}:@var{argnum1},@var{argnum2}}, @code{xgettext} looks for
+strings in the @var{argnum1}st argument and in the @var{argnum2}nd argument
+of the call, and treats them as singular/plural variants for a message
+with plural handling.
+
+The default keyword specifications, which are always looked for if not
+explicitly disabled, are @code{gettext}, @code{dgettext:2},
+@code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
+@code{dcngettext:2,3}, and @code{gettext_noop}.
+
+@item -T
+@itemx --trigraphs
+Understand ANSI C trigraphs for input.
+
+@itemx --debug
+Use the flags @kbd{c-format} and @kbd{possible-c-format} to show who was
+responsible for marking a message as a format string.  The latter form is
+used if the @code{xgettext} program decided, the format form is used if
+the programmer prescribed it.
+
+By default only the @kbd{c-format} form is used.  The translator should
+not have to care about these details.
+
+@end table
+
+This implementation of @code{xgettext} is able to process a few awkward
+cases, like strings in preprocessor macros, ANSI concatenation of
+adjacent strings, and escaped end of lines for continued strings.
+
+@subsection Output details
+
+@c --no-escape and --escape omitted on purpose.  They are not useful.
+
+@table @samp
+@item --force-po
+Always write an output file even if no message is defined.
+
+@item -i
+@itemx --indent
+Write the .po file using indented style.
+
+@item --no-location
+Do not write @samp{#: @var{filename}:@var{line}} lines.
+
+@item -n
+@itemx --add-location
+Generate @samp{#: @var{filename}:@var{line}} lines (default).
+
+@item --strict
+Write out a strict Uniforum conforming PO file.  Note that this
+Uniforum format should be avoided because it doesn't support the
+GNU extensions.
+
+@item -w @var{number}
+@itemx --width=@var{number}
+Set the output page width.  Long strings in the output files will be
+split across multiple lines in order to ensure that each line's width
+(= number of screen columns) is less or equal to the given @var{number}.
+
+@item -s
+@itemx --sort-output
+Generate sorted output.  Note that using this option makes it much harder
+for the translator to understand each message's context.
+
+@item -F
+@itemx --sort-by-file
+Sort output by file location.
+
+@item --omit-header
+Don't write header with @samp{msgid ""} entry.
+
+This is useful for testing purposes because it eliminates a source
+of variance for generated @code{.gmo} files.  With @code{--omit-header},
+two invocations of @code{xgettext} on the same files with the same
+options at different times are guaranteed to produce the same results.
+
+@item --foreign-user
+Omit FSF copyright in output.  This can be useful for translators
+outside the GNU project.
+
+@item -m [@var{string}]
+@itemx --msgstr-prefix[=@var{string}]
+Use @var{string} (or "" if not specified) as prefix for msgstr entries.
+
+@item -M [@var{string}]
+@itemx --msgstr-suffix[=@var{string}]
+Use @var{string} (or "" if not specified) as suffix for msgstr entries.
+
+@end table
+
+@subsection Informative output
+
+@table @samp
+@item -h
+@itemx --help
+Display this help and exit.
+
+@item -V
+@itemx --version
+Output version information and exit.
+
+@end table

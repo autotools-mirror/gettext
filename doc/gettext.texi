@@ -51,6 +51,7 @@ by the Foundation.
 @author Ulrich Drepper
 @author Jim Meyering
 @author Fran@,{c}ois Pinard
+@author Bruno Haible
 
 @page
 @vskip 0pt plus 1filll
@@ -82,6 +83,7 @@ by the Foundation.
 * Template::                    Making the PO Template File
 * Creating::                    Creating a New PO File
 * Updating::                    Updating Existing PO Files
+* Manipulating::                Manipulating PO Files
 * Binaries::                    Producing Binary MO Files
 * Users::                       The User's View
 * Programmers::                 The Programmer's View
@@ -124,6 +126,11 @@ Making the PO Template File
 
 * xgettext Invocation::         Invoking the @code{xgettext} Program
 
+Creating a New PO File
+
+* msginit Invocation::          Invoking the @code{msginit} Program
+* Header Entry::                Fields in the Header Entry
+
 Updating Existing PO Files
 
 * msgmerge Invocation::         Invoking the @code{msgmerge} Program
@@ -143,9 +150,22 @@ Using Translation Compendia
 * Creating Compendia::          Merging translations for later use
 * Using Compendia::             Using older translations if they fit
 
+Manipulating PO Files
+
+* msgcat Invocation::           Invoking the @code{msgcat} Program
+* msgconv Invocation::          Invoking the @code{msgconv} Program
+* msggrep Invocation::          Invoking the @code{msggrep} Program
+* msgexec Invocation::          Invoking the @code{msgexec} Program
+* msguniq Invocation::          Invoking the @code{msguniq} Program
+* msgcomm Invocation::          Invoking the @code{msgcomm} Program
+* msgcmp Invocation::           Invoking the @code{msgcmp} Program
+* msgattrib Invocation::        Invoking the @code{msgattrib} Program
+* msgen Invocation::            Invoking the @code{msgen} Program
+
 Producing Binary MO Files
 
 * msgfmt Invocation::           Invoking the @code{msgfmt} Program
+* msgunfmt Invocation::         Invoking the @code{msgunfmt} Program
 * MO Files::                    The Format of GNU MO Files
 
 The User's View
@@ -1893,148 +1913,42 @@ This section explains how to use @code{xgettext} for this purpose.
 @node xgettext Invocation,  , Template, Template
 @section Invoking the @code{xgettext} Program
 
-@c FIXME: Rewrite.
-
-@example
-xgettext [@var{option}] @var{inputfile} @dots{}
-@end example
-
-@table @samp
-@item -a
-@itemx --extract-all
-Extract all strings.
-
-@item -c [@var{tag}]
-@itemx --add-comments[=@var{tag}]
-Place comment block with @var{tag} (or those preceding keyword lines)
-in output file.
-
-@item -C
-@itemx --c++
-Recognize C++ style comments.
-
-@itemx --debug
-Use the flags @kbd{c-format} and @kbd{possible-c-format} to show who was
-responsible for marking a message as a format string.  The latter form is
-used if the @code{xgettext} program decided, the format form is used if
-the programmer prescribed it.
-
-By default only the @kbd{c-format} form is used.  The translator should
-not have to care about these details.
-
-@item -d @var{name}
-@itemx --default-domain=@var{name}
-Use @file{@var{name}.po} for output (instead of @file{messages.po}).
-
-The special domain name @file{-} or @file{/dev/stdout} means to write
-the output to @file{stdout}.
-
-@item -D @var{directory}
-@itemx --directory=@var{directory}
-Change to @var{directory} before beginning to search and scan source
-files.  The resulting @file{.po} file will be written relative to the
-original directory, though.
-
-@item -f @var{file}
-@itemx --files-from=@var{file}
-Read the names of the input files from @var{file} instead of getting
-them from the command line.
-
-@itemx --force
-Always write an output file even if no message is defined.
-
-@item -h
-@itemx --help
-Display this help and exit.
-
-@item -I @var{list}
-@itemx --input-path=@var{list}
-List of directories searched for input files.
-
-@item -j
-@itemx --join-existing
-Join messages with existing file.
-
-@item -k @var{word}
-@itemx --keyword[=@var{keywordspec}]
-Additional keyword to be looked for (without @var{keywordspec} means not to
-use default keywords).
-
-If @var{keywordspec} is a C identifer @var{id}, @code{xgettext} looks
-for strings in the first argument of each call to the function or macro
-@var{id}.  If @var{keywordspec} is of the form
-@samp{@var{id}:@var{argnum}}, @code{xgettext} looks for strings in the
-@var{argnum}th argument of the call.  If @var{keywordspec} is of the form
-@samp{@var{id}:@var{argnum1},@var{argnum2}}, @code{xgettext} looks for
-strings in the @var{argnum1}st argument and in the @var{argnum2}nd argument
-of the call, and treats them as singular/plural variants for a message
-with plural handling.
-
-The default keyword specifications, which are always looked for if not
-explicitly disabled, are @code{gettext}, @code{dgettext:2},
-@code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
-@code{dcngettext:2,3}, and @code{gettext_noop}.
-
-@item -m [@var{string}]
-@itemx --msgstr-prefix[=@var{string}]
-Use @var{string} or "" as prefix for msgstr entries.
-
-@item -M [@var{string}]
-@itemx --msgstr-suffix[=@var{string}]
-Use @var{string} or "" as suffix for msgstr entries.
-
-@item --no-location
-Do not write @samp{#: @var{filename}:@var{line}} lines.
-
-@item -n
-@itemx --add-location
-Generate @samp{#: @var{filename}:@var{line}} lines (default).
-
-@item --omit-header
-Don't write header with @samp{msgid ""} entry.
-
-This is useful for testing purposes because it eliminates a source
-of variance for generated @code{.gmo} files.  We can ship some of
-these files in the GNU @code{gettext} package, and the result of
-regenerating them through @code{msgfmt} should yield the same values.
-
-@item -p @var{dir}
-@itemx --output-dir=@var{dir}
-Output files will be placed in directory @var{dir}.
-
-@item -s
-@itemx --sort-output
-Generate sorted output and remove duplicates.
-
-@item --strict
-Write out a strict Uniforum conforming PO file.
-
-@item -v
-@itemx --version
-Output version information and exit.
-
-@item -x @var{file}
-@itemx --exclude-file=@var{file}
-Entries from @var{file} are not extracted.
-
-@end table
-
-Search path for supplementary PO files is:
-@file{/usr/local/share/nls/src/}.
-
-If @var{inputfile} is @samp{-}, standard input is read.
-
-This implementation of @code{xgettext} is able to process a few awkward
-cases, like strings in preprocessor macros, ANSI concatenation of
-adjacent strings, and escaped end of lines for continued strings.
+@include xgettext.texi
 
 @node Creating, Updating, Template, Top
 @chapter Creating a New PO File
 
-When starting a new translation, the translator copies the
-@file{@var{package}.pot} template file to a file called
+When starting a new translation, the translator creates a file called
+@file{@var{LANG}.po}, as a copy of the @file{@var{package}.pot} template
+file with modifications in the initial comments (at the beginning of the file)
+and in the header entry (the first entry, near the beginning of the file).
+
+The easiest way to do so is by use of the @samp{msginit} program.
+For example:
+
+@example
+$ cd @var{PACKAGE}-@var{VERSION}
+$ cd po
+$ msginit --verbose
+@end example
+
+The alternative way is to do the copy and modifications by hand.
+To do so, the translator copies @file{@var{package}.pot} to
 @file{@var{LANG}.po}.  Then she modifies the initial comments and
 the header entry of this file.
+
+@menu
+* msginit Invocation::          Invoking the @code{msginit} Program
+* Header Entry::                Filling in the Header Entry
+@end menu
+
+@node msginit Invocation, Header Entry, Creating, Creating
+@section Invoking the @code{msginit} Program
+
+@include msginit.texi
+
+@node Header Entry,  , msginit Invocation, Creating
+@section Filling in the Header Entry
 
 The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and
 "FIRST AUTHOR <EMAIL@@ADDRESS>, YEAR" ought to be replaced by sensible
@@ -2167,7 +2081,7 @@ You can find them by searching for the @samp{msgid_plural} keyword.  The
 format of the plural forms field is described in @ref{Plural forms}.
 @end table
 
-@node Updating, Binaries, Creating, Top
+@node Updating, Manipulating, Creating, Top
 @chapter Updating Existing PO Files
 
 @c FIXME: Rewrite.
@@ -2189,26 +2103,7 @@ format of the plural forms field is described in @ref{Plural forms}.
 @node msgmerge Invocation, Translated Entries, Updating, Updating
 @section Invoking the @code{msgmerge} Program
 
-@c FIXME: Rewrite.
-
-@c @example
-@c tupdate --help
-@c tupdate --version
-@c tupdate @var{new} @var{old}
-@c @end example
-
-@c File @var{new} is the last created PO file (generally by
-@c @code{xgettext}).  It need not contain any translations.  File
-@c @var{old} is the PO file including the old translations which will
-@c be taken over to the newly created file as long as they still match.
-
-@c When English messages change in the programs, this is reflected in
-@c the PO file as extracted by @code{xgettext}.  In large messages, that
-@c can be hard to detect, and will obviously result in an incomplete
-@c translation.  One of the virtues of @code{tupdate} is that it detects
-@c such changes, saving the previous translation into a PO file comment,
-@c so marking the entry as obsolete, and giving the modified string with
-@c an empty translation, that is, marking the entry as untranslated.
+@include msgmerge.texi
 
 @node Translated Entries, Fuzzy Entries, msgmerge Invocation, Updating
 @section Translated Entries
@@ -3028,93 +2923,139 @@ msgcat --use-first -o update.po compendium1.po compendium2.po file.po
 msgmerge update.po file.pot | sed -e '/^#~/d' > file.po
 @end example
 
-@node Binaries, Users, Updating, Top
+@node Manipulating, Binaries, Updating, Top
+@chapter Manipulating PO Files
+
+Sometimes it is necessary to manipulate PO files in a way that is better
+performed automatically than by hand.  GNU @code{gettext} includes a
+complete set of tools for this purpose.
+
+When merging two packages into a single package, the resulting POT file
+will be the concatenation of the two packages' POT files.  Thus the
+maintainer must concatenate the two existing package translations into
+a single translation catalog, for each language.  This is best performed
+using @samp{msgcat}.  It is then the translators' duty to deal with any
+possible conflicts that arose during the merge.
+
+When a translator takes over the translation job from another translator,
+but she uses a different character encoding in her locale, she will
+convert the catalog to her character encoding.  This is best done through
+the @samp{msgconv} program.
+
+When a maintainer takes a source file with tagged messages from another
+package, he should also take the existing translations for this source
+file (and not let the translators do the same job twice).  One way to do
+this is through @samp{msggrep}, another is to create a POT file for
+that source file and use @samp{msgmerge}.
+
+When a translator wants to adjust some translation catalog for a special
+dialect or orthography - for example, German as written in Switzerland
+versus German as written in Germany -, she needs to apply some text
+processing to every message in the catalog.  The tool for doing this is
+@samp{msgexec}.
+
+Another use of @code{msgexec} is to produce approximately the POT file for
+which a given PO file was made.  This can be done through a filter command
+like @samp{msgexec sed -e d | sed -e '/^# /d'}.  Note that the original
+POT file may have had different comments and different plural message counts,
+that's why it's better to use the original POT file if available.
+
+When third party tools create PO or POT files, sometimes duplicates cannot
+be avoided.  But the GNU @code{gettext} tools give an error when they
+encounter duplicate msgids in the same file and in the same domain.
+To merge duplicates, the @code{msguniq} program can be used.
+
+@samp{msgcomm} is a more general tool for keeping or throwing away
+duplicates, occurring in different files.
+
+@samp{msgcmp} can be used to check whether a translation catalog is
+completely translated.
+
+@samp{msgattrib} can be used to select and extract only the fuzzy
+or untranslated messages of a translation catalog.
+
+@samp{msgen} is useful as a first step for preparing English translation
+catalogs.  It copies each message's msgid to its msgstr.
+
+@menu
+* msgcat Invocation::           Invoking the @code{msgcat} Program
+* msgconv Invocation::          Invoking the @code{msgconv} Program
+* msggrep Invocation::          Invoking the @code{msggrep} Program
+* msgexec Invocation::          Invoking the @code{msgexec} Program
+* msguniq Invocation::          Invoking the @code{msguniq} Program
+* msgcomm Invocation::          Invoking the @code{msgcomm} Program
+* msgcmp Invocation::           Invoking the @code{msgcmp} Program
+* msgattrib Invocation::        Invoking the @code{msgattrib} Program
+* msgen Invocation::            Invoking the @code{msgen} Program
+@end menu
+
+@node msgcat Invocation, msgconv Invocation, Manipulating, Manipulating
+@section Invoking the @code{msgcat} Program
+
+@include msgcat.texi
+
+@node msgconv Invocation, msggrep Invocation, msgcat Invocation, Manipulating
+@section Invoking the @code{msgconv} Program
+
+@include msgconv.texi
+
+@node msggrep Invocation, msgexec Invocation, msgconv Invocation, Manipulating
+@section Invoking the @code{msggrep} Program
+
+@include msggrep.texi
+
+@node msgexec Invocation, msguniq Invocation, msggrep Invocation, Manipulating
+@section Invoking the @code{msgexec} Program
+
+@include msgexec.texi
+
+@node msguniq Invocation, msgcomm Invocation, msgexec Invocation, Manipulating
+@section Invoking the @code{msguniq} Program
+
+@include msguniq.texi
+
+@node msgcomm Invocation, msgcmp Invocation, msguniq Invocation, Manipulating
+@section Invoking the @code{msgcomm} Program
+
+@include msgcomm.texi
+
+@node msgcmp Invocation, msgattrib Invocation, msgcomm Invocation, Manipulating
+@section Invoking the @code{msgcmp} Program
+
+@include msgcmp.texi
+
+@node msgattrib Invocation, msgen Invocation, msgcmp Invocation, Manipulating
+@section Invoking the @code{msgattrib} Program
+
+@include msgattrib.texi
+
+@node msgen Invocation,  , msgattrib Invocation, Manipulating
+@section Invoking the @code{msgen} Program
+
+@include msgen.texi
+
+@node Binaries, Users, Manipulating, Top
 @chapter Producing Binary MO Files
 
 @c FIXME: Rewrite.
 
 @menu
 * msgfmt Invocation::           Invoking the @code{msgfmt} Program
+* msgunfmt Invocation::         Invoking the @code{msgunfmt} Program
 * MO Files::                    The Format of GNU MO Files
 @end menu
 
-@node msgfmt Invocation, MO Files, Binaries, Binaries
+@node msgfmt Invocation, msgunfmt Invocation, Binaries, Binaries
 @section Invoking the @code{msgfmt} Program
 
-@c FIXME: Rewrite.
+@include msgfmt.texi
 
-@example
-Usage: msgfmt [@var{option}] @var{filename}.po @dots{}
-@end example
+@node msgunfmt Invocation, MO Files, msgfmt Invocation, Binaries
+@section Invoking the @code{msgunfmt} Program
 
-@table @samp
-@item -a @var{number}
-@itemx --alignment=@var{number}
-Align strings to @var{number} bytes (default: 1).
-@c Currently the README mentions that this constant could be changed by
-@c the installer by changing the value in config.h.  Should this go away?
+@include msgunfmt.texi
 
-@item -h
-@itemx --help
-Display this help and exit.
-
-@item --no-hash
-Binary file will not include the hash table.
-
-@item -o @var{file}
-@itemx --output-file=@var{file}
-Specify output file name as @var{file}.
-
-@itemx --strict
-Direct the program to work strictly following the Uniforum/Sun
-implementation.  Currently this only affects the naming of the output
-file.  If this option is not given the name of the output file is the
-same as the domain name.  If the strict Uniforum mode is enabled the
-suffix @file{.mo} is added to the file name if it is not already
-present.
-
-We find this behaviour of Sun's implementation rather silly and so by
-default this mode is @emph{not} selected.
-
-@item -v
-@itemx --verbose
-Detect and diagnose input file anomalies which might represent
-translation errors.  The @code{msgid} and @code{msgstr} strings are
-studied and compared.  It is considered abnormal that one string
-starts or ends with a newline while the other does not.
-
-Also, if the string represents a format string used in a
-@code{printf}-like function both strings should have the same number of
-@samp{%} format specifiers, with matching types.  If the flag
-@code{c-format} or @code{possible-c-format} appears in the special
-comment @key{#,} for this entry a check is performed.  For example, the
-check will diagnose using @samp{%.*s} against @samp{%s}, or @samp{%d}
-against @samp{%s}, or @samp{%d} against @samp{%x}.  It can even handle
-positional parameters.
-
-Normally the @code{xgettext} program automatically decides whether a
-string is a format string or not.  This algorithm is not perfect,
-though.  It might regard a string as a format string though it is not
-used in a @code{printf}-like function and so @code{msgfmt} might report
-errors where there are none.  Or the other way round: a string is not
-regarded as a format string but it is used in a @code{printf}-like
-function.
-
-So solve this problem the programmer can dictate the decision to the
-@code{xgettext} program (@pxref{c-format}).  The translator should not
-consider removing the flag from the @key{#,} line.  This "fix" would be
-reversed again as soon as @code{msgmerge} is called the next time.
-
-@item -V
-@itemx --version
-Output version information and exit.
-
-@end table
-
-If input file is @samp{-}, standard input is read.  If output file
-is @samp{-}, output is written to standard output.
-
-@node MO Files,  , msgfmt Invocation, Binaries
+@node MO Files,  , msgunfmt Invocation, Binaries
 @section The Format of GNU MO Files
 
 The format of the generated MO files is best described by a picture,
@@ -5529,11 +5470,11 @@ like GUI resources or package descriptions can make use of the gettext
 approach.
 
 @menu
-* Language Implementors::       
-* Programmers for other Languages::  
-* Translators for other Languages::  
-* List of Programming Languages::  
-* List of Data Formats::        
+* Language Implementors::       The Language Implementor's View
+* Programmers for other Languages::  The Programmer's View
+* Translators for other Languages::  The Translator's View
+* List of Programming Languages::  Individual Programming Languages
+* List of Data Formats::        Internationalizable Data
 @end menu
 
 @node Language Implementors, Programmers for other Languages, Programming Languages, Programming Languages
@@ -6662,6 +6603,19 @@ all willing maintainers of internationalized free software packages.
 Fran@,{c}ois also wrote PO mode in June 1995 with the collaboration
 of Greg McGary, as a kind of contribution to Ulrich's package.
 He also gave a hand with the GNU @code{gettext} Texinfo manual.
+
+In 1997, Ulrich Drepper released the GNU libc 2.0, which included the
+@code{gettext}, @code{textdomain} and @code{bindtextdomain} functions.
+
+In 2000, Ulrich Drepper added plural form handling (the @code{ngettext}
+function) to GNU libc.  Later, in 2001, he released GNU libc 2.2.x,
+which is the first free C library with full internationalization support.
+
+Ulrich being quite busy in his role of General Maintainer of GNU libc,
+he handed over the GNU @code{gettext} maintenance to Bruno Haible in
+2000.  Bruno added the plural form handling to the tools as well, added
+support for UTF-8 and CJK locales, and wrote a few new tools for
+manipulating PO files.
 
 @node References,  , History, Conclusion
 @section Related Readings
