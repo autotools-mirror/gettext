@@ -102,20 +102,8 @@ installdirs-dvi:
 uninstall-dvi:
 	$(RM) $(DESTDIR)$(dvidir)/autosprintf.dvi
 
-# Temporary index files. automake doesn't remove them reliably by itself.
-MOSTLYCLEANFILES += \
-  autosprintf.am autosprintf.ams \
-  autosprintf.cp autosprintf.cps \
-  autosprintf.ef autosprintf.efs \
-  autosprintf.em autosprintf.ems \
-  autosprintf.ev autosprintf.evs \
-  autosprintf.fn autosprintf.fns \
-  autosprintf.kw autosprintf.kws \
-  autosprintf.ky autosprintf.kys \
-  autosprintf.op autosprintf.ops \
-  autosprintf.pg autosprintf.pgs \
-  autosprintf.tp autosprintf.tps \
-  autosprintf.vr autosprintf.vrs
+# Temporary index files. automake removes only the predefined ones by itself.
+MOSTLYCLEANFILES +=
 
 
 # Documentation in Postscript format.

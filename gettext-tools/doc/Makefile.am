@@ -89,7 +89,7 @@ installdirs-dvi:
 uninstall-dvi:
 	$(RM) $(DESTDIR)$(dvidir)/gettext.dvi
 
-# Temporary index files. automake doesn't remove them reliably by itself.
+# Temporary index files. automake removes only the predefined ones by itself.
 MOSTLYCLEANFILES += \
   gettext.am gettext.ams \
   gettext.cp gettext.cps \
@@ -98,10 +98,8 @@ MOSTLYCLEANFILES += \
   gettext.ev gettext.evs \
   gettext.fn gettext.fns \
   gettext.kw gettext.kws \
-  gettext.ky gettext.kys \
   gettext.op gettext.ops \
   gettext.pg gettext.pgs \
-  gettext.tp gettext.tps \
   gettext.vr gettext.vrs
 
 
