@@ -1,3 +1,7 @@
+2000-11-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* tr.po: New file.
+
 2000-10-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (update-po): Don't move the old po file away until
