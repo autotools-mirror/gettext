@@ -38,11 +38,15 @@
 #include "error.h"
 #include "hash.h"
 #include "message.h"
+#include "format.h"
+#include "xmalloc.h"
 #include "binary-io.h"
 #include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
+
+#define freea(p) /* nothing */
 
 /* Usually defined in <sys/param.h>.  */
 #ifndef roundup
@@ -68,35 +72,266 @@ static int compare_id PARAMS ((const void *pval1, const void *pval2));
 static void write_table PARAMS ((FILE *output_file, message_list_ty *mlp));
 
 
-/* Define the data structure which we need to represent the data to
-   be written out.  */
-struct id_str_pair
+/* Indices into the strings contained in 'struct pre_message' and
+   'struct pre_sysdep_message'.  */
+enum
 {
-  const char *id;
-  size_t id_len;
-  const char *id_plural;
-  size_t id_plural_len;
-  const char *str;
-  size_t str_len;
+  M_ID = 0,	/* msgid - the original string */
+  M_STR = 1	/* msgstr - the translated string */
 };
 
+/* An intermediate data structure representing a 'struct string_desc'.  */
+struct pre_string
+{
+  size_t length;
+  const char *pointer;
+};
+
+/* An intermediate data structure representing a message.  */
+struct pre_message
+{
+  struct pre_string str[2];
+  const char *id_plural;
+  size_t id_plural_len;
+};
 
 static int
 compare_id (pval1, pval2)
      const void *pval1;
      const void *pval2;
 {
-  return strcmp (((struct id_str_pair *) pval1)->id,
-		 ((struct id_str_pair *) pval2)->id);
+  return strcmp (((struct pre_message *) pval1)->str[M_ID].pointer,
+		 ((struct pre_message *) pval2)->str[M_ID].pointer);
 }
 
 
+/* An intermediate data structure representing a 'struct sysdep_segment'.  */
+struct pre_sysdep_segment
+{
+  size_t length;
+  const char *pointer;
+};
+
+/* An intermediate data structure representing a 'struct segment_pair'.  */
+struct pre_segment_pair
+{
+  size_t segsize;
+  const char *segptr;
+  size_t sysdepref;
+};
+
+/* An intermediate data structure representing a 'struct sysdep_string'.  */
+struct pre_sysdep_string
+{
+  unsigned int segmentcount;
+  struct pre_segment_pair segments[1];
+};
+
+/* An intermediate data structure representing a message with system dependent
+   strings.  */
+struct pre_sysdep_message
+{
+  struct pre_sysdep_string *str[2];
+  const char *id_plural;
+  size_t id_plural_len;
+};
+
+/* Write the message list to the given open file.  */
 static void
 write_table (output_file, mlp)
      FILE *output_file;
      message_list_ty *mlp;
 {
-  static char null = '\0';
+  size_t nstrings;
+  struct pre_message *msg_arr;
+  size_t n_sysdep_strings;
+  struct pre_sysdep_message *sysdep_msg_arr;
+  size_t n_sysdep_segments;
+  struct pre_sysdep_segment *sysdep_segments;
+  int minor_revision;
+  bool omit_hash_table;
+  nls_uint32 hash_tab_size;
+  struct mo_file_header header;	/* Header of the .mo file to be written.  */
+  size_t header_size;
+  size_t offset;
+  struct string_desc *orig_tab;
+  struct string_desc *trans_tab;
+  size_t sysdep_tab_offset = 0;
+  size_t end_offset;
+  char *null;
+  size_t j, m;
+
+  /* First pass: Move the static string pairs into an array, for sorting,
+     and at the same time, compute the segments of the system dependent
+     strings.  */
+  nstrings = 0;
+  msg_arr =
+    (struct pre_message *)
+    alloca (mlp->nitems * sizeof (struct pre_message));
+  n_sysdep_strings = 0;
+  sysdep_msg_arr =
+    (struct pre_sysdep_message *)
+    alloca (mlp->nitems * sizeof (struct pre_sysdep_message));
+  n_sysdep_segments = 0;
+  sysdep_segments = NULL;
+  for (j = 0; j < mlp->nitems; j++)
+    {
+      message_ty *mp = mlp->item[j];
+      struct interval *intervals[2];
+      size_t nintervals[2];
+
+      intervals[M_ID] = NULL;
+      nintervals[M_ID] = 0;
+      intervals[M_STR] = NULL;
+      nintervals[M_STR] = 0;
+
+      /* Test if mp contains system dependent strings and thus
+	 requires the use of the .mo file minor revision 1.  */
+      if (possible_format_p (mp->is_format[format_c]))
+	{
+	  /* Check whether msgid or msgstr contain ISO C 99 <inttypes.h>
+	     format string directives.  No need to check msgid_plural, because
+	     it is not accessed by the [n]gettext() function family.  */
+	  const char *p_end;
+	  const char *p;
+
+	  get_c99_format_directives (mp->msgid,
+				     &intervals[M_ID], &nintervals[M_ID]);
+
+	  p_end = mp->msgstr + mp->msgstr_len;
+	  for (p = mp->msgstr; p < p_end; p += strlen (p) + 1)
+	    {
+	      struct interval *part_intervals;
+	      size_t part_nintervals;
+
+	      get_c99_format_directives (p, &part_intervals, &part_nintervals);
+	      if (part_nintervals > 0)
+		{
+		  size_t d = p - mp->msgstr;
+		  unsigned int i;
+
+		  intervals[M_STR] =
+		    (struct interval *)
+		    xrealloc (intervals[M_STR],
+			      (nintervals[M_STR] + part_nintervals)
+			      * sizeof (struct interval));
+		  for (i = 0; i < part_nintervals; i++)
+		    {
+		      intervals[M_STR][nintervals[M_STR] + i].startpos =
+			d + part_intervals[i].startpos;
+		      intervals[M_STR][nintervals[M_STR] + i].endpos =
+			d + part_intervals[i].endpos;
+		    }
+		  nintervals[M_STR] += part_nintervals;
+		}
+	    }
+	}
+
+      if (nintervals[M_ID] > 0 || nintervals[M_STR] > 0)
+	{
+	  /* System dependent string pair.  */
+	  for (m = 0; m < 2; m++)
+	    {
+	      struct pre_sysdep_string *pre =
+		(struct pre_sysdep_string *)
+		alloca (sizeof (struct pre_sysdep_string)
+			+ nintervals[m] * sizeof (struct pre_segment_pair));
+	      const char *str;
+	      size_t str_len;
+	      size_t lastpos;
+	      unsigned int i;
+
+	      if (m == M_ID)
+		{
+		  str = mp->msgid;
+		  str_len = strlen (mp->msgid) + 1;
+		}
+	      else
+		{
+		  str = mp->msgstr;
+		  str_len = mp->msgstr_len;
+		}
+
+	      lastpos = 0;
+	      pre->segmentcount = nintervals[m];
+	      for (i = 0; i < nintervals[m]; i++)
+		{
+		  size_t length;
+		  const char *pointer;
+		  size_t r;
+
+		  pre->segments[i].segptr = str + lastpos;
+		  pre->segments[i].segsize = intervals[m][i].startpos - lastpos;
+
+		  /* The "+ 1" skips the '<' marker.  */
+		  length =
+		    intervals[m][i].endpos - (intervals[m][i].startpos + 1);
+		  pointer = str + (intervals[m][i].startpos + 1);
+
+		  for (r = 0; r < n_sysdep_segments; r++)
+		    if (sysdep_segments[r].length == length
+			&& memcmp (sysdep_segments[r].pointer, pointer, length)
+			   == 0)
+		      break;
+		  if (r == n_sysdep_segments)
+		    {
+		      n_sysdep_segments++;
+		      sysdep_segments =
+			(struct pre_sysdep_segment *)
+			xrealloc (sysdep_segments,
+				  n_sysdep_segments
+				  * sizeof (struct pre_sysdep_segment));
+		      sysdep_segments[r].length = length;
+		      sysdep_segments[r].pointer = pointer;
+		    }
+
+		  pre->segments[i].sysdepref = r;
+
+		  /* The "+ 1" skips the '>' marker.  */
+		  lastpos = intervals[m][i].endpos + 1;
+		}
+	      pre->segments[i].segptr = str + lastpos;
+	      pre->segments[i].segsize = str_len - lastpos;
+	      pre->segments[i].sysdepref = SEGMENTS_END;
+
+	      sysdep_msg_arr[n_sysdep_strings].str[m] = pre;
+	    }
+
+	  sysdep_msg_arr[n_sysdep_strings].id_plural = mp->msgid_plural;
+	  sysdep_msg_arr[n_sysdep_strings].id_plural_len =
+	    (mp->msgid_plural != NULL ? strlen (mp->msgid_plural) + 1 : 0);
+	  n_sysdep_strings++;
+	}
+      else
+	{
+	  /* Static string pair.  */
+	  msg_arr[nstrings].str[M_ID].pointer = mp->msgid;
+	  msg_arr[nstrings].str[M_ID].length = strlen (mp->msgid) + 1;
+	  msg_arr[nstrings].str[M_STR].pointer = mp->msgstr;
+	  msg_arr[nstrings].str[M_STR].length = mp->msgstr_len;
+	  msg_arr[nstrings].id_plural = mp->msgid_plural;
+	  msg_arr[nstrings].id_plural_len =
+	    (mp->msgid_plural != NULL ? strlen (mp->msgid_plural) + 1 : 0);
+	  nstrings++;
+	}
+
+      for (m = 0; m < 2; m++)
+	if (intervals[m] != NULL)
+	  free (intervals[m]);
+    }
+
+  /* Sort the table according to original string.  */
+  if (nstrings > 0)
+    qsort (msg_arr, nstrings, sizeof (struct pre_message), compare_id);
+
+  /* We need minor revision 1 if there are system dependent strings.
+     Otherwise we choose minor revision 0 because it's supported by older
+     versions of libintl and revision 1 isn't.  */
+  minor_revision = (n_sysdep_strings > 0 ? 1 : 0);
+
+  /* In minor revision >= 1, the hash table is obligatory.  */
+  omit_hash_table = (no_hash_table && minor_revision == 0);
+
   /* This should be explained:
      Each string has an associate hashing value V, computed by a fixed
      function.  To locate the string we use open addressing with double
@@ -114,142 +349,331 @@ write_table (output_file, mlp)
      If we now choose M to be the next prime bigger than 4 / 3 * N,
      we get the values
 			 4   and   1.85  resp.
-     Because unsuccesful searches are unlikely this is a good value.
+     Because unsuccessful searches are unlikely this is a good value.
      Formulas: [Knuth, The Art of Computer Programming, Volume 3,
 		Sorting and Searching, 1973, Addison Wesley]  */
-  nls_uint32 hash_tab_size =
-    (no_hash_table ? 0 : next_prime ((mlp->nitems * 4) / 3));
-  nls_uint32 *hash_tab;
+  if (!omit_hash_table)
+    {
+      hash_tab_size = next_prime ((mlp->nitems * 4) / 3);
+      /* Ensure M > 2.  */
+      if (hash_tab_size <= 2)
+	hash_tab_size = 3;
+    }
+  else
+    hash_tab_size = 0;
 
-  /* Header of the .mo file to be written.  */
-  struct mo_file_header header;
-  struct id_str_pair *msg_arr;
-  size_t cnt, j;
-  message_ty *entry;
-  struct string_desc sd;
 
-  /* Fill the structure describing the header.  */
-  header.magic = _MAGIC;		/* Magic number.  */
-  header.revision = MO_REVISION_NUMBER;	/* Revision number of file format.  */
-  header.nstrings = mlp->nitems;	/* Number of strings.  */
-  header.orig_tab_offset = sizeof (header);
-			/* Offset of table for original string offsets.  */
-  header.trans_tab_offset = sizeof (header)
-			    + mlp->nitems * sizeof (struct string_desc);
-			/* Offset of table for translation string offsets.  */
-  header.hash_tab_size = hash_tab_size;	/* Size of used hashing table.  */
-  header.hash_tab_offset =
-	no_hash_table ? 0 : sizeof (header)
-			    + 2 * (mlp->nitems * sizeof (struct string_desc));
-			/* Offset of hashing table.  */
+  /* Second pass: Fill the structure describing the header.  At the same time,
+     compute the sizes and offsets of the non-string parts of the file.  */
+
+  /* Magic number.  */
+  header.magic = _MAGIC;
+  /* Revision number of file format.  */
+  header.revision = (MO_REVISION_NUMBER << 16) + minor_revision;
+
+  header_size =
+    (minor_revision == 0
+     ? offsetof (struct mo_file_header, n_sysdep_segments)
+     : sizeof (struct mo_file_header));
+  offset = header_size;
+
+  /* Number of static string pairs.  */
+  header.nstrings = nstrings;
+
+  /* Offset of table for original string offsets.  */
+  header.orig_tab_offset = offset;
+  offset += nstrings * sizeof (struct string_desc);
+  orig_tab =
+    (struct string_desc *) alloca (nstrings * sizeof (struct string_desc));
+
+  /* Offset of table for translated string offsets.  */
+  header.trans_tab_offset = offset;
+  offset += nstrings * sizeof (struct string_desc);
+  trans_tab =
+    (struct string_desc *) alloca (nstrings * sizeof (struct string_desc));
+
+  /* Size of hash table.  */
+  header.hash_tab_size = hash_tab_size;
+  /* Offset of hash table.  */
+  header.hash_tab_offset = offset;
+  offset += hash_tab_size * sizeof (nls_uint32);
+
+  if (minor_revision >= 1)
+    {
+      /* Size of table describing system dependent segments.  */
+      header.n_sysdep_segments = n_sysdep_segments;
+      /* Offset of table describing system dependent segments.  */
+      header.sysdep_segments_offset = offset;
+      offset += n_sysdep_segments * sizeof (struct sysdep_segment);
+
+      /* Number of system dependent string pairs.  */
+      header.n_sysdep_strings = n_sysdep_strings;
+
+      /* Offset of table for original sysdep string offsets.  */
+      header.orig_sysdep_tab_offset = offset;
+      offset += n_sysdep_strings * sizeof (nls_uint32);
+
+      /* Offset of table for translated sysdep string offsets.  */
+      header.trans_sysdep_tab_offset = offset;
+      offset += n_sysdep_strings * sizeof (nls_uint32);
+
+      /* System dependent string descriptors.  */
+      sysdep_tab_offset = offset;
+      for (m = 0; m < 2; m++)
+	for (j = 0; j < n_sysdep_strings; j++)
+	  offset += sizeof (struct sysdep_string)
+		    + sysdep_msg_arr[j].str[m]->segmentcount
+		      * sizeof (struct segment_pair);
+    }
+
+  end_offset = offset;
+
+
+  /* Third pass: Write the non-string parts of the file.  At the same time,
+     compute the offsets of each string, including the proper alignment.  */
 
   /* Write the header out.  */
-  fwrite (&header, sizeof (header), 1, output_file);
+  fwrite (&header, header_size, 1, output_file);
 
-  /* Allocate table for the all elements of the hashing table.  */
-  msg_arr = (struct id_str_pair *) alloca (mlp->nitems * sizeof (msg_arr[0]));
+  /* Table for original string offsets.  */
+  /* Here output_file is at position header.orig_tab_offset.  */
 
-  /* Read values from list into array.  */
-  for (j = 0; j < mlp->nitems; j++)
+  for (j = 0; j < nstrings; j++)
     {
-      entry = mlp->item[j];
-
-      msg_arr[j].id = entry->msgid;
-      msg_arr[j].id_len = strlen (entry->msgid) + 1;
-      msg_arr[j].id_plural = entry->msgid_plural;
-      msg_arr[j].id_plural_len =
-	(entry->msgid_plural != NULL ? strlen (entry->msgid_plural) + 1 : 0);
-      msg_arr[j].str = entry->msgstr;
-      msg_arr[j].str_len = entry->msgstr_len;
-    }
-
-  /* Sort the table according to original string.  */
-  qsort (msg_arr, mlp->nitems, sizeof (msg_arr[0]), compare_id);
-
-  /* Set offset to first byte after all the tables.  */
-  sd.offset = roundup (sizeof (header)
-		       + mlp->nitems * sizeof (sd)
-		       + mlp->nitems * sizeof (sd)
-		       + hash_tab_size * sizeof (nls_uint32),
-		       alignment);
-
-  /* Write out length and starting offset for all original strings.  */
-  for (cnt = 0; cnt < mlp->nitems; ++cnt)
-    {
+      offset = roundup (offset, alignment);
+      orig_tab[j].length =
+	msg_arr[j].str[M_ID].length + msg_arr[j].id_plural_len;
+      orig_tab[j].offset = offset;
+      offset += orig_tab[j].length;
       /* Subtract 1 because of the terminating NUL.  */
-      sd.length = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len - 1;
-      fwrite (&sd, sizeof (sd), 1, output_file);
-      sd.offset += roundup (sd.length + 1, alignment);
+      orig_tab[j].length--;
     }
+  fwrite (orig_tab, nstrings * sizeof (struct string_desc), 1, output_file);
 
-  /* Write out length and starting offset for all translation strings.  */
-  for (cnt = 0; cnt < mlp->nitems; ++cnt)
+  /* Table for translated string offsets.  */
+  /* Here output_file is at position header.trans_tab_offset.  */
+
+  for (j = 0; j < nstrings; j++)
     {
+      offset = roundup (offset, alignment);
+      trans_tab[j].length = msg_arr[j].str[M_STR].length;
+      trans_tab[j].offset = offset;
+      offset += trans_tab[j].length;
       /* Subtract 1 because of the terminating NUL.  */
-      sd.length = msg_arr[cnt].str_len - 1;
-      fwrite (&sd, sizeof (sd), 1, output_file);
-      sd.offset += roundup (sd.length + 1, alignment);
+      trans_tab[j].length--;
     }
+  fwrite (trans_tab, nstrings * sizeof (struct string_desc), 1, output_file);
 
   /* Skip this part when no hash table is needed.  */
-  if (!no_hash_table)
+  if (!omit_hash_table)
     {
+      nls_uint32 *hash_tab;
+      unsigned int j;
+
+      /* Here output_file is at position header.hash_tab_offset.  */
+
       /* Allocate room for the hashing table to be written out.  */
       hash_tab = (nls_uint32 *) alloca (hash_tab_size * sizeof (nls_uint32));
       memset (hash_tab, '\0', hash_tab_size * sizeof (nls_uint32));
 
       /* Insert all value in the hash table, following the algorithm described
 	 above.  */
-      for (cnt = 0; cnt < mlp->nitems; ++cnt)
+      for (j = 0; j < nstrings; j++)
 	{
-	  nls_uint32 hash_val = hash_string (msg_arr[cnt].id);
+	  nls_uint32 hash_val = hash_string (msg_arr[j].str[M_ID].pointer);
 	  nls_uint32 idx = hash_val % hash_tab_size;
 
 	  if (hash_tab[idx] != 0)
 	    {
 	      /* We need the second hashing function.  */
-	      nls_uint32 c = 1 + (hash_val % (hash_tab_size - 2));
+	      nls_uint32 incr = 1 + (hash_val % (hash_tab_size - 2));
 
 	      do
-		if (idx >= hash_tab_size - c)
-		  idx -= hash_tab_size - c;
+		if (idx >= hash_tab_size - incr)
+		  idx -= hash_tab_size - incr;
 		else
-		  idx += c;
+		  idx += incr;
 	      while (hash_tab[idx] != 0);
 	    }
 
-	  hash_tab[idx] = cnt + 1;
+	  hash_tab[idx] = j + 1;
 	}
 
       /* Write the hash table out.  */
-      fwrite (hash_tab, sizeof (nls_uint32), hash_tab_size, output_file);
+      fwrite (hash_tab, hash_tab_size * sizeof (nls_uint32), 1, output_file);
+
+      freea (hash_tab);
     }
 
-  /* Write bytes to make first string to be aligned.  */
-  cnt = sizeof (header) + 2 * mlp->nitems * sizeof (sd)
-	+ hash_tab_size * sizeof (nls_uint32);
-  fwrite (&null, 1, roundup (cnt, alignment) - cnt, output_file);
+  if (minor_revision >= 1)
+    {
+      struct sysdep_segment *sysdep_segments_tab;
+      nls_uint32 *sysdep_tab;
+      size_t stoffset;
+      unsigned int i;
+
+      /* Here output_file is at position header.sysdep_segments_offset.  */
+
+      sysdep_segments_tab =
+	(struct sysdep_segment *)
+	alloca (n_sysdep_segments * sizeof (struct sysdep_segment));
+      for (i = 0; i < n_sysdep_segments; i++)
+	{
+	  offset = roundup (offset, alignment);
+	  /* The "+ 1" accounts for the trailing NUL byte.  */
+	  sysdep_segments_tab[i].length = sysdep_segments[i].length + 1;
+	  sysdep_segments_tab[i].offset = offset;
+	  offset += sysdep_segments_tab[i].length;
+	}
+
+      fwrite (sysdep_segments_tab,
+	      n_sysdep_segments * sizeof (struct sysdep_segment), 1,
+	      output_file);
+
+      freea (sysdep_segments_tab);
+
+      sysdep_tab =
+	(nls_uint32 *) alloca (n_sysdep_strings * sizeof (nls_uint32));
+      stoffset = sysdep_tab_offset;
+
+      for (m = 0; m < 2; m++)
+	{
+	  /* Here output_file is at position
+	     m == M_ID  -> header.orig_sysdep_tab_offset,
+	     m == M_STR -> header.trans_sysdep_tab_offset.  */
+
+	  for (j = 0; j < n_sysdep_strings; j++)
+	    {
+	      sysdep_tab[j] = stoffset;
+	      stoffset += sizeof (struct sysdep_string)
+			  + sysdep_msg_arr[j].str[m]->segmentcount
+			    * sizeof (struct segment_pair);
+	    }
+	  /* Write the table for original/translated sysdep string offsets.  */
+	  fwrite (sysdep_tab, n_sysdep_strings * sizeof (nls_uint32), 1,
+		  output_file);
+	}
+
+      freea (sysdep_tab);
+
+      /* Here output_file is at position sysdep_tab_offset.  */
+
+      for (m = 0; m < 2; m++)
+	for (j = 0; j < n_sysdep_strings; j++)
+	  {
+	    struct pre_sysdep_message *msg = &sysdep_msg_arr[j];
+	    struct pre_sysdep_string *pre = msg->str[m];
+	    struct sysdep_string *str =
+	      (struct sysdep_string *)
+	      alloca (sizeof (struct sysdep_string)
+		      + pre->segmentcount * sizeof (struct segment_pair));
+	    unsigned int i;
+
+	    offset = roundup (offset, alignment);
+	    str->offset = offset;
+	    for (i = 0; i <= pre->segmentcount; i++)
+	      {
+		str->segments[i].segsize = pre->segments[i].segsize;
+		str->segments[i].sysdepref = pre->segments[i].sysdepref;
+		offset += str->segments[i].segsize;
+	      }
+	    if (m == M_ID && msg->id_plural_len > 0)
+	      {
+		str->segments[pre->segmentcount].segsize += msg->id_plural_len;
+		offset += msg->id_plural_len;
+	      }
+	    fwrite (str,
+		    sizeof (struct sysdep_string)
+		    + pre->segmentcount * sizeof (struct segment_pair),
+		    1, output_file);
+
+	    freea (str);
+	  }
+    }
+
+  /* Here output_file is at position end_offset.  */
+
+  freea (trans_tab);
+  freea (orig_tab);
+
+
+  /* Fourth pass: Write the strings.  */
+
+  offset = end_offset;
+
+  /* A few zero bytes for padding.  */
+  null = alloca (alignment);
+  memset (null, '\0', alignment);
 
   /* Now write the original strings.  */
-  for (cnt = 0; cnt < mlp->nitems; ++cnt)
+  for (j = 0; j < nstrings; j++)
     {
-      size_t len = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len;
+      fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
+      offset = roundup (offset, alignment);
 
-      fwrite (msg_arr[cnt].id, msg_arr[cnt].id_len, 1, output_file);
-      if (msg_arr[cnt].id_plural_len > 0)
-	fwrite (msg_arr[cnt].id_plural, msg_arr[cnt].id_plural_len, 1,
+      fwrite (msg_arr[j].str[M_ID].pointer, msg_arr[j].str[M_ID].length, 1,
+	      output_file);
+      if (msg_arr[j].id_plural_len > 0)
+	fwrite (msg_arr[j].id_plural, msg_arr[j].id_plural_len, 1,
 		output_file);
-      fwrite (&null, 1, roundup (len, alignment) - len, output_file);
+      offset += msg_arr[j].str[M_ID].length + msg_arr[j].id_plural_len;
     }
 
-  /* Now write the translation strings.  */
-  for (cnt = 0; cnt < mlp->nitems; ++cnt)
+  /* Now write the translated strings.  */
+  for (j = 0; j < nstrings; j++)
     {
-      size_t len = msg_arr[cnt].str_len;
+      fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
+      offset = roundup (offset, alignment);
 
-      fwrite (msg_arr[cnt].str, len, 1, output_file);
-      fwrite (&null, 1, roundup (len, alignment) - len, output_file);
+      fwrite (msg_arr[j].str[M_STR].pointer, msg_arr[j].str[M_STR].length, 1,
+	      output_file);
+      offset += msg_arr[j].str[M_STR].length;
     }
+
+  if (minor_revision >= 1)
+    {
+      unsigned int i;
+
+      for (i = 0; i < n_sysdep_segments; i++)
+	{
+	  fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
+	  offset = roundup (offset, alignment);
+
+	  fwrite (sysdep_segments[i].pointer, sysdep_segments[i].length, 1,
+		  output_file);
+	  fwrite (null, 1, 1, output_file);
+	  offset += sysdep_segments[i].length + 1;
+	}
+
+      for (m = 0; m < 2; m++)
+	for (j = 0; j < n_sysdep_strings; j++)
+	  {
+	    struct pre_sysdep_message *msg = &sysdep_msg_arr[j];
+	    struct pre_sysdep_string *pre = msg->str[m];
+
+	    fwrite (null, roundup (offset, alignment) - offset, 1,
+		    output_file);
+	    offset = roundup (offset, alignment);
+
+	    for (i = 0; i <= pre->segmentcount; i++)
+	      {
+		fwrite (pre->segments[i].segptr, pre->segments[i].segsize, 1,
+			output_file);
+		offset += pre->segments[i].segsize;
+	      }
+	    if (m == M_ID && msg->id_plural_len > 0)
+	      {
+		fwrite (msg->id_plural, msg->id_plural_len, 1, output_file);
+		offset += msg->id_plural_len;
+	      }
+
+	    freea (pre);
+	  }
+    }
+
+  freea (null);
+  freea (sysdep_msg_arr);
+  freea (msg_arr);
 }
 
 

@@ -1,3 +1,39 @@
+2002-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (struct interval): New type.
+	(get_c99_format_directives): New declaration.
+	* format-c.c (FAT_SIZE_8_T, FAT_SIZE_16_T, FAT_SIZE_32_T,
+	FAT_SIZE_64_T, FAT_SIZE_LEAST8_T, FAT_SIZE_LEAST16_T,
+	FAT_SIZE_LEAST32_T, FAT_SIZE_LEAST64_T, FAT_SIZE_FAST8_T,
+	FAT_SIZE_FAST16_T, FAT_SIZE_FAST32_T, FAT_SIZE_FAST64_T,
+	FAT_SIZE_INTPTR_T): New enum values.
+	(FAT_SIZE_MASK): Update.
+	(struct spec): New fields c99_directives_count, c99_directives.
+	(format_parse): Recognize C 99 <inttypes.h> macros. Set the new
+	fields c99_directives_count, c99_directives in the result.
+	(get_c99_format_directives): New function.
+	(format_print): Update.
+	* x-c.c (is_inttypes_macro, phase8a_get, phase8a_unget): New functions.
+	(phase8_get): Use phase8a_get instead of phase6_get.
+	* write-mo.c: Include format.h, xmalloc.h.
+	(freea): New macro.
+	(struct pre_string): New type.
+	(struct pre_message): Renamed from struct id_str_pair.
+	(compare_id): Update.
+	(struct pre_sysdep_segment): New type.
+	(struct pre_segment_pair): New type.
+	(struct pre_sysdep_string): New type.
+	(struct pre_sysdep_message): New type.
+	(write_table): Rewritten.
+	* read-mo.c (endian): Remove variable.
+	(read32, seek32, string32): Remove functions.
+	(struct binary_mo_file): New type.
+	(read_binary_mo_file, get_uint32, get_string, get_sysdep_string): New
+	functions.
+	(read_mo_file): Reworked to work in-memory, without fseek/lseek calls.
+	* msgfmt.c (format_directive_message): Copy the is_format array.
+	Needed by write-mo.c.
+
 2002-07-20  Andreas Schwab  <schwab@suse.de>
 
 	* plural-eval.c: Include <signal.h> if !INTDIV0_RAISES_SIGFPE.

@@ -1,3 +1,16 @@
+2002-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* format-c-3: New file.
+	* format-c-3-prg.c: New file.
+	* format-c-4: New file.
+	* format-c-4-prg.c: New file.
+	* msgfmt-12: New file.
+	* xgettext-22: New file.
+	* Makefile.am (TESTS): Add msgfmt-12, xgettext-22, format-c-3,
+	format-c-4.
+	(noinst_PROGRAMS): Add fc3, fc4.
+	(fc3_SOURCES, fc3_LDADD, fc4_SOURCES, fc4_LDADD): New variables.
+
 2002-07-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.3 released.

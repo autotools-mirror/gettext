@@ -1,3 +1,17 @@
+2002-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* stdint_h.m4 (jm_AC_HEADER_STDINT_H): Define
+	HAVE_STDINT_H_WITH_UINTMAX instead of HAVE_STDINT_H.
+	* inttypes_h.m4 (jm_AC_HEADER_INTTYPES_H): Define
+	HAVE_INTTYPES_H_WITH_UINTMAX instead of HAVE_INTTYPES_H.
+	* inttypes.m4: New file.
+	* gettext.m4 (AM_GNU_GETTEXT): Accept needsymbol =
+	need-formatstring-macros.
+	(AM_INTL_SUBDIR): Require jm_AC_TYPE_UINTMAX_T, gt_HEADER_INTTYPES_H.
+	* Makefile.am (aclocal_DATA): Add inttypes.m4, inttypes_h.m4,
+	stdint_h.m4, uintmax_t.m4.
+	(EXTRA_DIST): Add inttypes.m4.
+
 2002-07-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT_VERSION): New macro.

@@ -69,4 +69,15 @@ extern struct formatstring_parser formatstring_tcl;
 /* Table of all format string parsers.  */
 extern struct formatstring_parser *formatstring_parsers[NFORMATS];
 
+/* Returns an array of the ISO C 99 <inttypes.h> format directives
+   contained in the argument string.  *intervalsp is assigned to a freshly
+   allocated array of intervals (startpos pointing to '<', endpos to '>'),
+   and *lengthp is assigned to the number of intervals in this array.  */
+struct interval
+{
+  size_t startpos;
+  size_t endpos;
+};
+extern void get_c99_format_directives PARAMS ((const char *string, struct interval **intervalsp, size_t *lengthp));
+
 #endif /* _FORMAT_H */

@@ -1464,6 +1464,8 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
       mp->msgid = msgid_string;
       mp->msgid_plural = msgid_plural;
       mp->obsolete = obsolete;
+      for (i = 0; i < NFORMATS; i++)
+	mp->is_format[i] = this->is_format[i];
 
       if (!obsolete)
 	{

@@ -41,18 +41,21 @@
      or '*m$' or a nonempty digit sequence,
    - is optionally followed by '.' and a precision specification: '*' (reads
      an argument) or '*m$' or a nonempty digit sequence,
-   - is optionally followed by a size specifier, one of 'hh' 'h' 'l' 'll' 'L'
-     'q' 'j' 'z' 't',
-   - is finished by a specifier
-       - '%', that needs no argument,
-       - 'c', 'C', that need a character argument,
-       - 's', 'S', that need a string argument,
-       - 'i', 'd', that need a signed integer argument,
-       - 'o', 'u', 'x', 'X', that need an unsigned integer argument,
-       - 'e', 'E', 'f', 'F', 'g', 'G', 'a', 'A', that need a floating-point
-         argument,
-       - 'p', that needs a 'void *' argument,
-       - 'n', that needs a pointer to integer.
+   - is either continued like this:
+       - is optionally followed by a size specifier, one of 'hh' 'h' 'l' 'll'
+         'L' 'q' 'j' 'z' 't',
+       - is finished by a specifier
+           - '%', that needs no argument,
+           - 'c', 'C', that need a character argument,
+           - 's', 'S', that need a string argument,
+           - 'i', 'd', that need a signed integer argument,
+           - 'o', 'u', 'x', 'X', that need an unsigned integer argument,
+           - 'e', 'E', 'f', 'F', 'g', 'G', 'a', 'A', that need a floating-point
+             argument,
+           - 'p', that needs a 'void *' argument,
+           - 'n', that needs a pointer to integer.
+     or is finished by a specifier '<' inttypes-macro '>' where inttypes-macro
+     is an ISO C 99 section 7.8.1 format directive.
    Numbered ('%m$' or '*m$') and unnumbered argument specifications cannot
    be used in the same string.  When numbered argument specifications are
    used, specifying the Nth argument requires that all the leading arguments,
@@ -75,9 +78,22 @@ enum format_arg_type
   FAT_SIZE_CHAR		= 2 << 4,
   FAT_SIZE_LONG		= 1 << 6,
   FAT_SIZE_LONGLONG	= 2 << 6,
-  FAT_SIZE_INTMAX_T	= 1 << 8,
-  FAT_SIZE_SIZE_T	= 1 << 9,
-  FAT_SIZE_PTRDIFF_T	= 1 << 10,
+  FAT_SIZE_8_T		= 1 << 8,
+  FAT_SIZE_16_T		= 1 << 9,
+  FAT_SIZE_32_T		= 1 << 10,
+  FAT_SIZE_64_T		= 1 << 11,
+  FAT_SIZE_LEAST8_T	= 1 << 12,
+  FAT_SIZE_LEAST16_T	= 1 << 13,
+  FAT_SIZE_LEAST32_T	= 1 << 14,
+  FAT_SIZE_LEAST64_T	= 1 << 15,
+  FAT_SIZE_FAST8_T	= 1 << 16,
+  FAT_SIZE_FAST16_T	= 1 << 17,
+  FAT_SIZE_FAST32_T	= 1 << 18,
+  FAT_SIZE_FAST64_T	= 1 << 19,
+  FAT_SIZE_INTMAX_T	= 1 << 20,
+  FAT_SIZE_INTPTR_T	= 1 << 21,
+  FAT_SIZE_SIZE_T	= 1 << 22,
+  FAT_SIZE_PTRDIFF_T	= 1 << 23,
   FAT_WIDE		= FAT_SIZE_LONG,
   /* Meaningful combinations of basic types and flags:
   'signed char'			= FAT_INTEGER | FAT_SIZE_CHAR,
@@ -106,8 +122,14 @@ enum format_arg_type
   /* Bitmasks */
   FAT_SIZE_MASK		= (FAT_SIZE_SHORT | FAT_SIZE_CHAR
 			   | FAT_SIZE_LONG | FAT_SIZE_LONGLONG
-			   | FAT_SIZE_INTMAX_T | FAT_SIZE_SIZE_T
-			   | FAT_SIZE_PTRDIFF_T)
+			   | FAT_SIZE_8_T | FAT_SIZE_16_T
+			   | FAT_SIZE_32_T | FAT_SIZE_64_T
+			   | FAT_SIZE_LEAST8_T | FAT_SIZE_LEAST16_T
+			   | FAT_SIZE_LEAST32_T | FAT_SIZE_LEAST64_T
+			   | FAT_SIZE_FAST8_T | FAT_SIZE_FAST16_T
+			   | FAT_SIZE_FAST32_T | FAT_SIZE_FAST64_T
+			   | FAT_SIZE_INTMAX_T | FAT_SIZE_INTPTR_T
+			   | FAT_SIZE_SIZE_T | FAT_SIZE_PTRDIFF_T)
 };
 
 struct numbered_arg
@@ -127,6 +149,8 @@ struct spec
   unsigned int unnumbered_arg_count;
   unsigned int allocated;
   struct unnumbered_arg *unnumbered;
+  unsigned int c99_directives_count;
+  const char **c99_directives;
 };
 
 /* Locale independent test for a decimal digit.
@@ -174,6 +198,8 @@ format_parse (format)
   spec.allocated = 0;
   numbered = NULL;
   spec.unnumbered = NULL;
+  spec.c99_directives_count = 0;
+  spec.c99_directives = NULL;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -350,84 +376,225 @@ format_parse (format)
 	      }
 	  }
 
-	/* Parse size.  */
-	size = 0;
-	for (;; format++)
+	if (*format == '<')
 	  {
-	    if (*format == 'h')
-	      {
-		if (size & (FAT_SIZE_SHORT | FAT_SIZE_CHAR))
-		  size = FAT_SIZE_CHAR;
-		else
-		  size = FAT_SIZE_SHORT;
-	      }
-	    else if (*format == 'l')
-	      {
-		if (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG))
-		  size = FAT_SIZE_LONGLONG;
-		else
-		  size = FAT_SIZE_LONG;
-	      }
-	    else if (*format == 'L')
-	      size = FAT_SIZE_LONGLONG;
-	    else if (*format == 'q')
-	      /* Old BSD 4.4 convention.  */
-	      size = FAT_SIZE_LONGLONG;
-	    else if (*format == 'j')
-	      size = FAT_SIZE_INTMAX_T;
-	    else if (*format == 'z' || *format == 'Z')
-	      /* 'z' is standardized in ISO C 99, but glibc uses 'Z' because
-		 the warning facility in gcc-2.95.2 understands only 'Z'
-		 (see gcc-2.95.2/gcc/c-common.c:1784).  */
-	      size = FAT_SIZE_SIZE_T;
-	    else if (*format == 't')
-	      size = FAT_SIZE_PTRDIFF_T;
-	    else
-	      break;
-	  }
+	    spec.c99_directives =
+	      (const char **)
+	      xrealloc (spec.c99_directives,
+			2 * (spec.c99_directives_count + 1)
+			* sizeof (const char *));
+	    spec.c99_directives[2 * spec.c99_directives_count] = format;
 
-	switch (*format)
+	    format++;
+	    /* Parse ISO C 99 section 7.8.1 format string directive.
+	       Syntax:
+	       P R I { d | i | o | u | x | X }
+	       { { | LEAST | FAST } { 8 | 16 | 32 | 64 } | MAX | PTR }  */
+	    if (*format != 'P')
+	      goto bad_format;
+	    format++;
+	    if (*format != 'R')
+	      goto bad_format;
+	    format++;
+	    if (*format != 'I')
+	      goto bad_format;
+	    format++;
+
+	    switch (*format)
+	      {
+	      case 'i': case 'd':
+		type = FAT_INTEGER;
+		break;
+	      case 'u': case 'o': case 'x': case 'X':
+		type = FAT_INTEGER | FAT_UNSIGNED;
+		break;
+	      default:
+		goto bad_format;
+	      }
+	    format++;
+
+	    if (format[0] == 'M' && format[1] == 'A' && format[2] == 'X')
+	      {
+		type |= FAT_SIZE_INTMAX_T;
+		format += 3;
+	      }
+	    else if (format[0] == 'P' && format[1] == 'T' && format[2] == 'R')
+	      {
+		type |= FAT_SIZE_INTPTR_T;
+		format += 3;
+	      }
+	    else
+	      {
+		if (format[0] == 'L' && format[1] == 'E' && format[2] == 'A'
+		    && format[3] == 'S' && format[4] == 'T')
+		  {
+		    format += 5;
+		    if (format[0] == '8')
+		      {
+			type |= FAT_SIZE_LEAST8_T;
+			format++;
+		      }
+		    else if (format[0] == '1' && format[1] == '6')
+		      {
+			type |= FAT_SIZE_LEAST16_T;
+			format += 2;
+		      }
+		    else if (format[0] == '3' && format[1] == '2')
+		      {
+			type |= FAT_SIZE_LEAST32_T;
+			format += 2;
+		      }
+		    else if (format[0] == '6' && format[1] == '4')
+		      {
+			type |= FAT_SIZE_LEAST64_T;
+			format += 2;
+		      }
+		    else
+		      goto bad_format;
+		  }
+		else if (format[0] == 'F' && format[1] == 'A'
+			 && format[2] == 'S' && format[3] == 'T')
+		  {
+		    format += 4;
+		    if (format[0] == '8')
+		      {
+			type |= FAT_SIZE_FAST8_T;
+			format++;
+		      }
+		    else if (format[0] == '1' && format[1] == '6')
+		      {
+			type |= FAT_SIZE_FAST16_T;
+			format += 2;
+		      }
+		    else if (format[0] == '3' && format[1] == '2')
+		      {
+			type |= FAT_SIZE_FAST32_T;
+			format += 2;
+		      }
+		    else if (format[0] == '6' && format[1] == '4')
+		      {
+			type |= FAT_SIZE_FAST64_T;
+			format += 2;
+		      }
+		    else
+		      goto bad_format;
+		  }
+		else
+		  {
+		    if (format[0] == '8')
+		      {
+			type |= FAT_SIZE_8_T;
+			format++;
+		      }
+		    else if (format[0] == '1' && format[1] == '6')
+		      {
+			type |= FAT_SIZE_16_T;
+			format += 2;
+		      }
+		    else if (format[0] == '3' && format[1] == '2')
+		      {
+			type |= FAT_SIZE_32_T;
+			format += 2;
+		      }
+		    else if (format[0] == '6' && format[1] == '4')
+		      {
+			type |= FAT_SIZE_64_T;
+			format += 2;
+		      }
+		    else
+		      goto bad_format;
+		  }
+	      }
+
+	    if (*format != '>')
+	      goto bad_format;
+
+	    spec.c99_directives[2 * spec.c99_directives_count + 1] = format;
+	    spec.c99_directives_count++;
+	  }
+	else
 	  {
-	  case '%':
-	  case 'm': /* glibc extension */
-	    type = FAT_NONE;
-	    break;
-	  case 'c':
-	    type = FAT_CHAR;
-	    type |= (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG) ? FAT_WIDE : 0);
-	    break;
-	  case 'C': /* obsolete */
-	    type = FAT_CHAR | FAT_WIDE;
-	    break;
-	  case 's':
-	    type = FAT_STRING;
-	    type |= (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG) ? FAT_WIDE : 0);
-	    break;
-	  case 'S': /* obsolete */
-	    type = FAT_STRING | FAT_WIDE;
-	    break;
-	  case 'i': case 'd':
-	    type = FAT_INTEGER;
-	    type |= (size & FAT_SIZE_MASK);
-	    break;
-	  case 'u': case 'o': case 'x': case 'X':
-	    type = FAT_INTEGER | FAT_UNSIGNED;
-	    type |= (size & FAT_SIZE_MASK);
-	    break;
-	  case 'e': case 'E': case 'f': case 'F': case 'g': case 'G':
-	  case 'a': case 'A':
-	    type = FAT_DOUBLE;
-	    type |= (size & FAT_SIZE_LONGLONG);
-	    break;
-	  case 'p':
-	    type = FAT_POINTER;
-	    break;
-	  case 'n':
-	    type = FAT_COUNT_POINTER;
-	    type |= (size & FAT_SIZE_MASK);
-	    break;
-	  default:
-	    goto bad_format;
+	    /* Parse size.  */
+	    size = 0;
+	    for (;; format++)
+	      {
+		if (*format == 'h')
+		  {
+		    if (size & (FAT_SIZE_SHORT | FAT_SIZE_CHAR))
+		      size = FAT_SIZE_CHAR;
+		    else
+		      size = FAT_SIZE_SHORT;
+		  }
+		else if (*format == 'l')
+		  {
+		    if (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG))
+		      size = FAT_SIZE_LONGLONG;
+		    else
+		      size = FAT_SIZE_LONG;
+		  }
+		else if (*format == 'L')
+		  size = FAT_SIZE_LONGLONG;
+		else if (*format == 'q')
+		  /* Old BSD 4.4 convention.  */
+		  size = FAT_SIZE_LONGLONG;
+		else if (*format == 'j')
+		  size = FAT_SIZE_INTMAX_T;
+		else if (*format == 'z' || *format == 'Z')
+		  /* 'z' is standardized in ISO C 99, but glibc uses 'Z'
+		     because the warning facility in gcc-2.95.2 understands
+		     only 'Z' (see gcc-2.95.2/gcc/c-common.c:1784).  */
+		  size = FAT_SIZE_SIZE_T;
+		else if (*format == 't')
+		  size = FAT_SIZE_PTRDIFF_T;
+		else
+		  break;
+	      }
+
+	    switch (*format)
+	      {
+	      case '%':
+	      case 'm': /* glibc extension */
+		type = FAT_NONE;
+		break;
+	      case 'c':
+		type = FAT_CHAR;
+		type |= (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG)
+			 ? FAT_WIDE : 0);
+		break;
+	      case 'C': /* obsolete */
+		type = FAT_CHAR | FAT_WIDE;
+		break;
+	      case 's':
+		type = FAT_STRING;
+		type |= (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG)
+			 ? FAT_WIDE : 0);
+		break;
+	      case 'S': /* obsolete */
+		type = FAT_STRING | FAT_WIDE;
+		break;
+	      case 'i': case 'd':
+		type = FAT_INTEGER;
+		type |= (size & FAT_SIZE_MASK);
+		break;
+	      case 'u': case 'o': case 'x': case 'X':
+		type = FAT_INTEGER | FAT_UNSIGNED;
+		type |= (size & FAT_SIZE_MASK);
+		break;
+	      case 'e': case 'E': case 'f': case 'F': case 'g': case 'G':
+	      case 'a': case 'A':
+		type = FAT_DOUBLE;
+		type |= (size & FAT_SIZE_LONGLONG);
+		break;
+	      case 'p':
+		type = FAT_POINTER;
+		break;
+	      case 'n':
+		type = FAT_COUNT_POINTER;
+		type |= (size & FAT_SIZE_MASK);
+		break;
+	      default:
+		goto bad_format;
+	      }
 	  }
 
 	if (type != FAT_NONE)
@@ -540,6 +707,8 @@ format_parse (format)
     free (numbered);
   if (spec.unnumbered != NULL)
     free (spec.unnumbered);
+  if (spec.c99_directives != NULL)
+    free (spec.c99_directives);
   return NULL;
 }
 
@@ -551,6 +720,8 @@ format_free (descr)
 
   if (spec->unnumbered != NULL)
     free (spec->unnumbered);
+  if (spec->c99_directives != NULL)
+    free (spec->c99_directives);
   free (spec);
 }
 
@@ -620,6 +791,37 @@ struct formatstring_parser formatstring_c =
 };
 
 
+void
+get_c99_format_directives (string, intervalsp, lengthp)
+     const char *string;
+     struct interval **intervalsp;
+     size_t *lengthp;
+{
+  struct spec *descr = (struct spec *) format_parse (string);
+
+  if (descr != NULL && descr->c99_directives_count > 0)
+    {
+      unsigned int n = descr->c99_directives_count;
+      struct interval *intervals =
+	(struct interval *) xmalloc (n * sizeof (struct interval));
+      unsigned int i;
+
+      for (i = 0; i < n; i++)
+	{
+	  intervals[i].startpos = descr->c99_directives[2 * i] - string;
+	  intervals[i].endpos = descr->c99_directives[2 * i + 1] - string;
+	}
+      *intervalsp = intervals;
+      *lengthp = n;
+    }
+  else
+    {
+      *intervalsp = NULL;
+      *lengthp = 0;
+    }
+}
+
+
 #ifdef TEST
 
 /* Test program: Print the argument list specification returned by
@@ -664,8 +866,47 @@ format_print (descr)
 	case FAT_SIZE_LONGLONG:
 	  printf ("[long long]");
 	  break;
+	case FAT_SIZE_8_T:
+	  printf ("[int8_t]");
+	  break;
+	case FAT_SIZE_16_T:
+	  printf ("[int16_t]");
+	  break;
+	case FAT_SIZE_32_T:
+	  printf ("[int32_t]");
+	  break;
+	case FAT_SIZE_64_T:
+	  printf ("[int64_t]");
+	  break;
+	case FAT_SIZE_LEAST8_T:
+	  printf ("[int_least8_t]");
+	  break;
+	case FAT_SIZE_LEAST16_T:
+	  printf ("[int_least16_t]");
+	  break;
+	case FAT_SIZE_LEAST32_T:
+	  printf ("[int_least32_t]");
+	  break;
+	case FAT_SIZE_LEAST64_T:
+	  printf ("[int_least64_t]");
+	  break;
+	case FAT_SIZE_FAST8_T:
+	  printf ("[int_fast8_t]");
+	  break;
+	case FAT_SIZE_FAST16_T:
+	  printf ("[int_fast16_t]");
+	  break;
+	case FAT_SIZE_FAST32_T:
+	  printf ("[int_fast32_t]");
+	  break;
+	case FAT_SIZE_FAST64_T:
+	  printf ("[int_fast64_t]");
+	  break;
 	case FAT_SIZE_INTMAX_T:
 	  printf ("[intmax_t]");
+	  break;
+	case FAT_SIZE_INTPTR_T:
+	  printf ("[intptr_t]");
 	  break;
 	case FAT_SIZE_SIZE_T:
 	  printf ("[size_t]");

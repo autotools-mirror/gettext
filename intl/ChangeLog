@@ -1,3 +1,26 @@
+2002-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h (__GNU_GETTEXT_SUPPORTED_REVISION): New macro.
+	* gmo.h (struct mo_file_header): New fields n_sysdep_segments,
+	sysdep_segments_offset, n_sysdep_strings, orig_sysdep_tab_offset,
+	trans_sysdep_tab_offset.
+	(struct sysdep_segment): New type.
+	(struct sysdep_string): New type.
+	(SEGMENTS_END): New macro.
+	* gettextP.h (struct sysdep_string_desc): New type.
+	(struct loaded_domain): New fields malloced, n_sysdep_strings,
+	orig_sysdep_tab, trans_sysdep_tab, must_swap_hash_tab. Make fields
+	orig_tab, trans_tab, hash_tab to const pointers because they point
+	into read-only memory.
+	* loadmsgcat.c: Include stdint.h, inttypes.h, hash-string.h.
+	(PRI*): Define fallback values.
+	(get_sysdep_segment_value): New function.
+	(_nl_load_domain): Distinguish major and minor revision parts. Add
+	support for minor revision 1 with system dependent strings.
+	(_nl_unload_domain): Also free the 'malloced' field.
+	* dcigettext.c (_nl_find_msg): Remove test for domain->hash_size, now
+	done in loadmsgcat.c. Add support for system dependent strings.
+
 2002-07-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.3 released.

@@ -159,6 +159,9 @@ static void phase5_unget PARAMS ((token_ty *tp));
 static void phaseX_get PARAMS ((token_ty *tp));
 static void phase6_get PARAMS ((token_ty *tp));
 static void phase6_unget PARAMS ((token_ty *tp));
+static bool is_inttypes_macro PARAMS ((const char *name));
+static void phase8a_get PARAMS ((token_ty *tp));
+static void phase8a_unget PARAMS ((token_ty *tp));
 static void phase8_get PARAMS ((token_ty *tp));
 static void x_c_lex PARAMS ((xgettext_token_ty *tp));
 static bool extract_parenthesized PARAMS ((message_list_ty *mlp,
@@ -1176,6 +1179,77 @@ phase6_unget (tp)
 }
 
 
+/* 8a. Convert ISO C 99 section 7.8.1 format string directives to string
+   literal placeholders.  */
+
+/* Test for an ISO C 99 section 7.8.1 format string directive.  */
+static bool
+is_inttypes_macro (name)
+     const char *name;
+{
+  /* Syntax:
+     P R I { d | i | o | u | x | X }
+     { { | LEAST | FAST } { 8 | 16 | 32 | 64 } | MAX | PTR }  */
+  if (name[0] == 'P' && name[1] == 'R' && name[2] == 'I')
+    {
+      name += 3;
+      if (name[0] == 'd' || name[0] == 'i' || name[0] == 'o' || name[0] == 'u'
+	  || name[0] == 'x' || name[0] == 'X')
+	{
+	  name += 1;
+	  if (name[0] == 'M' && name[1] == 'A' && name[2] == 'X'
+	      && name[3] == '\0')
+	    return true;
+	  if (name[0] == 'P' && name[1] == 'T' && name[2] == 'R'
+	      && name[3] == '\0')
+	    return true;
+	  if (name[0] == 'L' && name[1] == 'E' && name[2] == 'A'
+	      && name[3] == 'S' && name[4] == 'T')
+	    name += 5;
+	  else if (name[0] == 'F' && name[1] == 'A' && name[2] == 'S'
+		   && name[3] == 'T')
+	    name += 4;
+	  if (name[0] == '8' && name[1] == '\0')
+	    return true;
+	  if (name[0] == '1' && name[1] == '6' && name[2] == '\0')
+	    return true;
+	  if (name[0] == '3' && name[1] == '2' && name[2] == '\0')
+	    return true;
+	  if (name[0] == '6' && name[1] == '4' && name[2] == '\0')
+	    return true;
+	}
+    }
+  return false;
+}
+
+static void
+phase8a_get (tp)
+     token_ty *tp;
+{
+  phase6_get (tp);
+  if (tp->type == token_type_name && is_inttypes_macro (tp->string))
+    {
+      /* Turn PRIdXXX into "<PRIdXXX>".  */
+      size_t len = strlen (tp->string);
+      char *new_string = (char *) xmalloc (len + 3);
+      new_string[0] = '<';
+      memcpy (new_string + 1, tp->string, len);
+      new_string[len + 1] = '>';
+      new_string[len + 2] = '\0';
+      free (tp->string);
+      tp->string = new_string;
+      tp->type = token_type_string_literal;
+    }
+}
+
+static void
+phase8a_unget (tp)
+     token_ty *tp;
+{
+  phase6_unget (tp);
+}
+
+
 /* 8. Concatenate adjacent string literals to form single string
    literals (because we don't expand macros, there are a few things we
    will miss).  */
@@ -1184,7 +1258,7 @@ static void
 phase8_get (tp)
      token_ty *tp;
 {
-  phase6_get (tp);
+  phase8a_get (tp);
   if (tp->type != token_type_string_literal)
     return;
   for (;;)
@@ -1192,14 +1266,14 @@ phase8_get (tp)
       token_ty tmp;
       size_t len;
 
-      phase6_get (&tmp);
+      phase8a_get (&tmp);
       if (tmp.type == token_type_white_space)
 	continue;
       if (tmp.type == token_type_eoln)
 	continue;
       if (tmp.type != token_type_string_literal)
 	{
-	  phase6_unget (&tmp);
+	  phase8a_unget (&tmp);
 	  return;
 	}
       len = strlen (tp->string);

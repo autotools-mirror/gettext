@@ -1,3 +1,8 @@
+2002-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Add inttypes.m4, inttypes_h.m4, stdint_h.m4,
+	uintmax_t.m4 to m4filelist.
+
 2002-07-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Copy also intdiv0.m4.

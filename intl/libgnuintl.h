@@ -36,6 +36,11 @@
    implementation of gettext.  */
 #define __USE_GNU_GETTEXT 1
 
+/* Provide information about the supported file formats.  Returns the
+   maximum minor revision number supported for a given major revision.  */
+#define __GNU_GETTEXT_SUPPORTED_REVISION(major) \
+  ((major) == 0 ? 1 : -1)
+
 /* Resolve a platform specific conflict on DJGPP.  GNU gettext takes
    precedence over _conio_gettext.  */
 #ifdef __DJGPP__

@@ -1885,34 +1885,31 @@ integer through @code{printf}. It expands to a constant string, usually
 Assume you have code like
 
 @example
-printf ("The amount is %0" PRId64 "\n"), number);
+printf ("The amount is %0" PRId64 "\n", number);
 @end example
 
 @noindent
-After marking, this cannot become
+The @code{gettext} tools and library have special support for these
+@code{<inttypes.h>} macros.  You can therefore simply write
 
 @example
-printf (gettext ("The amount is %0") PRId64 "\n"), number);
+printf (gettext ("The amount is %0" PRId64 "\n"), number);
 @end example
 
 @noindent
-because it would simply be invalid C syntax. It cannot become
+The PO file will contain the string "The amount is %0<PRId64>\n".
+The translators will provide a translation containing "%0<PRId64>"
+as well, and at runtime the @code{gettext} function's result will
+contain the appropriate constant string, "d" or "ld" or "lld".
 
-@example
-printf (gettext ("The amount is %0" PRId64 "\n")), number);
-@end example
-
-@noindent
-because the value of @code{PRId64} is not known to @code{xgettext}, and
-even if were, there would be three or more possibilities, and the
-translator would have to translate three or more strings that differ in
-a single letter.
-
-The solution for this problem is to change the code like this:
+This works only for the predefined @code{<inttypes.h>} macros.  If
+you have defined your own similar macros, let's say @samp{MYPRId64},
+that are not known to @code{xgettext}, the solution for this problem
+is to change the code like this:
 
 @example
 char buf1[100];
-sprintf (buf1, "%0" PRId64, number);
+sprintf (buf1, "%0" MYPRId64, number);
 printf (gettext ("The amount is %s\n"), buf1);
 @end example
 
@@ -5972,8 +5969,10 @@ AC_CONFIG_AUX_DIR([@var{subdir}])
 If you do not have an @file{aclocal.m4} file in your distribution,
 the simplest is to concatenate the files @file{codeset.m4},
 @file{gettext.m4}, @file{glibc21.m4}, @file{iconv.m4}, @file{intdiv0.m4},
-@file{isc-posix.m4}, @file{lcmessage.m4}, @file{lib-ld.m4}, @file{lib-link.m4},
-@file{lib-prefix.m4}, @file{progtest.m4} from GNU @code{gettext}'s
+@file{inttypes.m4}, @file{inttypes_h.m4}, @file{isc-posix.m4},
+@file{lcmessage.m4}, @file{lib-ld.m4}, @file{lib-link.m4},
+@file{lib-prefix.m4}, @file{progtest.m4}, @file{stdint_h.m4},
+@file{uintmax_t.m4} from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
 @file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
 @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
@@ -6326,7 +6325,13 @@ presence of @code{AM_DISABLE_SHARED}). If @var{intlsymbol} is
 
 If @var{needsymbol} is specified and is @samp{need-ngettext}, then GNU
 gettext implementations (in libc or libintl) without the @code{ngettext()}
-function will be ignored.
+function will be ignored.  If @var{needsymbol} is specified and is
+@samp{need-formatstring-macros}, then GNU gettext implementations that don't
+support the ISO C 99 @file{<inttypes.h>} formatstring macros will be ignored.
+Only one @var{needsymbol} can be specified.  To specify more than one
+requirement, just specify the strongest one among them.  The hierarchy among
+the various alternatives is as follows: @samp{need-formatstring-macros}
+implies @samp{need-ngettext}.
 
 @var{intldir} is used to find the intl libraries.  If empty, the value
 @samp{$(top_builddir)/intl/} is used.

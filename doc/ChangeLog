@@ -1,3 +1,11 @@
+2002-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Preparing Strings): Update section about <inttypes.h>
+	macros.
+	(aclocal): Add inttypes.m4, inttypes_h.m4, stdint_h.m4, uintmax_t.m4
+	to the list of m4 files.
+	(AM_GNU_GETTEXT): Document needsymbol value 'need-formatstring-macros'.
+
 2002-07-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (aclocal): Mention intdiv0.m4.

@@ -34,7 +34,7 @@ TESTS = gettext-1 gettext-2 \
 	msgexec-1 msgexec-2 \
 	msgfilter-1 msgfilter-2 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
-	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 \
+	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
@@ -45,9 +45,9 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
-	xgettext-18 xgettext-19 xgettext-20 xgettext-21 \
+	xgettext-18 xgettext-19 xgettext-20 xgettext-21 xgettext-22 \
 	format-awk-1 format-awk-2 \
-	format-c-1 format-c-2 \
+	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \
 	format-java-1 format-java-2 \
 	format-librep-1 format-librep-2 \
@@ -136,13 +136,17 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext cake
+noinst_PROGRAMS = tstgettext tstngettext cake fc3 fc4
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)
+fc3_SOURCES = format-c-3-prg.c setlocale.c
+fc3_LDADD = ../lib/libgettextlib.la $(LDADD)
+fc4_SOURCES = format-c-4-prg.c setlocale.c
+fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
 
 # Help maintaining config.rpath.
 rpathcfg: rpathcfg.sh
