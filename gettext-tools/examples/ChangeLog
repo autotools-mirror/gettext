@@ -1,5 +1,12 @@
 2003-12-06  Bruno Haible  <bruno@clisp.org>
 
+	* hello-objc-gnustep/autoclean.sh: Also remove the *.lproj directories.
+	* hello-objc-gnustep/po/GNUmakefile: Include the general rules at the
+	beginning, not at the end, so that our .SUFFIXES tag has an effect.
+	($(ENSTRINGSFILES)): Create the target directory.
+
+2003-12-06  Bruno Haible  <bruno@clisp.org>
+
 	* hello-*/INSTALL: Update the installation instructions.
 	* hello-c++-qt/BUGS: New file.
 	* hello-c++-kde/BUGS: New file.

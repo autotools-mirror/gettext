@@ -43,6 +43,8 @@ COPYRIGHT_HOLDER = Yoyodyne, Inc.
 # which the translators can contact you.
 MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
 
+-include $(GNUSTEP_MAKEFILES)/rules.make
+
 XGETTEXT = xgettext
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = msgmerge --update
@@ -163,11 +165,10 @@ $(STRINGSFILES): $(POFILES)
 	mv $@.tmp $@
 
 $(ENSTRINGSFILES): $(DOMAIN).pot
+	mkdir -p $(patsubst %/,%, $(dir $@))
 	$(MSGINIT) -i $(DOMAIN).pot --no-translator -l $(UNIXLOCALE_$(patsubst %.lproj,%, $(notdir $(patsubst %/,%, $(dir $@))))) --stringtable-output -o $@.tmp
 	mv $@.tmp $@
 
 echo-languages:
 	@echo $(foreach lang, $(LINGUAS), $(NSLOCALE_$(lang)))
-
--include $(GNUSTEP_MAKEFILES)/rules.make
 
