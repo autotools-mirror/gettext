@@ -184,7 +184,7 @@ uninstall:
 	  dest=$(DESTDIR)$(libdir)/charset.alias; \
 	  sed -f ref-del.sed $$dest > $$temp; \
 	  if grep '^# Packages using this file: $$' $$temp > /dev/null; then \
-	    rm -f $$temp; \
+	    rm -f $$dest; \
 	  else \
 	    $(INSTALL_DATA) $$temp $$dest; \
 	  fi; \

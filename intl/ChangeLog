@@ -1,6 +1,7 @@
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (uninstall): Synchronize with the install target.
+	Really remove charset.alias when its reference count drops to 0.
 
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
