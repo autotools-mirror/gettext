@@ -35,6 +35,16 @@ the programmer/maintainer the needed tools to maintain the message
 catalogs.  The interface is designed after the proposals of the
 Uniforum group.
 
+
+The homepage of this package is at
+
+           http://www.gnu.org/software/gettext/
+
+The primary FTP site for its distribution is
+
+           ftp://ftp.gnu.org/pub/gnu/gettext/
+
+
 The configure script provides two non-standard options.  These will
 also be available in other packages if they use the functionality of
 GNU gettext.  Use
