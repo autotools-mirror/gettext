@@ -1,3 +1,9 @@
+Version 0.12.2 - XXX 2003
+
+* On those few platforms (NetBSD and Woe32) for which the native
+  printf()/fprintf()/... functions don't support POSIX/XSI format strings
+  with positions, replacements are provided through <libintl.h>.
+
 Version 0.12 - May 2003
 
 * A new C++ class, called gnu::autosprintf, makes it possible to use C format
