@@ -1,0 +1,30 @@
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: New file.
+	* README: New file.
+	* installpaths.in: New file.
+	* hello-c: New subdirectory.
+	* hello-c-gnome: New subdirectory.
+	* hello-c++: New subdirectory.
+	* hello-c++-qt: New subdirectory.
+	* hello-c++-kde: New subdirectory.
+	* hello-c++-gnome: New subdirectory.
+	* hello-objc: New subdirectory.
+	* hello-objc-gnustep: New subdirectory.
+	* hello-objc-gnome: New subdirectory.
+	* hello-sh: New subdirectory.
+	* hello-python: New subdirectory.
+	* hello-clisp: New subdirectory.
+	* hello-librep: New subdirectory.
+	* hello-smalltalk: New subdirectory.
+	* hello-java: New subdirectory.
+	* hello-java-awt: New subdirectory.
+	* hello-java-swing: New subdirectory.
+	* hello-gawk: New subdirectory.
+	* hello-pascal: New subdirectory.
+	* hello-ycp: New subdirectory.
+	* hello-tcl: New subdirectory.
+	* hello-tcl-tk: New subdirectory.
+	* hello-perl: New subdirectory.
+	* hello-php: New subdirectory.
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+# Usage: mmsmallpo.sh hello-foo ll
+
+set -e
+
+test $# = 2  || { echo "Usage: mmsmallpo.sh hello-foo ll" 1>&2; exit 1; }
+directory=$1
+language=$2
+
+msgmerge $language.po $directory.pot -o - | \
+msgattrib --no-obsolete | \
+sed -e "s, $directory/, ,g" | sed -e "s,gettext-examples,$directory," \
+  > ../$directory/po/$language.po
