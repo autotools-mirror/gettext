@@ -20,8 +20,10 @@
 # include <config.h>
 #endif
 
-#include "plural-exp.h"
+/* Specification.  */
+#include "plural-count.h"
 
+#include "plural-exp.h"
 
 /* Extract the number of plural forms from a header entry.  */
 

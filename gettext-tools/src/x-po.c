@@ -28,6 +28,7 @@
 
 #include "message.h"
 #include "x-po.h"
+#include "x-properties.h"
 #include "xgettext.h"
 #include "xmalloc.h"
 #include "read-po.h"

@@ -1,5 +1,11 @@
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
+	* plural-count.c: Include plural-count.h.
+	* x-po.c: Include x-properties.h.
+	* x-java.l (append_strings): Change argument type to 'const char *'.
+
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt.c (check_plural_eval): Mark some strings as c-format.
 	(msgfmt_add_message): Make static.
 	* po-lex.c (mbfile_getc, control_sequence): Mark some strings as

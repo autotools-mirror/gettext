@@ -221,7 +221,7 @@ ID [a-zA-Z_][a-zA-Z0-9_]*
 %%
 
 static char *
-append_strings (char *a, char *b)
+append_strings (char *a, const char *b)
 {
   int total_size = strlen (a) + strlen (b) + 1;
   char *new_string = (char *) xmalloc (total_size);
