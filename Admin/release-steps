@@ -23,7 +23,11 @@ Tasks not to forget before release:
 
 - Update djgpp/*.
 
-- Update NEWS.
+- Update
+    NEWS
+    autoconf-lib-link/NEWS
+    gettext-runtime/libasprintf/NEWS
+    gettext-runtime/NEWS
 
 - "make"; "make dist"; "make distcheck"
 - cd gettext-tools/misc; add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
