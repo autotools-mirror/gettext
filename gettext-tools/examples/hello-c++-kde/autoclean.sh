@@ -18,6 +18,7 @@ fi
 rm -f ABOUT-NLS
 rm -f m4/codeset.m4
 rm -f m4/gettext.m4
+rm -f m4/glibc2.m4
 rm -f m4/glibc21.m4
 rm -f m4/iconv.m4
 rm -f m4/intdiv0.m4

@@ -9,6 +9,7 @@ aclocal_DATA = \
   ../../autoconf-lib-link/m4/lib-prefix.m4 \
   ../../gettext-runtime/m4/codeset.m4 \
   ../../gettext-runtime/m4/gettext.m4 \
+  ../../gettext-runtime/m4/glibc2.m4 \
   ../../gettext-runtime/m4/glibc21.m4 \
   ../../gettext-runtime/m4/iconv.m4 \
   ../../gettext-runtime/m4/intdiv0.m4 \

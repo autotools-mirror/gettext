@@ -1,3 +1,7 @@
+2004-02-02  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Mention glibc2.m4.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.

@@ -116,6 +116,7 @@ following file list.
       $prefix/share/gettext/archive.tar.gz
       $prefix/share/aclocal/codeset.m4
       $prefix/share/aclocal/gettext.m4
+      $prefix/share/aclocal/glibc2.m4
       $prefix/share/aclocal/glibc21.m4
       $prefix/share/aclocal/iconv.m4
       $prefix/share/aclocal/intdiv0.m4
