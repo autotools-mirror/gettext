@@ -1,5 +1,10 @@
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h_vms): Define HAVE_READLINK and HAVE_WCSLEN.
+	(config.h.msvc): Define HAVE_WCSLEN and ssize_t.
+
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_USE_SYSTEM_EXTENSIONS.
 
 2003-08-23  Bruno Haible  <bruno@clisp.org>

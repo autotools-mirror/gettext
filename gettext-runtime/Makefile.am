@@ -80,6 +80,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_POSIX_PRINTF$$/#define HAVE_POSIX_PRINTF 1/' \
 	     -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
 	     -e 's/#undef HAVE_PUTENV$$/#define HAVE_PUTENV 1/' \
+	     -e 's/#undef HAVE_READLINK$$/#define HAVE_READLINK 1/' \
 	     -e 's/#undef HAVE_SETENV$$/#define HAVE_SETENV 1/' \
 	     -e 's/#undef HAVE_SETLOCALE$$/#define HAVE_SETLOCALE 1/' \
 	     -e 's/#undef HAVE_STDBOOL_H$$/#define HAVE_STDBOOL_H 1/' \
@@ -99,6 +100,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_UNSIGNED_LONG_LONG$$/#define HAVE_UNSIGNED_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
+	     -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	     -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
@@ -152,12 +154,14 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
 	    -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	    -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
+	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef inline$$/#define inline/' \
+	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
 	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
 	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
 	    -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
