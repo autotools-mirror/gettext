@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-28 20:31+0100\n"
+"POT-Creation-Date: 2003-12-17 21:25+0100\n"
 "PO-Revision-Date: 2003-12-05 18:09+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -2120,24 +2120,24 @@ msgstr ""
 "Hittade ingen .pot-fil i aktuell katalog.\n"
 "Ange .pot-infil med flaggan --input.\n"
 
-#: src/msginit.c:937 src/msginit.c:1004 src/msginit.c:1162 src/msginit.c:1244
+#: src/msginit.c:938 src/msginit.c:1005 src/msginit.c:1163 src/msginit.c:1245
 #: src/read-java.c:71 src/read-tcl.c:108
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen() misslyckades"
 
-#: src/msginit.c:945 src/msginit.c:1012 src/msginit.c:1170
+#: src/msginit.c:946 src/msginit.c:1013 src/msginit.c:1171
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "I/O-fel i %s-barnprocess"
 
-#: src/msginit.c:957 src/msginit.c:1024 src/msginit.c:1182 src/msginit.c:1261
+#: src/msginit.c:958 src/msginit.c:1025 src/msginit.c:1183 src/msginit.c:1262
 #: src/read-java.c:81 src/read-tcl.c:124
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s-barnprocess terminerade med slutstatus %d"
 
-#: src/msginit.c:1148
+#: src/msginit.c:1149
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2152,7 +2152,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1534
+#: src/msginit.c:1535
 #, c-format
 msgid "English translations for %s package"
 msgstr "Svenska översättningar för paket %s"
@@ -2941,12 +2941,12 @@ msgstr "%s:%d: varning: oavslutad sträng"
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: varning: oavslutat reguljärt uttryck"
 
-#: src/x-c.c:1079 src/x-java.c:901
+#: src/x-c.c:1078 src/x-java.c:903
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: varning: oavslutad teckenkonstant"
 
-#: src/x-c.c:1103
+#: src/x-c.c:1102
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: varning: oavslutad sträng"
@@ -2965,12 +2965,17 @@ msgstr ""
 "Språk \"glade\" stöds ej. %s beror på expat.\n"
 "Denna version byggdes utan expat.\n"
 
-#: src/x-java.c:1387
+#: src/x-java.c:906
+#, fuzzy, c-format
+msgid "%s:%d: warning: unterminated string constant"
+msgstr "%s:%d: varning: oavslutad sträng"
+
+#: src/x-java.c:1391
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: varning: \")\" hittades där \"}\" förväntades"
 
-#: src/x-java.c:1411
+#: src/x-java.c:1415
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: varning: \"}\" hittades där \")\" förväntades"

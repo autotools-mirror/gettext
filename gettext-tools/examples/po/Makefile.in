@@ -245,7 +245,8 @@ POTFILES = \
   examples/hello-ycp/hello.ycp \
   examples/hello-tcl/hello.tcl \
   examples/hello-tcl-tk/hello.tcl \
-  examples/hello-perl/hello.pl \
+  examples/hello-perl/hello-1.pl.in \
+  examples/hello-perl/hello-2.pl.in \
   examples/hello-php/hello.php
 
 

@@ -278,7 +278,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-po-1 \
 	xgettext-properties-1 \
 	xgettext-python-1 xgettext-python-2 \
-	xgettext-sh-1 xgettext-sh-2 \
+	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 \
 	xgettext-smalltalk-1 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 \
@@ -312,7 +312,7 @@ CHECKER =
 
 #CHECKER = valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
-		    PATH=.:../src:../../gettext-runtime/src:$$PATH \
+		    PATH=.:../src:../../gettext-runtime/src:$(top_srcdir)/../gettext-runtime/src:$$PATH \
 		    GETTEXT="$(CHECKER) tstgettext" \
 		    NGETTEXT="$(CHECKER) tstngettext" \
 		    XGETTEXT="$(CHECKER) xgettext" \
@@ -348,13 +348,14 @@ AM_CPPFLAGS = \
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext cake fc3 fc4
+noinst_PROGRAMS = tstgettext tstngettext testlocale cake fc3 fc4
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
+testlocale_SOURCES = testlocale.c
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c
@@ -366,8 +367,8 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-noinst_PROGRAMS = tstgettext$(EXEEXT) tstngettext$(EXEEXT) cake$(EXEEXT) \
-	fc3$(EXEEXT) fc4$(EXEEXT)
+noinst_PROGRAMS = tstgettext$(EXEEXT) tstngettext$(EXEEXT) \
+	testlocale$(EXEEXT) cake$(EXEEXT) fc3$(EXEEXT) fc4$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 
 am_cake_OBJECTS = plural-1-prg.$(OBJEXT) setlocale.$(OBJEXT)
@@ -382,6 +383,11 @@ am_fc4_OBJECTS = format-c-4-prg.$(OBJEXT) setlocale.$(OBJEXT)
 fc4_OBJECTS = $(am_fc4_OBJECTS)
 fc4_DEPENDENCIES = ../lib/libgettextlib.la
 fc4_LDFLAGS =
+am_testlocale_OBJECTS = testlocale.$(OBJEXT)
+testlocale_OBJECTS = $(am_testlocale_OBJECTS)
+testlocale_LDADD = $(LDADD)
+testlocale_DEPENDENCIES =
+testlocale_LDFLAGS =
 am_tstgettext_OBJECTS = tstgettext-tstgettext.$(OBJEXT) \
 	tstgettext-setlocale.$(OBJEXT)
 tstgettext_OBJECTS = $(am_tstgettext_OBJECTS)
@@ -404,9 +410,10 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 DIST_SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) \
-	$(tstgettext_SOURCES) $(tstngettext_SOURCES)
+	$(testlocale_SOURCES) $(tstgettext_SOURCES) \
+	$(tstngettext_SOURCES)
 DIST_COMMON = $(srcdir)/Makefile.in ChangeLog Makefile.am
-SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) $(tstgettext_SOURCES) $(tstngettext_SOURCES)
+SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) $(testlocale_SOURCES) $(tstgettext_SOURCES) $(tstngettext_SOURCES)
 
 all: all-am
 
@@ -433,6 +440,9 @@ fc3$(EXEEXT): $(fc3_OBJECTS) $(fc3_DEPENDENCIES)
 fc4$(EXEEXT): $(fc4_OBJECTS) $(fc4_DEPENDENCIES) 
 	@rm -f fc4$(EXEEXT)
 	$(LINK) $(fc4_LDFLAGS) $(fc4_OBJECTS) $(fc4_LDADD) $(LIBS)
+testlocale$(EXEEXT): $(testlocale_OBJECTS) $(testlocale_DEPENDENCIES) 
+	@rm -f testlocale$(EXEEXT)
+	$(LINK) $(testlocale_LDFLAGS) $(testlocale_OBJECTS) $(testlocale_LDADD) $(LIBS)
 tstgettext$(EXEEXT): $(tstgettext_OBJECTS) $(tstgettext_DEPENDENCIES) 
 	@rm -f tstgettext$(EXEEXT)
 	$(LINK) $(tstgettext_LDFLAGS) $(tstgettext_OBJECTS) $(tstgettext_LDADD) $(LIBS)

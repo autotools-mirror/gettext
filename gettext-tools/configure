@@ -32926,7 +32926,7 @@ cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
 
-#if defined __NetBSD__ || defined _MSC_VER || defined __MINGW32__
+#if defined __NetBSD__ || defined _MSC_VER || defined __MINGW32__ || defined __CYGWIN__
   notposix
 #endif
 
@@ -38150,6 +38150,10 @@ s,@INSTALL@,$ac_INSTALL,;t t
  ;;
     tests/Makefile )
   sed -e "s,\`test -f \\\$< || echo '\\\$(srcdir)/'\`\\\$<,\\\$<," -e "s,\`test -f '\\\$<' || echo '\\\$(srcdir)/'\`\\\$<,\\\$<," < $ac_file > $ac_file.tmp
+  mv $ac_file.tmp $ac_file
+ ;;
+    examples/Makefile )
+  sed -e 's,^#distdir:,distdir:,' < $ac_file > $ac_file.tmp
   mv $ac_file.tmp $ac_file
  ;;
     examples/po/Makefile )

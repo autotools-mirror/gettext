@@ -188,6 +188,7 @@ dvidir = $(docdir)
 psdir = $(docdir)
 pdfdir = $(docdir)
 htmldir = $(docdir)
+MAKEINFOFLAGS = --no-split
 
 info_TEXINFOS = autosprintf.texi
 

@@ -255,7 +255,7 @@ TEXINCLUDES = -I $(top_srcdir)/../gettext-runtime/doc
 
 SED = sed
 RM = rm -f
-MAKEINFOFLAGS = $(TEXINCLUDES)
+MAKEINFOFLAGS = $(TEXINCLUDES) --no-split
 
 info_TEXINFOS = gettext.texi
 # List of texinfo sources @included by gettext.texi, excluding version.texi.

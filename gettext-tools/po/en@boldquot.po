@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-28 20:31+0100\n"
-"PO-Revision-Date: 2003-11-28 20:31+0100\n"
+"POT-Creation-Date: 2003-12-17 21:25+0100\n"
+"PO-Revision-Date: 2003-12-17 21:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -2173,24 +2173,24 @@ msgstr ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
 
-#: src/msginit.c:937 src/msginit.c:1004 src/msginit.c:1162 src/msginit.c:1244
+#: src/msginit.c:938 src/msginit.c:1005 src/msginit.c:1163 src/msginit.c:1245
 #: src/read-java.c:71 src/read-tcl.c:108
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen() failed"
 
-#: src/msginit.c:945 src/msginit.c:1012 src/msginit.c:1170
+#: src/msginit.c:946 src/msginit.c:1013 src/msginit.c:1171
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "%s subprocess I/O error"
 
-#: src/msginit.c:957 src/msginit.c:1024 src/msginit.c:1182 src/msginit.c:1261
+#: src/msginit.c:958 src/msginit.c:1025 src/msginit.c:1183 src/msginit.c:1262
 #: src/read-java.c:81 src/read-tcl.c:124
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s subprocess failed with exit code %d"
 
-#: src/msginit.c:1148
+#: src/msginit.c:1149
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2207,7 +2207,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1534
+#: src/msginit.c:1535
 #, c-format
 msgid "English translations for %s package"
 msgstr "English translations for %s package"
@@ -2997,12 +2997,12 @@ msgstr "%s:%d: warning: unterminated string"
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: warning: unterminated regular expression"
 
-#: src/x-c.c:1079 src/x-java.c:901
+#: src/x-c.c:1078 src/x-java.c:903
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: warning: unterminated character constant"
 
-#: src/x-c.c:1103
+#: src/x-c.c:1102
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: warning: unterminated string literal"
@@ -3021,12 +3021,17 @@ msgstr ""
 "Language “[1mglade[0m” is not supported. %s relies on expat.\n"
 "This version was built without expat.\n"
 
-#: src/x-java.c:1387
+#: src/x-java.c:906
+#, c-format
+msgid "%s:%d: warning: unterminated string constant"
+msgstr "%s:%d: warning: unterminated string constant"
+
+#: src/x-java.c:1391
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: warning: ‘[1m)[0m’ found where ‘[1m}[0m’ was expected"
 
-#: src/x-java.c:1411
+#: src/x-java.c:1415
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: warning: ‘[1m}[0m’ found where ‘[1m)[0m’ was expected"

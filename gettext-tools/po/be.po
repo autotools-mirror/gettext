@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-11-28 20:31+0100\n"
+"POT-Creation-Date: 2003-12-17 21:25+0100\n"
 "PO-Revision-Date: 2002-09-04 18:51+0300\n"
 "Last-Translator: Ales Nyakhaychyk <i18n@infonet.by>\n"
 "Language-Team: Belarusian <i18n@tut.by>\n"
@@ -2035,24 +2035,24 @@ msgstr ""
 "Ня знойдзен .pot файл у бягучай дырэкторыі.\n"
 "Калі ласка задайце .pot файл уводу з дапамогай выбара --input.\n"
 
-#: src/msginit.c:937 src/msginit.c:1004 src/msginit.c:1162 src/msginit.c:1244
+#: src/msginit.c:938 src/msginit.c:1005 src/msginit.c:1163 src/msginit.c:1245
 #: src/read-java.c:71 src/read-tcl.c:108
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen() памылка"
 
-#: src/msginit.c:945 src/msginit.c:1012 src/msginit.c:1170
+#: src/msginit.c:946 src/msginit.c:1013 src/msginit.c:1171
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "падпрацэс %s, памылка ўводу-вываду"
 
-#: src/msginit.c:957 src/msginit.c:1024 src/msginit.c:1182 src/msginit.c:1261
+#: src/msginit.c:958 src/msginit.c:1025 src/msginit.c:1183 src/msginit.c:1262
 #: src/read-java.c:81 src/read-tcl.c:124
 #, fuzzy, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "падпрацэс %s завершыўся з кодам выхаду %d"
 
-#: src/msginit.c:1148
+#: src/msginit.c:1149
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2064,7 +2064,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1534
+#: src/msginit.c:1535
 #, c-format
 msgid "English translations for %s package"
 msgstr "Беларускі пераклад для %s"
@@ -2802,12 +2802,12 @@ msgstr "%s:%d: увага: незавершаны радок"
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-c.c:1079 src/x-java.c:901
+#: src/x-c.c:1078 src/x-java.c:903
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: увага: незавершаная сімвальная канстанта"
 
-#: src/x-c.c:1103
+#: src/x-c.c:1102
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: увага: незавершаны радок"
@@ -2826,12 +2826,17 @@ msgstr ""
 "Кадзіроўка \"%s\" не падтрымліваецца. %s спадзяецца на iconv().\n"
 "Гэта вэрсія пабудавана без iconv().\n"
 
-#: src/x-java.c:1387
+#: src/x-java.c:906
+#, fuzzy, c-format
+msgid "%s:%d: warning: unterminated string constant"
+msgstr "%s:%d: увага: незавершаны радок"
+
+#: src/x-java.c:1391
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr ""
 
-#: src/x-java.c:1411
+#: src/x-java.c:1415
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr ""
