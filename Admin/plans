@@ -77,3 +77,5 @@ Things we plan to do. Comments welcome.
   msgen [-o file] [file]
   fills all empty msgstrs with the msgid, marked fuzzy
 
+- Rewrite doc node "Compendium", discuss functionality, then check
+  implementation and add Karl's new tests.
