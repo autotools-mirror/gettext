@@ -51,7 +51,7 @@
 /* Our regular abbreviation.  */
 #define _(str) gettext (str)
 
-#ifdef HAVE_PUTC_UNLOCKED
+#if HAVE_DECL_PUTC_UNLOCKED
 # undef putc
 # define putc putc_unlocked
 #endif

@@ -1,3 +1,9 @@
+2003-09-09  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.c: Test HAVE_DECL_GETC_UNLOCKED instead of HAVE_GETC_UNLOCKED.
+	* write-po.c: Test HAVE_DECL_PUTC_UNLOCKED instead of
+	HAVE_PUTC_UNLOCKED.
+
 2003-09-09  Guido Flohr  <guido@imperia.net>
 
 	* x-perl.c (extract_quotelike_pass3): Change \l handling to no longer

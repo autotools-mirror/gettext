@@ -56,7 +56,7 @@
 # include "utf8-ucs4.h"
 #endif
 
-#ifdef HAVE_GETC_UNLOCKED
+#if HAVE_DECL_GETC_UNLOCKED
 # undef getc
 # define getc getc_unlocked
 #endif
