@@ -15,11 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: hello.cs:29
+#: hello.cs:15
 msgid "Hello, world!"
 msgstr "Hola, món!"
 
-#: hello.cs:32
+#: hello.cs:18
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Aquest programa està corrent amb el número de procés {0}."

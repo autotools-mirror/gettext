@@ -14,11 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: hello.cs:29
+#: hello.cs:15
 msgid "Hello, world!"
 msgstr "Hallo wêreld!"
 
-#: hello.cs:32
+#: hello.cs:18
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Hierdie program loop as prosesnommer {0}."

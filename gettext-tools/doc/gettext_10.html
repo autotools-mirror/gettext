@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 29 January 2004 -->
+     from gettext.texi on 23 Febuary 2005 -->
 
 <TITLE>GNU gettext utilities - 10  The Programmer's View</TITLE>
 </HEAD>
@@ -30,7 +30,7 @@ later explain our solution of this dilemma.
 
 <H2><A NAME="SEC161" HREF="gettext_toc.html#TOC161">10.1  About <CODE>catgets</CODE></A></H2>
 <P>
-<A NAME="IDX978"></A>
+<A NAME="IDX980"></A>
 
 </P>
 <P>
@@ -65,7 +65,7 @@ therefore part of all Unix implementation (implementations, which are
 
 <H3><A NAME="SEC162" HREF="gettext_toc.html#TOC162">10.1.1  The Interface</A></H3>
 <P>
-<A NAME="IDX979"></A>
+<A NAME="IDX981"></A>
 
 </P>
 <P>
@@ -78,7 +78,7 @@ for the functions and the needed definitions are in the
 
 </P>
 <P>
-<A NAME="IDX980"></A>
+<A NAME="IDX982"></A>
 <CODE>catopen</CODE> is used like in this:
 
 </P>
@@ -97,7 +97,7 @@ message catalog, equivalent to handles to file returned by <CODE>open</CODE>.
 
 </P>
 <P>
-<A NAME="IDX981"></A>
+<A NAME="IDX983"></A>
 This handle is of course used in the <CODE>catgets</CODE> function which can
 be used like this:
 
@@ -129,7 +129,7 @@ should better be <CODE>const char *</CODE>, but the standard is published in
 
 </P>
 <P>
-<A NAME="IDX982"></A>
+<A NAME="IDX984"></A>
 The last of these functions is used and behaves as expected:
 
 </P>
@@ -146,7 +146,7 @@ After this no <CODE>catgets</CODE> call using the descriptor is legal anymore.
 
 <H3><A NAME="SEC163" HREF="gettext_toc.html#TOC163">10.1.2  Problems with the <CODE>catgets</CODE> Interface?!</A></H3>
 <P>
-<A NAME="IDX983"></A>
+<A NAME="IDX985"></A>
 
 </P>
 <P>
@@ -167,7 +167,7 @@ more easy to manage.
 
 <H2><A NAME="SEC164" HREF="gettext_toc.html#TOC164">10.2  About <CODE>gettext</CODE></A></H2>
 <P>
-<A NAME="IDX984"></A>
+<A NAME="IDX986"></A>
 
 </P>
 <P>
@@ -198,7 +198,7 @@ in using this library will be interested in this description.
 
 <H3><A NAME="SEC165" HREF="gettext_toc.html#TOC165">10.2.1  The Interface</A></H3>
 <P>
-<A NAME="IDX985"></A>
+<A NAME="IDX987"></A>
 
 </P>
 <P>
@@ -269,9 +269,9 @@ your language.
 
 <H3><A NAME="SEC166" HREF="gettext_toc.html#TOC166">10.2.2  Solving Ambiguities</A></H3>
 <P>
-<A NAME="IDX986"></A>
-<A NAME="IDX987"></A>
 <A NAME="IDX988"></A>
+<A NAME="IDX989"></A>
+<A NAME="IDX990"></A>
 
 </P>
 <P>
@@ -347,7 +347,7 @@ unreliabilities.
 
 <H3><A NAME="SEC167" HREF="gettext_toc.html#TOC167">10.2.3  Locating Message Catalog Files</A></H3>
 <P>
-<A NAME="IDX989"></A>
+<A NAME="IDX991"></A>
 
 </P>
 <P>
@@ -387,8 +387,8 @@ The value of the locale is determined through
 
 <H3><A NAME="SEC168" HREF="gettext_toc.html#TOC168">10.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A></H3>
 <P>
-<A NAME="IDX990"></A>
-<A NAME="IDX991"></A>
+<A NAME="IDX992"></A>
+<A NAME="IDX993"></A>
 
 </P>
 <P>
@@ -420,7 +420,7 @@ recommended that all <VAR>msgid</VAR>s be US-ASCII strings.
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>bind_textdomain_codeset</B> <I>(const char *<VAR>domainname</VAR>, const char *<VAR>codeset</VAR>)</I>
-<DD><A NAME="IDX992"></A>
+<DD><A NAME="IDX994"></A>
 The <CODE>bind_textdomain_codeset</CODE> function can be used to specify the
 output character set for message catalogs for domain <VAR>domainname</VAR>.
 The <VAR>codeset</VAR> argument must be a valid codeset name which can be used
@@ -454,7 +454,7 @@ global variable <VAR>errno</VAR> is set accordingly.
 
 <H3><A NAME="SEC169" HREF="gettext_toc.html#TOC169">10.2.5  Additional functions for plural forms</A></H3>
 <P>
-<A NAME="IDX993"></A>
+<A NAME="IDX995"></A>
 
 </P>
 <P>
@@ -574,7 +574,7 @@ purpose.
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>ngettext</B> <I>(const char *<VAR>msgid1</VAR>, const char *<VAR>msgid2</VAR>, unsigned long int <VAR>n</VAR>)</I>
-<DD><A NAME="IDX994"></A>
+<DD><A NAME="IDX996"></A>
 The <CODE>ngettext</CODE> function is similar to the <CODE>gettext</CODE> function
 as it finds the message catalogs in the same way.  But it takes two
 extra arguments.  The <VAR>msgid1</VAR> parameter must contain the singular
@@ -604,7 +604,7 @@ Please note that the numeric value <VAR>n</VAR> has to be passed to the
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>dngettext</B> <I>(const char *<VAR>domain</VAR>, const char *<VAR>msgid1</VAR>, const char *<VAR>msgid2</VAR>, unsigned long int <VAR>n</VAR>)</I>
-<DD><A NAME="IDX995"></A>
+<DD><A NAME="IDX997"></A>
 The <CODE>dngettext</CODE> is similar to the <CODE>dgettext</CODE> function in the
 way the message catalog is selected.  The difference is that it takes
 two extra parameter to provide the correct plural form.  These two
@@ -615,7 +615,7 @@ parameters are handled in the same way <CODE>ngettext</CODE> handles them.
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>dcngettext</B> <I>(const char *<VAR>domain</VAR>, const char *<VAR>msgid1</VAR>, const char *<VAR>msgid2</VAR>, unsigned long int <VAR>n</VAR>, int <VAR>category</VAR>)</I>
-<DD><A NAME="IDX996"></A>
+<DD><A NAME="IDX998"></A>
 The <CODE>dcngettext</CODE> is similar to the <CODE>dcgettext</CODE> function in the
 way the message catalog is selected.  The difference is that it takes
 two extra parameter to provide the correct plural form.  These two
@@ -640,9 +640,9 @@ possibility of extensions to not prevent the use of new languages).
 
 </P>
 <P>
-<A NAME="IDX997"></A>
-<A NAME="IDX998"></A>
 <A NAME="IDX999"></A>
+<A NAME="IDX1000"></A>
+<A NAME="IDX1001"></A>
 The information about the plural form selection has to be stored in the
 header entry of the PO file (the one with the empty <CODE>msgid</CODE> string).
 The plural form information looks like this:
@@ -668,7 +668,7 @@ value of <CODE>nplurals</CODE>.
 
 </P>
 <P>
-<A NAME="IDX1000"></A>
+<A NAME="IDX1002"></A>
 The following rules are known at this point.  The language with families
 are listed.  But this does not necessarily mean the information can be
 generalized for the whole family (as can be easily seen in the table
@@ -697,7 +697,7 @@ Languages with this property include:
 Hungarian
 <DT>Asian family
 <DD>
-Japanese, Korean
+Japanese, Korean, Vietnamese
 <DT>Turkic/Altaic family
 <DD>
 Turkish
@@ -831,7 +831,7 @@ Languages with this property include:
 
 <DT>Slavic family
 <DD>
-Croatian, Czech, Russian, Ukrainian
+Croatian, Serbian, Russian, Ukrainian
 </DL>
 
 <DT>Three forms, special cases for 1 and 2, 3, 4
@@ -850,7 +850,7 @@ Languages with this property include:
 
 <DT>Slavic family
 <DD>
-Slovak
+Slovak, Czech
 </DL>
 
 <DT>Three forms, special case for one and some numbers ending in 2, 3, or 4
@@ -897,9 +897,9 @@ Slovenian
 
 <H3><A NAME="SEC170" HREF="gettext_toc.html#TOC170">10.2.6  How to use <CODE>gettext</CODE> in GUI programs</A></H3>
 <P>
-<A NAME="IDX1001"></A>
-<A NAME="IDX1002"></A>
 <A NAME="IDX1003"></A>
+<A NAME="IDX1004"></A>
+<A NAME="IDX1005"></A>
 
 </P>
 <P>
@@ -976,7 +976,7 @@ fine:
 
 </P>
 <P>
-<A NAME="IDX1004"></A>
+<A NAME="IDX1006"></A>
 
 <PRE>
   char *
@@ -1053,7 +1053,7 @@ quite some memory and disk space by doing this.
 
 <H3><A NAME="SEC171" HREF="gettext_toc.html#TOC171">10.2.7  Optimization of the *gettext functions</A></H3>
 <P>
-<A NAME="IDX1005"></A>
+<A NAME="IDX1007"></A>
 
 </P>
 <P>
@@ -1108,8 +1108,8 @@ find the result through a single cache lookup.
 
 <H2><A NAME="SEC172" HREF="gettext_toc.html#TOC172">10.3  Comparing the Two Interfaces</A></H2>
 <P>
-<A NAME="IDX1006"></A>
-<A NAME="IDX1007"></A>
+<A NAME="IDX1008"></A>
+<A NAME="IDX1009"></A>
 
 </P>
 
@@ -1159,7 +1159,7 @@ by
 
 </P>
 <P>
-<A NAME="IDX1008"></A>
+<A NAME="IDX1010"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -1174,7 +1174,7 @@ can use any that becomes available.
 
 </P>
 <P>
-<A NAME="IDX1009"></A>
+<A NAME="IDX1011"></A>
 The same procedure can be done for the <CODE>gettext_noop</CODE> invocations
 (see section <A HREF="gettext_3.html#SEC19">3.6  Special Cases of Translatable Strings</A>).  One usually defines <CODE>gettext_noop</CODE> as a
 no-op macro.  So you should consider the following code for your project:
@@ -1282,7 +1282,7 @@ is a list comments:
 <UL>
 <LI>Changing the language at runtime
 
-<A NAME="IDX1010"></A>
+<A NAME="IDX1012"></A>
 
 For interactive programs it might be useful to offer a selection of the
 used language at runtime.  To understand how to do this one need to know
@@ -1299,20 +1299,20 @@ priority:
 <OL>
 <LI><CODE>LANGUAGE</CODE>
 
-<A NAME="IDX1011"></A>
+<A NAME="IDX1013"></A>
  
-<A NAME="IDX1012"></A>
+<A NAME="IDX1014"></A>
 <LI><CODE>LC_ALL</CODE>
 
-<A NAME="IDX1013"></A>
-<A NAME="IDX1014"></A>
 <A NAME="IDX1015"></A>
 <A NAME="IDX1016"></A>
 <A NAME="IDX1017"></A>
 <A NAME="IDX1018"></A>
+<A NAME="IDX1019"></A>
+<A NAME="IDX1020"></A>
 <LI><CODE>LC_xxx</CODE>, according to selected locale
 
-<A NAME="IDX1019"></A>
+<A NAME="IDX1021"></A>
 <LI><CODE>LANG</CODE>
 
 </OL>
@@ -1346,7 +1346,7 @@ language switching function.
   }
 </PRE>
 
-<A NAME="IDX1020"></A>
+<A NAME="IDX1022"></A>
 The variable <CODE>_nl_msg_cat_cntr</CODE> is defined in <TT>`loadmsgcat.c&acute;</TT>.
 You don't need to know what this is for.  But it can be used to detect
 whether a <CODE>gettext</CODE> implementation is GNU gettext and not non-GNU

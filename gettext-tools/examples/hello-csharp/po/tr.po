@@ -14,11 +14,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0\n"
 
-#: hello.cs:29
+#: hello.cs:15
 msgid "Hello, world!"
 msgstr "Merhaba Dünyalı!"
 
-#: hello.cs:32
+#: hello.cs:18
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Bu yazılım, {0} süreç kimliği ile çalışıyor."
