@@ -75,7 +75,7 @@ fileutils       | [] []    []    []     []   [] [] [] [] []       | 17
 findutils       |    []    []    []     []   []    [] [] []       | 16
 flex            |    []                      []       []          |  6
 gas             |                                                 |  0
-gawk            |                                                 |  1
+gawk            |                                        []       |  2
 gcal            |                                                 |  0
 gcc             |                                                 |  0
 gettext         | [] []          []     []   []    [] [] []    [] | 18
@@ -112,6 +112,6 @@ wdiff           |                            [] []       []       |  5
 wget            |          []                [] [] [] [] []       | 15
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  9 11 20 18  1  2  367
+  50 domains      17  9  1 23  6 17  1  13   26  9 11 20 19  1  2  368
 @end group
 @end example
