@@ -1,5 +1,14 @@
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
+	* msgfilter.texi: Renamed from msgexec.texi.
+	* msgexec.texi: New file.
+	* gettext.texi (msgfilter Invocation): Renamed from msgexec Invocation.
+	(msgexec Invocation): New section.
+	(Manipulating): Update. Mention msgexec.
+	* Makefile.am (gettext_TEXINFOS): Add msgfilter.texi.
+
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
 	* msgen.texi: Refer to msginit as an alternative.
 
 2001-12-07  Bruno Haible  <bruno@clisp.org>

@@ -21,7 +21,7 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msginit msguniq
+msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq
 
 noinst_PROGRAMS = hostname urlget
 
@@ -89,6 +89,7 @@ msgcomm_SOURCES = msgcomm.c
 msgconv_SOURCES = msgconv.c
 msgen_SOURCES = msgen.c
 msgexec_SOURCES = msgexec.c
+msgfilter_SOURCES = msgfilter.c
 msggrep_SOURCES = msggrep.c
 msginit_SOURCES = msginit.c
 msguniq_SOURCES = msguniq.c
@@ -116,6 +117,7 @@ msgcomm_LDADD = libgettextsrc.la
 msgconv_LDADD = libgettextsrc.la
 msgen_LDADD = libgettextsrc.la
 msgexec_LDADD = libgettextsrc.la
+msgfilter_LDADD = libgettextsrc.la
 msggrep_LDADD = libgettextsrc.la
 msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
                 libgettextsrc.la

@@ -111,6 +111,7 @@ msgl-charset.c
                 encoding.
 
 msgexec.c       Main source for the 'msgexec' program.
+msgfilter.c     Main source for the 'msgfilter' program.
 msggrep.c       Main source for the 'msggrep' program.
 
 +-------------- The 'msgunfmt' program

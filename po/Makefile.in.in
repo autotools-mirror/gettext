@@ -36,7 +36,7 @@ MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
 MSGINIT = msginit
 MSGCONV = msgconv
-MSGEXEC = msgexec
+MSGFILTER = msgfilter
 
 POFILES = @POFILES@
 GMOFILES = @GMOFILES@

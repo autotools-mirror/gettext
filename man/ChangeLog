@@ -1,3 +1,13 @@
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter.x: Renamed from msgexec.x.
+	* msgexec.x: New file.
+	* Makefile.am (man_aux): Add msgfilter.x.
+	(man_MAN1OTHER): Add msgfilter.1.
+	(man_HTMLOTHER): Add msgfilter.1.html.
+	(msgfilter.1): New rule.
+	(msgfilter.1.html): New rule.
+
 2001-10-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* msginit.x: New file.

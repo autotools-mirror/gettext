@@ -1,4 +1,4 @@
 [NAME]
-msgfilter \- edit translations of message catalog
+msgexec \- process translations of message catalog
 [DESCRIPTION]
 .\" Add any additional description here

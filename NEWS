@@ -5,7 +5,8 @@ Version 0.11 - XXX 2001
     msgcat - combines several message catalogs,
     msgconv - character set conversion for message catalog,
     msgen - create English message catalog,
-    msgexec - edit translations of message catalog,
+    msgexec - process translations of message catalog,
+    msgfilter - edit translations of message catalog,
     msggrep - pattern matching on message catalog,
     msginit - initialize a message catalog,
     msguniq - unify duplicate translations in message catalog.

@@ -30,7 +30,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 man_aux  = gettext.x ngettext.x \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
-msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msggrep.x msginit.x msguniq.x
+msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x msggrep.x msginit.x msguniq.x
 
 # Likewise, plus additional manual pages for the libintl functions.
 
@@ -38,7 +38,7 @@ man_MAN1GEN = gettext.1 ngettext.1
 man_MAN1IN = gettext.1.in ngettext.1.in
 man_MAN1OTHER = \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
-msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msggrep.1 msginit.1 msguniq.1
+msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 msggrep.1 msginit.1 msguniq.1
 man_MAN1 = $(man_MAN1GEN) $(man_MAN1OTHER)
 man_MAN3 = gettext.3 ngettext.3 \
 textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
@@ -51,7 +51,7 @@ man_HTMLGEN = gettext.1.html ngettext.1.html
 man_HTMLIN = gettext.1.html.in ngettext.1.html.in
 man_HTMLOTHER = \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
-msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexec.1.html msggrep.1.html msginit.1.html msguniq.1.html \
+msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
 gettext.3.html ngettext.3.html \
 textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
 man_HTML = $(man_HTMLGEN) $(man_HTMLOTHER)
@@ -120,6 +120,8 @@ msgen.1: msgen.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgen$(EXEEXT) $(srcdir)/msgen.x msgen.1
 msgexec.1: msgexec.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgexec$(EXEEXT) $(srcdir)/msgexec.x msgexec.1
+msgfilter.1: msgfilter.x
+	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msgfilter$(EXEEXT) $(srcdir)/msgfilter.x msgfilter.1
 msggrep.1: msggrep.x
 	$(SHELL) x-to-1 "$(PERL)" "$(HELP2MAN)" ../src/msggrep$(EXEEXT) $(srcdir)/msggrep.x msggrep.1
 msginit.1: msginit.x
@@ -197,6 +199,9 @@ msgen.1.html: msgen.1
 	mv t-$@ $@
 msgexec.1.html: msgexec.1
 	$(MAN2HTML) `if test -f msgexec.1; then echo .; else echo $(srcdir); fi`/msgexec.1 | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+msgfilter.1.html: msgfilter.1
+	$(MAN2HTML) `if test -f msgfilter.1; then echo .; else echo $(srcdir); fi`/msgfilter.1 | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 msggrep.1.html: msggrep.1
 	$(MAN2HTML) `if test -f msggrep.1; then echo .; else echo $(srcdir); fi`/msggrep.1 | sed -e '/CreationDate:/d' > t-$@

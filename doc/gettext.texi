@@ -155,12 +155,13 @@ Manipulating PO Files
 * msgcat Invocation::           Invoking the @code{msgcat} Program
 * msgconv Invocation::          Invoking the @code{msgconv} Program
 * msggrep Invocation::          Invoking the @code{msggrep} Program
-* msgexec Invocation::          Invoking the @code{msgexec} Program
+* msgfilter Invocation::        Invoking the @code{msgfilter} Program
 * msguniq Invocation::          Invoking the @code{msguniq} Program
 * msgcomm Invocation::          Invoking the @code{msgcomm} Program
 * msgcmp Invocation::           Invoking the @code{msgcmp} Program
 * msgattrib Invocation::        Invoking the @code{msgattrib} Program
 * msgen Invocation::            Invoking the @code{msgen} Program
+* msgexec Invocation::          Invoking the @code{msgexec} Program
 
 Producing Binary MO Files
 
@@ -2972,18 +2973,22 @@ When a translator wants to adjust some translation catalog for a special
 dialect or orthography - for example, German as written in Switzerland
 versus German as written in Germany -, she needs to apply some text
 processing to every message in the catalog.  The tool for doing this is
-@samp{msgexec}.
+@samp{msgfilter}.
 
-Another use of @code{msgexec} is to produce approximately the POT file for
+Another use of @code{msgfilter} is to produce approximately the POT file for
 which a given PO file was made.  This can be done through a filter command
-like @samp{msgexec sed -e d | sed -e '/^# /d'}.  Note that the original
+like @samp{msgfilter sed -e d | sed -e '/^# /d'}.  Note that the original
 POT file may have had different comments and different plural message counts,
 that's why it's better to use the original POT file if available.
+
+When a translator wants to check her translations, for example according
+to orthography rules or using a non-interactive spell checker, she can do
+so using the @samp{msgexec} program.
 
 When third party tools create PO or POT files, sometimes duplicates cannot
 be avoided.  But the GNU @code{gettext} tools give an error when they
 encounter duplicate msgids in the same file and in the same domain.
-To merge duplicates, the @code{msguniq} program can be used.
+To merge duplicates, the @samp{msguniq} program can be used.
 
 @samp{msgcomm} is a more general tool for keeping or throwing away
 duplicates, occurring in different files.
@@ -3001,12 +3006,13 @@ catalogs.  It copies each message's msgid to its msgstr.
 * msgcat Invocation::           Invoking the @code{msgcat} Program
 * msgconv Invocation::          Invoking the @code{msgconv} Program
 * msggrep Invocation::          Invoking the @code{msggrep} Program
-* msgexec Invocation::          Invoking the @code{msgexec} Program
+* msgfilter Invocation::        Invoking the @code{msgfilter} Program
 * msguniq Invocation::          Invoking the @code{msguniq} Program
 * msgcomm Invocation::          Invoking the @code{msgcomm} Program
 * msgcmp Invocation::           Invoking the @code{msgcmp} Program
 * msgattrib Invocation::        Invoking the @code{msgattrib} Program
 * msgen Invocation::            Invoking the @code{msgen} Program
+* msgexec Invocation::          Invoking the @code{msgexec} Program
 @end menu
 
 @node msgcat Invocation, msgconv Invocation, Manipulating, Manipulating
@@ -3019,17 +3025,17 @@ catalogs.  It copies each message's msgid to its msgstr.
 
 @include msgconv.texi
 
-@node msggrep Invocation, msgexec Invocation, msgconv Invocation, Manipulating
+@node msggrep Invocation, msgfilter Invocation, msgconv Invocation, Manipulating
 @section Invoking the @code{msggrep} Program
 
 @include msggrep.texi
 
-@node msgexec Invocation, msguniq Invocation, msggrep Invocation, Manipulating
-@section Invoking the @code{msgexec} Program
+@node msgfilter Invocation, msguniq Invocation, msggrep Invocation, Manipulating
+@section Invoking the @code{msgfilter} Program
 
-@include msgexec.texi
+@include msgfilter.texi
 
-@node msguniq Invocation, msgcomm Invocation, msgexec Invocation, Manipulating
+@node msguniq Invocation, msgcomm Invocation, msgfilter Invocation, Manipulating
 @section Invoking the @code{msguniq} Program
 
 @include msguniq.texi
@@ -3049,10 +3055,15 @@ catalogs.  It copies each message's msgid to its msgstr.
 
 @include msgattrib.texi
 
-@node msgen Invocation,  , msgattrib Invocation, Manipulating
+@node msgen Invocation, msgexec Invocation, msgattrib Invocation, Manipulating
 @section Invoking the @code{msgen} Program
 
 @include msgen.texi
+
+@node msgexec Invocation,  , msgen Invocation, Manipulating
+@section Invoking the @code{msgexec} Program
+
+@include msgexec.texi
 
 @node Binaries, Users, Manipulating, Top
 @chapter Producing Binary MO Files

@@ -1,3 +1,11 @@
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter.c: Renamed from msgexec.c.
+	* msgexec.c: New file.
+	* Makefile.am (bin_PROGRAMS): Add msgfilter.
+	(msgfilter_SOURCES): New variable.
+	(msgfilter_LDADD): New variable.
+
 2001-12-07  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c (keep_header): New variable.

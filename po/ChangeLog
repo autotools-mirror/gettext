@@ -1,3 +1,11 @@
+2001-12-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (MSGEXEC): Remove variable.
+	(MSGFILTER): New variable.
+	* Rules-quot (.insert-header.po-update-en): Use $(MSGFILTER) instead
+	of $(MSGEXEC).
+	* POTFILES.in: Add src/msgfilter.c.
+
 2001-12-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (XGETTEXT_OPTIONS): New variable.

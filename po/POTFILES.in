@@ -38,6 +38,7 @@ src/msgcomm.c
 src/msgconv.c
 src/msgen.c
 src/msgexec.c
+src/msgfilter.c
 src/msgfmt.c
 src/msggrep.c
 src/msginit.c

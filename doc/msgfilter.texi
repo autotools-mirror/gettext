@@ -1,8 +1,8 @@
 @example
-msgexec [@var{option}] @var{filter} [@var{filter-option}]
+msgfilter [@var{option}] @var{filter} [@var{filter-option}]
 @end example
 
-The @code{msgexec} program applies a filter to all translations of a
+The @code{msgfilter} program applies a filter to all translations of a
 translation catalog.
 
 @subsection Input file location
