@@ -1,3 +1,8 @@
+2003-12-14  Bruno Haible  <bruno@clisp.org>
+
+	* x-c.c (phase7_getc): Remove dead code.
+	* x-java.c (accumulate_escaped): More precise error message.
+
 2003-12-02  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (catalogname_for_locale): Treat sr_CS like sr_YU.

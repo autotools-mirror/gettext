@@ -897,11 +897,15 @@ accumulate_escaped (struct string_buffer *literal, int delimiter)
 	break;
       if (RED (c) == '\n')
 	{
-	  error_with_progname = false;
-	  error (0, 0, _("%s:%d: warning: unterminated character constant"),
-		 logical_file_name, line_number - 1);
-	  error_with_progname = true;
 	  phase3_ungetc (c);
+	  error_with_progname = false;
+	  if (delimiter == '\'')
+	    error (0, 0, _("%s:%d: warning: unterminated character constant"),
+		   logical_file_name, line_number);
+	  else
+	    error (0, 0, _("%s:%d: warning: unterminated string constant"),
+		   logical_file_name, line_number);
+	  error_with_progname = true;
 	  break;
 	}
       if (RED (c) == '\\')
