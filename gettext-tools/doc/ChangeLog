@@ -1,3 +1,9 @@
+2003-10-13  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention objc-format, sh-format, perl-format,
+	perl-brace-format.
+	(objc-format): New subsection.
+
 2003-10-12  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.texi: Document --stringtable-input and --stringtable-output

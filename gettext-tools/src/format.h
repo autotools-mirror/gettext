@@ -62,6 +62,7 @@ struct formatstring_parser
 
 /* Format string parsers, each defined in its own file.  */
 extern DLL_VARIABLE struct formatstring_parser formatstring_c;
+extern DLL_VARIABLE struct formatstring_parser formatstring_objc;
 extern DLL_VARIABLE struct formatstring_parser formatstring_sh;
 extern DLL_VARIABLE struct formatstring_parser formatstring_python;
 extern DLL_VARIABLE struct formatstring_parser formatstring_lisp;

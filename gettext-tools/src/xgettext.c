@@ -135,6 +135,7 @@ int xgettext_omit_header;
 
 /* Table of flag_context_list_ty tables.  */
 static flag_context_list_table_ty flag_table_c;
+static flag_context_list_table_ty flag_table_objc;
 static flag_context_list_table_ty flag_table_gcc_internal;
 static flag_context_list_table_ty flag_table_sh;
 static flag_context_list_table_ty flag_table_python;
@@ -253,6 +254,8 @@ main (int argc, char *argv[])
   bool do_version = false;
   msgdomain_list_ty *mdlp;
   bool join_existing = false;
+  bool no_default_keywords = false;
+  bool some_additional_keywords = false;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
   const char *file_name;
@@ -281,6 +284,7 @@ main (int argc, char *argv[])
   default_domain = MESSAGE_DOMAIN_DEFAULT;
   xgettext_global_source_encoding = po_charset_ascii;
   init_flag_table_c ();
+  init_flag_table_objc ();
   init_flag_table_gcc_internal ();
   init_flag_table_sh ();
   init_flag_table_python ();
@@ -364,6 +368,7 @@ main (int argc, char *argv[])
 	if (optarg == NULL || *optarg != '\0')
 	  {
 	    x_c_keyword (optarg);
+	    x_objc_keyword (optarg);
 	    x_sh_keyword (optarg);
 	    x_python_keyword (optarg);
 	    x_lisp_keyword (optarg);
@@ -375,6 +380,10 @@ main (int argc, char *argv[])
 	    x_perl_keyword (optarg);
 	    x_php_keyword (optarg);
 	    x_glade_keyword (optarg);
+	    if (optarg == NULL)
+	      no_default_keywords = true;
+	    else
+	      some_additional_keywords = true;
 	  }
 	break;
       case 'l':
@@ -498,7 +507,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     error (EXIT_FAILURE, 0, _("\
 --join-existing cannot be used when output is written to stdout"));
 
-  if (!x_c_any_keywords ())
+  if (no_default_keywords && !some_additional_keywords)
     {
       error (0, 0, _("\
 xgettext cannot work without keywords to look for"));
@@ -1070,6 +1079,146 @@ flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
 }
 
 
+static void
+flag_context_list_table_insert (flag_context_list_table_ty *table,
+				unsigned int index,
+				const char *name_start, const char *name_end,
+				int argnum, enum is_format value, bool pass)
+{
+  if (table == &flag_table_lisp)
+    {
+      /* Convert NAME to upper case.  */
+      size_t name_len = name_end - name_start;
+      char *name = (char *) alloca (name_len);
+      size_t i;
+
+      for (i = 0; i < name_len; i++)
+	name[i] = (name_start[i] >= 'a' && name_start[i] <= 'z'
+		   ? name_start[i] - 'a' + 'A'
+		   : name_start[i]);
+      name_start = name;
+      name_end = name + name_len;
+    }
+  else if (table == &flag_table_tcl)
+    {
+      /* Remove redundant "::" prefix.  */
+      if (name_end - name_start > 2
+	  && name_start[0] == ':' && name_start[1] == ':')
+	name_start += 2;
+    }
+
+  /* Insert the pair (VALUE, PASS) at INDEX in the element numbered ARGNUM
+     of the list corresponding to NAME in the TABLE.  */
+  if (table->table == NULL)
+    init_hash (table, 100);
+  {
+    void *entry;
+
+    if (find_entry (table, name_start, name_end - name_start, &entry) != 0)
+      {
+	/* Create new hash table entry.  */
+	flag_context_list_ty *list =
+	  (flag_context_list_ty *) xmalloc (sizeof (flag_context_list_ty));
+	list->argnum = argnum;
+	memset (&list->flags, '\0', sizeof (list->flags));
+	switch (index)
+	  {
+	  case 0:
+	    list->flags.is_format1 = value;
+	    list->flags.pass_format1 = pass;
+	    break;
+	  case 1:
+	    list->flags.is_format2 = value;
+	    list->flags.pass_format2 = pass;
+	    break;
+	  default:
+	    abort ();
+	  }
+	list->next = NULL;
+	insert_entry (table, name_start, name_end - name_start, list);
+      }
+    else
+      {
+	flag_context_list_ty *list = (flag_context_list_ty *)entry;
+	flag_context_list_ty **lastp = NULL;
+
+	while (list != NULL && list->argnum < argnum)
+	  {
+	    lastp = &list->next;
+	    list = *lastp;
+	  }
+	if (list != NULL && list->argnum == argnum)
+	  {
+	    /* Add this flag to the current argument number.  */
+	    switch (index)
+	      {
+	      case 0:
+		list->flags.is_format1 = value;
+		list->flags.pass_format1 = pass;
+		break;
+	      case 1:
+		list->flags.is_format2 = value;
+		list->flags.pass_format2 = pass;
+		break;
+	      default:
+		abort ();
+	      }
+	  }
+	else if (lastp != NULL)
+	  {
+	    /* Add a new list entry for this argument number.  */
+	    list =
+	      (flag_context_list_ty *) xmalloc (sizeof (flag_context_list_ty));
+	    list->argnum = argnum;
+	    memset (&list->flags, '\0', sizeof (list->flags));
+	    switch (index)
+	      {
+	      case 0:
+		list->flags.is_format1 = value;
+		list->flags.pass_format1 = pass;
+		break;
+	      case 1:
+		list->flags.is_format2 = value;
+		list->flags.pass_format2 = pass;
+		break;
+	      default:
+		abort ();
+	      }
+	    list->next = *lastp;
+	    *lastp = list;
+	  }
+	else
+	  {
+	    /* Add a new list entry for this argument number, at the beginning
+	       of the list.  Since we don't have an API for replacing the
+	       value of a key in the hash table, we have to copy the first
+	       list element.  */
+	    flag_context_list_ty *copy =
+	      (flag_context_list_ty *) xmalloc (sizeof (flag_context_list_ty));
+	    *copy = *list;
+
+	    list->argnum = argnum;
+	    memset (&list->flags, '\0', sizeof (list->flags));
+	    switch (index)
+	      {
+	      case 0:
+		list->flags.is_format1 = value;
+		list->flags.pass_format1 = pass;
+		break;
+	      case 1:
+		list->flags.is_format2 = value;
+		list->flags.pass_format2 = pass;
+		break;
+	      default:
+		abort ();
+	      }
+	    list->next = copy;
+	  }
+      }
+  }
+}
+
+
 void
 xgettext_record_flag (const char *optionstring)
 {
@@ -1165,202 +1314,93 @@ xgettext_record_flag (const char *optionstring)
 	    if (strlen (format_language[type]) == n
 		&& memcmp (format_language[type], p, n) == 0)
 	      {
-		flag_context_list_table_ty *table;
-		unsigned int index;
-
-		index = 0;
 		switch (type)
 		  {
 		  case format_c:
-		    table = &flag_table_c;
+		    flag_context_list_table_insert (&flag_table_c, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    flag_context_list_table_insert (&flag_table_objc, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
+		  case format_objc:
+		    flag_context_list_table_insert (&flag_table_objc, 1,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_sh:
-		    table = &flag_table_sh;
+		    flag_context_list_table_insert (&flag_table_sh, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_python:
-		    table = &flag_table_python;
+		    flag_context_list_table_insert (&flag_table_python, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_lisp:
-		    table = &flag_table_lisp;
+		    flag_context_list_table_insert (&flag_table_lisp, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_elisp:
-		    table = &flag_table_elisp;
+		    flag_context_list_table_insert (&flag_table_elisp, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_librep:
-		    table = &flag_table_librep;
+		    flag_context_list_table_insert (&flag_table_librep, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_smalltalk:
-		    return;
+		    break;
 		  case format_java:
-		    table = &flag_table_java;
+		    flag_context_list_table_insert (&flag_table_java, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_awk:
-		    table = &flag_table_awk;
+		    flag_context_list_table_insert (&flag_table_awk, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_pascal:
-		    return;
+		    break;
 		  case format_ycp:
-		    table = &flag_table_ycp;
+		    flag_context_list_table_insert (&flag_table_ycp, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_tcl:
-		    table = &flag_table_tcl;
+		    flag_context_list_table_insert (&flag_table_tcl, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_perl:
-		    table = &flag_table_perl;
+		    flag_context_list_table_insert (&flag_table_perl, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_perl_brace:
-		    index = 1;
-		    table = &flag_table_perl;
+		    flag_context_list_table_insert (&flag_table_perl, 1,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_php:
-		    table = &flag_table_php;
+		    flag_context_list_table_insert (&flag_table_php, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  case format_gcc_internal:
-		    table = &flag_table_gcc_internal;
+		    flag_context_list_table_insert (&flag_table_gcc_internal, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    break;
 		  default:
 		    abort ();
 		  }
-
-		if (table == &flag_table_lisp)
-		  {
-		    /* Convert NAME to upper case.  */
-		    size_t name_len = name_end - name_start;
-		    char *name = (char *) alloca (name_len);
-		    size_t i;
-
-		    for (i = 0; i < name_len; i++)
-		      name[i] = (name_start[i] >= 'a' && name_start[i] <= 'z'
-				 ? name_start[i] - 'a' + 'A'
-				 : name_start[i]);
-		    name_start = name;
-		    name_end = name + name_len;
-		  }
-		else if (table == &flag_table_tcl)
-		  {
-		    /* Remove redundant "::" prefix.  */
-		    if (name_end - name_start > 2
-			&& name_start[0] == ':' && name_start[1] == ':')
-		      name_start += 2;
-		  }
-
-		/* Insert the pair (VALUE, PASS) at INDEX in the element
-		   numbered ARGNUM of the list corresponding to NAME in the
-		   TABLE.  */
-		if (table->table == NULL)
-		  init_hash (table, 100);
-		{
-		  void *entry;
-
-		  if (find_entry (table, name_start, name_end - name_start,
-				  &entry) != 0)
-		    {
-		      /* Create new hash table entry.  */
-		      flag_context_list_ty *list =
-			(flag_context_list_ty *)
-			xmalloc (sizeof (flag_context_list_ty));
-		      list->argnum = argnum;
-		      memset (&list->flags, '\0', sizeof (list->flags));
-		      switch (index)
-			{
-			case 0:
-			  list->flags.is_format1 = value;
-			  list->flags.pass_format1 = pass;
-			  break;
-			case 1:
-			  list->flags.is_format2 = value;
-			  list->flags.pass_format2 = pass;
-			  break;
-			default:
-			  abort ();
-			}
-		      list->next = NULL;
-		      insert_entry (table, name_start, name_end - name_start,
-				    list);
-		    }
-		  else
-		    {
-		      flag_context_list_ty *list =
-			(flag_context_list_ty *)entry;
-		      flag_context_list_ty **lastp = NULL;
-
-		      while (list != NULL && list->argnum < argnum)
-			{
-			  lastp = &list->next;
-			  list = *lastp;
-			}
-		      if (list != NULL && list->argnum == argnum)
-			{
-			  /* Add this flag to the current argument number.  */
-			  switch (index)
-			    {
-			    case 0:
-			      list->flags.is_format1 = value;
-			      list->flags.pass_format1 = pass;
-			      break;
-			    case 1:
-			      list->flags.is_format2 = value;
-			      list->flags.pass_format2 = pass;
-			      break;
-			    default:
-			      abort ();
-			    }
-			}
-		      else if (lastp != NULL)
-			{
-			  /* Add a new list entry for this argument number.  */
-			  list =
-			    (flag_context_list_ty *)
-			    xmalloc (sizeof (flag_context_list_ty));
-			  list->argnum = argnum;
-			  memset (&list->flags, '\0', sizeof (list->flags));
-			  switch (index)
-			    {
-			    case 0:
-			      list->flags.is_format1 = value;
-			      list->flags.pass_format1 = pass;
-			      break;
-			    case 1:
-			      list->flags.is_format2 = value;
-			      list->flags.pass_format2 = pass;
-			      break;
-			    default:
-			      abort ();
-			    }
-			  list->next = *lastp;
-			  *lastp = list;
-			}
-		      else
-			{
-			  /* Add a new list entry for this argument number,
-			     at the beginning of the list.  Since we don't
-			     have an API for replacing the value of a key
-			     in the hash table, we have to copy the first
-			     list element.  */
-			  flag_context_list_ty *copy =
-			    (flag_context_list_ty *)
-			    xmalloc (sizeof (flag_context_list_ty));
-			  *copy = *list;
-
-			  list->argnum = argnum;
-			  memset (&list->flags, '\0', sizeof (list->flags));
-			  switch (index)
-			    {
-			    case 0:
-			      list->flags.is_format1 = value;
-			      list->flags.pass_format1 = pass;
-			      break;
-			    case 1:
-			      list->flags.is_format2 = value;
-			      list->flags.pass_format2 = pass;
-			      break;
-			    default:
-			      abort ();
-			    }
-			  list->next = copy;
-			}
-		    }
-		}
 		return;
 	      }
 	  /* If the flag is not among the valid values, the optionstring is
@@ -1754,7 +1794,10 @@ meta information, not the empty string.\n")));
     {
       if (is_format[i] == undecided
 	  && (formatstring_parsers[i] == current_formatstring_parser1
-	      || formatstring_parsers[i] == current_formatstring_parser2))
+	      || formatstring_parsers[i] == current_formatstring_parser2)
+	  /* But avoid redundancy: objc-format is stronger than c-format.  */
+	  && !(i == format_c && possible_format_p (is_format[format_objc]))
+	  && !(i == format_objc && possible_format_p (is_format[format_c])))
 	{
 	  struct formatstring_parser *parser = formatstring_parsers[i];
 	  char *invalid_reason = NULL;
@@ -1849,7 +1892,12 @@ remember_a_message_plural (message_ty *mp, char *string,
       for (i = 0; i < NFORMATS; i++)
 	if ((formatstring_parsers[i] == current_formatstring_parser1
 	     || formatstring_parsers[i] == current_formatstring_parser2)
-	    && (mp->is_format[i] == undecided || mp->is_format[i] == possible))
+	    && (mp->is_format[i] == undecided || mp->is_format[i] == possible)
+	    /* But avoid redundancy: objc-format is stronger than c-format.  */
+	    && !(i == format_c
+		 && possible_format_p (mp->is_format[format_objc]))
+	    && !(i == format_objc
+		 && possible_format_p (mp->is_format[format_c])))
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
 	    char *invalid_reason = NULL;

@@ -181,7 +181,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       /* Test if mp contains system dependent strings and thus
 	 requires the use of the .mo file minor revision 1.  */
-      if (possible_format_p (mp->is_format[format_c]))
+      if (possible_format_p (mp->is_format[format_c])
+	  || possible_format_p (mp->is_format[format_objc]))
 	{
 	  /* Check whether msgid or msgstr contain ISO C 99 <inttypes.h>
 	     format string directives.  No need to check msgid_plural, because

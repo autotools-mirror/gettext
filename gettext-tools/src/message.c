@@ -35,6 +35,7 @@
 const char *const format_language[NFORMATS] =
 {
   /* format_c */		"c",
+  /* format_objc */		"objc",
   /* format_sh */		"sh",
   /* format_python */		"python",
   /* format_lisp */		"lisp",
@@ -55,6 +56,7 @@ const char *const format_language[NFORMATS] =
 const char *const format_language_pretty[NFORMATS] =
 {
   /* format_c */		"C",
+  /* format_objc */		"Objective C",
   /* format_sh */		"Shell",
   /* format_python */		"Python",
   /* format_lisp */		"Lisp",

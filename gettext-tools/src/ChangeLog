@@ -1,3 +1,48 @@
+2003-10-13  Bruno Haible  <bruno@clisp.org>
+
+	Support and recognize Objective C specific format strings.
+	* message.h (enum format_type): New item format_objc.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add an entry for format_objc.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_objc): New declaration.
+	* format-c.c (enum format_arg_type): New item FAT_OBJC_OBJECT.
+	(format_parse): Add objc_extensions argument. Handle %@ in ObjC mode.
+	(format_c_parse, format_objc_parse): New functions.
+	(formatstring_c): Use format_c_parse instead of format_parse.
+	(formatstring_objc): New variable.
+	(get_c99_format_directives): Update.
+	* format.c (formatstring_parsers): Add an entry for format_objc.
+	* write-mo.c (write_table): Look for system dependent strings also in
+	ObjectiveC format strings.
+	* x-c.h (SCANNERS_C): Use separate flag_table for ObjectiveC.
+	(x_objc_keyword, init_flag_table_objc): New declarations.
+	(x_c_any_keywords): Remove declaration.
+	* x-c.c (c_keywords): Renamed from keywords.
+	(objc_keywords): New variable.
+	(add_keyword): Renamed from x_c_keyword. Add keywords table argument.
+	(x_c_keyword, x_objc_keyword): New functions.
+	(x_c_any_keywords): Remove function.
+	(init_keywords): Also initialize ObjectiveC keyword table.
+	(init_flag_table_objc): New function.
+	(enum token_type_ty): New item token_type_colon.
+	(phase5_get): Recognize colon.
+	(enum xgettext_token_type_ty): New item xgettext_token_type_colon.
+	(x_c_lex): Use keywords table depending on objc_extensions. Handle
+	colon.
+	(extract_parenthesized): Change the context_iter and inner_context
+	after a keyword/symbol followed by a colon was seen.
+	* xgettext.c (flag_table_objc): New variable.
+	(main): Invoke init_flag_table_objc, x_objc_keyword. Watch out for
+	keywords arguments, instead of calling x_c_any_keywords().
+	(flag_context_list_table_insert): New function, extracted from
+	xgettext_record_flag.
+	(xgettext_record_flag): Call it. For format_c, insert the flags also
+	in the flag_table_objc. Handle format_objc.
+	(remember_a_message): Don't add a heuristic c-format flag to an entry
+	that already carries objc-format.
+	(remember_a_message_plural): Likewise.
+
 2003-10-18  Bruno Haible  <bruno@clisp.org>
 
 	Support for GNUstep .strings format.

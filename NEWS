@@ -3,6 +3,7 @@ Version 0.12.2 - September 2003
 * Programming languages support:
 
   - Shell:
+
     xgettext now also supports shell scripts. It recognizes invocations of
     the programs 'gettext', 'ngettext', the functions 'eval_gettext',
     'eval_ngettext', as well as the deprecated GNU bash builtin syntax $"...".
@@ -12,11 +13,24 @@ Version 0.12.2 - September 2003
       envsubst - substitutes environment variables in shell format strings.
 
   - Perl:
+
     xgettext now also supports Perl.
 
   - PHP:
+
     "xgettext --language=PHP" now supports the plural handling functions
     ngettext, dngettext, dcngettext (introduced in PHP 4.2.0).
+
+  - ObjectiveC:
+
+    "xgettext --language=ObjectiveC" now supports the @"..." string syntax,
+    the NSLocalizedString function and the ObjectiveC specific format strings.
+
+    All the tools that manipulate PO files can work with .strings files
+    as well, if given the --stringtable-input and/or --stringtable-output
+    option. To create a .strings file from a PO or POT file, use
+    "msgcat --stringtable-output". To create a PO or POT file from a
+    .strings file, use "xgettext".
 
   - GCC-source:
 

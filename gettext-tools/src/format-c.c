@@ -73,8 +73,9 @@ enum format_arg_type
   FAT_DOUBLE		= 2,
   FAT_CHAR		= 3,
   FAT_STRING		= 4,
-  FAT_POINTER		= 5,
-  FAT_COUNT_POINTER	= 6,
+  FAT_OBJC_OBJECT	= 5,
+  FAT_POINTER		= 6,
+  FAT_COUNT_POINTER	= 7,
   /* Flags */
   FAT_UNSIGNED		= 1 << 3,
   FAT_SIZE_SHORT	= 1 << 4,
@@ -176,7 +177,7 @@ numbered_arg_compare (const void *p1, const void *p2)
   xasprintf (_("In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."), directive_number)
 
 static void *
-format_parse (const char *format, char **invalid_reason)
+format_parse (const char *format, bool objc_extensions, char **invalid_reason)
 {
   struct spec spec;
   unsigned int numbered_arg_count;
@@ -622,6 +623,13 @@ format_parse (const char *format, char **invalid_reason)
 		type = FAT_DOUBLE;
 		type |= (size & FAT_SIZE_LONGLONG);
 		break;
+	      case '@':
+		if (objc_extensions)
+		  {
+		    type = FAT_OBJC_OBJECT;
+		    break;
+		  }
+		goto other;
 	      case 'p':
 		type = FAT_POINTER;
 		break;
@@ -629,6 +637,7 @@ format_parse (const char *format, char **invalid_reason)
 		type = FAT_COUNT_POINTER;
 		type |= (size & FAT_SIZE_MASK);
 		break;
+	      other:
 	      default:
 		*invalid_reason =
 		  (*format == '\0'
@@ -770,6 +779,18 @@ format_parse (const char *format, char **invalid_reason)
   return NULL;
 }
 
+static void *
+format_c_parse (const char *format, char **invalid_reason)
+{
+  return format_parse (format, false, invalid_reason);
+}
+
+static void *
+format_objc_parse (const char *format, char **invalid_reason)
+{
+  return format_parse (format, true, invalid_reason);
+}
+
 static void
 format_free (void *descr)
 {
@@ -835,7 +856,16 @@ format_check (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr,
 
 struct formatstring_parser formatstring_c =
 {
-  format_parse,
+  format_c_parse,
+  format_free,
+  format_get_number_of_directives,
+  format_check
+};
+
+
+struct formatstring_parser formatstring_objc =
+{
+  format_objc_parse,
   format_free,
   format_get_number_of_directives,
   format_check
@@ -846,8 +876,12 @@ void
 get_c99_format_directives (const char *string,
 			   struct interval **intervalsp, size_t *lengthp)
 {
+  /* Parse the format string with all possible extensions turned on.  (The
+     caller has already verified that the format string is valid for the
+     particular language.)  */
   char *invalid_reason = NULL;
-  struct spec *descr = (struct spec *) format_parse (string, &invalid_reason);
+  struct spec *descr =
+    (struct spec *) format_parse (string, true, &invalid_reason);
 
   if (descr != NULL && descr->c99_directives_count > 0)
     {
@@ -985,6 +1019,9 @@ format_print (void *descr)
 	case FAT_STRING:
 	  printf ("s");
 	  break;
+	case FAT_OBJC_OBJECT:
+	  printf ("@");
+	  break;
 	case FAT_POINTER:
 	  printf ("p");
 	  break;
@@ -1016,7 +1053,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, &invalid_reason);
+      descr = format_c_parse (line, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

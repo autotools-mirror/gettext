@@ -90,7 +90,8 @@ x_c_trigraphs ()
 /* If true extract all strings.  */
 static bool extract_all = false;
 
-static hash_table keywords;
+static hash_table c_keywords;
+static hash_table objc_keywords;
 static bool default_keywords = true;
 
 
@@ -101,8 +102,8 @@ x_c_extract_all ()
 }
 
 
-void
-x_c_keyword (const char *name)
+static void
+add_keyword (const char *name, hash_table *keywords)
 {
   if (name == NULL)
     default_keywords = false;
@@ -113,8 +114,8 @@ x_c_keyword (const char *name)
       int argnum2;
       const char *colon;
 
-      if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+      if (keywords->table == NULL)
+	init_hash (keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -125,19 +126,25 @@ x_c_keyword (const char *name)
 	{
 	  if (argnum1 == 0)
 	    argnum1 = 1;
-	  insert_entry (&keywords, name, end - name,
+	  insert_entry (keywords, name, end - name,
 			(void *) (long) (argnum1 + (argnum2 << 10)));
 	}
     }
 }
 
-bool
-x_c_any_keywords ()
+void
+x_c_keyword (const char *name)
 {
-  return (keywords.filled > 0) || default_keywords;
+  add_keyword (name, &c_keywords);
 }
 
-/* Finish initializing the keywords hash table.
+void
+x_objc_keyword (const char *name)
+{
+  add_keyword (name, &objc_keywords);
+}
+
+/* Finish initializing the keywords hash tables.
    Called after argument processing, before each file is processed.  */
 static void
 init_keywords ()
@@ -151,6 +158,19 @@ init_keywords ()
       x_c_keyword ("dngettext:2,3");
       x_c_keyword ("dcngettext:2,3");
       x_c_keyword ("gettext_noop");
+
+      x_objc_keyword ("gettext");
+      x_objc_keyword ("dgettext:2");
+      x_objc_keyword ("dcgettext:2");
+      x_objc_keyword ("ngettext:1,2");
+      x_objc_keyword ("dngettext:2,3");
+      x_objc_keyword ("dcngettext:2,3");
+      x_objc_keyword ("gettext_noop");
+      x_objc_keyword ("NSLocalizedString");	  /* similar to gettext */
+      x_objc_keyword ("_");			  /* similar to gettext */
+      x_objc_keyword ("NSLocalizedStaticString"); /* similar to gettext_noop */
+      x_objc_keyword ("__");			  /* similar to gettext_noop */
+
       default_keywords = false;
     }
 }
@@ -192,6 +212,32 @@ init_flag_table_c ()
   xgettext_record_flag ("argp_error:2:c-format");
   xgettext_record_flag ("argp_failure:2:c-format");
 #endif
+}
+
+void
+init_flag_table_objc ()
+{
+  /* Since the settings done in init_flag_table_c() also have an effect for
+     the ObjectiveC parser, we don't have to repeat them here.  */
+  xgettext_record_flag ("gettext:1:pass-objc-format");
+  xgettext_record_flag ("dgettext:2:pass-objc-format");
+  xgettext_record_flag ("dcgettext:2:pass-objc-format");
+  xgettext_record_flag ("ngettext:1:pass-objc-format");
+  xgettext_record_flag ("ngettext:2:pass-objc-format");
+  xgettext_record_flag ("dngettext:2:pass-objc-format");
+  xgettext_record_flag ("dngettext:3:pass-objc-format");
+  xgettext_record_flag ("dcngettext:2:pass-objc-format");
+  xgettext_record_flag ("dcngettext:3:pass-objc-format");
+  xgettext_record_flag ("gettext_noop:1:pass-objc-format");
+  xgettext_record_flag ("NSLocalizedString:1:pass-c-format");
+  xgettext_record_flag ("NSLocalizedString:1:pass-objc-format");
+  xgettext_record_flag ("_:1:pass-c-format");
+  xgettext_record_flag ("_:1:pass-objc-format");
+  xgettext_record_flag ("stringWithFormat::1:objc-format");
+  xgettext_record_flag ("initWithFormat::1:objc-format");
+  xgettext_record_flag ("stringByAppendingFormat::1:objc-format");
+  xgettext_record_flag ("localizedStringWithFormat::1:objc-format");
+  xgettext_record_flag ("appendFormat::1:objc-format");
 }
 
 void
@@ -614,6 +660,7 @@ enum token_type_ty
   token_type_lparen,			/* ( */
   token_type_rparen,			/* ) */
   token_type_comma,			/* , */
+  token_type_colon,			/* : */
   token_type_name,			/* abc */
   token_type_number,			/* 2.7 */
   token_type_string_literal,		/* "abc" */
@@ -1061,6 +1108,10 @@ phase5_get (token_ty *tp)
       tp->type = token_type_hash;
       return;
 
+    case ':':
+      tp->type = token_type_colon;
+      return;
+
     case '@':
       if (objc_extensions)
 	{
@@ -1397,6 +1448,7 @@ enum xgettext_token_type_ty
   xgettext_token_type_lparen,
   xgettext_token_type_rparen,
   xgettext_token_type_comma,
+  xgettext_token_type_colon,
   xgettext_token_type_string_literal,
   xgettext_token_type_other
 };
@@ -1443,8 +1495,8 @@ x_c_lex (xgettext_token_ty *tp)
 	case token_type_name:
 	  last_non_comment_line = newline_count;
 
-	  if (find_entry (&keywords, token.string, strlen (token.string),
-			  &keyword_value)
+	  if (find_entry (objc_extensions ? &objc_keywords : &c_keywords,
+			  token.string, strlen (token.string), &keyword_value)
 	      == 0)
 	    {
 	      tp->type = xgettext_token_type_keyword;
@@ -1474,6 +1526,12 @@ x_c_lex (xgettext_token_ty *tp)
 	  last_non_comment_line = newline_count;
 
 	  tp->type = xgettext_token_type_comma;
+	  return;
+
+	case token_type_colon:
+	  last_non_comment_line = newline_count;
+
+	  tp->type = xgettext_token_type_colon;
 	  return;
 
 	case token_type_string_literal:
@@ -1541,6 +1599,10 @@ extract_parenthesized (message_list_ty *mlp,
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
+  /* Context iterator that will be used if the next token is a ':'.
+     (Objective C selector syntax.)  */
+  flag_context_list_iterator_ty selectorcall_context_iter =
+    passthrough_context_list_iterator;
   /* Current context.  */
   flag_context_ty inner_context =
     inherited_context (outer_context,
@@ -1560,23 +1622,30 @@ extract_parenthesized (message_list_ty *mlp,
 	  next_commas_to_skip = token.argnum1 - 1;
 	  next_plural_commas = (token.argnum2 > token.argnum1
 				? token.argnum2 - token.argnum1 : 0);
-	  next_context_iter =
-	    flag_context_list_iterator (
-	      flag_context_list_table_lookup (
-		flag_context_list_table,
-		token.string, strlen (token.string)));
-	  free (token.string);
 	  state = 1;
-	  continue;
+	  goto keyword_or_symbol;
 
 	case xgettext_token_type_symbol:
+	  state = 0;
+	keyword_or_symbol:
 	  next_context_iter =
 	    flag_context_list_iterator (
 	      flag_context_list_table_lookup (
 		flag_context_list_table,
 		token.string, strlen (token.string)));
+	  if (objc_extensions)
+	    {
+	      size_t token_string_len = strlen (token.string);
+	      token.string = xrealloc (token.string, token_string_len + 2);
+	      token.string[token_string_len] = ':';
+	      token.string[token_string_len + 1] = '\0';
+	      selectorcall_context_iter =
+		flag_context_list_iterator (
+		  flag_context_list_table_lookup (
+		    flag_context_list_table,
+		    token.string, token_string_len + 1));
+	    }
 	  free (token.string);
-	  state = 0;
 	  continue;
 
 	case xgettext_token_type_lparen:
@@ -1585,6 +1654,7 @@ extract_parenthesized (message_list_ty *mlp,
 				     state ? next_plural_commas : 0))
 	    return true;
 	  next_context_iter = null_context_list_iterator;
+	  selectorcall_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1610,6 +1680,26 @@ extract_parenthesized (message_list_ty *mlp,
 			       flag_context_list_iterator_advance (
 				 &context_iter));
 	  next_context_iter = passthrough_context_list_iterator;
+	  selectorcall_context_iter = passthrough_context_list_iterator;
+	  state = 0;
+	  continue;
+
+	case xgettext_token_type_colon:
+	  if (objc_extensions)
+	    {
+	      context_iter = selectorcall_context_iter;
+	      inner_context =
+		inherited_context (inner_context,
+				   flag_context_list_iterator_advance (
+				     &context_iter));
+	      next_context_iter = passthrough_context_list_iterator;
+	      selectorcall_context_iter = passthrough_context_list_iterator;
+	    }
+	  else
+	    {
+	      next_context_iter = null_context_list_iterator;
+	      selectorcall_context_iter = null_context_list_iterator;
+	    }
 	  state = 0;
 	  continue;
 
@@ -1641,11 +1731,13 @@ extract_parenthesized (message_list_ty *mlp,
 		free (token.string);
 	    }
 	  next_context_iter = null_context_list_iterator;
+	  selectorcall_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
 	case xgettext_token_type_other:
 	  next_context_iter = null_context_list_iterator;
+	  selectorcall_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 

@@ -327,6 +327,7 @@ Other Programming Languages
 The Translator's View
 
 * c-format::                    C Format Strings
+* objc-format::                 Objective C Format Strings
 * sh-format::                   Shell Format Strings
 * python-format::               Python Format Strings
 * lisp-format::                 Lisp Format Strings
@@ -1166,6 +1167,18 @@ In case the @code{c-format} flag is given for a string the @code{msgfmt}
 does some more tests to check to validity of the translation.
 @xref{msgfmt Invocation}, @ref{c-format Flag} and @ref{c-format}.
 
+@item objc-format
+@kwindex objc-format@r{ flag}
+@itemx no-objc-format
+@kwindex no-objc-format@r{ flag}
+Likewise for Objective C, see @ref{objc-format}.
+
+@item sh-format
+@kwindex sh-format@r{ flag}
+@itemx no-sh-format
+@kwindex no-sh-format@r{ flag}
+Likewise for Shell, see @ref{sh-format}.
+
 @item python-format
 @kwindex python-format@r{ flag}
 @itemx no-python-format
@@ -1225,6 +1238,18 @@ Likewise for YCP, see @ref{ycp-format}.
 @itemx no-tcl-format
 @kwindex no-tcl-format@r{ flag}
 Likewise for Tcl, see @ref{tcl-format}.
+
+@item perl-format
+@kwindex perl-format@r{ flag}
+@itemx no-perl-format
+@kwindex no-perl-format@r{ flag}
+Likewise for Perl, see @ref{perl-format}.
+
+@item perl-brace-format
+@kwindex perl-brace-format@r{ flag}
+@itemx no-perl-brace-format
+@kwindex no-perl-brace-format@r{ flag}
+Likewise for Perl brace, see @ref{perl-format}.
 
 @item php-format
 @kwindex php-format@r{ flag}
@@ -7235,6 +7260,7 @@ strings.
 
 @menu
 * c-format::                    C Format Strings
+* objc-format::                 Objective C Format Strings
 * sh-format::                   Shell Format Strings
 * python-format::               Python Format Strings
 * lisp-format::                 Lisp Format Strings
@@ -7251,7 +7277,7 @@ strings.
 * gcc-internal-format::         GCC internal Format Strings
 @end menu
 
-@node c-format, sh-format, Translators for other Languages, Translators for other Languages
+@node c-format, objc-format, Translators for other Languages, Translators for other Languages
 @subsection C Format Strings
 
 C format strings are described in POSIX (IEEE P1003.1 2001), section
@@ -7281,7 +7307,14 @@ on this reordering ability: On the few platforms where @code{printf()},
 or @file{libintl.so} provides replacement functions, and GNU @code{<libintl.h>}
 activates these replacement functions automatically.
 
-@node sh-format, python-format, c-format, Translators for other Languages
+@node objc-format, sh-format, c-format, Translators for other Languages
+@subsection Objective C Format Strings
+
+Objective C format strings are like C format strings.  They support an
+additional format directive: "$@@", which when executed consumes an argument
+of type @code{Object *}.
+
+@node sh-format, python-format, objc-format, Translators for other Languages
 @subsection Shell Format Strings
 
 Shell format strings, as supported by GNU gettext and the @samp{envsubst}

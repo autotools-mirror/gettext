@@ -36,7 +36,7 @@
   { "C++",		extract_c,					\
 			&flag_table_c, &formatstring_c, NULL },		\
   { "ObjectiveC",	extract_objc,					\
-			&flag_table_c, &formatstring_c, NULL },		\
+		     &flag_table_objc, &formatstring_c, &formatstring_objc }, \
   { "GCC-source",	extract_c,					\
 		&flag_table_gcc_internal, &formatstring_gcc_internal, NULL }, \
 
@@ -57,9 +57,10 @@ extern void extract_objc (FILE *fp, const char *real_filename,
 extern void x_c_extract_all (void);
 
 extern void x_c_keyword (const char *name);
-extern bool x_c_any_keywords (void);
+extern void x_objc_keyword (const char *name);
 
 extern void x_c_trigraphs (void);
 
 extern void init_flag_table_c (void);
+extern void init_flag_table_objc (void);
 extern void init_flag_table_gcc_internal (void);
