@@ -1,14 +1,14 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
-# Jan Djärv <Jan.Djarv@mbox200.swipnet.se>, 1998, 2001, 2002.
-# Revision: 1.43
+# Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002.
+# Revision: 1.46
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.1\n"
+"Project-Id-Version: gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-03-16 17:47+0100\n"
-"Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
+"PO-Revision-Date: 2002-04-29 22:52+0200\n"
+"Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -499,7 +499,7 @@ msgstr ""
 "      --obsolete              samma som --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -525,7 +525,9 @@ msgstr ""
 "      --no-location           skriv inte rader med \"#: filnamn:rad\"\n"
 "  -n, --add-location          skriv rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL           sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL           välj antal kolumner i resultatet\n"
+"      --no-wrap               dela inte meddelanden som är längre än\n"
+"                              resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output           sortera resultatet\n"
 "  -F, --sort-by-file          sortera resultatet efter filposition\n"
 
@@ -610,7 +612,7 @@ msgstr ""
 "                                 endast unika meddelanden skrivs\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -642,7 +644,9 @@ msgstr ""
 "      --no-location              skriv inte rader med \"#: filnamn:rad\"\n"
 "  -n, --add-location             skriv rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                   strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL              sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL              välj antal kolumner i resultatet\n"
+"      --no-wrap                  dela inte meddelanden som är längre än\n"
+"                                 resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output              sortera resultatet\n"
 "  -F, --sort-by-file             sortera resultatet efter filposition  \n"
 
@@ -788,7 +792,7 @@ msgstr ""
 "                                 endast unika meddelanden skrivs\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -815,7 +819,9 @@ msgstr ""
 "      --no-location              skriv inte rader med \"#: filnamn:rad\"\n"
 "  -n, --add-location             skriv rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                   strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL              sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL              välj antal kolumner i resultatet\n"
+"      --no-wrap                  dela inte meddelanden som är längre än\n"
+"                                 resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output              sortera resultatet\n"
 "  -F, --sort-by-file             sortera resultatet efter filposition\n"
 "      --omit-header              skriv inte ut huvudet med 'msgid \"\"'\n"
@@ -837,7 +843,7 @@ msgstr ""
 "Standardvärde är nuvarande lokals kodning.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -863,7 +869,9 @@ msgstr ""
 "      --no-location           ta bort rader med \"#: filnamn:rad\"\n"
 "      --add-location          bevara rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL           sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL           välj antal kolumner i resultatet\n"
+"      --no-wrap               dela inte meddelanden som är längre än\n"
+"                              resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output           sortera resultatet\n"
 "  -F, --sort-by-file          sortera resultatet efter filposition\n"
 
@@ -1005,7 +1013,7 @@ msgstr ""
 "  -n, --quiet, --silent       undertryck automatisk utskrift av resultat\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1033,7 +1041,9 @@ msgstr ""
 "      --no-location           ta bort rader med \"#: filnamn:rad\"\n"
 "      --add-location          bevara rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL           sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL           välj antal kolumner i resultatet\n"
+"      --no-wrap               dela inte meddelanden som är längre än\n"
+"                              resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output           sortera resultatet\n"
 "  -F, --sort-by-file          sortera resultatet efter filposition\n"
 
@@ -1500,7 +1510,7 @@ msgstr ""
 "  -i, --ignore-case           versaler och gemener jämförs lika\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1526,7 +1536,9 @@ msgstr ""
 "      --no-location           ta bort rader med \"#: filnamn:rad\"\n"
 "      --add-location          bevara rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL           sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL           välj antal kolumner i resultatet\n"
+"      --no-wrap               dela inte meddelanden som är längre än\n"
+"                              resultatets kolumnantal i flera rader\n"
 "      --sort-output           sortera resultatet\n"
 "      --sort-by-file          sortera resultatet efter filposition\n"
 
@@ -1596,7 +1608,7 @@ msgstr ""
 "lokalinställning.  Om den är - skrivs resultatet till standard ut.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1608,7 +1620,9 @@ msgstr ""
 "Utdatadetaljer:\n"
 "  -l, --locale=LL_CC          sätt mållokal\n"
 "      --no-translator         antag att PO-filen är automatgenererad\n"
-"  -w, --width=ANTAL           sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL           välj antal kolumner i resultatet\n"
+"      --no-wrap               dela inte meddelanden som är längre än\n"
+"                              resultatets kolumnantal i flera rader\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -1999,7 +2013,7 @@ msgstr ""
 "Resultatet skrivs till standard ut om ingen utfil anges eller om den är -.\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -2020,7 +2034,9 @@ msgstr ""
 "      --force-po           skriv PO-fil även om den är tom\n"
 "  -i, --indent             indentera resultatet\n"
 "      --strict             strikt Uniforum-format på resultatet\n"
-"  -w, --width=ANTAL        sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL        välj antal kolumner i resultatet\n"
+"      --no-wrap            dela inte meddelanden som är längre än\n"
+"                           resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output        sortera resultatet\n"
 
 #: src/msgunfmt.c:388
@@ -2484,7 +2500,7 @@ msgstr ""
 "      --debug                    mer detaljerad igenkänning av formatsträngar\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2515,7 +2531,9 @@ msgstr ""
 "      --no-location              skriv inte rader med \"#: filnamn:rad\"\n"
 "  -n, --add-location             skriv rader med \"#: filnamn:rad\" (normalläge)\n"
 "      --strict                   skriv ut en .po-fil som strikt följer Uniforum\n"
-"  -w, --width=ANTAL              sätt antal kolumner i resultatet\n"
+"  -w, --width=ANTAL              välj antal kolumner i resultatet\n"
+"      --no-wrap                  dela inte meddelanden som är längre än\n"
+"                                 resultatets kolumnantal i flera rader\n"
 "  -s, --sort-output              sortera resultatet\n"
 "  -F, --sort-by-file             sortera resultatet efter filposition\n"
 "      --omit-header              skriv inte ut huvudet med 'msgid \"\"'\n"

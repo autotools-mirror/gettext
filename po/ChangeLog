@@ -1,3 +1,8 @@
+2002-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+
 2002-04-29  Bruno Haible  <bruno@clisp.org>
 
 	* be.po: New file, from Ales Nyakhaychyk <nyakhaychyk@i18n.linux.by>.

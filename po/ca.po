@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.1\n"
+"Project-Id-Version: gettext 0.11.2\n"
 "POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-03-18 01:43+0100\n"
+"PO-Revision-Date: 2002-04-29 21:17+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -511,7 +511,7 @@ msgstr ""
 "      --obsolete              sinònim de «--only-obsolete --clear-obsolete»\n"
 
 #: src/msgattrib.c:386
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -540,6 +540,8 @@ msgstr ""
 "      --strict                genera un fitxer PO estrictament conforme\n"
 "                              amb Uniforum\n"
 "  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output           genera una eixida ordenada\n"
 "  -F, --sort-by-file          ordena l'eixida pels noms de fitxer\n"
 
@@ -630,7 +632,7 @@ msgstr ""
 "                                 només s'escriguen els missatges únics\n"
 
 #: src/msgcat.c:352 src/msguniq.c:324
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -t, --to-code=NAME             encoding for output\n"
@@ -665,6 +667,8 @@ msgstr ""
 "      --strict                   genera un fitxer PO estrictament conforme\n"
 "                                 amb Uniforum\n"
 "  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output              genera una eixida ordenada\n"
 "  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
 
@@ -815,7 +819,7 @@ msgstr ""
 "                                 només s'escriguen els missatges únics\n"
 
 #: src/msgcomm.c:367
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -845,6 +849,8 @@ msgstr ""
 "      --strict                   genera un fitxer PO estrictament conforme\n"
 "                                 amb Uniforum\n"
 "  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output              genera una eixida ordenada\n"
 "  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
 "      --omit-header              no escriu la capçalera amb l'entrada\n"
@@ -867,7 +873,7 @@ msgstr ""
 "La codificació per defecte és la del locale actual.\n"
 
 #: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -896,6 +902,8 @@ msgstr ""
 "      --strict                   genera un fitxer PO estrictament conforme\n"
 "                                 amb Uniforum\n"
 "  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output              genera una eixida ordenada\n"
 "  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
 
@@ -1040,7 +1048,7 @@ msgstr ""
 "                              del patró\n"
 
 #: src/msgfilter.c:402
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1070,13 +1078,15 @@ msgstr ""
 "      --strict                genera un fitxer PO estrictament conforme\n"
 "                              amb Uniforum\n"
 "  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output           genera una eixida ordenada\n"
 "  -F, --sort-by-file          ordena l'eixida pels noms de fitxer\n"
 
 #: src/msgfilter.c:562
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr "no s'ha pogut establir una E/S no blocant amb el subprocés «%s»"
+msgstr "no s'ha pogut establir una E/S no blocadora amb el subprocés «%s»"
 
 #: src/msgfilter.c:590
 #, c-format
@@ -1571,7 +1581,7 @@ msgstr ""
 "  -i, --ignore-case           no diferencia entre majúscules i minúscules\n"
 
 #: src/msggrep.c:469
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1600,6 +1610,8 @@ msgstr ""
 "      --strict                genera un fitxer PO estrictament conforme\n"
 "                              amb Uniforum\n"
 "  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
 "      --sort-output           genera una eixida ordenada\n"
 "      --sort-by-file          ordena l'eixida pels noms de fitxer\n"
 
@@ -1671,7 +1683,7 @@ msgstr ""
 "Si és «-», els resultats s'escriuran en l'eixida estàndard.\n"
 
 #: src/msginit.c:384
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
@@ -1685,6 +1697,8 @@ msgstr ""
 "      --no-translator         assumeix que el fitxer PO ha estat generat\n"
 "                              automàticament\n"
 "  -w, --width=NÚMERO          estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap               no parteix en diverses línies les línies\n"
+"                              de missatge més llargues que l'ample de pàgina\n"
 
 #: src/msginit.c:437
 msgid ""
@@ -2115,7 +2129,7 @@ msgstr ""
 "fitxer d'eixida, o si aquest és «-».\n"
 
 #: src/msgunfmt.c:374
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape          do not use C escapes in output (default)\n"
@@ -2138,6 +2152,8 @@ msgstr ""
 "      --strict             genera un fitxer PO estrictament conforme\n"
 "                           amb Uniforum\n"
 "  -w, --width=NÚMERO       estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap            no parteix en diverses línies les línies\n"
+"                           de missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output        genera una eixida ordenada\n"
 
 #: src/msgunfmt.c:388
@@ -2631,7 +2647,7 @@ msgstr ""
 "                                 de reconeixement de cadenes de format\n"
 
 #: src/xgettext.c:598
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2665,6 +2681,8 @@ msgstr ""
 "      --strict                   genera un fitxer PO estrictament conforme\n"
 "                                 amb Uniforum\n"
 "  -w, --width=NÚMERO             estableix l'ample de pàgina de l'eixida\n"
+"      --no-wrap                  no parteix en diverses línies les línies de\n"
+"                                 missatge més llargues que l'ample de pàgina\n"
 "  -s, --sort-output              genera una eixida ordenada\n"
 "  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
 "      --omit-header              no escriu la capçalera amb l'entrada\n"
