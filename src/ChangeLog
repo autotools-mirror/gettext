@@ -1,3 +1,9 @@
+2003-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* po-charset.c (po_lex_charset_set): Work around Solaris 2.9 iconv()
+	bug.
+	* write-po.c (wrap): Likewise.
+
 2003-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* project-id: Make it work with configure files that use

@@ -1,5 +1,5 @@
 /* linebreak.c - line breaking of Unicode strings
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
 This program is free software; you can redistribute it and/or modify
@@ -1392,7 +1392,7 @@ iconv_string_length (iconv_t cd, const char *s, size_t n)
         return (size_t)(-1);
       count += outptr - tmpbuf;
     }
-  /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
+  /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
 #if defined _LIBICONV_VERSION \
    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
   {
@@ -1502,6 +1502,18 @@ mbs_possible_linebreaks (const char *s, size_t n, const char *encoding,
 	to_utf8 = (iconv_t)(-1);
       else
 # endif
+      /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS, GBK,
+         GB18030.  */
+# if defined __sun && !defined _LIBICONV_VERSION
+      if (   STREQ (encoding, "GB2312", 'G', 'B', '2', '3', '1', '2', 0, 0, 0)
+          || STREQ (encoding, "EUC-TW", 'E', 'U', 'C', '-', 'T', 'W', 0, 0, 0)
+          || STREQ (encoding, "BIG5", 'B', 'I', 'G', '5', 0, 0, 0, 0, 0)
+          || STREQ (encoding, "BIG5-HKSCS", 'B', 'I', 'G', '5', '-', 'H', 'K', 'S', 'C')
+          || STREQ (encoding, "GBK", 'G', 'B', 'K', 0, 0, 0, 0, 0, 0)
+          || STREQ (encoding, "GB18030", 'G', 'B', '1', '8', '0', '3', '0', 0, 0))
+        to_utf8 = (iconv_t)(-1);
+      else
+# endif
       to_utf8 = iconv_open (UTF8_NAME, encoding);
       if (to_utf8 != (iconv_t)(-1))
         {
@@ -1581,6 +1593,18 @@ mbs_width_linebreaks (const char *s, size_t n,
 # if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
       if (STREQ (encoding, "EUC-KR", 'E', 'U', 'C', '-', 'K', 'R', 0, 0, 0))
 	to_utf8 = (iconv_t)(-1);
+      else
+# endif
+      /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS, GBK,
+         GB18030.  */
+# if defined __sun && !defined _LIBICONV_VERSION
+      if (   STREQ (encoding, "GB2312", 'G', 'B', '2', '3', '1', '2', 0, 0, 0)
+          || STREQ (encoding, "EUC-TW", 'E', 'U', 'C', '-', 'T', 'W', 0, 0, 0)
+          || STREQ (encoding, "BIG5", 'B', 'I', 'G', '5', 0, 0, 0, 0, 0)
+          || STREQ (encoding, "BIG5-HKSCS", 'B', 'I', 'G', '5', '-', 'H', 'K', 'S', 'C')
+          || STREQ (encoding, "GBK", 'G', 'B', 'K', 0, 0, 0, 0, 0, 0)
+          || STREQ (encoding, "GB18030", 'G', 'B', '1', '8', '0', '3', '0', 0, 0))
+        to_utf8 = (iconv_t)(-1);
       else
 # endif
       to_utf8 = iconv_open (UTF8_NAME, encoding);

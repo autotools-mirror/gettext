@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -236,6 +236,18 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
       /* Avoid glibc-2.1 bug with EUC-KR.  */
 # if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
       if (strcmp (canon_charset, "EUC-KR") == 0)
+	conv = (iconv_t)(-1);
+      else
+# endif
+      /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS, GBK,
+	 GB18030.  */
+# if defined __sun && !defined _LIBICONV_VERSION
+      if (   strcmp (po_lex_charset, "GB2312") == 0
+	  || strcmp (po_lex_charset, "EUC-TW") == 0
+	  || strcmp (po_lex_charset, "BIG5") == 0
+	  || strcmp (po_lex_charset, "BIG5-HKSCS") == 0
+	  || strcmp (po_lex_charset, "GBK") == 0
+	  || strcmp (po_lex_charset, "GB18030") == 0)
 	conv = (iconv_t)(-1);
       else
 # endif

@@ -1,3 +1,8 @@
+2003-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* linebreak.c (mbs_possible_linebreaks, mbs_width_linebreaks):
+	Work around Solaris 2.9 iconv() bug.
+
 2003-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* safe-read.h: Update from current gnulib version.

@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -260,6 +260,18 @@ Message conversion to user's charset might not work.\n"),
 	      /* Avoid glibc-2.1 bug with EUC-KR.  */
 # if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
 	      if (strcmp (po_lex_charset, "EUC-KR") == 0)
+		po_lex_iconv = (iconv_t)(-1);
+	      else
+# endif
+	      /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS,
+		 GBK, GB18030.  */
+# if defined __sun && !defined _LIBICONV_VERSION
+	      if (   strcmp (po_lex_charset, "GB2312") == 0
+		  || strcmp (po_lex_charset, "EUC-TW") == 0
+		  || strcmp (po_lex_charset, "BIG5") == 0
+		  || strcmp (po_lex_charset, "BIG5-HKSCS") == 0
+		  || strcmp (po_lex_charset, "GBK") == 0
+		  || strcmp (po_lex_charset, "GB18030") == 0)
 		po_lex_iconv = (iconv_t)(-1);
 	      else
 # endif
