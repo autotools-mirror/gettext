@@ -67,8 +67,9 @@ Things we plan to do. Comments welcome.
   msguniq [--unique] [--repeated]
   extract unique/repeated msgids
 
-  msggrep [-L] [-f filename ...] [-o file] [file]
-  extract those messages belonging to a given list of files
+  msggrep [-L] [-f filename ...] [-e expr ...] [-o file] [file]
+  extract those messages belonging to a given list of files or matching
+  one of the given regular expressions
 
   msgcat [-o file] [file ...]
   combines several PO files
