@@ -1,3 +1,10 @@
+2000-11-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* po/Makefile.in.in (dist, distdir): Don't use 'ln' (which was just a
+	space optimization anyway) to populate $(distdir).  Otherwise, the
+	dist rules that change permissions end up affecting the master
+	sources.  From Jim Meyering  <meyering@ascend.com>.
+
 2000-11-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* tr.po: New file.

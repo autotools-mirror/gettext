@@ -192,8 +192,7 @@ dist distdir: $(DISTFILES)
 	$(MAKE) update-po
 	dists="$(DISTFILES)"; \
 	for file in $$dists; do \
-	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
-	    || cp -p $(srcdir)/$$file $(distdir); \
+	  cp -p $(srcdir)/$$file $(distdir); \
 	done
 
 update-po: Makefile
