@@ -29,7 +29,7 @@ EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 XGETTEXT = ../src/xgettext
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=../src:$$PATH \
-		    GETTEXT=`echo gettext|sed '$(transform)'` \
+		    GETTEXT=tstgettext \
 		    XGETTEXT=`echo xgettext|sed '$(transform)'` \
 		    MSGFMT=`echo msgfmt|sed '$(transform)'` \
 		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
@@ -47,6 +47,6 @@ xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 INCLUDES = -I${top_srcdir}/intl
 EXTRA_PROGRAMS = cake
 cake_SOURCES = plural-1-prg.c
-cake_LDADD = ../intl/libintl.a
+cake_LDADD = ../src/setlocale.o ../intl/libintl.a
 all-local: cake
 CLEANFILES = cake

@@ -7,6 +7,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#ifdef HAVE_LOCALE_H
+# include <locale.h>
+#else
+extern char *setlocale ();
+#endif
+
 /* Make sure we use the included libintl, not the system's one. */
 #if 0
 #include <libintl.h>
@@ -26,6 +32,10 @@ int main (argc, argv)
   char *argv[];
 {
   int n = atoi (argv[1]);
+
+  if (setlocale (LC_ALL, "") == NULL)
+    return 1;
+
   textdomain ("cake");
   bindtextdomain ("cake", ".");
   printf (ngettext ("a piece of cake", "%d pieces of cake", n), n);

@@ -51,8 +51,8 @@ sed 1d < fr.po > fr.po.strip
 : ${DIFF=diff}
 ${DIFF} fr.po.strip fr.po.tmp || exit 1
 
-LANGUAGE=fr
-LC_ALL=
+LANGUAGE=
+LC_ALL=fr
 LC_MESSAGES=
 LANG=
 export LANGUAGE LC_ALL LC_MESSAGES LANG

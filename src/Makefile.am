@@ -39,8 +39,13 @@ LDADD = ../lib/libnlsut.a @INTLLIBS@ ../intl/libintl.$la
 SED = sed
 YACC = @YACC@ -d
 
-# Source dependecies.
+EXTRA_PROGRAMS = tstgettext
+all-local: $(EXTRA_PROGRAMS)
+CLEANFILES = $(EXTRA_PROGRAMS)
+
+# Source dependencies.
 gettext_SOURCES = gettextp.c
+tstgettext_SOURCES = gettextp.c setlocale.c
 msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-lex.c po.c str-list.c dir-list.c
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c \

@@ -1,3 +1,16 @@
+2001-01-06  Bruno Haible  <haible@clisp.cons.org>
+
+	Translations are now disabled in C locale.
+	* Makefile.am (TESTS_ENVIRONMENT): Use tstgettext for $GETTEXT.
+	(cake_LDADD): Add ../src/setlocale.o.
+	* gettext-1: Set LC_ALL to a nonempty value.
+	* gettext-2: Likewise.
+	* msgfmt-1: Likewise.
+	* msgfmt-2: Likewise.
+	* plural-1: Set LC_ALL, not LANGUAGE, to "fr".
+	* plural-1-prg.c: Include locale.h or declare setlocale.
+	(main): Call setlocale.
+
 2001-01-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-1-prg.c: Include config.h. Needed for C compilers lacking

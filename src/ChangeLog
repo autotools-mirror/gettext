@@ -1,3 +1,11 @@
+2001-01-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* setlocale.c: New file.
+	* Makefile.am (EXTRA_PROGRAMS): New variable.
+	(all-local): New target.
+	(CLEANFILES): New variable.
+	(tstgettext_SOURCES): New variable.
+
 2001-01-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (po-gram-gen.h): Don't use $^, not supported by the
