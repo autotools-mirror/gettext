@@ -150,6 +150,12 @@ public class Matrix {
       int ngroups;
       int[][] groups;
       if (true) {
+        ngroups = 3;
+        groups = new int[ngroups][];
+        groups[0] = new int[] { 0, nteams/3+1 };
+        groups[1] = new int[] { nteams/3+1, (2*nteams)/3+1 };
+        groups[2] = new int[] { (2*nteams)/3+1, nteams };
+      } else if (true) {
         ngroups = 2;
         groups = new int[ngroups][];
         groups[0] = new int[] { 0, nteams/2+1 };
