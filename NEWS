@@ -5,6 +5,16 @@ Version 0.11.3 - May 2002
 
 * The documentation makes it clear that 'gettextize' is a wizard and
   migration tool.
+
+* gettextize has a new option --dry-run.
+
+* Improved portability to Solaris, OSF/1 and Linux/libc5.
+
+* Improved interoperability with GCC 3.1.
+
+* New documentation sections:
+  - mkinstalldirs
+  - config.h.in
 
 Version 0.11.2 - April 2002
 
