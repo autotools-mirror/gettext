@@ -1,3 +1,21 @@
+2001-07-26  Bruno Haible  <haible@clisp.cons.org>
+
+	* file-list.h: New file.
+	* file-list.c: New file, extracted from msgcomm.c.
+	* msgcat.c: Include file-list.h.
+	(main): Call read_names_from_file instead of read_name_from_file.
+	(read_name_from_file): Remove function.
+	* msgcomm.c: Include file-list.h.
+	(main): Call read_names_from_file instead of read_name_from_file.
+	(read_name_from_file): Remove function.
+	* xgettext.c: Include file-list.h.
+	(main): Call read_names_from_file instead of read_name_from_file.
+	(read_name_from_file): Remove function.
+	* Makefile.am (noinst_HEADERS): Add file-list.h.
+	(xgettext_SOURCES): Add file-list.c.
+	(msgcat_SOURCES): Likewise.
+	(msgcomm_SOURCES): Likewise.
+
 2001-07-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcomm.c: Assume <limits.h> exists.

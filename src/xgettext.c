@@ -40,6 +40,7 @@ extern int errno;
 #endif
 
 #include "dir-list.h"
+#include "file-list.h"
 #include "error.h"
 #include "progname.h"
 #include "hash.h"
@@ -148,7 +149,6 @@ static void usage PARAMS ((int status))
 	__attribute__ ((noreturn))
 #endif
 ;
-static string_list_ty *read_name_from_file PARAMS ((const char *file_name));
 static void exclude_directive_domain PARAMS ((po_ty *pop, char *name));
 static void exclude_directive_message PARAMS ((po_ty *pop, char *msgid,
 					       lex_pos_ty *msgid_pos,
@@ -430,7 +430,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Determine list of files we have to process.  */
   if (files_from != NULL)
-    file_list = read_name_from_file (files_from);
+    file_list = read_names_from_file (files_from);
   else
     file_list = string_list_alloc ();
   /* Append names from command line.  */
@@ -606,65 +606,6 @@ Informative output:\n\
     }
 
   exit (status);
-}
-
-
-/* Read list of files to process from file.  */
-static string_list_ty *
-read_name_from_file (file_name)
-     const char *file_name;
-{
-  size_t line_len = 0;
-  char *line_buf = NULL;
-  FILE *fp;
-  string_list_ty *result;
-
-  if (strcmp (file_name, "-") == 0)
-    fp = stdin;
-  else
-    {
-      fp = fopen (file_name, "r");
-      if (fp == NULL)
-	error (EXIT_FAILURE, errno,
-	       _("error while opening \"%s\" for reading"), file_name);
-    }
-
-  result = string_list_alloc ();
-
-  while (!feof (fp))
-    {
-      /* Read next line from file.  */
-      int len = getline (&line_buf, &line_len, fp);
-
-      /* In case of an error leave loop.  */
-      if (len < 0)
-	break;
-
-      /* Remove trailing '\n' and trailing whitespace.  */
-      if (len > 0 && line_buf[len - 1] == '\n')
-	line_buf[--len] = '\0';
-      while (len > 0
-	     && (line_buf[len - 1] == ' '
-		 || line_buf[len - 1] == '\t'
-		 || line_buf[len - 1] == '\r'))
-	line_buf[--len] = '\0';
-
-      /* Test if we have to ignore the line.  */
-      if (*line_buf == '\0' || *line_buf == '#')
-	continue;
-
-      string_list_append_unique (result, line_buf);
-    }
-
-  /* Free buffer allocated through getline.  */
-  if (line_buf != NULL)
-    free (line_buf);
-
-  /* Close input stream.  */
-  if (fp != stdin)
-    fclose (fp);
-
-  return result;
 }
 
 

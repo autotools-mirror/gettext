@@ -25,7 +25,8 @@ msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h xget-lex.h dir-list.h \
-po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h msgl-ascii.h msgl-cat.h
+file-list.h po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-iconv.h \
+msgl-ascii.h msgl-cat.h
 
 EXTRA_DIST = FILES
 
@@ -52,13 +53,13 @@ msgl-ascii.c
 msgunfmt_SOURCES = message.c msgunfmt.c str-list.c write-po.c msgl-ascii.c
 xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c xget-lex.c xgettext.c dir-list.c \
-write-po.c msgl-ascii.c
+write-po.c msgl-ascii.c file-list.c
 msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-cat.c
+msgl-ascii.c msgl-iconv.c msgl-cat.c file-list.c
 msgcomm_SOURCES = msgcomm.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-cat.c
+msgl-ascii.c msgl-iconv.c msgl-cat.c file-list.c
 msgconv_SOURCES = msgconv.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
 msgl-ascii.c msgl-iconv.c
