@@ -1032,7 +1032,7 @@ u8_width_linebreaks (const unsigned char *s, size_t n,
               /* No line break for the moment, may be turned into
                  UC_BREAK_POSSIBLE later, via last_p. */
             }
-         
+
           *p = UC_BREAK_PROHIBITED;
 
           w = uc_width (uc, encoding);
@@ -1118,7 +1118,7 @@ u16_width_linebreaks (const unsigned short *s, size_t n,
               /* No line break for the moment, may be turned into
                  UC_BREAK_POSSIBLE later, via last_p. */
             }
-         
+
           *p = UC_BREAK_PROHIBITED;
 
           w = uc_width (uc, encoding);
@@ -1201,7 +1201,7 @@ u32_width_linebreaks (const unsigned int *s, size_t n,
               /* No line break for the moment, may be turned into
                  UC_BREAK_POSSIBLE later, via last_p. */
             }
-         
+
           *p = UC_BREAK_PROHIBITED;
 
           w = uc_width (uc, encoding);
