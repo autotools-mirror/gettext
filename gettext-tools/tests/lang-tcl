@@ -4,6 +4,10 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: tcl.
 
+# Note: This test fails on MacOS X 10.3.5 (Darwin 7.5) in the fr_FR locale
+# but not in the fr_FR.UTF-8 locale. Probably because in the fr_FR locale,
+# nl_langinfo(CODESET) returns "".
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
