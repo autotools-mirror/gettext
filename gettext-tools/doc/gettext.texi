@@ -35,7 +35,7 @@
 @direntry
 * gettext: (gettext).                          GNU gettext utilities.
 * autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
-* envsubst: (gettext)envsubst Invocation.      Substitute environment variables
+* envsubst: (gettext)envsubst Invocation.      Expand environment variables.
 * gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
 * msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
 * msgcat: (gettext)msgcat Invocation.          Combine several PO files.
