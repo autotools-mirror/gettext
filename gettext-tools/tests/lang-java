@@ -16,6 +16,7 @@ test "${TESTJAVA}" = yes || exit 77
 tmpfiles="$tmpfiles Program.java"
 cat <<\EOF > Program.java
 import java.util.*;
+import java.io.*;
 import java.text.*;
 import gnu.gettext.*;
 
@@ -24,6 +25,13 @@ public class Program {
     // Some systems (like Solaris) don't set Locale.getDefault()
     // as specified by LC_ALL. So set it by hand.
     Locale.setDefault(new Locale("fr","FR"));
+    // Some systems (like MacOS X) don't set System.out's character encoding
+    // to ISO-8859-1, which is what we need for comparison purposes.
+    try {
+      System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out),
+                                    true, "ISO-8859-1"));
+    } catch (UnsupportedEncodingException e) {
+    }
     int n = Integer.parseInt(args[0]);
     ResourceBundle catalog = ResourceBundle.getBundle("prog");
     System.out.println(GettextResource.gettext(catalog,"'Your command, please?', asked the waiter."));

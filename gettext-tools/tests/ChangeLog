@@ -1,3 +1,10 @@
+2004-08-13  Bruno Haible  <bruno@clisp.org>
+
+	Fix test failures on MacOS X.
+	* lang-clisp: Skip the test if clisp was not built with gettext
+	support.
+	* lang-java: Enforce encoding ISO-8859-1 for System.out.
+
 2004-07-10  Bruno Haible  <bruno@clisp.org>
 
 	* tstgettext.c (expand_escape): Don't go into an endless loop when the
