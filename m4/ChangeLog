@@ -1,5 +1,14 @@
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* lib-prefix.m4 (AC_LIB_PREPARE_PREFIX): Fix shell programming mistake.
+	(AC_LIB_WITH_FINAL_PREFIX): New macro.
+	(AC_LIB_PREFIX): Use AC_LIB_WITH_FINAL_PREFIX. Remove
+	acl_final_exec_prefix assignment already done in AC_LIB_PREPARE_PREFIX.
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Use AC_LIB_WITH_FINAL_PREFIX.
+	(AC_LIB_APPENDTOVAR): Likewise.
+
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_PO_SUBDIRS): Exclude FreeBSD's msgfmt and xgettext
 	programs. They give usage messages on stderr but then terminate with
 	exit code 0.

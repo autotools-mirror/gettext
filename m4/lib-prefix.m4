@@ -12,11 +12,12 @@ AC_DEFUN([AC_LIB_PREFIX],
   AC_REQUIRE([AC_PROG_CC])
   AC_REQUIRE([AC_CANONICAL_HOST])
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
-  prefix="$acl_final_prefix" eval acl_final_exec_prefix=\"$acl_final_exec_prefix\"
   dnl By default, look in $includedir and $libdir.
   use_additional=yes
-  prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_includedir=\"$includedir\"
-  prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_libdir=\"$libdir\"
+  AC_LIB_WITH_FINAL_PREFIX([
+    eval additional_includedir=\"$includedir\"
+    eval additional_libdir=\"$libdir\"
+  ])
   AC_ARG_WITH([lib-prefix],
 [  --with-lib-prefix[=DIR] search for libraries in DIR/include and DIR/lib
   --without-lib-prefix    don't search for libraries in includedir and libdir],
@@ -25,8 +26,10 @@ AC_DEFUN([AC_LIB_PREFIX],
       use_additional=no
     else
       if test "X$withval" = "X"; then
-        prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_includedir=\"$includedir\"
-        prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_libdir=\"$libdir\"
+        AC_LIB_WITH_FINAL_PREFIX([
+          eval additional_includedir=\"$includedir\"
+          eval additional_libdir=\"$libdir\"
+        ])
       else
         additional_includedir="$withval/include"
         additional_libdir="$withval/lib"
@@ -43,7 +46,7 @@ AC_DEFUN([AC_LIB_PREFIX],
     if test "X$additional_includedir" != "X/usr/include"; then
       haveit=
       for x in $CPPFLAGS; do
-        prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+        AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
         if test "X$x" = "X-I$additional_includedir"; then
           haveit=yes
           break
@@ -74,7 +77,7 @@ AC_DEFUN([AC_LIB_PREFIX],
     if test "X$additional_libdir" != "X/usr/lib"; then
       haveit=
       for x in $LDFLAGS; do
-        prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+        AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
         if test "X$x" = "X-L$additional_libdir"; then
           haveit=yes
           break
@@ -116,5 +119,22 @@ AC_DEFUN([AC_LIB_PREPARE_PREFIX],
   else
     acl_final_exec_prefix="$exec_prefix"
   fi
-  prefix="$acl_final_prefix" eval acl_final_exec_prefix=\"$acl_final_exec_prefix\"
+  acl_save_prefix="$prefix"
+  prefix="$acl_final_prefix"
+  eval acl_final_exec_prefix=\"$acl_final_exec_prefix\"
+  prefix="$acl_save_prefix"
+])
+
+dnl AC_LIB_WITH_FINAL_PREFIX([statement]) evaluates statement, with the
+dnl variables prefix and exec_prefix bound to the values they will have
+dnl at the end of the configure script.
+AC_DEFUN([AC_LIB_WITH_FINAL_PREFIX],
+[
+  acl_save_prefix="$prefix"
+  prefix="$acl_final_prefix"
+  acl_save_exec_prefix="$exec_prefix"
+  exec_prefix="$acl_final_exec_prefix"
+  $1
+  exec_prefix="$acl_save_exec_prefix"
+  prefix="$acl_save_prefix"
 ])

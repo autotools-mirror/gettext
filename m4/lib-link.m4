@@ -61,8 +61,10 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                                [ABCDEFGHIJKLMNOPQRSTUVWXYZ___])])
   dnl By default, look in $includedir and $libdir.
   use_additional=yes
-  prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_includedir=\"$includedir\"
-  prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_libdir=\"$libdir\"
+  AC_LIB_WITH_FINAL_PREFIX([
+    eval additional_includedir=\"$includedir\"
+    eval additional_libdir=\"$libdir\"
+  ])
   AC_ARG_WITH([lib$1-prefix],
 [  --with-lib$1-prefix[=DIR]  search for lib$1 in DIR/include and DIR/lib
   --without-lib$1-prefix     don't search for lib$1 in includedir and libdir],
@@ -71,8 +73,10 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
       use_additional=no
     else
       if test "X$withval" = "X"; then
-        prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_includedir=\"$includedir\"
-        prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval additional_libdir=\"$libdir\"
+        AC_LIB_WITH_FINAL_PREFIX([
+          eval additional_includedir=\"$includedir\"
+          eval additional_libdir=\"$libdir\"
+        ])
       else
         additional_includedir="$withval/include"
         additional_libdir="$withval/lib"
@@ -124,7 +128,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
         fi
         if test "X$found_dir" = "X"; then
           for x in $LDFLAGS $LIB[]NAME; do
-            prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+            AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
             case "$x" in
               -L*)
                 dir=`echo "X$x" | sed -e 's/^X-L//'`
@@ -190,7 +194,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                     dnl or the already constructed $LIBNAME
                     haveit=
                     for x in $LDFLAGS $LIB[]NAME; do
-                      prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+                      AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
                       if test "X$x" = "X-L$found_dir"; then
                         haveit=yes
                         break
@@ -249,7 +253,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
             if test "X$additional_includedir" != "X/usr/include"; then
               haveit=
               for x in $CPPFLAGS $INC[]NAME; do
-                prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+                AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
                 if test "X$x" = "X-I$additional_includedir"; then
                   haveit=yes
                   break
@@ -298,7 +302,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                   if test "X$additional_libdir" != "X/usr/lib"; then
                     haveit=
                     for x in $LDFLAGS $LIB[]NAME; do
-                      prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+                      AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
                       if test "X$x" = "X-L$additional_libdir"; then
                         haveit=yes
                         break
@@ -376,7 +380,7 @@ AC_DEFUN([AC_LIB_APPENDTOVAR],
   for element in [$2]; do
     haveit=
     for x in $[$1]; do
-      prefix="$acl_final_prefix" exec_prefix="$acl_final_exec_prefix" eval x=\"$x\"
+      AC_LIB_WITH_FINAL_PREFIX([eval x=\"$x\"])
       if test "X$x" = "X$element"; then
         haveit=yes
         break
