@@ -149,10 +149,9 @@ for file in *; do
     intl | po)
       ;;
     *)
-      $echo "Copying file $file"
       rm -f $srcdir/$file
-      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file) 2>/dev/null ||
-      cp $file $srcdir/$file
+      ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && $echo "Symlinking file $file") 2>/dev/null ||
+      { $echo "Copying file $file"; cp $file $srcdir/$file; }
       ;;
   esac
 done
@@ -160,19 +159,17 @@ done
 # Copy files to intl/ subdirectory.
 cd intl
 for file in *; do
-  $echo "Copying file intl/$file"
   rm -f $srcdir/intl/$file
-  ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file) 2>/dev/null ||
-  cp $file $srcdir/intl/$file
+  ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file && $echo "Symlinking file intl/$file") 2>/dev/null ||
+  { $echo "Copying file intl/$file"; cp $file $srcdir/intl/$file; }
 done
 
 # Copy files to po/ subdirectory.
 cd ../po
 for file in *; do
-  $echo "Copying file po/$file"
   rm -f $srcdir/po/$file
-  ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file) 2>/dev/null ||
-  cp $file $srcdir/po/$file
+  ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file && $echo "Symlinking file po/$file") 2>/dev/null ||
+  { $echo "Copying file po/$file"; cp $file $srcdir/po/$file; }
 done
 DATE=`date +%Y-%m-%d`
 cat > $srcdir/po/ChangeLog.tmp <<EOF
@@ -192,7 +189,7 @@ if test -e $srcdir/po/stamp-cat-id; then
 fi
 $echo >> $srcdir/po/ChangeLog.tmp
 if test -f $srcdir/po/ChangeLog; then
-  $echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)
+  $echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)"
   cat $srcdir/po/ChangeLog >> $srcdir/po/ChangeLog.tmp
   cp -p $srcdir/po/ChangeLog $srcdir/po/ChangeLog~
 else
@@ -201,6 +198,7 @@ fi
 cp $srcdir/po/ChangeLog.tmp $srcdir/po/ChangeLog
 rm -f $srcdir/po/ChangeLog.tmp
 
+echo
 echo "Please add the files"
 echo "  codeset.m4 gettext.m4 iconv.m4 isc-posix.m4 lcmessage.m4 progtest.m4"
 echo "from the @datadir@/aclocal directory to your autoconf macro directory"
