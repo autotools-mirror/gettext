@@ -41,7 +41,7 @@
 #define _(s) gettext(s)
 
 /* The Perl syntax is defined in perlsyn.pod.  Try the command
-   "perldoc perlsyn".  */
+   "man perlsyn" or "perldoc perlsyn".  */
 
 #define DEBUG_PERL 0
 #define DEBUG_MEMORY 0
@@ -65,8 +65,8 @@ enum token_type_ty
   token_type_named_op,          /* if, unless, while, ... */
   token_type_variable,          /* $... */
   token_type_symbol,		/* symbol, number */
-  token_type_regex_op,		/* s, tr, y, m.  */
   token_type_keyword_symbol,    /* keyword symbol (used by parser) */
+  token_type_regex_op,		/* s, tr, y, m.  */
   token_type_dot,               /* . */
   token_type_other		/* regexp, misc. operator */
 };
@@ -88,14 +88,16 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  string_type_ty string_type;
-  char *string;		/* for token_type_{symbol,string} */
+  string_type_ty string_type;	/* for token_type_string */
+  char *string;			/* for token_type_named_op, token_type_string,
+				   token_type_symbol, token_type_keyword_symbol,
+				   token_type_variable */
   int line_number;
 };
 
 #if DEBUG_PERL
 static const char *
-token2string (token_ty *token)
+token2string (const token_ty *token)
 {
   switch (token->type)
     {
@@ -129,10 +131,10 @@ token2string (token_ty *token)
       return "token_type_variable";
     case token_type_symbol:
       return "token_type_symbol";
-    case token_type_regex_op:
-      return "token_type_regex_op";
     case token_type_keyword_symbol:
       return "token_type_keyword_symbol";
+    case token_type_regex_op:
+      return "token_type_regex_op";
     case token_type_dot:
       return "token_type_dot";
     case token_type_other:
@@ -157,10 +159,9 @@ struct stack
   struct stack_entry *last;
 };
 
-struct stack *token_stack;
+static struct stack *token_stack;
 
-/* Prototypes for local functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
+/* Forward declaration of local functions.  */
 static void interpolate_keywords (message_list_ty *mlp, const char *string);
 static char *extract_quotelike_pass1 (int delim);
 static token_ty *x_perl_lex (message_list_ty *mlp);
@@ -174,9 +175,9 @@ remember_a_message_debug (message_list_ty *mlp, char *string, lex_pos_ty *pos)
 {
   void *retval;
 
-  fprintf (stderr, "*** remember_a_message (%p): ", string); fflush (stderr);
+  fprintf (stderr, "*** remember_a_message (%p): ", string);
   retval = remember_a_message (mlp, string, pos);
-  fprintf (stderr, "%p\n", retval); fflush (stderr);
+  fprintf (stderr, "%p\n", retval);
   return retval;
 }
 
@@ -184,9 +185,8 @@ static void
 remember_a_message_plural_debug (message_ty *mp, char *string, lex_pos_ty *pos)
 {
   fprintf (stderr, "*** remember_a_message_plural (%p, %p): ", mp, string);
-  fflush (stderr);
   remember_a_message_plural (mp, string, pos);
-  fprintf (stderr, "done\n"); fflush (stderr);
+  fprintf (stderr, "done\n");
 }
 
 static void *
@@ -194,9 +194,9 @@ xmalloc_debug (size_t bytes)
 {
   void *retval;
 
-  fprintf (stderr, "*** xmalloc (%u): ", bytes); fflush (stderr);
+  fprintf (stderr, "*** xmalloc (%u): ", bytes);
   retval = xmalloc (bytes);
-  fprintf (stderr, "%p\n", retval); fflush (stderr);
+  fprintf (stderr, "%p\n", retval);
   return retval;
 }
 
@@ -205,9 +205,9 @@ xrealloc_debug (void *buf, size_t bytes)
 {
   void *retval;
 
-  fprintf (stderr, "*** xrealloc (%p, %u): ", buf, bytes); fflush (stderr);
+  fprintf (stderr, "*** xrealloc (%p, %u): ", buf, bytes);
   retval = xrealloc (buf, bytes);
-  fprintf (stderr, "%p\n", retval); fflush (stderr);
+  fprintf (stderr, "%p\n", retval);
   return retval;
 }
 
@@ -217,9 +217,8 @@ xrealloc_static_debug (void *buf, size_t bytes)
   void *retval;
 
   fprintf (stderr, "*** xrealloc_static (%p, %u): ", buf, bytes);
-  fflush (stderr);
   retval = xrealloc (buf, bytes);
-  fprintf (stderr, "%p\n", retval); fflush (stderr);
+  fprintf (stderr, "%p\n", retval);
   return retval;
 }
 
@@ -229,18 +228,17 @@ xstrdup_debug (const char *string)
   char *retval;
 
   fprintf (stderr, "*** xstrdup (%p, %d): ", string, strlen (string));
-  fflush (stderr);
   retval = xstrdup (string);
-  fprintf (stderr, "%p\n", retval); fflush (stderr);
+  fprintf (stderr, "%p\n", retval);
   return retval;
 }
 
 static void
 free_debug (void *buf)
 {
-  fprintf (stderr, "*** free (%p): ", buf); fflush (stderr);
+  fprintf (stderr, "*** free (%p): ", buf);
   free (buf);
-  fprintf (stderr, "done\n"); fflush (stderr);
+  fprintf (stderr, "done\n");
 }
 
 # define xmalloc(b) xmalloc_debug (b)
@@ -274,7 +272,6 @@ stack_dump (struct stack *stack)
 	{
 	  token_ty *token = (token_ty *) last->data;
 	  fprintf (stderr, "  [%s]\n", token2string (token));
-	  fflush (stderr);
 	  switch (token->type)
 	    {
 	    case token_type_named_op:
@@ -283,7 +280,6 @@ stack_dump (struct stack *stack)
 	    case token_type_keyword_symbol:
 	    case token_type_variable:
 	      fprintf (stderr, "    string: %s\n", token->string);
-	      fflush (stderr);
 	      break;
 	    }
 	}
@@ -295,9 +291,8 @@ stack_dump (struct stack *stack)
 #endif
 
 /* Unshifts the pointer DATA onto the stack STACK.  The argument DESTROY
- * is a pointer to a function that frees the resources associated with
- * DATA or NULL (no destructor).
- */
+   is a pointer to a function that frees the resources associated with
+   DATA or NULL (no destructor).  */
 static void
 stack_unshift (struct stack *stack, void *data, void (*destroy) (token_ty *data))
 {
@@ -317,8 +312,7 @@ stack_unshift (struct stack *stack, void *data, void (*destroy) (token_ty *data)
 }
 
 /* Shifts the first element from the stack STACK and returns its contents or
- * NULL if the stack is empty.
- */
+   NULL if the stack is empty.  */
 static void *
 stack_shift (struct stack *stack)
 {
@@ -341,8 +335,7 @@ stack_shift (struct stack *stack)
 }
 
 /* Return the bottom of the stack without removing it from the stack or
- * NULL if the stack is empty.
- */
+   NULL if the stack is empty.  */
 static void *
 stack_head (struct stack *stack)
 {
@@ -458,34 +451,30 @@ static int last_comment_line;
 static int last_non_comment_line;
 
 /* The current line buffer.  */
-char *linebuf;
+static char *linebuf;
 
 /* The size of the current line.  */
-int linesize;
+static int linesize;
 
 /* The position in the current line.  */
-int linepos;
+static int linepos;
 
 /* The size of the input buffer.  */
-size_t linebuf_size;
+static size_t linebuf_size;
 
 /* The last token seen in the token stream.  This is important for the
    interpretation of '?' and '/'.  */
-token_type_ty last_token;
-
-/* The last string token waiting for a dot operator or finishing.  */
-token_ty last_string;
-
-/* True if LAST_STRING is finished.  */
-bool last_string_finished;
+static token_type_ty last_token;
 
 /* Number of lines eaten for here documents.  */
-int here_eaten;
+static int here_eaten;
 
 /* Paranoia: EOF marker for __END__ or __DATA__.  */
-bool end_of_file;
+static bool end_of_file;
+
 
 /* 1. line_number handling.  */
+
 /* Returns the next character from the input stream or EOF.  */
 static int
 phase1_getc ()
@@ -500,7 +489,7 @@ phase1_getc ()
     {
       linesize = getline (&linebuf, &linebuf_size, fp);
 
-      if (linesize == EOF)
+      if (linesize < 0)
 	{
 	  if (ferror (fp))
 	    error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
@@ -535,25 +524,30 @@ phase1_ungetc (int c)
   if (c != EOF)
     {
       if (linepos == 0)
-	error (EXIT_FAILURE, 0, _("\
-%s:%d: internal error: attempt to ungetc across line boundary"),
-	       real_file_name, line_number);
+	/* Attempt to ungetc across line boundary.  Shouldn't happen.
+	   No two phase1_ungetc calls are permitted in a row.  */
+	abort ();
 
       --linepos;
     }
 }
 
+/* Read a here document and return its contents.  */
+
 static char *
 get_here_document (const char *delimiter)
 {
+  /* Accumulator for the entire here document, including a NUL byte
+     at the end.  */
   static char *buffer;
   static size_t bufmax = 0;
   size_t bufpos = 0;
+  /* Current line being appended.  */
   static char *my_linebuf = NULL;
   static size_t my_linebuf_size = 0;
-  bool chomp = false;
 
-  if (bufpos >= bufmax)
+  /* Allocate the initial buffer.  Later on, bufmax > 0.  */
+  if (bufmax == 0)
     {
       buffer = xrealloc_static (NULL, 1);
       buffer[0] = '\0';
@@ -563,8 +557,9 @@ get_here_document (const char *delimiter)
   for (;;)
     {
       int read_bytes = getline (&my_linebuf, &my_linebuf_size, fp);
+      bool chomp;
 
-      if (read_bytes == EOF)
+      if (read_bytes < 0)
 	{
 	  if (ferror (fp))
 	    {
@@ -575,12 +570,11 @@ get_here_document (const char *delimiter)
 	    {
 	      error_with_progname = false;
 	      error (EXIT_SUCCESS, 0, _("\
-%s:%d: can\'t find string terminator \"%s\" anywhere before EOF"),
+%s:%d: can't find string terminator \"%s\" anywhere before EOF"),
 		     real_file_name, line_number, delimiter);
 	      error_with_progname = true;
-	      fflush (stderr);
 
-	      return xstrdup (buffer);
+	      break;
 	    }
 	}
 
@@ -599,28 +593,37 @@ get_here_document (const char *delimiter)
 	  --read_bytes;
 	}
 
-      if (read_bytes && my_linebuf[read_bytes - 1] == '\n')
+      /* Temporarily remove the trailing newline from my_linebuf.  */
+      chomp = false;
+      if (read_bytes >= 1 && my_linebuf[read_bytes - 1] == '\n')
 	{
 	  chomp = true;
 	  my_linebuf[read_bytes - 1] = '\0';
 	}
-      if (strcmp (my_linebuf, delimiter) == 0)
-	{
-	  return xstrdup (buffer);
-	}
-      if (chomp)
-	{
-	  my_linebuf[read_bytes - 1] = '\n';
-	}
 
-      if (bufpos + read_bytes + 1 >= bufmax)
+      /* See whether this line terminates the here document.  */
+      if (strcmp (my_linebuf, delimiter) == 0)
+	break;
+
+      /* Add back the trailing newline to my_linebuf.  */
+      if (chomp)
+	my_linebuf[read_bytes - 1] = '\n';
+
+      /* Ensure room for read_bytes + 1 bytes.  */
+      if (bufpos + read_bytes >= bufmax)
 	{
-	  bufmax += read_bytes + 1;
+	  do
+	    bufmax = 2 * bufmax + 10;
+	  while (bufpos + read_bytes >= bufmax);
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
+      /* Append this line to the accumulator.  */
       strcpy (buffer + bufpos, my_linebuf);
       bufpos += read_bytes;
     }
+
+  /* Done accumulating the here document.  */
+  return xstrdup (buffer);
 }
 
 /* Skips pod sections.  */
@@ -635,7 +638,7 @@ skip_pod ()
     {
       linesize = getline (&linebuf, &linebuf_size, fp);
 
-      if (linesize == EOF)
+      if (linesize < 0)
 	{
 	  if (ferror (fp))
 	    error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
@@ -653,6 +656,7 @@ skip_pod ()
 	}
     }
 }
+
 
 /* 2. Replace each comment that is not inside a string literal or regular
    expression with a newline character.  We need to remember the comment
@@ -691,14 +695,14 @@ phase2_getc ()
 	    break;
 	  if (buflen >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc_static (buffer, bufmax);
 	    }
 	  buffer[buflen++] = c;
 	}
       if (buflen >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
       buffer[buflen] = '\0';
@@ -717,13 +721,10 @@ phase2_ungetc (int c)
 
 /* There is an ambiguity about '/': It can start a division operator ('/' or
    '/=') or it can start a regular expression.  The distinction is important
-   because inside regular expressions, '#' and '"' lose its special meanings.
-   If you look at the awk grammar, you see that the operator is only allowed
-   right after a 'variable' or 'simp_exp' nonterminal, and these nonterminals
-   can only end in the NAME, LENGTH, YSTRING, YNUMBER, ')', ']' terminals.
-   So we prefer the division operator interpretation only right after
-   symbol, string, number, ')', ']', with whitespace but no newline allowed
-   in between.  */
+   because inside regular expressions, '#' loses its special meaning.
+   The distinction is possible depending on the parsing state: After a
+   variable or simple expression, it's a division operator; at the beginning
+   of an expression, it's a regexp.  */
 static bool prefer_division_over_regexp;
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
@@ -746,10 +747,10 @@ free_token (token_ty *tp)
 }
 
 /* Extract an unsigned hexadecimal number from STRING, considering at
-   most LEN bytes and place the result in RESULT.  Returns a pointer
+   most LEN bytes and place the result in *RESULT.  Returns a pointer
    to the first character past the hexadecimal number.  */
-static char *
-extract_hex (char *string, size_t len, unsigned int *result)
+static const char *
+extract_hex (const char *string, size_t len, unsigned int *result)
 {
   size_t i;
 
@@ -757,14 +758,15 @@ extract_hex (char *string, size_t len, unsigned int *result)
 
   for (i = 0; i < len; i++)
     {
+      char c = string[i];
       int number;
 
-      if (string[i] >= 'A' && string[i] <= 'F')
-	number = 10 + string[i] - 'A';
-      else if (string[i] >= 'a' && string[i] <= 'f')
-	number = 10 + string[i] - 'a';
-      else if (string[i] >= '0' && string[i] <= '9')
-	number = string[i] - '0';
+      if (c >= 'A' && c <= 'F')
+	number = c - 'A' + 10;
+      else if (c >= 'a' && c <= 'f')
+	number = c - 'a' + 10;
+      else if (c >= '0' && c <= '9')
+	number = c - '0';
       else
 	break;
 
@@ -776,10 +778,10 @@ extract_hex (char *string, size_t len, unsigned int *result)
 }
 
 /* Extract an unsigned octal number from STRING, considering at
-   most LEN bytes and place the result in RESULT.  Returns a pointer
-   to the first character past the hexadecimal number.  */
-static char *
-extract_oct (char *string, size_t len, unsigned int *result)
+   most LEN bytes and place the result in *RESULT.  Returns a pointer
+   to the first character past the octal number.  */
+static const char *
+extract_oct (const char *string, size_t len, unsigned int *result)
 {
   size_t i;
 
@@ -787,10 +789,11 @@ extract_oct (char *string, size_t len, unsigned int *result)
 
   for (i = 0; i < len; i++)
     {
+      char c = string[i];
       int number;
 
-      if (string[i] >= '0' && string[i] <= '7')
-	number = string[i] - '0';
+      if (c >= '0' && c <= '7')
+	number = c - '0';
       else
 	break;
 
@@ -802,40 +805,47 @@ extract_oct (char *string, size_t len, unsigned int *result)
 }
 
 /* Extract the various quotelike constructs except for <<EOF.  See the
-   section "Gory details of parsing quoted constructs" in perlop.pod.  */
+   section "Gory details of parsing quoted constructs" in perlop.pod.
+   Return the resulting token in *tp; tp->type == token_type_string.  */
 static void
 extract_quotelike (token_ty *tp, int delim)
 {
   char *string = extract_quotelike_pass1 (delim);
-  tp->type = token_type_string;
+  size_t len = strlen (string);
 
-  string[strlen (string) - 1] = '\0';
+  tp->type = token_type_string;
+  /* Take the string without the delimiters at the start and at the end.  */
+  if (!(len >= 2))
+    abort ();
+  string[len - 1] = '\0';
   tp->string = xstrdup (string + 1);
   free (string);
-  return;
 }
 
 /* Extract the quotelike constructs with double delimiters, like
    s/[SEARCH]/[REPLACE]/.  This function does not eat up trailing
-   modifiers (left to the caller).  */
+   modifiers (left to the caller).
+   Return the resulting token in *tp; tp->type == token_type_regex_op.  */
 static void
 extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
 			  bool interpolate)
 {
-  char *string = extract_quotelike_pass1 (delim);
+  char *string;
 
   tp->type = token_type_regex_op;
-  if (interpolate && !extract_all && delim != '\'')
-    interpolate_keywords (mlp, string);
 
+  string = extract_quotelike_pass1 (delim);
+  if (interpolate)
+    interpolate_keywords (mlp, string);
   free (string);
 
   if (delim == '(' || delim == '<' || delim == '{' || delim == '[')
     {
-      /* Things can change.  */
+      /* The delimiter for the second string can be different, e.g.
+	 s{SEARCH}{REPLACE} or s{SEARCH}/REPLACE/.  See "man perlrequick".  */
       delim = phase1_getc ();
-      while (delim == ' ' || delim == '\t' || delim == '\r'
-	     || delim == '\n' || delim  == '\f')
+      while (delim == ' ' || delim == '\t' || delim == '\r' || delim == '\n'
+	     || delim  == '\f')
 	{
 	  /* The hash-sign is not a valid delimiter after whitespace, ergo
 	     use phase2_getc() and not phase1_getc() now.  */
@@ -843,22 +853,23 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
 	}
     }
   string = extract_quotelike_pass1 (delim);
-  if (interpolate && !extract_all && delim != '\'')
+  if (interpolate)
     interpolate_keywords (mlp, string);
   free (string);
-
-  return;
 }
 
 /* Pass 1 of extracting quotes: Find the end of the string, regardless
-   of the semantics of the construct.  */
+   of the semantics of the construct.  Return the complete string,
+   including the starting and the trailing delimiter, with backslashes
+   removed where appropriate.  */
 static char *
 extract_quotelike_pass1 (int delim)
 {
   /* This function is called recursively.  No way to allocate stuff
-     statically.  Consider using alloca() instead.  */
-  char *buffer = (char *) xmalloc (100);
-  int bufmax = 100;
+     statically.  Also alloca() is inappropriate due to limited stack
+     size on some platforms.  So we use malloc().  */
+  int bufmax = 10;
+  char *buffer = (char *) xmalloc (bufmax);
   int bufpos = 0;
   bool nested = true;
   int counter_delim;
@@ -880,7 +891,7 @@ extract_quotelike_pass1 (int delim)
     case '<':
       counter_delim = '>';
       break;
-    default:
+    default: /* "..." or '...' or |...| etc. */
       nested = false;
       counter_delim = delim;
       break;
@@ -890,9 +901,10 @@ extract_quotelike_pass1 (int delim)
     {
       int c = phase1_getc ();
 
-      if (bufpos >= bufmax - 1)
+      /* This round can produce 1 or 2 bytes.  Ensure room for 2 bytes.  */
+      if (bufpos + 2 > bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
 	}
 
@@ -913,18 +925,19 @@ extract_quotelike_pass1 (int delim)
 	  char *inner = extract_quotelike_pass1 (delim);
 	  size_t len = strlen (inner);
 
+	  /* Ensure room for len + 1 bytes.  */
 	  if (bufpos + len >= bufmax)
 	    {
-	      bufmax += len;
+	      do
+		bufmax = 2 * bufmax + 10;
+	      while (bufpos + len >= bufmax);
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  strcpy (buffer + bufpos, inner);
 	  free (inner);
 	  bufpos += len;
-	  continue;
 	}
-
-      if (c == '\\')
+      else if (c == '\\')
 	{
 	  c = phase1_getc ();
 	  if (c == '\\')
@@ -950,7 +963,9 @@ extract_quotelike_pass1 (int delim)
     }
 }
 
-/* Perform pass 3 of quotelike extraction (interpolation).  */
+/* Perform pass 3 of quotelike extraction (interpolation).
+   *tp is a token of type token_type_string.
+   This function replaces tp->string.  */
 /* FIXME: Currently may writes null-bytes into the string.  */
 static void
 extract_quotelike_pass3 (token_ty *tp, int error_level)
@@ -958,12 +973,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
-  char *string = tp->string;
-  unsigned char *crs = string;
-
-  bool uppercase = false;
-  bool lowercase = false;
-  bool quotemeta = false;
+  const char *crs;
+  bool uppercase;
+  bool lowercase;
+  bool quotemeta;
 
 #if DEBUG_PERL
   switch (tp->string_type)
@@ -989,11 +1002,17 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
   if (tp->string_type == string_type_verbatim)
     return;
 
+  /* Loop over tp->string, accumulating the expansion in buffer.  */
+  crs = tp->string;
+  uppercase = false;
+  lowercase = false;
+  quotemeta = false;
   while (*crs)
     {
-      if (bufpos >= bufmax - 6)
+      /* Ensure room for 6 bytes.  */
+      if (bufpos + 6 > bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
 
@@ -1006,7 +1025,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		{
 		  ++crs;
 		  buffer[bufpos++] = '\\';
-		  continue;
+		  break;
 		}
 	      /* FALLTHROUGH */
 	    default:
@@ -1057,7 +1076,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		int length;
 
 		crs = extract_oct (crs + 1, 3, &oct_number);
-		length = u8_uctomb (buffer + bufpos, oct_number, 3);
+		/* Yes, octal escape sequences in the range 0x100..0x1ff are
+		   valid.  */
+		length = u8_uctomb (buffer + bufpos, oct_number, 2);
 		if (length > 0)
 		  bufpos += length;
 	      }
@@ -1068,10 +1089,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		int length;
 
 		++crs;
-
 		if (*crs == '{')
 		  {
-		    char *end = strchr (crs, '}');
+		    const char *end = strchr (crs, '}');
 		    if (end == NULL)
 		      {
 			error_with_progname = false;
@@ -1084,7 +1104,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		    else
 		      {
 			++crs;
-			(void) extract_hex (crs, 4, &hex_number);
+			(void) extract_hex (crs, end - crs, &hex_number);
+			crs = end + 1;
 		      }
 		  }
 		else
@@ -1102,35 +1123,38 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	      crs += 2;
 	      if (*crs)
 		{
-		  int the_char = *crs;
+		  int the_char = (unsigned char) *crs;
 		  if (the_char >= 'a' || the_char <= 'z')
-		    the_char -= 0x20;
-		  buffer[bufpos++] = the_char + (the_char & 0x40 ? -64 : 64);
+		    the_char = the_char - 'a' + 'A';
+		  buffer[bufpos++] = the_char ^ 0x40;
 		}
 	      continue;
 	    case 'N':
 	      crs += 2;
 	      if (*crs == '{')
 		{
-		  char *name = xstrdup (crs + 1);
-		  char *end = strchr (name, '}');
+		  const char *end = strchr (crs + 1, '}');
 		  if (end != NULL)
 		    {
+		      char *name;
 		      unsigned int unicode;
-		      int length;
 
-		      *end = '\0';
+		      name = (char *) xmalloc (end - (crs + 1) + 1);
+		      memcpy (name, crs + 1, end - (crs + 1));
+		      name[end - (crs + 1)] = '\0';
 
-		      crs += 2 + strlen (name);
 		      unicode = unicode_name_character (name);
 		      if (unicode != UNINAME_INVALID)
 			{
-			  length = u8_uctomb (buffer + bufpos, unicode, 6);
+			  int length = u8_uctomb (buffer + bufpos, unicode, 6);
 			  if (length > 0)
 			    bufpos += length;
 			}
+
+		      free (name);
+
+		      crs = end + 1;
 		    }
-		  free (name);
 		}
 	      continue;
 	    }
@@ -1143,63 +1167,63 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	  switch (*crs)
 	    {
 	    case 'E':
-	      quotemeta = uppercase = lowercase = false;
+	      uppercase = false;
+	      lowercase = false;
+	      quotemeta = false;
 	      ++crs;
 	      continue;
 	    case 'L':
-	      quotemeta = uppercase = false;
+	      uppercase = false;
 	      lowercase = true;
+	      quotemeta = false;
 	      ++crs;
 	      continue;
 	    case 'U':
-	      quotemeta = lowercase = false;
 	      uppercase = true;
+	      lowercase = false;
+	      quotemeta = false;
 	      ++crs;
 	      continue;
 	    case 'Q':
-	      uppercase = lowercase = false;
+	      uppercase = false;
+	      lowercase = false;
 	      quotemeta = true;
 	      ++crs;
 	      continue;
 	    case 'l':
 	      ++crs;
-	      if (crs[1] >= 'A' && crs[1] <= 'Z')
+	      if (*crs >= 'A' && *crs <= 'Z')
 		{
-		  buffer[bufpos++] = crs[1] + 0x20;
-		  ++crs;
+		  buffer[bufpos++] = *crs - 'A' + 'a';
 		}
-	      else if (crs[1] >= 0x80)
+	      else if ((unsigned char) *crs >= 0x80)
 		{
 		  error_with_progname = false;
 		  error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""),
 			 real_file_name, line_number, *crs);
 		  error_with_progname = true;
-		  ++crs;
 		}
-	      else
-		++crs;
+	      ++crs;
 	      continue;
 	    case 'u':
 	      ++crs;
-	      if (crs[1] >= 'a' && crs[1] <= 'z')
+	      if (*crs >= 'a' && *crs <= 'z')
 		{
-		  buffer[bufpos++] = crs[1] - 0x20;
-		  ++crs;
+		  buffer[bufpos++] = *crs - 'a' + 'A';
 		}
-	      else if (crs[1] >= 0x80)
+	      else if ((unsigned char) *crs >= 0x80)
 		{
 		  error_with_progname = false;
 		  error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""),
 			 real_file_name, line_number, *crs);
 		  error_with_progname = true;
-		  ++crs;
 		}
-	      else
-		++crs;
+	      ++crs;
 	      continue;
 	    case '\\':
+	      /* FIXME: This looks buggy.  */
 	      if (crs[1])
 		buffer[bufpos++] = crs[1];
 	      crs++;
@@ -1207,47 +1231,48 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	    }
 	}
 
-
       if (*crs == '$' || *crs == '@')
 	{
-	  ++crs;
 	  error_with_progname = false;
 	  error (error_level, 0, _("\
 %s:%d: invalid variable interpolation at \"%c\""),
 		 real_file_name, line_number, *crs);
 	  error_with_progname = true;
+	  ++crs;
 	}
       else if (lowercase)
 	{
 	  if (*crs >= 'A' && *crs <= 'Z')
-	    buffer[bufpos++] = 0x20 + *crs++;
-	  else if (*crs >= 0x80)
+	    buffer[bufpos++] = *crs - 'A' + 'a';
+	  else if ((unsigned char) *crs >= 0x80)
 	    {
 	      error_with_progname = false;
 	      error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""),
 		     real_file_name, line_number, *crs);
 	      error_with_progname = true;
-	      buffer[bufpos++] = *crs++;
+	      buffer[bufpos++] = *crs;
 	    }
 	  else
-	    buffer[bufpos++] = *crs++;
+	    buffer[bufpos++] = *crs;
+	  ++crs;
 	}
       else if (uppercase)
 	{
 	  if (*crs >= 'a' && *crs <= 'z')
-	    buffer[bufpos++] = *crs++ - 0x20;
-	  else if (*crs >= 0x80)
+	    buffer[bufpos++] = *crs - 'a' + 'A';
+	  else if ((unsigned char) *crs >= 0x80)
 	    {
 	      error_with_progname = false;
 	      error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""),
 		     real_file_name, line_number, *crs);
 	      error_with_progname = true;
-	      buffer[bufpos++] = *crs++;
+	      buffer[bufpos++] = *crs;
 	    }
 	  else
-	    buffer[bufpos++] = *crs++;
+	    buffer[bufpos++] = *crs;
+	  ++crs;
 	}
       else if (quotemeta)
 	{
@@ -1259,11 +1284,12 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	}
     }
 
-  if (bufpos >= bufmax - 1)
-  {
-      bufmax += 100;
+  /* Ensure room for 1 more byte.  */
+  if (bufpos >= bufmax)
+    {
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc_static (buffer, bufmax);
-  }
+    }
 
   buffer[bufpos++] = '\0';
 
@@ -1271,15 +1297,15 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
   fprintf (stderr, "---> %s\n", buffer);
 #endif
 
+  /* Replace tp->string.  */
   free (tp->string);
   tp->string = xstrdup (buffer);
 }
 
 /* Parse a variable.  This is done in several steps:
- *
- * 1) Consume all leading occurcencies of '$', '@', '%', and '*'.
- * 2) Determine the name of the variable from the following input
- * 3) Parse possible following hash keys or array indexes.
+     1) Consume all leading occurencies of '$', '@', '%', and '*'.
+     2) Determine the name of the variable from the following input.
+     3) Parse possible following hash keys or array indexes.
  */
 static void
 extract_variable (message_list_ty *mlp, token_ty *tp, int first)
@@ -1308,7 +1334,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
     {
       if (bufpos >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
       buffer[bufpos++] = c;
@@ -1329,16 +1355,15 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	maybe_hash_value = true;
       else if (bufpos == 2 && buffer[1] == '$')
 	{
-	  if (c != '{' && c != '_' && (!((c >= '0' && c <= '9')
-					 || (c >= 'A' && c <= 'Z')
-					 || (c >= 'a' && c <= 'z')
-					 || c == ':' || c == '\''
-					 || c >= 0x80)))
+	  if (!(c == '{'
+		|| (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+		|| (c >= '0' && c <= '9')
+		|| c == '_' || c == ':' || c == '\'' || c >= 0x80))
 	    {
 	      /* Special variable $$ for pid.  */
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc_static (buffer, bufmax);
 		}
 	      buffer[bufpos++] = '\0';
@@ -1365,7 +1390,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
    */
   if (bufpos >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc_static (buffer, bufmax);
     }
   if (c == '{')
@@ -1385,15 +1410,14 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
     }
   else
     {
-      while ((c >= 'A' && c <= 'Z') ||
-	     (c >= 'a' && c <= 'z') ||
-	     (c >= '0' && c <= '9') ||
-	     c == '_' || c == ':' || c == '\'' || c >= 0x80)
+      while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+	     || (c >= '0' && c <= '9')
+	     || c == '_' || c == ':' || c == '\'' || c >= 0x80)
 	{
 	  ++varbody_length;
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc_static (buffer, bufmax);
 	    }
 	  buffer[bufpos++] = c;
@@ -1402,9 +1426,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
       phase1_ungetc (c);
     }
 
-  if (bufpos >= bufmax - 1)
+  if (bufpos + 1 >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc_static (buffer, bufmax);
     }
   buffer[bufpos++] = '\0';
@@ -1448,7 +1472,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
       int c = phase2_getc ();
 
       while (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f')
-	  c = phase2_getc ();
+	c = phase2_getc ();
 
       if (c == '-')
 	{
@@ -1460,7 +1484,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      c = phase2_getc ();
 	      while (c == ' ' || c == '\t' || c == '\r'
 		     || c == '\n' || c == '\f')
-		  c = phase2_getc ();
+		c = phase2_getc ();
 	    }
 	  else if (c2 != '\n')
 	    {
@@ -1468,7 +1492,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		 special character recognized after a minus is greater-than
 		 for dereference.  However, the sequence "-\n>" that we
 	         treat incorrectly here, is a syntax error.  */
-		phase1_ungetc (c2);
+	      phase1_ungetc (c2);
 	    }
 	}
 
@@ -1600,16 +1624,15 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 }
 
 /* Actually a simplified version of extract_variable().  It searches for
- * variables inside a double-quoted string that may interpolate to
- * some keyword hash (reference).
- */
+   variables inside a double-quoted string that may interpolate to
+   some keyword hash (reference).  */
 static void
 interpolate_keywords (message_list_ty *mlp, const char *string)
 {
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
-  int c = string[0];
+  int c = (unsigned char) string[0];
   bool maybe_hash_deref = false;
   enum parser_state
     {
@@ -1653,16 +1676,16 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
   pos.file_name = logical_file_name;
   pos.line_number = line_number;
 
-  while ((c = *string++) != '\0')
+  while ((c = (unsigned char) *string++) != '\0')
     {
       void *keyword_value;
 
       if (state == initial)
 	bufpos = 0;
 
-      if (bufpos >= bufmax - 1)
+      if (bufpos + 1 >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc_static (buffer, bufmax);
 	}
 
@@ -1672,8 +1695,9 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
 	  switch (c)
 	    {
 	    case '\\':
-	      c = *string++;
-	      if (!c) return;
+	      c = (unsigned char) *string++;
+	      if (c == '\0')
+		return;
 	      break;
 	    case '$':
 	      buffer[bufpos++] = '$';
@@ -1729,9 +1753,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
 	    {
 	    case '-':
 	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
-		{
-		  state = minus;
-		}
+		state = minus;
 	      else
 		state = initial;
 	      break;
@@ -1741,9 +1763,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
 		  buffer[0] = '%';
 		}
 	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
-		{
-		  state = wait_quote;
-		}
+		state = wait_quote;
 	      else
 		state = initial;
 	      break;
@@ -1756,9 +1776,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
 		  buffer[bufpos++] = c;
 		}
 	      else
-		{
-		  state = initial;
-		}
+		state = initial;
 	      break;
 	    }
 	  break;
@@ -1839,9 +1857,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
 		  buffer[bufpos++] = string++[0];
 		}
 	      else
-		{
-		  state = initial;
-		}
+		state = initial;
 	      break;
 	    default:
 	      buffer[bufpos++] = c;
@@ -1865,9 +1881,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string)
 		  buffer[bufpos++] = string++[0];
 		}
 	      else
-		{
-		  state = initial;
-		}
+		state = initial;
 	      break;
 	    default:
 	      buffer[bufpos++] = c;
@@ -2006,7 +2020,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	    {
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc_static (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
@@ -2036,7 +2050,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc_static (buffer, bufmax);
 	    }
 	  buffer[bufpos] = '\0';
@@ -2094,7 +2108,9 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  prefer_division_over_regexp = true;
 		  return;
 		}
-	      extract_triple_quotelike (mlp, tp, delim, buffer[0] == 's');
+	      extract_triple_quotelike (mlp, tp, delim,
+					buffer[0] == 's' && !extract_all
+					&& delim != '\'');
 
 	      /* Eat the following modifiers.  */
 	      c = phase1_getc ();
@@ -2186,8 +2202,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		{
 		case 'q':
 		case 'x':
-		  tp->string_type = string_type_qq;
 		  tp->type = token_type_string;
+		  tp->string_type = string_type_qq;
 		  if (!extract_all)
 		    interpolate_keywords (mlp, tp->string);
 		  break;
@@ -2239,9 +2255,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	case '(':
 	  c = phase2_getc ();
 	  if (c == ')')
-	    {
-	      continue;  /* Ignore empty list.  */
-	    }
+	    /* Ignore empty list.  */
+	    continue;
 	  else
 	    phase2_ungetc (c);
 	  tp->type = token_type_lparen;
@@ -2356,7 +2371,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		    {
 		      if (bufpos >= bufmax)
 			{
-			  bufmax += 100;
+			  bufmax = 2 * bufmax + 10;
 			  buffer = xrealloc_static (buffer, bufmax);
 			}
 		      buffer[bufpos++] = c;
@@ -2473,7 +2488,6 @@ x_perl_lex (message_list_ty *mlp)
 #if DEBUG_PERL
 	  fprintf (stderr, "%s:%d: pre-fetching next token\n",
 		   real_file_name, line_number);
-	  fflush (stderr);
 #endif
 	  next = x_perl_lex (mlp);
 	  x_perl_unlex (next);
@@ -2939,11 +2953,11 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   last_token = token_type_semicolon;  /* Safe assumption.  */
   prefer_division_over_regexp = false;
 
-  last_string_finished = false;
-
   init_keywords ();
 
   token_stack = (struct stack *) xmalloc (sizeof (struct stack));
+  token_stack->first = NULL;
+  token_stack->last = NULL;
   here_eaten = 0;
   end_of_file = false;
 
@@ -2958,7 +2972,6 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   logical_file_name = NULL;
   line_number = 0;
   last_token = token_type_semicolon;
-  last_string_finished = false;
   stack_free (token_stack);
   free (token_stack);
   token_stack = NULL;

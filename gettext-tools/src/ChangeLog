@@ -1,3 +1,34 @@
+2003-06-14  Bruno Haible  <bruno@clisp.org>
+
+	* x-perl.c (enum token_type_ty): Reorder, so as to simplify the
+	function free_token().
+	(struct token_ty): Fix comments.
+	(token2string): Add const.
+	(token_stack): Make static.
+	(*_debug, stack_dump): Remove all fflushs.
+	(linebuf, linesize, linepos, linebuf_size, last_token, here_eaten,
+	end_of_file): Make static.
+	(last_string, last_string_finished): Remove unused variables.
+	(phase1_getc, get_here_document, skip_pod): Test getline() result
+	for being < 0, not == EOF.
+	(phase1_ungetc): Signal internal error through abort(), not exit().
+	(get_here_document): Tweak. Increase bufmax proportionally.
+	(phase2_getc): Increase bufmax proportionally.
+	(prefer_division_over_regexp): Fix comment.
+	(extract_hex, extract_oct): Add const. Simplify.
+	(extract_quotelike): Add a safety check.
+	(extract_quotelike_pass1): Increase bufmax proportionally. Fix
+	insufficient memory allocation at "bufpos + len >= bufmax".
+	(extract_quotelike_pass3): Increase bufmax proportionally. Make crs
+	const. After \x{ABC} position crs after the closing brace. Simplify \c
+	code. Reduce memory allocation when \N{ABC} is seen. Fix bug in \l and
+	\u. Fix error message when $ or @ is seen.
+	(extract_variable): Increase bufmax proportionally.
+	(interpolate_keywords): Likewise. Convert c's value to unsigned char.
+	(x_perl_prelex): Increase bufmax proportionally. Compute 4th argument
+	to extract_triple_quotelike completely.
+	(extract_perl): Initialize token_stack correctly.
+
 2003-06-13  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c (process_string): Pass null_stderr=false.
