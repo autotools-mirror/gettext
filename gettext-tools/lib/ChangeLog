@@ -1,5 +1,10 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* argmatch.h: Update from gnulib, with DLL_VARIABLE modifications.
+	* argmatch.c: Update from gnulib.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* quote.h: New file, from gnulib.
 	* quote.c: New file, from gnulib.
 	* Makefile.am (libgettextlib_la_SOURCES): Add quote.h, quote.c.
