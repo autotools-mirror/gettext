@@ -19,7 +19,7 @@
 #ifndef _LIBSTDARG_H
 #define _LIBSTDARG_H
 
-#if __STDC__ || defined __cplusplus
+#if __STDC__ || defined __SUNPRO_C || defined __cplusplus
 # include <stdarg.h>
 # define VA_START(args, lastarg) va_start (args, lastarg)
 # define VA_PARAMS(stdc_params, oldc_params) stdc_params
