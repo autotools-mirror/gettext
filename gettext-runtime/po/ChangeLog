@@ -1,3 +1,9 @@
+2003-11-09  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (stamp-po): Remake all GMOFILES, not just those
+	needed in this build. This is necessary because stamp-po persists
+	across "make distclean".
+
 2003-11-06  Bruno Haible  <bruno@clisp.org>
 
 	* sr.po: New file, from Danilo Segan.
