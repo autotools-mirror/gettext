@@ -21,6 +21,7 @@
 
 #include <locale.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /* This must match intl/localename.c.  */
 #if defined _LIBC || (defined __GNU_LIBRARY__ && __GNU_LIBRARY__ >= 2)

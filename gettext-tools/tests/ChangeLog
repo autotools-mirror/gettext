@@ -1,5 +1,9 @@
 2003-12-29  Bruno Haible  <bruno@clisp.org>
 
+	* testlocale.c: Include stdlib.h.
+
+2003-12-29  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext-c-9: Add a test with a multi-part string with newlines and
 	comments between the parts.
 	* xgettext-java-5: Likewise.
