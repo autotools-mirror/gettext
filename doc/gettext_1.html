@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 7 March 2002 -->
+     from gettext.texi on 24 April 2002 -->
 
 <TITLE>GNU gettext utilities - 1  Introduction</TITLE>
 </HEAD>
@@ -176,7 +176,7 @@ by which the programs are untied from calling only English strings or
 other English specific habits, and connected to generic ways of doing
 the same, instead.  Program developers may use various techniques to
 internationalize their programs.  Some of these have been standardized.
-GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_10.html#SEC140">10  The Programmer's View</A>.
+GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_10.html#SEC141">10  The Programmer's View</A>.
 
 </P>
 <P>
@@ -557,10 +557,10 @@ contains all original program strings.  It has sets of pointers to
 exactly where in C sources each string is used.  All translations
 are set to empty.  The letter <KBD>t</KBD> in <TT>`.pot&acute;</TT> marks this as
 a Template PO file, not yet oriented towards any particular language.
-See section <A HREF="gettext_4.html#SEC20">4.1  Invoking the <CODE>xgettext</CODE> Program</A>, for more details about how one calls the
+See section <A HREF="gettext_4.html#SEC21">4.1  Invoking the <CODE>xgettext</CODE> Program</A>, for more details about how one calls the
 <CODE>xgettext</CODE> program.  If you are <EM>really</EM> lazy, you might
 be interested at working a lot more right away, and preparing the
-whole distribution setup (see section <A HREF="gettext_12.html#SEC171">12  The Maintainer's View</A>).  By doing so, you
+whole distribution setup (see section <A HREF="gettext_12.html#SEC172">12  The Maintainer's View</A>).  By doing so, you
 spare yourself typing the <CODE>xgettext</CODE> command, as <CODE>make</CODE>
 should now generate the proper things automatically for you!
 
@@ -569,7 +569,7 @@ should now generate the proper things automatically for you!
 The first time through, there is no <TT>`<VAR>lang</VAR>.po&acute;</TT> yet, so the
 <CODE>msgmerge</CODE> step may be skipped and replaced by a mere copy of
 <TT>`<VAR>package</VAR>.pot&acute;</TT> to <TT>`<VAR>lang</VAR>.po&acute;</TT>, where <VAR>lang</VAR>
-represents the target language.  See section <A HREF="gettext_5.html#SEC28">5  Creating a New PO File</A> for details.
+represents the target language.  See section <A HREF="gettext_5.html#SEC29">5  Creating a New PO File</A> for details.
 
 </P>
 <P>
@@ -577,7 +577,7 @@ Then comes the initial translation of messages.  Translation in
 itself is a whole matter, still exclusively meant for humans,
 and whose complexity far overwhelms the level of this manual.
 Nevertheless, a few hints are given in some other chapter of this
-manual (see section <A HREF="gettext_11.html#SEC160">11  The Translator's View</A>).  You will also find there indications
+manual (see section <A HREF="gettext_11.html#SEC161">11  The Translator's View</A>).  You will also find there indications
 about how to contact translating teams, or becoming part of them,
 for sharing your translating concerns with others who target the same
 native language.
@@ -594,14 +594,14 @@ of PO file format are taken care of for you, but you have to acquire
 some familiarity with PO mode itself.  Besides main PO mode commands
 (see section <A HREF="gettext_2.html#SEC10">2.3  Main PO mode Commands</A>), you should know how to move between entries
 (see section <A HREF="gettext_2.html#SEC11">2.4  Entry Positioning</A>), and how to handle untranslated entries
-(see section <A HREF="gettext_6.html#SEC46">6.4  Untranslated Entries</A>).
+(see section <A HREF="gettext_6.html#SEC47">6.4  Untranslated Entries</A>).
 
 </P>
 <P>
 If some common translations have already been saved into a compendium
 PO file, translators may use PO mode for initializing untranslated
 entries from the compendium, and also save selected translations into
-the compendium, updating it (see section <A HREF="gettext_6.html#SEC53">6.11  Using Translation Compendia</A>).  Compendium files
+the compendium, updating it (see section <A HREF="gettext_6.html#SEC54">6.11  Using Translation Compendia</A>).  Compendium files
 are meant to be exchanged between members of a given translation team.
 
 </P>
@@ -647,8 +647,8 @@ out of recent C sources.  The refreshing operation adjusts all
 references to C source locations for strings, since these strings
 move as programs are modified.  Also, <CODE>msgmerge</CODE> comments out as
 obsolete, in <TT>`<VAR>lang</VAR>.po&acute;</TT>, those already translated entries
-which are no longer used in the program sources (see section <A HREF="gettext_6.html#SEC47">6.5  Obsolete Entries</A>).  It finally discovers new strings and inserts them in
-the resulting PO file as untranslated entries (see section <A HREF="gettext_6.html#SEC46">6.4  Untranslated Entries</A>).  See section <A HREF="gettext_6.html#SEC36">6.1  Invoking the <CODE>msgmerge</CODE> Program</A>, for more information about what
+which are no longer used in the program sources (see section <A HREF="gettext_6.html#SEC48">6.5  Obsolete Entries</A>).  It finally discovers new strings and inserts them in
+the resulting PO file as untranslated entries (see section <A HREF="gettext_6.html#SEC47">6.4  Untranslated Entries</A>).  See section <A HREF="gettext_6.html#SEC37">6.1  Invoking the <CODE>msgmerge</CODE> Program</A>, for more information about what
 <CODE>msgmerge</CODE> really does.
 
 </P>
@@ -678,7 +678,7 @@ distribution.
 Once the PO file is complete and dependable, the <CODE>msgfmt</CODE> program
 is used for turning the PO file into a machine-oriented format, which
 may yield efficient retrieval of translations by the programs of the
-package, whenever needed at runtime (see section <A HREF="gettext_8.html#SEC135">8.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_8.html#SEC118">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
+package, whenever needed at runtime (see section <A HREF="gettext_8.html#SEC136">8.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_8.html#SEC119">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
 for the <CODE>msgfmt</CODE> program.
 
 </P>
@@ -688,7 +688,7 @@ with the GNU <CODE>gettext</CODE> library, usually through the operation of
 <CODE>make</CODE>, given a suitable <TT>`Makefile&acute;</TT> exists for the project,
 and the resulting executable is installed somewhere users will find it.
 The MO files themselves should also be properly installed.  Given the
-appropriate environment variables are set (see section <A HREF="gettext_9.html#SEC139">9.3  Magic for End Users</A>), the
+appropriate environment variables are set (see section <A HREF="gettext_9.html#SEC140">9.3  Magic for End Users</A>), the
 program should localize itself automatically, whenever it executes.
 
 </P>

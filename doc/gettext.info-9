@@ -31,6 +31,182 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: PO Mode Index,  Next: Autoconf Macro Index,  Prev: Variable Index,  Up: Top
+
+PO Mode Index
+*************
+
+* Menu:
+
+* #, PO Mode command:                    Modifying Comments.
+* ,, PO Mode command:                    Marking.
+* ., PO Mode command:                    Entry Positioning.
+* .emacs customizations:                 Installation.
+* 0, PO Mode command:                    Main PO Commands.
+* <, PO Mode command:                    Entry Positioning.
+* =, PO Mode command:                    Main PO Commands.
+* >, PO Mode command:                    Entry Positioning.
+* ?, PO Mode command:                    Main PO Commands.
+* _, PO Mode command:                    Main PO Commands.
+* a, PO Mode command:                    Auxiliary.
+* A, PO Mode command:                    Auxiliary.
+* a, PO Mode command:                    Auxiliary.
+* auxiliary PO file:                     Auxiliary.
+* C-c C-a, PO Mode command <1>:          Auxiliary.
+* C-c C-a, PO Mode command:              Subedit.
+* C-c C-c, PO Mode command:              Subedit.
+* C-c C-k, PO Mode command:              Subedit.
+* C-j, PO Mode command:                  Modifying Translations.
+* commands:                              Main PO Commands.
+* comment out PO file entry:             Obsolete Entries.
+* consulting program sources:            C Sources Context.
+* consulting translations to other languages: Auxiliary.
+* current entry of a PO file:            Entry Positioning.
+* cut and paste for translated strings:  Modifying Translations.
+* DEL, PO Mode command <1>:              Obsolete Entries.
+* DEL, PO Mode command:                  Fuzzy Entries.
+* editing comments:                      Modifying Comments.
+* editing multiple entries:              Subedit.
+* editing translations:                  Modifying Translations.
+* etags, using for marking strings:      Marking.
+* exiting PO subedit:                    Subedit.
+* find source fragment for a PO file entry: C Sources Context.
+* h, PO Mode command:                    Main PO Commands.
+* installing PO mode:                    Installation.
+* K, PO Mode command:                    Modifying Comments.
+* k, PO Mode command <1>:                Modifying Translations.
+* k, PO Mode command:                    Untranslated Entries.
+* LFD, PO Mode command:                  Modifying Translations.
+* looking at the source to aid translation: C Sources Context.
+* m, PO Mode command:                    Entry Positioning.
+* M-,, PO Mode command:                  Marking.
+* M-., PO Mode command:                  Marking.
+* M-A, PO Mode command:                  Auxiliary.
+* M-S, PO Mode command:                  C Sources Context.
+* M-s, PO Mode command:                  C Sources Context.
+* M-S, PO Mode command:                  C Sources Context.
+* M-s, PO Mode command:                  C Sources Context.
+* marking strings for translation:       Marking.
+* moving by fuzzy entries:               Fuzzy Entries.
+* moving by obsolete entries:            Obsolete Entries.
+* moving by translated entries:          Translated Entries.
+* moving by untranslated entries:        Untranslated Entries.
+* moving through a PO file:              Entry Positioning.
+* n, PO Mode command:                    Entry Positioning.
+* next-error, stepping through PO file validation results: Main PO Commands.
+* normalize, PO Mode command:            Auxiliary.
+* O, PO Mode command:                    Obsolete Entries.
+* o, PO Mode command:                    Obsolete Entries.
+* O, PO Mode command:                    Obsolete Entries.
+* o, PO Mode command:                    Obsolete Entries.
+* obsolete active entry:                 Obsolete Entries.
+* p, PO Mode command:                    Entry Positioning.
+* pending subedits:                      Subedit.
+* po-auto-edit-with-msgid, PO Mode variable: Modifying Translations.
+* po-auto-fuzzy-on-edit, PO Mode variable: Translated Entries.
+* po-auto-select-on-unfuzzy, PO Mode variable: Fuzzy Entries.
+* po-confirm-and-quit, PO Mode command:  Main PO Commands.
+* po-consider-as-auxiliary, PO Mode command: Auxiliary.
+* po-consider-source-path, PO Mode command: C Sources Context.
+* po-current-entry, PO Mode command:     Entry Positioning.
+* po-cycle-auxiliary, PO Mode command:   Auxiliary.
+* po-cycle-source-reference, PO Mode command: C Sources Context.
+* po-edit-comment, PO Mode command:      Modifying Comments.
+* po-edit-msgstr, PO Mode command:       Modifying Translations.
+* po-exchange-location, PO Mode command: Entry Positioning.
+* po-fade-out-entry, PO Mode command <1>: Obsolete Entries.
+* po-fade-out-entry, PO Mode command:    Fuzzy Entries.
+* po-first-entry, PO Mode command:       Entry Positioning.
+* po-help, PO Mode command:              Main PO Commands.
+* po-ignore-as-auxiliary, PO Mode command: Auxiliary.
+* po-ignore-source-path, PO Mode command: C Sources Context.
+* po-kill-comment, PO Mode command:      Modifying Comments.
+* po-kill-msgstr, PO Mode command <1>:   Modifying Translations.
+* po-kill-msgstr, PO Mode command:       Untranslated Entries.
+* po-kill-ring-save-comment, PO Mode command: Modifying Comments.
+* po-kill-ring-save-msgstr, PO Mode command: Modifying Translations.
+* po-last-entry, PO Mode command:        Entry Positioning.
+* po-mark-translatable, PO Mode command: Marking.
+* po-msgid-to-msgstr, PO Mode command:   Modifying Translations.
+* po-next-entry, PO Mode command:        Entry Positioning.
+* po-next-fuzzy-entry, PO Mode command:  Fuzzy Entries.
+* po-next-obsolete-entry, PO Mode command: Obsolete Entries.
+* po-next-translated-entry, PO Mode command: Translated Entries.
+* po-next-untranslated-entry, PO Mode command: Untranslated Entries.
+* po-normalize, PO Mode command <1>:     Normalizing.
+* po-normalize, PO Mode command:         PO Files.
+* po-other-window, PO Mode command:      Main PO Commands.
+* po-pop-location, PO Mode command:      Entry Positioning.
+* po-previous-entry, PO Mode command:    Entry Positioning.
+* po-previous-fuzzy-entry, PO Mode command: Fuzzy Entries.
+* po-previous-obsolete-entry, PO Mode command: Obsolete Entries.
+* po-previous-translated-entry, PO Mode command: Translated Entries.
+* po-previous-untransted-entry, PO Mode command: Untranslated Entries.
+* po-push-location, PO Mode command:     Entry Positioning.
+* po-quit, PO Mode command:              Main PO Commands.
+* po-select-auxiliary, PO Mode command:  Auxiliary.
+* po-select-mark-and-mark, PO Mode command: Marking.
+* po-select-source-reference, PO Mode command: C Sources Context.
+* po-statistics, PO Mode command:        Main PO Commands.
+* po-subedit-abort, PO Mode command:     Subedit.
+* po-subedit-cycle-auxiliary, PO Mode command: Subedit.
+* po-subedit-exit, PO Mode command:      Subedit.
+* po-subedit-mode-hook, PO Mode variable: Modifying Comments.
+* po-tags-search, PO Mode command:       Marking.
+* po-undo, PO Mode command:              Main PO Commands.
+* po-unfuzzy, PO Mode command:           Fuzzy Entries.
+* po-validate, PO Mode command:          Main PO Commands.
+* po-yank-comment, PO Mode command:      Modifying Comments.
+* po-yank-msgstr, PO Mode command:       Modifying Translations.
+* q, PO Mode command:                    Main PO Commands.
+* Q, PO Mode command:                    Main PO Commands.
+* q, PO Mode command:                    Main PO Commands.
+* Q, PO Mode command:                    Main PO Commands.
+* r, PO Mode command:                    Entry Positioning.
+* RET, PO Mode command:                  Modifying Translations.
+* S, PO Mode command:                    C Sources Context.
+* s, PO Mode command:                    C Sources Context.
+* S, PO Mode command:                    C Sources Context.
+* s, PO Mode command:                    C Sources Context.
+* starting a string translation:         Modifying Translations.
+* string normalization in entries:       Normalizing.
+* subedit minor mode:                    Subedit.
+* T, PO Mode command:                    Translated Entries.
+* t, PO Mode command:                    Translated Entries.
+* T, PO Mode command:                    Translated Entries.
+* t, PO Mode command:                    Translated Entries.
+* TAB, PO Mode command:                  Fuzzy Entries.
+* TAGS, and marking translatable strings: Marking.
+* U, PO Mode command:                    Untranslated Entries.
+* u, PO Mode command:                    Untranslated Entries.
+* U, PO Mode command:                    Untranslated Entries.
+* u, PO Mode command:                    Untranslated Entries.
+* use the source, Luke:                  C Sources Context.
+* using obsolete translations to make new entries: Modifying Translations.
+* using translation compendia:           Compendium.
+* V, PO Mode command:                    Main PO Commands.
+* W, PO Mode command:                    Modifying Comments.
+* w, PO Mode command:                    Modifying Translations.
+* x, PO Mode command:                    Entry Positioning.
+* Y, PO Mode command:                    Modifying Comments.
+* y, PO Mode command:                    Modifying Translations.
+* Z, PO Mode command:                    Fuzzy Entries.
+* z, PO Mode command:                    Fuzzy Entries.
+* Z, PO Mode command:                    Fuzzy Entries.
+* z, PO Mode command:                    Fuzzy Entries.
+
+
+File: gettext.info,  Node: Autoconf Macro Index,  Next: Index,  Prev: PO Mode Index,  Up: Top
+
+Autoconf Macro Index
+********************
+
+* Menu:
+
+* AM_GNU_GETTEXT:                        AM_GNU_GETTEXT.
+* AM_ICONV:                              AM_ICONV.
+
+
 File: gettext.info,  Node: Index,  Prev: Autoconf Macro Index,  Up: Top
 
 General Index
@@ -45,6 +221,7 @@ General Index
 * accumulating translations:             Creating Compendia.
 * aclocal.m4 file:                       aclocal.
 * adding keywords, xgettext:             xgettext Invocation.
+* ambiguities:                           Preparing Strings.
 * apply a filter to translations:        msgfilter Invocation.
 * apply command to all translations in a catalog: msgexec Invocation.
 * attribute manipulation:                msgattrib Invocation.
@@ -87,6 +264,7 @@ General Index
 * compendium, creating:                  Creating Compendia.
 * concatenate PO files:                  msgcat Invocation.
 * concatenating PO files into a compendium: Creating Compendia.
+* concatenation of strings:              Preparing Strings.
 * convert binary message catalog into PO file: msgunfmt Invocation.
 * convert translations to a different encoding: msgconv Invocation.
 * converting a package to use gettext:   Prerequisites.
@@ -140,6 +318,7 @@ General Index
 * hash table, inside MO files:           MO Files.
 * he, she, and they:                     Introduction.
 * header entry of a PO file:             Header Entry.
+* help option:                           Preparing Strings.
 * history of GNU gettext:                History.
 * i18n:                                  Concepts.
 * importing PO files:                    Normalizing.
@@ -153,11 +332,13 @@ General Index
 * installing gettext:                    Installation.
 * interface to catgets:                  Interface to catgets.
 * internationalization:                  Concepts.
+* inttypes.h:                            Preparing Strings.
 * ISO 3166:                              Country Codes.
 * ISO 639:                               Language Codes.
 * Java:                                  Java.
 * Java mode, and msgfmt program:         msgfmt Invocation.
 * Java mode, and msgunfmt program:       msgunfmt Invocation.
+* Java, string concatenation:            Preparing Strings.
 * keyboard accelerator checking:         msgfmt Invocation.
 * l10n:                                  Concepts.
 * language codes:                        Language Codes.
@@ -196,6 +377,7 @@ General Index
 * manipulating PO files:                 Manipulating.
 * marking string initializers:           Special cases.
 * marking strings that require translation: Mark Keywords.
+* marking strings, preparations:         Preparing Strings.
 * marking translatable strings:          Overview.
 * menu entries:                          GUI program problems.
 * menu, keyboard accelerator support:    msgfmt Invocation.
@@ -245,6 +427,7 @@ General Index
 * package and version declaration in configure.in: configure.in.
 * package build and installation options: Installers.
 * package maintainer's view of gettext:  Maintainers.
+* paragraphs:                            Preparing Strings.
 * Pascal:                                Pascal.
 * Perl:                                  Perl.
 * PHP:                                   PHP.
@@ -270,6 +453,7 @@ General Index
 * scripting languages:                   Language Implementors.
 * search messages in a catalog:          msggrep Invocation.
 * selecting message language:            End Users.
+* sentences:                             Preparing Strings.
 * setting up gettext at build time:      Installers.
 * setting up gettext at run time:        End Users.
 * several domains:                       Ambiguities.
@@ -285,7 +469,9 @@ General Index
 * specifying plural form in a PO file:   Plural forms.
 * standard output, and msgcat:           msgcat Invocation.
 * standard output, and msgmerge program: msgmerge Invocation.
+* string concatenation:                  Preparing Strings.
 * string normalization in entries:       Normalizing.
+* style:                                 Preparing Strings.
 * supported languages, xgettext:         xgettext Invocation.
 * Tcl:                                   Tcl.
 * Tcl mode, and msgfmt program:          msgfmt Invocation.

@@ -84,6 +84,7 @@ PO Files and PO Mode Basics
 Preparing Program Sources
 
 * Triggering::                  Triggering `gettext' Operations
+* Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string

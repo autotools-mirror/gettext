@@ -1648,6 +1648,29 @@ fi
                       fi
                     fi
                     ;;
+                  -R*)
+                    dir=`echo "X$dep" | sed -e 's/^X-R//'`
+                                                            haveit=
+                    for x in $rpathdirs; do
+                      if test "X$x" = "X$dir"; then
+                        haveit=yes
+                        break
+                      fi
+                    done
+                    if test -z "$haveit"; then
+                      rpathdirs="$rpathdirs $dir"
+                    fi
+                                                            haveit=
+                    for x in $ltrpathdirs; do
+                      if test "X$x" = "X$dir"; then
+                        haveit=yes
+                        break
+                      fi
+                    done
+                    if test -z "$haveit"; then
+                      ltrpathdirs="$ltrpathdirs $dir"
+                    fi
+                    ;;
                   -l*)
                                         names_next_round="$names_next_round "`echo "X$dep" | sed -e 's/^X-l//'`
                     ;;
@@ -1741,7 +1764,7 @@ echo "$ac_t""$ac_cv_librpathx_libs" 1>&6
   
   
   echo $ac_n "checking how to link with librpathy""... $ac_c" 1>&6
-echo "configure:1745: checking how to link with librpathy" >&5
+echo "configure:1768: checking how to link with librpathy" >&5
 if eval "test \"`echo '$''{'ac_cv_librpathy_libs'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2049,6 +2072,29 @@ fi
                           fi
                         fi
                       fi
+                    fi
+                    ;;
+                  -R*)
+                    dir=`echo "X$dep" | sed -e 's/^X-R//'`
+                                                            haveit=
+                    for x in $rpathdirs; do
+                      if test "X$x" = "X$dir"; then
+                        haveit=yes
+                        break
+                      fi
+                    done
+                    if test -z "$haveit"; then
+                      rpathdirs="$rpathdirs $dir"
+                    fi
+                                                            haveit=
+                    for x in $ltrpathdirs; do
+                      if test "X$x" = "X$dir"; then
+                        haveit=yes
+                        break
+                      fi
+                    done
+                    if test -z "$haveit"; then
+                      ltrpathdirs="$ltrpathdirs $dir"
                     fi
                     ;;
                   -l*)

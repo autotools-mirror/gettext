@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 7 March 2002 -->
+     from gettext.texi on 24 April 2002 -->
 
 <TITLE>GNU gettext utilities - 4  Making the PO Template File</TITLE>
 </HEAD>
@@ -10,9 +10,9 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous<
 <P><HR><P>
 
 
-<H1><A NAME="SEC19" HREF="gettext_toc.html#TOC19">4  Making the PO Template File</A></H1>
+<H1><A NAME="SEC20" HREF="gettext_toc.html#TOC20">4  Making the PO Template File</A></H1>
 <P>
-<A NAME="IDX138"></A>
+<A NAME="IDX148"></A>
 
 </P>
 <P>
@@ -23,11 +23,11 @@ This section explains how to use <CODE>xgettext</CODE> for this purpose.
 
 
 
-<H2><A NAME="SEC20" HREF="gettext_toc.html#TOC20">4.1  Invoking the <CODE>xgettext</CODE> Program</A></H2>
+<H2><A NAME="SEC21" HREF="gettext_toc.html#TOC21">4.1  Invoking the <CODE>xgettext</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX139"></A>
-<A NAME="IDX140"></A>
+<A NAME="IDX149"></A>
+<A NAME="IDX150"></A>
 
 <PRE>
 xgettext [<VAR>option</VAR>] [<VAR>inputfile</VAR>] ...
@@ -40,7 +40,7 @@ input files.
 </P>
 
 
-<H3><A NAME="SEC21" HREF="gettext_toc.html#TOC21">4.1.1  Input file location</A></H3>
+<H3><A NAME="SEC22" HREF="gettext_toc.html#TOC22">4.1.1  Input file location</A></H3>
 
 <DL COMPACT>
 
@@ -52,8 +52,8 @@ Input files.
 <DD>
 <DT><SAMP>`--files-from=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX141"></A>
-<A NAME="IDX142"></A>
+<A NAME="IDX151"></A>
+<A NAME="IDX152"></A>
 Read the names of the input files from <VAR>file</VAR> instead of getting
 them from the command line.
 
@@ -61,8 +61,8 @@ them from the command line.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX143"></A>
-<A NAME="IDX144"></A>
+<A NAME="IDX153"></A>
+<A NAME="IDX154"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -75,7 +75,7 @@ If <VAR>inputfile</VAR> is <SAMP>`-&acute;</SAMP>, standard input is read.
 </P>
 
 
-<H3><A NAME="SEC22" HREF="gettext_toc.html#TOC22">4.1.2  Output file location</A></H3>
+<H3><A NAME="SEC23" HREF="gettext_toc.html#TOC23">4.1.2  Output file location</A></H3>
 
 <DL COMPACT>
 
@@ -83,16 +83,16 @@ If <VAR>inputfile</VAR> is <SAMP>`-&acute;</SAMP>, standard input is read.
 <DD>
 <DT><SAMP>`--default-domain=<VAR>name</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX145"></A>
-<A NAME="IDX146"></A>
+<A NAME="IDX155"></A>
+<A NAME="IDX156"></A>
 Use <TT>`<VAR>name</VAR>.po&acute;</TT> for output (instead of <TT>`messages.po&acute;</TT>).
 
 <DT><SAMP>`-o <VAR>file</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--output=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX147"></A>
-<A NAME="IDX148"></A>
+<A NAME="IDX157"></A>
+<A NAME="IDX158"></A>
 Write output to specified file (instead of <TT>`<VAR>name</VAR>.po&acute;</TT> or
 <TT>`messages.po&acute;</TT>).
 
@@ -100,21 +100,21 @@ Write output to specified file (instead of <TT>`<VAR>name</VAR>.po&acute;</TT> o
 <DD>
 <DT><SAMP>`--output-dir=<VAR>dir</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX149"></A>
-<A NAME="IDX150"></A>
+<A NAME="IDX159"></A>
+<A NAME="IDX160"></A>
 Output files will be placed in directory <VAR>dir</VAR>.
 
 </DL>
 
 <P>
-<A NAME="IDX151"></A>
+<A NAME="IDX161"></A>
 If the output <VAR>file</VAR> is <SAMP>`-&acute;</SAMP> or <SAMP>`/dev/stdout&acute;</SAMP>, the output
 is written to standard output.
 
 </P>
 
 
-<H3><A NAME="SEC23" HREF="gettext_toc.html#TOC23">4.1.3  Choice of input file language</A></H3>
+<H3><A NAME="SEC24" HREF="gettext_toc.html#TOC24">4.1.3  Choice of input file language</A></H3>
 
 <DL COMPACT>
 
@@ -122,9 +122,9 @@ is written to standard output.
 <DD>
 <DT><SAMP>`--language=<VAR>name</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX152"></A>
-<A NAME="IDX153"></A>
-<A NAME="IDX154"></A>
+<A NAME="IDX162"></A>
+<A NAME="IDX163"></A>
+<A NAME="IDX164"></A>
 Specifies the language of the input files.  The supported languages
 are <CODE>C</CODE>, <CODE>C++</CODE>, <CODE>ObjectiveC</CODE>, <CODE>PO</CODE>, <CODE>Python</CODE>,
 <CODE>Lisp</CODE>, <CODE>EmacsLisp</CODE>, <CODE>librep</CODE>, <CODE>Java</CODE>, <CODE>awk</CODE>,
@@ -134,8 +134,8 @@ are <CODE>C</CODE>, <CODE>C++</CODE>, <CODE>ObjectiveC</CODE>, <CODE>PO</CODE>, 
 <DD>
 <DT><SAMP>`--c++&acute;</SAMP>
 <DD>
-<A NAME="IDX155"></A>
-<A NAME="IDX156"></A>
+<A NAME="IDX165"></A>
+<A NAME="IDX166"></A>
 This is a shorthand for <CODE>--language=C++</CODE>.
 
 </DL>
@@ -147,7 +147,7 @@ extension.
 </P>
 
 
-<H3><A NAME="SEC24" HREF="gettext_toc.html#TOC24">4.1.4  Operation mode</A></H3>
+<H3><A NAME="SEC25" HREF="gettext_toc.html#TOC25">4.1.4  Operation mode</A></H3>
 
 <DL COMPACT>
 
@@ -155,16 +155,16 @@ extension.
 <DD>
 <DT><SAMP>`--join-existing&acute;</SAMP>
 <DD>
-<A NAME="IDX157"></A>
-<A NAME="IDX158"></A>
+<A NAME="IDX167"></A>
+<A NAME="IDX168"></A>
 Join messages with existing file.
 
 <DT><SAMP>`-x <VAR>file</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--exclude-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX159"></A>
-<A NAME="IDX160"></A>
+<A NAME="IDX169"></A>
+<A NAME="IDX170"></A>
 Entries from <VAR>file</VAR> are not extracted.  <VAR>file</VAR> should be a PO or
 POT file.
 
@@ -172,8 +172,8 @@ POT file.
 <DD>
 <DT><SAMP>`--add-comments[=<VAR>tag</VAR>]&acute;</SAMP>
 <DD>
-<A NAME="IDX161"></A>
-<A NAME="IDX162"></A>
+<A NAME="IDX171"></A>
+<A NAME="IDX172"></A>
 Place comment block with <VAR>tag</VAR> (or those preceding keyword lines)
 in output file.
 
@@ -181,7 +181,7 @@ in output file.
 
 
 
-<H3><A NAME="SEC25" HREF="gettext_toc.html#TOC25">4.1.5  Language=C/C++ specific options</A></H3>
+<H3><A NAME="SEC26" HREF="gettext_toc.html#TOC26">4.1.5  Language=C/C++ specific options</A></H3>
 
 <DL COMPACT>
 
@@ -189,20 +189,20 @@ in output file.
 <DD>
 <DT><SAMP>`--extract-all&acute;</SAMP>
 <DD>
-<A NAME="IDX163"></A>
-<A NAME="IDX164"></A>
+<A NAME="IDX173"></A>
+<A NAME="IDX174"></A>
 Extract all strings.
 
 <DT><SAMP>`-k <VAR>keywordspec</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--keyword[=<VAR>keywordspec</VAR>]&acute;</SAMP>
 <DD>
-<A NAME="IDX165"></A>
-<A NAME="IDX166"></A>
+<A NAME="IDX175"></A>
+<A NAME="IDX176"></A>
 Additional keyword to be looked for (without <VAR>keywordspec</VAR> means not to
 use default keywords).
 
-<A NAME="IDX167"></A>
+<A NAME="IDX177"></A>
 If <VAR>keywordspec</VAR> is a C identifer <VAR>id</VAR>, <CODE>xgettext</CODE> looks
 for strings in the first argument of each call to the function or macro
 <VAR>id</VAR>.  If <VAR>keywordspec</VAR> is of the form
@@ -222,15 +222,15 @@ explicitly disabled, are <CODE>gettext</CODE>, <CODE>dgettext:2</CODE>,
 <DD>
 <DT><SAMP>`--trigraphs&acute;</SAMP>
 <DD>
-<A NAME="IDX168"></A>
-<A NAME="IDX169"></A>
-<A NAME="IDX170"></A>
+<A NAME="IDX178"></A>
+<A NAME="IDX179"></A>
+<A NAME="IDX180"></A>
 Understand ANSI C trigraphs for input.
 
 <DT><SAMP>`--debug&acute;</SAMP>
 <DD>
-<A NAME="IDX171"></A>
-<A NAME="IDX172"></A>
+<A NAME="IDX181"></A>
+<A NAME="IDX182"></A>
 Use the flags <KBD>c-format</KBD> and <KBD>possible-c-format</KBD> to show who was
 responsible for marking a message as a format string.  The latter form is
 used if the <CODE>xgettext</CODE> program decided, the format form is used if
@@ -249,39 +249,39 @@ adjacent strings, and escaped end of lines for continued strings.
 </P>
 
 
-<H3><A NAME="SEC26" HREF="gettext_toc.html#TOC26">4.1.6  Output details</A></H3>
+<H3><A NAME="SEC27" HREF="gettext_toc.html#TOC27">4.1.6  Output details</A></H3>
 
 <DL COMPACT>
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX173"></A>
+<A NAME="IDX183"></A>
 Always write an output file even if no message is defined.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX174"></A>
-<A NAME="IDX175"></A>
+<A NAME="IDX184"></A>
+<A NAME="IDX185"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX176"></A>
+<A NAME="IDX186"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`-n&acute;</SAMP>
 <DD>
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX177"></A>
-<A NAME="IDX178"></A>
+<A NAME="IDX187"></A>
+<A NAME="IDX188"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX179"></A>
+<A NAME="IDX189"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -290,19 +290,26 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX180"></A>
-<A NAME="IDX181"></A>
+<A NAME="IDX190"></A>
+<A NAME="IDX191"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
+
+<DT><SAMP>`--no-wrap&acute;</SAMP>
+<DD>
+<A NAME="IDX192"></A>
+Do not break long message lines.  Message lines whose width exceeds the
+output page width will not be split into several lines.  Only file reference
+lines which are wider than the output page width will be split.
 
 <DT><SAMP>`-s&acute;</SAMP>
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX182"></A>
-<A NAME="IDX183"></A>
-<A NAME="IDX184"></A>
+<A NAME="IDX193"></A>
+<A NAME="IDX194"></A>
+<A NAME="IDX195"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -310,16 +317,16 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX185"></A>
-<A NAME="IDX186"></A>
+<A NAME="IDX196"></A>
+<A NAME="IDX197"></A>
 Sort output by file location.
 
 <DT><SAMP>`--omit-header&acute;</SAMP>
 <DD>
-<A NAME="IDX187"></A>
+<A NAME="IDX198"></A>
 Don't write header with <SAMP>`msgid ""&acute;</SAMP> entry.
 
-<A NAME="IDX188"></A>
+<A NAME="IDX199"></A>
 This is useful for testing purposes because it eliminates a source
 of variance for generated <CODE>.gmo</CODE> files.  With <CODE>--omit-header</CODE>,
 two invocations of <CODE>xgettext</CODE> on the same files with the same
@@ -327,7 +334,7 @@ options at different times are guaranteed to produce the same results.
 
 <DT><SAMP>`--copyright-holder=<VAR>string</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX189"></A>
+<A NAME="IDX200"></A>
 Set the copyright holder in the output.  <VAR>string</VAR> should be the
 copyright holder of the surrounding package.  (Note that the msgstr
 strings, extracted from the package's sources, belong to the copyright
@@ -343,7 +350,7 @@ simply because <CODE>xgettext</CODE> was first used in the GNU project.
 
 <DT><SAMP>`--foreign-user&acute;</SAMP>
 <DD>
-<A NAME="IDX190"></A>
+<A NAME="IDX201"></A>
 Omit FSF copyright in output.  This option is equivalent to
 <SAMP>`--copyright-holder="&acute;</SAMP>.  It can be useful for packages outside the GNU
 project that want their translations to be in the public domain.
@@ -352,23 +359,23 @@ project that want their translations to be in the public domain.
 <DD>
 <DT><SAMP>`--msgstr-prefix[=<VAR>string</VAR>]&acute;</SAMP>
 <DD>
-<A NAME="IDX191"></A>
-<A NAME="IDX192"></A>
+<A NAME="IDX202"></A>
+<A NAME="IDX203"></A>
 Use <VAR>string</VAR> (or "" if not specified) as prefix for msgstr entries.
 
 <DT><SAMP>`-M [<VAR>string</VAR>]&acute;</SAMP>
 <DD>
 <DT><SAMP>`--msgstr-suffix[=<VAR>string</VAR>]&acute;</SAMP>
 <DD>
-<A NAME="IDX193"></A>
-<A NAME="IDX194"></A>
+<A NAME="IDX204"></A>
+<A NAME="IDX205"></A>
 Use <VAR>string</VAR> (or "" if not specified) as suffix for msgstr entries.
 
 </DL>
 
 
 
-<H3><A NAME="SEC27" HREF="gettext_toc.html#TOC27">4.1.7  Informative output</A></H3>
+<H3><A NAME="SEC28" HREF="gettext_toc.html#TOC28">4.1.7  Informative output</A></H3>
 
 <DL COMPACT>
 
@@ -376,16 +383,16 @@ Use <VAR>string</VAR> (or "" if not specified) as suffix for msgstr entries.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX195"></A>
-<A NAME="IDX196"></A>
+<A NAME="IDX206"></A>
+<A NAME="IDX207"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX197"></A>
-<A NAME="IDX198"></A>
+<A NAME="IDX208"></A>
+<A NAME="IDX209"></A>
 Output version information and exit.
 
 </DL>

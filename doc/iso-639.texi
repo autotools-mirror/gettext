@@ -116,6 +116,8 @@ Indonesian (formerly in).
 Interlingue.
 @item ik
 Inupiak.
+@item io
+Ido.
 @item is
 Icelandic.
 @item it
@@ -124,7 +126,7 @@ Italian.
 Inuktitut.
 @item ja
 Japanese.
-@item jw
+@item jv
 Javanese.
 @item ka
 Georgian.
@@ -314,6 +316,8 @@ Uzbek.
 Vietnamese.
 @item vo
 Volap@"{u}k; Volapuk.
+@item wa
+Walloon.
 @item wo
 Wolof.
 @item xh

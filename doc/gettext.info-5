@@ -31,6 +31,480 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: msgfmt Invocation,  Next: msgunfmt Invocation,  Prev: Binaries,  Up: Binaries
+
+Invoking the `msgfmt' Program
+=============================
+
+     msgfmt [OPTION] FILENAME.po ...
+
+   The `msgfmt' programs generates a binary message catalog from a
+textual translation description.
+
+Input file location
+-------------------
+
+`FILENAME.po ...'
+
+`-D DIRECTORY'
+`--directory=DIRECTORY'
+     Add DIRECTORY to the list of directories.  Source files are
+     searched relative to this list of directories.  The resulting `.po'
+     file will be written relative to the current directory, though.
+
+   If an input file is `-', standard input is read.
+
+Operation mode
+--------------
+
+`-j'
+`--java'
+     Java mode: generate a Java `ResourceBundle' class.
+
+`--java2'
+     Like -java, and assume Java2 (JDK 1.2 or higher).
+
+`--tcl'
+     Tcl mode: generate a tcl/msgcat `.msg' file.
+
+Output file location
+--------------------
+
+`-o FILE'
+`--output-file=FILE'
+     Write output to specified file.
+
+`--strict'
+     Direct the program to work strictly following the Uniforum/Sun
+     implementation.  Currently this only affects the naming of the
+     output file.  If this option is not given the name of the output
+     file is the same as the domain name.  If the strict Uniforum mode
+     is enabled the suffix `.mo' is added to the file name if it is not
+     already present.
+
+     We find this behaviour of Sun's implementation rather silly and so
+     by default this mode is _not_ selected.
+
+   If the output FILE is `-', output is written to standard output.
+
+Output file location in Java mode
+---------------------------------
+
+`-r RESOURCE'
+`--resource=RESOURCE'
+     Specify the resource name.
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory of classes directory hierarchy.
+
+   The class name is determined by appending the locale name to the
+resource name, separated with an underscore.  The `-d' option is
+mandatory.  The class is written under the specified directory.
+
+Output file location in Tcl mode
+--------------------------------
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory of `.msg' message catalogs.
+
+   The `-l' and `-d' options are mandatory.  The `.msg' file is written
+in the specified directory.
+
+Input file interpretation
+-------------------------
+
+`-c'
+`--check'
+     Perform all the checks implied by `--check-format',
+     `--check-header', `--check-domain'.
+
+`--check-format'
+     Check language dependent format strings.
+
+     If the string represents a format string used in a `printf'-like
+     function both strings should have the same number of `%' format
+     specifiers, with matching types.  If the flag `c-format' or
+     `possible-c-format' appears in the special comment <#,> for this
+     entry a check is performed.  For example, the check will diagnose
+     using `%.*s' against `%s', or `%d' against `%s', or `%d' against
+     `%x'.  It can even handle positional parameters.
+
+     Normally the `xgettext' program automatically decides whether a
+     string is a format string or not.  This algorithm is not perfect,
+     though.  It might regard a string as a format string though it is
+     not used in a `printf'-like function and so `msgfmt' might report
+     errors where there are none.
+
+     To solve this problem the programmer can dictate the decision to
+     the `xgettext' program (*note c-format::).  The translator should
+     not consider removing the flag from the <#,> line.  This "fix"
+     would be reversed again as soon as `msgmerge' is called the next
+     time.
+
+`--check-header'
+     Verify presence and contents of the header entry.  *Note Header
+     Entry::, for a description of the various fields in the header
+     entry.
+
+`--check-domain'
+     Check for conflicts between domain directives and the
+     `--output-file' option
+
+`-C'
+`--check-compatibility'
+     Check that GNU msgfmt behaves like X/Open msgfmt.  This will give
+     an error when attempting to use the GNU extensions.
+
+`--check-accelerators[=CHAR]'
+     Check presence of keyboard accelerators for menu items.  This is
+     based on the convention used in some GUIs that a keyboard
+     accelerator in a menu item string is designated by an immediately
+     preceding `&' character.  Sometimes a keyboard accelerator is also
+     called "keyboard mnemonic".  This check verifies that if the
+     untranslated string has exactly one `&' character, the translated
+     string has exactly one `&' as well.  If this option is given with
+     a CHAR argument, this CHAR should be a non-alphanumeric character
+     and is used as keyboard acceleator mark instead of `&'.
+
+`-f'
+`--use-fuzzy'
+     Use fuzzy entries in output.  Note that using this option is
+     usually wrong, because fuzzy messages are exactly those which have
+     not been validated by a human translator.
+
+Output details
+--------------
+
+`-a NUMBER'
+`--alignment=NUMBER'
+     Align strings to NUMBER bytes (default: 1).
+
+`--no-hash'
+     Don't include a hash table in the binary file.  Lookup will be
+     more expensive at run time (binary search instead of hash table
+     lookup).
+
+Informative output
+------------------
+
+`-h'
+`--help'
+     Display this help and exit.
+
+`-V'
+`--version'
+     Output version information and exit.
+
+`--statistics'
+     Print statistics about translations.
+
+`-v'
+`--verbose'
+     Increase verbosity level.
+
+
+File: gettext.info,  Node: msgunfmt Invocation,  Next: MO Files,  Prev: msgfmt Invocation,  Up: Binaries
+
+Invoking the `msgunfmt' Program
+===============================
+
+     msgunfmt [OPTION] [FILE]...
+
+   The `msgunfmt' program converts a binary message catalog to a
+Uniforum style .po file.
+
+Operation mode
+--------------
+
+`-j'
+`--java'
+     Java mode: input is a Java `ResourceBundle' class.
+
+`--tcl'
+     Tcl mode: input is a tcl/msgcat `.msg' file.
+
+Input file location
+-------------------
+
+`FILE ...'
+     Input .mo files.
+
+   If no input FILE is given or if it is `-', standard input is read.
+
+Input file location in Java mode
+--------------------------------
+
+`-r RESOURCE'
+`--resource=RESOURCE'
+     Specify the resource name.
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+   The class name is determined by appending the locale name to the
+resource name, separated with an underscore.  The class is located
+using the `CLASSPATH'.
+
+Input file location in Tcl mode
+-------------------------------
+
+`-l LOCALE'
+`--locale=LOCALE'
+     Specify the locale name, either a language specification of the
+     form LL or a combined language and country specification of the
+     form LL_CC.
+
+`-d DIRECTORY'
+     Specify the base directory of `.msg' message catalogs.
+
+   The `-l' and `-d' options are mandatory.  The `.msg' file is located
+in the specified directory.
+
+Output file location
+--------------------
+
+`-o FILE'
+`--output-file=FILE'
+     Write output to specified file.
+
+   The results are written to standard output if no output file is
+specified or if it is `-'.
+
+Output details
+--------------
+
+`--force-po'
+     Always write an output file even if it contains no message.
+
+`-i'
+`--indent'
+     Write the .po file using indented style.
+
+`--strict'
+     Write out a strict Uniforum conforming PO file.  Note that this
+     Uniforum format should be avoided because it doesn't support the
+     GNU extensions.
+
+`-w NUMBER'
+`--width=NUMBER'
+     Set the output page width.  Long strings in the output files will
+     be split across multiple lines in order to ensure that each line's
+     width (= number of screen columns) is less or equal to the given
+     NUMBER.
+
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
+
+`-s'
+`--sort-output'
+     Generate sorted output.  Note that using this option makes it much
+     harder for the translator to understand each message's context.
+
+Informative output
+------------------
+
+`-h'
+`--help'
+     Display this help and exit.
+
+`-V'
+`--version'
+     Output version information and exit.
+
+`-v'
+`--verbose'
+     Increase verbosity level.
+
+
+File: gettext.info,  Node: MO Files,  Prev: msgunfmt Invocation,  Up: Binaries
+
+The Format of GNU MO Files
+==========================
+
+   The format of the generated MO files is best described by a picture,
+which appears below.
+
+   The first two words serve the identification of the file.  The magic
+number will always signal GNU MO files.  The number is stored in the
+byte order of the generating machine, so the magic number really is two
+numbers: `0x950412de' and `0xde120495'.  The second word describes the
+current revision of the file format.  For now the revision is 0.  This
+might change in future versions, and ensures that the readers of MO
+files can distinguish new formats from old ones, so that both can be
+handled correctly.  The version is kept separate from the magic number,
+instead of using different magic numbers for different formats, mainly
+because `/etc/magic' is not updated often.  It might be better to have
+magic separated from internal format version identification.
+
+   Follow a number of pointers to later tables in the file, allowing
+for the extension of the prefix part of MO files without having to
+recompile programs reading them.  This might become useful for later
+inserting a few flag bits, indication about the charset used, new
+tables, or other things.
+
+   Then, at offset O and offset T in the picture, two tables of string
+descriptors can be found.  In both tables, each string descriptor uses
+two 32 bits integers, one for the string length, another for the offset
+of the string in the MO file, counting in bytes from the start of the
+file.  The first table contains descriptors for the original strings,
+and is sorted so the original strings are in increasing lexicographical
+order.  The second table contains descriptors for the translated
+strings, and is parallel to the first table: to find the corresponding
+translation one has to access the array slot in the second array with
+the same index.
+
+   Having the original strings sorted enables the use of simple binary
+search, for when the MO file does not contain an hashing table, or for
+when it is not practical to use the hashing table provided in the MO
+file.  This also has another advantage, as the empty string in a PO
+file GNU `gettext' is usually _translated_ into some system information
+attached to that particular MO file, and the empty string necessarily
+becomes the first in both the original and translated tables, making
+the system information very easy to find.
+
+   The size S of the hash table can be zero.  In this case, the hash
+table itself is not contained in the MO file.  Some people might prefer
+this because a precomputed hashing table takes disk space, and does not
+win _that_ much speed.  The hash table contains indices to the sorted
+array of strings in the MO file.  Conflict resolution is done by double
+hashing.  The precise hashing algorithm used is fairly dependent on GNU
+`gettext' code, and is not documented here.
+
+   As for the strings themselves, they follow the hash file, and each
+is terminated with a <NUL>, and this <NUL> is not counted in the length
+which appears in the string descriptor.  The `msgfmt' program has an
+option selecting the alignment for MO file strings.  With this option,
+each string is separately aligned so it starts at an offset which is a
+multiple of the alignment value.  On some RISC machines, a correct
+alignment will speed things up.
+
+   Plural forms are stored by letting the plural of the original string
+follow the singular of the original string, separated through a <NUL>
+byte.  The length which appears in the string descriptor includes both.
+However, only the singular of the original string takes part in the
+hash table lookup.  The plural variants of the translation are all
+stored consecutively, separated through a <NUL> byte.  Here also, the
+length in the string descriptor includes all of them.
+
+   Nothing prevents a MO file from having embedded <NUL>s in strings.
+However, the program interface currently used already presumes that
+strings are <NUL> terminated, so embedded <NUL>s are somewhat useless.
+But the MO file format is general enough so other interfaces would be
+later possible, if for example, we ever want to implement wide
+characters right in MO files, where <NUL> bytes may accidently appear.
+(No, we don't want to have wide characters in MO files.  They would
+make the file unnecessarily large, and the `wchar_t' type being
+platform dependent, MO files would be platform dependent as well.)
+
+   This particular issue has been strongly debated in the GNU `gettext'
+development forum, and it is expectable that MO file format will evolve
+or change over time.  It is even possible that many formats may later
+be supported concurrently.  But surely, we have to start somewhere, and
+the MO file format described here is a good start.  Nothing is cast in
+concrete, and the format may later evolve fairly easily, so we should
+feel comfortable with the current approach.
+
+             byte
+                  +------------------------------------------+
+               0  | magic number = 0x950412de                |
+                  |                                          |
+               4  | file format revision = 0                 |
+                  |                                          |
+               8  | number of strings                        |  == N
+                  |                                          |
+              12  | offset of table with original strings    |  == O
+                  |                                          |
+              16  | offset of table with translation strings |  == T
+                  |                                          |
+              20  | size of hashing table                    |  == S
+                  |                                          |
+              24  | offset of hashing table                  |  == H
+                  |                                          |
+                  .                                          .
+                  .    (possibly more entries later)         .
+                  .                                          .
+                  |                                          |
+               O  | length & offset 0th string  ----------------.
+           O + 8  | length & offset 1st string  ------------------.
+                   ...                                    ...   | |
+     O + ((N-1)*8)| length & offset (N-1)th string           |  | |
+                  |                                          |  | |
+               T  | length & offset 0th translation  ---------------.
+           T + 8  | length & offset 1st translation  -----------------.
+                   ...                                    ...   | | | |
+     T + ((N-1)*8)| length & offset (N-1)th translation      |  | | | |
+                  |                                          |  | | | |
+               H  | start hash table                         |  | | | |
+                   ...                                    ...   | | | |
+       H + S * 4  | end hash table                           |  | | | |
+                  |                                          |  | | | |
+                  | NUL terminated 0th string  <----------------' | | |
+                  |                                          |    | | |
+                  | NUL terminated 1st string  <------------------' | |
+                  |                                          |      | |
+                   ...                                    ...       | |
+                  |                                          |      | |
+                  | NUL terminated 0th translation  <---------------' |
+                  |                                          |        |
+                  | NUL terminated 1st translation  <-----------------'
+                  |                                          |
+                   ...                                    ...
+                  |                                          |
+                  +------------------------------------------+
+
+
+File: gettext.info,  Node: Users,  Next: Programmers,  Prev: Binaries,  Up: Top
+
+The User's View
+***************
+
+   When GNU `gettext' will truly have reached its goal, average users
+should feel some kind of astonished pleasure, seeing the effect of that
+strange kind of magic that just makes their own native language appear
+everywhere on their screens.  As for naive users, they would ideally
+have no special pleasure about it, merely taking their own language for
+_granted_, and becoming rather unhappy otherwise.
+
+   So, let's try to describe here how we would like the magic to
+operate, as we want the users' view to be the simplest, among all ways
+one could look at GNU `gettext'.  All other software engineers:
+programmers, translators, maintainers, should work together in such a
+way that the magic becomes possible.  This is a long and progressive
+undertaking, and information is available about the progress of the
+Translation Project.
+
+   When a package is distributed, there are two kinds of users:
+"installers" who fetch the distribution, unpack it, configure it,
+compile it and install it for themselves or others to use; and "end
+users" that call programs of the package, once these have been
+installed at their site.  GNU `gettext' is offering magic for both
+installers and end users.
+
+* Menu:
+
+* Matrix::                      The Current `ABOUT-NLS' Matrix
+* Installers::                  Magic for Installers
+* End Users::                   Magic for End Users
+
+
 File: gettext.info,  Node: Matrix,  Next: Installers,  Prev: Users,  Up: Users
 
 The Current `ABOUT-NLS' Matrix
@@ -721,472 +1195,4 @@ Four forms, special case for one and all numbers ending in 02, 03, or 04
 
    (1) Additions are welcome.  Send appropriate information to
 <bug-glibc-manual@gnu.org>.
-
-
-File: gettext.info,  Node: GUI program problems,  Next: Optimized gettext,  Prev: Plural forms,  Up: gettext
-
-How to use `gettext' in GUI programs
-------------------------------------
-
-   One place where the `gettext' functions, if used normally, have big
-problems is within programs with graphical user interfaces (GUIs).  The
-problem is that many of the strings which have to be translated are very
-short.  They have to appear in pull-down menus which restricts the
-length.  But strings which are not containing entire sentences or at
-least large fragments of a sentence may appear in more than one
-situation in the program but might have different translations.  This is
-especially true for the one-word strings which are frequently used in
-GUI programs.
-
-   As a consequence many people say that the `gettext' approach is
-wrong and instead `catgets' should be used which indeed does not have
-this problem.  But there is a very simple and powerful method to handle
-these kind of problems with the `gettext' functions.
-
-As as example consider the following fictional situation.  A GUI program
-has a menu bar with the following entries:
-
-     +------------+------------+--------------------------------------+
-     | File       | Printer    |                                      |
-     +------------+------------+--------------------------------------+
-     | Open     | | Select   |
-     | New      | | Open     |
-     +----------+ | Connect  |
-                  +----------+
-
-   To have the strings `File', `Printer', `Open', `New', `Select', and
-`Connect' translated there has to be at some point in the code a call
-to a function of the `gettext' family.  But in two places the string
-passed into the function would be `Open'.  The translations might not
-be the same and therefore we are in the dilemma described above.
-
-   One solution to this problem is to artificially enlengthen the
-strings to make them unambiguous.  But what would the program do if no
-translation is available?  The enlengthened string is not what should be
-printed.  So we should use a little bit modified version of the
-functions.
-
-   To enlengthen the strings a uniform method should be used.  E.g., in
-the example above the strings could be chosen as
-
-     Menu|File
-     Menu|Printer
-     Menu|File|Open
-     Menu|File|New
-     Menu|Printer|Select
-     Menu|Printer|Open
-     Menu|Printer|Connect
-
-   Now all the strings are different and if now instead of `gettext'
-the following little wrapper function is used, everything works just
-fine:
-
-       char *
-       sgettext (const char *msgid)
-       {
-         char *msgval = gettext (msgid);
-         if (msgval == msgid)
-           msgval = strrchr (msgid, '|') + 1;
-         return msgval;
-       }
-
-   What this little function does is to recognize the case when no
-translation is available.  This can be done very efficiently by a
-pointer comparison since the return value is the input value.  If there
-is no translation we know that the input string is in the format we used
-for the Menu entries and therefore contains a `|' character.  We simply
-search for the last occurrence of this character and return a pointer
-to the character following it.  That's it!
-
-   If one now consistently uses the enlengthened string form and
-replaces the `gettext' calls with calls to `sgettext' (this is normally
-limited to very few places in the GUI implementation) then it is
-possible to produce a program which can be internationalized.
-
-   The other `gettext' functions (`dgettext', `dcgettext' and the
-`ngettext' equivalents) can and should have corresponding functions as
-well which look almost identical, except for the parameters and the
-call to the underlying function.
-
-   Now there is of course the question why such functions do not exist
-in the GNU gettext package?  There are two parts of the answer to this
-question.
-
-   * They are easy to write and therefore can be provided by the
-     project they are used in.  This is not an answer by itself and
-     must be seen together with the second part which is:
-
-   * There is no way the gettext package can contain a version which
-     can work everywhere.  The problem is the selection of the
-     character to separate the prefix from the actual string in the
-     enlenghtened string.  The examples above used `|' which is a quite
-     good choice because it resembles a notation frequently used in
-     this context and it also is a character not often used in message
-     strings.
-
-     But what if the character is used in message strings?  Or if the
-     chose character is not available in the character set on the
-     machine one compiles (e.g., `|' is not required to exist for
-     ISO C; this is why the `iso646.h' file exists in ISO C programming
-     environments).
-
-   There is only one more comment to be said.  The wrapper function
-above requires that the translations strings are not enlengthened
-themselves.  This is only logical.  There is no need to disambiguate
-the strings (since they are never used as keys for a search) and one
-also saves quite some memory and disk space by doing this.
-
-
-File: gettext.info,  Node: Optimized gettext,  Prev: GUI program problems,  Up: gettext
-
-Optimization of the *gettext functions
---------------------------------------
-
-   At this point of the discussion we should talk about an advantage of
-the GNU `gettext' implementation.  Some readers might have pointed out
-that an internationalized program might have a poor performance if some
-string has to be translated in an inner loop.  While this is unavoidable
-when the string varies from one run of the loop to the other it is
-simply a waste of time when the string is always the same.  Take the
-following example:
-
-     {
-       while (...)
-         {
-           puts (gettext ("Hello world"));
-         }
-     }
-
-When the locale selection does not change between two runs the resulting
-string is always the same.  One way to use this is:
-
-     {
-       str = gettext ("Hello world");
-       while (...)
-         {
-           puts (str);
-         }
-     }
-
-But this solution is not usable in all situation (e.g. when the locale
-selection changes) nor does it lead to legible code.
-
-   For this reason, GNU `gettext' caches previous translation results.
-When the same translation is requested twice, with no new message
-catalogs being loaded in between, `gettext' will, the second time, find
-the result through a single cache lookup.
-
-
-File: gettext.info,  Node: Comparison,  Next: Using libintl.a,  Prev: gettext,  Up: Programmers
-
-Comparing the Two Interfaces
-============================
-
-   The following discussion is perhaps a little bit colored.  As said
-above we implemented GNU `gettext' following the Uniforum proposal and
-this surely has its reasons.  But it should show how we came to this
-decision.
-
-   First we take a look at the developing process.  When we write an
-application using NLS provided by `gettext' we proceed as always.  Only
-when we come to a string which might be seen by the users and thus has
-to be translated we use `gettext("...")' instead of `"..."'.  At the
-beginning of each source file (or in a central header file) we define
-
-     #define gettext(String) (String)
-
-   Even this definition can be avoided when the system supports the
-`gettext' function in its C library.  When we compile this code the
-result is the same as if no NLS code is used.  When  you take a look at
-the GNU `gettext' code you will see that we use `_("...")' instead of
-`gettext("...")'.  This reduces the number of additional characters per
-translatable string to _3_ (in words: three).
-
-   When now a production version of the program is needed we simply
-replace the definition
-
-     #define _(String) (String)
-
-by
-
-     #include <libintl.h>
-     #define _(String) gettext (String)
-
-Additionally we run the program `xgettext' on all source code file
-which contain translatable strings and that's it: we have a running
-program which does not depend on translations to be available, but which
-can use any that becomes available.
-
-   The same procedure can be done for the `gettext_noop' invocations
-(*note Special cases::).  One usually defines `gettext_noop' as a no-op
-macro.  So you should consider the following code for your project:
-
-     #define gettext_noop(String) String
-     #define N_(String) gettext_noop (String)
-
-   `N_' is a short form similar to `_'.  The `Makefile' in the `po/'
-directory of GNU `gettext' knows by default both of the mentioned short
-forms so you are invited to follow this proposal for your own ease.
-
-   Now to `catgets'.  The main problem is the work for the programmer.
-Every time he comes to a translatable string he has to define a number
-(or a symbolic constant) which has also be defined in the message
-catalog file.  He also has to take care for duplicate entries,
-duplicate message IDs etc.  If he wants to have the same quality in the
-message catalog as the GNU `gettext' program provides he also has to
-put the descriptive comments for the strings and the location in all
-source code files in the message catalog.  This is nearly a Mission:
-Impossible.
-
-   But there are also some points people might call advantages speaking
-for `catgets'.  If you have a single word in a string and this string
-is used in different contexts it is likely that in one or the other
-language the word has different translations.  Example:
-
-     printf ("%s: %d", gettext ("number"), number_of_errors)
-     
-     printf ("you should see %d %s", number_count,
-             number_count == 1 ? gettext ("number") : gettext ("numbers"))
-
-   Here we have to translate two times the string `"number"'.  Even if
-you do not speak a language beside English it might be possible to
-recognize that the two words have a different meaning.  In German the
-first appearance has to be translated to `"Anzahl"' and the second to
-`"Zahl"'.
-
-   Now you can say that this example is really esoteric.  And you are
-right!  This is exactly how we felt about this problem and decide that
-it does not weight that much.  The solution for the above problem could
-be very easy:
-
-     printf ("%s %d", gettext ("number:"), number_of_errors)
-     
-     printf (number_count == 1 ? gettext ("you should see %d number")
-                               : gettext ("you should see %d numbers"),
-             number_count)
-
-   We believe that we can solve all conflicts with this method.  If it
-is difficult one can also consider changing one of the conflicting
-string a little bit.  But it is not impossible to overcome.
-
-   `catgets' allows same original entry to have different translations,
-but `gettext' has another, scalable approach for solving ambiguities of
-this kind: *Note Ambiguities::.
-
-
-File: gettext.info,  Node: Using libintl.a,  Next: gettext grok,  Prev: Comparison,  Up: Programmers
-
-Using libintl.a in own programs
-===============================
-
-   Starting with version 0.9.4 the library `libintl.h' should be
-self-contained.  I.e., you can use it in your own programs without
-providing additional functions.  The `Makefile' will put the header and
-the library in directories selected using the `$(prefix)'.
-
-
-File: gettext.info,  Node: gettext grok,  Next: Temp Programmers,  Prev: Using libintl.a,  Up: Programmers
-
-Being a `gettext' grok
-======================
-
-   To fully exploit the functionality of the GNU `gettext' library it
-is surely helpful to read the source code.  But for those who don't want
-to spend that much time in reading the (sometimes complicated) code here
-is a list comments:
-
-   * Changing the language at runtime
-
-     For interactive programs it might be useful to offer a selection
-     of the used language at runtime.  To understand how to do this one
-     need to know how the used language is determined while executing
-     the `gettext' function.  The method which is presented here only
-     works correctly with the GNU implementation of the `gettext'
-     functions.
-
-     In the function `dcgettext' at every call the current setting of
-     the highest priority environment variable is determined and used.
-     Highest priority means here the following list with decreasing
-     priority:
-
-       1. `LANGUAGE'
-
-       2. `LC_ALL'
-
-       3. `LC_xxx', according to selected locale
-
-       4. `LANG'
-
-     Afterwards the path is constructed using the found value and the
-     translation file is loaded if available.
-
-     What is now when the value for, say, `LANGUAGE' changes.  According
-     to the process explained above the new value of this variable is
-     found as soon as the `dcgettext' function is called.  But this
-     also means the (perhaps) different message catalog file is loaded.
-     In other words: the used language is changed.
-
-     But there is one little hook.  The code for gcc-2.7.0 and up
-     provides some optimization.  This optimization normally prevents
-     the calling of the `dcgettext' function as long as no new catalog
-     is loaded.  But if `dcgettext' is not called the program also
-     cannot find the `LANGUAGE' variable be changed (*note Optimized
-     gettext::).  A solution for this is very easy.  Include the
-     following code in the language switching function.
-
-            /* Change language.  */
-            setenv ("LANGUAGE", "fr", 1);
-          
-            /* Make change known.  */
-            {
-              extern int  _nl_msg_cat_cntr;
-              ++_nl_msg_cat_cntr;
-            }
-
-     The variable `_nl_msg_cat_cntr' is defined in `loadmsgcat.c'.  You
-     don't need to know what this is for. But it can be used to detect
-     whether a `gettext' implementation is GNU gettext and not non-GNU
-     system's native gettext implementation.
-
-
-
-File: gettext.info,  Node: Temp Programmers,  Prev: gettext grok,  Up: Programmers
-
-Temporary Notes for the Programmers Chapter
-===========================================
-
-* Menu:
-
-* Temp Implementations::        Temporary - Two Possible Implementations
-* Temp catgets::                Temporary - About `catgets'
-* Temp WSI::                    Temporary - Why a single implementation
-* Temp Notes::                  Temporary - Notes
-
-
-File: gettext.info,  Node: Temp Implementations,  Next: Temp catgets,  Prev: Temp Programmers,  Up: Temp Programmers
-
-Temporary - Two Possible Implementations
-----------------------------------------
-
-   There are two competing methods for language independent messages:
-the X/Open `catgets' method, and the Uniforum `gettext' method.  The
-`catgets' method indexes messages by integers; the `gettext' method
-indexes them by their English translations.  The `catgets' method has
-been around longer and is supported by more vendors.  The `gettext'
-method is supported by Sun, and it has been heard that the COSE
-multi-vendor initiative is supporting it.  Neither method is a POSIX
-standard; the POSIX.1 committee had a lot of disagreement in this area.
-
-   Neither one is in the POSIX standard.  There was much disagreement
-in the POSIX.1 committee about using the `gettext' routines vs.
-`catgets' (XPG).  In the end the committee couldn't agree on anything,
-so no messaging system was included as part of the standard.  I believe
-the informative annex of the standard includes the XPG3 messaging
-interfaces, "...as an example of a messaging system that has been
-implemented..."
-
-   They were very careful not to say anywhere that you should use one
-set of interfaces over the other.  For more on this topic please see
-the Programming for Internationalization FAQ.
-
-
-File: gettext.info,  Node: Temp catgets,  Next: Temp WSI,  Prev: Temp Implementations,  Up: Temp Programmers
-
-Temporary - About `catgets'
----------------------------
-
-   There have been a few discussions of late on the use of `catgets' as
-a base.  I think it important to present both sides of the argument and
-hence am opting to play devil's advocate for a little bit.
-
-   I'll not deny the fact that `catgets' could have been designed a lot
-better.  It currently has quite a number of limitations and these have
-already been pointed out.
-
-   However there is a great deal to be said for consistency and
-standardization.  A common recurring problem when writing Unix software
-is the myriad portability problems across Unix platforms.  It seems as
-if every Unix vendor had a look at the operating system and found parts
-they could improve upon.  Undoubtedly, these modifications are probably
-innovative and solve real problems.  However, software developers have
-a hard time keeping up with all these changes across so many platforms.
-
-   And this has prompted the Unix vendors to begin to standardize their
-systems.  Hence the impetus for Spec1170.  Every major Unix vendor has
-committed to supporting this standard and every Unix software developer
-waits with glee the day they can write software to this standard and
-simply recompile (without having to use autoconf) across different
-platforms.
-
-   As I understand it, Spec1170 is roughly based upon version 4 of the
-X/Open Portability Guidelines (XPG4).  Because `catgets' and friends
-are defined in XPG4, I'm led to believe that `catgets' is a part of
-Spec1170 and hence will become a standardized component of all Unix
-systems.
-
-
-File: gettext.info,  Node: Temp WSI,  Next: Temp Notes,  Prev: Temp catgets,  Up: Temp Programmers
-
-Temporary - Why a single implementation
----------------------------------------
-
-   Now it seems kind of wasteful to me to have two different systems
-installed for accessing message catalogs.  If we do want to remedy
-`catgets' deficiencies why don't we try to expand `catgets' (in a
-compatible manner) rather than implement an entirely new system.
-Otherwise, we'll end up with two message catalog access systems
-installed with an operating system - one set of routines for packages
-using GNU `gettext' for their internationalization, and another set of
-routines (catgets) for all other software.  Bloated?
-
-   Supposing another catalog access system is implemented.  Which do we
-recommend?  At least for Linux, we need to attract as many software
-developers as possible.  Hence we need to make it as easy for them to
-port their software as possible.  Which means supporting `catgets'.  We
-will be implementing the `libintl' code within our `libc', but does
-this mean we also have to incorporate another message catalog access
-scheme within our `libc' as well?  And what about people who are going
-to be using the `libintl' + non-`catgets' routines.  When they port
-their software to other platforms, they're now going to have to include
-the front-end (`libintl') code plus the back-end code (the non-`catgets'
-access routines) with their software instead of just including the
-`libintl' code with their software.
-
-   Message catalog support is however only the tip of the iceberg.
-What about the data for the other locale categories.  They also have a
-number of deficiencies.  Are we going to abandon them as well and
-develop another duplicate set of routines (should `libintl' expand
-beyond message catalog support)?
-
-   Like many parts of Unix that can be improved upon, we're stuck with
-balancing compatibility with the past with useful improvements and
-innovations for the future.
-
-
-File: gettext.info,  Node: Temp Notes,  Prev: Temp WSI,  Up: Temp Programmers
-
-Temporary - Notes
------------------
-
-   X/Open agreed very late on the standard form so that many
-implementations differ from the final form.  Both of my system (old
-Linux catgets and Ultrix-4) have a strange variation.
-
-   OK.  After incorporating the last changes I have to spend some time
-on making the GNU/Linux `libc' `gettext' functions.  So in future
-Solaris is not the only system having `gettext'.
-
-
-File: gettext.info,  Node: Translators,  Next: Maintainers,  Prev: Programmers,  Up: Top
-
-The Translator's View
-*********************
-
-* Menu:
-
-* Trans Intro 0::               Introduction 0
-* Trans Intro 1::               Introduction 1
-* Discussions::                 Discussions
-* Organization::                Organization
-* Information Flow::            Information Flow
 

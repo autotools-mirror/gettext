@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 7 March 2002 -->
+     from gettext.texi on 24 April 2002 -->
 
 <TITLE>GNU gettext utilities - 2  PO Files and PO Mode Basics</TITLE>
 </HEAD>
@@ -174,7 +174,7 @@ can judge if the translation requires further modification, or is
 acceptable as is.  Once satisfied with the translation, she then removes
 this <KBD>fuzzy</KBD> attribute.  The <CODE>msgmerge</CODE> program inserts this
 when it combined the <CODE>msgid</CODE> and <CODE>msgstr</CODE> entries after fuzzy
-search only.  See section <A HREF="gettext_6.html#SEC45">6.3  Fuzzy Entries</A>.
+search only.  See section <A HREF="gettext_6.html#SEC46">6.3  Fuzzy Entries</A>.
 
 <DT><KBD>c-format</KBD>
 <DD>
@@ -189,7 +189,7 @@ soon as the <CODE>xgettext</CODE> program generates a new template file.
 
 In case the <KBD>c-format</KBD> flag is given for a string the <CODE>msgfmt</CODE>
 does some more tests to check to validity of the translation.
-See section <A HREF="gettext_8.html#SEC118">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>.
+See section <A HREF="gettext_8.html#SEC119">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>.
 
 </DL>
 
@@ -303,9 +303,9 @@ When PO mode is active in a window, the letters <SAMP>`PO&acute;</SAMP> appear
 in the mode line for that window.  The mode line also displays how
 many entries of each kind are held in the PO file.  For example,
 the string <SAMP>`132t+3f+10u+2o&acute;</SAMP> would tell the translator that the
-PO mode contains 132 translated entries (see section <A HREF="gettext_6.html#SEC44">6.2  Translated Entries</A>,
-3 fuzzy entries (see section <A HREF="gettext_6.html#SEC45">6.3  Fuzzy Entries</A>), 10 untranslated entries
-(see section <A HREF="gettext_6.html#SEC46">6.4  Untranslated Entries</A>) and 2 obsolete entries (see section <A HREF="gettext_6.html#SEC47">6.5  Obsolete Entries</A>).  Zero-coefficients items are not shown.  So, in this example, if
+PO mode contains 132 translated entries (see section <A HREF="gettext_6.html#SEC45">6.2  Translated Entries</A>,
+3 fuzzy entries (see section <A HREF="gettext_6.html#SEC46">6.3  Fuzzy Entries</A>), 10 untranslated entries
+(see section <A HREF="gettext_6.html#SEC47">6.4  Untranslated Entries</A>) and 2 obsolete entries (see section <A HREF="gettext_6.html#SEC48">6.5  Obsolete Entries</A>).  Zero-coefficients items are not shown.  So, in this example, if
 the fuzzy entries were unfuzzied, the untranslated entries were translated
 and the obsolete entries were deleted, the mode line would merely display
 <SAMP>`145t&acute;</SAMP> for the counters.
@@ -571,7 +571,7 @@ have the special property of being able to work even when the cursor
 is not into some PO file entry, and one may use them for nicely
 correcting this situation.  But even these commands will fail on a
 truly empty PO file.  There are development plans for the PO mode for it
-to interactively fill an empty PO file from sources.  See section <A HREF="gettext_3.html#SEC16">3.3  Marking Translatable Strings</A>.
+to interactively fill an empty PO file from sources.  See section <A HREF="gettext_3.html#SEC17">3.4  Marking Translatable Strings</A>.
 
 </P>
 <P>

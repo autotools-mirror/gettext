@@ -31,6 +31,294 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: C Sources Context,  Next: Auxiliary,  Prev: Subedit,  Up: Updating
+
+C Sources Context
+=================
+
+   PO mode is particularily powerful when used with PO files created
+through GNU `gettext' utilities, as those utilities insert special
+comments in the PO files they generate.  Some of these special comments
+relate the PO file entry to exactly where the untranslated string
+appears in the program sources.
+
+   When the translator gets to an untranslated entry, she is fairly
+often faced with an original string which is not as informative as it
+normally should be, being succinct, cryptic, or otherwise ambiguous.
+Before chosing how to translate the string, she needs to understand
+better what the string really means and how tight the translation has
+to be.  Most of times, when problems arise, the only way left to make
+her judgment is looking at the true program sources from where this
+string originated, searching for surrounding comments the programmer
+might have put in there, and looking around for helping clues of _any_
+kind.
+
+   Surely, when looking at program sources, the translator will receive
+more help if she is a fluent programmer.  However, even if she is not
+versed in programming and feels a little lost in C code, the translator
+should not be shy at taking a look, once in a while.  It is most
+probable that she will still be able to find some of the hints she
+needs.  She will learn quickly to not feel uncomfortable in program
+code, paying more attention to programmer's comments, variable and
+function names (if he dared chosing them well), and overall
+organization, than to programmation itself.
+
+   The following commands are meant to help the translator at getting
+program source context for a PO file entry.
+
+`s'
+     Resume the display of a program source context, or cycle through
+     them (`po-cycle-source-reference').
+
+`M-s'
+     Display of a program source context selected by menu
+     (`po-select-source-reference').
+
+`S'
+     Add a directory to the search path for source files
+     (`po-consider-source-path').
+
+`M-S'
+     Delete a directory from the search path for source files
+     (`po-ignore-source-path').
+
+   The commands `s' (`po-cycle-source-reference') and `M-s'
+(`po-select-source-reference') both open another window displaying some
+source program file, and already positioned in such a way that it shows
+an actual use of the string to be translated.  By doing so, the command
+gives source program context for the string.  But if the entry has no
+source context references, or if all references are unresolved along
+the search path for program sources, then the command diagnoses this as
+an error.
+
+   Even if `s' (or `M-s') opens a new window, the cursor stays in the
+PO file window.  If the translator really wants to get into the program
+source window, she ought to do it explicitly, maybe by using command
+`O'.
+
+   When `s' is typed for the first time, or for a PO file entry which
+is different of the last one used for getting source context, then the
+command reacts by giving the first context available for this entry, if
+any.  If some context has already been recently displayed for the
+current PO file entry, and the translator wandered off to do other
+things, typing `s' again will merely resume, in another window, the
+context last displayed.  In particular, if the translator moved the
+cursor away from the context in the source file, the command will bring
+the cursor back to the context.  By using `s' many times in a row, with
+no other commands intervening, PO mode will cycle to the next available
+contexts for this particular entry, getting back to the first context
+once the last has been shown.
+
+   The command `M-s' behaves differently.  Instead of cycling through
+references, it lets the translator choose a particular reference among
+many, and displays that reference.  It is best used with completion, if
+the translator types `<TAB>' immediately after `M-s', in response to
+the question, she will be offered a menu of all possible references, as
+a reminder of which are the acceptable answers.  This command is useful
+only where there are really many contexts available for a single string
+to translate.
+
+   Program source files are usually found relative to where the PO file
+stands.  As a special provision, when this fails, the file is also
+looked for, but relative to the directory immediately above it.  Those
+two cases take proper care of most PO files.  However, it might happen
+that a PO file has been moved, or is edited in a different place than
+its normal location.  When this happens, the translator should tell PO
+mode in which directory normally sits the genuine PO file.  Many such
+directories may be specified, and all together, they constitute what is
+called the "search path" for program sources.  The command `S'
+(`po-consider-source-path') is used to interactively enter a new
+directory at the front of the search path, and the command `M-S'
+(`po-ignore-source-path') is used to select, with completion, one of
+the directories she does not want anymore on the search path.
+
+
+File: gettext.info,  Node: Auxiliary,  Next: Compendium,  Prev: C Sources Context,  Up: Updating
+
+Consulting Auxiliary PO Files
+=============================
+
+   PO mode is able to help the knowledgeable translator, being fluent in
+many languages, at taking advantage of translations already achieved in
+other languages she just happens to know.  It provides these other
+language translations as additional context for her own work.  Moreover,
+it has features to ease the production of translations for many
+languages at once, for translators preferring to work in this way.
+
+   An "auxiliary" PO file is an existing PO file meant for the same
+package the translator is working on, but targeted to a different mother
+tongue language.  Commands exist for declaring and handling auxiliary
+PO files, and also for showing contexts for the entry under work.
+
+   Here are the auxiliary file commands available in PO mode.
+
+`a'
+     Seek auxiliary files for another translation for the same entry
+     (`po-cycle-auxiliary').
+
+`C-c C-a'
+     Switch to a particular auxiliary file (`po-select-auxiliary').
+
+`A'
+     Declare this PO file as an auxiliary file
+     (`po-consider-as-auxiliary').
+
+`M-A'
+     Remove this PO file from the list of auxiliary files
+     (`po-ignore-as-auxiliary').
+
+   Command `A' (`po-consider-as-auxiliary') adds the current PO file to
+the list of auxiliary files, while command `M-A'
+(`po-ignore-as-auxiliary' just removes it.
+
+   The command `a' (`po-cycle-auxiliary') seeks all auxiliary PO files,
+round-robin, searching for a translated entry in some other language
+having an `msgid' field identical as the one for the current entry.
+The found PO file, if any, takes the place of the current PO file in
+the display (its window gets on top).  Before doing so, the current PO
+file is also made into an auxiliary file, if not already.  So, `a' in
+this newly displayed PO file will seek another PO file, and so on, so
+repeating `a' will eventually yield back the original PO file.
+
+   The command `C-c C-a' (`po-select-auxiliary') asks the translator
+for her choice of a particular auxiliary file, with completion, and
+then switches to that selected PO file.  The command also checks if the
+selected file has an `msgid' field identical as the one for the current
+entry, and if yes, this entry becomes current.  Otherwise, the cursor
+of the selected file is left undisturbed.
+
+   For all this to work fully, auxiliary PO files will have to be
+normalized, in that way that `msgid' fields should be written _exactly_
+the same way.  It is possible to write `msgid' fields in various ways
+for representing the same string, different writing would break the
+proper behaviour of the auxiliary file commands of PO mode.  This is not
+expected to be much a problem in practice, as most existing PO files
+have their `msgid' entries written by the same GNU `gettext' tools.
+
+   However, PO files initially created by PO mode itself, while marking
+strings in source files, are normalised differently.  So are PO files
+resulting of the the `M-x normalize' command.  Until these
+discrepancies between PO mode and other GNU `gettext' tools get fully
+resolved, the translator should stay aware of normalisation issues.
+
+
+File: gettext.info,  Node: Compendium,  Prev: Auxiliary,  Up: Updating
+
+Using Translation Compendia
+===========================
+
+   A "compendium" is a special PO file containing a set of translations
+recurring in many different packages.  The translator can use gettext
+tools to build a new compendium, to add entries to her compendium, and
+to initialize untranslated entries, or to update already translated
+entries, from translations kept in the compendium.
+
+* Menu:
+
+* Creating Compendia::          Merging translations for later use
+* Using Compendia::             Using older translations if they fit
+
+
+File: gettext.info,  Node: Creating Compendia,  Next: Using Compendia,  Prev: Compendium,  Up: Compendium
+
+Creating Compendia
+------------------
+
+   Basically every PO file consisting of translated entries only can be
+declared as a valid compendium.  Often the translator wants to have
+special compendia; let's consider two cases: `concatenating PO files'
+and `extracting a message subset from a PO file'.
+
+Concatenate PO Files
+....................
+
+   To concatenate several valid PO files into one compendium file you
+can use `msgcomm' or `msgcat' (the latter preferred):
+
+     msgcat -o compendium.po file1.po file2.po
+
+   By default, `msgcat' will accumulate divergent translations for the
+same string.  Those occurences will be marked as `fuzzy' and highly
+visible decorated; calling `msgcat' on `file1.po':
+
+     #: src/hello.c:200
+     #, c-format
+     msgid "Report bugs to <%s>.\n"
+     msgstr "Comunicar `bugs' a <%s>.\n"
+
+and `file2.po':
+
+     #: src/bye.c:100
+     #, c-format
+     msgid "Report bugs to <%s>.\n"
+     msgstr "Comunicar \"bugs\" a <%s>.\n"
+
+will result in:
+
+     #: src/hello.c:200 src/bye.c:100
+     #, fuzzy, c-format
+     msgid "Report bugs to <%s>.\n"
+     msgstr ""
+     "#-#-#-#-#  file1.po  #-#-#-#-#\n"
+     "Comunicar `bugs' a <%s>.\n"
+     "#-#-#-#-#  file2.po  #-#-#-#-#\n"
+     "Comunicar \"bugs\" a <%s>.\n"
+
+The translator will have to resolve this "conflict" manually; she has
+to decide whether the first or the second version is appropriate (or
+provide a new translation), to delete the "marker lines", and finally
+to remove the `fuzzy' mark.
+
+   If the translator knows in advance the first found translation of a
+message is always the best translation she can make use to the
+`--use-first' switch:
+
+     msgcat --use-first -o compendium.po file1.po file2.po
+
+   A good compendium file must not contain `fuzzy' or untranslated
+entries.  If input files are "dirty" you must preprocess the input
+files or postprocess the result using `msgattrib --translated
+--no-fuzzy'.
+
+Extract a Message Subset from a PO File
+.......................................
+
+   Nobody wants to translate the same messages again and again; thus you
+may wish to have a compendium file containing `getopt.c' messages.
+
+   To extract a message subset (e.g., all `getopt.c' messages) from an
+existing PO file into one compendium file you can use `msggrep':
+
+     msggrep --location src/getopt.c -o compendium.po file.po
+
+
+File: gettext.info,  Node: Using Compendia,  Prev: Creating Compendia,  Up: Compendium
+
+Using Compendia
+---------------
+
+   You can use a compendium file to initialize a translation from
+scratch or to update an already existing translation.
+
+Initialize a New Translation File
+.................................
+
+   Since a PO file with translations does not exist the translator can
+merely use `/dev/null' to fake the "old" translation file.
+
+     msgmerge --compendium compendium.po -o file.po /dev/null file.pot
+
+Update an Existing Translation File
+...................................
+
+   Concatenate the compendium file(s) and the existing PO, merge the
+result with the POT file and remove the obsolete entries (optional,
+here done using `sed'):
+
+     msgcat --use-first -o update.po compendium1.po compendium2.po file.po
+     msgmerge update.po file.pot | sed -e '/^#~/d' > file.po
+
+
 File: gettext.info,  Node: Manipulating,  Next: Binaries,  Prev: Updating,  Up: Top
 
 Manipulating PO Files
@@ -208,6 +496,12 @@ Output details
      width (= number of screen columns) is less or equal to the given
      NUMBER.
 
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
+
 `-s'
 `--sort-output'
      Generate sorted output.  Note that using this option makes it much
@@ -299,6 +593,12 @@ Output details
      be split across multiple lines in order to ensure that each line's
      width (= number of screen columns) is less or equal to the given
      NUMBER.
+
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
 
 `-s'
 `--sort-output'
@@ -448,6 +748,12 @@ Output details
      width (= number of screen columns) is less or equal to the given
      NUMBER.
 
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
+
 `--sort-output'
      Generate sorted output.  Note that using this option makes it much
      harder for the translator to understand each message's context.
@@ -575,6 +881,12 @@ Output details
      width (= number of screen columns) is less or equal to the given
      NUMBER.
 
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
+
 `-s'
 `--sort-output'
      Generate sorted output.  Note that using this option makes it much
@@ -684,6 +996,12 @@ Output details
      be split across multiple lines in order to ensure that each line's
      width (= number of screen columns) is less or equal to the given
      NUMBER.
+
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
 
 `-s'
 `--sort-output'
@@ -797,6 +1115,12 @@ Output details
      be split across multiple lines in order to ensure that each line's
      width (= number of screen columns) is less or equal to the given
      NUMBER.
+
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
 
 `-s'
 `--sort-output'
@@ -980,6 +1304,12 @@ Output details
      width (= number of screen columns) is less or equal to the given
      NUMBER.
 
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
+
 `-s'
 `--sort-output'
      Generate sorted output.  Note that using this option makes it much
@@ -1068,6 +1398,12 @@ Output details
      be split across multiple lines in order to ensure that each line's
      width (= number of screen columns) is less or equal to the given
      NUMBER.
+
+`--no-wrap'
+     Do not break long message lines.  Message lines whose width
+     exceeds the output page width will not be split into several
+     lines.  Only file reference lines which are wider than the output
+     page width will be split.
 
 `-s'
 `--sort-output'
@@ -1159,472 +1495,4 @@ Producing Binary MO Files
 * msgfmt Invocation::           Invoking the `msgfmt' Program
 * msgunfmt Invocation::         Invoking the `msgunfmt' Program
 * MO Files::                    The Format of GNU MO Files
-
-
-File: gettext.info,  Node: msgfmt Invocation,  Next: msgunfmt Invocation,  Prev: Binaries,  Up: Binaries
-
-Invoking the `msgfmt' Program
-=============================
-
-     msgfmt [OPTION] FILENAME.po ...
-
-   The `msgfmt' programs generates a binary message catalog from a
-textual translation description.
-
-Input file location
--------------------
-
-`FILENAME.po ...'
-
-`-D DIRECTORY'
-`--directory=DIRECTORY'
-     Add DIRECTORY to the list of directories.  Source files are
-     searched relative to this list of directories.  The resulting `.po'
-     file will be written relative to the current directory, though.
-
-   If an input file is `-', standard input is read.
-
-Operation mode
---------------
-
-`-j'
-`--java'
-     Java mode: generate a Java `ResourceBundle' class.
-
-`--java2'
-     Like -java, and assume Java2 (JDK 1.2 or higher).
-
-`--tcl'
-     Tcl mode: generate a tcl/msgcat `.msg' file.
-
-Output file location
---------------------
-
-`-o FILE'
-`--output-file=FILE'
-     Write output to specified file.
-
-`--strict'
-     Direct the program to work strictly following the Uniforum/Sun
-     implementation.  Currently this only affects the naming of the
-     output file.  If this option is not given the name of the output
-     file is the same as the domain name.  If the strict Uniforum mode
-     is enabled the suffix `.mo' is added to the file name if it is not
-     already present.
-
-     We find this behaviour of Sun's implementation rather silly and so
-     by default this mode is _not_ selected.
-
-   If the output FILE is `-', output is written to standard output.
-
-Output file location in Java mode
----------------------------------
-
-`-r RESOURCE'
-`--resource=RESOURCE'
-     Specify the resource name.
-
-`-l LOCALE'
-`--locale=LOCALE'
-     Specify the locale name, either a language specification of the
-     form LL or a combined language and country specification of the
-     form LL_CC.
-
-`-d DIRECTORY'
-     Specify the base directory of classes directory hierarchy.
-
-   The class name is determined by appending the locale name to the
-resource name, separated with an underscore.  The `-d' option is
-mandatory.  The class is written under the specified directory.
-
-Output file location in Tcl mode
---------------------------------
-
-`-l LOCALE'
-`--locale=LOCALE'
-     Specify the locale name, either a language specification of the
-     form LL or a combined language and country specification of the
-     form LL_CC.
-
-`-d DIRECTORY'
-     Specify the base directory of `.msg' message catalogs.
-
-   The `-l' and `-d' options are mandatory.  The `.msg' file is written
-in the specified directory.
-
-Input file interpretation
--------------------------
-
-`-c'
-`--check'
-     Perform all the checks implied by `--check-format',
-     `--check-header', `--check-domain'.
-
-`--check-format'
-     Check language dependent format strings.
-
-     If the string represents a format string used in a `printf'-like
-     function both strings should have the same number of `%' format
-     specifiers, with matching types.  If the flag `c-format' or
-     `possible-c-format' appears in the special comment <#,> for this
-     entry a check is performed.  For example, the check will diagnose
-     using `%.*s' against `%s', or `%d' against `%s', or `%d' against
-     `%x'.  It can even handle positional parameters.
-
-     Normally the `xgettext' program automatically decides whether a
-     string is a format string or not.  This algorithm is not perfect,
-     though.  It might regard a string as a format string though it is
-     not used in a `printf'-like function and so `msgfmt' might report
-     errors where there are none.
-
-     To solve this problem the programmer can dictate the decision to
-     the `xgettext' program (*note c-format::).  The translator should
-     not consider removing the flag from the <#,> line.  This "fix"
-     would be reversed again as soon as `msgmerge' is called the next
-     time.
-
-`--check-header'
-     Verify presence and contents of the header entry.  *Note Header
-     Entry::, for a description of the various fields in the header
-     entry.
-
-`--check-domain'
-     Check for conflicts between domain directives and the
-     `--output-file' option
-
-`-C'
-`--check-compatibility'
-     Check that GNU msgfmt behaves like X/Open msgfmt.  This will give
-     an error when attempting to use the GNU extensions.
-
-`--check-accelerators[=CHAR]'
-     Check presence of keyboard accelerators for menu items.  This is
-     based on the convention used in some GUIs that a keyboard
-     accelerator in a menu item string is designated by an immediately
-     preceding `&' character.  Sometimes a keyboard accelerator is also
-     called "keyboard mnemonic".  This check verifies that if the
-     untranslated string has exactly one `&' character, the translated
-     string has exactly one `&' as well.  If this option is given with
-     a CHAR argument, this CHAR should be a non-alphanumeric character
-     and is used as keyboard acceleator mark instead of `&'.
-
-`-f'
-`--use-fuzzy'
-     Use fuzzy entries in output.  Note that using this option is
-     usually wrong, because fuzzy messages are exactly those which have
-     not been validated by a human translator.
-
-Output details
---------------
-
-`-a NUMBER'
-`--alignment=NUMBER'
-     Align strings to NUMBER bytes (default: 1).
-
-`--no-hash'
-     Don't include a hash table in the binary file.  Lookup will be
-     more expensive at run time (binary search instead of hash table
-     lookup).
-
-Informative output
-------------------
-
-`-h'
-`--help'
-     Display this help and exit.
-
-`-V'
-`--version'
-     Output version information and exit.
-
-`--statistics'
-     Print statistics about translations.
-
-`-v'
-`--verbose'
-     Increase verbosity level.
-
-
-File: gettext.info,  Node: msgunfmt Invocation,  Next: MO Files,  Prev: msgfmt Invocation,  Up: Binaries
-
-Invoking the `msgunfmt' Program
-===============================
-
-     msgunfmt [OPTION] [FILE]...
-
-   The `msgunfmt' program converts a binary message catalog to a
-Uniforum style .po file.
-
-Operation mode
---------------
-
-`-j'
-`--java'
-     Java mode: input is a Java `ResourceBundle' class.
-
-`--tcl'
-     Tcl mode: input is a tcl/msgcat `.msg' file.
-
-Input file location
--------------------
-
-`FILE ...'
-     Input .mo files.
-
-   If no input FILE is given or if it is `-', standard input is read.
-
-Input file location in Java mode
---------------------------------
-
-`-r RESOURCE'
-`--resource=RESOURCE'
-     Specify the resource name.
-
-`-l LOCALE'
-`--locale=LOCALE'
-     Specify the locale name, either a language specification of the
-     form LL or a combined language and country specification of the
-     form LL_CC.
-
-   The class name is determined by appending the locale name to the
-resource name, separated with an underscore.  The class is located
-using the `CLASSPATH'.
-
-Input file location in Tcl mode
--------------------------------
-
-`-l LOCALE'
-`--locale=LOCALE'
-     Specify the locale name, either a language specification of the
-     form LL or a combined language and country specification of the
-     form LL_CC.
-
-`-d DIRECTORY'
-     Specify the base directory of `.msg' message catalogs.
-
-   The `-l' and `-d' options are mandatory.  The `.msg' file is located
-in the specified directory.
-
-Output file location
---------------------
-
-`-o FILE'
-`--output-file=FILE'
-     Write output to specified file.
-
-   The results are written to standard output if no output file is
-specified or if it is `-'.
-
-Output details
---------------
-
-`--force-po'
-     Always write an output file even if it contains no message.
-
-`-i'
-`--indent'
-     Write the .po file using indented style.
-
-`--strict'
-     Write out a strict Uniforum conforming PO file.  Note that this
-     Uniforum format should be avoided because it doesn't support the
-     GNU extensions.
-
-`-w NUMBER'
-`--width=NUMBER'
-     Set the output page width.  Long strings in the output files will
-     be split across multiple lines in order to ensure that each line's
-     width (= number of screen columns) is less or equal to the given
-     NUMBER.
-
-`-s'
-`--sort-output'
-     Generate sorted output.  Note that using this option makes it much
-     harder for the translator to understand each message's context.
-
-Informative output
-------------------
-
-`-h'
-`--help'
-     Display this help and exit.
-
-`-V'
-`--version'
-     Output version information and exit.
-
-`-v'
-`--verbose'
-     Increase verbosity level.
-
-
-File: gettext.info,  Node: MO Files,  Prev: msgunfmt Invocation,  Up: Binaries
-
-The Format of GNU MO Files
-==========================
-
-   The format of the generated MO files is best described by a picture,
-which appears below.
-
-   The first two words serve the identification of the file.  The magic
-number will always signal GNU MO files.  The number is stored in the
-byte order of the generating machine, so the magic number really is two
-numbers: `0x950412de' and `0xde120495'.  The second word describes the
-current revision of the file format.  For now the revision is 0.  This
-might change in future versions, and ensures that the readers of MO
-files can distinguish new formats from old ones, so that both can be
-handled correctly.  The version is kept separate from the magic number,
-instead of using different magic numbers for different formats, mainly
-because `/etc/magic' is not updated often.  It might be better to have
-magic separated from internal format version identification.
-
-   Follow a number of pointers to later tables in the file, allowing
-for the extension of the prefix part of MO files without having to
-recompile programs reading them.  This might become useful for later
-inserting a few flag bits, indication about the charset used, new
-tables, or other things.
-
-   Then, at offset O and offset T in the picture, two tables of string
-descriptors can be found.  In both tables, each string descriptor uses
-two 32 bits integers, one for the string length, another for the offset
-of the string in the MO file, counting in bytes from the start of the
-file.  The first table contains descriptors for the original strings,
-and is sorted so the original strings are in increasing lexicographical
-order.  The second table contains descriptors for the translated
-strings, and is parallel to the first table: to find the corresponding
-translation one has to access the array slot in the second array with
-the same index.
-
-   Having the original strings sorted enables the use of simple binary
-search, for when the MO file does not contain an hashing table, or for
-when it is not practical to use the hashing table provided in the MO
-file.  This also has another advantage, as the empty string in a PO
-file GNU `gettext' is usually _translated_ into some system information
-attached to that particular MO file, and the empty string necessarily
-becomes the first in both the original and translated tables, making
-the system information very easy to find.
-
-   The size S of the hash table can be zero.  In this case, the hash
-table itself is not contained in the MO file.  Some people might prefer
-this because a precomputed hashing table takes disk space, and does not
-win _that_ much speed.  The hash table contains indices to the sorted
-array of strings in the MO file.  Conflict resolution is done by double
-hashing.  The precise hashing algorithm used is fairly dependent on GNU
-`gettext' code, and is not documented here.
-
-   As for the strings themselves, they follow the hash file, and each
-is terminated with a <NUL>, and this <NUL> is not counted in the length
-which appears in the string descriptor.  The `msgfmt' program has an
-option selecting the alignment for MO file strings.  With this option,
-each string is separately aligned so it starts at an offset which is a
-multiple of the alignment value.  On some RISC machines, a correct
-alignment will speed things up.
-
-   Plural forms are stored by letting the plural of the original string
-follow the singular of the original string, separated through a <NUL>
-byte.  The length which appears in the string descriptor includes both.
-However, only the singular of the original string takes part in the
-hash table lookup.  The plural variants of the translation are all
-stored consecutively, separated through a <NUL> byte.  Here also, the
-length in the string descriptor includes all of them.
-
-   Nothing prevents a MO file from having embedded <NUL>s in strings.
-However, the program interface currently used already presumes that
-strings are <NUL> terminated, so embedded <NUL>s are somewhat useless.
-But the MO file format is general enough so other interfaces would be
-later possible, if for example, we ever want to implement wide
-characters right in MO files, where <NUL> bytes may accidently appear.
-(No, we don't want to have wide characters in MO files.  They would
-make the file unnecessarily large, and the `wchar_t' type being
-platform dependent, MO files would be platform dependent as well.)
-
-   This particular issue has been strongly debated in the GNU `gettext'
-development forum, and it is expectable that MO file format will evolve
-or change over time.  It is even possible that many formats may later
-be supported concurrently.  But surely, we have to start somewhere, and
-the MO file format described here is a good start.  Nothing is cast in
-concrete, and the format may later evolve fairly easily, so we should
-feel comfortable with the current approach.
-
-             byte
-                  +------------------------------------------+
-               0  | magic number = 0x950412de                |
-                  |                                          |
-               4  | file format revision = 0                 |
-                  |                                          |
-               8  | number of strings                        |  == N
-                  |                                          |
-              12  | offset of table with original strings    |  == O
-                  |                                          |
-              16  | offset of table with translation strings |  == T
-                  |                                          |
-              20  | size of hashing table                    |  == S
-                  |                                          |
-              24  | offset of hashing table                  |  == H
-                  |                                          |
-                  .                                          .
-                  .    (possibly more entries later)         .
-                  .                                          .
-                  |                                          |
-               O  | length & offset 0th string  ----------------.
-           O + 8  | length & offset 1st string  ------------------.
-                   ...                                    ...   | |
-     O + ((N-1)*8)| length & offset (N-1)th string           |  | |
-                  |                                          |  | |
-               T  | length & offset 0th translation  ---------------.
-           T + 8  | length & offset 1st translation  -----------------.
-                   ...                                    ...   | | | |
-     T + ((N-1)*8)| length & offset (N-1)th translation      |  | | | |
-                  |                                          |  | | | |
-               H  | start hash table                         |  | | | |
-                   ...                                    ...   | | | |
-       H + S * 4  | end hash table                           |  | | | |
-                  |                                          |  | | | |
-                  | NUL terminated 0th string  <----------------' | | |
-                  |                                          |    | | |
-                  | NUL terminated 1st string  <------------------' | |
-                  |                                          |      | |
-                   ...                                    ...       | |
-                  |                                          |      | |
-                  | NUL terminated 0th translation  <---------------' |
-                  |                                          |        |
-                  | NUL terminated 1st translation  <-----------------'
-                  |                                          |
-                   ...                                    ...
-                  |                                          |
-                  +------------------------------------------+
-
-
-File: gettext.info,  Node: Users,  Next: Programmers,  Prev: Binaries,  Up: Top
-
-The User's View
-***************
-
-   When GNU `gettext' will truly have reached its goal, average users
-should feel some kind of astonished pleasure, seeing the effect of that
-strange kind of magic that just makes their own native language appear
-everywhere on their screens.  As for naive users, they would ideally
-have no special pleasure about it, merely taking their own language for
-_granted_, and becoming rather unhappy otherwise.
-
-   So, let's try to describe here how we would like the magic to
-operate, as we want the users' view to be the simplest, among all ways
-one could look at GNU `gettext'.  All other software engineers:
-programmers, translators, maintainers, should work together in such a
-way that the magic becomes possible.  This is a long and progressive
-undertaking, and information is available about the progress of the
-Translation Project.
-
-   When a package is distributed, there are two kinds of users:
-"installers" who fetch the distribution, unpack it, configure it,
-compile it and install it for themselves or others to use; and "end
-users" that call programs of the package, once these have been
-installed at their site.  GNU `gettext' is offering magic for both
-installers and end users.
-
-* Menu:
-
-* Matrix::                      The Current `ABOUT-NLS' Matrix
-* Installers::                  Magic for Installers
-* End Users::                   Magic for End Users
 

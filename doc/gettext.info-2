@@ -374,13 +374,14 @@ sections of this chapter.
 * Menu:
 
 * Triggering::                  Triggering `gettext' Operations
+* Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 
 
-File: gettext.info,  Node: Triggering,  Next: Mark Keywords,  Prev: Sources,  Up: Sources
+File: gettext.info,  Node: Triggering,  Next: Preparing Strings,  Prev: Sources,  Up: Sources
 
 Triggering `gettext' Operations
 ===============================
@@ -453,7 +454,174 @@ large program's source, and because switching a locale is not
 multithread-safe.
 
 
-File: gettext.info,  Node: Mark Keywords,  Next: Marking,  Prev: Triggering,  Up: Sources
+File: gettext.info,  Node: Preparing Strings,  Next: Mark Keywords,  Prev: Triggering,  Up: Sources
+
+Preparing Translatable Strings
+==============================
+
+   Before strings can be marked for translations, they sometimes need to
+be adjusted. Usually preparing a string for translation is done right
+before marking it, during the marking phase which is described in the
+next sections. What you have to keep in mind while doing that is the
+following.
+
+   * Decent English style.
+
+   * Entire sentences.
+
+   * Split at paragraphs.
+
+   * Use format strings instead of string concatenation.
+
+Let's look at some examples of these guidelines.
+
+   Translatable strings should be in good English style. If slang
+language with abbreviations and shortcuts is used, often translators
+will not understand the message and will produce very inappropriate
+translations.
+
+     "%s: is parameter\n"
+
+This is nearly untranslatable: Is the displayed item _a_ parameter or
+_the_ parameter?
+
+     "No match"
+
+The ambiguity in this message makes it ununderstandable: Is the program
+attempting to set something on fire? Does it mean "The given object does
+not match the template"? Does it mean "The template does not fit for any
+of the objects"?
+
+   In both cases, adding more words to the message will help both the
+translator and the English speaking user.
+
+   Translatable strings should be entire sentences. It is often not
+possible to translate single verbs or adjectives in a substitutable way.
+
+     printf ("File %s is %s protected", filename, rw ? "write" : "read");
+
+Most translators will not look at the source and will thus only see the
+string `"File %s is %s protected"', which is unintelligible. Change
+this to
+
+     printf (rw ? "File %s is write protected" : "File %s is read protected",
+             filename);
+
+This way the translator will not only understand the message, she will
+also be able to find the appropriate grammatical construction. The
+French translator for example translates "write protected" like
+"protected against writing".
+
+   Often sentences don't fit into a single line. If a sentence is output
+using two subsequent `printf' statements, like this
+
+     printf ("Locale charset \"%s\" is different from\n", lcharset);
+     printf ("input file charset \"%s\".\n", fcharset);
+
+the translator would have to translate two half sentences, but nothing
+in the POT file would tell her that the two half sentences belong
+together.  It is necessary to merge the two `printf' statements so that
+the translator can handle the entire sentence at once and decide at
+which place to insert a line break in the translation (if at all):
+
+     printf ("Locale charset \"%s\" is different from\n\
+     input file charset \"%s\".\n", lcharset, fcharset);
+
+   You may now ask: how about two or more adjacent sentences? Like in
+this case:
+
+     puts ("Apollo 13 scenario: Stack overflow handling failed.");
+     puts ("On the next stack overflow we will crash!!!");
+
+Should these two statements merged into a single one? I would recommend
+to merge them if the two sentences are related to each other, because
+then it makes it easier for the translator to understand and translate
+both. On the other hand, if one of the two messages is a stereotypic
+one, occurring in other places as well, you will do a favour to the
+translator by not merging the two. (Identical messages occurring in
+several places are combined by xgettext, so the translator has to
+handle them once only.)
+
+   Translatable strings should be limited to one paragraph; don't let a
+single message be longer than ten lines. The reason is that when the
+translatable string changes, the translator is faced with the task of
+updating the entire translated string. Maybe only a single word will
+have changed in the English string, but the translator doesn't see that
+(with the current translation tools), therefore she has to proofread
+the entire message.
+
+   Many GNU programs have a `--help' output that extends over several
+screen pages. It is a courtesy towards the translators to split such a
+message into several ones of five to ten lines each. While doing that,
+you can also attempt to split the documented options into groups, such
+as the input options, the output options, and the informative output
+options. This will help every user to find the option he is looking for.
+
+   Hardcoded string concatenation is sometimes used to construct English
+strings:
+
+     strcpy (s, "Replace ");
+     strcat (s, object1);
+     strcat (s, " with ");
+     strcat (s, object2);
+     strcat (s, "?");
+
+In order to present to the translator only entire sentences, and also
+because in some languages the translator might want to swap the order
+of `object1' and `object2', it is necessary to change this to use a
+format string:
+
+     sprintf (s, "Replace %s with %s?", object1, object2);
+
+   A similar case is compile time concatenation of strings. The ISO C 99
+include file `<inttypes.h>' contains a macro `PRId64' that can be used
+as a formatting directive for outputting an `int64_t' integer through
+`printf'. It expands to a constant string, usually "d" or "ld" or "lld"
+or something like this, depending on the platform.  Assume you have
+code like
+
+     printf ("The amount is %0" PRId64 "\n"), number);
+
+After marking, this cannot become
+
+     printf (gettext ("The amount is %0") PRId64 "\n"), number);
+
+because it would simply be invalid C syntax. It cannot become
+
+     printf (gettext ("The amount is %0" PRId64 "\n")), number);
+
+because the value of `PRId64' is not known to `xgettext', and even if
+were, there would be three or more possibilities, and the translator
+would have to translate three or more strings that differ in a single
+letter.
+
+   The solution for this problem is to change the code like this:
+
+     char buf1[100];
+     sprintf (buf1, "%0" PRId64, number);
+     printf (gettext ("The amount is %s\n"), buf1);
+
+   This means, you put the platform dependent code in one statement,
+and the internationalization code in a different statement. Note that a
+buffer length of 100 is safe, because all available hardware integer
+types are limited to 128 bits, and to print a 128 bit integer one needs
+at most 54 characters, regardless whether in decimal, octal or
+hexadecimal.
+
+   All this applies to other programming languages as well. For
+example, in Java, string contenation is very frequently used, because
+it is a compiler built-in operator. Like in C, in Java, you would change
+
+     System.out.println("Replace "+object1+" with "+object2+"?");
+
+into a statement involving a format string:
+
+     System.out.println(
+         MessageFormat.format("Replace {0} with {1}?",
+                              new Object[] { object1, object2 }));
+
+
+File: gettext.info,  Node: Mark Keywords,  Next: Marking,  Prev: Preparing Strings,  Up: Sources
 
 How Marks Appear in Sources
 ===========================
@@ -838,307 +1006,4 @@ file.  This section explains how to use `xgettext' for this purpose.
 * Menu:
 
 * xgettext Invocation::         Invoking the `xgettext' Program
-
-
-File: gettext.info,  Node: xgettext Invocation,  Prev: Template,  Up: Template
-
-Invoking the `xgettext' Program
-===============================
-
-     xgettext [OPTION] [INPUTFILE] ...
-
-   The `xgettext' program extracts translatable strings from given
-input files.
-
-Input file location
--------------------
-
-`INPUTFILE ...'
-     Input files.
-
-`-f FILE'
-`--files-from=FILE'
-     Read the names of the input files from FILE instead of getting
-     them from the command line.
-
-`-D DIRECTORY'
-`--directory=DIRECTORY'
-     Add DIRECTORY to the list of directories.  Source files are
-     searched relative to this list of directories.  The resulting `.po'
-     file will be written relative to the current directory, though.
-
-   If INPUTFILE is `-', standard input is read.
-
-Output file location
---------------------
-
-`-d NAME'
-`--default-domain=NAME'
-     Use `NAME.po' for output (instead of `messages.po').
-
-`-o FILE'
-`--output=FILE'
-     Write output to specified file (instead of `NAME.po' or
-     `messages.po').
-
-`-p DIR'
-`--output-dir=DIR'
-     Output files will be placed in directory DIR.
-
-   If the output FILE is `-' or `/dev/stdout', the output is written to
-standard output.
-
-Choice of input file language
------------------------------
-
-`-L NAME'
-`--language=NAME'
-     Specifies the language of the input files.  The supported languages
-     are `C', `C++', `ObjectiveC', `PO', `Python', `Lisp', `EmacsLisp',
-     `librep', `Java', `awk', `YCP', `Tcl', `RST', `Glade'.
-
-`-C'
-`--c++'
-     This is a shorthand for `--language=C++'.
-
-   By default the language is guessed depending on the input file name
-extension.
-
-Operation mode
---------------
-
-`-j'
-`--join-existing'
-     Join messages with existing file.
-
-`-x FILE'
-`--exclude-file=FILE'
-     Entries from FILE are not extracted.  FILE should be a PO or POT
-     file.
-
-`-c [TAG]'
-`--add-comments[=TAG]'
-     Place comment block with TAG (or those preceding keyword lines) in
-     output file.
-
-Language=C/C++ specific options
--------------------------------
-
-`-a'
-`--extract-all'
-     Extract all strings.
-
-`-k KEYWORDSPEC'
-`--keyword[=KEYWORDSPEC]'
-     Additional keyword to be looked for (without KEYWORDSPEC means not
-     to use default keywords).
-
-     If KEYWORDSPEC is a C identifer ID, `xgettext' looks for strings
-     in the first argument of each call to the function or macro ID.
-     If KEYWORDSPEC is of the form `ID:ARGNUM', `xgettext' looks for
-     strings in the ARGNUMth argument of the call.  If KEYWORDSPEC is
-     of the form `ID:ARGNUM1,ARGNUM2', `xgettext' looks for strings in
-     the ARGNUM1st argument and in the ARGNUM2nd argument of the call,
-     and treats them as singular/plural variants for a message with
-     plural handling.
-
-     The default keyword specifications, which are always looked for if
-     not explicitly disabled, are `gettext', `dgettext:2',
-     `dcgettext:2', `ngettext:1,2', `dngettext:2,3', `dcngettext:2,3',
-     and `gettext_noop'.
-
-`-T'
-`--trigraphs'
-     Understand ANSI C trigraphs for input.
-
-`--debug'
-     Use the flags `c-format' and `possible-c-format' to show who was
-     responsible for marking a message as a format string.  The latter
-     form is used if the `xgettext' program decided, the format form is
-     used if the programmer prescribed it.
-
-     By default only the `c-format' form is used.  The translator should
-     not have to care about these details.
-
-   This implementation of `xgettext' is able to process a few awkward
-cases, like strings in preprocessor macros, ANSI concatenation of
-adjacent strings, and escaped end of lines for continued strings.
-
-Output details
---------------
-
-`--force-po'
-     Always write an output file even if no message is defined.
-
-`-i'
-`--indent'
-     Write the .po file using indented style.
-
-`--no-location'
-     Do not write `#: FILENAME:LINE' lines.
-
-`-n'
-`--add-location'
-     Generate `#: FILENAME:LINE' lines (default).
-
-`--strict'
-     Write out a strict Uniforum conforming PO file.  Note that this
-     Uniforum format should be avoided because it doesn't support the
-     GNU extensions.
-
-`-w NUMBER'
-`--width=NUMBER'
-     Set the output page width.  Long strings in the output files will
-     be split across multiple lines in order to ensure that each line's
-     width (= number of screen columns) is less or equal to the given
-     NUMBER.
-
-`-s'
-`--sort-output'
-     Generate sorted output.  Note that using this option makes it much
-     harder for the translator to understand each message's context.
-
-`-F'
-`--sort-by-file'
-     Sort output by file location.
-
-`--omit-header'
-     Don't write header with `msgid ""' entry.
-
-     This is useful for testing purposes because it eliminates a source
-     of variance for generated `.gmo' files.  With `--omit-header', two
-     invocations of `xgettext' on the same files with the same options
-     at different times are guaranteed to produce the same results.
-
-`--copyright-holder=STRING'
-     Set the copyright holder in the output.  STRING should be the
-     copyright holder of the surrounding package.  (Note that the msgstr
-     strings, extracted from the package's sources, belong to the
-     copyright holder of the package.)  Translators are expected to
-     transfer or disclaim the copyright for their translations, so that
-     package maintainers can distribute them without legal risk.  If
-     STRING is empty, the output files are marked as being in the
-     public domain; in this case, the translators are expected to
-     disclaim their copyright, again so that package maintainers can
-     distribute them without legal risk.
-
-     The default value for STRING is the Free Software Foundation, Inc.,
-     simply because `xgettext' was first used in the GNU project.
-
-`--foreign-user'
-     Omit FSF copyright in output.  This option is equivalent to
-     `--copyright-holder='''.  It can be useful for packages outside
-     the GNU project that want their translations to be in the public
-     domain.
-
-`-m [STRING]'
-`--msgstr-prefix[=STRING]'
-     Use STRING (or "" if not specified) as prefix for msgstr entries.
-
-`-M [STRING]'
-`--msgstr-suffix[=STRING]'
-     Use STRING (or "" if not specified) as suffix for msgstr entries.
-
-Informative output
-------------------
-
-`-h'
-`--help'
-     Display this help and exit.
-
-`-V'
-`--version'
-     Output version information and exit.
-
-
-File: gettext.info,  Node: Creating,  Next: Updating,  Prev: Template,  Up: Top
-
-Creating a New PO File
-**********************
-
-   When starting a new translation, the translator creates a file called
-`LANG.po', as a copy of the `PACKAGE.pot' template file with
-modifications in the initial comments (at the beginning of the file)
-and in the header entry (the first entry, near the beginning of the
-file).
-
-   The easiest way to do so is by use of the `msginit' program.  For
-example:
-
-     $ cd PACKAGE-VERSION
-     $ cd po
-     $ msginit --verbose
-
-   The alternative way is to do the copy and modifications by hand.  To
-do so, the translator copies `PACKAGE.pot' to `LANG.po'.  Then she
-modifies the initial comments and the header entry of this file.
-
-* Menu:
-
-* msginit Invocation::          Invoking the `msginit' Program
-* Header Entry::                Filling in the Header Entry
-
-
-File: gettext.info,  Node: msginit Invocation,  Next: Header Entry,  Prev: Creating,  Up: Creating
-
-Invoking the `msginit' Program
-==============================
-
-     msginit [OPTION]
-
-   The `msginit' program creates a new PO file, initializing the meta
-information with values from the user's environment.
-
-Input file location
--------------------
-
-`-i INPUTFILE'
-`--input=INPUTFILE'
-     Input POT file.
-
-   If no INPUTFILE is given, the current directory is searched for the
-POT file.  If it is `-', standard input is read.
-
-Output file location
---------------------
-
-`-o FILE'
-`--output-file=FILE'
-     Write output to specified PO file.
-
-   If no output file is given, it depends on the `--locale' option or
-the user's locale setting.  If it is `-', the results are written to
-standard output.
-
-Output details
---------------
-
-`-l LL_CC'
-`--locale=LL_CC'
-     Set target locale.  LL should be a language code, and CC should be
-     a country code.  The command `locale -a' can be used to output a
-     list of all installed locales.  The default is the user's locale
-     setting.
-
-`--no-translator'
-     Declares that the PO file will not have a human translator and is
-     instead automatically generated.
-
-`-w NUMBER'
-`--width=NUMBER'
-     Set the output page width.  Long strings in the output files will
-     be split across multiple lines in order to ensure that each line's
-     width (= number of screen columns) is less or equal to the given
-     NUMBER.
-
-Informative output
-------------------
-
-`-h'
-`--help'
-     Display this help and exit.
-
-`-V'
-`--version'
-     Output version information and exit.
 

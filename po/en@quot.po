@@ -28,8 +28,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.1\n"
-"POT-Creation-Date: 2002-03-06 15:21+0100\n"
-"PO-Revision-Date: 2002-03-06 15:21+0100\n"
+"POT-Creation-Date: 2002-04-24 19:27+0200\n"
+"PO-Revision-Date: 2002-04-24 19:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgid "Valid arguments are:"
 msgstr "Valid arguments are:"
 
 #: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:726 src/read-mo.c:171
-#: src/urlget.c:204 src/xgettext.c:823 src/xgettext.c:836 src/xgettext.c:846
+#: src/urlget.c:204 src/xgettext.c:829 src/xgettext.c:842 src/xgettext.c:852
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "error while opening “%s” for reading"
@@ -268,11 +268,11 @@ msgid ""
 msgstr ""
 "format specifications in ‘msgid’ and ‘%s’ for argument ‘%s’ are not the same"
 
-#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:264 src/msgcat.c:229
-#: src/msgcmp.c:133 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:170
-#: src/msgexec.c:165 src/msgfilter.c:248 src/msgfmt.c:351 src/msggrep.c:286
-#: src/msginit.c:251 src/msgmerge.c:265 src/msgunfmt.c:199 src/msguniq.c:207
-#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:374
+#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:269 src/msgcat.c:234
+#: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
+#: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
+#: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:378
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -283,16 +283,16 @@ msgstr ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 
-#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:269 src/msgcat.c:234
-#: src/msgcmp.c:138 src/msgcomm.c:237 src/msgconv.c:187 src/msgen.c:175
-#: src/msgexec.c:170 src/msgfilter.c:253 src/msgfmt.c:356 src/msggrep.c:291
-#: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
-#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:379
+#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:274 src/msgcat.c:239
+#: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
+#: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
+#: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:383
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Written by %s.\n"
 
-#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:266 src/ngettext.c:143
+#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:271 src/ngettext.c:143
 msgid "too many arguments"
 msgstr "too many arguments"
 
@@ -300,11 +300,11 @@ msgstr "too many arguments"
 msgid "missing arguments"
 msgstr "missing arguments"
 
-#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:322 src/msgcat.c:290
-#: src/msgcmp.c:170 src/msgcomm.c:306 src/msgconv.c:241 src/msgen.c:226
-#: src/msgexec.c:223 src/msgfilter.c:346 src/msgfmt.c:528 src/msggrep.c:397
-#: src/msginit.c:342 src/msgmerge.c:380 src/msgunfmt.c:309 src/msguniq.c:269
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:525
+#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:327 src/msgcat.c:295
+#: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:247 src/msgen.c:232
+#: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
+#: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:529
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Try ‘%s --help’ for more information.\n"
@@ -365,15 +365,15 @@ msgstr ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:402 src/msgcat.c:371
-#: src/msgcmp.c:215 src/msgcomm.c:384 src/msgconv.c:305 src/msgen.c:286
-#: src/msgexec.c:267 src/msgfilter.c:419 src/msgfmt.c:622 src/msggrep.c:485
-#: src/msginit.c:393 src/msgmerge.c:478 src/msgunfmt.c:388 src/msguniq.c:343
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:620
+#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:409 src/msgcat.c:378
+#: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:313 src/msgen.c:294
+#: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
+#: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:626
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/hostname.c:206 src/msginit.c:347
+#: src/hostname.c:206 src/msginit.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Usage: %s [OPTION]\n"
@@ -398,9 +398,9 @@ msgstr ""
 "                          and aliases\n"
 "  -i, --ip-address      addresses for the hostname\n"
 
-#: src/hostname.c:225 src/msgattrib.c:396 src/msgcmp.c:209 src/msgconv.c:299
-#: src/msgen.c:280 src/msgexec.c:261 src/msgfilter.c:413 src/msggrep.c:479
-#: src/msginit.c:387 src/urlget.c:180
+#: src/hostname.c:225 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
+#: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
+#: src/msginit.c:394 src/urlget.c:180
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -415,28 +415,28 @@ msgstr ""
 msgid "could not get host name"
 msgstr "could not get host name"
 
-#: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:198
-#: src/msggrep.c:306 src/msginit.c:209 src/msguniq.c:227
+#: src/msgattrib.c:289 src/msgconv.c:208 src/msgexec.c:145 src/msgfilter.c:199
+#: src/msggrep.c:311 src/msginit.c:210 src/msguniq.c:232
 msgid "at most one input file allowed"
 msgstr "at most one input file allowed"
 
-#: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
-#: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
-#: src/msgen.c:197 src/msgen.c:201 src/msgfilter.c:268 src/msgfilter.c:272
-#: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:312
-#: src/msggrep.c:316 src/msgmerge.c:295 src/msgmerge.c:316 src/msgmerge.c:320
-#: src/msgunfmt.c:214 src/msguniq.c:233 src/msguniq.c:237 src/xgettext.c:389
-#: src/xgettext.c:393
+#: src/msgattrib.c:295 src/msgattrib.c:299 src/msgcat.c:249 src/msgcat.c:253
+#: src/msgcomm.c:252 src/msgcomm.c:256 src/msgconv.c:214 src/msgconv.c:218
+#: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
+#: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
+#: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
+#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:393
+#: src/xgettext.c:397
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s and %s are mutually exclusive"
 
-#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:402 src/msguniq.c:274
+#: src/msgattrib.c:332 src/msgconv.c:252 src/msggrep.c:407 src/msguniq.c:279
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Usage: %s [OPTION] [INPUTFILE]\n"
 
-#: src/msgattrib.c:332
+#: src/msgattrib.c:337
 #, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -445,15 +445,15 @@ msgstr ""
 "Filters the messages of a translation catalog according to their attributes,\n"
 "and manipulates the attributes.\n"
 
-#: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:190 src/msgcomm.c:328
-#: src/msgconv.c:256 src/msgen.c:244 src/msgexec.c:248 src/msgfilter.c:361
-#: src/msgfmt.c:543 src/msggrep.c:413 src/msginit.c:358 src/msgmerge.c:403
-#: src/msgunfmt.c:324 src/msguniq.c:291
+#: src/msgattrib.c:343 src/msgcat.c:318 src/msgcmp.c:190 src/msgcomm.c:333
+#: src/msgconv.c:262 src/msgen.c:250 src/msgexec.c:248 src/msgfilter.c:366
+#: src/msgfmt.c:543 src/msggrep.c:418 src/msginit.c:363 src/msgmerge.c:408
+#: src/msgunfmt.c:329 src/msguniq.c:296
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Mandatory arguments to long options are mandatory for short options too.\n"
 
-#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:418 src/msguniq.c:296
+#: src/msgattrib.c:348 src/msgconv.c:267 src/msggrep.c:423 src/msguniq.c:301
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -466,8 +466,8 @@ msgstr ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 "If no input file is given or if it is -, standard input is read.\n"
 
-#: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:257 src/msgfilter.c:374
-#: src/msggrep.c:426 src/msgmerge.c:425
+#: src/msgattrib.c:356 src/msgconv.c:275 src/msgen.c:263 src/msgfilter.c:379
+#: src/msggrep.c:431 src/msgmerge.c:430
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -480,7 +480,7 @@ msgstr ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 
-#: src/msgattrib.c:359
+#: src/msgattrib.c:364
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -499,7 +499,7 @@ msgstr ""
 "      --no-obsolete           remove obsolete #~ messages\n"
 "      --only-obsolete         keep obsolete #~ messages\n"
 
-#: src/msgattrib.c:370
+#: src/msgattrib.c:375
 #, no-wrap
 msgid ""
 "Attribute manipulation:\n"
@@ -518,7 +518,7 @@ msgstr ""
 "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 
-#: src/msgattrib.c:381
+#: src/msgattrib.c:386
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -530,6 +530,8 @@ msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 "      --strict                write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
@@ -542,20 +544,22 @@ msgstr ""
 "  -n, --add-location          generate ‘#: filename:line’ lines (default)\n"
 "      --strict                write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 
-#: src/msgcat.c:254 src/msgcomm.c:277
+#: src/msgcat.c:259 src/msgcomm.c:282
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "impossible selection criteria specified (%d < n < %d)"
 
-#: src/msgcat.c:295 src/msgcomm.c:311 src/xgettext.c:530
+#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:534
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Usage: %s [OPTION] [INPUTFILE]...\n"
 
-#: src/msgcat.c:300
+#: src/msgcat.c:305
 #, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
@@ -578,7 +582,7 @@ msgstr ""
 "is specified, they will be taken from the first PO file to define them.\n"
 "File positions from all PO files will be cumulated.\n"
 
-#: src/msgcat.c:318 src/msgcomm.c:333 src/xgettext.c:546
+#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:550
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -593,7 +597,7 @@ msgstr ""
 "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
 "If input file is -, standard input is read.\n"
 
-#: src/msgcat.c:327 src/msgcomm.c:342 src/msguniq.c:304
+#: src/msgcat.c:332 src/msgcomm.c:347 src/msguniq.c:309
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -606,7 +610,7 @@ msgstr ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 
-#: src/msgcat.c:335
+#: src/msgcat.c:340
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -627,7 +631,7 @@ msgstr ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 
-#: src/msgcat.c:347 src/msguniq.c:319
+#: src/msgcat.c:352 src/msguniq.c:324
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -642,6 +646,8 @@ msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 msgstr ""
@@ -657,10 +663,12 @@ msgstr ""
 "  -n, --add-location             generate ‘#: filename:line’ lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 
-#: src/msgcat.c:365 src/msgcomm.c:378 src/msguniq.c:337 src/xgettext.c:614
+#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:620
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -671,15 +679,15 @@ msgstr ""
 "  -h, --help                     display this help and exit\n"
 "  -V, --version                  output version information and exit\n"
 
-#: src/msgcmp.c:149 src/msgmerge.c:281
+#: src/msgcmp.c:149 src/msgmerge.c:286
 msgid "no input files given"
 msgstr "no input files given"
 
-#: src/msgcmp.c:154 src/msgmerge.c:286
+#: src/msgcmp.c:154 src/msgmerge.c:291
 msgid "exactly 2 input files required"
 msgstr "exactly 2 input files required"
 
-#: src/msgcmp.c:175 src/msgmerge.c:385
+#: src/msgcmp.c:175 src/msgmerge.c:390
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "Usage: %s [OPTION] def.po ref.pot\n"
@@ -714,7 +722,7 @@ msgstr ""
 "  ref.pot                     references to the sources\n"
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 
-#: src/msgcmp.c:203 src/msgmerge.c:449
+#: src/msgcmp.c:203 src/msgmerge.c:454
 #, no-wrap
 msgid ""
 "Operation modifiers:\n"
@@ -723,15 +731,15 @@ msgstr ""
 "Operation modifiers:\n"
 "  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 
-#: src/msgcmp.c:252 src/msgmerge.c:848
+#: src/msgcmp.c:252 src/msgmerge.c:855
 msgid "this message is used but not defined..."
 msgstr "this message is used but not defined..."
 
-#: src/msgcmp.c:254 src/msgmerge.c:850
+#: src/msgcmp.c:254 src/msgmerge.c:857
 msgid "...but this definition is similar"
 msgstr "...but this definition is similar"
 
-#: src/msgcmp.c:259 src/msgmerge.c:877
+#: src/msgcmp.c:259 src/msgmerge.c:884
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "this message is used but not defined in %s"
@@ -755,11 +763,11 @@ msgstr "duplicate message definition"
 msgid "...this is the location of the first definition"
 msgstr "...this is the location of the first definition"
 
-#: src/msgcomm.c:266
+#: src/msgcomm.c:271
 msgid "at least two files must be specified"
 msgstr "at least two files must be specified"
 
-#: src/msgcomm.c:316
+#: src/msgcomm.c:321
 #, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -780,7 +788,7 @@ msgstr ""
 "PO file to define them.  File positions from all PO files will be\n"
 "cumulated.\n"
 
-#: src/msgcomm.c:350
+#: src/msgcomm.c:355
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -801,7 +809,7 @@ msgstr ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 
-#: src/msgcomm.c:362
+#: src/msgcomm.c:367
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -813,6 +821,8 @@ msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
@@ -826,16 +836,18 @@ msgstr ""
 "  -n, --add-location             generate ‘#: filename:line’ lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with ‘msgid \"\"’ entry\n"
 
-#: src/msgconv.c:251
+#: src/msgconv.c:257
 #, no-wrap
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr "Converts a translation catalog to a different character encoding.\n"
 
-#: src/msgconv.c:277
+#: src/msgconv.c:283
 #, no-wrap
 msgid ""
 "Conversion target:\n"
@@ -846,7 +858,7 @@ msgstr ""
 "  -t, --to-code=NAME          encoding for output\n"
 "The default encoding is the current locale's encoding.\n"
 
-#: src/msgconv.c:284 src/msgen.c:265 src/msgmerge.c:455
+#: src/msgconv.c:290 src/msgen.c:271 src/msgmerge.c:460
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -858,6 +870,8 @@ msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
 "      --strict                strict Uniforum output style\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
@@ -870,23 +884,25 @@ msgstr ""
 "      --add-location          preserve ‘#: filename:line’ lines (default)\n"
 "      --strict                strict Uniforum output style\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 
-#: src/msgen.c:186 src/msgfmt.c:367 src/xgettext.c:410
+#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:414
 msgid "no input file given"
 msgstr "no input file given"
 
-#: src/msgen.c:191
+#: src/msgen.c:197
 msgid "exactly one input file required"
 msgstr "exactly one input file required"
 
-#: src/msgen.c:231
+#: src/msgen.c:237
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] INPUTFILE\n"
 msgstr "Usage: %s [OPTION] INPUTFILE\n"
 
-#: src/msgen.c:236
+#: src/msgen.c:242
 #, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
@@ -899,7 +915,7 @@ msgstr ""
 "xgettext).  Untranslated entries are assigned a translation that is\n"
 "identical to the msgid, and are marked fuzzy.\n"
 
-#: src/msgen.c:249
+#: src/msgen.c:255
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -945,7 +961,7 @@ msgstr ""
 "A special builtin command called ‘0’ outputs the translation, followed by a\n"
 "null byte.  The output of “msgexec 0” is suitable as input for “xargs -0”.\n"
 
-#: src/msgexec.c:253 src/msgfilter.c:366
+#: src/msgexec.c:253 src/msgfilter.c:371
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -962,30 +978,30 @@ msgstr ""
 msgid "write to stdout failed"
 msgstr "write to stdout failed"
 
-#: src/msgexec.c:337 src/msgfilter.c:603
+#: src/msgexec.c:337 src/msgfilter.c:610
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "write to %s subprocess failed"
 
-#: src/msgfilter.c:263
+#: src/msgfilter.c:268
 msgid "missing filter name"
 msgstr "missing filter name"
 
-#: src/msgfilter.c:287
+#: src/msgfilter.c:292
 msgid "at least one sed script must be specified"
 msgstr "at least one sed script must be specified"
 
-#: src/msgfilter.c:351
+#: src/msgfilter.c:356
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 
-#: src/msgfilter.c:356
+#: src/msgfilter.c:361
 #, no-wrap
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Applies a filter to all translations of a translation catalog.\n"
 
-#: src/msgfilter.c:382
+#: src/msgfilter.c:387
 #, no-wrap
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -994,7 +1010,7 @@ msgstr ""
 "The FILTER can be any program that reads a translation from standard input\n"
 "and writes a modified translation to standard output.\n"
 
-#: src/msgfilter.c:388
+#: src/msgfilter.c:393
 #, no-wrap
 msgid ""
 "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
@@ -1009,7 +1025,7 @@ msgstr ""
 "                                to be executed\n"
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 
-#: src/msgfilter.c:397
+#: src/msgfilter.c:402
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1022,6 +1038,8 @@ msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
 "      --strict                strict Uniforum output style\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
@@ -1035,25 +1053,27 @@ msgstr ""
 "      --add-location          preserve ‘#: filename:line’ lines (default)\n"
 "      --strict                strict Uniforum output style\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 
-#: src/msgfilter.c:555
+#: src/msgfilter.c:562
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "cannot set up nonblocking I/O to %s subprocess"
 
-#: src/msgfilter.c:583
+#: src/msgfilter.c:590
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "communication with %s subprocess failed"
 
-#: src/msgfilter.c:634
+#: src/msgfilter.c:641
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "read from %s subprocess failed"
 
-#: src/msgfilter.c:650
+#: src/msgfilter.c:657
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "%s subprocess terminated with exit code %d"
@@ -1063,18 +1083,18 @@ msgstr "%s subprocess terminated with exit code %d"
 msgid "the argument to %s should be a single punctuation character"
 msgstr "the argument to %s should be a single punctuation character"
 
-#: src/msgfmt.c:385 src/msgfmt.c:407 src/msgunfmt.c:243
+#: src/msgfmt.c:385 src/msgfmt.c:407 src/msgunfmt.c:248
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s requires a “-d directory” specification"
 
-#: src/msgfmt.c:400 src/msgunfmt.c:236
+#: src/msgfmt.c:400 src/msgunfmt.c:241
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s requires a “-l locale” specification"
 
-#: src/msgfmt.c:416 src/msgmerge.c:303 src/msgmerge.c:309 src/msgunfmt.c:252
-#: src/msgunfmt.c:258
+#: src/msgfmt.c:416 src/msgmerge.c:308 src/msgmerge.c:314 src/msgunfmt.c:257
+#: src/msgunfmt.c:263
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s is only valid with %s"
@@ -1427,12 +1447,12 @@ msgstr "fuzzy ‘msgstr’ entry ignored"
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: warning: source file contains fuzzy translation"
 
-#: src/msggrep.c:385
+#: src/msggrep.c:390
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr "option ‘%c’ cannot be used before ‘K’ or ‘T’ has been specified"
 
-#: src/msggrep.c:407
+#: src/msggrep.c:412
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1441,7 +1461,7 @@ msgstr ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
 "or belong to some given source files.\n"
 
-#: src/msggrep.c:434
+#: src/msggrep.c:439
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1498,7 +1518,7 @@ msgstr ""
 "  -f, --file=FILE             obtain PATTERN from FILE\n"
 "  -i, --ignore-case           ignore case distinctions\n"
 
-#: src/msggrep.c:464
+#: src/msggrep.c:469
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1510,6 +1530,8 @@ msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
 "      --strict                strict Uniforum output style\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "      --sort-output           generate sorted output\n"
 "      --sort-by-file          sort output by file location\n"
 msgstr ""
@@ -1522,14 +1544,16 @@ msgstr ""
 "      --add-location          preserve ‘#: filename:line’ lines (default)\n"
 "      --strict                strict Uniforum output style\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 "      --sort-output           generate sorted output\n"
 "      --sort-by-file          sort output by file location\n"
 
-#: src/msggrep.c:554
+#: src/msggrep.c:561
 msgid "write to grep subprocess failed"
 msgstr "write to grep subprocess failed"
 
-#: src/msginit.c:279
+#: src/msginit.c:284
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -1539,7 +1563,7 @@ msgstr ""
 "your LANG environment variable, as described in the ABOUT-NLS\n"
 "file.  This is necessary so you can test your translations.\n"
 
-#: src/msginit.c:307
+#: src/msginit.c:312
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -1550,12 +1574,12 @@ msgstr ""
 "Please specify the locale through the --locale option or\n"
 "the output .po file through the --output-file option.\n"
 
-#: src/msginit.c:330
+#: src/msginit.c:335
 #, c-format
 msgid "Created %s.\n"
 msgstr "Created %s.\n"
 
-#: src/msginit.c:352
+#: src/msginit.c:357
 #, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -1564,7 +1588,7 @@ msgstr ""
 "Creates a new PO file, initializing the meta information with values from the\n"
 "user's environment.\n"
 
-#: src/msginit.c:363
+#: src/msginit.c:368
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1577,7 +1601,7 @@ msgstr ""
 "If no input file is given, the current directory is searched for the POT file.\n"
 "If it is -, standard input is read.\n"
 
-#: src/msginit.c:371
+#: src/msginit.c:376
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1590,20 +1614,24 @@ msgstr ""
 "If no output file is given, it depends on the --locale option or the user's\n"
 "locale setting.  If it is -, the results are written to standard output.\n"
 
-#: src/msginit.c:379
+#: src/msginit.c:384
 #, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
 "      --no-translator         assume the PO file is automatically generated\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 msgstr ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
 "      --no-translator         assume the PO file is automatically generated\n"
 "  -w, --width=NUMBER          set output page width\n"
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
 
-#: src/msginit.c:430
+#: src/msginit.c:437
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -1611,11 +1639,11 @@ msgstr ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
 
-#: src/msginit.c:438 src/msginit.c:443
+#: src/msginit.c:445 src/msginit.c:450
 msgid "error reading current directory"
 msgstr "error reading current directory"
 
-#: src/msginit.c:451
+#: src/msginit.c:458
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -1623,23 +1651,23 @@ msgstr ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
 
-#: src/msginit.c:898 src/msginit.c:950 src/msginit.c:1088 src/msginit.c:1155
+#: src/msginit.c:908 src/msginit.c:960 src/msginit.c:1098 src/msginit.c:1165
 #: src/read-java.c:80
 msgid "fdopen() failed"
 msgstr "fdopen() failed"
 
-#: src/msginit.c:903 src/msginit.c:955 src/msginit.c:1093
+#: src/msginit.c:913 src/msginit.c:965 src/msginit.c:1103
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "%s subprocess I/O error"
 
-#: src/msginit.c:912 src/msginit.c:964 src/msginit.c:1102 src/msginit.c:1169
+#: src/msginit.c:922 src/msginit.c:974 src/msginit.c:1112 src/msginit.c:1179
 #: src/read-java.c:90
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s subprocess failed with exit code %d"
 
-#: src/msginit.c:1078
+#: src/msginit.c:1088
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -1656,7 +1684,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1422
+#: src/msginit.c:1432
 #, c-format
 msgid "English translations for %s package"
 msgstr "English translations for %s package"
@@ -1693,7 +1721,7 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "target charset “%s” is not a portable encoding name."
 
 #: src/msgl-cat.c:410 src/msgl-cat.c:416 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/write-po.c:757 src/write-po.c:851
+#: src/msgl-charset.c:127 src/write-po.c:769 src/write-po.c:863
 msgid "warning: "
 msgstr "warning: "
 
@@ -1797,11 +1825,11 @@ msgstr ""
 "Cannot convert from “%s” to “%s”. %s relies on iconv(). This version was "
 "built without iconv()."
 
-#: src/msgmerge.c:353
+#: src/msgmerge.c:358
 msgid "backup type"
 msgstr "backup type"
 
-#: src/msgmerge.c:390
+#: src/msgmerge.c:395
 #, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -1824,7 +1852,7 @@ msgstr ""
 "comments and file positions will be preserved.  Where an exact match\n"
 "cannot be found, fuzzy matching is used to produce better results.\n"
 
-#: src/msgmerge.c:408
+#: src/msgmerge.c:413
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1841,7 +1869,7 @@ msgstr ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
 "                              may be specified more than once\n"
 
-#: src/msgmerge.c:418
+#: src/msgmerge.c:423
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1852,7 +1880,7 @@ msgstr ""
 "  -U, --update                update def.po,\n"
 "                              do nothing if def.po already up to date\n"
 
-#: src/msgmerge.c:433
+#: src/msgmerge.c:438
 #, no-wrap
 msgid ""
 "Output file location in update mode:\n"
@@ -1881,7 +1909,7 @@ msgstr ""
 "The backup suffix is ‘~’, unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 
-#: src/msgmerge.c:470
+#: src/msgmerge.c:477
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -1896,15 +1924,15 @@ msgstr ""
 "  -v, --verbose               increase verbosity level\n"
 "  -q, --quiet, --silent       suppress progress indicators\n"
 
-#: src/msgmerge.c:930
+#: src/msgmerge.c:937
 msgid "this message should define plural forms"
 msgstr "this message should define plural forms"
 
-#: src/msgmerge.c:953
+#: src/msgmerge.c:960
 msgid "this message should not define plural forms"
 msgstr "this message should not define plural forms"
 
-#: src/msgmerge.c:1084
+#: src/msgmerge.c:1091
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -1913,26 +1941,26 @@ msgstr ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 
-#: src/msgmerge.c:1092
+#: src/msgmerge.c:1099
 msgid " done.\n"
 msgstr " done.\n"
 
-#: src/msgunfmt.c:221 src/msgunfmt.c:230
+#: src/msgunfmt.c:226 src/msgunfmt.c:235
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "%s and explicit file names are mutually exclusive"
 
-#: src/msgunfmt.c:314
+#: src/msgunfmt.c:319
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [FILE]...\n"
 msgstr "Usage: %s [OPTION] [FILE]...\n"
 
-#: src/msgunfmt.c:319
+#: src/msgunfmt.c:324
 #, no-wrap
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Convert binary message catalog to Uniforum style .po file.\n"
 
-#: src/msgunfmt.c:329
+#: src/msgunfmt.c:334
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -1943,7 +1971,7 @@ msgstr ""
 "  -j, --java               Java mode: input is a Java ResourceBundle class\n"
 "      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n"
 
-#: src/msgunfmt.c:336
+#: src/msgunfmt.c:341
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -1954,7 +1982,7 @@ msgstr ""
 "  FILE ...                 input .mo files\n"
 "If no input file is given or if it is -, standard input is read.\n"
 
-#: src/msgunfmt.c:343
+#: src/msgunfmt.c:348
 #, no-wrap
 msgid ""
 "Input file location in Java mode:\n"
@@ -1969,7 +1997,7 @@ msgstr ""
 "The class name is determined by appending the locale name to the resource name,\n"
 "separated with an underscore.  The class is located using the CLASSPATH.\n"
 
-#: src/msgunfmt.c:352
+#: src/msgunfmt.c:357
 #, no-wrap
 msgid ""
 "Input file location in Tcl mode:\n"
@@ -1984,7 +2012,7 @@ msgstr ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 
-#: src/msgunfmt.c:361
+#: src/msgunfmt.c:366
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -1997,7 +2025,7 @@ msgstr ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 
-#: src/msgunfmt.c:369
+#: src/msgunfmt.c:374
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -2007,6 +2035,8 @@ msgid ""
 "  -i, --indent             write indented output style\n"
 "      --strict             write strict uniforum style\n"
 "  -w, --width=NUMBER       set output page width\n"
+"      --no-wrap            do not break long message lines, longer than\n"
+"                           the output page width, into several lines\n"
 "  -s, --sort-output        generate sorted output\n"
 msgstr ""
 "Output details:\n"
@@ -2016,9 +2046,11 @@ msgstr ""
 "  -i, --indent             write indented output style\n"
 "      --strict             write strict uniforum style\n"
 "  -w, --width=NUMBER       set output page width\n"
+"      --no-wrap            do not break long message lines, longer than\n"
+"                           the output page width, into several lines\n"
 "  -s, --sort-output        generate sorted output\n"
 
-#: src/msgunfmt.c:381
+#: src/msgunfmt.c:388
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -2031,7 +2063,7 @@ msgstr ""
 "  -V, --version            output version information and exit\n"
 "  -v, --verbose            increase verbosity level\n"
 
-#: src/msguniq.c:279
+#: src/msguniq.c:284
 #, no-wrap
 msgid ""
 "Unifies duplicate translations in a translation catalog.\n"
@@ -2052,7 +2084,7 @@ msgstr ""
 "specified, they will be taken from the first translation.  File positions\n"
 "will be cumulated.  When using the --unique option, duplicates are discarded.\n"
 
-#: src/msguniq.c:312
+#: src/msguniq.c:317
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -2208,7 +2240,7 @@ msgstr "plural form has wrong index"
 msgid "too many errors, aborting"
 msgstr "too many errors, aborting"
 
-#: src/po-lex.c:515 src/write-po.c:339 src/write-po.c:441
+#: src/po-lex.c:515 src/write-po.c:351 src/write-po.c:453
 msgid "invalid multibyte sequence"
 msgstr "invalid multibyte sequence"
 
@@ -2309,7 +2341,7 @@ msgstr "not a valid Java class name: %s"
 msgid "failed to create \"%s\""
 msgstr "failed to create “%s”"
 
-#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1000
+#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1012
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "error while writing “%s” file"
@@ -2323,14 +2355,14 @@ msgstr "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgid "error while opening \"%s\" for writing"
 msgstr "error while opening “%s” for writing"
 
-#: src/write-po.c:390
+#: src/write-po.c:402
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
 "internationalized messages should not contain the ‘\\%c’ escape sequence"
 
-#: src/write-po.c:758 src/write-po.c:852
+#: src/write-po.c:770 src/write-po.c:864
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -2343,12 +2375,12 @@ msgstr ""
 "different from yours. Consider using a pure ASCII msgid instead.\n"
 "%s\n"
 
-#: src/write-po.c:919
+#: src/write-po.c:931
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "cannot create output file “%s”"
 
-#: src/write-po.c:926
+#: src/write-po.c:938
 #, no-c-format
 msgid "standard output"
 msgstr "standard output"
@@ -2363,7 +2395,7 @@ msgstr "%s:%d: warning: unterminated character constant"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: warning: unterminated string literal"
 
-#: src/x-po.c:106 src/xgettext.c:634
+#: src/x-po.c:106 src/xgettext.c:640
 msgid "this file may not contain domain directives"
 msgstr "this file may not contain domain directives"
 
@@ -2382,25 +2414,25 @@ msgstr "%s:%d: missing number after #"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: invalid string expression"
 
-#: src/xgettext.c:397
+#: src/xgettext.c:401
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "--join-existing cannot be used when output is written to stdout"
 
-#: src/xgettext.c:402
+#: src/xgettext.c:406
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext cannot work without keywords to look for"
 
-#: src/xgettext.c:490
+#: src/xgettext.c:494
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "warning: file ‘%s’ extension ‘%s’ is unknown; will try C"
 
-#: src/xgettext.c:535
+#: src/xgettext.c:539
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extract translatable strings from given input files.\n"
 
-#: src/xgettext.c:540
+#: src/xgettext.c:544
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2409,7 +2441,7 @@ msgstr ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 
-#: src/xgettext.c:555
+#: src/xgettext.c:559
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2424,7 +2456,7 @@ msgstr ""
 "  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
 "If output file is -, output is written to standard output.\n"
 
-#: src/xgettext.c:564
+#: src/xgettext.c:568
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
@@ -2443,7 +2475,7 @@ msgstr ""
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 
-#: src/xgettext.c:575
+#: src/xgettext.c:579
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2458,7 +2490,7 @@ msgstr ""
 "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
 "                                 preceding keyword lines) in output file\n"
 
-#: src/xgettext.c:584
+#: src/xgettext.c:588
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2475,7 +2507,7 @@ msgstr ""
 "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
 "      --debug                    more detailed formatstring recognition result\n"
 
-#: src/xgettext.c:594
+#: src/xgettext.c:598
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -2487,6 +2519,8 @@ msgid ""
 "  -n, --add-location             generate '#: filename:line' lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
@@ -2504,6 +2538,8 @@ msgstr ""
 "  -n, --add-location             generate ‘#: filename:line’ lines (default)\n"
 "      --strict                   write out strict Uniforum conforming .po file\n"
 "  -w, --width=NUMBER             set output page width\n"
+"      --no-wrap                  do not break long message lines, longer than\n"
+"                                 the output page width, into several lines\n"
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with ‘msgid \"\"’ entry\n"
@@ -2512,11 +2548,11 @@ msgstr ""
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 
-#: src/xgettext.c:814
+#: src/xgettext.c:820
 msgid "standard input"
 msgstr "standard input"
 
-#: src/xgettext.c:929
+#: src/xgettext.c:935
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2526,7 +2562,7 @@ msgstr ""
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 
-#: src/xgettext.c:1285
+#: src/xgettext.c:1291
 #, c-format
 msgid "language `%s' unknown"
 msgstr "language ‘%s’ unknown"
