@@ -45,12 +45,6 @@ lib_asprintf_EXTRASOURCES = \
   libstdarg.h
 lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
 
-# How to build libasprintf.la.
-
-libasprintf_la_LIBADD = $(LIBCXX)
-
-libasprintf_la_LDFLAGS = -lc -no-undefined
-
 
 # Documentation.
 
