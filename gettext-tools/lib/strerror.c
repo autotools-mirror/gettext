@@ -1,6 +1,7 @@
 /* strerror.c --- ANSI C compatible system error routine
 
-   Copyright (C) 1986, 1988-1989, 1991, 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 1986, 1988, 1989, 1991, 2002, 2003 Free Software
+   Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,21 +23,27 @@
 
 #if !HAVE_STRERROR
 
-#if 0 /* Avoid colliding declaration of sys_errlist.  */
-# include <stdio.h>
-#endif
+#include <limits.h>
 
+/* Don't include <stdio.h>, since it may or may not declare
+   sys_errlist and its declarations may collide with ours.  Just
+   declare the stuff that we need directly.  Standard hosted C89
+   implementations define strerror and they don't need this strerror
+   function, so take some liberties with the standard to cater to
+   ancient or limited freestanding implementations.  */
+int sprintf (char *, char const *, ...);
 extern int sys_nerr;
 extern char *sys_errlist[];
 
 char *
 strerror (int n)
 {
-  static char mesg[30];
+  static char const fmt[] = "Unknown error (%d)";
+  static char mesg[sizeof fmt + sizeof n * CHAR_BIT / 3];
 
   if (n < 0 || n >= sys_nerr)
     {
-      sprintf (mesg, "Unknown error (%d)", n);
+      sprintf (mesg, fmt, n);
       return mesg;
     }
   else

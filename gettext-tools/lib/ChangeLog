@@ -1,5 +1,9 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* strerror.c: Update from gnulib, with HAVE_STRERROR modifications.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* strtol.c: Update from gnulib.
 	* strtoul.c: Update from gnulib.
 
