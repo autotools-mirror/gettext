@@ -275,7 +275,8 @@ AC_CONFIG_FILES([m4/Makefile])
 AC_CONFIG_FILES([tests/Makefile],
                 [FIX_MAKEFILE_COMPILE])
 
-AC_CONFIG_FILES([examples/Makefile])
+AC_CONFIG_FILES([examples/Makefile],
+                [FIX_MAKEFILE_DISTRIB])
 AC_CONFIG_FILES([examples/installpaths])
 AC_CONFIG_FILES([examples/po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 

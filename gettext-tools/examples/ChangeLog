@@ -1,11 +1,16 @@
+2003-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* examples/Makefile.am (EXTRA_DIST): Don't add the EXAMPLESFILES.
+	(distdir1): New rule. Install the EXAMPLESFILES after 'update-po'.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13 released.
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
-	* mmsmallpo.sh: Remove the POT-Creation-Date line from the generated PO
-	file.
+	* po/mmsmallpo.sh: Remove the POT-Creation-Date line from the generated
+	PO file.
 	* Makefile.am (EXAMPLESFILES): Add hello-pascal/hello.rst.
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>

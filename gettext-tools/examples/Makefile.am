@@ -543,7 +543,18 @@ uninstall-local:
 	  rm -f $(DESTDIR)$(examplesdir)/$$f; \
 	done
 
-EXTRA_DIST += $(EXAMPLESFILES)
+# Hidden from automake, but really activated. Works around an automake-1.5 bug.
+#distdir: distdir1
+distdir1:
+	cd po && $(MAKE) update-po
+	for file in $(EXAMPLESFILES); do \
+	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	    $(mkinstalldirs) "$(distdir)/$$dir"; \
+	  fi; \
+	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
+	done
 
 # Temporary directories created by po/Makefile.
 CLEANFILES = tmp-hello-*
