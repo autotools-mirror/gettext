@@ -1,3 +1,9 @@
+2003-04-01  Bruno Haible  <bruno@clisp.org>
+
+	* README.mingw: New file.
+	* README.vms: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2003-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: New file.
