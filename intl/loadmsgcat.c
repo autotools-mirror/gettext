@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -216,19 +216,23 @@ _nl_init_domain_conv (domain_file, domain, domainbinding)
 	     we want to use transliteration.  */
 #   if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2 \
        || _LIBICONV_VERSION >= 0x0105
-	  len = strlen (outcharset);
-	  {
-	    char *tmp = (char *) alloca (len + 10 + 1);
-	    memcpy (tmp, outcharset, len);
-	    memcpy (tmp + len, "//TRANSLIT", 10 + 1);
-	    outcharset = tmp;
-	  }
+	  if (strchr (outcharset, '/') == NULL)
+	    {
+	      char *tmp;
+
+	      len = strlen (outcharset);
+	      tmp = (char *) alloca (len + 10 + 1);
+	      memcpy (tmp, outcharset, len);
+	      memcpy (tmp + len, "//TRANSLIT", 10 + 1);
+	      outcharset = tmp;
+
+	      domain->conv = iconv_open (outcharset, charset);
+
+	      freea (outcharset);
+	    }
+	  else
 #   endif
-	  domain->conv = iconv_open (outcharset, charset);
-#   if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2 \
-       || _LIBICONV_VERSION >= 0x0105
-	  freea (outcharset);
-#   endif
+	    domain->conv = iconv_open (outcharset, charset);
 #  endif
 # endif
 
