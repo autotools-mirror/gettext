@@ -110,6 +110,14 @@ void free ();
 # define __libc_rwlock_unlock(NAME)
 #endif
 
+/* Alignment of types.  */
+#if defined __GNUC__ && __GNUC__ >= 2
+# define alignof(TYPE) __alignof__ (TYPE)
+#else
+# define alignof(TYPE) \
+    ((int) &((struct { char dummy1; TYPE dummy2; } *) 0)->dummy2)
+#endif
+
 /* @@ end of prolog @@ */
 
 #ifdef _LIBC
@@ -607,7 +615,8 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 		      /* Insert the entry in the search tree.  */
 		      foundp = (struct known_translation_t **)
 			tsearch (newp, &root, transcmp);
-		      if (__builtin_expect (&newp != foundp, 0))
+		      if (foundp == NULL
+			  || __builtin_expect (*foundp != newp, 0))
 			/* The insert failed.  */
 			free (newp);
 		    }
@@ -724,8 +733,8 @@ _nl_find_msg (domain_file, msgid, index)
  found:
   /* The translation was found at index ACT.  If we have to convert the
      string to use a different character set, this is the time.  */
-  result = (char *) domain->data
-	   + W (domain->must_swap, domain->trans_tab[act].offset);
+  result = ((char *) domain->data
+	    + W (domain->must_swap, domain->trans_tab[act].offset));
 
 #if defined _LIBC || HAVE_ICONV
   if (
@@ -742,7 +751,7 @@ _nl_find_msg (domain_file, msgid, index)
 	 appropriate table with the same structure as the table
 	 of translations in the file, where we can put the pointers
 	 to the converted strings in.
-	 The is a slight complication with the INDEX: We don't know
+	 There is a slight complication with the INDEX: We don't know
 	 a priori which entries are plural entries. Therefore at any
 	 moment we can only translate the variants 0 .. INDEX.  */
 
@@ -784,10 +793,10 @@ _nl_find_msg (domain_file, msgid, index)
 	    resultlen = p - result;
 	  }
 
-	  inbuf = result;
-	  outbuf = freemem + 4;
-
 	  __libc_lock_lock (lock);
+
+	  inbuf = result;
+	  outbuf = freemem + sizeof (nls_uint32);
 
 	  while (1)
 	    {
@@ -795,9 +804,13 @@ _nl_find_msg (domain_file, msgid, index)
 	      size_t non_reversible;
 	      int res;
 
+	      if (freemem_size < 4)
+		goto resize_freemem;
+
 	      res = __gconv (domain->conv,
 			     &inbuf, inbuf + resultlen,
-			     &outbuf, outbuf + freemem_size,
+			     &outbuf,
+			     outbuf + freemem_size - sizeof (nls_uint32),
 			     &non_reversible);
 
 	      if (res == __GCONV_OK || res == __GCONV_EMPTY_INPUT)
@@ -815,8 +828,12 @@ _nl_find_msg (domain_file, msgid, index)
 	      const char *inptr = (const char *) inbuf;
 	      size_t inleft = resultlen;
 	      char *outptr = (char *) outbuf;
-	      size_t outleft = freemem_size;
+	      size_t outleft;
 
+	      if (freemem_size < 4)
+		goto resize_freemem;
+
+	      outleft = freemem_size - 4;
 	      if (iconv (domain->conv, &inptr, &inleft, &outptr, &outleft)
 		  != (size_t) (-1))
 		{
@@ -831,6 +848,7 @@ _nl_find_msg (domain_file, msgid, index)
 #  endif
 # endif
 
+	    resize_freemem:
 	      /* We must resize the buffer.  */
 	      freemem_size = 2 * freemem_size;
 	      if (freemem_size < 4064)
@@ -838,11 +856,12 @@ _nl_find_msg (domain_file, msgid, index)
 	      freemem = (char *) malloc (freemem_size);
 	      if (__builtin_expect (freemem == NULL, 0))
 		{
+		  freemem_size = 0;
 		  __libc_lock_unlock (lock);
 		  goto converted;
 		}
 
-	      outbuf = freemem + 4;
+	      outbuf = freemem + sizeof (nls_uint32);
 	    }
 
 	  /* We have now in our buffer a converted string.  Put this
@@ -852,15 +871,15 @@ _nl_find_msg (domain_file, msgid, index)
 	  /* Shrink freemem, but keep it aligned.  */
 	  freemem_size -= outbuf - freemem;
 	  freemem = outbuf;
-	  freemem += freemem_size & (__alignof__ (nls_uint32) - 1);
-	  freemem_size = freemem_size & ~ (__alignof__ (nls_uint32) - 1);
+	  freemem += freemem_size & (alignof (nls_uint32) - 1);
+	  freemem_size = freemem_size & ~ (alignof (nls_uint32) - 1);
 
 	  __libc_lock_unlock (lock);
 	}
 
       /* Now domain->conv_tab[act] contains the translation of at least
 	 the variants 0 .. INDEX.  */
-      result = domain->conv_tab[act] + 4;
+      result = domain->conv_tab[act] + sizeof (nls_uint32);
     }
 
  converted:

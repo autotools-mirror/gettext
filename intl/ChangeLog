@@ -1,3 +1,28 @@
+2000-05-21  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c: Fix typo in comment.
+
+2000-05-08  Andreas Jaeger  <aj@suse.de>
+
+	* bindtextdom.c (set_binding_values): Add prototype.
+
+2000-05-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* tst-gettext.c (main): Disable possibly existing LC_CTYPE and
+	OUTPUT_CHARSET environment variables.
+
+2000-05-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* dcigettext.c (alignof): New macro.
+	(_nl_find_msg): Use it instead of __alignof__. Pass correct output
+	buffer length to __gconv/iconv. If malloc (freemem_size) fails, set
+	freemem_size to 0.
+
+2000-05-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* dcigettext.c (dcigettext): Fix interpretation of tsearch
+	return value.
+
 2000-05-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* dcigettext.c (DCIGETTEXT): Always define local variable `index'.
