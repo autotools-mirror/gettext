@@ -44,7 +44,7 @@ EOF
   test -f f-pb-1-$n.po || exit 1
   fail=
   if echo "$comment" | grep 'Valid:' > /dev/null; then
-    if grep perl-bracket-format f-pb-1-$n.po > /dev/null; then
+    if grep perl-brace-format f-pb-1-$n.po > /dev/null; then
       :
     else
       fail=yes

@@ -1,3 +1,7 @@
+2003-08-04  Guido Flohr  <guido@imperia.net>
+
+	* format-perl-brace-1: Fix last patch,
+
 2003-07-05  Bruno Haible  <bruno@clisp.org>
 
 	* format-perl-brace-1: Renamed from format-perl-bracket-1. Use braces
