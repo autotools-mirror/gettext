@@ -60,16 +60,16 @@ LDFLAGS = @LDFLAGS@
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
 HEADERS = $(COMHDRS) libgnuintl.h libgettext.h loadinfo.h
-COMHDRS = gettext.h gettextP.h hash-string.h plural-exp.h
+COMHDRS = gettext.h gettextP.h hash-string.h plural-exp.h plural-eval.c
 SOURCES = $(COMSRCS) intl-compat.c
 COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
 finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
 explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
-plural-exp.c plural-eval.c localcharset.c localename.c
+plural-exp.c localcharset.c localename.c
 OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
 finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
-plural.$lo plural-exp.$lo plural-eval.$lo localcharset.$lo localename.$lo
+plural.$lo plural-exp.$lo localcharset.$lo localename.$lo
 GETTOBJS = intl-compat.$lo
 DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)

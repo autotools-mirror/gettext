@@ -1,6 +1,9 @@
 2001-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* plural-exp.h (plural_eval): Add back declaration.
+	* Makefile.in (OBJECTS): Remove plural-eval.$lo.
+	(COMSRCS): Remove plural-eval.c.
+	(COMHDRS): Add plural-eval.c.
 
 2001-11-29  Bruno Haible  <bruno@clisp.org>
 
