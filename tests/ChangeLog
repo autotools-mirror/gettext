@@ -9,6 +9,7 @@
 	by themselves.
 	* lang-rst: Avoid using the 'type' builtin. It always reports success
 	with SunOS4 /bin/sh.
+	* lang-pascal: Likewise.
 
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 

@@ -6,9 +6,6 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-# Test whether a Pascal compiler is found.
-type ppc386 >/dev/null 2>&1 || { echo "SKIP: lang-pascal"; exit 77; }
-
 tmpfiles="$tmpfiles prog.pp"
 cat <<\EOF > prog.pp
 program prog;
@@ -28,7 +25,7 @@ end.
 EOF
 
 tmpfiles="$tmpfiles prog.o prog.rst prog"
-ppc386 prog.pp || exit 1
+ppc386 prog.pp >/dev/null 2>&1 || { echo "SKIP: lang-pascal"; rm -fr $tmpfiles exit 77; }
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
