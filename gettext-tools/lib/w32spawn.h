@@ -34,7 +34,7 @@ static int
 dup_noinherit (int fd)
 {
   HANDLE curr_process = GetCurrentProcess ();
-  HANDLE old_handle = _get_osfhandle (fd);
+  HANDLE old_handle = (HANDLE) _get_osfhandle (fd);
   HANDLE new_handle;
   int nfd;
 
@@ -48,7 +48,7 @@ dup_noinherit (int fd)
     error (EXIT_FAILURE, 0, _("DuplicateHandle failed with error code 0x%08x"),
 	   GetLastError ());
 
-  nfd = _open_osfhandle (new_handle, O_BINARY);
+  nfd = _open_osfhandle ((long) new_handle, O_BINARY);
   if (nfd < 0)
     error (EXIT_FAILURE, errno, _("_open_osfhandle failed"));
 
@@ -161,7 +161,7 @@ prepare_spawn (char **argv)
 	  new_argv[i] = quoted_string;
 	}
       else
-	new_argv[i] = string;
+	new_argv[i] = (char *) string;
     }
   new_argv[argc] = NULL;
 

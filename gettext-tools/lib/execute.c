@@ -122,7 +122,7 @@ execute (const char *progname,
   int orig_stdin;
   int orig_stdout;
   int orig_stderr;
-  int child;
+  int exitcode;
   int nullinfd;
   int nulloutfd;
 
@@ -135,7 +135,7 @@ execute (const char *progname,
     orig_stdout = dup_noinherit (STDOUT_FILENO);
   if (null_stderr)
     orig_stderr = dup_noinherit (STDERR_FILENO);
-  child = -1;
+  exitcode = -1;
 
   /* Create standard file handles of child process.  */
   nullinfd = -1;
@@ -156,7 +156,7 @@ execute (const char *progname,
 	      && ((null_stdout && nulloutfd == STDOUT_FILENO)
 		  || (null_stderr && nulloutfd == STDERR_FILENO)
 		  || close (nulloutfd) >= 0))))
-    child = spawnvp (P_WAIT, prog_path, prog_argv);
+    exitcode = spawnvp (P_WAIT, prog_path, prog_argv);
   if (nulloutfd >= 0)
     close (nulloutfd);
   if (nullinfd >= 0)
@@ -170,13 +170,15 @@ execute (const char *progname,
   if (null_stdin)
     dup2 (orig_stdin, STDIN_FILENO), close (orig_stdin);
 
-  if (child == -1)
+  if (exitcode == -1)
     {
       if (exit_on_error)
 	error (EXIT_FAILURE, errno, _("%s subprocess failed"), progname);
       else
 	return 127;
     }
+
+  return exitcode;
 
 #else
 
@@ -265,7 +267,7 @@ execute (const char *progname,
     }
 #endif
 
-#endif
-
   return wait_subprocess (child, progname, exit_on_error);
+
+#endif
 }

@@ -3,6 +3,12 @@
 	* Makefile.msvc (OBJECTS): Remove strpbrk.obj.
 	(strpbrk.obj): Remove rule.
 
+	* w32spawn.h (dup_noinherit): Cast _get_osfhandle result and
+	_open_osfhandle argument, to avoid warnings.
+	(prepare_spawn): Add a cast.
+	* execute.c (execute) [WIN32]: Don't call wait_subprocess; the
+	return value from spawnvp is already the exit code.
+
 2003-05-10  Bruno Haible  <bruno@clisp.org>
 
 	* linebreak.c (iconv_string_length): Don't return -1 just because the
