@@ -9,9 +9,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.36\n"
+"Project-Id-Version: GNU gettext 0.10.38\n"
 "POT-Creation-Date: 2001-05-23 23:03+0200\n"
-"PO-Revision-Date: 2001-04-11 06:44+02:00\n"
+"PO-Revision-Date: 2001-05-30 09:34-04:00\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
