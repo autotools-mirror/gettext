@@ -1,13 +1,13 @@
 # Swedish messages for gettext-examples.
 # Copyright © 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 2003
-# Revision: 1.4
+# Revision: 1.6
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.13\n"
+"Project-Id-Version: gettext-examples 0.13.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-12-12 19:11+0100\n"
-"PO-Revision-Date: 2003-12-05 19:36+0100\n"
+"PO-Revision-Date: 2003-12-20 22:33+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +76,6 @@ msgid "This program is running as process number {0}."
 msgstr "Detta program kör som process nummer {0}."
 
 #: hello-perl/hello-2.pl.in:13
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Detta program kör som process nummer $pid."
+msgstr "Detta program kör som process nummer {pid}."

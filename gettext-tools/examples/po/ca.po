@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.13-pre1\n"
+"Project-Id-Version: gettext-examples 0.13.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-12-12 19:11+0100\n"
-"PO-Revision-Date: 2003-11-22 17:41+0100\n"
+"PO-Revision-Date: 2003-12-18 10:41+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,6 @@ msgid "This program is running as process number {0}."
 msgstr "Aquest programa està corrent amb el número de procés {0}."
 
 #: hello-perl/hello-2.pl.in:13
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Aquest programa està corrent amb el número de procés $pid."
+msgstr "Aquest programa està corrent amb el número de procés {pid}."
