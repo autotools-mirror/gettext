@@ -1,3 +1,10 @@
+2002-01-04  Bruno Haible  <bruno@clisp.org>
+
+	* msgcat-2: Avoid \" to " conversion in the here documents.
+	* msgcat-3: Likewise.
+	* msgcat-4: Likewise.
+	* msgcomm-16: Likewise.
+
 2001-12-22  Bruno Haible  <bruno@clisp.org>
 
 	* tstngettext.c: Include exit.h instead of system.h.
