@@ -2,12 +2,12 @@
 # Copyright (C) 1996 Free Software Foundation, Inc.
 # Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996.
 #
-# $Header: /cvs/gettext/gettext/po/sl.po,v 1.2 2001/02/01 19:26:07 haible Exp $
+# $Header: /cvs/gettext/gettext/po/sl.po,v 1.3 2001/03/09 20:46:45 haible Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.24\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1996-09-12 21:15\n"
 "Last-Translator: Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -716,10 +716,62 @@ msgstr "znak za konec datoteke sredi niza"
 msgid "end-of-line within string"
 msgstr "znak za konec vrstice sredi niza"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "nedovoljena kontrolna sekvenca"
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "POZOR: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "POZOR: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"internacionalizirana sporoèila ne smejo vsebovati ube¾ne sekvence ,\\%c'"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "izhodne datoteke \"%s\" ni mogoèe ustvariti"
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "standardni izhod"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "napaka pri pisanju na datoteko \"%s\""
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -855,20 +907,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "internacionalizirana sporoèila ne smejo vsebovati ube¾ne sekvence ,\\%c'"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "izhodne datoteke \"%s\" ni mogoèe ustvariti"
-
-#~ msgid "standard output"
-#~ msgstr "standardni izhod"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "napaka pri pisanju na datoteko \"%s\""
 
 #, fuzzy
 #~ msgid "%s: warning: no header entry found"

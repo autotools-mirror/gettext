@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1996-03-21 08:46 EST\n"
 "Last-Translator: Karl Anders Øygard <karlo@ifi.uio.no>\n"
 "Language-Team: Norwegian-nynorsk <no@li.org>\n"
@@ -698,9 +698,61 @@ msgstr ""
 msgid "end-of-line within string"
 msgstr ""
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 msgid "invalid multibyte sequence"
 msgstr ""
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "advarsel: denne meldinga er ikkje brukt"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "advarsel: denne meldinga er ikkje brukt"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"internasjonaliserte meldingar skal ikkje innehalde escape-sekvensen «\\%c»"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "kan ikkje skape utfila \"%s\""
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr ""
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "feil under skriving av fila \"%s\""
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -835,17 +887,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr ""
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "internasjonaliserte meldingar skal ikkje innehalde escape-sekvensen «\\%c»"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "kan ikkje skape utfila \"%s\""
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "feil under skriving av fila \"%s\""
 
 #~ msgid "this is the location of the first definition"
 #~ msgstr "den første definisjonen finst her"

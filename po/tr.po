@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-0.10.35\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 2000-11-05 23:43+200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@technologist.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -739,9 +739,60 @@ msgstr "dizi içinde dosya sonu"
 msgid "end-of-line within string"
 msgstr "dizi içinde satýr sonu"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 msgid "invalid multibyte sequence"
 msgstr ""
+
+#: src/po.c:247
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr ""
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr ""
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr "i18n iletileri `\\%c' içeremez"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "\"%s\" çýktý dosyasý oluþturulamadý"
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "standard çýktý"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "\"%s\" dosyasýna yazarken hata"
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -885,19 +936,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "lisan `%s' bilinmiyor"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr "i18n iletileri `\\%c' içeremez"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "\"%s\" çýktý dosyasý oluþturulamadý"
-
-#~ msgid "standard output"
-#~ msgstr "standard çýktý"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "\"%s\" dosyasýna yazarken hata"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: uyarý: baþlýk giriþi bulunamadý"

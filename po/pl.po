@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1998-08-05 15:00+0200\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@pdi.net>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -729,10 +729,61 @@ msgstr "znak koñca pliku wewn±trz ³añcucha"
 msgid "end-of-line within string"
 msgstr "znak koñca wiersza wewn±trz ³añcucha"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "niedozwolona sekwencja steruj±ca"
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "%s: uwaga: plik ¼ród³owy zawiera t³umaczenie budz±ce w±tpliwo¶ci"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "%s: uwaga: plik ¼ród³owy zawiera t³umaczenie budz±ce w±tpliwo¶ci"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr "umiêdzynaradawiane komunikaty nie powinny zawieraæ sekwenji `\\%c'"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "nie mogê utworzyæ pliku wyj¶ciowego \"%s\""
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "standardowe wyj¶cie"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "b³±d podczas pisania do pliku \"%s\""
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -869,19 +920,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "nieznany jêzyk `%s'"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr "umiêdzynaradawiane komunikaty nie powinny zawieraæ sekwenji `\\%c'"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "nie mogê utworzyæ pliku wyj¶ciowego \"%s\""
-
-#~ msgid "standard output"
-#~ msgstr "standardowe wyj¶cie"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "b³±d podczas pisania do pliku \"%s\""
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: uwaga: nie znaleziono nag³ówka"

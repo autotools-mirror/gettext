@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.31\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1997-03-11 22:38 \n"
 "Last-Translator: Erick Branderhorst <Erick.Branderhorst@asml.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -728,10 +728,62 @@ msgstr "einde-bestand-teken in string"
 msgid "end-of-line within string"
 msgstr "einde-regel-teken in string"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "illegale kontrol sequence"
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "%s: let op: broncode bevat vage vertaling"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "%s: let op: broncode bevat vage vertaling"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"geonternationaliseerde meldingen mogen geen `\\%c' escape sequences bevatten"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "kan uitvoerbestand \"%s\" niet aanmaken"
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "standaard uitvoer"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "fout bij schrijven bestand \"%s\""
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -873,21 +925,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "taal `%s' onbekend"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "geonternationaliseerde meldingen mogen geen `\\%c' escape sequences "
-#~ "bevatten"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "kan uitvoerbestand \"%s\" niet aanmaken"
-
-#~ msgid "standard output"
-#~ msgstr "standaard uitvoer"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "fout bij schrijven bestand \"%s\""
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: let op: geen header ingang gevonden"

@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996 Free Software Foundation, Inc.
 # Jan Djärv <Jan.Djarv@mbox200.swipnet.se>, 1996.
-# $Revision: 1.5 $
+# $Revision: 1.6 $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.31\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
-"PO-Revision-Date: $Date: 2001/03/09 20:46:45 $\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
+"PO-Revision-Date: $Date: 2001/03/09 21:07:43 $\n"
 "Last-Translator: Jan Djärv <Jan.Djarv@mbox200.swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -727,10 +727,62 @@ msgstr "filslut inne i en sträng"
 msgid "end-of-line within string"
 msgstr "radslut inne i en sträng"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "otillåten kontrollsekvens"
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "%s: varning: källfilen innehåller luddiga översättningar"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "%s: varning: källfilen innehåller luddiga översättningar"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"internationaliserade meddelanden bör inte ha kontrollsekvensen \"\\%c\""
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "kan inte skapa utfilen \"%s\""
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "standard ut"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "fel vid skrivning till filen \"%s\""
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -870,20 +922,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "internationaliserade meddelanden bör inte ha kontrollsekvensen \"\\%c\""
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "kan inte skapa utfilen \"%s\""
-
-#~ msgid "standard output"
-#~ msgstr "standard ut"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "fel vid skrivning till filen \"%s\""
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: varning: inga huvudrader funna"

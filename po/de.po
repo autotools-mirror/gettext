@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1998-04-30 23:23-0700\n"
 "Last-Translator: Ulrich Drepper <drepper@gnu.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -747,10 +747,63 @@ msgstr "Dateiende innerhalb einer Zeichenkette"
 msgid "end-of-line within string"
 msgstr "Zeilenende innerhalb einer Zeichenkette"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "ungültiges Kontrollzeichen"
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "%s: Warnung: Quelldatei enthält ungenaue Übersetzungen"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "%s: Warnung: Quelldatei enthält ungenaue Übersetzungen"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"internationalisierbare Meldungen sollten nicht die Ersatzdarstellung »\\%c« "
+"enthalten"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "Ausgabedatei »%s« kann nicht erzeugt werden"
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "Standard Ausgabe"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "Fehler beim Schreiben von Datei »%s«"
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -896,21 +949,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "Programmiersprache `%s' unbekannt"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "internationalisierbare Meldungen sollten nicht die Ersatzdarstellung »\\%"
-#~ "c« enthalten"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "Ausgabedatei »%s« kann nicht erzeugt werden"
-
-#~ msgid "standard output"
-#~ msgstr "Standard Ausgabe"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "Fehler beim Schreiben von Datei »%s«"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: Warnung: kein Kopfeintrag gefunden"

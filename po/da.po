@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.31\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1997-08-29 07:21 MDT\n"
 "Last-Translator: Thorbjoern Ravn Andersen <ravn@mip.ou.dk>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -723,10 +723,61 @@ msgstr "tekststreng ikke afsluttet da filens slutning blev nået"
 msgid "end-of-line within string"
 msgstr "tekststreng var ikke afsluttet ved linieskift"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "ulovlig kontrolsekvens"
+
+#: src/po.c:247
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr "%s: advarsel: kildetekstfilen indeholder løse oversættelser (fuzzy)"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:294
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr "%s: advarsel: kildetekstfilen indeholder løse oversættelser (fuzzy)"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr "oversættelige tekster må ikke indeholde `\\%c' escapesekvensen"
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "kan ikke oprette uddatafil '%s'"
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "standard uddata"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "fejl ved skrivning til filen '%s'"
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -865,19 +916,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "ukendt sprog `%s'"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr "oversættelige tekster må ikke indeholde `\\%c' escapesekvensen"
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "kan ikke oprette uddatafil '%s'"
-
-#~ msgid "standard output"
-#~ msgstr "standard uddata"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "fejl ved skrivning til filen '%s'"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: advarsel: \"header\" element ikke angivet"

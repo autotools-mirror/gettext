@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-03-09 19:56+0100\n"
+"POT-Creation-Date: 2001-03-09 22:03+0100\n"
 "PO-Revision-Date: 1999-09-24 23:45+09:00\n"
 "Last-Translator: JUN SAWATAISHI <jsawa@ibm.net>\n"
 "Language-Team: \n"
@@ -720,10 +720,68 @@ msgstr "文字列の中途でファイルが終了しました"
 msgid "end-of-line within string"
 msgstr "文字列の中で改行しています"
 
-#: src/po-lex.c:525
+#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "不正なコントロールシーケンスが検出されました"
+
+#: src/po.c:247
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr ""
+"%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
+"%*s  警告: 文字セット変換はできないかも知れません"
+
+#: src/po.c:273
+msgid ", expect parse errors"
+msgstr ""
+
+#: src/po.c:277
+#, c-format
+msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
+msgstr ""
+
+#: src/po.c:281
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported by iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+"%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
+"%*s  警告: 文字セット変換はできないかも知れません"
+
+#: src/po.c:294
+#, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr ""
+"%s: 警告: ヘッダに文字セットの記述がありません\n"
+"%*s 警告: 文字セットの変換はできないでしょう"
+
+#: src/write-po.c:293
+#, c-format
+msgid ""
+"internationalized messages should not contain the `\\%c' escape sequence"
+msgstr ""
+"国際化されたメッセージはエスケープシーケンス`\\%c'をふくんではなりません "
+
+#: src/write-po.c:827
+#, c-format
+msgid "cannot create output file \"%s\""
+msgstr "出力ファイル \"%s\"を作成できない"
+
+#: src/write-po.c:834
+#, no-c-format
+msgid "standard output"
+msgstr "標準出力"
+
+#: src/write-po.c:909
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "ファイル \"%s\" の書き込みエラー"
 
 #: src/xget-lex.c:148
 msgid "standard input"
@@ -862,34 +920,6 @@ msgstr "%s:%d: 警告: 外部キーワードとその引数の間にキーワードがあります"
 #, c-format
 msgid "language `%s' unknown"
 msgstr "言語 %s を認識できません"
-
-#~ msgid ""
-#~ "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr ""
-#~ "国際化されたメッセージはエスケープシーケンス`\\%c'をふくんではなりません "
-
-#~ msgid "cannot create output file \"%s\""
-#~ msgstr "出力ファイル \"%s\"を作成できない"
-
-#~ msgid "standard output"
-#~ msgstr "標準出力"
-
-#~ msgid "error while writing \"%s\" file"
-#~ msgstr "ファイル \"%s\" の書き込みエラー"
-
-#~ msgid ""
-#~ "%s: warning: charset \"%s\" is not a portable encoding name\n"
-#~ "%*s  warning: charset conversion might not work"
-#~ msgstr ""
-#~ "%s: 警告: 文字セット\"%s\"は可搬性のないエンコーディング名です\n"
-#~ "%*s  警告: 文字セット変換はできないかも知れません"
-
-#~ msgid ""
-#~ "%s: warning: charset missing in header\n"
-#~ "%*s  warning: charset conversion will not work"
-#~ msgstr ""
-#~ "%s: 警告: ヘッダに文字セットの記述がありません\n"
-#~ "%*s 警告: 文字セットの変換はできないでしょう"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: 警告: ヘッダーエントリーが見つかりません"
