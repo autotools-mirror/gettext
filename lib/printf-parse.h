@@ -1,5 +1,5 @@
 /* Internal header for parsing printf format strings.
-   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 /* We use some extension so define this here.  */
 #define _GNU_SOURCE	1
 
-#include <ctype.h>
 #include <printf.h>
 #if HAVE_STDDEF_H
 # include <stddef.h>
@@ -68,6 +67,11 @@
 #  define MIN(a,b)      ((a) < (b) ? (a) : (b))
 # endif
 #endif
+
+/* Locale independent test for a decimal digit.
+   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
+   isdigit must be an 'unsigned char'.)  */
+#define ISDIGIT(c) ((unsigned int) ((c) - '0') < 10)
 
 struct printf_spec
   {
@@ -126,7 +130,7 @@ read_int (pstr)
 {
   unsigned int retval = **pstr - '0';
 
-  while (isdigit (*++(*pstr)))
+  while (ISDIGIT (*++(*pstr)))
     {
       retval *= 10;
       retval += **pstr - '0';
@@ -177,7 +181,7 @@ parse_one_spec (format, posn, spec, max_ref_arg)
   spec->info.pad = ' ';
 
   /* Test for positional argument.  */
-  if (isdigit (*format))
+  if (ISDIGIT (*format))
     {
       const char *begin = format;
 
@@ -240,7 +244,7 @@ parse_one_spec (format, posn, spec, max_ref_arg)
 	 A negative field width indicates left justification.  */
       const char *begin = ++format;
 
-      if (isdigit (*format))
+      if (ISDIGIT (*format))
 	{
 	  /* The width argument might be found in a positional parameter.  */
 	  n = read_int (&format);
@@ -261,7 +265,7 @@ parse_one_spec (format, posn, spec, max_ref_arg)
 	  format = begin;	/* Step back and reread.  */
 	}
     }
-  else if (isdigit (*format))
+  else if (ISDIGIT (*format))
     /* Constant width specification.  */
     spec->info.width = read_int (&format);
 
@@ -277,7 +281,7 @@ parse_one_spec (format, posn, spec, max_ref_arg)
 	  /* The precision is given in an argument.  */
 	  const char *begin = ++format;
 
-	  if (isdigit (*format))
+	  if (ISDIGIT (*format))
 	    {
 	      n = read_int (&format);
 
@@ -297,7 +301,7 @@ parse_one_spec (format, posn, spec, max_ref_arg)
 	      format = begin;
 	    }
 	}
-      else if (isdigit (*format))
+      else if (ISDIGIT (*format))
 	spec->info.prec = read_int (&format);
       else
 	/* "%.?" is treated like "%.0?".  */

@@ -23,7 +23,6 @@
 # include "config.h"
 #endif
 
-#include <ctype.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
@@ -35,6 +34,7 @@
 # include <iconv.h>
 #endif
 
+#include "c-ctype.h"
 #include "linebreak.h"
 #include "libgettext.h"
 #define _(str) gettext(str)
@@ -883,7 +883,8 @@ control_sequence ()
 
       case 'x':
 	lex_getc (mbc);
-	if (mb_iseof (mbc) || mb_len (mbc) != 1 || !isxdigit (mb_ptr (mbc) [0]))
+	if (mb_iseof (mbc) || mb_len (mbc) != 1
+	    || !c_isxdigit (mb_ptr (mbc) [0]))
 	  break;
 
 	val = 0;
@@ -891,10 +892,10 @@ control_sequence ()
 	  {
 	    char c = mb_ptr (mbc) [0];
 	    val *= 16;
-	    if (isdigit (c))
+	    if (c_isdigit (c))
 	      /* Warning: not portable, can't depend on '0'..'9' ordering */
 	      val += c - '0';
-	    else if (isupper (c))
+	    else if (c_isupper (c))
 	      /* Warning: not portable, can't depend on 'A'..'F' ordering */
 	      val += c - 'A' + 10;
 	    else

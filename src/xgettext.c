@@ -228,7 +228,7 @@ main (argc, argv)
 	    add_all_comments = false;
 	    comment_tag = optarg;
 	    /* We ignore leading white space.  */
-	    while (isspace (*comment_tag))
+	    while (isspace ((unsigned char) *comment_tag))
 	      ++comment_tag;
 	  }
 	break;
