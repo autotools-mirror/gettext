@@ -1,5 +1,12 @@
 2002-06-13  Bruno Haible  <bruno@clisp.org>
 
+	Make absolute pathnames inside $LANGUAGE work.
+	* l10nflist.c (_nl_make_l10nflist): Ignore dirlist if language is an
+	absolute path. Fix sizes passed to malloc. Simplify linked list
+	handling.
+
+2002-06-13  Bruno Haible  <bruno@clisp.org>
+
 	* localename.c [WIN32] (LANG_DIVEHI, LANG_GALICIAN, LANG_KYRGYZ,
 	LANG_MONGOLIAN, LANG_SYRIAC): Provide fallback definitions.
 	(_nl_locale_name): Add Amharic, Burmese, Cambodian, Cherokee, Divehi,
