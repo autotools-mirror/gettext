@@ -132,6 +132,8 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	    -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
+	    -e 's/#undef HAVE_DECL__SNPRINTF$$/#define HAVE_DECL__SNPRINTF 1/' \
+	    -e 's/#undef HAVE_DECL__SNWPRINTF$$/#define HAVE_DECL__SNWPRINTF 1/' \
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
@@ -157,8 +159,6 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
-	    -e 's/#undef HAVE__SNPRINTF$$/#define HAVE__SNPRINTF 1/' \
-	    -e 's/#undef HAVE__SNWPRINTF$$/#define HAVE__SNWPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
