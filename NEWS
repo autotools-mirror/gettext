@@ -14,16 +14,18 @@ Version 0.11 - XXX 2001
 
 * xgettext now also supports Java, ObjectPascal, YCP.
 
-* The tools now know about format strings in languages other than C.  They
-  recognize new message flags named lisp-format, java-format, python-format,
-  ycp-format.  When such a flag is present, the msgfmt program verifies the
-  consistency of the translated and the untranslated format string.
+* The tools now know about format strings in languages other than C.
+  They recognize new message flags named lisp-format, smalltalk-format,
+  java-format, python-format, ycp-format.  When such a flag is present,
+  the msgfmt program verifies the consistency of the translated and the
+  untranslated format string.
 
 * The msgfmt command line options have changed.  Option -c now also checks
-  the header entry, a check which was previously activated through -v.  Option
-  -C corresponds to the compatibility checks previously activated through -v -v.
-  Option -v now only increases verbosity and doesn't influence whether msgfmt
-  succeeds or fails.
+  the header entry, a check which was previously activated through -v.
+  Option -C corresponds to the compatibility checks previously activated
+  through -v -v.  Option -v now only increases verbosity and doesn't
+  influence whether msgfmt succeeds or fails.  A new option
+  --check-accelerators is useful for GUI menu item translations.
 
 * msgcomm now writes its results to standard output by default. The options
   -d/--default-domain and -p/--output-dir have been removed.
@@ -31,10 +33,14 @@ Version 0.11 - XXX 2001
 * Manual pages for all the programs have been added.
 
 * PO mode changes:
-  New key bindings for 'po-previous-fuzzy-entry',
-  'po-previous-obsolete-entry', 'po-previous-translated-entry',
-  'po-previous-untranslated', 'po-undo', 'po-other-window', and
-  'po-select-auxiliary'.
+  - New key bindings for 'po-previous-fuzzy-entry',
+    'po-previous-obsolete-entry', 'po-previous-translated-entry',
+    'po-previous-untranslated', 'po-undo', 'po-other-window', and
+    'po-select-auxiliary'.
+  - Support for merging two message catalogs, based on msgcat and ediff.
+
+* A fuzzy attribute of the header entry of a message catalog is now ignored
+  by the tools, i.e. it is used even if marked fuzzy.
 
 Version 0.10.40 - September 2001
 
