@@ -34,30 +34,23 @@ msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
 msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x msggrep.x msginit.x msguniq.x \
 gettextize.x autopoint.x
 
-# Likewise, plus additional manual pages for the libintl functions.
+# Likewise.
 
 man_MAN1OTHER = \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
 msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 msggrep.1 msginit.1 msguniq.1 \
 gettextize.1 autopoint.1
 man_MAN1 = $(man_MAN1OTHER)
-man_MAN3 = gettext.3 ngettext.3 \
-textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
-man_MAN3IN = gettext.3.in ngettext.3.in \
-textdomain.3.in bindtextdomain.3.in bind_textdomain_codeset.3.in
-man_MAN3LINK = dgettext.3 dcgettext.3 dngettext.3 dcngettext.3
-man_MANS = $(man_MAN1) $(man_MAN3) $(man_MAN3LINK)
+man_MANS = $(man_MAN1)
 
 man_HTMLOTHER = \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
 msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
-gettextize.1.html autopoint.1.html \
-gettext.3.html ngettext.3.html \
-textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
+gettextize.1.html autopoint.1.html
 man_HTML = $(man_HTMLOTHER)
 
-EXTRA_DIST = help2man $(man_aux) $(man_MAN1OTHER) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLOTHER) ChangeLog.0
-MAINTAINERCLEANFILES = $(man_MAN1OTHER) $(man_MAN3) $(man_HTMLOTHER)
+EXTRA_DIST = help2man $(man_aux) $(man_MAN1OTHER) $(man_HTMLOTHER) ChangeLog.0
+MAINTAINERCLEANFILES = $(man_MAN1OTHER) $(man_HTMLOTHER)
 
 PERL = @PERL@
 RM = rm -f
@@ -124,22 +117,6 @@ autopoint.1: autopoint.x
 # Depend on version.sh to get version number changes.
 $(man_MAN1): help2man $(top_srcdir)/../version.sh
 
-gettext.3: gettext.3.in $(top_srcdir)/../version.sh
-	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@
-	mv t-$@ $@
-ngettext.3: ngettext.3.in $(top_srcdir)/../version.sh
-	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/ngettext.3.in > t-$@
-	mv t-$@ $@
-textdomain.3: textdomain.3.in $(top_srcdir)/../version.sh
-	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/textdomain.3.in > t-$@
-	mv t-$@ $@
-bindtextdomain.3: bindtextdomain.3.in $(top_srcdir)/../version.sh
-	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bindtextdomain.3.in > t-$@
-	mv t-$@ $@
-bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/../version.sh
-	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bind_textdomain_codeset.3.in > t-$@
-	mv t-$@ $@
-
 
 # Man pages in HTML format.
 
@@ -195,21 +172,6 @@ gettextize.1.html: gettextize.1
 	mv t-$@ $@
 autopoint.1.html: autopoint.1
 	$(MAN2HTML) `if test -f autopoint.1; then echo .; else echo $(srcdir); fi`/autopoint.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
-gettext.3.html: gettext.3.in
-	$(MAN2HTML) $(srcdir)/gettext.3.in | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
-ngettext.3.html: ngettext.3.in
-	$(MAN2HTML) $(srcdir)/ngettext.3.in | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
-textdomain.3.html: textdomain.3.in
-	$(MAN2HTML) $(srcdir)/textdomain.3.in | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
-bindtextdomain.3.html: bindtextdomain.3.in
-	$(MAN2HTML) $(srcdir)/bindtextdomain.3.in | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
-bind_textdomain_codeset.3.html: bind_textdomain_codeset.3.in
-	$(MAN2HTML) $(srcdir)/bind_textdomain_codeset.3.in | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 
 install-html:

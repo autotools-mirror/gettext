@@ -30,18 +30,28 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 man_aux = gettext.x ngettext.x
 
+# Likewise, plus additional manual pages for the libintl functions.
+
 man_MAN1GEN = gettext.1 ngettext.1
 man_MAN1IN = gettext.1.in ngettext.1.in
 man_MAN1 = $(man_MAN1GEN)
-man_MANS = $(man_MAN1)
+man_MAN3 = gettext.3 ngettext.3 \
+textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
+man_MAN3IN = gettext.3.in ngettext.3.in \
+textdomain.3.in bindtextdomain.3.in bind_textdomain_codeset.3.in
+man_MAN3LINK = dgettext.3 dcgettext.3 dngettext.3 dcngettext.3
+man_MANS = $(man_MAN1) $(man_MAN3) $(man_MAN3LINK)
 
 man_HTMLGEN = gettext.1.html ngettext.1.html
 man_HTMLIN = gettext.1.html.in ngettext.1.html.in
-man_HTML = $(man_HTMLGEN)
+man_HTMLOTHER = \
+gettext.3.html ngettext.3.html \
+textdomain.3.html bindtextdomain.3.html bind_textdomain_codeset.3.html
+man_HTML = $(man_HTMLGEN) $(man_HTMLOTHER)
 
-EXTRA_DIST = help2man $(man_aux) $(man_MAN1IN) $(man_HTMLIN)
+EXTRA_DIST = help2man $(man_aux) $(man_MAN1IN) $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) $(man_HTMLIN) $(man_HTMLOTHER)
 CLEANFILES = $(man_MAN1GEN) $(man_HTMLGEN)
-MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_HTMLIN)
+MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_MAN3) $(man_HTMLIN) $(man_HTMLOTHER)
 
 PERL = @PERL@
 RM = rm -f
@@ -84,6 +94,22 @@ ngettext.1.in: ngettext.x
 # Depend on version.sh to get version number changes.
 $(man_MAN1): help2man $(top_srcdir)/../version.sh
 
+gettext.3: gettext.3.in $(top_srcdir)/../version.sh
+	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@
+	mv t-$@ $@
+ngettext.3: ngettext.3.in $(top_srcdir)/../version.sh
+	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/ngettext.3.in > t-$@
+	mv t-$@ $@
+textdomain.3: textdomain.3.in $(top_srcdir)/../version.sh
+	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/textdomain.3.in > t-$@
+	mv t-$@ $@
+bindtextdomain.3: bindtextdomain.3.in $(top_srcdir)/../version.sh
+	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bindtextdomain.3.in > t-$@
+	mv t-$@ $@
+bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/../version.sh
+	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bind_textdomain_codeset.3.in > t-$@
+	mv t-$@ $@
+
 
 # Man pages in HTML format.
 
@@ -101,6 +127,22 @@ gettext.1.html.in: gettext.1.in
 	mv t-$@ $@
 ngettext.1.html.in: ngettext.1.in
 	$(MAN2HTML) `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+
+gettext.3.html: gettext.3.in
+	$(MAN2HTML) $(srcdir)/gettext.3.in | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+ngettext.3.html: ngettext.3.in
+	$(MAN2HTML) $(srcdir)/ngettext.3.in | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+textdomain.3.html: textdomain.3.in
+	$(MAN2HTML) $(srcdir)/textdomain.3.in | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+bindtextdomain.3.html: bindtextdomain.3.in
+	$(MAN2HTML) $(srcdir)/bindtextdomain.3.in | sed -e '/CreationDate:/d' > t-$@
+	mv t-$@ $@
+bind_textdomain_codeset.3.html: bind_textdomain_codeset.3.in
+	$(MAN2HTML) $(srcdir)/bind_textdomain_codeset.3.in | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 
 install-html:

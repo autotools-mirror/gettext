@@ -1,3 +1,10 @@
+2003-02-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.3.in, ngettext.3.in, textdomain.3.in, bindtextdomain.3.in,
+	bind_textdomain_codeset.3.in: Move to ../../gettext-runtime/man.
+	* dgettext.3, dcgettext.3, dngettext.3, dcngettext.3: Likewise.
+	* Makefile.am: Remove rules for man3 manual pages.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Big restructuring.
