@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.14.1\n"
+"Project-Id-Version: gettext-tools 0.14.2-pre4\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-01-18 13:18+0100\n"
-"PO-Revision-Date: 2005-01-22 19:59+0300\n"
+"POT-Creation-Date: 2005-02-12 20:12+0100\n"
+"PO-Revision-Date: 2005-02-15 08:42+0300\n"
 "Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,14 +17,14 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: lib/argmatch.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "invalid argument %s for %s"
-msgstr "неверный аргумент `%s' для `%s'"
+msgstr "неверный аргумент %s для %s"
 
 #: lib/argmatch.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "ambiguous argument %s for %s"
-msgstr "неоднозначный аргумент `%s' для `%s'"
+msgstr "неоднозначный аргумент %s для %s"
 
 #: lib/argmatch.c:157
 #, c-format
@@ -71,17 +71,14 @@ msgid "fdopen() failed"
 msgstr "вызов fdopen() навершился неуспехом"
 
 #: lib/csharpcomp.c:526
-#, fuzzy, c-format
+#, c-format
 msgid "C# compiler not found, try installing pnet"
-msgstr ""
-"Не найден компилятор Java, поставьте gcj или установите переменную $JAVAC"
+msgstr "Не найден компилятор C#, попробуйте поставить pnet"
 
 #: lib/csharpexec.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "C# virtual machine not found, try installing pnet"
-msgstr ""
-"Не найдена виртуальная машина Java, поставьте gij или установите переменную "
-"$JAVA"
+msgstr "Не найдена виртуальная машина C#, попробуйте поставить pnet"
 
 #: lib/error.c:121
 msgid "Unknown system error"
@@ -161,8 +158,8 @@ msgstr ""
 "Не найдена виртуальная машина Java, поставьте gij или установите переменную "
 "$JAVA"
 
-#: lib/obstack.c:433 lib/obstack.c:436 lib/xerror.c:51 lib/xmalloc.c:41
-#: lib/xsetenv.c:40 src/gettext-po.c:740 src/po-lex.c:89 src/po-lex.c:118
+#: lib/obstack.c:438 lib/obstack.c:441 lib/xerror.c:51 lib/xmalloc.c:41
+#: lib/xsetenv.c:40 src/gettext-po.c:901 src/po-lex.c:89 src/po-lex.c:118
 #: src/x-glade.c:390
 #, c-format
 msgid "memory exhausted"
@@ -258,9 +255,9 @@ msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "В директиве номер %u после '{' не стоит номер аргумента."
 
 #: src/format-csharp.c:106
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
-msgstr "В директиве номер %u после '{' не стоит номер аргумента."
+msgstr "В директиве номер %u после ',' не стоит число."
 
 #: src/format-csharp.c:125 src/format-java.c:190
 msgid ""
@@ -269,15 +266,15 @@ msgstr ""
 "Строка обрывается посреди директивы: найдена '{' без соответствующей '}'."
 
 #: src/format-csharp.c:133
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
-msgstr "В директиве номер %u знак '%c' не является цифрой между 1 и 9."
+msgstr "Директива номер %u заканчивается на неверный знак '%c', а не на '}'."
 
 #: src/format-csharp.c:134
-#, fuzzy, c-format
+#, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
-msgstr "В директиве номер %u '~;' использована в неверном месте."
+msgstr "Директива номер %u заканчивается на неверный знак, а не на '}'."
 
 #: src/format-csharp.c:152 src/format-java.c:333
 msgid ""
@@ -287,9 +284,9 @@ msgstr ""
 "Строка начинается посреди директивы: найдена '}' без соответствующей '{'."
 
 #: src/format-csharp.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "The string contains a lone '}' after directive number %u."
-msgstr "Строка обрывается посреди директивы."
+msgstr "Строка содержит непарную '}' после директивы номер %u."
 
 #: src/format-gcc-internal.c:202
 #, c-format
@@ -583,11 +580,11 @@ msgid ""
 "1 and 9."
 msgstr "Знак, завершающий директиву номер %u не является цифрой между 1 и 9."
 
-#: src/gettext-po.c:76
+#: src/gettext-po.c:80
 msgid "<unnamed>"
-msgstr ""
+msgstr "<без имени>"
 
-#: src/gettext-po.c:94 src/gettext-po.c:137 src/open-po.c:55
+#: src/gettext-po.c:98 src/gettext-po.c:141 src/open-po.c:55
 msgid "<stdin>"
 msgstr "<стандартный ввод>"
 
@@ -1921,136 +1918,136 @@ msgstr ""
 "каталог сообщений содержит переводы во множественном числе, но в нем "
 "заголовка с \"Plural-Forms: nplurals=ЦЕЛОЕ; plural=ВЫРАЖЕНИЕ;\""
 
-#: src/msgfmt.c:1190
+#: src/msgfmt.c:1191
 #, c-format
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr ""
 "одно из полей `msgid' или `msgid_plural' начинается с '\\n', тогда как "
 "другое -- нет"
 
-#: src/msgfmt.c:1200
+#: src/msgfmt.c:1201
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr ""
 "одно из полей `msgid' или `msgstr[%u]' начинается с '\\n', тогда как другое "
 "-- нет"
 
-#: src/msgfmt.c:1212
+#: src/msgfmt.c:1213
 #, c-format
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr ""
 "одно из полей `msgid' или `msgstr' начинается с '\\n', тогда как другое -- "
 "нет"
 
-#: src/msgfmt.c:1229
+#: src/msgfmt.c:1230
 #, c-format
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr ""
 "одно из полей `msgid' или `msgid_plural' завершается '\\n', тогда как другое "
 "-- нет"
 
-#: src/msgfmt.c:1239
+#: src/msgfmt.c:1240
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr ""
 "одно из полей `msgid' или `msgstr[%u]' завершается '\\n', тогда как другое "
 "-- нет"
 
-#: src/msgfmt.c:1251
+#: src/msgfmt.c:1252
 #, c-format
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr ""
 "одно из полей `msgid' или `msgstr' завершается '\\n', тогда как другое -- нет"
 
-#: src/msgfmt.c:1263
+#: src/msgfmt.c:1264
 #, c-format
 msgid "plural handling is a GNU gettext extension"
 msgstr "обработка форм во множественном числе является расширением GNU gettext"
 
-#: src/msgfmt.c:1304
+#: src/msgfmt.c:1305
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "в msgstr недостает отметки клавиатурного эквивалента '%c'"
 
-#: src/msgfmt.c:1312
+#: src/msgfmt.c:1313
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "в msgstr слишком много отметок клавиатурных эквивалентов '%c'"
 
-#: src/msgfmt.c:1346
+#: src/msgfmt.c:1347
 #, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "в заголовке пропущено поле `%s'\n"
 
-#: src/msgfmt.c:1350
+#: src/msgfmt.c:1351
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "поле заголовка `%s' должно начинаться с новой строки\n"
 
-#: src/msgfmt.c:1361
+#: src/msgfmt.c:1362
 msgid "some header fields still have the initial default value\n"
 msgstr ""
 "некоторые поля заголовка все еще имеют первоначальное шаблонное значение\n"
 
-#: src/msgfmt.c:1373
+#: src/msgfmt.c:1374
 #, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "поле заголовка `%s' все еще имеет первоначальное шаблонное значение\n"
 
-#: src/msgfmt.c:1431
+#: src/msgfmt.c:1432
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "предупреждение: заголовок PO-файла отсутствует или неправилен\n"
 
-#: src/msgfmt.c:1434
+#: src/msgfmt.c:1435
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "предупреждение: преобразование кодировок не будет работать\n"
 
-#: src/msgfmt.c:1444
+#: src/msgfmt.c:1445
 #, c-format
 msgid "warning: PO file header fuzzy\n"
 msgstr "предупреждение: заголовок PO-файла помечен как неточный\n"
 
-#: src/msgfmt.c:1446
+#: src/msgfmt.c:1447
 #, c-format
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "предупреждение: более старые версии msgfmt выдадут здесь ошибку\n"
 
-#: src/msgfmt.c:1470
+#: src/msgfmt.c:1471
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "имя домена \"%s\" не может быть использовано в качестве имени файла"
 
-#: src/msgfmt.c:1475
+#: src/msgfmt.c:1476
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 "имя домена \"%s\" недопустимо в качестве имени файла, будет использовано\n"
 "частично усеченное имя домена"
 
-#: src/msgfmt.c:1489
+#: src/msgfmt.c:1490
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "директива `domain %s' игнорирована"
 
-#: src/msgfmt.c:1543
+#: src/msgfmt.c:1544
 #, c-format
 msgid "empty `msgstr' entry ignored"
 msgstr "пустое вхождение `msgstr' игнорировано"
 
-#: src/msgfmt.c:1544
+#: src/msgfmt.c:1545
 #, c-format
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "неточное вхождение `msgstr' игнорировано"
 
-#: src/msgfmt.c:1602
+#: src/msgfmt.c:1603
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: предупреждение: исходный файл содержит неточные переводы"
 
 #: src/msggrep.c:242 src/po-lex.c:666 src/read-mo.c:79
-#: src/read-properties.c:80 src/read-stringtable.c:96 src/x-awk.c:143
+#: src/read-properties.c:80 src/read-stringtable.c:95 src/x-awk.c:143
 #: src/x-c.c:354 src/x-csharp.c:161 src/x-elisp.c:149 src/x-glade.c:406
 #: src/x-java.c:176 src/x-librep.c:151 src/x-lisp.c:214 src/x-perl.c:230
 #: src/x-perl.c:305 src/x-perl.c:398 src/x-php.c:162 src/x-python.c:170
@@ -2076,7 +2073,7 @@ msgstr ""
 "\n"
 
 #: src/msggrep.c:502
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -2120,7 +2117,7 @@ msgstr ""
 "сообщений будет объединением сообщений, выбранных по каждому\n"
 "критерию.\n"
 "\n"
-"Синтаксис ОБРАЗЦА-MSGID или ОБРАЗЦА-MSGSTR:\n"
+"Синтаксис ОБРАЗЦА-MSGID, ОБРАЗЦА-MSGSTR или ОБРАЗЦА-КОММЕНТАРИЯ:\n"
 "  [-E | -F] [-e ОБРАЗЕЦ | -f ФАЙЛ]...\n"
 "ОБРАЗЦЫ -- это по умолчанию базовые регулярные выражения, либо\n"
 "расширенные регулярные выражения, если задан ключ -E, либо\n"
@@ -2906,28 +2903,28 @@ msgstr "...место появления первого определения"
 msgid "%s:%lu: warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "%s:%lu: предупреждение: неверный синтаксис \\uxxxx для знака Unicode"
 
-#: src/read-stringtable.c:804
+#: src/read-stringtable.c:803
 #, c-format
 msgid "%s:%lu: warning: unterminated string"
 msgstr "%s:%lu: предупреждение: незавершенная строка"
 
-#: src/read-stringtable.c:815
+#: src/read-stringtable.c:814
 #, c-format
 msgid "%s:%lu: warning: syntax error"
 msgstr "%s%lu: предупреждение: синтаксическая ошибка"
 
-#: src/read-stringtable.c:878 src/read-stringtable.c:900
+#: src/read-stringtable.c:877 src/read-stringtable.c:899
 #, c-format
 msgid "%s:%lu: warning: unterminated key/value pair"
 msgstr "%s:%lu: предупреждение: незавершенная пара ключ/значение"
 
-#: src/read-stringtable.c:946
+#: src/read-stringtable.c:945
 #, c-format
 msgid "%s:%lu: warning: syntax error, expected ';' after string"
 msgstr ""
 "%s:%lu: предупреждение: синтаксическая ошибка, после строки ожидается ';'"
 
-#: src/read-stringtable.c:956
+#: src/read-stringtable.c:955
 #, c-format
 msgid "%s:%lu: warning: syntax error, expected '=' or ';' after string"
 msgstr ""
@@ -2969,9 +2966,9 @@ msgid "cannot create a temporary directory using template \"%s\""
 msgstr "невозможно создать временный каталог с помощью шаблона \"%s\""
 
 #: src/write-csharp.c:726
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create directory \"%s\""
-msgstr "попытка создания \"%s\" завершилась неуспехом"
+msgstr "не удалось создать каталог \"%s\""
 
 #: src/write-csharp.c:761 src/write-java.c:1063 src/write-java.c:1076
 #, c-format
@@ -2985,11 +2982,9 @@ msgid "error while writing \"%s\" file"
 msgstr "ошибка записи файла \"%s\""
 
 #: src/write-csharp.c:787
-#, fuzzy, c-format
+#, c-format
 msgid "compilation of C# class failed, please try --verbose"
-msgstr ""
-"компиляция Java-класса завершилась неуспехом, попробуйте --verbose или "
-"установите $JAVAC"
+msgstr "компиляция C#-класса завершилась неуспехом, попробуйте --verbose"
 
 #: src/write-java.c:1005
 #, c-format
@@ -3096,19 +3091,17 @@ msgstr ""
 "переведенных строках, но не в оригиналах\n"
 
 #: src/write-resources.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "error while writing to %s subprocess"
-msgstr "ошибка записи файла \"%s\""
+msgstr "ошибка при записи дочернему процессу \"%s\""
 
 #: src/write-resources.c:132
-#, fuzzy
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
 msgstr ""
 "каталог сообщений содержит переводы во множественном числе, но формат\n"
-"каталогов сообщений Qt не поддерживает обработку множественного\n"
-"числа\n"
+".resources C# не поддерживает обработку множественного числа\n"
 
 #: src/write-tcl.c:158
 msgid ""
@@ -3149,53 +3142,53 @@ msgstr ""
 "Пожалуйста, укажите входную кодировку с помощью ключа --from-code.\n"
 
 #: src/x-csharp.c:260
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII-строка в %s%s.\n"
+"%s:%d: Неверная мультибайтная последовательность.\n"
 "Пожалуйста, укажите входную кодировку с помощью ключа --from-code.\n"
 
 #: src/x-csharp.c:276
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII-строка в %s%s.\n"
+"%s:%d: Длинная неполная мультибайтная последовательность.\n"
 "Пожалуйста, укажите входную кодировку с помощью ключа --from-code.\n"
 
 #: src/x-csharp.c:288
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII-строка в %s%s.\n"
+"%s:%d: Неполная мультибайтная последовательность в конце файла.\n"
 "Пожалуйста, укажите входную кодировку с помощью ключа --from-code.\n"
 
 #: src/x-csharp.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII-строка в %s%s.\n"
+"%s:%d: Неполная мультибайтная последовательность в конце строки.\n"
 "Пожалуйста, укажите входную кодировку с помощью ключа --from-code.\n"
 
 #: src/x-csharp.c:306
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: iconv failure"
-msgstr "вызов iconv завершился неуспехом"
+msgstr "%s:%d: вызов iconv завершился неуспехом"
 
 #: src/x-csharp.c:329
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII-строка в %s%s.\n"
+"%s:%d: Неверная мультибайтная последовательность.\n"
 "Пожалуйста, укажите входную кодировку с помощью ключа --from-code.\n"
 
 #: src/x-csharp.c:1379 src/x-python.c:596
@@ -3346,7 +3339,7 @@ msgid "Choice of input file language:\n"
 msgstr "Выбор языка входного файла:\n"
 
 #: src/xgettext.c:759
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3359,7 +3352,7 @@ msgstr ""
 "  -L, --language=ИМЯ          распознавать указанный язык\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
-"                                EmacsLisp, librep, Smalltalk, Java,\n"
+"                                EmacsLisp, librep, Scheme, Smalltalk, Java,\n"
 "                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
 "PHP,\n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
@@ -3421,7 +3414,7 @@ msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           извлечь все строки\n"
 
 #: src/xgettext.c:792 src/xgettext.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
@@ -3429,9 +3422,9 @@ msgid ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
 "                                (только языки C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
-"awk,\n"
-"                                Tcl, Perl, PHP, GCC-source, Glade)\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:796
 #, c-format
@@ -3455,7 +3448,7 @@ msgstr ""
 "                              номер АРГ ключевого слова СЛОВО\n"
 
 #: src/xgettext.c:806
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
@@ -3463,9 +3456,9 @@ msgid ""
 "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
 "                                (только языки C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
-"awk,\n"
-"                                YCP, Tcl, Perl, PHP, GCC-source)\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 
 #: src/xgettext.c:810
 #, c-format
@@ -3645,6 +3638,3 @@ msgstr ""
 #: src/user-email.sh.in:397
 msgid "Please enter your email address."
 msgstr "Пожалуйста, введите ваш адрес электронной почты."
-
-#~ msgid "write to grep subprocess failed"
-#~ msgstr "запись дочернему процессу grep неуспешна"
