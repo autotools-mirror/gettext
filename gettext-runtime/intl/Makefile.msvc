@@ -36,6 +36,14 @@ includedir = $(prefix)\include
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
 aliaspath =
+IIprefix = c:\\usr
+IIexec_prefix = $(IIprefix)
+IIbindir = $(IIexec_prefix)\\bin
+IIlibdir = $(IIexec_prefix)\\lib
+IIincludedir = $(IIprefix)\\include
+IIdatadir = $(IIprefix)\\share
+IIlocaledir = $(IIdatadir)\\locale
+IIaliaspath =
 
 # Programs used by "make":
 
@@ -60,9 +68,11 @@ OPTIMFLAGS = -Od -Z7
 OPTIMFLAGS = -D_NDEBUG -O1
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DIN_LIBINTL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(bindir)\" -DNO_XMALLOC -Dset_relocation_prefix=libintl_set_relocation_prefix -Drelocate=libintl_relocate
+# -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
+# -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DBUILDING_LIBINTL -DBUILDING_DLL -DLOCALEDIR=\"$(IIlocaledir)\" -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -DIN_LIBINTL -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(IIbindir)\" -DNO_XMALLOC -Dset_relocation_prefix=libintl_set_relocation_prefix -Drelocate=libintl_relocate
 
-INCLUDES = -I..
+INCLUDES = -I. -I.. -I$(includedir)
 
 AR = lib
 AR_FLAGS = /out:
@@ -168,7 +178,7 @@ intl.lib : $(OBJECTS)
 
 # intl.dll and intl.lib are created together.
 intl.lib : $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD $(OBJECTS) $(RESOURCES)
+	$(CC) $(MFLAGS) -LD $(OBJECTS) $(libdir)\iconv.lib $(RESOURCES) -Feintl.dll
 
 intl.res : $(srcdir)\..\windows\intl.rc
 	rc -Fo intl.res $(srcdir)\..\windows\intl.rc
