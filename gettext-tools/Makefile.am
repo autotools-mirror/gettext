@@ -127,6 +127,8 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_WCTYPE_H$$/#define HAVE_WCTYPE_H 1/' \
 	     -e 's/#undef HAVE_WCWIDTH$$/#define HAVE_WCWIDTH 1/' \
 	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	     -e 's/#undef HAVE_WMEMCHR$$/#define HAVE_WMEMCHR 1/' \
+	     -e 's/#undef HAVE_WMEMCPY$$/#define HAVE_WMEMCPY 1/' \
 	     -e 's/#undef HAVE_WORKING_VFORK$$/#define HAVE_WORKING_VFORK 1/' \
 	     -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
@@ -197,6 +199,8 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
 	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
+	    -e 's/#undef HAVE_WMEMCHR$$/#define HAVE_WMEMCHR 1/' \
+	    -e 's/#undef HAVE_WMEMCPY$$/#define HAVE_WMEMCPY 1/' \
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef MALLOC_0_IS_NONNULL$$/#define MALLOC_0_IS_NONNULL 1/' \

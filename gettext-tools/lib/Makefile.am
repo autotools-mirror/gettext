@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+BUILT_SOURCES =
 MOSTLYCLEANFILES =
 CLEANFILES =
 DISTCLEANFILES =
@@ -154,9 +155,6 @@ AM_CPPFLAGS = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 DEFS = -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1 @DEFS@
 
 
-DISTCLEANFILES += fnmatch.h
-
-
 # >>> gnulib module stdbool.
 EXTRA_DIST += stdbool_.h
 
@@ -182,7 +180,8 @@ MOSTLYCLEANFILES += alloca.h
 
 
 # >>> gnulib module fnmatch.
-EXTRA_DIST += fnmatch_.h
+BUILT_SOURCES += $(FNMATCH_H)
+EXTRA_DIST += fnmatch_.h fnmatch_loop.c
 
 # The following is needed in order to create an <fnmatch.h> when the system
 # doesn't have one that works.

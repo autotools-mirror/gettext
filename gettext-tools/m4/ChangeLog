@@ -1,5 +1,9 @@
 2005-01-06  Bruno Haible  <bruno@clisp.org>
 
+	* fnmatch.m4: Upgrade from gnulib.
+
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
 	* stdbool.m4: Upgrade to gnulib version.
 
 2004-11-02  Bruno Haible  <bruno@clisp.org>
@@ -31,6 +35,10 @@
 
 	* extensions.m4 (gl_USE_SYSTEM_EXTENSIONS): Require AC_AIX
 	and AC_MINIX, too, so that their extensions are available.
+
+2003-09-10  Bruno Haible  <bruno@clisp.org>
+
+	* xreadlink.m4 (gl_XREADLINK): Remove <stdlib.h> check.
 
 2003-09-10  Bruno Haible  <bruno@clisp.org>
 

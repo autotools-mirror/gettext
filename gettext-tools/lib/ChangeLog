@@ -1,3 +1,13 @@
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
+	* fnmatch_.h: Upgrade from gnulib.
+	* fnmatch.c: Upgrade from gnulib.
+	* fnmatch_loop.c: New file, from gnulib.
+	* Makefile.am (DISTCLEANFILES): Remove fnmatch.h.
+	(BUILT_SOURCES): New variable.
+	(EXTRA_DIST): Add fnmatch_loop.c.
+	* Makefile.vms (fnmatch.obj): Depend also on fnmatch_loop.c.
+
 2004-12-19  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* alloca_.h: Conditionalize on _GNULIB_ALLOCA_H, not _ALLOCA_H.

@@ -232,7 +232,7 @@ xerror.obj : xerror.c
 xsetenv.obj : xsetenv.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xsetenv.c
 
-fnmatch.obj : fnmatch.c fnmatch.h
+fnmatch.obj : fnmatch.c fnmatch.h fnmatch_loop.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) fnmatch.c
 
 getline.obj : getline.c
