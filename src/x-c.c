@@ -165,6 +165,9 @@ static int phase2_getc PARAMS ((void));
 static void phase2_ungetc PARAMS ((int c));
 static int phase3_getc PARAMS ((void));
 static void phase3_ungetc PARAMS ((int c));
+static inline void comment_start PARAMS ((void));
+static inline void comment_add PARAMS ((int c));
+static inline void comment_line_end PARAMS ((size_t chars_to_remove));
 static int phase4_getc PARAMS ((void));
 static void phase4_ungetc PARAMS ((int c));
 static int phase7_getc PARAMS ((void));
@@ -365,6 +368,48 @@ phase3_ungetc (c)
 }
 
 
+/* Accumulating comments.  */
+
+static char *buffer;
+static size_t bufmax;
+size_t buflen;
+
+static inline void
+comment_start ()
+{
+  buflen = 0;
+}
+
+static inline void
+comment_add (c)
+     int c;
+{
+  if (buflen >= bufmax)
+    {
+      bufmax += 100;
+      buffer = xrealloc (buffer, bufmax);
+    }
+  buffer[buflen++] = c;
+}
+
+static inline void
+comment_line_end (chars_to_remove)
+     size_t chars_to_remove;
+{
+  buflen -= chars_to_remove;
+  while (buflen >= 1
+	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
+    --buflen;
+  if (chars_to_remove == 0 && buflen >= bufmax)
+    {
+      bufmax += 100;
+      buffer = xrealloc (buffer, bufmax);
+    }
+  buffer[buflen] = '\0';
+  xgettext_comment_add (buffer);
+}
+
+
 /* 4. Replace each comment that is not inside a character constant or
    string literal with a space character.  We need to remember the
    comment for later, because it may be attached to a keyword string.
@@ -373,9 +418,6 @@ phase3_ungetc (c)
 static int
 phase4_getc ()
 {
-  static char *buffer;
-  static size_t bufmax;
-  size_t buflen;
   int c;
   bool last_was_star;
 
@@ -391,7 +433,7 @@ phase4_getc ()
 
     case '*':
       /* C comment.  */
-      buflen = 0;
+      comment_start ();
       last_was_star = false;
       while (1)
 	{
@@ -399,24 +441,13 @@ phase4_getc ()
 	  if (c == EOF)
 	    break;
 	  /* We skip all leading white space, but not EOLs.  */
-	  if (buflen == 0 && isspace (c) && c != '\n')
-	    continue;
-	  if (buflen >= bufmax)
-	    {
-	      bufmax += 100;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[buflen++] = c;
+	  if (!(buflen == 0 && (c == ' ' || c == '\t')))
+	    comment_add (c);
 	  switch (c)
 	    {
 	    case '\n':
-	      --buflen;
-	      while (buflen >= 1 && (buffer[buflen - 1] == ' '
-				     || buffer[buflen - 1] == '\t'))
-		--buflen;
-	      buffer[buflen] = 0;
-	      xgettext_comment_add (buffer);
-	      buflen = 0;
+	      comment_line_end (1);
+	      comment_start ();
 	      last_was_star = false;
 	      continue;
 
@@ -427,12 +458,7 @@ phase4_getc ()
 	    case '/':
 	      if (last_was_star)
 		{
-		  buflen -= 2;
-		  while (buflen >= 1 && (buffer[buflen - 1] == ' '
-					 || buffer[buflen - 1] == '\t'))
-		    --buflen;
-		  buffer[buflen] = 0;
-		  xgettext_comment_add (buffer);
+		  comment_line_end (2);
 		  break;
 		}
 	      /* FALLTHROUGH */
@@ -448,26 +474,15 @@ phase4_getc ()
 
     case '/':
       /* C++ or ISO C 99 comment.  */
-      buflen = 0;
+      comment_start ();
       while (1)
 	{
 	  c = phase3_getc ();
 	  if (c == '\n' || c == EOF)
 	    break;
-	  if (buflen >= bufmax)
-	    {
-	      bufmax += 100;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[buflen++] = c;
+	  comment_add (c);
 	}
-      if (buflen >= bufmax)
-	{
-	  bufmax += 100;
-	  buffer = xrealloc (buffer, bufmax);
-	}
-      buffer[buflen] = 0;
-      xgettext_comment_add (buffer);
+      comment_line_end (0);
       last_comment_line = newline_count;
       return '\n';
     }

@@ -1,5 +1,11 @@
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
+	* x-c.c (comment_start, comment_add, comment_line_end): New inline
+	functions.
+	(phase4_getc): Use them.
+
+2001-11-25  Bruno Haible  <bruno@clisp.org>
+
 	* msginit.c (no_translator): New variable.
 	(long_options): Add option --no-translator.
 	(main): Handle option --no-translator.
