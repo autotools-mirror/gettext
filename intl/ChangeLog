@@ -1,3 +1,8 @@
+2001-03-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* config.charset: Update from libiconv-1.6.
+	* localcharset.c: Likewise.
+
 2001-02-25  Ulrich Drepper  <drepper@redhat.com>
 
 	* locale.alias: Don't use nb_NO but define aliases for it.
