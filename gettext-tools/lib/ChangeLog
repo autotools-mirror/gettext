@@ -69,6 +69,12 @@
 	SIG_IGN.
 	Reported by Paul Eggert.
 
+2004-11-10  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* quotearg.c (struct quoting_options): Use unsigned int for
+	quote_these_too, so that right shifts are well defined.  All uses
+	changed.
+
 2004-11-05  Bruno Haible  <bruno@clisp.org>
 
 	* readlink.c: Include stddef.h, needed for size_t on Woe32.
@@ -83,6 +89,10 @@
 
 	* unlocked-io.h: Don't worry about USE_UNLOCKED_IO; that's now
 	the includer's responsibility.
+
+2004-08-06  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* quotearg.c, quotearg.h: Import changes from coreutils.
 
 2004-08-06  Paul Eggert  <eggert@cs.ucla.edu>
 
