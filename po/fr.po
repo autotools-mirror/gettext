@@ -2,13 +2,13 @@
 # Copyright © 1996, 1997, 1998 Free Software Foundation, Inc.
 # François Pinard <pinard@iro.umontreal.ca>, 1996.
 # Il a été le traducteur jusqu'en 2001.
-# Michel Robitaille <robitail@iro.umontreal.ca>, 1996.
+# Michel Robitaille <robitail@iro.umontreal.ca>, depuis/since 1996.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.2\n"
 "POT-Creation-Date: 2002-07-17 13:52+0200\n"
-"PO-Revision-Date: 2002-04-26 08:00-0500\n"
+"PO-Revision-Date: 2002-07-22 20:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
