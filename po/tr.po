@@ -4,16 +4,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.10.35\n"
+"Project-Id-Version: GNU gettext 0.10.37\n"
 "POT-Creation-Date: 2001-05-18 16:24+0200\n"
 "PO-Revision-Date: 2001-05-20 02:20+0300\n"
-"Last-Translator: Nilgün Belma Bugüner <nilgun@technologist.com>\n"
+"Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: KBabel 0.8\n"
 
 #: lib/error.c:115
 msgid "Unknown system error"
@@ -79,9 +78,8 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: `-W %s' seçeneði bir argümanla kullanýlmaz\n"
 
 #: lib/obstack.c:474 lib/xerror.c:69 lib/xmalloc.c:86
-#, fuzzy
 msgid "memory exhausted"
-msgstr "Bellek tükendi"
+msgstr "bellek tükendi"
 
 #: src/gettext.c:143 src/msgcmp.c:138 src/msgcomm.c:275 src/msgfmt.c:268
 #: src/msgmerge.c:199 src/msgunfmt.c:172 src/ngettext.c:123 src/xgettext.c:387
@@ -91,7 +89,7 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Kopyahakký (C) %s Free Software Foundation, Inc.\n"
+"Telif Hakký (C) %s Free Software Foundation, Inc.\n"
 "Bu bir serbest yazýlýmdýr; kopyalama koþullarý için kaynak koduna bakýnýz.\n"
 "Hiçbir garantisi yoktur; hatta SATILABÝLÝRLÝÐÝ veya ÞAHSÝ KULLANIMINIZA\n"
 "UYGUNLUÐU için bile garanti verilmez.\n"
@@ -114,7 +112,7 @@ msgstr "argümanlar kayýp"
 #: src/msgmerge.c:263 src/msgunfmt.c:211 src/ngettext.c:207 src/xgettext.c:514
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Daha fazla bilgilendirilmek için `%s --help' yazýn.\n"
+msgstr "Daha fazla bilgilendirilmek için `%s --help' yazýnýz.\n"
 
 #: src/gettext.c:253
 #, c-format, no-wrap
@@ -141,18 +139,15 @@ msgid ""
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
 "Kullanýmý:\n"
-"%s [seçenek] [[[Metin-Alaný] msgid] | [-s [msgid]...]]\n"
+"%s [SEÇENEK] [[[PAKET] MSGID] | [-s [MSGID]...]]\n"
 "\n"
-"  -d, --domain=Metin-Alaný  ileti çevirilerini Metin-Alanýndan alýr.\n"
-"  -e                        bazý öncelem dizilerinin kullanýmýný\n"
-"                            etkinleþtirir\n"
-"  -E                        (uyumluluk için yoksayýldý)\n"
-"  -h, --help                bu yardým iletisini gösterir ve çýkar\n"
-"  -n                        izleyen `newline' karakterini bastýrýr\n"
-"  -V, --version             sürüm bilgisini gösterir ve çýkar\n"
-"  [Metin-Alaný] Ýleti-Kimliði\n"
-"                            Metin-Alanýndan msgid ile belirtilen\n"
-"                            ileti çevirisini alýr.\n"
+"  -d, --domain=PAKET    ileti çevirisini PAKET.mo dosyasýndan alýr.\n"
+"  -e                    öncelem dizilerinin kullanýmýný etkinleþtirir\n"
+"  -E                    (uyumluluk için yoksayýldý)\n"
+"  -h, --help            bu yardým iletisini gösterir ve çýkar\n"
+"  -n                    izleyen satýrsonu karakterini yoksayar\n"
+"  -V, --version         sürüm bilgilerini gösterir ve çýkar\n"
+"  [PAKET] MSGID         PAKET.mo dosyasýndan MSGID ile iliþkili çeviriyi alýr\n"
 
 #: src/gettext.c:274
 #, fuzzy, c-format, no-wrap
@@ -167,18 +162,16 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "\n"
-"Metin-Alaný parametresi verilmemiþse sunucu adý TEXTDOMAIN çevre\n"
+"PAKET parametresi verilmemiþse sunucu adý TEXTDOMAIN çevre\n"
 "deðiþkeninden saptanýr. Ýleti kataloðu olmasý gereken dizinde deðilse\n"
 "bulunduðu dizin TEXTDOMAINDIR çevre deðiþkeni ile belirtilebilir.\n"
-"Program -s seçeneði ile kullanýldýðýnda `echo' komutu verilmiþ gibi\n"
-"davranýr. Ama basitçe argümanlarýný standart çýktýya kopyalamak yerine\n"
-"çevrilmiþ ileti kataloðunun bulunmasý gereken dizini aþaðýdaki gibi verir:\n"
+"Program -s seçeneði ile kullanýldýðýnda `echo' komutu verilmiþ gibi davranýr\n"
 "Standart arama dizini: %s\n"
 
 #: src/gettext.c:284 src/msgcmp.c:214 src/msgcomm.c:452 src/msgfmt.c:444
 #: src/msgmerge.c:332 src/msgunfmt.c:264 src/ngettext.c:240 src/xgettext.c:605
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
-msgstr "Hatalarý <bug-gnu-utils@gnu.org> adresine bildirin.\n"
+msgstr "Yazýlým hatalarýný <bug-gnu-utils@gnu.org> adresine bildiriniz.\n"
 
 #: src/msgcmp.c:154 src/msgmerge.c:215
 msgid "no input files given"
@@ -203,18 +196,17 @@ msgid ""
 "you have translated each and every message in your program.  Where an exact\n"
 "match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
-"Kullanýmý: %s [seçenek] def.po ref.po\n"
+"Kullanýmý: %s [seçenek] def.po ref.pot\n"
 "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
 "  -D, --directory=DÝZÝN     girdi dosyalarýný arama listesine DÝZÝN'i ekler\n"
 "  -h, --help                bu yardým iletisini gösterir ve çýkar\n"
-"  -V, --version             sürüm bilgisini gösterir ve çýkar\n"
+"  -V, --version             sürüm bilgilerini gösterir ve çýkar\n"
 "\n"
-"msgid dizilerinin ayný setini içeren Tektip biçimdeki iki .po\n"
-"dosyasýný karþýlaþtýrýr. def.po dosyasý eski çevirileri içeren mevcut PO\n"
-"dosyasýdýr. ref.po dosyasý ise (genellikle gettext tarafýndan) yeni\n"
-"oluþturulan PO dosyasýdýr. Bu, programýnýzdaki her iletiyi ve çevirisini\n"
-"kontrol etmek için kullanýþlýdýr. Daha iyi bir teþhis için, zorunlu bir\n"
-"eþleþme bulunamazsa, belirsiz (fuzzy) eþleþme kullanýlýr.\n"
+"Ayný msgid dizgelerini içeren iki .po dosyasýný karþýlaþtýrýr.\n"
+"def.po dosyasý eski çevirileri içeren mevcut PO dosyasýdýr.\n"
+"ref.pot dosyasý ise yeni POT dosyasýdýr. Bu, programýnýzdaki her iletiyi\n"
+"ve çevirisini kontrol etmek için kullanýþlýdýr. Zorunlu eþleþme bulunamazsa,\n"
+"belirsiz (fuzzy) eþleþtirme yapýlýr.\n"
 
 #: src/msgcmp.c:195 src/msgcomm.c:395 src/msgfmt.c:400 src/msgmerge.c:286
 #: src/msgunfmt.c:226
@@ -257,7 +249,7 @@ msgid "warning: this message is not used"
 msgstr "uyarý: bu ileti kullanýlmamýþ"
 
 #: src/msgcmp.c:291 src/po-lex.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "%d ölümcül hata bulundu"
@@ -313,23 +305,24 @@ msgid ""
 "PO file to define them.  File positions from all PO files will be\n"
 "cumulated.\n"
 msgstr ""
-"  -V, --version                sürüm bilgisini gösterir ve çýkar\n"
-"  -w, --width=SAYI             sayfa geniþliðini ayarlar\n"
-"  -<, --less-than=SAYI         çok sayýda tanýmlanmýþ iletiler arasýnda\n"
-"                               SAYI dan az tanýmlanmýþ iletileri gösterir,\n"
-"                               belirtilmezse öntanýmlý deðer sonsuz kullanýlýr\n"
-"  ->, --more-than=SAYI         çok sayýda tanýmlanmýþ iletiler arasýnda\n"
-"                               SAYI dan fazla tanýmlanmýþ iletileri gösterir,\n"
-"                               belirtilmezse öntanýmlý deðer 1 kullanýlýr\n"
+"  -V, --version           sürüm bilgilerini gösterir ve çýkar\n"
+"  -w, --width=SAYI        sayfa geniþliðini ayarlar\n"
+"  -<, --less-than=SAYI    çok sayýda tanýmlanmýþ iletiler arasýnda\n"
+"                          SAYI dan az tanýmlanmýþ iletileri gösterir,\n"
+"                          belirtilmezse öntanýmlý deðer sonsuz kullanýlýr\n"
+"  ->, --more-than=SAYI    çok sayýda tanýmlanmýþ iletiler arasýnda\n"
+"                          SAYI dan fazla tanýmlanmýþ iletileri gösterir,\n"
+"                          belirtilmezse öntanýmlý deðer 1 kullanýlýr\n"
 "\n"
-"Belirtilen PO dosyalarýnýn iki veya daha fazlasýnda ortak olan iletileri bulur\n"
-"--more-than seçeneði kullanýlarak, iletiler basýlmadan önce, dosyalarda ortak\n"
-"olan iletilerin belirtilen miktardan fazla olanlarý seçilir. Tersine olarak\n"
-"--less-than seçeneði kullanýlarak, iletiler basýlmadan önce, dosyalarda ortak\n"
-"olan iletilerin belirtilen miktardan az olanlarý seçilir. (Örneðin\n"
-"--less-than=2 ile tek baþýna-ortak olmayan iletiler basýlýr.) Sadece ilk PO\n"
-"dosyasýnda tanýmlandýðý þekliyle çeviriler, yorumlar ve çýkarma yorumlarý\n"
-"korunmuþ olacaktýr. Tüm PO dosyalarýndaki dosya konumlarý korunmuþ olacaktýr.\n"
+"Belirtilen PO dosyalarýnýn iki veya daha fazlasýnda ortak olan iletileri\n"
+"bulur. --more-than seçeneði kullanýlarak, iletiler basýlmadan önce, dosyalarda\n"
+"ortak olan iletilerin belirtilen miktardan fazla olanlarý seçilir.\n"
+"Tersine olarak --less-than seçeneði kullanýlarak, iletiler basýlmadan önce,\n"
+"dosyalarda ortak olan iletilerin belirtilen miktardan az olanlarý seçilir.\n"
+"(Örneðin --less-than=2 ile tek baþýna-ortak olmayan iletiler basýlýr.)\n"
+"Sadece ilk PO dosyasýnda tanýmlandýðý þekliyle çeviriler, yorumlar ve \n"
+"çýkarma yorumlarý korunmuþ olacaktýr. Tüm PO dosyalarýndaki dosya konumlarý\n"
+"korunmuþ olacaktýr.\n"
 
 #: src/msgcomm.c:400 src/xgettext.c:535
 #, no-wrap
@@ -363,23 +356,24 @@ msgid ""
 "  -u, --unique                   shorthand for --less-than=2, requests\n"
 "                                 that only unique messages be printed\n"
 msgstr ""
-"  -V, --version                sürüm bilgisini gösterir ve çýkar\n"
-"  -w, --width=SAYI             sayfa geniþliðini ayarlar\n"
-"  -<, --less-than=SAYI         çok sayýda tanýmlanmýþ iletiler arasýnda\n"
-"                               SAYI dan az tanýmlanmýþ iletileri gösterir,\n"
-"                               belirtilmezse öntanýmlý deðer sonsuz kullanýlýr\n"
-"  ->, --more-than=SAYI         çok sayýda tanýmlanmýþ iletiler arasýnda\n"
-"                               SAYI dan fazla tanýmlanmýþ iletileri gösterir,\n"
-"                               belirtilmezse öntanýmlý deðer 1 kullanýlýr\n"
+"  -V, --version           sürüm bilgilerini gösterir ve çýkar\n"
+"  -w, --width=SAYI        sayfa geniþliðini ayarlar\n"
+"  -<, --less-than=SAYI    çok sayýda tanýmlanmýþ iletiler arasýnda\n"
+"                          SAYI dan az tanýmlanmýþ iletileri gösterir,\n"
+"                          belirtilmezse öntanýmlý deðer sonsuz kullanýlýr\n"
+"  ->, --more-than=SAYI    çok sayýda tanýmlanmýþ iletiler arasýnda\n"
+"                          SAYI dan fazla tanýmlanmýþ iletileri gösterir,\n"
+"                          belirtilmezse öntanýmlý deðer 1 kullanýlýr\n"
 "\n"
-"Belirtilen PO dosyalarýnýn iki veya daha fazlasýnda ortak olan iletileri bulur\n"
-"--more-than seçeneði kullanýlarak, iletiler basýlmadan önce, dosyalarda ortak\n"
-"olan iletilerin belirtilen miktardan fazla olanlarý seçilir. Tersine olarak\n"
-"--less-than seçeneði kullanýlarak, iletiler basýlmadan önce, dosyalarda ortak\n"
-"olan iletilerin belirtilen miktardan az olanlarý seçilir. (Örneðin\n"
-"--less-than=2 ile tek baþýna-ortak olmayan iletiler basýlýr.) Sadece ilk PO\n"
-"dosyasýnda tanýmlandýðý þekliyle çeviriler, yorumlar ve çýkarma yorumlarý\n"
-"korunmuþ olacaktýr. Tüm PO dosyalarýndaki dosya konumlarý korunmuþ olacaktýr.\n"
+"Belirtilen PO dosyalarýnýn iki veya daha fazlasýnda ortak olan iletileri\n"
+"bulur. --more-than seçeneði kullanýlarak, iletiler basýlmadan önce, dosyalarda\n"
+"ortak olan iletilerin belirtilen miktardan fazla olanlarý seçilir.\n"
+"Tersine olarak --less-than seçeneði kullanýlarak, iletiler basýlmadan önce,\n"
+"dosyalarda ortak olan iletilerin belirtilen miktardan az olanlarý seçilir.\n"
+"(Örneðin --less-than=2 ile tek baþýna-ortak olmayan iletiler basýlýr.)\n"
+"Sadece ilk PO dosyasýnda tanýmlandýðý þekliyle çeviriler, yorumlar ve \n"
+"çýkarma yorumlarý korunmuþ olacaktýr. Tüm PO dosyalarýndaki dosya konumlarý\n"
+"korunmuþ olacaktýr.\n"
 
 #: src/msgcomm.c:430
 #, fuzzy, no-wrap
@@ -397,21 +391,21 @@ msgid ""
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
 msgstr ""
-"Kullanýmý: %s [seçenek] def.po ref.po\n"
+"Kullanýmý: %s [SEÇENEK] def.po ref.pot\n"
 "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
-"  -D, --directory=DÝZÝN     girdi dosyasý arama listesine DÝZÝNi ekler\n"
-"  -e, --no-escape           C öncelemlerini çýktýda kullanmaz (öntanýmlý)\n"
-"  -E, --escape              C öncelemlerini çýktýda kullanýr\n"
+"  -D, --directory=DÝZÝN     girdi dosyasý arama listesine DÝZÝN eklenir\n"
+"  -e, --no-escape           C öncelemleri çýktýda kullanýlmaz (öntanýmlý)\n"
+"  -E, --escape              C öncelemleri çýktýda kullanýlýr\n"
 "      --force-po            boþ olsa bile PO dosyasýný yazar\n"
 "  -h, --help                bu yardým iletisini gösterir ve çýkar\n"
 "  -i, --indent              satýrbaþý girintili çýktý biçemi\n"
-"  -o, --output-file=DOSYA   çýktýyý DOSYA ya yazar\n"
-"      --no-location         '#: dosyaismi:satýr' satýrlarýný bastýrýr\n"
-"      --add-location        '#: dosyaismi:satýr' satýrlarýný korur(öntanýmlý)\n"
-"      --strict              Uniforum'a harfi harfine uyumlu çýktý biçemi\n"
+"  -o, --output-file=DOSYA   çýktý DOSYAya yazýlýr\n"
+"      --no-location         '#: dosyaismi:satýr' satýrlarý yoksayýlýr\n"
+"      --add-location        '#: dosyaismi:satýr' satýrlarý korunur(öntanýmlý)\n"
+"      --strict              Uniforum kipini etkinleþtirir\n"
 "  -v, --verbose             ayrýntý seviyesini arttýrýr\n"
-"  -V, --version             sürüm bilgisini gösterir ve çýkar\n"
-"  -w, --width=SAYI          sayfa geniþliðini ayarlar\n"
+"  -V, --version             sürüm bilgilerini gösterir ve çýkar\n"
+"  -w, --width=SAYI          sayfa geniþliði SAYIya ayarlanýr\n"
 
 #: src/msgcomm.c:446 src/xgettext.c:599
 #, no-wrap
@@ -425,11 +419,11 @@ msgstr ""
 #: src/xget-lex.c:171 src/xget-lex.c:181 src/xgettext.c:630
 #, c-format
 msgid "error while opening \"%s\" for reading"
-msgstr "\"%s\" okumak için açýlýrken hata"
+msgstr "\"%s\" okunmak için açýlýrken hata"
 
 #: src/msgcomm.c:563 src/xgettext.c:677 src/xgettext.c:1100
 msgid "this file may not contain domain directives"
-msgstr "bu dosya alan talimatlarýný içeremez"
+msgstr "bu dosya paket yönergelerini içermeyebilir"
 
 #: src/msgfmt.c:284 src/xgettext.c:403
 msgid "no input file given"
@@ -438,22 +432,22 @@ msgstr "hiç girdi dosyasý verilmemiþ"
 #: src/msgfmt.c:335
 #, c-format
 msgid "error while opening \"%s\" for writing"
-msgstr "\"%s\" yazmak için açýlýrken hata"
+msgstr "\"%s\" yazýlmak için açýlýrken hata"
 
 #: src/msgfmt.c:358
-#, fuzzy, c-format
+#, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d çevrilmiþ ileti"
 
 #: src/msgfmt.c:363
-#, fuzzy, c-format
+#, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d belirsiz çeviri"
 
 #: src/msgfmt.c:368
-#, fuzzy, c-format
+#, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d çevrilmemiþ ileti"
@@ -518,85 +512,90 @@ msgid "while creating hash table"
 msgstr "hash tablosu oluþturulurken"
 
 #: src/msgfmt.c:501
+#, fuzzy
 msgid "warning: PO file header missing, fuzzy, or invalid\n"
 msgstr ""
+"%s: uyarý: PO dosya baþlýðý ya yok ya fuzzy ya da geçerli deðil\n"
+"%*s uyarýsý: karakter kümesi dönüþümü yapýlamayacak"
 
 #: src/msgfmt.c:504
+#, fuzzy
 msgid "warning: charset conversion will not work\n"
 msgstr ""
+"Baþlýkta karakter kümesi yok.\n"
+"Kullanýcýnýn karakter kümesinde ileti dönüþümü yapýlamayacak.\n"
 
 #: src/msgfmt.c:528
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
-msgstr "dosya ismi olarak alan ismi \"%s\" elveriþli deðil"
+msgstr "dosya ismi olarak paket ismi \"%s\" uygun deðil"
 
 #: src/msgfmt.c:533
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
-msgstr "dosya ismi olarak alan ismi \"%s\" elveriþli deðil: önek kullanýlacak"
+msgstr "dosya ismi olarak paket ismi \"%s\" uygun deðil: önek kullanýlacak"
 
 #. We don't change the exit status here because this is really
 #. only an information.
 #: src/msgfmt.c:546
 #, c-format
 msgid "`domain %s' directive ignored"
-msgstr "`domain %s' talimatý yok sayýldý"
+msgstr "`domain %s' yönergesi yoksayýldý"
 
 #: src/msgfmt.c:582
 msgid "empty `msgstr' entry ignored"
-msgstr "boþ `msgstr' giriþi yoksayýldý"
+msgstr "boþ `msgstr' girdisi yoksayýldý"
 
 #: src/msgfmt.c:583
 msgid "fuzzy `msgstr' entry ignored"
-msgstr "belirsiz `msgstr' giriþi yoksayýldý"
+msgstr "fuzzy `msgstr' girdisi yoksayýldý"
 
 #: src/msgfmt.c:626
 #, c-format
 msgid "headerfield `%s' missing in header"
-msgstr "`%s' baþlýk alaný baþlýkta yok"
+msgstr "baþlýkta `%s' baþlýk alaný yok"
 
 #: src/msgfmt.c:629
 #, c-format
 msgid "header field `%s' should start at beginning of line"
-msgstr "`%s' baþlýk alaný satýrýn baþlangýcýnda olmalýydý"
+msgstr "`%s' baþlýk alaný satýrýn baþýnda olmalýydý"
 
 #: src/msgfmt.c:639
 msgid "some header fields still have the initial default value"
-msgstr "bazý baþlýk alanlarý hala baþlangýçtaki öntanýmlý deðere sahip"
+msgstr "bazý baþlýk alanlarý hala öntanýmlý ilk deðere sahip"
 
 #: src/msgfmt.c:650
 #, c-format
 msgid "field `%s' still has initial default value"
-msgstr "`%s' baþlýk alaný hala baþlangýçtaki öntanýmlý deðere sahip"
+msgstr "`%s' baþlýk alaný hala öntanýmlý ilk deðere sahip"
 
 #: src/msgfmt.c:741
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr "%s: uyarý: kaynak dosya belirsiz çeviriler içeriyor"
+msgstr "%s: uyarý: kaynak dosya fuzzy çeviriler içeriyor"
 
 #: src/msgfmt.c:964
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile baþlamýyor"
+msgstr ""
+"`msgid' ve `msgid_plural' girdilerinin her ikisi de '\\n' ile baþlamýyor"
 
 #: src/msgfmt.c:974
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile baþlamýyor"
+msgstr "`msgid' ve `msgstr[%u]' girdilerinin her ikisi de '\\n' ile baþlamýyor"
 
 #: src/msgfmt.c:986
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile baþlamýyor"
 
 #: src/msgfmt.c:1003
-#, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
+msgstr "`msgid' ve `msgid_plural' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
 #: src/msgfmt.c:1013
-#, fuzzy, c-format
+#, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
+msgstr "`msgid' ve `msgstr[%u]' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
 #: src/msgfmt.c:1025
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
@@ -605,12 +604,12 @@ msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
 #: src/msgfmt.c:1043
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
-"`msgid' ve `msgstr' girdilerindeki biçim özelliklerinin sayýsý eþleþmiyor"
+"`msgid' ve `msgstr' girdilerindeki biçem deðiþkenlerinin sayýsý eþleþmiyor"
 
 #: src/msgfmt.c:1062
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications for argument %lu are not the same"
-msgstr "%u argümaný için biçim özellikleri ayný deðil"
+msgstr "%s argümanýnýn biçim deðiþkenleri ayný deðil"
 
 #: src/msgmerge.c:273
 #, fuzzy, no-wrap
@@ -626,15 +625,16 @@ msgid ""
 "cannot be found, fuzzy matching is used to produce better results.\n"
 msgstr ""
 "\n"
-"Ýki Uniforum biçemli .po dosyasýný birbirine ekler. def.po dosyasý, eski\n"
+"Ýki Uniforum biçemli .po dosyasýný katýþtýrýr. def.po dosyasý, eski\n"
 "çevirilerin bulunduðu ve hala birçok bakýmdan onunla eþleþen (yorumlar\n"
 "korunmuþ, fakat çýkarma yorumlarý ve dosya konumlarý iptal edilmiþ olan)\n"
-"yeni oluþturulmuþ bir dosyanýn yerini aldýðý mevcut bir PO dosyasýdýr.\n"
-"ref.po dosyasý ise tüm çevirileri ve yorumlarý iptal edilmiþ ama nokta\n"
-"yorumlarý ve dosya konumlarý korunmuþ olan son (genellikle xgettext\n"
-"tarafýndan) oluþturulan PO dosyasýdýr. Daha iyi sonuçlar elde edebilmek\n"
-"için zorunlu eþleþmeler bulunamadýðýnda belirsiz eþleþmeler kullanýlmýþtýr.\n"
-"Bir çýktý dosyasý belirtilmediði takdirde sonuçlar standart çýktýya yazýlýr.\n"
+"yeni oluþturulmuþ bir dosyaya çevirileri aktarýlacak mevcut bir PO\n"
+"dosyasýdýr. ref.pot dosyasý ise tüm çevirileri ve yorumlarý iptal edilmiþ\n"
+"ama nokta yorumlarý ve dosya konumlarý korunmuþ olan son\n"
+"(genellikle xgettext tarafýndan) oluþturulan POT dosyasýdýr.\n"
+"Daha iyi sonuçlar elde edebilmek için zorunlu eþleþmeler bulunamadýðýnda\n"
+"belirsiz eþleþmeler kullanýlmýþtýr. Bir çýktý dosyasý belirtilmediði\n"
+"takdirde sonuçlar standart çýktýya yazýlýr.\n"
 
 #: src/msgmerge.c:291
 #, no-wrap
@@ -671,21 +671,21 @@ msgid ""
 "  -s, --sort-output           generate sorted output and remove duplicates\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"Kullanýmý: %s [seçenek] def.po ref.po\n"
+"Kullanýmý: %s [SEÇENEK] def.po ref.pot\n"
 "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
-"  -D, --directory=DÝZÝN     girdi dosyasý arama listesine DÝZÝNi ekler\n"
-"  -e, --no-escape           C öncelemlerini çýktýda kullanmaz (öntanýmlý)\n"
-"  -E, --escape              C öncelemlerini çýktýda kullanýr\n"
+"  -D, --directory=DÝZÝN     girdi dosyasý arama listesine DÝZÝN eklenir\n"
+"  -e, --no-escape           C öncelemleri çýktýda kullanýlmaz (öntanýmlý)\n"
+"  -E, --escape              C öncelemleri çýktýda kullanýlýr\n"
 "      --force-po            boþ olsa bile PO dosyasýný yazar\n"
 "  -h, --help                bu yardým iletisini gösterir ve çýkar\n"
 "  -i, --indent              satýrbaþý girintili çýktý biçemi\n"
-"  -o, --output-file=DOSYA   çýktýyý DOSYA ya yazar\n"
-"      --no-location         '#: dosyaismi:satýr' satýrlarýný bastýrýr\n"
-"      --add-location        '#: dosyaismi:satýr' satýrlarýný korur(öntanýmlý)\n"
-"      --strict              Uniforum'a harfi harfine uyumlu çýktý biçemi\n"
+"  -o, --output-file=DOSYA   çýktý DOSYAya yazýlýr\n"
+"      --no-location         '#: dosyaismi:satýr' satýrlarý yoksayýlýr\n"
+"      --add-location        '#: dosyaismi:satýr' satýrlarý korunur(öntanýmlý)\n"
+"      --strict              Uniforum kipini etkinleþtirir\n"
 "  -v, --verbose             ayrýntý seviyesini arttýrýr\n"
-"  -V, --version             sürüm bilgisini gösterir ve çýkar\n"
-"  -w, --width=SAYI          sayfa geniþliðini ayarlar\n"
+"  -V, --version             sürüm bilgilerini gösterir ve çýkar\n"
+"  -w, --width=SAYI          sayfa geniþliði SAYIya ayarlanýr\n"
 
 #: src/msgmerge.c:324
 #, no-wrap
@@ -698,17 +698,17 @@ msgid ""
 msgstr ""
 
 #: src/msgmerge.c:472
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
-"%s tarafýndan %d eski + %d baþvuru, %d eklenen, %d belirsiz, %d eksik, %d "
-"kullanýlmayan okundu.\n"
+"%sEski: %ld, baþvuru: %ld, eklenen: %ld, fuzzy: %ld, eksik: %ld, "
+"kullanýlmayan: %ld okundu.\n"
 
 #: src/msgmerge.c:479
 msgid " done.\n"
-msgstr " yapýldý.\n"
+msgstr " bitti.\n"
 
 #: src/msgunfmt.c:216
 #, c-format, no-wrap
@@ -749,17 +749,17 @@ msgid ""
 "  -w, --width=NUMBER       set output page width\n"
 "  -s, --sort-output        generate sorted output and remove duplicates\n"
 msgstr ""
-"Kullanýmý: %s [seçenek] [dosya]...\n"
+"Kullanýmý: %s [SEÇENEK] [DOSYA]...\n"
 "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
-"  -e, --no-escape          C öncelemlerini çýktýda kullanmaz (öntanýmlý)\n"
-"  -E, --escape             C öncelemlerini çýktýda kullanýr\n"
-"      --force-po           boþ olsa bile PO dosyasýný yazar\n"
+"  -e, --no-escape          C öncelemleri çýktýda kullanýlmaz (öntanýmlý)\n"
+"  -E, --escape             C öncelemleri çýktýda kullanýlýr\n"
+"      --force-po           boþ olsa bile PO dosyasý yazýlýr\n"
 "  -h, --help               bu yardým iletisini gösterir ve çýkar\n"
 "  -i, --indent             satýrbaþý girintili çýktý biçemi\n"
-"  -o, --output-file=DOSYA  çýktýyý DOSYA ya yazar\n"
-"      --strict             harfi harfine Uniforum çýktý biçemi\n"
-"  -V, --version            sürüm bilgisini gösterir ve çýkar\n"
-"  -w, --width=SAYI         sayfa geniþliðini ayarlar\n"
+"  -o, --output-file=DOSYA  çýktý DOSYAya yazýlýr\n"
+"      --strict             Uniforum kipini etkinleþtirir\n"
+"  -V, --version            sürüm bilgilerini gösterir ve çýkar\n"
+"  -w, --width=SAYI         sayfa geniþliði SAYIya ayarlanýr\n"
 
 #: src/msgunfmt.c:258
 #, no-wrap
@@ -785,9 +785,9 @@ msgid "seek \"%s\" offset %ld failed"
 msgstr "\"%s\" sýralama %ld göreli konum baþarýsýz"
 
 #: src/msgunfmt.c:357
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "\"%s\" dosyasý bir GNU .mo dosyasý deðil"
+msgstr "\"%s\" dosyasý NUL sonlandýrmalý olmayan bir dizge içeriyor"
 
 #: src/msgunfmt.c:402
 #, c-format
@@ -819,18 +819,16 @@ msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "Kullanýmý:\n"
-"%s [seçenek] [[[Metin-Alaný] msgid] | [-s [msgid]...]]\n"
+"%s [SEÇENEK] [PAKET] MSGID MSGID-PLURAL MÝKTAR ]\n"
 "\n"
-"  -d, --domain=Metin-Alaný  ileti çevirilerini Metin-Alanýndan alýr.\n"
-"  -e                        bazý öncelem dizilerinin kullanýmýný\n"
-"                            etkinleþtirir\n"
-"  -E                        (uyumluluk için yoksayýldý)\n"
-"  -h, --help                bu yardým iletisini gösterir ve çýkar\n"
-"  -n                        izleyen `newline' karakterini bastýrýr\n"
-"  -V, --version             sürüm bilgisini gösterir ve çýkar\n"
-"  [Metin-Alaný] Ýleti-Kimliði\n"
-"                            Metin-Alanýndan msgid ile belirtilen\n"
-"                            ileti çevirisini alýr.\n"
+"  -d, --domain=PAKET   ileti çevirileri yazýlým PAKETinden alýnýr.\n"
+"  -e                   öncelem dizilerinin kullanýmý etkinleþtirilir\n"
+"  -E                   (uyumluluk için yoksayýldý)\n"
+"  -h, --help           bu yardým iletisini gösterir ve çýkar\n"
+"  -V, --version        sürüm bilgilerini gösterir ve çýkar\n"
+"  [PAKET]              ileti çevirileri yazýlým PAKETinden alýnýr.\n"
+"  MSGID MSGID-PLURAL   MSGID (tekil) / MSGID-PLURAL (çoðul) çevrilir\n"
+"  MÝKTAR            MÝKTARa baðlý olarak tekil/çoðul iletilerden biri seçilir\n"
 
 #: src/ngettext.c:233
 #, fuzzy, c-format, no-wrap
@@ -842,23 +840,20 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "\n"
-"Metin-Alaný parametresi verilmemiþse sunucu adý TEXTDOMAIN çevre\n"
-"deðiþkeninden saptanýr. Ýleti kataloðu olmasý gereken dizinde deðilse\n"
-"bulunduðu dizin TEXTDOMAINDIR çevre deðiþkeni ile belirtilebilir.\n"
-"Program -s seçeneði ile kullanýldýðýnda `echo' komutu verilmiþ gibi\n"
-"davranýr. Ama basitçe argümanlarýný standart çýktýya kopyalamak yerine\n"
-"çevrilmiþ ileti kataloðunun bulunmasý gereken dizini aþaðýdaki gibi verir:\n"
+"PAKET parametresi verilmemiþse sunucu adý TEXTDOMAIN çevre deðiþkeninden\n"
+"saptanýr. Ýleti kataloðu olmasý gereken dizinde deðilse bulunduðu dizin\n"
+"TEXTDOMAINDIR çevre deðiþkeni ile belirtilebilir.\n"
 "Standart arama dizini: %s\n"
 
 #: src/open-po.c:64
 msgid "<stdin>"
-msgstr ""
+msgstr "<stdÇ>"
 
 #: src/po-charset.c:145 src/po-charset.c:213 src/po-charset.c:239
 #: src/po-charset.c:265
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: uyarý: "
 
 #: src/po-charset.c:146
 #, c-format
@@ -866,14 +861,16 @@ msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
+"\"%s\" karakter kümesi kabul görmüþ bir isim deðil.\n"
+"Kullanýcýnýn karakter kümesine dönüþüm yapýlamýyabilir.\n"
 
 #: src/po-charset.c:209 src/po-charset.c:237
 msgid "Continuing anyway, expect parse errors."
-msgstr ""
+msgstr "Çözümleme hatalarýna raðmen devam ediliyor."
 
 #: src/po-charset.c:211
 msgid "Continuing anyway."
-msgstr ""
+msgstr "Yine de devam ediliyor."
 
 #: src/po-charset.c:214
 #, c-format
@@ -881,17 +878,21 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"\"%s\" karakter kümesi desteklenmiyor. %s iconv()ye baðlý.\n"
+"ve iconv() \"%s\" desteði vermiyor.\n"
 
 #: src/po-charset.c:223 src/po-charset.c:247
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
+"GNU libiconv paketini kurduktan sonra GNU gettext paketini\n"
+"yeniden kurarak bu sorunun üstesinden gelmelisiniz.\n"
 
 #: src/po-charset.c:228 src/po-charset.c:251
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po-charset.c:240
 #, c-format
@@ -899,26 +900,28 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"\"%s\" karakter kümesi desteklenmiyor. %s iconv()ye baðlý.\n"
+"Bu sürüm iconv() olmaksýzýn kurgulanmýþ.\n"
 
 #: src/po-charset.c:266
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
+"Baþlýkta karakter kümesi yok.\n"
+"Kullanýcýnýn karakter kümesinde ileti dönüþümü yapýlamayacak.\n"
 
 #: po-gram-gen.y:88
 msgid "inconsistent use of #~"
 msgstr ""
 
 #: po-gram-gen.y:178
-#, fuzzy
 msgid "missing `msgstr[]' section"
-msgstr "`msgstr' bölümü yok"
+msgstr "`msgstr[]' bölümü yok"
 
 #: po-gram-gen.y:186
-#, fuzzy
 msgid "missing `msgid_plural' section"
-msgstr "`msgstr' bölümü yok"
+msgstr "`msgid_plural' bölümü yok"
 
 #: po-gram-gen.y:193
 msgid "missing `msgstr' section"
@@ -926,11 +929,11 @@ msgstr "`msgstr' bölümü yok"
 
 #: po-gram-gen.y:238
 msgid "first plural form has nonzero index"
-msgstr ""
+msgstr "ilk çoðul biçimin endeksi sýfýr deðil"
 
 #: po-gram-gen.y:240
 msgid "plural form has wrong index"
-msgstr ""
+msgstr "çoðul biçimin endeksi hatalý"
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
@@ -942,24 +945,23 @@ msgstr "hatalar çok fazla, bunlarý düzeltince programý tekrar çalýþtýrýn"
 #: src/po-lex.c:270
 #, c-format
 msgid "keyword \"%s\" unknown"
-msgstr "anahtar-kelime \"%s\" bilinmiyor"
+msgstr "anahtar-sözcük \"%s\" bilinmiyor"
 
 #: src/po-lex.c:373
-#, fuzzy
 msgid "invalid control sequence"
-msgstr "denetim dizisi uygun deðil"
+msgstr "denetim dizisi geçersiz"
 
 #: src/po-lex.c:476
 msgid "end-of-file within string"
-msgstr "dizgi içinde dosya sonu"
+msgstr "dizge içinde dosya sonu"
 
 #: src/po-lex.c:481
 msgid "end-of-line within string"
-msgstr "dizgi içinde satýr sonu"
+msgstr "dizge içinde satýr sonu"
 
 #: src/po-lex.c:524 src/write-po.c:285 src/write-po.c:367
 msgid "invalid multibyte sequence"
-msgstr ""
+msgstr "çoklu bayt dizisi geçersiz"
 
 #: src/write-po.c:316
 #, c-format
@@ -970,7 +972,7 @@ msgstr "i18n iletileri `\\%c' öncelem dizilerini içeremez"
 #: src/write-po.c:857
 #, c-format
 msgid "cannot create output file \"%s\""
-msgstr "\"%s\" çýktý dosyasý oluþturulamadý"
+msgstr "\"%s\" çýktý dosyasý oluþturulamýyor"
 
 #: src/write-po.c:864
 #, no-c-format
@@ -994,7 +996,7 @@ msgstr "%s:%d: uyarý: sonlandýrýlmamýþ karakter sabiti"
 #: src/xget-lex.c:902
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
-msgstr "%s:%d: uyarý: sonlandýrýlmamýþ dizgi harfi"
+msgstr "%s:%d: uyarý: sonlandýrýlmamýþ dizge harfi"
 
 #: src/xgettext.c:372
 msgid "--join-existing cannot be used when output is written to stdout"
@@ -1002,7 +1004,7 @@ msgstr "standart çýktýya yazýlýrken --join-existing kullanýlamaz"
 
 #: src/xgettext.c:377
 msgid "xgettext cannot work without keywords to look for"
-msgstr ""
+msgstr "xgettext anahtar sözcükler olmaksýzýn bulamaz"
 
 #: src/xgettext.c:483
 #, c-format
@@ -1074,7 +1076,7 @@ msgstr ""
 #: src/xgettext.c:952
 #, fuzzy, c-format
 msgid "%s:%d: warning: keyword nested in keyword arg"
-msgstr "%s:%d: uyarý: sonlandýrýlmamýþ dizgi harfi"
+msgstr "%s:%d: uyarý: sonlandýrýlmamýþ dizge harfi"
 
 #: src/xgettext.c:964
 #, c-format
@@ -1084,7 +1086,7 @@ msgstr ""
 #: src/xgettext.c:1462
 #, c-format
 msgid "language `%s' unknown"
-msgstr "lisan `%s' bilinmiyor"
+msgstr ""
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
@@ -1098,14 +1100,14 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "  -F, --sort-by-file             sort output by file location\n"
 #~ "  -h, --help                     display this help and exit\n"
 #~ msgstr ""
-#~ "Kullanýmý: %s [seçenek] Girdi-Dosyasý ...\n"
+#~ "Kullanýmý: %s [SEÇENEK] GÝRDÝ-DOSYASI ...\n"
 #~ "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
-#~ "  -d, --default-domain=ÝSÝM    çýktý için ÝSÝM.po kullanýlacak\n"
-#~ "                               (messages.po yerine)\n"
-#~ "  -D, --directory=DÝZÝN        girdi dosyalarý arama listesine DÝZÝN'i ekler\n"
-#~ "  -e, --no-escape              C öncelemlerini çýktýda kullanmaz (öntanýmlý)\n"
-#~ "  -E, --escape                 C öncelemlerini çýktýda kullanýr\n"
-#~ "  -f, --files-from=DOSYA       girdi dosyalarýnýn listesini DOSYA'dan alýr\n"
+#~ "  -d, --default-domain=ÝSÝM    çýktý messages.po yerine ÝSÝM.po dosyasýna\n"
+#~ "                               yazýlýr\n"
+#~ "  -D, --directory=DÝZÝN        girdi dosyalarý arama listesine DÝZÝN eklenir\n"
+#~ "  -e, --no-escape              C öncelemleri çýktýda kullanýlmaz (öntanýmlý)\n"
+#~ "  -E, --escape                 C öncelemleri çýktýda kullanýlýr\n"
+#~ "  -f, --files-from=DOSYA       girdi dosyalarýnýn listesi DOSYA'dan alýnýr\n"
 #~ "      --force-po               boþ olsa bile PO dosyasýný yazar\n"
 #~ "  -F, --sort-by-file           dosya konumuna göre çýktýyý sýralar\n"
 #~ "  -h, --help                   bu yardým iletisini gösterir ve çýkar\n"
@@ -1128,23 +1130,19 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
 #~ "                                 that only unique messages be printed\n"
 #~ msgstr ""
-#~ "  -i, --indent                 girintili biçem kullanarak .po dosyasýný\n"
-#~ "                               yazar\n"
-#~ "      --no-location            '#: dosyaismi:satýr' satýrlarýný yazmaz\n"
-#~ "  -n, --add-location           '#: dosyaismi:satýr' satýrlarýný üretir\n"
-#~ "                               (öntanýmlý)\n"
-#~ "      --omit-header            `msgid \"\"' ile baþlayan baþlýklarý "
-#~ "yazmaz\n"
-#~ "  -o, --output=DOSYA           çýktýyý belirtilen DOSYAya yazar\n"
-#~ "  -p, --output-dir=DÝZÝN       çýktý dosyalarýný DÝZÝNe yerleþtirir\n"
-#~ "  -s, --sort-output            tekrarlarý silerek çýktýyý dosyaya "
-#~ "sýralar\n"
-#~ "      --strict                 Uniforum standardýna baðýmlý .po dosyasý "
-#~ "yazar\n"
-#~ "  -T, --trigraphs              girdi olarak ANSI C trigraph'larý anlar\n"
-#~ "  -u, --unique                 --less-than=2 için kýsaltma, yalnýzca "
-#~ "benzersiz\n"
-#~ "\t\t\t\tiletileri gösterir\n"
+#~ "  -i, --indent            .po dosyasý girintili biçem kullanýlarak "
+#~ "yazýlýr\n"
+#~ "      --no-location       '#: dosyaismi:satýr' satýrlarý yazýlmaz\n"
+#~ "  -n, --add-location      '#: dosyaismi:satýr' satýrlarý üretilir "
+#~ "(öntanýmlý)\n"
+#~ "      --omit-header       `msgid \"\"' ile baþlayan baþlýklar yazýlmaz\n"
+#~ "  -o, --output=DOSYA      çýktý belirtilen DOSYAya yazýlýr\n"
+#~ "  -p, --output-dir=DÝZÝN  çýktý dosyalarý DÝZÝNe yerleþtirilir\n"
+#~ "  -s, --sort-output       tekrarlar silinerek çýktý dosyaya sýralanýr\n"
+#~ "      --strict            .po dosyasý standart dosya biçeminde yazýlýr\n"
+#~ "  -T, --trigraphs         girdi olarak ANSI C trigraph'larý anlar\n"
+#~ "  -u, --unique            --less-than=2 için kýsaltma, sadece\n"
+#~ "                          benzersiz iletiler seçilir\n"
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] filename.po ...\n"
@@ -1168,29 +1166,26 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "If input file is -, standard input is read.  If output file is -,\n"
 #~ "output is written to standard output.\n"
 #~ msgstr ""
-#~ "Kullanýmý: %s [seçenek] dosyaismi.po ...\n"
-#~ "Okunabilir biçimdeki çeviri tanýmýndan ikili biçimde ileti kataloðu üretir.\n"
+#~ "Kullanýmý: %s [SEÇENEK] dosyaismi.po ...\n"
+#~ "Okunabilir biçemdeki çeviri dosyasýndan ikilik biçemde ileti kataloðu üretir.\n"
 #~ "\n"
 #~ "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
-#~ "  -a, --alignment=SAYI      dizileri SAYI bayta hizalar (öntanýmlý: %d)\n"
-#~ "  -c, --check               diziler üzerinde lisana baðlý kontrolleri uygular\n"
-#~ "  -D, --directory=DÝZÝN     DÝZÝN'i girdi dosyasý arama listesine ekler\n"
-#~ "  -f, --use-fuzzy           çýktýda belirsiz(fuzzy) girdileri kullanýr\n"
+#~ "  -a, --alignment=SAYI      dizgeler SAYI bayta hizalanýr (öntanýmlý: %d)\n"
+#~ "  -c, --check               dizgeler üzerinde dile baðlý denetimler uygulanýr\n"
+#~ "  -D, --directory=DÝZÝN     DÝZÝN girdi dosyasý arama listesine eklenir\n"
+#~ "  -f, --use-fuzzy           çýktýda belirsiz(fuzzy) girdiler kullanýlýr\n"
 #~ "  -h, --help                bu yardým iletisini gösterir ve çýkar\n"
-#~ "      --no-hash             ikili dosya hash tablosunu içermeyecek\n"
-#~ "  -o, --output-file=DOSYA   çýktýyý DOSYA ya yazar\n"
+#~ "      --no-hash             ikilik dosya hash tablosunu içermeyecek\n"
+#~ "  -o, --output-file=DOSYA   çýktýyý DOSYAya yazar\n"
 #~ "      --statistics          çeviriler hakkýndaki istatistikleri basar\n"
 #~ "      --strict              Uniforum kipini etkinleþtirir\n"
 #~ "  -v, --verbose             girdi dosyasýndaki anormallikleri listeler\n"
-#~ "  -V, --version             sürüm bilgisini gösterir ve çýkar\n"
+#~ "  -V, --version             sürüm bilgilerini gösterir ve çýkar\n"
 #~ "\n"
 #~ "-v seçeneðini birden fazla vererek ayrýntý seviyesini arttýrabilirsiniz.\n"
 #~ "\n"
 #~ "girdi dosyasý olarak - verilirse standart girdi okunur. Çýktý dosyasý olarak\n"
 #~ " - verilirse çýktý, standart çýktýya yazýlýr.\n"
-
-#~ msgid "%s: warning: no header entry found"
-#~ msgstr "%s: uyarý: baþlýk giriþi bulunamadý"
 
 #~ msgid ""
 #~ "\n"
@@ -1200,8 +1195,8 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "By default the output is written to standard output.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Ýkilik .mo dosyasýný Uniforum .po dosyasýna dönüþtürür.\n"
-#~ "`little-endian' ve `big-endian' .mo dosyalarýnýn ikisi de elde edilir.\n"
+#~ "Ýkilik .mo dosyasýný Uniforum biçemli .po dosyasýna dönüþtürür.\n"
+#~ "Hem `little-endian' hem de `big-endian' .mo dosyalarý kulanýlabilir.\n"
 #~ "Girdi dosyasý verilmemiþse ya da - verilmiþse standart girdi okunur.\n"
 #~ "Öntanýmlý olarak standart çýktýya yazýlýr.\n"
 
@@ -1219,29 +1214,28 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
 #~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended chars\n"
-#~ "  -f, --files-from=FILE get list of input files from FILE\n"
+#~ "  -f, --files-from=FILE          get list of input files from FILE\n"
 #~ "      --force-po                 write PO file even if empty\n"
 #~ "      --foreign-user             omit FSF copyright in output for foreign user\n"
 #~ "  -F, --sort-by-file             sort output by file location\n"
 #~ msgstr ""
-#~ "Kullanýmý: %s [seçenek] girdi-dosyasý ...\n"
-#~ "Verilen girdi dosyalarýndan tercüme edilebilir dizgiyi ayýrýr\n"
+#~ "Kullanýmý: %s [SEÇENEK] GÝRDÝ-DOSYASI ...\n"
+#~ "Verilen girdi dosyalarýndan tercüme edilebilir dizgeyi çýkarýr.\n"
 #~ "Uzun seçeneklerdeki zorunlu argümanlar kýsa seçenekler için de zorunludur\n"
-#~ "  -a, --extract-all            tüm dizgileri ayýrýr\n"
-#~ "  -c, --add-comments[=ETÝKET]  çýktý dosyasýnda yorum blokunu ETÝKET ile\n"
-#~ "                               yer deðiþtirir\n"
+#~ "  -a, --extract-all            tüm dizgeler ayrýlýr\n"
+#~ "  -c, --add-comments[=ETÝKET]  çýktý dosyasýnda yorum bloku ETÝKET ile\n"
+#~ "                               yerleþtirilir.\n"
 #~ "  -C, --c++                    --language=C++ için kýsayol\n"
-#~ "      --debug                  daha detaylý biçim dizgisi tanýma sonucu\n"
-#~ "  -d, --default-domain=ÝSÝM    çýktý için NAME.po kullanýlýr\n"
-#~ "                               (messages.po yerine)\n"
-#~ "  -D, --directory=DÝZÝN        girdi dosyalarý arama listesine DÝZÝNi ekler\n"
-#~ "  -e, --no-escape              C öncelemlerini çýktýda kullanmaz (öntanýmlý)\n"
-#~ "  -E, --escape                 C öncelemlerini çýktýda kullanýr\n"
-#~ "  -f, --files-from=DOSYA       girdi dosyalarýnýn listesini DOSYA dan alýr\n"
-#~ "      --force-po               boþ olsa bile PO dosyasýný yazar\n"
+#~ "      --debug                  daha detaylý biçem dizgesi tanýma sonucu\n"
+#~ "  -d, --default-domain=ÝSÝM    çýktý için message.p yerine ÝSÝM.po kullanýlýr\n"
+#~ "  -D, --directory=DÝZÝN        girdi dosyalarý arama listesine DÝZÝN eklenir\n"
+#~ "  -e, --no-escape              C öncelemleri çýktýda kullanýlmaz (öntanýmlý)\n"
+#~ "  -E, --escape                 C öncelemleri çýktýda kullanýlýr\n"
+#~ "  -f, --files-from=DOSYA       girdi dosyalarýnýn listesi DOSYAdan alýnýr\n"
+#~ "      --force-po               boþ olsa bile PO dosyasý yazýlýr\n"
 #~ "      --foreign-user           yabancý kullanýcýlar için çýktýda\n"
-#~ "                               FSF kopyahakký uyarýsýný göstermez\n"
-#~ "  -F, --sort-by-file           çýktýyý dosya konumuna göre sýralar\n"
+#~ "                               FSF telif hakký uyarýsýný göstermez\n"
+#~ "  -F, --sort-by-file           çýktý dosya konumuna göre sýralanýr\n"
 
 #~ msgid ""
 #~ "  -h, --help                     display this help and exit\n"
@@ -1249,7 +1243,6 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "  -j, --join-existing            join messages with existing file\n"
 #~ "  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
 #~ "                                 WORD means not to use default keywords)\n"
-#~ "  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n"
 #~ "  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
 #~ "                                 otherwise is guessed from file extension\n"
 #~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
@@ -1257,20 +1250,18 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "      --no-location              do not write '#: filename:line' lines\n"
 #~ msgstr ""
 #~ "  -h, --help                   bu yardým iletisini gösterir ve çýkar\n"
-#~ "  -i, --indent                 .po dosyasýný satýrbaþý girintili çýktý biçemi\n"
-#~ "                               kullanarak yazar\n"
-#~ "  -j, --join-existing          iletileri mevcut dosyaya baðlar\n"
-#~ "  -k, --keyword[=KELÝME]       ek olarak KELÝME içinde bakýlacak (KELÝME nin\n"
-#~ "                               verilmemiþ olmasý öntanýmlý anahtar-kelimelerin\n"
-#~ "                               kullanýlmayacaðý manasýna gelir)\n"
-#~ "  -l, --string-limit=SAYI      dizi uzunluðunu %u yerine SAYI ile sýnýrlar\n"
-#~ "  -L, --language=ÝSÝM          belirtilen yazýlým dilini tanýr (C, C++, PO),\n"
-#~ "                               aksi takdirde dosya uzantýsýna bakar\n"
-#~ "  -m, --msgstr-prefix[=DÝZÝ]   msgstr girdileri için önek olarak \"\" ya da\n"
-#~ "                               DÝZÝ kullanýlýr\n"
-#~ "  -M, --msgstr-suffix[=DÝZÝ]   msgstr girdileri için sonek olarak \"\" ya da\n"
-#~ "                               DÝZÝ kullanýlýr\n"
-#~ "      --no-location            '#: dosyaismi:satýr' satýrlarýný yazmaz\n"
+#~ "  -i, --indent                 .po dosyasý girintili tarzda yazýlýr\n"
+#~ "  -j, --join-existing          iletiler mevcut dosyaya baðlanýr\n"
+#~ "  -k, --keyword[=SÖZCÜK]       ek olarak SÖZCÜK içinde bakýlacak (SÖZCÜðün\n"
+#~ "                               verilmemiþ olmasý öntanýmlý anahtar-sözcükler\n"
+#~ "                               kullanýlacak manasýnda deðildir)\n"
+#~ "  -L, --language=ÝSÝM          belirtilen yazýlým dili tanýnýr (C, C++, PO),\n"
+#~ "                               aksi takdirde dosya uzantýsýna bakýlýr\n"
+#~ "  -m, --msgstr-prefix[=DÝZGE]  msgstr girdileri için önek olarak \"\" ya da\n"
+#~ "                               DÝZGE kullanýlýr\n"
+#~ "  -M, --msgstr-suffix[=DÝZGE]  msgstr girdileri için sonek olarak \"\" ya da\n"
+#~ "                               DÝZGE kullanýlýr\n"
+#~ "      --no-location            '#: dosyaismi:satýr' satýrlarý yazýlmaz\n"
 
 #~ msgid ""
 #~ "  -n, --add-location             generate '#: filename:line' lines (default)\n"
@@ -1286,16 +1277,16 @@ msgstr "lisan `%s' bilinmiyor"
 #~ "\n"
 #~ "If INPUTFILE is -, standard input is read.\n"
 #~ msgstr ""
-#~ "  -n, --add-location           '#: dosyaismi:satýr' satýrlarýný üretir\n"
+#~ "  -n, --add-location           '#: dosyaismi:satýr' satýrlarý üretilir\n"
 #~ "                               (öntanýmlý)\n"
-#~ "      --omit-header            baþlýðý `msgid \"\"' girdisiyle yazmaz\n"
-#~ "  -o, --output=DOSYA           çýktýyý belirtilen DOSYA ya yazar\n"
+#~ "      --omit-header            baþlýk `msgid \"\"' girdisiyle yazýlmaz\n"
+#~ "  -o, --output=DOSYA           çýktý belirtilen DOSYAya yazýlýr\n"
 #~ "  -p, --output-dir=DÝZÝN       çýktý dosyasý DÝZÝN içine konulacaktýr\n"
-#~ "  -s, --sort-output            tekrarlarý silerek çýktýyý sýralý üretir\n"
-#~ "      --strict                 harfi harfine Uniforum çýktý biçemi\n"
+#~ "  -s, --sort-output            tekrarlarý kaldýrarak çýktýyý sýralý üretir\n"
+#~ "      --strict                 Uniforum kipi etkinleþtirir\n"
 #~ "  -T, --trigraphs              girdi olarak ANSI C trigraph'larý anlar\n"
-#~ "  -V, --version                sürüm bilgisini gösterir ve çýkar\n"
-#~ "  -w, --width=SAYI             sayfa geniþliðini ayarlar\n"
-#~ "  -x, --exclude-file=DOSYA     DOSYAdaki girdiler ayrýlmýþ olmaz\n"
+#~ "  -V, --version                sürüm bilgilerini gösterir ve çýkar\n"
+#~ "  -w, --width=SAYI             sayfa geniþliði SAYIya ayarlanýr\n"
+#~ "  -x, --exclude-file=DOSYA     DOSYAdaki girdiler çýkarýlmaz\n"
 #~ "\n"
-#~ "girdi dosyasý olarak - verilmiþse standart girdi okunur.\n"
+#~ "GÝRDÝ_DOSYASI olarak - verilmiþse standart girdi okunur.\n"
