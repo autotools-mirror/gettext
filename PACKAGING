@@ -93,6 +93,7 @@ following file list.
       $prefix/share/doc/gettext/gettextize.1.html
       $prefix/share/doc/gettext/autopoint.1.html
       $prefix/share/doc/gettext/gettext_*.html
+      $prefix/share/doc/gettext/examples/*
       $prefix/info/gettext.info*
       $prefix/include/gettext-po.h
       $prefix/lib/libgettextlib*

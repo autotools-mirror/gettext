@@ -74,6 +74,27 @@ Version 0.12.2 - September 2003
   - A new configuration option --disable-libasprintf allows to build all of
     gettext except libasprintf; this is necessary on platforms for which
     libtool cannot create shared libraries with C++ code.
+
+* Documentation:
+
+  - Complete examples illustrating the use of gettext, including program
+    sources, Makefile and autoconf infrastructure, have been added. They
+    cover the following programming languages:
+      C           (text mode, GNOME)
+      C++         (text mode, Qt, KDE, GNOME)
+      ObjectiveC  (text mode, GNUstep, GNOME)
+      Shell       (text mode)
+      Python      (text mode)
+      Lisp        (text mode)
+      librep      (text mode)
+      Smalltalk   (text mode)
+      Java        (text mode, AWT, Java)
+      awk         (text mode)
+      Pascal      (text mode)
+      YCP         (libyui)
+      Tcl         (text mode, Tk)
+      Perl        (text mode)
+      PHP         (text mode)
 
 Version 0.12.1 - May 2003
 

@@ -1,3 +1,7 @@
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Add examples.
+
 2003-10-31  Bruno Haible  <bruno@clisp.org>
 
 	* config/m4/fixautomake.m4 (FIX_MAKEFILE_COMPILE, FIX_MAKEFILE_DISTRIB,
