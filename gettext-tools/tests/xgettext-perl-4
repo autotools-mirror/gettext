@@ -44,6 +44,11 @@ print "@{[hello_func]} world!\n";
 print `ls $0`;
 print qx;ls $0;;
 
+if (!defined($size = -s $filename)) {
+  # The above s is part of the function -s, not 
+  # the substitution operator!    
+}
+
 # The rest requires a Unicode aware Perl.
 require 5.006;
 print "\U\x70\LO\154\x{69}\x{004E}a \Q\lRu\LLeS\E\041\n";

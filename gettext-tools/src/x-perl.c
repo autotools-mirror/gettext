@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2004 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -2457,6 +2457,13 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	  if (c == '>')
 	    {
 	      tp->type = token_type_dereference;
+	      return;
+	    }
+	  else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	    {
+	      /* One of the -X (filetest) functions.  We play safe
+		 and accept all alphabetical characters here.  */
+	      tp->type = token_type_other;
 	      return;
 	    }
 	  phase1_ungetc (c);

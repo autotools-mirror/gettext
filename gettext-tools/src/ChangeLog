@@ -1,3 +1,8 @@
+2004-10-01  Guido Flohr  <guido@imperia.net>
+
+	* x-perl.c (x_perl_prelex): Recognize function names starting with '-'.
+	Reported by Ryan Anderson <ryan@autoweb.net>.
+
 2004-09-16  Bruno Haible  <bruno@clisp.org>
 
 	* format.h (formatstring_error_logger_t): Modify decl for GCC <= 3.0.

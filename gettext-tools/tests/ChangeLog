@@ -1,3 +1,8 @@
+2004-10-01  Guido Flohr  <guido@imperia.net>
+
+	* xgettext-perl-4: Add test case with '-s' function.
+	Reported by Ryan Anderson <ryan@autoweb.net>.
+
 2004-09-11  Bruno Haible  <bruno@clisp.org>
 
 	* msginit-1: New file.
