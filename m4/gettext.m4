@@ -172,52 +172,56 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	 || test "$nls_cv_use_gnu_gettext" = "yes"; then
 	dnl Mark actions to use GNU gettext tools.
         CATOBJEXT=.gmo
-
-	dnl Search for GNU msgfmt in the PATH.
-	AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-	  [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
-	AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
-
-	dnl Search for GNU xgettext in the PATH.
-	AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-	  [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
-
-	dnl Search for GNU msgmerge 0.11 or newer in the PATH.
-	AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
-	  [$ac_dir/$ac_word --update -q /dev/null /dev/null >/dev/null 2>&1], :)
-
-	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
-	dnl Test whether we really found GNU msgfmt.
-	if test "$GMSGFMT" != ":"; then
-	  dnl If it is no GNU msgfmt we define it as : so that the
-	  dnl Makefiles still can work.
-	  if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
-	    : ;
-	  else
-	    AC_MSG_RESULT(
-	      [found msgfmt program is not GNU msgfmt; ignore it])
-	    GMSGFMT=":"
-	  fi
-	fi
-
-	dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
-	dnl Test whether we really found GNU xgettext.
-	if test "$XGETTEXT" != ":"; then
-	  dnl If it is no GNU xgettext we define it as : so that the
-	  dnl Makefiles still can work.
-	  if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
-	    : ;
-	  else
-	    AC_MSG_RESULT(
-	      [found xgettext program is not GNU xgettext; ignore it])
-	    XGETTEXT=":"
-	  fi
-	fi
       fi
 
       dnl We need to process the po/ directory.
       POSUB=po
     fi
+
+    dnl Perform the following tests also if --disable-nls has been given,
+    dnl because they are needed for "make dist" to work.
+
+    dnl Search for GNU msgfmt in the PATH.
+    AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
+      [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
+    AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
+
+    dnl Search for GNU xgettext in the PATH.
+    AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
+      [$ac_dir/$ac_word --omit-header /dev/null >/dev/null 2>&1], :)
+
+    dnl Search for GNU msgmerge 0.11 or newer in the PATH.
+    AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
+      [$ac_dir/$ac_word --update -q /dev/null /dev/null >/dev/null 2>&1], :)
+
+    dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
+    dnl Test whether we really found GNU msgfmt.
+    if test "$GMSGFMT" != ":"; then
+      dnl If it is no GNU msgfmt we define it as : so that the
+      dnl Makefiles still can work.
+      if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
+	: ;
+      else
+	AC_MSG_RESULT(
+	  [found msgfmt program is not GNU msgfmt; ignore it])
+	GMSGFMT=":"
+      fi
+    fi
+
+    dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
+    dnl Test whether we really found GNU xgettext.
+    if test "$XGETTEXT" != ":"; then
+      dnl If it is no GNU xgettext we define it as : so that the
+      dnl Makefiles still can work.
+      if $XGETTEXT --omit-header /dev/null >/dev/null 2>&1; then
+	: ;
+      else
+	AC_MSG_RESULT(
+	  [found xgettext program is not GNU xgettext; ignore it])
+	XGETTEXT=":"
+      fi
+    fi
+
     AC_OUTPUT_COMMANDS(
      [for ac_file in $CONFIG_FILES; do
         # Support "outfile[:infile[:infile...]]"

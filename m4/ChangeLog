@@ -1,3 +1,8 @@
+2001-10-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Make sure "make dist" works even when
+	configured with --disable-nls.
+
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* mkdtemp.m4 (gt_FUNC_MKDTEMP): Also check for <inttypes.h>.
