@@ -1,6 +1,22 @@
 2001-09-03  Bruno Haible  <haible@clisp.cons.org>
 
-	* configure.in: Call gt_PROG_LEX.
+	* xgettext.c (usage): Mention ObjectiveC and Java.
+	* xgettext.h (substring_match): New declaration.
+	* Makefile.am (x-java.c): New rule. Automake's .l.c rules doesn't
+	work if $(LEX) is defined to ":".
+
+2001-09-03  Tommy Johansson  <tommy.johansson@kanalen.org>
+
+	* x-java.h: New file.
+	* x-java.l: New file.
+	* xgettext.c: Include x-java.h.
+	(substring_match): New variable.
+	(long_options): Add --keyword-substring.
+	(main): For -k, also call x_java_keyword. Treat --keyword-substring.
+	(scan_java_file): New function.
+	(language_to_scanner): Add Java rule. Remove preliminary Java rule.
+	(extension_to_language): Add Java rule.
+	* Makefile.am (xgettext_SOURCES): Add x-java.l.
 
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
