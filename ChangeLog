@@ -1,3 +1,7 @@
+2001-03-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* config.guess, config.sub: Update to GNU version 2001-03-19.
+
 2001-03-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* acconfig.h (WARN_ID_LEN): Remove macro.
