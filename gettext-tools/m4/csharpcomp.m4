@@ -1,4 +1,4 @@
-# csharpcomp.m4 serial 1 (gettext-0.14)
+# csharpcomp.m4 serial 2 (gettext-0.14.1)
 dnl Copyright (C) 2003-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -50,7 +50,7 @@ AC_DEFUN([gt_CSHARPCOMP],
         fi
         ;;
       no)
-        HAVE_CSHARPEXEC=
+        HAVE_CSHARPCOMP=
         ac_result="no"
         break
         ;;
