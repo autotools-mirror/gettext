@@ -35048,6 +35048,7 @@ _ACEOF
 
 
 
+
         MKINSTALLDIRS=
   if test -n "$ac_aux_dir"; then
     case "$ac_aux_dir" in
@@ -36684,6 +36685,7 @@ _ACEOF
   prefix="$acl_final_prefix"
   eval acl_final_exec_prefix=\"$acl_final_exec_prefix\"
   prefix="$acl_save_prefix"
+
 
 
                                                 echo "$as_me:$LINENO: checking for shared library run path origin" >&5
@@ -39060,6 +39062,7 @@ echo "${ECHO_T}$gt_cv_func_gnugettext2_libintl" >&6
         LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
+      CATOBJEXT=
       if test "$gt_use_preinstalled_gnugettext" = "yes" \
          || test "$nls_cv_use_gnu_gettext" = "yes"; then
                 CATOBJEXT=.gmo
@@ -39175,7 +39178,8 @@ _ACEOF
         GENCAT=gencat
 
 
-        if test "$USE_INCLUDED_LIBINTL" = yes; then
+        INTLOBJS=
+    if test "$USE_INCLUDED_LIBINTL" = yes; then
       INTLOBJS="\$(GETTOBJS)"
     fi
 
@@ -41508,7 +41512,7 @@ x
   fi
   if test -f "$ac_given_srcdir/$ac_dir/LINGUAS"; then
     # The LINGUAS file contains the set of available languages.
-    ALL_LINGUAS_=`sed -e "/^#/d" "$ac_given_srcdir/$ac_dir/LINGUAS"`
+    ALL_LINGUAS_=`sed -e "/^#/d" -e "s/#.*//" "$ac_given_srcdir/$ac_dir/LINGUAS"`
     POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"
   else
     # Set ALL_LINGUAS to the value of the Makefile variable LINGUAS.
@@ -42101,6 +42105,9 @@ done
           /*) top_srcdir="$ac_given_srcdir" ;;
           *)  top_srcdir="$ac_dots$ac_given_srcdir" ;;
         esac
+        # Treat a directory as a PO directory if and only if it has a
+        # POTFILES.in file. This allows packages to have multiple PO
+        # directories under different names or in different locations.
         if test -f "$ac_given_srcdir/$ac_dir/POTFILES.in"; then
           rm -f "$ac_dir/POTFILES"
           test -n "$as_me" && echo "$as_me: creating $ac_dir/POTFILES" || echo "creating $ac_dir/POTFILES"
@@ -42114,7 +42121,7 @@ done
             if test -n "$OBSOLETE_ALL_LINGUAS"; then
               test -n "$as_me" && echo "$as_me: setting ALL_LINGUAS in configure.in is obsolete" || echo "setting ALL_LINGUAS in configure.in is obsolete"
             fi
-            ALL_LINGUAS_=`sed -e "/^#/d" "$ac_given_srcdir/$ac_dir/LINGUAS"`
+            ALL_LINGUAS_=`sed -e "/^#/d" -e "s/#.*//" "$ac_given_srcdir/$ac_dir/LINGUAS"`
             # Hide the ALL_LINGUAS assigment from automake.
             eval 'ALL_LINGUAS''=$ALL_LINGUAS_'
             POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"

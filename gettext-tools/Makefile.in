@@ -48,7 +48,7 @@ DIST_COMMON = README $(am__configure_deps) \
 	../config/config.sub ../config/elisp-comp ../config/install-sh \
 	../config/ltmain.sh ../config/mdate-sh ../config/missing \
 	../config/mkinstalldirs ../config/texinfo.tex ../config/ylwrap \
-	ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS TODO
+	ABOUT-NLS AUTHORS COPYING ChangeLog INSTALL NEWS
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
