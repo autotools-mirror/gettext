@@ -1,3 +1,9 @@
+/* Test program, used by the plural-1 test.  */
+
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 

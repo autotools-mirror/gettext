@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -58,7 +58,7 @@
 
 static FILE *fp;
 lex_pos_ty gram_pos;
-size_t gram_max_allowed_errors = 20;
+unsigned int gram_max_allowed_errors = 20;
 static int pass_comments = 0;
 static int pass_obsolete_entries = 0;
 

@@ -1,3 +1,12 @@
+2001-01-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (po-gram-gen.h): Don't use $^, not supported by the
+	SUSV2 "make" specification.
+	(LDADD): Add @INTLLIBS@. Needed on Solaris without
+	--with-included-gettext.
+	* po-lex.c (gram_max_allowed_errors): Change type to
+	'unsigned int'.
+
 2001-01-01  Bruno Haible  <haible@clisp.cons.org>
 
 	Implement plural form handling.

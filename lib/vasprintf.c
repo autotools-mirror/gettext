@@ -1,6 +1,6 @@
 /* Like vsprintf but provides a pointer to malloc'd storage, which must
    be freed by the caller.
-   Copyright (C) 1994, 1998, 1999, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1994, 1998, 1999, 2000, 2001 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -97,10 +97,13 @@ int_vasprintf (result, format, args)
 	      (void) va_arg (ap, int);
 	      break;
 	    case 'f':
-	      if (fabs (va_arg (ap, double)) >= 1.0)
-		/* Since an ieee double can have an exponent of 307, we'll
-		   make the buffer wide enough to cover the gross case. */
-		total_width += 307;
+	      {
+		double arg = va_arg (ap, double);
+		if (arg >= 1.0 || arg <= -1.0)
+		  /* Since an ieee double can have an exponent of 307, we'll
+		     make the buffer wide enough to cover the gross case. */
+		  total_width += 307;
+	      }
 	      break;
 	    case 'e':
 	    case 'E':

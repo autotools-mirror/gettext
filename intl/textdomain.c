@@ -1,5 +1,5 @@
 /* Implementation of the textdomain(3) function.
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 # include <config.h>
 #endif
 
-#if defined STDC_HEADERS || defined _LIBC
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #endif
 
-#if defined STDC_HEADERS || defined HAVE_STRING_H || defined _LIBC
+#if defined HAVE_STRING_H || defined _LIBC
 # include <string.h>
 #else
 # include <strings.h>

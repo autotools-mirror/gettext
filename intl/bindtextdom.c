@@ -1,5 +1,5 @@
 /* Implementation of the bindtextdomain(3) function
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -67,6 +67,11 @@ void free ();
 # define _nl_domain_bindings _nl_domain_bindings__
 #endif
 
+/* Some compilers, like SunOS4 cc, don't have offsetof in <stddef.h>.  */
+#ifndef offsetof
+# define offsetof(type,ident) ((size_t)&(((type*)0)->ident))
+#endif
+
 /* @@ end of prolog @@ */
 
 /* Contains the default location of the message catalogs.  */
@@ -95,8 +100,9 @@ __libc_rwlock_define (extern, _nl_state_lock)
 #endif
 
 /* Prototypes for local functions.  */
-static void set_binding_values (const char *domainname, const char **dirnamep,
-				const char **codesetp);
+static void set_binding_values PARAMS ((const char *domainname,
+					const char **dirnamep,
+					const char **codesetp));
      
 /* Specifies the directory name *DIRNAMEP and the output codeset *CODESETP
    to be used for the DOMAINNAME message catalog.

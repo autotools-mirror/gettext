@@ -1,5 +1,5 @@
 /* Header describing internals of gettext library
-   Copyright (C) 1995-1999, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -18,6 +18,10 @@
 
 #ifndef _GETTEXTP_H
 #define _GETTEXTP_H
+
+#if defined HAVE_STDDEF_H || defined _LIBC
+# include <stddef.h>		/* Get size_t.  */
+#endif
 
 #ifdef _LIBC
 # include "../iconv/gconv_int.h"
@@ -191,8 +195,9 @@ extern char *dcigettext__ PARAMS ((const char *domainname, const char *msgid1,
 #endif
 
 extern int __gettextdebug;
-extern void __gettext_free_exp (struct expression *exp) internal_function;
-extern int __gettextparse (void *arg);
+extern void __gettext_free_exp PARAMS ((struct expression *exp))
+     internal_function;
+extern int __gettextparse PARAMS ((void *arg));
 
 /* @@ begin of epilog @@ */
 

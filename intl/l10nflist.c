@@ -1,4 +1,4 @@
-/* Copyright (C) 1995-1999, 2000 Free Software Foundation, Inc.
+/* Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -47,7 +47,7 @@
 #include <ctype.h>
 #include <sys/types.h>
 
-#if defined STDC_HEADERS || defined _LIBC
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #endif
 
@@ -63,6 +63,11 @@
 #endif
 
 /* @@ end of prolog @@ */
+
+#ifdef _LIBC
+/* Use more efficient version of <ctype.h> function.  */
+# define tolower _tolower
+#endif
 
 #ifdef _LIBC
 /* Rename the non ANSI C functions.  This is required by the standard
@@ -388,7 +393,7 @@ _nl_normalize_codeset (codeset, name_len)
 
       for (cnt = 0; cnt < name_len; ++cnt)
 	if (isalpha (codeset[cnt]))
-	  *wp++ = _tolower (codeset[cnt]);
+	  *wp++ = tolower (codeset[cnt]);
 	else if (isdigit (codeset[cnt]))
 	  *wp++ = codeset[cnt];
 

@@ -1,5 +1,5 @@
 /* Compatibility code for gettext-using-catgets interface.
-   Copyright (C) 1995, 1997, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1997, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,14 +21,17 @@
 
 #include <stdio.h>
 
-#ifdef STDC_HEADERS
+#ifdef HAVE_STDLIB_H
 # include <stdlib.h>
-# include <string.h>
 #else
 char *getenv ();
 # ifdef HAVE_MALLOC_H
 #  include <malloc.h>
 # endif
+#endif
+
+#ifdef HAVE_STRING_H
+# include <string.h>
 #endif
 
 #ifdef HAVE_NL_TYPES_H

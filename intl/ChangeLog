@@ -1,3 +1,44 @@
+2001-01-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in (INCLUDES): Remove reference to $(top_srcdir)/lib.
+	(.SUFFIXES): Put .c before .y, so that Solaris "make" uses the .c.o
+	rule, not the builtin .y.o rule.
+	(.y.c): Use $< instead of $^. $^ is not supported by SUSV2 "make"
+	specification. Remove $*.h explicitly: we don't need plural.h.
+	* gettextP.h: Include <stddef.h>.
+	(__gettext_free_exp, __gettextparse): Convert prototype to K&R C
+	syntax.
+	* bindtextdom.c (offsetof): Provide fallback for platforms that lack
+	it, like SunOS4.
+	(set_binding_values): Convert prototype to K&R C syntax.
+	* cat-compat.c: Include stdlib.h, string.h whenever possible.
+	* dcigettext.c: Ignore the value of C_ALLOCA, because libintl.a
+	must not depend on external .o files.
+	(offsetof): Provide fallback for platforms that lack it, like SunOS4.
+	(transcmp): Convert to K&R C syntax.
+	* explodename.c Include stdlib.h whenever possible.
+	(_nl_find_language): Convert to K&R C syntax.
+	* finddomain.c: Include stdlib.h whenever possible.
+	* l10nflist.c Include stdlib.h whenever possible.
+	(tolower): Conditional macro.
+	(_nl_normalize_codeset): Use tolower, not _tolower.
+	* loadmsgcat.c: Include stdlib.h whenever possible.
+	Include headers needed for alloca().
+	(freea): New macro.
+	(_nl_load_domain): Add fallback code for platforms lacking strtoul,
+	like SunOS4. Add fallback code for platforms lacking alloca.
+	* localealias.c: Include stdlib.h whenever possible.
+	(ADD_BLOCK, FREE_BLOCK): Remove macros.
+	(freea): New macro.
+	(read_alias_file): Simplify fallback code for platforms lacking alloca.
+	* plural.y (new_exp_0, new_exp_2, new_exp_3): New functions.
+	(new_exp): Remove function.
+	(__gettext_free_exp, yylex, yyerror): Convert to K&R C syntax.
+	* textdomain.c: Include stdlib.h whenever possible.
+	* gettext.c: Likewise.
+	* ngettext.c: Likewise.
+	* localcharset.c (volatile): Define to empty if not using ANSI C.
+
 2001-01-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (mostlyclean): Remove intlh.inst, charset.alias,

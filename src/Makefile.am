@@ -1,5 +1,5 @@
 ## Makefile for program src directory in GNU NLS utilities package.
-## Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ l = @l@
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-LDADD = ../lib/libnlsut.a ../intl/libintl.$la
+LDADD = ../lib/libnlsut.a @INTLLIBS@ ../intl/libintl.$la
 
 SED = sed
 YACC = @YACC@ -d
@@ -57,7 +57,7 @@ BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
 
 po-lex.o: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
-	$(SED) 's/[yY][yY]/po_gram_/g' $^ > $@-tmp
+	$(SED) 's/[yY][yY]/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
 
 DISTCLEANFILES = po-gram-gen2.h

@@ -1,5 +1,5 @@
 /* Handle list of needed message catalogs
-   Copyright (C) 1995-1999, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.org>, 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-#if defined STDC_HEADERS || defined _LIBC
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #else
 # ifdef HAVE_MALLOC_H

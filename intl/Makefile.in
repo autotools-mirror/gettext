@@ -82,20 +82,21 @@ LTV_REVISION=0
 LTV_AGE=0
 
 .SUFFIXES:
-.SUFFIXES: .y .c .o .lo .sin .sed
+.SUFFIXES: .c .y .o .lo .sin .sed
 .c.o:
 	$(COMPILE) $<
 .c.lo:
 	$(LIBTOOL) --mode=compile $(COMPILE) $<
 
 .y.c:
-	$(YACC) $(YFLAGS) --output $@ $^
+	$(YACC) $(YFLAGS) --output $@ $<
+	rm -f $*.h
 
 .sin.sed:
 	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $< > t-$@
 	mv t-$@ $@
 
-INCLUDES = -I.. -I. -I$(top_srcdir)/intl -I$(top_srcdir)/lib
+INCLUDES = -I.. -I. -I$(top_srcdir)/intl
 
 all: all-@USE_INCLUDED_LIBINTL@
 

@@ -1,5 +1,5 @@
 /* Return the name-within-directory of a file name.
-   Copyright (C) 1996, 1997, 1998, 1999, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1996-1999, 2000, 2001 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@prep.ai.mit.edu.
@@ -23,6 +23,7 @@
 # include <config.h>
 #endif
 
+#include <stdio.h>
 #include <assert.h>
 
 #ifndef FILESYSTEM_PREFIX_LEN
@@ -45,7 +46,8 @@
    If NAME is all slashes, be sure to return `/'.  */
 
 char *
-basename (char const *name)
+basename (name)
+     char const *name;
 {
   char const *base = name += FILESYSTEM_PREFIX_LEN (name);
   int all_slashes = 1;

@@ -28,11 +28,11 @@
 
 #include <sys/types.h>
 
-#if defined __GNUC__ && !defined C_ALLOCA
+#ifdef __GNUC__
 # define alloca __builtin_alloca
 # define HAVE_ALLOCA 1
 #else
-# if (defined HAVE_ALLOCA_H || defined _LIBC) && !defined C_ALLOCA
+# if defined HAVE_ALLOCA_H || defined _LIBC
 #  include <alloca.h>
 # else
 #  ifdef _AIX
@@ -128,6 +128,11 @@ void free ();
 # define _nl_current_default_domain _nl_current_default_domain__
 # define _nl_default_dirname _nl_default_dirname__
 # define _nl_domain_bindings _nl_domain_bindings__
+#endif
+
+/* Some compilers, like SunOS4 cc, don't have offsetof in <stddef.h>.  */
+#ifndef offsetof
+# define offsetof(type,ident) ((size_t)&(((type*)0)->ident))
 #endif
 
 /* @@ end of prolog @@ */
@@ -235,7 +240,9 @@ static void *root;
 
 /* Function to compare two entries in the table of known translations.  */
 static int
-transcmp (const void *p1, const void *p2)
+transcmp (p1, p2)
+     const void *p1;
+     const void *p2;
 {
   struct known_translation_t *s1 = (struct known_translation_t *) p1;
   struct known_translation_t *s2 = (struct known_translation_t *) p2;

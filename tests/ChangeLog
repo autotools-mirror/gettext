@@ -1,3 +1,8 @@
+2001-01-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-1-prg.c: Include config.h. Needed for C compilers lacking
+	"const", like SunOS4 cc.
+
 2001-01-01  Bruno Haible  <haible@clisp.cons.org>
 
 	Implement plural form handling.

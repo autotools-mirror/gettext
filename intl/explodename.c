@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+/* Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # include <config.h>
 #endif
 
-#if defined STDC_HEADERS || defined _LIBC
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #endif
 
@@ -44,7 +44,8 @@
 /* @@ end of prolog @@ */
 
 char *
-_nl_find_language (const char *name)
+_nl_find_language (name)
+     const char *name;
 {
   while (name[0] != '\0' && name[0] != '_' && name[0] != '@'
 	 && name[0] != '+' && name[0] != ',')

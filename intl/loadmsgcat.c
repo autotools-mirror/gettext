@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-1999, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,7 +32,24 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#if defined STDC_HEADERS || defined _LIBC
+#ifdef __GNUC__
+# define alloca __builtin_alloca
+# define HAVE_ALLOCA 1
+#else
+# if defined HAVE_ALLOCA_H || defined _LIBC
+#  include <alloca.h>
+# else
+#  ifdef _AIX
+ #pragma alloca
+#  else
+#   ifndef alloca
+char *alloca ();
+#   endif
+#  endif
+# endif
+#endif
+
+#if defined HAVE_STDLIB_H || defined _LIBC
 # include <stdlib.h>
 #endif
 
@@ -77,6 +94,15 @@
 # define read   __read
 # define mmap   __mmap
 # define munmap __munmap
+#endif
+
+/* For those losing systems which don't have `alloca' we have to add
+   some additional code emulating it.  */
+#ifdef HAVE_ALLOCA
+# define freea(p) /* nothing */
+#else
+# define alloca(n) malloc (n)
+# define freea(p) free (p)
 #endif
 
 /* We need a sign, whether a new catalog was loaded, which can be associated
@@ -370,6 +396,8 @@ _nl_load_domain (domain_file)
 	  domain->conv = iconv_open (outcharset, charset);
 #  endif
 # endif
+
+	  freea (charset);
 	}
 #endif /* _LIBC || HAVE_ICONV */
     }
@@ -388,12 +416,19 @@ _nl_load_domain (domain_file)
 	{
 	  /* First get the number.  */
 	  char *endp;
+	  unsigned long int n;
 	  struct parse_args args;
 
 	  nplurals += 9;
 	  while (*nplurals != '\0' && isspace (*nplurals))
 	    ++nplurals;
-	  domain->nplurals = strtoul (nplurals, &endp, 10);
+#ifdef HAVE_STRTOUL
+	  n = strtoul (nplurals, &endp, 10);
+#else
+	  for (endp = nplurals, n = 0; *endp >= '0' && *endp <= '9'; endp++)
+	    n = n * 10 + (*endp - '0');
+#endif
+	  domain->nplurals = n;
 	  if (nplurals == endp)
 	    goto no_plural;
 

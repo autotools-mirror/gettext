@@ -1,6 +1,6 @@
 %{
 /* Expression parsing for plural form selection.
-   Copyright (C) 2000 Free Software Foundation, Inc.
+   Copyright (C) 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software; you can redistribute it and/or modify
@@ -21,7 +21,6 @@
 # include <config.h>
 #endif
 
-#include <stdarg.h>
 #include <stdlib.h>
 #include "gettext.h"
 #include "gettextP.h"
@@ -39,9 +38,16 @@
 
 %{
 /* Prototypes for local functions.  */
-static struct expression *new_exp (enum operator op, int n, ...);
-static int yylex (YYSTYPE *lval, const char **pexp);
-static void yyerror (const char *str);
+static struct expression *new_exp_0 PARAMS ((enum operator op));
+static struct expression *new_exp_2 PARAMS ((enum operator op,
+					     struct expression *left,
+					     struct expression *right));
+static struct expression *new_exp_3 PARAMS ((enum operator op,
+					     struct expression *bexp,
+					     struct expression *tbranch,
+					     struct expression *fbranch));
+static int yylex PARAMS ((YYSTYPE *lval, const char **pexp));
+static void yyerror PARAMS ((const char *str));
 %}
 
 %left '?'
@@ -63,62 +69,62 @@ start:	  exp
 
 exp:	  exp '?' exp ':' exp
 	  {
-	    if (($$ = new_exp (qmop, 3, $1, $3, $5)) == NULL)
+	    if (($$ = new_exp_3 (qmop, $1, $3, $5)) == NULL)
 	      YYABORT
 	  }
 	| exp '|' exp
 	  {
-	    if (($$ = new_exp (lor, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (lor, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '&' exp
 	  {
-	    if (($$ = new_exp (land, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (land, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '=' exp
 	  {
-	    if (($$ = new_exp (equal, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (equal, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '!' exp
 	  {
-	    if (($$ = new_exp (not_equal, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (not_equal, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '+' exp
 	  {
-	    if (($$ = new_exp (plus, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (plus, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '-' exp
 	  {
-	    if (($$ = new_exp (minus, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (minus, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '*' exp
 	  {
-	    if (($$ = new_exp (mult, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (mult, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '/' exp
 	  {
-	    if (($$ = new_exp (divide, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (divide, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| exp '%' exp
 	  {
-	    if (($$ = new_exp (module, 2, $1, $3)) == NULL)
+	    if (($$ = new_exp_2 (module, $1, $3)) == NULL)
 	      YYABORT
 	  }
 	| 'n'
 	  {
-	    if (($$ = new_exp (var, 0)) == NULL)
+	    if (($$ = new_exp_0 (var)) == NULL)
 	      YYABORT
 	  }
 	| NUMBER
 	  {
-	    if (($$ = new_exp (num, 0)) == NULL)
+	    if (($$ = new_exp_0 (num)) == NULL)
 	      YYABORT;
 	    $$->val.num = $1
 	  }
@@ -131,45 +137,76 @@ exp:	  exp '?' exp ':' exp
 %%
 
 static struct expression *
-new_exp (enum operator op, int n, ...)
+new_exp_0 (op)
+     enum operator op;
 {
-  struct expression *newp = (struct expression *) calloc (1, sizeof (*newp));
-  va_list va;
+  struct expression *newp = (struct expression *) malloc (sizeof (*newp));
 
-  va_start (va, n);
+  if (newp != NULL)
+    newp->operation = op;
 
-  if (newp == NULL)
-    while (n-- > 0)
-      __gettext_free_exp (va_arg (va, struct expression *));
-  else
+  return newp;
+}
+
+static struct expression *
+new_exp_2 (op, left, right)
+     enum operator op;
+     struct expression *left;
+     struct expression *right;
+{
+  struct expression *newp = NULL;
+
+  if (left != NULL && right != NULL)
+    newp = (struct expression *) malloc (sizeof (*newp));
+
+  if (newp != NULL)
     {
       newp->operation = op;
-      if (n > 0)
-	{
-	  newp->val.args3.bexp = va_arg (va, struct expression *);
-	  newp->val.args3.tbranch = va_arg (va, struct expression *);
-
-	  if (n > 2)
-	    newp->val.args3.fbranch = va_arg (va, struct expression *);
-
-	  if (newp->val.args3.bexp == NULL
-	      || newp->val.args3.tbranch == NULL
-	      || (n > 2 && newp->val.args3.fbranch == NULL))
-	    {
-	      __gettext_free_exp (newp);
-	      newp = NULL;
-	    }
-	}
+      newp->val.args2.left = left;
+      newp->val.args2.right = right;
+    }
+  else
+    {
+      __gettext_free_exp (left);
+      __gettext_free_exp (right);
     }
 
-  va_end (va);
+  return newp;
+}
+
+static struct expression *
+new_exp_3 (op, bexp, tbranch, fbranch)
+     enum operator op;
+     struct expression *bexp;
+     struct expression *tbranch;
+     struct expression *fbranch;
+{
+  struct expression *newp = NULL;
+
+  if (bexp != NULL && tbranch != NULL && fbranch != NULL)
+    newp = (struct expression *) malloc (sizeof (*newp));
+
+  if (newp != NULL)
+    {
+      newp->operation = op;
+      newp->val.args3.bexp = bexp;
+      newp->val.args3.tbranch = tbranch;
+      newp->val.args3.fbranch = fbranch;
+    }
+  else
+    {
+      __gettext_free_exp (bexp);
+      __gettext_free_exp (tbranch);
+      __gettext_free_exp (fbranch);
+    }
 
   return newp;
 }
 
 void
 internal_function
-__gettext_free_exp (struct expression *exp)
+__gettext_free_exp (exp)
+     struct expression *exp;
 {
   if (exp == NULL)
     return;
@@ -203,7 +240,9 @@ __gettext_free_exp (struct expression *exp)
 
 
 static int
-yylex (YYSTYPE *lval, const char **pexp)
+yylex (lval, pexp)
+     YYSTYPE *lval;
+     const char **pexp;
 {
   const char *exp = *pexp;
   int result;
@@ -298,7 +337,8 @@ yylex (YYSTYPE *lval, const char **pexp)
 
 
 static void
-yyerror (const char *str)
+yyerror (str)
+     const char *str;
 {
   /* Do nothing.  We don't print error messages here.  */
 }

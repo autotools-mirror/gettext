@@ -1,5 +1,5 @@
 /* Implementation of gettext(3) function.
-   Copyright (C) 1995, 1997, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1997, 2000, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 # define __need_NULL
 # include <stddef.h>
 #else
-# ifdef STDC_HEADERS
+# ifdef HAVE_STDLIB_H
 #  include <stdlib.h>		/* Just for NULL.  */
 # else
 #  ifdef HAVE_STRING_H

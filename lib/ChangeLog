@@ -1,3 +1,10 @@
+2001-01-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* basename.c: Include <stdio.h>, needed by assert on SunOS4.
+	(basename): Convert to K&R C syntax.
+	* vasprintf.c (int_vasprintf): Don't use fabs, it needs -lm on some
+	platforms.
+
 2000-12-31  Bruno Haible  <haible@clisp.cons.org>
 
 	* hash.c (insert_entry): Use obstack_copy instead of obstack_copy0.
