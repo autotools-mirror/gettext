@@ -1,3 +1,7 @@
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* version.sh: Bump version number to 0.12.2.
+
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
 	* config/install-reloc: Also compile readlink.c.
