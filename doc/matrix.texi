@@ -9,7 +9,7 @@ clisp           |          []    []    []       []                |
 cpio            |       [] []          []       []                |
 diffutils       |       [] []       [] []       [] []       []    |
 enscript        |          []                   []                |
-error           |                               []                |
+error           |                      []       []                |
 fileutils       |    [] [] [] []       []       [] []             |
 findutils       |       [] []          [] []    [] []       [] [] |
 flex            |       []             []       []                |
@@ -41,10 +41,10 @@ texinfo         |    [] [] []       []          []                |
 textutils       |    [] [] [] []       []       [] []             |
 util-linux      |    [] []                                        |
 wdiff           |    [] []             [] []    [] []       []    |
-wget            |       [] []          [] []    [] []             |
+wget            |    [] [] [] []       [] []    [] []             |
                 +-------------------------------------------------+
                   bg cs da de el en eo es et fi fr gl he hr id it
-                   0 13 24 28 10  1  8 20 13  1 29 18  1  0  8 10
+                   0 14 24 28 11  1  8 21 13  1 29 18  1  0  8 10
 @end group
 
 @group
@@ -57,7 +57,7 @@ clisp           |          []                                     |  5
 cpio            |    []    []    []     []   []                   |  9
 diffutils       |                []          []       []          | 10
 enscript        |          []           []   []                   |  5
-error           |                                        []       |  2
+error           |                                        []       |  3
 fileutils       | [] []    []    []     []   [] [] [] []          | 16
 findutils       |    []    []    []     []   []       [] []       | 15
 flex            |    []                      []       []          |  6
@@ -74,24 +74,24 @@ libc            | [] []       [] []     []      []    [] []       | 16
 lilypond        |          []                                     |  1
 lynx            | []       []           []   []       []          |  8
 m4              | []       []    []          []       []          | 12
-make            | []       []    []     []   []          []       | 10
+make            | [] []    []    []     []   []          []       | 11
 parted          | []       []                []                   |  5
-ptx             |          [] [] [] []       []       []          | 13
+ptx             |          [] [] [] []       []       [] []       | 14
 python          |                                                 |  0
-recode          |                            []    [] []          | 11
+recode          |                []          []    [] []          | 12
 sed             | []       []           []   [] [] [] []          | 17
 sh-utils        | []       [] [] []     []   [] [] [] [] []    [] | 20
 sharutils       | []       []                []       []          | 11
 soundtracker    |                                                 |  0
 sp              |                                                 |  0
-tar             | []       [] [] []     []   []    [] []          | 16
+tar             | []       [] [] []     []   []    [] [] []       | 17
 texinfo         | []                         []                   |  7
 textutils       | []       [] [] []     []   [] [] []             | 15
 util-linux      |                       []                        |  3
 wdiff           |          []    []          [] []    []          | 12
-wget            |                            []    [] [] []       | 10
+wget            |          []                []    [] [] []       | 13
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  40 domains      17  7  1 22  6 17  1  13   26  8  9 20 11  1  2  345
+  40 domains      17  8  1 23  6 18  1  13   26  8  9 20 13  1  2  353
 @end group
 @end example
