@@ -172,7 +172,7 @@ people who like their own language and write it well, and who are also
 able to synergize with other translators speaking the same language.
 Each translation team has its own mailing list.  The up-to-date list
 of teams can be found at the Free Translation Project's homepage,
-@file{http://www.iro.umontreal.ca/~pinard/po/HTML/}, in the
+@file{http://www.iro.umontreal.ca/contrib/po/HTML/}, in the
 "National teams" area.
 
 If you'd like to volunteer to @emph{work} at translating messages, you
