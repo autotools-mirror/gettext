@@ -1,5 +1,12 @@
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.m4 (AM_GNU_GETTEXT): Remove computation of CATALOGS.
+	(AM_WITH_NLS): Compute ALL_LINGUAS, GMOFILES, POFILES, CATALOGS while
+	creating po/Makefile from po/Makefile.in. Remove computation of
+	GMOFILES, POFILES during configure.
+
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.m4 (AM_WITH_NLS): Simplify the logic. Use the same tests
 	for MSGFMT and XGETTEXT in the case we use a preinstalled GNU libintl
 	and in the case of using the included libintl.

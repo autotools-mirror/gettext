@@ -64,38 +64,6 @@ strdup strtoul tsearch __argz_count __argz_stringify __argz_next])
    AM_LC_MESSAGES
    AM_WITH_NLS([$1],[$2],[$3])
 
-   if test "x$CATOBJEXT" != "x"; then
-     if test "x$ALL_LINGUAS" = "x"; then
-       LINGUAS=
-     else
-       AC_MSG_CHECKING(for catalogs to be installed)
-       NEW_LINGUAS=
-       for presentlang in $ALL_LINGUAS; do
-         useit=no
-         for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
-           # Use the presentlang catalog if desiredlang is
-           #   a. equal to presentlang, or
-           #   b. a variant of presentlang (because in this case,
-           #      presentlang can be used as a fallback for messages
-           #      which are not translated in the desiredlang catalog).
-           case "$desiredlang" in
-             "$presentlang"*) useit=yes;;
-           esac
-         done
-         if test $useit = yes; then
-           NEW_LINGUAS="$NEW_LINGUAS $presentlang"
-         fi
-       done
-       LINGUAS=$NEW_LINGUAS
-       AC_MSG_RESULT($LINGUAS)
-     fi
-
-     dnl Construct list of names of catalog files to be constructed.
-     if test -n "$LINGUAS"; then
-       for lang in $LINGUAS; do CATALOGS="$CATALOGS $lang$CATOBJEXT"; done
-     fi
-   fi
-
    dnl If the AC_CONFIG_AUX_DIR macro for autoconf is used we possibly
    dnl find the mkinstalldirs script in another subdir but $(top_srcdir).
    dnl Try to locate is.
@@ -288,12 +256,62 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
             rm -f "$ac_dir/POTFILES"
             test -n "$as_me" && echo "$as_me: creating $ac_dir/POTFILES" || echo "creating $ac_dir/POTFILES"
             sed -e "/^#/d" -e "/^[ 	]*\$/d" -e "s,.*,     $top_srcdir/& \\\\," -e "\$s/\(.*\) \\\\/\1/" < "$ac_given_srcdir/$ac_dir/POTFILES.in" > "$ac_dir/POTFILES"
+            # ALL_LINGUAS, GMOFILES, POFILES depend on $ac_dir but don't
+            # depend on user-specified configuration parameters.
+            if test -f "$ac_given_srcdir/$ac_dir/LINGUAS"; then
+              # The LINGUAS file contains the set of available languages.
+              if test -n "$ALL_LINGUAS"; then
+                test -n "$as_me" && echo "$as_me: setting ALL_LINGUAS in configure.in is obsolete" || echo "setting ALL_LINGUAS in configure.in is obsolete"
+              fi
+              ALL_LINGUAS_=`sed -e "/^#/d" "$ac_given_srcdir/$ac_dir/LINGUAS"`
+              # Hide the ALL_LINGUAS assigment from automake.
+              eval 'ALL_LINGUAS''=$ALL_LINGUAS_'
+            fi
+            GMOFILES=
+            POFILES=
+            for lang in $ALL_LINGUAS; do
+              GMOFILES="$GMOFILES $lang.gmo"
+              POFILES="$POFILES $lang.po"
+            done
+            # CATALOGS depends on both $ac_dir and the user's LINGUAS
+            # environment variable.
+            INST_LINGUAS=
+            if test -n "$ALL_LINGUAS"; then
+              for presentlang in $ALL_LINGUAS; do
+                useit=no
+                for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
+                  # Use the presentlang catalog if desiredlang is
+                  #   a. equal to presentlang, or
+                  #   b. a variant of presentlang (because in this case,
+                  #      presentlang can be used as a fallback for messages
+                  #      which are not translated in the desiredlang catalog).
+                  case "$desiredlang" in
+                    "$presentlang"*) useit=yes;;
+                  esac
+                done
+                if test $useit = yes; then
+                  INST_LINGUAS="$INST_LINGUAS $presentlang"
+                fi
+              done
+            fi
+            CATALOGS=
+            if test -n "$INST_LINGUAS"; then
+              for lang in $INST_LINGUAS; do
+                CATALOGS="$CATALOGS $lang.gmo"
+              done
+            fi
             test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-            sed -e "/POTFILES =/r $ac_dir/POTFILES" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+            sed -e "/POTFILES =/r $ac_dir/POTFILES" -e "s|@GMOFILES@|$GMOFILES|g" -e "s|@POFILES@|$POFILES|g" -e "s|@CATALOGS@|$CATALOGS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
           fi
           ;;
         esac
-      done])
+      done],
+     [# Capture the value of obsolete $ALL_LINGUAS because we need it to
+      # compute GMOFILES, POFILES, CATALOGS. But hide it from automake.
+      eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
+      # Capture the value of $LINGUAS because we need it to compute CATALOGS.
+      LINGUAS="$LINGUAS"
+     ])
 
 
     dnl If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
@@ -333,23 +351,12 @@ changequote([,])dnl
       INTLBISON=:
     fi
 
-    dnl These rules are solely for the distribution goal.  While doing this
-    dnl we only have to keep exactly one list of the available catalogs
-    dnl in configure.in.
-    for lang in $ALL_LINGUAS; do
-      GMOFILES="$GMOFILES $lang.gmo"
-      POFILES="$POFILES $lang.po"
-    done
-
     dnl Make all variables we use known to autoconf.
     AC_SUBST(BUILD_INCLUDED_LIBINTL)
     AC_SUBST(USE_INCLUDED_LIBINTL)
-    AC_SUBST(CATALOGS)
     AC_SUBST(CATOBJEXT)
-    AC_SUBST(GMOFILES)
     AC_SUBST(INTLLIBS)
     AC_SUBST(INTLOBJS)
-    AC_SUBST(POFILES)
     AC_SUBST(POSUB)
 
     dnl For backward compatibility. Some configure.ins may be using this.

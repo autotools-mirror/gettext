@@ -5022,6 +5022,7 @@ its own functionality.
 
 @menu
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
+* po/LINGUAS::                  @file{LINGUAS} in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * aclocal::                     @file{aclocal.m4} at top level
@@ -5030,7 +5031,7 @@ its own functionality.
 * src/Makefile::                @file{Makefile.in} in @file{src/}
 @end menu
 
-@node po/POTFILES.in, configure.in, Adjusting Files, Adjusting Files
+@node po/POTFILES.in, po/LINGUAS, Adjusting Files, Adjusting Files
 @subsection @file{POTFILES.in} in @file{po/}
 
 The @file{po/} directory should receive a file named
@@ -5062,7 +5063,31 @@ list those source files containing strings marked for translation
 of your whole distribution, rather than the location of the
 @file{POTFILES.in} file itself.
 
-@node configure.in, config.guess, po/POTFILES.in, Adjusting Files
+@node po/LINGUAS, configure.in, po/POTFILES.in, Adjusting Files
+@subsection @file{LINGUAS} in @file{po/}
+
+The @file{po/} directory should also receive a file named
+@file{LINGUAS}.  This file contains the list of available translations.
+It is a whitespace separated list.  Hash-marked comments and white lines
+are ignored.  Here is an example file:
+
+@example
+@group
+# Set of available languages.
+de fr
+@end group
+@end example
+
+@noindent
+This example means that German and French PO files are available, so
+that these languages are currently supported by your package.  If you
+want to further restrict, at installation time, the set of installed
+languages, this should not be done by modifying the @file{LINGUAS} file,
+but rather by using the @code{LINGUAS} environment variable
+(@pxref{Installers}).
+
+
+@node configure.in, config.guess, po/LINGUAS, Adjusting Files
 @subsection @file{configure.in} at top level
 
 @enumerate
@@ -5084,23 +5109,6 @@ Of course, you replace @samp{gettext} with the name of your package,
 and @samp{@value{VERSION}} by its version numbers, exactly as they
 should appear in the packaged @code{tar} file name of your distribution
 (@file{gettext-@value{VERSION}.tar.gz}, here).
-
-@item Declare the available translations.
-
-This is done by defining @code{ALL_LINGUAS} to the white separated,
-quoted list of available languages, in a single line, like this:
-
-@example
-ALL_LINGUAS="de fr"
-@end example
-
-@noindent
-This example means that German and French PO files are available, so
-that these languages are currently supported by your package.  If you
-want to further restrict, at installation time, the set of installed
-languages, this should not be done by modifying @code{ALL_LINGUAS} in
-@file{configure.in}, but rather by using the @code{LINGUAS} environment
-variable (@pxref{Installers}).
 
 @item Check for internationalization support.
 

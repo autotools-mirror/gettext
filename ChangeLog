@@ -1,3 +1,7 @@
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (ALL_LINGUAS): Remove assignment.
+
 2001-08-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* README: Change bug report address to <bug-gnu-gettext@gnu.org>.

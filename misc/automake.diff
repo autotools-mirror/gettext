@@ -1,0 +1,20 @@
+*** automake.bak	Sun Jun 10 16:24:20 2001
+--- automake	Sun Jul 22 16:51:04 2001
+***************
+*** 3313,3319 ****
+      }
+      else
+      {
+! 	&am_error ("AM_GNU_GETTEXT in configure.in but \`ALL_LINGUAS' not defined");
+      }
+  }
+  
+--- 3313,3320 ----
+      }
+      else
+      {
+! 	&am_error ("AM_GNU_GETTEXT in configure.in but po/LINGUAS doesn't exist and \`ALL_LINGUAS' not defined")
+! 	    if ! -f "po/LINGUAS";
+      }
+  }
+  
