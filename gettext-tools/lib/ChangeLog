@@ -1,3 +1,9 @@
+2003-09-16  Bruno Haible  <bruno@clisp.org>
+
+	Portability to SunOS 4.
+	* atexit.c: New file, from gnulib with modifications.
+	* Makefile.am (LIBADD_SOURCE): Add atexit.c.
+
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
 	* closeout.c: Include fwriteerror.h.

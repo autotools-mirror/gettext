@@ -1,3 +1,8 @@
+2003-09-16  Bruno Haible  <bruno@clisp.org>
+
+	Portability to SunOS 4.
+	* configure.ac: Also check for atexit.
+
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextlib.def: Export fwriteerror.

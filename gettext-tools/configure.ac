@@ -103,7 +103,7 @@ gl_FUNC_ALLOCA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
 utime utimes])
-AC_REPLACE_FUNCS([memmove memset stpcpy strcspn \
+AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn \
 strcasecmp strncasecmp strpbrk strstr vasprintf])
 AM_FUNC_GETLINE
 if test $am_cv_func_working_getline != yes; then

@@ -78,6 +78,7 @@ libgettextlib_la_SOURCES = \
 
 LIBADD_SOURCE = \
   alloca.c \
+  atexit.c \
   canonicalize.h canonicalize.c \
   fnmatch.c \
   getline.h getline.c \
