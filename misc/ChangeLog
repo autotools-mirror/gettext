@@ -1,3 +1,12 @@
+2002-08-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in: Fix typo in the handling of AM_GNU_GETTEXT_VERSION.
+	Reported by Adam Heath <doogie@debian.org>.
+
+2002-08-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.5 released.
+
 2002-08-03  Paul Eggert  <eggert@twinsun.com>
 
 	* gettextize.in: Use "read dummy" to avoid an error with Solaris

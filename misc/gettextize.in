@@ -869,7 +869,7 @@ sed -e 's%sed -e "/POTFILES =/r po/POTFILES" po/Makefile\.in > po/Makefile *;* *
 func_modify_configure_in "(AC_OUTPUT): Remove command that created po/Makefile."
 sed -e '/^\(dnl \|\)AC_LINK_FILES(\$nls_cv_header_libgt, \$nls_cv_header_intl)$/d' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
 func_modify_configure_in "(AC_LINK_FILES): Remove invocation."
-sed -e 's/^AM_GNU_GETTEXT_VERSION([^()]*)/AM_GNU_GETTEXT_VERSION('"$version"'/' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
+sed -e 's/^AM_GNU_GETTEXT_VERSION([^()]*)/AM_GNU_GETTEXT_VERSION('"$version"')/' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
 func_modify_configure_in "(AM_GNU_GETTEXT_VERSION): Bump to $version."
 $do_changelog && func_ChangeLog_finish
 
