@@ -26,7 +26,7 @@ tmpfiles="$tmpfiles mf-11.mo core *.core"
 : ${MSGFMT=msgfmt}
 ${MSGFMT} --check -o mf-11.mo mf-11.po 2>/dev/null
 # Exit code must be 1.
-# If the division by zero didn't get noticed, it would be 0.
+# If the invalid sequence didn't get noticed, it would be 0.
 # If it produced a core dump, it would be 134 (= 128 + SIGABRT).
 test $? = 1
 result=$?
