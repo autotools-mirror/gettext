@@ -1,5 +1,14 @@
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
+	Avoid warnings on platforms where size_t is larger than int.
+	* msgfmt.c (check_pair): Use an 'unsigned int' variable instead of
+	'size_t', to avoid warnings.
+	* po-lex.h (po_gram_error): Cast line number to 'unsigned long'.
+	* po-lex.c (po_gram_error): Likewise.
+	* x-c.c (extract_c): Likewise.
+
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgexec.c [BeOS]: Fix #ifdef conditional.
 
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>

@@ -112,15 +112,16 @@ po_gram_error (fmt, va_alist)
   vasprintf (&buffer, fmt, ap);
   va_end (ap);
   error_with_progname = false;
-  error (0, 0, "%s:%d:%d: %s" gram_pos.file_name, gram_pos.line_number,
-	 gram_pos_column + 1, buffer);
+  error (0, 0, "%s:%lu:%d: %s", gram_pos.file_name,
+	 (unsigned long) gram_pos.line_number, gram_pos_column + 1, buffer);
   error_with_progname = true;
 # else
-  char *totalfmt = xasprintf ("%s%s", "%s:%d:%d: ", fmt);
+  char *totalfmt = xasprintf ("%s%s", "%s:%lu:%d: ", fmt);
 
   error_with_progname = false;
-  error (0, 0, totalfmt, gram_pos.file_name, gram_pos.line_number,
-	 gram_pos_column + 1, a1, a2, a3, a4, a5, a6, a7, a8);
+  error (0, 0, totalfmt, gram_pos.file_name,
+	 (unsigned long) gram_pos.line_number, gram_pos_column + 1,
+	 a1, a2, a3, a4, a5, a6, a7, a8);
   error_with_progname = true;
   free (totalfmt);
 # endif

@@ -109,7 +109,8 @@ static void match_domain PARAMS ((const char *fn1, const char *fn2,
 				  message_list_list_ty *definitions,
 				  message_list_ty *refmlp,
 				  message_list_ty *resultmlp,
-				  struct statistics *stats, int *processed));
+				  struct statistics *stats,
+				  unsigned int *processed));
 static msgdomain_list_ty *merge PARAMS ((const char *fn1, const char *fn2,
 					 msgdomain_list_ty **defp));
 
@@ -491,7 +492,7 @@ match_domain (fn1, fn2, definitions, refmlp, resultmlp, stats, processed)
      message_list_ty *refmlp;
      message_list_ty *resultmlp;
      struct statistics *stats;
-     int *processed;
+     unsigned int *processed;
 {
   size_t j;
 
@@ -586,7 +587,7 @@ merge (fn1, fn2, defp)
   msgdomain_list_ty *def;
   msgdomain_list_ty *ref;
   size_t j, k;
-  size_t processed;
+  unsigned int processed;
   struct statistics stats;
   msgdomain_list_ty *result;
   message_list_list_ty *definitions;

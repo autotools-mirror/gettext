@@ -916,6 +916,7 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 {
   int has_newline;
   size_t i;
+  unsigned int j;
   const char *p;
 
   /* If the msgid string is empty we have the special entry reserved for
@@ -937,13 +938,13 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
-      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
+      for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
 	    error_with_progname = false;
 	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			   _("\
-`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), i);
+`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), j);
 	    error_with_progname = true;
 	    exit_status = EXIT_FAILURE;
 	  }
@@ -976,13 +977,13 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
-      for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
+      for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
 	    error_with_progname = false;
 	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			   _("\
-`msgid' and `msgstr[%u]' entries do not both end with '\\n'"), i);
+`msgid' and `msgstr[%u]' entries do not both end with '\\n'"), j);
 	    error_with_progname = true;
 	    exit_status = EXIT_FAILURE;
 	  }

@@ -1266,8 +1266,9 @@ extract_c (f, real_filename, logical_filename, mdlp)
 	       {
 		 error_with_progname = false;
 		 error (0, 0,
-			_("%s:%d: warning: keyword nested in keyword arg"),
-			token.pos.file_name, token.pos.line_number);
+			_("%s:%lu: warning: keyword nested in keyword arg"),
+			token.pos.file_name,
+			(unsigned long) token.pos.line_number);
 		 error_with_progname = true;
 		 continue;
 	       }
@@ -1278,8 +1279,9 @@ extract_c (f, real_filename, logical_filename, mdlp)
 		we punt and forget the outer keyword.  */
 	     error_with_progname = false;
 	     error (0, 0,
-		    _("%s:%d: warning: keyword between outer keyword and its arg"),
-		    token.pos.file_name, token.pos.line_number);
+		    _("%s:%lu: warning: keyword between outer keyword and its arg"),
+		    token.pos.file_name,
+		    (unsigned long) token.pos.line_number);
 	     error_with_progname = true;
 	   }
 	 commas_to_skip = token.argnum1 - 1;
