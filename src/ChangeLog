@@ -1,3 +1,66 @@
+2001-12-22  Bruno Haible  <bruno@clisp.org>
+
+	* dir-list.c: Include <stddef.h> instead of <stdlib.h>.
+	* xgettext.h: Likewise.
+	* file-list.c: Include exit.h instead of system.h.
+	* gettext.c: Likewise.
+	* hostname.c: Likewise.
+	* msgattrib.c: Likewise.
+	* msgcat.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgconv.c: Likewise.
+	* msgexec.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* msguniq.c: Likewise.
+	* ngettext.c: Likewise.
+	* read-java.c: Likewise.
+	* x-ycp.c: Likewise.
+	* msgcmp.c: Include exit.h instead of system.h. Don't include
+	str-list.h.
+	* msgfilter.c: Likewise.
+	* msgen.c: Include exit.h instead of system.h. Don't include xmalloc.h.
+	* msgfmt.c: Include exit.h, stpcpy.h instead of system.h. Don't
+	include <errno.h>, getline.h.
+	* msggrep.c: Include exit.h instead of system.h. Don't include
+	<fcntl.h>.
+	* msginit.c: Include liballoca.h, <limits.h>, exit.h, pathname.h
+	instead of system.h.
+	* msgl-cat.c: Include liballoca.h, exit.h instead of system.h.
+	Include <stddef.h> instead of <stdlib.h>.
+	* msgl-charset.c: Likewise.
+	* msgl-iconv.c: Include liballoca.h, exit.h instead of system.h.
+	* write-po.c: Likewise.
+	* msgmerge.c: Include liballoca.h, exit.h, strcase.h, stpcpy.h,
+	stpncpy.h instead of system.h.
+	* format-java.c: Include liballoca.h.
+	* format-lisp.c: Don't include system.h.
+	* open-po.c: Include pathname.h, xmalloc.h instead of system.h.
+	Don't include <sys/types.h>, error.h.
+	* po-charset.c: Include liballoca.h, string.h, strcase.h instead of
+	system.h. Don't include error.h. Include progname.h.
+	(program_name): Remove declaration.
+	* po-gram-gen.y: Include <string.h>.
+	* po-hash-gen.y: Include <string.h>.
+	* po-lex.c: Include exit.h instead of system.h. Don't include
+	<sys/types.h>.
+	* read-mo.c: Include binary-io.h, exit.h instead of system.h.
+	Include <stddef.h> instead of <stdlib.h>.
+	* urlget.c: Include <unistd.h>, binary-io.h, exit.h instead of
+	system.h.
+	(O_BINARY): Remove fallback definition.
+	* write-java.c: Include liballoca.h, pathname.h instead of system.h.
+	* write-mo.c: Include liballoca.h, binary-io.h, exit.h instead of
+	system.h. Don't include msgfmt.h.
+	* x-c.c: Include exit.h instead of system.h. Don't include <ctype.h>.
+	* x-librep.c: Include exit.h instead of system.h. Include hash.h.
+	* x-lisp.c: Likewise.
+	* x-rst.c: Include exit.h instead of system.h. Include <stddef.h>
+	instead of <stdlib.h>.
+	* xgettext.c: Include <string.h>, exit.h, pathname.h, strcase.h,
+	stpcpy.h instead of system.h. Include str-list.h. Don't include
+	<sys/param.h>, <pwd.h>, <sys/types.h>, <unistd.h>, getline.h.
+	(getpwuid): Remove declaration.
+
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* format-lisp.c: Include minmax.h.

@@ -32,10 +32,9 @@
 #include "progname.h"
 #include "basename.h"
 #include "message.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 #include "po.h"
-#include "str-list.h"
 
 #define _(str) gettext (str)
 

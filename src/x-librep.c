@@ -33,7 +33,8 @@
 #include "xgettext.h"
 #include "error.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
+#include "hash.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

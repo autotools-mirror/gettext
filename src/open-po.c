@@ -25,25 +25,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <errno.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "dir-list.h"
-#include "error.h"
-#include "system.h"
-
+#include "pathname.h"
+#include "xmalloc.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-#ifndef errno
-extern int errno;
-#endif
-
-/* Prototypes for helper functions.  Needed to ensure compiler checking of
-   function argument counts despite of K&R C function definition syntax.  */
-extern char *xstrdup PARAMS ((const char *string));
 
 /* This macro is used to determine the number of elements in an erray.  */
 #define SIZEOF(a) (sizeof(a)/sizeof(a[0]))

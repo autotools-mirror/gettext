@@ -29,7 +29,7 @@
 #include "error.h"
 #include "basename.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 
 #include "gettext.h"
 

@@ -20,9 +20,11 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+#include "liballoca.h"
 
 #include <errno.h>
 #include <getopt.h>
+#include <limits.h>
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,7 +75,8 @@
 #include "po-charset.h"
 #include "po-time.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
+#include "pathname.h"
 #include "xerror.h"
 #include "msgl-english.h"
 #include "pipe.h"

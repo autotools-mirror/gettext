@@ -19,6 +19,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+#include "liballoca.h"
 
 #include <getopt.h>
 #include <limits.h>
@@ -38,7 +39,10 @@
 #include "format.h"
 #include "xmalloc.h"
 #include "strstr.h"
-#include "system.h"
+#include "exit.h"
+#include "strcase.h"
+#include "stpcpy.h"
+#include "stpncpy.h"
 #include "po.h"
 #include "msgl-equal.h"
 #include "plural-exp.h"

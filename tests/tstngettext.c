@@ -27,7 +27,7 @@
 
 #include "error.h"
 #include "basename.h"
-#include "system.h"
+#include "exit.h"
 
 #define HAVE_SETLOCALE 1
 /* Make sure we use the included libintl, not the system's one. */

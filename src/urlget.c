@@ -29,21 +29,21 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
+
 #include "error.h"
 #include "progname.h"
 #include "basename.h"
 #include "full-write.h"
 #include "execute.h"
 #include "javaexec.h"
-#include "system.h"
+#include "exit.h"
+#include "binary-io.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-/* On reasonable systems, binary I/O is the default.  */
-#ifndef O_BINARY
-# define O_BINARY 0
-#endif
 
 #ifndef STDOUT_FILENO 
 # define STDOUT_FILENO 1

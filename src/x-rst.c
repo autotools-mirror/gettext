@@ -24,7 +24,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 #include "message.h"
 #include "x-rst.h"
@@ -32,7 +32,7 @@
 #include "error.h"
 #include "progname.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

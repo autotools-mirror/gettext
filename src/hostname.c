@@ -74,7 +74,7 @@
 #include "progname.h"
 #include "basename.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

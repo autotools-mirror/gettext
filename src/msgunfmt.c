@@ -29,7 +29,7 @@
 #include "error.h"
 #include "progname.h"
 #include "basename.h"
-#include "system.h"
+#include "exit.h"
 #include "message.h"
 #include "msgunfmt.h"
 #include "read-mo.h"

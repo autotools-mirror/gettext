@@ -21,7 +21,6 @@
 #endif
 
 #include <ctype.h>
-#include <errno.h>
 #include <getopt.h>
 #include <limits.h>
 #include <setjmp.h>
@@ -36,12 +35,12 @@
 #include "progname.h"
 #include "basename.h"
 #include "xerror.h"
-#include "getline.h"
 #include "format.h"
 #include "xmalloc.h"
 #include "plural-exp.h"
 #include "strstr.h"
-#include "system.h"
+#include "stpcpy.h"
+#include "exit.h"
 #include "msgfmt.h"
 #include "write-mo.h"
 #include "write-java.h"

@@ -25,9 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* Specification.  */
 #include "dir-list.h"
 
-#include <stdlib.h>
+#include <stddef.h>
 
-#include "system.h"
 #include "str-list.h"
 
 static string_list_ty *directory /* = NULL */;

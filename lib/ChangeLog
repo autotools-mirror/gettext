@@ -1,3 +1,48 @@
+2001-12-22  Bruno Haible  <bruno@clisp.org>
+
+	* binary-io.h: New file, extracted from system.h.
+	* exit.h: New file, extracted from system.h.
+	* liballoca.h: New file, extracted from system.h.
+	* pathname.h: New file, extracted from system.h.
+	* stpcpy.h: New file, extracted from system.h.
+	* stpncpy.h: New file, extracted from system.h.
+	* strcase.h: New file, extracted from system.h.
+	* xgetcwd.h: New file, extracted from system.h.
+	* system.h: Remove file.
+	* Makefile.am (libgettextlib_la_SOURCES): Remove xgetcwd.c.
+	(libgettextlib_la_HEADER): Add binary-io.h, exit.h, liballoca.h,
+	pathname.h. Remove system.h.
+	(LIBADD_HEADER): Add stpcpy.h, stpncpy.h, strcase.h.
+	(UNUSED_SOURCE): Add xgetcwd.c.
+	(UNUSED_HEADER): Add xgetcwd.h.
+	* argmatch.c: Include exit.h instead of <stdlib.h>.
+	(EXIT_FAILURE): Remove fallback definition.
+	* concatpath.c: Include pathname.h, <string.h>, stpcpy.h instead of
+	system.h.
+	* copy-file.c: Include <unistd.h>, binary-io.h, exit.h instead of
+	system.h.
+	(O_BINARY): Remove fallback definition.
+	* execute.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+	* findprog.c: Include pathname.h instead of system.h.
+	* javacomp.c: Include liballoca.h. Remove alloca() declaration stuff.
+	* javaexec.c: Likewise.
+	* setenv.c: Likewise.
+	* linebreak.h: Include <stddef.h> instead of <stdlib.h>.
+	* linebreak.c: Include <stdlib.h> instead of <stddef.h>.
+	* pipe-bidi.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+	* pipe-in.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+	* pipe-out.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+	* wait-process.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+	* xerror.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+	* xmalloc.c: Include exit.h.
+	(EXIT_FAILURE): Remove fallback definition.
+
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* minmax.h: New file, extracted from system.h.

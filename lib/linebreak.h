@@ -27,7 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # endif
 #endif
 
-#include <stdlib.h>
+/* Get size_t.  */
+#include <stddef.h>
 
 
 /* Display width.  */

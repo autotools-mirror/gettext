@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "write-po.h"
@@ -39,7 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "msgl-ascii.h"
 #include "xmalloc.h"
 #include "strstr.h"
-#include "system.h"
+#include "exit.h"
 #include "error.h"
 #include "xerror.h"
 #include "gettext.h"

@@ -31,7 +31,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 
 #if HAVE_ICONV
 # include <iconv.h>
@@ -55,12 +54,13 @@
 # define va_dcl char *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8;
 #endif
 
-#include "str-list.h"
 #include "po-charset.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "error.h"
 #include "open-po.h"
+
+#include "str-list.h"
 #include "po-gram-gen2.h"
 
 #if HAVE_ICONV

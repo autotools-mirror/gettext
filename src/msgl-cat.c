@@ -20,12 +20,13 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "msgl-cat.h"
 
 #include <stdbool.h>
-#include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 
 #include "error.h"
@@ -39,7 +40,7 @@
 #include "xmalloc.h"
 #include "strstr.h"
 #include "basename.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

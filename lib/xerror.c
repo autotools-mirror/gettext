@@ -30,12 +30,9 @@
 
 #include "error.h"
 #include "progname.h"
+#include "exit.h"
 #include "mbswidth.h"
 #include "gettext.h"
-
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
-#endif
 
 #define _(str) gettext (str)
 

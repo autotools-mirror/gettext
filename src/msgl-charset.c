@@ -20,11 +20,12 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "msgl-charset.h"
 
-#include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 
 #include "po-charset.h"
@@ -34,7 +35,7 @@
 #include "xerror.h"
 #include "message.h"
 #include "strstr.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

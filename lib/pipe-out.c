@@ -41,11 +41,8 @@
 #endif
 
 #include "error.h"
+#include "exit.h"
 #include "gettext.h"
-
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
-#endif
 
 #ifndef STDIN_FILENO
 # define STDIN_FILENO 0

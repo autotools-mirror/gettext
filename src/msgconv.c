@@ -34,7 +34,7 @@
 #include "read-po.h"
 #include "write-po.h"
 #include "msgl-iconv.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

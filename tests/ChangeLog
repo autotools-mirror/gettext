@@ -1,3 +1,7 @@
+2001-12-22  Bruno Haible  <bruno@clisp.org>
+
+	* tstngettext.c: Include exit.h instead of system.h.
+
 2001-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* msgfilter-1: Avoid failure on HP-UX, due to strange 'fold' program.

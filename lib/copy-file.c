@@ -28,21 +28,21 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
+
 #if HAVE_UTIME || HAVE_UTIMES
 # include <utime.h>
 #endif
 
 #include "error.h"
 #include "full-write.h"
-#include "system.h"
+#include "binary-io.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-/* On reasonable systems, binary I/O is the default.  */
-#ifndef O_BINARY
-# define O_BINARY 0
-#endif
 
 void
 copy_file (src_filename, dest_filename)

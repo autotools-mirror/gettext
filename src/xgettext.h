@@ -20,7 +20,7 @@
 #ifndef _XGETTEXT_H
 #define _XGETTEXT_H
 
-#include <stdlib.h>
+#include <stddef.h>
 #include "message.h"
 #include "pos.h"
 

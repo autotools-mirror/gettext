@@ -23,42 +23,35 @@
 #include <ctype.h>
 #include <errno.h>
 #include <getopt.h>
-#include <sys/param.h>
-#include <pwd.h>
 #include <stdio.h>
 #include <time.h>
-#include <sys/types.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <locale.h>
 #include <limits.h>
-
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
 
 #include "xgettext.h"
 #include "dir-list.h"
 #include "file-list.h"
+#include "str-list.h"
 #include "error.h"
 #include "progname.h"
 #include "basename.h"
 #include "xerror.h"
-#include "getline.h"
 #include "xmalloc.h"
 #include "strstr.h"
 #include "xerror.h"
-#include "system.h"
+#include "exit.h"
+#include "pathname.h"
+#include "strcase.h"
+#include "stpcpy.h"
 #include "po.h"
 #include "message.h"
 #include "po-time.h"
 #include "write-po.h"
 #include "format.h"
 #include "gettext.h"
-
-#ifndef _POSIX_VERSION
-struct passwd *getpwuid ();
-#endif
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
 #define _(str) gettext (str)

@@ -28,13 +28,14 @@ c-ctype.c concatpath.c copy-file.c execute.c findprog.c fstrcmp.c \
 full-write.c gcd.c getopt.c getopt1.c hash.c javacomp.c javaexec.c \
 linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c \
 pipe-out.c progname.c safe-read.c sh-quote.c tmpdir.c wait-process.c xerror.c \
-xgetcwd.c xmalloc.c xstrdup.c
+xmalloc.c xstrdup.c
 
-libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h c-ctype.h \
-copy-file.h execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h \
-javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h minmax.h obstack.h \
-pathmax.h pipe.h progname.h safe-read.h sh-quote.h system.h tmpdir.h \
-utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h xmalloc.h
+libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h binary-io.h \
+c-ctype.h copy-file.h execute.h exit.h findprog.h fstrcmp.h full-write.h \
+gcd.h getopt.h hash.h javacomp.h javaexec.h lbrkprop.h liballoca.h \
+linebreak.h mbswidth.h minmax.h obstack.h pathmax.h pathname.h pipe.h \
+progname.h safe-read.h sh-quote.h tmpdir.h utf8-ucs4.h utf16-ucs4.h \
+wait-process.h xerror.h xmalloc.h
 
 # Sources that are compiled only on platforms that lack the functions.
 
@@ -42,14 +43,14 @@ LIBADD_SOURCE = alloca.c error.c getline.c memset.c mkdtemp.c pfnmatch.c \
 setenv.c stpcpy.c stpncpy.c strcasecmp.c strcspn.c strncasecmp.c strpbrk.c \
 strstr.c strtol.c strtoul.c vasprintf.c
 
-LIBADD_HEADER = error.h getline.h mkdtemp.h pfnmatch.h setenv.h strpbrk.h \
-strstr.h
+LIBADD_HEADER = error.h getline.h mkdtemp.h pfnmatch.h setenv.h stpcpy.h \
+stpncpy.h strcase.h strpbrk.h strstr.h
 
 # Unused sources.
 
-UNUSED_SOURCE = memmove.c
+UNUSED_SOURCE = memmove.c xgetcwd.c
 
-UNUSED_HEADER =
+UNUSED_HEADER = xgetcwd.h
 
 # How to build libgettextlib.la.
 

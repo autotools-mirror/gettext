@@ -41,7 +41,7 @@
 #include "message.h"
 #include "read-po.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "full-write.h"
 #include "findprog.h"
 #include "pipe.h"

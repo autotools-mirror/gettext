@@ -34,7 +34,7 @@
 #include "wait-process.h"
 #include "read-po.h"
 #include "error.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

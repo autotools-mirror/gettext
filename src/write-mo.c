@@ -24,6 +24,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "write-mo.h"
@@ -35,8 +36,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "msgfmt.h"
-
 /* These two include files describe the binary .mo format.  */
 #include "gmo.h"
 #include "hash-string.h"
@@ -44,7 +43,8 @@
 #include "error.h"
 #include "hash.h"
 #include "message.h"
-#include "system.h"
+#include "binary-io.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

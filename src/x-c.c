@@ -21,7 +21,6 @@
 # include "config.h"
 #endif
 
-#include <ctype.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -34,7 +33,7 @@
 #include "error.h"
 #include "progname.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "hash.h"
 #include "gettext.h"
 

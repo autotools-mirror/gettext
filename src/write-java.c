@@ -19,6 +19,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "write-java.h"
@@ -72,7 +73,7 @@
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "pathname.h"
 #include "tmpdir.h"
 #include "utf8-ucs4.h"
 #include "gettext.h"

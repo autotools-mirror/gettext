@@ -20,6 +20,7 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "msgl-iconv.h"
@@ -40,7 +41,7 @@
 #include "msgl-ascii.h"
 #include "xmalloc.h"
 #include "strstr.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

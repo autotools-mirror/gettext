@@ -22,7 +22,6 @@
 #endif
 
 #include <errno.h>
-#include <fcntl.h>
 #include <getopt.h>
 #include <limits.h>
 #include <locale.h>
@@ -46,7 +45,7 @@
 #include "str-list.h"
 #include "msgl-charset.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "full-write.h"
 #include "findprog.h"
 #include "pipe.h"

@@ -25,11 +25,8 @@
 #include <stdlib.h>
 
 #include "error.h"
+#include "exit.h"
 #include "gettext.h"
-
-#ifndef EXIT_FAILURE
-# define EXIT_FAILURE 1
-#endif
 
 #define _(str) gettext (str)
 

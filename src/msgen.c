@@ -34,8 +34,7 @@
 #include "read-po.h"
 #include "msgl-english.h"
 #include "write-po.h"
-#include "xmalloc.h"
-#include "system.h"
+#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

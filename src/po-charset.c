@@ -20,20 +20,20 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+#include "liballoca.h"
 
 /* Specification.  */
 #include "po-charset.h"
 
 #include <stdlib.h>
+#include <string.h>
 
-#include "error.h"
 #include "xerror.h"
 #include "basename.h"
+#include "progname.h"
 #include "strstr.h"
-#include "system.h"
+#include "strcase.h"
 #include "gettext.h"
-
-extern const char *program_name;
 
 #define _(str) gettext (str)
 

@@ -32,7 +32,7 @@
 #endif
 
 #include "xmalloc.h"
-#include "system.h"
+#include "pathname.h"
 
 
 const char *

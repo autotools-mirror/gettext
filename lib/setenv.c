@@ -19,32 +19,7 @@
 #if HAVE_CONFIG_H
 # include <config.h>
 #endif
-
-#ifdef __GNUC__
-# ifndef alloca
-#  define alloca __builtin_alloca
-# endif
-#else
-# if HAVE_ALLOCA_H
-#  include <alloca.h>
-# else
-#  ifdef _AIX
- #pragma alloca
-#  else
-#   ifdef __hpux /* This section must match that of bison generated files. */
-#    ifdef __cplusplus
-extern "C" void *alloca (unsigned int);
-#    else /* not __cplusplus */
-void *alloca ();
-#    endif /* not __cplusplus */
-#   else /* not __hpux */
-#    ifndef alloca
-char *alloca ();
-#    endif
-#   endif /* __hpux */
-#  endif
-# endif
-#endif
+#include "liballoca.h"
 
 #include <errno.h>
 #if !_LIBC

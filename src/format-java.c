@@ -19,6 +19,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+#include "liballoca.h"
 
 #include <stdbool.h>
 #include <stdlib.h>

@@ -25,7 +25,7 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 
 /* This include file describes the main part of binary .mo format.  */
@@ -33,7 +33,8 @@
 
 #include "error.h"
 #include "xmalloc.h"
-#include "system.h"
+#include "binary-io.h"
+#include "exit.h"
 #include "message.h"
 #include "gettext.h"
 
