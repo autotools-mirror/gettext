@@ -1,5 +1,5 @@
 /* PHP format strings.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -96,7 +96,7 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, char **invalid_reason)
+format_parse (const char *format, bool translated, char **invalid_reason)
 {
   unsigned int directives;
   unsigned int numbered_arg_count;
@@ -479,7 +479,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, &invalid_reason);
+      descr = format_parse (line, false, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

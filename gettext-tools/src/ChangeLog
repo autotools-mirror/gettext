@@ -1,3 +1,43 @@
+2004-01-09  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (struct formatstring_parser): Add 'translated' argument to
+	parse function.
+	(get_sysdep_c_format_directives): Renamed from
+	get_c99_format_directives. Add 'translated' argument. Change meaning
+	of endpos in returned array.
+	* format-c.c (struct spec): Rename field c99_directives to
+	sysdep_directives, and c99_directives_count to sysdep_directives_count.
+	(format_parse): Add 'translated' argument. Handle 'I' flag. Store the
+	pointer past the '>' character instead of the pointer to the '>'.
+	(format_c_parse, format_objc_parse): Add 'translated' argument.
+	(get_sysdep_c_format_directives): Renamed from
+	get_c99_format_directives. Add 'translated' argument.
+	* format-awk.c (format_parse): Add 'translated' argument.
+	* format-csharp.c (format_parse): Likewise.
+	* format-elisp.c (format_parse): Likewise.
+	* format-gcc-internal.c (format_parse): Likewise.
+	* format-java.c (format_parse): Likewise.
+	* format-librep.c (format_parse): Likewise.
+	* format-lisp.c (format_parse): Likewise.
+	* format-pascal.c (format_parse): Likewise.
+	* format-perl-brace.c (format_parse): Likewise.
+	* format-perl.c (format_parse): Likewise.
+	* format-php.c (format_parse): Likewise.
+	* format-python.c (format_parse): Likewise.
+	* format-qt.c (format_parse): Likewise.
+	* format-sh.c (format_parse): Likewise.
+	* format-tcl.c (format_parse): Likewise.
+	* format-ycp.c (format_parse): Likewise.
+	* msgfmt.c (check_pair): Update.
+	* msgmerge.c (msgfmt_check_pair_fails): Likewise.
+	* read-mo.c (get_sysdep_string): Don't add '<'...'>' around segments
+	of length 1.
+	(read_mo_file): Treat major revision 1 like major revision 0.
+	* write-mo.c (write_table): Update. Use major revision 1 if "I" occurs
+	among the sysdep segments.
+	* xgettext.c (set_format_flags_from_context, remember_a_message,
+	remember_a_message_plural): Update.
+
 2004-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (fill_header): Avoid a NULL pointer access when the header

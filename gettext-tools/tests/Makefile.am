@@ -82,7 +82,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-tcl-1 xgettext-tcl-2 \
 	xgettext-ycp-1 xgettext-ycp-2 \
 	format-awk-1 format-awk-2 \
-	format-c-1 format-c-2 format-c-3 format-c-4 \
+	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
 	format-csharp-1 format-csharp-2 \
 	format-elisp-1 format-elisp-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
@@ -161,7 +161,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext testlocale cake fc3 fc4
+noinst_PROGRAMS = tstgettext tstngettext testlocale cake fc3 fc4 fc5
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
@@ -175,6 +175,8 @@ fc3_SOURCES = format-c-3-prg.c setlocale.c
 fc3_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc4_SOURCES = format-c-4-prg.c setlocale.c
 fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
+fc5_SOURCES = format-c-5-prg.c
+fc5_LDADD = ../lib/libgettextlib.la $(LDADD)
 
 # Clean up after Solaris cc.
 clean-local:

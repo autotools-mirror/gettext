@@ -7341,6 +7341,21 @@ on this reordering ability: On the few platforms where @code{printf()},
 or @file{libintl.so} provides replacement functions, and GNU @code{<libintl.h>}
 activates these replacement functions automatically.
 
+@cindex outdigits
+@cindex Arabic digits
+As a special feature for Farsi (Persian) and maybe Arabic, translators can
+insert an @samp{I} flag into numeric format directives.  For example, the
+translation of @code{"%d"} can be @code{"%Id"}.  The effect of this flag,
+on systems with GNU @code{libc}, is that in the output, the ASCII digits are
+replaced with the @samp{outdigits} defined in the @code{LC_CTYPE} locale
+facet.  On other systems, the @code{gettext} function removes this flag,
+so that it has no effect.
+
+Note that the programmer should @emph{not} put this flag into the
+untranslated string.  (Putting the @samp{I} format directive flag into an
+@var{msgid} string would lead to undefined behaviour on platforms without
+glibc when NLS is disabled.)
+
 @node objc-format, sh-format, c-format, Translators for other Languages
 @subsection Objective C Format Strings
 

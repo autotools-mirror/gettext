@@ -11,6 +11,11 @@ Version 0.14 - January 2004
 
     msgfmt can create (and msgunfmt can dump) message catalogs for C#.
 
+* Special feature for Farsi (Persian): Translators can insert an 'I' flag
+  into numeric format directives in format strings. Its effect is that, on
+  glibc systems, the number is generated with the locale dependent set of
+  special digits instead of the usual ASCII digits.
+
 * Documentation:
 
   - New documentation section: C#.

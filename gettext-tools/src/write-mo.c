@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -143,6 +143,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
   struct pre_sysdep_message *sysdep_msg_arr;
   size_t n_sysdep_segments;
   struct pre_sysdep_segment *sysdep_segments;
+  bool have_outdigits;
+  int major_revision;
   int minor_revision;
   bool omit_hash_table;
   nls_uint32 hash_tab_size;
@@ -169,6 +171,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
     xmalloc (mlp->nitems * sizeof (struct pre_sysdep_message));
   n_sysdep_segments = 0;
   sysdep_segments = NULL;
+  have_outdigits = false;
   for (j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
@@ -191,8 +194,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	  const char *p_end;
 	  const char *p;
 
-	  get_c99_format_directives (mp->msgid,
-				     &intervals[M_ID], &nintervals[M_ID]);
+	  get_sysdep_c_format_directives (mp->msgid, false,
+					  &intervals[M_ID], &nintervals[M_ID]);
 
 	  p_end = mp->msgstr + mp->msgstr_len;
 	  for (p = mp->msgstr; p < p_end; p += strlen (p) + 1)
@@ -200,7 +203,9 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	      struct interval *part_intervals;
 	      size_t part_nintervals;
 
-	      get_c99_format_directives (p, &part_intervals, &part_nintervals);
+	      get_sysdep_c_format_directives (p, true,
+					      &part_intervals,
+					      &part_nintervals);
 	      if (part_nintervals > 0)
 		{
 		  size_t d = p - mp->msgstr;
@@ -259,10 +264,15 @@ write_table (FILE *output_file, message_list_ty *mlp)
 		  pre->segments[i].segptr = str + lastpos;
 		  pre->segments[i].segsize = intervals[m][i].startpos - lastpos;
 
-		  /* The "+ 1" skips the '<' marker.  */
-		  length =
-		    intervals[m][i].endpos - (intervals[m][i].startpos + 1);
-		  pointer = str + (intervals[m][i].startpos + 1);
+		  length = intervals[m][i].endpos - intervals[m][i].startpos;
+		  pointer = str + intervals[m][i].startpos;
+		  if (length >= 2
+		      && pointer[0] == '<' && pointer[length - 1] == '>')
+		    {
+		      /* Skip the '<' and '>' markers.  */
+		      length -= 2;
+		      pointer += 1;
+		    }
 
 		  for (r = 0; r < n_sysdep_segments; r++)
 		    if (sysdep_segments[r].length == length
@@ -283,8 +293,10 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
 		  pre->segments[i].sysdepref = r;
 
-		  /* The "+ 1" skips the '>' marker.  */
-		  lastpos = intervals[m][i].endpos + 1;
+		  if (length == 1 && *pointer == 'I')
+		    have_outdigits = true;
+
+		  lastpos = intervals[m][i].endpos;
 		}
 	      pre->segments[i].segptr = str + lastpos;
 	      pre->segments[i].segsize = str_len - lastpos;
@@ -319,6 +331,12 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Sort the table according to original string.  */
   if (nstrings > 0)
     qsort (msg_arr, nstrings, sizeof (struct pre_message), compare_id);
+
+  /* We need major revision 1 if there are system dependent strings that use
+     "I" because older versions of gettext() crash when this occurs in a .mo
+     file.  Otherwise use major revision 0.  */
+  major_revision =
+    (have_outdigits ? MO_REVISION_NUMBER_WITH_SYSDEP_I : MO_REVISION_NUMBER);
 
   /* We need minor revision 1 if there are system dependent strings.
      Otherwise we choose minor revision 0 because it's supported by older
@@ -365,7 +383,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Magic number.  */
   header.magic = _MAGIC;
   /* Revision number of file format.  */
-  header.revision = (MO_REVISION_NUMBER << 16) + minor_revision;
+  header.revision = (major_revision << 16) + minor_revision;
 
   header_size =
     (minor_revision == 0

@@ -1,3 +1,9 @@
+2004-01-09  Bruno Haible  <bruno@clisp.org>
+
+	* gmo.h (MO_REVISION_NUMBER_WITH_SYSDEP_I): New definition.
+	* loadmsgcat.c (get_sysdep_segment_value): Handle "I".
+	(_nl_load_domain): Treat major revision 1 like major revision 0.
+
 2004-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* loadmsgcat.c (_nl_load_domain): When a string pair uses a system

@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -147,6 +147,7 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
       nls_uint32 sysdep_segment_offset;
       nls_uint32 ss_length;
       nls_uint32 ss_offset;
+      size_t n;
 
       length += segsize;
 
@@ -170,7 +171,8 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
 		 _("file \"%s\" contains a not NUL terminated string, at %s"),
 		 bfp->filename, location);
 	}
-      length += 1 + strlen (bfp->data + ss_offset) + 1;
+      n = strlen (bfp->data + ss_offset);
+      length += (n > 1 ? 1 + n + 1 : n);
     }
 
   /* Allocate and fill the string.  */
@@ -205,10 +207,12 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
       if (!(ss_length > 0 && bfp->data[ss_offset + ss_length - 1] == '\0'))
 	abort ();
       n = strlen (bfp->data + ss_offset);
-      *p++ = '<';
+      if (n > 1)
+	*p++ = '<';
       memcpy (p, bfp->data + ss_offset, n);
       p += n;
-      *p++ = '>';
+      if (n > 1)
+	*p++ = '>';
     }
 
   if (p != string + length)
@@ -267,11 +271,12 @@ read_mo_file (message_list_ty *mlp, const char *filename)
 
   header.revision = GET_HEADER_FIELD (revision);
 
-  /* We support only the major revision 0.  */
+  /* We support only the major revisions 0 and 1.  */
   switch (header.revision >> 16)
     {
     case 0:
-      /* Fill the header parts that apply to major revision 0.  */
+    case 1:
+      /* Fill the header parts that apply to major revisions 0 and 1.  */
       header.nstrings = GET_HEADER_FIELD (nstrings);
       header.orig_tab_offset = GET_HEADER_FIELD (orig_tab_offset);
       header.trans_tab_offset = GET_HEADER_FIELD (trans_tab_offset);

@@ -1,5 +1,5 @@
 /* C format strings.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -39,7 +39,8 @@
    A directive
    - starts with '%' or '%m$' where m is a positive integer,
    - is optionally followed by any of the characters '#', '0', '-', ' ', '+',
-     "'", each of which acts as a flag,
+     "'", or - only in msgstr strings - the string "I", each of which acts as
+     a flag,
    - is optionally followed by a width specification: '*' (reads an argument)
      or '*m$' or a nonempty digit sequence,
    - is optionally followed by '.' and a precision specification: '*' (reads
@@ -153,8 +154,8 @@ struct spec
   unsigned int unnumbered_arg_count;
   unsigned int allocated;
   struct unnumbered_arg *unnumbered;
-  unsigned int c99_directives_count;
-  const char **c99_directives;
+  unsigned int sysdep_directives_count;
+  const char **sysdep_directives;
 };
 
 /* Locale independent test for a decimal digit.
@@ -177,7 +178,8 @@ numbered_arg_compare (const void *p1, const void *p2)
   xasprintf (_("In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."), directive_number)
 
 static void *
-format_parse (const char *format, bool objc_extensions, char **invalid_reason)
+format_parse (const char *format, bool translated, bool objc_extensions,
+	      char **invalid_reason)
 {
   struct spec spec;
   unsigned int numbered_arg_count;
@@ -190,8 +192,8 @@ format_parse (const char *format, bool objc_extensions, char **invalid_reason)
   spec.allocated = 0;
   numbered = NULL;
   spec.unnumbered = NULL;
-  spec.c99_directives_count = 0;
-  spec.c99_directives = NULL;
+  spec.sysdep_directives_count = 0;
+  spec.sysdep_directives = NULL;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -228,9 +230,26 @@ format_parse (const char *format, bool objc_extensions, char **invalid_reason)
 	  }
 
 	/* Parse flags.  */
-	while (*format == ' ' || *format == '+' || *format == '-'
-	       || *format == '#' || *format == '0' || *format == '\'')
-	  format++;
+	for (;;)
+	  {
+	    if (*format == ' ' || *format == '+' || *format == '-'
+		|| *format == '#' || *format == '0' || *format == '\'')
+	      format++;
+	    else if (translated && *format == 'I')
+	      {
+		spec.sysdep_directives =
+		  (const char **)
+		  xrealloc (spec.sysdep_directives,
+			    2 * (spec.sysdep_directives_count + 1)
+			    * sizeof (const char *));
+		spec.sysdep_directives[2 * spec.sysdep_directives_count] = format;
+		spec.sysdep_directives[2 * spec.sysdep_directives_count + 1] = format + 1;
+		spec.sysdep_directives_count++;
+		format++;
+	      }
+	    else
+	      break;
+	  }
 
 	/* Parse width.  */
 	if (*format == '*')
@@ -393,12 +412,12 @@ format_parse (const char *format, bool objc_extensions, char **invalid_reason)
 
 	if (*format == '<')
 	  {
-	    spec.c99_directives =
+	    spec.sysdep_directives =
 	      (const char **)
-	      xrealloc (spec.c99_directives,
-			2 * (spec.c99_directives_count + 1)
+	      xrealloc (spec.sysdep_directives,
+			2 * (spec.sysdep_directives_count + 1)
 			* sizeof (const char *));
-	    spec.c99_directives[2 * spec.c99_directives_count] = format;
+	    spec.sysdep_directives[2 * spec.sysdep_directives_count] = format;
 
 	    format++;
 	    /* Parse ISO C 99 section 7.8.1 format string directive.
@@ -547,8 +566,8 @@ format_parse (const char *format, bool objc_extensions, char **invalid_reason)
 		goto bad_format;
 	      }
 
-	    spec.c99_directives[2 * spec.c99_directives_count + 1] = format;
-	    spec.c99_directives_count++;
+	    spec.sysdep_directives[2 * spec.sysdep_directives_count + 1] = format + 1;
+	    spec.sysdep_directives_count++;
 	  }
 	else
 	  {
@@ -774,21 +793,21 @@ format_parse (const char *format, bool objc_extensions, char **invalid_reason)
     free (numbered);
   if (spec.unnumbered != NULL)
     free (spec.unnumbered);
-  if (spec.c99_directives != NULL)
-    free (spec.c99_directives);
+  if (spec.sysdep_directives != NULL)
+    free (spec.sysdep_directives);
   return NULL;
 }
 
 static void *
-format_c_parse (const char *format, char **invalid_reason)
+format_c_parse (const char *format, bool translated, char **invalid_reason)
 {
-  return format_parse (format, false, invalid_reason);
+  return format_parse (format, translated, false, invalid_reason);
 }
 
 static void *
-format_objc_parse (const char *format, char **invalid_reason)
+format_objc_parse (const char *format, bool translated, char **invalid_reason)
 {
-  return format_parse (format, true, invalid_reason);
+  return format_parse (format, translated, true, invalid_reason);
 }
 
 static void
@@ -798,8 +817,8 @@ format_free (void *descr)
 
   if (spec->unnumbered != NULL)
     free (spec->unnumbered);
-  if (spec->c99_directives != NULL)
-    free (spec->c99_directives);
+  if (spec->sysdep_directives != NULL)
+    free (spec->sysdep_directives);
   free (spec);
 }
 
@@ -873,27 +892,27 @@ struct formatstring_parser formatstring_objc =
 
 
 void
-get_c99_format_directives (const char *string,
-			   struct interval **intervalsp, size_t *lengthp)
+get_sysdep_c_format_directives (const char *string, bool translated,
+				struct interval **intervalsp, size_t *lengthp)
 {
   /* Parse the format string with all possible extensions turned on.  (The
      caller has already verified that the format string is valid for the
      particular language.)  */
   char *invalid_reason = NULL;
   struct spec *descr =
-    (struct spec *) format_parse (string, true, &invalid_reason);
+    (struct spec *) format_parse (string, translated, true, &invalid_reason);
 
-  if (descr != NULL && descr->c99_directives_count > 0)
+  if (descr != NULL && descr->sysdep_directives_count > 0)
     {
-      unsigned int n = descr->c99_directives_count;
+      unsigned int n = descr->sysdep_directives_count;
       struct interval *intervals =
 	(struct interval *) xmalloc (n * sizeof (struct interval));
       unsigned int i;
 
       for (i = 0; i < n; i++)
 	{
-	  intervals[i].startpos = descr->c99_directives[2 * i] - string;
-	  intervals[i].endpos = descr->c99_directives[2 * i + 1] - string;
+	  intervals[i].startpos = descr->sysdep_directives[2 * i] - string;
+	  intervals[i].endpos = descr->sysdep_directives[2 * i + 1] - string;
 	}
       *intervalsp = intervals;
       *lengthp = n;
@@ -1053,7 +1072,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_c_parse (line, &invalid_reason);
+      descr = format_c_parse (line, false, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

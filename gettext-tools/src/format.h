@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,12 +34,14 @@ extern "C" {
 struct formatstring_parser
 {
   /* Parse the given string as a format string.
+     If translated is true, some extensions available only to msgstr but not
+     to msgid strings are recognized.
      Return a freshly allocated structure describing
        1. the argument types/names needed for the format string,
        2. the total number of format directives.
      Return NULL if the string is not a valid format string. In this case,
      also set *invalid_reason to an error message explaining why.  */
-  void * (*parse) (const char *string, char **invalid_reason);
+  void * (*parse) (const char *string, bool translated, char **invalid_reason);
 
   /* Free a format string descriptor, returned by parse().  */
   void (*free) (void *descr);
@@ -84,16 +86,19 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_qt;
 /* Table of all format string parsers.  */
 extern DLL_VARIABLE struct formatstring_parser *formatstring_parsers[NFORMATS];
 
-/* Returns an array of the ISO C 99 <inttypes.h> format directives
-   contained in the argument string.  *intervalsp is assigned to a freshly
-   allocated array of intervals (startpos pointing to '<', endpos to '>'),
+/* Returns an array of the ISO C 99 <inttypes.h> format directives and other
+   format flags or directives with a system dependent expansion contained in
+   the argument string.  *intervalsp is assigned to a freshly allocated array
+   of intervals (startpos pointing to '<', endpos to the character after '>'),
    and *lengthp is assigned to the number of intervals in this array.  */
 struct interval
 {
   size_t startpos;
   size_t endpos;
 };
-extern void get_c99_format_directives (const char *string, struct interval **intervalsp, size_t *lengthp);
+extern void
+       get_sysdep_c_format_directives (const char *string, bool translated,
+				 struct interval **intervalsp, size_t *lengthp);
 
 
 #ifdef __cplusplus

@@ -1,3 +1,11 @@
+2004-01-11  Bruno Haible  <bruno@clisp.org>
+
+	* format-c-5: New file.
+	* format-c-5-prg.c: New file.
+	* Makefile.am (TESTS): Add format-c-5.
+	(noinst_PROGRAMS): Add fc5.
+	(fc5_SOURCES, fc5_LDADD): New variables.
+
 2004-01-09  Bruno Haible  <bruno@clisp.org>
 
 	* tstgettext.c (main): Update year in --version output.

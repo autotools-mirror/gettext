@@ -1700,7 +1700,7 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
 	    char *invalid_reason = NULL;
-	    void *descr = parser->parse (string, &invalid_reason);
+	    void *descr = parser->parse (string, false, &invalid_reason);
 
 	    if (descr != NULL)
 	      parser->free (descr);
@@ -1921,7 +1921,7 @@ meta information, not the empty string.\n")));
 	{
 	  struct formatstring_parser *parser = formatstring_parsers[i];
 	  char *invalid_reason = NULL;
-	  void *descr = parser->parse (mp->msgid, &invalid_reason);
+	  void *descr = parser->parse (mp->msgid, false, &invalid_reason);
 
 	  if (descr != NULL)
 	    {
@@ -2021,7 +2021,8 @@ remember_a_message_plural (message_ty *mp, char *string,
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
 	    char *invalid_reason = NULL;
-	    void *descr = parser->parse (mp->msgid_plural, &invalid_reason);
+	    void *descr =
+	      parser->parse (mp->msgid_plural, false, &invalid_reason);
 
 	    if (descr != NULL)
 	      {

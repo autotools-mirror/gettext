@@ -748,6 +748,18 @@ get_sysdep_segment_value (const char *name)
 	    }
 	}
     }
+  /* Test for a glibc specific printf() format directive flag.  */
+  if (name[0] == 'I' && name[1] == '\0')
+    {
+#if defined _LIBC || __GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2)
+      /* The 'I' flag, in numeric format directives, replaces ASCII digits
+	 with the 'outdigits' defined in the LC_CTYPE locale facet.  This is
+	 used for Farsi (Persian) and maybe Arabic.  */
+      return "I";
+#else
+      return "";
+#endif
+    }
   /* Other system dependent strings are not valid.  */
   return NULL;
 }
@@ -1019,10 +1031,11 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
   /* Fill in the information about the available tables.  */
   revision = W (domain->must_swap, data->revision);
-  /* We support only the major revision 0.  */
+  /* We support only the major revisions 0 and 1.  */
   switch (revision >> 16)
     {
     case 0:
+    case 1:
       domain->nstrings = W (domain->must_swap, data->nstrings);
       domain->orig_tab = (const struct string_desc *)
 	((char *) data + W (domain->must_swap, data->orig_tab_offset));
