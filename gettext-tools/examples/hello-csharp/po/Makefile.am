@@ -194,7 +194,7 @@ EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES) $(RESOURCESDLLFILES)
 #distdir: distdir1
 distdir1:
 	$(MAKE) update-po
-	if test -f $(srcdir)/$(DOMAIN).pot; then
+	if test -f $(srcdir)/$(DOMAIN).pot; then \
 	  for file in $(DOMAIN).pot stamp-po; do \
 	    if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	    cp -p $$d/$$file $(distdir)/$$file || exit 1; \
