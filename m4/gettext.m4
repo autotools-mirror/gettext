@@ -155,7 +155,7 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
 	fi
       fi
 
-      # We need to process the po/ directory.
+      dnl We need to process the po/ directory.
       POSUB=po
     fi
     AC_OUTPUT_COMMANDS(
@@ -164,10 +164,41 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       esac])
 
 
-    # If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
-    # to 'yes' because some of the testsuite requires it.
+    dnl If this is used in GNU gettext we have to set BUILD_INCLUDED_LIBINTL
+    dnl to 'yes' because some of the testsuite requires it.
     if test "$PACKAGE" = gettext; then
       BUILD_INCLUDED_LIBINTL=yes
+    fi
+
+    dnl intl/plural.c is generated from intl/plural.y. It requires bison,
+    dnl because plural.y uses bison specific features. It requires at least
+    dnl bison-1.26 because earlier versions generate a plural.c that doesn't
+    dnl compile.
+    dnl bison is only needed for the maintainer (who touches plural.y). But in
+    dnl order to avoid separate Makefiles or --enable-maintainer-mode, we put
+    dnl the rule in general Makefile. Now, some people carelessly touch the
+    dnl files or have a broken "make" program, hence the plural.c rule will
+    dnl sometimes fire. To avoid an error, defines BISON to ":" if it is not
+    dnl present or too old.
+    AC_CHECK_PROGS([INTLBISON], [bison])
+    if test -z "$INTLBISON"; then
+      ac_verc_fail=yes
+    else
+      dnl Found it, now check the version.
+      AC_MSG_CHECKING([version of bison])
+changequote(<<,>>)dnl
+      ac_prog_version=`$INTLBISON --version 2>&1 | sed -n 's/^.*GNU Bison .* \([0-9]*\.[0-9.]*\).*$/\1/p'`
+      case $ac_prog_version in
+        '') ac_prog_version="v. ?.??, bad"; ac_verc_fail=yes;;
+        1.2[6-9]* | 1.[3-9][0-9]* | [2-9].*)
+changequote([,])dnl
+           ac_prog_version="$ac_prog_version, ok"; ac_verc_fail=no;;
+        *) ac_prog_version="$ac_prog_version, bad"; ac_verc_fail=yes;;
+      esac
+      AC_MSG_RESULT([$ac_prog_version])
+    fi
+    if test $ac_verc_fail = yes; then
+      INTLBISON=:
     fi
 
     dnl These rules are solely for the distribution goal.  While doing this

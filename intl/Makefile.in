@@ -47,7 +47,7 @@ AR = ar
 CC = @CC@
 LIBTOOL = @LIBTOOL@
 RANLIB = @RANLIB@
-YACC = bison -y -d
+YACC = @INTLBISON@ -y -d
 YFLAGS = --name-prefix=__gettext
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
