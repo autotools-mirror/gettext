@@ -148,4 +148,6 @@ changequote(,)dnl
     mv $m.tmp $m
   done
 changequote([, ])dnl
+  dnl Fix permissions of misc/gettextize.
+  chmod a+x misc/gettextize
 ])
