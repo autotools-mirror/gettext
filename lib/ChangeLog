@@ -1,5 +1,13 @@
 2001-09-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* backupfile.h: New file, from fileutils-4.1 with modifications.
+	* backupfile.c: New file, from fileutils-4.1 with modifications.
+	* addext.c: New file, from fileutils-4.1 with modifications.
+	* Makefile.am (libnlsut_a_SOURCES): Add backupfile.c, addext.c.
+	(libnlsut_a_HEADER): Add backupfile.h.
+
+2001-09-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* argmatch.h: New file, from fileutils-4.1 with simplifications.
 	* argmatch.c: New file, from fileutils-4.1 with simplifications.
 	* Makefile.am (libnlsut_a_SOURCES): Add argmatch.c.
