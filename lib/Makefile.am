@@ -126,7 +126,7 @@ DISTCLEANFILES = fnmatch.h
 all-local c-ctype.lo execute.lo javacomp.lo javaexec.lo pipe-bidi.lo pipe-in.lo pipe-out.lo progname.lo tmpdir.lo wait-process.lo xerror.lo: @STDBOOL_H@
 stdbool.h: stdbool.h.in
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool.h.in > stdbool.h
-MOSTLYCLEANFILES = @STDBOOL_H@
+MOSTLYCLEANFILES = stdbool.h
 
 
 # The following is needed in order to install a simple file in $(libdir)
