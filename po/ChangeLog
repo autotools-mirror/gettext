@@ -1,3 +1,8 @@
+2001-05-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* sl.po: Update from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+
 2001-05-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* POTFILES.in: Add lib/xerror.c.
