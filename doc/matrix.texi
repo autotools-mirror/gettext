@@ -30,14 +30,14 @@ id-utils        |       [] []                   []                   |
 indent          |       [] []             []    [] []                |
 jpilot          |                               []                   |
 kbd             |                                                    |
-ld              |                                                    |
+ld              |                               []                   |
 libc            |    [] [] [] []       []       [] []             [] |
 lilypond        |                                                 [] |
 lynx            |    [] [] []                                     [] |
 m4              |    [] [] [] []                [] []       []    [] |
 make            |       [] []          []       [] []             [] |
 mysecretdiary   |          []                                        |
-nano            |                                  []       []       |
+nano            |                      []          []       []       |
 opcodes         |                                                    |
 parted          |          []                      []             [] |
 ptx             |       [] []          [] []    [] []       []       |
@@ -57,7 +57,7 @@ wdiff           |       [] []             []                         |
 wget            |    [] [] [] []       [] []    [] [] []          [] |
                 +----------------------------------------------------+
                   bg cs da de el en eo es et fi fr gl he hr id it ja
-                   0 14 24 32 11  1  8 22 13  1 32 22  4  0  7  9 18
+                   0 14 24 32 11  1  8 23 13  1 33 22  4  0  7  9 18
 @end group
 
 @group
@@ -91,14 +91,14 @@ id-utils        |          []                   []       []          |  6
 indent          | []       []       []          [] []    [] []       | 12
 jpilot          |                                                    |  1
 kbd             |                                           []       |  1
-ld              |                                                    |  0
+ld              |                                                    |  1
 libc            | []    []       [] []     []      []    [] []       | 16
-lilypond        |          []                                        |  2
+lilypond        |          []                            []          |  3
 lynx            |          []              []   []       []          |  8
 m4              |          []       []          []       []          | 12
 make            | []       []       []     []   []          []       | 12
 mysecretdiary   |                                                    |  1
-nano            |                                        []          |  3
+nano            |                                        []          |  4
 opcodes         |                                           []       |  1
 parted          |          []                   []                   |  5
 ptx             |       [] []    [] [] []       []       [] []       | 15
@@ -118,6 +118,6 @@ wdiff           |                               [] []    [] []       |  7
 wget            |          []                   [] [] [] [] [] []    | 17
                 +----------------------------------------------------+
   33 teams        ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
-  53 domains       9  1  6 20  0  6 17  1  13   25 10 11 22 21  2  2  384
+  53 domains       9  1  6 20  0  6 17  1  13   25 10 11 23 21  2  2  387
 @end group
 @end example
