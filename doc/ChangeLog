@@ -1,5 +1,9 @@
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.texi: Many tweaks by Philipp Thomas <pthomas@suse.de>.
+
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
 	* gettext.texi (Plural forms): Add section about Lithuanian, reported
 	by Ricardas Cepas <rch@richard.eu.org>. Fix formula for Slovenian,
 	reported by Roman Maurer <roman.maurer@amis.net>.

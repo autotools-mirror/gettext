@@ -113,7 +113,7 @@ PO Files and PO Mode Basics
 Preparing Program Sources
 
 * Triggering::                  Triggering @code{gettext} Operations
-* Mark Keywords::               How Marks Appears in Sources
+* Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
@@ -301,15 +301,30 @@ offers to programmers, translators and even users, a well integrated
 set of tools and documentation.  Specifically, the GNU @code{gettext}
 utilities are a set of tools that provides a framework within which
 other free packages may produce multi-lingual messages.  These tools
-include a set of conventions about how programs should be written to
-support message catalogs, a directory and file naming organization for the
-message catalogs themselves, a runtime library supporting the retrieval of
-translated messages, and a few stand-alone programs to massage in various
-ways the sets of translatable strings, or already translated strings.
+include
+
+@itemize @bullet
+@item
+A set of conventions about how programs should be written to support
+message catalogs.
+
+@item
+A directory and file naming organization for the message catalogs
+themselves.
+
+@item
+A runtime library supporting the retrieval of translated messages.
+
+@item
+A few stand-alone programs to massage in various ways the sets of
+translatable strings, or already translated strings.
+
+@item
 A special mode for Emacs@footnote{In this manual, all mentions of Emacs
 refers to either GNU Emacs or to XEmacs, which people sometimes call FSF
-Emacs and Lucid Emacs, respectively.} also helps ease interested parties
-into preparing these sets, or bringing them up to date.
+Emacs and Lucid Emacs, respectively.} which helps preparing these sets
+and bringing them up to date.
+@end itemize
 
 GNU @code{gettext} is designed to minimize the impact of
 internationalization on program sources, keeping this impact as small
@@ -317,9 +332,9 @@ and hardly noticeable as possible.  Internationalization has better
 chances of succeeding if it is very light weighted, or at least,
 appear to be so, when looking at program sources.
 
-The Translation Project also uses the GNU @code{gettext}
-distribution as a vehicle for documenting its structure and methods.
-This goes beyond the strict technicalities of documenting the GNU @code{gettext}
+The Translation Project also uses the GNU @code{gettext} distribution
+as a vehicle for documenting its structure and methods.  This goes
+beyond the strict technicalities of documenting the GNU @code{gettext}
 proper.  By so doing, translators will find in a single place, as
 far as possible, all they need to know for properly doing their
 translating work.  Also, this supplemental documentation might also
@@ -611,7 +626,7 @@ properly initialize the translation library.  @xref{Sources}, for
 more information about all this.
 
 For newly written software the strings of course can and should be
-marked while writing the it.  The @code{gettext} approach makes this
+marked while writing it.  The @code{gettext} approach makes this
 very easy.  Simply put the following lines at the beginning of each file
 or in a central header file:
 
@@ -795,7 +810,7 @@ place the programs @code{xgettext}, @code{msgfmt}, @code{gettext}, and
 top off a comfortable installation, you might also want to make the
 PO mode available to your Emacs users.
 
-During the installation of the PO mode, you might want modify your
+During the installation of the PO mode, you might want to modify your
 file @file{.emacs}, once and for all, so it contains a few lines looking
 like:
 
@@ -865,7 +880,7 @@ have some non-white character just after the @kbd{#}, which comments
 are created and maintained automatically by GNU @code{gettext} tools.
 All comments, of either kind, are optional.
 
-After white space and comments, entries show two strings, giving
+After white space and comments, entries show two strings, namely
 first the untranslated string as it appears in the original program
 sources, and then, the translation of this string.  The original
 string is introduced by the keyword @code{msgid}, and the translation,
@@ -873,7 +888,7 @@ by @code{msgstr}.  The two strings, untranslated and translated,
 are quoted in various ways in the PO file, using @kbd{"}
 delimiters and @kbd{\} escapes, but the translator does not really
 have to pay attention to the precise quoting format, as PO mode fully
-intend to take care of quoting for her.
+takes care of quoting for her.
 
 The @code{msgid} strings, as well as automatic comments, are produced
 and managed by other GNU @code{gettext} tools, and PO mode does not
@@ -886,7 +901,7 @@ the full control she needs.
 The comment lines beginning with @kbd{#,} are special because they are
 not completely ignored by the programs as comments generally are.  The
 comma separated list of @var{flag}s is used by the @code{msgfmt}
-program to give the user some better disgnostic messages.  Currently
+program to give the user some better diagnostic messages.  Currently
 there are two forms of flags defined:
 
 @table @kbd
@@ -896,7 +911,7 @@ inserted by the translator herself.  It shows that the @code{msgstr}
 string might not be a correct translation (anymore).  Only the translator
 can judge if the translation requires further modification, or is
 acceptable as is.  Once satisfied with the translation, she then removes
-this @kbd{fuzzy} attribute.  The @code{msgmerge} programs inserts this
+this @kbd{fuzzy} attribute.  The @code{msgmerge} program inserts this
 when it combined the @code{msgid} and @code{msgstr} entries after fuzzy
 search only.  @xref{Fuzzy Entries}.
 
@@ -1192,7 +1207,7 @@ onto a special stack.  The command @kbd{m} (@code{po-push-location})
 merely adds the location of current entry to the stack, pushing
 the already saved locations under the new one.  The command
 @kbd{r} (@code{po-pop-location}) consumes the top stack element and
-reposition the cursor to the entry associated with that top element.
+repositions the cursor to the entry associated with that top element.
 This position is then lost, for the next @kbd{r} will move the cursor
 to the previously saved location, and so on until no locations remain
 on the stack.
@@ -1203,8 +1218,8 @@ element, then go elsewhere with the intent of getting back later, she
 ought to use @kbd{m} immediately after @kbd{r}.
 
 The command @kbd{x} (@code{po-exchange-location}) simultaneously
-reposition the cursor to the entry associated with the top element of
-the stack of saved locations, and replace that top element with the
+repositions the cursor to the entry associated with the top element of
+the stack of saved locations, and replaces that top element with the
 location of the current entry before the move.  Consequently, repeating
 the @kbd{x} command toggles alternatively between two entries.
 For achieving this, the translator will position the cursor on the
@@ -1244,7 +1259,7 @@ Tidy the whole PO file by making entries more uniform.
 
 @end table
 
-The special command @kbd{M-x po-normalize}, which has no associate
+The special command @kbd{M-x po-normalize}, which has no associated
 keys, revises all entries, ensuring that strings of both original
 and translated entries use uniform internal quoting in the PO file.
 It also removes any crumb after the last entry.  This command may be
@@ -1341,7 +1356,7 @@ sections of this chapter.
 
 @menu
 * Triggering::                  Triggering @code{gettext} Operations
-* Mark Keywords::               How Marks Appears in Sources
+* Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
 * c-format::                    Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
@@ -1382,7 +1397,7 @@ kind of input language, be wrong.  For example this would mean that a
 source code using the @,{c} (c-cedilla character) is runnable in
 France but not in the U.S.
 
-Some systems also have problems with parsing number using the
+Some systems also have problems with parsing numbers using the
 @code{scanf} functions if an other but the @code{LC_ALL} locale is used.
 The standards say that additional formats but the one known in the
 @code{"C"} locale might be recognized.  But some systems seem to reject
@@ -1430,7 +1445,7 @@ is needed in a large program's source, and because switching a locale
 is not multithread-safe.
 
 @node Mark Keywords, Marking, Triggering, Sources
-@section How Marks Appears in Sources
+@section How Marks Appear in Sources
 
 All strings requiring translation should be marked in the C sources.  Marking
 is done in such a way that each translatable string appears to be
@@ -1529,7 +1544,7 @@ directory, somewhat summarizing the contents using a special file
 format Emacs can understand.
 
 For packages following the GNU coding standards, there is
-a make goal @code{tags} or @code{TAGS} which construct the tag files in
+a make goal @code{tags} or @code{TAGS} which constructs the tag files in
 all directories and for all files containing source code.
 
 Once your @file{TAGS} file is ready, the following commands assist
@@ -1555,7 +1570,7 @@ keywords.
 
 @end table
 
-The @kbd{,} (@code{po-tags-search}) command search for the next
+The @kbd{,} (@code{po-tags-search}) command searches for the next
 occurrence of a string which looks like a possible candidate for
 translation, and displays the program source in another Emacs window,
 positioned in such a way that the string is near the top of this other
@@ -1719,7 +1734,7 @@ happens if the translation introduces a valid format specifier?  The
 exists because the original code does not refer to any parameter.
 
 @code{xgettext} of course could make a wrong decision the other way
-round.  A string marked as a format string is not really a format
+round, i.e. a string marked as a format string actually is not a format
 string.  In this case the @code{msgfmt} might give too many warnings and
 would prevent translating the @file{.po} file.  The method to prevent
 this wrong decision is similar to the one used above, only the comment
@@ -1862,7 +1877,7 @@ Recognize C++ style comments.
 
 @itemx --debug
 Use the flags @kbd{c-format} and @kbd{possible-c-format} to show who was
-responsible for marking a message as a format string.  The later form is
+responsible for marking a message as a format string.  The latter form is
 used if the @code{xgettext} program decided, the format form is used if
 the programmer prescribed it.
 
@@ -1888,7 +1903,7 @@ Read the names of the input files from @var{file} instead of getting
 them from the command line.
 
 @itemx --force
-Always write output file even if no message is defined.
+Always write an output file even if no message is defined.
 
 @item -h
 @itemx --help
@@ -1954,7 +1969,7 @@ Output files will be placed in directory @var{dir}.
 Generate sorted output and remove duplicates.
 
 @item --strict
-Write out strict Uniforum conforming PO file.
+Write out a strict Uniforum conforming PO file.
 
 @item -v
 @itemx --version
@@ -2193,8 +2208,8 @@ be later unfuzzied before becoming an official, genuine translated entry.
 @section Fuzzy Entries
 
 Each PO file entry may have a set of @dfn{attributes}, which are
-qualities given an name and explicitely associated with the entry
-translation, using a special system comment.  One of these attributes
+qualities given a name and explicitely associated with the translation,
+using a special system comment.  One of these attributes
 has the name @code{fuzzy}, and entries having this attribute are said
 to have a fuzzy translation.  They are called fuzzy entries, for short.
 
@@ -2274,7 +2289,7 @@ entries on the same level as active entries.  Untranslated entries
 are easily recognizable by the fact they end with @w{@samp{msgstr ""}}.
 
 The work of the translator might be (quite naively) seen as the process
-of seeking after an untranslated entry, editing a translation for
+of seeking for an untranslated entry, editing a translation for
 it, and repeating these actions until no untranslated entries remain.
 Some commands are more specifically related to untranslated entry
 processing.
@@ -2425,7 +2440,7 @@ the original string, disregarding any previous work.
 It is possible to arrange so, whenever editing an untranslated
 entry, the @kbd{@key{LFD}} command be automatically executed.  If you set
 @code{po-auto-edit-with-msgid} to @code{t}, the translation gets
-initialised with the original string, in case none exist already.
+initialised with the original string, in case none exists already.
 The default value for @code{po-auto-edit-with-msgid} is @code{nil}.
 
 In fact, whether it is best to start a translation with an empty
@@ -2459,8 +2474,8 @@ even between PO files.
 
 To facilitate exchanges with buffers which are not in PO mode, the
 translation string put on the kill ring by the @kbd{k} command is fully
-unquoted before being saved: external quotes are removed, multi-lines
-strings are concatenated, and backslashed escaped sequences are turned
+unquoted before being saved: external quotes are removed, multi-line
+strings are concatenated, and backslash escaped sequences are turned
 into their corresponding characters.  In the special case of obsolete
 entries, the translation is also uncommented prior to saving.
 
@@ -2487,7 +2502,7 @@ the program using it.
 
 Note that @kbd{k} or @kbd{w} are not the only commands pushing strings
 on the kill ring, as almost any PO mode command replacing translation
-strings (or the translator comments) automatically save the old string
+strings (or the translator comments) automatically saves the old string
 on the kill ring.  The main exceptions to this general rule are the
 yanking commands themselves.
 
@@ -2510,7 +2525,7 @@ entries with @kbd{o}, hoping to find some translation corresponding
 to the unmodified string.  Once found, she uses the @kbd{@key{DEL}} command
 for deleting the obsolete entry, knowing that @kbd{@key{DEL}} also @emph{kills}
 the translation, that is, pushes the translation on the kill ring.
-Then, @kbd{r} returns to the initial untranslated entry, @kbd{y}
+Then, @kbd{r} returns to the initial untranslated entry, and @kbd{y}
 then @emph{yanks} the saved translation right into the @code{msgstr}
 field.  The translator is then free to use @kbd{@key{RET}} for fine
 tuning the translation contents, and maybe to later use @kbd{u},
@@ -2578,7 +2593,7 @@ allow the translator to tell she is finished with editing the comment.
 Functions found on @code{po-subedit-mode-hook}, if any, are executed after
 the string has been inserted in the edit buffer.
 
-The command @kbd{K} (@code{po-kill-comment}) get rid of all
+The command @kbd{K} (@code{po-kill-comment}) gets rid of all
 translator comments, while saving those comments on the kill ring.
 The command @kbd{W} (@code{po-kill-ring-save-comment}) takes
 a copy of the translator comments on the kill ring, but leaves
@@ -2628,7 +2643,7 @@ Consult auxiliary PO files.
 
 @end table
 
-The windows contents represents a translation for a given message,
+The window's contents represents a translation for a given message,
 or a translator comment.  The translator may modify this window to
 her heart's content.  Once this done, the command @w{@kbd{C-c C-c}}
 (@code{po-subedit-exit}) may be used to return the edited translation into
@@ -2653,8 +2668,8 @@ Functions found on @code{po-subedit-mode-hook}, if any, are executed after
 the string has been inserted in the edit buffer.
 
 While editing her translation, the translator should pay attention to not
-inserting unwanted @kbd{@key{RET}} (carriage returns) characters at the end
-of the translated string if those are not meant to be there, or to removing
+inserting unwanted @kbd{@key{RET}} (newline) characters at the end of
+the translated string if those are not meant to be there, or to removing
 such characters when they are required.  Since these characters are not
 visible in the editing buffer, they are easily introduced by mistake.
 To help her, @kbd{@key{RET}} automatically puts the character @kbd{<}
@@ -2676,7 +2691,7 @@ PO file buffer, she may decide to start modifying another entry.  Each entry
 being edited has its own subedit buffer.  It is possible to simultaneously
 edit the translation @emph{and} the comment of a single entry, or to
 edit entries in different PO files, all at once.  Typing @kbd{@key{RET}}
-on a field already being edited merely resume that particular edit.  Yet,
+on a field already being edited merely resumes that particular edit.  Yet,
 the translator should better be comfortable at handling many Emacs windows!
 
 Pending subedits may be completed or aborted in any order, regardless
@@ -2760,7 +2775,7 @@ the next available contexts for this particular entry, getting back
 to the first context once the last has been shown.
 
 The command @kbd{M-s} behaves differently.  Instead of cycling through
-references, it lets the translator choose of particular reference among
+references, it lets the translator choose a particular reference among
 many, and displays that reference.  It is best used with completion,
 if the translator types @kbd{@key{TAB}} immediately after @kbd{M-s}, in
 response to the question, she will be offered a menu of all possible
@@ -2910,7 +2925,7 @@ Specify output file name as @var{file}.
 Direct the program to work strictly following the Uniforum/Sun
 implementation.  Currently this only affects the naming of the output
 file.  If this option is not given the name of the output file is the
-same as the domain name.  If the strict Uniforum mode is enable the
+same as the domain name.  If the strict Uniforum mode is enabled the
 suffix @file{.mo} is added to the file name if it is not already
 present.
 
@@ -2924,7 +2939,7 @@ translation errors.  The @code{msgid} and @code{msgstr} strings are
 studied and compared.  It is considered abnormal that one string
 starts or ends with a newline while the other does not.
 
-Also, if the string represents a format sring used in a
+Also, if the string represents a format string used in a
 @code{printf}-like function both strings should have the same number of
 @samp{%} format specifiers, with matching types.  If the flag
 @code{c-format} or @code{possible-c-format} appears in the special
@@ -3028,7 +3043,7 @@ includes all of them.
 Nothing prevents a MO file from having embedded @key{NUL}s in strings.
 However, the program interface currently used already presumes
 that strings are @key{NUL} terminated, so embedded @key{NUL}s are
-somewhat useless.  But MO file format is general enough so other
+somewhat useless.  But the MO file format is general enough so other
 interfaces would be later possible, if for example, we ever want to
 implement wide characters right in MO files, where @key{NUL} bytes may
 accidently appear.  (No, we don't want to have wide characters in MO
@@ -3099,7 +3114,7 @@ T + ((N-1)*8)| length & offset (N-1)th translation      |  | | | |
 @node Users, Programmers, Binaries, Top
 @chapter The User's View
 
-When GNU @code{gettext} will truly have reached is goal, average users
+When GNU @code{gettext} will truly have reached its goal, average users
 should feel some kind of astonished pleasure, seeing the effect of
 that strange kind of magic that just makes their own native language
 appear everywhere on their screens.  As for naive users, they would
@@ -3114,7 +3129,7 @@ way that the magic becomes possible.  This is a long and progressive
 undertaking, and information is available about the progress of the
 Translation Project.
 
-When a package is distributed, there are two kind of users:
+When a package is distributed, there are two kinds of users:
 @dfn{installers} who fetch the distribution, unpack it, configure
 it, compile it and install it for themselves or others to use; and
 @dfn{end users} that call programs of the package, once these have
@@ -3141,7 +3156,7 @@ for @var{ll}.
 
 More generally, a matrix is available for showing the current state
 of the Translation Project, listing which packages are prepared for
-multi-lingual messages, and which languages is supported by each.
+multi-lingual messages, and which languages are supported by each.
 Because this information changes often, this matrix is not kept within
 this GNU @code{gettext} manual.  This information is often found in
 file @file{ABOUT-NLS} from various distributions, but is also as old as
@@ -3194,12 +3209,12 @@ LANG; LANG=de}} (in @code{sh}).  They could even do this from their
 One aim of the current message catalog implementation provided by
 GNU @code{gettext} was to use the systems message catalog handling, if the
 installer wishes to do so.  So we perhaps should first take a look at
-the solutions we know about.  The people in the POSIX committee does not
+the solutions we know about.  The people in the POSIX committee did not
 manage to agree on one of the semi-official standards which we'll
-describe below.  In fact they couldn't agree on anything, so nothing
-decide only to include an example of an interface.  The major Unix vendors
-are split in the usage of the two most important specifications: X/Opens
-catgets vs. Uniforums gettext interface.  We'll describe them both and
+describe below.  In fact they couldn't agree on anything, so they decided
+only to include an example of an interface.  The major Unix vendors
+are split in the usage of the two most important specifications: X/Open's
+catgets vs. Uniforum's gettext interface.  We'll describe them both and
 later explain our solution of this dilemma.
 
 @menu
@@ -3230,7 +3245,7 @@ some others do@dots{})
 
 But we must not forget one point: after all the trouble with transfering
 the rights on Unix(tm) they at last came to X/Open, the very same who
-published this specifications.  This leads me to making the prediction
+published this specification.  This leads me to making the prediction
 that this interface will be in future Unix standards (e.g. Spec1170) and
 therefore part of all Unix implementation (implementations, which are
 @emph{allowed} to wear this name).
@@ -3285,7 +3300,7 @@ The fourth argument is not used to address the translation.  It is given
 as a default value in case when one of the addressing stages fail.  One
 important thing to remember is that although the return type of catgets
 is @code{char *} the resulting string @emph{must not} be changed.  It
-should better @code{const char *}, but the standard is published in
+should better be @code{const char *}, but the standard is published in
 1988, one year before ANSI C.
 
 @noindent
@@ -3300,17 +3315,17 @@ After this no @code{catgets} call using the descriptor is legal anymore.
 @node Problems with catgets,  , Interface to catgets, catgets
 @subsection Problems with the @code{catgets} Interface?!
 
-Now that this descriptions seemed to be really easy where are the
-problem we speak of.  In fact the interface could be used in a
+Now that this description seemed to be really easy --- where are the
+problem we speak of?  In fact the interface could be used in a
 reasonable way, but constructing the message catalogs is a pain.  The
 reason for this lies in the third argument of @code{catgets}: the unique
 message ID.  This has to be a numeric value for all messages in a single
-set.  Perhaps you could imagine the problems keeping such list while
+set.  Perhaps you could imagine the problems keeping such a list while
 changing the source code.  Add a new message here, remove one there.  Of
 course there have been developed a lot of tools helping to organize this
 chaos but one as the other fails in one aspect or the other.  We don't
 want to say that the other approach has no problems but they are far
-more easily to manage.
+more easy to manage.
 
 @node gettext, Comparison, catgets, Programmers
 @section About @code{gettext}
@@ -3351,7 +3366,7 @@ not reasonable because its construction and maintenance is difficult,
 perhaps impossible) and b) to access a string in a selected domain.
 
 This is principally the description of the @code{gettext} interface.  It
-has an global domain which unqualified usages reference.  Of course this
+has a global domain which unqualified usages reference.  Of course this
 domain is selectable by the user.
 
 @example
@@ -3397,14 +3412,17 @@ your language.
 @node Ambiguities, Locating Catalogs, Interface to gettext, gettext
 @subsection Solving Ambiguities
 
-While this single name domain work good for most applications there
+While this single name domain works well for most applications there
 might be the need to get translations from more than one domain.  Of
 course one could switch between different domains with calls to
 @code{textdomain}, but this is really not convenient nor is it fast.  A
-possible situation could be one case discussing while this writing:  all
+possible situation could be one case subject to discussion during this
+writing:  all
 error messages of functions in the set of common used functions should
 go into a separate domain @code{error}.  By this mean we would only need
 to translate them once.
+Another case are messages from a library, as these @emph{have} to be
+independent of the current domain set by the application.
 
 @noindent
 For this reasons there are two more functions to retrieve strings:
@@ -3586,7 +3604,7 @@ language families);
 @itemize @bullet
 @item
 The form how plural forms are build differs.  This is a problem with
-language which have many irregularities.  German, for instance, is a
+languages which have many irregularities.  German, for instance, is a
 drastic case.  Though English and German are part of the same language
 family (Germanic), the almost regular forming of plural noun forms
 (appending an `s') is hardly found in German.
@@ -3606,7 +3624,7 @@ only usable for certain, hardcoded language environments.  Instead the
 extended @code{gettext} interface should be used.
 
 These extra functions are taking instead of the one key string two
-strings and an numerical argument.  The idea behind this is that using
+strings and a numerical argument.  The idea behind this is that using
 the numerical argument and the first string as a key, the implementation
 can select using rules specified by the translator the right plural
 form.  The two string arguments then will be used to provide a return
@@ -3633,7 +3651,7 @@ The parameter @var{n} is used to determine the plural form.  If no
 message catalog is found @var{msgid1} is returned if @code{n == 1},
 otherwise @code{msgid2}.
 
-An example for the us of this function is:
+An example for the use of this function is:
 
 @smallexample
 printf (ngettext ("%d file removed", "%d files removed", n), n);
@@ -3668,9 +3686,7 @@ Therefore the solution implemented is to allow the translator to specify
 the rules of how to select the plural form.  Since the formula varies
 with every language this is the only viable solution except for
 hardcoding the information in the code (which still would require the
-possibility of extensions to not prevent the use of new languages).  The
-details are explained in the GNU @code{gettext} manual.  Here only a a
-bit of information is provided.
+possibility of extensions to not prevent the use of new languages).
 
 The information about the plural form selection has to be stored in the
 header entry of the PO file (the one with the empty @code{msgid} string).
@@ -3683,7 +3699,7 @@ Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;
 The @code{nplurals} value must be a decimal number which specifies how
 many different plural forms exist for this language.  The string
 following @code{plural} is an expression which is using the C language
-syntax.  Exceptions are that no negative number are allowed, numbers
+syntax.  Exceptions are that no negative numbers are allowed, numbers
 must be decimal, and the only variable allowed is @code{n}.  This
 expression will be evaluated whenever one of the functions
 @code{ngettext}, @code{dngettext}, or @code{dcngettext} is called.  The
@@ -3958,14 +3974,14 @@ examples above used @code{|} which is a quite good choice because it
 resembles a notation frequently used in this context and it also is a
 character not often used in message strings.
 
-But what if the character is used in message strings.  Or if the chose
+But what if the character is used in message strings?  Or if the chose
 character is not available in the character set on the machine one
 compiles (e.g., @code{|} is not required to exist for @w{ISO C}; this is
 why the @file{iso646.h} file exists in @w{ISO C} programming environments).
 @end itemize
 
 There is only one more comment to be said.  The wrapper function above
-require that the translations strings are not enlengthened themselves.
+requires that the translations strings are not enlengthened themselves.
 This is only logical.  There is no need to disambiguate the strings
 (since they are never used as keys for a search) and one also saves
 quite some memory and disk space by doing this.
@@ -4810,7 +4826,8 @@ of this chapter.  So, we describe them here.
 
 @itemize @bullet
 @item
-Before attempting to use you should install some other packages first.
+Before attempting to use @code{gettextize} you should install some
+other packages first.
 Ensure that recent versions of GNU @code{m4}, GNU Autoconf and GNU
 @code{gettext} are already installed at your site, and if not, proceed
 to do this first.  If you got to install these things, beware that
