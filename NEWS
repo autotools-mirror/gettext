@@ -30,6 +30,9 @@ Version 0.11.6 - October 2002
   specified attribute manipulation to apply to selected messages only.
 
 * Compatibility with automake-1.7.
+
+* In documentation section po/LINGUAS:
+  - Document the optional "languages" en@quot and en@boldquot.
 
 Version 0.11.5 - August 2002
 

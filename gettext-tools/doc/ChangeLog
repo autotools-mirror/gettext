@@ -1,3 +1,7 @@
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (po/LINGUAS): Document en@quot and en@boldquot.
+
 2003-02-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Mention the other <lang>-format and
