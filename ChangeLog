@@ -5,6 +5,11 @@
 	* config/install-sh: Upgrade to automake-1.9.4.
 	* config/mdate-sh: Upgrade to automake-1.9.4.
 	* config/missing: Upgrade to automake-1.9.4.
+	2002-03-07  Bruno Haible  <bruno@clisp.org>
+		* config/missing (makeinfo): Don't call touch without arguments
+		if the source texinfo file doesn't contain a @setfilename
+		command.
+		Reported by Miroslaw Dobrzanski-Neumann <mne@mosaic-ag.com>.
 	* config/mkinstalldirs: Upgrade to automake-1.9.4.
 	* config/ylwrap: Upgrade to automake-1.9.4.
 	Reported by Albert Chin-A-Young <china@thewrittenword.com>.

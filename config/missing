@@ -293,7 +293,9 @@ WARNING: \`$1' is $msg.  You should only need it if
       file=`echo "$*" | sed 's/.* \([^ ]*\) *$/\1/'`
       file=`sed -n '/^@setfilename/ { s/.* \([^ ]*\) *$/\1/; p; q; }' $file`
     fi
-    touch $file
+    if test -n "$file"; then
+      touch $file
+    fi
     ;;
 
   tar)
