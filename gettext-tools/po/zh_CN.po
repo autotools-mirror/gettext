@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.14-pre1\n"
+"Project-Id-Version: gettext-tools 0.14\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2004-01-18 16:24+0100\n"
-"PO-Revision-Date: 2004-01-21 00:03+0800\n"
+"PO-Revision-Date: 2004-02-09 11:15+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -3240,7 +3240,7 @@ msgstr "无效的电子邮件地址：无效字符。"
 
 #: src/user-email.sh.in:362 src/user-email.sh.in:386 src/user-email.sh.in:405
 msgid "Invalid email address: need a fully qualified host name or domain name."
-msgstr "无效的电子邮件地址：需要全称主机明或域名。"
+msgstr "无效的电子邮件地址：需要全称主机名或域名。"
 
 #: src/user-email.sh.in:363 src/user-email.sh.in:387 src/user-email.sh.in:406
 msgid "Invalid email address: missing @"

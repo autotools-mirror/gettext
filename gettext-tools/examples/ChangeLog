@@ -1,3 +1,8 @@
+2004-03-21  Bruno Haible  <bruno@clisp.org>
+
+	* po/es.po: Update from Max de Mendizábal <max@upn.mx>.
+	* po/sr.po: Update from Aleksandar Jelenak <jelenak@netlinkplus.net>.
+
 2004-02-24  Bruno Haible  <bruno@clisp.org>
 
 	* hello-csharp*/hello.cs (Hello.Main): Remove workaround for mono bug,

@@ -1,15 +1,15 @@
 # Serbian translation of gettext-tools
-# Copyright (C) 2003 Free Software Foundation, Inc.
-# Danilo Segan <dsegan@gmx.net>, 2003.
+# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Danilo Segan <dsegan@gmx.net>, 2003, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.13\n"
+"Project-Id-Version: gettext-tools 0.14\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2004-01-18 16:24+0100\n"
-"PO-Revision-Date: 2003-12-03 01:58+0100\n"
+"PO-Revision-Date: 2004-02-16 16:00+0100\n"
 "Last-Translator: Danilo Segan <dsegan@gmx.net>\n"
-"Language-Team: Serbian <sr@li.org>\n"
+"Language-Team: Serbian <gnu@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1459,9 +1459,9 @@ msgid "%s is only valid with %s or %s"
 msgstr "%s је једино исправно уз %s или %s"
 
 #: src/msgfmt.c:477 src/msgfmt.c:483
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s, %s or %s"
-msgstr "%s је једино исправно уз %s или %s"
+msgstr "%s је једино исправно уз %s, %s или %s"
 
 #: src/msgfmt.c:580
 #, c-format
@@ -1534,16 +1534,18 @@ msgstr ""
 "новији)\n"
 
 #: src/msgfmt.c:639
-#, fuzzy, c-format
+#, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
-msgstr "      --qt                    Qt режим: образуј Qt .qm датотеку\n"
+msgstr "      --csharp                C# режим: образуј .NET .dll датотеку\n"
 
 #: src/msgfmt.c:641
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
 "file\n"
-msgstr "      --qt                    Qt режим: образуј Qt .qm датотеку\n"
+msgstr ""
+"      --csharp-resources      Режим са C# ресурсима: образује .NET ."
+"resources датотеку\n"
 
 #: src/msgfmt.c:643
 #, c-format
@@ -1607,26 +1609,26 @@ msgstr ""
 "наведеним директоријумом.\n"
 
 #: src/msgfmt.c:671
-#, fuzzy, c-format
+#, c-format
 msgid "Output file location in C# mode:\n"
-msgstr "Путања излазне датотеке у Tcl режиму:\n"
+msgstr "Путања излазне датотеке у C# режиму:\n"
 
 #: src/msgfmt.c:677 src/msgunfmt.c:456
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -d DIRECTORY                base directory for locale dependent .dll "
 "files\n"
 msgstr ""
-"  -d ДИРЕКТОРИЈУМ             основни директоријум за хијерархију \n"
-"                              директоријума класе\n"
+"  -d ДИРЕКТОРИЈУМ             основни директоријум за .dll за локалитет\n"
 
 #: src/msgfmt.c:679
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Опције -l и -d су обавезне.  Датотека .msg се уписује у дати директоријум.\n"
+"Опције -l и -d су обавезне.  Датотека .dll се уписује у поддиректоријум \n"
+"датог директоријума чије име зависи од локалитета.\n"
 
 #: src/msgfmt.c:683
 #, c-format
@@ -2491,18 +2493,18 @@ msgstr ""
 "  -j, --java                  Јава режим: улаз је Јава класа ResourceBundle\n"
 
 #: src/msgunfmt.c:425
-#, fuzzy, c-format
+#, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
-msgstr ""
-"      --tcl                   Tcl режим: улаз је tcl/msgcat .msg датотека\n"
+msgstr "      --csharp                C# режим: улаз је .NET .dll датотека\n"
 
 #: src/msgunfmt.c:427
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: input is a .NET .resources "
 "file\n"
 msgstr ""
-"      --tcl                   Tcl режим: улаз је tcl/msgcat .msg датотека\n"
+"      --csharp-resources      Режим за C# ресурсе: улаз је .NET .resources "
+"датотека\n"
 
 #: src/msgunfmt.c:429
 #, c-format
@@ -2532,17 +2534,18 @@ msgstr ""
 "раздвојено подвлаком. Класа се проналази помоћу CLASSPATH.\n"
 
 #: src/msgunfmt.c:450
-#, fuzzy, c-format
+#, c-format
 msgid "Input file location in C# mode:\n"
-msgstr "Путања улазне датотеке у Tcl режиму:\n"
+msgstr "Путања улазне датотеке у C# режиму:\n"
 
 #: src/msgunfmt.c:458
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Опције -l и -d су обавезне.  Датотека .msg се налази у датом директоријуму.\n"
+"Опције -l и -d су обавезне.  Датотека .dll се налази у поддиректоријуму \n"
+"датог директоријума чије име зависи од локалитета.\n"
 
 #: src/msgunfmt.c:462
 #, c-format
@@ -3013,9 +3016,9 @@ msgstr ""
 
 # bug: there are similar messages with "%s:%lu: warning:"
 #: src/x-java.c:829
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: unterminated string constant"
-msgstr "%s:%d: упозорење: неокончана ниска"
+msgstr "%s:%d: упозорење: неокончана константна ниска"
 
 #: src/x-java.c:1323
 #, c-format
@@ -3146,7 +3149,7 @@ msgid "Choice of input file language:\n"
 msgstr "Избор језика улазне датотеке:\n"
 
 #: src/xgettext.c:752
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3160,7 +3163,8 @@ msgstr ""
 "                                (C, C++, ObjectiveC, PO, Shell, Питон, "
 "Лисп,\n"
 "                                ЕмаксЛисп, librep, Smalltalk, Јава,\n"
-"                                JavaProperties, awk, YCP, Tcl, Перл, PHP,\n"
+"                                JavaProperties, C#, awk, YCP, Tcl, Перл, "
+"PHP,\n"
 "                                GCC-извор, NXStringTable, RST, Глејд)\n"
 
 #: src/xgettext.c:758
@@ -3221,7 +3225,7 @@ msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           извуци све ниске\n"
 
 #: src/xgettext.c:785 src/xgettext.c:792
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Java, C#, "
@@ -3229,8 +3233,8 @@ msgid ""
 "                                Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
 "                                (само језици C, C++, ObjectiveC, Shell,\n"
-"                                Питон, Лисп, ЕмаксЛисп, librep, Јава, awk,\n"
-"                                Tcl, Перл, PHP, GCC-извор, Глејд)\n"
+"                                Питон, Лисп, ЕмаксЛисп, librep, Јава, C#,\n"
+"                                awk, Tcl, Перл, PHP, GCC-извор, Глејд)\n"
 
 #: src/xgettext.c:789
 #, c-format
@@ -3255,7 +3259,7 @@ msgstr ""
 "                              АРГ кључне речи РЕЧ\n"
 
 #: src/xgettext.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Java, C#, "
@@ -3263,8 +3267,8 @@ msgid ""
 "                                YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
 "                                (само језици C, C++, ObjectiveC, Shell,\n"
-"                                Питон, Лисп, ЕмаксЛисп, librep, Јава, awk,\n"
-"                                YCP, Tcl, Перл, PHP, GCC-извор)\n"
+"                                Питон, Лисп, ЕмаксЛисп, librep, Јава, C#,\n"
+"                                awk, YCP, Tcl, Перл, PHP, GCC-извор)\n"
 
 #: src/xgettext.c:803
 #, c-format

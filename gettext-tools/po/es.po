@@ -1,14 +1,14 @@
 # Mensajes en español para GNU gettext.
-# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
 # Max de Mendizábal <max@upn.mx>, 1996, 1997, 1998, 1999, 2000,
-# 2001, 2002, 2003.
+# 2001, 2002, 2003, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.13\n"
+"Project-Id-Version: GNU gettext-tools-0.14\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2004-01-18 16:24+0100\n"
-"PO-Revision-Date: 2003-12-01 11:36-0600\n"
+"PO-Revision-Date: 2004-01-29 14:00-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1639,9 +1639,9 @@ msgid "%s is only valid with %s or %s"
 msgstr "%s sólo es válido con %s o %s"
 
 #: src/msgfmt.c:477 src/msgfmt.c:483
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s, %s or %s"
-msgstr "%s sólo es válido con %s o %s"
+msgstr "%s sólo es válido con %s, %s o %s"
 
 #: src/msgfmt.c:580
 #, c-format
@@ -1714,16 +1714,19 @@ msgstr ""
 "                              (JDK 1.2 o superior)\n"
 
 #: src/msgfmt.c:639
-#, fuzzy, c-format
+#, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
-msgstr "      --qt                    Modo Qt: genera un fichero .qm de Qt\n"
+msgstr ""
+"      --csharp                Modo C#: genera un fichero .dll de .NET\n"
 
 #: src/msgfmt.c:641
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
 "file\n"
-msgstr "      --qt                    Modo Qt: genera un fichero .qm de Qt\n"
+msgstr ""
+"      --csharp-resources      modo de recursos C#: genera un fichero ."
+"resources de .NET\n"
 
 #: src/msgfmt.c:643
 #, c-format
@@ -1786,26 +1789,28 @@ msgstr ""
 "se escribe bajo el directorio especificado.\n"
 
 #: src/msgfmt.c:671
-#, fuzzy, c-format
+#, c-format
 msgid "Output file location in C# mode:\n"
-msgstr "Localización del fichero de salida en modo Tcl:\n"
+msgstr "Localización del fichero de salida en modo C#:\n"
 
 #: src/msgfmt.c:677 src/msgunfmt.c:456
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -d DIRECTORY                base directory for locale dependent .dll "
 "files\n"
 msgstr ""
-"  -d DIRECTORIO               directorio base de la jerarquía de clases\n"
+"  -d DIRECTORIO               directorio base de los ficheros .dll de "
+"dependencias locales\n"
 
 #: src/msgfmt.c:679
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Las opciones -l y -d son obligatorias. El fichero .msg será escrito en\n"
-"el directorio especificado.\n"
+"Las opciones -l y -d son obligatorias. El fichero .dll será escrito en\n"
+"un subdirectorio del directorio especificado cuyo nombre dependerá de la "
+"localización.\n"
 
 #: src/msgfmt.c:683
 #, c-format
@@ -2781,20 +2786,20 @@ msgstr ""
 "                              ResourceBundle\n"
 
 #: src/msgunfmt.c:425
-#, fuzzy, c-format
+#, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
 msgstr ""
-"      --tcl                   Modo Tcl: la entrada es un fichero .msg tcl/"
-"msgcat\n"
+"      --csharp                Modo C#: la entrada es un fichero .dll de ."
+"NET\n"
 
 #: src/msgunfmt.c:427
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: input is a .NET .resources "
 "file\n"
 msgstr ""
-"      --tcl                   Modo Tcl: la entrada es un fichero .msg tcl/"
-"msgcat\n"
+"      --csharp-resources      modo de recursos C#: genera un fichero ."
+"resources de .NET\n"
 
 #: src/msgunfmt.c:429
 #, c-format
@@ -2826,18 +2831,19 @@ msgstr ""
 "variable de entorno CLASSPATH.\n"
 
 #: src/msgunfmt.c:450
-#, fuzzy, c-format
+#, c-format
 msgid "Input file location in C# mode:\n"
-msgstr "Localización del fichero de entrada en modo Tcl:\n"
+msgstr "Localización del fichero de entrada en modo C#:\n"
 
 #: src/msgunfmt.c:458
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Las opciones -l y -d son obligatorias. El fichero .msg será escrito en\n"
-"el directorio especificado.\n"
+"Las opciones -l y -d son obligatorias. El fichero .dll será escrito en\n"
+"un subdirectorio del directorio especificado cuyo nombre depende de la "
+"configuración local.\n"
 
 #: src/msgunfmt.c:462
 #, c-format
@@ -3383,9 +3389,9 @@ msgstr ""
 "Esta versión fue construida sin expat.\n"
 
 #: src/x-java.c:829
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: unterminated string constant"
-msgstr "%s:%d: atención: cadena no finalizada"
+msgstr "%s:%d: atención: cadena constante no finalizada"
 
 #: src/x-java.c:1323
 #, c-format
@@ -3525,7 +3531,7 @@ msgid "Choice of input file language:\n"
 msgstr "Selección del lenguaje del fichero de entrada:\n"
 
 #: src/xgettext.c:752
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3539,7 +3545,8 @@ msgstr ""
 "                                  (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
 "                                  EmacsLisp, librep, Smalltalk, Java,\n"
-"                                  JavaProperties, awk, YCP, Tcl, Perl, PHP,\n"
+"                                  JavaProperties, C#, awk, YCP, Tcl, Perl, "
+"PHP,\n"
 "                                  fuente-GCC, NXStringTable, RST, Glade)\n"
 
 #: src/xgettext.c:758
@@ -3604,18 +3611,18 @@ msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           extrae todas las cadenas\n"
 
 #: src/xgettext.c:785 src/xgettext.c:792
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Java, C#, "
 "awk,\n"
 "                                Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
-"                                 (sólo los lenguajes C, C++, ObjectiveC, "
+"                                (sólo los lenguajes C, C++, ObjectiveC, "
 "Shell,\n"
-"                                 Python, Lisp, EmacsLisp, librep, Java, "
+"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
 "awk,\n"
-"                                 Tcl, Perl, PHP, fuente-GCC, Glade)\n"
+"                                Tcl, Perl, PHP, fuente-GCC, Glade)\n"
 
 #: src/xgettext.c:789
 #, c-format
@@ -3642,7 +3649,7 @@ msgstr ""
 "                                  clave PALABRA\n"
 
 #: src/xgettext.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Java, C#, "
@@ -3651,7 +3658,8 @@ msgid ""
 msgstr ""
 "                                (Sólo los lenguajes C, C++, ObjectiveC, "
 "Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, awk,\n"
+"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
+"awk,\n"
 "                                YCP, Tcl, Perl, PHP, fuente-GCC)\n"
 
 #: src/xgettext.c:803

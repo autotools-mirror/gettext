@@ -31,9 +31,9 @@
 #   * El text com a molt arriba a la columna 78, amb el caràcter de nova línia
 #     en la 79.  Les línies es parteixen de forma automàtica (no per que quede
 #     bonic, excepte quan quede realment horrend o porte a confusió).
-#   * Els missatges marcats com a multilínia només arriben fins la columna 70.
-#     A sovint contenen marques de format; en aquest cas s'hi inserta una nova
-#     línia perquè no hi ha forma de saber com serà de llarga la línia.
+#   * Els missatges marcats com a multilínia només arriben fins a la columna
+#     70.  A sovint contenen marques de format; en aquest cas s'hi inserta una
+#     nova línia perquè no hi ha forma de saber com serà de llarga la línia.
 #
 # FIXME: Lots of strings should be marked «no-wrap», not only those which
 #   are split between lines in English, but also those which would need to
@@ -42,10 +42,10 @@
 #   warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.14-pre1\n"
+"Project-Id-Version: gettext-tools 0.14.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2004-01-18 16:24+0100\n"
-"PO-Revision-Date: 2004-01-21 16:31+0100\n"
+"PO-Revision-Date: 2004-03-20 16:23+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -513,7 +513,7 @@ msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
 "conversion specifier '%c'."
 msgstr ""
-"En la directiva número %u, l'especificador de tamany no és compatible amb "
+"En la directiva número %u, l'especificador de mida no és compatible amb "
 "l'especificador de conversió «%c»."
 
 #: src/format-perl-brace.c:198 src/format-python.c:462 src/format-sh.c:304
@@ -1902,8 +1902,8 @@ msgstr "l'expressió de «plural» pot produir valors negatius"
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr ""
-"«nplurals» és %lu, però l'expressió de «plural» pot produir valors de fins %"
-"lu"
+"«nplurals» és %lu, però l'expressió de «plural» pot produir valors de fins a "
+"%lu"
 
 #: src/msgfmt.c:914
 #, c-format

@@ -1,13 +1,13 @@
 # Mensajes en español para GNU gettext.
-# Copyright (C) 1996, 1997, 1998, 2001 Free Software Foundation, Inc.
+# Copyright (C) 1996, 1997, 1998, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
 # Max de Mendizábal <max@upn.mx>, 1996, 1997, 1998, 1999, 2000, 
-# 2001, 2002, 2003.
+# 2001, 2002, 2003, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples-0.13-pre1\n"
+"Project-Id-Version: gettext-examples-0.14\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2004-01-17 17:57+0100\n"
-"PO-Revision-Date: 2003-11-24 19:19-0600\n"
+"PO-Revision-Date: 2004-01-29 13:59-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,6 +79,6 @@ msgid "This program is running as process number {0}."
 msgstr "Este programa está corriendo como el proceso número {0}."
 
 #: hello-perl/hello-2.pl.in:15
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Este programa está corriendo como el proceso número $pid."
+msgstr "Este programa está corriendo como el proceso número {pid}."
