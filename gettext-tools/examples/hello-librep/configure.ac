@@ -1,5 +1,5 @@
 dnl Example for use of GNU gettext.
-dnl Copyright (C) 2003 Free Software Foundation, Inc.
+dnl Copyright (C) 2003-2004 Free Software Foundation, Inc.
 dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
@@ -8,7 +8,7 @@ AC_INIT
 AC_CONFIG_SRCDIR(hello.jl.in)
 AM_INIT_AUTOMAKE(hello-librep, 0)
 
-dnl Check for availability of the Tcl interpreter.
+dnl Check for availability of the librep interpreter.
 AC_PATH_PROG(REP, rep)
 if test -z "$REP"; then
   echo "*** Essential program rep not found" 1>&2
