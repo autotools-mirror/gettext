@@ -136,7 +136,12 @@ Updating Existing PO Files
 * Subedit::                     Mode for Editing Translations
 * C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
-* Compendium::                  Using Translation Compendiums
+* Compendium::                  Using Translation Compendia
+
+Using Translation Compendia
+
+* Creating Compendia::          Merging translations for later use
+* Using Compendia::             Using older translations if they fit
 
 Producing Binary MO Files
 
@@ -2180,7 +2185,7 @@ format of the plural forms field is described in @ref{Plural forms}.
 * Subedit::                     Mode for Editing Translations
 * C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
-* Compendium::                  Using Translation Compendiums
+* Compendium::                  Using Translation Compendia
 @end menu
 
 @node msgmerge Invocation, Translated Entries, Updating, Updating
@@ -2899,25 +2904,131 @@ discrepancies between PO mode and other GNU @code{gettext} tools get
 fully resolved, the translator should stay aware of normalisation issues.
 
 @node Compendium,  , Auxiliary, Updating
-@section Using Translation Compendiums
+@section Using Translation Compendia
 
-@c FIXME: Rewrite.
+A @dfn{compendium} is a special PO file containing a set of
+translations recurring in many different packages.  The translator can
+use gettext tools to build a new compendium, to add entries to her
+compendium, and to initialize untranslated entries, or to update
+already translated entries, from translations kept in the compendium.
 
-Compendiums are yet to be implemented.
+@menu
+* Creating Compendia::          Merging translations for later use
+* Using Compendia::             Using older translations if they fit
+@end menu
 
-An incoming PO mode feature will let the translator maintain a
-compendium of already achieved translations.  A @dfn{compendium}
-is a special PO file containing a set of translations recurring in
-many different packages.  The translator will be given commands for
-adding entries to her compendium, and later initializing untranslated
-entries, or updating already translated entries, from translations
-kept in the compendium.  For this to work, however, the compendium
-would have to be normalized.  @xref{Normalizing}.
+@node Creating Compendia, Using Compendia, Compendium, Compendium
+@subsection Creating Compendia
 
-@c It is not useful that I modify the @file{lib/} routines if not done in
-@c the true sources.  How do you/I/they proceed for getting this job done?
-@c I presume that @file{lib/} routines will all use @code{gettext} for
-@c the time being.
+Basically every PO file consisting of translated entries only can be
+declared as a valid compendium.  Often the translater wants to have
+special compendia; let's consider two cases: @cite{concatenating PO
+files} and @cite{extracting a message subset from a PO file}.
+
+@subsubsection Concatenate PO Files
+
+To concatenate several valid PO files into one compendium file you can
+use @command{msgcomm} or @command{msgcat} (the latter preferred):
+
+@example
+msgcat -o compendium.po file1.po file2.po
+@end example
+
+By default, @command{msgcat} will accumulate divergent translations
+for the same string.  Those occurences will be marked as @code{fuzzy}
+and highly visible decorated; calling @command{msgcat} on
+@file{file1.po}:
+
+@example
+#: src/hello.c:200
+#, c-format
+msgid "Report bugs to <%s>.\n"
+msgstr "Comunicar `bugs' a <%s>.\n"
+@end example
+
+@noindent
+and @file{file2.po}:
+
+@example
+#: src/bye.c:100
+#, c-format
+msgid "Report bugs to <%s>.\n"
+msgstr "Comunicar \"bugs\" a <%s>.\n"
+@end example
+
+@noindent
+will result in:
+
+@example
+#: src/hello.c:200 src/bye.c:100
+#, fuzzy, c-format
+msgid "Report bugs to <%s>.\n"
+msgstr ""
+"#-#-#-#-#  file1.po  #-#-#-#-#\n"
+"Comunicar `bugs' a <%s>.\n"
+"#-#-#-#-#  file2.po  #-#-#-#-#\n"
+"Comunicar \"bugs\" a <%s>.\n"
+@end example
+
+@noindent
+The translator will have to resolve this ``conflict'' manually; she
+has to decide whether the first or the second version is appropriate
+(or provide a new translation), to delete the ``marker lines'', and
+finally to remove the @code{fuzzy} mark.
+
+If the translator knows in advance the first found translation of a
+message is always the best translation she can make use to the
+@option{--use-first} switch:
+
+@example
+msgcat --use-first -o compendium.po file1.po file2.po
+@end example
+
+A good compendium file must not contain @code{fuzzy} or untranslated
+entries.  If input files are ``dirty'' you must use the
+@option{--translated-only} switch (FIXME: TBI) or a manual way to pre-
+or postprocess.  (FIXME: Handling of obsolete entries at this point?
+Proposal: By default, make them valid entries.
+@option{--no-obsolete-entries}.)
+
+@subsubsection Extract a Message Subset from a PO File
+
+Nobody wants to translate the same messages again and again; thus you
+may wish to have a compendium file containing @file{getopt.c} messages.
+
+To extract a message subset (e.g., all @file{getopt.c} messages) from an
+existing PO file into one compendium file you can use
+@command{msggrep}:
+
+@example
+msggrep --location src/getopt.c -o compendium.po file.po
+@end example
+
+@node Using Compendia,  , Creating Compendia, Compendium
+@subsection Using Compendia
+
+You can use a compendium file to initialize a translation from scratch
+or to update an already existing translation.
+
+@subsubsection Initialize a New Translation File
+
+Since a PO file with translations does not exist the translator can
+merely use @file{/dev/null} to fake the ``old'' translation file.
+
+@example
+msgmerge --compendium compendium.po -o file.po /dev/null file.pot
+@end example
+
+@subsubsection Update an Existing Translation File
+
+Concatenate the compendium file(s) and the existing PO, merge the
+result with the POT file and remove the obsolete entries (optional,
+here done using @command{sed}):
+
+@example
+msgcat --use-first -o update.po compendium1.po compendium2.po file.po
+msgmerge update.po file.pot | sed -e '/^#~/d' > file.po
+@end example
 
 @node Binaries, Users, Updating, Top
 @chapter Producing Binary MO Files

@@ -1,3 +1,7 @@
+2001-08-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Compendium): Entirely rewritten by Karl Eichwalder.
+
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Other Programming Languages): New chapter.
