@@ -8,7 +8,8 @@
 
 2005-03-05  Bruno Haible  <bruno@clisp.org>
 
-	* nls.m4 (AM_MKINSTALLDIRS): Use AC_REQUIRE_AUX_FILE conditionally.
+	* nls.m4: Require autoconf >= 2.50.
+	(AM_MKINSTALLDIRS): Use AC_REQUIRE_AUX_FILE conditionally.
 
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
