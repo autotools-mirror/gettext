@@ -6,8 +6,12 @@ Installation on Woe32 (WinNT/2000/XP, Win95/98/ME):
 
 - Build instructions:
 
-   Make sure that the MSVC4.0 or MSVC5.0 or MSVC6.0 utilities ("cl" etc.) are
-   found in PATH.
+   Make sure that the MSVC4.0 or MSVC5.0 or MSVC6.0 or MSVC7.0 utilities
+   ("cl" etc.) are found in PATH. In a typical MSVC6.0 installation, this
+   can be achieved by running
+        C:\Program Files\Microsoft Visual Studio\VC98\bin\vcvars32.bat
+   In a typical MSVC7.0 installation, it can be achieved by running
+        C:\Program Files\Microsoft Visual Studio .NET\VC7\bin\vcvars32.bat
 
    For shared library (DLL):
 
