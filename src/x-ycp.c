@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -50,7 +50,8 @@ enum token_type_ty
   token_type_comma,		/* , */
   token_type_i18n,		/* _( */
   token_type_string_literal,	/* "abc" */
-  token_type_other		/* number, symbol, misc. operator */
+  token_type_symbol,		/* symbol, number */
+  token_type_other		/* misc. operator */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -58,7 +59,7 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;
+  char *string;		/* for token_type_string_literal, token_type_symbol */
   int line_number;
 };
 
@@ -389,7 +390,6 @@ x_ycp_lex (tp)
   int bufpos;
   int c;
 
-  tp->string = NULL;
   for (;;)
     {
       tp->line_number = line_number;
@@ -474,7 +474,7 @@ x_ycp_lex (tp)
 	    }
 	  buffer[bufpos] = '\0';
 	  tp->string = xstrdup (buffer);
-	  tp->type = token_type_other;
+	  tp->type = token_type_symbol;
 	  return;
 
 	case '"':
@@ -606,9 +606,10 @@ extract_ycp (f, real_filename, logical_filename, mdlp)
 	case token_type_eof:
 	  break;
 
+	case token_type_symbol:
+	  free (token.string);
+	  /* FALLTHROUGH */
 	default:
-	  if (token.string != NULL)
-	    free (token.string);
 	  state = 0;
 	  continue;
 	}

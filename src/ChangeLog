@@ -1,5 +1,12 @@
 2002-01-27  Bruno Haible  <bruno@clisp.org>
 
+	* x-ycp.c (enum token_type_ty): New enum value token_type_symbol.
+	(x_ycp_lex): Assign a value to tp->string if and only if the type is
+	token_type_string_literal or token_type_symbol.
+	(extract_ycp): Simplify cleanup.
+
+2002-01-27  Bruno Haible  <bruno@clisp.org>
+
 	* x-java.l (extract_java): Don't create a plural message if the
 	function can take two string argument but actually has only one
 	string argument.
