@@ -1,3 +1,13 @@
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Add extensions.m4.
+
+2003-08-08  Paul Eggert  <eggert@twinsun.com>
+
+	* extensions.m4: New file.
+	* unlocked-io.m4 (jm_FUNC_GLIBC_UNLOCKED_IO):
+	Require gl_USE_SYSTEM_EXTENSIONS rather than AC_GNU_SOURCE.
+
 2003-07-01  Paul Eggert  <eggert@twinsun.com>
 
 	* xreadlink.m4 (gl_XREADLINK): Don't check for sys/types.h, since
