@@ -212,6 +212,7 @@ Manipulating PO Files
 * msgattrib Invocation::        Invoking the @code{msgattrib} Program
 * msgen Invocation::            Invoking the @code{msgen} Program
 * msgexec Invocation::          Invoking the @code{msgexec} Program
+* libgettextpo::                Writing your own programs that process PO files
 
 Producing Binary MO Files
 
@@ -3637,6 +3638,10 @@ or untranslated messages of a translation catalog.
 @samp{msgen} is useful as a first step for preparing English translation
 catalogs.  It copies each message's msgid to its msgstr.
 
+Finally, for those applications where all these various programs are not
+sufficient, a library @samp{libgettextpo} is provided that can be used to
+write other specialized programs that process PO files.
+
 @menu
 * msgcat Invocation::           Invoking the @code{msgcat} Program
 * msgconv Invocation::          Invoking the @code{msgconv} Program
@@ -3648,6 +3653,7 @@ catalogs.  It copies each message's msgid to its msgstr.
 * msgattrib Invocation::        Invoking the @code{msgattrib} Program
 * msgen Invocation::            Invoking the @code{msgen} Program
 * msgexec Invocation::          Invoking the @code{msgexec} Program
+* libgettextpo::                Writing your own programs that process PO files
 @end menu
 
 @node msgcat Invocation, msgconv Invocation, Manipulating, Manipulating
@@ -3695,10 +3701,138 @@ catalogs.  It copies each message's msgid to its msgstr.
 
 @include msgen.texi
 
-@node msgexec Invocation,  , msgen Invocation, Manipulating
+@node msgexec Invocation, libgettextpo, msgen Invocation, Manipulating
 @section Invoking the @code{msgexec} Program
 
 @include msgexec.texi
+
+@node libgettextpo,  , msgexec Invocation, Manipulating
+@section Writing your own programs that process PO files
+
+For the tasks for which a combination of @samp{msgattrib}, @samp{msgcat} etc.
+is not sufficient, a set of C functions is provided in a library, to make it
+possible to process PO files in your own programs.  When you use this library,
+you don't need to write routines to parse the PO file; instead, you retreive
+a pointer in memory to each of messages contained in the PO file. Functions
+for writing PO files are not provided at this time.
+
+The functions are declared in the header file @samp{<gettext-po.h>}, and are
+defined in a library called @samp{libgettextpo}.
+
+@deftp {Data Type} po_file_t
+This is a pointer type that refers to the contents of a PO file, after it has
+been read into memory.
+@end deftp
+
+@deftp {Data Type} po_message_iterator_t
+This is a pointer type that refers to an iterator that produces a sequence of
+messages.
+@end deftp
+
+@deftp {Data Type} po_message_t
+This is a pointer type that refers to a message of a PO file, including its
+translation.
+@end deftp
+
+@deftypefun po_file_t po_file_read (const char *@var{filename})
+The @code{po_file_read} function reads a PO file into memory.  The file name
+is given as argument.  The return value is a handle to the PO file's contents,
+valid until @code{po_file_free} is called on it.  In case of error, the return
+value is @code{NULL}, and @code{errno} is set.
+@end deftypefun
+
+@deftypefun void po_file_free (po_file_t @var{file})
+The @code{po_file_free} function frees a PO file's contents from memory,
+including all messages that are only implicitly accessible through iterators.
+@end deftypefun
+
+@deftypefun {const char * const *} po_file_domains (po_file_t @var{file})
+The @code{po_file_domains} function returns the domains for which the given
+PO file has messages.  The return value is a @code{NULL} terminated array
+which is valid as long as the @var{file} handle is valid.  For PO files which
+contain no @samp{domain} directive, the return value contains only one domain,
+namely the default domain @code{"messages"}.
+@end deftypefun
+
+@deftypefun po_message_iterator_t po_message_iterator (po_file_t @var{file}, const char *@var{domain})
+The @code{po_message_iterator} returns an iterator that will produce the
+messages of @var{file} that belong to the given @var{domain}.  If @var{domain}
+is @code{NULL}, the default domain is used instead.  To list the messages,
+use the function @code{po_next_message} repeatedly.
+@end deftypefun
+
+@deftypefun void po_message_iterator_free (po_message_iterator_t @var{iterator})
+The @code{po_message_iterator_free} function frees an iterator previously
+allocated through the @code{po_message_iterator} function.
+@end deftypefun
+
+@deftypefun po_message_t po_next_message (po_message_iterator_t @var{iterator})
+The @code{po_next_message} function returns the next message from
+@var{iterator} and advances the iterator.  It returns @code{NULL} when the
+iterator has reached the end of its message list.
+@end deftypefun
+
+The following functions returns details of a @code{po_message_t}.  Recall
+that the results are valid as long as the @var{file} handle is valid.
+
+@deftypefun {const char *} po_message_msgid (po_message_t @var{message})
+The @code{po_message_msgid} function returns the @code{msgid} (untranslated
+English string) of a message.  This is guaranteed to be non-@code{NULL}.
+@end deftypefun
+
+@deftypefun {const char *} po_message_msgid_plural (po_message_t @var{message})
+The @code{po_message_msgid_plural} function returns the @code{msgid_plural}
+(untranslated English plural string) of a message with plurals, or @code{NULL}
+for a message without plural.
+@end deftypefun
+
+@deftypefun {const char *} po_message_msgstr (po_message_t @var{message})
+The @code{po_message_msgstr} function returns the @code{msgstr} (translation)
+of a message.  For an untranslated message, the return value is an empty
+string.
+@end deftypefun
+
+@deftypefun {const char *} po_message_msgstr_plural (po_message_t @var{message}, int @var{index})
+The @code{po_message_msgstr_plural} function returns the
+@code{msgstr[@var{index}]} of a message with plurals, or @code{NULL} when
+the @var{index} is out of range or for a message without plural.
+@end deftypefun
+
+Here is an example code how these functions can be used.
+
+@example
+const char *filename = @dots{};
+po_file_t file = po_file_read (filename);
+
+if (file == NULL)
+  error (EXIT_FAILURE, errno, "couldn't open the PO file %s", filename);
+@{
+  const char * const *domains = po_file_domains (file);
+  const char * const *domainp;
+
+  for (domainp = domains; *domainp; domainp++)
+    @{
+      const char *domain = *domainp;
+      po_message_iterator_t iterator = po_message_iterator (file, domain);
+
+      for (;;)
+        @{
+          po_message_t *message = po_next_message (iterator);
+
+          if (message == NULL)
+            break;
+          @{
+            const char *msgid = po_message_msgid (message);
+            const char *msgstr = po_message_msgstr (message);
+
+            @dots{}
+          @}
+        @}
+      po_message_iterator_free (iterator);
+    @}
+@}
+po_file_free (file);
+@end example
 
 @node Binaries, Users, Manipulating, Top
 @chapter Producing Binary MO Files

@@ -30,7 +30,9 @@ msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq
 
 noinst_PROGRAMS = hostname urlget
 
-lib_LTLIBRARIES = libgettextsrc.la
+lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
+
+include_HEADERS = gettext-po.h
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
@@ -86,6 +88,14 @@ $(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
 msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
 plural-table.c $(FORMAT_SOURCE)
 
+# libgettextpo contains the public API for PO files.
+libgettextpo_la_SOURCES = gettext-po.c
+# Libtool's library version information for libgettextpo.
+# See the libtool documentation, section "Library interface versions".
+LTV_CURRENT=0
+LTV_REVISION=0
+LTV_AGE=0
+
 # x-python needs table of Unicode character names.
 LIBUNINAME = ../libuniname/libuniname.a
 
@@ -125,6 +135,13 @@ libgettextsrc_la_LDFLAGS = \
 install-exec-am: install-exec-clean
 install-exec-clean:
 	$(RM) $(DESTDIR)$(libdir)/libgettextsrc.a
+
+# How to build libgettextpo.la.
+# Need libgettextsrc.la.
+libgettextpo_la_LDFLAGS = \
+  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
+  -rpath $(libdir) \
+  libgettextsrc.la -lc -no-undefined
 
 # Link dependencies.
 gettext_LDADD = ../lib/basename.lo ../lib/error.lo ../lib/getopt.lo ../lib/getopt1.lo ../lib/strtoul.lo ../lib/xmalloc.lo @LTLIBINTL@

@@ -1,3 +1,12 @@
+2003-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h: New file.
+	* gettext-po.c: New file.
+	* Makefile.am (lib_LTLIBRARIES): Add libgettextpo.la.
+	(include_HEADERS): New variable.
+	(libgettextpo_la_SOURCES, libgettextpo_la_LDFLAGS): New variables.
+	(LTV_CURRENT, LTV_REVISION, LTV_AGE): New variables.
+
 2003-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.c (long_options): Add --only-file and --ignore-file.

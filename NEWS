@@ -6,6 +6,12 @@ Version 0.11.6 - October 2002
   strings in C++. This is needed for proper internationalization of C++
   programs.
 
+* A new include file libgettextpo, with public header file "gettext-po.h",
+  provides functions for reading PO files into memory. It is useful for
+  applying PO files to areas not covered by the GNU gettext programs.
+  New documentation section:
+  - Writing your own programs that process PO files.
+
 * xgettext now supports msgid strings in other encodings than ASCII.
   xgettext has a new option --from-code that specifies the encoding of the
   source files. The resulting POT files are UTF-8 encoded.

@@ -1,3 +1,7 @@
+2003-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (libgettextpo): New node.
+
 2003-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.texi: Document options --only-file and --ignore-file.

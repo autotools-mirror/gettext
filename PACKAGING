@@ -64,8 +64,10 @@ following file list.
       $prefix/doc/libasprintf/autosprintf.html
       $prefix/info/gettext.info*
       $prefix/info/autosprintf.info
+      $prefix/include/gettext-po.h
       $prefix/lib/libgettextlib*
       $prefix/lib/libgettextsrc*
+      $prefix/lib/libgettextpo*
       $prefix/lib/gettext/*
       $prefix/share/locale/*/LC_MESSAGES/gettext.mo
       $prefix/share/gettext/config.rpath
