@@ -1,3 +1,8 @@
+2000-05-31  Hrvoje Niksic  <hniksic@iskon.hr>
+
+	* po-mode.el (po-create-overlay, po-highlight, po-rehighlight,
+	po-dehighlight): Use XEmacs extent primitives.
+
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* automake.diff: New file.

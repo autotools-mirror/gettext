@@ -295,33 +295,26 @@ The current buffer should be in PO mode, when this function is called."
 
     (defun po-create-overlay ()
       "Create and return a deleted overlay structure."
-      (cons (make-marker) (make-marker)))
+      ;; The same as for GNU Emacs above, except the created extent is
+      ;; already detached, so there's no need to "delete" it
+      ;; explicitly.
+      (let ((extent (make-extent nil nil)))
+	(set-extent-face extent po-highlight-face)
+	extent))
 
-    (defun po-highlight (overlay start end &optional buffer)
-      "Use OVERLAY to highlight the string from START to END.
+    (defun po-highlight (extent start end &optional buffer)
+      "Use EXTENT to highlight the string from START to END.
 If limits are not relative to the current buffer, use optional BUFFER."
-      (if buffer
-	  (save-excursion
-	    (set-buffer buffer)
-	    (isearch-highlight start end))
-	(isearch-highlight start end))
-      (set-marker (car overlay) start (or buffer (current-buffer)))
-      (set-marker (cdr overlay) end (or buffer (current-buffer))))
+      (set-extent-endpoints extent start end (or buffer (current-buffer))))
 
-    (defun po-rehighlight (overlay)
-      "Ensure OVERLAY is highlighted."
-      (let ((buffer (marker-buffer (car overlay)))
-	    (start (marker-position (car overlay)))
-	    (end (marker-position (cdr overlay))))
-	(and buffer
-	     (buffer-name buffer)
-	     (po-highlight overlay start end buffer))))
+    (defun po-rehighlight (extent)
+      "Ensure EXTENT is highlighted."
+      ;; Nothing to do here.
+      nil)
 
-    (defun po-dehighlight (overlay)
-      "Display normally the last string which OVERLAY highlighted."
-      (isearch-dehighlight t)
-      (setcar overlay (make-marker))
-      (setcdr overlay (make-marker))))
+    (defun po-dehighlight (extent)
+      "Display normally the last string which EXTENT highlighted."
+      (detach-extent extent)))
 
    (t
 
