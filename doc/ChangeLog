@@ -1,3 +1,8 @@
+2001-11-01  Bruno Haible  <haible@clisp.cons.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2001-10-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (EXTRA_DIST): Add texi2html.
