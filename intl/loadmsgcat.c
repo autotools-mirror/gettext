@@ -84,8 +84,11 @@
    cached by one of GCC's features.  */
 int _nl_msg_cat_cntr;
 
+#if defined __GNUC__ \
+    || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
+
 /* These structs are the constant expression for the germanic plural
-   form determination.  */
+   form determination.  It represents the expression  "n != 1".  */
 static const struct expression plvar =
 {
   .operation = var,
@@ -109,6 +112,37 @@ static struct expression germanic_plural =
     }
   }
 };
+
+#define INIT_GERMANIC_PLURAL()
+
+#else
+
+/* For compilers without support for ISO C 99 struct/union initializers:
+   Initialization at run-time.  */
+
+static struct expression plvar;
+static struct expression plone;
+static struct expression germanic_plural;
+
+static void
+init_germanic_plural ()
+{
+  if (plone.val.num == 0)
+    {
+      plvar.operation = var;
+
+      plone.operation = num;
+      plone.val.num = 1;
+
+      germanic_plural.operation = not_equal;
+      germanic_plural.val.args2.left = &plvar;
+      germanic_plural.val.args2.right = &plone;
+    }
+}
+
+#define INIT_GERMANIC_PLURAL() init_germanic_plural ()
+
+#endif
 
 
 /* Load the message catalogs specified by FILENAME.  If it is no valid
@@ -369,6 +403,7 @@ _nl_load_domain (domain_file)
          for `one', the plural form otherwise.  Yes, this is also what
          English is using since English is a Germanic language.  */
     no_plural:
+      INIT_GERMANIC_PLURAL ();
       domain->plural = &germanic_plural;
       domain->nplurals = 2;
     }
