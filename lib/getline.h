@@ -17,6 +17,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifndef GETLINE_H_
 # define GETLINE_H_ 1
 
+# include <stddef.h>
 # include <stdio.h>
 
 # ifndef PARAMS

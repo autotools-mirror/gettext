@@ -1,3 +1,7 @@
+2001-12-18  Bruno Haible  <bruno@clisp.org>
+
+	* getline.h: Include <stddef.h>, for size_t.
+
 2001-12-15  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.c: Add OS/2 support.
