@@ -1,5 +1,5 @@
-$Revision: 1.2 $
-$Date: 2001/02/20 15:21:13 $
+$Revision: 1.3 $
+$Date: 2001/03/09 16:27:17 $
 20
 !!! README for gemtext.  !!!
 If you think the above mentioned date is old check out
@@ -76,7 +76,7 @@ CONTENTS
         3. How to use the GNU gettext package
         4. How to use the gemtext package
         5. The library rintl
-        6. Charsets: Atari versus ISO-Latin 1
+        6. Charsets: Atari versus ISO Latin1
         7. Miscellanea
 
 
@@ -365,8 +365,8 @@ pages rnltree(3) and rnlpush(3) for details.
 
 
 
-6. Charsets: Atari versus ISO-Latin 1
-=====================================
+6. Charsets: Atari versus ISO Latin1
+====================================
 
 There's a dilemma with the i18n thing.  On other platforms (especially of
 the workstation sector) you can not only localize the language but also
@@ -375,22 +375,22 @@ you to do so on Atari.
 
 A couple of years ago there was but one choice for a charset in the Atari
 sector, the charset of the Atari's built-in system font.  Now more and
-more Atari users have switched to the universally used ISO-Latin 1 charset
-also known as i-8859-1, especially when using a command line interpreter.
+more Atari users have switched to the universally used ISO Latin1 charset
+also known as iso-8859-1, especially when using a command line interpreter.
 If you use already internationalized GNU packages you will come across
-this charset, too.  (Note that both ISO-Latin 1 and the Atari charset are
+this charset, too.  (Note that both ISO Latin1 and the Atari charset are
 intended for use with western european languages, the Atari's charset
 to a certain extent also for Hebrew and Greek.  Hence the following refers
 only to those languages).
 
 I have chosen the following way:  As it is very unlikely that you use an
-ISO-Latin 1 charset with GEM, the files containing the messages for the
+ISO Latin1 charset with GEM, the files containing the messages for the
 example program - which has a GUI - have to be read with the Atari
 charset. But these files shouldn't go into your locale directory.  The
 whole thing is provided as an example and should stay where it is (i. e.
 it isn't installed).
 
-For xgemtext you have the choice. If you use an ISO-Latin-1 font (as you
+For xgemtext you have the choice. If you use an ISO Latin1 font (as you
 should do) simply follow the instructions in ABOUT-NLS.  If you insist on
 using a font with an Atari codeset set the environment variable LANGUAGE
 (or LC_ALL or LC_xxx) to <ll>.atarist where <ll> should specify the
