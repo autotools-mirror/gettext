@@ -6,7 +6,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mex-test1.po"
-cat <<EOF > mex-test1.po
+cat <<\EOF > mex-test1.po
 # HEADER.
 #
 msgid ""
@@ -77,7 +77,7 @@ ${MSGEXEC} -i mex-test1.po ./mex-test1.sh > mex-test1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mex-test1.ok"
-cat <<EOF > mex-test1.ok
+cat <<\EOF > mex-test1.ok
 ========================= mex-test1.po:4 =========================
 
 ---

@@ -8,7 +8,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mm-test12.com mm-test12.pot"
 
-cat <<EOF > mm-test12.com
+cat <<\EOF > mm-test12.com
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -35,7 +35,7 @@ ${MSGMERGE} -q --compendium mm-test12.com /dev/null mm-test12.pot -o mm-test12.o
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test12.ok"
-cat << EOF > mm-test12.ok
+cat << \EOF > mm-test12.ok
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"

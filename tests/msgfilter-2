@@ -29,7 +29,7 @@ sedoutputcount=`echo "$sedoutputcount" | sed -e 's/[ 	]//g'`
 test "$sedoutputcount" = 3 || { echo "SKIP: msgfilter-2"; rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles mfi-test2.po"
-cat <<EOF > mfi-test2.po
+cat <<\EOF > mfi-test2.po
 # HEADER.
 #
 msgid ""
@@ -94,7 +94,7 @@ cat mfi-test2.err | grep -v 'warning: Locale charset' | grep -v '^ '
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mfi-test2.ok"
-cat <<EOF > mfi-test2.ok
+cat <<\EOF > mfi-test2.ok
 # HEADER.
 #
 msgid ""

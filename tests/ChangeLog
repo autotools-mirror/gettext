@@ -1,5 +1,17 @@
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* msgattrib-*: Use \EOF, not EOF, to create here documents containing
+	non-ASCII characters. Needed on FreeBSD.
+	* msgcat-*: Likewise.
+	* msgcomm-*: Likewise.
+	* msgconv-*: Likewise.
+	* msgexec-*: Likewise.
+	* msgfilter-*: Likewise.
+	* msgfmt-*: Likewise.
+	* msgmerge-*: Likewise.
+
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* tstgettext.c (main): Update year in --version output.
 	* tstngettext.c (main): Likewise.
 

@@ -6,7 +6,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles ma-test5.po"
-cat <<EOF > ma-test5.po
+cat <<\EOF > ma-test5.po
 # HEADER.
 #
 msgid ""
@@ -62,7 +62,7 @@ ${MSGATTRIB} --no-obsolete ma-test5.po -o ma-test5.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test5.ok"
-cat <<EOF > ma-test5.ok
+cat <<\EOF > ma-test5.ok
 # HEADER.
 #
 msgid ""

@@ -7,7 +7,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mco-test2.po"
-cat <<EOF > mco-test2.po
+cat <<\EOF > mco-test2.po
 # Chinese translation for GNU gettext messages.
 #
 msgid ""
@@ -27,7 +27,7 @@ ${MSGCONV} -t Big5 mco-test2.po -o mco-test2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mco-test2.ok"
-cat <<EOF > mco-test2.ok
+cat <<\EOF > mco-test2.ok
 # Chinese translation for GNU gettext messages.
 #
 msgid ""

@@ -6,7 +6,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles foo.po"
-cat <<EOF > foo.po
+cat <<\EOF > foo.po
 domain "foo-de"
 msgid ""
 msgstr "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -44,7 +44,7 @@ ${MSGMERGE} --multi-domain -q foo.po foo.pot -o foo.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles foo.ok"
-cat <<EOF > foo.ok
+cat <<\EOF > foo.ok
 domain "foo-de"
 
 msgid ""
