@@ -2,6 +2,11 @@
 
 	* gettext-0.14.3 released.
 
+2004-10-23  Bruno Haible  <bruno@clisp.org>
+
+	* start-po-el: New file.
+	* Makefile.am (lisp_LISP): Add it.
+
 2005-03-08  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in: Update for 0.14.3.
