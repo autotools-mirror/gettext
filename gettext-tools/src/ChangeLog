@@ -1,3 +1,8 @@
+2003-06-23  Guido Flohr  <guido@imperia.net>
+
+	* x-perl.c (extract_quotelike_pass3): Fix handling of doubled
+	backslashes in single-quoted strings.
+
 2003-06-23  Bruno Haible  <bruno@clisp.org>
 
 	* format-perl-bracket.c (format_check): Allow additional bracketed

@@ -827,7 +827,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 	    case '\\':
 	      if (crs[1] == '\\')
 		{
-		  ++crs;
+		  crs += 2;
 		  buffer[bufpos++] = '\\';
 		  break;
 		}
