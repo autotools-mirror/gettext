@@ -124,7 +124,7 @@ EOF
 AC_OUTPUT([Makefile \
            lib/Makefile lib/javacomp.sh lib/javaexec.sh \
            intl/Makefile intl-java/Makefile \
-           src/Makefile \
+           src/Makefile src/user-email \
            po/Makefile.in \
            doc/Makefile man/Makefile man/x-to-1 \
            tests/Makefile \

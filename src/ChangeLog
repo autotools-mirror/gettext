@@ -1,5 +1,12 @@
 2001-09-29  Bruno Haible  <haible@clisp.cons.org>
 
+	* user-email.in: New file.
+	* Makefile.am (install-exec-local): Install user-email.
+	(uninstall-local): Uninstall user-email.
+	(DISTCLEANFILES): Add user-email.
+
+2001-09-29  Bruno Haible  <haible@clisp.cons.org>
+
 	* hostname.c: New file.
 	* Makefile.am (noinst_PROGRAMS, hostname_SOURCES): New variables.
 	(install-exec-local, installdirs-local, uninstall-local): New rules.

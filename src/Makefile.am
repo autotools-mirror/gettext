@@ -113,7 +113,7 @@ x-java.c: x-java.l
 	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
 
-DISTCLEANFILES = po-gram-gen2.h
+DISTCLEANFILES = po-gram-gen2.h user-email
 
 
 # Special rules for installation of auxiliary programs.
@@ -121,12 +121,14 @@ DISTCLEANFILES = po-gram-gen2.h
 install-exec-local:
 	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
 
 installdirs-local:
 	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
 
 uninstall-local:
 	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/user-email
 
 
 # Special rules for Java compilation.
