@@ -9,6 +9,13 @@ Version 0.12.2 - XXX 2003
     "xgettext --language=PHP" now supports the plural handling functions
     ngettext, dngettext, dcngettext (introduced in PHP 4.2.0).
 
+  - GCC-source:
+
+    xgettext's --language option now supports the value "GCC-source". This
+    is like --language=C, except that in this mode, xgettext recognizes the
+    special kind of format strings used in the GCC sources and marks them
+    as 'gcc-internal-format'.
+
 * Data formats support:
 
   - Glade:
