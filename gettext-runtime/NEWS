@@ -1,4 +1,4 @@
-Version 0.12.2 - XXX 2003
+Version 0.12.2 - August 2003
 
 * On those few platforms (NetBSD and Woe32) for which the native
   printf()/fprintf()/... functions don't support POSIX/XSI format strings
