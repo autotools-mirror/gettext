@@ -1,3 +1,17 @@
+1998-05-15  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-any-msgid-regexp, po-any-msgstr-regexp,
+	po-msgstr-idx-keyword-regexp, po-obsolete-msgstr-regexp,
+	po-set-msgstr, po-obsolete-comment-regexp, po-get-comment): Enforce
+	#~ for obsolete entries.  The tilde is not optional anymore.
+
+1998-05-09  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el (po-after-entry-regexp): Check if at end of line, rather
+	than for any character not being quoted.  Else, M-u skips over
+	immediately previous untranslated entry, because backward pattern
+	extends beyond point.  Reported by Kalle Niemitalo.
+
 2001-07-13  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-validate): Check for 'null-device; if not available

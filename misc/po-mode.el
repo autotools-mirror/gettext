@@ -647,16 +647,16 @@ Content-Type into a Mule coding system.")
   "Function to start composing an electronic message.")
 
 (defvar po-any-msgid-regexp
-  "^\\(#~?[ \t]*\\)?msgid.*\n\\(\\(#~?[ \t]*\\)?\".*\n\\)*"
+  "^\\(#~[ \t]*\\)?msgid.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching a whole msgid field, whether obsolete or not.")
 
 (defvar po-any-msgstr-regexp
-  ;; "^\\(#~?[ \t]*\\)?msgstr.*\n\\(\\(#~?[ \t]*\\)?\".*\n\\)*"
-  "^\\(#~?[ \t]*\\)?msgstr\\(\\[[0-9]\\]\\)?.*\n\\(\\(#~?[ \t]*\\)?\".*\n\\)*"
+  ;; "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
+  "^\\(#~[ \t]*\\)?msgstr\\(\\[[0-9]\\]\\)?.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
 
 (defvar po-msgstr-idx-keyword-regexp
-  "^\\(#~?[ \t]*\\)?msgstr\\[[0-9]\\]"
+  "^\\(#~[ \t]*\\)?msgstr\\[[0-9]\\]"
   "Regexp matching an indexed msgstr keyword, whether obsolete or not.")
 
 (defvar po-msgfmt-program "msgfmt"
@@ -1284,7 +1284,7 @@ If WRAP is not nil, the search may wrap around the buffer."
 ;; Untranslated entries.
 
 (defvar po-after-entry-regexp
-  "\\(\\'\\|\\(#[ \t]*\\)?[^\"]\\)"
+  "\\(\\'\\|\\(#[ \t]*\\)?$\\)"
   "Regexp which should be true after a full msgstr string matched.")
 
 (defvar po-untranslated-regexp
@@ -1314,7 +1314,7 @@ If WRAP is not nil, the search may wrap around the buffer."
 ;; Obsolete entries.
 
 (defvar po-obsolete-msgstr-regexp
-  "^#~?[ \t]*msgstr.*\n\\(#~?[ \t]*\".*\n\\)*"
+  "^#~[ \t]*msgstr.*\n\\(#~[ \t]*\".*\n\\)*"
   "Regexp matching a whole msgstr field of an obsolete entry.")
 
 (defun po-next-obsolete-entry ()
@@ -1581,7 +1581,7 @@ described by FORM is merely identical to the msgstr already in place."
              (unless (eq msgstr-idx nil) ; hack: replace msgstr with msgstr[d]
                (progn
                  (insert msgstr-idx)
-                 (looking-at "\\(#~?[ \t]*\\)?msgstr")
+                 (looking-at "\\(#~[ \t]*\\)?msgstr")
                  (replace-match "")))
 	     (goto-char po-start-of-msgid)
 	     (po-find-span-of-entry)
@@ -1659,7 +1659,7 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
   "Regexp matching the whole editable comment part of an active entry.")
 
 (defvar po-obsolete-comment-regexp
-  "^\\(#~? #\n\\|#~? # .*\n\\)+"
+  "^\\(#~ #\n\\|#~ # .*\n\\)+"
   "Regexp matching the whole editable comment part of an obsolete entry.")
 
 (defun po-get-comment (kill-flag)
@@ -1676,7 +1676,7 @@ If KILL-FLAG, then add the unquoted comment to the kill ring."
 	    (insert-buffer-substring buffer (match-beginning 0) (match-end 0))
 	    (goto-char (point-min))
 	    (while (not (eobp))
-	      (if (looking-at (if obsolete "#~? # ?" "#~? ?"))
+	      (if (looking-at (if obsolete "#~ # ?" "# ?"))
 		  (replace-match "" t t))
 	      (forward-line 1))
 	    (and kill-flag (copy-region-as-kill (point-min) (point-max)))
