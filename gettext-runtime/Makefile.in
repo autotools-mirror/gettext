@@ -42,6 +42,8 @@ ALLOCA_H = @ALLOCA_H@
 AMDEP_FALSE = @AMDEP_FALSE@
 AMDEP_TRUE = @AMDEP_TRUE@
 AMTAR = @AMTAR@
+AR = @AR@
+AS = @AS@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -58,17 +60,22 @@ CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CROSS_COMPILING = @CROSS_COMPILING@
 CXX = @CXX@
+CXXCPP = @CXXCPP@
+CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DATADIRNAME = @DATADIRNAME@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
 ECHO = @ECHO@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+F77 = @F77@
+FFLAGS = @FFLAGS@
 GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
@@ -105,6 +112,7 @@ MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
 MSGMERGE = @MSGMERGE@
+OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
@@ -130,11 +138,19 @@ USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 XGETTEXT = @XGETTEXT@
 YACC = @YACC@
+ac_ct_AR = @ac_ct_AR@
+ac_ct_AS = @ac_ct_AS@
 ac_ct_CC = @ac_ct_CC@
+ac_ct_CXX = @ac_ct_CXX@
+ac_ct_DLLTOOL = @ac_ct_DLLTOOL@
+ac_ct_F77 = @ac_ct_F77@
+ac_ct_OBJDUMP = @ac_ct_OBJDUMP@
 ac_ct_RANLIB = @ac_ct_RANLIB@
 ac_ct_STRIP = @ac_ct_STRIP@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
 am__fastdepCC_TRUE = @am__fastdepCC_TRUE@
+am__fastdepCXX_FALSE = @am__fastdepCXX_FALSE@
+am__fastdepCXX_TRUE = @am__fastdepCXX_TRUE@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -175,7 +191,7 @@ DIST_SUBDIRS = doc intl intl-java lib libasprintf          src po man m4
 
 # vms_jackets.h is a header that comes with Compaq's "porting library".
 # KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
-EXTRA_DIST = BUGS Makefile.vms config.h.vms README.woe32 Makefile.msvc config.h.msvc windows/dllexport.h windows/intl.rc
+EXTRA_DIST = BUGS Makefile.vms config.h_vms README.woe32 Makefile.msvc config.h.msvc windows/dllexport.h windows/intl.rc
 
 
 # Files installed for the user and for use by gettextize.
@@ -222,7 +238,7 @@ $(top_builddir)/config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 $(srcdir)/configure:  $(srcdir)/configure.ac $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
 	cd $(srcdir) && $(AUTOCONF)
 
-$(ACLOCAL_M4):  configure.ac m4/ansi-c++.m4 m4/codeset.m4 m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 m4/intdiv0.m4 m4/intmax.m4 m4/inttypes-pri.m4 m4/inttypes.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 m4/longdouble.m4 m4/longlong.m4 m4/progtest.m4 m4/signed.m4 m4/stdint_h.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/wchar_t.m4 m4/wint_t.m4 ../gettext-tools/m4/alloca.m4 ../gettext-tools/m4/backupfile.m4 ../gettext-tools/m4/canonicalize.m4 ../gettext-tools/m4/error.m4 ../gettext-tools/m4/flex.m4 ../gettext-tools/m4/fnmatch.m4 ../gettext-tools/m4/gcj.m4 ../gettext-tools/m4/getline.m4 ../gettext-tools/m4/hostname.m4 ../gettext-tools/m4/javacomp.m4 ../gettext-tools/m4/javaexec.m4 ../gettext-tools/m4/mbrtowc.m4 ../gettext-tools/m4/mbstate_t.m4 ../gettext-tools/m4/mbswidth.m4 ../gettext-tools/m4/mkdtemp.m4 ../gettext-tools/m4/onceonly.m4 ../gettext-tools/m4/pathmax.m4 ../gettext-tools/m4/relocatable.m4 ../gettext-tools/m4/setenv.m4 ../gettext-tools/m4/setlocale.m4 ../gettext-tools/m4/siginfo.m4 ../gettext-tools/m4/signalblocking.m4 ../gettext-tools/m4/ssize_t.m4 ../gettext-tools/m4/stdbool.m4 ../gettext-tools/m4/strerror.m4 ../gettext-tools/m4/tmpdir.m4 ../gettext-tools/m4/unionwait.m4 ../gettext-tools/m4/xreadlink.m4 ../autoconf-lib-link/m4/lib-ld.m4 ../autoconf-lib-link/m4/lib-link.m4 ../autoconf-lib-link/m4/lib-prefix.m4 ../config/m4/fixautomake.m4 ../config/m4/libtool.m4
+$(ACLOCAL_M4):  configure.ac m4/ansi-c++.m4 m4/codeset.m4 m4/gettext.m4 m4/glibc21.m4 m4/iconv.m4 m4/intdiv0.m4 m4/intmax.m4 m4/inttypes-pri.m4 m4/inttypes.m4 m4/inttypes_h.m4 m4/isc-posix.m4 m4/lcmessage.m4 m4/longdouble.m4 m4/longlong.m4 m4/nls.m4 m4/po.m4 m4/progtest.m4 m4/signed.m4 m4/stdint_h.m4 m4/uintmax_t.m4 m4/ulonglong.m4 m4/wchar_t.m4 m4/wint_t.m4 ../gettext-tools/m4/alloca.m4 ../gettext-tools/m4/backupfile.m4 ../gettext-tools/m4/canonicalize.m4 ../gettext-tools/m4/eaccess.m4 ../gettext-tools/m4/error.m4 ../gettext-tools/m4/flex.m4 ../gettext-tools/m4/fnmatch.m4 ../gettext-tools/m4/gcj.m4 ../gettext-tools/m4/getline.m4 ../gettext-tools/m4/hostname.m4 ../gettext-tools/m4/javacomp.m4 ../gettext-tools/m4/javaexec.m4 ../gettext-tools/m4/mbrtowc.m4 ../gettext-tools/m4/mbstate_t.m4 ../gettext-tools/m4/mbswidth.m4 ../gettext-tools/m4/mkdtemp.m4 ../gettext-tools/m4/onceonly.m4 ../gettext-tools/m4/pathmax.m4 ../gettext-tools/m4/relocatable.m4 ../gettext-tools/m4/setenv.m4 ../gettext-tools/m4/setlocale.m4 ../gettext-tools/m4/siginfo.m4 ../gettext-tools/m4/signalblocking.m4 ../gettext-tools/m4/ssize_t.m4 ../gettext-tools/m4/stdbool.m4 ../gettext-tools/m4/strerror.m4 ../gettext-tools/m4/strerror_r.m4 ../gettext-tools/m4/tmpdir.m4 ../gettext-tools/m4/unionwait.m4 ../gettext-tools/m4/unlocked-io.m4 ../gettext-tools/m4/xreadlink.m4 ../autoconf-lib-link/m4/lib-ld.m4 ../autoconf-lib-link/m4/lib-link.m4 ../autoconf-lib-link/m4/lib-prefix.m4 ../config/m4/fixautomake.m4 ../config/m4/libtool.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.h: stamp-h1
@@ -629,9 +645,11 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 
 # VMS support.
 
-config.h.vms: config.h.in ../version.sh
-	(sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
+config.h_vms: config.h.in ../version.sh
+	(echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>'; echo '#undef realpath'; \
+	 sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	     -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
 	     -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
@@ -643,9 +661,10 @@ config.h.vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_GETUID$$/#define HAVE_GETUID 1/' \
 	     -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
 	     -e 's/#undef HAVE_INTTYPES_H$$/#define HAVE_INTTYPES_H 1/' \
-	     -e 's/#undef HAVE_INTTYPES_H_WITH_UINTMAX$$/#define HAVE_INTTYPES_H_WITH_UINTMAX 1/' \
 	     -e 's/#undef HAVE_LANGINFO_CODESET$$/#define HAVE_LANGINFO_CODESET 1/' \
 	     -e 's/#undef HAVE_LC_MESSAGES$$/#define HAVE_LC_MESSAGES 1/' \
+	     -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
+	     -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
 	     -e 's/#undef HAVE_MALLOC_H$$/#define HAVE_MALLOC_H 1/' \
 	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
 	     -e 's/#undef HAVE_MEMORY_H$$/#define HAVE_MEMORY_H 1/' \
@@ -667,16 +686,17 @@ config.h.vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_SYS_PARAM_H$$/#define HAVE_SYS_PARAM_H 1/' \
 	     -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
 	     -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
-	     -e 's/#undef HAVE_UINTMAX_T$$/#define HAVE_UINTMAX_T 1/' \
 	     -e 's/#undef HAVE_UNISTD_H$$/#define HAVE_UNISTD_H 1/' \
 	     -e 's/#undef HAVE_UNSETENV$$/#define HAVE_UNSETENV 1/' \
 	     -e 's/#undef HAVE_UNSIGNED_LONG_LONG$$/#define HAVE_UNSIGNED_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
+	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
+	     -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long long/' \
 	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
 	     -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
-	   < $<; echo; echo '#define alloca __ALLOCA'; echo '#define KEEP_CRTL_SETLOCALE 1'; echo '#include <vms_jackets.h>') > $@
+	   < $<; echo; echo '#define alloca __ALLOCA') > $@
 
 # Woe32 support.
 
@@ -684,6 +704,7 @@ config.h.msvc: config.h.in ../version.sh
 	sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	    -e 's/#undef HAVE_DECL_STRERROR$$/#define HAVE_DECL_STRERROR 1/' \
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \

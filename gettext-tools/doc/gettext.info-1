@@ -50,8 +50,8 @@ File: gettext.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 GNU `gettext' utilities
 ***********************
 
-   This manual document the GNU gettext tools and the GNU libintl
-library, version 0.12-pre1.
+   This manual documents the GNU gettext tools and the GNU libintl
+library, version 0.12-pre4.
 
 * Menu:
 
@@ -106,6 +106,7 @@ Preparing Program Sources
 * Marking::                     Marking Translatable Strings
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
+* Names::                       Marking Proper Names for Translation
 
 Making the PO Template File
 
@@ -199,6 +200,7 @@ The Translator's View
 * Discussions::                 Discussions
 * Organization::                Organization
 * Information Flow::            Information Flow
+* Prioritizing messages::       How to find which messages to translate first
 
 Organization
 
@@ -239,6 +241,7 @@ Autoconf macros for use in `configure.in'
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in `gettext.m4'
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in `gettext.m4'
+* AM_PO_SUBDIRS::               AM_PO_SUBDIRS in `po.m4'
 * AM_ICONV::                    AM_ICONV in `iconv.m4'
 
 Integrating with CVS
@@ -975,9 +978,60 @@ forms of flags defined:
      again as soon as the `xgettext' program generates a new template
      file.
 
+     The `c-format' flag tells that the untranslated string and the
+     translation are supposed to be C format strings.  The `no-c-format'
+     flag tells that they are not C format strings, even though the
+     untranslated string happens to look like a C format string (with
+     `%' directives).
+
      In case the `c-format' flag is given for a string the `msgfmt'
      does some more tests to check to validity of the translation.
-     *Note msgfmt Invocation::.
+     *Note msgfmt Invocation::, *Note c-format Flag:: and *Note
+     c-format::.
+
+`python-format'
+`no-python-format'
+     Likewise for Python, see *Note python-format::.
+
+`lisp-format'
+`no-lisp-format'
+     Likewise for Lisp, see *Note lisp-format::.
+
+`elisp-format'
+`no-elisp-format'
+     Likewise for Emacs Lisp, see *Note elisp-format::.
+
+`librep-format'
+`no-librep-format'
+     Likewise for librep, see *Note librep-format::.
+
+`smalltalk-format'
+`no-smalltalk-format'
+     Likewise for Smalltalk, see *Note smalltalk-format::.
+
+`java-format'
+`no-java-format'
+     Likewise for Java, see *Note java-format::.
+
+`awk-format'
+`no-awk-format'
+     Likewise for awk, see *Note awk-format::.
+
+`object-pascal-format'
+`no-object-pascal-format'
+     Likewise for Object Pascal, see *Note object-pascal-format::.
+
+`ycp-format'
+`no-ycp-format'
+     Likewise for YCP, see *Note ycp-format::.
+
+`tcl-format'
+`no-tcl-format'
+     Likewise for Tcl, see *Note tcl-format::.
+
+`php-format'
+`no-php-format'
+     Likewise for PHP, see *Note php-format::.
 
    A different kind of entries is used for translations which involve
 plural forms.

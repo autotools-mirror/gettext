@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.2\n"
-"POT-Creation-Date: 2003-02-12 13:32+0100\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2003-05-12 19:47+0200\n"
 "PO-Revision-Date: 2002-06-05 18:06+0200\n"
 "Last-Translator: Sami J. Laine <sami.laine@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -15,70 +16,72 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/error.c:112
+#: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
 msgstr "Tuntematon järjestelmän virhe"
 
-#: lib/getopt.c:689 lib/getopt.c:701
+#: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: valitsin `%s' on moniselitteinen\n"
 
-#: lib/getopt.c:734 lib/getopt.c:738
+#: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: valitsin `--%s' ei salli argumenttia\n"
 
-#: lib/getopt.c:747 lib/getopt.c:752
+#: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: valitsin `%c%s' ei salli argumenttia\n"
 
-#: lib/getopt.c:788 lib/getopt.c:801 lib/getopt.c:1090 lib/getopt.c:1103
+#: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
+#: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: valitsin `%s' vaatii argumentin\n"
 
-#: lib/getopt.c:839 lib/getopt.c:842
+#: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: tuntematon valitsin `--%s'\n"
 
-#: lib/getopt.c:850 lib/getopt.c:853
+#: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: tuntematon valitsin `%c%s'\n"
 
-#: lib/getopt.c:900 lib/getopt.c:903
+#: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: virheellinen valitsin -- %c\n"
 
-#: lib/getopt.c:909 lib/getopt.c:912
+#: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: virheellinen valitsin -- %c\n"
 
-#: lib/getopt.c:959 lib/getopt.c:970 lib/getopt.c:1156 lib/getopt.c:1169
+#: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
+#: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: valitsin vaatii argumentin -- %c\n"
 
-#: lib/getopt.c:1022 lib/getopt.c:1033
+#: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: valitsin `-W %s' on moniselitteinen\n"
 
-#: lib/getopt.c:1057 lib/getopt.c:1069
+#: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: valitsin `-W %s' ei salli argumenttia\n"
 
-#: lib/xmalloc.c:47
+#: ../gettext-tools/lib/xmalloc.c:41
 msgid "memory exhausted"
 msgstr "muisti loppu"
 
-#: src/gettext.c:132 src/ngettext.c:123
+#: src/gettext.c:129 src/ngettext.c:120
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -90,25 +93,25 @@ msgstr ""
 "EI myönnetä takuuta; ei edes KAUPATTAVUUDELLE tai SOVELTUVUUDELLE TIETTYYN\n"
 "tarkoitukseen.\n"
 
-#: src/gettext.c:137 src/ngettext.c:128
+#: src/gettext.c:134 src/ngettext.c:125
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Kirjoittanut %s\n"
 
-#: src/gettext.c:155 src/ngettext.c:140
+#: src/gettext.c:152 src/ngettext.c:137
 msgid "too many arguments"
 msgstr "liian monta argumenttia"
 
-#: src/gettext.c:165 src/ngettext.c:152
+#: src/gettext.c:162 src/ngettext.c:149
 msgid "missing arguments"
 msgstr "ei riittävästi argumentteja"
 
-#: src/gettext.c:236 src/ngettext.c:206
+#: src/gettext.c:233 src/ngettext.c:203
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Yritä `%s --help' saadaksesi lisää tietoja.\n"
 
-#: src/gettext.c:241
+#: src/gettext.c:238
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -117,12 +120,12 @@ msgstr ""
 "Käyttö: %s [VALITSIN] [[TEXTDOMAIN] MSGID]\n"
 "tai:    %s [VALITSIN] -s [MSGID]...\n"
 
-#: src/gettext.c:247
+#: src/gettext.c:244
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Näytä kansallinen käännös tekstimuotoiselle viestille.\n"
 
-#: src/gettext.c:251
+#: src/gettext.c:248
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -144,7 +147,7 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        etsii käännetyn viestin, joka vastaa MSGID:tä\n"
 "                            TEXTDOMAIN:ssa\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:259
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -157,23 +160,23 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 
-#: src/gettext.c:273 src/ngettext.c:240
+#: src/gettext.c:270 src/ngettext.c:237
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Ilmoita ohjelmiston vioista osoitteeseen <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/ngettext.c:211
+#: src/ngettext.c:208
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
 
-#: src/ngettext.c:216
+#: src/ngettext.c:213
 #, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
 
-#: src/ngettext.c:221
+#: src/ngettext.c:218
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -186,7 +189,7 @@ msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 
-#: src/ngettext.c:232
+#: src/ngettext.c:229
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

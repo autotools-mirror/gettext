@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 17 Febuary 2003 -->
+     from gettext.texi on 12 May 2003 -->
 
 <TITLE>GNU gettext utilities - 11  The Translator's View</TITLE>
 </HEAD>
@@ -10,11 +10,11 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_10.html">previous
 <P><HR><P>
 
 
-<H1><A NAME="SEC163" HREF="gettext_toc.html#TOC163">11  The Translator's View</A></H1>
+<H1><A NAME="SEC177" HREF="gettext_toc.html#TOC177">11  The Translator's View</A></H1>
 
 
 
-<H2><A NAME="SEC164" HREF="gettext_toc.html#TOC164">11.1  Introduction 0</A></H2>
+<H2><A NAME="SEC178" HREF="gettext_toc.html#TOC178">11.1  Introduction 0</A></H2>
 
 <P>
 Free software is going international!  The Translation Project is a way
@@ -92,7 +92,7 @@ you can work on.
 </P>
 
 
-<H2><A NAME="SEC165" HREF="gettext_toc.html#TOC165">11.2  Introduction 1</A></H2>
+<H2><A NAME="SEC179" HREF="gettext_toc.html#TOC179">11.2  Introduction 1</A></H2>
 
 <P>
 This is now official, GNU is going international!  Here is the
@@ -142,7 +142,7 @@ document, please e-mail to <TT>`translation@iro.umontreal.ca&acute;</TT>.
 </P>
 
 
-<H2><A NAME="SEC166" HREF="gettext_toc.html#TOC166">11.3  Discussions</A></H2>
+<H2><A NAME="SEC180" HREF="gettext_toc.html#TOC180">11.3  Discussions</A></H2>
 
 <P>
 Facing this internationalization effort, a few users expressed their
@@ -199,10 +199,11 @@ the GNU Library General Public License, when they do not want to make
 their program free, or want other kinds of freedom.  The simplest
 answer is "normally not".
 
-The GNU <CODE>gettext</CODE> library, i.e. the contents of <CODE>libintl</CODE>,
-is covered by the GNU Library General Public License.  The rest of
-the GNU <CODE>gettext</CODE> package is covered by the GNU General Public
-License.
+The <CODE>gettext-runtime</CODE> part of GNU <CODE>gettext</CODE>, i.e. the
+contents of <CODE>libintl</CODE>, is covered by the GNU Library General Public
+License.  The <CODE>gettext-tools</CODE> part of GNU <CODE>gettext</CODE>, i.e. the
+rest of the GNU <CODE>gettext</CODE> package, is covered by the GNU General
+Public License.
 
 The mere marking of localizable strings in a package, or conditional
 inclusion of a few lines for initialization, is not really including
@@ -219,7 +220,7 @@ software.
 
 
 
-<H2><A NAME="SEC167" HREF="gettext_toc.html#TOC167">11.4  Organization</A></H2>
+<H2><A NAME="SEC181" HREF="gettext_toc.html#TOC181">11.4  Organization</A></H2>
 
 <P>
 On a larger scale, the true solution would be to organize some kind of
@@ -263,7 +264,7 @@ reaches the Translation Project coordinator.
 
 
 
-<H3><A NAME="SEC168" HREF="gettext_toc.html#TOC168">11.4.1  Central Coordination</A></H3>
+<H3><A NAME="SEC182" HREF="gettext_toc.html#TOC182">11.4.1  Central Coordination</A></H3>
 
 <P>
 I also think GNU will need sooner than it thinks, that someone setup
@@ -288,7 +289,7 @@ overwhelming task, the time to put delegations in place.
 </P>
 
 
-<H3><A NAME="SEC169" HREF="gettext_toc.html#TOC169">11.4.2  National Teams</A></H3>
+<H3><A NAME="SEC183" HREF="gettext_toc.html#TOC183">11.4.2  National Teams</A></H3>
 
 <P>
 I suggest we look for volunteer coordinators/editors for individual
@@ -344,14 +345,14 @@ him specifically of incoming releases.
 </P>
 <P>
 I'm sure, that is a good idea to get teams for each language working
-on translations. That will make the translations better and more
+on translations.  That will make the translations better and more
 consistent.
 
 </P>
 
 
 
-<H4><A NAME="SEC170" HREF="gettext_toc.html#TOC170">11.4.2.1  Sub-Cultures</A></H4>
+<H4><A NAME="SEC184" HREF="gettext_toc.html#TOC184">11.4.2.1  Sub-Cultures</A></H4>
 
 <P>
 Taking French for example, there are a few sub-cultures around computers
@@ -373,7 +374,7 @@ means soon!
 </P>
 
 
-<H4><A NAME="SEC171" HREF="gettext_toc.html#TOC171">11.4.2.2  Organizational Ideas</A></H4>
+<H4><A NAME="SEC185" HREF="gettext_toc.html#TOC185">11.4.2.2  Organizational Ideas</A></H4>
 
 <P>
 I expect the next big changes after the official release.  Please note
@@ -410,7 +411,7 @@ this also seems to work).
 
 
 
-<H3><A NAME="SEC172" HREF="gettext_toc.html#TOC172">11.4.3  Mailing Lists</A></H3>
+<H3><A NAME="SEC186" HREF="gettext_toc.html#TOC186">11.4.3  Mailing Lists</A></H3>
 
 <P>
 If we get any inquiries about GNU <CODE>gettext</CODE>, send them on to:
@@ -464,7 +465,7 @@ subscribe as they see fit, as long as each team is represented in it.
 </P>
 
 
-<H2><A NAME="SEC173" HREF="gettext_toc.html#TOC173">11.5  Information Flow</A></H2>
+<H2><A NAME="SEC187" HREF="gettext_toc.html#TOC187">11.5  Information Flow</A></H2>
 
 <P>
 There will surely be some discussion about this messages after the
@@ -509,6 +510,150 @@ those who want to submit comments or gripes, or otherwise contribute.
 I sent a proposal for a fast and flexible format, but it is not
 receiving acceptance yet by the GNU deciders.  I'll tell you when I
 have more information about this.
+
+</P>
+
+
+<H2><A NAME="SEC188" HREF="gettext_toc.html#TOC188">11.6  Prioritizing messages: How to determine which messages to translate first</A></H2>
+
+<P>
+A translator sometimes has only a limited amount of time per week to
+spend on a package, and some packages have quite large message catalogs
+(over 1000 messages).  Therefore she wishes to translate the messages
+first that are the most visible to the user, or that occur most frequently.
+This section describes how to determine these "most urgent" messages.
+It also applies to determine the "next most urgent" messages after the
+message catalog has already been partially translated.
+
+</P>
+<P>
+In a first step, she uses the programs like a user would do.  While she
+does this, the GNU <CODE>gettext</CODE> library logs into a file the not yet
+translated messages for which a translation was requested from the program.
+
+</P>
+<P>
+In a second step, she uses the PO mode to translate precisely this set
+of messages.
+
+</P>
+<P>
+<A NAME="IDX956"></A>
+Here a more details.  The GNU <CODE>libintl</CODE> library (but not the
+corresponding functions in GNU <CODE>libc</CODE>) supports an environment variable
+<CODE>GETTEXT_LOG_UNTRANSLATED</CODE>.  The GNU <CODE>libintl</CODE> library will
+log into this file the messages for which <CODE>gettext()</CODE> and related
+functions couldn't find the translation.  If the file doesn't exist, it
+will be created as needed.  On systems with GNU <CODE>libc</CODE> a shared library
+<SAMP>`preloadable_libintl.so&acute;</SAMP> is provided that can be used with the ELF
+<SAMP>`LD_PRELOAD&acute;</SAMP> mechanism.
+
+</P>
+<P>
+So, in the first step, the translator uses these commands on systems with
+GNU <CODE>libc</CODE>:
+
+</P>
+
+<PRE>
+$ LD_PRELOAD=/usr/local/lib/preloadable_libintl.so
+$ export LD_PRELOAD
+$ GETTEXT_LOG_UNTRANSLATED=$HOME/gettextlogused
+$ export GETTEXT_LOG_UNTRANSLATED
+</PRE>
+
+<P>
+and these commands on other systems:
+
+</P>
+
+<PRE>
+$ GETTEXT_LOG_UNTRANSLATED=$HOME/gettextlogused
+$ export GETTEXT_LOG_UNTRANSLATED
+</PRE>
+
+<P>
+Then she uses and peruses the programs.  (It is a good and recommended
+practice to use the programs for which you provide translations: it
+gives you the needed context.)  When done, she removes the environment
+variables:
+
+</P>
+
+<PRE>
+$ unset LD_PRELOAD
+$ unset GETTEXT_LOG_UNTRANSLATED
+</PRE>
+
+<P>
+The second step starts with removing duplicates:
+
+</P>
+
+<PRE>
+$ msguniq $HOME/gettextlogused &#62; missing.po
+</PRE>
+
+<P>
+The result is a PO file, but needs some preprocessing before the Emacs PO
+mode can be used with it.  First, it is a multi-domain PO file, containing
+messages from many translation domains.  Second, it lacks all translator
+comments and source references.  Here is how to get a list of the affected
+translation domains:
+
+</P>
+
+<PRE>
+$ sed -n -e 's,^domain "\(.*\)"$,\1,p' &#60; missing.po | sort | uniq
+</PRE>
+
+<P>
+Then the translator can handle the domains one by one.  For simplicity,
+let's use environment variables to denote the language, domain and source
+package.
+
+</P>
+
+<PRE>
+$ lang=nl             # your language
+$ domain=coreutils    # the name of the domain to be handled
+$ package=/usr/src/gnu/coreutils-4.5.4   # the package where it comes from
+</PRE>
+
+<P>
+She takes the latest copy of <TT>`$lang.po&acute;</TT> from the Translation Project,
+or from the package (in most cases, <TT>`$package/po/$lang.po&acute;</TT>), or
+creates a fresh one if she's the first translator (see section <A HREF="gettext_5.html#SEC31">5  Creating a New PO File</A>).
+She then uses the following commands to mark the not urgent messages as
+"obsolete".  (This doesn't mean that these messages - translated and
+untranslated ones - will go away.  It simply means that Emacs PO mode
+will ignore them in the following editing session.)
+
+</P>
+
+<PRE>
+$ msggrep --domain=$domain missing.po | grep -v '^domain' \
+  &#62; $domain-missing.po
+$ msgattrib --set-obsolete --ignore-file $domain-missing.po $domain.$lang.po \
+  &#62; $domain.$lang-urgent.po
+</PRE>
+
+<P>
+The she translates <TT>`$domain.$lang-urgent.po&acute;</TT> by use of Emacs PO mode.
+(FIXME: I don't know whether <CODE>KBabel</CODE> and <CODE>gtranslator</CODE> also
+preserve obsolete messages, as they should.)
+Finally she restores the not urgent messages (with their earlier
+translations, for those which were already translated) through this command:
+
+</P>
+
+<PRE>
+$ msgmerge --no-fuzzy-matching $domain.$lang-urgent.po $package/po/$domain.pot \
+  &#62; $domain.$lang.po
+</PRE>
+
+<P>
+Then she can submit <TT>`$domain.$lang.po&acute;</TT> and proceed to the next domain.
 
 </P>
 <P><HR><P>

@@ -45,6 +45,116 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: CVS Issues,  Prev: autoconf macros,  Up: Maintainers
+
+Integrating with CVS
+====================
+
+   Many projects use CVS for distributed development, version control
+and source backup.  This section gives some advice how to manage the
+uses of `cvs', `gettextize', `autopoint' and `autoconf'.
+
+* Menu:
+
+* Distributed CVS::             Avoiding version mismatch in distributed development
+* Files under CVS::             Files to put under CVS version control
+* autopoint Invocation::        Invoking the `autopoint' Program
+
+
+File: gettext.info,  Node: Distributed CVS,  Next: Files under CVS,  Prev: CVS Issues,  Up: CVS Issues
+
+Avoiding version mismatch in distributed development
+----------------------------------------------------
+
+   In a project development with multiple developers, using CVS, there
+should be a single developer who occasionally - when there is desire to
+upgrade to a new `gettext' version - runs `gettextize' and performs the
+changes listed in *Note Adjusting Files::, and then commits his changes
+to the CVS.
+
+   It is highly recommended that all developers on a project use the
+same version of GNU `gettext' in the package.  In other words, if a
+developer runs `gettextize', he should go the whole way, make the
+necessary remaining changes and commit his changes to the CVS.
+Otherwise the following damages will likely occur:
+
+   * Apparent version mismatch between developers.  Since some `gettext'
+     specific portions in `configure.in', `configure.ac' and
+     `Makefile.am', `Makefile.in' files depend on the `gettext'
+     version, the use of infrastructure files belonging to different
+     `gettext' versions can easily lead to build errors.
+
+   * Hidden version mismatch.  Such version mismatch can also lead to
+     malfunctioning of the package, that may be undiscovered by the
+     developers.  The worst case of hidden version mismatch is that
+     internationalization of the package doesn't work at all.
+
+   * Release risks.  All developers implicitly perform constant testing
+     on a package.  This is important in the days and weeks before a
+     release.  If the guy who makes the release tar files uses a
+     different version of GNU `gettext' than the other developers, the
+     distribution will be less well tested than if all had been using
+     the same `gettext' version.  For example, it is possible that a
+     platform specific bug goes undiscovered due to this constellation.
+
+
+File: gettext.info,  Node: Files under CVS,  Next: autopoint Invocation,  Prev: Distributed CVS,  Up: CVS Issues
+
+Files to put under CVS version control
+--------------------------------------
+
+   There are basically three ways to deal with generated files in the
+context of a CVS repository, such as `configure' generated from
+`configure.in', `PARSER.c' generated from `PARSER.y', or
+`po/Makefile.in.in' autoinstalled by `gettextize' or `autopoint'.
+
+  1. All generated files are always committed into the repository.
+
+  2. All generated files are committed into the repository occasionally,
+     for example each time a release is made.
+
+  3. Generated files are never committed into the repository.
+
+   Each of these three approaches has different advantages and
+drawbacks.
+
+  1. The advantage is that anyone can check out the CVS at any moment
+     and gets a working build.  The drawbacks are:  1a. It requires
+     some frequent "cvs commit" actions by the maintainers.  1b. The
+     reposity grows in size quite fast.
+
+  2. The advantage is that anyone can check out the CVS, and the usual
+     "./configure; make" will work.  The drawbacks are:  2a. The one who
+     checks out the repository needs tools like GNU `automake', GNU
+     `autoconf', GNU `m4' installed in his PATH; sometimes he even
+     needs particular versions of them.  2b. When a release is made and
+     a commit is made on the generated files, the other developers get
+     conflicts on the generated files after doing "cvs update".
+     Although these conflicts are easy to resolve, they are annoying.
+
+  3. The advantage is less work for the maintainers.  The drawback is
+     that anyone who checks out the CVS not only needs tools like GNU
+     `automake', GNU `autoconf', GNU `m4' installed in his PATH, but
+     also that he needs to perform a package specific pre-build step
+     before being able to "./configure; make".
+
+   For the first and second approach, all files modified or brought in
+by the occasional `gettextize' invocation and update should be
+committed into the CVS.
+
+   For the third approach, the maintainer can omit from the CVS
+repository all the files that `gettextize' mentions as "copy".
+Instead, he adds to the `configure.in' or `configure.ac' a line of the
+form
+
+     AM_GNU_GETTEXT_VERSION(0.12-pre4)
+
+and adds to the package's pre-build script an invocation of
+`autopoint'.  For everyone who checks out the CVS, this `autopoint'
+invocation will copy into the right place the `gettext' infrastructure
+files that have been omitted from the CVS.
+
+
 File: gettext.info,  Node: autopoint Invocation,  Prev: Files under CVS,  Up: CVS Issues
 
 Invoking the `autopoint' Program
@@ -82,8 +192,8 @@ Informative output
      Output version information and exit.
 
    `autopoint' supports the GNU `gettext' versions from 0.10.35 to the
-current one, 0.12-pre1.  In order to apply `autopoint' to a package
-using a `gettext' version newer than 0.12-pre1, you need to install
+current one, 0.12-pre4.  In order to apply `autopoint' to a package
+using a `gettext' version newer than 0.12-pre4, you need to install
 this same version of GNU `gettext' at least.
 
    In packages using GNU `automake', an invocation of `autopoint'
@@ -400,7 +510,7 @@ case in two ways.
      particular programming language.  If the package uses more than
      one programming language with `gettext' support, it becomes
      necessary to change the POT file construction rule in
-     `po/Makefile.in.in'. It is recommended to make one `xgettext'
+     `po/Makefile.in.in'.  It is recommended to make one `xgettext'
      invocation per programming language, each with the options
      appropriate for that language, and to combine the resulting files
      using `msgcat'.
@@ -477,7 +587,7 @@ Extractor
      `xgettext -k_'
 
 Formatting with positions
-     `fprintf "%2$d %1$d"' (POSIX but not C 99)
+     `fprintf "%2$d %1$d"' (POSIX/XSI but not C 99)
      In C++: `autosprintf "%2$d %1$d"' (*note Introduction:
      (autosprintf)Top.)
 
@@ -605,7 +715,8 @@ gettext shorthand
      `_('abc')' etc.
 
 gettext/ngettext functions
-     `gettext.gettext', `gettext.dgettext', also `ugettext'
+     `gettext.gettext', `gettext.dgettext', `gettext.ngettext',
+     `gettext.dngettext', also `ugettext', `ungettext'
 
 textdomain
      `gettext.textdomain' function, or `gettext.install(DOMAIN)'
@@ -622,7 +733,7 @@ Prerequisite
      `import gettext'
 
 Use or emulate GNU gettext
-     emulate. Bug: uses only the first found .mo file, not all of them
+     emulate.  Bug: uses only the first found .mo file, not all of them
 
 Extractor
      `xgettext'
@@ -726,7 +837,7 @@ Extractor
      `clisp-xgettext'
 
 Formatting with positions
-     `fprintf "%2$d %1$d"' (POSIX but not C 99)
+     `fprintf "%2$d %1$d"' (POSIX/XSI but not C 99)
 
 Portability
      On platforms without gettext, no translation.
@@ -777,7 +888,8 @@ Formatting with positions
      `format "%2$d %1$d"'
 
 Portability
-     Only XEmacs. Without `I18N3' defined at build time, no translation.
+     Only XEmacs.  Without `I18N3' defined at build time, no
+     translation.
 
 po-mode marking
      --
@@ -931,15 +1043,29 @@ po-mode marking
 
    Before marking strings as internationalizable, uses of the string
 concatenation operator need to be converted to `MessageFormat'
-applications. For example, `"file "+filename+" not found"' becomes
+applications.  For example, `"file "+filename+" not found"' becomes
 `MessageFormat.format("file {0} not found", new Object[] { filename })'.
 Only after this is done, can the strings be marked and extracted.
 
    GNU gettext uses the native Java internationalization mechanism,
-namely `ResourceBundle's. To convert a PO file to a ResourceBundle, the
-`msgfmt' program can be used with the option `--java' or `--java2'. To
-convert a ResourceBundle back to a PO file, the `msgunfmt' program can
-be used with the option `--java'.
+namely `ResourceBundle's.  There are two formats of `ResourceBundle's:
+`.properties' files and `.class' files.  The `.properties' format is a
+text file which the translators can directly edit, like PO files, but
+which doesn't support plural forms.  Whereas the `.class' format is
+compiled from `.java' source code and can support plural forms
+(provided it is accessed through an appropriate API, see below).
+
+   To convert a PO file to a `.properties' file, the `msgcat' program
+can be used with the option `--properties-output'.  To convert a
+`.properties' file back to a PO file, the `msgcat' program can be used
+with the option `--properties-input'.  All the tools that manipulate PO
+files can work with `.properties' files as well, if given the
+`--properties-input' and/or `--properties-output' option.
+
+   To convert a PO file to a ResourceBundle class, the `msgfmt' program
+can be used with the option `--java' or `--java2'.  To convert a
+ResourceBundle back to a PO file, the `msgunfmt' program can be used
+with the option `--java'.
 
    Two different programmatic APIs can be used to access
 ResourceBundles.  Note that both APIs work with all kinds of
@@ -952,10 +1078,11 @@ ResourceBundles, whether GNU gettext generated classes, or other
      translation.  Note that a missing translation yields a
      `MissingResourceException'.
 
-     This has the advantage of being the standard API. And it does not
-     require any additional libraries, only the `msgfmt' generated
-     `.class' files. But it cannot do plural handling, even if the
-     resource was generated from a PO file with plural handling.
+     This has the advantage of being the standard API.  And it does not
+     require any additional libraries, only the `msgcat' generated
+     `.properties' files or the `msgfmt' generated `.class' files.  But
+     it cannot do plural handling, even if the resource was generated
+     by `msgfmt' from a PO file with plural handling.
 
   2. The `gnu.gettext.GettextResource' API.
 
@@ -963,8 +1090,9 @@ ResourceBundles, whether GNU gettext generated classes, or other
      javadoc1 directory (javadoc1/tree.html) and in Javadoc 2 style
      format in the javadoc2 directory (javadoc2/index.html).
 
-     Its `gettext' function returns a string translation. Note that when
-     a translation is missing, the MSGID argument is returned unchanged.
+     Its `gettext' function returns a string translation.  Note that
+     when a translation is missing, the MSGID argument is returned
+     unchanged.
 
      This has the advantage of having the `ngettext' function for plural
      handling.
@@ -1073,8 +1201,8 @@ po-mode marking
      --
 
    The Pascal compiler has special support for the `ResourceString' data
-type. It generates a `.rst' file. This is then converted to a `.pot'
-file by use of `xgettext' or `rstconv'. At runtime, a `.mo' file
+type.  It generates a `.rst' file.  This is then converted to a `.pot'
+file by use of `xgettext' or `rstconv'.  At runtime, a `.mo' file
 corresponding to translations of this `.pot' file can be loaded using
 the `TranslateResourceStrings' function in the `gettext' unit.
 
@@ -1225,11 +1353,11 @@ po-mode marking
 
    Before marking strings as internationalizable, substitutions of
 variables into the string need to be converted to `format'
-applications. For example, `"file $filename not found"' becomes
+applications.  For example, `"file $filename not found"' becomes
 `[format "file %s not found" $filename]'.  Only after this is done, can
 the strings be marked and extracted.  After marking, this example
 becomes `[format [_ "file %s not found"] $filename]' or `[msgcat::mc
-"file %s not found" $filename]'. Note that the `msgcat::mc' function
+"file %s not found" $filename]'.  Note that the `msgcat::mc' function
 implicitly calls `format' when more than one argument is given.
 
 
@@ -2077,731 +2205,4 @@ come from this standard.
 
 `zu'
      Zulu.
-
-
-File: gettext.info,  Node: Country Codes,  Next: Program Index,  Prev: Language Codes,  Up: Top
-
-Country Codes
-*************
-
-   The ISO 3166 standard defines two character codes for many countries
-and territories.  All abbreviations for countries used in the
-Translation Project should come from this standard.
-
-`AD'
-     Andorra.
-
-`AE'
-     United Arab Emirates.
-
-`AF'
-     Afghanistan.
-
-`AG'
-     Antigua and Barbuda.
-
-`AI'
-     Anguilla.
-
-`AL'
-     Albania.
-
-`AM'
-     Armenia.
-
-`AN'
-     Netherlands Antilles.
-
-`AO'
-     Angola.
-
-`AQ'
-     Antarctica.
-
-`AR'
-     Argentina.
-
-`AS'
-     Samoa (American).
-
-`AT'
-     Austria.
-
-`AU'
-     Australia.
-
-`AW'
-     Aruba.
-
-`AZ'
-     Azerbaijan.
-
-`BA'
-     Bosnia and Herzegovina.
-
-`BB'
-     Barbados.
-
-`BD'
-     Bangladesh.
-
-`BE'
-     Belgium.
-
-`BF'
-     Burkina Faso.
-
-`BG'
-     Bulgaria.
-
-`BH'
-     Bahrain.
-
-`BI'
-     Burundi.
-
-`BJ'
-     Benin.
-
-`BM'
-     Bermuda.
-
-`BN'
-     Brunei.
-
-`BO'
-     Bolivia.
-
-`BR'
-     Brazil.
-
-`BS'
-     Bahamas.
-
-`BT'
-     Bhutan.
-
-`BV'
-     Bouvet Island.
-
-`BW'
-     Botswana.
-
-`BY'
-     Belarus.
-
-`BZ'
-     Belize.
-
-`CA'
-     Canada.
-
-`CC'
-     Cocos (Keeling) Islands.
-
-`CD'
-     Congo (Dem. Rep.).
-
-`CF'
-     Central African Rep..
-
-`CG'
-     Congo (Rep.).
-
-`CH'
-     Switzerland.
-
-`CI'
-     Cote d'Ivoire.
-
-`CK'
-     Cook Islands.
-
-`CL'
-     Chile.
-
-`CM'
-     Cameroon.
-
-`CN'
-     China.
-
-`CO'
-     Colombia.
-
-`CR'
-     Costa Rica.
-
-`CU'
-     Cuba.
-
-`CV'
-     Cape Verde.
-
-`CX'
-     Christmas Island.
-
-`CY'
-     Cyprus.
-
-`CZ'
-     Czech Republic.
-
-`DE'
-     Germany.
-
-`DJ'
-     Djibouti.
-
-`DK'
-     Denmark.
-
-`DM'
-     Dominica.
-
-`DO'
-     Dominican Republic.
-
-`DZ'
-     Algeria.
-
-`EC'
-     Ecuador.
-
-`EE'
-     Estonia.
-
-`EG'
-     Egypt.
-
-`EH'
-     Western Sahara.
-
-`ER'
-     Eritrea.
-
-`ES'
-     Spain.
-
-`ET'
-     Ethiopia.
-
-`FI'
-     Finland.
-
-`FJ'
-     Fiji.
-
-`FK'
-     Falkland Islands.
-
-`FM'
-     Micronesia.
-
-`FO'
-     Faeroe Islands.
-
-`FR'
-     France.
-
-`GA'
-     Gabon.
-
-`GB'
-     Britain (UK).
-
-`GD'
-     Grenada.
-
-`GE'
-     Georgia.
-
-`GF'
-     French Guiana.
-
-`GH'
-     Ghana.
-
-`GI'
-     Gibraltar.
-
-`GL'
-     Greenland.
-
-`GM'
-     Gambia.
-
-`GN'
-     Guinea.
-
-`GP'
-     Guadeloupe.
-
-`GQ'
-     Equatorial Guinea.
-
-`GR'
-     Greece.
-
-`GS'
-     South Georgia and the South Sandwich Islands.
-
-`GT'
-     Guatemala.
-
-`GU'
-     Guam.
-
-`GW'
-     Guinea-Bissau.
-
-`GY'
-     Guyana.
-
-`HK'
-     Hong Kong.
-
-`HM'
-     Heard Island and McDonald Islands.
-
-`HN'
-     Honduras.
-
-`HR'
-     Croatia.
-
-`HT'
-     Haiti.
-
-`HU'
-     Hungary.
-
-`ID'
-     Indonesia.
-
-`IE'
-     Ireland.
-
-`IL'
-     Israel.
-
-`IN'
-     India.
-
-`IO'
-     British Indian Ocean Territory.
-
-`IQ'
-     Iraq.
-
-`IR'
-     Iran.
-
-`IS'
-     Iceland.
-
-`IT'
-     Italy.
-
-`JM'
-     Jamaica.
-
-`JO'
-     Jordan.
-
-`JP'
-     Japan.
-
-`KE'
-     Kenya.
-
-`KG'
-     Kyrgyzstan.
-
-`KH'
-     Cambodia.
-
-`KI'
-     Kiribati.
-
-`KM'
-     Comoros.
-
-`KN'
-     St Kitts and Nevis.
-
-`KP'
-     Korea (North).
-
-`KR'
-     Korea (South).
-
-`KW'
-     Kuwait.
-
-`KY'
-     Cayman Islands.
-
-`KZ'
-     Kazakhstan.
-
-`LA'
-     Laos.
-
-`LB'
-     Lebanon.
-
-`LC'
-     St Lucia.
-
-`LI'
-     Liechtenstein.
-
-`LK'
-     Sri Lanka.
-
-`LR'
-     Liberia.
-
-`LS'
-     Lesotho.
-
-`LT'
-     Lithuania.
-
-`LU'
-     Luxembourg.
-
-`LV'
-     Latvia.
-
-`LY'
-     Libya.
-
-`MA'
-     Morocco.
-
-`MC'
-     Monaco.
-
-`MD'
-     Moldova.
-
-`MG'
-     Madagascar.
-
-`MH'
-     Marshall Islands.
-
-`MK'
-     Macedonia.
-
-`ML'
-     Mali.
-
-`MM'
-     Myanmar (Burma).
-
-`MN'
-     Mongolia.
-
-`MO'
-     Macao.
-
-`MP'
-     Northern Mariana Islands.
-
-`MQ'
-     Martinique.
-
-`MR'
-     Mauritania.
-
-`MS'
-     Montserrat.
-
-`MT'
-     Malta.
-
-`MU'
-     Mauritius.
-
-`MV'
-     Maldives.
-
-`MW'
-     Malawi.
-
-`MX'
-     Mexico.
-
-`MY'
-     Malaysia.
-
-`MZ'
-     Mozambique.
-
-`NA'
-     Namibia.
-
-`NC'
-     New Caledonia.
-
-`NE'
-     Niger.
-
-`NF'
-     Norfolk Island.
-
-`NG'
-     Nigeria.
-
-`NI'
-     Nicaragua.
-
-`NL'
-     Netherlands.
-
-`NO'
-     Norway.
-
-`NP'
-     Nepal.
-
-`NR'
-     Nauru.
-
-`NU'
-     Niue.
-
-`NZ'
-     New Zealand.
-
-`OM'
-     Oman.
-
-`PA'
-     Panama.
-
-`PE'
-     Peru.
-
-`PF'
-     French Polynesia.
-
-`PG'
-     Papua New Guinea.
-
-`PH'
-     Philippines.
-
-`PK'
-     Pakistan.
-
-`PL'
-     Poland.
-
-`PM'
-     St Pierre and Miquelon.
-
-`PN'
-     Pitcairn.
-
-`PR'
-     Puerto Rico.
-
-`PS'
-     Palestine.
-
-`PT'
-     Portugal.
-
-`PW'
-     Palau.
-
-`PY'
-     Paraguay.
-
-`QA'
-     Qatar.
-
-`RE'
-     Reunion.
-
-`RO'
-     Romania.
-
-`RU'
-     Russia.
-
-`RW'
-     Rwanda.
-
-`SA'
-     Saudi Arabia.
-
-`SB'
-     Solomon Islands.
-
-`SC'
-     Seychelles.
-
-`SD'
-     Sudan.
-
-`SE'
-     Sweden.
-
-`SG'
-     Singapore.
-
-`SH'
-     St Helena.
-
-`SI'
-     Slovenia.
-
-`SJ'
-     Svalbard and Jan Mayen.
-
-`SK'
-     Slovakia.
-
-`SL'
-     Sierra Leone.
-
-`SM'
-     San Marino.
-
-`SN'
-     Senegal.
-
-`SO'
-     Somalia.
-
-`SR'
-     Suriname.
-
-`ST'
-     Sao Tome and Principe.
-
-`SV'
-     El Salvador.
-
-`SY'
-     Syria.
-
-`SZ'
-     Swaziland.
-
-`TC'
-     Turks and Caicos Is.
-
-`TD'
-     Chad.
-
-`TF'
-     French Southern and Antarctic Lands.
-
-`TG'
-     Togo.
-
-`TH'
-     Thailand.
-
-`TJ'
-     Tajikistan.
-
-`TK'
-     Tokelau.
-
-`TM'
-     Turkmenistan.
-
-`TN'
-     Tunisia.
-
-`TO'
-     Tonga.
-
-`TP'
-     East Timor.
-
-`TR'
-     Turkey.
-
-`TT'
-     Trinidad and Tobago.
-
-`TV'
-     Tuvalu.
-
-`TW'
-     Taiwan.
-
-`TZ'
-     Tanzania.
-
-`UA'
-     Ukraine.
-
-`UG'
-     Uganda.
-
-`UM'
-     US minor outlying islands.
-
-`US'
-     United States.
-
-`UY'
-     Uruguay.
-
-`UZ'
-     Uzbekistan.
-
-`VA'
-     Vatican City.
-
-`VC'
-     St Vincent.
-
-`VE'
-     Venezuela.
-
-`VG'
-     Virgin Islands (UK).
-
-`VI'
-     Virgin Islands (US).
-
-`VN'
-     Vietnam.
-
-`VU'
-     Vanuatu.
-
-`WF'
-     Wallis and Futuna.
-
-`WS'
-     Samoa (Western).
-
-`YE'
-     Yemen.
-
-`YT'
-     Mayotte.
-
-`YU'
-     Yugoslavia.
-
-`ZA'
-     South Africa.
-
-`ZM'
-     Zambia.
-
-`ZW'
-     Zimbabwe.
 

@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
-"POT-Creation-Date: 2003-02-12 13:32+0100\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2003-05-12 19:47+0200\n"
 "PO-Revision-Date: 2002-08-13 13:19+0200\n"
 "Last-Translator: Primo¾ Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -17,71 +18,73 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 
-#: lib/error.c:112
+#: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
 msgstr "Neznana sistemska napaka"
 
-#: lib/getopt.c:689 lib/getopt.c:701
+#: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: izbira ,%s` je dvoumna\n"
 
-#: lib/getopt.c:734 lib/getopt.c:738
+#: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: izbira ,--%s` ne dovoljuje argumenta\n"
 
-#: lib/getopt.c:747 lib/getopt.c:752
+#: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: izbira ,%c%s` ne dovoljuje argumenta\n"
 
-#: lib/getopt.c:788 lib/getopt.c:801 lib/getopt.c:1090 lib/getopt.c:1103
+#: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
+#: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: izbira ,%s` zahteva argument\n"
 
-#: lib/getopt.c:839 lib/getopt.c:842
+#: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: neprepoznana izbira ,--%s`\n"
 
-#: lib/getopt.c:850 lib/getopt.c:853
+#: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: neprepoznana izbira ,%c%s`\n"
 
-#: lib/getopt.c:900 lib/getopt.c:903
+#: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: nedovoljena izbira -- %c\n"
 
-#: lib/getopt.c:909 lib/getopt.c:912
+#: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: neveljavna izbira -- %c\n"
 
-#: lib/getopt.c:959 lib/getopt.c:970 lib/getopt.c:1156 lib/getopt.c:1169
+#: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
+#: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: izbira zahteva argument -- %c\n"
 
-#: lib/getopt.c:1022 lib/getopt.c:1033
+#: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: izbira ,-W %s` je dvoumna\n"
 
-#: lib/getopt.c:1057 lib/getopt.c:1069
+#: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: izbira ,-W %s` ne dovoljuje argumenta\n"
 
 #  Morda ,,Zmanjkalo pomnilnika''?
-#: lib/xmalloc.c:47
+#: ../gettext-tools/lib/xmalloc.c:41
 msgid "memory exhausted"
 msgstr "zmanjkalo pomnilnika"
 
-#: src/gettext.c:132 src/ngettext.c:123
+#: src/gettext.c:129 src/ngettext.c:120
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,25 +96,25 @@ msgstr ""
 "raz¹irjate so navedeni v izvorni kodi. Za program ni NOBENEGA jamstva,\n"
 "niti jamstev USTREZNOSTI ZA PRODAJO ali PRIMERNOSTI ZA RABO.\n"
 
-#: src/gettext.c:137 src/ngettext.c:128
+#: src/gettext.c:134 src/ngettext.c:125
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Avtor %s.\n"
 
-#: src/gettext.c:155 src/ngettext.c:140
+#: src/gettext.c:152 src/ngettext.c:137
 msgid "too many arguments"
 msgstr "preveè argumentov"
 
-#: src/gettext.c:165 src/ngettext.c:152
+#: src/gettext.c:162 src/ngettext.c:149
 msgid "missing arguments"
 msgstr "argumenti manjkajo"
 
-#: src/gettext.c:236 src/ngettext.c:206
+#: src/gettext.c:233 src/ngettext.c:203
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Poskusite ,%s --help` za izèrpnej¹a navodila\n"
 
-#: src/gettext.c:241
+#: src/gettext.c:238
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -120,12 +123,12 @@ msgstr ""
 "Uporaba: %s [IZBIRA] [[DOMENA] MSGID]\n"
 "ali:     %s [IZBIRA] -s [MSGID]...\n"
 
-#: src/gettext.c:247
+#: src/gettext.c:244
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Prikaz prevoda tekstovnega sporoèila.\n"
 
-#: src/gettext.c:251
+#: src/gettext.c:248
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -145,7 +148,7 @@ msgstr ""
 "  -V, --version             razlièica programa\n"
 "  [DOMENA] MSGID            i¹èemo prevod gesla MSGID v podani tekstovni DOMENI\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:259
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -165,16 +168,16 @@ msgstr ""
 "kataloga sporoèil.\n"
 "Privzet imenik s katalogom sporoèil: %s\n"
 
-#: src/gettext.c:273 src/ngettext.c:240
+#: src/gettext.c:270 src/ngettext.c:237
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Morebitne napake v programu sporoèite na <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/ngettext.c:211
+#: src/ngettext.c:208
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Uporaba: %s [IZBIRA] [DOMENA] MSGID MSGID-PLURAL ©TEVEC\n"
 
-#: src/ngettext.c:216
+#: src/ngettext.c:213
 #, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -183,7 +186,7 @@ msgstr ""
 "Prikaz prevoda besedilnega sporoèila, katerega slovnièna oblika je odvisna\n"
 "od ¹tevila.\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:218
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -204,7 +207,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL        prevod MSGID (ednina) ali MSGID_PLURAL (mno¾ina)\n"
 "  ©TEVEC                    doloèitev edninske/mno¾inske oblike\n"
 
-#: src/ngettext.c:232
+#: src/ngettext.c:229
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

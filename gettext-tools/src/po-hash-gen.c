@@ -35,7 +35,7 @@
 #include <string.h>
 
 #include "xmalloc.h"
-#include "po.h"
+#include "read-po-abstract.h"
 
 /* Remap normal yacc parser interface names (yyparse, yylex, yyerror, etc),
    as well as gratuitiously global symbol names, so we can have multiple
@@ -1362,7 +1362,7 @@ yylex ()
 /* Analyze whether the string (a pseudo-comment line) contains file names
    and line numbers.  */
 int
-po_hash (const char *s)
+po_parse_comment_filepos (const char *s)
 {
   cur = s;
   last_was_colon = false;

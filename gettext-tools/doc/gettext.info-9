@@ -45,6 +45,733 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: Country Codes,  Next: Program Index,  Prev: Language Codes,  Up: Top
+
+Country Codes
+*************
+
+   The ISO 3166 standard defines two character codes for many countries
+and territories.  All abbreviations for countries used in the
+Translation Project should come from this standard.
+
+`AD'
+     Andorra.
+
+`AE'
+     United Arab Emirates.
+
+`AF'
+     Afghanistan.
+
+`AG'
+     Antigua and Barbuda.
+
+`AI'
+     Anguilla.
+
+`AL'
+     Albania.
+
+`AM'
+     Armenia.
+
+`AN'
+     Netherlands Antilles.
+
+`AO'
+     Angola.
+
+`AQ'
+     Antarctica.
+
+`AR'
+     Argentina.
+
+`AS'
+     Samoa (American).
+
+`AT'
+     Austria.
+
+`AU'
+     Australia.
+
+`AW'
+     Aruba.
+
+`AZ'
+     Azerbaijan.
+
+`BA'
+     Bosnia and Herzegovina.
+
+`BB'
+     Barbados.
+
+`BD'
+     Bangladesh.
+
+`BE'
+     Belgium.
+
+`BF'
+     Burkina Faso.
+
+`BG'
+     Bulgaria.
+
+`BH'
+     Bahrain.
+
+`BI'
+     Burundi.
+
+`BJ'
+     Benin.
+
+`BM'
+     Bermuda.
+
+`BN'
+     Brunei.
+
+`BO'
+     Bolivia.
+
+`BR'
+     Brazil.
+
+`BS'
+     Bahamas.
+
+`BT'
+     Bhutan.
+
+`BV'
+     Bouvet Island.
+
+`BW'
+     Botswana.
+
+`BY'
+     Belarus.
+
+`BZ'
+     Belize.
+
+`CA'
+     Canada.
+
+`CC'
+     Cocos (Keeling) Islands.
+
+`CD'
+     Congo (Dem. Rep.).
+
+`CF'
+     Central African Rep..
+
+`CG'
+     Congo (Rep.).
+
+`CH'
+     Switzerland.
+
+`CI'
+     Cote d'Ivoire.
+
+`CK'
+     Cook Islands.
+
+`CL'
+     Chile.
+
+`CM'
+     Cameroon.
+
+`CN'
+     China.
+
+`CO'
+     Colombia.
+
+`CR'
+     Costa Rica.
+
+`CU'
+     Cuba.
+
+`CV'
+     Cape Verde.
+
+`CX'
+     Christmas Island.
+
+`CY'
+     Cyprus.
+
+`CZ'
+     Czech Republic.
+
+`DE'
+     Germany.
+
+`DJ'
+     Djibouti.
+
+`DK'
+     Denmark.
+
+`DM'
+     Dominica.
+
+`DO'
+     Dominican Republic.
+
+`DZ'
+     Algeria.
+
+`EC'
+     Ecuador.
+
+`EE'
+     Estonia.
+
+`EG'
+     Egypt.
+
+`EH'
+     Western Sahara.
+
+`ER'
+     Eritrea.
+
+`ES'
+     Spain.
+
+`ET'
+     Ethiopia.
+
+`FI'
+     Finland.
+
+`FJ'
+     Fiji.
+
+`FK'
+     Falkland Islands.
+
+`FM'
+     Micronesia.
+
+`FO'
+     Faeroe Islands.
+
+`FR'
+     France.
+
+`GA'
+     Gabon.
+
+`GB'
+     Britain (UK).
+
+`GD'
+     Grenada.
+
+`GE'
+     Georgia.
+
+`GF'
+     French Guiana.
+
+`GH'
+     Ghana.
+
+`GI'
+     Gibraltar.
+
+`GL'
+     Greenland.
+
+`GM'
+     Gambia.
+
+`GN'
+     Guinea.
+
+`GP'
+     Guadeloupe.
+
+`GQ'
+     Equatorial Guinea.
+
+`GR'
+     Greece.
+
+`GS'
+     South Georgia and the South Sandwich Islands.
+
+`GT'
+     Guatemala.
+
+`GU'
+     Guam.
+
+`GW'
+     Guinea-Bissau.
+
+`GY'
+     Guyana.
+
+`HK'
+     Hong Kong.
+
+`HM'
+     Heard Island and McDonald Islands.
+
+`HN'
+     Honduras.
+
+`HR'
+     Croatia.
+
+`HT'
+     Haiti.
+
+`HU'
+     Hungary.
+
+`ID'
+     Indonesia.
+
+`IE'
+     Ireland.
+
+`IL'
+     Israel.
+
+`IN'
+     India.
+
+`IO'
+     British Indian Ocean Territory.
+
+`IQ'
+     Iraq.
+
+`IR'
+     Iran.
+
+`IS'
+     Iceland.
+
+`IT'
+     Italy.
+
+`JM'
+     Jamaica.
+
+`JO'
+     Jordan.
+
+`JP'
+     Japan.
+
+`KE'
+     Kenya.
+
+`KG'
+     Kyrgyzstan.
+
+`KH'
+     Cambodia.
+
+`KI'
+     Kiribati.
+
+`KM'
+     Comoros.
+
+`KN'
+     St Kitts and Nevis.
+
+`KP'
+     Korea (North).
+
+`KR'
+     Korea (South).
+
+`KW'
+     Kuwait.
+
+`KY'
+     Cayman Islands.
+
+`KZ'
+     Kazakhstan.
+
+`LA'
+     Laos.
+
+`LB'
+     Lebanon.
+
+`LC'
+     St Lucia.
+
+`LI'
+     Liechtenstein.
+
+`LK'
+     Sri Lanka.
+
+`LR'
+     Liberia.
+
+`LS'
+     Lesotho.
+
+`LT'
+     Lithuania.
+
+`LU'
+     Luxembourg.
+
+`LV'
+     Latvia.
+
+`LY'
+     Libya.
+
+`MA'
+     Morocco.
+
+`MC'
+     Monaco.
+
+`MD'
+     Moldova.
+
+`MG'
+     Madagascar.
+
+`MH'
+     Marshall Islands.
+
+`MK'
+     Macedonia.
+
+`ML'
+     Mali.
+
+`MM'
+     Myanmar (Burma).
+
+`MN'
+     Mongolia.
+
+`MO'
+     Macao.
+
+`MP'
+     Northern Mariana Islands.
+
+`MQ'
+     Martinique.
+
+`MR'
+     Mauritania.
+
+`MS'
+     Montserrat.
+
+`MT'
+     Malta.
+
+`MU'
+     Mauritius.
+
+`MV'
+     Maldives.
+
+`MW'
+     Malawi.
+
+`MX'
+     Mexico.
+
+`MY'
+     Malaysia.
+
+`MZ'
+     Mozambique.
+
+`NA'
+     Namibia.
+
+`NC'
+     New Caledonia.
+
+`NE'
+     Niger.
+
+`NF'
+     Norfolk Island.
+
+`NG'
+     Nigeria.
+
+`NI'
+     Nicaragua.
+
+`NL'
+     Netherlands.
+
+`NO'
+     Norway.
+
+`NP'
+     Nepal.
+
+`NR'
+     Nauru.
+
+`NU'
+     Niue.
+
+`NZ'
+     New Zealand.
+
+`OM'
+     Oman.
+
+`PA'
+     Panama.
+
+`PE'
+     Peru.
+
+`PF'
+     French Polynesia.
+
+`PG'
+     Papua New Guinea.
+
+`PH'
+     Philippines.
+
+`PK'
+     Pakistan.
+
+`PL'
+     Poland.
+
+`PM'
+     St Pierre and Miquelon.
+
+`PN'
+     Pitcairn.
+
+`PR'
+     Puerto Rico.
+
+`PS'
+     Palestine.
+
+`PT'
+     Portugal.
+
+`PW'
+     Palau.
+
+`PY'
+     Paraguay.
+
+`QA'
+     Qatar.
+
+`RE'
+     Reunion.
+
+`RO'
+     Romania.
+
+`RU'
+     Russia.
+
+`RW'
+     Rwanda.
+
+`SA'
+     Saudi Arabia.
+
+`SB'
+     Solomon Islands.
+
+`SC'
+     Seychelles.
+
+`SD'
+     Sudan.
+
+`SE'
+     Sweden.
+
+`SG'
+     Singapore.
+
+`SH'
+     St Helena.
+
+`SI'
+     Slovenia.
+
+`SJ'
+     Svalbard and Jan Mayen.
+
+`SK'
+     Slovakia.
+
+`SL'
+     Sierra Leone.
+
+`SM'
+     San Marino.
+
+`SN'
+     Senegal.
+
+`SO'
+     Somalia.
+
+`SR'
+     Suriname.
+
+`ST'
+     Sao Tome and Principe.
+
+`SV'
+     El Salvador.
+
+`SY'
+     Syria.
+
+`SZ'
+     Swaziland.
+
+`TC'
+     Turks and Caicos Is.
+
+`TD'
+     Chad.
+
+`TF'
+     French Southern and Antarctic Lands.
+
+`TG'
+     Togo.
+
+`TH'
+     Thailand.
+
+`TJ'
+     Tajikistan.
+
+`TK'
+     Tokelau.
+
+`TM'
+     Turkmenistan.
+
+`TN'
+     Tunisia.
+
+`TO'
+     Tonga.
+
+`TP'
+     East Timor.
+
+`TR'
+     Turkey.
+
+`TT'
+     Trinidad and Tobago.
+
+`TV'
+     Tuvalu.
+
+`TW'
+     Taiwan.
+
+`TZ'
+     Tanzania.
+
+`UA'
+     Ukraine.
+
+`UG'
+     Uganda.
+
+`UM'
+     US minor outlying islands.
+
+`US'
+     United States.
+
+`UY'
+     Uruguay.
+
+`UZ'
+     Uzbekistan.
+
+`VA'
+     Vatican City.
+
+`VC'
+     St Vincent.
+
+`VE'
+     Venezuela.
+
+`VG'
+     Virgin Islands (UK).
+
+`VI'
+     Virgin Islands (US).
+
+`VN'
+     Vietnam.
+
+`VU'
+     Vanuatu.
+
+`WF'
+     Wallis and Futuna.
+
+`WS'
+     Samoa (Western).
+
+`YE'
+     Yemen.
+
+`YT'
+     Mayotte.
+
+`YU'
+     Yugoslavia.
+
+`ZA'
+     South Africa.
+
+`ZM'
+     Zambia.
+
+`ZW'
+     Zimbabwe.
+
+
 File: gettext.info,  Node: Program Index,  Next: Option Index,  Prev: Country Codes,  Up: Top
 
 Program Index
@@ -104,6 +831,7 @@ Option Index
 * --check-header, msgfmt option:         msgfmt Invocation.
 * --clear-fuzzy, msgattrib option:       msgattrib Invocation.
 * --clear-obsolete, msgattrib option:    msgattrib Invocation.
+* --comment, msggrep option:             msggrep Invocation.
 * --compendium, msgmerge option:         msgmerge Invocation.
 * --copy, gettextize option:             gettextize Invocation.
 * --copyright-holder, xgettext option:   xgettext Invocation.
@@ -201,6 +929,7 @@ Option Index
 * --more-than, msgcat option:            msgcat Invocation.
 * --more-than, msgcomm option:           msgcomm Invocation.
 * --msgid, msggrep option:               msggrep Invocation.
+* --msgid-bugs-address, xgettext option: xgettext Invocation.
 * --msgstr, msggrep option:              msggrep Invocation.
 * --msgstr-prefix, xgettext option:      xgettext Invocation.
 * --msgstr-suffix, xgettext option:      xgettext Invocation.
@@ -254,6 +983,31 @@ Option Index
 * --output-file, msgmerge option:        msgmerge Invocation.
 * --output-file, msgunfmt option:        msgunfmt Invocation.
 * --output-file, msguniq option:         msguniq Invocation.
+* --properties-input, msgattrib option:  msgattrib Invocation.
+* --properties-input, msgcat option:     msgcat Invocation.
+* --properties-input, msgcmp option:     msgcmp Invocation.
+* --properties-input, msgcomm option:    msgcomm Invocation.
+* --properties-input, msgconv option:    msgconv Invocation.
+* --properties-input, msgen option:      msgen Invocation.
+* --properties-input, msgexec option:    msgexec Invocation.
+* --properties-input, msgfilter option:  msgfilter Invocation.
+* --properties-input, msgfmt option:     msgfmt Invocation.
+* --properties-input, msggrep option:    msggrep Invocation.
+* --properties-input, msginit option:    msginit Invocation.
+* --properties-input, msgmerge option:   msgmerge Invocation.
+* --properties-input, msguniq option:    msguniq Invocation.
+* --properties-output, msgattrib option: msgattrib Invocation.
+* --properties-output, msgcat option:    msgcat Invocation.
+* --properties-output, msgcomm option:   msgcomm Invocation.
+* --properties-output, msgconv option:   msgconv Invocation.
+* --properties-output, msgen option:     msgen Invocation.
+* --properties-output, msgfilter option: msgfilter Invocation.
+* --properties-output, msggrep option:   msggrep Invocation.
+* --properties-output, msginit option:   msginit Invocation.
+* --properties-output, msgmerge option:  msgmerge Invocation.
+* --properties-output, msgunfmt option:  msgunfmt Invocation.
+* --properties-output, msguniq option:   msguniq Invocation.
+* --properties-output, xgettext option:  xgettext Invocation.
 * --quiet, msgfilter option:             msgfilter Invocation.
 * --quiet, msgmerge option:              msgmerge Invocation.
 * --regexp=, msggrep option:             msggrep Invocation.
@@ -355,6 +1109,7 @@ Option Index
 * -c, gettextize option:                 gettextize Invocation.
 * -C, msgfmt option:                     msgfmt Invocation.
 * -c, msgfmt option:                     msgfmt Invocation.
+* -C, msggrep option:                    msggrep Invocation.
 * -C, msgmerge option:                   msgmerge Invocation.
 * -c, xgettext option:                   xgettext Invocation.
 * -C, xgettext option:                   xgettext Invocation.
@@ -461,6 +1216,30 @@ Option Index
 * -o, msgunfmt option:                   msgunfmt Invocation.
 * -o, msguniq option:                    msguniq Invocation.
 * -o, xgettext option:                   xgettext Invocation.
+* -p, msgattrib option:                  msgattrib Invocation.
+* -P, msgattrib option:                  msgattrib Invocation.
+* -p, msgcat option:                     msgcat Invocation.
+* -P, msgcat option:                     msgcat Invocation.
+* -P, msgcmp option:                     msgcmp Invocation.
+* -p, msgcomm option:                    msgcomm Invocation.
+* -P, msgcomm option:                    msgcomm Invocation.
+* -p, msgconv option:                    msgconv Invocation.
+* -P, msgconv option:                    msgconv Invocation.
+* -p, msgen option:                      msgen Invocation.
+* -P, msgen option:                      msgen Invocation.
+* -P, msgexec option:                    msgexec Invocation.
+* -p, msgfilter option:                  msgfilter Invocation.
+* -P, msgfilter option:                  msgfilter Invocation.
+* -P, msgfmt option:                     msgfmt Invocation.
+* -p, msggrep option:                    msggrep Invocation.
+* -P, msggrep option:                    msggrep Invocation.
+* -p, msginit option:                    msginit Invocation.
+* -P, msginit option:                    msginit Invocation.
+* -p, msgmerge option:                   msgmerge Invocation.
+* -P, msgmerge option:                   msgmerge Invocation.
+* -p, msgunfmt option:                   msgunfmt Invocation.
+* -p, msguniq option:                    msguniq Invocation.
+* -P, msguniq option:                    msguniq Invocation.
 * -p, xgettext option:                   xgettext Invocation.
 * -q, msgmerge option:                   msgmerge Invocation.
 * -r, msgfmt option:                     msgfmt Invocation.
@@ -524,6 +1303,7 @@ Variable Index
 
 * Menu:
 
+* GETTEXT_LOG_UNTRANSLATED, environment variable: Prioritizing messages.
 * LANG, environment variable <1>:        gettext grok.
 * LANG, environment variable:            End Users.
 * LANGUAGE, environment variable <1>:    po/Makevars.
@@ -719,4 +1499,5 @@ Autoconf Macro Index
 * AM_GNU_GETTEXT:                        AM_GNU_GETTEXT.
 * AM_GNU_GETTEXT_VERSION:                AM_GNU_GETTEXT_VERSION.
 * AM_ICONV:                              AM_ICONV.
+* AM_PO_SUBDIRS:                         AM_PO_SUBDIRS.
 

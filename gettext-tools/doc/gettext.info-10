@@ -71,6 +71,7 @@ General Index
 * auxiliary PO file:                     Auxiliary.
 * available translations:                Matrix.
 * awk:                                   gawk.
+* awk-format flag:                       PO Files.
 * backup old file, and msgmerge program: msgmerge Invocation.
 * bash:                                  bash.
 * bibliography:                          References.
@@ -124,6 +125,7 @@ General Index
 * duplicate removal:                     msguniq Invocation.
 * editing comments in PO files:          Modifying Comments.
 * editing translations:                  Modifying Translations.
+* elisp-format flag:                     PO Files.
 * Emacs Lisp:                            Emacs Lisp.
 * encoding:                              Aspects.
 * encoding conversion:                   Manipulating.
@@ -179,6 +181,7 @@ General Index
 * Java mode, and msgfmt program:         msgfmt Invocation.
 * Java mode, and msgunfmt program:       msgunfmt Invocation.
 * Java, string concatenation:            Preparing Strings.
+* java-format flag:                      PO Files.
 * keyboard accelerator checking:         msgfmt Invocation.
 * l10n:                                  Concepts.
 * language codes:                        Language Codes.
@@ -189,12 +192,14 @@ General Index
 * libintl for Java:                      Java.
 * libintl library:                       AM_GNU_GETTEXT.
 * librep Lisp:                           librep.
+* librep-format flag:                    PO Files.
 * LINGUAS file:                          po/LINGUAS.
 * link with libintl:                     Overview.
 * Linux <1>:                             Header Entry.
 * Linux <2>:                             Overview.
 * Linux:                                 Aspects.
 * Lisp:                                  Common Lisp.
+* lisp-format flag:                      PO Files.
 * list of translation teams, where to find: Header Entry.
 * locale facet, LC_ALL:                  Triggering.
 * locale facet, LC_COLLATE:              Triggering.
@@ -255,11 +260,23 @@ General Index
 * newlines in PO files:                  PO Files.
 * ngettext:                              Plural forms.
 * NLS:                                   Concepts.
+* no-awk-format flag:                    PO Files.
 * no-c-format flag:                      PO Files.
 * no-c-format, and xgettext:             c-format Flag.
+* no-elisp-format flag:                  PO Files.
+* no-java-format flag:                   PO Files.
+* no-librep-format flag:                 PO Files.
+* no-lisp-format flag:                   PO Files.
+* no-object-pascal-format flag:          PO Files.
+* no-php-format flag:                    PO Files.
+* no-python-format flag:                 PO Files.
+* no-smalltalk-format flag:              PO Files.
+* no-tcl-format flag:                    PO Files.
+* no-ycp-format flag:                    PO Files.
 * nplurals, in a PO file header:         Plural forms.
 * number format:                         Aspects.
 * Object Pascal:                         Pascal.
+* object-pascal-format flag:             PO Files.
 * obsolete entries:                      Obsolete Entries.
 * optimization of gettext functions:     Optimized gettext.
 * orthography:                           Manipulating.
@@ -272,6 +289,7 @@ General Index
 * Pascal:                                Pascal.
 * Perl:                                  Perl.
 * PHP:                                   PHP.
+* php-format flag:                       PO Files.
 * Pike:                                  Pike.
 * plural form formulas:                  Plural forms.
 * plural forms:                          Plural forms.
@@ -297,6 +315,7 @@ General Index
 * problems with catgets interface:       Problems with catgets.
 * programming languages:                 Language Implementors.
 * Python:                                Python.
+* python-format flag:                    PO Files.
 * quotation marks <1>:                   po/Makevars.
 * quotation marks:                       Header Entry.
 * quote characters, use in PO files:     Header Entry.
@@ -314,6 +333,7 @@ General Index
 * she, he, and they:                     Introduction.
 * shell scripts:                         sh.
 * Smalltalk:                             Smalltalk.
+* smalltalk-format flag:                 PO Files.
 * sorting msgcat output:                 msgcat Invocation.
 * sorting msgmerge output:               msgmerge Invocation.
 * sorting msgunfmt output:               msgunfmt Invocation.
@@ -328,6 +348,7 @@ General Index
 * Tcl:                                   Tcl.
 * Tcl mode, and msgfmt program:          msgfmt Invocation.
 * Tcl mode, and msgunfmt program:        msgunfmt Invocation.
+* tcl-format flag:                       PO Files.
 * template PO file:                      Overview.
 * testing .po files for equivalence:     xgettext Invocation.
 * Tk's scripting language:               Tcl.
@@ -349,5 +370,6 @@ General Index
 * xmodmap program, and typing quotation marks: Header Entry.
 * YaST2 scripting language:              YCP.
 * YCP:                                   YCP.
+* ycp-format flag:                       PO Files.
 
 

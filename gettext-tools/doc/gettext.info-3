@@ -100,8 +100,8 @@ Choice of input file language
 `--language=NAME'
      Specifies the language of the input files.  The supported languages
      are `C', `C++', `ObjectiveC', `PO', `Python', `Lisp', `EmacsLisp',
-     `librep', `Smalltalk', `Java', `awk', `YCP', `Tcl', `PHP', `RST',
-     `Glade'.
+     `librep', `Smalltalk', `Java', `JavaProperties', `awk', `YCP',
+     `Tcl', `PHP', `RST', `Glade'.
 
 `-C'
 `--c++'
@@ -204,6 +204,11 @@ Output details
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
 
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
+
 `-w NUMBER'
 `--width=NUMBER'
      Set the output page width.  Long strings in the output files will
@@ -254,6 +259,33 @@ Output details
      `--copyright-holder='''.  It can be useful for packages outside
      the GNU project that want their translations to be in the public
      domain.
+
+`--msgid-bugs-address=EMAIL@ADDRESS'
+     Set the reporting address for msgid bugs.  This is the email
+     address or URL to which the translators shall report bugs in the
+     untranslated strings:
+
+        - Strings which are not entire sentences, see the maintainer
+          guidelines in *Note Preparing Strings::.
+
+        - Strings which use unclear terms or require additional context
+          to be understood.
+
+        - Strings which make invalid assumptions about notation of
+          date, time or money.
+
+        - Pluralisation problems.
+
+        - Incorrect English spelling.
+
+        - Incorrect formatting.
+
+     It can be your email address, or a mailing list address where
+     translators can write to without being subscribed, or the URL of a
+     web page through which the translators can contact you.
+
+     The default value is empty, which means that translators will be
+     clueless!  Don't forget to specify this option.
 
 `-m [STRING]'
 `--msgstr-prefix[=STRING]'
@@ -334,6 +366,14 @@ Output file location
 the user's locale setting.  If it is `-', the results are written to
 standard output.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -347,6 +387,12 @@ Output details
 `--no-translator'
      Declares that the PO file will not have a human translator and is
      instead automatically generated.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -391,11 +437,31 @@ entry.  You should fill in the following fields.
 Project-Id-Version
      This is the name and version of the package.
 
+Report-Msgid-Bugs-To
+     This has already been filled in by `xgettext'.  It contains an
+     email address or URL where you can report bugs in the untranslated
+     strings:
+
+        - Strings which are not entire sentences, see the maintainer
+          guidelines in *Note Preparing Strings::.
+
+        - Strings which use unclear terms or require additional context
+          to be understood.
+
+        - Strings which make invalid assumptions about notation of
+          date, time or money.
+
+        - Pluralisation problems.
+
+        - Incorrect English spelling.
+
+        - Incorrect formatting.
+
 POT-Creation-Date
      This has already been filled in by `xgettext'.
 
 PO-Revision-Date
-     You don't need to fill this in. It will be filled by the Emacs PO
+     You don't need to fill this in.  It will be filled by the Emacs PO
      mode when you save the file.
 
 Last-Translator
@@ -433,7 +499,7 @@ Content-Type
      Because the PO files must be portable to operating systems with
      less advanced internationalization facilities, the character
      encodings that can be used are limited to those supported by both
-     GNU `libc' and GNU `libiconv'. These are: `ASCII', `ISO-8859-1',
+     GNU `libc' and GNU `libiconv'.  These are: `ASCII', `ISO-8859-1',
      `ISO-8859-2', `ISO-8859-3', `ISO-8859-4', `ISO-8859-5',
      `ISO-8859-6', `ISO-8859-7', `ISO-8859-8', `ISO-8859-9',
      `ISO-8859-13', `ISO-8859-14', `ISO-8859-15', `KOI8-R', `KOI8-U',
@@ -654,6 +720,14 @@ Operation modifiers
      Do not use fuzzy matching when an exact match is not found.  This
      may speed up the operation considerably.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input files are Java ResourceBundles in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -674,6 +748,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'

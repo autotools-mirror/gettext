@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 17 Febuary 2003 -->
+     from gettext.texi on 12 May 2003 -->
 
 <TITLE>GNU gettext utilities - 8  Producing Binary MO Files</TITLE>
 </HEAD>
@@ -10,29 +10,29 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_7.html">previous<
 <P><HR><P>
 
 
-<H1><A NAME="SEC120" HREF="gettext_toc.html#TOC120">8  Producing Binary MO Files</A></H1>
+<H1><A NAME="SEC133" HREF="gettext_toc.html#TOC133">8  Producing Binary MO Files</A></H1>
 
 
 
-<H2><A NAME="SEC121" HREF="gettext_toc.html#TOC121">8.1  Invoking the <CODE>msgfmt</CODE> Program</A></H2>
+<H2><A NAME="SEC134" HREF="gettext_toc.html#TOC134">8.1  Invoking the <CODE>msgfmt</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX743"></A>
-<A NAME="IDX744"></A>
+<A NAME="IDX813"></A>
+<A NAME="IDX814"></A>
 
 <PRE>
 msgfmt [<VAR>option</VAR>] <VAR>filename</VAR>.po ...
 </PRE>
 
 <P>
-<A NAME="IDX745"></A>
+<A NAME="IDX815"></A>
 The <CODE>msgfmt</CODE> programs generates a binary message catalog from a textual
 translation description.
 
 </P>
 
 
-<H3><A NAME="SEC122" HREF="gettext_toc.html#TOC122">8.1.1  Input file location</A></H3>
+<H3><A NAME="SEC135" HREF="gettext_toc.html#TOC135">8.1.1  Input file location</A></H3>
 
 <DL COMPACT>
 
@@ -42,8 +42,8 @@ translation description.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX746"></A>
-<A NAME="IDX747"></A>
+<A NAME="IDX816"></A>
+<A NAME="IDX817"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -56,7 +56,7 @@ If an input file is <SAMP>`-&acute;</SAMP>, standard input is read.
 </P>
 
 
-<H3><A NAME="SEC123" HREF="gettext_toc.html#TOC123">8.1.2  Operation mode</A></H3>
+<H3><A NAME="SEC136" HREF="gettext_toc.html#TOC136">8.1.2  Operation mode</A></H3>
 
 <DL COMPACT>
 
@@ -64,27 +64,27 @@ If an input file is <SAMP>`-&acute;</SAMP>, standard input is read.
 <DD>
 <DT><SAMP>`--java&acute;</SAMP>
 <DD>
-<A NAME="IDX748"></A>
-<A NAME="IDX749"></A>
-<A NAME="IDX750"></A>
+<A NAME="IDX818"></A>
+<A NAME="IDX819"></A>
+<A NAME="IDX820"></A>
 Java mode: generate a Java <CODE>ResourceBundle</CODE> class.
 
 <DT><SAMP>`--java2&acute;</SAMP>
 <DD>
-<A NAME="IDX751"></A>
+<A NAME="IDX821"></A>
 Like --java, and assume Java2 (JDK 1.2 or higher).
 
 <DT><SAMP>`--tcl&acute;</SAMP>
 <DD>
-<A NAME="IDX752"></A>
-<A NAME="IDX753"></A>
+<A NAME="IDX822"></A>
+<A NAME="IDX823"></A>
 Tcl mode: generate a tcl/msgcat <TT>`.msg&acute;</TT> file.
 
 </DL>
 
 
 
-<H3><A NAME="SEC124" HREF="gettext_toc.html#TOC124">8.1.3  Output file location</A></H3>
+<H3><A NAME="SEC137" HREF="gettext_toc.html#TOC137">8.1.3  Output file location</A></H3>
 
 <DL COMPACT>
 
@@ -92,13 +92,13 @@ Tcl mode: generate a tcl/msgcat <TT>`.msg&acute;</TT> file.
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX754"></A>
-<A NAME="IDX755"></A>
+<A NAME="IDX824"></A>
+<A NAME="IDX825"></A>
 Write output to specified file.
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX756"></A>
+<A NAME="IDX826"></A>
 Direct the program to work strictly following the Uniforum/Sun
 implementation.  Currently this only affects the naming of the output
 file.  If this option is not given the name of the output file is the
@@ -117,7 +117,7 @@ If the output <VAR>file</VAR> is <SAMP>`-&acute;</SAMP>, output is written to st
 </P>
 
 
-<H3><A NAME="SEC125" HREF="gettext_toc.html#TOC125">8.1.4  Output file location in Java mode</A></H3>
+<H3><A NAME="SEC138" HREF="gettext_toc.html#TOC138">8.1.4  Output file location in Java mode</A></H3>
 
 <DL COMPACT>
 
@@ -125,22 +125,22 @@ If the output <VAR>file</VAR> is <SAMP>`-&acute;</SAMP>, output is written to st
 <DD>
 <DT><SAMP>`--resource=<VAR>resource</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX757"></A>
-<A NAME="IDX758"></A>
+<A NAME="IDX827"></A>
+<A NAME="IDX828"></A>
 Specify the resource name.
 
 <DT><SAMP>`-l <VAR>locale</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--locale=<VAR>locale</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX759"></A>
-<A NAME="IDX760"></A>
+<A NAME="IDX829"></A>
+<A NAME="IDX830"></A>
 Specify the locale name, either a language specification of the form <VAR>ll</VAR>
 or a combined language and country specification of the form <VAR>ll_CC</VAR>.
 
 <DT><SAMP>`-d <VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX761"></A>
+<A NAME="IDX831"></A>
 Specify the base directory of classes directory hierarchy.
 
 </DL>
@@ -153,7 +153,7 @@ is written under the specified directory.
 </P>
 
 
-<H3><A NAME="SEC126" HREF="gettext_toc.html#TOC126">8.1.5  Output file location in Tcl mode</A></H3>
+<H3><A NAME="SEC139" HREF="gettext_toc.html#TOC139">8.1.5  Output file location in Tcl mode</A></H3>
 
 <DL COMPACT>
 
@@ -161,14 +161,14 @@ is written under the specified directory.
 <DD>
 <DT><SAMP>`--locale=<VAR>locale</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX762"></A>
-<A NAME="IDX763"></A>
+<A NAME="IDX832"></A>
+<A NAME="IDX833"></A>
 Specify the locale name, either a language specification of the form <VAR>ll</VAR>
 or a combined language and country specification of the form <VAR>ll_CC</VAR>.
 
 <DT><SAMP>`-d <VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX764"></A>
+<A NAME="IDX834"></A>
 Specify the base directory of <TT>`.msg&acute;</TT> message catalogs.
 
 </DL>
@@ -180,7 +180,24 @@ written in the specified directory.
 </P>
 
 
-<H3><A NAME="SEC127" HREF="gettext_toc.html#TOC127">8.1.6  Input file interpretation</A></H3>
+<H3><A NAME="SEC140" HREF="gettext_toc.html#TOC140">8.1.6  Input file syntax</A></H3>
+
+<DL COMPACT>
+
+<DT><SAMP>`-P&acute;</SAMP>
+<DD>
+<DT><SAMP>`--properties-input&acute;</SAMP>
+<DD>
+<A NAME="IDX835"></A>
+<A NAME="IDX836"></A>
+Assume the input files are Java ResourceBundles in Java <CODE>.properties</CODE>
+syntax, not in PO file syntax.
+
+</DL>
+
+
+
+<H3><A NAME="SEC141" HREF="gettext_toc.html#TOC141">8.1.7  Input file interpretation</A></H3>
 
 <DL COMPACT>
 
@@ -188,15 +205,15 @@ written in the specified directory.
 <DD>
 <DT><SAMP>`--check&acute;</SAMP>
 <DD>
-<A NAME="IDX765"></A>
-<A NAME="IDX766"></A>
+<A NAME="IDX837"></A>
+<A NAME="IDX838"></A>
 Perform all the checks implied by <CODE>--check-format</CODE>, <CODE>--check-header</CODE>,
 <CODE>--check-domain</CODE>.
 
 <DT><SAMP>`--check-format&acute;</SAMP>
 <DD>
-<A NAME="IDX767"></A>
-<A NAME="IDX768"></A>
+<A NAME="IDX839"></A>
+<A NAME="IDX840"></A>
 Check language dependent format strings.
 
 If the string represents a format string used in a
@@ -215,19 +232,19 @@ used in a <CODE>printf</CODE>-like function and so <CODE>msgfmt</CODE> might rep
 errors where there are none.
 
 To solve this problem the programmer can dictate the decision to the
-<CODE>xgettext</CODE> program (see section <A HREF="gettext_13.html#SEC205">13.3.1  C Format Strings</A>).  The translator should not
+<CODE>xgettext</CODE> program (see section <A HREF="gettext_13.html#SEC221">13.3.1  C Format Strings</A>).  The translator should not
 consider removing the flag from the <KBD>#,</KBD> line.  This "fix" would be
 reversed again as soon as <CODE>msgmerge</CODE> is called the next time.
 
 <DT><SAMP>`--check-header&acute;</SAMP>
 <DD>
-<A NAME="IDX769"></A>
-Verify presence and contents of the header entry.  See section <A HREF="gettext_5.html#SEC36">5.2  Filling in the Header Entry</A>,
+<A NAME="IDX841"></A>
+Verify presence and contents of the header entry.  See section <A HREF="gettext_5.html#SEC38">5.2  Filling in the Header Entry</A>,
 for a description of the various fields in the header entry.
 
 <DT><SAMP>`--check-domain&acute;</SAMP>
 <DD>
-<A NAME="IDX770"></A>
+<A NAME="IDX842"></A>
 Check for conflicts between domain directives and the <CODE>--output-file</CODE>
 option
 
@@ -235,18 +252,18 @@ option
 <DD>
 <DT><SAMP>`--check-compatibility&acute;</SAMP>
 <DD>
-<A NAME="IDX771"></A>
-<A NAME="IDX772"></A>
-<A NAME="IDX773"></A>
+<A NAME="IDX843"></A>
+<A NAME="IDX844"></A>
+<A NAME="IDX845"></A>
 Check that GNU msgfmt behaves like X/Open msgfmt.  This will give an error
 when attempting to use the GNU extensions.
 
 <DT><SAMP>`--check-accelerators[=<VAR>char</VAR>]&acute;</SAMP>
 <DD>
-<A NAME="IDX774"></A>
-<A NAME="IDX775"></A>
-<A NAME="IDX776"></A>
-<A NAME="IDX777"></A>
+<A NAME="IDX846"></A>
+<A NAME="IDX847"></A>
+<A NAME="IDX848"></A>
+<A NAME="IDX849"></A>
 Check presence of keyboard accelerators for menu items.  This is based on
 the convention used in some GUIs that a keyboard accelerator in a menu
 item string is designated by an immediately preceding <SAMP>`&#38;&acute;</SAMP> character.
@@ -261,9 +278,9 @@ instead of <SAMP>`&#38;&acute;</SAMP>.
 <DD>
 <DT><SAMP>`--use-fuzzy&acute;</SAMP>
 <DD>
-<A NAME="IDX778"></A>
-<A NAME="IDX779"></A>
-<A NAME="IDX780"></A>
+<A NAME="IDX850"></A>
+<A NAME="IDX851"></A>
+<A NAME="IDX852"></A>
 Use fuzzy entries in output.  Note that using this option is usually wrong,
 because fuzzy messages are exactly those which have not been validated by
 a human translator.
@@ -272,7 +289,7 @@ a human translator.
 
 
 
-<H3><A NAME="SEC128" HREF="gettext_toc.html#TOC128">8.1.7  Output details</A></H3>
+<H3><A NAME="SEC142" HREF="gettext_toc.html#TOC142">8.1.8  Output details</A></H3>
 
 <DL COMPACT>
 
@@ -280,13 +297,13 @@ a human translator.
 <DD>
 <DT><SAMP>`--alignment=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX781"></A>
-<A NAME="IDX782"></A>
+<A NAME="IDX853"></A>
+<A NAME="IDX854"></A>
 Align strings to <VAR>number</VAR> bytes (default: 1).
 
 <DT><SAMP>`--no-hash&acute;</SAMP>
 <DD>
-<A NAME="IDX783"></A>
+<A NAME="IDX855"></A>
 Don't include a hash table in the binary file.  Lookup will be more expensive
 at run time (binary search instead of hash table lookup).
 
@@ -294,7 +311,7 @@ at run time (binary search instead of hash table lookup).
 
 
 
-<H3><A NAME="SEC129" HREF="gettext_toc.html#TOC129">8.1.8  Informative output</A></H3>
+<H3><A NAME="SEC143" HREF="gettext_toc.html#TOC143">8.1.9  Informative output</A></H3>
 
 <DL COMPACT>
 
@@ -302,54 +319,54 @@ at run time (binary search instead of hash table lookup).
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX784"></A>
-<A NAME="IDX785"></A>
+<A NAME="IDX856"></A>
+<A NAME="IDX857"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX786"></A>
-<A NAME="IDX787"></A>
+<A NAME="IDX858"></A>
+<A NAME="IDX859"></A>
 Output version information and exit.
 
 <DT><SAMP>`--statistics&acute;</SAMP>
 <DD>
-<A NAME="IDX788"></A>
+<A NAME="IDX860"></A>
 Print statistics about translations.
 
 <DT><SAMP>`-v&acute;</SAMP>
 <DD>
 <DT><SAMP>`--verbose&acute;</SAMP>
 <DD>
-<A NAME="IDX789"></A>
-<A NAME="IDX790"></A>
+<A NAME="IDX861"></A>
+<A NAME="IDX862"></A>
 Increase verbosity level.
 
 </DL>
 
 
 
-<H2><A NAME="SEC130" HREF="gettext_toc.html#TOC130">8.2  Invoking the <CODE>msgunfmt</CODE> Program</A></H2>
+<H2><A NAME="SEC144" HREF="gettext_toc.html#TOC144">8.2  Invoking the <CODE>msgunfmt</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX791"></A>
-<A NAME="IDX792"></A>
+<A NAME="IDX863"></A>
+<A NAME="IDX864"></A>
 
 <PRE>
 msgunfmt [<VAR>option</VAR>] [<VAR>file</VAR>]...
 </PRE>
 
 <P>
-<A NAME="IDX793"></A>
+<A NAME="IDX865"></A>
 The <CODE>msgunfmt</CODE> program converts a binary message catalog to a
 Uniforum style .po file.
 
 </P>
 
 
-<H3><A NAME="SEC131" HREF="gettext_toc.html#TOC131">8.2.1  Operation mode</A></H3>
+<H3><A NAME="SEC145" HREF="gettext_toc.html#TOC145">8.2.1  Operation mode</A></H3>
 
 <DL COMPACT>
 
@@ -357,22 +374,22 @@ Uniforum style .po file.
 <DD>
 <DT><SAMP>`--java&acute;</SAMP>
 <DD>
-<A NAME="IDX794"></A>
-<A NAME="IDX795"></A>
-<A NAME="IDX796"></A>
+<A NAME="IDX866"></A>
+<A NAME="IDX867"></A>
+<A NAME="IDX868"></A>
 Java mode: input is a Java <CODE>ResourceBundle</CODE> class.
 
 <DT><SAMP>`--tcl&acute;</SAMP>
 <DD>
-<A NAME="IDX797"></A>
-<A NAME="IDX798"></A>
+<A NAME="IDX869"></A>
+<A NAME="IDX870"></A>
 Tcl mode: input is a tcl/msgcat <TT>`.msg&acute;</TT> file.
 
 </DL>
 
 
 
-<H3><A NAME="SEC132" HREF="gettext_toc.html#TOC132">8.2.2  Input file location</A></H3>
+<H3><A NAME="SEC146" HREF="gettext_toc.html#TOC146">8.2.2  Input file location</A></H3>
 
 <DL COMPACT>
 
@@ -388,7 +405,7 @@ If no input <VAR>file</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standar
 </P>
 
 
-<H3><A NAME="SEC133" HREF="gettext_toc.html#TOC133">8.2.3  Input file location in Java mode</A></H3>
+<H3><A NAME="SEC147" HREF="gettext_toc.html#TOC147">8.2.3  Input file location in Java mode</A></H3>
 
 <DL COMPACT>
 
@@ -396,16 +413,16 @@ If no input <VAR>file</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standar
 <DD>
 <DT><SAMP>`--resource=<VAR>resource</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX799"></A>
-<A NAME="IDX800"></A>
+<A NAME="IDX871"></A>
+<A NAME="IDX872"></A>
 Specify the resource name.
 
 <DT><SAMP>`-l <VAR>locale</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--locale=<VAR>locale</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX801"></A>
-<A NAME="IDX802"></A>
+<A NAME="IDX873"></A>
+<A NAME="IDX874"></A>
 Specify the locale name, either a language specification of the form <VAR>ll</VAR>
 or a combined language and country specification of the form <VAR>ll_CC</VAR>.
 
@@ -418,7 +435,7 @@ separated with an underscore.  The class is located using the <CODE>CLASSPATH</C
 </P>
 
 
-<H3><A NAME="SEC134" HREF="gettext_toc.html#TOC134">8.2.4  Input file location in Tcl mode</A></H3>
+<H3><A NAME="SEC148" HREF="gettext_toc.html#TOC148">8.2.4  Input file location in Tcl mode</A></H3>
 
 <DL COMPACT>
 
@@ -426,14 +443,14 @@ separated with an underscore.  The class is located using the <CODE>CLASSPATH</C
 <DD>
 <DT><SAMP>`--locale=<VAR>locale</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX803"></A>
-<A NAME="IDX804"></A>
+<A NAME="IDX875"></A>
+<A NAME="IDX876"></A>
 Specify the locale name, either a language specification of the form <VAR>ll</VAR>
 or a combined language and country specification of the form <VAR>ll_CC</VAR>.
 
 <DT><SAMP>`-d <VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX805"></A>
+<A NAME="IDX877"></A>
 Specify the base directory of <TT>`.msg&acute;</TT> message catalogs.
 
 </DL>
@@ -445,7 +462,7 @@ located in the specified directory.
 </P>
 
 
-<H3><A NAME="SEC135" HREF="gettext_toc.html#TOC135">8.2.5  Output file location</A></H3>
+<H3><A NAME="SEC149" HREF="gettext_toc.html#TOC149">8.2.5  Output file location</A></H3>
 
 <DL COMPACT>
 
@@ -453,8 +470,8 @@ located in the specified directory.
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX806"></A>
-<A NAME="IDX807"></A>
+<A NAME="IDX878"></A>
+<A NAME="IDX879"></A>
 Write output to specified file.
 
 </DL>
@@ -466,43 +483,53 @@ or if it is <SAMP>`-&acute;</SAMP>.
 </P>
 
 
-<H3><A NAME="SEC136" HREF="gettext_toc.html#TOC136">8.2.6  Output details</A></H3>
+<H3><A NAME="SEC150" HREF="gettext_toc.html#TOC150">8.2.6  Output details</A></H3>
 
 <DL COMPACT>
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX808"></A>
+<A NAME="IDX880"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX809"></A>
-<A NAME="IDX810"></A>
+<A NAME="IDX881"></A>
+<A NAME="IDX882"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX811"></A>
+<A NAME="IDX883"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
+
+<DT><SAMP>`-p&acute;</SAMP>
+<DD>
+<DT><SAMP>`--properties-output&acute;</SAMP>
+<DD>
+<A NAME="IDX884"></A>
+<A NAME="IDX885"></A>
+Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
+that this file format doesn't support plural forms and silently drops
+obsolete messages.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX812"></A>
-<A NAME="IDX813"></A>
+<A NAME="IDX886"></A>
+<A NAME="IDX887"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX814"></A>
+<A NAME="IDX888"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -511,9 +538,9 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX815"></A>
-<A NAME="IDX816"></A>
-<A NAME="IDX817"></A>
+<A NAME="IDX889"></A>
+<A NAME="IDX890"></A>
+<A NAME="IDX891"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -521,7 +548,7 @@ for the translator to understand each message's context.
 
 
 
-<H3><A NAME="SEC137" HREF="gettext_toc.html#TOC137">8.2.7  Informative output</A></H3>
+<H3><A NAME="SEC151" HREF="gettext_toc.html#TOC151">8.2.7  Informative output</A></H3>
 
 <DL COMPACT>
 
@@ -529,34 +556,34 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX818"></A>
-<A NAME="IDX819"></A>
+<A NAME="IDX892"></A>
+<A NAME="IDX893"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX820"></A>
-<A NAME="IDX821"></A>
+<A NAME="IDX894"></A>
+<A NAME="IDX895"></A>
 Output version information and exit.
 
 <DT><SAMP>`-v&acute;</SAMP>
 <DD>
 <DT><SAMP>`--verbose&acute;</SAMP>
 <DD>
-<A NAME="IDX822"></A>
-<A NAME="IDX823"></A>
+<A NAME="IDX896"></A>
+<A NAME="IDX897"></A>
 Increase verbosity level.
 
 </DL>
 
 
 
-<H2><A NAME="SEC138" HREF="gettext_toc.html#TOC138">8.3  The Format of GNU MO Files</A></H2>
+<H2><A NAME="SEC152" HREF="gettext_toc.html#TOC152">8.3  The Format of GNU MO Files</A></H2>
 <P>
-<A NAME="IDX824"></A>
-<A NAME="IDX825"></A>
+<A NAME="IDX898"></A>
+<A NAME="IDX899"></A>
 
 </P>
 <P>
@@ -565,7 +592,7 @@ which appears below.
 
 </P>
 <P>
-<A NAME="IDX826"></A>
+<A NAME="IDX900"></A>
 The first two words serve the identification of the file.  The magic
 number will always signal GNU MO files.  The number is stored in the
 byte order of the generating machine, so the magic number really is
@@ -613,7 +640,7 @@ translated tables, making the system information very easy to find.
 
 </P>
 <P>
-<A NAME="IDX827"></A>
+<A NAME="IDX901"></A>
 The size <VAR>S</VAR> of the hash table can be zero.  In this case, the
 hash table itself is not contained in the MO file.  Some people might
 prefer this because a precomputed hashing table takes disk space, and
@@ -634,7 +661,7 @@ machines, a correct alignment will speed things up.
 
 </P>
 <P>
-<A NAME="IDX828"></A>
+<A NAME="IDX902"></A>
 Plural forms are stored by letting the plural of the original string
 follow the singular of the original string, separated through a
 <KBD>NUL</KBD> byte.  The length which appears in the string descriptor

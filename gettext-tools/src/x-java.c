@@ -1,3 +1,6 @@
+#ifdef VMS
+#include <vms_jackets.h>
+#endif
 #define yy_create_buffer x_java_yy_create_buffer
 #define yy_delete_buffer x_java_yy_delete_buffer
 #define yy_scan_buffer x_java_yy_scan_buffer

@@ -7,7 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.3\n"
-"POT-Creation-Date: 2003-02-12 13:32+0100\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2003-05-12 19:47+0200\n"
 "PO-Revision-Date: 2002-07-21 06:45 +0800\n"
 "Last-Translator: Pofeng Lee <pofeng@linux.org.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -16,70 +17,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/error.c:112
+#: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
 msgstr "不明的系統錯誤"
 
-#: lib/getopt.c:689 lib/getopt.c:701
+#: ../gettext-tools/lib/getopt.c:689 ../gettext-tools/lib/getopt.c:701
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s：選項‘%s’是不明確的\n"
 
-#: lib/getopt.c:734 lib/getopt.c:738
+#: ../gettext-tools/lib/getopt.c:734 ../gettext-tools/lib/getopt.c:738
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s：選項‘--%s’不允許有參數\n"
 
-#: lib/getopt.c:747 lib/getopt.c:752
+#: ../gettext-tools/lib/getopt.c:747 ../gettext-tools/lib/getopt.c:752
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s：選項‘%c%s’不允許有參數\n"
 
-#: lib/getopt.c:788 lib/getopt.c:801 lib/getopt.c:1090 lib/getopt.c:1103
+#: ../gettext-tools/lib/getopt.c:788 ../gettext-tools/lib/getopt.c:801
+#: ../gettext-tools/lib/getopt.c:1090 ../gettext-tools/lib/getopt.c:1103
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s：選項‘%s’需要參數\n"
 
-#: lib/getopt.c:839 lib/getopt.c:842
+#: ../gettext-tools/lib/getopt.c:839 ../gettext-tools/lib/getopt.c:842
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s：無法識別選項‘--%s’\n"
 
-#: lib/getopt.c:850 lib/getopt.c:853
+#: ../gettext-tools/lib/getopt.c:850 ../gettext-tools/lib/getopt.c:853
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s：無法識別選項‘%c%s’\n"
 
-#: lib/getopt.c:900 lib/getopt.c:903
+#: ../gettext-tools/lib/getopt.c:900 ../gettext-tools/lib/getopt.c:903
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s：不合法的選項 ─ %c\n"
 
-#: lib/getopt.c:909 lib/getopt.c:912
+#: ../gettext-tools/lib/getopt.c:909 ../gettext-tools/lib/getopt.c:912
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s：選項無效 ─ %c\n"
 
-#: lib/getopt.c:959 lib/getopt.c:970 lib/getopt.c:1156 lib/getopt.c:1169
+#: ../gettext-tools/lib/getopt.c:959 ../gettext-tools/lib/getopt.c:970
+#: ../gettext-tools/lib/getopt.c:1156 ../gettext-tools/lib/getopt.c:1169
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s：選項需要參數 ─ %c\n"
 
-#: lib/getopt.c:1022 lib/getopt.c:1033
+#: ../gettext-tools/lib/getopt.c:1022 ../gettext-tools/lib/getopt.c:1033
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s：選項‘-W %s’是不明確的\n"
 
-#: lib/getopt.c:1057 lib/getopt.c:1069
+#: ../gettext-tools/lib/getopt.c:1057 ../gettext-tools/lib/getopt.c:1069
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s：選項‘-W %s’不允許有參數\n"
 
-#: lib/xmalloc.c:47
+#: ../gettext-tools/lib/xmalloc.c:41
 msgid "memory exhausted"
 msgstr "記憶體耗盡"
 
-#: src/gettext.c:132 src/ngettext.c:123
+#: src/gettext.c:129 src/ngettext.c:120
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -90,25 +93,25 @@ msgstr ""
 "這是自由軟體；請參考原始碼的版權聲明。本軟體不提供任何保證，甚至不會包括\n"
 "可售性和適用於任何特定目的的保證。\n"
 
-#: src/gettext.c:137 src/ngettext.c:128
+#: src/gettext.c:134 src/ngettext.c:125
 #, c-format
 msgid "Written by %s.\n"
 msgstr "由 %s 編寫。\n"
 
-#: src/gettext.c:155 src/ngettext.c:140
+#: src/gettext.c:152 src/ngettext.c:137
 msgid "too many arguments"
 msgstr "參數過多"
 
-#: src/gettext.c:165 src/ngettext.c:152
+#: src/gettext.c:162 src/ngettext.c:149
 msgid "missing arguments"
 msgstr "缺少了參數"
 
-#: src/gettext.c:236 src/ngettext.c:206
+#: src/gettext.c:233 src/ngettext.c:203
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "試試‘%s --help’來獲取更多資訊。\n"
 
-#: src/gettext.c:241
+#: src/gettext.c:238
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -117,12 +120,12 @@ msgstr ""
 "用法：%s [選項] [[文字領域] MSGID]\n"
 "或：  %s [選項] -s [MSGID]...\n"
 
-#: src/gettext.c:247
+#: src/gettext.c:244
 #, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "顯示某文字訊息的本地語言翻譯。\n"
 
-#: src/gettext.c:251
+#: src/gettext.c:248
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -142,7 +145,7 @@ msgstr ""
 "  -V, --version             顯示版本資訊並離開\n"
 "  [文字領域] MSGID          由<文字領域>讀取相應於 MSGID 的翻譯訊息\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:259
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -161,23 +164,23 @@ msgstr ""
 "而是尋找訊息資料檔裡翻譯過的訊息。\n"
 "標準的搜尋目錄為：%s\n"
 
-#: src/gettext.c:273 src/ngettext.c:240
+#: src/gettext.c:270 src/ngettext.c:237
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "請回報錯誤至 <bug-gnu-gettext@gnu.org>。\n"
 
-#: src/ngettext.c:211
+#: src/ngettext.c:208
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "用法：%s [選項] [文字領域] MSGID 複數-MSGID 數字\n"
 
-#: src/ngettext.c:216
+#: src/ngettext.c:213
 #, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "顯示某文字訊息的本地語言翻譯，而翻譯的文法和數字有關。\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:218
 #, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -198,7 +201,7 @@ msgstr ""
 "  MSGID 複數-MSGID          翻譯 MSGID (單數) / 複數-MSGID (複數)\n"
 "  數字                      根據<數字>來選擇單數或複數型態\n"
 
-#: src/ngettext.c:232
+#: src/ngettext.c:229
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

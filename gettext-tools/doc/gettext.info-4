@@ -478,6 +478,14 @@ Message selection
      Shorthand for `--less-than=2'.  Requests that only unique messages
      be printed.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input files are Java ResourceBundles in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -507,6 +515,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -585,6 +599,14 @@ Conversion target
 
    The default encoding is the current locale's encoding.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -605,6 +627,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -720,6 +748,10 @@ regular expressions if -E is given, or fixed strings if -F is given.
 `--msgstr'
      Start of patterns for the msgstr.
 
+`-C'
+`--comment'
+     Start of patterns for the translator's comment.
+
 `-E'
 `--extended-regexp'
      Specify that PATTERN is an extended regular expression.
@@ -740,6 +772,14 @@ regular expressions if -E is given, or fixed strings if -F is given.
 `--ignore-case'
      Ignore case distinctions.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -759,6 +799,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -845,11 +891,11 @@ you can first convert the translation catalog to UTF-8 using the
 using the `LC_ALL' environment variable.
 
    Note: Most translations in a translation catalog don't end with a
-newline character. For this reason, it is important that the FILTER
+newline character.  For this reason, it is important that the FILTER
 recognizes its last input line even if it ends without a newline, and
-that it doesn't add an undesired trailing newline at the end. The `sed'
+that it doesn't add an undesired trailing newline at the end.  The `sed'
 program on some platforms is known to ignore the last line of input if
-it is not terminated with a newline. You can use GNU `sed' instead; it
+it is not terminated with a newline.  You can use GNU `sed' instead; it
 does not have this limitation.
 
 Useful FILTER-OPTIONs when the FILTER is `sed'
@@ -867,6 +913,14 @@ Useful FILTER-OPTIONs when the FILTER is `sed'
 `--quiet'
 `--silent'
      Suppress automatic printing of pattern space.
+
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
 
 Output details
 --------------
@@ -892,6 +946,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -979,6 +1039,14 @@ Message selection
 `--unique'
      Print only unique messages, discard duplicates.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -1008,6 +1076,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -1106,6 +1180,14 @@ Message selection
      Shorthand for `--less-than=2'.  Requests that only unique messages
      be printed.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input files are Java ResourceBundles in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -1127,6 +1209,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -1200,6 +1288,14 @@ Operation modifiers
 `-m'
 `--multi-domain'
      Apply REF.pot to each of the domains in DEF.po.
+
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input files are Java ResourceBundles in Java
+     `.properties' syntax, not in PO file syntax.
 
 Informative output
 ------------------
@@ -1304,6 +1400,14 @@ that are listed in the ONLY-FILE and not listed in the IGNORE-FILE.
      Synonym for `--only-obsolete --clear-obsolete': It keeps only the
      obsolete messages and makes them non-obsolete.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -1325,6 +1429,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -1370,10 +1480,10 @@ Invoking the `msgen' Program
    The `msgen' program creates an English translation catalog.  The
 input file is the last created English PO file, or a PO Template file
 (generally created by xgettext).  Untranslated entries are assigned a
-translation that is identical to the msgid, and are marked fuzzy.
+translation that is identical to the msgid.
 
    Note: `msginit --no-translator --locale=en' performs a very similar
-task. The main difference is that `msginit' cares specially about the
+task.  The main difference is that `msginit' cares specially about the
 header entry, whereas `msgen' doesn't.
 
 Input file location
@@ -1400,6 +1510,14 @@ Output file location
    The results are written to standard output if no output file is
 specified or if it is `-'.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
+
 Output details
 --------------
 
@@ -1420,6 +1538,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -1501,6 +1625,14 @@ Input file location
      file will be written relative to the current directory, though.
 
    If no INPUTFILE is given or if it is `-', standard input is read.
+
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input file is a Java ResourceBundle in Java
+     `.properties' syntax, not in PO file syntax.
 
 Informative output
 ------------------

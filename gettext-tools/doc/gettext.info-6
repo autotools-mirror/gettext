@@ -223,7 +223,7 @@ Two forms, singular used for one only
      Languages with this property include:
 
     Germanic family
-          Danish, Dutch, English, German, Norwegian, Swedish
+          Danish, Dutch, English, Faroese, German, Norwegian, Swedish
 
     Finno-Ugric family
           Estonian, Finnish
@@ -645,7 +645,7 @@ is a list comments:
             }
 
      The variable `_nl_msg_cat_cntr' is defined in `loadmsgcat.c'.  You
-     don't need to know what this is for. But it can be used to detect
+     don't need to know what this is for.  But it can be used to detect
      whether a `gettext' implementation is GNU gettext and not non-GNU
      system's native gettext implementation.
 
@@ -790,6 +790,7 @@ The Translator's View
 * Discussions::                 Discussions
 * Organization::                Organization
 * Information Flow::            Information Flow
+* Prioritizing messages::       How to find which messages to translate first
 
 
 File: gettext.info,  Node: Trans Intro 0,  Next: Trans Intro 1,  Prev: Translators,  Up: Translators
@@ -946,9 +947,10 @@ concerns.  Some of these doubts are presented and discussed, here.
      not want to make their program free, or want other kinds of
      freedom.  The simplest answer is "normally not".
 
-     The GNU `gettext' library, i.e. the contents of `libintl', is
-     covered by the GNU Library General Public License.  The rest of
-     the GNU `gettext' package is covered by the GNU General Public
+     The `gettext-runtime' part of GNU `gettext', i.e. the contents of
+     `libintl', is covered by the GNU Library General Public License.
+     The `gettext-tools' part of GNU `gettext', i.e. the rest of the
+     GNU `gettext' package, is covered by the GNU General Public
      License.
 
      The mere marking of localizable strings in a package, or
@@ -1075,7 +1077,7 @@ subscribed to all my pretest lists, so I do not even have to warn him
 specifically of incoming releases.
 
    I'm sure, that is a good idea to get teams for each language working
-on translations. That will make the translations better and more
+on translations.  That will make the translations better and more
 consistent.
 
 * Menu:

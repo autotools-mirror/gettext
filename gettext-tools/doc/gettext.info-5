@@ -55,7 +55,7 @@ is not sufficient, a set of C functions is provided in a library, to
 make it possible to process PO files in your own programs.  When you
 use this library, you don't need to write routines to parse the PO
 file; instead, you retreive a pointer in memory to each of messages
-contained in the PO file. Functions for writing PO files are not
+contained in the PO file.  Functions for writing PO files are not
 provided at this time.
 
    The functions are declared in the header file `<gettext-po.h>', and
@@ -271,6 +271,14 @@ Output file location in Tcl mode
    The `-l' and `-d' options are mandatory.  The `.msg' file is written
 in the specified directory.
 
+Input file syntax
+-----------------
+
+`-P'
+`--properties-input'
+     Assume the input files are Java ResourceBundles in Java
+     `.properties' syntax, not in PO file syntax.
+
 Input file interpretation
 -------------------------
 
@@ -448,6 +456,12 @@ Output details
      Write out a strict Uniforum conforming PO file.  Note that this
      Uniforum format should be avoided because it doesn't support the
      GNU extensions.
+
+`-p'
+`--properties-output'
+     Write out a Java ResourceBundle in Java `.properties' syntax.  Note
+     that this file format doesn't support plural forms and silently
+     drops obsolete messages.
 
 `-w NUMBER'
 `--width=NUMBER'
@@ -1052,7 +1066,7 @@ MSGIDs be US-ASCII strings.
 
      If the CODESET parameter is the null pointer,
      `bind_textdomain_codeset' returns the currently selected codeset
-     for the domain with the name DOMAINNAME. It returns `NULL' if no
+     for the domain with the name DOMAINNAME.  It returns `NULL' if no
      codeset has yet been selected.
 
      The `bind_textdomain_codeset' function can be used several times.

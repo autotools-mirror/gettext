@@ -42,11 +42,10 @@ msgstr ""
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
 
-#, c-format, no-wrap
+#, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr ""
 
-#, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr ""
 
@@ -56,90 +55,179 @@ msgid ""
 "Similarly for optional arguments.\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Input file location:\n"
-"  INPUTFILE ...                  input files\n"
-"  -f, --files-from=FILE          get list of input files from FILE\n"
-"  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
-"If input file is -, standard input is read.\n"
+msgid "Input file location:\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Output file location:\n"
-"  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
-"  -o, --output=FILE              write output to specified file\n"
-"  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
-"If output file is -, output is written to standard output.\n"
+msgid "  INPUTFILE ...               input files\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Choice of input file language:\n"
-"  -L, --language=NAME            recognise the specified language\n"
-"                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
-"                                   EmacsLisp, librep, Smalltalk, Java, awk,\n"
-"                                   YCP, Tcl, PHP, RST, Glade)\n"
-"  -C, --c++                      shorthand for --language=C++\n"
-"By default the language is guessed depending on the input file name extension.\n"
+msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr ""
 
-#, no-wrap
 msgid ""
-"Input file interpretation:\n"
-"      --from-code=NAME           encoding of input files\n"
-"                                   (except for Python, Tcl, Glade)\n"
-"By default the input files are assumed to be in ASCII.\n"
+"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Operation mode:\n"
-"  -j, --join-existing            join messages with existing file\n"
-"  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n"
-"  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
-"                                 preceding keyword lines) in output file\n"
+msgid "If input file is -, standard input is read.\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Language=C/C++ specific options:\n"
-"  -a, --extract-all              extract all strings\n"
-"  -k, --keyword[=WORD]           additional keyword to be looked for (without\n"
-"                                 WORD means not to use default keywords)\n"
-"  -T, --trigraphs                understand ANSI C trigraphs for input\n"
-"      --debug                    more detailed formatstring recognition result\n"
+msgid "Output file location:\n"
 msgstr ""
 
-#, no-wrap
 msgid ""
-"Output details:\n"
-"  -e, --no-escape                do not use C escapes in output (default)\n"
-"  -E, --escape                   use C escapes in output, no extended chars\n"
-"      --force-po                 write PO file even if empty\n"
-"  -i, --indent                   write the .po file using indented style\n"
-"      --no-location              do not write '#: filename:line' lines\n"
-"  -n, --add-location             generate '#: filename:line' lines (default)\n"
-"      --strict                   write out strict Uniforum conforming .po file\n"
-"  -w, --width=NUMBER             set output page width\n"
-"      --no-wrap                  do not break long message lines, longer than\n"
-"                                 the output page width, into several lines\n"
-"  -s, --sort-output              generate sorted output\n"
-"  -F, --sort-by-file             sort output by file location\n"
-"      --omit-header              don't write header with `msgid \"\"' entry\n"
-"      --copyright-holder=STRING  set copyright holder in output\n"
-"      --foreign-user             omit FSF copyright in output for foreign user\n"
+"  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
+"po)\n"
+msgstr ""
+
+msgid "  -o, --output=FILE           write output to specified file\n"
+msgstr ""
+
+msgid ""
+"  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
+msgstr ""
+
+msgid "If output file is -, output is written to standard output.\n"
+msgstr ""
+
+msgid "Choice of input file language:\n"
+msgstr ""
+
+msgid ""
+"  -L, --language=NAME         recognise the specified language\n"
+"                                (C, C++, ObjectiveC, PO, Python, Lisp,\n"
+"                                EmacsLisp, librep, Smalltalk, Java,\n"
+"                                JavaProperties, awk, YCP, Tcl, PHP, RST, "
+"Glade)\n"
+msgstr ""
+
+msgid "  -C, --c++                   shorthand for --language=C++\n"
+msgstr ""
+
+msgid ""
+"By default the language is guessed depending on the input file name "
+"extension.\n"
+msgstr ""
+
+msgid "Input file interpretation:\n"
+msgstr ""
+
+msgid ""
+"      --from-code=NAME        encoding of input files\n"
+"                                (except for Python, Tcl, Glade)\n"
+msgstr ""
+
+msgid "By default the input files are assumed to be in ASCII.\n"
+msgstr ""
+
+msgid "Operation mode:\n"
+msgstr ""
+
+msgid "  -j, --join-existing         join messages with existing file\n"
+msgstr ""
+
+msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
+msgstr ""
+
+msgid ""
+"  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
+"                              preceding keyword lines) in output file\n"
+msgstr ""
+
+msgid "Language=C/C++ specific options:\n"
+msgstr ""
+
+msgid "  -a, --extract-all           extract all strings\n"
+msgstr ""
+
+msgid ""
+"  -k, --keyword[=WORD]        additional keyword to be looked for (without\n"
+"                              WORD means not to use default keywords)\n"
+msgstr ""
+
+msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
+msgstr ""
+
+msgid ""
+"      --debug                 more detailed formatstring recognition result\n"
+msgstr ""
+
+msgid "Output details:\n"
+msgstr ""
+
+msgid ""
+"  -e, --no-escape             do not use C escapes in output (default)\n"
+msgstr ""
+
+msgid ""
+"  -E, --escape                use C escapes in output, no extended chars\n"
+msgstr ""
+
+msgid "      --force-po              write PO file even if empty\n"
+msgstr ""
+
+msgid "  -i, --indent                write the .po file using indented style\n"
+msgstr ""
+
+msgid "      --no-location           do not write '#: filename:line' lines\n"
+msgstr ""
+
+msgid ""
+"  -n, --add-location          generate '#: filename:line' lines (default)\n"
+msgstr ""
+
+msgid ""
+"      --strict                write out strict Uniforum conforming .po file\n"
+msgstr ""
+
+msgid "      --properties-output     write out a Java .properties file\n"
+msgstr ""
+
+msgid "  -w, --width=NUMBER          set output page width\n"
+msgstr ""
+
+msgid ""
+"      --no-wrap               do not break long message lines, longer than\n"
+"                              the output page width, into several lines\n"
+msgstr ""
+
+msgid "  -s, --sort-output           generate sorted output\n"
+msgstr ""
+
+msgid "  -F, --sort-by-file          sort output by file location\n"
+msgstr ""
+
+msgid ""
+"      --omit-header           don't write header with `msgid \"\"' entry\n"
+msgstr ""
+
+msgid "      --copyright-holder=STRING  set copyright holder in output\n"
+msgstr ""
+
+msgid ""
+"      --foreign-user          omit FSF copyright in output for foreign user\n"
+msgstr ""
+
+msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
-"  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
-"  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 msgstr ""
 
-#, no-wrap
 msgid ""
-"Informative output:\n"
-"  -h, --help                     display this help and exit\n"
-"  -V, --version                  output version information and exit\n"
+"  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr "
+"entries\n"
+msgstr ""
+
+msgid ""
+"  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr "
+"entries\n"
+msgstr ""
+
+msgid "Informative output:\n"
+msgstr ""
+
+msgid "  -h, --help                  display this help and exit\n"
+msgstr ""
+
+msgid "  -V, --version               output version information and exit\n"
 msgstr ""
 
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
@@ -223,91 +311,122 @@ msgid_plural ", %d untranslated messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#, c-format, no-wrap
+#, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr ""
 
-#, no-wrap
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr ""
 
-#, no-wrap
-msgid "Mandatory arguments to long options are mandatory for short options too.\n"
+msgid "  filename.po ...             input files\n"
 msgstr ""
 
-#, no-wrap
 msgid ""
-"Input file location:\n"
-"  filename.po ...             input files\n"
-"  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
-"If input file is -, standard input is read.\n"
+"  -j, --java                  Java mode: generate a Java ResourceBundle "
+"class\n"
 msgstr ""
 
-#, no-wrap
 msgid ""
-"Operation mode:\n"
-"  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
-"      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
+"      --java2                 like --java, and assume Java2 (JDK 1.2 or "
+"higher)\n"
+msgstr ""
+
+msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Output file location:\n"
-"  -o, --output-file=FILE      write output to specified file\n"
-"      --strict                enable strict Uniforum mode\n"
-"If output file is -, output is written to standard output.\n"
+msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr ""
 
-#, no-wrap
+msgid "      --strict                enable strict Uniforum mode\n"
+msgstr ""
+
+msgid "Output file location in Java mode:\n"
+msgstr ""
+
+msgid "  -r, --resource=RESOURCE     resource name\n"
+msgstr ""
+
 msgid ""
-"Output file location in Java mode:\n"
-"  -r, --resource=RESOURCE     resource name\n"
-"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
+"  -l, --locale=LOCALE         locale name, either language or "
+"language_COUNTRY\n"
+msgstr ""
+
+msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
-"The class name is determined by appending the locale name to the resource name,\n"
+msgstr ""
+
+msgid ""
+"The class name is determined by appending the locale name to the resource "
+"name,\n"
 "separated with an underscore.  The -d option is mandatory.  The class is\n"
 "written under the specified directory.\n"
 msgstr ""
 
-#, no-wrap
+msgid "Output file location in Tcl mode:\n"
+msgstr ""
+
+msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
+msgstr ""
+
 msgid ""
-"Output file location in Tcl mode:\n"
-"  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
-"  -d DIRECTORY                base directory of .msg message catalogs\n"
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Input file interpretation:\n"
-"  -c, --check                 perform all the checks implied by\n"
-"                                --check-format, --check-header, --check-domain\n"
-"      --check-format          check language dependent format strings\n"
-"      --check-header          verify presence and contents of the header entry\n"
-"      --check-domain          check for conflicts between domain directives\n"
-"                                and the --output-file option\n"
-"  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"
-"      --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n"
-"                                menu items\n"
-"  -f, --use-fuzzy             use fuzzy entries in output\n"
+msgid "Input file syntax:\n"
 msgstr ""
 
-#, c-format, no-wrap
 msgid ""
-"Output details:\n"
+"  -P, --properties-input      input files are in Java .properties syntax\n"
+msgstr ""
+
+msgid ""
+"  -c, --check                 perform all the checks implied by\n"
+"                                --check-format, --check-header, --check-"
+"domain\n"
+msgstr ""
+
+msgid "      --check-format          check language dependent format strings\n"
+msgstr ""
+
+msgid ""
+"      --check-header          verify presence and contents of the header "
+"entry\n"
+msgstr ""
+
+msgid ""
+"      --check-domain          check for conflicts between domain directives\n"
+"                                and the --output-file option\n"
+msgstr ""
+
+msgid ""
+"  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open "
+"msgfmt\n"
+msgstr ""
+
+msgid ""
+"      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
+"for\n"
+"                                menu items\n"
+msgstr ""
+
+msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
+msgstr ""
+
+#, c-format
+msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+msgstr ""
+
+msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
 
-#, no-wrap
-msgid ""
-"Informative output:\n"
-"  -h, --help                  display this help and exit\n"
-"  -V, --version               output version information and exit\n"
-"      --statistics            print statistics about translations\n"
-"  -v, --verbose               increase verbosity level\n"
+msgid "      --statistics            print statistics about translations\n"
+msgstr ""
+
+msgid "  -v, --verbose               increase verbosity level\n"
 msgstr ""
 
 msgid "plural expression can produce negative values"
@@ -392,7 +511,7 @@ msgid "plural handling is a GNU gettext extension"
 msgstr ""
 
 #, c-format
-msgid "'%s' is not a valid %s format string, unlike 'msgid'"
+msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr ""
 
 #, c-format
@@ -440,12 +559,6 @@ msgstr ""
 
 #, c-format
 msgid "`domain %s' directive ignored"
-msgstr ""
-
-msgid "duplicate message definition"
-msgstr ""
-
-msgid "...this is the location of the first definition"
 msgstr ""
 
 msgid "empty `msgstr' entry ignored"

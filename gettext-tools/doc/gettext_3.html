@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 17 Febuary 2003 -->
+     from gettext.texi on 12 May 2003 -->
 
 <TITLE>GNU gettext utilities - 3  Preparing Program Sources</TITLE>
 </HEAD>
@@ -12,7 +12,7 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_2.html">previous<
 
 <H1><A NAME="SEC13" HREF="gettext_toc.html#TOC13">3  Preparing Program Sources</A></H1>
 <P>
-<A NAME="IDX112"></A>
+<A NAME="IDX134"></A>
 
 </P>
 
@@ -29,12 +29,12 @@ needing translation.
 <P>
 Presuming that your set of programs, or package, has been adjusted
 so all needed GNU <CODE>gettext</CODE> files are available, and your
-<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_12.html#SEC174">12  The Maintainer's View</A>), each C module
+<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_12.html#SEC189">12  The Maintainer's View</A>), each C module
 having translated C strings should contain the line:
 
 </P>
 <P>
-<A NAME="IDX113"></A>
+<A NAME="IDX135"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -51,7 +51,7 @@ sections of this chapter.
 <H2><A NAME="SEC14" HREF="gettext_toc.html#TOC14">3.1  Triggering <CODE>gettext</CODE> Operations</A></H2>
 
 <P>
-<A NAME="IDX114"></A>
+<A NAME="IDX136"></A>
 The initialization of locale data should be done with more or less
 the same code in every program, as demonstrated below:
 
@@ -78,8 +78,8 @@ or <CODE>hello</CODE> sources for more information.
 
 </P>
 <P>
-<A NAME="IDX115"></A>
-<A NAME="IDX116"></A>
+<A NAME="IDX137"></A>
+<A NAME="IDX138"></A>
 The use of <CODE>LC_ALL</CODE> might not be appropriate for you.
 <CODE>LC_ALL</CODE> includes all locale categories and especially
 <CODE>LC_CTYPE</CODE>.  This later category is responsible for determining
@@ -120,18 +120,18 @@ code above by a sequence of <CODE>setlocale</CODE> lines
 </PRE>
 
 <P>
-<A NAME="IDX117"></A>
-<A NAME="IDX118"></A>
-<A NAME="IDX119"></A>
-<A NAME="IDX120"></A>
-<A NAME="IDX121"></A>
-<A NAME="IDX122"></A>
-<A NAME="IDX123"></A>
+<A NAME="IDX139"></A>
+<A NAME="IDX140"></A>
+<A NAME="IDX141"></A>
+<A NAME="IDX142"></A>
+<A NAME="IDX143"></A>
+<A NAME="IDX144"></A>
+<A NAME="IDX145"></A>
 On all POSIX conformant systems the locale categories <CODE>LC_CTYPE</CODE>,
-<CODE>LC_COLLATE</CODE>, <CODE>LC_MONETARY</CODE>, <CODE>LC_NUMERIC</CODE>, and
-<CODE>LC_TIME</CODE> are available.  On some modern systems there is also a
-locale <CODE>LC_MESSAGES</CODE> which is called on some old, XPG2 compliant
-systems <CODE>LC_RESPONSES</CODE>.
+<CODE>LC_MESSAGES</CODE>, <CODE>LC_COLLATE</CODE>, <CODE>LC_MONETARY</CODE>,
+<CODE>LC_NUMERIC</CODE>, and <CODE>LC_TIME</CODE> are available.  On some systems
+which are only ISO C compliant, <CODE>LC_MESSAGES</CODE> is missing, but
+a substitute for it is defined in GNU gettext's <CODE>&#60;libintl.h&#62;</CODE>.
 
 </P>
 <P>
@@ -157,11 +157,11 @@ is not multithread-safe.
 <H2><A NAME="SEC15" HREF="gettext_toc.html#TOC15">3.2  Preparing Translatable Strings</A></H2>
 
 <P>
-<A NAME="IDX124"></A>
+<A NAME="IDX146"></A>
 Before strings can be marked for translations, they sometimes need to
-be adjusted. Usually preparing a string for translation is done right
+be adjusted.  Usually preparing a string for translation is done right
 before marking it, during the marking phase which is described in the
-next sections. What you have to keep in mind while doing that is the
+next sections.  What you have to keep in mind while doing that is the
 following.
 
 </P>
@@ -189,8 +189,8 @@ Let's look at some examples of these guidelines.
 
 </P>
 <P>
-<A NAME="IDX125"></A>
-Translatable strings should be in good English style. If slang language
+<A NAME="IDX147"></A>
+Translatable strings should be in good English style.  If slang language
 with abbreviations and shortcuts is used, often translators will not
 understand the message and will produce very inappropriate translations.
 
@@ -218,14 +218,14 @@ of the objects"?
 
 </P>
 <P>
-<A NAME="IDX126"></A>
+<A NAME="IDX148"></A>
 In both cases, adding more words to the message will help both the
 translator and the English speaking user.
 
 </P>
 <P>
-<A NAME="IDX127"></A>
-Translatable strings should be entire sentences. It is often not possible
+<A NAME="IDX149"></A>
+Translatable strings should be entire sentences.  It is often not possible
 to translate single verbs or adjectives in a substitutable way.
 
 </P>
@@ -236,7 +236,7 @@ printf ("File %s is %s protected", filename, rw ? "write" : "read");
 
 <P>
 Most translators will not look at the source and will thus only see the
-string <CODE>"File %s is %s protected"</CODE>, which is unintelligible. Change
+string <CODE>"File %s is %s protected"</CODE>, which is unintelligible.  Change
 this to
 
 </P>
@@ -248,13 +248,13 @@ printf (rw ? "File %s is write protected" : "File %s is read protected",
 
 <P>
 This way the translator will not only understand the message, she will
-also be able to find the appropriate grammatical construction. The French
+also be able to find the appropriate grammatical construction.  The French
 translator for example translates "write protected" like "protected
 against writing".
 
 </P>
 <P>
-Often sentences don't fit into a single line. If a sentence is output
+Often sentences don't fit into a single line.  If a sentence is output
 using two subsequent <CODE>printf</CODE> statements, like this
 
 </P>
@@ -291,38 +291,38 @@ puts ("On the next stack overflow we will crash!!!");
 <P>
 Should these two statements merged into a single one? I would recommend to
 merge them if the two sentences are related to each other, because then it
-makes it easier for the translator to understand and translate both. On
+makes it easier for the translator to understand and translate both.  On
 the other hand, if one of the two messages is a stereotypic one, occurring
 in other places as well, you will do a favour to the translator by not
-merging the two. (Identical messages occurring in several places are
+merging the two.  (Identical messages occurring in several places are
 combined by xgettext, so the translator has to handle them once only.)
 
 </P>
 <P>
-<A NAME="IDX128"></A>
+<A NAME="IDX150"></A>
 Translatable strings should be limited to one paragraph; don't let a
-single message be longer than ten lines. The reason is that when the
+single message be longer than ten lines.  The reason is that when the
 translatable string changes, the translator is faced with the task of
-updating the entire translated string. Maybe only a single word will
+updating the entire translated string.  Maybe only a single word will
 have changed in the English string, but the translator doesn't see that
 (with the current translation tools), therefore she has to proofread
 the entire message.
 
 </P>
 <P>
-<A NAME="IDX129"></A>
+<A NAME="IDX151"></A>
 Many GNU programs have a <SAMP>`--help&acute;</SAMP> output that extends over several
-screen pages. It is a courtesy towards the translators to split such a
-message into several ones of five to ten lines each. While doing that,
+screen pages.  It is a courtesy towards the translators to split such a
+message into several ones of five to ten lines each.  While doing that,
 you can also attempt to split the documented options into groups,
 such as the input options, the output options, and the informative
-output options. This will help every user to find the option he is
+output options.  This will help every user to find the option he is
 looking for.
 
 </P>
 <P>
-<A NAME="IDX130"></A>
-<A NAME="IDX131"></A>
+<A NAME="IDX152"></A>
+<A NAME="IDX153"></A>
 Hardcoded string concatenation is sometimes used to construct English
 strings:
 
@@ -349,11 +349,11 @@ sprintf (s, "Replace %s with %s?", object1, object2);
 </PRE>
 
 <P>
-<A NAME="IDX132"></A>
-A similar case is compile time concatenation of strings. The ISO C 99
+<A NAME="IDX154"></A>
+A similar case is compile time concatenation of strings.  The ISO C 99
 include file <CODE>&#60;inttypes.h&#62;</CODE> contains a macro <CODE>PRId64</CODE> that
 can be used as a formatting directive for outputting an <SAMP>`int64_t&acute;</SAMP>
-integer through <CODE>printf</CODE>. It expands to a constant string, usually
+integer through <CODE>printf</CODE>.  It expands to a constant string, usually
 "d" or "ld" or "lld" or something like this, depending on the platform.
 Assume you have code like
 
@@ -396,17 +396,17 @@ printf (gettext ("The amount is %s\n"), buf1);
 
 <P>
 This means, you put the platform dependent code in one statement, and the
-internationalization code in a different statement. Note that a buffer length
+internationalization code in a different statement.  Note that a buffer length
 of 100 is safe, because all available hardware integer types are limited to
 128 bits, and to print a 128 bit integer one needs at most 54 characters,
 regardless whether in decimal, octal or hexadecimal.
 
 </P>
 <P>
-<A NAME="IDX133"></A>
-All this applies to other programming languages as well. For example, in
+<A NAME="IDX155"></A>
+All this applies to other programming languages as well.  For example, in
 Java, string contenation is very frequently used, because it is a compiler
-built-in operator. Like in C, in Java, you would change
+built-in operator.  Like in C, in Java, you would change
 
 </P>
 
@@ -429,7 +429,7 @@ System.out.println(
 
 <H2><A NAME="SEC16" HREF="gettext_toc.html#TOC16">3.3  How Marks Appear in Sources</A></H2>
 <P>
-<A NAME="IDX134"></A>
+<A NAME="IDX156"></A>
 
 </P>
 <P>
@@ -480,7 +480,7 @@ sources for those trying to keep them within 79 or 80 columns.
 
 </P>
 <P>
-<A NAME="IDX135"></A>
+<A NAME="IDX157"></A>
 Many packages use <SAMP>`_&acute;</SAMP> (a simple underline) as a keyword,
 and write <SAMP>`_("Translatable string")&acute;</SAMP> instead of <SAMP>`gettext
 ("Translatable string")&acute;</SAMP>.  Further, the coding rule, from GNU standards,
@@ -516,7 +516,7 @@ an example of string <EM>not</EM> requiring translation!
 
 <H2><A NAME="SEC17" HREF="gettext_toc.html#TOC17">3.4  Marking Translatable Strings</A></H2>
 <P>
-<A NAME="IDX136"></A>
+<A NAME="IDX158"></A>
 
 </P>
 <P>
@@ -533,7 +533,7 @@ translation in some language, for the package being internationalized.
 
 </P>
 <P>
-<A NAME="IDX137"></A>
+<A NAME="IDX159"></A>
 The set of program sources, targetted by the PO mode commands describe
 here, should have an Emacs tags table constructed for your project,
 prior to using these PO file commands.  This is easy to do.  In any
@@ -555,7 +555,7 @@ format Emacs can understand.
 
 </P>
 <P>
-<A NAME="IDX138"></A>
+<A NAME="IDX160"></A>
 For packages following the GNU coding standards, there is
 a make goal <CODE>tags</CODE> or <CODE>TAGS</CODE> which constructs the tag files in
 all directories and for all files containing source code.
@@ -575,18 +575,18 @@ fill in while you mark strings as translatable in your program sources.
 
 <DT><KBD>,</KBD>
 <DD>
-<A NAME="IDX139"></A>
+<A NAME="IDX161"></A>
 Search through program sources for a string which looks like a
 candidate for translation (<CODE>po-tags-search</CODE>).
 
 <DT><KBD>M-,</KBD>
 <DD>
-<A NAME="IDX140"></A>
+<A NAME="IDX162"></A>
 Mark the last string found with <SAMP>`_()&acute;</SAMP> (<CODE>po-mark-translatable</CODE>).
 
 <DT><KBD>M-.</KBD>
 <DD>
-<A NAME="IDX141"></A>
+<A NAME="IDX163"></A>
 Mark the last string found with a keyword taken from a set of possible
 keywords.  This command with a prefix allows some management of these
 keywords (<CODE>po-select-mark-and-mark</CODE>).
@@ -594,7 +594,7 @@ keywords (<CODE>po-select-mark-and-mark</CODE>).
 </DL>
 
 <P>
-<A NAME="IDX142"></A>
+<A NAME="IDX164"></A>
 The <KBD>,</KBD> (<CODE>po-tags-search</CODE>) command searches for the next
 occurrence of a string which looks like a possible candidate for
 translation, and displays the program source in another Emacs window,
@@ -646,8 +646,8 @@ first tags file, this reinitialization might be considered spurious.
 
 </P>
 <P>
-<A NAME="IDX143"></A>
-<A NAME="IDX144"></A>
+<A NAME="IDX165"></A>
+<A NAME="IDX166"></A>
 The <KBD>M-,</KBD> (<CODE>po-mark-translatable</CODE>) command will mark the
 recently found string with the <SAMP>`_&acute;</SAMP> keyword.  The <KBD>M-.</KBD>
 (<CODE>po-select-mark-and-mark</CODE>) command will request that you type
@@ -708,7 +708,7 @@ prefer <SAMP>`_&acute;</SAMP>, as this one is already built in the <KBD>M-,</KBD
 <H2><A NAME="SEC18" HREF="gettext_toc.html#TOC18">3.5  Special Comments preceding Keywords</A></H2>
 
 <P>
-<A NAME="IDX145"></A>
+<A NAME="IDX167"></A>
 In C programs strings are often used within calls of functions from the
 <CODE>printf</CODE> family.  The special thing about these format strings is
 that they can contain format specifiers introduced with <KBD>%</KBD>.  Assume
@@ -772,20 +772,20 @@ like a format specifier, but the string is not used in <CODE>printf</CODE>.
 Therefore the <CODE>xgettext</CODE> adds a special tag to those messages it
 thinks might be a format string.  There is no absolute rule for this,
 only a heuristic.  In the <TT>`.po&acute;</TT> file the entry is marked using the
-<CODE>c-format</CODE> flag in the <KBD>#,</KBD> comment line (see section <A HREF="gettext_2.html#SEC9">2.2  The Format of PO Files</A>).
+<CODE>c-format</CODE> flag in the <CODE>#,</CODE> comment line (see section <A HREF="gettext_2.html#SEC9">2.2  The Format of PO Files</A>).
 
 </P>
 <P>
-<A NAME="IDX146"></A>
-<A NAME="IDX147"></A>
+<A NAME="IDX168"></A>
+<A NAME="IDX169"></A>
 The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
 <CODE>xgettext</CODE> knows about a special kind of comment which lets
 the programmer take over the decision.  If in the same line as or
 the immediately preceding line to the <CODE>gettext</CODE> keyword
 the <CODE>xgettext</CODE> program finds a comment containing the words
-<KBD>xgettext:c-format</KBD>, it will mark the string in any case with
-the <KBD>c-format</KBD> flag.  This kind of comment should be used when
+<CODE>xgettext:c-format</CODE>, it will mark the string in any case with
+the <CODE>c-format</CODE> flag.  This kind of comment should be used when
 <CODE>xgettext</CODE> does not recognize the string as a format string but
 it really is one and it should be tested.  Please note that when the
 comment is in the same line as the <CODE>gettext</CODE> keyword, it must be
@@ -808,13 +808,13 @@ round, i.e. a string marked as a format string actually is not a format
 string.  In this case the <CODE>msgfmt</CODE> might give too many warnings and
 would prevent translating the <TT>`.po&acute;</TT> file.  The method to prevent
 this wrong decision is similar to the one used above, only the comment
-to use must contain the string <KBD>xgettext:no-c-format</KBD>.
+to use must contain the string <CODE>xgettext:no-c-format</CODE>.
 
 </P>
 <P>
-If a string is marked with <KBD>c-format</KBD> and this is not correct the
+If a string is marked with <CODE>c-format</CODE> and this is not correct the
 user can find out who is responsible for the decision.  See
-section <A HREF="gettext_4.html#SEC21">4.1  Invoking the <CODE>xgettext</CODE> Program</A> to see how the <KBD>--debug</KBD> option can be
+section <A HREF="gettext_4.html#SEC22">4.1  Invoking the <CODE>xgettext</CODE> Program</A> to see how the <CODE>--debug</CODE> option can be
 used for solving this problem.
 
 </P>
@@ -823,7 +823,7 @@ used for solving this problem.
 <H2><A NAME="SEC19" HREF="gettext_toc.html#TOC19">3.6  Special Cases of Translatable Strings</A></H2>
 
 <P>
-<A NAME="IDX148"></A>
+<A NAME="IDX170"></A>
 The attentive reader might now point out that it is not always possible
 to mark translatable string with <CODE>gettext</CODE> or something like this.
 Consider the following case:
@@ -850,7 +850,7 @@ Consider the following case:
 While it is no problem to mark the string <CODE>"a default message"</CODE> it
 is not possible to mark the string initializers for <CODE>messages</CODE>.
 What is to be done?  We have to fulfill two tasks.  First we have to mark the
-strings so that the <CODE>xgettext</CODE> program (see section <A HREF="gettext_4.html#SEC21">4.1  Invoking the <CODE>xgettext</CODE> Program</A>)
+strings so that the <CODE>xgettext</CODE> program (see section <A HREF="gettext_4.html#SEC22">4.1  Invoking the <CODE>xgettext</CODE> Program</A>)
 can find them, and second we have to translate the string at runtime
 before printing them.
 
@@ -883,7 +883,7 @@ from the array.  So one solution can look like this:
 <P>
 Please convince yourself that the string which is written by
 <CODE>fputs</CODE> is translated in any case.  How to get <CODE>xgettext</CODE> know
-the additional keyword <CODE>gettext_noop</CODE> is explained in section <A HREF="gettext_4.html#SEC21">4.1  Invoking the <CODE>xgettext</CODE> Program</A>.
+the additional keyword <CODE>gettext_noop</CODE> is explained in section <A HREF="gettext_4.html#SEC22">4.1  Invoking the <CODE>xgettext</CODE> Program</A>.
 
 </P>
 <P>
@@ -921,6 +921,88 @@ One advantage is that you need not make control flow analysis to make
 sure the output is really translated in any case.  But this analysis is
 generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
+
+</P>
+
+
+<H2><A NAME="SEC20" HREF="gettext_toc.html#TOC20">3.7  Marking Proper Names for Translation</A></H2>
+
+<P>
+Should names of persons, cities, locations etc. be marked for translation
+or not?  People who only know languages that can be written with Latin
+letters (English, Spanish, French, German, etc.) are tempted to say "no",
+because names usually do not change when transported between these languages.
+However, in general when translating from one script to another, names
+are translated too, usually phonetically or by transliteration.  For
+example, Russian or Greek names are converted to the Latin alphabet when
+being translated to English, and English or French names are converted
+to the Katakana script when being translated to Japanese.  This is
+necessary because the speakers of the target language in general cannot
+read the script the name is originally written in.
+
+</P>
+<P>
+As a programmer, you should therefore make sure that names are marked
+for translation, with a special comment telling the translators that it
+is a proper name and how to pronounce it.  Like this:
+
+</P>
+
+<PRE>
+printf (_("Written by %s.\n"),
+        /* TRANSLATORS: This is a proper name.  See the gettext
+           manual, section Names.  Note this is actually a non-ASCII
+           name: The first name is (with Unicode escapes)
+           "Fran\u00e7ois" or (with HTML entities) "Fran&#38;ccedil;ois".
+           Pronounciation is like "fraa-swa pee-nar".  */
+        _("Francois Pinard"));
+</PRE>
+
+<P>
+As a translator, you should use some care when translating names, because
+it is frustrating if people see their names mutilated or distorted.  If
+your language uses the Latin script, all you need to do is to reproduce
+the name as perfectly as you can within the usual character set of your
+language.  In this particular case, this means to provide a translation
+containing the c-cedilla character.  If your language uses a different
+script and the people speaking it don't usually read Latin words, it means
+transliteration; but you should still give, in parentheses, the original
+writing of the name -- for the sake of the people that do read the Latin
+script.  Here is an example, using Greek as the target script:
+
+</P>
+
+<PRE>
+#. This is a proper name.  See the gettext
+#. manual, section Names.  Note this is actually a non-ASCII
+#. name: The first name is (with Unicode escapes)
+#. "Fran\u00e7ois" or (with HTML entities) "Fran&#38;ccedil;ois".
+#. Pronounciation is like "fraa-swa pee-nar".
+msgid "Francois Pinard"
+msgstr "\phi\rho\alpha\sigma\omicron\alpha \pi\iota\nu\alpha\rho"
+       " (Francois Pinard)"
+</PRE>
+
+<P>
+Because translation of names is such a sensitive domain, it is a good
+idea to test your translation before submitting it.
+
+</P>
+<P>
+The translation project <A HREF="http://sourceforge.net/projects/translation">http://sourceforge.net/projects/translation</A>
+has set up a POT file and translation domain consisting of program author
+names, with better facilities for the translator than those presented here.
+Namely, there the original name is written directly in Unicode (rather
+than with Unicode escapes or HTML entities), and the pronounciation is
+denoted using the International Phonetic Alphabet (see
+<A HREF="http://www.wikipedia.org/wiki/International_Phonetic_Alphabet">http://www.wikipedia.org/wiki/International_Phonetic_Alphabet</A>).
+
+</P>
+<P>
+However, we don't recommend this approach for all POT files in all packages,
+because this would force translators to use PO files in UTF-8 encoding,
+which is - in the current state of software (as of 2003) - a major hassle
+for translators using GNU Emacs or XEmacs with po-mode.
 
 </P>
 <P><HR><P>
