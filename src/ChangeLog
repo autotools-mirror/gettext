@@ -1,5 +1,10 @@
 2002-03-05  Bruno Haible  <bruno@clisp.org>
 
+	* hostname.c (s6_addr16): Define if not defined by the system.
+	(ipv6_ntop): Use s6_addr16 instead of in6_u.u6_addr16.
+
+2002-03-05  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (usage): Mention languages Python, awk, Tcl, RST, Glade.
 
 2002-03-03  Bruno Haible  <bruno@clisp.org>

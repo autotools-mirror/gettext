@@ -1,5 +1,5 @@
 /* Display hostname in various forms.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -62,6 +62,10 @@
 #  if defined(__APPLE__) && defined(__MACH__) /* MacOS X */
 #   define in6_u __u6_addr
 #   define u6_addr16 __u6_addr16
+#  endif
+   /* Use s6_addr16 for portability.  See RFC 2553.  */
+#  ifndef s6_addr16
+#   define s6_addr16 in6_u.u6_addr16
 #  endif
 # endif
 # include <netdb.h> /* defines struct hostent, declares gethostbyname() */
@@ -252,7 +256,7 @@ xgethostname ()
 }
 
 /* Converts an AF_INET address to a printable, presentable format.
-   BUFFER is an array with at least 15+1 bytes.  ADDR is sockaddr_in.  */
+   BUFFER is an array with at least 15+1 bytes.  ADDR is 'struct in_addr'.  */
 #if HAVE_INET_NTOP
 # define ipv4_ntop(buffer,addr) \
     inet_ntop (AF_INET, &addr, buffer, 15+1)
@@ -263,21 +267,21 @@ xgethostname ()
 
 #if HAVE_IPV6
 /* Converts an AF_INET6 address to a printable, presentable format.
-   BUFFER is an array with at least 45+1 bytes.  ADDR is sockaddr_in6.  */
+   BUFFER is an array with at least 45+1 bytes.  ADDR is 'struct in6_addr'.  */
 # if HAVE_INET_NTOP
 #  define ipv6_ntop(buffer,addr) \
      inet_ntop (AF_INET6, &addr, buffer, 45+1)
 # else
 #  define ipv6_ntop(buffer,addr) \
      sprintf (buffer, "%x:%x:%x:%x:%x:%x:%x:%x", \
-	      ntohs ((addr).in6_u.u6_addr16[0]), \
-	      ntohs ((addr).in6_u.u6_addr16[1]), \
-	      ntohs ((addr).in6_u.u6_addr16[2]), \
-	      ntohs ((addr).in6_u.u6_addr16[3]), \
-	      ntohs ((addr).in6_u.u6_addr16[4]), \
-	      ntohs ((addr).in6_u.u6_addr16[5]), \
-	      ntohs ((addr).in6_u.u6_addr16[6]), \
-	      ntohs ((addr).in6_u.u6_addr16[7]))
+	      ntohs ((addr).s6_addr16[0]), \
+	      ntohs ((addr).s6_addr16[1]), \
+	      ntohs ((addr).s6_addr16[2]), \
+	      ntohs ((addr).s6_addr16[3]), \
+	      ntohs ((addr).s6_addr16[4]), \
+	      ntohs ((addr).s6_addr16[5]), \
+	      ntohs ((addr).s6_addr16[6]), \
+	      ntohs ((addr).s6_addr16[7]))
 # endif
 #endif
 
