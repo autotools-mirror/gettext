@@ -71,9 +71,9 @@ OBJECTS = \
   xmalloc.obj, xstrdup.obj, \
   xsetenv.obj, \
   \
+  fnmatch.obj, \
   getline.obj, \
   mkdtemp.obj, \
-  pfnmatch.obj, \
   relocatable.obj, \
   stpcpy.obj, \
   vasprintf.obj
@@ -84,8 +84,8 @@ all : alloca.h,fnmatch.h,gettextlib.olb
 alloca.h : alloca_.h
 	$(LN) alloca_.h alloca.h
 
-fnmatch.h : pfnmatch.h
-	$(LN) pfnmatch.h fnmatch.h
+fnmatch.h : fnmatch_.h
+	$(LN) fnmatch_.h fnmatch.h
 
 argmatch.obj : argmatch.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) argmatch.c
@@ -201,14 +201,14 @@ xstrdup.obj : xstrdup.c
 xsetenv.obj : xsetenv.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xsetenv.c
 
+fnmatch.obj : fnmatch.c fnmatch.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) fnmatch.c
+
 getline.obj : getline.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) getline.c
 
 mkdtemp.obj : mkdtemp.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) mkdtemp.c
-
-pfnmatch.obj : pfnmatch.c fnmatch.h
-	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) pfnmatch.c
 
 relocatable.obj : relocatable.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) relocatable.c

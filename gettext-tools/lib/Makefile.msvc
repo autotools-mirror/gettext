@@ -113,9 +113,9 @@ OBJECTS = \
   xmalloc.obj xstrdup.obj \
   xsetenv.obj \
   \
+  fnmatch.obj \
   getline.obj \
   mkdtemp.obj \
-  pfnmatch.obj \
   relocatable.obj \
   setenv.obj unsetenv.obj \
   stpcpy.obj \
@@ -240,14 +240,14 @@ xstrdup.obj : xstrdup.c
 xsetenv.obj : xsetenv.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c xsetenv.c
 
+fnmatch.obj : fnmatch.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c fnmatch.c
+
 getline.obj : getline.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c getline.c
 
 mkdtemp.obj : mkdtemp.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c mkdtemp.c
-
-pfnmatch.obj : pfnmatch.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c pfnmatch.c
 
 relocatable.obj : relocatable.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c relocatable.c

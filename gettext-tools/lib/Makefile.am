@@ -77,11 +77,11 @@ libgettextlib_la_SOURCES = \
 LIBADD_SOURCE = \
   alloca.c \
   canonicalize.h canonicalize.c \
+  fnmatch.c \
   getline.h getline.c \
   memmove.c \
   memset.c \
   mkdtemp.h mkdtemp.c \
-  pfnmatch.h pfnmatch.c \
   readlink.c \
   relocatable.h relocatable.c \
   setenv.h setenv.c unsetenv.c \
@@ -158,6 +158,18 @@ alloca.h: alloca_.h
 	cp $(srcdir)/alloca_.h alloca.h
 MOSTLYCLEANFILES += alloca.h
 # <<< gnulib module alloca.
+
+
+# >>> gnulib module fnmatch.
+EXTRA_DIST += fnmatch_.h
+
+# The following is needed in order to create an <fnmatch.h> when the system
+# doesn't have one that works.
+all-local $(libgettextlib_la_OBJECTS): @FNMATCH_H@
+fnmatch.h: fnmatch_.h
+	cp $(srcdir)/fnmatch_.h fnmatch.h
+MOSTLYCLEANFILES += fnmatch.h
+# <<< gnulib module fnmatch.
 
 
 # >>> gnulib module localcharset.

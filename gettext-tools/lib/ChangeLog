@@ -1,3 +1,19 @@
+2003-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* fnmatch_.h: Renamed from pfnmatch.h.
+	* fnmatch.c: Renamed from pfnmatch.c.
+	* Makefile.am (LIBADD_SOURCE): Remove pfnmatch.h, pfnmatch.c, add
+	fnmatch.c.
+	(EXTRA_DIST): Add fnmatch_.h.
+	(all-local): Depend on fnmatch.h.
+	(fnmatch.h): New rule.
+	(MOSTLYCLEANFILES): Add fnmatch.h.
+	* Makefile.msvc (OBJECTS): Remove pfnmatch.obj, add fnmatch.obj.
+	(fnmatch.obj): Renamed from pfnmatch.obj.
+	* Makefile.vms (OBJECTS): Remove pfnmatch.obj, add fnmatch.obj.
+	(fnmatch.h): Update rule.
+	(fnmatch.obj): Renamed from pfnmatch.obj.
+
 2003-07-01  Paul Eggert  <eggert@twinsun.com>
 
 	* xreadlink.c: Include <sys/types.h> unconditionally, instead of
