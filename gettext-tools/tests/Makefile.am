@@ -59,13 +59,14 @@ TESTS = gettext-1 gettext-2 \
 	format-php-1 format-php-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
+	format-perl-1 format-perl-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
 	lang-c lang-c++ lang-objc lang-python-1 lang-python-2 lang-clisp \
 	lang-elisp lang-librep lang-smalltalk lang-java lang-gawk lang-pascal \
 	lang-ycp lang-tcl lang-php lang-po \
-	lang-rst
+	lang-rst lang-perl
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-test1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \

@@ -1,3 +1,8 @@
+2003-06-11  Guido Flohr  <guido@imperia.net>
+
+	* gettext.texi (Perl): Extend and update.
+	* xgettext.texi: Mention language Perl.
+
 2003-06-10  Stepan Kasal  <kasal@math.cas.cz>
 
 	* gettext.texi: Fix a few typos.

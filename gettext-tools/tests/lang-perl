@@ -1,0 +1,186 @@
+#! /bin/sh
+
+# Test of gettext facilities in the Perl language.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles prog.pl"
+here="<" # Help St. Emacs
+here="$here<"
+
+cat <<EOF > prog.pl
+use Locale::Messages;
+
+textdomain "prog";
+bindtextdomain ("./");
+
+s/foo/
+          # stress test for string extraction /xe;
+
+print _"'Your command, please?', asked the waiter.";
+
+printf ngettext ("a piece of cake", "%d pieces of cake", $n), $n;
+
+printf _"%s is replaced by %s.", "FF", "EUR";
+
+# Should be found.
+printf dngettext prog => ("one file deleted", "%d files deleted"), $n, $n;
+
+# Should not be found.
+printf dngettext ("prog"), ("one file created", "%d files created"), $n, $n;
+
+printf dngettext "prog", ${here}PERL, ${here}PERL;
+Singular
+PERL
+Plural
+PERL
+
+print ${here}PERL
+tied hash \$__{   Bareword
+}
+tied hash \$__->{"quoted string"}
+tied hash \$__->{  "weird
+formatting"}
+PERL
+
+print \$__  # Welcome
+   ->   # to the
+ { # Republic of
+ 'Welcome to the Republic of Perl!' # 
+# Perl!
+}; 
+
+\$! ? ?\$__{"pattern match"}? : s  # This is no delimiter.
+{\$__{substitution}}<\$__-\>{"find me"}>;
+
+# No interpolation!
+m'\$__{secret}';
+
+__END__
+gettext "Discarded!";
+         
+EOF
+
+tmpfiles="$tmpfiles prog.pot"
+: ${XGETTEXT=xgettext}
+${XGETTEXT} -k_ -k%__ -k\$__ -o prog.pot --omit-header --no-location prog.pl
+
+tmpfiles="$tmpfiles prog.ok"
+cat <<EOF > prog.ok
+msgid "'Your command, please?', asked the waiter."
+msgstr ""
+
+#, perl-format
+msgid "a piece of cake"
+msgid_plural "%d pieces of cake"
+msgstr[0] ""
+msgstr[1] ""
+
+#, perl-format
+msgid "%s is replaced by %s."
+msgstr ""
+
+#, perl-format
+msgid "one file deleted"
+msgid_plural "%d files deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Singular\n"
+msgid_plural "Plural\n"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Bareword"
+msgstr ""
+
+msgid "quoted string"
+msgstr ""
+
+msgid ""
+"weird\n"
+"formatting"
+msgstr ""
+
+msgid "Welcome to the Republic of Perl!"
+msgstr ""
+
+msgid "pattern match"
+msgstr ""
+
+msgid "substitution"
+msgstr ""
+
+msgid "find me"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} prog.ok prog.pot || exit 1
+
+tmpfiles="$tmpfiles fr.po"
+cat <<\EOF > fr.po
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "'Your command, please?', asked the waiter."
+msgstr "«Votre commande, s'il vous plaît», dit le garçon."
+
+# Les gateaux allemands sont les meilleurs du monde.
+#, perl-format
+msgid "a piece of cake"
+msgid_plural "%d pieces of cake"
+msgstr[0] "un morceau de gateau"
+msgstr[1] "%d morceaux de gateau"
+
+# Reverse the arguments.
+#, perl-format
+msgid "%s is replaced by %s."
+msgstr "%2$s remplace %1$s."
+
+#, perl-format
+msgid "one file deleted"
+msgid_plural "%d files deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Singular\n"
+msgid_plural "Plural\n"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Bareword"
+msgstr ""
+
+msgid "quoted string"
+msgstr ""
+
+msgid ""
+"weird\n"
+"formatting"
+msgstr ""
+
+msgid "Welcome to the Republic of Perl!"
+msgstr ""
+
+msgid "pattern match"
+msgstr ""
+
+msgid "substitution"
+msgstr ""
+
+msgid "find me"
+msgstr ""
+EOF
+
+tmpfiles="$tmpfiles fr.po.new"
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} -q -o fr.po.new fr.po prog.pot
+
+: ${DIFF=diff}
+${DIFF} fr.po fr.po.new || exit 1
+
+exit 0

@@ -1,3 +1,10 @@
+2003-06-11  Guido Flohr  <guido@imperia.net>
+
+	* format-perl-1: New file.
+	* format-perl-2: New file.
+	* lang-perl: New file.
+	* Makefile.am (TESTS): Add them.
+
 2003-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* plural-2: Add test for Slovak plural formula.

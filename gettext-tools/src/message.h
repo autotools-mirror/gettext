@@ -45,9 +45,10 @@ enum format_type
   format_pascal,
   format_ycp,
   format_tcl,
-  format_php
+  format_php,
+  format_perl
 };
-#define NFORMATS 12	/* Number of format_type enum values.  */
+#define NFORMATS 13	/* Number of format_type enum values.  */
 extern const char *const format_language[NFORMATS];
 extern const char *const format_language_pretty[NFORMATS];
 

@@ -1,4 +1,21 @@
-2003-05-08  Bruno Haible  <bruno@clisp.org>
+2003-06-11  Guido Flohr  <guido@imperia.net>
+
+	* message.h (enum format_type): New enum value 'format_perl'.
+	(NFORMATS): Increment.
+	* message.c (format_language, format_language_pretty): Add entry
+	for perl.
+	* format.h (formatstring_perl): New declaration.
+	* format-perl.c: New file.
+	* format.c (formatstring_parsers): Add entry for perl.
+	* x-perl.h: New file.
+	* x-perl.c: New file.
+	* xgettext.c: Include x-perl.h.
+	(main): Call x_perl_extract_all, x_perl_keyword.
+	(usage): Mention Perl language.
+	(language_to_extractor): Add Perl rule.
+	(extension_to_language): Add Perl rule.
+
+2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms (LDADD): Take options from .opt files.
 	(libiconv.opt): New rule.
