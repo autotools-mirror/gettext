@@ -1,5 +1,5 @@
 # Makefile for PO directory in any package using GNU gettext.
-# Copyright (C) 1995-1997, 2000, 2001 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
+# Copyright (C) 1995-1997, 2000-2002 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
 #
 # This file can be copied and used freely without restrictions.  It can
 # be used in projects which are not available under the GNU General Public
@@ -116,21 +116,42 @@ install-data-yes: all
 	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
-	  if test -r $$cat; then \
-	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(DOMAIN).mo; \
-	    echo "installing $$cat as $(DESTDIR)$$dir/$(DOMAIN).mo"; \
-	  else \
-	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(DOMAIN).mo; \
-	    echo "installing $(srcdir)/$$cat as" \
-		 "$(DESTDIR)$$dir/$(DOMAIN).mo"; \
-	  fi; \
+	  if test -r $$cat; then realcat=$$cat; else realcat=$(srcdir)/$$cat; fi; \
+	  $(INSTALL_DATA) $$realcat $(DESTDIR)$$dir/$(DOMAIN).mo; \
+	  echo "installing $$realcat as $(DESTDIR)$$dir/$(DOMAIN).mo"; \
+	  for lc in $(EXTRA_LOCALE_CATEGORIES); do \
+	    if (cd $(DESTDIR)$(localedir)/$$lang && LC_ALL=C ls -l -d $$lc 2>/dev/null) | grep ' -> ' >/dev/null; then \
+	      link=`cd $(DESTDIR)$(localedir)/$$lang && LC_ALL=C ls -l -d $$lc | sed -e 's/^.* -> //'`; \
+	      mv $(DESTDIR)$(localedir)/$$lang/$$lc $(DESTDIR)$(localedir)/$$lang/$$lc.old; \
+	      mkdir $(DESTDIR)$(localedir)/$$lang/$$lc; \
+	      (cd $(DESTDIR)$(localedir)/$$lang/$$lc.old && \
+	       for file in *; do \
+	         if test -f $$file; then \
+	           ln -s ../$$link/$$file $(DESTDIR)$(localedir)/$$lang/$$lc/$$file; \
+	         fi; \
+	       done); \
+	      rm -f $(DESTDIR)$(localedir)/$$lang/$$lc.old; \
+	    else \
+	      if test -d $(DESTDIR)$(localedir)/$$lang/$$lc; then \
+	        :; \
+	      else \
+	        rm -f $(DESTDIR)$(localedir)/$$lang/$$lc; \
+	        mkdir $(DESTDIR)$(localedir)/$$lang/$$lc; \
+	      fi; \
+	    fi; \
+	    rm -f $(DESTDIR)$(localedir)/$$lang/$$lc/$(DOMAIN).mo; \
+	    ln -s ../LC_MESSAGES/$(DOMAIN).mo $(DESTDIR)$(localedir)/$$lang/$$lc/$(DOMAIN).mo 2>/dev/null || \
+	    ln $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(DOMAIN).mo $(DESTDIR)$(localedir)/$$lang/$$lc/$(DOMAIN).mo 2>/dev/null || \
+	    cp -p $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(DOMAIN).mo $(DESTDIR)$(localedir)/$$lang/$$lc/$(DOMAIN).mo; \
+	    echo "installing $$realcat link as $(DESTDIR)$(localedir)/$$lang/$$lc/$(DOMAIN).mo"; \
+	  done; \
 	done
 
 install-strip: install
 
 installdirs: installdirs-exec installdirs-data
 installdirs-exec:
-installdirs-data: install-data-@USE_NLS@
+installdirs-data: installdirs-data-@USE_NLS@
 	if test "$(PACKAGE)" = "gettext"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	else \
@@ -145,6 +166,27 @@ installdirs-data-yes:
 	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
+	  for lc in $(EXTRA_LOCALE_CATEGORIES); do \
+	    if (cd $(DESTDIR)$(localedir)/$$lang && LC_ALL=C ls -l -d $$lc 2>/dev/null) | grep ' -> ' >/dev/null; then \
+	      link=`cd $(DESTDIR)$(localedir)/$$lang && LC_ALL=C ls -l -d $$lc | sed -e 's/^.* -> //'`; \
+	      mv $(DESTDIR)$(localedir)/$$lang/$$lc $(DESTDIR)$(localedir)/$$lang/$$lc.old; \
+	      mkdir $(DESTDIR)$(localedir)/$$lang/$$lc; \
+	      (cd $(DESTDIR)$(localedir)/$$lang/$$lc.old && \
+	       for file in *; do \
+	         if test -f $$file; then \
+	           ln -s ../$$link/$$file $(DESTDIR)$(localedir)/$$lang/$$lc/$$file; \
+	         fi; \
+	       done); \
+	      rm -f $(DESTDIR)$(localedir)/$$lang/$$lc.old; \
+	    else \
+	      if test -d $(DESTDIR)$(localedir)/$$lang/$$lc; then \
+	        :; \
+	      else \
+	        rm -f $(DESTDIR)$(localedir)/$$lang/$$lc; \
+	        mkdir $(DESTDIR)$(localedir)/$$lang/$$lc; \
+	      fi; \
+	    fi; \
+	  done; \
 	done
 
 # Define this as empty until I found a useful application.
@@ -166,7 +208,9 @@ uninstall-data-yes:
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
 	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
-	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(DOMAIN).mo; \
+	  for lc in LC_MESSAGES $(EXTRA_LOCALE_CATEGORIES); do \
+	    rm -f $(DESTDIR)$(localedir)/$$lang/$$lc/$(DOMAIN).mo; \
+	  done; \
 	done
 
 check: all

@@ -1,3 +1,12 @@
+2002-01-16  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars (EXTRA_LOCALE_CATEGORIES): New variable.
+	* Makefile.in.in (install-data-yes): For each EXTRA_LOCALE_CATEGORIES,
+	install a symlink to the catalog in the LC_MESSAGES subdirectory.
+	(installdirs-data-yes): Keep consistent with install-data-yes.
+	(uninstall-data-yes): Adjust for EXTRA_LOCALE_CATEGORIES.
+	(installdirs-data): Fix dependency.
+
 2002-01-15  Bruno Haible  <bruno@clisp.org>
 
 	* de.po: Update from Karl Eichwalder <ke@suse.de>.
