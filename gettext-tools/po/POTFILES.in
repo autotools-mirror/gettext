@@ -17,9 +17,6 @@ lib/javacomp.c
 lib/javaexec.c
 lib/obstack.c
 lib/pipe.c
-lib/pipe-bidi.c
-lib/pipe-in.c
-lib/pipe-out.c
 lib/w32spawn.h
 lib/wait-process.c
 lib/xerror.c
