@@ -81,14 +81,6 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-tmpfiles="$tmpfiles prog.ok prog.out"
-: ${DIFF=diff}
-cat <<\EOF > prog.ok
-«Votre commande, s'il vous plait», dit le garçon.
-2 morceaux de gateau
-EUR remplace FF.
-EOF
-
 # Test for presence of gawk version 3.1.1 or newer.
 (gawk --version) >/dev/null 2>/dev/null \
   || { echo "SKIP: lang-awk"; rm -fr $tmpfiles; exit 77; }
@@ -96,6 +88,14 @@ case `gawk --version | sed -e 's/^[^0-9]*//'` in
   0.* | 1.* | 2.* | 3.0* | 3.1.0*)
     echo "SKIP: lang-awk"; rm -fr $tmpfiles; exit 77;;
 esac
+
+tmpfiles="$tmpfiles prog.ok prog.out"
+: ${DIFF=diff}
+cat <<\EOF > prog.ok
+«Votre commande, s'il vous plait», dit le garçon.
+2 morceaux de gateau
+EUR remplace FF.
+EOF
 
 LANGUAGE= LC_ALL=fr_FR gawk -v n=2 -f prog.awk > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1

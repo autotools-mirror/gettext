@@ -1,3 +1,10 @@
+2002-03-03  Bruno Haible  <bruno@clisp.org>
+
+	* lang-clisp: Create prog.ok only after testing presence of clisp.
+	* lang-gawk: Create prog.ok only after testing presence of gawk.
+	* lang-librep: Create prog.ok only after testing presence of rep.
+	* lang-python: Create prog.ok only after testing presence of python.
+
 2002-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* msggrep-5: New file.

@@ -81,14 +81,6 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-tmpfiles="$tmpfiles prog.ok prog.out"
-: ${DIFF=diff}
-cat <<\EOF > prog.ok
-«Votre commande, s'il vous plait», dit le garçon.
-2 morceaux de gateau
-EUR remplace FF.
-EOF
-
 # Test for presence of clisp version 2.28 or newer.
 # Use clisp for the comparison of the version numbers; neither 'expr' nor 'bc'
 # can deal with floating-point numbers.
@@ -102,6 +94,14 @@ esac
 version=`echo $version | sed -e 's/^\([0-9]*\.[0-9]*\).*/\1/'`
 clisp -norc -x "(sys::exit (not (>= $version 2.28)))" >/dev/null \
   || { echo "SKIP: lang-clisp"; rm -fr $tmpfiles; exit 77; }
+
+tmpfiles="$tmpfiles prog.ok prog.out"
+: ${DIFF=diff}
+cat <<\EOF > prog.ok
+«Votre commande, s'il vous plait», dit le garçon.
+2 morceaux de gateau
+EUR remplace FF.
+EOF
 
 CLISP_LANGUAGE= LANGUAGE= LC_ALL=fr_FR clisp prog.lisp 2 > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1

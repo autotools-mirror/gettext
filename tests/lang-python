@@ -64,13 +64,6 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-tmpfiles="$tmpfiles prog.ok prog.out"
-: ${DIFF=diff}
-cat <<\EOF > prog.ok
-«Votre commande, s'il vous plait», dit le garçon.
-EUR remplace FF.
-EOF
-
 # Test for presence of python version 2.0 or newer.
 (python -V) >/dev/null 2>/dev/null \
   || { echo "SKIP: lang-python"; rm -fr $tmpfiles; exit 77; }
@@ -78,6 +71,13 @@ case `python -c 'import sys; print sys.hexversion >= 0x20000F0'` in
   1) ;;
   *) echo "SKIP: lang-python"; rm -fr $tmpfiles; exit 77;;
 esac
+
+tmpfiles="$tmpfiles prog.ok prog.out"
+: ${DIFF=diff}
+cat <<\EOF > prog.ok
+«Votre commande, s'il vous plait», dit le garçon.
+EUR remplace FF.
+EOF
 
 LANGUAGE= LC_ALL=fr_FR python prog.py > prog.out || exit 1
 ${DIFF} prog.ok prog.out || exit 1
