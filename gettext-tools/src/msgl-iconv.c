@@ -84,7 +84,9 @@ iconv_string (iconv_t cd, const char *start, const char *end,
 
 	if (res == (size_t)(-1))
 	  {
-	    if (errno == EINVAL)
+	    if (errno == E2BIG)
+	      ;
+	    else if (errno == EINVAL)
 	      break;
 	    else
 	      return -1;

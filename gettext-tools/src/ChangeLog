@@ -1,3 +1,9 @@
+2003-05-10  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-iconv.c (iconv_string): Don't return -1 just because the string
+	is longer than 4 KB.
+	Reported by Denis Barbier <barbier@linuxfr.org>.
+
 2003-05-04  Bruno Haible  <bruno@clisp.org>
 
 	* po-lex.h (po_gram_error): Don't use ISO C 99 feature on DEC C.
