@@ -1,8 +1,5 @@
 Things we plan to do. Comments welcome.
 
-- Document bash-2.04's $"..." facility and the associated 2 environment
-  variables.
-
 - Documentation: Distinguish more clearly between gettext/xgettext,
   the Translation Project for GNU packages, and the PO mode.
 
@@ -23,9 +20,6 @@ Things we plan to do. Comments welcome.
 - Refer also to the GNOME translation project http://www.klid.dk/gnome/ ?
 
 - Mention Qt linguist (part of Qt 3)
-
-- Find a distribution structure similar to the po/ subdir for non-C
-  projects (Awk, Lisp, ...)
 
 - Easier delivery of PO directory for maintainer! Add a target for incoming
   PO files
