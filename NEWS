@@ -43,7 +43,7 @@ Version 0.12 - May 2003
   - A new autoconf macro AM_PO_SUBDIRS is added. It is like AM_GNU_GETTEXT,
     for packages written in other languages than C/C++.
 
-* A new include file libgettextpo, with public header file "gettext-po.h",
+* A new library libgettextpo, with public header file "gettext-po.h",
   provides functions for reading PO files into memory. It is useful for
   applying PO files to areas not covered by the GNU gettext programs.
   New documentation section:
