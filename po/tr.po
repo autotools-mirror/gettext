@@ -4,53 +4,53 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11-pre3\n"
-"POT-Creation-Date: 2001-12-11 13:41+0100\n"
-"PO-Revision-Date: 2001-12-14 07:16+0200\n"
+"Project-Id-Version: GNU gettext 0.11-pre4\n"
+"POT-Creation-Date: 2001-12-20 22:14+0100\n"
+"PO-Revision-Date: 2001-12-30 12:44+0200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@fide.org>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: lib/argmatch.c:141
+#: lib/argmatch.c:142
 #, c-format
 msgid "invalid argument `%s' for `%s'"
 msgstr "argüman `%s' `%s' için geçersiz"
 
-#: lib/argmatch.c:142
+#: lib/argmatch.c:143
 #, c-format
 msgid "ambiguous argument `%s' for `%s'"
 msgstr "argüman `%s' `%s' için belirsiz"
 
-#: lib/argmatch.c:162
+#: lib/argmatch.c:163
 msgid "Valid arguments are:"
 msgstr "Geçerli argümanlar:"
 
-#: lib/copy-file.c:60 src/file-list.c:57 src/po-lex.c:732 src/read-mo.c:170
-#: src/xgettext.c:797 src/xgettext.c:810 src/xgettext.c:820
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:734 src/read-mo.c:170
+#: src/urlget.c:204 src/xgettext.c:808 src/xgettext.c:821 src/xgettext.c:831
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "\"%s\" okunmak için açılırken hata"
 
-#: lib/copy-file.c:67
+#: lib/copy-file.c:68
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "\"%s\" yedek dosyası yazılmak için açılırken hata"
 
-#: lib/copy-file.c:80
+#: lib/copy-file.c:81 src/urlget.c:216
 #, c-format
 msgid "error reading \"%s\""
 msgstr "\"%s\" okunurken hata"
 
-#: lib/copy-file.c:86 lib/copy-file.c:90
+#: lib/copy-file.c:87 lib/copy-file.c:91
 #, c-format
 msgid "error writing \"%s\""
 msgstr "\"%s\" yazılırken hata"
 
-#: lib/copy-file.c:92
+#: lib/copy-file.c:93 src/urlget.c:226
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "\"%s\" okunduktan sonra hata"
@@ -151,89 +151,100 @@ msgstr "%s alt süreci"
 msgid "%s subprocess got fatal signal"
 msgstr "%s alt süreci ölümcül sinyal aldı"
 
-#: src/format-c.c:582 src/format-python.c:482
-msgid "number of format specifications in 'msgid' and 'msgstr' does not match"
-msgstr ""
-"`msgid' ve `msgstr' girdilerindeki biçem belirteçlerinin sayısı eşleşmiyor"
+#: src/format-c.c:587 src/format-python.c:506
+#, c-format
+msgid "number of format specifications in 'msgid' and '%s' does not match"
+msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri farklı sayıda"
 
-#: src/format-c.c:595 src/format-python.c:495
+#: src/format-c.c:601 src/format-python.c:520
 #, c-format
 msgid ""
-"format specifications in 'msgid' and 'msgstr' for argument %u are not the "
-"same"
-msgstr ""
-"`msgid' ve `msgstr' girdilerindeki biçem belirteçleri %u için aynı değil"
+"format specifications in 'msgid' and '%s' for argument %u are not the same"
+msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri %u için aynı değil"
 
-#: src/format-java.c:656 src/format-pascal.c:400
-#, c-format
-msgid "a format specification for argument {%u} doesn't exist in 'msgid'"
-msgstr "'msgid' içinde {%u} için bir biçem belirteci yok"
-
-#: src/format-java.c:669 src/format-pascal.c:413
-#, c-format
-msgid "a format specification for argument {%u} doesn't exist in 'msgstr'"
-msgstr "'msgstr' içinde {%u} için bir biçem belirteci yok"
-
-#: src/format-java.c:686 src/format-pascal.c:430
+#: src/format-java.c:660 src/format-librep.c:313 src/format-pascal.c:403
 #, c-format
 msgid ""
-"format specifications in 'msgid' and 'msgstr' for argument {%u} are not the "
-"same"
+"a format specification for argument {%u}, as in '%s', doesn't exist in "
+"'msgid'"
 msgstr ""
-"`msgid' ve `msgstr' girdilerindeki biçem belirteçleri {%u} için aynı değil"
+"'%2$s' içindeki {%1$u}. argüman için bir biçem belirteci 'msgid' içinde yok"
 
-#: src/format-lisp.c:3375
-msgid "format specifications in 'msgid' and 'msgstr' are not equivalent"
-msgstr "`msgid' ve `msgstr' girdilerindeki biçem belirteçleri aynı değil"
+#: src/format-java.c:675 src/format-librep.c:328 src/format-pascal.c:418
+#, c-format
+msgid "a format specification for argument {%u} doesn't exist in '%s'"
+msgstr "{%u}.argüman için '%s' içinde bir biçem belirteci yok"
 
-#: src/format-python.c:395
+#: src/format-java.c:700 src/format-librep.c:353 src/format-pascal.c:443
+#, c-format
 msgid ""
-"format specifications in 'msgid' expect a mapping, those in 'msgstr' expect "
-"a tuple"
+"format specifications in 'msgid' and '%s' for argument {%u} are not the same"
+msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri {%u} için aynı değil"
+
+#: src/format-lisp.c:3381
+#, c-format
+msgid "format specifications in 'msgid' and '%s' are not equivalent"
+msgstr "`msgid' ve '%s' girdilerindeki biçem belirteçleri aynı değil"
+
+#: src/format-lisp.c:3402
+#, c-format
+msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr ""
-"`msgid' içindeki biçem belirteçleri ile bir eşlem umulurken `msgstr' "
+"'%s' içindeki biçem belirteçleri 'msgid' içindekilerin bir alt kümesi değil"
+
+#: src/format-python.c:397
+#, c-format
+msgid ""
+"format specifications in 'msgid' expect a mapping, those in '%s' expect a "
+"tuple"
+msgstr ""
+"`msgid' içindeki biçem belirteçleri ile bir eşlem umulurken '%s' "
 "içindekilerle bir işlem umuluyor"
 
-#: src/format-python.c:406
+#: src/format-python.c:409
+#, c-format
 msgid ""
-"format specifications in 'msgid' expect a tuple, those in 'msgstr' expect a "
+"format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr ""
-"`msgid' içindeki biçem belirteçleri ile bir işlem umulurken `msgstr' "
+"`msgid' içindeki biçem belirteçleri ile bir işlem umulurken '%s' "
 "içindekilerle bir eşlem umuluyor"
 
-#: src/format-python.c:432
-#, c-format
-msgid "a format specification for argument '%s' doesn't exist in 'msgid'"
-msgstr "'msgid' içinde '%s' için bir biçem belirteci yok"
-
-#: src/format-python.c:445
-#, c-format
-msgid "a format specification for argument '%s' doesn't exist in 'msgstr'"
-msgstr "'msgstr' içinde '%s' için bir biçem belirteci yok"
-
-#: src/format-python.c:462
+#: src/format-python.c:437
 #, c-format
 msgid ""
-"format specifications in 'msgid' and 'msgstr' for argument '%s' are not the "
-"same"
-msgstr "'%s' için biçem belirteci 'msgid' ve 'msgstr' içinde aynı değil"
+"a format specification for argument '%s', as in '%s', doesn't exist in "
+"'msgid'"
+msgstr "'%2$s' içinde '%1$s' için 'msgid' içinde bir biçem belirteci yok"
 
-#: src/format-ycp.c:141
+#: src/format-python.c:452
 #, c-format
-msgid "a format specification for argument %u doesn't exist in 'msgstr'"
-msgstr "'msgstr' içinde '%u' için bir biçem belirteci yok"
+msgid "a format specification for argument '%s' doesn't exist in '%s'"
+msgstr "'%s' için '%s' içinde bir biçem belirteci yok"
 
-#: src/format-ycp.c:142
+#: src/format-python.c:478
 #, c-format
-msgid "a format specification for argument %u doesn't exist in 'msgid'"
-msgstr "'msgid' içinde '%u' için bir biçem belirteci yok"
+msgid ""
+"format specifications in 'msgid' and '%s' for argument '%s' are not the same"
+msgstr "'%2$s' için biçem belirteci 'msgid' ve '%1$s' içinde aynı değil"
+
+#: src/format-ycp.c:144
+#, c-format
+msgid "a format specification for argument %u doesn't exist in '%s'"
+msgstr "%u. argüman için '%s' içinde bir biçem belirteci yok"
+
+#: src/format-ycp.c:145
+#, c-format
+msgid ""
+"a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
+msgstr ""
+"'%2$s' içindeki %1$u.argüman için bir biçem belirteci 'msgid' içinde yok"
 
 #: src/gettext.c:146 src/hostname.c:168 src/msgattrib.c:264 src/msgcat.c:229
 #: src/msgcmp.c:134 src/msgcomm.c:232 src/msgconv.c:182 src/msgen.c:171
-#: src/msgexec.c:165 src/msgfilter.c:244 src/msgfmt.c:333 src/msggrep.c:276
+#: src/msgexec.c:165 src/msgfilter.c:249 src/msgfmt.c:333 src/msggrep.c:280
 #: src/msginit.c:247 src/msgmerge.c:252 src/msgunfmt.c:182 src/msguniq.c:207
-#: src/ngettext.c:126 src/xgettext.c:355
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:365
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -247,9 +258,9 @@ msgstr ""
 
 #: src/gettext.c:151 src/hostname.c:173 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:139 src/msgcomm.c:237 src/msgconv.c:187 src/msgen.c:176
-#: src/msgexec.c:170 src/msgfilter.c:249 src/msgfmt.c:338 src/msggrep.c:281
+#: src/msgexec.c:170 src/msgfilter.c:254 src/msgfmt.c:338 src/msggrep.c:285
 #: src/msginit.c:252 src/msgmerge.c:257 src/msgunfmt.c:187 src/msguniq.c:212
-#: src/ngettext.c:131 src/xgettext.c:360
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:370
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
@@ -264,9 +275,9 @@ msgstr "argümanlar eksik"
 
 #: src/gettext.c:251 src/hostname.c:197 src/msgattrib.c:322 src/msgcat.c:290
 #: src/msgcmp.c:171 src/msgcomm.c:306 src/msgconv.c:241 src/msgen.c:227
-#: src/msgexec.c:223 src/msgfilter.c:342 src/msgfmt.c:479 src/msggrep.c:371
+#: src/msgexec.c:223 src/msgfilter.c:347 src/msgfmt.c:479 src/msggrep.c:375
 #: src/msginit.c:338 src/msgmerge.c:367 src/msgunfmt.c:262 src/msguniq.c:269
-#: src/ngettext.c:210 src/xgettext.c:502
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:512
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Daha fazla bilgilendirilmek için `%s --help' yazınız.\n"
@@ -326,9 +337,9 @@ msgstr ""
 
 #: src/gettext.c:288 src/hostname.c:227 src/msgattrib.c:402 src/msgcat.c:371
 #: src/msgcmp.c:216 src/msgcomm.c:384 src/msgconv.c:305 src/msgen.c:287
-#: src/msgexec.c:267 src/msgfilter.c:415 src/msgfmt.c:563 src/msggrep.c:457
+#: src/msgexec.c:267 src/msgfilter.c:420 src/msgfmt.c:563 src/msggrep.c:461
 #: src/msginit.c:389 src/msgmerge.c:465 src/msgunfmt.c:331 src/msguniq.c:343
-#: src/ngettext.c:244 src/xgettext.c:594
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:605
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
@@ -360,8 +371,8 @@ msgstr ""
 "  -i, --ip-address            makinanın IP adresi\n"
 
 #: src/hostname.c:221 src/msgattrib.c:396 src/msgcmp.c:210 src/msgconv.c:299
-#: src/msgen.c:281 src/msgexec.c:261 src/msgfilter.c:409 src/msggrep.c:451
-#: src/msginit.c:383
+#: src/msgen.c:281 src/msgexec.c:261 src/msgfilter.c:414 src/msggrep.c:455
+#: src/msginit.c:383 src/urlget.c:180
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -376,22 +387,22 @@ msgstr ""
 msgid "could not get host name"
 msgstr "makina ismi alınamadı"
 
-#: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:194
-#: src/msggrep.c:296 src/msginit.c:205 src/msguniq.c:227
+#: src/msgattrib.c:284 src/msgconv.c:202 src/msgexec.c:145 src/msgfilter.c:199
+#: src/msggrep.c:300 src/msginit.c:205 src/msguniq.c:227
 msgid "at most one input file allowed"
 msgstr "en fazla bir girdi dosyasına izin var"
 
 #: src/msgattrib.c:290 src/msgattrib.c:294 src/msgcat.c:244 src/msgcat.c:248
 #: src/msgcomm.c:247 src/msgcomm.c:251 src/msgconv.c:208 src/msgconv.c:212
-#: src/msgen.c:198 src/msgen.c:202 src/msgfilter.c:264 src/msgfilter.c:268
-#: src/msgfmt.c:358 src/msggrep.c:302 src/msggrep.c:306 src/msgmerge.c:282
+#: src/msgen.c:198 src/msgen.c:202 src/msgfilter.c:269 src/msgfilter.c:273
+#: src/msgfmt.c:358 src/msggrep.c:306 src/msggrep.c:310 src/msgmerge.c:282
 #: src/msgmerge.c:303 src/msgmerge.c:307 src/msguniq.c:233 src/msguniq.c:237
-#: src/xgettext.c:370 src/xgettext.c:374
+#: src/xgettext.c:380 src/xgettext.c:384
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s ile %s bağdaşmıyor"
 
-#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:376 src/msguniq.c:274
+#: src/msgattrib.c:327 src/msgconv.c:246 src/msggrep.c:380 src/msguniq.c:274
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Kullanımı: %s [SEÇENEK] [GİRDİDOSYASI]\n"
@@ -406,14 +417,14 @@ msgstr ""
 "ve özellikleri uygular.\n"
 
 #: src/msgattrib.c:338 src/msgcat.c:313 src/msgcmp.c:191 src/msgcomm.c:328
-#: src/msgconv.c:256 src/msgen.c:245 src/msgexec.c:248 src/msgfilter.c:357
-#: src/msgfmt.c:494 src/msggrep.c:387 src/msginit.c:354 src/msgmerge.c:390
+#: src/msgconv.c:256 src/msgen.c:245 src/msgexec.c:248 src/msgfilter.c:362
+#: src/msgfmt.c:494 src/msggrep.c:391 src/msginit.c:354 src/msgmerge.c:390
 #: src/msgunfmt.c:277 src/msguniq.c:291
 #, no-wrap
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Uzun seçeneklerdeki zorunlu argümanlar kısa seçenekler için de zorunludur.\n"
 
-#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:392 src/msguniq.c:296
+#: src/msgattrib.c:343 src/msgconv.c:261 src/msggrep.c:396 src/msguniq.c:296
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -426,8 +437,8 @@ msgstr ""
 "  -D, --directory=DİZİN       Girdi dosyalarının arama yoluna DİZİNi ekler\n"
 "Girdi dosyası verilmemişse ya da yerine - verilmişse standart girdi okunur.\n"
 
-#: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:258 src/msgfilter.c:370
-#: src/msggrep.c:400 src/msgmerge.c:412
+#: src/msgattrib.c:351 src/msgconv.c:269 src/msgen.c:258 src/msgfilter.c:375
+#: src/msggrep.c:404 src/msgmerge.c:412
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -511,7 +522,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "belirtilen seçim kriteri mümkün değil (%d < n < %d)"
 
-#: src/msgcat.c:295 src/msgcomm.c:311 src/xgettext.c:507
+#: src/msgcat.c:295 src/msgcomm.c:311 src/xgettext.c:517
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Kullanımı: %s [SEÇENEK] [GİRDİDOSYASI]...\n"
@@ -540,7 +551,7 @@ msgstr ""
 "korunur, belirtildiğinde bunlar ilk PO dosyasında belirtildiği şekliyle\n"
 "alınır.\n"
 
-#: src/msgcat.c:318 src/msgcomm.c:333 src/xgettext.c:523
+#: src/msgcat.c:318 src/msgcomm.c:333 src/xgettext.c:533
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -623,7 +634,7 @@ msgstr ""
 "  -s, --sort-output           çıktıyı sıralı üretir\n"
 "  -F, --sort-by-file          çıktıyı dosya konumuna göre sıralar\n"
 
-#: src/msgcat.c:365 src/msgcomm.c:378 src/msguniq.c:337 src/xgettext.c:588
+#: src/msgcat.c:365 src/msgcomm.c:378 src/msguniq.c:337 src/xgettext.c:599
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -703,17 +714,18 @@ msgstr "bu ileti kullanıldı ama %s'de tanımlı değil"
 msgid "warning: this message is not used"
 msgstr "uyarı: bu ileti kullanılmamış"
 
-#: src/msgcmp.c:339 src/po-lex.c:705
+#: src/msgcmp.c:339 src/po-lex.c:707
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "%d ölümcül hata bulundu"
+msgstr[1] "%d ölümcül hata bulundu"
 
-#: src/msgcmp.c:420 src/msgfmt.c:1324 src/read-po.c:202 src/x-po.c:163
+#: src/msgcmp.c:420 src/msgfmt.c:1346 src/read-po.c:202 src/x-po.c:163
 msgid "duplicate message definition"
 msgstr "ileti iki defa tanımlanmış"
 
-#: src/msgcmp.c:421 src/msgfmt.c:1325 src/read-po.c:203 src/x-po.c:164
+#: src/msgcmp.c:421 src/msgfmt.c:1347 src/read-po.c:203 src/x-po.c:164
 msgid "...this is the location of the first definition"
 msgstr "...bu ilk tanımlamanın konumu"
 
@@ -839,7 +851,7 @@ msgstr ""
 "  -s, --sort-output           çıktıyı sıralı üretir\n"
 "  -F, --sort-by-file          çıktıyı dosya konumuna göre sıralar\n"
 
-#: src/msgen.c:187 src/msgfmt.c:349 src/xgettext.c:391
+#: src/msgen.c:187 src/msgfmt.c:349 src/xgettext.c:401
 msgid "no input file given"
 msgstr "hiç girdi dosyası verilmemiş"
 
@@ -911,7 +923,7 @@ msgstr ""
 "'0' özel bir yerleşik komuttur ve bir null bayt ile sonlanan çeviri\n"
 "çıktılar.  \"msgexec 0\"ın çıktısı \"xargs -0\"a girdi olarak elverişlidir.\n"
 
-#: src/msgexec.c:253 src/msgfilter.c:362
+#: src/msgexec.c:253 src/msgfilter.c:367
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -928,30 +940,30 @@ msgstr ""
 msgid "write to stdout failed"
 msgstr "standart çıktıya yazılamadı"
 
-#: src/msgexec.c:337 src/msgfilter.c:599
+#: src/msgexec.c:337 src/msgfilter.c:604
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "%s alt sürecine yazılamadı"
 
-#: src/msgfilter.c:259
+#: src/msgfilter.c:264
 msgid "missing filter name"
 msgstr "süzgeç ismi eksik"
 
-#: src/msgfilter.c:283
+#: src/msgfilter.c:288
 msgid "at least one sed script must be specified"
 msgstr "en az bir sed betiği belirtilmelidir"
 
-#: src/msgfilter.c:347
+#: src/msgfilter.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Kullanımı: %s [SEÇENEK] SÜZGEÇ [SÜZGEÇ-SEÇENEĞİ]\n"
 
-#: src/msgfilter.c:352
+#: src/msgfilter.c:357
 #, no-wrap
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Bir çeviri kataloğunun tüm çevirilerine bir süzgeç uygular.\n"
 
-#: src/msgfilter.c:378
+#: src/msgfilter.c:383
 #, no-wrap
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -960,7 +972,7 @@ msgstr ""
 "SÜZGEÇ çeviriyi standart girdiden okuyabilen ve değiştirilmiş çeviriyi\n"
 "standart çıktıya yazabilen herhangi bir programdır.\n"
 
-#: src/msgfilter.c:384
+#: src/msgfilter.c:389
 #, no-wrap
 msgid ""
 "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
@@ -975,7 +987,7 @@ msgstr ""
 "                              içeriğini ekler\n"
 "  -n, --quiet, --silent       standart çıktı iletilerini engeller\n"
 
-#: src/msgfilter.c:393
+#: src/msgfilter.c:398
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1005,22 +1017,22 @@ msgstr ""
 "  -s, --sort-output           çıktıyı sıralı üretir\n"
 "  -F, --sort-by-file          çıktıyı dosya konumuna göre sıralar\n"
 
-#: src/msgfilter.c:551
+#: src/msgfilter.c:556
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "%s alt sürecine bloklanmayan G/Ç belirtilemez"
 
-#: src/msgfilter.c:579
+#: src/msgfilter.c:584
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "%s alt süreci ile haberleşilemedi"
 
-#: src/msgfilter.c:630
+#: src/msgfilter.c:635
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "%s alt sürecinden okunamadı"
 
-#: src/msgfilter.c:646
+#: src/msgfilter.c:651
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "%s alt süreci %d çıkış kodu ile sonlandırıldı"
@@ -1046,18 +1058,21 @@ msgstr "%s sadece %s ile geçerlidir"
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d çevrilmiş ileti"
+msgstr[1] "%d çevrilmiş ileti"
 
 #: src/msgfmt.c:457
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d belirsiz çeviri"
+msgstr[1] ", %d belirsiz çeviri"
 
 #: src/msgfmt.c:462
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d çevrilmemiş ileti"
+msgstr[1] ", %d çevrilmemiş ileti"
 
 #: src/msgfmt.c:484
 #, c-format, no-wrap
@@ -1223,144 +1238,148 @@ msgstr "nplurals değeri geçersiz"
 msgid "invalid plural expression"
 msgstr "plural= ile verilen ifade geçersiz"
 
-#: src/msgfmt.c:899 src/msgfmt.c:912
+#: src/msgfmt.c:899 src/msgfmt.c:914
 #, c-format
 msgid "nplurals = %lu..."
 msgstr "nplurals = %lu..."
 
 #: src/msgfmt.c:902
 #, c-format
-msgid "...but some messages have only %lu plural forms"
-msgstr "...ama bazı iletiler sadece %lu çoğul biçem içeriyor"
+msgid "...but some messages have only one plural form"
+msgid_plural "...but some messages have only %lu plural forms"
+msgstr[0] "...ama bazı iletiler tek çoğul biçem içeriyor"
+msgstr[1] "...ama bazı iletiler sadece %lu çoğul biçem içeriyor"
 
-#: src/msgfmt.c:915
+#: src/msgfmt.c:917
 #, c-format
-msgid "...but some messages have %lu plural forms"
-msgstr "...ama bazı iletiler %lu çoğul biçem içeriyor"
+msgid "...but some messages have one plural form"
+msgid_plural "...but some messages have %lu plural forms"
+msgstr[0] "...ama bazı iletiler tek çoğul biçem içeriyor"
+msgstr[1] "...ama bazı iletiler %lu çoğul biçem içeriyor"
 
-#: src/msgfmt.c:930
+#: src/msgfmt.c:934
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
 "ileti kataloğu çoğul çeviriler içermesine rağmen başlıkta\n"
-"\"Plural-Forms: nplurals=TAMSAYI; plural=İFADE;\" satırı yok."
+"\"Plural-Forms: nplurals=TAMSAYI; plural=İFADE;\" gibi bir şey yok."
 
-#: src/msgfmt.c:968
+#: src/msgfmt.c:972
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr ""
 "`msgid' ve `msgid_plural' girdilerinin her ikisi de '\\n' ile başlamıyor"
 
-#: src/msgfmt.c:978
+#: src/msgfmt.c:982
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "`msgid' ve `msgstr[%u]' girdilerinin her ikisi de '\\n' ile başlamıyor"
 
-#: src/msgfmt.c:990
+#: src/msgfmt.c:994
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile başlamıyor"
 
-#: src/msgfmt.c:1007
+#: src/msgfmt.c:1011
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "`msgid' ve `msgid_plural' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
-#: src/msgfmt.c:1017
+#: src/msgfmt.c:1021
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "`msgid' ve `msgstr[%u]' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
-#: src/msgfmt.c:1029
+#: src/msgfmt.c:1033
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
-#: src/msgfmt.c:1041
+#: src/msgfmt.c:1045
 msgid "plural handling is a GNU gettext extension"
 msgstr "çoğul biçemler bir GNU gettext özelliğidir"
 
-#: src/msgfmt.c:1089
+#: src/msgfmt.c:1110
 #, c-format
-msgid "'msgstr' is not a valid %s format string, unlike 'msgid'"
-msgstr "'msgstr', 'msgid' gibi geçerli bir %s biçem dizgesi değil"
+msgid "'%s' is not a valid %s format string, unlike 'msgid'"
+msgstr "'%s', 'msgid' gibi geçerli bir %s biçem dizgesi değil"
 
-#: src/msgfmt.c:1123
+#: src/msgfmt.c:1145
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "içinde '%c' tuş kısayolu eksik"
 
-#: src/msgfmt.c:1131
+#: src/msgfmt.c:1153
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "çok fazla '%c' tuş kısayolu içeriyor"
 
-#: src/msgfmt.c:1165
+#: src/msgfmt.c:1187
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "başlıkta `%s' başlık alanı yok"
 
-#: src/msgfmt.c:1168
+#: src/msgfmt.c:1190
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "`%s' başlık alanı satırın başında olmalıydı"
 
-#: src/msgfmt.c:1177
+#: src/msgfmt.c:1199
 msgid "some header fields still have the initial default value"
 msgstr "bazı başlık alanları hala öntanımlı ilk değere sahip"
 
-#: src/msgfmt.c:1188
+#: src/msgfmt.c:1210
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "`%s' başlık alanı hala öntanımlı ilk değere sahip"
 
-#: src/msgfmt.c:1229
+#: src/msgfmt.c:1251
 msgid "warning: PO file header missing or invalid\n"
 msgstr "uyarı: PO dosya başlığı ya yok ya da geçersiz\n"
 
-#: src/msgfmt.c:1232
+#: src/msgfmt.c:1254
 msgid "warning: charset conversion will not work\n"
 msgstr "uyarı: Kullanıcının karakter kümesinde ileti dönüşümü yapılamayacak.\n"
 
-#: src/msgfmt.c:1242
+#: src/msgfmt.c:1264
 msgid "warning: PO file header fuzzy\n"
 msgstr "uyarı: PO dosya başlığı fuzzy\n"
 
-#: src/msgfmt.c:1244
+#: src/msgfmt.c:1266
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "uyarı: msgfmt'ın eski sürümleri bu dosyada hata verecektir.\n"
 
-#: src/msgfmt.c:1269
+#: src/msgfmt.c:1291
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "dosya ismi olarak paket ismi \"%s\" uygun değil"
 
-#: src/msgfmt.c:1274
+#: src/msgfmt.c:1296
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "dosya ismi olarak paket ismi \"%s\" uygun değil: önek kullanılacak"
 
-#: src/msgfmt.c:1285
+#: src/msgfmt.c:1307
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "`domain %s' yönergesi yoksayıldı"
 
-#: src/msgfmt.c:1357
+#: src/msgfmt.c:1379
 msgid "empty `msgstr' entry ignored"
 msgstr "boş `msgstr' girdisi yoksayıldı"
 
-#: src/msgfmt.c:1358
+#: src/msgfmt.c:1380
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "fuzzy `msgstr' girdisi yoksayıldı"
 
-#: src/msgfmt.c:1427
+#: src/msgfmt.c:1449
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: uyarı: kaynak dosya fuzzy çeviriler içeriyor"
 
-#: src/msggrep.c:359
+#: src/msggrep.c:363
 #, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' has been specified"
 msgstr "'%c' seçeneği 'K' ya da 'T' belirtilmeden önce kullanılamaz"
 
-#: src/msggrep.c:381
+#: src/msggrep.c:385
 #, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -1369,7 +1388,7 @@ msgstr ""
 "Verilen bir kalıp ile uyuşan ya da verilen kaynak dosyalarına ait olan\n"
 "bir çeviri kataloğunun tüm iletilerini çıkarır.\n"
 
-#: src/msggrep.c:408
+#: src/msggrep.c:412
 #, no-wrap
 msgid ""
 "Message selection:\n"
@@ -1422,7 +1441,7 @@ msgstr ""
 "  -f, --file=DOSYA            KALIP, DOSYAdan sağlanır\n"
 "  -i, --ignore-case           harf büyüklükleri fark olarak algılanmaz\n"
 
-#: src/msggrep.c:436
+#: src/msggrep.c:440
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -1450,7 +1469,7 @@ msgstr ""
 "  -s, --sort-output           çıktıyı sıralı üretir\n"
 "  -F, --sort-by-file          çıktıyı dosya konumuna göre sıralar\n"
 
-#: src/msggrep.c:510
+#: src/msggrep.c:530
 msgid "write to grep subprocess failed"
 msgstr "grep alt sürecine yazılamadı"
 
@@ -2110,42 +2129,42 @@ msgstr "çoğul biçemin indeksi hatalı"
 msgid "too many errors, aborting"
 msgstr "hatalar çok fazla, bunları düzeltince programı tekrar çalıştırın"
 
-#: src/po-lex.c:545 src/write-po.c:331 src/write-po.c:421
+#: src/po-lex.c:547 src/write-po.c:331 src/write-po.c:421
 msgid "invalid multibyte sequence"
 msgstr "çoklu bayt dizisi geçersiz"
 
-#: src/po-lex.c:571
+#: src/po-lex.c:573
 msgid "incomplete multibyte sequence at end of file"
 msgstr "dosya sonunda çoklu bayt dizisi tamamlanmadı"
 
-#: src/po-lex.c:581
+#: src/po-lex.c:583
 msgid "incomplete multibyte sequence at end of line"
 msgstr "satır sonunda çoklu bayt dizisi tamamlanmadı"
 
-#: src/po-lex.c:589
+#: src/po-lex.c:591
 msgid "iconv failure"
 msgstr "iconv başarısızlığı"
 
-#: src/po-lex.c:763 src/read-mo.c:70 src/read-mo.c:135 src/x-c.c:287
-#: src/x-rst.c:227 src/x-ycp.c:103
+#: src/po-lex.c:765 src/read-mo.c:70 src/read-mo.c:135 src/x-c.c:287
+#: src/x-librep.c:170 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:103
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" okunurken hata"
 
-#: src/po-lex.c:829
+#: src/po-lex.c:831
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "anahtar-sözcük \"%s\" bilinmiyor"
 
-#: src/po-lex.c:939
+#: src/po-lex.c:941
 msgid "invalid control sequence"
 msgstr "denetim dizisi geçersiz"
 
-#: src/po-lex.c:1047
+#: src/po-lex.c:1049
 msgid "end-of-file within string"
 msgstr "dizge içinde dosya sonu"
 
-#: src/po-lex.c:1053
+#: src/po-lex.c:1055
 msgid "end-of-line within string"
 msgstr "dizge içinde satır sonu"
 
@@ -2169,6 +2188,28 @@ msgstr "\"%s\" dosyası NUL sonlandırmalı olmayan bir dizge içeriyor"
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "\"%s\" dosyası bir GNU .mo dosyası değil"
 
+#: src/urlget.c:150
+#, fuzzy
+msgid "expected two arguments"
+msgstr "çok fazla argüman"
+
+#: src/urlget.c:169
+#, fuzzy, c-format, no-wrap
+msgid "Usage: %s [OPTION] URL FILE\n"
+msgstr "Kullanımı: %s [SEÇENEK] GİRDİDOSYASI\n"
+
+#: src/urlget.c:174
+#, no-wrap
+msgid ""
+"Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
+"the locally accessible FILE is used instead.\n"
+msgstr ""
+
+#: src/urlget.c:222
+#, fuzzy
+msgid "error writing stdout"
+msgstr "\"%s\" yazılırken hata"
+
 #: src/write-java.c:1108
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "geçici dizin bulunamadı, $TMPDIR ortam değişkeniyle belirtmeyi deneyin"
@@ -2188,7 +2229,7 @@ msgstr "Geçerli bir Java sınıfı ismi değil: %s"
 msgid "failed to create \"%s\""
 msgstr "\"%s\" oluşturulamadı"
 
-#: src/write-java.c:1209 src/write-mo.c:289 src/write-po.c:966
+#: src/write-java.c:1209 src/write-mo.c:294 src/write-po.c:966
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" dosyasına yazarken hata"
@@ -2199,7 +2240,7 @@ msgstr ""
 "Java sınıfı derlenemedi, lütfen --verbose seçeneğini kullanın ya da\n"
 "$JAVAC ortam değişkenine uygun değeri atayın."
 
-#: src/write-mo.c:277
+#: src/write-mo.c:282
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "\"%s\" yazılmak için açılırken hata"
@@ -2243,7 +2284,7 @@ msgstr "%s:%d: uyarı: sonlandırılmamış karakter sabiti"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: uyarı: sonlandırılmamış dizge sabiti"
 
-#: src/x-po.c:106 src/xgettext.c:608
+#: src/x-po.c:106 src/xgettext.c:619
 msgid "this file may not contain domain directives"
 msgstr "bu dosya paket yönergelerini içermeyebilir"
 
@@ -2262,25 +2303,25 @@ msgstr "%s:%d:  # dan sonra sayı yok"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: dizge ifade geçersiz"
 
-#: src/xgettext.c:378
+#: src/xgettext.c:388
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "standart çıktıya yazılırken --join-existing kullanılamaz"
 
-#: src/xgettext.c:383
+#: src/xgettext.c:393
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext anahtar sözcükler olmaksızın bulamaz"
 
-#: src/xgettext.c:471
+#: src/xgettext.c:481
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "uyarı: `%s' dosyası `%s' uzantısı bilinmiyor; C denenecek"
 
-#: src/xgettext.c:512
+#: src/xgettext.c:522
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Belirtilen girdi dosyalarından çevrilebilir dizgeleri çıkartır.\n"
 
-#: src/xgettext.c:517
+#: src/xgettext.c:527
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2289,7 +2330,7 @@ msgstr ""
 "Uzun seçeneklerdeki zorunlu argümanlar kısa seçeneklerde de zorunludur.\n"
 "Benzer durum seçimlik argümanlar içinde geçerlidir.\n"
 
-#: src/xgettext.c:532
+#: src/xgettext.c:542
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2305,7 +2346,7 @@ msgstr ""
 "  -p, --output-dir=DİZİN      çıktı dosyaları DİZİNe konulacaktır.\n"
 "Çıktı dosyası olarak - verilmişse çıktı standart çıktıya yazılır.\n"
 
-#: src/xgettext.c:541
+#: src/xgettext.c:551
 #, no-wrap
 msgid ""
 "Choice of input file language:\n"
@@ -2320,7 +2361,7 @@ msgstr ""
 "  -C, --c++                   --language=C++ için kısaltma\n"
 "Dil öntanımlı olarak girdi dosyasının uzantısına göre seçilir.\n"
 
-#: src/xgettext.c:550
+#: src/xgettext.c:560
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2334,7 +2375,7 @@ msgstr ""
 "  -x, --exclude-file=DOSYA.po DOSYA.po dosyasındaki iletiler çıkartılmaz\n"
 "  -c, --add-comments[=ETİTET] ETİKETli yorum bloğunu çıktı dosyasına yazar\n"
 
-#: src/xgettext.c:559
+#: src/xgettext.c:569
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2353,8 +2394,8 @@ msgstr ""
 "      --debug                 biçem dizgesi tanıması ile ilgili daha fazla\n"
 "                              ayrıntı verilir.\n"
 
-#: src/xgettext.c:569
-#, no-wrap
+#: src/xgettext.c:579
+#, fuzzy, no-wrap
 msgid ""
 "Output details:\n"
 "  -e, --no-escape                do not use C escapes in output (default)\n"
@@ -2368,6 +2409,7 @@ msgid ""
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
+"      --copyright-holder=STRING  set copyright holder in output\n"
 "      --foreign-user             omit FSF copyright in output for foreign user\n"
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
@@ -2392,11 +2434,11 @@ msgstr ""
 "  -M, --msgstr-suffix[=DİZGE] msgstr girdileri için sonek olarak DİZGE ya da\n"
 "                              \"\" kullanılır\n"
 
-#: src/xgettext.c:788
+#: src/xgettext.c:799
 msgid "standard input"
 msgstr "standart girdi"
 
-#: src/xgettext.c:903
+#: src/xgettext.c:914
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2406,7 +2448,7 @@ msgstr ""
 "gettext(\"\") ile başlık girdilerindeki bilgileri\n"
 "döndürür. Boş dizge değildir.\n"
 
-#: src/xgettext.c:1172
+#: src/xgettext.c:1211
 #, c-format
 msgid "language `%s' unknown"
 msgstr "dil `%s' bilinmiyor"
