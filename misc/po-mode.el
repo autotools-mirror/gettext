@@ -1562,18 +1562,18 @@ which does not match exactly.")
 ;; Translated entries.
 
 (defun po-next-translated-entry ()
-  "Find the next untranslated entry, wrapping around if necessary."
+  "Find the next translated entry, wrapping around if necessary."
   (interactive)
   (if (= po-translated-counter 0)
       (error (_"There is no such entry"))
-    (po-next-entry-with-regexp po-untranslated-regexp t)
+    (po-next-entry-with-regexp po-any-msgstr-regexp t)
     (po-find-span-of-entry)
     (while (not (eq po-entry-type 'translated))
       (po-next-entry-with-regexp po-any-msgstr-regexp t)
       (po-find-span-of-entry))))
 
 (defun po-previous-translated-entry ()
-  "Find the previous untranslated entry, wrapping around if necessary."
+  "Find the previous translated entry, wrapping around if necessary."
   (interactive)
   (if (= po-translated-counter 0)
       (error (_"There is no such entry"))
@@ -1581,7 +1581,7 @@ which does not match exactly.")
     (po-find-span-of-entry)
     (while (not (eq po-entry-type 'translated))
       (po-previous-entry-with-regexp po-untranslated-regexp t)
-    (po-find-span-of-entry))))
+      (po-find-span-of-entry))))
 
 ;; Auto-selection feature.
 

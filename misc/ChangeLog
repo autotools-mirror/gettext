@@ -1,3 +1,8 @@
+2001-08-23  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-next-translated-entry): Actually search for
+	'translated', not 'untranslated'.
+
 2001-11-01  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-msgfmt-version-check): Also accept pre-release
