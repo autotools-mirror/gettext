@@ -469,6 +469,7 @@ func_poChangeLog_finish ()
 func_m4ChangeLog_init ()
 {
   modified_m4ChangeLog=
+  created_m4ChangeLog=
 }
 func_m4ChangeLog_add_entry ()
 {
@@ -495,6 +496,7 @@ func_m4ChangeLog_finish ()
         cp -p "$srcdir/$m4dir/ChangeLog" "$srcdir/$m4dir/ChangeLog~"
       else
         echo "Creating $m4dir/ChangeLog"
+        created_m4ChangeLog=yes
       fi
       cp "$srcdir/$m4dir/ChangeLog.tmp" "$srcdir/$m4dir/ChangeLog"
       rm -f "$srcdir/$m4dir/ChangeLog.tmp"
@@ -503,6 +505,7 @@ func_m4ChangeLog_finish ()
         echo "Add an entry to $m4dir/ChangeLog"
       else
         echo "Create $m4dir/ChangeLog"
+        created_m4ChangeLog=yes
       fi
     fi
   fi
@@ -705,6 +708,15 @@ m4filelist='  codeset.m4 gettext.m4 glibc2.m4 glibc21.m4 iconv.m4 intdiv0.m4
 if test -f "$srcdir/Makefile.am"; then
   # A package using automake.
 
+  # Determine whether it's using automake 1.8 or newer.
+  have_automake18=
+  if (aclocal --version) >/dev/null 2>/dev/null; then
+    aclocal_version=`aclocal --version | sed -n -e 1p | sed -e 's/^[^0-9]*//'`
+    case $aclocal_version in
+      1.[8-9]* | 1.[1-9][0-9]* | [2-9]*) have_automake18=yes ;;
+    esac
+  fi
+
   # Extract the macro directory name from Makefile.am.
   aclocal_amflags=`grep '^ACLOCAL_AMFLAGS[ 	]*=' "$srcdir/Makefile.am" | sed -e 's/^ACLOCAL_AMFLAGS[ 	]*=\(.*\)$/\1/'`
   m4dir=m4
@@ -730,6 +742,7 @@ if test -f "$srcdir/Makefile.am"; then
 
   # Update the *.m4 files and the corresponding Makefile.am.
   $do_changelog && func_m4ChangeLog_init
+  added_m4dir=
   added_m4files=
   if test -d "$srcdir/$m4dir"; then
     :
@@ -740,7 +753,7 @@ if test -f "$srcdir/Makefile.am"; then
     else
       echo "Create directory $m4dir"
     fi
-    added_directories="$added_directories $m4dir"
+    added_m4dir=yes
   fi
   for file in $m4filelist; do
     same=no
@@ -761,6 +774,7 @@ if test -f "$srcdir/Makefile.am"; then
     func_backup "$m4dir/$file"
     func_linkorcopy "@datadir@/aclocal/$file" "@datadir@/aclocal/$file" "$m4dir/$file"
   done
+  missing_m4Makefileam=
   if test -n "$added_m4files"; then
     if test -f "$srcdir/$m4dir/Makefile.am"; then
       if $doit; then
@@ -779,17 +793,32 @@ if test -f "$srcdir/Makefile.am"; then
         $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am (EXTRA_DIST)."
       fi
     else
-      if $doit; then
-        echo "Creating $m4dir/Makefile.am"
-        echo "EXTRA_DIST =$added_m4files" > "$srcdir/$m4dir/Makefile.am"
+      # $m4dir/Makefile.am is not needed any more when aclocal 1.8 or newer
+      # is used.
+      if test -z "$have_automake18"; then
+        if $doit; then
+          echo "Creating $m4dir/Makefile.am"
+          echo "EXTRA_DIST =$added_m4files" > "$srcdir/$m4dir/Makefile.am"
+        else
+          echo "Create $m4dir/Makefile.am"
+        fi
+        $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am: New file."
+        added_acoutput="$added_acoutput $m4dir/Makefile"
       else
-        echo "Create $m4dir/Makefile.am"
+        missing_m4Makefileam=yes
       fi
-      $do_changelog && func_m4ChangeLog_add_entry "	* Makefile.am: New file."
-      added_acoutput="$added_acoutput $m4dir/Makefile"
     fi
   fi
+  if test -n "$added_m4dir" && test -z "$missing_m4Makefileam"; then
+    added_directories="$added_directories $m4dir"
+  fi
   $do_changelog && func_m4ChangeLog_finish
+  # automake will arrange for $m4dir/ChangeLog to be distributed if a
+  # $m4dir/Makefile.am exists. If not, we need to add it to Makefile.am's
+  # EXTRA_DIST explicitly.
+  if test -n "$created_m4ChangeLog" && test -n "$missing_m4Makefileam"; then
+    added_extradist="$added_extradist $m4dir/ChangeLog"
+  fi
 
   # Update the top-level Makefile.am.
   modified_Makefile_am=

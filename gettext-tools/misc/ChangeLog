@@ -1,5 +1,13 @@
 2005-03-05  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in (func_m4ChangeLog_init, func_m4ChangeLog_finish):
+	Keep track whether a $m4dir/ChangeLog file was created.
+	Don't create a $m4dir/Makefile.am if aclocal version 1.8 or newer is
+	present; instead add $m4dir/ChangeLog to EXTRA_DIST if needed.
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-05  Bruno Haible  <bruno@clisp.org>
+
 	* gettextize.in: When adding items to EXTRA_DIST, SUBDIRS,
 	DIST_SUBDIRS, ACLOCAL_AMFLAGS in Makefile.am, optionally remove one
 	space after the added items. When adding items to AC_CONFIG_FILES,
