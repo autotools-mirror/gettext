@@ -905,6 +905,10 @@ msgdomain_list_print (mdlp, filename, force, debug)
 	      charset = (char *) alloca (len + 1);
 	      memcpy (charset, charsetstr, len);
 	      charset[len] = '\0';
+
+	      /* Treat the dummy default value as if it were absent.  */
+	      if (strcmp (charset, "CHARSET") == 0)
+		charset = "ASCII";
 	    }
 	}
 
