@@ -2402,12 +2402,17 @@ keyword for subsequent commands, also added to possible completions."
 (defun po-preset-string-functions ()
   "Preset FIND-STRING-FUNCTION and MARK-STRING-FUNCTION according to mode.
 These variables are locally set in source buffer only when not already bound."
-  (let ((pair (cond ((member mode-name '("C" "C++"))
+  (let ((pair (cond ((string-equal mode-name "AWK")
+		     '(po-find-awk-string . po-mark-awk-string))
+		    ((member mode-name '("C" "C++"))
 		     '(po-find-c-string . po-mark-c-string))
 		    ((string-equal mode-name "Emacs-Lisp")
 		     '(po-find-emacs-lisp-string . po-mark-emacs-lisp-string))
 		    ((string-equal mode-name "Python")
 		     '(po-find-python-string . po-mark-python-string))
+		    ((and (string-equal mode-name "Shell-script")
+			  (string-equal mode-line-process "[bash]"))
+		     '(po-find-bash-string . po-mark-bash-string))
 		    (t '(po-find-unknown-string . po-mark-unknown-string)))))
     (or (boundp 'po-find-string-function)
 	(set (make-local-variable 'po-find-string-function) (car pair)))
@@ -2421,6 +2426,108 @@ These variables are locally set in source buffer only when not already bound."
 (defun po-mark-unknown-string (start end keyword)
   "Dummy function to mark a given string.  May not be called."
   (error (_"Dummy function called")))
+
+;;; Awk mode specifics.
+
+(defun po-find-awk-string (keywords)
+  "Find the next Awk string, excluding those marked by any of KEYWORDS.
+Return (CONTENTS START END) for the found string, or nil if none found."
+  (let (start end)
+    (while (and (not start)
+		(re-search-forward "[#/\"]" nil t))
+      (cond ((= (preceding-char) ?#)
+	     ;; Disregard comments.
+	     (or (search-forward "\n" nil t)
+		 (goto-char (point-max))))
+	    ((= (preceding-char) ?/)
+	     ;; Skip regular expressions.
+	     (while (not (= (following-char) ?/))
+	       (skip-chars-forward "^/\\\\")
+	       (if (= (following-char) ?\\) (forward-char 2)))
+	     (forward-char 1))
+	    ;; Else find the end of the string.
+	    (t (setq start (1- (point)))
+	       (while (not (= (following-char) ?\"))
+		 (skip-chars-forward "^\"\\\\")
+		 (if (= (following-char) ?\\) (forward-char 2)))
+	       (forward-char 1)
+	       (setq end (point))
+	       ;; Check before string either for underline, or for keyword
+	       ;; and opening parenthesis.
+	       (save-excursion
+		 (goto-char start)
+		 (cond ((= (preceding-char) ?_)
+			;; Disregard already marked strings.
+			(setq start nil
+			      end nil))
+		       ((= (preceding-char) ?\()
+			(backward-char 1)
+			(let ((end-keyword (point)))
+			  (skip-chars-backward "_A-Za-z0-9")
+			  (if (member (list (po-buffer-substring
+					     (point) end-keyword))
+				      keywords)
+			      ;; Disregard already marked strings.
+			      (setq start nil
+				    end nil)))))))))
+    (and start end
+	 (list (po-extract-unquoted (current-buffer) start end) start end))))
+
+(defun po-mark-awk-string (start end keyword)
+  "Mark the Awk string, from START to END, with KEYWORD.
+Leave point after marked string."
+  (if (string-equal keyword "_")
+      (progn
+	(goto-char start)
+	(insert "_")
+	(goto-char (1+ end)))
+    (goto-char end)
+    (insert ")")
+    (save-excursion
+      (goto-char start)
+      (insert keyword "("))))
+
+;;; Bash mode specifics.
+
+(defun po-find-bash-string (keywords)
+  "Find the next unmarked Bash string.  KEYWORDS are merely ignored.
+Return (CONTENTS START END) for the found string, or nil if none found."
+  (let (start end)
+    (while (and (not start)
+		(re-search-forward "[#'\"]" nil t))
+      (cond ((= (preceding-char) ?#)
+	     ;; Disregard comments.
+	     (or (search-forward "\n" nil t)
+		 (goto-char (point-max))))
+	    ((= (preceding-char) ?')
+	     ;; Skip single quoted strings.
+	     (while (not (= (following-char) ?'))
+	       (skip-chars-forward "^'\\\\")
+	       (if (= (following-char) ?\\) (forward-char 2)))
+	     (forward-char 1))
+	    ;; Else find the end of the double quoted string.
+	    (t (setq start (1- (point)))
+	       (while (not (= (following-char) ?\"))
+		 (skip-chars-forward "^\"\\\\")
+		 (if (= (following-char) ?\\) (forward-char 2)))
+	       (forward-char 1)
+	       (setq end (point))
+	       ;; Check before string for dollar sign.
+	       (save-excursion
+		 (goto-char start)
+		 (if (= (preceding-char) ?$)
+		     ;; Disregard already marked strings.
+		     (setq start nil
+			   end nil))))))
+    (and start end
+	 (list (po-extract-unquoted (current-buffer) start end) start end))))
+
+(defun po-mark-bash-string (start end keyword)
+  "Mark the Bash string, from START to END, with `$'.  KEYWORD is ignored.
+Leave point after marked string."
+  (goto-char start)
+  (insert "$")
+  (goto-char (1+ end)))
 
 ;;; C or C++ mode specifics.
 
