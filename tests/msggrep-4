@@ -5,6 +5,8 @@
 # Note: This test fails on AIX 3 because grep, when called with both -e and
 # -f arguments, ignores the -e arguments. It is fixed on AIX 4.
 
+# Note: This test fails on SunOS 4 because grep doesn't have a -f option.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
