@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-0.10.35\n"
-"POT-Creation-Date: 2001-03-09 22:03+0100\n"
+"POT-Creation-Date: 2001-03-11 17:25+0100\n"
 "PO-Revision-Date: 2000-11-05 23:43+200\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@technologist.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -112,7 +112,7 @@ msgstr "argümankar kayýp"
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:377
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
 #: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -167,7 +167,7 @@ msgstr ""
 "çevrilmiþ ileti kataloðunun bulunmasý gereken dizini aþaðýdaki gibi verir:\n"
 "Standard arama dizini: %s\n"
 
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:404
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
 #: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Hatalarý <bug-gnu-utils@gnu.org> adresine bildirin.\n"
@@ -226,20 +226,21 @@ msgstr "bu ileti kullanýldý ama %s'de tanýmlý deðil"
 msgid "warning: this message is not used"
 msgstr "uyarý: bu ileti kullanýlmamýþ"
 
-#: src/msgcmp.c:282 src/po-lex.c:102
-#, c-format
-msgid "found %d fatal errors"
-msgstr "%d ölümcül hata bulundu"
+#: src/msgcmp.c:283 src/po-lex.c:103
+#, fuzzy, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "%d ölümcül hata bulundu"
 
-#: src/msgcmp.c:354 src/msgfmt.c:657 src/msgmerge.c:512 src/xgettext.c:1169
+#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
 msgstr "ileti iki defa tanýmlanmýþ"
 
-#: src/msgcmp.c:355 src/msgfmt.c:659 src/msgmerge.c:513 src/xgettext.c:1170
+#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1170
 msgid "...this is the location of the first definition"
 msgstr "...bu ilk tanýmlamanýn konumu"
 
-#: src/msgcmp.c:395 src/msgmerge.c:561
+#: src/msgcmp.c:397 src/msgmerge.c:561
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "\"%s\" makinasýnda bu ileti tanýmlamasý yok"
@@ -383,22 +384,25 @@ msgstr "hiç girdi dosyasý verilmemiþ"
 msgid "error while opening \"%s\" for writing"
 msgstr "\"%s\" yazmak için açýlýrken hata"
 
-#: src/msgfmt.c:359
-#, c-format
-msgid "%d translated messages"
-msgstr "%d çevrilmiþ ileti"
+#: src/msgfmt.c:360
+#, fuzzy, c-format
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] "%d çevrilmiþ ileti"
 
-#: src/msgfmt.c:361
-#, c-format
-msgid ", %d fuzzy translations"
-msgstr ", %d belirsiz çeviri"
+#: src/msgfmt.c:365
+#, fuzzy, c-format
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ", %d belirsiz çeviri"
 
-#: src/msgfmt.c:363
-#, c-format
-msgid ", %d untranslated messages"
-msgstr ", %d çevrilmemiþ ileti"
+#: src/msgfmt.c:370
+#, fuzzy, c-format
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ", %d çevrilmemiþ ileti"
 
-#: src/msgfmt.c:382
+#: src/msgfmt.c:392
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
@@ -443,23 +447,23 @@ msgstr ""
 "girdi dosyasý olarak - verilirse standard girdi okunur. Çýktý dosyasý olarak\n"
 " - verilirse çýktý, standard çýktýya yazýlýr.\n"
 
-#: src/msgfmt.c:425
+#: src/msgfmt.c:435
 msgid "while creating hash table"
 msgstr "hash tablosu oluþturulurken"
 
-#: src/msgfmt.c:469
+#: src/msgfmt.c:479
 #, c-format
 msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 msgstr ""
 
-#: src/msgfmt.c:493
+#: src/msgfmt.c:503
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "dosya ismi olarak makina ismi \"%s\" elveriþli deðil"
 
-#: src/msgfmt.c:498
+#: src/msgfmt.c:508
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
@@ -467,79 +471,79 @@ msgstr ""
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:511
+#: src/msgfmt.c:521
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "`domain %s' talimatý yok sayýldý"
 
-#: src/msgfmt.c:541
+#: src/msgfmt.c:551
 msgid "empty `msgstr' entry ignored"
 msgstr "boþ `msgstr' giriþi yoksayýldý"
 
-#: src/msgfmt.c:542
+#: src/msgfmt.c:552
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "belirsiz `msgstr' giriþi yoksayýldý"
 
-#: src/msgfmt.c:584
+#: src/msgfmt.c:594
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "`%s' baþlýk alaný baþlýkta yok"
 
-#: src/msgfmt.c:587
+#: src/msgfmt.c:597
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "`%s' baþlýk alaný satýrýn baþlangýcýnda olmalýydý"
 
-#: src/msgfmt.c:597
+#: src/msgfmt.c:607
 msgid "some header fields still have the initial default value"
 msgstr "bazý baþlýk alanlarý hala baþlangýçtaki öntanýmlý deðerle duruyor"
 
-#: src/msgfmt.c:608
+#: src/msgfmt.c:618
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "`%s' baþlýk alaný hala baþlangýçtaki öntanýmlý deðerle duruyor"
 
-#: src/msgfmt.c:698
+#: src/msgfmt.c:708
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: uyarý: kaynak dosya belirsiz çeviriler içeriyor"
 
-#: src/msgfmt.c:920
+#: src/msgfmt.c:930
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile baþlamýyor"
 
-#: src/msgfmt.c:928
+#: src/msgfmt.c:938
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile baþlamýyor"
 
-#: src/msgfmt.c:938
+#: src/msgfmt.c:948
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile baþlamýyor"
 
-#: src/msgfmt.c:953
+#: src/msgfmt.c:963
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
-#: src/msgfmt.c:961
+#: src/msgfmt.c:971
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
-#: src/msgfmt.c:971
+#: src/msgfmt.c:981
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "`msgid' ve `msgstr' girdilerinin her ikisi de '\\n' ile bitmiyor"
 
-#: src/msgfmt.c:987
+#: src/msgfmt.c:997
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
 "`msgid' ve `msgstr' girdilerindeki biçim özelliklerinin sayýsý eþleþmiyor"
 
-#: src/msgfmt.c:1004
-#, c-format
-msgid "format specifications for argument %u are not the same"
+#: src/msgfmt.c:1014
+#, fuzzy, c-format
+msgid "format specifications for argument %lu are not the same"
 msgstr "%u argümaný için biçim özellikleri ayný deðil"
 
 #: src/msgmerge.c:320
@@ -605,15 +609,15 @@ msgstr ""
 "Bir çýktý dosyasý belirtilmediði takdirde sonuçlar standard çýktýya yazýlýr.\n"
 
 #: src/msgmerge.c:799
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete %"
-"d.\n"
+"%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
 msgstr ""
 "%s tarafýndan %d eski + %d referans, %d eklenen, %d belirsiz, %d eksik, %d "
 "kullanýlmayan okuma.\n"
 
-#: src/msgmerge.c:805
+#: src/msgmerge.c:806
 msgid " done.\n"
 msgstr " yapýldý.\n"
 
@@ -659,7 +663,7 @@ msgstr ""
 "Girdi dosyasý verilmemiþse ya da - verilmiþse standard input okunur.\n"
 "Çýktý dosyasý verilmemiþse ya da - verilmiþse standard çýktýya yazýlýr.\n"
 
-#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:213 src/xget-lex.c:243
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:216 src/xget-lex.c:243
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" okunurken hata"
@@ -716,30 +720,30 @@ msgstr ""
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
-#: src/po-lex.c:156 src/po-lex.c:195 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.c:159 src/po-lex.c:198 src/po-lex.h:85 src/po-lex.h:99
 #: src/po-lex.h:115 src/po-lex.h:129
 msgid "too many errors, aborting"
 msgstr "hatalar çok fazla, bunlarý düzeltince programý tekrar çalýþtýrýn"
 
-#: src/po-lex.c:271
+#: src/po-lex.c:274
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "anahtar-kelime \"%s\" bilinmiyor"
 
-#: src/po-lex.c:374
+#: src/po-lex.c:377
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "kontrol silsilesi uygun deðil"
 
-#: src/po-lex.c:477
+#: src/po-lex.c:480
 msgid "end-of-file within string"
 msgstr "dizi içinde dosya sonu"
 
-#: src/po-lex.c:482
+#: src/po-lex.c:485
 msgid "end-of-line within string"
 msgstr "dizi içinde satýr sonu"
 
-#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
+#: src/po-lex.c:528 src/write-po.c:266 src/write-po.c:338
 msgid "invalid multibyte sequence"
 msgstr ""
 
@@ -750,23 +754,30 @@ msgid ""
 "%*s  warning: charset conversion might not work"
 msgstr ""
 
-#: src/po.c:273
+#: src/po.c:289 src/po.c:316
 msgid ", expect parse errors"
 msgstr ""
 
-#: src/po.c:277
+#: src/po.c:294
 #, c-format
 msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
 msgstr ""
 
-#: src/po.c:281
+#: src/po.c:298
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
 "%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
 msgstr ""
 
-#: src/po.c:294
+#: src/po.c:312
+#, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported without iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr ""
+
+#: src/po.c:325
 #, c-format
 msgid ""
 "%s: warning: charset missing in header\n"

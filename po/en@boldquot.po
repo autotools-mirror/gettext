@@ -28,7 +28,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.36\n"
-"POT-Creation-Date: 2001-03-11 00:35+0100\n"
+"POT-Creation-Date: 2001-03-11 17:25+0100\n"
 "PO-Revision-Date: 2001-03-11 00:36+0100\n"
 "Last-Translator: Bruno Haible <haible@clisp.cons.org>\n"
 "Language-Team: English <en@li.org>\n"
@@ -133,7 +133,7 @@ msgstr "missing arguments"
 msgid "too many arguments"
 msgstr "too many arguments"
 
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:377
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
 #: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -185,7 +185,7 @@ msgstr ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:404
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
 #: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr "Report bugs to <bug-gnu-utils@gnu.org>.\n"
@@ -244,20 +244,21 @@ msgstr "this message is used but not defined in %s"
 msgid "warning: this message is not used"
 msgstr "warning: this message is not used"
 
-#: src/msgcmp.c:282 src/po-lex.c:102
-#, c-format
-msgid "found %d fatal errors"
-msgstr "found %d fatal errors"
+#: src/msgcmp.c:283 src/po-lex.c:103
+#, fuzzy, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "found %d fatal errors"
 
-#: src/msgcmp.c:354 src/msgfmt.c:657 src/msgmerge.c:512 src/xgettext.c:1169
+#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
 msgstr "duplicate message definition"
 
-#: src/msgcmp.c:355 src/msgfmt.c:659 src/msgmerge.c:513 src/xgettext.c:1170
+#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1170
 msgid "...this is the location of the first definition"
 msgstr "...this is the location of the first definition"
 
-#: src/msgcmp.c:395 src/msgmerge.c:561
+#: src/msgcmp.c:397 src/msgmerge.c:561
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "this message has no definition in the “[1m%s[0m” domain"
@@ -398,22 +399,25 @@ msgstr "no input file given"
 msgid "error while opening \"%s\" for writing"
 msgstr "error while opening “[1m%s[0m” for writing"
 
-#: src/msgfmt.c:359
-#, c-format
-msgid "%d translated messages"
-msgstr "%d translated messages"
+#: src/msgfmt.c:360
+#, fuzzy, c-format
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] "%d translated messages"
 
-#: src/msgfmt.c:361
-#, c-format
-msgid ", %d fuzzy translations"
-msgstr ", %d fuzzy translations"
+#: src/msgfmt.c:365
+#, fuzzy, c-format
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ", %d fuzzy translations"
 
-#: src/msgfmt.c:363
-#, c-format
-msgid ", %d untranslated messages"
-msgstr ", %d untranslated messages"
+#: src/msgfmt.c:370
+#, fuzzy, c-format
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ", %d untranslated messages"
 
-#: src/msgfmt.c:382
+#: src/msgfmt.c:392
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
@@ -458,11 +462,11 @@ msgstr ""
 "If input file is -, standard input is read.  If output file is -,\n"
 "output is written to standard output.\n"
 
-#: src/msgfmt.c:425
+#: src/msgfmt.c:435
 msgid "while creating hash table"
 msgstr "while creating hash table"
 
-#: src/msgfmt.c:469
+#: src/msgfmt.c:479
 #, c-format
 msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
@@ -471,97 +475,97 @@ msgstr ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 
-#: src/msgfmt.c:493
+#: src/msgfmt.c:503
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "domain name “[1m%s[0m” not suitable as file name"
 
-#: src/msgfmt.c:498
+#: src/msgfmt.c:508
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "domain name “[1m%s[0m” not suitable as file name: will use prefix"
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:511
+#: src/msgfmt.c:521
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "‘[1mdomain %s[0m’ directive ignored"
 
-#: src/msgfmt.c:541
+#: src/msgfmt.c:551
 msgid "empty `msgstr' entry ignored"
 msgstr "empty ‘[1mmsgstr[0m’ entry ignored"
 
-#: src/msgfmt.c:542
+#: src/msgfmt.c:552
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "fuzzy ‘[1mmsgstr[0m’ entry ignored"
 
-#: src/msgfmt.c:584
+#: src/msgfmt.c:594
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "headerfield ‘[1m%s[0m’ missing in header"
 
-#: src/msgfmt.c:587
+#: src/msgfmt.c:597
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "header field ‘[1m%s[0m’ should start at beginning of line"
 
-#: src/msgfmt.c:597
+#: src/msgfmt.c:607
 msgid "some header fields still have the initial default value"
 msgstr "some header fields still have the initial default value"
 
-#: src/msgfmt.c:608
+#: src/msgfmt.c:618
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "field ‘[1m%s[0m’ still has initial default value"
 
-#: src/msgfmt.c:698
+#: src/msgfmt.c:708
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: warning: source file contains fuzzy translation"
 
-#: src/msgfmt.c:920
+#: src/msgfmt.c:930
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr ""
 "‘[1mmsgid[0m’ and ‘[1mmsgid_plural[0m’ entries do not both begin with ‘[1m\\n"
 "[0m’"
 
-#: src/msgfmt.c:928
+#: src/msgfmt.c:938
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr ""
 "‘[1mmsgid[0m’ and ‘[1mmsgstr[%u][0m’ entries do not both begin with ‘[1m\\n"
 "[0m’"
 
-#: src/msgfmt.c:938
+#: src/msgfmt.c:948
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr ""
 "‘[1mmsgid[0m’ and ‘[1mmsgstr[0m’ entries do not both begin with ‘[1m\\n[0m’"
 
-#: src/msgfmt.c:953
+#: src/msgfmt.c:963
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr ""
 "‘[1mmsgid[0m’ and ‘[1mmsgid_plural[0m’ entries do not both end with ‘[1m\\n"
 "[0m’"
 
-#: src/msgfmt.c:961
+#: src/msgfmt.c:971
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr ""
 "‘[1mmsgid[0m’ and ‘[1mmsgstr[%u][0m’ entries do not both end with ‘[1m\\n[0m’"
 
-#: src/msgfmt.c:971
+#: src/msgfmt.c:981
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr ""
 "‘[1mmsgid[0m’ and ‘[1mmsgstr[0m’ entries do not both end with ‘[1m\\n[0m’"
 
-#: src/msgfmt.c:987
+#: src/msgfmt.c:997
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
 "number of format specifications in ‘[1mmsgid[0m’ and ‘[1mmsgstr[0m’ does not "
 "match"
 
-#: src/msgfmt.c:1004
+#: src/msgfmt.c:1014
 #, c-format
 msgid "format specifications for argument %lu are not the same"
 msgstr "format specifications for argument %lu are not the same"
@@ -635,7 +639,9 @@ msgstr ""
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
-msgstr "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"
+msgstr ""
+"%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
 
 #: src/msgmerge.c:806
 msgid " done.\n"
@@ -683,7 +689,7 @@ msgstr ""
 "If no input file is given or it is -, standard input is read.\n"
 "By default the output is written to standard output.\n"
 
-#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:213 src/xget-lex.c:243
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:216 src/xget-lex.c:243
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "error while reading “[1m%s[0m”"
@@ -738,29 +744,29 @@ msgstr "plural form has wrong index"
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
-#: src/po-lex.c:156 src/po-lex.c:195 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.c:159 src/po-lex.c:198 src/po-lex.h:85 src/po-lex.h:99
 #: src/po-lex.h:115 src/po-lex.h:129
 msgid "too many errors, aborting"
 msgstr "too many errors, aborting"
 
-#: src/po-lex.c:271
+#: src/po-lex.c:274
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "keyword “[1m%s[0m” unknown"
 
-#: src/po-lex.c:374
+#: src/po-lex.c:377
 msgid "invalid control sequence"
 msgstr "invalid control sequence"
 
-#: src/po-lex.c:477
+#: src/po-lex.c:480
 msgid "end-of-file within string"
 msgstr "end-of-file within string"
 
-#: src/po-lex.c:482
+#: src/po-lex.c:485
 msgid "end-of-line within string"
 msgstr "end-of-line within string"
 
-#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
+#: src/po-lex.c:528 src/write-po.c:266 src/write-po.c:338
 msgid "invalid multibyte sequence"
 msgstr "invalid multibyte sequence"
 

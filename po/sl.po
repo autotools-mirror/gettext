@@ -2,12 +2,12 @@
 # Copyright (C) 1996 Free Software Foundation, Inc.
 # Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996.
 #
-# $Header: /cvs/gettext/gettext/po/sl.po,v 1.3 2001/03/09 20:46:45 haible Exp $
+# $Header: /cvs/gettext/gettext/po/sl.po,v 1.4 2001/03/09 21:07:43 haible Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.24\n"
-"POT-Creation-Date: 2001-03-09 22:03+0100\n"
+"POT-Creation-Date: 2001-03-11 17:25+0100\n"
 "PO-Revision-Date: 1996-09-12 21:15\n"
 "Last-Translator: Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -113,7 +113,7 @@ msgstr "argumenti manjkajo"
 msgid "too many arguments"
 msgstr "preveè argumentov"
 
-#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:377
+#: src/gettext.c:232 src/msgcmp.c:177 src/msgcomm.c:381 src/msgfmt.c:387
 #: src/msgmerge.c:315 src/msgunfmt.c:205 src/xgettext.c:525
 #, fuzzy, c-format
 msgid "Try `%s --help' for more information.\n"
@@ -164,7 +164,7 @@ msgstr ""
 "sporoèil.\n"
 "Privzet imenik s katalogom sporoèil: %s\n"
 
-#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:404
+#: src/gettext.c:259 src/msgcmp.c:196 src/msgcomm.c:428 src/msgfmt.c:414
 #: src/msgmerge.c:350 src/msgunfmt.c:229 src/xgettext.c:577
 msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
 msgstr ""
@@ -223,20 +223,21 @@ msgstr "to sporoèilo je uporabljeno, a ne definirano v %s"
 msgid "warning: this message is not used"
 msgstr "pozor: to sporoèilo ni uporabljeno"
 
-#: src/msgcmp.c:282 src/po-lex.c:102
-#, c-format
-msgid "found %d fatal errors"
-msgstr "%d kritiènih napak"
+#: src/msgcmp.c:283 src/po-lex.c:103
+#, fuzzy, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] "%d kritiènih napak"
 
-#: src/msgcmp.c:354 src/msgfmt.c:657 src/msgmerge.c:512 src/xgettext.c:1169
+#: src/msgcmp.c:356 src/msgfmt.c:667 src/msgmerge.c:512 src/xgettext.c:1169
 msgid "duplicate message definition"
 msgstr "podvojena definicija sporoèila"
 
-#: src/msgcmp.c:355 src/msgfmt.c:659 src/msgmerge.c:513 src/xgettext.c:1170
+#: src/msgcmp.c:357 src/msgfmt.c:669 src/msgmerge.c:513 src/xgettext.c:1170
 msgid "...this is the location of the first definition"
 msgstr "...to je kraj prve definicije"
 
-#: src/msgcmp.c:395 src/msgmerge.c:561
+#: src/msgcmp.c:397 src/msgmerge.c:561
 #, c-format
 msgid "this message has no definition in the \"%s\" domain"
 msgstr "to sporoèilo ni definirano v domeni \"%s\""
@@ -364,22 +365,25 @@ msgstr "vhodna datoteka ni podana"
 msgid "error while opening \"%s\" for writing"
 msgstr "napaka pri pisanju na \"%s\""
 
-#: src/msgfmt.c:359
+#: src/msgfmt.c:360
 #, fuzzy, c-format
-msgid "%d translated messages"
-msgstr "%d prevedenih sporoèil"
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] "%d prevedenih sporoèil"
 
-#: src/msgfmt.c:361
-#, c-format
-msgid ", %d fuzzy translations"
-msgstr ", %d ohlapnih prevodov"
-
-#: src/msgfmt.c:363
+#: src/msgfmt.c:365
 #, fuzzy, c-format
-msgid ", %d untranslated messages"
-msgstr ", %d neprevedenih sporoèil"
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ", %d ohlapnih prevodov"
 
-#: src/msgfmt.c:382
+#: src/msgfmt.c:370
+#, fuzzy, c-format
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ", %d neprevedenih sporoèil"
+
+#: src/msgfmt.c:392
 #, fuzzy, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] filename.po ...\n"
@@ -421,104 +425,104 @@ msgstr ""
 "vhoda. Èe je kot ime izhodne datoteke navedeno - (minus), program pi¹e na\n"
 "standardni izhod.\n"
 
-#: src/msgfmt.c:425
+#: src/msgfmt.c:435
 msgid "while creating hash table"
 msgstr "med ustvarjanjem razpr¹ene tabele"
 
-#: src/msgfmt.c:469
+#: src/msgfmt.c:479
 #, fuzzy, c-format
 msgid ""
 "%s: warning: PO file header missing, fuzzy, or invalid\n"
 "%*s  warning: charset conversion will not work"
 msgstr "POZOR: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
 
-#: src/msgfmt.c:493
+#: src/msgfmt.c:503
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "ime domene \"%s\" ni primerno kot ime datoteke"
 
-#: src/msgfmt.c:498
+#: src/msgfmt.c:508
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "ime domene \"%s\" ni primerno kot ime datoteke: uporabimo predpono"
 
 #. We don't change the exit status here because this is really
 #. only an information.
-#: src/msgfmt.c:511
+#: src/msgfmt.c:521
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktiva ,domain %s' ni bila upo¹tevana"
 
-#: src/msgfmt.c:541
+#: src/msgfmt.c:551
 msgid "empty `msgstr' entry ignored"
 msgstr "prazno polje ,msgstr' ignorirano"
 
-#: src/msgfmt.c:542
+#: src/msgfmt.c:552
 #, fuzzy
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "ohlapen vnos za polje ,msgstr' ignoriran"
 
-#: src/msgfmt.c:584
+#: src/msgfmt.c:594
 #, c-format
 msgid "headerfield `%s' missing in header"
 msgstr "v glavi manjka polje ,%s'"
 
-#: src/msgfmt.c:587
+#: src/msgfmt.c:597
 #, c-format
 msgid "header field `%s' should start at beginning of line"
 msgstr "polje ,%s' v glavi se mora zaèeti na zaèetku vrstice"
 
-#: src/msgfmt.c:597
+#: src/msgfmt.c:607
 msgid "some header fields still have the initial default value"
 msgstr "nekatera polja v glavi imajo ¹e vedno zaèetne privzete vrednosti"
 
-#: src/msgfmt.c:608
+#: src/msgfmt.c:618
 #, c-format
 msgid "field `%s' still has initial default value"
 msgstr "polje ,%s' ima ¹e vedno zaèetno privzeto vrednost"
 
-#: src/msgfmt.c:698
+#: src/msgfmt.c:708
 #, fuzzy, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "POZOR: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
 
-#: src/msgfmt.c:920
+#: src/msgfmt.c:930
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "polji ,msgid' in ,msgstr' se ne zaèneta obe z ,\\n'"
 
-#: src/msgfmt.c:928
+#: src/msgfmt.c:938
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "polji ,msgid' in ,msgstr' se ne zaèneta obe z ,\\n'"
 
-#: src/msgfmt.c:938
+#: src/msgfmt.c:948
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "polji ,msgid' in ,msgstr' se ne zaèneta obe z ,\\n'"
 
-#: src/msgfmt.c:953
+#: src/msgfmt.c:963
 #, fuzzy
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "polji ,msgid' in ,msgstr' se ne konèata obe z ,\\n'"
 
-#: src/msgfmt.c:961
+#: src/msgfmt.c:971
 #, fuzzy, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "polji ,msgid' in ,msgstr' se ne konèata obe z ,\\n'"
 
-#: src/msgfmt.c:971
+#: src/msgfmt.c:981
 #, fuzzy
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "polji ,msgid' in ,msgstr' se ne konèata obe z ,\\n'"
 
-#: src/msgfmt.c:987
+#: src/msgfmt.c:997
 msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr "¹tevili formatnih doloèil v ,msgid' in ,msgstr' se ne ujemata"
 
-#: src/msgfmt.c:1004
-#, c-format
-msgid "format specifications for argument %u are not the same"
+#: src/msgfmt.c:1014
+#, fuzzy, c-format
+msgid "format specifications for argument %lu are not the same"
 msgstr "formatni doloèili za argument %u nista enaki"
 
 #: src/msgmerge.c:320
@@ -582,15 +586,15 @@ msgstr ""
 "izpis na standardni izhod.\n"
 
 #: src/msgmerge.c:799
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete %"
-"d.\n"
+"%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
+"obsolete %ld.\n"
 msgstr ""
 "%sPrebrano %d starih + %d referenènih, zdru¾enih %d, ohlapnih %d, "
 "manjkajoèih %d, zastarelih %d.\n"
 
-#: src/msgmerge.c:805
+#: src/msgmerge.c:806
 msgid " done.\n"
 msgstr " opravljeno.\n"
 
@@ -636,7 +640,7 @@ msgstr ""
 "Èe vhodna datoteka ni podana, ali pa je podano ime -, beremo standardni vhod.\n"
 "Èe ni izbrano drugaèe, gre izpis na standardni izhod.\n"
 
-#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:213 src/xget-lex.c:243
+#: src/msgunfmt.c:261 src/msgunfmt.c:326 src/po-lex.c:216 src/xget-lex.c:243
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "napaka pri branju \"%s\""
@@ -693,30 +697,30 @@ msgstr ""
 
 #. CAUTION: If you change this macro, you must also make identical
 #. changes to the function of the same name in src/po-lex.c
-#: src/po-lex.c:156 src/po-lex.c:195 src/po-lex.h:85 src/po-lex.h:99
+#: src/po-lex.c:159 src/po-lex.c:198 src/po-lex.h:85 src/po-lex.h:99
 #: src/po-lex.h:115 src/po-lex.h:129
 msgid "too many errors, aborting"
 msgstr "preveè napak, nadaljevanje ni mo¾no"
 
-#: src/po-lex.c:271
+#: src/po-lex.c:274
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "kljuèna beseda \"%s\" neprepoznana"
 
-#: src/po-lex.c:374
+#: src/po-lex.c:377
 #, fuzzy
 msgid "invalid control sequence"
 msgstr "nedovoljena kontrolna sekvenca"
 
-#: src/po-lex.c:477
+#: src/po-lex.c:480
 msgid "end-of-file within string"
 msgstr "znak za konec datoteke sredi niza"
 
-#: src/po-lex.c:482
+#: src/po-lex.c:485
 msgid "end-of-line within string"
 msgstr "znak za konec vrstice sredi niza"
 
-#: src/po-lex.c:525 src/write-po.c:266 src/write-po.c:338
+#: src/po-lex.c:528 src/write-po.c:266 src/write-po.c:338
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "nedovoljena kontrolna sekvenca"
@@ -728,23 +732,30 @@ msgid ""
 "%*s  warning: charset conversion might not work"
 msgstr "POZOR: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
 
-#: src/po.c:273
+#: src/po.c:289 src/po.c:316
 msgid ", expect parse errors"
 msgstr ""
 
-#: src/po.c:277
+#: src/po.c:294
 #, c-format
 msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
 msgstr ""
 
-#: src/po.c:281
+#: src/po.c:298
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
 "%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
 msgstr ""
 
-#: src/po.c:294
+#: src/po.c:312
+#, fuzzy, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not supported without iconv%s\n"
+"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+msgstr "POZOR: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
+
+#: src/po.c:325
 #, fuzzy, c-format
 msgid ""
 "%s: warning: charset missing in header\n"
