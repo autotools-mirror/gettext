@@ -105,6 +105,14 @@ public class Matrix {
     data.po_files.add(new PoFile("clisp","nl",57));
     data.po_files.add(new PoFile("clisp","ru",74));
 
+    // Obsolete domains.
+    data.domains.remove("gettext");
+    for (Iterator i = data.po_files.iterator(); i.hasNext(); ) {
+      PoFile po = (PoFile)i.next();
+      if (po.domain.equals("gettext"))
+        i.remove();
+    }
+
     try {
       FileWriter f = new FileWriter("matrix.texi");
       BufferedWriter bf = new BufferedWriter(f);
