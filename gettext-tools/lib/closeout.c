@@ -30,6 +30,7 @@
 #include "__fpending.h"
 #endif
 #include "error.h"
+#include "fwriteerror.h"
 #include "exit.h"
 #include "gettext.h"
 
@@ -61,24 +62,12 @@
 static void
 close_stdout_status (int status)
 {
-  int e = ferror (stdout) ? 0 : -1;
-
-  /* If the stream's error bit is clear, use fflush without fclose.
+  if (fwriteerror (stdout))
+    error (status, errno, "%s", _("write error"));
+  /* We don't need to fclose (stdout).  fwriteerror (stdout) == 0 guarantees
+     that the implicit fclose (stdout) at program exit will succeed.
      This avoids a useless close(1) system call in the frequent case
      that no error occurred.  */
-  if (e)
-    {
-      if (fflush (stdout) != 0)
-	e = errno;
-      else
-	return;
-    }
-
-  if (fclose (stdout) != 0)
-    e = errno;
-
-  if (0 <= e)
-    error (status, e, "%s", _("write error"));
 }
 
 /* Close standard output, exiting with status EXIT_FAILURE on failure.  */

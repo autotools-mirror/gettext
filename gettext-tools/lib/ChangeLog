@@ -1,5 +1,11 @@
 2003-09-14  Bruno Haible  <bruno@clisp.org>
 
+	* closeout.c: Include fwriteerror.h.
+	(close_stdout_status): Use improved errno value from fwriteerror().
+	Don't call fclose; it is be done implicitly during exit().
+
+2003-09-14  Bruno Haible  <bruno@clisp.org>
+
 	* fwriteerror.h: New file.
 	* fwriteerror.c: New file.
 	* Makefile.am (libgettextlib_la_SOURCES): Add fwriteerror.h,
