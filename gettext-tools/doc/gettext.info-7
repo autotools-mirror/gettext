@@ -1,4 +1,4 @@
-This is gettext.info, produced by makeinfo version 4.3 from
+Dies ist gettext.info, hergestellt von Makeinfo Version 4.3 aus
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
@@ -733,13 +733,15 @@ File: gettext.info,  Node: aclocal,  Next: acconfig,  Prev: mkinstalldirs,  Up: 
 
    If you do not have an `aclocal.m4' file in your distribution, the
 simplest is to concatenate the files `codeset.m4', `gettext.m4',
-`glibc21.m4', `iconv.m4', `intdiv0.m4', `inttypes.m4', `inttypes_h.m4',
-`inttypes-pri.m4', `isc-posix.m4', `lcmessage.m4', `lib-ld.m4',
-`lib-link.m4', `lib-prefix.m4', `progtest.m4', `stdint_h.m4',
-`uintmax_t.m4', `ulonglong.m4' from GNU `gettext''s `m4/' directory
-into a single file.  If you have suppressed the `intl/' directory, only
-`gettext.m4', `iconv.m4', `lib-ld.m4', `lib-link.m4', `lib-prefix.m4',
-`progtest.m4' need to be concatenated.
+`glibc21.m4', `iconv.m4', `intdiv0.m4', `intmax.m4', `inttypes.m4',
+`inttypes_h.m4', `inttypes-pri.m4', `isc-posix.m4', `lcmessage.m4',
+`lib-ld.m4', `lib-link.m4', `lib-prefix.m4', `longdouble.m4',
+`longlong.m4', `printf-posix.m4', `progtest.m4', `signed.m4',
+`stdint_h.m4', `uintmax_t.m4', `ulonglong.m4', `wchar_t.m4', `wint_t.m4'
+from GNU `gettext''s `m4/' directory into a single file.  If you have
+suppressed the `intl/' directory, only `gettext.m4', `iconv.m4',
+`lib-ld.m4', `lib-link.m4', `lib-prefix.m4', `progtest.m4' need to be
+concatenated.
 
    If you already have an `aclocal.m4' file, then you will have to
 merge the said macro files into your `aclocal.m4'.  Note that if you

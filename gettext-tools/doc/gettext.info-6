@@ -1,4 +1,4 @@
-This is gettext.info, produced by makeinfo version 4.3 from
+Dies ist gettext.info, hergestellt von Makeinfo Version 4.3 aus
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
@@ -126,7 +126,7 @@ package and the coding standards for the GNU project require program
 being written in English, this solution nevertheless fulfills its
 purpose.
 
- - Function: char * ngettext (const char *MSGID1, const char *MSGID2,
+ - Funktion: char * ngettext (const char *MSGID1, const char *MSGID2,
           unsigned long int N)
      The `ngettext' function is similar to the `gettext' function as it
      finds the message catalogs in the same way.  But it takes two
@@ -145,14 +145,14 @@ purpose.
      `printf' function as well.  It is not sufficient to pass it only to
      `ngettext'.
 
- - Function: char * dngettext (const char *DOMAIN, const char *MSGID1,
+ - Funktion: char * dngettext (const char *DOMAIN, const char *MSGID1,
           const char *MSGID2, unsigned long int N)
      The `dngettext' is similar to the `dgettext' function in the way
      the message catalog is selected.  The difference is that it takes
      two extra parameter to provide the correct plural form.  These two
      parameters are handled in the same way `ngettext' handles them.
 
- - Function: char * dcngettext (const char *DOMAIN, const char *MSGID1,
+ - Funktion: char * dcngettext (const char *DOMAIN, const char *MSGID1,
           const char *MSGID2, unsigned long int N, int CATEGORY)
      The `dcngettext' is similar to the `dcgettext' function in the way
      the message catalog is selected.  The difference is that it takes
@@ -293,7 +293,18 @@ Three forms, special cases for numbers ending in 1 and 2, 3, 4, except those end
      Languages with this property include:
 
     Slavic family
-          Croatian, Czech, Russian, Slovak, Ukrainian
+          Croatian, Czech, Russian, Ukrainian
+
+Three forms, special cases for 1 and 2, 3, 4
+     The header entry would look like this:
+
+          Plural-Forms: nplurals=3; \
+              plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;
+
+     Languages with this property include:
+
+    Slavic family
+          Slovak
 
 Three forms, special case for one and some numbers ending in 2, 3, or 4
      The header entry would look like this:

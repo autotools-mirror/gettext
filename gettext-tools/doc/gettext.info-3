@@ -1,4 +1,4 @@
-This is gettext.info, produced by makeinfo version 4.3 from
+Dies ist gettext.info, hergestellt von Makeinfo Version 4.3 aus
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
@@ -101,7 +101,7 @@ Choice of input file language
      Specifies the language of the input files.  The supported languages
      are `C', `C++', `ObjectiveC', `PO', `Python', `Lisp', `EmacsLisp',
      `librep', `Smalltalk', `Java', `JavaProperties', `awk', `YCP',
-     `Tcl', `PHP', `RST', `Glade'.
+     `Tcl', `Perl', `PHP', `RST', `Glade'.
 
 `-C'
 `--c++'
@@ -512,14 +512,14 @@ Content-Type
      In the GNU system, the following encodings are frequently used for
      the corresponding languages.
 
-        * `ISO-8859-1' for  Afrikaans, Albanian, Basque, Breton,
-          Catalan, Cornish, Danish, Dutch,  English, Estonian, Faroese,
-          Finnish, French, Galician, German,  Greenlandic, Icelandic,
-          Indonesian, Irish, Italian, Malay, Manx,  Norwegian, Occitan,
-          Portuguese, Spanish, Swedish, Tagalog, Uzbek,  Walloon,
+        * `ISO-8859-1' for Afrikaans, Albanian, Basque, Breton,
+          Catalan, Cornish, Danish, Dutch, English, Estonian, Faroese,
+          Finnish, French, Galician, German, Greenlandic, Icelandic,
+          Indonesian, Irish, Italian, Malay, Manx, Norwegian, Occitan,
+          Portuguese, Spanish, Swedish, Tagalog, Uzbek, Walloon,
 
-        * `ISO-8859-2' for  Bosnian, Croatian, Czech, Hungarian,
-          Polish, Romanian, Serbian, Slovak,  Slovenian,
+        * `ISO-8859-2' for Bosnian, Croatian, Czech, Hungarian, Polish,
+          Romanian, Serbian, Slovak, Slovenian,
 
         * `ISO-8859-3' for Maltese,
 
@@ -537,8 +537,8 @@ Content-Type
 
         * `ISO-8859-14' for Welsh,
 
-        * `ISO-8859-15' for  Basque, Catalan, Dutch, English, Finnish,
-          French, Galician, German, Irish,  Italian, Portuguese,
+        * `ISO-8859-15' for Basque, Catalan, Dutch, English, Finnish,
+          French, Galician, German, Irish, Italian, Portuguese,
           Spanish, Swedish, Walloon,
 
         * `KOI8-R' for Russian,
@@ -549,9 +549,9 @@ Content-Type
 
         * `CP1251' for Bulgarian, Byelorussian,
 
-        * `GB2312', `GBK', `GB18030'  for simplified writing of Chinese,
+        * `GB2312', `GBK', `GB18030' for simplified writing of Chinese,
 
-        * `BIG5', `BIG5-HKSCS'  for traditional writing of Chinese,
+        * `BIG5', `BIG5-HKSCS' for traditional writing of Chinese,
 
         * `EUC-JP' for Japanese,
 

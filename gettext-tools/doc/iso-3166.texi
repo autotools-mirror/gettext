@@ -81,7 +81,7 @@ Congo (Rep.).
 @item CH
 Switzerland.
 @item CI
-Cote d'Ivoire.
+C@^{o}te d'Ivoire.
 @item CK
 Cook Islands.
 @item CL
@@ -94,6 +94,8 @@ China.
 Colombia.
 @item CR
 Costa Rica.
+@item CS
+Serbia and Montenegro.
 @item CU
 Cuba.
 @item CV
@@ -403,7 +405,7 @@ Syria.
 @item SZ
 Swaziland.
 @item TC
-Turks and Caicos Is.
+Turks and Caicos Islands.
 @item TD
 Chad.
 @item TF
@@ -416,14 +418,14 @@ Thailand.
 Tajikistan.
 @item TK
 Tokelau.
+@item TL
+Timor-Leste.
 @item TM
 Turkmenistan.
 @item TN
 Tunisia.
 @item TO
 Tonga.
-@item TP
-East Timor.
 @item TR
 Turkey.
 @item TT
@@ -468,8 +470,6 @@ Samoa (Western).
 Yemen.
 @item YT
 Mayotte.
-@item YU
-Yugoslavia.
 @item ZA
 South Africa.
 @item ZM

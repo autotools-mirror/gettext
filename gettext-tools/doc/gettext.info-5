@@ -1,4 +1,4 @@
-This is gettext.info, produced by makeinfo version 4.3 from
+Dies ist gettext.info, hergestellt von Makeinfo Version 4.3 aus
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
@@ -73,18 +73,18 @@ are defined in a library called `libgettextpo'.
      This is a pointer type that refers to a message of a PO file,
      including its translation.
 
- - Function: po_file_t po_file_read (const char *FILENAME)
+ - Funktion: po_file_t po_file_read (const char *FILENAME)
      The `po_file_read' function reads a PO file into memory.  The file
      name is given as argument.  The return value is a handle to the PO
      file's contents, valid until `po_file_free' is called on it.  In
      case of error, the return value is `NULL', and `errno' is set.
 
- - Function: void po_file_free (po_file_t FILE)
+ - Funktion: void po_file_free (po_file_t FILE)
      The `po_file_free' function frees a PO file's contents from memory,
      including all messages that are only implicitly accessible through
      iterators.
 
- - Function: const char * const * po_file_domains (po_file_t FILE)
+ - Funktion: const char * const * po_file_domains (po_file_t FILE)
      The `po_file_domains' function returns the domains for which the
      given PO file has messages.  The return value is a `NULL'
      terminated array which is valid as long as the FILE handle is
@@ -92,19 +92,19 @@ are defined in a library called `libgettextpo'.
      return value contains only one domain, namely the default domain
      `"messages"'.
 
- - Function: po_message_iterator_t po_message_iterator (po_file_t FILE,
+ - Funktion: po_message_iterator_t po_message_iterator (po_file_t FILE,
           const char *DOMAIN)
      The `po_message_iterator' returns an iterator that will produce the
      messages of FILE that belong to the given DOMAIN.  If DOMAIN is
      `NULL', the default domain is used instead.  To list the messages,
      use the function `po_next_message' repeatedly.
 
- - Function: void po_message_iterator_free (po_message_iterator_t
+ - Funktion: void po_message_iterator_free (po_message_iterator_t
           ITERATOR)
      The `po_message_iterator_free' function frees an iterator
      previously allocated through the `po_message_iterator' function.
 
- - Function: po_message_t po_next_message (po_message_iterator_t
+ - Funktion: po_message_t po_next_message (po_message_iterator_t
           ITERATOR)
      The `po_next_message' function returns the next message from
      ITERATOR and advances the iterator.  It returns `NULL' when the
@@ -113,21 +113,21 @@ are defined in a library called `libgettextpo'.
    The following functions returns details of a `po_message_t'.  Recall
 that the results are valid as long as the FILE handle is valid.
 
- - Function: const char * po_message_msgid (po_message_t MESSAGE)
+ - Funktion: const char * po_message_msgid (po_message_t MESSAGE)
      The `po_message_msgid' function returns the `msgid' (untranslated
      English string) of a message.  This is guaranteed to be non-`NULL'.
 
- - Function: const char * po_message_msgid_plural (po_message_t MESSAGE)
+ - Funktion: const char * po_message_msgid_plural (po_message_t MESSAGE)
      The `po_message_msgid_plural' function returns the `msgid_plural'
      (untranslated English plural string) of a message with plurals, or
      `NULL' for a message without plural.
 
- - Function: const char * po_message_msgstr (po_message_t MESSAGE)
+ - Funktion: const char * po_message_msgstr (po_message_t MESSAGE)
      The `po_message_msgstr' function returns the `msgstr' (translation)
      of a message.  For an untranslated message, the return value is an
      empty string.
 
- - Function: const char * po_message_msgstr_plural (po_message_t
+ - Funktion: const char * po_message_msgstr_plural (po_message_t
           MESSAGE, int INDEX)
      The `po_message_msgstr_plural' function returns the
      `msgstr[INDEX]' of a message with plurals, or `NULL' when the
@@ -832,7 +832,7 @@ of catgets is `char *' the resulting string _must not_ be changed.  It
 should better be `const char *', but the standard is published in 1988,
 one year before ANSI C.
 
-The last of these function functions is used and behaves as expected:
+The last of these functions is used and behaves as expected:
 
      catclose (catd);
 
@@ -867,12 +867,12 @@ proposal and it is followed by at least one major Unix vendor (Sun) in
 its last developments.  It is not specified in any official standard,
 though.
 
-   The main points about this solution is that it does not follow the
+   The main point about this solution is that it does not follow the
 method of normal file handling (open-use-close) and that it does not
-burden the programmer so many task, especially the unique key handling.
-Of course here also a unique key is needed, but this key is the message
-itself (how long or short it is).  See *Note Comparison:: for a more
-detailed comparison of the two methods.
+burden the programmer with so many tasks, especially the unique key
+handling.  Of course here also a unique key is needed, but this key is
+the message itself (how long or short it is).  See *Note Comparison::
+for a more detailed comparison of the two methods.
 
    The following section contains a rather detailed description of the
 interface.  We make it that detailed because this is the interface we
@@ -923,14 +923,14 @@ To use a domain set by `textdomain' the function
 
 is to be used.  This is the simplest reasonable form one can imagine.
 The translation of the string MSGID is returned if it is available in
-the current domain.  If not available the argument itself is returned.
-If the argument is `NULL' the result is undefined.
+the current domain.  If it is not available, the argument itself is
+returned.  If the argument is `NULL' the result is undefined.
 
-   One things which should come into mind is that no explicit
-dependency to the used domain is given.  The current value of the
-domain for the `LC_MESSAGES' locale is used.  If this changes between
-two executions of the same `gettext' call in the program, both calls
-reference a different message catalog.
+   One thing which should come into mind is that no explicit dependency
+to the used domain is given.  The current value of the domain for the
+`LC_MESSAGES' locale is used.  If this changes between two executions
+of the same `gettext' call in the program, both calls reference a
+different message catalog.
 
    For the easiest case, which is normally used in internationalized
 packages, once at the beginning of execution a call to `textdomain' is
@@ -1057,7 +1057,7 @@ translation for MSGID, it returns MSGID unchanged - independently of
 the current output character set.  It is therefore recommended that all
 MSGIDs be US-ASCII strings.
 
- - Function: char * bind_textdomain_codeset (const char *DOMAINNAME,
+ - Funktion: char * bind_textdomain_codeset (const char *DOMAINNAME,
           const char *CODESET)
      The `bind_textdomain_codeset' function can be used to specify the
      output character set for message catalogs for domain DOMAINNAME.

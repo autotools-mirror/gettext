@@ -1,9 +1,9 @@
-This is autosprintf.info, produced by makeinfo version 4.3 from
+This is autosprintf.info, produced by makeinfo version 4.6 from
 autosprintf.texi.
 
-INFO-DIR-SECTION GNU autosprintf
+INFO-DIR-SECTION C++ libraries
 START-INFO-DIR-ENTRY
-* autosprintf: (autosprintf).              GNU autosprintf
+* autosprintf: (autosprintf).   Support for printf format strings in C++.
 END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `autosprintf' library.
@@ -30,7 +30,7 @@ File: autosprintf.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir
 GNU autosprintf
 ***************
 
-   This manual documents the GNU autosprintf class, version 1.0.
+This manual documents the GNU autosprintf class, version 1.0.
 
 * Menu:
 
@@ -44,7 +44,7 @@ File: autosprintf.info,  Node: Introduction,  Next: Class autosprintf,  Prev: To
 Introduction
 ************
 
-   This package makes the C formatted output routines (`fprintf' et al.)
+This package makes the C formatted output routines (`fprintf' et al.)
 usable in C++ programs, for use with the `<string>' strings and the
 `<iostream>' streams.
 
@@ -79,7 +79,7 @@ File: autosprintf.info,  Node: Class autosprintf,  Next: Using autosprintf,  Pre
 The `autosprintf' class
 ***********************
 
-   An instance of class `autosprintf' just contains a string with the
+An instance of class `autosprintf' just contains a string with the
 formatted output result. Such an instance is usually allocated as an
 automatic storage variable, i.e. on the stack, not with `new' on the
 heap.
@@ -101,7 +101,7 @@ File: autosprintf.info,  Node: Using autosprintf,  Prev: Class autosprintf,  Up:
 Using `autosprintf' in own programs
 ***********************************
 
-   To use the `autosprintf' class in your programs, you need to add
+To use the `autosprintf' class in your programs, you need to add
 
      #include "autosprintf.h"
      using gnu::autosprintf;
@@ -119,9 +119,9 @@ variable that it provides.
 
 
 Tag Table:
-Node: Top998
-Node: Introduction1361
-Node: Class autosprintf2511
-Node: Using autosprintf3282
+Node: Top1011
+Node: Introduction1371
+Node: Class autosprintf2518
+Node: Using autosprintf3286
 
 End Tag Table

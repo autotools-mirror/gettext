@@ -1,4 +1,4 @@
-This is gettext.info, produced by makeinfo version 4.3 from
+Dies ist gettext.info, hergestellt von Makeinfo Version 4.3 aus
 gettext.texi.
 
 INFO-DIR-SECTION GNU Gettext Utilities
@@ -121,7 +121,7 @@ drawbacks.
   1. The advantage is that anyone can check out the CVS at any moment
      and gets a working build.  The drawbacks are:  1a. It requires
      some frequent "cvs commit" actions by the maintainers.  1b. The
-     reposity grows in size quite fast.
+     repository grows in size quite fast.
 
   2. The advantage is that anyone can check out the CVS, and the usual
      "./configure; make" will work.  The drawbacks are:  2a. The one who
@@ -358,6 +358,7 @@ strings.
 * object-pascal-format::        Object Pascal Format Strings
 * ycp-format::                  YCP Format Strings
 * tcl-format::                  Tcl Format Strings
+* perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
 
 
@@ -372,6 +373,21 @@ XSH 3 fprintf(),
 See also the fprintf(3) manual page,
 `http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php',
 `http://informatik.fh-wuerzburg.de/student/i510/man/printf.html'.
+
+   Although format strings with positions that reorder arguments, such
+as
+
+     "Only %2$d bytes free on '%1$s'."
+
+which is semantically equivalent to
+
+     "'%s' has only %d bytes free."
+
+are a POSIX/XSI feature and not specified by ISO C 99, translators can
+rely on this reordering ability: On the few platforms where `printf()',
+`fprintf()' etc. don't support this feature natively, `libintl.a' or
+`libintl.so' provides replacement functions, and GNU `<libintl.h>'
+activates these replacement functions automatically.
 
 
 File: gettext.info,  Node: python-format,  Next: lisp-format,  Prev: c-format,  Up: Translators for other Languages
@@ -471,7 +487,7 @@ directive starts with `%' and is followed by `%' or a nonzero digit
 (`1' to `9').
 
 
-File: gettext.info,  Node: tcl-format,  Next: php-format,  Prev: ycp-format,  Up: Translators for other Languages
+File: gettext.info,  Node: tcl-format,  Next: perl-format,  Prev: ycp-format,  Up: Translators for other Languages
 
 Tcl Format Strings
 ------------------
@@ -480,7 +496,16 @@ Tcl Format Strings
 `http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm'.
 
 
-File: gettext.info,  Node: php-format,  Prev: tcl-format,  Up: Translators for other Languages
+File: gettext.info,  Node: perl-format,  Next: php-format,  Prev: tcl-format,  Up: Translators for other Languages
+
+Perl Format Strings
+-------------------
+
+   Perl format strings are described in the `Locale::TextDomain' manual
+page, or in `http://let.imperia.org/howto/en/perl-i18n/'.
+
+
+File: gettext.info,  Node: php-format,  Prev: perl-format,  Up: Translators for other Languages
 
 PHP Format Strings
 ------------------
@@ -587,7 +612,7 @@ Extractor
      `xgettext -k_'
 
 Formatting with positions
-     `fprintf "%2$d %1$d"' (POSIX/XSI but not C 99)
+     `fprintf "%2$d %1$d"'
      In C++: `autosprintf "%2$d %1$d"' (*note Introduction:
      (autosprintf)Top.)
 
@@ -837,7 +862,7 @@ Extractor
      `clisp-xgettext'
 
 Formatting with positions
-     `fprintf "%2$d %1$d"' (POSIX/XSI but not C 99)
+     `fprintf "%2$d %1$d"'
 
 Portability
      On platforms without gettext, no translation.
@@ -1367,842 +1392,336 @@ Perl
 ----
 
 RPMs
-     perl, perl-gettext
+     perl
 
 File extension
-     `pl', `PL'
+     `pl', `PL', `pm', `cgi'
 
 String syntax
-     `"abc"'
+        * `"abc"'
+
+        * `'abc''
+
+        * `qq (abc)'
+
+        * `q (abc)'
+
+        * `qr /abc/'
+
+        * `qx (/bin/date)'
+
+        * `/pattern match/'
+
+        * `?pattern match?'
+
+        * `s/substitution/operators/'
+
+        * `$tied_hash{"message"}'
+
+        * `$tied_hash_reference->{"message"}'
+
+        * etc., issue the command `man perlsyn' for details
+
 
 gettext shorthand
-     --
+     `__' (double underscore)
 
 gettext/ngettext functions
-     `gettext', `dgettext', `dcgettext'
+     `gettext', `dgettext', `dcgettext', `ngettext', `dngettext',
+     `dcngettext'
 
 textdomain
      `textdomain' function
 
 bindtextdomain
      `bindtextdomain' function
+
+bind_textdomain_codeset
+     `bind_textdomain_codeset' function
 
 setlocale
      Use `setlocale (LC_ALL, "");'
 
 Prerequisite
      `use POSIX;'
-     `use Locale::gettext;'
+     `use Locale::TextDomain;' (included in the package libintl-perl
+     which is available on the Comprehensive Perl Authors Network CPAN,
+     http://www.cpan.org/).
 
 Use or emulate GNU gettext
-     use
+     emulate
 
 Extractor
-     ?
+     `xgettext -k__ -k\$__ -k%__ -k__x -kN__ -k'
 
 Formatting with positions
-     --
+     `__x("error opening '[file]': [err]", file => $file, err => $!);'
 
 Portability
-     ?
+     The `libintl-perl' package is platform-independent but does not
+     belong to the Perl core.  The programmer is responsible for
+     providing a dummy implementation of the required functions if the
+     package is not installed on the target system.
 
 po-mode marking
      --
 
-
-File: gettext.info,  Node: PHP,  Next: Pike,  Prev: Perl,  Up: List of Programming Languages
+Documentation
+     In-depth documentation can be found at
+     http://let.imperia.org/howto/en/perl-18n/.
 
-PHP Hypertext Preprocessor
---------------------------
-
-RPMs
-     mod_php4, mod_php4-core, phplib, phpdoc
-
-File extension
-     `php', `php3', `php4'
-
-String syntax
-     `"abc"', `'abc''
-
-gettext shorthand
-     `_("abc")'
-
-gettext/ngettext functions
-     `gettext', `dgettext', `dcgettext'
-
-textdomain
-     `textdomain' function
-
-bindtextdomain
-     `bindtextdomain' function
-
-setlocale
-     Programmer must call `setlocale (LC_ALL, "")'
-
-Prerequisite
-     --
-
-Use or emulate GNU gettext
-     use
-
-Extractor
-     `xgettext'
-
-Formatting with positions
-     `printf "%2\$d %1\$d"'
-
-Portability
-     On platforms without gettext, the functions are not available.
-
-po-mode marking
-     --
-
-
-File: gettext.info,  Node: Pike,  Prev: PHP,  Up: List of Programming Languages
-
-Pike
-----
-
-RPMs
-     roxen
-
-File extension
-     `pike'
-
-String syntax
-     `"abc"'
-
-gettext shorthand
-     --
-
-gettext/ngettext functions
-     `gettext', `dgettext', `dcgettext'
-
-textdomain
-     `textdomain' function
-
-bindtextdomain
-     `bindtextdomain' function
-
-setlocale
-     `setlocale' function
-
-Prerequisite
-     `import Locale.Gettext;'
-
-Use or emulate GNU gettext
-     use
-
-Extractor
-     --
-
-Formatting with positions
-     --
-
-Portability
-     On platforms without gettext, the functions are not available.
-
-po-mode marking
-     --
-
-
-File: gettext.info,  Node: List of Data Formats,  Prev: List of Programming Languages,  Up: Programming Languages
-
-Internationalizable Data
-========================
-
-   Here is a list of other data formats which can be internationalized
-using GNU gettext.
+   The `xgettext' parser backend for Perl differs significantly from
+the parser backends for other programming languages, just as Perl
+itself differs significantly from other programming languages.  The
+Perl parser backend offers many more string marking facilities than the
+other backends but it also has some Perl-specific limitations, the
+worst probably being its imperfectness.
 
 * Menu:
 
-* POT::                         POT - Portable Object Template
-* RST::                         Resource String Table
-* Glade::                       Glade - GNOME user interface description
+* General Problems::         General Problems Parsing Perl Code
+* Default Keywords::         Which Keywords Will xgettext Look For?
+* Special Keywords::         How to Extract Hash Keys
+* Quote-like Expressions::   What are Strings And Quote-like Expressions?
+* Interpolation I::          Invalid String Interpolation
+* Interpolation II::         Valid String Interpolation
+* Parentheses::              When To Use Parentheses
+* Long Lines::               How To Grok with Long Lines
+* Perl Pitfalls::            Bugs, Pitfalls, and Things That Do Not Work
 
 
-File: gettext.info,  Node: POT,  Next: RST,  Prev: List of Data Formats,  Up: List of Data Formats
+File: gettext.info,  Node: General Problems,  Next: Default Keywords,  Up: Perl
 
-POT - Portable Object Template
-------------------------------
+General Problems Parsing Perl Code
+..................................
 
-RPMs
-     gettext
+   It is often heard that only Perl can parse Perl.  This is not true.
+Perl cannot be _parsed_ at all, it can only be _executed_.  Perl has
+various built-in ambiguities that can only be resolved at runtime.
 
-File extension
-     `pot', `po'
+   The following example may illustrate one common problem:
 
-Extractor
-     `xgettext'
+     print gettext "Hello World!";
 
-
-File: gettext.info,  Node: RST,  Next: Glade,  Prev: POT,  Up: List of Data Formats
+   Although this example looks like a bullet-proof case of a function
+invocation, it is not:
 
-Resource String Table
----------------------
+     open gettext, ">testfile" or die;
+     print gettext "Hello world!"
 
-RPMs
-     fpk
+   In this context, the string `gettext' looks more like a file handle.
+But not necessarily:
 
-File extension
-     `rst'
+     use Locale::Messages;
+     open gettext ">testfile" or die;
+     print gettext "Hello world!";
 
-Extractor
-     `xgettext', `rstconv'
+   Now, the file is probably syntactically incorrect, provided that the
+module `Locale::Messages' found first in the Perl include path exports a
+function `gettext'.  But what if the module `Locale::Messages' really
+looks like this?
 
-
-File: gettext.info,  Node: Glade,  Prev: RST,  Up: List of Data Formats
+     use vars qw (*gettext);
+     
+     1;
 
-Glade - GNOME user interface description
-----------------------------------------
+   In this case, the string `gettext' will be interpreted as a file
+handle again, and the above example will create a file `testfile' and
+write the string "Hello world!" into it.  Even advanced control flow
+analysis will not really help:
 
-RPMs
-     glade, libglade, xml-i18n-tools
+     if (0.5 < rand) {
+        eval "use Sane";
+     } else {
+        eval "use InSane";
+     }
+     print gettext "Hello world!";
 
-File extension
-     `glade'
+   If the module `Sane' exports a function `gettext' that does what we
+expect, and the module `InSane' opens a file for writing and associates
+the _handle_ `gettext' with this output stream, we are clueless again
+about what will happen at runtime.  It is completely unpredictable.
+The truth is that Perl has so many ways to fill its symbol table at
+runtime that it is impossible to interpret a particular piece of code
+without executing it.
 
-Extractor
-     `xgettext', `libglade-xgettext'
+   Of course, `xgettext' will not execute your Perl sources while
+scanning for translatable strings, but rather use heuristics in order
+to guess what you meant.
 
-
-File: gettext.info,  Node: Conclusion,  Next: Language Codes,  Prev: Programming Languages,  Up: Top
+   Another problem is the ambiguity of the slash and the question mark.
+Their interpretation depends on the context:
 
-Concluding Remarks
-******************
+     # A pattern match.
+     print "OK\n" if /foobar/;
+     
+     # A division.
+     print 1 / 2;
+     
+     # Another pattern match.
+     print "OK\n" if ?foobar?;
+     
+     # Conditional.
+     print $x ? "foo" : "bar";
 
-   We would like to conclude this GNU `gettext' manual by presenting an
-history of the Translation Project so far.  We finally give a few
-pointers for those who want to do further research or readings about
-Native Language Support matters.
+   The slash may either act as the division operator or introduce a
+pattern match, whereas the question mark may act as the ternary
+conditional operator or as a pattern match, too.  Other programming
+languages like `awk' present similar problems, but the consequences of a
+misinterpretation are particularly nasty with Perl sources.  In `awk'
+for instance, a statement can never exceed one line and the parser can
+recover from a parsing error at the next newline and interpret the rest
+of the input stream correctly.  Perl is different, as a pattern match
+is terminated by the next appearance of the delimiter (the slash or the
+question mark) in the input stream, regardless of the semantic context.
+If a slash is really a division sign but mis-interpreted as a pattern
+match, the rest of the input file is most probably parsed incorrectly.
 
-* Menu:
-
-* History::                     History of GNU `gettext'
-* References::                  Related Readings
-
-
-File: gettext.info,  Node: History,  Next: References,  Prev: Conclusion,  Up: Conclusion
-
-History of GNU `gettext'
-========================
-
-   Internationalization concerns and algorithms have been informally
-and casually discussed for years in GNU, sometimes around GNU `libc',
-maybe around the incoming `Hurd', or otherwise (nobody clearly
-remembers).  And even then, when the work started for real, this was
-somewhat independently of these previous discussions.
-
-   This all began in July 1994, when Patrick D'Cruze had the idea and
-initiative of internationalizing version 3.9.2 of GNU `fileutils'.  He
-then asked Jim Meyering, the maintainer, how to get those changes
-folded into an official release.  That first draft was full of
-`#ifdef's and somewhat disconcerting, and Jim wanted to find nicer
-ways.  Patrick and Jim shared some tries and experimentations in this
-area.  Then, feeling that this might eventually have a deeper impact on
-GNU, Jim wanted to know what standards were, and contacted Richard
-Stallman, who very quickly and verbally described an overall design for
-what was meant to become `glocale', at that time.
-
-   Jim implemented `glocale' and got a lot of exhausting feedback from
-Patrick and Richard, of course, but also from Mitchum DSouza (who wrote
-a `catgets'-like package), Roland McGrath, maybe David MacKenzie,
-Franc,ois Pinard, and Paul Eggert, all pushing and pulling in various
-directions, not always compatible, to the extent that after a couple of
-test releases, `glocale' was torn apart.
-
-   While Jim took some distance and time and became dad for a second
-time, Roland wanted to get GNU `libc' internationalized, and got Ulrich
-Drepper involved in that project.  Instead of starting from `glocale',
-Ulrich rewrote something from scratch, but more conformant to the set
-of guidelines who emerged out of the `glocale' effort.  Then, Ulrich
-got people from the previous forum to involve themselves into this new
-project, and the switch from `glocale' to what was first named
-`msgutils', renamed `nlsutils', and later `gettext', became officially
-accepted by Richard in May 1995 or so.
-
-   Let's summarize by saying that Ulrich Drepper wrote GNU `gettext' in
-April 1995.  The first official release of the package, including PO
-mode, occurred in July 1995, and was numbered 0.7.  Other people
-contributed to the effort by providing a discussion forum around
-Ulrich, writing little pieces of code, or testing.  These are quoted in
-the `THANKS' file which comes with the GNU `gettext' distribution.
-
-   While this was being done, Franc,ois adapted half a dozen of GNU
-packages to `glocale' first, then later to `gettext', putting them in
-pretest, so providing along the way an effective user environment for
-fine tuning the evolving tools.  He also took the responsibility of
-organizing and coordinating the Translation Project.  After nearly a
-year of informal exchanges between people from many countries,
-translator teams started to exist in May 1995, through the creation and
-support by Patrick D'Cruze of twenty unmoderated mailing lists for that
-many native languages, and two moderated lists: one for reaching all
-teams at once, the other for reaching all willing maintainers of
-internationalized free software packages.
-
-   Franc,ois also wrote PO mode in June 1995 with the collaboration of
-Greg McGary, as a kind of contribution to Ulrich's package.  He also
-gave a hand with the GNU `gettext' Texinfo manual.
-
-   In 1997, Ulrich Drepper released the GNU libc 2.0, which included the
-`gettext', `textdomain' and `bindtextdomain' functions.
-
-   In 2000, Ulrich Drepper added plural form handling (the `ngettext'
-function) to GNU libc.  Later, in 2001, he released GNU libc 2.2.x,
-which is the first free C library with full internationalization
-support.
-
-   Ulrich being quite busy in his role of General Maintainer of GNU
-libc, he handed over the GNU `gettext' maintenance to Bruno Haible in
-2000.  Bruno added the plural form handling to the tools as well, added
-support for UTF-8 and CJK locales, and wrote a few new tools for
-manipulating PO files.
+   If you find that `xgettext' fails to extract strings from portions
+of your sources, you should therefore look out for slashes and/or
+question marks preceding these sections.  You may have come across a
+bug in the `xgettext''s Perl parser (and of course you should report
+that bug).
 
 
-File: gettext.info,  Node: References,  Prev: History,  Up: Conclusion
+File: gettext.info,  Node: Default Keywords,  Next: Special Keywords,  Prev: General Problems,  Up: Perl
 
-Related Readings
-================
+Which keywords will xgettext look for?
+......................................
 
-   Eugene H. Dorr (`dorre@well.com') maintains an interesting
-bibliography on internationalization matters, called
-`Internationalization Reference List', which is available as:
-     ftp://ftp.ora.com/pub/examples/nutshell/ujip/doc/i18n-books.txt
+   Unless you instruct `xgettext' otherwise by invoking it with one of
+the options `--keyword' or `-k', it will recognize the following
+keywords in your Perl sources:
 
-   Michael Gschwind (`mike@vlsivie.tuwien.ac.at') maintains a
-Frequently Asked Questions (FAQ) list, entitled `Programming for
-Internationalisation'.  This FAQ discusses writing programs which can
-handle different language conventions, character sets, etc.; and is
-applicable to all character set encodings, with particular emphasis on
-ISO 8859-1.  It is regularly published in Usenet groups
-`comp.unix.questions', `comp.std.internat',
-`comp.software.international', `comp.lang.c', `comp.windows.x',
-`comp.std.c', `comp.answers' and `news.answers'.  The home location of
-this document is:
-     ftp://ftp.vlsivie.tuwien.ac.at/pub/8bit/ISO-programming
+   * `gettext'
 
-   Patrick D'Cruze (`pdcruze@li.org') wrote a tutorial about NLS
-matters, and Jochen Hein (`Hein@student.tu-clausthal.de') took over the
-responsibility of maintaining it.  It may be found as:
-     ftp://sunsite.unc.edu/pub/Linux/utils/nls/catalogs/Incoming/...
-          ...locale-tutorial-0.8.txt.gz
+   * `dgettext'
 
-This site is mirrored in:
-     ftp://ftp.ibp.fr/pub/linux/sunsite/
+   * `dcgettext'
 
-   A French version of the same tutorial should be findable at:
-     ftp://ftp.ibp.fr/pub/linux/french/docs/
+   * `ngettext:1,2'
 
-together with French translations of many Linux-related documents.
+     The first (singular) and the second (plural) argument will be
+     extracted.
+
+   * `dngettext:1,2'
+
+     The first (singular) and the second (plural) argument will be
+     extracted.
+
+   * `dcngettext:1,2'
+
+     The first (singular) and the second (plural) argument will be
+     extracted.
+
+   * `gettext_noop'
+
+   * `%gettext'
+
+     The keys of lookups into the hash `%gettext' will be extracted.
+
+   * `$gettext'
+
+     The keys of lookups into the hash reference `$gettext' will be
+     extracted.
+
 
 
-File: gettext.info,  Node: Language Codes,  Next: Country Codes,  Prev: Conclusion,  Up: Top
+File: gettext.info,  Node: Special Keywords,  Next: Quote-like Expressions,  Prev: Default Keywords,  Up: Perl
+
+How to Extract Hash Keys
+........................
+
+   Translating messages at runtime is normally performed by looking up
+the original string in the translation database and returning the
+translated version.  The "natural" Perl implementation is a hash
+lookup, and, of course, `xgettext' supports such practice.
+
+     print __"Hello world!";
+     print $__{"Hello world!"};
+     print $__->{"Hello world!"};
+     print $$__{"Hello world!"};
+
+   The above four lines all do the same thing.  The Perl module
+`Locale::TextDomain' exports by default a hash `%__' that is tied to
+the function `__()'.  It also exports a reference `$__' to `%__'.
+
+   If an argument to the `xgettext' option `--keyword', resp. `-k'
+starts with a percent sign, the rest of the keyword is interpreted as
+the name of a hash.  If it starts with a dollar sign, the rest of the
+keyword is interpreted as a reference to a hash.
+
+   Note that you can omit the quotation marks (single or double) around
+the hash key (almost) whenever Perl itself allows it:
+
+     print $gettext{Error};
+
+   The exact rule is: You can omit the surrounding quotes, when the hash
+key is a valid C (!) identifier, i. e. when it starts with an
+underscore or a ASCII letter and is followed by an arbitrary number of
+underscores, ASCII letters or digits.  Other Unicode characters are
+_not_ allowed, regardless of the `use utf8' pragma.
+
+
+File: gettext.info,  Node: Quote-like Expressions,  Next: Interpolation I,  Prev: Special Keywords,  Up: Perl
+
+What are Strings And Quote-like Expressions?
+............................................
+
+   Perl offers a plethora of different string constructs.  Those that
+can be used either as arguments to functions or inside braces for hash
+lookups are generally supported by `xgettext'.
+
+   * *double-quoted strings*
+          print gettext "Hello World!";
+
+   * *single-quoted strings*
+          print gettext 'Hello World!';
+
+   * *the operator qq*
+          print gettext qq |Hello World!|;
+          print gettext qq <E-mail: <guido\@imperia.net>>;
+
+     The operator `qq' is fully supported.  You can use arbitrary
+     delimiters, including the four bracketing delimiters (round, angle,
+     square, curly) that nest.
+
+   * *the operator q*
+          print gettext q |Hello World!|;
+          print gettext q <E-mail: <guido@imperia.net>>;
+
+     The operator `q' is fully supported.  You can use arbitrary
+     delimiters, including the four bracketing delimiters (round, angle,
+     square, curly) that nest.
+
+   * *the operator qx*
+          print gettext qx ;LANGUAGE=C /bin/date;
+          print gettext qx [/usr/bin/ls | grep '^[A-Z]*'];
+
+     The operator `qx' is fully supported.  You can use arbitrary
+     delimiters, including the four bracketing delimiters (round, angle,
+     square, curly) that nest.
+
+     Use this feature with care!  If you use it, you lose control of the
+     external code executed from within your Perl script to your
+     translator!
+
+   * *here documents*
+          print gettext <<'EOF';
+          program not found in $PATH
+          EOF
+          
+          print ngettext <<EOF, <<"EOF";
+          one file deleted
+          EOF
+          several files deleted
+          EOF
+
+     Here-documents are recognized.  If the delimiter is enclosed in
+     single quotes, the string is not interpolated.  If it is enclosed
+     in double quotes or has no quotes at all, the string is
+     interpolated.
+
+     Delimiters that start with a digit are not supported!
 
-Language Codes
-**************
-
-   The ISO 639 standard defines two character codes for many languages.
-All abbreviations for languages used in the Translation Project should
-come from this standard.
-
-`aa'
-     Afar.
-
-`ab'
-     Abkhazian.
-
-`ae'
-     Avestan.
-
-`af'
-     Afrikaans.
-
-`am'
-     Amharic.
-
-`ar'
-     Arabic.
-
-`as'
-     Assamese.
-
-`ay'
-     Aymara.
-
-`az'
-     Azerbaijani.
-
-`ba'
-     Bashkir.
-
-`be'
-     Byelorussian; Belarusian.
-
-`bg'
-     Bulgarian.
-
-`bh'
-     Bihari.
-
-`bi'
-     Bislama.
-
-`bn'
-     Bengali; Bangla.
-
-`bo'
-     Tibetan.
-
-`br'
-     Breton.
-
-`bs'
-     Bosnian.
-
-`ca'
-     Catalan.
-
-`ce'
-     Chechen.
-
-`ch'
-     Chamorro.
-
-`co'
-     Corsican.
-
-`cs'
-     Czech.
-
-`cu'
-     Church Slavic.
-
-`cv'
-     Chuvash.
-
-`cy'
-     Welsh.
-
-`da'
-     Danish.
-
-`de'
-     German.
-
-`dz'
-     Dzongkha; Bhutani.
-
-`el'
-     Greek.
-
-`en'
-     English.
-
-`eo'
-     Esperanto.
-
-`es'
-     Spanish.
-
-`et'
-     Estonian.
-
-`eu'
-     Basque.
-
-`fa'
-     Persian.
-
-`fi'
-     Finnish.
-
-`fj'
-     Fijian; Fiji.
-
-`fo'
-     Faroese.
-
-`fr'
-     French.
-
-`fy'
-     Frisian.
-
-`ga'
-     Irish.
-
-`gd'
-     Scots; Gaelic.
-
-`gl'
-     Gallegan; Galician.
-
-`gn'
-     Guarani.
-
-`gu'
-     Gujarati.
-
-`gv'
-     Manx.
-
-`ha'
-     Hausa (?).
-
-`he'
-     Hebrew (formerly iw).
-
-`hi'
-     Hindi.
-
-`ho'
-     Hiri Motu.
-
-`hr'
-     Croatian.
-
-`hu'
-     Hungarian.
-
-`hy'
-     Armenian.
-
-`hz'
-     Herero.
-
-`ia'
-     Interlingua.
-
-`id'
-     Indonesian (formerly in).
-
-`ie'
-     Interlingue.
-
-`ik'
-     Inupiak.
-
-`io'
-     Ido.
-
-`is'
-     Icelandic.
-
-`it'
-     Italian.
-
-`iu'
-     Inuktitut.
-
-`ja'
-     Japanese.
-
-`jv'
-     Javanese.
-
-`ka'
-     Georgian.
-
-`ki'
-     Kikuyu.
-
-`kj'
-     Kuanyama.
-
-`kk'
-     Kazakh.
-
-`kl'
-     Kalaallisut; Greenlandic.
-
-`km'
-     Khmer; Cambodian.
-
-`kn'
-     Kannada.
-
-`ko'
-     Korean.
-
-`ks'
-     Kashmiri.
-
-`ku'
-     Kurdish.
-
-`kv'
-     Komi.
-
-`kw'
-     Cornish.
-
-`ky'
-     Kirghiz.
-
-`la'
-     Latin.
-
-`lb'
-     Letzeburgesch.
-
-`ln'
-     Lingala.
-
-`lo'
-     Lao; Laotian.
-
-`lt'
-     Lithuanian.
-
-`lv'
-     Latvian; Lettish.
-
-`mg'
-     Malagasy.
-
-`mh'
-     Marshall.
-
-`mi'
-     Maori.
-
-`mk'
-     Macedonian.
-
-`ml'
-     Malayalam.
-
-`mn'
-     Mongolian.
-
-`mo'
-     Moldavian.
-
-`mr'
-     Marathi.
-
-`ms'
-     Malay.
-
-`mt'
-     Maltese.
-
-`my'
-     Burmese.
-
-`na'
-     Nauru.
-
-`nb'
-     Norwegian Bokmaal.
-
-`nd'
-     Ndebele, North.
-
-`ne'
-     Nepali.
-
-`ng'
-     Ndonga.
-
-`nl'
-     Dutch.
-
-`nn'
-     Norwegian Nynorsk.
-
-`no'
-     Norwegian.
-
-`nr'
-     Ndebele, South.
-
-`nv'
-     Navajo.
-
-`ny'
-     Chichewa; Nyanja.
-
-`oc'
-     Occitan; Provenc,al.
-
-`om'
-     (Afan) Oromo.
-
-`or'
-     Oriya.
-
-`os'
-     Ossetian; Ossetic.
-
-`pa'
-     Panjabi; Punjabi.
-
-`pi'
-     Pali.
-
-`pl'
-     Polish.
-
-`ps'
-     Pashto, Pushto.
-
-`pt'
-     Portuguese.
-
-`qu'
-     Quechua.
-
-`rm'
-     Rhaeto-Romance.
-
-`rn'
-     Rundi; Kirundi.
-
-`ro'
-     Romanian.
-
-`ru'
-     Russian.
-
-`rw'
-     Kinyarwanda.
-
-`sa'
-     Sanskrit.
-
-`sc'
-     Sardinian.
-
-`sd'
-     Sindhi.
-
-`se'
-     Northern Sami.
-
-`sg'
-     Sango; Sangro.
-
-`si'
-     Sinhalese.
-
-`sk'
-     Slovak.
-
-`sl'
-     Slovenian.
-
-`sm'
-     Samoan.
-
-`sn'
-     Shona.
-
-`so'
-     Somali.
-
-`sq'
-     Albanian.
-
-`sr'
-     Serbian.
-
-`ss'
-     Swati; Siswati.
-
-`st'
-     Sesotho; Sotho, Southern.
-
-`su'
-     Sundanese.
-
-`sv'
-     Swedish.
-
-`sw'
-     Swahili.
-
-`ta'
-     Tamil.
-
-`te'
-     Telugu.
-
-`tg'
-     Tajik.
-
-`th'
-     Thai.
-
-`ti'
-     Tigrinya.
-
-`tk'
-     Turkmen.
-
-`tl'
-     Tagalog.
-
-`tn'
-     Tswana; Setswana.
-
-`to'
-     Tonga (?).
-
-`tr'
-     Turkish.
-
-`ts'
-     Tsonga.
-
-`tt'
-     Tatar.
-
-`tw'
-     Twi.
-
-`ty'
-     Tahitian.
-
-`ug'
-     Uighur.
-
-`uk'
-     Ukrainian.
-
-`ur'
-     Urdu.
-
-`uz'
-     Uzbek.
-
-`vi'
-     Vietnamese.
-
-`vo'
-     Volapu"k; Volapuk.
-
-`wa'
-     Walloon.
-
-`wo'
-     Wolof.
-
-`xh'
-     Xhosa.
-
-`yi'
-     Yiddish (formerly ji).
-
-`yo'
-     Yoruba.
-
-`za'
-     Zhuang.
-
-`zh'
-     Chinese.
-
-`zu'
-     Zulu.
 

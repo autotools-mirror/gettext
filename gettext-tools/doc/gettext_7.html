@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 22 May 2003 -->
+     from gettext.texi on 30 November 2003 -->
 
 <TITLE>GNU gettext utilities - 7  Manipulating PO Files</TITLE>
 </HEAD>
@@ -12,7 +12,7 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_6.html">previous<
 
 <H1><A NAME="SEC65" HREF="gettext_toc.html#TOC65">7  Manipulating PO Files</A></H1>
 <P>
-<A NAME="IDX457"></A>
+<A NAME="IDX479"></A>
 
 </P>
 <P>
@@ -22,7 +22,7 @@ complete set of tools for this purpose.
 
 </P>
 <P>
-<A NAME="IDX458"></A>
+<A NAME="IDX480"></A>
 When merging two packages into a single package, the resulting POT file
 will be the concatenation of the two packages' POT files.  Thus the
 maintainer must concatenate the two existing package translations into
@@ -32,7 +32,7 @@ possible conflicts that arose during the merge.
 
 </P>
 <P>
-<A NAME="IDX459"></A>
+<A NAME="IDX481"></A>
 When a translator takes over the translation job from another translator,
 but she uses a different character encoding in her locale, she will
 convert the catalog to her character encoding.  This is best done through
@@ -48,8 +48,8 @@ that source file and use <SAMP>`msgmerge&acute;</SAMP>.
 
 </P>
 <P>
-<A NAME="IDX460"></A>
-<A NAME="IDX461"></A>
+<A NAME="IDX482"></A>
+<A NAME="IDX483"></A>
 When a translator wants to adjust some translation catalog for a special
 dialect or orthography -- for example, German as written in Switzerland
 versus German as written in Germany -- she needs to apply some text
@@ -66,14 +66,14 @@ that's why it's better to use the original POT file if available.
 
 </P>
 <P>
-<A NAME="IDX462"></A>
+<A NAME="IDX484"></A>
 When a translator wants to check her translations, for example according
 to orthography rules or using a non-interactive spell checker, she can do
 so using the <SAMP>`msgexec&acute;</SAMP> program.
 
 </P>
 <P>
-<A NAME="IDX463"></A>
+<A NAME="IDX485"></A>
 When third party tools create PO or POT files, sometimes duplicates cannot
 be avoided.  But the GNU <CODE>gettext</CODE> tools give an error when they
 encounter duplicate msgids in the same file and in the same domain.
@@ -91,7 +91,7 @@ completely translated.
 
 </P>
 <P>
-<A NAME="IDX464"></A>
+<A NAME="IDX486"></A>
 <SAMP>`msgattrib&acute;</SAMP> can be used to select and extract only the fuzzy
 or untranslated messages of a translation catalog.
 
@@ -113,16 +113,16 @@ write other specialized programs that process PO files.
 <H2><A NAME="SEC66" HREF="gettext_toc.html#TOC66">7.1  Invoking the <CODE>msgcat</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX465"></A>
-<A NAME="IDX466"></A>
+<A NAME="IDX487"></A>
+<A NAME="IDX488"></A>
 
 <PRE>
 msgcat [<VAR>option</VAR>] [<VAR>inputfile</VAR>]...
 </PRE>
 
 <P>
-<A NAME="IDX467"></A>
-<A NAME="IDX468"></A>
+<A NAME="IDX489"></A>
+<A NAME="IDX490"></A>
 The <CODE>msgcat</CODE> program concatenates and merges the specified PO files.
 It finds messages which are common to two or more of the specified PO files.
 By using the <CODE>--more-than</CODE> option, greater commonality may be requested
@@ -148,8 +148,8 @@ Input files.
 <DD>
 <DT><SAMP>`--files-from=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX469"></A>
-<A NAME="IDX470"></A>
+<A NAME="IDX491"></A>
+<A NAME="IDX492"></A>
 Read the names of the input files from <VAR>file</VAR> instead of getting
 them from the command line.
 
@@ -157,8 +157,8 @@ them from the command line.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX471"></A>
-<A NAME="IDX472"></A>
+<A NAME="IDX493"></A>
+<A NAME="IDX494"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -179,14 +179,14 @@ If <VAR>inputfile</VAR> is <SAMP>`-&acute;</SAMP>, standard input is read.
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX473"></A>
-<A NAME="IDX474"></A>
+<A NAME="IDX495"></A>
+<A NAME="IDX496"></A>
 Write output to specified file.
 
 </DL>
 
 <P>
-<A NAME="IDX475"></A>
+<A NAME="IDX497"></A>
 The results are written to standard output if no output file is specified
 or if it is <SAMP>`-&acute;</SAMP>.
 
@@ -201,8 +201,8 @@ or if it is <SAMP>`-&acute;</SAMP>.
 <DD>
 <DT><SAMP>`--less-than=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX476"></A>
-<A NAME="IDX477"></A>
+<A NAME="IDX498"></A>
+<A NAME="IDX499"></A>
 Print messages with less than <VAR>number</VAR> definitions, defaults to infinite
 if not set.
 
@@ -210,8 +210,8 @@ if not set.
 <DD>
 <DT><SAMP>`--more-than=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX478"></A>
-<A NAME="IDX479"></A>
+<A NAME="IDX500"></A>
+<A NAME="IDX501"></A>
 Print messages with more than <VAR>number</VAR> definitions, defaults to 0 if not
 set.
 
@@ -219,8 +219,8 @@ set.
 <DD>
 <DT><SAMP>`--unique&acute;</SAMP>
 <DD>
-<A NAME="IDX480"></A>
-<A NAME="IDX481"></A>
+<A NAME="IDX502"></A>
+<A NAME="IDX503"></A>
 Shorthand for <SAMP>`--less-than=2&acute;</SAMP>.  Requests that only unique messages be
 printed.
 
@@ -236,10 +236,16 @@ printed.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX482"></A>
-<A NAME="IDX483"></A>
+<A NAME="IDX504"></A>
+<A NAME="IDX505"></A>
 Assume the input files are Java ResourceBundles in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX506"></A>
+Assume the input files are NeXTstep/GNUstep localized resource files in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -253,45 +259,45 @@ syntax, not in PO file syntax.
 <DD>
 <DT><SAMP>`--to-code=<VAR>name</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX484"></A>
-<A NAME="IDX485"></A>
+<A NAME="IDX507"></A>
+<A NAME="IDX508"></A>
 Specify encoding for output.
 
 <DT><SAMP>`--use-first&acute;</SAMP>
 <DD>
-<A NAME="IDX486"></A>
+<A NAME="IDX509"></A>
 Use first available translation for each message.  Don't merge several
 translations into one.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX487"></A>
+<A NAME="IDX510"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX488"></A>
-<A NAME="IDX489"></A>
+<A NAME="IDX511"></A>
+<A NAME="IDX512"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX490"></A>
+<A NAME="IDX513"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`-n&acute;</SAMP>
 <DD>
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX491"></A>
-<A NAME="IDX492"></A>
+<A NAME="IDX514"></A>
+<A NAME="IDX515"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX493"></A>
+<A NAME="IDX516"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -300,25 +306,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX494"></A>
-<A NAME="IDX495"></A>
+<A NAME="IDX517"></A>
+<A NAME="IDX518"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX519"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX496"></A>
-<A NAME="IDX497"></A>
+<A NAME="IDX520"></A>
+<A NAME="IDX521"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX498"></A>
+<A NAME="IDX522"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -327,9 +339,9 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX499"></A>
-<A NAME="IDX500"></A>
-<A NAME="IDX501"></A>
+<A NAME="IDX523"></A>
+<A NAME="IDX524"></A>
+<A NAME="IDX525"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -337,8 +349,8 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX502"></A>
-<A NAME="IDX503"></A>
+<A NAME="IDX526"></A>
+<A NAME="IDX527"></A>
 Sort output by file location.
 
 </DL>
@@ -353,16 +365,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX504"></A>
-<A NAME="IDX505"></A>
+<A NAME="IDX528"></A>
+<A NAME="IDX529"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX506"></A>
-<A NAME="IDX507"></A>
+<A NAME="IDX530"></A>
+<A NAME="IDX531"></A>
 Output version information and exit.
 
 </DL>
@@ -372,15 +384,15 @@ Output version information and exit.
 <H2><A NAME="SEC73" HREF="gettext_toc.html#TOC73">7.2  Invoking the <CODE>msgconv</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX508"></A>
-<A NAME="IDX509"></A>
+<A NAME="IDX532"></A>
+<A NAME="IDX533"></A>
 
 <PRE>
 msgconv [<VAR>option</VAR>] [<VAR>inputfile</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX510"></A>
+<A NAME="IDX534"></A>
 The <CODE>msgconv</CODE> program converts a translation catalog to a different
 character encoding.
 
@@ -399,8 +411,8 @@ Input PO file.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX511"></A>
-<A NAME="IDX512"></A>
+<A NAME="IDX535"></A>
+<A NAME="IDX536"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -421,8 +433,8 @@ If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX513"></A>
-<A NAME="IDX514"></A>
+<A NAME="IDX537"></A>
+<A NAME="IDX538"></A>
 Write output to specified file.
 
 </DL>
@@ -442,8 +454,8 @@ or if it is <SAMP>`-&acute;</SAMP>.
 <DD>
 <DT><SAMP>`--to-code=<VAR>name</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX515"></A>
-<A NAME="IDX516"></A>
+<A NAME="IDX539"></A>
+<A NAME="IDX540"></A>
 Specify encoding for output.
 
 </DL>
@@ -462,10 +474,16 @@ The default encoding is the current locale's encoding.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX517"></A>
-<A NAME="IDX518"></A>
+<A NAME="IDX541"></A>
+<A NAME="IDX542"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX543"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -477,30 +495,30 @@ syntax, not in PO file syntax.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX519"></A>
+<A NAME="IDX544"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX520"></A>
-<A NAME="IDX521"></A>
+<A NAME="IDX545"></A>
+<A NAME="IDX546"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX522"></A>
+<A NAME="IDX547"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX523"></A>
+<A NAME="IDX548"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX524"></A>
+<A NAME="IDX549"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -509,25 +527,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX525"></A>
-<A NAME="IDX526"></A>
+<A NAME="IDX550"></A>
+<A NAME="IDX551"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX552"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX527"></A>
-<A NAME="IDX528"></A>
+<A NAME="IDX553"></A>
+<A NAME="IDX554"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX529"></A>
+<A NAME="IDX555"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -536,8 +560,8 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX530"></A>
-<A NAME="IDX531"></A>
+<A NAME="IDX556"></A>
+<A NAME="IDX557"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -545,8 +569,8 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX532"></A>
-<A NAME="IDX533"></A>
+<A NAME="IDX558"></A>
+<A NAME="IDX559"></A>
 Sort output by file location.
 
 </DL>
@@ -561,16 +585,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX534"></A>
-<A NAME="IDX535"></A>
+<A NAME="IDX560"></A>
+<A NAME="IDX561"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX536"></A>
-<A NAME="IDX537"></A>
+<A NAME="IDX562"></A>
+<A NAME="IDX563"></A>
 Output version information and exit.
 
 </DL>
@@ -580,15 +604,15 @@ Output version information and exit.
 <H2><A NAME="SEC80" HREF="gettext_toc.html#TOC80">7.3  Invoking the <CODE>msggrep</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX538"></A>
-<A NAME="IDX539"></A>
+<A NAME="IDX564"></A>
+<A NAME="IDX565"></A>
 
 <PRE>
 msggrep [<VAR>option</VAR>] [<VAR>inputfile</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX540"></A>
+<A NAME="IDX566"></A>
 The <CODE>msggrep</CODE> program extracts all messages of a translation catalog
 that match a given pattern or belong to some given source files.
 
@@ -607,8 +631,8 @@ Input PO file.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX541"></A>
-<A NAME="IDX542"></A>
+<A NAME="IDX567"></A>
+<A NAME="IDX568"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -629,8 +653,8 @@ If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX543"></A>
-<A NAME="IDX544"></A>
+<A NAME="IDX569"></A>
+<A NAME="IDX570"></A>
 Write output to specified file.
 
 </DL>
@@ -692,8 +716,8 @@ expressions if -E is given, or fixed strings if -F is given.
 <DD>
 <DT><SAMP>`--location=<VAR>sourcefile</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX545"></A>
-<A NAME="IDX546"></A>
+<A NAME="IDX571"></A>
+<A NAME="IDX572"></A>
 Select messages extracted from <VAR>sourcefile</VAR>.  <VAR>sourcefile</VAR> can be
 either a literal file name or a wildcard pattern.
 
@@ -701,72 +725,72 @@ either a literal file name or a wildcard pattern.
 <DD>
 <DT><SAMP>`--domain=<VAR>domainname</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX547"></A>
-<A NAME="IDX548"></A>
+<A NAME="IDX573"></A>
+<A NAME="IDX574"></A>
 Select messages belonging to domain <VAR>domainname</VAR>.
 
 <DT><SAMP>`-K&acute;</SAMP>
 <DD>
 <DT><SAMP>`--msgid&acute;</SAMP>
 <DD>
-<A NAME="IDX549"></A>
-<A NAME="IDX550"></A>
+<A NAME="IDX575"></A>
+<A NAME="IDX576"></A>
 Start of patterns for the msgid.
 
 <DT><SAMP>`-T&acute;</SAMP>
 <DD>
 <DT><SAMP>`--msgstr&acute;</SAMP>
 <DD>
-<A NAME="IDX551"></A>
-<A NAME="IDX552"></A>
+<A NAME="IDX577"></A>
+<A NAME="IDX578"></A>
 Start of patterns for the msgstr.
 
 <DT><SAMP>`-C&acute;</SAMP>
 <DD>
 <DT><SAMP>`--comment&acute;</SAMP>
 <DD>
-<A NAME="IDX553"></A>
-<A NAME="IDX554"></A>
+<A NAME="IDX579"></A>
+<A NAME="IDX580"></A>
 Start of patterns for the translator's comment.
 
 <DT><SAMP>`-E&acute;</SAMP>
 <DD>
 <DT><SAMP>`--extended-regexp&acute;</SAMP>
 <DD>
-<A NAME="IDX555"></A>
-<A NAME="IDX556"></A>
+<A NAME="IDX581"></A>
+<A NAME="IDX582"></A>
 Specify that <VAR>pattern</VAR> is an extended regular expression.
 
 <DT><SAMP>`-F&acute;</SAMP>
 <DD>
 <DT><SAMP>`--fixed-strings&acute;</SAMP>
 <DD>
-<A NAME="IDX557"></A>
-<A NAME="IDX558"></A>
+<A NAME="IDX583"></A>
+<A NAME="IDX584"></A>
 Specify that <VAR>pattern</VAR> is a set of newline-separated strings.
 
 <DT><SAMP>`-e <VAR>pattern</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--regexp=<VAR>pattern</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX559"></A>
-<A NAME="IDX560"></A>
+<A NAME="IDX585"></A>
+<A NAME="IDX586"></A>
 Use <VAR>pattern</VAR> as a regular expression.
 
 <DT><SAMP>`-f <VAR>file</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX561"></A>
-<A NAME="IDX562"></A>
+<A NAME="IDX587"></A>
+<A NAME="IDX588"></A>
 Obtain <VAR>pattern</VAR> from <VAR>file</VAR>.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--ignore-case&acute;</SAMP>
 <DD>
-<A NAME="IDX563"></A>
-<A NAME="IDX564"></A>
+<A NAME="IDX589"></A>
+<A NAME="IDX590"></A>
 Ignore case distinctions.
 
 </DL>
@@ -781,10 +805,16 @@ Ignore case distinctions.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX565"></A>
-<A NAME="IDX566"></A>
+<A NAME="IDX591"></A>
+<A NAME="IDX592"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX593"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -796,27 +826,27 @@ syntax, not in PO file syntax.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX567"></A>
+<A NAME="IDX594"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX568"></A>
+<A NAME="IDX595"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX569"></A>
+<A NAME="IDX596"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX570"></A>
+<A NAME="IDX597"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX571"></A>
+<A NAME="IDX598"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -825,38 +855,44 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX572"></A>
-<A NAME="IDX573"></A>
+<A NAME="IDX599"></A>
+<A NAME="IDX600"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX601"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX574"></A>
-<A NAME="IDX575"></A>
+<A NAME="IDX602"></A>
+<A NAME="IDX603"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX576"></A>
+<A NAME="IDX604"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
 
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX577"></A>
+<A NAME="IDX605"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX578"></A>
+<A NAME="IDX606"></A>
 Sort output by file location.
 
 </DL>
@@ -871,16 +907,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX579"></A>
-<A NAME="IDX580"></A>
+<A NAME="IDX607"></A>
+<A NAME="IDX608"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX581"></A>
-<A NAME="IDX582"></A>
+<A NAME="IDX609"></A>
+<A NAME="IDX610"></A>
 Output version information and exit.
 
 </DL>
@@ -890,15 +926,15 @@ Output version information and exit.
 <H2><A NAME="SEC87" HREF="gettext_toc.html#TOC87">7.4  Invoking the <CODE>msgfilter</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX583"></A>
-<A NAME="IDX584"></A>
+<A NAME="IDX611"></A>
+<A NAME="IDX612"></A>
 
 <PRE>
 msgfilter [<VAR>option</VAR>] <VAR>filter</VAR> [<VAR>filter-option</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX585"></A>
+<A NAME="IDX613"></A>
 The <CODE>msgfilter</CODE> program applies a filter to all translations of a
 translation catalog.
 
@@ -913,16 +949,16 @@ translation catalog.
 <DD>
 <DT><SAMP>`--input=<VAR>inputfile</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX586"></A>
-<A NAME="IDX587"></A>
+<A NAME="IDX614"></A>
+<A NAME="IDX615"></A>
 Input PO file.
 
 <DT><SAMP>`-D <VAR>directory</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX588"></A>
-<A NAME="IDX589"></A>
+<A NAME="IDX616"></A>
+<A NAME="IDX617"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -943,8 +979,8 @@ If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX590"></A>
-<A NAME="IDX591"></A>
+<A NAME="IDX618"></A>
+<A NAME="IDX619"></A>
 Write output to specified file.
 
 </DL>
@@ -965,7 +1001,7 @@ used filter is <SAMP>`sed&acute;</SAMP>.
 
 </P>
 <P>
-<A NAME="IDX592"></A>
+<A NAME="IDX620"></A>
 Note: It is your responsibility to ensure that the <VAR>filter</VAR> can cope
 with input encoded in the translation catalog's encoding.  If the
 <VAR>filter</VAR> wants input in a particular encoding, you can in a first step
@@ -978,7 +1014,7 @@ locale, by using the <CODE>LC_ALL</CODE> environment variable.
 
 </P>
 <P>
-<A NAME="IDX593"></A>
+<A NAME="IDX621"></A>
 Note: Most translations in a translation catalog don't end with a newline
 character.  For this reason, it is important that the <VAR>filter</VAR>
 recognizes its last input line even if it ends without a newline, and that
@@ -998,16 +1034,16 @@ does not have this limitation.
 <DD>
 <DT><SAMP>`--expression=<VAR>script</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX594"></A>
-<A NAME="IDX595"></A>
+<A NAME="IDX622"></A>
+<A NAME="IDX623"></A>
 Add <VAR>script</VAR> to the commands to be executed.
 
 <DT><SAMP>`-f <VAR>scriptfile</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--file=<VAR>scriptfile</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX596"></A>
-<A NAME="IDX597"></A>
+<A NAME="IDX624"></A>
+<A NAME="IDX625"></A>
 Add the contents of <VAR>scriptfile</VAR> to the commands to be executed.
 
 <DT><SAMP>`-n&acute;</SAMP>
@@ -1016,9 +1052,9 @@ Add the contents of <VAR>scriptfile</VAR> to the commands to be executed.
 <DD>
 <DT><SAMP>`--silent&acute;</SAMP>
 <DD>
-<A NAME="IDX598"></A>
-<A NAME="IDX599"></A>
-<A NAME="IDX600"></A>
+<A NAME="IDX626"></A>
+<A NAME="IDX627"></A>
+<A NAME="IDX628"></A>
 Suppress automatic printing of pattern space.
 
 </DL>
@@ -1033,10 +1069,16 @@ Suppress automatic printing of pattern space.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX601"></A>
-<A NAME="IDX602"></A>
+<A NAME="IDX629"></A>
+<A NAME="IDX630"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX631"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -1048,34 +1090,34 @@ syntax, not in PO file syntax.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX603"></A>
+<A NAME="IDX632"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX604"></A>
+<A NAME="IDX633"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--keep-header&acute;</SAMP>
 <DD>
-<A NAME="IDX605"></A>
+<A NAME="IDX634"></A>
 Keep the header entry, i.e. the message with <SAMP>`msgid ""&acute;</SAMP>, unmodified,
 instead of filtering it.  By default, the header entry is subject to
 filtering like any other message.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX606"></A>
+<A NAME="IDX635"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX607"></A>
+<A NAME="IDX636"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX608"></A>
+<A NAME="IDX637"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -1084,25 +1126,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX609"></A>
-<A NAME="IDX610"></A>
+<A NAME="IDX638"></A>
+<A NAME="IDX639"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX640"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX611"></A>
-<A NAME="IDX612"></A>
+<A NAME="IDX641"></A>
+<A NAME="IDX642"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX613"></A>
+<A NAME="IDX643"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -1111,8 +1159,8 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX614"></A>
-<A NAME="IDX615"></A>
+<A NAME="IDX644"></A>
+<A NAME="IDX645"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -1120,8 +1168,8 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX616"></A>
-<A NAME="IDX617"></A>
+<A NAME="IDX646"></A>
+<A NAME="IDX647"></A>
 Sort output by file location.
 
 </DL>
@@ -1136,16 +1184,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX618"></A>
-<A NAME="IDX619"></A>
+<A NAME="IDX648"></A>
+<A NAME="IDX649"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX620"></A>
-<A NAME="IDX621"></A>
+<A NAME="IDX650"></A>
+<A NAME="IDX651"></A>
 Output version information and exit.
 
 </DL>
@@ -1155,16 +1203,16 @@ Output version information and exit.
 <H2><A NAME="SEC95" HREF="gettext_toc.html#TOC95">7.5  Invoking the <CODE>msguniq</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX622"></A>
-<A NAME="IDX623"></A>
+<A NAME="IDX652"></A>
+<A NAME="IDX653"></A>
 
 <PRE>
 msguniq [<VAR>option</VAR>] [<VAR>inputfile</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX624"></A>
-<A NAME="IDX625"></A>
+<A NAME="IDX654"></A>
+<A NAME="IDX655"></A>
 The <CODE>msguniq</CODE> program unifies duplicate translations in a translation
 catalog.  It finds duplicate translations of the same message ID.  Such
 duplicates are invalid input for other programs like <CODE>msgfmt</CODE>,
@@ -1191,8 +1239,8 @@ Input PO file.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX626"></A>
-<A NAME="IDX627"></A>
+<A NAME="IDX656"></A>
+<A NAME="IDX657"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -1213,8 +1261,8 @@ If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX628"></A>
-<A NAME="IDX629"></A>
+<A NAME="IDX658"></A>
+<A NAME="IDX659"></A>
 Write output to specified file.
 
 </DL>
@@ -1234,16 +1282,16 @@ or if it is <SAMP>`-&acute;</SAMP>.
 <DD>
 <DT><SAMP>`--repeated&acute;</SAMP>
 <DD>
-<A NAME="IDX630"></A>
-<A NAME="IDX631"></A>
+<A NAME="IDX660"></A>
+<A NAME="IDX661"></A>
 Print only duplicates.
 
 <DT><SAMP>`-u&acute;</SAMP>
 <DD>
 <DT><SAMP>`--unique&acute;</SAMP>
 <DD>
-<A NAME="IDX632"></A>
-<A NAME="IDX633"></A>
+<A NAME="IDX662"></A>
+<A NAME="IDX663"></A>
 Print only unique messages, discard duplicates.
 
 </DL>
@@ -1258,10 +1306,16 @@ Print only unique messages, discard duplicates.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX634"></A>
-<A NAME="IDX635"></A>
+<A NAME="IDX664"></A>
+<A NAME="IDX665"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX666"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -1275,45 +1329,45 @@ syntax, not in PO file syntax.
 <DD>
 <DT><SAMP>`--to-code=<VAR>name</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX636"></A>
-<A NAME="IDX637"></A>
+<A NAME="IDX667"></A>
+<A NAME="IDX668"></A>
 Specify encoding for output.
 
 <DT><SAMP>`--use-first&acute;</SAMP>
 <DD>
-<A NAME="IDX638"></A>
+<A NAME="IDX669"></A>
 Use first available translation for each message.  Don't merge several
 translations into one.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX639"></A>
+<A NAME="IDX670"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX640"></A>
-<A NAME="IDX641"></A>
+<A NAME="IDX671"></A>
+<A NAME="IDX672"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX642"></A>
+<A NAME="IDX673"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`-n&acute;</SAMP>
 <DD>
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX643"></A>
-<A NAME="IDX644"></A>
+<A NAME="IDX674"></A>
+<A NAME="IDX675"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX645"></A>
+<A NAME="IDX676"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -1322,25 +1376,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX646"></A>
-<A NAME="IDX647"></A>
+<A NAME="IDX677"></A>
+<A NAME="IDX678"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX679"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX648"></A>
-<A NAME="IDX649"></A>
+<A NAME="IDX680"></A>
+<A NAME="IDX681"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX650"></A>
+<A NAME="IDX682"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -1349,8 +1409,8 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX651"></A>
-<A NAME="IDX652"></A>
+<A NAME="IDX683"></A>
+<A NAME="IDX684"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -1358,8 +1418,8 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX653"></A>
-<A NAME="IDX654"></A>
+<A NAME="IDX685"></A>
+<A NAME="IDX686"></A>
 Sort output by file location.
 
 </DL>
@@ -1374,16 +1434,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX655"></A>
-<A NAME="IDX656"></A>
+<A NAME="IDX687"></A>
+<A NAME="IDX688"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX657"></A>
-<A NAME="IDX658"></A>
+<A NAME="IDX689"></A>
+<A NAME="IDX690"></A>
 Output version information and exit.
 
 </DL>
@@ -1393,15 +1453,15 @@ Output version information and exit.
 <H2><A NAME="SEC102" HREF="gettext_toc.html#TOC102">7.6  Invoking the <CODE>msgcomm</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX659"></A>
-<A NAME="IDX660"></A>
+<A NAME="IDX691"></A>
+<A NAME="IDX692"></A>
 
 <PRE>
 msgcomm [<VAR>option</VAR>] [<VAR>inputfile</VAR>]...
 </PRE>
 
 <P>
-<A NAME="IDX661"></A>
+<A NAME="IDX693"></A>
 The <CODE>msgcomm</CODE> program finds messages which are common to two or more
 of the specified PO files.
 By using the <CODE>--more-than</CODE> option, greater commonality may be requested
@@ -1427,8 +1487,8 @@ Input files.
 <DD>
 <DT><SAMP>`--files-from=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX662"></A>
-<A NAME="IDX663"></A>
+<A NAME="IDX694"></A>
+<A NAME="IDX695"></A>
 Read the names of the input files from <VAR>file</VAR> instead of getting
 them from the command line.
 
@@ -1436,8 +1496,8 @@ them from the command line.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX664"></A>
-<A NAME="IDX665"></A>
+<A NAME="IDX696"></A>
+<A NAME="IDX697"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -1458,8 +1518,8 @@ If <VAR>inputfile</VAR> is <SAMP>`-&acute;</SAMP>, standard input is read.
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX666"></A>
-<A NAME="IDX667"></A>
+<A NAME="IDX698"></A>
+<A NAME="IDX699"></A>
 Write output to specified file.
 
 </DL>
@@ -1479,8 +1539,8 @@ or if it is <SAMP>`-&acute;</SAMP>.
 <DD>
 <DT><SAMP>`--less-than=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX668"></A>
-<A NAME="IDX669"></A>
+<A NAME="IDX700"></A>
+<A NAME="IDX701"></A>
 Print messages with less than <VAR>number</VAR> definitions, defaults to infinite
 if not set.
 
@@ -1488,8 +1548,8 @@ if not set.
 <DD>
 <DT><SAMP>`--more-than=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX670"></A>
-<A NAME="IDX671"></A>
+<A NAME="IDX702"></A>
+<A NAME="IDX703"></A>
 Print messages with more than <VAR>number</VAR> definitions, defaults to 1 if not
 set.
 
@@ -1497,8 +1557,8 @@ set.
 <DD>
 <DT><SAMP>`--unique&acute;</SAMP>
 <DD>
-<A NAME="IDX672"></A>
-<A NAME="IDX673"></A>
+<A NAME="IDX704"></A>
+<A NAME="IDX705"></A>
 Shorthand for <SAMP>`--less-than=2&acute;</SAMP>.  Requests that only unique messages be
 printed.
 
@@ -1514,10 +1574,16 @@ printed.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX674"></A>
-<A NAME="IDX675"></A>
+<A NAME="IDX706"></A>
+<A NAME="IDX707"></A>
 Assume the input files are Java ResourceBundles in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX708"></A>
+Assume the input files are NeXTstep/GNUstep localized resource files in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -1529,33 +1595,33 @@ syntax, not in PO file syntax.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX676"></A>
+<A NAME="IDX709"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX677"></A>
-<A NAME="IDX678"></A>
+<A NAME="IDX710"></A>
+<A NAME="IDX711"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX679"></A>
+<A NAME="IDX712"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`-n&acute;</SAMP>
 <DD>
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX680"></A>
-<A NAME="IDX681"></A>
+<A NAME="IDX713"></A>
+<A NAME="IDX714"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX682"></A>
+<A NAME="IDX715"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -1564,25 +1630,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX683"></A>
-<A NAME="IDX684"></A>
+<A NAME="IDX716"></A>
+<A NAME="IDX717"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX718"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX685"></A>
-<A NAME="IDX686"></A>
+<A NAME="IDX719"></A>
+<A NAME="IDX720"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX687"></A>
+<A NAME="IDX721"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -1591,8 +1663,8 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX688"></A>
-<A NAME="IDX689"></A>
+<A NAME="IDX722"></A>
+<A NAME="IDX723"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -1600,13 +1672,13 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX690"></A>
-<A NAME="IDX691"></A>
+<A NAME="IDX724"></A>
+<A NAME="IDX725"></A>
 Sort output by file location.
 
 <DT><SAMP>`--omit-header&acute;</SAMP>
 <DD>
-<A NAME="IDX692"></A>
+<A NAME="IDX726"></A>
 Don't write header with <SAMP>`msgid ""&acute;</SAMP> entry.
 
 </DL>
@@ -1621,16 +1693,16 @@ Don't write header with <SAMP>`msgid ""&acute;</SAMP> entry.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX693"></A>
-<A NAME="IDX694"></A>
+<A NAME="IDX727"></A>
+<A NAME="IDX728"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX695"></A>
-<A NAME="IDX696"></A>
+<A NAME="IDX729"></A>
+<A NAME="IDX730"></A>
 Output version information and exit.
 
 </DL>
@@ -1640,15 +1712,15 @@ Output version information and exit.
 <H2><A NAME="SEC109" HREF="gettext_toc.html#TOC109">7.7  Invoking the <CODE>msgcmp</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX697"></A>
-<A NAME="IDX698"></A>
+<A NAME="IDX731"></A>
+<A NAME="IDX732"></A>
 
 <PRE>
 msgcmp [<VAR>option</VAR>] <VAR>def</VAR>.po <VAR>ref</VAR>.pot
 </PRE>
 
 <P>
-<A NAME="IDX699"></A>
+<A NAME="IDX733"></A>
 The <CODE>msgcmp</CODE> program compares two Uniforum style .po files to check that
 both contain the same set of msgid strings.  The <VAR>def</VAR>.po file is an
 existing PO file with the translations.  The <VAR>ref</VAR>.pot file is the last
@@ -1676,8 +1748,8 @@ References to the sources.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX700"></A>
-<A NAME="IDX701"></A>
+<A NAME="IDX734"></A>
+<A NAME="IDX735"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.
 
@@ -1693,8 +1765,8 @@ searched relative to this list of directories.
 <DD>
 <DT><SAMP>`--multi-domain&acute;</SAMP>
 <DD>
-<A NAME="IDX702"></A>
-<A NAME="IDX703"></A>
+<A NAME="IDX736"></A>
+<A NAME="IDX737"></A>
 Apply <VAR>ref</VAR>.pot to each of the domains in <VAR>def</VAR>.po.
 
 </DL>
@@ -1709,10 +1781,16 @@ Apply <VAR>ref</VAR>.pot to each of the domains in <VAR>def</VAR>.po.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX704"></A>
-<A NAME="IDX705"></A>
+<A NAME="IDX738"></A>
+<A NAME="IDX739"></A>
 Assume the input files are Java ResourceBundles in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX740"></A>
+Assume the input files are NeXTstep/GNUstep localized resource files in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -1726,16 +1804,16 @@ syntax, not in PO file syntax.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX706"></A>
-<A NAME="IDX707"></A>
+<A NAME="IDX741"></A>
+<A NAME="IDX742"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX708"></A>
-<A NAME="IDX709"></A>
+<A NAME="IDX743"></A>
+<A NAME="IDX744"></A>
 Output version information and exit.
 
 </DL>
@@ -1745,16 +1823,16 @@ Output version information and exit.
 <H2><A NAME="SEC114" HREF="gettext_toc.html#TOC114">7.8  Invoking the <CODE>msgattrib</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX710"></A>
-<A NAME="IDX711"></A>
+<A NAME="IDX745"></A>
+<A NAME="IDX746"></A>
 
 <PRE>
 msgattrib [<VAR>option</VAR>] [<VAR>inputfile</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX712"></A>
-<A NAME="IDX713"></A>
+<A NAME="IDX747"></A>
+<A NAME="IDX748"></A>
 The <CODE>msgattrib</CODE> program filters the messages of a translation catalog
 according to their attributes, and manipulates the attributes.
 
@@ -1773,8 +1851,8 @@ Input PO file.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX714"></A>
-<A NAME="IDX715"></A>
+<A NAME="IDX749"></A>
+<A NAME="IDX750"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -1795,8 +1873,8 @@ If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX716"></A>
-<A NAME="IDX717"></A>
+<A NAME="IDX751"></A>
+<A NAME="IDX752"></A>
 Write output to specified file.
 
 </DL>
@@ -1814,32 +1892,32 @@ or if it is <SAMP>`-&acute;</SAMP>.
 
 <DT><SAMP>`--translated&acute;</SAMP>
 <DD>
-<A NAME="IDX718"></A>
+<A NAME="IDX753"></A>
 Keep translated messages, remove untranslated messages.
 
 <DT><SAMP>`--untranslated&acute;</SAMP>
 <DD>
-<A NAME="IDX719"></A>
+<A NAME="IDX754"></A>
 Keep untranslated messages, remove translated messages.
 
 <DT><SAMP>`--no-fuzzy&acute;</SAMP>
 <DD>
-<A NAME="IDX720"></A>
+<A NAME="IDX755"></A>
 Remove `fuzzy' marked messages.
 
 <DT><SAMP>`--only-fuzzy&acute;</SAMP>
 <DD>
-<A NAME="IDX721"></A>
+<A NAME="IDX756"></A>
 Keep `fuzzy' marked messages, remove all other messsages.
 
 <DT><SAMP>`--no-obsolete&acute;</SAMP>
 <DD>
-<A NAME="IDX722"></A>
+<A NAME="IDX757"></A>
 Remove obsolete #~ messages.
 
 <DT><SAMP>`--only-obsolete&acute;</SAMP>
 <DD>
-<A NAME="IDX723"></A>
+<A NAME="IDX758"></A>
 Keep obsolete #~ messages, remove all other messages.
 
 </DL>
@@ -1849,7 +1927,7 @@ Keep obsolete #~ messages, remove all other messages.
 <H3><A NAME="SEC118" HREF="gettext_toc.html#TOC118">7.8.4  Attribute manipulation</A></H3>
 
 <P>
-<A NAME="IDX724"></A>
+<A NAME="IDX759"></A>
 Attributes are modified after the message selection/removal has been
 performed.  If the <SAMP>`--only-file&acute;</SAMP> or <SAMP>`--ignore-file&acute;</SAMP> option is
 specified, the attribute modification is applied only to those messages
@@ -1861,45 +1939,45 @@ that are listed in the <VAR>only-file</VAR> and not listed in the
 
 <DT><SAMP>`--set-fuzzy&acute;</SAMP>
 <DD>
-<A NAME="IDX725"></A>
+<A NAME="IDX760"></A>
 Set all messages `fuzzy'.
 
 <DT><SAMP>`--clear-fuzzy&acute;</SAMP>
 <DD>
-<A NAME="IDX726"></A>
+<A NAME="IDX761"></A>
 Set all messages non-`fuzzy'.
 
 <DT><SAMP>`--set-obsolete&acute;</SAMP>
 <DD>
-<A NAME="IDX727"></A>
+<A NAME="IDX762"></A>
 Set all messages obsolete.
 
 <DT><SAMP>`--clear-obsolete&acute;</SAMP>
 <DD>
-<A NAME="IDX728"></A>
+<A NAME="IDX763"></A>
 Set all messages non-obsolete.
 
 <DT><SAMP>`--only-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX729"></A>
+<A NAME="IDX764"></A>
 Limit the attribute changes to entries that are listed in <VAR>file</VAR>.
 <VAR>file</VAR> should be a PO or POT file.
 
 <DT><SAMP>`--ignore-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX730"></A>
+<A NAME="IDX765"></A>
 Limit the attribute changes to entries that are not listed in <VAR>file</VAR>.
 <VAR>file</VAR> should be a PO or POT file.
 
 <DT><SAMP>`--fuzzy&acute;</SAMP>
 <DD>
-<A NAME="IDX731"></A>
+<A NAME="IDX766"></A>
 Synonym for <SAMP>`--only-fuzzy --clear-fuzzy&acute;</SAMP>: It keeps only the fuzzy
 messages and removes their `fuzzy' mark.
 
 <DT><SAMP>`--obsolete&acute;</SAMP>
 <DD>
-<A NAME="IDX732"></A>
+<A NAME="IDX767"></A>
 Synonym for <SAMP>`--only-obsolete --clear-obsolete&acute;</SAMP>: It keeps only the
 obsolete messages and makes them non-obsolete.
 
@@ -1915,10 +1993,16 @@ obsolete messages and makes them non-obsolete.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX733"></A>
-<A NAME="IDX734"></A>
+<A NAME="IDX768"></A>
+<A NAME="IDX769"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX770"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -1930,33 +2014,33 @@ syntax, not in PO file syntax.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX735"></A>
+<A NAME="IDX771"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX736"></A>
-<A NAME="IDX737"></A>
+<A NAME="IDX772"></A>
+<A NAME="IDX773"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX738"></A>
+<A NAME="IDX774"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`-n&acute;</SAMP>
 <DD>
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX739"></A>
-<A NAME="IDX740"></A>
+<A NAME="IDX775"></A>
+<A NAME="IDX776"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX741"></A>
+<A NAME="IDX777"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -1965,25 +2049,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX742"></A>
-<A NAME="IDX743"></A>
+<A NAME="IDX778"></A>
+<A NAME="IDX779"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX780"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX744"></A>
-<A NAME="IDX745"></A>
+<A NAME="IDX781"></A>
+<A NAME="IDX782"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX746"></A>
+<A NAME="IDX783"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -1992,8 +2082,8 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX747"></A>
-<A NAME="IDX748"></A>
+<A NAME="IDX784"></A>
+<A NAME="IDX785"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -2001,8 +2091,8 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX749"></A>
-<A NAME="IDX750"></A>
+<A NAME="IDX786"></A>
+<A NAME="IDX787"></A>
 Sort output by file location.
 
 </DL>
@@ -2017,16 +2107,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX751"></A>
-<A NAME="IDX752"></A>
+<A NAME="IDX788"></A>
+<A NAME="IDX789"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX753"></A>
-<A NAME="IDX754"></A>
+<A NAME="IDX790"></A>
+<A NAME="IDX791"></A>
 Output version information and exit.
 
 </DL>
@@ -2036,15 +2126,15 @@ Output version information and exit.
 <H2><A NAME="SEC122" HREF="gettext_toc.html#TOC122">7.9  Invoking the <CODE>msgen</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX755"></A>
-<A NAME="IDX756"></A>
+<A NAME="IDX792"></A>
+<A NAME="IDX793"></A>
 
 <PRE>
 msgen [<VAR>option</VAR>] <VAR>inputfile</VAR>
 </PRE>
 
 <P>
-<A NAME="IDX757"></A>
+<A NAME="IDX794"></A>
 The <CODE>msgen</CODE> program creates an English translation catalog.  The
 input file is the last created English PO file, or a PO Template file
 (generally created by xgettext).  Untranslated entries are assigned a
@@ -2071,8 +2161,8 @@ Input PO or POT file.
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX758"></A>
-<A NAME="IDX759"></A>
+<A NAME="IDX795"></A>
+<A NAME="IDX796"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -2093,8 +2183,8 @@ If <VAR>inputfile</VAR> is <SAMP>`-&acute;</SAMP>, standard input is read.
 <DD>
 <DT><SAMP>`--output-file=<VAR>file</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX760"></A>
-<A NAME="IDX761"></A>
+<A NAME="IDX797"></A>
+<A NAME="IDX798"></A>
 Write output to specified file.
 
 </DL>
@@ -2114,10 +2204,16 @@ or if it is <SAMP>`-&acute;</SAMP>.
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX762"></A>
-<A NAME="IDX763"></A>
+<A NAME="IDX799"></A>
+<A NAME="IDX800"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX801"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -2129,30 +2225,30 @@ syntax, not in PO file syntax.
 
 <DT><SAMP>`--force-po&acute;</SAMP>
 <DD>
-<A NAME="IDX764"></A>
+<A NAME="IDX802"></A>
 Always write an output file even if it contains no message.
 
 <DT><SAMP>`-i&acute;</SAMP>
 <DD>
 <DT><SAMP>`--indent&acute;</SAMP>
 <DD>
-<A NAME="IDX765"></A>
-<A NAME="IDX766"></A>
+<A NAME="IDX803"></A>
+<A NAME="IDX804"></A>
 Write the .po file using indented style.
 
 <DT><SAMP>`--no-location&acute;</SAMP>
 <DD>
-<A NAME="IDX767"></A>
+<A NAME="IDX805"></A>
 Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines.
 
 <DT><SAMP>`--add-location&acute;</SAMP>
 <DD>
-<A NAME="IDX768"></A>
+<A NAME="IDX806"></A>
 Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>&acute;</SAMP> lines (default).
 
 <DT><SAMP>`--strict&acute;</SAMP>
 <DD>
-<A NAME="IDX769"></A>
+<A NAME="IDX807"></A>
 Write out a strict Uniforum conforming PO file.  Note that this
 Uniforum format should be avoided because it doesn't support the
 GNU extensions.
@@ -2161,25 +2257,31 @@ GNU extensions.
 <DD>
 <DT><SAMP>`--properties-output&acute;</SAMP>
 <DD>
-<A NAME="IDX770"></A>
-<A NAME="IDX771"></A>
+<A NAME="IDX808"></A>
+<A NAME="IDX809"></A>
 Write out a Java ResourceBundle in Java <CODE>.properties</CODE> syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+<DT><SAMP>`--stringtable-output&acute;</SAMP>
+<DD>
+<A NAME="IDX810"></A>
+Write out a NeXTstep/GNUstep localized resource file in <CODE>.strings</CODE> syntax.
+Note that this file format doesn't support plural forms.
 
 <DT><SAMP>`-w <VAR>number</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--width=<VAR>number</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX772"></A>
-<A NAME="IDX773"></A>
+<A NAME="IDX811"></A>
+<A NAME="IDX812"></A>
 Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given <VAR>number</VAR>.
 
 <DT><SAMP>`--no-wrap&acute;</SAMP>
 <DD>
-<A NAME="IDX774"></A>
+<A NAME="IDX813"></A>
 Do not break long message lines.  Message lines whose width exceeds the
 output page width will not be split into several lines.  Only file reference
 lines which are wider than the output page width will be split.
@@ -2188,8 +2290,8 @@ lines which are wider than the output page width will be split.
 <DD>
 <DT><SAMP>`--sort-output&acute;</SAMP>
 <DD>
-<A NAME="IDX775"></A>
-<A NAME="IDX776"></A>
+<A NAME="IDX814"></A>
+<A NAME="IDX815"></A>
 Generate sorted output.  Note that using this option makes it much harder
 for the translator to understand each message's context.
 
@@ -2197,8 +2299,8 @@ for the translator to understand each message's context.
 <DD>
 <DT><SAMP>`--sort-by-file&acute;</SAMP>
 <DD>
-<A NAME="IDX777"></A>
-<A NAME="IDX778"></A>
+<A NAME="IDX816"></A>
+<A NAME="IDX817"></A>
 Sort output by file location.
 
 </DL>
@@ -2213,16 +2315,16 @@ Sort output by file location.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX779"></A>
-<A NAME="IDX780"></A>
+<A NAME="IDX818"></A>
+<A NAME="IDX819"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX781"></A>
-<A NAME="IDX782"></A>
+<A NAME="IDX820"></A>
+<A NAME="IDX821"></A>
 Output version information and exit.
 
 </DL>
@@ -2232,15 +2334,15 @@ Output version information and exit.
 <H2><A NAME="SEC128" HREF="gettext_toc.html#TOC128">7.10  Invoking the <CODE>msgexec</CODE> Program</A></H2>
 
 <P>
-<A NAME="IDX783"></A>
-<A NAME="IDX784"></A>
+<A NAME="IDX822"></A>
+<A NAME="IDX823"></A>
 
 <PRE>
 msgexec [<VAR>option</VAR>] <VAR>command</VAR> [<VAR>command-option</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX785"></A>
+<A NAME="IDX824"></A>
 The <CODE>msgexec</CODE> program applies a command to all translations of a
 translation catalog.
 The <VAR>command</VAR> can be any program that reads a translation from standard
@@ -2250,15 +2352,15 @@ across all invocations.
 
 </P>
 <P>
-<A NAME="IDX786"></A>
+<A NAME="IDX825"></A>
 A special builtin command called <SAMP>`0&acute;</SAMP> outputs the translation, followed
 by a null byte.  The output of <SAMP>`msgexec 0&acute;</SAMP> is suitable as input for
 <SAMP>`xargs -0&acute;</SAMP>.
 
 </P>
 <P>
-<A NAME="IDX787"></A>
-<A NAME="IDX788"></A>
+<A NAME="IDX826"></A>
+<A NAME="IDX827"></A>
 During each <VAR>command</VAR> invocation, the environment variable
 <CODE>MSGEXEC_MSGID</CODE> is bound to the message's msgid, and the environment
 variable <CODE>MSGEXEC_LOCATION</CODE> is bound to the location in the PO file
@@ -2266,7 +2368,7 @@ of the message.
 
 </P>
 <P>
-<A NAME="IDX789"></A>
+<A NAME="IDX828"></A>
 Note: It is your responsibility to ensure that the <VAR>command</VAR> can cope
 with input encoded in the translation catalog's encoding.  If the
 <VAR>command</VAR> wants input in a particular encoding, you can in a first step
@@ -2288,16 +2390,16 @@ locale, by using the <CODE>LC_ALL</CODE> environment variable.
 <DD>
 <DT><SAMP>`--input=<VAR>inputfile</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX790"></A>
-<A NAME="IDX791"></A>
+<A NAME="IDX829"></A>
+<A NAME="IDX830"></A>
 Input PO file.
 
 <DT><SAMP>`-D <VAR>directory</VAR>&acute;</SAMP>
 <DD>
 <DT><SAMP>`--directory=<VAR>directory</VAR>&acute;</SAMP>
 <DD>
-<A NAME="IDX792"></A>
-<A NAME="IDX793"></A>
+<A NAME="IDX831"></A>
+<A NAME="IDX832"></A>
 Add <VAR>directory</VAR> to the list of directories.  Source files are
 searched relative to this list of directories.  The resulting <TT>`.po&acute;</TT>
 file will be written relative to the current directory, though.
@@ -2318,10 +2420,16 @@ If no <VAR>inputfile</VAR> is given or if it is <SAMP>`-&acute;</SAMP>, standard
 <DD>
 <DT><SAMP>`--properties-input&acute;</SAMP>
 <DD>
-<A NAME="IDX794"></A>
-<A NAME="IDX795"></A>
+<A NAME="IDX833"></A>
+<A NAME="IDX834"></A>
 Assume the input file is a Java ResourceBundle in Java <CODE>.properties</CODE>
 syntax, not in PO file syntax.
+
+<DT><SAMP>`--stringtable-input&acute;</SAMP>
+<DD>
+<A NAME="IDX835"></A>
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+<CODE>.strings</CODE> syntax, not in PO file syntax.
 
 </DL>
 
@@ -2335,16 +2443,16 @@ syntax, not in PO file syntax.
 <DD>
 <DT><SAMP>`--help&acute;</SAMP>
 <DD>
-<A NAME="IDX796"></A>
-<A NAME="IDX797"></A>
+<A NAME="IDX836"></A>
+<A NAME="IDX837"></A>
 Display this help and exit.
 
 <DT><SAMP>`-V&acute;</SAMP>
 <DD>
 <DT><SAMP>`--version&acute;</SAMP>
 <DD>
-<A NAME="IDX798"></A>
-<A NAME="IDX799"></A>
+<A NAME="IDX838"></A>
+<A NAME="IDX839"></A>
 Output version information and exit.
 
 </DL>
@@ -2370,7 +2478,7 @@ defined in a library called <SAMP>`libgettextpo&acute;</SAMP>.
 <P>
 <DL>
 <DT><U>Data Type:</U> <B>po_file_t</B>
-<DD><A NAME="IDX800"></A>
+<DD><A NAME="IDX840"></A>
 This is a pointer type that refers to the contents of a PO file, after it has
 been read into memory.
 </DL>
@@ -2379,7 +2487,7 @@ been read into memory.
 <P>
 <DL>
 <DT><U>Data Type:</U> <B>po_message_iterator_t</B>
-<DD><A NAME="IDX801"></A>
+<DD><A NAME="IDX841"></A>
 This is a pointer type that refers to an iterator that produces a sequence of
 messages.
 </DL>
@@ -2388,7 +2496,7 @@ messages.
 <P>
 <DL>
 <DT><U>Data Type:</U> <B>po_message_t</B>
-<DD><A NAME="IDX802"></A>
+<DD><A NAME="IDX842"></A>
 This is a pointer type that refers to a message of a PO file, including its
 translation.
 </DL>
@@ -2397,7 +2505,7 @@ translation.
 <P>
 <DL>
 <DT><U>Function:</U> po_file_t <B>po_file_read</B> <I>(const char *<VAR>filename</VAR>)</I>
-<DD><A NAME="IDX803"></A>
+<DD><A NAME="IDX843"></A>
 The <CODE>po_file_read</CODE> function reads a PO file into memory.  The file name
 is given as argument.  The return value is a handle to the PO file's contents,
 valid until <CODE>po_file_free</CODE> is called on it.  In case of error, the return
@@ -2408,7 +2516,7 @@ value is <CODE>NULL</CODE>, and <CODE>errno</CODE> is set.
 <P>
 <DL>
 <DT><U>Function:</U> void <B>po_file_free</B> <I>(po_file_t <VAR>file</VAR>)</I>
-<DD><A NAME="IDX804"></A>
+<DD><A NAME="IDX844"></A>
 The <CODE>po_file_free</CODE> function frees a PO file's contents from memory,
 including all messages that are only implicitly accessible through iterators.
 </DL>
@@ -2417,7 +2525,7 @@ including all messages that are only implicitly accessible through iterators.
 <P>
 <DL>
 <DT><U>Function:</U> const char * const * <B>po_file_domains</B> <I>(po_file_t <VAR>file</VAR>)</I>
-<DD><A NAME="IDX805"></A>
+<DD><A NAME="IDX845"></A>
 The <CODE>po_file_domains</CODE> function returns the domains for which the given
 PO file has messages.  The return value is a <CODE>NULL</CODE> terminated array
 which is valid as long as the <VAR>file</VAR> handle is valid.  For PO files which
@@ -2429,7 +2537,7 @@ namely the default domain <CODE>"messages"</CODE>.
 <P>
 <DL>
 <DT><U>Function:</U> po_message_iterator_t <B>po_message_iterator</B> <I>(po_file_t <VAR>file</VAR>, const char *<VAR>domain</VAR>)</I>
-<DD><A NAME="IDX806"></A>
+<DD><A NAME="IDX846"></A>
 The <CODE>po_message_iterator</CODE> returns an iterator that will produce the
 messages of <VAR>file</VAR> that belong to the given <VAR>domain</VAR>.  If <VAR>domain</VAR>
 is <CODE>NULL</CODE>, the default domain is used instead.  To list the messages,
@@ -2440,7 +2548,7 @@ use the function <CODE>po_next_message</CODE> repeatedly.
 <P>
 <DL>
 <DT><U>Function:</U> void <B>po_message_iterator_free</B> <I>(po_message_iterator_t <VAR>iterator</VAR>)</I>
-<DD><A NAME="IDX807"></A>
+<DD><A NAME="IDX847"></A>
 The <CODE>po_message_iterator_free</CODE> function frees an iterator previously
 allocated through the <CODE>po_message_iterator</CODE> function.
 </DL>
@@ -2449,7 +2557,7 @@ allocated through the <CODE>po_message_iterator</CODE> function.
 <P>
 <DL>
 <DT><U>Function:</U> po_message_t <B>po_next_message</B> <I>(po_message_iterator_t <VAR>iterator</VAR>)</I>
-<DD><A NAME="IDX808"></A>
+<DD><A NAME="IDX848"></A>
 The <CODE>po_next_message</CODE> function returns the next message from
 <VAR>iterator</VAR> and advances the iterator.  It returns <CODE>NULL</CODE> when the
 iterator has reached the end of its message list.
@@ -2464,7 +2572,7 @@ that the results are valid as long as the <VAR>file</VAR> handle is valid.
 <P>
 <DL>
 <DT><U>Function:</U> const char * <B>po_message_msgid</B> <I>(po_message_t <VAR>message</VAR>)</I>
-<DD><A NAME="IDX809"></A>
+<DD><A NAME="IDX849"></A>
 The <CODE>po_message_msgid</CODE> function returns the <CODE>msgid</CODE> (untranslated
 English string) of a message.  This is guaranteed to be non-<CODE>NULL</CODE>.
 </DL>
@@ -2473,7 +2581,7 @@ English string) of a message.  This is guaranteed to be non-<CODE>NULL</CODE>.
 <P>
 <DL>
 <DT><U>Function:</U> const char * <B>po_message_msgid_plural</B> <I>(po_message_t <VAR>message</VAR>)</I>
-<DD><A NAME="IDX810"></A>
+<DD><A NAME="IDX850"></A>
 The <CODE>po_message_msgid_plural</CODE> function returns the <CODE>msgid_plural</CODE>
 (untranslated English plural string) of a message with plurals, or <CODE>NULL</CODE>
 for a message without plural.
@@ -2483,7 +2591,7 @@ for a message without plural.
 <P>
 <DL>
 <DT><U>Function:</U> const char * <B>po_message_msgstr</B> <I>(po_message_t <VAR>message</VAR>)</I>
-<DD><A NAME="IDX811"></A>
+<DD><A NAME="IDX851"></A>
 The <CODE>po_message_msgstr</CODE> function returns the <CODE>msgstr</CODE> (translation)
 of a message.  For an untranslated message, the return value is an empty
 string.
@@ -2493,7 +2601,7 @@ string.
 <P>
 <DL>
 <DT><U>Function:</U> const char * <B>po_message_msgstr_plural</B> <I>(po_message_t <VAR>message</VAR>, int <VAR>index</VAR>)</I>
-<DD><A NAME="IDX812"></A>
+<DD><A NAME="IDX852"></A>
 The <CODE>po_message_msgstr_plural</CODE> function returns the
 <CODE>msgstr[<VAR>index</VAR>]</CODE> of a message with plurals, or <CODE>NULL</CODE> when
 the <VAR>index</VAR> is out of range or for a message without plural.

@@ -8,6 +8,8 @@ Avestan.
 Afrikaans.
 @item am
 Amharic.
+@item an
+Aragonese.
 @item ar
 Arabic.
 @item as
@@ -102,6 +104,8 @@ Hindi.
 Hiri Motu.
 @item hr
 Croatian.
+@item ht
+Haitian; Haitian Creole.
 @item hu
 Hungarian.
 @item hy
@@ -114,6 +118,8 @@ Interlingua.
 Indonesian (formerly in).
 @item ie
 Interlingue.
+@item ii
+Sichuan Yi.
 @item ik
 Inupiak.
 @item io
@@ -158,6 +164,8 @@ Kirghiz.
 Latin.
 @item lb
 Letzeburgesch.
+@item li
+Limburgish; Limburger; Limburgan.
 @item ln
 Lingala.
 @item lo
