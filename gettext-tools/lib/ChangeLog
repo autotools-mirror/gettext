@@ -2,6 +2,20 @@
 
 	* alloca_.h: Conditionalize on _GNULIB_ALLOCA_H, not _ALLOCA_H.
 
+2004-11-02  Bruno Haible  <bruno@clisp.org>
+
+	* setenv.h (unsetenv): Define as a macro if the system's unsetenv()
+	function returns void.
+
+2004-10-04  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* unlocked-io.h: Don't worry about USE_UNLOCKED_IO; that's now
+	the includer's responsibility.
+
+2004-08-06  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* setenv.c: Import changes from coreutils.
+
 2003-09-08  Paul Eggert  <eggert@twinsun.com>
 
 	* atexit.c (atexit): Define using a prototype.

@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -133,6 +133,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef MALLOC_0_IS_NONNULL$$/#define MALLOC_0_IS_NONNULL 0/' \
 	     -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	     -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
 	     -e 's/#undef eaccess$$/#define eaccess access/' \
 	     -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	     -e 's/#undef getline$$/#define getline rpl_getline/' \
@@ -203,6 +204,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 4294967295U/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	    -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
 	    -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	    -e 's/#undef getline$$/#define getline rpl_getline/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \

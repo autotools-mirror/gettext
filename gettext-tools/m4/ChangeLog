@@ -7,6 +7,11 @@
 	* setenv.m4 (gt_FUNC_SETENV): Define VOID_UNSETENV if unsetenv()
 	returns void.
 
+2004-10-04  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* unlocked-io.m4: Add copyright notice.
+	(gl_FUNC_GLIBC_UNLOCKED_IO): Define USE_UNLOCKED_IO.
+
 2004-06-01  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* quotearg.m4: Fix copyright date and/or serial number.

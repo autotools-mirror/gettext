@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -100,6 +100,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef ICONV_CONST$$/#define ICONV_CONST/' \
 	     -e 's/#undef MALLOC_0_IS_NONNULL$$/#define MALLOC_0_IS_NONNULL 0/' \
 	     -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	     -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
 	     -e 's/#undef realpath$$/#define realpath rpl_realpath/' \
 	     -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long long/' \
 	     -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-runtime"/' \
@@ -159,6 +160,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 4294967295U/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
+	    -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
 	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
