@@ -382,7 +382,7 @@ static int enable_secure;
 #endif
 
 /* Get the function to evaluate the plural expression.  */
-#include "plural-eval.c"
+#include "eval-plural.h"
 
 /* Look up MSGID in the DOMAINNAME message catalog for the current
    CATEGORY locale and, if PLURAL is nonzero, search over string

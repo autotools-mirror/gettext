@@ -2,6 +2,13 @@
 
 	* gettext-0.11 released.
 
+2002-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* eval-plural.h: Renamed from plural-eval.c.
+	* dcigettext.c: Include eval-plural.h instead of plural-eval.c.
+	* Makefile.in (COMHDRS): Remove plural-eval.c, add eval-plural.h.
+	(DISTFILES.obsolete): Add plural-eval.c.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (libintl.la): Use @LTLIBICONV@ instead of @LIBICONV@.

@@ -2,6 +2,10 @@
 
 	* gettext-0.11 released.
 
+2002-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* plural-eval.h: Include eval-plural.h instead of plural-eval.c.
+
 2002-01-30  Bruno Haible  <bruno@clisp.org>
 
 	Make the gettext and ngettext programs independent of libgettextlib.
