@@ -443,7 +443,7 @@ changequote([,])dnl
 ])
 
 
-AC_DEFUN([AM_MKINSTALLDIRS]),
+AC_DEFUN([AM_MKINSTALLDIRS],
 [
   dnl If the AC_CONFIG_AUX_DIR macro for autoconf is used we possibly
   dnl find the mkinstalldirs script in another subdir but $(top_srcdir).
