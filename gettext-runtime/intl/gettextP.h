@@ -210,6 +210,8 @@ extern char *__bind_textdomain_codeset PARAMS ((const char *__domainname,
 #else
 /* Declare the exported libintl_* functions, in a way that allows us to
    call them under their real name.  */
+# undef _INTL_REDIRECT_INLINE
+# undef _INTL_REDIRECT_MACROS
 # define _INTL_REDIRECT_MACROS
 # include "libgnuintl.h"
 extern char *libintl_dcigettext PARAMS ((const char *__domainname,
