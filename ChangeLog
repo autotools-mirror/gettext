@@ -1,3 +1,7 @@
+2002-07-16  Bruno Haible  <haible@clisp.cons.org>
+
+	* config.guess, config.sub: Update to GNU version 2002-07-09.
+
 2002-07-14  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Switch to autoconf-2.52. Split AC_INIT into AC_INIT
