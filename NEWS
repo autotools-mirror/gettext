@@ -21,6 +21,8 @@ Version 0.14 - January 2004
   - New documentation section: C#.
   - Complete examples illustrating the use of gettext in C# (in text mode and
     in Forms applications) have been added.
+
+  - New documentation section: Preparing Library Sources.
 
 Version 0.13.1 - December 2003
 

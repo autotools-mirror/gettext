@@ -174,6 +174,7 @@ Preparing Program Sources
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 * Names::                       Marking Proper Names for Translation
+* Libraries::                   Preparing Library Sources
 
 Making the PO Template File
 
@@ -1801,6 +1802,7 @@ sections of this chapter.
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 * Names::                       Marking Proper Names for Translation
+* Libraries::                   Preparing Library Sources
 @end menu
 
 @node Triggering, Preparing Strings, Sources, Sources
@@ -2546,7 +2548,7 @@ sure the output is really translated in any case.  But this analysis is
 generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
 
-@node Names,  , Special cases, Sources
+@node Names, Libraries, Special cases, Sources
 @section Marking Proper Names for Translation
 
 Should names of persons, cities, locations etc. be marked for translation
@@ -2616,6 +2618,106 @@ However, we don't recommend this approach for all POT files in all packages,
 because this would force translators to use PO files in UTF-8 encoding,
 which is - in the current state of software (as of 2003) - a major hassle
 for translators using GNU Emacs or XEmacs with po-mode.
+
+@node Libraries,  , Names, Sources
+@section Preparing Library Sources
+
+When you are preparing a library, not a program, for the use of
+@code{gettext}, only a few details are different.  Here we assume that
+the library has a translation domain and a POT file of its own.  (If
+it uses the translation domain and POT file of the main program, then
+the previous sections apply without changes.)
+
+@enumerate
+@item
+The library code doesn't call @code{setlocale (LC_ALL, "")}.  It's the
+responsibility of the main program to set the locale.  The library's
+documentation should mention this fact, so that developers of programs
+using the library are aware of it.
+
+@item
+The library code doesn't call @code{textdomain (PACKAGE)}, because it
+would interfere with the text domain set by the main program.
+
+@item
+The initialization code for a program was
+
+@smallexample
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  textdomain (PACKAGE);
+@end smallexample
+
+@noindent
+For a library it is reduced to
+
+@smallexample
+  bindtextdomain (PACKAGE, LOCALEDIR);
+@end smallexample
+
+@noindent
+If your library's API doesn't already have an initialization function,
+you need to create one, containing at least the @code{bindtextdomain}
+invocation.  However, you usually don't need to export and document this
+initialization function: It is sufficient that all entry points of the
+library call the initialization function if it hasn't been called before.
+The typical idiom used to achieve this is a static boolean variable that
+indicates whether the initialization function has been called. Like this:
+
+@example
+@group
+static bool libfoo_initialized;
+
+static void
+libfoo_initialize (void)
+@{
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  libfoo_initialized = true;
+@}
+
+/* This function is part of the exported API.  */
+struct foo *
+create_foo (...)
+@{
+  /* Must ensure the initialization is performed.  */
+  if (!libfoo_initialized)
+    libfoo_initialize ();
+  ...
+@}
+
+/* This function is part of the exported API.  The argument must be
+   non-NULL and have been created through create_foo().  */
+int
+foo_refcount (struct foo *argument)
+@{
+  /* No need to invoke the initialization function here, because
+     create_foo() must already have been called before.  */
+  ...
+@}
+@end group
+@end example
+
+@item
+The usual declaration of the @samp{_} macro in each source file was
+
+@smallexample
+#include <libintl.h>
+#define _(String) gettext (String)
+@end smallexample
+
+@noindent
+for a program.  For a library, which has its own translation domain,
+it reads like this:
+
+@smallexample
+#include <libintl.h>
+#define _(String) dgettext (PACKAGE, String)
+@end smallexample
+
+In other words, @code{dgettext} is used instead of @code{gettext}.
+Similary, the @code{dngettext} function should be used in place of the
+@code{ngettext} function.
+@end enumerate
 
 @node Template, Creating, Sources, Top
 @chapter Making the PO Template File
