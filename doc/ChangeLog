@@ -1,3 +1,11 @@
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* ISO_639: Add Avestan, Bosnian, Chechen, Chamorro, Church Slavic,
+	Chuvash, Manx, Hiri Motu, Herero, Kikuyu, Kuanyama, Komi, Cornish,
+	Letzeburgesch, Marshall, Norwegian Bokmal, Ndebele, Ndonga, Norwegian
+	Nynorsk, Navajo, Nyanja, Pali, Sardinian, Northern Sami, Tahitian.
+	Remove Serbo-Croatian.
+
 2001-04-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (docdir, dvidir, psdir, pdfdir, htmldir): New variables.

@@ -9,6 +9,8 @@ Hebrew, Indonesian, Yiddish corrected 1995-10-10 by Michael Everson
 Inuktitut, Uighur, Zhuang added 1995-10-10 by Michael Everson
 Sinhalese corrected, 1995-10-10 by Michael Everson
 Faeroese corrected to Faroese, 1995-11-18 by Keld Simonsen
+Updated from http://lcweb.loc.gov/standards/iso639-2/codechanges.html,
+2001-04-17 by Bruno Haible
 
 Two-letter lower-case symbols are used.
 The Registration Authority for ISO 639 is Infoterm, Osterreichisches
@@ -16,6 +18,7 @@ Normungsinstitut (ON), Postfach 130, A-1021 Vienna, Austria.
 
 aa Afar
 ab Abkhazian
+ae Avestan
 af Afrikaans
 am Amharic
 ar Arabic
@@ -24,22 +27,27 @@ ay Aymara
 az Azerbaijani
 
 ba Bashkir
-be Byelorussian
+be Byelorussian; Belarusian
 bg Bulgarian
 bh Bihari
 bi Bislama
 bn Bengali; Bangla
 bo Tibetan
 br Breton
+bs Bosnian
 
 ca Catalan
+ce Chechen
+ch Chamorro
 co Corsican
 cs Czech
+cu Church Slavic
+cv Chuvash
 cy Welsh
 
 da Danish
 de German
-dz Bhutani
+dz Dzongkha; Bhutani
 
 el Greek
 en English
@@ -50,23 +58,26 @@ eu Basque
 
 fa Persian
 fi Finnish
-fj Fiji
+fj Fijian; Fiji
 fo Faroese
 fr French
 fy Frisian
 
 ga Irish
-gd Scots Gaelic
-gl Galician
+gd Scots; Gaelic
+gl Gallegan; Galician
 gn Guarani
 gu Gujarati
+gv Manx
 
-ha Hausa
+ha Hausa (?)
 he Hebrew (formerly iw)
 hi Hindi
+ho Hiri Motu
 hr Croatian
 hu Hungarian
 hy Armenian
+hz Herero
 
 ia Interlingua
 id Indonesian (formerly in)
@@ -80,22 +91,28 @@ ja Japanese
 jw Javanese
 
 ka Georgian
+ki Kikuyu
+kj Kuanyama
 kk Kazakh
-kl Greenlandic
-km Cambodian
+kl Kalaallisut; Greenlandic
+km Khmer; Cambodian
 kn Kannada
 ko Korean
 ks Kashmiri
 ku Kurdish
+kv Komi
+kw Cornish
 ky Kirghiz
 
 la Latin
+lb Letzeburgesch
 ln Lingala
-lo Laothian
+lo Lao; Laotian
 lt Lithuanian
-lv Latvian, Lettish
+lv Latvian; Lettish
 
 mg Malagasy
+mh Marshall
 mi Maori
 mk Macedonian
 ml Malayalam
@@ -107,15 +124,24 @@ mt Maltese
 my Burmese
 
 na Nauru
+nb Norwegian Bokm@aa{}l
+nd Ndebele, North
 ne Nepali
+ng Ndonga
 nl Dutch
+nn Norwegian Nynorsk
 no Norwegian
+nr Ndebele, South
+nv Navajo
+ny Chichewa; Nyanja
 
-oc Occitan
+oc Occitan; Proven@,{c}al
 om (Afan) Oromo
 or Oriya
+os Ossetian; Ossetic
 
-pa Punjabi
+pa Panjabi; Punjabi
+pi Pali
 pl Polish
 ps Pashto, Pushto
 pt Portuguese
@@ -123,15 +149,16 @@ pt Portuguese
 qu Quechua
 
 rm Rhaeto-Romance
-rn Kirundi
+rn Rundi; Kirundi
 ro Romanian
 ru Russian
 rw Kinyarwanda
 
 sa Sanskrit
+sc Sardinian
 sd Sindhi
-sg Sangro
-sh Serbo-Croatian
+se Northern Sami
+sg Sango; Sangro
 si Sinhalese
 sk Slovak
 sl Slovenian
@@ -140,8 +167,8 @@ sn Shona
 so Somali
 sq Albanian
 sr Serbian
-ss Siswati
-st Sesotho
+ss Swati; Siswati
+st Sesotho; Sotho, Southern
 su Sundanese
 sv Swedish
 sw Swahili
@@ -153,12 +180,13 @@ th Thai
 ti Tigrinya
 tk Turkmen
 tl Tagalog
-tn Setswana
-to Tonga
+tn Tswana; Setswana
+to Tonga (?)
 tr Turkish
 ts Tsonga
 tt Tatar
 tw Twi
+ty Tahitian
 
 ug Uighur
 uk Ukrainian
@@ -166,7 +194,7 @@ ur Urdu
 uz Uzbek
 
 vi Vietnamese
-vo Volapuk
+vo Volap@"{u}k; Volapuk
 
 wo Wolof
 
