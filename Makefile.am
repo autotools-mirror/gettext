@@ -25,7 +25,7 @@ ACLOCAL_AMFLAGS = -I m4
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
-EXTRA_DIST = BUGS DISCLAIM README.gemtext
+EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh
 SUBDIRS = doc lib intl src po m4 misc tests
 
 DISTCLEANFILES = intl/libintl.h

@@ -1,3 +1,7 @@
+2000-07-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (EXTRA_DIST): Add aclocal.sh.
+
 2000-07-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Postprocess misc/Makefile to workaround an automake
