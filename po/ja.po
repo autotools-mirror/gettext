@@ -475,8 +475,9 @@ msgstr "domain 名 \"%s\" はファイル名として適切でありません: prefix を用います"
 #. only an information.
 #: src/msgfmt.c:508
 #, c-format
+#, fuzzy
 msgid "`domain %s' directive ignored"
-msgstr "domain %s��は無視されました"
+msgstr "`domain %s'は無視されました"
 
 #: src/msgfmt.c:538
 msgid "empty `msgstr' entry ignored"
