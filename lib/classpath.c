@@ -104,7 +104,7 @@ set_classpath (classpaths, classpaths_count, use_minimal_classpath, verbose)
   if (verbose)
     printf ("CLASSPATH=%s ", new_CLASSPATH);
 
-  setenv ("CLASSPATH", new_CLASSPATH, 1);
+  xsetenv ("CLASSPATH", new_CLASSPATH, 1);
 
   free (new_CLASSPATH);
 
@@ -118,7 +118,7 @@ reset_classpath (old_classpath)
 {
   if (old_classpath != NULL)
     {
-      setenv ("CLASSPATH", old_classpath, 1);
+      xsetenv ("CLASSPATH", old_classpath, 1);
       free (old_classpath);
     }
   else

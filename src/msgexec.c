@@ -46,7 +46,7 @@
 #include "findprog.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "setenv.h"
+#include "xsetenv.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -321,10 +321,10 @@ process_string (mp, str, len)
       int exitstatus;
 
       /* Set environment variables for the subprocess.  */
-      setenv ("MSGEXEC_MSGID", mp->msgid, 1);
+      xsetenv ("MSGEXEC_MSGID", mp->msgid, 1);
       location = xasprintf ("%s:%ld", mp->pos.file_name,
 			    (long) mp->pos.line_number);
-      setenv ("MSGEXEC_LOCATION", location, 1);
+      xsetenv ("MSGEXEC_LOCATION", location, 1);
       free (location);
 
       /* Open a pipe to a subprocess.  */

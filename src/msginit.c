@@ -82,7 +82,7 @@
 #include "pipe.h"
 #include "wait-process.h"
 #include "getline.h"
-#include "setenv.h"
+#include "xsetenv.h"
 #include "str-list.h"
 #include "gettext.h"
 
@@ -648,7 +648,7 @@ canonical_locale_charset ()
   tmp = getenv ("LC_ALL");
   old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
 
-  setenv ("LC_ALL", locale, 1);
+  xsetenv ("LC_ALL", locale, 1);
 
 #ifdef HAVE_SETLOCALE
   if (setlocale (LC_ALL, "") == NULL)
@@ -662,7 +662,7 @@ canonical_locale_charset ()
   /* Restore LC_ALL environment variable.  */
 
   if (old_LC_ALL != NULL)
-    setenv ("LC_ALL", old_LC_ALL, 1), free (old_LC_ALL);
+    xsetenv ("LC_ALL", old_LC_ALL, 1), free (old_LC_ALL);
   else
     unsetenv ("LC_ALL");
 
@@ -1439,9 +1439,9 @@ get_title ()
   tmp = getenv ("OUTPUT_CHARSET");
   old_OUTPUT_CHARSET = (tmp != NULL ? xstrdup (tmp) : NULL);
 
-  setenv ("LC_ALL", locale, 1);
+  xsetenv ("LC_ALL", locale, 1);
   unsetenv ("LANGUAGE");
-  setenv ("OUTPUT_CHARSET", encoding, 1);
+  xsetenv ("OUTPUT_CHARSET", encoding, 1);
 
 #ifdef HAVE_SETLOCALE
   if (setlocale (LC_ALL, "") == NULL)
@@ -1467,17 +1467,17 @@ get_title ()
   /* Restore LC_ALL, LANGUAGE, OUTPUT_CHARSET environment variables.  */
 
   if (old_LC_ALL != NULL)
-    setenv ("LC_ALL", old_LC_ALL, 1), free (old_LC_ALL);
+    xsetenv ("LC_ALL", old_LC_ALL, 1), free (old_LC_ALL);
   else
     unsetenv ("LC_ALL");
 
   if (old_LANGUAGE != NULL)
-    setenv ("LANGUAGE", old_LANGUAGE, 1), free (old_LANGUAGE);
+    xsetenv ("LANGUAGE", old_LANGUAGE, 1), free (old_LANGUAGE);
   else
     unsetenv ("LANGUAGE");
 
   if (old_OUTPUT_CHARSET != NULL)
-    setenv ("OUTPUT_CHARSET", old_OUTPUT_CHARSET, 1), free (old_OUTPUT_CHARSET);
+    xsetenv ("OUTPUT_CHARSET", old_OUTPUT_CHARSET, 1), free (old_OUTPUT_CHARSET);
   else
     unsetenv ("OUTPUT_CHARSET");
 

@@ -54,7 +54,8 @@ libgettextlib_la_SOURCES = \
   tmpdir.h tmpdir.c \
   wait-process.h wait-process.c \
   xerror.h xerror.c \
-  xmalloc.h xmalloc.c xstrdup.c
+  xmalloc.h xmalloc.c xstrdup.c \
+  xsetenv.h xsetenv.c
 
 # Sources that are compiled only on platforms that lack the functions.
 

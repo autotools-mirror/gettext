@@ -1,5 +1,15 @@
 2001-12-23  Bruno Haible  <bruno@clisp.org>
 
+	* xsetenv.h: New file.
+	* xsetenv.c: New file.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+	* classpath.c (set_classpath): Use xsetenv instead of setenv.
+	(reset_classpath): Likewise.
+	* javacomp.c (compile_java_class): Likewise.
+	* javaexec.c (execute_java_class): Likewise.
+
+2001-12-23  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (libgettextlib_la_SOURCES): Add the contents of
 	libgettextlib_la_HEADER, except liballoca.h.
 	(LIBADD_SOURCE): Add the contents of LIBADD_HEADER, plus liballoca.h.

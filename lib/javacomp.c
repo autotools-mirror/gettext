@@ -31,7 +31,7 @@
 #include "execute.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "setenv.h"
+#include "xsetenv.h"
 #include "sh-quote.h"
 #include "safe-read.h"
 #include "xmalloc.h"
@@ -443,7 +443,7 @@ compile_java_class (java_sources, java_sources_count,
  done2:
   if (old_JAVA_HOME != NULL)
     {
-      setenv ("JAVA_HOME", old_JAVA_HOME, 1);
+      xsetenv ("JAVA_HOME", old_JAVA_HOME, 1);
       free (old_JAVA_HOME);
     }
 

@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "execute.h"
-#include "setenv.h"
+#include "xsetenv.h"
 #include "sh-quote.h"
 #include "xmalloc.h"
 #include "error.h"
@@ -382,7 +382,7 @@ execute_java_class (class_name,
  done2:
   if (old_JAVA_HOME != NULL)
     {
-      setenv ("JAVA_HOME", old_JAVA_HOME, 1);
+      xsetenv ("JAVA_HOME", old_JAVA_HOME, 1);
       free (old_JAVA_HOME);
     }
 
