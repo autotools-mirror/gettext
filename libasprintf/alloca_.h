@@ -1,5 +1,5 @@
 /* Memory allocation on the stack.
-   Copyright (C) 1995, 1999, 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1999, 2001-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -20,8 +20,19 @@
    declarations.  Thanks to AIX.  Therefore we include it right after
    "config.h", not later.  */
 
-#ifndef _LIBALLOCA_H
-#define _LIBALLOCA_H
+#ifndef _ALLOCA_H
+#define _ALLOCA_H
+
+/* alloca(N) returns a pointer (void* or char*) to N bytes of memory
+   allocated on the stack, and which will last until the function returns.
+   Use of alloca should be avoided:
+     - inside arguments of function calls - undefined behaviour,
+     - in inline functions - the allocation may actually last until the
+       calling function returns,
+     - for huge N (say, N >= 65536) - you never know how large (or small)
+       the stack is, and when the stack cannot fulfill the memory allocation
+       request, the program just crashes.
+ */
 
 #ifdef __GNUC__
 # ifndef alloca
@@ -42,11 +53,11 @@
 #     ifdef __cplusplus
 extern "C" void *alloca (unsigned int);
 #     else /* not __cplusplus */
-void *alloca ();
+extern void *alloca ();
 #     endif /* not __cplusplus */
 #    else /* not __hpux */
 #     ifndef alloca
-char *alloca ();
+extern char *alloca ();
 #     endif
 #    endif /* __hpux */
 #   endif
@@ -54,4 +65,4 @@ char *alloca ();
 # endif
 #endif
 
-#endif /* _LIBALLOCA_H */
+#endif /* _ALLOCA_H */

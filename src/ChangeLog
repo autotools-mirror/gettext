@@ -1,5 +1,21 @@
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* format-java.c: Include alloca.h instead of liballoca.h.
+	* msggrep.c: Likewise.
+	* msginit.c: Likewise.
+	* msgl-cat.c: Likewise.
+	* msgl-charset.c: Likewise.
+	* msgl-iconv.c: Likewise.
+	* msgmerge.c: Likewise.
+	* po-charset.c: Likewise.
+	* read-tcl.c: Likewise.
+	* write-java.c: Likewise.
+	* write-mo.c: Likewise.
+	* write-po.c: Likewise.
+	* write-tcl.c: Likewise.
+
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am: Make use of += for variables.
 
 2003-01-12  Bruno Haible  <bruno@clisp.org>

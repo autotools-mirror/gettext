@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
-#include "liballoca.h"
+#include <alloca.h>
 
 /* Specification.  */
 #include "write-mo.h"

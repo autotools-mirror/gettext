@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
-#include "liballoca.h"
+#include <alloca.h>
 
 /* Specification.  */
 #include "msgl-iconv.h"
@@ -60,7 +60,7 @@ iconv_string (iconv_t cd, const char *start, const char *end,
   size_t length;
   char *result;
 
-  /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
+  /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
 # if defined _LIBICONV_VERSION \
     || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
   /* Set to the initial state.  */
@@ -117,7 +117,7 @@ iconv_string (iconv_t cd, const char *start, const char *end,
   if (length == 0)
     return 0;
 
-  /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
+  /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
 # if defined _LIBICONV_VERSION \
     || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
   /* Return to the initial state.  */

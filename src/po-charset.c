@@ -20,7 +20,7 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
-#include "liballoca.h"
+#include <alloca.h>
 
 /* Specification.  */
 #include "po-charset.h"

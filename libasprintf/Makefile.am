@@ -42,10 +42,21 @@ lib_asprintf_EXTRASOURCES = \
   printf-args.h printf-args.c \
   printf-parse.h printf-parse.c \
   vasnprintf.h vasnprintf.c asnprintf.c \
-  vasprintf.h vasprintf.c asprintf.c \
-  liballoca.h
+  vasprintf.h vasprintf.c asprintf.c
 lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
 EXTRA_DIST += $(lib_asprintf_EXTRASOURCES)
+
+
+# >>> gnulib module alloca.
+EXTRA_DIST += alloca_.h
+
+# The following is needed in order to create an <alloca.h> when the system
+# doesn't have one that works with the given compiler.
+all-local $(lib_OBJECTS): @ALLOCA_H@
+alloca.h: alloca_.h
+	cp $(srcdir)/alloca_.h alloca.h
+MOSTLYCLEANFILES += alloca.h
+# <<< gnulib module alloca.
 
 
 # Documentation.

@@ -37,7 +37,7 @@ AC_CHECK_TYPES(ptrdiff_t)
 gt_TYPE_INTMAX_T
 
 dnl Checks for library functions.
-AC_FUNC_ALLOCA
+gl_FUNC_ALLOCA
 AC_CHECK_FUNCS([snprintf vasprintf])
 
 dnl Check for tools needed for formatting the documentation.

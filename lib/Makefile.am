@@ -71,7 +71,7 @@ libgettextlib_la_SOURCES = \
 # Sources that are compiled only on platforms that lack the functions.
 
 LIBADD_SOURCE = \
-  liballoca.h alloca.c \
+  alloca.c \
   getline.h getline.c \
   memset.c \
   mkdtemp.h mkdtemp.c \
@@ -136,6 +136,18 @@ stdbool.h: stdbool.h.in
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool.h.in > stdbool.h
 MOSTLYCLEANFILES += stdbool.h
 # <<< gnulib module stdbool.
+
+
+# >>> gnulib module alloca.
+EXTRA_DIST += alloca_.h
+
+# The following is needed in order to create an <alloca.h> when the system
+# doesn't have one that works with the given compiler.
+all-local $(libgettextlib_la_OBJECTS): @ALLOCA_H@
+alloca.h: alloca_.h
+	cp $(srcdir)/alloca_.h alloca.h
+MOSTLYCLEANFILES += alloca.h
+# <<< gnulib module alloca.
 
 
 # >>> gnulib module localcharset.

@@ -1,5 +1,9 @@
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* configure.in: Invoke gl_FUNC_ALLOCA instead of AC_FUNC_ALLOCA.
+
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am: Make use of += for variables.
 
 2003-01-12  Bruno Haible  <bruno@clisp.org>

@@ -1,5 +1,5 @@
 /* Java format strings.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
-#include "liballoca.h"
+#include <alloca.h>
 
 #include <stdbool.h>
 #include <stdlib.h>

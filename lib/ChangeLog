@@ -1,5 +1,15 @@
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* alloca_.h: New file, from gnulib.
+	* liballoca.h: Remove file.
+	* Makefile.am: Add snippet from gnulib module alloca.
+	(LIBADD_SOURCE): Remove liballoca.h.
+	* javacomp.c: Include alloca.h instead of liballoca.h.
+	* javaexec.c: Likewise.
+	* setenv.c: Likewise.
+
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am: Make use of += for variables.
 	(install-exec-local): Avoid creating $(libdir) if it would be empty.
 

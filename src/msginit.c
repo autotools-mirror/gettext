@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
-#include "liballoca.h"
+#include <alloca.h>
 
 #include <errno.h>
 #include <getopt.h>
@@ -231,7 +231,7 @@ main (int argc, char **argv)
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "2001-2002");
+	      "2001-2003");
       printf (_("Written by %s.\n"), "Bruno Haible");
       exit (EXIT_SUCCESS);
     }
