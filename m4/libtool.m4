@@ -23,7 +23,7 @@
 ## the same distribution terms that you use for the rest of that program.
 
 # The next line was added by Bruno Haible 2001-06-08.
-undefine([symbols])
+builtin([undefine],[symbols])
 
 # serial 46 AC_PROG_LIBTOOL
 AC_DEFUN([AC_PROG_LIBTOOL],
