@@ -65,11 +65,9 @@ ${DIFF} prog.ok prog.pot || exit 1
 # - no line wrapping
 # - extra newline at the end
 
-: ${RSTCONV=rstconv}
-if type ${RSTCONV} >/dev/null 2>&1; then
-
 tmpfiles="$tmpfiles prog.pot"
-${RSTCONV} -o prog.pot -i prog.rst
+: ${RSTCONV=rstconv}
+if ${RSTCONV} -o prog.pot -i prog.rst >/dev/null 2>&1; then
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok

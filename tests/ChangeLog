@@ -7,6 +7,8 @@
 	* lang-java: Set the default locale by hand. Some systems, like
 	Solaris, are not capable of setting the locale according to LC_ALL
 	by themselves.
+	* lang-rst: Avoid using the 'type' builtin. It always reports success
+	with SunOS4 /bin/sh.
 
 2001-12-11  Bruno Haible  <bruno@clisp.org>
 
