@@ -46,6 +46,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    MSGCMP=`echo msgcmp|sed '$(transform)'` \
 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` \
 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
+		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    $(SHELL)
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \

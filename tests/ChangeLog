@@ -2,6 +2,7 @@
 
 	* msgcat-1: New file, from Karl Eichwalder with modifications.
 	* Makefile.am (TESTS): Add it.
+	(TESTS_ENVIRONMENT): Set MSGCAT.
 
 2001-07-05  Bruno Haible  <haible@clisp.cons.org>
 
