@@ -142,11 +142,17 @@ AH_TOP([
 AH_BOTTOM([
 /* A file name cannot consist of any character possible.  INVALID_PATH_CHAR
    contains the characters not allowed.  */
-#ifndef MSDOS
-# define	INVALID_PATH_CHAR "\1\2\3\4\5\6\7\10\11\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37 \177/"
-#else
+#if defined _MSC_VER || defined __MINGW32__
+/* Woe32.  This string is valid for Windows NT/2000.  On Windows 95/98/ME some
+   few characters in the range 0x80..0xff are invalid as well, but this doesn't
+   matter much for our purposes.  */
+# define INVALID_PATH_CHAR "\001\002\003\004\005\006\007\010\011\012\013\014\015\016\017\020\021\022\023\024\025\026\027\030\031\032\033\034\035\036\037\"*/:<>?\\|"
+#elif defined MSDOS
 /* Something like this for MSDOG.  */
-# define	INVALID_PATH_CHAR "\1\2\3\4\5\6\7\10\11\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37 \177\\:."
+# define INVALID_PATH_CHAR "\001\002\003\004\005\006\007\010\011\012\013\014\015\016\017\020\021\022\023\024\025\026\027\030\031\032\033\034\035\036\037 \177\\:."
+#else
+/* Unix.  */
+# define INVALID_PATH_CHAR "\001\002\003\004\005\006\007\010\011\012\013\014\015\016\017\020\021\022\023\024\025\026\027\030\031\032\033\034\035\036\037 \177/"
 #endif
 
 /* This is the page width for the message_print function.  It should
