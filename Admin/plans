@@ -30,8 +30,6 @@ Things we plan to do. Comments welcome.
   1. Program to move msgstr contents to msgid contents,
   2. Program to update the translations accordingly, much like msgmerge.
 
-- Rewrite Hundhammer's check_po script in C using message.h.
-
 - Check portability of coding-system-list, apparently not defined
   in XEmacs 20.4.
 
@@ -46,10 +44,6 @@ Things we plan to do. Comments welcome.
   Oh, this is a bug. If de_DE.ISO-8859-1 is installed, it should use
   ISO-8859-1, not UTF-8. If the locale is not installed, it should
   complain.
-
-- Multiple po directories:
-  You would need to associate the catalogue name with the
-  directory name, or just keep them the same. Don't use @PACKAGE@ in each.
 
 - Recommendations for --help messages:
 
@@ -81,3 +75,4 @@ msgid ""
 "\n"
 "This program is distributed in the hope that it will be useful,\n"
 msgstr ""
+
