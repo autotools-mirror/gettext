@@ -163,7 +163,7 @@ lynx            |           []   []       []             |  9
 m4              |    []          []       []             | 12
 make            |    []     []   []          []          | 12
 mysecretdiary   |                         [] []          |  4
-nano            | ()             []       []    []       | 13
+nano            | () []          []       []    []       | 14
 nano_1_0        | ()             []       []    []       | 13
 opcodes         |                         [] []          |  6
 parted          |       []  []            []             | 10
@@ -173,7 +173,7 @@ recode          |    []          []    [] []             | 13
 sed             |           []   [] [] [] [] []          | 21
 sh-utils        | [] []     []   [] [] [] [] []     []   | 22
 sharutils       |                []       []             | 11
-sketch          |                ()                      |  1
+sketch          |           []   ()                      |  2
 soundtracker    |                         []             |  5
 sp              |                                        |  0
 tar             | [] []     []      [] [] [] []          | 16
@@ -185,6 +185,6 @@ wdiff           |                [] []    [] []          |  9
 wget            |                [] [] [] [] [] []  []   | 20
                 +----------------------------------------+
   35 teams        no pl pt pt_BR ru sk sl sv tr uk zh_TW
-  55 domains       5 12  2  11   25 11 11 42 34  4   3    484
+  55 domains       5 13  2  12   25 11 11 42 34  4   3    486
 @end group
 @end example
