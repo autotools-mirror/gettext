@@ -3139,7 +3139,8 @@ Leave point after marked string."
 
 (defun po-guess-archive-name ()
   "Return the ideal file name for this PO file in the central archives."
-  (let (start-of-header end-of-header package version team)
+  (let ((filename (file-name-nondirectory buffer-file-name))
+	start-of-header end-of-header package version team)
     (save-excursion
       ;; Find the PO file header entry.
       (goto-char (point-min))
@@ -3156,6 +3157,17 @@ Leave point after marked string."
       (if (or (not package) (string-equal package "PACKAGE")
 	      (not version) (string-equal version "VERSION"))
 	  (error (_"Project-Id-Version field does not have a proper value")))
+      ;; File name version and Project-Id-Version must match
+      (cond (;; A `filename' w/o package and version info at all
+	     (string-match "^[^\\.]*\\.po\\'" filename))
+	    (;; TP Robot compatible `filename': PACKAGE-VERSION.LL.po
+	     (string-match (concat (regexp-quote package)
+				   "-\\(.*\\)\\.[^\\.]*\\.po\\'") filename)
+	     (if (not (equal version (po-match-string 1 filename)))
+		 (error (_"\
+Version mismatch: file name: %s; header: %s.\n\
+Adjust Project-Id-Version field to match file name and try again")
+			(po-match-string 1 filename) version))))
       ;; Get the team.
       (if (stringp po-team-name-to-code)
 	  (setq team po-team-name-to-code)

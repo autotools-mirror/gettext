@@ -1,3 +1,8 @@
+2001-11-25  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-guess-archive-name): Verify that versions provided by
+	file name and by Project-Id-Version field match.
+
 2001-11-18  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextize.in: New option --intl.
