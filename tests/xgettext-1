@@ -1,4 +1,7 @@
 #! /bin/sh
+
+# This test often fails during development. It works after "make dist".
+
 # One argument is required which is the path to the toplevel directory
 # of the distribution.
 
