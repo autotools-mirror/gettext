@@ -1,5 +1,10 @@
 2001-07-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgcomm.c (extract_directive_message): Don't make the message fuzzy
+	if the first occurrence wasn't fuzzy.
+
+2001-07-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.c (message_comment_filepos): Don't keep the filepos[] array
 	sorted.
 	* write-po.c (cmp_by_msgid): Renamed from msgid_cmp.

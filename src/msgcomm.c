@@ -562,6 +562,7 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
     {
       mp = message_alloc (msgid, msgid_plural, msgstr, msgstr_len, msgstr_pos);
       message_list_append (this->mlp, mp);
+      mp->is_fuzzy = this->is_fuzzy;
     }
 
   /* The ``obsolete'' flag is cleared before reading each PO file.
@@ -591,7 +592,6 @@ extract_directive_message (that, msgid, msgid_pos, msgid_plural,
       string_list_free (this->comment_dot);
       this->comment_dot = NULL;
     }
-  mp->is_fuzzy |= this->is_fuzzy;
   if (mp->is_c_format == undecided)
     mp->is_c_format = this->is_c_format;
   if (mp->do_wrap == undecided)
