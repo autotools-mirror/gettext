@@ -1,3 +1,8 @@
+2003-09-08  Bruno Haible  <bruno@clisp.org>
+
+	* lang-bash: Avoid test failure when bash is built without i18n
+	support.
+
 2003-09-03  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-30: New file.
