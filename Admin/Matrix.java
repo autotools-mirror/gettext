@@ -136,11 +136,11 @@ public class Matrix {
       // Split into separate tables, to keep 80 column width.
       int ngroups;
       int[][] groups;
-      if (nteams == 29) {
+      if (true) {
         ngroups = 2;
         groups = new int[ngroups][];
-        groups[0] = new int[] { 0, 15 };
-        groups[1] = new int[] { 15, 29 };
+        groups[0] = new int[] { 0, nteams/2+1 };
+        groups[1] = new int[] { nteams/2+1, nteams };
       } else {
         ngroups = 1;
         groups = new int[ngroups][];
