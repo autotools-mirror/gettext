@@ -172,6 +172,7 @@ fi
 #      0.11.2                   748
 #      0.11.3                   804
 #      0.11.4                   864
+#      0.11.5                   880
 #
 # The requirement that the user must have the CVS program available is not
 # a severe restrictions, because most of the people who use autopoint are
@@ -256,7 +257,7 @@ find archive -name CVS -type d -print | xargs rm -rf
 if test `find archive -type f -print | wc -l` = 0; then
   cd ..
   rm -rf "$cvs_dir" "$work_dir"
-  fatal_error "infrastructure files for version $ver not found; this is autopoint from GNU $package $version"
+  func_fatal_error "infrastructure files for version $ver not found; this is autopoint from GNU $package $version"
 fi
 cd ..
 
