@@ -47,6 +47,7 @@ gettext_TEXINFOS = \
 
 # The FAQ. To be edited with Mozilla.
 doc_DATA = FAQ.html
+EXTRA_DIST += $(doc_DATA)
 
 EXTRA_DIST += \
   iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de texi2html \
