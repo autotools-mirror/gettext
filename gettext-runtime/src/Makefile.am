@@ -52,6 +52,7 @@ endif
 
 # Special rule for installing gettext.sh in $(bindir).
 # automake doesn't handle "bin_DATA = gettext.sh".
+EXTRA_DIST += gettext.sh
 all-local: gettext.sh
 install-data-local: all-local
 	$(mkinstalldirs) $(DESTDIR)$(bindir)

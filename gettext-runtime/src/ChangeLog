@@ -1,3 +1,8 @@
+2003-09-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Add gettext.sh.
+	Reported by Guido Flohr.
+
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c: New file.
