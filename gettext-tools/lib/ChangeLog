@@ -1,3 +1,9 @@
+2004-02-06  Bruno Haible  <bruno@clisp.org>
+
+	* allocsa.h (sa_alignof): Define differently with HP-UX cc, to avoid
+	a bug of this cc on HP-UX 10.20 dealing with enums.
+	Reported by Christopher Seip <chris.seip@hp.com>.
+
 2004-02-03  Bruno Haible  <bruno@clisp.org>
 
 	* pipe.c: New file, synthesis of pipe-in.c, pipe-out.c, pipe-bidi.c.
