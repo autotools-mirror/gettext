@@ -1,3 +1,8 @@
+2005-02-07  Bruno Haible  <bruno@clisp.org>
+
+	* project-id: Use LC_ALL=C to protect range expression against
+	Estonian locale.
+
 2005-02-06  Bruno Haible  <bruno@clisp.org>
 
 	Leave #: lines with unknown syntax alone instead of turning them into

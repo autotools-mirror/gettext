@@ -1,3 +1,9 @@
+2005-02-07  Bruno Haible  <bruno@clisp.org>
+
+	* KDE/trigger: Use LC_ALL=C to protect range expression against
+	Estonian locale.
+	* GNOME/trigger: Likewise.
+
 2004-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* TP/teams.html: Update.

@@ -261,7 +261,7 @@ fi
 # At least one of the two must be given. If both are given, they must agree.
 xver=`cat "$configure_in" | grep '^AM_GNU_GETTEXT_VERSION(' | sed -e 's/^AM_GNU_GETTEXT_VERSION(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
 if test -z "$xver" && test -f intl/VERSION; then
-  xver=`cat intl/VERSION | sed -n -e 's/^.*gettext-\([-+_.0-9A-Za-z]*\).*$/\1/p'`
+  xver=`cat intl/VERSION | LC_ALL=C sed -n -e 's/^.*gettext-\([-+_.0-9A-Za-z]*\).*$/\1/p'`
 fi
 if test -n "$xver"; then
   if test -n "$ver"; then

@@ -1,5 +1,10 @@
 2005-02-07  Bruno Haible  <bruno@clisp.org>
 
+	* config/config.libpath: Use LC_ALL=C to protect range expression
+	against Estonian locale.
+
+2005-02-07  Bruno Haible  <bruno@clisp.org>
+
 	* config/ltmain.sh: Upgrade to libtool-1.5.12.
 	2003-11-27  Bruno Haible  <bruno@clisp.org>
 		* config/ltmain.sh: In the trampoline code, include string.h,

@@ -627,8 +627,8 @@ for file in *; do
     Makevars.template)
       func_linkorcopy Makevars.template "$gettext_dir/po/Makevars.template" po/Makevars.template
       if test -f "$srcdir/po/Makevars"; then
-        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp1"
-        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars.template" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp2"
+        LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp1"
+        LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars.template" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp2"
         missingvars=`LC_ALL=C comm -13 "$srcdir/po/Makevars.tmp1" "$srcdir/po/Makevars.tmp2"`
         rm -f "$srcdir/po/Makevars.tmp1" "$srcdir/po/Makevars.tmp2"
         if test -n "$missingvars"; then
