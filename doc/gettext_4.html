@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<!-- This HTML file has been created by texi2html 1.51
+     from gettext.texi on 19 April 2001 -->
+
+<TITLE>GNU gettext utilities - 4  Making the PO Template File</TITLE>
+</HEAD>
+<BODY>
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous</A>, <A HREF="gettext_5.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+<P><HR><P>
+
+
+<H1><A NAME="SEC19" HREF="gettext_toc.html#TOC19">4  Making the PO Template File</A></H1>
+
+<P>
+After preparing the sources, the programmer creates a PO template file.
+This section explains how to use <CODE>xgettext</CODE> for this purpose.
+
+</P>
+
+
+
+<H2><A NAME="SEC20" HREF="gettext_toc.html#TOC20">4.1  Invoking the <CODE>xgettext</CODE> Program</A></H2>
+
+
+<PRE>
+xgettext [<VAR>option</VAR>] <VAR>inputfile</VAR> ...
+</PRE>
+
+<DL COMPACT>
+
+<DT><SAMP>`-a'</SAMP>
+<DD>
+<DT><SAMP>`--extract-all'</SAMP>
+<DD>
+Extract all strings.
+
+<DT><SAMP>`-c [<VAR>tag</VAR>]'</SAMP>
+<DD>
+<DT><SAMP>`--add-comments[=<VAR>tag</VAR>]'</SAMP>
+<DD>
+Place comment block with <VAR>tag</VAR> (or those preceding keyword lines)
+in output file.
+
+<DT><SAMP>`-C'</SAMP>
+<DD>
+<DT><SAMP>`--c++'</SAMP>
+<DD>
+Recognize C++ style comments.
+
+<DT><SAMP>`--debug'</SAMP>
+<DD>
+Use the flags <KBD>c-format</KBD> and <KBD>possible-c-format</KBD> to show who was
+responsible for marking a message as a format string.  The latter form is
+used if the <CODE>xgettext</CODE> program decided, the format form is used if
+the programmer prescribed it.
+
+By default only the <KBD>c-format</KBD> form is used.  The translator should
+not have to care about these details.
+
+<DT><SAMP>`-d <VAR>name</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--default-domain=<VAR>name</VAR>'</SAMP>
+<DD>
+Use <TT>`<VAR>name</VAR>.po'</TT> for output (instead of <TT>`messages.po'</TT>).
+
+The special domain name <TT>`-'</TT> or <TT>`/dev/stdout'</TT> means to write
+the output to <TT>`stdout'</TT>.
+
+<DT><SAMP>`-D <VAR>directory</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--directory=<VAR>directory</VAR>'</SAMP>
+<DD>
+Change to <VAR>directory</VAR> before beginning to search and scan source
+files.  The resulting <TT>`.po'</TT> file will be written relative to the
+original directory, though.
+
+<DT><SAMP>`-f <VAR>file</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--files-from=<VAR>file</VAR>'</SAMP>
+<DD>
+Read the names of the input files from <VAR>file</VAR> instead of getting
+them from the command line.
+
+<DT><SAMP>`--force'</SAMP>
+<DD>
+Always write an output file even if no message is defined.
+
+<DT><SAMP>`-h'</SAMP>
+<DD>
+<DT><SAMP>`--help'</SAMP>
+<DD>
+Display this help and exit.
+
+<DT><SAMP>`-I <VAR>list</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--input-path=<VAR>list</VAR>'</SAMP>
+<DD>
+List of directories searched for input files.
+
+<DT><SAMP>`-j'</SAMP>
+<DD>
+<DT><SAMP>`--join-existing'</SAMP>
+<DD>
+Join messages with existing file.
+
+<DT><SAMP>`-k <VAR>word</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--keyword[=<VAR>keywordspec</VAR>]'</SAMP>
+<DD>
+Additional keyword to be looked for (without <VAR>keywordspec</VAR> means not to
+use default keywords).
+
+If <VAR>keywordspec</VAR> is a C identifer <VAR>id</VAR>, <CODE>xgettext</CODE> looks
+for strings in the first argument of each call to the function or macro
+<VAR>id</VAR>.  If <VAR>keywordspec</VAR> is of the form
+<SAMP>`<VAR>id</VAR>:<VAR>argnum</VAR>'</SAMP>, <CODE>xgettext</CODE> looks for strings in the
+<VAR>argnum</VAR>th argument of the call.  If <VAR>keywordspec</VAR> is of the form
+<SAMP>`<VAR>id</VAR>:<VAR>argnum1</VAR>,<VAR>argnum2</VAR>'</SAMP>, <CODE>xgettext</CODE> looks for
+strings in the <VAR>argnum1</VAR>st argument and in the <VAR>argnum2</VAR>nd argument
+of the call, and treats them as singular/plural variants for a message
+with plural handling.
+
+The default keyword specifications, which are always looked for if not
+explicitly disabled, are <CODE>gettext</CODE>, <CODE>dgettext:2</CODE>,
+<CODE>dcgettext:2</CODE>, <CODE>ngettext:1,2</CODE>, <CODE>dngettext:2,3</CODE>,
+<CODE>dcngettext:2,3</CODE>, and <CODE>gettext_noop</CODE>.
+
+<DT><SAMP>`-m [<VAR>string</VAR>]'</SAMP>
+<DD>
+<DT><SAMP>`--msgstr-prefix[=<VAR>string</VAR>]'</SAMP>
+<DD>
+Use <VAR>string</VAR> or "" as prefix for msgstr entries.
+
+<DT><SAMP>`-M [<VAR>string</VAR>]'</SAMP>
+<DD>
+<DT><SAMP>`--msgstr-suffix[=<VAR>string</VAR>]'</SAMP>
+<DD>
+Use <VAR>string</VAR> or "" as suffix for msgstr entries.
+
+<DT><SAMP>`--no-location'</SAMP>
+<DD>
+Do not write <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>'</SAMP> lines.
+
+<DT><SAMP>`-n'</SAMP>
+<DD>
+<DT><SAMP>`--add-location'</SAMP>
+<DD>
+Generate <SAMP>`#: <VAR>filename</VAR>:<VAR>line</VAR>'</SAMP> lines (default).
+
+<DT><SAMP>`--omit-header'</SAMP>
+<DD>
+Don't write header with <SAMP>`msgid ""'</SAMP> entry.
+
+This is useful for testing purposes because it eliminates a source
+of variance for generated <CODE>.gmo</CODE> files.  We can ship some of
+these files in the GNU <CODE>gettext</CODE> package, and the result of
+regenerating them through <CODE>msgfmt</CODE> should yield the same values.
+
+<DT><SAMP>`-p <VAR>dir</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--output-dir=<VAR>dir</VAR>'</SAMP>
+<DD>
+Output files will be placed in directory <VAR>dir</VAR>.
+
+<DT><SAMP>`-s'</SAMP>
+<DD>
+<DT><SAMP>`--sort-output'</SAMP>
+<DD>
+Generate sorted output and remove duplicates.
+
+<DT><SAMP>`--strict'</SAMP>
+<DD>
+Write out a strict Uniforum conforming PO file.
+
+<DT><SAMP>`-v'</SAMP>
+<DD>
+<DT><SAMP>`--version'</SAMP>
+<DD>
+Output version information and exit.
+
+<DT><SAMP>`-x <VAR>file</VAR>'</SAMP>
+<DD>
+<DT><SAMP>`--exclude-file=<VAR>file</VAR>'</SAMP>
+<DD>
+Entries from <VAR>file</VAR> are not extracted.
+
+</DL>
+
+<P>
+Search path for supplementary PO files is:
+<TT>`/usr/local/share/nls/src/'</TT>.
+
+</P>
+<P>
+If <VAR>inputfile</VAR> is <SAMP>`-'</SAMP>, standard input is read.
+
+</P>
+<P>
+This implementation of <CODE>xgettext</CODE> is able to process a few awkward
+cases, like strings in preprocessor macros, ANSI concatenation of
+adjacent strings, and escaped end of lines for continued strings.
+
+</P>
+<P><HR><P>
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous</A>, <A HREF="gettext_5.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+</BODY>
+</HTML>

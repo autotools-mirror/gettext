@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<!-- This HTML file has been created by texi2html 1.51
+     from gettext.texi on 19 April 2001 -->
+
+<TITLE>GNU gettext utilities - 5  Creating a New PO File</TITLE>
+</HEAD>
+<BODY>
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_4.html">previous</A>, <A HREF="gettext_6.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+<P><HR><P>
+
+
+<H1><A NAME="SEC21" HREF="gettext_toc.html#TOC21">5  Creating a New PO File</A></H1>
+
+<P>
+When starting a new translation, the translator copies the
+<TT>`<VAR>package</VAR>.pot'</TT> template file to a file called
+<TT>`<VAR>LANG</VAR>.po'</TT>.  Then she modifies the initial comments and
+the header entry of this file.
+
+</P>
+<P>
+The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and
+"FIRST AUTHOR &#60;EMAIL@ADDRESS&#62;, YEAR" ought to be replaced by sensible
+information.  This can be done in any text editor; if Emacs is used
+and it switched to PO mode automatically (because it has recognized
+the file's suffix), you can disable it by typing <KBD>M-x fundamental-mode</KBD>.
+
+</P>
+<P>
+Modifying the header entry can already be done using PO mode: in Emacs,
+type <KBD>M-x po-mode RET</KBD> and then <KBD>RET</KBD> again to start editing the
+entry.  You should fill in the following fields.
+
+</P>
+<DL COMPACT>
+
+<DT>Project-Id-Version
+<DD>
+This is the name and version of the package.
+
+<DT>POT-Creation-Date
+<DD>
+This has already been filled in by <CODE>xgettext</CODE>.
+
+<DT>PO-Revision-Date
+<DD>
+You don't need to fill this in. It will be filled by the Emacs PO mode
+when you save the file.
+
+<DT>Last-Translator
+<DD>
+Fill in your name and email address (without double quotes).
+
+<DT>Language-Team
+<DD>
+Fill in the English name of the language, and the email address of the
+language team you are part of.
+
+Before starting a translation, it is a good idea to get in touch with
+your translation team, not only to make sure you don't do duplicated work,
+but also to coordinate difficult linguistic issues.
+
+In the Free Translation Project, each translation team has its own mailing
+list.  The up-to-date list of teams can be found at the Free Translation
+Project's homepage, <TT>`http://www.iro.umontreal.ca/contrib/po/HTML/'</TT>,
+in the "National teams" area.
+
+<DT>Content-Type
+<DD>
+Replace <SAMP>`CHARSET'</SAMP> with the character encoding used for your language,
+in your locale, or UTF-8.  This field is needed for correct operation of the
+<CODE>msgmerge</CODE> and <CODE>msgfmt</CODE> programs, as well as for users whose
+locale's character encoding differs from yours (see section <A HREF="gettext_9.html#SEC49">9.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A>).
+
+You get the character encoding of your locale by running the shell command
+<SAMP>`locale charmap'</SAMP>.  If the result is <SAMP>`C'</SAMP> or <SAMP>`ANSI_X3.4-1968'</SAMP>,
+which is equivalent to <SAMP>`ASCII'</SAMP> (= <SAMP>`US-ASCII'</SAMP>), it means that your
+locale is not correctly configured.  In this case, ask your translation
+team which charset to use.  <SAMP>`ASCII'</SAMP> is not usable for any language
+except Latin.
+
+Because the PO files must be portable to operating systems with less advanced
+internationalization facilities, the character encodings that can be used
+are limited to those supported by both GNU <CODE>libc</CODE> and GNU
+<CODE>libiconv</CODE>. These are:
+<CODE>ASCII</CODE>, <CODE>ISO-8859-1</CODE>, <CODE>ISO-8859-2</CODE>, <CODE>ISO-8859-3</CODE>,
+<CODE>ISO-8859-4</CODE>, <CODE>ISO-8859-5</CODE>, <CODE>ISO-8859-6</CODE>, <CODE>ISO-8859-7</CODE>,
+<CODE>ISO-8859-8</CODE>, <CODE>ISO-8859-9</CODE>, <CODE>ISO-8859-13</CODE>, <CODE>ISO-8859-15</CODE>,
+<CODE>KOI8-R</CODE>, <CODE>KOI8-U</CODE>, <CODE>CP850</CODE>, <CODE>CP866</CODE>, <CODE>CP874</CODE>,
+<CODE>CP932</CODE>, <CODE>CP949</CODE>, <CODE>CP950</CODE>, <CODE>CP1250</CODE>, <CODE>CP1251</CODE>,
+<CODE>CP1252</CODE>, <CODE>CP1253</CODE>, <CODE>CP1254</CODE>, <CODE>CP1255</CODE>, <CODE>CP1256</CODE>,
+<CODE>CP1257</CODE>, <CODE>GB2312</CODE>, <CODE>EUC-JP</CODE>, <CODE>EUC-KR</CODE>, <CODE>EUC-TW</CODE>,
+<CODE>BIG5</CODE>, <CODE>BIG5HKSCS</CODE>, <CODE>GBK</CODE>, <CODE>GB18030</CODE>, <CODE>SJIS</CODE>,
+<CODE>JOHAB</CODE>, <CODE>TIS-620</CODE>, <CODE>VISCII</CODE>, <CODE>UTF-8</CODE>.
+
+In the GNU system, the following encodings are frequently used for the
+corresponding languages.
+
+
+<UL>
+<LI><CODE>ISO-8859-1</CODE> for
+
+ Afrikaans, Albanian, Basque, Catalan, Dutch, English, Estonian, Faroese,
+ Finnish, French, Galician, German, Greenlandic, Icelandic, Indonesian,
+ Irish, Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
+<LI><CODE>ISO-8859-2</CODE> for
+
+ Croatian, Czech, Hungarian, Polish, Romanian, Serbian, Slovak, Slovenian,
+<LI><CODE>ISO-8859-3</CODE> for Maltese,
+
+<LI><CODE>ISO-8859-5</CODE> for Macedonian, Serbian,
+
+<LI><CODE>ISO-8859-6</CODE> for Arabic,
+
+<LI><CODE>ISO-8859-7</CODE> for Greek,
+
+<LI><CODE>ISO-8859-8</CODE> for Hebrew,
+
+<LI><CODE>ISO-8859-9</CODE> for Turkish,
+
+<LI><CODE>ISO-8859-13</CODE> for Latvian, Lithuanian,
+
+<LI><CODE>ISO-8859-15</CODE> for
+
+ Basque, Catalan, Dutch, English, Finnish, French, Galician, German, Irish,
+ Italian, Portuguese, Spanish, Swedish,
+<LI><CODE>KOI8-R</CODE> for Russian,
+
+<LI><CODE>KOI8-U</CODE> for Ukrainian,
+
+<LI><CODE>CP1251</CODE> for Bulgarian, Byelorussian,
+
+<LI><CODE>GB2312</CODE>, <CODE>GBK</CODE>, <CODE>GB18030</CODE>
+
+ for simplified writing of Chinese,
+<LI><CODE>BIG5</CODE>, <CODE>BIG5HKSCS</CODE>
+
+ for traditional writing of Chinese,
+<LI><CODE>EUC-JP</CODE> for Japanese,
+
+<LI><CODE>EUC-KR</CODE> for Korean,
+
+<LI><CODE>TIS-620</CODE> for Thai,
+
+<LI><CODE>UTF-8</CODE> for any language, including those listed above.
+
+</UL>
+
+When single quote characters or double quote characters are used in
+translations for your language, and your locale's encoding is one of the
+ISO-8859-* charsets, it is best if you create your PO files in UTF-8
+encoding, instead of your locale's encoding.  This is because in UTF-8
+the real quote characters can be represented (single quote characters:
+U+2018, U+2019, double quote characters: U+201C, U+201D), whereas none of
+ISO-8859-* charsets has them all.  Users in UTF-8 locales will see the
+real quote characters, whereas users in ISO-8859-* locales will see the
+vertical apostrophe and the vertical double quote instead (because that's
+what the character set conversion will transliterate them to).
+
+To enter such quote characters under X11, you can change your keyboard
+mapping using the <CODE>xmodmap</CODE> program.  The X11 names of the quote
+characters are "leftsinglequotemark", "rightsinglequotemark",
+"leftdoublequotemark", "rightdoublequotemark", "singlelowquotemark",
+"doublelowquotemark".
+
+Note that only recent versions of GNU Emacs support the UTF-8 encoding:
+Emacs 20 with Mule-UCS, and Emacs 21.  As of January 2001, XEmacs doesn't
+support the UTF-8 encoding.
+
+The character encoding name can be written in either upper or lower case.
+Usually upper case is preferred.
+
+<DT>Content-Transfer-Encoding
+<DD>
+Set this to <CODE>8-bit</CODE>.
+
+<DT>Plural-Forms
+<DD>
+This field is optional.  It is only needed if the PO file has plural forms.
+You can find them by searching for the <SAMP>`msgid_plural'</SAMP> keyword.  The
+format of the plural forms field is described in section <A HREF="gettext_9.html#SEC50">9.2.5  Additional functions for plural forms</A>.
+</DL>
+
+<P><HR><P>
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_4.html">previous</A>, <A HREF="gettext_6.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+</BODY>
+</HTML>
