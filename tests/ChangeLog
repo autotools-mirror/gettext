@@ -1,3 +1,11 @@
+2001-11-07  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (TESTS): Add msgcat-7.
+
+2001-11-07  Karl Eichwalder  <keichwa@gmx.net>
+
+	* msgcat-7: New file.
+
 2001-11-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-1: Add option --no-location to xgettext call, no longer
