@@ -1,3 +1,9 @@
+2005-02-11  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.rc: Bump version number to 0.14.2.
+	* windows/gettextsrc.rc: Likewise.
+	* windows/gettextpo.rc: Likewise.
+
 2005-02-10  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextpo.def: Add po_header_set_field.
