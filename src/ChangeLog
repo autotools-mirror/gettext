@@ -1,5 +1,14 @@
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* msgconv.c: Include localcharset.h.
+	(locale_charset): Remove declaration.
+	* msginit.c: Include localcharset.h.
+	(locale_charset): Remove declaration.
+	* msgl-charset.c: Include localcharset.h.
+	(locale_charset): Remove declaration.
+
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* format-java.c: Include alloca.h instead of liballoca.h.
 	* msggrep.c: Likewise.
 	* msginit.c: Likewise.

@@ -1,5 +1,5 @@
 /* Converts a translation catalog to a different character encoding.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -35,12 +35,11 @@
 #include "read-po.h"
 #include "write-po.h"
 #include "msgl-iconv.h"
+#include "localcharset.h"
 #include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-extern const char * locale_charset (void);
 
 
 /* Force output of PO file even if empty.  */

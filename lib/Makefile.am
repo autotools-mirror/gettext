@@ -151,7 +151,7 @@ MOSTLYCLEANFILES += alloca.h
 
 
 # >>> gnulib module localcharset.
-libgettextlib_la_SOURCES += localcharset.c
+libgettextlib_la_SOURCES += localcharset.h localcharset.c
 EXTRA_DIST += config.charset ref-add.sin ref-del.sin
 DEFS += -DLIBDIR=\"$(libdir)\"
 

@@ -29,6 +29,7 @@
 #include <string.h>
 
 #include "po-charset.h"
+#include "localcharset.h"
 #include "error.h"
 #include "progname.h"
 #include "basename.h"
@@ -39,8 +40,6 @@
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-extern const char * locale_charset (void);
 
 void
 compare_po_locale_charsets (const msgdomain_list_ty *mdlp)

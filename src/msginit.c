@@ -75,6 +75,7 @@
 #include "read-po.h"
 #include "write-po.h"
 #include "po-charset.h"
+#include "localcharset.h"
 #include "po-time.h"
 #include "plural-table.h"
 #include "xmalloc.h"
@@ -94,7 +95,6 @@
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
-extern const char * locale_charset (void);
 extern const char * _nl_locale_name (int category, const char *categoryname);
 extern const char * _nl_expand_alias (const char *name);
 

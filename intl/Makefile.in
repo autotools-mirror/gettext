@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling in GNU NLS Utilities.
-# Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Library General Public License as published
@@ -59,13 +59,12 @@ LDFLAGS = @LDFLAGS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-HEADERS = $(COMHDRS) libgnuintl.h loadinfo.h
-COMHDRS = gmo.h gettextP.h hash-string.h plural-exp.h eval-plural.h os2compat.h
-SOURCES = $(COMSRCS) intl-compat.c
-COMSRCS = bindtextdom.c dcgettext.c dgettext.c gettext.c \
+HEADERS = gmo.h gettextP.h hash-string.h loadinfo.h plural-exp.h \
+eval-plural.h localcharset.h os2compat.h libgnuintl.h
+SOURCES = bindtextdom.c dcgettext.c dgettext.c gettext.c \
 finddomain.c loadmsgcat.c localealias.c textdomain.c l10nflist.c \
 explodename.c dcigettext.c dcngettext.c dngettext.c ngettext.c plural.y \
-plural-exp.c localcharset.c localename.c osdep.c os2compat.c
+plural-exp.c localcharset.c localename.c osdep.c os2compat.c intl-compat.c
 OBJECTS = @INTLOBJS@ bindtextdom.$lo dcgettext.$lo dgettext.$lo gettext.$lo \
 finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
