@@ -113,7 +113,8 @@ XGETTEXT = ../src/xgettext
 
 # For debugging memory leaks and memory allocation bugs.
 CHECKER =
-#CHECKER = valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
+#CHECKER = valgrind --tool=memcheck --suppressions=$(srcdir)/../lib/allocsa.valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
+#CHECKER = valgrind --tool=massif --format=html --depth=10 --alloc-fn=xmalloc --alloc-fn=xrealloc --stacks=no
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    PATH=.:../src:../../gettext-runtime/src:$(top_srcdir)/../gettext-runtime/src:$$PATH \
