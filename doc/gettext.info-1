@@ -44,11 +44,13 @@ GNU `gettext' utilities
 * Template::                    Making the PO Template File
 * Creating::                    Creating a New PO File
 * Updating::                    Updating Existing PO Files
+* Manipulating::                Manipulating PO Files
 * Binaries::                    Producing Binary MO Files
 * Users::                       The User's View
 * Programmers::                 The Programmer's View
 * Translators::                 The Translator's View
 * Maintainers::                 The Maintainer's View
+* Programming Languages::       Other Programming Languages
 * Conclusion::                  Concluding Remarks
 
 * Language Codes::              ISO 639 language codes
@@ -84,6 +86,11 @@ Making the PO Template File
 
 * xgettext Invocation::         Invoking the `xgettext' Program
 
+Creating a New PO File
+
+* msginit Invocation::          Invoking the `msginit' Program
+* Header Entry::                Fields in the Header Entry
+
 Updating Existing PO Files
 
 * msgmerge Invocation::         Invoking the `msgmerge' Program
@@ -96,11 +103,29 @@ Updating Existing PO Files
 * Subedit::                     Mode for Editing Translations
 * C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
-* Compendium::                  Using Translation Compendiums
+* Compendium::                  Using Translation Compendia
+
+Using Translation Compendia
+
+* Creating Compendia::          Merging translations for later use
+* Using Compendia::             Using older translations if they fit
+
+Manipulating PO Files
+
+* msgcat Invocation::           Invoking the `msgcat' Program
+* msgconv Invocation::          Invoking the `msgconv' Program
+* msggrep Invocation::          Invoking the `msggrep' Program
+* msgexec Invocation::          Invoking the `msgexec' Program
+* msguniq Invocation::          Invoking the `msguniq' Program
+* msgcomm Invocation::          Invoking the `msgcomm' Program
+* msgcmp Invocation::           Invoking the `msgcmp' Program
+* msgattrib Invocation::        Invoking the `msgattrib' Program
+* msgen Invocation::            Invoking the `msgen' Program
 
 Producing Binary MO Files
 
 * msgfmt Invocation::           Invoking the `msgfmt' Program
+* msgunfmt Invocation::         Invoking the `msgunfmt' Program
 * MO Files::                    The Format of GNU MO Files
 
 The User's View
@@ -169,12 +194,47 @@ The Maintainer's View
 Files You Must Create or Alter
 
 * po/POTFILES.in::              `POTFILES.in' in `po/'
+* po/LINGUAS::                  `LINGUAS' in `po/'
+* po/Makevars::                 `Makefile' pieces in `po/'
 * configure.in::                `configure.in' at top level
 * config.guess::                `config.guess', `config.sub' at top level
 * aclocal::                     `aclocal.m4' at top level
 * acconfig::                    `acconfig.h' at top level
 * Makefile::                    `Makefile.in' at top level
 * src/Makefile::                `Makefile.in' in `src/'
+
+Other Programming Languages
+
+* Language Implementors::       The Language Implementor's View
+* Programmers for other Languages::  The Programmer's View
+* Translators for other Languages::  The Translator's View
+* List of Programming Languages::  Individual Programming Languages
+* List of Data Formats::        Internationalizable Data
+
+Individual Programming Languages
+
+* C::                           C, C++, Objective C
+* sh::                          sh - Shell Script
+* bash::                        bash - Bourne-Again Shell Script
+* Python::                      Python
+* Common Lisp::                 GNU clisp - Common Lisp
+* clisp C::                     GNU clisp C sources
+* Emacs Lisp::                  Emacs Lisp
+* librep::                      librep
+* Smalltalk::                   GNU Smalltalk
+* Java::                        Java
+* gawk::                        GNU awk
+* Pascal::                      Pascal - Free Pascal Compiler
+* wxWindows::                   wxWindows library
+* YCP::                         YCP - YaST2 scripting language
+* Perl::                        Perl
+* PHP::                         PHP Hypertext Preprocessor
+* Pike::                        Pike
+
+Internationalizable Data
+
+* POT::                         POT - Portable Object Template
+* RST::                         Resource String Table
 
 Concluding Remarks
 
@@ -213,7 +273,7 @@ maintenance cycle should usually operate.
    Please send suggestions and corrections to:
 
      Internet address:
-         bug-gnu-utils@gnu.org
+         bug-gnu-gettext@gnu.org
 
 Please include the manual's edition number and update date in your
 messages.
@@ -455,7 +515,8 @@ _Numbers_
      respective locales:
 
           12,345.67       English
-          12.345,67       French
+          12.345,67       German
+           12345,67       French
           1,2345.67       Asia
 
      Some programs could go further and use different unit systems, like
@@ -498,8 +559,7 @@ translations.  Program `msgmerge' takes care of adjusting PO files
 between releases of the corresponding sources, commenting obsolete
 entries, initializing new ones, and updating all source line
 references.  Files ending with `.pot' are kind of base translation
-files found in distributions, in PO file format, and `.pox' files are
-often temporary PO files.
+files found in distributions, in PO file format.
 
    MO files are meant to be read by programs, and are binary in nature.
 A few systems already offer tools for creating and handling MO files as
@@ -533,11 +593,11 @@ maintainers.
      |   |                                            |             ^
      |   |                                            `---.         |
      |   `---.                                            +---> PO mode ---.
-     |       +----> msgmerge ------> LANG.pox --->--------'                |
+     |       +----> msgmerge ------> LANG.po ---->--------'                |
      |   .---'                                                             |
      |   |                                                                 |
      |   `-------------<---------------.                                   |
-     |                                 +--- LANG.po <--- New LANG.pox <----'
+     |                                 +--- New LANG.po <------------------'
      |   .--- LANG.gmo <--- msgfmt <---'
      |   |
      |   `---> install ---> /.../LANG/PACKAGE.mo ---.
@@ -604,7 +664,8 @@ By doing so, you spare yourself typing the `xgettext' command, as
 
    The first time through, there is no `LANG.po' yet, so the `msgmerge'
 step may be skipped and replaced by a mere copy of `PACKAGE.pot' to
-`LANG.pox', where LANG represents the target language.
+`LANG.po', where LANG represents the target language.  See *Note
+Creating:: for details.
 
    Then comes the initial translation of messages.  Translation in
 itself is a whole matter, still exclusively meant for humans, and whose
@@ -614,7 +675,7 @@ Translators::).  You will also find there indications about how to
 contact translating teams, or becoming part of them, for sharing your
 translating concerns with others who target the same native language.
 
-   While adding the translated messages into the `LANG.pox' PO file, if
+   While adding the translated messages into the `LANG.po' PO file, if
 you do not have Emacs handy, you are on your own for ensuring that your
 efforts fully respect the PO file format, and quoting conventions
 (*note PO Files::).  This is surely not an impossible task, as this is
@@ -664,7 +725,7 @@ existing `LANG.po' file, by comparing it with a newer `PACKAGE.pot'
 template file, extracted by `xgettext' out of recent C sources.  The
 refreshing operation adjusts all references to C source locations for
 strings, since these strings move as programs are modified.  Also,
-`msgmerge' comments out as obsolete, in `LANG.pox', those already
+`msgmerge' comments out as obsolete, in `LANG.po', those already
 translated entries which are no longer used in the program sources
 (*note Obsolete Entries::).  It finally discovers new strings and
 inserts them in the resulting PO file as untranslated entries (*note
@@ -672,9 +733,7 @@ Untranslated Entries::).  *Note msgmerge Invocation::, for more
 information about what `msgmerge' really does.
 
    Whatever route or means taken, the goal is to obtain an updated
-`LANG.pox' file offering translations for all strings.  When this is
-properly achieved, this file `LANG.pox' may take the place of the
-previous official `LANG.po' file.
+`LANG.po' file offering translations for all strings.
 
    The temporal mobility, or fluidity of PO files, is an integral part
 of the translation game, and should be well understood, and accepted.
@@ -748,15 +807,15 @@ file `.emacs', once and for all, so it contains a few lines looking
 like:
 
      (setq auto-mode-alist
-           (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode) auto-mode-alist))
+           (cons '("\\.po\\'\\|\\.po\\." . po-mode) auto-mode-alist))
      (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 
-   Later, whenever you edit some `.po', `.pot' or `.pox' file, or any
-file having the string `.po.' within its name, Emacs loads
-`po-mode.elc' (or `po-mode.el') as needed, and automatically activates
-PO mode commands for the associated buffer.  The string _PO_ appears in
-the mode line for any buffer for which PO mode is active.  Many PO
-files may be active at once in a single Emacs session.
+   Later, whenever you edit some `.po' file, or any file having the
+string `.po.' within its name, Emacs loads `po-mode.elc' (or
+`po-mode.el') as needed, and automatically activates PO mode commands
+for the associated buffer.  The string _PO_ appears in the mode line
+for any buffer for which PO mode is active.  Many PO files may be
+active at once in a single Emacs session.
 
    If you are using Emacs version 20 or newer, and have already
 installed the appropriate international fonts on your system, you may
@@ -765,7 +824,7 @@ every PO file.  This will often (but not always) cause the necessary
 fonts to be loaded and used for displaying the translations on your
 Emacs screen.  For this to happen, add the lines:
 
-     (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
+     (modify-coding-system-alist 'file "\\.po\\'\\|\\.po\\."
                                  'po-find-file-coding-system)
      (autoload 'po-find-file-coding-system "po-mode")
 
@@ -921,110 +980,4 @@ be replaced unexpectedly when the PO file is given to `msgmerge'.
 
    (1) This limitation is not imposed by GNU `gettext', but is for
 compatibility with the `msgfmt' implementation on Solaris.
-
-
-File: gettext.info,  Node: Main PO Commands,  Next: Entry Positioning,  Prev: PO Files,  Up: Basics
-
-Main PO mode Commands
-=====================
-
-   After setting up Emacs with something similar to the lines in *Note
-Installation::, PO mode is activated for a window when Emacs finds a PO
-file in that window.  This puts the window read-only and establishes a
-po-mode-map, which is a genuine Emacs mode, in a way that is not derived
-from text mode in any way.  Functions found on `po-mode-hook', if any,
-will be executed.
-
-   When PO mode is active in a window, the letters `PO' appear in the
-mode line for that window.  The mode line also displays how many
-entries of each kind are held in the PO file.  For example, the string
-`132t+3f+10u+2o' would tell the translator that the PO mode contains
-132 translated entries (*note Translated Entries::, 3 fuzzy entries
-(*note Fuzzy Entries::), 10 untranslated entries (*note Untranslated
-Entries::) and 2 obsolete entries (*note Obsolete Entries::).
-Zero-coefficients items are not shown.  So, in this example, if the
-fuzzy entries were unfuzzied, the untranslated entries were translated
-and the obsolete entries were deleted, the mode line would merely
-display `145t' for the counters.
-
-   The main PO commands are those which do not fit into the other
-categories of subsequent sections.  These allow for quitting PO mode or
-for managing windows in special ways.
-
-`U'
-     Undo last modification to the PO file.
-
-`Q'
-     Quit processing and save the PO file.
-
-`q'
-     Quit processing, possibly after confirmation.
-
-`O'
-     Temporary leave the PO file window.
-
-`?'
-`h'
-     Show help about PO mode.
-
-`='
-     Give some PO file statistics.
-
-`V'
-     Batch validate the format of the whole PO file.
-
-   The command `U' (`po-undo') interfaces to the Emacs _undo_ facility.
-*Note Undoing Changes: (emacs)Undo.  Each time `U' is typed,
-modifications which the translator did to the PO file are undone a
-little more.  For the purpose of undoing, each PO mode command is
-atomic.  This is especially true for the `<RET>' command: the whole
-edition made by using a single use of this command is undone at once,
-even if the edition itself implied several actions.  However, while in
-the editing window, one can undo the edition work quite parsimoniously.
-
-   The commands `Q' (`po-quit') and `q' (`po-confirm-and-quit') are
-used when the translator is done with the PO file.  The former is a bit
-less verbose than the latter.  If the file has been modified, it is
-saved to disk first.  In both cases, and prior to all this, the
-commands check if some untranslated message remains in the PO file and,
-if yes, the translator is asked if she really wants to leave off
-working with this PO file.  This is the preferred way of getting rid of
-an Emacs PO file buffer.  Merely killing it through the usual command
-`C-x k' (`kill-buffer') is not the tidiest way to proceed.
-
-   The command `O' (`po-other-window') is another, softer way, to leave
-PO mode, temporarily.  It just moves the cursor to some other Emacs
-window, and pops one if necessary.  For example, if the translator just
-got PO mode to show some source context in some other, she might
-discover some apparent bug in the program source that needs correction.
-This command allows the translator to change sex, become a programmer,
-and have the cursor right into the window containing the program she
-(or rather _he_) wants to modify.  By later getting the cursor back in
-the PO file window, or by asking Emacs to edit this file once again, PO
-mode is then recovered.
-
-   The command `h' (`po-help') displays a summary of all available PO
-mode commands.  The translator should then type any character to resume
-normal PO mode operations.  The command `?' has the same effect as `h'.
-
-   The command `=' (`po-statistics') computes the total number of
-entries in the PO file, the ordinal of the current entry (counted from
-1), the number of untranslated entries, the number of obsolete entries,
-and displays all these numbers.
-
-   The command `V' (`po-validate') launches `msgfmt' in verbose mode
-over the current PO file.  This command first offers to save the
-current PO file on disk.  The `msgfmt' tool, from GNU `gettext', has
-the purpose of creating a MO file out of a PO file, and PO mode uses
-the features of this program for checking the overall format of a PO
-file, as well as all individual entries.
-
-   The program `msgfmt' runs asynchronously with Emacs, so the
-translator regains control immediately while her PO file is being
-studied.  Error output is collected in the Emacs `*compilation*' buffer,
-displayed in another window.  The regular Emacs command `C-x`'
-(`next-error'), as well as other usual compile commands, allow the
-translator to reposition quickly to the offending parts of the PO file.
-Once the cursor is on the line in error, the translator may decide on
-any PO mode action which would help correcting the error.
 

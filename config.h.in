@@ -7,7 +7,7 @@
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 
 #ifndef PARAMS
-# if __STDC__
+# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
 #  define PARAMS(args) args
 # else
 #  define PARAMS(args) ()
@@ -90,9 +90,6 @@
 
 /* Define if you have the __secure_getenv function.  */
 #undef HAVE___SECURE_GETENV
-
-/* Define if you have the dcgettext function.  */
-#undef HAVE_DCGETTEXT
 
 /* Define if you have the feof_unlocked function.  */
 #undef HAVE_FEOF_UNLOCKED
@@ -256,9 +253,6 @@
 /* Define if you have the <fcntl.h> header file.  */
 #undef HAVE_FCNTL_H
 
-/* Define if you have the <inttypes.h> header file.  */
-#undef HAVE_INTTYPES_H
-
 /* Define if you have the <limits.h> header file.  */
 #undef HAVE_LIMITS_H
 
@@ -279,9 +273,6 @@
 
 /* Define if you have the <stddef.h> header file.  */
 #undef HAVE_STDDEF_H
-
-/* Define if you have the <stdint.h> header file.  */
-#undef HAVE_STDINT_H
 
 /* Define if you have the <stdlib.h> header file.  */
 #undef HAVE_STDLIB_H
@@ -344,8 +335,12 @@
    and declares uintmax_t.  */
 #undef HAVE_INTTYPES_H
 
+/* Define if <stdint.h> exists, doesn't clash with <sys/types.h>,
+   and declares uintmax_t.  */
+#undef HAVE_STDINT_H
+
 /* Define to unsigned long or unsigned long long
-   if <inttypes.h> doesn't define. */
+   if <inttypes.h> and <stdint.h> don't define. */
 #undef uintmax_t
 
 /* Define as a signed type of the same size as size_t. */
@@ -362,6 +357,14 @@
 
 /* Define if <sys/wait.h> defines the 'union wait' type. */
 #undef HAVE_UNION_WAIT
+
+/* Define if <inttypes.h> exists, doesn't clash with <sys/types.h>,
+   and declares uintmax_t.  */
+#undef HAVE_INTTYPES_H
+
+/* Define if <stdint.h> exists, doesn't clash with <sys/types.h>,
+   and declares uintmax_t.  */
+#undef HAVE_STDINT_H
 
 /* Define to 1 if you have the sigset_t type and the sigprocmask function. */
 #undef HAVE_POSIX_SIGNALBLOCKING
@@ -400,6 +403,9 @@
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #undef HAVE_GETTEXT
+
+/* Define if the GNU dcgettext() function is already present or preinstalled. */
+#undef HAVE_DCGETTEXT
 
 
 /* We don't test for the basename function but still want to use the

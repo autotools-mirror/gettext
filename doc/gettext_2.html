@@ -1,12 +1,12 @@
 <HTML>
 <HEAD>
-<!-- This HTML file has been created by texi2html 1.51
-     from gettext.texi on 19 April 2001 -->
+<!-- This HTML file has been created by texi2html 1.52a
+     from gettext.texi on 30 November 2001 -->
 
 <TITLE>GNU gettext utilities - 2  PO Files and PO Mode Basics</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_1.html">previous</A>, <A HREF="gettext_3.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_1.html">previous</A>, <A HREF="gettext_3.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
@@ -28,7 +28,7 @@ in one place.  Here we present only the basics of PO mode.
 
 <P>
 Once you have received, unpacked, configured and compiled the GNU
-<CODE>gettext</CODE> distribution, the <SAMP>`make install'</SAMP> command puts in
+<CODE>gettext</CODE> distribution, the <SAMP>`make install&acute;</SAMP> command puts in
 place the programs <CODE>xgettext</CODE>, <CODE>msgfmt</CODE>, <CODE>gettext</CODE>, and
 <CODE>msgmerge</CODE>, as well as their available message catalogs.  To
 top off a comfortable installation, you might also want to make the
@@ -37,21 +37,21 @@ PO mode available to your Emacs users.
 </P>
 <P>
 During the installation of the PO mode, you might want to modify your
-file <TT>`.emacs'</TT>, once and for all, so it contains a few lines looking
+file <TT>`.emacs&acute;</TT>, once and for all, so it contains a few lines looking
 like:
 
 </P>
 
 <PRE>
 (setq auto-mode-alist
-      (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode) auto-mode-alist))
+      (cons '("\\.po\\'\\|\\.po\\." . po-mode) auto-mode-alist))
 (autoload 'po-mode "po-mode" "Major mode for translators to edit PO files" t)
 </PRE>
 
 <P>
-Later, whenever you edit some <TT>`.po'</TT>, <TT>`.pot'</TT> or <TT>`.pox'</TT>
-file, or any file having the string <SAMP>`.po.'</SAMP> within its name,
-Emacs loads <TT>`po-mode.elc'</TT> (or <TT>`po-mode.el'</TT>) as needed, and
+Later, whenever you edit some <TT>`.po&acute;</TT>
+file, or any file having the string <SAMP>`.po.&acute;</SAMP> within its name,
+Emacs loads <TT>`po-mode.elc&acute;</TT> (or <TT>`po-mode.el&acute;</TT>) as needed, and
 automatically activates PO mode commands for the associated buffer.
 The string <EM>PO</EM> appears in the mode line for any buffer for
 which PO mode is active.  Many PO files may be active at once in a
@@ -69,13 +69,13 @@ to happen, add the lines:
 </P>
 
 <PRE>
-(modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
+(modify-coding-system-alist 'file "\\.po\\'\\|\\.po\\."
                             'po-find-file-coding-system)
 (autoload 'po-find-file-coding-system "po-mode")
 </PRE>
 
 <P>
-to your <TT>`.emacs'</TT> file.  If, with this, you still see boxes instead
+to your <TT>`.emacs&acute;</TT> file.  If, with this, you still see boxes instead
 of international characters, try a different font set (via Shift Mouse
 button 1).
 
@@ -89,7 +89,7 @@ A PO file is made up of many entries, each entry holding the relation
 between an original untranslated string and its corresponding
 translation.  All entries in a given PO file usually pertain
 to a single project, and all translations are expressed in a single
-target language.  One PO file <STRONG>entry</STRONG> has the following schematic
+target language.  One PO file <EM>entry</EM> has the following schematic
 structure:
 
 </P>
@@ -163,7 +163,7 @@ can judge if the translation requires further modification, or is
 acceptable as is.  Once satisfied with the translation, she then removes
 this <KBD>fuzzy</KBD> attribute.  The <CODE>msgmerge</CODE> program inserts this
 when it combined the <CODE>msgid</CODE> and <CODE>msgstr</CODE> entries after fuzzy
-search only.  See section <A HREF="gettext_6.html#SEC25">6.3  Fuzzy Entries</A>.
+search only.  See section <A HREF="gettext_6.html#SEC45">6.3  Fuzzy Entries</A>.
 
 <DT><KBD>c-format</KBD>
 <DD>
@@ -176,7 +176,7 @@ soon as the <CODE>xgettext</CODE> program generates a new template file.
 
 In case the <KBD>c-format</KBD> flag is given for a string the <CODE>msgfmt</CODE>
 does some more tests to check to validity of the translation.
-See section <A HREF="gettext_7.html#SEC35">7.1  Invoking the <CODE>msgfmt</CODE> Program</A>.
+See section <A HREF="gettext_8.html#SEC115">8.1  Invoking the <CODE>msgfmt</CODE> Program</A>.
 
 </DL>
 
@@ -233,34 +233,34 @@ msgid ""
 
 <P>
 In this example, the empty string is used on the first line, to
-allow better alignment of the <KBD>H</KBD> from the word <SAMP>`Here'</SAMP>
-over the <KBD>f</KBD> from the word <SAMP>`for'</SAMP>.  In this example, the
+allow better alignment of the <KBD>H</KBD> from the word <SAMP>`Here&acute;</SAMP>
+over the <KBD>f</KBD> from the word <SAMP>`for&acute;</SAMP>.  In this example, the
 <CODE>msgid</CODE> keyword is followed by three strings, which are meant
 to be concatenated.  Concatenating the empty string does not change
 the resulting overall string, but it is a way for us to comply with
 the necessity of <CODE>msgid</CODE> to be followed by a string on the same
 line, while keeping the multi-line presentation left-justified, as
 we find this to be a cleaner disposition.  The empty string could have
-been omitted, but only if the string starting with <SAMP>`Here'</SAMP> was
+been omitted, but only if the string starting with <SAMP>`Here&acute;</SAMP> was
 promoted on the first line, right after <CODE>msgid</CODE>.<A NAME="DOCF2" HREF="gettext_foot.html#FOOT2">(2)</A> It was not really necessary
 either to switch between the two last quoted strings immediately after
-the newline <SAMP>`\n'</SAMP>, the switch could have occurred after <EM>any</EM>
+the newline <SAMP>`\n&acute;</SAMP>, the switch could have occurred after <EM>any</EM>
 other character, we just did it this way because it is neater.
 
 </P>
 <P>
 One should carefully distinguish between end of lines marked as
-<SAMP>`\n'</SAMP> <EM>inside</EM> quotes, which are part of the represented
+<SAMP>`\n&acute;</SAMP> <EM>inside</EM> quotes, which are part of the represented
 string, and end of lines in the PO file itself, outside string quotes,
 which have no incidence on the represented string.
 
 </P>
 <P>
 Outside strings, white lines and comments may be used freely.
-Comments start at the beginning of a line with <SAMP>`#'</SAMP> and extend
+Comments start at the beginning of a line with <SAMP>`#&acute;</SAMP> and extend
 until the end of the PO file line.  Comments written by translators
-should have the initial <SAMP>`#'</SAMP> immediately followed by some white
-space.  If the <SAMP>`#'</SAMP> is not immediately followed by white space,
+should have the initial <SAMP>`#&acute;</SAMP> immediately followed by some white
+space.  If the <SAMP>`#&acute;</SAMP> is not immediately followed by white space,
 this comment is most likely generated and managed by specialized GNU
 tools, and might disappear or be replaced unexpectedly when the PO
 file is given to <CODE>msgmerge</CODE>.
@@ -280,16 +280,16 @@ if any, will be executed.
 
 </P>
 <P>
-When PO mode is active in a window, the letters <SAMP>`PO'</SAMP> appear
+When PO mode is active in a window, the letters <SAMP>`PO&acute;</SAMP> appear
 in the mode line for that window.  The mode line also displays how
 many entries of each kind are held in the PO file.  For example,
-the string <SAMP>`132t+3f+10u+2o'</SAMP> would tell the translator that the
-PO mode contains 132 translated entries (see section <A HREF="gettext_6.html#SEC24">6.2  Translated Entries</A>,
-3 fuzzy entries (see section <A HREF="gettext_6.html#SEC25">6.3  Fuzzy Entries</A>), 10 untranslated entries
-(see section <A HREF="gettext_6.html#SEC26">6.4  Untranslated Entries</A>) and 2 obsolete entries (see section <A HREF="gettext_6.html#SEC27">6.5  Obsolete Entries</A>).  Zero-coefficients items are not shown.  So, in this example, if
+the string <SAMP>`132t+3f+10u+2o&acute;</SAMP> would tell the translator that the
+PO mode contains 132 translated entries (see section <A HREF="gettext_6.html#SEC44">6.2  Translated Entries</A>,
+3 fuzzy entries (see section <A HREF="gettext_6.html#SEC45">6.3  Fuzzy Entries</A>), 10 untranslated entries
+(see section <A HREF="gettext_6.html#SEC46">6.4  Untranslated Entries</A>) and 2 obsolete entries (see section <A HREF="gettext_6.html#SEC47">6.5  Obsolete Entries</A>).  Zero-coefficients items are not shown.  So, in this example, if
 the fuzzy entries were unfuzzied, the untranslated entries were translated
 and the obsolete entries were deleted, the mode line would merely display
-<SAMP>`145t'</SAMP> for the counters.
+<SAMP>`145t&acute;</SAMP> for the counters.
 
 </P>
 <P>
@@ -300,40 +300,40 @@ in special ways.
 </P>
 <DL COMPACT>
 
-<DT><KBD>U</KBD>
+<DT><KBD>_</KBD>
 <DD>
-Undo last modification to the PO file.
+Undo last modification to the PO file (<CODE>po-undo</CODE>).
 
 <DT><KBD>Q</KBD>
 <DD>
-Quit processing and save the PO file.
+Quit processing and save the PO file (<CODE>po-quit</CODE>).
 
 <DT><KBD>q</KBD>
 <DD>
-Quit processing, possibly after confirmation.
+Quit processing, possibly after confirmation (<CODE>po-confirm-and-quit</CODE>).
 
-<DT><KBD>O</KBD>
+<DT><KBD>0</KBD>
 <DD>
-Temporary leave the PO file window.
+Temporary leave the PO file window (<CODE>po-other-window</CODE>).
 
 <DT><KBD>?</KBD>
 <DD>
 <DT><KBD>h</KBD>
 <DD>
-Show help about PO mode.
+Show help about PO mode (<CODE>po-help</CODE>).
 
 <DT><KBD>=</KBD>
 <DD>
-Give some PO file statistics.
+Give some PO file statistics (<CODE>po-statistics</CODE>).
 
 <DT><KBD>V</KBD>
 <DD>
-Batch validate the format of the whole PO file.
+Batch validate the format of the whole PO file (<CODE>po-validate</CODE>).
 
 </DL>
 
 <P>
-The command <KBD>U</KBD> (<CODE>po-undo</CODE>) interfaces to the Emacs
+The command <KBD>_</KBD> (<CODE>po-undo</CODE>) interfaces to the Emacs
 <EM>undo</EM> facility.  See section `Undoing Changes' in <CITE>The Emacs Editor</CITE>.  Each time <KBD>U</KBD> is typed, modifications which the translator
 did to the PO file are undone a little more.  For the purpose of
 undoing, each PO mode command is atomic.  This is especially true for
@@ -356,7 +356,7 @@ of an Emacs PO file buffer.  Merely killing it through the usual command
 
 </P>
 <P>
-The command <KBD>O</KBD> (<CODE>po-other-window</CODE>) is another, softer way,
+The command <KBD>0</KBD> (<CODE>po-other-window</CODE>) is another, softer way,
 to leave PO mode, temporarily.  It just moves the cursor to some other
 Emacs window, and pops one if necessary.  For example, if the translator
 just got PO mode to show some source context in some other, she might
@@ -383,7 +383,8 @@ and displays all these numbers.
 
 </P>
 <P>
-The command <KBD>V</KBD> (<CODE>po-validate</CODE>) launches <CODE>msgfmt</CODE> in verbose
+The command <KBD>V</KBD> (<CODE>po-validate</CODE>) launches <CODE>msgfmt</CODE> in
+checking and verbose
 mode over the current PO file.  This command first offers to save the
 current PO file on disk.  The <CODE>msgfmt</CODE> tool, from GNU <CODE>gettext</CODE>,
 has the purpose of creating a MO file out of a PO file, and PO mode uses
@@ -394,7 +395,7 @@ as well as all individual entries.
 <P>
 The program <CODE>msgfmt</CODE> runs asynchronously with Emacs, so the
 translator regains control immediately while her PO file is being studied.
-Error output is collected in the Emacs <SAMP>`*compilation*'</SAMP> buffer,
+Error output is collected in the Emacs <SAMP>`*compilation*&acute;</SAMP> buffer,
 displayed in another window.  The regular Emacs command <KBD>C-x`</KBD>
 (<CODE>next-error</CODE>), as well as other usual compile commands, allow the
 translator to reposition quickly to the offending parts of the PO file.
@@ -419,46 +420,45 @@ the PO file, this also selects on which entry commands operate.
 <P>
 Some PO mode commands alter the position of the cursor in a specialized
 way.  A few of those special purpose positioning are described here,
-the others are described in following sections.
+the others are described in following sections (for a complete list try
+<KBD>C-h m</KBD>):
 
 </P>
 <DL COMPACT>
 
 <DT><KBD>.</KBD>
 <DD>
-Redisplay the current entry.
+Redisplay the current entry (<CODE>po-current-entry</CODE>).
 
 <DT><KBD>n</KBD>
 <DD>
-<DT><KBD>n</KBD>
-<DD>
-Select the entry after the current one.
+Select the entry after the current one (<CODE>po-next-entry</CODE>).
 
 <DT><KBD>p</KBD>
 <DD>
-<DT><KBD>p</KBD>
-<DD>
-Select the entry before the current one.
+Select the entry before the current one (<CODE>po-previous-entry</CODE>).
 
 <DT><KBD>&#60;</KBD>
 <DD>
-Select the first entry in the PO file.
+Select the first entry in the PO file (<CODE>po-first-entry</CODE>).
 
 <DT><KBD>&#62;</KBD>
 <DD>
-Select the last entry in the PO file.
+Select the last entry in the PO file (<CODE>po-last-entry</CODE>).
 
 <DT><KBD>m</KBD>
 <DD>
-Record the location of the current entry for later use.
+Record the location of the current entry for later use
+(<CODE>po-push-location</CODE>).
 
-<DT><KBD>l</KBD>
+<DT><KBD>r</KBD>
 <DD>
-Return to a previously saved entry location.
+Return to a previously saved entry location (<CODE>po-pop-location</CODE>).
 
 <DT><KBD>x</KBD>
 <DD>
-Exchange the current entry location with the previously saved one.
+Exchange the current entry location with the previously saved one
+(<CODE>po-exchange-location</CODE>).
 
 </DL>
 
@@ -503,7 +503,7 @@ The commands <KBD>&#60;</KBD> (<CODE>po-first-entry</CODE>) and <KBD>&#62;</KBD>
 (<CODE>po-last-entry</CODE>) move the cursor to the first entry, or last
 entry, of the PO file.  When the cursor is located past the last
 entry in a PO file, most PO mode commands will return an error saying
-<SAMP>`After last entry'</SAMP>.  Moreover, the commands <KBD>&#60;</KBD> and <KBD>&#62;</KBD>
+<SAMP>`After last entry&acute;</SAMP>.  Moreover, the commands <KBD>&#60;</KBD> and <KBD>&#62;</KBD>
 have the special property of being able to work even when the cursor
 is not into some PO file entry, and one may use them for nicely
 correcting this situation.  But even these commands will fail on a
@@ -633,7 +633,7 @@ their PO files in nice ways.
 <P>
 Right now, in PO mode, strings are single line or multi-line.  A string
 goes multi-line if and only if it has <EM>embedded</EM> newlines, that
-is, if it matches <SAMP>`[^\n]\n+[^\n]'</SAMP>.  So, we would have:
+is, if it matches <SAMP>`[^\n]\n+[^\n]&acute;</SAMP>.  So, we would have:
 
 </P>
 
@@ -680,6 +680,6 @@ to be documented in this manual, once these questions settle.
 
 </P>
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_1.html">previous</A>, <A HREF="gettext_3.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_1.html">previous</A>, <A HREF="gettext_3.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

@@ -67,6 +67,7 @@ CC = @CC@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
+CXX = @CXX@
 DATADIRNAME = @DATADIRNAME@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
@@ -77,12 +78,19 @@ GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
+HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
+HAVE_JAVA = @HAVE_JAVA@
 HAVE_JAVAC = @HAVE_JAVAC@
-HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JAVAC_IN_PATH = @HAVE_JAVAC_IN_PATH@
+HAVE_JAVA_IN_PATH = @HAVE_JAVA_IN_PATH@
 HAVE_JIKES = @HAVE_JIKES@
+HAVE_JIKES_IN_PATH = @HAVE_JIKES_IN_PATH@
 HAVE_JRE = @HAVE_JRE@
+HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
+HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -152,7 +160,9 @@ gettext_TEXINFOS = \
 
 EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 nls.texi matrix.texi $(EXTRA_DIST_html) texi2html
 
-EXTRA_DIST_html = $(wildcard gettext_*.html)
+# This strange way of taking wildcards is a workaround to an automake-1.5 bug
+# which would occur if we wrote $(wildcard $(srcdir)/gettext_*.html).
+EXTRA_DIST_html = $(notdir $(wildcard gettext_*.html) $(wildcard $(addprefix $(srcdir), $(addprefix /, gettext_*.html))))
 CLEANFILES = gettext.pdf gettext.html
 # gettext.dvi and gettext.ps are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html
@@ -287,6 +297,7 @@ top_distdir = ..
 distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
+	$(mkinstalldirs) $(distdir)/
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \

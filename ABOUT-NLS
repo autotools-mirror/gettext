@@ -175,14 +175,14 @@ translation percentage of at least 50%.
      bash            |             []       [] []       []                   |
      bfd             |                                  []                   |
      binutils        |                                  []                   |
-     bison           |             []          [] []    []                   |
+     bison           |                            []    []                   |
      clisp           |             []    []    []       []                   |
      cpio            |          [] []          []       [] []                |
      diffutils       |          [] []       [] []       [] []          []    |
      enscript        |             []                   []                   |
      error           |                         []       []          []       |
      fetchmail       |          []                                           |
-     fileutils       |       [] [] [] []       []       [] []                |
+     fileutils       |                                  []                   |
      findutils       |          [] []          [] []    [] []          [] [] |
      flex            |          []             []       []                   |
      freetype        |                                                       |
@@ -190,8 +190,8 @@ translation percentage of at least 50%.
      gawk            |                                  []    []             |
      gcal            |                                                       |
      gcc             |                                  []                   |
-     gettext         |       [] [] [] []       []       [] []          [] [] |
-     gnupg           |             []       []    []    [] []             [] |
+     gettext         |             []                   []                   |
+     gnupg           |             []       [] [] []    [] []             [] |
      gprof           |                                  []                   |
      grep            |       []    []       [] [] []    [] []             [] |
      hello           |          [] [] []    [] [] [] [] [] []       []    [] |
@@ -222,13 +222,13 @@ translation percentage of at least 50%.
      sp              |                                                       |
      tar             |       [] [] []          [] []    []                [] |
      texinfo         |       [] [] []       []          []                   |
-     textutils       |       [] [] [] []       []       [] []                |
+     textutils       |             [] []       []       []                   |
      util-linux      |       [] []                      []                   |
-     wdiff           |          [] []             []                         |
+     wdiff           |          [] []             []    []                   |
      wget            |       [] [] [] []       [] []    [] [] []             |
                      +-------------------------------------------------------+
                        bg ca cs da de el en eo es et fi fr gl he hr hu id it
-                        0  3 14 31 35 11  1  8 24 13  1 39 23  4  0  2  8  9
+                        0  3 11 28 33  9  1  8 22 13  1 40 20  4  0  2  7  8
      
                        ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
                      +-------------------------------------------------------+
@@ -236,23 +236,23 @@ translation percentage of at least 50%.
      bash            |                                                       |  4
      bfd             |                                                       |  1
      binutils        |                                              []       |  2
-     bison           | []                               []          []       |  7
+     bison           |                                  []       [] []       |  5
      clisp           |             []                                        |  5
      cpio            |    []       []       []     []   []       []          | 11
      diffutils       |                      []          []       [] []       | 11
      enscript        |             []              []   []                   |  5
      error           |                                     []       []       |  5
      fetchmail       |                                                       |  1
-     fileutils       | [] []       []       []     []   [] [] [] [] []       | 17
-     findutils       |    []       []       []     []   []    [] [] []       | 16
+     fileutils       |                                           [] []       |  3
+     findutils       | [] []       []       []     []   []    [] [] []       | 17
      flex            |    []                            []       []          |  6
      freetype        |                                                       |  0
      gas             |                                                       |  1
      gawk            |                                              []       |  3
-     gcal            |                                                       |  0
+     gcal            |                                           []          |  1
      gcc             |                                                       |  1
-     gettext         | [] []                []     []   [] [] [] [] []    [] | 19
-     gnupg           | []                   []                   [] []       | 10
+     gettext         |                                           [] []       |  4
+     gnupg           | []                   []                   [] []       | 11
      gprof           |                                                       |  1
      grep            |                      []                [] [] []       | 12
      hello           | [] [] [] [] []    [] []          [] []    [] [] []    | 23
@@ -260,18 +260,18 @@ translation percentage of at least 50%.
      indent          |    []       []       []          [] []    [] []       | 12
      jpilot          |                                                       |  3
      jwhois          |                                                       |  0
-     kbd             |                                              []       |  1
+     kbd             |                                           [] []       |  2
      ld              |                                           []          |  2
      libc            | [] []    []       [] []     []      []    [] []       | 17
      lilypond        | []          []                            []          |  4
      lynx            | []          []              []   []       []          |  8
      m4              | []          []       []          []       []          | 12
      make            | [] []       []       []     []   []          []       | 12
-     mysecretdiary   |                                                       |  1
+     mysecretdiary   |                                           []          |  2
      nano            |                                  []       []    []    |  9
      nano_1_0        |                                           []          |  7
      opcodes         |                                           [] []       |  3
-     parted          | []                                        []          |  5
+     parted          | []                      []  []            []          |  7
      ptx             |          [] []    [] [] []       []       [] []       | 15
      python          |                                                       |  0
      recode          |                      []          []    [] []          | 13
@@ -282,14 +282,14 @@ translation percentage of at least 50%.
      soundtracker    |                                                       |  3
      sp              |                                                       |  0
      tar             | []       []       [] []     []         [] [] []       | 15
-     texinfo         | []                               []                   |  7
-     textutils       | []       [] []    [] []     []   [] [] []             | 16
+     texinfo         | []                               []       []          |  8
+     textutils       | []       []       [] []          [] [] []             | 11
      util-linux      |                             []            [] []       |  6
-     wdiff           |                                  [] []    [] []       |  7
+     wdiff           |                                  [] []    [] []       |  8
      wget            | []          []                   [] [] [] [] [] []    | 17
                      +-------------------------------------------------------+
        35 teams        ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
-       55 domains      18 10  1  6 19  0  6 17  1  13   25 11 11 30 23  3  2  422
+       55 domains      16  8  1  6 17  0  6 15  2  11   23  9  9 35 23  3  1  395
 
    Some counters in the preceding matrix are higher than the number of
 visible blocks let us expect.  This is because a few extra PO files are

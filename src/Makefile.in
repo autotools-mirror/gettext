@@ -67,6 +67,7 @@ CC = @CC@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
+CXX = @CXX@
 DATADIRNAME = @DATADIRNAME@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
@@ -81,10 +82,10 @@ HAVE_GCJ = @HAVE_GCJ@
 HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
 HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
+HAVE_JAVA = @HAVE_JAVA@
 HAVE_JAVAC = @HAVE_JAVAC@
 HAVE_JAVAC_IN_PATH = @HAVE_JAVAC_IN_PATH@
 HAVE_JAVA_IN_PATH = @HAVE_JAVA_IN_PATH@
-HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
 HAVE_JIKES = @HAVE_JIKES@
 HAVE_JIKES_IN_PATH = @HAVE_JIKES_IN_PATH@
 HAVE_JRE = @HAVE_JRE@
@@ -188,7 +189,7 @@ format-ycp.c
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-po.c write-po.c msgl-ascii.c msgl-iconv.c msgl-equal.c \
-msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c \
+msgl-cat.c msgl-english.c file-list.c msgl-charset.c po-time.c plural.c \
 $(FORMAT_SOURCE)
 
 
@@ -196,7 +197,7 @@ $(FORMAT_SOURCE)
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural.c plural-eval.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c plural-eval.c
 msgmerge_SOURCES = msgmerge.c
 msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c
 xgettext_SOURCES = xgettext.c x-c.c x-po.c x-java.l x-ycp.c x-rst.c
@@ -258,8 +259,9 @@ am_libgettextsrc_la_OBJECTS = message.lo po.lo po-lex.lo po-gram-gen.lo \
 	po-hash-gen.lo po-charset.lo open-po.lo dir-list.lo str-list.lo \
 	read-po.lo write-po.lo msgl-ascii.lo msgl-iconv.lo \
 	msgl-equal.lo msgl-cat.lo msgl-english.lo file-list.lo \
-	msgl-charset.lo po-time.lo format.lo format-c.lo format-java.lo \
-	format-lisp.lo format-python.lo format-pascal.lo format-ycp.lo
+	msgl-charset.lo po-time.lo plural.lo format.lo format-c.lo \
+	format-java.lo format-lisp.lo format-python.lo format-pascal.lo \
+	format-ycp.lo
 libgettextsrc_la_OBJECTS = $(am_libgettextsrc_la_OBJECTS)
 bin_PROGRAMS = gettext$(EXEEXT) ngettext$(EXEEXT) msgcmp$(EXEEXT) \
 	msgfmt$(EXEEXT) msgmerge$(EXEEXT) msgunfmt$(EXEEXT) \
@@ -309,7 +311,7 @@ msgexec_OBJECTS = $(am_msgexec_OBJECTS)
 msgexec_DEPENDENCIES = libgettextsrc.la
 msgexec_LDFLAGS =
 am_msgfmt_OBJECTS = msgfmt.$(OBJEXT) write-mo.$(OBJEXT) \
-	write-java.$(OBJEXT) plural.$(OBJEXT) plural-eval.$(OBJEXT)
+	write-java.$(OBJEXT) plural-eval.$(OBJEXT)
 msgfmt_OBJECTS = $(am_msgfmt_OBJECTS)
 msgfmt_DEPENDENCIES = libgettextsrc.la
 msgfmt_LDFLAGS =

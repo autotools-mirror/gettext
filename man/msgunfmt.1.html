@@ -17,7 +17,6 @@
 
 <hr>
 <!-- Creator     : groff version 1.17 -->
-<!-- CreationDate: Tue Jun 12 14:59:38 2001 -->
 <a name="NAME"></a>
 <h2>NAME</h2>
 <table width="100%" border=0 rules="none" frame="void"
@@ -55,6 +54,24 @@ options too.</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="4%"></td><td width="96%">
+<b>Operation mode:</b></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>-j</b>, <b>--java</b></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+Java mode: generate a Java ResourceBundle class</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td><td width="96%">
 <b>Input file location:</b></td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
@@ -75,6 +92,45 @@ input .mo files</td></table>
 <td width="10%"></td><td width="90%">
 If no input file is given or if it is -, standard input is
 read.</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td><td width="96%">
+<b>Input file location in Java mode:</b></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>-r</b>, <b>--resource</b>=<i>RESOURCE</i></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+resource name</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>-l</b>, <b>--locale</b>=<i>LOCALE</i></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+locale name, either language or
+language_COUNTRY</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+The class name is determined by appending the locale name to
+the resource name, separated with an underscore. The class
+is located using the CLASSPATH.</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -189,7 +245,7 @@ set output page width</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
-generate sorted output and remove duplicates</td></table>
+generate sorted output</td></table>
 
 <table width="100%" border=0 rules="none" frame="void"
        cols="2" cellspacing="0" cellpadding="0">
@@ -220,6 +276,18 @@ display this help and exit</td></table>
 <tr valign="top" align="left">
 <td width="21%"></td><td width="79%">
 output version information and exit</td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td><td width="90%">
+<b>-v</b>, <b>--verbose</b></td></table>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td><td width="79%">
+increase verbosity level</td></table>
 <a name="AUTHOR"></a>
 <h2>AUTHOR</h2>
 
@@ -235,7 +303,7 @@ Written by Ulrich Drepper.</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-Report bugs to &lt;bug-gnu-utils@gnu.org&gt;.</td></table>
+Report bugs to &lt;bug-gnu-gettext@gnu.org&gt;.</td></table>
 <a name="COPYRIGHT"></a>
 <h2>COPYRIGHT</h2>
 

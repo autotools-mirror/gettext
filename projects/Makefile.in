@@ -67,6 +67,7 @@ CC = @CC@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
+CXX = @CXX@
 DATADIRNAME = @DATADIRNAME@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
@@ -78,12 +79,19 @@ GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
+HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
+HAVE_JAVA = @HAVE_JAVA@
 HAVE_JAVAC = @HAVE_JAVAC@
-HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JAVAC_IN_PATH = @HAVE_JAVAC_IN_PATH@
+HAVE_JAVA_IN_PATH = @HAVE_JAVA_IN_PATH@
 HAVE_JIKES = @HAVE_JIKES@
+HAVE_JIKES_IN_PATH = @HAVE_JIKES_IN_PATH@
 HAVE_JRE = @HAVE_JRE@
+HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
+HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -271,12 +279,12 @@ install-data-local:
 	  $(mkinstalldirs) $(DESTDIR)$(projectsdir)/$$p; \
 	done
 	@for f in $(SCRIPTFILES); do \
-	  echo "$(INSTALL_SCRIPT) $$f $(DESTDIR)$(projectsdir)/$$f"; \
-	  $(INSTALL_SCRIPT) $$f $(DESTDIR)$(projectsdir)/$$f; \
+	  echo "$(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f"; \
+	  $(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f; \
 	done
 	@for f in $(DATAFILES); do \
-	  echo "$(INSTALL_DATA) $$f $(DESTDIR)$(projectsdir)/$$f"; \
-	  $(INSTALL_DATA) $$f $(DESTDIR)$(projectsdir)/$$f; \
+	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f"; \
+	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f; \
 	done
 
 installdirs-local:

@@ -67,6 +67,7 @@ CC = @CC@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
+CXX = @CXX@
 DATADIRNAME = @DATADIRNAME@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
@@ -78,12 +79,19 @@ GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
+HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
+HAVE_JAVA = @HAVE_JAVA@
 HAVE_JAVAC = @HAVE_JAVAC@
-HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JAVAC_IN_PATH = @HAVE_JAVAC_IN_PATH@
+HAVE_JAVA_IN_PATH = @HAVE_JAVA_IN_PATH@
 HAVE_JIKES = @HAVE_JIKES@
+HAVE_JIKES_IN_PATH = @HAVE_JIKES_IN_PATH@
 HAVE_JRE = @HAVE_JRE@
+HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
+HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -125,30 +133,34 @@ lispdir = @lispdir@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 TESTS = gettext-1 gettext-2 \
-	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 \
+	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
 	msgcmp-1 msgcmp-2 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
 	msgcomm-14 msgcomm-15 msgcomm-16 msgcomm-17 msgcomm-18 msgcomm-19 \
 	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 \
-	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 \
+	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
+	msgfmt-8 msgfmt-9 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
+	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
+	msgmerge-18 msgmerge-19 \
 	msgunfmt-1 \
 	msguniq-1 msguniq-2 msguniq-3 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
-	xgettext-13 xgettext-14 xgettext-15 xgettext-16 \
+	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	format-c-1 format-c-2 \
 	format-java-1 format-java-2 \
 	format-lisp-1 format-lisp-2 \
 	format-python-1 format-python-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
-	plural-1 plural-2
+	plural-1 plural-2 \
+	lang-c lang-c++ lang-objc lang-java lang-pascal lang-ycp lang-po lang-rst
 
 
-EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-1.in msguniq-1.out
+EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-a.in msguniq-a.out
 
 XGETTEXT = ../src/xgettext
 
@@ -163,6 +175,13 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` \
 		    MSGCAT=`echo msgcat|sed '$(transform)'` \
 		    MSGUNIQ=`echo msguniq|sed '$(transform)'` \
+		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
+		    LIBTOOL='@LIBTOOL@' \
+		    CC='@CC@' CFLAGS='@CFLAGS@' \
+		    CXX='@CXX@' CXXFLAGS='@CXXFLAGS@' \
+		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
+		    INTLLIBS='@INTLLIBS@' \
+		    TESTJAVA='@TESTJAVA@' \
 		    $(SHELL)
 
 
@@ -456,7 +475,8 @@ uninstall-am: uninstall-info-am
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 		$(top_srcdir)/src/gettext.c
-	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) -k_ --omit-header \
+	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) \
+	  -k_ --omit-header --no-location \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/gettext.c
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

@@ -67,6 +67,7 @@ CC = @CC@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CROSS_COMPILING = @CROSS_COMPILING@
+CXX = @CXX@
 DATADIRNAME = @DATADIRNAME@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
@@ -78,12 +79,19 @@ GENCAT = @GENCAT@
 GLIBC21 = @GLIBC21@
 GMSGFMT = @GMSGFMT@
 HAVE_GCJ = @HAVE_GCJ@
+HAVE_GCJ_IN_PATH = @HAVE_GCJ_IN_PATH@
 HAVE_GIJ = @HAVE_GIJ@
+HAVE_GIJ_IN_PATH = @HAVE_GIJ_IN_PATH@
+HAVE_JAVA = @HAVE_JAVA@
 HAVE_JAVAC = @HAVE_JAVAC@
-HAVE_JAVA_JVM = @HAVE_JAVA_JVM@
+HAVE_JAVAC_IN_PATH = @HAVE_JAVAC_IN_PATH@
+HAVE_JAVA_IN_PATH = @HAVE_JAVA_IN_PATH@
 HAVE_JIKES = @HAVE_JIKES@
+HAVE_JIKES_IN_PATH = @HAVE_JIKES_IN_PATH@
 HAVE_JRE = @HAVE_JRE@
+HAVE_JRE_IN_PATH = @HAVE_JRE_IN_PATH@
 HAVE_JVIEW = @HAVE_JVIEW@
+HAVE_JVIEW_IN_PATH = @HAVE_JVIEW_IN_PATH@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTOBJEXT = @INSTOBJEXT@
 INTLBISON = @INTLBISON@
@@ -132,8 +140,8 @@ backupfile.m4 c-bs-a.m4 codeset.m4 flex.m4 getline.m4 gettext.m4 \
 glibc21.m4 hostname.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 javacomp.m4 \
 javaexec.m4 lcmessage.m4 libtool.m4 mbrtowc.m4 mbstate_t.m4 mbswidth.m4 \
 mkdtemp.m4 progtest.m4 setenv.m4 setlocale.m4 siginfo.m4 signalblocking.m4 \
-signed.m4 ssize_t.m4 stdbool.m4 tmpdir.m4 uintmax_t.m4 ulonglong.m4 \
-unionwait.m4
+signed.m4 ssize_t.m4 stdbool.m4 stdint_h.m4 tmpdir.m4 uintmax_t.m4 \
+ulonglong.m4 unionwait.m4
 
 subdir = m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs

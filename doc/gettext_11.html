@@ -1,707 +1,517 @@
 <HTML>
 <HEAD>
-<!-- This HTML file has been created by texi2html 1.51
-     from gettext.texi on 19 April 2001 -->
+<!-- This HTML file has been created by texi2html 1.52a
+     from gettext.texi on 30 November 2001 -->
 
-<TITLE>GNU gettext utilities - 11  The Maintainer's View</TITLE>
+<TITLE>GNU gettext utilities - 11  The Translator's View</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_10.html">previous</A>, <A HREF="gettext_12.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_10.html">previous</A>, <A HREF="gettext_12.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
-<H1><A NAME="SEC72" HREF="gettext_toc.html#TOC72">11  The Maintainer's View</A></H1>
+<H1><A NAME="SEC155" HREF="gettext_toc.html#TOC155">11  The Translator's View</A></H1>
+
+
+
+<H2><A NAME="SEC156" HREF="gettext_toc.html#TOC156">11.1  Introduction 0</A></H2>
 
 <P>
-The maintainer of a package has many responsibilities.  One of them
-is ensuring that the package will install easily on many platforms,
-and that the magic we described earlier (see section <A HREF="gettext_8.html#SEC37">8  The User's View</A>) will work
-for installers and end users.
+Free software is going international!  The Translation Project is a way
+to get maintainers, translators and users all together, so free software
+will gradually become able to speak many native languages.
 
 </P>
 <P>
-Of course, there are many possible ways by which GNU <CODE>gettext</CODE>
-might be integrated in a distribution, and this chapter does not cover
-them in all generality.  Instead, it details one possible approach which
-is especially adequate for many free software distributions following GNU
-standards, or even better, Gnits standards, because GNU <CODE>gettext</CODE>
-is purposely for helping the internationalization of the whole GNU
-project, and as many other good free packages as possible.  So, the
-maintainer's view presented here presumes that the package already has
-a <TT>`configure.in'</TT> file and uses GNU Autoconf.
+The GNU <CODE>gettext</CODE> tool set contains <EM>everything</EM> maintainers
+need for internationalizing their packages for messages.  It also
+contains quite useful tools for helping translators at localizing
+messages to their native language, once a package has already been
+internationalized.
 
 </P>
 <P>
-Nevertheless, GNU <CODE>gettext</CODE> may surely be useful for free packages
-not following GNU standards and conventions, but the maintainers of such
-packages might have to show imagination and initiative in organizing
-their distributions so <CODE>gettext</CODE> work for them in all situations.
-There are surely many, out there.
+To achieve the Translation Project, we need many interested
+people who like their own language and write it well, and who are also
+able to synergize with other translators speaking the same language.
+If you'd like to volunteer to <EM>work</EM> at translating messages,
+please send mail to your translating team.
 
 </P>
 <P>
-Even if <CODE>gettext</CODE> methods are now stabilizing, slight adjustments
-might be needed between successive <CODE>gettext</CODE> versions, so you
-should ideally revise this chapter in subsequent releases, looking
-for changes.
+Each team has its own mailing list, courtesy of Linux
+International.  You may reach your translating team at the address
+<TT>`<VAR>ll</VAR>@li.org&acute;</TT>, replacing <VAR>ll</VAR> by the two-letter ISO 639
+code for your language.  Language codes are <EM>not</EM> the same as
+country codes given in ISO 3166.  The following translating teams
+exist:
+
+</P>
+
+<BLOCKQUOTE>
+<P>
+Chinese <CODE>zh</CODE>, Czech <CODE>cs</CODE>, Danish <CODE>da</CODE>, Dutch <CODE>nl</CODE>,
+Esperanto <CODE>eo</CODE>, Finnish <CODE>fi</CODE>, French <CODE>fr</CODE>, Irish
+<CODE>ga</CODE>, German <CODE>de</CODE>, Greek <CODE>el</CODE>, Italian <CODE>it</CODE>,
+Japanese <CODE>ja</CODE>, Indonesian <CODE>in</CODE>, Norwegian <CODE>no</CODE>, Polish
+<CODE>pl</CODE>, Portuguese <CODE>pt</CODE>, Russian <CODE>ru</CODE>, Spanish <CODE>es</CODE>,
+Swedish <CODE>sv</CODE> and Turkish <CODE>tr</CODE>.
+</BLOCKQUOTE>
+
+<P>
+For example, you may reach the Chinese translating team by writing to
+<TT>`zh@li.org&acute;</TT>.  When you become a member of the translating team
+for your own language, you may subscribe to its list.  For example,
+Swedish people can send a message to <TT>`sv-request@li.org&acute;</TT>,
+having this message body:
+
+</P>
+
+<PRE>
+subscribe
+</PRE>
+
+<P>
+Keep in mind that team members should be interested in <EM>working</EM>
+at translations, or at solving translational difficulties, rather than
+merely lurking around.  If your team does not exist yet and you want to
+start one, please write to <TT>`translation@iro.umontreal.ca&acute;</TT>;
+you will then reach the coordinator for all translator teams.
+
+</P>
+<P>
+A handful of GNU packages have already been adapted and provided
+with message translations for several languages.  Translation
+teams have begun to organize, using these packages as a starting
+point.  But there are many more packages and many languages for
+which we have no volunteer translators.  If you would like to
+volunteer to work at translating messages, please send mail to
+<TT>`translation@iro.umontreal.ca&acute;</TT> indicating what language(s)
+you can work on.
+
+</P>
+
+
+<H2><A NAME="SEC157" HREF="gettext_toc.html#TOC157">11.2  Introduction 1</A></H2>
+
+<P>
+This is now official, GNU is going international!  Here is the
+announcement submitted for the January 1995 GNU Bulletin:
+
+</P>
+
+<BLOCKQUOTE>
+<P>
+A handful of GNU packages have already been adapted and provided
+with message translations for several languages.  Translation
+teams have begun to organize, using these packages as a starting
+point.  But there are many more packages and many languages
+for which we have no volunteer translators.  If you'd like to
+volunteer to work at translating messages, please send mail to
+<SAMP>`translation@iro.umontreal.ca&acute;</SAMP> indicating what language(s)
+you can work on.
+</BLOCKQUOTE>
+
+<P>
+This document should answer many questions for those who are curious about
+the process or would like to contribute.  Please at least skim over it,
+hoping to cut down a little of the high volume of e-mail generated by this
+collective effort towards internationalization of free software.
+
+</P>
+<P>
+Most free programming which is widely shared is done in English, and
+currently, English is used as the main communicating language between
+national communities collaborating to free software.  This very document
+is written in English.  This will not change in the foreseeable future.
+
+</P>
+<P>
+However, there is a strong appetite from national communities for
+having more software able to write using national language and habits,
+and there is an on-going effort to modify free software in such a way
+that it becomes able to do so.  The experiments driven so far raised
+an enthusiastic response from pretesters, so we believe that
+internationalization of free software is dedicated to succeed.
+
+</P>
+<P>
+For suggestion clarifications, additions or corrections to this
+document, please e-mail to <TT>`translation@iro.umontreal.ca&acute;</TT>.
+
+</P>
+
+
+<H2><A NAME="SEC158" HREF="gettext_toc.html#TOC158">11.3  Discussions</A></H2>
+
+<P>
+Facing this internationalization effort, a few users expressed their
+concerns.  Some of these doubts are presented and discussed, here.
+
+</P>
+
+<UL>
+<LI>Smaller groups
+
+Some languages are not spoken by a very large number of people, so people
+speaking them sometimes consider that there may not be all that much
+demand such versions of free software packages.  Moreover, many people
+being <EM>into computers</EM>, in some countries, generally seem to prefer
+English versions of their software.
+
+On the other end, people might enjoy their own language a lot, and be
+very motivated at providing to themselves the pleasure of having their
+beloved free software speaking their mother tongue.  They do themselves
+a personal favor, and do not pay that much attention to the number of
+people beneficiating of their work.
+
+<LI>Misinterpretation
+
+Other users are shy to push forward their own language, seeing in this
+some kind of misplaced propaganda.  Someone thought there must be some
+users of the language over the networks pestering other people with it.
+
+But any spoken language is worth localization, because there are
+people behind the language for whom the language is important and
+dear to their hearts.
+
+<LI>Odd translations
+
+The biggest problem is to find the right translations so that
+everybody can understand the messages.  Translations are usually a
+little odd.  Some people get used to English, to the extent they may
+find translations into their own language "rather pushy, obnoxious
+and sometimes even hilarious."  As a French speaking man, I have
+the experience of those instruction manuals for goods, so poorly
+translated in French in Korea or Taiwan...
+
+The fact is that we sometimes have to create a kind of national
+computer culture, and this is not easy without the collaboration of
+many people liking their mother tongue.  This is why translations are
+better achieved by people knowing and loving their own language, and
+ready to work together at improving the results they obtain.
+
+<LI>Dependencies over the GPL or LGPL
+
+Some people wonder if using GNU <CODE>gettext</CODE> necessarily brings their
+package under the protective wing of the GNU General Public License or
+the GNU Library General Public License, when they do not want to make
+their program free, or want other kinds of freedom.  The simplest
+answer is "normally not".
+
+The GNU <CODE>gettext</CODE> library, i.e. the contents of <CODE>libintl</CODE>,
+is covered by the GNU Library General Public License.  The rest of
+the GNU <CODE>gettext</CODE> package is covered by the GNU General Public
+License.
+
+The mere marking of localizable strings in a package, or conditional
+inclusion of a few lines for initialization, is not really including
+GPL'ed or LGPL'ed code.  However, since the localization routines in
+<CODE>libintl</CODE> are under the LGPL, the LGPL needs to be considered.
+It gives the right to distribute the complete unmodified source of
+<CODE>libintl</CODE> even with non-free programs.  It also gives the right
+to use <CODE>libintl</CODE> as a shared library, even for non-free programs.
+But it gives the right to use <CODE>libintl</CODE> as a static library or
+to incorporate <CODE>libintl</CODE> into another library only to free
+software.
+
+</UL>
+
+
+
+<H2><A NAME="SEC159" HREF="gettext_toc.html#TOC159">11.4  Organization</A></H2>
+
+<P>
+On a larger scale, the true solution would be to organize some kind of
+fairly precise set up in which volunteers could participate.  I gave
+some thought to this idea lately, and realize there will be some
+touchy points.  I thought of writing to Richard Stallman to launch
+such a project, but feel it might be good to shake out the ideas
+between ourselves first.  Most probably that Linux International has
+some experience in the field already, or would like to orchestrate
+the volunteer work, maybe.  Food for thought, in any case!
+
+</P>
+<P>
+I guess we have to setup something early, somehow, that will help
+many possible contributors of the same language to interlock and avoid
+work duplication, and further be put in contact for solving together
+problems particular to their tongue (in most languages, there are many
+difficulties peculiar to translating technical English).  My Swedish
+contributor acknowledged these difficulties, and I'm well aware of
+them for French.
+
+</P>
+<P>
+This is surely not a technical issue, but we should manage so the
+effort of locale contributors be maximally useful, despite the national
+team layer interface between contributors and maintainers.
+
+</P>
+<P>
+The Translation Project needs some setup for coordinating language
+coordinators.  Localizing evolving programs will surely
+become a permanent and continuous activity in the free software community,
+once well started.
+The setup should be minimally completed and tested before GNU
+<CODE>gettext</CODE> becomes an official reality.  The e-mail address
+<TT>`translation@iro.umontreal.ca&acute;</TT> has been setup for receiving
+offers from volunteers and general e-mail on these topics.  This address
+reaches the Translation Project coordinator.
 
 </P>
 
 
 
-<H2><A NAME="SEC73" HREF="gettext_toc.html#TOC73">11.1  Flat or Non-Flat Directory Structures</A></H2>
+<H3><A NAME="SEC160" HREF="gettext_toc.html#TOC160">11.4.1  Central Coordination</A></H3>
 
 <P>
-Some free software packages are distributed as <CODE>tar</CODE> files which unpack
-in a single directory, these are said to be <STRONG>flat</STRONG> distributions.
-Other free software packages have a one level hierarchy of subdirectories, using
-for example a subdirectory named <TT>`doc/'</TT> for the Texinfo manual and
-man pages, another called <TT>`lib/'</TT> for holding functions meant to
-replace or complement C libraries, and a subdirectory <TT>`src/'</TT> for
-holding the proper sources for the package.  These other distributions
-are said to be <STRONG>non-flat</STRONG>.
+I also think GNU will need sooner than it thinks, that someone setup
+a way to organize and coordinate these groups.  Some kind of group
+of groups.  My opinion is that it would be good that GNU delegates
+this task to a small group of collaborating volunteers, shortly.
+Perhaps in <TT>`gnu.announce&acute;</TT> a list of this national committee's
+can be published.
 
 </P>
 <P>
-We cannot say much about flat distributions.  A flat
-directory structure has the disadvantage of increasing the difficulty
-of updating to a new version of GNU <CODE>gettext</CODE>.  Also, if you have
-many PO files, this could somewhat pollute your single directory.
-Also, GNU <CODE>gettext</CODE>'s libintl sources consist of C sources, shell
-scripts, <CODE>sed</CODE> scripts and complicated Makefile rules, which don't
-fit well into an existing flat structure.  For these reasons, we
-recommend to use non-flat approach in this case as well.
-
-</P>
-<P>
-Maybe because GNU <CODE>gettext</CODE> itself has a non-flat structure,
-we have more experience with this approach, and this is what will be
-described in the remaining of this chapter.  Some maintainers might
-use this as an opportunity to unflatten their package structure.
+My role as coordinator would simply be to refer to Ulrich any German
+speaking volunteer interested to localization of free software packages, and
+maybe helping national groups to initially organize, while maintaining
+national registries for until national groups are ready to take over.
+In fact, the coordinator should ease volunteers to get in contact with
+one another for creating national teams, which should then select
+one coordinator per language, or country (regionalized language).
+If well done, the coordination should be useful without being an
+overwhelming task, the time to put delegations in place.
 
 </P>
 
 
-<H2><A NAME="SEC74" HREF="gettext_toc.html#TOC74">11.2  Prerequisite Works</A></H2>
+<H3><A NAME="SEC161" HREF="gettext_toc.html#TOC161">11.4.2  National Teams</A></H3>
 
 <P>
-There are some works which are required for using GNU <CODE>gettext</CODE>
-in one of your package.  These works have some kind of generality
-that escape the point by point descriptions used in the remainder
-of this chapter.  So, we describe them here.
+I suggest we look for volunteer coordinators/editors for individual
+languages.  These people will scan contributions of translation files
+for various programs, for their own languages, and will ensure high
+and uniform standards of diction.
+
+</P>
+<P>
+From my current experience with other people in these days, those who
+provide localizations are very enthusiastic about the process, and are
+more interested in the localization process than in the program they
+localize, and want to do many programs, not just one.  This seems
+to confirm that having a coordinator/editor for each language is a
+good idea.
+
+</P>
+<P>
+We need to choose someone who is good at writing clear and concise
+prose in the language in question.  That is hard--we can't check
+it ourselves.  So we need to ask a few people to judge each others'
+writing and select the one who is best.
+
+</P>
+<P>
+I announce my prerelease to a few dozen people, and you would not
+believe all the discussions it generated already.  I shudder to think
+what will happen when this will be launched, for true, officially,
+world wide.  Who am I to arbitrate between two Czekolsovak users
+contradicting each other, for example?
+
+</P>
+<P>
+I assume that your German is not much better than my French so that
+I would not be able to judge about these formulations.  What I would
+suggest is that for each language there is a group for people who
+maintain the PO files and judge about changes.  I suspect there will
+be cultural differences between how such groups of people will behave.
+Some will have relaxed ways, reach consensus easily, and have anyone
+of the group relate to the maintainers, while others will fight to
+death, organize heavy administrations up to national standards, and
+use strict channels.
+
+</P>
+<P>
+The German team is putting out a good example.  Right now, they are
+maybe half a dozen people revising translations of each other and
+discussing the linguistic issues.  I do not even have all the names.
+Ulrich Drepper is taking care of coordinating the German team.
+He subscribed to all my pretest lists, so I do not even have to warn
+him specifically of incoming releases.
+
+</P>
+<P>
+I'm sure, that is a good idea to get teams for each language working
+on translations. That will make the translations better and more
+consistent.
+
+</P>
+
+
+
+<H4><A NAME="SEC162" HREF="gettext_toc.html#TOC162">11.4.2.1  Sub-Cultures</A></H4>
+
+<P>
+Taking French for example, there are a few sub-cultures around computers
+which developed diverging vocabularies.  Picking volunteers here and
+there without addressing this problem in an organized way, soon in the
+project, might produce a distasteful mix of internationalized programs,
+and possibly trigger endless quarrels among those who really care.
+
+</P>
+<P>
+Keeping some kind of unity in the way French localization of
+internationalized programs is achieved is a difficult (and delicate) job.
+Knowing the latin character of French people (:-), if we take this
+the wrong way, we could end up nowhere, or spoil a lot of energies.
+Maybe we should begin to address this problem seriously <EM>before</EM>
+GNU <CODE>gettext</CODE> become officially published.  And I suspect that this
+means soon!
+
+</P>
+
+
+<H4><A NAME="SEC163" HREF="gettext_toc.html#TOC163">11.4.2.2  Organizational Ideas</A></H4>
+
+<P>
+I expect the next big changes after the official release.  Please note
+that I use the German translation of the short GPL message.  We need
+to set a few good examples before the localization goes out for true
+in the free software community.  Here are a few points to discuss:
 
 </P>
 
 <UL>
 <LI>
 
-Before attempting to use <CODE>gettextize</CODE> you should install some
-other packages first.
-Ensure that recent versions of GNU <CODE>m4</CODE>, GNU Autoconf and GNU
-<CODE>gettext</CODE> are already installed at your site, and if not, proceed
-to do this first.  If you got to install these things, beware that
-GNU <CODE>m4</CODE> must be fully installed before GNU Autoconf is even
-<EM>configured</EM>.
-
-To further ease the task of a package maintainer the <CODE>automake</CODE>
-package was designed and implemented.  GNU <CODE>gettext</CODE> now uses this
-tool and the <TT>`Makefile'</TT>s in the <TT>`intl/'</TT> and <TT>`po/'</TT>
-therefore know about all the goals necessary for using <CODE>automake</CODE>
-and <TT>`libintl'</TT> in one project.
-
-Those four packages are only needed to you, as a maintainer; the
-installers of your own package and end users do not really need any of
-GNU <CODE>m4</CODE>, GNU Autoconf, GNU <CODE>gettext</CODE>, or GNU <CODE>automake</CODE>
-for successfully installing and running your package, with messages
-properly translated.  But this is not completely true if you provide
-internationalized shell scripts within your own package: GNU
-<CODE>gettext</CODE> shall then be installed at the user site if the end users
-want to see the translation of shell script messages.
+Each group should have one FTP server (at least one master).
 
 <LI>
 
-Your package should use Autoconf and have a <TT>`configure.in'</TT> file.
-If it does not, you have to learn how.  The Autoconf documentation
-is quite well written, it is a good idea that you print it and get
-familiar with it.
+The files on the server should reflect the latest version (of
+course!) and it should also contain a RCS directory with the
+corresponding archives (I don't have this now).
 
 <LI>
 
-Your C sources should have already been modified according to
-instructions given earlier in this manual.  See section <A HREF="gettext_3.html#SEC13">3  Preparing Program Sources</A>.
+There should also be a ChangeLog file (this is more useful than the
+RCS archive but can be generated automatically from the later by
+Emacs).
 
 <LI>
 
-Your <TT>`po/'</TT> directory should receive all PO files submitted to you
-by the translator teams, each having <TT>`<VAR>ll</VAR>.po'</TT> as a name.
-This is not usually easy to get translation
-work done before your package gets internationalized and available!
-Since the cycle has to start somewhere, the easiest for the maintainer
-is to start with absolutely no PO files, and wait until various
-translator teams get interested in your package, and submit PO files.
+A <EM>core group</EM> should judge about questionable changes (for now
+this group consists solely by me but I ask some others occasionally;
+this also seems to work).
 
 </UL>
 
-<P>
-It is worth adding here a few words about how the maintainer should
-ideally behave with PO files submissions.  As a maintainer, your role is
-to authentify the origin of the submission as being the representative
-of the appropriate translating teams of the Translation Project (forward
-the submission to <TT>`translation@iro.umontreal.ca'</TT> in case of doubt),
-to ensure that the PO file format is not severely broken and does not
-prevent successful installation, and for the rest, to merely to put these
-PO files in <TT>`po/'</TT> for distribution.
-
-</P>
-<P>
-As a maintainer, you do not have to take on your shoulders the
-responsibility of checking if the translations are adequate or
-complete, and should avoid diving into linguistic matters.  Translation
-teams drive themselves and are fully responsible of their linguistic
-choices for the Translation Project.  Keep in mind that translator teams are <EM>not</EM>
-driven by maintainers.  You can help by carefully redirecting all
-communications and reports from users about linguistic matters to the
-appropriate translation team, or explain users how to reach or join
-their team.  The simplest might be to send them the <TT>`ABOUT-NLS'</TT> file.
-
-</P>
-<P>
-Maintainers should <EM>never ever</EM> apply PO file bug reports
-themselves, short-cutting translation teams.  If some translator has
-difficulty to get some of her points through her team, it should not be
-an issue for her to directly negotiate translations with maintainers.
-Teams ought to settle their problems themselves, if any.  If you, as
-a maintainer, ever think there is a real problem with a team, please
-never try to <EM>solve</EM> a team's problem on your own.
-
-</P>
 
 
-<H2><A NAME="SEC75" HREF="gettext_toc.html#TOC75">11.3  Invoking the <CODE>gettextize</CODE> Program</A></H2>
+<H3><A NAME="SEC164" HREF="gettext_toc.html#TOC164">11.4.3  Mailing Lists</A></H3>
 
 <P>
-Some files are consistently and identically needed in every package
-internationalized through GNU <CODE>gettext</CODE>.  As a matter of
-convenience, the <CODE>gettextize</CODE> program puts all these files right
-in your package.  This program has the following synopsis:
+If we get any inquiries about GNU <CODE>gettext</CODE>, send them on to:
 
 </P>
 
 <PRE>
-gettextize [ <VAR>option</VAR>... ] [ <VAR>directory</VAR> ]
+<TT>`translation@iro.umontreal.ca&acute;</TT>
 </PRE>
 
 <P>
-and accepts the following options:
-
-</P>
-<DL COMPACT>
-
-<DT><SAMP>`-c'</SAMP>
-<DD>
-<DT><SAMP>`--copy'</SAMP>
-<DD>
-Copy the needed files instead of making symbolic links.  Using links
-would allow the package to always use the latest <CODE>gettext</CODE> code
-available on the system, but it might disturb some mechanism the
-maintainer is used to apply to the sources.  Because running
-<CODE>gettextize</CODE> is easy there shouldn't be problems with using copies.
-
-<DT><SAMP>`-f'</SAMP>
-<DD>
-<DT><SAMP>`--force'</SAMP>
-<DD>
-Force replacement of files which already exist.
-
-<DT><SAMP>`-h'</SAMP>
-<DD>
-<DT><SAMP>`--help'</SAMP>
-<DD>
-Display this help and exit.
-
-<DT><SAMP>`--version'</SAMP>
-<DD>
-Output version information and exit.
-
-</DL>
-
-<P>
-If <VAR>directory</VAR> is given, this is the top level directory of a
-package to prepare for using GNU <CODE>gettext</CODE>.  If not given, it
-is assumed that the current directory is the top level directory of
-such a package.
+The <TT>`*-pretest&acute;</TT> lists are quite useful to me, maybe the idea could
+be generalized to many GNU, and non-GNU packages.  But each maintainer
+his/her way!
 
 </P>
 <P>
-The program <CODE>gettextize</CODE> provides the following files.  However,
-no existing file will be replaced unless the option <CODE>--force</CODE>
-(<CODE>-f</CODE>) is specified.
-
-</P>
-
-<OL>
-<LI>
-
-The <TT>`ABOUT-NLS'</TT> file is copied in the main directory of your package,
-the one being at the top level.  This file gives the main indications
-about how to install and use the Native Language Support features
-of your program.  You might elect to use a more recent copy of this
-<TT>`ABOUT-NLS'</TT> file than the one provided through <CODE>gettextize</CODE>,
-if you have one handy.  You may also fetch a more recent copy of file
-<TT>`ABOUT-NLS'</TT> from Translation Project sites, and from most GNU
-archive sites.
-
-<LI>
-
-A <TT>`po/'</TT> directory is created for eventually holding
-all translation files, but initially only containing the file
-<TT>`po/Makefile.in.in'</TT> from the GNU <CODE>gettext</CODE> distribution.
-(beware the double <SAMP>`.in'</SAMP> in the file name). If the <TT>`po/'</TT>
-directory already exists, it will be preserved along with the files
-it contains, and only <TT>`Makefile.in.in'</TT> will be overwritten.
-
-<LI>
-
-A <TT>`intl/'</TT> directory is created and filled with most of the files
-originally in the <TT>`intl/'</TT> directory of the GNU <CODE>gettext</CODE>
-distribution.  Also, if option <CODE>--force</CODE> (<CODE>-f</CODE>) is given,
-the <TT>`intl/'</TT> directory is emptied first.
-
-</OL>
-
-<P>
-If your site support symbolic links, <CODE>gettextize</CODE> will not
-actually copy the files into your package, but establish symbolic
-links instead.  This avoids duplicating the disk space needed in
-all packages.  Merely using the <SAMP>`-h'</SAMP> option while creating the
-<CODE>tar</CODE> archive of your distribution will resolve each link by an
-actual copy in the distribution archive.  So, to insist, you really
-should use <SAMP>`-h'</SAMP> option with <CODE>tar</CODE> within your <CODE>dist</CODE>
-goal of your main <TT>`Makefile.in'</TT>.
+Fran&ccedil;ois, we have a mechanism in place here at
+<TT>`gnu.ai.mit.edu&acute;</TT> to track teams, support mailing lists for
+them and log members.  We have a slight preference that you use it.
+If this is OK with you, I can get you clued in.
 
 </P>
 <P>
-It is interesting to understand that most new files for supporting
-GNU <CODE>gettext</CODE> facilities in one package go in <TT>`intl/'</TT>
-and <TT>`po/'</TT> subdirectories.  One distinction between these two
-directories is that <TT>`intl/'</TT> is meant to be completely identical
-in all packages using GNU <CODE>gettext</CODE>, while all newly created
-files, which have to be different, go into <TT>`po/'</TT>.  There is a
-common <TT>`Makefile.in.in'</TT> in <TT>`po/'</TT>, because the <TT>`po/'</TT>
-directory needs its own <TT>`Makefile'</TT>, and it has been designed so
-it can be identical in all packages.
+Things are changing!  A few years ago, when Daniel Fekete and I
+asked for a mailing list for GNU localization, nested at the FSF, we
+were politely invited to organize it anywhere else, and so did we.
+For communicating with my pretesters, I later made a handful of
+mailing lists located at iro.umontreal.ca and administrated by
+<CODE>majordomo</CODE>.  These lists have been <EM>very</EM> dependable
+so far...
+
+</P>
+<P>
+I suspect that the German team will organize itself a mailing list
+located in Germany, and so forth for other countries.  But before they
+organize for true, it could surely be useful to offer mailing lists
+located at the FSF to each national team.  So yes, please explain me
+how I should proceed to create and handle them.
+
+</P>
+<P>
+We should create temporary mailing lists, one per country, to help
+people organize.  Temporary, because once regrouped and structured, it
+would be fair the volunteers from country bring back <EM>their</EM> list
+in there and manage it as they want.  My feeling is that, in the long
+run, each team should run its own list, from within their country.
+There also should be some central list to which all teams could
+subscribe as they see fit, as long as each team is represented in it.
 
 </P>
 
 
-<H2><A NAME="SEC76" HREF="gettext_toc.html#TOC76">11.4  Files You Must Create or Alter</A></H2>
+<H2><A NAME="SEC165" HREF="gettext_toc.html#TOC165">11.5  Information Flow</A></H2>
 
 <P>
-Besides files which are automatically added through <CODE>gettextize</CODE>,
-there are many files needing revision for properly interacting with
-GNU <CODE>gettext</CODE>.  If you are closely following GNU standards for
-Makefile engineering and auto-configuration, the adaptations should
-be easier to achieve.  Here is a point by point description of the
-changes needed in each.
+There will surely be some discussion about this messages after the
+packages are finally released.  If people now send you some proposals
+for better messages, how do you proceed?  Jim, please note that
+right now, as I put forward nearly a dozen of localizable programs, I
+receive both the translations and the coordination concerns about them.
 
 </P>
 <P>
-So, here comes a list of files, each one followed by a description of
-all alterations it needs.  Many examples are taken out from the GNU
-<CODE>gettext</CODE> 0.10.37 distribution itself.  You may indeed
-refer to the source code of the GNU <CODE>gettext</CODE> package, as it
-is intended to be a good example and master implementation for using
-its own functionality.
-
-</P>
-
-
-
-<H3><A NAME="SEC77" HREF="gettext_toc.html#TOC77">11.4.1  <TT>`POTFILES.in'</TT> in <TT>`po/'</TT></A></H3>
-
-<P>
-The <TT>`po/'</TT> directory should receive a file named
-<TT>`POTFILES.in'</TT>.  This file tells which files, among all program
-sources, have marked strings needing translation.  Here is an example
-of such a file:
-
-</P>
-
-<PRE>
-# List of source files containing translatable strings.
-# Copyright (C) 1995 Free Software Foundation, Inc.
-
-# Common library files
-lib/error.c
-lib/getopt.c
-lib/xmalloc.c
-
-# Package source files
-src/gettext.c
-src/msgfmt.c
-src/xgettext.c
-</PRE>
-
-<P>
-Hash-marked comments and white lines are ignored.  All other lines
-list those source files containing strings marked for translation
-(see section <A HREF="gettext_3.html#SEC15">3.2  How Marks Appear in Sources</A>), in a notation relative to the top level
-of your whole distribution, rather than the location of the
-<TT>`POTFILES.in'</TT> file itself.
-
-</P>
-
-
-<H3><A NAME="SEC78" HREF="gettext_toc.html#TOC78">11.4.2  <TT>`configure.in'</TT> at top level</A></H3>
-
-
-<OL>
-<LI>Declare the package and version.
-
-This is done by a set of lines like these:
-
-
-<PRE>
-PACKAGE=gettext
-VERSION=0.10.37
-AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
-AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-AC_SUBST(PACKAGE)
-AC_SUBST(VERSION)
-</PRE>
-
-Of course, you replace <SAMP>`gettext'</SAMP> with the name of your package,
-and <SAMP>`0.10.37'</SAMP> by its version numbers, exactly as they
-should appear in the packaged <CODE>tar</CODE> file name of your distribution
-(<TT>`gettext-0.10.37.tar.gz'</TT>, here).
-
-<LI>Declare the available translations.
-
-This is done by defining <CODE>ALL_LINGUAS</CODE> to the white separated,
-quoted list of available languages, in a single line, like this:
-
-
-<PRE>
-ALL_LINGUAS="de fr"
-</PRE>
-
-This example means that German and French PO files are available, so
-that these languages are currently supported by your package.  If you
-want to further restrict, at installation time, the set of installed
-languages, this should not be done by modifying <CODE>ALL_LINGUAS</CODE> in
-<TT>`configure.in'</TT>, but rather by using the <CODE>LINGUAS</CODE> environment
-variable (see section <A HREF="gettext_8.html#SEC39">8.2  Magic for Installers</A>).
-
-<LI>Check for internationalization support.
-
-Here is the main <CODE>m4</CODE> macro for triggering internationalization
-support.  Just add this line to <TT>`configure.in'</TT>:
-
-
-<PRE>
-AM_GNU_GETTEXT
-</PRE>
-
-This call is purposely simple, even if it generates a lot of configure
-time checking and actions.
-
-<LI>Have output files created.
-
-The <CODE>AC_OUTPUT</CODE> directive, at the end of your <TT>`configure.in'</TT>
-file, needs to be modified in two ways:
-
-
-<PRE>
-AC_OUTPUT([<VAR>existing configuration files</VAR> intl/Makefile po/Makefile.in],
-<VAR>existing additional actions</VAR>])
-</PRE>
-
-The modification to the first argument to <CODE>AC_OUTPUT</CODE> asks
-for substitution in the <TT>`intl/'</TT> and <TT>`po/'</TT> directories.
-Note the <SAMP>`.in'</SAMP> suffix used for <TT>`po/'</TT> only.  This is because
-the distributed file is really <TT>`po/Makefile.in.in'</TT>.
-
-</OL>
-
-
-
-<H3><A NAME="SEC79" HREF="gettext_toc.html#TOC79">11.4.3  <TT>`config.guess'</TT>, <TT>`config.sub'</TT> at top level</A></H3>
-
-<P>
-You need to add the GNU <TT>`config.guess'</TT> and <TT>`config.sub'</TT> files
-to your distribution.  They are needed because the <TT>`intl/'</TT> directory
-has platform dependent support for determining the locale's character
-encoding and therefore needs to identify the platform.
+If I put one of my things to pretest, Ulrich receives the announcement
+and passes it on to the German team, who make last minute revisions.
+Then he submits the translation files to me <EM>as the maintainer</EM>.
+For free packages I do not maintain, I would not even hear about it.
+This scheme could be made to work for the whole Translation Project,
+I think.  For security reasons, maybe Ulrich (national coordinators,
+in fact) should update central registry kept at the Translation Project
+(Jim, me, or Len's recruits) once in a while.
 
 </P>
 <P>
-You can obtain the newest version of <TT>`config.guess'</TT> and
-<TT>`config.sub'</TT> from <TT>`ftp://ftp.gnu.org/pub/gnu/config/'</TT>.
-Less recent versions are also contained in the GNU <CODE>automake</CODE> and
-GNU <CODE>libtool</CODE> packages.
+In December/January, I was aggressively ready to internationalize
+all of GNU, giving myself the duty of one small GNU package per week
+or so, taking many weeks or months for bigger packages.  But it does
+not work this way.  I first did all the things I'm responsible for.
+I've nothing against some missionary work on other maintainers, but
+I'm also loosing a lot of energy over it--same debates over again.
 
 </P>
 <P>
-Normally, <TT>`config.guess'</TT> and <TT>`config.sub'</TT> are put at the
-top level of a distribution.  But it is also possible to put them in a
-subdirectory, altogether with other configuration support files like
-<TT>`install-sh'</TT>, <TT>`ltconfig'</TT>, <TT>`ltmain.sh'</TT>,
-<TT>`mkinstalldirs'</TT> or <TT>`missing'</TT>.  All you need to do, other than
-moving the files, is to add the following line to your
-<TT>`configure.in'</TT>.
-
-</P>
-
-<PRE>
-AC_CONFIG_AUX_DIR([<VAR>subdir</VAR>])
-</PRE>
-
-
-
-<H3><A NAME="SEC80" HREF="gettext_toc.html#TOC80">11.4.4  <TT>`aclocal.m4'</TT> at top level</A></H3>
-
-<P>
-If you do not have an <TT>`aclocal.m4'</TT> file in your distribution,
-the simplest is to concatenate the files <TT>`codeset.m4'</TT>,
-<TT>`gettext.m4'</TT>, <TT>`iconv.m4'</TT>, <TT>`isc-posix.m4'</TT>,
-<TT>`lcmessage.m4'</TT>, <TT>`progtest.m4'</TT> from GNU <CODE>gettext</CODE>'s
-<TT>`m4/'</TT> directory into a single file.
+And when the first localized packages are released we'll get a lot of
+responses about ugly translations :-).  Surely, and we need to have
+beforehand a fairly good idea about how to handle the information
+flow between the national teams and the package maintainers.
 
 </P>
 <P>
-If you already have an <TT>`aclocal.m4'</TT> file, then you will have
-to merge the said macro files into your <TT>`aclocal.m4'</TT>.  Note that if
-you are upgrading from a previous release of GNU <CODE>gettext</CODE>, you
-should most probably <EM>replace</EM> the macros (<CODE>AM_GNU_GETTEXT</CODE>,
-<CODE>AM_WITH_NLS</CODE>, etc.), as they usually
-change a little from one release of GNU <CODE>gettext</CODE> to the next.
-Their contents may vary as we get more experience with strange systems
-out there.
+Please start saving somewhere a quick history of each PO file.  I know
+for sure that the file format will change, allowing for comments.
+It would be nice that each file has a kind of log, and references for
+those who want to submit comments or gripes, or otherwise contribute.
+I sent a proposal for a fast and flexible format, but it is not
+receiving acceptance yet by the GNU deciders.  I'll tell you when I
+have more information about this.
 
 </P>
-<P>
-These macros check for the internationalization support functions
-and related informations.  Hopefully, once stabilized, these macros
-might be integrated in the standard Autoconf set, because this
-piece of <CODE>m4</CODE> code will be the same for all projects using GNU
-<CODE>gettext</CODE>.
-
-</P>
-
-
-<H3><A NAME="SEC81" HREF="gettext_toc.html#TOC81">11.4.5  <TT>`acconfig.h'</TT> at top level</A></H3>
-
-<P>
-Earlier GNU <CODE>gettext</CODE> releases required to put definitions for
-<CODE>ENABLE_NLS</CODE>, <CODE>HAVE_GETTEXT</CODE> and <CODE>HAVE_LC_MESSAGES</CODE>,
-<CODE>HAVE_STPCPY</CODE>, <CODE>PACKAGE</CODE> and <CODE>VERSION</CODE> into an
-<TT>`acconfig.h'</TT> file.  This is not needed any more; you can remove
-them from your <TT>`acconfig.h'</TT> file unless your package uses them
-independently from the <TT>`intl/'</TT> directory.
-
-</P>
-
-
-<H3><A NAME="SEC82" HREF="gettext_toc.html#TOC82">11.4.6  <TT>`Makefile.in'</TT> at top level</A></H3>
-
-<P>
-Here are a few modifications you need to make to your main, top-level
-<TT>`Makefile.in'</TT> file.
-
-</P>
-
-<OL>
-<LI>
-
-Add the following lines near the beginning of your <TT>`Makefile.in'</TT>,
-so the <SAMP>`dist:'</SAMP> goal will work properly (as explained further down):
-
-
-<PRE>
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
-</PRE>
-
-<LI>
-
-Add file <TT>`ABOUT-NLS'</TT> to the <CODE>DISTFILES</CODE> definition, so the file gets
-distributed.
-
-<LI>
-
-Wherever you process subdirectories in your <TT>`Makefile.in'</TT>, be sure
-you also process dir subdirectories <SAMP>`intl'</SAMP> and <SAMP>`po'</SAMP>.  Special
-rules in the <TT>`Makefiles'</TT> take care for the case where no
-internationalization is wanted.
-
-If you are using Makefiles, either generated by automake, or hand-written
-so they carefully follow the GNU coding standards, the effected goals for
-which the new subdirectories must be handled include <SAMP>`installdirs'</SAMP>,
-<SAMP>`install'</SAMP>, <SAMP>`uninstall'</SAMP>, <SAMP>`clean'</SAMP>, <SAMP>`distclean'</SAMP>.
-
-Here is an example of a canonical order of processing.  In this
-example, we also define <CODE>SUBDIRS</CODE> in <CODE>Makefile.in</CODE> for it
-to be further used in the <SAMP>`dist:'</SAMP> goal.
-
-
-<PRE>
-SUBDIRS = doc intl lib src @POSUB@
-</PRE>
-
-Note that you must arrange for <SAMP>`make'</SAMP> to descend into the
-<CODE>intl</CODE> directory before descending into other directories containing
-code which make use of the <CODE>libintl.h</CODE> header file.  For this
-reason, here we mention <CODE>intl</CODE> before <CODE>lib</CODE> and <CODE>src</CODE>.
-
-that you will have to adapt to your own package.
-
-<LI>
-
-A delicate point is the <SAMP>`dist:'</SAMP> goal, as both
-<TT>`intl/Makefile'</TT> and <TT>`po/Makefile'</TT> will later assume that the
-proper directory has been set up from the main <TT>`Makefile'</TT>.  Here is
-an example at what the <SAMP>`dist:'</SAMP> goal might look like:
-
-
-<PRE>
-distdir = $(PACKAGE)-$(VERSION)
-dist: Makefile
-	rm -fr $(distdir)
-	mkdir $(distdir)
-	chmod 777 $(distdir)
-	for file in $(DISTFILES); do \
-	  ln $$file $(distdir) 2&#62;/dev/null || cp -p $$file $(distdir); \
-	done
-	for subdir in $(SUBDIRS); do \
-	  mkdir $(distdir)/$$subdir || exit 1; \
-	  chmod 777 $(distdir)/$$subdir; \
-	  (cd $$subdir &#38;&#38; $(MAKE) $@) || exit 1; \
-	done
-	tar chozf $(distdir).tar.gz $(distdir)
-	rm -fr $(distdir)
-</PRE>
-
-</OL>
-
-
-
-<H3><A NAME="SEC83" HREF="gettext_toc.html#TOC83">11.4.7  <TT>`Makefile.in'</TT> in <TT>`src/'</TT></A></H3>
-
-<P>
-Some of the modifications made in the main <TT>`Makefile.in'</TT> will
-also be needed in the <TT>`Makefile.in'</TT> from your package sources,
-which we assume here to be in the <TT>`src/'</TT> subdirectory.  Here are
-all the modifications needed in <TT>`src/Makefile.in'</TT>:
-
-</P>
-
-<OL>
-<LI>
-
-In view of the <SAMP>`dist:'</SAMP> goal, you should have these lines near the
-beginning of <TT>`src/Makefile.in'</TT>:
-
-
-<PRE>
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
-</PRE>
-
-<LI>
-
-If not done already, you should guarantee that <CODE>top_srcdir</CODE>
-gets defined.  This will serve for <CODE>cpp</CODE> include files.  Just add
-the line:
-
-
-<PRE>
-top_srcdir = @top_srcdir@
-</PRE>
-
-<LI>
-
-You might also want to define <CODE>subdir</CODE> as <SAMP>`src'</SAMP>, later
-allowing for almost uniform <SAMP>`dist:'</SAMP> goals in all your
-<TT>`Makefile.in'</TT>.  At list, the <SAMP>`dist:'</SAMP> goal below assume that
-you used:
-
-
-<PRE>
-subdir = src
-</PRE>
-
-<LI>
-
-The <CODE>main</CODE> function of your program will normally call
-<CODE>bindtextdomain</CODE> (see see section <A HREF="gettext_3.html#SEC14">3.1  Triggering <CODE>gettext</CODE> Operations</A>), like this:
-
-
-<PRE>
-bindtextdomain (<VAR>PACKAGE</VAR>, LOCALEDIR);
-</PRE>
-
-To make LOCALEDIR known to the program, add the following lines to
-Makefile.in:
-
-
-<PRE>
-datadir = @datadir@
-localedir = $(datadir)/locale
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-</PRE>
-
-Note that <CODE>@datadir@</CODE> defaults to <SAMP>`$(prefix)/share'</SAMP>, thus
-<CODE>$(localedir)</CODE> defaults to <SAMP>`$(prefix)/share/locale'</SAMP>.
-
-<LI>
-
-You should ensure that the final linking will use <CODE>@INTLLIBS@</CODE> as
-a library.  An easy way to achieve this is to manage that it gets into
-<CODE>LIBS</CODE>, like this:
-
-
-<PRE>
-LIBS = @INTLLIBS@ @LIBS@
-</PRE>
-
-In most packages internationalized with GNU <CODE>gettext</CODE>, one will
-find a directory <TT>`lib/'</TT> in which a library containing some helper
-functions will be build.  (You need at least the few functions which the
-GNU <CODE>gettext</CODE> Library itself needs.)  However some of the functions
-in the <TT>`lib/'</TT> also give messages to the user which of course should be
-translated, too.  Taking care of this it is not enough to place the support
-library (say <TT>`libsupport.a'</TT>) just between the <CODE>@INTLLIBS@</CODE>
-and <CODE>@LIBS@</CODE> in the above example.  Instead one has to write this:
-
-
-<PRE>
-LIBS = ../lib/libsupport.a @INTLLIBS@ ../lib/libsupport.a @LIBS@
-</PRE>
-
-<LI>
-
-You should also ensure that directory <TT>`intl/'</TT> will be searched for
-C preprocessor include files in all circumstances.  So, you have to
-manage so both <SAMP>`-I../intl'</SAMP> and <SAMP>`-I$(top_srcdir)/intl'</SAMP> will
-be given to the C compiler.
-
-<LI>
-
-Your <SAMP>`dist:'</SAMP> goal has to conform with others.  Here is a
-reasonable definition for it:
-
-
-<PRE>
-distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
-dist: Makefile $(DISTFILES)
-	for file in $(DISTFILES); do \
-	  ln $$file $(distdir) 2&#62;/dev/null || cp -p $$file $(distdir); \
-	done
-</PRE>
-
-</OL>
-
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_10.html">previous</A>, <A HREF="gettext_12.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_10.html">previous</A>, <A HREF="gettext_12.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

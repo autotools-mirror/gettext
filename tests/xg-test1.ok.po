@@ -140,6 +140,10 @@ msgid "language `%s' unknown"
 msgstr ""
 
 #, c-format
+msgid "the argument to %s should be a single punctuation character"
+msgstr ""
+
+#, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr ""
 
@@ -221,6 +225,8 @@ msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
 "                                and the --output-file option\n"
 "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"
+"      --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n"
+"                                menu items\n"
 "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr ""
 
@@ -238,9 +244,6 @@ msgid ""
 "  -V, --version               output version information and exit\n"
 "      --statistics            print statistics about translations\n"
 "  -v, --verbose               increase verbosity level\n"
-msgstr ""
-
-msgid "while creating hash table"
 msgstr ""
 
 msgid "plural expression can produce negative values"
@@ -320,28 +323,12 @@ msgstr ""
 msgid "'msgstr' is not a valid %s format string, unlike 'msgid'"
 msgstr ""
 
-msgid "warning: PO file header missing, fuzzy, or invalid\n"
-msgstr ""
-
-msgid "warning: charset conversion will not work\n"
+#, c-format
+msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr ""
 
 #, c-format
-msgid "domain name \"%s\" not suitable as file name"
-msgstr ""
-
-#, c-format
-msgid "domain name \"%s\" not suitable as file name: will use prefix"
-msgstr ""
-
-#, c-format
-msgid "`domain %s' directive ignored"
-msgstr ""
-
-msgid "empty `msgstr' entry ignored"
-msgstr ""
-
-msgid "fuzzy `msgstr' entry ignored"
+msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr ""
 
 #, c-format
@@ -359,10 +346,40 @@ msgstr ""
 msgid "field `%s' still has initial default value"
 msgstr ""
 
+msgid "warning: PO file header missing or invalid\n"
+msgstr ""
+
+msgid "warning: charset conversion will not work\n"
+msgstr ""
+
+msgid "warning: PO file header fuzzy\n"
+msgstr ""
+
+msgid "warning: older versions of msgfmt will give an error on this\n"
+msgstr ""
+
+#, c-format
+msgid "domain name \"%s\" not suitable as file name"
+msgstr ""
+
+#, c-format
+msgid "domain name \"%s\" not suitable as file name: will use prefix"
+msgstr ""
+
+#, c-format
+msgid "`domain %s' directive ignored"
+msgstr ""
+
 msgid "duplicate message definition"
 msgstr ""
 
 msgid "...this is the location of the first definition"
+msgstr ""
+
+msgid "empty `msgstr' entry ignored"
+msgstr ""
+
+msgid "fuzzy `msgstr' entry ignored"
 msgstr ""
 
 #, c-format

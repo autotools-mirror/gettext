@@ -31,6 +31,482 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: Header Entry,  Prev: msginit Invocation,  Up: Creating
+
+Filling in the Header Entry
+===========================
+
+   The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and "FIRST
+AUTHOR <EMAIL@ADDRESS>, YEAR" ought to be replaced by sensible
+information.  This can be done in any text editor; if Emacs is used and
+it switched to PO mode automatically (because it has recognized the
+file's suffix), you can disable it by typing `M-x fundamental-mode'.
+
+   Modifying the header entry can already be done using PO mode: in
+Emacs, type `M-x po-mode RET' and then `RET' again to start editing the
+entry.  You should fill in the following fields.
+
+Project-Id-Version
+     This is the name and version of the package.
+
+POT-Creation-Date
+     This has already been filled in by `xgettext'.
+
+PO-Revision-Date
+     You don't need to fill this in. It will be filled by the Emacs PO
+     mode when you save the file.
+
+Last-Translator
+     Fill in your name and email address (without double quotes).
+
+Language-Team
+     Fill in the English name of the language, and the email address or
+     homepage URL of the language team you are part of.
+
+     Before starting a translation, it is a good idea to get in touch
+     with your translation team, not only to make sure you don't do
+     duplicated work, but also to coordinate difficult linguistic
+     issues.
+
+     In the Free Translation Project, each translation team has its own
+     mailing list.  The up-to-date list of teams can be found at the
+     Free Translation Project's homepage,
+     `http://www.iro.umontreal.ca/contrib/po/HTML/', in the "National
+     teams" area.
+
+Content-Type
+     Replace `CHARSET' with the character encoding used for your
+     language, in your locale, or UTF-8.  This field is needed for
+     correct operation of the `msgmerge' and `msgfmt' programs, as well
+     as for users whose locale's character encoding differs from yours
+     (see *Note Charset conversion::).
+
+     You get the character encoding of your locale by running the shell
+     command `locale charmap'.  If the result is `C' or
+     `ANSI_X3.4-1968', which is equivalent to `ASCII' (= `US-ASCII'),
+     it means that your locale is not correctly configured.  In this
+     case, ask your translation team which charset to use.  `ASCII' is
+     not usable for any language except Latin.
+
+     Because the PO files must be portable to operating systems with
+     less advanced internationalization facilities, the character
+     encodings that can be used are limited to those supported by both
+     GNU `libc' and GNU `libiconv'. These are: `ASCII', `ISO-8859-1',
+     `ISO-8859-2', `ISO-8859-3', `ISO-8859-4', `ISO-8859-5',
+     `ISO-8859-6', `ISO-8859-7', `ISO-8859-8', `ISO-8859-9',
+     `ISO-8859-13', `ISO-8859-15', `KOI8-R', `KOI8-U', `CP850',
+     `CP866', `CP874', `CP932', `CP949', `CP950', `CP1250', `CP1251',
+     `CP1252', `CP1253', `CP1254', `CP1255', `CP1256', `CP1257',
+     `GB2312', `EUC-JP', `EUC-KR', `EUC-TW', `BIG5', `BIG5-HKSCS',
+     `GBK', `GB18030', `SHIFT_JIS', `JOHAB', `TIS-620', `VISCII',
+     `UTF-8'.
+
+     In the GNU system, the following encodings are frequently used for
+     the corresponding languages.
+
+        * `ISO-8859-1' for  Afrikaans, Albanian, Basque, Catalan,
+          Dutch, English, Estonian, Faroese,  Finnish, French,
+          Galician, German, Greenlandic, Icelandic, Indonesian,  Irish,
+          Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
+
+        * `ISO-8859-2' for  Croatian, Czech, Hungarian, Polish,
+          Romanian, Serbian, Slovak, Slovenian,
+
+        * `ISO-8859-3' for Maltese,
+
+        * `ISO-8859-5' for Macedonian, Serbian,
+
+        * `ISO-8859-6' for Arabic,
+
+        * `ISO-8859-7' for Greek,
+
+        * `ISO-8859-8' for Hebrew,
+
+        * `ISO-8859-9' for Turkish,
+
+        * `ISO-8859-13' for Latvian, Lithuanian,
+
+        * `ISO-8859-15' for  Basque, Catalan, Dutch, English, Finnish,
+          French, Galician, German, Irish,  Italian, Portuguese,
+          Spanish, Swedish,
+
+        * `KOI8-R' for Russian,
+
+        * `KOI8-U' for Ukrainian,
+
+        * `CP1251' for Bulgarian, Byelorussian,
+
+        * `GB2312', `GBK', `GB18030'  for simplified writing of Chinese,
+
+        * `BIG5', `BIG5-HKSCS'  for traditional writing of Chinese,
+
+        * `EUC-JP' for Japanese,
+
+        * `EUC-KR' for Korean,
+
+        * `TIS-620' for Thai,
+
+        * `UTF-8' for any language, including those listed above.
+
+     When single quote characters or double quote characters are used in
+     translations for your language, and your locale's encoding is one
+     of the ISO-8859-* charsets, it is best if you create your PO files
+     in UTF-8 encoding, instead of your locale's encoding.  This is
+     because in UTF-8 the real quote characters can be represented
+     (single quote characters: U+2018, U+2019, double quote characters:
+     U+201C, U+201D), whereas none of ISO-8859-* charsets has them all.
+     Users in UTF-8 locales will see the real quote characters,
+     whereas users in ISO-8859-* locales will see the vertical
+     apostrophe and the vertical double quote instead (because that's
+     what the character set conversion will transliterate them to).
+
+     To enter such quote characters under X11, you can change your
+     keyboard mapping using the `xmodmap' program.  The X11 names of
+     the quote characters are "leftsinglequotemark",
+     "rightsinglequotemark", "leftdoublequotemark",
+     "rightdoublequotemark", "singlelowquotemark", "doublelowquotemark".
+
+     Note that only recent versions of GNU Emacs support the UTF-8
+     encoding: Emacs 20 with Mule-UCS, and Emacs 21.  As of January
+     2001, XEmacs doesn't support the UTF-8 encoding.
+
+     The character encoding name can be written in either upper or
+     lower case.  Usually upper case is preferred.
+
+Content-Transfer-Encoding
+     Set this to `8bit'.
+
+Plural-Forms
+     This field is optional.  It is only needed if the PO file has
+     plural forms.  You can find them by searching for the
+     `msgid_plural' keyword.  The format of the plural forms field is
+     described in *Note Plural forms::.
+
+
+File: gettext.info,  Node: Updating,  Next: Manipulating,  Prev: Creating,  Up: Top
+
+Updating Existing PO Files
+**************************
+
+* Menu:
+
+* msgmerge Invocation::         Invoking the `msgmerge' Program
+* Translated Entries::          Translated Entries
+* Fuzzy Entries::               Fuzzy Entries
+* Untranslated Entries::        Untranslated Entries
+* Obsolete Entries::            Obsolete Entries
+* Modifying Translations::      Modifying Translations
+* Modifying Comments::          Modifying Comments
+* Subedit::                     Mode for Editing Translations
+* C Sources Context::           C Sources Context
+* Auxiliary::                   Consulting Auxiliary PO Files
+* Compendium::                  Using Translation Compendia
+
+
+File: gettext.info,  Node: msgmerge Invocation,  Next: Translated Entries,  Prev: Updating,  Up: Updating
+
+Invoking the `msgmerge' Program
+===============================
+
+     msgmerge [OPTION] DEF.po REF.pot
+
+   The `msgmerge' program merges two Uniforum style .po files together.
+The DEF.po file is an existing PO file with translations which will be
+taken over to the newly created file as long as they still match;
+comments will be preserved, but extracted comments and file positions
+will be discarded.  The REF.pot file is the last created PO file with
+up-to-date source references but old translations, or a PO Template file
+(generally created by `xgettext'); any translations or comments in the
+file will be discarded, however dot comments and file positions will be
+preserved.  Where an exact match cannot be found, fuzzy matching is
+used to produce better results.
+
+Input file location
+-------------------
+
+`DEF.po'
+     Translations referring to old sources.
+
+`REF.pot'
+     References to the new sources.
+
+`-D DIRECTORY'
+`--directory=DIRECTORY'
+     Add DIRECTORY to the list of directories.  Source files are
+     searched relative to this list of directories.  The resulting `.po'
+     file will be written relative to the current directory, though.
+
+`-C FILE'
+`--compendium=FILE'
+     Specify an additional library of message translations.  *Note
+     Compendium::.  This option may be specified more than once.
+
+Operation mode
+--------------
+
+`-U'
+`--update'
+     Update DEF.po.  Do nothing if DEF.po is already up to date.
+
+Output file location
+--------------------
+
+`-o FILE'
+`--output-file=FILE'
+     Write output to specified file.
+
+   The results are written to standard output if no output file is
+specified or if it is `-'.
+
+Output file location in update mode
+-----------------------------------
+
+   The result is written back to DEF.po.
+
+`--backup=CONTROL'
+     Make a backup of DEF.po
+
+`--suffix=SUFFIX'
+     Override the usual backup suffix.
+
+   The version control method may be selected via the `--backup' option
+or through the `VERSION_CONTROL' environment variable.  Here are the
+values:
+
+`none'
+`off'
+     Never make backups (even if `--backup' is given).
+
+`numbered'
+`t'
+     Make numbered backups.
+
+`existing'
+`nil'
+     Make numbered backups if numbered backups for this file already
+     exist, otherwise make simple backups.
+
+`simple'
+`never'
+     Always make simple backups.
+
+   The backup suffix is `~', unless set with `--suffix' or the
+`SIMPLE_BACKUP_SUFFIX' environment variable.
+
+Operation modifiers
+-------------------
+
+`-m'
+`--multi-domain'
+     Apply REF.pot to each of the domains in DEF.po.
+
+Output details
+--------------
+
+`--force-po'
+     Always write an output file even if it contains no message.
+
+`-i'
+`--indent'
+     Write the .po file using indented style.
+
+`--no-location'
+     Do not write `#: FILENAME:LINE' lines.
+
+`--add-location'
+     Generate `#: FILENAME:LINE' lines (default).
+
+`--strict'
+     Write out a strict Uniforum conforming PO file.  Note that this
+     Uniforum format should be avoided because it doesn't support the
+     GNU extensions.
+
+`-w NUMBER'
+`--width=NUMBER'
+     Set the output page width.  Long strings in the output files will
+     be split across multiple lines in order to ensure that each line's
+     width (= number of screen columns) is less or equal to the given
+     NUMBER.
+
+`-s'
+`--sort-output'
+     Generate sorted output.  Note that using this option makes it much
+     harder for the translator to understand each message's context.
+
+`-F'
+`--sort-by-file'
+     Sort output by file location.
+
+Informative output
+------------------
+
+`-h'
+`--help'
+     Display this help and exit.
+
+`-V'
+`--version'
+     Output version information and exit.
+
+`-v'
+`--verbose'
+     Increase verbosity level.
+
+`-q'
+`--quiet'
+`--silent'
+     Suppress progress indicators.
+
+
+File: gettext.info,  Node: Translated Entries,  Next: Fuzzy Entries,  Prev: msgmerge Invocation,  Up: Updating
+
+Translated Entries
+==================
+
+   Each PO file entry for which the `msgstr' field has been filled with
+a translation, and which is not marked as fuzzy (*note Fuzzy Entries::),
+is a said to be a "translated" entry.  Only translated entries will
+later be compiled by GNU `msgfmt' and become usable in programs.  Other
+entry types will be excluded; translation will not occur for them.
+
+   Some commands are more specifically related to translated entry
+processing.
+
+`t'
+     Find the next translated entry (`po-next-translated-entry').
+
+`T'
+     Find the previous translated entry
+     (`po-previous-translated-entry').
+
+   The commands `t' (`po-next-translated-entry') and `M-t'
+(`po-previous-translated-entry') move forwards or backwards, chasing
+for an translated entry.  If none is found, the search is extended and
+wraps around in the PO file buffer.
+
+   Translated entries usually result from the translator having edited
+in a translation for them, *Note Modifying Translations::.  However, if
+the variable `po-auto-fuzzy-on-edit' is not `nil', the entry having
+received a new translation first becomes a fuzzy entry, which ought to
+be later unfuzzied before becoming an official, genuine translated
+entry.  *Note Fuzzy Entries::.
+
+
+File: gettext.info,  Node: Fuzzy Entries,  Next: Untranslated Entries,  Prev: Translated Entries,  Up: Updating
+
+Fuzzy Entries
+=============
+
+   Each PO file entry may have a set of "attributes", which are
+qualities given a name and explicitely associated with the translation,
+using a special system comment.  One of these attributes has the name
+`fuzzy', and entries having this attribute are said to have a fuzzy
+translation.  They are called fuzzy entries, for short.
+
+   Fuzzy entries, even if they account for translated entries for most
+other purposes, usually call for revision by the translator.  Those may
+be produced by applying the program `msgmerge' to update an older
+translated PO files according to a new PO template file, when this tool
+hypothesises that some new `msgid' has been modified only slightly out
+of an older one, and chooses to pair what it thinks to be the old
+translation for the new modified entry.  The slight alteration in the
+original string (the `msgid' string) should often be reflected in the
+translated string, and this requires the intervention of the
+translator.  For this reason, `msgmerge' might mark some entries as
+being fuzzy.
+
+   Also, the translator may decide herself to mark an entry as fuzzy
+for her own convenience, when she wants to remember that the entry has
+to be later revisited.  So, some commands are more specifically related
+to fuzzy entry processing.
+
+`z'
+     Find the next fuzzy entry (`po-next-fuzzy-entry').
+
+`Z'
+     Find the previous fuzzy entry (`po-previous-fuzzy-entry').
+
+`<TAB>'
+     Remove the fuzzy attribute of the current entry (`po-unfuzzy').
+
+   The commands `z' (`po-next-fuzzy-entry') and `Z'
+(`po-previous-fuzzy-entry') move forwards or backwards, chasing for a
+fuzzy entry.  If none is found, the search is extended and wraps around
+in the PO file buffer.
+
+   The command `<TAB>' (`po-unfuzzy') removes the fuzzy attribute
+associated with an entry, usually leaving it translated.  Further, if
+the variable `po-auto-select-on-unfuzzy' has not the `nil' value, the
+`<TAB>' command will automatically chase for another interesting entry
+to work on.  The initial value of `po-auto-select-on-unfuzzy' is `nil'.
+
+   The initial value of `po-auto-fuzzy-on-edit' is `nil'.  However, if
+the variable `po-auto-fuzzy-on-edit' is set to `t', any entry edited
+through the `<RET>' command is marked fuzzy, as a way to ensure some
+kind of double check, later.  In this case, the usual paradigm is that
+an entry becomes fuzzy (if not already) whenever the translator
+modifies it.  If she is satisfied with the translation, she then uses
+`<TAB>' to pick another entry to work on, clearing the fuzzy attribute
+on the same blow.  If she is not satisfied yet, she merely uses `<SPC>'
+to chase another entry, leaving the entry fuzzy.
+
+   The translator may also use the `<DEL>' command
+(`po-fade-out-entry') over any translated entry to mark it as being
+fuzzy, when she wants to easily leave a trace she wants to later return
+working at this entry.
+
+   Also, when time comes to quit working on a PO file buffer with the
+`q' command, the translator is asked for confirmation, if fuzzy string
+still exists.
+
+
+File: gettext.info,  Node: Untranslated Entries,  Next: Obsolete Entries,  Prev: Fuzzy Entries,  Up: Updating
+
+Untranslated Entries
+====================
+
+   When `xgettext' originally creates a PO file, unless told otherwise,
+it initializes the `msgid' field with the untranslated string, and
+leaves the `msgstr' string to be empty.  Such entries, having an empty
+translation, are said to be "untranslated" entries.  Later, when the
+programmer slightly modifies some string right in the program, this
+change is later reflected in the PO file by the appearance of a new
+untranslated entry for the modified string.
+
+   The usual commands moving from entry to entry consider untranslated
+entries on the same level as active entries.  Untranslated entries are
+easily recognizable by the fact they end with `msgstr ""'.
+
+   The work of the translator might be (quite naively) seen as the
+process of seeking for an untranslated entry, editing a translation for
+it, and repeating these actions until no untranslated entries remain.
+Some commands are more specifically related to untranslated entry
+processing.
+
+`u'
+     Find the next untranslated entry (`po-next-untranslated-entry').
+
+`U'
+     Find the previous untranslated entry
+     (`po-previous-untransted-entry').
+
+`k'
+     Turn the current entry into an untranslated one (`po-kill-msgstr').
+
+   The commands `u' (`po-next-untranslated-entry') and `M-u'
+(`po-previous-untransted-entry') move forwards or backwards, chasing
+for an untranslated entry.  If none is found, the search is extended
+and wraps around in the PO file buffer.
+
+   An entry can be turned back into an untranslated entry by merely
+emptying its translation, using the command `k' (`po-kill-msgstr').
+*Note Modifying Translations::.
+
+   Also, when time comes to quit working on a PO file buffer with the
+`q' command, the translator is asked for confirmation, if some
+untranslated string still exists.
+
+
 File: gettext.info,  Node: Obsolete Entries,  Next: Modifying Translations,  Prev: Untranslated Entries,  Up: Updating
 
 Obsolete Entries
@@ -56,13 +532,14 @@ the fact.
 entry processing.
 
 `o'
-     Find the next obsolete entry.
+     Find the next obsolete entry (`po-next-obsolete-entry').
 
-`M-o'
-     Find the previous obsolete entry.
+`O'
+     Find the previous obsolete entry (`po-previous-obsolete-entry').
 
 `<DEL>'
-     Make an active entry obsolete, or zap out an obsolete entry.
+     Make an active entry obsolete, or zap out an obsolete entry
+     (`po-fade-out-entry').
 
    The commands `o' (`po-next-obsolete-entry') and `M-o'
 (`po-previous-obsolete-entry') move forwards or backwards, chasing for
@@ -120,20 +597,24 @@ diagnosed mechanically or reported by a user, the translators have to
 resort to using the following commands for modifying the translations.
 
 `<RET>'
-     Interactively edit the translation.
+     Interactively edit the translation (`po-edit-msgstr').
 
 `<LFD>'
-     Reinitialize the translation with the original, untranslated
-     string.
+`C-j'
+     Reinitialize the translation with the original, untranslated string
+     (`po-msgid-to-msgstr').
 
 `k'
-     Save the translation on the kill ring, and delete it.
+     Save the translation on the kill ring, and delete it
+     (`po-kill-msgstr').
 
 `w'
-     Save the translation on the kill ring, without deleting it.
+     Save the translation on the kill ring, without deleting it
+     (`po-kill-ring-save-msgstr').
 
 `y'
-     Replace the translation, taking the new from the kill ring.
+     Replace the translation, taking the new from the kill ring
+     (`po-yank-msgstr').
 
    The command `<RET>' (`po-edit-msgstr') opens a new Emacs window
 meant to edit in a new translation, or to modify an already existing
@@ -270,16 +751,19 @@ translations, so the general indications given for those apply here.
 *Note Modifying Translations::.
 
 `#'
-     Interactively edit the translator comments.
+     Interactively edit the translator comments (`po-edit-comment').
 
 `K'
-     Save the translator comments on the kill ring, and delete it.
+     Save the translator comments on the kill ring, and delete it
+     (`po-kill-comment').
 
 `W'
-     Save the translator comments on the kill ring, without deleting it.
+     Save the translator comments on the kill ring, without deleting it
+     (`po-kill-ring-save-comment').
 
 `Y'
-     Replace the translator comments, taking the new from the kill ring.
+     Replace the translator comments, taking the new from the kill ring
+     (`po-yank-comment').
 
    These commands parallel PO mode commands for modifying the
 translation strings, and behave much the same way as they do, except
@@ -343,13 +827,13 @@ described in fuller detail.  It installs a few commands over the usual
 editing set of Emacs, which are described below.
 
 `C-c C-c'
-     Complete edition.
+     Complete edition (`po-subedit-exit').
 
 `C-c C-k'
-     Abort edition.
+     Abort edition (`po-subedit-abort').
 
 `C-c C-a'
-     Consult auxiliary PO files.
+     Consult auxiliary PO files (`po-subedit-cycle-auxiliary').
 
    The window's contents represents a translation for a given message,
 or a translator comment.  The translator may modify this window to her
@@ -366,11 +850,12 @@ original translation or comment.  Another way would be for her to exit
 normally with `C-c C-c', then type `U' once for undoing the whole
 effect of last edition.
 
-   The command `C-c C-a' allows for glancing through translations
-already achieved in other languages, directly while editing the current
-translation.  This may be quite convenient when the translator is fluent
-at many languages, but of course, only makes sense when such completed
-auxiliary PO files are already available to her (*note Auxiliary::).
+   The command `C-c C-a' (`po-subedit-cycle-auxiliary') allows for
+glancing through translations already achieved in other languages,
+directly while editing the current translation.  This may be quite
+convenient when the translator is fluent at many languages, but of
+course, only makes sense when such completed auxiliary PO files are
+already available to her (*note Auxiliary::).
 
    Functions found on `po-subedit-mode-hook', if any, are executed after
 the string has been inserted in the edit buffer.
@@ -447,18 +932,21 @@ program source context for a PO file entry.
 
 `s'
      Resume the display of a program source context, or cycle through
-     them.
+     them (`po-cycle-source-reference').
 
 `M-s'
-     Display of a program source context selected by menu.
+     Display of a program source context selected by menu
+     (`po-select-source-reference').
 
 `S'
-     Add a directory to the search path for source files.
+     Add a directory to the search path for source files
+     (`po-consider-source-path').
 
 `M-S'
-     Delete a directory from the search path for source files.
+     Delete a directory from the search path for source files
+     (`po-ignore-source-path').
 
-   The commands `s' (`po-cycle-reference') and `M-s'
+   The commands `s' (`po-cycle-source-reference') and `M-s'
 (`po-select-source-reference') both open another window displaying some
 source program file, and already positioned in such a way that it shows
 an actual use of the string to be translated.  By doing so, the command
@@ -529,16 +1017,19 @@ PO files, and also for showing contexts for the entry under work.
    Here are the auxiliary file commands available in PO mode.
 
 `a'
-     Seek auxiliary files for another translation for the same entry.
+     Seek auxiliary files for another translation for the same entry
+     (`po-cycle-auxiliary').
 
-`M-a'
-     Switch to a particular auxiliary file.
+`C-c C-a'
+     Switch to a particular auxiliary file (`po-select-auxiliary').
 
 `A'
-     Declare this PO file as an auxiliary file.
+     Declare this PO file as an auxiliary file
+     (`po-consider-as-auxiliary').
 
 `M-A'
-     Remove this PO file from the list of auxiliary files.
+     Remove this PO file from the list of auxiliary files
+     (`po-ignore-as-auxiliary').
 
    Command `A' (`po-consider-as-auxiliary') adds the current PO file to
 the list of auxiliary files, while command `M-A'
@@ -553,9 +1044,9 @@ file is also made into an auxiliary file, if not already.  So, `a' in
 this newly displayed PO file will seek another PO file, and so on, so
 repeating `a' will eventually yield back the original PO file.
 
-   The command `M-a' (`po-select-auxiliary') asks the translator for
-her choice of a particular auxiliary file, with completion, and then
-switches to that selected PO file.  The command also checks if the
+   The command `C-c C-a' (`po-select-auxiliary') asks the translator
+for her choice of a particular auxiliary file, with completion, and
+then switches to that selected PO file.  The command also checks if the
 selected file has an `msgid' field identical as the one for the current
 entry, and if yes, this entry becomes current.  Otherwise, the cursor
 of the selected file is left undisturbed.
@@ -577,458 +1068,119 @@ resolved, the translator should stay aware of normalisation issues.
 
 File: gettext.info,  Node: Compendium,  Prev: Auxiliary,  Up: Updating
 
-Using Translation Compendiums
-=============================
+Using Translation Compendia
+===========================
 
-   Compendiums are yet to be implemented.
-
-   An incoming PO mode feature will let the translator maintain a
-compendium of already achieved translations.  A "compendium" is a
-special PO file containing a set of translations recurring in many
-different packages.  The translator will be given commands for adding
-entries to her compendium, and later initializing untranslated entries,
-or updating already translated entries, from translations kept in the
-compendium.  For this to work, however, the compendium would have to be
-normalized.  *Note Normalizing::.
-
-
-File: gettext.info,  Node: Binaries,  Next: Users,  Prev: Updating,  Up: Top
-
-Producing Binary MO Files
-*************************
+   A "compendium" is a special PO file containing a set of translations
+recurring in many different packages.  The translator can use gettext
+tools to build a new compendium, to add entries to her compendium, and
+to initialize untranslated entries, or to update already translated
+entries, from translations kept in the compendium.
 
 * Menu:
 
-* msgfmt Invocation::           Invoking the `msgfmt' Program
-* MO Files::                    The Format of GNU MO Files
+* Creating Compendia::          Merging translations for later use
+* Using Compendia::             Using older translations if they fit
 
 
-File: gettext.info,  Node: msgfmt Invocation,  Next: MO Files,  Prev: Binaries,  Up: Binaries
+File: gettext.info,  Node: Creating Compendia,  Next: Using Compendia,  Prev: Compendium,  Up: Compendium
 
-Invoking the `msgfmt' Program
-=============================
+Creating Compendia
+------------------
 
-     Usage: msgfmt [OPTION] FILENAME.po ...
+   Basically every PO file consisting of translated entries only can be
+declared as a valid compendium.  Often the translater wants to have
+special compendia; let's consider two cases: `concatenating PO files'
+and `extracting a message subset from a PO file'.
 
-`-a NUMBER'
-`--alignment=NUMBER'
-     Align strings to NUMBER bytes (default: 1).
+Concatenate PO Files
+....................
 
-`-h'
-`--help'
-     Display this help and exit.
+   To concatenate several valid PO files into one compendium file you
+can use `msgcomm' or `msgcat' (the latter preferred):
 
-`--no-hash'
-     Binary file will not include the hash table.
+     msgcat -o compendium.po file1.po file2.po
 
-`-o FILE'
-`--output-file=FILE'
-     Specify output file name as FILE.
+   By default, `msgcat' will accumulate divergent translations for the
+same string.  Those occurences will be marked as `fuzzy' and highly
+visible decorated; calling `msgcat' on `file1.po':
 
-`--strict'
-     Direct the program to work strictly following the Uniforum/Sun
-     implementation.  Currently this only affects the naming of the
-     output file.  If this option is not given the name of the output
-     file is the same as the domain name.  If the strict Uniforum mode
-     is enabled the suffix `.mo' is added to the file name if it is not
-     already present.
+     #: src/hello.c:200
+     #, c-format
+     msgid "Report bugs to <%s>.\n"
+     msgstr "Comunicar `bugs' a <%s>.\n"
 
-     We find this behaviour of Sun's implementation rather silly and so
-     by default this mode is _not_ selected.
+and `file2.po':
 
-`-v'
-`--verbose'
-     Detect and diagnose input file anomalies which might represent
-     translation errors.  The `msgid' and `msgstr' strings are studied
-     and compared.  It is considered abnormal that one string starts or
-     ends with a newline while the other does not.
+     #: src/bye.c:100
+     #, c-format
+     msgid "Report bugs to <%s>.\n"
+     msgstr "Comunicar \"bugs\" a <%s>.\n"
 
-     Also, if the string represents a format string used in a
-     `printf'-like function both strings should have the same number of
-     `%' format specifiers, with matching types.  If the flag
-     `c-format' or `possible-c-format' appears in the special comment
-     <#,> for this entry a check is performed.  For example, the check
-     will diagnose using `%.*s' against `%s', or `%d' against `%s', or
-     `%d' against `%x'.  It can even handle positional parameters.
+will result in:
 
-     Normally the `xgettext' program automatically decides whether a
-     string is a format string or not.  This algorithm is not perfect,
-     though.  It might regard a string as a format string though it is
-     not used in a `printf'-like function and so `msgfmt' might report
-     errors where there are none.  Or the other way round: a string is
-     not regarded as a format string but it is used in a `printf'-like
-     function.
+     #: src/hello.c:200 src/bye.c:100
+     #, fuzzy, c-format
+     msgid "Report bugs to <%s>.\n"
+     msgstr ""
+     "#-#-#-#-#  file1.po  #-#-#-#-#\n"
+     "Comunicar `bugs' a <%s>.\n"
+     "#-#-#-#-#  file2.po  #-#-#-#-#\n"
+     "Comunicar \"bugs\" a <%s>.\n"
 
-     So solve this problem the programmer can dictate the decision to
-     the `xgettext' program (*note c-format::).  The translator should
-     not consider removing the flag from the <#,> line.  This "fix"
-     would be reversed again as soon as `msgmerge' is called the next
-     time.
+The translator will have to resolve this "conflict" manually; she has
+to decide whether the first or the second version is appropriate (or
+provide a new translation), to delete the "marker lines", and finally
+to remove the `fuzzy' mark.
 
-`-V'
-`--version'
-     Output version information and exit.
+   If the translator knows in advance the first found translation of a
+message is always the best translation she can make use to the
+`--use-first' switch:
 
-   If input file is `-', standard input is read.  If output file is
-`-', output is written to standard output.
+     msgcat --use-first -o compendium.po file1.po file2.po
 
-
-File: gettext.info,  Node: MO Files,  Prev: msgfmt Invocation,  Up: Binaries
+   A good compendium file must not contain `fuzzy' or untranslated
+entries.  If input files are "dirty" you must use the
+`--translated-only' switch (FIXME: TBI) or a manual way to pre- or
+postprocess.  (FIXME: Handling of obsolete entries at this point?
+Proposal: By default, make them valid entries.
+`--no-obsolete-entries'.)
 
-The Format of GNU MO Files
-==========================
+Extract a Message Subset from a PO File
+.......................................
 
-   The format of the generated MO files is best described by a picture,
-which appears below.
+   Nobody wants to translate the same messages again and again; thus you
+may wish to have a compendium file containing `getopt.c' messages.
 
-   The first two words serve the identification of the file.  The magic
-number will always signal GNU MO files.  The number is stored in the
-byte order of the generating machine, so the magic number really is two
-numbers: `0x950412de' and `0xde120495'.  The second word describes the
-current revision of the file format.  For now the revision is 0.  This
-might change in future versions, and ensures that the readers of MO
-files can distinguish new formats from old ones, so that both can be
-handled correctly.  The version is kept separate from the magic number,
-instead of using different magic numbers for different formats, mainly
-because `/etc/magic' is not updated often.  It might be better to have
-magic separated from internal format version identification.
+   To extract a message subset (e.g., all `getopt.c' messages) from an
+existing PO file into one compendium file you can use `msggrep':
 
-   Follow a number of pointers to later tables in the file, allowing
-for the extension of the prefix part of MO files without having to
-recompile programs reading them.  This might become useful for later
-inserting a few flag bits, indication about the charset used, new
-tables, or other things.
-
-   Then, at offset O and offset T in the picture, two tables of string
-descriptors can be found.  In both tables, each string descriptor uses
-two 32 bits integers, one for the string length, another for the offset
-of the string in the MO file, counting in bytes from the start of the
-file.  The first table contains descriptors for the original strings,
-and is sorted so the original strings are in increasing lexicographical
-order.  The second table contains descriptors for the translated
-strings, and is parallel to the first table: to find the corresponding
-translation one has to access the array slot in the second array with
-the same index.
-
-   Having the original strings sorted enables the use of simple binary
-search, for when the MO file does not contain an hashing table, or for
-when it is not practical to use the hashing table provided in the MO
-file.  This also has another advantage, as the empty string in a PO
-file GNU `gettext' is usually _translated_ into some system information
-attached to that particular MO file, and the empty string necessarily
-becomes the first in both the original and translated tables, making
-the system information very easy to find.
-
-   The size S of the hash table can be zero.  In this case, the hash
-table itself is not contained in the MO file.  Some people might prefer
-this because a precomputed hashing table takes disk space, and does not
-win _that_ much speed.  The hash table contains indices to the sorted
-array of strings in the MO file.  Conflict resolution is done by double
-hashing.  The precise hashing algorithm used is fairly dependent of GNU
-`gettext' code, and is not documented here.
-
-   As for the strings themselves, they follow the hash file, and each
-is terminated with a <NUL>, and this <NUL> is not counted in the length
-which appears in the string descriptor.  The `msgfmt' program has an
-option selecting the alignment for MO file strings.  With this option,
-each string is separately aligned so it starts at an offset which is a
-multiple of the alignment value.  On some RISC machines, a correct
-alignment will speed things up.
-
-   Plural forms are stored by letting the plural of the original string
-follow the singular of the original string, separated through a <NUL>
-byte.  The length which appears in the string descriptor includes both.
-However, only the singular of the original string takes part in the
-hash table lookup.  The plural variants of the translation are all
-stored consecutively, separated through a <NUL> byte.  Here also, the
-length in the string descriptor includes all of them.
-
-   Nothing prevents a MO file from having embedded <NUL>s in strings.
-However, the program interface currently used already presumes that
-strings are <NUL> terminated, so embedded <NUL>s are somewhat useless.
-But the MO file format is general enough so other interfaces would be
-later possible, if for example, we ever want to implement wide
-characters right in MO files, where <NUL> bytes may accidently appear.
-(No, we don't want to have wide characters in MO files.  They would
-make the file unnecessarily large, and the `wchar_t' type being
-platform dependent, MO files would be platform dependent as well.)
-
-   This particular issue has been strongly debated in the GNU `gettext'
-development forum, and it is expectable that MO file format will evolve
-or change over time.  It is even possible that many formats may later
-be supported concurrently.  But surely, we have to start somewhere, and
-the MO file format described here is a good start.  Nothing is cast in
-concrete, and the format may later evolve fairly easily, so we should
-feel comfortable with the current approach.
-
-             byte
-                  +------------------------------------------+
-               0  | magic number = 0x950412de                |
-                  |                                          |
-               4  | file format revision = 0                 |
-                  |                                          |
-               8  | number of strings                        |  == N
-                  |                                          |
-              12  | offset of table with original strings    |  == O
-                  |                                          |
-              16  | offset of table with translation strings |  == T
-                  |                                          |
-              20  | size of hashing table                    |  == S
-                  |                                          |
-              24  | offset of hashing table                  |  == H
-                  |                                          |
-                  .                                          .
-                  .    (possibly more entries later)         .
-                  .                                          .
-                  |                                          |
-               O  | length & offset 0th string  ----------------.
-           O + 8  | length & offset 1st string  ------------------.
-                   ...                                    ...   | |
-     O + ((N-1)*8)| length & offset (N-1)th string           |  | |
-                  |                                          |  | |
-               T  | length & offset 0th translation  ---------------.
-           T + 8  | length & offset 1st translation  -----------------.
-                   ...                                    ...   | | | |
-     T + ((N-1)*8)| length & offset (N-1)th translation      |  | | | |
-                  |                                          |  | | | |
-               H  | start hash table                         |  | | | |
-                   ...                                    ...   | | | |
-       H + S * 4  | end hash table                           |  | | | |
-                  |                                          |  | | | |
-                  | NUL terminated 0th string  <----------------' | | |
-                  |                                          |    | | |
-                  | NUL terminated 1st string  <------------------' | |
-                  |                                          |      | |
-                   ...                                    ...       | |
-                  |                                          |      | |
-                  | NUL terminated 0th translation  <---------------' |
-                  |                                          |        |
-                  | NUL terminated 1st translation  <-----------------'
-                  |                                          |
-                   ...                                    ...
-                  |                                          |
-                  +------------------------------------------+
+     msggrep --location src/getopt.c -o compendium.po file.po
 
 
-File: gettext.info,  Node: Users,  Next: Programmers,  Prev: Binaries,  Up: Top
+File: gettext.info,  Node: Using Compendia,  Prev: Creating Compendia,  Up: Compendium
 
-The User's View
-***************
+Using Compendia
+---------------
 
-   When GNU `gettext' will truly have reached its goal, average users
-should feel some kind of astonished pleasure, seeing the effect of that
-strange kind of magic that just makes their own native language appear
-everywhere on their screens.  As for naive users, they would ideally
-have no special pleasure about it, merely taking their own language for
-_granted_, and becoming rather unhappy otherwise.
+   You can use a compendium file to initialize a translation from
+scratch or to update an already existing translation.
 
-   So, let's try to describe here how we would like the magic to
-operate, as we want the users' view to be the simplest, among all ways
-one could look at GNU `gettext'.  All other software engineers:
-programmers, translators, maintainers, should work together in such a
-way that the magic becomes possible.  This is a long and progressive
-undertaking, and information is available about the progress of the
-Translation Project.
+Initialize a New Translation File
+.................................
 
-   When a package is distributed, there are two kinds of users:
-"installers" who fetch the distribution, unpack it, configure it,
-compile it and install it for themselves or others to use; and "end
-users" that call programs of the package, once these have been
-installed at their site.  GNU `gettext' is offering magic for both
-installers and end users.
+   Since a PO file with translations does not exist the translator can
+merely use `/dev/null' to fake the "old" translation file.
 
-* Menu:
+     msgmerge --compendium compendium.po -o file.po /dev/null file.pot
 
-* Matrix::                      The Current `ABOUT-NLS' Matrix
-* Installers::                  Magic for Installers
-* End Users::                   Magic for End Users
+Update an Existing Translation File
+...................................
 
-
-File: gettext.info,  Node: Matrix,  Next: Installers,  Prev: Users,  Up: Users
+   Concatenate the compendium file(s) and the existing PO, merge the
+result with the POT file and remove the obsolete entries (optional,
+here done using `sed'):
 
-The Current `ABOUT-NLS' Matrix
-==============================
-
-   Languages are not equally supported in all packages using GNU
-`gettext'.  To know if some package uses GNU `gettext', one may check
-the distribution for the `ABOUT-NLS' information file, for some `LL.po'
-files, often kept together into some `po/' directory, or for an `intl/'
-directory.  Internationalized packages have usually many `LL.po' files,
-where LL represents the language.  *Note End Users:: for a complete
-description of the format for LL.
-
-   More generally, a matrix is available for showing the current state
-of the Translation Project, listing which packages are prepared for
-multi-lingual messages, and which languages are supported by each.
-Because this information changes often, this matrix is not kept within
-this GNU `gettext' manual.  This information is often found in file
-`ABOUT-NLS' from various distributions, but is also as old as the
-distribution itself.  A recent copy of this `ABOUT-NLS' file,
-containing up-to-date information, should generally be found on the
-Translation Project sites, and also on most GNU archive sites.
-
-
-File: gettext.info,  Node: Installers,  Next: End Users,  Prev: Matrix,  Up: Users
-
-Magic for Installers
-====================
-
-   By default, packages fully using GNU `gettext', internally, are
-installed in such a way that they to allow translation of messages.  At
-_configuration_ time, those packages should automatically detect
-whether the underlying host system already provides the GNU `gettext'
-functions.  If not, the GNU `gettext' library should be automatically
-prepared and used.  Installers may use special options at configuration
-time for changing this behavior.  The command `./configure
---with-included-gettext' bypasses system `gettext' to use the included
-GNU `gettext' instead, while `./configure --disable-nls' produces
-programs totally unable to translate messages.
-
-   Internationalized packages have usually many `LL.po' files.  Unless
-translations are disabled, all those available are installed together
-with the package.  However, the environment variable `LINGUAS' may be
-set, prior to configuration, to limit the installed set.  `LINGUAS'
-should then contain a space separated list of two-letter codes, stating
-which languages are allowed.
-
-
-File: gettext.info,  Node: End Users,  Prev: Installers,  Up: Users
-
-Magic for End Users
-===================
-
-   We consider here those packages using GNU `gettext' internally, and
-for which the installers did not disable translation at _configure_
-time.  Then, users only have to set the `LANG' environment variable to
-the appropriate `LL_CC' combination prior to using the programs in the
-package.  *Note Matrix::.  For example, let's presume a German site.
-At the shell prompt, users merely have to execute `setenv LANG de_DE'
-(in `csh') or `export LANG; LANG=de_DE' (in `sh').  They could even do
-this from their `.login' or `.profile' file.
-
-
-File: gettext.info,  Node: Programmers,  Next: Translators,  Prev: Users,  Up: Top
-
-The Programmer's View
-*********************
-
-   One aim of the current message catalog implementation provided by
-GNU `gettext' was to use the systems message catalog handling, if the
-installer wishes to do so.  So we perhaps should first take a look at
-the solutions we know about.  The people in the POSIX committee did not
-manage to agree on one of the semi-official standards which we'll
-describe below.  In fact they couldn't agree on anything, so they
-decided only to include an example of an interface.  The major Unix
-vendors are split in the usage of the two most important
-specifications: X/Open's catgets vs. Uniforum's gettext interface.
-We'll describe them both and later explain our solution of this dilemma.
-
-* Menu:
-
-* catgets::                     About `catgets'
-* gettext::                     About `gettext'
-* Comparison::                  Comparing the two interfaces
-* Using libintl.a::             Using libintl.a in own programs
-* gettext grok::                Being a `gettext' grok
-* Temp Programmers::            Temporary Notes for the Programmers Chapter
-
-
-File: gettext.info,  Node: catgets,  Next: gettext,  Prev: Programmers,  Up: Programmers
-
-About `catgets'
-===============
-
-   The `catgets' implementation is defined in the X/Open Portability
-Guide, Volume 3, XSI Supplementary Definitions, Chapter 5.  But the
-process of creating this standard seemed to be too slow for some of the
-Unix vendors so they created their implementations on preliminary
-versions of the standard.  Of course this leads again to problems while
-writing platform independent programs: even the usage of `catgets' does
-not guarantee a unique interface.
-
-   Another, personal comment on this that only a bunch of committee
-members could have made this interface.  They never really tried to
-program using this interface.  It is a fast, memory-saving
-implementation, an user can happily live with it.  But programmers hate
-it (at least me and some others do...)
-
-   But we must not forget one point: after all the trouble with
-transfering the rights on Unix(tm) they at last came to X/Open, the
-very same who published this specification.  This leads me to making
-the prediction that this interface will be in future Unix standards
-(e.g. Spec1170) and therefore part of all Unix implementation
-(implementations, which are _allowed_ to wear this name).
-
-* Menu:
-
-* Interface to catgets::        The interface
-* Problems with catgets::       Problems with the `catgets' interface?!
-
-
-File: gettext.info,  Node: Interface to catgets,  Next: Problems with catgets,  Prev: catgets,  Up: catgets
-
-The Interface
--------------
-
-   The interface to the `catgets' implementation consists of three
-functions which correspond to those used in file access: `catopen' to
-open the catalog for using, `catgets' for accessing the message tables,
-and `catclose' for closing after work is done.  Prototypes for the
-functions and the needed definitions are in the `<nl_types.h>' header
-file.
-
-   `catopen' is used like in this:
-
-     nl_catd catd = catopen ("catalog_name", 0);
-
-   The function takes as the argument the name of the catalog.  This
-usual refers to the name of the program or the package.  The second
-parameter is not further specified in the standard.  I don't even know
-whether it is implemented consistently among various systems.  So the
-common advice is to use `0' as the value.  The return value is a handle
-to the message catalog, equivalent to handles to file returned by
-`open'.
-
-   This handle is of course used in the `catgets' function which can be
-used like this:
-
-     char *translation = catgets (catd, set_no, msg_id, "original string");
-
-   The first parameter is this catalog descriptor.  The second parameter
-specifies the set of messages in this catalog, in which the message
-described by `msg_id' is obtained.  `catgets' therefore uses a
-three-stage addressing:
-
-     catalog name => set number => message ID => translation
-
-   The fourth argument is not used to address the translation.  It is
-given as a default value in case when one of the addressing stages
-fail.  One important thing to remember is that although the return type
-of catgets is `char *' the resulting string _must not_ be changed.  It
-should better be `const char *', but the standard is published in 1988,
-one year before ANSI C.
-
-The last of these function functions is used and behaves as expected:
-
-     catclose (catd);
-
-   After this no `catgets' call using the descriptor is legal anymore.
-
-
-File: gettext.info,  Node: Problems with catgets,  Prev: Interface to catgets,  Up: catgets
-
-Problems with the `catgets' Interface?!
----------------------------------------
-
-   Now that this description seemed to be really easy -- where are the
-problem we speak of?  In fact the interface could be used in a
-reasonable way, but constructing the message catalogs is a pain.  The
-reason for this lies in the third argument of `catgets': the unique
-message ID.  This has to be a numeric value for all messages in a single
-set.  Perhaps you could imagine the problems keeping such a list while
-changing the source code.  Add a new message here, remove one there.  Of
-course there have been developed a lot of tools helping to organize this
-chaos but one as the other fails in one aspect or the other.  We don't
-want to say that the other approach has no problems but they are far
-more easy to manage.
+     msgcat --use-first -o update.po compendium1.po compendium2.po file.po
+     msgmerge update.po file.pot | sed -e '/^#~/d' > file.po
 

@@ -1,523 +1,1381 @@
 <HTML>
 <HEAD>
-<!-- This HTML file has been created by texi2html 1.51
-     from gettext.texi on 19 April 2001 -->
+<!-- This HTML file has been created by texi2html 1.52a
+     from gettext.texi on 30 November 2001 -->
 
-<TITLE>GNU gettext utilities - A  Language Codes</TITLE>
+<TITLE>GNU gettext utilities - 13  Other Programming Languages</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
-<H1><A NAME="SEC87" HREF="gettext_toc.html#TOC87">A  Language Codes</A></H1>
+<H1><A NAME="SEC180" HREF="gettext_toc.html#TOC180">13  Other Programming Languages</A></H1>
 
 <P>
-The ISO 639 standard defines two character codes for many languages.
-All abbreviations for languages used in the Translation Project should
-come from this standard.
+While the presentation of <CODE>gettext</CODE> focuses mostly on C and
+implicitly applies to C++ as well, its scope is far broader than that:
+Many programming languages, scripting languages and other textual data
+like GUI resources or package descriptions can make use of the gettext
+approach.
 
 </P>
+
+
+
+<H2><A NAME="SEC181" HREF="gettext_toc.html#TOC181">13.1  The Language Implementor's View</A></H2>
+
+<P>
+All programming and scripting languages that have the notion of strings
+are eligible to supporting <CODE>gettext</CODE>.  Supporting <CODE>gettext</CODE>
+means the following:
+
+</P>
+
+<OL>
+<LI>
+
+You should add to the language a syntax for translatable strings.  In
+principle, a function call of <CODE>gettext</CODE> would do, but a shorthand
+syntax helps keeping the legibility of internationalized programs.  For
+example, in C we use the syntax <CODE>_("string")</CODE>, in bash we use the
+syntax <CODE>$"string"</CODE>, and in GNU awk we use the shorthand
+<CODE>_"string"</CODE>.
+
+<LI>
+
+You should arrange that evaluation of such a translatable string at
+runtime calls the <CODE>gettext</CODE> function, or performs equivalent
+processing.
+
+<LI>
+
+Similarly, you should make the functions <CODE>ngettext</CODE>,
+<CODE>dcgettext</CODE>, <CODE>dcngettext</CODE> available from within the language.
+These functions are less often used, but are nevertheless necessary for
+particular purposes: <CODE>ngettext</CODE> for correct plural handling, and
+<CODE>dcgettext</CODE> and <CODE>dcngettext</CODE> for obeying other locale
+environment variables than <CODE>LC_MESSAGES</CODE>, such as <CODE>LC_TIME</CODE> or
+<CODE>LC_MONETARY</CODE>.  For these latter functions, you need to make the
+<CODE>LC_*</CODE> constants, available in the C header <CODE>&#60;locale.h&#62;</CODE>,
+referenceable from within the language, usually either as enumeration
+values or as strings.
+
+<LI>
+
+You should allow the programmer to designate a message domain, either by
+making the <CODE>textdomain</CODE> function available from within the
+language, or by introducing a magic variable called <CODE>TEXTDOMAIN</CODE>.
+Similarly, you should allow the programmer to designate where to search
+for message catalogs, by providing access to the <CODE>bindtextdomain</CODE>
+function.
+
+<LI>
+
+You should either perform a <CODE>setlocale (LC_ALL, "")</CODE> call during
+the startup of your language runtime, or allow the programmer to do so.
+Remember that gettext will act as a no-op if the <CODE>LC_MESSAGES</CODE> and
+<CODE>LC_CTYPE</CODE> locale facets are not both set.
+
+<LI>
+
+A programmer should have a way to extract translatable strings from a
+program into a PO file.  The GNU <CODE>xgettext</CODE> program is being
+extended to support very different programming languages.  Please
+contact the GNU <CODE>gettext</CODE> maintainers to help them doing this.  If
+the string extractor is best integrated into your language's parser, GNU
+<CODE>xgettext</CODE> can function as a front end to your string extractor.
+
+<LI>
+
+The language's library should have a string formatting facility where
+the arguments of a format string are denoted by a positional number or a
+name.  This is needed because for some languages and some messages with
+more than one substitutable argument, the translation will need to
+output the substituted arguments in different order.  See section <A HREF="gettext_3.html#SEC17">3.4  Special Comments preceding Keywords</A>.
+
+<LI>
+
+If the language has more than one implementation, and not all of the
+implementations use <CODE>gettext</CODE>, but the programs should be portable
+across implementations, you should provide a no-i18n emulation, that
+makes the other implementations accept programs written for yours,
+without actually translating the strings.
+
+<LI>
+
+To help the programmer in the task of marking translatable strings,
+which is usually performed using the Emacs PO mode, you are welcome to
+contact the GNU <CODE>gettext</CODE> maintainers, so they can add support for
+your language to <TT>`po-mode.el&acute;</TT>.
+</OL>
+
+<P>
+On the implementation side, three approaches are possible, with
+different effects on portability and copyright:
+
+</P>
+
+<UL>
+<LI>
+
+You may integrate the GNU <CODE>gettext</CODE>'s <TT>`intl/&acute;</TT> directory in
+your package, as described in section <A HREF="gettext_12.html#SEC166">12  The Maintainer's View</A>.  This allows you to
+have internationalization on all kinds of platforms.  Note that when you
+then distribute your package, it legally falls under the GNU General
+Public License, and the GNU project will be glad about your contribution
+to the Free Software pool.
+
+<LI>
+
+You may link against GNU <CODE>gettext</CODE> functions if they are found in
+the C library.  For example, an autoconf test for <CODE>gettext()</CODE> and
+<CODE>ngettext()</CODE> will detect this situation.  For the moment, this test
+will succeed on GNU systems and not on other platforms.  No severe
+copyright restrictions apply.
+
+<LI>
+
+You may emulate or reimplement the GNU <CODE>gettext</CODE> functionality.
+This has the advantage of full portability and no copyright
+restrictions, but also the drawback that you have to reimplement the GNU
+<CODE>gettext</CODE> features (such as the <CODE>LANGUAGE</CODE> environment
+variable, the locale aliases database, the automatic charset conversion,
+and plural handling).
+</UL>
+
+
+
+<H2><A NAME="SEC182" HREF="gettext_toc.html#TOC182">13.2  The Programmer's View</A></H2>
+
+<P>
+For the programmer, the general procedure is the same as for the C
+language.  The Emacs PO mode supports other languages, and the GNU
+<CODE>xgettext</CODE> string extractor recognizes other languages based on the
+file extension or a command-line option.  In some languages,
+<CODE>setlocale</CODE> is not needed because it is already performed by the
+underlying language runtime.
+
+</P>
+
+
+<H2><A NAME="SEC183" HREF="gettext_toc.html#TOC183">13.3  The Translator's View</A></H2>
+
+<P>
+The translator works exactly as in the C language case.  The only
+difference is that when translating format strings, she has to be aware
+of the language's particular syntax for positional arguments in format
+strings.
+
+</P>
+
+
+<H2><A NAME="SEC184" HREF="gettext_toc.html#TOC184">13.4  Individual Programming Languages</A></H2>
+
+
+
+<H3><A NAME="SEC185" HREF="gettext_toc.html#TOC185">13.4.1  C, C++, Objective C</A></H3>
+
 <DL COMPACT>
 
-<DT><SAMP>`aa'</SAMP>
-<DD>
-Afar.
-<DT><SAMP>`ab'</SAMP>
-<DD>
-Abkhazian.
-<DT><SAMP>`ae'</SAMP>
-<DD>
-Avestan.
-<DT><SAMP>`af'</SAMP>
-<DD>
-Afrikaans.
-<DT><SAMP>`am'</SAMP>
-<DD>
-Amharic.
-<DT><SAMP>`ar'</SAMP>
-<DD>
-Arabic.
-<DT><SAMP>`as'</SAMP>
-<DD>
-Assamese.
-<DT><SAMP>`ay'</SAMP>
-<DD>
-Aymara.
-<DT><SAMP>`az'</SAMP>
-<DD>
-Azerbaijani.
-<DT><SAMP>`ba'</SAMP>
-<DD>
-Bashkir.
-<DT><SAMP>`be'</SAMP>
-<DD>
-Byelorussian; Belarusian.
-<DT><SAMP>`bg'</SAMP>
-<DD>
-Bulgarian.
-<DT><SAMP>`bh'</SAMP>
-<DD>
-Bihari.
-<DT><SAMP>`bi'</SAMP>
-<DD>
-Bislama.
-<DT><SAMP>`bn'</SAMP>
-<DD>
-Bengali; Bangla.
-<DT><SAMP>`bo'</SAMP>
-<DD>
-Tibetan.
-<DT><SAMP>`br'</SAMP>
-<DD>
-Breton.
-<DT><SAMP>`bs'</SAMP>
-<DD>
-Bosnian.
-<DT><SAMP>`ca'</SAMP>
-<DD>
-Catalan.
-<DT><SAMP>`ce'</SAMP>
-<DD>
-Chechen.
-<DT><SAMP>`ch'</SAMP>
-<DD>
-Chamorro.
-<DT><SAMP>`co'</SAMP>
-<DD>
-Corsican.
-<DT><SAMP>`cs'</SAMP>
-<DD>
-Czech.
-<DT><SAMP>`cu'</SAMP>
-<DD>
-Church Slavic.
-<DT><SAMP>`cv'</SAMP>
-<DD>
-Chuvash.
-<DT><SAMP>`cy'</SAMP>
-<DD>
-Welsh.
-<DT><SAMP>`da'</SAMP>
-<DD>
-Danish.
-<DT><SAMP>`de'</SAMP>
-<DD>
-German.
-<DT><SAMP>`dz'</SAMP>
-<DD>
-Dzongkha; Bhutani.
-<DT><SAMP>`el'</SAMP>
-<DD>
-Greek.
-<DT><SAMP>`en'</SAMP>
-<DD>
-English.
-<DT><SAMP>`eo'</SAMP>
-<DD>
-Esperanto.
-<DT><SAMP>`es'</SAMP>
-<DD>
-Spanish.
-<DT><SAMP>`et'</SAMP>
-<DD>
-Estonian.
-<DT><SAMP>`eu'</SAMP>
-<DD>
-Basque.
-<DT><SAMP>`fa'</SAMP>
-<DD>
-Persian.
-<DT><SAMP>`fi'</SAMP>
-<DD>
-Finnish.
-<DT><SAMP>`fj'</SAMP>
-<DD>
-Fijian; Fiji.
-<DT><SAMP>`fo'</SAMP>
-<DD>
-Faroese.
-<DT><SAMP>`fr'</SAMP>
-<DD>
-French.
-<DT><SAMP>`fy'</SAMP>
-<DD>
-Frisian.
-<DT><SAMP>`ga'</SAMP>
-<DD>
-Irish.
-<DT><SAMP>`gd'</SAMP>
-<DD>
-Scots; Gaelic.
-<DT><SAMP>`gl'</SAMP>
-<DD>
-Gallegan; Galician.
-<DT><SAMP>`gn'</SAMP>
-<DD>
-Guarani.
-<DT><SAMP>`gu'</SAMP>
-<DD>
-Gujarati.
-<DT><SAMP>`gv'</SAMP>
-<DD>
-Manx.
-<DT><SAMP>`ha'</SAMP>
-<DD>
-Hausa (?).
-<DT><SAMP>`he'</SAMP>
-<DD>
-Hebrew (formerly iw).
-<DT><SAMP>`hi'</SAMP>
-<DD>
-Hindi.
-<DT><SAMP>`ho'</SAMP>
-<DD>
-Hiri Motu.
-<DT><SAMP>`hr'</SAMP>
-<DD>
-Croatian.
-<DT><SAMP>`hu'</SAMP>
-<DD>
-Hungarian.
-<DT><SAMP>`hy'</SAMP>
-<DD>
-Armenian.
-<DT><SAMP>`hz'</SAMP>
-<DD>
-Herero.
-<DT><SAMP>`ia'</SAMP>
-<DD>
-Interlingua.
-<DT><SAMP>`id'</SAMP>
-<DD>
-Indonesian (formerly in).
-<DT><SAMP>`ie'</SAMP>
-<DD>
-Interlingue.
-<DT><SAMP>`ik'</SAMP>
-<DD>
-Inupiak.
-<DT><SAMP>`is'</SAMP>
-<DD>
-Icelandic.
-<DT><SAMP>`it'</SAMP>
-<DD>
-Italian.
-<DT><SAMP>`iu'</SAMP>
-<DD>
-Inuktitut.
-<DT><SAMP>`ja'</SAMP>
-<DD>
-Japanese.
-<DT><SAMP>`jw'</SAMP>
-<DD>
-Javanese.
-<DT><SAMP>`ka'</SAMP>
-<DD>
-Georgian.
-<DT><SAMP>`ki'</SAMP>
-<DD>
-Kikuyu.
-<DT><SAMP>`kj'</SAMP>
-<DD>
-Kuanyama.
-<DT><SAMP>`kk'</SAMP>
-<DD>
-Kazakh.
-<DT><SAMP>`kl'</SAMP>
-<DD>
-Kalaallisut; Greenlandic.
-<DT><SAMP>`km'</SAMP>
-<DD>
-Khmer; Cambodian.
-<DT><SAMP>`kn'</SAMP>
-<DD>
-Kannada.
-<DT><SAMP>`ko'</SAMP>
-<DD>
-Korean.
-<DT><SAMP>`ks'</SAMP>
-<DD>
-Kashmiri.
-<DT><SAMP>`ku'</SAMP>
-<DD>
-Kurdish.
-<DT><SAMP>`kv'</SAMP>
-<DD>
-Komi.
-<DT><SAMP>`kw'</SAMP>
-<DD>
-Cornish.
-<DT><SAMP>`ky'</SAMP>
-<DD>
-Kirghiz.
-<DT><SAMP>`la'</SAMP>
-<DD>
-Latin.
-<DT><SAMP>`lb'</SAMP>
-<DD>
-Letzeburgesch.
-<DT><SAMP>`ln'</SAMP>
-<DD>
-Lingala.
-<DT><SAMP>`lo'</SAMP>
-<DD>
-Lao; Laotian.
-<DT><SAMP>`lt'</SAMP>
-<DD>
-Lithuanian.
-<DT><SAMP>`lv'</SAMP>
-<DD>
-Latvian; Lettish.
-<DT><SAMP>`mg'</SAMP>
-<DD>
-Malagasy.
-<DT><SAMP>`mh'</SAMP>
-<DD>
-Marshall.
-<DT><SAMP>`mi'</SAMP>
-<DD>
-Maori.
-<DT><SAMP>`mk'</SAMP>
-<DD>
-Macedonian.
-<DT><SAMP>`ml'</SAMP>
-<DD>
-Malayalam.
-<DT><SAMP>`mn'</SAMP>
-<DD>
-Mongolian.
-<DT><SAMP>`mo'</SAMP>
-<DD>
-Moldavian.
-<DT><SAMP>`mr'</SAMP>
-<DD>
-Marathi.
-<DT><SAMP>`ms'</SAMP>
-<DD>
-Malay.
-<DT><SAMP>`mt'</SAMP>
-<DD>
-Maltese.
-<DT><SAMP>`my'</SAMP>
-<DD>
-Burmese.
-<DT><SAMP>`na'</SAMP>
-<DD>
-Nauru.
-<DT><SAMP>`nb'</SAMP>
-<DD>
-Norwegian Bokm@aa{}l.
-<DT><SAMP>`nd'</SAMP>
-<DD>
-Ndebele, North.
-<DT><SAMP>`ne'</SAMP>
-<DD>
-Nepali.
-<DT><SAMP>`ng'</SAMP>
-<DD>
-Ndonga.
-<DT><SAMP>`nl'</SAMP>
-<DD>
-Dutch.
-<DT><SAMP>`nn'</SAMP>
-<DD>
-Norwegian Nynorsk.
-<DT><SAMP>`no'</SAMP>
-<DD>
-Norwegian.
-<DT><SAMP>`nr'</SAMP>
-<DD>
-Ndebele, South.
-<DT><SAMP>`nv'</SAMP>
-<DD>
-Navajo.
-<DT><SAMP>`ny'</SAMP>
-<DD>
-Chichewa; Nyanja.
-<DT><SAMP>`oc'</SAMP>
-<DD>
-Occitan; Proven@,{c}al.
-<DT><SAMP>`om'</SAMP>
-<DD>
-(Afan) Oromo.
-<DT><SAMP>`or'</SAMP>
-<DD>
-Oriya.
-<DT><SAMP>`os'</SAMP>
-<DD>
-Ossetian; Ossetic.
-<DT><SAMP>`pa'</SAMP>
-<DD>
-Panjabi; Punjabi.
-<DT><SAMP>`pi'</SAMP>
-<DD>
-Pali.
-<DT><SAMP>`pl'</SAMP>
-<DD>
-Polish.
-<DT><SAMP>`ps'</SAMP>
-<DD>
-Pashto, Pushto.
-<DT><SAMP>`pt'</SAMP>
-<DD>
-Portuguese.
-<DT><SAMP>`qu'</SAMP>
-<DD>
-Quechua.
-<DT><SAMP>`rm'</SAMP>
-<DD>
-Rhaeto-Romance.
-<DT><SAMP>`rn'</SAMP>
-<DD>
-Rundi; Kirundi.
-<DT><SAMP>`ro'</SAMP>
-<DD>
-Romanian.
-<DT><SAMP>`ru'</SAMP>
-<DD>
-Russian.
-<DT><SAMP>`rw'</SAMP>
-<DD>
-Kinyarwanda.
-<DT><SAMP>`sa'</SAMP>
-<DD>
-Sanskrit.
-<DT><SAMP>`sc'</SAMP>
-<DD>
-Sardinian.
-<DT><SAMP>`sd'</SAMP>
-<DD>
-Sindhi.
-<DT><SAMP>`se'</SAMP>
-<DD>
-Northern Sami.
-<DT><SAMP>`sg'</SAMP>
-<DD>
-Sango; Sangro.
-<DT><SAMP>`si'</SAMP>
-<DD>
-Sinhalese.
-<DT><SAMP>`sk'</SAMP>
-<DD>
-Slovak.
-<DT><SAMP>`sl'</SAMP>
-<DD>
-Slovenian.
-<DT><SAMP>`sm'</SAMP>
-<DD>
-Samoan.
-<DT><SAMP>`sn'</SAMP>
-<DD>
-Shona.
-<DT><SAMP>`so'</SAMP>
-<DD>
-Somali.
-<DT><SAMP>`sq'</SAMP>
-<DD>
-Albanian.
-<DT><SAMP>`sr'</SAMP>
-<DD>
-Serbian.
-<DT><SAMP>`ss'</SAMP>
-<DD>
-Swati; Siswati.
-<DT><SAMP>`st'</SAMP>
-<DD>
-Sesotho; Sotho, Southern.
-<DT><SAMP>`su'</SAMP>
-<DD>
-Sundanese.
-<DT><SAMP>`sv'</SAMP>
-<DD>
-Swedish.
-<DT><SAMP>`sw'</SAMP>
-<DD>
-Swahili.
-<DT><SAMP>`ta'</SAMP>
-<DD>
-Tamil.
-<DT><SAMP>`te'</SAMP>
-<DD>
-Telugu.
-<DT><SAMP>`tg'</SAMP>
-<DD>
-Tajik.
-<DT><SAMP>`th'</SAMP>
-<DD>
-Thai.
-<DT><SAMP>`ti'</SAMP>
-<DD>
-Tigrinya.
-<DT><SAMP>`tk'</SAMP>
-<DD>
-Turkmen.
-<DT><SAMP>`tl'</SAMP>
-<DD>
-Tagalog.
-<DT><SAMP>`tn'</SAMP>
-<DD>
-Tswana; Setswana.
-<DT><SAMP>`to'</SAMP>
-<DD>
-Tonga (?).
-<DT><SAMP>`tr'</SAMP>
-<DD>
-Turkish.
-<DT><SAMP>`ts'</SAMP>
-<DD>
-Tsonga.
-<DT><SAMP>`tt'</SAMP>
-<DD>
-Tatar.
-<DT><SAMP>`tw'</SAMP>
-<DD>
-Twi.
-<DT><SAMP>`ty'</SAMP>
-<DD>
-Tahitian.
-<DT><SAMP>`ug'</SAMP>
-<DD>
-Uighur.
-<DT><SAMP>`uk'</SAMP>
-<DD>
-Ukrainian.
-<DT><SAMP>`ur'</SAMP>
-<DD>
-Urdu.
-<DT><SAMP>`uz'</SAMP>
-<DD>
-Uzbek.
-<DT><SAMP>`vi'</SAMP>
-<DD>
-Vietnamese.
-<DT><SAMP>`vo'</SAMP>
-<DD>
-Volap@"{u}k; Volapuk.
-<DT><SAMP>`wo'</SAMP>
-<DD>
-Wolof.
-<DT><SAMP>`xh'</SAMP>
-<DD>
-Xhosa.
-<DT><SAMP>`yi'</SAMP>
-<DD>
-Yiddish (formerly ji).
-<DT><SAMP>`yo'</SAMP>
-<DD>
-Yoruba.
-<DT><SAMP>`za'</SAMP>
-<DD>
-Zhuang.
-<DT><SAMP>`zh'</SAMP>
-<DD>
-Chinese.
-<DT><SAMP>`zu'</SAMP>
-<DD>
-Zulu.
+<DT>RPMs
+<DD>
+gcc, gpp, gobjc, glibc, gettext
+
+<DT>File extension
+<DD>
+For C: <CODE>c</CODE>, <CODE>h</CODE>.
+<BR>For C++: <CODE>C</CODE>, <CODE>c++</CODE>, <CODE>cc</CODE>, <CODE>cxx</CODE>, <CODE>cpp</CODE>, <CODE>hpp</CODE>.
+<BR>For Objective C: <CODE>m</CODE>.
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>_("abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>dgettext</CODE>, <CODE>dcgettext</CODE>, <CODE>ngettext</CODE>,
+<CODE>dngettext</CODE>, <CODE>dcngettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>textdomain</CODE> function
+
+<DT>bindtextdomain
+<DD>
+<CODE>bindtextdomain</CODE> function
+
+<DT>setlocale
+<DD>
+Programmer must call <CODE>setlocale (LC_ALL, "")</CODE>
+
+<DT>Prerequisite
+<DD>
+<CODE>#include &#60;libintl.h&#62;</CODE>
+<BR><CODE>#include &#60;locale.h&#62;</CODE>
+<BR><CODE>#define _(string) gettext (string)</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+Use
+
+<DT>Extractor
+<DD>
+<CODE>xgettext -k_</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>fprintf "%2$d %1$d"</CODE> (POSIX but not C 99)
+
+<DT>Portability
+<DD>
+autoconf (gettext.m4) and #if ENABLE_NLS
+
+<DT>po-mode marking
+<DD>
+yes
+</DL>
+
+
+
+<H3><A NAME="SEC186" HREF="gettext_toc.html#TOC186">13.4.2  sh - Shell Script</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+bash, gettext
+
+<DT>File extension
+<DD>
+<CODE>sh</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>, <CODE>'abc'</CODE>, <CODE>abc</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>"`gettext "abc"`"</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
+
+<DT>textdomain
+<DD>
+environment variable <CODE>TEXTDOMAIN</CODE>
+
+<DT>bindtextdomain
+<DD>
+environment variable <CODE>TEXTDOMAINDIR</CODE>
+
+<DT>setlocale
+<DD>
+automatic
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+---
+
+<DT>Formatting with positions
+<DD>
+---
+
+<DT>Portability
+<DD>
+---
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC187" HREF="gettext_toc.html#TOC187">13.4.3  bash - Bourne-Again Shell Script</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+bash 2.0 or newer, gettext
+
+<DT>File extension
+<DD>
+<CODE>sh</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>, <CODE>'abc'</CODE>, <CODE>abc</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>$"abc"</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
+
+<DT>textdomain
+<DD>
+environment variable <CODE>TEXTDOMAIN</CODE>
+
+<DT>bindtextdomain
+<DD>
+environment variable <CODE>TEXTDOMAINDIR</CODE>
+
+<DT>setlocale
+<DD>
+automatic
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+<CODE>bash --dump-po-strings</CODE>
+
+<DT>Formatting with positions
+<DD>
+---
+
+<DT>Portability
+<DD>
+---
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC188" HREF="gettext_toc.html#TOC188">13.4.4  Python</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+python
+
+<DT>File extension
+<DD>
+<CODE>py</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>'abc'</CODE>, <CODE>u'abc'</CODE>, <CODE>r'abc'</CODE>, <CODE>ur'abc'</CODE>,
+<BR><CODE>"abc"</CODE>, <CODE>u"abc"</CODE>, <CODE>r"abc"</CODE>, <CODE>ur"abc"</CODE>,
+<BR><CODE>"'abc"'</CODE>, <CODE>u"'abc"'</CODE>, <CODE>r"'abc"'</CODE>, <CODE>ur"'abc"'</CODE>,
+<BR><CODE>"""abc"""</CODE>, <CODE>u"""abc"""</CODE>, <CODE>r"""abc"""</CODE>, <CODE>ur"""abc"""</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>_('abc')</CODE> etc.
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext.gettext</CODE>, <CODE>gettext.dgettext</CODE>, also <CODE>ugettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>gettext.textdomain</CODE> function, or
+<CODE>gettext.install(<VAR>domain</VAR>)</CODE> function
+
+<DT>bindtextdomain
+<DD>
+<CODE>gettext.bindtextdomain</CODE> function, or
+<CODE>gettext.install(<VAR>domain</VAR>,<VAR>localedir</VAR>)</CODE> function
+
+<DT>setlocale
+<DD>
+not used by the gettext emulation
+
+<DT>Prerequisite
+<DD>
+<CODE>import gettext</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+emulate. Bug: uses only the first found .mo file, not all of them
+
+<DT>Extractor
+<DD>
+pygettext.py
+
+<DT>Formatting with positions
+<DD>
+<CODE>'...%(ident)d...' % { 'ident': value }</CODE>
+
+<DT>Portability
+<DD>
+fully portable
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC189" HREF="gettext_toc.html#TOC189">13.4.5  GNU clisp - Common Lisp</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+clisp 2.28 or newer
+
+<DT>File extension
+<DD>
+<CODE>lisp</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>(_ "abc")</CODE>, <CODE>(ENGLISH "abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>i18n:gettext</CODE>, <CODE>i18n:ngettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>i18n:textdomain</CODE>
+
+<DT>bindtextdomain
+<DD>
+<CODE>i18n:textdomaindir</CODE>
+
+<DT>setlocale
+<DD>
+automatic
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+<CODE>clisp-xgettext</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>format "~1@*~D ~0@*~D"</CODE>
+
+<DT>Portability
+<DD>
+On platforms without gettext, no translation.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC190" HREF="gettext_toc.html#TOC190">13.4.6  GNU clisp C sources</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+clisp
+
+<DT>File extension
+<DD>
+<CODE>d</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>ENGLISH ? "abc" : ""</CODE>
+<BR><CODE>GETTEXT("abc")</CODE>
+<BR><CODE>GETTEXTL("abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>clgettext</CODE>, <CODE>clgettextl</CODE>
+
+<DT>textdomain
+<DD>
+---
+
+<DT>bindtextdomain
+<DD>
+---
+
+<DT>setlocale
+<DD>
+automatic
+
+<DT>Prerequisite
+<DD>
+<CODE>#include "lispbibl.c"</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+<CODE>clisp-xgettext</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>fprintf "%2$d %1$d"</CODE> (POSIX but not C 99)
+
+<DT>Portability
+<DD>
+On platforms without gettext, no translation.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC191" HREF="gettext_toc.html#TOC191">13.4.7  Emacs Lisp</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+emacs, xemacs
+
+<DT>File extension
+<DD>
+<CODE>el</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>(_"abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>dgettext</CODE> (xemacs only)
+
+<DT>textdomain
+<DD>
+<CODE>domain</CODE> special form (xemacs only)
+
+<DT>bindtextdomain
+<DD>
+<CODE>bind-text-domain</CODE> function (xemacs only)
+
+<DT>setlocale
+<DD>
+automatic
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+xpot
+
+<DT>Formatting with positions
+<DD>
+<CODE>format "%2$d %1$d"</CODE>
+
+<DT>Portability
+<DD>
+Only XEmacs. Without <CODE>I18N3</CODE> defined at build time, no translation.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC192" HREF="gettext_toc.html#TOC192">13.4.8  librep</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+librep
+
+<DT>File extension
+<DD>
+<CODE>jl</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>(_"abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>textdomain</CODE> function
+
+<DT>bindtextdomain
+<DD>
+<CODE>bindtextdomain</CODE> function
+
+<DT>setlocale
+<DD>
+---
+
+<DT>Prerequisite
+<DD>
+<CODE>(require 'rep.i18n.gettext)</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+<CODE>rep-xgettext</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>format "%2$d %1$d"</CODE>
+
+<DT>Portability
+<DD>
+On platforms without gettext, no translation.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC193" HREF="gettext_toc.html#TOC193">13.4.9  GNU Smalltalk</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+smalltalk
+
+<DT>File extension
+<DD>
+<CODE>st</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>NLS? "abc"</CODE>
+<BR><CODE>self? "abc"</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>LcMessagesDomain&#62;&#62;#at:</CODE>, <CODE>LcMessagesDomain&#62;&#62;#at:plural:with:</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>LcMessages&#62;&#62;#?</CODE> (returns a <CODE>LcMessagesDomain</CODE> object).<BR>
+Example: <CODE>Locale default messages ? 'gettext'</CODE>
+
+<DT>bindtextdomain
+<DD>
+<CODE>LcMessages&#62;&#62;#domain:directory:</CODE> (returns a <CODE>LcMessagesDomain</CODE>
+object)
+
+<DT>setlocale
+<DD>
+You can obtain any <CODE>Locale</CODE> object from <CODE>Locale</CODE> class methods
+such as <CODE>#fromString:</CODE> or <CODE>#default</CODE>.<BR>
+Example: <CODE>Locale default messages</CODE> gives the <CODE>LcMessages</CODE>
+object for the default locale.
+
+<DT>Prerequisite
+<DD>
+The gettext code is contained in the <TT>`I18N&acute;</TT> package.
+
+<DT>Use or emulate GNU gettext
+<DD>
+emulate
+
+<DT>Extractor
+<DD>
+---
+
+<DT>Formatting with positions
+<DD>
+<CODE>'%1 %2' bindWith: 'Hello' with: 'world'</CODE>
+
+<DT>Portability
+<DD>
+fully portable
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC194" HREF="gettext_toc.html#TOC194">13.4.10  Java</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+java, java2
+
+<DT>File extension
+<DD>
+<CODE>java</CODE>
+
+<DT>String syntax
+<DD>
+"abc"
+
+<DT>gettext shorthand
+<DD>
+_("abc")
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>GettextResource.gettext</CODE>, <CODE>GettextResource.ngettext</CODE>
+
+<DT>textdomain
+<DD>
+---, use <CODE>ResourceBundle.getResource</CODE> instead
+
+<DT>bindtextdomain
+<DD>
+---, use CLASSPATH instead
+
+<DT>setlocale
+<DD>
+automatic
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+---, uses a Java specific message catalog format
+
+<DT>Extractor
+<DD>
+<CODE>xgettext -k_</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>MessageFormat.format "{1,number} {0,number}"</CODE>
+
+<DT>Portability
+<DD>
+fully portable
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+<P>
+Before marking strings as internationalizable, uses of the string
+concatenation operator need to be converted to <CODE>MessageFormat</CODE>
+applications. For example, <CODE>"file "+filename+" not found"</CODE> becomes
+<CODE>MessageFormat.format("file {0} not found", new Object[] { filename })</CODE>.
+Only after this is done, can the strings be marked and extracted.
+
+</P>
+<P>
+GNU gettext uses the native Java internationalization mechanism, namely
+<CODE>ResourceBundle</CODE>s. To convert a PO file to a ResourceBundle, the
+<CODE>msgfmt</CODE> program can be used with the option <CODE>--java</CODE> or
+<CODE>--java2</CODE>. To convert a ResourceBundle back to a PO file, the
+<CODE>msgunfmt</CODE> program can be used with the option <CODE>--java</CODE>.
+
+</P>
+<P>
+Two different programmatic APIs can be used to access ResourceBundles.
+Note that both APIs work with all kinds of ResourceBundles, whether
+GNU gettext generated classes, or other <CODE>.class</CODE> or <CODE>.properties</CODE>
+files.
+
+</P>
+
+<OL>
+<LI>
+
+The <CODE>java.util.ResourceBundle</CODE> API.
+
+In particular, its <CODE>getString</CODE> function returns a string translation.
+Note that a missing translation yields a <CODE>MissingResourceException</CODE>.
+
+This has the advantage of being the standard API. And it does not require
+any additional libraries, only the <CODE>msgfmt</CODE> generated <CODE>.class</CODE>
+files. But it cannot do plural handling, even if the resource was generated
+from a PO file with plural handling.
+
+<LI>
+
+The <CODE>gnu.gettext.GettextResource</CODE> API.
+
+Reference documentation in Javadoc 1.1 style format
+is in the <A HREF="javadoc1/tree.html">javadoc1 directory</A> and
+in Javadoc 2 style format
+in the <A HREF="javadoc2/index.html">javadoc2 directory</A>.
+
+Its <CODE>gettext</CODE> function returns a string translation. Note that when
+a translation is missing, the <VAR>msgid</VAR> argument is returned unchanged.
+
+This has the advantage of having the <CODE>ngettext</CODE> function for plural
+handling.
+
+To use this API, one needs the <CODE>libintl.jar</CODE> file which is part of
+the GNU gettext package and distributed under the LGPL.
+</OL>
+
+
+
+<H3><A NAME="SEC195" HREF="gettext_toc.html#TOC195">13.4.11  GNU awk</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+gawk 3.1 or newer
+
+<DT>File extension
+<DD>
+<CODE>awk</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>_"abc"</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>dcgettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>TEXTDOMAIN</CODE> variable
+
+<DT>bindtextdomain
+<DD>
+<CODE>bindtextdomain</CODE> function
+
+<DT>setlocale
+<DD>
+automatic, but missing <CODE>setlocale (LC_MESSAGES, "")</CODE> in gawk-3.1.0
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+<CODE>gawk --gen-po</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>printf "%2$d %1$d"</CODE> (GNU awk only)
+
+<DT>Portability
+<DD>
+On platforms without gettext, no translation.  On non-GNU awks, you must
+define <CODE>dcgettext</CODE> and <CODE>bindtextdomain</CODE> yourself.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13.4.12  Pascal - Free Pascal Compiler</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+fpk
+
+<DT>File extension
+<DD>
+<CODE>pp</CODE>, <CODE>pas</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>'abc'</CODE>
+
+<DT>gettext shorthand
+<DD>
+automatic
+
+<DT>gettext/ngettext functions
+<DD>
+---, use <CODE>ResourceString</CODE> data type instead
+
+<DT>textdomain
+<DD>
+---, use <CODE>TranslateResourceStrings</CODE> function instead
+
+<DT>bindtextdomain
+<DD>
+---, use <CODE>TranslateResourceStrings</CODE> function instead
+
+<DT>setlocale
+<DD>
+automatic, but uses only LANG, not LC_MESSAGES or LC_ALL
+
+<DT>Prerequisite
+<DD>
+<CODE>{$mode delphi}</CODE> or <CODE>{$mode objfpc}</CODE><BR><CODE>uses gettext;</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+emulate partially
+
+<DT>Extractor
+<DD>
+<CODE>ppc386</CODE> followed by <CODE>xgettext</CODE> or <CODE>rstconv</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>uses sysutils;</CODE><BR><CODE>format "%1:d %0:d"</CODE>
+
+<DT>Portability
+<DD>
+?
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+<P>
+The Pascal compiler has special support for the <CODE>ResourceString</CODE> data
+type. It generates a <CODE>.rst</CODE> file. This is then converted to a <CODE>.pot</CODE>
+file by use of <CODE>xgettext</CODE> or <CODE>rstconv</CODE>. At runtime, a <CODE>.mo</CODE>
+file corresponding to translations of this <CODE>.pot</CODE> file can be loaded
+using the <CODE>TranslateResourceStrings</CODE> function in the <CODE>gettext</CODE> unit.
+
+</P>
+
+
+<H3><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.4.13  wxWindows library</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+wxGTK, gettext
+
+<DT>File extension
+<DD>
+<CODE>cpp</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>_("abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>wxLocale::GetString</CODE>, <CODE>wxGetTranslation</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>wxLocale::AddCatalog</CODE>
+
+<DT>bindtextdomain
+<DD>
+<CODE>wxLocale::AddCatalogLookupPathPrefix</CODE>
+
+<DT>setlocale
+<DD>
+<CODE>wxLocale::Init</CODE>, <CODE>wxSetLocale</CODE>
+
+<DT>Prerequisite
+<DD>
+<CODE>#include &#60;wx/intl.h&#62;</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+emulate, see <CODE>include/wx/intl.h</CODE> and <CODE>src/common/intl.cpp</CODE>
+
+<DT>Extractor
+<DD>
+<CODE>xgettext</CODE>
+
+<DT>Formatting with positions
+<DD>
+---
+
+<DT>Portability
+<DD>
+fully portable
+
+<DT>po-mode marking
+<DD>
+yes
+</DL>
+
+
+
+<H3><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.4.14  YCP - YaST2 scripting language</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+libycp, libycp-devel, yast2-core-translator
+
+<DT>File extension
+<DD>
+<CODE>ycp</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>_("abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>_()</CODE> with 1 or 3 arguments
+
+<DT>textdomain
+<DD>
+<CODE>textdomain</CODE> statement
+
+<DT>bindtextdomain
+<DD>
+---
+
+<DT>setlocale
+<DD>
+---
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use maps instead
+
+<DT>Extractor
+<DD>
+<CODE>xgettext</CODE>
+
+<DT>Formatting with positions
+<DD>
+<CODE>sformat "%2 %1"</CODE>
+
+<DT>Portability
+<DD>
+fully portable
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.4.15  Perl</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+perl, perl-gettext
+
+<DT>File extension
+<DD>
+<CODE>pl</CODE>, <CODE>PL</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+---
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>dgettext</CODE>, <CODE>dcgettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>textdomain</CODE> function
+
+<DT>bindtextdomain
+<DD>
+<CODE>bindtextdomain</CODE> function
+
+<DT>setlocale
+<DD>
+Use <CODE>setlocale (LC_ALL, "");</CODE>
+
+<DT>Prerequisite
+<DD>
+<CODE>use POSIX;</CODE>
+<BR><CODE>use Locale::gettext;</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+?
+
+<DT>Formatting with positions
+<DD>
+---
+
+<DT>Portability
+<DD>
+?
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.4.16  PHP Hypertext Preprocessor</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+mod_php4, phplib, phpdoc
+
+<DT>File extension
+<DD>
+<CODE>php</CODE>, <CODE>php3</CODE>, <CODE>php4</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+<CODE>_("abc")</CODE>
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>dgettext</CODE>, <CODE>dcgettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>textdomain</CODE> function
+
+<DT>bindtextdomain
+<DD>
+<CODE>bindtextdomain</CODE> function
+
+<DT>setlocale
+<DD>
+<CODE>setlocale</CODE> function
+
+<DT>Prerequisite
+<DD>
+---
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+---
+
+<DT>Formatting with positions
+<DD>
+---
+
+<DT>Portability
+<DD>
+On platforms without gettext, the functions are not available.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.4.17  Pike</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+roxen
+
+<DT>File extension
+<DD>
+<CODE>pike</CODE>
+
+<DT>String syntax
+<DD>
+<CODE>"abc"</CODE>
+
+<DT>gettext shorthand
+<DD>
+---
+
+<DT>gettext/ngettext functions
+<DD>
+<CODE>gettext</CODE>, <CODE>dgettext</CODE>, <CODE>dcgettext</CODE>
+
+<DT>textdomain
+<DD>
+<CODE>textdomain</CODE> function
+
+<DT>bindtextdomain
+<DD>
+<CODE>bindtextdomain</CODE> function
+
+<DT>setlocale
+<DD>
+<CODE>setlocale</CODE> function
+
+<DT>Prerequisite
+<DD>
+<CODE>import Locale.Gettext;</CODE>
+
+<DT>Use or emulate GNU gettext
+<DD>
+use
+
+<DT>Extractor
+<DD>
+---
+
+<DT>Formatting with positions
+<DD>
+---
+
+<DT>Portability
+<DD>
+On platforms without gettext, the functions are not available.
+
+<DT>po-mode marking
+<DD>
+---
+</DL>
+
+
+
+<H2><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.5  Internationalizable Data</A></H2>
+
+<P>
+Here is a list of other data formats which can be internationalized
+using GNU gettext.
+
+</P>
+
+
+
+<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.5.1  POT - Portable Object Template</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+gettext
+
+<DT>File extension
+<DD>
+<CODE>pot</CODE>, <CODE>po</CODE>
+
+<DT>Extractor
+<DD>
+<CODE>xgettext</CODE>
+</DL>
+
+
+
+<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.5.2  Resource String Table</A></H3>
+
+<DL COMPACT>
+
+<DT>RPMs
+<DD>
+fpk
+
+<DT>File extension
+<DD>
+<CODE>rst</CODE>
+
+<DT>Extractor
+<DD>
+<CODE>xgettext</CODE>, <CODE>rstconv</CODE>
 </DL>
 
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_14.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous</A>, <A HREF="gettext_14.html">next</A>, <A HREF="gettext_16.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

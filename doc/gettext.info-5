@@ -31,2143 +31,1137 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
-File: gettext.info,  Node: Organization,  Next: Information Flow,  Prev: Discussions,  Up: Translators
+File: gettext.info,  Node: catgets,  Next: gettext,  Prev: Programmers,  Up: Programmers
 
-Organization
-============
+About `catgets'
+===============
 
-   On a larger scale, the true solution would be to organize some kind
-of fairly precise set up in which volunteers could participate.  I gave
-some thought to this idea lately, and realize there will be some touchy
-points.  I thought of writing to Richard Stallman to launch such a
-project, but feel it might be good to shake out the ideas between
-ourselves first.  Most probably that Linux International has some
-experience in the field already, or would like to orchestrate the
-volunteer work, maybe.  Food for thought, in any case!
+   The `catgets' implementation is defined in the X/Open Portability
+Guide, Volume 3, XSI Supplementary Definitions, Chapter 5.  But the
+process of creating this standard seemed to be too slow for some of the
+Unix vendors so they created their implementations on preliminary
+versions of the standard.  Of course this leads again to problems while
+writing platform independent programs: even the usage of `catgets' does
+not guarantee a unique interface.
 
-   I guess we have to setup something early, somehow, that will help
-many possible contributors of the same language to interlock and avoid
-work duplication, and further be put in contact for solving together
-problems particular to their tongue (in most languages, there are many
-difficulties peculiar to translating technical English).  My Swedish
-contributor acknowledged these difficulties, and I'm well aware of them
-for French.
+   Another, personal comment on this that only a bunch of committee
+members could have made this interface.  They never really tried to
+program using this interface.  It is a fast, memory-saving
+implementation, an user can happily live with it.  But programmers hate
+it (at least me and some others do...)
 
-   This is surely not a technical issue, but we should manage so the
-effort of locale contributors be maximally useful, despite the national
-team layer interface between contributors and maintainers.
-
-   The Translation Project needs some setup for coordinating language
-coordinators.  Localizing evolving programs will surely become a
-permanent and continuous activity in the free software community, once
-well started.  The setup should be minimally completed and tested
-before GNU `gettext' becomes an official reality.  The e-mail address
-`translation@iro.umontreal.ca' has been setup for receiving offers from
-volunteers and general e-mail on these topics.  This address reaches
-the Translation Project coordinator.
+   But we must not forget one point: after all the trouble with
+transfering the rights on Unix(tm) they at last came to X/Open, the
+very same who published this specification.  This leads me to making
+the prediction that this interface will be in future Unix standards
+(e.g. Spec1170) and therefore part of all Unix implementation
+(implementations, which are _allowed_ to wear this name).
 
 * Menu:
 
-* Central Coordination::        Central Coordination
-* National Teams::              National Teams
-* Mailing Lists::               Mailing Lists
+* Interface to catgets::        The interface
+* Problems with catgets::       Problems with the `catgets' interface?!
 
 
-File: gettext.info,  Node: Central Coordination,  Next: National Teams,  Prev: Organization,  Up: Organization
+File: gettext.info,  Node: Interface to catgets,  Next: Problems with catgets,  Prev: catgets,  Up: catgets
 
-Central Coordination
---------------------
-
-   I also think GNU will need sooner than it thinks, that someone setup
-a way to organize and coordinate these groups.  Some kind of group of
-groups.  My opinion is that it would be good that GNU delegates this
-task to a small group of collaborating volunteers, shortly.  Perhaps in
-`gnu.announce' a list of this national committee's can be published.
-
-   My role as coordinator would simply be to refer to Ulrich any German
-speaking volunteer interested to localization of free software
-packages, and maybe helping national groups to initially organize,
-while maintaining national registries for until national groups are
-ready to take over.  In fact, the coordinator should ease volunteers to
-get in contact with one another for creating national teams, which
-should then select one coordinator per language, or country
-(regionalized language).  If well done, the coordination should be
-useful without being an overwhelming task, the time to put delegations
-in place.
-
-
-File: gettext.info,  Node: National Teams,  Next: Mailing Lists,  Prev: Central Coordination,  Up: Organization
-
-National Teams
---------------
-
-   I suggest we look for volunteer coordinators/editors for individual
-languages.  These people will scan contributions of translation files
-for various programs, for their own languages, and will ensure high and
-uniform standards of diction.
-
-   From my current experience with other people in these days, those who
-provide localizations are very enthusiastic about the process, and are
-more interested in the localization process than in the program they
-localize, and want to do many programs, not just one.  This seems to
-confirm that having a coordinator/editor for each language is a good
-idea.
-
-   We need to choose someone who is good at writing clear and concise
-prose in the language in question.  That is hard--we can't check it
-ourselves.  So we need to ask a few people to judge each others'
-writing and select the one who is best.
-
-   I announce my prerelease to a few dozen people, and you would not
-believe all the discussions it generated already.  I shudder to think
-what will happen when this will be launched, for true, officially,
-world wide.  Who am I to arbitrate between two Czekolsovak users
-contradicting each other, for example?
-
-   I assume that your German is not much better than my French so that
-I would not be able to judge about these formulations.  What I would
-suggest is that for each language there is a group for people who
-maintain the PO files and judge about changes.  I suspect there will be
-cultural differences between how such groups of people will behave.
-Some will have relaxed ways, reach consensus easily, and have anyone of
-the group relate to the maintainers, while others will fight to death,
-organize heavy administrations up to national standards, and use strict
-channels.
-
-   The German team is putting out a good example.  Right now, they are
-maybe half a dozen people revising translations of each other and
-discussing the linguistic issues.  I do not even have all the names.
-Ulrich Drepper is taking care of coordinating the German team.  He
-subscribed to all my pretest lists, so I do not even have to warn him
-specifically of incoming releases.
-
-   I'm sure, that is a good idea to get teams for each language working
-on translations. That will make the translations better and more
-consistent.
-
-* Menu:
-
-* Sub-Cultures::                Sub-Cultures
-* Organizational Ideas::        Organizational Ideas
-
-
-File: gettext.info,  Node: Sub-Cultures,  Next: Organizational Ideas,  Prev: National Teams,  Up: National Teams
-
-Sub-Cultures
-............
-
-   Taking French for example, there are a few sub-cultures around
-computers which developed diverging vocabularies.  Picking volunteers
-here and there without addressing this problem in an organized way,
-soon in the project, might produce a distasteful mix of
-internationalized programs, and possibly trigger endless quarrels among
-those who really care.
-
-   Keeping some kind of unity in the way French localization of
-internationalized programs is achieved is a difficult (and delicate)
-job.  Knowing the latin character of French people (:-), if we take this
-the wrong way, we could end up nowhere, or spoil a lot of energies.
-Maybe we should begin to address this problem seriously _before_ GNU
-`gettext' become officially published.  And I suspect that this means
-soon!
-
-
-File: gettext.info,  Node: Organizational Ideas,  Prev: Sub-Cultures,  Up: National Teams
-
-Organizational Ideas
-....................
-
-   I expect the next big changes after the official release.  Please
-note that I use the German translation of the short GPL message.  We
-need to set a few good examples before the localization goes out for
-true in the free software community.  Here are a few points to discuss:
-
-   * Each group should have one FTP server (at least one master).
-
-   * The files on the server should reflect the latest version (of
-     course!) and it should also contain a RCS directory with the
-     corresponding archives (I don't have this now).
-
-   * There should also be a ChangeLog file (this is more useful than the
-     RCS archive but can be generated automatically from the later by
-     Emacs).
-
-   * A "core group" should judge about questionable changes (for now
-     this group consists solely by me but I ask some others
-     occasionally; this also seems to work).
-
-
-
-File: gettext.info,  Node: Mailing Lists,  Prev: National Teams,  Up: Organization
-
-Mailing Lists
+The Interface
 -------------
 
-   If we get any inquiries about GNU `gettext', send them on to:
+   The interface to the `catgets' implementation consists of three
+functions which correspond to those used in file access: `catopen' to
+open the catalog for using, `catgets' for accessing the message tables,
+and `catclose' for closing after work is done.  Prototypes for the
+functions and the needed definitions are in the `<nl_types.h>' header
+file.
 
-     `translation@iro.umontreal.ca'
+   `catopen' is used like in this:
 
-   The `*-pretest' lists are quite useful to me, maybe the idea could
-be generalized to many GNU, and non-GNU packages.  But each maintainer
-his/her way!
+     nl_catd catd = catopen ("catalog_name", 0);
 
-   Franc,ois, we have a mechanism in place here at `gnu.ai.mit.edu' to
-track teams, support mailing lists for them and log members.  We have a
-slight preference that you use it.  If this is OK with you, I can get
-you clued in.
+   The function takes as the argument the name of the catalog.  This
+usual refers to the name of the program or the package.  The second
+parameter is not further specified in the standard.  I don't even know
+whether it is implemented consistently among various systems.  So the
+common advice is to use `0' as the value.  The return value is a handle
+to the message catalog, equivalent to handles to file returned by
+`open'.
 
-   Things are changing!  A few years ago, when Daniel Fekete and I
-asked for a mailing list for GNU localization, nested at the FSF, we
-were politely invited to organize it anywhere else, and so did we.  For
-communicating with my pretesters, I later made a handful of mailing
-lists located at iro.umontreal.ca and administrated by `majordomo'.
-These lists have been _very_ dependable so far...
+   This handle is of course used in the `catgets' function which can be
+used like this:
 
-   I suspect that the German team will organize itself a mailing list
-located in Germany, and so forth for other countries.  But before they
-organize for true, it could surely be useful to offer mailing lists
-located at the FSF to each national team.  So yes, please explain me
-how I should proceed to create and handle them.
+     char *translation = catgets (catd, set_no, msg_id, "original string");
 
-   We should create temporary mailing lists, one per country, to help
-people organize.  Temporary, because once regrouped and structured, it
-would be fair the volunteers from country bring back _their_ list in
-there and manage it as they want.  My feeling is that, in the long run,
-each team should run its own list, from within their country.  There
-also should be some central list to which all teams could subscribe as
-they see fit, as long as each team is represented in it.
+   The first parameter is this catalog descriptor.  The second parameter
+specifies the set of messages in this catalog, in which the message
+described by `msg_id' is obtained.  `catgets' therefore uses a
+three-stage addressing:
 
-
-File: gettext.info,  Node: Information Flow,  Prev: Organization,  Up: Translators
+     catalog name => set number => message ID => translation
 
-Information Flow
-================
+   The fourth argument is not used to address the translation.  It is
+given as a default value in case when one of the addressing stages
+fail.  One important thing to remember is that although the return type
+of catgets is `char *' the resulting string _must not_ be changed.  It
+should better be `const char *', but the standard is published in 1988,
+one year before ANSI C.
 
-   There will surely be some discussion about this messages after the
-packages are finally released.  If people now send you some proposals
-for better messages, how do you proceed?  Jim, please note that right
-now, as I put forward nearly a dozen of localizable programs, I receive
-both the translations and the coordination concerns about them.
+The last of these function functions is used and behaves as expected:
 
-   If I put one of my things to pretest, Ulrich receives the
-announcement and passes it on to the German team, who make last minute
-revisions.  Then he submits the translation files to me _as the
-maintainer_.  For free packages I do not maintain, I would not even
-hear about it.  This scheme could be made to work for the whole
-Translation Project, I think.  For security reasons, maybe Ulrich
-(national coordinators, in fact) should update central registry kept at
-the Translation Project (Jim, me, or Len's recruits) once in a while.
+     catclose (catd);
 
-   In December/January, I was aggressively ready to internationalize
-all of GNU, giving myself the duty of one small GNU package per week or
-so, taking many weeks or months for bigger packages.  But it does not
-work this way.  I first did all the things I'm responsible for.  I've
-nothing against some missionary work on other maintainers, but I'm also
-loosing a lot of energy over it--same debates over again.
-
-   And when the first localized packages are released we'll get a lot of
-responses about ugly translations :-).  Surely, and we need to have
-beforehand a fairly good idea about how to handle the information flow
-between the national teams and the package maintainers.
-
-   Please start saving somewhere a quick history of each PO file.  I
-know for sure that the file format will change, allowing for comments.
-It would be nice that each file has a kind of log, and references for
-those who want to submit comments or gripes, or otherwise contribute.
-I sent a proposal for a fast and flexible format, but it is not
-receiving acceptance yet by the GNU deciders.  I'll tell you when I
-have more information about this.
+   After this no `catgets' call using the descriptor is legal anymore.
 
 
-File: gettext.info,  Node: Maintainers,  Next: Conclusion,  Prev: Translators,  Up: Top
+File: gettext.info,  Node: Problems with catgets,  Prev: Interface to catgets,  Up: catgets
 
-The Maintainer's View
-*********************
+Problems with the `catgets' Interface?!
+---------------------------------------
 
-   The maintainer of a package has many responsibilities.  One of them
-is ensuring that the package will install easily on many platforms, and
-that the magic we described earlier (*note Users::) will work for
-installers and end users.
+   Now that this description seemed to be really easy -- where are the
+problem we speak of?  In fact the interface could be used in a
+reasonable way, but constructing the message catalogs is a pain.  The
+reason for this lies in the third argument of `catgets': the unique
+message ID.  This has to be a numeric value for all messages in a single
+set.  Perhaps you could imagine the problems keeping such a list while
+changing the source code.  Add a new message here, remove one there.  Of
+course there have been developed a lot of tools helping to organize this
+chaos but one as the other fails in one aspect or the other.  We don't
+want to say that the other approach has no problems but they are far
+more easy to manage.
 
-   Of course, there are many possible ways by which GNU `gettext' might
-be integrated in a distribution, and this chapter does not cover them
-in all generality.  Instead, it details one possible approach which is
-especially adequate for many free software distributions following GNU
-standards, or even better, Gnits standards, because GNU `gettext' is
-purposely for helping the internationalization of the whole GNU
-project, and as many other good free packages as possible.  So, the
-maintainer's view presented here presumes that the package already has
-a `configure.in' file and uses GNU Autoconf.
+
+File: gettext.info,  Node: gettext,  Next: Comparison,  Prev: catgets,  Up: Programmers
 
-   Nevertheless, GNU `gettext' may surely be useful for free packages
-not following GNU standards and conventions, but the maintainers of such
-packages might have to show imagination and initiative in organizing
-their distributions so `gettext' work for them in all situations.
-There are surely many, out there.
+About `gettext'
+===============
 
-   Even if `gettext' methods are now stabilizing, slight adjustments
-might be needed between successive `gettext' versions, so you should
-ideally revise this chapter in subsequent releases, looking for changes.
+   The definition of the `gettext' interface comes from a Uniforum
+proposal and it is followed by at least one major Unix vendor (Sun) in
+its last developments.  It is not specified in any official standard,
+though.
+
+   The main points about this solution is that it does not follow the
+method of normal file handling (open-use-close) and that it does not
+burden the programmer so many task, especially the unique key handling.
+Of course here is also a unique key needed, but this key is the message
+itself (how long or short it is).  See *Note Comparison:: for a more
+detailed comparison of the two methods.
+
+   The following section contains a rather detailed description of the
+interface.  We make it that detailed because this is the interface we
+chose for the GNU `gettext' Library.  Programmers interested in using
+this library will be interested in this description.
 
 * Menu:
 
-* Flat and Non-Flat::           Flat or Non-Flat Directory Structures
-* Prerequisites::               Prerequisite Works
-* gettextize Invocation::       Invoking the `gettextize' Program
-* Adjusting Files::             Files You Must Create or Alter
+* Interface to gettext::        The interface
+* Ambiguities::                 Solving ambiguities
+* Locating Catalogs::           Locating message catalog files
+* Charset conversion::          How to request conversion to Unicode
+* Plural forms::                Additional functions for handling plurals
+* GUI program problems::        Another technique for solving ambiguities
+* Optimized gettext::           Optimization of the *gettext functions
 
 
-File: gettext.info,  Node: Flat and Non-Flat,  Next: Prerequisites,  Prev: Maintainers,  Up: Maintainers
+File: gettext.info,  Node: Interface to gettext,  Next: Ambiguities,  Prev: gettext,  Up: gettext
 
-Flat or Non-Flat Directory Structures
-=====================================
+The Interface
+-------------
 
-   Some free software packages are distributed as `tar' files which
-unpack in a single directory, these are said to be "flat" distributions.
-Other free software packages have a one level hierarchy of
-subdirectories, using for example a subdirectory named `doc/' for the
-Texinfo manual and man pages, another called `lib/' for holding
-functions meant to replace or complement C libraries, and a
-subdirectory `src/' for holding the proper sources for the package.
-These other distributions are said to be "non-flat".
+   The minimal functionality an interface must have is a) to select a
+domain the strings are coming from (a single domain for all programs is
+not reasonable because its construction and maintenance is difficult,
+perhaps impossible) and b) to access a string in a selected domain.
 
-   We cannot say much about flat distributions.  A flat directory
-structure has the disadvantage of increasing the difficulty of updating
-to a new version of GNU `gettext'.  Also, if you have many PO files,
-this could somewhat pollute your single directory.  Also, GNU
-`gettext''s libintl sources consist of C sources, shell scripts, `sed'
-scripts and complicated Makefile rules, which don't fit well into an
-existing flat structure.  For these reasons, we recommend to use
-non-flat approach in this case as well.
+   This is principally the description of the `gettext' interface.  It
+has a global domain which unqualified usages reference.  Of course this
+domain is selectable by the user.
 
-   Maybe because GNU `gettext' itself has a non-flat structure, we have
-more experience with this approach, and this is what will be described
-in the remaining of this chapter.  Some maintainers might use this as
-an opportunity to unflatten their package structure.
+     char *textdomain (const char *domain_name);
 
-
-File: gettext.info,  Node: Prerequisites,  Next: gettextize Invocation,  Prev: Flat and Non-Flat,  Up: Maintainers
+   This provides the possibility to change or query the current status
+of the current global domain of the `LC_MESSAGE' category.  The
+argument is a null-terminated string, whose characters must be legal in
+the use in filenames.  If the DOMAIN_NAME argument is `NULL', the
+function return the current value.  If no value has been set before,
+the name of the default domain is returned: _messages_.  Please note
+that although the return value of `textdomain' is of type `char *' no
+changing is allowed.  It is also important to know that no checks of
+the availability are made.  If the name is not available you will see
+this by the fact that no translations are provided.
 
-Prerequisite Works
-==================
+To use a domain set by `textdomain' the function
 
-   There are some works which are required for using GNU `gettext' in
-one of your package.  These works have some kind of generality that
-escape the point by point descriptions used in the remainder of this
-chapter.  So, we describe them here.
+     char *gettext (const char *msgid);
 
-   * Before attempting to use `gettextize' you should install some
-     other packages first.  Ensure that recent versions of GNU `m4',
-     GNU Autoconf and GNU `gettext' are already installed at your site,
-     and if not, proceed to do this first.  If you got to install these
-     things, beware that GNU `m4' must be fully installed before GNU
-     Autoconf is even _configured_.
+   is to be used.  This is the simplest reasonable form one can imagine.
+The translation of the string MSGID is returned if it is available in
+the current domain.  If not available the argument itself is returned.
+If the argument is `NULL' the result is undefined.
 
-     To further ease the task of a package maintainer the `automake'
-     package was designed and implemented.  GNU `gettext' now uses this
-     tool and the `Makefile's in the `intl/' and `po/' therefore know
-     about all the goals necessary for using `automake' and `libintl'
-     in one project.
+   One things which should come into mind is that no explicit
+dependency to the used domain is given.  The current value of the
+domain for the `LC_MESSAGES' locale is used.  If this changes between
+two executions of the same `gettext' call in the program, both calls
+reference a different message catalog.
 
-     Those four packages are only needed to you, as a maintainer; the
-     installers of your own package and end users do not really need
-     any of GNU `m4', GNU Autoconf, GNU `gettext', or GNU `automake'
-     for successfully installing and running your package, with messages
-     properly translated.  But this is not completely true if you
-     provide internationalized shell scripts within your own package:
-     GNU `gettext' shall then be installed at the user site if the end
-     users want to see the translation of shell script messages.
-
-   * Your package should use Autoconf and have a `configure.in' file.
-     If it does not, you have to learn how.  The Autoconf documentation
-     is quite well written, it is a good idea that you print it and get
-     familiar with it.
-
-   * Your C sources should have already been modified according to
-     instructions given earlier in this manual.  *Note Sources::.
-
-   * Your `po/' directory should receive all PO files submitted to you
-     by the translator teams, each having `LL.po' as a name.  This is
-     not usually easy to get translation work done before your package
-     gets internationalized and available!  Since the cycle has to
-     start somewhere, the easiest for the maintainer is to start with
-     absolutely no PO files, and wait until various translator teams
-     get interested in your package, and submit PO files.
-
-
-   It is worth adding here a few words about how the maintainer should
-ideally behave with PO files submissions.  As a maintainer, your role is
-to authentify the origin of the submission as being the representative
-of the appropriate translating teams of the Translation Project (forward
-the submission to `translation@iro.umontreal.ca' in case of doubt), to
-ensure that the PO file format is not severely broken and does not
-prevent successful installation, and for the rest, to merely to put
-these PO files in `po/' for distribution.
-
-   As a maintainer, you do not have to take on your shoulders the
-responsibility of checking if the translations are adequate or
-complete, and should avoid diving into linguistic matters.  Translation
-teams drive themselves and are fully responsible of their linguistic
-choices for the Translation Project.  Keep in mind that translator
-teams are _not_ driven by maintainers.  You can help by carefully
-redirecting all communications and reports from users about linguistic
-matters to the appropriate translation team, or explain users how to
-reach or join their team.  The simplest might be to send them the
-`ABOUT-NLS' file.
-
-   Maintainers should _never ever_ apply PO file bug reports
-themselves, short-cutting translation teams.  If some translator has
-difficulty to get some of her points through her team, it should not be
-an issue for her to directly negotiate translations with maintainers.
-Teams ought to settle their problems themselves, if any.  If you, as a
-maintainer, ever think there is a real problem with a team, please
-never try to _solve_ a team's problem on your own.
+   For the easiest case, which is normally used in internationalized
+packages, once at the beginning of execution a call to `textdomain' is
+issued, setting the domain to a unique name, normally the package name.
+In the following code all strings which have to be translated are
+filtered through the gettext function.  That's all, the package speaks
+your language.
 
 
-File: gettext.info,  Node: gettextize Invocation,  Next: Adjusting Files,  Prev: Prerequisites,  Up: Maintainers
+File: gettext.info,  Node: Ambiguities,  Next: Locating Catalogs,  Prev: Interface to gettext,  Up: gettext
 
-Invoking the `gettextize' Program
-=================================
+Solving Ambiguities
+-------------------
 
-   Some files are consistently and identically needed in every package
-internationalized through GNU `gettext'.  As a matter of convenience,
-the `gettextize' program puts all these files right in your package.
-This program has the following synopsis:
+   While this single name domain works well for most applications there
+might be the need to get translations from more than one domain.  Of
+course one could switch between different domains with calls to
+`textdomain', but this is really not convenient nor is it fast.  A
+possible situation could be one case subject to discussion during this
+writing:  all error messages of functions in the set of common used
+functions should go into a separate domain `error'.  By this mean we
+would only need to translate them once.  Another case are messages from
+a library, as these _have_ to be independent of the current domain set
+by the application.
 
-     gettextize [ OPTION... ] [ DIRECTORY ]
+For this reasons there are two more functions to retrieve strings:
 
-and accepts the following options:
+     char *dgettext (const char *domain_name, const char *msgid);
+     char *dcgettext (const char *domain_name, const char *msgid,
+                      int category);
 
-`-c'
-`--copy'
-     Copy the needed files instead of making symbolic links.  Using
-     links would allow the package to always use the latest `gettext'
-     code available on the system, but it might disturb some mechanism
-     the maintainer is used to apply to the sources.  Because running
-     `gettextize' is easy there shouldn't be problems with using copies.
+   Both take an additional argument at the first place, which
+corresponds to the argument of `textdomain'.  The third argument of
+`dcgettext' allows to use another locale but `LC_MESSAGES'.  But I
+really don't know where this can be useful.  If the DOMAIN_NAME is
+`NULL' or CATEGORY has an value beside the known ones, the result is
+undefined.  It should also be noted that this function is not part of
+the second known implementation of this function family, the one found
+in Solaris.
 
-`-f'
-`--force'
-     Force replacement of files which already exist.
+   A second ambiguity can arise by the fact, that perhaps more than one
+domain has the same name.  This can be solved by specifying where the
+needed message catalog files can be found.
 
-`-h'
-`--help'
-     Display this help and exit.
+     char *bindtextdomain (const char *domain_name,
+                           const char *dir_name);
 
-`--version'
-     Output version information and exit.
+   Calling this function binds the given domain to a file in the
+specified directory (how this file is determined follows below).
+Especially a file in the systems default place is not favored against
+the specified file anymore (as it would be by solely using
+`textdomain').  A `NULL' pointer for the DIR_NAME parameter returns the
+binding associated with DOMAIN_NAME.  If DOMAIN_NAME itself is `NULL'
+nothing happens and a `NULL' pointer is returned.  Here again as for
+all the other functions is true that none of the return value must be
+changed!
 
-   If DIRECTORY is given, this is the top level directory of a package
-to prepare for using GNU `gettext'.  If not given, it is assumed that
-the current directory is the top level directory of such a package.
-
-   The program `gettextize' provides the following files.  However, no
-existing file will be replaced unless the option `--force' (`-f') is
-specified.
-
-  1. The `ABOUT-NLS' file is copied in the main directory of your
-     package, the one being at the top level.  This file gives the main
-     indications about how to install and use the Native Language
-     Support features of your program.  You might elect to use a more
-     recent copy of this `ABOUT-NLS' file than the one provided through
-     `gettextize', if you have one handy.  You may also fetch a more
-     recent copy of file `ABOUT-NLS' from Translation Project sites,
-     and from most GNU archive sites.
-
-  2. A `po/' directory is created for eventually holding all
-     translation files, but initially only containing the file
-     `po/Makefile.in.in' from the GNU `gettext' distribution.  (beware
-     the double `.in' in the file name). If the `po/' directory already
-     exists, it will be preserved along with the files it contains, and
-     only `Makefile.in.in' will be overwritten.
-
-  3. A `intl/' directory is created and filled with most of the files
-     originally in the `intl/' directory of the GNU `gettext'
-     distribution.  Also, if option `--force' (`-f') is given, the
-     `intl/' directory is emptied first.
-
-
-   If your site support symbolic links, `gettextize' will not actually
-copy the files into your package, but establish symbolic links instead.
-This avoids duplicating the disk space needed in all packages.  Merely
-using the `-h' option while creating the `tar' archive of your
-distribution will resolve each link by an actual copy in the
-distribution archive.  So, to insist, you really should use `-h' option
-with `tar' within your `dist' goal of your main `Makefile.in'.
-
-   It is interesting to understand that most new files for supporting
-GNU `gettext' facilities in one package go in `intl/' and `po/'
-subdirectories.  One distinction between these two directories is that
-`intl/' is meant to be completely identical in all packages using GNU
-`gettext', while all newly created files, which have to be different,
-go into `po/'.  There is a common `Makefile.in.in' in `po/', because
-the `po/' directory needs its own `Makefile', and it has been designed
-so it can be identical in all packages.
+   It is important to remember that relative path names for the
+DIR_NAME parameter can be trouble.  Since the path is always computed
+relative to the current directory different results will be achieved
+when the program executes a `chdir' command.  Relative paths should
+always be avoided to avoid dependencies and unreliabilities.
 
 
-File: gettext.info,  Node: Adjusting Files,  Prev: gettextize Invocation,  Up: Maintainers
+File: gettext.info,  Node: Locating Catalogs,  Next: Charset conversion,  Prev: Ambiguities,  Up: gettext
 
-Files You Must Create or Alter
-==============================
+Locating Message Catalog Files
+------------------------------
 
-   Besides files which are automatically added through `gettextize',
-there are many files needing revision for properly interacting with GNU
-`gettext'.  If you are closely following GNU standards for Makefile
-engineering and auto-configuration, the adaptations should be easier to
-achieve.  Here is a point by point description of the changes needed in
-each.
+   Because many different languages for many different packages have to
+be stored we need some way to add these information to file message
+catalog files.  The way usually used in Unix environments is have this
+encoding in the file name.  This is also done here.  The directory name
+given in `bindtextdomain's second argument (or the default directory),
+followed by the value and name of the locale and the domain name are
+concatenated:
 
-   So, here comes a list of files, each one followed by a description of
-all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.10.37 distribution itself.  You may indeed refer to the
-source code of the GNU `gettext' package, as it is intended to be a
-good example and master implementation for using its own functionality.
+     DIR_NAME/LOCALE/LC_CATEGORY/DOMAIN_NAME.mo
+
+   The default value for DIR_NAME is system specific.  For the GNU
+library, and for packages adhering to its conventions, it's:
+     /usr/local/share/locale
+
+LOCALE is the value of the locale whose name is this `LC_CATEGORY'.
+For `gettext' and `dgettext' this `LC_CATEGORY' is always
+`LC_MESSAGES'.(1) The value of the locale is determined through
+`setlocale (LC_CATEGORY, NULL)'.  (2) `dcgettext' specifies the locale
+category by the third argument.
+
+   ---------- Footnotes ----------
+
+   (1) Some system, eg Ultrix, don't have `LC_MESSAGES'.  Here we use a
+more or less arbitrary value for it, namely 1729, the smallest positive
+integer which can be represented in two different ways as the sum of
+two cubes.
+
+   (2) When the system does not support `setlocale' its behavior in
+setting the locale values is simulated by looking at the environment
+variables.
+
+
+File: gettext.info,  Node: Charset conversion,  Next: Plural forms,  Prev: Locating Catalogs,  Up: gettext
+
+How to specify the output character set `gettext' uses
+------------------------------------------------------
+
+   `gettext' not only looks up a translation in a message catalog.  It
+also converts the translation on the fly to the desired output character
+set.  This is useful if the user is working in a different character set
+than the translator who created the message catalog, because it avoids
+distributing variants of message catalogs which differ only in the
+character set.
+
+   The output character set is, by default, the value of `nl_langinfo
+(CODESET)', which depends on the `LC_CTYPE' part of the current locale.
+But programs which store strings in a locale independent way (e.g.
+UTF-8) can request that `gettext' and related functions return the
+translations in that encoding, by use of the `bind_textdomain_codeset'
+function.
+
+   Note that the MSGID argument to `gettext' is not subject to
+character set conversion.  Also, when `gettext' does not find a
+translation for MSGID, it returns MSGID unchanged - independently of
+the current output character set.  It is therefore recommended that all
+MSGIDs be US-ASCII strings.
+
+ - Function: char * bind_textdomain_codeset (const char *DOMAINNAME,
+          const char *CODESET)
+     The `bind_textdomain_codeset' function can be used to specify the
+     output character set for message catalogs for domain DOMAINNAME.
+     The CODESET argument must be a valid codeset name which can be used
+     for the `iconv_open' function, or a null pointer.
+
+     If the CODESET parameter is the null pointer,
+     `bind_textdomain_codeset' returns the currently selected codeset
+     for the domain with the name DOMAINNAME. It returns `NULL' if no
+     codeset has yet been selected.
+
+     The `bind_textdomain_codeset' function can be used several times.
+     If used multiple times with the same DOMAINNAME argument, the
+     later call overrides the settings made by the earlier one.
+
+     The `bind_textdomain_codeset' function returns a pointer to a
+     string containing the name of the selected codeset.  The string is
+     allocated internally in the function and must not be changed by the
+     user.  If the system went out of core during the execution of
+     `bind_textdomain_codeset', the return value is `NULL' and the
+     global variable ERRNO is set accordingly.
+
+
+File: gettext.info,  Node: Plural forms,  Next: GUI program problems,  Prev: Charset conversion,  Up: gettext
+
+Additional functions for plural forms
+-------------------------------------
+
+   The functions of the `gettext' family described so far (and all the
+`catgets' functions as well) have one problem in the real world which
+have been neglected completely in all existing approaches.  What is
+meant here is the handling of plural forms.
+
+   Looking through Unix source code before the time anybody thought
+about internationalization (and, sadly, even afterwards) one can often
+find code similar to the following:
+
+        printf ("%d file%s deleted", n, n == 1 ? "" : "s");
+
+After the first complaints from people internationalizing the code
+people either completely avoided formulations like this or used strings
+like `"file(s)"'.  Both look unnatural and should be avoided.  First
+tries to solve the problem correctly looked like this:
+
+        if (n == 1)
+          printf ("%d file deleted", n);
+        else
+          printf ("%d files deleted", n);
+
+   But this does not solve the problem.  It helps languages where the
+plural form of a noun is not simply constructed by adding an `s' but
+that is all.  Once again people fell into the trap of believing the
+rules their language is using are universal.  But the handling of plural
+forms differs widely between the language families.  For example, Rafal
+Maszkowski `<rzm@mat.uni.torun.pl>' reports:
+
+     In Polish we use e.g. plik (file) this way:
+          1 plik
+          2,3,4 pliki
+          5-21 pliko'w
+          22-24 pliki
+          25-31 pliko'w
+     and so on (o' means 8859-2 oacute which should be rather okreska,
+     similar to aogonek).
+
+   There are two things which can differ between languages (and even
+inside language families);
+
+   * The form how plural forms are build differs.  This is a problem
+     with languages which have many irregularities.  German, for
+     instance, is a drastic case.  Though English and German are part
+     of the same language family (Germanic), the almost regular forming
+     of plural noun forms (appending an `s') is hardly found in German.
+
+   * The number of plural forms differ.  This is somewhat surprising for
+     those who only have experiences with Romanic and Germanic languages
+     since here the number is the same (there are two).
+
+     But other language families have only one form or many forms.  More
+     information on this in an extra section.
+
+   The consequence of this is that application writers should not try to
+solve the problem in their code.  This would be localization since it is
+only usable for certain, hardcoded language environments.  Instead the
+extended `gettext' interface should be used.
+
+   These extra functions are taking instead of the one key string two
+strings and a numerical argument.  The idea behind this is that using
+the numerical argument and the first string as a key, the implementation
+can select using rules specified by the translator the right plural
+form.  The two string arguments then will be used to provide a return
+value in case no message catalog is found (similar to the normal
+`gettext' behavior).  In this case the rules for Germanic language is
+used and it is assumed that the first string argument is the singular
+form, the second the plural form.
+
+   This has the consequence that programs without language catalogs can
+display the correct strings only if the program itself is written using
+a Germanic language.  This is a limitation but since the GNU C library
+(as well as the GNU `gettext' package) are written as part of the GNU
+package and the coding standards for the GNU project require program
+being written in English, this solution nevertheless fulfills its
+purpose.
+
+ - Function: char * ngettext (const char *MSGID1, const char *MSGID2,
+          unsigned long int N)
+     The `ngettext' function is similar to the `gettext' function as it
+     finds the message catalogs in the same way.  But it takes two
+     extra arguments.  The MSGID1 parameter must contain the singular
+     form of the string to be converted.  It is also used as the key
+     for the search in the catalog.  The MSGID2 parameter is the plural
+     form.  The parameter N is used to determine the plural form.  If no
+     message catalog is found MSGID1 is returned if `n == 1', otherwise
+     `msgid2'.
+
+     An example for the use of this function is:
+
+          printf (ngettext ("%d file removed", "%d files removed", n), n);
+
+     Please note that the numeric value N has to be passed to the
+     `printf' function as well.  It is not sufficient to pass it only to
+     `ngettext'.
+
+ - Function: char * dngettext (const char *DOMAIN, const char *MSGID1,
+          const char *MSGID2, unsigned long int N)
+     The `dngettext' is similar to the `dgettext' function in the way
+     the message catalog is selected.  The difference is that it takes
+     two extra parameter to provide the correct plural form.  These two
+     parameters are handled in the same way `ngettext' handles them.
+
+ - Function: char * dcngettext (const char *DOMAIN, const char *MSGID1,
+          const char *MSGID2, unsigned long int N, int CATEGORY)
+     The `dcngettext' is similar to the `dcgettext' function in the way
+     the message catalog is selected.  The difference is that it takes
+     two extra parameter to provide the correct plural form.  These two
+     parameters are handled in the same way `ngettext' handles them.
+
+   Now, how do these functions solve the problem of the plural forms?
+Without the input of linguists (which was not available) it was not
+possible to determine whether there are only a few different forms in
+which plural forms are formed or whether the number can increase with
+every new supported language.
+
+   Therefore the solution implemented is to allow the translator to
+specify the rules of how to select the plural form.  Since the formula
+varies with every language this is the only viable solution except for
+hardcoding the information in the code (which still would require the
+possibility of extensions to not prevent the use of new languages).
+
+   The information about the plural form selection has to be stored in
+the header entry of the PO file (the one with the empty `msgid' string).
+The plural form information looks like this:
+
+     Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;
+
+   The `nplurals' value must be a decimal number which specifies how
+many different plural forms exist for this language.  The string
+following `plural' is an expression which is using the C language
+syntax.  Exceptions are that no negative numbers are allowed, numbers
+must be decimal, and the only variable allowed is `n'.  This expression
+will be evaluated whenever one of the functions `ngettext',
+`dngettext', or `dcngettext' is called.  The numeric value passed to
+these functions is then substituted for all uses of the variable `n' in
+the expression.  The resulting value then must be greater or equal to
+zero and smaller than the value given as the value of `nplurals'.
+
+The following rules are known at this point.  The language with families
+are listed.  But this does not necessarily mean the information can be
+generalized for the whole family (as can be easily seen in the table
+below).(1)
+
+Only one form:
+     Some languages only require one single form.  There is no
+     distinction between the singular and plural form.  An appropriate
+     header entry would look like this:
+
+          Plural-Forms: nplurals=1; plural=0;
+
+     Languages with this property include:
+
+    Finno-Ugric family
+          Hungarian
+
+    Asian family
+          Japanese, Korean
+
+    Turkic/Altaic family
+          Turkish
+
+Two forms, singular used for one only
+     This is the form used in most existing programs since it is what
+     English is using.  A header entry would look like this:
+
+          Plural-Forms: nplurals=2; plural=n != 1;
+
+     (Note: this uses the feature of C expressions that boolean
+     expressions have to value zero or one.)
+
+     Languages with this property include:
+
+    Germanic family
+          Danish, Dutch, English, German, Norwegian, Swedish
+
+    Finno-Ugric family
+          Estonian, Finnish
+
+    Latin/Greek family
+          Greek
+
+    Semitic family
+          Hebrew
+
+    Romanic family
+          Italian, Portuguese, Spanish
+
+    Artificial
+          Esperanto
+
+Two forms, singular used for zero and one
+     Exceptional case in the language family.  The header entry would
+     be:
+
+          Plural-Forms: nplurals=2; plural=n>1;
+
+     Languages with this property include:
+
+    Romanic family
+          French, Brazilian Portuguese
+
+Three forms, special case for zero
+     The header entry would be:
+
+          Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;
+
+     Languages with this property include:
+
+    Baltic family
+          Latvian
+
+Three forms, special cases for one and two
+     The header entry would be:
+
+          Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;
+
+     Languages with this property include:
+
+    Celtic
+          Gaeilge (Irish)
+
+Three forms, special case for numbers ending in 1[2-9]
+     The header entry would look like this:
+
+          Plural-Forms: nplurals=3; \
+              plural=n%10==1 && n%100!=11 ? 0 : \
+                     n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+     Languages with this property include:
+
+    Baltic family
+          Lithuanian
+
+Three forms, special cases for numbers ending in 1 and 2, 3, 4, except those ending in 1[1-4]
+     The header entry would look like this:
+
+          Plural-Forms: nplurals=3; \
+              plural=n%10==1 && n%100!=11 ? 0 : \
+                     n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+     Languages with this property include:
+
+    Slavic family
+          Croatian, Czech, Russian, Slovak, Ukrainian
+
+Three forms, special case for one and some numbers ending in 2, 3, or 4
+     The header entry would look like this:
+
+          Plural-Forms: nplurals=3; \
+              plural=n==1 ? 0 : \
+                     n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;
+
+     Languages with this property include:
+
+    Slavic family
+          Polish
+
+Four forms, special case for one and all numbers ending in 02, 03, or 04
+     The header entry would look like this:
+
+          Plural-Forms: nplurals=4; \
+              plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;
+
+     Languages with this property include:
+
+    Slavic family
+          Slovenian
+
+   ---------- Footnotes ----------
+
+   (1) Additions are welcome.  Send appropriate information to
+<bug-glibc-manual@gnu.org>.
+
+
+File: gettext.info,  Node: GUI program problems,  Next: Optimized gettext,  Prev: Plural forms,  Up: gettext
+
+How to use `gettext' in GUI programs
+------------------------------------
+
+   One place where the `gettext' functions, if used normally, have big
+problems is within programs with graphical user interfaces (GUIs).  The
+problem is that many of the strings which have to be translated are very
+short.  They have to appear in pull-down menus which restricts the
+length.  But strings which are not containing entire sentences or at
+least large fragments of a sentence may appear in more than one
+situation in the program but might have different translations.  This is
+especially true for the one-word strings which are frequently used in
+GUI programs.
+
+   As a consequence many people say that the `gettext' approach is
+wrong and instead `catgets' should be used which indeed does not have
+this problem.  But there is a very simple and powerful method to handle
+these kind of problems with the `gettext' functions.
+
+As as example consider the following fictional situation.  A GUI program
+has a menu bar with the following entries:
+
+     +------------+------------+--------------------------------------+
+     | File       | Printer    |                                      |
+     +------------+------------+--------------------------------------+
+     | Open     | | Select   |
+     | New      | | Open     |
+     +----------+ | Connect  |
+                  +----------+
+
+   To have the strings `File', `Printer', `Open', `New', `Select', and
+`Connect' translated there has to be at some point in the code a call
+to a function of the `gettext' family.  But in two places the string
+passed into the function would be `Open'.  The translations might not
+be the same and therefore we are in the dilemma described above.
+
+   One solution to this problem is to artificially enlengthen the
+strings to make them unambiguous.  But what would the program do if no
+translation is available?  The enlengthened string is not what should be
+printed.  So we should use a little bit modified version of the
+functions.
+
+   To enlengthen the strings a uniform method should be used.  E.g., in
+the example above the strings could be chosen as
+
+     Menu|File
+     Menu|Printer
+     Menu|File|Open
+     Menu|File|New
+     Menu|Printer|Select
+     Menu|Printer|Open
+     Menu|Printer|Connect
+
+   Now all the strings are different and if now instead of `gettext'
+the following little wrapper function is used, everything works just
+fine:
+
+       char *
+       sgettext (const char *msgid)
+       {
+         char *msgval = gettext (msgid);
+         if (msgval == msgid)
+           msgval = strrchr (msgid, '|') + 1;
+         return msgval;
+       }
+
+   What this little function does is to recognize the case when no
+translation is available.  This can be done very efficiently by a
+pointer comparison since the return value is the input value.  If there
+is no translation we know that the input string is in the format we used
+for the Menu entries and therefore contains a `|' character.  We simply
+search for the last occurrence of this character and return a pointer
+to the character following it.  That's it!
+
+   If one now consistently uses the enlengthened string form and
+replaces the `gettext' calls with calls to `sgettext' (this is normally
+limited to very few places in the GUI implementation) then it is
+possible to produce a program which can be internationalized.
+
+   The other `gettext' functions (`dgettext', `dcgettext' and the
+`ngettext' equivalents) can and should have corresponding functions as
+well which look almost identical, except for the parameters and the
+call to the underlying function.
+
+   Now there is of course the question why such functions do not exist
+in the GNU gettext package?  There are two parts of the answer to this
+question.
+
+   * They are easy to write and therefore can be provided by the
+     project they are used in.  This is not an answer by itself and
+     must be seen together with the second part which is:
+
+   * There is no way the gettext package can contain a version which
+     can work everywhere.  The problem is the selection of the
+     character to separate the prefix from the actual string in the
+     enlenghtened string.  The examples above used `|' which is a quite
+     good choice because it resembles a notation frequently used in
+     this context and it also is a character not often used in message
+     strings.
+
+     But what if the character is used in message strings?  Or if the
+     chose character is not available in the character set on the
+     machine one compiles (e.g., `|' is not required to exist for
+     ISO C; this is why the `iso646.h' file exists in ISO C programming
+     environments).
+
+   There is only one more comment to be said.  The wrapper function
+above requires that the translations strings are not enlengthened
+themselves.  This is only logical.  There is no need to disambiguate
+the strings (since they are never used as keys for a search) and one
+also saves quite some memory and disk space by doing this.
+
+
+File: gettext.info,  Node: Optimized gettext,  Prev: GUI program problems,  Up: gettext
+
+Optimization of the *gettext functions
+--------------------------------------
+
+   At this point of the discussion we should talk about an advantage of
+the GNU `gettext' implementation.  Some readers might have pointed out
+that an internationalized program might have a poor performance if some
+string has to be translated in an inner loop.  While this is unavoidable
+when the string varies from one run of the loop to the other it is
+simply a waste of time when the string is always the same.  Take the
+following example:
+
+     {
+       while (...)
+         {
+           puts (gettext ("Hello world"));
+         }
+     }
+
+When the locale selection does not change between two runs the resulting
+string is always the same.  One way to use this is:
+
+     {
+       str = gettext ("Hello world");
+       while (...)
+         {
+           puts (str);
+         }
+     }
+
+But this solution is not usable in all situation (e.g. when the locale
+selection changes) nor does it lead to legible code.
+
+   For this reason, GNU `gettext' caches previous translation results.
+When the same translation is requested twice, with no new message
+catalogs being loaded in between, `gettext' will, the second time, find
+the result through a single cache lookup.
+
+
+File: gettext.info,  Node: Comparison,  Next: Using libintl.a,  Prev: gettext,  Up: Programmers
+
+Comparing the Two Interfaces
+============================
+
+   The following discussion is perhaps a little bit colored.  As said
+above we implemented GNU `gettext' following the Uniforum proposal and
+this surely has its reasons.  But it should show how we came to this
+decision.
+
+   First we take a look at the developing process.  When we write an
+application using NLS provided by `gettext' we proceed as always.  Only
+when we come to a string which might be seen by the users and thus has
+to be translated we use `gettext("...")' instead of `"..."'.  At the
+beginning of each source file (or in a central header file) we define
+
+     #define gettext(String) (String)
+
+   Even this definition can be avoided when the system supports the
+`gettext' function in its C library.  When we compile this code the
+result is the same as if no NLS code is used.  When  you take a look at
+the GNU `gettext' code you will see that we use `_("...")' instead of
+`gettext("...")'.  This reduces the number of additional characters per
+translatable string to _3_ (in words: three).
+
+   When now a production version of the program is needed we simply
+replace the definition
+
+     #define _(String) (String)
+
+by
+
+     #include <libintl.h>
+     #define _(String) gettext (String)
+
+Additionally we run the program `xgettext' on all source code file
+which contain translatable strings and that's it: we have a running
+program which does not depend on translations to be available, but which
+can use any that becomes available.
+
+   The same procedure can be done for the `gettext_noop' invocations
+(*note Special cases::).  One usually defines `gettext_noop' as a no-op
+macro.  So you should consider the following code for your project:
+
+     #define gettext_noop(String) (String)
+     #define N_(String) gettext_noop (String)
+
+   `N_' is a short form similar to `_'.  The `Makefile' in the `po/'
+directory of GNU `gettext' knows by default both of the mentioned short
+forms so you are invited to follow this proposal for your own ease.
+
+   Now to `catgets'.  The main problem is the work for the programmer.
+Every time he comes to a translatable string he has to define a number
+(or a symbolic constant) which has also be defined in the message
+catalog file.  He also has to take care for duplicate entries,
+duplicate message IDs etc.  If he wants to have the same quality in the
+message catalog as the GNU `gettext' program provides he also has to
+put the descriptive comments for the strings and the location in all
+source code files in the message catalog.  This is nearly a Mission:
+Impossible.
+
+   But there are also some points people might call advantages speaking
+for `catgets'.  If you have a single word in a string and this string
+is used in different contexts it is likely that in one or the other
+language the word has different translations.  Example:
+
+     printf ("%s: %d", gettext ("number"), number_of_errors)
+     
+     printf ("you should see %d %s", number_count,
+             number_count == 1 ? gettext ("number") : gettext ("numbers"))
+
+   Here we have to translate two times the string `"number"'.  Even if
+you do not speak a language beside English it might be possible to
+recognize that the two words have a different meaning.  In German the
+first appearance has to be translated to `"Anzahl"' and the second to
+`"Zahl"'.
+
+   Now you can say that this example is really esoteric.  And you are
+right!  This is exactly how we felt about this problem and decide that
+it does not weight that much.  The solution for the above problem could
+be very easy:
+
+     printf ("%s %d", gettext ("number:"), number_of_errors)
+     
+     printf (number_count == 1 ? gettext ("you should see %d number")
+                               : gettext ("you should see %d numbers"),
+             number_count)
+
+   We believe that we can solve all conflicts with this method.  If it
+is difficult one can also consider changing one of the conflicting
+string a little bit.  But it is not impossible to overcome.
+
+   `catgets' allows same original entry to have different translations,
+but `gettext' has another, scalable approach for solving ambiguities of
+this kind: *Note Ambiguities::.
+
+
+File: gettext.info,  Node: Using libintl.a,  Next: gettext grok,  Prev: Comparison,  Up: Programmers
+
+Using libintl.a in own programs
+===============================
+
+   Starting with version 0.9.4 the library `libintl.h' should be
+self-contained.  I.e., you can use it in your own programs without
+providing additional functions.  The `Makefile' will put the header and
+the library in directories selected using the `$(prefix)'.
+
+   One exception of the above is found on HP-UX 10.01 systems.  Here
+the C library does not contain the `alloca' function (and the HP
+compiler does not generate it inlined).  But it is not intended to
+rewrite the whole library just because of this dumb system.  Instead
+include the `alloca' function in all package you use the `libintl.a' in.
+
+
+File: gettext.info,  Node: gettext grok,  Next: Temp Programmers,  Prev: Using libintl.a,  Up: Programmers
+
+Being a `gettext' grok
+======================
+
+   To fully exploit the functionality of the GNU `gettext' library it
+is surely helpful to read the source code.  But for those who don't want
+to spend that much time in reading the (sometimes complicated) code here
+is a list comments:
+
+   * Changing the language at runtime
+
+     For interactive programs it might be useful to offer a selection
+     of the used language at runtime.  To understand how to do this one
+     need to know how the used language is determined while executing
+     the `gettext' function.  The method which is presented here only
+     works correctly with the GNU implementation of the `gettext'
+     functions.
+
+     In the function `dcgettext' at every call the current setting of
+     the highest priority environment variable is determined and used.
+     Highest priority means here the following list with decreasing
+     priority:
+
+       1. `LANGUAGE'
+
+       2. `LC_ALL'
+
+       3. `LC_xxx', according to selected locale
+
+       4. `LANG'
+
+     Afterwards the path is constructed using the found value and the
+     translation file is loaded if available.
+
+     What is now when the value for, say, `LANGUAGE' changes.  According
+     to the process explained above the new value of this variable is
+     found as soon as the `dcgettext' function is called.  But this
+     also means the (perhaps) different message catalog file is loaded.
+     In other words: the used language is changed.
+
+     But there is one little hook.  The code for gcc-2.7.0 and up
+     provides some optimization.  This optimization normally prevents
+     the calling of the `dcgettext' function as long as no new catalog
+     is loaded.  But if `dcgettext' is not called the program also
+     cannot find the `LANGUAGE' variable be changed (*note Optimized
+     gettext::).  A solution for this is very easy.  Include the
+     following code in the language switching function.
+
+            /* Change language.  */
+            setenv ("LANGUAGE", "fr", 1);
+          
+            /* Make change known.  */
+            {
+              extern int  _nl_msg_cat_cntr;
+              ++_nl_msg_cat_cntr;
+            }
+
+     The variable `_nl_msg_cat_cntr' is defined in `loadmsgcat.c'.  The
+     programmer will find himself in need for a construct like this only
+     when developing programs which do run longer and provide the user
+     to select the language at runtime.  Non-interactive programs (like
+     all these little Unix tools) should never need this.
+
+
+
+File: gettext.info,  Node: Temp Programmers,  Prev: gettext grok,  Up: Programmers
+
+Temporary Notes for the Programmers Chapter
+===========================================
 
 * Menu:
 
-* po/POTFILES.in::              `POTFILES.in' in `po/'
-* configure.in::                `configure.in' at top level
-* config.guess::                `config.guess', `config.sub' at top level
-* aclocal::                     `aclocal.m4' at top level
-* acconfig::                    `acconfig.h' at top level
-* Makefile::                    `Makefile.in' at top level
-* src/Makefile::                `Makefile.in' in `src/'
+* Temp Implementations::        Temporary - Two Possible Implementations
+* Temp catgets::                Temporary - About `catgets'
+* Temp WSI::                    Temporary - Why a single implementation
+* Temp Notes::                  Temporary - Notes
 
 
-File: gettext.info,  Node: po/POTFILES.in,  Next: configure.in,  Prev: Adjusting Files,  Up: Adjusting Files
+File: gettext.info,  Node: Temp Implementations,  Next: Temp catgets,  Prev: Temp Programmers,  Up: Temp Programmers
 
-`POTFILES.in' in `po/'
-----------------------
+Temporary - Two Possible Implementations
+----------------------------------------
 
-   The `po/' directory should receive a file named `POTFILES.in'.  This
-file tells which files, among all program sources, have marked strings
-needing translation.  Here is an example of such a file:
+   There are two competing methods for language independent messages:
+the X/Open `catgets' method, and the Uniforum `gettext' method.  The
+`catgets' method indexes messages by integers; the `gettext' method
+indexes them by their English translations.  The `catgets' method has
+been around longer and is supported by more vendors.  The `gettext'
+method is supported by Sun, and it has been heard that the COSE
+multi-vendor initiative is supporting it.  Neither method is a POSIX
+standard; the POSIX.1 committee had a lot of disagreement in this area.
 
-     # List of source files containing translatable strings.
-     # Copyright (C) 1995 Free Software Foundation, Inc.
-     
-     # Common library files
-     lib/error.c
-     lib/getopt.c
-     lib/xmalloc.c
-     
-     # Package source files
-     src/gettext.c
-     src/msgfmt.c
-     src/xgettext.c
+   Neither one is in the POSIX standard.  There was much disagreement
+in the POSIX.1 committee about using the `gettext' routines vs.
+`catgets' (XPG).  In the end the committee couldn't agree on anything,
+so no messaging system was included as part of the standard.  I believe
+the informative annex of the standard includes the XPG3 messaging
+interfaces, "...as an example of a messaging system that has been
+implemented..."
 
-Hash-marked comments and white lines are ignored.  All other lines list
-those source files containing strings marked for translation (*note
-Mark Keywords::), in a notation relative to the top level of your whole
-distribution, rather than the location of the `POTFILES.in' file itself.
+   They were very careful not to say anywhere that you should use one
+set of interfaces over the other.  For more on this topic please see
+the Programming for Internationalization FAQ.
 
 
-File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/POTFILES.in,  Up: Adjusting Files
+File: gettext.info,  Node: Temp catgets,  Next: Temp WSI,  Prev: Temp Implementations,  Up: Temp Programmers
 
-`configure.in' at top level
+Temporary - About `catgets'
 ---------------------------
 
-  1. Declare the package and version.
+   There have been a few discussions of late on the use of `catgets' as
+a base.  I think it important to present both sides of the argument and
+hence am opting to play devil's advocate for a little bit.
 
-     This is done by a set of lines like these:
+   I'll not deny the fact that `catgets' could have been designed a lot
+better.  It currently has quite a number of limitations and these have
+already been pointed out.
 
-          PACKAGE=gettext
-          VERSION=0.10.37
-          AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
-          AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-          AC_SUBST(PACKAGE)
-          AC_SUBST(VERSION)
+   However there is a great deal to be said for consistency and
+standardization.  A common recurring problem when writing Unix software
+is the myriad portability problems across Unix platforms.  It seems as
+if every Unix vendor had a look at the operating system and found parts
+they could improve upon.  Undoubtedly, these modifications are probably
+innovative and solve real problems.  However, software developers have
+a hard time keeping up with all these changes across so many platforms.
 
-     Of course, you replace `gettext' with the name of your package,
-     and `0.10.37' by its version numbers, exactly as they should
-     appear in the packaged `tar' file name of your distribution
-     (`gettext-0.10.37.tar.gz', here).
+   And this has prompted the Unix vendors to begin to standardize their
+systems.  Hence the impetus for Spec1170.  Every major Unix vendor has
+committed to supporting this standard and every Unix software developer
+waits with glee the day they can write software to this standard and
+simply recompile (without having to use autoconf) across different
+platforms.
 
-  2. Declare the available translations.
-
-     This is done by defining `ALL_LINGUAS' to the white separated,
-     quoted list of available languages, in a single line, like this:
-
-          ALL_LINGUAS="de fr"
-
-     This example means that German and French PO files are available,
-     so that these languages are currently supported by your package.
-     If you want to further restrict, at installation time, the set of
-     installed languages, this should not be done by modifying
-     `ALL_LINGUAS' in `configure.in', but rather by using the `LINGUAS'
-     environment variable (*note Installers::).
-
-  3. Check for internationalization support.
-
-     Here is the main `m4' macro for triggering internationalization
-     support.  Just add this line to `configure.in':
-
-          AM_GNU_GETTEXT
-
-     This call is purposely simple, even if it generates a lot of
-     configure time checking and actions.
-
-  4. Have output files created.
-
-     The `AC_OUTPUT' directive, at the end of your `configure.in' file,
-     needs to be modified in two ways:
-
-          AC_OUTPUT([EXISTING CONFIGURATION FILES intl/Makefile po/Makefile.in],
-          EXISTING ADDITIONAL ACTIONS])
-
-     The modification to the first argument to `AC_OUTPUT' asks for
-     substitution in the `intl/' and `po/' directories.  Note the `.in'
-     suffix used for `po/' only.  This is because the distributed file
-     is really `po/Makefile.in.in'.
-
+   As I understand it, Spec1170 is roughly based upon version 4 of the
+X/Open Portability Guidelines (XPG4).  Because `catgets' and friends
+are defined in XPG4, I'm led to believe that `catgets' is a part of
+Spec1170 and hence will become a standardized component of all Unix
+systems.
 
 
-File: gettext.info,  Node: config.guess,  Next: aclocal,  Prev: configure.in,  Up: Adjusting Files
+File: gettext.info,  Node: Temp WSI,  Next: Temp Notes,  Prev: Temp catgets,  Up: Temp Programmers
 
-`config.guess', `config.sub' at top level
------------------------------------------
+Temporary - Why a single implementation
+---------------------------------------
 
-   You need to add the GNU `config.guess' and `config.sub' files to
-your distribution.  They are needed because the `intl/' directory has
-platform dependent support for determining the locale's character
-encoding and therefore needs to identify the platform.
+   Now it seems kind of wasteful to me to have two different systems
+installed for accessing message catalogs.  If we do want to remedy
+`catgets' deficiencies why don't we try to expand `catgets' (in a
+compatible manner) rather than implement an entirely new system.
+Otherwise, we'll end up with two message catalog access systems
+installed with an operating system - one set of routines for packages
+using GNU `gettext' for their internationalization, and another set of
+routines (catgets) for all other software.  Bloated?
 
-   You can obtain the newest version of `config.guess' and `config.sub'
-from `ftp://ftp.gnu.org/pub/gnu/config/'.  Less recent versions are
-also contained in the GNU `automake' and GNU `libtool' packages.
+   Supposing another catalog access system is implemented.  Which do we
+recommend?  At least for Linux, we need to attract as many software
+developers as possible.  Hence we need to make it as easy for them to
+port their software as possible.  Which means supporting `catgets'.  We
+will be implementing the `libintl' code within our `libc', but does
+this mean we also have to incorporate another message catalog access
+scheme within our `libc' as well?  And what about people who are going
+to be using the `libintl' + non-`catgets' routines.  When they port
+their software to other platforms, they're now going to have to include
+the front-end (`libintl') code plus the back-end code (the non-`catgets'
+access routines) with their software instead of just including the
+`libintl' code with their software.
 
-   Normally, `config.guess' and `config.sub' are put at the top level
-of a distribution.  But it is also possible to put them in a
-subdirectory, altogether with other configuration support files like
-`install-sh', `ltconfig', `ltmain.sh', `mkinstalldirs' or `missing'.
-All you need to do, other than moving the files, is to add the
-following line to your `configure.in'.
+   Message catalog support is however only the tip of the iceberg.
+What about the data for the other locale categories.  They also have a
+number of deficiencies.  Are we going to abandon them as well and
+develop another duplicate set of routines (should `libintl' expand
+beyond message catalog support)?
 
-     AC_CONFIG_AUX_DIR([SUBDIR])
-
-
-File: gettext.info,  Node: aclocal,  Next: acconfig,  Prev: config.guess,  Up: Adjusting Files
-
-`aclocal.m4' at top level
--------------------------
-
-   If you do not have an `aclocal.m4' file in your distribution, the
-simplest is to concatenate the files `codeset.m4', `gettext.m4',
-`iconv.m4', `isc-posix.m4', `lcmessage.m4', `progtest.m4' from GNU
-`gettext''s `m4/' directory into a single file.
-
-   If you already have an `aclocal.m4' file, then you will have to
-merge the said macro files into your `aclocal.m4'.  Note that if you
-are upgrading from a previous release of GNU `gettext', you should most
-probably _replace_ the macros (`AM_GNU_GETTEXT', `AM_WITH_NLS', etc.),
-as they usually change a little from one release of GNU `gettext' to
-the next.  Their contents may vary as we get more experience with
-strange systems out there.
-
-   These macros check for the internationalization support functions
-and related informations.  Hopefully, once stabilized, these macros
-might be integrated in the standard Autoconf set, because this piece of
-`m4' code will be the same for all projects using GNU `gettext'.
+   Like many parts of Unix that can be improved upon, we're stuck with
+balancing compatibility with the past with useful improvements and
+innovations for the future.
 
 
-File: gettext.info,  Node: acconfig,  Next: Makefile,  Prev: aclocal,  Up: Adjusting Files
+File: gettext.info,  Node: Temp Notes,  Prev: Temp WSI,  Up: Temp Programmers
 
-`acconfig.h' at top level
--------------------------
+Temporary - Notes
+-----------------
 
-   Earlier GNU `gettext' releases required to put definitions for
-`ENABLE_NLS', `HAVE_GETTEXT' and `HAVE_LC_MESSAGES', `HAVE_STPCPY',
-`PACKAGE' and `VERSION' into an `acconfig.h' file.  This is not needed
-any more; you can remove them from your `acconfig.h' file unless your
-package uses them independently from the `intl/' directory.
+   X/Open agreed very late on the standard form so that many
+implementations differ from the final form.  Both of my system (old
+Linux catgets and Ultrix-4) have a strange variation.
 
-
-File: gettext.info,  Node: Makefile,  Next: src/Makefile,  Prev: acconfig,  Up: Adjusting Files
-
-`Makefile.in' at top level
---------------------------
-
-   Here are a few modifications you need to make to your main, top-level
-`Makefile.in' file.
-
-  1. Add the following lines near the beginning of your `Makefile.in',
-     so the `dist:' goal will work properly (as explained further down):
-
-          PACKAGE = @PACKAGE@
-          VERSION = @VERSION@
-
-  2. Add file `ABOUT-NLS' to the `DISTFILES' definition, so the file
-     gets distributed.
-
-  3. Wherever you process subdirectories in your `Makefile.in', be sure
-     you also process dir subdirectories `intl' and `po'.  Special
-     rules in the `Makefiles' take care for the case where no
-     internationalization is wanted.
-
-     If you are using Makefiles, either generated by automake, or
-     hand-written so they carefully follow the GNU coding standards,
-     the effected goals for which the new subdirectories must be
-     handled include `installdirs', `install', `uninstall', `clean',
-     `distclean'.
-
-     Here is an example of a canonical order of processing.  In this
-     example, we also define `SUBDIRS' in `Makefile.in' for it to be
-     further used in the `dist:' goal.
-
-          SUBDIRS = doc intl lib src @POSUB@
-
-     Note that you must arrange for `make' to descend into the `intl'
-     directory before descending into other directories containing code
-     which make use of the `libintl.h' header file.  For this reason,
-     here we mention `intl' before `lib' and `src'.
-
-     that you will have to adapt to your own package.
-
-  4. A delicate point is the `dist:' goal, as both `intl/Makefile' and
-     `po/Makefile' will later assume that the proper directory has been
-     set up from the main `Makefile'.  Here is an example at what the
-     `dist:' goal might look like:
-
-          distdir = $(PACKAGE)-$(VERSION)
-          dist: Makefile
-          	rm -fr $(distdir)
-          	mkdir $(distdir)
-          	chmod 777 $(distdir)
-          	for file in $(DISTFILES); do \
-          	  ln $$file $(distdir) 2>/dev/null || cp -p $$file $(distdir); \
-          	done
-          	for subdir in $(SUBDIRS); do \
-          	  mkdir $(distdir)/$$subdir || exit 1; \
-          	  chmod 777 $(distdir)/$$subdir; \
-          	  (cd $$subdir && $(MAKE) $@) || exit 1; \
-          	done
-          	tar chozf $(distdir).tar.gz $(distdir)
-          	rm -fr $(distdir)
-
+   OK.  After incorporating the last changes I have to spend some time
+on making the GNU/Linux `libc' `gettext' functions.  So in future
+Solaris is not the only system having `gettext'.
 
 
-File: gettext.info,  Node: src/Makefile,  Prev: Makefile,  Up: Adjusting Files
+File: gettext.info,  Node: Translators,  Next: Maintainers,  Prev: Programmers,  Up: Top
 
-`Makefile.in' in `src/'
------------------------
-
-   Some of the modifications made in the main `Makefile.in' will also
-be needed in the `Makefile.in' from your package sources, which we
-assume here to be in the `src/' subdirectory.  Here are all the
-modifications needed in `src/Makefile.in':
-
-  1. In view of the `dist:' goal, you should have these lines near the
-     beginning of `src/Makefile.in':
-
-          PACKAGE = @PACKAGE@
-          VERSION = @VERSION@
-
-  2. If not done already, you should guarantee that `top_srcdir' gets
-     defined.  This will serve for `cpp' include files.  Just add the
-     line:
-
-          top_srcdir = @top_srcdir@
-
-  3. You might also want to define `subdir' as `src', later allowing
-     for almost uniform `dist:' goals in all your `Makefile.in'.  At
-     list, the `dist:' goal below assume that you used:
-
-          subdir = src
-
-  4. The `main' function of your program will normally call
-     `bindtextdomain' (see *note Triggering::), like this:
-
-          bindtextdomain (PACKAGE, LOCALEDIR);
-
-     To make LOCALEDIR known to the program, add the following lines to
-     Makefile.in:
-
-          datadir = @datadir@
-          localedir = $(datadir)/locale
-          DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-
-     Note that `@datadir@' defaults to `$(prefix)/share', thus
-     `$(localedir)' defaults to `$(prefix)/share/locale'.
-
-  5. You should ensure that the final linking will use `@INTLLIBS@' as
-     a library.  An easy way to achieve this is to manage that it gets
-     into `LIBS', like this:
-
-          LIBS = @INTLLIBS@ @LIBS@
-
-     In most packages internationalized with GNU `gettext', one will
-     find a directory `lib/' in which a library containing some helper
-     functions will be build.  (You need at least the few functions
-     which the GNU `gettext' Library itself needs.)  However some of
-     the functions in the `lib/' also give messages to the user which
-     of course should be translated, too.  Taking care of this it is
-     not enough to place the support library (say `libsupport.a') just
-     between the `@INTLLIBS@' and `@LIBS@' in the above example.
-     Instead one has to write this:
-
-          LIBS = ../lib/libsupport.a @INTLLIBS@ ../lib/libsupport.a @LIBS@
-
-  6. You should also ensure that directory `intl/' will be searched for
-     C preprocessor include files in all circumstances.  So, you have to
-     manage so both `-I../intl' and `-I$(top_srcdir)/intl' will be
-     given to the C compiler.
-
-  7. Your `dist:' goal has to conform with others.  Here is a
-     reasonable definition for it:
-
-          distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
-          dist: Makefile $(DISTFILES)
-          	for file in $(DISTFILES); do \
-          	  ln $$file $(distdir) 2>/dev/null || cp -p $$file $(distdir); \
-          	done
-
-
-
-File: gettext.info,  Node: Conclusion,  Next: Language Codes,  Prev: Maintainers,  Up: Top
-
-Concluding Remarks
-******************
-
-   We would like to conclude this GNU `gettext' manual by presenting an
-history of the Translation Project so far.  We finally give a few
-pointers for those who want to do further research or readings about
-Native Language Support matters.
+The Translator's View
+*********************
 
 * Menu:
 
-* History::                     History of GNU `gettext'
-* References::                  Related Readings
+* Trans Intro 0::               Introduction 0
+* Trans Intro 1::               Introduction 1
+* Discussions::                 Discussions
+* Organization::                Organization
+* Information Flow::            Information Flow
 
 
-File: gettext.info,  Node: History,  Next: References,  Prev: Conclusion,  Up: Conclusion
-
-History of GNU `gettext'
-========================
-
-   Internationalization concerns and algorithms have been informally
-and casually discussed for years in GNU, sometimes around GNU `libc',
-maybe around the incoming `Hurd', or otherwise (nobody clearly
-remembers).  And even then, when the work started for real, this was
-somewhat independently of these previous discussions.
-
-   This all began in July 1994, when Patrick D'Cruze had the idea and
-initiative of internationalizing version 3.9.2 of GNU `fileutils'.  He
-then asked Jim Meyering, the maintainer, how to get those changes
-folded into an official release.  That first draft was full of
-`#ifdef's and somewhat disconcerting, and Jim wanted to find nicer
-ways.  Patrick and Jim shared some tries and experimentations in this
-area.  Then, feeling that this might eventually have a deeper impact on
-GNU, Jim wanted to know what standards were, and contacted Richard
-Stallman, who very quickly and verbally described an overall design for
-what was meant to become `glocale', at that time.
-
-   Jim implemented `glocale' and got a lot of exhausting feedback from
-Patrick and Richard, of course, but also from Mitchum DSouza (who wrote
-a `catgets'-like package), Roland McGrath, maybe David MacKenzie,
-Franc,ois Pinard, and Paul Eggert, all pushing and pulling in various
-directions, not always compatible, to the extent that after a couple of
-test releases, `glocale' was torn apart.
-
-   While Jim took some distance and time and became dad for a second
-time, Roland wanted to get GNU `libc' internationalized, and got Ulrich
-Drepper involved in that project.  Instead of starting from `glocale',
-Ulrich rewrote something from scratch, but more conformant to the set
-of guidelines who emerged out of the `glocale' effort.  Then, Ulrich
-got people from the previous forum to involve themselves into this new
-project, and the switch from `glocale' to what was first named
-`msgutils', renamed `nlsutils', and later `gettext', became officially
-accepted by Richard in May 1995 or so.
-
-   Let's summarize by saying that Ulrich Drepper wrote GNU `gettext' in
-April 1995.  The first official release of the package, including PO
-mode, occurred in July 1995, and was numbered 0.7.  Other people
-contributed to the effort by providing a discussion forum around
-Ulrich, writing little pieces of code, or testing.  These are quoted in
-the `THANKS' file which comes with the GNU `gettext' distribution.
-
-   While this was being done, Franc,ois adapted half a dozen of GNU
-packages to `glocale' first, then later to `gettext', putting them in
-pretest, so providing along the way an effective user environment for
-fine tuning the evolving tools.  He also took the responsibility of
-organizing and coordinating the Translation Project.  After nearly a
-year of informal exchanges between people from many countries,
-translator teams started to exist in May 1995, through the creation and
-support by Patrick D'Cruze of twenty unmoderated mailing lists for that
-many native languages, and two moderated lists: one for reaching all
-teams at once, the other for reaching all willing maintainers of
-internationalized free software packages.
-
-   Franc,ois also wrote PO mode in June 1995 with the collaboration of
-Greg McGary, as a kind of contribution to Ulrich's package.  He also
-gave a hand with the GNU `gettext' Texinfo manual.
-
-
-File: gettext.info,  Node: References,  Prev: History,  Up: Conclusion
-
-Related Readings
-================
-
-   Eugene H. Dorr (`dorre@well.com') maintains an interesting
-bibliography on internationalization matters, called
-`Internationalization Reference List', which is available as:
-     ftp://ftp.ora.com/pub/examples/nutshell/ujip/doc/i18n-books.txt
-
-   Michael Gschwind (`mike@vlsivie.tuwien.ac.at') maintains a
-Frequently Asked Questions (FAQ) list, entitled `Programming for
-Internationalisation'.  This FAQ discusses writing programs which can
-handle different language conventions, character sets, etc.; and is
-applicable to all character set encodings, with particular emphasis on
-ISO 8859-1.  It is regularly published in Usenet groups
-`comp.unix.questions', `comp.std.internat',
-`comp.software.international', `comp.lang.c', `comp.windows.x',
-`comp.std.c', `comp.answers' and `news.answers'.  The home location of
-this document is:
-     ftp://ftp.vlsivie.tuwien.ac.at/pub/8bit/ISO-programming
-
-   Patrick D'Cruze (`pdcruze@li.org') wrote a tutorial about NLS
-matters, and Jochen Hein (`Hein@student.tu-clausthal.de') took over the
-responsibility of maintaining it.  It may be found as:
-     ftp://sunsite.unc.edu/pub/Linux/utils/nls/catalogs/Incoming/...
-          ...locale-tutorial-0.8.txt.gz
-
-This site is mirrored in:
-     ftp://ftp.ibp.fr/pub/linux/sunsite/
-
-   A French version of the same tutorial should be findable at:
-     ftp://ftp.ibp.fr/pub/linux/french/docs/
-
-together with French translations of many Linux-related documents.
-
-
-File: gettext.info,  Node: Language Codes,  Next: Country Codes,  Prev: Conclusion,  Up: Top
-
-Language Codes
-**************
-
-   The ISO 639 standard defines two character codes for many languages.
-All abbreviations for languages used in the Translation Project should
-come from this standard.
-
-`aa'
-     Afar.
-
-`ab'
-     Abkhazian.
-
-`ae'
-     Avestan.
-
-`af'
-     Afrikaans.
-
-`am'
-     Amharic.
-
-`ar'
-     Arabic.
-
-`as'
-     Assamese.
-
-`ay'
-     Aymara.
-
-`az'
-     Azerbaijani.
-
-`ba'
-     Bashkir.
-
-`be'
-     Byelorussian; Belarusian.
-
-`bg'
-     Bulgarian.
-
-`bh'
-     Bihari.
-
-`bi'
-     Bislama.
-
-`bn'
-     Bengali; Bangla.
-
-`bo'
-     Tibetan.
-
-`br'
-     Breton.
-
-`bs'
-     Bosnian.
-
-`ca'
-     Catalan.
-
-`ce'
-     Chechen.
-
-`ch'
-     Chamorro.
-
-`co'
-     Corsican.
-
-`cs'
-     Czech.
-
-`cu'
-     Church Slavic.
-
-`cv'
-     Chuvash.
-
-`cy'
-     Welsh.
-
-`da'
-     Danish.
-
-`de'
-     German.
-
-`dz'
-     Dzongkha; Bhutani.
-
-`el'
-     Greek.
-
-`en'
-     English.
-
-`eo'
-     Esperanto.
-
-`es'
-     Spanish.
-
-`et'
-     Estonian.
-
-`eu'
-     Basque.
-
-`fa'
-     Persian.
-
-`fi'
-     Finnish.
-
-`fj'
-     Fijian; Fiji.
-
-`fo'
-     Faroese.
-
-`fr'
-     French.
-
-`fy'
-     Frisian.
-
-`ga'
-     Irish.
-
-`gd'
-     Scots; Gaelic.
-
-`gl'
-     Gallegan; Galician.
-
-`gn'
-     Guarani.
-
-`gu'
-     Gujarati.
-
-`gv'
-     Manx.
-
-`ha'
-     Hausa (?).
-
-`he'
-     Hebrew (formerly iw).
-
-`hi'
-     Hindi.
-
-`ho'
-     Hiri Motu.
-
-`hr'
-     Croatian.
-
-`hu'
-     Hungarian.
-
-`hy'
-     Armenian.
-
-`hz'
-     Herero.
-
-`ia'
-     Interlingua.
-
-`id'
-     Indonesian (formerly in).
-
-`ie'
-     Interlingue.
-
-`ik'
-     Inupiak.
-
-`is'
-     Icelandic.
-
-`it'
-     Italian.
-
-`iu'
-     Inuktitut.
-
-`ja'
-     Japanese.
-
-`jw'
-     Javanese.
-
-`ka'
-     Georgian.
-
-`ki'
-     Kikuyu.
-
-`kj'
-     Kuanyama.
-
-`kk'
-     Kazakh.
-
-`kl'
-     Kalaallisut; Greenlandic.
-
-`km'
-     Khmer; Cambodian.
-
-`kn'
-     Kannada.
-
-`ko'
-     Korean.
-
-`ks'
-     Kashmiri.
-
-`ku'
-     Kurdish.
-
-`kv'
-     Komi.
-
-`kw'
-     Cornish.
-
-`ky'
-     Kirghiz.
-
-`la'
-     Latin.
-
-`lb'
-     Letzeburgesch.
-
-`ln'
-     Lingala.
-
-`lo'
-     Lao; Laotian.
-
-`lt'
-     Lithuanian.
-
-`lv'
-     Latvian; Lettish.
-
-`mg'
-     Malagasy.
-
-`mh'
-     Marshall.
-
-`mi'
-     Maori.
-
-`mk'
-     Macedonian.
-
-`ml'
-     Malayalam.
-
-`mn'
-     Mongolian.
-
-`mo'
-     Moldavian.
-
-`mr'
-     Marathi.
-
-`ms'
-     Malay.
-
-`mt'
-     Maltese.
-
-`my'
-     Burmese.
-
-`na'
-     Nauru.
-
-`nb'
-     Norwegian Bokmaal.
-
-`nd'
-     Ndebele, North.
-
-`ne'
-     Nepali.
-
-`ng'
-     Ndonga.
-
-`nl'
-     Dutch.
-
-`nn'
-     Norwegian Nynorsk.
-
-`no'
-     Norwegian.
-
-`nr'
-     Ndebele, South.
-
-`nv'
-     Navajo.
-
-`ny'
-     Chichewa; Nyanja.
-
-`oc'
-     Occitan; Provenc,al.
-
-`om'
-     (Afan) Oromo.
-
-`or'
-     Oriya.
-
-`os'
-     Ossetian; Ossetic.
-
-`pa'
-     Panjabi; Punjabi.
-
-`pi'
-     Pali.
-
-`pl'
-     Polish.
-
-`ps'
-     Pashto, Pushto.
-
-`pt'
-     Portuguese.
-
-`qu'
-     Quechua.
-
-`rm'
-     Rhaeto-Romance.
-
-`rn'
-     Rundi; Kirundi.
-
-`ro'
-     Romanian.
-
-`ru'
-     Russian.
-
-`rw'
-     Kinyarwanda.
-
-`sa'
-     Sanskrit.
-
-`sc'
-     Sardinian.
-
-`sd'
-     Sindhi.
-
-`se'
-     Northern Sami.
-
-`sg'
-     Sango; Sangro.
-
-`si'
-     Sinhalese.
-
-`sk'
-     Slovak.
-
-`sl'
-     Slovenian.
-
-`sm'
-     Samoan.
-
-`sn'
-     Shona.
-
-`so'
-     Somali.
-
-`sq'
-     Albanian.
-
-`sr'
-     Serbian.
-
-`ss'
-     Swati; Siswati.
-
-`st'
-     Sesotho; Sotho, Southern.
-
-`su'
-     Sundanese.
-
-`sv'
-     Swedish.
-
-`sw'
-     Swahili.
-
-`ta'
-     Tamil.
-
-`te'
-     Telugu.
-
-`tg'
-     Tajik.
-
-`th'
-     Thai.
-
-`ti'
-     Tigrinya.
-
-`tk'
-     Turkmen.
-
-`tl'
-     Tagalog.
-
-`tn'
-     Tswana; Setswana.
-
-`to'
-     Tonga (?).
-
-`tr'
-     Turkish.
-
-`ts'
-     Tsonga.
-
-`tt'
-     Tatar.
-
-`tw'
-     Twi.
-
-`ty'
-     Tahitian.
-
-`ug'
-     Uighur.
-
-`uk'
-     Ukrainian.
-
-`ur'
-     Urdu.
-
-`uz'
-     Uzbek.
-
-`vi'
-     Vietnamese.
-
-`vo'
-     Volapu"k; Volapuk.
-
-`wo'
-     Wolof.
-
-`xh'
-     Xhosa.
-
-`yi'
-     Yiddish (formerly ji).
-
-`yo'
-     Yoruba.
-
-`za'
-     Zhuang.
-
-`zh'
-     Chinese.
-
-`zu'
-     Zulu.
-
-
-File: gettext.info,  Node: Country Codes,  Prev: Language Codes,  Up: Top
-
-Country Codes
-*************
-
-   The ISO 3166 standard defines two character codes for many countries
-and territories.  All abbreviations for countries used in the
-Translation Project should come from this standard.
-
-`AD'
-     Andorra.
-
-`AE'
-     United Arab Emirates.
-
-`AF'
-     Afghanistan.
-
-`AG'
-     Antigua and Barbuda.
-
-`AI'
-     Anguilla.
-
-`AL'
-     Albania.
-
-`AM'
-     Armenia.
-
-`AN'
-     Netherlands Antilles.
-
-`AO'
-     Angola.
-
-`AQ'
-     Antarctica.
-
-`AR'
-     Argentina.
-
-`AS'
-     Samoa (American).
-
-`AT'
-     Austria.
-
-`AU'
-     Australia.
-
-`AW'
-     Aruba.
-
-`AZ'
-     Azerbaijan.
-
-`BA'
-     Bosnia and Herzegovina.
-
-`BB'
-     Barbados.
-
-`BD'
-     Bangladesh.
-
-`BE'
-     Belgium.
-
-`BF'
-     Burkina Faso.
-
-`BG'
-     Bulgaria.
-
-`BH'
-     Bahrain.
-
-`BI'
-     Burundi.
-
-`BJ'
-     Benin.
-
-`BM'
-     Bermuda.
-
-`BN'
-     Brunei.
-
-`BO'
-     Bolivia.
-
-`BR'
-     Brazil.
-
-`BS'
-     Bahamas.
-
-`BT'
-     Bhutan.
-
-`BV'
-     Bouvet Island.
-
-`BW'
-     Botswana.
-
-`BY'
-     Belarus.
-
-`BZ'
-     Belize.
-
-`CA'
-     Canada.
-
-`CC'
-     Cocos (Keeling) Islands.
-
-`CD'
-     Congo (Dem. Rep.).
-
-`CF'
-     Central African Rep..
-
-`CG'
-     Congo (Rep.).
-
-`CH'
-     Switzerland.
-
-`CI'
-     Cote d'Ivoire.
-
-`CK'
-     Cook Islands.
-
-`CL'
-     Chile.
-
-`CM'
-     Cameroon.
-
-`CN'
-     China.
-
-`CO'
-     Colombia.
-
-`CR'
-     Costa Rica.
-
-`CU'
-     Cuba.
-
-`CV'
-     Cape Verde.
-
-`CX'
-     Christmas Island.
-
-`CY'
-     Cyprus.
-
-`CZ'
-     Czech Republic.
-
-`DE'
-     Germany.
-
-`DJ'
-     Djibouti.
-
-`DK'
-     Denmark.
-
-`DM'
-     Dominica.
-
-`DO'
-     Dominican Republic.
-
-`DZ'
-     Algeria.
-
-`EC'
-     Ecuador.
-
-`EE'
-     Estonia.
-
-`EG'
-     Egypt.
-
-`EH'
-     Western Sahara.
-
-`ER'
-     Eritrea.
-
-`ES'
-     Spain.
-
-`ET'
-     Ethiopia.
-
-`FI'
-     Finland.
-
-`FJ'
-     Fiji.
-
-`FK'
-     Falkland Islands.
-
-`FM'
-     Micronesia.
-
-`FO'
-     Faeroe Islands.
-
-`FR'
-     France.
-
-`GA'
-     Gabon.
-
-`GB'
-     Britain (UK).
-
-`GD'
-     Grenada.
-
-`GE'
-     Georgia.
-
-`GF'
-     French Guiana.
-
-`GH'
-     Ghana.
-
-`GI'
-     Gibraltar.
-
-`GL'
-     Greenland.
-
-`GM'
-     Gambia.
-
-`GN'
-     Guinea.
-
-`GP'
-     Guadeloupe.
-
-`GQ'
-     Equatorial Guinea.
-
-`GR'
-     Greece.
-
-`GS'
-     South Georgia and the South Sandwich Islands.
-
-`GT'
-     Guatemala.
-
-`GU'
-     Guam.
-
-`GW'
-     Guinea-Bissau.
-
-`GY'
-     Guyana.
-
-`HK'
-     Hong Kong.
-
-`HM'
-     Heard Island and McDonald Islands.
-
-`HN'
-     Honduras.
-
-`HR'
-     Croatia.
-
-`HT'
-     Haiti.
-
-`HU'
-     Hungary.
-
-`ID'
-     Indonesia.
-
-`IE'
-     Ireland.
-
-`IL'
-     Israel.
-
-`IN'
-     India.
-
-`IO'
-     British Indian Ocean Territory.
-
-`IQ'
-     Iraq.
-
-`IR'
-     Iran.
-
-`IS'
-     Iceland.
-
-`IT'
-     Italy.
-
-`JM'
-     Jamaica.
-
-`JO'
-     Jordan.
-
-`JP'
-     Japan.
-
-`KE'
-     Kenya.
-
-`KG'
-     Kyrgyzstan.
-
-`KH'
-     Cambodia.
-
-`KI'
-     Kiribati.
-
-`KM'
-     Comoros.
-
-`KN'
-     St Kitts and Nevis.
-
-`KP'
-     Korea (North).
-
-`KR'
-     Korea (South).
-
-`KW'
-     Kuwait.
-
-`KY'
-     Cayman Islands.
-
-`KZ'
-     Kazakhstan.
-
-`LA'
-     Laos.
-
-`LB'
-     Lebanon.
-
-`LC'
-     St Lucia.
-
-`LI'
-     Liechtenstein.
-
-`LK'
-     Sri Lanka.
-
-`LR'
-     Liberia.
-
-`LS'
-     Lesotho.
-
-`LT'
-     Lithuania.
-
-`LU'
-     Luxembourg.
-
-`LV'
-     Latvia.
-
-`LY'
-     Libya.
-
-`MA'
-     Morocco.
-
-`MC'
-     Monaco.
-
-`MD'
-     Moldova.
-
-`MG'
-     Madagascar.
-
-`MH'
-     Marshall Islands.
-
-`MK'
-     Macedonia.
-
-`ML'
-     Mali.
-
-`MM'
-     Myanmar (Burma).
-
-`MN'
-     Mongolia.
-
-`MO'
-     Macao.
-
-`MP'
-     Northern Mariana Islands.
-
-`MQ'
-     Martinique.
-
-`MR'
-     Mauritania.
-
-`MS'
-     Montserrat.
-
-`MT'
-     Malta.
-
-`MU'
-     Mauritius.
-
-`MV'
-     Maldives.
-
-`MW'
-     Malawi.
-
-`MX'
-     Mexico.
-
-`MY'
-     Malaysia.
-
-`MZ'
-     Mozambique.
-
-`NA'
-     Namibia.
-
-`NC'
-     New Caledonia.
-
-`NE'
-     Niger.
-
-`NF'
-     Norfolk Island.
-
-`NG'
-     Nigeria.
-
-`NI'
-     Nicaragua.
-
-`NL'
-     Netherlands.
-
-`NO'
-     Norway.
-
-`NP'
-     Nepal.
-
-`NR'
-     Nauru.
-
-`NU'
-     Niue.
-
-`NZ'
-     New Zealand.
-
-`OM'
-     Oman.
-
-`PA'
-     Panama.
-
-`PE'
-     Peru.
-
-`PF'
-     French Polynesia.
-
-`PG'
-     Papua New Guinea.
-
-`PH'
-     Philippines.
-
-`PK'
-     Pakistan.
-
-`PL'
-     Poland.
-
-`PM'
-     St Pierre and Miquelon.
-
-`PN'
-     Pitcairn.
-
-`PR'
-     Puerto Rico.
-
-`PS'
-     Palestine.
-
-`PT'
-     Portugal.
-
-`PW'
-     Palau.
-
-`PY'
-     Paraguay.
-
-`QA'
-     Qatar.
-
-`RE'
-     Reunion.
-
-`RO'
-     Romania.
-
-`RU'
-     Russia.
-
-`RW'
-     Rwanda.
-
-`SA'
-     Saudi Arabia.
-
-`SB'
-     Solomon Islands.
-
-`SC'
-     Seychelles.
-
-`SD'
-     Sudan.
-
-`SE'
-     Sweden.
-
-`SG'
-     Singapore.
-
-`SH'
-     St Helena.
-
-`SI'
-     Slovenia.
-
-`SJ'
-     Svalbard and Jan Mayen.
-
-`SK'
-     Slovakia.
-
-`SL'
-     Sierra Leone.
-
-`SM'
-     San Marino.
-
-`SN'
-     Senegal.
-
-`SO'
-     Somalia.
-
-`SR'
-     Suriname.
-
-`ST'
-     Sao Tome and Principe.
-
-`SV'
-     El Salvador.
-
-`SY'
-     Syria.
-
-`SZ'
-     Swaziland.
-
-`TC'
-     Turks and Caicos Is.
-
-`TD'
-     Chad.
-
-`TF'
-     French Southern and Antarctic Lands.
-
-`TG'
-     Togo.
-
-`TH'
-     Thailand.
-
-`TJ'
-     Tajikistan.
-
-`TK'
-     Tokelau.
-
-`TM'
-     Turkmenistan.
-
-`TN'
-     Tunisia.
-
-`TO'
-     Tonga.
-
-`TP'
-     East Timor.
-
-`TR'
-     Turkey.
-
-`TT'
-     Trinidad and Tobago.
-
-`TV'
-     Tuvalu.
-
-`TW'
-     Taiwan.
-
-`TZ'
-     Tanzania.
-
-`UA'
-     Ukraine.
-
-`UG'
-     Uganda.
-
-`UM'
-     US minor outlying islands.
-
-`US'
-     United States.
-
-`UY'
-     Uruguay.
-
-`UZ'
-     Uzbekistan.
-
-`VA'
-     Vatican City.
-
-`VC'
-     St Vincent.
-
-`VE'
-     Venezuela.
-
-`VG'
-     Virgin Islands (UK).
-
-`VI'
-     Virgin Islands (US).
-
-`VN'
-     Vietnam.
-
-`VU'
-     Vanuatu.
-
-`WF'
-     Wallis and Futuna.
-
-`WS'
-     Samoa (Western).
-
-`YE'
-     Yemen.
-
-`YT'
-     Mayotte.
-
-`YU'
-     Yugoslavia.
-
-`ZA'
-     South Africa.
-
-`ZM'
-     Zambia.
-
-`ZW'
-     Zimbabwe.
-
+File: gettext.info,  Node: Trans Intro 0,  Next: Trans Intro 1,  Prev: Translators,  Up: Translators
+
+Introduction 0
+==============
+
+   Free software is going international!  The Translation Project is a
+way to get maintainers, translators and users all together, so free
+software will gradually become able to speak many native languages.
+
+   The GNU `gettext' tool set contains _everything_ maintainers need
+for internationalizing their packages for messages.  It also contains
+quite useful tools for helping translators at localizing messages to
+their native language, once a package has already been
+internationalized.
+
+   To achieve the Translation Project, we need many interested people
+who like their own language and write it well, and who are also able to
+synergize with other translators speaking the same language.  If you'd
+like to volunteer to _work_ at translating messages, please send mail
+to your translating team.
+
+   Each team has its own mailing list, courtesy of Linux International.
+You may reach your translating team at the address `LL@li.org',
+replacing LL by the two-letter ISO 639 code for your language.
+Language codes are _not_ the same as country codes given in ISO 3166.
+The following translating teams exist:
+
+     Chinese `zh', Czech `cs', Danish `da', Dutch `nl', Esperanto `eo',
+     Finnish `fi', French `fr', Irish `ga', German `de', Greek `el',
+     Italian `it', Japanese `ja', Indonesian `in', Norwegian `no',
+     Polish `pl', Portuguese `pt', Russian `ru', Spanish `es', Swedish
+     `sv' and Turkish `tr'.
+
+For example, you may reach the Chinese translating team by writing to
+`zh@li.org'.  When you become a member of the translating team for your
+own language, you may subscribe to its list.  For example, Swedish
+people can send a message to `sv-request@li.org', having this message
+body:
+
+     subscribe
+
+   Keep in mind that team members should be interested in _working_ at
+translations, or at solving translational difficulties, rather than
+merely lurking around.  If your team does not exist yet and you want to
+start one, please write to `translation@iro.umontreal.ca'; you will
+then reach the coordinator for all translator teams.
+
+   A handful of GNU packages have already been adapted and provided
+with message translations for several languages.  Translation teams
+have begun to organize, using these packages as a starting point.  But
+there are many more packages and many languages for which we have no
+volunteer translators.  If you would like to volunteer to work at
+translating messages, please send mail to
+`translation@iro.umontreal.ca' indicating what language(s) you can work
+on.
 

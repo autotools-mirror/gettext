@@ -31,6 +31,113 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: Main PO Commands,  Next: Entry Positioning,  Prev: PO Files,  Up: Basics
+
+Main PO mode Commands
+=====================
+
+   After setting up Emacs with something similar to the lines in *Note
+Installation::, PO mode is activated for a window when Emacs finds a PO
+file in that window.  This puts the window read-only and establishes a
+po-mode-map, which is a genuine Emacs mode, in a way that is not derived
+from text mode in any way.  Functions found on `po-mode-hook', if any,
+will be executed.
+
+   When PO mode is active in a window, the letters `PO' appear in the
+mode line for that window.  The mode line also displays how many
+entries of each kind are held in the PO file.  For example, the string
+`132t+3f+10u+2o' would tell the translator that the PO mode contains
+132 translated entries (*note Translated Entries::, 3 fuzzy entries
+(*note Fuzzy Entries::), 10 untranslated entries (*note Untranslated
+Entries::) and 2 obsolete entries (*note Obsolete Entries::).
+Zero-coefficients items are not shown.  So, in this example, if the
+fuzzy entries were unfuzzied, the untranslated entries were translated
+and the obsolete entries were deleted, the mode line would merely
+display `145t' for the counters.
+
+   The main PO commands are those which do not fit into the other
+categories of subsequent sections.  These allow for quitting PO mode or
+for managing windows in special ways.
+
+`_'
+     Undo last modification to the PO file (`po-undo').
+
+`Q'
+     Quit processing and save the PO file (`po-quit').
+
+`q'
+     Quit processing, possibly after confirmation
+     (`po-confirm-and-quit').
+
+`0'
+     Temporary leave the PO file window (`po-other-window').
+
+`?'
+`h'
+     Show help about PO mode (`po-help').
+
+`='
+     Give some PO file statistics (`po-statistics').
+
+`V'
+     Batch validate the format of the whole PO file (`po-validate').
+
+   The command `_' (`po-undo') interfaces to the Emacs _undo_ facility.
+*Note Undoing Changes: (emacs)Undo.  Each time `U' is typed,
+modifications which the translator did to the PO file are undone a
+little more.  For the purpose of undoing, each PO mode command is
+atomic.  This is especially true for the `<RET>' command: the whole
+edition made by using a single use of this command is undone at once,
+even if the edition itself implied several actions.  However, while in
+the editing window, one can undo the edition work quite parsimoniously.
+
+   The commands `Q' (`po-quit') and `q' (`po-confirm-and-quit') are
+used when the translator is done with the PO file.  The former is a bit
+less verbose than the latter.  If the file has been modified, it is
+saved to disk first.  In both cases, and prior to all this, the
+commands check if some untranslated message remains in the PO file and,
+if yes, the translator is asked if she really wants to leave off
+working with this PO file.  This is the preferred way of getting rid of
+an Emacs PO file buffer.  Merely killing it through the usual command
+`C-x k' (`kill-buffer') is not the tidiest way to proceed.
+
+   The command `0' (`po-other-window') is another, softer way, to leave
+PO mode, temporarily.  It just moves the cursor to some other Emacs
+window, and pops one if necessary.  For example, if the translator just
+got PO mode to show some source context in some other, she might
+discover some apparent bug in the program source that needs correction.
+This command allows the translator to change sex, become a programmer,
+and have the cursor right into the window containing the program she
+(or rather _he_) wants to modify.  By later getting the cursor back in
+the PO file window, or by asking Emacs to edit this file once again, PO
+mode is then recovered.
+
+   The command `h' (`po-help') displays a summary of all available PO
+mode commands.  The translator should then type any character to resume
+normal PO mode operations.  The command `?' has the same effect as `h'.
+
+   The command `=' (`po-statistics') computes the total number of
+entries in the PO file, the ordinal of the current entry (counted from
+1), the number of untranslated entries, the number of obsolete entries,
+and displays all these numbers.
+
+   The command `V' (`po-validate') launches `msgfmt' in checking and
+verbose mode over the current PO file.  This command first offers to
+save the current PO file on disk.  The `msgfmt' tool, from GNU
+`gettext', has the purpose of creating a MO file out of a PO file, and
+PO mode uses the features of this program for checking the overall
+format of a PO file, as well as all individual entries.
+
+   The program `msgfmt' runs asynchronously with Emacs, so the
+translator regains control immediately while her PO file is being
+studied.  Error output is collected in the Emacs `*compilation*' buffer,
+displayed in another window.  The regular Emacs command `C-x`'
+(`next-error'), as well as other usual compile commands, allow the
+translator to reposition quickly to the offending parts of the PO file.
+Once the cursor is on the line in error, the translator may decide on
+any PO mode action which would help correcting the error.
+
+
 File: gettext.info,  Node: Entry Positioning,  Next: Normalizing,  Prev: Main PO Commands,  Up: Basics
 
 Entry Positioning
@@ -46,33 +153,34 @@ selects on which entry commands operate.
 
    Some PO mode commands alter the position of the cursor in a
 specialized way.  A few of those special purpose positioning are
-described here, the others are described in following sections.
+described here, the others are described in following sections (for a
+complete list try `C-h m'):
 
 `.'
-     Redisplay the current entry.
+     Redisplay the current entry (`po-current-entry').
 
 `n'
-`n'
-     Select the entry after the current one.
+     Select the entry after the current one (`po-next-entry').
 
 `p'
-`p'
-     Select the entry before the current one.
+     Select the entry before the current one (`po-previous-entry').
 
 `<'
-     Select the first entry in the PO file.
+     Select the first entry in the PO file (`po-first-entry').
 
 `>'
-     Select the last entry in the PO file.
+     Select the last entry in the PO file (`po-last-entry').
 
 `m'
-     Record the location of the current entry for later use.
+     Record the location of the current entry for later use
+     (`po-push-location').
 
-`l'
-     Return to a previously saved entry location.
+`r'
+     Return to a previously saved entry location (`po-pop-location').
 
 `x'
-     Exchange the current entry location with the previously saved one.
+     Exchange the current entry location with the previously saved one
+     (`po-exchange-location').
 
    Any Emacs command able to reposition the cursor may be used to
 select the current entry in PO mode, including commands which move by
@@ -456,15 +564,15 @@ you mark strings as translatable in your program sources.
 
 `,'
      Search through program sources for a string which looks like a
-     candidate for translation.
+     candidate for translation (`po-tags-search').
 
 `M-,'
-     Mark the last string found with `_()'.
+     Mark the last string found with `_()' (`po-mark-translatable').
 
 `M-.'
      Mark the last string found with a keyword taken from a set of
      possible keywords.  This command with a prefix allows some
-     management of these keywords.
+     management of these keywords (`po-select-mark-and-mark').
 
    The `,' (`po-tags-search') command searches for the next occurrence
 of a string which looks like a possible candidate for translation, and
@@ -736,64 +844,89 @@ File: gettext.info,  Node: xgettext Invocation,  Prev: Template,  Up: Template
 Invoking the `xgettext' Program
 ===============================
 
-     xgettext [OPTION] INPUTFILE ...
+     xgettext [OPTION] [INPUTFILE] ...
 
-`-a'
-`--extract-all'
-     Extract all strings.
+   The `xgettext' program extracts translatable strings from given
+input files.
 
-`-c [TAG]'
-`--add-comments[=TAG]'
-     Place comment block with TAG (or those preceding keyword lines) in
-     output file.
+Input file location
+-------------------
 
-`-C'
-`--c++'
-     Recognize C++ style comments.
-
-`--debug'
-     Use the flags `c-format' and `possible-c-format' to show who was
-     responsible for marking a message as a format string.  The latter
-     form is used if the `xgettext' program decided, the format form is
-     used if the programmer prescribed it.
-
-     By default only the `c-format' form is used.  The translator should
-     not have to care about these details.
-
-`-d NAME'
-`--default-domain=NAME'
-     Use `NAME.po' for output (instead of `messages.po').
-
-     The special domain name `-' or `/dev/stdout' means to write the
-     output to `stdout'.
-
-`-D DIRECTORY'
-`--directory=DIRECTORY'
-     Change to DIRECTORY before beginning to search and scan source
-     files.  The resulting `.po' file will be written relative to the
-     original directory, though.
+`INPUTFILE ...'
+     Input files.
 
 `-f FILE'
 `--files-from=FILE'
      Read the names of the input files from FILE instead of getting
      them from the command line.
 
-`--force'
-     Always write an output file even if no message is defined.
+`-D DIRECTORY'
+`--directory=DIRECTORY'
+     Add DIRECTORY to the list of directories.  Source files are
+     searched relative to this list of directories.  The resulting `.po'
+     file will be written relative to the current directory, though.
 
-`-h'
-`--help'
-     Display this help and exit.
+   If INPUTFILE is `-', standard input is read.
 
-`-I LIST'
-`--input-path=LIST'
-     List of directories searched for input files.
+Output file location
+--------------------
+
+`-d NAME'
+`--default-domain=NAME'
+     Use `NAME.po' for output (instead of `messages.po').
+
+`-o FILE'
+`--output=FILE'
+     Write output to specified file (instead of `NAME.po' or
+     `messages.po').
+
+`-p DIR'
+`--output-dir=DIR'
+     Output files will be placed in directory DIR.
+
+   If the output FILE is `-' or `/dev/stdout', the output is written to
+standard output.
+
+Choice of input file language
+-----------------------------
+
+`-L NAME'
+`--language=NAME'
+     Specifies the language of the input files.  The supported languages
+     are `C', `C++', `ObjectiveC', `PO', `Java', `YCP'.
+
+`-C'
+`--c++'
+     This is a shorthand for `--language=C++'.
+
+   By default the language is guessed depending on the input file name
+extension.
+
+Operation mode
+--------------
 
 `-j'
 `--join-existing'
      Join messages with existing file.
 
-`-k WORD'
+`-x FILE'
+`--exclude-file=FILE'
+     Entries from FILE are not extracted.  FILE should be a PO or POT
+     file.
+
+`-c [TAG]'
+`--add-comments[=TAG]'
+     Place comment block with TAG (or those preceding keyword lines) in
+     output file.
+
+Language=C/C++ specific options
+-------------------------------
+
+`-a'
+`--extract-all'
+     Extract all strings.
+
+`-k KEYWORDSPEC'
 `--keyword[=KEYWORDSPEC]'
      Additional keyword to be looked for (without KEYWORDSPEC means not
      to use default keywords).
@@ -812,13 +945,32 @@ Invoking the `xgettext' Program
      `dcgettext:2', `ngettext:1,2', `dngettext:2,3', `dcngettext:2,3',
      and `gettext_noop'.
 
-`-m [STRING]'
-`--msgstr-prefix[=STRING]'
-     Use STRING or "" as prefix for msgstr entries.
+`-T'
+`--trigraphs'
+     Understand ANSI C trigraphs for input.
 
-`-M [STRING]'
-`--msgstr-suffix[=STRING]'
-     Use STRING or "" as suffix for msgstr entries.
+`--debug'
+     Use the flags `c-format' and `possible-c-format' to show who was
+     responsible for marking a message as a format string.  The latter
+     form is used if the `xgettext' program decided, the format form is
+     used if the programmer prescribed it.
+
+     By default only the `c-format' form is used.  The translator should
+     not have to care about these details.
+
+   This implementation of `xgettext' is able to process a few awkward
+cases, like strings in preprocessor macros, ANSI concatenation of
+adjacent strings, and escaped end of lines for continued strings.
+
+Output details
+--------------
+
+`--force-po'
+     Always write an output file even if no message is defined.
+
+`-i'
+`--indent'
+     Write the .po file using indented style.
 
 `--no-location'
      Do not write `#: FILENAME:LINE' lines.
@@ -827,41 +979,57 @@ Invoking the `xgettext' Program
 `--add-location'
      Generate `#: FILENAME:LINE' lines (default).
 
+`--strict'
+     Write out a strict Uniforum conforming PO file.  Note that this
+     Uniforum format should be avoided because it doesn't support the
+     GNU extensions.
+
+`-w NUMBER'
+`--width=NUMBER'
+     Set the output page width.  Long strings in the output files will
+     be split across multiple lines in order to ensure that each line's
+     width (= number of screen columns) is less or equal to the given
+     NUMBER.
+
+`-s'
+`--sort-output'
+     Generate sorted output.  Note that using this option makes it much
+     harder for the translator to understand each message's context.
+
+`-F'
+`--sort-by-file'
+     Sort output by file location.
+
 `--omit-header'
      Don't write header with `msgid ""' entry.
 
      This is useful for testing purposes because it eliminates a source
-     of variance for generated `.gmo' files.  We can ship some of these
-     files in the GNU `gettext' package, and the result of regenerating
-     them through `msgfmt' should yield the same values.
+     of variance for generated `.gmo' files.  With `--omit-header', two
+     invocations of `xgettext' on the same files with the same options
+     at different times are guaranteed to produce the same results.
 
-`-p DIR'
-`--output-dir=DIR'
-     Output files will be placed in directory DIR.
+`--foreign-user'
+     Omit FSF copyright in output.  This can be useful for translators
+     outside the GNU project.
 
-`-s'
-`--sort-output'
-     Generate sorted output and remove duplicates.
+`-m [STRING]'
+`--msgstr-prefix[=STRING]'
+     Use STRING (or "" if not specified) as prefix for msgstr entries.
 
-`--strict'
-     Write out a strict Uniforum conforming PO file.
+`-M [STRING]'
+`--msgstr-suffix[=STRING]'
+     Use STRING (or "" if not specified) as suffix for msgstr entries.
 
-`-v'
+Informative output
+------------------
+
+`-h'
+`--help'
+     Display this help and exit.
+
+`-V'
 `--version'
      Output version information and exit.
-
-`-x FILE'
-`--exclude-file=FILE'
-     Entries from FILE are not extracted.
-
-   Search path for supplementary PO files is:
-`/usr/local/share/nls/src/'.
-
-   If INPUTFILE is `-', standard input is read.
-
-   This implementation of `xgettext' is able to process a few awkward
-cases, like strings in preprocessor macros, ANSI concatenation of
-adjacent strings, and escaped end of lines for continued strings.
 
 
 File: gettext.info,  Node: Creating,  Next: Updating,  Prev: Template,  Up: Top
@@ -869,324 +1037,89 @@ File: gettext.info,  Node: Creating,  Next: Updating,  Prev: Template,  Up: Top
 Creating a New PO File
 **********************
 
-   When starting a new translation, the translator copies the
-`PACKAGE.pot' template file to a file called `LANG.po'.  Then she
+   When starting a new translation, the translator creates a file called
+`LANG.po', as a copy of the `PACKAGE.pot' template file with
+modifications in the initial comments (at the beginning of the file)
+and in the header entry (the first entry, near the beginning of the
+file).
+
+   The easiest way to do so is by use of the `msginit' program.  For
+example:
+
+     $ cd PACKAGE-VERSION
+     $ cd po
+     $ msginit --verbose
+
+   The alternative way is to do the copy and modifications by hand.  To
+do so, the translator copies `PACKAGE.pot' to `LANG.po'.  Then she
 modifies the initial comments and the header entry of this file.
-
-   The initial comments "SOME DESCRIPTIVE TITLE", "YEAR" and "FIRST
-AUTHOR <EMAIL@ADDRESS>, YEAR" ought to be replaced by sensible
-information.  This can be done in any text editor; if Emacs is used and
-it switched to PO mode automatically (because it has recognized the
-file's suffix), you can disable it by typing `M-x fundamental-mode'.
-
-   Modifying the header entry can already be done using PO mode: in
-Emacs, type `M-x po-mode RET' and then `RET' again to start editing the
-entry.  You should fill in the following fields.
-
-Project-Id-Version
-     This is the name and version of the package.
-
-POT-Creation-Date
-     This has already been filled in by `xgettext'.
-
-PO-Revision-Date
-     You don't need to fill this in. It will be filled by the Emacs PO
-     mode when you save the file.
-
-Last-Translator
-     Fill in your name and email address (without double quotes).
-
-Language-Team
-     Fill in the English name of the language, and the email address of
-     the language team you are part of.
-
-     Before starting a translation, it is a good idea to get in touch
-     with your translation team, not only to make sure you don't do
-     duplicated work, but also to coordinate difficult linguistic
-     issues.
-
-     In the Free Translation Project, each translation team has its own
-     mailing list.  The up-to-date list of teams can be found at the
-     Free Translation Project's homepage,
-     `http://www.iro.umontreal.ca/contrib/po/HTML/', in the "National
-     teams" area.
-
-Content-Type
-     Replace `CHARSET' with the character encoding used for your
-     language, in your locale, or UTF-8.  This field is needed for
-     correct operation of the `msgmerge' and `msgfmt' programs, as well
-     as for users whose locale's character encoding differs from yours
-     (see *Note Charset conversion::).
-
-     You get the character encoding of your locale by running the shell
-     command `locale charmap'.  If the result is `C' or
-     `ANSI_X3.4-1968', which is equivalent to `ASCII' (= `US-ASCII'),
-     it means that your locale is not correctly configured.  In this
-     case, ask your translation team which charset to use.  `ASCII' is
-     not usable for any language except Latin.
-
-     Because the PO files must be portable to operating systems with
-     less advanced internationalization facilities, the character
-     encodings that can be used are limited to those supported by both
-     GNU `libc' and GNU `libiconv'. These are: `ASCII', `ISO-8859-1',
-     `ISO-8859-2', `ISO-8859-3', `ISO-8859-4', `ISO-8859-5',
-     `ISO-8859-6', `ISO-8859-7', `ISO-8859-8', `ISO-8859-9',
-     `ISO-8859-13', `ISO-8859-15', `KOI8-R', `KOI8-U', `CP850',
-     `CP866', `CP874', `CP932', `CP949', `CP950', `CP1250', `CP1251',
-     `CP1252', `CP1253', `CP1254', `CP1255', `CP1256', `CP1257',
-     `GB2312', `EUC-JP', `EUC-KR', `EUC-TW', `BIG5', `BIG5HKSCS',
-     `GBK', `GB18030', `SJIS', `JOHAB', `TIS-620', `VISCII', `UTF-8'.
-
-     In the GNU system, the following encodings are frequently used for
-     the corresponding languages.
-
-        * `ISO-8859-1' for  Afrikaans, Albanian, Basque, Catalan,
-          Dutch, English, Estonian, Faroese,  Finnish, French,
-          Galician, German, Greenlandic, Icelandic, Indonesian,  Irish,
-          Italian, Malay, Norwegian, Portuguese, Spanish, Swedish,
-
-        * `ISO-8859-2' for  Croatian, Czech, Hungarian, Polish,
-          Romanian, Serbian, Slovak, Slovenian,
-
-        * `ISO-8859-3' for Maltese,
-
-        * `ISO-8859-5' for Macedonian, Serbian,
-
-        * `ISO-8859-6' for Arabic,
-
-        * `ISO-8859-7' for Greek,
-
-        * `ISO-8859-8' for Hebrew,
-
-        * `ISO-8859-9' for Turkish,
-
-        * `ISO-8859-13' for Latvian, Lithuanian,
-
-        * `ISO-8859-15' for  Basque, Catalan, Dutch, English, Finnish,
-          French, Galician, German, Irish,  Italian, Portuguese,
-          Spanish, Swedish,
-
-        * `KOI8-R' for Russian,
-
-        * `KOI8-U' for Ukrainian,
-
-        * `CP1251' for Bulgarian, Byelorussian,
-
-        * `GB2312', `GBK', `GB18030'  for simplified writing of Chinese,
-
-        * `BIG5', `BIG5HKSCS'  for traditional writing of Chinese,
-
-        * `EUC-JP' for Japanese,
-
-        * `EUC-KR' for Korean,
-
-        * `TIS-620' for Thai,
-
-        * `UTF-8' for any language, including those listed above.
-
-     When single quote characters or double quote characters are used in
-     translations for your language, and your locale's encoding is one
-     of the ISO-8859-* charsets, it is best if you create your PO files
-     in UTF-8 encoding, instead of your locale's encoding.  This is
-     because in UTF-8 the real quote characters can be represented
-     (single quote characters: U+2018, U+2019, double quote characters:
-     U+201C, U+201D), whereas none of ISO-8859-* charsets has them all.
-     Users in UTF-8 locales will see the real quote characters,
-     whereas users in ISO-8859-* locales will see the vertical
-     apostrophe and the vertical double quote instead (because that's
-     what the character set conversion will transliterate them to).
-
-     To enter such quote characters under X11, you can change your
-     keyboard mapping using the `xmodmap' program.  The X11 names of
-     the quote characters are "leftsinglequotemark",
-     "rightsinglequotemark", "leftdoublequotemark",
-     "rightdoublequotemark", "singlelowquotemark", "doublelowquotemark".
-
-     Note that only recent versions of GNU Emacs support the UTF-8
-     encoding: Emacs 20 with Mule-UCS, and Emacs 21.  As of January
-     2001, XEmacs doesn't support the UTF-8 encoding.
-
-     The character encoding name can be written in either upper or
-     lower case.  Usually upper case is preferred.
-
-Content-Transfer-Encoding
-     Set this to `8-bit'.
-
-Plural-Forms
-     This field is optional.  It is only needed if the PO file has
-     plural forms.  You can find them by searching for the
-     `msgid_plural' keyword.  The format of the plural forms field is
-     described in *Note Plural forms::.
-
-
-File: gettext.info,  Node: Updating,  Next: Binaries,  Prev: Creating,  Up: Top
-
-Updating Existing PO Files
-**************************
 
 * Menu:
 
-* msgmerge Invocation::         Invoking the `msgmerge' Program
-* Translated Entries::          Translated Entries
-* Fuzzy Entries::               Fuzzy Entries
-* Untranslated Entries::        Untranslated Entries
-* Obsolete Entries::            Obsolete Entries
-* Modifying Translations::      Modifying Translations
-* Modifying Comments::          Modifying Comments
-* Subedit::                     Mode for Editing Translations
-* C Sources Context::           C Sources Context
-* Auxiliary::                   Consulting Auxiliary PO Files
-* Compendium::                  Using Translation Compendiums
+* msginit Invocation::          Invoking the `msginit' Program
+* Header Entry::                Filling in the Header Entry
 
 
-File: gettext.info,  Node: msgmerge Invocation,  Next: Translated Entries,  Prev: Updating,  Up: Updating
+File: gettext.info,  Node: msginit Invocation,  Next: Header Entry,  Prev: Creating,  Up: Creating
 
-Invoking the `msgmerge' Program
-===============================
+Invoking the `msginit' Program
+==============================
 
-
-File: gettext.info,  Node: Translated Entries,  Next: Fuzzy Entries,  Prev: msgmerge Invocation,  Up: Updating
+     msginit [OPTION]
 
-Translated Entries
-==================
+   The `msginit' program creates a new PO file, initializing the meta
+information with values from the user's environment.
 
-   Each PO file entry for which the `msgstr' field has been filled with
-a translation, and which is not marked as fuzzy (*note Fuzzy Entries::),
-is a said to be a "translated" entry.  Only translated entries will
-later be compiled by GNU `msgfmt' and become usable in programs.  Other
-entry types will be excluded; translation will not occur for them.
+Input file location
+-------------------
 
-   Some commands are more specifically related to translated entry
-processing.
+`-i INPUTFILE'
+`--input=INPUTFILE'
+     Input POT file.
 
-`t'
-     Find the next translated entry.
+   If no INPUTFILE is given, the current directory is searched for the
+POT file.  If it is `-', standard input is read.
 
-`M-t'
-     Find the previous translated entry.
+Output file location
+--------------------
 
-   The commands `t' (`po-next-translated-entry') and `M-t'
-(`po-previous-transted-entry') move forwards or backwards, chasing for
-an translated entry.  If none is found, the search is extended and
-wraps around in the PO file buffer.
+`-o FILE'
+`--output-file=FILE'
+     Write output to specified PO file.
 
-   Translated entries usually result from the translator having edited
-in a translation for them, *Note Modifying Translations::.  However, if
-the variable `po-auto-fuzzy-on-edit' is not `nil', the entry having
-received a new translation first becomes a fuzzy entry, which ought to
-be later unfuzzied before becoming an official, genuine translated
-entry.  *Note Fuzzy Entries::.
+   If no output file is given, it depends on the `--locale' option or
+the user's locale setting.  If it is `-', the results are written to
+standard output.
 
-
-File: gettext.info,  Node: Fuzzy Entries,  Next: Untranslated Entries,  Prev: Translated Entries,  Up: Updating
+Output details
+--------------
 
-Fuzzy Entries
-=============
+`-l LL_CC'
+`--locale=LL_CC'
+     Set target locale.  LL should be a language code, and CC should be
+     a country code.  The command `locale -a' can be used to output a
+     list of all installed locales.  The default is the user's locale
+     setting.
 
-   Each PO file entry may have a set of "attributes", which are
-qualities given a name and explicitely associated with the translation,
-using a special system comment.  One of these attributes has the name
-`fuzzy', and entries having this attribute are said to have a fuzzy
-translation.  They are called fuzzy entries, for short.
+`--no-translator'
+     Declares that the PO file will not have a human translator and is
+     instead automatically generated.
 
-   Fuzzy entries, even if they account for translated entries for most
-other purposes, usually call for revision by the translator.  Those may
-be produced by applying the program `msgmerge' to update an older
-translated PO files according to a new PO template file, when this tool
-hypothesises that some new `msgid' has been modified only slightly out
-of an older one, and chooses to pair what it thinks to be the old
-translation for the new modified entry.  The slight alteration in the
-original string (the `msgid' string) should often be reflected in the
-translated string, and this requires the intervention of the
-translator.  For this reason, `msgmerge' might mark some entries as
-being fuzzy.
+`-w NUMBER'
+`--width=NUMBER'
+     Set the output page width.  Long strings in the output files will
+     be split across multiple lines in order to ensure that each line's
+     width (= number of screen columns) is less or equal to the given
+     NUMBER.
 
-   Also, the translator may decide herself to mark an entry as fuzzy
-for her own convenience, when she wants to remember that the entry has
-to be later revisited.  So, some commands are more specifically related
-to fuzzy entry processing.
+Informative output
+------------------
 
-`f'
-     Find the next fuzzy entry.
+`-h'
+`--help'
+     Display this help and exit.
 
-`M-f'
-     Find the previous fuzzy entry.
-
-`<TAB>'
-     Remove the fuzzy attribute of the current entry.
-
-   The commands `f' (`po-next-fuzzy') and `M-f' (`po-previous-fuzzy')
-move forwards or backwards, chasing for a fuzzy entry.  If none is
-found, the search is extended and wraps around in the PO file buffer.
-
-   The command `<TAB>' (`po-unfuzzy') removes the fuzzy attribute
-associated with an entry, usually leaving it translated.  Further, if
-the variable `po-auto-select-on-unfuzzy' has not the `nil' value, the
-`<TAB>' command will automatically chase for another interesting entry
-to work on.  The initial value of `po-auto-select-on-unfuzzy' is `nil'.
-
-   The initial value of `po-auto-fuzzy-on-edit' is `nil'.  However, if
-the variable `po-auto-fuzzy-on-edit' is set to `t', any entry edited
-through the `<RET>' command is marked fuzzy, as a way to ensure some
-kind of double check, later.  In this case, the usual paradigm is that
-an entry becomes fuzzy (if not already) whenever the translator
-modifies it.  If she is satisfied with the translation, she then uses
-`<TAB>' to pick another entry to work on, clearing the fuzzy attribute
-on the same blow.  If she is not satisfied yet, she merely uses `<SPC>'
-to chase another entry, leaving the entry fuzzy.
-
-   The translator may also use the `<DEL>' command
-(`po-fade-out-entry') over any translated entry to mark it as being
-fuzzy, when she wants to easily leave a trace she wants to later return
-working at this entry.
-
-   Also, when time comes to quit working on a PO file buffer with the
-`q' command, the translator is asked for confirmation, if fuzzy string
-still exists.
-
-
-File: gettext.info,  Node: Untranslated Entries,  Next: Obsolete Entries,  Prev: Fuzzy Entries,  Up: Updating
-
-Untranslated Entries
-====================
-
-   When `xgettext' originally creates a PO file, unless told otherwise,
-it initializes the `msgid' field with the untranslated string, and
-leaves the `msgstr' string to be empty.  Such entries, having an empty
-translation, are said to be "untranslated" entries.  Later, when the
-programmer slightly modifies some string right in the program, this
-change is later reflected in the PO file by the appearance of a new
-untranslated entry for the modified string.
-
-   The usual commands moving from entry to entry consider untranslated
-entries on the same level as active entries.  Untranslated entries are
-easily recognizable by the fact they end with `msgstr ""'.
-
-   The work of the translator might be (quite naively) seen as the
-process of seeking for an untranslated entry, editing a translation for
-it, and repeating these actions until no untranslated entries remain.
-Some commands are more specifically related to untranslated entry
-processing.
-
-`u'
-     Find the next untranslated entry.
-
-`M-u'
-     Find the previous untranslated entry.
-
-`k'
-     Turn the current entry into an untranslated one.
-
-   The commands `u' (`po-next-untranslated-entry') and `M-u'
-(`po-previous-untransted-entry') move forwards or backwards, chasing
-for an untranslated entry.  If none is found, the search is extended
-and wraps around in the PO file buffer.
-
-   An entry can be turned back into an untranslated entry by merely
-emptying its translation, using the command `k' (`po-kill-msgstr').
-*Note Modifying Translations::.
-
-   Also, when time comes to quit working on a PO file buffer with the
-`q' command, the translator is asked for confirmation, if some
-untranslated string still exists.
+`-V'
+`--version'
+     Output version information and exit.
 
