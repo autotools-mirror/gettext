@@ -1,5 +1,8 @@
 2001-03-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* linebreak.c (iconv_string_length): Don't call
+	iconv(cd,NULL,NULL,NULL,NULL) on glibc-2.1; it crashes.
+
 	* localcharset.c (locale_charset): Allow wildcard syntax. Resolve
 	alias also if codeset is empty.
 	* config.charset (BeOS): Use wildcard syntax.

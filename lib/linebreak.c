@@ -1587,9 +1587,9 @@ iconv_string_length (cd, s, n)
       return (size_t)(-1);
     count += outptr - tmpbuf;
   }
-#endif
-  /* return to the initial state */
+  /* Return to the initial state.  */
   iconv (cd, NULL, NULL, NULL, NULL);
+#endif
   return count;
 #undef TMPBUFSIZE
 }
