@@ -4509,6 +4509,8 @@ EOF
 	    cat >> $cwrappersource<<"EOF"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include <unistd.h>
 #include <malloc.h>
 #include <stdarg.h>
@@ -4584,6 +4586,7 @@ EOF
 EOF
 
 	    cat >> $cwrappersource <<"EOF"
+  return 127;
 }
 
 void *

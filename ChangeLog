@@ -1,3 +1,8 @@
+2003-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* config/ltmain.sh: In the trampoline code, include string.h, ctype.h,
+	and return 127. Fixes warnings on cygwin.
+
 2003-11-23  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Remove ssize_t.m4.
