@@ -4,7 +4,11 @@ Tasks not to forget before release:
   Translation Project.
 
 - Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
-- Update misc/locale.alias from glibc's intl/locale.alias.
+- Update intl/locale.alias from glibc's intl/locale.alias.
+- Update {lib,intl}/{localcharset.c,config.charset} from libcharset inside
+  libiconv.
+
+- Update djgpp/*.
 
 - Update -version-info arguments in intl/Makefile.in.
   * increment LTV_REVISION,
@@ -13,5 +17,5 @@ Tasks not to forget before release:
   * if any functions/classes have been added, increment LTV_AGE,
   * if backwards compatibility has been broken, set LTV_AGE to 0.
 
-- Bump version number in configure.in.
+- Bump version number and release date in configure.in.
 
