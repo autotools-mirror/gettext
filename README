@@ -92,11 +92,7 @@ Some points you might be interested in before installing the package:
     When this is done you will get a runnable xgettext program which
     can be used to recompute gettext.pot.
 
-2.  The package contains a file misc/magic.add.  This is intended to be
-    added to your /etc/magic file.  After adding this the `file' command
-    will recognize GNU message catalog files (.mo files).
-
-3.  If your system's C library already provides the gettext interface
+2.  If your system's C library already provides the gettext interface
     and its associated tools don't come from this package, it might be
     a good idea to configure the package with
         --program-prefix=g
@@ -104,19 +100,19 @@ Some points you might be interested in before installing the package:
     Systems affected by this are:
         Solaris 2.x
 
-4.  Some system have a very dumb^H^H^H^Hstrange version of msgfmt, the
+3.  Some system have a very dumb^H^H^H^Hstrange version of msgfmt, the
     one which comes with xview.  This one is *not* usable.  It's best
     you delete^H^H^H^H^H^Hrename it or install this package as in the
     point above with
 	--program-prefix=g
 
-5.  On some system it is better to have strings aligned (I've been told
+4.  On some system it is better to have strings aligned (I've been told
     Sparcs like strings aligned to 8 byte boundaries).  If you want to
     have the output of msgfmt aligned you can use the -a option.  But you
     also could change the default value to be different from 1.  Take
     a look at the --alignment option of msgfmt.
 
-6.  The locale name alias scheme implemented here is in a similar form
+5.  The locale name alias scheme implemented here is in a similar form
     implemented in the X Window System.  Especially the alias data base
     file can be shared.  Normally this file is found at something like
 
@@ -131,7 +127,7 @@ Some points you might be interested in before installing the package:
     locale.alias.
     In the misc/ subdirectory you find an example for an alias database file.
 
-7.  The msgmerge program performs fuzzy search in the message sets.  It
+6.  The msgmerge program performs fuzzy search in the message sets.  It
     might run a long time on slow systems.  I saw this problem when running
     it on my old i386DX25.  The time can really be several minutes,
     especially if you have long messages and/or a great number of
@@ -139,7 +135,7 @@ Some points you might be interested in before installing the package:
        If you have a faster implementation of the fstrcmp() function and
     want to share it with the rest of use, please contact me.
 
-8.  On some systems it will not be possible to compile this package.
+7.  On some systems it will not be possible to compile this package.
     It is not only this package but any other GNU package, too.  These
     systems do not provide the simplest functionality to run configure.
     Today are known the following systems:
