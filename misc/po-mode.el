@@ -611,10 +611,10 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     ;(JOHAB . ??)
     ;(TIS-620 . th-tis620)
     ;(VISCII . viscii)
-    (UTF-8 . utf-8)        ; requires Mule-UCS in Emacs 20
+    (UTF-8 . utf-8)        ; requires Mule-UCS in Emacs 20, or Emacs 21
     )
-  "How to convert a GNU libc canonical charset name as seen in Content-Type
-into a Mule coding system.")
+  "How to convert a GNU libc/libiconv canonical charset name as seen in
+Content-Type into a Mule coding system.")
 
 (defvar po-auxiliary-list nil
   "List of auxiliary PO files, in completing read format.")
