@@ -1,3 +1,7 @@
+2001-05-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (construct_header): Replace 8-bit with 8bit.
+
 2001-05-15  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcmp.c (main): Call set_program_name instead of assigning
