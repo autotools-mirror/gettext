@@ -1794,10 +1794,10 @@ code above by a sequence of @code{setlocale} lines
 @cindex locale facet, LC_RESPONSES
 @noindent
 On all POSIX conformant systems the locale categories @code{LC_CTYPE},
-@code{LC_COLLATE}, @code{LC_MONETARY}, @code{LC_NUMERIC}, and
-@code{LC_TIME} are available.  On some modern systems there is also a
-locale @code{LC_MESSAGES} which is called on some old, XPG2 compliant
-systems @code{LC_RESPONSES}.
+@code{LC_MESSAGES}, @code{LC_COLLATE}, @code{LC_MONETARY},
+@code{LC_NUMERIC}, and @code{LC_TIME} are available.  On some systems
+which are only ISO C compliant, @code{LC_MESSAGES} is missing, but
+a substitute for it is defined in GNU gettext's @code{<libintl.h>}.
 
 Note that changing the @code{LC_CTYPE} also affects the functions
 declared in the @code{<ctype.h>} standard header.  If this is not
@@ -6818,7 +6818,7 @@ variables. This works on most systems, but not on some operating systems
 with limited shared library support, like SCO.
 
 @item
-GNU @code{libintl} relies on POSIX @code{iconv}. The macro checks for
+GNU @code{libintl} relies on POSIX/XSI @code{iconv}. The macro checks for
 linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
@@ -6853,7 +6853,7 @@ variables in each @file{po/} directory.
 @subsection AM_ICONV in @file{iconv.m4}
 
 @amindex AM_ICONV
-The @code{AM_ICONV} macro tests for the presence of the POSIX
+The @code{AM_ICONV} macro tests for the presence of the POSIX/XSI
 @code{iconv} function family in either the C library or a separate
 @code{libiconv} library. If found, it sets the @code{am_cv_func_iconv}
 variable to @samp{yes}; it defines @code{HAVE_ICONV} to 1 in the autoconf
@@ -7425,7 +7425,7 @@ Use
 @code{xgettext -k_}
 
 @item Formatting with positions
-@code{fprintf "%2$d %1$d"} (POSIX but not C 99)
+@code{fprintf "%2$d %1$d"} (POSIX/XSI but not C 99)
 @*In C++: @code{autosprintf "%2$d %1$d"}
 (@pxref{Top, , Introduction, autosprintf, GNU autosprintf})
 
@@ -7686,7 +7686,7 @@ use
 @code{clisp-xgettext}
 
 @item Formatting with positions
-@code{fprintf "%2$d %1$d"} (POSIX but not C 99)
+@code{fprintf "%2$d %1$d"} (POSIX/XSI but not C 99)
 
 @item Portability
 On platforms without gettext, no translation.

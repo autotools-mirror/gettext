@@ -1,5 +1,10 @@
 2003-05-03  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi: Distinguish between POSIX and POSIX+XSI.
+	Suggested by Paul Eggert.
+
+2003-05-03  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (AM_PO_SUBDIRS): New subsection.
 
 2003-04-25  Bruno Haible  <bruno@clisp.org>
