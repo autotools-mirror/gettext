@@ -1,5 +1,5 @@
 /* Memory allocation on the stack.
-   Copyright (C) 1995, 1999, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1999, 2001-2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 #else
 # ifdef _MSC_VER
 #  include <malloc.h>
-#  alloca _alloca
+#  define alloca _alloca
 # else
 #  if HAVE_ALLOCA_H
 #   include <alloca.h>
