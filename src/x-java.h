@@ -20,7 +20,7 @@
   { "java",    "Java"  },						\
 
 #define SCANNERS_JAVA \
-  { "Java",        scan_java_file, &formatstring_java },		\
+  { "Java",        extract_java, &formatstring_java },			\
 
 extern void extract_java PARAMS ((FILE *fp, const char *real_filename,
 				  const char *logical_filename,

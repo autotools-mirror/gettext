@@ -150,6 +150,14 @@ static const struct option long_options[] =
 };
 
 
+/* The extractors must all be functions returning void and taking three
+   arguments designating the input stream and one message domain list argument
+   in which to add the messages.  */
+typedef void (*extractor_func) PARAMS ((FILE *fp, const char *real_filename,
+					const char *logical_filename,
+					msgdomain_list_ty *mdlp));
+
+
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status))
@@ -167,26 +175,13 @@ static void exclude_directive_message PARAMS ((po_ty *pop, char *msgid,
 static void read_exclusion_file PARAMS ((char *file_name));
 static FILE *xgettext_open PARAMS ((const char *fn, char **logical_file_name_p,
 				    char **real_file_name_p));
-static void scan_c_file PARAMS ((const char *file_name,
-				 msgdomain_list_ty *mdlp));
-static void scan_po_file PARAMS ((const char *file_name,
-				  msgdomain_list_ty *mdlp));
-static void scan_java_file PARAMS ((const char *file_name,
-				    msgdomain_list_ty *mdlp));
-static void scan_ycp_file PARAMS ((const char *file_name,
-				   msgdomain_list_ty *mdlp));
-static void scan_rst_file PARAMS ((const char *file_name,
-				   msgdomain_list_ty *mdlp));
+static void extract_from_file PARAMS ((const char *file_name,
+				       extractor_func extractor,
+				       msgdomain_list_ty *mdlp));
 static long difftm PARAMS ((const struct tm *a, const struct tm *b));
 static message_ty *construct_header PARAMS ((void));
-
-
-/* The scanners must all be functions returning void and taking one
-   string argument and a message list argument.  */
-typedef void (*scanner_fp) PARAMS ((const char *, msgdomain_list_ty *));
-
-static scanner_fp language_to_scanner PARAMS ((const char *));
-static const char *extension_to_language PARAMS ((const char *));
+static extractor_func language_to_extractor PARAMS ((const char *name));
+static const char *extension_to_language PARAMS ((const char *extension));
 
 
 int
@@ -206,7 +201,7 @@ main (argc, argv)
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;
-  scanner_fp scanner = NULL;
+  extractor_func extractor = NULL;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -252,7 +247,7 @@ main (argc, argv)
 	  }
 	break;
       case 'C':
-	scanner = language_to_scanner ("C++");
+	extractor = language_to_extractor ("C++");
 	break;
       case 'd':
 	default_domain = optarg;
@@ -295,7 +290,7 @@ main (argc, argv)
 	/* Accepted for backward compatibility with 0.10.35.  */
 	break;
       case 'L':
-	scanner = language_to_scanner (optarg);
+	extractor = language_to_extractor (optarg);
 	break;
       case 'm':
 	/* -m takes an optional argument.  If none is given "" is assumed. */
@@ -446,18 +441,18 @@ xgettext cannot work without keywords to look for"));
 
   /* Read in the old messages, so that we can add to them.  */
   if (join_existing)
-    scan_po_file (file_name, mdlp);
+    extract_from_file (file_name, extract_po, mdlp);
 
   /* Process all input files.  */
   for (cnt = 0; cnt < file_list->nitems; ++cnt)
     {
       const char *fname;
-      scanner_fp scan_file;
+      extractor_func this_file_extractor;
 
       fname = file_list->item[cnt];
 
-      if (scanner)
-        scan_file = scanner;
+      if (extractor)
+        this_file_extractor = extractor;
       else
 	{
 	  const char *extension;
@@ -473,7 +468,7 @@ xgettext cannot work without keywords to look for"));
 	  else
 	    extension = "";
 
-	  /* derive the language from the extension, and the scanner
+	  /* Derive the language from the extension, and the extractor
 	     function from the language.  */
 	  language = extension_to_language (extension);
 	  if (language == NULL)
@@ -482,11 +477,11 @@ xgettext cannot work without keywords to look for"));
 warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
 	      language = "C";
 	    }
-	  scan_file = language_to_scanner (language);
+	  this_file_extractor = language_to_extractor (language);
 	}
 
-      /* Scan the file.  */
-      scan_file (fname, mdlp);
+      /* Extract the strings from the file.  */
+      extract_from_file (fname, this_file_extractor, mdlp);
     }
   string_list_free (file_list);
 
@@ -781,6 +776,25 @@ error while opening \"%s\" for reading"), new_name);
 }
 
 
+static void
+extract_from_file (file_name, extractor, mdlp)
+     const char *file_name;
+     extractor_func extractor;
+     msgdomain_list_ty *mdlp;
+{
+  char *logical_file_name;
+  char *real_file_name;
+  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+
+  extractor (fp, real_file_name, logical_file_name, mdlp);
+
+  if (fp != stdin)
+    fclose (fp);
+  free (logical_file_name);
+  free (real_file_name);
+}
+
+
 
 /* Language dependent format string parser.
    NULL if the language has no notion of format strings.  */
@@ -1003,98 +1017,6 @@ remember_a_message_plural (mp, string, pos)
 }
 
 
-static void
-scan_c_file (file_name, mdlp)
-     const char *file_name;
-     msgdomain_list_ty *mdlp;
-{
-  char *logical_file_name;
-  char *real_file_name;
-  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
-
-  extract_c (fp, real_file_name, logical_file_name, mdlp);
-
-  if (fp != stdin)
-    fclose (fp);
-  free (logical_file_name);
-  free (real_file_name);
-}
-
-
-/* Read the contents of the specified .po file into a message list.  */
-
-static void
-scan_po_file (file_name, mdlp)
-     const char *file_name;
-     msgdomain_list_ty *mdlp;
-{
-  char *logical_filename;
-  char *real_filename;
-  FILE *fp = xgettext_open (file_name, &logical_filename, &real_filename);
-
-  extract_po (fp, real_filename, logical_filename, mdlp);
-
-  if (fp != stdin)
-    fclose (fp);
-  free (logical_filename);
-  free (real_filename);
-}
-
-
-static void
-scan_java_file (file_name, mdlp)
-     const char *file_name;
-     msgdomain_list_ty *mdlp;
-{
-  char *logical_file_name;
-  char *real_file_name;
-  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
-
-  extract_java (fp, real_file_name, logical_file_name, mdlp);
-
-  if (fp != stdin)
-    fclose (fp);
-  free (logical_file_name);
-  free (real_file_name);
-}
-
-
-static void
-scan_ycp_file (file_name, mdlp)
-     const char *file_name;
-     msgdomain_list_ty *mdlp;
-{
-  char *logical_file_name;
-  char *real_file_name;
-  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
-
-  extract_ycp (fp, real_file_name, logical_file_name, mdlp);
-
-  if (fp != stdin)
-    fclose (fp);
-  free (logical_file_name);
-  free (real_file_name);
-}
-
-
-static void
-scan_rst_file (file_name, mdlp)
-     const char *file_name;
-     msgdomain_list_ty *mdlp;
-{
-  char *logical_file_name;
-  char *real_file_name;
-  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
-
-  extract_rst (fp, real_file_name, logical_file_name, mdlp);
-
-  if (fp != stdin)
-    fclose (fp);
-  free (logical_file_name);
-  free (real_file_name);
-}
-
-
 #define TM_YEAR_ORIGIN 1900
 
 /* Yield A - B, measured in seconds.  */
@@ -1181,15 +1103,15 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
 #define ENDOF(a) ((a) + SIZEOF(a))
 
 
-static scanner_fp
-language_to_scanner (name)
+static extractor_func
+language_to_extractor (name)
      const char *name;
 {
   typedef struct table_ty table_ty;
   struct table_ty
   {
     const char *name;
-    scanner_fp func;
+    extractor_func func;
     struct formatstring_parser *formatstring_parser;
   };
 
@@ -1200,8 +1122,8 @@ language_to_scanner (name)
     SCANNERS_JAVA
     SCANNERS_YCP
     SCANNERS_RST
-    { "Python", scan_c_file, &formatstring_python },
-    { "Lisp", scan_c_file, &formatstring_lisp },
+    { "Python", extract_c, &formatstring_python },
+    { "Lisp", extract_c, &formatstring_lisp },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exclude-file option.  */
   };

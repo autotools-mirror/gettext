@@ -21,7 +21,7 @@
   { "ycp",    "YCP"   },						\
 
 #define SCANNERS_YCP \
-  { "YCP",        scan_ycp_file, &formatstring_ycp },			\
+  { "YCP",        extract_ycp, &formatstring_ycp },			\
 
 /* Scan an YCP file and add its translatable strings to mdlp.  */
 extern void extract_ycp PARAMS ((FILE *fp, const char *real_filename,

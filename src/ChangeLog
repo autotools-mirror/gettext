@@ -1,3 +1,18 @@
+2001-09-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (extractor_func): New typedef.
+	(scanner_fp): Remove typedef.
+	(main): Use extractor_func and call it via extract_from_file.
+	(extract_from_file): New function.
+	(scan_c_file, scan_po_file, scan_java_file, scan_ycp_file,
+	scan_rst_file): Remove functions.
+	(language_to_extractor): Renamed from language_to_scanner.
+	* x-c.h (SCANNERS_C): Use extract_c instead of scan_c_file.
+	* x-java.h (SCANNERS_JAVA): Use extract_java instead of scan_java_file.
+	* x-po.h (SCANNERS_PO): Use extract_po instead of scan_po_file.
+	* x-rst.h (SCANNERS_RST): Use extract_rst instead of scan_rst_file.
+	* x-ycp.h (SCANNERS_YCP): Use extract_ycp instead of scan_ycp_file.
+
 2001-09-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-eval.c: New file.
