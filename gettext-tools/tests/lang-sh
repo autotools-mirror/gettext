@@ -46,9 +46,9 @@ eval_ngettext () {
   $echo "$_string"
 }
 
-$echo "`gettext "'Your command, please?', asked the waiter."`"
+$echo "`gettext \"'Your command, please?', asked the waiter.\"`"
 
-$echo "`eval_ngettext "a piece of cake" "\\$n pieces of cake" $n`"
+$echo "`eval_ngettext \"a piece of cake\" \"\\$n pieces of cake\" $n`"
 EOF
 
 tmpfiles="$tmpfiles prog.pot"
