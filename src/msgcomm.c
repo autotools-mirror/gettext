@@ -480,8 +480,13 @@ read_name_from_file (file_name)
       if (len < 0)
 	break;
 
-      /* Remove trailing '\n'.  */
+      /* Remove trailing '\n' and trailing whitespace.  */
       if (len > 0 && line_buf[len - 1] == '\n')
+	line_buf[--len] = '\0';
+      while (len > 0
+	     && (line_buf[len - 1] == ' '
+		 || line_buf[len - 1] == '\t'
+		 || line_buf[len - 1] == '\r'))
 	line_buf[--len] = '\0';
 
       /* Test if we have to ignore the line.  */
