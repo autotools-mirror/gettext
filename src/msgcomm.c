@@ -39,6 +39,7 @@
 
 #include "dir-list.h"
 #include "error.h"
+#include "progname.h"
 #include "getline.h"
 #include "libgettext.h"
 #include "message.h"
@@ -65,9 +66,6 @@ static char *output_dir;
 
 /* If nonzero omit header with information about this run.  */
 static int omit_header;
-
-/* String containing name the program is called with.  */
-const char *program_name;
 
 /* These variables control which messages are selected.  */
 static int more_than = -1;
@@ -106,7 +104,6 @@ static void usage PARAMS ((int status))
 	__attribute__ ((noreturn))
 #endif
 ;
-static void error_print PARAMS ((void));
 static string_list_ty *read_name_from_file PARAMS ((const char *__file_name));
 static void extract_constructor PARAMS ((po_ty *__that));
 static void extract_directive_domain PARAMS ((po_ty *__that, char *__name));
@@ -147,7 +144,7 @@ main (argc, argv)
 
   /* Set program name for messages.  */
   program_name = argv[0];
-  error_print_progname = error_print;
+  error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -449,15 +446,6 @@ Informative output:\n\
     }
 
   exit (status);
-}
-
-
-/* The address of this function will be assigned to the hook in the error
-   functions.  */
-static void
-error_print ()
-{
-  /* We don't want the program name to be printed in messages.  */
 }
 
 

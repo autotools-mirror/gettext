@@ -28,6 +28,7 @@
 
 #include "dir-list.h"
 #include "error.h"
+#include "progname.h"
 #include "system.h"
 #include "libgettext.h"
 #include "hash.h"
@@ -873,8 +874,10 @@ phase5_get (tp)
 	  c = phase7_getc ();
 	  if (c == P7_NEWLINE)
 	    {
+	      error_with_progname = 0;
 	      error (0, 0, _("%s:%d: warning: unterminated character constant"),
 	        logical_file_name, line_number - 1);
+	      error_with_progname = 1;
 	      phase7_ungetc ('\n');
 	      break;
 	    }
@@ -895,8 +898,10 @@ phase5_get (tp)
 	  c = phase7_getc ();
 	  if (c == P7_NEWLINE)
 	    {
+	      error_with_progname = 0;
 	      error (0, 0, _("%s:%d: warning: unterminated string literal"),
 	        logical_file_name, line_number - 1);
+	      error_with_progname = 1;
 	      phase7_ungetc ('\n');
 	      break;
 	    }

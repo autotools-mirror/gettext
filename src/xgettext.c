@@ -41,6 +41,7 @@ extern int errno;
 
 #include "dir-list.h"
 #include "error.h"
+#include "progname.h"
 #include "hash.h"
 #include "getline.h"
 #include "system.h"
@@ -102,9 +103,6 @@ static char *output_dir;
 /* If nonzero omit header with information about this run.  */
 static int omit_header;
 
-/* String containing name the program is called with.  */
-const char *program_name;
-
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -149,7 +147,6 @@ static void usage PARAMS ((int status))
 	__attribute__ ((noreturn))
 #endif
 ;
-static void error_print PARAMS ((void));
 static string_list_ty *read_name_from_file PARAMS ((const char *__file_name));
 static void exclude_directive_domain PARAMS ((po_ty *__pop, char *__name));
 static void exclude_directive_message PARAMS ((po_ty *__pop, char *__msgid,
@@ -217,7 +214,7 @@ main (argc, argv)
 
   /* Set program name for messages.  */
   program_name = argv[0];
-  error_print_progname = error_print;
+  error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -603,15 +600,6 @@ Informative output:\n\
 }
 
 
-/* The address of this function will be assigned to the hook in the error
-   functions.  */
-static void
-error_print ()
-{
-  /* We don't want the program name to be printed in messages.  */
-}
-
-
 /* Read list of files to process from file.  */
 static string_list_ty *
 read_name_from_file (file_name)
@@ -944,9 +932,11 @@ scan_c_file (filename, mlp)
 	   {
 	     if (commas_to_skip == 0)
 	       {
+		 error_with_progname = 0;
 		 error (0, 0,
 			_("%s:%d: warning: keyword nested in keyword arg"),
 			token.file_name, token.line_number);
+		 error_with_progname = 1;
 		 continue;
 	       }
 
@@ -954,9 +944,11 @@ scan_c_file (filename, mlp)
 		potentially unbounded stack.  We haven't run across an
 		example that needs this functionality yet.  For now,
 		we punt and forget the outer keyword.  */
+	     error_with_progname = 0;
 	     error (0, 0,
 		    _("%s:%d: warning: keyword between outer keyword and its arg"),
 		    token.file_name, token.line_number);
+	     error_with_progname = 1;
 	   }
 	 commas_to_skip = token.argnum1 - 1;
 	 plural_commas = (token.argnum2 > token.argnum1

@@ -27,6 +27,7 @@
 
 #include "dir-list.h"
 #include "error.h"
+#include "progname.h"
 #include "message.h"
 #include <system.h>
 #include "libgettext.h"
@@ -54,9 +55,6 @@ struct compare_class_ty
   message_list_ty *mlp;
 };
 
-/* String containing name the program is called with.  */
-const char *program_name;
-
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -69,7 +67,6 @@ static const struct option long_options[] =
 
 /* Prototypes for local functions.  */
 static void usage PARAMS ((int __status));
-static void error_print PARAMS ((void));
 static void compare PARAMS ((char *, char *));
 static message_list_ty *grammar PARAMS ((char *__filename));
 static void compare_constructor PARAMS ((po_ty *__that));
@@ -96,7 +93,7 @@ main (argc, argv)
 
   /* Set program name for messages.  */
   program_name = argv[0];
-  error_print_progname = error_print;
+  error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -213,16 +210,6 @@ Informative output:\n\
     }
 
   exit (status);
-}
-
-
-/* The address of this function will be assigned to the hook in the error
-   functions.  */
-static void
-error_print ()
-{
-  /* We don't want the program name to be printed in messages.  Emacs'
-     compile.el does not like this.  */
 }
 
 

@@ -132,10 +132,14 @@ po_gram_error (fmt, va_alist)
 
   vasprintf (&buffer, fmt, ap);
   va_end (ap);
+  error_with_progname = 0;
   error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number, "%s", buffer);
+  error_with_progname = 1;
 # else
+  error_with_progname = 0;
   error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number, fmt,
 		 a1, a2, a3, a4, a5, a6, a7, a8);
+  error_with_progname = 1;
 # endif
 
   /* Some messages need more than one line.  Continuation lines are
@@ -170,10 +174,14 @@ po_gram_error_at_line (pp, fmt, va_alist)
 
   vasprintf (&buffer, fmt, ap);
   va_end (ap);
+  error_with_progname = 0;
   error_at_line (0, 0, pp->file_name, pp->line_number, "%s", buffer);
+  error_with_progname = 1;
 # else
+  error_with_progname = 0;
   error_at_line (0, 0, pp->file_name, pp->line_number, fmt,
 		 a1, a2, a3, a4, a5, a6, a7, a8);
+  error_with_progname = 1;
 # endif
 
   /* Some messages need more than one line, or more than one location.

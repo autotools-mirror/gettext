@@ -32,6 +32,7 @@
 
 #include "dir-list.h"
 #include "error.h"
+#include "progname.h"
 #include "getline.h"
 #include "printf.h"
 #include <system.h>
@@ -101,9 +102,6 @@ static int no_hash_table;
 /* Specifies name of the output file.  */
 static const char *output_file_name;
 
-/* String containing name the program is called with.  */
-const char *program_name;
-
 /* We may have more than one input file.  Domains with same names in
    different files have to merged.  So we need a list of tables for
    each output file.  */
@@ -167,7 +165,6 @@ static void usage PARAMS ((int status))
 	__attribute__ ((noreturn))
 #endif
 ;
-static void error_print PARAMS ((void));
 static void grammar PARAMS ((char *__filename));
 static void format_constructor PARAMS ((po_ty *__that));
 static void format_directive_domain PARAMS ((po_ty *__pop, char *__name));
@@ -205,7 +202,7 @@ main (argc, argv)
 
   /* Set program name for messages.  */
   program_name = argv[0];
-  error_print_progname = error_print;
+  error_print_progname = maybe_print_progname;
   error_one_per_line = 1;
   exit_status = EXIT_SUCCESS;
 
@@ -465,16 +462,6 @@ new_domain (name)
 }
 
 
-/* The address of this function will be assigned to the hook in the error
-   functions.  */
-static void
-error_print ()
-{
-  /* We don't want the program name to be printed in messages.  Emacs'
-     compile.el does not like this.  */
-}
-
-
 /* Prepare for first message.  */
 static void
 format_constructor (that)
@@ -572,12 +559,16 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
       || (!include_all && this->is_fuzzy && msgid_string[0] != '\0'))
     {
       if (verbose_level > 1)
-	/* We don't change the exit status here because this is really
-	   only an information.  */
-	error_at_line (0, 0, msgstr_pos->file_name, msgstr_pos->line_number,
-		       (msgstr_string[0] == '\0'
-			? _("empty `msgstr' entry ignored")
-			: _("fuzzy `msgstr' entry ignored")));
+	{
+	  /* We don't change the exit status here because this is really
+	     only an information.  */
+	  error_with_progname = 0;
+	  error_at_line (0, 0, msgstr_pos->file_name, msgstr_pos->line_number,
+			 (msgstr_string[0] == '\0'
+			  ? _("empty `msgstr' entry ignored")
+			  : _("fuzzy `msgstr' entry ignored")));
+	  error_with_progname = 1;
+	}
 
       /* Increment counter for fuzzy/untranslated messages.  */
       if (msgstr_string[0] == '\0')
@@ -954,17 +945,21 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgid_plural) != has_newline)
 	{
+	  error_with_progname = 0;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgid_plural' entries do not both begin with '\\n'"));
+	  error_with_progname = 1;
 	  exit_status = EXIT_FAILURE;
 	}
       for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
+	    error_with_progname = 0;
 	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			   _("\
 `msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), i);
+	    error_with_progname = 1;
 	    exit_status = EXIT_FAILURE;
 	  }
     }
@@ -972,9 +967,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgstr) != has_newline)
 	{
+	  error_with_progname = 0;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgstr' entries do not both begin with '\\n'"));
+	  error_with_progname = 1;
 	  exit_status = EXIT_FAILURE;
 	}
     }
@@ -987,17 +984,21 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgid_plural) != has_newline)
 	{
+	  error_with_progname = 0;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgid_plural' entries do not both end with '\\n'"));
+	  error_with_progname = 1;
 	  exit_status = EXIT_FAILURE;
 	}
       for (p = msgstr, i = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, i++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
+	    error_with_progname = 0;
 	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			   _("\
 `msgid' and `msgstr[%u]' entries do not both end with '\\n'"), i);
+	    error_with_progname = 1;
 	    exit_status = EXIT_FAILURE;
 	  }
     }
@@ -1005,9 +1006,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
     {
       if (TEST_NEWLINE(msgstr) != has_newline)
 	{
+	  error_with_progname = 0;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 `msgid' and `msgstr' entries do not both end with '\\n'"));
+	  error_with_progname = 1;
 	  exit_status = EXIT_FAILURE;
 	}
     }
@@ -1021,9 +1024,11 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
       nstrfmts = parse_printf_format (msgstr, 0, NULL);
       if (nidfmts != nstrfmts)
 	{
+	  error_with_progname = 0;
 	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
 			 _("\
 number of format specifications in `msgid' and `msgstr' does not match"));
+	  error_with_progname = 1;
 	  exit_status = EXIT_FAILURE;
 	}
       else
@@ -1038,10 +1043,12 @@ number of format specifications in `msgid' and `msgstr' does not match"));
 	  for (cnt = 0; cnt < nidfmts; ++cnt)
 	    if (id_args[cnt] != str_args[cnt])
 	      {
+		error_with_progname = 0;
 		error_at_line (0, 0, msgid_pos->file_name,
 			       msgid_pos->line_number, _("\
 format specifications for argument %lu are not the same"),
 			       (unsigned long) (cnt + 1));
+		error_with_progname = 1;
 		exit_status = EXIT_FAILURE;
 	      }
 	}

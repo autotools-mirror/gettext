@@ -22,6 +22,7 @@
 
 #include <sys/types.h>
 #include "error.h"
+#include "progname.h"
 #include "pos.h"
 
 /* Lexical analyzer for reading PO files.  */
@@ -66,8 +67,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 
 # define po_gram_error(fmt, ...)					    \
   do {									    \
+    error_with_progname = 0;						    \
     error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
 		    fmt, __VA_ARGS__);					    \
+    error_with_progname = 1;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
@@ -80,8 +83,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 
 # define po_gram_error_at_line(pos, fmt, ...)				    \
   do {									    \
+    error_with_progname = 0;						    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
 		    fmt, __VA_ARGS__);					    \
+    error_with_progname = 1;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
@@ -96,8 +101,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 
 # define po_gram_error(fmt, args...)					    \
   do {									    \
+    error_with_progname = 0;						    \
     error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
 		    fmt, ## args);					    \
+    error_with_progname = 1;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \
@@ -110,8 +117,10 @@ extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 
 # define po_gram_error_at_line(pos, fmt, args...)			    \
   do {									    \
+    error_with_progname = 0;						    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
 		    fmt, ## args);					    \
+    error_with_progname = 1;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
     else if (error_message_count >= gram_max_allowed_errors)		    \

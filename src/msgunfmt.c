@@ -31,6 +31,7 @@
 #include "hash.h"
 
 #include "error.h"
+#include "progname.h"
 #include "getline.h"
 #include "printf.h"
 #include <system.h>
@@ -47,9 +48,6 @@
 extern int errno;
 #endif
 
-
-/* String containing name the program is called with.  */
-const char *program_name;
 
 /* Force output of PO file even if empty.  */
 static int force_po;
@@ -78,7 +76,6 @@ static enum { MO_LITTLE_ENDIAN, MO_BIG_ENDIAN } endian;
 
 /* Prototypes for local functions.  */
 static void usage PARAMS ((int __status));
-static void error_print PARAMS ((void));
 static nls_uint32 read32 PARAMS ((FILE *__fp, const char *__fn));
 static void seek32 PARAMS ((FILE *__fp, const char *__fn, long __offset));
 static char *string32 PARAMS ((FILE *__fp, const char *__fn, long __offset,
@@ -101,7 +98,7 @@ main (argc, argv)
 
   /* Set program name for messages.  */
   program_name = argv[0];
-  error_print_progname = error_print;
+  error_print_progname = maybe_print_progname;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -262,16 +259,6 @@ Informative output:\n\
     }
 
   exit (status);
-}
-
-
-/* The address of this function will be assigned to the hook in the error
-   functions.  */
-static void
-error_print ()
-{
-  /* We don't want the program name to be printed in messages.  Emacs'
-     compile.el does not like this.  */
 }
 
 

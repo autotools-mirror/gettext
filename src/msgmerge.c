@@ -28,6 +28,7 @@
 
 #include "dir-list.h"
 #include "error.h"
+#include "progname.h"
 #include "message.h"
 #include "read-po.h"
 #include "write-po.h"
@@ -37,9 +38,6 @@
 
 #define _(str) gettext (str)
 
-
-/* String containing name the program is called with.  */
-const char *program_name;
 
 /* If non-zero do not print unneeded messages.  */
 static int quiet;
@@ -80,7 +78,6 @@ static const struct option long_options[] =
 
 /* Prototypes for local functions.  */
 static void usage PARAMS ((int __status));
-static void error_print PARAMS ((void));
 static message_list_ty *merge PARAMS ((const char *__fn1, const char *__fn2));
 static void compendium PARAMS ((const char *__filename));
 
@@ -100,9 +97,9 @@ main (argc, argv)
 
   /* Set program name for messages.  */
   program_name = argv[0];
+  error_print_progname = maybe_print_progname;
   verbosity_level = 0;
   quiet = 0;
-  error_print_progname = error_print;
   gram_max_allowed_errors = UINT_MAX;
 
 #ifdef HAVE_SETLOCALE
@@ -330,19 +327,6 @@ Informative output:\n\
     }
 
   exit (status);
-}
-
-
-/* The address of this function will be assigned to the hook in the
-   error functions.  */
-static void
-error_print ()
-{
-  /* We don't want the program name to be printed in messages.  Emacs'
-     compile.el does not like this.  */
-
-  /* FIXME Why must this program toady to Emacs?  Why can't compile.el
-     be enhanced to cope with a leading program name?  --PMiller */
 }
 
 

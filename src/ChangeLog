@@ -1,3 +1,44 @@
+2001-05-01  Bruno Haible  <haible@clisp.cons.org>
+
+	Prefix most error messages with the program name, except those
+	starting with "filename:lineno:".
+	* po-lex.h: Include progname.h.
+	(po_gram_error): Set error_with_progname = 0 during error_at_line()
+	call.
+	(po_gram_error_at_line): Likewise.
+	* po-lex.c (po_gram_error): Likewise.
+	(po_gram_error_at_line): Likewise.
+	* msgcmp.c: Include progname.h.
+	(program_name): Remove variable.
+	(error_print): Remove function.
+	(main): Initialize error_print_progname with maybe_print_progname.
+	* msgcomm.c: Include progname.h.
+	(program_name): Remove variable.
+	(error_print): Remove function.
+	(main): Initialize error_print_progname with maybe_print_progname.
+	* msgfmt.c: Include progname.h.
+	(program_name): Remove variable.
+	(error_print): Remove function.
+	(main): Initialize error_print_progname with maybe_print_progname.
+	(format_directive_message): Set error_with_progname = 0 during
+	error_at_line() call.
+	(check_pair): Likewise.
+	* msgmerge.c: Include progname.h.
+	(program_name): Remove variable.
+	(error_print): Remove function.
+	(main): Initialize error_print_progname with maybe_print_progname.
+	* msgunfmt.c: Include progname.h.
+	(program_name): Remove variable.
+	(error_print): Remove function.
+	(main): Initialize error_print_progname with maybe_print_progname.
+	* xget-lex.c: Include progname.h.
+	(phase5_get): Set error_with_progname = 0 during error() call.
+	* xgettext.c: Include progname.h.
+	(program_name): Remove variable.
+	(error_print): Remove function.
+	(main): Initialize error_print_progname with maybe_print_progname.
+	(scan_c_file): Set error_with_progname = 0 during error() call.
+
 2001-04-30  Bruno Haible  <haible@clisp.cons.org>
 
 	Save the messages' obsoleteness status in the 'message_ty'.
