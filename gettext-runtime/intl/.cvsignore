@@ -8,3 +8,6 @@ charset.alias
 libintl.h
 ref-add.sed
 ref-del.sed
+libgnuintl.h.msvc-shared
+libgnuintl.h.msvc-static
+libgnuintl.h_vms
