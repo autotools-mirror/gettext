@@ -22,6 +22,8 @@
 # include <config.h>
 #endif
 
+#include <stddef.h>
+
 #if defined _LIBC || HAVE_STRING_H
 # include <string.h>
 #else

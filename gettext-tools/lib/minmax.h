@@ -18,9 +18,27 @@
 #ifndef _MINMAX_H
 #define _MINMAX_H
 
+/* Note: MIN, MAX are also defined in <sys/param.h> on some systems
+   (glibc, IRIX, HP-UX, OSF/1).  Therefore you might get warnings about
+   MIN, MAX macro redefinitions on some systems; the workaround is to
+   #include this file as the last one among the #include list.  */
+
 /* Before we define the following symbols we get the <limits.h> file
    since otherwise we get redefinitions on some systems.  */
 #include <limits.h>
+
+/* Note: MIN and MAX should preferrably be used with two arguments of the
+   same type.  They might not return the minimum and maximum of their two
+   arguments, if the arguments have different types or have unusual
+   floating-point values.  For example, on a typical host with 32-bit 'int',
+   64-bit 'long long', and 64-bit IEEE 754 'double' types:
+
+     MAX (-1, 2147483648) returns 4294967295.
+     MAX (9007199254740992.0, 9007199254740993) returns 9007199254740992.0.
+     MAX (NaN, 0.0) returns 0.0.
+     MAX (+0.0, -0.0) returns -0.0.
+
+   and in each case the answer is in some sense bogus.  */
 
 /* MAX(a,b) returns the maximum of A and B.  */
 #ifndef MAX

@@ -20,7 +20,9 @@
 # include <config.h>
 #endif
 
-#if defined _LIBC || defined HAVE_CONFIG_H
+#include <stddef.h>
+
+#if defined _LIBC || HAVE_STRING_H
 # include <string.h>
 #endif
 
