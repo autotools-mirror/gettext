@@ -14,4 +14,4 @@ javaexec.m4 lcmessage.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 libtool.m4 \
 longdouble.m4 longlong.m4 mbrtowc.m4 mbstate_t.m4 mbswidth.m4 mkdtemp.m4 \
 progtest.m4 setenv.m4 setlocale.m4 siginfo.m4 signalblocking.m4 signed.m4 \
 ssize_t.m4 stdbool.m4 stdint_h.m4 tmpdir.m4 uintmax_t.m4 ulonglong.m4 \
-unionwait.m4 wchar_t.m4
+unionwait.m4 wchar_t.m4 wint_t.m4

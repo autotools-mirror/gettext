@@ -1,5 +1,5 @@
 /* Decomposed printf argument list.
-   Copyright (C) 1999, 2002 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -19,8 +19,13 @@
 #ifndef _PRINTF_ARGS_H
 #define _PRINTF_ARGS_H
 
-/* Get wint_t.  */
+/* Get wchar_t.  */
 #ifdef HAVE_WCHAR_T
+# include <stddef.h>
+#endif
+
+/* Get wint_t.  */
+#ifdef HAVE_WINT_T
 # include <wchar.h>
 #endif
 
@@ -49,7 +54,7 @@ typedef enum
   TYPE_LONGDOUBLE,
 #endif
   TYPE_CHAR,
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
   TYPE_WIDE_CHAR,
 #endif
   TYPE_STRING,
@@ -90,7 +95,7 @@ typedef struct
     long double			a_longdouble;
 #endif
     int				a_char;
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
     wint_t			a_wide_char;
 #endif
     const char*			a_string;

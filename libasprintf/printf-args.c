@@ -1,5 +1,5 @@
 /* Decomposed printf argument list.
-   Copyright (C) 1999, 2002 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -78,7 +78,7 @@ printf_fetchargs (va_list args, arguments *a)
       case TYPE_CHAR:
 	ap->a.a_char = va_arg (args, int);
 	break;
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
       case TYPE_WIDE_CHAR:
 	ap->a.a_wide_char = va_arg (args, wint_t);
 	break;

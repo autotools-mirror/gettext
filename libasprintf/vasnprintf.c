@@ -1,5 +1,5 @@
 /* vsprintf with automatic memory allocation.
-   Copyright (C) 1999, 2002 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -357,7 +357,7 @@ vasnprintf (char *resultbuf, size_t *lengthp, const char *format, va_list args)
 		      break;
 
 		    case 'c':
-# ifdef HAVE_WCHAR_T
+# ifdef HAVE_WINT_T
 		      if (type == TYPE_WIDE_CHAR)
 			tmp_length = MB_CUR_MAX;
 		      else
@@ -452,8 +452,10 @@ vasnprintf (char *resultbuf, size_t *lengthp, const char *format, va_list args)
 #endif
 		  case TYPE_LONGINT:
 		  case TYPE_ULONGINT:
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
 		  case TYPE_WIDE_CHAR:
+#endif
+#ifdef HAVE_WCHAR_T
 		  case TYPE_WIDE_STRING:
 #endif
 		    *p++ = 'l';
@@ -630,7 +632,7 @@ vasnprintf (char *resultbuf, size_t *lengthp, const char *format, va_list args)
 			  SNPRINTF_BUF (arg);
 			}
 			break;
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
 		      case TYPE_WIDE_CHAR:
 			{
 			  wint_t arg = a.arg[dp->arg_index].a.a_wide_char;

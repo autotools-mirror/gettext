@@ -1,5 +1,5 @@
 /* Formatted output to strings.
-   Copyright (C) 1999-2000, 2002 Free Software Foundation, Inc.
+   Copyright (C) 1999-2000, 2002-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -380,7 +380,7 @@ printf_parse (const char *format, char_directives *d, arguments *a)
 		  break;
 		case 'c':
 		  if (flags >= 8)
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
 		    type = TYPE_WIDE_CHAR;
 #else
 		    goto error;
@@ -388,7 +388,7 @@ printf_parse (const char *format, char_directives *d, arguments *a)
 		  else
 		    type = TYPE_CHAR;
 		  break;
-#ifdef HAVE_WCHAR_T
+#ifdef HAVE_WINT_T
 		case 'C':
 		  type = TYPE_WIDE_CHAR;
 		  c = 'c';
