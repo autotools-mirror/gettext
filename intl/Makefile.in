@@ -72,8 +72,9 @@ plural.$lo localcharset.$lo
 GETTOBJS = intl-compat.$lo
 DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
-DISTFILES.normal = VERSION plural.c
-DISTFILES.gettext = libintl.glibc plural.c
+DISTFILES.generated = plural.c
+DISTFILES.normal = VERSION
+DISTFILES.gettext = libintl.glibc
 DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c
 
 # Libtool's library version information for libintl.
@@ -281,8 +282,8 @@ dist distdir: Makefile
 	else \
 	  additional="$(DISTFILES.normal)"; \
 	fi; \
-	$(MAKE) $(DISTFILES.common) $$additional; \
-	for file in ChangeLog $(DISTFILES.common) $$additional; do \
+	$(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
+	for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
 	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
 	    || cp -p $(srcdir)/$$file $(distdir); \
 	done
