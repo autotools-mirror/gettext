@@ -54,6 +54,9 @@ Things we plan to do. Comments welcome.
   msginit
   create initial PO file from POT file.
 
+  msgexec
+  generalize msgsed
+
 - Rewrite doc node "Compendium", discuss functionality, then check
   implementation and add Karl's new tests.
 
@@ -61,7 +64,5 @@ Things we plan to do. Comments welcome.
   1. Program to move msgstr contents to msgid contents,
   2. Program to update the translations accordingly, much like msgmerge.
 
-- po-lex.c: backslash-newline recognition should come after multibyte
-  character recognition, not before. See ISO C 99. Right after multibyte
-  character recognition, keep track of the column number as well, and
-  use it in po_gram_error.
+- Rewrite Hundhammer's check_po script in C using message.h.
+
