@@ -1,13 +1,13 @@
-# Vietnamese Translation for gettext-runtime-0.14.1.
-# Copyright (C) 2005 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2005.
-#
+#  Vietnamese Translation for gettext-runtime-0.14.1.
+#  Copyright (C) 2005 Free Software Foundation, Inc.
+#  Clytie Siddall <clytie@riverland.net.au>, 2005.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.14.1\n"
+"Project-Id-Version: gettext-runtime 0.14.2-pre4\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2005-01-19 21:43+0930\n"
+"PO-Revision-Date: 2005-02-16 19:37+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net> \n"
 "MIME-Version: 1.0\n"
@@ -30,33 +30,33 @@ msgstr "%s: tùy chọn `%s' là mơ hồ\n"
 #: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: tùy chọn `--%s' không cho phép đối nào\n"
+msgstr "%s: tùy chọn `--%s' không cho phép đối số\n"
 
 #: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: tùy chọn `%c%s' không cho phép đối nào\n"
+msgstr "%s: tùy chọn `%c%s' không cho phép đối số\n"
 
 #: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
 #: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: tùy chọn `%s' cần thiết đối\n"
+msgstr "%s: tùy chọn `%s' cần đến đối số\n"
 
 #: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: tùy chọn chưa được nhận dạng `--%s'\n"
+msgstr "%s: chưa chấp nhận tùy chọn `--%s'\n"
 
 #: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: tùy chọn chưa được nhận dạng `%c%s'\n"
+msgstr "%s: chưa chấp nhận tùy chọn `%c%s'\n"
 
 #: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s: tùy chọn cấm -- %c\n"
+msgstr "%s: không cho phép tùy chọn -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
 #, c-format
@@ -67,7 +67,7 @@ msgstr "%s: tùy chọn không hợp lệ -- %c\n"
 #: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: tùy chọn cần thiết đối -- %c\n"
+msgstr "%s: tùy chọn cần đến đối số -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
 #, c-format
@@ -77,7 +77,7 @@ msgstr "%s: tùy chọn `-W %s' là mơ hồ\n"
 #: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: tùy chọn `-W %s' không cho phép đối nào\n"
+msgstr "%s: tùy chọn `-W %s' không cho phép đối số\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
 #, c-format
@@ -92,7 +92,7 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 "Bản quyền (C) %s Free Software Foundation, Inc.\n"
-"Phần mềm này miễn phí; hãy xem mã nguồn để tìm điều kiện sao chép.\n"
+"Phần mềm này tự do; hãy xem mã nguồn để tìm điều kiện sao chép.\n"
 "Không bảo đảm gì cả, dù khả năng bán hay khả năng làm việc dứt khoát.\n"
 
 #: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
@@ -103,12 +103,12 @@ msgstr "Lập do %s.\n"
 #: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
-msgstr "quá nhiều đối"
+msgstr "quá nhiều đối số"
 
 #: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
-msgstr "thiếu đối"
+msgstr "thiếu đối số"
 
 #: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
@@ -123,7 +123,7 @@ msgstr "Cách sử dụng: %s [TÙY CHỌN] [SHELL-FORMAT (định dạng hệ v
 #: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
-msgstr "Thay thế giá trị cho biến đổi môi trường.\n"
+msgstr "Thay thế trị số cho biến đổi môi trường.\n"
 
 #: src/envsubst.c:185
 #, c-format, no-wrap
@@ -131,28 +131,26 @@ msgid "Operation mode:\n"
 msgstr "Chế độ thi hành:\n"
 
 #: src/envsubst.c:188
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr ""
-"-v, --variables           xuất những biến đổi xảy ra trong SHELL-FORMAT \n"
-"(định dạng hệ vỏ)\n"
+msgstr " -v, --variables        xuất những biến đổi xảy ra trong SHELL-FORMAT (định dạng hệ vỏ)\n"
 
 #: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
-msgstr "Xuất thông tin nhiều hơn:\n"
+msgstr "Xuất thông tin thêm:\n"
 
 #: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
-msgstr "  -h, --help                  hiển thị trợ giúp này rồi thoát\n"
+msgstr "  -h, --help                  hiển thị _trợ giúp_ này rồi thoát\n"
 
 #: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr "  -V, --version               xuất thông tin phiên bản rồi thoát\n"
+msgstr "  -V, --version               xuất thông tin _phiên bản_ rồi thoát\n"
 
-# Câu có đúng không? Câu dài, phúc tạp.
+#  Câu có đúng không? Câu dài, phúc tạp.
 #: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
@@ -163,9 +161,9 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
-"Trong chế độ vân hành bình thường, dữ liệu gỡ chuẩn được sao sang thiết bị \n"
-"xuất chuẩn, với các tham chiếu về biến đổi môi trường có định dạng $BIẾNĐỔI \n"
-"hay ${BIẾNĐỔI} được thay thế do giá trị thích hợp. Nếu có một SHELL-FORMAT \n"
+"Trong chế độ thi hành bình thường, dữ liệu gỡ chuẩn được sao chép sang thiết bị \n"
+"xuất chuẩn, với các tham chiếu về biến đổi môi trường có định dạng $BIẾN_ĐỔI \n"
+"hay ${BIẾN_ĐỔI} được thay thế do trị số thích hợp. Nếu có một SHELL-FORMAT \n"
 "(định dạng hệ vỏ) thì chỉ những biến đổi môi trường được tham chiếu bằng \n"
 "SHELL-FORMAT được thay thế; nếu không các biến đổi môi trường xảy ra trong \n"
 "dữ liệu gỡ chuẩn được thay thế.\n"
@@ -176,18 +174,18 @@ msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
-"Khi đã sử dụng lệnh --variables thì lờ dữ liệu gỡ chuẩn đi, và dữ liệu xuất gồm \n"
-"có những biến đổi môi trường được tham chiếu bằng SHELL-FORMAT (định dạng \n"
-"hệ vỏ), một biến trong mỗi đường.\n"
+"Khi đã sử dụng lệnh --variables (biến đổi) thì bỏ qua dữ liệu gỡ chuẩn,\n"
+"và dữ liệu xuất gồm có những biến đổi môi trường được tham chiếu bằng\n"
+"SHELL-FORMAT (định dạng hệ vỏ), có một biến trong mỗi đường.\n"
 
 #: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Hãy trình báo lỗi nào cho <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Hãy trình báo lỗi cho <bug-gnu-gettext@gnu.org>.\n"
 
 #: src/envsubst.c:438
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "lỗi khi đọc \"%s\""
+msgstr "gặp lỗi khi đọc \"%s\""
 
 #: src/envsubst.c:439
 msgid "standard input"
@@ -199,11 +197,11 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Cách sử dụng: %s [TÙY CHỌN] [[TEXTDOMAIN] MSGID]\n"
-"hay:    %s [TÙY CHỌN] -s [MSGID]...\n"
-"TEXTDOMAIN - miền văn bản; MSGID - số thông điệp\n"
+"Cách sử dụng: %s [TÙY_CHỌN] [[TEXTDOMAIN] MSGID]\n"
+"hay:    %s [TÙY_CHỌN] -s [MSGID]...\n"
+"TEXTDOMAIN - miền văn bản; MSGID - số thông điệp (chuỗi ngôn ngữ gốc)\n"
 
-# Trong văn cảnh này, ngôn ngữ "native" của ai?
+#  Trong văn cảnh này, ngôn ngữ "native" của ai?
 #: src/gettext.c:250
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
@@ -221,12 +219,12 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=TEXTDOMAIN   gọi những thông điệp được dịch từ TEXTDOMAIN\n"
-"  -e                        hiệu lực mở rộng một phần dãy thoát\n"
+"  -d, --domain=TEXTDOMAIN   gọi những thông điệp được dịch từ MIỀN_VĂN_BẢN\n"
+"  -e                        hiệu lực mở rộng một số dãy thoát\n"
 "  -E                        (bị bỏ qua vì không tương thích)\n"
-"  -h, --help                hiển thị trợ gi úp này rồi thoát\n"
-"  -n                        giữ lại đường mới đang theo\n"
-"  -V, --version             hiển thị thông tin phiên bản rồi thoát\n"
+"  -h, --help                hiển thị _trợ giúp_ này rồi thoát\n"
+"  -n                        giữ lại đường _mới_ đang theo\n"
+"  -V, --version             hiển thị thông tin _phiên bản_ rồi thoát\n"
 "  [TEXTDOMAIN] MSGID        gọi thông điệp MSGID từ TEXTDOMAIN\n"
 "TEXTDOMAIN - miền văn bản; MSGID - số thông điệp\n"
 
@@ -247,17 +245,17 @@ msgstr ""
 "thông điệp trong thư mục thường, có thể ghi rõ một vị trí khác với biến đổi môi \n"
 "trường TEXTDOMAINDIR (thư mục của miền văn bản).\n"
 "Khi sử dụng tùy chọn -s với chương trình này, nó thi hành như lệnh 'echo' (tiếng \n"
-"dội) nhưng không đơn giản sao những đối của nó sang xuất chuẩn. Có dịch các \n"
-"thông điệp trong danh mục phân loại.\n"
+"dội) nhưng không đơn giản sao chép những đối số của nó sang thiết bị xuất chuẩn.\n"
+"Có dịch các thông điệp trong danh mục phân loại.\n"
 "Thư mục tìm kiếm thường: %s\n"
 
 #: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
-"Cách sử dụng: %s [TÙY CHỌN] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-"TEXTDOMAIN - miền văn bản; MSGID - số thông điệp; PLURAL - số nhiều; \n"
-"COUNT - số cái/người.\n"
+"Cách sử dụng: %s [TÙY_CHỌN] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+"TEXTDOMAIN - miền văn bản; MSGID - số thông điệp (chuỗi ngôn ngữ gốc)\n"
+"PLURAL - số nhiều; COUNT - số đếm.\n"
 
 #: src/ngettext.c:218
 #, c-format, no-wrap
@@ -266,7 +264,7 @@ msgid ""
 "form depends on a number.\n"
 msgstr ""
 "Hiển thị bản dịch bằng ngôn ngữ mình của thông điệp thuộc văn bản có định dạng\n"
-"ngữ pháp mà phụ thuộc vào số cái/người.\n"
+"ngữ pháp mà phụ thuộc vào số điều.\n"
 
 #: src/ngettext.c:223
 #, c-format, no-wrap
@@ -280,15 +278,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=TEXTDOMAIN   gọi những thông điệp được dịch từ miền văn bản ấy\n"
-"  -e                        hiệu lực mở rộng một phần dãy thoát\n"
+"  -d, --domain=TEXTDOMAIN   gọi những thông điệp được dịch từ _miền_ văn bản ấy\n"
+"  -e                        hiệu lực _mở rộng_ một số dãy thoát\n"
 "  -E                        (bị bỏ qua vì không tương thích)\n"
-"  -h, --help                hiển thị trợ gi úp này rồi thoát\n"
-"  -n                        giữ lại đường mới đang theo\n"
-"  -V, --version             hiển thị thông tin phiên bản rồi thoát\n"
+"  -h, --help                hiển thị _trợ giúp_ này rồi thoát\n"
+"  -n                        giữ lại đường _mới_ đang theo\n"
+"  -V, --version             hiển thị thông tin _phiên bản_ rồi thoát\n"
 "  [TEXTDOMAIN]        gọi thông điệp được dịch từ miền văn bản ấy\n"
-"  MSGID MSGID-PLURAL        dịch MSGID (một) / MSGID-PLURAL (hơn một)\n"
-"  COUNT                     từ giá trị này, chọn định dạng thuộc một hay thuộc hơn một\n"
+"  MSGID MSGID-PLURAL        dịch MSGID (một điều) / MSGID-PLURAL (hơn một điều)\n"
+"  COUNT                     từ trị số này, chọn định dạng thuộc một hay thuộc hơn một\n"
 
 #: src/ngettext.c:234
 #, c-format, no-wrap
