@@ -24,6 +24,8 @@ jardir = $(datadir)/gettext
 JAR = @JAR@
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
 
+EXTRA_DIST = gnu/gettext/GettextResource.java
+
 
 # Special rules for Java compilation.
 

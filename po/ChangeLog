@@ -1,3 +1,7 @@
+2001-10-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (dist2): Distribute LINGUAS if it exists.
+
 2001-10-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* et.po: Add Plural-Forms field.

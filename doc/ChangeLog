@@ -1,3 +1,7 @@
+2001-10-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (EXTRA_DIST): Add texi2html.
+
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.texi (Header Entry): The language-team address can be an

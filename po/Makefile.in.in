@@ -175,6 +175,7 @@ dist distdir:
 # This is a separate target because 'update-po' must be executed before.
 dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
+	if test -f $(srcdir)/LINGUAS; then dists="$$dists LINGUAS"; fi; \
 	for file in $$dists; do \
 	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
 	  cp -p $$dir/$$file $(distdir); \
