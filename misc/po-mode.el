@@ -794,6 +794,10 @@ Called through file-coding-system-alist, before the file is visited for real."
 
  )
 
+(defvar po-mode-abbrev-table nil
+  "Abbrev table used while in PO mode.")
+(define-abbrev-table 'po-mode-abbrev-table ())
+
 (defvar po-mode-map nil
   "Keymap for PO mode.")
 (if po-mode-map
@@ -1924,6 +1928,7 @@ Run functions on po-subedit-mode-hook."
 	  (pop-to-buffer edit-buffer)
 	  (set (make-local-variable 'po-subedit-back-pointer) slot)
 	  (setq buffer-file-coding-system edit-coding)
+	  (setq local-abbrev-table po-mode-abbrev-table)
 	  (erase-buffer)
 	  (insert string "<")
 	  (goto-char (point-min))
