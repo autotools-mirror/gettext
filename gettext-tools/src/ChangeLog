@@ -1,3 +1,9 @@
+2005-01-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.c (po_file_read): Interpret "-" and "/dev/stdin" as
+	denoting stdin.
+	Suggested by Asgeir Frimannsson <asgeirf@redhat.com>.
+
 2004-11-29  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgettextpo_la_LDFLAGS): Add @LTLIBINTL@ @LTLIBICONV@.

@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
 
 #include "message.h"
 #include "xalloc.h"
@@ -88,9 +89,17 @@ po_file_read (const char *filename, po_error_handler_t handler)
   FILE *fp;
   po_file_t file;
 
-  fp = fopen (filename, "r");
-  if (fp == NULL)
-    return NULL;
+  if (strcmp (filename, "-") == 0 || strcmp (filename, "/dev/stdin") == 0)
+    {
+      filename = _("<stdin>");
+      fp = stdin;
+    }
+  else
+    {
+      fp = fopen (filename, "r");
+      if (fp == NULL)
+	return NULL;
+    }
 
   /* Establish error handler around read_po().  */
   po_error             = handler->error;
@@ -110,7 +119,8 @@ po_file_read (const char *filename, po_error_handler_t handler)
   po_multiline_warning = multiline_warning;
   po_multiline_error   = multiline_error;
 
-  fclose (fp);
+  if (fp != stdin)
+    fclose (fp);
   return file;
 }
 #undef po_file_read
@@ -122,9 +132,17 @@ po_file_read (const char *filename)
   FILE *fp;
   po_file_t file;
 
-  fp = fopen (filename, "r");
-  if (fp == NULL)
-    return NULL;
+  if (strcmp (filename, "-") == 0 || strcmp (filename, "/dev/stdin") == 0)
+    {
+      filename = _("<stdin>");
+      fp = stdin;
+    }
+  else
+    {
+      fp = fopen (filename, "r");
+      if (fp == NULL)
+	return NULL;
+    }
 
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
@@ -132,7 +150,8 @@ po_file_read (const char *filename)
   file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
   file->domains = NULL;
 
-  fclose (fp);
+  if (fp != stdin)
+    fclose (fp);
   return file;
 }
 
