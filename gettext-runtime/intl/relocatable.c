@@ -18,6 +18,13 @@
    USA.  */
 
 
+/* Tell glibc's <stdio.h> to provide a prototype for getline().
+   This must come before <config.h> because <config.h> may include
+   <features.h>, and once <features.h> has been included, it's too late.  */
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE	1
+#endif
+
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif

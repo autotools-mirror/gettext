@@ -1,3 +1,8 @@
+2003-04-05  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.c (_GNU_SOURCE): Define, to ensure getline() gets
+	declared by <stdio.h>.
+
 2003-04-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettextP.h [!_LIBC]: Remove declarations of exported libintl_*
