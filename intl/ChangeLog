@@ -1,3 +1,28 @@
+2001-04-07  Bruno Haible <haible@clisp.cons.org>
+
+	* gettextP.h (struct loaded_domain): Add codeset_cntr field.
+	(struct binding): Add codeset_cntr field.
+	(_nl_load_domain): Add domainbinding argument.
+	(_nl_init_domain_conv, _nl_free_domain_conv): New declarations.
+	(_nl_find_msg): New declaration, moved here from loadinfo.h.
+	* loadinfo.h (struct loaded_l10nfile): Remove domainbinding field.
+	(_nl_make_l10nflist): Remove domainbinding argument.
+	(_nl_find_msg): Move declaration to gettextP.h.
+	* bindtextdom.c (set_binding_values): Initialize ->codeset_cntr to 0.
+	Increment it when ->codeset is changed.
+	* dcigettext.c (DCIGETTEXT): Pass binding to _nl_find_msg.
+	(_nl_find_msg): Add domainbinding argument. Reinitialize the converter
+	if domainbinding->codeset_cntr has been incremented.
+	* finddomain.c (_nl_find_domain): Don't pass domainbinding to
+	_nl_make_l10nflist(). Pass it to _nl_load_domain() instead.
+	* l10nflist.c (_nl_make_l10nflist): Remove domainbinding argument.
+	* loadmsgcat.c (_nl_init_domain_conv): New function, extracted from
+	_nl_load_domain. Append //TRANSLIT also when using libiconv.
+	(_nl_free_domain_conv): New function, extracted from _nl_unload_domain.
+	(_nl_load_domain): Add domainbinding argument. Call
+	_nl_init_domain_conv.
+	(_nl_unload_domain): Call _nl_free_domain_conv.
+
 2001-04-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* dcigettext.c (HAVE_LOCALE_NULL): Don't define if __GNU_LIBRARY__ < 2
