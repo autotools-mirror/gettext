@@ -1,5 +1,5 @@
 ## Makefile for the projects subdirectory of the GNU NLS Utilities
-## Copyright (C) 2001 Free Software Foundation, Inc.
+## Copyright (C) 2001-2002 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+
+RM = rm -f
 
 projectsdir = $(pkgdatadir)/projects
 
