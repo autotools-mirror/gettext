@@ -38,9 +38,9 @@ enum format_type
   format_lisp,
   format_java,
   format_pascal,
-  format_ycp,
-  NFORMATS
+  format_ycp
 };
+#define NFORMATS 6	/* Number of format_type enum values.  */
 extern const char *const format_language[NFORMATS];
 extern const char *const format_language_pretty[NFORMATS];
 

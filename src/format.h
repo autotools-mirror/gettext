@@ -30,14 +30,14 @@ struct formatstring_parser
        1. the argument types/names needed for the format string,
        2. the total number of format directives.
      Return NULL if the string is not a valid format string.  */
-  void * (*parse) (const char *string);
+  void * (*parse) PARAMS ((const char *string));
 
   /* Free a format string descriptor, returned by parse().  */
-  void (*free) (void *descr);
+  void (*free) PARAMS ((void *descr));
 
   /* Return the number of format directives.
      A string that can be output literally has 0 format directives.  */
-  int (*get_number_of_directives) (void *descr);
+  int (*get_number_of_directives) PARAMS ((void *descr));
 
   /* Verify that the argument types/names in msgid_descr and those in
      msgstr_descr are the same.  If not, signal an error using
@@ -45,7 +45,7 @@ struct formatstring_parser
        error_at_line (0, 0, pos->file_name, pos->line_number, ...);
        error_with_progname = true;
      and return true.  Otherwise return false.  */
-  bool (*check) (const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr);
+  bool (*check) PARAMS ((const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr));
 };
 
 /* Format string parsers, each defined in its own file.  */

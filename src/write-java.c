@@ -369,7 +369,7 @@ write_java_string (stream, str)
      FILE *stream;
      const char *str;
 {
-  static const char hexdigit[16] = "0123456789abcdef";
+  static const char hexdigit[] = "0123456789abcdef";
   const char *str_limit = str + strlen (str);
 
   fprintf (stream, "\"");

@@ -255,6 +255,8 @@ would fix this problem.\n")));
 		  multiline_warning (NULL, xasprintf (_("%s\n"), note));
 		}
 #else
+	      size_t i;
+
 	      for (i = 0; i < SIZEOF (weird_charsets); i++)
 		if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
 		  break;

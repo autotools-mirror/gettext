@@ -334,7 +334,6 @@ add_object (list, object)
 {
   if (list->num_obj + 1 >= list->max_num_obj)
     {
-      // resize
       list->max_num_obj += OBJECT_LIST_GROWTH;
       list->objects =
 	xrealloc (list->objects, list->max_num_obj * sizeof (void *));

@@ -30,8 +30,9 @@ lib_LTLIBRARIES = libgettextsrc.la
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
-msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h read-mo.h write-mo.h \
-po-time.h xgettext.h x-c.h x-po.h x-java.h x-ycp.h x-rst.h
+msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
+write-mo.h read-java.h write-java.h po-time.h format.h xgettext.h x-c.h \
+x-po.h x-java.h x-ycp.h x-rst.h
 
 EXTRA_DIST = FILES
 

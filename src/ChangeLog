@@ -1,3 +1,14 @@
+2001-10-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (noinst_HEADERS): Add read-java.h, write-java.h,
+	format.h, msgunfmt.h.
+	* message.h (NFORMATS): Define via #define, not via an enum value.
+	* format.h (struct formatstring_parser): Use PARAMS.
+	* format-c.c (FAT_SIZE_MASK): Remove extraneous backslashes.
+	* po-charset.c (po_lex_charset_set): Fix syntax error.
+	* write-java.c (write_java_string): Drop hexdigit[] size.
+	* x-java.l (add_object): Remove C++ style comment.
+
 2001-10-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* hostname.c: Include "progname.h".
