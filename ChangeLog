@@ -1,4 +1,9 @@
-2003-05-08  Bruno Haible  <bruno@clisp.org>
+2003-06-11  Bruno Haible  <bruno@clisp.org>
+
+	* README.gemtext: Remove outdated file.
+	Reported by Guido Flohr <guido@imperia.net>.
+
+2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* vms/link_options.opt: New file.
 	* vms/with-libiconv.opt, vms/without-libiconv.opt: New files.
