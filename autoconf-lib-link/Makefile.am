@@ -49,6 +49,7 @@ all-local: config/config.guess config/config.sub config/install-sh config/ltmain
 
 config-dir:
 	test -d config || mkdir config
+	touch config-dir
 
 config/config.guess: $(srcdir)/../config/config.guess config-dir
 	cp $(srcdir)/../config/config.guess config/config.guess
@@ -74,7 +75,7 @@ config/config.rpath: $(srcdir)/config.rpath config-dir
 DISTCLEANFILES += config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath
 
 distclean-am:
-	rm -rf config
+	rm -rf config config-dir
 
 
 # Documentation tag not known to automake.
