@@ -1,4 +1,4 @@
-/* Copyright (C) 1999, 2001-2002 Free Software Foundation, Inc.
+/* Copyright (C) 1999, 2001-2003 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -39,11 +39,10 @@
 # define TMP_MAX 238328
 #endif
 
-#if HAVE_STDINT_H_WITH_UINTMAX || _LIBC
+#if HAVE_STDINT_H || _LIBC
 # include <stdint.h>
 #endif
-
-#if HAVE_INTTYPES_H_WITH_UINTMAX || _LIBC
+#if HAVE_INTTYPES_H
 # include <inttypes.h>
 #endif
 

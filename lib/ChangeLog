@@ -1,3 +1,9 @@
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* mkdtemp.c: Use the simpler macro names HAVE_STDINT_H,
+	HAVE_INTTYPES_H. (Including <stdint.h> or <inttypes.h> even when not
+	necessary doesn't hurt.)
+
 2002-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* setenv.c (alloca): Fall back to malloc.
