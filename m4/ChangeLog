@@ -1,3 +1,9 @@
+2002-03-02  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Set LIBINTL and LTLIBINTL to empty if
+	no preinstalled GNU gettext was found.
+	Reported by Paul Eggert.
+
 2002-02-10  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): Don't prevent installation of libintl

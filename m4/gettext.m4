@@ -182,6 +182,11 @@ return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", 
            || { test "$gt_cv_func_gnugettext_libintl" = "yes" \
                 && test "$PACKAGE" != gettext; }; then
           gt_use_preinstalled_gnugettext=yes
+        else
+          dnl Reset the values set by searching libintl.
+          LIBINTL=
+          LTLIBINTL=
+          INCINTL=
         fi
 
     ifelse(gt_included_intl, yes, [
