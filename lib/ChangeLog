@@ -1,5 +1,12 @@
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
+	* execute.h: New file.
+	* execute.c: New file.
+	* Makefile.am (libnlsut_a_SOURCES): Add execute.c.
+	(noinst_HEADERS): Add execute.h.
+
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
 	* gcd.h: New file.
 	* gcd.c: New file.
 	* Makefile.am (libnlsut_a_SOURCES): Add gcd.c.
