@@ -6506,7 +6506,7 @@ GETTEXT_VERSION=@value{VERSION}
 and adds to the package's pre-build script an invocation of
 @samp{autopoint}.  For everyone who checks out the CVS, this
 @code{autopoint} invocation will copy into the right place the
-@code{gettext} infrastructure filss that have been omitted from the CVS.
+@code{gettext} infrastructure files that have been omitted from the CVS.
 
 @node autopoint Invocation,  , Files under CVS, CVS Issues
 @subsection Invoking the @code{autopoint} Program
