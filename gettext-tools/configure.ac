@@ -122,7 +122,7 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
 utime utimes waitid])
 AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn \
-strcasecmp strncasecmp strpbrk strstr vasprintf])
+strpbrk strstr vasprintf])
 AM_FUNC_GETLINE
 if test $am_cv_func_working_getline != yes; then
   AC_CHECK_FUNCS(getdelim)
@@ -132,6 +132,7 @@ gl_FUNC_FNMATCH_POSIX
 gl_GETOPT
 gl_FUNC_EACCESS
 gl_FUNC_STPNCPY
+gl_STRCASE
 gl_MBSWIDTH
 gt_PREREQ_BACKUPFILE
 AC_FUNC_VFORK
