@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -128,12 +128,6 @@ else
     exit 1;
   }
 fi
-
-rm -fr intl
-mkdir intl || {
-  $echo "failed to create intl/ subdirectory"
-  exit 1;
-}
 
 test -d po || mkdir po || {
    $echo "failed to create po/ subdirectory"

@@ -1,3 +1,7 @@
+2001-02-07  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettextize.in: Fix bug in 2000-12-08 patch.
+
 2001-01-28  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-mode.el: Call autoload with 4 arguments.
