@@ -1,0 +1,5 @@
+2003-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Extracted from gettext package.
+	* Makefile.am: New file.
+
