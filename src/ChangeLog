@@ -1,3 +1,11 @@
+2001-09-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (COMMON_SOURCES, FORMAT_SOURCES): New variables.
+	(msgcmp_SOURCES, msgfmt_SOURCES, msgmerge_SOURCES, msgunfmt_SOURCES,
+	xgettext_SOURCES, msgattrib_SOURCES, msgcat_SOURCES, msgcomm_SOURCES,
+	msgconv_SOURCES, msgen_SOURCES, msgexec_SOURCES, msggrep_SOURCES,
+	msguniq_SOURCES): Simplify.
+
 2001-09-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* file-list.c: Include system.h.

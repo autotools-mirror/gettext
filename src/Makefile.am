@@ -45,49 +45,37 @@ JAR = @JAR@
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
 
 
+# All programs deal with message lists.
+# All programs must read PO files. (msgunfmt also, for read-java.c.)
+# message.c -> str-list.c.
+# (po.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> str-list.c.
+# (po.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> open-po.c -> dir-list.c -> str-list.c.
+# (po.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> po-charset.c.
+# (po.c <--> po-hash-gen.y <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
+COMMON_SOURCES = message.c \
+po.c po-lex.c po-gram-gen.y po-hash-gen.y po-charset.c \
+open-po.c dir-list.c str-list.c
+
+# xgettext and msgfmt deal with format strings.
+FORMAT_SOURCES = format.c \
+format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
+
 # Source dependencies.
 gettext_SOURCES = gettext.c
 ngettext_SOURCES = ngettext.c
-msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c str-list.c dir-list.c
-msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c \
-po-lex.c po.c str-list.c message.c dir-list.c write-mo.c write-java.c \
-msgl-ascii.c msgl-iconv.c plural.c \
-format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
-msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c
-msgunfmt_SOURCES = message.c msgunfmt.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c read-mo.c read-java.c
-xgettext_SOURCES = message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c str-list.c xgettext.c dir-list.c write-po.c \
-msgl-ascii.c file-list.c x-c.c x-po.c x-java.l \
-format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
-msgattrib_SOURCES = msgattrib.c message.c open-po.c po-gram-gen.y \
-po-hash-gen.y po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c \
-write-po.c msgl-ascii.c
-msgcat_SOURCES = msgcat.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-cat.c file-list.c
-msgcomm_SOURCES = msgcomm.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-cat.c file-list.c
-msgconv_SOURCES = msgconv.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-iconv.c
-msgen_SOURCES = msgen.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c
-msgexec_SOURCES = msgexec.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-charset.c
-msggrep_SOURCES = msggrep.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-charset.c
-msguniq_SOURCES = msguniq.c message.c open-po.c po-gram-gen.y po-hash-gen.y \
-po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-cat.c
+msgcmp_SOURCES    = msgcmp.c    $(COMMON_SOURCES)
+msgfmt_SOURCES    = msgfmt.c    $(COMMON_SOURCES) msgl-ascii.c msgl-iconv.c write-mo.c write-java.c plural.c $(FORMAT_SOURCES)
+msgmerge_SOURCES  = msgmerge.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c
+msgunfmt_SOURCES  = msgunfmt.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c read-mo.c read-java.c
+xgettext_SOURCES  = xgettext.c  $(COMMON_SOURCES) msgl-ascii.c write-po.c file-list.c x-c.c x-po.c x-java.l $(FORMAT_SOURCES)
+msgattrib_SOURCES = msgattrib.c $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c
+msgcat_SOURCES    = msgcat.c    $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
+msgcomm_SOURCES   = msgcomm.c   $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c file-list.c
+msgconv_SOURCES   = msgconv.c   $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-iconv.c
+msgen_SOURCES     = msgen.c     $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c
+msgexec_SOURCES   = msgexec.c   $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-charset.c
+msggrep_SOURCES   = msggrep.c   $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-charset.c
+msguniq_SOURCES   = msguniq.c   $(COMMON_SOURCES) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c
 
 # Link dependencies.
 # po-lex.c and po.c may need -liconv.
