@@ -7,6 +7,13 @@
 
 test ! -f Makefile || make distclean
 
+if "$1" = fromscratch; then
+
+  # Brought in by explicit copy.
+  rm -rf admin
+
+fi
+
 # Brought in by autopoint.
 rm -f ABOUT-NLS
 rm -f m4/codeset.m4
@@ -39,9 +46,7 @@ rm -f m4/wint_t.m4
 rm -f m4/xsize.m4
 rm -f po/Makefile.in.in
 rm -f po/remove-potcdate.sin
-
-# Brought in by explicit copy.
-rm -rf admin
+rm -f admin/config.rpath
 
 # Generated through admin/cvs.sh.
   rm -f acinclude.m4
