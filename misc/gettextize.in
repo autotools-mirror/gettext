@@ -177,12 +177,12 @@ $DATE  gettextize  <bug-gnu-utils@gnu.org>
 
 	* Makefile.in.in: Upgrade to gettext-${version}.
 EOF
-if test -e $srcdir/po/cat-id-tbl.c; then
+if test -f $srcdir/po/cat-id-tbl.c; then
   $echo "Removing po/cat-id-tbl.c"
   rm -f $srcdir/po/cat-id-tbl.c
   $echo "	* cat-id-tbl.c: Remove file." >> $srcdir/po/ChangeLog.tmp
 fi
-if test -e $srcdir/po/stamp-cat-id; then
+if test -f $srcdir/po/stamp-cat-id; then
   $echo "Removing po/stamp-cat-id"
   rm -f $srcdir/po/stamp-cat-id
   $echo "	* stamp-cat-id: Remove file." >> $srcdir/po/ChangeLog.tmp

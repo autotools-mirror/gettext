@@ -1,3 +1,7 @@
+2001-05-15  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgcomm-15: Use "test -f", not "test -e". For Solaris.
+
 2001-05-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgcomm-16: Change expected result.

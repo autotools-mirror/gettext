@@ -73,7 +73,7 @@ ${MSGCOMM} --less-than=2 --no-location -o mcomm-test15.out \
     mcomm-test15.in1 mcomm-test15.in2 mcomm-test15.in3
 
 # we've no unique msg; thus no PO should be created.
-if test -e mcomm-test15.out; then
+if test -f mcomm-test15.out; then
   echo "mcomm-test15.out wrongly written."
   result=1
 else
