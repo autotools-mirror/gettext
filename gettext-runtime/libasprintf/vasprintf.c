@@ -23,6 +23,9 @@
 /* Specification.  */
 #include "vasprintf.h"
 
+#include <limits.h>
+#include <stdlib.h>
+
 #include "vasnprintf.h"
 
 int
@@ -32,6 +35,14 @@ vasprintf (char **resultp, const char *format, va_list args)
   char *result = vasnprintf (NULL, &length, format, args);
   if (result == NULL)
     return -1;
+  if (length > INT_MAX)
+    {
+      /* We could produce such a big string, but can't return its length
+	 as an 'int'.  */
+      free (result);
+      return -1;
+    }
+
   *resultp = result;
   /* Return the number of resulting bytes, excluding the trailing NUL.  */
   return length;
