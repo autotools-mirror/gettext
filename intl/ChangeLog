@@ -1,3 +1,8 @@
+2001-07-17  Ulrich Drepper  <drepper@redhat.com>
+
+	* localealias.c (read_alias_file): Disable implicit locking
+	for the stream.  Use _unlocked functions for glibc.
+
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (dist): Avoid using hard links, because the automake-1.5
