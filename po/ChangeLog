@@ -1,3 +1,7 @@
+2002-01-04  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars: Update COPYRIGHT_HOLDER explanation.
+
 2002-01-03  Bruno Haible  <bruno@clisp.org>
 
 	* sl.po: Update from

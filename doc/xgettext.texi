@@ -178,16 +178,18 @@ two invocations of @code{xgettext} on the same files with the same
 options at different times are guaranteed to produce the same results.
 
 @item --copyright-holder=@var{string}
-Set the copyright holder in the output.  Translators are expected to transfer
+Set the copyright holder in the output.  @var{string} should be the
+copyright holder of the surrounding package.  (Note that the msgstr
+strings, extracted from the package's sources, belong to the copyright
+holder of the package.)  Translators are expected to transfer or disclaim
 the copyright for their translations, so that package maintainers can
 distribute them without legal risk.  If @var{string} is empty, the output
 files are marked as being in the public domain; in this case, the translators
 are expected to disclaim their copyright, again so that package maintainers
 can distribute them without legal risk.
 
-The default value for @var{string} is the Free Software Foundation, Inc.
-This is recommended also for packages outside the GNU project, because the
-FSF is a well trusted organization.
+The default value for @var{string} is the Free Software Foundation, Inc.,
+simply because @code{xgettext} was first used in the GNU project.
 
 @item --foreign-user
 Omit FSF copyright in output.  This option is equivalent to
