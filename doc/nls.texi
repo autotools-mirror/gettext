@@ -228,11 +228,13 @@ up-to-date matrix with full percentage details can be found at
 @node Using gettext in own code
 @section Using @code{gettext} in new packages
 
-If you are writing a freely available program and want to
-internationalize it you are welcome to use GNU @file{gettext} in your
-package.  Of course the GNU General Public License applies to your sources
-from then on if you include @code{gettext} directly in your distribution but
-since you are writing free software anyway this is no restriction.
+If you are writing a freely available program and want to internationalize
+it you are welcome to use GNU @file{gettext} in your package.  Of course
+you have to respect the GNU Library General Public License which covers
+the use of the GNU @file{gettext} library.  This means in particular that
+even non-free programs can use @code{libintl} as a shared library, whereas
+only free software can use @code{libintl} as a static library or use
+modified versions of @code{libintl}.
 
 Once the sources are changed appropriately and the setup can handle to
 use of @code{gettext} the only thing missing are the translations.  The

@@ -4660,21 +4660,29 @@ many people liking their mother tongue.  This is why translations are
 better achieved by people knowing and loving their own language, and
 ready to work together at improving the results they obtain.
 
-@item Dependencies over the GPL
+@item Dependencies over the GPL or LGPL
 
-Some people wonder if using GNU @code{gettext} necessarily brings their package
-under the protective wing of the GNU General Public License, when they
-do not want to make their program free, or want other kinds of freedom.
-The simplest answer is yes.
+Some people wonder if using GNU @code{gettext} necessarily brings their
+package under the protective wing of the GNU General Public License or
+the GNU Library General Public License, when they do not want to make
+their program free, or want other kinds of freedom.  The simplest
+answer is ``normally not''.
+
+The GNU @code{gettext} library, i.e. the contents of @code{libintl},
+is covered by the GNU Library General Public License.  The rest of
+the GNU @code{gettext} package is covered by the GNU General Public
+License.
 
 The mere marking of localizable strings in a package, or conditional
 inclusion of a few lines for initialization, is not really including
-GPL'ed code.  However, the localization routines themselves are under
-the GPL and would bring the remainder of the package under the GPL
-if they were distributed with it.  So, I presume that, for those
-for which this is a problem, it could be circumvented by letting to
-the end installers the burden of assembling a package prepared for
-localization, but not providing the localization routines themselves.
+GPL'ed or LGPL'ed code.  However, since the localization routines in
+@code{libintl} are under the LGPL, the LGPL needs to be considered.
+It gives the right to distribute the complete unmodified source of
+@code{libintl} even with non-free programs.  It also gives the right
+to use @code{libintl} as a shared library, even for non-free programs.
+But it gives the right to use @code{libintl} as a static library or
+to incorporate @code{libintl} into another library only to free
+software.
 
 @end itemize
 
