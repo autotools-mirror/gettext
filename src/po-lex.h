@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -22,30 +22,71 @@
 
 #include <sys/types.h>
 #include "error.h"
+#include "pos.h"
 
-typedef struct lex_pos_ty lex_pos_ty;
-struct lex_pos_ty
-{
-  char *file_name;
-  size_t line_number;
-};
+/* Lexical analyzer for reading PO files.  */
 
 
 /* Global variables from po-lex.c.  */
+
+/* Current position within the PO file.  */
 extern lex_pos_ty gram_pos;
-extern size_t gram_max_allowed_errors;
+
+/* Number of parse errors within a PO file that cause the program to
+   terminate.  Cf. error_message_count, declared in <error.h>.  */
+extern unsigned int gram_max_allowed_errors;
 
 
-void lex_open PARAMS ((const char *__fname));
-void lex_close PARAMS ((void));
-int po_gram_lex PARAMS ((void));
-void po_lex_pass_comments PARAMS ((int __flag));
-void po_lex_pass_obsolete_entries PARAMS ((int __flag));
+/* Open the PO file FNAME and prepare its lexical analysis.  */
+extern void lex_open PARAMS ((const char *__fname));
+
+/* Terminate lexical analysis and close the current PO file.  */
+extern void lex_close PARAMS ((void));
+
+/* Return the next token in the PO file.  The return codes are defined
+   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval.  */
+extern int po_gram_lex PARAMS ((void));
+
+/* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
+extern void po_lex_pass_comments PARAMS ((int __flag));
+
+/* po_gram_lex() can return obsolete entries as if they were normal entries.
+   Switch this on or off.  */
+extern void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 
 
-/* GCC is smart enough to allow optimizations like this.  */
-#if __STDC__ && defined __GNUC__ && __GNUC__ >= 2
+/* ISO C 99 is smart enough to allow optimizations like this.  */
+#if __STDC__ && (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
 
+/* CAUTION: If you change this macro, you must also make identical
+   changes to the function of the same name in src/po-lex.c  */
+
+# define po_gram_error(fmt, ...)					    \
+  do {									    \
+    error_at_line (0, 0, gram_pos.file_name, gram_pos.line_number,	    \
+		    fmt, __VA_ARGS__);					    \
+    if (*fmt == '.')							    \
+      --error_message_count;						    \
+    else if (error_message_count >= gram_max_allowed_errors)		    \
+      error (1, 0, _("too many errors, aborting"));			    \
+  } while (0)
+
+
+/* CAUTION: If you change this macro, you must also make identical
+   changes to the function of the same name in src/po-lex.c  */
+
+# define po_gram_error_at_line(pos, fmt, ...)				    \
+  do {									    \
+    error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
+		    fmt, __VA_ARGS__);					    \
+    if (*fmt == '.')							    \
+      --error_message_count;						    \
+    else if (error_message_count >= gram_max_allowed_errors)		    \
+      error (1, 0, _("too many errors, aborting"));			    \
+  } while (0)
+
+/* GCC is also smart enough to allow optimizations like this.  */
+#elif __STDC__ && defined __GNUC__ && __GNUC__ >= 2
 
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */
@@ -56,7 +97,7 @@ void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 		    fmt, ## args);					    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
-    else if (error_message_count >= gram_max_allowed_errors)			    \
+    else if (error_message_count >= gram_max_allowed_errors)		    \
       error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
 
@@ -64,7 +105,7 @@ void po_lex_pass_obsolete_entries PARAMS ((int __flag));
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */
 
-# define gram_error_at_line(pos, fmt, args...)				    \
+# define po_gram_error_at_line(pos, fmt, args...)			    \
   do {									    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
 		    fmt, ## args);					    \
@@ -73,10 +114,11 @@ void po_lex_pass_obsolete_entries PARAMS ((int __flag));
     else if (error_message_count >= gram_max_allowed_errors)		    \
       error (1, 0, _("too many errors, aborting"));			    \
   } while (0)
+
 #else
-void po_gram_error PARAMS ((const char *__fmt, ...));
-void gram_error_at_line PARAMS ((const lex_pos_ty *__pos, const char *__fmt,
-				 ...));
+extern void po_gram_error PARAMS ((const char *__fmt, ...));
+extern void po_gram_error_at_line PARAMS ((const lex_pos_ty *__pos,
+					   const char *__fmt, ...));
 #endif
 
 

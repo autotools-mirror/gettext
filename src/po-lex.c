@@ -44,9 +44,9 @@
 #endif
 
 #include "po-lex.h"
-#include "po-gram.h"
 #include "system.h"
 #include "error.h"
+#include "open-po.h"
 #include "po-gram-gen2.h"
 
 #if HAVE_C_BACKSLASH_A
@@ -70,6 +70,7 @@ static int keyword_p PARAMS ((char *__s));
 static int control_sequence PARAMS ((void));
 
 
+/* Open the PO file FNAME and prepare its lexical analysis.  */
 void
 lex_open (fname)
      const char *fname;
@@ -83,6 +84,7 @@ lex_open (fname)
 }
 
 
+/* Terminate lexical analysis and close the current PO file.  */
 void
 lex_close ()
 {
@@ -99,7 +101,7 @@ lex_close ()
 
 
 /* CAUTION: If you change this function, you must also make identical
-   changes to the macro of the same name in src/po-lex.h  */
+   changes to the macros of the same name in src/po-lex.h  */
 
 #if !__STDC__ || !defined __GNUC__ || __GNUC__ == 1
 /* VARARGS1 */
@@ -142,9 +144,9 @@ po_gram_error (fmt, va_alist)
 /* VARARGS2 */
 void
 # if defined VA_START && __STDC__
-gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
+po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
 # else
-gram_error_at_line (pp, fmt, va_alist)
+po_gram_error_at_line (pp, fmt, va_alist)
      const lex_pos_ty *pp;
      const char *fmt;
      va_dcl
@@ -176,6 +178,7 @@ gram_error_at_line (pp, fmt, va_alist)
 #endif
 
 
+/* Read a single character, dealing with backslash-newline.  */
 static int
 lex_getc ()
 {
@@ -352,6 +355,8 @@ control_sequence ()
 }
 
 
+/* Return the next token in the PO file.  The return codes are defined
+   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval.  */
 int
 po_gram_lex ()
 {
@@ -549,6 +554,7 @@ po_gram_lex ()
 }
 
 
+/* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
 void
 po_lex_pass_comments (flag)
      int flag;
@@ -557,6 +563,8 @@ po_lex_pass_comments (flag)
 }
 
 
+/* po_gram_lex() can return obsolete entries as if they were normal entries.
+   Switch this on or off.  */
 void
 po_lex_pass_obsolete_entries (flag)
      int flag;

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -20,16 +20,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #ifndef SRC_STR_LIST_H
 #define SRC_STR_LIST_H 1
 
-#ifdef STC_HEADERS
-# define __need_size_t
-# define __need_NULL
+/* Get size_t and NULL.  */
+#ifdef HAVE_STDDEF_H
 # include <stddef.h>
 #else
 # include <sys/types.h>
 # include <stdio.h>
 #endif
 
-/* Type describing list of strings implemented using a dynamic array.  */
+/* Type describing list of immutable strings,
+   implemented using a dynamic array.  */
 typedef struct string_list_ty string_list_ty;
 struct string_list_ty
 {
@@ -38,13 +38,27 @@ struct string_list_ty
   size_t nitems_max;
 };
 
+/* Return a fresh, empty list of strings.  */
+extern string_list_ty *string_list_alloc PARAMS ((void));
 
-string_list_ty *string_list_alloc PARAMS ((void));
-void string_list_append PARAMS ((string_list_ty *__slp, const char *__s));
-void string_list_append_unique PARAMS ((string_list_ty *__slp,
+/* Append a single string to the end of a list of strings.  */
+extern void string_list_append PARAMS ((string_list_ty *__slp,
 					const char *__s));
-void string_list_free PARAMS ((string_list_ty *__slp));
-char *string_list_join PARAMS ((const string_list_ty *__slp));
-int string_list_member PARAMS ((const string_list_ty *__slp, const char *__s));
+
+/* Append a single string to the end of a list of strings, unless it is
+   already contained in the list.  */
+extern void string_list_append_unique PARAMS ((string_list_ty *__slp,
+					       const char *__s));
+
+/* Free a list of strings.  */
+extern void string_list_free PARAMS ((string_list_ty *__slp));
+
+/* Return a freshly allocated string obtained by concatenating all the
+   strings in the list, separated by spaces.  */
+extern char *string_list_join PARAMS ((const string_list_ty *__slp));
+
+/* Return 1 if s is contained in the list of strings, 0 otherwise.  */
+extern int string_list_member PARAMS ((const string_list_ty *__slp,
+				       const char *__s));
 
 #endif

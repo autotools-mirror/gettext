@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software; you can redistribute it and/or modify
@@ -72,7 +72,7 @@ struct merge_class_ty
   /* Flags transported in special comments.  */
   int is_fuzzy;
   enum is_c_format is_c_format;
-  enum is_c_format do_wrap;
+  enum is_wrap do_wrap;
 
   /* Accumulate filepos comments for the next message directive.  */
   size_t filepos_count;
@@ -164,7 +164,7 @@ main (argc, argv)
   verbosity_level = 0;
   quiet = 0;
   error_print_progname = error_print;
-  gram_max_allowed_errors = INT_MAX;
+  gram_max_allowed_errors = UINT_MAX;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -514,8 +514,8 @@ merge_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
   mvp = message_variant_search (mp, this->domain);
   if (mvp)
     {
-      gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      gram_error_at_line (&mvp->pos, _("\
+      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
+      po_gram_error_at_line (&mvp->pos, _("\
 ...this is the location of the first definition"));
       free (msgstr);
     }
@@ -563,7 +563,7 @@ merge_parse_debrief (that)
 		break;
 	    }
 	  if (m >= mp->variant_count)
-	    gram_error_at_line (&mp->variant[0].pos, _("\
+	    po_gram_error_at_line (&mp->variant[0].pos, _("\
 this message has no definition in the \"%s\" domain"), domain_name);
 	}
     }
@@ -743,9 +743,9 @@ merge (fn1, fn2)
 
 	  if (verbosity_level > 1)
 	    {
-	      gram_error_at_line (&refmsg->variant[0].pos, _("\
+	      po_gram_error_at_line (&refmsg->variant[0].pos, _("\
 this message is used but not defined..."));
-	      gram_error_at_line (&defmsg->variant[0].pos, _("\
+	      po_gram_error_at_line (&defmsg->variant[0].pos, _("\
 ...but this definition is similar"));
 	    }
 
@@ -772,7 +772,7 @@ this message is used but not defined..."));
 	  message_ty *mp;
 
 	  if (verbosity_level > 1)
-	      gram_error_at_line (&refmsg->variant[0].pos, _("\
+	      po_gram_error_at_line (&refmsg->variant[0].pos, _("\
 this message is used but not defined in %s"), fn1);
 
 	  mp = message_copy (refmsg);

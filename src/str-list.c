@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "str-list.h"
 
 
+/* Return a fresh, empty list of strings.  */
 string_list_ty *
 string_list_alloc ()
 {
@@ -41,6 +42,7 @@ string_list_alloc ()
 }
 
 
+/* Append a single string to the end of a list of strings.  */
 void
 string_list_append (slp, s)
      string_list_ty *slp;
@@ -61,6 +63,8 @@ string_list_append (slp, s)
 }
 
 
+/* Append a single string to the end of a list of strings, unless it is
+   already contained in the list.  */
 void
 string_list_append_unique (slp, s)
      string_list_ty *slp;
@@ -87,6 +91,7 @@ string_list_append_unique (slp, s)
 }
 
 
+/* Free a list of strings.  */
 void
 string_list_free (slp)
      string_list_ty *slp;
@@ -101,6 +106,8 @@ string_list_free (slp)
 }
 
 
+/* Return a freshly allocated string obtained by concatenating all the
+   strings in the list, separated by spaces.  */
 char *
 string_list_join (slp)
      const string_list_ty *slp;
@@ -127,11 +134,12 @@ string_list_join (slp)
       memcpy (result + pos, slp->item[j], len);
       pos += len;
     }
-  result[pos] = 0;
+  result[pos] = '\0';
   return result;
 }
 
 
+/* Return 1 if s is contained in the list of strings, 0 otherwise.  */
 int
 string_list_member (slp, s)
      const string_list_ty *slp;

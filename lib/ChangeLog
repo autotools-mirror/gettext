@@ -1,5 +1,9 @@
 2000-12-30  Bruno Haible  <haible@clisp.cons.org>
 
+	* system.h (open_po_file): Remove declaration.
+
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
 	* printf.h (printf_info): New fields is_char, is_longlong.
 	(PA_FLAG_CHAR): New macro.
 	* printf-parse.h: Include inttypes.h.

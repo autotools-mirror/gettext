@@ -1,3 +1,63 @@
+2000-12-31  Bruno Haible  <haible@clisp.cons.org>
+
+	* str-list.h: Fix typo. Add comments.
+	* str-list.c: Add comments.
+
+	* dir-list.h: Add comments.
+	* dir-list.c: Likewise.
+
+	* domain.h: Remove file.
+	* msgfmt.c: Incorporate it here. Don't include "domain.h".
+	* msgunfmt.c: Don't include "domain.h".
+	* xgettext.c: Likewise.
+	* Makefile.am (noinst_HEADERS): Remove domain.h.
+
+	* open-po.h: New file.
+	* open-po.c: Include it.
+	* po-lex.c: Likewise.
+	* Makefile.am (noinst_HEADERS): Add open-po.h.
+
+	* open-po.c (open_po_file): Merge duplicated code.
+
+	* po-lex.h: Add comments.
+	(gram_max_allowed_errors): Change type to 'unsigned int'.
+	(po_gram_error_at_line): Renamed from gram_error_at_line.
+	(po_gram_error, po_gram_error_at_line): Use ISO C 99 macro vararg
+	syntax if possible.
+	* po-lex.c: Add comments. Don't include "po-gram.h".
+	(po_gram_error_at_line): Renamed from gram_error_at_line.
+	* msgmerge.c (main): Initialize gram_max_allowed_errors to UINT_MAX.
+
+	* message.h: Add comments.
+	(enum is_wrap): New type.
+	(parse_c_width_description_string): Change return type.
+	(message_ty): Change type of do_wrap field.
+	* message.c (wrap): Change type of do_wrap argument.
+	* msgfmt.c (msgfmt_class_ty): Change type of do_wrap field.
+	* msgmerge.c (merge_class_ty): Change type of do_wrap field.
+	* msgcomm.c (extract_class_ty): Change types of is_c_format, do_wrap
+	fields.
+	* xgettext.c (extract_class_ty): Likewise.
+	(remember_a_message): Change type of do_wrap.
+
+	* pos.h: New file.
+	* po-lex.h: Include it.
+	(struct lex_pos_ty): Remove type, now in pos.h.
+	* message,h: Include pos.h instead of po-lex.h.
+	* Makefile.am (noinst_HEADERS): Add pos.h.
+
+	* po.h: Add comments.
+
+	* gettextp.c (main): Use bindtextdomain instead of bindtextdomain__,
+	and dgettext instead of dgettext__. There is no need to use the
+	included libintl when GNU gettext or an X/Open gettext or a catgets
+	has been found in the system's C library.
+
+	* ylwrap: Update from automake-1.4.
+
+	* FILES: New file.
+	* Makefile.am (EXTRA_DIST): New variable.
+
 2000-12-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (scanner_c, scanner_cxx): Remove declarations.

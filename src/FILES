@@ -1,0 +1,67 @@
+                Short description of the source files
+                =====================================
+
+1)
+gettextp.c      Source for the 'gettext' program.
+
+2) The msgfmt, msgunfmt, msgcmp, msgcomm, msgmerge, xgettext programs.
+
+Bottom-up structure:
+
+str-list.h
+str-list.c
+                A list-of-immutable-strings type.
+
+dir-list.h
+dir-list.c
+                Management of the list of directories where PO files are
+                searched.
+
+pos.h
+                Source file positions.
+
+message.h
+message.c
+                The message type, with many utility routines.
+                A list-of-messages type.
+                A list-of-lists-of-messages type.
+
+msgunfmt.c      Main source for the 'msgunfmt' program.
+
+open-po.h
+open-po.c
+                Opening PO files for reading.
+
+po-lex.h
+po-lex.c
+                Lexical analysis of PO files.
+
+po.h
+po-hash.h
+po-hash-gen.y
+po-gram.h
+po-gram-gen.y
+po.c
+                Parsing of PO files.
+        po.h
+                        General parser structure.
+        po-hash.h
+        po-hash-gen.y
+                        Lexical analysis and parsing of pseudo-comments in
+                        PO files, introduced by "#:" and "#".
+        po-gram.h
+        po-gram-gen.y
+                        Parsing of PO files, based on po-lex.{h,c}.
+        po.c
+                        Top-level parser functions and callbacks.
+
+msgfmt.c        Main source for the 'msgfmt' program.
+msgcmp.c        Main source for the 'msgcmp' program.
+msgcomm.c       Main source for the 'msgcomm' program.
+msgmerge.c      Main source for the 'msgmerge' program.
+
+xget-lex.h
+xget-lex.c
+                Lexical analysis of C/C++ files.
+
+xgettext.c      Main source for the 'xgettext' program.

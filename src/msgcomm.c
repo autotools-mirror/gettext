@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1997, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -524,8 +524,8 @@ struct extract_class_ty
   string_list_ty *comment_dot;
 
   int is_fuzzy;
-  int is_c_format;
-  int do_wrap;
+  enum is_c_format is_c_format;
+  enum is_wrap do_wrap;
 
   int filepos_count;
   lex_pos_ty *filepos;

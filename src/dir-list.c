@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1996, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "config.h"
 #endif
 
-#ifdef STDC_HEADERS
+#ifdef HAVE_STDLIB_H
 # include <stdlib.h>
 #endif
 
@@ -30,9 +30,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "dir-list.h"
 #include "str-list.h"
 
-static string_list_ty *directory;
+static string_list_ty *directory /* = NULL */;
 
 
+/* Append a directory to the end of the list of directories.  */
 void
 dir_list_append (s)
      const char *s;
@@ -43,12 +44,15 @@ dir_list_append (s)
 }
 
 
+/* Return the nth directory, or NULL of n is out of range.  */
 const char *
 dir_list_nth (n)
      int n;
 {
+  /* The default value of the list consists of the single directory ".".  */
   if (directory == NULL)
     dir_list_append (".");
+
   if (n < 0 || n >= directory->nitems)
     return NULL;
   return directory->item[n];

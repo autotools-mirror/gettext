@@ -56,7 +56,6 @@ extern int errno;
 #include "printf-parse.h"
 
 #include "gettext.h"
-#include "domain.h"
 #include <libintl.h>
 
 #ifndef _POSIX_VERSION
@@ -735,7 +734,7 @@ remember_a_message (mlp, tp)
      xgettext_token_ty *tp;
 {
   enum is_c_format is_c_format = undecided;
-  enum is_c_format do_wrap = undecided;
+  enum is_wrap do_wrap = undecided;
   char *msgid;
   message_ty *mp;
   char *msgstr;
@@ -960,8 +959,8 @@ struct extract_class_ty
   string_list_ty *comment_dot;
 
   int is_fuzzy;
-  int is_c_format;
-  int do_wrap;
+  enum is_c_format is_c_format;
+  enum is_wrap do_wrap;
 
   int filepos_count;
   lex_pos_ty *filepos;
@@ -1083,8 +1082,8 @@ extract_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
   mvp = message_variant_search (mp, MESSAGE_DOMAIN_DEFAULT);
   if (mvp != NULL && strcmp (msgstr, mvp->msgstr) != 0)
     {
-      gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      gram_error_at_line (&mvp->pos, _("\
+      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
+      po_gram_error_at_line (&mvp->pos, _("\
 ...this is the location of the first definition"));
       free (msgstr);
     }

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -63,7 +63,7 @@ static size_t page_width = PAGE_WIDTH;
 /* Prototypes for local functions.  */
 static void wrap PARAMS ((FILE *__fp, const char *__line_prefix,
 			  const char *__name, const char *__value,
-			  int do_wrap));
+			  enum is_wrap do_wrap));
 static void print_blank_line PARAMS ((FILE *__fp));
 static void message_print PARAMS ((const message_ty *__mp, FILE *__fp,
 				   const char *__domain, int blank_line,
@@ -78,9 +78,111 @@ static const char *make_c_format_description_string PARAMS ((enum is_c_format,
 static const char *make_c_width_description_string PARAMS ((enum is_c_format));
 static int significant_c_format_p PARAMS ((enum is_c_format __is_c_format));
 
- static message_ty *message_list_search_fuzzy_inner PARAMS ((
+static message_ty *message_list_search_fuzzy_inner PARAMS ((
        message_list_ty *__mlp, const char *__msgid, double *__best_weight_p));
 
+
+
+enum is_c_format
+parse_c_format_description_string (s)
+     const char *s;
+{
+  if (strstr (s, "no-c-format") != NULL)
+    return no;
+  else if (strstr (s, "impossible-c-format") != NULL)
+    return impossible;
+  else if (strstr (s, "possible-c-format") != NULL)
+    return possible;
+  else if (strstr (s, "c-format") != NULL)
+    return yes;
+  return undecided;
+}
+
+
+static const char *
+make_c_format_description_string (is_c_format, debug)
+     enum is_c_format is_c_format;
+     int debug;
+{
+  const char *result = NULL;
+
+  switch (is_c_format)
+    {
+    case possible:
+      if (debug)
+	{
+	  result = " possible-c-format";
+	  break;
+	}
+      /* FALLTHROUGH */
+    case yes:
+      result = " c-format";
+      break;
+    case impossible:
+      result = " impossible-c-format";
+      break;
+    case no:
+      result = " no-c-format";
+      break;
+    case undecided:
+      result = " undecided";
+      break;
+    default:
+      abort ();
+    }
+
+  return result;
+}
+
+
+int
+possible_c_format_p (is_c_format)
+     enum is_c_format is_c_format;
+{
+  return is_c_format == possible || is_c_format == yes;
+}
+
+
+static int
+significant_c_format_p (is_c_format)
+     enum is_c_format is_c_format;
+{
+  return is_c_format != undecided && is_c_format != impossible;
+}
+
+
+enum is_c_format
+parse_c_width_description_string (s)
+     const char *s;
+{
+  if (strstr (s, "no-wrap") != NULL)
+    return no;
+  else if (strstr (s, "wrap") != NULL)
+    return yes;
+  return undecided;
+}
+
+
+static const char *
+make_c_width_description_string (do_wrap)
+     enum is_wrap do_wrap;
+{
+  const char *result = NULL;
+
+  switch (do_wrap)
+    {
+    case yes:
+      result = " wrap";
+      break;
+    case no:
+      result = " no-wrap";
+      break;
+    default:
+      abort ();
+    }
+
+  return result;
+}
 
 
 message_ty *
@@ -751,7 +853,7 @@ wrap (fp, line_prefix, name, value, do_wrap)
      const char *line_prefix;
      const char *name;
      const char *value;
-     int do_wrap;
+     enum is_wrap do_wrap;
 {
   const char *s;
   int first_line;
@@ -1398,108 +1500,6 @@ message_list_sort_by_filepos (mlp)
       free (tmp);
     }
 #endif
-}
-
-
-enum is_c_format
-parse_c_format_description_string (s)
-     const char *s;
-{
-  if (strstr (s, "no-c-format") != NULL)
-    return no;
-  else if (strstr (s, "impossible-c-format") != NULL)
-    return impossible;
-  else if (strstr (s, "possible-c-format") != NULL)
-    return possible;
-  else if (strstr (s, "c-format") != NULL)
-    return yes;
-  return undecided;
-}
-
-
-enum is_c_format
-parse_c_width_description_string (s)
-     const char *s;
-{
-  if (strstr (s, "no-wrap") != NULL)
-    return no;
-  else if (strstr (s, "wrap") != NULL)
-    return yes;
-  return undecided;
-}
-
-
-static const char *
-make_c_format_description_string (is_c_format, debug)
-     enum is_c_format is_c_format;
-     int debug;
-{
-  const char *result = NULL;
-
-  switch (is_c_format)
-    {
-    case possible:
-      if (debug)
-	{
-	  result = " possible-c-format";
-	  break;
-	}
-      /* FALLTHROUGH */
-    case yes:
-      result = " c-format";
-      break;
-    case impossible:
-      result = " impossible-c-format";
-      break;
-    case no:
-      result = " no-c-format";
-      break;
-    case undecided:
-      result = " undecided";
-      break;
-    default:
-      abort ();
-    }
-
-  return result;
-}
-
-
-static const char *
-make_c_width_description_string (do_wrap)
-     enum is_c_format do_wrap;
-{
-  const char *result = NULL;
-
-  switch (do_wrap)
-    {
-    case yes:
-      result = " wrap";
-      break;
-    case no:
-      result = " no-wrap";
-      break;
-    default:
-      abort ();
-    }
-
-  return result;
-}
-
-
-int
-possible_c_format_p (is_c_format)
-     enum is_c_format is_c_format;
-{
-  return is_c_format == possible || is_c_format == yes;
-}
-
-
-static int
-significant_c_format_p (is_c_format)
-     enum is_c_format is_c_format;
-{
-  return is_c_format != undecided && is_c_format != impossible;
 }
 
 

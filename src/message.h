@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -20,8 +20,8 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#include "po-lex.h"
 #include "str-list.h"
+#include "pos.h"
 
 /* According to Sun's Uniforum proposal the default message domain is
    named `messages'.  */
@@ -37,6 +37,27 @@ enum is_c_format
   possible,
   impossible
 };
+
+extern enum is_c_format
+       parse_c_format_description_string PARAMS ((const char *s));
+extern int possible_c_format_p PARAMS ((enum is_c_format));
+
+
+/* Is current msgid wrappable?  */
+#if 0
+enum is_wrap
+{
+  undecided,
+  yes,
+  no
+};
+#else /* HACK - C's enum concept is so stupid */
+#define is_wrap is_c_format
+#endif
+
+extern enum is_wrap parse_c_width_description_string PARAMS ((const char *s));
+extern void message_page_width_set PARAMS ((size_t width));
+
 
 typedef struct message_variant_ty message_variant_ty;
 struct message_variant_ty
@@ -66,7 +87,7 @@ struct message_ty
   enum is_c_format is_c_format;
 
   /* Do we want the string to be wrapped in the emitted PO file?  */
-  enum is_c_format do_wrap;
+  enum is_wrap do_wrap;
 
   /* The msgid string.  */
   const char *msgid;
@@ -140,10 +161,5 @@ message_ty *message_list_list_search PARAMS ((message_list_list_ty *,
 					      const char *));
 message_ty *message_list_list_search_fuzzy PARAMS ((message_list_list_ty *,
 						    const char *));
-
-enum is_c_format parse_c_format_description_string PARAMS ((const char *s));
-enum is_c_format parse_c_width_description_string PARAMS ((const char *s));
-int possible_c_format_p PARAMS ((enum is_c_format));
-void message_page_width_set PARAMS ((size_t width));
 
 #endif /* message.h */

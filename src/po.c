@@ -96,7 +96,7 @@ po_scan (pop, filename)
   po_gram_parse ();
   po_parse_debrief (pop);
   lex_close ();
-  callback_arg = 0;
+  callback_arg = NULL;
 }
 
 

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -126,7 +126,7 @@ message
 		}
 	| msgid string_list
 		{
-		  gram_error_at_line (&$1, _("missing `msgstr' section"));
+		  po_gram_error_at_line (&$1, _("missing `msgstr' section"));
 		  free ($2);
 		}
 	;

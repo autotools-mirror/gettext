@@ -1,5 +1,5 @@
 /* Converts Uniforum style .po files to binary .mo files
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -44,7 +44,6 @@
 #include <system.h>
 
 #include "gettext.h"
-#include "domain.h"
 #include "hash-string.h"
 #include <libintl.h>
 #include "message.h"
@@ -81,7 +80,7 @@ struct msgfmt_class_ty
 
   int is_fuzzy;
   enum is_c_format is_c_format;
-  enum is_c_format do_wrap;
+  enum is_wrap do_wrap;
 
   int has_header_entry;
 };
@@ -107,6 +106,15 @@ const char *program_name;
 /* We may have more than one input file.  Domains with same names in
    different files have to merged.  So we need a list of tables for
    each output file.  */
+struct msg_domain
+{
+  /* Table for mapping message IDs to message strings.  */
+  hash_table symbol_tab;
+  /* Name of domain these ID/String pairs are part of.  */
+  const char *domain_name;
+  /* Link to the next domain.  */
+  struct msg_domain *next;
+};
 static struct msg_domain *domain;
 static struct msg_domain *current_domain;
 
@@ -630,8 +638,9 @@ some header fields still have the initial default value"));
 		      strlen (msgid_string), (void **) &entry);
 	  if (0 != strcmp(msgstr_string, entry->msgstr))
 	    {
-	      gram_error_at_line (msgid_pos, _("duplicate message definition"));
-	      gram_error_at_line (&entry->pos, _("\
+	      po_gram_error_at_line (msgid_pos, _("\
+duplicate message definition"));
+	      po_gram_error_at_line (&entry->pos, _("\
 ...this is the location of the first definition"));
 
 	      /* FIXME Should this be always a reason for an exit status != 0?  */

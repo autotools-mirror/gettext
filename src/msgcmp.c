@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software; you can redistribute it and/or modify
@@ -256,15 +256,15 @@ compare (fn1, fn2)
       mp1 = message_list_search_fuzzy (list1, mp2->msgid);
       if (mp1)
 	{
-	  gram_error_at_line (&mp2->variant[0].pos, _("\
+	  po_gram_error_at_line (&mp2->variant[0].pos, _("\
 this message is used but not defined..."));
-	  gram_error_at_line (&mp1->variant[0].pos, _("\
+	  po_gram_error_at_line (&mp1->variant[0].pos, _("\
 ...but this definition is similar"));
 	  mp1->used = 1;
 	}
       else
 	{
-	  gram_error_at_line (&mp2->variant[0].pos, _("\
+	  po_gram_error_at_line (&mp2->variant[0].pos, _("\
 this message is used but not defined in %s"), fn1);
 	}
     }
@@ -277,7 +277,7 @@ this message is used but not defined in %s"), fn1);
       mp1 = list1->item[k];
       if (mp1->used)
 	continue;
-      gram_error_at_line (&mp1->variant[0].pos,
+      po_gram_error_at_line (&mp1->variant[0].pos,
 			   _("warning: this message is not used"));
     }
 
@@ -352,8 +352,8 @@ compare_directive_message (that, msgid, msgid_pos, msgstr, msgstr_pos)
   mvp = message_variant_search (mp, this->domain);
   if (mvp)
     {
-      gram_error_at_line (msgid_pos, _("duplicate message definition"));
-      gram_error_at_line (&mvp->pos, _("\
+      po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
+      po_gram_error_at_line (&mvp->pos, _("\
 ...this is the location of the first definition"));
       free (msgstr);
     }
@@ -393,7 +393,7 @@ compare_parse_debrief (that)
 		break;
 	    }
 	  if (m >= mp->variant_count)
-	    gram_error_at_line (&mp->variant[0].pos, _("\
+	    po_gram_error_at_line (&mp->variant[0].pos, _("\
 this message has no definition in the \"%s\" domain"), domain_name);
 	}
     }

@@ -1,5 +1,5 @@
 /* Header for GNU gettext libiberty
-   Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 2000 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,10 +37,6 @@
 # endif
 unsigned long strtoul ();
 #endif
-
-/* Prototypes for helper functions.  */
-extern FILE *open_po_file PARAMS ((const char *__input_name,
-				   char **__file_name));
 
 /* Wrapper functions with error checking for standard functions.  */
 extern char *xgetcwd PARAMS ((void));

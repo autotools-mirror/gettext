@@ -1,5 +1,5 @@
 /* gettext - retrieve text string from message catalog and print it.
-   Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1997, 2000 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 #include <getopt.h>
 #include <stdio.h>
 
-#ifdef STDC_HEADERS
+#ifdef HAVE_STDLIB_H
 # include <stdlib.h>
 #else
 char *getenv ();
@@ -74,17 +74,19 @@ main (argc, argv)
      char *argv[];
 {
   int optchar;
+  const char *msgid;
+
+  /* Default values for command line options.  */
   int do_help = 0;
   int do_shell = 0;
   int do_version = 0;
-  const char *msgid;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
+  add_newline = 1;
+  do_expand = 0;
 
   /* Set program name for message texts.  */
   program_name = argv[0];
-  add_newline = 1;
-  do_expand = 0;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
@@ -95,6 +97,7 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
+  /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "+d:eEhnsV", long_options, NULL))
 	 != EOF)
     switch (optchar)
@@ -173,14 +176,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
       /* Bind domain to appropriate directory.  */
       if (domaindir != NULL && domaindir[0] != '\0')
-	bindtextdomain__ (domain, domaindir);
+	bindtextdomain (domain, domaindir);
 
       /* Expand escape sequences is enabled.  */
       if (do_expand)
 	msgid = expand_escape (msgid);
 
       /* Write out the result.  */
-      fputs (dgettext__ (domain, msgid), stdout);
+      fputs (dgettext (domain, msgid), stdout);
     }
   else
     {
@@ -191,7 +194,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       else
 	/* Bind domain to appropriate directory.  */
 	if (domaindir != NULL && domaindir[0] != '\0')
-	  bindtextdomain__ (domain, domaindir);
+	  bindtextdomain (domain, domaindir);
 
       /* We have to simulate `echo'.  All arguments are strings.  */
       while (optind < argc)
@@ -203,14 +206,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	    msgid = expand_escape (msgid);
 
 	  /* Write out the result.  */
-	  fputs (domain == NULL ? msgid : dgettext__ (domain, msgid), stdout);
+	  fputs (domain == NULL ? msgid : dgettext (domain, msgid), stdout);
 
 	  /* We separate the arguments by a single ' '.  */
 	  if (optind < argc)
 	    fputc (' ', stdout);
 	}
 
-      /* If not otherwise told add trailing newline.  */
+      /* If not otherwise told: add trailing newline.  */
       if (add_newline)
 	fputc ('\n', stdout);
     }

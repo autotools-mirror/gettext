@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po-lex.h"
 
 /* Note: the _t suffix is reserved by ANSI C, so the _ty suffix is
-   used to indicate a type name  */
+   used to indicate a type name.  */
 
 /* The following pair of structures cooperate to create an "Object" in
    the OO sense, we are simply doing it manually, rather than with the
@@ -96,7 +96,7 @@ struct po_method_ty
 
 /* This next structure defines the base class passed to the methods.
    Derived methods will often need to cast their first argument before
-   using it (this correponds to the implicit ``this'' argument of many
+   using it (this corresponds to the implicit ``this'' argument of many
    C++ implementations).
 
    When declaring derived classes, use the PO_BASE_TY define at the
@@ -113,17 +113,27 @@ struct po_ty
 };
 
 
-po_ty *po_alloc PARAMS ((po_method_ty *__jtable));
-void po_scan PARAMS ((po_ty *__pop, const char *__filename));
-void po_free PARAMS ((po_ty *__pop));
+/* Allocate a fresh po_ty (or derived class) instance and call its
+   constructor.  */
+extern po_ty *po_alloc PARAMS ((po_method_ty *__jtable));
+
+/* Read a PO file, and dispatch to the various po_method_ty methods.  */
+extern void po_scan PARAMS ((po_ty *__pop, const char *__filename));
+
+/* Call the destructor and deallocate a po_ty (or derived class)
+   instance.  */
+extern void po_free PARAMS ((po_ty *__pop));
+
 
 /* Callbacks used by po-gram.y or po-hash.y or po-lex.c, indirectly
    from po_scan.  */
-void po_callback_domain PARAMS ((char *__name));
-void po_callback_message PARAMS ((char *__msgid, lex_pos_ty *__msgid_pos,
-				  char *__msgstr, lex_pos_ty *__msgstr_pos));
-void po_callback_comment PARAMS ((const char *__s));
-void po_callback_comment_dot PARAMS ((const char *__s));
-void po_callback_comment_filepos PARAMS ((const char *__s, int __line));
+extern void po_callback_domain PARAMS ((char *__name));
+extern void po_callback_message PARAMS ((char *__msgid,
+					 lex_pos_ty *__msgid_pos,
+					 char *__msgstr,
+					 lex_pos_ty *__msgstr_pos));
+extern void po_callback_comment PARAMS ((const char *__s));
+extern void po_callback_comment_dot PARAMS ((const char *__s));
+extern void po_callback_comment_filepos PARAMS ((const char *__s, int __line));
 
 #endif

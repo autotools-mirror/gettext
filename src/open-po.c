@@ -1,5 +1,5 @@
 /* open-po - search for .po file along search path list and open for reading
-   Copyright (C) 1995, 1996 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 2000 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
 This program is free software; you can redistribute it and/or modify
@@ -28,12 +28,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include <stdlib.h>
 #endif
 
-#if defined STDC_HEADERS || HAVE_STRING_H
+#ifdef HAVE_STRING_H
 # include <string.h>
 #else
 # include <strings.h>
 #endif
 
+#include "open-po.h"
 #include "dir-list.h"
 #include "error.h"
 #include "system.h"
@@ -54,7 +55,8 @@ extern char *xstrdup PARAMS ((const char *string));
 
 /* Open the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
-   not found, the list of directories in INPUT_PATH_LIST is searched.  */
+   not found, the list of directories in "dir-list.h" is searched.  The
+   file's pathname is returned in *FILE_NAME, for error message purposes.  */
 FILE *
 open_po_file (input_name, file_name)
      const char *input_name;
@@ -89,40 +91,37 @@ open_po_file (input_name, file_name)
 
 	  free (*file_name);
 	}
-
-      /* File does not exist.  */
-      *file_name = xstrdup (input_name);
-      errno = ENOENT;
-      return NULL;
     }
-
-  /* For relative file names, look through the directory search list,
-     trying the various extensions.  If no directory search list is
-     specified, the current directory is used.  */
-  for (j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
-    for (k = 0; k < SIZEOF (extension); ++k)
-      {
-	ext = extension[k];
-	if (dir[0] == '.' && dir[1] == '\0')
+  else
+    {
+      /* For relative file names, look through the directory search list,
+	 trying the various extensions.  If no directory search list is
+	 specified, the current directory is used.  */
+      for (j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
+	for (k = 0; k < SIZEOF (extension); ++k)
 	  {
-	    *file_name = xmalloc (strlen(input_name) + strlen(ext) + 1);
-	    stpcpy (stpcpy (*file_name, input_name), ext);
-	  }
-	else
-	  {
-	    *file_name = xmalloc (strlen (dir) + strlen (input_name)
-				  + strlen (ext) + 2);
-	    stpcpy (stpcpy (stpcpy (stpcpy (*file_name, dir), "/"),
-			    input_name),
-		    ext);
-	  }
+	    ext = extension[k];
+	    if (dir[0] == '.' && dir[1] == '\0')
+	      {
+		*file_name = xmalloc (strlen(input_name) + strlen(ext) + 1);
+		stpcpy (stpcpy (*file_name, input_name), ext);
+	      }
+	    else
+	      {
+		*file_name = xmalloc (strlen (dir) + strlen (input_name)
+				      + strlen (ext) + 2);
+		stpcpy (stpcpy (stpcpy (stpcpy (*file_name, dir), "/"),
+				input_name),
+			ext);
+	      }
 
-	ret_val = fopen (*file_name, "r");
-	if (ret_val != NULL || errno != ENOENT)
-	  return ret_val;
+	    ret_val = fopen (*file_name, "r");
+	    if (ret_val != NULL || errno != ENOENT)
+	      return ret_val;
 
-	free (*file_name);
-      }
+	    free (*file_name);
+	  }
+    }
 
   /* File does not exist.  */
   *file_name = xstrdup (input_name);

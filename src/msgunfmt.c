@@ -43,7 +43,6 @@
 #include <system.h>
 
 #include "gettext.h"
-#include "domain.h"
 #include "hash-string.h"
 #include <libintl.h>
 #include "message.h"

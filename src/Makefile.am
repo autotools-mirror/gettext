@@ -21,8 +21,10 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 bin_PROGRAMS = gettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
-noinst_HEADERS = domain.h message.h po-gram.h po-hash.h po-lex.h po.h \
+noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h \
 str-list.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
+
+EXTRA_DIST = FILES
 
 datadir = $(prefix)/@DATADIRNAME@
 localedir = $(datadir)/locale
