@@ -66,10 +66,10 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of python version 2.0 or newer.
 (python -V) >/dev/null 2>/dev/null \
-  || { echo "SKIP: lang-python"; rm -fr $tmpfiles; exit 77; }
+  || { rm -fr $tmpfiles; exit 77; }
 case `python -c 'import sys; print sys.hexversion >= 0x20000F0'` in
   1) ;;
-  *) echo "SKIP: lang-python"; rm -fr $tmpfiles; exit 77;;
+  *) rm -fr $tmpfiles; exit 77;;
 esac
 
 tmpfiles="$tmpfiles prog.ok prog.out"

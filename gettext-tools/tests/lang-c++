@@ -9,7 +9,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether a C++ compiler is found.
 if test "${CXX}" = ":"; then
-  echo "SKIP: lang-c++"; exit 77
+  exit 77
 fi
 
 tmpfiles="$tmpfiles prog.cc"
@@ -138,7 +138,7 @@ EOF
 LANGUAGE= ./prog fr_FR 2 > prog.out
 case $? in
   0) ;;
-  77) echo "SKIP: lang-c++"; rm -fr $tmpfiles; exit 77;;
+  77) rm -fr $tmpfiles; exit 77;;
   *) exit 1;;
 esac
 ${DIFF} prog.ok prog.out || exit 1

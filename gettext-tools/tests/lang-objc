@@ -19,7 +19,7 @@ int main ()
 }
 EOF
 ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o hello hello.m 2>/dev/null \
-  || { echo "SKIP: lang-objc"; rm -fr $tmpfiles; exit 77; }
+  || { rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles prog.m"
 cat <<\EOF > prog.m
@@ -138,7 +138,7 @@ EOF
 LANGUAGE= ./prog fr_FR 2 > prog.out
 case $? in
   0) ;;
-  77) echo "SKIP: lang-objc"; rm -fr $tmpfiles; exit 77;;
+  77) rm -fr $tmpfiles; exit 77;;
   *) exit 1;;
 esac
 ${DIFF} prog.ok prog.out || exit 1

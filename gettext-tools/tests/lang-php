@@ -68,7 +68,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 # Test for presence of gawk version 4.0 or newer.
 case `(php -v) 2>/dev/null` in
   [4-9].*) ;;
-  *) echo "SKIP: lang-php"; rm -fr $tmpfiles; exit 77;;
+  *) rm -fr $tmpfiles; exit 77;;
 esac
 
 tmpfiles="$tmpfiles prog.ok prog.out"

@@ -6,7 +6,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether we can compile and execute Java programs.
-test "${TESTJAVA}" = yes || { echo "SKIP: msgunfmt-2"; exit 77; }
+test "${TESTJAVA}" = yes || exit 77
 
 tmpfiles="$tmpfiles fr.po"
 cat <<\EOF > fr.po

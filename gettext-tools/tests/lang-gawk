@@ -83,15 +83,15 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of gawk version 3.1.1 or newer.
 (gawk --version) >/dev/null 2>/dev/null \
-  || { echo "SKIP: lang-gawk"; rm -fr $tmpfiles; exit 77; }
+  || { rm -fr $tmpfiles; exit 77; }
 case `gawk --version 2>&1 | sed -e 's/^[^0-9]*//'` in
   0.* | 1.* | 2.* | 3.0* | 3.1.0*)
-    echo "SKIP: lang-gawk"; rm -fr $tmpfiles; exit 77;;
+    rm -fr $tmpfiles; exit 77;;
 esac
 
 # Test that gawk wasn't built with --disable-nls.
 LANGUAGE= LC_ALL=fr_FR gawk --version | grep logiciel > /dev/null
-test $? = 0 || { echo "SKIP: lang-gawk"; rm -fr $tmpfiles; exit 77; }
+test $? = 0 || { rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}

@@ -15,7 +15,7 @@ EOF
 tmpfiles="$tmpfiles xg-test20.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o xg-test20.pot empty.glade 2>/dev/null
-test $? = 0 || { echo "SKIP: xgettext-20"; rm -fr $tmpfiles; exit 77; }
+test $? = 0 || { rm -fr $tmpfiles; exit 77; }
 
 tmpfiles="$tmpfiles simple.glade"
 cat <<\EOF > simple.glade

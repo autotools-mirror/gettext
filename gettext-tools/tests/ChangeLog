@@ -1,5 +1,26 @@
 2003-02-20  Bruno Haible  <bruno@clisp.org>
 
+	* msgfilter-1: Remove SKIP: messages, now emitted by the Makefile.
+	* msgfilter-2: Likewise.
+	* msgunfmt-2: Likewise.
+	* msgunfmt-3: Likewise.
+	* xgettext-19: Likewise.
+	* xgettext-20: Likewise.
+	* lang-c: Likewise.
+	* lang-c++: Likewise.
+	* lang-clisp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-java: Likewise.
+	* lang-librep: Likewise.
+	* lang-objc: Likewise.
+	* lang-pascal: Likewise.
+	* lang-php: Likewise.
+	* lang-python: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-tcl: Likewise.
+
+2003-02-20  Bruno Haible  <bruno@clisp.org>
+
 	* lang-gawk: Skip the test if gawk was built with --disable-nls.
 	Reported by Paul Jarc <prj@po.cwru.edu>.
 
