@@ -22,12 +22,14 @@
 #endif
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "message.h"
 #include "x-java.h"
 #include "xgettext.h"
-#include "system.h"
+#include "xmalloc.h"
+#include "strstr.h"
 
 typedef enum
 {

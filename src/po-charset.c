@@ -26,6 +26,7 @@
 
 #include "error.h"
 #include "xerror.h"
+#include "strstr.h"
 #include "system.h"
 #include "libgettext.h"
 

@@ -27,8 +27,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po-hash.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
-#include "system.h"
+#include "xmalloc.h"
 #include "po.h"
 
 /* Remap normal yacc parser interface names (yyparse, yylex, yyerror, etc),

@@ -43,6 +43,9 @@
 #include "progname.h"
 #include "xerror.h"
 #include "getline.h"
+#include "xmalloc.h"
+#include "strstr.h"
+#include "xerror.h"
 #include "system.h"
 #include "po.h"
 #include "message.h"
@@ -311,13 +314,7 @@ main (argc, argv)
 	  if (optarg[len - 1] == '/')
 	    output_dir = xstrdup (optarg);
 	  else
-	    {
-	      asprintf (&output_dir, "%s/", optarg);
-	      if (output_dir == NULL)
-		/* We are about to construct the absolute path to the
-		   directory for the output files but asprintf failed.  */
-		error (EXIT_FAILURE, errno, _("while preparing output"));
-	    }
+	    output_dir = xasprintf ("%s/", optarg);
 	}
 	break;
       case 's':
@@ -1103,7 +1100,7 @@ construct_header ()
       tz_sign = '-';
     }
 
-  asprintf (&msgstr, "\
+  msgstr = xasprintf ("\
 Project-Id-Version: PACKAGE VERSION\n\
 POT-Creation-Date: %d-%02d-%02d %02d:%02d%c%02ld%02ld\n\
 PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n\
@@ -1118,9 +1115,6 @@ Content-Transfer-Encoding: 8bit\n",
 	    local_time.tm_hour,
 	    local_time.tm_min,
 	    tz_sign, tz_min / 60, tz_min % 60);
-
-  if (msgstr == NULL)
-    error (EXIT_FAILURE, errno, _("while preparing output"));
 
   mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);
 

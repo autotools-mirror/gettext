@@ -29,6 +29,7 @@
 
 #include "str-list.h"
 #include "error.h"
+#include "system.h"
 #include "getline.h"
 #include "libgettext.h"
 

@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "po.h"
-#include "system.h"
+#include "xmalloc.h"
 #include "libgettext.h"
 
 #define _(str) gettext (str)

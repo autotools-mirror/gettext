@@ -26,10 +26,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "po-charset.h"
 #include "po-hash.h"
-#include "system.h"
+#include "xmalloc.h"
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */

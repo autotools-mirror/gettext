@@ -30,7 +30,7 @@
 #include "execute.h"
 #include "setenv.h"
 #include "sh-quote.h"
-#include "system.h"
+#include "xmalloc.h"
 #include "error.h"
 #include "libgettext.h"
 

@@ -24,7 +24,7 @@
 #include <stdlib.h>
 
 #include "format.h"
-#include "system.h"
+#include "xmalloc.h"
 #include "error.h"
 #include "progname.h"
 #include "libgettext.h"

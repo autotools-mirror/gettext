@@ -1,3 +1,37 @@
+2001-09-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* file-list.c: Include system.h.
+	* format-c.c: Include xmalloc.h instead of system.h.
+	* format-ycp.c: Likewise.
+	* read-po.c: Likewise.
+	* x-po.c: Likewise.
+	* format-java.c: Include xmalloc.h.
+	* format-lisp.c: Likewise.
+	* format-python.c: Likewise.
+	* gettext.c: Likewise.
+	* msgen.c: Likewise.
+	* msgexec.c: Likewise.
+	* msggrep.c: Likewise.
+	* ngettext.c: Likewise.
+	* po-lex.c: Likewise.
+	* read-mo.c: Likewise.
+	* x-c.c: Likewise.
+	* message.c: Include xmalloc.h and strstr.h.
+	* msgfmt.c: Likewise.
+	* write-po.c: Likewise.
+	* msgl-cat.c: Include string.h, xmalloc.h and strstr.h.
+	* msgl-iconv.c: Likewise.
+	* msgl-charset.c: Include strstr.h.
+	* po-charset.c: Likewise.
+	* po-gram-gen.y: Include stdlib.h, xmalloc.h instead of system.h.
+	* po-hash-gen.y: Likewise.
+	* str-list.c: Likewise.
+	* po.c: Include string.h, xmalloc.h instead of system.h.
+	* write-java.c: Include string.h, xmalloc.h.
+	* x-java.l: Include stdlib.h, xmalloc.h, strstr.h instead of system.h.
+	* xgettext.c: Include xmalloc.h, strstr.h, xerror.h.
+	(main, construct_header): Use xasprintf instead of asprintf.
+
 2001-09-24  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-lex.c (mb_iseq): Compare the byte sequence, not the Unicode

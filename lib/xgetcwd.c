@@ -21,6 +21,7 @@
 # include <config.h>
 #endif
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
 #ifndef errno
@@ -37,9 +38,7 @@ char *getwd ();
 # define getcwd(Buf, Max) getwd (Buf)
 #endif
 
-extern void *xmalloc ();
-extern char *xstrdup ();
-extern void free ();
+#include "xmalloc.h"
 
 /* Return the current directory, newly allocated, arbitrarily long.
    Return NULL and set errno on error. */

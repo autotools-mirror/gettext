@@ -28,6 +28,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <signal.h>
 
 #include <sys/stat.h>
@@ -70,6 +71,7 @@
 #include "pathmax.h"
 #include "plural-exp.h"
 #include "po-charset.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "tmpdir.h"
 #include "utf8-ucs4.h"

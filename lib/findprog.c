@@ -31,6 +31,7 @@
 # include <unistd.h>
 #endif
 
+#include "xmalloc.h"
 #include "system.h"
 
 

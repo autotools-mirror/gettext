@@ -30,7 +30,7 @@
 #include "error.h"
 #include "progname.h"
 #include "message.h"
-#include <system.h>
+#include "system.h"
 #include "libgettext.h"
 #include "po.h"
 #include "str-list.h"

@@ -32,6 +32,7 @@
 #include "gettext.h"
 
 #include "error.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "message.h"
 #include "libgettext.h"

@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include "format.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "error.h"
 #include "progname.h"

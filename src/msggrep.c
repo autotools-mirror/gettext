@@ -42,6 +42,7 @@
 #include "write-po.h"
 #include "str-list.h"
 #include "msgl-charset.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "full-write.h"
 #include "findprog.h"

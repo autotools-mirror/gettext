@@ -28,6 +28,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include <string.h>
 
 #include "fstrcmp.h"
+#include "xmalloc.h"
+#include "strstr.h"
 #include "system.h"
 
 

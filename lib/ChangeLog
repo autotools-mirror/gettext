@@ -1,3 +1,28 @@
+2001-09-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* xmalloc.h: New file.
+	* strstr.h: New file.
+	* system.h (xmalloc, xrealloc, xstrdup): Remove declarations, now in
+	xmalloc.h.
+	(parse_printf_format, asprintf): Remove declarations.
+	(strstr): Remove declaration, now in strstr.h.
+	* xmalloc.c: Include xmalloc.h. Modernize. Assume <stdlib.h> exists.
+	* xstrdup.c: Include xmalloc.h. Modernize. Assume <string.h> exists.
+	* concatpath.c: Include xmalloc.h.
+	* findprog.c: Likewise.
+	* fstrcmp.c: Include xmalloc.h instead of system.h.
+	* javacomp.c: Likewise.
+	* javaexec.c: Likewise.
+	* sh-quote.c: Likewise.
+	* hash.c: Include xmalloc.h. Don't declare xmalloc, xcalloc.
+	* xgetcwd.c: Include stdlib.h and xmalloc.h. Don't declare xmalloc,
+	xstrdup, free.
+	* Makefile.am (libnlsut_a_HEADER): Add xmalloc.h.
+	(LIBADD_HEADER): Add strstr.h.
+
+	* Makefile.am (INCLUDES): Add -I$(top_srcdir)/intl. Needed because
+	some files include "libgettext.h", in the case $builddir != $srcdir.
+
 2001-09-25  Bruno Haible  <haible@clisp.cons.org>
 
 	* javacomp.c (compile_java_class): Recognize javac exit code 2.

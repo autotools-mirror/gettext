@@ -1,5 +1,5 @@
-/* xstrdup.c -- copy a string with out of memory checking
-   Copyright (C) 1990, 1996, 2000, 2001 Free Software Foundation, Inc.
+/* Searching in a string.
+   Copyright (C) 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,20 +15,22 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-#if HAVE_CONFIG_H
-# include <config.h>
+#ifndef PARAMS
+# if defined (__GNUC__) || __STDC__
+#  define PARAMS(Args) Args
+# else
+#  define PARAMS(Args) ()
+# endif
 #endif
 
-/* Specification.  */
-#include "xmalloc.h"
+#if HAVE_STRSTR
 
+/* Get strstr() declaration.  */
 #include <string.h>
 
-/* Return a newly allocated copy of STRING.  */
+#else
 
-char *
-xstrdup (string)
-     const char *string;
-{
-  return strcpy (xmalloc (strlen (string) + 1), string);
-}
+/* Find the first occurrence of NEEDLE in HAYSTACK.  */
+extern char *strstr PARAMS ((const char *haystack, const char *needle));
+
+#endif

@@ -27,6 +27,7 @@
 #include <locale.h>
 
 #include "error.h"
+#include "xmalloc.h"
 #include "system.h"
 
 #ifdef TESTS

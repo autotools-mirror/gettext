@@ -25,6 +25,7 @@
 #include "msgl-cat.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "error.h"
 #include "xerror.h"
@@ -33,6 +34,8 @@
 #include "po-charset.h"
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
+#include "xmalloc.h"
+#include "strstr.h"
 #include "system.h"
 #include "libgettext.h"
 

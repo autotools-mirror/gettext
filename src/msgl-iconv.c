@@ -26,6 +26,7 @@
 
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 
 #if HAVE_ICONV
 # include <iconv.h>
@@ -36,6 +37,8 @@
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"
+#include "xmalloc.h"
+#include "strstr.h"
 #include "system.h"
 #include "libgettext.h"
 

@@ -19,65 +19,35 @@
 # include <config.h>
 #endif
 
-#if __STDC__
-# define VOID void
-#else
-# define VOID char
-#endif
+/* Specification.  */
+#include "xmalloc.h"
 
-#include <sys/types.h>
-
-#if HAVE_STDLIB_H
-# include <stdlib.h>
-#else
-VOID *calloc ();
-VOID *malloc ();
-VOID *realloc ();
-void free ();
-#endif
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define textdomain(Domain)
-# define _(Text) Text
-#endif
+#include <stdlib.h>
 
 #include "error.h"
+#include "libgettext.h"
 
 #ifndef EXIT_FAILURE
 # define EXIT_FAILURE 1
 #endif
 
-#ifndef NULL
-# define NULL ((VOID *) 0)
-#endif
+#define _(str) gettext (str)
 
-/* Prototypes for functions defined here.  */
-#if defined (__GNUC__) || (defined (__STDC__) && __STDC__)
-static VOID *fixup_null_alloc (size_t n);
-VOID *xmalloc (size_t n);
-VOID *xcalloc (size_t n, size_t s);
-VOID *xrealloc (VOID *p, size_t n);
-#endif
+
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+static void *fixup_null_alloc PARAMS ((size_t n));
 
 
 /* Exit value when the requested amount of memory is not available.
    The caller may set it to some other value.  */
 int xmalloc_exit_failure = EXIT_FAILURE;
 
-#if __STDC__ && (HAVE_VPRINTF || HAVE_DOPRNT)
-extern void error (int, int, const char *, ...);
-#else
-extern void error ();
-#endif
-
-static VOID *
+static void *
 fixup_null_alloc (n)
      size_t n;
 {
-  VOID *p;
+  void *p;
 
   p = 0;
   if (n == 0)
@@ -89,11 +59,11 @@ fixup_null_alloc (n)
 
 /* Allocate N bytes of memory dynamically, with error checking.  */
 
-VOID *
+void *
 xmalloc (n)
      size_t n;
 {
-  VOID *p;
+  void *p;
 
   p = malloc (n);
   if (p == NULL)
@@ -103,11 +73,11 @@ xmalloc (n)
 
 /* Allocate memory for N elements of S bytes, with error checking.  */
 
-VOID *
+void *
 xcalloc (n, s)
      size_t n, s;
 {
-  VOID *p;
+  void *p;
 
   p = calloc (n, s);
   if (p == NULL)
@@ -119,9 +89,9 @@ xcalloc (n, s)
    with error checking.
    If P is NULL, run xmalloc.  */
 
-VOID *
+void *
 xrealloc (p, n)
-     VOID *p;
+     void *p;
      size_t n;
 {
   if (p == NULL)

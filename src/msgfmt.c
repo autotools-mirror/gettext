@@ -34,6 +34,8 @@
 #include "xerror.h"
 #include "getline.h"
 #include "format.h"
+#include "xmalloc.h"
+#include "strstr.h"
 #include "system.h"
 #include "msgfmt.h"
 #include "write-mo.h"

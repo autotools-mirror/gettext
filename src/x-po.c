@@ -29,7 +29,7 @@
 #include "message.h"
 #include "x-po.h"
 #include "xgettext.h"
-#include "system.h"
+#include "xmalloc.h"
 #include "po.h"
 #include "po-lex.h"
 #include "libgettext.h"

@@ -26,7 +26,7 @@
 #include <string.h>
 
 #include "strpbrk.h"
-#include "system.h"
+#include "xmalloc.h"
 
 
 #define SHELL_SPECIAL_CHARS "\t\n !\"#$&'()*;<=>?[\\]`{|}~"

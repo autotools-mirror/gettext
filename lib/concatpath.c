@@ -25,6 +25,8 @@
 /* Specification.  */
 #include "system.h"
 
+#include "xmalloc.h"
+
 /* Concatenate a directory pathname, a relative pathname and an optional
    suffix.  The directory may end with the directory separator.  The second
    argument may not start with the directory separator (it is relative).

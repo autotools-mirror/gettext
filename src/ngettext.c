@@ -27,6 +27,7 @@
 #include <errno.h>
 
 #include "error.h"
+#include "xmalloc.h"
 #include "system.h"
 
 #include "libgettext.h"

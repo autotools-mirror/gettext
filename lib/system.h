@@ -40,18 +40,11 @@ unsigned long strtoul ();
 
 /* Wrapper functions with error checking for standard functions.  */
 extern char *xgetcwd PARAMS ((void));
-extern void *xmalloc PARAMS ((size_t __n));
-extern void *xrealloc PARAMS ((void *__p, size_t __n));
-extern char *xstrdup PARAMS ((const char *__string));
 extern char *stpcpy PARAMS ((char *__dst, const char *__src));
 extern char *stpncpy PARAMS ((char *__dst, const char *__src, size_t __n));
-extern size_t parse_printf_format PARAMS ((const char *__fmt, size_t __n,
-					   int *__argtypes));
-extern int asprintf PARAMS ((char **, const char *, ...));
 extern int strcasecmp PARAMS ((const char *__s1, const char *__s2));
 extern int strncasecmp PARAMS ((const char *__s1, const char *__s2,
 				size_t __n));
-extern char *strstr PARAMS ((const char *__str, const char *__sub));
 
 #include <string.h>
 #if !STDC_HEADERS && HAVE_MEMORY_H

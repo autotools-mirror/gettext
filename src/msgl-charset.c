@@ -32,6 +32,7 @@
 #include "progname.h"
 #include "xerror.h"
 #include "message.h"
+#include "strstr.h"
 #include "system.h"
 #include "libgettext.h"
 

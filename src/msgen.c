@@ -32,6 +32,7 @@
 #include "message.h"
 #include "read-po.h"
 #include "write-po.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "libgettext.h"
 

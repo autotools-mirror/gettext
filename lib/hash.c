@@ -50,6 +50,8 @@
 # include <values.h>
 #endif
 
+#include "xmalloc.h"
+
 #define obstack_chunk_alloc xmalloc
 #define obstack_chunk_free free
 
@@ -64,9 +66,6 @@
 #ifndef bcopy
 # define bcopy(S, D, N)	memcpy ((D), (S), (N))
 #endif
-
-extern void *xmalloc PARAMS ((size_t __n));
-extern void *xcalloc PARAMS ((size_t __n, size_t __m));
 
 typedef struct hash_entry
 {

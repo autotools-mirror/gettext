@@ -41,7 +41,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include "system.h"
+#include "xmalloc.h"
 
 
 /*
@@ -622,7 +622,7 @@ fstrcmp (string1, string2)
 	((number of chars in common) / (average length of the strings)).
      This is admittedly biased towards finding that the strings are
      similar, however it does produce meaningful results.  */
-  return ((double) (string[0].data_length + string[1].data_length -
-    string[1].edit_count - string[0].edit_count) / (string[0].data_length
-    + string[1].data_length));
+  return ((double) (string[0].data_length + string[1].data_length
+		    - string[1].edit_count - string[0].edit_count)
+	  / (string[0].data_length + string[1].data_length));
 }

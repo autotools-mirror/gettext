@@ -33,6 +33,7 @@
 #include "xgettext.h"
 #include "error.h"
 #include "progname.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "hash.h"
 #include "libgettext.h"

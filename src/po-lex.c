@@ -57,6 +57,7 @@
 
 #include "str-list.h"
 #include "po-charset.h"
+#include "xmalloc.h"
 #include "system.h"
 #include "error.h"
 #include "open-po.h"

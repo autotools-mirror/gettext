@@ -37,6 +37,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "c-ctype.h"
 #include "linebreak.h"
 #include "msgl-ascii.h"
+#include "xmalloc.h"
+#include "strstr.h"
 #include "system.h"
 #include "error.h"
 #include "xerror.h"
