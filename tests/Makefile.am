@@ -58,11 +58,9 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
-EXTRA_PROGRAMS = tstgettext tstngettext cake
+noinst_PROGRAMS = tstgettext tstngettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_LDADD = ../lib/libnlsut.a $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
-all-local: $(EXTRA_PROGRAMS)
-CLEANFILES = $(EXTRA_PROGRAMS)
