@@ -30,8 +30,12 @@ EOF
 
 tmpfiles="$tmpfiles mf-test14.mo"
 : ${MSGFMT=msgfmt}
-${MSGFMT} mf-test14.po -o mf-test14.mo
-test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+${MSGFMT} mf-test14.po -o mf-test14.mo 2>/dev/null
+# Exit code must be 1.
+# If the invalid sequence didn't get noticed, it would be 0.
+# If it produced a core dump, it would be 134 (= 128 + SIGABRT).
+test $? = 1
+result=$?
 
 rm -fr $tmpfiles
 
