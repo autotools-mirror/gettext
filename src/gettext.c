@@ -29,6 +29,7 @@
 #include "system.h"
 
 #ifdef TESTS
+# define HAVE_SETLOCALE 1
 /* Make sure we use the included libintl, not the system's one. */
 # define textdomain textdomain__
 # define bindtextdomain bindtextdomain__
@@ -155,64 +156,75 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     {
       /* We have to write a single strings translation to stdout.  */
 
-      if (optind >= argc)
-	error (EXIT_FAILURE, 0, _("missing arguments"));
-
       /* Get arguments.  */
-      msgid = argv[optind++];
-      if (optind < argc)
+      switch (argc - optind)
 	{
-	  domain = msgid;
-	  msgid = argv[optind++];
-
-	  if (optind < argc)
+	  default:
 	    error (EXIT_FAILURE, 0, _("too many arguments"));
+
+	  case 2:
+	    domain = argv[optind++];
+	    /* FALLTHROUGH */
+
+	  case 1:
+	    break;
+
+	  case 0:
+	    error (EXIT_FAILURE, 0, _("missing arguments"));
 	}
 
-      /* If no domain name is given we print the original string.  */
-      if (domain == NULL || domain[0] == '\0')
-	{
-	  fputs (msgid, stdout);
-	  exit (EXIT_SUCCESS);
-	}
+      msgid = argv[optind++];
 
-      /* Bind domain to appropriate directory.  */
-      if (domaindir != NULL && domaindir[0] != '\0')
-	bindtextdomain (domain, domaindir);
-
-      /* Expand escape sequences is enabled.  */
+      /* Expand escape sequences if enabled.  */
       if (do_expand)
 	msgid = expand_escape (msgid);
 
-      /* Write out the result.  */
-      fputs (dgettext (domain, msgid), stdout);
+      /* If no domain name is given we don't translate.  */
+      if (domain == NULL || domain[0] == '\0')
+	{
+	  fputs (msgid, stdout);
+	}
+      else
+	{
+	  /* Bind domain to appropriate directory.  */
+	  if (domaindir != NULL && domaindir[0] != '\0')
+	    bindtextdomain (domain, domaindir);
+
+	  /* Write out the result.  */
+	  fputs (dgettext (domain, msgid), stdout);
+	}
     }
   else
     {
-      /* If no domain name is given we print the original string.
-	 We mark this assigning NULL to domain.  */
-      if (domain == NULL || domain[0] == '\0')
-	domain = NULL;
-      else
-	/* Bind domain to appropriate directory.  */
-	if (domaindir != NULL && domaindir[0] != '\0')
-	  bindtextdomain (domain, domaindir);
-
-      /* We have to simulate `echo'.  All arguments are strings.  */
-      while (optind < argc)
+      if (optind < argc)
 	{
-	  msgid = argv[optind++];
+	  /* If no domain name is given we print the original string.
+	     We mark this assigning NULL to domain.  */
+	  if (domain == NULL || domain[0] == '\0')
+	    domain = NULL;
+	  else
+	    /* Bind domain to appropriate directory.  */
+	    if (domaindir != NULL && domaindir[0] != '\0')
+	      bindtextdomain (domain, domaindir);
 
-	  /* Expand escape sequences is enabled.  */
-	  if (do_expand)
-	    msgid = expand_escape (msgid);
+	  /* We have to simulate `echo'.  All arguments are strings.  */
+	  do
+	    {
+	      msgid = argv[optind++];
 
-	  /* Write out the result.  */
-	  fputs (domain == NULL ? msgid : dgettext (domain, msgid), stdout);
+	      /* Expand escape sequences if enabled.  */
+	      if (do_expand)
+		msgid = expand_escape (msgid);
 
-	  /* We separate the arguments by a single ' '.  */
-	  if (optind < argc)
-	    fputc (' ', stdout);
+	      /* Write out the result.  */
+	      fputs (domain == NULL ? msgid : dgettext (domain, msgid),
+		     stdout);
+
+	      /* We separate the arguments by a single ' '.  */
+	      if (optind < argc)
+		fputc (' ', stdout);
+	    }
+	  while (optind < argc);
 	}
 
       /* If not otherwise told: add trailing newline.  */
