@@ -1,4 +1,4 @@
-# gettext.m4 serial 32 (gettext-0.14.2)
+# gettext.m4 serial 33 (gettext-0.14.2)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -172,9 +172,9 @@ extern
 #ifdef __cplusplus
 "C"
 #endif
-const char *_nl_expand_alias ();],
+const char *_nl_expand_alias (const char *);],
               [bindtextdomain ("", "");
-return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr + *_nl_expand_alias (0)],
+return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr + *_nl_expand_alias ("")],
               gt_cv_func_gnugettext_libintl=yes,
               gt_cv_func_gnugettext_libintl=no)
             dnl Now see whether libintl exists and depends on libiconv.
@@ -193,9 +193,9 @@ extern
 #ifdef __cplusplus
 "C"
 #endif
-const char *_nl_expand_alias ();],
+const char *_nl_expand_alias (const char *);],
                 [bindtextdomain ("", "");
-return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr + *_nl_expand_alias (0)],
+return (int) gettext ("")]ifelse([$2], [need-ngettext], [ + (int) ngettext ("", "", 0)], [])[ + _nl_msg_cat_cntr + *_nl_expand_alias ("")],
                [LIBINTL="$LIBINTL $LIBICONV"
                 LTLIBINTL="$LTLIBINTL $LTLIBICONV"
                 gt_cv_func_gnugettext_libintl=yes

@@ -1,3 +1,9 @@
+2005-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Declare _nl_expand_alias with an
+	argument.
+	Reported by Vaclav Haisman <V.Haisman@sh.cvut.cz>.
+
 2005-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* progtest.m4: Require autoconf >= 2.50.
