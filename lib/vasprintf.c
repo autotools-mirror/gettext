@@ -62,7 +62,7 @@ int_vasprintf (result, format, args)
 	      total_width += abs (va_arg (ap, int));
 	    }
 	  else
-	    total_width += strtoul (p, &p, 10);
+	    total_width += strtoul (p, (char **) &p, 10);
 	  if (*p == '.')
 	    {
 	      ++p;
@@ -72,7 +72,7 @@ int_vasprintf (result, format, args)
 		  total_width += abs (va_arg (ap, int));
 		}
 	      else
-		total_width += strtoul (p, &p, 10);
+		total_width += strtoul (p, (char **) &p, 10);
 	    }
 	  while (strchr ("hlLjtz", *p))
 	    ++p;

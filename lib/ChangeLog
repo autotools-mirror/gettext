@@ -1,3 +1,8 @@
+2001-03-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* vasprintf.c (int_vasprintf): Cast second arg of strtoul, to avoid
+	warning.
+
 2001-02-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* system.h (O_BINARY, O_TEXT, setmode, fileno): New macros for systems
