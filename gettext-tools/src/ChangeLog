@@ -1,3 +1,8 @@
+2004-11-29  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextpo_la_LDFLAGS): Add @LTLIBINTL@ @LTLIBICONV@.
+	Reported by Sam Steingold <sds@gnu.org>.
+
 2004-10-01  Guido Flohr  <guido@imperia.net>
 
 	* x-perl.c (x_perl_prelex): Recognize function names starting with '-'.
