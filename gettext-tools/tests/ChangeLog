@@ -1,5 +1,11 @@
 2003-10-12  Bruno Haible  <bruno@clisp.org>
 
+	* msgcat-13: New file.
+	* xgettext-33: New file.
+	* Makefile.am (TESTS): Add them.
+
+2003-10-12  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext-32: New file.
 	* Makefile.am (TESTS): Add xgettext-32.
 

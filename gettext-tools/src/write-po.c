@@ -40,6 +40,7 @@
 #include "linebreak.h"
 #include "msgl-ascii.h"
 #include "write-properties.h"
+#include "write-stringtable.h"
 #include "xalloc.h"
 #include "strstr.h"
 #include "fwriteerror.h"
@@ -64,7 +65,7 @@
 /* Convert IS_FORMAT in the context of programming language LANG to a flag
    string for use in #, flags.  */
 
-static const char *
+const char *
 make_format_description_string (enum is_format is_format, const char *lang,
 				bool debug)
 {
@@ -97,7 +98,7 @@ make_format_description_string (enum is_format is_format, const char *lang,
 
 /* Return true if IS_FORMAT is worth mentioning in a #, flags list.  */
 
-static bool
+bool
 significant_format_p (enum is_format is_format)
 {
   return is_format != undecided && is_format != impossible;
@@ -384,6 +385,16 @@ void
 message_print_syntax_properties ()
 {
   use_syntax_properties = true;
+}
+
+
+/* Whether to output a file in NeXTstep/GNUstep .strings syntax.  */
+static bool use_syntax_stringtable = false;
+
+void
+message_print_syntax_stringtable ()
+{
+  use_syntax_stringtable = true;
 }
 
 
@@ -1038,10 +1049,15 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
     }
 
   /* Check whether the output format can accomodate all messages.  */
-  if (use_syntax_properties)
+  if (use_syntax_properties || use_syntax_stringtable)
     {
       if (mdlp->nitems > 1)
-	error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
+	{
+	  if (use_syntax_properties)
+	    error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
+	  if (use_syntax_stringtable)
+	    error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with NeXTstep/GNUstep .strings syntax."));
+	}
       if (mdlp->nitems == 1)
 	{
 	  message_list_ty *mlp = mdlp->item[0]->messages;
@@ -1063,9 +1079,14 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 	  if (has_plural != NULL)
 	    {
 	      error_with_progname = false;
-	      error_at_line (EXIT_FAILURE, 0,
-			     has_plural->file_name, has_plural->line_number,
-			     _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+	      if (use_syntax_properties)
+		error_at_line (EXIT_FAILURE, 0,
+			       has_plural->file_name, has_plural->line_number,
+			       _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+	      if (use_syntax_stringtable)
+		error_at_line (EXIT_FAILURE, 0,
+			       has_plural->file_name, has_plural->line_number,
+			       _("message catalog has plural form translations, but the output format does not support them."));
 	      error_with_progname = true;
 	    }
 	}	    
@@ -1089,6 +1110,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 
   if (use_syntax_properties)
     msgdomain_list_print_properties (mdlp, fp, page_width, debug);
+  else if (use_syntax_stringtable)
+    msgdomain_list_print_stringtable (mdlp, fp, page_width, debug);
   else
     msgdomain_list_print_po (mdlp, fp, debug);
 

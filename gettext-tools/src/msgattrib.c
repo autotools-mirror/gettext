@@ -97,6 +97,8 @@ static const struct option long_options[] =
   { "set-obsolete", no_argument, NULL, CHAR_MAX + 9 },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 16 },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 17 },
   { "strict", no_argument, NULL, 'S' },
   { "translated", no_argument, NULL, CHAR_MAX + 1 },
   { "untranslated", no_argument, NULL, CHAR_MAX + 2 },
@@ -288,6 +290,14 @@ main (int argc, char **argv)
 	ignore_file = optarg;
 	break;
 
+      case CHAR_MAX + 16: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 17: /* --stringtable-output */
+	message_print_syntax_stringtable ();
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -430,6 +440,8 @@ Attribute manipulation:\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
@@ -449,6 +461,8 @@ Output details:\n"));
       --strict                write out strict Uniforum conforming .po file\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

@@ -288,6 +288,6 @@ string_list
 comment
 	: COMMENT
 		{
-		  po_callback_comment ($1.string);
+		  po_callback_comment_dispatcher ($1.string);
 		}
 	;

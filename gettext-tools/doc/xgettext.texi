@@ -72,7 +72,7 @@ Specifies the language of the input files.  The supported languages
 are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Python},
 @code{Lisp}, @code{EmacsLisp}, @code{librep}, @code{Smalltalk}, @code{Java},
 @code{JavaProperties}, @code{awk}, @code{YCP}, @code{Tcl}, @code{Perl},
-@code{PHP}, @code{GCC-source}, @code{RST}, @code{Glade}.
+@code{PHP}, @code{GCC-source}, @code{NXStringTable}, @code{RST}, @code{Glade}.
 
 @item -C
 @itemx --c++
@@ -268,6 +268,11 @@ GNU extensions.
 Write out a Java ResourceBundle in Java @code{.properties} syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+@item --stringtable-output
+@opindex --stringtable-output@r{, @code{xgettext} option}
+Write out a NeXTstep/GNUstep localized resource file in @code{.strings} syntax.
+Note that this file format doesn't support plural forms.
 
 @item -w @var{number}
 @itemx --width=@var{number}

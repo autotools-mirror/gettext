@@ -38,6 +38,10 @@ write-po.c
 write-properties.h
 write-properties.c
                 Output of a list-of-messages to a Java .properties file.
+write-stringtable.h
+write-stringtable.c
+                Output of a list-of-messages to a NeXTstep/GNUstep .strings
+                file.
 
 +-------------- Reading PO files
 | open-po.h
@@ -59,8 +63,11 @@ write-properties.c
 | po-gram-gen.y
 | read-properties.h
 | read-properties.c
+| read-stringtable.h
+| read-stringtable.c
 | read-po-abstract.c
-|               Parsing of PO files and Java .properties files.
+|               Parsing of PO files and Java .properties and NeXTstep/GNUstep
+|              .strings files.
 |         read-po-abstract.h
 |                       General parser structure.
 |         po-hash.h
@@ -73,6 +80,9 @@ write-properties.c
 |         read-properties.h
 |         read-properties.c
 |                       Parsing of Java .properties files.
+|         read-stringtable.h
+|         read-stringtable.c
+|                       Parsing of NeXTstep/GNUstep .strings files.
 |         read-po-abstract.c
 |                       Top-level parser functions and callbacks.
 |
@@ -217,8 +227,10 @@ format.c        Table of the language dependent format string handlers.
 |               String extractor for C.
 | x-po.h
 | x-properties.h
+| x-stringtable.h
 | x-po.c
-|               String extractor from PO files and Java .properties files.
+|               String extractor from PO files and Java .properties and
+|               NeXTstep/GNUstep .strings files.
 | x-sh.h
 | x-sh.c
 |               String extractor for Shell.

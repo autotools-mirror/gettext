@@ -31,6 +31,14 @@ extern "C" {
 #endif
 
 
+/* These functions are used to output a #, flags line.  */
+extern const char *
+       make_format_description_string (enum is_format is_format,
+				       const char *lang, bool debug);
+extern bool
+       significant_format_p (enum is_format is_format);
+
+
 /* These functions output parts of a message, as comments.  */
 extern void
        message_print_comment (const message_ty *mp, FILE *fp);
@@ -56,6 +64,8 @@ extern void
        message_print_style_escape (bool flag);
 extern void
        message_print_syntax_properties (void);
+extern void
+       message_print_syntax_stringtable (void);
 
 /* Output MDLP into a PO file with the given FILENAME, according to the
    parameters set by the functions above.  */

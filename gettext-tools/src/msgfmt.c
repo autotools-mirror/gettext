@@ -167,6 +167,7 @@ static const struct option long_options[] =
   { "resource", required_argument, NULL, 'r' },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 8 },
   { "tcl", no_argument, NULL, CHAR_MAX + 7 },
   { "use-fuzzy", no_argument, NULL, 'f' },
   { "verbose", no_argument, NULL, 'v' },
@@ -281,7 +282,7 @@ main (int argc, char *argv[])
       case 'V':
 	do_version = true;
 	break;
-      case CHAR_MAX + 1:
+      case CHAR_MAX + 1: /* --check-accelerators */
 	check_accelerators = true;
 	if (optarg != NULL)
 	  {
@@ -294,24 +295,27 @@ main (int argc, char *argv[])
 		     "--check-accelerators");
 	  }
 	break;
-      case CHAR_MAX + 2:
+      case CHAR_MAX + 2: /* --check-domain */
 	check_domain = true;
 	break;
-      case CHAR_MAX + 3:
+      case CHAR_MAX + 3: /* --check-format */
 	check_format_strings = true;
 	break;
-      case CHAR_MAX + 4:
+      case CHAR_MAX + 4: /* --check-header */
 	check_header = true;
 	break;
-      case CHAR_MAX + 5:
+      case CHAR_MAX + 5: /* --java2 */
 	java_mode = true;
 	assume_java2 = true;
 	break;
-      case CHAR_MAX + 6:
+      case CHAR_MAX + 6: /* --no-hash */
 	no_hash_table = true;
 	break;
-      case CHAR_MAX + 7:
+      case CHAR_MAX + 7: /* --tcl */
 	tcl_mode = true;
+	break;
+      case CHAR_MAX + 8: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -428,8 +432,12 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       ++optind;
     }
 
-  /* We know a priori that properties_parse() converts strings to UTF-8.  */
-  canon_encoding = (input_syntax == syntax_properties ? po_charset_utf8 : NULL);
+  /* We know a priori that properties_parse() and stringtable_parse() convert
+     strings to UTF-8.  */
+  canon_encoding =
+    (input_syntax == syntax_properties || input_syntax == syntax_stringtable
+     ? po_charset_utf8
+     : NULL);
 
   /* Remove obsolete messages.  They were only needed for duplicate
      checking.  */
@@ -571,6 +579,9 @@ specified directory.\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input files are in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n\
+                              syntax\n"));
       printf ("\n");
       printf (_("\
 Input file interpretation:\n"));

@@ -63,6 +63,11 @@ The default encoding is the current locale's encoding.
 Assume the input file is a Java ResourceBundle in Java @code{.properties}
 syntax, not in PO file syntax.
 
+@item --stringtable-input
+@opindex --stringtable-input@r{, @code{msgonv} option}
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+@code{.strings} syntax, not in PO file syntax.
+
 @end table
 
 @subsection Output details
@@ -101,6 +106,11 @@ GNU extensions.
 Write out a Java ResourceBundle in Java @code{.properties} syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
+
+@item --stringtable-output
+@opindex --stringtable-output@r{, @code{msgconv} option}
+Write out a NeXTstep/GNUstep localized resource file in @code{.strings} syntax.
+Note that this file format doesn't support plural forms.
 
 @item -w @var{number}
 @itemx --width=@var{number}

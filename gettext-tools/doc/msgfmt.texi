@@ -126,6 +126,11 @@ written in the specified directory.
 Assume the input files are Java ResourceBundles in Java @code{.properties}
 syntax, not in PO file syntax.
 
+@item --stringtable-input
+@opindex --stringtable-input@r{, @code{msgfmt} option}
+Assume the input files are NeXTstep/GNUstep localized resource files in
+@code{.strings} syntax, not in PO file syntax.
+
 @end table
 
 @subsection Input file interpretation

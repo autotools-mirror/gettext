@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <getopt.h>
+#include <limits.h>
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,6 +80,7 @@ static const struct option long_options[] =
   { "help", no_argument, NULL, 'h' },
   { "input", required_argument, NULL, 'i' },
   { "properties-input", no_argument, NULL, 'P' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 1 },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
@@ -156,6 +158,10 @@ main (int argc, char **argv)
 
       case 'V':
 	do_version = true;
+	break;
+
+      case CHAR_MAX + 1: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
 	break;
 
       default:
@@ -264,6 +270,8 @@ If no input file is given or if it is -, standard input is read.\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"));
       printf ("\n");
       printf (_("\
 Informative output:\n"));

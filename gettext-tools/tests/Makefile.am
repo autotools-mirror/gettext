@@ -25,7 +25,7 @@ TESTS = gettext-1 gettext-2 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 msgattrib-15 \
 	msgcat-1 msgcat-2 msgcat-3 msgcat-4 msgcat-5 msgcat-6 msgcat-7 \
-	msgcat-8 msgcat-9 msgcat-10 msgcat-11 msgcat-12 \
+	msgcat-8 msgcat-9 msgcat-10 msgcat-11 msgcat-12 msgcat-13 \
 	msgcmp-1 msgcmp-2 msgcmp-3 \
 	msgcomm-1 msgcomm-2 msgcomm-3 msgcomm-4 msgcomm-5 msgcomm-6 msgcomm-7 \
 	msgcomm-8 msgcomm-9 msgcomm-10 msgcomm-11 msgcomm-12 msgcomm-13 \
@@ -51,6 +51,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-18 xgettext-19 xgettext-20 xgettext-21 xgettext-22 \
 	xgettext-23 xgettext-24 xgettext-25 xgettext-26 xgettext-27 \
 	xgettext-28 xgettext-29 xgettext-30 xgettext-31 xgettext-32 \
+	xgettext-33 \
 	format-awk-1 format-awk-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 \
 	format-elisp-1 format-elisp-2 \

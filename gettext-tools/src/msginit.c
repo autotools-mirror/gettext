@@ -133,6 +133,8 @@ static const struct option long_options[] =
   { "output-file", required_argument, NULL, 'o' },
   { "properties-input", no_argument, NULL, 'P' },
   { "properties-output", no_argument, NULL, 'p' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 3 },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 4 },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
@@ -240,6 +242,14 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 2: /* --no-wrap */
 	message_page_width_ignore ();
+	break;
+
+      case CHAR_MAX + 3: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 4: /* --stringtable-output */
+	message_print_syntax_stringtable ();
 	break;
 
       default:
@@ -379,6 +389,8 @@ locale setting.  If it is -, the results are written to standard output.\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
@@ -388,6 +400,8 @@ Output details:\n"));
       --no-translator         assume the PO file is automatically generated\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

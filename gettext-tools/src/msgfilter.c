@@ -116,6 +116,8 @@ static const struct option long_options[] =
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 4 },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 5 },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
   { NULL, 0, NULL, 0 }
@@ -245,6 +247,14 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 3: /* --no-wrap */
 	message_page_width_ignore ();
+	break;
+
+      case CHAR_MAX + 4: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 5: /* --stringtable-output */
+	message_print_syntax_stringtable ();
 	break;
 
       default:
@@ -405,6 +415,8 @@ Useful FILTER-OPTIONs when the FILTER is 'sed':\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
@@ -426,6 +438,8 @@ Output details:\n"));
       --strict                strict Uniforum output style\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

@@ -103,6 +103,8 @@ static const struct option long_options[] =
   { "sort-output", no_argument, NULL, 's' },
   { "silent", no_argument, NULL, 'q' },
   { "strict", no_argument, NULL, CHAR_MAX + 2 },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 5 },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 6 },
   { "suffix", required_argument, NULL, CHAR_MAX + 3 },
   { "update", no_argument, NULL, 'U' },
   { "verbose", no_argument, NULL, 'v' },
@@ -270,6 +272,14 @@ main (int argc, char **argv)
 	message_page_width_ignore ();
 	break;
 
+      case CHAR_MAX + 5: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 6: /* --stringtable-output */
+	message_print_syntax_stringtable ();
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -341,6 +351,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* In update mode, --properties-input implies --properties-output.  */
   if (update_mode && input_syntax == syntax_properties)
     message_print_syntax_properties ();
+  /* In update mode, --stringtable-input implies --stringtable-output.  */
+  if (update_mode && input_syntax == syntax_stringtable)
+    message_print_syntax_stringtable ();
 
   /* Merge the two files.  */
   result = merge (argv[optind], argv[optind + 1], &def);
@@ -482,6 +495,9 @@ Operation modifiers:\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input files are in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n\
+                              syntax\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
@@ -501,6 +517,8 @@ Output details:\n"));
       --strict                strict Uniforum output style\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

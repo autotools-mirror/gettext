@@ -31,6 +31,7 @@
 #include "po-gram.h"
 #include "po-hash.h"
 #include "read-properties.h"
+#include "read-stringtable.h"
 #include "xalloc.h"
 #include "gettext.h"
 
@@ -177,6 +178,11 @@ po_scan (abstract_po_reader_ty *pop, FILE *fp,
       properties_parse (pop, fp, real_filename, logical_filename);
       po_scan_end (pop);
       break;
+    case syntax_stringtable:
+      po_scan_start (pop);
+      stringtable_parse (pop, fp, real_filename, logical_filename);
+      po_scan_end (pop);
+      break;
     default:
       abort ();
     }
@@ -219,6 +225,22 @@ po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 }
 
 
+void
+po_callback_comment (const char *s)
+{
+  /* assert(callback_arg); */
+  call_comment (callback_arg, s);
+}
+
+
+void
+po_callback_comment_dot (const char *s)
+{
+  /* assert(callback_arg); */
+  call_comment_dot (callback_arg, s);
+}
+
+
 /* This function is called by po_parse_comment_filepos(), once for each
    filename.  */
 void
@@ -226,6 +248,14 @@ po_callback_comment_filepos (const char *name, size_t line)
 {
   /* assert(callback_arg); */
   call_comment_filepos (callback_arg, name, line);
+}
+
+
+void
+po_callback_comment_special (const char *s)
+{
+  /* assert(callback_arg); */
+  call_comment_special (callback_arg, s);
 }
 
 
@@ -332,11 +362,10 @@ po_parse_comment_special (const char *s,
    call_comment_filepos (via po_parse_comment_filepos), or
    call_comment_special.  */
 void
-po_callback_comment (const char *s)
+po_callback_comment_dispatcher (const char *s)
 {
-  /* assert(callback_arg); */
   if (*s == '.')
-    call_comment_dot (callback_arg, s + 1);
+    po_callback_comment_dot (s + 1);
   else if (*s == ':')
     {
       /* Parse the file location string.  If the parse succeeds, the
@@ -346,12 +375,12 @@ po_callback_comment (const char *s)
       if (po_parse_comment_filepos (s + 1) == 0)
 	/* Do nothing, it is a GNU-style file pos line.  */ ;
       else
-	call_comment (callback_arg, s + 1);
+	po_callback_comment (s + 1);
     }
   else if (*s == ',' || *s == '!')
     {
       /* Get all entries in the special comment line.  */
-      call_comment_special (callback_arg, s + 1);
+      po_callback_comment_special (s + 1);
     }
   else
     {
@@ -365,6 +394,6 @@ po_callback_comment (const char *s)
 	  && po_parse_comment_filepos (s) == 0)
 	/* Do nothing, it is a Sun-style file pos line.  */ ;
       else
-	call_comment (callback_arg, s);
+	po_callback_comment (s);
     }
 }

@@ -118,6 +118,11 @@ Write out a Java ResourceBundle in Java @code{.properties} syntax.  Note
 that this file format doesn't support plural forms and silently drops
 obsolete messages.
 
+@item --stringtable-output
+@opindex --stringtable-output@r{, @code{msgunfmt} option}
+Write out a NeXTstep/GNUstep localized resource file in @code{.strings} syntax.
+Note that this file format doesn't support plural forms.
+
 @item -w @var{number}
 @itemx --width=@var{number}
 @opindex -w@r{, @code{msgunfmt} option}

@@ -55,6 +55,7 @@ static const struct option long_options[] =
   { "help", no_argument, NULL, 'h' },
   { "multi-domain", no_argument, NULL, 'm' },
   { "properties-input", no_argument, NULL, 'P' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 1 },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
@@ -120,6 +121,10 @@ main (int argc, char *argv[])
 
       case 'V':
 	do_version = true;
+	break;
+
+      case CHAR_MAX + 1: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
 	break;
 
       default:
@@ -207,6 +212,9 @@ Operation modifiers:\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input files are in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n\
+                              syntax\n"));
       printf ("\n");
       printf (_("\
 Informative output:\n"));

@@ -30,6 +30,7 @@
 #include "xgettext.h"
 #include "x-po.h"
 #include "x-properties.h"
+#include "x-stringtable.h"
 #include "xalloc.h"
 #include "read-po.h"
 #include "po-lex.h"
@@ -138,4 +139,14 @@ extract_properties (FILE *fp,
 		    msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, syntax_properties, mdlp);
+}
+
+
+void
+extract_stringtable (FILE *fp,
+		     const char *real_filename, const char *logical_filename,
+		     flag_context_list_table_ty *flag_table,
+		     msgdomain_list_ty *mdlp)
+{
+  extract (fp, real_filename,  logical_filename, syntax_stringtable, mdlp);
 }

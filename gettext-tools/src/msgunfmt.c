@@ -77,6 +77,7 @@ static const struct option long_options[] =
   { "resource", required_argument, NULL, 'r' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 3 },
   { "tcl", no_argument, NULL, CHAR_MAX + 1 },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
@@ -201,6 +202,10 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 2: /* --no-wrap */
 	message_page_width_ignore ();
+	break;
+
+      case CHAR_MAX + 3: /* --stringtable-output */
+	message_print_syntax_stringtable ();
 	break;
 
       default:
@@ -394,6 +399,8 @@ Output details:\n"));
       --strict                write strict uniforum style\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

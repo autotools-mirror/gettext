@@ -84,6 +84,7 @@ extern "C" {
 #include "x-tcl.h"
 #include "x-perl.h"
 #include "x-php.h"
+#include "x-stringtable.h"
 #include "x-rst.h"
 #include "x-glade.h"
 
@@ -126,7 +127,7 @@ static const char *msgstr_suffix;
 /* Directory in which output files are created.  */
 static char *output_dir;
 
-/* The output syntax: .pot or .properties.  */
+/* The output syntax: .pot or .properties or .strings.  */
 static input_syntax_ty output_syntax = syntax_po;
 
 /* If nonzero omit header with information about this run.  */
@@ -179,7 +180,7 @@ static const struct option long_options[] =
   { "exclude-file", required_argument, NULL, 'x' },
   { "extract-all", no_argument, NULL, 'a' },
   { "files-from", required_argument, NULL, 'f' },
-  { "flag", required_argument, NULL, CHAR_MAX + 7 },
+  { "flag", required_argument, NULL, CHAR_MAX + 8 },
   { "force-po", no_argument, &force_po, 1 },
   { "foreign-user", no_argument, NULL, CHAR_MAX + 2 },
   { "from-code", required_argument, NULL, CHAR_MAX + 3 },
@@ -202,6 +203,7 @@ static const struct option long_options[] =
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
   { "string-limit", required_argument, NULL, 'l' },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 7 },
   { "trigraphs", no_argument, NULL, 'T' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -453,7 +455,11 @@ main (int argc, char *argv[])
 	message_print_syntax_properties ();
 	output_syntax = syntax_properties;
 	break;
-      case CHAR_MAX + 7:	/* --flag */
+      case CHAR_MAX + 7:	/* --stringtable-output */
+	message_print_syntax_stringtable ();
+	output_syntax = syntax_stringtable;
+	break;
+      case CHAR_MAX + 8:	/* --flag */
 	xgettext_record_flag (optarg);
 	break;
       default:
@@ -721,7 +727,7 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Smalltalk, Java,\n\
                                 JavaProperties, awk, YCP, Tcl, Perl, PHP,\n\
-                                GCC-source, RST, Glade)\n"));
+                                GCC-source, NXStringTable, RST, Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -792,6 +798,8 @@ Output details:\n"));
       --strict                write out strict Uniforum conforming .po file\n"));
       printf (_("\
       --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\
@@ -1994,7 +2002,9 @@ finalize_header (msgdomain_list_ty *mdlp)
 	  has_nonascii = true;
       }
 
-    if (has_nonascii || output_syntax == syntax_properties)
+    if (has_nonascii
+	|| output_syntax == syntax_properties
+	|| output_syntax == syntax_stringtable)
       {
 	message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -2038,6 +2048,7 @@ language_to_extractor (const char *name)
     SCANNERS_TCL
     SCANNERS_PERL
     SCANNERS_PHP
+    SCANNERS_STRINGTABLE
     SCANNERS_RST
     SCANNERS_GLADE
     /* Here will follow more languages and their scanners: pike, C#, etc...
@@ -2095,6 +2106,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_TCL
     EXTENSIONS_PERL
     EXTENSIONS_PHP
+    EXTENSIONS_STRINGTABLE
     EXTENSIONS_RST
     EXTENSIONS_GLADE
     /* Here will follow more file extensions: cs ... */

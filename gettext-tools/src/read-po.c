@@ -450,8 +450,9 @@ read_po (FILE *fp, const char *real_filename, const char *logical_filename)
   pop->allow_duplicates_if_same_msgstr = false;
   pop->mdlp = msgdomain_list_alloc (!pop->allow_duplicates);
   pop->mlp = msgdomain_list_sublist (pop->mdlp, pop->domain, true);
-  if (input_syntax == syntax_properties)
-    /* We know a priori that properties_parse() converts strings to UTF-8.  */
+  if (input_syntax == syntax_properties || input_syntax == syntax_stringtable)
+    /* We know a priori that properties_parse() and stringtable_parse()
+       convert strings to UTF-8.  */
     pop->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
   po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename,

@@ -1,3 +1,100 @@
+2003-10-18  Bruno Haible  <bruno@clisp.org>
+
+	Support for GNUstep .strings format.
+	* read-stringtable.h: New file.
+	* read-stringtable.c: New file.
+	* read-po-abstract.h (enum input_syntax_ty): New item
+	syntax_stringtable.
+	(po_callback_comment_dispatcher): Renamed from po_callback_comment.
+	(po_callback_comment, po_callback_comment_special): New declarations.
+	* read-po-abstract.c: Include read-stringtable.h.
+	(po_scan): Add support for syntax_stringtable.
+	(po_callback_comment_dispatcher): Renamed from po_callback_comment.
+	(po_callback_comment, po_callback_comment_dot): New functions.
+	(po_callback_comment_special): New function.
+	* read-po.c (read_po): Set mdlp->encoding for syntax_stringtable too.
+	* po-gram-gen.y: Update po_callback_comment_dispatcher call.
+	* read-properties.c (properties_parse): Likewise.
+	* write-stringtable.h: New file.
+	* write-stringtable.c: New file.
+	* write-po.h (make_format_description_string, significant_format_p):
+	New declarations.
+	(message_print_syntax_stringtable): New declaration.
+	* write-po.c: Include write-stringtable.h.
+	(make_format_description_string, significant_format_p): Make
+	non-static.
+	(use_syntax_stringtable): New variable.
+	(message_print_syntax_stringtable): New function.
+	(msgdomain_list_print): Add check for plural forms for
+	syntax_stringtable too. Add support for writing the .strings format.
+	* msgattrib.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* msgcat.c (long_options): Add --stringtable-input/output.
+	(main): Handle them. If option --stringtable-output is used, convert to
+	UTF-8 and ignore the to_code.
+	(usage): Document options --stringtable-input/output.
+	* msgcmp.c (long_options): Add --stringtable-input.
+	(main): Handle it.
+	(usage): Document option --stringtable-input.
+	* msgcomm.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* msgconv.c (long_options): Add --stringtable-input/output.
+	(main): Handle them. If option --stringtable-output is used, ignore the
+	to_code.
+	(usage): Document options --stringtable-input/output.
+	* msgen.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* msgexec.c: Include limits.h.
+	(long_options): Add --stringtable-input.
+	(main): Handle it.
+	(usage): Document option --stringtable-input.
+	* msgfilter.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* msgfmt.c (long_options): Add --stringtable-input.
+	(main): Handle it.
+	(usage): Document option --stringtable-input.
+	* msggrep.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* msginit.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* msgmerge.c (long_options): Add --stringtable-input/output.
+	(main): Handle them. In update mode, --stringtable-input implies
+	--stringtable-output.
+	(usage): Document options --stringtable-input/output.
+	* msgunfmt.c (long_options): Add --stringtable-output.
+	(main): Handle it.
+	(usage): Document option --stringtable-output.
+	* msguniq.c (long_options): Add --stringtable-input/output.
+	(main): Handle them.
+	(usage): Document options --stringtable-input/output.
+	* x-stringtable.h: New file.
+	* x-po.c: Include x-stringtable.h.
+	(extract_stringtable): New function.
+	* xgettext.c: Include x-stringtable.h.
+	(long_options): Add --stringtable-output.
+	(main): Handle it.
+	(usage): Document options -L NXStringTable and --stringtable-output.
+	(finalize_header): If --stringtable-output was given, set the charset.
+	(language_to_extractor): Add support for .strings format.
+	(extension_to_language): Likewise.
+	* Makefile.am (noinst_HEADERS): Add read-stringtable.h,
+	write-stringtable.h, x-stringtable.h.
+	(COMMON_SOURCE): Add read-stringtable.c.
+	(libgettextsrc_la_SOURCES): Add write-stringtable.c.
+	* Makefile.msvc (OBJECTS): Add read-stringtable.obj,
+	write-stringtable.obj.
+	(read-stringtable.obj, write-stringtable.obj): New rules.
+	* Makefile.vms (OBJECTS): Add read-stringtable.obj,
+	write-stringtable.obj.
+	(read-stringtable.obj, write-stringtable.obj): New rules.
+	* FILES: Update.
+
 2003-10-21  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (xgethostname): Add support for native Woe32 API.

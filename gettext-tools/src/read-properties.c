@@ -502,7 +502,7 @@ properties_parse (abstract_po_reader_ty *this, FILE *file,
 	    }
 	  buffer[buflen] = '\0';
 
-	  po_callback_comment (conv_from_java (conv_from_iso_8859_1 (buffer)));
+	  po_callback_comment_dispatcher (conv_from_java (conv_from_iso_8859_1 (buffer)));
 	}
       else
 	{

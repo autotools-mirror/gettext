@@ -66,6 +66,11 @@ If no @var{inputfile} is given or if it is @samp{-}, standard input is read.
 Assume the input file is a Java ResourceBundle in Java @code{.properties}
 syntax, not in PO file syntax.
 
+@item --stringtable-input
+@opindex --stringtable-input@r{, @code{msgexec} option}
+Assume the input file is a NeXTstep/GNUstep localized resource file in
+@code{.strings} syntax, not in PO file syntax.
+
 @end table
 
 @subsection Informative output

@@ -133,7 +133,8 @@ extern abstract_po_reader_ty *
 enum input_syntax_ty
 {
   syntax_po,
-  syntax_properties
+  syntax_properties,
+  syntax_stringtable
 };
 typedef enum input_syntax_ty input_syntax_ty;
 
@@ -161,6 +162,8 @@ extern void po_callback_message (char *msgid, lex_pos_ty *msgid_pos,
 extern void po_callback_comment (const char *s);
 extern void po_callback_comment_dot (const char *s);
 extern void po_callback_comment_filepos (const char *s, size_t line);
+extern void po_callback_comment_special (const char *s);
+extern void po_callback_comment_dispatcher (const char *s);
 
 /* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
 extern void po_parse_comment_special (const char *s, bool *fuzzyp,

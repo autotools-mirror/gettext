@@ -112,11 +112,13 @@ OBJECTS = \
   po-hash-gen.obj \
   po-charset.obj \
   read-properties.obj \
+  read-stringtable.obj \
   open-po.obj \
   dir-list.obj \
   str-list.obj \
   read-po.obj \
   write-properties.obj \
+  write-stringtable.obj \
   write-po.obj \
   msgl-ascii.obj \
   msgl-iconv.obj \
@@ -189,6 +191,9 @@ po-charset.obj : po-charset.c
 read-properties.obj : read-properties.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c read-properties.c
 
+read-stringtable.obj : read-stringtable.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c read-stringtable.c
+
 open-po.obj : open-po.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c open-po.c
 
@@ -203,6 +208,9 @@ read-po.obj : read-po.c
 
 write-properties.obj : write-properties.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c write-properties.c
+
+write-stringtable.obj : write-stringtable.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c write-stringtable.c
 
 write-po.obj : write-po.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c write-po.c

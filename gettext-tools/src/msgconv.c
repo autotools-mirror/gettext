@@ -69,6 +69,8 @@ static const struct option long_options[] =
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 2 },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 3 },
   { "to-code", required_argument, NULL, 't' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -194,6 +196,14 @@ main (int argc, char **argv)
 	message_page_width_ignore ();
 	break;
 
+      case CHAR_MAX + 2: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 3: /* --stringtable-output */
+	message_print_syntax_stringtable ();
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -245,7 +255,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   result = read_po_file (input_file);
 
   /* Convert if and only if the output syntax supports different encodings.  */
-  if (output_syntax != syntax_properties)
+  if (output_syntax != syntax_properties
+      && output_syntax != syntax_stringtable)
     result = iconv_msgdomain_list (result, to_code, input_file);
 
   /* Sort the results.  */
@@ -309,6 +320,8 @@ The default encoding is the current locale's encoding.\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
@@ -328,6 +341,8 @@ Output details:\n"));
       --strict                strict Uniforum output style\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\

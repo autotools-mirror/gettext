@@ -70,6 +70,8 @@ static const struct option long_options[] =
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "stringtable-input", no_argument, NULL, CHAR_MAX + 3 },
+  { "stringtable-output", no_argument, NULL, CHAR_MAX + 4 },
   { "to-code", required_argument, NULL, 't' },
   { "unique", no_argument, NULL, 'u' },
   { "use-first", no_argument, NULL, CHAR_MAX + 1 },
@@ -216,6 +218,14 @@ main (int argc, char **argv)
 	message_page_width_ignore ();
 	break;
 
+      case CHAR_MAX + 3: /* --stringtable-input */
+	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 4: /* --stringtable-output */
+	message_print_syntax_stringtable ();
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -338,6 +348,8 @@ Message selection:\n"));
 Input file syntax:\n"));
       printf (_("\
   -P, --properties-input      input file is in Java .properties syntax\n"));
+      printf (_("\
+      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
@@ -362,6 +374,8 @@ Output details:\n"));
       --strict                write out strict Uniforum conforming .po file\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
+      printf (_("\
+      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\
