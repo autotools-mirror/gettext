@@ -78,7 +78,7 @@ dnl Checks for libraries.
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(limits.h malloc.h string.h unistd.h utime.h values.h)
+AC_CHECK_HEADERS(limits.h malloc.h pwd.h string.h unistd.h utime.h values.h)
 gt_STDBOOL_H
 
 dnl Checks for typedefs, structures, and compiler characteristics.
@@ -90,11 +90,12 @@ AC_CHECK_TYPES(ptrdiff_t)
 jm_AC_TYPE_UINTMAX_T
 gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
+AC_TYPE_MODE_T
 
 dnl Checks for library functions.
 gl_FUNC_ALLOCA
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([getcwd posix_spawn putc_unlocked raise select strerror \
+AC_CHECK_FUNCS([chown getcwd posix_spawn putc_unlocked raise select strerror \
 strtoul uname utime utimes])
 AC_REPLACE_FUNCS([memmove memset stpcpy strcspn \
 strcasecmp strncasecmp strpbrk strstr vasprintf])

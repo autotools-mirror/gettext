@@ -1,14 +1,21 @@
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Add checks for <pwd.h> and chown().
+
 2003-03-17  Bruno Haible  <bruno@clisp.org>
 
 	Native Woe32/MSVC support.
 	* Makefile.msvc: New file.
 	* README.woe32: New file.
-	* windows/gettextlib.exp: New file.
+	* windows/gettextlib.def: New file.
 	* windows/gettextlib.rc: New file.
-	* windows/gettextsrc.exp: New file.
+	* windows/gettextsrc.def: New file.
 	* windows/gettextsrc.rc: New file.
-	* Makefile.am (EXTRA_DIST): Add them and config.h.msvc.
-	(config.h.msvc, intl/libgnuintl.h.msvc-shared): New rules.
+	* Makefile.am (EXTRA_DIST): Add them and config.h.msvc,
+	windows/alloca.h, windows/fnmatch.h, windows/stdbool.h.
+	(config.h.msvc, intl/libgnuintl.h.msvc-shared, windows/stdbool.h): New
+	rules.
+	* configure.ac: Invoke AC_TYPE_MODE_T.
 
 2003-02-28  Bruno Haible  <bruno@clisp.org>
 

@@ -46,10 +46,11 @@ html:
 
 # Woe32 support.
 
-config.h.msvc: config.h.in
+config.h.msvc: config.h.in ../version.sh
 	sed -e 's/#undef ENABLE_NLS$$/#define ENABLE_NLS 1/' \
 	    -e 's/#undef ENABLE_RELOCATABLE$$/#define ENABLE_RELOCATABLE 1/' \
 	    -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
+	    -e 's/#undef HAVE_DECL_WCWIDTH$$/#define HAVE_DECL_WCWIDTH 0/' \
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	    -e 's/#undef HAVE_FCNTL_H$$/#define HAVE_FCNTL_H 1/' \
@@ -90,10 +91,19 @@ config.h.msvc: config.h.in
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef fnmatch$$/#define fnmatch rpl_fnmatch/' \
 	    -e 's/#undef getline$$/#define getline rpl_getline/' \
+	    -e 's/#undef inline$$/#define inline/' \
+	    -e 's/#undef mode_t$$/#define mode_t int/' \
 	    -e 's/#undef pid_t$$/#define pid_t int/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \
 	    -e 's/#undef uintmax_t$$/#define uintmax_t unsigned long/' \
+	    -e 's/#undef PACKAGE$$/#define PACKAGE "gettext-tools"/' \
+	    -e 's/#undef VERSION$$/#define VERSION "$(VERSION)"/' \
 	    -e '/#undef INSTALLPREFIX$$/d' \
 	  < $< > $@
 
-EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/gettextlib.exp windows/gettextsrc.exp windows/gettextlib.rc windows/gettextsrc.rc
+windows/stdbool.h: lib/stdbool.h.in
+	sed -e 's/@''HAVE__BOOL''@/0/' < $< > $@
+
+all-local : windows/stdbool.h
+
+EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/alloca.h windows/fnmatch.h windows/stdbool.h windows/gettextlib.def windows/gettextsrc.def windows/gettextlib.rc windows/gettextsrc.rc
