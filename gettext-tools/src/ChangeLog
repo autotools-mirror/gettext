@@ -1,5 +1,10 @@
 2003-05-21  Bruno Haible  <bruno@clisp.org>
 
+	* msggrep.c (main) [Solaris]: Fix syntax error.
+	Reported by Valery Beaud <valery.beaud@art.alcatel.fr>.
+
+2003-05-21  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (output_syntax): New variable.
 	(main): Set it.
 	(finalize_header): If --properties-output was given, set the charset.
