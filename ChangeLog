@@ -1,3 +1,13 @@
+2002-09-16  Bruno Haible  <bruno@clisp.org>
+
+	* ltmain.sh (install): Use "ln -s -f" instead of "rm -f && ln -s"
+	to make a symlink for a shared library.
+	Reported by Nelson H. F. Beebe <beebe@math.utah.edu>.
+
+2002-08-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.5 released.
+
 2002-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.4 released.

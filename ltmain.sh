@@ -4210,8 +4210,8 @@ relink_command=\"$relink_command\""
 	    for linkname
 	    do
 	      if test "$linkname" != "$realname"; then
-		$show "(cd $destdir && $rm $linkname && $LN_S $realname $linkname)"
-		$run eval "(cd $destdir && $rm $linkname && $LN_S $realname $linkname)"
+		$show "(cd $destdir && $LN_S -f $realname $linkname)"
+		$run eval "(cd $destdir && $LN_S -f $realname $linkname)"
 	      fi
 	    done
 	  fi
