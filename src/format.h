@@ -19,6 +19,8 @@
 #ifndef _FORMAT_H
 #define _FORMAT_H
 
+#include <stdbool.h>
+
 #include "pos.h"	/* Get lex_pos_ty.  */
 #include "message.h"	/* Get NFORMATS.  */
 
@@ -44,8 +46,8 @@ struct formatstring_parser
        error_with_progname = false;
        error_at_line (0, 0, pos->file_name, pos->line_number, ...);
        error_with_progname = true;
-     and return true.  Otherwise return false.  */
-  bool (*check) PARAMS ((const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr));
+     (but only if noisy=true) and return true.  Otherwise return false.  */
+  bool (*check) PARAMS ((const lex_pos_ty *pos, void *msgid_descr, void *msgstr_descr, bool noisy));
 };
 
 /* Format string parsers, each defined in its own file.  */

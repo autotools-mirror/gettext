@@ -229,7 +229,8 @@ static void *format_parse PARAMS ((const char *format));
 static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr));
+				  void *msgid_descr, void *msgstr_descr,
+				  bool noisy));
 
 
 /* ======================= Verify a format_arg_list ======================= */
@@ -3355,10 +3356,11 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr)
+format_check (pos, msgid_descr, msgstr_descr, noisy)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool noisy;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -3366,10 +3368,13 @@ format_check (pos, msgid_descr, msgstr_descr)
 
   if (!equal_list (spec1->list, spec2->list))
     {
-      error_with_progname = false;
-      error_at_line (0, 0, pos->file_name, pos->line_number,
-		     _("format specifications in 'msgid' and 'msgstr' are not equivalent"));
-      error_with_progname = true;
+      if (noisy)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, pos->file_name, pos->line_number,
+			 _("format specifications in 'msgid' and 'msgstr' are not equivalent"));
+	  error_with_progname = true;
+	}
       err = true;
     }
 

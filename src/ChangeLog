@@ -1,3 +1,19 @@
+2001-12-06  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (struct formatstring_parser): Add 'noisy' argument to
+	'check' field.
+	* format-c.c (format_check): Add 'noisy' argument.
+	* format-java.c (format_check): Likewise.
+	* format-lisp.c (format_check): Likewise.
+	* format-pascal.c (format_check): Likewise.
+	* format-python.c (format_check): Likewise.
+	* format-ycp.c (format_check): Likewise.
+	* msgfmt.c (check_pair): Pass noisy=true.
+	* message.c: Include format.h.
+	(msgfmt_check_pair_fails): New function.
+	(message_merge): Set fuzzy flag when adding a -format specifier that
+	needs the translator's attention.
+
 2001-12-10  Bruno Haible  <bruno@clisp.org>
 
 	* x-java.l (tailcmp): If s1 ends with s2, it must be either equal to

@@ -1075,7 +1075,8 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 
 	      if (msgstr_descr != NULL)
 		{
-		  if (parser->check (msgid_pos, msgid_descr, msgstr_descr))
+		  if (parser->check (msgid_pos, msgid_descr, msgstr_descr,
+				     true))
 		    exit_status = EXIT_FAILURE;
 
 		  parser->free (msgstr_descr);

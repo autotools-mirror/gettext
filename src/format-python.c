@@ -109,7 +109,8 @@ static void *format_parse PARAMS ((const char *format));
 static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr));
+				  void *msgid_descr, void *msgstr_descr,
+				  bool noisy));
 
 
 static int
@@ -375,10 +376,11 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr)
+format_check (pos, msgid_descr, msgstr_descr, noisy)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool noisy;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -386,18 +388,24 @@ format_check (pos, msgid_descr, msgstr_descr)
 
   if (spec1->named_arg_count > 0 && spec2->unnamed_arg_count > 0)
     {
-      error_with_progname = false;
-      error_at_line (0, 0, pos->file_name, pos->line_number,
-		     _("format specifications in 'msgid' expect a mapping, those in 'msgstr' expect a tuple"));
-      error_with_progname = true;
+      if (noisy)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, pos->file_name, pos->line_number,
+			 _("format specifications in 'msgid' expect a mapping, those in 'msgstr' expect a tuple"));
+	  error_with_progname = true;
+	}
       err = true;
     }
   else if (spec1->unnamed_arg_count > 0 && spec2->named_arg_count > 0)
     {
-      error_with_progname = false;
-      error_at_line (0, 0, pos->file_name, pos->line_number,
-		     _("format specifications in 'msgid' expect a tuple, those in 'msgstr' expect a mapping"));
-      error_with_progname = true;
+      if (noisy)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, pos->file_name, pos->line_number,
+			 _("format specifications in 'msgid' expect a tuple, those in 'msgstr' expect a mapping"));
+	  error_with_progname = true;
+	}
       err = true;
     }
   else
@@ -417,21 +425,27 @@ format_check (pos, msgid_descr, msgstr_descr)
 
 	      if (cmp > 0)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument '%s' doesn't exist in 'msgid'"),
-				 spec2->named[i].name);
-		  error_with_progname = true;
+		  if (noisy)
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, pos->file_name, pos->line_number,
+				     _("a format specification for argument '%s' doesn't exist in 'msgid'"),
+				     spec2->named[i].name);
+		      error_with_progname = true;
+		    }
 		  err = true;
 		  break;
 		}
 	      else if (cmp < 0)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("a format specification for argument '%s' doesn't exist in 'msgstr'"),
-				 spec1->named[i].name);
-		  error_with_progname = true;
+		  if (noisy)
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, pos->file_name, pos->line_number,
+				     _("a format specification for argument '%s' doesn't exist in 'msgstr'"),
+				     spec1->named[i].name);
+		      error_with_progname = true;
+		    }
 		  err = true;
 		  break;
 		}
@@ -441,11 +455,14 @@ format_check (pos, msgid_descr, msgstr_descr)
 	    for (i = 0; i < spec2->named_arg_count; i++)
 	      if (spec1->named[i].type != spec2->named[i].type)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("format specifications in 'msgid' and 'msgstr' for argument '%s' are not the same"),
-				 spec2->named[i].name);
-		  error_with_progname = true;
+		  if (noisy)
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, pos->file_name, pos->line_number,
+				     _("format specifications in 'msgid' and 'msgstr' for argument '%s' are not the same"),
+				     spec2->named[i].name);
+		      error_with_progname = true;
+		    }
 		  err = true;
 		  break;
 		}
@@ -458,21 +475,27 @@ format_check (pos, msgid_descr, msgstr_descr)
 	  /* Check the argument types are the same.  */
 	  if (spec1->unnamed_arg_count != spec2->unnamed_arg_count)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0, pos->file_name, pos->line_number,
-			     _("number of format specifications in 'msgid' and 'msgstr' does not match"));
-	      error_with_progname = true;
+	      if (noisy)
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0, pos->file_name, pos->line_number,
+				 _("number of format specifications in 'msgid' and 'msgstr' does not match"));
+		  error_with_progname = true;
+		}
 	      err = true;
 	    }
 	  else
 	    for (i = 0; i < spec1->unnamed_arg_count; i++)
 	      if (spec1->unnamed[i].type != spec2->unnamed[i].type)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0, pos->file_name, pos->line_number,
-				 _("format specifications in 'msgid' and 'msgstr' for argument %u are not the same"),
-				 i + 1);
-		  error_with_progname = true;
+		  if (noisy)
+		    {
+		      error_with_progname = false;
+		      error_at_line (0, 0, pos->file_name, pos->line_number,
+				     _("format specifications in 'msgid' and 'msgstr' for argument %u are not the same"),
+				     i + 1);
+		      error_with_progname = true;
+		    }
 		  err = true;
 		}
 	}

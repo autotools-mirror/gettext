@@ -101,7 +101,8 @@ static void *format_parse PARAMS ((const char *format));
 static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr));
+				  void *msgid_descr, void *msgstr_descr,
+				  bool noisy));
 
 
 static int
@@ -365,10 +366,11 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr)
+format_check (pos, msgid_descr, msgstr_descr, noisy)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool noisy;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -391,21 +393,27 @@ format_check (pos, msgid_descr, msgstr_descr)
 
 	  if (cmp > 0)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0, pos->file_name, pos->line_number,
-			     _("a format specification for argument {%u} doesn't exist in 'msgid'"),
-			     spec2->numbered[i].number);
-	      error_with_progname = true;
+	      if (noisy)
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0, pos->file_name, pos->line_number,
+				 _("a format specification for argument {%u} doesn't exist in 'msgid'"),
+				 spec2->numbered[i].number);
+		  error_with_progname = true;
+		}
 	      err = true;
 	      break;
 	    }
 	  else if (cmp < 0)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0, pos->file_name, pos->line_number,
-			     _("a format specification for argument {%u} doesn't exist in 'msgstr'"),
-			     spec1->numbered[i].number);
-	      error_with_progname = true;
+	      if (noisy)
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0, pos->file_name, pos->line_number,
+				 _("a format specification for argument {%u} doesn't exist in 'msgstr'"),
+				 spec1->numbered[i].number);
+		  error_with_progname = true;
+		}
 	      err = true;
 	      break;
 	    }
@@ -415,11 +423,14 @@ format_check (pos, msgid_descr, msgstr_descr)
 	for (i = 0; i < spec2->numbered_arg_count; i++)
 	  if (spec1->numbered[i].type != spec2->numbered[i].type)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0, pos->file_name, pos->line_number,
-			     _("format specifications in 'msgid' and 'msgstr' for argument {%u} are not the same"),
-			     spec2->numbered[i].number);
-	      error_with_progname = true;
+	      if (noisy)
+		{
+		  error_with_progname = false;
+		  error_at_line (0, 0, pos->file_name, pos->line_number,
+				 _("format specifications in 'msgid' and 'msgstr' for argument {%u} are not the same"),
+				 spec2->numbered[i].number);
+		  error_with_progname = true;
+		}
 	      err = true;
 	      break;
 	    }

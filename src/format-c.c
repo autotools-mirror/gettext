@@ -141,7 +141,8 @@ static void *format_parse PARAMS ((const char *format));
 static void format_free PARAMS ((void *descr));
 static int format_get_number_of_directives PARAMS ((void *descr));
 static bool format_check PARAMS ((const lex_pos_ty *pos,
-				  void *msgid_descr, void *msgstr_descr));
+				  void *msgid_descr, void *msgstr_descr,
+				  bool noisy));
 
 
 static int
@@ -560,10 +561,11 @@ format_get_number_of_directives (descr)
 }
 
 static bool
-format_check (pos, msgid_descr, msgstr_descr)
+format_check (pos, msgid_descr, msgstr_descr, noisy)
      const lex_pos_ty *pos;
      void *msgid_descr;
      void *msgstr_descr;
+     bool noisy;
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -573,21 +575,27 @@ format_check (pos, msgid_descr, msgstr_descr)
   /* Check the argument types are the same.  */
   if (spec1->unnumbered_arg_count != spec2->unnumbered_arg_count)
     {
-      error_with_progname = false;
-      error_at_line (0, 0, pos->file_name, pos->line_number,
-		     _("number of format specifications in 'msgid' and 'msgstr' does not match"));
-      error_with_progname = true;
+      if (noisy)
+	{
+	  error_with_progname = false;
+	  error_at_line (0, 0, pos->file_name, pos->line_number,
+			 _("number of format specifications in 'msgid' and 'msgstr' does not match"));
+	  error_with_progname = true;
+	}
       err = true;
     }
   else
     for (i = 0; i < spec1->unnumbered_arg_count; i++)
       if (spec1->unnumbered[i].type != spec2->unnumbered[i].type)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, pos->file_name, pos->line_number,
-			 _("format specifications in 'msgid' and 'msgstr' for argument %u are not the same"),
-			 i + 1);
-	  error_with_progname = true;
+	  if (noisy)
+	    {
+	      error_with_progname = false;
+	      error_at_line (0, 0, pos->file_name, pos->line_number,
+			     _("format specifications in 'msgid' and 'msgstr' for argument %u are not the same"),
+			     i + 1);
+	      error_with_progname = true;
+	    }
 	  err = true;
 	}
 
