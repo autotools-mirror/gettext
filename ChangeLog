@@ -1,3 +1,17 @@
+2001-01-20  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Add a third argument to AC_DEFINE.
+	Require autoconf-2.13.
+	* acconfig.h (_GNU_SOURCE): Remove, now done in configure.in.
+	(HAVE_PARSE_PRINTF_FORMAT): Likewise.
+	(ENABLE_NLS): Remove, now done in m4/gettext.m4.
+	(HAVE_GETTEXT): Likewise.
+	(HAVE_STPCPY): Likewise.
+	(HAVE_LC_MESSAGES): Remove, now done in m4/lcmessage.m4.
+	(HAVE_PTRDIFF_T): Remove, now done in automake-1.4's ptrdiff.m4.
+	(HAVE_OBSTACK): Remove, not set by configure.
+	(HAVE_CATGETS): Likewise.
+
 2001-01-07  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (DISTCLEANFILES): Remove. Now done in intl/Makefile.in.

@@ -15,38 +15,11 @@
 
 @TOP@
 
-/* Make sure we see all GNU extensions.  */
-#undef _GNU_SOURCE
-
 /* Define to the name of the distribution.  */
 #undef PACKAGE
 
 /* Define to the version of the distribution.  */
 #undef VERSION
-
-/* Define if you have obstacks.  */
-#undef HAVE_OBSTACK
-
-/* Define if <stddef.h> defines ptrdiff_t.  */
-#undef HAVE_PTRDIFF_T
-
-/* Define if your locale.h file contains LC_MESSAGES.  */
-#undef HAVE_LC_MESSAGES
-
-/* Define if you have the parse_printf_format function.  */
-#undef HAVE_PARSE_PRINTF_FORMAT
-
-/* Define to 1 if NLS is requested.  */
-#undef ENABLE_NLS
-
-/* Define as 1 if you have catgets and don't want to use GNU gettext.  */
-#undef HAVE_CATGETS
-
-/* Define as 1 if you have gettext and don't want to use GNU gettext.  */
-#undef HAVE_GETTEXT
-
-/* Define as 1 if you have the stpcpy function.  */
-#undef HAVE_STPCPY
 
 @BOTTOM@
 
@@ -54,11 +27,6 @@
    version in the libc when compiling for a system using glibc.  */
 #ifdef __GNU_LIBRARY__
 # define HAVE_BASENAME	1
-#endif
-
-/* On GNU systems we want to use the extensions.  */
-#ifndef _GNU_SOURCE
-# define _GNU_SOURCE	1
 #endif
 
 

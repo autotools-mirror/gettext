@@ -41,7 +41,9 @@ AC_DEFUN(AM_WITH_NLS,
 
     dnl If we use NLS figure out what method
     if test "$USE_NLS" = "yes"; then
-      AC_DEFINE(ENABLE_NLS)
+      AC_DEFINE(ENABLE_NLS, 1,
+        [Define to 1 if translation of program messages to the user's native language
+   is requested.])
       AC_MSG_CHECKING([whether included gettext is requested])
       AC_ARG_WITH(included-gettext,
         [  --with-included-gettext use the GNU gettext library included here],
@@ -81,7 +83,8 @@ return (int) gettext ("") + _nl_msg_cat_cntr],
 
 	   if test "$gt_cv_func_gnugettext_libc" = "yes" \
 	      || test "$gt_cv_func_gnugettext_libintl" = "yes"; then
-	      AC_DEFINE(HAVE_GETTEXT)
+	      AC_DEFINE(HAVE_GETTEXT, 1,
+                [Define if the GNU gettext() function is already present or preinstalled.])
 	      AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
 		[test -z "`$ac_dir/$ac_word -h 2>&1 | grep 'dv '`"], no)dnl
 	      if test "$MSGFMT" != "no"; then
