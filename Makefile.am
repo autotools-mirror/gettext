@@ -23,7 +23,7 @@ ACLOCAL_AMFLAGS = -I m4
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
-SUBDIRS = doc intl intl-java lib src po man m4 misc tests
+SUBDIRS = doc intl intl-java lib src po man m4 projects misc tests
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
