@@ -118,16 +118,22 @@ msgid "error while opening \"%s\" for writing"
 msgstr ""
 
 #, c-format
-msgid "%d translated messages"
-msgstr ""
+msgid "%d translated message"
+msgid_plural "%d translated messages"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid ", %d fuzzy translations"
-msgstr ""
+msgid ", %d fuzzy translation"
+msgid_plural ", %d fuzzy translations"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
-msgid ", %d untranslated messages"
-msgstr ""
+msgid ", %d untranslated message"
+msgid_plural ", %d untranslated messages"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format, no-wrap
 msgid ""
@@ -223,7 +229,7 @@ msgid "number of format specifications in `msgid' and `msgstr' does not match"
 msgstr ""
 
 #, c-format
-msgid "format specifications for argument %u are not the same"
+msgid "format specifications for argument %lu are not the same"
 msgstr ""
 
 msgid "missing arguments"
