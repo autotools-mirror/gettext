@@ -1,0 +1,45 @@
+#! /bin/sh
+
+# Test --foreign-user
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles xg-test14.in.c"
+cat <<EOF > xg-test14.in.c
+_("extract me")
+EOF
+
+tmpfiles="$tmpfiles xg-test14.po"
+: ${XGETTEXT=xgettext}
+# delete POT-Creation-Date: line because the date depends on local time.
+${XGETTEXT} --output - --foreign-user --no-location -k_ xg-test14.in.c \
+  | sed '/\"POT-Creation-Date:.*/d' > xg-test14.po
+
+tmpfiles="$tmpfiles xg-test14.ok"
+cat <<EOF > xg-test14.ok
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "extract me"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-test14.ok xg-test14.po
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result

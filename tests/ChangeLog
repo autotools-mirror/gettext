@@ -1,3 +1,13 @@
+2001-09-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (TESTS): Add xgettext-12, xgettext-13, xgettext-14.
+
+2001-09-22  Karl Eichwalder  <keichwa@gmx.net>
+
+	* xgettext-12: New file.
+	* xgettext-13: New file.
+	* xgettext-14: New file.
+
 2001-09-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (TESTS): Add xgettext-10, xgettext-11.
