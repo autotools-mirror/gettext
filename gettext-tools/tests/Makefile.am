@@ -64,6 +64,7 @@ TESTS = gettext-1 gettext-2 \
 	format-perl-1 format-perl-2 \
 	format-perl-brace-1 format-perl-brace-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
+	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \

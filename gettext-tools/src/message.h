@@ -41,6 +41,7 @@ extern "C" {
 enum format_type
 {
   format_c,
+  format_sh,
   format_python,
   format_lisp,
   format_elisp,
@@ -56,7 +57,7 @@ enum format_type
   format_php,
   format_gcc_internal
 };
-#define NFORMATS 15	/* Number of format_type enum values.  */
+#define NFORMATS 16	/* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

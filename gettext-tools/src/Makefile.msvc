@@ -130,6 +130,7 @@ OBJECTS = \
   plural-table.obj \
   format.obj \
   format-c.obj \
+  format-sh.obj \
   format-python.obj \
   format-lisp.obj \
   format-elisp.obj \
@@ -241,6 +242,9 @@ format.obj : format.c
 
 format-c.obj : format-c.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-c.c
+
+format-sh.obj : format-sh.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-sh.c
 
 format-python.obj : format-python.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-python.c

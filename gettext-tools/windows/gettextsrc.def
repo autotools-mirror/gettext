@@ -16,6 +16,7 @@ formatstring_perl
 formatstring_perl_brace
 formatstring_php
 formatstring_python
+formatstring_sh
 formatstring_smalltalk
 formatstring_tcl
 formatstring_ycp

@@ -1,5 +1,19 @@
 2003-08-31  Bruno Haible  <bruno@clisp.org>
 
+	* format-sh.c: New file.
+	* message.h (format_sh): New enum value.
+	(NFORMATS): Increment.
+	* format.h (formatstring_sh): New declaration.
+	* format.c (formatstring_parsers): Add entry for sh.
+	* message.c (format_language, format_language_pretty): Likewise.
+	* Makefile.am (FORMAT_SOURCE): Add format-sh.c.
+	* Makefile.msvc (OBJECTS): Add format-sh.obj.
+	(format-sh.obj): New rule.
+	* Makefile.vms (OBJECTS): Add format-sh.obj.
+	(format-sh.obj): New rule.
+
+2003-08-31  Bruno Haible  <bruno@clisp.org>
+
 	* format-gcc-internal.c (isdigit): Remove unused macro.
 	* format-perl-brace.c (isdigit): Likewise.
 

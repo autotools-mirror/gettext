@@ -1,3 +1,9 @@
+2003-08-31  Bruno Haible  <bruno@clisp.org>
+
+	* format-sh-1: New file.
+	* format-sh-2: New file.
+	* Makefile.am (TESTS): Add them.
+
 2003-09-01  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-26: Add explicit symbol import to 'use' command.
