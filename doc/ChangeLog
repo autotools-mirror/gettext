@@ -1,3 +1,8 @@
+2002-01-03  Bruno Haible  <haible@clisp.cons.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2002-01-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (librep): Needs librep 0.15.3 or newer. (setlocale call
