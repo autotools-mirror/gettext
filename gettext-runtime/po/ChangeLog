@@ -1,3 +1,7 @@
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
+	* nl.po: Update from Elros Cyriatan <cyriatan@fastmail.fm>.
+
 2004-01-16  Bruno Haible  <bruno@clisp.org>
 
 	Create en@quot.po when it doesn't exist.
