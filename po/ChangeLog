@@ -1,3 +1,7 @@
+2001-02-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* ja.po: New file, from Jun Sawataishi <jsawa@ibm.net>.
+
 2001-01-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in.in (install-data, install-data-yes): Move installation

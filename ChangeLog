@@ -1,3 +1,7 @@
+2001-02-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (ALL_LINGUAS): Add ja.
+
 2001-02-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (SUBDIRS): Move intl before lib, because lib needs
