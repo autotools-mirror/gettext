@@ -1,3 +1,8 @@
+2003-04-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural forms): Add info about Faroese.
+	Reported by Jacob Sparre Andersen <sparre@crs4.it>.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: Don't use the force target. Avoid rules with no lines.

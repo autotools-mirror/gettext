@@ -1,5 +1,5 @@
 /* Table of known plural form expressions.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,6 +33,7 @@ struct plural_table_entry plural_table[] =
     { "da", "Danish",            "nplurals=2; plural=(n != 1);" },
     { "nl", "Dutch",             "nplurals=2; plural=(n != 1);" },
     { "en", "English",           "nplurals=2; plural=(n != 1);" },
+    { "fo", "Faroese",           "nplurals=2; plural=(n != 1);" },
     { "de", "German",            "nplurals=2; plural=(n != 1);" },
     { "nb", "Norwegian Bokmal",  "nplurals=2; plural=(n != 1);" },
     { "no", "Norwegian",         "nplurals=2; plural=(n != 1);" },

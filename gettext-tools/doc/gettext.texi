@@ -4761,7 +4761,7 @@ Languages with this property include:
 
 @table @asis
 @item Germanic family
-Danish, Dutch, English, German, Norwegian, Swedish
+Danish, Dutch, English, Faroese, German, Norwegian, Swedish
 @item Finno-Ugric family
 Estonian, Finnish
 @item Latin/Greek family

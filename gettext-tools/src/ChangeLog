@@ -1,3 +1,8 @@
+2003-04-22  Bruno Haible  <bruno@clisp.org>
+
+	* plural-table.c (plural_table): Add an entry about Faroese.
+	Reported by Jacob Sparre Andersen <sparre@crs4.it>.
+
 2003-04-13  Bruno Haible  <bruno@clisp.org>
 
 	* po.h (po_scan_start, po_scan_end): New declarations.
