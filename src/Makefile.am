@@ -46,7 +46,8 @@ ngettext_SOURCES = ngettext.c
 msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c str-list.c dir-list.c
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-charset.c \
-po-lex.c po.c str-list.c message.c dir-list.c write-mo.c \
+po-lex.c po.c str-list.c message.c dir-list.c write-mo.c write-java.c \
+msgl-ascii.c msgl-iconv.c plural.c \
 format.c format-c.c format-java.c format-lisp.c format-python.c format-ycp.c
 msgmerge_SOURCES = message.c msgmerge.c open-po.c po-gram-gen.y po-hash-gen.y \
 po-charset.c po-lex.c po.c read-po.c str-list.c dir-list.c write-po.c \

@@ -66,7 +66,8 @@ AC_TYPE_PID_T
 dnl Checks for library functions.
 AC_FUNC_ALLOCA
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([getcwd mblen memcpy posix_spawn select strchr strerror uname])
+AC_CHECK_FUNCS([getcwd mblen memcpy posix_spawn raise select strchr strerror \
+uname])
 AC_REPLACE_FUNCS([memmove memset stpcpy stpncpy strcspn \
 strcasecmp strncasecmp strpbrk strstr strtoul vasprintf])
 AM_FUNC_GETLINE
@@ -78,6 +79,7 @@ AC_FUNC_VFORK
 gt_UNION_WAIT
 gt_TMPDIR
 gt_FUNC_MKDTEMP
+gt_SIGNALBLOCKING
 gt_FUNC_SETENV
 
 AM_FUNC_ERROR_AT_LINE

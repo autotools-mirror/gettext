@@ -1,3 +1,20 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* write-java.h: New file.
+	* write-java.c: New file.
+	* plural.c: New file.
+	* msgfmt.c: Include write-java.h.
+	(java_mode, assume_java2, java_resource_name, java_locale_name,
+	java_class_directory): New variables.
+	(long_options): Add --java, --java2, --locale, --resource.
+	(main): Add command line option -d, -j, -l, -r. Handle them and
+	--java2. Forbid some options depending on whether --java was given
+	or not. In java_mode, call msgdomain_write_java.
+	(usage): Update.
+	(format_directive_domain): In java_mode, ignore domain directives.
+	* Makefile.am (msgfmt_SOURCES): Add write-java.c, msgl-ascii.c,
+	msgl-iconv.c, plural.c.
+
 2001-09-16  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (noinst_HEADERS): Add x-java.h.

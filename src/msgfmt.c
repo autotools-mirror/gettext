@@ -37,6 +37,7 @@
 #include "system.h"
 #include "msgfmt.h"
 #include "write-mo.h"
+#include "write-java.h"
 
 #include "libgettext.h"
 #include "message.h"
@@ -69,6 +70,13 @@ static bool include_all = false;
 
 /* Specifies name of the output file.  */
 static const char *output_file_name;
+
+/* Java mode output file specification.  */
+static bool java_mode;
+static bool assume_java2;
+static const char *java_resource_name;
+static const char *java_locale_name;
+static const char *java_class_directory;
 
 /* We may have more than one input file.  Domains with same names in
    different files have to merged.  So we need a list of tables for
@@ -128,8 +136,12 @@ static const struct option long_options[] =
   { "check-header", no_argument, NULL, CHAR_MAX + 3 },
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
-  { "no-hash", no_argument, NULL, CHAR_MAX + 4 },
+  { "java", no_argument, NULL, 'j' },
+  { "java2", no_argument, NULL, CHAR_MAX + 4 },
+  { "locale", required_argument, NULL, 'l' },
+  { "no-hash", no_argument, NULL, CHAR_MAX + 5 },
   { "output-file", required_argument, NULL, 'o' },
+  { "resource", required_argument, NULL, 'r' },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
   { "use-fuzzy", no_argument, NULL, 'f' },
@@ -196,7 +208,8 @@ main (argc, argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  while ((opt = getopt_long (argc, argv, "a:cCD:fho:vV", long_options, NULL))
+  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:o:r:vV", long_options,
+			     NULL))
 	 != EOF)
     switch (opt)
       {
@@ -219,6 +232,9 @@ main (argc, argv)
       case 'C':
 	check_compatibility = true;
 	break;
+      case 'd':
+	java_class_directory = optarg;
+	break;
       case 'D':
 	dir_list_append (optarg);
 	break;
@@ -228,8 +244,17 @@ main (argc, argv)
       case 'h':
 	do_help = true;
 	break;
+      case 'j':
+	java_mode = true;
+	break;
+      case 'l':
+	java_locale_name = optarg;
+	break;
       case 'o':
 	output_file_name = optarg;
+	break;
+      case 'r':
+	java_resource_name = optarg;
 	break;
       case 'S':
 	strict_uniforum = true;
@@ -250,6 +275,10 @@ main (argc, argv)
 	check_header = true;
 	break;
       case CHAR_MAX + 4:
+	java_mode = true;
+	assume_java2 = true;
+	break;
+      case CHAR_MAX + 5:
 	no_hash_table = true;
 	break;
       default:
@@ -282,6 +311,44 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       usage (EXIT_FAILURE);
     }
 
+  /* Check for contradicting options.  */
+  if (java_mode)
+    {
+      if (output_file_name != NULL)
+	{
+	  error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+		 "--java-mode", "--output-file");
+	}
+      if (java_class_directory == NULL)
+	{
+	  error (EXIT_SUCCESS, 0,
+		 _("%s requires a \"-d directory\" specification"),
+		 "--java-mode");
+	  usage (EXIT_FAILURE);
+	}
+    }
+  else
+    {
+      if (java_resource_name != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "--resource", "--java-mode");
+	  usage (EXIT_FAILURE);
+	}
+      if (java_locale_name != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "--locale", "--java-mode");
+	  usage (EXIT_FAILURE);
+	}
+      if (java_class_directory != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "-d", "--java-mode");
+	  usage (EXIT_FAILURE);
+	}
+    }
+
   /* The -o option determines the name of the domain and therefore
      the output file.  */
   if (output_file_name != NULL)
@@ -311,9 +378,19 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   for (domain = domain_list; domain != NULL; domain = domain->next)
     {
-      if (msgdomain_write_mo (domain->mlp, domain->domain_name,
-			      domain->file_name))
-	exit_status = EXIT_FAILURE;
+      if (java_mode)
+	{
+	  if (msgdomain_write_java (domain->mlp, java_resource_name,
+				    java_locale_name, java_class_directory,
+				    assume_java2))
+	    exit_status = EXIT_FAILURE;
+	}
+      else
+	{
+	  if (msgdomain_write_mo (domain->mlp, domain->domain_name,
+				  domain->file_name))
+	    exit_status = EXIT_FAILURE;
+	}
 
       /* List is not used anymore.  */
       message_list_free (domain->mlp);
@@ -381,10 +458,28 @@ If input file is -, standard input is read.\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
+Operation mode:\n\
+  -j, --java                  Java mode: generate a Java ResourceBundle class\n\
+      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
 Output file location:\n\
   -o, --output-file=FILE      write output to specified file\n\
       --strict                enable strict Uniforum mode\n\
 If output file is -, output is written to standard output.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location in Java mode:\n\
+  -r, --resource=RESOURCE     resource name\n\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n\
+  -d DIRECTORY                base directory of classes directory hierarchy\n\
+The class name is determined by appending the locale name to the resource name,\n\
+separated with an underscore.  The -d option is mandatory.  The class is\n\
+written under the specified directory.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -684,7 +779,7 @@ format_directive_domain (pop, name)
 {
   /* If no output file was given, we change it with each `domain'
      directive.  */
-  if (output_file_name == NULL)
+  if (!java_mode && output_file_name == NULL)
     {
       size_t correct;
 
