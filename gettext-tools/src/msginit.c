@@ -340,7 +340,8 @@ the output .po file through the --output-file option.\n"),
   /* Write the modified message list out.  */
   msgdomain_list_print (result, output_file, true, false);
 
-  fprintf (stderr, "\n");
+  if (!no_translator)
+    fprintf (stderr, "\n");
   fprintf (stderr, _("Created %s.\n"), output_file);
 
   exit (EXIT_SUCCESS);
