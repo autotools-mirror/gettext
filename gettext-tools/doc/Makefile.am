@@ -100,6 +100,8 @@ MAINTAINERCLEANFILES = gettext_*.html
 
 # Documentation in DVI format.
 
+# Override of automake's definition:
+#TEXI2DVI = texi2dvi
 TEXI2DVI = texi2dvi $(TEXINCLUDES)
 
 install-dvi: gettext.dvi
@@ -128,6 +130,8 @@ MOSTLYCLEANFILES += \
 
 # Documentation in Postscript format.
 
+# Override of automake's definition:
+#DVIPS = @DVIPS@
 DVIPS = @DVIPS@ -D600
 
 ps: gettext.ps
@@ -148,6 +152,8 @@ uninstall-ps:
 
 # Documentation in Portable Document Format.
 
+# Override of automake's definition:
+#TEXI2PDF = @TEXI2PDF@
 TEXI2PDF = @TEXI2PDF@ $(TEXINCLUDES)
 SUFFIXES = .pdf
 
@@ -175,6 +181,8 @@ TEXI2HTML = @PERL@ $(srcdir)/texi2html
 html-monolithic: gettext.html
 html-split: gettext_toc.html
 
+# Override of automake's definition.
+# We want to use texi2html, not makeinfo --html.
 gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	$(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 

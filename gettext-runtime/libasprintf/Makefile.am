@@ -117,6 +117,8 @@ MOSTLYCLEANFILES +=
 
 # Documentation in Postscript format.
 
+# Override of automake's definition:
+#DVIPS = @DVIPS@
 DVIPS = @DVIPS@ -D600
 
 ps: autosprintf.ps
@@ -163,6 +165,8 @@ TEXI2HTML = @PERL@ $(srcdir)/texi2html
 
 html: autosprintf.html
 
+# Override of automake's definition.
+# We want to use texi2html, not makeinfo --html.
 autosprintf.html: autosprintf.texi
 	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
 
