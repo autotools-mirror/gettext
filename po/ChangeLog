@@ -1,3 +1,10 @@
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in: Ensure @CATALOGS@ is not used if NLS is disabled.
+	(uninstall): Depend on uninstall-exec and uninstall-data.
+	(uninstall-exec, uninstall-data, uninstall-data-no,
+	uninstall-data-yes): New rules.
+
 2001-07-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* gl.po: Update from Jesús Bravo Álvarez <jba@pobox.com>.
