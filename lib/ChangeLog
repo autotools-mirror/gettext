@@ -1,3 +1,10 @@
+2001-05-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* xerror.h: New file.
+	* xerror.c: New file.
+	* Makefile.am (libnlsut_a_SOURCES): Add xerror.c.
+	(noinst_HEADERS): Add xerror.h.
+
 2001-05-01  Bruno Haible  <haible@clisp.cons.org>
 
 	Prefix most error messages with the program name, except those

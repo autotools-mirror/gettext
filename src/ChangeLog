@@ -1,3 +1,12 @@
+2001-05-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* po-charset.c: Don't include stdio.h, stdlib.h, mbswidth.h. Include
+	xerror.h instead.
+	(multiline_warning): Move to xerror.c.
+	(po_lex_charset_set): Use xasprintf instead of asprintf.
+	* msgfmt.c: Include xerror.h.
+	(format_debrief): Use multiline_error for the error message.
+
 2001-05-01  Bruno Haible  <haible@clisp.cons.org>
 
 	Prefix most error messages with the program name, except those

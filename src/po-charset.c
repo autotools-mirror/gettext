@@ -21,13 +21,10 @@
 # include "config.h"
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "po-charset.h"
 #include "error.h"
+#include "xerror.h"
 #include "system.h"
-#include "mbswidth.h"
 #include "libgettext.h"
 
 extern const char *program_name;
@@ -111,55 +108,6 @@ po_lex_charset_init ()
 #endif
 }
 
-/* Emit a multiline warning to stderr, consisting of MESSAGE, with the
-   first line prefixed with PREFIX and the remaining lines prefixed with
-   the same amount of spaces.  Reuse the spaces of the previous call if
-   PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
-static void
-multiline_warning (prefix, message)
-     char *prefix;
-     char *message;
-{
-  static int width;
-  const char *cp;
-  int i;
-
-  fflush (stdout);
-
-  cp = message;
-
-  if (prefix != NULL)
-    {
-      fputs (prefix, stderr);
-      width = mbswidth (prefix, 0);
-      free (prefix);
-      goto after_indent;
-    }
-
-  while (1)
-    {
-      const char *np;
-
-      for (i = width; i > 0; i--)
-	putc (' ', stderr);
-
-    after_indent:
-      np = strchr (cp, '\n');
-
-      if (np == NULL || np[1] == '\0')
-	{
-	  fputs (cp, stderr);
-	  break;
-	}
-
-      np++;
-      fwrite (cp, 1, np - cp, stderr);
-      cp = np;
-    }
-
-  free (message);
-}
-
 void
 po_lex_charset_set (header_entry, filename)
      const char *header_entry;
@@ -194,19 +142,11 @@ po_lex_charset_set (header_entry, filename)
 	  if (!(filenamelen >= 4
 		&& memcmp (filename + filenamelen - 4, ".pot", 4) == 0
 		&& strcmp (charset, "CHARSET") == 0))
-	    {
-	      char *prefix;
-	      char *msg;
-
-	      asprintf (&prefix, _("%s: warning: "), filename);
-	      asprintf (&msg, _("\
+	    multiline_warning (xasprintf (_("%s: warning: "), filename),
+			       xasprintf (_("\
 Charset \"%s\" is not a portable encoding name.\n\
 Message conversion to user's charset might not work.\n"),
-			charset);
-	      if (prefix == NULL || msg == NULL)
-		error (EXIT_FAILURE, 0, _("memory exhausted"));
-	      multiline_warning (prefix, msg);
-	    }
+					  charset));
 	}
       else
 	{
@@ -261,8 +201,6 @@ Message conversion to user's charset might not work.\n"),
 		{
 		  size_t i;
 		  const char *note;
-		  char *prefix;
-		  char *msg;
 
 		  for (i = 0; i < SIZEOF (weird_charsets); i++)
 		    if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
@@ -272,29 +210,22 @@ Message conversion to user's charset might not work.\n"),
 		  else
 		    note = _("Continuing anyway.");
 
-		  asprintf (&prefix, _("%s: warning: "), filename);
-		  asprintf (&msg, _("\
+		  multiline_warning (xasprintf (_("%s: warning: "), filename),
+				     xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv(),\n\
 and iconv() does not support \"%s\".\n"),
-			    po_lex_charset, basename (program_name),
-			    po_lex_charset);
-		  if (prefix == NULL || msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (prefix, msg);
+						po_lex_charset,
+						basename (program_name),
+						po_lex_charset));
 
 # if !defined _LIBICONV_VERSION
-		  asprintf (&msg, _("\
+		  multiline_warning (NULL,
+				     xasprintf (_("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
-would fix this problem.\n"));
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
+would fix this problem.\n")));
 # endif
 
-		  asprintf (&msg, _("%s\n"), note);
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
+		  multiline_warning (NULL, xasprintf (_("%s\n"), note));
 		}
 #else
 	      for (i = 0; i < SIZEOF (weird_charsets); i++)
@@ -304,29 +235,20 @@ would fix this problem.\n"));
 		{
 		  const char *note =
 		    _("Continuing anyway, expect parse errors.");
-		  char *prefix;
-		  char *msg;
 
-		  asprintf (&prefix, _("%s: warning: "), filename);
-		  asprintf (&msg, _("\
+		  multiline_warning (xasprintf (_("%s: warning: "), filename),
+				     xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
-			    po_lex_charset, basename (program_name));
-		  if (prefix == NULL || msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (prefix, msg);
+						po_lex_charset,
+						basename (program_name)));
 
-		  asprintf (&msg, _("\
+		  multiline_warning (NULL,
+				     xasprintf (_("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
-would fix this problem.\n"));
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
+would fix this problem.\n")));
 
-		  asprintf (&msg, _("%s\n"), note);
-		  if (msg == NULL)
-		    error (EXIT_FAILURE, 0, _("memory exhausted"));
-		  multiline_warning (NULL, msg);
+		  multiline_warning (NULL, xasprintf (_("%s\n"), note));
 		}
 #endif
 	    }
@@ -340,18 +262,10 @@ would fix this problem.\n"));
 
       if (!(filenamelen >= 4
 	    && memcmp (filename + filenamelen - 4, ".pot", 4) == 0))
-	{
-	  char *prefix;
-	  char *msg;
-
-	  asprintf (&prefix, _("%s: warning: "), filename);
-	  asprintf (&msg, _("\
+	multiline_warning (xasprintf (_("%s: warning: "), filename),
+			   xasprintf (_("\
 Charset missing in header.\n\
-Message conversion to user's charset will not work.\n"));
-	  if (prefix == NULL || msg == NULL)
-	    error (EXIT_FAILURE, 0, _("memory exhausted"));
-	  multiline_warning (prefix, msg);
-	}
+Message conversion to user's charset will not work.\n")));
     }
 }
 

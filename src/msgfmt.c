@@ -33,6 +33,7 @@
 #include "dir-list.h"
 #include "error.h"
 #include "progname.h"
+#include "xerror.h"
 #include "getline.h"
 #include "printf.h"
 #include <system.h>
@@ -487,9 +488,14 @@ format_debrief (that)
      FIXME: Should do this even if not in verbose mode, because the
      consequences are not harmless.  But it breaks the test suite.  */
   if (verbose_level > 0 && this->has_header_entry == 0)
-    error (0, 0, _("%s: warning: PO file header missing, fuzzy, or invalid\n\
-%*s  warning: charset conversion will not work"),
-	   gram_pos.file_name, (int) strlen (gram_pos.file_name), "");
+    {
+      multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+		       xasprintf (_("\
+warning: PO file header missing, fuzzy, or invalid\n")));
+      multiline_error (NULL,
+		       xasprintf (_("\
+warning: charset conversion will not work\n")));
+    }
 }
 
 
@@ -726,7 +732,7 @@ format_comment_special (that, s)
 	  warned = 1;
 	  error (0, 0, _("\
 %s: warning: source file contains fuzzy translation"),
-                 gram_pos.file_name);
+		 gram_pos.file_name);
 	}
 
       this->is_fuzzy = 1;

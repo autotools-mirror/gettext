@@ -8,6 +8,7 @@
 lib/error.c
 lib/getopt.c
 lib/obstack.c
+lib/xerror.c
 lib/xmalloc.c
 
 # Package source files
