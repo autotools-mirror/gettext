@@ -257,11 +257,15 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
               # Hide the ALL_LINGUAS assigment from automake.
               eval 'ALL_LINGUAS''=$ALL_LINGUAS_'
             fi
+            case "$ac_given_srcdir" in
+              .) srcdirpre= ;;
+              *) srcdirpre='$(srcdir)/' ;;
+            esac
             GMOFILES=
             POFILES=
             for lang in $ALL_LINGUAS; do
-              GMOFILES="$GMOFILES $lang.gmo"
-              POFILES="$POFILES $lang.po"
+              GMOFILES="$GMOFILES $srcdirpre$lang.gmo"
+              POFILES="$POFILES $srcdirpre$lang.po"
             done
             # CATALOGS depends on both $ac_dir and the user's LINGUAS
             # environment variable.

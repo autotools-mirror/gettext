@@ -55,8 +55,10 @@ CATALOGS = @CATALOGS@
 	$(MSGFMT) -c -o $@ $<
 
 .po.gmo:
-	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
-	  && rm -f $$file && $(GMSGFMT) -c --statistics -o $$file $<
+	@lang=`echo $* | sed -e 's,.*/,,'`; \
+	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
+	echo "$${cdcmd}rm -f $${lang}.gmo && $(GMSGFMT) -c --statistics -o $${lang}.gmo $${lang}.po"; \
+	cd $(srcdir) && rm -f $${lang}.gmo && $(GMSGFMT) -c --statistics -o $${lang}.gmo $${lang}.po
 
 
 all: all-@USE_NLS@
@@ -77,7 +79,10 @@ $(srcdir)/$(PACKAGE).pot: $(POTFILES) $(srcdir)/POTFILES.in
 		&& mv $(PACKAGE).po $(srcdir)/$(PACKAGE).pot )
 
 $(POFILES): force
-	$(MSGMERGE_UPDATE) $@ $(srcdir)/$(PACKAGE).pot
+	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
+	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
+	echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(PACKAGE).pot"; \
+	cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(PACKAGE).pot
 
 
 install: install-exec install-data
@@ -96,7 +101,7 @@ install-data-yes: all
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
+	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
 	  if test -r $$cat; then \
@@ -125,7 +130,7 @@ installdirs-data-yes:
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
+	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  dir=$(localedir)/$$lang/LC_MESSAGES; \
 	  $(mkinstalldirs) $(DESTDIR)$$dir; \
 	done
@@ -146,7 +151,7 @@ uninstall-data-yes:
 	catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
+	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  rm -f $(DESTDIR)$(localedir)/$$lang/LC_MESSAGES/$(PACKAGE).mo; \
 	done
 
@@ -177,8 +182,11 @@ dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
 	if test -f $(srcdir)/LINGUAS; then dists="$$dists LINGUAS"; fi; \
 	for file in $$dists; do \
-	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
-	  cp -p $$dir/$$file $(distdir); \
+	  if test -f $$file; then \
+	    cp -p $$file $(distdir); \
+	  else \
+	    cp -p $(srcdir)/$$file $(distdir); \
+	  fi; \
 	done
 
 update-po: Makefile
@@ -189,7 +197,7 @@ update-po: Makefile
 	catalogs='$(GMOFILES)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
-	  lang=`echo $$cat | sed 's/\.gmo$$//'`; \
+	  lang=`echo $$cat | sed -e 's/\.gmo$$//'`; \
 	  echo "$$lang:"; \
 	  if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$tmpdir/$$lang.new.po; then \
 	    if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \

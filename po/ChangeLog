@@ -1,3 +1,10 @@
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in: Always use sed with -e option.
+	(.po.gmo): Use 'echo' to make the command look prettier.
+	($(POFILES)): Likewise. Make it work in the case $builddir != $srcdir.
+	(dist2): Make it work in the case $(srcdir) is an absolute directory.
+
 2001-11-06  Paolo Bonzini <bonzini@gnu.org>
             Bruno Haible  <haible@clisp.cons.org>
 

@@ -1,5 +1,10 @@
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.m4 (AM_GNU_GETTEXT): For builds with $builddir != $srcdir,
+	prepend $(srcdir) to all elements of POFILES and GMOFILES.
+
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
 	* javaexec.m4 (gt_JAVAEXEC): Use HAVE_JAVA instead of HAVE_JAVA_JVM.
 	The problem seen with automake-1.4 is gone with automake-1.5.
 
