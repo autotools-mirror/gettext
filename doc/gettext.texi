@@ -5338,7 +5338,8 @@ AC_CONFIG_AUX_DIR([@var{subdir}])
 If you do not have an @file{aclocal.m4} file in your distribution,
 the simplest is to concatenate the files @file{codeset.m4},
 @file{gettext.m4}, @file{glibc21.m4}, @file{iconv.m4}, @file{isc-posix.m4},
-@file{lcmessage.m4}, @file{progtest.m4} from GNU @code{gettext}'s
+@file{lcmessage.m4}, @file{lib-ld.m4}, @file{lib-link.m4},
+@file{lib-prefix.m4}, @file{progtest.m4} from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
 @file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
 @file{progtest.m4} need to be concatenated.

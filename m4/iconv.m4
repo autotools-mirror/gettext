@@ -1,4 +1,4 @@
-#serial AM2
+#serial AM3
 
 dnl From Bruno Haible.
 
@@ -7,13 +7,19 @@ AC_DEFUN([AM_ICONV],
   dnl Some systems have iconv in libc, some have it in libiconv (OSF/1 and
   dnl those with the standalone portable GNU libiconv installed).
 
-  AC_ARG_WITH([libiconv-prefix],
-[  --with-libiconv-prefix=DIR  search for libiconv in DIR/include and DIR/lib], [
-    for dir in `echo "$withval" | tr : ' '`; do
-      if test -d $dir/include; then CPPFLAGS="$CPPFLAGS -I$dir/include"; fi
-      if test -d $dir/lib; then LDFLAGS="$LDFLAGS -L$dir/lib"; fi
-    done
-   ])
+  dnl Prerequisites of AC_LIB_LINKFLAGS_BODY.
+  AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
+  AC_REQUIRE([AC_LIB_RPATH])
+
+  dnl Search for libiconv and define LIBICONV and INCICONV accordingly.
+  AC_LIB_LINKFLAGS_BODY([iconv])
+
+  dnl Add $INCICONV to CPPFLAGS before performing the following checks,
+  dnl because if the user has installed libiconv and not disabled its use
+  dnl via --without-libiconv-prefix, he wants to use it. The first
+  dnl AC_TRY_LINK will then fail, the second AC_TRY_LINK will succeed.
+  am_save_CPPFLAGS="$CPPFLAGS"
+  AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCICONV])
 
   AC_CACHE_CHECK(for iconv, am_cv_func_iconv, [
     am_cv_func_iconv="no, consider installing GNU libiconv"
@@ -26,7 +32,7 @@ AC_DEFUN([AM_ICONV],
       am_cv_func_iconv=yes)
     if test "$am_cv_func_iconv" != yes; then
       am_save_LIBS="$LIBS"
-      LIBS="$LIBS -liconv"
+      LIBS="$LIBS $LIBICONV"
       AC_TRY_LINK([#include <stdlib.h>
 #include <iconv.h>],
         [iconv_t cd = iconv_open("","");
@@ -61,9 +67,14 @@ size_t iconv();
     AC_DEFINE_UNQUOTED(ICONV_CONST, $am_cv_proto_iconv_arg1,
       [Define as const if the declaration of iconv() needs const.])
   fi
-  LIBICONV=
   if test "$am_cv_lib_iconv" = yes; then
-    LIBICONV="-liconv"
+    AC_MSG_CHECKING([how to link with libiconv])
+    AC_MSG_RESULT([$LIBICONV])
+  else
+    dnl If $LIBICONV didn't lead to a usable library, we don't need $INCICONV
+    dnl either.
+    CPPFLAGS="$am_save_CPPFLAGS"
+    LIBICONV=
   fi
   AC_SUBST(LIBICONV)
 ])

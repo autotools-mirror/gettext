@@ -1,5 +1,19 @@
 2001-12-02  Bruno Haible  <bruno@clisp.org>
 
+	* lib-ld.m4: New file, extracted from libtool-1.4 libtool.m4.
+	* lib-link.m4: New file.
+	* lib-prefix.m4: New file.
+	* Makefile.am (aclocal_DATA): Add them.
+	(EXTRA_DIST): Likewise.
+	* iconv.m4 (AM_ICONV): Remove AC_ARG_WITH call. Invoke
+	AC_LIB_LINKFLAGS_BODY. Use $LIBICONV instead of "-lintl". Add
+	$INCICONV to CPPFLAGS if appropriate.
+	* gettext.m4 (AM_WITH_LIBINTL): Remove macro.
+	(AM_GNU_GETTEXT): Invoke AC_LIB_LINKFLAGS_BODY. Use $LIBINTL instead
+	of "-lintl $LIBICONV". Add $INCINTL to CPPFLAGS if appropriate.
+
+2001-12-02  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Avoid an error message if there is
 	no Rules-* file.
 

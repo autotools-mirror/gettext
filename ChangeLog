@@ -1,4 +1,10 @@
-2001-11-30  Bruno Haible  <haible@clisp.cons.org>
+2001-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* config.rpath: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+	(gettextsrc_SCRIPTS): New variable.
+
+2001-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Change version number to 0.11-pre2.
 

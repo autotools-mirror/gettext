@@ -1,3 +1,8 @@
+2001-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Add lib-ld.m4, lib-link.m4, lib-prefix.m4
+	to the list of autoconf macro files.
+
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (po/Makevars): New node.

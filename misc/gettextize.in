@@ -153,7 +153,7 @@ cd $gettext_dir || {
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
   case $file in
-    ABOUT-NLS)
+    ABOUT-NLS | config.rpath)
       rm -f $srcdir/$file
       ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file && $echo "Symlinking file $file") 2>/dev/null ||
       { $echo "Copying file $file"; cp $file $srcdir/$file; }
@@ -221,9 +221,9 @@ echo
 echo "Please add the files"
 if test -n "$intldir"; then
   echo "  codeset.m4 gettext.m4 glibc21.m4 iconv.m4 isc-posix.m4 lcmessage.m4"
-  echo "  progtest.m4"
+  echo "  lib-ld.m4 lib-link.m4 lib-prefix.m4 progtest.m4"
 else
-  echo "  gettext.m4 iconv.m4 progtest.m4"
+  echo "  gettext.m4 iconv.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 progtest.m4"
 fi
 echo "from the @datadir@/aclocal directory to your autoconf macro directory"
 if test -f $srcdir/Makefile.am; then
