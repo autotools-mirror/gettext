@@ -49,6 +49,11 @@
 
 	* alloca_.h: Conditionalize on _GNULIB_ALLOCA_H, not _ALLOCA_H.
 
+2004-11-05  Bruno Haible  <bruno@clisp.org>
+
+	* readlink.c: Include stddef.h, needed for size_t on Woe32.
+	Reported by Mark D. Baushke <mdb@cvshome.org>.
+
 2004-11-02  Bruno Haible  <bruno@clisp.org>
 
 	* setenv.h (unsetenv): Define as a macro if the system's unsetenv()
