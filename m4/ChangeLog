@@ -1,5 +1,12 @@
 2000-06-16  Bruno Haible  <haible@clisp.cons.org>
 
+	* codeset.m4: New file, taken from fileutils-4.0u, with prefix AM.
+	* iconv.m4: New file, taken from fileutils-4.0u, with prefix AM.
+	* gettext.m4 (AM_GNU_GETTEXT): Add check for headers <stddef.h>,
+	<stdlib.h>. Add check for functions feof_unlocked, fgets_unlocked.
+	Invoke AM_ICONV and AM_LANGINFO_CODESET. Require AC_CANONICAL_HOST.
+	Bump to serial 7.
+
 	* isc-posix.m4: Undefine the macro before calling AC_DEFUN, otherwise
 	with autoconf-2.13 we get lots of ***BUG in Autoconf--please report***
 	errors.

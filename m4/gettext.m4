@@ -6,7 +6,7 @@
 # but which still want to provide support for the GNU gettext functionality.
 # Please note that the actual code is *not* freely available.
 
-# serial 6
+# serial 7
 
 dnl Usage: AM_WITH_NLS([SYMBOL], [LIBDIR], [INCDIR]).
 dnl If SYMBOL is specified and is `no-catgets', then the catgets checks
@@ -208,6 +208,7 @@ dnl Usage: Just like AM_WITH_NLS, which see.
 AC_DEFUN(AM_GNU_GETTEXT,
   [AC_REQUIRE([AC_PROG_MAKE_SET])dnl
    AC_REQUIRE([AC_PROG_CC])dnl
+   AC_REQUIRE([AC_CANONICAL_HOST])dnl
    AC_REQUIRE([AC_PROG_RANLIB])dnl
    AC_REQUIRE([AC_ISC_POSIX])dnl
    AC_REQUIRE([AC_HEADER_STDC])dnl
@@ -218,11 +219,14 @@ AC_DEFUN(AM_GNU_GETTEXT,
    AC_REQUIRE([AC_FUNC_ALLOCA])dnl
    AC_REQUIRE([AC_FUNC_MMAP])dnl
 
-   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h string.h \
-unistd.h sys/param.h])
-   AC_CHECK_FUNCS([getcwd munmap putenv setenv setlocale strchr strcasecmp \
-strdup __argz_count __argz_stringify __argz_next tsearch iconv stpcpy mempcpy])
+   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
+stdlib.h string.h unistd.h sys/param.h])
+   AC_CHECK_FUNCS([feof_unlocked fgets_unlocked getcwd mempcpy munmap putenv \
+setenv setlocale stpcpy strchr strcasecmp strdup tsearch \
+__argz_count __argz_stringify __argz_next])
 
+   AM_ICONV
+   AM_LANGINFO_CODESET
    AM_LC_MESSAGES
    AM_WITH_NLS([$1],[$2],[$3])
 
