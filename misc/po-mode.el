@@ -46,7 +46,7 @@
 
 ;; Identify which Emacs variety is being used.
 (eval-and-compile
-  (cond ((string-match "Lucid\\|XEmacs" emacs-version)
+  (cond ((string-match "XEmacs\\|Lucid" emacs-version)
 	 (setq po-EMACS20 nil po-XEMACS t))
 	((and (string-lessp "19" emacs-version) (featurep 'faces))
 	 (setq po-EMACS20 t po-XEMACS nil))
@@ -94,7 +94,7 @@
   :type 'boolean
   :group 'po)
 
-(defcustom po-auto-replace-revision-date 't
+(defcustom po-auto-replace-revision-date t
   "*Automatically revise date in headers.  Value is nil, t, or ask."
   :type '(choice (const nil)
 		 (const t)
@@ -705,7 +705,8 @@ Content-Type into a Mule coding system.")
     ;; ("^\\(msgid \\|msgstr \\)?\"\\|\"$" . font-lock-keyword-face)
     ;; (regexp-opt
     ;;  '("msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
-    ("^\\(\\(msg\\(id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)?\\) \\)?\"\\|\"$"
+    ("\
+^\\(\\(msg\\(id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)?\\) \\)?\"\\|\"$"
      . font-lock-keyword-face)
     ("\\\\.\\|%\\*?[-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
@@ -734,31 +735,35 @@ Content-Type into a Mule coding system.")
 (defun po-find-charset (filename)
   "Return PO file charset value."
   (interactive)
-  (let ((po-charset "^\"Content-Type: text/plain;[ \t]*charset=\\(.*\\)\\\\n\""))
+  (let ((charset-regexp
+	 "^\"Content-Type: text/plain;[ \t]*charset=\\(.*\\)\\\\n\"")
+	(short-read nil))
     ;; Try the first 4096 bytes.  In case we cannot find the charset value
     ;; within the first 4096 bytes (the PO file might start with a long
     ;; comment) try the next 4096 bytes repeatedly until we'll know for sure
     ;; we've checked the empty header entry entirely.
-    (while (not (re-search-forward "^msgid" nil t))
+    (while (not (or short-read (re-search-forward "^msgid" nil t)))
       (save-excursion
         (goto-char (point-max))
-        (insert-file-contents filename nil (1- (point)) (1- (+ (point) 4096)))))
-    (if (re-search-forward po-charset nil t)
-        (match-string 1)
-      (progn
-        (save-excursion
-          (goto-char (point-max))
-          ;; We've found the first msgid; maybe, only a part of the msgstr
-          ;; value was loaded.  Load the next 1024 bytes; if charset still
-          ;; isn't available, give up.
-          (insert-file-contents filename nil (point) (+ (point) 1024)))
-        (if (re-search-forward po-charset nil t)
-	    (match-string 1))))))
+	(let ((pair (insert-file-contents filename nil
+					  (1- (point)) (1- (+ (point) 4096)))))
+	  (setq short-read (< (nth 1 pair) 4096)))))
+    (cond (short-read nil)
+	  ((re-search-forward charset-regexp nil t) (match-string 1))
+	  ;; We've found the first msgid; maybe, only a part of the msgstr
+	  ;; value was loaded.  Load the next 1024 bytes; if charset still
+	  ;; isn't available, give up.
+	  (t (save-excursion
+	       (goto-char (point-max))
+	       (insert-file-contents filename nil (point) (+ (point) 1024)))
+	     (if (re-search-forward charset-regexp nil t)
+		 (match-string 1))))))
 
 (eval-and-compile
   (if (or po-EMACS20 po-XEMACS)
       (defun po-find-file-coding-system-guts (operation filename)
-	"Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
+	"\
+Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
 	(and (eq operation 'insert-file-contents)
 	     (with-temp-buffer
@@ -775,13 +780,15 @@ Called through file-coding-system-alist, before the file is visited for real."
 
   (if po-EMACS20
       (defun po-find-file-coding-system (arg-list)
-	"Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
+	"\
+Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
 	(po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list)))))
 
   (if po-XEMACS
       (defun po-find-file-coding-system (operation filename)
-	"Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
+	"\
+Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
 	(po-find-file-coding-system-guts operation filename)))
 
@@ -974,7 +981,7 @@ Then, update the mode line counters."
       (goto-char (point-min))
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
-      (if (string= (po-get-msgid nil) "")
+      (if (string-equal (po-get-msgid nil) "")
         (po-next-entry))
       ;; Start counting
       (while (re-search-forward po-any-msgstr-regexp nil t)
@@ -2713,7 +2720,8 @@ Leave point after marked string."
 		((memq system-type '(windows-nt windows-95)) "NUL")
 		(t "/dev/null")))
 	 (compilation-buffer-name-function
-	  (function (lambda (mode) (progn "*PO validation*"))))
+	  (function (lambda (mode-name)
+		      (concat "*" mode-name " validation*"))))
 	 (compile-command (concat po-msgfmt-program
                                  " --statistics -c -v -o " dev-null " "
                                  buffer-file-name)))

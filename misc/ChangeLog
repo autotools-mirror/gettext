@@ -1,3 +1,17 @@
+2001-08-01  François Pinard  <pinard@iro.umontreal.ca>
+
+	* po-mode.el: Optimize testing for XEmacs.
+	(po-auto-replace-revision-date): Do not quote t, as it evals to
+	itself.
+	(po-validate): Use the mode name instead of the constant PO to build
+	the validation buffer name.
+	(po-font-lock-keywords, po-find-charset,
+	po-find-file-coding-system-guts, po-find-file-coding-system): Adjust
+	some lines so they fit in 79 columns (pre-VT100).
+	(po-compute-counters): Use string-equal instead of string=, to be
+	consistent with the remainder of that code.
+	(po-find-charset): Avoid infinite loop on empty file.
+
 2000-05-31  Hrvoje Niksic  <hniksic@iskon.hr>
 
 	* po-mode.el (po-create-overlay, po-highlight, po-rehighlight,
