@@ -1,3 +1,8 @@
+2003-02-19  Bruno Haible  <bruno@clisp.org>
+
+	* stdbool.m4 (gt_STDBOOL_H): Also test for usability of 'bool' in
+	declarations. Needed for HP-UX 11 cc.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Update for new directory structure.
