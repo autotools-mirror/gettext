@@ -98,10 +98,6 @@ static bool add_all_comments = false;
 /* Tag used in comment of prevailing domain.  */
 static char *comment_tag;
 
-/* Compare tokens with keywords using substring matching instead of
-   equality.  */
-bool substring_match;
-
 /* Name of default domain file.  If not set defaults to messages.po.  */
 static const char *default_domain;
 
@@ -191,7 +187,6 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "join-existing", no_argument, NULL, 'j' },
   { "keyword", optional_argument, NULL, 'k' },
-  { "keyword-substring", no_argument, NULL, 'K'},
   { "language", required_argument, NULL, 'L' },
   { "msgid-bugs-address", required_argument, NULL, CHAR_MAX + 5 },
   { "msgstr-prefix", optional_argument, NULL, 'm' },
@@ -379,9 +374,6 @@ main (int argc, char *argv[])
 	    x_php_keyword (optarg);
 	    x_glade_keyword (optarg);
 	  }
-	break;
-      case 'K':
-	substring_match = true;
 	break;
       case 'l':
 	/* Accepted for backward compatibility with 0.10.35.  */

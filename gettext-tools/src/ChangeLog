@@ -1,5 +1,11 @@
 2003-10-05  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (substring_match): Remove variable.
+	(long_options): Remove --keyword-substring option.
+	(main): Remove handling of --keyword-substring option.
+
+2003-10-05  Bruno Haible  <bruno@clisp.org>
+
 	* message.h (enum is_format): New item yes_according_to_context.
 	* message.c (possible_format_p): Handle also yes_according_to_context.
 	* write-po.c (make_format_description_string): Likewise.
