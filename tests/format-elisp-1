@@ -129,6 +129,7 @@ EOF
     cat f-el-1-$n.po 1>&2
     exit 1
   fi
+  rm -f f-el-1-$n.in f-el-1-$n.po
 done < f-el-1.data
 
 rm -fr $tmpfiles

@@ -119,6 +119,7 @@ while read comment; do
     cat f-op-1-$n.po 1>&2
     exit 1
   fi
+  rm -f f-op-1-$n.in f-op-1-$n.po
 done < f-op-1.data
 
 rm -fr $tmpfiles

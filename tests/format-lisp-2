@@ -197,6 +197,7 @@ EOF
     cat f-l-2-$n.po 1>&2
     exit 1
   fi
+  rm -f f-l-2-$n.po f-l-2-$n.mo
 done < f-l-2.data
 
 rm -fr $tmpfiles
