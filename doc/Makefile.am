@@ -71,7 +71,7 @@ MAINTAINERCLEANFILES = gettext_*.html
 
 install-dvi: gettext.dvi
 	$(mkinstalldirs) $(DESTDIR)$(dvidir)
-	$(INSTALL_DATA) $< $(DESTDIR)$(dvidir)/gettext.dvi
+	$(INSTALL_DATA) `if test -f gettext.dvi; then echo .; else echo $(srcdir); fi`/gettext.dvi $(DESTDIR)$(dvidir)/gettext.dvi
 
 installdirs-dvi:
 	$(mkinstalldirs) $(DESTDIR)$(dvidir)
@@ -87,11 +87,11 @@ DVIPS = @DVIPS@ -D600
 ps: gettext.ps
 
 gettext.ps: gettext.dvi
-	$(DVIPS) -o $@ $<
+	$(DVIPS) -o $@ `if test -f gettext.dvi; then echo gettext.dvi; else echo $(srcdir)/gettext.dvi; fi`
 
 install-ps: gettext.ps
 	$(mkinstalldirs) $(DESTDIR)$(psdir)
-	$(INSTALL_DATA) $< $(DESTDIR)$(psdir)/gettext.ps
+	$(INSTALL_DATA) `if test -f gettext.ps; then echo .; else echo $(srcdir); fi`/gettext.ps $(DESTDIR)$(psdir)/gettext.ps
 
 installdirs-ps:
 	$(mkinstalldirs) $(DESTDIR)$(psdir)
@@ -113,7 +113,7 @@ pdf: gettext.pdf
 
 install-pdf: gettext.pdf
 	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
-	$(INSTALL_DATA) $< $(DESTDIR)$(pdfdir)/gettext.pdf
+	$(INSTALL_DATA) `if test -f gettext.pdf; then echo .; else echo $(srcdir); fi`/gettext.pdf $(DESTDIR)$(pdfdir)/gettext.pdf
 
 installdirs-pdf:
 	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
@@ -130,19 +130,19 @@ html-monolithic: gettext.html
 html-split: gettext_toc.html
 
 gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	$(TEXI2HTML) -expandinfo -number -monolithic $<
+	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	case "$(TEXI2HTML)" in \
 	  *"/missing texi2html") \
-	     $(TEXI2HTML) -expandinfo -number -split_chapter $< || exit 0 ;; \
+	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
 	  *) $(RM) gettext_*.html ; \
-	     $(TEXI2HTML) -expandinfo -number -split_chapter $< ;; \
+	     $(TEXI2HTML) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
 	esac
 
 install-html-monolithic: gettext.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
-	$(INSTALL_DATA) $< $(DESTDIR)$(htmldir)/gettext.html
+	$(INSTALL_DATA) `if test -f gettext.html; then echo .; else echo $(srcdir); fi`/gettext.html $(DESTDIR)$(htmldir)/gettext.html
 
 install-html-split: gettext_toc.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
