@@ -3537,7 +3537,7 @@ details are explained in the GNU @code{gettext} manual.  Here only a a
 bit of information is provided.
 
 The information about the plural form selection has to be stored in the
-header entry (the one with the empty (@code{msgid} string).  There should
+header entry (the one with the empty @code{msgid} string).  There should
 be something like:
 
 @smallexample
@@ -3566,7 +3566,7 @@ below).@footnote{Additions are welcome.  Send appropriate information to
 @table @asis
 @item Only one form:
 Some languages only require one single form.  There is no distinction
-between the singular and plural form.  And appropriate header entry
+between the singular and plural form.  An appropriate header entry
 would look like this:
 
 @smallexample
