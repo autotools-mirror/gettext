@@ -30,7 +30,8 @@ AC_DEFUN([gt_JAVACOMP],
       ac_result="gcj -C"
     else
       if test -n "$HAVE_JAVAC_IN_PATH" \
-         && (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
+         && (javac -version >/dev/null 2>/dev/null || test $? -le 2) \
+         && (if javac -help 2>&1 >/dev/null | grep at.dms.kjc.Main >/dev/null && javac -help 2>/dev/null | grep 'released.*2000' >/dev/null ; then exit 1; else exit 0; fi); then
         HAVE_JAVAC=1
         ac_result="javac"
       else

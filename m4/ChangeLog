@@ -1,3 +1,9 @@
+2001-12-04  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.m4 (gt_JAVACOMP): Exclude at.dms.kjc.Main (KOPI) versions
+	released in 2000, because they can't compile intl-java. Version 1.4F
+	[May 2000] is buggy, version 1.5B [August 2001] is OK.
+
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_PO_SUBDIRS): Also substitute UPDATEPOFILES and
