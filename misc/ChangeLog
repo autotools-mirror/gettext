@@ -1,3 +1,8 @@
+2001-08-07  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-subedit-mode-menu-layout): New definition.
+	(po-edit-string): Use it to provide a menu for po-subedit-mode.
+
 2001-08-01  François Pinard  <pinard@iro.umontreal.ca>
 
 	* po-mode.el (po-find-awk-string, po-mark-awk-string,

@@ -585,7 +585,13 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     ["Soft quit" po-confirm-and-quit t])
   "Menu layout for PO mode.")
 
-;; FIXME: subedit mode should also have its own layout.
+(defconst po-subedit-mode-menu-layout
+  '("PO-Edit"
+    ["Cycle through auxiliary files" po-subedit-cycle-auxiliary t]
+    "---"
+    ["Abort edit" po-subedit-abort t]
+    ["Exit edit" po-subedit-exit t])
+  "Menu layout for PO subedit mode.")
 
 (defconst po-subedit-message
   (_"Type `C-c C-c' once done, or `C-c C-k' to abort edit")
@@ -1936,6 +1942,12 @@ Run functions on po-subedit-mode-hook."
 	  (goto-char (point-min))
 	  (and expand-tabs (setq indent-tabs-mode nil))
 	  (use-local-map po-subedit-mode-map)
+	  (if (fboundp 'easy-menu-define)
+	      (progn
+		(easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
+		  po-subedit-mode-menu-layout)
+		(and po-XEMACS (easy-menu-add po-subedit-mode-menu))))
+	  (set-syntax-table po-subedit-mode-syntax-table)
 	  (run-hooks 'po-subedit-mode-hook)
 	  (message po-subedit-message)))))
 
