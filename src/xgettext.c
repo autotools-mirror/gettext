@@ -165,6 +165,8 @@ static void scan_c_file PARAMS ((const char *file_name,
 				 msgdomain_list_ty *mdlp));
 static void scan_po_file PARAMS ((const char *file_name,
 				  msgdomain_list_ty *mdlp));
+static void scan_java_file PARAMS ((const char *file_name,
+				    msgdomain_list_ty *mdlp));
 static long difftm PARAMS ((const struct tm *a, const struct tm *b));
 static message_ty *construct_header PARAMS ((void));
 

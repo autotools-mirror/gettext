@@ -109,6 +109,11 @@ static inline int nonintr_close PARAMS ((int fd));
 static inline ssize_t nonintr_read PARAMS ((int fd, void *buf, size_t count));
 static inline ssize_t nonintr_write PARAMS ((int fd, const void *buf,
 					     size_t count));
+#if HAVE_SELECT
+static inline int nonintr_select PARAMS ((int n, fd_set *readfds,
+					  fd_set *writefds, fd_set *exceptfds,
+					  struct timeval *timeout));
+#endif
 #endif
 static void process_string PARAMS ((const char *str, size_t len,
 				    char **resultp, size_t *lengthp));

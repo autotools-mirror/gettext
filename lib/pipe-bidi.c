@@ -52,6 +52,13 @@
 #define _(str) gettext (str)
 
 
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
+#ifdef EINTR
+static inline int nonintr_close PARAMS ((int fd));
+#endif
+
+
 #ifdef EINTR
 
 /* EINTR handling for close().

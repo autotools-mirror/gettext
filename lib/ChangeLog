@@ -1,5 +1,11 @@
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
+	* pipe-bidi.c (nonintr_close): Add function prototypes.
+	* pipe-in.c (nonintr_close, nonintr_open): Likewise.
+	* pipe-out.c (nonintr_close, nonintr_open): Likewise.
+
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
 	* findprog.c: Include specification header before all other headers.
 	* fstrcmp.c: Likewise.
 	* full-write.c: Likewise.

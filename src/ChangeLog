@@ -1,3 +1,9 @@
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgexec.c (nonintr_select): Add function prototype.
+
+	* xgettext.c (scan_java_file): Add function prototype.
+
 2001-09-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (remember_a_message): Warn about empty msgid if it
