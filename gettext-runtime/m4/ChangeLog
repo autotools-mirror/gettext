@@ -1,3 +1,7 @@
+2005-02-24  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.2 released.
+
 2005-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (gt_INTL_MACOSX): New macro, extracted from

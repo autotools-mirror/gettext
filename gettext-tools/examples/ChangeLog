@@ -1,5 +1,9 @@
 2005-02-24  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.14.2 released.
+
+2005-02-24  Bruno Haible  <bruno@clisp.org>
+
 	* hello-*/autogen.sh: Define and use GETTEXT_TOPSRCDIR, to make it
 	work in VPATH builds.
 
