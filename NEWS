@@ -46,8 +46,9 @@ Version 0.12-pre1 - February 2003
   New documentation section:
   - Writing your own programs that process PO files.
 
-* New documentation section:
+* New documentation sections:
   - Prioritizing messages: How to determine which messages to translate first.
+  - Names: Marking Proper Names for Translation.
 
 * xgettext now supports msgid strings in other encodings than ASCII.
   xgettext has a new option --from-code that specifies the encoding of the

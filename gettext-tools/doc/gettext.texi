@@ -171,6 +171,7 @@ Preparing Program Sources
 * Marking::                     Marking Translatable Strings
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
+* Names::                       Marking Proper Names for Translation
 
 Making the PO Template File
 
@@ -1716,6 +1717,7 @@ sections of this chapter.
 * Marking::                     Marking Translatable Strings
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
+* Names::                       Marking Proper Names for Translation
 @end menu
 
 @node Triggering, Preparing Strings, Sources, Sources
@@ -2344,7 +2346,7 @@ user can find out who is responsible for the decision.  See
 @ref{xgettext Invocation} to see how the @code{--debug} option can be
 used for solving this problem.
 
-@node Special cases,  , c-format Flag, Sources
+@node Special cases, Names, c-format Flag, Sources
 @section Special Cases of Translatable Strings
 
 @cindex marking string initializers
@@ -2437,6 +2439,77 @@ One advantage is that you need not make control flow analysis to make
 sure the output is really translated in any case.  But this analysis is
 generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
+
+@node Names,  , Special cases, Sources
+@section Marking Proper Names for Translation
+
+Should names of persons, cities, locations etc. be marked for translation
+or not?  People who only know languages that can be written with Latin
+letters (English, Spanish, French, German, etc.) are tempted to say ``no'',
+because names usually do not change when transported between these languages.
+However, in general when translating from one script to another, names
+are translated too, usually phonetically or by transliteration.  For
+example, Russian or Greek names are converted to the Latin alphabet when
+being translated to English, and English or French names are converted
+to the Katakana script when being translated to Japanese.  This is
+necessary because the speakers of the target language in general cannot
+read the script the name is originally written in.
+
+As a programmer, you should therefore make sure that names are marked
+for translation, with a special comment telling the translators that it
+is a proper name and how to pronounce it.  Like this:
+
+@example
+@group
+printf (_("Written by %s.\n"),
+        /* TRANSLATORS: This is a proper name.  See the gettext
+           manual, section Names.  Note this is actually a non-ASCII
+           name: The first name is (with Unicode escapes)
+           "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
+           Pronounciation is like "fraa-swa pee-nar".  */
+        _("Francois Pinard"));
+@end group
+@end example
+
+As a translator, you should use some care when translating names, because
+it is frustrating if people see their names mutilated or distorted.  If
+your language uses the Latin script, all you need to do is to reproduce
+the name as perfectly as you can within the usual character set of your
+language.  In this particular case, this means to provide a translation
+containing the c-cedilla character.  If your language uses a different
+script and the people speaking it don't usually read Latin words, it means
+transliteration; but you should still give, in parentheses, the original
+writing of the name -- for the sake of the people that do read the Latin
+script.  Here is an example, using Greek as the target script:
+
+@example
+@group
+#. This is a proper name.  See the gettext
+#. manual, section Names.  Note this is actually a non-ASCII
+#. name: The first name is (with Unicode escapes)
+#. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
+#. Pronounciation is like "fraa-swa pee-nar".
+msgid "Francois Pinard"
+msgstr "\phi\rho\alpha\sigma\omicron\alpha \pi\iota\nu\alpha\rho"
+       " (Francois Pinard)"
+@end group
+@end example
+
+Because translation of names is such a sensitive domain, it is a good
+idea to test your translation before submitting it.
+
+The translation project @url{http://sourceforge.net/projects/translation}
+has set up a POT file and translation domain consisting of program author
+names, with better facilities for the translator than those presented here.
+Namely, there the original name is written directly in Unicode (rather
+than with Unicode escapes or HTML entities), and the pronounciation is
+denoted using the International Phonetic Alphabet (see
+@url{http://www.wikipedia.org/wiki/International_Phonetic_Alphabet}).
+
+However, we don't recommend this approach for all POT files in all packages,
+because this would force translators to use PO files in UTF-8 encoding,
+which is - in the current state of software (as of 2003) - a major hassle
+for translators using GNU Emacs or XEmacs with po-mode.
 
 @node Template, Creating, Sources, Top
 @chapter Making the PO Template File
