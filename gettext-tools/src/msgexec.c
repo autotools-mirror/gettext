@@ -218,7 +218,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n\
 "), program_name);
@@ -238,25 +237,24 @@ A special builtin command called '0' outputs the translation, followed by a\n\
 null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  -i, --input=INPUTFILE       input PO file\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-If no input file is given or if it is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  -i, --input=INPUTFILE       input PO file\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If no input file is given or if it is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

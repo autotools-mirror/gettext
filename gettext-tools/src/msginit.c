@@ -326,7 +326,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION]\n\
 "), program_name);
@@ -337,43 +336,43 @@ Creates a new PO file, initializing the meta information with values from the\n\
 user's environment.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  -i, --input=INPUTFILE       input POT file\n\
+Input file location:\n"));
+      printf (_("\
+  -i, --input=INPUTFILE       input POT file\n"));
+      printf (_("\
 If no input file is given, the current directory is searched for the POT file.\n\
-If it is -, standard input is read.\n\
-"));
+If it is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE      write output to specified PO file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified PO file\n"));
+      printf (_("\
 If no output file is given, it depends on the --locale option or the user's\n\
-locale setting.  If it is -, the results are written to standard output.\n\
-"));
+locale setting.  If it is -, the results are written to standard output.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -l, --locale=LL_CC          set target locale\n\
-      --no-translator         assume the PO file is automatically generated\n\
-  -w, --width=NUMBER          set output page width\n\
+Output details:\n"));
+      printf (_("\
+  -l, --locale=LL_CC          set target locale\n"));
+      printf (_("\
+      --no-translator         assume the PO file is automatically generated\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
       --no-wrap               do not break long message lines, longer than\n\
-                              the output page width, into several lines\n\
-"));
+                              the output page width, into several lines\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

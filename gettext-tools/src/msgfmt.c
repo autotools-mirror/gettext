@@ -487,12 +487,10 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] filename.po ...\n\
 "), program_name);
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
 Generate binary message catalog from textual translation description.\n\
 "));
@@ -500,82 +498,97 @@ Generate binary message catalog from textual translation description.\n\
       /* xgettext: no-wrap */
       printf (_("\
 Mandatory arguments to long options are mandatory for short options too.\n\
+Similarly for optional arguments.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  filename.po ...             input files\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-If input file is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  filename.po ...             input files\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If input file is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Operation mode:\n\
-  -j, --java                  Java mode: generate a Java ResourceBundle class\n\
-      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n\
-      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n\
-"));
+Operation mode:\n"));
+      printf (_("\
+  -j, --java                  Java mode: generate a Java ResourceBundle class\n"));
+      printf (_("\
+      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"));
+      printf (_("\
+      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE      write output to specified file\n\
-      --strict                enable strict Uniforum mode\n\
-If output file is -, output is written to standard output.\n\
-"));
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
+      --strict                enable strict Uniforum mode\n"));
+      printf (_("\
+If output file is -, output is written to standard output.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location in Java mode:\n\
-  -r, --resource=RESOURCE     resource name\n\
-  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n\
-  -d DIRECTORY                base directory of classes directory hierarchy\n\
+Output file location in Java mode:\n"));
+      printf (_("\
+  -r, --resource=RESOURCE     resource name\n"));
+      printf (_("\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
+  -d DIRECTORY                base directory of classes directory hierarchy\n"));
+      printf (_("\
 The class name is determined by appending the locale name to the resource name,\n\
 separated with an underscore.  The -d option is mandatory.  The class is\n\
 written under the specified directory.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location in Tcl mode:\n\
-  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n\
-  -d DIRECTORY                base directory of .msg message catalogs\n\
+Output file location in Tcl mode:\n"));
+      printf (_("\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
+  -d DIRECTORY                base directory of .msg message catalogs\n"));
+      printf (_("\
 The -l and -d options are mandatory.  The .msg file is written in the\n\
-specified directory.\n\
-"));
+specified directory.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file interpretation:\n\
+Input file interpretation:\n"));
+      printf (_("\
   -c, --check                 perform all the checks implied by\n\
-                                --check-format, --check-header, --check-domain\n\
-      --check-format          check language dependent format strings\n\
-      --check-header          verify presence and contents of the header entry\n\
+                                --check-format, --check-header, --check-domain\n"));
+      printf (_("\
+      --check-format          check language dependent format strings\n"));
+      printf (_("\
+      --check-header          verify presence and contents of the header entry\n"));
+      printf (_("\
       --check-domain          check for conflicts between domain directives\n\
-                                and the --output-file option\n\
-  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n\
+                                and the --output-file option\n"));
+      printf (_("\
+  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"));
+      printf (_("\
       --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n\
-                                menu items\n\
-  -f, --use-fuzzy             use fuzzy entries in output\n\
-"));
-      printf ("\n");
-      /* xgettext: no-wrap */
+                                menu items\n"));
       printf (_("\
-Output details:\n\
-  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n\
-      --no-hash               binary file will not include the hash table\n\
-"), DEFAULT_OUTPUT_ALIGNMENT);
+  -f, --use-fuzzy             use fuzzy entries in output\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-      --statistics            print statistics about translations\n\
-  -v, --verbose               increase verbosity level\n\
-"));
+Output details:\n"));
+      printf (_("\
+  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"), DEFAULT_OUTPUT_ALIGNMENT);
+      printf (_("\
+      --no-hash               binary file will not include the hash table\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
+      printf (_("\
+      --statistics            print statistics about translations\n"));
+      printf (_("\
+  -v, --verbose               increase verbosity level\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
     }

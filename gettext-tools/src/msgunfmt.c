@@ -316,82 +316,88 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] [FILE]...\n\
 "), program_name);
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
 Convert binary message catalog to Uniforum style .po file.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Operation mode:\n\
-  -j, --java               Java mode: input is a Java ResourceBundle class\n\
-      --tcl                Tcl mode: input is a tcl/msgcat .msg file\n\
-"));
+Operation mode:\n"));
+      printf (_("\
+  -j, --java                  Java mode: input is a Java ResourceBundle class\n"));
+      printf (_("\
+      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  FILE ...                 input .mo files\n\
-If no input file is given or if it is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  FILE ...                    input .mo files\n"));
+      printf (_("\
+If no input file is given or if it is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location in Java mode:\n\
-  -r, --resource=RESOURCE  resource name\n\
-  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n\
+Input file location in Java mode:\n"));
+      printf (_("\
+  -r, --resource=RESOURCE     resource name\n"));
+      printf (_("\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
 The class name is determined by appending the locale name to the resource name,\n\
 separated with an underscore.  The class is located using the CLASSPATH.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location in Tcl mode:\n\
-  -l, --locale=LOCALE      locale name, either language or language_COUNTRY\n\
-  -d DIRECTORY             base directory of .msg message catalogs\n\
+Input file location in Tcl mode:\n"));
+      printf (_("\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
+  -d DIRECTORY                base directory of .msg message catalogs\n"));
+      printf (_("\
 The -l and -d options are mandatory.  The .msg file is located in the\n\
-specified directory.\n\
-"));
+specified directory.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE   write output to specified file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
 The results are written to standard output if no output file is specified\n\
-or if it is -.\n\
-"));
+or if it is -.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -e, --no-escape          do not use C escapes in output (default)\n\
-  -E, --escape             use C escapes in output, no extended chars\n\
-      --force-po           write PO file even if empty\n\
-  -i, --indent             write indented output style\n\
-      --strict             write strict uniforum style\n\
-  -w, --width=NUMBER       set output page width\n\
-      --no-wrap            do not break long message lines, longer than\n\
-                           the output page width, into several lines\n\
-  -s, --sort-output        generate sorted output\n\
-"));
+Output details:\n"));
+      printf (_("\
+  -e, --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+  -i, --indent                write indented output style\n"));
+      printf (_("\
+      --strict                write strict uniforum style\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n"));
+      printf (_("\
+  -s, --sort-output           generate sorted output\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help               display this help and exit\n\
-  -V, --version            output version information and exit\n\
-  -v, --verbose            increase verbosity level\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
+      printf (_("\
+  -v, --verbose               increase verbosity level\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

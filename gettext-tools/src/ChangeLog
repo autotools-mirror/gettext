@@ -1,3 +1,24 @@
+2003-04-14  Bruno Haible  <bruno@clisp.org>
+
+	* hostname.c (usage): Split strings: use one string per option
+	description.
+	* msgattrib.c (usage): Likewise.
+	* msgcat.c (usage): Likewise.
+	* msgcmp.c (usage): Likewise.
+	* msgcomm.c (usage): Likewise.
+	* msgconv.c (usage): Likewise.
+	* msgen.c (usage): Likewise.
+	* msgexec.c (usage): Likewise.
+	* msgfilter.c (usage): Likewise.
+	* msgfmt.c (usage): Likewise.
+	* msggrep.c (usage): Likewise.
+	* msginit.c (usage): Likewise.
+	* msgmerge.c (usage): Likewise.
+	* msgunfmt.c (usage): Likewise.
+	* msguniq.c (usage): Likewise.
+	* urlget.c (usage): Likewise.
+	* xgettext.c (usage): Likewise.
+
 2003-04-13  Bruno Haible  <bruno@clisp.org>
 
 	Unify three PO file parsers.

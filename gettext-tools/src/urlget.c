@@ -158,7 +158,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] URL FILE\n\
 "), program_name);
@@ -169,12 +168,12 @@ Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n\
 the locally accessible FILE is used instead.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

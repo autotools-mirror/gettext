@@ -348,7 +348,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] [INPUTFILE]\n\
 "), program_name);
@@ -356,77 +355,94 @@ Usage: %s [OPTION] [INPUTFILE]\n\
       /* xgettext: no-wrap */
       printf (_("\
 Filters the messages of a translation catalog according to their attributes,\n\
-and manipulates the attributes.\n\
-"));
+and manipulates the attributes.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  INPUTFILE                   input PO file\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-If no input file is given or if it is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  INPUTFILE                   input PO file\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If no input file is given or if it is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE      write output to specified file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
 The results are written to standard output if no output file is specified\n\
-or if it is -.\n\
-"));
+or if it is -.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Message selection:\n\
-      --translated            keep translated, remove untranslated messages\n\
-      --untranslated          keep untranslated, remove translated messages\n\
-      --no-fuzzy              remove 'fuzzy' marked messages\n\
-      --only-fuzzy            keep 'fuzzy' marked messages\n\
-      --no-obsolete           remove obsolete #~ messages\n\
-      --only-obsolete         keep obsolete #~ messages\n\
-"));
+Message selection:\n"));
+      printf (_("\
+      --translated            keep translated, remove untranslated messages\n"));
+      printf (_("\
+      --untranslated          keep untranslated, remove translated messages\n"));
+      printf (_("\
+      --no-fuzzy              remove 'fuzzy' marked messages\n"));
+      printf (_("\
+      --only-fuzzy            keep 'fuzzy' marked messages\n"));
+      printf (_("\
+      --no-obsolete           remove obsolete #~ messages\n"));
+      printf (_("\
+      --only-obsolete         keep obsolete #~ messages\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Attribute manipulation:\n\
-      --set-fuzzy             set all messages 'fuzzy'\n\
-      --clear-fuzzy           set all messages non-'fuzzy'\n\
-      --set-obsolete          set all messages obsolete\n\
-      --clear-obsolete        set all messages non-obsolete\n\
-      --only-file=FILE.po     manipulate only entries listed in FILE.po\n\
-      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n\
-      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n\
-      --obsolete              synonym for --only-obsolete --clear-obsolete\n\
-"));
+Attribute manipulation:\n"));
+      printf (_("\
+      --set-fuzzy             set all messages 'fuzzy'\n"));
+      printf (_("\
+      --clear-fuzzy           set all messages non-'fuzzy'\n"));
+      printf (_("\
+      --set-obsolete          set all messages obsolete\n"));
+      printf (_("\
+      --clear-obsolete        set all messages non-obsolete\n"));
+      printf (_("\
+      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"));
+      printf (_("\
+      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"));
+      printf (_("\
+      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"));
+      printf (_("\
+      --obsolete              synonym for --only-obsolete --clear-obsolete\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -e, --no-escape             do not use C escapes in output (default)\n\
-  -E, --escape                use C escapes in output, no extended chars\n\
-      --force-po              write PO file even if empty\n\
-  -i, --indent                write the .po file using indented style\n\
-      --no-location           do not write '#: filename:line' lines\n\
-  -n, --add-location          generate '#: filename:line' lines (default)\n\
-      --strict                write out strict Uniforum conforming .po file\n\
-  -w, --width=NUMBER          set output page width\n\
+Output details:\n"));
+      printf (_("\
+  -e, --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+  -i, --indent                write the .po file using indented style\n"));
+      printf (_("\
+      --no-location           do not write '#: filename:line' lines\n"));
+      printf (_("\
+  -n, --add-location          generate '#: filename:line' lines (default)\n"));
+      printf (_("\
+      --strict                write out strict Uniforum conforming .po file\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
       --no-wrap               do not break long message lines, longer than\n\
-                              the output page width, into several lines\n\
-  -s, --sort-output           generate sorted output\n\
-  -F, --sort-by-file          sort output by file location\n\
-"));
-      printf ("\n");
-      /* xgettext: no-wrap */
+                              the output page width, into several lines\n"));
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+  -s, --sort-output           generate sorted output\n"));
+      printf (_("\
+  -F, --sort-by-file          sort output by file location\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

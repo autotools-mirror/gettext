@@ -234,7 +234,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] INPUTFILE\n\
 "), program_name);
@@ -247,50 +246,58 @@ xgettext).  Untranslated entries are assigned a translation that is\n\
 identical to the msgid.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  INPUTFILE                   input PO or POT file\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-If input file is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  INPUTFILE                   input PO or POT file\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If input file is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE      write output to specified file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
 The results are written to standard output if no output file is specified\n\
-or if it is -.\n\
-"));
+or if it is -.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -e, --no-escape             do not use C escapes in output (default)\n\
-  -E, --escape                use C escapes in output, no extended chars\n\
-      --force-po              write PO file even if empty\n\
-  -i, --indent                indented output style\n\
-      --no-location           suppress '#: filename:line' lines\n\
-      --add-location          preserve '#: filename:line' lines (default)\n\
-      --strict                strict Uniforum output style\n\
-  -w, --width=NUMBER          set output page width\n\
+Output details:\n"));
+      printf (_("\
+  -e, --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+  -i, --indent                indented output style\n"));
+      printf (_("\
+      --no-location           suppress '#: filename:line' lines\n"));
+      printf (_("\
+      --add-location          preserve '#: filename:line' lines (default)\n"));
+      printf (_("\
+      --strict                strict Uniforum output style\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
       --no-wrap               do not break long message lines, longer than\n\
-                              the output page width, into several lines\n\
-  -s, --sort-output           generate sorted output\n\
-  -F, --sort-by-file          sort output by file location\n\
-"));
-      printf ("\n");
-      /* xgettext: no-wrap */
+                              the output page width, into several lines\n"));
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+  -s, --sort-output           generate sorted output\n"));
+      printf (_("\
+  -F, --sort-by-file          sort output by file location\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

@@ -201,31 +201,29 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION]\n\
 "), program_name);
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Print the machine's hostname.\n\
-"));
+Print the machine's hostname.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output format:\n\
-  -s, --short           short host name\n\
-  -f, --fqdn, --long    long host name, includes fully qualified domain name,\n\
-                          and aliases\n\
-  -i, --ip-address      addresses for the hostname\n\
-"));
+Output format:\n"));
+      printf (_("\
+  -s, --short                 short host name\n"));
+      printf (_("\
+  -f, --fqdn, --long          long host name, includes fully qualified domain\n\
+                                name, and aliases\n"));
+      printf (_("\
+  -i, --ip-address            addresses for the hostname\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

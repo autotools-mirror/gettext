@@ -386,7 +386,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] def.po ref.pot\n\
 "), program_name);
@@ -404,84 +403,98 @@ comments and file positions will be preserved.  Where an exact match\n\
 cannot be found, fuzzy matching is used to produce better results.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  def.po                      translations referring to old sources\n\
-  ref.pot                     references to new sources\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
+Input file location:\n"));
+      printf (_("\
+  def.po                      translations referring to old sources\n"));
+      printf (_("\
+  ref.pot                     references to new sources\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
   -C, --compendium=FILE       additional library of message translations,\n\
-                              may be specified more than once\n\
-"));
+                              may be specified more than once\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Operation mode:\n\
+Operation mode:\n"));
+      printf (_("\
   -U, --update                update def.po,\n\
-                              do nothing if def.po already up to date\n\
-"));
+                              do nothing if def.po already up to date\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE      write output to specified file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
 The results are written to standard output if no output file is specified\n\
-or if it is -.\n\
-"));
+or if it is -.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location in update mode:\n\
-The result is written back to def.po.\n\
-      --backup=CONTROL        make a backup of def.po\n\
-      --suffix=SUFFIX         override the usual backup suffix\n\
+Output file location in update mode:\n"));
+      printf (_("\
+The result is written back to def.po.\n"));
+      printf (_("\
+      --backup=CONTROL        make a backup of def.po\n"));
+      printf (_("\
+      --suffix=SUFFIX         override the usual backup suffix\n"));
+      printf (_("\
 The version control method may be selected via the --backup option or through\n\
 the VERSION_CONTROL environment variable.  Here are the values:\n\
   none, off       never make backups (even if --backup is given)\n\
   numbered, t     make numbered backups\n\
   existing, nil   numbered if numbered backups exist, simple otherwise\n\
-  simple, never   always make simple backups\n\
+  simple, never   always make simple backups\n"));
+      printf (_("\
 The backup suffix is `~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n\
 environment variable.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Operation modifiers:\n\
-  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n\
-  -N, --no-fuzzy-matching     do not use fuzzy matching\n\
-"));
+Operation modifiers:\n"));
+      printf (_("\
+  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"));
+      printf (_("\
+  -N, --no-fuzzy-matching     do not use fuzzy matching\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -e, --no-escape             do not use C escapes in output (default)\n\
-  -E, --escape                use C escapes in output, no extended chars\n\
-      --force-po              write PO file even if empty\n\
-  -i, --indent                indented output style\n\
-      --no-location           suppress '#: filename:line' lines\n\
-      --add-location          preserve '#: filename:line' lines (default)\n\
-      --strict                strict Uniforum output style\n\
-  -w, --width=NUMBER          set output page width\n\
+Output details:\n"));
+      printf (_("\
+  -e, --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+  -i, --indent                indented output style\n"));
+      printf (_("\
+      --no-location           suppress '#: filename:line' lines\n"));
+      printf (_("\
+      --add-location          preserve '#: filename:line' lines (default)\n"));
+      printf (_("\
+      --strict                strict Uniforum output style\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
       --no-wrap               do not break long message lines, longer than\n\
-                              the output page width, into several lines\n\
-  -s, --sort-output           generate sorted output\n\
-  -F, --sort-by-file          sort output by file location\n\
-"));
-      printf ("\n");
-      /* xgettext: no-wrap */
+                              the output page width, into several lines\n"));
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-  -v, --verbose               increase verbosity level\n\
-  -q, --quiet, --silent       suppress progress indicators\n\
-"));
+  -s, --sort-output           generate sorted output\n"));
+      printf (_("\
+  -F, --sort-by-file          sort output by file location\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
+      printf (_("\
+  -v, --verbose               increase verbosity level\n"));
+      printf (_("\
+  -q, --quiet, --silent       suppress progress indicators\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

@@ -340,76 +340,83 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] FILTER [FILTER-OPTION]\n\
 "), program_name);
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
 Applies a filter to all translations of a translation catalog.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  -i, --input=INPUTFILE       input PO file\n\
-  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n\
-If no input file is given or if it is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  -i, --input=INPUTFILE       input PO file\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If no input file is given or if it is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE      write output to specified file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
 The results are written to standard output if no output file is specified\n\
-or if it is -.\n\
-"));
+or if it is -.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
 The FILTER can be any program that reads a translation from standard input\n\
 and writes a modified translation to standard output.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Useful FILTER-OPTIONs when the FILTER is 'sed':\n\
-  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n\
+Useful FILTER-OPTIONs when the FILTER is 'sed':\n"));
+      printf (_("\
+  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"));
+      printf (_("\
   -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the commands\n\
-                                to be executed\n\
-  -n, --quiet, --silent       suppress automatic printing of pattern space\n\
-"));
-      printf ("\n");
-      /* xgettext: no-wrap */
+                                to be executed\n"));
       printf (_("\
-Output details:\n\
-      --no-escape             do not use C escapes in output (default)\n\
-  -E, --escape                use C escapes in output, no extended chars\n\
-      --force-po              write PO file even if empty\n\
-      --indent                indented output style\n\
-      --keep-header           keep header entry unmodified, don't filter it\n\
-      --no-location           suppress '#: filename:line' lines\n\
-      --add-location          preserve '#: filename:line' lines (default)\n\
-      --strict                strict Uniforum output style\n\
-  -w, --width=NUMBER          set output page width\n\
+  -n, --quiet, --silent       suppress automatic printing of pattern space\n"));
+      printf ("\n");
+      printf (_("\
+Output details:\n"));
+      printf (_("\
+      --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+      --indent                indented output style\n"));
+      printf (_("\
+      --keep-header           keep header entry unmodified, don't filter it\n"));
+      printf (_("\
+      --no-location           suppress '#: filename:line' lines\n"));
+      printf (_("\
+      --add-location          preserve '#: filename:line' lines (default)\n"));
+      printf (_("\
+      --strict                strict Uniforum output style\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
       --no-wrap               do not break long message lines, longer than\n\
-                              the output page width, into several lines\n\
-  -s, --sort-output           generate sorted output\n\
-  -F, --sort-by-file          sort output by file location\n\
-"));
-      printf ("\n");
-      /* xgettext: no-wrap */
+                              the output page width, into several lines\n"));
       printf (_("\
-Informative output:\n\
-  -h, --help                  display this help and exit\n\
-  -V, --version               output version information and exit\n\
-"));
+  -s, --sort-output           generate sorted output\n"));
+      printf (_("\
+  -F, --sort-by-file          sort output by file location\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

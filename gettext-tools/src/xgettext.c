@@ -602,12 +602,10 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] [INPUTFILE]...\n\
 "), program_name);
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
 Extract translatable strings from given input files.\n\
 "));
@@ -618,91 +616,114 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 Similarly for optional arguments.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  INPUTFILE ...                  input files\n\
-  -f, --files-from=FILE          get list of input files from FILE\n\
-  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
-If input file is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  INPUTFILE ...               input files\n"));
+      printf (_("\
+  -f, --files-from=FILE       get list of input files from FILE\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If input file is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n\
-  -o, --output=FILE              write output to specified file\n\
-  -p, --output-dir=DIR           output files will be placed in directory DIR\n\
-If output file is -, output is written to standard output.\n\
-"));
+Output file location:\n"));
+      printf (_("\
+  -d, --default-domain=NAME   use NAME.po for output (instead of messages.po)\n"));
+      printf (_("\
+  -o, --output=FILE           write output to specified file\n"));
+      printf (_("\
+  -p, --output-dir=DIR        output files will be placed in directory DIR\n"));
+      printf (_("\
+If output file is -, output is written to standard output.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Choice of input file language:\n\
-  -L, --language=NAME            recognise the specified language\n\
-                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n\
-                                   EmacsLisp, librep, Smalltalk, Java, awk,\n\
-                                   YCP, Tcl, PHP, RST, Glade)\n\
-  -C, --c++                      shorthand for --language=C++\n\
-By default the language is guessed depending on the input file name extension.\n\
-"));
+Choice of input file language:\n"));
+      printf (_("\
+  -L, --language=NAME         recognise the specified language\n\
+                                (C, C++, ObjectiveC, PO, Python, Lisp,\n\
+                                EmacsLisp, librep, Smalltalk, Java, awk, YCP,\n\
+                                Tcl, PHP, RST, Glade)\n"));
+      printf (_("\
+  -C, --c++                   shorthand for --language=C++\n"));
+      printf (_("\
+By default the language is guessed depending on the input file name extension.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file interpretation:\n\
-      --from-code=NAME           encoding of input files\n\
-                                   (except for Python, Tcl, Glade)\n\
-By default the input files are assumed to be in ASCII.\n\
-"));
+Input file interpretation:\n"));
+      printf (_("\
+      --from-code=NAME        encoding of input files\n\
+                                (except for Python, Tcl, Glade)\n"));
+      printf (_("\
+By default the input files are assumed to be in ASCII.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Operation mode:\n\
-  -j, --join-existing            join messages with existing file\n\
-  -x, --exclude-file=FILE.po     entries from FILE.po are not extracted\n\
-  -c, --add-comments[=TAG]       place comment block with TAG (or those\n\
-                                 preceding keyword lines) in output file\n\
-"));
+Operation mode:\n"));
+      printf (_("\
+  -j, --join-existing         join messages with existing file\n"));
+      printf (_("\
+  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"));
+      printf (_("\
+  -c, --add-comments[=TAG]    place comment block with TAG (or those\n\
+                              preceding keyword lines) in output file\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Language=C/C++ specific options:\n\
-  -a, --extract-all              extract all strings\n\
-  -k, --keyword[=WORD]           additional keyword to be looked for (without\n\
-                                 WORD means not to use default keywords)\n\
-  -T, --trigraphs                understand ANSI C trigraphs for input\n\
-      --debug                    more detailed formatstring recognition result\n\
-"));
+Language=C/C++ specific options:\n"));
+      printf (_("\
+  -a, --extract-all           extract all strings\n"));
+      printf (_("\
+  -k, --keyword[=WORD]        additional keyword to be looked for (without\n\
+                              WORD means not to use default keywords)\n"));
+      printf (_("\
+  -T, --trigraphs             understand ANSI C trigraphs for input\n"));
+      printf (_("\
+      --debug                 more detailed formatstring recognition result\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -e, --no-escape                do not use C escapes in output (default)\n\
-  -E, --escape                   use C escapes in output, no extended chars\n\
-      --force-po                 write PO file even if empty\n\
-  -i, --indent                   write the .po file using indented style\n\
-      --no-location              do not write '#: filename:line' lines\n\
-  -n, --add-location             generate '#: filename:line' lines (default)\n\
-      --strict                   write out strict Uniforum conforming .po file\n\
-  -w, --width=NUMBER             set output page width\n\
-      --no-wrap                  do not break long message lines, longer than\n\
-                                 the output page width, into several lines\n\
-  -s, --sort-output              generate sorted output\n\
-  -F, --sort-by-file             sort output by file location\n\
-      --omit-header              don't write header with `msgid \"\"' entry\n\
-      --copyright-holder=STRING  set copyright holder in output\n\
-      --foreign-user             omit FSF copyright in output for foreign user\n\
-      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n\
-  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n\
-  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n\
-"));
+Output details:\n"));
+      printf (_("\
+  -e, --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+  -i, --indent                write the .po file using indented style\n"));
+      printf (_("\
+      --no-location           do not write '#: filename:line' lines\n"));
+      printf (_("\
+  -n, --add-location          generate '#: filename:line' lines (default)\n"));
+      printf (_("\
+      --strict                write out strict Uniforum conforming .po file\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n"));
+      printf (_("\
+  -s, --sort-output           generate sorted output\n"));
+      printf (_("\
+  -F, --sort-by-file          sort output by file location\n"));
+      printf (_("\
+      --omit-header           don't write header with `msgid \"\"' entry\n"));
+      printf (_("\
+      --copyright-holder=STRING  set copyright holder in output\n"));
+      printf (_("\
+      --foreign-user          omit FSF copyright in output for foreign user\n"));
+      printf (_("\
+      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"));
+      printf (_("\
+  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr entries\n"));
+      printf (_("\
+  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr entries\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                     display this help and exit\n\
-  -V, --version                  output version information and exit\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);

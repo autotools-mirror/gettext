@@ -309,7 +309,6 @@ usage (int status)
 	     program_name);
   else
     {
-      /* xgettext: no-wrap */
       printf (_("\
 Usage: %s [OPTION] [INPUTFILE]...\n\
 "), program_name);
@@ -326,64 +325,74 @@ PO file to define them.  File positions from all PO files will be\n\
 cumulated.\n\
 "));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Mandatory arguments to long options are mandatory for short options too.\n\
-"));
+Mandatory arguments to long options are mandatory for short options too.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Input file location:\n\
-  INPUTFILE ...                  input files\n\
-  -f, --files-from=FILE          get list of input files from FILE\n\
-  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n\
-If input file is -, standard input is read.\n\
-"));
+Input file location:\n"));
+      printf (_("\
+  INPUTFILE ...               input files\n"));
+      printf (_("\
+  -f, --files-from=FILE       get list of input files from FILE\n"));
+      printf (_("\
+  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"));
+      printf (_("\
+If input file is -, standard input is read.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output file location:\n\
-  -o, --output-file=FILE         write output to specified file\n\
+Output file location:\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
 The results are written to standard output if no output file is specified\n\
-or if it is -.\n\
-"));
+or if it is -.\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Message selection:\n\
-  -<, --less-than=NUMBER         print messages with less than this many\n\
-                                 definitions, defaults to infinite if not\n\
-                                 set\n\
-  ->, --more-than=NUMBER         print messages with more than this many\n\
-                                 definitions, defaults to 1 if not set\n\
-  -u, --unique                   shorthand for --less-than=2, requests\n\
-                                 that only unique messages be printed\n\
-"));
+Message selection:\n"));
+      printf (_("\
+  -<, --less-than=NUMBER      print messages with less than this many\n\
+                              definitions, defaults to infinite if not set\n"));
+      printf (_("\
+  ->, --more-than=NUMBER      print messages with more than this many\n\
+                              definitions, defaults to 1 if not set\n"));
+      printf (_("\
+  -u, --unique                shorthand for --less-than=2, requests\n\
+                              that only unique messages be printed\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Output details:\n\
-  -e, --no-escape                do not use C escapes in output (default)\n\
-  -E, --escape                   use C escapes in output, no extended chars\n\
-      --force-po                 write PO file even if empty\n\
-  -i, --indent                   write the .po file using indented style\n\
-      --no-location              do not write '#: filename:line' lines\n\
-  -n, --add-location             generate '#: filename:line' lines (default)\n\
-      --strict                   write out strict Uniforum conforming .po file\n\
-  -w, --width=NUMBER             set output page width\n\
-      --no-wrap                  do not break long message lines, longer than\n\
-                                 the output page width, into several lines\n\
-  -s, --sort-output              generate sorted output\n\
-  -F, --sort-by-file             sort output by file location\n\
-      --omit-header              don't write header with `msgid \"\"' entry\n\
-"));
+Output details:\n"));
+      printf (_("\
+  -e, --no-escape             do not use C escapes in output (default)\n"));
+      printf (_("\
+  -E, --escape                use C escapes in output, no extended chars\n"));
+      printf (_("\
+      --force-po              write PO file even if empty\n"));
+      printf (_("\
+  -i, --indent                write the .po file using indented style\n"));
+      printf (_("\
+      --no-location           do not write '#: filename:line' lines\n"));
+      printf (_("\
+  -n, --add-location          generate '#: filename:line' lines (default)\n"));
+      printf (_("\
+      --strict                write out strict Uniforum conforming .po file\n"));
+      printf (_("\
+  -w, --width=NUMBER          set output page width\n"));
+      printf (_("\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n"));
+      printf (_("\
+  -s, --sort-output           generate sorted output\n"));
+      printf (_("\
+  -F, --sort-by-file          sort output by file location\n"));
+      printf (_("\
+      --omit-header           don't write header with `msgid \"\"' entry\n"));
       printf ("\n");
-      /* xgettext: no-wrap */
       printf (_("\
-Informative output:\n\
-  -h, --help                     display this help and exit\n\
-  -V, --version                  output version information and exit\n\
-"));
+Informative output:\n"));
+      printf (_("\
+  -h, --help                  display this help and exit\n"));
+      printf (_("\
+  -V, --version               output version information and exit\n"));
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
 	     stdout);
