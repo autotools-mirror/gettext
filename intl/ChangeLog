@@ -1,3 +1,7 @@
+2001-07-11  Ulrich Drepper  <drepper@redhat.com>
+
+	* locale.alias: Use he language code for hebrew, not iw.
+
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
 	* plural-exp.h: New file, extracted from gettextP.h.
