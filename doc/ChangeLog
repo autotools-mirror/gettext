@@ -1,3 +1,8 @@
+2002-03-05  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.texi (Files You Must Create or Alter): Mention how things
+	work when automake is used.
+
 2002-03-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* matrix.texi: Update.

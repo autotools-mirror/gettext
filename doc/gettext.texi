@@ -5358,7 +5358,7 @@ Before attempting to use @code{gettextize} you should install some
 other packages first.
 Ensure that recent versions of GNU @code{m4}, GNU Autoconf and GNU
 @code{gettext} are already installed at your site, and if not, proceed
-to do this first.  If you got to install these things, beware that
+to do this first.  If you get to install these things, beware that
 GNU @code{m4} must be fully installed before GNU Autoconf is even
 @emph{configured}.
 
@@ -5368,7 +5368,7 @@ tool and the @file{Makefile}s in the @file{intl/} and @file{po/}
 therefore know about all the goals necessary for using @code{automake}
 and @file{libintl} in one project.
 
-Those four packages are only needed to you, as a maintainer; the
+Those four packages are only needed by you, as a maintainer; the
 installers of your own package and end users do not really need any of
 GNU @code{m4}, GNU Autoconf, GNU @code{gettext}, or GNU @code{automake}
 for successfully installing and running your package, with messages
@@ -5401,7 +5401,7 @@ translator teams get interested in your package, and submit PO files.
 
 It is worth adding here a few words about how the maintainer should
 ideally behave with PO files submissions.  As a maintainer, your role is
-to authentify the origin of the submission as being the representative
+to authenticate the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
 the submission to @file{translation@@iro.umontreal.ca} in case of doubt),
 to ensure that the PO file format is not severely broken and does not
@@ -5515,7 +5515,7 @@ along with the files it contains, and only @file{Makefile.in.in} and
 the auxiliary files will be overwritten.
 
 @item
-Only of @samp{--intl} has been specified:
+Only if @samp{--intl} has been specified:
 A @file{intl/} directory is created and filled with most of the files
 originally in the @file{intl/} directory of the GNU @code{gettext}
 distribution.  Also, if option @code{--force} (@code{-f}) is given,
@@ -5747,7 +5747,7 @@ add @code{intl/Makefile} to the @code{AC_OUTPUT} line.
 @node config.guess, aclocal, configure.in, Adjusting Files
 @subsection @file{config.guess}, @file{config.sub} at top level
 
-If you don't have suppressed the @file{intl/} subdirectory,
+If you haven't suppressed the @file{intl/} subdirectory,
 you need to add the GNU @file{config.guess} and @file{config.sub} files
 to your distribution.  They are needed because the @file{intl/} directory
 has platform dependent support for determining the locale's character
@@ -5781,6 +5781,7 @@ the simplest is to concatenate the files @file{codeset.m4},
 @file{lib-prefix.m4}, @file{progtest.m4} from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
 @file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
+@file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
 @file{progtest.m4} need to be concatenated.
 
 If you already have an @file{aclocal.m4} file, then you will have
@@ -5791,6 +5792,16 @@ etc.), as they usually
 change a little from one release of GNU @code{gettext} to the next.
 Their contents may vary as we get more experience with strange systems
 out there.
+
+If you are using GNU @code{automake} 1.5 or newer, it is enough to put
+these macro files into a subdirectory named @file{m4/} and add the line
+
+@example
+ACLOCAL_AMFLAGS = -I m4
+@end example
+
+@noindent
+to your top level @file{Makefile.am}.
 
 These macros check for the internationalization support functions
 and related informations.  Hopefully, once stabilized, these macros
@@ -5878,6 +5889,10 @@ dist: Makefile
 @end example
 
 @end enumerate
+
+Note that if you are using GNU @code{automake}, @file{Makefile.in} is
+automatically generated from @file{Makefile.am}, and all needed changes
+to @file{Makefile.am} are already made by running @samp{gettextize}.
 
 @node src/Makefile, lib/gettext.h, Makefile, Adjusting Files
 @subsection @file{Makefile.in} in @file{src/}
