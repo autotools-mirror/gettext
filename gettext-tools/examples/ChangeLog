@@ -1,3 +1,10 @@
+2003-12-09  Bruno Haible  <bruno@clisp.org>
+
+	* hello-smalltalk/hello.st.in: Add workaround against PackageLoader
+	verbosity. Solution provided by Carey Evans <careye@spamcop.net>.
+	* hello-smalltalk/BUGS: Remove file.
+	* Makefile.am (EXAMPLESFILES): Update.
+
 2003-12-07  Bruno Haible  <bruno@clisp.org>
 
 	* po/sv.po: New file, from Jan Djärv <jan.h.d@swipnet.se>.

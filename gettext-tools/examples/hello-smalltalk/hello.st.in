@@ -5,7 +5,20 @@
   Source code of the GNU Smalltalk program.
 "
 
+"Unfortunately the PackageLoader method fileInPackage: is extra verbose:
+ It outputs 'Loading package I18N'. This will be fixed in smalltalk-2.2.
+
 PackageLoader fileInPackage: 'I18N' !
+
+In the meantime, we use this workaround."
+
+| saved sink |
+saved := Transcript message.
+sink := WriteStream with: String new.
+Transcript message: sink -> #nextPutAll:.
+PackageLoader fileInPackage: 'I18N'.
+Transcript message: saved.
+!
 
 Object subclass: #Main
   instanceVariableNames: ''

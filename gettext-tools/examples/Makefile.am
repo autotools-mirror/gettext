@@ -303,7 +303,6 @@ EXAMPLESFILES = \
   hello-librep/po/zh_CN.po \
   \
   hello-smalltalk/INSTALL \
-  hello-smalltalk/BUGS \
   hello-smalltalk/autogen.sh \
   hello-smalltalk/autoclean.sh \
   hello-smalltalk/hello.st.in \
