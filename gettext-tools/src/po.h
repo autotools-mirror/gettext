@@ -92,7 +92,7 @@ struct po_method_ty
      definition seen.  Or completely ignored.  */
   void (*comment_filepos) (struct po_ty *pop, const char *s, size_t line);
 
-  /* What to do with a comment that starts with a `!' - this is a
+  /* What to do with a comment that starts with a ',' or '!' - this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
   void (*comment_special) (struct po_ty *pop, const char *s);
