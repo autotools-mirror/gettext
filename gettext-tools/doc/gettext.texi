@@ -35,6 +35,7 @@
 @direntry
 * gettext: (gettext).                          GNU gettext utilities.
 * autopoint: (gettext)autopoint Invocation.    Copy gettext infrastructure.
+* envsubst: (gettext)envsubst Invocation.      Substitute environment variables
 * gettextize: (gettext)gettextize Invocation.  Prepare a package for gettext.
 * msgattrib: (gettext)msgattrib Invocation.    Select part of a PO file.
 * msgcat: (gettext)msgcat Invocation.          Combine several PO files.
@@ -50,6 +51,7 @@
 * msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
 * msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
 * msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
+* ngettext: (gettext)ngettext Invocation.      Translate a message with plural.
 * xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
 * ISO639: (gettext)Language Codes.             ISO 639 language codes.
 * ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
@@ -59,7 +61,7 @@
 This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
-Copyright (C) 1995-1998, 2001-2003 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2004 Free Software Foundation, Inc.
 
 Permission is granted to make and distribute verbatim copies of
 this manual provided the copyright notice and this permission notice
