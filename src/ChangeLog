@@ -1,3 +1,8 @@
+2002-01-30  Bruno Haible  <bruno@clisp.org>
+
+	Make the gettext and ngettext programs independent of libgettextlib.
+	* Makefile.am (gettext_LDADD, ngettext_LDADD): New variables.
+
 2002-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* x-ycp.c (enum token_type_ty): New enum value token_type_symbol.

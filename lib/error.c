@@ -1,6 +1,5 @@
 /* Error handler for noninteractive utilities
-   Copyright (C) 1990-1998, 2000, 2001 Free Software Foundation, Inc.
-
+   Copyright (C) 1990-1998, 2000-2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -25,6 +24,8 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+
+#if !HAVE_ERROR_AT_LINE
 
 #include <stdio.h>
 
@@ -257,4 +258,6 @@ error_at_line (status, errnum, file_name, line_number, message, va_alist)
 # undef error_at_line
 weak_alias (__error, error)
 weak_alias (__error_at_line, error_at_line)
+#endif
+
 #endif

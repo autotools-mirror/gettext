@@ -1,4 +1,4 @@
-/* Copyright (C) 1991, 1997 Free Software Foundation, Inc.
+/* Copyright (C) 1991, 1997, 2002 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C Library.
    Bugs can be reported to bug-glibc@gnu.org.
@@ -18,6 +18,14 @@
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
    USA.  */
 
-#define	UNSIGNED	1
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-#include <strtol.c>
+#if !HAVE_STRTOUL
+
+# define UNSIGNED	1
+
+# include <strtol.c>
+
+#endif

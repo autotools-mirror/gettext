@@ -1,3 +1,11 @@
+2002-01-30  Bruno Haible  <bruno@clisp.org>
+
+	* error.c: Compile nothing if HAVE_ERROR_AT_LINE is set.
+	* strtoul.c: Compile nothing if HAVE_STRTOUL is set.
+	* Makefile.am (libgettextlib_la_SOURCES): Add error.h, error.c,
+	strtoul.c.
+	(LIBADD_SOURCE): Remove error.h, error.c, strtoul.c.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* getline.c: Remove NDEBUG. It killed the effect of assert().

@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.13)
 AC_INIT(src/msgfmt.c)
-AM_INIT_AUTOMAKE(gettext, 0.11-pre5+)
+AM_INIT_AUTOMAKE(gettext, 0.11-pre5++)
 RELEASE_DATE=2001-05-23      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
 
@@ -67,9 +67,9 @@ dnl Checks for library functions.
 AC_FUNC_ALLOCA
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([getcwd mblen memcpy posix_spawn putc_unlocked raise select \
-strerror uname utime utimes])
+strerror strtoul uname utime utimes])
 AC_REPLACE_FUNCS([memset stpcpy stpncpy strcspn \
-strcasecmp strncasecmp strpbrk strstr strtoul vasprintf])
+strcasecmp strncasecmp strpbrk strstr vasprintf])
 AM_FUNC_GETLINE
 if test $am_cv_func_working_getline != yes; then
   AC_CHECK_FUNCS(getdelim)
@@ -84,9 +84,7 @@ gt_FUNC_MKDTEMP
 gt_SIGNALBLOCKING
 gt_SIGINFO
 gt_FUNC_SETENV
-
-AM_FUNC_ERROR_AT_LINE
-
+gt_FUNC_ERROR_AT_LINE
 gt_SETLOCALE
 
 gt_PREREQ_HOSTNAME

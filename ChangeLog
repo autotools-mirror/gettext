@@ -1,3 +1,11 @@
+2002-01-30  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in:
+	Check for strtoul through AC_CHECK_FUNCS, not AC_REPLACE_FUNCS.
+	Call gt_FUNC_ERROR_AT_LINE instead of AM_FUNC_ERROR_AT_LINE.
+	* PACKAGING: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am ($(srcdir)/tests/rpathy/aclocal.m4): Fix dependencies.

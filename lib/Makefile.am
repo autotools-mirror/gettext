@@ -30,6 +30,7 @@ libgettextlib_la_SOURCES = \
   binary-io.h \
   c-ctype.h c-ctype.c \
   copy-file.h copy-file.c \
+  error.h error.c \
   execute.h execute.c \
   exit.h \
   findprog.h findprog.c \
@@ -51,6 +52,7 @@ libgettextlib_la_SOURCES = \
   progname.h progname.c \
   safe-read.h safe-read.c \
   sh-quote.h sh-quote.c \
+  strtoul.c \
   tmpdir.h tmpdir.c \
   wait-process.h wait-process.c \
   xerror.h xerror.c \
@@ -61,7 +63,6 @@ libgettextlib_la_SOURCES = \
 
 LIBADD_SOURCE = \
   liballoca.h alloca.c \
-  error.h error.c \
   getline.h getline.c \
   memset.c \
   mkdtemp.h mkdtemp.c \
@@ -73,7 +74,7 @@ LIBADD_SOURCE = \
   strcspn.c \
   strpbrk.h strpbrk.c \
   strstr.h strstr.c \
-  strtol.c strtoul.c \
+  strtol.c \
   vasprintf.c
 
 # Unused sources.

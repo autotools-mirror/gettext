@@ -26,7 +26,7 @@ gettextsrc_SCRIPTS = config.rpath
 
 SUBDIRS = doc intl intl-java lib src po man m4 projects misc tests
 
-EXTRA_DIST = config.rpath BUGS DISCLAIM README.gemtext README-alpha \
+EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext README-alpha \
              djgpp/Makefile.maint djgpp/README.in djgpp/README \
              djgpp/config.bat djgpp/config.in djgpp/config.sed \
              djgpp/config.site djgpp/edtests.bat djgpp/fnchange.in \

@@ -1,3 +1,8 @@
+2002-01-30  Bruno Haible  <bruno@clisp.org>
+
+	* error.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2002-01-24  Bruno Haible  <bruno@clisp.org>
 
 	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Don't use AC_LIB_APPENDTOVAR

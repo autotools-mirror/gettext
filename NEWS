@@ -51,6 +51,8 @@ Version 0.11 - XXX 2002
   @LIBINTL@ (in projects without libtool) or @LTLIBINTL@ (in projects with
   libtool).
 
+* New packaging hints for binary package distributors. See file PACKAGING.
+
 * New documentation sections:
   - Manipulating
   - po/LINGUAS
