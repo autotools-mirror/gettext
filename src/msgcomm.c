@@ -83,6 +83,7 @@ static const struct option long_options[] =
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
+  { "unique", no_argument, NULL, 'u' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
   { "more-than", required_argument, NULL, '>', },

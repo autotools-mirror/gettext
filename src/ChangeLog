@@ -1,3 +1,8 @@
+2001-06-18  Karl Eichwalder  <ke@suse.de>
+
+	* msgcomm.c (long_options): Add '--unique' option as documented
+	within --help output.
+
 2001-06-12  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (extension_to_language): Recognize "*.hh" as being C++.
