@@ -260,7 +260,7 @@ while read comment; do
   n=`expr $n + 1`
   tmpfiles="$tmpfiles f-l-1-$n.in f-l-1-$n.po"
   cat <<EOF > f-l-1-$n.in
-gettext(${string});
+(gettext ${string})
 EOF
   ${XGETTEXT} -L Lisp -o f-l-1-$n.po f-l-1-$n.in || exit 1
   test -f f-l-1-$n.po || exit 1

@@ -1,3 +1,9 @@
+2001-12-09  Bruno Haible  <bruno@clisp.org>
+
+	* lang-clisp: New file.
+	* Makefile.am (TESTS): Add it.
+	* format-lisp-1: Use real Lisp syntax.
+
 2001-12-08  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib-1: New file.

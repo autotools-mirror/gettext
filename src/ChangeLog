@@ -1,5 +1,16 @@
 2001-12-09  Bruno Haible  <bruno@clisp.org>
 
+	* x-lisp.h: New file.
+	* x-lisp.c: New file.
+	* xgettext.c: Include x-lisp.h.
+	(main): Call x_lisp_extract_all, x_lisp_keyword.
+	(language_to_scanner): Add Lisp rule. Remove preliminary Lisp rule.
+	(extension_to_language): Add Lisp rule.
+	* Makefile.am (noinst_HEADERS): Add x-lisp.h.
+	(xgettext_SOURCES): Add x-lisp.c.
+
+2001-12-09  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.h (split_keywordspec): New declaration.
 	* xgettext.c (split_keywordspec): New function.
 	* x-c.c (x_c_keyword): Use split_keywordspec.

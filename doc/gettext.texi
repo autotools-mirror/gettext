@@ -5944,7 +5944,7 @@ automatic
 use
 
 @item Extractor
-@code{clisp-xgettext}
+@code{xgettext -k_ -kENGLISH}
 
 @item Formatting with positions
 @code{format "~1@@*~D ~0@@*~D"}

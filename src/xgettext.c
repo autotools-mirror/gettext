@@ -65,6 +65,7 @@ struct passwd *getpwuid ();
 
 #include "x-c.h"
 #include "x-po.h"
+#include "x-lisp.h"
 #include "x-java.h"
 #include "x-ycp.h"
 #include "x-rst.h"
@@ -225,6 +226,7 @@ main (argc, argv)
 	break;
       case 'a':
 	x_c_extract_all ();
+	x_lisp_extract_all ();
 	x_java_extract_all ();
 	break;
       case 'c':
@@ -276,6 +278,7 @@ main (argc, argv)
 	if (optarg == NULL || *optarg != '\0')
 	  {
 	    x_c_keyword (optarg);
+	    x_lisp_keyword (optarg);
 	    x_java_keyword (optarg);
 	  }
 	break;
@@ -1146,11 +1149,11 @@ language_to_extractor (name)
   {
     SCANNERS_C
     SCANNERS_PO
+    SCANNERS_LISP
     SCANNERS_JAVA
     SCANNERS_YCP
     SCANNERS_RST
     { "Python", extract_c, &formatstring_python },
-    { "Lisp", extract_c, &formatstring_lisp },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exclude-file option.  */
   };
@@ -1187,10 +1190,11 @@ extension_to_language (extension)
   {
     EXTENSIONS_C
     EXTENSIONS_PO
+    EXTENSIONS_LISP
     EXTENSIONS_JAVA
     EXTENSIONS_YCP
     EXTENSIONS_RST
-    /* Here will follow more file extensions: sh, pl, tcl, lisp ... */
+    /* Here will follow more file extensions: sh, pl, tcl ... */
   };
 
   table_ty *tp;

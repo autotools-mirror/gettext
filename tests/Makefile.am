@@ -52,7 +52,7 @@ TESTS = gettext-1 gettext-2 \
 	format-pascal-1 format-pascal-2 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 \
-	lang-c lang-c++ lang-objc lang-java lang-pascal lang-ycp lang-po lang-rst
+	lang-c lang-c++ lang-objc lang-clisp lang-java lang-pascal lang-ycp lang-po lang-rst
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po msguniq-a.in msguniq-a.out
 
