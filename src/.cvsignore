@@ -9,3 +9,11 @@ msgmerge
 msgunfmt
 ngettext
 xgettext
+msgattrib
+msgcat
+msgconv
+msgen
+msgexec
+msggrep
+msguniq
+gettext.jar
