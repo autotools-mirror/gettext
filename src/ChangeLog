@@ -1,3 +1,20 @@
+2002-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-iconv.h (iconv_message_list): Add from_filename argument.
+	(iconv_msgdomain_list): Likewise.
+	* msgl-iconv.c (iconv_message_list): Add from_filename argument.
+	Don't give an error for POT files containing charset=CHARSET.
+	(iconv_msgdomain_list): Add from_filename argument.
+	* msgl-cat.c (catenate_msgdomain_list): Don't give an error for
+	POT files containing charset=CHARSET. Pass input file name to
+	iconv_message_list.
+	* msgconv.c (main): Pass input file name to iconv_msgdomain_list.
+	* write-java.c (msgdomain_write_java): Update.
+	* write-tcl.c (msgdomain_write_tcl): Update.
+	* x-glade.c (do_extract_glade): Update.
+	* x-python.c (extract_python): Update.
+	* x-tcl.c (extract_tcl): Update.
+
 2002-05-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (RM): New variable.

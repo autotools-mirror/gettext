@@ -260,10 +260,11 @@ convert_msgstr (cd, mp)
 
 
 void
-iconv_message_list (mlp, canon_from_code, canon_to_code)
+iconv_message_list (mlp, canon_from_code, canon_to_code, from_filename)
      message_list_ty *mlp;
      const char *canon_from_code;
      const char *canon_to_code;
+     const char *from_filename;
 {
   bool canon_from_code_overridden = (canon_from_code != NULL);
   size_t j;
@@ -300,10 +301,24 @@ iconv_message_list (mlp, canon_from_code, canon_to_code)
 		if (canon_charset == NULL)
 		  {
 		    if (!canon_from_code_overridden)
-		      error (EXIT_FAILURE, 0,
-			     _("\
+		      {
+			/* Don't give an error for POT files, because POT
+			   files usually contain only ASCII msgids.  */
+			const char *filename = from_filename;
+			size_t filenamelen;
+
+			if (filename != NULL
+			    && (filenamelen = strlen (filename)) >= 4
+			    && memcmp (filename + filenamelen - 4, ".pot", 4)
+			       == 0
+			    && strcmp (charset, "CHARSET") == 0)
+			  canon_charset = po_charset_ascii;
+			else
+			  error (EXIT_FAILURE, 0,
+				 _("\
 present charset \"%s\" is not a portable encoding name"),
-			     charset);
+				 charset);
+		      }
 		  }
 		else
 		  {
@@ -376,9 +391,10 @@ This version was built without iconv()."),
 }
 
 msgdomain_list_ty *
-iconv_msgdomain_list (mdlp, to_code)
+iconv_msgdomain_list (mdlp, to_code, from_filename)
      msgdomain_list_ty *mdlp;
      const char *to_code;
+     const char *from_filename;
 {
   const char *canon_to_code;
   size_t k;
@@ -391,7 +407,8 @@ iconv_msgdomain_list (mdlp, to_code)
 	   to_code);
 
   for (k = 0; k < mdlp->nitems; k++)
-    iconv_message_list (mdlp->item[k]->messages, NULL, canon_to_code);
+    iconv_message_list (mdlp->item[k]->messages, NULL, canon_to_code,
+			from_filename);
 
   return mdlp;
 }

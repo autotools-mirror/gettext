@@ -1181,7 +1181,7 @@ extract_python (f, real_filename, logical_filename, mdlp)
   if (!is_ascii_message_list (mlp))
     {
       const char *canon_utf_8 = po_charset_canonicalize ("UTF-8");
-      iconv_message_list (mlp, canon_utf_8, canon_utf_8);
+      iconv_message_list (mlp, canon_utf_8, canon_utf_8, NULL);
     }
 
   fp = NULL;

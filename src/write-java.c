@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -1094,7 +1094,7 @@ msgdomain_write_java (mlp, resource_name, locale_name, directory, assume_java2)
   retval = 1;
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, NULL, po_charset_canonicalize ("UTF-8"));
+  iconv_message_list (mlp, NULL, po_charset_canonicalize ("UTF-8"), NULL);
 
   cleanup_list.tmpdir = NULL;
   cleanup_list.subdir_count = 0;

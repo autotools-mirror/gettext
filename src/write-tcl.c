@@ -174,7 +174,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
   }
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, NULL, po_charset_canonicalize ("UTF-8"));
+  iconv_message_list (mlp, NULL, po_charset_canonicalize ("UTF-8"), NULL);
 
   /* Now create the file.  */
   {

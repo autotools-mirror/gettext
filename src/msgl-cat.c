@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -170,10 +170,24 @@ catenate_msgdomain_list (file_list, to_code)
 
 			    canon_charset = po_charset_canonicalize (charset);
 			    if (canon_charset == NULL)
-			      error (EXIT_FAILURE, 0,
-				     _("\
+			      {
+				/* Don't give an error for POT files, because
+				   POT files usually contain only ASCII
+				   msgids.  */
+				const char *filename = files[n];
+				size_t filenamelen = strlen (filename);
+
+				if (filenamelen >= 4
+				    && memcmp (filename + filenamelen - 4,
+					       ".pot", 4) == 0
+				    && strcmp (charset, "CHARSET") == 0)
+				  canon_charset = po_charset_ascii;
+				else
+				  error (EXIT_FAILURE, 0,
+					 _("\
 present charset \"%s\" is not a portable encoding name"),
-				     charset);
+					 charset);
+			      }
 
 			    if (canon_from_code == NULL)
 			      canon_from_code = canon_charset;
@@ -448,7 +462,7 @@ To select a different output encoding, use the --to-code option.\n\
 	       header entry with its canonical equivalent.  */
 	    if (!(to_code == NULL && canon_charsets[n][k] == canon_to_code))
 	      iconv_message_list (mdlp->item[k]->messages, canon_charsets[n][k],
-				  canon_to_code);
+				  canon_to_code, files[n]);
       }
 
   /* Fill the resulting messages.  */

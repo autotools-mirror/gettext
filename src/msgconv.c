@@ -223,7 +223,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     to_code = locale_charset ();
 
   /* Read input file and convert.  */
-  result = iconv_msgdomain_list (read_po_file (input_file), to_code);
+  result = iconv_msgdomain_list (read_po_file (input_file), to_code,
+				 input_file);
 
   /* Sort the results.  */
   if (sort_by_filepos)

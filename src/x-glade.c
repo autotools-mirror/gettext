@@ -418,7 +418,7 @@ error while reading \"%s\""), real_filename);
   if (!is_ascii_message_list (mlp))
     {
       const char *canon_utf_8 = po_charset_canonicalize ("UTF-8");
-      iconv_message_list (mlp, canon_utf_8, canon_utf_8);
+      iconv_message_list (mlp, canon_utf_8, canon_utf_8, NULL);
     }
 
   /* Close scanner.  */
