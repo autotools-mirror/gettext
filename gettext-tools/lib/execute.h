@@ -25,12 +25,16 @@
    descriptors to /dev/null.  Return its exit code.
    If it didn't terminate correctly, exit if exit_on_error is true, otherwise
    return 127.
+   If ignore_sigpipe is true, consider a subprocess termination due to SIGPIPE
+   as equivalent to a success.  This is suitable for processes whose only
+   purpose is to write to standard output.
    If slave_process is true, the child process will be terminated when its
    creator receives a catchable fatal signal.
    It is recommended that no signal is blocked or ignored while execute()
    is called.  See pipe.h for the reason.  */
 extern int execute (const char *progname,
 		    const char *prog_path, char **prog_argv,
+		    bool ignore_sigpipe,
 		    bool null_stdin, bool null_stdout, bool null_stderr,
 		    bool slave_process, bool exit_on_error);
 

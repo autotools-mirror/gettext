@@ -252,7 +252,7 @@ unregister_slave_subprocess (pid_t child)
    return 127.  */
 int
 wait_subprocess (pid_t child, const char *progname,
-		 bool null_stderr,
+		 bool ignore_sigpipe, bool null_stderr,
 		 bool slave_process, bool exit_on_error)
 {
 #if HAVE_WAITID && defined WNOWAIT && 0
@@ -319,6 +319,10 @@ wait_subprocess (pid_t child, const char *progname,
     {
     case CLD_KILLED:
     case CLD_DUMPED:
+# ifdef SIGPIPE
+      if (info.si_status == SIGPIPE && ignore_sigpipe)
+	return 0;
+# endif
       if (exit_on_error || !null_stderr)
 	error (exit_on_error ? EXIT_FAILURE : 0, 0,
 	       _("%s subprocess got fatal signal %d"),
@@ -382,6 +386,10 @@ wait_subprocess (pid_t child, const char *progname,
 
   if (WIFSIGNALED (status))
     {
+# ifdef SIGPIPE
+      if (WTERMSIG (status) == SIGPIPE && ignore_sigpipe)
+	return 0;
+# endif
       if (exit_on_error || !null_stderr)
 	error (exit_on_error ? EXIT_FAILURE : 0, 0,
 	       _("%s subprocess got fatal signal %d"),

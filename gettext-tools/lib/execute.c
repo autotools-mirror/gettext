@@ -117,6 +117,7 @@ nonintr_open (const char *pathname, int oflag, mode_t mode)
 int
 execute (const char *progname,
 	 const char *prog_path, char **prog_argv,
+	 bool ignore_sigpipe,
 	 bool null_stdin, bool null_stdout, bool null_stderr,
 	 bool slave_process, bool exit_on_error)
 {
@@ -306,7 +307,7 @@ execute (const char *progname,
       unblock_fatal_signals ();
     }
 
-  return wait_subprocess (child, progname, null_stderr,
+  return wait_subprocess (child, progname, ignore_sigpipe, null_stderr,
 			  slave_process, exit_on_error);
 
 #endif

@@ -163,7 +163,7 @@ compile_java_class (const char * const *java_sources,
 	argv[2] = command;
 	argv[3] = NULL;
 	exitstatus = execute (javac, "/bin/sh", argv, false, false, false,
-			      true, true);
+			      false, true, true);
 	err = (exitstatus != 0);
 
 	freesa (command);
@@ -239,7 +239,8 @@ compile_java_class (const char * const *java_sources,
 
 	    /* Remove zombie process from process list, and retrieve exit
 	       status.  */
-	    exitstatus = wait_subprocess (child, "gcj", true, true, false);
+	    exitstatus =
+	      wait_subprocess (child, "gcj", false, true, true, false);
 	    if (exitstatus != 0)
 	      gcj_present = false;
 	  }
@@ -294,8 +295,8 @@ compile_java_class (const char * const *java_sources,
 	    free (command);
 	  }
 
-	exitstatus = execute ("gcj", "gcj", argv, false, false, false, true,
-			      true);
+	exitstatus = execute ("gcj", "gcj", argv, false, false, false, false,
+			      true, true);
 	err = (exitstatus != 0);
 
 	freesa (argv);
@@ -319,8 +320,8 @@ compile_java_class (const char * const *java_sources,
 
 	argv[0] = "javac";
 	argv[1] = NULL;
-	exitstatus = execute ("javac", "javac", argv, false, true, true, true,
-			      false);
+	exitstatus = execute ("javac", "javac", argv, false, false, true, true,
+			      true, false);
 	javac_present = (exitstatus == 0 || exitstatus == 1 || exitstatus == 2);
 	javac_tested = true;
       }
@@ -372,7 +373,7 @@ compile_java_class (const char * const *java_sources,
 	  }
 
 	exitstatus = execute ("javac", "javac", argv, false, false, false,
-			      true, true);
+			      false, true, true);
 	err = (exitstatus != 0);
 
 	freesa (argv);
@@ -396,8 +397,8 @@ compile_java_class (const char * const *java_sources,
 
 	argv[0] = "jikes";
 	argv[1] = NULL;
-	exitstatus = execute ("jikes", "jikes", argv, false, true, true, true,
-			      false);
+	exitstatus = execute ("jikes", "jikes", argv, false, false, true, true,
+			      true, false);
 	jikes_present = (exitstatus == 0 || exitstatus == 1);
 	jikes_tested = true;
       }
@@ -451,7 +452,7 @@ compile_java_class (const char * const *java_sources,
 	  }
 
 	exitstatus = execute ("jikes", "jikes", argv, false, false, false,
-			      true, true);
+			      false, true, true);
 	err = (exitstatus != 0);
 
 	freesa (argv);

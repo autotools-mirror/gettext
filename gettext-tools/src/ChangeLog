@@ -1,3 +1,16 @@
+2003-12-28  Bruno Haible  <bruno@clisp.org>
+
+	* msgexec.c (process_string): Pass ignore_sigpipe = false.
+	* msgfilter.c (process_string): Likewise.
+	* msggrep.c (is_string_selected): Likewise.
+	* msginit.c (project_id, project_id_version, get_user_email,
+	language_team_address): Likewise.
+	* read-java.c (execute_and_read_po_output): Likewise.
+	* read-tcl.c (msgdomain_read_tcl): Likewise.
+	* urlget.c (execute_it): Pass ignore_sigpipe = true.
+	(fetch): Pass ignore_sigpipe = true when fetching the file, = false
+	otherwise.
+
 2003-12-14  Bruno Haible  <bruno@clisp.org>
 
 	* x-c.c (SIZEOF): New macro.

@@ -1,3 +1,12 @@
+2003-12-28  Bruno Haible  <bruno@clisp.org>
+
+	* wait-process.c (wait_subprocess): Add ignore_sigpipe argument.
+	* wait-process.c (wait_subprocess): Likewise. Handle SIGPIPE specially.
+	* execute.h (execute): Add ignore_sigpipe argument.
+	* execute.c (execute): Likewise.
+	* javacomp.c (compile_java_class): Always pass ignore_sigpipe = false.
+	* javaexec.c (execute_java_class): Likewise.
+
 2003-09-12  Paul Eggert  <eggert@twinsun.com>
 
 	* setenv.c (clearenv): Define via prototype.

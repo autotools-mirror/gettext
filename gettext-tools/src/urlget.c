@@ -229,8 +229,8 @@ execute_it (const char *progname,
 {
   (void) private_data;
 
-  return execute (progname, prog_path, prog_argv, true, false, false, true,
-		  false)
+  return execute (progname, prog_path, prog_argv, true, true, false, false,
+		  true, false)
 	 != 0;
 }
 
@@ -287,8 +287,8 @@ fetch (const char *url, const char *file)
 	argv[0] = "wget";
 	argv[1] = "--version";
 	argv[2] = NULL;
-	exitstatus = execute ("wget", "wget", argv, false, true, true, true,
-			      false);
+	exitstatus = execute ("wget", "wget", argv, false, false, true, true,
+			      true, false);
 	wget_present = (exitstatus == 0);
 	wget_tested = true;
       }
@@ -304,8 +304,8 @@ fetch (const char *url, const char *file)
 	argv[4] = "-T"; argv[5] = "30";
 	argv[6] = (char *) url;
 	argv[7] = NULL;
-	exitstatus = execute ("wget", "wget", argv, false, false, false, true,
-			      false);
+	exitstatus = execute ("wget", "wget", argv, true, false, false, false,
+			      true, false);
 	if (exitstatus != 127)
 	  {
 	    if (exitstatus != 0)
@@ -330,8 +330,8 @@ fetch (const char *url, const char *file)
 	argv[0] = "lynx";
 	argv[1] = "--version";
 	argv[2] = NULL;
-	exitstatus = execute ("lynx", "lynx", argv, false, true, true, true,
-			      false);
+	exitstatus = execute ("lynx", "lynx", argv, false, false, true, true,
+			      true, false);
 	lynx_present = (exitstatus == 0);
 	lynx_tested = true;
       }
@@ -345,8 +345,8 @@ fetch (const char *url, const char *file)
 	argv[1] = "-source";
 	argv[2] = (char *) url;
 	argv[3] = NULL;
-	exitstatus = execute ("lynx", "lynx", argv, false, false, false, true,
-			      false);
+	exitstatus = execute ("lynx", "lynx", argv, true, false, false, false,
+			      true, false);
 	if (exitstatus != 127)
 	  {
 	    if (exitstatus != 0)
@@ -371,8 +371,8 @@ fetch (const char *url, const char *file)
 	argv[0] = "curl";
 	argv[1] = "--version";
 	argv[2] = NULL;
-	exitstatus = execute ("curl", "curl", argv, false, true, true, true,
-			      false);
+	exitstatus = execute ("curl", "curl", argv, false, false, true, true,
+			      true, false);
 	curl_present = (exitstatus == 0 || exitstatus == 2);
 	curl_tested = true;
       }
@@ -386,8 +386,8 @@ fetch (const char *url, const char *file)
 	argv[1] = "--silent";
 	argv[2] = (char *) url;
 	argv[3] = NULL;
-	exitstatus = execute ("curl", "curl", argv, false, false, false, true,
-			      false);
+	exitstatus = execute ("curl", "curl", argv, true, false, false, false,
+			      true, false);
 	if (exitstatus != 127)
 	  {
 	    if (exitstatus != 0)

@@ -347,7 +347,9 @@ process_string (const message_ty *mp, const char *str, size_t len)
       close (fd[0]);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, sub_name, false, true, true);
+      /* FIXME: Should ignore_sigpipe be set to true here? It depends on the
+	 semantics of the subprogram...  */
+      exitstatus = wait_subprocess (child, sub_name, false, false, true, true);
       if (exitcode < exitstatus)
 	exitcode = exitstatus;
     }

@@ -953,7 +953,7 @@ project_id ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, true, false);
+  exitstatus = wait_subprocess (child, prog, false, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1020,7 +1020,7 @@ project_id_version ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, true, false);
+  exitstatus = wait_subprocess (child, prog, false, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1178,7 +1178,7 @@ you in case of unexpected technical problems.\n");
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, true, false);
+  exitstatus = wait_subprocess (child, prog, false, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1257,7 +1257,7 @@ language_team_address ()
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, true, false);
+  exitstatus = wait_subprocess (child, prog, false, false, true, false);
   if (exitstatus != 0)
     {
       error (0, 0, _("%s subprocess failed with exit code %d"),
