@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.14.2-pre4\n"
+"Project-Id-Version: gettext-tools 0.14.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-02-12 20:12+0100\n"
-"PO-Revision-Date: 2005-02-15 08:42+0300\n"
+"PO-Revision-Date: 2005-02-28 15:49+0300\n"
 "Last-Translator: Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
