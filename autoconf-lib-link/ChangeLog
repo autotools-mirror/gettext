@@ -1,3 +1,8 @@
+2003-06-17  Paul Eggert  <eggert@twinsun.com>
+
+	* config.rpath: Use grep instead of egrep, since POSIX 1003.1-2001 no
+	longer requires egrep.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.
