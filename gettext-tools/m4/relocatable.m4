@@ -54,6 +54,21 @@ AC_DEFUN([AC_RELOCATABLE],
 dnl Support for relocatable libraries.
 AC_DEFUN([AC_RELOCATABLE_LIBRARY],
 [
+  AC_REQUIRE([AC_RELOCATABLE_NOP])
+  dnl Easier to put this here once, instead of into the DEFS of each Makefile.
+  if test "X$prefix" = "XNONE"; then
+    reloc_final_prefix="$ac_default_prefix"
+  else
+    reloc_final_prefix="$prefix"
+  fi
+  AC_DEFINE_UNQUOTED([INSTALLPREFIX], ["${reloc_final_prefix}"],
+    [Define to the value of ${prefix}, as a string.])
+])
+
+dnl Support for relocatable packages for which it is a nop.
+AC_DEFUN([AC_RELOCATABLE_NOP],
+[
+  AC_MSG_CHECKING([whether to activate relocatable installation])
   AC_ARG_ENABLE(relocatable,
     [  --enable-relocatable    install a package that can be moved in the filesystem],
     [if test "$enableval" != no; then
@@ -63,14 +78,7 @@ AC_DEFUN([AC_RELOCATABLE_LIBRARY],
      fi
     ], RELOCATABLE=no)
   AC_SUBST(RELOCATABLE)
-  dnl Easier to put this here once, instead of into the DEFS of each Makefile.
-  if test "X$prefix" = "XNONE"; then
-    reloc_final_prefix="$ac_default_prefix"
-  else
-    reloc_final_prefix="$prefix"
-  fi
-  AC_DEFINE_UNQUOTED([INSTALLPREFIX], ["${reloc_final_prefix}"],
-    [Define to the value of ${prefix}, as a string.])
+  AC_MSG_RESULT([$RELOCATABLE])
 ])
 
 dnl Determine the platform dependent parameters needed to use relocatability:
