@@ -1,3 +1,10 @@
+2000-12-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* locale.alias: New file, moved here from ../misc/locale.alias. Add
+	"Packages using this file" line.
+	* Makefile.in (DISTFILES.common): Add locale.alias.
+	(install-exec, uninstall): Install/deinstall locale.alias.
+
 2000-10-30  Ulrich Drepper  <drepper@redhat.com>
 
 	* dcigettext.c (guess_category_value): For libc always use the

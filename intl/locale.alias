@@ -26,6 +26,8 @@
 # it with the rest of us.  Send it using the `glibcbug' script to
 # bugs@gnu.org.
 
+# Packages using this file: 
+
 bokmal		nb_NO.ISO-8859-1
 bokmål		nb_NO.ISO-8859-1
 catalan		ca_ES.ISO-8859-1

@@ -59,9 +59,6 @@ Things we plan to do. Comments welcome.
 
 - Change bug report address to bug-gettext instead of bug-gnu-utils@gnu.org
 
-- install locale.alias from intl/, using a refcount mechanism like for
-  charset.alias
-
 - Split xgettext into a language dependent part and a language independent
   part.
 

@@ -1,5 +1,5 @@
 ## Makefile for the misc subdirectory of the GNU NLS Utilities
-## Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
+## Copyright (C) 1995, 1996, 1997, 2000 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,13 +19,9 @@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-localedir = $(datadir)/locale
-
 EXTRA_DIST = combine-sh gettext.perl gettext-sh magic.add tcl_gettext.c \
-README-Tcl po-mode.el locale.alias
+README-Tcl po-mode.el
 DISTCLEANFILES = gettextize
 lisp_LISP = po-mode.el
 
 bin_SCRIPTS = gettextize
-
-locale_DATA = locale.alias
