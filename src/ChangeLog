@@ -1,3 +1,7 @@
+2001-03-27  Bruno Haible  <haible@clisp.cons.org>
+
+	* po.c (po_callback_message): Change message again.
+
 2001-03-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* xgettext.c (test_whether_c_format): Recognize '%%' as valid.
