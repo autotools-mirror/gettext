@@ -30,6 +30,37 @@ version=@VERSION@
 prefix="@prefix@"
 gettext_dir="@datadir@/gettext"
 
+# func_tmpdir
+# creates a temporary directory.
+# Sets variable
+# - tmp             pathname of freshly created temporary directory
+func_tmpdir ()
+{
+  # Use the environment variable TMPDIR, falling back to /tmp. This allows
+  # users to specify a different temporary directory, for example, if their
+  # /tmp is filled up or too small.
+  : ${TMPDIR=/tmp}
+  {
+    # Use the mktemp program if available. If not available, hide the error
+    # message.
+    tmp=`(umask 077 && mktemp -d -q "$TMPDIR/gtXXXXXX") 2>/dev/null` &&
+    test -n "$tmp" && test -d "$tmp"
+  } ||
+  {
+    # Use a simple mkdir command. It is guaranteed to fail if the directory
+    # already exists.  $RANDOM is bash specific and expands to empty in shells
+    # other than bash, ksh and zsh.  Its use does not increase security;
+    # rather, it minimizes the probability of failure in a very cluttered /tmp
+    # directory.
+    tmp=$TMPDIR/gt$$-$RANDOM
+    (umask 077 && mkdir "$tmp")
+  } ||
+  {
+    echo "$0: cannot create a temporary directory in $TMPDIR" >&2
+    { (exit 1); exit 1; }
+  }
+}
+
 # Support for relocatability.
 func_find_curr_installdir ()
 {
@@ -39,14 +70,15 @@ func_find_curr_installdir ()
     */* | *\\*) ;;
     *) # Need to look in the PATH.
       if test "${PATH_SEPARATOR+set}" != set; then
-        { echo "#! /bin/sh"; echo "exit 0"; } > /tmp/conf$$.sh
-        chmod +x /tmp/conf$$.sh
-        if (PATH="/nonexistent;/tmp"; conf$$.sh) >/dev/null 2>&1; then
+        func_tmpdir
+        { echo "#! /bin/sh"; echo "exit 0"; } > "$tmp"/conf.sh
+        chmod +x "$tmp"/conf.sh
+        if (PATH="/nonexistent;$tmp"; conf.sh) >/dev/null 2>&1; then
           PATH_SEPARATOR=';'
         else
           PATH_SEPARATOR=:
         fi
-        rm -f /tmp/conf$$.sh
+        rm -f "$tmp"
       fi
       save_IFS="$IFS"; IFS="$PATH_SEPARATOR"
       for dir in $PATH; do

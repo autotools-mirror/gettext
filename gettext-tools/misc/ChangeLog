@@ -1,3 +1,12 @@
+2005-01-09  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in (func_tmpdir): New function.
+	(func_find_curr_installdir): Use it.
+	(mismatchfile): Create inside a temporary directory. Remove afterwards.
+	* gettextize.in (func_tmpdir): New function.
+	(func_find_curr_installdir): Use it.
+	Reported by Joey Hess <joeyh@debian.org>.
+
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in: Update year in --version output.

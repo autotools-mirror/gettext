@@ -1,3 +1,8 @@
+2005-01-09  Bruno Haible  <bruno@clisp.org>
+
+	* csharpcomp.sh.in (func_tmpdir): New function.
+	(mcs invocation): Use it. Fix exit code.
+
 2005-01-07  Bruno Haible  <bruno@clisp.org>
 
 	* csharpcomp.c: Include safe-read.h.
