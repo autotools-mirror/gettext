@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.36\n"
 "POT-Creation-Date: 2001-04-13 02:14+0200\n"
-"PO-Revision-Date: 2001-03-31 17:26+02:00\n"
+"PO-Revision-Date: 2001-04-11 06:44+02:00\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -134,14 +134,15 @@ msgid ""
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
 "Benutzung: %s [OPTION] [[[TEXTBEREICH] SCHLÜSSEL] | [-s [MSGID]...]]\n"
-"  -d, --domain=BEREICH   Übersetzungen kommen aus Namensbereich BEREICH\n"
-"  -e                     Übersetzung von Sonderzeichendarstellung anschalten\n"
-"  -E                     (aus Kompatibilitätsgründen ignoriert)\n"
-"  -h, --help             diese Hilfe anzeigen und beenden\n"
-"  -n                     kein abschließendes Zeilenendezeichen ausgeben\n"
-"  -V, --version          Versionsnummer anzeigen und beenden\n"
-"  [BEREICH] SCHLÜSSEL    die Übersetzung zu SCHLÜSSEL aus dem Namensbereich\n"
-"                           BEREICH holen\n"
+"  -d, --domain=TEXTBEREICH   Übersetzungen kommen aus TEXTBEREICH\n"
+"  -e                         Übersetzung von Sonderzeichendarstellung\n"
+"                               anschalten\n"
+"  -E                         (aus Kompatibilitätsgründen ignoriert)\n"
+"  -h, --help                 diese Hilfe anzeigen und beenden\n"
+"  -n                         kein abschließendes Zeilenendezeichen ausgeben\n"
+"  -V, --version              Versionsnummer anzeigen und beenden\n"
+"  [TEXTBEREICH] SCHLÜSSEL    die Übersetzung zu SCHLÜSSEL aus dem TEXTBEREICH\n"
+"                               holen\n"
 
 #: src/gettext.c:262
 #, c-format, no-wrap
@@ -157,14 +158,14 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "\n"
-"Wenn der Parameter BEREICH nicht gegeben wurde, wird der Bereich durch die\n"
-"Umgebungsvariable TEXTDOMAIN bestimmt.  Wenn der Katalog dieses Bereiches\n"
+"Wenn der Parameter TEXTBEREICH nicht angegeben wurde, wird der Bereich durch\n"
+"die Umgebungsvariable TEXTDOMAIN bestimmt.  Wenn der Katalog dieses Bereiches\n"
 "sich nicht im Standardverzeichnis des Systems befindet, kann durch die\n"
 "Umgebungsvariable TEXTDOMAINDIR ein anderes Verzeichnis angegeben werden.\n"
 "\n"
 "Wenn die Option »-s« angeschaltet ist, verhält sich das Programm wie das\n"
 "Kommando »echo«.  Aber anstatt alle Argumente einfach auszugeben, werden\n"
-"diese übersetzt, falls sie im Namensbereich vorhanden sind.\n"
+"diese übersetzt, falls sie im Textbereich vorhanden sind.\n"
 "\n"
 "Standardverzeichnis: %s\n"
 
@@ -738,15 +739,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"Benutzung: %s [OPTION] [BEREICH] SCHLÜSSEL SCHLÜSSEL-PLURAL ZAHL\n"
+"Benutzung: %s [OPTION] [TEXTBEREICH] SCHLÜSSEL SCHLÜSSEL-PLURAL ZAHL\n"
 "\n"
-"  -d, --domain=BEREICH         Übersetzungen kommen aus Namensbereich BEREICH\n"
+"  -d, --domain=TEXTBEREICH     Übersetzungen kommen aus TEXTBEREICH\n"
 "  -e                           Übersetzung von Sonderzeichendarstellung\n"
 "                                 anschalten\n"
 "  -E                           (aus Kompatibilitätsgründen ignoriert)\n"
 "  -h, --help                   diese Hilfe anzeigen und beenden\n"
 "  -V, --version                Versionsnummer anzeigen und beenden\n"
-"  [BEREICH]                    die Übersetzung aus dem BEREICH holen\n"
+"  [TEXTBEREICH]                die Übersetzung aus dem TEXTBEREICH holen\n"
 "  SCHLÜSSEL SCHLÜSSEL-PLURAL   SCHLÜSSEL (Singular) / SCHLÜSSEL-PLURAL (Plural)\n"
 "                                 übersetzen\n"
 "  ZAHL                         Singular-/Pluralform anhand des Wertes ZAHL\n"
@@ -829,25 +830,25 @@ msgstr "ungültige Multibyte-Sequenz"
 #: src/po.c:302 src/po.c:352 src/po.c:387 src/po.c:416
 #, c-format
 msgid "%s: warning: "
-msgstr ""
+msgstr "%s: Warnung: "
 
 #: src/po.c:303
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
-"%s: Warnung: Zeichensatz »%s« ist ein nicht portabler Kodierungsname\n"
-"%*s  Warnung: Konvertierung des Zeichensatzes könnte fehlschlagen"
+"Zeichensatz »%s« ist ein nicht portabler Kodierungsname.\n"
+"Konvertierung der Meldungen in den Zeichensatz des Anwenders\n"
+"könnte fehlschlagen.\n"
 
 #: src/po.c:348 src/po.c:383
-#, fuzzy
 msgid "Continuing anyway, expect parse errors."
-msgstr ", Parsing-Fehler sind zu erwarten"
+msgstr "Gleichwohl Fortsetzung; Parsing-Fehler sind zu erwarten."
 
 #: src/po.c:350
 msgid "Continuing anyway."
-msgstr ""
+msgstr "Gleichwohl Fortsetzung."
 
 #: src/po.c:353
 #, c-format
@@ -855,17 +856,21 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
+"Zeichensatz »%s« wird nicht unterstützt.  %s hängt von iconv() ab,\n"
+"und iconv() unterstützt »%s« nicht.\n"
 
 #: src/po.c:363 src/po.c:396
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr ""
+"Dieses Problem lässt sich beheben, wenn Sie GNU libiconv installieren\n"
+"und dann GNU gettext erneut installieren.\n"
 
 #: src/po.c:371 src/po.c:403
 #, c-format
 msgid "%s\n"
-msgstr ""
+msgstr "%s\n"
 
 #: src/po.c:388
 #, c-format
@@ -873,15 +878,17 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
+"Zeichensatz »%s« wird nicht unterstützt.  %s hängt von iconv() ab.\n"
+"Diese Version wurde ohne iconv() erzeugt.\n"
 
 #: src/po.c:417
-#, fuzzy
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
-"%s: Warnung: Zeichensatz fehlt im Kopfeintrag\n"
-"%*s  Warnung: Konvertierung des Zeichensatzes wird fehlschlagen"
+"Zeichensatz fehlt im Kopfeintrag.\n"
+"Konvertierung der Meldungen in den Zeichensatz des Anwenders\n"
+"wird fehlschlagen.\n"
 
 #: src/write-po.c:299
 #, c-format
@@ -1056,24 +1063,3 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "Programmiersprache »%s« unbekannt"
-
-#~ msgid "%s: warning: charset \"%s\" is not supported by iconv%s"
-#~ msgstr "%s: Warnung: Zeichensatz »%s« wird von iconv%s nicht unterstützt"
-
-#~ msgid ""
-#~ "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-#~ "%*s  warning: consider installing GNU libiconv and then\n"
-#~ "%*s           reinstalling GNU gettext"
-#~ msgstr ""
-#~ "%s: Warnung: Zeichensatz »%s« wird von iconv%s nicht unterstützt\n"
-#~ "%*s  Warnung: Empfehlung: Installieren Sie GNU libiconv und\n"
-#~ "%*s           installieren Sie dann GNU gettext neu"
-
-#~ msgid ""
-#~ "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-#~ "%*s  warning: consider installing GNU libiconv and then\n"
-#~ "%*s           reinstalling GNU gettext"
-#~ msgstr ""
-#~ "%s: Warnung: Zeichensatz »%s« wird ohne iconv%s nicht unterstützt\n"
-#~ "%*s  Warnung: Empfehlung: Installieren Sie GNU libiconv und\n"
-#~ "%*s           installieren Sie dann GNU gettext neu"
