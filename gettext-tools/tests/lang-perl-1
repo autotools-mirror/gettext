@@ -53,7 +53,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "'Your command, please?', asked the waiter."
-msgstr "Votre commande, s'il vous plait, dit le garï¿½n."
+msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
 # Les gateaux allemands sont les meilleurs du monde.
 #, perl-format
@@ -85,7 +85,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 tmpfiles="$tmpfiles prog.ok prog.out"
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
-Votre commande, s'il vous plait, dit le garï¿½n.
+«Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
 EUR remplace FF.
 EOF
