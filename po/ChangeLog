@@ -1,3 +1,10 @@
+2001-07-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (CC, DEFS, CFLAGS, CPPFLAGS, INCLUDES, COMPILE):
+	Remove variables.
+	(.SUFFIXES): Remove .c and .o.
+	(.c.o): Remove rule.
+
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
 	* LINGUAS: New file, extracted from toplevel configure.in.

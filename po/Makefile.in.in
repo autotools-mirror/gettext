@@ -33,19 +33,10 @@ INSTALL_DATA = @INSTALL_DATA@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 mkinstalldirs = $(SHELL) `case "$(MKINSTALLDIRS)" in /*) echo "$(MKINSTALLDIRS)" ;; *) echo "$(top_builddir)/$(MKINSTALLDIRS)" ;; esac`
 
-CC = @CC@
 GMSGFMT = @GMSGFMT@
 MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = msgmerge
-
-DEFS = @DEFS@
-CFLAGS = @CFLAGS@
-CPPFLAGS = @CPPFLAGS@
-
-INCLUDES = -I.. -I$(top_srcdir)/intl
-
-COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
 POFILES = @POFILES@
 GMOFILES = @GMOFILES@
@@ -57,10 +48,7 @@ POTFILES = \
 CATALOGS = @CATALOGS@
 
 .SUFFIXES:
-.SUFFIXES: .c .o .po .pox .gmo .mo
-
-.c.o:
-	$(COMPILE) $<
+.SUFFIXES: .po .pox .gmo .mo
 
 .po.pox:
 	$(MAKE) $(PACKAGE).pot
