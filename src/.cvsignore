@@ -7,4 +7,5 @@ msgcomm
 msgfmt
 msgmerge
 msgunfmt
+ngettext
 xgettext
