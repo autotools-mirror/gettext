@@ -1,5 +1,10 @@
 2003-12-14  Bruno Haible  <bruno@clisp.org>
 
+	* x-sh.c (phase2_getc): Call phase1_ungetc instead of phase2_ungetc:
+	The next phase2_getc invocation must return QUOTED('"'), not '"'.
+
+2003-12-14  Bruno Haible  <bruno@clisp.org>
+
 	* x-c.c (phase7_getc): Remove dead code.
 	* x-java.c (accumulate_escaped): More precise error message.
 

@@ -586,7 +586,7 @@ phase2_getc ()
 	    {
 	      if (count > open_doublequotes_mask)
 		{
-		  phase2_ungetc (c);
+		  phase1_ungetc (c);
 		  return '\\';
 		}
 	      else
