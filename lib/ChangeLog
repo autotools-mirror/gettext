@@ -1,5 +1,12 @@
 2001-09-17  Bruno Haible  <haible@clisp.cons.org>
 
+	* argmatch.h: New file, from fileutils-4.1 with simplifications.
+	* argmatch.c: New file, from fileutils-4.1 with simplifications.
+	* Makefile.am (libnlsut_a_SOURCES): Add argmatch.c.
+	(libnlsut_a_HEADER): Add argmatch.h.
+
+2001-09-17  Bruno Haible  <haible@clisp.cons.org>
+
 	* copy-file.h: New file.
 	* copy-file.c: New file.
 	* Makefile.am (libnlsut_a_SOURCES): Add copy-file.c.
